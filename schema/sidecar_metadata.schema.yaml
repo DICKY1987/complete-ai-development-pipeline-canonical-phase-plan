@@ -1,0 +1,82 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+$id: "https://example.com/schema/sidecar_metadata.schema.yaml"
+title: Sidecar Metadata Schema
+description: Schema for combined document + paragraph sidecar files (.sidecar.yaml)
+type: object
+required:
+  - document_id
+  - title
+  - version
+  - category
+  - last_updated
+  - authors
+  - file
+  - mfid
+  - paragraphs
+properties:
+  document_id:
+    type: string
+    minLength: 3
+  title:
+    type: string
+    minLength: 1
+  version:
+    type: string
+    pattern: "^\\d+\\.\\d+\\.\\d+$"
+  category:
+    type: string
+    minLength: 1
+  last_updated:
+    type: string
+    format: date-time
+  authors:
+    type: array
+    items:
+      type: string
+    default: []
+  tags:
+    type: array
+    items:
+      type: string
+    default: []
+  depends_on:
+    type: array
+    items:
+      type: string
+    default: []
+  status:
+    type: string
+    enum: [draft, review, approved, deprecated]
+    default: draft
+  checksum:
+    type: string
+    pattern: "^[a-f0-9]{64}$"
+  file:
+    type: string
+    minLength: 1
+  mfid:
+    type: string
+    pattern: "^[a-f0-9]{64}$"
+  paragraphs:
+    type: array
+    items:
+      type: object
+      required: [anchor, start_line, end_line, mfid, id]
+      properties:
+        anchor:
+          type: string
+          pattern: "^p-\\d+$"
+        start_line:
+          type: integer
+          minimum: 1
+        end_line:
+          type: integer
+          minimum: 1
+        mfid:
+          type: string
+          pattern: "^[a-f0-9]{64}$"
+        id:
+          type: string
+          minLength: 6
+      additionalProperties: false
+additionalProperties: true

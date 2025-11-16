@@ -16,30 +16,34 @@ root for specifics.
 - State machine validation and CRUD.
 - Supporting scripts and tests.
 
-## PH-03
+## PH-03: Tool Profiles & Adapter Layer
 
-- Tool profiles and adapter core.
-- DB integration and tests.
-- Documentation refinements.
+Precheck failed: expected project root `C:\Users\richg\ALL_AI\AI_Dev_Pipeline` is missing on this machine. Per PH-03 execution rules, do not implement tool profiles and adapter layer in an alternate path. Complete PH-00 through PH-02 in the target repo first so that the following required components exist:
 
-### Summary
+- `src/pipeline/` directory with module stubs including `tools.py` (from PH-01)
+- SQLite state layer with `db.py`, schema, and state machine functions (from PH-02)
+- Project skeleton with `tests/pipeline/`, `docs/`, `scripts/`, and CI configuration (from PH-00)
 
-Phase PH-03 introduces a profile-driven tool adapter that executes external
-tools (utilities, tests, static analyzers, and AI tools) in a consistent,
-configurable manner. Profiles are defined in `config/tool_profiles.json` and
-consumed by `src/pipeline/tools.py`, which renders command templates, enforces
-timeouts, and captures results. Subsequent workstreams integrate adapter events
-with the DB layer and add tests.
+Once `C:\Users\richg\ALL_AI\AI_Dev_Pipeline` exists with PH-00–PH-02 artifacts, proceed with PH-03 tasks:
 
-### Artifacts
+**Summary:**
+Phase PH-03 introduces a profile-driven tool adapter that executes external tools (utilities, tests, static analyzers, and AI tools) in a consistent, configurable manner. Profiles are defined in `config/tool_profiles.json` and consumed by `src/pipeline/tools.py`, which renders command templates, enforces timeouts, and captures results. The adapter integrates with the DB layer to record events and errors.
 
-- `config/tool_profiles.json` - tool profiles configuration
-- `src/pipeline/tools.py` - adapter logic (core + DB integration)
-- `tests/pipeline/test_tools.py` - adapter tests (future)
- - Recommended profiles include Python quality tools (`ruff`, `black`, `mypy`),
-   PowerShell analyzers/tests (`psscriptanalyzer`, `pester`), core test runner
-   (`pytest`), optional linters/scanners (`yamllint`, `codespell`, `gitleaks`),
-   and integration utilities (`aider`, `gh`).
+**Planned Artifacts:**
+
+- `config/tool_profiles.json` - tool profiles configuration with at least "echo", "pytest", and PowerShell tool profiles
+- `src/pipeline/tools.py` - adapter logic implementing:
+  - `load_tool_profiles()` - loads and validates JSON config
+  - `get_tool_profile(tool_id)` - retrieves specific tool profile
+  - `render_command(tool_id, context)` - template substitution
+  - `run_tool(tool_id, context, run_id=None, ws_id=None)` - main entry point with DB integration
+  - `ToolResult` - data structure for execution results
+- `tests/pipeline/test_tools.py` - unit tests covering success, failure, timeout, and DB integration
+- `scripts/tool_smoke_test.py` (optional) - CLI smoke test utility
+- Recommended profiles include Python quality tools (`ruff`, `black`, `mypy`), PowerShell analyzers/tests (`psscriptanalyzer`, `pester`), core test runner (`pytest`), optional linters/scanners (`yamllint`, `codespell`, `gitleaks`), and integration utilities (`aider`, `gh`)
+
+**Environment Variable Support:**
+- `PIPELINE_TOOL_PROFILES_PATH` - override default config/tool_profiles.json location
 
 ## PH-04
 
@@ -182,5 +186,89 @@ Circuit breakers, retries, and FIX loop added to the single-workstream orchestra
 - Orchestrator: src/pipeline/orchestrator.py now wraps STATIC and RUNTIME with FIX attempts via Aider and records errors/events.
 - CLI unchanged; --dry-run still supported.
 
-Note: repository root is C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan. Docs that referenced a different root are superseded by this note.
+Note: repository root is C:\Users\richg\ALL_AI\Complete AI Development Pipeline - Canonical Phase Plan. Docs that referenced a different root are superseded by this note.
 
+## PH-08: AIM Tool Registry Integration
+
+Precheck failed: expected project root `C:\Users\richg\ALL_AI\AI_Dev_Pipeline` is missing on this machine. Per PH-08 execution rules, do not implement AIM tool registry integration in an alternate path. Complete PH-00 through PH-03.5 in the target repo first so that the following required components exist:
+
+- `src/pipeline/` with `tools.py`, `db.py`, and other core modules (from PH-00–PH-03)
+- `config/tool_profiles.json` with existing tool profiles (from PH-03)
+- Aider integration and prompt engine (from PH-03.5)
+- Project skeleton with `docs/`, `scripts/`, `tests/` directories
+
+**AIM Registry Location:**
+- Expected at: `C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\.AIM_ai-tools-registry`
+
+Once `C:\Users\richg\ALL_AI\AI_Dev_Pipeline` exists with PH-00–PH-03.5 artifacts, proceed with PH-08 tasks:
+
+**Summary:**
+Integrate the AIM (AI Tools Registry) system to provide capability-based tool routing, fallback chains, audit logging, and automatic tool discovery. AIM extends the existing tool_profiles.json system with PowerShell-based adapters and coordination rules.
+
+**Planned Artifacts:**
+
+- `docs/AIM_INTEGRATION_CONTRACT.md` - integration contract documenting AIM registry structure, Python-to-PowerShell bridge, capability routing, and audit logging
+- `docs/AIM_CAPABILITIES_CATALOG.md` - catalog of known capabilities (code_generation, refactoring, testing, etc.) with payload/result schemas
+- `config/aim_config.yaml` - AIM-specific settings (registry path, enable flags, timeouts, audit retention)
+- `src/pipeline/aim_bridge.py` - bridge module implementing:
+  - `get_aim_registry_path()` - resolve AIM registry location
+  - `load_aim_registry()` - load AIM_registry.json
+  - `load_coordination_rules()` - load routing rules
+  - `invoke_adapter(tool_id, capability, payload)` - invoke PowerShell adapters
+  - `route_capability(capability, payload)` - capability-based routing with fallbacks
+  - `detect_tool(tool_id)` - tool detection
+  - `get_tool_version(tool_id)` - version detection
+  - `record_audit_log()` - audit logging
+- `config/tool_profiles.json` (extended) - add optional `aim_tool_id` and `aim_capabilities` fields
+- `src/pipeline/tools.py` (enhanced) - add `run_tool_via_aim()` function
+- `scripts/aim_status.py` - CLI utility for tool detection and status
+- `scripts/aim_audit_query.py` - CLI utility for querying audit logs
+- `tests/pipeline/test_aim_bridge.py` - unit tests for AIM bridge
+- `tests/pipeline/test_tools_aim_integration.py` - integration tests for tools.py AIM support
+- `tests/integration/test_aim_end_to_end.py` - end-to-end integration tests
+
+**Environment Variable Support:**
+- `AIM_REGISTRY_PATH` - override default AIM registry location
+
+**Backward Compatibility:**
+- Existing tool_profiles.json entries work unchanged
+- AIM is an optional enhancement layer; pipeline functions without it
+
+## PH-09
+
+Precheck failed: expected project root `C:\Users\richg\ALL_AI\AI_Dev_Pipeline` is
+missing on this machine. Per PH-09 execution rules, do not implement multi-document
+versioning or spec management in an alternate path. Complete PH-00 through PH-06 in the
+target repo first so that the required baseline exists.
+
+- Required root: `C:\Users\richg\ALL_AI\AI_Dev_Pipeline`
+- Source assets for PH-09: `C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\Multi-Document Versioning Automation final_spec_docs`
+
+Once `C:\Users\richg\ALL_AI\AI_Dev_Pipeline` exists with PH-00-PH-06 artifacts, proceed in that
+repository with PH-09 deliverables (spec management contract, sidecar schema, and tools for
+indexing, resolving, patching, rendering, and validation) and wire them into CI.
+
+## PH-09 (Implemented in this repository)
+
+Multi-document versioning and spec management delivered in this repository root
+(`C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan`).
+
+Artifacts:
+
+- `docs/SPEC_MANAGEMENT_CONTRACT.md` — SPEC_MGMT_V1 contract (sidecars, linking, tools).
+- `schema/sidecar_metadata.schema.yaml` — schema for `.sidecar.yaml` files.
+- Tools under `tools/`:
+  - `spec_indexer/indexer.py` — generates/validates sidecars, builds `docs/index.json` and `docs/.index/suite-index.yaml`.
+  - `spec_resolver/resolver.py` — resolves `spec://` and `specid://` to files/ranges.
+  - `spec_patcher/patcher.py` — patches a paragraph by id, updates sidecar and index.
+  - `spec_renderer/renderer.py` — renders unified Markdown from suite index.
+  - `spec_guard/guard.py` — validates consistency across suite, sidecars, and files.
+
+Commands:
+
+- `python tools/spec_indexer/indexer.py --source "docs/source" --output docs/index.json`
+  (defaults to `Multi-Document Versioning Automation final_spec_docs/docs/source` if `docs/source` is missing)
+- `python tools/spec_renderer/renderer.py --output build/spec.md`
+- `python tools/spec_resolver/resolver.py spec://01-architecture/00-overview#p-2`
+- `python tools/spec_patcher/patcher.py --id <ID> --text "New paragraph"`
+- `python tools/spec_guard/guard.py`
