@@ -31,6 +31,14 @@ See also:
 - Phase plan in `docs/PHASE_PLAN.md` (PH-01 to PH-03 scope and artifacts).
   PH-04 adds schema, loader/validator, examples, CLI, and tests.
 
+## Aider Integration & Prompt Engine
+
+- Contract: documented in `docs/aider_contract.md` (CONTRACT_VERSION: AIDER_CONTRACT_V1).
+- Tool profile: `config/tool_profiles.json` contains an `aider` entry invoked via the adapter.
+- Prompt engine: `src/pipeline/prompts.py` renders EDIT and FIX prompts from `templates/prompts/*.txt.j2` and writes them under `<worktree>/.aider/prompts/`.
+- Helpers: `run_aider_edit` and `run_aider_fix` build prompts, persist them, call `run_tool("aider", ...)`, and record `tool_run` events when `run_id`/`ws_id` are provided.
+- Sandbox: `sandbox_repos/sandbox_python` provides a tiny repo for integration tests.
+
 ## Conventions
 
 - Git worktrees for isolated branches per workstream.

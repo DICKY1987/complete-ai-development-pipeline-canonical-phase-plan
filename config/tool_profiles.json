@@ -107,14 +107,19 @@
   "aider": {
     "type": "ai",
     "command": "aider",
-    "args": ["--no-auto-commits"],
+    "args": [
+      "--no-auto-commits",
+      "--yes",
+      "--model", "{model_name}",
+      "--message-file", "{prompt_file}"
+    ],
     "env": {
       "AIDER_NO_AUTO_COMMITS": "1"
     },
-    "working-dir": "{worktree_dir}",
-    "timeout-sec": 7200,
-    "success-exit-codes": [0],
-    "capture-output": false
+    "working_dir": "{worktree_path}",
+    "timeout_sec": 1800,
+    "success_exit_codes": [0],
+    "capture_output": true
   },
   "gh": {
     "type": "utility",

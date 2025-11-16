@@ -1,0 +1,35 @@
+TITLE: EDIT Step for Workstream {{ ws_id }} (Run {{ run_id }})
+
+Context
+- Repo root: {{ repo_root }}
+- Worktree path: {{ worktree_path }}
+- OpenSpec change: {{ openspec_change }}
+- CCPM issue: {{ ccpm_issue }}
+- Gate: {{ gate }}
+
+Goals
+- Implement the following tasks:
+{% for t in tasks %}- {{ t }}
+{% endfor %}
+- Ensure acceptance tests are satisfied:
+{% for a in acceptance_tests %}- {{ a }}
+{% endfor %}
+
+File scope
+- You may edit only these files:
+{% for f in files_scope %}- {{ f }}
+{% endfor %}
+- You may create these files if needed:
+{% for f in files_create %}- {{ f }}
+{% endfor %}
+
+Constraints
+- Do not modify files outside the listed scope.
+- Keep changes minimal and focused on the tasks.
+- Maintain or add tests so that they pass.
+- No refactors beyond what is necessary for correctness.
+
+Instructions
+- Produce clear, incremental changes that satisfy the tasks and tests.
+- If assumptions are required, document them in code comments.
+

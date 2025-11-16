@@ -60,3 +60,20 @@ Commands:
 - `python scripts/validate_workstreams.py --run-id <RUN>` - validate and sync to DB
 - `pytest -q` - run tests for this phase
 
+## PH-03.5
+
+Aider Integration Contract & Prompt Template System is implemented.
+
+Artifacts added:
+
+- `docs/aider_contract.md` - integration contract (CONTRACT_VERSION AIDER_CONTRACT_V1)
+- `config/tool_profiles.json` - `aider` profile with flags, env, working dir, timeout
+- `src/pipeline/prompts.py` - prompt engine, helpers to run Aider, DB event recording
+- `templates/prompts/edit_prompt.txt.j2`, `templates/prompts/fix_prompt.txt.j2` - prompt templates
+- `sandbox_repos/sandbox_python/` - small test repo
+- `tests/integration/test_aider_sandbox.py` - integration test (skips if Aider missing)
+
+Commands:
+
+- `python -c "import shutil; print(shutil.which('aider'))"` — verify Aider is available
+- `pytest -q -m aider` — run only Aider integration tests

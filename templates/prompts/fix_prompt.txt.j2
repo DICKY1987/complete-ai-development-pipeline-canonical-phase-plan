@@ -1,0 +1,35 @@
+TITLE: FIX Step for Workstream {{ ws_id }} (Run {{ run_id }})
+
+Context
+- Repo root: {{ repo_root }}
+- Worktree path: {{ worktree_path }}
+- OpenSpec change: {{ openspec_change }}
+- CCPM issue: {{ ccpm_issue }}
+- Gate: {{ gate }}
+
+Problem summary
+- The following errors were observed (trimmed):
+{% for e in error_summaries %}- {{ e }}
+{% endfor %}
+
+Objectives
+- Resolve the failures without breaking existing passing behavior.
+- Keep edits minimal and within the declared scope.
+
+File scope
+- Allowed edits:
+{% for f in files_scope %}- {{ f }}
+{% endfor %}
+- Allowed creations:
+{% for f in files_create %}- {{ f }}
+{% endfor %}
+
+Constraints
+- Do not modify files outside the scope.
+- Maintain or update tests accordingly.
+- Keep changes targeted to fix the issues.
+
+Instructions
+- Apply precise fixes addressing the errors above.
+- Document any assumptions briefly in code comments.
+
