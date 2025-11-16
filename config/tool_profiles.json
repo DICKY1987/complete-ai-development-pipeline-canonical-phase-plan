@@ -119,7 +119,9 @@
     "working_dir": "{worktree_path}",
     "timeout_sec": 1800,
     "success_exit_codes": [0],
-    "capture_output": true
+    "capture_output": true,
+    "aim_tool_id": "aider",
+    "aim_capabilities": ["code_generation", "refactoring"]
   },
   "gh": {
     "type": "utility",

@@ -97,3 +97,76 @@ See also:
 - CLI:
   - `python scripts/run_workstream.py --ws-id <id> [--run-id <run>] [--dry-run]` runs one workstream.
   - `--dry-run` simulates steps without invoking external tools (useful for CI/tests).
+
+## AIM Tool Registry Integration (PH-08)
+
+The AIM (AI Tools Registry) integration provides capability-based routing for AI coding tools with fallback chains and audit logging.
+
+### Architecture
+
+- **Registry Location**: `.AIM_ai-tools-registry/` contains PowerShell-based tool adapters and coordination rules.
+- **Bridge Module**: `src/pipeline/aim_bridge.py` provides Python-to-PowerShell bridge with 8 core functions:
+  - `get_aim_registry_path()` - Resolves AIM registry directory (env var or auto-detect)
+  - `load_aim_registry()` - Loads tool metadata from `AIM_registry.json`
+  - `load_coordination_rules()` - Loads capability routing rules
+  - `invoke_adapter()` - Invokes PowerShell adapter via subprocess
+  - `route_capability()` - Routes capability to primary tool with fallback chain
+  - `detect_tool()` - Detects if tool is installed
+  - `get_tool_version()` - Gets tool version
+  - `record_audit_log()` - Writes audit log to `AIM_audit/<date>/`
+
+### Capability-Based Routing
+
+Instead of calling tools directly, the pipeline routes tasks by **capability** (e.g., "code_generation"):
+
+```python
+from src.pipeline.aim_bridge import route_capability
+
+result = route_capability(
+    capability="code_generation",
+    payload={"prompt": "Add error handling"}
+)
+```
+
+Coordination rules define routing chains:
+- **Primary tool**: First choice (e.g., jules for code_generation)
+- **Fallback chain**: Tried in order if primary fails (e.g., aider → claude-cli)
+- **Load balancing**: Optional (future feature)
+
+### PowerShell Adapter Pattern
+
+Each tool has a PowerShell adapter in `.AIM_ai-tools-registry/AIM_adapters/`:
+- **Input**: JSON via stdin with `{"capability": "...", "payload": {...}}`
+- **Output**: JSON via stdout with `{"success": bool, "message": "...", "content": {...}}`
+- **Invocation**: `echo '<json>' | pwsh -File adapter.ps1`
+
+### Audit Logging
+
+All tool invocations are logged to `.AIM_ai-tools-registry/AIM_audit/<YYYY-MM-DD>/<timestamp>_<tool>_<capability>.json` with:
+- ISO 8601 UTC timestamp
+- Actor (always "pipeline")
+- Tool ID and capability
+- Input payload and output result
+
+### Configuration & Extension
+
+- **Config**: `config/aim_config.yaml` controls enable flags, timeouts, and audit retention
+- **Tool Profiles**: `config/tool_profiles.json` extended with optional `aim_tool_id` and `aim_capabilities` fields
+- **Environment**: `AIM_REGISTRY_PATH` env var overrides default registry location
+
+### Backward Compatibility
+
+AIM is an **optional enhancement layer**:
+- Pipeline functions normally if AIM disabled or unavailable
+- Existing `tool_profiles.json` entries work unchanged
+- Graceful degradation if registry not found (logs warning, uses direct tool invocation)
+
+### CLI Utilities
+
+- `python scripts/aim_status.py` - Shows tool detection status and capability routing
+- `python scripts/aim_audit_query.py` - Queries audit logs with filters (tool, capability, date)
+
+### Documentation
+
+- **Contract**: `docs/AIM_INTEGRATION_CONTRACT.md` (AIM_INTEGRATION_V1)
+- **Capabilities**: `docs/AIM_CAPABILITIES_CATALOG.md` lists known capabilities with schemas

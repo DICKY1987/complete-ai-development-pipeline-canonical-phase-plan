@@ -188,51 +188,85 @@ Circuit breakers, retries, and FIX loop added to the single-workstream orchestra
 
 Note: repository root is C:\Users\richg\ALL_AI\Complete AI Development Pipeline - Canonical Phase Plan. Docs that referenced a different root are superseded by this note.
 
-## PH-08: AIM Tool Registry Integration
+## PH-08: AIM Tool Registry Integration (Implemented)
 
-Precheck failed: expected project root `C:\Users\richg\ALL_AI\AI_Dev_Pipeline` is missing on this machine. Per PH-08 execution rules, do not implement AIM tool registry integration in an alternate path. Complete PH-00 through PH-03.5 in the target repo first so that the following required components exist:
-
-- `src/pipeline/` with `tools.py`, `db.py`, and other core modules (from PH-00–PH-03)
-- `config/tool_profiles.json` with existing tool profiles (from PH-03)
-- Aider integration and prompt engine (from PH-03.5)
-- Project skeleton with `docs/`, `scripts/`, `tests/` directories
-
-**AIM Registry Location:**
-- Expected at: `C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\.AIM_ai-tools-registry`
-
-Once `C:\Users\richg\ALL_AI\AI_Dev_Pipeline` exists with PH-00–PH-03.5 artifacts, proceed with PH-08 tasks:
+**Implementation Note:** PH-08 has been implemented in this repository (`C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan`) as the actual project root.
 
 **Summary:**
-Integrate the AIM (AI Tools Registry) system to provide capability-based tool routing, fallback chains, audit logging, and automatic tool discovery. AIM extends the existing tool_profiles.json system with PowerShell-based adapters and coordination rules.
+AIM (AI Tools Registry) integration provides capability-based tool routing, fallback chains, audit logging, and automatic tool discovery. AIM extends the existing tool_profiles.json system with PowerShell-based adapters and coordination rules.
 
-**Planned Artifacts:**
+**AIM Registry Location:**
+- Located at: `.AIM_ai-tools-registry/` (repository root)
+- Contains: PowerShell adapters, tool metadata, and coordination rules
 
-- `docs/AIM_INTEGRATION_CONTRACT.md` - integration contract documenting AIM registry structure, Python-to-PowerShell bridge, capability routing, and audit logging
-- `docs/AIM_CAPABILITIES_CATALOG.md` - catalog of known capabilities (code_generation, refactoring, testing, etc.) with payload/result schemas
-- `config/aim_config.yaml` - AIM-specific settings (registry path, enable flags, timeouts, audit retention)
-- `src/pipeline/aim_bridge.py` - bridge module implementing:
-  - `get_aim_registry_path()` - resolve AIM registry location
-  - `load_aim_registry()` - load AIM_registry.json
-  - `load_coordination_rules()` - load routing rules
-  - `invoke_adapter(tool_id, capability, payload)` - invoke PowerShell adapters
-  - `route_capability(capability, payload)` - capability-based routing with fallbacks
-  - `detect_tool(tool_id)` - tool detection
-  - `get_tool_version(tool_id)` - version detection
-  - `record_audit_log()` - audit logging
-- `config/tool_profiles.json` (extended) - add optional `aim_tool_id` and `aim_capabilities` fields
-- `src/pipeline/tools.py` (enhanced) - add `run_tool_via_aim()` function
-- `scripts/aim_status.py` - CLI utility for tool detection and status
-- `scripts/aim_audit_query.py` - CLI utility for querying audit logs
-- `tests/pipeline/test_aim_bridge.py` - unit tests for AIM bridge
-- `tests/pipeline/test_tools_aim_integration.py` - integration tests for tools.py AIM support
-- `tests/integration/test_aim_end_to_end.py` - end-to-end integration tests
+**Artifacts Delivered:**
 
-**Environment Variable Support:**
-- `AIM_REGISTRY_PATH` - override default AIM registry location
+1. **Documentation:**
+   - `docs/AIM_INTEGRATION_CONTRACT.md` - Integration contract (AIM_INTEGRATION_V1) documenting registry structure, Python-to-PowerShell bridge, capability routing, audit logging, error handling, and environment variables
+   - `docs/AIM_CAPABILITIES_CATALOG.md` - Catalog of 5 capabilities (code_generation, linting, refactoring, testing, version_checking) with payload/result schemas and tool support matrix
+   - `docs/ARCHITECTURE.md` - Updated with "AIM Tool Registry Integration" section
+
+2. **Configuration:**
+   - `config/aim_config.yaml` - AIM settings (enable_aim, enable_audit_logging, audit_log_retention_days, default_timeout_ms, registry_path)
+   - `config/tool_profiles.json` - Extended aider profile with `aim_tool_id` and `aim_capabilities` fields
+
+3. **Core Module:**
+   - `src/pipeline/aim_bridge.py` - Python-to-PowerShell bridge implementing 8 functions:
+     - `get_aim_registry_path()` - Resolve AIM registry location (env var or auto-detect)
+     - `load_aim_registry()` - Load and parse AIM_registry.json
+     - `load_coordination_rules()` - Load AIM_coordination-rules.json
+     - `invoke_adapter(tool_id, capability, payload)` - Invoke PowerShell adapter via subprocess
+     - `route_capability(capability, payload)` - Route capability to primary tool with fallback chain
+     - `detect_tool(tool_id)` - Detect if tool is installed
+     - `get_tool_version(tool_id)` - Get tool version string
+     - `record_audit_log(tool_id, capability, payload, result)` - Write audit log
+
+4. **CLI Utilities:**
+   - `scripts/aim_status.py` - Shows tool detection status, versions, and capability routing summary
+   - `scripts/aim_audit_query.py` - Queries audit logs with filters (--tool, --capability, --since, --format)
+
+5. **Tests:**
+   - `tests/pipeline/test_aim_bridge.py` - Unit tests covering all 8 bridge functions with mocked subprocess/filesystem
+   - `tests/integration/test_aim_end_to_end.py` - Integration tests for real AIM registry interactions (marked with @pytest.mark.aim)
+
+**Commands:**
+
+```bash
+# Check tool detection and capability routing
+python scripts/aim_status.py
+
+# Query audit logs
+python scripts/aim_audit_query.py --tool aider --since 2025-11-15
+python scripts/aim_audit_query.py --capability code_generation --format json
+
+# Run unit tests
+pytest tests/pipeline/test_aim_bridge.py -v
+
+# Run integration tests (requires AIM registry)
+pytest tests/integration/test_aim_end_to_end.py -v -m aim
+```
+
+**Environment Variables:**
+- `AIM_REGISTRY_PATH` - Override default AIM registry location (default: auto-detect `.AIM_ai-tools-registry`)
+
+**Capabilities Supported:**
+- **code_generation** - Primary: jules, Fallback: aider, claude-cli
+- **refactoring** - All tools support
+- **testing** - Test generation and execution
+- **linting** - Static analysis (via tool_profiles.json)
+- **version_checking** - All tools support
 
 **Backward Compatibility:**
-- Existing tool_profiles.json entries work unchanged
-- AIM is an optional enhancement layer; pipeline functions without it
+- Existing `tool_profiles.json` entries work unchanged (AIM fields optional)
+- AIM is an optional layer; pipeline functions if AIM disabled or unavailable
+- Graceful degradation: logs warning and falls back to direct tool invocation
+
+**Key Design Decisions:**
+- PowerShell adapters for cross-platform tool integration
+- Capability-based routing for flexibility and maintainability
+- Audit logging for traceability and debugging
+- Subprocess invocation with timeout handling for safety
+- ISO 8601 UTC timestamps for audit log consistency
 
 ## PH-09
 
