@@ -1,0 +1,33 @@
+{
+  "echo": {
+    "type": "utility",
+    "command": "echo",
+    "args": ["{message}"],
+    "env": {},
+    "working-dir": "{cwd}",
+    "timeout-sec": 10,
+    "success-exit-codes": [0],
+    "capture-output": true
+  },
+  "pytest": {
+    "type": "test",
+    "command": "pytest",
+    "args": ["-q"],
+    "env": {},
+    "working-dir": "{repo_root}",
+    "timeout-sec": 600,
+    "success-exit-codes": [0, 5],
+    "capture-output": true
+  },
+  "psscriptanalyzer": {
+    "type": "static-check",
+    "command": "pwsh",
+    "args": ["-NoLogo", "-NoProfile", "-Command", "Invoke-ScriptAnalyzer -Path scripts -Recurse -Severity Warning"],
+    "env": {},
+    "working-dir": "{repo_root}",
+    "timeout-sec": 120,
+    "success-exit-codes": [0],
+    "capture-output": true
+  }
+}
+
