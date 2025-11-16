@@ -70,3 +70,19 @@ See also:
     `pytest`, `psscriptanalyzer`, and recommended linters/formatters
     (`ruff`, `black`, `mypy`), plus optional scanners (`yamllint`, `codespell`,
     `gitleaks`) and integration utilities (`aider`, `gh`).
+
+## Orchestrator Core Loop (PH-05)
+
+- Scope: Single-workstream pipeline executing steps in order: EDIT → STATIC → RUNTIME.
+- Integration:
+  - Uses `src/pipeline/worktree.py` to create a per-workstream directory under `.worktrees/<ws-id>`.
+  - Invokes Aider via `src/pipeline/prompts.py::run_aider_edit` for EDIT.
+  - Runs static tools via `src/pipeline/tools.py` (configurable via context `static_tools`).
+  - Runs runtime checks via a configurable `runtime_tool` (PH-05 keeps this simple).
+  - Validates file scope at the end via `worktree.validate_scope` (stubbed OK in PH-05).
+- State & events:
+  - Records step attempts in `step_attempts` and lifecycle events in `events`.
+  - Updates `workstreams.status` deterministically: `editing` → `static_check` → `runtime_tests` → `done` or `failed`.
+- CLI:
+  - `python scripts/run_workstream.py --ws-id <id> [--run-id <run>] [--dry-run]` runs one workstream.
+  - `--dry-run` simulates steps without invoking external tools (useful for CI/tests).

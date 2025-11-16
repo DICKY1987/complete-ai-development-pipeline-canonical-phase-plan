@@ -76,4 +76,23 @@ Artifacts added:
 Commands:
 
 - `python -c "import shutil; print(shutil.which('aider'))"` — verify Aider is available
-- `pytest -q -m aider` — run only Aider integration tests
+- `pytest -q -m aider` - run only Aider integration tests
+
+## PH-05
+
+Orchestrator core loop (single workstream).
+
+Precheck failed: expected project root `C:\Users\richg\ALL_AI\AI_Dev_Pipeline` is missing on this machine. Per PH-05 execution rules, do not implement orchestrator logic in an alternate path. Complete PH-00 through PH-04.5 in the target repo first so that the following required components exist:
+
+- `src/pipeline/` with stubs for `orchestrator.py`, `db.py`, `bundles.py`, `worktree.py`, `tools.py`, and Aider prompt helpers (`prompts.py`).
+- Config and schema from prior phases (e.g., `config/tool_profiles.json`, `schema/workstream.schema.json`).
+- Workstream bundles under `workstreams/` and a SQLite DB location.
+
+Once `C:\Users\richg\ALL_AI\AI_Dev_Pipeline` exists with PH-00–PH-04.5 artifacts, proceed with PH-05 tasks:
+
+- Implement `src/pipeline/orchestrator.py` with steps EDIT → STATIC → RUNTIME and DB state/event recording.
+- Add CLI `scripts/run_workstream.py` to run one workstream by `--ws-id`.
+- Add tests `tests/pipeline/test_orchestrator_single.py` covering success, EDIT/STATIC/RUNTIME failures, and scope violations.
+- Update `docs/ARCHITECTURE.md` with an “Orchestrator Core Loop” section and record artifacts here.
+
+Note: FIX/retry loops and multi-workstream scheduling are out of scope for PH-05.
