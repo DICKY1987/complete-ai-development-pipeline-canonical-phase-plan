@@ -1,0 +1,552 @@
+````markdown
+# SPEC: Migrate Aider to run inside WSL2 on Windows
+
+## 0. GOAL
+
+Run **aider** on Windows using **WSL2 + Ubuntu**, so that:
+
+- Aider runs in a **real Linux environment** (Ubuntu on WSL2).
+- Aider’s **Unicode-heavy TUI** (box characters, emojis, borders) behaves correctly under UTF-8.
+- Repos live under `~/code/...` in WSL for better performance and fewer path / CRLF issues.
+- From Windows, you can still launch aider via a **simple PowerShell function**, but all real work happens inside WSL.
+
+Assume:
+
+- Host OS: Windows 10/11 with admin access.
+- Current Windows home: `C:\Users\richg`.
+- Preferred WSL distro: **Ubuntu**.
+- Python + aider will be installed **inside WSL**, even if they already exist in Windows.
+- Windows terminal of choice: **Windows Terminal** or VS Code terminal attached to WSL.
+
+---
+
+## 1. DETECT & ENABLE WSL2 (WINDOWS SIDE)
+
+> This mirrors the Codex WSL plan: first ensure WSL2 is present and using Ubuntu.
+
+### 1.1 Detect current WSL status
+
+In **PowerShell (Admin)**:
+
+```powershell
+wsl --status
+````
+
+Check:
+
+* If it shows a **default distro** (e.g., Ubuntu) and **Version: 2**, WSL2 is already enabled.
+* If WSL is not installed or is Version 1 only, proceed to 1.2 / 1.3.
+
+---
+
+### 1.2 Install WSL (if missing)
+
+If `wsl --status` complains WSL is not installed:
+
+```powershell
+wsl --install
+```
+
+Notes:
+
+* This will install the **default Linux distro** (usually Ubuntu) and set WSL2 as the default version.
+* You’ll be prompted to **reboot**.
+* After reboot, Windows will finish setting up Ubuntu and ask you to create:
+
+  * a **UNIX username** (use `richg` to align with paths)
+  * a **password** for that user.
+
+---
+
+### 1.3 Ensure WSL2 is the default version
+
+Even if WSL is installed, ensure WSL2 is the default:
+
+```powershell
+wsl --set-default-version 2
+```
+
+List distros:
+
+```powershell
+wsl --list --verbose
+```
+
+Check for something like:
+
+* `Ubuntu` with `VERSION` column = `2`.
+* If `VERSION` is `1`, convert:
+
+```powershell
+wsl --set-version Ubuntu 2
+```
+
+(Replace `Ubuntu` with your actual distro name if different.)
+
+---
+
+### 1.4 Verify you can open Ubuntu
+
+From **Windows**:
+
+* Press **Start**, type **Ubuntu**, open it.
+* Or use:
+
+```powershell
+wsl -d Ubuntu
+```
+
+You should land in a shell like:
+
+```bash
+richg@YOURMACHINE:~$
+```
+
+If you see that, WSL2 + Ubuntu is ready.
+
+---
+
+## 2. PREPARE UBUNTU ENVIRONMENT FOR AIDER
+
+Do this **inside Ubuntu (WSL)**.
+
+### 2.1 Update packages
+
+```bash
+sudo apt update
+sudo apt upgrade -y
+```
+
+---
+
+### 2.2 Install core tools (Python, pip, git, venv)
+
+```bash
+sudo apt install -y python3 python3-pip python3-venv git
+```
+
+Check versions:
+
+```bash
+python3 --version
+pip3 --version
+git --version
+```
+
+---
+
+### 2.3 Ensure UTF-8 locale (for Unicode correctness)
+
+Check locale:
+
+```bash
+locale
+```
+
+If `LANG` is not `en_US.UTF-8` (or another UTF-8 locale), set it:
+
+```bash
+sudo update-locale LANG=en_US.UTF-8
+exit
+```
+
+Then reopen Ubuntu:
+
+```powershell
+wsl -d Ubuntu
+```
+
+Verify again:
+
+```bash
+locale
+# LANG should now be en_US.UTF-8 (or similar UTF-8)
+```
+
+This helps aider’s TUI display Unicode correctly.
+
+---
+
+## 3. INSTALL AIDER INSIDE WSL (UBUNTU)
+
+> Aider is a Python package. We’ll isolate it in a dedicated virtual environment.
+
+### 3.1 Create a virtual environment for aider
+
+Inside Ubuntu:
+
+```bash
+mkdir -p ~/.venvs
+python3 -m venv ~/.venvs/aider
+source ~/.venvs/aider/bin/activate
+```
+
+You should now see `(aider)` prefix in your shell prompt.
+
+---
+
+### 3.2 Install aider
+
+```bash
+pip install --upgrade pip
+pip install aider-chat
+```
+
+Verify:
+
+```bash
+aider --version
+```
+
+If that prints a version (e.g., `aider 0.x.y`), install is good.
+
+> **Note:** In future sessions, before using aider, always run:
+>
+> ```bash
+> source ~/.venvs/aider/bin/activate
+> ```
+
+You can later put this in a small helper script if desired.
+
+---
+
+### 3.3 Configure API keys (optional but recommended)
+
+If you use OpenAI / Anthropic / etc., set API keys **inside WSL**. For example, add to `~/.bashrc` or `~/.profile`:
+
+```bash
+export OPENAI_API_KEY="your-key-here"
+export ANTHROPIC_API_KEY="your-key-here"
+# any others you use
+```
+
+Reload:
+
+```bash
+source ~/.bashrc
+```
+
+Confirm:
+
+```bash
+echo $OPENAI_API_KEY
+```
+
+Aider will pick these up automatically.
+
+---
+
+## 4. REPO LAYOUT INSIDE WSL
+
+> Goal: Use Linux-native paths for better performance and fewer path / CRLF issues.
+
+### 4.1 Canonical code root: `~/code`
+
+Inside Ubuntu:
+
+```bash
+mkdir -p ~/code
+cd ~/code
+```
+
+From here, each project you work on with aider should be a subfolder:
+
+* `~/code/R_PIPELINE`
+* `~/code/ALL_AI_TOOL`
+* etc.
+
+---
+
+### 4.2 Clone repos directly inside WSL
+
+Example:
+
+```bash
+cd ~/code
+git clone https://github.com/your-org/your-repo.git
+cd your-repo
+```
+
+Now run aider from inside that directory:
+
+```bash
+source ~/.venvs/aider/bin/activate
+cd ~/code/your-repo
+aider .
+```
+
+---
+
+### 4.3 Migrating an existing repo from Windows to WSL (optional)
+
+If you already have a repo on Windows, e.g.:
+
+* `C:\Users\richg\R_PIPELINE`
+
+You have two options:
+
+**Option A – Fresh clone (recommended)**
+
+1. In WSL, go to `~/code`.
+2. `git clone` the same remote repo.
+3. Discard the Windows copy for aider usage (keep as backup if desired).
+
+**Option B – Copy repo into WSL**
+
+1. From WSL, you can access the Windows path via `/mnt/c/Users/richg/R_PIPELINE`.
+
+2. Copy to `~/code`:
+
+   ```bash
+   cp -a /mnt/c/Users/richg/R_PIPELINE ~/code/
+   ```
+
+3. Then work only from `~/code/R_PIPELINE` when using aider under WSL.
+
+Using the Linux-native path is strongly preferred for performance and correctness.
+
+---
+
+## 5. WINDOWS LAUNCHER: RUN AIDER IN WSL FROM POWERSHELL
+
+> Mirror the Codex WSL plan: a simple PowerShell function that jumps into WSL and launches aider.
+
+### 5.1 Basic PowerShell function (per-repo name)
+
+Add this to your **PowerShell profile** (e.g. `C:\Users\richg\Documents\PowerShell\Microsoft.PowerShell_profile.ps1`):
+
+```powershell
+function aider-wsl {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$RepoName
+    )
+
+    # WSL distro name
+    $wslDistro = "Ubuntu"
+
+    # WSL repo path convention: /home/richg/code/<RepoName>
+    $wslPath = "/home/richg/code/$RepoName"
+
+    # Launch aider inside WSL
+    wsl -d $wslDistro -- bash -lc "source ~/.venvs/aider/bin/activate && cd $wslPath && aider ."
+}
+```
+
+Usage from **PowerShell (Windows)**:
+
+```powershell
+aider-wsl R_PIPELINE
+```
+
+This will:
+
+1. Enter WSL (`Ubuntu`).
+2. Activate the aider venv.
+3. `cd /home/richg/code/R_PIPELINE`.
+4. Run `aider .` inside that repo.
+
+---
+
+### 5.2 Advanced function (infer repo from Windows path) – optional
+
+If you often sit inside a repo under `C:\Users\richg\code\...` and want aider to “just work”, you can:
+
+1. Mirror your layout: `C:\Users\richg\code\R_PIPELINE` ↔ `/home/richg/code/R_PIPELINE`.
+2. Add a function that maps the current directory name:
+
+```powershell
+function aider-here-wsl {
+    # Get current folder name (assumed to match repo name)
+    $repoName = Split-Path -Leaf (Get-Location)
+
+    $wslDistro = "Ubuntu"
+    $wslPath = "/home/richg/code/$repoName"
+
+    wsl -d $wslDistro -- bash -lc "source ~/.venvs/aider/bin/activate && cd $wslPath && aider ."
+}
+```
+
+Then from within `C:\Users\richg\code\R_PIPELINE`:
+
+```powershell
+aider-here-wsl
+```
+
+It will launch aider in the matching WSL path.
+
+---
+
+## 6. UNICODE & TERMINAL SETTINGS
+
+> Key reason for WSL: more reliable Unicode behavior.
+
+### 6.1 Use Windows Terminal with Ubuntu profile
+
+* Open **Windows Terminal**.
+* Ensure there is a profile for **Ubuntu** (WSL).
+* Use that profile when working interactively with aider.
+
+From the Ubuntu profile:
+
+```bash
+source ~/.venvs/aider/bin/activate
+cd ~/code/R_PIPELINE
+aider .
+```
+
+This path is **UTF-8** end-to-end:
+
+* WSL shell
+* UTF-8 locale
+* Windows Terminal with a good font
+
+---
+
+### 6.2 Choose a font with strong Unicode support
+
+In Windows Terminal settings:
+
+* Set the Ubuntu profile’s font to something like:
+
+  * **Cascadia Mono** / **Cascadia Code**
+  * **Fira Code**
+  * **MesloLGS NF** (if using Nerd Fonts)
+
+These fonts have better coverage for:
+
+* Box drawing characters
+* Powerline symbols
+* Emoji / icons (if you use a Nerd Font)
+
+---
+
+### 6.3 Avoid running aider directly in Windows PowerShell
+
+For Unicode stability:
+
+* Prefer **WSL (Ubuntu)** + Windows Terminal for aider.
+* Don’t run aider as a Windows Python package in PowerShell.
+* Use the PowerShell wrapper functions only as **launchers** into WSL, not as Python hosts.
+
+---
+
+## 7. VALIDATION & DIAGNOSTICS
+
+> Confirm the setup is working and Unicode is sane.
+
+### 7.1 Smoke test: aider CLI in WSL
+
+Inside Ubuntu:
+
+```bash
+source ~/.venvs/aider/bin/activate
+aider --version
+```
+
+If it prints a version without errors, the core install is fine.
+
+---
+
+### 7.2 Smoke test: run aider in a test repo
+
+Inside Ubuntu:
+
+```bash
+cd ~/code
+mkdir -p aider-unicode-test
+cd aider-unicode-test
+git init
+echo "print('hello')" > test.py
+source ~/.venvs/aider/bin/activate
+aider .
+```
+
+Check:
+
+* Aider TUI launches.
+* Box borders and prompts look correct.
+* You can type Unicode characters (e.g., emojis, accented letters) and see them rendered as expected.
+
+Make a simple edit through aider and view the diff:
+
+```bash
+git diff
+```
+
+---
+
+### 7.3 Validate PowerShell launcher
+
+From **PowerShell (Windows)**:
+
+```powershell
+aider-wsl aider-unicode-test
+```
+
+Confirm it:
+
+* Jumps into Ubuntu.
+* Activates the venv.
+* Opens aider in the `~/code/aider-unicode-test` repo.
+
+---
+
+## 8. MIGRATING EXISTING AIDER CONFIG FROM WINDOWS (OPTIONAL)
+
+If you already used aider on Windows and have config/logs you care about:
+
+### 8.1 Config file (`.aider.conf.yml`)
+
+If you had something like:
+
+* `C:\Users\richg\.aider.conf.yml`
+
+You can copy it into WSL:
+
+1. From WSL, copy via `/mnt/c`:
+
+   ```bash
+   cp /mnt/c/Users/richg/.aider.conf.yml ~/
+   ```
+
+2. Aider will now pick up `~/.aider.conf.yml` in WSL.
+
+---
+
+### 8.2 Stop using Windows-side aider
+
+To avoid confusion:
+
+* Uninstall `aider-chat` from Windows Python, or
+* Just stop calling it directly in PowerShell.
+
+Going forward, treat **WSL aider** as the canonical instance:
+
+* All repos under `~/code/...`.
+* All aider runs via:
+
+  * Ubuntu terminal directly, or
+  * PowerShell wrappers that call `wsl ... aider`.
+
+---
+
+## 9. SUMMARY
+
+* **WSL2 (Ubuntu)** becomes the **canonical environment** for aider.
+* **Python + aider** are installed in a dedicated **virtual environment** in WSL.
+* **Repos** are cloned / migrated into `~/code/<repo>` inside WSL.
+* **Windows** is only a **launcher**:
+
+  * PowerShell helpers `aider-wsl` / `aider-here-wsl` call `wsl` to run aider inside Ubuntu.
+* **Unicode issues** are minimized because everything runs under:
+
+  * UTF-8 locales in WSL,
+  * Unicode-capable fonts in Windows Terminal,
+  * and we avoid Windows console encoding quirks.
+
+This document is the **Aider parallel** to your **Codex WSL migration spec**, following the same approach and assumptions.
+
+```
+::contentReference[oaicite:0]{index=0}
+```
