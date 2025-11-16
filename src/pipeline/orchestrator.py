@@ -16,6 +16,7 @@ from . import bundles
 from . import worktree
 from . import tools
 from . import prompts
+from . import circuit_breakers as cb
 
 __all__ = [
     "STEP_EDIT",
@@ -179,6 +180,118 @@ def run_runtime_step(run_id: str, ws_id: str, bundle_obj: Any, context: Mapping[
     return StepResult(step_name=STEP_RUNTIME, success=success, details=result_detail, error_message=None if success else "runtime step failed")
 
 
+def _signature_from_tool_result(step: str, tr_dict: Dict[str, Any]) -> str:
+    msg = str(tr_dict.get("stderr") or tr_dict.get("stdout") or "")
+    return cb.compute_error_signature(step, msg)
+
+
+def _diff_hash_from_tool_result(tr_dict: Dict[str, Any]) -> str:
+    return cb.compute_diff_hash(tr_dict)
+
+
+def run_static_with_fix(run_id: str, ws_id: str, bundle_obj: Any, context: Mapping[str, Any]) -> StepResult:
+    """Run STATIC, attempt FIX retries via Aider on failure, respecting breakers."""
+    cfg = cb.BreakerConfig.from_dict(cb.load_config())
+    state = cb.FixLoopState()
+
+    # Initial attempt
+    res = run_static_step(run_id, ws_id, bundle_obj, context)
+    state.step_attempts += 1
+    if res.success:
+        return res
+
+    # Start FIX loop
+    while cb.allow_fix_attempt(state, STEP_STATIC, cfg):
+        # Record error signature and diff hash
+        details_list = (res.details or {}).get("results", [])
+        last = details_list[-1] if details_list else {}
+        sig = _signature_from_tool_result(STEP_STATIC, last)
+        h = _diff_hash_from_tool_result(last)
+        state.signature_counts[sig] = state.signature_counts.get(sig, 0) + 1
+        state.recent_diff_hashes.append(h)
+        if cb.detect_oscillation(state, cfg):
+            db.record_event("breaker_trip", run_id=run_id, ws_id=ws_id, payload={"reason": "oscillation", "step": STEP_STATIC})
+            break
+
+        # Record error row
+        db.record_error(
+            error_code="static_failure",
+            signature=sig,
+            message=last.get("stderr") or last.get("stdout") or "",
+            run_id=run_id,
+            ws_id=ws_id,
+            step_name=STEP_STATIC,
+            context=last,
+        )
+
+        # Attempt FIX via aider
+        run_info = db.get_run(run_id)
+        ws_info = db.get_workstream(ws_id)
+        try:
+            fix_result = prompts.run_aider_fix(run_info, ws_info, bundle_obj, errors=[last], context=context, run_id=run_id, ws_id=ws_id)
+            db.record_event("fix_attempt", run_id=run_id, ws_id=ws_id, payload={"step": STEP_STATIC, "tool_result": fix_result.to_dict()})
+        except Exception as e:  # pragma: no cover
+            db.record_event("fix_attempt_error", run_id=run_id, ws_id=ws_id, payload={"step": STEP_STATIC, "error": str(e)})
+
+        state.fix_attempts += 1
+
+        # Re-run static after fix
+        res = run_static_step(run_id, ws_id, bundle_obj, context)
+        state.step_attempts += 1
+        if res.success:
+            return res
+
+    # If we reach here, static remains failed
+    return res
+
+
+def run_runtime_with_fix(run_id: str, ws_id: str, bundle_obj: Any, context: Mapping[str, Any]) -> StepResult:
+    cfg = cb.BreakerConfig.from_dict(cb.load_config())
+    state = cb.FixLoopState()
+
+    res = run_runtime_step(run_id, ws_id, bundle_obj, context)
+    state.step_attempts += 1
+    if res.success:
+        return res
+
+    while cb.allow_fix_attempt(state, STEP_RUNTIME, cfg):
+        last = res.details or {}
+        sig = _signature_from_tool_result(STEP_RUNTIME, last)
+        h = _diff_hash_from_tool_result(last)
+        state.signature_counts[sig] = state.signature_counts.get(sig, 0) + 1
+        state.recent_diff_hashes.append(h)
+        if cb.detect_oscillation(state, cfg):
+            db.record_event("breaker_trip", run_id=run_id, ws_id=ws_id, payload={"reason": "oscillation", "step": STEP_RUNTIME})
+            break
+
+        db.record_error(
+            error_code="runtime_failure",
+            signature=sig,
+            message=last.get("stderr") or last.get("stdout") or "",
+            run_id=run_id,
+            ws_id=ws_id,
+            step_name=STEP_RUNTIME,
+            context=last,
+        )
+
+        run_info = db.get_run(run_id)
+        ws_info = db.get_workstream(ws_id)
+        try:
+            fix_result = prompts.run_aider_fix(run_info, ws_info, bundle_obj, errors=[last], context=context, run_id=run_id, ws_id=ws_id)
+            db.record_event("fix_attempt", run_id=run_id, ws_id=ws_id, payload={"step": STEP_RUNTIME, "tool_result": fix_result.to_dict()})
+        except Exception as e:  # pragma: no cover
+            db.record_event("fix_attempt_error", run_id=run_id, ws_id=ws_id, payload={"step": STEP_RUNTIME, "error": str(e)})
+
+        state.fix_attempts += 1
+
+        res = run_runtime_step(run_id, ws_id, bundle_obj, context)
+        state.step_attempts += 1
+        if res.success:
+            return res
+
+    return res
+
+
 def run_workstream(run_id: str, ws_id: str, bundle_obj: bundles.WorkstreamBundle, context: Optional[Mapping[str, Any]] = None) -> Dict[str, Any]:
     """Run EDIT -> STATIC -> RUNTIME for a single workstream and record results.
 
@@ -218,8 +331,8 @@ def run_workstream(run_id: str, ws_id: str, bundle_obj: bundles.WorkstreamBundle
             "steps": [asdict(res_edit)],
         }
 
-    # STATIC
-    res_static = run_static_step(run_id, ws_id, bundle_obj, ctx)
+    # STATIC (with FIX loop)
+    res_static = run_static_with_fix(run_id, ws_id, bundle_obj, ctx)
     if not res_static.success:
         final_status = "failed"
         db.update_workstream_status(ws_id, final_status)
@@ -231,8 +344,8 @@ def run_workstream(run_id: str, ws_id: str, bundle_obj: bundles.WorkstreamBundle
             "steps": [asdict(res_edit), asdict(res_static)],
         }
 
-    # RUNTIME
-    res_runtime = run_runtime_step(run_id, ws_id, bundle_obj, ctx)
+    # RUNTIME (with FIX loop)
+    res_runtime = run_runtime_with_fix(run_id, ws_id, bundle_obj, ctx)
     if not res_runtime.success:
         final_status = "failed"
         db.update_workstream_status(ws_id, final_status)

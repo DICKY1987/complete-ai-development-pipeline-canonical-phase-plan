@@ -1,0 +1,18 @@
+defaults:
+  max_attempts_per_step: 3            # total attempts including first run
+  max_fix_attempts_per_step: 2        # number of fixer retries allowed
+  max_attempts_per_error_signature: 3
+  oscillation_window: 4
+  oscillation_threshold: 2
+  enable_fix_for_steps:
+    - static
+    - runtime
+
+per_step:
+  static:
+    max_attempts_per_step: 3
+    max_fix_attempts_per_step: 2
+  runtime:
+    max_attempts_per_step: 2
+    max_fix_attempts_per_step: 1
+
