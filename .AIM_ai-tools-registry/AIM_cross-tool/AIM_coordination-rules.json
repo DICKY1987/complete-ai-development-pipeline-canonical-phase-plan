@@ -1,0 +1,9 @@
+{
+  "capabilities": {
+    "code_generation": {
+      "primary": "jules",
+      "fallback": ["aider", "claude-cli"],
+      "loadBalance": false
+    }
+  }
+}

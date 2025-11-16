@@ -1,0 +1,93 @@
+---
+# Core identifiers
+workstream_id: "ws-<phase>-<slug>"           # e.g., ws-ph02-state-machine
+phase: "PH-0x"                               # e.g., PH-02
+title: "<short imperative objective>"        # e.g., "Implement state machine validation in db layer"
+description: "<one-sentence mission>"        # concise mission; scope lives below
+difficulty: "easy|medium|hard"
+version_target: "v1.0"
+depends_on: []                                # e.g., ["ws-ph02-db-core"]
+
+# Ownership & traceability (optional but recommended)
+owners: ["<github-handle>"]                  # e.g., ["DICKY1987"]
+tags: ["phase:<PH-xx>", "component:<area>"]  # e.g., ["phase:PH-02", "component:db"]
+
+# Scope boundaries
+writable_globs:                               # files Aider is allowed to modify
+  - "src/<path>/**/*.py"
+readonly_globs:                               # files Aider may read but must not edit
+  - "schema/**/*.sql"
+out_of_scope_globs:                           # explicit exclusions (overrides writable)
+  - "**/*.md"
+
+# Preconditions & environment
+abort_on_missing_dependencies: true           # if depends_on unmet, stop with note
+environment:
+  os: "linux|macos|windows"
+  languages: { python: "3.11" }               # add others as needed
+  tools:
+    - "pytest"
+    - "flake8"
+preconditions:
+  tests_available: true
+  migrations_required: false
+
+# Commands & conventions
+test_command: "pytest -q"
+lint_command: "flake8"
+format_command: ""                            # e.g., "ruff format" (if applicable)
+commit_convention: "conventional"             # keep concise, actionable subjects
+commit_scope: "<ws-id>"                       # included in every commit message
+
+# Determinism & reproducibility rules
+determinism:
+  stable_sorting: true
+  timestamps: "forbid"                        # forbid|isolate|allow
+  randomness: "forbid"                        # no non-deterministic behavior
+
+# Guardrails & rollback
+guardrails:
+  scope_violation_action: "/undo then restate constraints"
+  rollback_triggers:
+    - "tests fail"
+    - "lint introduces new errors"
+    - "diff includes out-of-scope file"
+
+# Optional structured stubs (uncomment and fill if you want machine-checked details)
+# artifacts:
+#   - path: "src/pipeline/db.py"
+#     type: "code"
+#     must_provide:
+#       - "function: create_run"
+#       - "function: update_run_status"
+#     must_not:
+#       - "network calls"
+#       - "schema changes"
+#     acceptance:
+#       tests: ["tests/pipeline/test_db_state.py::test_valid_transitions"]
+#       lint: true
+#       commands: []
+#     determinism:
+#       - "no time-based behavior"
+
+# operations_sequence:
+#   - id: 1
+#     intent: "Design state transitions"
+#     files_add: ["src/pipeline/db.py"]
+#     command: "/architect"
+#     expected_diff_summary: "Adds docstring and signatures only"
+#     commit_message: "docs(ws-<id>): outline state transitions"
+#
+#   - id: 2
+#     intent: "Implement validation"
+#     files_add: ["src/pipeline/db.py"]
+#     command: "/code"
+#     expected_diff_summary: "Adds validate_state_transition and unit tests"
+#     commit_message: "feat(ws-<id>): enforce state transitions"
+
+# completion_checklist:
+#   - "[ ] Functions created: create_run, update_run_status"
+#   - "[ ] Tests pass: pytest -q"
+#   - "[ ] Lint passes: flake8"
+#   - "[ ] No out-of-scope changes"
+---

@@ -1,0 +1,6 @@
+{
+  "capability": "code_generation",
+  "payload": { "prompt": "Write a hello world in Python." },
+  "tool": "jules"
+}
+

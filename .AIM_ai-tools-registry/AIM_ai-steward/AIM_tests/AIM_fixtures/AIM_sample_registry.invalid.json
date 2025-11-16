@@ -1,0 +1,8 @@
+{
+  "tools": {
+    "badtool": {
+      "name": "Missing detectCommands"
+    }
+  }
+}
+
