@@ -118,3 +118,69 @@ The system provides a clear, documented process for creating `workstreams/*.json
     -   `src/pipeline/planner.py`: Draft automated planner with function skeletons and docstrings.
     -   `config/decomposition_rules.yaml`: Sample YAML file describing future decomposition rules.
     -   `scripts/generate_workstreams.py`: Stub CLI for generating workstreams, indicating current limitations.
+
+## PH-06
+
+Precheck failed: expected project root `C:\Users\richg\ALL_AI\AI_Dev_Pipeline` is missing on this machine. Per PH-06 execution rules, do not implement circuit breaker logic in an alternate path. Complete PH-00 through PH-05.5 in the target repo first so that the required components exist.
+
+Once `C:\Users\richg\ALL_AI\AI_Dev_Pipeline` exists with PH-00–PH-05.5 artifacts, proceed with PH-06 tasks.
+
+## PH-07: GUI Layer & Plugin System
+
+Precheck failed: expected project root `C:\Users\richg\ALL_AI\AI_Dev_Pipeline` is missing on this machine. Per PH-07 execution rules, do not implement GUI in an alternate path. Complete PH-00 through PH-06 in the target repo first so that the following required components exist:
+
+- `src/pipeline/` with `orchestrator.py`, `db.py`, `bundles.py`, `worktree.py`, `tools.py`, and other core modules.
+- Config files from prior phases (e.g., `config/tool_profiles.json`, `config/gui_config.yaml`).
+- SQLite database with schema from PH-02.
+- Workstream bundles under `workstreams/`.
+
+Once `C:\Users\richg\ALL_AI\AI_Dev_Pipeline` exists with PH-00–PH-06 artifacts, proceed with PH-07 tasks:
+
+**Summary:**
+Create a safe, plugin-based GUI that provides visual monitoring of runs, workstreams, tools, and logs. The GUI operates as an optional layer—the pipeline works fully headless without it.
+
+**Planned Artifacts:**
+
+- `docs/GUI_PERMISSIONS_MATRIX.md` - defines exactly what the GUI is allowed to do (read-heavy, write-light)
+- `docs/PLUGINS_SCHEMA.json` - JSON Schema for plugin manifest files
+- `docs/PLUGINS_INTERFACE.md` - defines Python Protocol for panel plugins and service locator
+- `config/gui_config.yaml` - GUI-specific settings (window, engine, plugins, terminal, logging)
+- `src/gui/shell.py` - main GUI window with plugin loading and lifecycle
+- `src/gui/main.py` - GUI application entry point
+- `src/gui/services/` - service clients for engine, state, tools, logs, config, terminal
+  - `engine_client.py` - run lifecycle operations
+  - `state_client.py` - read-only DB queries
+  - `tools_client.py` - tool management
+  - `logs_client.py` - event log queries
+  - `config_client.py` - configuration access
+  - `terminal_manager.py` - embedded terminal support
+  - `service_locator.py` - dependency injection registry
+- `src/gui/plugin_base.py` - PanelPluginBase abstract class with common helpers
+- `src/gui/plugin_loader.py` - plugin discovery, loading, and validation
+- `src/gui/panels/` - core panel plugins:
+  - `dashboard_panel.py` - summary stats and recent runs
+  - `runs_panel.py` - run management (start, cancel)
+  - `workstreams_panel.py` - workstream monitoring and retry
+  - `tools_panel.py` - tool health and testing
+  - `logs_panel.py` - event log with filters
+  - `terminal_panel.py` - embedded terminals with presets
+- `config/plugins/*.plugin.json` - plugin manifests for all core panels
+- `scripts/run_gui.py` - CLI entry point for GUI
+- `tests/gui/` - unit tests for service locator, plugin loader, services, and panels
+
+**Principles:**
+- GUI MUST be optional—all pipeline operations work headlessly
+- Strict permissions matrix—no direct DB/file writes, no secret viewing
+- Plugin isolation—broken plugins should not crash GUI
+- Lightweight—no heavy processing in GUI thread
+## PH-06
+
+Circuit breakers, retries, and FIX loop added to the single-workstream orchestrator.
+
+- Config: config/circuit_breakers.yaml with defaults and per-step overrides.
+- Module: src/pipeline/circuit_breakers.py provides config loading, signatures, and oscillation detection.
+- Orchestrator: src/pipeline/orchestrator.py now wraps STATIC and RUNTIME with FIX attempts via Aider and records errors/events.
+- CLI unchanged; --dry-run still supported.
+
+Note: repository root is C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan. Docs that referenced a different root are superseded by this note.
+
