@@ -1,0 +1,39 @@
+{
+  "id": "ws-descriptive-slug-here",
+  "openspec_change": "OS-XXXX",
+  "ccpm_issue": 0,
+  "gate": 1,
+
+  "files_scope": [
+    "path/to/file_to_modify_or_read.ext"
+  ],
+  "files_create": [
+    // "path/to/new_file.ext"
+  ],
+
+  "tasks": [
+    "Implement feature X in Y module.",
+    "Refactor Z function to improve performance.",
+    "Add unit tests for new functionality."
+  ],
+  "acceptance_tests": [
+    "Describe how to verify this workstream is complete."
+  ],
+
+  "depends_on": [
+    // "ws-another-workstream-id"
+  ],
+
+  "tool": "aider",
+
+  "circuit_breaker": {
+    "max_attempts": 5,
+    "max_error_repeats": 3,
+    "oscillation_threshold": 2
+  },
+
+  "metadata": {
+    "owner": "team-name-or-github-handle",
+    "notes": "Additional free-form notes here, e.g., rationale for decomposition."
+  }
+}

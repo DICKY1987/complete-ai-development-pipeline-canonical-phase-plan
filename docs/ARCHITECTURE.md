@@ -19,6 +19,17 @@ scripts in `scripts/`, schema in `schema/`, and documentation in `docs/`.
 - CLI: `python scripts/validate_workstreams.py` validates all bundles, reports cycles/overlaps, and optionally syncs them into the DB (`workstreams` table) with `--run-id`.
 - Directory: default `workstreams/` at repo root; override with env `PIPELINE_WORKSTREAM_DIR`.
 
+## Workstream Authoring & Generation (PH-05.5)
+
+This phase introduces tools and documentation to make authoring workstream bundles easier and safer.
+
+- **Authoring Guide:** `docs/workstream_authoring_guide.md` provides comprehensive instructions for humans and AI on how to create valid workstream bundles, including purpose, required fields, rules, and a step-by-step workflow.
+- **Canonical Template:** `templates/workstream_template.json` offers a pre-filled JSON structure that aligns with `schema/workstream.schema.json`, serving as a starting point for new bundles.
+- **Authoring Validator:** `scripts/validate_workstreams_authoring.py` is a dedicated CLI tool for authors to validate their workstream bundles. It wraps the core validation logic from `src/pipeline/bundles.py` (schema, dependency, cycle, and file-scope overlap checks) and provides clear, human-readable error messages or machine-readable JSON output. This ensures that bundles are correct before being committed or used by the orchestrator.
+- **Automated Planner (Stub):** `src/pipeline/planner.py` and `config/decomposition_rules.yaml` provide a stub for future v2.0 automation, allowing for the programmatic generation of draft workstreams from higher-level specifications. `scripts/generate_workstreams.py` is a CLI stub for this functionality.
+
+This authoring system directly supports the PH-04 validation pipeline by ensuring that manually created bundles conform to the defined schema and rules, and feeds into the PH-05 orchestrator which relies on valid workstream definitions.
+
 ## Flow
 
 1. Plan workstreams (docs, plans).

@@ -96,3 +96,25 @@ Once `C:\Users\richg\ALL_AI\AI_Dev_Pipeline` exists with PH-00–PH-04.5 artifac
 - Update `docs/ARCHITECTURE.md` with an “Orchestrator Core Loop” section and record artifacts here.
 
 Note: FIX/retry loops and multi-workstream scheduling are out of scope for PH-05.
+
+## PH-05.5: Workstream Bundle Generator (Authoring + Validation)
+
+This phase delivers a robust system for authoring and validating workstream bundles, making it easy and safe for both humans and AI agents to define discrete units of work for the pipeline. It focuses on a v1.0 manual authoring and validation workflow, with stubs for future v2.0 automated planning.
+
+**Summary of the Authoring System:**
+The system provides a clear, documented process for creating `workstreams/*.json` files. It includes a canonical JSON template to ensure structural correctness and a dedicated validator script that performs comprehensive checks (schema compliance, dependency resolution, cycle detection, and file-scope overlap analysis). This ensures that all workstreams are well-formed and consistent before being processed by the orchestrator.
+
+**Distinction between v1.0 and v2.0:**
+-   **v1.0 (Primary Focus):** Emphasizes semi-manual authoring with strong validation. The goal is to provide a user-friendly and error-resistant mechanism for defining workstreams by hand or with minimal AI assistance.
+-   **v2.0 (Future Automated Planner):** This phase includes optional stubs for an automated planner. This future component will aim to generate draft workstreams programmatically from higher-level specifications (e.g., OpenSpec/CCPM inputs), leveraging decomposition rules and potentially AI assistance. The current stubs are clearly marked as experimental and not yet fully implemented.
+
+**Artifacts:**
+
+-   `docs/workstream_authoring_guide.md`: Comprehensive guide for authoring workstream bundles.
+-   `templates/workstream_template.json`: Canonical JSON template for new workstreams.
+-   `scripts/validate_workstreams_authoring.py`: CLI script for validating workstream bundles, supporting human-readable and JSON output.
+-   `tests/pipeline/test_workstream_authoring.py`: Unit tests covering template validity, validation success/failure, overlap detection, and JSON mode.
+-   (Optional v2.0 Stubs):
+    -   `src/pipeline/planner.py`: Draft automated planner with function skeletons and docstrings.
+    -   `config/decomposition_rules.yaml`: Sample YAML file describing future decomposition rules.
+    -   `scripts/generate_workstreams.py`: Stub CLI for generating workstreams, indicating current limitations.

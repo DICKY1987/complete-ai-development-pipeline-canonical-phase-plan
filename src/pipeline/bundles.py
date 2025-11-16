@@ -265,8 +265,8 @@ def validate_bundle_data(data: Dict[str, Any], *, schema: Optional[Dict[str, Any
     )
 
 
-def load_and_validate_bundles() -> List[WorkstreamBundle]:
-    """Load and validate all bundles from the workstream directory.
+def load_and_validate_bundles(workstream_dir: Optional[Path] = None) -> List[WorkstreamBundle]:
+    """Load and validate all bundles from the specified or default workstream directory.
 
     - Supports per-file single object or list-of-objects format.
     - Enforces unique ids.
@@ -274,7 +274,11 @@ def load_and_validate_bundles() -> List[WorkstreamBundle]:
     - Detects and raises on cycles.
     - Returns list sorted by id for determinism.
     """
-    ws_dir = get_workstream_dir()
+    if workstream_dir is None:
+        ws_dir = get_workstream_dir()
+    else:
+        ws_dir = workstream_dir
+    
     repo_root = _detect_repo_root()
     schema = _load_schema(repo_root)
 
