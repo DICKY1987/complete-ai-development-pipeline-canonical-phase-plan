@@ -11,7 +11,29 @@ import sqlite3
 from pathlib import Path
 from typing import Optional
 
-__all__ = ["get_connection", "init_db"]
+__all__ = [
+    "get_connection",
+    "init_db",
+    # Run CRUD
+    "create_run",
+    "get_run",
+    "update_run_status",
+    "list_runs",
+    # Workstream CRUD
+    "create_workstream",
+    "get_workstream",
+    "get_workstreams_for_run",
+    "update_workstream_status",
+    # Step attempts
+    "record_step_attempt",
+    "get_step_attempts",
+    # Errors
+    "record_error",
+    "get_errors",
+    # Events
+    "record_event",
+    "get_events",
+]
 
 
 def _detect_repo_root(start: Optional[Path] = None) -> Path:
@@ -107,4 +129,31 @@ def init_db(db_path: Optional[os.PathLike | str] = None, schema_path: Optional[o
 
     cur.close()
     conn.close()
+
+
+# ============================================================================
+# Import CRUD operations from crud_operations module
+# ============================================================================
+
+from .crud_operations import (
+    # Run CRUD
+    create_run,
+    get_run,
+    update_run_status,
+    list_runs,
+    # Workstream CRUD
+    create_workstream,
+    get_workstream,
+    get_workstreams_for_run,
+    update_workstream_status,
+    # Step attempts
+    record_step_attempt,
+    get_step_attempts,
+    # Errors
+    record_error,
+    get_errors,
+    # Events
+    record_event,
+    get_events,
+)
 
