@@ -1,6 +1,8 @@
-"""Pipeline package
+"""
+AI Development Pipeline - Core Modules.
 
-Canonical modules for the AI Development Pipeline. Modules are initially
-scaffolded in PH-01 and expanded in PH-02/PH-03 workstreams.
+This package contains the core modules for the AI Development Pipeline,
+including database access, tool adapters, orchestration, and state management.
 """
 
+__version__ = "0.1.0"
