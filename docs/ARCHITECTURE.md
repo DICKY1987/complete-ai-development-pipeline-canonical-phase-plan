@@ -24,3 +24,14 @@ scripts in `scripts/`, schema in `schema/`, and documentation in `docs/`.
 - Python 3.12+, PowerShell 7; tests with `pytest`.
 - JSON uses two‑space indent and kebab‑case keys.
 
+## State & persistence
+
+- Database path: `state/pipeline_state.db` (override with `PIPELINE_DB_PATH`).
+- Initialization: `python scripts/init_db.py` (idempotent; applies `schema/schema.sql`).
+- Core tables:
+  - `runs` — lifecycle of an orchestrated run.
+  - `workstreams` — individual work units within a run, with dependencies.
+  - `step_attempts` — execution attempts with timestamps and results.
+  - `errors` — deduplicated errors with signatures and counts.
+  - `events` — append‑only event log for traceability.
+
