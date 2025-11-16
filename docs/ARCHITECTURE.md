@@ -11,6 +11,14 @@ scripts in `scripts/`, schema in `schema/`, and documentation in `docs/`.
 - Tooling: profile-driven adapter in `src/pipeline/tools.py` (PH-03).
 - Utilities: prompts, worktree helpers, circuit breakers, recovery, bundles.
 
+## Workstream Bundles & Validation
+
+- Purpose: Define inputs for orchestration — each workstream declares its id, files scope, tasks, and dependencies.
+- Schema: `schema/workstream.schema.json` specifies required fields and constraints (strict, no unknown fields).
+- Loader: `src/pipeline/bundles.py` resolves the workstream directory, loads JSON (per-file object or list), validates against the schema (using `jsonschema` if available; strict manual checks otherwise), builds a dependency DAG, detects cycles, and finds file-scope overlaps.
+- CLI: `python scripts/validate_workstreams.py` validates all bundles, reports cycles/overlaps, and optionally syncs them into the DB (`workstreams` table) with `--run-id`.
+- Directory: default `workstreams/` at repo root; override with env `PIPELINE_WORKSTREAM_DIR`.
+
 ## Flow
 
 1. Plan workstreams (docs, plans).
@@ -21,6 +29,7 @@ scripts in `scripts/`, schema in `schema/`, and documentation in `docs/`.
 See also:
 - State machine details in `docs/state_machine.md` (run/workstream transitions).
 - Phase plan in `docs/PHASE_PLAN.md` (PH-01 to PH-03 scope and artifacts).
+  PH-04 adds schema, loader/validator, examples, CLI, and tests.
 
 ## Conventions
 

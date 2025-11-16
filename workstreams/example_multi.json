@@ -1,0 +1,32 @@
+[
+  {
+    "id": "ws-core-lib",
+    "openspec_change": "OS-010",
+    "ccpm_issue": 2001,
+    "gate": 1,
+    "files_scope": ["src/core/lib.py"],
+    "tasks": ["Implement core library"],
+    "tool": "aider"
+  },
+  {
+    "id": "ws-api-layer",
+    "openspec_change": "OS-011",
+    "ccpm_issue": 2002,
+    "gate": 1,
+    "files_scope": ["src/api/handler.py", "src/core/lib.py"],
+    "tasks": ["Add API layer using core lib"],
+    "depends_on": ["ws-core-lib"],
+    "tool": "aider"
+  },
+  {
+    "id": "ws-cli",
+    "openspec_change": "OS-012",
+    "ccpm_issue": 2003,
+    "gate": 1,
+    "files_scope": ["src/cli/main.py"],
+    "tasks": ["Build CLI that calls API"],
+    "depends_on": ["ws-api-layer"],
+    "tool": "aider"
+  }
+]
+
