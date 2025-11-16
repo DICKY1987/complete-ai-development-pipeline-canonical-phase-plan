@@ -96,3 +96,16 @@ Once `C:\Users\richg\ALL_AI\AI_Dev_Pipeline` exists with PH-00–PH-04.5 artifac
 - Update `docs/ARCHITECTURE.md` with an “Orchestrator Core Loop” section and record artifacts here.
 
 Note: FIX/retry loops and multi-workstream scheduling are out of scope for PH-05.
+
+## PH-05.5
+
+Precheck failed: expected project root `C:\Users\richg\ALL_AI\AI_Dev_Pipeline` is missing on this machine. Per PH-05.5 execution rules, the workstream bundle generator will not be implemented in an alternate path. Complete PH-00 through PH-05 in the target repo first.
+
+Once `C:\Users\richg\ALL_AI\AI_Dev_Pipeline` exists with PH-00–PH-05 artifacts, proceed with PH-05.5 tasks:
+
+- Implement `docs/workstream_authoring_guide.md`
+- Create `templates/workstream_template.json`
+- Implement `scripts/validate_workstreams_authoring.py`
+- Implement `tests/pipeline/test_workstream_authoring.py`
+- (Optional) Implement `src/pipeline/planner.py`, `config/decomposition_rules.yaml`, and `scripts/generate_workstreams.py` as clearly-marked stubs for v2.0
+- Update `docs/ARCHITECTURE.md` and `docs/PHASE_PLAN.md` with PH-05.5 details.
