@@ -4,6 +4,14 @@ This document describes the canonical states and transitions for runs and
 workstreams in the AI development pipeline. The DB layer (`src/pipeline/db.py`)
 and subsequent state machine logic enforce these transitions.
 
+Implementation notes:
+- Transition validation helpers are introduced in PH-02 in `src/pipeline/db.py`.
+- Orchestrator and scheduler (`src/pipeline/orchestrator.py`,
+  `src/pipeline/scheduler.py`) call these helpers to persist valid moves.
+-
+  Events and error deduplication are recorded via the `events` and `errors`
+  tables; CRUD helpers are extended in later workstreams.
+
 ## Run states
 
 - pending → running → succeeded
@@ -50,4 +58,3 @@ Notes:
   policy implemented in PH‑02 by the state‑machine workstream).
 - Events are recorded for observability; errors are deduplicated via a
   signature in the `errors` table.
-

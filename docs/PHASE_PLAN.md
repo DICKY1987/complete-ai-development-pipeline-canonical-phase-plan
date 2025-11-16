@@ -33,6 +33,10 @@ with the DB layer and add tests.
 
 ### Artifacts
 
-- `config/tool_profiles.json` — tool profiles configuration
-- `src/pipeline/tools.py` — adapter logic (core + DB integration)
-- `tests/pipeline/test_tools.py` — adapter tests (future)
+- `config/tool_profiles.json` - tool profiles configuration
+- `src/pipeline/tools.py` - adapter logic (core + DB integration)
+- `tests/pipeline/test_tools.py` - adapter tests (future)
+ - Recommended profiles include Python quality tools (`ruff`, `black`, `mypy`),
+   PowerShell analyzers/tests (`psscriptanalyzer`, `pester`), core test runner
+   (`pytest`), optional linters/scanners (`yamllint`, `codespell`, `gitleaks`),
+   and integration utilities (`aider`, `gh`).
