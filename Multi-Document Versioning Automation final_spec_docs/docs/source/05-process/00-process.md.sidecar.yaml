@@ -1,4 +1,4 @@
-file: docs/source/05-process/00-process.md
+file: Multi-Document Versioning Automation final_spec_docs/docs/source/05-process/00-process.md
 mfid: dfa62efd74125cc2cea9ab06f7287663c57a09fc0ec4e77503f80e70f18a765e
 paragraphs:
 - anchor: p-1
@@ -46,3 +46,13 @@ paragraphs:
   end_line: 17
   mfid: 10d6d70eb75a4a9330381c21146df12004ffd3fcf4afeabab58951f618557e3d
   id: V4FAV52GQY3NWBN5EU3Q45MDFM
+document_id: 05-process/00-process
+title: Process & Decision Artifacts
+version: 0.1.0
+category: 05-process
+last_updated: '2025-11-16T20:20:14Z'
+authors: []
+tags: []
+depends_on: []
+status: draft
+checksum: dfa62efd74125cc2cea9ab06f7287663c57a09fc0ec4e77503f80e70f18a765e

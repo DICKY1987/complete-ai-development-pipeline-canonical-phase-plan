@@ -1,4 +1,4 @@
-file: docs/source/04-data-contracts/04-dds.md
+file: Multi-Document Versioning Automation final_spec_docs/docs/source/04-data-contracts/04-dds.md
 mfid: 6b59f0b84a0240e2be3438b717d174e68f03610e8f7bb1a4a25aa3380bee241d
 paragraphs:
 - anchor: p-1
@@ -21,3 +21,13 @@ paragraphs:
   end_line: 23
   mfid: d6f8d8605b20994dc35039a39ebcc4d3b6836dade3f6b668402ac15bb6f1fd2a
   id: P32VMPNWCIEAANNLIT5ZSM6ZEM
+document_id: 04-data-contracts/04-dds
+title: Deliverable Definition Sheet (DDS)
+version: 0.1.0
+category: 04-data-contracts
+last_updated: '2025-11-16T20:20:14Z'
+authors: []
+tags: []
+depends_on: []
+status: draft
+checksum: 6b59f0b84a0240e2be3438b717d174e68f03610e8f7bb1a4a25aa3380bee241d

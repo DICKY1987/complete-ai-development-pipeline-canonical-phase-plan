@@ -1,4 +1,4 @@
-file: docs/source/07-policy/00-policy-as-code.md
+file: Multi-Document Versioning Automation final_spec_docs/docs/source/07-policy/00-policy-as-code.md
 mfid: b3b9b46bf1dd1b2077a192ac68922e9a37c8203c13acab3937cd4f82ce12746e
 paragraphs:
 - anchor: p-1
@@ -21,3 +21,13 @@ paragraphs:
   end_line: 11
   mfid: 23e9cda16aaa9e6a611685c98aefc7a7b870bfe274bf2d107aeda02e2c5e4172
   id: 5MZC25F3HWUS4KJCRBTTGYASUA
+document_id: 07-policy/00-policy-as-code
+title: Policy as Code
+version: 0.1.0
+category: 07-policy
+last_updated: '2025-11-16T20:20:14Z'
+authors: []
+tags: []
+depends_on: []
+status: draft
+checksum: b3b9b46bf1dd1b2077a192ac68922e9a37c8203c13acab3937cd4f82ce12746e

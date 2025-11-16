@@ -1,4 +1,4 @@
-file: docs/source/04-data-contracts/02-ledger-event-schema.md
+file: Multi-Document Versioning Automation final_spec_docs/docs/source/04-data-contracts/02-ledger-event-schema.md
 mfid: 1b1b735199bbd6095e03bcd97fd674f2c5f1687dbc2a2b55174eb8bd320e3a16
 paragraphs:
 - anchor: p-1
@@ -11,3 +11,13 @@ paragraphs:
   end_line: 12
   mfid: b0ff50959641dc110809999ed15864d6c8b7b9d7e59c5286e591d4000342f71c
   id: KRC22ABNFZJGESYPD8G07ZGZPT
+document_id: 04-data-contracts/02-ledger-event-schema
+title: Ledger Event Schema
+version: 0.1.0
+category: 04-data-contracts
+last_updated: '2025-11-16T20:20:14Z'
+authors: []
+tags: []
+depends_on: []
+status: draft
+checksum: 1b1b735199bbd6095e03bcd97fd674f2c5f1687dbc2a2b55174eb8bd320e3a16

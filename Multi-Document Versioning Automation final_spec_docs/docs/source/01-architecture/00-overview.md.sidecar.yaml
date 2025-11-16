@@ -1,4 +1,4 @@
-file: docs/source/01-architecture/00-overview.md
+file: Multi-Document Versioning Automation final_spec_docs/docs/source/01-architecture/00-overview.md
 mfid: ebb36c2a14930869ded00016c96a4df819329a12414886449e3fbe90f1044c4d
 paragraphs:
 - anchor: p-1
@@ -36,3 +36,13 @@ paragraphs:
   end_line: 17
   mfid: d4908ece1010f312af67238d065d10e9d7f15bd03f54902721f997d2cad04117
   id: UUSSOBFMTFEG4AHY2LR547TZGE
+document_id: 01-architecture/00-overview
+title: Architecture & Scope
+version: 0.1.0
+category: 01-architecture
+last_updated: '2025-11-16T20:20:14Z'
+authors: []
+tags: []
+depends_on: []
+status: draft
+checksum: ebb36c2a14930869ded00016c96a4df819329a12414886449e3fbe90f1044c4d

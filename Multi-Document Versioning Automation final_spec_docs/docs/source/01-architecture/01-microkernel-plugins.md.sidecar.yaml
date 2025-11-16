@@ -1,4 +1,4 @@
-file: docs/source/01-architecture/01-microkernel-plugins.md
+file: Multi-Document Versioning Automation final_spec_docs/docs/source/01-architecture/01-microkernel-plugins.md
 mfid: 5699133c2a36479655ca3c19819508d0e4da9f8f0a6019924ae1d4727a6f7d6d
 paragraphs:
 - anchor: p-1
@@ -41,3 +41,13 @@ paragraphs:
   end_line: 24
   mfid: 56e94904e188c912c54a6872e528e163915c4606defe01c747e7b6b1f47ca402
   id: DPMBN6JMD4YPQUPJEISXQ7FVH4
+document_id: 01-architecture/01-microkernel-plugins
+title: "Micro\u2011kernel & Plugins"
+version: 0.1.0
+category: 01-architecture
+last_updated: '2025-11-16T20:20:14Z'
+authors: []
+tags: []
+depends_on: []
+status: draft
+checksum: 5699133c2a36479655ca3c19819508d0e4da9f8f0a6019924ae1d4727a6f7d6d

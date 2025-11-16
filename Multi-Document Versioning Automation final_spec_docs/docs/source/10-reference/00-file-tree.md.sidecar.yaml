@@ -1,4 +1,4 @@
-file: docs/source/10-reference/00-file-tree.md
+file: Multi-Document Versioning Automation final_spec_docs/docs/source/10-reference/00-file-tree.md
 mfid: 742ccd13cd1240dab855aecaf76d4029f9d2bf09f67d75b36b97316030d5c36c
 paragraphs:
 - anchor: p-1
@@ -16,3 +16,13 @@ paragraphs:
   end_line: 96
   mfid: 41a0dd507719c94d73ca7dc210250ff529507714af4172212c11b4c628a6d78c
   id: E2ZGQZJFYLETNEP2DVBS4Y4G3Q
+document_id: 10-reference/00-file-tree
+title: Repository Layout
+version: 0.1.0
+category: 10-reference
+last_updated: '2025-11-16T20:20:14Z'
+authors: []
+tags: []
+depends_on: []
+status: draft
+checksum: 742ccd13cd1240dab855aecaf76d4029f9d2bf09f67d75b36b97316030d5c36c

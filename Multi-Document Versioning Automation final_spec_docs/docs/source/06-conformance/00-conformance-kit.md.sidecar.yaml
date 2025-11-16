@@ -1,4 +1,4 @@
-file: docs/source/06-conformance/00-conformance-kit.md
+file: Multi-Document Versioning Automation final_spec_docs/docs/source/06-conformance/00-conformance-kit.md
 mfid: 572f2334639a73ec0e4c6e001556ad8bb7e3f368629372fd49d80950fd69312c
 paragraphs:
 - anchor: p-1
@@ -31,3 +31,13 @@ paragraphs:
   end_line: 18
   mfid: 6cbaa2128ad14cbaa9a9d807ff8558ed02eccdadb8c988332f10006d2a386ae3
   id: 6KHWO35CRL5OASRFLLYH4FQ6TI
+document_id: 06-conformance/00-conformance-kit
+title: Conformance Kit & Compatibility
+version: 0.1.0
+category: 06-conformance
+last_updated: '2025-11-16T20:20:14Z'
+authors: []
+tags: []
+depends_on: []
+status: draft
+checksum: 572f2334639a73ec0e4c6e001556ad8bb7e3f368629372fd49d80950fd69312c

@@ -1,4 +1,4 @@
-file: docs/source/03-plugin-contract/02-new-plugins.md
+file: Multi-Document Versioning Automation final_spec_docs/docs/source/03-plugin-contract/02-new-plugins.md
 mfid: e8e30144ec0fd1794ed2053a7ce5086002c83a1dc99305f37342a5c490fd8b11
 paragraphs:
 - anchor: p-1
@@ -46,3 +46,13 @@ paragraphs:
   end_line: 20
   mfid: 23f7416a05747817d7c6a900e6d96daa9713e9256b0cfe768d5e1c8e20daa595
   id: M3ATBM2IUW7LBAEBVHUQR44R4U
+document_id: 03-plugin-contract/02-new-plugins
+title: New Plugins
+version: 0.1.0
+category: 03-plugin-contract
+last_updated: '2025-11-16T20:20:14Z'
+authors: []
+tags: []
+depends_on: []
+status: draft
+checksum: e8e30144ec0fd1794ed2053a7ce5086002c83a1dc99305f37342a5c490fd8b11

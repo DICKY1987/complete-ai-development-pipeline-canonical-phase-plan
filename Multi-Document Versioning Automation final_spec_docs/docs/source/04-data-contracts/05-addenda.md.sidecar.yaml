@@ -1,4 +1,4 @@
-file: docs/source/04-data-contracts/05-addenda.md
+file: Multi-Document Versioning Automation final_spec_docs/docs/source/04-data-contracts/05-addenda.md
 mfid: 34d02b59826df9c77cbf9eae2a2dbcee8ee7df576667f20c1bb497f7b23d18a7
 paragraphs:
 - anchor: p-1
@@ -46,3 +46,13 @@ paragraphs:
   end_line: 26
   mfid: 7b5086dd0f0774dc97a7599bb745521d742ea86fe92916f1e963badfec8aaea3
   id: 5QQPL2CXYZEDXHCYQUGSFEO65A
+document_id: 04-data-contracts/05-addenda
+title: Data Contract Addenda
+version: 0.1.0
+category: 04-data-contracts
+last_updated: '2025-11-16T20:20:14Z'
+authors: []
+tags: []
+depends_on: []
+status: draft
+checksum: 34d02b59826df9c77cbf9eae2a2dbcee8ee7df576667f20c1bb497f7b23d18a7

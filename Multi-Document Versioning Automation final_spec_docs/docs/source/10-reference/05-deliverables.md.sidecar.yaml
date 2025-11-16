@@ -1,4 +1,4 @@
-file: docs/source/10-reference/05-deliverables.md
+file: Multi-Document Versioning Automation final_spec_docs/docs/source/10-reference/05-deliverables.md
 mfid: 5442826dab1444b68bca80969b73dbab58e7079a78c212822f4e77702e46cc3a
 paragraphs:
 - anchor: p-1
@@ -11,3 +11,13 @@ paragraphs:
   end_line: 9
   mfid: a83f7d52536cb460c8d84755e3fdf31b39c4f35f3802c36006ab5fd773ce3660
   id: IJ7GWSN22VPFNBOR72L73CKFIY
+document_id: 10-reference/05-deliverables
+title: Deliverables List
+version: 0.1.0
+category: 10-reference
+last_updated: '2025-11-16T20:20:14Z'
+authors: []
+tags: []
+depends_on: []
+status: draft
+checksum: 5442826dab1444b68bca80969b73dbab58e7079a78c212822f4e77702e46cc3a

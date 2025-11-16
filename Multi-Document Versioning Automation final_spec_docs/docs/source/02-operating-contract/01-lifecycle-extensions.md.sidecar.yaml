@@ -1,4 +1,4 @@
-file: docs/source/02-operating-contract/01-lifecycle-extensions.md
+file: Multi-Document Versioning Automation final_spec_docs/docs/source/02-operating-contract/01-lifecycle-extensions.md
 mfid: d34d397516ef946e8103d2c02bbeb15f81d73958cb6df8d3a5f1422b93c44ff1
 paragraphs:
 - anchor: p-1
@@ -26,3 +26,13 @@ paragraphs:
   end_line: 9
   mfid: d146ebefcc66a3d2e229fe890a9f2ea76c67c909258e7fcc5c7d876efd2cdf53
   id: OX6E2GN6YHQSAOO6APMB7UIXT4
+document_id: 02-operating-contract/01-lifecycle-extensions
+title: Lifecycle & Identity Extensions
+version: 0.1.0
+category: 02-operating-contract
+last_updated: '2025-11-16T20:20:14Z'
+authors: []
+tags: []
+depends_on: []
+status: draft
+checksum: d34d397516ef946e8103d2c02bbeb15f81d73958cb6df8d3a5f1422b93c44ff1

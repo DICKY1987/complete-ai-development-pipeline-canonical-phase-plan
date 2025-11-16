@@ -1,4 +1,4 @@
-file: docs/source/09-observability-slos/00-observability.md
+file: Multi-Document Versioning Automation final_spec_docs/docs/source/09-observability-slos/00-observability.md
 mfid: 499220d68f7274a7b95b186cf98ec56601d7491257fd4fcc44eebcee2ee856d4
 paragraphs:
 - anchor: p-1
@@ -31,3 +31,13 @@ paragraphs:
   end_line: 13
   mfid: eb223956ca5076995557763868fdf76c20eec7604fc63a35a137dbc83b785149
   id: EVNO63YZEH3OGD4PUYLIBP6F3I
+document_id: 09-observability-slos/00-observability
+title: Observability
+version: 0.1.0
+category: 09-observability-slos
+last_updated: '2025-11-16T20:20:14Z'
+authors: []
+tags: []
+depends_on: []
+status: draft
+checksum: 499220d68f7274a7b95b186cf98ec56601d7491257fd4fcc44eebcee2ee856d4

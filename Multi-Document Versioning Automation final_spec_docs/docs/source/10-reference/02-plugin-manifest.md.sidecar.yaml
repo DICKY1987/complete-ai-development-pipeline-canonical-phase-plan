@@ -1,4 +1,4 @@
-file: docs/source/10-reference/02-plugin-manifest.md
+file: Multi-Document Versioning Automation final_spec_docs/docs/source/10-reference/02-plugin-manifest.md
 mfid: 9d7ab229bb47fea93736d92f1ee38cdc42b9fa43f5dc0f0ca89ee558ac899cc0
 paragraphs:
 - anchor: p-1
@@ -21,3 +21,13 @@ paragraphs:
   end_line: 24
   mfid: d49c74772dd772064fb9015a6af381a114543f24802aa4e613c6aebb14aaa912
   id: ZRZCBPN4XKVZQMPV4RAYP56I7M
+document_id: 10-reference/02-plugin-manifest
+title: Plugin Manifest Shape
+version: 0.1.0
+category: 10-reference
+last_updated: '2025-11-16T20:20:14Z'
+authors: []
+tags: []
+depends_on: []
+status: draft
+checksum: 9d7ab229bb47fea93736d92f1ee38cdc42b9fa43f5dc0f0ca89ee558ac899cc0

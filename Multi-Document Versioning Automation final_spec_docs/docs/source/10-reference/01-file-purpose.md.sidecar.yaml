@@ -1,4 +1,4 @@
-file: docs/source/10-reference/01-file-purpose.md
+file: Multi-Document Versioning Automation final_spec_docs/docs/source/10-reference/01-file-purpose.md
 mfid: 4aebd43b652eacf69baa118aa4af40bec31b1fc61e5dc52c42f657f7b966b8d1
 paragraphs:
 - anchor: p-1
@@ -16,3 +16,13 @@ paragraphs:
   end_line: 28
   mfid: 3c1b82cd918f0ca5a51b889b424c2de23d3d97ba1bdfe53cbf659c958ab78ee4
   id: XAGNSPBLIHQWCDQ77UQJYIY5WU
+document_id: 10-reference/01-file-purpose
+title: Key Artifacts & Deliverables
+version: 0.1.0
+category: 10-reference
+last_updated: '2025-11-16T20:20:14Z'
+authors: []
+tags: []
+depends_on: []
+status: draft
+checksum: 4aebd43b652eacf69baa118aa4af40bec31b1fc61e5dc52c42f657f7b966b8d1

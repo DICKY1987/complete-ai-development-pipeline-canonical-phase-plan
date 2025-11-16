@@ -1,4 +1,4 @@
-file: docs/source/10-reference/06-risk-mitigation.md
+file: Multi-Document Versioning Automation final_spec_docs/docs/source/10-reference/06-risk-mitigation.md
 mfid: 48112c2d053ce29371cba2fb0b29806292ce4977b15984e512ffcaac56f417a3
 paragraphs:
 - anchor: p-1
@@ -11,3 +11,13 @@ paragraphs:
   end_line: 5
   mfid: c89ab67f15ccc38831ef55845fc48b2cfb0ec9119e266de04fc8f84b742be22e
   id: N2DOCLRI5O7LJHIZAGMDLOJZ7A
+document_id: 10-reference/06-risk-mitigation
+title: Risk & Mitigation
+version: 0.1.0
+category: 10-reference
+last_updated: '2025-11-16T20:20:14Z'
+authors: []
+tags: []
+depends_on: []
+status: draft
+checksum: 48112c2d053ce29371cba2fb0b29806292ce4977b15984e512ffcaac56f417a3

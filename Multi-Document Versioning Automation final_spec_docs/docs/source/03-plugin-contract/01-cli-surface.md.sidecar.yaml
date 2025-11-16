@@ -1,4 +1,4 @@
-file: docs/source/03-plugin-contract/01-cli-surface.md
+file: Multi-Document Versioning Automation final_spec_docs/docs/source/03-plugin-contract/01-cli-surface.md
 mfid: 29342d88ac590afde603692c0833236cc8142c52fe30b8a08e4e81ba8f9348f3
 paragraphs:
 - anchor: p-1
@@ -21,3 +21,13 @@ paragraphs:
   end_line: 15
   mfid: bed9365e36b35b7e5790d09d4ae92fc924658a8cc1b4bc1baedd96b6c26e2ac2
   id: 5QM6RFD4QJEYCN32CAFGZCCCB4
+document_id: 03-plugin-contract/01-cli-surface
+title: CLI Surface
+version: 0.1.0
+category: 03-plugin-contract
+last_updated: '2025-11-16T20:20:14Z'
+authors: []
+tags: []
+depends_on: []
+status: draft
+checksum: 29342d88ac590afde603692c0833236cc8142c52fe30b8a08e4e81ba8f9348f3

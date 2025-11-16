@@ -1,4 +1,4 @@
-file: docs/source/04-data-contracts/01-doc-card-schema.md
+file: Multi-Document Versioning Automation final_spec_docs/docs/source/04-data-contracts/01-doc-card-schema.md
 mfid: bb0cc356e80df0d71a32635d1b6c422b96fa130fc3cb8957613d5ff61a10e73f
 paragraphs:
 - anchor: p-1
@@ -11,3 +11,13 @@ paragraphs:
   end_line: 17
   mfid: 0697f4e00f7e0ee722a5c52bddf1e23190a23ab65caef76b9d697715eae509a8
   id: 4CKXXT633KWWQ8KMAYHEPJJXZZ
+document_id: 04-data-contracts/01-doc-card-schema
+title: Doc Card Schema
+version: 0.1.0
+category: 04-data-contracts
+last_updated: '2025-11-16T20:20:14Z'
+authors: []
+tags: []
+depends_on: []
+status: draft
+checksum: bb0cc356e80df0d71a32635d1b6c422b96fa130fc3cb8957613d5ff61a10e73f
