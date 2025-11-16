@@ -132,5 +132,23 @@
     "timeout-sec": 30,
     "success-exit-codes": [0],
     "capture-output": true
+  },
+  "sleep-test": {
+    "type": "utility",
+    "command": "sleep",
+    "args": ["5"],
+    "env": {},
+    "timeout-sec": 2,
+    "success-exit-codes": [0],
+    "capture-output": true
+  },
+  "missing-tool": {
+    "type": "utility",
+    "command": "nonexistent-binary-12345",
+    "args": [],
+    "env": {},
+    "timeout-sec": 10,
+    "success-exit-codes": [0],
+    "capture-output": true
   }
 }
