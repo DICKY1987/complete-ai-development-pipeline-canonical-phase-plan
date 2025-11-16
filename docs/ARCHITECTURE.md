@@ -33,5 +33,15 @@ scripts in `scripts/`, schema in `schema/`, and documentation in `docs/`.
   - `workstreams` — individual work units within a run, with dependencies.
   - `step_attempts` — execution attempts with timestamps and results.
   - `errors` — deduplicated errors with signatures and counts.
-  - `events` — append‑only event log for traceability.
+  - `events` - append-only event log for traceability.
 
+## Tool profiles & adapter layer
+
+- Location: `config/tool_profiles.json` contains declarative profiles for tools.
+- Purpose: enable consistent, configurable execution of utilities, tests, and
+  static analyzers via a common adapter.
+- Types: `ai`, `static-check`, `test`, `utility` (see profiles JSON).
+- Adapter: `src/pipeline/tools.py` loads profiles, renders commands with
+  template vars like `{cwd}` and `{repo_root}`, executes with timeouts, and
+  captures stdout/stderr and exit codes. DB integration records events/errors
+  in PH-03 follow-up workstreams.

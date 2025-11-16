@@ -22,3 +22,17 @@ root for specifics.
 - DB integration and tests.
 - Documentation refinements.
 
+### Summary
+
+Phase PH-03 introduces a profile-driven tool adapter that executes external
+tools (utilities, tests, static analyzers, and AI tools) in a consistent,
+configurable manner. Profiles are defined in `config/tool_profiles.json` and
+consumed by `src/pipeline/tools.py`, which renders command templates, enforces
+timeouts, and captures results. Subsequent workstreams integrate adapter events
+with the DB layer and add tests.
+
+### Artifacts
+
+- `config/tool_profiles.json` — tool profiles configuration
+- `src/pipeline/tools.py` — adapter logic (core + DB integration)
+- `tests/pipeline/test_tools.py` — adapter tests (future)
