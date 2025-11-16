@@ -1,0 +1,29 @@
+{
+  "echo": {
+    "type": "utility",
+    "command": "echo",
+    "args": ["{message}"],
+    "env": {},
+    "timeout_sec": 10,
+    "success_exit_codes": [0],
+    "capture_output": true
+  },
+  "sleep-test": {
+    "type": "utility",
+    "command": "sleep",
+    "args": ["5"],
+    "env": {},
+    "timeout_sec": 2,
+    "success_exit_codes": [0],
+    "capture_output": true
+  },
+  "missing-tool": {
+    "type": "utility",
+    "command": "nonexistent-binary-12345",
+    "args": [],
+    "env": {},
+    "timeout_sec": 10,
+    "success_exit_codes": [0],
+    "capture_output": true
+  }
+}
