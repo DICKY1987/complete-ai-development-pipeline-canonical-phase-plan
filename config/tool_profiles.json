@@ -22,12 +22,108 @@
   "psscriptanalyzer": {
     "type": "static-check",
     "command": "pwsh",
-    "args": ["-NoLogo", "-NoProfile", "-Command", "Invoke-ScriptAnalyzer -Path scripts -Recurse -Severity Warning"],
+    "args": [
+      "-NoLogo",
+      "-NoProfile",
+      "-Command",
+      "Invoke-ScriptAnalyzer -Path scripts -Recurse -Severity Warning"
+    ],
     "env": {},
     "working-dir": "{repo_root}",
     "timeout-sec": 120,
     "success-exit-codes": [0],
     "capture-output": true
+  },
+  "pester": {
+    "type": "test",
+    "command": "pwsh",
+    "args": ["-NoLogo", "-NoProfile", "-Command", "Invoke-Pester -PassThru"],
+    "env": {},
+    "working-dir": "{repo_root}",
+    "timeout-sec": 600,
+    "success-exit-codes": [0],
+    "capture-output": true
+  },
+  "ruff": {
+    "type": "static-check",
+    "command": "ruff",
+    "args": ["check", "src", "scripts"],
+    "env": {},
+    "working-dir": "{repo_root}",
+    "timeout-sec": 120,
+    "success-exit-codes": [0],
+    "capture-output": true
+  },
+  "black": {
+    "type": "static-check",
+    "command": "black",
+    "args": ["--check", "src", "scripts"],
+    "env": {},
+    "working-dir": "{repo_root}",
+    "timeout-sec": 180,
+    "success-exit-codes": [0],
+    "capture-output": true
+  },
+  "mypy": {
+    "type": "static-check",
+    "command": "mypy",
+    "args": ["src"],
+    "env": {},
+    "working-dir": "{repo_root}",
+    "timeout-sec": 300,
+    "success-exit-codes": [0],
+    "capture-output": true
+  },
+  "yamllint": {
+    "type": "static-check",
+    "command": "yamllint",
+    "args": ["-s", "docs", "plans"],
+    "env": {},
+    "working-dir": "{repo_root}",
+    "timeout-sec": 120,
+    "success-exit-codes": [0],
+    "capture-output": true
+  },
+  "codespell": {
+    "type": "static-check",
+    "command": "codespell",
+    "args": ["docs", "src", "scripts", "README.md"],
+    "env": {},
+    "working-dir": "{repo_root}",
+    "timeout-sec": 120,
+    "success-exit-codes": [0],
+    "capture-output": true
+  },
+  "gitleaks": {
+    "type": "static-check",
+    "command": "gitleaks",
+    "args": ["detect", "--no-banner", "--redact"],
+    "env": {},
+    "working-dir": "{repo_root}",
+    "timeout-sec": 300,
+    "success-exit-codes": [0],
+    "capture-output": true
+  },
+  "aider": {
+    "type": "ai",
+    "command": "aider",
+    "args": ["--no-auto-commits"],
+    "env": {
+      "AIDER_NO_AUTO_COMMITS": "1"
+    },
+    "working-dir": "{worktree_dir}",
+    "timeout-sec": 7200,
+    "success-exit-codes": [0],
+    "capture-output": false
+  },
+  "gh": {
+    "type": "utility",
+    "command": "gh",
+    "args": ["--version"],
+    "env": {},
+    "working-dir": "{repo_root}",
+    "timeout-sec": 30,
+    "success-exit-codes": [0],
+    "capture-output": true
   }
 }
-
