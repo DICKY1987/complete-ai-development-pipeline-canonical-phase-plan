@@ -1,0 +1,36 @@
+# Local development
+.venv/
+env/
+.env
+.env.local
+.python-version
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Node
+node_modules/
+npm-debug.log*
+pnpm-lock.yaml
+yarn.lock
+
+# Editors/OS
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Logs & build artifacts
+logs/
+*.log
+dist/
+build/
+coverage/
+
+# Docs tools
+.cache/
+
