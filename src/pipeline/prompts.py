@@ -27,13 +27,20 @@ def run_aider_edit(
     """Compatibility wrapper for orchestrator.
 
     Translates old signature (run, ws, bundle, context) to new signature
-    (cwd, files, tasks, repo_root, ws_id).
+    (cwd, files, tasks, repo_root, ws_id, ...).
     """
     cwd = Path(context.get("worktree_path", "."))
     files = list(bundle_obj.files_scope) if hasattr(bundle_obj, "files_scope") else []
+    files_create = list(bundle_obj.files_create) if hasattr(bundle_obj, "files_create") else []
     tasks = list(bundle_obj.tasks) if hasattr(bundle_obj, "tasks") else []
+    acceptance_tests = list(bundle_obj.acceptance_tests) if hasattr(bundle_obj, "acceptance_tests") else []
     repo_root = _get_repo_root()
     timeout = context.get("timeout_seconds", 300)
+
+    # Extract metadata from bundle
+    openspec_change = getattr(bundle_obj, "openspec_change", "")
+    ccpm_issue = getattr(bundle_obj, "ccpm_issue", "")
+    gate = getattr(bundle_obj, "gate", "")
 
     return engine.run_aider_edit(
         cwd=cwd,
@@ -41,6 +48,12 @@ def run_aider_edit(
         tasks=tasks,
         repo_root=repo_root,
         ws_id=ws_id,
+        run_id=run_id,
+        files_create=files_create,
+        acceptance_tests=acceptance_tests,
+        openspec_change=openspec_change,
+        ccpm_issue=ccpm_issue,
+        gate=gate,
         timeout_seconds=timeout,
         **kwargs
     )
@@ -73,6 +86,7 @@ def run_aider_fix(
         error_details=error_details,
         repo_root=repo_root,
         ws_id=ws_id,
+        run_id=run_id,
         timeout_seconds=timeout,
         **kwargs
     )

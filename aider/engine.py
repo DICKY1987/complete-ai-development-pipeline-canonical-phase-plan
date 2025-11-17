@@ -92,12 +92,33 @@ class TemplateRender:
         return _render_template(self.template, self.context)
 
 
-def build_edit_prompt(tasks: list[str], repo_path: Path, ws_id: str, **kwargs: Any) -> str:
+def build_edit_prompt(
+    tasks: list[str],
+    repo_path: Path,
+    ws_id: str,
+    run_id: str = "",
+    worktree_path: Path | None = None,
+    files_scope: list[str] | None = None,
+    files_create: list[str] | None = None,
+    acceptance_tests: list[str] | None = None,
+    openspec_change: str = "",
+    ccpm_issue: str = "",
+    gate: int | str = "",
+    **kwargs: Any,
+) -> str:
     """Build EDIT prompt from template tasks.txt.j2."""
     context = {
         "tasks": tasks,
-        "repo_path": str(repo_path),
+        "repo_root": str(repo_path),  # Fixed: was repo_path, should be repo_root
         "ws_id": ws_id,
+        "run_id": run_id,
+        "worktree_path": str(worktree_path) if worktree_path else str(repo_path),
+        "files_scope": files_scope or [],
+        "files_create": files_create or [],
+        "acceptance_tests": acceptance_tests or [],
+        "openspec_change": openspec_change,
+        "ccpm_issue": ccpm_issue,
+        "gate": gate,
         "timestamp": datetime.utcnow().isoformat() + "Z",
     }
     context.update(kwargs)
@@ -110,6 +131,8 @@ def build_fix_prompt(
     files: list[str],
     repo_path: Path,
     ws_id: str,
+    run_id: str = "",
+    worktree_path: Path | None = None,
     **kwargs: Any,
 ) -> str:
     """Build FIX prompt from template fix.txt.j2."""
@@ -117,8 +140,10 @@ def build_fix_prompt(
         "error_summary": error_summary,
         "error_details": error_details,
         "files": files,
-        "repo_path": str(repo_path),
+        "repo_root": str(repo_path),  # Fixed: was repo_path, should be repo_root
         "ws_id": ws_id,
+        "run_id": run_id,
+        "worktree_path": str(worktree_path) if worktree_path else str(repo_path),
         "timestamp": datetime.utcnow().isoformat() + "Z",
     }
     context.update(kwargs)
@@ -140,11 +165,30 @@ def run_aider_edit(
     tasks: list[str],
     repo_root: Path,
     ws_id: str,
+    run_id: str = "",
+    files_create: list[str] | None = None,
+    acceptance_tests: list[str] | None = None,
+    openspec_change: str = "",
+    ccpm_issue: str = "",
+    gate: int | str = "",
     timeout_seconds: int = 300,
     **template_kwargs: Any,
 ) -> ToolResult:
     """Run aider in EDIT mode with generated prompt."""
-    prompt = build_edit_prompt(tasks, repo_root, ws_id, **template_kwargs)
+    prompt = build_edit_prompt(
+        tasks=tasks,
+        repo_path=repo_root,
+        ws_id=ws_id,
+        run_id=run_id,
+        worktree_path=cwd,
+        files_scope=files,
+        files_create=files_create,
+        acceptance_tests=acceptance_tests,
+        openspec_change=openspec_change,
+        ccpm_issue=ccpm_issue,
+        gate=gate,
+        **template_kwargs,
+    )
     prompt_file = prepare_aider_prompt_file(cwd, "edit", prompt)
 
     context = {
@@ -164,12 +208,20 @@ def run_aider_fix(
     error_details: str,
     repo_root: Path,
     ws_id: str,
+    run_id: str = "",
     timeout_seconds: int = 300,
     **template_kwargs: Any,
 ) -> ToolResult:
     """Run aider in FIX mode with generated prompt."""
     prompt = build_fix_prompt(
-        error_summary, error_details, files, repo_root, ws_id, **template_kwargs
+        error_summary=error_summary,
+        error_details=error_details,
+        files=files,
+        repo_path=repo_root,
+        ws_id=ws_id,
+        run_id=run_id,
+        worktree_path=cwd,
+        **template_kwargs,
     )
     prompt_file = prepare_aider_prompt_file(cwd, "fix", prompt)
 
