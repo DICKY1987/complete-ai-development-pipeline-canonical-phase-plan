@@ -146,13 +146,15 @@ def run_aider_edit(
     """Run aider in EDIT mode with generated prompt."""
     prompt = build_edit_prompt(tasks, repo_root, ws_id, **template_kwargs)
     prompt_file = prepare_aider_prompt_file(cwd, "edit", prompt)
-    return run_tool(
-        "aider",
-        cwd=cwd,
-        timeout_seconds=timeout_seconds,
-        files=files,
-        prompt_file=str(prompt_file),
-    )
+
+    context = {
+        "worktree_path": str(cwd),
+        "timeout_seconds": timeout_seconds,
+        "files": files,
+        "prompt_file": str(prompt_file),
+        "repo_root": str(repo_root),
+    }
+    return run_tool("aider", context)
 
 
 def run_aider_fix(
@@ -170,10 +172,12 @@ def run_aider_fix(
         error_summary, error_details, files, repo_root, ws_id, **template_kwargs
     )
     prompt_file = prepare_aider_prompt_file(cwd, "fix", prompt)
-    return run_tool(
-        "aider",
-        cwd=cwd,
-        timeout_seconds=timeout_seconds,
-        files=files,
-        prompt_file=str(prompt_file),
-    )
+
+    context = {
+        "worktree_path": str(cwd),
+        "timeout_seconds": timeout_seconds,
+        "files": files,
+        "prompt_file": str(prompt_file),
+        "repo_root": str(repo_root),
+    }
+    return run_tool("aider", context)
