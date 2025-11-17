@@ -24,7 +24,7 @@ scripts in `scripts/`, schema in `schema/`, and documentation in `docs/`.
 - `tests/` – unit/integration tests (pipeline, plugins, orchestrator, spec tools).
 - `.worktrees/` – per‑workstream working directories created at run time.
 - `state/` and/or `.state/` – local state, reports, and DB files (dev/runtime artifacts).
-- Guidance/notes: `AIDER_PROMNT_HELP/`, `Coordination Mechanisms/`, `GUI_PIPELINE/`, `PHASE_DEV_DOCS/`.
+- Guidance/notes: `AIDER_PROMNT_HELP/`, `Coordination Mechanisms/`, `gui/`, `PHASE_DEV_DOCS/`.
 
 ## Workstream Bundles & Validation
 

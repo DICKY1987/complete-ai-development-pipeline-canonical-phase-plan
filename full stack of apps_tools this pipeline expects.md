@@ -134,7 +134,7 @@ Used to connect pipeline output to your broader dev workflow:
   * Used in the spec to:
 
     * Create PRs: `gh pr create …`
-    * Comment on CCPM/GitHub issues: `gh issue comment $ws.ccpm_issue …`
+    * Comment on pm/GitHub issues: `gh issue comment $ws.ccpm_issue …`
   * Tied to PH-08 (“Integrations (OpenSpec, CCPM, GitHub)”) for:
 
     * Branch & PR automation.
@@ -240,3 +240,4 @@ The plan allows either Python task runners or pure CLI/PowerShell:
 * OpenSpec/CCPM-specific CLIs or libraries, if you want deeper automation there.
 
 If you want, next I can turn this into a **checklist script** (PowerShell) that verifies each tool is installed, prints versions/paths, and writes a little “pipeline readiness report” you can run anytime.
+

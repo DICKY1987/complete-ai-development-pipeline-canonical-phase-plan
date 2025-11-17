@@ -270,7 +270,7 @@ def main(argv: List[str]) -> int:
     ap.add_argument("--out", type=str, default="bundles", help="Output bundles directory")
     ap.add_argument("--echo", action="store_true", help="Echo normalized YAML to stdout")
     ap.add_argument("--generate-bundle", action="store_true", help="Generate bundle YAML to --out")
-    ap.add_argument("--create-epic", action="store_true", help="Stub: print epic payload for CCPM/GitHub")
+    ap.add_argument("--create-epic", action="store_true", help="Stub: print epic payload for pm/GitHub")
     args = ap.parse_args(argv)
 
     out_dir = Path(args.out)
@@ -310,3 +310,4 @@ def main(argv: List[str]) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main(sys.argv[1:]))
+

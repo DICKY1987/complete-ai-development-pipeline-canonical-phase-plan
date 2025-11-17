@@ -13,7 +13,7 @@
 - tests/: unit/integration tests for scripts/tools/pipeline.
 - assets/: diagrams and images referenced by docs.
 - sandbox_repos/: self-contained toy repos for integration tests (excluded from pytest by default).
-- PHASE_DEV_DOCS/, Coordination Mechanisms/, GUI_PIPELINE/: phase notes and coordination guides.
+- PHASE_DEV_DOCS/, Coordination Mechanisms/, gui/: phase notes and coordination guides.
 
 ## Build, test, and development commands
 - Environment setup (recommended):

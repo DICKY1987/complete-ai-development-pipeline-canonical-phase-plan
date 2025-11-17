@@ -35,7 +35,7 @@ if ($UseSubmodule -and (Test-Path (Join-Path $repoRoot '.git'))) {
   # Lightweight vendor: clone to temp, then materialize runtime layout
   if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
     Write-Warn 'git not found; attempting ZIP download'
-    $zipUrl = 'https://codeload.github.com/automazeio/ccpm/zip/refs/heads/main'
+    $zipUrl = 'https://codeload.github.com/automazeio/pm/zip/refs/heads/main'
     $zipPath = Join-Path $env:TEMP "ccpm.zip"
     Invoke-WebRequest -UseBasicParsing -Uri $zipUrl -OutFile $zipPath
     $tmpDir = Join-Path $env:TEMP ("ccpm_" + [guid]::NewGuid().ToString('N'))
@@ -81,4 +81,5 @@ if (Test-Path -LiteralPath $ccpmPmDir) {
   Write-Err 'CCPM install failed (pm scripts not found)'
   exit 1
 }
+
 

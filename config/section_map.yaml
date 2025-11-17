@@ -107,12 +107,12 @@ sections:
     risk: medium
     notes: error pipeline modules and docs
 
-  - name: gui-pipeline
-    target-root: GUI_PIPELINE/
+  - name: gui
+    target-root: gui/
     match:
-      - "GUI_PIPELINE/**"
+      - "gui/**"
     risk: medium
-    notes: GUI-related pipeline artifacts
+    notes: GUI-related pipeline artifacts and documentation
 
   - name: sandbox-repos
     target-root: sandbox_repos/
@@ -157,5 +157,5 @@ mapping-rules:
       workstreams: workstreams/
       PHASE_DEV_DOCS: PHASE_DEV_DOCS/
       MOD_ERROR_PIPELINE: MOD_ERROR_PIPELINE/
-      GUI_PIPELINE: GUI_PIPELINE/
+      gui: gui/
       sandbox_repos: sandbox_repos/

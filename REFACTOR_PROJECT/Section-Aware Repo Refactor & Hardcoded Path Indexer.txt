@@ -140,7 +140,7 @@ You must produce:
      tools/
      schemas/
    pm/
-     ccpm/
+     pm/
      github_sync.py
    aim/
    aider/
@@ -483,3 +483,4 @@ You **must**:
 
 This document is intended to be dropped directly into the repo (e.g. as
 `docs/SECTION_REFACTOR_AND_PATH_INDEX_SPEC.md`) and used as the **operating contract** for any agentic AI CLI app performing the section refactor and implementing the hardcoded path indexer.
+

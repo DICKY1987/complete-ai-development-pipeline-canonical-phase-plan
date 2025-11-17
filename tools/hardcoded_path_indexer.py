@@ -58,7 +58,7 @@ TRACKED_PATTERNS = [
     "workstreams/",
     "PHASE_DEV_DOCS",
     "MOD_ERROR_PIPELINE",
-    "GUI_PIPELINE",
+    "gui",
     "sandbox_repos/",
 ]
 

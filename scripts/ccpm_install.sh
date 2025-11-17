@@ -22,7 +22,7 @@ if command -v git >/dev/null 2>&1; then
   git clone --depth 1 https://github.com/automazeio/ccpm.git "$SRC" >/dev/null 2>&1
 else
   echo "[ccpm:install] git not found; downloading ZIP"
-  curl -sSL -o "$TMPDIR/ccpm.zip" https://codeload.github.com/automazeio/ccpm/zip/refs/heads/main
+  curl -sSL -o "$TMPDIR/ccpm.zip" https://codeload.github.com/automazeio/pm/zip/refs/heads/main
   mkdir -p "$SRC"
   unzip -q "$TMPDIR/ccpm.zip" -d "$TMPDIR"
   mv "$TMPDIR"/ccpm-* "$SRC"
@@ -47,4 +47,5 @@ else
   echo "[ccpm:install] pm scripts not found after install" >&2
   exit 1
 fi
+
 

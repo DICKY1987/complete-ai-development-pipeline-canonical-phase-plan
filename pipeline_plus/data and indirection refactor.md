@@ -206,7 +206,7 @@ You already have hooks:
 
 * Workstream schema has `ccpm_issue` to link a workstream to an issue/epic.
 * Orchestrator has optional `github_sync` integration that posts lifecycle comments as WS progresses.
-* `openspec_parser.py` can generate a CCPM/GitHub epic payload via `--create-epic`.
+* `openspec_parser.py` can generate a pm/GitHub epic payload via `--create-epic`.
 
 **Recommended pattern:**
 
@@ -238,7 +238,7 @@ You already have hooks:
      * Use the CCPM CLI / MCP integration from Claude Code to show progress or trigger `scripts/run_workstream.py` from inside Claude Code sessions.
    * The dependency table in `dependency-aware path.md` is already in a CCPM-friendly format (WS ID + dependencies).
 
-Net effect: **OpenSpec → CCPM/GitHub → Workstreams → Orchestrator** is one continuous chain.
+Net effect: **OpenSpec → pm/GitHub → Workstreams → Orchestrator** is one continuous chain.
 
 ---
 
@@ -260,3 +260,4 @@ If you’d like, next step I can help you:
 
 * Sketch the actual `workstreams/ws-01-hardcoded-path-index.json` and `ws-02-section-map.json`, including which tool to use and acceptance tests.
 * Or write a prompt template for Codex/Gemini to implement `hardcoded_path_indexer.py` exactly to your spec so you only burn one or two “expensive” calls.
+

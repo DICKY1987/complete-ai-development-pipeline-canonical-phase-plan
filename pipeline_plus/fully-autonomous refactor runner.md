@@ -111,7 +111,7 @@ You want a **tool-neutral** workstream record that looks roughly like:
 Then:
 
 * **OpenSpec**: define a change (e.g., `OS-REF-SECTION`), and use OpenSpec’s CLI to generate or verify the task list and ensure your workstreams map cleanly to the spec. ([GitHub][1])
-* **CCPM**: create matching GitHub Issues (one per workstream) so CCPM/Claude Code can see and manipulate the same tasks if you want to pull them into Claude Code’s project view. ([GitHub][2])
+* **CCPM**: create matching GitHub Issues (one per workstream) so pm/Claude Code can see and manipulate the same tasks if you want to pull them into Claude Code’s project view. ([GitHub][2])
 
 This is your **single source of truth** for the refactor.
 
@@ -398,4 +398,5 @@ I’d still recommend at least:
 But that’s a “verify and sign off” step, not part of the main loop.
 
 ---
+
 

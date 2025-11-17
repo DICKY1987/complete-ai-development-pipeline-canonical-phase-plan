@@ -106,10 +106,10 @@
      │                                                                         │
      │ WS-07: Refactor PM Section - CCPM 📊                                    │
      │                                                                         │
-     │ Target: pm/ ← ccpm/ (70+ files), src/integrations/github_sync.py        │
+     │ Target: pm/ ← pm/ (70+ files), src/integrations/github_sync.py        │
      │ Files: CCPM commands/agents/rules, GitHub sync, PM scripts              │
      │ Changes:                                                                │
-     │ - Move entire ccpm/ directory                                           │
+     │ - Move entire pm/ directory                                           │
      │ - Move github_sync.py → pm/integrations/                                │
      │ - Update CCPM install/update scripts                                    │
      │ Risk: MEDIUM (large but self-contained)                                 │
@@ -324,6 +324,7 @@
      │                                                                         │
      │                                                                         │
      ╰─────────────────────────────────────────────────────────────────────────╯
+
 
 
 

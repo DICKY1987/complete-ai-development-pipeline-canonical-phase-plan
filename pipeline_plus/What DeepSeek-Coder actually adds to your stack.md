@@ -38,7 +38,7 @@ You can introduce a *new axis* in your pipeline:
 * **Remote / expensive / high-intelligence engines**
 
   * Codex / Claude / Gemini
-  * Use for: architecture, design, complex reasoning, operating contract design, CCPM/OpenSpec shaping.
+  * Use for: architecture, design, complex reasoning, operating contract design, pm/OpenSpec shaping.
 
 * **Local / cheap / brute-force engines (DeepSeek-Coder via Ollama)**
 
@@ -87,7 +87,7 @@ Given what you’re building, I’d plug it in like this:
      * `tool_id`: `ollama.deepseek_coder.local`
      * `capabilities`: `code_edit`, `refactor`, `explain`, `tests_generate`
      * `cost_model`: “local / unmetered”
-   * Now CCPM/OpenSpec can route certain workstreams to this tool.
+   * Now pm/OpenSpec can route certain workstreams to this tool.
 
 2. **Aider mode: DeepSeek backend**
 
@@ -151,7 +151,8 @@ So yes: you’re not just “adding another model,” you’re effectively:
 If you want, next step I can sketch:
 
 * A **tiny “DeepSeek-Coder Capability Card”** in your usual schema
-* A **sample CCPM/OpenSpec workstream** that says:
+* A **sample pm/OpenSpec workstream** that says:
   “Use `ollama.deepseek_coder.local` to implement the PATH_INDEX hard-coded path refactor, including logging, tests, and safety rails”
 
 so you can drop it straight into your existing pipeline.
+

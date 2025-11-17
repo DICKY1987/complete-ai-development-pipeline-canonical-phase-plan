@@ -1,10 +1,10 @@
 # Phase 09 – CCPM optimization checklist
 
 ## M1 — Install CCPM and wire commands
-- [ ] Add `ccpm/` (submodule or vendored) with scripts and commands
+- [ ] Add `pm/` (submodule or vendored) with scripts and commands
 - [ ] Update `scripts/bootstrap.ps1` to install/update CCPM
 - [ ] Add `scripts/ccpm_install.ps1`, `scripts/ccpm_update.ps1`
-- [ ] Verify `.claude/commands/pm/*` resolve to `ccpm/scripts/pm/*`
+- [ ] Verify `.claude/commands/pm/*` resolve to `pm/scripts/pm/*`
 
 ## M2 — GitHub issues integration hooks
 - [ ] Add `src/integrations/github_sync.py` (gh first, API fallback)
@@ -36,4 +36,5 @@
 - [ ] Add CI jobs (dry‑run) for CCPM flows
 - [ ] Add feature flags (`ENABLE_PARALLEL`, `ENABLE_WORKTREES`, `ENABLE_GH_SYNC`)
 - [ ] Add structured logging and diagnostics
+
 

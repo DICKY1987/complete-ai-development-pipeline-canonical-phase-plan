@@ -70,7 +70,7 @@ By the end of PH-04, the repo MUST have at minimum:
       - ID linking to OpenSpec change / requirement.
 
     - ccpm_issue        (integer or string)
-      - ID of related issue (GitHub/CCPM/etc.).
+      - ID of related issue (GitHub/pm/etc.).
 
     - gate              (integer)
       - Minimum: 1
@@ -381,3 +381,4 @@ INTERACTION STYLE
   - JSON, Python, and Markdown file contents you would create or modify.
 
 END OF PROMPT
+

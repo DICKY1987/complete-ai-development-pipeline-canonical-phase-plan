@@ -6,7 +6,7 @@ This tool scans the repository to index hardcoded paths, Python imports, and pat
 
 - Scans code (`.py`, `.ps1`, `.psm1`, `.sh`, `.bat`, `.cmd`), configs (`.yml/.yaml`, `.json`, `.ini/.cfg/.toml`), and docs (`.md`, `.txt`).
 - Classifies occurrences by kind: `code_import`, `fs_literal`, `code_path`, `config_path`, `doc_link`.
-- Tracks section patterns (e.g., `src/`, `tests/`, `docs/`, `tools/`, `config/`, `schema/`, `openspec/`, `PHASE_DEV_DOCS`, `MOD_ERROR_PIPELINE`, `GUI_PIPELINE`).
+- Tracks section patterns (e.g., `src/`, `tests/`, `docs/`, `tools/`, `config/`, `schema/`, `openspec/`, `PHASE_DEV_DOCS`, `MOD_ERROR_PIPELINE`, `gui`).
 - Persists results to `refactor_paths.db` (SQLite) with `files` and `occurrences` tables.
 - CLI provides `scan`, `report`, `summary`, and `export` commands.
 
