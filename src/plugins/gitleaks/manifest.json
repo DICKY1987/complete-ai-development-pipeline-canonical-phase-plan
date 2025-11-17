@@ -1,0 +1,9 @@
+{
+  "plugin_id": "gitleaks",
+  "name": "Gitleaks",
+  "file_extensions": ["*"],
+  "requires": [],
+  "tool": {
+    "success_codes": [0, 1]
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "plugin_id": "powershell_pssa",
+  "name": "PSScriptAnalyzer",
+  "file_extensions": ["ps1", "psm1"],
+  "requires": [],
+  "tool": {
+    "success_codes": [0]
+  }
+}
