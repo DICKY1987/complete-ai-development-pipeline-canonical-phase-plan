@@ -27,6 +27,7 @@ Thumbs.db
 # Logs & build artifacts
 logs/
 *.log
+*.jsonl
 dist/
 build/
 coverage/

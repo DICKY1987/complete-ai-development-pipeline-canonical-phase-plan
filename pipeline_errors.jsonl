@@ -1,2 +1,0 @@
-{"event":"validated","file":"/tmp/pytest-of-runner/pytest-0/test_engine_skip_on_unchanged0/a.py","out":"/tmp/pytest-of-runner/pytest-0/test_engine_skip_on_unchanged0/a_VALIDATED_20251117T041734336987Z_20251117T041734Z.py","run_id":"20251117T041734Z","ts":"2025-11-17T04:17:34.336987Z","summary":{"errors":0,"warnings":0}}
-{"event":"skipped","file":"/tmp/pytest-of-runner/pytest-0/test_engine_skip_on_unchanged0/a.py","run_id":"20251117T041734Z","ts":"2025-11-17T04:17:34.345516Z"}

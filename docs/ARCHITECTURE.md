@@ -4,9 +4,23 @@ This repository implements a multi‑phase AI development pipeline with clear
 workstreams. The code is organized under `src/pipeline/` with supporting
 scripts in `scripts/`, schema in `schema/`, and documentation in `docs/`.
 
+## Modular Architecture
+
+The codebase follows a **modular architecture** with clear boundaries and dependencies:
+
+- **Pipeline Module** (`src/pipeline/`) - Core orchestration and workflow execution
+- **Plugins Module** (`src/plugins/`) - Extensible tool integration ecosystem
+- **Utils Module** (`src/utils/`) - Shared utilities and data structures
+
+**See Also:**
+- **Modular Architecture Guide:** `docs/MODULAR_ARCHITECTURE.md` - Detailed design and principles
+- **Module Interface Definitions:** `docs/MODULE_INTERFACES.md` - Public API contracts
+- **Architectural Tests:** `tests/test_architecture.py` - Automated validation
+
 ## Components
 
 - Pipeline core: `src/pipeline/` modules (orchestrator, scheduler, executor).
+- Plugin ecosystem: `src/plugins/` with 18+ tool integrations (linters, formatters, security scanners).
 - Persistence: SQLite state store defined in `schema/schema.sql`.
 - Tooling: profile-driven adapter in `src/pipeline/tools.py` (PH-03).
 - Utilities: prompts, worktree helpers, circuit breakers, recovery, bundles.
