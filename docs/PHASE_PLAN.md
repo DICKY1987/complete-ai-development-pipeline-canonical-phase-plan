@@ -73,7 +73,7 @@ Artifacts added:
 - `docs/aider_contract.md` - integration contract (CONTRACT_VERSION AIDER_CONTRACT_V1)
 - `config/tool_profiles.json` - `aider` profile with flags, env, working dir, timeout
 - `src/pipeline/prompts.py` - prompt engine, helpers to run Aider, DB event recording
-- `templates/prompts/edit_prompt.txt.j2`, `templates/prompts/fix_prompt.txt.j2` - prompt templates
+- `aider/templates/prompts/edit_prompt.txt.j2`, `aider/templates/prompts/fix_prompt.txt.j2` - prompt templates
 - `sandbox_repos/sandbox_python/` - small test repo
 - `tests/integration/test_aider_sandbox.py` - integration test (skips if Aider missing)
 
@@ -115,7 +115,7 @@ The system provides a clear, documented process for creating `workstreams/*.json
 **Artifacts:**
 
 -   `docs/workstream_authoring_guide.md`: Comprehensive guide for authoring workstream bundles.
--   `templates/workstream_template.json`: Canonical JSON template for new workstreams.
+-   `aider/templates/workstream_template.json`: Canonical JSON template for new workstreams.
 -   `scripts/validate_workstreams_authoring.py`: CLI script for validating workstream bundles, supporting human-readable and JSON output.
 -   `tests/pipeline/test_workstream_authoring.py`: Unit tests covering template validity, validation success/failure, overlap detection, and JSON mode.
 -   (Optional v2.0 Stubs):
@@ -306,3 +306,4 @@ Commands:
 - `python tools/spec_resolver/resolver.py spec://01-architecture/00-overview#p-2`
 - `python tools/spec_patcher/patcher.py --id <ID> --text "New paragraph"`
 - `python tools/spec_guard/guard.py`
+

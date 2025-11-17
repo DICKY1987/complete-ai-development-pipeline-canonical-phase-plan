@@ -27,7 +27,7 @@ Usage:
   AIM_ai-steward.ps1 capability <name> <payload-json-or-path> [-Json] [-RegistryRoot <path>]
 
 Env:
-  AI_TOOLS_REGISTRY_ROOT (defaults to $HOME\.AIM_ai-tools-registry)
+  AI_TOOLS_REGISTRY_ROOT (optional, overrides default repo-based lookup)
 '@ | Write-Host
 }
 
@@ -39,8 +39,7 @@ if (-not (Test-Path $modulePath)) {
 
 Import-Module $modulePath -Force
 
-$defaultRoot = if ($env:AI_TOOLS_REGISTRY_ROOT) { $env:AI_TOOLS_REGISTRY_ROOT } else { Join-Path $HOME '.AIM_ai-tools-registry' }
-$root = if ($RegistryRoot) { $RegistryRoot } else { $defaultRoot }
+$root = Get-RegistryRoot $RegistryRoot
 
 switch ($Command) {
   'help' { Write-Usage; exit 0 }

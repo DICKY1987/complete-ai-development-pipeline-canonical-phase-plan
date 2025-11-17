@@ -4,6 +4,17 @@ $ErrorActionPreference = 'Stop'
 function Get-RegistryRoot([string]$RegistryRoot) {
   if ($RegistryRoot) { return $RegistryRoot }
   if ($env:AI_TOOLS_REGISTRY_ROOT) { return $env:AI_TOOLS_REGISTRY_ROOT }
+  # Find repo root
+  $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Definition
+  $currentDir = $scriptDir
+  while ($currentDir.Parent -ne $null -and -not (Test-Path (Join-Path $currentDir '.git'))) {
+    $currentDir = $currentDir.Parent
+  }
+  if (Test-Path (Join-Path $currentDir '.git')) {
+    return (Join-Path $currentDir 'aim/.AIM_ai-tools-registry')
+  }
+
+  # Fallback to HOME if .git not found
   return (Join-Path $HOME '.AIM_ai-tools-registry')
 }
 

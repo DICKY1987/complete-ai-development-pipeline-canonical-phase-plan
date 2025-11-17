@@ -373,7 +373,7 @@ Circuit breaker thresholds in `src/pipeline/circuit_breakers.py`
 - **config/**: Runtime configuration
 - **tools/**: Spec tooling (separate from pipeline)
 - **docs/**: Architecture, contracts, phase plans
-- **templates/**: Jinja2 prompt templates
+- **aider/templates/**: Jinja2 prompt templates
 - **openspec/**: OpenSpec project/specs
 - **.worktrees/**: Runtime per-workstream directories (gitignored)
 - **state/**: SQLite DB and reports (gitignored)
@@ -381,7 +381,7 @@ Circuit breaker thresholds in `src/pipeline/circuit_breakers.py`
 ## Important Patterns
 
 ### Workstream Authoring
-1. Start with `templates/workstream_template.json`
+1. Start with `aider/templates/workstream_template.json`
 2. Follow `docs/workstream_authoring_guide.md`
 3. Validate with `scripts/validate_workstreams_authoring.py`
 4. Required fields: `id`, `files`, `tasks`, `dependencies`
@@ -399,7 +399,7 @@ Circuit breaker thresholds in `src/pipeline/circuit_breakers.py`
 3. Optional: Add AIM adapter in `.AIM_ai-tools-registry/AIM_adapters/`
 
 ### Prompt Engineering
-1. Create Jinja2 template in `templates/prompts/*.txt.j2`
+1. Create Jinja2 template in `aider/templates/prompts/*.txt.j2`
 2. Use `src/pipeline/prompts.py::run_aider_edit()` or `run_aider_fix()`
 3. Prompts rendered to `<worktree>/.aider/prompts/`
 
@@ -510,3 +510,4 @@ All contracts are versioned and documented in `docs/`:
 2. Review event log in `events` table for traceability
 3. Examine error reports in `.state/error_pipeline/<run>/<ws>/`
 4. Enable `--dry-run` to simulate without external tool calls
+

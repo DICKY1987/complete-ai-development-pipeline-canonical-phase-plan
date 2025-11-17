@@ -2,10 +2,10 @@
 set -euo pipefail
 
 ROOT_DIR=$(cd "$(dirname "$0")/.." && pwd)
-RUNTIME_DIR="$ROOT_DIR/ccpm"
+RUNTIME_DIR="$ROOT_DIR/pm"
 
 if [[ ! -d "$RUNTIME_DIR" ]]; then
-  echo "[ccpm:update] CCPM not present; installing"
+  echo "[pm:update] PM not present; installing"
   "$(dirname "$0")/ccpm_install.sh"
   exit $?
 fi
@@ -16,13 +16,13 @@ trap cleanup EXIT
 
 SRC="$TMPDIR/src"
 git clone --depth 1 https://github.com/automazeio/ccpm.git "$SRC" >/dev/null 2>&1 || {
-  echo "[ccpm:update] git clone failed" >&2
+  echo "[pm:update] git clone failed" >&2
   exit 1
 }
 
 PAYLOAD="$SRC/ccpm"
 if [[ ! -d "$PAYLOAD" ]]; then
-  echo "[ccpm:update] Unexpected repository layout; expected /ccpm subdir" >&2
+  echo "[pm:update] Unexpected repository layout; expected /ccpm subdir" >&2
   exit 1
 }
 
@@ -34,9 +34,8 @@ for d in scripts commands rules agents context hooks prds epics; do
 done
 
 if [[ -d "$RUNTIME_DIR/scripts/pm" ]]; then
-  echo "[ccpm:update] Updated CCPM runtime at $RUNTIME_DIR"
+  echo "[pm:update] Updated PM runtime at $RUNTIME_DIR"
 else
-  echo "[ccpm:update] pm scripts not found after update" >&2
+  echo "[pm:update] pm scripts not found after update" >&2
   exit 1
 fi
-

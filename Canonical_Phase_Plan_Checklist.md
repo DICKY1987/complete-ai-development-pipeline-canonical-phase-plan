@@ -36,7 +36,7 @@
 
 ### Phase 03.5 – Aider Integration Contract & Prompt Template System
 - [ ] Define a precise, written integration contract for the Aider CLI in `docs/aider_contract.md`.
-- [ ] Implement a prompt engine in `src/pipeline/prompts.py` using Jinja templates located in `templates/prompts/`.
+- [ ] Implement a prompt engine in `src/pipeline/prompts.py` using Jinja templates located in `aider/templates/prompts/`.
 - [ ] Wire Aider through the existing `run_tool()` adapter.
 - [ ] Add sandbox repositories (`sandbox_repos/`) and integration tests (`tests/integration/test_aider_sandbox.py`) to validate Aider behavior.
 - [ ] Update `docs/ARCHITECTURE.md` with an "Aider Integration & Prompt Engine" section.
@@ -68,7 +68,7 @@
 
 ### Phase 05.5 – Workstream Bundle Generator
 - [ ] Create a comprehensive authoring guide for workstream bundles in `docs/workstream_authoring_guide.md`.
-- [ ] Provide a canonical JSON template for new workstreams in `templates/workstream_template.json`.
+- [ ] Provide a canonical JSON template for new workstreams in `aider/templates/workstream_template.json`.
 - [ ] Implement an authoring-focused validation script `scripts/validate_workstreams_authoring.py`.
 - [ ] (Optional) Scaffold an automated planner module `src/pipeline/planner.py` and `config/decomposition_rules.yaml`.
 - [ ] Add tests for the authoring and validation workflow in `tests/pipeline/test_workstream_authoring.py`.
@@ -108,3 +108,4 @@
 - [ ] Implement functionality to render unified documentation views from multi-part specs.
 - [ ] Add tests for all spec management tools in `tests/tools/`.
 - [ ] Update `docs/ARCHITECTURE.md` with a "Multi-Document Versioning & Spec Management" section.
+

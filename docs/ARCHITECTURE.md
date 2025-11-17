@@ -19,7 +19,7 @@ scripts in `scripts/`, schema in `schema/`, and documentation in `docs/`.
 - `workstreams/` – authored bundle JSONs; inputs to validation and orchestration.
 - `config/` – tool profiles, breaker settings, decomposition rules, AIM config.
 - `tools/` – spec tooling (indexer, resolver, patcher, renderer, guard) for OpenSpec/docs.
-- `templates/` – prompt templates consumed by `src/pipeline/prompts.py`.
+- `aider/templates/` – prompt templates consumed by `src/pipeline/prompts.py`.
 - `openspec/` – OpenSpec project/specs that drive bundle generation and indexing.
 - `tests/` – unit/integration tests (pipeline, plugins, orchestrator, spec tools).
 - `.worktrees/` – per‑workstream working directories created at run time.
@@ -39,7 +39,7 @@ scripts in `scripts/`, schema in `schema/`, and documentation in `docs/`.
 This phase introduces tools and documentation to make authoring workstream bundles easier and safer.
 
 - **Authoring Guide:** `docs/workstream_authoring_guide.md` provides comprehensive instructions for humans and AI on how to create valid workstream bundles, including purpose, required fields, rules, and a step-by-step workflow.
-- **Canonical Template:** `templates/workstream_template.json` offers a pre-filled JSON structure that aligns with `schema/workstream.schema.json`, serving as a starting point for new bundles.
+- **Canonical Template:** `aider/templates/workstream_template.json` offers a pre-filled JSON structure that aligns with `schema/workstream.schema.json`, serving as a starting point for new bundles.
 - **Authoring Validator:** `scripts/validate_workstreams_authoring.py` is a dedicated CLI tool for authors to validate their workstream bundles. It wraps the core validation logic from `src/pipeline/bundles.py` (schema, dependency, cycle, and file-scope overlap checks) and provides clear, human-readable error messages or machine-readable JSON output. This ensures that bundles are correct before being committed or used by the orchestrator.
 - **Automated Planner (Stub):** `src/pipeline/planner.py` and `config/decomposition_rules.yaml` provide a stub for future v2.0 automation, allowing for the programmatic generation of draft workstreams from higher-level specifications. `scripts/generate_workstreams.py` is a CLI stub for this functionality.
 
@@ -53,7 +53,7 @@ This authoring system directly supports the PH-04 validation pipeline by ensurin
 4. Generate artifacts and reports.
 
 Data flow by folder:
-- Authoring inputs → `workstreams/`, `openspec/`, `templates/`, `docs/`.
+- Authoring inputs → `workstreams/`, `openspec/`, `aider/templates/`, `docs/`.
 - Validation & indexing → `scripts/validate_workstreams.py`, `tools/` using `schema/`.
 - Orchestration → `scripts/run_workstream.py` invoking `src/pipeline/…` and writing to `.worktrees/`.
 - State & observability → `src/pipeline/crud_operations.py` → `state/` DB and events.
@@ -67,7 +67,7 @@ See also:
 
 - Contract: documented in `docs/aider_contract.md` (CONTRACT_VERSION: AIDER_CONTRACT_V1).
 - Tool profile: `config/tool_profiles.json` contains an `aider` entry invoked via the adapter.
-- Prompt engine: `src/pipeline/prompts.py` renders EDIT and FIX prompts from `templates/prompts/*.txt.j2` and writes them under `<worktree>/.aider/prompts/`.
+- Prompt engine: `src/pipeline/prompts.py` renders EDIT and FIX prompts from `aider/templates/prompts/*.txt.j2` and writes them under `<worktree>/.aider/prompts/`.
 - Helpers: `run_aider_edit` and `run_aider_fix` build prompts, persist them, call `run_tool("aider", ...)`, and record `tool_run` events when `run_id`/`ws_id` are provided.
 - Sandbox: `sandbox_repos/sandbox_python` provides a tiny repo for integration tests.
 
@@ -191,3 +191,4 @@ AIM is an **optional enhancement layer**:
 
 - **Contract**: `docs/AIM_INTEGRATION_CONTRACT.md` (AIM_INTEGRATION_V1)
 - **Capabilities**: `docs/AIM_CAPABILITIES_CATALOG.md` lists known capabilities with schemas
+

@@ -6,17 +6,17 @@ param(
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
-function Write-Info($msg) { if (-not $Quiet) { Write-Host "[ccpm:install] $msg" } }
-function Write-Ok($msg)   { if (-not $Quiet) { Write-Host "[ccpm:install] $msg" -ForegroundColor Green } }
-function Write-Warn($msg) { if (-not $Quiet) { Write-Host "[ccpm:install] $msg" -ForegroundColor Yellow } }
-function Write-Err($msg)  { Write-Host "[ccpm:install] $msg" -ForegroundColor Red }
+function Write-Info($msg) { if (-not $Quiet) { Write-Host "[pm:install] $msg" } }
+function Write-Ok($msg)   { if (-not $Quiet) { Write-Host "[pm:install] $msg" -ForegroundColor Green } }
+function Write-Warn($msg) { if (-not $Quiet) { Write-Host "[pm:install] $msg" -ForegroundColor Yellow } }
+function Write-Err($msg)  { Write-Host "[pm:install] $msg" -ForegroundColor Red }
 
 try { $repoRoot = Resolve-Path (Join-Path $PSScriptRoot '..') } catch { $repoRoot = (Get-Location).Path }
-$ccpmRuntime = Join-Path $repoRoot 'ccpm'
-$ccpmPmDir   = Join-Path $ccpmRuntime 'scripts/pm'
+$pmRuntime = Join-Path $repoRoot 'pm'
+$pmPmDir   = Join-Path $pmRuntime 'scripts/pm'
 
-if (Test-Path -LiteralPath $ccpmPmDir) {
-  Write-Ok "CCPM already present at $ccpmPmDir"
+if (Test-Path -LiteralPath $pmPmDir) {
+  Write-Ok "PM already present at $pmPmDir"
   exit 0
 }
 
@@ -26,10 +26,10 @@ if ($UseSubmodule -and (Test-Path (Join-Path $repoRoot '.git'))) {
   Write-Info 'Adding CCPM as a git submodule'
   pushd $repoRoot | Out-Null
   try {
-    if (-not (Test-Path -LiteralPath (Join-Path $repoRoot 'ccpm'))) {
-      git submodule add https://github.com/automazeio/ccpm.git ccpm | Out-Null
-    }
-    git submodule update --init --recursive ccpm | Out-Null
+  if (-not (Test-Path -LiteralPath (Join-Path $repoRoot 'pm'))) {
+      git submodule add https://github.com/automazeio/ccpm.git pm | Out-Null
+  }
+  git submodule update --init --recursive pm | Out-Null
   } finally { popd | Out-Null }
 } else {
   # Lightweight vendor: clone to temp, then materialize runtime layout
@@ -50,11 +50,11 @@ if ($UseSubmodule -and (Test-Path (Join-Path $repoRoot '.git'))) {
   }
 
   # Ensure runtime dir exists
-  if (-not (Test-Path -LiteralPath $ccpmRuntime)) {
-    New-Item -ItemType Directory -Path $ccpmRuntime | Out-Null
+  if (-not (Test-Path -LiteralPath $pmRuntime)) {
+    New-Item -ItemType Directory -Path $pmRuntime | Out-Null
   }
 
-  # CCPM repo nests actual payload under /ccpm
+  # Upstream repo nests payload under /ccpm
   $nested = Join-Path $sourceRoot 'ccpm'
   if (-not (Test-Path -LiteralPath $nested)) {
     Write-Err "Unexpected repository layout. Expected '$nested' to exist."
@@ -66,7 +66,7 @@ if ($UseSubmodule -and (Test-Path (Join-Path $repoRoot '.git'))) {
   foreach ($d in $dirs) {
     $src = Join-Path $nested $d
     if (Test-Path -LiteralPath $src) {
-      Copy-Item -Recurse -Force $src $ccpmRuntime
+      Copy-Item -Recurse -Force $src $pmRuntime
     }
   }
 
@@ -74,11 +74,11 @@ if ($UseSubmodule -and (Test-Path (Join-Path $repoRoot '.git'))) {
   try { if ($sourceRoot -and (Test-Path $sourceRoot)) { Remove-Item -Recurse -Force $sourceRoot } } catch {}
 }
 
-if (Test-Path -LiteralPath $ccpmPmDir) {
-  Write-Ok "Installed CCPM runtime at $ccpmPmDir"
+if (Test-Path -LiteralPath $pmPmDir) {
+  Write-Ok "Installed PM runtime at $pmPmDir"
   exit 0
 } else {
-  Write-Err 'CCPM install failed (pm scripts not found)'
+  Write-Err 'PM install failed (pm scripts not found)'
   exit 1
 }
 

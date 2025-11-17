@@ -23,7 +23,7 @@ Occurrences by tracked section (descending):
 - schema/: 22
 - config/: 18
 - workstreams/: 15
-- GUI_PIPELINE: 11
+- gui/: 11
 - openspec/: 9
 - PHASE_DEV_DOCS: 8
 - sandbox_repos/: 1
@@ -50,7 +50,7 @@ The canonical structure (no changes proposed in WS‑02; serves as normalization
 - workstreams/
 - PHASE_DEV_DOCS/
 - MOD_ERROR_PIPELINE/
-- GUI_PIPELINE/
+- gui/
 - sandbox_repos/
 
 See `config/section_map.yaml` for the machine‑readable mapping, normalization rules, and exclusions.
@@ -65,7 +65,7 @@ See `config/section_map.yaml` for the machine‑readable mapping, normalization 
 
 1. Normalize docs/ and scripts/ references using `mapping-rules` (low risk).
 2. Validate and stage config/ and schema/ rewrites with dry‑run and diff checks.
-3. Review `MOD_ERROR_PIPELINE` and `GUI_PIPELINE` references for section boundary issues.
+3. Review `MOD_ERROR_PIPELINE` and `gui` references for section boundary issues.
 4. Defer `src/` moves/re‑writes to WS‑03+ where import resolution and tests accompany changes.
 
 ## Next actions
@@ -73,4 +73,3 @@ See `config/section_map.yaml` for the machine‑readable mapping, normalization 
 - Lock `config/section_map.yaml` in the repo (PR review).
 - Generate targeted reports to enumerate candidates for rewrite by section.
 - Prepare automation to apply non‑destructive path normalization (dry‑run + report).
-

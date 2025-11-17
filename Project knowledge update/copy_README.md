@@ -47,7 +47,7 @@ Optional: install the OpenSpec CLI for `openspec list/validate/archive` commands
 - `sandbox_repos/` – toy repos used by integration tests.
 - `.worktrees/` – per‑workstream working folders created at runtime.
 - `state/` and/or `.state/` – local state, reports, and/or DB files.
-- `AIDER_PROMNT_HELP/`, `Coordination Mechanisms/`, `GUI_PIPELINE/`, `PHASE_DEV_DOCS/` – guidance and phase notes.
+- `AIDER_PROMNT_HELP/`, `Coordination Mechanisms/`, `gui/`, `PHASE_DEV_DOCS/` – guidance and phase notes.
 
 ## Contributing
 Read `AGENTS.md` for coding style, testing guidance, and PR conventions. Use Conventional Commits (e.g., `docs: add phase overview`, `chore: scaffold skeleton`).

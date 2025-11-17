@@ -60,7 +60,7 @@ This repository hosts a structured, phase-based plan and lightweight tooling for
 - `docs/` – architecture, phase plans, contracts, spec docs.
 - `plans/` – canonical phase plans and execution checklists (PH‑06 → PH‑13).
 - `tests/` – unit/integration tests for bundles, pipeline, plugins.
-- `templates/` – prompt templates (Aider EDIT/FIX, etc.).
+- `aider/templates/` – prompt templates (Aider EDIT/FIX, etc.).
 - `openspec/` – OpenSpec project/specs used by the spec tools.
 - `sandbox_repos/` – toy repos used by integration tests.
 - `.worktrees/` – per‑workstream working folders created at runtime.
@@ -72,3 +72,4 @@ Read `AGENTS.md` for coding style, testing guidance, and PR conventions. Use Con
 
 ## Phases
 - `PH-00_Baseline & Project Skeleton (Codex Autonomous Phase Executor).md` - create the base structure and verify local execution.
+

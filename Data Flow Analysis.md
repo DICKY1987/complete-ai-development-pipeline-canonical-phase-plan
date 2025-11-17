@@ -180,7 +180,7 @@ Data Flow Analysis_Complete AI Development Pipeline
   INPUT: Workstream + Bundle + Worktree
     ↓
   [prompts.py: build_edit_prompt()]
-    - Loads template: templates/prompts/edit.txt.j2
+    - Loads template: aider/templates/prompts/edit.txt.j2
     - Injects:
       • openspec_change details
       • files_scope list
@@ -268,7 +268,7 @@ Data Flow Analysis_Complete AI Development Pipeline
     ↓
   IF breaker NOT tripped:
     [prompts.py: build_fix_prompt()]
-      - Loads: templates/prompts/fix.txt.j2
+      - Loads: aider/templates/prompts/fix.txt.j2
       - Injects:
         • Error list from errors table
         • Previous diff hash
@@ -821,6 +821,7 @@ Data Flow Analysis_Complete AI Development Pipeline
 
   Would you like me to dive deeper into any specific data flow path or
   create visualizations for particular subsystems?
+
 
 
 

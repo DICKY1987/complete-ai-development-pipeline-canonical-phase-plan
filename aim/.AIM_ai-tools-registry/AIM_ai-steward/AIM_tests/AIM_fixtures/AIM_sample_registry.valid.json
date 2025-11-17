@@ -6,9 +6,9 @@
       "configPaths": ["%USERPROFILE%/.jules"],
       "logPaths": ["%USERPROFILE%/.jules/cache/cli.log"],
       "capabilities": ["code_generation"],
-      "adapterScript": "%USERPROFILE%/.AIM_ai-tools-registry/AIM_adapters/AIM_jules.ps1"
+      "adapterScript": "%USERPROFILE%/aim/.AIM_ai-tools-registry/AIM_adapters/AIM_jules.ps1"
     }
   },
-  "crossToolRulesPath": "%USERPROFILE%/.AIM_ai-tools-registry/AIM_cross-tool/AIM_coordination-rules.json"
+  "crossToolRulesPath": "%USERPROFILE%/aim/.AIM_ai-tools-registry/AIM_cross-tool/AIM_coordination-rules.json"
 }
 

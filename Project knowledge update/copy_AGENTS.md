@@ -13,7 +13,7 @@
 - tests/: unit/integration tests for scripts/tools/pipeline.
 - assets/: diagrams and images referenced by docs.
 - sandbox_repos/: self-contained toy repos for integration tests (excluded from pytest by default).
-- PHASE_DEV_DOCS/, Coordination Mechanisms/, GUI_PIPELINE/: phase notes and coordination guides.
+- PHASE_DEV_DOCS/, Coordination Mechanisms/, gui/: phase notes and coordination guides.
 
 ## Build, test, and development commands
 - Environment setup (recommended):
@@ -79,4 +79,3 @@
 - Specs/workstreams: keep `workstreams/` examples in sync with `schema/` and `openspec/`. Run validators after edits.
 - Indices/mapping: regenerate via `generate_spec_index.py` and `generate_spec_mapping.py` when specs or schema change.
 - Determinism: tests under `tests/pipeline/` check deterministic execution. Avoid nondeterministic I/O, timestamps without control, or network calls in core code.
-
