@@ -29,95 +29,95 @@ sections:
   - name: docs
     target-root: docs/
     match:
-      - docs/**
-      - README.md
-      - CONTRIBUTING.md
+      - "docs/**"
+      - "README.md"
+      - "CONTRIBUTING.md"
     risk: low
     notes: general documentation and specs
 
   - name: scripts
     target-root: scripts/
     match:
-      - scripts/**
-      - *.ps1
-      - *.sh
+      - "scripts/**"
+      - "*.ps1"
+      - "*.sh"
     risk: low
     notes: Windows-first PowerShell scripts with Python parity
 
   - name: tools
     target-root: tools/
     match:
-      - tools/**
+      - "tools/**"
     risk: low
     notes: internal Python utilities used by scripts/tests
 
   - name: src
     target-root: src/
     match:
-      - src/**
+      - "src/**"
     risk: medium
     notes: helper modules and plugin stubs used by tools/tests
 
   - name: tests
     target-root: tests/
     match:
-      - tests/**
+      - "tests/**"
     risk: low
     notes: unit/integration tests for scripts/tools/pipeline
 
   - name: config
     target-root: config/
     match:
-      - config/**
+      - "config/**"
     risk: medium
     notes: adapter/tool profiles, decomposition rules, circuit-breaker config
 
   - name: schema
     target-root: schema/
     match:
-      - schema/**
+      - "schema/**"
     risk: medium
     notes: JSON/YAML/SQL schemas defining workstream and sidecar contracts
 
   - name: openspec
     target-root: openspec/
     match:
-      - openspec/**
+      - "openspec/**"
     risk: medium
     notes: OpenSpec project and specs (validation-pipeline, plugin-system, orchestration)
 
   - name: workstreams
     target-root: workstreams/
     match:
-      - workstreams/**
+      - "workstreams/**"
     risk: low
     notes: example single/multi workstream JSON bundles
 
   - name: phase-dev-docs
     target-root: PHASE_DEV_DOCS/
     match:
-      - PHASE_DEV_DOCS/**
+      - "PHASE_DEV_DOCS/**"
     risk: low
     notes: phase notes and coordination guides
 
   - name: mod-error-pipeline
     target-root: MOD_ERROR_PIPELINE/
     match:
-      - MOD_ERROR_PIPELINE/**
+      - "MOD_ERROR_PIPELINE/**"
     risk: medium
     notes: error pipeline modules and docs
 
   - name: gui-pipeline
     target-root: GUI_PIPELINE/
     match:
-      - GUI_PIPELINE/**
+      - "GUI_PIPELINE/**"
     risk: medium
     notes: GUI-related pipeline artifacts
 
   - name: sandbox-repos
     target-root: sandbox_repos/
     match:
-      - sandbox_repos/**
+      - "sandbox_repos/**"
     risk: low
     notes: self-contained toy repos for integration tests (excluded from pytest)
 
@@ -127,13 +127,13 @@ mapping-rules:
   - name: normalize-windows-separators
     applies-to-kinds: [config_path, fs_literal, code_path, doc_link]
     action: replace
-    from: "\\\"
+    from: "\\"
     to: "/"
 
   - name: drop-leading-dot
     applies-to-kinds: [config_path, fs_literal, doc_link]
     action: regex
-    pattern: "^\./"
+    pattern: "^\\./"
     replace: ""
 
   - name: collapse-multiple-separators
@@ -159,4 +159,3 @@ mapping-rules:
       MOD_ERROR_PIPELINE: MOD_ERROR_PIPELINE/
       GUI_PIPELINE: GUI_PIPELINE/
       sandbox_repos: sandbox_repos/
-
