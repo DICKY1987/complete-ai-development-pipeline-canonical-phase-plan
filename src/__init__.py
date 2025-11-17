@@ -1,1 +1,2 @@
-"""AI Development Pipeline - Source Root."""
+"""Top-level package for the error pipeline modules."""
+

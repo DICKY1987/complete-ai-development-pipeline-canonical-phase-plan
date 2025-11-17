@@ -1,0 +1,9 @@
+{
+  "plugin_id": "python_black_fix",
+  "name": "Black Formatter (fix)",
+  "file_extensions": ["py"],
+  "requires": ["python_isort_fix"],
+  "tool": {
+    "success_codes": [0]
+  }
+}

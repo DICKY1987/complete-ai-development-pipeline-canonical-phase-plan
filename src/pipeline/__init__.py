@@ -1,8 +1,2 @@
-"""
-AI Development Pipeline - Core Modules.
+"""Pipeline orchestration: context, state machine, service, and CLI."""
 
-This package contains the core modules for the AI Development Pipeline,
-including database access, tool adapters, orchestration, and state management.
-"""
-
-__version__ = "0.1.0"

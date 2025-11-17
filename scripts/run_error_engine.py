@@ -1,0 +1,40 @@
+from __future__ import annotations
+
+import argparse
+from pathlib import Path
+from typing import List
+
+from MOD_ERROR_PIPELINE.pipeline_engine import PipelineEngine
+from MOD_ERROR_PIPELINE.plugin_manager import PluginManager
+from MOD_ERROR_PIPELINE.file_hash_cache import FileHashCache
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="Run the deterministic error pipeline on files.")
+    parser.add_argument("files", nargs="+", help="Files to validate")
+    parser.add_argument("--cache", default=str(Path(".state") / "validation_cache.json"), help="Path to hash cache JSON")
+    args = parser.parse_args()
+
+    cache_path = Path(args.cache)
+    cache_path.parent.mkdir(parents=True, exist_ok=True)
+    cache = FileHashCache(cache_path)
+    cache.load()
+
+    pm = PluginManager()
+    engine = PipelineEngine(pm, cache)
+
+    exit_code = 0
+    for f in args.files:
+        p = Path(f)
+        report = engine.process_file(p)
+        print(f"{p}: {report.status} | errors={report.summary.total_errors if report.summary else 0} warnings={report.summary.total_warnings if report.summary else 0}")
+        if report.summary and report.summary.total_errors:
+            exit_code = 1
+
+    cache.save()
+    return exit_code
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+
