@@ -1,7 +1,13 @@
 # Workstream Coordination Guide
-## For Claude Code & Codex CLI Collaboration
+## For Claude Code, Codex CLI, Aider & Other AI Tools
 
-This guide explains how Claude Code and Codex CLI can coordinate their work and track each other's progress across the 17 workstreams in phases PH-01 through PH-03.
+This guide explains how Claude Code, Codex CLI, Aider, and other AI coding assistants can coordinate their work and track each other's progress across the 17 workstreams in phases PH-01 through PH-03.
+
+**Tool-Specific Instructions:**
+- **Claude Code:** This guide + `AI_TOOLS_CAPABILITY_COMPARISON.md`
+- **Codex CLI:** `Coordination Mechanisms/CODEX_COORDINATION_INSTRUCTIONS.md`
+- **Aider:** `Coordination Mechanisms/AIDER_COORDINATION_INSTRUCTIONS.md`
+- **Other Tools:** See `Coordination Mechanisms/AI_TOOLS_CAPABILITY_COMPARISON.md` for compatibility
 
 ---
 
@@ -13,8 +19,10 @@ This guide explains how Claude Code and Codex CLI can coordinate their work and 
 **Worktree Path:** `.worktrees/<ws_id>/`
 
 **Division of Labor:**
-- **Claude Code:** 8 hard/complex workstreams (state machine, CRUD, tests, tool adapter)
-- **Codex CLI:** 9 easy/mechanical workstreams (stubs, schema, docs, profiles)
+- **Claude Code:** Complex workstreams (state machine, CRUD, tests, tool adapter, exploration)
+- **Codex CLI:** Structured workstreams (stubs, schema, docs, profiles, scripts)
+- **Aider:** Any workstream (especially good for iterative/TDD workflows)
+- **Other Tools:** See capability comparison for suitability
 
 ---
 
@@ -195,6 +203,31 @@ git commit -m "feat(<ws_id>): <description>"
 #    - git branch -a
 #    - git log --all
 ```
+
+---
+
+## Tool-Specific Coordination Notes
+
+### Aider
+Aider users can check coordination status using the `/run` command:
+```bash
+# Check workstream status
+/run bash scripts/check_workstream_status.sh
+
+# Check branches
+/run git branch -a | grep "workstream/"
+
+# Check dependencies
+/run git show workstream/<ws_id>:path/to/file
+```
+
+See `Coordination Mechanisms/AIDER_COORDINATION_INSTRUCTIONS.md` for full Aider workflow.
+
+### Codex CLI
+Codex can run all bash commands directly. See `Coordination Mechanisms/CODEX_COORDINATION_INSTRUCTIONS.md` for details.
+
+### Other Tools
+For GitHub Copilot, Gemini, and other tools, see `Coordination Mechanisms/AI_TOOLS_CAPABILITY_COMPARISON.md` to understand compatibility and recommended workflows.
 
 ---
 
@@ -412,4 +445,16 @@ bash scripts/check_workstream_status.sh  # Check all status
 3. Commit when done
 4. Other tool detects via git commands
 
-**Both tools can always coordinate by inspecting git state!** 🚀
+**All tools can coordinate by inspecting git state - no manual synchronization needed!** 🚀
+
+---
+
+## Multi-Tool Coordination
+
+This coordination system supports multiple AI tools working in parallel:
+- ✅ **Fully Autonomous:** Claude Code, Codex CLI, Aider
+- ⚠️ **Conditionally Compatible:** Gemini 2.0 Flash (test environment first)
+- ❌ **Human-Mediated Only:** GitHub Copilot, Gemini Chat
+
+For detailed capability comparison and tool selection guidance, see:
+`Coordination Mechanisms/AI_TOOLS_CAPABILITY_COMPARISON.md`
