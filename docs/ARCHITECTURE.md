@@ -11,6 +11,21 @@ scripts in `scripts/`, schema in `schema/`, and documentation in `docs/`.
 - Tooling: profile-driven adapter in `src/pipeline/tools.py` (PH-03).
 - Utilities: prompts, worktree helpers, circuit breakers, recovery, bundles.
 
+## Repository map
+
+- `src/` – pipeline logic (orchestrator, agent coordinator, tools adapter, prompts, DB, error pipeline service).
+- `scripts/` – operational CLIs (bootstrap, validate, generate, run pipeline, inspect DB).
+- `schema/` – JSON/YAML/SQL schemas; single source of truth for validation.
+- `workstreams/` – authored bundle JSONs; inputs to validation and orchestration.
+- `config/` – tool profiles, breaker settings, decomposition rules, AIM config.
+- `tools/` – spec tooling (indexer, resolver, patcher, renderer, guard) for OpenSpec/docs.
+- `templates/` – prompt templates consumed by `src/pipeline/prompts.py`.
+- `openspec/` – OpenSpec project/specs that drive bundle generation and indexing.
+- `tests/` – unit/integration tests (pipeline, plugins, orchestrator, spec tools).
+- `.worktrees/` – per‑workstream working directories created at run time.
+- `state/` and/or `.state/` – local state, reports, and DB files (dev/runtime artifacts).
+- Guidance/notes: `AIDER_PROMNT_HELP/`, `Coordination Mechanisms/`, `GUI_PIPELINE/`, `PHASE_DEV_DOCS/`.
+
 ## Workstream Bundles & Validation
 
 - Purpose: Define inputs for orchestration — each workstream declares its id, files scope, tasks, and dependencies.
@@ -36,6 +51,12 @@ This authoring system directly supports the PH-04 validation pipeline by ensurin
 2. Execute workstreams via orchestrator/scheduler/executor.
 3. Record events/errors/steps in SQLite.
 4. Generate artifacts and reports.
+
+Data flow by folder:
+- Authoring inputs → `workstreams/`, `openspec/`, `templates/`, `docs/`.
+- Validation & indexing → `scripts/validate_workstreams.py`, `tools/` using `schema/`.
+- Orchestration → `scripts/run_workstream.py` invoking `src/pipeline/…` and writing to `.worktrees/`.
+- State & observability → `src/pipeline/crud_operations.py` → `state/` DB and events.
 
 See also:
 - State machine details in `docs/state_machine.md` (run/workstream transitions).

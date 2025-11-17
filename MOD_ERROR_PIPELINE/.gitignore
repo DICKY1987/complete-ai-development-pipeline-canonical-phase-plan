@@ -1,0 +1,10 @@
+# OS / tooling
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+# Runs & artifacts
+.runs/
+worktrees/
+# VSCode
+.vscode/

@@ -1,0 +1,484 @@
+Got it—no code, just “what flows where” and in what order. I’ll describe one full trip through the pipeline for a given script (or set of scripts), including the extra tools, auto-correct, and MCP escalation.
+
+Think of it as a **timeline** of artifacts:
+
+* Scripts
+* Error reports (JSON)
+* Prompts
+* AI edits
+* Quarantine bundles
+
+---
+
+## 0. Initial input & registration
+
+**Data in:**
+
+* One or more script files:
+
+  * Python: paths like `src/foo.py`, `src/bar.py`
+  * PowerShell: paths like `scripts/deploy.ps1`
+* Context metadata:
+
+  * `run_id` (unique ID for this whole pipeline execution)
+  * `workstream_id` (which workstream / phase this belongs to)
+  * Config flags:
+
+    * Which tools are enabled (Ruff, Black, Mypy, pytest, Bandit, PSScriptAnalyzer, Pester, etc.)
+    * Strictness mode (do style issues block or not)
+    * Which AI tiers are enabled (Aider, Codex, Claude)
+
+**What happens:**
+
+* A **state record** is created in your SQLite/state layer with:
+
+  * `run_id`, `workstream_id`
+  * List of target files
+  * Initial state: `"S0_BASELINE_CHECK"`
+  * Timestamps
+
+---
+
+## 1. Baseline error pipeline (no AI yet)
+
+**Data in:**
+
+* Current script versions on disk
+* Tool configuration
+* State record (`state = S0_BASELINE_CHECK`)
+
+**Tools invoked (examples):**
+
+* Python:
+
+  * Ruff (lint)
+  * Black (check mode)
+  * Mypy (types)
+  * pytest (tests)
+  * Optional: isort, pyupgrade, Bandit, pip-audit
+* PowerShell:
+
+  * PSScriptAnalyzer
+  * Pester
+
+Each tool produces:
+
+* Raw stdout / stderr text
+* Exit codes
+
+**Data out: unified baseline error report (JSON #1)**
+
+A single **canonical error report** is constructed, something like:
+
+* High-level metadata:
+
+  * `attempt_number = 0`
+  * `ai_agent = "none"`
+  * `run_id`, `workstream_id`
+  * Tool versions
+* Per-file findings:
+
+  * For each file:
+
+    * List of issues:
+
+      * File path
+      * Line / column
+      * Tool name (Ruff, Black, Mypy, pytest, PSScriptAnalyzer…)
+      * Category (`syntax`, `type`, `style`, `formatting`, `test_failure`, `security`, etc.)
+      * Severity (`error`, `warning`, `info`)
+      * Message
+      * Optional: rule/code ID
+* Aggregate summary:
+
+  * Total issues
+  * Issues by tool
+  * Issues by category
+  * A “hard_fail” flag (did any hard blockers occur?)
+
+The report is:
+
+* Stored on disk (`error_report_attempt_0.json`)
+* Linked to `run_id` in the state layer
+* Logged to your event/diagnostic log
+
+**Decision point:**
+
+* If `total_hard_errors = 0` and, depending on policy, maybe `style_only = true`:
+
+  * Mark state as `"S_SUCCESS"`.
+  * Script continues to the next normal pipeline stage.
+* Otherwise:
+
+  * Move to **mechanical auto-correct stage**.
+
+---
+
+## 2. Mechanical auto-correct (no AI)
+
+**Data in:**
+
+* Baseline error report (JSON #1)
+* Script files
+* Config: which tools are allowed to auto-fix
+
+**Internal decision:**
+
+* Inspect the error categories in JSON #1:
+
+  * If **only** style/format/import/formatting issues are present (no syntax/type/test/security):
+
+    * Mark a **mechanical fix plan**:
+
+      * e.g., `{"black": ["src/foo.py"], "isort": ["src/foo.py"], "ruff_fix": ["src/foo.py"]}`
+  * If any hard logic errors exist:
+
+    * Skip mechanical-only step and go to AI Tier 1 (Aider).
+
+**Tools invoked (auto-fix mode):**
+
+* Black (format)
+* isort (import ordering)
+* Ruff in fix mode
+* Optional: other safe fixers
+
+Each tool modifies files directly and can output its own log.
+
+**Data out:**
+
+* Updated script files on disk
+* Mechanical-fix log:
+
+  * What files changed
+  * Which tools changed them
+* State update: `"mechanical_fix_applied": true/false`
+
+**Re-run error pipeline:**
+
+* Same as step 1, but this is now **error report JSON #1b**:
+
+  * `attempt_number` still 0, but with `ai_agent = "none"` and `mechanical_fix_pass = true`
+
+**Decision:**
+
+* If JSON #1b indicates **no hard errors** (and policy allows style issues to be ignored or there are none):
+
+  * State → `"S_SUCCESS"`.
+* Otherwise:
+
+  * Proceed to **AI Tier 1 – Aider**.
+  * State → `"S1_AIDER_FIX"`.
+
+---
+
+## 3. AI Tier 1 – Aider
+
+### 3.1 Convert error JSON to Aider prompt
+
+**Data in:**
+
+* Latest error report (JSON #1 or #1b)
+* Current script versions
+* Prompt template for Aider (“error fix” contract)
+
+**Transformation:**
+
+* A **prompt builder** reads JSON and generates an **Aider-compatible prompt**, including:
+
+  * Which files to open
+  * A per-file summary of issues
+  * Any global constraints (don’t touch certain files, keep public API stable, etc.)
+  * Clear instructions like “fix only the listed issues; don’t reformat the entire project.”
+
+**Data out:**
+
+* An “Aider error-fix prompt object”:
+
+  * Contains:
+
+    * Textual instructions
+    * File list
+    * Optional: sections of the error JSON embedded or summarized
+
+This prompt is logged and associated with `attempt_number = 1`, `ai_agent = "aider"`.
+
+### 3.2 Aider edits
+
+**Data in:**
+
+* Prompt object
+* Script files
+
+**What happens:**
+
+* Aider runs, producing **code edits** (diffs or directly modified files).
+* An **AI attempt record** is created:
+
+  * `attempt_number = 1`
+  * `ai_agent = "aider"`
+  * Input: snapshot of error JSON before
+  * Output: description of changed files (paths, lines, maybe diff summary)
+
+Scripts on disk are now the **“after Aider”** version.
+
+### 3.3 Re-run error pipeline → Error report JSON #2
+
+**Data in:**
+
+* Updated scripts
+* Same tools as baseline
+
+**Data out:**
+
+* New error report:
+
+  * `attempt_number = 1`
+  * `ai_agent = "aider"`
+  * New per-file issue sets
+  * New summary:
+
+    * `previous_error_count`
+    * `current_error_count`
+    * `delta` (improved / worse / same)
+
+Stored as `error_report_attempt_1.json`.
+
+**Decision:**
+
+* If no hard errors → state `"S_SUCCESS"`.
+* If still errors → policy may allow:
+
+  * Another Aider pass (attempt_number 2 with same agent), or
+  * Immediate escalation to Codex.
+
+In your earlier plan, it’s **one pass per tier**, so we escalate.
+
+* State → `"S2_CODEX_FIX"`.
+
+---
+
+## 4. AI Tier 2 – Codex
+
+Process mirrors Aider, but with a Codex-tuned prompt.
+
+### 4.1 Convert JSON #2 to Codex prompt
+
+**Data in:**
+
+* Error report JSON #2
+* Script files
+* Codex prompt template (“error fix” flavor)
+
+**Transformation:**
+
+* Builder produces a **Codex-compatible prompt**:
+
+  * Clear, concise instructions.
+  * Error summaries.
+  * File paths.
+
+**Data out:**
+
+* Codex prompt object for `attempt_number = 2`, `ai_agent = "codex"`.
+
+### 4.2 Codex edits
+
+**Data in:**
+
+* Prompt
+* Scripts
+
+**What happens:**
+
+* Codex applies edits (via its environment).
+* An AI attempt record is stored:
+
+  * `attempt_number = 2`
+  * `ai_agent = "codex"`
+  * Input: error JSON #2
+  * Output: changed files info, notes
+
+Scripts on disk → **“after Codex”** version.
+
+### 4.3 Re-run error pipeline → Error report JSON #3
+
+**Data in:**
+
+* Updated scripts
+
+**Data out:**
+
+* New error report:
+
+  * `attempt_number = 2`
+  * `ai_agent = "codex"`
+  * New per-file issues, summary, delta vs previous
+
+Stored as `error_report_attempt_2.json`.
+
+**Decision:**
+
+* If clean → `"S_SUCCESS"`.
+* If errors → escalate to Claude tier.
+* State → `"S3_CLAUDE_FIX"`.
+
+---
+
+## 5. AI Tier 3 – Claude (with MCP)
+
+This tier can use **MCP servers** to call tools directly.
+
+### 5.1 Prepare Claude context
+
+**Data in:**
+
+* Latest error report JSON #3
+* Script files
+* Claude error-fix prompt template
+* MCP tool definitions:
+
+  * A tool to re-run your error pipeline:
+
+    * e.g., `lint_python_files(...)`, `lint_ps_scripts(...)`
+  * Filesystem MCP (read/write)
+  * Git MCP, GitHub MCP if desired
+
+**Transformation:**
+
+* Build a **Claude prompt** that includes:
+
+  * Summary of errors from JSON #3
+  * Path list
+  * Instructions on how to use MCP tools:
+
+    * “Call the lint tools to re-check after edits.”
+    * “Use filesystem MCP to read/write files.”
+
+**Data out:**
+
+* Claude prompt + MCP tool catalog
+
+### 5.2 Claude interactive fix loop (internal)
+
+Within the Claude tier, you might have a small **inner loop**:
+
+1. Claude reads scripts via filesystem MCP.
+2. Claude analyzes errors from JSON #3.
+3. Claude edits files via filesystem MCP.
+4. Claude calls your MCP lint/test tools:
+
+   * These tools invoke Ruff/Black/etc. and produce **intermediate error results**.
+   * Those intermediate results may **not** be stored as official `error_report_attempt_X.json`, but they exist as transient responses for Claude to use.
+5. Claude iterates until the MCP lint tool returns:
+
+   * Zero errors (or acceptable remaining ones by policy), or
+   * Claude hits an internal limit (max tool calls / time).
+
+**Data artifacts inside this tier:**
+
+* Multiple **intermediate MCP lint responses**:
+
+  * Same structure as your main error JSON, but used inside the Claude session.
+* Edited scripts (on disk).
+
+### 5.3 Final external error pipeline run → Error report JSON #4
+
+After Claude’s inner loop finishes:
+
+**Data in:**
+
+* Scripts as last modified by Claude
+* Same tool set as baseline
+
+**Data out:**
+
+* Error report JSON #4:
+
+  * `attempt_number = 3`
+  * `ai_agent = "claude"`
+  * Per-file issues, summary, delta vs JSON #3
+  * Final status for this run
+
+Stored as `error_report_attempt_3.json`.
+
+**Decision:**
+
+* If clean → `"S_SUCCESS"`.
+* If still errors → state `"S4_QUARANTINE"`.
+
+---
+
+## 6. Quarantine packaging for human review
+
+This is your **final safety net**.
+
+**Data in:**
+
+* Final script versions (post-Claude)
+* All error reports:
+
+  * Baseline JSON #1 (and #1b if mechanical fix)
+  * JSON #2 (post-Aider)
+  * JSON #3 (post-Codex)
+  * JSON #4 (post-Claude)
+* AI attempt records:
+
+  * Each agent’s input summary, output summary, and maybe patch metadata
+* Pipeline metadata:
+
+  * `run_id`, `workstream_id`
+  * Timestamps
+  * Tool versions
+  * Enabled AI tiers
+
+**Data out: quarantine bundle**
+
+A folder (or logical package) is created, for example:
+
+* Path: under a parent **Quarantine** root, e.g. `Quarantine/<run_id>_<workstream_id>/`
+* Contents:
+
+  * `final_script_version` (all relevant scripts)
+  * `error_report_attempt_0.json` (+ `0b` if mechanical)
+  * `error_report_attempt_1.json`
+  * `error_report_attempt_2.json`
+  * `error_report_attempt_3.json`
+  * `ai_attempts.json` (summary of what each AI did)
+  * `metadata.json` (config, tool versions, timestamps, final state)
+
+This bundle is what a human reviewer opens to see:
+
+* How the script evolved
+* What each tier fixed or failed to fix
+* What issues still remain
+
+State layer is updated:
+
+* Final state: `"S4_QUARANTINE"`
+* `quarantine_path` recorded
+
+---
+
+## 7. Cross-cutting: metrics & configuration
+
+Throughout all of the above, additional data is collected:
+
+* Per-attempt metrics:
+
+  * Duration per tool
+  * Number of issues per tool / category
+  * AI token usage (if available)
+* Configuration snapshots:
+
+  * Which tools were enabled
+  * Strictness modes
+  * Which AI tiers ran
+
+These are stored separately (e.g., in a metrics table or log) to allow:
+
+* Reporting: “X% of scripts fixed by Aider only”, “Y% require quarantine”
+* Future policy tuning: stricter or looser gating, tool additions/removals
+
+---
+
+If you’d like, next I can translate this into a **state-machine spec (just states, transitions, data attached to each)** so your Codex/Claude workstreams can implement it exactly, still without writing any actual code.

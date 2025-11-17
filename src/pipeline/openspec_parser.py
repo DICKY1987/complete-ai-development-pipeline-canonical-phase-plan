@@ -175,6 +175,74 @@ def load_bundle_from_yaml(path: Path) -> OpenSpecBundle:
     return OpenSpecBundle(bundle_id=bundle_id, items=items, version=version, metadata=metadata)
 
 
+def _read_change_tasks(change_dir: Path) -> List[str]:
+    tasks_path = change_dir / "tasks.md"
+    if not tasks_path.exists():
+        return []
+    lines = tasks_path.read_text(encoding="utf-8").splitlines()
+    tasks: List[str] = []
+    for line in lines:
+        s = line.strip()
+        if s.startswith("- [") or s.startswith("-"):
+            # strip checkbox markers if present
+            s2 = s.lstrip("- ")
+            if s2.startswith("[ ") or s2.startswith("[x") or s2.startswith("[X"):
+                # remove leading [ ] or [x] token
+                rb = s2.find("]")
+                if rb != -1:
+                    s2 = s2[rb + 1 :].strip()
+            tasks.append(s2)
+    return tasks
+
+
+def _read_change_title(change_dir: Path) -> str:
+    prop = change_dir / "proposal.md"
+    if not prop.exists():
+        return change_dir.name
+    text = prop.read_text(encoding="utf-8")
+    # Try YAML frontmatter title first
+    title = ""
+    if text.startswith("---"):
+        lines = text.splitlines()
+        for i in range(1, min(len(lines), 50)):
+            l = lines[i].strip()
+            if l == "---":
+                break
+            if l.lower().startswith("title:"):
+                title = l.split(":", 1)[1].strip().strip('"')
+                break
+    if not title:
+        # Fallback to first Markdown heading
+        for line in text.splitlines():
+            if line.lstrip().startswith("#"):
+                title = line.lstrip("# ").strip()
+                if title:
+                    break
+    return title or change_dir.name
+
+
+def load_bundle_from_change(change_id: str, base_dir: Optional[Path] = None) -> OpenSpecBundle:
+    """Create an OpenSpecBundle from an OpenSpec change directory.
+
+    Expects structure: openspec/changes/<change-id>/{proposal.md,tasks.md}
+    """
+    root = (base_dir or Path.cwd()).resolve()
+    change_dir = root / "openspec" / "changes" / change_id
+    if not change_dir.exists():
+        raise FileNotFoundError(f"OpenSpec change not found: {change_dir}")
+
+    title = _read_change_title(change_dir)
+    tasks = _read_change_tasks(change_dir)
+
+    items: List[SpecItem] = []
+    # Make a single high-level item for the change plus task-tagged items
+    items.append(SpecItem(id=f"CH-{change_id}", title=title, description=""))
+    for idx, t in enumerate(tasks, start=1):
+        items.append(SpecItem(id=f"T-{idx}", title=t))
+
+    return OpenSpecBundle(bundle_id=f"openspec-{change_id}", items=items)
+
+
 def discover_specs(input_path: Path) -> List[OpenSpecBundle]:
     if input_path.is_file() and input_path.suffix in {".yaml", ".yml"}:
         return [load_bundle_from_yaml(input_path)]
@@ -196,24 +264,47 @@ def main(argv: List[str]) -> int:
     import argparse
 
     ap = argparse.ArgumentParser(description="OpenSpec parser and bundle generator")
-    ap.add_argument("input", type=str, help="Path to .yaml bundle or directory with bundles")
+    src = ap.add_mutually_exclusive_group(required=False)
+    src.add_argument("input", nargs="?", default=None, help="Path to bundle file or directory")
+    src.add_argument("--change-id", dest="change_id", help="OpenSpec change id under openspec/changes/")
     ap.add_argument("--out", type=str, default="bundles", help="Output bundles directory")
     ap.add_argument("--echo", action="store_true", help="Echo normalized YAML to stdout")
+    ap.add_argument("--generate-bundle", action="store_true", help="Generate bundle YAML to --out")
+    ap.add_argument("--create-epic", action="store_true", help="Stub: print epic payload for CCPM/GitHub")
     args = ap.parse_args(argv)
 
-    input_path = Path(args.input)
     out_dir = Path(args.out)
-    bundles = discover_specs(input_path)
-    if not bundles:
+
+    built_bundles: List[OpenSpecBundle] = []
+    if args.change_id:
+        built_bundles = [load_bundle_from_change(args.change_id)]
+    elif args.input:
+        input_path = Path(args.input)
+        built_bundles = discover_specs(input_path)
+    else:
+        print("Either --change-id or input path is required", file=sys.stderr)
+        return 2
+
+    if not built_bundles:
         print("No bundles found", file=sys.stderr)
         return 2
-    last: Optional[Path] = None
-    for b in bundles:
-        last = write_bundle(b, out_dir)
+
+    last_out: Optional[Path] = None
+    for b in built_bundles:
+        if args.generate-bundle or args.input:
+            last_out = write_bundle(b, out_dir)
         if args.echo:
             sys.stdout.write(b.to_yaml())
-    if last:
-        print(str(last))
+        if args.create_epic:
+            payload = {
+                "title": f"[OpenSpec] {b.bundle_id}",
+                "labels": ["openspec", "epic"],
+                "body": f"Auto-generated from {b.bundle_id}. Items: {len(b.items)}",
+            }
+            print(json.dumps(payload, indent=2))
+
+    if last_out:
+        print(str(last_out))
     return 0
 
 

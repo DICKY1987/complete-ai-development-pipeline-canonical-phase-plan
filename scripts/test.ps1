@@ -27,5 +27,25 @@ if ($mdFiles) {
   }
 }
 
+# OpenSpec flow smoke checks (non-fatal)
+try {
+  if (Test-Path -LiteralPath 'openspec/changes/test-001' -PathType Container) {
+    Write-Host "[test] openspec: generate bundle from change-id"
+    python -m src.pipeline.openspec_parser --change-id test-001 --generate-bundle | Out-Null
+    if ($LASTEXITCODE -ne 0) { $exit = $LASTEXITCODE }
+
+    Write-Host "[test] openspec: convert to workstream (explicit files_scope)"
+    python scripts/generate_workstreams_from_openspec.py --change-id test-001 --files-scope src/pipeline/openspec_parser.py | Out-Null
+    if ($LASTEXITCODE -ne 0) { $exit = $LASTEXITCODE }
+
+    Write-Host "[test] validate workstreams"
+    python scripts/validate_workstreams.py | Out-Null
+    if ($LASTEXITCODE -ne 0) { $exit = $LASTEXITCODE }
+  }
+}
+catch {
+  Write-Warning "[test] OpenSpec flow smoke check failed: $($_.Exception.Message)"
+}
+
 Write-Host "[test] Completed with exit code $exit"
 exit $exit
