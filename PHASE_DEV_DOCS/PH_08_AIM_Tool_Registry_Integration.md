@@ -26,8 +26,8 @@ OPERATING CONTEXT
   - PH-03.5: Aider integration & prompt engine.
 
 PROJECT ROOT (IMPORTANT)
-- Expected project root: C:\Users\richg\ALL_AI\AI_Dev_Pipeline
-- AIM Registry location: C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\.AIM_ai-tools-registry
+- Expected project root: C:/Users/richg/ALL_AI/AI_Dev_Pipeline
+- AIM Registry location: C:/Users/richg/ALL_AI/Complete AI Development Pipeline – Canonical Phase Plan/.AIM_ai-tools-registry
 
 If project root does NOT exist:
 - Stop and write a clear, prominent note into docs/PHASE_PLAN.md under PH-08 that PH-00–PH-03 must be completed first.
@@ -85,7 +85,7 @@ By the end of PH-08, the repo MUST have at minimum:
     1) get_aim_registry_path() -> Path
        - Returns path to AIM registry directory.
        - Uses environment variable AIM_REGISTRY_PATH if set.
-       - Else defaults to ../Complete AI Development Pipeline – Canonical Phase Plan/.AIM_ai-tools-registry relative to repo root.
+       - Else defaults to .Complete AI Development Pipeline – Canonical Phase Plan/.AIM_ai-tools-registry relative to repo root.
        - Raises clear error if not found.
 
     2) load_aim_registry() -> dict
@@ -305,8 +305,8 @@ EXECUTION PLAN (WHAT YOU SHOULD DO)
 You should:
 
 1) PRECHECKS & NAVIGATION
-   - Confirm C:\Users\richg\ALL_AI\AI_Dev_Pipeline exists.
-   - cd C:\Users\richg\ALL_AI\AI_Dev_Pipeline
+   - Confirm C:/Users/richg/ALL_AI/AI_Dev_Pipeline exists.
+   - cd C:/Users/richg/ALL_AI/AI_Dev_Pipeline
    - Confirm .AIM_ai-tools-registry exists at expected location.
    - Confirm src/pipeline/, docs/, config/ exist; if not, create them and note in docs/PHASE_PLAN.md that earlier phases may be incomplete.
 

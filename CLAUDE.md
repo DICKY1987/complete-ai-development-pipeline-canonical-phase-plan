@@ -2,6 +2,129 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Critical Rules (From .claude/rules/)
+
+### DateTime Standard
+**HIGHEST PRIORITY**: Always use real system datetime, never placeholders or estimates.
+
+```bash
+# Get current datetime in ISO 8601 format
+date -u +"%Y-%m-%dT%H:%M:%SZ"
+
+# Windows PowerShell
+Get-Date -Format "yyyy-MM-ddTHH:mm:ssZ"
+```
+
+- **Required format**: `YYYY-MM-DDTHH:MM:SSZ` (UTC with Z suffix)
+- **Never use**: Placeholders like `[Current ISO date/time]` or estimates
+- **Always preserve**: Original `created` dates, only update `updated` fields
+- **See**: `.claude/rules/datetime.md` for full specification
+
+### Path Standards
+**Protect privacy and ensure portability**:
+
+```markdown
+# ✅ CORRECT - Relative paths
+- `internal/auth/server.go`
+- `../project-name/src/components/Button.tsx`
+- `.claude/commands/pm/sync.md`
+
+# ❌ WRONG - Absolute paths expose usernames
+- `/Users/username/project/internal/auth/server.go`
+- `C:\Users\username\project\cmd\server\main.go`
+```
+
+- **Always use**: Relative paths from project root
+- **Never expose**: User directories or absolute local paths
+- **Cross-project refs**: Use `../project-name/` format
+- **See**: `.claude/rules/path-standards.md` for full specification
+
+### GitHub Operations
+**Repository protection required**:
+
+```bash
+# MUST CHECK before ANY GitHub write operation
+remote_url=$(git remote get-url origin 2>/dev/null || echo "")
+if [[ "$remote_url" == *"automazeio/ccpm"* ]]; then
+  echo "❌ ERROR: Cannot modify template repository!"
+  echo "Fork or create your own repo first"
+  exit 1
+fi
+```
+
+- **Required for**: Issue creation/editing, PR creation, comments
+- **Trust gh CLI**: Don't pre-check auth, handle failures gracefully
+- **Error format**: `❌ {What failed}: {Exact solution}`
+- **See**: `.claude/rules/github-operations.md` for full specification
+
+### Standard Patterns
+**Core principles for all operations**:
+
+1. **Fail Fast** - Check critical prerequisites, then proceed
+2. **Trust the System** - Don't over-validate things that rarely fail
+3. **Clear Errors** - Show exactly what failed and how to fix it
+4. **Minimal Output** - Show what matters, skip decoration
+
+```markdown
+# ✅ GOOD - Concise and actionable
+✅ Done: 3 files created
+Failed: auth.test.js (syntax error - line 42)
+
+# ❌ BAD - Too verbose
+🎯 Starting operation...
+📋 Validating prerequisites...
+✅ Step 1 complete
+✅ Step 2 complete
+```
+
+- **See**: `.claude/rules/standard-patterns.md` for full specification
+
+### Test Execution
+**Always use test-runner agent**:
+
+- **No mocking** - Use real services for accurate results
+- **Verbose output** - Capture everything for debugging
+- **Check test structure first** - Before assuming code bugs
+- **Cleanup after**: Kill test processes properly
+- **See**: `.claude/rules/test-execution.md` for full specification
+
+### Worktree Operations
+**For parallel development and epic workflows**:
+
+```bash
+# Create worktree from clean main
+git checkout main && git pull origin main
+git worktree add ../epic-{name} -b epic/{name}
+
+# Work in worktree
+cd ../epic-{name}
+git add {files}
+git commit -m "Issue #{number}: {description}"
+```
+
+- **One worktree per epic** - Not per issue
+- **Clean before create** - Always start from updated main
+- **Commit frequently** - Small commits merge easier
+- **See**: `.claude/rules/worktree-operations.md` for full specification
+
+### Agent Coordination
+**For parallel agent workflows in same worktree**:
+
+1. **File-level parallelism** - Different files = no conflicts
+2. **Explicit coordination** - Same file = coordinate explicitly
+3. **Fail fast** - Surface conflicts immediately
+4. **Human resolution** - Never auto-merge conflicts
+
+```bash
+# Before modifying shared file
+git status {file}
+if [[ $(git status --porcelain {file}) ]]; then
+  echo "Waiting for {file} to be available..."
+fi
+```
+
+- **See**: `.claude/rules/agent-coordination.md` for full specification
+
 ## Overview
 
 This is a **multi-phase AI development pipeline** that orchestrates workstreams through deterministic execution steps (EDIT → STATIC → RUNTIME). The architecture separates:
@@ -68,6 +191,26 @@ python scripts/run_workstream.py --ws-id <id> [--run-id <run>] [--dry-run]
 
 # Generate workstreams (stub)
 python scripts/generate_workstreams.py
+```
+
+### OpenSpec Bridge
+```bash
+# List available OpenSpec changes
+python scripts/spec_to_workstream.py --list
+pwsh ./scripts/spec_to_workstream.ps1 -List
+
+# Interactive conversion (recommended)
+python scripts/spec_to_workstream.py --interactive
+pwsh ./scripts/spec_to_workstream.ps1 -Interactive
+
+# Convert specific change to workstream
+python scripts/spec_to_workstream.py --change-id <id>
+pwsh ./scripts/spec_to_workstream.ps1 -ChangeId <id>
+
+# Dry run (preview without saving)
+python scripts/spec_to_workstream.py --change-id <id> --dry-run
+
+# See docs/QUICKSTART_OPENSPEC.md for workflow
 ```
 
 ### Spec Tooling

@@ -24,7 +24,7 @@ OPERATING CONTEXT
   - PH-03 / PH-03.5: tool adapter & Aider prompt system (you may reference them but not depend heavily).
 
 PROJECT ROOT (IMPORTANT)
-- Expected project root: C:\Users\richg\ALL_AI\AI_Dev_Pipeline
+- Expected project root: C:/Users/richg/ALL_AI/AI_Dev_Pipeline
 
 If that folder does NOT exist:
 - Stop and write a clear, prominent note into docs/PHASE_PLAN.md under PH-04 that PH-00–PH-03.5 must be completed first.
@@ -287,8 +287,8 @@ EXECUTION PLAN (WHAT YOU SHOULD DO)
 You should:
 
 1) PRECHECKS & NAVIGATION
-   - Confirm C:\Users\richg\ALL_AI\AI_Dev_Pipeline exists.
-   - cd C:\Users\richg\ALL_AI\AI_Dev_Pipeline
+   - Confirm C:/Users/richg/ALL_AI/AI_Dev_Pipeline exists.
+   - cd C:/Users/richg/ALL_AI/AI_Dev_Pipeline
    - Confirm src/pipeline/, docs/, schema/ exist; if not, create them and note missing earlier phases in docs/PHASE_PLAN.md.
 
 2) DEFINE WORKSTREAM SCHEMA

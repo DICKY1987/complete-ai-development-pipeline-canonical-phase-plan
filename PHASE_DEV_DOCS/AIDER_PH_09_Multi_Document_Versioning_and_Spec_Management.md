@@ -20,7 +20,7 @@ writable_globs:
 readonly_globs:
   - "docs/ARCHITECTURE.md"
   - "docs/PHASE_PLAN.md"
-  - "../Complete AI Development Pipeline – Canonical Phase Plan/Multi-Document Versioning Automation final_spec_docs/**/*"
+  - ".Complete AI Development Pipeline – Canonical Phase Plan/Multi-Document Versioning Automation final_spec_docs/**/*"
 ---
 
 # PH-09 – Multi-Document Versioning & Spec Management (Aider Workstream)
@@ -82,7 +82,7 @@ tests/tools/test_spec_guard.py
 ```
 docs/ARCHITECTURE.md
 docs/PHASE_PLAN.md
-../Complete AI Development Pipeline – Canonical Phase Plan/Multi-Document Versioning Automation final_spec_docs/docs/source/**/*
+.Complete AI Development Pipeline – Canonical Phase Plan/Multi-Document Versioning Automation final_spec_docs/docs/source/**/*
 ```
 
 ### Explicitly Out of Scope
@@ -95,7 +95,7 @@ docs/PHASE_PLAN.md
 
 ## 4. ENVIRONMENT & PRECONDITIONS
 
-**Project Root:** C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan
+**Project Root:** C:/Users/richg/ALL_AI/Complete AI Development Pipeline – Canonical Phase Plan
 **Operating System:** Windows 10/11
 **Python Version:** 3.12+
 **Shell:** PowerShell 7+
@@ -112,7 +112,7 @@ docs/PHASE_PLAN.md
 - None (this phase operates on documentation layer)
 
 **External Resources:**
-- Multi-Document Versioning submodule at: `../Complete AI Development Pipeline – Canonical Phase Plan/Multi-Document Versioning Automation final_spec_docs`
+- Multi-Document Versioning submodule at: `.Complete AI Development Pipeline – Canonical Phase Plan/Multi-Document Versioning Automation final_spec_docs`
 - Contains example docs with sidecars
 
 **Dependency Check:**
@@ -386,7 +386,7 @@ If Multi-Doc submodule missing:
 
 ### Step 1: Design Spec Management System
 **Intent:** Plan tool architecture
-**Files:** /read-only ../Complete AI Development Pipeline – Canonical Phase Plan/Multi-Document Versioning Automation final_spec_docs/
+**Files:** /read-only .Complete AI Development Pipeline – Canonical Phase Plan/Multi-Document Versioning Automation final_spec_docs/
 **Command:** `/architect`
 **Prompt:**
 ```
@@ -458,7 +458,7 @@ YAML Schema (or JSON Schema in YAML format):
 Required:
 - document_id: string (pattern: ^[0-9]{2}-[a-z-]+/[0-9]{2}-[a-z-]+$)
 - title: string
-- version: string (semver pattern: ^\d+\.\d+\.\d+$)
+- version: string (semver pattern: ^/d+/./d+/./d+$)
 - category: enum [architecture, operating-contract, plugin-contract, data-contracts, process, conformance, policy, ci-cd-gates, observability-slos, reference, developer-experience, security-supply-chain, implementation-checklists]
 - last_updated: string (ISO 8601)
 - authors: array of strings

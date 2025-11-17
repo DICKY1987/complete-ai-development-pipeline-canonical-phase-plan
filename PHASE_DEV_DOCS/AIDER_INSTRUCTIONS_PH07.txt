@@ -3,7 +3,7 @@ TASK: Execute Phase PH-07 Implementation
 Please read the complete specifications from PHASE_DEV_DOCS/PH_07_GUI_Layer_and_Plugin_System.md and execute the entire phase implementation autonomously.
 
 IMPORTANT: The project root is the CURRENT DIRECTORY:
-C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan
+C:/Users/richg/ALL_AI/Complete AI Development Pipeline – Canonical Phase Plan
 
 This is the canonical pipeline repository. Ignore any references to "AI_Dev_Pipeline" in the phase document.
 

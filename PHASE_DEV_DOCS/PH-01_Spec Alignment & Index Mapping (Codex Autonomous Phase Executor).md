@@ -21,7 +21,7 @@ OPERATING CONTEXT
   - Basic structure: src/pipeline/, tests/pipeline/, docs/, etc.
 
 PROJECT ROOT (IMPORTANT)
-- Expected project root: C:\Users\richg\ALL_AI\AI_Dev_Pipeline
+- Expected project root: C:/Users/richg/ALL_AI/AI_Dev_Pipeline
 
 If that folder does NOT exist:
 - Stop and write a clear error message into README.md and docs/PHASE_PLAN.md for PH-01.
@@ -72,7 +72,7 @@ Each module should at least contain:
 
 This script must:
 - Recursively scan docs/ (or docs/spec/, if you prefer) for spec files.
-- Detect any [IDX-...] tags (e.g., using regex like r"\[IDX-[A-Z0-9\-]+\]").
+- Detect any [IDX-...] tags (e.g., using regex like r"/[IDX-[A-Z0-9/-]+\]").
 - Capture:
   - IDX tag (e.g., IDX-DB-SCHEMA-01)
   - File path
@@ -175,13 +175,13 @@ EXECUTION PLAN (WHAT YOU SHOULD ACTUALLY DO)
 You should:
 
 1) DETECT PROJECT ROOT & PRECHECKS
-   - Confirm C:\Users\richg\ALL_AI\AI_Dev_Pipeline exists; if not, treat as error and:
+   - Confirm C:/Users/richg/ALL_AI/AI_Dev_Pipeline exists; if not, treat as error and:
      - Create docs/PHASE_PLAN.md if missing.
      - Add a PH-01 section noting that project root is missing and PH-00 must be completed.
      - Stop further destructive actions.
 
    - If it exists:
-     - cd C:\Users\richg\ALL_AI\AI_Dev_Pipeline
+     - cd C:/Users/richg/ALL_AI/AI_Dev_Pipeline
      - Confirm src/pipeline/ and docs/ exist; if missing, create them (but note that PH-00 may not be complete in README.md).
 
 2) ENSURE MODULE LAYOUT
@@ -256,7 +256,7 @@ PHASE COMPLETION CHECKLIST (YOU MUST SATISFY THIS)
 
 Before you consider PH-01 done, ensure all of the following are true:
 
-[ ] Project root C:\Users\richg\ALL_AI\AI_Dev_Pipeline exists
+[ ] Project root C:/Users/richg/ALL_AI/AI_Dev_Pipeline exists
 [ ] src/pipeline/ contains the canonical module stubs:
     db.py, orchestrator.py, tools.py, prompts.py, worktree.py,
     bundles.py, circuit_breakers.py, recovery.py, scheduler.py, executor.py

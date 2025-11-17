@@ -56,7 +56,7 @@ aider
 **Check dependencies before starting:**
 ```bash
 # Example: ws-ph02-schema has no dependencies, safe to start
-/run cat ../AI\ Development\ Pipeline\ Workstream\ Execution\ Plan*.md | grep -A 5 "ws-ph02-schema"
+/run cat .AI\ Development\ Pipeline\ Workstream\ Execution\ Plan*.md | grep -A 5 "ws-ph02-schema"
 ```
 
 **During development:**
@@ -87,7 +87,7 @@ Co-Authored-By: Aider <aider@aider.chat>
 **Return to main repository:**
 ```bash
 /exit
-cd ../../  # Back to main repo
+cd .../  # Back to main repo
 ```
 
 ## Current Status (As of Last Check)

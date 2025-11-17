@@ -76,7 +76,7 @@ class OpenSpecBundle:
     def to_yaml(self) -> str:
         # Minimal YAML emitter to avoid extra deps; stable ordering
         def esc(s: str) -> str:
-            if any(ch in s for ch in [":", "-", "#", "\n", "\"", "'"]):
+            if any(ch in s for ch in [":", "-", "#", "/n", "/"", "'"]):
                 return json.dumps(s)
             return s
 
@@ -93,7 +93,7 @@ class OpenSpecBundle:
             lines.append("  - id: " + esc(it.id))
             lines.append("    title: " + esc(it.title))
             if it.description:
-                desc = it.description.strip().replace("\n", "\\n")
+                desc = it.description.strip().replace("/n", "\/n")
                 lines.append("    description: " + esc(desc))
             if it.tags:
                 lines.append("    tags:")
@@ -104,7 +104,7 @@ class OpenSpecBundle:
                 for wt in it.when_then:
                     lines.append("      - when: " + esc(wt.when))
                     lines.append("        then: " + esc(wt.then))
-        return "\n".join(lines) + "\n"
+        return "/n".join(lines) + "/n"
 
 
 def _parse_simple_yaml(path: Path) -> Dict[str, Any]:
@@ -124,7 +124,7 @@ def _parse_simple_yaml(path: Path) -> Dict[str, Any]:
 
     with path.open("r", encoding="utf-8") as f:
         for raw in f:
-            line = raw.rstrip("\n")
+            line = raw.rstrip("/n")
             if not line.strip() or line.strip().startswith("#"):
                 continue
             indent = len(line) - len(line.lstrip(" "))
@@ -256,14 +256,14 @@ def test_load_and_roundtrip(tmp_path: Path):
     src = tmp_path / "demo.yaml"
     src.write_text(
         (
-            "bundle-id: demo-001\n"
-            "version: 1.0\n"
-            "items:\n"
-            "  - id: S-1\n"
-            "    title: Login succeeds\n"
-            "    when-then:\n"
-            "      - when: user submits valid credentials\n"
-            "        then: session is created\n"
+            "bundle-id: demo-001/n"
+            "version: 1.0/n"
+            "items:/n"
+            "  - id: S-1/n"
+            "    title: Login succeeds/n"
+            "    when-then:/n"
+            "      - when: user submits valid credentials/n"
+            "        then: session is created/n"
         ),
         encoding="utf-8",
     )
@@ -272,7 +272,7 @@ def test_load_and_roundtrip(tmp_path: Path):
     out = write_bundle(b, tmp_path)
     assert out.exists()
     text = out.read_text(encoding="utf-8")
-    assert "bundle-id: \"demo-001\"" in text or "bundle-id: demo-001" in text
+    assert "bundle-id: /"demo-001/"" in text or "bundle-id: demo-001" in text
 ```
 
 Run tests:

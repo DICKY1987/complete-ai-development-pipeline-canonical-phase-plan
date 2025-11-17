@@ -53,8 +53,8 @@
 
 ● I'll create a coordination guide document that both Claude Code and Codex can use:
 
-● Write(docs\COORDINATION_GUIDE.md)
-  ⎿  Wrote 1 lines to docs\COORDINATION_GUIDE.md
+● Write(docs/COORDINATION_GUIDE.md)
+  ⎿  Wrote 1 lines to docs/COORDINATION_GUIDE.md
      # Workstream Coordination Guide
      ## For Claude Code & Codex CLI Collaboration
      This guide explains how Claude Code and Codex CLI can coordinate their work and track each other's progress across the 17 workstreams in
@@ -65,8 +65,8 @@
 
 ● Now let me create the automated status check script referenced in the guide:
 
-● Write(scripts\check_workstream_status.sh)
-  ⎿  Wrote 1 lines to scripts\check_workstream_status.sh
+● Write(scripts/check_workstream_status.sh)
+  ⎿  Wrote 1 lines to scripts/check_workstream_status.sh
      #!/bin/bash
      # Workstream Status Checker
      # Checks the completion status of all workstreams across PH-01, PH-02, PH-03
@@ -89,7 +89,7 @@
 
 ● Interesting! The status checker shows that scripts/generate_spec_index.py already EXISTS. Let me verify:
 
-● Read(scripts\generate_spec_index.py)
+● Read(scripts/generate_spec_index.py)
   ⎿  Read 126 lines
 
 ● Bash(ls -la scripts/)

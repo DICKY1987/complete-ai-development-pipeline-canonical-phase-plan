@@ -16,15 +16,15 @@ commands. Tasks are grouped by phase; cross-cutting items appear first.
 ## Cross-cutting tasks
 - [ ] Dependencies: add `PyYAML` to `requirements.txt` to satisfy `aim_bridge`.
   - DoD: `pytest -q` collects tests without `ModuleNotFoundError: yaml`.
-  - Verify: `pwsh ./scripts/test.ps1` returns exit code 0 (or only test failures unrelated to deps).
+  - Verify: `pwsh scripts/test.ps1` returns exit code 0 (or only test failures unrelated to deps).
 - [ ] Optional linters: configure `markdownlint` (npm) if desired.
   - DoD: `markdownlint` runs with zero errors or documented ignores.
-  - Verify: `pwsh ./scripts/test.ps1` shows markdownlint step.
+  - Verify: `pwsh scripts/test.ps1` shows markdownlint step.
 
 ## Phase 00 — Baseline & project skeleton
 - [ ] Ensure `scripts/test.ps1` passes in a clean environment.
   - DoD: No import errors; clean run on a fresh clone after installing `requirements.txt`.
-  - Verify: `pwsh ./scripts/test.ps1` exits with 0.
+  - Verify: `pwsh scripts/test.ps1` exits with 0.
 
 ## Phase 01 — Spec alignment & index mapping
 - [ ] Add explicit section in `docs/ARCHITECTURE.md` for “Spec mapping & IDX index”.
@@ -102,7 +102,7 @@ commands. Tasks are grouped by phase; cross-cutting items appear first.
 
 ## Runbook
 - Install deps: `python -m pip install -r requirements.txt`
-- Run tests: `pwsh ./scripts/test.ps1`
+- Run tests: `pwsh scripts/test.ps1`
 - Lint markdown (optional): `npm i -g markdownlint-cli` then `markdownlint **/*.md`
 
 ## Risks & mitigations

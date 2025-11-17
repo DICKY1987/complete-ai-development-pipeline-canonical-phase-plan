@@ -8,21 +8,39 @@ This repository hosts a structured, phase-based plan and lightweight tooling for
   - `pwsh ./scripts/bootstrap.ps1`
   - `pwsh ./scripts/test.ps1`
 
-### OpenSpec quickstart
-- Author a change: create `openspec/changes/<id>/{proposal.md,tasks.md}`
-- Generate a normalized bundle YAML:
-  - `python -m src.pipeline.openspec_parser --change-id <id> --generate-bundle`
-- Convert to a pipeline workstream JSON:
-  - `python scripts/generate_workstreams_from_openspec.py --change-id <id> --files-scope <path...>`
-- Validate and run:
-  - `python ./scripts/validate_workstreams.py`
-  - `python ./scripts/run_workstream.py --ws-id ws-<id>`
+### OpenSpec Integration Quick Start
 
-See `docs/ccpm-openspec-workflow.md` for the end-to-end flow.
+**5-Minute Workflow:**
 
-Optional: install the OpenSpec CLI for `openspec list/validate/archive` commands:
-- `npm install -g @fission-ai/openspec`
-- `openspec --version`
+1. **Create proposal** (use Claude Code):
+   ```
+   /openspec:proposal "Your feature description"
+   ```
+
+2. **Convert to workstream**:
+   ```bash
+   # Interactive mode (recommended)
+   python scripts/spec_to_workstream.py --interactive
+
+   # Or direct conversion
+   python scripts/spec_to_workstream.py --change-id <id>
+   ```
+
+3. **Validate and run**:
+   ```bash
+   python scripts/validate_workstreams.py
+   python scripts/run_workstream.py --ws-id ws-<id>
+   ```
+
+4. **Archive completed work**:
+   ```
+   /openspec:archive <change-id>
+   ```
+
+**Full Documentation:**
+- Quick Start: `docs/QUICKSTART_OPENSPEC.md`
+- Bridge Guide: `docs/openspec_bridge.md`
+- OpenSpec CLI: `npm install -g @fission-ai/openspec`
 
 ## Repository Layout
 - `docs/` - architecture notes, ADRs, and specifications

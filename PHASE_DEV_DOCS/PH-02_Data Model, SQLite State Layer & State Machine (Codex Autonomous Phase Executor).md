@@ -21,7 +21,7 @@ OPERATING CONTEXT
   - PH-01: Spec alignment, module stubs, spec index mapping.
 
 PROJECT ROOT (IMPORTANT)
-- Expected project root: C:\Users\richg\ALL_AI\AI_Dev_Pipeline
+- Expected project root: C:/Users/richg/ALL_AI/AI_Dev_Pipeline
 
 If that folder does NOT exist:
 - Stop and write a clear, prominent note into docs/PHASE_PLAN.md under PH-02 that PH-00/PH-01 must be completed.
@@ -279,8 +279,8 @@ EXECUTION PLAN (WHAT YOU SHOULD DO)
 You should:
 
 1) PRECHECKS & NAVIGATION
-   - Confirm C:\Users\richg\ALL_AI\AI_Dev_Pipeline exists.
-   - cd C:\Users\richg\ALL_AI\AI_Dev_Pipeline
+   - Confirm C:/Users/richg/ALL_AI/AI_Dev_Pipeline exists.
+   - cd C:/Users/richg/ALL_AI/AI_Dev_Pipeline
    - Confirm src/pipeline/ exists; if not, create it but also note in docs/PHASE_PLAN.md that PH-00/01 may be incomplete.
 
 2) CREATE SCHEMA FILE

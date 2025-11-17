@@ -1,0 +1,101 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/schemas/workstream.schema.json",
+  "title": "Workstream Bundle",
+  "description": "Schema for a single workstream bundle used by the pipeline orchestrator.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "title": "Workstream ID",
+      "description": "Unique workstream identifier (lowercase) prefixed with 'ws-'.",
+      "type": "string",
+      "pattern": "^ws-[a-z0-9-]+$"
+    },
+    "openspec_change": {
+      "title": "OpenSpec Change ID",
+      "description": "Identifier linking to an OpenSpec change or requirement.",
+      "type": "string"
+    },
+    "ccpm_issue": {
+      "title": "Issue Reference",
+      "description": "Related issue identifier (e.g., GitHub/CCPM).",
+      "oneOf": [
+        { "type": "integer" },
+        { "type": "string" }
+      ]
+    },
+    "gate": {
+      "title": "Gate",
+      "description": "Minimum OpenSpec gate/approval level required (>= 1).",
+      "type": "integer",
+      "minimum": 1
+    },
+    "files_scope": {
+      "title": "Files Scope",
+      "description": "List of file paths this workstream claims ownership over (relative paths).",
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1
+    },
+    "files_create": {
+      "title": "Files Create",
+      "description": "Files this workstream is allowed to create (relative paths).",
+      "type": "array",
+      "items": { "type": "string" },
+      "default": []
+    },
+    "tasks": {
+      "title": "Tasks",
+      "description": "High-level tasks to perform within this workstream.",
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "acceptance_tests": {
+      "title": "Acceptance Tests",
+      "description": "Acceptance test descriptions or commands.",
+      "type": "array",
+      "items": { "type": "string" },
+      "default": []
+    },
+    "depends_on": {
+      "title": "Dependencies",
+      "description": "Upstream workstream IDs this workstream depends on.",
+      "type": "array",
+      "items": { "type": "string" },
+      "default": []
+    },
+    "tool": {
+      "title": "Primary Tool",
+      "description": "Primary tool identifier used to execute this workstream (e.g., 'aider').",
+      "type": "string"
+    },
+    "circuit_breaker": {
+      "title": "Circuit Breaker",
+      "description": "Optional circuit breaker configuration for the executor.",
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "max_attempts": { "type": "integer", "minimum": 1 },
+        "max_error_repeats": { "type": "integer", "minimum": 0 },
+        "oscillation_threshold": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "metadata": {
+      "title": "Metadata",
+      "description": "Free-form metadata about this workstream.",
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "required": [
+    "id",
+    "openspec_change",
+    "ccpm_issue",
+    "gate",
+    "files_scope",
+    "tasks",
+    "tool"
+  ]
+}
+

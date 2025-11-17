@@ -19,7 +19,7 @@ OPERATING CONTEXT
 
 Previous phases (assumed available and not to be broken):
 - PH-00: Baseline & project skeleton
-  - Repo: C:\Users\richg\ALL_AI\AI_Dev_Pipeline
+  - Repo: C:/Users/richg/ALL_AI/AI_Dev_Pipeline
   - src/pipeline/, tests/pipeline/, scripts/, docs/, config/
 - PH-01: Spec alignment & module stubs
 - PH-02: SQLite state layer & state machine
@@ -45,7 +45,7 @@ Previous phases (assumed available and not to be broken):
   - scripts/validate_workstreams_authoring.py
 
 PROJECT ROOT (IMPORTANT)
-- Expected project root: C:\Users\richg\ALL_AI\AI_Dev_Pipeline
+- Expected project root: C:/Users/richg/ALL_AI/AI_Dev_Pipeline
 
 If that folder does NOT exist:
 - Stop and write a clear, prominent note into docs/PHASE_PLAN.md under PH-06 that PH-00–PH-05.5 must be completed first.
@@ -138,7 +138,7 @@ OPERATING CONTEXT
 
 Previous phases (assumed available and not to be broken):
 - PH-00: Baseline & project skeleton
-  - Repo: C:\Users\richg\ALL_AI\AI_Dev_Pipeline
+  - Repo: C:/Users/richg/ALL_AI/AI_Dev_Pipeline
   - src/pipeline/, tests/pipeline/, scripts/, docs/, config/
 - PH-01: Spec alignment & module stubs
 - PH-02: SQLite state layer & state machine
@@ -164,7 +164,7 @@ Previous phases (assumed available and not to be broken):
   - scripts/validate_workstreams_authoring.py
 
 PROJECT ROOT (IMPORTANT)
-- Expected project root: C:\Users\richg\ALL_AI\AI_Dev_Pipeline
+- Expected project root: C:/Users/richg/ALL_AI/AI_Dev_Pipeline
 
 If that folder does NOT exist:
 - Stop and write a clear, prominent note into docs/PHASE_PLAN.md under PH-06 that PH-00–PH-05.5 must be completed first.
@@ -679,8 +679,8 @@ You should:
 
 1. PRECHECKS & NAVIGATION
 
-   * Confirm C:\Users\richg\ALL_AI\AI_Dev_Pipeline exists.
-   * cd C:\Users\richg\ALL_AI\AI_Dev_Pipeline
+   * Confirm C:/Users/richg/ALL_AI/AI_Dev_Pipeline exists.
+   * cd C:/Users/richg/ALL_AI/AI_Dev_Pipeline
    * Confirm src/pipeline/, config/, docs/, tests/ exist; create missing folders if needed and note in docs/PHASE_PLAN.md if earlier phases are incomplete.
 
 2. CREATE circuit_breakers.yaml

@@ -21,7 +21,7 @@ OPERATING CONTEXT
   - PH-02: SQLite state layer (db.py, schema, state_machine, init_db, etc.).
 
 PROJECT ROOT (IMPORTANT)
-- Expected project root: C:\Users\richg\ALL_AI\AI_Dev_Pipeline
+- Expected project root: C:/Users/richg/ALL_AI/AI_Dev_Pipeline
 
 If that folder does NOT exist:
 - Stop and write a clear, prominent note into docs/PHASE_PLAN.md under PH-03 that PH-00–PH-02 must be completed.
@@ -251,8 +251,8 @@ EXECUTION PLAN (WHAT YOU SHOULD DO)
 You should:
 
 1) PRECHECKS & NAVIGATION
-   - Confirm C:\Users\richg\ALL_AI\AI_Dev_Pipeline exists.
-   - cd C:\Users\richg\ALL_AI\AI_Dev_Pipeline
+   - Confirm C:/Users/richg/ALL_AI/AI_Dev_Pipeline exists.
+   - cd C:/Users/richg/ALL_AI/AI_Dev_Pipeline
    - Confirm src/pipeline/ and docs/ exist; if not, create them and note in docs/PHASE_PLAN.md that earlier phases may not be fully complete.
 
 2) CREATE/UPDATE TOOL PROFILE CONFIG

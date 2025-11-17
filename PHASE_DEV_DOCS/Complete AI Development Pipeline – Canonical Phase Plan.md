@@ -21,7 +21,7 @@ Create a clean, versioned home for the pipeline and lock in core tech choices (P
 
 **Key Artifacts**
 
-* Repo: `ALL_AI\AI_Dev_Pipeline` (or similar).
+* Repo: `ALL_AI/AI_Dev_Pipeline` (or similar).
 * `pyproject.toml`, `requirements.txt`, optional `tasks.py` (Invoke) or `scripts/` (PowerShell).
 * `src/`, `tests/`, `scripts/`, `docs/` layout.
 * Top-level docs: `README.md`, `CONTRIBUTING.md`, `ARCHITECTURE.md`.

@@ -17,8 +17,8 @@ writable_globs:
   - "tests/integration/test_aim_end_to_end.py"
 readonly_globs:
   - "src/pipeline/tools.py"
-  - "../Complete AI Development Pipeline – Canonical Phase Plan/.AIM_ai-tools-registry/**/*.json"
-  - "../Complete AI Development Pipeline – Canonical Phase Plan/.AIM_ai-tools-registry/**/*.ps1"
+  - ".Complete AI Development Pipeline – Canonical Phase Plan/.AIM_ai-tools-registry/**/*.json"
+  - ".Complete AI Development Pipeline – Canonical Phase Plan/.AIM_ai-tools-registry/**/*.ps1"
 ---
 
 # PH-08 – AIM Tool Registry Integration (Aider Workstream)
@@ -57,9 +57,9 @@ tests/integration/test_aim_end_to_end.py
 ```
 src/pipeline/tools.py
 src/pipeline/db.py
-../Complete AI Development Pipeline – Canonical Phase Plan/.AIM_ai-tools-registry/AIM_registry.json
-../Complete AI Development Pipeline – Canonical Phase Plan/.AIM_ai-tools-registry/AIM_cross-tool/AIM_coordination-rules.json
-../Complete AI Development Pipeline – Canonical Phase Plan/.AIM_ai-tools-registry/AIM_adapters/*.ps1
+.Complete AI Development Pipeline – Canonical Phase Plan/.AIM_ai-tools-registry/AIM_registry.json
+.Complete AI Development Pipeline – Canonical Phase Plan/.AIM_ai-tools-registry/AIM_cross-tool/AIM_coordination-rules.json
+.Complete AI Development Pipeline – Canonical Phase Plan/.AIM_ai-tools-registry/AIM_adapters/*.ps1
 ```
 
 ### Explicitly Out of Scope
@@ -73,7 +73,7 @@ src/pipeline/db.py
 
 ## 4. ENVIRONMENT & PRECONDITIONS
 
-**Project Root:** C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan
+**Project Root:** C:/Users/richg/ALL_AI/Complete AI Development Pipeline – Canonical Phase Plan
 **Operating System:** Windows 10/11
 **Python Version:** 3.12+
 **PowerShell Version:** 7+
@@ -95,7 +95,7 @@ src/pipeline/db.py
 - PyYAML (for config)
 
 **External Dependency:**
-- AIM registry must exist at: `C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\.AIM_ai-tools-registry`
+- AIM registry must exist at: `C:/Users/richg/ALL_AI/Complete AI Development Pipeline – Canonical Phase Plan/.AIM_ai-tools-registry`
 - If missing: set AIM_REGISTRY_PATH env var or document graceful degradation
 
 **Dependency Check:**
@@ -334,7 +334,7 @@ If AIM registry missing:
 
 ### Step 1: Design AIM Bridge Architecture
 **Intent:** Plan Python-PowerShell integration
-**Files:** /read-only ../Complete AI Development Pipeline – Canonical Phase Plan/.AIM_ai-tools-registry/AIM_registry.json
+**Files:** /read-only .Complete AI Development Pipeline – Canonical Phase Plan/.AIM_ai-tools-registry/AIM_registry.json
 **Command:** `/architect`
 **Prompt:**
 ```

@@ -30,8 +30,8 @@ OPERATING CONTEXT
   - PH-06: Circuit breakers, retries & fix loop.
 
 PROJECT ROOT (IMPORTANT)
-- Expected project root: C:\Users\richg\ALL_AI\AI_Dev_Pipeline
-- Multi-Doc Versioning source: C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\Multi-Document Versioning Automation final_spec_docs
+- Expected project root: C:/Users/richg/ALL_AI/AI_Dev_Pipeline
+- Multi-Doc Versioning source: C:/Users/richg/ALL_AI/Complete AI Development Pipeline – Canonical Phase Plan/Multi-Document Versioning Automation final_spec_docs
 
 If project root does NOT exist:
 - Stop and write a clear, prominent note into docs/PHASE_PLAN.md under PH-09 that PH-00–PH-06 must be completed first.
@@ -339,8 +339,8 @@ EXECUTION PLAN (WHAT YOU SHOULD DO)
 You should:
 
 1) PRECHECKS & NAVIGATION
-   - Confirm C:\Users\richg\ALL_AI\AI_Dev_Pipeline exists.
-   - cd C:\Users\richg\ALL_AI\AI_Dev_Pipeline
+   - Confirm C:/Users/richg/ALL_AI/AI_Dev_Pipeline exists.
+   - cd C:/Users/richg/ALL_AI/AI_Dev_Pipeline
    - Confirm Multi-Document Versioning submodule exists at expected location.
    - Confirm docs/, tools/, schema/, templates/ exist; if not, create them.
 

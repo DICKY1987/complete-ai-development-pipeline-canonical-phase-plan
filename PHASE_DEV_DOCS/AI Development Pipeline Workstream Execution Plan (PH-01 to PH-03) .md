@@ -116,7 +116,7 @@
      │                                                                         │
      │ Cleanup Worktree (success case):                                        │
      │ # Return to main repo root                                              │
-     │ cd ../../                                                               │
+     │ cd .../                                                               │
      │                                                                         │
      │ # Remove worktree                                                       │
      │ git worktree remove .worktrees/<ws_id>                                  │
@@ -125,7 +125,7 @@
      │                                                                         │
      │ Cleanup Worktree (failure case - preserve for debugging):               │
      │ # Return to main repo root                                              │
-     │ cd ../../                                                               │
+     │ cd .../                                                               │
      │                                                                         │
      │ # List all worktrees                                                    │
      │ git worktree list                                                       │
@@ -155,7 +155,7 @@
      │                                                                         │
      │ ## Project Context                                                      │
      │                                                                         │
-     │ - **Project Root:** `C:\Users\richg\ALL_AI\AI_Dev_Pipeline`             │
+     │ - **Project Root:** `C:/Users/richg/ALL_AI/AI_Dev_Pipeline`             │
      │ - **Tech Stack:** Python 3.12+, SQLite, PowerShell 7                    │
      │ - **Working Method:** Git worktrees for isolation                       │
      │ - **Branch Pattern:** `workstream/<ws_id>`                              │
@@ -185,7 +185,7 @@
      │                                                                         │
      │ **Git Worktree Setup:**                                                 │
      │ ```bash                                                                 │
-     │ cd C:\Users\richg\ALL_AI\AI_Dev_Pipeline                                │
+     │ cd C:/Users/richg/ALL_AI/AI_Dev_Pipeline                                │
      │ git worktree add .worktrees/ws-ph01-spec-mapping -b                     │
      │ workstream/ws-ph01-spec-mapping main                                    │
      │ cd .worktrees/ws-ph01-spec-mapping                                      │
@@ -229,7 +229,7 @@
      │ - tests/pipeline/test_spec_index.py (create)                            │
      │                                                                         │
      │ Git Worktree Setup:                                                     │
-     │ cd C:\Users\richg\ALL_AI\AI_Dev_Pipeline                                │
+     │ cd C:/Users/richg/ALL_AI/AI_Dev_Pipeline                                │
      │ git worktree add .worktrees/ws-ph01-tests -b workstream/ws-ph01-tests   │
      │ main                                                                    │
      │ cd .worktrees/ws-ph01-tests                                             │
@@ -271,7 +271,7 @@
      │ - src/pipeline/state_machine.py (optional separate module)              │
      │                                                                         │
      │ Git Worktree Setup:                                                     │
-     │ cd C:\Users\richg\ALL_AI\AI_Dev_Pipeline                                │
+     │ cd C:/Users/richg/ALL_AI/AI_Dev_Pipeline                                │
      │ git worktree add .worktrees/ws-ph02-state-machine -b                    │
      │ workstream/ws-ph02-state-machine main                                   │
      │ cd .worktrees/ws-ph02-state-machine                                     │
@@ -326,7 +326,7 @@
      │ - src/pipeline/db.py (add CRUD functions)                               │
      │                                                                         │
      │ Git Worktree Setup:                                                     │
-     │ cd C:\Users\richg\ALL_AI\AI_Dev_Pipeline                                │
+     │ cd C:/Users/richg/ALL_AI/AI_Dev_Pipeline                                │
      │ git worktree add .worktrees/ws-ph02-crud -b workstream/ws-ph02-crud main│
      │ cd .worktrees/ws-ph02-crud                                              │
      │                                                                         │
@@ -377,7 +377,7 @@
      │ - tests/pipeline/test_db_state.py (create)                              │
      │                                                                         │
      │ Git Worktree Setup:                                                     │
-     │ cd C:\Users\richg\ALL_AI\AI_Dev_Pipeline                                │
+     │ cd C:/Users/richg/ALL_AI/AI_Dev_Pipeline                                │
      │ git worktree add .worktrees/ws-ph02-tests -b workstream/ws-ph02-tests   │
      │ main                                                                    │
      │ cd .worktrees/ws-ph02-tests                                             │
@@ -421,7 +421,7 @@
      │ - src/pipeline/tools.py (create core adapter)                           │
      │                                                                         │
      │ Git Worktree Setup:                                                     │
-     │ cd C:\Users\richg\ALL_AI\AI_Dev_Pipeline                                │
+     │ cd C:/Users/richg/ALL_AI/AI_Dev_Pipeline                                │
      │ git worktree add .worktrees/ws-ph03-adapter-core -b                     │
      │ workstream/ws-ph03-adapter-core main                                    │
      │ cd .worktrees/ws-ph03-adapter-core                                      │
@@ -474,7 +474,7 @@
      │ - src/pipeline/tools.py (add DB calls)                                  │
      │                                                                         │
      │ Git Worktree Setup:                                                     │
-     │ cd C:\Users\richg\ALL_AI\AI_Dev_Pipeline                                │
+     │ cd C:/Users/richg/ALL_AI/AI_Dev_Pipeline                                │
      │ git worktree add .worktrees/ws-ph03-db-integration -b                   │
      │ workstream/ws-ph03-db-integration main                                  │
      │ cd .worktrees/ws-ph03-db-integration                                    │
@@ -520,7 +520,7 @@
      │ - tests/pipeline/test_tools.py (create)                                 │
      │                                                                         │
      │ Git Worktree Setup:                                                     │
-     │ cd C:\Users\richg\ALL_AI\AI_Dev_Pipeline                                │
+     │ cd C:/Users/richg/ALL_AI/AI_Dev_Pipeline                                │
      │ git worktree add .worktrees/ws-ph03-tests -b workstream/ws-ph03-tests   │
      │ main                                                                    │
      │ cd .worktrees/ws-ph03-tests                                             │
@@ -636,7 +636,7 @@
      │                                                                         │
      │ ## Project Context                                                      │
      │                                                                         │
-     │ - **Project Root:** `C:\Users\richg\ALL_AI\AI_Dev_Pipeline`             │
+     │ - **Project Root:** `C:/Users/richg/ALL_AI/AI_Dev_Pipeline`             │
      │ - **Tech Stack:** Python 3.12+, SQLite, PowerShell 7                    │
      │ - **Working Method:** Git worktrees for isolation                       │
      │ - **Branch Pattern:** `workstream/<ws_id>`                              │
@@ -671,7 +671,7 @@
      │                                                                         │
      │ **Git Worktree Setup:**                                                 │
      │ ```bash                                                                 │
-     │ cd C:\Users\richg\ALL_AI\AI_Dev_Pipeline                                │
+     │ cd C:/Users/richg/ALL_AI/AI_Dev_Pipeline                                │
      │ git worktree add .worktrees/ws-ph01-module-stubs -b                     │
      │ workstream/ws-ph01-module-stubs main                                    │
      │ cd .worktrees/ws-ph01-module-stubs                                      │
@@ -727,7 +727,7 @@
      │ - OR src/pipeline/spec_index.py + small wrapper in scripts/             │
      │                                                                         │
      │ Git Worktree Setup:                                                     │
-     │ cd C:\Users\richg\ALL_AI\AI_Dev_Pipeline                                │
+     │ cd C:/Users/richg/ALL_AI/AI_Dev_Pipeline                                │
      │ git worktree add .worktrees/ws-ph01-index-scanner -b                    │
      │ workstream/ws-ph01-index-scanner main                                   │
      │ cd .worktrees/ws-ph01-index-scanner                                     │
@@ -737,7 +737,7 @@
      │ 2. Implement:                                                           │
      │   - Walk docs/ directory recursively                                    │
      │   - Find all .md and .txt files                                         │
-     │   - Use regex to find [IDX-...] tags: r"\[IDX-[A-Z0-9\-]+\]"            │
+     │   - Use regex to find [IDX-...] tags: r"/[IDX-[A-Z0-9/-]+\]"            │
      │   - Extract:                                                            │
      │       - IDX tag (e.g., IDX-DB-SCHEMA-01)                                │
      │     - File path (relative to project root)                              │
@@ -779,7 +779,7 @@
      │ - docs/spec/README.md (create)                                          │
      │                                                                         │
      │ Git Worktree Setup:                                                     │
-     │ cd C:\Users\richg\ALL_AI\AI_Dev_Pipeline                                │
+     │ cd C:/Users/richg/ALL_AI/AI_Dev_Pipeline                                │
      │ git worktree add .worktrees/ws-ph01-docs -b workstream/ws-ph01-docs main│
      │ cd .worktrees/ws-ph01-docs                                              │
      │                                                                         │
@@ -824,7 +824,7 @@
      │ - schema/schema.sql (create)                                            │
      │                                                                         │
      │ Git Worktree Setup:                                                     │
-     │ cd C:\Users\richg\ALL_AI\AI_Dev_Pipeline                                │
+     │ cd C:/Users/richg/ALL_AI/AI_Dev_Pipeline                                │
      │ git worktree add .worktrees/ws-ph02-schema -b workstream/ws-ph02-schema │
      │ main                                                                    │
      │ cd .worktrees/ws-ph02-schema                                            │
@@ -878,7 +878,7 @@
      │ - src/pipeline/db.py (add connection and init functions)                │
      │                                                                         │
      │ Git Worktree Setup:                                                     │
-     │ cd C:\Users\richg\ALL_AI\AI_Dev_Pipeline                                │
+     │ cd C:/Users/richg/ALL_AI/AI_Dev_Pipeline                                │
      │ git worktree add .worktrees/ws-ph02-db-core -b                          │
      │ workstream/ws-ph02-db-core main                                         │
      │ cd .worktrees/ws-ph02-db-core                                           │
@@ -926,7 +926,7 @@
      │ - scripts/db_inspect.py (create)                                        │
      │                                                                         │
      │ Git Worktree Setup:                                                     │
-     │ cd C:\Users\richg\ALL_AI\AI_Dev_Pipeline                                │
+     │ cd C:/Users/richg/ALL_AI/AI_Dev_Pipeline                                │
      │ git worktree add .worktrees/ws-ph02-scripts -b                          │
      │ workstream/ws-ph02-scripts main                                         │
      │ cd .worktrees/ws-ph02-scripts                                           │
@@ -976,7 +976,7 @@
      │ - docs/ARCHITECTURE.md (update)                                         │
      │                                                                         │
      │ Git Worktree Setup:                                                     │
-     │ cd C:\Users\richg\ALL_AI\AI_Dev_Pipeline                                │
+     │ cd C:/Users/richg/ALL_AI/AI_Dev_Pipeline                                │
      │ git worktree add .worktrees/ws-ph02-docs -b workstream/ws-ph02-docs main│
      │ cd .worktrees/ws-ph02-docs                                              │
      │                                                                         │
@@ -1016,7 +1016,7 @@
      │ - config/tool_profiles.json (create)                                    │
      │                                                                         │
      │ Git Worktree Setup:                                                     │
-     │ cd C:\Users\richg\ALL_AI\AI_Dev_Pipeline                                │
+     │ cd C:/Users/richg/ALL_AI/AI_Dev_Pipeline                                │
      │ git worktree add .worktrees/ws-ph03-profiles -b                         │
      │ workstream/ws-ph03-profiles main                                        │
      │ cd .worktrees/ws-ph03-profiles                                          │
@@ -1097,7 +1097,7 @@
      │ - docs/PHASE_PLAN.md (update)                                           │
      │                                                                         │
      │ Git Worktree Setup:                                                     │
-     │ cd C:\Users\richg\ALL_AI\AI_Dev_Pipeline                                │
+     │ cd C:/Users/richg/ALL_AI/AI_Dev_Pipeline                                │
      │ git worktree add .worktrees/ws-ph03-docs -b workstream/ws-ph03-docs main│
      │ cd .worktrees/ws-ph03-docs                                              │
      │                                                                         │

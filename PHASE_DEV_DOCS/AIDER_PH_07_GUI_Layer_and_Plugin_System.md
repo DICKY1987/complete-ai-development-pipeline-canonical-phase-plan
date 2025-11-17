@@ -92,7 +92,7 @@ schema/schema.sql
 
 ## 4. ENVIRONMENT & PRECONDITIONS
 
-**Project Root:** C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan
+**Project Root:** C:/Users/richg/ALL_AI/Complete AI Development Pipeline – Canonical Phase Plan
 **Operating System:** Windows 10/11
 **Python Version:** 3.12+
 **GUI Framework:** PyQt6
@@ -158,7 +158,7 @@ If any required module missing:
 - JSON Schema draft-07 format
 - Required fields: id, type, title, entry_point
 - Optional fields: description, category, icon, enabled_by_default, order, requires_services, version, min_gui_version, config
-- Pattern constraints for id (^[a-z0-9_\\.\\-]+$) and entry_point (module:ClassName format)
+- Pattern constraints for id (^[a-z0-9_\/.\/-]+$) and entry_point (module:ClassName format)
 - Enum for requires_services: [engine_client, state_client, tools_client, logs_client, config_client, terminal_manager]
 
 **Must Not:**
@@ -432,7 +432,7 @@ Determinism:
 Create docs/PLUGINS_SCHEMA.json as JSON Schema draft-07 with:
 
 Required fields:
-- id: string, pattern ^[a-z0-9_\\.\\-]+$
+- id: string, pattern ^[a-z0-9_\/.\/-]+$
 - type: enum ["panel"]
 - title: string
 - entry_point: string, pattern module.path:ClassName

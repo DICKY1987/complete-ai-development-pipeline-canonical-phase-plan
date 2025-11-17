@@ -32,7 +32,7 @@ Notes: keep automation in `scripts/`; put diagrams in `assets/`; specs and ADRs 
 - [ ] Create required folders: `docs/`, `plans/`, `scripts/`, `tests/`, `assets/`.
 - [ ] Add or update `AGENTS.md` and `README.md`.
 - [ ] Seed `scripts/bootstrap.ps1` and `scripts/test.ps1` (stub is acceptable).
-- [ ] Confirm `pwsh ./scripts/test.ps1` executes (even if it no-ops initially).
+- [ ] Confirm `pwsh scripts/test.ps1` executes (even if it no-ops initially).
 - [ ] Commit with Conventional Commit (e.g., `chore: scaffold repository skeleton`).
 
 ## Example Commands (PowerShell)
@@ -41,13 +41,13 @@ Notes: keep automation in `scripts/`; put diagrams in `assets/`; specs and ADRs 
 New-Item -ItemType Directory docs,plans,scripts,tests,assets -Force | Out-Null
 
 # optional: python venv
-python -m venv .venv; .\.venv\Scripts\Activate.ps1; pip install -U pip
+python -m venv .venv; .venv/Scripts/Activate.ps1; pip install -U pip
 
 # optional: node setup
 # npm ci
 
 # run tests (if present)
-pwsh ./scripts/test.ps1
+pwsh scripts/test.ps1
 ```
 
 ## Acceptance Criteria
