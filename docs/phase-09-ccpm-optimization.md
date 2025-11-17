@@ -13,8 +13,8 @@
 - Out of scope: Major refactors to unrelated pipeline modules, non‑GitHub issue trackers.
 
 ## Key decisions
-- Installation strategy: add CCPM to repo at `ccpm/` (vendored or submodule). This makes
-  `.claude/commands/pm/*.md` references like `bash ccpm/scripts/pm/...` immediately executable.
+- Installation strategy: add CCPM to repo at `pm/` (vendored or submodule). This makes
+  `.claude/commands/pm/*.md` references like `bash pm/scripts/pm/...` immediately executable.
 - Windows‑first: add thin PowerShell wrappers in `scripts/` that call CCPM bash scripts via WSL
   when needed; core logic in Python.
 - GitHub integration: prefer `gh` CLI for simplicity; fall back to REST API via PyGithub when
@@ -24,14 +24,14 @@
 
 ### Phase 09.1 — Install CCPM and wire commands
 - Tasks
-  - Add `ccpm/` directory via submodule or vendored copy (scripts, commands, rules kept intact).
+  - Add `pm/` directory via submodule or vendored copy (scripts, commands, rules kept intact).
   - Update `scripts/bootstrap.ps1` to optionally install/update CCPM:
-    - Detect `ccpm/`; if missing, offer to `git submodule add` or clone.
+    - Detect `pm/`; if missing, offer to `git submodule add` or clone.
     - Verify `.claude/` contents exist; ensure `.claude/commands/pm/*` paths resolve.
   - Add `scripts/ccpm_install.ps1` and `scripts/ccpm_update.ps1` for one‑shot setup/update.
   - Ensure `.gitignore` excludes CCPM ephemeral dirs (e.g., `.claude/epics/`).
 - Deliverables
-  - `ccpm/` present and callable; updated bootstrap script; install/update automation.
+  - `pm/` present and callable; updated bootstrap script; install/update automation.
 - Acceptance criteria
   - `pwsh ./scripts/bootstrap.ps1` reports CCPM ready; `.claude/commands/pm/epic-status.md`
     runs its underlying script without path errors.
@@ -140,4 +140,6 @@
 - Parallel tasks run in isolated worktrees and merge cleanly in a demo scenario.
 - Tests pass locally and in CI without network dependency by default.
 - Docs enable a new user to bootstrap and verify the integration end‑to‑end.
+
+
 

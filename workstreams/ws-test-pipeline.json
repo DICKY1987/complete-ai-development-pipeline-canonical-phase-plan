@@ -1,0 +1,27 @@
+{
+  "id": "ws-test-pipeline",
+  "openspec_change": "test-pipeline-flow",
+  "ccpm_issue": 0,
+  "gate": 1,
+  "files_scope": [
+    "test_output.txt"
+  ],
+  "files_create": [
+    "test_output.txt"
+  ],
+  "tasks": [
+    "Create a simple test file to verify pipeline execution",
+    "Add a basic message to the file"
+  ],
+  "acceptance_tests": [],
+  "depends_on": [],
+  "tool": "aider",
+  "circuit_breaker": {
+    "max_attempts": 2,
+    "max_error_repeats": 1
+  },
+  "metadata": {
+    "owner": "test-user",
+    "notes": "Simple test workstream to verify pipeline functionality"
+  }
+}

@@ -94,14 +94,14 @@ rm -rf ccpm-temp
 
 #### Method B: Install Script (Unix/Linux/macOS)
 ```bash
-curl -sSL https://automaze.io/ccpm/install | bash
+curl -sSL https://automaze.io/pm/install | bash
 # OR
-wget -qO- https://automaze.io/ccpm/install | bash
+wget -qO- https://automaze.io/pm/install | bash
 ```
 
 #### Method C: Install Script (Windows PowerShell)
 ```powershell
-iwr -useb https://automaze.io/ccpm/install | iex
+iwr -useb https://automaze.io/pm/install | iex
 ```
 
 **Note:** If you already have a `.claude` directory, manually merge the contents rather than overwriting.
@@ -1347,10 +1347,11 @@ CCPM transforms AI-assisted development from ad-hoc coding to systematic softwar
 For support and updates:
 - GitHub: https://github.com/automazeio/ccpm
 - Documentation: README.md and docs/
-- Issues: https://github.com/automazeio/ccpm/issues
+- Issues: https://github.com/automazeio/pm/issues
 
 ---
 
 *Generated: 2025-11-16*
 *Version: 1.0.0*
 *For: AI Assistants using Claude Code*
+

@@ -82,7 +82,7 @@ To ensure clarity, maintainability, and efficient execution by AI agents, follow
     -   Provide `acceptance_tests` to verify completion.
     -   Select the appropriate `tool` (e.g., `aider`).
     -   Add `depends_on` if necessary.
-4.  **Fill in the Template:** Use the canonical template (`templates/workstream_template.json`) as a starting point. Copy it, rename it (e.g., `workstreams/ws-my-new-feature.json`), and fill in the details.
+4.  **Fill in the Template:** Use the canonical template (`aider/templates/workstream_template.json`) as a starting point. Copy it, rename it (e.g., `workstreams/ws-my-new-feature.json`), and fill in the details.
 5.  **Run the Validator:** After authoring, run the workstream validator script:
     ```bash
     python scripts/validate_workstreams_authoring.py
@@ -139,3 +139,4 @@ Here's a simplified example of `workstreams/ws-implement-auth-backend.json`:
 ```
 
 This example demonstrates how a larger feature is decomposed, with clear tasks, file scopes, and verification steps. The `depends_on` field is empty here, assuming this is a foundational workstream. If a frontend workstream depended on this, its `depends_on` would include `"ws-implement-auth-backend"`.
+

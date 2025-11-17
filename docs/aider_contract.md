@@ -4,7 +4,7 @@ This document specifies how the pipeline integrates with the Aider CLI for EDIT 
 
 ## Overview
 - Aider is invoked by the pipeline’s tool adapter using a dedicated profile `aider`.
-- Prompts are generated via `src/pipeline/prompts.py` from templates in `templates/prompts/` and written under `<worktree>/.aider/prompts/`.
+- Prompts are generated via `src/pipeline/prompts.py` from templates in `aider/templates/prompts/` and written under `<worktree>/.aider/prompts/`.
 - Aider runs inside a dedicated git worktree for the active workstream.
 
 ## Requirements
@@ -50,4 +50,5 @@ Always-on flags:
 ## Contract Versioning
 - CONTRACT_VERSION: `AIDER_CONTRACT_V1`.
 - Future changes that affect flags, environment, or expectations will bump this string and update this file.
+
 

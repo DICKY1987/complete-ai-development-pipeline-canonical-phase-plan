@@ -30,9 +30,9 @@ try {
   $repoRoot = Resolve-Path (Join-Path $PSScriptRoot '..')
 } catch { $repoRoot = (Get-Location).Path }
 
-$ccpmPmDir = Join-Path $repoRoot 'ccpm/scripts/pm'
+$ccpmPmDir = Join-Path $repoRoot 'pm/scripts/pm'
 if (-not (Test-Path -LiteralPath $ccpmPmDir)) {
-  Write-Host "[bootstrap] CCPM not found (missing 'ccpm/scripts/pm'). Attempting install..."
+  Write-Host "[bootstrap] CCPM not found (missing 'pm/scripts/pm'). Attempting install..."
   $installer = Join-Path $repoRoot 'scripts/ccpm_install.ps1'
   if (Test-Path -LiteralPath $installer) {
     & $installer -Quiet | Write-Host
@@ -47,3 +47,4 @@ if (-not (Test-Path -LiteralPath $ccpmPmDir)) {
 } else {
   Write-Host "[bootstrap] CCPM found: $ccpmPmDir"
 }
+

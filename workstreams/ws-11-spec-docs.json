@@ -1,0 +1,30 @@
+{
+  "id": "ws-11-spec-docs",
+  "openspec_change": "WS-11",
+  "ccpm_issue": "TBD",
+  "gate": 1,
+  "files_scope": [
+    "docs/spec/README.md",
+    "docs/spec/spec_index_map.md",
+    "docs/SECTION_REFACTOR_PLAN.md",
+    "docs/spec-tooling-consolidation.md",
+    "docs/adr/adr-0005-spec-tooling-consolidation.md"
+  ],
+  "files_create": [],
+  "tasks": [
+    "Consolidate spec documentation; ensure docs/spec reflects current tools and OpenSpec flow.",
+    "Update spec_index_map.md and tagging conventions; verify index generation.",
+    "Reconcile docs with openspec integration flags and examples.",
+    "Clarify single source of truth between openspec/specs and tools/spec_* ADR."
+  ],
+  "acceptance_tests": [
+    "python scripts/generate_spec_index.py",
+    "python scripts/generate_spec_mapping.py"
+  ],
+  "depends_on": [],
+  "tool": "aider",
+  "metadata": {
+    "notes": "Per plan: WS-11 depends on WS-10 completion; enforced procedurally rather than via bundle dependency."
+  }
+}
+

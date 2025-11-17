@@ -1,0 +1,161 @@
+version: 0.1
+phase-name: ws-02-section-mapping
+generated-from:
+  source: refactor_paths.db
+  notes: initial mapping authored from WS-01 scan summary
+
+# Rules that apply across the repository for path normalization and scanning.
+normalization:
+  path-separators: ["/", "\\"]
+  collapse-dot-segments: true
+  trim-quotes: true
+  case-sensitive: false
+
+# Directories to exclude from refactor operations and scans.
+exclude-dirs:
+  - .git
+  - .venv
+  - __pycache__
+  - .pytest_cache
+  - node_modules
+  - dist
+  - build
+  - logs
+  - state
+
+# Canonical sections and their matching patterns. The target-root is the
+# normalized, authoritative location for artifacts in that section.
+sections:
+  - name: docs
+    target-root: docs/
+    match:
+      - "docs/**"
+      - "README.md"
+      - "CONTRIBUTING.md"
+    risk: low
+    notes: general documentation and specs
+
+  - name: scripts
+    target-root: scripts/
+    match:
+      - "scripts/**"
+      - "*.ps1"
+      - "*.sh"
+    risk: low
+    notes: Windows-first PowerShell scripts with Python parity
+
+  - name: tools
+    target-root: tools/
+    match:
+      - "tools/**"
+    risk: low
+    notes: internal Python utilities used by scripts/tests
+
+  - name: src
+    target-root: src/
+    match:
+      - "src/**"
+    risk: medium
+    notes: helper modules and plugin stubs used by tools/tests
+
+  - name: tests
+    target-root: tests/
+    match:
+      - "tests/**"
+    risk: low
+    notes: unit/integration tests for scripts/tools/pipeline
+
+  - name: config
+    target-root: config/
+    match:
+      - "config/**"
+    risk: medium
+    notes: adapter/tool profiles, decomposition rules, circuit-breaker config
+
+  - name: schema
+    target-root: schema/
+    match:
+      - "schema/**"
+    risk: medium
+    notes: JSON/YAML/SQL schemas defining workstream and sidecar contracts
+
+  - name: openspec
+    target-root: openspec/
+    match:
+      - "openspec/**"
+    risk: medium
+    notes: OpenSpec project and specs (validation-pipeline, plugin-system, orchestration)
+
+  - name: workstreams
+    target-root: workstreams/
+    match:
+      - "workstreams/**"
+    risk: low
+    notes: example single/multi workstream JSON bundles
+
+  - name: phase-dev-docs
+    target-root: PHASE_DEV_DOCS/
+    match:
+      - "PHASE_DEV_DOCS/**"
+    risk: low
+    notes: phase notes and coordination guides
+
+  - name: mod-error-pipeline
+    target-root: MOD_ERROR_PIPELINE/
+    match:
+      - "MOD_ERROR_PIPELINE/**"
+    risk: medium
+    notes: error pipeline modules and docs
+
+  - name: gui
+    target-root: gui/
+    match:
+      - "gui/**"
+    risk: medium
+    notes: GUI-related pipeline artifacts and documentation
+
+  - name: sandbox-repos
+    target-root: sandbox_repos/
+    match:
+      - "sandbox_repos/**"
+    risk: low
+    notes: self-contained toy repos for integration tests (excluded from pytest)
+
+# Mapping rules control planned moves/rewrites of hardcoded paths during refactor.
+# They are used by automation later phases to rewrite and validate references.
+mapping-rules:
+  - name: normalize-windows-separators
+    applies-to-kinds: [config_path, fs_literal, code_path, doc_link]
+    action: replace
+    from: "\\"
+    to: "/"
+
+  - name: drop-leading-dot
+    applies-to-kinds: [config_path, fs_literal, doc_link]
+    action: regex
+    pattern: "^\\./"
+    replace: ""
+
+  - name: collapse-multiple-separators
+    applies-to-kinds: [config_path, fs_literal, code_path, doc_link]
+    action: regex
+    pattern: "/{2,}"
+    replace: "/"
+
+  - name: canonicalize-top-sections
+    applies-to-kinds: [config_path, fs_literal, code_path, doc_link]
+    action: table
+    table:
+      docs: docs/
+      scripts: scripts/
+      tools: tools/
+      src: src/
+      tests: tests/
+      config: config/
+      schema: schema/
+      openspec: openspec/
+      workstreams: workstreams/
+      PHASE_DEV_DOCS: PHASE_DEV_DOCS/
+      MOD_ERROR_PIPELINE: MOD_ERROR_PIPELINE/
+      gui: gui/
+      sandbox_repos: sandbox_repos/

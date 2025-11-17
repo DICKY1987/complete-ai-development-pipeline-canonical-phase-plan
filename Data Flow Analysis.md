@@ -42,7 +42,7 @@ Data Flow Analysis_Complete AI Development Pipeline
 
   Flow: → Bundle Parser (PH-04) → DAG Construction → Scheduler
 
-  C. CCPM/OpenSpec Artifacts
+  C. pm/OpenSpec Artifacts
 
   Source: .claude/prds/, .claude/epics/, .claude/context/
   Format: Markdown with frontmatter
@@ -180,7 +180,7 @@ Data Flow Analysis_Complete AI Development Pipeline
   INPUT: Workstream + Bundle + Worktree
     ↓
   [prompts.py: build_edit_prompt()]
-    - Loads template: templates/prompts/edit.txt.j2
+    - Loads template: aider/templates/prompts/edit.txt.j2
     - Injects:
       • openspec_change details
       • files_scope list
@@ -268,7 +268,7 @@ Data Flow Analysis_Complete AI Development Pipeline
     ↓
   IF breaker NOT tripped:
     [prompts.py: build_fix_prompt()]
-      - Loads: templates/prompts/fix.txt.j2
+      - Loads: aider/templates/prompts/fix.txt.j2
       - Injects:
         • Error list from errors table
         • Previous diff hash
@@ -557,7 +557,7 @@ Data Flow Analysis_Complete AI Development Pipeline
   [db.py: update_workstream_metadata()]
     metadata_json['pr_url'] = "https://github.com/..."
 
-  C. CCPM/OpenSpec Updates (PH-08)
+  C. pm/OpenSpec Updates (PH-08)
 
   Workstream Status Changes
     ↓
@@ -710,7 +710,7 @@ Data Flow Analysis_Complete AI Development Pipeline
   │    ├─ Pull Requests (via gh pr create)                             │
   │    └─ Issue Comments (status updates)                              │
   │                                                                       │
-  │  CCPM/OpenSpec:                                                      │
+  │  pm/OpenSpec:                                                      │
   │    ├─ Gate status updates                                           │
   │    └─ Task completion markers                                       │
   │                                                                       │
@@ -821,6 +821,8 @@ Data Flow Analysis_Complete AI Development Pipeline
 
   Would you like me to dive deeper into any specific data flow path or
   create visualizations for particular subsystems?
+
+
 
 
 

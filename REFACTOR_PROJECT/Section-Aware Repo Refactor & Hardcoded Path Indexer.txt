@@ -1,0 +1,486 @@
+# Section-Aware Repo Refactor & Hardcoded Path Indexer
+
+**Agentic CLI Task Specification**
+
+> **Audience:** Agentic AI CLI apps (Codex CLI, Claude Code CLI, Aider, etc.) acting as autonomous refactoring agents in a Git repo.
+> **Goal:** Restructure the repo by “sections” and build a persistent database of hard-coded paths that supports future moves and prevents regressions.
+
+---
+
+## 1. Purpose & High-Level Objectives
+
+This document defines **what you (the AI CLI agent)** are expected to do, **what to produce**, and **how to approach it**.
+
+You have two tightly related missions:
+
+1. **Section Refactor**
+   Reorganize the repository’s directory structure so that files are grouped by **logical sections** (e.g., `core/`, `error/`, `spec/`, `pm/`, `aider/`, `aim/`, `gui/`, `infra/`, `meta/`), instead of historical or ad-hoc layout.
+
+2. **Hardcoded Path Index Database**
+   Implement a reusable **scanner + SQLite index** that tracks every **hard-coded path occurrence** in the codebase, so future refactors and section moves become **data-driven** rather than ad-hoc.
+
+You must preserve **behavioral equivalence** (tests still pass, scripts still work), and you must make it easier for future agents to perform similar refactors.
+
+---
+
+## 2. Scope & Assumptions
+
+You are operating in a **single Git repository** with:
+
+* Python, PowerShell, YAML/JSON, markdown, and CI workflows.
+* Logical “sections” already defined conceptually (e.g. core engine, error pipeline, spec management, PM/CCPM surface, AIM integration, GUI, infra).
+* A desire to move from current structure (e.g. `src/pipeline`, `MOD_ERROR_PIPELINE`, `PHASE_DEV_DOCS`, etc.) into **section-aligned directories**.
+
+You can:
+
+* Read and edit files in the repo.
+* Run commands (linters, tests, simple scripts) via CLI.
+* Commit changes (or generate patches) in small, logical batches.
+
+You must:
+
+* Preserve git history via `git mv` where practical (if you’re allowed to manipulate git).
+* Avoid changing business logic unless required to fix imports/paths.
+
+---
+
+## 3. Key Concepts
+
+### 3.1. “Sections”
+
+A **section** is a logical subsystem of the pipeline. Example section names (adaptable to the actual repo):
+
+* `core/` – Core pipeline engine & state (orchestrator, scheduler, DB, worktree)
+* `error/` – Error pipeline & plugin ecosystem
+* `spec/` – Spec management & multi-document versioning
+* `pm/` – CCPM, Claude Code PM commands, GitHub PM integration
+* `aim/` – AIM registry integration (tool registry, bridge, capabilities)
+* `aider/` – Aider integration & prompt engine docs/templates
+* `gui/` – GUI pipeline planning and (future) implementation
+* `infra/` – CI, env, sandbox repos, scripts, tools, configs
+* `meta/` – Coordination docs, agents/rules, “project knowledge” snapshots
+
+Each file/folder should map to exactly one section (or be clearly “shared infra”).
+
+### 3.2. “Hard-coded path”
+
+Any string or import that encodes the **current directory layout**, such as:
+
+* `"src/pipeline/error_state_machine.py"`
+* `"PHASE_DEV_DOCS/PH-02_Data Model..."`
+* `from src.pipeline import orchestrator`
+* CI steps with `working-directory: MOD_ERROR_PIPELINE`
+* Aider/CCPM prompts telling users to open `AIDER_PROMNT_HELP/...`
+
+These must be tracked and updated when sections change.
+
+---
+
+## 4. Part A – Section Refactor
+
+### 4.1. Objectives
+
+For the section refactor, you must:
+
+1. **Define a target directory structure** that groups code and docs into section folders.
+2. **Move files** into the new section layout (prefer `git mv`).
+3. **Update all imports, scripts, configs, CI and docs** to use the new paths.
+4. **Verify behavior** (tests, key scripts) remains correct.
+5. **Document the mapping** (“old path → new path”) in a machine-readable format.
+
+### 4.2. Inputs
+
+You should derive or create:
+
+* A **section mapping config** (recommended): `config/section_map.yaml`
+
+  Example format (adapt to actual repo):
+
+  ```yaml
+  sections:
+    core:
+      description: "Core pipeline engine and state layer."
+      includes:
+        - "src/pipeline/orchestrator.py"
+        - "src/pipeline/scheduler.py"
+        - "src/pipeline/db.py"
+    error:
+      description: "Error pipeline engine and plugins."
+      includes:
+        - "MOD_ERROR_PIPELINE/**"
+        - "src/pipeline/error_*.py"
+        - "src/plugins/**"
+    spec:
+      description: "Spec management & multi-doc versioning."
+      includes:
+        - "Multi-Document Versioning Automation final_spec_docs/**"
+        - "tools/spec_*"
+    # etc...
+  ```
+
+* A list of current **old roots** (e.g. `src/pipeline`, `MOD_ERROR_PIPELINE`, `PHASE_DEV_DOCS`, `AIDER_PROMNT_HELP`, etc.).
+
+### 4.3. Deliverables – Section Refactor
+
+You must produce:
+
+1. **New directory structure** under repo root, e.g.:
+
+   ```text
+   core/
+     orchestrator.py
+     scheduler.py
+     db/
+     tools.py
+   error/
+     engine.py
+     state_machine.py
+     plugins/
+   spec/
+     tools/
+     schemas/
+   pm/
+     pm/
+     github_sync.py
+   aim/
+   aider/
+   gui/
+   infra/
+   meta/
+   ```
+
+   (Exact layout depends on the current repo; use the conceptual mapping already analyzed.)
+
+2. **Updated imports and module references**
+
+   * All `from src.pipeline...` and similar must now import from the new section modules, e.g. `from core.orchestrator import ...`.
+
+3. **Updated scripts & configs**
+
+   * Any script in `scripts/` using old paths must be updated to new sections.
+   * CI workflows (`.github/workflows/*.yml`) must refer to new directories in `working-directory`, `run` commands, etc.
+   * Tool configs (e.g. `config/tool_profiles.json`, `config/github.yaml`) must be updated.
+
+4. **Updated docs**
+
+   * Markdown docs, Aider prompt help files, phase plans, etc., must reference the new structure so future agents follow the new layout.
+
+5. **Refactor mapping document**
+
+   * A file like `docs/SECTION_REFACTOR_MAPPING.md` or `config/section_refactor_map.json` containing:
+
+     * Old path → new path mapping
+     * Old section name → new section name (if changed)
+     * Notes on any merged/split modules
+
+6. **Verification log**
+
+   * A short Markdown or log file summarizing:
+
+     * What tests were run.
+     * Which commands passed (e.g., `pytest tests/core`, `pytest tests/error`, `python scripts/run_workstream.py --ws-id example_single`).
+
+### 4.4. Recommended Approach (Step-By-Step)
+
+You should follow a **phased, low-risk workflow**:
+
+#### Phase A1 – Discover & confirm mapping
+
+1. Parse the repository tree.
+2. Use existing conceptual mappings (core/error/spec/pm/aim/aider/gui/infra/meta) to propose a **target section for each folder/file**.
+3. Write the proposed mapping to `config/section_map.yaml` (or update an existing file).
+4. Validate internally (sanity check: each file belongs to exactly one section).
+
+#### Phase A2 – Plan moves
+
+1. Derive a **directory creation plan** from the mapping:
+
+   * For each section, define new root directory (e.g. `core/`, `error/`).
+2. Build a list of `old_path → new_path` moves.
+3. Ensure target paths do not conflict with existing files.
+
+#### Phase A3 – Move files (no content changes)
+
+1. Create section directories.
+2. Move files using `git mv` (if allowed), or equivalent filesystem operations.
+3. Commit or stage as a **“pure move”** change set (no content edits except paths).
+
+#### Phase A4 – Fix imports and code references
+
+1. Scan for Python imports that reference old packages (e.g. `src.pipeline`).
+2. Rewrite imports to new section modules based on the mapping.
+3. Update any internal module references (e.g. type hints, fully-qualified names).
+
+#### Phase A5 – Fix scripts, configs, CI, docs
+
+1. Scan scripts and configs for **old directory names** (see Part B for scanning).
+
+2. Update:
+
+   * `scripts/*.py`, `*.ps1`, etc.
+   * `.github/workflows/*.yml`
+   * `config/*.yaml`, `config/*.json`, `.env`, `.claude/commands`, CCPM configs.
+   * Docs: `README.md`, phase plans, Aider prompt docs, etc.
+
+3. For each updated file, ensure references point to the **new section structure**.
+
+#### Phase A6 – Verification
+
+1. Run unit tests and integration tests relevant to each section.
+2. Run key CLI scripts (or simulate them) to ensure they still function.
+3. Fix any import or path errors discovered.
+
+#### Phase A7 – Document & finalize
+
+1. Write/update `SECTION_REFACTOR_MAPPING` document.
+2. Record what was done, and where the authoritative mapping lives.
+3. Commit the full change set with a clear commit message.
+
+---
+
+## 5. Part B – Hardcoded Path Index Database
+
+### 5.1. Objectives
+
+Create a reusable **scanner + SQLite database** that:
+
+* **Discovers all hard-coded path occurrences** in the repo.
+* **Classifies** them (import vs filesystem call vs config vs CI vs doc).
+* **Stores** them in a durable index for future refactors.
+* Supports **reporting** and future CI gates (“no new references to old layout”).
+
+This is not just a one-time tool; it should become part of the **technical debt tracking** for paths.
+
+### 5.2. Core Data Model (Schema)
+
+Create a SQLite DB (e.g. `refactor_paths.db`) with at least these tables:
+
+#### `path_patterns` – patterns we care about
+
+* `pattern_id` (PK, integer)
+* `pattern` (text) — string or regex fragment, e.g. `PHASE_DEV_DOCS`, `src/pipeline`, `MOD_ERROR_PIPELINE`
+* `description` (text)
+* `section` (text, nullable) — logical section this pattern belongs to, e.g. `core`, `error`
+* `severity` (text) — `high | medium | low`
+* `is_active` (integer/bool) — 1 = currently monitored, 0 = retired
+
+#### `files` – files containing (or previously containing) matches
+
+* `file_id` (PK, integer)
+* `path` (text) — repo-relative path
+* `section` (text, nullable) — optional tag (core/error/spec/pm/…)
+* `last_seen_commit` (text, nullable) — git SHA at last scan (if accessible)
+* `last_scanned_at` (text, ISO timestamp)
+
+#### `occurrences` – each hard-coded path hit
+
+* `occurrence_id` (PK, integer)
+* `file_id` (FK → files.file_id)
+* `pattern_id` (FK → path_patterns.pattern_id)
+* `line_number` (integer)
+* `column_start` (integer, nullable)
+* `kind` (text) — e.g. `code_import`, `code_fs_call`, `config_path`, `ci_script`, `doc_example`
+* `snippet` (text) — trimmed line or excerpt
+* `status` (text) — `pending | updated | auto_fixed | ignored`
+* `last_updated_at` (text, ISO timestamp)
+* `notes` (text, nullable)
+
+#### Optional: `path_migrations` – history of moves
+
+* `migration_id` (PK, integer)
+* `pattern_id` (FK) — which path pattern this migration addresses
+* `old_root` (text)
+* `new_root` (text)
+* `applied_at` (text)
+* `description` (text)
+
+### 5.3. Scanner Behavior
+
+Implement a scanner (e.g., `tools/hardcoded_path_indexer.py`) which:
+
+1. **Loads active patterns**
+
+   * Read all `path_patterns` rows where `is_active = 1`.
+
+2. **Walks the repo**
+
+   * Visit relevant file types:
+
+     * Code: `*.py`, `*.ps1`, `*.psm1`
+     * Config: `*.yml`, `*.yaml`, `*.json`, `.env`, `.ini`, `.toml`
+     * CI: `.github/workflows/*.yml`
+     * Docs: `*.md`, `*.txt`
+
+3. **Detects matches**
+
+   * For each pattern:
+
+     * Search for occurrences of the pattern (string or regex) in each file.
+   * Additional heuristics:
+
+     * For **code** files:
+
+       * Check Python imports (`import` / `from` statements) for old modules.
+       * Check filesystem calls (`open`, `Path`, `os.path.join`, `subprocess.run`) where arguments are string literals containing a pattern.
+       * Check PowerShell paths passed to `-Path`, `-LiteralPath`, `Set-Location`, `Copy-Item`, etc.
+     * For **configs & CI**:
+
+       * Look for path-like keys/values: `path`, `file`, `workdir`, `script`, `target`, etc.
+     * For **docs**:
+
+       * Scan code blocks and inline references.
+
+4. **Classifies each occurrence**
+
+   * Assign `kind`:
+
+     * `code_import`
+     * `code_fs_call`
+     * `config_path`
+     * `ci_script`
+     * `doc_example`
+   * Default to `config_path` or `doc_example` if uncertain, but prefer more precise classification in code.
+
+5. **Writes to DB**
+
+   * Ensure a `files` row exists for the file path; update `last_seen_commit`, `last_scanned_at`.
+   * Insert or update an `occurrences` row:
+
+     * `status` is initially `pending` for new hits.
+     * If a previously found occurrence disappears (no longer in the file), update its status to `updated` or `auto_fixed`.
+
+### 5.4. CLI Interface
+
+Provide a CLI wrapper, e.g. `scripts/paths_index_cli.py`, with commands like:
+
+* `paths-index scan`
+
+  * Run scanner over entire repo, updating DB.
+* `paths-index scan --files file1.py file2.py`
+
+  * Scan specific files (for incremental updates after refactor).
+* `paths-index report --pattern src/pipeline`
+
+  * Show all occurrences for specific pattern.
+* `paths-index summary`
+
+  * Show summary per pattern and per section:
+
+    * Total occurrences
+    * Pending vs updated vs ignored counts
+* `paths-index export --format markdown/json`
+
+  * Export a report for use in AI prompts or documentation.
+
+### 5.5. CI Integration (Optional but Recommended)
+
+Add a CI job that:
+
+1. Runs `paths-index scan`.
+2. Queries the DB for **new pending occurrences** of **deprecated patterns** (e.g. `src/pipeline` after migration).
+3. Fails the build if any are found.
+
+This enforces:
+
+> Once a directory layout has been refactored, no new hard-coded references to the old layout may be introduced.
+
+---
+
+## 6. Part C – Combined Workflow (Agent Strategy)
+
+The recommended **overall strategy** for you, as an agent, is:
+
+### Phase 1 – Implement Hardcoded Path Indexer (Part B first)
+
+1. Implement DB schema in `refactor_paths.db`.
+2. Implement `paths-index` scanner and CLI.
+3. Run an initial **full scan**:
+
+   * Populate DB with all existing occurrences of old paths.
+   * This provides a baseline for the refactor.
+
+### Phase 2 – Plan Section Refactor Using DB
+
+1. Use `paths-index summary` to see:
+
+   * Where the heaviest usage of old patterns is.
+   * Which sections are most entangled.
+2. Finalize `config/section_map.yaml` to define your target layout.
+3. Optionally write a **“Section Refactor Work Plan”** doc summarizing:
+
+   * Section names
+   * Folders to move into each
+   * Ordering (core → error → spec → pm → etc.)
+
+### Phase 3 – Execute Section Refactor (Part A)
+
+For each section (e.g. core, error, spec):
+
+1. Move files into their new section folder.
+2. Use DB to identify **all pending occurrences** that reference old paths related to that section.
+3. Update code imports, filesystem calls, configs, CI, docs to reflect new paths.
+4. Re-run `paths-index scan --files <changed-files>` to update occurrence statuses.
+5. Run tests and key scripts.
+6. Repeat per section until the repo is fully section-aligned.
+
+### Phase 4 – Cleanup & Enforce
+
+1. After all sections are migrated:
+
+   * Mark patterns representing old layout as **deprecated** (perhaps via a `severity` or an explicit flag).
+2. Configure CI to fail when **new** `pending` occurrences appear for deprecated patterns.
+3. Maintain `path_patterns` as a **long-term technical debt registry**:
+
+   * Add new patterns for future planned moves.
+   * Retire patterns when not needed.
+
+---
+
+## 7. Deliverables Summary (for the Agent)
+
+You should aim to produce the following concrete artifacts:
+
+### Section Refactor
+
+* `config/section_map.yaml` – source of truth mapping files → sections.
+* New section directories (`core/`, `error/`, `spec/`, `pm/`, `aim/`, `aider/`, `gui/`, `infra/`, `meta/`) with files moved.
+* Updated Python imports and module references.
+* Updated scripts, configs, CI workflows, and docs to reflect the new layout.
+* `docs/SECTION_REFACTOR_MAPPING.md` (or JSON) – old path → new path mapping.
+* `docs/SECTION_REFACTOR_VERIFICATION.md` – tests executed and results.
+
+### Hardcoded Path Index
+
+* `refactor_paths.db` – SQLite DB containing:
+
+  * `path_patterns`, `files`, `occurrences`, optional `path_migrations`.
+* `scripts/paths_index_cli.py` (or similar) – CLI entrypoint.
+* `tools/hardcoded_path_indexer.py` – scanner implementation.
+* Documentation:
+
+  * `docs/HARDCODED_PATH_INDEXER.md` – describes how to use the scanner and DB.
+* Optional:
+
+  * CI job in `.github/workflows/` that runs `paths-index scan` and enforces rules.
+
+---
+
+## 8. Non-Goals & Safety Requirements
+
+You **must not**:
+
+* Change business logic or public APIs except where required to fix imports/paths.
+* Delete files or sections without clear mapping and justification.
+* Introduce new hard-coded paths to the old layout after migration.
+
+You **must**:
+
+* Keep changes small and reviewable, grouped by sections or patterns.
+* Prefer `git mv` for file moves to preserve history.
+* Run relevant tests after each major batch of changes.
+
+---
+
+This document is intended to be dropped directly into the repo (e.g. as
+`docs/SECTION_REFACTOR_AND_PATH_INDEX_SPEC.md`) and used as the **operating contract** for any agentic AI CLI app performing the section refactor and implementing the hardcoded path indexer.
+
