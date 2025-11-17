@@ -9,11 +9,37 @@ transactional patterns for data integrity.
 from __future__ import annotations
 
 import json
+import os
 import sqlite3
 from datetime import datetime
+from pathlib import Path
 from typing import Optional, Dict, Any, List
 
-from .db import get_connection
+
+def _get_db_path() -> Path:
+    """Get database path from environment or default location."""
+    default_path = Path("state") / "pipeline_state.db"
+    db_path_str = os.getenv("PIPELINE_DB_PATH", str(default_path))
+    return Path(db_path_str)
+
+
+def get_connection(db_path: Optional[str] = None) -> sqlite3.Connection:
+    """
+    Get a database connection.
+    
+    Args:
+        db_path: Optional database path. If None, uses PIPELINE_DB_PATH env var
+                or default location.
+    
+    Returns:
+        SQLite connection with Row factory enabled
+    """
+    path = Path(db_path) if db_path else _get_db_path()
+    path.parent.mkdir(parents=True, exist_ok=True)
+    
+    conn = sqlite3.connect(str(path))
+    conn.row_factory = sqlite3.Row
+    return conn
 
 
 # ============================================================================

@@ -1,84 +1,107 @@
+"""Database facade module for AI Development Pipeline.
+
+This module provides a unified interface to the database layer, re-exporting
+functions from crud_operations and providing initialization logic.
+
+The database layer consists of:
+- crud_operations.py: CRUD operations for runs, workstreams, steps, errors, events
+- db_sqlite.py: Low-level SQLite connection and schema management
+- error_db.py: Error pipeline context storage (separate concern)
+
+Public API:
+    All CRUD operations from crud_operations are re-exported for convenience.
+"""
+
 from __future__ import annotations
 
-import json
 import os
 import sqlite3
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Optional
 
-from .error_context import ErrorPipelineContext
-from . import db_sqlite
+# Re-export all CRUD operations including get_connection
+from .crud_operations import (
+    get_connection,
+    create_run,
+    get_run,
+    update_run_status,
+    list_runs,
+    create_workstream,
+    get_workstream,
+    get_workstreams_for_run,
+    update_workstream_status,
+    record_step_attempt,
+    get_step_attempts,
+    record_error,
+    get_errors,
+    record_event,
+    get_events,
+)
 
-
-# If a SQLite DB is present or ERROR_PIPELINE_DB is set, prefer SQLite; otherwise use file JSON.
-BASE = Path(".state") / "error_pipeline"
-DB_PATH = Path(os.getenv("ERROR_PIPELINE_DB", BASE.parent / "pipeline.db"))
-
-
-def _use_sqlite() -> bool:
-    # Prefer sqlite if the env var is set or the DB file exists
-    return bool(os.getenv("ERROR_PIPELINE_DB")) or DB_PATH.exists()
-
-
-# File-based fallback paths
-def _ctx_path(run_id: str, ws_id: str) -> Path:
-    return BASE / run_id / ws_id / "context.json"
-
-
-def _reports_dir(run_id: str, ws_id: str) -> Path:
-    return BASE / run_id / ws_id / "error_reports"
-
-
-def get_error_context(run_id: str, ws_id: str) -> ErrorPipelineContext:
-    if _use_sqlite():
-        conn = db_sqlite.open_db(DB_PATH)
-        try:
-            return db_sqlite.get_error_context(conn, run_id, ws_id)
-        finally:
-            conn.close()
-    p = _ctx_path(run_id, ws_id)
-    if p.exists():
-        data = json.loads(p.read_text(encoding="utf-8"))
-        return ErrorPipelineContext.from_json(data)
-    ctx = ErrorPipelineContext(run_id=run_id, workstream_id=ws_id)
-    save_error_context(ctx)
-    return ctx
-
-
-def save_error_context(ctx: ErrorPipelineContext) -> None:
-    if _use_sqlite():
-        conn = db_sqlite.open_db(DB_PATH)
-        try:
-            db_sqlite.save_error_context(conn, ctx)
-        finally:
-            conn.close()
-        return
-    p = _ctx_path(ctx.run_id, ctx.workstream_id)
-    p.parent.mkdir(parents=True, exist_ok=True)
-    p.write_text(json.dumps(ctx.to_json(), ensure_ascii=False, indent=2), encoding="utf-8")
+__all__ = [
+    # Initialization
+    "init_db",
+    "get_connection",
+    # Run operations
+    "create_run",
+    "get_run",
+    "update_run_status",
+    "list_runs",
+    # Workstream operations
+    "create_workstream",
+    "get_workstream",
+    "get_workstreams_for_run",
+    "update_workstream_status",
+    # Step operations
+    "record_step_attempt",
+    "get_step_attempts",
+    # Error operations
+    "record_error",
+    "get_errors",
+    # Event operations
+    "record_event",
+    "get_events",
+]
 
 
-def record_error_report(ctx: ErrorPipelineContext, report: Dict[str, Any], step_name: str) -> Path:
-    if _use_sqlite():
-        conn = db_sqlite.open_db(DB_PATH)
-        try:
-            db_sqlite.record_error_report(conn, ctx, report, step_name)
-        finally:
-            conn.close()
-    d = _reports_dir(ctx.run_id, ctx.workstream_id)
-    d.mkdir(parents=True, exist_ok=True)
-    name = f"error_report_attempt_{ctx.attempt_number}.json"
-    p = d / name
-    p.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
-    return p
+def _get_db_path() -> Path:
+    """Get database path from environment or default location."""
+    default_path = Path("state") / "pipeline_state.db"
+    db_path_str = os.getenv("PIPELINE_DB_PATH", str(default_path))
+    return Path(db_path_str)
 
 
-def record_ai_attempt(ctx: ErrorPipelineContext, attempt: Dict[str, Any]) -> None:
-    ctx.record_ai_attempt(attempt)
-    save_error_context(ctx)
-    if _use_sqlite():
-        conn = db_sqlite.open_db(DB_PATH)
-        try:
-            db_sqlite.record_ai_attempt(conn, ctx, attempt)
-        finally:
-            conn.close()
+def init_db(db_path: Optional[str] = None) -> None:
+    """
+    Initialize the database schema.
+    
+    Creates the database file if it doesn't exist and applies the schema
+    from schema/schema.sql. This operation is idempotent - it's safe to
+    call multiple times.
+    
+    Args:
+        db_path: Optional database path. If None, uses PIPELINE_DB_PATH env var
+                or default location.
+    """
+    path = Path(db_path) if db_path else _get_db_path()
+    path.parent.mkdir(parents=True, exist_ok=True)
+    
+    conn = get_connection(str(path))
+    try:
+        # Check if schema is already applied by looking for runs table
+        cursor = conn.cursor()
+        cursor.execute(
+            "SELECT name FROM sqlite_master WHERE type='table' AND name='runs'"
+        )
+        exists = cursor.fetchone() is not None
+        
+        if not exists:
+            # Apply schema from schema/schema.sql
+            schema_path = Path("schema") / "schema.sql"
+            if schema_path.exists():
+                with open(schema_path, 'r') as f:
+                    schema_sql = f.read()
+                conn.executescript(schema_sql)
+                conn.commit()
+    finally:
+        conn.close()

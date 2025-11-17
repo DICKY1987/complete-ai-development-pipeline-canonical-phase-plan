@@ -6,7 +6,7 @@ from typing import List
 
 from .error_context import ErrorPipelineContext
 from .error_pipeline_service import tick
-from . import db
+from . import error_db
 
 
 def main() -> int:
@@ -17,7 +17,7 @@ def main() -> int:
     parser.add_argument("--ps", nargs="*", default=[], help="PowerShell files to include")
     args = parser.parse_args()
 
-    ctx = db.get_error_context(args["run_id"] if isinstance(args, dict) else args.run_id,
+    ctx = error_db.get_error_context(args["run_id"] if isinstance(args, dict) else args.run_id,
                                args["ws_id"] if isinstance(args, dict) else args.ws_id)
 
     # Seed target files if empty
