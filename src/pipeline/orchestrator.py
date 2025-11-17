@@ -318,12 +318,31 @@ def run_workstream(run_id: str, ws_id: str, bundle_obj: bundles.WorkstreamBundle
     db.update_workstream_status(ws_id, "started")
     db.record_event("workstream_start", run_id=run_id, ws_id=ws_id, payload={"bundle_id": bundle_obj.id})
 
+    # Optional: GitHub issue update (CCPM integration)
+    def _post(step: str, final_status: Optional[str] = None) -> None:
+        try:
+            from src.integrations import github_sync  # type: ignore
+
+            issue = getattr(bundle_obj, "ccpm_issue", None)
+            if issue is None:
+                return
+            ev = github_sync.LifecycleEvent(run_id=run_id, ws_id=ws_id, step=step, final_status=final_status)
+            github_sync.post_lifecycle_comment(issue, ev)
+        except Exception:
+            # Best-effort only; never block orchestrator
+            pass
+
+    _post("workstream_start")
+
     # EDIT
+    _post("edit_start")
     res_edit = run_edit_step(run_id, ws_id, bundle_obj, ctx)
+    _post("edit_end")
     if not res_edit.success:
         final_status = "failed"
         db.update_workstream_status(ws_id, final_status)
         db.record_event("workstream_end", run_id=run_id, ws_id=ws_id, payload={"final_status": final_status})
+        _post("workstream_end", final_status)
         return {
             "run_id": run_id,
             "ws_id": ws_id,
@@ -332,11 +351,28 @@ def run_workstream(run_id: str, ws_id: str, bundle_obj: bundles.WorkstreamBundle
         }
 
     # STATIC (with FIX loop)
+    _post("static_start")
     res_static = run_static_with_fix(run_id, ws_id, bundle_obj, ctx)
+    _post("static_end")
+    # Post a brief static summary (best-effort)
+    try:
+        from src.integrations import github_sync  # type: ignore
+
+        issue = getattr(bundle_obj, "ccpm_issue", None)
+        details = res_static.details or {}
+        tools = []
+        if isinstance(details, dict):
+            tools = list(details.get("tools", [])) or []
+            if not tools and isinstance(details.get("results"), list):
+                tools = [str(i) for i in range(len(details["results"]))]
+        github_sync.comment(issue, f"WS {ws_id} static summary: success={res_static.success} tools={len(tools)}")
+    except Exception:
+        pass
     if not res_static.success:
         final_status = "failed"
         db.update_workstream_status(ws_id, final_status)
         db.record_event("workstream_end", run_id=run_id, ws_id=ws_id, payload={"final_status": final_status})
+        _post("workstream_end", final_status)
         return {
             "run_id": run_id,
             "ws_id": ws_id,
@@ -345,11 +381,29 @@ def run_workstream(run_id: str, ws_id: str, bundle_obj: bundles.WorkstreamBundle
         }
 
     # RUNTIME (with FIX loop)
+    _post("runtime_start")
     res_runtime = run_runtime_with_fix(run_id, ws_id, bundle_obj, ctx)
+    _post("runtime_end")
+    # Post a brief runtime summary (best-effort)
+    try:
+        from src.integrations import github_sync  # type: ignore
+
+        issue = getattr(bundle_obj, "ccpm_issue", None)
+        details = res_runtime.details or {}
+        total = passed = failed = 0
+        if isinstance(details, dict) and isinstance(details.get("summary"), dict):
+            s = details["summary"]
+            total = int(s.get("total_tests", 0) or 0)
+            passed = int(s.get("passed", 0) or 0)
+            failed = int(s.get("failed", 0) or 0)
+        github_sync.comment(issue, f"WS {ws_id} runtime summary: success={res_runtime.success} total={total} passed={passed} failed={failed}")
+    except Exception:
+        pass
     if not res_runtime.success:
         final_status = "failed"
         db.update_workstream_status(ws_id, final_status)
         db.record_event("workstream_end", run_id=run_id, ws_id=ws_id, payload={"final_status": final_status})
+        _post("workstream_end", final_status)
         return {
             "run_id": run_id,
             "ws_id": ws_id,
@@ -374,6 +428,7 @@ def run_workstream(run_id: str, ws_id: str, bundle_obj: bundles.WorkstreamBundle
     final_status = "done"
     db.update_workstream_status(ws_id, final_status)
     db.record_event("workstream_end", run_id=run_id, ws_id=ws_id, payload={"final_status": final_status})
+    _post("workstream_end", final_status)
     return {
         "run_id": run_id,
         "ws_id": ws_id,

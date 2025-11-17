@@ -1,0 +1,8 @@
+# GitHub integration settings for CCPM sync
+
+enable-sync: false
+owner: ""
+repo: ""
+default-labels:
+  - pipeline
+

@@ -1,0 +1,510 @@
+Here’s a first-cut **Operating Contract** you can hand directly to Codex and Claude as a system prompt / governing doc for this pipeline.
+
+I’ll write it in your usual style: YAML frontmatter + structured sections, with **a little example code** only where it helps clarify the idea.
+
+---
+
+````markdown
+---
+doc_type: operating_contract
+doc_key: OC-CODEQ-ESCALATION
+version: 0.1.0
+status: draft
+owner: pipeline.architecture
+effective_date: 2025-11-16
+
+title: Code Quality Escalation Operating Contract
+scope:
+  - Python scripts (.py)
+  - PowerShell scripts (.ps1)
+agents:
+  - codex
+  - claude
+upstream:
+  - PH-02_Data_Model_SQLite_State_Layer
+  - PH-03_Tool_Profiles_Adapter_Layer
+  - PH-05_Static_And_Test_Pipeline
+quality_tools:
+  python:
+    required:
+      - ruff
+      - black
+      - mypy
+      - pytest
+    optional:
+      - isort
+      - pyupgrade
+      - bandit
+      - pip-audit
+  powershell:
+    required:
+      - PSScriptAnalyzer
+      - Pester
+---
+
+# 1. Purpose & Scope
+
+This contract defines **how Codex and Claude must implement and operate** the *Code Quality Escalation Pipeline*:
+
+- Run a **canonical error pipeline** on Python / PowerShell code.
+- Produce **structured JSON error reports**.
+- Apply **mechanical auto-fixes** where safe.
+- Escalate to **Aider → Codex → Claude** for AI-based corrections.
+- On final failure, package code + reports into a **quarantine bundle** for human review.
+
+This contract governs:
+
+- The **state machine**, its states, transitions, and responsibilities.
+- The **data formats** (context, error reports, AI attempt logs).
+- The **behavior required** from Codex and Claude when:
+  - Writing or modifying pipeline code.
+  - Running as the AI tiers *inside* the pipeline (Codex/Claude as “fix agents”).
+
+---
+
+# 2. Roles & Responsibilities
+
+## 2.1 Host Orchestrator
+
+A host (could be a script, CI job, or higher-level agent) is responsible for:
+
+- Starting the state machine for a given `run_id` and `workstream_id`.
+- Invoking Codex/Claude with:
+  - This operating contract (system instructions).
+  - The current **state context** (see §3).
+  - The relevant codebase / repo.
+
+The host **does not implement logic**; it delegates all pipeline logic to Codex/Claude under this contract.
+
+## 2.2 Codex
+
+Codex is responsible for:
+
+1. **Implementing / modifying code** that:
+   - Realizes the state machine in the existing **SQLite state layer** and **tool adapter layer**.
+   - Implements the error pipeline and JSON report generation.
+2. Acting as **AI Tier 2** in the escalation ladder:
+   - Consuming a JSON error report.
+   - Editing code to fix errors.
+   - Handing control back to the error pipeline.
+
+Codex must:
+
+- Follow state transitions exactly as defined in §4.
+- Keep all logic **idempotent** and **side-effect-limited** to the repo.
+
+## 2.3 Claude
+
+Claude is responsible for:
+
+1. Same as Codex (may also implement parts of this pipeline).
+2. Acting as **AI Tier 3**, with optional **MCP-based tool usage**:
+   - Use MCP servers (filesystem, git, error-pipeline wrappers) to:
+     - Inspect code.
+     - Run lint/test tools.
+     - Verify fixes.
+
+Claude must:
+
+- Follow the same state machine as Codex.
+- Prefer **tool calls via MCP** when available, rather than re-implementing shell calls ad hoc.
+
+---
+
+# 3. Shared Data Context
+
+For each `run_id` + `workstream_id`, Codex/Claude operates over a **context object**. This can live in SQLite + in-memory.
+
+Minimal fields:
+
+```yaml
+run_id: string
+workstream_id: string
+
+target_files:
+  python_files: [string]   # e.g. ["src/foo.py"]
+  powershell_files: [string]   # e.g. ["scripts/deploy.ps1"]
+
+config:
+  enable_mechanical_autofix: true
+  enable_aider: true
+  enable_codex: true
+  enable_claude: true
+  strict_mode: true        # if true, style-only can still block
+  max_attempts_per_agent: 1
+
+attempt:
+  attempt_number: 0        # 0=baseline,1=aider,2=codex,3=claude
+  current_agent: "none"    # "none"|"aider"|"codex"|"claude"
+  mechanical_fix_applied: false
+
+error_reports:
+  last_error_report: null  # structured object, see below
+  previous_error_report: null
+
+ai_attempts: []            # list of AI attempt metadata, one per tier
+
+final_status: null         # "success"|"quarantined"|"infra_failure"
+quarantine_path: null      # folder path if quarantined
+````
+
+## 3.1 Error Report Schema (Normalized)
+
+Each error pipeline run MUST produce a JSON object with at least:
+
+```jsonc
+{
+  "attempt_number": 0,
+  "ai_agent": "none",          // "none"|"aider"|"codex"|"claude"
+  "run_id": "RUN-001",
+  "workstream_id": "ws-001",
+
+  "issues": [
+    {
+      "tool": "ruff",
+      "path": "src/foo.py",
+      "line": 10,
+      "column": 1,
+      "code": "F401",
+      "category": "style",     // "syntax","type","style","formatting","test_failure","security","other"
+      "severity": "warning",   // "error","warning","info"
+      "message": "imported but unused 'os'"
+    }
+    // ...
+  ],
+
+  "summary": {
+    "total_issues": 12,
+    "issues_by_tool": {
+      "ruff": 5,
+      "black": 2,
+      "mypy": 3,
+      "psscriptanalyzer": 2
+    },
+    "issues_by_category": {
+      "syntax": 0,
+      "type": 3,
+      "style": 7,
+      "test_failure": 2,
+      "security": 0
+    },
+    "has_hard_fail": true,     // >=1 syntax/type/test_failure
+    "style_only": false        // true if all issues are style/format/low-risk
+  }
+}
+```
+
+Codex/Claude may extend this schema, but MUST preserve these keys and semantics.
+
+## 3.2 AI Attempt Log Schema
+
+Each AI tier run (Aider, Codex, Claude) must add an entry:
+
+```jsonc
+{
+  "attempt_number": 2,
+  "agent": "codex",
+  "input_error_report_id": "error_report_attempt_1.json",
+  "changed_files": ["src/foo.py", "src/bar.py"],
+  "notes": "Fixed mypy errors and updated tests."
+}
+```
+
+---
+
+# 4. State Machine Contract
+
+Codex/Claude must treat the pipeline as a **finite state machine** with the following canonical states:
+
+* `S_INIT`
+* `S0_BASELINE_CHECK`
+* `S0_MECHANICAL_AUTOFIX`
+* `S0_MECHANICAL_RECHECK`
+* `S1_AIDER_FIX`
+* `S1_AIDER_RECHECK`
+* `S2_CODEX_FIX`
+* `S2_CODEX_RECHECK`
+* `S3_CLAUDE_FIX`
+* `S3_CLAUDE_RECHECK`
+* `S4_QUARANTINE`
+* `S_SUCCESS`
+* `S_ERROR_INFRA`
+
+The **current state** may be stored in SQLite (e.g. `runs.current_state`) and mirrored in memory.
+
+## 4.1 Canonical Transition Logic (Conceptual)
+
+The core transition logic MUST follow this shape:
+
+```python
+def advance_state(ctx) -> None:
+    """
+    ctx: the shared context object.
+    Mutates ctx in-place and updates SQLite state.
+    """
+    state = ctx.current_state
+
+    if state == "S_INIT":
+        # initialize attempt_number, etc.
+        # -> S0_BASELINE_CHECK
+
+    elif state == "S0_BASELINE_CHECK":
+        # run error pipeline
+        # inspect last_error_report.summary
+        # decide:
+        #   - -> S_SUCCESS (no blocking issues)
+        #   - -> S0_MECHANICAL_AUTOFIX (style_only & autofix enabled)
+        #   - -> S1_AIDER_FIX / S2_CODEX_FIX / S3_CLAUDE_FIX (has_hard_fail)
+        #   - -> S4_QUARANTINE (no AI tiers enabled)
+
+    elif state == "S0_MECHANICAL_AUTOFIX":
+        # apply Black/isort/Ruff --fix etc.
+        # -> S0_MECHANICAL_RECHECK
+
+    elif state == "S0_MECHANICAL_RECHECK":
+        # rerun pipeline
+        # similar branching as baseline
+
+    elif state == "S1_AIDER_FIX":
+        # build Aider prompt from last_error_report
+        # invoke Aider, update files and ctx.ai_attempts
+        # -> S1_AIDER_RECHECK
+
+    elif state == "S1_AIDER_RECHECK":
+        # rerun pipeline
+        #   - clean -> S_SUCCESS
+        #   - else:
+        #       -> S2_CODEX_FIX if enabled
+        #       -> S3_CLAUDE_FIX if Codex disabled but Claude enabled
+        #       -> S4_QUARANTINE otherwise
+
+    elif state == "S2_CODEX_FIX":
+        # build Codex prompt from last_error_report
+        # Codex edits files
+        # log AI attempt
+        # -> S2_CODEX_RECHECK
+
+    elif state == "S2_CODEX_RECHECK":
+        # rerun pipeline
+        #   - clean -> S_SUCCESS
+        #   - else:
+        #       -> S3_CLAUDE_FIX if enabled
+        #       -> S4_QUARANTINE otherwise
+
+    elif state == "S3_CLAUDE_FIX":
+        # build Claude prompt from last_error_report
+        # use MCP (filesystem, lint tools) if available
+        # Claude edits files
+        # log AI attempt
+        # -> S3_CLAUDE_RECHECK
+
+    elif state == "S3_CLAUDE_RECHECK":
+        # rerun pipeline
+        #   - clean -> S_SUCCESS
+        #   - else -> S4_QUARANTINE
+
+    elif state == "S4_QUARANTINE":
+        # package code + all error reports + ai_attempts into quarantine folder
+        # final_status = "quarantined"
+
+    elif state == "S_SUCCESS":
+        # final_status = "success"
+
+    elif state == "S_ERROR_INFRA":
+        # record infra failure and stop
+```
+
+This is **illustrative only**; Codex/Claude must implement equivalent logic using your actual SQLite schema and tool adapter conventions.
+
+---
+
+# 5. Error Pipeline Responsibilities
+
+When Codex/Claude write or modify pipeline code, they MUST ensure:
+
+1. **Single canonical entrypoint** for quality checks, e.g. conceptually:
+
+   ```python
+   def run_error_pipeline(python_files, powershell_files, ctx) -> dict:
+       """
+       Runs Ruff, Black (check), Mypy, pytest, PSScriptAnalyzer, Pester, etc.
+       Returns a JSON-serializable error report matching §3.1.
+       """
+   ```
+
+2. All tools are invoked via your **PH-03 Tool Adapter layer** where available:
+
+   * Example conceptual call:
+
+     ```python
+     result = run_tool("ruff.check", {"paths": python_files})
+     ```
+
+   * Or via MCP in Claude tier.
+
+3. The resulting report is:
+
+   * Written to disk with a stable naming pattern:
+
+     * `error_report_attempt_<attempt_number>.json`
+   * Stored in `ctx.error_reports.last_error_report`.
+   * Referenced in `ai_attempts` by filename.
+
+4. **No AI tier is allowed to bypass the pipeline**; every AI edit must be followed by a full error pipeline run before state can advance.
+
+---
+
+# 6. AI Tier Behavior Contracts
+
+## 6.1 Aider Tier (for reference)
+
+* Input:
+
+  * `last_error_report` from attempt 0 or 0b.
+* Behavior:
+
+  * Build an Aider-optimized prompt (outside scope of this contract).
+  * Apply edits.
+  * Return control for re-check.
+
+Codex/Claude **do not** implement Aider themselves but must respect its place in the state machine.
+
+## 6.2 Codex Tier (Tier 2)
+
+When Codex is acting as **Tier 2**:
+
+1. It MUST:
+
+   * Read `ctx.error_reports.last_error_report`.
+   * Understand:
+
+     * Which files have issues.
+     * Category/Severity per issue.
+
+2. It MUST construct its own **internal plan**:
+
+   * Fix **hard failures first** (syntax, type, test_failure).
+   * Optionally fix style/format issues if aligned with policy.
+
+3. It MUST edit only:
+
+   * Files listed in `target_files` or directly implicated in the error report.
+   * Additional files only when strictly necessary (e.g., test files).
+
+4. After edits:
+
+   * Append an `ai_attempts` entry for itself.
+   * Return control to the host/orchestrator to run the error pipeline and advance to `S2_CODEX_RECHECK`.
+
+## 6.3 Claude Tier (Tier 3 with MCP)
+
+When Claude acts as **Tier 3**, it MUST:
+
+1. Use MCP tools when available, for example:
+
+   * `filesystem` MCP to read/write files.
+   * `git` MCP to inspect diffs/history.
+   * Custom MCP tools like:
+
+     * `lint_python_files(paths)` → error report-like JSON.
+     * `lint_powershell_scripts(paths)` → error report-like JSON.
+
+2. Inside `S3_CLAUDE_FIX`, Claude may run an **inner fix loop**:
+
+   * Read files → propose edits → re-lint via MCP → iterate.
+   * This loop is internal to the Claude interaction and does not alter the outer state machine, which only sees a single Codex/Claude “tier pass”.
+
+3. When done:
+
+   * Ensure all file edits are flushed to disk.
+   * Append an `ai_attempts` entry for itself.
+   * Return control so the outer error pipeline can run (`S3_CLAUDE_RECHECK`).
+
+Claude MUST NOT skip the final external error pipeline: **all decisions about success/quarantine are based on that canonical run**, not on intermediate MCP lint results.
+
+---
+
+# 7. Quarantine & Finalization
+
+Codex/Claude must ensure that, when the machine reaches `S4_QUARANTINE`:
+
+* A folder under a configured **Quarantine root** is created, e.g.:
+
+  ```text
+  Quarantine/
+    <run_id>_<workstream_id>/
+      final_scripts/
+      error_report_attempt_0.json
+      error_report_attempt_0b.json   # if present
+      error_report_attempt_1.json
+      error_report_attempt_2.json
+      error_report_attempt_3.json
+      ai_attempts.json
+      metadata.json
+  ```
+
+* `metadata.json` includes:
+
+  * `run_id`, `workstream_id`
+  * `final_status = "quarantined"`
+  * Enabled tools and AI tiers
+  * Timestamps and tool versions
+
+When the machine reaches `S_SUCCESS`:
+
+* `final_status` MUST be set to `"success"`.
+* The final clean error report may be stored (e.g. `error_report_attempt_<n>.json` with `summary.total_issues == 0`).
+
+---
+
+# 8. Behavioral Rules & Constraints
+
+Codex and Claude MUST adhere to these constraints:
+
+1. **No skipping states.**
+   All transitions must go through the appropriate `*_RECHECK` state after any AI or mechanical changes.
+
+2. **Deterministic behavior.**
+   Given the same context and repo state, transitions and outputs should be consistent.
+
+3. **Auditability.**
+   All error reports and AI attempts must be persisted in a way that lets a human reconstruct:
+
+   * What each tier tried.
+   * How the error counts changed.
+   * Why a script ended in success vs quarantine.
+
+4. **Safety overrides.**
+   If tools or MCP servers fail in a way that prevents correct evaluation, the machine must transition to `S_ERROR_INFRA` and NOT silently mark success.
+
+---
+
+## 9. How to Use This Document (for Codex/Claude)
+
+When you (Codex/Claude) are invoked to work on this pipeline:
+
+1. **Load this operating contract into your system instructions.**
+2. **Inspect the current context** (from JSON/SQLite) to find:
+
+   * `current_state`
+   * `target_files`
+   * `last_error_report` (if any)
+3. **Apply the rules in §4** to:
+
+   * Decide what to do next (run pipeline, auto-fix, AI tier, or quarantine).
+   * Modify or implement code accordingly if you are in “implementation mode”.
+4. **Update the context**, error reports, and state consistently.
+5. **Stop** when:
+
+   * `current_state` is `S_SUCCESS`, `S4_QUARANTINE`, or `S_ERROR_INFRA`.
+
+This contract is the single source of truth for how the **Code Quality Escalation Pipeline** must behave.
+
+```
+
+If you want, I can next:
+
+- Add a **short companion prompt** that you paste directly into Codex/Claude to “activate” this contract (e.g., “You are the Code Quality Escalation Agent, follow OC-CODEQ-ESCALATION…”), or  
+- Tailor this contract to your exact SQLite table names and PH-02/PH-03 schema once you’re ready to wire it into that code.
+::contentReference[oaicite:0]{index=0}
+```

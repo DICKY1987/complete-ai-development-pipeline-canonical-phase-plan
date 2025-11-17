@@ -10,28 +10,74 @@ from .error_context import ErrorPipelineContext
 from . import db_sqlite
 
 
-# If a SQLite DB is present or ERROR_PIPELINE_DB is set, prefer SQLite; otherwise use file JSON.
-BASE = Path(".state") / "error_pipeline"
-DB_PATH = Path(os.getenv("ERROR_PIPELINE_DB", BASE.parent / "pipeline.db"))
+# ---------------------------
+# Connection and schema (CRUD)
+# ---------------------------
+
+def _resolve_db_path(db_path: Optional[str]) -> Path:
+    """Resolve the SQLite DB path.
+
+    Priority:
+    1) explicit db_path
+    2) env PIPELINE_DB_PATH (preferred)
+    3) env ERROR_PIPELINE_DB (legacy)
+    4) default: state/pipeline_state.db
+    """
+    if db_path:
+        return Path(db_path).expanduser().resolve()
+    env = os.getenv("PIPELINE_DB_PATH") or os.getenv("ERROR_PIPELINE_DB")
+    if env:
+        return Path(env).expanduser().resolve()
+    return (Path("state") / "pipeline_state.db").resolve()
 
 
-def _use_sqlite() -> bool:
-    # Prefer sqlite if the env var is set or the DB file exists
-    return bool(os.getenv("ERROR_PIPELINE_DB")) or DB_PATH.exists()
+def get_connection(db_path: Optional[str] = None) -> sqlite3.Connection:
+    """Open a SQLite connection with foreign keys and row factory enabled."""
+    p = _resolve_db_path(db_path)
+    p.parent.mkdir(parents=True, exist_ok=True)
+    conn = sqlite3.connect(str(p))
+    conn.row_factory = sqlite3.Row
+    conn.execute("PRAGMA foreign_keys = ON;")
+    return conn
 
 
-# File-based fallback paths
+def init_db(db_path: Optional[str] = None, schema_path: Optional[str] = None) -> None:
+    """Initialize the database by applying `schema/schema.sql` (idempotent)."""
+    conn = get_connection(db_path)
+    try:
+        schema_file = Path(schema_path) if schema_path else Path("schema") / "schema.sql"
+        if schema_file.exists():
+            sql = schema_file.read_text(encoding="utf-8")
+            conn.executescript(sql)
+            conn.commit()
+    finally:
+        conn.close()
+
+
+# -----------------------------
+# Error pipeline context helpers
+# -----------------------------
+
+# Keep compatibility with the error context subsystem (separate storage path)
+_EP_BASE = Path(".state") / "error_pipeline"
+_EP_DB = Path(os.getenv("ERROR_PIPELINE_DB", _EP_BASE.parent / "pipeline.db"))
+
+
+def _ep_use_sqlite() -> bool:
+    return bool(os.getenv("ERROR_PIPELINE_DB")) or _EP_DB.exists()
+
+
 def _ctx_path(run_id: str, ws_id: str) -> Path:
-    return BASE / run_id / ws_id / "context.json"
+    return _EP_BASE / run_id / ws_id / "context.json"
 
 
 def _reports_dir(run_id: str, ws_id: str) -> Path:
-    return BASE / run_id / ws_id / "error_reports"
+    return _EP_BASE / run_id / ws_id / "error_reports"
 
 
 def get_error_context(run_id: str, ws_id: str) -> ErrorPipelineContext:
-    if _use_sqlite():
-        conn = db_sqlite.open_db(DB_PATH)
+    if _ep_use_sqlite():
+        conn = db_sqlite.open_db(_EP_DB)
         try:
             return db_sqlite.get_error_context(conn, run_id, ws_id)
         finally:
@@ -46,8 +92,8 @@ def get_error_context(run_id: str, ws_id: str) -> ErrorPipelineContext:
 
 
 def save_error_context(ctx: ErrorPipelineContext) -> None:
-    if _use_sqlite():
-        conn = db_sqlite.open_db(DB_PATH)
+    if _ep_use_sqlite():
+        conn = db_sqlite.open_db(_EP_DB)
         try:
             db_sqlite.save_error_context(conn, ctx)
         finally:
@@ -59,8 +105,8 @@ def save_error_context(ctx: ErrorPipelineContext) -> None:
 
 
 def record_error_report(ctx: ErrorPipelineContext, report: Dict[str, Any], step_name: str) -> Path:
-    if _use_sqlite():
-        conn = db_sqlite.open_db(DB_PATH)
+    if _ep_use_sqlite():
+        conn = db_sqlite.open_db(_EP_DB)
         try:
             db_sqlite.record_error_report(conn, ctx, report, step_name)
         finally:
@@ -76,9 +122,32 @@ def record_error_report(ctx: ErrorPipelineContext, report: Dict[str, Any], step_
 def record_ai_attempt(ctx: ErrorPipelineContext, attempt: Dict[str, Any]) -> None:
     ctx.record_ai_attempt(attempt)
     save_error_context(ctx)
-    if _use_sqlite():
-        conn = db_sqlite.open_db(DB_PATH)
+    if _ep_use_sqlite():
+        conn = db_sqlite.open_db(_EP_DB)
         try:
             db_sqlite.record_ai_attempt(conn, ctx, attempt)
         finally:
             conn.close()
+
+
+# ----------------------
+# CRUD re-export facade
+# ----------------------
+
+# Re-export CRUD operations so callers can import `db` consistently
+from .crud_operations import (  # noqa: E402
+    create_run,
+    get_run,
+    update_run_status,
+    list_runs,
+    create_workstream,
+    get_workstream,
+    get_workstreams_for_run,
+    update_workstream_status,
+    record_step_attempt,
+    get_step_attempts,
+    record_error,
+    get_errors,
+    record_event,
+    get_events,
+)

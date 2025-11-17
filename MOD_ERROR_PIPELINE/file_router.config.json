@@ -1,0 +1,15 @@
+{
+  "$schema": "inline",
+  "version": "v1.0.0",
+  "projects": {
+    "PowerShell_deterministi_factory": {
+      "aliases": {
+        "docs": "docs/",
+        "scripts": "scripts/",
+        "modules": "modules/"
+      }
+    }
+  },
+  "conflictPolicy": "dedupe-or-quarantine",
+  "fileStableMs": 1500
+}

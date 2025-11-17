@@ -58,11 +58,13 @@ def parse_test_output(stdout: str, stderr: str, exit_code: int) -> List[Dict[str
     errors = []
 
     if exit_code != 0:
-        # Parse pytest, jest, etc. output
-        # This is framework-specific - implement parsers for each
+        # Parse pytest, jest, etc. output (best-effort)
         for line in stdout.split('\n') + stderr.split('\n'):
-            if 'FAILED' in line or 'ERROR' in line or 'FAIL' in line:
-                error = parse_test_failure_line(line)
+            u = line.strip()
+            if not u:
+                continue
+            if 'FAILED' in u or 'ERROR' in u or 'FAIL' in u or u.lower().startswith('error'):
+                error = parse_test_failure_line(u)
                 if error:
                     errors.append(error)
 
@@ -91,17 +93,34 @@ def extract_line(line: str) -> int:
     return 0
 
 def count_tests(output: str) -> int:
-    """Count total tests from output"""
-    # Implement framework-specific counting
-    return 0
+    """Count total tests from output (best-effort for pytest)."""
+    import re
+    # pytest summary e.g.: '== 3 passed, 1 failed, 4 warnings in 0.12s =='
+    m = re.search(r"==+\s+(.*?)\s+in\s+", output)
+    if not m:
+        return 0
+    parts = m.group(1).split(',')
+    total = 0
+    for p in parts:
+        p = p.strip()
+        try:
+            n = int(p.split()[0])
+            total += n
+        except Exception:
+            pass
+    return total
 
 def count_passed(output: str) -> int:
-    """Count passed tests from output"""
-    return 0
+    """Count passed tests from output (pytest style)."""
+    import re
+    m = re.search(r"(\d+)\s+passed", output)
+    return int(m.group(1)) if m else 0
 
 def count_failed(output: str) -> int:
-    """Count failed tests from output"""
-    return 0
+    """Count failed tests from output (pytest style)."""
+    import re
+    m = re.search(r"(\d+)\s+failed", output)
+    return int(m.group(1)) if m else 0
 
 if __name__ == "__main__":
     # Read file paths from stdin or args

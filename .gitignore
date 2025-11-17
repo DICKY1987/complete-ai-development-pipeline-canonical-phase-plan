@@ -35,3 +35,12 @@ coverage/
 .cache/
 
 .aider*
+
+# Worktrees and local git artifacts
+.worktrees/
+
+# Local state databases
+state/*.db
+
+# Tool logs
+.AIM_ai-tools-registry/logs/
