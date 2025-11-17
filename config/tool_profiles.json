@@ -113,7 +113,8 @@
       "--message-file", "{prompt_file}"
     ],
     "env": {
-      "AIDER_NO_AUTO_COMMITS": "1"
+      "AIDER_NO_AUTO_COMMITS": "1",
+      "PYTHONIOENCODING": "utf-8"
     },
     "working_dir": "{worktree_path}",
     "timeout_sec": 1800,
