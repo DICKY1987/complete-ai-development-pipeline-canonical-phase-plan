@@ -6,12 +6,12 @@ $exit = 0
 
 # Run pytest if available and tests exist
 $hasTests = (Test-Path -LiteralPath 'tests' -PathType Container) -and ($null -ne (Get-ChildItem -Path 'tests' -Recurse -Include 'test_*.py','*_test.py' -File | Select-Object -First 1))
-if ($hasTests -and (Get-Command pytest -ErrorAction SilentlyContinue)) {
-  Write-Host "[test] pytest -q"
-  pytest -q
+if ($hasTests) {
+  Write-Host "[test] python -m pytest -q"
+  python -m pytest -q
   if ($LASTEXITCODE -ne 0) { $exit = $LASTEXITCODE }
 } else {
-  Write-Host "[test] No Python tests detected or pytest unavailable — skipping."
+  Write-Host "[test] No Python tests detected - skipping."
 }
 
 # Optional: markdownlint if installed
