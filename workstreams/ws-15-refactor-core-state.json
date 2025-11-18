@@ -1,0 +1,38 @@
+{
+  "id": "ws-15-refactor-core-state",
+  "openspec_change": "WS-15",
+  "ccpm_issue": "TBD",
+  "gate": 1,
+  "files_scope": [
+    "core/state/",
+    "src/pipeline/db.py",
+    "src/pipeline/crud_operations.py",
+    "src/pipeline/bundles.py",
+    "src/pipeline/worktree.py",
+    "schema/"
+  ],
+  "files_create": [
+    "core/state/"
+  ],
+  "tasks": [
+    "Create core/state/ directory",
+    "Move src/pipeline/db.py to core/state/db.py",
+    "Move src/pipeline/db_sqlite.py to core/state/db_sqlite.py",
+    "Move src/pipeline/crud_operations.py to core/state/crud.py",
+    "Move src/pipeline/bundles.py to core/state/bundles.py",
+    "Move src/pipeline/worktree.py to core/state/worktree.py",
+    "Update 50+ imports across scripts/tests",
+    "Replace stubs in core/ with actual implementations"
+  ],
+  "acceptance_tests": [
+    "python scripts/init_db.py",
+    "python scripts/validate_workstreams.py"
+  ],
+  "depends_on": [
+    "ws-14-refactor-error-engine"
+  ],
+  "tool": "aider",
+  "metadata": {
+    "notes": "VERY HIGH risk - foundation for orchestration"
+  }
+}

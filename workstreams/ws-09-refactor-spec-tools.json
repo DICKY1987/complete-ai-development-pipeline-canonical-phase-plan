@@ -1,0 +1,39 @@
+{
+  "id": "ws-09-refactor-spec-tools",
+  "openspec_change": "WS-09",
+  "ccpm_issue": "TBD",
+  "gate": 1,
+  "files_scope": [
+    "spec/",
+    "tools/spec_indexer/",
+    "tools/spec_resolver/",
+    "tools/spec_renderer/",
+    "tools/spec_patcher/",
+    "tools/spec_guard/"
+  ],
+  "files_create": [
+    "spec/tools/"
+  ],
+  "tasks": [
+    "Create spec/tools/ directory",
+    "Move tools/spec_indexer/ to spec/tools/indexer/",
+    "Move tools/spec_resolver/ to spec/tools/resolver/",
+    "Move tools/spec_renderer/ to spec/tools/renderer/",
+    "Move tools/spec_patcher/ to spec/tools/patcher/",
+    "Move tools/spec_guard/ to spec/tools/guard/",
+    "Update spec script imports"
+  ],
+  "acceptance_tests": [
+    "ls spec/tools/",
+    "python scripts/generate_spec_index.py --help"
+  ],
+  "depends_on": [
+    "ws-06-refactor-aim-section",
+    "ws-07-refactor-pm-ccpm",
+    "ws-08-refactor-aider-section"
+  ],
+  "tool": "aider",
+  "metadata": {
+    "notes": "MEDIUM risk - used by parser/scripts"
+  }
+}

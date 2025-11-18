@@ -1,0 +1,35 @@
+{
+  "id": "ws-06-refactor-aim-section",
+  "openspec_change": "WS-06",
+  "ccpm_issue": "TBD",
+  "gate": 1,
+  "files_scope": [
+    "aim/",
+    "src/pipeline/aim_bridge.py",
+    ".AIM_ai-tools-registry/",
+    "scripts/aim_*.py"
+  ],
+  "files_create": [
+    "aim/bridge.py"
+  ],
+  "tasks": [
+    "Move src/pipeline/aim_bridge.py to aim/bridge.py",
+    "Move .AIM_ai-tools-registry/ to aim/registry/",
+    "Update imports in src/pipeline/tools.py",
+    "Update AIM scripts to use new paths",
+    "Add compatibility shim at old location"
+  ],
+  "acceptance_tests": [
+    "python -c 'from aim.bridge import *'",
+    "python scripts/aim_status.py"
+  ],
+  "depends_on": [
+    "ws-03-refactor-meta-section",
+    "ws-04-refactor-gui-section",
+    "ws-05-refactor-infra-ci"
+  ],
+  "tool": "aider",
+  "metadata": {
+    "notes": "MEDIUM risk - clear interface but used by tools.py"
+  }
+}

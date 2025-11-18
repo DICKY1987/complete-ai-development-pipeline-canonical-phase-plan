@@ -1,0 +1,31 @@
+{
+  "id": "ws-05-refactor-infra-ci",
+  "openspec_change": "WS-05",
+  "ccpm_issue": "TBD",
+  "gate": 1,
+  "files_scope": [
+    "infra/",
+    ".github/workflows/",
+    "pytest.ini",
+    "requirements.txt",
+    "sandbox_repos/"
+  ],
+  "files_create": [
+    "infra/ci/"
+  ],
+  "tasks": [
+    "Create infra/ci/ directory structure",
+    "Move CI configs (pytest.ini, requirements.txt) to infra/ci/",
+    "Update workflow paths in .github/workflows/",
+    "Move sandbox_repos/ to infra/ci/sandbox_repos/"
+  ],
+  "acceptance_tests": [
+    "pytest --collect-only",
+    "ls infra/ci/"
+  ],
+  "depends_on": [],
+  "tool": "aider",
+  "metadata": {
+    "notes": "LOW-MEDIUM risk - CI important but isolated"
+  }
+}
