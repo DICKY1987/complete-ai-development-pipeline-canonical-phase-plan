@@ -17,7 +17,7 @@ from unittest.mock import MagicMock, call, mock_open, patch
 
 import pytest
 
-from core.aim_bridge import (
+from aim.bridge import (
     detect_tool,
     get_aim_registry_path,
     get_tool_version,

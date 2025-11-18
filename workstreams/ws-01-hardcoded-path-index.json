@@ -1,0 +1,16 @@
+{
+  "tool": "codex",
+  "files_create": [],
+  "gate": 1,
+  "tasks": [
+    "Baseline indexed (no-op)"
+  ],
+  "ccpm_issue": "N/A",
+  "files_scope": [
+    "docs/"
+  ],
+  "acceptance_tests": [],
+  "depends_on": [],
+  "openspec_change": "WS-01",
+  "id": "ws-01-hardcoded-path-index"
+}

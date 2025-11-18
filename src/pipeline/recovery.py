@@ -1,11 +1,7 @@
-"""Crash recovery and resume
+"""recovery - Compatibility Shim
 
-Facilities for checkpointing progress and resuming failed workstreams.
+This module has been moved to core/engine/recovery
+This shim provides backward compatibility during the refactor.
 """
 
-# TODO: Implement checkpoint storage and recovery routines.
-
-from __future__ import annotations
-
-__all__ = []
-
+from core.engine.recovery import *  # noqa: F401, F403
