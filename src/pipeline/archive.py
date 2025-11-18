@@ -1,14 +1,7 @@
-from __future__ import annotations
+"""archive - Compatibility Shim
 
-import shutil
-from pathlib import Path
+This module has been moved to core/planning/archive
+This shim provides backward compatibility during the refactor.
+"""
 
-
-def auto_archive(path: Path, dest_dir: Path) -> Path:
-    dest_dir.mkdir(parents=True, exist_ok=True)
-    out = dest_dir / (path.name + ".zip")
-    if out.exists():
-        out.unlink()
-    shutil.make_archive(str(out.with_suffix("")), "zip", path)
-    return out
-
+from core.planning.archive import *  # noqa: F401, F403
