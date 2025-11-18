@@ -39,10 +39,16 @@ def get_aim_registry_path() -> Path:
             f"[AIM] AIM_REGISTRY_PATH env var set to '{env_path}' but directory not found"
         )
 
-    # Auto-detect relative to repository root
-    repo_root = Path(__file__).parent.parent.parent
+    # Auto-detect relative to aim section or repository root
+    repo_root = Path(__file__).parent.parent
+    
+    # Try aim/.AIM_ai-tools-registry first (new location)
+    aim_path = repo_root / "aim" / ".AIM_ai-tools-registry"
+    if aim_path.exists():
+        return aim_path
+    
+    # Fallback to root level .AIM_ai-tools-registry (old location)
     aim_path = repo_root / ".AIM_ai-tools-registry"
-
     if aim_path.exists():
         return aim_path
 

@@ -23,7 +23,7 @@ from pathlib import Path
 # Add src to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from pipeline.aim_bridge import get_aim_registry_path
+from aim.bridge import get_aim_registry_path
 
 
 def load_audit_logs(
