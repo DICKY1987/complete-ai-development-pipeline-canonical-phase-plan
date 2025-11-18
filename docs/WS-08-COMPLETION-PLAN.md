@@ -337,7 +337,7 @@ pwsh scripts/test.ps1
 ```bash
 # Clean up from debugging sessions
 rm -f ws*.log nul pipeline_errors.jsonl
-rm -f "C:UsersrichgAppDataLocalTemporiginal_prompts.py"
+rm -f /tmp/original_prompts.py
 rm -rf workstreams/.tmp_ws_10_12/
 ```
 

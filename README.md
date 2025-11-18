@@ -43,29 +43,23 @@ This repository hosts a structured, phase-based plan and lightweight tooling for
 - OpenSpec CLI: `npm install -g @fission-ai/openspec`
 
 ## Repository Layout
-- `docs/` - architecture notes, ADRs, and specifications
-- `plans/` - phase checklists and templates
-- `scripts/` - automation (bootstrap, tests, exports)
-- `tests/` - test files for scripts/templates
-- `assets/` - diagrams and images
-
-## Repository map
-- `src/` – pipeline code: orchestrator, coordinator, tools adapter, prompts, DB helpers.
-- `scripts/` – CLI entry points to validate, generate, run, and inspect.
-- `schema/` – JSON/YAML/SQL schemas (e.g., `workstream.schema.json`).
-- `workstreams/` – authored bundle JSONs consumed by the orchestrator.
-- `config/` – runtime configuration (tool profiles, breakers, rules, AIM config).
-- `tools/` - spec tooling: indexer, resolver, patcher, renderer, guard.
-  - OpenSpec-first: see `docs/spec-tooling-consolidation.md`; renderer supports OpenSpec fallback.
-- `docs/` – architecture, phase plans, contracts, spec docs.
-- `plans/` – canonical phase plans and execution checklists (PH‑06 → PH‑13).
-- `tests/` – unit/integration tests for bundles, pipeline, plugins.
-- `aider/templates/` – prompt templates (Aider EDIT/FIX, etc.).
-- `openspec/` – OpenSpec project/specs used by the spec tools.
-- `sandbox_repos/` – toy repos used by integration tests.
-- `.worktrees/` – per‑workstream working folders created at runtime.
-- `state/` and/or `.state/` – local state, reports, and/or DB files.
-- `AIDER_PROMNT_HELP/`, `Coordination Mechanisms/`, `gui/`, `PHASE_DEV_DOCS/` – guidance and phase notes.
+- `docs/` – architecture notes, ADRs, and specifications
+- `plans/` – phase checklists and templates  
+- `scripts/` – automation (bootstrap, tests, exports)
+- `src/` – pipeline code: orchestrator, coordinator, tools adapter, prompts, DB helpers
+- `schema/` – JSON/YAML/SQL schemas (e.g., `workstream.schema.json`)
+- `workstreams/` – authored bundle JSONs consumed by the orchestrator
+- `config/` – runtime configuration (tool profiles, breakers, rules, AIM config)
+- `tools/` – spec tooling: indexer, resolver, patcher, renderer, guard
+  - OpenSpec-first: see `docs/spec-tooling-consolidation.md`; renderer supports OpenSpec fallback
+- `tests/` – unit/integration tests for bundles, pipeline, plugins
+- `aider/templates/` – prompt templates (Aider EDIT/FIX, etc.)
+- `openspec/` – OpenSpec project/specs used by the spec tools
+- `sandbox_repos/` – toy repos used by integration tests
+- `assets/` – diagrams and images
+- `.worktrees/` – per‑workstream working folders created at runtime
+- `state/` and/or `.state/` – local state, reports, and/or DB files
+- `AIDER_PROMNT_HELP/`, `Coordination Mechanisms/`, `gui/`, `PHASE_DEV_DOCS/` – guidance and phase notes
 
 ## Contributing
 Read `AGENTS.md` for coding style, testing guidance, and PR conventions. Use Conventional Commits (e.g., `docs: add phase overview`, `chore: scaffold skeleton`).

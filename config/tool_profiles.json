@@ -110,6 +110,7 @@
     "args": [
       "--no-auto-commits",
       "--yes",
+      "--model", "{model_name}",
       "--message-file", "{prompt_file}"
     ],
     "env": {

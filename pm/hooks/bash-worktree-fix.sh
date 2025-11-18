@@ -88,6 +88,19 @@ get_worktree_path() {
     return 1
 }
 
+# Check if string is empty or contains only whitespace characters.
+# Pattern explanation: ${var##*[![:space:]]*} removes all leading non-space chars;
+# if result is empty, all chars were non-space (string has content).
+# Returns 0 if empty/whitespace-only, 1 if has content.
+is_empty_or_whitespace() {
+    string=$1
+    # Double negation: if nothing remains after stripping non-whitespace, it's empty
+    if [ -z "${string##*[![:space:]]*}" ]; then
+        return 0  # empty or whitespace-only
+    fi
+    return 1  # has content
+}
+
 # Decide whether to skip prefixing.
 # Returns 0 => SKIP (pass through as-is)
 # Returns 1 => Prefix with cd
@@ -95,8 +108,7 @@ should_skip_command() {
     cmd=$1
 
     # Empty or whitespace-only?
-    # If there are no non-space characters, skip.
-    if [ -z "${cmd##*[![:space:]]*}" ]; then
+    if is_empty_or_whitespace "$cmd"; then
         debug_log "Skipping: empty/whitespace-only command"
         return 0
     fi
