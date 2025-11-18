@@ -35,17 +35,13 @@ The mapping logic uses the following semantic rules:
 
 ## IDX Mappings
 
-_No IDX tags found in specification documents._
+**Total IDX Tags Found:** 3
 
-**Note:** This mapping document is ready to be populated once specification 
-documents with `[IDX-...]` tags are added to the `docs/` directory.
-
-**Example IDX Tag Format:**
-```
-[IDX-DB-SCHEMA-01] - Database schema definition
-[IDX-TOOL-AIDER-CONFIG-05] - Aider tool configuration
-[IDX-PROMPT-TEMPLATE-10] - Prompt template rendering
-```
+| IDX | Description | Source File | Line | Module | Function/Class | Phase | Version |
+|-----|-------------|-------------|------|--------|----------------|-------|----------|
+| IDX-DB-SCHEMA-01 | [IDX-DB-SCHEMA-01] - Database schema definition | docs/spec/spec_index_map.md | 45 | schema/schema.sql | init_schema | PH-02 | v1.0 |
+| IDX-TOOL-AIDER-CONFIG-05 | [IDX-TOOL-AIDER-CONFIG-05] - Aider tool configurat... | docs/spec/spec_index_map.md | 46 | src/pipeline/tools.py | run_aider_config | PH-03 | v1.0 |
+| IDX-PROMPT-TEMPLATE-10 | [IDX-PROMPT-TEMPLATE-10] - Prompt template renderi... | docs/spec/spec_index_map.md | 47 | src/pipeline/prompts.py | render_template | PH-03 | v1.0 |
 
 ---
 
