@@ -44,3 +44,4 @@ state/*.db
 
 # Tool logs
 .AIM_ai-tools-registry/logs/
+nul

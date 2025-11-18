@@ -511,3 +511,19 @@ All contracts are versioned and documented in `docs/`:
 3. Examine error reports in `.state/error_pipeline/<run>/<ws>/`
 4. Enable `--dry-run` to simulate without external tool calls
 
+## WS-08 refactor learnings
+
+- Directory structure: Prompt engine and templates live under `aider/`:
+  - `aider/engine.py`: prompt builders and thin helpers to invoke tool profiles
+  - `aider/templates/prompts/*.j2`: Jinja templates for edit/fix flows
+- Compatibility: The orchestrator calls into `src/pipeline/prompts.py`, which
+  provides wrappers that adapt legacy signatures to `aider.engine`.
+- Template variables: Use `repo_root`, `worktree_path`, `ws_id`, `run_id`,
+  `files_scope`, `files_create`, `acceptance_tests`, `openspec_change`,
+  `ccpm_issue`, and `gate`. Avoid ad-hoc keys.
+- Windows guidance: Prefer `--message-file` and set `PYTHONIOENCODING=utf-8` in
+  tool profiles to bypass console encoding pitfalls.
+- Testing: Dry-runs skip external tools. For prompt correctness, call
+  `aider.engine.build_edit_prompt()` and assert presence of variables.
+
+

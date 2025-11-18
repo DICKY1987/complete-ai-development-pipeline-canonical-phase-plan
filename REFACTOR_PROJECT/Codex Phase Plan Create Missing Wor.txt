@@ -1,0 +1,369 @@
+ Codex Phase Plan: Create Missing Workstream Bundles
+
+ Overview
+
+ Create 12 missing workstream JSON bundles based on
+ REFACTOR_PROJECT/Section_Aware Repo Refactor_Workstream Plan.md.
+
+ Output Location: workstreams/
+ Template: Follow format of workstreams/ws-12-error-shared-utils.json
+
+ ---
+ Phase 1: Create Isolated Section Bundles (WS-03, 04, 05)
+
+ WS-03: Refactor Meta Section
+
+ {
+   "id": "ws-03-refactor-meta-section",
+   "openspec_change": "WS-03",
+   "ccpm_issue": "TBD",
+   "gate": 1,
+   "files_scope": ["meta/", "PHASE_DEV_DOCS/", "docs/"],
+   "files_create": [],
+   "tasks": [
+     "Move PHASE_DEV_DOCS/ content to meta/PHASE_DEV_DOCS/",
+     "Move Coordination Mechanisms/ to meta/",
+     "Update all doc path references to new locations",
+     "Verify no broken links in documentation"
+   ],
+   "acceptance_tests": ["markdownlint docs/", "grep -r
+ 'PHASE_DEV_DOCS/' . --include='*.md' | wc -l"],
+   "depends_on": ["ws-02"],
+   "tool": "aider",
+   "metadata": {"notes": "LOW risk - docs only, no code changes"}
+ }
+
+ WS-04: Refactor GUI Section
+
+ {
+   "id": "ws-04-refactor-gui-section",
+   "openspec_change": "WS-04",
+   "ccpm_issue": "TBD",
+   "gate": 1,
+   "files_scope": ["gui/", "GUI_PIPELINE/"],
+   "files_create": ["gui/docs/"],
+   "tasks": [
+     "Consolidate GUI_PIPELINE/ into gui/",
+     "Move GUI planning docs to gui/docs/",
+     "Update doc references"
+   ],
+   "acceptance_tests": ["ls gui/", "grep -r 'GUI_PIPELINE' .
+ --include='*.md' | wc -l"],
+   "depends_on": ["ws-02"],
+   "tool": "aider",
+   "metadata": {"notes": "LOW risk - stub implementation only"}
+ }
+
+ WS-05: Refactor Infra Section - CI Foundation
+
+ {
+   "id": "ws-05-refactor-infra-ci",
+   "openspec_change": "WS-05",
+   "ccpm_issue": "TBD",
+   "gate": 1,
+   "files_scope": ["infra/", ".github/workflows/", "pytest.ini",
+ "requirements.txt", "sandbox_repos/"],
+   "files_create": ["infra/ci/"],
+   "tasks": [
+     "Create infra/ci/ directory structure",
+     "Move CI configs (pytest.ini, requirements.txt) to infra/ci/",
+     "Update workflow paths in .github/workflows/",
+     "Move sandbox_repos/ to infra/ci/sandbox_repos/"
+   ],
+   "acceptance_tests": ["pytest --collect-only", "ls infra/ci/"],
+   "depends_on": ["ws-02"],
+   "tool": "aider",
+   "metadata": {"notes": "LOW-MEDIUM risk - CI important but isolated"}
+ }
+
+ ---
+ Phase 2: Create Moderately Isolated Bundles (WS-06, 07, 08)
+
+ WS-06: Refactor AIM Section
+
+ {
+   "id": "ws-06-refactor-aim-section",
+   "openspec_change": "WS-06",
+   "ccpm_issue": "TBD",
+   "gate": 1,
+   "files_scope": ["aim/", "src/pipeline/aim_bridge.py",
+ ".AIM_ai-tools-registry/", "scripts/aim_*.py"],
+   "files_create": ["aim/bridge.py"],
+   "tasks": [
+     "Move src/pipeline/aim_bridge.py to aim/bridge.py",
+     "Move .AIM_ai-tools-registry/ to aim/registry/",
+     "Update imports in src/pipeline/tools.py",
+     "Update AIM scripts to use new paths",
+     "Add compatibility shim at old location"
+   ],
+   "acceptance_tests": ["python -c 'from aim.bridge import *'", "python
+  scripts/aim_status.py"],
+   "depends_on": ["ws-03", "ws-04", "ws-05"],
+   "tool": "aider",
+   "metadata": {"notes": "MEDIUM risk - clear interface but used by
+ tools.py"}
+ }
+
+ WS-07: Refactor PM Section - CCPM
+
+ {
+   "id": "ws-07-refactor-pm-ccpm",
+   "openspec_change": "WS-07",
+   "ccpm_issue": "TBD",
+   "gate": 1,
+   "files_scope": ["pm/", "ccpm/", "src/integrations/"],
+   "files_create": ["pm/integrations/github_sync.py"],
+   "tasks": [
+     "Rename ccpm/ to pm/ if not already done",
+     "Move src/integrations/github_sync.py to pm/integrations/",
+     "Update CCPM install/update scripts",
+     "Update imports across pm/ directory"
+   ],
+   "acceptance_tests": ["ls pm/", "python -c 'from
+ pm.integrations.github_sync import *'"],
+   "depends_on": ["ws-03", "ws-04", "ws-05"],
+   "tool": "aider",
+   "metadata": {"notes": "MEDIUM risk - large (70+ files) but
+ self-contained"}
+ }
+
+ WS-08: Refactor Aider Section
+
+ {
+   "id": "ws-08-refactor-aider-section",
+   "openspec_change": "WS-08",
+   "ccpm_issue": "TBD",
+   "gate": 1,
+   "files_scope": ["aider/", "src/pipeline/prompts.py", "templates/",
+ "AIDER_PROMNT_HELP/"],
+   "files_create": ["aider/engine.py", "aider/templates/",
+ "aider/help/"],
+   "tasks": [
+     "Move src/pipeline/prompts.py to aider/engine.py",
+     "Move templates/prompts/ to aider/templates/",
+     "Move AIDER_PROMNT_HELP/ to aider/help/",
+     "Update orchestrator imports",
+     "Add compatibility shim at src/pipeline/prompts.py"
+   ],
+   "acceptance_tests": ["python -c 'from aider.engine import
+ run_aider_edit'", "ls aider/templates/"],
+   "depends_on": ["ws-03", "ws-04", "ws-05"],
+   "tool": "aider",
+   "metadata": {"notes": "MEDIUM risk - used by orchestrator"}
+ }
+
+ ---
+ Phase 3: Create Spec Tooling Bundle (WS-09)
+
+ WS-09: Refactor Spec Section - Tools Foundation
+
+ {
+   "id": "ws-09-refactor-spec-tools",
+   "openspec_change": "WS-09",
+   "ccpm_issue": "TBD",
+   "gate": 1,
+   "files_scope": ["spec/", "tools/spec_indexer/",
+ "tools/spec_resolver/", "tools/spec_renderer/", "tools/spec_patcher/",
+  "tools/spec_guard/"],
+   "files_create": ["spec/tools/"],
+   "tasks": [
+     "Create spec/tools/ directory",
+     "Move tools/spec_indexer/ to spec/tools/indexer/",
+     "Move tools/spec_resolver/ to spec/tools/resolver/",
+     "Move tools/spec_renderer/ to spec/tools/renderer/",
+     "Move tools/spec_patcher/ to spec/tools/patcher/",
+     "Move tools/spec_guard/ to spec/tools/guard/",
+     "Update spec script imports"
+   ],
+   "acceptance_tests": ["ls spec/tools/", "python
+ scripts/generate_spec_index.py --help"],
+   "depends_on": ["ws-06", "ws-07", "ws-08"],
+   "tool": "aider",
+   "metadata": {"notes": "MEDIUM risk - used by parser/scripts"}
+ }
+
+ ---
+ Phase 4: Create Error Pipeline Bundles (WS-13, 14)
+
+ WS-13: Refactor Error Section - Plugins
+
+ {
+   "id": "ws-13-refactor-error-plugins",
+   "openspec_change": "WS-13",
+   "ccpm_issue": "TBD",
+   "gate": 1,
+   "files_scope": ["error/", "src/plugins/", "tests/plugins/"],
+   "files_create": ["error/plugins/"],
+   "tasks": [
+     "Move src/plugins/ to error/plugins/",
+     "Update all plugin imports from utils to new location",
+     "Update plugin_manager.py imports",
+     "Update test imports in tests/plugins/",
+     "Verify all 21 plugins load correctly"
+   ],
+   "acceptance_tests": ["pytest tests/plugins/ -q", "python -c 'from
+ error.plugins import *'"],
+   "depends_on": ["ws-12"],
+   "tool": "aider",
+   "metadata": {"notes": "HIGH risk - 21 plugins, extensive testing
+ needed"}
+ }
+
+ WS-14: Refactor Error Section - Engine Consolidation
+
+ {
+   "id": "ws-14-refactor-error-engine",
+   "openspec_change": "WS-14",
+   "ccpm_issue": "TBD",
+   "gate": 1,
+   "files_scope": ["error/", "MOD_ERROR_PIPELINE/",
+ "src/pipeline/error_*.py"],
+   "files_create": ["error/engine/"],
+   "tasks": [
+     "Create error/engine/ directory",
+     "Move MOD_ERROR_PIPELINE/*.py to error/engine/",
+     "Move src/pipeline/error_context.py to error/engine/",
+     "Move src/pipeline/error_state_machine.py to error/engine/",
+     "Move src/pipeline/error_pipeline_cli.py to error/engine/",
+     "Update orchestrator imports",
+     "Remove empty MOD_ERROR_PIPELINE/ directory"
+   ],
+   "acceptance_tests": ["pytest -k error -q", "python
+ scripts/run_error_engine.py --help"],
+   "depends_on": ["ws-12", "ws-13"],
+   "tool": "aider",
+   "metadata": {"notes": "HIGH risk - consolidates 8 modules from 2
+ locations"}
+ }
+
+ ---
+ Phase 5: Create Core Pipeline Bundles (WS-15, 16, 17)
+
+ WS-15: Refactor Core Section - State & Data
+
+ {
+   "id": "ws-15-refactor-core-state",
+   "openspec_change": "WS-15",
+   "ccpm_issue": "TBD",
+   "gate": 1,
+   "files_scope": ["core/", "src/pipeline/db.py",
+ "src/pipeline/crud_operations.py", "src/pipeline/bundles.py",
+ "src/pipeline/worktree.py", "schema/"],
+   "files_create": ["core/state/"],
+   "tasks": [
+     "Create core/state/ directory",
+     "Move src/pipeline/db.py to core/state/db.py",
+     "Move src/pipeline/db_sqlite.py to core/state/db_sqlite.py",
+     "Move src/pipeline/crud_operations.py to core/state/crud.py",
+     "Move src/pipeline/bundles.py to core/state/bundles.py",
+     "Move src/pipeline/worktree.py to core/state/worktree.py",
+     "Update 50+ imports across scripts/tests",
+     "Replace stubs in core/ with actual implementations"
+   ],
+   "acceptance_tests": ["python scripts/init_db.py", "python
+ scripts/validate_workstreams.py"],
+   "depends_on": ["ws-14"],
+   "tool": "aider",
+   "metadata": {"notes": "VERY HIGH risk - foundation for
+ orchestration"}
+ }
+
+ WS-16: Refactor Core Section - Orchestration
+
+ {
+   "id": "ws-16-refactor-core-orchestration",
+   "openspec_change": "WS-16",
+   "ccpm_issue": "TBD",
+   "gate": 1,
+   "files_scope": ["core/", "src/pipeline/orchestrator.py",
+ "src/pipeline/scheduler.py", "src/pipeline/executor.py",
+ "src/pipeline/tools.py", "src/pipeline/circuit_breakers.py",
+ "src/pipeline/recovery.py"],
+   "files_create": ["core/engine/"],
+   "tasks": [
+     "Create core/engine/ directory",
+     "Move src/pipeline/orchestrator.py to
+ core/engine/orchestrator.py",
+     "Move src/pipeline/scheduler.py to core/engine/scheduler.py",
+     "Move src/pipeline/executor.py to core/engine/executor.py",
+     "Move src/pipeline/tools.py to core/engine/tools.py",
+     "Move src/pipeline/circuit_breakers.py to
+ core/engine/circuit_breakers.py",
+     "Move src/pipeline/recovery.py to core/engine/recovery.py",
+     "Update 40+ imports across codebase",
+     "Run full integration tests"
+   ],
+   "acceptance_tests": ["python scripts/run_workstream.py --ws-id
+ ws-test-001 --dry-run", "pytest tests/pipeline/ -q"],
+   "depends_on": ["ws-15"],
+   "tool": "aider",
+   "metadata": {"notes": "VERY HIGH risk - heart of the system"}
+ }
+
+ WS-17: Refactor Core Section - Planning
+
+ {
+   "id": "ws-17-refactor-core-planning",
+   "openspec_change": "WS-17",
+   "ccpm_issue": "TBD",
+   "gate": 1,
+   "files_scope": ["core/", "src/pipeline/planner.py",
+ "src/pipeline/archive.py"],
+   "files_create": ["core/planning/"],
+   "tasks": [
+     "Create core/planning/ directory",
+     "Move src/pipeline/planner.py to core/planning/planner.py",
+     "Move src/pipeline/archive.py to core/planning/archive.py",
+     "Update imports"
+   ],
+   "acceptance_tests": ["python -c 'from core.planning.planner import
+ *'"],
+   "depends_on": ["ws-16"],
+   "tool": "aider",
+   "metadata": {"notes": "MEDIUM risk - not heavily used (stubs)"}
+ }
+
+ ---
+ Execution Instructions for Codex
+
+ Step 1: Navigate to project
+
+ cd "C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical
+  Phase Plan"
+
+ Step 2: Create bundles
+
+ For each bundle above:
+ 1. Create file in workstreams/ with name pattern
+ ws-NN-description.json
+ 2. Validate with python scripts/validate_workstreams.py
+
+ Step 3: Validate all bundles
+
+ python scripts/validate_workstreams.py --json
+
+ Step 4: Commit
+
+ git add workstreams/*.json
+ git commit -m "feat(workstreams): add missing bundles WS-03 through
+ WS-17"
+
+ ---
+ Summary
+
+ | Bundle | Risk      | Dependencies |
+ |--------|-----------|--------------|
+ | ws-03  | LOW       | ws-02        |
+ | ws-04  | LOW       | ws-02        |
+ | ws-05  | LOW-MED   | ws-02        |
+ | ws-06  | MEDIUM    | ws-03,04,05  |
+ | ws-07  | MEDIUM    | ws-03,04,05  |
+ | ws-08  | MEDIUM    | ws-03,04,05  |
+ | ws-09  | MEDIUM    | ws-06,07,08  |
+ | ws-13  | HIGH      | ws-12        |
+ | ws-14  | HIGH      | ws-12,13     |
+ | ws-15  | VERY HIGH | ws-14        |
+ | ws-16  | VERY HIGH | ws-15        |
+ | ws-17  | MEDIUM    | ws-16        |
+
+ Total: 12 bundles to create

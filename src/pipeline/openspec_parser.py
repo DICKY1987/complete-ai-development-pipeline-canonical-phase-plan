@@ -291,7 +291,7 @@ def main(argv: List[str]) -> int:
 
     last_out: Optional[Path] = None
     for b in built_bundles:
-        if args.generate-bundle or args.input:
+        if args.generate_bundle or args.input:
             last_out = write_bundle(b, out_dir)
         if args.echo:
             sys.stdout.write(b.to_yaml())

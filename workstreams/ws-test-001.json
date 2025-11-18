@@ -4,7 +4,9 @@
   "ccpm_issue": "TBD",
   "gate": 1,
   "files_scope": [
-    "core/openspec_parser.py"
+    "src/pipeline/openspec_parser.py",
+    "src/pipeline/openspec_convert.py",
+    "scripts/generate_workstreams_from_openspec.py"
   ],
   "files_create": [],
   "tasks": [

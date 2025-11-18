@@ -1,18 +1,11 @@
-bundle-id: openspec-test-001
-version: "1.0"
-metadata:
-  source: openspec
-  description: Test integration of OpenSpec → bundle → workstream
+bundle-id: "openspec-test-001"
+version: 1.0
 items:
-  - id: CH-test-001
+  - id: "CH-test-001"
     title: Test Integration
-    description: Test the OpenSpec → CCPM → Pipeline flow.
-    tags:
-      - demo
-      - validation
-  - id: T-1
+  - id: "T-1"
     title: Create bundle YAML
-  - id: T-2
+  - id: "T-2"
     title: Create GitHub issue
-  - id: T-3
+  - id: "T-3"
     title: Run pipeline validation

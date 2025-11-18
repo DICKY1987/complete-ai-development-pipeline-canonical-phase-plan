@@ -1,0 +1,32 @@
+{
+  "id": "ws-13-refactor-error-plugins",
+  "openspec_change": "WS-13",
+  "ccpm_issue": "TBD",
+  "gate": 1,
+  "files_scope": [
+    "error/plugins/",
+    "src/plugins/",
+    "tests/plugins/"
+  ],
+  "files_create": [
+    "error/plugins/"
+  ],
+  "tasks": [
+    "Move src/plugins/ to error/plugins/",
+    "Update all plugin imports from utils to new location",
+    "Update plugin_manager.py imports",
+    "Update test imports in tests/plugins/",
+    "Verify all 21 plugins load correctly"
+  ],
+  "acceptance_tests": [
+    "pytest tests/plugins/ -q",
+    "python -c 'from error.plugins import *'"
+  ],
+  "depends_on": [
+    "ws-12-error-shared-utils"
+  ],
+  "tool": "aider",
+  "metadata": {
+    "notes": "HIGH risk - 21 plugins, extensive testing needed"
+  }
+}

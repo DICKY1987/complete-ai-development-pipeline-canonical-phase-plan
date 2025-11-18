@@ -93,10 +93,10 @@ python run_ws_wrapper.py --ws-id ws-12-error-shared-utils
 **Expected**: Both complete successfully (may skip aider step if not needed)
 
 ### Acceptance Criteria
-- [ ] Prompt rendering includes all template variables
-- [ ] Aider receives files in scope (not empty list)
-- [ ] WS-11 and WS-12 pass acceptance tests again
-- [ ] No import errors or module resolution issues
+- [x] Prompt rendering includes all template variables
+- [x] Aider receives files in scope (not empty list)
+- [x] WS-11 and WS-12 pass acceptance tests again (dry-run)
+- [x] No import errors or module resolution issues
 
 **Duration**: 1-2 hours
 **Blockers**: None
@@ -529,3 +529,4 @@ def test_all_bundles_validate():
 
 _Document maintained by: Pipeline Team_
 _Next Review: After Phase 1 completion_
+
