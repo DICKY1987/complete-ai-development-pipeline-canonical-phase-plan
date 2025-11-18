@@ -8,9 +8,9 @@ import os
 
 # Adjust sys.path to allow importing bundles
 project_root = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(project_root / "src"))
+sys.path.insert(0, str(project_root))
 
-from pipeline import bundles
+from core.state import bundles
 
 # Define paths relative to the project root
 WORKSTREAM_SCHEMA_PATH = project_root / "schema" / "workstream.schema.json"
