@@ -1,0 +1,134 @@
+That error is Windows basically saying:
+
+> “I tried to **run** `C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan` as a program, and **access was denied**.”
+
+`2147942405` = `0x80070005` = **ERROR_ACCESS_DENIED**. ([Krisp Help][1])
+
+So:
+
+* Something is **launching** that *folder path* as if it were an EXE,
+* and Windows is returning a generic **access denied** startup failure.
+
+Given what you showed earlier, there are *two* likely problems tangled together:
+
+1. The **path itself** is weird (the “dash” is actually an **en-dash**, not a normal `-`).
+2. Some tool (Windows Terminal profile, shortcut, script) is using that path in a place that expects a **command**, not a working directory.
+
+Let’s untangle and fix both.
+
+---
+
+## 1. Verify the folder name & clean it up
+
+First, we want to be 100% sure the folder even exists with the exact characters you think.
+
+1. Open **File Explorer** and go to:
+
+   ```text
+   C:\Users\richg\ALL_AI
+   ```
+
+2. Find your pipeline folder.
+
+3. **Right-click → Rename**, and change it to something simple like:
+
+   ```text
+   Complete-AI-Development-Pipeline-Canonical-Phase-Plan
+   ```
+
+   (Just letters, numbers, and `-` or `_`. No fancy dash, no long spaces.)
+
+4. Copy the new path from the address bar so we know it’s correct.
+
+Now test in PowerShell:
+
+```powershell
+cd "C:\Users\richg\ALL_AI\Complete-AI-Development-Pipeline-Canonical-Phase-Plan"
+pwd
+```
+
+If that works, the basic path problem is solved.
+
+---
+
+## 2. Fix anything that is *launching* the folder as a command
+
+That exact error text:
+
+> `[error 2147942405 (0x80070005) when launching "C:\Users\..."]`
+
+is the style Windows Terminal and some other launchers use when they try to **start** something and fail with access denied.
+
+Some common places to check:
+
+### a) Windows Terminal profile
+
+If you created a custom profile:
+
+1. Open **Windows Terminal → Settings**.
+2. Select your custom profile (maybe “Codex”, “Pipeline”, etc.).
+3. Look at:
+
+   * **Command line** – this must be an **EXE**, e.g.:
+
+     ```text
+     C:\Program Files\PowerShell\7\pwsh.exe
+     ```
+
+   * **Starting directory** – *this* is where you put your folder path, e.g.:
+
+     ```text
+     C:\Users\richg\ALL_AI\Complete-AI-Development-Pipeline-Canonical-Phase-Plan
+     ```
+
+If `Command line` is set directly to the folder path, Windows tries to *run the folder* → `0x80070005`.
+
+### b) Shortcuts or scripts
+
+If you have a `.lnk` shortcut or `.ps1` / `.bat` script:
+
+* In a shortcut:
+
+  * Right-click → **Properties**.
+  * **Target** must be something like `pwsh.exe` or `cmd.exe`, *not* just the folder.
+  * **Start in** can be the pipeline folder.
+
+* In PowerShell:
+
+  Bad:
+
+  ```powershell
+  Start-Process "C:\Users\richg\ALL_AI\Complete-AI-Development-Pipeline-Canonical-Phase-Plan"
+  ```
+
+  Good:
+
+  ```powershell
+  Start-Process pwsh.exe -WorkingDirectory "C:\Users\richg\ALL_AI\Complete-AI-Development-Pipeline-Canonical-Phase-Plan"
+  ```
+
+---
+
+## 3. Permissions sanity check (just in case)
+
+It’s probably not a real permissions issue, but a quick check doesn’t hurt:
+
+1. In File Explorer, right-click the pipeline folder → **Properties** → **Security**.
+2. Make sure your user (`richg`) has **Full control**.
+3. If your AV pops anything about blocking scripts in that folder, whitelist it.
+
+---
+
+## 4. TL;DR “Do this”
+
+1. **Rename** the folder to a simple ASCII name (no fancy dash).
+2. Update any:
+
+   * Windows Terminal profiles (**Command line** = `pwsh.exe`, **Starting directory** = folder).
+   * Shortcuts or scripts to use `-WorkingDirectory` instead of trying to “run” the folder.
+
+After that, the `2147942405 (0x80070005)` error for that path should disappear, and we can focus on actually launching Aider / Codex / Claude from that directory.
+
+If you paste the exact command or profile JSON that triggers this, I can rewrite it line-by-line so it “just works” with your new cleaned-up folder name.
+
+[1]: https://help.krisp.ai/hc/en-us/articles/8755080552220-Krisp-exe-Installation-Error-Codes-for-IT-Admins?utm_source=chatgpt.com "Krisp.exe Installation Error Codes (for IT Admins)"

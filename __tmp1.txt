@@ -1,0 +1,120 @@
+from __future__ import annotations
+
+import dataclasses as dc
+import json
+import sys
+from dataclasses import field
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Tuple, Union
+
+
+@dc.dataclass
+class WhenThen:
+    when: str
+    then: str
+
+
+@dc.dataclass
+class SpecItem:
+    id: str
+    title: str
+    description: str = ""
+    tags: List[str] = field(default_factory=list)
+    when_then: List[WhenThen] = field(default_factory=list)
+
+
+@dc.dataclass
+class OpenSpecBundle:
+    bundle_id: str
+    items: List[SpecItem]
+    version: str = "1.0"
+    metadata: Dict[str, Any] = dc.field(default_factory=dict)
+
+    def to_yaml(self) -> str:
+        # Minimal YAML emitter to avoid extra dependencies; stable ordering
+        def esc(s: str) -> str:
+            if any(ch in s for ch in [":", "-", "#", "\n", '"', "'"]):
+                return json.dumps(s)
+            return s
+
+        lines: List[str] = []
+        lines.append(f"bundle-id: {esc(self.bundle_id)}")
+        lines.append(f"version: {esc(self.version)}")
+        if self.metadata:
+            lines.append("metadata:")
+            for k in sorted(self.metadata.keys()):
+                v = self.metadata[k]
+                lines.append(f"  {k}: {esc(str(v))}")
+        lines.append("items:")
+        for it in self.items:
+            lines.append("  - id: " + esc(it.id))
+            lines.append("    title: " + esc(it.title))
+            if it.description:
+                desc = it.description.strip().replace("\n", "\\n")
+                lines.append("    description: " + esc(desc))
+            if it.tags:
+                lines.append("    tags:")
+                for t in it.tags:
+                    lines.append("      - " + esc(t))
+            if it.when_then:
+                lines.append("    when-then:")
+                for wt in it.when_then:
+                    lines.append("      - when: " + esc(wt.when))
+                    lines.append("        then: " + esc(wt.then))
+        return "\n".join(lines) + "\n"
+
+
+def load_bundle_from_yaml(path: Path) -> OpenSpecBundle:
+    # Specialized, minimal parser for the expected bundle shape.
+    bundle_id: Optional[str] = None
+    version: str = "1.0"
+    metadata: Dict[str, Any] = {}
+    items: List[SpecItem] = []
+
+    in_items = False
+    in_when_then = False
+    current_item: Optional[Dict[str, Any]] = None
+
+    lines = path.read_text(encoding="utf-8").splitlines()
+    for raw in lines:
+        line = raw.rstrip("\n")
+        if not line.strip() or line.strip().startswith("#"):
+            continue
+        if not in_items:
+            if line.startswith("bundle-id:") or line.startswith("bundle_id:"):
+                bundle_id = line.split(":", 1)[1].strip().strip('"')
+                continue
+            if line.startswith("version:"):
+                version = line.split(":", 1)[1].strip().strip('"')
+                continue
+            if line.startswith("metadata:"):
+                # Simple metadata parsing of immediate k:v pairs
+                in_metadata = True
+                continue
+            if line.startswith("items:"):
+                in_items = True
+                continue
+            # ignore other top-level keys for now
+            continue
+        # in items
+        stripped = line.lstrip()
+        indent = len(line) - len(stripped)
+        if stripped.startswith("- "):
+            # start of new item, may include inline key:value
+            if current_item is not None:
+                # finalize previous
+                it = SpecItem(
+                    id=str(current_item.get("id", "")),
+                    title=str(current_item.get("title", "")),
+                    description=str(current_item.get("description", "")),
+                    tags=list(current_item.get("tags", []) or []),
+                    when_then=[WhenThen(when=w[0], then=w[1]) for w in current_item.get("when_then", [])],
+                )
+                items.append(it)
+            current_item = {"when_then": []}
+            in_when_then = False
+            # inline key: value on same line
+            inline = stripped[2:].strip()
+            if ":" in inline:
+                k, v = [s.strip() for s in inline.split(":", 1)]
+                if k == "id":

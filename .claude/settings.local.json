@@ -1,8 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(where:*)",
-      "Bash(openspec list:*)"
+      "Bash(cat:*)",
+      "Bash(ls:*)"
     ],
     "deny": [],
     "ask": []

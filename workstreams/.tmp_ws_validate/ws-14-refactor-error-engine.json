@@ -1,0 +1,35 @@
+{
+  "id": "ws-14-refactor-error-engine",
+  "openspec_change": "WS-14",
+  "ccpm_issue": "TBD",
+  "gate": 1,
+  "files_scope": [
+    "error/engine/",
+    "MOD_ERROR_PIPELINE/",
+    "src/pipeline/error_*.py"
+  ],
+  "files_create": [
+    "error/engine/"
+  ],
+  "tasks": [
+    "Create error/engine/ directory",
+    "Move MOD_ERROR_PIPELINE/*.py to error/engine/",
+    "Move src/pipeline/error_context.py to error/engine/",
+    "Move src/pipeline/error_state_machine.py to error/engine/",
+    "Move src/pipeline/error_pipeline_cli.py to error/engine/",
+    "Update orchestrator imports",
+    "Remove empty MOD_ERROR_PIPELINE/ directory"
+  ],
+  "acceptance_tests": [
+    "pytest -k error -q",
+    "python scripts/run_error_engine.py --help"
+  ],
+  "depends_on": [
+    "ws-12-error-shared-utils",
+    "ws-13-refactor-error-plugins"
+  ],
+  "tool": "aider",
+  "metadata": {
+    "notes": "HIGH risk - consolidates 8 modules from 2 locations"
+  }
+}

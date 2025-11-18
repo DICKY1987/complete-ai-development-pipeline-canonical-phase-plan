@@ -1,0 +1,73 @@
+        items.append(SpecItem(id=f"T-{idx}", title=t))
+
+    return OpenSpecBundle(bundle_id=f"openspec-{change_id}", items=items)
+
+
+def discover_specs(input_path: Path) -> List[OpenSpecBundle]:
+    if input_path.is_file() and input_path.suffix in {".yaml", ".yml"}:
+        return [load_bundle_from_yaml(input_path)]
+    bundles: List[OpenSpecBundle] = []
+    if input_path.is_dir():
+        for p in sorted(input_path.rglob("*.yml")) + sorted(input_path.rglob("*.yaml")):
+            bundles.append(load_bundle_from_yaml(p))
+    return bundles
+
+
+def write_bundle(bundle: OpenSpecBundle, out_dir: Path) -> Path:
+    out_dir.mkdir(parents=True, exist_ok=True)
+    out_path = out_dir / f"{bundle.bundle_id}.yaml"
+    out_path.write_text(bundle.to_yaml(), encoding="utf-8")
+    return out_path
+
+
+def main(argv: List[str]) -> int:
+    import argparse
+
+    ap = argparse.ArgumentParser(description="OpenSpec parser and bundle generator")
+    src = ap.add_mutually_exclusive_group(required=False)
+    src.add_argument("input", nargs="?", default=None, help="Path to bundle file or directory")
+    src.add_argument("--change-id", dest="change_id", help="OpenSpec change id under openspec/changes/")
+    ap.add_argument("--out", type=str, default="bundles", help="Output bundles directory")
+    ap.add_argument("--echo", action="store_true", help="Echo normalized YAML to stdout")
+    ap.add_argument("--generate-bundle", action="store_true", help="Generate bundle YAML to --out")
+    ap.add_argument("--create-epic", action="store_true", help="Stub: print epic payload for pm/GitHub")
+    args = ap.parse_args(argv)
+
+    out_dir = Path(args.out)
+
+    built_bundles: List[OpenSpecBundle] = []
+    if args.change_id:
+        built_bundles = [load_bundle_from_change(args.change_id)]
+    elif args.input:
+        input_path = Path(args.input)
+        built_bundles = discover_specs(input_path)
+    else:
+        print("Either --change-id or input path is required", file=sys.stderr)
+        return 2
+
+    if not built_bundles:
+        print("No bundles found", file=sys.stderr)
+        return 2
+
+    last_out: Optional[Path] = None
+    for b in built_bundles:
+        if args.generate_bundle or args.input:
+            last_out = write_bundle(b, out_dir)
+        if args.echo:
+            sys.stdout.write(b.to_yaml())
+        if args.create_epic:
+            payload = {
+                "title": f"[OpenSpec] {b.bundle_id}",
+                "labels": ["openspec", "epic"],
+                "body": f"Auto-generated from {b.bundle_id}. Items: {len(b.items)}",
+            }
+            print(json.dumps(payload, indent=2))
+
+    if last_out:
+        print(str(last_out))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main(sys.argv[1:]))
+

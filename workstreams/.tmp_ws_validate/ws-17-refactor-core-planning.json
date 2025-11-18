@@ -1,0 +1,30 @@
+{
+  "id": "ws-17-refactor-core-planning",
+  "openspec_change": "WS-17",
+  "ccpm_issue": "TBD",
+  "gate": 1,
+  "files_scope": [
+    "core/planning/",
+    "src/pipeline/planner.py",
+    "src/pipeline/archive.py"
+  ],
+  "files_create": [
+    "core/planning/"
+  ],
+  "tasks": [
+    "Create core/planning/ directory",
+    "Move src/pipeline/planner.py to core/planning/planner.py",
+    "Move src/pipeline/archive.py to core/planning/archive.py",
+    "Update imports"
+  ],
+  "acceptance_tests": [
+    "python -c 'from core.planning.planner import *'"
+  ],
+  "depends_on": [
+    "ws-16-refactor-core-orchestration"
+  ],
+  "tool": "aider",
+  "metadata": {
+    "notes": "MEDIUM risk - not heavily used (stubs)"
+  }
+}

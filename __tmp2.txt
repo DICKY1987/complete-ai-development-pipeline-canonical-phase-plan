@@ -1,0 +1,120 @@
+                    current_item["id"] = v.strip('"')
+                else:
+                    current_item[k] = v.strip('"')
+            continue
+        # handle nested fields for current_item
+        if current_item is None:
+            continue
+        key_val = stripped.split(":", 1)
+        if len(key_val) == 2:
+            k = key_val[0].strip()
+            v = key_val[1].strip()
+            if k == "when-then":
+                in_when_then = True
+                continue
+            if k == "tags":
+                # subsequent lines expected as list items; skip here
+                current_item.setdefault("tags", [])
+                continue
+            # simple scalar
+            current_item[k] = v.strip('"')
+            continue
+        # list items under when-then or tags
+        if stripped.startswith("-") and in_when_then:
+            # expect forms: - when: X / then: Y possibly on next indented line
+            rest = stripped[1:].strip()
+            # optional prefix 'when:' on same line
+            if rest.startswith("when:"):
+                when_txt = rest.split(":", 1)[1].strip().strip('"')
+                # next lines may contain 'then:'; handled in future iterations
+                current_item.setdefault("_pending_when", when_txt)
+                continue
+        if stripped.startswith("then:") and in_when_then:
+            then_txt = stripped.split(":", 1)[1].strip().strip('"')
+            when_txt = current_item.pop("_pending_when", "")
+            current_item.setdefault("when_then", []).append((when_txt, then_txt))
+            continue
+        if stripped.startswith("-") and "tags" in current_item and not in_when_then:
+            tag_val = stripped[1:].strip().strip('"')
+            current_item.setdefault("tags", []).append(tag_val)
+            continue
+
+    # finalize last item
+    if in_items and current_item is not None:
+        it = SpecItem(
+            id=str(current_item.get("id", "")),
+            title=str(current_item.get("title", "")),
+            description=str(current_item.get("description", "")),
+            tags=list(current_item.get("tags", []) or []),
+            when_then=[WhenThen(when=w[0], then=w[1]) for w in current_item.get("when_then", [])],
+        )
+        items.append(it)
+
+    if bundle_id is None:
+        raise ValueError("bundle-id is required")
+    return OpenSpecBundle(bundle_id=bundle_id, items=items, version=version, metadata=metadata)
+
+
+def _read_change_tasks(change_dir: Path) -> List[str]:
+    tasks_path = change_dir / "tasks.md"
+    if not tasks_path.exists():
+        return []
+    lines = tasks_path.read_text(encoding="utf-8").splitlines()
+    tasks: List[str] = []
+    for line in lines:
+        s = line.strip()
+        if s.startswith("- [") or s.startswith("-"):
+            # strip checkbox markers if present
+            s2 = s.lstrip("- ")
+            if s2.startswith("[ ") or s2.startswith("[x") or s2.startswith("[X"):
+                # remove leading [ ] or [x] token
+                rb = s2.find("]")
+                if rb != -1:
+                    s2 = s2[rb + 1 :].strip()
+            tasks.append(s2)
+    return tasks
+
+
+def _read_change_title(change_dir: Path) -> str:
+    prop = change_dir / "proposal.md"
+    if not prop.exists():
+        return change_dir.name
+    text = prop.read_text(encoding="utf-8")
+    # Try YAML frontmatter title first
+    title = ""
+    if text.startswith("---"):
+        lines = text.splitlines()
+        for i in range(1, min(len(lines), 50)):
+            l = lines[i].strip()
+            if l == "---":
+                break
+            if l.lower().startswith("title:"):
+                title = l.split(":", 1)[1].strip().strip('"')
+                break
+    if not title:
+        # Fallback to first Markdown heading
+        for line in text.splitlines():
+            if line.lstrip().startswith("#"):
+                title = line.lstrip("# ").strip()
+                if title:
+                    break
+    return title or change_dir.name
+
+
+def load_bundle_from_change(change_id: str, base_dir: Optional[Path] = None) -> OpenSpecBundle:
+    """Create an OpenSpecBundle from an OpenSpec change directory.
+
+    Expects structure: openspec/changes/<change-id>/{proposal.md,tasks.md}
+    """
+    root = (base_dir or Path.cwd()).resolve()
+    change_dir = root / "openspec" / "changes" / change_id
+    if not change_dir.exists():
+        raise FileNotFoundError(f"OpenSpec change not found: {change_dir}")
+
+    title = _read_change_title(change_dir)
+    tasks = _read_change_tasks(change_dir)
+
+    items: List[SpecItem] = []
+    # Make a single high-level item for the change plus task-tagged items
+    items.append(SpecItem(id=f"CH-{change_id}", title=title, description=""))
+    for idx, t in enumerate(tasks, start=1):

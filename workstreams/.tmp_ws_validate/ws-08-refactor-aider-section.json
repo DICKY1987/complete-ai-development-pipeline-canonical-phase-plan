@@ -1,0 +1,37 @@
+{
+  "id": "ws-08-refactor-aider-section",
+  "openspec_change": "WS-08",
+  "ccpm_issue": "TBD",
+  "gate": 1,
+  "files_scope": [
+    "aider/",
+    "src/pipeline/prompts.py",
+    "templates/",
+    "AIDER_PROMNT_HELP/"
+  ],
+  "files_create": [
+    "aider/engine.py",
+    "aider/templates/",
+    "aider/help/"
+  ],
+  "tasks": [
+    "Move src/pipeline/prompts.py to aider/engine.py",
+    "Move templates/prompts/ to aider/templates/",
+    "Move AIDER_PROMNT_HELP/ to aider/help/",
+    "Update orchestrator imports",
+    "Add compatibility shim at src/pipeline/prompts.py"
+  ],
+  "acceptance_tests": [
+    "python -c 'from aider.engine import run_aider_edit'",
+    "ls aider/templates/"
+  ],
+  "depends_on": [
+    "ws-03-refactor-meta-section",
+    "ws-04-refactor-gui-section",
+    "ws-05-refactor-infra-ci"
+  ],
+  "tool": "aider",
+  "metadata": {
+    "notes": "MEDIUM risk - used by orchestrator"
+  }
+}
