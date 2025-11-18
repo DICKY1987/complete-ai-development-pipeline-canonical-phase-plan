@@ -31,7 +31,7 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     # Lazy import to avoid heavy module import at CLI startup
-    from src.pipeline import orchestrator
+    from core import orchestrator
 
     context: Dict[str, Any] = {}
     if args.dry_run:
@@ -50,4 +50,3 @@ def main(argv: list[str] | None = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

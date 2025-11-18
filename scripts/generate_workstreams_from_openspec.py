@@ -18,10 +18,10 @@ import sys
 from pathlib import Path
 from typing import List, Optional
 
-# Add src to import path
+# Add repo root for local imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from src.pipeline.openspec_convert import (
+from core.openspec_convert import (
     bundle_to_workstream,
     load_bundles_from_input,
 )

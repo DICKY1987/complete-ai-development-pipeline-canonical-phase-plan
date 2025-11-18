@@ -20,10 +20,10 @@ from dataclasses import dataclass, asdict
 from pathlib import Path
 from typing import Iterable, List, Dict
 
-# Add src to path for imports
+# Add repo root for local imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from src.pipeline.spec_index import create_mapping, generate_mapping_table, SpecMapping
+from core.spec_index import create_mapping, generate_mapping_table, SpecMapping
 
 
 # Inline scanner functions to avoid import issues

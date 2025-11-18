@@ -10,7 +10,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 import pytest
 
-from src.pipeline import bundles as ws
+from core import bundles as ws
 
 
 def write_bundle(path: Path, data):
@@ -199,3 +199,4 @@ def test_schema_validation_errors(tmp_path: Path):
     )
     with pytest.raises(ws.BundleValidationError):
         ws.load_and_validate_bundles()
+

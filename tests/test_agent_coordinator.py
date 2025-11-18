@@ -1,4 +1,4 @@
-from src.pipeline.agent_coordinator import partition_units, run_parallel, summarize, PluginResult
+from core.agent_coordinator import partition_units, run_parallel, summarize, PluginResult
 
 
 def dummy_plugin(uid, args):
@@ -20,4 +20,3 @@ def test_run_parallel_and_summarize():
     assert [r.unit_id for r in res] == ["a", "b", "c"]
     s = summarize(res)
     assert s["total"] == 3 and s["ok"] == 3 and s["failed"] == 0
-

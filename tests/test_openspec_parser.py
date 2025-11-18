@@ -1,5 +1,5 @@
 from pathlib import Path
-from src.pipeline.openspec_parser import load_bundle_from_yaml, write_bundle
+from core.openspec_parser import load_bundle_from_yaml, write_bundle
 
 
 def test_load_and_roundtrip(tmp_path: Path):
@@ -23,4 +23,3 @@ def test_load_and_roundtrip(tmp_path: Path):
     assert out.exists()
     text = out.read_text(encoding="utf-8")
     assert "bundle-id: \"demo-001\"" in text or "bundle-id: demo-001" in text
-

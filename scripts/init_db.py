@@ -10,7 +10,7 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-from src.pipeline import db as pipeline_db
+from core import db as pipeline_db
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -25,7 +25,7 @@ def main(argv: list[str] | None = None) -> int:
     dbp = Path(args.db_path) if args.db_path else None
     if not dbp:
         # Resolve default to show user the actual path
-        from src.pipeline.db import _resolve_db_path  # type: ignore
+        from core.db import _resolve_db_path  # type: ignore
 
         dbp = _resolve_db_path(None)
     print(f"Initialized database at: {dbp}")
@@ -34,4 +34,3 @@ def main(argv: list[str] | None = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

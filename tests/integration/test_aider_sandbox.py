@@ -11,8 +11,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 import pytest
 
-from src.pipeline import prompts as aider_prompts
-from src.pipeline import db as pipeline_db
+from core import prompts as aider_prompts
+from core import db as pipeline_db
 
 
 def _have_aider() -> bool:
@@ -67,3 +67,4 @@ def test_aider_edit_invocation_and_prompt_file(tmp_path: Path):
     # Event was recorded
     events = pipeline_db.get_events(run_id=run_info["run_id"], ws_id=ws_info["ws_id"], event_type="tool_run")
     assert len(events) >= 1
+
