@@ -66,8 +66,12 @@ echo "Creating issues in repository: $REPO"
 
 Strip frontmatter and prepare GitHub issue body:
 ```bash
+# Create secure temporary directory
+TMPDIR=$(mktemp -d)
+trap 'rm -rf "$TMPDIR"' EXIT
+
 # Extract content without frontmatter
-sed '1,/^---$/d; 1,/^---$/d' .claude/epics/$ARGUMENTS/epic.md > /tmp/epic-body-raw.md
+sed '1,/^---$/d; 1,/^---$/d' .claude/epics/$ARGUMENTS/epic.md > "$TMPDIR/epic-body-raw.md"
 
 # Remove "## Tasks Created" section and replace with Stats
 awk '
@@ -108,10 +112,10 @@ awk '
       if (total_effort) print "Estimated total effort: " total_effort
     }
   }
-' /tmp/epic-body-raw.md > /tmp/epic-body.md
+' "$TMPDIR/epic-body-raw.md" > "$TMPDIR/epic-body.md"
 
 # Determine epic type (feature vs bug) from content
-if grep -qi "bug\|fix\|issue\|problem\|error" /tmp/epic-body.md; then
+if grep -qi "bug\|fix\|issue\|problem\|error" "$TMPDIR/epic-body.md"; then
   epic_type="bug"
 else
   epic_type="feature"
@@ -121,7 +125,7 @@ fi
 epic_number=$(gh issue create \
   --repo "$REPO" \
   --title "Epic: $ARGUMENTS" \
-  --body-file /tmp/epic-body.md \
+  --body-file "$TMPDIR/epic-body.md" \
   --label "epic,epic:$ARGUMENTS,$epic_type" \
   --json number -q .number)
 ```
@@ -157,27 +161,27 @@ if [ "$task_count" -lt 5 ]; then
     task_name=$(grep '^name:' "$task_file" | sed 's/^name: *//')
 
     # Strip frontmatter from task content
-    sed '1,/^---$/d; 1,/^---$/d' "$task_file" > /tmp/task-body.md
+    sed '1,/^---$/d; 1,/^---$/d' "$task_file" > "$TMPDIR/task-body.md"
 
     # Create sub-issue with labels
     if [ "$use_subissues" = true ]; then
       task_number=$(gh sub-issue create \
         --parent "$epic_number" \
         --title "$task_name" \
-        --body-file /tmp/task-body.md \
+        --body-file "$TMPDIR/task-body.md" \
         --label "task,epic:$ARGUMENTS" \
         --json number -q .number)
     else
       task_number=$(gh issue create \
         --repo "$REPO" \
         --title "$task_name" \
-        --body-file /tmp/task-body.md \
+        --body-file "$TMPDIR/task-body.md" \
         --label "task,epic:$ARGUMENTS" \
         --json number -q .number)
     fi
 
     # Record mapping for renaming
-    echo "$task_file:$task_number" >> /tmp/task-mapping.txt
+    echo "$task_file:$task_number" >> "$TMPDIR/task-mapping.txt"
   done
 
   # After creating all issues, update references and rename files
@@ -222,9 +226,9 @@ Task:
     3. Create sub-issue using:
        - If gh-sub-issue available:
          gh sub-issue create --parent $epic_number --title "$task_name" \
-           --body-file /tmp/task-body.md --label "task,epic:$ARGUMENTS"
+           --body-file "$TMPDIR/task-body.md" --label "task,epic:$ARGUMENTS"
        - Otherwise: 
-         gh issue create --repo "$REPO" --title "$task_name" --body-file /tmp/task-body.md \
+         gh issue create --repo "$REPO" --title "$task_name" --body-file "$TMPDIR/task-body.md" \
            --label "task,epic:$ARGUMENTS"
     4. Record: task_file:issue_number
 
@@ -236,7 +240,7 @@ Task:
 Consolidate results from parallel agents:
 ```bash
 # Collect all mappings from agents
-cat /tmp/batch-*/mapping.txt >> /tmp/task-mapping.txt
+cat "$TMPDIR"/batch-*/mapping.txt >> "$TMPDIR/task-mapping.txt"
 
 # IMPORTANT: After consolidation, follow step 3 to:
 # 1. Build old->new ID mapping
@@ -249,12 +253,12 @@ cat /tmp/batch-*/mapping.txt >> /tmp/task-mapping.txt
 First, build a mapping of old numbers to new issue IDs:
 ```bash
 # Create mapping from old task numbers (001, 002, etc.) to new issue IDs
-> /tmp/id-mapping.txt
+> "$TMPDIR/id-mapping.txt"
 while IFS=: read -r task_file task_number; do
   # Extract old number from filename (e.g., 001 from 001.md)
   old_num=$(basename "$task_file" .md)
-  echo "$old_num:$task_number" >> /tmp/id-mapping.txt
-done < /tmp/task-mapping.txt
+  echo "$old_num:$task_number" >> "$TMPDIR/id-mapping.txt"
+done < "$TMPDIR/task-mapping.txt"
 ```
 
 Then rename files and update all references:
@@ -270,7 +274,7 @@ while IFS=: read -r task_file task_number; do
   while IFS=: read -r old_num new_num; do
     # Update arrays like [001, 002] to use new issue numbers
     content=$(echo "$content" | sed "s/\b$old_num\b/$new_num/g")
-  done < /tmp/id-mapping.txt
+  done < "$TMPDIR/id-mapping.txt"
 
   # Write updated content to new file
   echo "$content" > "$new_name"
@@ -290,7 +294,7 @@ while IFS=: read -r task_file task_number; do
   sed -i.bak "/^github:/c\github: $github_url" "$new_name"
   sed -i.bak "/^updated:/c\updated: $current_date" "$new_name"
   rm "${new_name}.bak"
-done < /tmp/task-mapping.txt
+done < "$TMPDIR/task-mapping.txt"
 ```
 
 ### 4. Update Epic with Task List (Fallback Only)
@@ -300,10 +304,10 @@ If NOT using gh-sub-issue, add task list to epic:
 ```bash
 if [ "$use_subissues" = false ]; then
   # Get current epic body
-  gh issue view ${epic_number} --json body -q .body > /tmp/epic-body.md
+  gh issue view ${epic_number} --json body -q .body > "$TMPDIR/epic-body.md"
 
   # Append task list
-  cat >> /tmp/epic-body.md << 'EOF'
+  cat >> "$TMPDIR/epic-body.md" << 'EOF'
 
   ## Tasks
   - [ ] #${task1_number} ${task1_name}
@@ -312,7 +316,7 @@ if [ "$use_subissues" = false ]; then
   EOF
 
   # Update epic issue
-  gh issue edit ${epic_number} --body-file /tmp/epic-body.md
+  gh issue edit ${epic_number} --body-file "$TMPDIR/epic-body.md"
 fi
 ```
 
@@ -338,7 +342,7 @@ rm .claude/epics/$ARGUMENTS/epic.md.bak
 #### 5b. Update Tasks Created Section
 ```bash
 # Create a temporary file with the updated Tasks Created section
-cat > /tmp/tasks-section.md << 'EOF'
+cat > "$TMPDIR/tasks-section.md" << 'EOF'
 ## Tasks Created
 EOF
 
@@ -356,7 +360,7 @@ for task_file in .claude/epics/$ARGUMENTS/[0-9]*.md; do
   parallel=$(grep '^parallel:' "$task_file" | sed 's/^parallel: *//')
 
   # Add to tasks section
-  echo "- [ ] #${issue_num} - ${task_name} (parallel: ${parallel})" >> /tmp/tasks-section.md
+  echo "- [ ] #${issue_num} - ${task_name} (parallel: ${parallel})" >> "$TMPDIR/tasks-section.md"
 done
 
 # Add summary statistics
@@ -364,7 +368,7 @@ total_count=$(ls .claude/epics/$ARGUMENTS/[0-9]*.md 2>/dev/null | wc -l)
 parallel_count=$(grep -l '^parallel: true' .claude/epics/$ARGUMENTS/[0-9]*.md 2>/dev/null | wc -l)
 sequential_count=$((total_count - parallel_count))
 
-cat >> /tmp/tasks-section.md << EOF
+cat >> "$TMPDIR/tasks-section.md" << EOF
 
 Total tasks: ${total_count}
 Parallel tasks: ${parallel_count}
@@ -376,11 +380,11 @@ EOF
 cp .claude/epics/$ARGUMENTS/epic.md .claude/epics/$ARGUMENTS/epic.md.backup
 
 # Use awk to replace the section
-awk '
+awk -v tmpfile="$TMPDIR/tasks-section.md" '
   /^## Tasks Created/ {
     skip=1
-    while ((getline line < "/tmp/tasks-section.md") > 0) print line
-    close("/tmp/tasks-section.md")
+    while ((getline line < tmpfile) > 0) print line
+    close(tmpfile)
   }
   /^## / && !/^## Tasks Created/ { skip=0 }
   !skip && !/^## Tasks Created/ { print }
@@ -388,7 +392,7 @@ awk '
 
 # Clean up
 rm .claude/epics/$ARGUMENTS/epic.md.backup
-rm /tmp/tasks-section.md
+# Note: TMPDIR will be cleaned up by trap on EXIT
 ```
 
 ### 6. Create Mapping File
