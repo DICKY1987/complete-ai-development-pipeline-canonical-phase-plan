@@ -1,0 +1,9 @@
+{
+  "plugin_id": "yaml_yamllint",
+  "name": "yamllint",
+  "file_extensions": ["yml", "yaml"],
+  "requires": [],
+  "tool": {
+    "success_codes": [0, 1]
+  }
+}

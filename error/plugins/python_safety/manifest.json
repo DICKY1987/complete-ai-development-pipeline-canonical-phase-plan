@@ -1,0 +1,10 @@
+{
+  "plugin_id": "python_safety",
+  "name": "Safety Dependency Checker",
+  "file_extensions": ["py"],
+  "requires": [],
+  "tool": {
+    "success_codes": [0, 1]
+  }
+}
+

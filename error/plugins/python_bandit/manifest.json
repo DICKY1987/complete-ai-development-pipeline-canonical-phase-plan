@@ -1,0 +1,10 @@
+{
+  "plugin_id": "python_bandit",
+  "name": "Bandit Security Scanner",
+  "file_extensions": ["py"],
+  "requires": ["python_black_fix"],
+  "tool": {
+    "success_codes": [0, 1]
+  }
+}
+
