@@ -10,9 +10,13 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+from pathlib import Path
 from typing import Any, Dict
 
-from src.pipeline import bundles as ws_bundles
+# Ensure repository root is importable when running as a script
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
+from core import bundles as ws_bundles
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -56,4 +60,3 @@ def main(argv: list[str] | None = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

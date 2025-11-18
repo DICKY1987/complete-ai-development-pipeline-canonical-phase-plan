@@ -62,6 +62,80 @@ def cmd_report(args: argparse.Namespace) -> None:
         print(f"{f}:{ln}\t{k}\t{pdisp}\t{v}")
 
 
+def cmd_gate(args: argparse.Namespace) -> None:
+    """Fail with non-zero exit if any occurrence matches the regex in code/config files.
+
+    By default, gates only on code+config file extensions (excludes .md/.txt docs).
+    Use --all-exts to include docs as well.
+    """
+    import re
+
+    db = Path(args.db).resolve()
+    conn = _open_db(db)
+    try:
+        rows = _query(
+            conn,
+            "SELECT file_path, line_no, kind, pattern, value, ext FROM occurrences ORDER BY file_path, line_no",
+        )
+    finally:
+        conn.close()
+
+    pattern = re.compile(args.regex)
+    doc_exts = {".md", ".txt"}
+
+    matches: List[Tuple[str, int, str]] = []
+    for f, ln, kind, pat, val, ext in rows:
+        if not args.all_exts and str(ext).lower() in doc_exts:
+            continue
+        if pattern.search(str(val)):
+            matches.append((str(f), int(ln), str(val)))
+
+    if matches:
+        print(f"Gate failed: {len(matches)} legacy occurrences matched regex: {args.regex}")
+        for f, ln, v in matches[: args.limit]:
+            print(f"  {f}:{ln} -> {v[:160]}")
+        raise SystemExit(2)
+    else:
+        print("Gate OK: no matching legacy occurrences in code/config files.")
+
+
+def cmd_gate(args: argparse.Namespace) -> None:
+    """Fail with non-zero exit if any occurrence matches the regex in code/config files.
+
+    By default, gates only on code+config file extensions (excludes .md/.txt docs).
+    Use --all-exts to include docs as well.
+    """
+    import re
+
+    db = Path(args.db).resolve()
+    conn = _open_db(db)
+    try:
+        rows = _query(
+            conn,
+            "SELECT file_path, line_no, kind, pattern, value, ext FROM occurrences ORDER BY file_path, line_no",
+        )
+    finally:
+        conn.close()
+
+    pattern = re.compile(args.regex)
+    doc_exts = {".md", ".txt"}
+
+    matches: List[Tuple[str, int, str]] = []
+    for f, ln, kind, pat, val, ext in rows:
+        if not args.all_exts and str(ext).lower() in doc_exts:
+            continue
+        if pattern.search(str(val)):
+            matches.append((str(f), int(ln), str(val)))
+
+    if matches:
+        print(f"Gate failed: {len(matches)} legacy occurrences matched regex: {args.regex}")
+        for f, ln, v in matches[: args.limit]:
+            print(f"  {f}:{ln} -> {v[:160]}")
+        raise SystemExit(2)
+    else:
+        print("Gate OK: no matching legacy occurrences in code/config files.")
+
+
 def cmd_summary(args: argparse.Namespace) -> None:
     db = Path(args.db).resolve()
     conn = _open_db(db)
@@ -147,6 +221,13 @@ def build_parser() -> argparse.ArgumentParser:
     s_exp.add_argument("--format", choices=["json", "csv"], default="json")
     s_exp.add_argument("--out", required=True)
     s_exp.set_defaults(func=cmd_export)
+
+    s_gate = sub.add_parser("gate", help="Fail if regex matches occurrences (CI gate)")
+    s_gate.add_argument("--db", default="refactor_paths.db")
+    s_gate.add_argument("--regex", required=True, help="Regex to match against occurrence values")
+    s_gate.add_argument("--limit", type=int, default=50, help="Print up to N matches (default 50)")
+    s_gate.add_argument("--all-exts", action="store_true", help="Include docs (.md/.txt) in gate checks")
+    s_gate.set_defaults(func=cmd_gate)
 
     return p
 

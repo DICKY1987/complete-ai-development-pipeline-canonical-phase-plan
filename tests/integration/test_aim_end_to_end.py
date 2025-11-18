@@ -6,7 +6,7 @@ Tests are skipped if AIM registry is unavailable.
 
 import pytest
 
-from src.pipeline.aim_bridge import (
+from core.aim_bridge import (
     detect_tool,
     get_aim_registry_path,
     get_tool_version,
@@ -156,3 +156,4 @@ class TestAimUnavailable:
         """Should return None if registry unavailable."""
         result = get_tool_version("aider")
         assert result is None
+

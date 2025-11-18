@@ -9,6 +9,7 @@ This tool scans the repository to index hardcoded paths, Python imports, and pat
 - Tracks section patterns (e.g., `src/`, `tests/`, `docs/`, `tools/`, `config/`, `schema/`, `openspec/`, `PHASE_DEV_DOCS`, `MOD_ERROR_PIPELINE`, `gui`).
 - Persists results to `refactor_paths.db` (SQLite) with `files` and `occurrences` tables.
 - CLI provides `scan`, `report`, `summary`, and `export` commands.
+- CI gate: `gate` command fails on matching legacy patterns.
 
 ## Quick Start
 
@@ -28,6 +29,10 @@ This tool scans the repository to index hardcoded paths, Python imports, and pat
 4. Export results to JSON or CSV:
 
    - `python ./scripts/paths_index_cli.py export --db refactor_paths.db --format json --out paths.json`
+
+5. CI gate example:
+
+   - `python ./scripts/paths_index_cli.py gate --db refactor_paths.db --regex "src/pipeline|MOD_ERROR_PIPELINE|PHASE_DEV_DOCS"`
 
 ## Database Schema
 

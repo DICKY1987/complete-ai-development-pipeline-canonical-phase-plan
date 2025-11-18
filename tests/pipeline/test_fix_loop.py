@@ -3,7 +3,7 @@ from types import SimpleNamespace
 
 import pytest
 
-from src.pipeline import db, orchestrator
+from core import db, orchestrator
 
 
 @pytest.fixture(autouse=True)
@@ -80,3 +80,4 @@ def test_runtime_fix_exhausts(monkeypatch, bundle_ws):
     assert res["final_status"] == "failed"
     # Should not loop indefinitely; at most defaults allow 2 fix attempts after first
     assert calls["runtime"] <= 3
+

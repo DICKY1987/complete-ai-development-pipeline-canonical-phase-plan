@@ -2,11 +2,17 @@ from __future__ import annotations
 
 import argparse
 from pathlib import Path
+import sys
+
+# Ensure repository root and 'src' are importable when launched from scripts/
+_ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(_ROOT))
+sys.path.insert(0, str(_ROOT / "src"))
 from typing import List
 
-from MOD_ERROR_PIPELINE.pipeline_engine import PipelineEngine
-from MOD_ERROR_PIPELINE.plugin_manager import PluginManager
-from MOD_ERROR_PIPELINE.file_hash_cache import FileHashCache
+from error.pipeline_engine import PipelineEngine
+from error.plugin_manager import PluginManager
+from error.file_hash_cache import FileHashCache
 
 
 def main() -> int:
@@ -37,4 +43,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

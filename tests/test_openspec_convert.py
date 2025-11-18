@@ -1,9 +1,9 @@
 from pathlib import Path
 import json
 
-from src.pipeline.openspec_parser import load_bundle_from_change
-from src.pipeline.openspec_convert import bundle_to_workstream
-from src.pipeline import bundles as ws_bundles
+from core.openspec_parser import load_bundle_from_change
+from core.openspec_convert import bundle_to_workstream
+from core import bundles as ws_bundles
 
 
 def _write_change(tmp: Path, change_id: str) -> Path:

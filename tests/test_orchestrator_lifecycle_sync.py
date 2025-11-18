@@ -3,8 +3,8 @@ from __future__ import annotations
 import os
 import importlib
 
-from src.pipeline import orchestrator
-from src.pipeline import bundles
+from core import orchestrator
+from core import bundles
 
 
 def test_lifecycle_comments_are_emitted(monkeypatch):
@@ -29,4 +29,5 @@ def test_lifecycle_comments_are_emitted(monkeypatch):
     # Expect start and end events
     assert ('workstream_start', None) in events
     assert ('workstream_end', 'done') in events
+
 

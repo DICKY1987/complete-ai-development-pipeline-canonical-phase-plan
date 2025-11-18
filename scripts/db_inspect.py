@@ -13,7 +13,7 @@ import argparse
 import sqlite3
 from typing import Iterable
 
-from src.pipeline import db as pipeline_db
+from core import db as pipeline_db
 
 
 def iter_tables(conn: sqlite3.Connection) -> Iterable[str]:
@@ -45,4 +45,3 @@ def main(argv: list[str] | None = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

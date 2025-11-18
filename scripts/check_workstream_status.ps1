@@ -68,8 +68,12 @@ Write-Section "KEY FILE IMPLEMENTATION STATUS"
 # PH-01
 Write-Host "PH-01: Spec Alignment & Index Mapping"
 Write-Host "  ws-ph01-module-stubs (Codex):"
-Write-Host "    src/pipeline/ modules:"
-Check-File "src/pipeline/db.py" | Out-Null
+# Resolve core DB module via path registry to avoid hardcoded paths
+$dbPath = (& python scripts/paths_resolve_cli.py resolve core.db) 2>$null
+if (-not $dbPath) { $dbPath = "src/pipeline/db.py" }
+$dbPath = $dbPath.Trim()
+Write-Host "    core DB module: $dbPath"
+Check-File $dbPath | Out-Null
 Write-Host
 Write-Host "  ws-ph01-index-scanner (Codex):"
 Write-Host "    scripts/generate_spec_index.py:"
@@ -95,16 +99,16 @@ Write-Host "    schema/schema.sql:"
 Check-File "schema/schema.sql" | Out-Null
 Write-Host
 Write-Host "  ws-ph02-db-core (Codex):"
-Write-Host "    src/pipeline/db.py::get_connection():"
-Check-Implementation "src/pipeline/db.py" "get_connection" | Out-Null
+Write-Host "    $dbPath::get_connection():"
+Check-Implementation $dbPath "get_connection" | Out-Null
 Write-Host
 Write-Host "  ws-ph02-state-machine (Claude):"
-Write-Host "    src/pipeline/db.py::validate_state_transition():"
-Check-Implementation "src/pipeline/db.py" "validate_state_transition" | Out-Null
+Write-Host "    $dbPath::validate_state_transition():"
+Check-Implementation $dbPath "validate_state_transition" | Out-Null
 Write-Host
 Write-Host "  ws-ph02-crud (Claude):"
-Write-Host "    src/pipeline/db.py::create_run():"
-Check-Implementation "src/pipeline/db.py" "create_run" | Out-Null
+Write-Host "    $dbPath::create_run():"
+Check-Implementation $dbPath "create_run" | Out-Null
 Write-Host
 Write-Host "  ws-ph02-scripts (Codex):"
 Write-Host "    scripts/init_db.py:"
@@ -158,4 +162,3 @@ $totalWorktrees = (git worktree list | Select-String 'ws-ph' | Measure-Object).C
 Write-Host "  Total workstream branches: $totalBranches / 17"
 Write-Host "  Active worktrees: $totalWorktrees"
 Write-Host
-

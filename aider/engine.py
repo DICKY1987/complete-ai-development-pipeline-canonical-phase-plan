@@ -16,10 +16,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, Mapping, Optional
 
-# Import from src.pipeline.tools - this is the correct dependency direction
-import sys
-sys.path.insert(0, str(Path(__file__).parent.parent))
-from src.pipeline.tools import run_tool, ToolResult
+# Use core.tools wrapper (staged migration from src.pipeline.tools)
+from core.tools import run_tool, ToolResult
 
 try:
     from jinja2 import Environment, FileSystemLoader, select_autoescape  # type: ignore

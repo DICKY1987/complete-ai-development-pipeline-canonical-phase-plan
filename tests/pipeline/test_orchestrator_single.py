@@ -4,7 +4,7 @@ from types import SimpleNamespace
 
 import pytest
 
-from src.pipeline import db, orchestrator
+from core import db, orchestrator
 
 
 @pytest.fixture(autouse=True)
@@ -36,7 +36,7 @@ def bundle_ws(monkeypatch):
 
 
 def _tool_result(tool_id: str, success: bool):
-    from src.pipeline.tools import ToolResult
+    from core.tools import ToolResult
 
     return ToolResult(
         tool_id=tool_id,
@@ -188,4 +188,5 @@ def test_cli_dry_run(tmp_path):
     if proc.returncode == 0:
         data = json.loads(proc.stdout)
         assert data.get("final_status") == "done"
+
 

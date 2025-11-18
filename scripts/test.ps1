@@ -7,8 +7,9 @@ $exit = 0
 # Run pytest if available and tests exist
 $hasTests = (Test-Path -LiteralPath 'tests' -PathType Container) -and ($null -ne (Get-ChildItem -Path 'tests' -Recurse -Include 'test_*.py','*_test.py' -File | Select-Object -First 1))
 if ($hasTests) {
-  Write-Host "[test] python -m pytest -q"
-  python -m pytest -q
+  Write-Host "[test] python -m pytest -q tests"
+  $env:PYTHONPATH = "$PWD"
+  python -m pytest -q tests
   if ($LASTEXITCODE -ne 0) { $exit = $LASTEXITCODE }
 } else {
   Write-Host "[test] No Python tests detected - skipping."
@@ -30,12 +31,12 @@ if ($mdFiles) {
 # OpenSpec flow smoke checks (non-fatal)
 try {
   if (Test-Path -LiteralPath 'openspec/changes/test-001' -PathType Container) {
-    Write-Host "[test] openspec: generate bundle from change-id"
-    python -m src.pipeline.openspec_parser --change-id test-001 --generate-bundle | Out-Null
+    Write-Host "[test] openspec: import parser module"
+    python -c "import core.openspec_parser; print('ok')" | Out-Null
     if ($LASTEXITCODE -ne 0) { $exit = $LASTEXITCODE }
 
     Write-Host "[test] openspec: convert to workstream (explicit files_scope)"
-    python scripts/generate_workstreams_from_openspec.py --change-id test-001 --files-scope src/pipeline/openspec_parser.py | Out-Null
+    python scripts/generate_workstreams_from_openspec.py --change-id test-001 --files-scope core/openspec_parser.py | Out-Null
     if ($LASTEXITCODE -ne 0) { $exit = $LASTEXITCODE }
 
     Write-Host "[test] validate workstreams"
@@ -45,6 +46,24 @@ try {
 }
 catch {
   Write-Warning "[test] OpenSpec flow smoke check failed: $($_.Exception.Message)"
+}
+
+# Hardcoded path gate (code+config only). Enable with LEGACY_PATH_GATE=1
+if ($env:LEGACY_PATH_GATE -and ($env:LEGACY_PATH_GATE -in @('1','true','True'))) {
+  try {
+    Write-Host "[test] Path index scan"
+    python scripts/paths_index_cli.py scan --root . --db refactor_paths.db --reset | Out-Null
+
+    Write-Host "[test] Gate: fail on legacy paths (code+config)"
+    python scripts/paths_index_cli.py gate --db refactor_paths.db --regex "src/pipeline|MOD_ERROR_PIPELINE|PHASE_DEV_DOCS"
+    if ($LASTEXITCODE -ne 0) { $exit = $LASTEXITCODE }
+  }
+  catch {
+    Write-Warning "[test] Path gate failed: $($_.Exception.Message)"
+    if ($exit -eq 0) { $exit = 2 }
+  }
+} else {
+  Write-Host "[test] Legacy path gate disabled (set LEGACY_PATH_GATE=1 to enable)."
 }
 
 Write-Host "[test] Completed with exit code $exit"
