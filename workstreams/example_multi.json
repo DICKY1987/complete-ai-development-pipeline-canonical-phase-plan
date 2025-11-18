@@ -13,7 +13,7 @@
     "openspec_change": "OS-011",
     "ccpm_issue": 2002,
     "gate": 1,
-    "files_scope": ["src/api/handler.py", "src/core/lib.py"],
+    "files_scope": ["src/api/handler.py"],
     "tasks": ["Add API layer using core lib"],
     "depends_on": ["ws-core-lib"],
     "tool": "aider"
@@ -29,4 +29,3 @@
     "tool": "aider"
   }
 ]
-
