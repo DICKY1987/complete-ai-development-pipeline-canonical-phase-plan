@@ -4,7 +4,7 @@
   "ccpm_issue": "TBD",
   "gate": 1,
   "files_scope": [
-    "core/openspec_parser.py"
+    "README.md"
   ],
   "files_create": [],
   "tasks": [
