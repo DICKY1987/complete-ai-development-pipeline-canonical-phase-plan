@@ -62,9 +62,11 @@ def bundle_to_workstream(
 
     inferred_scope = _extract_paths_from_tasks(tasks)
     scope = files_scope if files_scope else inferred_scope
-    # Schema requires at least one file; use placeholder if none inferred
     if not scope:
-        scope = ["README.md"]  # Minimal placeholder for manual refinement
+        raise ValueError(
+            f"No file paths could be inferred from tasks in bundle {bundle.bundle_id}. "
+            "Provide explicit --files-scope or add file paths to task descriptions."
+        )
 
     ws: Dict[str, Any] = {
         "id": f"ws-{cid}",

@@ -1,0 +1,18 @@
+{
+  "tool": "codex",
+  "files_create": [],
+  "gate": 1,
+  "tasks": [
+    "Mapping defined (no-op)"
+  ],
+  "ccpm_issue": "N/A",
+  "files_scope": [
+    "config/"
+  ],
+  "acceptance_tests": [],
+  "depends_on": [
+    "ws-01-hardcoded-path-index"
+  ],
+  "openspec_change": "WS-02",
+  "id": "ws-02-section-mapping-config"
+}

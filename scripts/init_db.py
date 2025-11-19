@@ -8,9 +8,13 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import sys
 from pathlib import Path
 
-from core import db as pipeline_db
+# Add project root to sys.path
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
+from core.state import db as pipeline_db
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -25,7 +29,7 @@ def main(argv: list[str] | None = None) -> int:
     dbp = Path(args.db_path) if args.db_path else None
     if not dbp:
         # Resolve default to show user the actual path
-        from core.db import _resolve_db_path  # type: ignore
+        from core.state.db import _resolve_db_path  # type: ignore
 
         dbp = _resolve_db_path(None)
     print(f"Initialized database at: {dbp}")

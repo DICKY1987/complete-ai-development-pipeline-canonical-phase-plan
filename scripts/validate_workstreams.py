@@ -16,7 +16,7 @@ from typing import Any, Dict
 # Ensure repository root is importable when running as a script
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from core import bundles as ws_bundles
+from core.state import bundles as ws_bundles
 
 
 def main(argv: list[str] | None = None) -> int:

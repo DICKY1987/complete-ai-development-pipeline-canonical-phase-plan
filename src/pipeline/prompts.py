@@ -7,9 +7,11 @@ from __future__ import annotations
 
 from pathlib import Path
 from typing import Any, Mapping
+import os
+from datetime import datetime
 
 import aider.engine as engine
-from .tools import ToolResult, _get_repo_root
+from core.engine.tools import ToolResult, _get_repo_root
 
 # Re-export for direct imports
 TemplateRender = engine.TemplateRender
@@ -30,10 +32,10 @@ def run_aider_edit(
     (cwd, files, tasks, repo_root, ws_id, ...).
     """
     cwd = Path(context.get("worktree_path", "."))
-    files = list(bundle_obj.files_scope) if hasattr(bundle_obj, "files_scope") else []
-    files_create = list(bundle_obj.files_create) if hasattr(bundle_obj, "files_create") else []
-    tasks = list(bundle_obj.tasks) if hasattr(bundle_obj, "tasks") else []
-    acceptance_tests = list(bundle_obj.acceptance_tests) if hasattr(bundle_obj, "acceptance_tests") else []
+    files = list(getattr(bundle_obj, 'files_scope', []))
+    files_create = list(getattr(bundle_obj, 'files_create', []))
+    tasks = list(getattr(bundle_obj, 'tasks', []))
+    acceptance_tests = list(getattr(bundle_obj, 'acceptance_tests', []))
     repo_root = _get_repo_root()
     timeout = context.get("timeout_seconds", 300)
 
@@ -41,6 +43,22 @@ def run_aider_edit(
     openspec_change = getattr(bundle_obj, "openspec_change", "")
     ccpm_issue = getattr(bundle_obj, "ccpm_issue", "")
     gate = getattr(bundle_obj, "gate", "")
+
+    # Session override: disable external Aider and let Codex edit
+    if os.getenv("PIPELINE_DISABLE_AIDER") == "1":
+        now = datetime.utcnow().isoformat() + "Z"
+        return ToolResult(
+            tool_id="codex",
+            command_line="codex-session (aider disabled)",
+            exit_code=0,
+            stdout="Aider disabled via PIPELINE_DISABLE_AIDER=1; edits handled by Codex",
+            stderr="",
+            timed_out=False,
+            started_at=now,
+            completed_at=now,
+            duration_sec=0.0,
+            success=True,
+        )
 
     return engine.run_aider_edit(
         cwd=cwd,
@@ -63,20 +81,20 @@ def run_aider_fix(
     run: Any,
     ws: Any,
     bundle_obj: Any,
-    error_summary: str,
-    error_details: str,
-    context: Mapping[str, Any],
-    run_id: str,
-    ws_id: str,
+    errors: list[dict[str, Any]] | list[Any] | None = None,
+    context: Mapping[str, Any] | None = None,
+    run_id: str = "",
+    ws_id: str = "",
     **kwargs: Any
 ) -> ToolResult:
-    """Compatibility wrapper for orchestrator.
+    """Compatibility wrapper for orchestrator fix loop.
 
     Translates old signature to new signature.
     """
+    context = context or {}
     cwd = Path(context.get("worktree_path", "."))
-    files = list(bundle_obj.files_scope) if hasattr(bundle_obj, "files_scope") else []
-    files_create = list(bundle_obj.files_create) if hasattr(bundle_obj, "files_create") else []
+    files = list(getattr(bundle_obj, 'files_scope', []))
+    files_create = list(getattr(bundle_obj, 'files_create', []))
     repo_root = _get_repo_root()
     timeout = context.get("timeout_seconds", 300)
 
@@ -84,6 +102,34 @@ def run_aider_fix(
     openspec_change = getattr(bundle_obj, "openspec_change", "")
     ccpm_issue = getattr(bundle_obj, "ccpm_issue", "")
     gate = getattr(bundle_obj, "gate", "")
+
+    # Session override: disable external Aider fix attempts
+    if os.getenv("PIPELINE_DISABLE_AIDER") == "1":
+        now = datetime.utcnow().isoformat() + "Z"
+        return ToolResult(
+            tool_id="codex",
+            command_line="codex-session fix (aider disabled)",
+            exit_code=0,
+            stdout="Aider fix disabled via PIPELINE_DISABLE_AIDER=1; manual follow-up required",
+            stderr="",
+            timed_out=False,
+            started_at=now,
+            completed_at=now,
+            duration_sec=0.0,
+            success=True,
+        )
+
+    # Collate error summary/details if provided
+    error_summary = ""
+    error_details = ""
+    if errors:
+        try:
+            last = errors[-1] if isinstance(errors, list) else {}
+            error_summary = str(getattr(last, 'summary', '') or last.get('summary') or '')
+            error_details = str(getattr(last, 'stderr', '') or last.get('stderr') or getattr(last, 'stdout', '') or last.get('stdout') or '')
+        except Exception:
+            error_summary = ""
+            error_details = ""
 
     return engine.run_aider_fix(
         cwd=cwd,

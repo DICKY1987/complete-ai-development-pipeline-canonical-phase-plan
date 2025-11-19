@@ -4,10 +4,7 @@
   "ccpm_issue": "TBD",
   "gate": 1,
   "files_scope": [
-    "README.md",
-    "src/pipeline/openspec_parser.py",
-    "src/pipeline/openspec_convert.py",
-    "scripts/generate_workstreams_from_openspec.py"
+    "README.md"
   ],
   "files_create": [],
   "tasks": [

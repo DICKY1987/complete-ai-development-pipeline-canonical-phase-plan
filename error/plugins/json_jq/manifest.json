@@ -1,0 +1,9 @@
+{
+  "plugin_id": "json_jq",
+  "name": "jq (JSON syntax)",
+  "file_extensions": ["json"],
+  "requires": [],
+  "tool": {
+    "success_codes": [0]
+  }
+}

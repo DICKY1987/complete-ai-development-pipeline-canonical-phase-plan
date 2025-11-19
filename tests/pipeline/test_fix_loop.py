@@ -3,7 +3,8 @@ from types import SimpleNamespace
 
 import pytest
 
-from core import db, orchestrator
+from core.state import db
+from core import orchestrator
 
 
 @pytest.fixture(autouse=True)

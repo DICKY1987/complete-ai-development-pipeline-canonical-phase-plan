@@ -1,11 +1,7 @@
-"""Parallel execution workers
+"""executor - Compatibility Shim
 
-Runs scheduled workstream tasks with isolation and telemetry capture.
+This module has been moved to core/engine/executor
+This shim provides backward compatibility during the refactor.
 """
 
-# TODO: Implement worker pool and task execution.
-
-from __future__ import annotations
-
-__all__ = []
-
+from core.engine.executor import *  # noqa: F401, F403

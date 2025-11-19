@@ -1,12 +1,7 @@
-"""DAG-based workstream scheduler
+"""scheduler - Compatibility Shim
 
-Computes execution order for workstreams, respecting dependencies and
-parallelism constraints.
+This module has been moved to core/engine/scheduler
+This shim provides backward compatibility during the refactor.
 """
 
-# TODO: Implement dependency graph and scheduling plan generation.
-
-from __future__ import annotations
-
-__all__ = []
-
+from core.engine.scheduler import *  # noqa: F401, F403

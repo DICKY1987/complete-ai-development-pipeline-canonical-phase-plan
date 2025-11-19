@@ -37,7 +37,7 @@ The mapping logic uses the following semantic rules:
 
 **Total IDX Tags Found:** 0
 
-_No IDX tags found in specification documents. Run `python scripts/generate_spec_mapping.py` to scan for tags._
+_(No IDX tags found in specification documents. Run `python scripts/generate_spec_mapping.py` to populate this table after adding IDX tags to spec files.)_
 
 ---
 
