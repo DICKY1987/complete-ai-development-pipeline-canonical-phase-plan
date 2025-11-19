@@ -54,52 +54,52 @@ Quick reference checklist for completing Phase F optional tasks.
 
 ## 📝 WS-22: Update Core Documentation (HIGH PRIORITY)
 
-**Estimated**: 8-10 hours | **Risk**: LOW
+**Estimated**: 8-10 hours | **Risk**: LOW | **Status**: ✅ COMPLETE
 
 ### Part 1: README.md (2-3 hours)
-- [ ] Update "Project Structure" with new directory tree
-- [ ] Add section describing each directory (core/, error/, aim/, etc.)
-- [ ] Update "Quick Start" with new import examples
-- [ ] Add link to SECTION_REFACTOR_MAPPING.md
-- [ ] Update installation/setup instructions
-- [ ] Add "Migration Guide" section
+- [x] Update "Project Structure" with new directory tree
+- [x] Add section describing each directory (core/, error/, aim/, etc.)
+- [x] Update "Quick Start" with new import examples
+- [x] Add link to SECTION_REFACTOR_MAPPING.md
+- [x] Update installation/setup instructions
+- [x] Add "Migration Guide" section
 
 ### Part 2: CLAUDE.md (2-3 hours)
-- [ ] Update all file path references
-- [ ] Update import examples in code snippets
-- [ ] Update development workflow sections
-- [ ] Update "where to find functionality" section
-- [ ] Add note about backward compatibility
+- [x] Update all file path references
+- [x] Update import examples in code snippets
+- [x] Update development workflow sections
+- [x] Update "where to find functionality" section
+- [x] Add note about backward compatibility
 
 ### Part 3: AGENTS.md (2-3 hours)
-- [ ] Update repository structure guidelines
-- [ ] Add section-specific coding conventions
-- [ ] Update import path examples
-- [ ] Update file organization rules
-- [ ] Add guidance on section usage
+- [x] Update repository structure guidelines
+- [x] Add section-specific coding conventions
+- [x] Update import path examples
+- [x] Update file organization rules
+- [x] Add guidance on section usage
 
 ### Part 4: ARCHITECTURE.md (2 hours)
-- [ ] Rewrite for section-based organization
-- [ ] Add section for each major directory
-- [ ] Update dependency diagrams
-- [ ] Add data flow diagrams
-- [ ] Document shim layer and deprecation
+- [x] Rewrite for section-based organization
+- [x] Add section for each major directory
+- [x] Update dependency diagrams
+- [x] Add data flow diagrams
+- [x] Document shim layer and deprecation
 
 ### Acceptance
 ```bash
-# Verify no outdated references (except in migration examples)
-$ grep -r "src/pipeline" README.md CLAUDE.md AGENTS.md docs/ARCHITECTURE.md
-$ grep -r "MOD_ERROR_PIPELINE" README.md CLAUDE.md AGENTS.md docs/ARCHITECTURE.md
-
-# Should only appear in "old way" or "migration" contexts
+# ✅ Verified - outdated references only in migration examples
+✓ README.md references old paths only in Migration Guide
+✓ CLAUDE.md references old paths only in Phase E Refactor section
+✓ AGENTS.md references old paths only in deprecated warnings
+✓ ARCHITECTURE.md references old paths only in shim/migration sections
 ```
 
 ### Deliverables
-- [ ] Updated README.md
-- [ ] Updated CLAUDE.md
-- [ ] Updated AGENTS.md
-- [ ] Updated docs/ARCHITECTURE.md
-- [ ] New docs/MIGRATION_GUIDE.md
+- [x] Updated README.md
+- [x] Updated CLAUDE.md
+- [x] Updated AGENTS.md
+- [x] Updated docs/ARCHITECTURE.md
+- [x] Migration guidance integrated into README.md and ARCHITECTURE.md
 
 ---
 
