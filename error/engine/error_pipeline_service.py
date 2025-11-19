@@ -4,7 +4,7 @@ import dataclasses
 from dataclasses import dataclass
 from typing import Any, Dict, List, Sequence
 
-from src.pipeline.agent_coordinator import PluginResult, run_parallel
+from core.agent_coordinator import PluginResult, run_parallel
 
 
 S0_INIT = "S0_INIT"
