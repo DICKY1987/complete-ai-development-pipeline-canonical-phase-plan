@@ -44,24 +44,87 @@ This repository hosts a structured, phase-based plan and lightweight tooling for
 - Bridge Guide: `docs/openspec_bridge.md`
 - OpenSpec CLI: `npm install -g @fission-ai/openspec`
 
+## Migration Guide (Phase E Refactor)
+
+If you're updating code written before the Phase E refactor, use these new import paths:
+
+**State Management**:
+```python
+# Old: from src.pipeline.db import init_db
+from core.state.db import init_db
+
+# Old: from src.pipeline.crud_operations import get_workstream
+from core.state.crud import get_workstream
+
+# Old: from src.pipeline.bundles import load_bundle
+from core.state.bundles import load_bundle
+```
+
+**Orchestration & Execution**:
+```python
+# Old: from src.pipeline.orchestrator import Orchestrator
+from core.engine.orchestrator import Orchestrator
+
+# Old: from src.pipeline.scheduler import Scheduler
+from core.engine.scheduler import Scheduler
+
+# Old: from src.pipeline.tools import invoke_tool
+from core.engine.tools import invoke_tool
+```
+
+**Error Detection**:
+```python
+# Old: from MOD_ERROR_PIPELINE.error_engine import ErrorEngine
+from error.engine.error_engine import ErrorEngine
+
+# Old: from MOD_ERROR_PIPELINE.plugins.syntax_checker import SyntaxChecker
+from error.plugins.syntax_checker import SyntaxChecker
+```
+
+See [docs/SECTION_REFACTOR_MAPPING.md](docs/SECTION_REFACTOR_MAPPING.md) for the complete mapping.
+
 ## Repository Layout
-- `docs/` – architecture notes, ADRs, and specifications
-- `plans/` – phase checklists and templates  
-- `scripts/` – automation (bootstrap, tests, exports)
-- `src/` – pipeline code: orchestrator, coordinator, tools adapter, prompts, DB helpers
-- `schema/` – JSON/YAML/SQL schemas (e.g., `workstream.schema.json`)
-- `workstreams/` – authored bundle JSONs consumed by the orchestrator
-- `config/` – runtime configuration (tool profiles, breakers, rules, AIM config)
-- `tools/` – spec tooling: indexer, resolver, patcher, renderer, guard
-  - OpenSpec-first: see `docs/spec-tooling-consolidation.md`; renderer supports OpenSpec fallback
-- `tests/` – unit/integration tests for bundles, pipeline, plugins
-- `aider/templates/` – prompt templates (Aider EDIT/FIX, etc.)
-- `openspec/` – OpenSpec project/specs used by the spec tools
-- `sandbox_repos/` – toy repos used by integration tests
-- `assets/` – diagrams and images
-- `.worktrees/` – per‑workstream working folders created at runtime
-- `state/` and/or `.state/` – local state, reports, and/or DB files
-- `AIDER_PROMNT_HELP/`, `Coordination Mechanisms/`, `gui/`, `PHASE_DEV_DOCS/` – guidance and phase notes
+
+### Core Sections (Post-Phase E Refactor)
+
+**Core Pipeline**:
+- `core/state/` – Database, CRUD operations, bundles, worktree management
+- `core/engine/` – Orchestrator, scheduler, executor, tools adapter, circuit breakers, recovery
+- `core/planning/` – Workstream planner and archive utilities
+- `core/` – OpenSpec parser/converter, spec indexing, agent coordinator
+
+**Error Detection & Analysis**:
+- `error/engine/` – Error engine, state machine, pipeline service, CLI
+- `error/plugins/` – Detection plugins (Python, JS, linting, security, etc.)
+- `error/shared/utils/` – Hashing, time utilities, JSONL manager
+
+**Domain-Specific Sections**:
+- `aim/` – AIM integration bridge and tool registry
+- `pm/` – Project management and CCPM integrations
+- `spec/` – Spec validation and tooling
+- `aider/` – Aider integration and prompt templates
+
+**Repository Infrastructure**:
+- `docs/` – Architecture notes, ADRs, specifications, refactor mapping
+- `plans/` – Phase checklists and templates
+- `meta/` – Phase development docs and planning documents
+- `scripts/` – Automation (bootstrap, tests, workstream runners)
+- `schema/` – JSON/YAML/SQL schemas for workstreams and sidecars
+- `workstreams/` – Authored workstream bundle JSONs
+- `config/` – Runtime configuration (tool profiles, breakers, decomposition rules)
+- `tools/` – Internal utilities (spec indexer, resolver, hardcoded path indexer)
+- `tests/` – Unit/integration/pipeline tests
+- `openspec/` – OpenSpec project and specifications
+- `sandbox_repos/` – Toy repos for integration testing
+- `assets/` – Diagrams and images
+- `.worktrees/` – Per-workstream working folders (created at runtime)
+- `state/` and `.state/` – Local state, reports, and DB files
+
+**Legacy Compatibility**:
+- `src/pipeline/` – Backward-compatibility shims (⚠️ deprecated, use `core.*` instead)
+- `MOD_ERROR_PIPELINE/` – Legacy shims (⚠️ deprecated, use `error.*` instead)
+
+See [docs/SECTION_REFACTOR_MAPPING.md](docs/SECTION_REFACTOR_MAPPING.md) for complete old→new path mappings.
 
 ## Contributing
 Read `AGENTS.md` for coding style, testing guidance, and PR conventions. Use Conventional Commits (e.g., `docs: add phase overview`, `chore: scaffold skeleton`).

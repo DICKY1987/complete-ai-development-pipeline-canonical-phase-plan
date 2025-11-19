@@ -249,39 +249,49 @@ pwsh ./scripts/bootstrap.ps1
 
 ### Core Components
 
-#### Pipeline (`src/pipeline/`)
+#### Core State Management (`core/state/`)
+- **db.py**: SQLite connection management and initialization
+- **db_sqlite.py**: SQLite-specific backend implementation
+- **crud.py**: Database CRUD operations for runs, workstreams, steps, errors, events
+- **bundles.py**: Workstream JSON loader, validator, dependency DAG builder
+- **worktree.py**: Git worktree creation and file scope validation
+
+#### Core Engine (`core/engine/`)
 - **orchestrator.py**: Single-workstream execution loop (EDIT → STATIC → RUNTIME)
 - **scheduler.py**: Multi-workstream dependency resolution and scheduling
 - **executor.py**: Step execution with retry logic and circuit breakers
-- **bundles.py**: Workstream JSON loader, validator, dependency DAG builder
-- **db.py**: SQLite connection management and CRUD facade
-- **crud_operations.py**: Database operations for runs, workstreams, steps, errors, events
 - **tools.py**: Tool profile adapter with templating and timeout handling
-- **prompts.py**: Jinja2-based prompt rendering for Aider EDIT/FIX commands
-- **worktree.py**: Git worktree creation and file scope validation
 - **circuit_breakers.py**: Failure threshold logic to prevent runaway retries
 - **recovery.py**: Error recovery strategies
-- **planner.py**: Stub for automated workstream generation
 
-#### Error Pipeline (`src/pipeline/`)
+#### Core Planning (`core/planning/`)
+- **planner.py**: Automated workstream generation stub
+- **archive.py**: Archive utilities for completed workstreams
+
+#### Core Shared (`core/`)
+- **openspec_parser.py**: OpenSpec parsing and validation
+- **openspec_convert.py**: OpenSpec-to-workstream conversion
+- **spec_index.py**: Spec indexing and cross-referencing
+- **agent_coordinator.py**: Multi-agent coordination
+
+#### Error Detection Engine (`error/engine/`)
+- **error_engine.py**: Core error detection engine
 - **error_state_machine.py**: State transitions for error lifecycle (NEW → ANALYZED → FIXED → VERIFIED)
 - **error_context.py**: Error context tracking with history and metadata
 - **error_pipeline_cli.py**: CLI for error pipeline operations
-- **db_sqlite.py**: SQLite backend for error contexts
+- **error_pipeline_service.py**: Service layer for error operations
+- **pipeline_engine.py**: Pipeline integration for error detection
+- **plugin_manager.py**: Plugin discovery and lifecycle management
+- **file_hash_cache.py**: File hashing for incremental detection
 
-#### AIM Bridge (`src/pipeline/`)
-- **aim_bridge.py**: Python-to-PowerShell bridge with 8 core functions
-  - Registry loading, tool detection, version checking
-  - Capability-based routing with fallback chains
-  - Audit logging to `.AIM_ai-tools-registry/AIM_audit/`
-
-#### Plugin System (`src/plugins/`)
+#### Error Detection Plugins (`error/plugins/`)
 17+ plugins organized by category:
 - **Python**: ruff, black, isort, pylint, mypy, pyright, bandit, safety
-- **PowerShell**: PSScriptAnalyzer
+- **PowerShell**: PSScriptAnalyzer (pssa)
 - **JavaScript**: prettier, eslint
 - **Markup/Data**: yamllint, mdformat, markdownlint, jq
 - **Cross-cutting**: codespell, semgrep, gitleaks
+- **Utilities**: path_standardizer, test_runner
 - **Echo**: Test/stub plugin
 
 Each plugin has:
@@ -289,12 +299,23 @@ Each plugin has:
 - `plugin.py`: `parse()` and optional `fix()` implementations
 - `__init__.py`: Package marker
 
-#### Spec Tooling (`tools/`)
+#### AIM Integration (`aim/`)
+- **bridge.py**: Python-to-PowerShell bridge with 8 core functions
+  - Registry loading, tool detection, version checking
+  - Capability-based routing with fallback chains
+  - Audit logging to `aim/.AIM_ai-tools-registry/AIM_audit/`
+
+#### Spec Tooling (`spec/tools/` and `tools/`)
 - **spec_indexer/**: Generates cross-reference indices
 - **spec_resolver/**: Resolves references across specs
 - **spec_renderer/**: Renders specs to HTML/Markdown
-- **spec_patcher/**: Applies patches to specs
-- **spec_guard/**: Validates spec integrity
+- **hardcoded_path_indexer.py**: Scans and indexes hardcoded paths
+
+#### Legacy Compatibility Shims
+- **src/pipeline/**: Backward-compatibility imports (⚠️ deprecated)
+- **MOD_ERROR_PIPELINE/**: Legacy error pipeline shims (⚠️ deprecated)
+
+See [docs/SECTION_REFACTOR_MAPPING.md](docs/SECTION_REFACTOR_MAPPING.md) for migration paths.
 
 ### Data Flow
 
@@ -344,7 +365,62 @@ Declarative tool definitions with:
 Rules for automated workstream generation (v2.0 stub)
 
 ### Breaker Settings
-Circuit breaker thresholds in `src/pipeline/circuit_breakers.py`
+Circuit breaker thresholds in `core/engine/circuit_breakers.py`
+
+## Phase E Refactor (Section-Based Organization)
+
+The repository underwent a major refactor in Phase E to organize code by functional sections instead of a flat structure:
+
+### Import Path Changes
+
+**State Management** (`src.pipeline.*` → `core.state.*`):
+```python
+# Old
+from src.pipeline.db import init_db
+from src.pipeline.crud_operations import get_workstream
+from src.pipeline.bundles import load_bundle
+
+# New
+from core.state.db import init_db
+from core.state.crud import get_workstream
+from core.state.bundles import load_bundle
+```
+
+**Orchestration** (`src.pipeline.*` → `core.engine.*`):
+```python
+# Old
+from src.pipeline.orchestrator import Orchestrator
+from src.pipeline.scheduler import Scheduler
+from src.pipeline.tools import invoke_tool
+
+# New
+from core.engine.orchestrator import Orchestrator
+from core.engine.scheduler import Scheduler
+from core.engine.tools import invoke_tool
+```
+
+**Error Detection** (`MOD_ERROR_PIPELINE.*` → `error.*`):
+```python
+# Old
+from MOD_ERROR_PIPELINE.error_engine import ErrorEngine
+from MOD_ERROR_PIPELINE.plugin_manager import discover_plugins
+
+# New
+from error.engine.error_engine import ErrorEngine
+from error.engine.plugin_manager import discover_plugins
+```
+
+### Backward Compatibility
+
+Legacy shims remain in place for compatibility:
+- `src/pipeline/*.py` - Forward imports to `core.*`
+- `MOD_ERROR_PIPELINE/*.py` - Forward imports to `error.*`
+
+**Migration Resources**:
+- [docs/SECTION_REFACTOR_MAPPING.md](docs/SECTION_REFACTOR_MAPPING.md) - Complete old→new mapping
+- [docs/CI_PATH_STANDARDS.md](docs/CI_PATH_STANDARDS.md) - CI enforcement details
+
+**CI Enforcement**: Automated checks prevent new code from using deprecated import patterns.
 
 ## Key Conventions
 
@@ -365,18 +441,31 @@ Circuit breaker thresholds in `src/pipeline/circuit_breakers.py`
 - Sandbox repos in `sandbox_repos/` excluded by default (see `pytest.ini`)
 - Keep tests deterministic (no network, no timestamps without control)
 
-### File Organization
-- **src/**: Pipeline logic, plugins, utilities
+### File Organization (Post-Phase E Refactor)
+- **core/state/**: Database, CRUD, bundles, worktree management
+- **core/engine/**: Orchestrator, scheduler, executor, tools, circuit breakers
+- **core/planning/**: Planner and archive utilities
+- **error/engine/**: Error detection engine and services
+- **error/plugins/**: Detection plugins for Python, JS, linting, security, etc.
+- **error/shared/utils/**: Shared utilities for error detection
+- **aim/**: AIM integration bridge and tool registry
+- **pm/**: Project management integrations
+- **spec/**: Spec validation tools
 - **scripts/**: CLI entry points (Python + PowerShell wrappers)
 - **schema/**: Single source of truth for validation
 - **workstreams/**: Authored bundle inputs
-- **config/**: Runtime configuration
-- **tools/**: Spec tooling (separate from pipeline)
-- **docs/**: Architecture, contracts, phase plans
-- **aider/templates/**: Jinja2 prompt templates
-- **openspec/**: OpenSpec project/specs
+- **config/**: Runtime configuration (tool profiles, breakers, rules)
+- **tools/**: Internal utilities (spec indexer, path indexer)
+- **docs/**: Architecture, contracts, phase plans, refactor mapping
+- **meta/**: Phase development docs and planning
+- **aider/**: Aider integration and prompt templates
+- **openspec/**: OpenSpec project and specifications
 - **.worktrees/**: Runtime per-workstream directories (gitignored)
 - **state/**: SQLite DB and reports (gitignored)
+
+**Legacy (deprecated)**:
+- **src/pipeline/**: Backward-compatibility shims → Use `core.*` instead
+- **MOD_ERROR_PIPELINE/**: Legacy error shims → Use `error.*` instead
 
 ## Important Patterns
 
@@ -449,7 +538,7 @@ python -m pytest tests/plugins/test_<category>.py -v
 python -c "from src.plugins.<name>.plugin import parse; print(parse('<output>'))"
 
 # 3. Check plugin discovery
-python -c "from MOD_ERROR_PIPELINE.plugin_manager import discover_plugins; print(discover_plugins())"
+python -c "from error.engine.plugin_manager import discover_plugins; print(discover_plugins())"
 ```
 
 ### Regenerating Indices After Schema Changes

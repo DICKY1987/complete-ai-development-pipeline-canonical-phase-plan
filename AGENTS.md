@@ -1,19 +1,43 @@
 # Repository guidelines
 
-## Project structure & module organization
-- docs/: canonical phase plans, architecture notes, decision records (ADR), specs (see docs/spec/).
-- plans/: phase checklists, milestones, and templates used across the pipeline.
-- scripts/: automation (bootstrap, validate, generate, run). Prefer PowerShell (.ps1) or Python.
-- tools/: internal Python utilities (e.g., spec_guard, spec_renderer, spec_resolver, spec_indexer).
-- src/: light Python helpers and plugin stubs used by tools/tests.
-- openspec/: OpenSpec project and specs (validation-pipeline, plugin-system, orchestration).
-- workstreams/: example single/multi workstream JSON bundles.
-- schema/: JSON/YAML/SQL schemas that define workstream and sidecar metadata contracts.
-- config/: adapter/tool profiles, decomposition rules, and circuit-breaker config.
-- tests/: unit/integration tests for scripts/tools/pipeline.
-- assets/: diagrams and images referenced by docs.
-- sandbox_repos/: self-contained toy repos for integration tests (excluded from pytest by default).
-- PHASE_DEV_DOCS/, Coordination Mechanisms/, gui/: phase notes and coordination guides.
+## Project structure & module organization (Post-Phase E Refactor)
+
+### Core Sections
+- **core/state/**: Database, CRUD operations, bundles, worktree management
+- **core/engine/**: Orchestrator, scheduler, executor, tools adapter, circuit breakers, recovery
+- **core/planning/**: Workstream planner and archive utilities
+- **core/**: OpenSpec parser/converter, spec indexing, agent coordinator
+
+### Error Detection
+- **error/engine/**: Error engine, state machine, pipeline service, CLI, plugin manager
+- **error/plugins/**: Detection plugins (Python, JS, linting, security, utilities)
+- **error/shared/utils/**: Hashing, time utilities, JSONL manager
+
+### Domain-Specific Sections
+- **aim/**: AIM integration bridge and tool registry
+- **pm/**: Project management and CCPM integrations
+- **spec/**: Spec validation and tooling
+- **aider/**: Aider integration and prompt templates
+
+### Repository Infrastructure
+- **docs/**: Canonical phase plans, architecture notes, ADRs, specs, refactor mapping
+- **plans/**: Phase checklists, milestones, and templates
+- **meta/**: Phase development docs and planning documents
+- **scripts/**: Automation (bootstrap, validate, generate, run). Prefer PowerShell (.ps1) or Python.
+- **tools/**: Internal Python utilities (spec_indexer, spec_resolver, hardcoded_path_indexer)
+- **workstreams/**: Example single/multi workstream JSON bundles
+- **schema/**: JSON/YAML/SQL schemas that define workstream and sidecar metadata contracts
+- **config/**: Adapter/tool profiles, decomposition rules, and circuit-breaker config
+- **tests/**: Unit/integration tests for scripts/tools/pipeline
+- **openspec/**: OpenSpec project and specs (validation-pipeline, plugin-system, orchestration)
+- **assets/**: Diagrams and images referenced by docs
+- **sandbox_repos/**: Self-contained toy repos for integration tests (excluded from pytest by default)
+
+### Legacy (Deprecated - Do Not Use in New Code)
+- **src/pipeline/**: Backward-compatibility shims → Use `core.*` instead
+- **MOD_ERROR_PIPELINE/**: Legacy error shims → Use `error.*` instead
+
+See [docs/SECTION_REFACTOR_MAPPING.md](docs/SECTION_REFACTOR_MAPPING.md) for complete old→new path mappings.
 
 ## Build, test, and development commands
 - Environment setup (recommended):
@@ -41,6 +65,41 @@
 - Files: descriptive, scope‑first names (e.g., `phase-02-design.md`).
 - Scripts: prefer `.ps1` for Windows‑first flows; provide `.sh` parity where feasible (no WSL‑only assumptions in shared logic).
 
+## Section-specific conventions
+
+### Core State (`core/state/`)
+- Database initialization and connection management
+- CRUD operations follow pattern: `create_*`, `get_*`, `update_*`, `delete_*`
+- Bundle loading and validation
+- Worktree lifecycle management
+- **Example**: `from core.state.db import init_db`
+
+### Core Engine (`core/engine/`)
+- Orchestration and execution logic
+- Step retry and circuit breaker patterns
+- Tool profile adapters with timeout handling
+- Recovery strategies for failed steps
+- **Example**: `from core.engine.orchestrator import Orchestrator`
+
+### Core Planning (`core/planning/`)
+- Workstream generation and planning utilities
+- Archive operations for completed work
+- **Example**: `from core.planning.planner import generate_workstream`
+
+### Error Detection (`error/engine/`, `error/plugins/`)
+- Error state machine transitions
+- Plugin discovery via manifest.json
+- Each plugin implements `parse()` and optionally `fix()`
+- Incremental detection using file hash caching
+- **Example**: `from error.engine.error_engine import ErrorEngine`
+- **Plugin example**: `from error.plugins.python_ruff.plugin import parse`
+
+### Domain Sections (`aim/`, `pm/`, `spec/`)
+- Keep section-specific logic isolated
+- Use clear bridge/adapter patterns for external integrations
+- **AIM example**: `from aim.bridge import get_tool_info`
+- **Spec example**: `from spec.tools.indexer import generate_index`
+
 ## Testing guidelines
 - Use `pytest`; place tests under `tests/` (unit, pipeline, integration subfolders as needed).
 - Mark tests that rely on external CLIs or network, and keep them skipped/off by default; avoid network/external state.
@@ -64,6 +123,35 @@
 - Do not refactor unrelated areas; update docs/tests when changing scripts.
 - When adding scripts under `scripts/`, prefer Python for logic and `.ps1`/`.sh` as thin wrappers if needed.
 - Coordinate changes to `tools/` with tests under `tests/` (pipeline/plugins sections), keeping behavior reproducible/deterministic.
+
+### When to use which section
+- **Adding state/database logic** → `core/state/`
+- **Adding orchestration/execution logic** → `core/engine/`
+- **Adding planning/archive features** → `core/planning/`
+- **Adding error detection logic** → `error/engine/`
+- **Adding a new detection plugin** → `error/plugins/<plugin-name>/`
+- **Adding AIM integration** → `aim/`
+- **Adding PM/CCPM features** → `pm/`
+- **Adding spec validation** → `spec/`
+- **Adding Aider integration** → `aider/`
+
+### Import path rules (CRITICAL - CI enforced)
+✅ **Use section-based imports**:
+```python
+from core.state.db import init_db
+from core.engine.orchestrator import Orchestrator
+from error.engine.error_engine import ErrorEngine
+from error.plugins.python_ruff.plugin import parse
+```
+
+❌ **Do NOT use deprecated imports** (will fail CI):
+```python
+from src.pipeline.db import init_db              # ❌ FAILS CI
+from src.pipeline.orchestrator import Orchestrator  # ❌ FAILS CI
+from MOD_ERROR_PIPELINE.error_engine import ErrorEngine  # ❌ FAILS CI
+```
+
+See [docs/CI_PATH_STANDARDS.md](docs/CI_PATH_STANDARDS.md) for CI enforcement details.
 
 ## Agent workflow (Codex CLI)
 - Scope: this file applies to the entire repository unless a more deeply nested `AGENTS.md` overrides it.
