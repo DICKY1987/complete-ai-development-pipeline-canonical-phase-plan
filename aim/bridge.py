@@ -129,11 +129,12 @@ def _load_aim_config() -> Dict[str, Any]:
     return {**defaults, **config}
 
 
-def _expand_env_vars(path_str: str) -> str:
+def _expand_env_vars(path_str: str, aim_registry_path: Optional[Path] = None) -> str:
     """Expand environment variables in path string (Windows style).
 
     Args:
         path_str: Path with potential env vars like %USERPROFILE%
+        aim_registry_path: Optional AIM registry path for %AIM_REGISTRY_PATH%
 
     Returns:
         str: Expanded path string
@@ -143,6 +144,9 @@ def _expand_env_vars(path_str: str) -> str:
 
     def replace_var(match):
         var_name = match.group(1)
+        # Special handling for AIM_REGISTRY_PATH
+        if var_name == "AIM_REGISTRY_PATH" and aim_registry_path:
+            return str(aim_registry_path)
         return os.getenv(var_name, match.group(0))
 
     return re.sub(r'%(\w+)%', replace_var, path_str)
@@ -180,6 +184,7 @@ def invoke_adapter(
 
     # Load registry and get tool metadata
     registry = load_aim_registry()
+    aim_path = get_aim_registry_path()
 
     if tool_id not in registry.get("tools", {}):
         return {
@@ -189,7 +194,7 @@ def invoke_adapter(
         }
 
     tool = registry["tools"][tool_id]
-    adapter_script_path = _expand_env_vars(tool.get("adapterScript", ""))
+    adapter_script_path = _expand_env_vars(tool.get("adapterScript", ""), aim_path)
     adapter_script = Path(adapter_script_path)
 
     if not adapter_script.exists():
