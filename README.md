@@ -1,5 +1,7 @@
 # Complete AI Development Pipeline – Canonical Phase Plan
 
+![Path Standards](https://github.com/USERNAME/REPOSITORY/actions/workflows/path_standards.yml/badge.svg)
+
 This repository hosts a structured, phase-based plan and lightweight tooling for building and operating an AI development pipeline. Start with PH-00 to establish the baseline skeleton, then proceed through subsequent phases.
 
 ## Quick Start
@@ -63,6 +65,13 @@ This repository hosts a structured, phase-based plan and lightweight tooling for
 
 ## Contributing
 Read `AGENTS.md` for coding style, testing guidance, and PR conventions. Use Conventional Commits (e.g., `docs: add phase overview`, `chore: scaffold skeleton`).
+
+### CI Path Standards
+All pull requests are automatically checked for deprecated import patterns. The CI enforces the new section-based structure after the Phase E refactor:
+- ✅ Use `from core.state.*`, `from core.engine.*`, `from error.*`
+- ❌ Avoid `from src.pipeline.*`, `from MOD_ERROR_PIPELINE.*`
+
+See [docs/CI_PATH_STANDARDS.md](docs/CI_PATH_STANDARDS.md) for details on fixing violations.
 
 ## Phases
 - `PH-00_Baseline & Project Skeleton (Codex Autonomous Phase Executor).md` - create the base structure and verify local execution.
