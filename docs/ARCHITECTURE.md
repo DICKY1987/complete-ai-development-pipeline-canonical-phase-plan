@@ -5,6 +5,8 @@
 
 This repository implements a multi-phase AI development pipeline with section-based organization. The codebase was refactored in Phase E to organize functionality by domain (core, error, aim, pm, spec) rather than a flat structure.
 
+> 📊 **Visual Documentation**: See [ARCHITECTURE_DIAGRAMS.md](./ARCHITECTURE_DIAGRAMS.md) for detailed visual diagrams of the system architecture, module dependencies, and data flows.
+
 ## High-Level Architecture
 
 ```

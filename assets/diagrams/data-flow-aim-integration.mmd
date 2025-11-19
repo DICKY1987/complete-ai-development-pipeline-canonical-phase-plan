@@ -1,0 +1,92 @@
+%%{init: {'theme':'base', 'themeVariables': { 'fontSize':'14px'}}}%%
+graph LR
+    %% User & Pipeline
+    USER["👤 User/Developer"]
+    ORCHESTRATOR["⚙️ Orchestrator<br/><small>core.engine.orchestrator</small>"]
+    EXECUTOR["▶️ Executor<br/><small>core.engine.executor</small>"]
+    
+    %% AIM Bridge
+    AIM_BRIDGE["🎯 AIM Bridge<br/><small>aim.bridge</small>"]
+    
+    %% AIM Registry
+    subgraph AIM_REGISTRY["📚 AIM Registry (aim/.AIM_ai-tools-registry/)"]
+        direction TB
+        
+        TOOL_CATALOG["Tool Catalog<br/><small>Available AI Tools</small>"]
+        TOOL_CONFIGS["Tool Configurations<br/><small>Model settings</small>"]
+        CAPABILITY_INDEX["Capability Index<br/><small>What each tool can do</small>"]
+    end
+    
+    %% External AI Tools
+    subgraph EXTERNAL_AI["🤖 External AI Tools"]
+        direction TB
+        
+        AIDER_TOOL["Aider<br/><small>AI Code Editor</small>"]
+        CLAUDE["Claude<br/><small>Anthropic API</small>"]
+        GPT["GPT-4<br/><small>OpenAI API</small>"]
+        LOCAL_LLM["Local LLMs<br/><small>Ollama, etc.</small>"]
+    end
+    
+    %% Tool Selection
+    SELECT_TOOL["🎯 Select Tool<br/><small>Based on task type</small>"]
+    LOAD_CONFIG["⚙️ Load Configuration<br/><small>Model, temperature, etc.</small>"]
+    
+    %% Invocation
+    INVOKE_TOOL["🚀 Invoke AI Tool<br/><small>Via bridge API</small>"]
+    
+    %% Response Processing
+    COLLECT_RESPONSE["📥 Collect Response<br/><small>Code, analysis, etc.</small>"]
+    VALIDATE_OUTPUT["✅ Validate Output<br/><small>Format, quality checks</small>"]
+    
+    %% Database Logging
+    LOG_USAGE["📝 Log Usage<br/><small>core.state.crud</small>"]
+    DB[("💾 Database<br/><small>Token usage, costs</small>")]
+    
+    %% Results
+    RESULTS["✅ Return to Pipeline<br/><small>Continue execution</small>"]
+    
+    %% Flow
+    USER --> ORCHESTRATOR
+    ORCHESTRATOR --> EXECUTOR
+    EXECUTOR --> AIM_BRIDGE
+    
+    AIM_BRIDGE --> AIM_REGISTRY
+    AIM_REGISTRY --> SELECT_TOOL
+    
+    SELECT_TOOL --> LOAD_CONFIG
+    LOAD_CONFIG --> INVOKE_TOOL
+    
+    INVOKE_TOOL -->|"Aider"| AIDER_TOOL
+    INVOKE_TOOL -->|"Claude"| CLAUDE
+    INVOKE_TOOL -->|"GPT-4"| GPT
+    INVOKE_TOOL -->|"Local"| LOCAL_LLM
+    
+    AIDER_TOOL --> COLLECT_RESPONSE
+    CLAUDE --> COLLECT_RESPONSE
+    GPT --> COLLECT_RESPONSE
+    LOCAL_LLM --> COLLECT_RESPONSE
+    
+    COLLECT_RESPONSE --> VALIDATE_OUTPUT
+    VALIDATE_OUTPUT --> LOG_USAGE
+    
+    LOG_USAGE --> DB
+    LOG_USAGE --> RESULTS
+    
+    RESULTS --> EXECUTOR
+    
+    %% Styling
+    classDef userStyle fill:#9B59B6,stroke:#6C3483,stroke-width:2px,color:#fff
+    classDef pipelineStyle fill:#4A90E2,stroke:#2E5C8A,stroke-width:2px,color:#fff
+    classDef bridgeStyle fill:#3498DB,stroke:#2874A6,stroke-width:2px,color:#fff
+    classDef registryStyle fill:#F39C12,stroke:#D68910,stroke-width:2px,color:#fff
+    classDef aiToolStyle fill:#50C878,stroke:#2E8A4E,stroke-width:2px,color:#fff
+    classDef processingStyle fill:#E67E22,stroke:#CA6F1E,stroke-width:2px,color:#fff
+    classDef dbStyle fill:#95A5A6,stroke:#7F8C8D,stroke-width:2px,color:#fff
+    
+    class USER userStyle
+    class ORCHESTRATOR,EXECUTOR,RESULTS pipelineStyle
+    class AIM_BRIDGE bridgeStyle
+    class AIM_REGISTRY,TOOL_CATALOG,TOOL_CONFIGS,CAPABILITY_INDEX registryStyle
+    class EXTERNAL_AI,AIDER_TOOL,CLAUDE,GPT,LOCAL_LLM aiToolStyle
+    class SELECT_TOOL,LOAD_CONFIG,INVOKE_TOOL,COLLECT_RESPONSE,VALIDATE_OUTPUT processingStyle
+    class LOG_USAGE,DB dbStyle

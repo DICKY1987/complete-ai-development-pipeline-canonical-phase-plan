@@ -1,0 +1,97 @@
+%%{init: {'theme':'base', 'themeVariables': { 'fontSize':'16px'}}}%%
+graph TD
+    ROOT[/"🏗️ AI Development Pipeline<br/>(Repository Root)"/]
+    
+    %% Core Section
+    CORE["📦 core/<br/><small>Orchestration & State</small>"]
+    CORE_STATE["💾 state/<br/><small>Database & Persistence</small>"]
+    CORE_ENGINE["⚙️ engine/<br/><small>Execution & Coordination</small>"]
+    CORE_PLANNING["📋 planning/<br/><small>Workstream Generation</small>"]
+    
+    %% Error Section
+    ERROR["🔍 error/<br/><small>Error Detection Pipeline</small>"]
+    ERROR_ENGINE["⚙️ engine/<br/><small>Error Processing</small>"]
+    ERROR_PLUGINS["🔌 plugins/<br/><small>Linters & Validators</small>"]
+    ERROR_SHARED["🛠️ shared/<br/><small>Utilities</small>"]
+    
+    %% Other Sections
+    AIM["🎯 aim/<br/><small>AI Model Integration</small>"]
+    PM["📊 pm/<br/><small>Project Management/CCPM</small>"]
+    SPEC["📝 spec/<br/><small>Specification Tools</small>"]
+    AIDER["🤖 aider/<br/><small>Aider Integration</small>"]
+    
+    %% Configuration & Data
+    CONFIG["⚙️ config/<br/><small>Tool Profiles & Rules</small>"]
+    SCHEMA["📐 schema/<br/><small>JSON/YAML Schemas</small>"]
+    WORKSTREAMS["📦 workstreams/<br/><small>Bundle Definitions</small>"]
+    
+    %% Scripts & Tools
+    SCRIPTS["🔧 scripts/<br/><small>Automation Scripts</small>"]
+    TOOLS["🛠️ tools/<br/><small>Internal Utilities</small>"]
+    TESTS["✅ tests/<br/><small>Test Suites</small>"]
+    
+    %% Documentation
+    DOCS["📚 docs/<br/><small>Architecture & Specs</small>"]
+    META["📋 meta/<br/><small>Phase Plans & Templates</small>"]
+    
+    %% Legacy (Shims)
+    SRC["⚠️ src/<br/><small>Legacy Shims (Deprecated)</small>"]
+    MOD_ERROR["⚠️ MOD_ERROR_PIPELINE/<br/><small>Legacy Shims (Deprecated)</small>"]
+    
+    ROOT --> CORE
+    ROOT --> ERROR
+    ROOT --> AIM
+    ROOT --> PM
+    ROOT --> SPEC
+    ROOT --> AIDER
+    ROOT --> CONFIG
+    ROOT --> SCHEMA
+    ROOT --> WORKSTREAMS
+    ROOT --> SCRIPTS
+    ROOT --> TOOLS
+    ROOT --> TESTS
+    ROOT --> DOCS
+    ROOT --> META
+    ROOT --> SRC
+    ROOT --> MOD_ERROR
+    
+    CORE --> CORE_STATE
+    CORE --> CORE_ENGINE
+    CORE --> CORE_PLANNING
+    
+    ERROR --> ERROR_ENGINE
+    ERROR --> ERROR_PLUGINS
+    ERROR --> ERROR_SHARED
+    
+    %% Key Files in core/state/
+    CORE_STATE -.-> STATE_DB["db.py<br/>db_sqlite.py"]
+    CORE_STATE -.-> STATE_CRUD["crud.py"]
+    CORE_STATE -.-> STATE_BUNDLES["bundles.py"]
+    CORE_STATE -.-> STATE_WORKTREE["worktree.py"]
+    
+    %% Key Files in core/engine/
+    CORE_ENGINE -.-> ENGINE_ORCH["orchestrator.py"]
+    CORE_ENGINE -.-> ENGINE_SCHED["scheduler.py"]
+    CORE_ENGINE -.-> ENGINE_EXEC["executor.py"]
+    CORE_ENGINE -.-> ENGINE_TOOLS["tools.py"]
+    CORE_ENGINE -.-> ENGINE_CB["circuit_breakers.py"]
+    CORE_ENGINE -.-> ENGINE_REC["recovery.py"]
+    
+    %% Key Files in error/plugins/
+    ERROR_PLUGINS -.-> PLUGINS_PY["python_ruff<br/>python_mypy<br/>python_black_fix"]
+    ERROR_PLUGINS -.-> PLUGINS_JS["js_eslint<br/>js_prettier_fix"]
+    ERROR_PLUGINS -.-> PLUGINS_OTHER["md_markdownlint<br/>yaml_yamllint<br/>semgrep"]
+    
+    classDef coreStyle fill:#4A90E2,stroke:#2E5C8A,stroke-width:2px,color:#fff
+    classDef errorStyle fill:#E24A4A,stroke:#8A2E2E,stroke-width:2px,color:#fff
+    classDef sectionStyle fill:#50C878,stroke:#2E8A4E,stroke-width:2px,color:#fff
+    classDef configStyle fill:#F5A623,stroke:#8A5E13,stroke-width:2px,color:#fff
+    classDef legacyStyle fill:#999,stroke:#666,stroke-width:2px,stroke-dasharray: 5 5,color:#fff
+    classDef fileStyle fill:#E8F4F8,stroke:#4A90E2,stroke-width:1px,color:#333
+    
+    class CORE,CORE_STATE,CORE_ENGINE,CORE_PLANNING coreStyle
+    class ERROR,ERROR_ENGINE,ERROR_PLUGINS,ERROR_SHARED errorStyle
+    class AIM,PM,SPEC,AIDER sectionStyle
+    class CONFIG,SCHEMA,WORKSTREAMS,SCRIPTS,TOOLS,TESTS,DOCS,META configStyle
+    class SRC,MOD_ERROR legacyStyle
+    class STATE_DB,STATE_CRUD,STATE_BUNDLES,STATE_WORKTREE,ENGINE_ORCH,ENGINE_SCHED,ENGINE_EXEC,ENGINE_TOOLS,ENGINE_CB,ENGINE_REC,PLUGINS_PY,PLUGINS_JS,PLUGINS_OTHER fileStyle
