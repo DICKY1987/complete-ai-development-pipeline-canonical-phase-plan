@@ -101,7 +101,6 @@ class PipelineEngine:
 
             # Discover/apply plugins
             self._plugin_manager.discover()
-            plugins = self._plugin_manager.get_plugins_for_file(tmp_file)
             plugin_results = self._run_plugins(tmp_file)
 
             # Copy out with validated name

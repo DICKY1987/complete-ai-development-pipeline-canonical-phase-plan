@@ -215,6 +215,10 @@ def run_aider_fix(
     repo_root: Path,
     ws_id: str,
     run_id: str = "",
+    files_create: list[str] | None = None,
+    openspec_change: str = "",
+    ccpm_issue: str = "",
+    gate: int | str = "",
     timeout_seconds: int = 300,
     **template_kwargs: Any,
 ) -> ToolResult:
@@ -227,6 +231,10 @@ def run_aider_fix(
         ws_id=ws_id,
         run_id=run_id,
         worktree_path=cwd,
+        files_create=files_create,
+        openspec_change=openspec_change,
+        ccpm_issue=ccpm_issue,
+        gate=gate,
         **template_kwargs,
     )
     prompt_file = prepare_aider_prompt_file(cwd, "fix", prompt)

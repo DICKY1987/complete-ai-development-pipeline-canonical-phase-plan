@@ -8,7 +8,6 @@ from error.pipeline_engine import PipelineEngine
 from error.plugin_manager import PluginManager
 from error.file_hash_cache import FileHashCache
 from error.shared.utils.types import PluginIssue
-# from src.pipeline.agent_coordinator import AgentCoordinator  # TODO: Implement coordinator
 from .error_context import ErrorPipelineContext
 
 
@@ -23,11 +22,6 @@ def run_error_pipeline(
     """
     # For now, powershell_files are ignored until PS plugins are present
     files = [Path(p) for p in python_files]
-
-    # agent_coordinator = AgentCoordinator()  # TODO: Implement coordinator
-    # if agent_coordinator.can_parallelize(python_files):
-    #     batches = agent_coordinator.partition_files(python_files)
-    #     files = [Path(p) for batch in batches for p in batch]
 
     cache_path = Path(".state") / "validation_cache.json"
     cache_path.parent.mkdir(parents=True, exist_ok=True)

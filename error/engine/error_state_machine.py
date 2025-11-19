@@ -43,7 +43,6 @@ def advance_state(ctx: ErrorPipelineContext) -> None:
         summary = rep.get("summary", {})
         total = int(summary.get("total_issues", 0))
         has_hard = bool(summary.get("has_hard_fail", False))
-        style_only = bool(summary.get("style_only", False))
 
         if total == 0:
             ctx.final_status = "success"
