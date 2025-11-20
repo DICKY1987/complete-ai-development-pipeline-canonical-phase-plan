@@ -1,9 +1,0 @@
-{
-  "plugin_id": "codespell",
-  "name": "codespell",
-  "file_extensions": ["*"],
-  "requires": [],
-  "tool": {
-    "success_codes": [0, 1]
-  }
-}

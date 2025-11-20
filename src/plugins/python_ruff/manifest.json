@@ -1,9 +1,0 @@
-{
-  "plugin_id": "python_ruff",
-  "name": "Ruff Linter",
-  "file_extensions": ["py"],
-  "requires": ["python_black_fix"],
-  "tool": {
-    "success_codes": [0, 1]
-  }
-}

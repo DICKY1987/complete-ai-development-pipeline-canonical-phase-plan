@@ -1,9 +1,0 @@
-{
-  "plugin_id": "md_mdformat_fix",
-  "name": "mdformat (fix)",
-  "file_extensions": ["md"],
-  "requires": [],
-  "tool": {
-    "success_codes": [0]
-  }
-}

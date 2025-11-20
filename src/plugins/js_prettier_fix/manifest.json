@@ -1,9 +1,0 @@
-{
-  "plugin_id": "js_prettier_fix",
-  "name": "Prettier Formatter (fix)",
-  "file_extensions": ["js", "jsx", "ts", "tsx", "json", "md", "yml", "yaml"],
-  "requires": [],
-  "tool": {
-    "success_codes": [0]
-  }
-}

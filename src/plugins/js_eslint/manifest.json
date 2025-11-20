@@ -1,9 +1,0 @@
-{
-  "plugin_id": "js_eslint",
-  "name": "ESLint",
-  "file_extensions": ["js", "jsx", "ts", "tsx"],
-  "requires": ["js_prettier_fix"],
-  "tool": {
-    "success_codes": [0, 1]
-  }
-}

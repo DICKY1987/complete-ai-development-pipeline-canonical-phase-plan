@@ -9,9 +9,9 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from src.plugins.codespell.plugin import CodespellPlugin
-from src.plugins.semgrep.plugin import SemgrepPlugin
-from src.plugins.gitleaks.plugin import GitleaksPlugin
+from error.plugins.codespell.plugin import CodespellPlugin
+from error.plugins.semgrep.plugin import SemgrepPlugin
+from error.plugins.gitleaks.plugin import GitleaksPlugin
 from tests.plugins.conftest import (
     assert_issue_valid,
     assert_plugin_result_valid,

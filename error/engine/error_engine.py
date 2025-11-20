@@ -4,9 +4,9 @@ import json
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
-from error.pipeline_engine import PipelineEngine
-from error.plugin_manager import PluginManager
-from error.file_hash_cache import FileHashCache
+from error.engine.pipeline_engine import PipelineEngine
+from error.engine.plugin_manager import PluginManager
+from error.engine.file_hash_cache import FileHashCache
 from error.shared.utils.types import PluginIssue
 from .error_context import ErrorPipelineContext
 

@@ -9,8 +9,8 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from src.plugins.python_bandit.plugin import BanditPlugin
-from src.plugins.python_safety.plugin import SafetyPlugin
+from error.plugins.python_bandit.plugin import BanditPlugin
+from error.plugins.python_safety.plugin import SafetyPlugin
 from tests.plugins.conftest import (
     assert_issue_valid,
     assert_plugin_result_valid,

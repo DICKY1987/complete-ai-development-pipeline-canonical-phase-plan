@@ -3,7 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 import types
 
-from src.plugins.path_standardizer.plugin import validate_paths
+from error.plugins.path_standardizer.plugin import validate_paths
 
 
 class FakeCP:

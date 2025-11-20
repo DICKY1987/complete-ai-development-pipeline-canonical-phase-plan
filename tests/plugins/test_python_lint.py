@@ -9,8 +9,8 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from src.plugins.python_ruff.plugin import RuffPlugin
-from src.plugins.python_pylint.plugin import PylintPlugin
+from error.plugins.python_ruff.plugin import RuffPlugin
+from error.plugins.python_pylint.plugin import PylintPlugin
 from tests.plugins.conftest import (
     assert_issue_valid,
     assert_plugin_result_valid,

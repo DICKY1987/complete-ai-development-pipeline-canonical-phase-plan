@@ -9,8 +9,8 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from src.plugins.python_mypy.plugin import MypyPlugin
-from src.plugins.python_pyright.plugin import PyrightPlugin
+from error.plugins.python_mypy.plugin import MypyPlugin
+from error.plugins.python_pyright.plugin import PyrightPlugin
 from tests.plugins.conftest import (
     assert_issue_valid,
     assert_plugin_result_valid,

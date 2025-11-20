@@ -1,0 +1,21 @@
+available_tools: []
+constraints:
+  max_lines_changed: 500
+  patch_only: true
+domain: mixed
+framework_paths:
+  ledger_dir: .ledger/
+  quarantine_dir: .quarantine/
+  registry_file: registry/project.registry.yaml
+  tasks_dir: .tasks/
+  worktrees_dir: .worktrees/
+profile_id: generic
+profile_version: 1.0.0
+project_id: PRJ-UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK
+project_name: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK
+project_root: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+  \ Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK"
+resource_types:
+  files:
+    root: .
+    tracked_by: git

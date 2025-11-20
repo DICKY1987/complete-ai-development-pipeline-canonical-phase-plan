@@ -248,7 +248,7 @@ class TestEnvironmentSecurity:
     
     def test_subprocess_uses_scrubbed_env(self, tmp_path: Path):
         """Test that all plugins use scrub_env() for subprocess calls."""
-        from src.plugins.python_ruff.plugin import RuffPlugin
+        from error.plugins.python_ruff.plugin import RuffPlugin
         
         plugin = RuffPlugin()
         test_file = tmp_path / "test.py"
@@ -270,7 +270,7 @@ class TestEnvironmentSecurity:
     
     def test_subprocess_uses_shell_false(self, tmp_path: Path):
         """Test that all plugins use shell=False for security."""
-        from src.plugins.python_ruff.plugin import RuffPlugin
+        from error.plugins.python_ruff.plugin import RuffPlugin
         
         plugin = RuffPlugin()
         test_file = tmp_path / "test.py"
@@ -291,7 +291,7 @@ class TestEnvironmentSecurity:
     
     def test_subprocess_has_timeout(self, tmp_path: Path):
         """Test that all plugins enforce timeouts."""
-        from src.plugins.python_ruff.plugin import RuffPlugin
+        from error.plugins.python_ruff.plugin import RuffPlugin
         
         plugin = RuffPlugin()
         test_file = tmp_path / "test.py"

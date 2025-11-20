@@ -9,10 +9,10 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from src.plugins.yaml_yamllint.plugin import YamllintPlugin
-from src.plugins.md_mdformat_fix.plugin import MdformatFixPlugin
-from src.plugins.md_markdownlint.plugin import MarkdownlintPlugin
-from src.plugins.json_jq.plugin import JsonJqPlugin
+from error.plugins.yaml_yamllint.plugin import YamllintPlugin
+from error.plugins.md_mdformat_fix.plugin import MdformatFixPlugin
+from error.plugins.md_markdownlint.plugin import MarkdownlintPlugin
+from error.plugins.json_jq.plugin import JsonJqPlugin
 from tests.plugins.conftest import (
     assert_issue_valid,
     assert_plugin_result_valid,
