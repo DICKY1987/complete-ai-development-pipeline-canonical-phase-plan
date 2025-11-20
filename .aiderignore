@@ -1,0 +1,28 @@
+# Exclude legacy, ephemeral, and archives from AI context
+
+# Ephemeral work trees and local state
+.worktrees/
+state/
+
+# Legacy compatibility and deprecated paths
+src/
+MOD_ERROR_PIPELINE/
+
+# Archived and reference-only materials
+docs/archive/
+legacy/
+
+# Workstream operational scratch
+workstreams/.backup/
+workstreams/.deferred/
+
+# Test sandboxes and large toy repos
+sandbox_repos/
+
+# Build artifacts (usually ignored by .gitignore too)
+**/__pycache__/
+*.pyc
+
+# Logs
+logs/
+

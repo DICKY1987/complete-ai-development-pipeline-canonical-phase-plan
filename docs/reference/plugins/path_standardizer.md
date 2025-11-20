@@ -25,3 +25,4 @@ Add to pipeline at state: `S0_MECHANICAL_AUTOFIX` (runs before other plugins)
 ## Configuration
 
 None required - uses scripts/check-path-standards.sh and scripts/fix-path-standards.sh
+

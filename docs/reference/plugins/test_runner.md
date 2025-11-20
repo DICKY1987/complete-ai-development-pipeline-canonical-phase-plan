@@ -14,3 +14,4 @@ None required - auto-detects test framework.
 
 ## Output
 Captures test logs to `tests/logs/` with automatic rotation.
+
