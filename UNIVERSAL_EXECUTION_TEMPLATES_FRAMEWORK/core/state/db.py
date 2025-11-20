@@ -225,8 +225,9 @@ class Database:
         cursor.execute("""
             INSERT INTO step_attempts (
                 step_attempt_id, run_id, sequence, tool_id, tool_run_id,
-                execution_request_id, prompt_id, started_at, state, metadata
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                execution_request_id, prompt_id, started_at, state, 
+                input_prompt, metadata
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """, (
             step_data['step_attempt_id'],
             step_data['run_id'],
@@ -237,6 +238,7 @@ class Database:
             step_data.get('prompt_id'),
             step_data['started_at'],
             step_data.get('state', 'running'),
+            step_data.get('input_prompt'),
             metadata_json
         ))
         
