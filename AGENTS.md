@@ -16,7 +16,7 @@
 ### Domain-Specific Sections
 - **aim/**: AIM integration bridge and tool registry
 - **pm/**: Project management and CCPM integrations
-- **spec/**: Spec validation and tooling
+- **specifications/**: Unified spec management (content, tools, changes, bridge)
 - **aider/**: Aider integration and prompt templates
 
 ### Repository Infrastructure
@@ -24,12 +24,11 @@
 - **plans/**: Phase checklists, milestones, and templates
 - **meta/**: Phase development docs and planning documents
 - **scripts/**: Automation (bootstrap, validate, generate, run). Prefer PowerShell (.ps1) or Python.
-- **tools/**: Internal Python utilities (spec_indexer, spec_resolver, hardcoded_path_indexer)
+- **tools/**: Internal Python utilities (hardcoded_path_indexer, etc.)
 - **workstreams/**: Example single/multi workstream JSON bundles
 - **schema/**: JSON/YAML/SQL schemas that define workstream and sidecar metadata contracts
 - **config/**: Adapter/tool profiles, decomposition rules, and circuit-breaker config
 - **tests/**: Unit/integration tests for scripts/tools/pipeline
-- **openspec/**: OpenSpec project and specs (validation-pipeline, plugin-system, orchestration)
 - **assets/**: Diagrams and images referenced by docs
 - **sandbox_repos/**: Self-contained toy repos for integration tests (excluded from pytest by default)
 
@@ -94,11 +93,19 @@ See [docs/SECTION_REFACTOR_MAPPING.md](docs/SECTION_REFACTOR_MAPPING.md) for com
 - **Example**: `from error.engine.error_engine import ErrorEngine`
 - **Plugin example**: `from error.plugins.python_ruff.plugin import parse`
 
-### Domain Sections (`aim/`, `pm/`, `spec/`)
+### Domain Sections (`aim/`, `pm/`, `specifications/`)
 - Keep section-specific logic isolated
 - Use clear bridge/adapter patterns for external integrations
 - **AIM example**: `from aim.bridge import get_tool_info`
-- **Spec example**: `from spec.tools.indexer import generate_index`
+- **Spec example**: `from specifications.tools.indexer.indexer import generate_index`
+
+### Specifications (`specifications/`)
+- Unified specification management system
+- **content/**: Specification documents organized by domain
+- **tools/**: Processing utilities (indexer, resolver, guard, patcher, renderer)
+- **changes/**: Active OpenSpec change proposals
+- **bridge/**: OpenSpec → Workstream integration
+- **Example**: `from specifications.tools.resolver.resolver import resolve_spec_uri`
 
 ## Testing guidelines
 - Use `pytest`; place tests under `tests/` (unit, pipeline, integration subfolders as needed).
@@ -115,7 +122,7 @@ See [docs/SECTION_REFACTOR_MAPPING.md](docs/SECTION_REFACTOR_MAPPING.md) for com
 ## Security & configuration tips
 - Never commit secrets. Use `.env.local`; provide `.env.example` when adding new env vars.
 - Redact sensitive data in docs/artifacts. Store large files outside the repo.
-- Treat `openspec/` and `schema/` as source‑of‑truth contracts; validate changes via provided validators before merging.
+- Treat `specifications/` and `schema/` as source‑of‑truth contracts; validate changes via provided validators before merging.
 
 ## Agent‑specific instructions
 - Follow AGENTS.md scope rules; keep patches minimal and focused.
@@ -132,7 +139,8 @@ See [docs/SECTION_REFACTOR_MAPPING.md](docs/SECTION_REFACTOR_MAPPING.md) for com
 - **Adding a new detection plugin** → `error/plugins/<plugin-name>/`
 - **Adding AIM integration** → `aim/`
 - **Adding PM/CCPM features** → `pm/`
-- **Adding spec validation** → `spec/`
+- **Adding spec content** → `specifications/content/`
+- **Adding spec tools** → `specifications/tools/`
 - **Adding Aider integration** → `aider/`
 
 ### Import path rules (CRITICAL - CI enforced)
@@ -142,13 +150,17 @@ from core.state.db import init_db
 from core.engine.orchestrator import Orchestrator
 from error.engine.error_engine import ErrorEngine
 from error.plugins.python_ruff.plugin import parse
+from specifications.tools.indexer.indexer import generate_index
+from specifications.tools.resolver.resolver import resolve_spec_uri
 ```
 
 ❌ **Do NOT use deprecated imports** (will fail CI):
 ```python
-from src.pipeline.db import init_db              # ❌ FAILS CI
-from src.pipeline.orchestrator import Orchestrator  # ❌ FAILS CI
+from src.pipeline.db import init_db                    # ❌ FAILS CI
+from src.pipeline.orchestrator import Orchestrator     # ❌ FAILS CI
 from MOD_ERROR_PIPELINE.error_engine import ErrorEngine  # ❌ FAILS CI
+from spec.tools.spec_indexer import generate_index     # ❌ DEPRECATED - use specifications.tools.indexer
+from openspec.specs import load_spec                   # ❌ DEPRECATED - use specifications.content
 ```
 
 See [docs/CI_PATH_STANDARDS.md](docs/CI_PATH_STANDARDS.md) for CI enforcement details.

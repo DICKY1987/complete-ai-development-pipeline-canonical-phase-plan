@@ -1,5 +1,5 @@
 """
-Compatibility package: re-export spec tools from spec.tools.spec_patcher
+Compatibility package: re-export spec tools from specifications.tools.patcher
 """
-from spec.tools.spec_patcher.patcher import *  # type: ignore F401,F403
+from specifications.tools.patcher.patcher import *  # type: ignore F401,F403
 

@@ -1,0 +1,37 @@
+======================================================================
+SPECIFICATION FOLDER MIGRATION REPORT
+======================================================================
+
+Files migrated: 10
+Python files updated: 6
+
+MIGRATION DETAILS:
+  openspec\specs → specifications\content
+  openspec\changes → specifications\changes
+  openspec\archive → specifications\archive
+  spec\tools\spec_indexer → specifications\tools\indexer
+  spec\tools\spec_resolver → specifications\tools\resolver
+  spec\tools\spec_guard → specifications\tools\guard
+  spec\tools\spec_patcher → specifications\tools\patcher
+  spec\tools\spec_renderer → specifications\tools\renderer
+  openspec\OPENSPEC_BRIDGE_SUMMARY.md → specifications\bridge\BRIDGE_SUMMARY.md
+  openspec\project.md → specifications\bridge\project_conventions.md
+
+UPDATED IMPORTS:
+  scripts\migrate_spec_folders.py (10 imports)
+  tools\spec_guard\__init__.py (2 imports)
+  tools\spec_indexer\__init__.py (2 imports)
+  tools\spec_patcher\__init__.py (2 imports)
+  tools\spec_renderer\__init__.py (2 imports)
+  tools\spec_resolver\__init__.py (2 imports)
+  Total import changes: 20
+
+NEXT STEPS:
+  1. Review the migrated files in specifications/
+  2. Run tests: pytest -q
+  3. Verify imports work correctly
+  4. Update documentation references
+  5. Delete old directories (openspec/, spec/) if satisfied
+  6. Commit changes to git
+
+======================================================================

@@ -1,0 +1,7 @@
+# Generated index files
+*.yaml
+*.json
+*.yml
+
+# Keep this file
+!.gitignore

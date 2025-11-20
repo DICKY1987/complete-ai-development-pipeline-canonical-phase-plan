@@ -1,5 +1,5 @@
 """
-Compatibility package: re-export spec tools from spec.tools.spec_guard
+Compatibility package: re-export spec tools from specifications.tools.guard
 """
-from spec.tools.spec_guard.guard import *  # type: ignore F401,F403
+from specifications.tools.guard.guard import *  # type: ignore F401,F403
 

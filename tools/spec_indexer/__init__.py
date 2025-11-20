@@ -1,5 +1,5 @@
 """
-Compatibility package: re-export spec tools from spec.tools.spec_indexer
+Compatibility package: re-export spec tools from specifications.tools.indexer
 """
-from spec.tools.spec_indexer.indexer import *  # type: ignore F401,F403
+from specifications.tools.indexer.indexer import *  # type: ignore F401,F403
 
