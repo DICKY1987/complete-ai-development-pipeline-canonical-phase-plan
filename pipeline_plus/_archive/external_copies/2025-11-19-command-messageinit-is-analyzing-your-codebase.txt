@@ -1,0 +1,56 @@
+                         
+
+● Summary: Overlap Analysis
+
+  Based on the exploration, here's what exists in the parent pipeline that
+  relates to pipeline_plus/:
+
+  Overlapping Areas
+
+  | Category             | Parent Location
+           | Pipeline_Plus                                    | Status
+                                                 |
+  |----------------------|--------------------------------------------------
+  ---------|--------------------------------------------------|-------------
+  -----------------------------------------------|
+  | Aider docs           | docs/aider_contract.md, aider/help/
+           | Aider-tuned WORKSTREAM_V1.md                     | Partial
+  overlap - pipeline_plus is more refined            |
+  | Workstream authoring | docs/workstream_authoring_guide.md
+           | WORKSTREAM_V1.1 templates                        | Partial
+  overlap - pipeline_plus has tool-specific variants |
+  | Coordination         | meta/Coordination Mechanisms/,
+  docs/COORDINATION_GUIDE.md | AGENT_OPERATIONS_SPEC
+      | Overlap - pipeline_plus consolidates these                 |
+  | Tool routing         | Scattered in docs/ contracts
+           | # ROUTER_AND_PROMPT_TEMPLATE_COMBINED_SPEC_V1.md | Partial
+  overlap - pipeline_plus synthesizes                |
+
+  Unique to Pipeline_Plus
+
+  - AGENT_OPERATIONS_SPEC version1.0.0 - Formalized XML-based spec (new
+  format)
+  - # Patch Files as Unified Diff & Optimal .md - Patch file documentation
+  (no equivalent in parent)
+  - # Comprehensive Integration Specification Enhanced Prompt Engineering.md
+   - Consolidated prompt engineering spec
+
+  Recommendation
+
+  The pipeline_plus/ directory appears to be:
+  1. A consolidation effort - Taking scattered docs from docs/, meta/,
+  aider/help/ and synthesizing them
+  2. Machine-optimized specs - Structured for agentic AI processing rather
+  than human reference
+  3. Not pure duplicates - Enhanced/refined versions of existing concepts
+
+  Consider:
+  - Moving these consolidated specs to docs/specs/ or similar in the main
+  pipeline
+  - Deprecating scattered source documents in favor of the consolidated
+  versions
+  - Updating the parent CLAUDE.md to reference these as authoritative
+  sources
+
+
+

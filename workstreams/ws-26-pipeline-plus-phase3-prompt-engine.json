@@ -1,0 +1,54 @@
+{
+  "id": "ws-26-pipeline-plus-phase3-prompt-engine",
+  "openspec_change": "PP-003",
+  "ccpm_issue": "pipeline-plus-phase3",
+  "gate": 1,
+  "files_scope": [
+    "core/engine/prompt_engine.py",
+    "aider/templates/prompts/workstream_v1.1_universal.txt.j2",
+    "aider/templates/prompts/workstream_v1.1_aider.txt.j2",
+    "aider/templates/prompts/workstream_v1.1_codex.txt.j2",
+    "aider/engine.py",
+    "tests/test_prompt_engine.py"
+  ],
+  "files_create": [
+    "core/engine/prompt_engine.py",
+    "aider/templates/prompts/workstream_v1.1_universal.txt.j2",
+    "aider/templates/prompts/workstream_v1.1_aider.txt.j2",
+    "aider/templates/prompts/workstream_v1.1_codex.txt.j2",
+    "tests/test_prompt_engine.py"
+  ],
+  "tasks": [
+    "Create core/engine/prompt_engine.py with PromptEngine and Classification classes",
+    "Implement render_v11(bundle, context) -> str: infer classification, infer role, select template, populate V1.1 sections, return ASCII-only prompt",
+    "Implement _infer_classification(bundle) -> Classification: analyze file count, task complexity, dependencies",
+    "Implement _infer_role(classification) -> str: map to persona string",
+    "Implement _select_template(target_app) -> str: choose universal|aider|codex|claude variant",
+    "Create Jinja2 templates with V1.1 sections: [HEADER]→[OBJECTIVE]→[CONTEXT]→[FILE_SCOPE]→[TASKS]→[CONSTRAINTS]→[OUTPUT_FORMAT]→[VALIDATION]→[NEXT_STEPS]→[EXECUTION_HINTS]",
+    "Modify aider/engine.py to add V1.1 rendering support",
+    "Create unit tests for classification inference, template rendering, V1.1 schema validation",
+    "Test regression: existing bundles render correctly"
+  ],
+  "acceptance_tests": [
+    "pytest -q tests/test_prompt_engine.py",
+    "Bundle renders to valid V1.1 prompt",
+    "Classification inference is accurate",
+    "All template variants render without errors"
+  ],
+  "depends_on": [
+    "ws-25-pipeline-plus-phase2-patch-manager"
+  ],
+  "tool": "aider",
+  "circuit_breaker": {
+    "max_attempts": 5,
+    "max_error_repeats": 2,
+    "oscillation_threshold": 2
+  },
+  "metadata": {
+    "phase": "Phase 3: Prompt Engine V1.1 (Section 4)",
+    "description": "WORKSTREAM_V1.1 template rendering with classification inference",
+    "owner": "pipeline-plus",
+    "priority": "high",
+    "can_parallel_with": "ws-27-pipeline-plus-phase4-validation"
+  }
+}

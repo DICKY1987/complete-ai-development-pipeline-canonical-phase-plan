@@ -1,0 +1,43 @@
+{
+  "id": "ws-23-pipeline-plus-phase1a-task-queue",
+  "openspec_change": "PP-001A",
+  "ccpm_issue": "pipeline-plus-phase1a",
+  "gate": 1,
+  "files_scope": [
+    "core/state/task_queue.py",
+    "tests/test_task_queue.py"
+  ],
+  "files_create": [
+    "core/state/task_queue.py",
+    "tests/test_task_queue.py"
+  ],
+  "tasks": [
+    "Create core/state/task_queue.py with Task and TaskQueue classes",
+    "Implement Task dataclass with fields: task_id (ULID), source_app, mode, capabilities, payload, constraints, timeouts, routing_state",
+    "Implement TaskQueue class with methods: enqueue(), dequeue(), peek(), move_to_running(), complete(), fail(), get_status()",
+    "Use file-based queue with .tasks/{inbox,running,done,failed}/ directories",
+    "Implement file locking for concurrent access safety",
+    "Create unit tests for enqueue/dequeue cycle, concurrent access, persistence"
+  ],
+  "acceptance_tests": [
+    "pytest -q tests/test_task_queue.py",
+    "Task persists across process restart",
+    "Concurrent access test passes without race conditions"
+  ],
+  "depends_on": [
+    "ws-22-pipeline-plus-phase0-schema"
+  ],
+  "tool": "aider",
+  "circuit_breaker": {
+    "max_attempts": 4,
+    "max_error_repeats": 2,
+    "oscillation_threshold": 2
+  },
+  "metadata": {
+    "phase": "Phase 1A: Task Queue Management (Section 2)",
+    "description": "File-based task lifecycle management",
+    "owner": "pipeline-plus",
+    "priority": "high",
+    "parallel_with": "ws-24-pipeline-plus-phase1b-audit"
+  }
+}

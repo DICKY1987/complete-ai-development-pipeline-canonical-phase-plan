@@ -1,0 +1,152 @@
+{
+  "$id": "schema/profile_extension.v1.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ProfileExtension v1",
+  "description": "Domain-specific profile that extends core framework with resource types, change types, task kinds, and constraints.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["profile_id", "profile_version", "extends_core", "adds_resource_types"],
+  "properties": {
+    "profile_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Unique profile identifier"
+    },
+    "profile_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "description": "Profile version"
+    },
+    "domain": {
+      "type": "string",
+      "description": "Domain this profile is for"
+    },
+    "description": {
+      "type": "string",
+      "description": "What this profile provides"
+    },
+    "extends_core": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "COOPERATION_SPEC",
+          "PHASE_SPEC_MASTER",
+          "WORKSTREAM_SPEC",
+          "TASK_ROUTING_SPEC",
+          "PROMPT_RENDERING_SPEC",
+          "PATCH_MANAGEMENT_SPEC"
+        ]
+      },
+      "description": "Core specs this profile extends"
+    },
+    "adds_resource_types": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["type", "scope_format", "operations"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Resource type name (files, tables, services, etc.)"
+          },
+          "scope_format": {
+            "type": "string",
+            "description": "How scopes are expressed (glob_patterns, sql_patterns, etc.)"
+          },
+          "operations": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["read", "write", "create", "delete", "execute"]
+            },
+            "description": "Supported operations on this resource type"
+          }
+        }
+      },
+      "description": "Resource types added by this profile"
+    },
+    "adds_change_types": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["kind", "format"],
+        "properties": {
+          "kind": {
+            "type": "string",
+            "description": "Change type (file_patch, schema_migration, etc.)"
+          },
+          "format": {
+            "type": "string",
+            "description": "Format of the change (unified_diff, sql_ddl, etc.)"
+          },
+          "validation": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Validation steps required"
+          }
+        }
+      },
+      "description": "Change types added by this profile"
+    },
+    "adds_task_kinds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Task kinds added by this profile (code_edit, schema_change, etc.)"
+    },
+    "adds_constraints": {
+      "type": "object",
+      "description": "Default constraints added by this profile",
+      "properties": {
+        "patch_only": {
+          "type": "boolean"
+        },
+        "max_lines_changed": {
+          "type": "integer"
+        },
+        "max_files_changed": {
+          "type": "integer"
+        },
+        "tests_must_pass": {
+          "type": "boolean"
+        },
+        "ascii_only": {
+          "type": "boolean"
+        }
+      }
+    },
+    "adds_validation_types": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["type", "command"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Validation type (pytest, eslint, schema_validator, etc.)"
+          },
+          "command": {
+            "type": "string",
+            "description": "Command to run validation"
+          }
+        }
+      },
+      "description": "Validation types added by this profile"
+    },
+    "phase_templates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "phase_id": {"type": "string"},
+          "name": {"type": "string"},
+          "category": {"type": "string"},
+          "template_path": {"type": "string"}
+        }
+      },
+      "description": "Phase templates provided by this profile"
+    }
+  }
+}

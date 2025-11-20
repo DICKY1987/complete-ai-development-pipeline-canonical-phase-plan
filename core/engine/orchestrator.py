@@ -17,6 +17,7 @@ from core.state import worktree
 from core.engine import tools
 from core import prompts
 from core.engine import circuit_breakers as cb
+from core.engine import aim_integration
 
 __all__ = [
     "STEP_EDIT",
@@ -73,7 +74,32 @@ def run_edit_step(run_id: str, ws_id: str, bundle_obj: Any, context: Mapping[str
         return StepResult(step_name=STEP_EDIT, success=True, details=result_dict)
 
     try:
-        tr = prompts.run_aider_edit(run, ws, bundle_obj, ctx, run_id=run_id, ws_id=ws_id)
+        # Check if workstream specifies a capability (AIM routing)
+        capability = bundle_obj.get("capability")
+        capability_payload = bundle_obj.get("capability_payload", {})
+        fallback_tool = bundle_obj.get("tool")  # Use 'tool' as fallback
+        
+        if capability and aim_integration.is_aim_available():
+            # Use AIM capability routing
+            # Build payload from workstream data
+            aim_payload = {
+                "files": bundle_obj.get("files_scope", []),
+                "prompt": " ".join(bundle_obj.get("tasks", [])),
+                **capability_payload  # Merge any explicit capability payload
+            }
+            
+            tr = aim_integration.execute_with_aim(
+                capability=capability,
+                payload=aim_payload,
+                fallback_tool=fallback_tool,
+                context=ctx,
+                run_id=run_id,
+                ws_id=ws_id
+            )
+        else:
+            # Use direct tool invocation (backward compatible)
+            tr = prompts.run_aider_edit(run, ws, bundle_obj, ctx, run_id=run_id, ws_id=ws_id)
+        
         success = bool(tr.success)
         result_dict = tr.to_dict()
     except Exception as e:  # pragma: no cover - safety

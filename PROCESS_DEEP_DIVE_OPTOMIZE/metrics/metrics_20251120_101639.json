@@ -1,0 +1,1208 @@
+{
+  "collection_timestamp": "2025-11-20T10:16:37.515306",
+  "project_root": "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical Phase Plan\\pipeline_plus\\AGENTIC_DEV_PROTOTYPE",
+  "execution_metrics": {
+    "total_sessions": 3,
+    "completed_milestones": 1,
+    "session_files": [
+      "SESSION_1_FINAL_REPORT.md",
+      "SESSION_2_FINAL_REPORT.md",
+      "SESSION_3_FINAL_REPORT.md"
+    ],
+    "milestone_files": [
+      "MILESTONE_M1_SUMMARY.md"
+    ],
+    "master_plan": {
+      "total_phases": 21,
+      "total_milestones": 7,
+      "estimated_sequential_hours": 0,
+      "estimated_parallel_hours": 0
+    }
+  },
+  "code_metrics": {
+    "total_python_files": 17,
+    "total_lines_of_code": 5390,
+    "total_classes": 28,
+    "total_functions": 161,
+    "average_lines_per_file": 317.05882352941177,
+    "files": [
+      {
+        "file": "src\\patch_manager.py",
+        "lines": 460,
+        "classes": 2,
+        "functions": 8,
+        "size_bytes": 15056
+      },
+      {
+        "file": "src\\prompt_renderer.py",
+        "lines": 374,
+        "classes": 1,
+        "functions": 14,
+        "size_bytes": 12081
+      },
+      {
+        "file": "src\\schema_generator.py",
+        "lines": 402,
+        "classes": 1,
+        "functions": 9,
+        "size_bytes": 16623
+      },
+      {
+        "file": "src\\spec_renderer.py",
+        "lines": 346,
+        "classes": 1,
+        "functions": 14,
+        "size_bytes": 12048
+      },
+      {
+        "file": "src\\spec_resolver.py",
+        "lines": 359,
+        "classes": 3,
+        "functions": 12,
+        "size_bytes": 12879
+      },
+      {
+        "file": "src\\task_queue.py",
+        "lines": 486,
+        "classes": 3,
+        "functions": 17,
+        "size_bytes": 14719
+      },
+      {
+        "file": "src\\validation_gateway.py",
+        "lines": 375,
+        "classes": 3,
+        "functions": 10,
+        "size_bytes": 12392
+      },
+      {
+        "file": "src\\adapters\\aider_adapter.py",
+        "lines": 282,
+        "classes": 2,
+        "functions": 7,
+        "size_bytes": 8998
+      },
+      {
+        "file": "src\\adapters\\claude_adapter.py",
+        "lines": 262,
+        "classes": 2,
+        "functions": 7,
+        "size_bytes": 8350
+      },
+      {
+        "file": "src\\adapters\\codex_adapter.py",
+        "lines": 250,
+        "classes": 2,
+        "functions": 8,
+        "size_bytes": 7791
+      },
+      {
+        "file": "src\\orchestrator\\core.py",
+        "lines": 390,
+        "classes": 1,
+        "functions": 9,
+        "size_bytes": 12842
+      },
+      {
+        "file": "src\\orchestrator\\dependency_resolver.py",
+        "lines": 349,
+        "classes": 1,
+        "functions": 11,
+        "size_bytes": 11357
+      },
+      {
+        "file": "src\\orchestrator\\parallel_executor.py",
+        "lines": 219,
+        "classes": 1,
+        "functions": 6,
+        "size_bytes": 6917
+      },
+      {
+        "file": "src\\orchestrator\\state_machine.py",
+        "lines": 114,
+        "classes": 3,
+        "functions": 7,
+        "size_bytes": 3534
+      },
+      {
+        "file": "src\\orchestrator\\__init__.py",
+        "lines": 14,
+        "classes": 0,
+        "functions": 0,
+        "size_bytes": 288
+      },
+      {
+        "file": "src\\validators\\guard_rules_engine.py",
+        "lines": 414,
+        "classes": 1,
+        "functions": 13,
+        "size_bytes": 13681
+      },
+      {
+        "file": "src\\validators\\schema_validator.py",
+        "lines": 294,
+        "classes": 1,
+        "functions": 9,
+        "size_bytes": 9672
+      }
+    ]
+  },
+  "test_metrics": {
+    "total_test_files": 11,
+    "total_test_functions": 188,
+    "test_files": [
+      {
+        "file": "tests\\test_dependency_resolution.py",
+        "test_functions": 15,
+        "lines": 251
+      },
+      {
+        "file": "tests\\test_guard_rules.py",
+        "test_functions": 16,
+        "lines": 288
+      },
+      {
+        "file": "tests\\test_orchestrator_core.py",
+        "test_functions": 19,
+        "lines": 231
+      },
+      {
+        "file": "tests\\test_patch_manager.py",
+        "test_functions": 18,
+        "lines": 241
+      },
+      {
+        "file": "tests\\test_prompt_renderer.py",
+        "test_functions": 19,
+        "lines": 279
+      },
+      {
+        "file": "tests\\test_schema_generator.py",
+        "test_functions": 14,
+        "lines": 188
+      },
+      {
+        "file": "tests\\test_schema_validator.py",
+        "test_functions": 15,
+        "lines": 251
+      },
+      {
+        "file": "tests\\test_spec_renderer.py",
+        "test_functions": 22,
+        "lines": 222
+      },
+      {
+        "file": "tests\\test_spec_resolver.py",
+        "test_functions": 18,
+        "lines": 198
+      },
+      {
+        "file": "tests\\test_task_queue.py",
+        "test_functions": 18,
+        "lines": 243
+      },
+      {
+        "file": "tests\\test_validation_gateway.py",
+        "test_functions": 14,
+        "lines": 247
+      }
+    ]
+  },
+  "specification_metrics": {
+    "total_phase_specs": 21,
+    "total_acceptance_criteria": 0,
+    "total_dependencies": 34,
+    "specifications": [
+      {
+        "file": "phase_0_bootstrap.json",
+        "phase_id": "unknown",
+        "title": "unknown",
+        "acceptance_criteria_count": 0,
+        "dependencies_count": 0,
+        "estimated_hours": 0
+      },
+      {
+        "file": "phase_1a_universal_spec.json",
+        "phase_id": "unknown",
+        "title": "unknown",
+        "acceptance_criteria_count": 0,
+        "dependencies_count": 1,
+        "estimated_hours": 0
+      },
+      {
+        "file": "phase_1b_pro_spec.json",
+        "phase_id": "unknown",
+        "title": "unknown",
+        "acceptance_criteria_count": 0,
+        "dependencies_count": 1,
+        "estimated_hours": 0
+      },
+      {
+        "file": "phase_1c_dev_rules.json",
+        "phase_id": "unknown",
+        "title": "unknown",
+        "acceptance_criteria_count": 0,
+        "dependencies_count": 1,
+        "estimated_hours": 0
+      },
+      {
+        "file": "phase_1d_cross_reference.json",
+        "phase_id": "unknown",
+        "title": "unknown",
+        "acceptance_criteria_count": 0,
+        "dependencies_count": 3,
+        "estimated_hours": 0
+      },
+      {
+        "file": "phase_1e_schema_generator.json",
+        "phase_id": "unknown",
+        "title": "unknown",
+        "acceptance_criteria_count": 0,
+        "dependencies_count": 3,
+        "estimated_hours": 0
+      },
+      {
+        "file": "phase_1f_spec_renderer.json",
+        "phase_id": "unknown",
+        "title": "unknown",
+        "acceptance_criteria_count": 0,
+        "dependencies_count": 3,
+        "estimated_hours": 0
+      },
+      {
+        "file": "phase_2a_schema_validator.json",
+        "phase_id": "unknown",
+        "title": "unknown",
+        "acceptance_criteria_count": 0,
+        "dependencies_count": 1,
+        "estimated_hours": 0
+      },
+      {
+        "file": "phase_2b_guard_rules.json",
+        "phase_id": "unknown",
+        "title": "unknown",
+        "acceptance_criteria_count": 0,
+        "dependencies_count": 2,
+        "estimated_hours": 0
+      },
+      {
+        "file": "phase_2c_validation_gateway.json",
+        "phase_id": "unknown",
+        "title": "unknown",
+        "acceptance_criteria_count": 0,
+        "dependencies_count": 2,
+        "estimated_hours": 0
+      },
+      {
+        "file": "phase_3a_prompt_renderer.json",
+        "phase_id": "unknown",
+        "title": "unknown",
+        "acceptance_criteria_count": 0,
+        "dependencies_count": 1,
+        "estimated_hours": 0
+      },
+      {
+        "file": "phase_3b_orchestrator_core.json",
+        "phase_id": "unknown",
+        "title": "unknown",
+        "acceptance_criteria_count": 0,
+        "dependencies_count": 2,
+        "estimated_hours": 0
+      },
+      {
+        "file": "phase_3c_dependency_executor.json",
+        "phase_id": "unknown",
+        "title": "unknown",
+        "acceptance_criteria_count": 0,
+        "dependencies_count": 1,
+        "estimated_hours": 0
+      },
+      {
+        "file": "phase_4a_patch_manager.json",
+        "phase_id": "unknown",
+        "title": "unknown",
+        "acceptance_criteria_count": 0,
+        "dependencies_count": 1,
+        "estimated_hours": 0
+      },
+      {
+        "file": "phase_4b_task_queue.json",
+        "phase_id": "unknown",
+        "title": "unknown",
+        "acceptance_criteria_count": 0,
+        "dependencies_count": 1,
+        "estimated_hours": 0
+      },
+      {
+        "file": "phase_5a_aider_adapter.json",
+        "phase_id": "unknown",
+        "title": "unknown",
+        "acceptance_criteria_count": 0,
+        "dependencies_count": 1,
+        "estimated_hours": 0
+      },
+      {
+        "file": "phase_5b_codex_adapter.json",
+        "phase_id": "unknown",
+        "title": "unknown",
+        "acceptance_criteria_count": 0,
+        "dependencies_count": 1,
+        "estimated_hours": 0
+      },
+      {
+        "file": "phase_5c_claude_adapter.json",
+        "phase_id": "unknown",
+        "title": "unknown",
+        "acceptance_criteria_count": 0,
+        "dependencies_count": 1,
+        "estimated_hours": 0
+      },
+      {
+        "file": "phase_6a_integration_tests.json",
+        "phase_id": "unknown",
+        "title": "unknown",
+        "acceptance_criteria_count": 0,
+        "dependencies_count": 6,
+        "estimated_hours": 0
+      },
+      {
+        "file": "phase_6b_cli_scripts.json",
+        "phase_id": "unknown",
+        "title": "unknown",
+        "acceptance_criteria_count": 0,
+        "dependencies_count": 1,
+        "estimated_hours": 0
+      },
+      {
+        "file": "phase_6c_documentation.json",
+        "phase_id": "unknown",
+        "title": "unknown",
+        "acceptance_criteria_count": 0,
+        "dependencies_count": 1,
+        "estimated_hours": 0
+      }
+    ]
+  },
+  "ai_interaction_metrics": {},
+  "git_metrics": {
+    "total_commits": 104,
+    "current_branch": "main",
+    "uncommitted_changes": "7 files changed, 2090 deletions(-)",
+    "git_available": true
+  },
+  "file_inventory": {
+    "total_files": 135,
+    "files": [
+      {
+        "path": "# Comprehensive Integration Specification Enhanced Prompt Engineering.md",
+        "size_bytes": 94891,
+        "modified": "2025-11-19T11:29:59.373991",
+        "checksum_md5": "ae56d33abca9936510c6ed77d7b36bfc"
+      },
+      {
+        "path": "# Patch Files as Unified Diff & Optimal .md",
+        "size_bytes": 19481,
+        "modified": "2025-11-19T11:12:40.161763",
+        "checksum_md5": "d8610e124c59199c48f8e649de7b9e03"
+      },
+      {
+        "path": ".gitignore",
+        "size_bytes": 288,
+        "modified": "2025-11-20T06:21:25.590717",
+        "checksum_md5": "88ee5d412f257cf18774fa90348d894c"
+      },
+      {
+        "path": "2025- ANTI-PATTERN FORENSICS.md",
+        "size_bytes": 12052,
+        "modified": "2025-11-19T18:00:54.233197",
+        "checksum_md5": "ebdd5baa3b71af7403eaf17689e09be5"
+      },
+      {
+        "path": "A Guide to High-Quality Prompts for Superior AI (1).txt",
+        "size_bytes": 5841,
+        "modified": "2025-11-06T19:51:58.744170",
+        "checksum_md5": "f136d8739d1c10a7fb4cece952ae5de8"
+      },
+      {
+        "path": "agentic_ai_prompting_crafting professional_reference.md",
+        "size_bytes": 36082,
+        "modified": "2025-11-06T19:52:40.848197",
+        "checksum_md5": "4fe46cf74bcbc8314e49ebbbe520554b"
+      },
+      {
+        "path": "AGENT_OPERATIONS_SPEC version1.md",
+        "size_bytes": 34221,
+        "modified": "2025-11-20T08:55:12.998583",
+        "checksum_md5": "b97222c5f356bfbed7e14b949ac6e705"
+      },
+      {
+        "path": "Anthropic Prompt Guide \u2192 structure XML-ish thinking.md",
+        "size_bytes": 9374,
+        "modified": "2025-11-19T08:56:03.989625",
+        "checksum_md5": "2042787d3174b7671c296ece0c5ce5d6"
+      },
+      {
+        "path": "anthropic_prompt_engineering_guide.md",
+        "size_bytes": 12856,
+        "modified": "2025-11-06T19:52:07.708914",
+        "checksum_md5": "0812f1e8b86dc5bbe2a94d14321f7e48"
+      },
+      {
+        "path": "Background_task.md",
+        "size_bytes": 10267,
+        "modified": "2025-11-19T08:46:43.371310",
+        "checksum_md5": "e308f8bac17c8e06f859bcabfa7d1e51"
+      },
+      {
+        "path": "CLAUDE.md",
+        "size_bytes": 13218,
+        "modified": "2025-11-20T00:51:54.025738",
+        "checksum_md5": "465dd00bc26ca546b052e64a6345489f"
+      },
+      {
+        "path": "core AI-only specs_machine-readable_subsection _stable, unique ID_safe and pleasant to edit via patch files.md",
+        "size_bytes": 9453,
+        "modified": "2025-11-20T00:06:46.219395",
+        "checksum_md5": "8fb202101e3edcda8f324abeea32042c"
+      },
+      {
+        "path": "DATA_COLLECTION_STRATEGY.md",
+        "size_bytes": 8573,
+        "modified": "2025-11-20T10:12:40.609393",
+        "checksum_md5": "31d039d12f725c36f05c469852709360"
+      },
+      {
+        "path": "Detailed Phase-by-Phase Development Plan pipeline_plus.md",
+        "size_bytes": 21812,
+        "modified": "2025-11-19T15:00:20.599233",
+        "checksum_md5": "c85db02627e5628c8b8d9b794ada2112"
+      },
+      {
+        "path": "DEVELOPMENT RULES DO and DONT.md",
+        "size_bytes": 11255,
+        "modified": "2025-11-19T18:36:20.203069",
+        "checksum_md5": "b72480207b497e939a4668d2a83a0c52"
+      },
+      {
+        "path": "EXAMPLE_GOOD_SESSION_2_FINAL_REPORT.md",
+        "size_bytes": 553312,
+        "modified": "2025-11-20T09:13:40.868013",
+        "checksum_md5": "d98433541a14e2f008c72bcf1e76a284"
+      },
+      {
+        "path": "ExecutionReque_Validator_Orchestrator_ Game Board protocol.md",
+        "size_bytes": 15478,
+        "modified": "2025-11-19T19:37:03.677343",
+        "checksum_md5": "3d63fc2b0d5bf945c6a03c8172c8679c"
+      },
+      {
+        "path": "EXECUTION_SUMMARY.md",
+        "size_bytes": 11090,
+        "modified": "2025-11-20T07:21:28.347340",
+        "checksum_md5": "bb4841a32dae15158ca293219b37e242"
+      },
+      {
+        "path": "Foundational Strategies_The Core of a Good Prompt.txt",
+        "size_bytes": 5384,
+        "modified": "2025-11-06T19:52:53.649847",
+        "checksum_md5": "19b6aebd7d7fa01912ba8b92fdbda00a"
+      },
+      {
+        "path": "GAME_BOARD_CHAT_&_PHASEPLSN.md",
+        "size_bytes": 26727,
+        "modified": "2025-11-20T01:20:09.731511",
+        "checksum_md5": "1bb4ad58e7ac785049de9ca42bd8c81e"
+      },
+      {
+        "path": "how to optimized for machine readability.md",
+        "size_bytes": 8826,
+        "modified": "2025-11-19T19:26:05.687067",
+        "checksum_md5": "1d37650606fc264ce0dc9d0aee1fdf71"
+      },
+      {
+        "path": "Invoke_added_pipeline.md",
+        "size_bytes": 8681,
+        "modified": "2025-11-17T16:42:04.451023",
+        "checksum_md5": "86f685ce1eaf987f07bfd2b20d12bfb6"
+      },
+      {
+        "path": "Master Phase Plan.md",
+        "size_bytes": 1236,
+        "modified": "2025-11-20T09:53:04.220267",
+        "checksum_md5": "a4ab4e70a597d390cdb4fd71af37a701"
+      },
+      {
+        "path": "master_phase_plan.json",
+        "size_bytes": 8293,
+        "modified": "2025-11-20T01:33:25.459333",
+        "checksum_md5": "bb70792149e31136979aa6b0584d9f74"
+      },
+      {
+        "path": "MILESTONE_M1_SUMMARY.md",
+        "size_bytes": 9462,
+        "modified": "2025-11-20T07:06:34.443213",
+        "checksum_md5": "571b764d4c554b4e2b35b28628535fb5"
+      },
+      {
+        "path": "mods1.md",
+        "size_bytes": 10690,
+        "modified": "2025-11-20T00:32:41.027271",
+        "checksum_md5": "34020b73b66ea8619ce18b54625232fd"
+      },
+      {
+        "path": "mods2.md",
+        "size_bytes": 19810,
+        "modified": "2025-11-20T00:34:31.786537",
+        "checksum_md5": "772d059a96660129ea8b2a850534be15"
+      },
+      {
+        "path": "PHASE_0_EXECUTION_SUMMARY.md",
+        "size_bytes": 8443,
+        "modified": "2025-11-20T06:25:00.541658",
+        "checksum_md5": "ea5179673b04329af2b480ca6cb19137"
+      },
+      {
+        "path": "Prompt_improve.md",
+        "size_bytes": 20453,
+        "modified": "2025-11-19T08:52:39.115547",
+        "checksum_md5": "886a417f085aa5962638d1ac5324cd2b"
+      },
+      {
+        "path": "PRO_given the AI a really good game board to play on.md",
+        "size_bytes": 5622,
+        "modified": "2025-11-19T16:46:39.287449",
+        "checksum_md5": "36cee204949cdad71e9e4c6bb1efd2b6"
+      },
+      {
+        "path": "PRO_Phase Specification mandatory structure.md",
+        "size_bytes": 21556,
+        "modified": "2025-11-19T18:03:50.090935",
+        "checksum_md5": "f1f263725bf35abce958ddca066121a1"
+      },
+      {
+        "path": "PRO_What\u2019s working so well in `fastdev.md",
+        "size_bytes": 8346,
+        "modified": "2025-11-19T16:45:51.351218",
+        "checksum_md5": "054c2619c686c436054422520d91d1cc"
+      },
+      {
+        "path": "PRR_ai_prompt_engineering_reference.md",
+        "size_bytes": 207826,
+        "modified": "2025-11-06T19:52:19.853043",
+        "checksum_md5": "623fb9653ddd26697301eb4e9e8eb97d"
+      },
+      {
+        "path": "prr_project_instructions_architecture_aware_prompting_code_generation.md",
+        "size_bytes": 10589,
+        "modified": "2025-11-06T19:52:31.899040",
+        "checksum_md5": "a20f86426f970164ac7920446e538b3c"
+      },
+      {
+        "path": "README.md",
+        "size_bytes": 2806,
+        "modified": "2025-11-20T10:05:26.912666",
+        "checksum_md5": "c80dcccfe8f27df0fe73b0c0e9452e73"
+      },
+      {
+        "path": "SESSION_1_FINAL_REPORT.md",
+        "size_bytes": 14932,
+        "modified": "2025-11-20T07:34:51.160777",
+        "checksum_md5": "a6c6bda83eb00844efa6cdc9442cb937"
+      },
+      {
+        "path": "SESSION_2_FINAL_REPORT.md",
+        "size_bytes": 11584,
+        "modified": "2025-11-20T07:56:06.687976",
+        "checksum_md5": "61d31647c4180efff522d437d65248d9"
+      },
+      {
+        "path": "SESSION_3_FINAL_REPORT.md",
+        "size_bytes": 10237,
+        "modified": "2025-11-20T09:05:59.656275",
+        "checksum_md5": "a0cab531c9539cb801fb3f979ad84d3d"
+      },
+      {
+        "path": "seven pipeline_plus docs fit together.md",
+        "size_bytes": 6618,
+        "modified": "2025-11-18T11:31:30.011935",
+        "checksum_md5": "66a899d63741e4ff15f010322f892627"
+      },
+      {
+        "path": "The Core of a Good Prompt (1).txt",
+        "size_bytes": 5384,
+        "modified": "2025-11-06T19:51:46.169950",
+        "checksum_md5": "19b6aebd7d7fa01912ba8b92fdbda00a"
+      },
+      {
+        "path": "UNIVERSAL PHASE SPECIFICATION.txt",
+        "size_bytes": 24845,
+        "modified": "2025-11-19T19:18:09.447234",
+        "checksum_md5": "7dc0e337d75bb9623be4582ef68bd6e4"
+      },
+      {
+        "path": ".ledger\\M6_COMPLETE.json",
+        "size_bytes": 657,
+        "modified": "2025-11-20T10:04:33.102068",
+        "checksum_md5": "eed30bb8c2ac0f42c099390e1a083d6f"
+      },
+      {
+        "path": ".ledger\\PH-00.json",
+        "size_bytes": 457,
+        "modified": "2025-11-20T09:24:35.874062",
+        "checksum_md5": "ad05a00b3003373524082226e37b9966"
+      },
+      {
+        "path": ".ledger\\PH-1D.json",
+        "size_bytes": 3316,
+        "modified": "2025-11-20T07:19:59.108410",
+        "checksum_md5": "5040febeb15fd2203a21ed335494ae7e"
+      },
+      {
+        "path": ".ledger\\PH-1E.json",
+        "size_bytes": 2656,
+        "modified": "2025-11-20T07:56:06.687976",
+        "checksum_md5": "62b4b38278b18a6559cbc06491f27e33"
+      },
+      {
+        "path": ".ledger\\PH-1F.json",
+        "size_bytes": 2401,
+        "modified": "2025-11-20T07:56:06.687976",
+        "checksum_md5": "290281ab2f3e654840403a351a553974"
+      },
+      {
+        "path": ".ledger\\PH-2A.json",
+        "size_bytes": 1100,
+        "modified": "2025-11-20T09:04:57.410638",
+        "checksum_md5": "461deb53dd9bd80ec4d9133a205c8716"
+      },
+      {
+        "path": ".ledger\\PH-2B.json",
+        "size_bytes": 1118,
+        "modified": "2025-11-20T09:04:57.410638",
+        "checksum_md5": "13fbabcb5eeeaa1edb879d84987f3f9b"
+      },
+      {
+        "path": ".ledger\\PH-2C.json",
+        "size_bytes": 1163,
+        "modified": "2025-11-20T09:04:57.410638",
+        "checksum_md5": "58e1586f73cc11b2bfe9c19c7053f3e0"
+      },
+      {
+        "path": ".ledger\\PH-3A.json",
+        "size_bytes": 1425,
+        "modified": "2025-11-20T09:20:53.405333",
+        "checksum_md5": "568c71a5ef11adf3b0da15b87704c008"
+      },
+      {
+        "path": ".ledger\\PH-3C.json",
+        "size_bytes": 1532,
+        "modified": "2025-11-20T09:29:06.581233",
+        "checksum_md5": "443be964afbe55d446ebca36141d4c31"
+      },
+      {
+        "path": ".ledger\\PH-4B.json",
+        "size_bytes": 1379,
+        "modified": "2025-11-20T09:55:23.913886",
+        "checksum_md5": "8b0b9c75687bafe21d95242b1c0455c3"
+      },
+      {
+        "path": ".ledger\\PH-5A.json",
+        "size_bytes": 825,
+        "modified": "2025-11-20T10:02:18.326293",
+        "checksum_md5": "20da67751f686f09bd5e45a2a9dcbc56"
+      },
+      {
+        "path": ".ledger\\PH-5B.json",
+        "size_bytes": 730,
+        "modified": "2025-11-20T10:02:18.326293",
+        "checksum_md5": "49e324b2c8aaf5fd0c52d43f4cc7e46b"
+      },
+      {
+        "path": ".ledger\\PH-5C.json",
+        "size_bytes": 818,
+        "modified": "2025-11-20T10:02:18.326293",
+        "checksum_md5": "91f306e5c42f1e186b4e4ee129b947ce"
+      },
+      {
+        "path": ".ledger\\PH-6A.json",
+        "size_bytes": 449,
+        "modified": "2025-11-20T10:04:33.102068",
+        "checksum_md5": "ed540188c1b6d316248a99ca1665b66f"
+      },
+      {
+        "path": ".ledger\\PH-6C.json",
+        "size_bytes": 425,
+        "modified": "2025-11-20T10:04:33.102068",
+        "checksum_md5": "8f4ef8777d9830c3b1ce10ea6581b4ba"
+      },
+      {
+        "path": ".ledger\\README.md",
+        "size_bytes": 325,
+        "modified": "2025-11-20T06:21:25.576384",
+        "checksum_md5": "6232f2742ed816882999cc548537830c"
+      },
+      {
+        "path": ".tasks\\README.md",
+        "size_bytes": 392,
+        "modified": "2025-11-20T06:21:25.576384",
+        "checksum_md5": "d06a25c6a1038124ef579b36c11b1663"
+      },
+      {
+        "path": ".tasks\\complete\\PH-RUN-TEST.json",
+        "size_bytes": 270,
+        "modified": "2025-11-20T09:54:53.191482",
+        "checksum_md5": "f384a96329f96da13c07470679b1a937"
+      },
+      {
+        "path": ".tasks\\queued\\PH-HIGH.json",
+        "size_bytes": 258,
+        "modified": "2025-11-20T09:54:52.663602",
+        "checksum_md5": "0886fc1d855778876edca05b2eccbde8"
+      },
+      {
+        "path": ".tasks\\queued\\PH-LOW.json",
+        "size_bytes": 255,
+        "modified": "2025-11-20T09:54:52.539410",
+        "checksum_md5": "ffb271bd934fb2f169eeadbb26ea9034"
+      },
+      {
+        "path": ".tasks\\queued\\PH-TEST-1.json",
+        "size_bytes": 262,
+        "modified": "2025-11-20T09:54:52.269638",
+        "checksum_md5": "6c6a443319f10d5bfdc16f014a9b9e38"
+      },
+      {
+        "path": "config\\schema.json",
+        "size_bytes": 1843,
+        "modified": "2025-11-20T06:21:25.582509",
+        "checksum_md5": "dc1a10c4faaad221cf422f3e4cbe1ef1"
+      },
+      {
+        "path": "config\\validation_rules.json",
+        "size_bytes": 777,
+        "modified": "2025-11-20T06:21:25.582509",
+        "checksum_md5": "a5e467d3195b5101ebed9967fbb926f2"
+      },
+      {
+        "path": "phase_specs\\phase_0_bootstrap.json",
+        "size_bytes": 4350,
+        "modified": "2025-11-20T06:21:46.435865",
+        "checksum_md5": "7a65bffc7f281ac96e5fe8fd491deb9e"
+      },
+      {
+        "path": "phase_specs\\phase_1a_universal_spec.json",
+        "size_bytes": 2632,
+        "modified": "2025-11-20T06:24:11.131365",
+        "checksum_md5": "ba6886933208114522b8a17c839d9433"
+      },
+      {
+        "path": "phase_specs\\phase_1b_pro_spec.json",
+        "size_bytes": 2626,
+        "modified": "2025-11-20T06:24:11.131365",
+        "checksum_md5": "b5ae40a79f8b6d9ce5a65f4b9d678ea0"
+      },
+      {
+        "path": "phase_specs\\phase_1c_dev_rules.json",
+        "size_bytes": 2727,
+        "modified": "2025-11-20T06:24:11.131365",
+        "checksum_md5": "2066c85efa6b5b1aa77a767b7c701091"
+      },
+      {
+        "path": "phase_specs\\phase_1d_cross_reference.json",
+        "size_bytes": 2422,
+        "modified": "2025-11-20T01:29:24.213018",
+        "checksum_md5": "4da973af0a66ebed458f9e4e3b85c2ba"
+      },
+      {
+        "path": "phase_specs\\phase_1e_schema_generator.json",
+        "size_bytes": 2441,
+        "modified": "2025-11-20T01:29:18.943241",
+        "checksum_md5": "b3cbb56665919d2745a1599cd4f8b22e"
+      },
+      {
+        "path": "phase_specs\\phase_1f_spec_renderer.json",
+        "size_bytes": 2267,
+        "modified": "2025-11-20T01:29:10.538888",
+        "checksum_md5": "622642b760094df6108b402ca123dc60"
+      },
+      {
+        "path": "phase_specs\\phase_2a_schema_validator.json",
+        "size_bytes": 2477,
+        "modified": "2025-11-20T01:29:08.460301",
+        "checksum_md5": "828ae74a19bfc291e06a95eab3ba17f5"
+      },
+      {
+        "path": "phase_specs\\phase_2b_guard_rules.json",
+        "size_bytes": 2796,
+        "modified": "2025-11-20T01:29:02.631901",
+        "checksum_md5": "8fa01bd7a54e4d8566da37f1c9dbaab9"
+      },
+      {
+        "path": "phase_specs\\phase_2c_validation_gateway.json",
+        "size_bytes": 2670,
+        "modified": "2025-11-20T01:29:06.121488",
+        "checksum_md5": "171a27997e138a4e37e39e7505c6e5cf"
+      },
+      {
+        "path": "phase_specs\\phase_3a_prompt_renderer.json",
+        "size_bytes": 2571,
+        "modified": "2025-11-20T01:29:00.799119",
+        "checksum_md5": "9c1534cadadb94e927a61825207f7450"
+      },
+      {
+        "path": "phase_specs\\phase_3b_orchestrator_core.json",
+        "size_bytes": 2983,
+        "modified": "2025-11-20T01:28:59.981723",
+        "checksum_md5": "5fe908715a57305cfa8a9a1ea6a33f89"
+      },
+      {
+        "path": "phase_specs\\phase_3c_dependency_executor.json",
+        "size_bytes": 3051,
+        "modified": "2025-11-20T01:28:59.102033",
+        "checksum_md5": "ee44f5314d773c9284384a26f415f1d2"
+      },
+      {
+        "path": "phase_specs\\phase_4a_patch_manager.json",
+        "size_bytes": 2598,
+        "modified": "2025-11-20T01:28:58.343661",
+        "checksum_md5": "435262f8aa974f74b32da1755462a944"
+      },
+      {
+        "path": "phase_specs\\phase_4b_task_queue.json",
+        "size_bytes": 2588,
+        "modified": "2025-11-20T01:28:57.708716",
+        "checksum_md5": "784cabd6bd829f44dd2aa593318a51c5"
+      },
+      {
+        "path": "phase_specs\\phase_5a_aider_adapter.json",
+        "size_bytes": 2577,
+        "modified": "2025-11-20T01:28:56.873303",
+        "checksum_md5": "76aeebe7143ecd75ee31f340b9a7e258"
+      },
+      {
+        "path": "phase_specs\\phase_5b_codex_adapter.json",
+        "size_bytes": 2284,
+        "modified": "2025-11-20T01:28:54.363827",
+        "checksum_md5": "9d1bcc598ab0a9e3ca1dac29ca3b5a7b"
+      },
+      {
+        "path": "phase_specs\\phase_5c_claude_adapter.json",
+        "size_bytes": 2299,
+        "modified": "2025-11-20T01:33:25.459333",
+        "checksum_md5": "dc891737c840153feccd97a71b92905a"
+      },
+      {
+        "path": "phase_specs\\phase_6a_integration_tests.json",
+        "size_bytes": 3705,
+        "modified": "2025-11-20T01:33:25.459333",
+        "checksum_md5": "f49e30f1df9aee77ea032b7c083f47e7"
+      },
+      {
+        "path": "phase_specs\\phase_6b_cli_scripts.json",
+        "size_bytes": 3033,
+        "modified": "2025-11-20T01:33:25.459333",
+        "checksum_md5": "5a66fbca66526c034759d82632432700"
+      },
+      {
+        "path": "phase_specs\\phase_6c_documentation.json",
+        "size_bytes": 3175,
+        "modified": "2025-11-20T01:33:25.459333",
+        "checksum_md5": "6b18eda557119622c093582151bfaabd"
+      },
+      {
+        "path": "schemas\\generated\\phase_spec.schema.json",
+        "size_bytes": 4205,
+        "modified": "2025-11-20T07:54:00.981113",
+        "checksum_md5": "53a0fa07cbcd4943ddb6b107a225d9f1"
+      },
+      {
+        "path": "schemas\\generated\\validation_rules.schema.json",
+        "size_bytes": 2562,
+        "modified": "2025-11-20T07:54:01.075928",
+        "checksum_md5": "28b07a90076303876557d56d8decc471"
+      },
+      {
+        "path": "schemas\\generated\\workstream.schema.json",
+        "size_bytes": 909,
+        "modified": "2025-11-20T07:54:01.210955",
+        "checksum_md5": "e7c1e0e787f8870865193217681786bc"
+      },
+      {
+        "path": "scripts\\bootstrap.ps1",
+        "size_bytes": 8797,
+        "modified": "2025-11-20T01:33:25.459333",
+        "checksum_md5": "a9489abd39cf1420a8d92fb4faf12ac8"
+      },
+      {
+        "path": "scripts\\collect_development_metrics.py",
+        "size_bytes": 16867,
+        "modified": "2025-11-20T10:15:01.828876",
+        "checksum_md5": "0418f077fb7a1c977c33f2b47c8633bf"
+      },
+      {
+        "path": "scripts\\validate_phase_spec.py",
+        "size_bytes": 10471,
+        "modified": "2025-11-20T01:33:25.459333",
+        "checksum_md5": "f974f24ee2b45cb4233cb0a3fc4f5e4c"
+      },
+      {
+        "path": "specs\\DEV_RULES_V1.md",
+        "size_bytes": 14227,
+        "modified": "2025-11-20T07:03:51.016714",
+        "checksum_md5": "30e5df07b9c41cbd3baae47b1578a862"
+      },
+      {
+        "path": "specs\\PRO_PHASE_SPEC_V1.md",
+        "size_bytes": 11337,
+        "modified": "2025-11-20T07:01:50.371603",
+        "checksum_md5": "40d2b64b6b98fbfa5cee74c397e2bb65"
+      },
+      {
+        "path": "specs\\README.md",
+        "size_bytes": 441,
+        "modified": "2025-11-20T06:21:25.582509",
+        "checksum_md5": "08d9285aa42d3b5b8eb946aa2df08033"
+      },
+      {
+        "path": "specs\\UNIVERSAL_PHASE_SPEC_V1.md",
+        "size_bytes": 14722,
+        "modified": "2025-11-20T06:59:32.310487",
+        "checksum_md5": "ffc35127255419eff39e4c4125f8e6ff"
+      },
+      {
+        "path": "specs\\metadata\\dr_index.json",
+        "size_bytes": 12204,
+        "modified": "2025-11-20T07:04:41.834764",
+        "checksum_md5": "cf12b24b2aa22b4e6ab729fb0152d1d1"
+      },
+      {
+        "path": "specs\\metadata\\pps_index.json",
+        "size_bytes": 6870,
+        "modified": "2025-11-20T07:02:22.690871",
+        "checksum_md5": "7bca8fb32fb40a8cc3e6c5e51c1dc13d"
+      },
+      {
+        "path": "specs\\metadata\\ups_index.json",
+        "size_bytes": 9372,
+        "modified": "2025-11-20T07:00:10.661246",
+        "checksum_md5": "b7ca69423b03aaddc0cbae0feef39b97"
+      },
+      {
+        "path": "src\\patch_manager.py",
+        "size_bytes": 15056,
+        "modified": "2025-11-20T09:38:12.085539",
+        "checksum_md5": "11a3a2e94bf29a2775a4e441751a6c1d"
+      },
+      {
+        "path": "src\\prompt_renderer.py",
+        "size_bytes": 12081,
+        "modified": "2025-11-20T09:11:31.343654",
+        "checksum_md5": "f57ba5f06827c101c790f7cda117a225"
+      },
+      {
+        "path": "src\\schema_generator.py",
+        "size_bytes": 16623,
+        "modified": "2025-11-20T07:53:44.898818",
+        "checksum_md5": "be5a65134befc078e4ef73cbdd90d046"
+      },
+      {
+        "path": "src\\spec_renderer.py",
+        "size_bytes": 12048,
+        "modified": "2025-11-20T07:51:13.264239",
+        "checksum_md5": "58ceb2f65207e2095d71f50a7d035752"
+      },
+      {
+        "path": "src\\spec_resolver.py",
+        "size_bytes": 12879,
+        "modified": "2025-11-20T07:18:36.587590",
+        "checksum_md5": "f80a07576d1fe44b219ad66f99667cb7"
+      },
+      {
+        "path": "src\\task_queue.py",
+        "size_bytes": 14719,
+        "modified": "2025-11-20T09:50:18.240336",
+        "checksum_md5": "cd3c99db68fd6036e917bf7ad8f37d76"
+      },
+      {
+        "path": "src\\validation_gateway.py",
+        "size_bytes": 12392,
+        "modified": "2025-11-20T08:51:28.387862",
+        "checksum_md5": "96218468b3ee2e542902c270817409cf"
+      },
+      {
+        "path": "src\\adapters\\aider_adapter.py",
+        "size_bytes": 8998,
+        "modified": "2025-11-20T09:58:45.721843",
+        "checksum_md5": "0a9b162df45b0553a40b830738cb7e27"
+      },
+      {
+        "path": "src\\adapters\\claude_adapter.py",
+        "size_bytes": 8350,
+        "modified": "2025-11-20T09:58:45.721843",
+        "checksum_md5": "0b9f6acd0a41bd65d1eff0cd68f7018f"
+      },
+      {
+        "path": "src\\adapters\\codex_adapter.py",
+        "size_bytes": 7791,
+        "modified": "2025-11-20T09:58:45.721843",
+        "checksum_md5": "e7a4971740bdf9818c05d5fdcea95979"
+      },
+      {
+        "path": "src\\orchestrator\\core.py",
+        "size_bytes": 12842,
+        "modified": "2025-11-20T09:23:36.130213",
+        "checksum_md5": "1c4a3ab1c04f333604b2c6dd1b90a0aa"
+      },
+      {
+        "path": "src\\orchestrator\\dependency_resolver.py",
+        "size_bytes": 11357,
+        "modified": "2025-11-20T09:27:09.452804",
+        "checksum_md5": "8038d39d048e3a15c840857c0ce63246"
+      },
+      {
+        "path": "src\\orchestrator\\parallel_executor.py",
+        "size_bytes": 6917,
+        "modified": "2025-11-20T09:27:09.452804",
+        "checksum_md5": "566873208c025d323ca016dadefc4a34"
+      },
+      {
+        "path": "src\\orchestrator\\state_machine.py",
+        "size_bytes": 3534,
+        "modified": "2025-11-20T09:23:36.130213",
+        "checksum_md5": "2a93952ff36dc6ba1b459c07081ace61"
+      },
+      {
+        "path": "src\\orchestrator\\__init__.py",
+        "size_bytes": 288,
+        "modified": "2025-11-20T09:24:11.682424",
+        "checksum_md5": "94931270d4964456f9250f912854064e"
+      },
+      {
+        "path": "src\\validators\\guard_rules_engine.py",
+        "size_bytes": 13681,
+        "modified": "2025-11-20T08:40:34.393922",
+        "checksum_md5": "2d9da3c2751c871c6cc760c14d083122"
+      },
+      {
+        "path": "src\\validators\\schema_validator.py",
+        "size_bytes": 9672,
+        "modified": "2025-11-20T08:40:34.393922",
+        "checksum_md5": "62c3a2ada6338be83fed4fa33585485f"
+      },
+      {
+        "path": "templates\\prompt_template.txt",
+        "size_bytes": 1299,
+        "modified": "2025-11-20T07:52:08.380623",
+        "checksum_md5": "f5a51fb72212449c87d5c73a7a29e71e"
+      },
+      {
+        "path": "templates\\workstream_v1.1.txt",
+        "size_bytes": 3531,
+        "modified": "2025-11-20T09:11:31.343654",
+        "checksum_md5": "fa4953210ec4a3a7b45dc885f7e799cc"
+      },
+      {
+        "path": "tests\\test_dependency_resolution.py",
+        "size_bytes": 8369,
+        "modified": "2025-11-20T09:27:47.505971",
+        "checksum_md5": "59d3e84fbdc1bd66239dcd1e18bd9df5"
+      },
+      {
+        "path": "tests\\test_guard_rules.py",
+        "size_bytes": 10567,
+        "modified": "2025-11-20T08:41:37.666008",
+        "checksum_md5": "282154fb224a344be8d296563ba73c4c"
+      },
+      {
+        "path": "tests\\test_orchestrator_core.py",
+        "size_bytes": 8900,
+        "modified": "2025-11-20T09:24:11.682424",
+        "checksum_md5": "9de1cb1c2bea2a2b5aea1f4f20e05588"
+      },
+      {
+        "path": "tests\\test_patch_manager.py",
+        "size_bytes": 8190,
+        "modified": "2025-11-20T09:38:56.410580",
+        "checksum_md5": "2a71f64bc8208f3d8a1243be326ee872"
+      },
+      {
+        "path": "tests\\test_prompt_renderer.py",
+        "size_bytes": 10243,
+        "modified": "2025-11-20T09:20:02.645362",
+        "checksum_md5": "62a868b66dbbfc4b3a13d81cdc293bf6"
+      },
+      {
+        "path": "tests\\test_schema_generator.py",
+        "size_bytes": 7175,
+        "modified": "2025-11-20T07:52:08.380623",
+        "checksum_md5": "cc52769d7667a07c819dcb1fc2c7305e"
+      },
+      {
+        "path": "tests\\test_schema_validator.py",
+        "size_bytes": 9820,
+        "modified": "2025-11-20T08:41:37.666008",
+        "checksum_md5": "2c630d4594de5a3b04a3fe3321737a59"
+      },
+      {
+        "path": "tests\\test_spec_renderer.py",
+        "size_bytes": 8115,
+        "modified": "2025-11-20T07:52:08.380623",
+        "checksum_md5": "239708a3b08af6f2cf57074c42dae7f6"
+      },
+      {
+        "path": "tests\\test_spec_resolver.py",
+        "size_bytes": 7702,
+        "modified": "2025-11-20T07:11:37.294365",
+        "checksum_md5": "cb8f0f34554db0a2a89106c2295e87c3"
+      },
+      {
+        "path": "tests\\test_task_queue.py",
+        "size_bytes": 7812,
+        "modified": "2025-11-20T09:50:18.240336",
+        "checksum_md5": "67a596d5196e2278d240471eb978e891"
+      },
+      {
+        "path": "tests\\test_validation_gateway.py",
+        "size_bytes": 9878,
+        "modified": "2025-11-20T08:52:04.287458",
+        "checksum_md5": "c6ede6a5d742c21773f745b89c6e6ab3"
+      },
+      {
+        "path": "test_data\\invalid_format.patch",
+        "size_bytes": 111,
+        "modified": "2025-11-20T09:39:25.479888",
+        "checksum_md5": "cf80fec26a2e1a54884444b8980f680e"
+      },
+      {
+        "path": "test_data\\invalid_prompt.txt",
+        "size_bytes": 66,
+        "modified": "2025-11-20T09:59:04.459723",
+        "checksum_md5": "8e5e1ab8fc1181cd447cbd92297871aa"
+      },
+      {
+        "path": "test_data\\out_of_scope.patch",
+        "size_bytes": 129,
+        "modified": "2025-11-20T09:39:25.479888",
+        "checksum_md5": "fc325f2ee5add868ee08202fa711ea6e"
+      },
+      {
+        "path": "test_data\\sample.patch",
+        "size_bytes": 298,
+        "modified": "2025-11-20T09:39:25.479888",
+        "checksum_md5": "9eda483033106ca4833af57d7d33254c"
+      },
+      {
+        "path": "test_data\\sample_prompt.txt",
+        "size_bytes": 116,
+        "modified": "2025-11-20T09:59:04.459723",
+        "checksum_md5": "750ebdf52bfb9d7ea5b1340f7cfbb46c"
+      },
+      {
+        "path": "test_data\\valid.patch",
+        "size_bytes": 114,
+        "modified": "2025-11-20T09:39:25.479888",
+        "checksum_md5": "70d6ac1ca84511ea5c51e918711d6515"
+      }
+    ]
+  }
+}

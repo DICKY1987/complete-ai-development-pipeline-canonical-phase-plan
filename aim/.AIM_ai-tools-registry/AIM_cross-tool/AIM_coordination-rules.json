@@ -3,7 +3,90 @@
     "code_generation": {
       "primary": "jules",
       "fallback": ["aider", "claude-cli"],
-      "loadBalance": false
+      "loadBalance": false,
+      "timeout_ms": 60000,
+      "max_retries": 1,
+      "context_requirements": {
+        "prompt": "required"
+      }
+    },
+    "linting": {
+      "primary": "ruff",
+      "fallback": ["pylint"],
+      "loadBalance": false,
+      "timeout_ms": 10000,
+      "max_retries": 0,
+      "context_requirements": {
+        "files": "required"
+      }
+    },
+    "refactoring": {
+      "primary": "aider",
+      "fallback": ["claude-cli"],
+      "loadBalance": false,
+      "timeout_ms": 120000,
+      "max_retries": 1,
+      "context_requirements": {
+        "files": "required",
+        "prompt": "required"
+      }
+    },
+    "testing": {
+      "primary": "pytest",
+      "fallback": [],
+      "loadBalance": false,
+      "timeout_ms": 300000,
+      "max_retries": 0,
+      "context_requirements": {
+        "test_path": "optional"
+      }
+    },
+    "version_checking": {
+      "primary": "aider",
+      "fallback": ["jules", "claude-cli"],
+      "loadBalance": true,
+      "timeout_ms": 5000,
+      "max_retries": 0,
+      "context_requirements": {}
     }
+  },
+  "conflict_resolution": {
+    "concurrent_access": {
+      "strategy": "queue",
+      "max_concurrent": 1
+    }
+  },
+  "security": {
+    "allowed_file_patterns": [
+      "*.py",
+      "*.js",
+      "*.ts",
+      "*.jsx",
+      "*.tsx",
+      "*.md",
+      "*.json",
+      "*.yaml",
+      "*.yml",
+      "*.toml",
+      "*.txt",
+      "*.sh",
+      "*.ps1",
+      "*.sql"
+    ],
+    "forbidden_paths": [
+      "/.git/",
+      "/.env",
+      "/.env.local",
+      "/.env.production",
+      "/node_modules/",
+      "/__pycache__/",
+      "/.venv/",
+      "/venv/",
+      "/.pytest_cache/",
+      "/build/",
+      "/dist/"
+    ],
+    "max_payload_size_bytes": 1048576,
+    "max_file_count": 50
   }
 }

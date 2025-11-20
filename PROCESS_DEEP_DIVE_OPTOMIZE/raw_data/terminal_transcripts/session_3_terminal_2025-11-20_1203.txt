@@ -1,0 +1,5 @@
+
+  Id     Duration CommandLine
+  --     -------- -----------
+   1        0.050 $LASTEXITCODE = 0; echo ___BEGIN___COMMAND_OUTPUT_MARKER___; &{…
+

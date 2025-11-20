@@ -1,0 +1,53 @@
+{
+  "id": "ws-30-pipeline-plus-phase7-integration",
+  "openspec_change": "PP-007",
+  "ccpm_issue": "pipeline-plus-phase7",
+  "gate": 1,
+  "files_scope": [
+    "scripts/submit_task.py",
+    "scripts/task_status.py",
+    "scripts/workstream_metrics.py",
+    "scripts/run_workstream.py",
+    "scripts/SubmitTask.ps1",
+    "tests/test_integration.py"
+  ],
+  "files_create": [
+    "scripts/submit_task.py",
+    "scripts/task_status.py",
+    "scripts/workstream_metrics.py",
+    "tests/test_integration.py"
+  ],
+  "tasks": [
+    "Create scripts/submit_task.py CLI entry point with args: --source, --mode, --files, --description, --patch-file, --validation-commands",
+    "Create scripts/task_status.py to query task status from queue",
+    "Create scripts/workstream_metrics.py with MetricsCollector class: compute first-pass success rate by tool, average fix attempts, circuit breaker trip reasons, execution time distributions",
+    "Modify scripts/run_workstream.py to use new router",
+    "Enhance scripts/SubmitTask.ps1 to support new parameters: -Mode, -PatchFile, -ValidationCommands",
+    "Create end-to-end integration test: Codex → patch → Claude reviews → Aider applies → validated → committed",
+    "Create performance test: 100 tasks through queue",
+    "Create metrics test: dashboard shows accurate data"
+  ],
+  "acceptance_tests": [
+    "pytest -q tests/test_integration.py",
+    "scripts/submit_task.py successfully submits task to queue",
+    "scripts/task_status.py displays correct task status",
+    "scripts/workstream_metrics.py generates metrics dashboard",
+    "End-to-end multi-tool workflow completes successfully",
+    "Performance test: 100 tasks complete without errors"
+  ],
+  "depends_on": [
+    "ws-29-pipeline-plus-phase6-router"
+  ],
+  "tool": "aider",
+  "circuit_breaker": {
+    "max_attempts": 5,
+    "max_error_repeats": 2,
+    "oscillation_threshold": 2
+  },
+  "metadata": {
+    "phase": "Phase 7: Integration & Polish",
+    "description": "End-to-end workflows, CLI entry points, metrics",
+    "owner": "pipeline-plus",
+    "priority": "high"
+  }
+}

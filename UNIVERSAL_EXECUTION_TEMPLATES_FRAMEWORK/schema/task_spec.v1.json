@@ -1,0 +1,88 @@
+{
+  "$id": "schema/task_spec.v1.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TaskSpec v1",
+  "description": "Individual task within a workstream.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["task_id", "name", "kind"],
+  "properties": {
+    "task_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Unique task identifier within workstream"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable task name"
+    },
+    "kind": {
+      "type": "string",
+      "description": "Task kind (code_edit, code_review, analysis, etc.)"
+    },
+    "depends_on": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Task IDs this task depends on"
+    },
+    "allow_parallel": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether this task can run in parallel with others"
+    },
+    "classification": {
+      "type": "object",
+      "properties": {
+        "complexity": {"type": "string"},
+        "risk_tier": {"type": "string"},
+        "domain": {"type": "string"},
+        "priority": {"type": "string"}
+      }
+    },
+    "resource_scope_delta": {
+      "type": "object",
+      "description": "Optional narrower scope than workstream"
+    },
+    "constraints_delta": {
+      "type": "object",
+      "description": "Optional tighter constraints than workstream"
+    },
+    "execution": {
+      "type": "object",
+      "properties": {
+        "max_attempts": {"type": "integer", "minimum": 1},
+        "timeout_seconds": {"type": "integer", "minimum": 1},
+        "retry_strategy": {"type": "string"},
+        "background": {"type": "boolean"}
+      }
+    },
+    "prompt_template_ref": {
+      "type": "string",
+      "description": "Reference to prompt template"
+    },
+    "prompt_overrides": {
+      "type": "object",
+      "description": "Overrides for prompt sections"
+    },
+    "execution_request_template": {
+      "type": "object",
+      "description": "Template for building ExecutionRequest"
+    },
+    "error_handling": {
+      "type": "object",
+      "properties": {
+        "on_failure": {"type": "string"}
+      }
+    },
+    "acceptance": {
+      "type": "object",
+      "properties": {
+        "checks": {
+          "type": "array",
+          "items": {"type": "object"}
+        }
+      }
+    }
+  }
+}

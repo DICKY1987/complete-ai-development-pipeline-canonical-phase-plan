@@ -1,0 +1,45 @@
+{
+  "id": "ws-22-pipeline-plus-phase0-schema",
+  "openspec_change": "PP-000",
+  "ccpm_issue": "pipeline-plus-phase0",
+  "gate": 1,
+  "files_scope": [
+    "schema/migrations/001_add_patches_table.sql",
+    "config/router.config.yaml"
+  ],
+  "files_create": [
+    ".tasks/inbox/.gitkeep",
+    ".tasks/running/.gitkeep",
+    ".tasks/done/.gitkeep",
+    ".tasks/failed/.gitkeep",
+    ".ledger/patches/.gitkeep",
+    ".runs/.gitkeep",
+    "schema/migrations/001_add_patches_table.sql",
+    "config/router.config.yaml"
+  ],
+  "tasks": [
+    "Create directory structure: .tasks/{inbox,running,done,failed}/, .ledger/patches/, .runs/",
+    "Create database migration schema/migrations/001_add_patches_table.sql with patches table",
+    "Add patches table columns: id, run_id, ws_id, step_name, attempt, patch_file, diff_hash, line_count, files_modified, created_at, validated, applied",
+    "Add index on (ws_id, diff_hash) for oscillation detection",
+    "Create config/router.config.yaml skeleton with empty apps and routing sections"
+  ],
+  "acceptance_tests": [
+    "All directories exist and contain .gitkeep files",
+    "Migration file validates against SQL schema standards",
+    "router.config.yaml validates against YAML syntax"
+  ],
+  "depends_on": [],
+  "tool": "aider",
+  "circuit_breaker": {
+    "max_attempts": 3,
+    "max_error_repeats": 2,
+    "oscillation_threshold": 2
+  },
+  "metadata": {
+    "phase": "Phase 0: Pre-Flight & Schema Setup",
+    "description": "Establish database schema and directory structure before any code",
+    "owner": "pipeline-plus",
+    "priority": "critical"
+  }
+}

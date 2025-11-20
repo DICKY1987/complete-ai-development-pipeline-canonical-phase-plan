@@ -6,7 +6,7 @@ Tests are skipped if AIM registry is unavailable.
 
 import pytest
 
-from core.aim_bridge import (
+from aim.bridge import (
     detect_tool,
     get_aim_registry_path,
     get_tool_version,

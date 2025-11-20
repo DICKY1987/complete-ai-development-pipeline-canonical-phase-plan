@@ -3,4 +3,22 @@
 This section contains the AIM bridge and registry for AI tool coordination.
 """
 
-__all__ = ["bridge"]
+from aim.exceptions import (
+    AIMError,
+    AIMRegistryNotFoundError,
+    AIMCapabilityNotFoundError,
+    AIMToolNotFoundError,
+    AIMAdapterInvocationError,
+    AIMAllToolsFailedError,
+)
+
+__all__ = [
+    "bridge",
+    "exceptions",
+    "AIMError",
+    "AIMRegistryNotFoundError",
+    "AIMCapabilityNotFoundError",
+    "AIMToolNotFoundError",
+    "AIMAdapterInvocationError",
+    "AIMAllToolsFailedError",
+]

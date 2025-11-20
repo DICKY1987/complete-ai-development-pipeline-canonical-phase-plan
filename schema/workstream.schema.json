@@ -67,8 +67,38 @@
     },
     "tool": {
       "title": "Primary Tool",
-      "description": "Primary tool identifier used to execute this workstream (e.g., 'aider').",
+      "description": "Primary tool identifier used to execute this workstream (e.g., 'aider'). DEPRECATED: Use 'capability' instead for AIM-based routing.",
       "type": "string"
+    },
+    "capability": {
+      "title": "Capability",
+      "description": "Capability to invoke via AIM (e.g., 'code_generation', 'linting'). Takes precedence over 'tool' when AIM is enabled.",
+      "type": "string",
+      "enum": ["code_generation", "linting", "refactoring", "testing", "version_checking"]
+    },
+    "capability_payload": {
+      "title": "Capability Payload",
+      "description": "Additional payload data for AIM capability invocation (e.g., files, prompt, context).",
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "files": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "prompt": {
+          "type": "string"
+        },
+        "timeout_ms": {
+          "type": "integer",
+          "minimum": 1000
+        },
+        "max_retries": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 5
+        }
+      }
     },
     "circuit_breaker": {
       "title": "Circuit Breaker",

@@ -1,0 +1,52 @@
+{
+  "id": "ws-29-pipeline-plus-phase6-router",
+  "openspec_change": "PP-006",
+  "ccpm_issue": "pipeline-plus-phase6",
+  "gate": 1,
+  "files_scope": [
+    "core/engine/task_router.py",
+    "core/engine/routing_policy.py",
+    "core/engine/orchestrator.py",
+    "config/router.config.yaml",
+    "tests/test_task_router.py"
+  ],
+  "files_create": [
+    "core/engine/task_router.py",
+    "core/engine/routing_policy.py",
+    "tests/test_task_router.py"
+  ],
+  "tasks": [
+    "Create core/engine/task_router.py with TaskRouter and ToolSelection classes",
+    "Implement TaskRouter.__init__(config_path): load YAML config, create app_registry, create routing_policy",
+    "Implement TaskRouter.route_task(task) -> ToolSelection: check delegation rules, match capabilities, apply routing policy, return primary + fallback + reason",
+    "Implement TaskRouter.execute_routed_task(task) -> TaskResult: route task, get adapter, execute, capture patch, validate scope, check circuit breakers, apply or reject",
+    "Create core/engine/routing_policy.py with RoutingPolicy class",
+    "Implement RoutingPolicy.select_tool(task, available) -> str: apply capability matching, load balancing, preferences",
+    "Populate config/router.config.yaml with apps (aider, codex, claude) and routing rules",
+    "Modify core/engine/orchestrator.py to integrate router",
+    "Create unit tests for routing rules, capability matching, fallback selection",
+    "Create integration test: end-to-end task → route → execute → patch → validate",
+    "Create scenario test: fallback triggers on primary failure"
+  ],
+  "acceptance_tests": [
+    "pytest -q tests/test_task_router.py",
+    "Routing rules apply correctly",
+    "Fallback chain works on primary failure",
+    "End-to-end task execution completes successfully"
+  ],
+  "depends_on": [
+    "ws-28-pipeline-plus-phase5-adapters"
+  ],
+  "tool": "aider",
+  "circuit_breaker": {
+    "max_attempts": 5,
+    "max_error_repeats": 2,
+    "oscillation_threshold": 2
+  },
+  "metadata": {
+    "phase": "Phase 6: Task Router & Orchestrator Integration (Section 1)",
+    "description": "Central routing logic and orchestrator integration",
+    "owner": "pipeline-plus",
+    "priority": "critical"
+  }
+}

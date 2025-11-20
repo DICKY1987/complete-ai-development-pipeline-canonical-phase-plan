@@ -1,0 +1,22 @@
+---
+phase_id: "PH-CORE-01"
+name: "Core Development"
+category: "core_dev"
+description: "Primary development phase"
+resource_scope:
+  type: "files"
+  read: ["src/**/*", "tests/**/*"]
+  write: ["src/**/*.py", "tests/**/*.py"]
+constraints:
+  patch:
+    patch_required: true
+    max_lines_changed: 300
+  tests:
+    tests_must_pass: true
+    test_command: "pytest -q"
+acceptance:
+  mode: "all"
+  checks:
+    - id: "tests_pass"
+      type: "test_command"
+      required: true

@@ -1,0 +1,10 @@
+# AI Context Configuration
+directory_purpose: "Pipeline Plus - AI Development Orchestration"
+ai_indexing: PRIORITY
+priority_paths:
+  - "AGENTIC_DEV_PROTOTYPE/src/**/*.py"
+  - "AGENTIC_DEV_PROTOTYPE/specs/**/*.md"
+exclude_patterns:
+  - "_archive/**"
+  - ".ledger/**"
+  - ".tasks/**"

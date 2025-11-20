@@ -1,0 +1,47 @@
+{
+  "id": "ws-27-pipeline-plus-phase4-validation",
+  "openspec_change": "PP-004",
+  "ccpm_issue": "pipeline-plus-phase4",
+  "gate": 1,
+  "files_scope": [
+    "core/engine/validators.py",
+    "core/engine/circuit_breakers.py",
+    "tests/test_validators.py"
+  ],
+  "files_create": [
+    "core/engine/validators.py",
+    "tests/test_validators.py"
+  ],
+  "tasks": [
+    "Create core/engine/validators.py with ScopeValidator and TimeoutMonitor classes",
+    "Implement ScopeValidator.validate_patch_scope(patch, bundle) -> ScopeResult: check allowed files from bundle.files_scope + files_create",
+    "Implement TimeoutMonitor.watch_process(proc, wall_sec, idle_sec) -> TimeoutResult: track runtime and idle time, kill if exceeded",
+    "Modify core/engine/circuit_breakers.py to add oscillation detection",
+    "Implement CircuitBreaker.check_oscillation(ws_id, diff_hash) -> Optional[Trip]: query last N patches, count diff_hash occurrences, trip if >= threshold",
+    "Implement CircuitBreaker.should_stop(run_id, ws_id, step, attempt, error_sig, diff_hash) -> Optional[Trip]: unified check for attempts + error_sig + oscillation",
+    "Create unit tests for scope violations, oscillation threshold triggers, timeout handling",
+    "Test edge cases: exact threshold boundary, hash collision handling"
+  ],
+  "acceptance_tests": [
+    "pytest -q tests/test_validators.py",
+    "Scope violations detected correctly",
+    "Oscillation detection triggers at threshold",
+    "Patch with out-of-scope file blocked"
+  ],
+  "depends_on": [
+    "ws-25-pipeline-plus-phase2-patch-manager"
+  ],
+  "tool": "aider",
+  "circuit_breaker": {
+    "max_attempts": 5,
+    "max_error_repeats": 2,
+    "oscillation_threshold": 2
+  },
+  "metadata": {
+    "phase": "Phase 4: Validation & Circuit Breakers (Section 6)",
+    "description": "Safety gates—scope validation, oscillation detection, timeouts",
+    "owner": "pipeline-plus",
+    "priority": "critical",
+    "can_parallel_with": "ws-26-pipeline-plus-phase3-prompt-engine"
+  }
+}

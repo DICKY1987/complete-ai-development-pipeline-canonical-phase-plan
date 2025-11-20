@@ -1,0 +1,58 @@
+{
+  "id": "ws-28-pipeline-plus-phase5-adapters",
+  "openspec_change": "PP-005",
+  "ccpm_issue": "pipeline-plus-phase5",
+  "gate": 1,
+  "files_scope": [
+    "core/engine/adapters/__init__.py",
+    "core/engine/adapters/base.py",
+    "core/engine/adapters/aider_adapter.py",
+    "core/engine/adapters/codex_adapter.py",
+    "core/engine/adapters/claude_adapter.py",
+    "config/tool_profiles.json",
+    "tests/test_adapters.py"
+  ],
+  "files_create": [
+    "core/engine/adapters/__init__.py",
+    "core/engine/adapters/base.py",
+    "core/engine/adapters/aider_adapter.py",
+    "core/engine/adapters/codex_adapter.py",
+    "core/engine/adapters/claude_adapter.py",
+    "tests/test_adapters.py"
+  ],
+  "tasks": [
+    "Create core/engine/adapters/ directory structure",
+    "Create core/engine/adapters/base.py with abstract ToolAdapter class",
+    "Implement ToolAdapter abstract methods: build_command(task), execute(cmd, timeout), execute_task(task)",
+    "Create core/engine/adapters/aider_adapter.py with AiderAdapter implementation",
+    "Implement AiderAdapter.build_command() for modes: prompt, patch_apply_validate",
+    "Implement AiderAdapter.execute() with subprocess management, PYTHONIOENCODING=utf-8, timeout monitoring",
+    "Create core/engine/adapters/codex_adapter.py with CodexAdapter implementation",
+    "Create core/engine/adapters/claude_adapter.py with ClaudeAdapter implementation",
+    "Modify config/tool_profiles.json to add adapter configurations",
+    "Create unit tests for command building, timeout handling, mock execution",
+    "Create integration test: Aider executes simple edit task"
+  ],
+  "acceptance_tests": [
+    "pytest -q tests/test_adapters.py",
+    "Aider adapter builds correct commands for all modes",
+    "Timeout monitoring works correctly",
+    "Mock tests pass without actual CLI calls"
+  ],
+  "depends_on": [
+    "ws-26-pipeline-plus-phase3-prompt-engine",
+    "ws-27-pipeline-plus-phase4-validation"
+  ],
+  "tool": "aider",
+  "circuit_breaker": {
+    "max_attempts": 5,
+    "max_error_repeats": 2,
+    "oscillation_threshold": 2
+  },
+  "metadata": {
+    "phase": "Phase 5: App Adapters (Section 3)",
+    "description": "Tool-specific execution wrappers",
+    "owner": "pipeline-plus",
+    "priority": "high"
+  }
+}

@@ -57,7 +57,7 @@ class TestGetAimRegistryPath:
 class TestLoadAimRegistry:
     """Tests for load_aim_registry()."""
 
-    @patch("src.pipeline.aim_bridge.get_aim_registry_path")
+    @patch("aim.bridge.get_aim_registry_path")
     def test_loads_valid_registry(self, mock_get_path):
         """Should load and parse valid AIM_registry.json."""
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -73,7 +73,7 @@ class TestLoadAimRegistry:
             result = load_aim_registry()
             assert result == registry_data
 
-    @patch("src.pipeline.aim_bridge.get_aim_registry_path")
+    @patch("aim.bridge.get_aim_registry_path")
     def test_raises_on_missing_registry_file(self, mock_get_path):
         """Should raise FileNotFoundError if AIM_registry.json missing."""
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -82,7 +82,7 @@ class TestLoadAimRegistry:
             with pytest.raises(FileNotFoundError, match="Registry file not found"):
                 load_aim_registry()
 
-    @patch("src.pipeline.aim_bridge.get_aim_registry_path")
+    @patch("aim.bridge.get_aim_registry_path")
     def test_raises_on_invalid_json(self, mock_get_path):
         """Should raise JSONDecodeError if registry has invalid JSON."""
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -101,7 +101,7 @@ class TestLoadAimRegistry:
 class TestLoadCoordinationRules:
     """Tests for load_coordination_rules()."""
 
-    @patch("src.pipeline.aim_bridge.get_aim_registry_path")
+    @patch("aim.bridge.get_aim_registry_path")
     def test_loads_valid_rules(self, mock_get_path):
         """Should load and parse valid coordination rules."""
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -123,8 +123,8 @@ class TestLoadCoordinationRules:
 class TestInvokeAdapter:
     """Tests for invoke_adapter()."""
 
-    @patch("src.pipeline.aim_bridge.subprocess.run")
-    @patch("src.pipeline.aim_bridge.load_aim_registry")
+    @patch("aim.bridge.subprocess.run")
+    @patch("aim.bridge.load_aim_registry")
     def test_success_with_valid_output(self, mock_load_registry, mock_run):
         """Should parse and return adapter output on success."""
         # Mock registry
@@ -147,14 +147,14 @@ class TestInvokeAdapter:
         mock_run.return_value = mock_result
 
         # Mock file existence
-        with patch("src.pipeline.aim_bridge.Path.exists", return_value=True):
+        with patch("aim.bridge.Path.exists", return_value=True):
             result = invoke_adapter("aider", "code_generation", {"prompt": "test"})
 
         assert result["success"] is True
         assert result["message"] == "OK"
 
-    @patch("src.pipeline.aim_bridge.subprocess.run")
-    @patch("src.pipeline.aim_bridge.load_aim_registry")
+    @patch("aim.bridge.subprocess.run")
+    @patch("aim.bridge.load_aim_registry")
     def test_timeout_handling(self, mock_load_registry, mock_run):
         """Should return timeout error if subprocess times out."""
         mock_load_registry.return_value = {
@@ -167,13 +167,13 @@ class TestInvokeAdapter:
 
         mock_run.side_effect = subprocess.TimeoutExpired("cmd", 30)
 
-        with patch("src.pipeline.aim_bridge.Path.exists", return_value=True):
+        with patch("aim.bridge.Path.exists", return_value=True):
             result = invoke_adapter("aider", "code_generation", {})
 
         assert result["success"] is False
         assert "timed out" in result["message"].lower()
 
-    @patch("src.pipeline.aim_bridge.load_aim_registry")
+    @patch("aim.bridge.load_aim_registry")
     def test_tool_not_found(self, mock_load_registry):
         """Should return error if tool not in registry."""
         mock_load_registry.return_value = {"tools": {}}
@@ -187,9 +187,9 @@ class TestInvokeAdapter:
 class TestRouteCapability:
     """Tests for route_capability()."""
 
-    @patch("src.pipeline.aim_bridge.invoke_adapter")
-    @patch("src.pipeline.aim_bridge.load_coordination_rules")
-    @patch("src.pipeline.aim_bridge.record_audit_log")
+    @patch("aim.bridge.invoke_adapter")
+    @patch("aim.bridge.load_coordination_rules")
+    @patch("aim.bridge.record_audit_log")
     def test_primary_tool_success(
         self, mock_audit, mock_load_rules, mock_invoke
     ):
@@ -215,9 +215,9 @@ class TestRouteCapability:
         # Should only invoke primary tool
         assert mock_invoke.call_count == 1
 
-    @patch("src.pipeline.aim_bridge.invoke_adapter")
-    @patch("src.pipeline.aim_bridge.load_coordination_rules")
-    @patch("src.pipeline.aim_bridge.record_audit_log")
+    @patch("aim.bridge.invoke_adapter")
+    @patch("aim.bridge.load_coordination_rules")
+    @patch("aim.bridge.record_audit_log")
     def test_fallback_on_primary_failure(
         self, mock_audit, mock_load_rules, mock_invoke
     ):
@@ -244,9 +244,9 @@ class TestRouteCapability:
         # Should invoke both primary and fallback
         assert mock_invoke.call_count == 2
 
-    @patch("src.pipeline.aim_bridge.invoke_adapter")
-    @patch("src.pipeline.aim_bridge.load_coordination_rules")
-    @patch("src.pipeline.aim_bridge.record_audit_log")
+    @patch("aim.bridge.invoke_adapter")
+    @patch("aim.bridge.load_coordination_rules")
+    @patch("aim.bridge.record_audit_log")
     def test_all_tools_fail(self, mock_audit, mock_load_rules, mock_invoke):
         """Should return aggregated error if all tools fail."""
         mock_load_rules.return_value = {
@@ -274,8 +274,8 @@ class TestRouteCapability:
 class TestDetectTool:
     """Tests for detect_tool()."""
 
-    @patch("src.pipeline.aim_bridge.subprocess.run")
-    @patch("src.pipeline.aim_bridge.load_aim_registry")
+    @patch("aim.bridge.subprocess.run")
+    @patch("aim.bridge.load_aim_registry")
     def test_returns_true_if_detect_command_succeeds(
         self, mock_load_registry, mock_run
     ):
@@ -295,8 +295,8 @@ class TestDetectTool:
         result = detect_tool("aider")
         assert result is True
 
-    @patch("src.pipeline.aim_bridge.subprocess.run")
-    @patch("src.pipeline.aim_bridge.load_aim_registry")
+    @patch("aim.bridge.subprocess.run")
+    @patch("aim.bridge.load_aim_registry")
     def test_returns_false_if_all_detect_commands_fail(
         self, mock_load_registry, mock_run
     ):
@@ -320,8 +320,8 @@ class TestDetectTool:
 class TestGetToolVersion:
     """Tests for get_tool_version()."""
 
-    @patch("src.pipeline.aim_bridge.subprocess.run")
-    @patch("src.pipeline.aim_bridge.load_aim_registry")
+    @patch("aim.bridge.subprocess.run")
+    @patch("aim.bridge.load_aim_registry")
     def test_returns_version_string_on_success(
         self, mock_load_registry, mock_run
     ):
@@ -342,8 +342,8 @@ class TestGetToolVersion:
         result = get_tool_version("aider")
         assert result == "aider 0.5.0"
 
-    @patch("src.pipeline.aim_bridge.subprocess.run")
-    @patch("src.pipeline.aim_bridge.load_aim_registry")
+    @patch("aim.bridge.subprocess.run")
+    @patch("aim.bridge.load_aim_registry")
     def test_returns_none_on_failure(self, mock_load_registry, mock_run):
         """Should return None if version command fails."""
         mock_load_registry.return_value = {
@@ -365,7 +365,7 @@ class TestGetToolVersion:
 class TestRecordAuditLog:
     """Tests for record_audit_log()."""
 
-    @patch("src.pipeline.aim_bridge.get_aim_registry_path")
+    @patch("aim.bridge.get_aim_registry_path")
     def test_writes_audit_log_to_correct_location(self, mock_get_path):
         """Should write audit log to AIM_audit/<date>/<timestamp>_<tool>_<cap>.json."""
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -398,7 +398,7 @@ class TestRecordAuditLog:
             assert entry["payload"] == payload
             assert entry["result"] == result
 
-    @patch("src.pipeline.aim_bridge.get_aim_registry_path")
+    @patch("aim.bridge.get_aim_registry_path")
     def test_handles_missing_registry_gracefully(self, mock_get_path):
         """Should not crash if registry path not found."""
         mock_get_path.side_effect = FileNotFoundError("Registry not found")

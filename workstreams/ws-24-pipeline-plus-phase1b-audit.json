@@ -1,0 +1,43 @@
+{
+  "id": "ws-24-pipeline-plus-phase1b-audit",
+  "openspec_change": "PP-001B",
+  "ccpm_issue": "pipeline-plus-phase1b",
+  "gate": 1,
+  "files_scope": [
+    "core/state/audit_logger.py",
+    "tests/test_audit_logger.py"
+  ],
+  "files_create": [
+    "core/state/audit_logger.py",
+    "tests/test_audit_logger.py"
+  ],
+  "tasks": [
+    "Create core/state/audit_logger.py with AuditLogger and PatchLedger classes",
+    "Implement AuditLogger with JSONL logging to .runs/audit.jsonl",
+    "Add methods: log_event(event_type, task_id, data), query_events(filters)",
+    "Implement PatchLedger with methods: store_patch(), get_patch(), get_history()",
+    "Support event types: task_received, task_routed, process_started, patch_captured, patch_validated, patch_applied, scope_violation, oscillation_detected, circuit_breaker_trip, completed, failed",
+    "Create unit tests for log rotation, JSON serialization, query filtering"
+  ],
+  "acceptance_tests": [
+    "pytest -q tests/test_audit_logger.py",
+    "Events queryable after write",
+    "JSONL format validates correctly"
+  ],
+  "depends_on": [
+    "ws-22-pipeline-plus-phase0-schema"
+  ],
+  "tool": "aider",
+  "circuit_breaker": {
+    "max_attempts": 4,
+    "max_error_repeats": 2,
+    "oscillation_threshold": 2
+  },
+  "metadata": {
+    "phase": "Phase 1B: Audit & Telemetry Foundation (Section 7)",
+    "description": "Structured logging infrastructure",
+    "owner": "pipeline-plus",
+    "priority": "high",
+    "parallel_with": "ws-23-pipeline-plus-phase1a-task-queue"
+  }
+}

@@ -1,0 +1,115 @@
+{
+  "$id": "schema/patch_artifact.v1.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PatchArtifact v1",
+  "description": "Canonical representation of a code/document patch with metadata for validation and tracking.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["patch_id", "format", "target_repo", "origin", "diff_text"],
+  "properties": {
+    "patch_id": {
+      "type": "string",
+      "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$",
+      "description": "Unique identifier for this patch (ULID)"
+    },
+    "format": {
+      "type": "string",
+      "enum": ["unified_diff"],
+      "description": "Format of the patch (currently only unified_diff supported)"
+    },
+    "target_repo": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Target repository path"
+    },
+    "base_ref": {
+      "type": ["string", "null"],
+      "description": "Git ref/branch this patch is based on"
+    },
+    "base_commit": {
+      "type": ["string", "null"],
+      "description": "Git commit SHA this patch is based on"
+    },
+    "origin": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["execution_request_id", "tool_id", "created_at"],
+      "description": "Information about where this patch came from",
+      "properties": {
+        "execution_request_id": {
+          "type": "string",
+          "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$",
+          "description": "Execution request that produced this patch"
+        },
+        "prompt_id": {
+          "type": ["string", "null"],
+          "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$",
+          "description": "Optional prompt used to generate this patch"
+        },
+        "phase_id": {
+          "type": ["string", "null"],
+          "description": "Phase this patch was created in"
+        },
+        "workstream_id": {
+          "type": ["string", "null"],
+          "description": "Workstream this patch belongs to"
+        },
+        "tool_id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Tool that generated this patch"
+        },
+        "tool_run_id": {
+          "type": ["string", "null"],
+          "description": "Tool-specific run identifier"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When this patch was created"
+        }
+      }
+    },
+    "summary": {
+      "type": "string",
+      "maxLength": 512,
+      "description": "Brief description of what this patch does"
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Metrics about the scope of this patch",
+      "properties": {
+        "files_touched": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true,
+          "description": "List of files modified by this patch"
+        },
+        "line_insertions": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of lines added"
+        },
+        "line_deletions": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of lines deleted"
+        },
+        "hunks": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of diff hunks"
+        }
+      }
+    },
+    "diff_text": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The actual unified diff content"
+    }
+  }
+}

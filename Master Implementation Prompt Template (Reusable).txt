@@ -1,0 +1,701 @@
+Master Implementation Prompt Template (Reusable)
+System Identity & Mission
+<system_identity>
+  <name>PROJECT_NAME</name>
+  <version>PROJECT_VERSION</version>
+  <architecture>Modular Plugin Architecture with V-Model Verification</architecture>
+  <output_requirement>COMPLETE, FUNCTIONAL, PRODUCTION-READY</output_requirement>
+  <prefix_mandate>ALL files and folders MUST start with "PROJECT_PREFIX"</prefix_mandate>
+</system_identity>
+
+Fill-ins
+
+
+PROJECT_NAME (e.g., “ACME DataHub”)
+
+
+PROJECT_VERSION (e.g., “1.0.0”)
+
+
+PROJECT_PREFIX (e.g., “ACME_”)
+
+
+
+Role Assignment (Critical Priority)
+<role_assignment priority="CRITICAL">
+  <primary_role>Senior Software Architect & Systems Engineer</primary_role>
+  <expertise_areas>
+    <domain_knowledge years="YEARS_EXPERIENCE" depth="expert">
+      - RUNTIME_TECH_STACK (e.g., PowerShell 7+, Node.js 20, Python 3.12)
+      - Plugin/Microkernel system design
+      - Contract-first API/interface development
+      - V-Model verification & ISO/IEC 12207 mindset
+      - TDD/BDD/ATDD methodologies
+      - Hexagonal/Ports-and-Adapters architecture
+    </domain_knowledge>
+    <quality_standards>
+      <professional_bar>Enterprise Production Standards</professional_bar>
+      <accuracy_requirement threshold="100%">Zero placeholders, zero scaffolds in generated code</accuracy_requirement>
+      <test_coverage minimum="100%">Every function must have unit tests</test_coverage>
+    </quality_standards>
+  </expertise_areas>
+  <behavioral_constraints>
+    <mandatory>
+      - Generate COMPLETE, executable code only
+      - Create unit tests for EVERY function
+      - Execute tests in the target runtime’s virtual environment
+      - Fix ALL runtime errors before proceeding
+      - Loop 5 times minimum for quality assurance
+      - Apply contract-first design patterns
+      - Follow plugin template patterns strictly (if plugin mode enabled)
+    </mandatory>
+    <prohibited>
+      - Placeholder comments like "TODO"
+      - Scaffolds without implementations
+      - Functions without corresponding tests
+      - Skipping verification gates
+      - Proceeding with test failures
+    </prohibited>
+  </behavioral_constraints>
+</role_assignment>
+
+
+Input Documents (Load Order – All MANDATORY)
+<canonical_references priority="load_before_execution">
+  <reference id="1" type="primary">PRIMARY_TECH_SPEC</reference>
+  <reference id="2" type="architecture">ARCHITECTURE_FRAMEWORK_DOC</reference>
+  <reference id="3" type="process">PROCESS_PRACTICES_DOC (V-Model, BPMN/DMN)</reference>
+  <reference id="4" type="plugin_system">PLUGIN_TEMPLATES_DOC</reference>
+  <reference id="5" type="philosophy">ENGINEERING_PHILOSOPHY_DOC</reference>
+  <reference id="6" type="prompt_engineering">PROMPT_GUIDES (list)</reference>
+</canonical_references>
+
+
+Execution Framework: 5-Loop Self-Healing Validation
+<execution_loop iterations="5" type="self_healing">
+  <loop id="1" focus="generation">
+    <objective>Generate complete file structure with PROJECT_PREFIX</objective>
+    <output>All source, test, contract, schema, manifest, and docs files implemented</output>
+    <validation>Structure compliance check against PRIMARY_TECH_SPEC</validation>
+  </loop>
+
+  <loop id="2" focus="contract_validation">
+    <objective>Validate all contracts, manifests, and schemas</objective>
+    <output>Complete .contract.json, .manifest.json, and schema files</output>
+    <validation>JSON Schema validation + completeness checks</validation>
+  </loop>
+
+  <loop id="3" focus="test_generation">
+    <objective>Generate unit tests for EVERY function</objective>
+    <output>Complete .Tests files with 100% function coverage</output>
+    <validation>Automated function-to-test mapping verification</validation>
+  </loop>
+
+  <loop id="4" focus="vm_execution">
+    <objective>Execute ALL tests in virtual environment</objective>
+    <output>Test results, runtime error logs, coverage reports</output>
+    <validation>Zero test failures, zero runtime errors</validation>
+    <error_handling>
+      - Capture all exceptions
+      - Fix syntax/type/missing-dependency errors
+      - Re-run tests until 100% pass rate
+    </error_handling>
+  </loop>
+
+  <loop id="5" focus="traceability_audit">
+    <objective>Final audit: traceability, completeness, quality gates</objective>
+    <output>RTM matrix, verification report, gate status</output>
+    <validation>100% traceability, all gates GREEN</validation>
+  </loop>
+
+  <termination_criteria>
+    <condition>all_tests_passing</condition>
+    <condition>zero_runtime_errors</condition>
+    <condition>100_percent_traceability</condition>
+    <condition>all_quality_gates_green</condition>
+    <condition>max_iterations_completed</condition>
+  </termination_criteria>
+</execution_loop>
+
+
+Task Analysis & Transformation
+<task_analysis>
+  <original_request>
+    Create complete PROJECT_NAME: PURPOSE_SUMMARY,
+    with modular architecture, credential/secrets management (if applicable),
+    deterministic execution, V-Model verification, delivered as ZIP bundle.
+  </original_request>
+
+  <specificity_transformation>
+    <objective>
+      Generate 100% complete, production-ready system with:
+      - N_MODULES+ functional modules (PROJECT_PREFIX prefix)
+      - Optional 5 plugin types implemented (Acquisition, Transformation, State, Validation, Orchestration)
+      - Complete contracts and manifests
+      - Unit tests with 100% function coverage
+      - V-Model verification gates (L0-L3)
+      - Schema files (as required by domain)
+      - Build scripts and entry point
+      - Complete documentation
+      - ZIP bundle packaged correctly
+    </objective>
+
+    <methodology>
+      PHASE 1 - Architecture Planning
+      1. Parse domain command list or API spec into hierarchical JSON/YAML
+      2. Map each module to plugin type (if plugin mode)
+      3. Define contracts for each module (inputs/outputs/constraints)
+      4. Create dependency graph (execution order)
+      5. Generate file map enforcing PROJECT_PREFIX
+
+      PHASE 2 - Schema Generation
+      1. Create COMMAND_TREE_SCHEMA (if CLI/API driven)
+      2. Create PARAMETER_SCHEMAS (per command/API)
+      3. Create CONFIG_SCHEMA (application config/profile validation)
+      4. Generate JSON Schema validators
+
+      PHASE 3 - Module Implementation (Plugin Type Order)
+      1. ACQUISITION modules
+      2. VALIDATION modules
+      3. TRANSFORMATION modules
+      4. STATE modules
+      5. ORCHESTRATION modules
+
+      PHASE 4 - Contract & Manifest Generation
+      - For each module: create .contract.json and .manifest.json
+      - Validate all contracts against global schemas
+
+      PHASE 5 - Test Generation
+      - For each module: .Tests with unit + contract + behavior + edge cases
+      - Create fixtures and mocks
+
+      PHASE 6 - VM Execution & Error Fix
+      - Execute all tests
+      - Fix and re-run until green
+
+      PHASE 7 - Verification Gates (L0-L3)
+
+      PHASE 8 - Build & Package
+      - Build orchestrator and entry point
+      - Generate documentation
+      - Package bundle
+    </methodology>
+
+    <success_criteria quantifiable="true">
+      1. All modules complete; no TODOs
+      2. 100% function test coverage
+      3. All tests pass in VM environment
+      4. All contracts validate
+      5. RTM shows 100% traceability
+      6. All loop iterations complete with GREEN gates
+      7. ZIP bundle structure correct with PROJECT_PREFIX
+      8. Entry script runs without errors
+      9. Docs complete and aligned to contracts
+      10. Build script produces artifacts
+    </success_criteria>
+  </specificity_transformation>
+
+  <classification>
+    <complexity>enterprise</complexity>
+    <domain>DOMAIN_CATEGORY</domain>
+    <quality>production_critical</quality>
+    <time_constraint>thorough</time_constraint>
+    <architecture>modular_plugin_hexagonal</architecture>
+  </classification>
+</task_analysis>
+
+
+Architecture Mapping (Template)
+
+Use this block as-is if you’re building a plugin system. Otherwise, delete or adapt.
+
+<architecture_mapping>
+  <plugin_type name="ACQUISITION" side_effects="false" deterministic="true">
+    <modules>
+      <!-- Example module template -->
+      <module name="PROJECT_PREFIXAcquisition_ModuleA">
+        <contract>
+          <inputs>Define input contract</inputs>
+          <outputs>Define output contract</outputs>
+          <constraints>pure_function: true, idempotent: true</constraints>
+        </contract>
+        <functions>
+          - FunctionA
+          - FunctionB
+        </functions>
+      </module>
+      <!-- Add more as needed -->
+    </modules>
+  </plugin_type>
+
+  <plugin_type name="VALIDATION" side_effects="false" deterministic="true">
+    <modules>
+      <module name="PROJECT_PREFIXValidation_ModuleA">
+        <contract>
+          <inputs>data, schema</inputs>
+          <outputs>validation_result</outputs>
+          <constraints>pure_function: true</constraints>
+        </contract>
+        <functions>
+          - Test-Input
+          - Get-ValidationDiagnostics
+        </functions>
+      </module>
+    </modules>
+  </plugin_type>
+
+  <plugin_type name="TRANSFORMATION" side_effects="false" deterministic="true">
+    <modules>
+      <module name="PROJECT_PREFIXTransformation_ModuleA">
+        <contract>
+          <inputs>input_object</inputs>
+          <outputs>transformed_object</outputs>
+          <constraints>pure_function: true</constraints>
+        </contract>
+        <functions>
+          - Transform-Data
+        </functions>
+      </module>
+    </modules>
+  </plugin_type>
+
+  <plugin_type name="STATE" side_effects="true" deterministic="false">
+    <modules>
+      <module name="PROJECT_PREFIXState_ModuleA">
+        <contract>
+          <inputs>command/context</inputs>
+          <outputs>execution_result (exitCode, output, duration)</outputs>
+          <constraints>side_effects: true</constraints>
+        </contract>
+        <functions>
+          - Invoke-Command
+          - Capture-Output
+        </functions>
+      </module>
+    </modules>
+  </plugin_type>
+
+  <plugin_type name="ORCHESTRATION" side_effects="true" deterministic="false">
+    <modules>
+      <module name="PROJECT_PREFIXCore">
+        <contract>
+          <inputs>none (interactive/dispatcher)</inputs>
+          <outputs>lifecycle management</outputs>
+          <constraints>orchestration: true</constraints>
+        </contract>
+        <functions>
+          - Start-Application
+          - Invoke-MainLoop
+        </functions>
+      </module>
+      <module name="PROJECT_PREFIXUI">
+        <contract>
+          <inputs>ui_inputs</inputs>
+          <outputs>user_data</outputs>
+          <constraints>external_binary_optional</constraints>
+        </contract>
+        <functions>
+          - Invoke-Select
+          - Show-Form
+          - Show-Message
+        </functions>
+      </module>
+    </modules>
+  </plugin_type>
+</architecture_mapping>
+
+
+Contract-First Implementation Requirements
+<contract_first_design>
+  <for_each_module>
+    <step order="1">Create .contract.json BEFORE writing implementation</step>
+    <step order="2">Define inputs/outputs/constraints</step>
+    <step order="3">Generate .manifest.json with metadata</step>
+    <step order="4">Create test stubs from contract acceptance criteria</step>
+    <step order="5">Implement module to satisfy contract</step>
+    <step order="6">Run tests and fix until 100% pass</step>
+  </for_each_module>
+
+  <contract_schema>
+    {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "type": "object",
+      "required": ["module", "version", "type", "inputs", "outputs", "constraints"],
+      "properties": {
+        "module": {"type": "string", "pattern": "^PROJECT_PREFIX.*$"},
+        "version": {"type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$"},
+        "type": {"enum": ["ACQUISITION","TRANSFORMATION","STATE","VALIDATION","ORCHESTRATION"]},
+        "inputs": {"type": "object"},
+        "outputs": {"type": "object"},
+        "constraints": {
+          "type": "object",
+          "properties": {
+            "side_effects": {"type": "boolean"},
+            "deterministic": {"type": "boolean"},
+            "idempotent": {"type": "boolean"},
+            "pure_function": {"type": "boolean"}
+          }
+        },
+        "verification_tier": {"enum": ["L0","L1","L2","L3"]},
+        "dependencies": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  </contract_schema>
+
+  <manifest_schema>
+    {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "type": "object",
+      "required": ["name", "version", "author", "plugin_type", "lifecycle_events"],
+      "properties": {
+        "name": {"type": "string", "pattern": "^PROJECT_PREFIX.*$"},
+        "version": {"type": "string"},
+        "author": {"type": "string"},
+        "created": {"type": "string", "format": "date-time"},
+        "plugin_type": {"enum": ["ACQUISITION","TRANSFORMATION","STATE","VALIDATION","ORCHESTRATION"]},
+        "lifecycle_events": {"type": "array", "items": {"type": "string"}},
+        "trace_id_format": {"type": "string"},
+        "sbom": {"type": "string"}
+      }
+    }
+  </manifest_schema>
+</contract_first_design>
+
+
+Test Generation Requirements (100% Coverage Mandate)
+<test_generation_requirements>
+  <coverage_mandate>
+    Every function in every module MUST have corresponding unit tests.
+    Critical paths must include branch coverage.
+  </coverage_mandate>
+
+  <test_structure>
+    <file_naming>PROJECT_PREFIX{ModuleName}.Tests.(EXT)</file_naming>
+    <framework>TEST_FRAMEWORK (e.g., Pester, pytest, Jest)</framework>
+    <organization>
+      - BeforeAll/Setup: Import module under test
+      - Describe/Suite blocks: Per function or per contract
+      - Context blocks: Scenarios
+      - It/Test blocks: Assertions
+      - Mocks/Stubs: External deps (network, filesystem, CLIs)
+    </organization>
+  </test_structure>
+
+  <test_types>
+    <type name="contract_tests">
+      - Valid input → expected output
+      - Invalid input → expected error
+      - Boundary conditions
+      - Type validation
+    </type>
+    <type name="behavior_tests">
+      - Function behavior matches specification
+      - Side effects are contained/observable
+      - State changes correct
+    </type>
+    <type name="integration_tests">
+      - Module interactions
+      - Dependency injection / composition
+      - Error propagation
+    </type>
+  </test_types>
+</test_generation_requirements>
+
+
+VM Execution & Error Correction Protocol
+<vm_execution_protocol>
+  <environment>
+    <vm_type>TARGET_VM_TYPE</vm_type>
+    <version>RUNTIME_VERSION</version>
+    <isolation>Isolated environment per test run</isolation>
+  </environment>
+
+  <execution_steps>
+    <step order="1"><action>Load all modules in dependency order</action><validation>No import errors</validation></step>
+    <step order="2"><action>Execute all tests via TEST_RUNNER</action><validation>Capture all results</validation></step>
+    <step order="3"><action>Parse output</action><validation>Identify failures</validation></step>
+    <step order="4"><action>Analyze errors by category</action></step>
+    <step order="5"><action>Generate and apply fixes</action></step>
+    <step order="6"><action>Re-execute tests until GREEN</action></step>
+  </execution_steps>
+
+  <error_correction_patterns>
+    <pattern type="syntax_error"><detection>Parser/Compile exceptions</detection><fix>Conform to grammar</fix></pattern>
+    <pattern type="type_error"><detection>Type mismatches</detection><fix>Adjust types/coercions</fix></pattern>
+    <pattern type="undefined_variable"><detection>Name errors</detection><fix>Initialize or scope variables</fix></pattern>
+    <pattern type="missing_function"><detection>Command not found</detection><fix>Add function or import module</fix></pattern>
+    <pattern type="mock_issue"><detection>Mock/assertion failures</detection><fix>Correct mocks or expectations</fix></pattern>
+  </error_correction_patterns>
+</vm_execution_protocol>
+
+
+V-Model Verification Gates (Deterministic Pass/Fail)
+<verification_gates>
+  <gate name="L0_STATIC" tier="0">
+    <purpose>Static analysis, linting, syntax validation</purpose>
+    <tools>STATIC_ANALYZERS + JSON Schema Validator</tools>
+    <pass_criteria>
+      - Zero blocking analyzer errors
+      - All sources parse successfully
+      - All JSON/YAML files validate
+    </pass_criteria>
+    <implementation>
+      <file>PROJECT_PREFIXverification/L0_static/PROJECT_PREFIX_run_L0.(ext)</file>
+      <content>IMPLEMENT STATIC ANALYSIS SCRIPT</content>
+    </implementation>
+  </gate>
+
+  <gate name="L1_CONTRACT" tier="1">
+    <purpose>Contract tests, interface validation</purpose>
+    <pass_criteria>All contract tests pass</pass_criteria>
+    <implementation>
+      <file>PROJECT_PREFIXverification/L1_contract/PROJECT_PREFIX_run_L1.(ext)</file>
+      <content>RUN TESTS TAGGED "Contract"</content>
+    </implementation>
+  </gate>
+
+  <gate name="L2_BEHAVIOR" tier="2">
+    <purpose>Behavior tests, functional validation</purpose>
+    <pass_criteria>All behavior tests pass</pass_criteria>
+    <implementation>
+      <file>PROJECT_PREFIXverification/L2_behavior/PROJECT_PREFIX_run_L2.(ext)</file>
+      <content>RUN TESTS TAGGED "Behavior"</content>
+    </implementation>
+  </gate>
+
+  <gate name="L3_INTEGRATION" tier="3">
+    <purpose>Integration tests</purpose>
+    <pass_criteria>All integration tests pass</pass_criteria>
+    <implementation>
+      <file>PROJECT_PREFIXverification/L3_integration/PROJECT_PREFIX_run_L3.(ext)</file>
+      <content>RUN TESTS TAGGED "Integration"</content>
+    </implementation>
+  </gate>
+
+  <gate_orchestrator>
+    <file>PROJECT_PREFIXverification/PROJECT_PREFIX_verification_gate.(ext)</file>
+    <content>RUN L0→L3; EMIT JSON STATUS WITH timestamp, gates, overall status</content>
+  </gate_orchestrator>
+</verification_gates>
+
+
+Output Structure & Deliverables
+<output_structure>
+  <zip_bundle name="PROJECT_PREFIXbundle.zip">
+    <folder name="PROJECT_PREFIXbin">
+      <file>OPTIONAL_DEP_BINARIES</file>
+    </folder>
+
+    <folder name="PROJECT_PREFIXcommands">
+      <file>PROJECT_PREFIXcommand-tree.json</file>
+      <file>PROJECT_PREFIXparam-schemas.json</file>
+    </folder>
+
+    <folder name="PROJECT_PREFIXlib">
+      <!-- For each module: .impl + .contract.json + .manifest.json -->
+      <module>PROJECT_PREFIXCore.(impl) + .contract.json + .manifest.json</module>
+      <module>PROJECT_PREFIXUI.(impl) + .contract.json + .manifest.json</module>
+      <!-- ... -->
+    </folder>
+
+    <folder name="PROJECT_PREFIXconfig">
+      <file>PROJECT_PREFIXprofiles.json</file>
+      <file>PROJECT_PREFIXprofiles.schema.json</file>
+    </folder>
+
+    <folder name="PROJECT_PREFIXtests">
+      <file>One test file per module</file>
+    </folder>
+
+    <folder name="PROJECT_PREFIXverification">
+      <folder name="L0_static"><file>PROJECT_PREFIX_run_L0.(ext)</file></folder>
+      <folder name="L1_contract"><file>PROJECT_PREFIX_run_L1.(ext)</file></folder>
+      <folder name="L2_behavior"><file>PROJECT_PREFIX_run_L2.(ext)</file></folder>
+      <folder name="L3_integration"><file>PROJECT_PREFIX_run_L3.(ext)</file></folder>
+      <file>PROJECT_PREFIX_verification_gate.(ext)</file>
+    </folder>
+
+    <folder name="PROJECT_PREFIXdocs">
+      <file>PROJECT_PREFIXREADME.md</file>
+      <file>PROJECT_PREFIXARCHITECTURE.md</file>
+      <file>PROJECT_PREFIXAPI_REFERENCE.md</file>
+      <file>PROJECT_PREFIXDEVELOPER_GUIDE.md</file>
+      <file>PROJECT_PREFIXVERIFICATION_GUIDE.md</file>
+    </folder>
+
+    <folder name="PROJECT_PREFIXlogs">
+      <file>.gitkeep</file>
+    </folder>
+
+    <root_files>
+      <file>PROJECT_PREFIXentry.(ext)</file>
+      <file>PROJECT_PREFIXmodule_manifest.(ext)</file>
+      <file>PROJECT_PREFIXbuild.(ext)</file>
+      <file>PROJECT_PREFIXREADME.md</file>
+    </root_files>
+  </zip_bundle>
+</output_structure>
+
+
+Deterministic Implementation Order
+
+
+Generate schema files (command tree, param schemas, config schema)
+
+
+Build ACQUISITION plugins
+
+
+Build VALIDATION plugins
+
+
+Build TRANSFORMATION plugins
+
+
+Build STATE plugins
+
+
+Build ORCHESTRATION plugins
+
+
+Generate contracts for each module
+
+
+Generate manifests for each module
+
+
+Create L0–L3 test suites
+
+
+Create verification gate scripts
+
+
+Build documentation from contracts
+
+
+Create build script
+
+
+Package to ZIP
+
+
+
+Final Quality Gates & Success Criteria
+<final_quality_gates>
+  <gate_checklist>
+    <item>✓ All files/folders have PROJECT_PREFIX</item>
+    <item>✓ All modules complete (no TODOs)</item>
+    <item>✓ Every function has unit tests</item>
+    <item>✓ All tests pass in VM (100% success)</item>
+    <item>✓ All contracts validate</item>
+    <item>✓ All manifests are complete</item>
+    <item>✓ L0–L3 verification gates all PASS</item>
+    <item>✓ Build script executes successfully</item>
+    <item>✓ Entry script starts without errors</item>
+    <item>✓ Documentation auto-generated/aligned to contracts</item>
+    <item>✓ ZIP bundle structure is correct</item>
+    <item>✓ RTM shows 100% traceability</item>
+  </gate_checklist>
+
+  <traceability_matrix>
+    <requirements>
+      <requirement id="REQ-001">Primary capability (describe)</requirement>
+      <requirement id="REQ-002">Plugin architecture (if used)</requirement>
+      <requirement id="REQ-003">Secrets/Credentials mgmt (if used)</requirement>
+      <requirement id="REQ-004">Contract-first design</requirement>
+      <requirement id="REQ-005">V-Model verification</requirement>
+      <requirement id="REQ-006">100% test coverage</requirement>
+      <requirement id="REQ-007">PROJECT_PREFIX mandate</requirement>
+    </requirements>
+    <deliverables>
+      <mapping req="REQ-001" files="CORE & UI modules"/>
+      <mapping req="REQ-002" files="All plugin modules and manifests"/>
+      <mapping req="REQ-003" files="Auth/Secret modules (or equivalents)"/>
+      <mapping req="REQ-004" files="All .contract.json files"/>
+      <mapping req="REQ-005" files="PROJECT_PREFIXverification/*"/>
+      <mapping req="REQ-006" files="PROJECT_PREFIXtests/*"/>
+      <mapping req="REQ-007" files="ALL files and folders"/>
+    </deliverables>
+  </traceability_matrix>
+</final_quality_gates>
+
+
+Execution Command
+<execution_command>
+  <directive priority="CRITICAL">
+    Generate the complete PROJECT_NAME system following ALL specifications above.
+    Execute the 5-loop self-healing validation process.
+    Create COMPLETE, FUNCTIONAL files with NO placeholders in code.
+    Generate unit tests for EVERY function.
+    Execute tests in the VM and fix ALL runtime errors.
+    Ensure ALL quality gates are GREEN.
+    Package as PROJECT_PREFIXbundle.zip.
+  </directive>
+
+  <reasoning_activation>
+    Before generating any code, think step-by-step:
+    1. Review PRIMARY_TECH_SPEC and map modules to plugin types (if enabled)
+    2. Plan dependency order
+    3. Design contracts for each module
+    4. Generate required schemas
+    5. Implement modules in dependency order
+    6. Generate tests for each module
+    7. Execute tests and fix errors
+    8. Run verification gates
+    9. Build and package
+    10. Validate completeness
+  </reasoning_activation>
+
+  <output_requirement>
+    Output MUST be a complete, executable ZIP bundle that:
+    - Extracts to the correct folder structure
+    - Contains ALL files with PROJECT_PREFIX
+    - Passes ALL verification gates
+    - Runs without errors
+    - Has 100% test coverage
+    - Includes complete documentation
+  </output_requirement>
+</execution_command>
+
+
+Quick Variable Guide
+
+
+PROJECT_NAME: The system’s name
+
+
+PROJECT_VERSION: SemVer string
+
+
+PROJECT_PREFIX: File/folder prefix mandate (e.g., ACME_)
+
+
+PRIMARY_TECH_SPEC: Your canonical spec doc path/name
+
+
+ARCHITECTURE_FRAMEWORK_DOC / PROCESS_PRACTICES_DOC / PLUGIN_TEMPLATES_DOC / ENGINEERING_PHILOSOPHY_DOC / PROMPT_GUIDES: Provide file names/paths
+
+
+TEST_FRAMEWORK / TEST_RUNNER / TARGET_VM_TYPE / RUNTIME_VERSION: Choose stack-specific values
+
+
+EXT / (impl): Language extensions (e.g., .psm1, .py, .ts)
+
+
+
+How to Use This Template
+
+
+Replace all placeholders (search for PROJECT_ and ALL_CAPS)
+
+
+Keep or remove the Architecture Mapping section depending on plugin usage
+
+
+Keep the V-Model gates and 5-loop sections intact for deterministic delivery
+
+
+Feed the completed prompt to your agentic AI to generate the entire system bundle
+
+
+If you want, I can pre-fill this template for a specific new project name, stack, and artifact set you’re targeting.

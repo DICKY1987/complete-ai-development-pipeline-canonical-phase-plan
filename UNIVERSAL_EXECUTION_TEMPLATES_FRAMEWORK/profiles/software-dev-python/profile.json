@@ -1,0 +1,10 @@
+{
+  "profile_id": "software-dev-python",
+  "profile_version": "1.0.0",
+  "domain": "software-dev",
+  "description": "Python software development profile",
+  "extends_core": ["COOPERATION_SPEC"],
+  "adds_resource_types": [
+    {"type": "files", "scope_format": "glob_patterns", "operations": ["read", "write"]}
+  ]
+}

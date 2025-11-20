@@ -1,0 +1,17 @@
+{
+  "timestamp": "2025-11-20T21:13:40.186469+00:00Z",
+  "actor": "pipeline",
+  "tool_id": "aider",
+  "capability": "version_checking",
+  "payload": {
+    "tools": []
+  },
+  "result": {
+    "success": false,
+    "message": "Adapter exited with code 1: ",
+    "content": {
+      "exit_code": 1,
+      "stderr": ""
+    }
+  }
+}

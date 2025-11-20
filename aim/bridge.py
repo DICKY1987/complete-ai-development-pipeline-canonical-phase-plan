@@ -108,7 +108,9 @@ def _load_aim_config() -> Dict[str, Any]:
     Returns:
         Dict[str, Any]: AIM configuration with defaults
     """
-    config_path = Path(__file__).parent.parent.parent / "config" / "aim_config.yaml"
+    # Find repository root (where config/ directory lives)
+    repo_root = Path(__file__).parent.parent
+    config_path = repo_root / "config" / "aim_config.yaml"
 
     # Default configuration
     defaults = {

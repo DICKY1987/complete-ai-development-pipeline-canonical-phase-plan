@@ -1,0 +1,30 @@
+{
+  "task_id": "01KAF14RHARN1T9MG5TWVTENFE",
+  "source_app": "aider",
+  "mode": "prompt",
+  "capabilities": [
+    "refactor"
+  ],
+  "payload": {
+    "repo_path": "/test",
+    "files": [],
+    "description": "",
+    "prompt_file": null,
+    "patch_file": null
+  },
+  "constraints": {
+    "allow_delegation": true,
+    "must_stay_local": false,
+    "allowed_tools": []
+  },
+  "timeouts": {
+    "wall_clock_sec": 600,
+    "idle_output_sec": 120
+  },
+  "routing_state": {
+    "current_target": null,
+    "route_history": [],
+    "attempts": 0
+  },
+  "created_at": "2025-11-19T21:43:16.266768Z"
+}

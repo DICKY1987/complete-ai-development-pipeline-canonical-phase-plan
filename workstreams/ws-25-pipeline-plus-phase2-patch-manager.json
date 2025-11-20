@@ -1,0 +1,49 @@
+{
+  "id": "ws-25-pipeline-plus-phase2-patch-manager",
+  "openspec_change": "PP-002",
+  "ccpm_issue": "pipeline-plus-phase2",
+  "gate": 1,
+  "files_scope": [
+    "core/engine/patch_manager.py",
+    "core/state/db.py",
+    "core/state/crud.py",
+    "tests/test_patch_manager.py"
+  ],
+  "files_create": [
+    "core/engine/patch_manager.py",
+    "tests/test_patch_manager.py"
+  ],
+  "tasks": [
+    "Create core/engine/patch_manager.py with PatchManager and PatchArtifact classes",
+    "Implement capture_patch(run_id, ws_id, worktree_path) -> PatchArtifact: git diff, parse files, compute SHA256 diff_hash, store to .ledger/patches/",
+    "Implement parse_patch(patch_file) -> PatchParseResult: extract files_modified, hunks, line counts",
+    "Implement apply_patch(patch_file, target_path) -> ApplyResult: git apply --check then git apply",
+    "Implement reverse_patch(patch_file, target_path) -> ApplyResult",
+    "Modify core/state/db.py to add patch CRUD operations",
+    "Modify core/state/crud.py to add record_patch(), get_patches_by_ws()",
+    "Create unit tests for parse unified diff, hash consistency, capture→store→retrieve→apply cycle",
+    "Test edge cases: empty diff, binary files, paths with spaces"
+  ],
+  "acceptance_tests": [
+    "pytest -q tests/test_patch_manager.py",
+    "Patch captured, stored, and applied successfully",
+    "Database records patch metadata correctly",
+    "diff_hash is consistent across runs"
+  ],
+  "depends_on": [
+    "ws-23-pipeline-plus-phase1a-task-queue",
+    "ws-24-pipeline-plus-phase1b-audit"
+  ],
+  "tool": "aider",
+  "circuit_breaker": {
+    "max_attempts": 5,
+    "max_error_repeats": 2,
+    "oscillation_threshold": 2
+  },
+  "metadata": {
+    "phase": "Phase 2: Patch Management System (Section 5)",
+    "description": "Core patch lifecycle—capture, store, parse, apply",
+    "owner": "pipeline-plus",
+    "priority": "critical"
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "$id": "schema/run_record.v1.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "RunRecord v1",
+  "description": "Top-level execution record for a phase/workstream. Tracks lifecycle from creation to completion.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "run_id",
+    "project_id",
+    "phase_id",
+    "state",
+    "created_at"
+  ],
+  "properties": {
+    "run_id": {
+      "type": "string",
+      "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$",
+      "description": "Unique identifier for this run (ULID)"
+    },
+    "project_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Project this run belongs to"
+    },
+    "phase_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Phase being executed"
+    },
+    "workstream_id": {
+      "type": ["string", "null"],
+      "description": "Optional workstream being executed"
+    },
+    "execution_request_id": {
+      "type": ["string", "null"],
+      "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$",
+      "description": "Optional execution request that triggered this run"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the run was created"
+    },
+    "started_at": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "When the run actually started execution"
+    },
+    "ended_at": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "When the run completed or failed"
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "running",
+        "succeeded",
+        "failed",
+        "canceled",
+        "quarantined"
+      ],
+      "description": "Current state of the run"
+    },
+    "state_reason": {
+      "type": ["string", "null"],
+      "description": "Human-readable reason for current state"
+    },
+    "origin": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Information about what triggered this run",
+      "properties": {
+        "trigger_type": {
+          "type": "string",
+          "enum": [
+            "manual",
+            "ci",
+            "error_pipeline",
+            "scheduled",
+            "other"
+          ],
+          "description": "How this run was triggered"
+        },
+        "trigger_ref": {
+          "type": ["string", "null"],
+          "description": "Reference to triggering entity (e.g., issue ID, CI run ID)"
+        },
+        "requested_by": {
+          "type": ["string", "null"],
+          "description": "User or system that requested this run"
+        }
+      }
+    },
+    "counters": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Aggregate counters for this run",
+      "properties": {
+        "step_attempts": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of step attempts made"
+        },
+        "patches_created": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of patches created"
+        },
+        "patches_applied": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of patches successfully applied"
+        },
+        "errors": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of errors encountered"
+        }
+      }
+    }
+  }
+}
