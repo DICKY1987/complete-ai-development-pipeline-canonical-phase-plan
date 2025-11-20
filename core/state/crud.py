@@ -735,3 +735,197 @@ def get_events(
     finally:
         cur.close()
         conn.close()
+
+# ============================================================================
+# PATCH CRUD OPERATIONS
+# ============================================================================
+
+def record_patch(
+    run_id: str,
+    ws_id: str,
+    step_name: str,
+    attempt: int,
+    patch_file: str,
+    diff_hash: str,
+    line_count: int,
+    files_modified: List[str],
+    validated: bool = False,
+    applied: bool = False,
+    db_path: Optional[str] = None
+) -> int:
+    """
+    Record a patch in the database.
+    
+    Args:
+        run_id: Run identifier
+        ws_id: Workstream identifier
+        step_name: Step name (edit, fix_static, fix_runtime)
+        attempt: Attempt number
+        patch_file: Path to patch file
+        diff_hash: SHA256 hash of diff content
+        line_count: Total line count (additions + deletions)
+        files_modified: List of modified file paths
+        validated: Whether patch passed validation
+        applied: Whether patch was applied
+        db_path: Optional database path
+        
+    Returns:
+        Patch record ID
+    """
+    conn = get_connection(db_path)
+    cur = conn.cursor()
+    
+    try:
+        now = datetime.utcnow().isoformat() + "Z"
+        files_json = json.dumps(files_modified)
+        
+        cur.execute(
+            """INSERT INTO patches 
+               (run_id, ws_id, step_name, attempt, patch_file, diff_hash,
+                line_count, files_modified, created_at, validated, applied)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+            (run_id, ws_id, step_name, attempt, patch_file, diff_hash,
+             line_count, files_json, now, int(validated), int(applied))
+        )
+        conn.commit()
+        
+        return cur.lastrowid
+        
+    finally:
+        cur.close()
+        conn.close()
+
+
+def get_patches_by_ws(
+    ws_id: str,
+    limit: int = 100,
+    db_path: Optional[str] = None
+) -> List[Dict[str, Any]]:
+    """
+    Get all patches for a workstream.
+    
+    Args:
+        ws_id: Workstream identifier
+        limit: Maximum results
+        db_path: Optional database path
+        
+    Returns:
+        List of patch records
+    """
+    conn = get_connection(db_path)
+    cur = conn.cursor()
+    
+    try:
+        cur.execute(
+            """SELECT * FROM patches 
+               WHERE ws_id = ? 
+               ORDER BY created_at DESC 
+               LIMIT ?""",
+            (ws_id, limit)
+        )
+        rows = cur.fetchall()
+        
+        results = []
+        for row in rows:
+            result = dict(row)
+            # Parse files_modified JSON
+            if result.get("files_modified"):
+                result["files_modified"] = json.loads(result["files_modified"])
+            # Convert int to bool
+            result["validated"] = bool(result.get("validated", 0))
+            result["applied"] = bool(result.get("applied", 0))
+            results.append(result)
+        
+        return results
+        
+    finally:
+        cur.close()
+        conn.close()
+
+
+def get_patches_by_hash(
+    ws_id: str,
+    diff_hash: str,
+    db_path: Optional[str] = None
+) -> List[Dict[str, Any]]:
+    """
+    Get patches by diff hash (for oscillation detection).
+    
+    Args:
+        ws_id: Workstream identifier
+        diff_hash: SHA256 hash of diff content
+        db_path: Optional database path
+        
+    Returns:
+        List of matching patch records
+    """
+    conn = get_connection(db_path)
+    cur = conn.cursor()
+    
+    try:
+        cur.execute(
+            """SELECT * FROM patches 
+               WHERE ws_id = ? AND diff_hash = ? 
+               ORDER BY created_at DESC""",
+            (ws_id, diff_hash)
+        )
+        rows = cur.fetchall()
+        
+        results = []
+        for row in rows:
+            result = dict(row)
+            if result.get("files_modified"):
+                result["files_modified"] = json.loads(result["files_modified"])
+            result["validated"] = bool(result.get("validated", 0))
+            result["applied"] = bool(result.get("applied", 0))
+            results.append(result)
+        
+        return results
+        
+    finally:
+        cur.close()
+        conn.close()
+
+
+def update_patch_status(
+    patch_id: int,
+    validated: Optional[bool] = None,
+    applied: Optional[bool] = None,
+    db_path: Optional[str] = None
+) -> None:
+    """
+    Update patch validation/application status.
+    
+    Args:
+        patch_id: Patch record ID
+        validated: New validation status
+        applied: New application status
+        db_path: Optional database path
+    """
+    conn = get_connection(db_path)
+    cur = conn.cursor()
+    
+    try:
+        updates = []
+        params = []
+        
+        if validated is not None:
+            updates.append("validated = ?")
+            params.append(int(validated))
+        
+        if applied is not None:
+            updates.append("applied = ?")
+            params.append(int(applied))
+        
+        if not updates:
+            return
+        
+        params.append(patch_id)
+        query = f"UPDATE patches SET {', '.join(updates)} WHERE id = ?"
+        
+        cur.execute(query, tuple(params))
+        conn.commit()
+        
+    finally:
+        cur.close()
+        conn.close()

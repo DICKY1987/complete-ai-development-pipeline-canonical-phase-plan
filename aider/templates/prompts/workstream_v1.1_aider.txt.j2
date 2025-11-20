@@ -1,0 +1,56 @@
+================================================================================
+WORKSTREAM V1.1 (AIDER) - {{ ws_id }}
+================================================================================
+
+[HEADER]
+Classification: {{ classification.complexity }} | {{ classification.quality }} | {{ classification.domain }} | {{ classification.operation }}
+Role: {{ role }}
+OpenSpec Change: {{ openspec_change }}
+CCPM Issue: {{ ccpm_issue }}
+Gate: {{ gate }}
+
+[OBJECTIVE]
+Execute the following workstream tasks using Aider's interactive capabilities.
+
+[CONTEXT]
+Repository: {{ context.repo_path }}
+Worktree: {{ context.worktree_path }}
+
+[FILE_SCOPE]
+Editable files:
+{% for file in files_scope %}
+  - {{ file }}
+{% endfor %}
+
+{% if files_create %}
+Creatable files:
+{% for file in files_create %}
+  - {{ file }}
+{% endfor %}
+{% endif %}
+
+[TASKS]
+{% for task in tasks %}
+{{ loop.index }}. {{ task }}
+{% endfor %}
+
+[CONSTRAINTS]
+- Edit only files in scope
+- Make minimal, focused changes
+- Preserve existing functionality unless explicitly changing it
+{% if classification.quality == 'production' %}
+- Apply production-level error handling and documentation
+{% endif %}
+
+[VALIDATION]
+{% for test in acceptance_tests %}
+  - {{ test }}
+{% endfor %}
+
+[EXECUTION_HINTS]
+- Use `/add` to add files to the chat if needed
+- Use `/diff` to review changes before confirming
+- Make incremental changes and test frequently
+- If tests fail, analyze output and fix issues
+
+================================================================================

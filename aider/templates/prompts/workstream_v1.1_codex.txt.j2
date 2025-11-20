@@ -1,0 +1,56 @@
+================================================================================
+WORKSTREAM V1.1 (CODEX) - {{ ws_id }}
+================================================================================
+
+[HEADER]
+Classification: {{ classification.complexity }} | {{ classification.quality }} | {{ classification.domain }} | {{ classification.operation }}
+Role: {{ role }}
+OpenSpec: {{ openspec_change }} | Issue: {{ ccpm_issue }} | Gate: {{ gate }}
+
+[OBJECTIVE]
+Complete the following autonomous workstream tasks.
+
+[CONTEXT]
+Repo: {{ context.repo_path }}
+Worktree: {{ context.worktree_path }}
+
+[FILE_SCOPE]
+Edit scope:
+{% for file in files_scope %}
+  - {{ file }}
+{% endfor %}
+
+{% if files_create %}
+Create scope:
+{% for file in files_create %}
+  - {{ file }}
+{% endfor %}
+{% endif %}
+
+[TASKS]
+{% for task in tasks %}
+{{ loop.index }}. {{ task }}
+{% endfor %}
+
+[CONSTRAINTS]
+- Stay within file scope
+- Minimal changes only
+- Maintain code quality
+{% if classification.quality == 'production' %}
+- Production-ready code with comprehensive error handling
+{% endif %}
+
+[VALIDATION]
+Tests to pass:
+{% for test in acceptance_tests %}
+  - {{ test }}
+{% endfor %}
+
+[EXECUTION_HINTS]
+- Analyze the codebase structure first
+- Plan changes before implementing
+- Test after each significant change
+- Use git for version control awareness
+- Review diffs before finalizing
+
+================================================================================

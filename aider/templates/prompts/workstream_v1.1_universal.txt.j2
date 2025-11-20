@@ -1,0 +1,73 @@
+================================================================================
+WORKSTREAM V1.1 - {{ ws_id }}
+================================================================================
+
+[HEADER]
+Classification: {{ classification.complexity }} | {{ classification.quality }} | {{ classification.domain }} | {{ classification.operation }}
+Role: {{ role }}
+OpenSpec Change: {{ openspec_change }}
+CCPM Issue: {{ ccpm_issue }}
+Gate: {{ gate }}
+Tool: {{ tool }}
+
+[OBJECTIVE]
+Execute the following workstream tasks according to the specifications below.
+
+[CONTEXT]
+Repository Path: {{ context.repo_path }}
+Worktree Path: {{ context.worktree_path }}
+{% if context.additional_context %}
+Additional Context:
+{% for key, value in context.additional_context.items() %}
+  - {{ key }}: {{ value }}
+{% endfor %}
+{% endif %}
+
+[FILE_SCOPE]
+You may EDIT these files:
+{% for file in files_scope %}
+  - {{ file }}
+{% endfor %}
+
+{% if files_create %}
+You may CREATE these files:
+{% for file in files_create %}
+  - {{ file }}
+{% endfor %}
+{% endif %}
+
+[TASKS]
+{% for task in tasks %}
+{{ loop.index }}. {{ task }}
+{% endfor %}
+
+[CONSTRAINTS]
+- Modify ONLY files within the declared scope above
+- Do NOT modify files outside this scope
+- Keep changes minimal and focused on the tasks
+- Maintain or enhance existing code quality
+- Follow the project's coding standards
+{% if classification.quality == 'production' %}
+- Apply production-quality standards (comprehensive error handling, documentation)
+{% endif %}
+
+[OUTPUT_FORMAT]
+- Make incremental, testable changes
+- Provide clear commit messages for each logical change
+- Document assumptions in code comments where needed
+
+[VALIDATION]
+Acceptance Tests:
+{% for test in acceptance_tests %}
+  - {{ test }}
+{% endfor %}
+
+All acceptance tests must pass before completion.
+
+[NEXT_STEPS]
+1. Review the file scope and tasks
+2. Make the necessary changes
+3. Run acceptance tests
+4. Verify all tests pass
+
+================================================================================
