@@ -1,0 +1,70 @@
+{
+  "phase_id": "PH-1C",
+  "workstream_id": "WS-SPEC-MIGRATION",
+  "phase_name": "Convert Development Rules to Machine-Readable Format",
+  "objective": "Convert DEVELOPMENT RULES DO and DONT.md to Spec-Doc v1 format with stable section IDs (DR-*) and metadata index",
+  "dependencies": ["PH-00"],
+  "file_scope": [
+    "specs/DEV_RULES_V1.md",
+    "specs/metadata/dr_index.json"
+  ],
+  "pre_flight_checks": [
+    {
+      "check_id": "PFC-1C-001",
+      "description": "Source specification file exists",
+      "command": "Test-Path 'DEVELOPMENT RULES DO and DONT.md'",
+      "expected": "True"
+    },
+    {
+      "check_id": "PFC-1C-002",
+      "description": "Target specs directory exists",
+      "command": "Test-Path specs",
+      "expected": "True"
+    },
+    {
+      "check_id": "PFC-1C-003",
+      "description": "Metadata directory exists",
+      "command": "Test-Path specs/metadata",
+      "expected": "True"
+    }
+  ],
+  "acceptance_tests": [
+    {
+      "test_id": "AT-1C-001",
+      "description": "Converted spec file exists",
+      "command": "Test-Path specs/DEV_RULES_V1.md",
+      "expected": "True"
+    },
+    {
+      "test_id": "AT-1C-002",
+      "description": "Metadata index file exists",
+      "command": "Test-Path specs/metadata/dr_index.json",
+      "expected": "True"
+    },
+    {
+      "test_id": "AT-1C-003",
+      "description": "All sections have stable DR-* IDs",
+      "command": "python -c \"import re, json; data=open('specs/metadata/dr_index.json').read(); ids=re.findall(r'DR-(DO|DONT)-\\d{3}', data); print(len(ids) >= 10)\"",
+      "expected": "True (at least 10 rules)"
+    },
+    {
+      "test_id": "AT-1C-004",
+      "description": "Index contains section metadata with DO and DONT categories",
+      "command": "python -c \"import json; d=json.load(open('specs/metadata/dr_index.json')); print('sections' in d and len(d['sections']) > 0)\"",
+      "expected": "True"
+    },
+    {
+      "test_id": "AT-1C-005",
+      "description": "Spec follows markdown format with DR categories",
+      "command": "python -c \"import re; content=open('specs/DEV_RULES_V1.md').read(); print('##' in content and 'DR-DO-' in content and 'DR-DONT-' in content)\"",
+      "expected": "True"
+    }
+  ],
+  "deliverables": [
+    "specs/DEV_RULES_V1.md with all rules tagged with DR-DO-* and DR-DONT-* IDs",
+    "specs/metadata/dr_index.json with rule index and metadata"
+  ],
+  "estimated_effort_hours": 8,
+  "risk_level": "low",
+  "notes": "Part of parallel group GROUP-1. Can execute simultaneously with PH-1A and PH-1B as they have non-overlapping file scopes. This phase is critical for building the guard rules engine in PH-2B."
+}

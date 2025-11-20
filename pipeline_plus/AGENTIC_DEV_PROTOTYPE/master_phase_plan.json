@@ -1,0 +1,269 @@
+{
+  "plan_name": "Game Board Protocol - Complete System Build",
+  "plan_version": "1.0.0",
+  "plan_description": "Complete implementation of the Game Board Protocol system using its own methodology to build itself",
+  "total_phases": 19,
+  "estimated_total_hours": 150,
+  "parallel_groups": 6,
+  "estimated_hours_with_parallelism": 105,
+  "milestones": [
+    {
+      "milestone_id": "M0",
+      "milestone_name": "Foundation",
+      "phases": ["PH-00"],
+      "description": "Bootstrap project structure"
+    },
+    {
+      "milestone_id": "M1",
+      "milestone_name": "Machine-Readable Specs",
+      "phases": ["PH-1A", "PH-1B", "PH-1C", "PH-1D", "PH-1E", "PH-1F"],
+      "description": "Convert specs to structured format with stable IDs"
+    },
+    {
+      "milestone_id": "M2",
+      "milestone_name": "Validation System",
+      "phases": ["PH-2A", "PH-2B", "PH-2C"],
+      "description": "Build validation gateway and guard rules"
+    },
+    {
+      "milestone_id": "M3",
+      "milestone_name": "Prompt & Orchestration",
+      "phases": ["PH-3A", "PH-3B", "PH-3C"],
+      "description": "Build orchestrator and dependency resolver"
+    },
+    {
+      "milestone_id": "M4",
+      "milestone_name": "Patch & Task Management",
+      "phases": ["PH-4A", "PH-4B"],
+      "description": "Build patch manager and task queue"
+    },
+    {
+      "milestone_id": "M5",
+      "milestone_name": "Tool Integration",
+      "phases": ["PH-5A", "PH-5B", "PH-5C"],
+      "description": "Build adapters for AI CLI tools"
+    },
+    {
+      "milestone_id": "M6",
+      "milestone_name": "Validation & Production",
+      "phases": ["PH-6A", "PH-6B", "PH-6C"],
+      "description": "Integration tests, CLI, and documentation"
+    }
+  ],
+  "phases": [
+    {
+      "phase_id": "PH-00",
+      "spec_file": "phase_specs/phase_0_bootstrap.json",
+      "dependencies": [],
+      "parallel_group": null,
+      "milestone": "M0"
+    },
+    {
+      "phase_id": "PH-1A",
+      "spec_file": "phase_specs/phase_1a_universal_spec.json",
+      "dependencies": ["PH-00"],
+      "parallel_group": "GROUP-1",
+      "milestone": "M1"
+    },
+    {
+      "phase_id": "PH-1B",
+      "spec_file": "phase_specs/phase_1b_pro_spec.json",
+      "dependencies": ["PH-00"],
+      "parallel_group": "GROUP-1",
+      "milestone": "M1"
+    },
+    {
+      "phase_id": "PH-1C",
+      "spec_file": "phase_specs/phase_1c_dev_rules.json",
+      "dependencies": ["PH-00"],
+      "parallel_group": "GROUP-1",
+      "milestone": "M1"
+    },
+    {
+      "phase_id": "PH-1D",
+      "spec_file": "phase_specs/phase_1d_cross_reference.json",
+      "dependencies": ["PH-1A", "PH-1B", "PH-1C"],
+      "parallel_group": null,
+      "milestone": "M1"
+    },
+    {
+      "phase_id": "PH-1E",
+      "spec_file": "phase_specs/phase_1e_schema_generator.json",
+      "dependencies": ["PH-1A", "PH-1B", "PH-1C"],
+      "parallel_group": "GROUP-2",
+      "milestone": "M1"
+    },
+    {
+      "phase_id": "PH-1F",
+      "spec_file": "phase_specs/phase_1f_spec_renderer.json",
+      "dependencies": ["PH-1A", "PH-1B", "PH-1C"],
+      "parallel_group": "GROUP-2",
+      "milestone": "M1"
+    },
+    {
+      "phase_id": "PH-2A",
+      "spec_file": "phase_specs/phase_2a_schema_validator.json",
+      "dependencies": ["PH-1E"],
+      "parallel_group": "GROUP-3",
+      "milestone": "M2"
+    },
+    {
+      "phase_id": "PH-2B",
+      "spec_file": "phase_specs/phase_2b_guard_rules.json",
+      "dependencies": ["PH-1C", "PH-1D"],
+      "parallel_group": "GROUP-3",
+      "milestone": "M2"
+    },
+    {
+      "phase_id": "PH-2C",
+      "spec_file": "phase_specs/phase_2c_validation_gateway.json",
+      "dependencies": ["PH-2A", "PH-2B"],
+      "parallel_group": null,
+      "milestone": "M2"
+    },
+    {
+      "phase_id": "PH-3A",
+      "spec_file": "phase_specs/phase_3a_prompt_renderer.json",
+      "dependencies": ["PH-1F"],
+      "parallel_group": null,
+      "milestone": "M3"
+    },
+    {
+      "phase_id": "PH-3B",
+      "spec_file": "phase_specs/phase_3b_orchestrator_core.json",
+      "dependencies": ["PH-2C", "PH-3A"],
+      "parallel_group": null,
+      "milestone": "M3"
+    },
+    {
+      "phase_id": "PH-3C",
+      "spec_file": "phase_specs/phase_3c_dependency_executor.json",
+      "dependencies": ["PH-3B"],
+      "parallel_group": null,
+      "milestone": "M3"
+    },
+    {
+      "phase_id": "PH-4A",
+      "spec_file": "phase_specs/phase_4a_patch_manager.json",
+      "dependencies": ["PH-1C"],
+      "parallel_group": "GROUP-4",
+      "milestone": "M4"
+    },
+    {
+      "phase_id": "PH-4B",
+      "spec_file": "phase_specs/phase_4b_task_queue.json",
+      "dependencies": ["PH-00"],
+      "parallel_group": "GROUP-4",
+      "milestone": "M4"
+    },
+    {
+      "phase_id": "PH-5A",
+      "spec_file": "phase_specs/phase_5a_aider_adapter.json",
+      "dependencies": ["PH-3A"],
+      "parallel_group": "GROUP-5",
+      "milestone": "M5"
+    },
+    {
+      "phase_id": "PH-5B",
+      "spec_file": "phase_specs/phase_5b_codex_adapter.json",
+      "dependencies": ["PH-3A"],
+      "parallel_group": "GROUP-5",
+      "milestone": "M5"
+    },
+    {
+      "phase_id": "PH-5C",
+      "spec_file": "phase_specs/phase_5c_claude_adapter.json",
+      "dependencies": ["PH-3A"],
+      "parallel_group": "GROUP-5",
+      "milestone": "M5"
+    },
+    {
+      "phase_id": "PH-6A",
+      "spec_file": "phase_specs/phase_6a_integration_tests.json",
+      "dependencies": ["PH-3C", "PH-4A", "PH-4B", "PH-5A", "PH-5B", "PH-5C"],
+      "parallel_group": null,
+      "milestone": "M6"
+    },
+    {
+      "phase_id": "PH-6B",
+      "spec_file": "phase_specs/phase_6b_cli_scripts.json",
+      "dependencies": ["PH-3C"],
+      "parallel_group": "GROUP-6",
+      "milestone": "M6"
+    },
+    {
+      "phase_id": "PH-6C",
+      "spec_file": "phase_specs/phase_6c_documentation.json",
+      "dependencies": ["PH-6A"],
+      "parallel_group": "GROUP-6",
+      "milestone": "M6"
+    }
+  ],
+  "parallel_execution_groups": {
+    "GROUP-1": {
+      "description": "Convert three core specs to machine-readable format",
+      "phases": ["PH-1A", "PH-1B", "PH-1C"],
+      "can_run_parallel": true,
+      "estimated_hours_sequential": 20,
+      "estimated_hours_parallel": 8
+    },
+    "GROUP-2": {
+      "description": "Build schema generator and spec renderer",
+      "phases": ["PH-1E", "PH-1F"],
+      "can_run_parallel": true,
+      "estimated_hours_sequential": 16,
+      "estimated_hours_parallel": 8
+    },
+    "GROUP-3": {
+      "description": "Build schema validator and guard rules engine",
+      "phases": ["PH-2A", "PH-2B"],
+      "can_run_parallel": true,
+      "estimated_hours_sequential": 16,
+      "estimated_hours_parallel": 10
+    },
+    "GROUP-4": {
+      "description": "Build patch manager and task queue",
+      "phases": ["PH-4A", "PH-4B"],
+      "can_run_parallel": true,
+      "estimated_hours_sequential": 16,
+      "estimated_hours_parallel": 10
+    },
+    "GROUP-5": {
+      "description": "Build tool adapters for Aider, Codex, Claude",
+      "phases": ["PH-5A", "PH-5B", "PH-5C"],
+      "can_run_parallel": true,
+      "estimated_hours_sequential": 16,
+      "estimated_hours_parallel": 6
+    },
+    "GROUP-6": {
+      "description": "Build CLI and documentation",
+      "phases": ["PH-6B", "PH-6C"],
+      "can_run_parallel": true,
+      "estimated_hours_sequential": 18,
+      "estimated_hours_parallel": 10
+    }
+  },
+  "execution_order": [
+    "PH-00",
+    ["PH-1A", "PH-1B", "PH-1C"],
+    "PH-1D",
+    ["PH-1E", "PH-1F"],
+    ["PH-2A", "PH-2B"],
+    "PH-2C",
+    "PH-3A",
+    "PH-3B",
+    "PH-3C",
+    ["PH-4A", "PH-4B"],
+    ["PH-5A", "PH-5B", "PH-5C"],
+    "PH-6A",
+    ["PH-6B", "PH-6C"]
+  ],
+  "success_criteria": [
+    "All 19 phases complete with passing acceptance tests",
+    "Sample phase plan executes successfully (PH-00 → PH-1A)",
+    "Invalid phase specs rejected before execution (0% false positives)",
+    "All three tool adapters functional",
+    "Zero anti-pattern violations in final validation",
+    "Documentation complete with working examples"
+  ]
+}

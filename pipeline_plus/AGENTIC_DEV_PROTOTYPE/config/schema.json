@@ -1,0 +1,66 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Phase Specification Schema",
+  "description": "Baseline schema for phase specifications (will be enhanced by PH-1E)",
+  "type": "object",
+  "required": ["phase_id", "objective", "file_scope", "acceptance_tests"],
+  "properties": {
+    "phase_id": {
+      "type": "string",
+      "pattern": "^PH-[0-9A-Z]+$",
+      "description": "Unique phase identifier (e.g., PH-00, PH-1A)"
+    },
+    "workstream_id": {
+      "type": "string",
+      "description": "Workstream identifier"
+    },
+    "phase_name": {
+      "type": "string",
+      "description": "Human-readable phase name"
+    },
+    "objective": {
+      "type": "string",
+      "minLength": 10,
+      "description": "Clear statement of what this phase accomplishes"
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^PH-[0-9A-Z]+$"
+      },
+      "description": "List of phase IDs that must complete before this phase"
+    },
+    "file_scope": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "description": "Files and directories this phase can modify"
+    },
+    "acceptance_tests": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["test_id", "description", "command", "expected"],
+        "properties": {
+          "test_id": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "command": {
+            "type": "string"
+          },
+          "expected": {
+            "type": "string"
+          }
+        }
+      },
+      "minItems": 1,
+      "description": "Programmatic tests that verify phase completion"
+    }
+  }
+}

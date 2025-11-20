@@ -1,0 +1,71 @@
+{
+  "phase_id": "PH-5A",
+  "workstream_id": "WS-TOOL-INTEGRATION",
+  "phase_name": "Aider Tool Adapter",
+  "objective": "Build adapter that interfaces with Aider CLI tool, submits prompts, captures output, and validates results",
+  "dependencies": ["PH-3A"],
+  "file_scope": [
+    "src/adapters/aider_adapter.py",
+    "tests/test_aider_adapter.py"
+  ],
+  "pre_flight_checks": [
+    {
+      "check_id": "PFC-5A-001",
+      "description": "Aider is installed",
+      "command": "which aider",
+      "expected": "exit code 0"
+    },
+    {
+      "check_id": "PFC-5A-002",
+      "description": "Prompt renderer exists",
+      "command": "test -f src/prompt_renderer.py",
+      "expected": "exit code 0"
+    }
+  ],
+  "acceptance_tests": [
+    {
+      "test_id": "AT-5A-001",
+      "description": "Can invoke Aider with prompt",
+      "command": "python src/adapters/aider_adapter.py --prompt test_data/sample_prompt.txt --dry-run",
+      "expected": "shows Aider command without executing"
+    },
+    {
+      "test_id": "AT-5A-002",
+      "description": "Captures Aider output",
+      "command": "python src/adapters/aider_adapter.py --prompt test_data/sample_prompt.txt --execute --capture-output",
+      "expected": "returns Aider stdout/stderr"
+    },
+    {
+      "test_id": "AT-5A-003",
+      "description": "Detects Aider execution errors",
+      "command": "python src/adapters/aider_adapter.py --prompt test_data/invalid_prompt.txt --execute",
+      "expected": "exit code 1, reports Aider error"
+    },
+    {
+      "test_id": "AT-5A-004",
+      "description": "Passes file scope to Aider",
+      "command": "python src/adapters/aider_adapter.py --prompt test_data/sample_prompt.txt --files 'src/validators/*.py' --dry-run | grep -q 'src/validators'",
+      "expected": "exit code 0"
+    },
+    {
+      "test_id": "AT-5A-005",
+      "description": "Configures Aider model",
+      "command": "python src/adapters/aider_adapter.py --prompt test_data/sample_prompt.txt --model gpt-4 --dry-run | grep -q 'gpt-4'",
+      "expected": "exit code 0"
+    },
+    {
+      "test_id": "AT-5A-006",
+      "description": "Unit tests pass",
+      "command": "pytest tests/test_aider_adapter.py -v",
+      "expected": "all tests pass (>= 10 tests)"
+    }
+  ],
+  "deliverables": [
+    "src/adapters/aider_adapter.py",
+    "tests/test_aider_adapter.py"
+  ],
+  "estimated_effort_hours": 6,
+  "risk_level": "medium",
+  "parallel_group": "GROUP-5",
+  "notes": "Can execute in parallel with PH-5B and PH-5C (different tools)"
+}

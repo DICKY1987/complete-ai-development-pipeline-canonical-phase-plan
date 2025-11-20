@@ -1,0 +1,70 @@
+{
+  "phase_id": "PH-1A",
+  "workstream_id": "WS-SPEC-MIGRATION",
+  "phase_name": "Convert Universal Phase Specification to Machine-Readable Format",
+  "objective": "Convert UNIVERSAL PHASE SPECIFICATION.txt to Spec-Doc v1 format with stable section IDs (UPS-*) and metadata index",
+  "dependencies": ["PH-00"],
+  "file_scope": [
+    "specs/UNIVERSAL_PHASE_SPEC_V1.md",
+    "specs/metadata/ups_index.json"
+  ],
+  "pre_flight_checks": [
+    {
+      "check_id": "PFC-1A-001",
+      "description": "Source specification file exists",
+      "command": "Test-Path 'UNIVERSAL PHASE SPECIFICATION.txt'",
+      "expected": "True"
+    },
+    {
+      "check_id": "PFC-1A-002",
+      "description": "Target specs directory exists",
+      "command": "Test-Path specs",
+      "expected": "True"
+    },
+    {
+      "check_id": "PFC-1A-003",
+      "description": "Metadata directory exists",
+      "command": "Test-Path specs/metadata",
+      "expected": "True"
+    }
+  ],
+  "acceptance_tests": [
+    {
+      "test_id": "AT-1A-001",
+      "description": "Converted spec file exists",
+      "command": "Test-Path specs/UNIVERSAL_PHASE_SPEC_V1.md",
+      "expected": "True"
+    },
+    {
+      "test_id": "AT-1A-002",
+      "description": "Metadata index file exists",
+      "command": "Test-Path specs/metadata/ups_index.json",
+      "expected": "True"
+    },
+    {
+      "test_id": "AT-1A-003",
+      "description": "All sections have stable UPS-* IDs",
+      "command": "python -c \"import re, json; data=open('specs/metadata/ups_index.json').read(); ids=re.findall(r'UPS-\\d{3}', data); print(len(ids) >= 10)\"",
+      "expected": "True (at least 10 sections)"
+    },
+    {
+      "test_id": "AT-1A-004",
+      "description": "Index contains section metadata",
+      "command": "python -c \"import json; d=json.load(open('specs/metadata/ups_index.json')); print('sections' in d and len(d['sections']) > 0)\"",
+      "expected": "True"
+    },
+    {
+      "test_id": "AT-1A-005",
+      "description": "Spec follows markdown format",
+      "command": "python -c \"import re; content=open('specs/UNIVERSAL_PHASE_SPEC_V1.md').read(); print('##' in content and 'UPS-' in content)\"",
+      "expected": "True"
+    }
+  ],
+  "deliverables": [
+    "specs/UNIVERSAL_PHASE_SPEC_V1.md with all sections tagged with UPS-* IDs",
+    "specs/metadata/ups_index.json with section index and metadata"
+  ],
+  "estimated_effort_hours": 6,
+  "risk_level": "low",
+  "notes": "Part of parallel group GROUP-1. Can execute simultaneously with PH-1B and PH-1C as they have non-overlapping file scopes."
+}

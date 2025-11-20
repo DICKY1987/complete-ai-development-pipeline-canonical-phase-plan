@@ -1,0 +1,71 @@
+{
+  "phase_id": "PH-2B",
+  "workstream_id": "WS-VALIDATION",
+  "phase_name": "Guard Rules Engine",
+  "objective": "Build semantic validation engine that enforces business rules and anti-patterns from DEV_RULES spec",
+  "dependencies": ["PH-1C", "PH-1D"],
+  "file_scope": [
+    "src/validators/guard_rules_engine.py",
+    "tests/test_guard_rules.py"
+  ],
+  "pre_flight_checks": [
+    {
+      "check_id": "PFC-2B-001",
+      "description": "DEV_RULES spec exists",
+      "command": "test -f specs/DEV_RULES_V1.md",
+      "expected": "exit code 0"
+    },
+    {
+      "check_id": "PFC-2B-002",
+      "description": "DR index exists",
+      "command": "test -f specs/metadata/dr_index.json",
+      "expected": "exit code 0"
+    }
+  ],
+  "acceptance_tests": [
+    {
+      "test_id": "AT-2B-001",
+      "description": "Detects missing acceptance tests (DR-DONT-002)",
+      "command": "echo '{\"phase_id\": \"PH-TEST\", \"acceptance_tests\": []}' | python src/validators/guard_rules_engine.py --check -",
+      "expected": "exit code 1, reports DR-DONT-002 violation"
+    },
+    {
+      "test_id": "AT-2B-002",
+      "description": "Detects file_scope outside phase scope (DR-DONT-005)",
+      "command": "python src/validators/guard_rules_engine.py --check phase_specs/phase_1a_universal_spec.json --enforce-scope",
+      "expected": "exit code 0 if scope valid"
+    },
+    {
+      "test_id": "AT-2B-003",
+      "description": "Detects circular dependencies",
+      "command": "python src/validators/guard_rules_engine.py --check-deps phase_specs/ --detect-cycles",
+      "expected": "exit code 0, reports no cycles"
+    },
+    {
+      "test_id": "AT-2B-004",
+      "description": "Enforces CLI-first execution (DR-DO-001)",
+      "command": "python src/validators/guard_rules_engine.py --check phase_specs/phase_2a_schema_validator.json --require-cli-tests",
+      "expected": "exit code 0, all acceptance tests have command field"
+    },
+    {
+      "test_id": "AT-2B-005",
+      "description": "Can load custom guard rules",
+      "command": "python src/validators/guard_rules_engine.py --load-rules config/custom_guards.json --check phase_specs/phase_0_bootstrap.json",
+      "expected": "exit code 0"
+    },
+    {
+      "test_id": "AT-2B-006",
+      "description": "Unit tests pass",
+      "command": "pytest tests/test_guard_rules.py -v",
+      "expected": "all tests pass (>= 15 tests)"
+    }
+  ],
+  "deliverables": [
+    "src/validators/guard_rules_engine.py with rule enforcement",
+    "tests/test_guard_rules.py with anti-pattern detection tests"
+  ],
+  "estimated_effort_hours": 10,
+  "risk_level": "medium",
+  "parallel_group": "GROUP-3",
+  "notes": "Can execute in parallel with PH-2A (different validation layers)"
+}

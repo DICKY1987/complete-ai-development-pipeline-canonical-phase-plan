@@ -1,0 +1,65 @@
+{
+  "phase_id": "PH-2A",
+  "workstream_id": "WS-VALIDATION",
+  "phase_name": "Schema Validator Implementation",
+  "objective": "Build phase spec validator that checks JSON phase specs against generated schemas before execution",
+  "dependencies": ["PH-1E"],
+  "file_scope": [
+    "src/validators/schema_validator.py",
+    "tests/test_schema_validator.py"
+  ],
+  "pre_flight_checks": [
+    {
+      "check_id": "PFC-2A-001",
+      "description": "Generated schemas exist",
+      "command": "test -f schemas/generated/phase_spec.schema.json",
+      "expected": "exit code 0"
+    }
+  ],
+  "acceptance_tests": [
+    {
+      "test_id": "AT-2A-001",
+      "description": "Valid phase spec passes validation",
+      "command": "python src/validators/schema_validator.py --validate phase_specs/phase_0_bootstrap.json",
+      "expected": "exit code 0, reports valid"
+    },
+    {
+      "test_id": "AT-2A-002",
+      "description": "Missing required field detected",
+      "command": "echo '{\"phase_id\": \"TEST\"}' | python src/validators/schema_validator.py --validate -",
+      "expected": "exit code 1, reports missing objective"
+    },
+    {
+      "test_id": "AT-2A-003",
+      "description": "Invalid phase_id format rejected",
+      "command": "echo '{\"phase_id\": \"invalid\"}' | python src/validators/schema_validator.py --validate -",
+      "expected": "exit code 1, reports invalid phase_id format"
+    },
+    {
+      "test_id": "AT-2A-004",
+      "description": "Batch validation of all phase specs",
+      "command": "python src/validators/schema_validator.py --validate-all phase_specs/",
+      "expected": "exit code 0, all specs valid"
+    },
+    {
+      "test_id": "AT-2A-005",
+      "description": "Detailed error messages for violations",
+      "command": "echo '{\"phase_id\": \"PH-01\"}' | python src/validators/schema_validator.py --validate - --verbose",
+      "expected": "lists all missing required fields"
+    },
+    {
+      "test_id": "AT-2A-006",
+      "description": "Unit tests pass",
+      "command": "pytest tests/test_schema_validator.py -v",
+      "expected": "all tests pass (>= 12 tests)"
+    }
+  ],
+  "deliverables": [
+    "src/validators/schema_validator.py",
+    "tests/test_schema_validator.py with edge cases"
+  ],
+  "estimated_effort_hours": 6,
+  "risk_level": "low",
+  "parallel_group": "GROUP-3",
+  "notes": "Can execute in parallel with PH-2B (different validation layers)"
+}

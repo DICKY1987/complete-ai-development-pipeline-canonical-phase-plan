@@ -1,0 +1,70 @@
+{
+  "phase_id": "PH-1B",
+  "workstream_id": "WS-SPEC-MIGRATION",
+  "phase_name": "Convert PRO Phase Specification to Machine-Readable Format",
+  "objective": "Convert PRO_Phase Specification mandatory structure.md to Spec-Doc v1 format with stable section IDs (PPS-*) and metadata index",
+  "dependencies": ["PH-00"],
+  "file_scope": [
+    "specs/PRO_PHASE_SPEC_V1.md",
+    "specs/metadata/pps_index.json"
+  ],
+  "pre_flight_checks": [
+    {
+      "check_id": "PFC-1B-001",
+      "description": "Source specification file exists",
+      "command": "Test-Path 'PRO_Phase Specification mandatory structure.md'",
+      "expected": "True"
+    },
+    {
+      "check_id": "PFC-1B-002",
+      "description": "Target specs directory exists",
+      "command": "Test-Path specs",
+      "expected": "True"
+    },
+    {
+      "check_id": "PFC-1B-003",
+      "description": "Metadata directory exists",
+      "command": "Test-Path specs/metadata",
+      "expected": "True"
+    }
+  ],
+  "acceptance_tests": [
+    {
+      "test_id": "AT-1B-001",
+      "description": "Converted spec file exists",
+      "command": "Test-Path specs/PRO_PHASE_SPEC_V1.md",
+      "expected": "True"
+    },
+    {
+      "test_id": "AT-1B-002",
+      "description": "Metadata index file exists",
+      "command": "Test-Path specs/metadata/pps_index.json",
+      "expected": "True"
+    },
+    {
+      "test_id": "AT-1B-003",
+      "description": "All sections have stable PPS-* IDs",
+      "command": "python -c \"import re, json; data=open('specs/metadata/pps_index.json').read(); ids=re.findall(r'PPS-\\d{3}', data); print(len(ids) >= 8)\"",
+      "expected": "True (at least 8 sections)"
+    },
+    {
+      "test_id": "AT-1B-004",
+      "description": "Index contains section metadata",
+      "command": "python -c \"import json; d=json.load(open('specs/metadata/pps_index.json')); print('sections' in d and len(d['sections']) > 0)\"",
+      "expected": "True"
+    },
+    {
+      "test_id": "AT-1B-005",
+      "description": "Spec follows markdown format",
+      "command": "python -c \"import re; content=open('specs/PRO_PHASE_SPEC_V1.md').read(); print('##' in content and 'PPS-' in content)\"",
+      "expected": "True"
+    }
+  ],
+  "deliverables": [
+    "specs/PRO_PHASE_SPEC_V1.md with all sections tagged with PPS-* IDs",
+    "specs/metadata/pps_index.json with section index and metadata"
+  ],
+  "estimated_effort_hours": 6,
+  "risk_level": "low",
+  "notes": "Part of parallel group GROUP-1. Can execute simultaneously with PH-1A and PH-1C as they have non-overlapping file scopes."
+}

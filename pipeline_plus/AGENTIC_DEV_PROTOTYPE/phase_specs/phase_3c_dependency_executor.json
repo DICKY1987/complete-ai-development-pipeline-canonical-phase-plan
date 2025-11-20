@@ -1,0 +1,78 @@
+{
+  "phase_id": "PH-3C",
+  "workstream_id": "WS-ORCHESTRATION",
+  "phase_name": "Dependency Resolver and Parallel Executor",
+  "objective": "Build dependency resolver that executes phases in correct order and identifies parallel execution opportunities",
+  "dependencies": ["PH-3B"],
+  "file_scope": [
+    "src/orchestrator/dependency_resolver.py",
+    "src/orchestrator/parallel_executor.py",
+    "tests/test_dependency_resolution.py"
+  ],
+  "pre_flight_checks": [
+    {
+      "check_id": "PFC-3C-001",
+      "description": "Orchestrator core exists",
+      "command": "test -f src/orchestrator/core.py",
+      "expected": "exit code 0"
+    },
+    {
+      "check_id": "PFC-3C-002",
+      "description": "Master phase plan exists",
+      "command": "test -f master_phase_plan.json",
+      "expected": "exit code 0"
+    }
+  ],
+  "acceptance_tests": [
+    {
+      "test_id": "AT-3C-001",
+      "description": "Builds correct dependency graph",
+      "command": "python src/orchestrator/dependency_resolver.py --plan master_phase_plan.json --build-graph",
+      "expected": "creates valid DAG with all phases"
+    },
+    {
+      "test_id": "AT-3C-002",
+      "description": "Detects circular dependencies",
+      "command": "python src/orchestrator/dependency_resolver.py --plan test_data/circular_plan.json --check-cycles",
+      "expected": "exit code 1, reports cycle"
+    },
+    {
+      "test_id": "AT-3C-003",
+      "description": "Identifies parallel execution groups",
+      "command": "python src/orchestrator/dependency_resolver.py --plan master_phase_plan.json --find-parallel",
+      "expected": "identifies 8 parallel groups"
+    },
+    {
+      "test_id": "AT-3C-004",
+      "description": "Respects dependencies in execution order",
+      "command": "python src/orchestrator/dependency_resolver.py --plan master_phase_plan.json --execution-order",
+      "expected": "PH-00 before PH-1A, PH-1A before PH-1D"
+    },
+    {
+      "test_id": "AT-3C-005",
+      "description": "Can execute parallel group",
+      "command": "python src/orchestrator/parallel_executor.py --group GROUP-1 --phases PH-1A,PH-1B,PH-1C --dry-run",
+      "expected": "shows parallel execution plan"
+    },
+    {
+      "test_id": "AT-3C-006",
+      "description": "Blocks execution if dependency failed",
+      "command": "python src/orchestrator/dependency_resolver.py --plan master_phase_plan.json --simulate-failure PH-1A --check-blocked",
+      "expected": "reports PH-1D blocked"
+    },
+    {
+      "test_id": "AT-3C-007",
+      "description": "Unit tests pass",
+      "command": "pytest tests/test_dependency_resolution.py -v",
+      "expected": "all tests pass (>= 12 tests)"
+    }
+  ],
+  "deliverables": [
+    "src/orchestrator/dependency_resolver.py with DAG builder",
+    "src/orchestrator/parallel_executor.py",
+    "tests/test_dependency_resolution.py"
+  ],
+  "estimated_effort_hours": 10,
+  "risk_level": "high",
+  "notes": "Enables parallel execution - key performance feature"
+}

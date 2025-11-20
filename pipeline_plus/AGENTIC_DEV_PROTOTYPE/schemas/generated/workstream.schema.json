@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://gameboardprotocol.org/schemas/workstream.schema.json",
+  "title": "Game Board Protocol Workstream",
+  "description": "Schema for workstream definitions containing multiple phases",
+  "type": "object",
+  "required": [
+    "workstream_id",
+    "workstream_name",
+    "description",
+    "phases"
+  ],
+  "properties": {
+    "workstream_id": {
+      "type": "string",
+      "pattern": "^WS-[A-Z0-9-]+$"
+    },
+    "workstream_name": {
+      "type": "string",
+      "minLength": 5
+    },
+    "description": {
+      "type": "string",
+      "minLength": 20
+    },
+    "phases": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^PH-[0-9A-Z]+$"
+      },
+      "minItems": 1
+    },
+    "estimated_total_hours": {
+      "type": "number",
+      "minimum": 0
+    }
+  }
+}

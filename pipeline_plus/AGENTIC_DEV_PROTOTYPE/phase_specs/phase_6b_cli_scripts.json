@@ -1,0 +1,93 @@
+{
+  "phase_id": "PH-6B",
+  "workstream_id": "WS-VALIDATION-PRODUCTION",
+  "phase_name": "CLI Scripts and User Interface",
+  "objective": "Build user-friendly CLI scripts for common operations (validate, execute, status, rollback) with help text",
+  "dependencies": ["PH-3C"],
+  "file_scope": [
+    "cli/gameboard",
+    "cli/gameboard.ps1",
+    "cli/commands/",
+    "tests/test_cli.py"
+  ],
+  "pre_flight_checks": [
+    {
+      "check_id": "PFC-6B-001",
+      "description": "Orchestrator core exists",
+      "command": "test -f src/orchestrator/core.py",
+      "expected": "exit code 0"
+    },
+    {
+      "check_id": "PFC-6B-002",
+      "description": "Validation gateway exists",
+      "command": "test -f src/validation_gateway.py",
+      "expected": "exit code 0"
+    }
+  ],
+  "acceptance_tests": [
+    {
+      "test_id": "AT-6B-001",
+      "description": "CLI script is executable",
+      "command": "test -x cli/gameboard",
+      "expected": "exit code 0"
+    },
+    {
+      "test_id": "AT-6B-002",
+      "description": "CLI shows help text",
+      "command": "cli/gameboard --help",
+      "expected": "displays usage and command list"
+    },
+    {
+      "test_id": "AT-6B-003",
+      "description": "Validate command works",
+      "command": "cli/gameboard validate phase_specs/phase_0_bootstrap.json",
+      "expected": "exit code 0, validation success message"
+    },
+    {
+      "test_id": "AT-6B-004",
+      "description": "Execute command queues phase",
+      "command": "cli/gameboard execute phase_specs/phase_0_bootstrap.json --dry-run",
+      "expected": "shows execution plan without running"
+    },
+    {
+      "test_id": "AT-6B-005",
+      "description": "Status command shows phase state",
+      "command": "cli/gameboard status PH-00",
+      "expected": "displays current phase status"
+    },
+    {
+      "test_id": "AT-6B-006",
+      "description": "List command shows all phases",
+      "command": "cli/gameboard list --state queued",
+      "expected": "lists queued phases"
+    },
+    {
+      "test_id": "AT-6B-007",
+      "description": "Plan command validates entire plan",
+      "command": "cli/gameboard plan master_phase_plan.json --check",
+      "expected": "validates plan and shows execution order"
+    },
+    {
+      "test_id": "AT-6B-008",
+      "description": "Rollback command works",
+      "command": "cli/gameboard rollback PH-1A --dry-run",
+      "expected": "shows rollback plan"
+    },
+    {
+      "test_id": "AT-6B-009",
+      "description": "CLI tests pass",
+      "command": "pytest tests/test_cli.py -v",
+      "expected": "all tests pass (>= 15 tests)"
+    }
+  ],
+  "deliverables": [
+    "cli/gameboard bash script",
+    "cli/gameboard.ps1 PowerShell script",
+    "cli/commands/ with command implementations",
+    "tests/test_cli.py"
+  ],
+  "estimated_effort_hours": 8,
+  "risk_level": "low",
+  "parallel_group": "GROUP-6",
+  "notes": "Can execute in parallel with PH-6C (different outputs)"
+}

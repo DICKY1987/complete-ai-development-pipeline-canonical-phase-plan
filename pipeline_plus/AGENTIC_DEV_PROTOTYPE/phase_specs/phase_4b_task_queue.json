@@ -1,0 +1,72 @@
+{
+  "phase_id": "PH-4B",
+  "workstream_id": "WS-PATCH-TASK",
+  "phase_name": "File-Based Task Queue",
+  "objective": "Build file-based task queue system for managing phase execution requests with priority and status tracking",
+  "dependencies": ["PH-00"],
+  "file_scope": [
+    "src/task_queue.py",
+    ".tasks/",
+    "tests/test_task_queue.py"
+  ],
+  "pre_flight_checks": [
+    {
+      "check_id": "PFC-4B-001",
+      "description": ".tasks directory exists",
+      "command": "test -d .tasks",
+      "expected": "exit code 0"
+    }
+  ],
+  "acceptance_tests": [
+    {
+      "test_id": "AT-4B-001",
+      "description": "Can enqueue task",
+      "command": "python src/task_queue.py --enqueue --phase PH-1A --priority high",
+      "expected": "creates task file in .tasks/queued/"
+    },
+    {
+      "test_id": "AT-4B-002",
+      "description": "Can dequeue next task",
+      "command": "python src/task_queue.py --dequeue",
+      "expected": "returns highest priority task"
+    },
+    {
+      "test_id": "AT-4B-003",
+      "description": "Respects task priority",
+      "command": "python src/task_queue.py --enqueue --phase PH-1A --priority low && python src/task_queue.py --enqueue --phase PH-1B --priority high && python src/task_queue.py --dequeue | grep PH-1B",
+      "expected": "dequeues high priority first"
+    },
+    {
+      "test_id": "AT-4B-004",
+      "description": "Moves task through states",
+      "command": "python src/task_queue.py --enqueue --phase PH-1A && python src/task_queue.py --mark-running PH-1A && test -f .tasks/running/PH-1A.json",
+      "expected": "task file moved to running/"
+    },
+    {
+      "test_id": "AT-4B-005",
+      "description": "Can mark task complete",
+      "command": "python src/task_queue.py --mark-complete PH-1A && test -f .tasks/complete/PH-1A.json",
+      "expected": "task file moved to complete/"
+    },
+    {
+      "test_id": "AT-4B-006",
+      "description": "Lists queued tasks",
+      "command": "python src/task_queue.py --list-queued",
+      "expected": "returns JSON array of queued tasks"
+    },
+    {
+      "test_id": "AT-4B-007",
+      "description": "Unit tests pass",
+      "command": "pytest tests/test_task_queue.py -v",
+      "expected": "all tests pass (>= 12 tests)"
+    }
+  ],
+  "deliverables": [
+    "src/task_queue.py with file-based queue",
+    "tests/test_task_queue.py"
+  ],
+  "estimated_effort_hours": 6,
+  "risk_level": "low",
+  "parallel_group": "GROUP-4",
+  "notes": "Can execute in parallel with PH-4A (different subsystems)"
+}

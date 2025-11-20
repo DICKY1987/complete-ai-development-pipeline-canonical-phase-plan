@@ -1,0 +1,153 @@
+{
+  "document_id": "PRO_PHASE_SPEC_V1",
+  "document_title": "PRO Phase Specification v1.0",
+  "version": "1.0.0",
+  "last_updated": "2025-11-20",
+  "total_sections": 10,
+  "sections": [
+    {
+      "section_id": "PPS-001",
+      "title": "Overview",
+      "level": 2,
+      "line_start": 11,
+      "summary": "Professional mandatory structure for autonomous AI development phases",
+      "keywords": ["overview", "professional", "mandatory", "structure"]
+    },
+    {
+      "section_id": "PPS-002",
+      "title": "Phase Identity & Naming",
+      "level": 2,
+      "line_start": 19,
+      "summary": "Dual identification system for human and machine consumption",
+      "keywords": ["identity", "naming", "phase_id", "workstream_id", "binding"],
+      "subsections": [
+        {"id": "PPS-002-1", "title": "Phase ID (Human-Focused)", "keywords": ["human-readable", "ordering"]},
+        {"id": "PPS-002-2", "title": "Workstream ID (Machine-Focused)", "keywords": ["machine-readable", "unique", "pattern"]},
+        {"id": "PPS-002-3", "title": "Binding to Workstream", "keywords": ["binding", "entrypoint", "canonical"]}
+      ]
+    },
+    {
+      "section_id": "PPS-003",
+      "title": "Mandatory Phase Fields",
+      "level": 2,
+      "line_start": 48,
+      "summary": "Required structured fields for every phase definition",
+      "keywords": ["fields", "objective", "workstream_id", "file_scope", "acceptance_tests", "dependencies"],
+      "subsections": [
+        {"id": "PPS-003-1", "title": "Objective (REQUIRED)", "keywords": ["objective", "goal", "verifiable"]},
+        {"id": "PPS-003-2", "title": "Workstream ID (REQUIRED)", "keywords": ["workstream", "registry", "validation"]},
+        {"id": "PPS-003-3", "title": "File Scope (REQUIRED)", "keywords": ["file_scope", "create", "modify", "read_only"]},
+        {"id": "PPS-003-4", "title": "Programmatic Acceptance Tests (REQUIRED)", "keywords": ["acceptance_tests", "filesystem", "behavioral", "pytest"]},
+        {"id": "PPS-003-5", "title": "Dependencies (REQUIRED)", "keywords": ["dependencies", "must_follow", "may_run_parallel_with"]}
+      ]
+    },
+    {
+      "section_id": "PPS-004",
+      "title": "Phase Pre-Flight Requirement",
+      "level": 2,
+      "line_start": 114,
+      "summary": "Mandatory pre-execution verification for all phases",
+      "keywords": ["pre-flight", "verification", "prerequisites", "environment"],
+      "subsections": [
+        {"id": "PPS-004-1", "title": "Pre-Flight Verification", "keywords": ["verification", "artifacts", "environment"]},
+        {"id": "PPS-004-2", "title": "Pre-Flight Failure Response", "keywords": ["failure", "hard_stop", "self-healing"]}
+      ]
+    },
+    {
+      "section_id": "PPS-005",
+      "title": "Standard Phase Template",
+      "level": 2,
+      "line_start": 147,
+      "summary": "Normative template structure for phase specifications",
+      "keywords": ["template", "standard", "structure", "format"],
+      "template_components": [
+        "Objective",
+        "Workstream",
+        "File Scope",
+        "Dependencies",
+        "Tasks",
+        "Implementation Notes",
+        "Acceptance Tests",
+        "Self-Healing Rules",
+        "Success Criteria"
+      ]
+    },
+    {
+      "section_id": "PPS-006",
+      "title": "Operator Execution Standard",
+      "level": 2,
+      "line_start": 202,
+      "summary": "Rules of engagement for AI agents as operators",
+      "keywords": ["operator", "execution", "cli", "self-healing", "verification"],
+      "subsections": [
+        {
+          "id": "PPS-006-1",
+          "title": "Rule 1 – CLI-First, Never 'Vibes'",
+          "keywords": ["cli", "source_of_truth", "verification", "no_assumptions"],
+          "rules": ["CLI as Source of Truth", "Never Assume Success", "Ask the Repo"]
+        },
+        {
+          "id": "PPS-006-2",
+          "title": "Rule 2 – Self-Healing Execution",
+          "keywords": ["self-healing", "detect", "repair", "autonomous"],
+          "rules": ["Detect Under-Delivery", "Repair Environment", "Self-Healing Loop"]
+        }
+      ]
+    },
+    {
+      "section_id": "PPS-007",
+      "title": "Isolation via Worktrees & Patches",
+      "level": 2,
+      "line_start": 278,
+      "summary": "Mandatory isolation and patch management requirements",
+      "keywords": ["isolation", "worktrees", "patches", "scope_validation"],
+      "subsections": [
+        {"id": "PPS-007-1", "title": "Worktree Isolation (MANDATORY)", "keywords": ["worktree", "isolation", "dedicated"]},
+        {"id": "PPS-007-2", "title": "Patch-First Editing (MANDATORY)", "keywords": ["patch", "diff", "minimal", "unified_diff"]},
+        {"id": "PPS-007-3", "title": "Patch Metadata & Scope Validation", "keywords": ["metadata", "scope", "validation", "hash"]}
+      ]
+    },
+    {
+      "section_id": "PPS-008",
+      "title": "Atomic Execution & Small Phases",
+      "level": 2,
+      "line_start": 313,
+      "summary": "Guidelines for atomic phase design and execution",
+      "keywords": ["atomic", "small_phases", "minimal_diffs", "verification"],
+      "subsections": [
+        {"id": "PPS-008-1", "title": "Phase Atomicity", "keywords": ["atomicity", "small", "verifiable", "dos_and_donts"]},
+        {"id": "PPS-008-2", "title": "Verification Over Confidence", "keywords": ["verification", "ground_truth", "cli_verification"]}
+      ]
+    },
+    {
+      "section_id": "PPS-009",
+      "title": "Cross-References",
+      "level": 2,
+      "line_start": 352,
+      "summary": "References to related specifications and components",
+      "keywords": ["cross-references", "related", "ups", "dr", "implementation"],
+      "references": [
+        {"type": "specification", "id": "UPS-*", "description": "Universal Phase Specification"},
+        {"type": "specification", "id": "DR-DO-*", "description": "Development Rules (DO practices)"},
+        {"type": "specification", "id": "DR-DONT-*", "description": "Development Rules (DONT anti-patterns)"},
+        {"type": "component", "name": "Orchestrator Core", "phase": "Phase 3B"},
+        {"type": "component", "name": "Validation Gateway", "phase": "Phase 2C"},
+        {"type": "component", "name": "Patch Manager", "phase": "Phase 4A"}
+      ]
+    },
+    {
+      "section_id": "PPS-010",
+      "title": "Version History",
+      "level": 2,
+      "line_start": 368,
+      "summary": "Document version history and changelog",
+      "keywords": ["version", "history", "changelog"]
+    }
+  ],
+  "section_id_pattern": "PPS-\\d{3}(-\\d+)?",
+  "anchor_pattern": "{#PPS-\\d{3}(-\\d+)?}",
+  "file_path": "specs/PRO_PHASE_SPEC_V1.md",
+  "created_by": "Phase 1B - Convert PRO Phase Specification",
+  "created_date": "2025-11-20",
+  "validation_status": "valid"
+}

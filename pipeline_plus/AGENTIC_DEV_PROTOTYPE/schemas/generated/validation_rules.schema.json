@@ -1,0 +1,89 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://gameboardprotocol.org/schemas/validation-rules.schema.json",
+  "title": "Game Board Protocol Validation Rules",
+  "description": "Schema for validation rules based on Development Rules (DR) specifications",
+  "type": "object",
+  "required": [
+    "rules_version",
+    "rules"
+  ],
+  "properties": {
+    "rules_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Semantic version of rules set"
+    },
+    "rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "rule_id",
+          "category",
+          "severity",
+          "description",
+          "validation_type"
+        ],
+        "properties": {
+          "rule_id": {
+            "type": "string",
+            "pattern": "^VR-\\d{3}$",
+            "description": "Unique validation rule identifier"
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "STRUCTURE",
+              "DEPENDENCY",
+              "SCOPE",
+              "TESTING",
+              "ANTI_PATTERN"
+            ],
+            "description": "Rule category"
+          },
+          "severity": {
+            "type": "string",
+            "enum": [
+              "ERROR",
+              "WARNING",
+              "INFO"
+            ],
+            "description": "Validation severity level"
+          },
+          "description": {
+            "type": "string",
+            "minLength": 10,
+            "description": "Human-readable rule description"
+          },
+          "validation_type": {
+            "type": "string",
+            "enum": [
+              "SCHEMA",
+              "SEMANTIC",
+              "INTEGRATION",
+              "ANTI_PATTERN"
+            ],
+            "description": "Type of validation check"
+          },
+          "validator_function": {
+            "type": "string",
+            "description": "Python function name for validation"
+          },
+          "error_message": {
+            "type": "string",
+            "description": "Error message template"
+          },
+          "dr_reference": {
+            "type": "string",
+            "pattern": "^DR-(DO|DONT|GOLD)-\\d{3}",
+            "description": "Reference to Development Rule section"
+          }
+        }
+      },
+      "minItems": 1,
+      "description": "Array of validation rules"
+    }
+  },
+  "additionalProperties": false
+}

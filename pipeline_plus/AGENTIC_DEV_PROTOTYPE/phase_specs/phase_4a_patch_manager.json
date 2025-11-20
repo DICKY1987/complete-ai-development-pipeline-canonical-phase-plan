@@ -1,0 +1,71 @@
+{
+  "phase_id": "PH-4A",
+  "workstream_id": "WS-PATCH-TASK",
+  "phase_name": "Patch Manager with Scope Validation",
+  "objective": "Build patch manager that validates unified diffs against phase file_scope and applies patches with rollback",
+  "dependencies": ["PH-1C"],
+  "file_scope": [
+    "src/patch_manager.py",
+    "tests/test_patch_manager.py"
+  ],
+  "pre_flight_checks": [
+    {
+      "check_id": "PFC-4A-001",
+      "description": "DEV_RULES spec exists",
+      "command": "test -f specs/DEV_RULES_V1.md",
+      "expected": "exit code 0"
+    }
+  ],
+  "acceptance_tests": [
+    {
+      "test_id": "AT-4A-001",
+      "description": "Validates patch against file_scope",
+      "command": "python src/patch_manager.py --validate test_data/sample.patch --scope 'src/validators/*'",
+      "expected": "exit code 0 if patch within scope"
+    },
+    {
+      "test_id": "AT-4A-002",
+      "description": "Rejects patch outside file_scope",
+      "command": "python src/patch_manager.py --validate test_data/out_of_scope.patch --scope 'src/validators/*'",
+      "expected": "exit code 1, reports out-of-scope files"
+    },
+    {
+      "test_id": "AT-4A-003",
+      "description": "Applies unified diff patch",
+      "command": "python src/patch_manager.py --apply test_data/valid.patch --dry-run",
+      "expected": "shows changes without applying"
+    },
+    {
+      "test_id": "AT-4A-004",
+      "description": "Creates backup before apply",
+      "command": "python src/patch_manager.py --apply test_data/valid.patch --backup && test -d .patch_backups/",
+      "expected": "backup directory created"
+    },
+    {
+      "test_id": "AT-4A-005",
+      "description": "Can rollback applied patch",
+      "command": "python src/patch_manager.py --rollback last",
+      "expected": "restores from backup"
+    },
+    {
+      "test_id": "AT-4A-006",
+      "description": "Validates unified diff format",
+      "command": "python src/patch_manager.py --validate test_data/invalid_format.patch",
+      "expected": "exit code 1, reports format error"
+    },
+    {
+      "test_id": "AT-4A-007",
+      "description": "Unit tests pass",
+      "command": "pytest tests/test_patch_manager.py -v",
+      "expected": "all tests pass (>= 15 tests)"
+    }
+  ],
+  "deliverables": [
+    "src/patch_manager.py with scope validation and rollback",
+    "tests/test_patch_manager.py"
+  ],
+  "estimated_effort_hours": 10,
+  "risk_level": "medium",
+  "parallel_group": "GROUP-4",
+  "notes": "Can execute in parallel with PH-4B (different subsystems)"
+}

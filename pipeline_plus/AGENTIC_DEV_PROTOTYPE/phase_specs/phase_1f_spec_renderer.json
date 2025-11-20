@@ -1,0 +1,61 @@
+{
+  "phase_id": "PH-1F",
+  "workstream_id": "WS-SPEC-MIGRATION",
+  "phase_name": "Spec Rendering Engine",
+  "objective": "Build engine to render spec sections into prompts and documentation with proper formatting and context",
+  "dependencies": ["PH-1A", "PH-1B", "PH-1C"],
+  "file_scope": [
+    "src/spec_renderer.py",
+    "tests/test_spec_renderer.py",
+    "templates/prompt_template.txt"
+  ],
+  "pre_flight_checks": [
+    {
+      "check_id": "PFC-1F-001",
+      "description": "All three spec files exist",
+      "command": "test -f specs/UNIVERSAL_PHASE_SPEC_V1.md && test -f specs/PRO_PHASE_SPEC_V1.md && test -f specs/DEV_RULES_V1.md",
+      "expected": "exit code 0"
+    }
+  ],
+  "acceptance_tests": [
+    {
+      "test_id": "AT-1F-001",
+      "description": "Can render single section by ID",
+      "command": "python src/spec_renderer.py --render UPS-001 --format markdown",
+      "expected": "outputs formatted section"
+    },
+    {
+      "test_id": "AT-1F-002",
+      "description": "Can render section with dependencies",
+      "command": "python src/spec_renderer.py --render UPS-001 --include-deps --format markdown",
+      "expected": "outputs section plus referenced sections"
+    },
+    {
+      "test_id": "AT-1F-003",
+      "description": "Can render to prompt format",
+      "command": "python src/spec_renderer.py --render DR-DO-001 --format prompt",
+      "expected": "outputs ASCII-only prompt-optimized format"
+    },
+    {
+      "test_id": "AT-1F-004",
+      "description": "Can render multiple sections as context bundle",
+      "command": "python src/spec_renderer.py --bundle UPS-001,PPS-001,DR-DO-001 --output context.txt",
+      "expected": "creates bundled context file"
+    },
+    {
+      "test_id": "AT-1F-005",
+      "description": "Unit tests pass",
+      "command": "pytest tests/test_spec_renderer.py -v",
+      "expected": "all tests pass (>= 10 tests)"
+    }
+  ],
+  "deliverables": [
+    "src/spec_renderer.py with rendering engine",
+    "templates/prompt_template.txt",
+    "tests/test_spec_renderer.py"
+  ],
+  "estimated_effort_hours": 8,
+  "risk_level": "medium",
+  "parallel_group": "GROUP-2",
+  "notes": "Can execute in parallel with PH-1E (different outputs)"
+}

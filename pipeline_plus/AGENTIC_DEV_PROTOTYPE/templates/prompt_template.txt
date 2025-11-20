@@ -1,0 +1,45 @@
+# Prompt Template for Game Board Protocol
+
+This template is used by the Spec Renderer to generate AI-optimized prompts
+from specification sections.
+
+## Template Format
+
+[Section: {section_id}]
+============================================================
+Keywords: {keywords}
+------------------------------------------------------------
+
+{content}
+
+============================================================
+
+## Usage
+
+The renderer will:
+1. Replace {section_id} with actual section ID
+2. Replace {keywords} with comma-separated keywords from metadata
+3. Replace {content} with ASCII-formatted section content
+4. Remove markdown formatting for cleaner prompt text
+
+## Example Output
+
+[Section: UPS-001]
+============================================================
+Keywords: phase, specification, overview, structure
+------------------------------------------------------------
+
+Overview
+
+The Universal Phase Specification defines the standard structure
+and requirements for all phase specification documents in the
+Game Board Protocol system.
+
+Key Components:
+  - Phase Identity and Metadata
+  - Dependencies and Ordering
+  - File Scope Declaration
+  - Pre-Flight Checks
+  - Acceptance Tests
+
+============================================================

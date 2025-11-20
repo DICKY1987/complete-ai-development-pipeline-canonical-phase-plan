@@ -1,0 +1,29 @@
+{
+  "version": "1.0.0",
+  "rules": [
+    {
+      "rule_id": "VR-001",
+      "description": "Phase must have at least one acceptance test",
+      "severity": "error",
+      "check": "acceptance_tests.length >= 1"
+    },
+    {
+      "rule_id": "VR-002",
+      "description": "Phase ID must follow PH-XX format",
+      "severity": "error",
+      "check": "phase_id matches ^PH-[0-9A-Z]+$"
+    },
+    {
+      "rule_id": "VR-003",
+      "description": "File scope must not be empty",
+      "severity": "error",
+      "check": "file_scope.length >= 1"
+    },
+    {
+      "rule_id": "VR-004",
+      "description": "Dependencies must reference valid phase IDs",
+      "severity": "error",
+      "check": "all dependencies match ^PH-[0-9A-Z]+$"
+    }
+  ]
+}

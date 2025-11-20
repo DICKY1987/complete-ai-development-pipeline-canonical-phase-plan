@@ -1,0 +1,168 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://gameboardprotocol.org/schemas/phase-spec.schema.json",
+  "title": "Game Board Protocol Phase Specification",
+  "description": "Schema for phase specification documents following PRO Phase Specification standards",
+  "type": "object",
+  "required": [
+    "phase_id",
+    "workstream_id",
+    "phase_name",
+    "objective",
+    "dependencies",
+    "file_scope",
+    "pre_flight_checks",
+    "acceptance_tests",
+    "deliverables",
+    "estimated_effort_hours"
+  ],
+  "properties": {
+    "phase_id": {
+      "type": "string",
+      "pattern": "^PH-[0-9A-Z]+$",
+      "description": "Unique phase identifier (e.g., PH-00, PH-1A)"
+    },
+    "workstream_id": {
+      "type": "string",
+      "pattern": "^WS-[A-Z0-9-]+$",
+      "description": "Parent workstream identifier"
+    },
+    "phase_name": {
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 100,
+      "description": "Human-readable phase name"
+    },
+    "objective": {
+      "type": "string",
+      "minLength": 20,
+      "description": "Clear, measurable objective for this phase"
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^PH-[0-9A-Z]+$"
+      },
+      "description": "List of prerequisite phase IDs"
+    },
+    "file_scope": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "description": "Files and directories this phase will create or modify"
+    },
+    "pre_flight_checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "check_id",
+          "description",
+          "command",
+          "expected"
+        ],
+        "properties": {
+          "check_id": {
+            "type": "string",
+            "pattern": "^PFC-[0-9A-Z]+-\\d{3}$"
+          },
+          "description": {
+            "type": "string"
+          },
+          "command": {
+            "type": "string"
+          },
+          "expected": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Pre-execution validation checks"
+    },
+    "acceptance_tests": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "test_id",
+          "description",
+          "command",
+          "expected"
+        ],
+        "properties": {
+          "test_id": {
+            "type": "string",
+            "pattern": "^AT-[0-9A-Z]+-\\d{3}$"
+          },
+          "description": {
+            "type": "string"
+          },
+          "command": {
+            "type": "string"
+          },
+          "expected": {
+            "type": "string"
+          }
+        }
+      },
+      "minItems": 3,
+      "description": "Programmatic acceptance tests"
+    },
+    "deliverables": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "description": "Concrete outputs from this phase"
+    },
+    "estimated_effort_hours": {
+      "type": "number",
+      "minimum": 0.5,
+      "maximum": 40,
+      "description": "Estimated effort in hours"
+    },
+    "risk_level": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "description": "Risk assessment for this phase"
+    },
+    "parallel_group": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^GROUP-\\d+$",
+      "description": "Parallel execution group identifier"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional context or warnings"
+    },
+    "execution_status": {
+      "type": "string",
+      "enum": [
+        "NOT_STARTED",
+        "IN_PROGRESS",
+        "BLOCKED",
+        "COMPLETE",
+        "FAILED"
+      ],
+      "description": "Current execution status"
+    },
+    "completed_timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 completion timestamp"
+    }
+  },
+  "additionalProperties": false
+}
