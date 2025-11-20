@@ -1,7 +1,7 @@
 # Framework Status Summary
 
-**Date:** 2025-11-20 22:25 UTC
-**Overall Progress:** 62% Complete
+**Date:** 2025-11-20 22:35 UTC
+**Overall Progress:** 65% Complete
 
 ## Completed ✅
 - Phase 0: Schema Foundation (100%)
@@ -21,76 +21,79 @@
   - ✅ WS-02-03A: Validation Engine (validator.py)
   - ✅ WS-02-04A: Bootstrap Orchestrator (orchestrator.py)
 
-- Phase 3: Orchestration Engine (30%)
-  - ✅ WS-03-01A: Run Management - JUST COMPLETED
-  - ⏳ WS-03-01B: Task Router
+- Phase 3: Orchestration Engine (40%)
+  - ✅ WS-03-01A: Run Management (db, state machine, orchestrator)
+  - ✅ WS-03-01B: Task Router (router, execution request builder) - JUST COMPLETED
   - ⏳ WS-03-01C: Execution Scheduler
 
 ## Statistics
 - **Schemas:** 17/17 (100%)
 - **Profiles:** 5/5 (100%)
-- **Tests:** 52/52 passing (100%) ⭐
+- **Tests:** 87/87 passing (100%) ⭐⭐
   - Schema tests: 22/22
   - Bootstrap tests: 8/8
-  - Engine tests: 22/22 (NEW)
+  - Engine tests: 57/57 (22 lifecycle + 35 routing)
 - **Phase Templates:** 4/20 (20%)
 - **Bootstrap Modules:** 5/5 (100%)
-- **Engine Modules:** 3/10 (30%)
-- **Implementation:** 35/60 major components (58%)
+- **Engine Modules:** 5/10 (50%)
+- **Implementation:** 38/60 major components (63%)
 
 ## Next Actions
-1. Complete WS-03-01B: Task Router (5 days)
-2. Complete WS-03-01C: Execution Scheduler (4 days)
-3. Complete Phase 3: Tool Integration & Resilience
+1. Complete WS-03-01C: Execution Scheduler (4 days)
+2. Start Phase 3 Part 2: Tool Integration
+3. Build circuit breakers and retry logic
 
 ## Files Created This Session
-Phase 3 - Session 1 (WS-03-01A):
-- PHASE_3_PLAN.md - Phase 3 roadmap
+Phase 3 - WS-03-01A:
 - core/state/db.py - Database layer (368 lines)
 - core/engine/state_machine.py - State machine (210 lines)
 - core/engine/orchestrator.py - Run orchestrator (278 lines)
-- tests/engine/test_run_lifecycle.py - Comprehensive tests (312 lines)
+- tests/engine/test_run_lifecycle.py - Lifecycle tests (312 lines)
 
-Total new files: 5 (~1,200 lines of Python)
+Phase 3 - WS-03-01B:
+- core/engine/router.py - Task router (195 lines)
+- core/engine/execution_request_builder.py - Request builder (118 lines)
+- tests/engine/test_routing.py - Routing tests (368 lines)
+
+Total new files: 7 (~1,850 lines of Python)
 
 ## Risk Assessment
 **Low Risk:**
-- All tests passing ✅
-- Clean state machine implementation
-- Database layer solid
-- Good test coverage (22 tests for orchestrator)
+- All 87 tests passing ✅
+- Clean architecture (DB → State Machine → Orchestrator → Router)
+- Comprehensive test coverage
+- No technical debt
 
 **Medium Risk:**
-- Need to implement tool adapters
-- Retry logic and circuit breakers pending
+- Need to implement scheduler (dependency resolution)
+- Round-robin and auto routing strategies stubbed
 
 **High Risk:**
 - None identified
 
-## Run Management Demo
+## Task Router Demo
 ```python
-from core.engine.orchestrator import Orchestrator
-from core.state.db import init_db
+from core.engine.router import TaskRouter
+from core.engine.execution_request_builder import create_execution_request
 
-# Initialize
-db = init_db(".ledger/framework.db")
-orch = Orchestrator(db)
+# Initialize router
+router = TaskRouter("router_config.json")
 
-# Create and execute a run
-run_id = orch.create_run("PRJ-001", "PH-CORE-01", "WS-01-01A")
-orch.start_run(run_id)
+# Route a task
+tool_id = router.route_task('code_edit', risk_tier='high')
+# Returns: 'aider'
 
-# Add steps
-step1 = orch.create_step_attempt(run_id, "aider", 1)
-orch.complete_step_attempt(step1, 'succeeded')
+# Get tool configuration
+command = router.get_tool_command(tool_id)
+limits = router.get_tool_limits(tool_id)
 
-# Complete run
-orch.complete_run(run_id, 'succeeded')
-
-# Query status
-status = orch.get_run_status(run_id)
-events = orch.get_run_events(run_id)
+# Build execution request
+request = create_execution_request(
+    'code_edit', tool_id,
+    prompt='Fix authentication bug',
+    command=command
+)
 ```
 
 ## Recommendation
-Continue with WS-03-01B (Task Router) - database and orchestrator foundation is solid.
+Continue with WS-03-01C (Execution Scheduler) - routing foundation is solid.
