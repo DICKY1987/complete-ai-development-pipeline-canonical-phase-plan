@@ -151,3 +151,47 @@ from .crud import (  # noqa: E402
     record_event,
     get_events,
 )
+
+
+# ----------------------
+# Phase I: Event helpers for monitoring
+# ----------------------
+
+def get_recent_events(limit: int = 20, db_path: Optional[str] = None) -> list[dict]:
+    """Get recent events for monitoring."""
+    return get_events(limit=limit, db_path=db_path)
+
+
+def get_all_events(db_path: Optional[str] = None) -> list[dict]:
+    """Get all events."""
+    return get_events(limit=10000, db_path=db_path)
+
+
+def get_events_since(last_event_id: int, db_path: Optional[str] = None) -> list[dict]:
+    """Get events since a specific ID."""
+    conn = get_connection(db_path)
+    cur = conn.cursor()
+    
+    try:
+        cur.execute(
+            "SELECT * FROM events WHERE id > ? ORDER BY id ASC",
+            (last_event_id,)
+        )
+        rows = cur.fetchall()
+        
+        results = []
+        for row in rows:
+            result = dict(row)
+            if result.get("payload_json"):
+                import json
+                result["payload"] = json.loads(result["payload_json"])
+                del result["payload_json"]
+            else:
+                result["payload"] = None
+            results.append(result)
+        
+        return results
+    
+    finally:
+        cur.close()
+        conn.close()

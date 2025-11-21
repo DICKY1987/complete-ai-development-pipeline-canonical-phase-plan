@@ -2,6 +2,8 @@
 
 Manages the lifecycle of execution workers including state transitions,
 heartbeat monitoring, and task assignment.
+
+Phase I: Added process spawning integration.
 """
 
 from __future__ import annotations
@@ -9,6 +11,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from enum import Enum
+from pathlib import Path
 from typing import Dict, List, Optional
 
 
@@ -29,6 +32,7 @@ class Worker:
     state: WorkerState
     current_task_id: Optional[str] = None
     sandbox_path: Optional[str] = None
+    pid: Optional[int] = None
     heartbeat_at: Optional[datetime] = None
     spawned_at: Optional[datetime] = None
     terminated_at: Optional[datetime] = None
@@ -44,10 +48,17 @@ class Worker:
 class WorkerPool:
     """Manages lifecycle of N workers."""
     
-    def __init__(self, max_workers: int = 4):
+    def __init__(self, max_workers: int = 4, enable_processes: bool = False):
         self.max_workers = max_workers
         self.workers: Dict[str, Worker] = {}
         self.idle_queue: List[str] = []
+        self.enable_processes = enable_processes
+        
+        # Process spawner (optional)
+        self.process_spawner = None
+        if enable_processes:
+            from core.engine.process_spawner import ProcessSpawner
+            self.process_spawner = ProcessSpawner()
     
     def spawn_worker(self, adapter_type: str, worker_id: Optional[str] = None) -> Worker:
         """Create new worker instance.
@@ -73,6 +84,18 @@ class WorkerPool:
         )
         
         self.workers[worker_id] = worker
+        
+        # Spawn actual process if enabled
+        if self.enable_processes and self.process_spawner:
+            from pathlib import Path
+            repo_root = Path.cwd()
+            worker_process = self.process_spawner.spawn_worker_process(
+                worker_id=worker_id,
+                adapter_type=adapter_type,
+                repo_root=repo_root
+            )
+            worker.sandbox_path = str(worker_process.sandbox_path)
+            worker.pid = worker_process.pid
         
         # Transition to IDLE after spawning
         self._transition(worker_id, WorkerState.IDLE)
@@ -129,6 +152,10 @@ class WorkerPool:
         # Persist
         self._persist_worker(worker)
     
+    def complete_task(self, worker_id: str) -> None:
+        """Mark task as complete and release worker. Alias for release_worker."""
+        self.release_worker(worker_id)
+    
     def drain_worker(self, worker_id: str) -> None:
         """Transition worker to DRAINING (no new tasks).
         
@@ -161,6 +188,10 @@ class WorkerPool:
         worker.terminated_at = datetime.now(timezone.utc)
         worker.current_task_id = None
         self._transition(worker_id, WorkerState.TERMINATED)
+        
+        # Terminate actual process if enabled
+        if self.enable_processes and self.process_spawner:
+            self.process_spawner.terminate_worker_process(worker_id)
         
         # Remove from idle queue
         if worker_id in self.idle_queue:

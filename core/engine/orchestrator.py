@@ -2,13 +2,16 @@
 
 Implements EDIT -> STATIC -> RUNTIME sequencing for one workstream, recording
 DB state transitions and step attempts. No FIX loop or retries in this phase.
+
+Phase I: Added parallel execution capabilities.
 """
 
 from __future__ import annotations
 
 from dataclasses import dataclass, asdict
 import os
-from datetime import datetime
+import time
+from datetime import datetime, timezone
 from typing import Any, Dict, List, Mapping, Optional
 
 from core.state import db
@@ -29,6 +32,7 @@ __all__ = [
     "run_runtime_step",
     "run_workstream",
     "run_single_workstream_from_bundle",
+    "execute_workstreams_parallel",
 ]
 
 
@@ -472,3 +476,225 @@ def run_single_workstream_from_bundle(ws_id: str, run_id: Optional[str] = None, 
 
     rid = run_id or ("run-" + datetime.utcnow().strftime("%Y%m%dT%H%M%SZ"))
     return run_workstream(rid, ws_id, bundle_obj, context=context)
+
+
+# ============================================================================
+# Phase I: Parallel Execution
+# ============================================================================
+
+def execute_workstreams_parallel(
+    bundle_objs: List[Any],
+    max_workers: int = 4,
+    dry_run: bool = False,
+    context: Optional[Mapping[str, Any]] = None
+) -> Dict[str, Any]:
+    """Execute workstreams in parallel using UET scheduler.
+    
+    High-level flow:
+    1. Validate bundles and build execution plan
+    2. Initialize worker pool
+    3. Spawn workers
+    4. For each wave:
+        - Assign ready tasks to idle workers
+        - Monitor execution
+        - Handle task completion/failure
+        - Collect results
+    5. Merge phase (integration worker)
+    6. Cleanup and metrics
+    
+    Args:
+        bundle_objs: List of workstream bundles to execute
+        max_workers: Maximum parallel workers
+        dry_run: If True, validate plan only
+        context: Execution context
+        
+    Returns:
+        Execution results including completed/failed workstreams
+    """
+    from core.engine.scheduler import build_execution_plan, TaskScheduler
+    from core.engine.worker import WorkerPool
+    from core.engine.event_bus import EventBus, Event, EventType
+    from core.engine.plan_validator import validate_phase_plan
+    
+    ctx = dict(context or {})
+    
+    # Validate plan
+    report = validate_phase_plan(bundle_objs, max_workers=max_workers)
+    if not report.valid:
+        raise ValueError(f"Invalid plan: {', '.join(report.errors)}")
+    
+    # Build execution plan
+    plan = build_execution_plan(bundle_objs, max_workers)
+    
+    if dry_run:
+        return {
+            'dry_run': True,
+            'plan': {
+                'waves': len(plan.waves),
+                'workstreams': len(bundle_objs),
+                'critical_path': plan.critical_path
+            },
+            'estimated_speedup': report.parallelism_profile.estimated_speedup,
+            'parallelism_profile': {
+                'waves': [list(w) for w in report.parallelism_profile.waves],
+                'speedup': report.parallelism_profile.estimated_speedup
+            }
+        }
+    
+    # Initialize components
+    db.init_db()
+    run_id = "run-" + datetime.utcnow().strftime("%Y%m%dT%H%M%SZ")
+    worker_pool = WorkerPool(max_workers=max_workers)
+    scheduler = TaskScheduler(worker_pool)
+    event_bus = EventBus()
+    
+    # Record start event
+    db.record_event("parallel_execution_start", run_id=run_id, payload={
+        "max_workers": max_workers,
+        "workstream_count": len(bundle_objs),
+        "wave_count": len(plan.waves)
+    })
+    
+    # Spawn workers
+    print(f"\n=== Spawning {max_workers} workers ===")
+    for i in range(max_workers):
+        worker = worker_pool.spawn_worker(adapter_type='aider')
+        event_bus.emit(Event(
+            event_type=EventType.WORKER_SPAWNED,
+            timestamp=datetime.now(timezone.utc),
+            worker_id=worker.worker_id
+        ))
+        print(f"  Worker {worker.worker_id} spawned")
+    
+    # Execute waves
+    results = _execute_waves(plan, scheduler, worker_pool, event_bus, bundle_objs, run_id, ctx)
+    
+    # Cleanup
+    print(f"\n=== Cleanup ===")
+    for worker_id in list(worker_pool.workers.keys()):
+        worker_pool.terminate_worker(worker_id)
+        print(f"  Worker {worker_id} terminated")
+    
+    # Record completion event
+    db.record_event("parallel_execution_end", run_id=run_id, payload={
+        "completed": len(results.get('completed', [])),
+        "failed": len(results.get('failed', [])),
+        "total_duration": results.get('total_duration', 0)
+    })
+    
+    return results
+
+
+def _execute_waves(
+    plan: Any,
+    scheduler: Any,
+    worker_pool: Any,
+    event_bus: Any,
+    bundle_objs: List[Any],
+    run_id: str,
+    context: Mapping[str, Any]
+) -> Dict[str, Any]:
+    """Execute workstreams wave by wave."""
+    import threading
+    
+    completed = set()
+    failed = set()
+    results = {}
+    bundle_map = {b.id: b for b in bundle_objs}
+    
+    # Track running tasks
+    running_tasks: Dict[str, threading.Thread] = {}
+    task_results: Dict[str, Dict[str, Any]] = {}
+    
+    start_time = time.time()
+    
+    for wave_idx, wave in enumerate(plan.waves):
+        print(f"\n=== Wave {wave_idx + 1}/{len(plan.waves)} ===")
+        print(f"Workstreams: {', '.join(sorted(wave.workstream_ids))}")
+        
+        # Assign tasks in this wave
+        for ws_id in wave.workstream_ids:
+            if ws_id in completed or ws_id in failed:
+                continue
+            
+            # Wait for idle worker
+            worker_id = None
+            while not worker_id:
+                worker_id = scheduler.assign_task(ws_id)
+                if not worker_id:
+                    time.sleep(0.5)
+            
+            # Execute workstream in thread
+            thread = threading.Thread(
+                target=_execute_workstream_thread,
+                args=(bundle_map[ws_id], worker_id, worker_pool, event_bus, run_id, context, task_results, ws_id)
+            )
+            thread.start()
+            running_tasks[ws_id] = thread
+            
+            print(f"  {ws_id} → Worker {worker_id}")
+        
+        # Wait for wave to complete
+        for ws_id in wave.workstream_ids:
+            if ws_id in running_tasks:
+                running_tasks[ws_id].join()
+                
+                # Collect result
+                if ws_id in task_results:
+                    result = task_results[ws_id]
+                    if result.get('success'):
+                        completed.add(ws_id)
+                        print(f"  ✓ {ws_id} completed")
+                    else:
+                        failed.add(ws_id)
+                        print(f"  ✗ {ws_id} failed")
+                    results[ws_id] = result
+    
+    end_time = time.time()
+    total_duration = end_time - start_time
+    
+    return {
+        'completed': sorted(completed),
+        'failed': sorted(failed),
+        'results': results,
+        'total_duration': total_duration,
+        'wave_count': len(plan.waves)
+    }
+
+
+def _execute_workstream_thread(
+    bundle_obj: Any,
+    worker_id: str,
+    worker_pool: Any,
+    event_bus: Any,
+    run_id: str,
+    context: Mapping[str, Any],
+    task_results: Dict[str, Dict[str, Any]],
+    ws_id: str
+) -> None:
+    """Execute single workstream in worker thread."""
+    try:
+        # Run workstream
+        result = run_workstream(run_id, ws_id, bundle_obj, context)
+        
+        # Mark as successful if final_status is 'done'
+        success = result.get('final_status') == 'done'
+        
+        task_results[ws_id] = {
+            'success': success,
+            'result': result
+        }
+        
+        # Release worker
+        worker_pool.complete_task(worker_id)
+        
+    except Exception as e:
+        task_results[ws_id] = {
+            'success': False,
+            'error': str(e)
+        }
+        # Release worker even on failure
+        try:
+            worker_pool.complete_task(worker_id)
+        except:
+            pass
