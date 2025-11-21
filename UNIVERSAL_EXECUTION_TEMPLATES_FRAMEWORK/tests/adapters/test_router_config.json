@@ -1,0 +1,64 @@
+{
+  "version": "1.0.0",
+  "apps": {
+    "aider": {
+      "kind": "tool",
+      "command": "aider --yes",
+      "capabilities": {
+        "task_kinds": ["code_edit", "refactor", "code_review"],
+        "domains": ["python", "javascript", "typescript", "rust"]
+      },
+      "limits": {
+        "max_parallel": 2,
+        "timeout_seconds": 600
+      },
+      "safety_tier": "medium"
+    },
+    "codex": {
+      "kind": "tool",
+      "command": "gh copilot",
+      "capabilities": {
+        "task_kinds": ["code_edit", "analysis", "documentation"],
+        "domains": ["python", "javascript", "go", "rust"]
+      },
+      "limits": {
+        "max_parallel": 3,
+        "timeout_seconds": 300
+      },
+      "safety_tier": "high"
+    },
+    "ruff": {
+      "kind": "validator",
+      "command": "ruff check",
+      "capabilities": {
+        "task_kinds": ["lint", "validation"],
+        "domains": ["python"]
+      },
+      "limits": {
+        "max_parallel": 5,
+        "timeout_seconds": 60
+      },
+      "safety_tier": "low"
+    }
+  },
+  "routing": {
+    "rules": [
+      {
+        "id": "python-editing",
+        "match": {
+          "task_kind": ["code_edit", "refactor"],
+          "risk_tier": ["low", "medium"]
+        },
+        "select_from": ["aider", "codex"],
+        "strategy": "auto",
+        "validate_with": ["ruff"],
+        "required": true
+      }
+    ]
+  },
+  "defaults": {
+    "max_attempts": 3,
+    "timeout_seconds": 300,
+    "strategy": "auto"
+  }
+}
