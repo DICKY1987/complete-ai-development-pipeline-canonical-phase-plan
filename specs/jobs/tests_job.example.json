@@ -1,0 +1,30 @@
+{
+  "job_id": "job-2025-11-21-tests-001",
+  "run_id": "run-20251121-002",
+  "workstream_id": "ws-validation-suite",
+  "tool": "tests",
+  "command": {
+    "exe": "pytest",
+    "args": [
+      "tests/engine/",
+      "-v",
+      "--tb=short",
+      "--maxfail=3"
+    ]
+  },
+  "env": {
+    "PYTEST_CURRENT_TEST": ""
+  },
+  "paths": {
+    "repo_root": "C:/Users/richg/ALL_AI/Complete AI Development Pipeline – Canonical Phase Plan",
+    "working_dir": "C:/Users/richg/ALL_AI/Complete AI Development Pipeline – Canonical Phase Plan",
+    "log_file": "logs/ws-validation-suite/job-2025-11-21-tests-001.log",
+    "error_report": "logs/ws-validation-suite/job-2025-11-21-tests-001.error.json"
+  },
+  "metadata": {
+    "retry_policy": "none",
+    "timeout_seconds": 300,
+    "test_type": "unit",
+    "coverage_report": "logs/ws-validation-suite/coverage.xml"
+  }
+}

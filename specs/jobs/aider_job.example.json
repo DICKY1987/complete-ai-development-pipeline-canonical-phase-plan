@@ -1,0 +1,36 @@
+{
+  "job_id": "job-2025-11-20-001",
+  "run_id": "run-20251120-001",
+  "workstream_id": "ws-PH07-refactor-path-resolver",
+  "tool": "aider",
+  "command": {
+    "exe": "aider",
+    "args": [
+      "--message-file",
+      "PHASE_DEV_DOCS/AIDER_INSTRUCTIONS_PH07.txt",
+      "--yes-always",
+      "--no-suggest-shell-commands"
+    ]
+  },
+  "env": {
+    "OLLAMA_API_BASE": "http://127.0.0.1:11434",
+    "OPENAI_API_KEY": "",
+    "GIT_EDITOR": "true"
+  },
+  "paths": {
+    "repo_root": "C:/Users/richg/ALL_AI/Complete AI Development Pipeline – Canonical Phase Plan",
+    "working_dir": "C:/Users/richg/ALL_AI/Complete AI Development Pipeline – Canonical Phase Plan",
+    "log_file": "logs/ws-PH07-refactor-path-resolver/job-2025-11-20-001.log",
+    "error_report": "logs/ws-PH07-refactor-path-resolver/job-2025-11-20-001.error.json"
+  },
+  "metadata": {
+    "retry_policy": "escalate_to_codex",
+    "timeout_seconds": 600,
+    "max_retries": 3,
+    "message_file": "PHASE_DEV_DOCS/AIDER_INSTRUCTIONS_PH07.txt",
+    "files_scope": [
+      "core/planning/planner.py",
+      "core/planning/archive.py"
+    ]
+  }
+}

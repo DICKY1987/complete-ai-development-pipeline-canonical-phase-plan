@@ -1,0 +1,102 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "job.schema.json",
+  "title": "Pipeline Job Schema",
+  "description": "Standard job format for all tool executions in the AI Development Pipeline",
+  "type": "object",
+  "required": ["job_id", "workstream_id", "tool", "command", "env", "paths"],
+  "properties": {
+    "job_id": {
+      "type": "string",
+      "description": "Unique identifier for this job",
+      "pattern": "^job-[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]{3,}$"
+    },
+    "workstream_id": {
+      "type": "string",
+      "description": "Workstream this job belongs to"
+    },
+    "tool": {
+      "type": "string",
+      "description": "Tool to execute (aider, codex, tests, git, etc.)",
+      "enum": ["aider", "codex", "gemini", "claude", "tests", "git", "error_pipeline", "mechanical"]
+    },
+    "command": {
+      "type": "object",
+      "required": ["exe", "args"],
+      "properties": {
+        "exe": {
+          "type": "string",
+          "description": "Executable command (aider, pytest, git, etc.)"
+        },
+        "args": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Command line arguments"
+        }
+      }
+    },
+    "env": {
+      "type": "object",
+      "description": "Environment variables for tool execution",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "paths": {
+      "type": "object",
+      "required": ["repo_root", "working_dir", "log_file", "error_report"],
+      "properties": {
+        "repo_root": {
+          "type": "string",
+          "description": "Repository root directory"
+        },
+        "working_dir": {
+          "type": "string",
+          "description": "Working directory for command execution"
+        },
+        "log_file": {
+          "type": "string",
+          "description": "Path to write execution logs"
+        },
+        "error_report": {
+          "type": "string",
+          "description": "Path to write error report JSON"
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Tool-specific metadata and configuration",
+      "properties": {
+        "retry_policy": {
+          "type": "string",
+          "description": "Retry/escalation policy",
+          "enum": ["none", "retry_same", "escalate_to_codex", "escalate_to_claude"]
+        },
+        "timeout_seconds": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Maximum execution time in seconds"
+        },
+        "max_retries": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 3
+        },
+        "message_file": {
+          "type": "string",
+          "description": "Path to message/instruction file for AI tools"
+        },
+        "files_scope": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of files this job should modify"
+        }
+      }
+    }
+  }
+}
