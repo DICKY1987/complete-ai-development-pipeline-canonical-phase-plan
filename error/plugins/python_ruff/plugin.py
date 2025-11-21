@@ -2,10 +2,10 @@ from __future__ import annotations
 
 import json
 import shutil
-import subprocess
 from pathlib import Path
 from typing import List
 
+from core.invoke_utils import run_command
 from error.shared.utils.env import scrub_env
 from error.shared.utils.types import PluginIssue, PluginResult
 
@@ -23,16 +23,15 @@ class RuffPlugin:
 
     def execute(self, file_path: Path) -> PluginResult:
         cmd = self.build_command(file_path)
+        cmd_str = ' '.join(cmd)
         env = scrub_env()
+        
         try:
-            proc = subprocess.run(
-                cmd,
-                capture_output=True,
-                text=True,
+            result = run_command(
+                cmd_str,
                 timeout=120,
-                cwd=str(file_path.parent),
+                cwd=file_path.parent,
                 env=env,
-                shell=False,
             )
         except Exception as exc:
             return PluginResult(
@@ -45,7 +44,7 @@ class RuffPlugin:
 
         issues: List[PluginIssue] = []
         try:
-            data = json.loads(proc.stdout or "[]")
+            data = json.loads(result.stdout or "[]")
             # Ruff emits a list of findings
             for item in data:
                 code = item.get("code")
@@ -72,14 +71,14 @@ class RuffPlugin:
             pass
 
         # Ruff returns 1 when issues found, 0 otherwise — both are successful executions.
-        success = proc.returncode in {0, 1}
+        success = result.exit_code in {0, 1}
         return PluginResult(
             plugin_id=self.plugin_id,
             success=success,
             issues=issues,
-            stdout=proc.stdout or "",
-            stderr=proc.stderr or "",
-            returncode=proc.returncode,
+            stdout=result.stdout or "",
+            stderr=result.stderr or "",
+            returncode=result.exit_code,
         )
 
 
