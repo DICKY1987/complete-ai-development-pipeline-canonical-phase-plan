@@ -10,9 +10,9 @@ sys.path.insert(0, str(_ROOT))
 sys.path.insert(0, str(_ROOT / "src"))
 from typing import List
 
-from error.pipeline_engine import PipelineEngine
-from error.plugin_manager import PluginManager
-from error.file_hash_cache import FileHashCache
+from error.engine.pipeline_engine import PipelineEngine
+from error.engine.plugin_manager import PluginManager
+from error.engine.file_hash_cache import FileHashCache
 
 
 def main() -> int:

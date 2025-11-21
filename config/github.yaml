@@ -1,8 +1,20 @@
 # GitHub integration settings for CCPM sync
 
+# Feature flag - set to true to enable GitHub issue synchronization
 enable-sync: false
-owner: ""
-repo: ""
+
+# Repository information
+owner: ""          # GitHub organization or user name
+repo: ""           # Repository name
+
+# Default labels applied to all CCPM-created issues
 default-labels:
   - pipeline
+  - ccpm
+
+# API settings
+use-cli: true      # Prefer gh CLI over direct API calls
+rate-limit-buffer: 100
+retry-attempts: 3
+retry-backoff: 2.0  # Exponential backoff multiplier
 
