@@ -116,6 +116,68 @@
       "description": "Free-form metadata about this workstream.",
       "type": "object",
       "additionalProperties": true
+    },
+    "parallel_ok": {
+      "title": "Parallel OK",
+      "description": "Whether this workstream can run in parallel with others.",
+      "type": "boolean",
+      "default": true
+    },
+    "conflict_group": {
+      "title": "Conflict Group",
+      "description": "Serialization group for mutually exclusive workstreams.",
+      "type": "string"
+    },
+    "kind": {
+      "title": "Kind",
+      "description": "Workstream classification type.",
+      "type": "string",
+      "enum": ["design", "impl", "test", "docs", "infra", "refactor", "background", "spike"],
+      "default": "impl"
+    },
+    "priority": {
+      "title": "Priority",
+      "description": "Execution priority for scheduling.",
+      "type": "string",
+      "enum": ["foreground", "background"],
+      "default": "foreground"
+    },
+    "estimated_context_tokens": {
+      "title": "Estimated Context Tokens",
+      "description": "Estimated token count for AI context.",
+      "type": "integer",
+      "minimum": 0
+    },
+    "max_cost_usd": {
+      "title": "Max Cost USD",
+      "description": "Maximum allowed API cost for this workstream.",
+      "type": "number",
+      "minimum": 0
+    },
+    "compensation_actions": {
+      "title": "Compensation Actions",
+      "description": "Rollback/undo steps for Saga pattern.",
+      "type": "array",
+      "items": { "type": "string" },
+      "default": []
+    },
+    "test_gates": {
+      "title": "Test Gates",
+      "description": "Test gates that must pass before completion.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["GATE_LINT", "GATE_UNIT", "GATE_INTEGRATION", "GATE_SECURITY"]
+          },
+          "required": { "type": "boolean" },
+          "blocking": { "type": "boolean" }
+        },
+        "required": ["type"]
+      },
+      "default": []
     }
   },
   "required": [

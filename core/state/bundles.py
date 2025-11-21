@@ -62,6 +62,15 @@ class WorkstreamBundle:
     circuit_breaker: Mapping[str, Any] | None = None
     metadata: Mapping[str, Any] | None = None
     __source_file__: str | None = None  # for error context
+    # UET Phase H additions (all optional for backward compatibility)
+    parallel_ok: bool = True
+    conflict_group: str | None = None
+    kind: str = "impl"
+    priority: str = "foreground"
+    estimated_context_tokens: int | None = None
+    max_cost_usd: float | None = None
+    compensation_actions: Tuple[str, ...] = field(default_factory=tuple)
+    test_gates: Tuple[Mapping[str, Any], ...] = field(default_factory=tuple)
 
 
 class BundleValidationError(ValueError):
@@ -245,6 +254,15 @@ def validate_bundle_data(data: Dict[str, Any], *, schema: Optional[Dict[str, Any
             circuit_breaker=circuit_breaker,
             metadata=metadata,
             __source_file__=str(source_file) if source_file else None,
+            # UET fields (optional, with defaults)
+            parallel_ok=data.get("parallel_ok", True),
+            conflict_group=data.get("conflict_group"),
+            kind=data.get("kind", "impl"),
+            priority=data.get("priority", "foreground"),
+            estimated_context_tokens=data.get("estimated_context_tokens"),
+            max_cost_usd=data.get("max_cost_usd"),
+            compensation_actions=tuple(data.get("compensation_actions", [])),
+            test_gates=tuple(data.get("test_gates", [])),
         )
 
     # When jsonschema validated successfully, still normalize into dataclass
@@ -262,6 +280,15 @@ def validate_bundle_data(data: Dict[str, Any], *, schema: Optional[Dict[str, Any
         circuit_breaker=data.get("circuit_breaker"),
         metadata=data.get("metadata"),
         __source_file__=str(source_file) if source_file else None,
+        # UET fields (optional, with defaults)
+        parallel_ok=data.get("parallel_ok", True),
+        conflict_group=data.get("conflict_group"),
+        kind=data.get("kind", "impl"),
+        priority=data.get("priority", "foreground"),
+        estimated_context_tokens=data.get("estimated_context_tokens"),
+        max_cost_usd=data.get("max_cost_usd"),
+        compensation_actions=tuple(data.get("compensation_actions", [])),
+        test_gates=tuple(data.get("test_gates", [])),
     )
 
 
