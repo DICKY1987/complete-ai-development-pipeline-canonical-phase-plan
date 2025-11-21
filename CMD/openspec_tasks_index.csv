@@ -1,0 +1,7 @@
+id,key,cmd,desc,p1,p2,p3,p4,p5,p6
+OSVSCXE16X,openspec.version.show.cli.env.v1.ph6,openspec --version,Print OpenSpec CLI version.,,,,,,
+OSICCXR16H,openspec.init.create.cli.repo.v1.ph6,openspec init,Initialize OpenSpec in the current repository.,--force=<true|false>,--tool=<claude|cursor|copilot|...>,--no-slash=<true|false>,--defaults=<true|false>,--yes=<true|false>,
+OSLVCXR163,openspec.list.view.cli.repo.v1.ph6,openspec list,List active changes and status.,--json=<true|false>,--status=<active|archived|all>,--name=<filter>,,,
+OSVCCXR16U,openspec.validate.check.cli.repo.v1.ph6,openspec validate <change>,Validate spec formatting for a change.,change=<slug>,--strict=<true|false>,--json=<true|false>,,,
+OSSVCXR16A,openspec.show.view.cli.repo.v1.ph6,openspec show <change>,"Show proposal, tasks, and spec delta.",change=<slug>,--section=<proposal|tasks|delta|all>,--json=<true|false>,,,
+OSUUCXR16B,openspec.update.update.cli.repo.v1.ph6,openspec update,Regenerate AI guidance & slash bindings.,--tools=<list>,--dry-run=<true|false>,--json=<true|false>,,,

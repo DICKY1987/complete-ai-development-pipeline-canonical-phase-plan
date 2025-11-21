@@ -1,0 +1,383 @@
+Here you go—concise, one-line descriptions for each `gh` command, optimized for AI parsing.
+
+* **gh agent-task create** — Create a new GitHub Agent task.
+
+* **gh agent-task list** — List your GitHub Agent tasks.
+
+* **gh agent-task view** — Show details of a specific Agent task.
+
+* **gh alias delete** — Remove a custom `gh` alias.
+
+* **gh alias import** — Import aliases from a file/stdin.
+
+* **gh alias list** — List configured aliases.
+
+* **gh alias set** — Define a new custom alias.
+
+* **gh api** — Call the GitHub REST API and print the response.
+
+* **gh attestation download** — Download an artifact attestation (e.g., provenance) for verification.
+
+* **gh attestation trusted-root** — Show the trusted-root metadata used for attestation verification.
+
+* **gh attestation verify** — Verify an artifact’s attestation or signature.
+
+* **gh auth login** — Authenticate `gh` with GitHub.
+
+* **gh auth logout** — Log out and remove stored credentials.
+
+* **gh auth refresh** — Refresh stored auth (e.g., SSO/TTL).
+
+* **gh auth setup-git** — Configure git to use your `gh` credentials.
+
+* **gh auth status** — Show current auth status.
+
+* **gh auth switch** — Switch active account/host.
+
+* **gh auth token** — Print the auth token in use.
+
+* **gh browse** — Open the current repo (or path) in your browser.
+
+* **gh cache delete** — Delete GitHub Actions cache entries.
+
+* **gh cache list** — List GitHub Actions caches.
+
+* **gh codespace code** — Open a codespace in VS Code/VS Code Web.
+
+* **gh codespace cp** — Copy files to/from a codespace.
+
+* **gh codespace create** — Create a new codespace.
+
+* **gh codespace delete** — Delete a codespace.
+
+* **gh codespace edit** — Edit codespace settings (e.g., machine, retention).
+
+* **gh codespace jupyter** — Open the Jupyter UI for a codespace.
+
+* **gh codespace list** — List your codespaces.
+
+* **gh codespace logs** — Show or stream codespace logs.
+
+* **gh codespace ports** — List forwarded ports for a codespace.
+
+* **gh codespace ports forward** — Forward a local/remote port.
+
+* **gh codespace ports visibility** — Change a port’s visibility.
+
+* **gh codespace rebuild** — Rebuild a codespace environment.
+
+* **gh codespace ssh** — SSH into a codespace.
+
+* **gh codespace stop** — Stop a running codespace.
+
+* **gh codespace view** — Show details for a codespace.
+
+* **gh completion** — Generate shell completion script for `gh`.
+
+* **gh config clear-cache** — Clear `gh`’s HTTP/repo metadata cache.
+
+* **gh config get** — Read a `gh` config value.
+
+* **gh config list** — List all `gh` config values.
+
+* **gh config set** — Set a `gh` config value.
+
+* **gh extension browse** — Browse available `gh` extensions.
+
+* **gh extension create** — Scaffold a new `gh` extension.
+
+* **gh extension exec** — Execute an installed extension.
+
+* **gh extension install** — Install a `gh` extension.
+
+* **gh extension list** — List installed extensions.
+
+* **gh extension remove** — Uninstall an extension.
+
+* **gh extension search** — Search the extensions registry.
+
+* **gh extension upgrade** — Upgrade installed extensions.
+
+* **gh gist clone** — Clone a gist locally.
+
+* **gh gist create** — Create a new gist.
+
+* **gh gist delete** — Delete a gist.
+
+* **gh gist edit** — Edit a gist’s files/content.
+
+* **gh gist list** — List your gists.
+
+* **gh gist rename** — Rename files within a gist.
+
+* **gh gist view** — View a gist (CLI or open in browser).
+
+* **gh gpg-key add** — Upload a GPG key to your GitHub account.
+
+* **gh gpg-key delete** — Remove a GPG key from your account.
+
+* **gh gpg-key list** — List your GPG keys.
+
+* **gh help environment** — Docs on environment variables for `gh`.
+
+* **gh help exit-codes** — Docs on `gh` exit codes.
+
+* **gh help formatting** — Docs on output formatting.
+
+* **gh help mintty** — Docs for Windows mintty usage.
+
+* **gh help reference** — Full `gh` command reference index.
+
+* **gh issue close** — Close an issue.
+
+* **gh issue comment** — Add or list comments on an issue.
+
+* **gh issue create** — Open a new issue.
+
+* **gh issue delete** — Delete an issue (where permitted).
+
+* **gh issue develop** — Create/checkout a branch or codespace linked to an issue.
+
+* **gh issue edit** — Edit an issue’s title/body/fields.
+
+* **gh issue list** — List issues with filters.
+
+* **gh issue lock** — Lock an issue’s conversation.
+
+* **gh issue pin** — Pin an issue in the repo.
+
+* **gh issue reopen** — Reopen a closed issue.
+
+* **gh issue status** — Show your relevant issues across repos.
+
+* **gh issue transfer** — Move an issue to another repo.
+
+* **gh issue unlock** — Unlock a locked issue.
+
+* **gh issue unpin** — Unpin an issue.
+
+* **gh issue view** — View an issue (CLI or open in browser).
+
+* **gh label clone** — Copy labels from another repo.
+
+* **gh label create** — Create a label.
+
+* **gh label delete** — Delete a label.
+
+* **gh label edit** — Edit a label’s name/color.
+
+* **gh label list** — List labels in the repo.
+
+* **gh org list** — List organizations you belong to.
+
+* **gh pr checkout** — Check out a PR’s branch locally.
+
+* **gh pr checks** — Show CI checks for a PR.
+
+* **gh pr close** — Close a pull request.
+
+* **gh pr comment** — Add/list PR comments.
+
+* **gh pr create** — Create a new pull request.
+
+* **gh pr diff** — Show a PR’s diff.
+
+* **gh pr edit** — Edit PR fields (title, body, base, etc.).
+
+* **gh pr list** — List pull requests with filters.
+
+* **gh pr lock** — Lock PR conversation.
+
+* **gh pr merge** — Merge a PR (with strategy flags).
+
+* **gh pr ready** — Mark a draft PR as ready for review.
+
+* **gh pr reopen** — Reopen a closed PR.
+
+* **gh pr revert** — Open a PR that reverts a merged PR.
+
+* **gh pr review** — Add a code review (approve, request changes, comment).
+
+* **gh pr status** — Show your relevant PRs across repos.
+
+* **gh pr unlock** — Unlock a locked PR.
+
+* **gh pr update-branch** — Update a PR branch from the base branch.
+
+* **gh pr view** — View a pull request (CLI or open in browser).
+
+* **gh preview prompter** — Enable/disable the experimental interactive prompter.
+
+* **gh project close** — Close a project (keeps data, not deleted).
+
+* **gh project copy** — Duplicate a project and its configuration.
+
+* **gh project create** — Create a new project (Projects v2).
+
+* **gh project delete** — Permanently delete a project.
+
+* **gh project edit** — Edit project metadata/settings.
+
+* **gh project field-create** — Add a custom field to a project.
+
+* **gh project field-delete** — Remove a project field.
+
+* **gh project field-list** — List fields for a project.
+
+* **gh project item-add** — Add an issue/PR/draft to a project.
+
+* **gh project item-archive** — Archive a project item.
+
+* **gh project item-create** — Create a draft item in a project.
+
+* **gh project item-delete** — Delete an item from a project.
+
+* **gh project item-edit** — Edit fields/values on a project item.
+
+* **gh project item-list** — List project items with filters.
+
+* **gh project link** — Link a repo to a project.
+
+* **gh project list** — List your projects.
+
+* **gh project mark-template** — Mark a project as a reusable template.
+
+* **gh project unlink** — Unlink a repo from a project.
+
+* **gh project view** — View a project (CLI or open in browser).
+
+* **gh release create** — Create a new release (optionally upload assets).
+
+* **gh release delete-asset** — Delete a release asset.
+
+* **gh release delete** — Delete a release.
+
+* **gh release download** — Download release assets.
+
+* **gh release edit** — Edit a release’s metadata.
+
+* **gh release list** — List releases in a repo.
+
+* **gh release upload** — Upload assets to a release.
+
+* **gh release verify-asset** — Verify a release asset (e.g., signature/attestation).
+
+* **gh release verify** — Verify a release’s authenticity.
+
+* **gh release view** — View a release (CLI or open in browser).
+
+* **gh repo archive** — Archive a repository.
+
+* **gh repo autolink** — Manage autolink references for external URLs.
+
+* **gh repo autolink create** — Create an autolink reference.
+
+* **gh repo autolink delete** — Delete an autolink reference.
+
+* **gh repo autolink list** — List autolink references.
+
+* **gh repo autolink view** — View details for an autolink.
+
+* **gh repo clone** — Clone a repository.
+
+* **gh repo create** — Create a new repository.
+
+* **gh repo delete** — Delete a repository.
+
+* **gh repo deploy-key add** — Add a deploy key to a repo.
+
+* **gh repo deploy-key delete** — Remove a deploy key.
+
+* **gh repo deploy-key list** — List deploy keys on a repo.
+
+* **gh repo edit** — Edit repository settings.
+
+* **gh repo fork** — Fork a repository.
+
+* **gh repo gitignore** — Show gitignore templates.
+
+* **gh repo gitignore list** — List available gitignore templates.
+
+* **gh repo gitignore view** — View a specific gitignore template.
+
+* **gh repo license** — Show license templates.
+
+* **gh repo license list** — List available license templates.
+
+* **gh repo license view** — View a specific license template.
+
+* **gh repo list** — List repositories (user or org).
+
+* **gh repo rename** — Rename a repository.
+
+* **gh repo set-default** — Set the default repo for `gh` commands in this dir.
+
+* **gh repo sync** — Sync a fork’s default branch with upstream.
+
+* **gh repo unarchive** — Unarchive a repository.
+
+* **gh repo view** — View a repository (CLI or open in browser).
+
+* **gh ruleset check** — Evaluate ruleset results for a ref/PR.
+
+* **gh ruleset list** — List rulesets on a repo/org.
+
+* **gh ruleset view** — View a specific ruleset.
+
+* **gh run cancel** — Cancel a GitHub Actions run.
+
+* **gh run delete** — Delete a workflow run.
+
+* **gh run download** — Download artifacts from a run.
+
+* **gh run list** — List workflow runs.
+
+* **gh run rerun** — Rerun a failed or completed run.
+
+* **gh run view** — View a workflow run (CLI or live logs).
+
+* **gh run watch** — Stream run status/logs until completion.
+
+* **gh search code** — Search code across GitHub.
+
+* **gh search commits** — Search commits across GitHub.
+
+* **gh search issues** — Search issues across GitHub.
+
+* **gh search prs** — Search pull requests across GitHub.
+
+* **gh search repos** — Search repositories across GitHub.
+
+* **gh secret delete** — Delete a secret.
+
+* **gh secret list** — List repo/org/environment secrets.
+
+* **gh secret set** — Create or update a secret.
+
+* **gh ssh-key add** — Upload an SSH public key to your account.
+
+* **gh ssh-key delete** — Delete an SSH key from your account.
+
+* **gh ssh-key list** — List your SSH keys.
+
+* **gh status** — Show your relevant issues and PRs at a glance.
+
+* **gh variable delete** — Delete an Actions variable.
+
+* **gh variable get** — Get the value of a variable.
+
+* **gh variable list** — List repo/org/environment variables.
+
+* **gh variable set** — Create or update a variable.
+
+* **gh workflow disable** — Disable a workflow file.
+
+* **gh workflow enable** — Enable a workflow file.
+
+* **gh workflow list** — List workflows in the repo.
+
+* **gh workflow run** — Trigger a workflow by file name (with inputs).
+
+* **gh workflow view** — View a workflow file/summary.
+
+* **gh version** — Print the `gh` version and build info.

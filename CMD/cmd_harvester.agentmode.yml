@@ -1,0 +1,694 @@
+name: cmd_harvester.agentmode
+role: You are a headless browsing + extraction agent.
+goal: Visit each CLI documentation website, crawl leaf pages, extract CLI commands
+  with descriptions and options, normalize into the 10-line YAML schema, and deliver
+  aggregate outputs.
+context_note: This is a modified version of cmd_havester for ChatGPT Agent Mode.
+inputs:
+  websites_file: /mnt/data/CLI_DOC_WEBSITES.txt
+  websites:
+  - INPUTS
+  - '- REPOSITORY: [DICKY1987/SPEC-1-AI-Upkeep-Suite-v2-Guardrails-MCP-]@@_1'
+  - '- BASE_BRANCH: [main]'
+  - INSTRUCTIONS
+  - 1) Discover README
+  - '- Look for an existing top-level README in this order: README.md, readme.md,
+    README, README.rst.'
+  - '- If the file is .rst or plain text, convert to Markdown faithfully (preserve
+    code blocks/tables).'
+  - 2) If README exists
+  - '- Render its contents directly under the heading “# Current System README.md”.'
+  - '- To avoid clashing H1s inside the report, DEMOTE internal README headings by
+    one level (so the highest becomes “##”).'
+  - '- Preserve all prose, lists, tables, links, and fenced code blocks verbatim.'
+  - '- Do NOT include any file path or “Found at …” lines in the report.'
+  - 3) If README is missing
+  - '- Generate a minimal, accurate README under the same heading. Fill details from
+    repository facts (package manifests, setup/config files, scripts, CI, docs).'
+  - '- If a datum cannot be proven, mark it as “TODO: <short note>” rather than guessing.'
+  - '- Use this skeleton (edit/expand based on repo evidence):'
+  - STANDARD SECTION ORDER (use as checklist)
+  - 1. Title + one-line value proposition
+  - 2. Badges (CI, coverage, release, license)
+  - 3. Overview (what it is / who it’s for)
+  - 4. Features (bulleted)
+  - 5. Usage (CLI/API examples)
+  - 6. Configuration (env vars, config files)
+  - 7. Architecture (short text + link to docs/ or diagram)
+  - 8. Development (repo layout, scripts, tests)
+  - 9. CI/CD (how it runs; how to release)
+  - 'Analyze the provided system/framework/application and produce a **comprehensive
+    unified architecture report** that captures both:'
+  - 1. **Plugin/Extension Architecture** - How the system enables extensibility
+  - 2. **Complete Modular Architecture** - Full module hierarchy with Core/Plugin/Support
+    tiers
+  - '[DICKY1987/SPEC-1-AI-Upkeep-Suite-v2-Guardrails-MCP-]@@_2'
+  - Follow this exact template structure to produce ONE unified report containing
+    all sections below.
+  - '---'
+  - '---'
+  - '**System Type:** [Event-driven / Hook-based / Interface-based / Service-oriented]'
+  - '**Plugin Discovery:** [How plugins are found: directory scanning / manifest registration
+    / API registration]'
+  - '**Loading Strategy:** [When plugins load: startup / lazy / on-demand]'
+  - '**Isolation Level:** [Process-level / Namespace / Same-process / Sandboxed]'
+  - '**Communication Pattern:** [Direct calls / Event bus / Message queue / RPC]'
+  - '**Core-Plugin Boundary:** [What core controls vs what plugins control]'
+  - '**Lifecycle Stages:**'
+  - 1. **Discovery** - [How system finds plugins]
+  - 2. **Validation** - [What checks happen before loading]
+  - 3. **Loading** - [How plugin code is initialized]
+  - 4. **Registration** - [How plugin declares capabilities]
+  - 5. **Activation** - [When plugin starts handling events/requests]
+  - 6. **Deactivation** - [How plugins are disabled/unloaded]
+  - 7. **Cleanup** - [Resource cleanup process]
+  - '**Lifecycle Events/Hooks:**'
+  - '- `[event_name]` - [When it fires, what plugins can do]'
+  - '- `[event_name]` - [Trigger and purpose]'
+  - '- `[event_name]` - [Trigger and purpose]'
+  - '- [Continue for all lifecycle events]'
+  - '---'
+  - 'Create a comprehensive table of all extension points:'
+  - '| Hook/Event Name | Trigger Condition | Plugin Receives | Plugin Returns | Can
+    Block? | Examples |'
+  - '|-----------------|-------------------|-----------------|----------------|------------|----------|'
+  - '| **[EventName]** | [When it fires] | [Input data] | [Output format] | Yes/No
+    | [Use case] |'
+  - '| **[EventName]** | [When it fires] | [Input data] | [Output format] | Yes/No
+    | [Use case] |'
+  - '| **[EventName]** | [When it fires] | [Input data] | [Output format] | Yes/No
+    | [Use case] |'
+  - '| [Continue for all hooks/events] |'
+  - '**Execution Order Control:**'
+  - '- [How plugins specify execution order: priority numbers / dependencies / registration
+    order]'
+  - '- [Default ordering strategy]'
+  - '- [Conflict resolution when multiple plugins handle same hook]'
+  - '**Examples:**'
+  - '```[language]'
+  - '[Show code example of setting plugin priority/order]'
+  - '```'
+  - '---'
+  - '**Mandatory Files:**'
+  - '- `[filename]` - [Purpose and format]'
+  - '- `[filename]` - [Purpose and format]'
+  - '- `[filename]` - [Purpose and format]'
+  - '**Optional Files:**'
+  - '- `[filename]` - [Purpose and format]'
+  - '- `[filename]` - [Purpose and format]'
+  - '**Directory Structure:**'
+  - '```'
+  - '[plugin-name]/'
+  - '├── [file1]          # [Purpose]'
+  - '├── [file2]          # [Purpose]'
+  - ├── [directory]/
+  - '│   └── [file3]      # [Purpose]'
+  - '└── [file4]          # [Purpose]'
+  - '```'
+  - '**Manifest Format:** [JSON / YAML / TOML / Code annotation]'
+  - '**Required Fields:**'
+  - '```[format]'
+  - '{'
+  - '"[field]": "[purpose and type]",'
+  - '"[field]": "[purpose and type]",'
+  - '"[field]": "[purpose and type]"'
+  - '}'
+  - '```'
+  - '**Example Real Manifest:**'
+  - '```[format]'
+  - '[Paste actual example from system]'
+  - '```'
+  - '**Implementation Style:** [Class-based / Function-based / Declarative / Mixed]'
+  - '**Minimal Plugin Example:**'
+  - '```[language]'
+  - '[Show smallest viable plugin that demonstrates the pattern]'
+  - '```'
+  - '**Full-Featured Plugin Example:**'
+  - '```[language]'
+  - '[Show plugin with multiple hooks, configuration, lifecycle methods]'
+  - '```'
+  - '---'
+  - 'For each major contract/interface:'
+  - '**Purpose:** [What this contract enables]'
+  - '**Required Methods/Functions:**'
+  - '```[language]'
+  - '[method_signature](params) -> return_type  # [What it does]'
+  - '[method_signature](params) -> return_type  # [What it does]'
+  - '[method_signature](params) -> return_type  # [What it does]'
+  - '```'
+  - '**Input Schema:**'
+  - '```json'
+  - '{'
+  - '"field": "type and constraints",'
+  - '"field": "type and constraints"'
+  - '}'
+  - '```'
+  - '**Output Schema:**'
+  - '```json'
+  - '{'
+  - '"field": "type and constraints",'
+  - '"field": "type and constraints"'
+  - '}'
+  - '```'
+  - '**Validation Rules:**'
+  - '- [Rule 1]'
+  - '- [Rule 2]'
+  - '- [Rule 3]'
+  - '**Example Implementation:**'
+  - '```[language]'
+  - '[Show code implementing this contract]'
+  - '```'
+  - '[Repeat for each contract]'
+  - '**Plugin → Core:**'
+  - '- [How plugins call core functionality]'
+  - '- [Available core APIs/services]'
+  - '- [Permission model]'
+  - '**Core → Plugin:**'
+  - '- [How core invokes plugins]'
+  - '- [Error handling strategy]'
+  - '- [Timeout/resource limits]'
+  - '**Plugin → Plugin:**'
+  - '- [Can plugins communicate directly? How?]'
+  - '- [Shared state mechanisms]'
+  - '- [Event forwarding patterns]'
+  - '---'
+  - '**Permission Levels:**'
+  - '- **[Level]**: [What it can access/modify]'
+  - '- **[Level]**: [What it can access/modify]'
+  - '- **[Level]**: [What it can access/modify]'
+  - '**Capability Declarations:**'
+  - '```[format]'
+  - '[How plugins declare what they need]'
+  - '```'
+  - '**Restrictions:**'
+  - '- ❌ [What plugins CANNOT do]'
+  - '- ❌ [What plugins CANNOT do]'
+  - '- ❌ [What plugins CANNOT do]'
+  - '**Sandboxing/Isolation:**'
+  - '- [Security boundaries]'
+  - '- [Resource limits]'
+  - '- [Blast radius control]'
+  - '| Service | Purpose | Access Pattern | Permission Required |'
+  - '|---------|---------|----------------|---------------------|'
+  - '| **[ServiceName]** | [What it provides] | [How to call] | [Level needed] |'
+  - '| **[ServiceName]** | [What it provides] | [How to call] | [Level needed] |'
+  - '| **[ServiceName]** | [What it provides] | [How to call] | [Level needed] |'
+  - '---'
+  - '**Validation Checks:**'
+  - 1. **[Check Name]** - [What it validates]
+  - '- Pass criteria: [Requirements]'
+  - '- Fail action: [What happens]'
+  - 2. **[Check Name]** - [What it validates]
+  - '- Pass criteria: [Requirements]'
+  - '- Fail action: [What happens]'
+  - '**Validation Tool/Command:**'
+  - '```bash'
+  - '[Command to validate a plugin]'
+  - '```'
+  - '**Error Isolation:**'
+  - '- [How plugin failures are contained]'
+  - '- [System recovery strategy]'
+  - '- [Error reporting to core]'
+  - '**Resource Limits:**'
+  - '- Memory: [Limits and enforcement]'
+  - '- CPU: [Limits and enforcement]'
+  - '- Time: [Execution timeouts]'
+  - '- I/O: [Rate limits or restrictions]'
+  - '**Circuit Breakers:**'
+  - '- [When plugins are auto-disabled]'
+  - '- [Failure thresholds]'
+  - '- [Recovery procedures]'
+  - '---'
+  - '**Configuration Sources:**'
+  - '- [Where plugins read config: files / env vars / database / API]'
+  - '- [Config precedence order]'
+  - '- [Hot-reload support: Yes/No/Partial]'
+  - '**Configuration Schema:**'
+  - '```[format]'
+  - '{'
+  - '"plugin_config": {'
+  - '"[field]": "[type and default]",'
+  - '"[field]": "[type and default]"'
+  - '}'
+  - '}'
+  - '```'
+  - '**Example Plugin Config:**'
+  - '```[format]'
+  - '[Paste real example]'
+  - '```'
+  - '**Customization Points:**'
+  - '- [How users customize plugin behavior]'
+  - '- [Override mechanisms]'
+  - '- [Extension of extensions (meta-plugins)]'
+  - '**Templates/Scaffolding:**'
+  - '```bash'
+  - '[Command to generate plugin from template]'
+  - '```'
+  - '---'
+  - 'For each core module, provide:'
+  - '**Purpose:** [One-sentence description of what this module does]'
+  - '**Deliverables:**'
+  - '- `[filepath/component1]` - [Brief description]'
+  - '- `[filepath/component2]` - [Brief description]'
+  - '- `[filepath/component3]` - [Brief description]'
+  - '- [Data files, configs, schemas created/managed]'
+  - '- [Any generated artifacts]'
+  - '- [Integration points or interfaces]'
+  - '**Key Contracts:**'
+  - '```python'
+  - 'method_name(param1: Type, param2: Type) -> ReturnType'
+  - 'another_method(param: Type) -> ReturnType'
+  - '{'
+  - '"example": "data structure",'
+  - '"format": "that this module uses"'
+  - '}'
+  - '```'
+  - '**Core Module Identification Criteria:**'
+  - '- Controls privileged operations (file system, database, security)'
+  - '- Cannot be disabled without breaking the system'
+  - '- Other modules depend on it'
+  - '- Handles critical data or state'
+  - '- Enforces system-wide rules or policies'
+  - '[Repeat for each core module - aim for 8-12 core modules]'
+  - '---'
+  - 'For each plugin/extension module, provide:'
+  - '**Purpose:** [What this plugin/extension accomplishes]'
+  - '**Deliverables:**'
+  - '- `[plugin files or components]`'
+  - '- [Configuration files]'
+  - '- [Templates or schemas]'
+  - '- [Integration artifacts]'
+  - '**[Hook/Event Name]:** [What triggers this module]'
+  - '**Input Contract:**'
+  - '```json'
+  - '{'
+  - '"event": "[EventName]",'
+  - '"inputs": {'
+  - '"expected": "input structure",'
+  - '"parameters": "that trigger this module"'
+  - '}'
+  - '}'
+  - '```'
+  - '**Output Contract:**'
+  - '```json'
+  - '['
+  - '{'
+  - '"action": "action_name",'
+  - '"payload": {'
+  - '"returned": "data structure",'
+  - '"actions": "or proposals from this module"'
+  - '}'
+  - '}'
+  - ']'
+  - '```'
+  - '**Plugin/Extension Identification Criteria:**'
+  - '- Can be added/removed without breaking core'
+  - '- Extends functionality rather than providing foundation'
+  - '- Implements a specific feature or capability'
+  - '- May have multiple implementations for same purpose'
+  - '- Often user-configurable or optional'
+  - '[Repeat for each plugin module - aim for 6-10 plugin modules]'
+  - '---'
+  - 'For each support module, provide:'
+  - '**Purpose:** [What supporting function this provides]'
+  - '**Deliverables:**'
+  - '- `[utility files or components]`'
+  - '- [Configuration data]'
+  - '- [Supporting artifacts]'
+  - '**Key Contracts (if applicable):**'
+  - '```[language]'
+  - '[method signatures or interface definitions]'
+  - '```'
+  - '**Support Module Identification Criteria:**'
+  - '- Provides utilities or helpers'
+  - '- Used by multiple other modules'
+  - '- Not directly part of core functionality'
+  - '- Often cross-cutting concerns (logging, config, testing)'
+  - '[Repeat for each support module - aim for 3-6 support modules]'
+  - '---'
+  - 'Create a comprehensive table:'
+  - '| Module | Core Files | Generated Artifacts | Config Files | Tests |'
+  - '|--------|-----------|---------------------|--------------|-------|'
+  - '| **[Module 1]** | [file1.ext, file2.ext] | [artifact1, artifact2] | [config.json]
+    | [test_file.ext] |'
+  - '| **[Module 2]** | [file1.ext] | [generated output] | - | [test_file.ext] |'
+  - '| [Continue for all modules] |'
+  - '---'
+  - 'Create a dependency tree showing relationships:'
+  - '```'
+  - '[Root Module/Orchestrator]'
+  - ├── [Dependent Module 1] ([what it provides])
+  - ├── [Dependent Module 2] ([what it provides])
+  - │   └── [Sub-dependency] ([relationship])
+  - └── [Dependent Module 3] ([what it provides])
+  - '[Another Major Module]'
+  - ├── [Dependencies]
+  - └── [How they interact]
+  - '[Plugin Family]'
+  - ├── [Shared dependencies]
+  - └── [Integration points]
+  - '```'
+  - '---'
+  - '**Tool Integrations:**'
+  - '- **[Tool/Service Name]** - [How it''s integrated and by which modules]'
+  - '- **[Tool/Service Name]** - [Purpose and calling modules]'
+  - '- **[Tool/Service Name]** - [Integration pattern]'
+  - 'Describe 3-5 key scenarios showing data movement:'
+  - 1. **[Scenario Name]**
+  - → [Step 1] → [Step 2] → [Step 3] → [Step 4] → [Final outcome]
+  - 2. **[Scenario Name]**
+  - → [Flow description with steps]
+  - 3. **[Scenario Name]**
+  - → [Flow description with steps]
+  - '---'
+  - '**Step-by-Step:**'
+  - 1. [Step 1]
+  - 2. [Step 2]
+  - 3. [Step 3]
+  - 4. [Step 4]
+  - '**Tools Required:**'
+  - '- [Tool 1] - [Purpose]'
+  - '- [Tool 2] - [Purpose]'
+  - '**Scaffolding/Generators:**'
+  - '```bash'
+  - '[Commands to generate plugin boilerplate]'
+  - '```'
+  - '**Testing Framework:**'
+  - '- [How plugins are tested]'
+  - '- [Test runner integration]'
+  - '- [Mock/stub systems]'
+  - '**Debugging Tools:**'
+  - '- [Debugging capabilities]'
+  - '- [Logging integration]'
+  - '- [Error reporting]'
+  - '**Test Example:**'
+  - '```[language]'
+  - '[Show plugin test example]'
+  - '```'
+  - '---'
+  - 'List of official plugins:'
+  - '| Plugin Name | Purpose | Hooks Used | Stability |'
+  - '|-------------|---------|------------|-----------|'
+  - '| **[PluginName]** | [Purpose] | [Hooks] | [Stable/Beta/Experimental] |'
+  - '| **[PluginName]** | [Purpose] | [Hooks] | [Status] |'
+  - '**Distribution Channels:**'
+  - '- [Where plugins are published]'
+  - '- [Package management]'
+  - '- [Installation process]'
+  - '**Community Resources:**'
+  - '- [Documentation portals]'
+  - '- [Example repositories]'
+  - '- [Support forums]'
+  - '---'
+  - '**Version Strategy:**'
+  - '- [How plugin API versions are managed]'
+  - '- [Breaking change policy]'
+  - '- [Deprecation process]'
+  - '**Compatibility Matrix:**'
+  - '| Core Version | Plugin API Version | Compatible With |'
+  - '|--------------|-------------------|------------------|'
+  - '| [version] | [version] | [What changed] |'
+  - '**Upgrade Paths:**'
+  - '- [How to migrate plugins between versions]'
+  - '- [Breaking changes documentation]'
+  - '- [Automated migration tools]'
+  - '---'
+  - ✅ **[Strength 1]**
+  - '- Why it''s good: [Explanation]'
+  - '- Example: [How it manifests]'
+  - ✅ **[Strength 2]**
+  - '- Why it''s good: [Explanation]'
+  - '- Example: [How it manifests]'
+  - ✅ **[Strength 3]**
+  - '- Why it''s good: [Explanation]'
+  - '- Example: [How it manifests]'
+  - ⚠️ **[Limitation 1]**
+  - '- Why it''s limiting: [Explanation]'
+  - '- Workaround: [If any]'
+  - ⚠️ **[Limitation 2]**
+  - '- Why it''s limiting: [Explanation]'
+  - '- Workaround: [If any]'
+  - ⚠️ **[Limitation 3]**
+  - '- Why it''s limiting: [Explanation]'
+  - '- Workaround: [If any]'
+  - '**Flexibility vs. Performance:**'
+  - '- [How this system balances]'
+  - '**Safety vs. Capability:**'
+  - '- [Restrictions and rationale]'
+  - '**Simplicity vs. Power:**'
+  - '- [Learning curve vs features]'
+  - '---'
+  - '| Characteristic | Rating (1-5) | Notes |'
+  - '|----------------|--------------|-------|'
+  - '| **Ease of Plugin Creation** | ⭐⭐⭐⭐⭐ | [Brief explanation] |'
+  - '| **Extensibility Breadth** | ⭐⭐⭐⭐⭐ | [How many extension points] |'
+  - '| **Safety/Isolation** | ⭐⭐⭐⭐⭐ | [How well plugins are sandboxed] |'
+  - '| **Performance Overhead** | ⭐⭐⭐⭐⭐ | [Impact on system performance] |'
+  - '| **Documentation Quality** | ⭐⭐⭐⭐⭐ | [Plugin dev docs completeness] |'
+  - '| **Developer Experience** | ⭐⭐⭐⭐⭐ | [Tools, debugging, testing] |'
+  - '| **Plugin Ecosystem Size** | ⭐⭐⭐⭐⭐ | [Number of available plugins] |'
+  - '**Lines of Code for "Hello World" Plugin:** [Number]'
+  - '**Number of Required Artifacts:** [Number]'
+  - '**Number of Extension Points:** [Number]'
+  - '**Learning Curve:** [Beginner / Intermediate / Advanced]'
+  - '**Time to First Plugin:** [Estimate in hours/days]'
+  - '---'
+  - 'Evaluate the overall modular architecture:'
+  - '**This modular architecture ensures:**'
+  - '- ✅/❌ Clear separation of concerns'
+  - '- ✅/❌ Each module has single responsibility'
+  - '- ✅/❌ Core protected from plugin failures'
+  - '- ✅/❌ Extensibility without core changes'
+  - '- ✅/❌ Complete audit/observability capability'
+  - '- ✅/❌ Deterministic and testable behavior'
+  - '- ✅/❌ Well-defined module boundaries'
+  - '- ✅/❌ Manageable dependencies (no circular deps)'
+  - '- ✅/❌ Consistent interface contracts'
+  - '- ✅/❌ Scalable architecture for growth'
+  - '---'
+  - 1. **[Pattern Name]**
+  - '- Description: [How it works]'
+  - '- Benefits: [Why it''s used]'
+  - '- Trade-offs: [Costs]'
+  - 2. **[Pattern Name]**
+  - '- Description: [How it works]'
+  - '- Benefits: [Why it''s used]'
+  - '- Trade-offs: [Costs]'
+  - 3. **[Pattern Name]**
+  - '- Description: [How it works]'
+  - '- Benefits: [Why it''s used]'
+  - '- Trade-offs: [Costs]'
+  - '**Decisions Worth Borrowing:**'
+  - '- ✅ [Decision] - [Why it''s good, how to apply elsewhere]'
+  - '- ✅ [Decision] - [Why it''s good, how to apply elsewhere]'
+  - '- ✅ [Decision] - [Why it''s good, how to apply elsewhere]'
+  - '**Decisions to Avoid:**'
+  - '- ❌ [Decision] - [Why it''s problematic, better alternatives]'
+  - '- ❌ [Decision] - [Why it''s problematic, better alternatives]'
+  - '---'
+  - (Use this when analyzing multiple systems for comparison)
+  - '| Aspect | [System A] | [System B] | [System C] |'
+  - '|--------|-----------|-----------|-----------|'
+  - '| **Discovery Method** | [Method] | [Method] | [Method] |'
+  - '| **Loading Strategy** | [Strategy] | [Strategy] | [Strategy] |'
+  - '| **Isolation Level** | [Level] | [Level] | [Level] |'
+  - '| **Extension Points** | [Count] | [Count] | [Count] |'
+  - '| **Permission Model** | [Type] | [Type] | [Type] |'
+  - '| **Plugin Language** | [Lang] | [Lang] | [Lang] |'
+  - '| **Validation Approach** | [Approach] | [Approach] | [Approach] |'
+  - '| **Configuration System** | [Type] | [Type] | [Type] |'
+  - '| **Core Modules** | [Count] | [Count] | [Count] |'
+  - '| **Plugin Modules** | [Count] | [Count] | [Count] |'
+  - '| **Developer Tools** | [Tools] | [Tools] | [Tools] |'
+  - '| **Ecosystem Size** | [Size] | [Size] | [Size] |'
+  - '---'
+  - '**Start with data flow:** Follow how data enters, transforms, and exits'
+  - '**Identify boundaries:** Look for clear interfaces or APIs'
+  - '**Find privileged operations:** What requires special access?'
+  - '**Spot extensibility points:** Where can users add functionality?'
+  - '**Look for separation patterns:** Services, layers, plugins, adapters'
+  - '- **CORE** = Can''t remove without system collapse'
+  - '- **PLUGIN** = Optional, adds features, follows extension pattern'
+  - '- **SUPPORT** = Utilities, helpers, cross-cutting concerns'
+  - '- How plugins are discovered, loaded, and managed'
+  - '- What extension points exist and their contracts'
+  - '- How plugins interact with core and each other'
+  - '- Safety and isolation mechanisms'
+  - '- Developer experience and tooling'
+  - '- Code files: Actual implementation files with paths'
+  - '- Generated artifacts: What the module creates/manages'
+  - '- Configs: What settings it reads/writes'
+  - '- Tests: Verification components'
+  - '- Schemas: Data structures or contracts'
+  - '- Show 3-5 most important interfaces per module'
+  - '- Use actual code syntax (Python, TypeScript, etc.) or pseudocode'
+  - '- Include parameter types and return types'
+  - '- For REST APIs: show endpoint signatures'
+  - '- For event-driven: show event names and payloads'
+  - 'For each claim, provide:'
+  - '- Code examples from actual plugins or documentation'
+  - '- Command examples showing real usage'
+  - '- Schema/contract examples with actual formats'
+  - '- Links to official documentation (if available)'
+  - '- Use same naming conventions throughout'
+  - '- Keep module numbering sequential'
+  - '- Use consistent formatting for code blocks'
+  - '- Apply same level of detail to each module'
+  - '- Use ✅/❌/⚠️/⭐ symbols consistently'
+  - '- Show how modules interact, not just what they do'
+  - '- Identify data flows between modules'
+  - '- Highlight external dependencies'
+  - '- Note any circular dependencies (architectural smell)'
+  - 'If you cannot find specific information:'
+  - '**[Section Name]:** ⚠️ Not documented / Not found in provided materials'
+  - '*Inference based on related patterns:* [Your educated guess]'
+  - '*Recommendation:* [What to look for to complete this section]'
+  - '---'
+  - 'Before submitting your analysis, verify:'
+  - '**Part A - Plugin Architecture:**'
+  - '- [ ] All 7 plugin sections completed (A1-A7)'
+  - '- [ ] Extension points fully documented with I/O contracts'
+  - '- [ ] Plugin lifecycle clearly explained'
+  - '- [ ] Permission model documented'
+  - '- [ ] Validation/safety mechanisms described'
+  - '- [ ] At least 2 complete plugin examples provided'
+  - '**Part B - Modular Architecture:**'
+  - '- [ ] All modules numbered sequentially across tiers'
+  - '- [ ] Each module has Purpose + Deliverables + Contracts'
+  - '- [ ] Core/Plugin/Support tiers clearly separated'
+  - '- [ ] Summary table includes all modules'
+  - '- [ ] Dependency tree shows relationships'
+  - '- [ ] 3-5 data flow scenarios described'
+  - '**Part C - Plugin Ecosystem:**'
+  - '- [ ] Development workflow documented'
+  - '- [ ] Testing/debugging approaches described'
+  - '- [ ] Plugin catalog provided'
+  - '- [ ] Versioning strategy explained'
+  - '**Part D - Architectural Analysis:**'
+  - '- [ ] Strengths and weaknesses honestly assessed'
+  - '- [ ] Comparative metrics table filled'
+  - '- [ ] Quality assessment completed'
+  - '- [ ] Key patterns identified'
+  - '**General:**'
+  - '- [ ] Consistent formatting throughout'
+  - '- [ ] All code blocks properly formatted with syntax highlighting'
+  - '- [ ] At least 3 real code examples included'
+  - '- [ ] Integration points documented'
+  - '- [ ] No section marked as "TBD" or incomplete'
+  - '---'
+  - '[DICKY1987/SPEC-1-AI-Upkeep-Suite-v2-Guardrails-MCP-]@@_3'
+  - '---'
+  output_yaml: /mnt/data/tasks_10line.yaml
+  output_csv: /mnt/data/tasks_index.csv
+  raw_dir: /mnt/data/out/raw
+  normalized_dir: /mnt/data/out/normalized
+policy:
+  respect_robots: true
+  max_depth_per_site: 4
+  same_domain_only: true
+  rate_limit_seconds: 1.0
+  skip_pdf: true
+  html_only: true
+  prefer_official_docs: true
+  exclude_forums_blogs: true
+plan:
+- Load CLI_DOC_WEBSITES.txt; for each URL, perform a site-local crawl (max depth=4).
+- 'Identify ''leaf'' documentation pages: pages whose primary content is a single
+  command reference, subcommand list, or option table.'
+- Extract command lines, subcommand names, one-line descriptions, and options/flags
+  (with brief summaries).
+- Normalize each discovered command to the 10-line YAML schema with p1..p6 filled
+  by the six most salient parameters/flags.
+- Generate deterministic id/key for every normalized entry using the ID/Key rules.
+- Save per-vendor raw captures in JSONL (one object per command) under /mnt/data/out/raw/<vendor>.jsonl.
+- Aggregate all normalized entries across sites into /mnt/data/tasks_10line.yaml and
+  /mnt/data/tasks_index.csv.
+- De-duplicate by canonical command string (cmd) and prefer entries with a richer
+  description or more placeholders filled.
+- Validate the YAML shape (exactly 10 fields per entry) and that IDs are unique.
+- Return download links for the YAML and CSV outputs.
+extraction_rules:
+  command_detection:
+  - Prefer fenced code blocks beginning with a tool token (e.g., gh, git, az, aws,
+    gcloud, pwsh).
+  - 'Fallback: headings + monospace lines that start with tool token.'
+  - 'Ignore shell prompts ($, #) and copy buttons.'
+  description_detection:
+  - Use the first sentence under the heading or the short description line near the
+    command synopsis.
+  - If multiple descriptions exist, choose the official, succinct one.
+  option_priority_for_p1_p6:
+  - Prefer required positional args (e.g., <owner/repo>, <name>).
+  - Then prefer the most common or high-signal flags (e.g., --title, --body, --label).
+  - Prefer options that materially change behavior over cosmetic ones (e.g., --draft
+    > --web).
+  - Cap at six placeholders; if more exist, include the top six by importance.
+  resource_action_inference:
+  - resource = the primary object noun (pr, issue, repo, project, workflow, run, org,
+    gist, codespace, etc.).
+  - action   = verb closest to the command form (create, list, view, update, delete,
+    run, etc.).
+  - 'scope    = infer from resource or page context: repo (default), org, user, env.'
+  vendor_inference:
+  - vendor = first token ('gh','git','az','aws','gcloud','pwsh','powershell','ps').
+  - Map aliases to canonical vendors when needed.
+normalization:
+  ten_line_schema_example: 'id: <10-char CLS id>
+
+    key: <vendor.resource.action.cli.<scope>.v1.ph6>
+
+    cmd: <command>
+
+    desc: <auto-generated from id/key OR site text>
+
+    p1: <placeholder-1>
+
+    p2: <placeholder-2>
+
+    p3: <placeholder-3>
+
+    p4: <placeholder-4>
+
+    p5: <placeholder-5>
+
+    p6: <placeholder-6>
+
+    '
+  id_key_rules: "ID (10 chars, deterministic):\n  pos1-2: Vendor (GH/GT/PS/AW/AZ/GC\
+    \ ...)\n  pos3:   Resource (P=pr, I=issue, R=repo, J=project, W=workflow, N=run,\
+    \ G=gist, O=org, C=codespace, K=cache, L=release, B=browse, S=alias, T=agent-task,\
+    \ Z=other)\n  pos4:   Action (C=create, L=list, V=view, S=status, D=delete/remove,\
+    \ X=close, O=open, K=checkout, U=update, E=edit/enable, B=disable, N=run, A=add,\
+    \ T=set, Z=clear, P=pin, Y=unpin/sync, R=diff)\n  pos5:   Mode (C=CLI)\n  pos6:\
+    \   OS  (X=Cross)\n  pos7:   Scope (U=user, O=org, R=repo, E=env; default R)\n\
+    \  pos8:   Version (1 = v1; base36 for future)\n  pos9:   Placeholders count (6\
+    \ = '6'; base36 for >9)\n  pos10:  Checksum (base36 over first 9 chars)\nKEY (dot\
+    \ form):\n  <vendor>.<resource>.<action>.cli.<scope>.v1.ph6[.<flags>]  # e.g.,\
+    \ gh.pr.create.cli.repo.v1.ph6.draft_web\n"
+  dedupe_key: cmd
+  csv_columns:
+  - id
+  - key
+  - cmd
+  - desc
+  - p1
+  - p2
+  - p3
+  - p4
+  - p5
+  - p6
+deliverables:
+- '/mnt/data/out/raw/*.jsonl  # per-vendor raw captures (provenance)'
+- /mnt/data/tasks_10line.yaml
+- /mnt/data/tasks_index.csv
+success_criteria:
+- All websites processed without off-domain drift.
+- tasks_10line.yaml contains only valid 10-line entries with unique IDs.
+- tasks_index.csv aligns 1:1 with the YAML entries.
+- Representative placeholders present for commands with parameters.
+notes:
+- If a site has a consolidated 'commands index' page, crawl that first to fan out
+  to leaves.
+- Skip API (HTTP/REST) pages unless they are the official CLI reference.
+- Keep descriptions short (one line).
+- Do not include examples or multi-line bodies in placeholders.

@@ -1,0 +1,16 @@
+This is a portable stub for:
+  C:\Users\richg\HIGH_LEVEL_MOD_PLUGIN_DEV\AI_MANGER\AIDER_PROMNT&PLAN_REF\AIDER_SLASH_COMMAND_+MORE_LIST.txt
+
+Quick Reference (fill with your canonical list):
+- /add <files>
+- /drop <files>
+- /commit "<message>"
+- /run "<cmd>"
+- /undo
+- /test
+- /lint
+
+Usage Tips
+- Keep the working set small for better diffs.
+- Commit often with clear messages.
+

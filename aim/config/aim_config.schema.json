@@ -1,0 +1,241 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://aim-plus.dev/schemas/aim-config.schema.json",
+  "title": "AIM+ Configuration",
+  "description": "Unified configuration for AIM+ AI Development Environment Manager",
+  "type": "object",
+  "required": ["version", "registry", "environment"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "Configuration schema version",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "registry": {
+      "type": "object",
+      "description": "AI tool registry and capability routing",
+      "required": ["tools"],
+      "properties": {
+        "tools": {
+          "type": "object",
+          "description": "AI tool definitions",
+          "additionalProperties": {
+            "$ref": "#/definitions/tool"
+          }
+        },
+        "capabilities": {
+          "type": "object",
+          "description": "Capability to tool mappings",
+          "additionalProperties": {
+            "$ref": "#/definitions/capability"
+          }
+        },
+        "crossToolRulesPath": {
+          "type": "string",
+          "description": "Path to coordination rules file"
+        }
+      }
+    },
+    "environment": {
+      "type": "object",
+      "description": "Development environment configuration",
+      "properties": {
+        "toolsRoot": {
+          "type": "string",
+          "description": "Root directory for installed tools"
+        },
+        "pipxApps": {
+          "type": "array",
+          "description": "Python packages to install via pipx",
+          "items": {
+            "type": "string"
+          }
+        },
+        "npmGlobal": {
+          "type": "array",
+          "description": "Node packages to install globally",
+          "items": {
+            "type": "string"
+          }
+        },
+        "secretsVault": {
+          "type": "string",
+          "description": "Path to secrets metadata vault"
+        },
+        "centralCache": {
+          "type": "string",
+          "description": "Central cache directory"
+        },
+        "healthChecks": {
+          "type": "object",
+          "description": "Health check configuration",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "default": true
+            },
+            "requiredCommands": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "requiredPaths": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "versionPins": {
+          "type": "object",
+          "description": "Version pinning for tools",
+          "properties": {
+            "pipx": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "npm": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "scanner": {
+          "type": "object",
+          "description": "Environment scanner configuration",
+          "properties": {
+            "roots": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "cachePatterns": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "minSizeKB": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        }
+      }
+    },
+    "audit": {
+      "type": "object",
+      "description": "Audit logging configuration",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": true
+        },
+        "logPath": {
+          "type": "string",
+          "description": "Path to audit log file"
+        },
+        "events": {
+          "type": "array",
+          "description": "Events to log",
+          "items": {
+            "type": "string",
+            "enum": [
+              "tool_invoke",
+              "secret_access",
+              "health_check",
+              "install",
+              "config_change"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "tool": {
+      "type": "object",
+      "required": ["name", "detectCommands", "capabilities"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Human-readable tool name"
+        },
+        "detectCommands": {
+          "type": "array",
+          "description": "Commands to detect tool installation",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "versionCommand": {
+          "type": "array",
+          "description": "Command to get tool version",
+          "items": {
+            "type": "string"
+          }
+        },
+        "configPaths": {
+          "type": "array",
+          "description": "Tool configuration directories",
+          "items": {
+            "type": "string"
+          }
+        },
+        "logPaths": {
+          "type": "array",
+          "description": "Tool log file locations",
+          "items": {
+            "type": "string"
+          }
+        },
+        "capabilities": {
+          "type": "array",
+          "description": "Capabilities provided by this tool",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "adapterScript": {
+          "type": "string",
+          "description": "Path to PowerShell adapter script"
+        },
+        "pinnedVersion": {
+          "type": "string",
+          "description": "Pinned version for this tool"
+        },
+        "autoUpdate": {
+          "type": "boolean",
+          "description": "Allow automatic updates",
+          "default": false
+        }
+      }
+    },
+    "capability": {
+      "type": "object",
+      "required": ["primaryTool"],
+      "properties": {
+        "primaryTool": {
+          "type": "string",
+          "description": "Primary tool for this capability"
+        },
+        "fallbacks": {
+          "type": "array",
+          "description": "Fallback tools in priority order",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

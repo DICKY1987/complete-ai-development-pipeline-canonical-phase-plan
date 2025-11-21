@@ -1,0 +1,61 @@
+id,key,cmd,desc,p1,p2,p3,p4,p5,p6
+CLSNCXE166,claude.session.run.cli.env.v1.ph6,claude,Start interactive REPL.,--model=<name>,"--append-system-prompt=""<text>""",--add-dir=<path...>,--verbose=<true|false>,--permission-mode=<plan|ask|auto>,--continue=<true|false>
+CLSNCXE166,claude.session.run.cli.env.v1.ph6,"claude ""query""",Start REPL with an initial prompt.,"""query""=""<text>""",--model=<name>,"--append-system-prompt=""<text>""",--output-format=<text|json|stream-json>,--verbose=<true|false>,--max-turns=<n>
+CLPNCXE163,claude.print.run.cli.env.v1.ph6,"claude -p ""query""",Print response (non-interactive).,"""query""=""<text>""",--output-format=<text|json|stream-json>,--input-format=<text|stream-json>,--include-partial-messages=<true|false>,--model=<name>,--verbose=<true|false>
+CLSCCXE16V,claude.session.continue.cli.env.v1.ph6,claude -c,Continue most recent conversation.,--print=<true|false>,--model=<name>,"--append-system-prompt=""<text>""",--output-format=<text|json|stream-json>,--include-partial-messages=<true|false>,--max-turns=<n>
+CLPCCXE16S,claude.print.continue.cli.env.v1.ph6,"claude -c -p ""query""",Continue via print mode.,"""query""=""<text>""",--output-format=<text|json|stream-json>,--input-format=<text|stream-json>,--include-partial-messages=<true|false>,--model=<name>,--max-turns=<n>
+CLSRCXE16A,claude.session.resume.cli.env.v1.ph6,"claude -r ""<session-id>"" ""query""",Resume session by ID and prompt.,session-id=<id>,"""query""=""<text>""",--model=<name>,"--append-system-prompt=""<text>""",--output-format=<text|json|stream-json>,--max-turns=<n>
+CLUUCXE16F,claude.update.update.cli.env.v1.ph6,claude update,Update to latest version.,,,,,,
+CLMMCXE16Z,claude.mcp.manage.cli.env.v1.ph6,claude mcp,Configure MCP servers.,--add=<server>,--remove=<server>,--login=<server>,--logout=<server>,--list=<true|false>,--json=<true|false>
+CLDVCXE16Z,claude.debug.view.cli.env.v1.ph6,claude --debug,Show plugin loading and registration details.,,,,,,
+CLATCXE16U,claude.agents.set.cli.env.v1.ph6,"claude --agents '{""rev"":{""description"":""review"",""prompt"":""...""}}'",Define custom subagents via JSON.,json=<object>,--model=<alias>,--tools=<names...>,--permission-mode=<plan|ask|auto>,--print=<true|false>,--verbose=<true|false>
+CLPACXE16Q,claude.permissions.add.cli.env.v1.ph6,"claude --allowedTools ""Bash(git log:*)"" ""Read""",Allow tools without prompting (in addition to settings).,tools=<list>,--disallowedTools=<list>,--permission-mode=<plan|ask|auto>,,,
+CLPACXE16Q,claude.permissions.add.cli.env.v1.ph6,"claude --disallowedTools ""Edit"" ""Write""",Disallow tools without prompting (in addition to settings).,tools=<list>,--allowedTools=<list>,--permission-mode=<plan|ask|auto>,,,
+CLPTCXE169,claude.systemprompt.set.cli.env.v1.ph6,"claude --system-prompt ""You are a Python expert""",Replace entire system prompt.,"--system-prompt=""<text>""",--model=<name>,--print=<true|false>,--verbose=<true|false>,,
+CLPTCXE169,claude.systempromptfile.set.cli.env.v1.ph6,"claude -p --system-prompt-file ./prompt.txt ""query""",Load system prompt from file (print mode).,"""query""=""<text>""",--system-prompt-file=<path>,--output-format=<text|json|stream-json>,--model=<name>,--verbose=<true|false>,
+CLPACXE16Q,claude.systemprompt.add.cli.env.v1.ph6,"claude --append-system-prompt ""Always use TypeScript""",Append text to default system prompt.,"""--append-system-prompt""=""<text>""",--model=<name>,--output-format=<text|json|stream-json>,--verbose=<true|false>,,
+CLSRCXE16A,claude.session.resume.cli.env.v1.ph6,claude --resume abc123,Resume a specific session by ID.,session-id=<id>,--model=<name>,"--append-system-prompt=""<text>""",--output-format=<text|json|stream-json>,,
+CLSCCXE16V,claude.session.continue.cli.env.v1.ph6,claude --continue,Load most recent conversation in current directory.,--print=<true|false>,--model=<name>,,,,
+CLPSCXE168,claude.permissions.skip.cli.env.v1.ph6,claude --dangerously-skip-permissions,Skip permission prompts (use with caution).,,,,,,
+CLBNCXE16P,claude.bash.run.cli.env.v1.ph6,! <bash>,Run a bash command inline; output is added to context.,<command...>,Ctrl+B=<background>,adds-output=<true>,tmux-prefix-note=<Ctrl+B twice>,,
+CLFACXE16G,claude.fileref.add.cli.env.v1.ph6,@<path>,Mention a file path to include its contents/context.,path=<file|dir>,multiple=<space-separated>,globs=<supported>,,,
+CLMACXE16N,claude.memory.add.cli.env.v1.ph6,# <memory>,Memory shortcut to append to CLAUDE.md.,<text>,scope=<project|user>,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/add-dir,Add additional working directories.,<paths...>,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/agents,Manage custom AI subagents.,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/bashes,List and manage background tasks.,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/bug,Report bugs to Anthropic.,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/clear,Clear conversation history.,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/compact [instructions],Compact conversation with optional focus instructions.,instructions=<text?>,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/config,Open the Settings interface (Config tab).,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/context,Visualize current context usage.,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/cost,Show token usage statistics.,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/doctor,Check health of Claude Code installation.,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/exit,Exit the REPL.,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/export [filename],Export current conversation.,filename=<path?>,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/help,Get usage help.,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/hooks,Manage hook configurations for tool events.,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/init,Initialize project with CLAUDE.md guide.,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/login,Switch Anthropic accounts.,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/logout,Sign out of your Anthropic account.,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/mcp,Manage MCP server connections and OAuth.,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/memory,Edit CLAUDE.md memory files.,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/model,Select or change the AI model.,name=<model>,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/output-style [style],Set the output style or choose from menu.,style=<name?>,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/permissions,View or update permissions.,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/pr_comments,View pull request comments.,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/privacy-settings,View/update privacy settings.,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/review,Request code review.,scope=<all|staged|path...>,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/sandbox,Enable sandboxed bash tool.,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/rewind,Rewind the conversation and/or code.,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/status,Open the Status tab with environment info.,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/statusline,Configure status line UI.,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/terminal-setup,Install Shift+Enter binding for iTerm2/VSCode.,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/todos,List current todo items.,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/usage,Show plan usage limits/rate limits.,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/vim,Enter vim mode.,,,,,,
+CLMNCXE160,claude.mcp-slash.run.cli.env.v1.ph6,/mcp__<server>__<prompt> [args],Invoke a slash command exposed by an MCP server.,server=<name>,prompt=<name>,args=<...>,dynamic-discovery=<true>,permissions=<per-policy>,
+CLHACXE16I,claude.hooks.add.cli.env.v1.ph6,hooks.add command,Add a bash-command hook for an event/matcher (settings.json).,event=<PreToolUse|PostToolUse|...>,matcher=<ToolPattern|*>,type=command,command=<shell>,timeout=<sec?>,scope=<user|project|local|enterprise>
+CLHACXE16I,claude.hooks.add.cli.env.v1.ph6,hooks.add prompt,Add a prompt-based hook (Stop/SubagentStop/etc.).,event=<Stop|SubagentStop|UserPromptSubmit|...>,type=prompt,prompt=<text with $ARGUMENTS>,timeout=<sec?>,continue=<true|false>,scope=<user|project|local|enterprise>
+CLHACXE16I,claude.hooks.add.cli.env.v1.ph6,hooks.add plugin,Add/merge plugin-provided hooks via plugin.json.,plugin=<name>,hooks=./hooks.json,env=${CLAUDE_PLUGIN_ROOT},matcher=<ToolPattern?>,timeout=<sec?>,description=<text?>
+CLPCCXE16S,claude.plugin.create.cli.env.v1.ph6,plugin.init,Scaffold a plugin (plugin.json + dirs).,name=<kebab>,version=<semver>,commands=./commands/,agents=./agents/,hooks=./hooks.json,mcpServers=./.mcp.json
+CLPVCXE16B,claude.plugin.view.cli.env.v1.ph6,plugin.debug,Debug plugin loading/registration.,claude --debug,check=.claude-plugin/plugin.json,dirs=<commands|agents|skills|hooks>,paths=./relative-only,env=${CLAUDE_PLUGIN_ROOT},

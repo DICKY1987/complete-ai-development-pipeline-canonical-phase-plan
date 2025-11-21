@@ -1,0 +1,11 @@
+id,key,cmd,desc,p1,p2,p3,p4,p5,p6
+GCSNCXE161,copilot.session.run.cli.env.v1.ph6,copilot,Launch Copilot CLI interactive agent.,--banner=<true|false>,--log-level=<trace|debug|info|warn|error>,--model=<name>,--config=<path>,--json=<true|false>,--verbose=<true|false>
+GCHVCXE16Y,copilot.help.view.cli.env.v1.ph6,copilot help,Show list of commands and options.,,,,,,
+GCCVCXE16T,copilot.config.view.cli.env.v1.ph6,copilot help config,Show configuration options reference.,,,,,,
+GCEVCXE16V,copilot.environment.view.cli.env.v1.ph6,copilot help environment,List environment variables that affect the CLI.,,,,,,
+GCLVCXE162,copilot.logging.view.cli.env.v1.ph6,copilot help logging,Show available logging levels.,,,,,,
+GCPVCXE166,copilot.permissions.view.cli.env.v1.ph6,copilot help permissions,Show permissions and allow/deny settings.,,,,,,
+GCBVCXE16S,copilot.banner.view.cli.env.v1.ph6,copilot --banner,Display the startup banner explicitly.,,,,,,
+GCSNCXE161,copilot.slash.run.cli.env.v1.ph6,/login,Authenticate to GitHub account from Copilot CLI.,,,,,,
+GCSNCXE161,copilot.slash.run.cli.env.v1.ph6,/model,Select a model for the session.,name=<model>,,,,,
+GCCUCXE16S,copilot.config.use.cli.env.v1.ph6,copilot --config <file>,Start with an explicit config file.,file=<path>,--log-level=<level>,--json=<true|false>,--verbose=<true|false>,,

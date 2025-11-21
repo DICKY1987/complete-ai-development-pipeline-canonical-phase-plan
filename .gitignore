@@ -45,3 +45,11 @@ state/*.db
 # Tool logs
 .AIM_ai-tools-registry/logs/
 nul
+
+# CCPM workspace (local planning artifacts)
+pm/workspace/
+pm/__pycache__/
+pm/**/__pycache__/
+
+# Epic worktrees (parallel execution)
+../epic-worktrees/

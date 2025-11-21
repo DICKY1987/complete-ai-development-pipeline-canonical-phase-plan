@@ -1,0 +1,10 @@
+This is a portable stub for: 
+  C:\Users\richg\HIGH_LEVEL_MOD_PLUGIN_DEV\AI_MANGER\AIDER_PROMNT&PLAN_REF\Structured Planning Loop (10 steps + gates).txt
+
+Purpose
+- Provide the 10-step gated planning loop inline to guide creation of plan/README.md, plan/file-map.yaml, and plan/rtm.yaml.
+
+Notes
+- Replace this stub with your full document content when available.
+- Keep structure headings intact so Aider can follow the same flow.
+

@@ -1,0 +1,91 @@
+---
+title: {{ title }}
+epic: {{ epic_name }}
+task_id: {{ task_id }}
+status: {{ status }}
+priority: {{ priority }}
+assignee: {{ assignee or 'null' }}
+effort: {{ effort }}
+parallel: {{ parallel }}
+dependencies: {{ dependencies | join(', ') if dependencies else '[]' }}
+file_scope: {{ file_scope | map('string') | join(', ') if file_scope else '[]' }}
+github_issue: {{ github_issue or 'null' }}
+---
+
+# Task: {{ title }}
+
+**Epic:** {{ epic_name }}  
+**Task ID:** {{ task_id }}  
+**Status:** {{ status }}  
+**Effort:** {{ effort }}  
+**Parallel:** {{ 'Yes' if parallel else 'No' }}
+
+---
+
+## Description
+
+{{ description or "Detailed description of what needs to be implemented..." }}
+
+---
+
+## Acceptance Criteria
+
+{% if acceptance_criteria %}
+{% for criterion in acceptance_criteria %}
+- [ ] {{ criterion }}
+{% endfor %}
+{% else %}
+- [ ] Acceptance criterion 1
+- [ ] Acceptance criterion 2
+- [ ] Acceptance criterion 3
+- [ ] All tests pass
+- [ ] Documentation updated
+{% endif %}
+
+---
+
+## Technical Notes
+
+{{ technical_notes or "Implementation guidance, gotchas, and references..." }}
+
+### Implementation Approach
+- Step 1
+- Step 2
+- Step 3
+
+### References
+- Related file: `path/to/file.py`
+- Documentation: Link
+
+---
+
+## Files to Modify
+
+{% if files_to_modify %}
+{% for file, description in files_to_modify.items() %}
+- **`{{ file }}`**: {{ description }}
+{% endfor %}
+{% else %}
+{% for file in file_scope %}
+- **`{{ file }}`**: Description of changes
+{% endfor %}
+{% endif %}
+
+---
+
+## Dependencies
+
+{% if dependencies %}
+This task depends on:
+{% for dep in dependencies %}
+- {{ dep }}
+{% endfor %}
+{% else %}
+No dependencies.
+{% endif %}
+
+---
+
+**Created:** {{ created or 'TBD' }}  
+**Updated:** {{ updated or 'TBD' }}  
+**GitHub Issue:** {% if github_issue %}#{{ github_issue }}{% else %}Not synced{% endif %}

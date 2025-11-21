@@ -3,7 +3,12 @@
 This module provides a Python-to-PowerShell bridge for the AIM tool registry system.
 It enables capability-based routing, fallback chains, and audit logging for AI tool invocations.
 
-Contract Version: AIM_INTEGRATION_V1
+Enhanced with AIM+ features:
+- Automatic secret injection via SecretsManager
+- Environment validation
+- Unified configuration
+
+Contract Version: AIM_PLUS_V1 (backward compatible with AIM_INTEGRATION_V1)
 """
 
 import json
@@ -14,6 +19,13 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 import yaml
+
+# AIM+ imports (graceful degradation if not available)
+try:
+    from aim.environment.secrets import get_secrets_manager
+    SECRETS_AVAILABLE = True
+except ImportError:
+    SECRETS_AVAILABLE = False
 
 
 def get_aim_registry_path() -> Path:
@@ -213,6 +225,24 @@ def invoke_adapter(
     }
     input_json = json.dumps(input_data)
 
+    # AIM+: Inject secrets into environment if available
+    env_with_secrets = os.environ.copy()
+    if SECRETS_AVAILABLE:
+        try:
+            secrets_manager = get_secrets_manager()
+            # Inject common AI tool secrets
+            secret_keys = [
+                "OPENAI_API_KEY",
+                "ANTHROPIC_API_KEY",
+                "GOOGLE_API_KEY",
+                "GITHUB_TOKEN"
+            ]
+            secrets = secrets_manager.inject_into_env(secret_keys)
+            env_with_secrets.update(secrets)
+        except Exception:
+            # Gracefully degrade if secrets unavailable
+            pass
+
     # Invoke PowerShell adapter via subprocess
     try:
         result = subprocess.run(
@@ -220,7 +250,8 @@ def invoke_adapter(
             input=input_json,
             capture_output=True,
             text=True,
-            timeout=timeout_sec
+            timeout=timeout_sec,
+            env=env_with_secrets  # Use environment with secrets
         )
 
         # Parse JSON output

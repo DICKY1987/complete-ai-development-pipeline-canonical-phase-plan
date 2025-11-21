@@ -1,0 +1,203 @@
+
+╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
+ Refactoring Plan: Headless Orchestrator → Modular Plugin Architecture
+
+ 🎯 Objective
+
+ Transform the current monolithic orchestration system into a microkernel + plugin architecture with contract-first
+ design, deterministic execution (BPMN/DMN), and conformance-driven validation.
+
+ 📋 Current State Analysis
+
+ - Architecture: Monolithic PowerShell QueueWorker with hardcoded tool execution (git, aider, pwsh, python, claude)
+ - Strengths: JSONL audit trail, Git worktrees, quality gates, headless operation
+ - Gaps: No plugin extensibility, tools hardcoded, no contract validation, no conformance testing
+
+ 🏗️ Target Architectur
+
+ Microkernel Core (Stable)
+
+ - Task Queue Manager - JSONL inbox/processing/done/failed handling
+ - Plugin Loader - Discovers and validates plugins via manifests
+ - Contract Validator - Enforces plugin contracts and SLOs
+ - Audit Engine - Ledger writing, heartbeat, observability
+ - Safety Engine - Git checkpoints, rollback, circuit breaker
+
+ Plugin Categories (5 Types)
+
+ 1. Acquisition Plugins (read-only data fetch)
+   - git-status, git-diff, git-log, file-reader, env-reader
+ 2. Transformation Plugins (pure computation)
+   - jsonl-parser, diff-analyzer, task-validator, schema-mapper
+ 3. State Change Plugins (write operations with WhatIf)
+   - git-commit, git-merge, file-writer, aider-executor, claude-executor
+ 4. Validation Plugins (quality gates)
+   - ruff-checker, pytest-runner, pester-runner, contract-validator, sbom-checker
+ 5. Orchestration Plugins (workflow coordination)
+   - branch-router, retry-manager, worktree-manager, circuit-breaker
+
+ 📐 Phase 1: Foundation (Weeks 1-2)
+
+ 1.1 Define Core Contracts
+
+ - Create /contracts/plugin.v1.json schema
+ - Create /contracts/task.v1.json schema (extends current JSONL)
+ - Create /contracts/ledger.v1.json schema
+ - Create /process/decisions.dmn - Decision tables for tool selection, retry policies, release gates
+
+ 1.2 Scaffold Plugin Infrastructure
+
+ - Create /plugins/ directory structure
+ - Create /conformance/ test harness
+ - Create plugin manifest schema (plugin.spec.json)
+ - Create artifact specification (9 baseline files per plugin)
+
+ 1.3 Build Microkernel Core
+
+ - Refactor QueueWorker.ps1 → Core/Kernel.ps1 (plugin loader + task dispatcher)
+ - Extract Core/PluginLoader.ps1 (validates manifests, loads plugins)
+ - Extract Core/ContractValidator.ps1 (enforces I/O schemas)
+ - Extract Core/AuditEngine.ps1 (ledger writing, telemetry)
+ - Keep Core/SafetyEngine.ps1 (checkpoints, rollback, circuit breaker)
+
+ 📦 Phase 2: Plugin Migration (Weeks 3-4)
+
+ 2.1 Create Plugin Templates (using Plaster/scaffolding)
+
+ Generate scaffolds for each plugin category with:
+ - plugin.spec.json, manifest.json, ledger_contract.json, policy_snapshot.json
+ - README_PLUGIN.md, healthcheck.md
+ - src/, tests/, conformance/ directories
+ - Auto-fenced regions (BEGIN/END AUTO) for tool-managed code
+
+ 2.2 Migrate Existing Tools to Plugins
+
+ Priority 1 (Critical Path):
+ 1. plugins/git-executor/ - State plugin (commit, merge, fetch, push)
+ 2. plugins/aider-executor/ - State plugin (AI editing)
+ 3. plugins/quality-gate/ - Validation plugin (ruff, pytest, pester)
+
+ Priority 2 (Supporting):
+ 4. plugins/git-inspector/ - Acquisition plugin (status, diff, log)
+ 5. plugins/task-parser/ - Transformation plugin (JSONL validation)
+ 6. plugins/worktree-manager/ - Orchestration plugin (create, cleanup)
+
+ Priority 3 (Enhanced):
+ 7. plugins/claude-executor/ - State plugin (AI planning)
+ 8. plugins/circuit-breaker/ - Orchestration plugin (failure management)
+ 9. plugins/sbom-generator/ - Validation plugin (dependency scanning)
+
+ 2.3 Implement Conformance Kits
+
+ For each plugin, create:
+ - L0: Schema validation, linting, type checks
+ - L1: Contract tests (I/O schemas, golden fixtures)
+ - L2: Behavior tests (BDD scenarios using Pester/pytest-bdd)
+ - L3: Integration tests (hermetic container with mocks)
+ - L4: Performance tests (latency budgets, SLOs)
+ - L5: Security tests (policy-as-code, OPA/Rego rules)
+
+ 🔄 Phase 3: Process Formalization (Week 5)
+
+ 3.1 BPMN Workflow Encoding
+
+ Create /process/orchestration.bpmn:
+ - Nodes: Plan → Acquire Task → Validate → Load Plugin → Execute → Verify → Commit Ledger → Done
+ - Gateways: decision points reference DMN tables
+ - Error paths: quarantine, rollback, retry with backoff
+
+ 3.2 DMN Decision Tables
+
+ Create /process/decisions.dmn:
+ - Plugin Selection: task.tool → plugin.manifest.id (static mapping)
+ - Retry Policy: task.tags + failure_count → {retry, quarantine, fail}
+ - Quality Gate Tier: changed_files + task.tags → {L0, L0-L3, L0-L5}
+ - Rollback Trigger: exit_code + diff_size → {rollback, keep, manual}
+
+ 3.3 Policy-as-Code
+
+ Create /policies/:
+ - security.rego - Secrets detection, environment restrictions
+ - performance.yml - Timeout budgets per plugin category
+ - compliance.rego - Audit trail requirements, immutability rules
+
+ 🧪 Phase 4: Validation & Migration (Week 6)
+
+ 4.1 Backward Compatibility Layer
+
+ - Create scripts/TaskAdapter.ps1 - Converts old JSONL → new contract format
+ - Create scripts/LegacyExecutor.ps1 - Falls back to old QueueWorker if plugin not available
+ - Dual-write ledger during transition (old + new format)
+
+ 4.2 Integration Testing
+
+ - End-to-end test: submit task → plugin execution → ledger validation
+ - Parallel test: old QueueWorker vs. new Kernel on same tasks (compare outputs)
+ - Failure test: circuit breaker, rollback, retry logic validation
+
+ 4.3 Migration Strategy
+
+ 1. Canary (Week 6): Route 10% of tasks to new Kernel, 90% to old QueueWorker
+ 2. Ramp-up (Week 7): 50% new, 50% old (monitor ledger for discrepancies)
+ 3. Full Migration (Week 8): 100% new Kernel, old QueueWorker deprecated
+ 4. Cleanup (Week 9): Remove old code, finalize documentation
+
+ 📚 Phase 5: Documentation & Governance (Week 7)
+
+ 5.1 Update CLAUDE.md
+
+ Add sections:
+ - Plugin development guide (scaffolding, testing, submission)
+ - Contract evolution process (semantic versioning)
+ - Conformance requirements per plugin category
+ - Decision table reference (DMN tables)
+
+ 5.2 Create Plugin Developer Kit (PDK)
+
+ - pdk/templates/ - Plaster templates for 5 plugin categories
+ - pdk/scripts/New-Plugin.ps1 - Generates scaffold
+ - pdk/scripts/Test-PluginConformance.ps1 - Runs L0-L5 tests
+ - pdk/docs/ - Plugin authoring guide, examples
+
+ 5.3 CI/CD Enhancements
+
+ - .github/workflows/plugin-validation.yml - Per-plugin conformance on PR
+ - .github/workflows/plugin-publish.yml - Publish to internal registry on merge
+ - .github/workflows/compatibility-matrix.yml - Test plugin vs. kernel versions
+
+ 🎁 Deliverables
+
+ Code Assets:
+ - Microkernel core (5 PS1 modules)
+ - 9 initial plugins (3 categories)
+ - Conformance test harness
+ - BPMN/DMN process definitions
+ - Policy-as-code rules
+
+ Documentation:
+ - Updated CLAUDE.md + FILE_TREE.md
+ - Plugin Developer Kit (PDK)
+ - Migration guide (old → new)
+ - Decision table reference
+
+ Quality Artifacts:
+ - Conformance reports per plugin
+ - Compatibility matrix (plugin versions vs. kernel)
+ - Performance benchmarks (latency, throughput)
+
+ ✅ Success Criteria
+
+ 1. AC-1 Extensibility: New plugin added in <1 day without touching kernel
+ 2. AC-2 Determinism: Same task + plugin version → identical ledger entry
+ 3. AC-3 Safety: All state plugins support WhatIf/rollback
+ 4. AC-4 Auditability: Contract validation logged, conformance tracked
+ 5. AC-5 Performance: Plugin dispatch overhead <50ms P95
+ 6. AC-6 Compatibility: Old JSONL tasks work via adapter (backward compat)
+ 7. AC-7 Observability: OpenTelemetry trace IDs span kernel + plugins
+
+ 🚨 Risk Mitigation
+
+ - Risk: Plugin bugs crash kernel → Mitigation: Isolated process execution, timeouts
+ - Risk: Contract changes break existing tasks → Mitigation: Semantic versioning, deprecation warnings
+ - Risk: Migration breaks production → Mitigation: Canary rollout, dual-write ledger, rollback plan
+ - Risk: Performance regression → Mitigation: Benchmark suite, SLO alerts

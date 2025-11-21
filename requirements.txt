@@ -1,3 +1,9 @@
 pytest>=7.0
 PyYAML>=6.0
 
+# AIM+ dependencies (Phase 1)
+keyring>=24.0.0
+rich>=13.0.0
+click>=8.1.0
+jsonschema>=4.20.0
+

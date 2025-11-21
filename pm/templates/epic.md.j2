@@ -1,0 +1,94 @@
+---
+title: {{ title }}
+prd: {{ prd_name }}
+created: {{ created }}
+status: {{ status }}
+priority: {{ priority }}
+github_issue: {{ github_issue or 'null' }}
+---
+
+# Epic: {{ title }}
+
+**PRD:** {{ prd_name }}  
+**Created:** {{ created }}  
+**Status:** {{ status }}  
+**Priority:** {{ priority }}
+
+---
+
+## Technical Approach
+
+{{ technical_approach or "Describe the architecture decisions and technical strategy..." }}
+
+### Architecture Decisions
+- Decision 1: Rationale
+- Decision 2: Rationale
+
+### Technology Stack
+- Technology 1: Purpose
+- Technology 2: Purpose
+
+---
+
+## Dependencies
+
+{% if dependencies %}
+{% for dep in dependencies %}
+- {{ dep }}
+{% endfor %}
+{% else %}
+- External dependency 1
+- Internal dependency 2
+{% endif %}
+
+---
+
+## Risk Assessment
+
+{% if risks %}
+{% for risk in risks %}
+- **Risk:** {{ risk }}
+  - **Mitigation:** TBD
+{% endfor %}
+{% else %}
+- **Risk:** Potential blocker 1
+  - **Mitigation:** Strategy
+- **Risk:** Potential blocker 2
+  - **Mitigation:** Strategy
+{% endif %}
+
+---
+
+## Implementation Plan
+
+{{ implementation_plan or "High-level steps to complete this epic..." }}
+
+### Phase 1: Foundation
+- Step 1
+- Step 2
+
+### Phase 2: Core Implementation
+- Step 3
+- Step 4
+
+### Phase 3: Testing & Documentation
+- Step 5
+- Step 6
+
+---
+
+## Tasks
+
+{% if tasks %}
+Total Tasks: {{ tasks|length }}
+{% for task in tasks %}
+- [{% if task.status == 'completed' %}x{% else %} {% endif %}] {{ task.task_id }}: {{ task.title }} ({{ task.effort }})
+{% endfor %}
+{% else %}
+Tasks will be generated during epic decomposition.
+{% endif %}
+
+---
+
+**Progress:** {% if tasks %}{{ ((tasks | selectattr('status', 'equalto', 'completed') | list | length) / (tasks | length) * 100) | round(1) }}%{% else %}0%{% endif %}  
+**GitHub Issue:** {% if github_issue %}#{{ github_issue }}{% else %}Not synced{% endif %}

@@ -1,0 +1,45 @@
+ Overview
+
+  - This repo combines a PowerShell orchestrator for managing concurrent AI workstreams via git worktrees with a modular Python TUI framework for pluggable views; JSON Schemas, examples, and tests support
+    validation and reliability.
+
+  File Descriptions
+
+  - DependencyFile.example.yaml — Example dependency overrides for orchestrated workstreams.
+  - PlanFile.example.json — Example JSON plan defining workstreams and prompts.
+  - PlanFile.example.yaml — Example YAML plan defining workstreams and prompts.
+  - CHANGE_SPEC.yaml — Change specification/notes for planned or implemented updates.
+  - CLAUDE.md — Agent guide detailing architecture, commands, and workflows.
+  - logs/interactions.log — Interaction/operational log output.
+  - logs/error.log — Error log output.
+  - logs/combined.log — Combined log stream (info + errors).
+  - references/git_worktree_status.schema.json — JSON Schema for worktree status payloads.
+  - references/orchestrate.ps1 — Reference script to run agent jobs with worktrees/commits.
+  - schemas/DependencyFile.schema.json — JSON Schema for dependency files.
+  - schemas/PlanFile.schema.json — JSON Schema for plan files.
+  - shoestring_Starter Plan Templates.txt — Starter templates for plan files/prompts.
+  - src/Application/Orchestrator.ps1 — Main orchestration entry; coordinates concurrency and runs jobs.
+  - src/Domain/DependencyManager.ps1 — Dependency graph logic and topological ordering.
+  - src/Domain/PlanValidator.ps1 — Plan validation against schema; checks IDs/cycles.
+  - src/Adapters/AiderAdapter.ps1 — Adapter to launch/manage Aider processes.
+  - src/Adapters/GitAdapter.ps1 — Adapter for git worktree create/remove/status operations.
+  - src/Adapters/Tui.ps1 — PowerShell TUI display/output adapter.
+  - tests/Orchestrator.Tests.ps1 — Pester tests for orchestrator/domain behavior.
+  - tui_project/docs/index.md — TUI framework documentation landing page.
+  - tui_project/docs/modules/ledger_view.md — Docs for the ledger_view module.
+  - tui_project/docs/modules/worktrees_ui.md — Docs for the worktrees_ui module.
+  - tui_project/schema/tui.module.schema.json — JSON Schema for TUI module manifests.
+  - tui_project/src/host/app.py — TUI host runtime/entry point.
+  - tui_project/src/host/discovery.py — Module discovery and manifest loading.
+  - tui_project/src/host/manifest.py — Manifest schema handling and validation helpers.
+  - tui_project/src/host/registry.py — Registry merge/metadata resolution.
+  - tui_project/src/host/store.py — Redux-like state store for the host.
+  - tui_project/src/modules/ledger_view/ledger_view/__init__.py — Package init for ledger_view.
+  - tui_project/src/modules/ledger_view/ledger_view/module.py — Implementation of the ledger table view module.
+  - tui_project/src/modules/ledger_view/tui.module.yaml — Manifest for ledger_view (routes/commands).
+  - tui_project/src/modules/worktrees_ui/worktrees_ui/__init__.py — Package init for worktrees_ui.
+  - tui_project/src/modules/worktrees_ui/worktrees_ui/module.py — Implementation of the worktrees list UI module.
+  - tui_project/src/modules/worktrees_ui/tui.module.yaml — Manifest for worktrees_ui (routes/commands).
+  - tui_project/tests/test_manifest_validation.py — Tests for manifest validation errors/paths.
+  - tui_project/tests/test_registry_merge_property.py — Tests for registry merge precedence/behavior.
+  - tui_project/tests/test_snapshot_render_ledger.py — Snapshot tests for ledger view rendering.

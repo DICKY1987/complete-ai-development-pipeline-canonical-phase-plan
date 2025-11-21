@@ -1,0 +1,20 @@
+Provide a complete and precise definition of what constitutes the end of development for this section.
+Your response must include:
+
+Explicit deliverables: List all files, artifacts, documentation, contracts, and outputs that must exist.
+
+Acceptance criteria: Use BDD-style (Given/When/Then) or ATDD to define what conditions must pass for the deliverable to be considered complete.
+
+Evidence of completion: Specify test cases, metrics, reports, and any required traceability links (e.g. RTM entries).
+
+Contract and interface conformance: State which APIs, schemas, or protocols the deliverables must comply with, and how this will be validated (e.g., OpenAPI, JSON Schema, protobuf).
+
+File-level DoD (Definition of Done): For each key file, describe its role, required tests (unit, integration, contract), and minimum quality gates (e.g., coverage thresholds, linting, static checks).
+
+Traceability requirements: Ensure each deliverable is traceable through a PBS → DDS → RTM chain.
+
+CI/CD gate criteria: Detail what CI checks must pass before the section is considered development-complete (e.g., all mapped tests green, coverage met, perf/SLOs respected).
+
+Versioning and reproducibility: Include required version identifiers (e.g., SemVer, ULID), and note any requirements for reproducibility (e.g., IaC environment success, artifact signing, conformance proof).
+
+Be strict, concise, and machine-verifiable. Treat the result as if it will be used to automatically validate whether development is truly complete for this scope.

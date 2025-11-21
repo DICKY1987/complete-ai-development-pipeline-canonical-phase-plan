@@ -1,0 +1,101 @@
+repoPath: "C:\\Users\\richg\\HIGH_LEVEL_MOD_PLUGIN_DEV\\QFT_updated"
+workstreams:
+  - id: ws-001-plan-scaffold
+    name: Plan scaffold and gates
+    worktree: "ws-001-plan-scaffold"
+    promptFile: "prompts/structured_planning_loop.txt"
+    dependsOn: []
+    targets:
+      - "plan/README.md"
+      - "plan/file-map.yaml"
+      - "plan/rtm.yaml"
+    labels: ["docs", "planning", "EoD"]
+    project: { board: "Operations", column: "In Progress" }
+
+  - id: ws-002-schemas
+    name: Add RTM and change_spec schemas
+    worktree: "ws-002-schemas"
+    promptFile: "prompts/aider_git_imp_prompt_example.md"
+    dependsOn: ["ws-001-plan-scaffold"]
+    targets:
+      - "schemas/rtm.schema.json"
+      - "schemas/change_spec.schema.json"
+      - "tests/Orchestrator.Tests.ps1"
+    labels: ["schemas", "tests"]
+    project: { board: "Operations", column: "In Progress" }
+
+  - id: ws-003-issue-template-docs
+    name: Issue template + USING_AIDER
+    worktree: "ws-003-issue-template-docs"
+    promptFile: "prompts/aider_slash_commands.txt"
+    dependsOn: ["ws-001-plan-scaffold"]
+    targets:
+      - ".github/ISSUE_TEMPLATE.md"
+      - "docs/USING_AIDER.md"
+    labels: ["docs", "templates"]
+    project: { board: "Operations", column: "In Progress" }
+
+  - id: ws-004-root-readme
+    name: Root README portfolio overview
+    worktree: "ws-004-root-readme"
+    promptFile: "prompts/aider_comprehensive_planning_framework.md"
+    dependsOn: ["ws-001-plan-scaffold"]
+    targets:
+      - "README.md"
+    labels: ["docs"]
+    project: { board: "Operations", column: "In Progress" }
+
+  - id: ws-005-phase-plan
+    name: Author runnable phase_plan.yaml
+    worktree: "ws-005-phase-plan"
+    promptFile: "prompts/aider_comprehensive_planning_framework.md"
+    dependsOn: ["ws-001-plan-scaffold", "ws-002-schemas"]
+    targets:
+      - "plan/phase_plan.yaml"
+    labels: ["planning"]
+    project: { board: "Operations", column: "In Progress" }
+
+  - id: ws-006-ci-workflows
+    name: CI (schema, lint, test, coverage, docs, trace)
+    worktree: "ws-006-ci-workflows"
+    promptFile: "prompts/aider_git_imp_prompt_example.md"
+    dependsOn: ["ws-002-schemas", "ws-003-issue-template-docs", "ws-004-root-readme", "ws-005-phase-plan"]
+    targets:
+      - ".github/workflows/ci.yml"
+      - "artifacts/ (outputs from CI)"
+    labels: ["ci", "quality"]
+    project: { board: "Operations", column: "In Progress" }
+
+  - id: ws-007-orchestrator-smoke
+    name: Orchestrator smoke + bootstrap script
+    worktree: "ws-007-orchestrator-smoke"
+    promptFile: "prompts/aider_git_imp_prompt_example.md"
+    dependsOn: ["ws-006-ci-workflows", "ws-005-phase-plan"]
+    targets:
+      - "scripts/bootstrap_ci.ps1"
+      - "docs/OPERATIONS_SMOKE_TEST.md"
+    labels: ["ops", "scripts"]
+    project: { board: "Operations", column: "In Progress" }
+
+  - id: ws-008-eod-proof
+    name: EoD proof generator + bundling
+    worktree: "ws-008-eod-proof"
+    promptFile: "prompts/aider_comprehensive_planning_framework.md"
+    dependsOn: ["ws-006-ci-workflows"]
+    targets:
+      - "scripts/generate_eod_proof.ps1"
+      - "docs/EoD_PROOF_SPEC.md"
+    labels: ["governance", "ci"]
+    project: { board: "Operations", column: "In Progress" }
+
+  - id: ws-009-docs-polish
+    name: Link checks, cross-links, polish
+    worktree: "ws-009-docs-polish"
+    promptFile: "prompts/aider_comprehensive_planning_framework.md"
+    dependsOn: ["ws-006-ci-workflows", "ws-008-eod-proof"]
+    targets:
+      - "tui_project/docs/index.md"
+      - "docs/* (as needed)"
+    labels: ["docs"]
+    project: { board: "Operations", column: "In Progress" }
+

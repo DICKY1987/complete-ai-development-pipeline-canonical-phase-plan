@@ -1,0 +1,38 @@
+id,key,cmd,desc,p1,p2,p3,p4,p5,p6
+CLSNCXE166,claude.session.run.cli.env.v1.ph6,claude,Start interactive REPL.,--model=<name>,"--append-system-prompt=""<text>""",--add-dir=<path...>,--verbose=<true|false>,--permission-mode=<plan|ask|auto>,--continue=<true|false>
+CLSNCXE166,claude.session.run.cli.env.v1.ph6,"claude ""query""",Start REPL with an initial prompt.,"""query""=""<text>""",--model=<name>,"--append-system-prompt=""<text>""",--output-format=<text|json|stream-json>,--verbose=<true|false>,--max-turns=<n>
+CLPNCXE163,claude.print.run.cli.env.v1.ph6,"claude -p ""query""",Print response (non-interactive).,"""query""=""<text>""",--output-format=<text|json|stream-json>,--input-format=<text|stream-json>,--include-partial-messages=<true|false>,--model=<name>,--verbose=<true|false>
+CLSCCXE16V,claude.session.continue.cli.env.v1.ph6,claude -c,Continue most recent conversation.,--print=<true|false>,--model=<name>,"--append-system-prompt=""<text>""",--output-format=<text|json|stream-json>,--include-partial-messages=<true|false>,--max-turns=<n>
+CLPCCXE16S,claude.print.continue.cli.env.v1.ph6,"claude -c -p ""query""",Continue via print mode.,"""query""=""<text>""",--output-format=<text|json|stream-json>,--input-format=<text|stream-json>,--include-partial-messages=<true|false>,--model=<name>,--max-turns=<n>
+CLSRCXE16A,claude.session.resume.cli.env.v1.ph6,"claude -r ""<session-id>"" ""query""",Resume specific session by ID and prompt.,session-id=<id>,"""query""=""<text>""",--model=<name>,"--append-system-prompt=""<text>""",--output-format=<text|json|stream-json>,--max-turns=<n>
+CLUUCXE16F,claude.update.update.cli.env.v1.ph6,claude update,Update to latest version.,,,,,,
+CLMMCXE16Z,claude.mcp.manage.cli.env.v1.ph6,claude mcp,Configure MCP servers.,--add=<server>,--remove=<server>,--login=<server>,--logout=<server>,--list=<true|false>,--json=<true|false>
+CLPTCXE169,claude.systemprompt.set.cli.env.v1.ph6,"claude -p --system-prompt ""You are a Python expert"" ""query""",Replace system prompt for print mode.,"""query""=""<text>""","--system-prompt=""<text>""",--output-format=<text|json|stream-json>,--model=<name>,--verbose=<true|false>,
+CLPTCXE169,claude.systempromptfile.set.cli.env.v1.ph6,"claude -p --system-prompt-file ./prompt.txt ""query""",Load system prompt from file (print mode).,"""query""=""<text>""",--system-prompt-file=<path>,--output-format=<text|json|stream-json>,--model=<name>,--verbose=<true|false>,
+CLPACXE16Q,claude.systemprompt.add.cli.env.v1.ph6,"claude --append-system-prompt ""Always use TypeScript""",Append text to default system prompt.,"""--append-system-prompt""=""<text>""",--model=<name>,--output-format=<text|json|stream-json>,--verbose=<true|false>,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/add-dir,Add additional working directories.,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/agents,Manage custom AI subagents.,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/clear,Clear conversation history.,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/compact,Compact conversation with optional focus instructions.,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/config,Open the Settings interface (Config tab).,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/context,Visualize current context usage as a colored grid.,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/cost,Show token usage statistics.,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/doctor,Check the health of your Claude Code installation.,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/exit,Exit the REPL.,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/export,Export the current conversation to a file or clipboard.,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/help,Get usage help.,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/hooks,Manage hook configurations for tool events.,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/init,Initialize project with CLAUDE.md guide.,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/login,Switch Anthropic accounts.,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/logout,Sign out of your Anthropic account.,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/mcp,Manage MCP server connections and OAuth authentication.,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/memory,Edit CLAUDE.md memory files.,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/model,Select or change the AI model.,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/permissions,View or update permissions.,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/privacy-settings,View and update your privacy settings.,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/review,Request code review.,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/sandbox,Enable sandboxed bash tool for safer execution.,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/status,Open the Settings interface (Status tab).,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/todos,List current todo items.,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/usage,Show plan usage limits and rate limit status.,,,,,,
+CLSRCXE16A,claude.slash.run.cli.env.v1.ph6,/vim,Enter vim mode for alternating insert and command modes.,,,,,,
