@@ -16,7 +16,7 @@ from pathlib import Path
 def test_job_schema():
     """Verify job schema exists and is valid JSON."""
     print("Testing job schema...")
-    schema_path = Path("specs/jobs/job.schema.json")
+    schema_path = Path("schema/jobs/job.schema.json")
     
     if not schema_path.exists():
         print("  ❌ Schema file not found")
@@ -41,7 +41,7 @@ def test_job_schema():
 def test_example_job():
     """Verify example job validates against schema."""
     print("Testing example job...")
-    example_path = Path("specs/jobs/aider_job.example.json")
+    example_path = Path("schema/jobs/examples/aider_job.json")
     
     if not example_path.exists():
         print("  ❌ Example job not found")

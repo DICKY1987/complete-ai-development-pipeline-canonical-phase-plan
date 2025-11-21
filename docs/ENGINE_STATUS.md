@@ -9,7 +9,7 @@
 - [x] Created `engine/` directory structure
 - [x] Defined Protocol interfaces (State, Adapter, Orchestrator)
 - [x] Created shared types (Job, JobResult, JobStatus)
-- [x] Implemented job schema (`specs/jobs/job.schema.json`)
+- [x] Implemented job schema (`schema/jobs/job.schema.json`)
 - [x] Created example job file
 
 ### Adapters
