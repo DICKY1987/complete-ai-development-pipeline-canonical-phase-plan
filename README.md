@@ -10,6 +10,39 @@ This repository hosts a structured, phase-based plan and lightweight tooling for
   - `pwsh ./scripts/bootstrap.ps1`
   - `pwsh ./scripts/test.ps1`
 
+### Engine & Job-Based Execution
+
+The repository now includes a **hybrid GUI/Terminal architecture** with job-based execution and full state persistence:
+
+```bash
+# Validate engine implementation
+python scripts/validate_engine.py          # 7/7 tests
+
+# Test state store integration
+python scripts/test_state_store.py         # 6/6 tests
+
+# Run a job through the orchestrator
+python -m engine.orchestrator run-job --job-file specs/jobs/aider_job.example.json
+```
+
+**Phase Status**:
+- ✅ Phase 1: Engine foundation complete
+- ✅ Phase 2A: State integration complete  
+- ✅ Phase 2B: Additional adapters complete (Codex, Tests, Git)
+- ⏳ Phase 3: GUI panels
+- ⏳ Phase 4: Job queue
+
+**Adapters Available**: 4 (Aider, Codex, Tests, Git)
+**Test Coverage**: 19/19 tests passing (100%)
+
+See:
+- `docs/ENGINE_IMPLEMENTATION_SUMMARY.md` - Architecture overview
+- `docs/PHASE_2A_COMPLETE.md` - State integration details
+- `docs/PHASE_2B_COMPLETE.md` - Adapter implementation details
+- `docs/GUI_DEVELOPMENT_GUIDE.md` - Next steps
+- `docs/ENGINE_QUICK_REFERENCE.md` - Usage guide
+- `engine/README.md` - Technical documentation
+
 ### OpenSpec Integration Quick Start
 
 **5-Minute Workflow:**
