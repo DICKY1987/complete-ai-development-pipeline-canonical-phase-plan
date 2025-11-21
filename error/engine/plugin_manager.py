@@ -18,8 +18,11 @@ class PluginManager:
     """Loads plugins from the ``src/plugins`` package and prepares them for use."""
 
     def __init__(self, plugins_path: Optional[Path] = None) -> None:
-        # Default to project-local `src/plugins` to match README/architecture.
-        self._plugins_path = plugins_path or (Path.cwd() / "src" / "plugins")
+        # Default to error/plugins/ unless overridden
+        import os
+        default_path = Path(__file__).parent.parent / "plugins"
+        env_path = os.getenv("PIPELINE_ERROR_PLUGINS_PATH")
+        self._plugins_path = plugins_path or (Path(env_path) if env_path else default_path)
         self._plugins: Dict[str, BasePlugin] = {}
 
     def discover(self) -> None:

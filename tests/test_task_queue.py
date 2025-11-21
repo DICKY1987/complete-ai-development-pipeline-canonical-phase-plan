@@ -210,6 +210,7 @@ def test_empty_queue(task_queue):
 
 def test_fifo_order(task_queue):
     """Test FIFO ordering of queue"""
+    import time
     tasks = []
     for i in range(5):
         task = Task(
@@ -221,6 +222,7 @@ def test_fifo_order(task_queue):
         )
         tasks.append(task)
         task_queue.enqueue(task)
+        time.sleep(0.001)  # Ensure different timestamps
     
     # Dequeue and verify order
     for original_task in tasks:

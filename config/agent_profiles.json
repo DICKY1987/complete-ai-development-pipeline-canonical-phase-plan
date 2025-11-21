@@ -1,0 +1,44 @@
+{
+  "agents": {
+    "aider": {
+      "enabled": true,
+      "model": "gpt-4",
+      "timeout_seconds": 300,
+      "max_attempts": 1,
+      "env_vars": {
+        "AIDER_AUTO_COMMITS": "true"
+      },
+      "flags": [
+        "--yes",
+        "--no-pretty"
+      ]
+    },
+    "codex": {
+      "enabled": false,
+      "timeout_seconds": 180,
+      "max_attempts": 1,
+      "comment": "GitHub Copilot CLI integration - requires 'gh copilot' extension"
+    },
+    "claude": {
+      "enabled": false,
+      "model": "claude-3-sonnet-20240229",
+      "timeout_seconds": 120,
+      "max_attempts": 1,
+      "api_key_env": "ANTHROPIC_API_KEY",
+      "comment": "Requires Anthropic API key in environment"
+    }
+  },
+  "escalation": {
+    "enable_mechanical_autofix": true,
+    "enable_aider": true,
+    "enable_codex": false,
+    "enable_claude": false,
+    "strict_mode": true,
+    "max_total_attempts": 4
+  },
+  "prompt_templates": {
+    "aider_fix": "You are a code quality expert. Fix the following issues in the code:\n\n{error_report}\n\nMake minimal changes to resolve these issues while maintaining code functionality.",
+    "codex_fix": "Fix these code quality issues:\n{error_report}",
+    "claude_fix": "Please analyze and fix the following code quality issues:\n\n{error_report}\n\nProvide clean, well-tested fixes."
+  }
+}
