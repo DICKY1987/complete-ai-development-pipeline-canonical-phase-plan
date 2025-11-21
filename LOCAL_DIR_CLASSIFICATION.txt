@@ -1,0 +1,35 @@
+
+Sub-module:
+
+"C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\PROCESS_DEEP_DIVE_OPTOMIZE"
+"C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\pm"
+"C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\openspec"
+"C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\Multi-Document Versioning Automation final_spec_docs"
+"C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK"
+"C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\aim"
+
+
+AI:
+
+"C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\aider"
+"C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\.aider"
+"C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\.claude"
+"C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\.aider.tags.cache.v4"
+
+Module:
+
+"C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\ccpm"
+
+
+consolidate:
+
+"C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\AUX_mcp-data" folded into AIM
+
+
+
+
+these folders all have very similar names but i dont know if their deliverables are related:
+
+"C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\specifications"
+"C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\specs"
+"C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\spec" 

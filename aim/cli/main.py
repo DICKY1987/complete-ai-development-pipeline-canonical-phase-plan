@@ -20,6 +20,7 @@ from aim.cli.commands.secrets import secrets_cli
 from aim.cli.commands.health import health_cli
 from aim.cli.commands.tools import tools
 from aim.cli.commands.scan import scan_cli
+from aim.cli.commands.version import version_cli
 
 
 console = Console()
@@ -37,6 +38,7 @@ def cli():
         aim health check
         aim tools install-all
         aim scan all
+        aim version check
         aim --help
     """
     pass
@@ -47,6 +49,7 @@ cli.add_command(secrets_cli)
 cli.add_command(health_cli)
 cli.add_command(tools)
 cli.add_command(scan_cli)
+cli.add_command(version_cli)
 
 
 @cli.command(name="status")
