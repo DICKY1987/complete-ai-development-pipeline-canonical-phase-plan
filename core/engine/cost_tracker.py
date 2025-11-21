@@ -1,7 +1,11 @@
-"""Cost and token tracking."""
+"""Cost and token tracking.
+
+Phase I WS-I6: Enhanced with budget enforcement.
+"""
 
 from dataclasses import dataclass
-from typing import Dict
+from typing import Dict, Optional
+from datetime import datetime, timezone
 
 
 @dataclass
@@ -19,8 +23,24 @@ PRICING_TABLE: Dict[str, ModelPricing] = {
 }
 
 
+@dataclass
+class CostBudget:
+    """Cost budget configuration."""
+    max_cost_usd: float
+    warning_threshold: float = 0.8  # Warn at 80%
+    enforcement_mode: str = 'warn'  # 'warn', 'halt', 'continue'
+
+
 class CostTracker:
     """Cost and API usage tracking."""
+    
+    def __init__(self, budget: Optional[CostBudget] = None):
+        """Initialize cost tracker.
+        
+        Args:
+            budget: Optional cost budget configuration
+        """
+        self.budget = budget
     
     def record_usage(
         self,
@@ -54,6 +74,10 @@ class CostTracker:
         finally:
             conn.close()
         
+        # Check budget after recording
+        if self.budget:
+            self._check_budget(run_id, cost)
+        
         return cost
     
     def get_total_cost(self, run_id: str) -> float:
@@ -70,3 +94,103 @@ class CostTracker:
             return result[0] if result and result[0] else 0.0
         finally:
             conn.close()
+    
+    def _check_budget(self, run_id: str, latest_cost: float) -> None:
+        """Check if budget is exceeded.
+        
+        Args:
+            run_id: Run ID
+            latest_cost: Latest cost added
+        """
+        total_cost = self.get_total_cost(run_id)
+        
+        if not self.budget:
+            return
+        
+        budget_usage = total_cost / self.budget.max_cost_usd
+        
+        # Warning threshold
+        if budget_usage >= self.budget.warning_threshold and budget_usage < 1.0:
+            self._emit_budget_warning(run_id, total_cost, budget_usage)
+        
+        # Budget exceeded
+        if budget_usage >= 1.0:
+            self._handle_budget_exceeded(run_id, total_cost, budget_usage)
+    
+    def _emit_budget_warning(self, run_id: str, total_cost: float, usage: float) -> None:
+        """Emit budget warning event."""
+        from core.state import db
+        
+        db.record_event(
+            event_type='budget_warning',
+            run_id=run_id,
+            payload={
+                'total_cost_usd': total_cost,
+                'budget_usd': self.budget.max_cost_usd,
+                'usage_pct': usage * 100
+            }
+        )
+        
+        print(f"\n⚠️  WARNING: Budget at {usage*100:.1f}% (${total_cost:.2f} / ${self.budget.max_cost_usd:.2f})")
+    
+    def _handle_budget_exceeded(self, run_id: str, total_cost: float, usage: float) -> None:
+        """Handle budget exceeded scenario.
+        
+        Args:
+            run_id: Run ID
+            total_cost: Total cost
+            usage: Budget usage fraction
+        """
+        from core.state import db
+        
+        db.record_event(
+            event_type='budget_exceeded',
+            run_id=run_id,
+            payload={
+                'total_cost_usd': total_cost,
+                'budget_usd': self.budget.max_cost_usd,
+                'usage_pct': usage * 100,
+                'enforcement_mode': self.budget.enforcement_mode
+            }
+        )
+        
+        if self.budget.enforcement_mode == 'halt':
+            raise BudgetExceededError(
+                f"Budget exceeded: ${total_cost:.2f} / ${self.budget.max_cost_usd:.2f}"
+            )
+        elif self.budget.enforcement_mode == 'warn':
+            print(f"\n🛑 BUDGET EXCEEDED: ${total_cost:.2f} / ${self.budget.max_cost_usd:.2f}")
+            print("   (continuing due to 'warn' mode)")
+    
+    def get_budget_status(self, run_id: str) -> Dict[str, any]:
+        """Get current budget status.
+        
+        Args:
+            run_id: Run ID
+            
+        Returns:
+            Budget status dictionary
+        """
+        total_cost = self.get_total_cost(run_id)
+        
+        if not self.budget:
+            return {
+                'total_cost_usd': total_cost,
+                'budget_enabled': False
+            }
+        
+        usage = total_cost / self.budget.max_cost_usd
+        
+        return {
+            'total_cost_usd': total_cost,
+            'budget_usd': self.budget.max_cost_usd,
+            'remaining_usd': self.budget.max_cost_usd - total_cost,
+            'usage_pct': usage * 100,
+            'budget_enabled': True,
+            'status': 'exceeded' if usage >= 1.0 else 'warning' if usage >= self.budget.warning_threshold else 'ok'
+        }
+
+
+class BudgetExceededError(Exception):
+    """Raised when cost budget is exceeded in 'halt' mode."""
+    pass
