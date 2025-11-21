@@ -1,0 +1,194 @@
+# Invoke Configuration for AI Development Pipeline
+# Project-level config (versioned)
+# User overrides: Create ~/.invoke.yaml or ./.invoke.yaml (gitignored)
+
+# Tool configuration (migrated from config/tool_profiles.json)
+tools:
+  # AI Tools
+  aider:
+    type: "ai"
+    command: "aider"
+    timeout: 1800
+    model: "ollama/qwen2.5-coder:32b"
+    args:
+      - "--no-auto-commits"
+      - "--yes"
+    env:
+      AIDER_NO_AUTO_COMMITS: "1"
+      PYTHONIOENCODING: "utf-8"
+      OLLAMA_API_BASE: "http://127.0.0.1:11434"
+    aim_tool_id: "aider"
+    aim_capabilities:
+      - "code_generation"
+      - "refactoring"
+  
+  # Test Runners
+  pytest:
+    type: "test"
+    command: "pytest"
+    timeout: 600
+    args:
+      - "-q"
+      - "--tb=short"
+    env:
+      PYTHONPATH: "."
+    success_exit_codes:
+      - 0
+      - 5
+  
+  pester:
+    type: "test"
+    command: "pwsh"
+    timeout: 600
+    args:
+      - "-NoLogo"
+      - "-NoProfile"
+      - "-Command"
+      - "Invoke-Pester -PassThru"
+  
+  # Static Analysis
+  ruff:
+    type: "static-check"
+    command: "ruff"
+    timeout: 120
+    args:
+      - "check"
+      - "core"
+      - "scripts"
+      - "error"
+  
+  black:
+    type: "static-check"
+    command: "black"
+    timeout: 180
+    args:
+      - "--check"
+      - "core"
+      - "scripts"
+      - "error"
+  
+  mypy:
+    type: "static-check"
+    command: "mypy"
+    timeout: 300
+    args:
+      - "core"
+  
+  psscriptanalyzer:
+    type: "static-check"
+    command: "pwsh"
+    timeout: 120
+    args:
+      - "-NoLogo"
+      - "-NoProfile"
+      - "-Command"
+      - "Invoke-ScriptAnalyzer -Path scripts -Recurse -Severity Warning"
+  
+  # Additional Checks
+  yamllint:
+    type: "static-check"
+    command: "yamllint"
+    timeout: 120
+    args:
+      - "-s"
+      - "docs"
+      - "plans"
+  
+  codespell:
+    type: "static-check"
+    command: "codespell"
+    timeout: 120
+    args:
+      - "docs"
+      - "core"
+      - "scripts"
+      - "README.md"
+  
+  gitleaks:
+    type: "static-check"
+    command: "gitleaks"
+    timeout: 300
+    args:
+      - "detect"
+      - "--no-banner"
+      - "--redact"
+  
+  markdownlint:
+    type: "static-check"
+    command: "markdownlint"
+    timeout: 120
+    args:
+      - "**/*.md"
+  
+  # Utilities
+  echo:
+    type: "utility"
+    command: "echo"
+    timeout: 10
+  
+  gh:
+    type: "utility"
+    command: "gh"
+    timeout: 30
+    args:
+      - "--version"
+
+# Orchestrator configuration
+orchestrator:
+  dry_run: false
+  max_retries: 3
+  static_tools:
+    - ruff
+    - mypy
+  runtime_tool: pytest
+
+# Path configuration
+paths:
+  repo_root: "."
+  workstreams_dir: "workstreams"
+  state_db: "state/workstream_pipeline.db"
+  worktrees_dir: ".worktrees"
+  logs_dir: "logs"
+  config_dir: "config"
+
+# Error engine configuration
+error_engine:
+  plugins_dir: "error/plugins"
+  cache_dir: "state/error_cache"
+  enabled: true
+
+# Circuit breaker configuration (migrated from config/circuit_breakers.yaml)
+circuit_breakers:
+  # Global defaults
+  max_attempts_per_step: 3
+  max_fix_attempts_per_step: 2
+  max_attempts_per_error_signature: 3
+  oscillation_window: 4
+  oscillation_threshold: 2
+  enable_fix_for_steps:
+    - static
+    - runtime
+  
+  # Per-step overrides
+  per_step:
+    static:
+      max_attempts_per_step: 3
+      max_fix_attempts_per_step: 2
+    runtime:
+      max_attempts_per_step: 2
+      max_fix_attempts_per_step: 1
+  
+# AIM integration configuration (migrated from config/aim_config.yaml)
+aim:
+  # Enable AIM integration layer
+  enabled: true
+  # Fallback to direct tool invocation if AIM unavailable
+  fallback_to_direct: true
+  # AIM registry path (auto-detect or custom)
+  registry_path: "auto"
+  # Audit log retention (days)
+  audit_log_retention_days: 30
+  # Default timeout for adapter invocations (milliseconds)
+  default_timeout_ms: 30000
+  # Enable audit logging
+  enable_audit_logging: true

@@ -54,32 +54,43 @@ _tool_profiles_cache: Optional[Dict[str, Any]] = None
 
 def load_tool_profiles(profile_path: Optional[str] = None) -> Dict[str, Any]:
     """
-    Load tool profiles from JSON configuration file.
-
+    Load tool profiles from Invoke config hierarchy.
+    
     Args:
-        profile_path: Path to tool_profiles.json. If None, uses default
-                     location at config/tool_profiles.json relative to repo root.
-
+        profile_path: DEPRECATED - Use invoke.yaml instead. If provided, shows warning.
+    
     Returns:
         Dictionary of tool profiles keyed by tool_id
-
+    
     Raises:
-        FileNotFoundError: If profile file doesn't exist
-        json.JSONDecodeError: If profile file contains invalid JSON
+        FileNotFoundError: If invoke.yaml doesn't exist
     """
     global _tool_profiles_cache
-
-    if profile_path is None:
-        # Default to config/tool_profiles.json relative to repo root
-        repo_root = _get_repo_root()
-        profile_path = str(repo_root / "config" / "tool_profiles.json")
-
-    # Load and parse JSON
-    with open(profile_path, 'r', encoding='utf-8') as f:
-        profiles = json.load(f)
-
-    _tool_profiles_cache = profiles
-    return profiles
+    
+    # Show deprecation warning if old path is used
+    if profile_path:
+        import warnings
+        warnings.warn(
+            f"Loading from {profile_path} is deprecated. "
+            "Tool profiles are now loaded from invoke.yaml. "
+            "This parameter will be removed in Phase G+1.",
+            DeprecationWarning,
+            stacklevel=2
+        )
+    
+    # Load from invoke.yaml via config_loader
+    from core.config_loader import load_project_config
+    cfg = load_project_config()
+    tools_config = cfg.get('tools', {})
+    
+    if not tools_config:
+        raise FileNotFoundError(
+            "No tools configuration found in invoke.yaml. "
+            "Run 'invoke bootstrap' to initialize configuration."
+        )
+    
+    _tool_profiles_cache = tools_config
+    return tools_config
 
 
 def get_tool_profile(tool_id: str, profiles: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:

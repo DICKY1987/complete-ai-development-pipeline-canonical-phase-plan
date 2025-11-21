@@ -51,15 +51,46 @@ def _repo_root() -> Path:
 
 
 def load_config() -> Dict[str, Any]:
-    """Load circuit breaker config from YAML or JSON, else return defaults.
-
-    Files checked (in order):
-    - config/circuit_breakers.yaml (requires PyYAML)
-    - config/circuit_breakers.json
+    """Load circuit breaker config from invoke.yaml, else return defaults.
+    
+    Migrated from config/circuit_breakers.yaml to invoke.yaml in Phase G.
+    Falls back to legacy files for backward compatibility with deprecation warning.
     """
+    # Try loading from invoke.yaml first (Phase G)
+    try:
+        from core.config_loader import get_circuit_breaker_config
+        cfg = get_circuit_breaker_config()
+        if cfg:
+            # Map new structure to expected format
+            result = {
+                "defaults": {
+                    "max_attempts_per_step": cfg.get("max_attempts_per_step", 3),
+                    "max_fix_attempts_per_step": cfg.get("max_fix_attempts_per_step", 2),
+                    "max_attempts_per_error_signature": cfg.get("max_attempts_per_error_signature", 3),
+                    "oscillation_window": cfg.get("oscillation_window", 4),
+                    "oscillation_threshold": cfg.get("oscillation_threshold", 2),
+                    "enable_fix_for_steps": cfg.get("enable_fix_for_steps", ["static", "runtime"]),
+                },
+                "per_step": cfg.get("per_step", {}),
+            }
+            return result
+    except Exception:
+        pass
+    
+    # Fall back to legacy config files with deprecation warning
     root = _repo_root()
     ypath = root / "config" / "circuit_breakers.yaml"
     jpath = root / "config" / "circuit_breakers.json"
+
+    if ypath.exists() or jpath.exists():
+        import warnings
+        warnings.warn(
+            "Loading circuit breakers from config/ is deprecated. "
+            "Configuration is now in invoke.yaml. "
+            "Legacy files will be removed in Phase G+1.",
+            DeprecationWarning,
+            stacklevel=2
+        )
 
     if ypath.exists():
         try:

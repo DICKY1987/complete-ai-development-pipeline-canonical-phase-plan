@@ -7,3 +7,6 @@ rich>=13.0.0
 click>=8.1.0
 jsonschema>=4.20.0
 
+# Phase G: Invoke adoption
+invoke>=2.2.0
+

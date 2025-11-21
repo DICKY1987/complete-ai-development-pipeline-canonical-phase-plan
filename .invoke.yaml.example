@@ -1,0 +1,33 @@
+# User-level Invoke Configuration Example
+# Copy this file to ~/.invoke.yaml (global) or ./.invoke.yaml (local, gitignored)
+# to override project defaults for local development
+
+# Override tool configuration
+tools:
+  aider:
+    # Use different model locally
+    model: "gpt-4"
+    # Or use different Ollama model
+    # model: "ollama/codellama:13b"
+  
+  pytest:
+    # More verbose output for local testing
+    args:
+      - "-v"
+      - "--tb=long"
+
+# Override orchestrator for local testing
+orchestrator:
+  # Default to dry-run for local testing
+  dry_run: true
+  # Only 1 retry for faster local iteration
+  max_retries: 1
+
+# Override paths for alternate locations
+# paths:
+#   worktrees_dir: "/tmp/worktrees"
+#   logs_dir: "/tmp/logs"
+
+# Disable error engine for faster local runs
+# error_engine:
+#   enabled: false
