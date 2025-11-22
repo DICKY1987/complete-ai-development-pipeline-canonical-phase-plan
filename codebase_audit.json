@@ -1,0 +1,1023 @@
+{
+  "audit_date": "2025-11-22T14:28:48.764816",
+  "repository": "/home/runner/work/complete-ai-development-pipeline-canonical-phase-plan/complete-ai-development-pipeline-canonical-phase-plan",
+  "summary": {
+    "total_categories": 4,
+    "deprecated_files": 0,
+    "legacy_directories": 0,
+    "temporary_files": 2,
+    "duplicate_files": 37,
+    "outdated_docs": 27,
+    "obsolete_files": 41
+  },
+  "findings": {
+    "temporary": [
+      {
+        "path": "create_backup_20251120_125719.ps1",
+        "category": "temporary_file",
+        "pattern": ".*_backup_\\d+.*",
+        "size": 519,
+        "last_modified": "2025-11-22T14:24:23.500831",
+        "recommendation": "Delete or move to archive"
+      },
+      {
+        "path": "__tmp_o.py",
+        "category": "temporary_file",
+        "pattern": "^__tmp_.*",
+        "size": 15326,
+        "last_modified": "2025-11-22T14:24:23.487831",
+        "recommendation": "Delete or move to archive"
+      }
+    ],
+    "duplicative": [
+      {
+        "basename": "bridge.py",
+        "paths": [
+          "pm/bridge.py",
+          "aim/bridge.py"
+        ],
+        "category": "duplicate_basename",
+        "top_level_dirs": [
+          "aim",
+          "pm"
+        ],
+        "recommendation": "Review for consolidation or clarify purpose"
+      },
+      {
+        "basename": "recovery.py",
+        "paths": [
+          "scripts/recovery.py",
+          "core/recovery.py",
+          "core/engine/recovery.py"
+        ],
+        "category": "duplicate_basename",
+        "top_level_dirs": [
+          "core",
+          "scripts"
+        ],
+        "recommendation": "Review for consolidation or clarify purpose"
+      },
+      {
+        "basename": "test_adapters.py",
+        "paths": [
+          "scripts/test_adapters.py",
+          "tests/test_adapters.py"
+        ],
+        "category": "duplicate_basename",
+        "top_level_dirs": [
+          "tests",
+          "scripts"
+        ],
+        "recommendation": "Review for consolidation or clarify purpose"
+      },
+      {
+        "basename": "__main__.py",
+        "paths": [
+          "aim/__main__.py",
+          "engine/queue/__main__.py",
+          "engine/orchestrator/__main__.py"
+        ],
+        "category": "duplicate_basename",
+        "top_level_dirs": [
+          "aim",
+          "engine"
+        ],
+        "recommendation": "Review for consolidation or clarify purpose"
+      },
+      {
+        "basename": "types.py",
+        "paths": [
+          "engine/types.py",
+          "error/shared/utils/types.py"
+        ],
+        "category": "duplicate_basename",
+        "top_level_dirs": [
+          "error",
+          "engine"
+        ],
+        "recommendation": "Review for consolidation or clarify purpose"
+      },
+      {
+        "basename": "config_loader.py",
+        "paths": [
+          "core/config_loader.py",
+          "aim/registry/config_loader.py"
+        ],
+        "category": "duplicate_basename",
+        "top_level_dirs": [
+          "core",
+          "aim"
+        ],
+        "recommendation": "Review for consolidation or clarify purpose"
+      },
+      {
+        "basename": "orchestrator.py",
+        "paths": [
+          "core/orchestrator.py",
+          "engine/orchestrator/orchestrator.py",
+          "core/engine/orchestrator.py",
+          "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/core/bootstrap/orchestrator.py",
+          "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/core/engine/orchestrator.py"
+        ],
+        "category": "duplicate_basename",
+        "top_level_dirs": [
+          "core",
+          "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK",
+          "engine"
+        ],
+        "recommendation": "Review for consolidation or clarify purpose"
+      },
+      {
+        "basename": "error_pipeline_service.py",
+        "paths": [
+          "core/error_pipeline_service.py",
+          "error/engine/error_pipeline_service.py"
+        ],
+        "category": "duplicate_basename",
+        "top_level_dirs": [
+          "core",
+          "error"
+        ],
+        "recommendation": "Review for consolidation or clarify purpose"
+      },
+      {
+        "basename": "scheduler.py",
+        "paths": [
+          "core/scheduler.py",
+          "core/engine/scheduler.py",
+          "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/core/engine/scheduler.py"
+        ],
+        "category": "duplicate_basename",
+        "top_level_dirs": [
+          "core",
+          "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK"
+        ],
+        "recommendation": "Review for consolidation or clarify purpose"
+      },
+      {
+        "basename": "error_context.py",
+        "paths": [
+          "core/error_context.py",
+          "error/engine/error_context.py"
+        ],
+        "category": "duplicate_basename",
+        "top_level_dirs": [
+          "core",
+          "error"
+        ],
+        "recommendation": "Review for consolidation or clarify purpose"
+      },
+      {
+        "basename": "tools.py",
+        "paths": [
+          "core/tools.py",
+          "aim/cli/commands/tools.py",
+          "core/engine/tools.py"
+        ],
+        "category": "duplicate_basename",
+        "top_level_dirs": [
+          "core",
+          "aim"
+        ],
+        "recommendation": "Review for consolidation or clarify purpose"
+      },
+      {
+        "basename": "test_patch_manager.py",
+        "paths": [
+          "tests/test_patch_manager.py",
+          "AGENTIC_DEV_PROTOTYPE/tests/test_patch_manager.py"
+        ],
+        "category": "duplicate_basename",
+        "top_level_dirs": [
+          "AGENTIC_DEV_PROTOTYPE",
+          "tests"
+        ],
+        "recommendation": "Review for consolidation or clarify purpose"
+      },
+      {
+        "basename": "test_task_queue.py",
+        "paths": [
+          "tests/test_task_queue.py",
+          "AGENTIC_DEV_PROTOTYPE/tests/test_task_queue.py"
+        ],
+        "category": "duplicate_basename",
+        "top_level_dirs": [
+          "AGENTIC_DEV_PROTOTYPE",
+          "tests"
+        ],
+        "recommendation": "Review for consolidation or clarify purpose"
+      },
+      {
+        "basename": "conftest.py",
+        "paths": [
+          "tests/conftest.py",
+          "aim/tests/conftest.py",
+          "tests/plugins/conftest.py",
+          "tests/error/conftest.py"
+        ],
+        "category": "duplicate_basename",
+        "top_level_dirs": [
+          "aim",
+          "tests"
+        ],
+        "recommendation": "Review for consolidation or clarify purpose"
+      },
+      {
+        "basename": "codex_adapter.py",
+        "paths": [
+          "engine/adapters/codex_adapter.py",
+          "PROCESS_DEEP_DIVE_OPTOMIZE/raw_data/sessions/session_3_m5_m6_completion/src_snapshot/adapters/codex_adapter.py",
+          "core/engine/adapters/codex_adapter.py",
+          "AGENTIC_DEV_PROTOTYPE/src/adapters/codex_adapter.py"
+        ],
+        "category": "duplicate_basename",
+        "top_level_dirs": [
+          "core",
+          "AGENTIC_DEV_PROTOTYPE",
+          "PROCESS_DEEP_DIVE_OPTOMIZE",
+          "engine"
+        ],
+        "recommendation": "Review for consolidation or clarify purpose"
+      },
+      {
+        "basename": "aider_adapter.py",
+        "paths": [
+          "engine/adapters/aider_adapter.py",
+          "PROCESS_DEEP_DIVE_OPTOMIZE/raw_data/sessions/session_3_m5_m6_completion/src_snapshot/adapters/aider_adapter.py",
+          "core/engine/adapters/aider_adapter.py",
+          "AGENTIC_DEV_PROTOTYPE/src/adapters/aider_adapter.py"
+        ],
+        "category": "duplicate_basename",
+        "top_level_dirs": [
+          "core",
+          "AGENTIC_DEV_PROTOTYPE",
+          "PROCESS_DEEP_DIVE_OPTOMIZE",
+          "engine"
+        ],
+        "recommendation": "Review for consolidation or clarify purpose"
+      },
+      {
+        "basename": "spec_renderer.py",
+        "paths": [
+          "PROCESS_DEEP_DIVE_OPTOMIZE/raw_data/sessions/session_3_m5_m6_completion/src_snapshot/spec_renderer.py",
+          "AGENTIC_DEV_PROTOTYPE/src/spec_renderer.py"
+        ],
+        "category": "duplicate_basename",
+        "top_level_dirs": [
+          "AGENTIC_DEV_PROTOTYPE",
+          "PROCESS_DEEP_DIVE_OPTOMIZE"
+        ],
+        "recommendation": "Review for consolidation or clarify purpose"
+      },
+      {
+        "basename": "schema_generator.py",
+        "paths": [
+          "PROCESS_DEEP_DIVE_OPTOMIZE/raw_data/sessions/session_3_m5_m6_completion/src_snapshot/schema_generator.py",
+          "AGENTIC_DEV_PROTOTYPE/src/schema_generator.py"
+        ],
+        "category": "duplicate_basename",
+        "top_level_dirs": [
+          "AGENTIC_DEV_PROTOTYPE",
+          "PROCESS_DEEP_DIVE_OPTOMIZE"
+        ],
+        "recommendation": "Review for consolidation or clarify purpose"
+      },
+      {
+        "basename": "spec_resolver.py",
+        "paths": [
+          "PROCESS_DEEP_DIVE_OPTOMIZE/raw_data/sessions/session_3_m5_m6_completion/src_snapshot/spec_resolver.py",
+          "AGENTIC_DEV_PROTOTYPE/src/spec_resolver.py"
+        ],
+        "category": "duplicate_basename",
+        "top_level_dirs": [
+          "AGENTIC_DEV_PROTOTYPE",
+          "PROCESS_DEEP_DIVE_OPTOMIZE"
+        ],
+        "recommendation": "Review for consolidation or clarify purpose"
+      },
+      {
+        "basename": "prompt_renderer.py",
+        "paths": [
+          "PROCESS_DEEP_DIVE_OPTOMIZE/raw_data/sessions/session_3_m5_m6_completion/src_snapshot/prompt_renderer.py",
+          "AGENTIC_DEV_PROTOTYPE/src/prompt_renderer.py"
+        ],
+        "category": "duplicate_basename",
+        "top_level_dirs": [
+          "AGENTIC_DEV_PROTOTYPE",
+          "PROCESS_DEEP_DIVE_OPTOMIZE"
+        ],
+        "recommendation": "Review for consolidation or clarify purpose"
+      },
+      {
+        "basename": "task_queue.py",
+        "paths": [
+          "PROCESS_DEEP_DIVE_OPTOMIZE/raw_data/sessions/session_3_m5_m6_completion/src_snapshot/task_queue.py",
+          "core/state/task_queue.py",
+          "AGENTIC_DEV_PROTOTYPE/src/task_queue.py"
+        ],
+        "category": "duplicate_basename",
+        "top_level_dirs": [
+          "core",
+          "AGENTIC_DEV_PROTOTYPE",
+          "PROCESS_DEEP_DIVE_OPTOMIZE"
+        ],
+        "recommendation": "Review for consolidation or clarify purpose"
+      },
+      {
+        "basename": "patch_manager.py",
+        "paths": [
+          "PROCESS_DEEP_DIVE_OPTOMIZE/raw_data/sessions/session_3_m5_m6_completion/src_snapshot/patch_manager.py",
+          "core/engine/patch_manager.py",
+          "AGENTIC_DEV_PROTOTYPE/src/patch_manager.py"
+        ],
+        "category": "duplicate_basename",
+        "top_level_dirs": [
+          "core",
+          "AGENTIC_DEV_PROTOTYPE",
+          "PROCESS_DEEP_DIVE_OPTOMIZE"
+        ],
+        "recommendation": "Review for consolidation or clarify purpose"
+      },
+      {
+        "basename": "validation_gateway.py",
+        "paths": [
+          "PROCESS_DEEP_DIVE_OPTOMIZE/raw_data/sessions/session_3_m5_m6_completion/src_snapshot/validation_gateway.py",
+          "AGENTIC_DEV_PROTOTYPE/src/validation_gateway.py"
+        ],
+        "category": "duplicate_basename",
+        "top_level_dirs": [
+          "AGENTIC_DEV_PROTOTYPE",
+          "PROCESS_DEEP_DIVE_OPTOMIZE"
+        ],
+        "recommendation": "Review for consolidation or clarify purpose"
+      },
+      {
+        "basename": "schema_validator.py",
+        "paths": [
+          "PROCESS_DEEP_DIVE_OPTOMIZE/raw_data/sessions/session_3_m5_m6_completion/src_snapshot/validators/schema_validator.py",
+          "AGENTIC_DEV_PROTOTYPE/src/validators/schema_validator.py"
+        ],
+        "category": "duplicate_basename",
+        "top_level_dirs": [
+          "AGENTIC_DEV_PROTOTYPE",
+          "PROCESS_DEEP_DIVE_OPTOMIZE"
+        ],
+        "recommendation": "Review for consolidation or clarify purpose"
+      },
+      {
+        "basename": "guard_rules_engine.py",
+        "paths": [
+          "PROCESS_DEEP_DIVE_OPTOMIZE/raw_data/sessions/session_3_m5_m6_completion/src_snapshot/validators/guard_rules_engine.py",
+          "AGENTIC_DEV_PROTOTYPE/src/validators/guard_rules_engine.py"
+        ],
+        "category": "duplicate_basename",
+        "top_level_dirs": [
+          "AGENTIC_DEV_PROTOTYPE",
+          "PROCESS_DEEP_DIVE_OPTOMIZE"
+        ],
+        "recommendation": "Review for consolidation or clarify purpose"
+      },
+      {
+        "basename": "state_machine.py",
+        "paths": [
+          "PROCESS_DEEP_DIVE_OPTOMIZE/raw_data/sessions/session_3_m5_m6_completion/src_snapshot/orchestrator/state_machine.py",
+          "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/core/engine/state_machine.py",
+          "AGENTIC_DEV_PROTOTYPE/src/orchestrator/state_machine.py"
+        ],
+        "category": "duplicate_basename",
+        "top_level_dirs": [
+          "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK",
+          "AGENTIC_DEV_PROTOTYPE",
+          "PROCESS_DEEP_DIVE_OPTOMIZE"
+        ],
+        "recommendation": "Review for consolidation or clarify purpose"
+      },
+      {
+        "basename": "parallel_executor.py",
+        "paths": [
+          "PROCESS_DEEP_DIVE_OPTOMIZE/raw_data/sessions/session_3_m5_m6_completion/src_snapshot/orchestrator/parallel_executor.py",
+          "AGENTIC_DEV_PROTOTYPE/src/orchestrator/parallel_executor.py"
+        ],
+        "category": "duplicate_basename",
+        "top_level_dirs": [
+          "AGENTIC_DEV_PROTOTYPE",
+          "PROCESS_DEEP_DIVE_OPTOMIZE"
+        ],
+        "recommendation": "Review for consolidation or clarify purpose"
+      },
+      {
+        "basename": "core.py",
+        "paths": [
+          "PROCESS_DEEP_DIVE_OPTOMIZE/raw_data/sessions/session_3_m5_m6_completion/src_snapshot/orchestrator/core.py",
+          "AGENTIC_DEV_PROTOTYPE/src/orchestrator/core.py"
+        ],
+        "category": "duplicate_basename",
+        "top_level_dirs": [
+          "AGENTIC_DEV_PROTOTYPE",
+          "PROCESS_DEEP_DIVE_OPTOMIZE"
+        ],
+        "recommendation": "Review for consolidation or clarify purpose"
+      },
+      {
+        "basename": "dependency_resolver.py",
+        "paths": [
+          "PROCESS_DEEP_DIVE_OPTOMIZE/raw_data/sessions/session_3_m5_m6_completion/src_snapshot/orchestrator/dependency_resolver.py",
+          "AGENTIC_DEV_PROTOTYPE/src/orchestrator/dependency_resolver.py"
+        ],
+        "category": "duplicate_basename",
+        "top_level_dirs": [
+          "AGENTIC_DEV_PROTOTYPE",
+          "PROCESS_DEEP_DIVE_OPTOMIZE"
+        ],
+        "recommendation": "Review for consolidation or clarify purpose"
+      },
+      {
+        "basename": "claude_adapter.py",
+        "paths": [
+          "PROCESS_DEEP_DIVE_OPTOMIZE/raw_data/sessions/session_3_m5_m6_completion/src_snapshot/adapters/claude_adapter.py",
+          "core/engine/adapters/claude_adapter.py",
+          "AGENTIC_DEV_PROTOTYPE/src/adapters/claude_adapter.py"
+        ],
+        "category": "duplicate_basename",
+        "top_level_dirs": [
+          "core",
+          "AGENTIC_DEV_PROTOTYPE",
+          "PROCESS_DEEP_DIVE_OPTOMIZE"
+        ],
+        "recommendation": "Review for consolidation or clarify purpose"
+      },
+      {
+        "basename": "guard.py",
+        "paths": [
+          "specifications/tools/guard/guard.py",
+          "Multi-Document Versioning Automation final_spec_docs/tools/spec_guard/guard.py"
+        ],
+        "category": "duplicate_basename",
+        "top_level_dirs": [
+          "Multi-Document Versioning Automation final_spec_docs",
+          "specifications"
+        ],
+        "recommendation": "Review for consolidation or clarify purpose"
+      },
+      {
+        "basename": "resolver.py",
+        "paths": [
+          "specifications/tools/resolver/resolver.py",
+          "Multi-Document Versioning Automation final_spec_docs/tools/spec_resolver/resolver.py"
+        ],
+        "category": "duplicate_basename",
+        "top_level_dirs": [
+          "Multi-Document Versioning Automation final_spec_docs",
+          "specifications"
+        ],
+        "recommendation": "Review for consolidation or clarify purpose"
+      },
+      {
+        "basename": "patcher.py",
+        "paths": [
+          "specifications/tools/patcher/patcher.py",
+          "Multi-Document Versioning Automation final_spec_docs/tools/spec_patcher/patcher.py"
+        ],
+        "category": "duplicate_basename",
+        "top_level_dirs": [
+          "Multi-Document Versioning Automation final_spec_docs",
+          "specifications"
+        ],
+        "recommendation": "Review for consolidation or clarify purpose"
+      },
+      {
+        "basename": "indexer.py",
+        "paths": [
+          "specifications/tools/indexer/indexer.py",
+          "Multi-Document Versioning Automation final_spec_docs/tools/spec_indexer/indexer.py"
+        ],
+        "category": "duplicate_basename",
+        "top_level_dirs": [
+          "Multi-Document Versioning Automation final_spec_docs",
+          "specifications"
+        ],
+        "recommendation": "Review for consolidation or clarify purpose"
+      },
+      {
+        "basename": "renderer.py",
+        "paths": [
+          "specifications/tools/renderer/renderer.py",
+          "Multi-Document Versioning Automation final_spec_docs/tools/spec_renderer/renderer.py"
+        ],
+        "category": "duplicate_basename",
+        "top_level_dirs": [
+          "Multi-Document Versioning Automation final_spec_docs",
+          "specifications"
+        ],
+        "recommendation": "Review for consolidation or clarify purpose"
+      },
+      {
+        "basename": "db.py",
+        "paths": [
+          "core/state/db.py",
+          "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/core/state/db.py"
+        ],
+        "category": "duplicate_basename",
+        "top_level_dirs": [
+          "core",
+          "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK"
+        ],
+        "recommendation": "Review for consolidation or clarify purpose"
+      },
+      {
+        "basename": "base.py",
+        "paths": [
+          "core/engine/adapters/base.py",
+          "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/core/adapters/base.py"
+        ],
+        "category": "duplicate_basename",
+        "top_level_dirs": [
+          "core",
+          "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK"
+        ],
+        "recommendation": "Review for consolidation or clarify purpose"
+      }
+    ],
+    "outdated_docs": [
+      {
+        "path": "AGENTS.md",
+        "category": "outdated_documentation",
+        "patterns_found": [
+          "from\\s+src\\.pipeline\\.",
+          "from\\s+MOD_ERROR_PIPELINE\\."
+        ],
+        "recommendation": "Update to use new import paths"
+      },
+      {
+        "path": "README.md",
+        "category": "outdated_documentation",
+        "patterns_found": [
+          "from\\s+src\\.pipeline\\.",
+          "from\\s+MOD_ERROR_PIPELINE\\."
+        ],
+        "recommendation": "Update to use new import paths"
+      },
+      {
+        "path": "DIRECTORY_GUIDE.md",
+        "category": "outdated_documentation",
+        "patterns_found": [
+          "from\\s+src\\.pipeline\\.",
+          "from\\s+MOD_ERROR_PIPELINE\\."
+        ],
+        "recommendation": "Update to use new import paths"
+      },
+      {
+        "path": "aim/PRODUCTION_READINESS_ANALYSIS.md",
+        "category": "outdated_documentation",
+        "patterns_found": [
+          "from\\s+src\\.pipeline\\."
+        ],
+        "recommendation": "Update to use new import paths"
+      },
+      {
+        "path": "docs/ARCHITECTURE.md",
+        "category": "outdated_documentation",
+        "patterns_found": [
+          "from\\s+src\\.pipeline\\."
+        ],
+        "recommendation": "Update to use new import paths"
+      },
+      {
+        "path": "docs/DEPRECATION_PLAN.md",
+        "category": "outdated_documentation",
+        "patterns_found": [
+          "from\\s+src\\.pipeline\\.",
+          "from\\s+MOD_ERROR_PIPELINE\\."
+        ],
+        "recommendation": "Update to use new import paths"
+      },
+      {
+        "path": "docs/PHASE_F_PLAN.md",
+        "category": "outdated_documentation",
+        "patterns_found": [
+          "from\\s+src\\.pipeline\\.",
+          "from\\s+MOD_ERROR_PIPELINE\\."
+        ],
+        "recommendation": "Update to use new import paths"
+      },
+      {
+        "path": "docs/SECTION_REFACTOR_MAPPING.md",
+        "category": "outdated_documentation",
+        "patterns_found": [
+          "from\\s+src\\.pipeline\\.",
+          "from\\s+MOD_ERROR_PIPELINE\\."
+        ],
+        "recommendation": "Update to use new import paths"
+      },
+      {
+        "path": "docs/WS-21_COMPLETE.md",
+        "category": "outdated_documentation",
+        "patterns_found": [
+          "from\\s+src\\.pipeline\\.",
+          "from\\s+MOD_ERROR_PIPELINE\\."
+        ],
+        "recommendation": "Update to use new import paths"
+      },
+      {
+        "path": "docs/CI_PATH_STANDARDS.md",
+        "category": "outdated_documentation",
+        "patterns_found": [
+          "from\\s+src\\.pipeline\\.",
+          "from\\s+MOD_ERROR_PIPELINE\\."
+        ],
+        "recommendation": "Update to use new import paths"
+      },
+      {
+        "path": "docs/WS-22_COMPLETE.md",
+        "category": "outdated_documentation",
+        "patterns_found": [
+          "from\\s+src\\.pipeline\\.",
+          "from\\s+MOD_ERROR_PIPELINE\\."
+        ],
+        "recommendation": "Update to use new import paths"
+      },
+      {
+        "path": "docs/PHASE_F_CHECKLIST.md",
+        "category": "outdated_documentation",
+        "patterns_found": [
+          "from\\s+src\\.pipeline\\.",
+          "from\\s+MOD_ERROR_PIPELINE\\."
+        ],
+        "recommendation": "Update to use new import paths"
+      },
+      {
+        "path": "docs/WS-08-COMPLETION-PLAN.md",
+        "category": "outdated_documentation",
+        "patterns_found": [
+          "from\\s+src\\.pipeline\\."
+        ],
+        "recommendation": "Update to use new import paths"
+      },
+      {
+        "path": "docs/SECTION_REFACTOR_VERIFICATION.md",
+        "category": "outdated_documentation",
+        "patterns_found": [
+          "from\\s+src\\.pipeline\\.",
+          "from\\s+MOD_ERROR_PIPELINE\\."
+        ],
+        "recommendation": "Update to use new import paths"
+      },
+      {
+        "path": "core/README.md",
+        "category": "outdated_documentation",
+        "patterns_found": [
+          "from\\s+src\\.pipeline\\."
+        ],
+        "recommendation": "Update to use new import paths"
+      },
+      {
+        "path": "AGENTIC_DEV_PROTOTYPE/# Comprehensive Integration Specification Enhanced Prompt Engineering.md",
+        "category": "outdated_documentation",
+        "patterns_found": [
+          "from\\s+src\\.pipeline\\."
+        ],
+        "recommendation": "Update to use new import paths"
+      },
+      {
+        "path": "meta/plans/phase-09-openspec-parser.md",
+        "category": "outdated_documentation",
+        "patterns_found": [
+          "from\\s+src\\.pipeline\\."
+        ],
+        "recommendation": "Update to use new import paths"
+      },
+      {
+        "path": "meta/plans/phase-10-agent-coordinator.md",
+        "category": "outdated_documentation",
+        "patterns_found": [
+          "from\\s+src\\.pipeline\\."
+        ],
+        "recommendation": "Update to use new import paths"
+      },
+      {
+        "path": "meta/plans/phase-11-pipeline-integration.md",
+        "category": "outdated_documentation",
+        "patterns_found": [
+          "from\\s+src\\.pipeline\\."
+        ],
+        "recommendation": "Update to use new import paths"
+      },
+      {
+        "path": "meta/plans/phase-13-advanced-features.md",
+        "category": "outdated_documentation",
+        "patterns_found": [
+          "from\\s+src\\.pipeline\\."
+        ],
+        "recommendation": "Update to use new import paths"
+      },
+      {
+        "path": "meta/plans/phase-12-end-to-end-validation.md",
+        "category": "outdated_documentation",
+        "patterns_found": [
+          "from\\s+src\\.pipeline\\."
+        ],
+        "recommendation": "Update to use new import paths"
+      },
+      {
+        "path": "PROCESS_DEEP_DIVE_OPTOMIZE/raw_data/git_logs/git_stats_session_3_m5_m6_completion.txt",
+        "category": "outdated_documentation",
+        "patterns_found": [
+          "from\\s+src\\.pipeline\\."
+        ],
+        "recommendation": "Update to use new import paths"
+      },
+      {
+        "path": "docs/AIM_docs/AIM_INTEGRATION_CONTRACT.md",
+        "category": "outdated_documentation",
+        "patterns_found": [
+          "from\\s+src\\.pipeline\\."
+        ],
+        "recommendation": "Update to use new import paths"
+      },
+      {
+        "path": "docs/AIM_docs/AIM_CAPABILITIES_CATALOG.md",
+        "category": "outdated_documentation",
+        "patterns_found": [
+          "from\\s+src\\.pipeline\\."
+        ],
+        "recommendation": "Update to use new import paths"
+      },
+      {
+        "path": "docs/sessions/SESSION_SUMMARY_2025-11-19.md",
+        "category": "outdated_documentation",
+        "patterns_found": [
+          "from\\s+src\\.pipeline\\.",
+          "from\\s+MOD_ERROR_PIPELINE\\."
+        ],
+        "recommendation": "Update to use new import paths"
+      },
+      {
+        "path": "docs/archive/phase-h-legacy/pipeline_plus/_archive/exploration/orchestration-scripts.md",
+        "category": "outdated_documentation",
+        "patterns_found": [
+          "from\\s+src\\.pipeline\\."
+        ],
+        "recommendation": "Update to use new import paths"
+      },
+      {
+        "path": "docs/reference/tools/CLAUDE.md",
+        "category": "outdated_documentation",
+        "patterns_found": [
+          "from\\s+src\\.pipeline\\.",
+          "from\\s+MOD_ERROR_PIPELINE\\."
+        ],
+        "recommendation": "Update to use new import paths"
+      }
+    ],
+    "obsolete": [
+      {
+        "path": "test.py",
+        "category": "potentially_obsolete",
+        "reason": "No import references found",
+        "recommendation": "Verify if still needed, consider archival"
+      },
+      {
+        "path": "tasks.py",
+        "category": "potentially_obsolete",
+        "reason": "No import references found",
+        "recommendation": "Verify if still needed, consider archival"
+      },
+      {
+        "path": "__tmp_o.py",
+        "category": "potentially_obsolete",
+        "reason": "No import references found",
+        "recommendation": "Verify if still needed, consider archival"
+      },
+      {
+        "path": "pm/event_handler.py",
+        "category": "potentially_obsolete",
+        "reason": "No import references found",
+        "recommendation": "Verify if still needed, consider archival"
+      },
+      {
+        "path": "aider/engine.py",
+        "category": "potentially_obsolete",
+        "reason": "No import references found",
+        "recommendation": "Verify if still needed, consider archival"
+      },
+      {
+        "path": "core/planner.py",
+        "category": "potentially_obsolete",
+        "reason": "No import references found",
+        "recommendation": "Verify if still needed, consider archival"
+      },
+      {
+        "path": "core/orchestrator.py",
+        "category": "potentially_obsolete",
+        "reason": "No import references found",
+        "recommendation": "Verify if still needed, consider archival"
+      },
+      {
+        "path": "core/circuit_breakers.py",
+        "category": "potentially_obsolete",
+        "reason": "No import references found",
+        "recommendation": "Verify if still needed, consider archival"
+      },
+      {
+        "path": "core/scheduler.py",
+        "category": "potentially_obsolete",
+        "reason": "No import references found",
+        "recommendation": "Verify if still needed, consider archival"
+      },
+      {
+        "path": "core/recovery.py",
+        "category": "potentially_obsolete",
+        "reason": "No import references found",
+        "recommendation": "Verify if still needed, consider archival"
+      },
+      {
+        "path": "core/executor.py",
+        "category": "potentially_obsolete",
+        "reason": "No import references found",
+        "recommendation": "Verify if still needed, consider archival"
+      },
+      {
+        "path": "core/error_context.py",
+        "category": "potentially_obsolete",
+        "reason": "No import references found",
+        "recommendation": "Verify if still needed, consider archival"
+      },
+      {
+        "path": "core/archive.py",
+        "category": "potentially_obsolete",
+        "reason": "No import references found",
+        "recommendation": "Verify if still needed, consider archival"
+      },
+      {
+        "path": "aim/cli/commands/install.py",
+        "category": "potentially_obsolete",
+        "reason": "No import references found",
+        "recommendation": "Verify if still needed, consider archival"
+      },
+      {
+        "path": "core/engine/integration_worker.py",
+        "category": "potentially_obsolete",
+        "reason": "No import references found",
+        "recommendation": "Verify if still needed, consider archival"
+      },
+      {
+        "path": "core/engine/compensation.py",
+        "category": "potentially_obsolete",
+        "reason": "No import references found",
+        "recommendation": "Verify if still needed, consider archival"
+      },
+      {
+        "path": "core/engine/hardening.py",
+        "category": "potentially_obsolete",
+        "reason": "No import references found",
+        "recommendation": "Verify if still needed, consider archival"
+      },
+      {
+        "path": "core/engine/performance.py",
+        "category": "potentially_obsolete",
+        "reason": "No import references found",
+        "recommendation": "Verify if still needed, consider archival"
+      },
+      {
+        "path": "core/engine/context_estimator.py",
+        "category": "potentially_obsolete",
+        "reason": "No import references found",
+        "recommendation": "Verify if still needed, consider archival"
+      },
+      {
+        "path": "core/planning/ccpm_integration.py",
+        "category": "potentially_obsolete",
+        "reason": "No import references found",
+        "recommendation": "Verify if still needed, consider archival"
+      },
+      {
+        "path": "core/state/worktree.py",
+        "category": "potentially_obsolete",
+        "reason": "No import references found",
+        "recommendation": "Verify if still needed, consider archival"
+      },
+      {
+        "path": "core/state/db_sqlite.py",
+        "category": "potentially_obsolete",
+        "reason": "No import references found",
+        "recommendation": "Verify if still needed, consider archival"
+      },
+      {
+        "path": "core/engine/adapters/codex_adapter.py",
+        "category": "potentially_obsolete",
+        "reason": "No import references found",
+        "recommendation": "Verify if still needed, consider archival"
+      },
+      {
+        "path": "core/engine/adapters/claude_adapter.py",
+        "category": "potentially_obsolete",
+        "reason": "No import references found",
+        "recommendation": "Verify if still needed, consider archival"
+      },
+      {
+        "path": "core/engine/adapters/aider_adapter.py",
+        "category": "potentially_obsolete",
+        "reason": "No import references found",
+        "recommendation": "Verify if still needed, consider archival"
+      },
+      {
+        "path": "core/engine/adapters/base.py",
+        "category": "potentially_obsolete",
+        "reason": "No import references found",
+        "recommendation": "Verify if still needed, consider archival"
+      },
+      {
+        "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/core/engine/orchestrator.py",
+        "category": "potentially_obsolete",
+        "reason": "No import references found",
+        "recommendation": "Verify if still needed, consider archival"
+      },
+      {
+        "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/core/engine/scheduler.py",
+        "category": "potentially_obsolete",
+        "reason": "No import references found",
+        "recommendation": "Verify if still needed, consider archival"
+      },
+      {
+        "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/core/engine/execution_request_builder.py",
+        "category": "potentially_obsolete",
+        "reason": "No import references found",
+        "recommendation": "Verify if still needed, consider archival"
+      },
+      {
+        "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/core/engine/router.py",
+        "category": "potentially_obsolete",
+        "reason": "No import references found",
+        "recommendation": "Verify if still needed, consider archival"
+      },
+      {
+        "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/core/adapters/registry.py",
+        "category": "potentially_obsolete",
+        "reason": "No import references found",
+        "recommendation": "Verify if still needed, consider archival"
+      },
+      {
+        "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/core/adapters/subprocess_adapter.py",
+        "category": "potentially_obsolete",
+        "reason": "No import references found",
+        "recommendation": "Verify if still needed, consider archival"
+      },
+      {
+        "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/core/adapters/base.py",
+        "category": "potentially_obsolete",
+        "reason": "No import references found",
+        "recommendation": "Verify if still needed, consider archival"
+      },
+      {
+        "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/core/state/db.py",
+        "category": "potentially_obsolete",
+        "reason": "No import references found",
+        "recommendation": "Verify if still needed, consider archival"
+      },
+      {
+        "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/core/engine/monitoring/run_monitor.py",
+        "category": "potentially_obsolete",
+        "reason": "No import references found",
+        "recommendation": "Verify if still needed, consider archival"
+      },
+      {
+        "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/core/engine/monitoring/progress_tracker.py",
+        "category": "potentially_obsolete",
+        "reason": "No import references found",
+        "recommendation": "Verify if still needed, consider archival"
+      },
+      {
+        "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/core/engine/resilience/retry.py",
+        "category": "potentially_obsolete",
+        "reason": "No import references found",
+        "recommendation": "Verify if still needed, consider archival"
+      },
+      {
+        "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/core/engine/resilience/resilient_executor.py",
+        "category": "potentially_obsolete",
+        "reason": "No import references found",
+        "recommendation": "Verify if still needed, consider archival"
+      },
+      {
+        "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/core/engine/resilience/circuit_breaker.py",
+        "category": "potentially_obsolete",
+        "reason": "No import references found",
+        "recommendation": "Verify if still needed, consider archival"
+      },
+      {
+        "path": "error/plugins/echo/plugin.py",
+        "category": "potentially_obsolete",
+        "reason": "No import references found",
+        "recommendation": "Verify if still needed, consider archival"
+      },
+      {
+        "path": "infra/ci/sandbox_repos/sandbox_python/src/app.py",
+        "category": "potentially_obsolete",
+        "reason": "No import references found",
+        "recommendation": "Verify if still needed, consider archival"
+      }
+    ],
+    "deprecated": [],
+    "legacy": []
+  }
+}
