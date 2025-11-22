@@ -210,8 +210,8 @@ class TestAuditLogger:
         assert stats["total_events"] == 4
         assert stats["by_type"]["tool_install"] == 2
         assert stats["by_type"]["secret_set"] == 1
-        assert stats["by_severity"]["info"] == 2
-        assert stats["by_severity"]["error"] == 1
+        assert stats["by_severity"]["info"] == 3  # tool1 success, secret set, health check
+        assert stats["by_severity"]["error"] == 1  # tool2 failure
         assert stats["log_size_bytes"] > 0
     
     def test_get_stats_empty_log(self, logger):

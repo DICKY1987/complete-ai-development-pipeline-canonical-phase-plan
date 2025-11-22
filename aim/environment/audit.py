@@ -374,9 +374,13 @@ _audit_logger: Optional[AuditLogger] = None
 
 
 def get_audit_logger(log_path: Optional[Path] = None) -> AuditLogger:
-    """Get global audit logger instance."""
+    """Get global audit logger instance.
+    
+    Note: If log_path is provided and differs from existing instance,
+    creates a new instance (updates singleton).
+    """
     global _audit_logger
-    if _audit_logger is None:
+    if _audit_logger is None or (log_path is not None and _audit_logger.log_path != Path(log_path)):
         _audit_logger = AuditLogger(log_path)
     return _audit_logger
 

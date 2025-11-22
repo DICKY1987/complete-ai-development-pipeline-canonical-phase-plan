@@ -110,6 +110,7 @@ function Invoke-AutoCommit {
         
         if ($LASTEXITCODE -eq 0) {
             Write-SyncLog "Committed $count files" -Level "SUCCESS"
+            Show-Notification "📦 Committed" "$count files committed" "Info"
             $script:lastCommit = Get-Date
             $script:pendingChanges.Clear()
         } else {
@@ -140,12 +141,14 @@ function Invoke-AutoSync {
         
         if ($LASTEXITCODE -eq 0) {
             Write-SyncLog "Push successful" -Level "SUCCESS"
+            Show-Notification "⬆️ Pushed" "Changes synced to remote" "Success"
         } elseif ($pushOutput -match "Everything up-to-date") {
             Write-SyncLog "Already up-to-date" -Level "INFO"
         } elseif ($pushOutput -match "non-fast-forward") {
             Write-SyncLog "Push rejected - need to pull first" -Level "WARN"
         } else {
             Write-SyncLog "Push failed: $pushOutput" -Level "ERROR"
+            Show-Notification "❌ Push Failed" "$pushOutput" "Error"
         }
         
         # Pull remote changes
@@ -157,12 +160,14 @@ function Invoke-AutoSync {
                 Write-SyncLog "Already up-to-date" -Level "INFO"
             } else {
                 Write-SyncLog "Pull successful" -Level "SUCCESS"
+                Show-Notification "⬇️ Pulled" "Remote changes downloaded" "Success"
             }
         } elseif ($pullOutput -match "CONFLICT") {
             Write-SyncLog "CONFLICT detected - manual resolution required" -Level "ERROR"
-            Show-ConflictNotification
+            Show-Notification "⚠️ Conflict" "Manual merge required!" "Warning"
         } else {
             Write-SyncLog "Pull failed: $pullOutput" -Level "ERROR"
+            Show-Notification "❌ Pull Failed" "$pullOutput" "Error"
         }
         
         $script:lastSync = Get-Date
@@ -175,18 +180,55 @@ function Invoke-AutoSync {
     }
 }
 
-function Show-ConflictNotification {
-    $title = "Git Conflict Detected"
-    $message = "Manual merge required in repository: $(Split-Path $RepoPath -Leaf)"
+function Show-Notification {
+    param(
+        [string]$Title,
+        [string]$Message,
+        [string]$Type = "Info"
+    )
     
-    $vbsScript = @"
-Set objShell = CreateObject("WScript.Shell")
-objShell.Popup "$message", 0, "$title", 48
+    # Console notification (always visible in PowerShell window)
+    $emoji = switch ($Type) {
+        "Success" { "✅" }
+        "Warning" { "⚠️" }
+        "Error" { "❌" }
+        default { "ℹ️" }
+    }
+    
+    $color = switch ($Type) {
+        "Success" { "Green" }
+        "Warning" { "Yellow" }
+        "Error" { "Red" }
+        default { "Cyan" }
+    }
+    
+    $timestamp = Get-Date -Format "HH:mm:ss"
+    Write-Host "`n$emoji [$timestamp] $Title - $Message" -ForegroundColor $color
+    
+    # Windows Toast Notification
+    try {
+        [Windows.UI.Notifications.ToastNotificationManager, Windows.UI.Notifications, ContentType = WindowsRuntime] | Out-Null
+        [Windows.Data.Xml.Dom.XmlDocument, Windows.Data.Xml.Dom.XmlDocument, ContentType = WindowsRuntime] | Out-Null
+        
+        $template = @"
+<toast>
+    <visual>
+        <binding template="ToastGeneric">
+            <text>Git Auto-Sync</text>
+            <text>$Title</text>
+            <text>$Message</text>
+        </binding>
+    </visual>
+</toast>
 "@
-    
-    $tempVbs = Join-Path $env:TEMP "git-conflict-notify.vbs"
-    $vbsScript | Out-File -FilePath $tempVbs -Encoding ASCII
-    Start-Process -FilePath "wscript.exe" -ArgumentList $tempVbs -WindowStyle Hidden
+        
+        $xml = New-Object Windows.Data.Xml.Dom.XmlDocument
+        $xml.LoadXml($template)
+        $toast = New-Object Windows.UI.Notifications.ToastNotification $xml
+        [Windows.UI.Notifications.ToastNotificationManager]::CreateToastNotifier("Git Auto-Sync").Show($toast)
+    } catch {
+        # Toast notifications not available, skip silently
+    }
 }
 
 function Start-FileWatcher {
@@ -245,6 +287,8 @@ try {
     Write-SyncLog "Repository: $RepoPath" -Level "INFO"
     Write-SyncLog "Commit interval: ${CommitInterval}s" -Level "INFO"
     Write-SyncLog "Sync interval: ${SyncInterval}s" -Level "INFO"
+    
+    Show-Notification "🚀 Auto-Sync Started" "Monitoring repository for changes" "Success"
     
     $watcherInfo = Start-FileWatcher
     
