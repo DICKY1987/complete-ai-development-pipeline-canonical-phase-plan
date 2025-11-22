@@ -3,6 +3,8 @@
 > **Purpose**: Quick navigation and understanding of the repository structure for both humans and AI tools.  
 > **Last Updated**: 2025-11-22  
 > **For AI Tools**: This document provides context on repository organization and section purposes.
+> 
+> **📋 File Organization System**: See [docs/FILE_ORGANIZATION_SYSTEM.md](docs/FILE_ORGANIZATION_SYSTEM.md) for the complete specification on separating development artifacts from system files. Quick reference: [docs/FILE_ORGANIZATION_QUICK_REF.md](docs/FILE_ORGANIZATION_QUICK_REF.md)
 
 ---
 
@@ -456,6 +458,8 @@ python ./scripts/generate_spec_mapping.py
 - [README.md](README.md) - Main repository overview
 - [AGENTS.md](AGENTS.md) - Coding guidelines and conventions
 - [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) - System architecture
+- [docs/FILE_ORGANIZATION_SYSTEM.md](docs/FILE_ORGANIZATION_SYSTEM.md) - **File organization system** (dev vs system files)
+- [docs/FILE_ORGANIZATION_QUICK_REF.md](docs/FILE_ORGANIZATION_QUICK_REF.md) - Quick reference for file placement
 - [docs/SECTION_REFACTOR_MAPPING.md](docs/SECTION_REFACTOR_MAPPING.md) - Import path mapping
 - [docs/CI_PATH_STANDARDS.md](docs/CI_PATH_STANDARDS.md) - CI enforcement rules
 - [engine/README.md](engine/README.md) - Engine architecture
