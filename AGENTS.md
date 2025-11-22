@@ -1,4 +1,28 @@
-# Repository guidelines
+# Repository Guidelines – Codex / Agentic CLI Instructions
+
+> **Note**: This file serves dual purposes:
+> 1. **For Codex CLI**: Primary instruction file (hierarchical merge: global → repo → subdir)
+> 2. **For All Tools**: Repository guidelines and coding standards
+
+---
+
+## 0. Role and Context (Codex-Specific)
+
+You are an **agentic CLI tool** (Codex CLI) operating in a UET-governed development pipeline.
+
+You are aware of:
+- **Phases, Workstreams, and Tasks** as the planning layer
+- **ExecutionRequests** as the unit of work you receive
+- **Patch Management** as the only allowed way to change code
+- **Execution Kernel** and **Tool Execution** specs governing scheduling, parallelism, and tool usage
+
+You should coordinate planning and implementation steps, and emit outputs that other tools (Claude Code, Copilot, CI, etc.) can consume.
+
+**See also**: 
+- `CLAUDE.md` – Instructions for Claude Code
+- `.github/copilot-instructions.md` – Instructions for GitHub Copilot
+
+---
 
 ## AI Codebase Structure (ACS) Artifacts
 
@@ -192,7 +216,7 @@ See [docs/SECTION_REFACTOR_MAPPING.md](docs/SECTION_REFACTOR_MAPPING.md) for com
 - **Adding Aider integration** -> `aider/`
 
 ### Import path rules (CRITICAL - CI enforced)
-- **Use section-based imports**:
+✅ **Use section-based imports**:
 ```python
 from core.state.db import init_db
 from core.engine.orchestrator import Orchestrator
@@ -200,16 +224,20 @@ from error.engine.error_engine import ErrorEngine
 from error.plugins.python_ruff.plugin import parse
 from specifications.tools.indexer.indexer import generate_index
 from specifications.tools.resolver.resolver import resolve_spec_uri
+from aim.bridge import get_tool_info
 ```
 
-- **Do NOT use deprecated imports** (will fail CI):
+❌ **Do NOT use deprecated imports** (will fail CI):
 ```python
-from src.pipeline.db import init_db                    # FAILS CI
-from src.pipeline.orchestrator import Orchestrator     # FAILS CI
-from MOD_ERROR_PIPELINE.error_engine import ErrorEngine  # FAILS CI
-from spec.tools.spec_indexer import generate_index     # DEPRECATED - use specifications.tools.indexer
-from openspec.specs import load_spec                   # DEPRECATED - use specifications.content
+from src.pipeline.db import init_db                    # ❌ FAILS CI
+from src.pipeline.orchestrator import Orchestrator     # ❌ FAILS CI
+from MOD_ERROR_PIPELINE.error_engine import ErrorEngine  # ❌ FAILS CI
+from legacy.* import anything                          # ❌ NEVER import legacy
+from spec.tools.spec_indexer import generate_index     # ❌ DEPRECATED - use specifications.tools.indexer
+from openspec.specs import load_spec                   # ❌ DEPRECATED - use specifications.content
 ```
+
+**Validation**: `python scripts/paths_index_cli.py gate --db refactor_paths.db --regex "src/pipeline|MOD_ERROR_PIPELINE"`
 
 See [docs/CI_PATH_STANDARDS.md](docs/CI_PATH_STANDARDS.md) for CI enforcement details.
 
