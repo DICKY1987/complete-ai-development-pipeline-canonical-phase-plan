@@ -1,53 +1,122 @@
-# Local development
+# ===========================
+# Local Development
+# ===========================
 .venv/
 env/
 .env
 .env.local
 .python-version
 
-# Invoke user-specific config
+# ===========================
+# Invoke & Configuration
+# ===========================
 .invoke.yaml
 
+# ===========================
 # Python
+# ===========================
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info/
 .pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
 
-# Node
+# ===========================
+# Node.js
+# ===========================
 node_modules/
 npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 pnpm-lock.yaml
 yarn.lock
+.npm/
+.pnpm-debug.log*
 
-# Editors/OS
+# ===========================
+# Editors & IDEs
+# ===========================
 .vscode/
 .idea/
 *.swp
 *.swo
-.DS_Store
-Thumbs.db
+*~
+.project
+.classpath
+.settings/
+*.sublime-project
+*.sublime-workspace
 
-# Logs & build artifacts
+# ===========================
+# Operating System
+# ===========================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# ===========================
+# Build Artifacts
+# ===========================
 logs/
 *.log
 dist/
 build/
 coverage/
+*.spec
+*.manifest
 
-# Docs tools
+# ===========================
+# Documentation Tools
+# ===========================
 .cache/
+.docusaurus/
+.next/
 
+# ===========================
+# AI Coding Tools
+# ===========================
 .aider*
+.cursor/
 
-# Worktrees and local git artifacts
+# ===========================
+# Pipeline Runtime Artifacts
+# ===========================
+
+# Worktrees and execution state
 .worktrees/
+.ledger/*.json
+.tasks/queued/*
+.tasks/running/*
+.tasks/complete/*
+.tasks/failed/*
+.runs/*
 
-# Local state databases
+# State databases
 state/*.db
+state/*.db-journal
+*.db
+*.db-journal
 
 # Tool logs
 .AIM_ai-tools-registry/logs/
 nul
+
+# ===========================
+# Project-Specific
+# ===========================
 
 # CCPM workspace (local planning artifacts)
 pm/workspace/
@@ -56,3 +125,19 @@ pm/**/__pycache__/
 
 # Epic worktrees (parallel execution)
 ../epic-worktrees/
+
+# Error pipeline output
+error/plugins/**/*.jsonl
+error/logs/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.bak
+*.backup
+
+# Generated indices (should be regenerated)
+# Uncomment if indices should not be committed
+# docs/.index/
+# specifications/.index/

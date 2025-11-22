@@ -1,0 +1,48 @@
+# AI Context Configuration - tests/
+
+## Directory Purpose
+Comprehensive test suite - unit, integration, pipeline, and plugin tests.
+
+## AI Indexing Priority
+PRIORITY: HIGH
+Tests validate behavior and serve as executable documentation.
+
+## Scope
+TEST_CODE - Quality validation and behavior specification.
+
+## Test Organization
+- unit/ - Unit tests for individual components
+- integration/ - Integration tests across components
+- pipeline/ - Pipeline-specific tests
+- plugins/ - Error plugin tests
+- error/ - Error engine tests
+- conftest.py - Shared test fixtures
+
+## Test Runner
+pytest -q (config in pytest.ini at root)
+
+## When to Use This Section
+- Understanding expected behavior
+- Adding tests for new features
+- Validating changes
+- Debugging failures
+
+## Testing Conventions
+- Use pytest framework
+- Place tests in appropriate subdirectory
+- Mark tests requiring external CLIs/network
+- Sandbox repos excluded by default (pytest.ini)
+- Keep tests deterministic (no network calls, controlled timestamps)
+
+## Related Sections
+- core/ - Core implementation being tested
+- engine/ - Engine implementation being tested
+- error/ - Error system being tested
+- scripts/test.ps1 - Test runner
+- pytest.ini - Test configuration
+
+## Exclude from Context
+- __pycache__/
+- .pytest_cache/
+- *.pyc
+- sandbox_repos/ (used for integration tests only)

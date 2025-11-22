@@ -1,0 +1,39 @@
+# AI Context Configuration - specifications/
+
+## Directory Purpose
+Unified specification management system - content, tools, changes, and bridge.
+
+## AI Indexing Priority
+PRIORITY: HIGH
+Source of truth for specifications and contracts.
+
+## Scope
+SPECIFICATIONS - Canonical specification documents and processing tools.
+
+## Key Components
+- content/ - Specification documents organized by domain
+- tools/ - Processing utilities (indexer, resolver, guard, patcher, renderer)
+- changes/ - Active OpenSpec change proposals
+- bridge/ - OpenSpec → Workstream integration
+
+## Import Pattern
+from specifications.tools.indexer.indexer import generate_index
+from specifications.tools.resolver.resolver import resolve_spec_uri
+from specifications.bridge.converter import convert_to_workstream
+
+## When to Use This Section
+- Adding or updating specifications
+- Modifying spec processing tools
+- Creating OpenSpec change proposals
+- Converting specs to workstreams
+
+## Related Sections
+- schema/ - Schema definitions
+- workstreams/ - Generated workstreams
+- core/ - Integration with core pipeline
+- openspec/ - Legacy OpenSpec integration
+
+## Exclude from Context
+- __pycache__/
+- *.pyc
+- .index/ (generated indices)

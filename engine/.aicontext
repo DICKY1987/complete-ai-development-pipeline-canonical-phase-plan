@@ -1,0 +1,46 @@
+# AI Context Configuration - engine/
+
+## Directory Purpose
+Job-based standalone execution engine with hybrid GUI/Terminal/TUI architecture.
+
+## AI Indexing Priority
+PRIORITY: HIGH
+Alternative execution model separate from core/engine/ - important for job-based workflows.
+
+## Scope
+ACTIVE_CODE - Standalone execution system with different architecture from core.
+
+## Key Components
+- orchestrator.py - Job orchestration
+- state_store.py - Job state management
+- adapters/ - Tool adapters (aider, codex, git, tests)
+- queue_manager.py - Job queue
+- worker_pool.py - Worker management
+
+## Architecture Notes
+- Uses job JSON pattern (NOT workstream steps like core/engine/)
+- Hybrid GUI/Terminal/TUI architecture
+- Independent state management
+- See engine/README.md for full architecture details
+
+## Import Pattern
+from engine.orchestrator import JobOrchestrator
+from engine.state_store import StateStore
+from engine.adapters.aider_adapter import AiderAdapter
+
+## When to Use This Section
+- Implementing job-based execution features
+- Adding new tool adapters
+- Queue management
+- GUI/Terminal integration
+
+## Related Sections
+- core/engine/ - Workstream-based orchestration (different pattern)
+- tests/ - Engine tests
+- schema/jobs/ - Job schemas
+
+## Exclude from Context
+- __pycache__/
+- *.pyc
+- .pytest_cache/
+- logs/
