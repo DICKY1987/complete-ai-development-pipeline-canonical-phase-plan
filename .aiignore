@@ -99,6 +99,7 @@ nul
 # ARCHIVES & BACKUPS
 # ===========================
 docs/archive/**
+devdocs/archive/**
 workstreams/.backup/**
 workstreams/.deferred/**
 

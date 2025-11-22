@@ -89,7 +89,8 @@ See `ai_policies.yaml` for complete zone definitions and invariants.
 - **Prompt/**: Prompt-engineering references and reusable prompt templates for agent operations
 
 ### Repository Infrastructure
-- **docs/**: Canonical phase plans, architecture notes, ADRs, specs, refactor mapping
+- **docs/**: Canonical phase plans, architecture notes, ADRs, permanent reference documentation
+- **devdocs/**: Developer session logs, phase tracking, execution reports, process analysis (ephemeral)
 - **plans/**: Phase checklists, milestones, and templates
 - **meta/**: Phase development docs and planning documents
 - **scripts/**: Automation (bootstrap, validate, generate, run). Prefer PowerShell (.ps1) or Python.

@@ -1,0 +1,17 @@
+# devdocs/.aiignore
+# AI tools should exclude archived development documentation
+# but include active sessions, phases, and execution reports
+
+# Archived historical development artifacts
+archive/**
+
+# Old phase documentation (superseded)
+phases/phase-2*/**
+phases/phase-3/**
+phases/phase-4a/**
+phases/phase-4b/**
+
+# Legacy cleanup reports
+**/cleanup-reports/**
+**/error_legacy/**
+**/phase-h-legacy/**
