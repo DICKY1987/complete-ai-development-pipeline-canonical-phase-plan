@@ -1,0 +1,43 @@
+# Git Auto-Sync Configuration
+
+# Enable/disable sync (set to false to temporarily disable)
+enabled: true
+
+# Files and folders to ignore
+ignore:
+  - .git
+  - .sync*
+  - node_modules
+  - .venv
+  - __pycache__
+  - '*.log'
+  - '*.tmp'
+  - .worktrees
+  - logs
+  - .pytest_cache
+  - '*.pyc'
+  - .DS_Store
+  - Thumbs.db
+
+# Commit message template
+# {count} will be replaced with number of files changed
+commit_message_template: 'Auto-sync: {count} files updated'
+
+# Auto-merge strategies (optional)
+# Uncomment and customize based on your needs
+auto_merge_strategies:
+  # Markdown files - prefer local version
+  # '*.md': 'ours'
+  
+  # JSON configs - prefer remote version  
+  # '*.json': 'theirs'
+  
+  # Python files - attempt auto-merge
+  # '*.py': 'merge'
+
+# Advanced settings (optional)
+# Uncomment to override defaults
+
+# commit_interval: 30  # Seconds between auto-commits
+# sync_interval: 60    # Seconds between push/pull operations
+# max_file_size: 10485760  # Max file size to sync (10MB default)
