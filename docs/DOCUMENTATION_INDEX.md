@@ -14,6 +14,7 @@
 - [Reference Documentation](#reference-documentation) - Deep technical details
 - [Guidelines](#guidelines) - Best practices and patterns
 - [Execution & Runtime](#execution--runtime) - How the system actually works
+- [Phase Plans](#phase-plans) - Implementation plans and roadmaps
 - [Legacy Documentation](#legacy-documentation) - Historical context
 
 ---
@@ -27,8 +28,11 @@
 
 **For AI Agents:**
 1. Read [AGENTS.md](../AGENTS.md) - Critical operational rules
-2. Review [Anti-Patterns Catalog](guidelines/ANTI_PATTERNS.md) - What NOT to do
-3. Check [Change Impact Matrix](reference/CHANGE_IMPACT_MATRIX.md) - What breaks when you change X
+2. Review [.meta/AI_GUIDANCE.md](../.meta/AI_GUIDANCE.md) - AI agent onboarding guide
+3. Check [CODEBASE_INDEX.yaml](../CODEBASE_INDEX.yaml) - Module structure and dependencies
+4. Consult [ai_policies.yaml](../ai_policies.yaml) - Edit policies and safe zones
+5. Review [Anti-Patterns Catalog](guidelines/ANTI_PATTERNS.md) - What NOT to do
+6. Check [Change Impact Matrix](reference/CHANGE_IMPACT_MATRIX.md) - What breaks when you change X
 
 ---
 
@@ -48,6 +52,52 @@
 | [0008](adr/0008-database-location-worktree.md) | Database Location Worktree | Store DB in `.worktrees/` | Worktree isolation |
 
 **See also:** [ADR Index](adr/README.md) - Detailed ADR catalog
+
+---
+
+## AI Codebase Structure (ACS) Artifacts
+
+**AI-Enhanced Repository Structure** - Machine-readable metadata for improved AI tool effectiveness.
+
+### Core ACS Documents
+
+| Artifact | Purpose | When to Use |
+|----------|---------|-------------|
+| [CODEBASE_INDEX.yaml](../CODEBASE_INDEX.yaml) | Module index with dependencies | Discovering module boundaries |
+| [QUALITY_GATE.yaml](../QUALITY_GATE.yaml) | Quality gates and validation | Before committing changes |
+| [ai_policies.yaml](../ai_policies.yaml) | Edit policies and invariants | Determining safe edit zones |
+| [.aiignore](../.aiignore) | AI tool ignore rules | Configuring AI tools |
+| [.meta/AI_GUIDANCE.md](../.meta/AI_GUIDANCE.md) | AI agent onboarding | First-time AI agent setup |
+
+### Generated AI Context
+
+| File | Purpose | Regenerate When |
+|------|---------|-----------------|
+| [.meta/ai_context/repo_summary.json](../.meta/ai_context/repo_summary.json) | Machine-readable repo metadata | Module structure changes |
+| [.meta/ai_context/code_graph.json](../.meta/ai_context/code_graph.json) | Dependency graph (validated acyclic) | Dependencies change |
+
+**Regeneration Commands:**
+```bash
+python scripts/generate_repo_summary.py
+python scripts/generate_code_graph.py
+python scripts/validate_acs_conformance.py  # Validate after regeneration
+```
+
+### ACS Validation
+
+**Before committing changes:**
+```bash
+python scripts/validate_acs_conformance.py
+```
+
+**Checks:**
+- ✓ All ACS artifacts present
+- ✓ Module paths valid
+- ✓ Policy paths valid
+- ✓ Module documentation complete
+- ✓ Dependency references valid
+- ✓ Code graph acyclic
+- ✓ Invariants well-defined
 
 ---
 
@@ -150,6 +200,9 @@
 **...understand how data flows**  
 → Read [Data Flows](reference/DATA_FLOWS.md)
 
+**...implement ACS (AI Codebase Structure)**  
+→ See [Feasibility Analysis](AI_CODEBASE_STRUCTURE_FEASIBILITY.md) and [Phase Plan](../meta/plans/PH-ACS-AI-CODEBASE-STRUCTURE.md)
+
 **...write tests for component X**  
 → Follow [Testing Strategy](guidelines/TESTING_STRATEGY.md)
 
@@ -161,6 +214,30 @@
 
 **...optimize performance**  
 → Review [Execution Traces](EXECUTION_TRACES_SUMMARY.md)
+
+---
+
+## Phase Plans
+
+**Implementation roadmaps and execution guides:**
+
+### Active Plans
+
+| Phase | Plan Document | Checklist | Status | Priority |
+|-------|--------------|-----------|--------|----------|
+| **PH-ACS** | [AI Codebase Structure Implementation](../meta/plans/PH-ACS-AI-CODEBASE-STRUCTURE.md) | [Checklist](../meta/plans/PH-ACS-CHECKLIST.md) | Ready | HIGH |
+
+**Related Documents:**
+- [ACS Feasibility Analysis](AI_CODEBASE_STRUCTURE_FEASIBILITY.md) - Detailed analysis of requirements vs current state
+- [Phase K+ Plans](../meta/plans/phase-K-plus-*.md) - Documentation enhancement phases
+
+### Completed Plans
+
+| Phase | Completion Report | Duration |
+|-------|------------------|----------|
+| Phase K (Weeks 1-3) | [PHASE_K_PLUS_FINAL_COMPLETE.md](../meta/plans/PHASE_K_PLUS_FINAL_COMPLETE.md) | 3 weeks |
+| UET Framework | [UET_IMPLEMENTATION_COMPLETE.md](UET_IMPLEMENTATION_COMPLETE.md) | 4 weeks |
+| AIM+ Integration | [AIM_PLUS_FINAL_SUMMARY.md](AIM_PLUS_FINAL_SUMMARY.md) | 4 sprints |
 
 ---
 

@@ -1,0 +1,159 @@
+# .aiignore
+# Unified AI Tool Ignore Rules
+# Consolidated from .gitignore and .aiderignore
+# Last Updated: 2025-11-22
+
+# ===========================
+# LEGACY CODE (READ-ONLY)
+# ===========================
+# Archived and deprecated code - use modern sections instead
+legacy/**
+src/pipeline/**
+MOD_ERROR_PIPELINE/**
+
+# ===========================
+# RUNTIME ARTIFACTS
+# ===========================
+# Generated at runtime, should not be in AI context
+.worktrees/**
+.ledger/**
+.tasks/**
+.runs/**
+state/**/*.db
+state/**/*.db-journal
+*.db
+*.db-journal
+
+# ===========================
+# BUILD & GENERATED FILES
+# ===========================
+# Auto-generated, not source code
+__pycache__/**
+*.pyc
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/**
+.pytest_cache/**
+.mypy_cache/**
+.ruff_cache/**
+.coverage
+htmlcov/**
+dist/**
+build/**
+coverage/**
+node_modules/**
+
+# ===========================
+# ENVIRONMENT & CONFIG
+# ===========================
+# Local environment, credentials
+.venv/**
+env/**
+.env
+.env.local
+.python-version
+
+# ===========================
+# EDITOR & IDE FILES
+# ===========================
+.vscode/**
+.idea/**
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/**
+*.sublime-project
+*.sublime-workspace
+.cursor/**
+.aider*
+
+# ===========================
+# OPERATING SYSTEM
+# ===========================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# ===========================
+# LOGS & TEMP FILES
+# ===========================
+logs/**
+*.log
+tmp/**
+temp/**
+*.tmp
+*.bak
+*.backup
+nul
+
+# ===========================
+# ARCHIVES & BACKUPS
+# ===========================
+docs/archive/**
+workstreams/.backup/**
+workstreams/.deferred/**
+
+# ===========================
+# TEST SANDBOXES
+# ===========================
+# Large test repositories, excluded from general context
+sandbox_repos/**
+
+# ===========================
+# AI CONTEXT ARTIFACTS
+# ===========================
+# Auto-generated AI summaries - regenerate from source
+# Include in context but don't edit directly
+.meta/ai_context/*.json
+.meta/ai_context/*.md
+
+# ===========================
+# PROJECT-SPECIFIC
+# ===========================
+# CCPM workspace
+pm/workspace/**
+
+# Epic worktrees
+../epic-worktrees/**
+
+# Error pipeline output
+error/plugins/**/*.jsonl
+error/logs/**
+
+# Generated indices (regenerate instead of editing)
+.sync-log.txt
+.sync-lock
+.sync-manifest.json
+refactor_paths.db
+
+# Documentation build artifacts
+.cache/**
+.docusaurus/**
+.next/**
+
+# Node.js
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-lock.yaml
+yarn.lock
+.npm/**
+.pnpm-debug.log*
+
+# ===========================
+# SPECIAL INSTRUCTIONS
+# ===========================
+# For AI tools:
+# - Use ai_policies.yaml to determine edit policies
+# - Regenerate .meta/ai_context/ artifacts when structure changes
+# - Consult CODEBASE_INDEX.yaml for module boundaries
+# - Follow section-based import patterns (core.*, error.*, etc.)

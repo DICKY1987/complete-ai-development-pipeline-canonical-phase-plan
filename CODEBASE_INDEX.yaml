@@ -1,0 +1,572 @@
+# CODEBASE_INDEX.yaml
+# AI Codebase Structure Specification - Module Index
+# Generated: 2025-11-22
+# Format Version: 1.0.0
+
+metadata:
+  repository: "Complete AI Development Pipeline – Canonical Phase Plan"
+  version: "2.0.0-phase-k"
+  last_updated: "2025-11-22"
+  architecture_doc: "docs/ARCHITECTURE.md"
+  directory_guide: "DIRECTORY_GUIDE.md"
+  section_mapping: "docs/SECTION_REFACTOR_MAPPING.md"
+
+# Layered architecture (from low-level to high-level)
+layers:
+  - id: "infra"
+    name: "Infrastructure"
+    description: "Database, state, schemas, configuration"
+    modules: ["core.state", "schema", "config"]
+  
+  - id: "domain"
+    name: "Domain Logic"
+    description: "Core business logic and orchestration"
+    modules: ["core.engine", "core.planning", "error.engine", "specifications.tools"]
+  
+  - id: "api"
+    name: "API & Integrations"
+    description: "External tool integrations and bridges"
+    modules: ["aim", "pm", "aider", "specifications.bridge"]
+  
+  - id: "ui"
+    name: "User Interface"
+    description: "CLI, GUI, and user-facing tools"
+    modules: ["engine", "error.plugins", "scripts", "gui"]
+
+# Module definitions with dependencies
+modules:
+  # === CORE SECTION ===
+  - id: "core.state"
+    name: "Core State Management"
+    path: "core/state/"
+    layer: "infra"
+    purpose: "Database operations, CRUD, bundle loading, worktree management"
+    responsibilities:
+      - "SQLite connection and initialization"
+      - "CRUD operations for runs, workstreams, steps, errors, events"
+      - "Workstream JSON loading and validation"
+      - "Dependency DAG building and cycle detection"
+      - "Git worktree creation and file scope validation"
+    key_files:
+      - "db.py"
+      - "db_sqlite.py"
+      - "crud.py"
+      - "bundles.py"
+      - "worktree.py"
+    depends_on: []
+    import_pattern: "from core.state.db import init_db"
+    ai_priority: "HIGH"
+    edit_policy: "safe"
+
+  - id: "core.engine"
+    name: "Core Orchestration Engine"
+    path: "core/engine/"
+    layer: "domain"
+    purpose: "Workstream orchestration, execution, and recovery"
+    responsibilities:
+      - "Execute workstream steps in dependency order"
+      - "Manage tool invocations via profiles"
+      - "Handle failures with retry and circuit breaker patterns"
+      - "Coordinate parallel workstream execution"
+    key_files:
+      - "orchestrator.py"
+      - "scheduler.py"
+      - "executor.py"
+      - "tools.py"
+      - "circuit_breakers.py"
+      - "recovery.py"
+    depends_on:
+      - "core.state"
+      - "config"
+    import_pattern: "from core.engine.orchestrator import Orchestrator"
+    ai_priority: "HIGH"
+    edit_policy: "safe"
+
+  - id: "core.planning"
+    name: "Core Planning"
+    path: "core/planning/"
+    layer: "domain"
+    purpose: "Workstream generation and archiving"
+    responsibilities:
+      - "Generate workstreams from high-level specs (v2.0)"
+      - "Archive completed workstreams"
+    key_files:
+      - "planner.py"
+      - "archive.py"
+    depends_on:
+      - "core.state"
+      - "specifications.tools"
+    import_pattern: "from core.planning.planner import generate_workstream"
+    ai_priority: "MEDIUM"
+    edit_policy: "safe"
+
+  - id: "core.shared"
+    name: "Core Shared Utilities"
+    path: "core/"
+    layer: "domain"
+    purpose: "OpenSpec parsing and spec indexing"
+    responsibilities:
+      - "OpenSpec document parsing and validation"
+      - "OpenSpec-to-workstream conversion"
+      - "Spec indexing and cross-referencing"
+    key_files:
+      - "openspec_parser.py"
+      - "openspec_convert.py"
+      - "spec_index.py"
+    depends_on:
+      - "specifications.content"
+    import_pattern: "from core.openspec_parser import parse_openspec"
+    ai_priority: "MEDIUM"
+    edit_policy: "safe"
+
+  # === ENGINE SECTION ===
+  - id: "engine"
+    name: "Standalone Job Execution Engine"
+    path: "engine/"
+    layer: "ui"
+    purpose: "Job-based execution engine with GUI/Terminal/TUI support"
+    responsibilities:
+      - "Job orchestration using JSON pattern (not workstream steps)"
+      - "Hybrid GUI/Terminal/TUI architecture"
+      - "Job queue management"
+      - "Tool adapters (aider, codex, git, tests)"
+    key_files:
+      - "orchestrator.py"
+      - "state_store.py"
+      - "queue_manager.py"
+      - "adapters/"
+    depends_on:
+      - "config"
+    import_pattern: "from engine.orchestrator import JobOrchestrator"
+    ai_priority: "HIGH"
+    edit_policy: "safe"
+    notes: "Separate from core/engine/ - uses job JSON pattern instead of workstream steps"
+
+  # === ERROR SECTION ===
+  - id: "error.engine"
+    name: "Error Detection Engine"
+    path: "error/engine/"
+    layer: "domain"
+    purpose: "Error detection state machine and plugin orchestration"
+    responsibilities:
+      - "Error state machine transitions"
+      - "Plugin discovery via manifest.json"
+      - "Incremental detection using file hash caching"
+      - "Error aggregation and reporting"
+    key_files:
+      - "error_engine.py"
+      - "state_machine.py"
+      - "pipeline_service.py"
+      - "plugin_manager.py"
+    depends_on: []
+    import_pattern: "from error.engine.error_engine import ErrorEngine"
+    ai_priority: "HIGH"
+    edit_policy: "safe"
+
+  - id: "error.plugins"
+    name: "Error Detection Plugins"
+    path: "error/plugins/"
+    layer: "ui"
+    purpose: "Language-specific error detection plugins"
+    responsibilities:
+      - "Implement parse() for error detection"
+      - "Optionally implement fix() for auto-remediation"
+      - "Provide manifest.json for plugin discovery"
+    key_files:
+      - "python_ruff/"
+      - "javascript_eslint/"
+      - "security_bandit/"
+    depends_on:
+      - "error.engine"
+    import_pattern: "from error.plugins.python_ruff.plugin import parse"
+    ai_priority: "HIGH"
+    edit_policy: "safe"
+
+  - id: "error.shared"
+    name: "Error Shared Utilities"
+    path: "error/shared/utils/"
+    layer: "infra"
+    purpose: "Shared utilities for error detection"
+    responsibilities:
+      - "File hashing for incremental detection"
+      - "Time utilities"
+      - "JSONL manager for error logs"
+    key_files:
+      - "hashing.py"
+      - "time_utils.py"
+      - "jsonl_manager.py"
+    depends_on: []
+    import_pattern: "from error.shared.utils.hashing import hash_file"
+    ai_priority: "MEDIUM"
+    edit_policy: "safe"
+
+  # === AIM SECTION ===
+  - id: "aim"
+    name: "AIM+ Unified AI Manager"
+    path: "aim/"
+    layer: "api"
+    purpose: "Unified AI environment and tool management"
+    responsibilities:
+      - "Tool capability routing with fallback chains"
+      - "DPAPI vault for secret management (Windows)"
+      - "Environment health checks and validation"
+      - "Automated tool installation and version pinning"
+      - "Duplicate/cache detection via scanner"
+      - "Unified audit logging"
+    key_files:
+      - "registry/"
+      - "environment/"
+      - "services/"
+      - "cli/"
+      - "config/aim_config.json"
+    depends_on: []
+    import_pattern: "from aim.bridge import get_tool_info"
+    ai_priority: "HIGH"
+    edit_policy: "safe"
+    notes: "Replaces legacy AI_MANGER (archived 2025-11-22)"
+
+  # === PM SECTION ===
+  - id: "pm"
+    name: "Project Management & CCPM"
+    path: "pm/"
+    layer: "api"
+    purpose: "Project management and CCPM integrations"
+    responsibilities:
+      - "PM CLI commands"
+      - "Local planning artifacts"
+    key_files:
+      - "commands/"
+      - "workspace/"
+    depends_on: []
+    import_pattern: "from pm.commands import run_pm_command"
+    ai_priority: "MEDIUM"
+    edit_policy: "safe"
+
+  # === SPECIFICATIONS SECTION ===
+  - id: "specifications.content"
+    name: "Specification Content"
+    path: "specifications/content/"
+    layer: "infra"
+    purpose: "Specification documents organized by domain"
+    responsibilities:
+      - "Store canonical specification documents"
+      - "Organize by domain (architecture, features, etc.)"
+    key_files:
+      - "architecture/"
+      - "features/"
+    depends_on: []
+    import_pattern: "from specifications.content import load_spec"
+    ai_priority: "HIGH"
+    edit_policy: "review-required"
+
+  - id: "specifications.tools"
+    name: "Specification Tools"
+    path: "specifications/tools/"
+    layer: "domain"
+    purpose: "Specification processing utilities"
+    responsibilities:
+      - "Spec indexing (generate_index)"
+      - "Spec URI resolution (resolve_spec_uri)"
+      - "Spec validation and guarding"
+      - "Spec patching and rendering"
+    key_files:
+      - "indexer/indexer.py"
+      - "resolver/resolver.py"
+      - "guard/"
+      - "patcher/"
+      - "renderer/"
+    depends_on:
+      - "specifications.content"
+    import_pattern: "from specifications.tools.indexer.indexer import generate_index"
+    ai_priority: "HIGH"
+    edit_policy: "safe"
+
+  - id: "specifications.bridge"
+    name: "Specification Bridge"
+    path: "specifications/bridge/"
+    layer: "api"
+    purpose: "OpenSpec to Workstream integration"
+    responsibilities:
+      - "Convert OpenSpec documents to workstream format"
+      - "Bridge spec changes to execution layer"
+    key_files:
+      - "openspec_bridge.py"
+    depends_on:
+      - "specifications.content"
+      - "core.state"
+    import_pattern: "from specifications.bridge import convert_to_workstream"
+    ai_priority: "MEDIUM"
+    edit_policy: "safe"
+
+  - id: "specifications.changes"
+    name: "Specification Changes"
+    path: "specifications/changes/"
+    layer: "infra"
+    purpose: "Active OpenSpec change proposals"
+    responsibilities:
+      - "Track proposed specification changes"
+      - "Document change rationale and impact"
+    key_files:
+      - "*.openspec.md"
+    depends_on:
+      - "specifications.content"
+    import_pattern: "N/A - document repository"
+    ai_priority: "MEDIUM"
+    edit_policy: "review-required"
+
+  # === AIDER SECTION ===
+  - id: "aider"
+    name: "Aider Integration"
+    path: "aider/"
+    layer: "api"
+    purpose: "Aider tool integration and prompt templates"
+    responsibilities:
+      - "Aider prompt templates"
+      - "Aider configuration"
+    key_files:
+      - "prompts/"
+      - "config/"
+    depends_on: []
+    import_pattern: "N/A - configuration only"
+    ai_priority: "MEDIUM"
+    edit_policy: "safe"
+
+  # === INFRASTRUCTURE ===
+  - id: "schema"
+    name: "Schema Definitions"
+    path: "schema/"
+    layer: "infra"
+    purpose: "JSON/YAML/SQL schemas defining contracts"
+    responsibilities:
+      - "Define workstream metadata contracts"
+      - "Define sidecar specifications"
+      - "Define job specifications"
+    key_files:
+      - "workstream.schema.json"
+      - "sidecar.schema.json"
+      - "job.schema.json"
+    depends_on: []
+    import_pattern: "N/A - schema files"
+    ai_priority: "HIGH"
+    edit_policy: "review-required"
+
+  - id: "config"
+    name: "Runtime Configuration"
+    path: "config/"
+    layer: "infra"
+    purpose: "Adapter profiles, rules, circuit-breaker settings"
+    responsibilities:
+      - "Tool adapter profiles"
+      - "Decomposition rules"
+      - "Circuit-breaker thresholds"
+    key_files:
+      - "adapter_profiles.yaml"
+      - "decomposition_rules.yaml"
+      - "circuit_breaker_config.yaml"
+    depends_on: []
+    import_pattern: "N/A - configuration files"
+    ai_priority: "MEDIUM"
+    edit_policy: "review-required"
+
+  - id: "scripts"
+    name: "Automation Scripts"
+    path: "scripts/"
+    layer: "ui"
+    purpose: "Automation scripts for common tasks"
+    responsibilities:
+      - "Bootstrap and setup (bootstrap.ps1)"
+      - "Test execution (test.ps1)"
+      - "Workstream validation (validate_workstreams.py)"
+      - "Workstream execution (run_workstream.py)"
+      - "Spec index generation (generate_spec_index.py)"
+    key_files:
+      - "bootstrap.ps1"
+      - "test.ps1"
+      - "validate_workstreams.py"
+      - "run_workstream.py"
+    depends_on:
+      - "core.state"
+      - "core.engine"
+      - "error.engine"
+    import_pattern: "N/A - executable scripts"
+    ai_priority: "MEDIUM"
+    edit_policy: "safe"
+
+  - id: "tests"
+    name: "Test Suite"
+    path: "tests/"
+    layer: "ui"
+    purpose: "Unit, integration, and pipeline tests"
+    responsibilities:
+      - "Unit tests for core components"
+      - "Integration tests for workflows"
+      - "Pipeline-specific tests"
+      - "Error plugin tests"
+    key_files:
+      - "unit/"
+      - "integration/"
+      - "pipeline/"
+      - "plugins/"
+      - "error/"
+    depends_on:
+      - "core.state"
+      - "core.engine"
+      - "error.engine"
+    import_pattern: "N/A - test files"
+    ai_priority: "HIGH"
+    edit_policy: "safe"
+
+  - id: "tools"
+    name: "Internal Utilities"
+    path: "tools/"
+    layer: "infra"
+    purpose: "Internal Python utilities"
+    responsibilities:
+      - "Path indexing utilities"
+      - "Internal helper tools"
+    key_files:
+      - "hardcoded_path_indexer/"
+    depends_on: []
+    import_pattern: "from tools.hardcoded_path_indexer import index_paths"
+    ai_priority: "LOW"
+    edit_policy: "safe"
+
+  - id: "workstreams"
+    name: "Workstream Examples"
+    path: "workstreams/"
+    layer: "ui"
+    purpose: "Example workstream JSON bundles"
+    responsibilities:
+      - "Provide single workstream examples"
+      - "Provide multi-workstream examples"
+      - "Demonstrate workstream patterns"
+    key_files:
+      - "single/"
+      - "multi/"
+    depends_on: []
+    import_pattern: "N/A - example files"
+    ai_priority: "MEDIUM"
+    edit_policy: "safe"
+
+  - id: "docs"
+    name: "Documentation"
+    path: "docs/"
+    layer: "ui"
+    purpose: "Architecture, guides, ADRs, implementation records"
+    responsibilities:
+      - "Maintain architecture documentation"
+      - "Track implementation summaries"
+      - "Provide configuration guides"
+      - "Document refactor mappings"
+    key_files:
+      - "ARCHITECTURE.md"
+      - "PHASE_*_COMPLETE.md"
+      - "CONFIGURATION_GUIDE.md"
+      - "SECTION_REFACTOR_MAPPING.md"
+    depends_on: []
+    import_pattern: "N/A - documentation files"
+    ai_priority: "MEDIUM"
+    edit_policy: "safe"
+
+  - id: "meta"
+    name: "Phase Planning"
+    path: "meta/"
+    layer: "ui"
+    purpose: "Phase development docs and planning"
+    responsibilities:
+      - "Store phase plans"
+      - "Track development milestones"
+      - "Maintain planning artifacts"
+    key_files:
+      - "plans/"
+    depends_on: []
+    import_pattern: "N/A - planning documents"
+    ai_priority: "LOW"
+    edit_policy: "safe"
+
+  - id: "gui"
+    name: "GUI Components"
+    path: "gui/"
+    layer: "ui"
+    purpose: "Graphical user interface components"
+    responsibilities:
+      - "GUI implementation (if applicable)"
+    key_files:
+      - "components/"
+    depends_on:
+      - "engine"
+    import_pattern: "from gui.components import MainWindow"
+    ai_priority: "LOW"
+    edit_policy: "safe"
+
+  # === LEGACY (DEPRECATED) ===
+  - id: "legacy"
+    name: "Legacy Components"
+    path: "legacy/"
+    layer: "infra"
+    purpose: "Archived/deprecated components"
+    responsibilities:
+      - "Store deprecated code for reference"
+      - "Maintain migration history"
+    key_files:
+      - "AI_MANGER_archived_2025-11-22/"
+      - "AUX_mcp-data_archived_2025-11-22/"
+    depends_on: []
+    import_pattern: "N/A - DO NOT IMPORT"
+    ai_priority: "EXCLUDE"
+    edit_policy: "read-only"
+    notes: "DO NOT use in new code - see docs/SECTION_REFACTOR_MAPPING.md for modern equivalents"
+
+# Cross-cutting concerns and dependencies
+dependency_graph:
+  layers:
+    - infra: []  # No dependencies
+    - domain: ["infra"]  # Depends on infrastructure
+    - api: ["domain", "infra"]  # Depends on domain and infrastructure
+    - ui: ["api", "domain", "infra"]  # Can depend on all lower layers
+
+  # Critical dependency rules
+  rules:
+    - "No circular dependencies allowed between modules"
+    - "Modules can only depend on modules in same or lower layer"
+    - "Legacy modules must not be imported by any active module"
+    - "Tests can import from any module except other tests"
+    - "Scripts can import from any module except tests and other scripts"
+
+  # Import validation patterns (for CI)
+  forbidden_imports:
+    - pattern: "from src.pipeline.*"
+      reason: "Use 'from core.*' instead (post-Phase E refactor)"
+    - pattern: "from MOD_ERROR_PIPELINE.*"
+      reason: "Use 'from error.*' instead (post-Phase E refactor)"
+    - pattern: "from legacy.*"
+      reason: "Legacy code is read-only - do not import"
+    - pattern: "from openspec.specs.*"
+      reason: "Use 'from specifications.content.*' instead"
+
+# Workspace directories (runtime, gitignored)
+workspace:
+  - path: ".worktrees/"
+    purpose: "Per-workstream working folders, contains pipeline_state.db"
+    ai_priority: "EXCLUDE"
+  - path: ".ledger/"
+    purpose: "Execution ledger for tracking workstream runs"
+    ai_priority: "EXCLUDE"
+  - path: ".tasks/"
+    purpose: "Task queue storage"
+    ai_priority: "EXCLUDE"
+  - path: ".runs/"
+    purpose: "Execution run records"
+    ai_priority: "EXCLUDE"
+  - path: "pm/workspace/"
+    purpose: "Local planning artifacts (gitignored)"
+    ai_priority: "EXCLUDE"
+
+# Documentation index
+documentation:
+  architecture: "docs/ARCHITECTURE.md"
+  directory_guide: "DIRECTORY_GUIDE.md"
+  refactor_mapping: "docs/SECTION_REFACTOR_MAPPING.md"
+  agents_guide: "AGENTS.md"
+  readme: "README.md"
+  quick_start: "QUICK_START.md"

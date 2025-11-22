@@ -1,5 +1,35 @@
 # Repository guidelines
 
+## AI Codebase Structure (ACS) Artifacts
+
+**For AI Tools**: This repository implements the AI Codebase Structure Specification for improved AI tool effectiveness.
+
+### Key ACS Artifacts
+- **CODEBASE_INDEX.yaml**: Complete module index with dependencies, layers, and import patterns
+- **QUALITY_GATE.yaml**: Quality gates and validation commands
+- **ai_policies.yaml**: Machine-readable edit policies (safe/review/read-only zones) and invariants
+- **.aiignore**: Unified AI tool ignore rules (consolidates .gitignore + .aiderignore)
+- **.meta/AI_GUIDANCE.md**: Human-readable AI agent onboarding guide
+- **.meta/ai_context/**: Pre-computed AI context summaries
+  - `repo_summary.json` - Machine-readable repository metadata
+  - `code_graph.json` - Module dependency graph (validated acyclic)
+
+### Usage for AI Agents
+1. **Start here**: Read `.meta/AI_GUIDANCE.md` for quick onboarding
+2. **Module discovery**: Consult `CODEBASE_INDEX.yaml` for module IDs and dependencies
+3. **Edit policies**: Check `ai_policies.yaml` before modifying files
+4. **Validation**: Run `python scripts/validate_acs_conformance.py` to verify changes
+5. **Regenerate context**: Run `python scripts/generate_repo_summary.py` and `python scripts/generate_code_graph.py` after structure changes
+
+### Edit Zone Quick Reference
+- ✅ **Safe to modify**: `core/**`, `engine/**`, `error/**`, `tests/**`, `scripts/**`
+- ⚠️ **Review required**: `schema/**`, `config/**`, canonical docs (CODEBASE_INDEX, etc.)
+- ❌ **Read-only**: `legacy/**`, ADRs, runtime directories (`.worktrees/`, etc.)
+
+See `ai_policies.yaml` for complete zone definitions and invariants.
+
+---
+
 ## Project structure & module organization (Post-Phase E Refactor)
 
 ### Core Sections

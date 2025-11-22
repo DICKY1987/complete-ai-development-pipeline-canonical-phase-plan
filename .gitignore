@@ -147,3 +147,12 @@ temp/
 
 # Refactor tracking database
 refactor_paths.db
+
+# ===========================
+# AI Context Artifacts
+# ===========================
+# Generated AI context summaries - regenerate from source
+# Decision: Commit to git for CI/deployment use
+# .meta/ai_context/repo_summary.json
+# .meta/ai_context/repo_summary.md
+# .meta/ai_context/code_graph.json
