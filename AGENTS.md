@@ -22,7 +22,9 @@
 - **error/shared/utils/**: Hashing, time utilities, JSONL manager
 
 ### Domain-Specific Sections
-- **aim/**: AIM integration bridge and tool registry
+- **aim/**: AIM+ unified AI environment manager (registry, secrets, health, scanner, installer)
+  - Replaces legacy AI_MANGER (archived 2025-11-22)
+  - CLI: `python -m aim`
 - **pm/**: Project management and CCPM integrations
 - **specifications/**: Unified spec management (content, tools, changes, bridge)
 - **aider/**: Aider integration and prompt templates
@@ -49,6 +51,8 @@
 ### Legacy (Deprecated - Do Not Use in New Code)
 - **src/pipeline/**: Backward-compatibility shims -> Use `core.*` instead
 - **MOD_ERROR_PIPELINE/**: Legacy error shims -> Use `error.*` instead
+- **legacy/AI_MANGER_archived_2025-11-22/**: Archived PowerShell environment manager (migrated to `aim/`)
+- **legacy/AUX_mcp-data_archived_2025-11-22/**: Archived MCP setup files (superseded by `.worktrees/pipeline_state.db`)
 
 See [docs/SECTION_REFACTOR_MAPPING.md](docs/SECTION_REFACTOR_MAPPING.md) for complete old->new path mappings.
 

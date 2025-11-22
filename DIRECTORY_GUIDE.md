@@ -56,9 +56,15 @@ complete-ai-development-pipeline-canonical-phase-plan/
 │
 ├── 🗃️ WORKSPACE & STATE
 │   ├── .worktrees/         # Runtime worktree folders (gitignored)
+│   │   └── pipeline_state.db  # Active SQLite database
 │   ├── .ledger/            # Execution ledger
 │   ├── .tasks/             # Task queue storage
 │   └── .runs/              # Execution run records
+│
+├── 🗄️ LEGACY (ARCHIVED)
+│   └── legacy/             # Archived/deprecated components
+│       ├── AI_MANGER_archived_2025-11-22/  # PowerShell env manager (→ aim/)
+│       └── AUX_mcp-data_archived_2025-11-22/  # Old MCP files (→ .worktrees/)
 │
 └── 📄 ROOT DOCUMENTATION
     ├── README.md           # Main entry point
@@ -136,15 +142,29 @@ complete-ai-development-pipeline-canonical-phase-plan/
 ### Domain-Specific Integrations
 
 #### `aim/`
-**Purpose**: AIM (AI Tools Integration Manager) bridge.
+**Purpose**: AIM+ unified AI environment manager.
 
-**Key Files**:
-- `bridge.py` - Tool registry integration
-- Tool-specific adapters
+**Structure**:
+- `registry/` - AI tool capability registry and routing
+- `environment/` - Environment management (secrets, health, scanner, installer, version control, audit)
+- `services/` - Unified services layer
+- `cli/` - Command-line interface
+- `config/` - Unified configuration (aim_config.json)
 
-**Import Pattern**: `from aim.bridge import get_tool_info`
+**Key Features**:
+- Tool capability routing with fallback chains
+- DPAPI vault for secret management (Windows) / keyring (cross-platform)
+- Environment health checks and validation
+- Automated tool installation and version pinning
+- Duplicate/cache detection via scanner
+- Unified audit logging
 
-**AI Context Priority**: MEDIUM - External integration
+**Import Pattern**: `from aim.bridge import get_tool_info`  
+**CLI**: `python -m aim status|health|secrets|scan`  
+
+**Migration**: Replaces legacy AI_MANGER (archived 2025-11-22)
+
+**AI Context Priority**: HIGH - Core infrastructure for AI tool management
 
 ---
 
@@ -347,7 +367,7 @@ Execution run records.
 **Exclude**:
 - `.worktrees/`, `.ledger/`, `.tasks/`, `.runs/` - Runtime artifacts
 - `__pycache__/`, `.pytest_cache/` - Build artifacts
-- Legacy/archive directories
+- `legacy/` - Archived components (AI_MANGER, AUX_mcp-data)
 
 ### For Specific Tasks
 
