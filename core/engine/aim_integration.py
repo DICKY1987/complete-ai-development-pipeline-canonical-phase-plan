@@ -3,10 +3,16 @@
 Provides capability-based tool routing with fallback to direct tool invocation.
 Enables the orchestrator to use AIM when available while maintaining backward
 compatibility with direct tool calls.
+
+AIM+ Features:
+- Pre-flight health checks
+- Version drift detection
+- Audit logging for all operations
 """
 
 from typing import Any, Dict, Optional
 import logging
+import asyncio
 
 from aim.bridge import route_capability, load_aim_registry
 from aim.exceptions import (
@@ -16,6 +22,13 @@ from aim.exceptions import (
     AIMAllToolsFailedError,
 )
 from core.engine.tools import ToolResult, run_tool
+
+# AIM+ imports
+from aim.environment.health import HealthMonitor
+from aim.environment.version_control import VersionControl
+from aim.environment.audit import get_audit_logger, EventType, EventSeverity
+from aim.environment.installer import ToolInstaller
+from aim.registry.config_loader import ConfigLoader
 
 logger = logging.getLogger(__name__)
 
@@ -31,6 +44,96 @@ def is_aim_available() -> bool:
         return True
     except (AIMRegistryNotFoundError, FileNotFoundError):
         return False
+
+
+# AIM+ Health Check Integration
+_health_monitor = None
+_audit_logger = None
+
+
+def get_health_monitor() -> HealthMonitor:
+    """Get singleton health monitor instance."""
+    global _health_monitor
+    if _health_monitor is None:
+        _health_monitor = HealthMonitor()
+    return _health_monitor
+
+
+def get_aim_audit_logger():
+    """Get singleton audit logger instance."""
+    global _audit_logger
+    if _audit_logger is None:
+        _audit_logger = get_audit_logger()
+    return _audit_logger
+
+
+def run_pre_flight_checks(run_id: str, ws_id: str) -> Dict[str, Any]:
+    """Run AIM+ pre-flight checks before workstream execution.
+    
+    Args:
+        run_id: Workstream run identifier
+        ws_id: Workstream identifier
+    
+    Returns:
+        dict: Pre-flight check results with health, version status
+    
+    Raises:
+        RuntimeError: If system health is unhealthy (critical failures)
+    """
+    audit = get_aim_audit_logger()
+    health_mon = get_health_monitor()
+    
+    logger.info(f"[{run_id}:{ws_id}] Running AIM+ pre-flight checks")
+    
+    # Health checks
+    health_report = health_mon.generate_report()
+    audit.log_health_check(
+        health_report["overall_status"],
+        health_report["summary"]["pass"],
+        health_report["summary"]["fail"]
+    )
+    
+    if health_report["overall_status"] == "unhealthy":
+        error_msg = f"Pre-flight health check failed: {health_report['summary']['fail']} failures"
+        audit.log_error("pre_flight_check", error_msg)
+        raise RuntimeError(error_msg)
+    
+    # Version drift detection (warning only)
+    version_drift = None
+    try:
+        config = ConfigLoader().load()
+        installer = ToolInstaller(config)
+        vc = VersionControl(config, installer)
+        
+        # Run async version check
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        ver_report = loop.run_until_complete(vc.check_all())
+        loop.close()
+        
+        if ver_report.has_drift:
+            version_drift = {
+                "drift_count": ver_report.drift_count,
+                "missing_count": ver_report.missing_count,
+                "total": ver_report.total_count
+            }
+            logger.warning(
+                f"[{run_id}:{ws_id}] Version drift detected: "
+                f"{ver_report.drift_count} drifted, {ver_report.missing_count} missing"
+            )
+    except Exception as e:
+        logger.warning(f"[{run_id}:{ws_id}] Version check failed: {e}")
+        # Continue execution - version drift is not critical
+    
+    results = {
+        "health_status": health_report["overall_status"],
+        "health_summary": health_report["summary"],
+        "version_drift": version_drift,
+        "pre_flight_passed": True
+    }
+    
+    logger.info(f"[{run_id}:{ws_id}] Pre-flight checks passed")
+    return results
 
 
 def execute_with_aim(
