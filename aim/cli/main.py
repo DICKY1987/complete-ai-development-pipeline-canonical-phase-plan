@@ -21,6 +21,7 @@ from aim.cli.commands.health import health_cli
 from aim.cli.commands.tools import tools
 from aim.cli.commands.scan import scan_cli
 from aim.cli.commands.version import version_cli
+from aim.cli.commands.audit import audit
 
 
 console = Console()
@@ -50,6 +51,7 @@ cli.add_command(health_cli)
 cli.add_command(tools)
 cli.add_command(scan_cli)
 cli.add_command(version_cli)
+cli.add_command(audit)
 
 
 @cli.command(name="status")
