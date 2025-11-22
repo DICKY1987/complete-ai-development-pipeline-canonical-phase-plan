@@ -1,0 +1,11 @@
+{
+  "version": "1.0.0",
+  "apps": {},
+  "routing": {
+    "rules": []
+  },
+  "defaults": {
+    "max_attempts": 3,
+    "timeout_seconds": 600
+  }
+}

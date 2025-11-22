@@ -1,295 +1,243 @@
-# Documentation Index - AI Development Pipeline
+# Complete Documentation Index
 
-> **Purpose:** Central navigation hub for all documentation  
-> **Last Updated:** 2025-11-22  
-> **For AI Agents:** Start here for system understanding  
-> **Auto-generated:** This file is partially auto-generated. See `scripts/generate_doc_index.py`
+**Purpose:** Comprehensive navigation guide to all Phase K and Phase K+ documentation.
+
+**Last Updated:** 2025-11-22  
+**Maintainer:** System Architecture Team
 
 ---
 
 ## Quick Navigation
 
-| I need to... | Go to... | Type |
-|--------------|----------|------|
-| Understand architecture | [ARCHITECTURE.md](ARCHITECTURE.md) | Overview |
-| Learn terminology | [TERMS_SPEC_V1.md](../TERMS_SPEC_V1.md) | Reference |
-| Execute workstreams | [Workstream Guide](workstream_authoring_guide.md) | How-To |
-| Debug errors | [Error Pipeline](../error/README.md) | System |
-| Integrate tools | [AIM Integration](AIM_docs/AIM_INTEGRATION_CONTRACT.md) | Contract |
-| Find implementations | [Implementation Locations](IMPLEMENTATION_LOCATIONS.md) | Reference |
-| View diagrams | [Visual Architecture Guide](VISUAL_ARCHITECTURE_GUIDE.md) | Diagrams |
+- [Getting Started](#getting-started) - New users start here
+- [Architecture Decisions](#architecture-decisions-adrs) - Why we made key choices
+- [Reference Documentation](#reference-documentation) - Deep technical details
+- [Guidelines](#guidelines) - Best practices and patterns
+- [Execution & Runtime](#execution--runtime) - How the system actually works
+- [Legacy Documentation](#legacy-documentation) - Historical context
 
 ---
 
-## Documentation Categories
+## Getting Started
 
-### 1. Architecture & Design (Current State)
+**For New Users:**
+1. Read [README.md](../README.md) - Project overview
+2. Review [QUICK_START.md](../QUICK_START.md) - Get running quickly
+3. Check [AGENTS.md](../AGENTS.md) - Repository guidelines
 
-**Core Architecture:**
-- **[ARCHITECTURE.md](ARCHITECTURE.md)** - System architecture overview
-- **[HYBRID_WORKFLOW.md](HYBRID_WORKFLOW.md)** - Execution model (GUI/TUI/Terminal)
-- **[TERMS_SPEC_V1.md](../TERMS_SPEC_V1.md)** - Canonical terminology (47 terms)
-- **[ARCHITECTURE_DIAGRAMS.md](ARCHITECTURE_DIAGRAMS.md)** - Visual architecture references
-- **[VISUAL_ARCHITECTURE_GUIDE.md](VISUAL_ARCHITECTURE_GUIDE.md)** - Interactive diagram navigation
-
-**Data & State:**
-- **[analysis/Data Flow Analysis.md](analysis/Data%20Flow%20Analysis.md)** - System data flows
-- **[state_machine.md](state_machine.md)** - State machine documentation
-
-**Component Architecture:**
-- **[ENGINE_IMPLEMENTATION_SUMMARY.md](ENGINE_IMPLEMENTATION_SUMMARY.md)** - Job execution engine
-- **[UI_IMPLEMENTATION_SUMMARY.md](UI_IMPLEMENTATION_SUMMARY.md)** - UI infrastructure
-- **[plugin-ecosystem-summary.md](plugin-ecosystem-summary.md)** - Plugin architecture
+**For AI Agents:**
+1. Read [AGENTS.md](../AGENTS.md) - Critical operational rules
+2. Review [Anti-Patterns Catalog](guidelines/ANTI_PATTERNS.md) - What NOT to do
+3. Check [Change Impact Matrix](reference/CHANGE_IMPACT_MATRIX.md) - What breaks when you change X
 
 ---
 
-### 2. Workflows (How Things Work)
+## Architecture Decisions (ADRs)
 
-#### OpenSpec → Workstream Flow
-1. **Start**: [openspec_bridge.md](Project_Management_docs/openspec_bridge.md) - Create proposals
-2. **Process**: [BRIDGE_SUMMARY.md](../specifications/bridge/BRIDGE_SUMMARY.md) - Conversion workflow
-3. **Execute**: [workstream_authoring_guide.md](workstream_authoring_guide.md) - Execution guide
+**Why we made key technical choices:**
 
-**Files:**
-- `docs/Project_Management_docs/openspec_bridge.md`
-- `specifications/bridge/BRIDGE_SUMMARY.md`
-- `core/openspec_convert.py` (implementation)
+| ADR | Title | Key Decision | Impact |
+|-----|-------|-------------|--------|
+| [0001](adr/0001-workstream-model-choice.md) | Workstream Model Choice | Use workstreams over task graphs | Core execution model |
+| [0002](adr/0002-hybrid-architecture.md) | Hybrid Architecture | GUI + Terminal + TUI support | Execution flexibility |
+| [0003](adr/0003-sqlite-state-storage.md) | SQLite State Storage | SQLite for state persistence | No external DB needed |
+| [0004](adr/0004-section-based-organization.md) | Section-Based Organization | Organize by domain, not layer | Clearer module boundaries |
+| [0005](adr/0005-python-primary-language.md) | Python Primary Language | Python for core, scripts for wrappers | Ecosystem compatibility |
+| [0006](adr/0006-specifications-unified-management.md) | Specifications Unified Management | Centralized spec system | Consistent documentation |
+| [0007](adr/0007-error-plugin-architecture.md) | Error Plugin Architecture | Plugin-based error detection | Extensible linting |
+| [0008](adr/0008-database-location-worktree.md) | Database Location Worktree | Store DB in `.worktrees/` | Worktree isolation |
 
-#### Error Detection & Escalation
-1. **Detection**: [error/plugins/README.md](../error/README.md) - 21 validation plugins
-2. **State Machine**: `error/engine/error_engine.py` - 4-tier escalation
-3. **Recovery**: `core/engine/recovery.py` - Self-healing logic
-
-**Files:**
-- `error/plugins/` (21 detection plugins)
-- `error/engine/error_engine.py` (state machine)
-- `core/engine/recovery.py` (recovery manager)
-
-#### Tool Selection & Execution
-1. **Capability Routing**: `aim/bridge.py` - AIM resolution
-2. **Adapter Execution**: `core/engine/adapters/base.py` - Tool wrappers
-3. **Profile Loading**: `core/engine/tools.py` - Configuration
-
-**Files:**
-- `aim/bridge.py` (AIM integration)
-- `core/engine/adapters/` (tool adapters)
-- `invoke.yaml` (tool profiles)
-
-#### Workstream Execution
-1. **Orchestration**: `core/engine/orchestrator.py` - Main execution loop
-2. **DAG Building**: Task dependency resolution
-3. **Worktree Isolation**: `core/state/worktree.py` - Parallel safety
-
-**Files:**
-- `core/engine/orchestrator.py`
-- `core/state/worktree.py`
-- `.worktrees/` (runtime isolation)
+**See also:** [ADR Index](adr/README.md) - Detailed ADR catalog
 
 ---
 
-### 3. Decision Records (Why Things Are)
+## Reference Documentation
 
-**Architecture Decision Records (ADRs):**
-- **[adr-0005-spec-tooling-consolidation.md](adr/adr-0005-spec-tooling-consolidation.md)** - Specs → specifications/
-- **[adr-error-utils-location.md](adr/adr-error-utils-location.md)** - Error utilities placement
+### Core System References
 
-**Migration & Refactor Decisions:**
-- **[DEPRECATION_PLAN.md](DEPRECATION_PLAN.md)** - Shim removal strategy
-- **[SPEC_MIGRATION_GUIDE.md](SPEC_MIGRATION_GUIDE.md)** - Spec consolidation rationale
-- **[CI_PATH_STANDARDS.md](CI_PATH_STANDARDS.md)** - Import path enforcement
+| Document | Purpose | When to Use |
+|----------|---------|-------------|
+| [Change Impact Matrix](reference/CHANGE_IMPACT_MATRIX.md) | What to update when changing X | Before making any code changes |
+| [Error Catalog](reference/ERROR_CATALOG.md) | 25 common errors + recovery | When diagnosing errors |
+| [State Machines](reference/STATE_MACHINES.md) | State transition rules | When working with state |
+| [Data Flows](reference/DATA_FLOWS.md) | How data moves through system | Understanding system behavior |
+| [Dependencies](reference/DEPENDENCIES.md) | Module coupling analysis | Before refactoring |
 
-**Design Rationale:**
-- **[HYBRID_WORKFLOW.md](HYBRID_WORKFLOW.md)** - Why hybrid execution model
-- **[COORDINATION_GUIDE.md](COORDINATION_GUIDE.md)** - Multi-agent coordination
+### Reference Details
 
----
+**Change Impact Matrix** (10 components, 25+ dependencies)
+- Schema changes → what breaks
+- Database migrations → ripple effects
+- Plugin interface changes → impact
+- Tool profile changes → affected code
 
-### 4. Implementation Guides
+**Error Catalog** (25 errors across 6 categories)
+- Database errors (6): locks, schema, constraints
+- Workstream errors (5): dependencies, timeout, conflicts
+- Plugin errors (4): manifest, execution, discovery
+- Spec errors (3): not found, circular refs
+- Tool errors (4): circuit breaker, not found
+- Config errors (3): missing files, invalid syntax
 
-**Core Systems:**
-- **[core/README.md](../core/README.md)** - Core pipeline (state, engine, planning)
-- **[error/README.md](../error/README.md)** - Error detection system
-- **[engine/README.md](../engine/README.md)** - Job-based execution engine
-- **[specifications/README.md](../specifications/README.md)** - Spec management
-- **[aim/DEPLOYMENT_GUIDE.md](../aim/DEPLOYMENT_GUIDE.md)** - AIM integration
-
-**Feature Guides:**
-- **[GUI_DEVELOPMENT_GUIDE.md](GUI_DEVELOPMENT_GUIDE.md)** - UI development
-- **[CONFIGURATION_GUIDE.md](CONFIGURATION_GUIDE.md)** - System configuration
-- **[workstream_authoring_guide.md](workstream_authoring_guide.md)** - Workstream creation
-
-**Quick References:**
-- **[ENGINE_QUICK_REFERENCE.md](ENGINE_QUICK_REFERENCE.md)** - Engine commands
-- **[plugin-quick-reference.md](plugin-quick-reference.md)** - Plugin usage
+**State Machines** (3 documented)
+- Workstream states: PENDING → RUNNING → SUCCESS/FAILED
+- Step states: PENDING → RUNNING → SUCCESS/FAILED
+- Circuit breaker: CLOSED → OPEN → HALF_OPEN
 
 ---
 
-### 5. Migration & Deprecation
+## Guidelines
 
-**Active Migrations:**
-- **[DEPRECATION_PLAN.md](DEPRECATION_PLAN.md)** - Shim removal timeline (Phase 1: Silent)
-- **[SPEC_MIGRATION_GUIDE.md](SPEC_MIGRATION_GUIDE.md)** - openspec/ + spec/ → specifications/
-- **[CI_PATH_STANDARDS.md](CI_PATH_STANDARDS.md)** - Import path enforcement
+### Development Best Practices
 
-**Completed Migrations:**
-- **[specifications/MIGRATION_COMPLETE.md](../specifications/MIGRATION_COMPLETE.md)** - Spec consolidation complete
-- **[SPEC_CONSOLIDATION_INVENTORY.md](SPEC_CONSOLIDATION_INVENTORY.md)** - Inventory of changes
+| Document | Purpose | Audience |
+|----------|---------|----------|
+| [Anti-Patterns Catalog](guidelines/ANTI_PATTERNS.md) | 17 common mistakes to avoid | All developers & AI agents |
+| [Testing Strategy](guidelines/TESTING_STRATEGY.md) | Section-specific test patterns | Writing tests |
 
-**Legacy Archive:**
-- **[LEGACY_ARCHIVE_CANDIDATES.md](LEGACY_ARCHIVE_CANDIDATES.md)** - Files for archival
-- **[archive/](archive/)** - Archived documentation
+### Anti-Patterns (17 documented)
 
----
+**Critical:** Missing migrations, hardcoded paths, network calls in tests  
+**High:** Direct DB access, missing plugin manifest, printing secrets  
+**Medium:** Non-incremental scanning, god objects, copy-paste duplication
 
-### 6. Phase Completion Reports
+### Testing Strategy
 
-**Recent Phases (Reverse Chronological):**
-- **[Phase I](PHASE_I_COMPLETE.md)** - UET Integration Complete
-- **[Phase H](PHASE_G_COMPLETE_REPORT.md)** - Directory Consolidation Complete
-- **[Phase G](PHASE_G_FINAL_SUMMARY.md)** - Invoke Adoption Complete
-- **[Phase F](PHASE_F_CHECKLIST.md)** - Post-Refactor Cleanup
-- **[Phase E](../specifications/MIGRATION_COMPLETE.md)** - Section Refactor Complete
-
-**Component Completion:**
-- **[AIM_PLUS_FINAL_REPORT.md](AIM_PLUS_FINAL_REPORT.md)** - AIM+ Integration COMPLETE
-- **[UET_IMPLEMENTATION_COMPLETE.md](UET_IMPLEMENTATION_COMPLETE.md)** - UET Framework COMPLETE
-- **[ENGINE_IMPLEMENTATION_SUMMARY.md](ENGINE_IMPLEMENTATION_SUMMARY.md)** - Engine Implementation COMPLETE
-- **[UI_IMPLEMENTATION_SUMMARY.md](UI_IMPLEMENTATION_SUMMARY.md)** - UI Infrastructure COMPLETE
-
-**Current Phase:**
-- **[PHASE_K_DOCUMENTATION_ENHANCEMENT_PLAN.md](PHASE_K_DOCUMENTATION_ENHANCEMENT_PLAN.md)** - Documentation Enhancement (IN PROGRESS)
+**Section-Specific Patterns:**
+- Core State: Use in-memory DB (`:memory:`)
+- Core Engine: Mock tool adapters
+- Error Plugins: Use `tmp_path` fixture
+- Specifications: Mock file system
 
 ---
 
-### 7. Reference Documentation
+## Execution & Runtime
 
-**Terminology:**
-- **[TERMS_SPEC_V1.md](../TERMS_SPEC_V1.md)** - 47 canonical terms (v1.1)
-- **[IMPLEMENTATION_LOCATIONS.md](IMPLEMENTATION_LOCATIONS.md)** - Terms → code mapping
-- **[TERM_RELATIONSHIPS.md](TERM_RELATIONSHIPS.md)** - Term dependency graphs
+### How the System Actually Works
 
-**Specifications:**
-- **[SPEC_MANAGEMENT_CONTRACT.md](SPEC_MANAGEMENT_CONTRACT.md)** - Spec system contract
-- **[PATH_ABSTRACTION_SPEC.md](PATH_ABSTRACTION_SPEC.md)** - Path handling standards
+| Document | Focus | Use Case |
+|----------|-------|----------|
+| [Execution Traces Summary](EXECUTION_TRACES_SUMMARY.md) | Runtime behavior | Understanding performance |
 
-**Integration Contracts:**
-- **[AIM_docs/AIM_INTEGRATION_CONTRACT.md](AIM_docs/AIM_INTEGRATION_CONTRACT.md)** - AIM contract
-- **[aider_contract.md](aider_contract.md)** - Aider integration
+### Performance Insights
 
----
-
-### 8. Project Management
-
-**Phase Planning:**
-- **[PHASE_PLAN.md](PHASE_PLAN.md)** - Overall phase roadmap
-- **[PHASE_ROADMAP.md](PHASE_ROADMAP.md)** - Development roadmap
-- **[planning/](planning/)** - Phase planning documents
-
-**CCPM & PM:**
-- **[Project_Management_docs/](Project_Management_docs/)** - PM documentation
-- **[pm/CONTRACT.md](../pm/CONTRACT.md)** - PM contract
+| Trace | Duration | Bottleneck | Speedup |
+|-------|----------|------------|---------|
+| Workstream Execution | 1.4s | pytest (88%) | Parallel tests (2-3×) |
+| Error Detection | 611ms | Plugins (57%) | **Cache: 9.4×** |
+| Spec Resolution | 87ms → 3ms | Markdown parse | **Cache: 29×** |
+| State Transitions | 1.3s | Retry wait (79%) | Async retry |
+| Tool Adapter | 15s | AI tool (99.9%) | User config |
 
 ---
 
-## For AI Agents
+## Documentation by Use Case
 
-### Context Loading Priority
+### "I want to..."
 
-**HIGH** (always load for system understanding):
-1. **[TERMS_SPEC_V1.md](../TERMS_SPEC_V1.md)** - Terminology foundation
-2. **[ARCHITECTURE.md](ARCHITECTURE.md)** - System architecture
-3. **[AGENTS.md](../AGENTS.md)** - Coding standards
-4. **[DIRECTORY_GUIDE.md](../DIRECTORY_GUIDE.md)** - Repository structure
+**...understand a design decision**  
+→ Check [ADRs](#architecture-decisions-adrs)
 
-**MEDIUM** (load for specific domains):
-- **[core/README.md](../core/README.md)** - Core pipeline
-- **[error/README.md](../error/README.md)** - Error system
-- **[engine/README.md](../engine/README.md)** - Execution engine
-- **[specifications/README.md](../specifications/README.md)** - Spec management
+**...fix an error**  
+→ Search [Error Catalog](reference/ERROR_CATALOG.md)
 
-**LOW** (load on explicit request):
-- Phase completion reports
-- Migration guides (unless working on migrations)
-- Archived documentation
+**...avoid common mistakes**  
+→ Review [Anti-Patterns](guidelines/ANTI_PATTERNS.md)
 
----
+**...know what breaks if I change X**  
+→ Consult [Change Impact Matrix](reference/CHANGE_IMPACT_MATRIX.md)
 
-### Finding Information
+**...understand how data flows**  
+→ Read [Data Flows](reference/DATA_FLOWS.md)
 
-| Question Type | Go To |
-|---------------|-------|
-| **"How do I..."** | Workflows section above |
-| **"What is..."** | [TERMS_SPEC_V1.md](../TERMS_SPEC_V1.md) |
-| **"Why is..."** | Decision Records section |
-| **"Where is..."** | [IMPLEMENTATION_LOCATIONS.md](IMPLEMENTATION_LOCATIONS.md) |
-| **"Show me..."** | [VISUAL_ARCHITECTURE_GUIDE.md](VISUAL_ARCHITECTURE_GUIDE.md) |
+**...write tests for component X**  
+→ Follow [Testing Strategy](guidelines/TESTING_STRATEGY.md)
+
+**...understand state transitions**  
+→ See [State Machines](reference/STATE_MACHINES.md)
+
+**...know what depends on what**  
+→ Check [Dependencies](reference/DEPENDENCIES.md)
+
+**...optimize performance**  
+→ Review [Execution Traces](EXECUTION_TRACES_SUMMARY.md)
 
 ---
 
-### Common Questions Map
+## Phase K+ Completion Summary
 
-| Question | Answer Location |
-|----------|-----------------|
-| How does workstream execution work? | `core/engine/orchestrator.py` + [HYBRID_WORKFLOW.md](HYBRID_WORKFLOW.md) |
-| What tools are available? | `aim/registry/` + `invoke.yaml` |
-| How are errors handled? | [error/README.md](../error/README.md) + `error/engine/error_engine.py` |
-| What do these terms mean? | [TERMS_SPEC_V1.md](../TERMS_SPEC_V1.md) |
-| How do I create a workstream? | [workstream_authoring_guide.md](workstream_authoring_guide.md) |
-| Where is X implemented? | [IMPLEMENTATION_LOCATIONS.md](IMPLEMENTATION_LOCATIONS.md) |
-| What's the data flow? | [VISUAL_ARCHITECTURE_GUIDE.md](VISUAL_ARCHITECTURE_GUIDE.md) |
-| How do I integrate a tool? | [AIM_docs/AIM_INTEGRATION_CONTRACT.md](AIM_docs/AIM_INTEGRATION_CONTRACT.md) |
-| What's deprecated? | [DEPRECATION_PLAN.md](DEPRECATION_PLAN.md) |
-| What changed in Phase X? | Phase Completion Reports section |
+### Week 1: Critical Foundations ✅
+- 8 ADRs documenting key decisions
+- Change Impact Matrix (10 components, 25+ dependencies)
+- Anti-Patterns Catalog (17 patterns)
+
+### Week 2: Runtime & Testing ✅
+- Execution Traces (5 workflows analyzed)
+- Testing Strategy Guide (5 sections)
+- Performance insights (9.4×, 29× cache speedups)
+
+### Week 3: Dependencies, Errors, Data ✅
+- Error Catalog (25 errors, 6 categories)
+- Data Flow Diagrams (3 major flows)
+- Dependency Analysis (25+ modules, 0 circular deps)
+
+### Week 4: Final Integration ✅
+- State Machine Documentation (3 machines)
+- Complete Documentation Index (this file)
+- Cross-reference updates
+
+**Total Deliverables:** 20+ files, ~120,000 lines of documentation
 
 ---
 
-### Navigation Tips
+## Legacy Documentation
 
-**Start with the right entry point:**
-- New to codebase? → [ARCHITECTURE.md](ARCHITECTURE.md)
-- Need to implement feature? → [Workflows](#2-workflows-how-things-work)
-- Debugging issue? → [error/README.md](../error/README.md)
-- Understanding term? → [TERMS_SPEC_V1.md](../TERMS_SPEC_V1.md)
-- Looking for code? → [IMPLEMENTATION_LOCATIONS.md](IMPLEMENTATION_LOCATIONS.md)
+**Previous documentation is preserved at:** [DOCUMENTATION_INDEX_OLD.md](DOCUMENTATION_INDEX_OLD.md)
 
-**Follow the documentation hierarchy:**
+For historical context, see original Phase K documentation including:
+- Architecture diagrams
+- Workflow documentation
+- Component summaries
+- OpenSpec bridge
+
+---
+
+## File Locations
+
 ```
-DOCUMENTATION_INDEX.md (you are here)
-  ├── High-level: ARCHITECTURE.md, TERMS_SPEC_V1.md
-  ├── Workflows: How things work end-to-end
-  ├── Implementation: Section READMEs (core/, error/, etc.)
-  └── Code: IMPLEMENTATION_LOCATIONS.md (file:line references)
+docs/
+├── DOCUMENTATION_INDEX.md      # This file (Phase K+)
+├── DOCUMENTATION_INDEX_OLD.md  # Original Phase K index
+├── adr/                        # Architecture Decision Records (8 files)
+├── reference/                  # Technical reference (5 files)
+│   ├── CHANGE_IMPACT_MATRIX.md
+│   ├── ERROR_CATALOG.md
+│   ├── STATE_MACHINES.md
+│   ├── DATA_FLOWS.md
+│   └── DEPENDENCIES.md
+├── guidelines/                 # Development guidelines (2 files)
+│   ├── ANTI_PATTERNS.md
+│   └── TESTING_STRATEGY.md
+└── EXECUTION_TRACES_SUMMARY.md # Performance traces
 ```
 
 ---
 
 ## Maintenance
 
-**Daily (Automated):**
-- Documentation index validation (broken links)
-- Cross-reference index generation
-- Implementation location scanning
+**Update Triggers:**
+- New ADR → Update ADR index and this file
+- Major refactoring → Update Change Impact Matrix
+- New error pattern → Add to Error Catalog
+- Performance change → Update Execution Traces
 
-**Weekly:**
-- Review for stale content
-- Update phase completion status
-- Check for new ADRs
-
-**On Major Changes:**
-- Refactor → Update architecture docs
-- New feature → Update workflows section
-- API change → Update implementation locations
+**Review Schedule:**
+- Monthly: Check for broken links
+- Quarterly: Review metrics
+- Per Phase: Major updates
 
 ---
-
-## Index Statistics
 
 **Last Updated:** 2025-11-22  
-**Total Documents:** 80+  
-**Categories:** 8  
-**Auto-generated Sections:** Implementation Locations, Cross-References  
-**Manual Sections:** All others
-
----
-
-**END OF DOCUMENTATION INDEX**
+**Status:** ✅ Phase K+ Complete  
+**Next Review:** 2025-12-22

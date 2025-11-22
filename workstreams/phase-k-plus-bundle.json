@@ -1,0 +1,162 @@
+{
+  "bundle_id": "phase-k-plus",
+  "bundle_name": "Phase K+: Decision Context Enhancement",
+  "description": "Add critical decision-making context to documentation",
+  "version": "1.0.0",
+  "estimated_duration_hours": 32,
+  "max_cost_usd": 50.0,
+  "workstreams": [
+    {
+      "ws_id": "WS-K0-FOUNDATION",
+      "name": "Week 0: Phase K Foundation Completion",
+      "description": "K-1 cleanup and K-4 cross-references",
+      "kind": "docs",
+      "priority": "background",
+      "estimated_context_tokens": 5000,
+      "max_cost_usd": 5.0,
+      "steps": [
+        {
+          "step_id": "k0-01-fix-links",
+          "name": "Fix High-Priority Broken Documentation Links",
+          "description": "Fix broken links in ARCHITECTURE.md, DIRECTORY_GUIDE.md, and key README files",
+          "files": [
+            "docs/ARCHITECTURE.md",
+            "docs/DIRECTORY_GUIDE.md"
+          ],
+          "validation": {
+            "command": "python scripts/generate_doc_index.py --fail-on-broken-links",
+            "expected_exit_code": 0
+          }
+        },
+        {
+          "step_id": "k0-02-find-terms",
+          "name": "Locate 6 Missing Term Implementations",
+          "description": "Refine search patterns to find: Spec Patcher, URI Resolution, Checkpoint, AIM Bridge, Profile Matching, Compensation Action",
+          "files": [
+            "scripts/generate_implementation_map.py"
+          ]
+        },
+        {
+          "step_id": "k0-03-term-graph",
+          "name": "Create Term Relationships Graph",
+          "description": "Build hierarchical graph of 47 terms with parent-child and dependency relationships",
+          "depends_on": ["k0-02-find-terms"],
+          "create_files": [
+            "docs/TERM_RELATIONSHIPS.md",
+            "scripts/generate_term_graph.py"
+          ]
+        },
+        {
+          "step_id": "k0-04-cross-refs",
+          "name": "Generate Cross-Reference Index",
+          "description": "Create bi-directional reference map with 'Used by', 'Uses', 'Related to' for each term",
+          "depends_on": ["k0-03-term-graph"],
+          "create_files": [
+            "docs/CROSS_REFERENCE_INDEX.md",
+            "scripts/generate_cross_references.py"
+          ]
+        }
+      ]
+    },
+    {
+      "ws_id": "WS-K1-CRITICAL",
+      "name": "Week 1: Critical Foundations",
+      "description": "ADRs, Change Impact Matrix, Anti-Patterns",
+      "kind": "docs",
+      "priority": "foreground",
+      "depends_on": [],
+      "estimated_context_tokens": 8000,
+      "max_cost_usd": 10.0,
+      "steps": [
+        {
+          "step_id": "k1-01-adr-structure",
+          "name": "Create ADR Directory and Template",
+          "description": "Set up docs/adr/ with README and template following ADR format",
+          "create_files": [
+            "docs/adr/README.md",
+            "docs/adr/template.md"
+          ]
+        },
+        {
+          "step_id": "k1-02-adr-workstream",
+          "name": "ADR-0001: Workstream Model Choice",
+          "description": "Document why workstream over task graph",
+          "depends_on": ["k1-01-adr-structure"],
+          "create_files": ["docs/adr/0001-workstream-model-choice.md"]
+        },
+        {
+          "step_id": "k1-03-adr-hybrid",
+          "name": "ADR-0002: Hybrid Architecture",
+          "description": "Document GUI/Terminal/TUI decision",
+          "depends_on": ["k1-01-adr-structure"],
+          "create_files": ["docs/adr/0002-hybrid-architecture.md"]
+        },
+        {
+          "step_id": "k1-04-adr-sqlite",
+          "name": "ADR-0003: SQLite State Storage",
+          "description": "Document why SQLite vs PostgreSQL/Redis",
+          "depends_on": ["k1-01-adr-structure"],
+          "create_files": ["docs/adr/0003-sqlite-state-storage.md"]
+        },
+        {
+          "step_id": "k1-05-adr-sections",
+          "name": "ADR-0004: Section-Based Organization",
+          "description": "Document why core/, error/, aim/ structure",
+          "depends_on": ["k1-01-adr-structure"],
+          "create_files": ["docs/adr/0004-section-based-organization.md"]
+        },
+        {
+          "step_id": "k1-06-adr-python",
+          "name": "ADR-0005: Python Primary Language",
+          "description": "Document Python + PowerShell strategy",
+          "depends_on": ["k1-01-adr-structure"],
+          "create_files": ["docs/adr/0005-python-primary-language.md"]
+        },
+        {
+          "step_id": "k1-07-adr-specs",
+          "name": "ADR-0006: Specifications Unified Management",
+          "description": "Document spec system design",
+          "depends_on": ["k1-01-adr-structure"],
+          "create_files": ["docs/adr/0006-specifications-unified-management.md"]
+        },
+        {
+          "step_id": "k1-08-adr-plugins",
+          "name": "ADR-0007: Error Plugin Architecture",
+          "description": "Document plugin vs monolith",
+          "depends_on": ["k1-01-adr-structure"],
+          "create_files": ["docs/adr/0007-error-plugin-architecture.md"]
+        },
+        {
+          "step_id": "k1-09-adr-db-location",
+          "name": "ADR-0008: Database Location Worktree",
+          "description": "Document why .worktrees/pipeline_state.db",
+          "depends_on": ["k1-01-adr-structure"],
+          "create_files": ["docs/adr/0008-database-location-worktree.md"]
+        },
+        {
+          "step_id": "k1-10-impact-matrix",
+          "name": "Create Change Impact Matrix",
+          "description": "Document critical dependencies and validation commands",
+          "create_files": ["docs/reference/CHANGE_IMPACT_MATRIX.md"]
+        },
+        {
+          "step_id": "k1-11-anti-patterns",
+          "name": "Create Anti-Patterns Catalog",
+          "description": "Document anti-patterns by section with BAD/GOOD examples",
+          "create_files": ["docs/guidelines/ANTI_PATTERNS.md"]
+        },
+        {
+          "step_id": "k1-12-update-index",
+          "name": "Update Documentation Index",
+          "description": "Add links to ADRs, impact matrix, anti-patterns",
+          "depends_on": ["k1-02-adr-workstream", "k1-10-impact-matrix", "k1-11-anti-patterns"],
+          "files": ["docs/DOCUMENTATION_INDEX.md"],
+          "validation": {
+            "command": "python scripts/generate_doc_index.py",
+            "expected_exit_code": 0
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -3,7 +3,7 @@
 **Phase:** K+ (Knowledge Enhancement)  
 **Status:** Planning  
 **Priority:** Critical  
-**Timeline:** 4 weeks  
+**Timeline:** 4-5 weeks (includes optional Week 0 for K-1 cleanup & K-4 cross-refs)  
 **Dependencies:** Phase K1-K2 (Documentation Index & Examples)
 
 ## Executive Summary
@@ -31,6 +31,80 @@ Phase K excels at navigation (WHERE/WHAT) but lacks decision-making context (WHY
 - ✅ Core documentation structure in `docs/`
 
 ## Week-by-Week Plan
+
+### Week 0: Phase K Foundation Completion (Optional Pre-work)
+
+**Focus:** Complete outstanding K-1 cleanup and K-4 cross-references
+
+This week addresses optional Phase K foundation items that enhance the base documentation system before adding decision context. Can be done in parallel with Week 1 or skipped if time-constrained.
+
+#### K-1 Optional Cleanup Tasks
+
+**From:** `PHASE_K1_OPTIONAL_CLEANUP.md`
+
+1. **Broken Documentation Links (74 found)**
+   - High-priority docs: `ARCHITECTURE.md`, `DIRECTORY_GUIDE.md`, README files
+   - Fix links broken by Phase E refactor (`src/pipeline/` → `core/`)
+   - Update deprecated path references
+   - Fix case sensitivity issues
+   - **Estimated time:** 2-3 hours
+
+2. **Missing Term Auto-Locations (6 terms)**
+   - Spec Patcher → Check `specifications/tools/patcher/`
+   - URI Resolution → Check `specifications/tools/resolver/`
+   - Checkpoint → Check `core/state/`
+   - AIM Bridge → Check `aim/bridge.py`
+   - Profile Matching → Check `core/engine/tools.py`
+   - Compensation Action → May be planned, not implemented
+   - **Estimated time:** 1 hour
+
+#### K-4 Cross-References Implementation
+
+**From:** `PHASE_K_DOCUMENTATION_ENHANCEMENT_PLAN.md` (Days 10-12)
+
+1. **docs/TERM_RELATIONSHIPS.md**
+   - Hierarchical graph of all 47 terms
+   - Parent-child relationships (e.g., "Workstream" contains "Steps")
+   - Dependency relationships (e.g., "Circuit Breaker" depends on "Retry Logic")
+   - Usage frequency and context
+
+2. **docs/CROSS_REFERENCE_INDEX.md**
+   - Auto-generated bi-directional links
+   - For each term: "Used by", "Uses", "Related to"
+   - Code references (file:line)
+   - Documentation references (section links)
+
+3. **scripts/generate_term_graph.py**
+   - Analyzes docs/ and code for term co-occurrence
+   - Builds relationship graph (NetworkX or similar)
+   - Outputs hierarchical markdown
+   - Generates Mermaid relationship diagram
+
+4. **scripts/generate_cross_references.py**
+   - Scans all markdown files for term usage
+   - Finds code references via AST/grep
+   - Builds bi-directional reference map
+   - Outputs markdown with backlinks
+
+#### Week 0 Deliverables
+- [ ] 74 broken documentation links fixed
+- [ ] 6 missing term locations identified/documented
+- [ ] `docs/TERM_RELATIONSHIPS.md` with hierarchical term graph
+- [ ] `docs/CROSS_REFERENCE_INDEX.md` with bi-directional links
+- [ ] `scripts/generate_term_graph.py`
+- [ ] `scripts/generate_cross_references.py`
+- [ ] Link validation passing (`generate_doc_index.py --fail-on-broken-links`)
+
+#### Week 0 Success Metrics
+- All high-priority documentation links valid
+- All 47 terms have at least one auto-detected location
+- Term relationships graph covers 100% of documented terms
+- Cross-reference index provides bi-directional navigation
+
+**Estimated Total Time:** 6-8 hours  
+**Can Be Skipped:** Yes, if time-constrained. Enhances but doesn't block decision context work.
+
+---
 
 ### Week 1: Critical Foundations (🔴 CRITICAL)
 
@@ -353,12 +427,14 @@ Phase K excels at navigation (WHERE/WHAT) but lacks decision-making context (WHY
 
 Phase K+ enhances existing K documentation:
 
-| Phase K Item | K+ Enhancement |
-|--------------|----------------|
-| K-1 (Index) | Links to ADRs, impact matrix |
-| K-2 (Examples) | Annotated with anti-patterns |
-| K-3 (Diagrams) | Execution traces added |
-| K-4 (Cross-refs) | Impact matrix integration |
+| Phase K Item | K+ Enhancement | Week |
+|--------------|----------------|------|
+| **K-0 (Cleanup)** | Fix 74 broken links, find 6 missing terms | Week 0 |
+| **K-1 (Index)** | Links to ADRs, impact matrix | Week 1 |
+| **K-2 (Examples)** | Annotated with anti-patterns | Week 2 |
+| **K-3 (Diagrams)** | Execution traces added | Week 2 |
+| **K-4 (Cross-refs)** | Term graphs, bi-directional links | Week 0 |
+| **K+ (Context)** | ADRs, impact matrix, anti-patterns | Weeks 1-4 |
 
 ## Risks & Mitigation
 
@@ -383,6 +459,8 @@ Phase K+ enhances existing K documentation:
 ## References
 
 - Original gap analysis: `C:\Users\richg\TODO_TONIGHT\Phase K Gap Analysis While Phase K.txt`
+- K-1 optional cleanup: `C:\Users\richg\TODO_TONIGHT\PHASE_K1_OPTIONAL_CLEANUP.md`
+- K enhancement plan: `C:\Users\richg\TODO_TONIGHT\PHASE_K_DOCUMENTATION_ENHANCEMENT_PLAN.md`
 - Phase K1 completion: `docs/PHASE_K1_COMPLETE.md`
 - Phase K2 completion: `docs/PHASE_K2_COMPLETE.md`
 - Architecture docs: `docs/ARCHITECTURE.md`
@@ -390,11 +468,31 @@ Phase K+ enhances existing K documentation:
 
 ## Completion Criteria
 
-- [ ] All Week 1 deliverables complete (ADRs, impact matrix, anti-patterns)
-- [ ] All Week 2 deliverables complete (traces, testing strategy)
-- [ ] All Week 3 deliverables complete (dependencies, errors, data flows)
-- [ ] All Week 4 deliverables complete (performance, state machines, automation)
-- [ ] CI validation passing
-- [ ] Documentation index updated
-- [ ] Success metrics achieved
-- [ ] Phase K+ completion document created
+- [ ] **Week 0 (Optional):** K-1 cleanup and K-4 cross-references complete
+  - [ ] 74 broken documentation links fixed
+  - [ ] 6 missing term locations identified
+  - [ ] Term relationships graph created
+  - [ ] Cross-reference index generated
+  - [ ] Link validation passing
+- [ ] **Week 1:** ADRs, impact matrix, anti-patterns complete
+  - [ ] 8 essential ADRs documented
+  - [ ] Change impact matrix covers 20+ dependencies
+  - [ ] Anti-patterns catalog has 15+ examples
+- [ ] **Week 2:** Execution traces and testing strategy complete
+  - [ ] 5 workflow execution traces documented
+  - [ ] Testing strategy guide covers all sections
+  - [ ] Sequence diagrams created
+- [ ] **Week 3:** Dependencies, errors, data flows complete
+  - [ ] Dependency graphs generated (code + conceptual)
+  - [ ] Error catalog has 20+ recovery procedures
+  - [ ] Data flow diagrams cover 3+ major flows
+- [ ] **Week 4:** Performance, state machines, automation complete
+  - [ ] Performance profiles identify bottlenecks
+  - [ ] State machine catalog complete
+  - [ ] CI validation scripts running
+  - [ ] Documentation index fully updated
+- [ ] **Overall success metrics achieved:**
+  - [ ] AI decision time <2 minutes
+  - [ ] Wrong decision rate <5%
+  - [ ] Breaking changes rare (<1/month)
+  - [ ] Phase K+ completion document created
