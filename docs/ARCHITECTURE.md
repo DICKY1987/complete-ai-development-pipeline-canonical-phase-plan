@@ -48,10 +48,6 @@ This repository implements a multi-phase AI development pipeline with section-ba
 ## Section-Based Organization
 
 ### Core Sections
-
-## Section-Based Organization
-
-### Core: State Management (`core/state/`)
 **Purpose**: Database operations, state persistence, bundle management
 
 **Key Components**:
