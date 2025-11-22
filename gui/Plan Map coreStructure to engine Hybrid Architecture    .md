@@ -292,7 +292,7 @@
      │ ---                                                                     │
      │ Phase 3: Create Job Schema                                              │
      │                                                                         │
-     │ Create specs/jobs/job.schema.json following the layout document's       │
+     │ Create schema/jobs/job.schema.json following the layout document's       │
      │ specification.                                                          │
      │                                                                         │
      │ ---                                                                     │
@@ -381,7 +381,7 @@
      │ 14. engine/adapters/git_adapter.py                                      │
      │ 15. engine/state_store/job_state_store.py                               │
      │ 16. engine/orchestrator/job_queue.py                                    │
-     │ 17. specs/jobs/job.schema.json                                          │
+     │ 17. schema/jobs/job.schema.json                                          │
      │                                                                         │
      │ Files to Modify (6 files)                                               │
      │                                                                         │

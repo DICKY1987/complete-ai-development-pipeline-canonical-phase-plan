@@ -202,7 +202,7 @@ async def main():
     
     # Submit job
     job_id = await manager.submit_job(
-        job_file="specs/jobs/aider_job.json",
+        job_file="schema/jobs/aider_job.json",
         priority="high"
     )
     
@@ -352,7 +352,7 @@ python -c "from engine.queue import QueueManager; print('✅ Imports OK')"
 python -m engine.queue --help
 
 # Submit test job
-python -m engine.queue submit --job-file specs/jobs/git_job.example.json
+python -m engine.queue submit --job-file schema/jobs/git_job.example.json
 
 # Check stats
 python -m engine.queue stats

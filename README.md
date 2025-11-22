@@ -22,7 +22,7 @@ python scripts/validate_engine.py          # 7/7 tests
 python scripts/test_state_store.py         # 6/6 tests
 
 # Run a job through the orchestrator
-python -m engine.orchestrator run-job --job-file specs/jobs/aider_job.example.json
+python -m engine.orchestrator run-job --job-file schema/jobs/aider_job.example.json
 ```
 
 **Phase Status**:

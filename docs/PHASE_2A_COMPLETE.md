@@ -275,7 +275,7 @@ State store provides all data for:
 
 ### Modified Files (4)
 - `engine/orchestrator/orchestrator.py` - Added state store integration
-- `specs/jobs/aider_job.example.json` - Added run_id field
+- `schema/jobs/aider_job.example.json` - Added run_id field
 - `scripts/validate_engine.py` - Added state store tests
 - `docs/ENGINE_STATUS.md` - Updated status and metrics
 

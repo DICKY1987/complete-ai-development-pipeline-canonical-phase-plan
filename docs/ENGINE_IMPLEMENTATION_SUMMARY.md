@@ -34,7 +34,7 @@ specs/                               # Job specifications
 
 ## Key Components
 
-### 1. Job Schema (`specs/jobs/job.schema.json`)
+### 1. Job Schema (`schema/jobs/job.schema.json`)
 
 Defines the standard contract for all tool executions:
 - **job_id**: Unique identifier
@@ -120,7 +120,7 @@ Uses Python `Protocol` for contracts:
 ### Run an Aider Job
 
 ```bash
-python -m engine.orchestrator run-job --job-file specs/jobs/aider_job.example.json
+python -m engine.orchestrator run-job --job-file schema/jobs/aider_job.example.json
 ```
 
 ### Create a Custom Job
@@ -200,7 +200,7 @@ Orchestrator is functional and can be tested:
 python -m engine.orchestrator --help
 
 # Run example job (requires aider installed)
-python -m engine.orchestrator run-job --job-file specs/jobs/aider_job.example.json
+python -m engine.orchestrator run-job --job-file schema/jobs/aider_job.example.json
 ```
 
 ## Compliance with AGENTS.md

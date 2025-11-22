@@ -24,11 +24,11 @@ engine/
 
 ### Job-Based Execution
 
-All tool executions (Aider, Codex, tests, git) are defined as **job JSON files** conforming to `specs/jobs/job.schema.json`.
+All tool executions (Aider, Codex, tests, git) are defined as **job JSON files** conforming to `schema/jobs/job.schema.json`.
 
 **Example:**
 ```bash
-python -m engine.orchestrator run-job --job-file specs/jobs/aider_job.example.json
+python -m engine.orchestrator run-job --job-file schema/jobs/aider_job.example.json
 ```
 
 ### Adapter Pattern
@@ -60,7 +60,7 @@ python -m engine.orchestrator run-job --job-file path/to/job.json
 
 ### Creating a Job File
 
-See `specs/jobs/aider_job.example.json` for a complete example.
+See `schema/jobs/aider_job.example.json` for a complete example.
 
 Required fields:
 - `job_id`: Unique identifier (e.g., `job-2025-11-20-001`)

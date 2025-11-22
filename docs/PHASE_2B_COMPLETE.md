@@ -65,7 +65,7 @@ Git operations adapter for repository management:
 Created complete example job files for all new adapters:
 
 ### Codex Job Example
-**File**: `specs/jobs/codex_job.example.json`
+**File**: `schema/jobs/codex_job.example.json`
 
 ```json
 {
@@ -81,7 +81,7 @@ Created complete example job files for all new adapters:
 ```
 
 ### Tests Job Example
-**File**: `specs/jobs/tests_job.example.json`
+**File**: `schema/jobs/tests_job.example.json`
 
 ```json
 {
@@ -98,7 +98,7 @@ Created complete example job files for all new adapters:
 ```
 
 ### Git Job Example
-**File**: `specs/jobs/git_job.example.json`
+**File**: `schema/jobs/git_job.example.json`
 
 ```json
 {
@@ -344,9 +344,9 @@ if aider_result.success:
 - `engine/adapters/codex_adapter.py` - Codex adapter
 - `engine/adapters/tests_adapter.py` - Tests adapter
 - `engine/adapters/git_adapter.py` - Git adapter
-- `specs/jobs/codex_job.example.json` - Codex job example
-- `specs/jobs/tests_job.example.json` - Tests job example
-- `specs/jobs/git_job.example.json` - Git job example
+- `schema/jobs/codex_job.example.json` - Codex job example
+- `schema/jobs/tests_job.example.json` - Tests job example
+- `schema/jobs/git_job.example.json` - Git job example
 - `scripts/test_adapters.py` - Adapter test suite
 
 ### Modified Files (2)

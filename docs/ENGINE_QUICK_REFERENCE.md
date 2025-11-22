@@ -8,7 +8,7 @@
 python -m engine.orchestrator run-job --job-file path/to/job.json
 
 # Example with Aider
-python -m engine.orchestrator run-job --job-file specs/jobs/aider_job.example.json
+python -m engine.orchestrator run-job --job-file schema/jobs/aider_job.example.json
 ```
 
 ### Job File Format
@@ -239,7 +239,7 @@ engine/
 │   └── job_state_store.py
 └── types.py            # Shared types
 
-specs/jobs/              # Job specifications
+schema/jobs/              # Job specifications
 ├── job.schema.json
 └── aider_job.example.json
 
@@ -251,7 +251,7 @@ scripts/                 # Validation & testing
 ## Common Tasks
 
 ### Create a Job File
-1. Copy `specs/jobs/aider_job.example.json`
+1. Copy `schema/jobs/aider_job.example.json`
 2. Update job_id, run_id, workstream_id
 3. Update command and args for your task
 4. Set appropriate paths for logs/errors

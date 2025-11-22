@@ -59,7 +59,7 @@ Every tool run (Aider, Codex, tests, etc.) should be defined by a **job JSON** t
 
 ### 2.1. Job file structure
 
-`/specs/jobs/job.schema.json` (simplified idea):
+`/schema/jobs/job.schema.json` (simplified idea):
 
 ```jsonc
 {
@@ -99,7 +99,7 @@ Every tool run (Aider, Codex, tests, etc.) should be defined by a **job JSON** t
 }
 ```
 
-An **Aider job example** (`/specs/jobs/aider_job.example.json`):
+An **Aider job example** (`/schema/jobs/aider_job.example.json`):
 
 ```jsonc
 {
@@ -371,7 +371,7 @@ waiting, running, fixing, quarantined, or passed.
 - job_state_store.list_workstreams_for_run(run_id)
 
 # ENGINE_INTERACTION
-- To start a job, this panel creates a job JSON using specs/jobs/job.schema.json
+- To start a job, this panel creates a job JSON using schema/jobs/job.schema.json
   and calls engine.orchestrator via:
   python -m engine.orchestrator run-job --job-file <path>
 
@@ -469,7 +469,7 @@ You don’t need to touch code — you just:
 
 4. For engine-side changes, tell AI:
 
-   > “Refactor existing scripts into `engine/orchestrator` + `engine/adapters` using the job schema in `/specs/jobs/job.schema.json` and the ADAPTER_ROLE headers.”
+   > “Refactor existing scripts into `engine/orchestrator` + `engine/adapters` using the job schema in `/schema/jobs/job.schema.json` and the ADAPTER_ROLE headers.”
 
 Everything else falls out of that pattern.
 

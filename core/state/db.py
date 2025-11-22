@@ -21,14 +21,14 @@ def _resolve_db_path(db_path: Optional[str]) -> Path:
     1) explicit db_path
     2) env PIPELINE_DB_PATH (preferred)
     3) env ERROR_PIPELINE_DB (legacy)
-    4) default: state/pipeline_state.db
+    4) default: .worktrees/pipeline_state.db
     """
     if db_path:
         return Path(db_path).expanduser().resolve()
     env = os.getenv("PIPELINE_DB_PATH") or os.getenv("ERROR_PIPELINE_DB")
     if env:
         return Path(env).expanduser().resolve()
-    return (Path("state") / "pipeline_state.db").resolve()
+    return (Path(".worktrees") / "pipeline_state.db").resolve()
 
 
 def get_connection(db_path: Optional[str] = None) -> sqlite3.Connection:

@@ -4,9 +4,17 @@
 
 ### Core Sections
 - **core/state/**: Database, CRUD operations, bundles, worktree management
-- **core/engine/**: Orchestrator, scheduler, executor, tools adapter, circuit breakers, recovery
+  - Database location: `.worktrees/pipeline_state.db` (configurable via `PIPELINE_DB_PATH`)
+- **core/engine/**: Workstream orchestrator, scheduler, executor, tools adapter, circuit breakers, recovery
 - **core/planning/**: Workstream planner and archive utilities
 - **core/**: OpenSpec parser/converter, spec indexing, agent coordinator
+
+### Execution Engines
+- **engine/**: Job-based standalone execution engine (hybrid GUI/Terminal/TUI architecture)
+  - Separate from core/engine/ - uses job JSON pattern instead of workstream steps
+  - See `engine/README.md` for architecture details
+  - Adapters: aider, codex, git, tests
+  - Queue management and worker pools
 
 ### Error Detection
 - **error/engine/**: Error engine, state machine, pipeline service, CLI, plugin manager
