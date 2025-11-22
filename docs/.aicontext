@@ -1,0 +1,46 @@
+# AI Context Configuration - docs/
+
+## Directory Purpose
+Canonical documentation - architecture, guides, implementation records, and ADRs.
+
+## AI Indexing Priority
+PRIORITY: MEDIUM
+Reference documentation - index on request or for specific documentation tasks.
+
+## Scope
+DOCUMENTATION - Living documentation that evolves with the system.
+
+## Key Components
+- Architecture documents (ARCHITECTURE.md, etc.)
+- Implementation summaries (PHASE_*_COMPLETE.md)
+- Configuration guides
+- Refactor mapping (SECTION_REFACTOR_MAPPING.md)
+- CI standards (CI_PATH_STANDARDS.md)
+
+## Content Standards
+- One H1 per file
+- Sentence-case headings
+- ~100 char line wrapping
+- Include metadata headers (purpose, last updated, related docs)
+
+## When to Use This Section
+- Understanding system architecture
+- Finding implementation history
+- Learning conventions and standards
+- Navigating refactored code paths
+
+## Related Sections
+- meta/ - Planning documents
+- AGENTS.md - Coding guidelines
+- README.md - Main overview
+- DIRECTORY_GUIDE.md - Navigation guide
+
+## AI Usage Notes
+- Use for reference and understanding
+- Do not modify unless updating documentation
+- Cross-reference with code when needed
+- Check for staleness (last updated dates)
+
+## Exclude from Context
+- .index/ (generated files)
+- __pycache__/

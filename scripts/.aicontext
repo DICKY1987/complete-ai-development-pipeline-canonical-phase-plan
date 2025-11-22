@@ -1,0 +1,43 @@
+# AI Context Configuration - scripts/
+
+## Directory Purpose
+Automation scripts for common operational tasks.
+
+## AI Indexing Priority
+PRIORITY: MEDIUM
+Operational tools - index when working on automation or running tasks.
+
+## Scope
+AUTOMATION - Scripts for bootstrapping, validation, testing, and maintenance.
+
+## Key Scripts
+- bootstrap.ps1 - Initial setup
+- test.ps1 - Run tests (CI-friendly)
+- validate_workstreams.py - Workstream validation
+- validate_workstreams_authoring.py - Authoring validation
+- run_workstream.py - Execute workstreams
+- generate_spec_index.py - Generate spec indices
+- generate_spec_mapping.py - Generate spec mapping
+- run_error_engine.py - Error pipeline execution
+
+## Script Conventions
+- Prefer PowerShell (.ps1) for Windows-first flows
+- Provide .sh parity where feasible (no WSL-only assumptions)
+- Python for cross-platform logic
+- Keep scripts simple - complex logic belongs in modules
+
+## When to Use This Section
+- Adding automation scripts
+- Maintaining existing scripts
+- Understanding operational workflows
+- Setting up development environment
+
+## Related Sections
+- core/ - Core functionality scripts interact with
+- tests/ - Test infrastructure
+- docs/ - Documentation on usage
+
+## Exclude from Context
+- __pycache__/
+- *.pyc
+- logs/
