@@ -26,6 +26,11 @@
 - **pm/**: Project management and CCPM integrations
 - **specifications/**: Unified spec management (content, tools, changes, bridge)
 - **aider/**: Aider integration and prompt templates
+- **openspec/**: Source OpenSpec proposals and bridge docs before conversion into workstreams or specs
+
+### UI and prompt systems
+- **gui/**: Hybrid GUI/terminal/TUI design docs for the job runner, panels, and layout prototypes
+- **Prompt/**: Prompt-engineering references and reusable prompt templates for agent operations
 
 ### Repository Infrastructure
 - **docs/**: Canonical phase plans, architecture notes, ADRs, specs, refactor mapping
@@ -39,12 +44,13 @@
 - **tests/**: Unit/integration tests for scripts/tools/pipeline
 - **assets/**: Diagrams and images referenced by docs
 - **sandbox_repos/**: Self-contained toy repos for integration tests (excluded from pytest by default)
+- **infra/**: CI/CD configuration (see `infra/ci`) shared across engines and tooling
 
 ### Legacy (Deprecated - Do Not Use in New Code)
-- **src/pipeline/**: Backward-compatibility shims → Use `core.*` instead
-- **MOD_ERROR_PIPELINE/**: Legacy error shims → Use `error.*` instead
+- **src/pipeline/**: Backward-compatibility shims -> Use `core.*` instead
+- **MOD_ERROR_PIPELINE/**: Legacy error shims -> Use `error.*` instead
 
-See [docs/SECTION_REFACTOR_MAPPING.md](docs/SECTION_REFACTOR_MAPPING.md) for complete old→new path mappings.
+See [docs/SECTION_REFACTOR_MAPPING.md](docs/SECTION_REFACTOR_MAPPING.md) for complete old->new path mappings.
 
 ## Build, test, and development commands
 - Environment setup (recommended):
@@ -66,11 +72,11 @@ See [docs/SECTION_REFACTOR_MAPPING.md](docs/SECTION_REFACTOR_MAPPING.md) for com
 - Optional: Markdown lint (if configured): `npm run lint:md`
 
 ## Coding style & naming conventions
-- Markdown: one H1 per file; sentence‑case headings; wrap at ~100 chars.
-- YAML/JSON: 2‑space indent; kebab‑case keys (e.g., `phase-name`).
-- Python: 4‑space indent; Black/PEP8; snake_case for files/modules; prefer type hints in new code.
-- Files: descriptive, scope‑first names (e.g., `phase-02-design.md`).
-- Scripts: prefer `.ps1` for Windows‑first flows; provide `.sh` parity where feasible (no WSL‑only assumptions in shared logic).
+- Markdown: one H1 per file; sentence-case headings; wrap at ~100 chars.
+- YAML/JSON: 2-space indent; kebab-case keys (e.g., `phase-name`).
+- Python: 4-space indent; Black/PEP8; snake_case for files/modules; prefer type hints in new code.
+- Files: descriptive, scope-first names (e.g., `phase-02-design.md`).
+- Scripts: prefer `.ps1` for Windows-first flows; provide `.sh` parity where feasible (no WSL-only assumptions in shared logic).
 
 ## Section-specific conventions
 
@@ -112,7 +118,7 @@ See [docs/SECTION_REFACTOR_MAPPING.md](docs/SECTION_REFACTOR_MAPPING.md) for com
 - **content/**: Specification documents organized by domain
 - **tools/**: Processing utilities (indexer, resolver, guard, patcher, renderer)
 - **changes/**: Active OpenSpec change proposals
-- **bridge/**: OpenSpec → Workstream integration
+- **bridge/**: OpenSpec -> Workstream integration
 - **Example**: `from specifications.tools.resolver.resolver import resolve_spec_uri`
 
 ## Testing guidelines
@@ -130,29 +136,29 @@ See [docs/SECTION_REFACTOR_MAPPING.md](docs/SECTION_REFACTOR_MAPPING.md) for com
 ## Security & configuration tips
 - Never commit secrets. Use `.env.local`; provide `.env.example` when adding new env vars.
 - Redact sensitive data in docs/artifacts. Store large files outside the repo.
-- Treat `specifications/` and `schema/` as source‑of‑truth contracts; validate changes via provided validators before merging.
+- Treat `specifications/` and `schema/` as source-of-truth contracts; validate changes via provided validators before merging.
 
-## Agent‑specific instructions
+## Agent-specific instructions
 - Follow AGENTS.md scope rules; keep patches minimal and focused.
-- Prefer small, readable diffs and repository‑relative paths.
+- Prefer small, readable diffs and repository-relative paths.
 - Do not refactor unrelated areas; update docs/tests when changing scripts.
 - When adding scripts under `scripts/`, prefer Python for logic and `.ps1`/`.sh` as thin wrappers if needed.
 - Coordinate changes to `tools/` with tests under `tests/` (pipeline/plugins sections), keeping behavior reproducible/deterministic.
 
 ### When to use which section
-- **Adding state/database logic** → `core/state/`
-- **Adding orchestration/execution logic** → `core/engine/`
-- **Adding planning/archive features** → `core/planning/`
-- **Adding error detection logic** → `error/engine/`
-- **Adding a new detection plugin** → `error/plugins/<plugin-name>/`
-- **Adding AIM integration** → `aim/`
-- **Adding PM/CCPM features** → `pm/`
-- **Adding spec content** → `specifications/content/`
-- **Adding spec tools** → `specifications/tools/`
-- **Adding Aider integration** → `aider/`
+- **Adding state/database logic** -> `core/state/`
+- **Adding orchestration/execution logic** -> `core/engine/`
+- **Adding planning/archive features** -> `core/planning/`
+- **Adding error detection logic** -> `error/engine/`
+- **Adding a new detection plugin** -> `error/plugins/<plugin-name>/`
+- **Adding AIM integration** -> `aim/`
+- **Adding PM/CCPM features** -> `pm/`
+- **Adding spec content** -> `specifications/content/`
+- **Adding spec tools** -> `specifications/tools/`
+- **Adding Aider integration** -> `aider/`
 
 ### Import path rules (CRITICAL - CI enforced)
-✅ **Use section-based imports**:
+- **Use section-based imports**:
 ```python
 from core.state.db import init_db
 from core.engine.orchestrator import Orchestrator
@@ -162,28 +168,28 @@ from specifications.tools.indexer.indexer import generate_index
 from specifications.tools.resolver.resolver import resolve_spec_uri
 ```
 
-❌ **Do NOT use deprecated imports** (will fail CI):
+- **Do NOT use deprecated imports** (will fail CI):
 ```python
-from src.pipeline.db import init_db                    # ❌ FAILS CI
-from src.pipeline.orchestrator import Orchestrator     # ❌ FAILS CI
-from MOD_ERROR_PIPELINE.error_engine import ErrorEngine  # ❌ FAILS CI
-from spec.tools.spec_indexer import generate_index     # ❌ DEPRECATED - use specifications.tools.indexer
-from openspec.specs import load_spec                   # ❌ DEPRECATED - use specifications.content
+from src.pipeline.db import init_db                    # FAILS CI
+from src.pipeline.orchestrator import Orchestrator     # FAILS CI
+from MOD_ERROR_PIPELINE.error_engine import ErrorEngine  # FAILS CI
+from spec.tools.spec_indexer import generate_index     # DEPRECATED - use specifications.tools.indexer
+from openspec.specs import load_spec                   # DEPRECATED - use specifications.content
 ```
 
 See [docs/CI_PATH_STANDARDS.md](docs/CI_PATH_STANDARDS.md) for CI enforcement details.
 
 ## Agent workflow (Codex CLI)
 - Scope: this file applies to the entire repository unless a more deeply nested `AGENTS.md` overrides it.
-- Preambles: before running groups of commands, send a short 1–2 sentence note describing what you’ll do next. Avoid trivial preambles for single file reads.
-- Plans: use the `update_plan` tool for multi‑step or ambiguous tasks; keep steps short (5–7 words) with exactly one `in_progress` item at a time.
-- Shell: prefer `rg`/`rg --files` for searches; read files in chunks ≤250 lines; avoid long outputs that will truncate.
+- Preambles: before running groups of commands, send a short 1-2 sentence note describing what you'll do next. Avoid trivial preambles for single file reads.
+- Plans: use the `update_plan` tool for multi-step or ambiguous tasks; keep steps short (5-7 words) with exactly one `in_progress` item at a time.
+- Shell: prefer `rg`/`rg --files` for searches; read files in chunks <=250 lines; avoid long outputs that will truncate.
 - Patches: use `apply_patch` for edits; keep diffs focused; align with existing style; avoid unrelated refactors.
 - Validation: when tests exist, run targeted tests for changed areas first; do not fix unrelated failures.
-- Final messages: keep concise, include next steps if useful, and reference files with clickable repo‑relative paths like `src/app.py:42`.
+- Final messages: keep concise, include next steps if useful, and reference files with clickable repo-relative paths like `src/app.py:42`.
 
-## Repository‑specific notes
-- Windows‑first: PowerShell is preferred; `.sh` scripts are provided for parity (WSL). Keep cross‑platform logic in Python where possible.
+## Repository-specific notes
+- Windows-first: PowerShell is preferred; `.sh` scripts are provided for parity (WSL). Keep cross-platform logic in Python where possible.
 - Specs/workstreams: keep `workstreams/` examples in sync with `schema/` and `openspec/`. Run validators after edits.
 - Indices/mapping: regenerate via `generate_spec_index.py` and `generate_spec_mapping.py` when specs or schema change.
 - Determinism: tests under `tests/pipeline/` check deterministic execution. Avoid nondeterministic I/O, timestamps without control, or network calls in core code.
