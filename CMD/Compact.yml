@@ -1,4 +1,0 @@
-id: 01JC4GHPR82XYZ...
-k: cap.gh.pr.create.v1
-match: ["(create|open).*(pr|pull request)"]
-cmd: gh pr create --base {base} --fill
