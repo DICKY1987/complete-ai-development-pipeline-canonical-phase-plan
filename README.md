@@ -10,6 +10,7 @@ This repository hosts a structured, phase-based plan and lightweight tooling for
 - 📘 [QUICK_START.md](QUICK_START.md) - Fast entry points for common tasks
 - 🗂️ [DIRECTORY_GUIDE.md](DIRECTORY_GUIDE.md) - Comprehensive navigation and structure
 - 📋 [AGENTS.md](AGENTS.md) - Coding conventions and guidelines
+- 🖥️ [docs/CURRENT_USER_INTERFACE.md](docs/CURRENT_USER_INTERFACE.md) - User interface description and commands
 
 **For AI Tools**: See [DIRECTORY_GUIDE.md](DIRECTORY_GUIDE.md) for section priorities and `.aicontext` files in each directory.
 
@@ -19,6 +20,34 @@ This repository hosts a structured, phase-based plan and lightweight tooling for
   - `pwsh ./scripts/bootstrap.ps1`
   - `pwsh ./scripts/test.ps1`
 - See [QUICK_START.md](QUICK_START.md) for detailed setup and common tasks
+
+### User Interface
+
+The pipeline provides a **command-line interface (CLI)** for monitoring and querying pipeline state:
+
+```bash
+# Check overall pipeline health
+python -m core.ui_cli dashboard
+
+# Monitor active workstreams
+python -m core.ui_cli workstreams --status running
+
+# Check for errors
+python -m core.ui_cli errors --severity error
+
+# View tool health
+python -m core.ui_cli tools --summary
+
+# Export data as JSON
+python -m core.ui_cli dashboard --json
+```
+
+**Documentation:**
+- **[UI Overview](docs/CURRENT_USER_INTERFACE.md)** - Complete interface description
+- **[Quick Reference](docs/UI_QUICK_REFERENCE.md)** - Command examples and workflows
+- **[Flow Diagrams](docs/UI_FLOW_DIAGRAM.md)** - Visual representation of UI components
+
+**Note:** Currently CLI-only. Graphical UI planned for future phases (see `gui/` directory for design documents).
 
 ### Engine & Job-Based Execution
 
