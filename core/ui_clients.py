@@ -459,6 +459,7 @@ class StateClient:
             workstreams_failed=ws_counts.get("failed", 0),
             files_intake=file_counts.get("intake", 0),
             files_classified=file_counts.get("classified", 0),
+            # Combine in_flight and processing states as they both represent active work
             files_in_flight=file_counts.get("in_flight", 0) + file_counts.get("processing", 0),
             files_awaiting_review=file_counts.get("awaiting_review", 0),
             files_committed=file_counts.get("committed", 0),

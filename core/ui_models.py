@@ -7,7 +7,7 @@ pipeline state, health, and observability data.
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 
 # ============================================================================
@@ -310,7 +310,7 @@ class PipelineSummary:
     
     # Error surface
     errors_per_hour: float = 0.0
-    top_error_types: List[tuple[str, int]] = field(default_factory=list)
+    top_error_types: List[Tuple[str, int]] = field(default_factory=list)
     
     # Tool health
     tools_healthy: int = 0

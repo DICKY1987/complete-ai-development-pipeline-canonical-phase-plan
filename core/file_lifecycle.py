@@ -15,12 +15,15 @@ from core.tool_instrumentation import emit_file_state_change
 
 
 def compute_file_id(file_path: str) -> str:
-    """Compute a stable file ID based on path and content.
+    """Compute a stable file ID based on path.
     
     In a full implementation, this would hash the file content.
     For now, we use a hash of the path.
+    
+    Note: Using full SHA256 hash to minimize collision probability.
+    File IDs are used as primary keys and must be unique.
     """
-    return "file-" + hashlib.sha256(file_path.encode()).hexdigest()[:12]
+    return "file-" + hashlib.sha256(file_path.encode()).hexdigest()
 
 
 def register_file(

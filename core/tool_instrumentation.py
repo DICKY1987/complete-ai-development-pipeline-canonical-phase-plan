@@ -177,7 +177,9 @@ class ToolInvocationTracker:
                 """, (success_rate, self.tool_id))
             
             # Update latency metrics (simple moving average for now)
-            # In production, you'd want percentile calculation
+            # TODO: Implement proper percentile calculation (P50, P95, P99) using
+            # a proper percentile algorithm or time-series database
+            # For now, using simplified p95 approximation
             conn.execute("""
                 UPDATE tool_health_metrics
                 SET mean_latency = (
@@ -186,7 +188,7 @@ class ToolInvocationTracker:
                 p95_latency = ?,
                 updated_at = ?
                 WHERE tool_id = ?
-            """, (latency, latency * 1.2, now, self.tool_id))  # Simplified p95
+            """, (latency, latency * 1.2, now, self.tool_id))  # Simplified p95 approximation
             
             conn.commit()
         finally:

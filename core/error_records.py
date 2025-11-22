@@ -22,9 +22,10 @@ def generate_error_id(
     """Generate a stable error ID based on error attributes.
     
     This allows grouping of duplicate errors by using the same ID.
+    Using full SHA256 hash to ensure uniqueness.
     """
     key = f"{entity_type}:{entity_id}:{category}:{message[:100]}"
-    return "err-" + hashlib.sha256(key.encode()).hexdigest()[:12]
+    return "err-" + hashlib.sha256(key.encode()).hexdigest()
 
 
 def create_error_record(
@@ -184,6 +185,10 @@ def mark_error_resolved(
     This doesn't delete the error (for historical tracking) but marks it
     as resolved with optional details about how it was fixed.
     
+    TODO: Add dedicated resolution_status column to error_records table
+    instead of storing resolution in the recommendation field. This would
+    allow better querying and filtering of resolved vs unresolved errors.
+    
     Args:
         error_id: Error identifier
         resolution_details: Optional details about the resolution
@@ -191,7 +196,7 @@ def mark_error_resolved(
     conn = get_connection()
     try:
         # For now, we'll store resolution in the recommendation field
-        # In a full implementation, you'd add a resolution_status column
+        # This is a temporary workaround until resolution_status column is added
         update_error_record(
             error_id,
             recommendation=f"RESOLVED: {resolution_details}" if resolution_details else "RESOLVED"
