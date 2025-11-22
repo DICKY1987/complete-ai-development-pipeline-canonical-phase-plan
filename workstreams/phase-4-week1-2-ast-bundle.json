@@ -1,0 +1,168 @@
+{
+  "bundle_id": "phase-4-week1-2-ast",
+  "bundle_name": "Phase 4: Week 1-2 - AST Foundation",
+  "description": "Implement Tree-sitter AST parsing, repository mapping, and PageRank module ranking",
+  "version": "1.0.0",
+  "estimated_duration_hours": 80,
+  "max_cost_usd": 25.0,
+  "workstreams": [
+    {
+      "ws_id": "ws-04-01a-treesitter",
+      "name": "WS-04-01A: Tree-sitter Integration",
+      "kind": "code",
+      "priority": "foreground",
+      "parallel_ok": false,
+      "estimated_context_tokens": 8000,
+      "max_cost_usd": 8.0,
+      "files_scope": [
+        "core/ast/parser.py",
+        "core/ast/languages/",
+        "core/ast/extractors.py",
+        "requirements.txt"
+      ],
+      "files_create": [
+        "core/ast/__init__.py",
+        "core/ast/parser.py",
+        "core/ast/extractors.py",
+        "core/ast/languages/__init__.py",
+        "core/ast/languages/python.py",
+        "core/ast/languages/javascript.py",
+        "core/ast/languages/typescript.py",
+        "core/ast/languages/markdown.py",
+        "tests/ast/__init__.py",
+        "tests/ast/test_parser.py",
+        "tests/ast/test_extractors.py"
+      ],
+      "tasks": [
+        "Install tree-sitter dependencies",
+        "Create AST parser wrapper for tree-sitter",
+        "Implement language-specific parsers (Python, JS, TS, MD)",
+        "Create extractors for classes, functions, imports, docstrings",
+        "Write 20+ tests for each language parser",
+        "Update requirements.txt with tree-sitter packages"
+      ],
+      "acceptance_tests": [
+        "pytest tests/ast/test_parser.py -v",
+        "Can parse any Python file and extract functions/classes",
+        "Can parse JavaScript/TypeScript with imports",
+        "Can extract docstrings and comments"
+      ],
+      "depends_on": [],
+      "tool": "codex",
+      "capability": "code_generation",
+      "tool_profile": "codex-code-generation"
+    },
+    {
+      "ws_id": "ws-04-01b-repomap",
+      "name": "WS-04-01B: AST-Based Repository Mapping",
+      "kind": "code",
+      "priority": "foreground",
+      "parallel_ok": false,
+      "estimated_context_tokens": 10000,
+      "max_cost_usd": 10.0,
+      "files_scope": [
+        "core/ast/repository_mapper.py",
+        "core/ast/signature_extractor.py",
+        "core/ast/import_graph.py",
+        "scripts/generate_ast_map.py",
+        "docs/AST_REPOSITORY_MAP.md"
+      ],
+      "files_create": [
+        "core/ast/repository_mapper.py",
+        "core/ast/signature_extractor.py",
+        "core/ast/import_graph.py",
+        "scripts/generate_ast_map.py",
+        "docs/AST_REPOSITORY_MAP.md",
+        "tests/ast/test_repository_mapper.py",
+        "tests/ast/test_signature_extractor.py",
+        "tests/ast/test_import_graph.py"
+      ],
+      "tasks": [
+        "Create repository-wide AST analyzer",
+        "Implement signature extraction (strip implementations)",
+        "Build import dependency graph",
+        "Create CLI script to generate maps",
+        "Auto-generate AST_REPOSITORY_MAP.md",
+        "Write 15+ tests for mapper",
+        "Verify < 5K token output for entire codebase"
+      ],
+      "acceptance_tests": [
+        "pytest tests/ast/test_repository_mapper.py -v",
+        "python scripts/generate_ast_map.py completes in < 10 seconds",
+        "AST_REPOSITORY_MAP.yaml has < 5000 tokens",
+        "All public APIs included, private implementations excluded"
+      ],
+      "depends_on": ["ws-04-01a-treesitter"],
+      "tool": "codex",
+      "capability": "code_generation",
+      "tool_profile": "codex-code-generation"
+    },
+    {
+      "ws_id": "ws-04-01c-pagerank",
+      "name": "WS-04-01C: PageRank Module Ranking",
+      "kind": "code",
+      "priority": "foreground",
+      "parallel_ok": false,
+      "estimated_context_tokens": 6000,
+      "max_cost_usd": 5.0,
+      "files_scope": [
+        "core/ast/pagerank.py",
+        "core/ast/centrality_analyzer.py",
+        "scripts/analyze_module_importance.py",
+        "docs/MODULE_IMPORTANCE_RANKING.md"
+      ],
+      "files_create": [
+        "core/ast/pagerank.py",
+        "core/ast/centrality_analyzer.py",
+        "scripts/analyze_module_importance.py",
+        "docs/MODULE_IMPORTANCE_RANKING.md",
+        "tests/ast/test_pagerank.py",
+        "tests/ast/test_centrality_analyzer.py"
+      ],
+      "tasks": [
+        "Implement PageRank algorithm for code graphs",
+        "Create centrality analyzer to identify critical modules",
+        "Build CLI tool for module importance analysis",
+        "Auto-generate MODULE_IMPORTANCE_RANKING.md",
+        "Write 12+ tests for PageRank",
+        "Verify core.state.db ranks highest (most central)"
+      ],
+      "acceptance_tests": [
+        "pytest tests/ast/test_pagerank.py -v",
+        "python scripts/analyze_module_importance.py succeeds",
+        "core.state.db identified as most central module",
+        "Rankings update when codebase changes"
+      ],
+      "depends_on": ["ws-04-01b-repomap"],
+      "tool": "codex",
+      "capability": "code_generation",
+      "tool_profile": "codex-code-generation"
+    }
+  ],
+  "dependencies": {
+    "external": [
+      "tree-sitter>=0.20.0",
+      "tree-sitter-python>=0.20.0",
+      "tree-sitter-javascript>=0.20.0",
+      "tree-sitter-typescript>=0.20.0"
+    ],
+    "internal": [
+      "Phase 3 complete (orchestration engine)",
+      "UET framework operational"
+    ]
+  },
+  "validation": {
+    "required_tests": 47,
+    "performance_targets": {
+      "ast_map_generation_seconds": 10,
+      "ast_map_token_count": 5000
+    }
+  },
+  "metadata": {
+    "phase": "PH-04-AI-ENH",
+    "week": "1-2",
+    "focus": "AST Foundation",
+    "created_at": "2025-11-22T20:00:00Z",
+    "author": "Phase 4 Planning"
+  }
+}
