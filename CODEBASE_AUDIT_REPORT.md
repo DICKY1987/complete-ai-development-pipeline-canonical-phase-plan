@@ -1,15 +1,68 @@
 # Codebase Audit Report
 
-**Generated:** 2025-11-22T14:28:48.764816
+**Generated:** 2025-11-22T14:30:54.728355
 
 ## Summary
 
 - **Deprecated files:** 0
 - **Legacy directories:** 0
+- **Archive candidate directories:** 8
 - **Temporary/backup files:** 2
 - **Potential duplicates:** 37
 - **Outdated documentation:** 27
 - **Potentially obsolete:** 41
+
+## Archive Candidate Directories
+
+Large directories that may contain outdated or duplicated content:
+
+### `AGENTIC_DEV_PROTOTYPE`
+- **Reason:** Prototype/experimental code - may be superseded
+- **Files:** 124
+- **Total size:** 1.84 MB
+- **Recommendation:** Archive to docs/archive/prototypes/ - appears superseded by current implementation
+
+### `PROCESS_DEEP_DIVE_OPTOMIZE`
+- **Reason:** Analysis/optimization data - can be archived
+- **Files:** 41
+- **Total size:** 0.71 MB
+- **Recommendation:** Archive to docs/archive/analysis/ - process optimization data
+
+### `UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK`
+- **Reason:** Framework code - verify if still in use
+- **Files:** 101
+- **Total size:** 0.63 MB
+- **Recommendation:** Review and archive to docs/archive/frameworks/ if not actively used
+
+### `Multi-Document Versioning Automation final_spec_docs`
+- **Reason:** Documentation that may be duplicated in specifications/
+- **Files:** 75
+- **Total size:** 0.17 MB
+- **Recommendation:** Consolidate into specifications/ or archive
+
+### `.migration_backup_20251120_144334`
+- **Reason:** Backup directory - should be archived
+- **Files:** 15
+- **Total size:** 0.06 MB
+- **Recommendation:** Delete after verifying migration succeeded
+
+### `AI_MANGER`
+- **Reason:** Unclear purpose directory - needs review
+- **Files:** 0
+- **Total size:** 0.0 MB
+- **Recommendation:** Review purpose and either integrate or archive
+
+### `AUX_mcp-data`
+- **Reason:** Unclear purpose directory - needs review
+- **Files:** 6
+- **Total size:** 0.15 MB
+- **Recommendation:** Review purpose and either integrate or archive
+
+### `CMD`
+- **Reason:** Unclear purpose directory - needs review
+- **Files:** 28
+- **Total size:** 0.31 MB
+- **Recommendation:** Review purpose and either integrate or archive
 
 ## Temporary/Backup Files
 

@@ -44,6 +44,18 @@ class CodebaseAuditor:
         'state/': 'Only contains DB file - should relocate to .worktrees/',
     }
     
+    # Large directories that may be archive candidates
+    POTENTIAL_ARCHIVE_DIRS = [
+        'AGENTIC_DEV_PROTOTYPE',
+        'PROCESS_DEEP_DIVE_OPTOMIZE',
+        'UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK',
+        'Multi-Document Versioning Automation final_spec_docs',
+        '.migration_backup_20251120_144334',
+        'AI_MANGER',
+        'AUX_mcp-data',
+        'CMD',
+    ]
+    
     # File patterns that indicate temporary/backup files
     TEMP_PATTERNS = [
         r'.*\.bak$',
@@ -87,6 +99,7 @@ class CodebaseAuditor:
         # Scan for different categories
         self._scan_deprecated_directories()
         self._scan_legacy_candidates()
+        self._scan_potential_archives()
         self._scan_temporary_files()
         self._scan_duplicate_implementations()
         self._scan_outdated_documentation()
@@ -141,6 +154,31 @@ class CodebaseAuditor:
                     'file_count': file_count,
                     'total_size': total_size,
                     'recommendation': self._get_legacy_recommendation(legacy_dir),
+                })
+    
+    def _scan_potential_archives(self):
+        """Scan for large directories that may be archive candidates."""
+        print("Scanning potential archive directories...")
+        
+        for dir_name in self.POTENTIAL_ARCHIVE_DIRS:
+            dir_path = self.repo_root / dir_name
+            if dir_path.exists() and dir_path.is_dir():
+                files = list(dir_path.rglob('*'))
+                file_count = sum(1 for f in files if f.is_file())
+                total_size = sum(f.stat().st_size for f in files if f.is_file())
+                
+                # Determine category based on name patterns
+                category = 'archive_candidate'
+                reason = self._categorize_archive_directory(dir_name)
+                
+                self.findings['archive_candidates'].append({
+                    'path': dir_name,
+                    'category': category,
+                    'reason': reason,
+                    'file_count': file_count,
+                    'total_size': total_size,
+                    'size_mb': round(total_size / (1024 * 1024), 2),
+                    'recommendation': self._get_archive_recommendation(dir_name),
                 })
     
     def _scan_temporary_files(self):
@@ -341,6 +379,36 @@ class CodebaseAuditor:
         except:
             return False
     
+    def _categorize_archive_directory(self, dir_name: str) -> str:
+        """Categorize why a directory might be an archive candidate."""
+        if 'PROTOTYPE' in dir_name:
+            return 'Prototype/experimental code - may be superseded'
+        elif 'backup' in dir_name.lower() or 'migration' in dir_name.lower():
+            return 'Backup directory - should be archived'
+        elif 'OPTOMIZE' in dir_name or 'DEEP_DIVE' in dir_name:
+            return 'Analysis/optimization data - can be archived'
+        elif 'FRAMEWORK' in dir_name:
+            return 'Framework code - verify if still in use'
+        elif 'final_spec_docs' in dir_name:
+            return 'Documentation that may be duplicated in specifications/'
+        elif dir_name in ('AI_MANGER', 'AUX_mcp-data', 'CMD'):
+            return 'Unclear purpose directory - needs review'
+        return 'Large directory - review for potential archival'
+    
+    def _get_archive_recommendation(self, dir_name: str) -> str:
+        """Get recommendation for archive candidate directory."""
+        recommendations = {
+            'AGENTIC_DEV_PROTOTYPE': 'Archive to docs/archive/prototypes/ - appears superseded by current implementation',
+            'PROCESS_DEEP_DIVE_OPTOMIZE': 'Archive to docs/archive/analysis/ - process optimization data',
+            'UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK': 'Review and archive to docs/archive/frameworks/ if not actively used',
+            'Multi-Document Versioning Automation final_spec_docs': 'Consolidate into specifications/ or archive',
+            '.migration_backup_20251120_144334': 'Delete after verifying migration succeeded',
+            'AI_MANGER': 'Review purpose and either integrate or archive',
+            'AUX_mcp-data': 'Review purpose and either integrate or archive',
+            'CMD': 'Review purpose and either integrate or archive',
+        }
+        return recommendations.get(dir_name, 'Review for archival or deletion')
+    
     def _get_legacy_recommendation(self, legacy_dir: str) -> str:
         """Get recommendation for legacy directory."""
         recommendations = {
@@ -368,6 +436,7 @@ class CodebaseAuditor:
             'total_categories': len(self.findings),
             'deprecated_files': len(self.findings['deprecated']),
             'legacy_directories': len(self.findings['legacy']),
+            'archive_candidates': len(self.findings.get('archive_candidates', [])),
             'temporary_files': len(self.findings['temporary']),
             'duplicate_files': len(self.findings['duplicative']),
             'outdated_docs': len(self.findings['outdated_docs']),
@@ -386,6 +455,7 @@ def generate_markdown_report(audit_results: Dict, output_path: Path):
         summary = audit_results['summary']
         f.write(f"- **Deprecated files:** {summary['deprecated_files']}\n")
         f.write(f"- **Legacy directories:** {summary['legacy_directories']}\n")
+        f.write(f"- **Archive candidate directories:** {summary.get('archive_candidates', 0)}\n")
         f.write(f"- **Temporary/backup files:** {summary['temporary_files']}\n")
         f.write(f"- **Potential duplicates:** {summary['duplicate_files']}\n")
         f.write(f"- **Outdated documentation:** {summary['outdated_docs']}\n")
@@ -409,6 +479,17 @@ def generate_markdown_report(audit_results: Dict, output_path: Path):
                 f.write(f"- **Reason:** {item['reason']}\n")
                 f.write(f"- **Files:** {item['file_count']}\n")
                 f.write(f"- **Total size:** {item['total_size']} bytes\n")
+                f.write(f"- **Recommendation:** {item['recommendation']}\n\n")
+        
+        # Archive Candidates
+        if audit_results['findings'].get('archive_candidates'):
+            f.write("## Archive Candidate Directories\n\n")
+            f.write("Large directories that may contain outdated or duplicated content:\n\n")
+            for item in audit_results['findings']['archive_candidates']:
+                f.write(f"### `{item['path']}`\n")
+                f.write(f"- **Reason:** {item['reason']}\n")
+                f.write(f"- **Files:** {item['file_count']}\n")
+                f.write(f"- **Total size:** {item['size_mb']} MB\n")
                 f.write(f"- **Recommendation:** {item['recommendation']}\n\n")
         
         # Temporary Files

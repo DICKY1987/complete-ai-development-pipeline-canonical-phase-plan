@@ -1,16 +1,91 @@
 {
-  "audit_date": "2025-11-22T14:28:48.764816",
+  "audit_date": "2025-11-22T14:30:54.728355",
   "repository": "/home/runner/work/complete-ai-development-pipeline-canonical-phase-plan/complete-ai-development-pipeline-canonical-phase-plan",
   "summary": {
-    "total_categories": 4,
+    "total_categories": 5,
     "deprecated_files": 0,
     "legacy_directories": 0,
+    "archive_candidates": 8,
     "temporary_files": 2,
     "duplicate_files": 37,
     "outdated_docs": 27,
     "obsolete_files": 41
   },
   "findings": {
+    "archive_candidates": [
+      {
+        "path": "AGENTIC_DEV_PROTOTYPE",
+        "category": "archive_candidate",
+        "reason": "Prototype/experimental code - may be superseded",
+        "file_count": 124,
+        "total_size": 1932095,
+        "size_mb": 1.84,
+        "recommendation": "Archive to docs/archive/prototypes/ - appears superseded by current implementation"
+      },
+      {
+        "path": "PROCESS_DEEP_DIVE_OPTOMIZE",
+        "category": "archive_candidate",
+        "reason": "Analysis/optimization data - can be archived",
+        "file_count": 41,
+        "total_size": 743002,
+        "size_mb": 0.71,
+        "recommendation": "Archive to docs/archive/analysis/ - process optimization data"
+      },
+      {
+        "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK",
+        "category": "archive_candidate",
+        "reason": "Framework code - verify if still in use",
+        "file_count": 101,
+        "total_size": 665752,
+        "size_mb": 0.63,
+        "recommendation": "Review and archive to docs/archive/frameworks/ if not actively used"
+      },
+      {
+        "path": "Multi-Document Versioning Automation final_spec_docs",
+        "category": "archive_candidate",
+        "reason": "Documentation that may be duplicated in specifications/",
+        "file_count": 75,
+        "total_size": 174202,
+        "size_mb": 0.17,
+        "recommendation": "Consolidate into specifications/ or archive"
+      },
+      {
+        "path": ".migration_backup_20251120_144334",
+        "category": "archive_candidate",
+        "reason": "Backup directory - should be archived",
+        "file_count": 15,
+        "total_size": 61577,
+        "size_mb": 0.06,
+        "recommendation": "Delete after verifying migration succeeded"
+      },
+      {
+        "path": "AI_MANGER",
+        "category": "archive_candidate",
+        "reason": "Unclear purpose directory - needs review",
+        "file_count": 0,
+        "total_size": 0,
+        "size_mb": 0.0,
+        "recommendation": "Review purpose and either integrate or archive"
+      },
+      {
+        "path": "AUX_mcp-data",
+        "category": "archive_candidate",
+        "reason": "Unclear purpose directory - needs review",
+        "file_count": 6,
+        "total_size": 154533,
+        "size_mb": 0.15,
+        "recommendation": "Review purpose and either integrate or archive"
+      },
+      {
+        "path": "CMD",
+        "category": "archive_candidate",
+        "reason": "Unclear purpose directory - needs review",
+        "file_count": 28,
+        "total_size": 324369,
+        "size_mb": 0.31,
+        "recommendation": "Review purpose and either integrate or archive"
+      }
+    ],
     "temporary": [
       {
         "path": "create_backup_20251120_125719.ps1",
@@ -52,8 +127,8 @@
         ],
         "category": "duplicate_basename",
         "top_level_dirs": [
-          "core",
-          "scripts"
+          "scripts",
+          "core"
         ],
         "recommendation": "Review for consolidation or clarify purpose"
       },
@@ -79,8 +154,8 @@
         ],
         "category": "duplicate_basename",
         "top_level_dirs": [
-          "aim",
-          "engine"
+          "engine",
+          "aim"
         ],
         "recommendation": "Review for consolidation or clarify purpose"
       },
@@ -105,8 +180,8 @@
         ],
         "category": "duplicate_basename",
         "top_level_dirs": [
-          "core",
-          "aim"
+          "aim",
+          "core"
         ],
         "recommendation": "Review for consolidation or clarify purpose"
       },
@@ -121,9 +196,9 @@
         ],
         "category": "duplicate_basename",
         "top_level_dirs": [
-          "core",
           "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK",
-          "engine"
+          "engine",
+          "core"
         ],
         "recommendation": "Review for consolidation or clarify purpose"
       },
@@ -135,8 +210,8 @@
         ],
         "category": "duplicate_basename",
         "top_level_dirs": [
-          "core",
-          "error"
+          "error",
+          "core"
         ],
         "recommendation": "Review for consolidation or clarify purpose"
       },
@@ -149,8 +224,8 @@
         ],
         "category": "duplicate_basename",
         "top_level_dirs": [
-          "core",
-          "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK"
+          "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK",
+          "core"
         ],
         "recommendation": "Review for consolidation or clarify purpose"
       },
@@ -162,8 +237,8 @@
         ],
         "category": "duplicate_basename",
         "top_level_dirs": [
-          "core",
-          "error"
+          "error",
+          "core"
         ],
         "recommendation": "Review for consolidation or clarify purpose"
       },
@@ -176,8 +251,8 @@
         ],
         "category": "duplicate_basename",
         "top_level_dirs": [
-          "core",
-          "aim"
+          "aim",
+          "core"
         ],
         "recommendation": "Review for consolidation or clarify purpose"
       },
@@ -217,8 +292,8 @@
         ],
         "category": "duplicate_basename",
         "top_level_dirs": [
-          "aim",
-          "tests"
+          "tests",
+          "aim"
         ],
         "recommendation": "Review for consolidation or clarify purpose"
       },
@@ -232,10 +307,10 @@
         ],
         "category": "duplicate_basename",
         "top_level_dirs": [
-          "core",
           "AGENTIC_DEV_PROTOTYPE",
-          "PROCESS_DEEP_DIVE_OPTOMIZE",
-          "engine"
+          "core",
+          "engine",
+          "PROCESS_DEEP_DIVE_OPTOMIZE"
         ],
         "recommendation": "Review for consolidation or clarify purpose"
       },
@@ -249,10 +324,10 @@
         ],
         "category": "duplicate_basename",
         "top_level_dirs": [
-          "core",
           "AGENTIC_DEV_PROTOTYPE",
-          "PROCESS_DEEP_DIVE_OPTOMIZE",
-          "engine"
+          "core",
+          "engine",
+          "PROCESS_DEEP_DIVE_OPTOMIZE"
         ],
         "recommendation": "Review for consolidation or clarify purpose"
       },
@@ -317,8 +392,8 @@
         ],
         "category": "duplicate_basename",
         "top_level_dirs": [
-          "core",
           "AGENTIC_DEV_PROTOTYPE",
+          "core",
           "PROCESS_DEEP_DIVE_OPTOMIZE"
         ],
         "recommendation": "Review for consolidation or clarify purpose"
@@ -332,8 +407,8 @@
         ],
         "category": "duplicate_basename",
         "top_level_dirs": [
-          "core",
           "AGENTIC_DEV_PROTOTYPE",
+          "core",
           "PROCESS_DEEP_DIVE_OPTOMIZE"
         ],
         "recommendation": "Review for consolidation or clarify purpose"
@@ -386,8 +461,8 @@
         ],
         "category": "duplicate_basename",
         "top_level_dirs": [
-          "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK",
           "AGENTIC_DEV_PROTOTYPE",
+          "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK",
           "PROCESS_DEEP_DIVE_OPTOMIZE"
         ],
         "recommendation": "Review for consolidation or clarify purpose"
@@ -440,8 +515,8 @@
         ],
         "category": "duplicate_basename",
         "top_level_dirs": [
-          "core",
           "AGENTIC_DEV_PROTOTYPE",
+          "core",
           "PROCESS_DEEP_DIVE_OPTOMIZE"
         ],
         "recommendation": "Review for consolidation or clarify purpose"
@@ -519,8 +594,8 @@
         ],
         "category": "duplicate_basename",
         "top_level_dirs": [
-          "core",
-          "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK"
+          "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK",
+          "core"
         ],
         "recommendation": "Review for consolidation or clarify purpose"
       },
@@ -532,8 +607,8 @@
         ],
         "category": "duplicate_basename",
         "top_level_dirs": [
-          "core",
-          "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK"
+          "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK",
+          "core"
         ],
         "recommendation": "Review for consolidation or clarify purpose"
       }
