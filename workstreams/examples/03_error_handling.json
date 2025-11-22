@@ -1,0 +1,117 @@
+{
+  "_comment_header": "========================================",
+  "_comment_purpose": "Example 3: Error Handling - Workstream demonstrating circuit breaker, retry, and recovery",
+  "_comment_use_case": "Use this pattern for: Unreliable operations, flaky APIs, self-healing workflows",
+  "_comment_header_end": "========================================",
+
+  "id": "ws-example-03-error-handling",
+  
+  "openspec_change": "EX-003",
+  "ccpm_issue": 1003,
+  "gate": 1,
+
+  "files_scope": [
+    "examples/network_client.py"
+  ],
+  "files_create": [
+    "examples/network_client.py"
+  ],
+
+  "tasks": [
+    "Create examples/network_client.py with retry logic",
+    "Add exponential backoff for failed requests",
+    "Implement circuit breaker pattern",
+    "Include timeout handling",
+    "Add comprehensive error logging"
+  ],
+  "_comment_tasks": "This example intentionally uses patterns that may fail to demonstrate recovery",
+
+  "acceptance_tests": [
+    "python -c \"from examples.network_client import NetworkClient; client = NetworkClient(); print('Import OK')\"",
+    "python -c \"from examples.network_client import NetworkClient; assert hasattr(NetworkClient, 'request_with_retry')\""
+  ],
+
+  "depends_on": [],
+
+  "tool": "aider",
+
+  "circuit_breaker": {
+    "max_attempts": 5,
+    "_comment_max_attempts": "More attempts than usual to demonstrate retry exhaustion",
+    
+    "max_error_repeats": 3,
+    "_comment_max_error_repeats": "Allow more error repeats for demonstration",
+    
+    "cooldown_seconds": 30,
+    "_comment_cooldown_seconds": "Wait 30s before retrying after circuit opens",
+    
+    "error_patterns": [
+      "TimeoutError",
+      "ConnectionError", 
+      "rate limit exceeded",
+      "API error"
+    ],
+    "_comment_error_patterns": "Circuit opens on these errors. Other errors fail immediately.",
+    
+    "escalation_strategy": "exponential_backoff",
+    "_comment_escalation_strategy": "Options: immediate, linear_backoff, exponential_backoff, circuit_break"
+  },
+  "_comment_circuit_breaker": "This example demonstrates circuit breaker in action - it will retry failures intelligently",
+
+  "retry": {
+    "enabled": true,
+    "strategy": "exponential",
+    "_comment_strategy": "exponential: 1s, 2s, 4s, 8s, 16s...",
+    
+    "initial_delay": 1,
+    "max_delay": 60,
+    "jitter": true,
+    "_comment_jitter": "Add randomness to retry delays to avoid thundering herd"
+  },
+  "_comment_retry": "Retry configuration works with circuit breaker for comprehensive error handling",
+
+  "error_handling": {
+    "on_failure": {
+      "action": "log_and_continue",
+      "_comment_action": "Options: fail_fast, log_and_continue, skip_step, escalate",
+      
+      "log_level": "ERROR",
+      "notify": ["example@team.com"],
+      "_comment_notify": "Send notifications on failures",
+      
+      "collect_diagnostics": true,
+      "_comment_collect_diagnostics": "Gather logs, stack traces, system state on failure"
+    },
+    
+    "on_retry": {
+      "action": "log",
+      "log_level": "WARNING",
+      "message": "Retrying step ${step_id} (attempt ${attempt_number}/${max_attempts})"
+    },
+    
+    "on_recovery": {
+      "action": "log",
+      "log_level": "INFO",
+      "message": "Step ${step_id} recovered after ${attempt_number} attempts"
+    },
+    
+    "on_circuit_open": {
+      "action": "pause_and_notify",
+      "pause_duration": 30,
+      "message": "Circuit breaker opened for ${step_id}. Pausing for ${pause_duration}s"
+    }
+  },
+  "_comment_error_handling": "Comprehensive error handling configuration demonstrates all recovery paths",
+
+  "metadata": {
+    "owner": "example@team.com",
+    "priority": "high",
+    "_comment_priority": "High priority demonstrates importance of error handling",
+    
+    "estimated_duration": "3-8 minutes (may take longer if retries triggered)",
+    "tags": ["example", "tutorial", "error-handling", "resilience", "circuit-breaker"],
+    
+    "expected_behavior": "May fail initially, then recover through retries",
+    "_comment_expected_behavior": "This is intentional - demonstrates recovery patterns"
+  }
+}

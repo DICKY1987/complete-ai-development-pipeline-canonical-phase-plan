@@ -7,11 +7,14 @@ This repository hosts a structured, phase-based plan and lightweight tooling for
 ## 🗺️ Navigation
 
 **New to the repository?** Start here:
+- 📚 [**DOCUMENTATION_INDEX.md**](docs/DOCUMENTATION_INDEX.md) - **Central hub for all documentation** ⭐
 - 📘 [QUICK_START.md](QUICK_START.md) - Fast entry points for common tasks
 - 🗂️ [DIRECTORY_GUIDE.md](DIRECTORY_GUIDE.md) - Comprehensive navigation and structure
 - 📋 [AGENTS.md](AGENTS.md) - Coding conventions and guidelines
+- ⚡ [UET_QUICK_REFERENCE.md](docs/UET_QUICK_REFERENCE.md) - Universal Execution Templates integration
+- 🔍 [IMPLEMENTATION_LOCATIONS.md](docs/IMPLEMENTATION_LOCATIONS.md) - Find any term's code location (file:line)
 
-**For AI Tools**: See [DIRECTORY_GUIDE.md](DIRECTORY_GUIDE.md) for section priorities and `.aicontext` files in each directory.
+**For AI Tools**: See [DOCUMENTATION_INDEX.md](docs/DOCUMENTATION_INDEX.md) for complete documentation map and [IMPLEMENTATION_LOCATIONS.md](docs/IMPLEMENTATION_LOCATIONS.md) for code lookups.
 
 ## Quick Start
 - Ensure PowerShell (`pwsh`) is available on Windows.
@@ -19,6 +22,25 @@ This repository hosts a structured, phase-based plan and lightweight tooling for
   - `pwsh ./scripts/bootstrap.ps1`
   - `pwsh ./scripts/test.ps1`
 - See [QUICK_START.md](QUICK_START.md) for detailed setup and common tasks
+
+### UET Framework Integration (NEW)
+
+The repository now integrates the **Universal Execution Templates (UET) Framework** for autonomous project configuration and production-grade orchestration:
+
+```bash
+# Bootstrap with UET auto-configuration
+python scripts/bootstrap_uet.py .
+
+# Generates: PROJECT_PROFILE.yaml, router_config.json
+# Auto-detects: Project type, tools, constraints
+```
+
+**Documentation**:
+- Quick Reference: [docs/UET_QUICK_REFERENCE.md](docs/UET_QUICK_REFERENCE.md)
+- Integration Design: [docs/UET_INTEGRATION_DESIGN.md](docs/UET_INTEGRATION_DESIGN.md)
+- Week 1 Implementation: [docs/UET_WEEK1_IMPLEMENTATION.md](docs/UET_WEEK1_IMPLEMENTATION.md)
+
+**Status**: Phase 1 - Foundation (Week 1) - Bootstrap, Resilience, Monitoring modules integrated
 
 ### Engine & Job-Based Execution
 

@@ -1,0 +1,121 @@
+{
+  "_comment_header": "========================================",
+  "_comment_purpose": "Example 2: Parallel Execution - Multi-step workstream with parallel task execution",
+  "_comment_use_case": "Use this pattern for: Independent tasks that can run simultaneously, batch operations, multi-file changes",
+  "_comment_header_end": "========================================",
+
+  "id": "ws-example-02-parallel-execution",
+  
+  "openspec_change": "EX-002",
+  "ccpm_issue": 1002,
+  "gate": 1,
+
+  "files_scope": [
+    "examples/math_utils.py",
+    "examples/string_utils.py",
+    "examples/file_utils.py"
+  ],
+  "_comment_files_scope": "Multiple files - this workstream creates 3 independent utility modules",
+
+  "files_create": [
+    "examples/math_utils.py",
+    "examples/string_utils.py",
+    "examples/file_utils.py"
+  ],
+
+  "steps": [
+    {
+      "id": "step-01-math-utils",
+      "_comment_step_id": "Unique ID for this step within the workstream",
+
+      "description": "Create math utilities module with basic functions",
+      "_comment_description": "Human-readable description of what this step does",
+
+      "tool": "aider",
+      
+      "tasks": [
+        "Create examples/math_utils.py",
+        "Add functions: add, subtract, multiply, divide",
+        "Include type hints and docstrings",
+        "Handle division by zero with proper exception"
+      ],
+
+      "depends_on": [],
+      "_comment_depends_on": "Empty list means this step can run immediately (no dependencies)",
+
+      "acceptance_tests": [
+        "python -c \"from examples.math_utils import add; assert add(2,3) == 5\""
+      ]
+    },
+
+    {
+      "id": "step-02-string-utils",
+      "description": "Create string utilities module with text manipulation functions",
+      
+      "tool": "aider",
+      
+      "tasks": [
+        "Create examples/string_utils.py", 
+        "Add functions: reverse, capitalize_words, remove_whitespace",
+        "Include type hints and docstrings",
+        "Handle None inputs gracefully"
+      ],
+
+      "depends_on": [],
+      "_comment_depends_on": "Also no dependencies - can run in parallel with step-01",
+
+      "acceptance_tests": [
+        "python -c \"from examples.string_utils import reverse; assert reverse('hello') == 'olleh'\""
+      ]
+    },
+
+    {
+      "id": "step-03-file-utils",
+      "description": "Create file utilities module with safe file operations",
+      
+      "tool": "aider",
+      
+      "tasks": [
+        "Create examples/file_utils.py",
+        "Add functions: safe_read, safe_write, ensure_dir",
+        "Include type hints and docstrings",
+        "Use pathlib for cross-platform compatibility"
+      ],
+
+      "depends_on": [],
+      "_comment_depends_on": "Third parallel task - all 3 steps execute simultaneously",
+
+      "acceptance_tests": [
+        "python -c \"from examples.file_utils import ensure_dir; import pathlib; ensure_dir(pathlib.Path('test'))\""
+      ]
+    }
+  ],
+  "_comment_steps": "Array of step objects. Steps with no dependencies run in parallel. Orchestrator manages concurrency.",
+
+  "circuit_breaker": {
+    "max_attempts": 3,
+    "max_error_repeats": 2,
+    "per_step": true,
+    "_comment_per_step": "Circuit breaker applies per-step, not globally. One step can fail without blocking others."
+  },
+
+  "execution": {
+    "parallel": true,
+    "_comment_parallel": "Enable parallel execution of independent steps",
+
+    "max_workers": 3,
+    "_comment_max_workers": "Maximum number of steps to run concurrently (default: CPU count)",
+
+    "timeout_per_step": 300,
+    "_comment_timeout_per_step": "Timeout in seconds for each step (5 minutes)"
+  },
+  "_comment_execution": "Execution configuration specific to this workstream. Overrides global defaults.",
+
+  "metadata": {
+    "owner": "example@team.com",
+    "priority": "medium",
+    "estimated_duration": "3-6 minutes with parallel execution (9-18 min sequential)",
+    "_comment_duration": "Parallel execution ~3x faster than sequential for independent tasks",
+    "tags": ["example", "tutorial", "parallel", "utilities"]
+  }
+}

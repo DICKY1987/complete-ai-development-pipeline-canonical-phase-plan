@@ -1,8 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Bash(cat:*)",
-      "Bash(ls:*)"
+      "Bash(pwsh -File:*)",
+      "Bash(curl:*)",
+      "Bash(python:*)"
     ],
     "deny": [],
     "ask": []

@@ -1,6 +1,10 @@
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
+# Fix Windows Unicode encoding issues (CRITICAL for aider output display)
+$env:PYTHONIOENCODING = "utf-8"
+$env:PYTHONUTF8 = "1"
+
 # Read and parse JSON input from stdin
 $inputJson = [Console]::In.ReadToEnd()
 $req = $null

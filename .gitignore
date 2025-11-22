@@ -141,3 +141,9 @@ temp/
 # Uncomment if indices should not be committed
 # docs/.index/
 # specifications/.index/
+.sync-log.txt
+.sync-lock
+.sync-manifest.json
+
+# Refactor tracking database
+refactor_paths.db
