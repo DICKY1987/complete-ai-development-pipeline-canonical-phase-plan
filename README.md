@@ -4,11 +4,21 @@
 
 This repository hosts a structured, phase-based plan and lightweight tooling for building and operating an AI development pipeline. Start with PH-00 to establish the baseline skeleton, then proceed through subsequent phases.
 
+## 🗺️ Navigation
+
+**New to the repository?** Start here:
+- 📘 [QUICK_START.md](QUICK_START.md) - Fast entry points for common tasks
+- 🗂️ [DIRECTORY_GUIDE.md](DIRECTORY_GUIDE.md) - Comprehensive navigation and structure
+- 📋 [AGENTS.md](AGENTS.md) - Coding conventions and guidelines
+
+**For AI Tools**: See [DIRECTORY_GUIDE.md](DIRECTORY_GUIDE.md) for section priorities and `.aicontext` files in each directory.
+
 ## Quick Start
 - Ensure PowerShell (`pwsh`) is available on Windows.
 - Bootstrap directories and basic checks:
   - `pwsh ./scripts/bootstrap.ps1`
   - `pwsh ./scripts/test.ps1`
+- See [QUICK_START.md](QUICK_START.md) for detailed setup and common tasks
 
 ### Engine & Job-Based Execution
 
