@@ -376,7 +376,7 @@ class CodebaseAuditor:
                 "if __name__ == \"__main__\":" in content or
                 content.startswith('#!')
             )
-        except:
+        except (UnicodeDecodeError, PermissionError, OSError):
             return False
     
     def _categorize_archive_directory(self, dir_name: str) -> str:
