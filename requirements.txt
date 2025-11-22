@@ -10,3 +10,8 @@ jsonschema>=4.20.0
 # Phase G: Invoke adoption
 invoke>=2.2.0
 
+# Phase 4: AST parsing (Tree-sitter)
+tree-sitter>=0.20.0
+tree-sitter-python>=0.20.0
+tree-sitter-javascript>=0.20.0
+tree-sitter-typescript>=0.20.0
