@@ -11,7 +11,7 @@ This repository hosts a structured, phase-based plan and lightweight tooling for
 - 📘 [QUICK_START.md](QUICK_START.md) - Fast entry points for common tasks
 - 🗂️ [DIRECTORY_GUIDE.md](DIRECTORY_GUIDE.md) - Comprehensive navigation and structure
 - 📋 [AGENTS.md](AGENTS.md) - Coding conventions and guidelines
-- ⚡ [UET_QUICK_REFERENCE.md](docs/UET_QUICK_REFERENCE.md) - Universal Execution Templates integration
+- ⚡ [UET Integration Docs](UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/docs/integration/) - Universal Execution Templates framework
 - 🔍 [IMPLEMENTATION_LOCATIONS.md](docs/IMPLEMENTATION_LOCATIONS.md) - Find any term's code location (file:line)
 
 **For AI Tools**: See [DOCUMENTATION_INDEX.md](docs/DOCUMENTATION_INDEX.md) for complete documentation map and [IMPLEMENTATION_LOCATIONS.md](docs/IMPLEMENTATION_LOCATIONS.md) for code lookups.
@@ -36,11 +36,11 @@ python scripts/bootstrap_uet.py .
 ```
 
 **Documentation**:
-- Quick Reference: [docs/UET_QUICK_REFERENCE.md](docs/UET_QUICK_REFERENCE.md)
-- Integration Design: [docs/UET_INTEGRATION_DESIGN.md](docs/UET_INTEGRATION_DESIGN.md)
-- Week 1 Implementation: [docs/UET_WEEK1_IMPLEMENTATION.md](docs/UET_WEEK1_IMPLEMENTATION.md)
+- Documentation Index: [UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/docs/integration/UET_INDEX.md](UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/docs/integration/UET_INDEX.md)
+- Quick Reference: [UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/docs/integration/UET_QUICK_REFERENCE.md](UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/docs/integration/UET_QUICK_REFERENCE.md)
+- Integration Design: [UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/docs/integration/UET_INTEGRATION_DESIGN.md](UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/docs/integration/UET_INTEGRATION_DESIGN.md)
 
-**Status**: Phase 1 - Foundation (Week 1) - Bootstrap, Resilience, Monitoring modules integrated
+**Status**: Planning Complete - Ready for Option A (Selective Integration) - 3-4 week timeline
 
 ### Engine & Job-Based Execution
 
