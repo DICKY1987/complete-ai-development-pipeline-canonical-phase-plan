@@ -1,0 +1,142 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "schema/ai_module_manifest.schema.json",
+  "title": "AI Module Manifest",
+  "description": "Schema for .ai-module-manifest files - AI-readable module documentation",
+  "type": "object",
+  "required": ["module", "purpose", "layer", "entry_points"],
+  "additionalProperties": false,
+  "properties": {
+    "module": {
+      "type": "string",
+      "description": "Module name (e.g., 'core.engine', 'error.plugins')",
+      "pattern": "^[a-z][a-z0-9_]*(\\.[a-z][a-z0-9_]*)*$"
+    },
+    "purpose": {
+      "type": "string",
+      "description": "One-line purpose: <verb>: <objects> (e.g., 'Orchestration: run management, task routing, state tracking')",
+      "minLength": 10,
+      "maxLength": 200
+    },
+    "layer": {
+      "type": "string",
+      "enum": ["infra", "domain", "api", "ui"],
+      "description": "Architecture layer: infra (foundation), domain (business logic), api (interfaces), ui (presentation)"
+    },
+    "entry_points": {
+      "type": "array",
+      "description": "Key entry points for AI agents to use this module",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["file", "function", "description"],
+        "properties": {
+          "file": {
+            "type": "string",
+            "description": "File path relative to module root (e.g., 'orchestrator.py')"
+          },
+          "function": {
+            "type": "string",
+            "description": "Function/class name (e.g., 'Orchestrator', 'init_db()')"
+          },
+          "description": {
+            "type": "string",
+            "description": "What this entry point does",
+            "minLength": 5
+          }
+        }
+      }
+    },
+    "key_patterns": {
+      "type": "array",
+      "description": "Important patterns, conventions, or principles",
+      "items": {
+        "type": "string"
+      }
+    },
+    "common_tasks": {
+      "type": "array",
+      "description": "Typical tasks AI agents perform with this module",
+      "items": {
+        "type": "object",
+        "required": ["task", "approach"],
+        "properties": {
+          "task": {
+            "type": "string",
+            "description": "Task name (e.g., 'Create new orchestration run')"
+          },
+          "command": {
+            "type": "string",
+            "description": "CLI command if applicable"
+          },
+          "code": {
+            "type": "string",
+            "description": "Python code example"
+          },
+          "approach": {
+            "type": "string",
+            "description": "How to accomplish this task"
+          }
+        }
+      }
+    },
+    "gotchas": {
+      "type": "array",
+      "description": "Common mistakes, edge cases, or non-obvious behavior",
+      "items": {
+        "type": "string"
+      }
+    },
+    "dependencies": {
+      "type": "object",
+      "description": "Module dependencies",
+      "properties": {
+        "external": {
+          "type": "array",
+          "description": "External packages (PyPI, npm, etc.)",
+          "items": {
+            "type": "string"
+          }
+        },
+        "internal": {
+          "type": "array",
+          "description": "Internal modules this depends on",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "status": {
+      "type": "object",
+      "description": "Module maturity and readiness",
+      "required": ["maturity"],
+      "properties": {
+        "maturity": {
+          "type": "string",
+          "enum": ["alpha", "beta", "stable", "deprecated", "planned"],
+          "description": "Development stage"
+        },
+        "test_coverage": {
+          "type": ["string", "number"],
+          "description": "Test coverage percentage or 'N/A'"
+        },
+        "production_ready": {
+          "type": "boolean",
+          "description": "Safe for production use"
+        },
+        "breaking_changes_expected": {
+          "type": "boolean",
+          "description": "API may change"
+        }
+      }
+    },
+    "ai_quick_reference": {
+      "type": "object",
+      "description": "Quick shortcuts for common AI agent operations",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  }
+}
