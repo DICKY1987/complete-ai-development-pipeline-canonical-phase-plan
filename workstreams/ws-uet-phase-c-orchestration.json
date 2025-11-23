@@ -1,6 +1,7 @@
 {
   "id": "ws-uet-phase-c-orchestration",
   "openspec_change": "uet-001-phase-c-orchestration",
+  "ccpm_issue": "UET-PHASE-C",
   "gate": 2,
   "files_scope": [
     "core/engine/scheduler_dag.py",

@@ -1,6 +1,7 @@
 {
   "id": "ws-uet-phase-d-adapters",
   "openspec_change": "uet-001-phase-d-adapters",
+  "ccpm_issue": "UET-PHASE-D",
   "gate": 3,
   "files_scope": [
     "core/engine/adapters/*.py",

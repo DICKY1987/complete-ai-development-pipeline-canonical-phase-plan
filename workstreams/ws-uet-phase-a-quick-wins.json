@@ -1,6 +1,7 @@
 {
   "id": "ws-uet-phase-a-quick-wins",
   "openspec_change": "uet-001-phase-a-quick-wins",
+  "ccpm_issue": "UET-PHASE-A",
   "gate": 1,
   "files_scope": [
     "schema/uet/*.json",

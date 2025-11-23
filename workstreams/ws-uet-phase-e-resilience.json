@@ -1,6 +1,7 @@
 {
   "id": "ws-uet-phase-e-resilience",
   "openspec_change": "uet-001-phase-e-resilience",
+  "ccpm_issue": "UET-PHASE-E",
   "gate": 2,
   "files_scope": [
     "core/engine/compensation.py",

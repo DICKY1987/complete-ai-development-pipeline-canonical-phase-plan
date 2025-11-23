@@ -1,6 +1,7 @@
 {
   "id": "ws-uet-phase-b-patch-system",
   "openspec_change": "uet-001-phase-b-patch-system",
+  "ccpm_issue": "UET-PHASE-B",
   "gate": 2,
   "files_scope": [
     "core/patches/*.py",
