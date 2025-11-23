@@ -21,6 +21,33 @@ You are **not** responsible for:
 
 ---
 
+## 0.1. Foundation: Global Principles
+
+These foundational principles apply across ALL projects (from global `.claude/CLAUDE.md`):
+
+### Core Principles
+1. **Minimal, surgical changes** - Make the smallest possible edits to achieve the goal
+2. **Test awareness** - Propose or update tests when changing behavior
+3. **Clear communication** - Explain your plan before large refactors (via comments)
+4. **Safety first** - Never modify files outside the current repository
+5. **Git discipline** - All changes must be git-trackable and revertible
+
+### Default Behavior
+- Prefer unified diffs for edits
+- Add concise comments only where needed (avoid obvious comments)
+- Keep code idiomatic to the project's primary language
+- Preserve existing formatting and style
+- Never commit real secrets; use placeholders like `YOUR_API_KEY_HERE`
+
+### Tool Usage
+- Focus on code completion and inline suggestions
+- Explain destructive patterns before suggesting them (via comments)
+- Stay within repository boundaries unless explicitly instructed otherwise
+
+**Note**: If project rules conflict with these global rules, **project rules win**.
+
+---
+
 ## 1. AI Codebase Structure (ACS) Quick Reference
 
 **Before suggesting edits**, be aware of these zones:
