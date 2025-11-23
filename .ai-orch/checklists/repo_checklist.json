@@ -87,7 +87,10 @@
         "modules_key": "modules",
         "priority_field": "ai_priority",
         "required_priority": "HIGH",
-        "doc_files": ["MODULE.md", "README.md"]
+        "doc_files": [
+          "MODULE.md",
+          "README.md"
+        ]
       }
     },
     {
@@ -123,7 +126,12 @@
       "params": {
         "policy_file": "ai_policies.yaml",
         "invariants_key": "invariants",
-        "required_fields": ["id", "name", "description", "enforcement"]
+        "required_fields": [
+          "id",
+          "name",
+          "description",
+          "enforcement"
+        ]
       }
     },
     {
@@ -232,8 +240,15 @@
       "description": ".state directory must have required structure",
       "params": {
         "root": ".state",
-        "required_directories": ["snapshots", "indices"],
-        "required_files": ["current.json", "transitions.jsonl", "health.json"]
+        "required_directories": [
+          "snapshots",
+          "indices"
+        ],
+        "required_files": [
+          "current.json",
+          "transitions.jsonl",
+          "health.json"
+        ]
       }
     },
     {
@@ -283,7 +298,11 @@
           "workstream_index.json",
           "capability_index.json"
         ],
-        "index_schema_fields": ["schema_version", "index_id", "items"]
+        "index_schema_fields": [
+          "schema_version",
+          "index_id",
+          "items"
+        ]
       }
     },
     {
@@ -319,6 +338,63 @@
         "path": "docs/operations/AUDIT_RETENTION.md",
         "allow_in_parent": false
       }
+    },
+    {
+      "description": "Specification index must exist and be valid",
+      "priority": "HIGH",
+      "type": "spec_index_validation",
+      "scope": "repo",
+      "params": {
+        "index_path": "specifications/.index/suite-index.yaml",
+        "spec_source": "specifications/content",
+        "generate_command": "python specifications/tools/indexer/indexer.py --source specifications/content"
+      },
+      "requirement_id": "SPEC-IMPL-001"
+    },
+    {
+      "description": "All spec URIs in code must be resolvable",
+      "priority": "HIGH",
+      "type": "spec_uri_resolution",
+      "scope": "repo",
+      "params": {
+        "file_types": [
+          "*.py",
+          "*.md"
+        ],
+        "spec_source": "specifications/content",
+        "code_patterns": [
+          "spec://[A-Z0-9_/-]+",
+          "specid://[A-Z0-9_-]+"
+        ]
+      },
+      "requirement_id": "SPEC-IMPL-002"
+    },
+    {
+      "description": "Required specifications must have implementations",
+      "priority": "MEDIUM",
+      "type": "spec_implementation_tracking",
+      "scope": "repo",
+      "params": {
+        "required_markers": [
+          "MUST",
+          "REQUIRED",
+          "SHALL"
+        ],
+        "spec_source": "specifications/content"
+      },
+      "requirement_id": "SPEC-IMPL-003"
+    },
+    {
+      "description": "Spec coverage metrics must be tracked",
+      "priority": "MEDIUM",
+      "type": "spec_coverage_analysis",
+      "scope": "repo",
+      "params": {
+        "code_root": ".",
+        "spec_source": "specifications/content",
+        "min_coverage_percent": 30
+      },
+      "requirement_id": "SPEC-IMPL-004"
     }
   ],
   "folder_templates": [
