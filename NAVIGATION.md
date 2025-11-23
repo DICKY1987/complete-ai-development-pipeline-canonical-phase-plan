@@ -266,7 +266,9 @@ CODEBASE_INDEX.yaml ──→ Module overview
 
 ---
 
-**Remember**: Most questions can be answered in ≤2 hops from this file.
+**For Contributors**: Start with [AGENTS.md](AGENTS.md) for coding standards, then review module-specific documentation.
+
+**Deprecated Navigation Docs**: `MASTER_NAVIGATION_INDEX.md` and `DIRECTORY_GUIDE.md` have been archived to [docs/archive/navigation/](docs/archive/navigation/). Use this file (NAVIGATION.md) instead.
 
 **Last Updated**: 2025-11-23  
 **Status**: Active - Updated as part of PH-AI-NAV-002

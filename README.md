@@ -7,14 +7,13 @@ This repository hosts a structured, phase-based plan and lightweight tooling for
 ## 🗺️ Navigation
 
 **New to the repository?** Start here:
-- 📚 [**DOCUMENTATION_INDEX.md**](docs/DOCUMENTATION_INDEX.md) - **Central hub for all documentation** ⭐
+- 🤖 [**.ai-context.md**](.ai-context.md) - **AI-optimized orientation** (30 seconds) ⭐
+- 🧭 [**NAVIGATION.md**](NAVIGATION.md) - **Unified navigation hub** ⭐
 - 📘 [QUICK_START.md](QUICK_START.md) - Fast entry points for common tasks
-- 🗂️ [DIRECTORY_GUIDE.md](DIRECTORY_GUIDE.md) - Comprehensive navigation and structure
 - 📋 [AGENTS.md](AGENTS.md) - Coding conventions and guidelines
-- ⚡ [UET Integration Docs](UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/docs/integration/) - Universal Execution Templates framework
 - 🔍 [IMPLEMENTATION_LOCATIONS.md](docs/IMPLEMENTATION_LOCATIONS.md) - Find any term's code location (file:line)
 
-**For AI Tools**: See [DOCUMENTATION_INDEX.md](docs/DOCUMENTATION_INDEX.md) for complete documentation map and [IMPLEMENTATION_LOCATIONS.md](docs/IMPLEMENTATION_LOCATIONS.md) for code lookups.
+**For AI Tools**: Start with [.ai-context.md](.ai-context.md) for instant orientation, then use [NAVIGATION.md](NAVIGATION.md) for comprehensive navigation.
 
 ## Quick Start
 - Ensure PowerShell (`pwsh`) is available on Windows.
