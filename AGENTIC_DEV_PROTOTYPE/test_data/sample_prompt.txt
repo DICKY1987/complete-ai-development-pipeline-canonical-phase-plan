@@ -1,1 +1,0 @@
-Implement the validate_spec function in src/validators/spec_validator.py to check all required fields are present.

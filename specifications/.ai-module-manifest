@@ -1,0 +1,269 @@
+# .ai-module-manifest
+# AI-readable module specification for specifications
+
+module: "specifications"
+purpose: "Unified specification management: tools, templates, validation, OpenSpec bridge"
+layer: "domain"  # Domain layer - business logic for spec management
+
+# Submodules
+submodules:
+  - name: "specifications.tools"
+    purpose: "Spec generation, validation, indexing"
+    
+  - name: "specifications.bridge"
+    purpose: "OpenSpec proposal → workstream conversion"
+    
+  - name: "specifications.templates"
+    purpose: "Spec templates (workstream, phase, plugin)"
+    type: "data"
+
+# Entry points
+entry_points:
+  - file: "tools/generator.py"
+    function: "generate_spec(template: str, output: str)"
+    description: "Generate spec from template"
+    
+  - file: "tools/validator.py"
+    function: "validate_spec(spec_path: str, schema_path: str)"
+    description: "Validate spec against JSON schema"
+    
+  - file: "tools/indexer/indexer.py"
+    function: "generate_index(root_path: str)"
+    description: "Generate spec index for AI navigation"
+    
+  - file: "bridge/spec_to_workstream.py"
+    function: "convert_openspec(proposal_path: str)"
+    description: "Convert OpenSpec proposal to workstream bundle"
+    
+  - command: "python scripts/spec_generate.py --template <type>"
+    description: "CLI for spec generation"
+
+# Key patterns
+key_patterns:
+  - "All specs validated against JSON Schema v4"
+  - "Templates stored in specifications/templates/"
+  - "OpenSpec proposals in openspec/changes/"
+  - "Bridge converts proposal.md + tasks.md → workstream.json"
+  - "Validator uses schema/ for validation rules"
+  - "Indexer generates AI-readable navigation files"
+
+# Common tasks
+common_tasks:
+  - task: "Generate workstream spec from template"
+    command: "python scripts/spec_generate.py --template workstream --output my_ws.json"
+    code: |
+      from specifications.tools.generator import generate_spec
+      generate_spec(
+          template="workstream",
+          output="my_workstream.json",
+          params={"name": "My Workstream"}
+      )
+      
+  - task: "Validate spec against schema"
+    code: |
+      from specifications.tools.validator import validate_spec
+      is_valid = validate_spec(
+          spec_path="my_workstream.json",
+          schema_path="schema/workstream_schema.json"
+      )
+      
+  - task: "Convert OpenSpec to workstream"
+    command: "python scripts/spec_to_workstream.py --proposal openspec/changes/PROP-001/"
+    code: |
+      from specifications.bridge.spec_to_workstream import convert_openspec
+      workstream = convert_openspec("openspec/changes/PROP-001/")
+      
+  - task: "Generate spec index"
+    command: "python scripts/generate_spec_index.py"
+    code: |
+      from specifications.tools.indexer.indexer import generate_index
+      index = generate_index("specifications/")
+
+# Templates
+available_templates:
+  workstream:
+    description: "Workstream bundle with steps and dependencies"
+    schema: "schema/workstream_schema.json"
+    output: "Executable workstream JSON"
+    
+  phase:
+    description: "Phase specification (WS-*, PH-* format)"
+    schema: "schema/phase_schema.json"
+    output: "Phase plan with workstreams"
+    
+  plugin:
+    description: "Error detection plugin template"
+    schema: "schema/plugin_schema.json"
+    output: "Plugin boilerplate code"
+
+# OpenSpec bridge
+openspec_bridge:
+  input:
+    - "proposal.md - Human-readable proposal"
+    - "tasks.md - Task breakdown"
+    - "spec files - Technical details"
+    
+  output:
+    - "workstream.json - Executable bundle"
+    - "Validates against workstream schema"
+    
+  conversion_logic:
+    1: "Parse proposal.md for metadata"
+    2: "Parse tasks.md for step definitions"
+    3: "Extract dependencies from task structure"
+    4: "Build workstream JSON structure"
+    5: "Validate against schema"
+    6: "Output to workstreams/ directory"
+
+# Gotchas
+gotchas:
+  - "Templates use Jinja2-like syntax ({{variable}})"
+  - "Validator is strict - extra fields cause failure"
+  - "OpenSpec bridge requires specific markdown structure"
+  - "Indexer overwrites existing index files"
+  - "Schema validation doesn't check business logic"
+  - "Template paths relative to specifications/templates/"
+
+# Deprecated
+deprecated:
+  - old: "scripts/generate_workstream.py"
+    new: "scripts/spec_generate.py --template workstream"
+    reason: "Consolidated into spec_generate (2025-11-20)"
+
+# Dependencies
+dependencies:
+  external:
+    - json
+    - pathlib
+    - typing
+    - jsonschema  # Schema validation
+    
+  internal:
+    - schema.workstream_schema
+    - schema.phase_schema
+    
+  optional:
+    - jinja2  # Template rendering (if using advanced templates)
+
+# Directory structure
+directory_structure: |
+  specifications/
+  ├── tools/              # Spec management tools
+  │   ├── generator.py    #   Generate from templates
+  │   ├── validator.py    #   Validate against schemas
+  │   └── indexer/        #   Index generation
+  ├── bridge/             # OpenSpec integration
+  │   └── spec_to_workstream.py
+  └── templates/          # Spec templates
+      ├── workstream.json
+      ├── phase.json
+      └── plugin.json
+
+# Test files
+test_files:
+  - "tests/specifications/tools/test_generator.py"
+  - "tests/specifications/tools/test_validator.py"
+  - "tests/specifications/bridge/test_spec_to_workstream.py"
+
+# Documentation
+documentation:
+  - "specifications/README.md"
+  - "docs/SPEC_MANAGEMENT_CONTRACT.md"
+  - "docs/spec-tooling-consolidation.md"
+
+# Status
+status:
+  maturity: "stable"
+  test_coverage: "~60%"
+  production_ready: true
+  last_major_change: "2025-11-20 (spec tooling consolidation)"
+
+# AI quick reference
+ai_quick_reference:
+  generate: "python scripts/spec_generate.py --template workstream"
+  validate: "from specifications.tools.validator import validate_spec; validate_spec('file.json', 'schema.json')"
+  convert_openspec: "python scripts/spec_to_workstream.py --proposal openspec/changes/PROP-001/"
+
+# Validation rules
+validation_rules:
+  workstream:
+    required_fields: ["id", "name", "steps"]
+    step_required: ["id", "action", "description"]
+    id_format: "WS-{number}-{number}"
+    
+  phase:
+    required_fields: ["id", "name", "workstreams"]
+    id_format: "PH-{name}-{number}"
+
+# Performance
+performance:
+  - "Generator: O(1) - template substitution"
+  - "Validator: O(n) where n = spec size"
+  - "Indexer: O(n*m) where n = files, m = file size"
+  - "Bridge: O(n) where n = proposal size"
+
+# Recent changes
+recent_changes:
+  - date: "2025-11-20"
+    change: "Consolidated spec tools into specifications/"
+    impact: "Single location for all spec operations"
+    
+  - date: "2025-11-19"
+    change: "Added OpenSpec bridge"
+    impact: "Can convert proposals to workstreams"
+    
+  - date: "2025-11-18"
+    change: "Improved validator error messages"
+    impact: "Clearer validation feedback"
+
+# Related modules
+related_modules:
+  - module: "schema"
+    relationship: "Provides JSON schemas for validation"
+    
+  - module: "core.state"
+    relationship: "Uses bundle_loader to load validated specs"
+    
+  - module: "pm"
+    relationship: "OpenSpec proposals managed by pm module"
+
+# For AI tools
+for_ai_tools:
+  suggesting_spec_generation: |
+    When user wants to create workstream/phase:
+    1. Suggest: python scripts/spec_generate.py --template <type>
+    2. Explain: Generates validated spec from template
+    3. Point to: specifications/templates/ for available templates
+    
+  common_questions:
+    - q: "How do I create a workstream?"
+      a: "python scripts/spec_generate.py --template workstream --output my_ws.json"
+      
+    - q: "How do I validate my spec?"
+      a: "from specifications.tools.validator import validate_spec; validate_spec('file.json', 'schema.json')"
+      
+    - q: "How do I convert OpenSpec proposal?"
+      a: "python scripts/spec_to_workstream.py --proposal openspec/changes/PROP-001/"
+
+# Template customization
+template_customization:
+  variables:
+    - "{{name}} - Spec name"
+    - "{{id}} - Unique identifier"
+    - "{{description}} - Spec description"
+    - "{{steps}} - Array of steps (workstream only)"
+    
+  example: |
+    # template
+    {
+      "id": "{{id}}",
+      "name": "{{name}}",
+      "steps": {{steps}}
+    }
+    
+    # generated
+    {
+      "id": "WS-001-001",
+      "name": "My Workstream",
+      "steps": [...]
+    }
