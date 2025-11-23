@@ -2,6 +2,9 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+> **⚡ CRITICAL: Read [.meta/AI_GUIDANCE.md](.meta/AI_GUIDANCE.md) FIRST**  
+> That 2-minute guide eliminates 25 min of onboarding per session.
+
 ## Role & Context
 
 You are working in the **Universal Execution Templates (UET) Framework**, a production-ready AI orchestration system for autonomous development workflows.
