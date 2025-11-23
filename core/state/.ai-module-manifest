@@ -1,0 +1,213 @@
+# .ai-module-manifest
+# AI-readable module specification for core.state
+
+module: "core.state"
+purpose: "Database operations, CRUD, bundle loading, worktree management, DAG utilities"
+layer: "infra"  # Infrastructure layer - foundation, no dependencies on domain/api/ui
+
+# Entry points - where to start when working with this module
+entry_points:
+  - file: "db.py"
+    function: "init_db(db_path: str = None)"
+    description: "Initialize SQLite database, create all tables"
+    
+  - file: "db.py"
+    function: "get_db_connection(db_path: str = None)"
+    description: "Get database connection (creates if doesn't exist)"
+    
+  - file: "crud.py"
+    description: "CRUD operations for all entities (runs, workstreams, steps, errors, events)"
+    note: "All state mutations go through this module"
+    
+  - file: "bundle_loader.py"
+    function: "load_workstream_bundle(bundle_path: str)"
+    description: "Load and validate workstream JSON against schema"
+    
+  - file: "dag_utils.py"
+    function: "validate_dag(dependencies: Dict[str, Set[str]])"
+    description: "Validate DAG for cycles, build topological order"
+
+# Key patterns - how this module works
+key_patterns:
+  - "All database operations use connection from db.py:get_db_connection()"
+  - "State mutations are logged to events table via crud.py:log_event()"
+  - "Database path defaults to .worktrees/<run_id>/pipeline.db"
+  - "DAG validation happens before execution in dag_utils.py"
+  - "Bundle loading validates JSON against schema/workstream_schema.json"
+  - "All tables use integer primary keys (id)"
+  - "Foreign key constraints enforced (ON DELETE CASCADE)"
+
+# Common tasks - how to accomplish typical goals
+common_tasks:
+  - task: "Add new entity type"
+    steps:
+      - "Add table schema to db.py:init_db()"
+      - "Add CRUD functions to crud.py (create, get, update, delete)"
+      - "Add tests to tests/core/state/test_crud.py"
+      - "Update schema documentation if needed"
+      
+  - task: "Query workstream state"
+    steps:
+      - "Use crud.py:get_workstream(ws_id) for single workstream"
+      - "Use crud.py:get_workstreams_by_run(run_id) for all in run"
+      - "Or query database directly via get_db_connection()"
+      
+  - task: "Load workstream from JSON"
+    steps:
+      - "Use bundle_loader.load_workstream_bundle(path)"
+      - "Returns validated dict conforming to schema"
+      - "Raises exception if validation fails"
+      
+  - task: "Validate dependencies"
+    steps:
+      - "Build dependency graph: Dict[str, Set[str]]"
+      - "Call dag_utils.validate_dag(dep_graph)"
+      - "Returns (bool, cycle_info) if cycle detected"
+
+# Gotchas - common pitfalls and edge cases
+gotchas:
+  - "Database path is .worktrees/<run_id>/pipeline.db, NOT root level"
+  - "init_db() is idempotent - safe to call multiple times"
+  - "Connection is NOT thread-safe - one connection per thread"
+  - "bundle_loader expects JSON Schema v4 format"
+  - "DAG validation uses topological sort - O(V+E) complexity"
+  - "Events table can grow large - consider cleanup strategy"
+  - "Foreign keys CASCADE on delete - be careful with deletions"
+
+# Deprecated paths - what NOT to use
+deprecated:
+  - old: "src.pipeline.db"
+    new: "core.state.db"
+    reason: "Section-based refactor (2025-11-20)"
+    
+  - old: "src.pipeline.state"
+    new: "core.state.crud"
+    reason: "Section-based refactor (2025-11-20)"
+    
+  - old: "legacy.utils.dag"
+    new: "core.state.dag_utils"
+    reason: "Module consolidation (2025-11-20)"
+
+# Dependencies
+dependencies:
+  external:
+    - sqlite3  # Standard library
+    - pathlib  # Standard library
+    - json     # Standard library
+    - typing   # Type hints
+    
+  internal:
+    - schema.workstream_schema  # JSON schema for validation
+    
+  optional:
+    - None  # No optional dependencies
+
+# Database schema - table structure
+database_schema:
+  tables:
+    - name: "runs"
+      description: "Top-level execution runs"
+      columns:
+        - "id INTEGER PRIMARY KEY"
+        - "plan_name TEXT NOT NULL"
+        - "plan_data TEXT"  # JSON
+        - "status TEXT"
+        - "created_at TEXT"
+        - "updated_at TEXT"
+        
+    - name: "workstreams"
+      description: "Individual workstreams within a run"
+      columns:
+        - "id INTEGER PRIMARY KEY"
+        - "run_id INTEGER REFERENCES runs(id) ON DELETE CASCADE"
+        - "ws_id TEXT NOT NULL"  # User-facing ID
+        - "name TEXT"
+        - "data TEXT"  # JSON
+        - "status TEXT"
+        
+    - name: "steps"
+      description: "Execution steps within workstreams"
+      columns:
+        - "id INTEGER PRIMARY KEY"
+        - "workstream_id INTEGER REFERENCES workstreams(id) ON DELETE CASCADE"
+        - "step_id TEXT NOT NULL"
+        - "action TEXT"
+        - "status TEXT"
+        - "result TEXT"  # JSON
+        
+    - name: "dependencies"
+      description: "DAG dependencies between steps"
+      columns:
+        - "id INTEGER PRIMARY KEY"
+        - "step_id INTEGER REFERENCES steps(id) ON DELETE CASCADE"
+        - "depends_on_step_id INTEGER REFERENCES steps(id) ON DELETE CASCADE"
+        
+    - name: "errors"
+      description: "Errors encountered during execution"
+      columns:
+        - "id INTEGER PRIMARY KEY"
+        - "step_id INTEGER REFERENCES steps(id) ON DELETE CASCADE"
+        - "error_type TEXT"
+        - "message TEXT"
+        - "details TEXT"  # JSON
+        
+    - name: "events"
+      description: "Audit log of all state changes"
+      columns:
+        - "id INTEGER PRIMARY KEY"
+        - "run_id INTEGER REFERENCES runs(id) ON DELETE CASCADE"
+        - "event_type TEXT"
+        - "data TEXT"  # JSON
+        - "timestamp TEXT"
+
+# Test files
+test_files:
+  - "tests/core/state/test_db.py"
+  - "tests/core/state/test_crud.py"
+  - "tests/core/state/test_bundle_loader.py"
+  - "tests/core/state/test_dag_utils.py"
+
+# Documentation
+documentation:
+  - "core/state/README.md"
+  - "docs/ARCHITECTURE.md (State Management section)"
+  - "API_INDEX.md (State Management APIs)"
+
+# Module status
+status:
+  maturity: "stable"
+  test_coverage: "~80%"
+  production_ready: true
+  last_major_change: "2025-11-20 (section-based refactor)"
+
+# For AI tools - quick reference
+ai_quick_reference:
+  init_database: "from core.state.db import init_db; init_db()"
+  query_state: "from core.state import crud; ws = crud.get_workstream(ws_id)"
+  load_bundle: "from core.state.bundle_loader import load_workstream_bundle; data = load_workstream_bundle('path.json')"
+  validate_dag: "from core.state.dag_utils import validate_dag; is_valid, cycles = validate_dag(deps)"
+  
+# Change history
+recent_changes:
+  - date: "2025-11-20"
+    change: "Refactored from src.pipeline to core.state"
+    impact: "Import paths changed, all functionality preserved"
+    
+  - date: "2025-11-18"
+    change: "Added DAG cycle detection"
+    impact: "validate_dag now returns cycle information"
+    
+  - date: "2025-11-15"
+    change: "Added events table for audit log"
+    impact: "All state changes now logged"
+
+# Related modules
+related_modules:
+  - module: "core.engine"
+    relationship: "Uses core.state for persistence"
+    
+  - module: "core.planning"
+    relationship: "Uses bundle_loader for workstream loading"
+    
+  - module: "schema"
+    relationship: "Provides JSON schemas for validation"

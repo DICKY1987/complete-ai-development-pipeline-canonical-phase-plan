@@ -1,0 +1,218 @@
+# .ai-module-manifest
+# AI-readable module specification for core
+
+module: "core"
+purpose: "Core orchestration: state management, planning, execution engine"
+layer: "domain"  # Domain layer - core business logic
+
+# Submodules
+submodules:
+  - name: "core.state"
+    purpose: "Database operations, CRUD, DAG utilities"
+    manifest: "core/state/.ai-module-manifest"
+    
+  - name: "core.engine"
+    purpose: "Orchestrator, scheduler, executor"
+    manifest: "core/engine/.ai-module-manifest"
+    
+  - name: "core.planning"
+    purpose: "Workstream planning and routing"
+    manifest: "core/planning/.ai-module-manifest"  # Future
+
+# Entry points
+entry_points:
+  - file: "orchestrator.py"
+    class: "Orchestrator"
+    function: "run_plan(plan_path: str)"
+    description: "PRIMARY ENTRY POINT - Execute complete workstream plan"
+    note: "This is the main entry for the entire pipeline"
+
+# Key patterns
+key_patterns:
+  - "State managed via core.state layer (SQLite persistence)"
+  - "DAG-based dependency resolution for execution order"
+  - "Tool adapters in separate modules (aim, pm, etc.)"
+  - "All state mutations logged to events table"
+  - "Circuit breaker prevents cascading failures"
+  - "Workstreams validated against JSON schema before execution"
+
+# Architecture overview
+architecture:
+  layers:
+    - name: "State Layer (core.state)"
+      responsibility: "Persistence, CRUD, DAG utilities"
+      dependencies: ["sqlite3", "schema"]
+      
+    - name: "Execution Layer (core.engine)"
+      responsibility: "Orchestration, scheduling, execution"
+      dependencies: ["core.state", "aim", "pm"]
+      
+    - name: "Planning Layer (core.planning)"
+      responsibility: "Workstream generation, routing"
+      dependencies: ["core.state", "specifications"]
+      status: "partial"
+
+# Common tasks
+common_tasks:
+  - task: "Run a workstream"
+    command: "python -m core.orchestrator run --plan workstreams/example.json"
+    code: |
+      from core.orchestrator import Orchestrator
+      orch = Orchestrator()
+      result = orch.run_plan("workstreams/example.json")
+      
+  - task: "Validate a workstream (dry run)"
+    command: "python -m core.orchestrator validate --plan workstreams/example.json"
+    code: |
+      from core.orchestrator import Orchestrator
+      orch = Orchestrator()
+      is_valid = orch.validate_plan("workstreams/example.json")
+      
+  - task: "Query execution state"
+    code: |
+      from core.state import crud, db
+      db.init_db(".worktrees/run-001/pipeline.db")
+      workstreams = crud.get_workstreams_by_run(run_id)
+      
+  - task: "Load workstream from JSON"
+    code: |
+      from core.state.bundle_loader import load_workstream_bundle
+      data = load_workstream_bundle("path/to/workstream.json")
+
+# Gotchas
+gotchas:
+  - "Database path is .worktrees/<run_id>/pipeline.db (not root)"
+  - "Orchestrator creates run directory automatically"
+  - "Tool adapters must be importable (check PYTHONPATH)"
+  - "Step IDs must be unique within workstream"
+  - "DAG cycles will cause validation failure"
+  - "Retries are synchronous (blocks during retry)"
+
+# Deprecated
+deprecated:
+  - old: "src.pipeline.*"
+    new: "core.*"
+    reason: "Section-based refactor (2025-11-20)"
+    migration_guide: "docs/SECTION_REFACTOR_MAPPING.md"
+
+# Dependencies
+dependencies:
+  external:
+    - sqlite3
+    - pathlib
+    - json
+    - typing
+    - logging
+    
+  internal:
+    - schema.workstream_schema
+    - aim.bridge (optional)
+    - pm.bridge (optional)
+
+# Module hierarchy
+module_hierarchy: |
+  core/
+  ├── __init__.py
+  ├── orchestrator.py          # Main entry point
+  ├── state/                   # State management layer
+  │   ├── db.py                #   Database initialization
+  │   ├── crud.py              #   CRUD operations
+  │   ├── bundle_loader.py     #   Workstream loading
+  │   └── dag_utils.py         #   DAG validation
+  ├── engine/                  # Execution layer
+  │   ├── scheduler.py         #   Execution scheduling
+  │   └── executor.py          #   Step execution
+  └── planning/                # Planning layer (future)
+      └── router.py            #   Workstream routing
+
+# Test files
+test_files:
+  - "tests/core/test_orchestrator.py"
+  - "tests/core/state/*.py"
+  - "tests/core/engine/*.py"
+  - "tests/integration/test_end_to_end.py"
+
+# Documentation
+documentation:
+  - "core/README.md"
+  - "docs/ARCHITECTURE.md"
+  - "API_INDEX.md"
+  - "EXECUTION_INDEX.md"
+
+# Status
+status:
+  maturity: "stable"
+  test_coverage: "~75%"
+  production_ready: true
+  last_major_change: "2025-11-20 (section-based refactor)"
+
+# AI quick reference
+ai_quick_reference:
+  main_entry: "python -m core.orchestrator run --plan <file>"
+  import_pattern: "from core.orchestrator import Orchestrator"
+  validate_before_run: "orch.validate_plan(path) before orch.run_plan(path)"
+  query_state: "from core.state import crud; crud.get_workstream(ws_id)"
+
+# Design principles
+design_principles:
+  - "Single Responsibility: Each submodule has one clear purpose"
+  - "Dependency Injection: Tool adapters injected, not hardcoded"
+  - "State Isolation: All state in database, no global variables"
+  - "Idempotency: Operations can be retried safely"
+  - "Fail Fast: Validate early, execute late"
+
+# Performance
+performance:
+  - "DAG validation: O(V+E) topological sort"
+  - "Execution: Sequential (no parallel steps yet)"
+  - "Database: SQLite (file-based, single-writer)"
+  - "Bottleneck: Tool adapter calls (external processes)"
+
+# Recent changes
+recent_changes:
+  - date: "2025-11-20"
+    change: "Section-based refactor (src.pipeline → core)"
+    impact: "All import paths changed, functionality preserved"
+    
+  - date: "2025-11-18"
+    change: "Added circuit breaker to executor"
+    impact: "Better fault isolation"
+    
+  - date: "2025-11-16"
+    change: "Improved retry logic with exponential backoff"
+    impact: "More resilient execution"
+
+# Related modules
+related_modules:
+  - module: "aim"
+    relationship: "Provides AI tool adapters"
+    
+  - module: "pm"
+    relationship: "Provides project management integrations"
+    
+  - module: "specifications"
+    relationship: "Provides workstream templates and validation"
+    
+  - module: "error"
+    relationship: "Error detection runs as workstream steps"
+
+# For AI tools
+for_ai_tools:
+  typical_workflow: |
+    1. User wants to run a workstream
+    2. Suggest: python -m core.orchestrator run --plan <path>
+    3. Explain: This will load, validate, schedule, and execute
+    4. Point to: QUICK_START.md for examples
+    
+  common_questions:
+    - q: "How do I run a workstream?"
+      a: "python -m core.orchestrator run --plan workstreams/your_plan.json"
+      
+    - q: "Where is state stored?"
+      a: "SQLite database at .worktrees/<run_id>/pipeline.db"
+      
+    - q: "How do I add a custom tool?"
+      a: "Create adapter in aim/ or pm/, register in router_config.json"
+      
+    - q: "How do I debug execution?"
+      a: "Check .runs/<run_id>/execution.log and query database with crud.py"

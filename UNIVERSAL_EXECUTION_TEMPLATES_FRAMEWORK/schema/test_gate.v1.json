@@ -1,0 +1,182 @@
+{
+  "$id": "schema/test_gate.v1.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TestGate v1",
+  "description": "Quality gate execution record. Tracks test execution, results, and gate pass/fail status.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["gate_id", "name", "gate_type", "state", "criteria"],
+  "properties": {
+    "gate_id": {
+      "type": "string",
+      "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$",
+      "description": "Unique identifier for this test gate (ULID)"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable name of the gate"
+    },
+    "gate_type": {
+      "type": "string",
+      "enum": ["unit_tests", "integration_tests", "e2e_tests", "security_scan", "lint", "custom"],
+      "description": "Type of quality gate"
+    },
+    "state": {
+      "type": "string",
+      "enum": ["pending", "running", "passed", "failed", "skipped", "error"],
+      "description": "Current state of the gate"
+    },
+    "project_id": {
+      "type": ["string", "null"],
+      "description": "Project this gate belongs to"
+    },
+    "execution_request_id": {
+      "type": ["string", "null"],
+      "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$",
+      "description": "Execution request that triggered this gate"
+    },
+    "criteria": {
+      "type": "object",
+      "description": "Gate pass criteria",
+      "properties": {
+        "min_coverage": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Minimum code coverage percentage"
+        },
+        "max_failures": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Maximum allowed test failures"
+        },
+        "required_tests": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of required tests that must pass"
+        },
+        "timeout_seconds": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Maximum execution time in seconds"
+        },
+        "custom_rules": {
+          "type": "object",
+          "description": "Custom validation rules"
+        }
+      }
+    },
+    "execution": {
+      "type": ["object", "null"],
+      "description": "Execution details",
+      "properties": {
+        "started_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When execution started"
+        },
+        "completed_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When execution completed"
+        },
+        "duration_seconds": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Execution duration"
+        },
+        "command": {
+          "type": "string",
+          "description": "Command that was executed"
+        },
+        "exit_code": {
+          "type": "integer",
+          "description": "Process exit code"
+        }
+      }
+    },
+    "results": {
+      "type": ["object", "null"],
+      "description": "Test execution results",
+      "properties": {
+        "total_tests": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "passed_tests": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "failed_tests": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "skipped_tests": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "coverage_percent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "failures": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "test_name": {
+                "type": "string"
+              },
+              "error_message": {
+                "type": "string"
+              },
+              "stack_trace": {
+                "type": "string"
+              }
+            }
+          },
+          "description": "Failed test details"
+        }
+      }
+    },
+    "decision": {
+      "type": ["object", "null"],
+      "description": "Gate pass/fail decision",
+      "properties": {
+        "passed": {
+          "type": "boolean",
+          "description": "Whether gate passed"
+        },
+        "reason": {
+          "type": "string",
+          "description": "Reason for pass/fail"
+        },
+        "criteria_met": {
+          "type": "object",
+          "description": "Which criteria were met",
+          "additionalProperties": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When gate was created"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When gate was last updated"
+    },
+    "metadata": {
+      "type": ["object", "null"],
+      "description": "Additional metadata"
+    }
+  }
+}

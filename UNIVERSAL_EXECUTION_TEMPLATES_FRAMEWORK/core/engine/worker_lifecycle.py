@@ -265,7 +265,12 @@ class WorkerLifecycle:
             )
         
         # Update statistics
-        stats = WorkerStatistics(**worker['statistics'])
+        stats_data = worker['statistics']
+        stats = WorkerStatistics(
+            tasks_completed=stats_data['tasks_completed'],
+            tasks_failed=stats_data['tasks_failed'],
+            total_execution_time=stats_data['total_execution_time']
+        )
         if success:
             stats.tasks_completed += 1
         else:

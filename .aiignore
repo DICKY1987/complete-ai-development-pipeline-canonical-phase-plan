@@ -8,8 +8,13 @@
 # ===========================
 # Archived and deprecated code - use modern sections instead
 legacy/**
+_archive_deprecated/**
 src/pipeline/**
 MOD_ERROR_PIPELINE/**
+AGENTIC_DEV_PROTOTYPE/**
+PROCESS_DEEP_DIVE_OPTOMIZE/**
+QFT_updated/**
+REFACTOR_PROJECT/**
 
 # ===========================
 # RUNTIME ARTIFACTS
