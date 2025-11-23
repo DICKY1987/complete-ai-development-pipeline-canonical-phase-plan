@@ -1,0 +1,254 @@
+# .ai-module-manifest
+# AI-readable module specification for pm
+
+module: "pm"
+purpose: "Project management integrations: CCPM, OpenSpec, resource management"
+layer: "api"  # API/Integration layer - bridges to project management
+
+# Entry points
+entry_points:
+  - file: "ccpm/scheduler.py"
+    function: "schedule_project(tasks: List[Task])"
+    description: "Critical Chain Project Management scheduling"
+    
+  - file: "openspec/bridge.py"
+    function: "load_proposal(proposal_path: str)"
+    description: "Load OpenSpec proposal and convert to workstream"
+    
+  - command: "python -m pm.ccpm --schedule <project>"
+    description: "CLI for CCPM scheduling"
+
+# Key patterns
+key_patterns:
+  - "CCPM: Critical Chain Project Management methodology"
+  - "OpenSpec: Proposal-driven development workflow"
+  - "Buffers: Project buffer, feeding buffers for risk management"
+  - "Resource leveling: Resolve resource conflicts"
+  - "Proposal → Workstream conversion via specifications.bridge"
+  - "PM state separate from execution state"
+
+# Common tasks
+common_tasks:
+  - task: "Schedule project with CCPM"
+    code: |
+      from pm.ccpm.scheduler import schedule_project
+      tasks = [...]  # Task list with dependencies
+      schedule = schedule_project(tasks)
+      print(f"Project duration: {schedule.duration} days")
+      
+  - task: "Load OpenSpec proposal"
+    code: |
+      from pm.openspec.bridge import load_proposal
+      proposal = load_proposal("openspec/changes/PROP-001/")
+      workstream = proposal.to_workstream()
+      
+  - task: "Calculate project buffer"
+    code: |
+      from pm.ccpm.buffers import calculate_project_buffer
+      critical_chain = [...]  # Tasks on critical chain
+      buffer = calculate_project_buffer(critical_chain)
+      
+  - task: "Resource conflict detection"
+    code: |
+      from pm.ccpm.resources import detect_conflicts
+      conflicts = detect_conflicts(schedule)
+
+# CCPM concepts
+ccpm_concepts:
+  critical_chain:
+    description: "Longest chain of dependent tasks considering resources"
+    calculation: "Path with maximum duration accounting for resource constraints"
+    
+  project_buffer:
+    description: "Time buffer at end of critical chain"
+    size: "50% of critical chain duration (typical)"
+    purpose: "Absorb variations, protect project deadline"
+    
+  feeding_buffers:
+    description: "Buffers where non-critical chains feed into critical chain"
+    size: "50% of feeding chain duration"
+    purpose: "Protect critical chain from delays"
+    
+  resource_leveling:
+    description: "Resolve resource conflicts"
+    method: "Delay tasks to prevent over-allocation"
+
+# OpenSpec integration
+openspec_integration:
+  proposal_structure:
+    - "proposal.md - High-level description"
+    - "tasks.md - Task breakdown"
+    - "spec/ - Technical specifications"
+    
+  conversion:
+    input: "OpenSpec proposal directory"
+    output: "Workstream JSON bundle"
+    bridge: "specifications.bridge.spec_to_workstream"
+    
+  workflow: |
+    1. Create proposal in openspec/changes/
+    2. Break down into tasks (tasks.md)
+    3. Convert: python scripts/spec_to_workstream.py --proposal PROP-001
+    4. Execute: python -m core.orchestrator run --plan workstream.json
+
+# Gotchas
+gotchas:
+  - "CCPM scheduling is CPU-intensive for large projects (>100 tasks)"
+  - "Resource leveling can significantly extend schedules"
+  - "Buffer sizing is heuristic (50% is common, not absolute)"
+  - "OpenSpec proposals must follow specific markdown structure"
+  - "CCPM assumes task durations are 50% estimates (aggressive)"
+  - "Critical chain may change after resource leveling"
+
+# Deprecated
+deprecated: []  # No deprecated paths yet
+
+# Dependencies
+dependencies:
+  external:
+    - networkx  # Graph algorithms for dependency resolution
+    - pyyaml    # Configuration
+    - typing
+    
+  internal:
+    - specifications.bridge  # OpenSpec conversion
+    - core.state.dag_utils   # DAG validation
+    
+  optional:
+    - matplotlib  # Gantt chart visualization (planned)
+
+# Architecture
+architecture:
+  ccpm:
+    components:
+      - scheduler: "Schedule tasks using CCPM methodology"
+      - buffers: "Calculate project and feeding buffers"
+      - resources: "Resource allocation and conflict resolution"
+      
+  openspec:
+    components:
+      - bridge: "Load and parse proposals"
+      - validator: "Validate proposal structure"
+
+# CCPM algorithm
+ccpm_algorithm: |
+  1. Identify dependencies (build DAG)
+  2. Estimate task durations (50% of safe estimates)
+  3. Find critical chain (longest path with resources)
+  4. Add project buffer (50% of critical chain)
+  5. Identify feeding chains
+  6. Add feeding buffers (50% of each feeding chain)
+  7. Level resources (delay conflicting tasks)
+  8. Recalculate critical chain if needed
+  9. Output schedule with buffer management
+
+# Test files
+test_files:
+  - "tests/pm/ccpm/test_scheduler.py"
+  - "tests/pm/ccpm/test_buffers.py"
+  - "tests/pm/ccpm/test_resources.py"
+  - "tests/pm/openspec/test_bridge.py"
+
+# Documentation
+documentation:
+  - "pm/README.md"
+  - "docs/Project_Management_docs/"
+  - "docs/Project_Management_docs/PHASE-09-CCPM-INTEGRATION-PLAN.md"
+
+# Status
+status:
+  maturity: "beta"  # CCPM ~80% complete, OpenSpec stable
+  test_coverage: "~65%"
+  production_ready: "partial"  # OpenSpec yes, CCPM testing
+  last_major_change: "2025-11-10 (CCPM integration)"
+
+# AI quick reference
+ai_quick_reference:
+  schedule: "from pm.ccpm.scheduler import schedule_project; schedule_project(tasks)"
+  load_proposal: "from pm.openspec.bridge import load_proposal; load_proposal('openspec/changes/PROP-001/')"
+  buffer: "from pm.ccpm.buffers import calculate_project_buffer; calculate_project_buffer(critical_chain)"
+
+# Configuration
+configuration:
+  file: "pm/config/ccpm_config.yaml"
+  settings:
+    buffer_percentage: 0.5  # 50% buffer size
+    task_duration_multiplier: 0.5  # Use 50% of safe estimates
+    resource_leveling: true
+    
+# Performance
+performance:
+  - "Scheduling: O(n²) for n tasks (worst case)"
+  - "Resource leveling: O(n*m) for n tasks, m resources"
+  - "Buffer calculation: O(n) for n tasks"
+  - "Bottleneck: Large projects (>100 tasks)"
+
+# Recent changes
+recent_changes:
+  - date: "2025-11-10"
+    change: "Integrated CCPM scheduler"
+    impact: "Can schedule projects with CCPM methodology"
+    
+  - date: "2025-11-05"
+    change: "Added resource conflict detection"
+    impact: "Better resource management"
+    
+  - date: "2025-10-28"
+    change: "OpenSpec bridge stabilized"
+    impact: "Reliable proposal conversion"
+
+# Related modules
+related_modules:
+  - module: "specifications"
+    relationship: "Uses specifications.bridge for OpenSpec conversion"
+    
+  - module: "core"
+    relationship: "Generated workstreams executed by core.orchestrator"
+    
+  - module: "aim"
+    relationship: "Both are integration layers (PM vs AI)"
+
+# For AI tools
+for_ai_tools:
+  when_to_use: |
+    User wants to:
+    - Schedule project with CCPM
+    - Manage project buffers
+    - Convert OpenSpec proposal to workstream
+    - Resolve resource conflicts
+    
+  suggesting_pm: |
+    1. For project scheduling: Use pm.ccpm.scheduler
+    2. For OpenSpec proposals: Use pm.openspec.bridge
+    3. For buffer management: Use pm.ccpm.buffers
+    
+  common_questions:
+    - q: "How do I schedule with CCPM?"
+      a: "from pm.ccpm.scheduler import schedule_project; schedule_project(tasks)"
+      
+    - q: "How do I convert OpenSpec proposal?"
+      a: "python scripts/spec_to_workstream.py --proposal openspec/changes/PROP-001/"
+      
+    - q: "What's a project buffer?"
+      a: "Time buffer at end of critical chain to absorb variations (typically 50% of critical chain)"
+
+# CCPM resources
+ccpm_resources:
+  books:
+    - "Critical Chain by Eliyahu M. Goldratt"
+  concepts:
+    - "Theory of Constraints (TOC)"
+    - "Student Syndrome (people delay until deadline)"
+    - "Parkinson's Law (work expands to fill time)"
+    - "Multitasking penalty (context switching)"
+
+# Roadmap
+roadmap:
+  phase_9_remaining:
+    - "Complete buffer consumption tracking"
+    - "Add Gantt chart visualization"
+    
+  future:
+    - "Resource skill matching"
+    - "Multi-project scheduling"
+    - "Buffer penetration alerts"

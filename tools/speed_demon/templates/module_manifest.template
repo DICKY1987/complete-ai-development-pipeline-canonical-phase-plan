@@ -1,0 +1,47 @@
+# .ai-module-manifest template
+# AI-readable module specification for {{MODULE_NAME}}
+
+module: "{{MODULE_NAME}}"
+purpose: "{{ONE_LINE_PURPOSE}}"
+layer: "{{LAYER}}"  # infra|domain|api|ui
+
+# Entry points
+entry_points:
+  - file: "{{MAIN_FILE}}"
+    function: "{{MAIN_FUNCTION}}"
+    description: "{{FUNCTION_DESCRIPTION}}"
+
+# Key patterns
+key_patterns:
+  - "{{PATTERN_1}}"
+  - "{{PATTERN_2}}"
+  - "{{PATTERN_3}}"
+
+# Common tasks
+common_tasks:
+  - task: "{{TASK_NAME}}"
+    command: "{{CLI_COMMAND}}"
+    code: |
+      {{PYTHON_CODE_EXAMPLE}}
+
+# Gotchas
+gotchas:
+  - "{{GOTCHA_1}}"
+  - "{{GOTCHA_2}}"
+
+# Dependencies
+dependencies:
+  external:
+    - {{EXTERNAL_PACKAGE}}
+  internal:
+    - {{INTERNAL_MODULE}}
+
+# Status
+status:
+  maturity: "{{MATURITY}}"  # alpha|beta|stable|planned
+  test_coverage: "{{TEST_COVERAGE}}"
+  production_ready: {{PRODUCTION_READY}}
+
+# AI quick reference
+ai_quick_reference:
+  {{SHORTCUT_NAME}}: "{{SHORTCUT_COMMAND}}"

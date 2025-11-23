@@ -1,0 +1,56 @@
+# .ai-module-manifest
+# AI-readable module specification for schema
+
+module: "schema"
+purpose: "JSON schemas for validation: workstream, phase, plugin schemas"
+layer: "infra"  # Infrastructure - data contracts
+
+# Entry points
+entry_points:
+  - file: "workstream_schema.json"
+    description: "JSON Schema v4 for workstream bundles"
+    
+  - file: "phase_schema.json"
+    description: "JSON Schema v4 for phase specifications"
+
+# Key patterns
+key_patterns:
+  - "JSON Schema Draft 4 format"
+  - "Used by specifications.tools.validator"
+  - "Defines required fields, types, constraints"
+  - "No code - pure data definitions"
+
+# Schema files
+schema_files:
+  workstream_schema.json:
+    purpose: "Workstream bundle structure"
+    required_fields: ["id", "name", "steps"]
+    
+  phase_schema.json:
+    purpose: "Phase specification structure"
+    required_fields: ["id", "name", "workstreams"]
+    
+  plugin_schema.json:
+    purpose: "Error detection plugin metadata"
+
+# Gotchas
+gotchas:
+  - "Schemas are JSON Schema v4, not v7"
+  - "Extra fields cause validation failure (strict mode)"
+  - "Schemas don't validate business logic"
+
+# Dependencies
+dependencies:
+  external:
+    - None  # Pure JSON
+  internal:
+    - Used by specifications.tools.validator
+
+# Status
+status:
+  maturity: "stable"
+  production_ready: true
+
+# AI quick reference
+ai_quick_reference:
+  validate: "from specifications.tools.validator import validate_spec; validate_spec('file.json', 'schema/workstream_schema.json')"

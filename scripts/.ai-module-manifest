@@ -1,0 +1,275 @@
+# .ai-module-manifest
+# AI-readable module specification for scripts
+
+module: "scripts"
+purpose: "Automation scripts: validation, generation, utilities"
+layer: "ui"  # UI layer - user-facing tools
+
+# Entry points
+entry_points:
+  - file: "validate_workstreams.py"
+    description: "Validate workstream JSON files"
+    command: "python scripts/validate_workstreams.py"
+    
+  - file: "spec_generate.py"
+    description: "Generate specs from templates"
+    command: "python scripts/spec_generate.py --template <type>"
+    
+  - file: "bootstrap_uet.py"
+    description: "Bootstrap UET project configuration"
+    command: "python scripts/bootstrap_uet.py ."
+    
+  - file: "paths_index_cli.py"
+    description: "Import path validation (CI gate)"
+    command: "python scripts/paths_index_cli.py gate"
+    
+  - file: "spec_to_workstream.py"
+    description: "Convert OpenSpec proposal to workstream"
+    command: "python scripts/spec_to_workstream.py --proposal <path>"
+
+# Key patterns
+key_patterns:
+  - "Scripts are idempotent (safe to re-run)"
+  - "All scripts have --help documentation"
+  - "Naming: validate_*, generate_*, run_*"
+  - "Exit codes: 0=success, 1=validation error, 2=execution error"
+  - "Scripts wrap functionality from other modules"
+  - "Prefer Python over shell for cross-platform compatibility"
+
+# Common scripts
+common_scripts:
+  validation:
+    - "validate_workstreams.py - Validate workstream JSON"
+    - "validate_acs_conformance.py - Check ACS compliance"
+    - "paths_index_cli.py - Validate import paths (CI)"
+    
+  generation:
+    - "spec_generate.py - Generate specs from templates"
+    - "generate_codebase_index.py - Generate CODEBASE_INDEX.yaml"
+    - "generate_spec_index.py - Generate spec navigation"
+    
+  conversion:
+    - "spec_to_workstream.py - OpenSpec → workstream"
+    - "bootstrap_uet.py - Generate UET config"
+    
+  utilities:
+    - "test.ps1 - Run test suite (PowerShell)"
+    - "bootstrap.ps1 - Bootstrap project (PowerShell)"
+
+# Common tasks
+common_tasks:
+  - task: "Validate all workstreams"
+    command: "python scripts/validate_workstreams.py"
+    
+  - task: "Generate workstream spec"
+    command: "python scripts/spec_generate.py --template workstream --output my_ws.json"
+    
+  - task: "Bootstrap new project"
+    command: "python scripts/bootstrap_uet.py ."
+    
+  - task: "Validate import paths (CI)"
+    command: "python scripts/paths_index_cli.py gate --db refactor_paths.db"
+    
+  - task: "Convert OpenSpec proposal"
+    command: "python scripts/spec_to_workstream.py --proposal openspec/changes/PROP-001/"
+
+# Script conventions
+script_conventions:
+  naming:
+    - "Prefix with action: validate_, generate_, run_"
+    - "Use snake_case"
+    - "Extension: .py for Python, .ps1 for PowerShell"
+    
+  arguments:
+    - "Use argparse for Python scripts"
+    - "Always provide --help"
+    - "Use --verbose for debug output"
+    
+  exit_codes:
+    0: "Success"
+    1: "Validation/input error"
+    2: "Execution error"
+    3: "Configuration error"
+    
+  output:
+    - "Print to stdout for data"
+    - "Print to stderr for errors/warnings"
+    - "Use logging module for debug"
+
+# PowerShell scripts
+powershell_scripts:
+  "bootstrap.ps1":
+    description: "Bootstrap project directories and dependencies"
+    usage: "pwsh ./scripts/bootstrap.ps1"
+    
+  "test.ps1":
+    description: "Run test suite"
+    usage: "pwsh ./scripts/test.ps1"
+
+# Python vs PowerShell
+python_vs_powershell:
+  python:
+    use_when: "Cross-platform, complex logic, integrates with Python modules"
+    examples: ["validate_workstreams.py", "spec_generate.py"]
+    
+  powershell:
+    use_when: "Windows-specific, system admin, quick automation"
+    examples: ["bootstrap.ps1", "test.ps1"]
+
+# Gotchas
+gotchas:
+  - "Scripts assume run from repository root"
+  - "Some scripts require specific Python packages (see requirements.txt)"
+  - "PowerShell scripts require pwsh (PowerShell Core, not Windows PowerShell)"
+  - "CI scripts must exit with correct codes (0=pass, non-zero=fail)"
+  - "Validation scripts don't auto-fix (fail fast)"
+  - "Generation scripts overwrite existing files (use with caution)"
+
+# Deprecated
+deprecated:
+  - old: "scripts/generate_workstream.py"
+    new: "scripts/spec_generate.py --template workstream"
+    reason: "Consolidated into spec_generate (2025-11-20)"
+
+# Dependencies
+dependencies:
+  external:
+    - argparse  # CLI argument parsing
+    - pathlib
+    - json
+    - pyyaml
+    - typing
+    
+  internal:
+    - specifications.tools.generator
+    - specifications.tools.validator
+    - specifications.bridge.spec_to_workstream
+    - core.state.bundle_loader
+    
+  optional:
+    - pytest  # For test.ps1
+
+# Test files
+test_files:
+  - "tests/scripts/test_validate_workstreams.py"
+  - "tests/scripts/test_spec_generate.py"
+
+# Documentation
+documentation:
+  - "scripts/README.md"
+  - "Each script has --help"
+
+# Status
+status:
+  maturity: "stable"
+  test_coverage: "~50%"  # Many scripts are thin wrappers
+  production_ready: true
+  last_major_change: "2025-11-20 (consolidated spec generation)"
+
+# AI quick reference
+ai_quick_reference:
+  validate: "python scripts/validate_workstreams.py"
+  generate: "python scripts/spec_generate.py --template workstream"
+  bootstrap: "python scripts/bootstrap_uet.py ."
+  ci_gate: "python scripts/paths_index_cli.py gate"
+
+# CI integration
+ci_integration:
+  ".github/workflows/path_standards.yml":
+    uses: "paths_index_cli.py gate"
+    purpose: "Block deprecated import paths"
+    
+  ".github/workflows/validate.yml":
+    uses: "validate_workstreams.py"
+    purpose: "Validate workstream schemas"
+
+# Adding new script
+adding_new_script:
+  steps:
+    1: "Create script in scripts/"
+    2: "Add argparse with --help"
+    3: "Follow naming convention (action_noun.py)"
+    4: "Add to scripts/README.md"
+    5: "Add tests in tests/scripts/"
+    6: "Document in this manifest"
+    
+  template: |
+    #!/usr/bin/env python3
+    \"\"\"
+    Script description
+    \"\"\"
+    import argparse
+    from pathlib import Path
+    
+    def main():
+        parser = argparse.ArgumentParser(description="...")
+        parser.add_argument("--option", help="...")
+        args = parser.parse_args()
+        
+        # Script logic
+        
+    if __name__ == "__main__":
+        main()
+
+# Performance
+performance:
+  - "Validation: O(n) for n workstreams"
+  - "Generation: O(1) template substitution"
+  - "Most scripts complete in <1 second"
+  - "Exception: generate_codebase_index.py (scans all files)"
+
+# Recent changes
+recent_changes:
+  - date: "2025-11-20"
+    change: "Consolidated spec generation scripts"
+    impact: "Single spec_generate.py for all templates"
+    
+  - date: "2025-11-19"
+    change: "Added paths_index_cli.py for CI"
+    impact: "Import path validation in CI"
+    
+  - date: "2025-11-15"
+    change: "Added bootstrap_uet.py"
+    impact: "Auto-generate UET configuration"
+
+# Related modules
+related_modules:
+  - module: "specifications"
+    relationship: "Scripts wrap specifications.tools functionality"
+    
+  - module: "core"
+    relationship: "Scripts validate/generate for core.orchestrator"
+
+# For AI tools
+for_ai_tools:
+  suggesting_scripts: |
+    When user wants to:
+    - Validate something: Suggest validate_* script
+    - Generate something: Suggest spec_generate.py
+    - Check compliance: Suggest validate_acs_conformance.py
+    - CI validation: Suggest paths_index_cli.py
+    
+  common_questions:
+    - q: "How do I validate workstream?"
+      a: "python scripts/validate_workstreams.py"
+      
+    - q: "How do I generate spec?"
+      a: "python scripts/spec_generate.py --template <type> --output <file>"
+      
+    - q: "How do I bootstrap project?"
+      a: "python scripts/bootstrap_uet.py ."
+
+# Automation patterns
+automation_patterns:
+  pre_commit:
+    - "validate_workstreams.py"
+    - "paths_index_cli.py gate"
+    
+  ci_cd:
+    - "validate_workstreams.py"
+    - "validate_acs_conformance.py"
+    - "pytest tests/"
+    
+  project_setup:
+    - "bootstrap.ps1"
+    - "bootstrap_uet.py"

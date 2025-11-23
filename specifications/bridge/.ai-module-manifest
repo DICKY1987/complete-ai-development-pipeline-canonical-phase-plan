@@ -1,0 +1,57 @@
+# .ai-module-manifest
+# AI-readable module specification for specifications.bridge
+
+module: "specifications.bridge"
+purpose: "OpenSpec bridge: convert proposals to workstreams"
+layer: "api"  # API layer - integration bridge
+
+# Entry points
+entry_points:
+  - file: "spec_to_workstream.py"
+    function: "convert_openspec(proposal_path)"
+    description: "Convert OpenSpec proposal to workstream JSON"
+    
+  - command: "python scripts/spec_to_workstream.py --proposal <path>"
+    description: "CLI for OpenSpec conversion"
+
+# Key patterns
+key_patterns:
+  - "Reads OpenSpec proposal structure"
+  - "Parses proposal.md and tasks.md"
+  - "Generates workstream JSON"
+  - "Validates against schema"
+
+# OpenSpec structure
+openspec_structure:
+  proposal.md: "High-level description"
+  tasks.md: "Task breakdown"
+  spec/: "Technical specifications"
+
+# Common tasks
+common_tasks:
+  - task: "Convert proposal"
+    command: "python scripts/spec_to_workstream.py --proposal openspec/changes/PROP-001/"
+    code: "from specifications.bridge.spec_to_workstream import convert_openspec; convert_openspec('openspec/changes/PROP-001/')"
+
+# Gotchas
+gotchas:
+  - "Proposals must follow specific markdown structure"
+  - "tasks.md structure determines step dependencies"
+  - "Conversion output validated against schema"
+
+# Dependencies
+dependencies:
+  external:
+    - None
+  internal:
+    - specifications.tools.validator
+    - schema/workstream_schema.json
+
+# Status
+status:
+  maturity: "stable"
+  production_ready: true
+
+# AI quick reference
+ai_quick_reference:
+  convert: "python scripts/spec_to_workstream.py --proposal openspec/changes/PROP-001/"

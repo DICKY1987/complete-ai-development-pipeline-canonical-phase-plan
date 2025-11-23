@@ -1,0 +1,376 @@
+{
+  "$id": "schema/phase_template.v1.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Phase Template v1",
+  "description": "Pre-compiled execution template for a phase, eliminating runtime decisions",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "meta",
+    "structural_decisions",
+    "variable_sections",
+    "execution_sequence",
+    "ground_truth_verification"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "description": "Template metadata and metrics",
+      "required": ["template_id", "category", "estimated_time_minutes"],
+      "properties": {
+        "template_id": {
+          "type": "string",
+          "pattern": "^[a-z0-9_]+_v[0-9]+$",
+          "description": "Unique template identifier with version (e.g., worktree_lifecycle_v1)"
+        },
+        "category": {
+          "type": "string",
+          "enum": [
+            "infrastructure",
+            "module_setup",
+            "refactor",
+            "validation",
+            "recovery",
+            "integration",
+            "testing"
+          ],
+          "description": "Template category"
+        },
+        "estimated_time_minutes": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Expected execution time in minutes"
+        },
+        "time_savings_vs_manual": {
+          "type": "string",
+          "pattern": "^[0-9]+%$",
+          "description": "Percentage time savings vs manual execution (e.g., 75%)"
+        },
+        "proven_uses": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of successful executions using this template"
+        },
+        "created_from": {
+          "type": "string",
+          "description": "Run ID or workstream ID this template was extracted from"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp of template creation"
+        },
+        "based_on": {
+          "type": "string",
+          "description": "Human-readable description of what this template is based on"
+        },
+        "description": {
+          "type": "string",
+          "description": "What this template does"
+        }
+      }
+    },
+    "structural_decisions": {
+      "type": "object",
+      "description": "Pre-made decisions about structure (never change at runtime)",
+      "properties": {
+        "file_format": {
+          "type": "string",
+          "enum": ["python", "javascript", "yaml", "json", "markdown", "shell"]
+        },
+        "module_location": {
+          "type": "string",
+          "description": "Primary module file path"
+        },
+        "test_location": {
+          "type": "string",
+          "description": "Test file path"
+        },
+        "cli_location": {
+          "type": "string",
+          "description": "CLI tool location if applicable"
+        },
+        "directory_structure": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Required directories to create"
+        },
+        "required_functions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Function signatures that must be implemented"
+        },
+        "always_create": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Files that are always created"
+        },
+        "max_files_per_phase": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Maximum files to create in one phase"
+        },
+        "always_include_tests": {
+          "type": "boolean",
+          "description": "Whether tests are mandatory"
+        }
+      }
+    },
+    "variable_sections": {
+      "type": "object",
+      "description": "Variables that change per execution (substituted at runtime)",
+      "patternProperties": {
+        "^[A-Z_]+$": {
+          "type": "string",
+          "pattern": "^\\$\\{[A-Z_]+(:-.+)?\\}$",
+          "description": "Variable with optional default (e.g., ${BASE_BRANCH:-main})"
+        }
+      }
+    },
+    "ground_truth_verification": {
+      "type": "object",
+      "description": "Observable success criteria",
+      "required": ["post_execution"],
+      "properties": {
+        "pre_flight": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/verification_check"
+          },
+          "description": "Checks before execution starts"
+        },
+        "post_execution": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/verification_check"
+          },
+          "description": "Checks after execution completes"
+        },
+        "success_criteria": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Human-readable success criteria (ALL must pass)"
+        }
+      }
+    },
+    "execution_sequence": {
+      "type": "object",
+      "description": "Ordered steps to execute",
+      "required": ["steps"],
+      "properties": {
+        "steps": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/execution_step"
+          }
+        },
+        "parallelism": {
+          "type": "object",
+          "properties": {
+            "parallel_eligible": {
+              "type": "boolean"
+            },
+            "reasons": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "self_healing": {
+      "type": "object",
+      "description": "Pre-authorized automatic fixes",
+      "properties": {
+        "auto_fix_scenarios": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/auto_fix_scenario"
+          }
+        }
+      }
+    },
+    "anti_patterns": {
+      "type": "object",
+      "description": "What NOT to do (from Dev Rules)",
+      "properties": {
+        "forbidden_actions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "verification_check": {
+      "type": "object",
+      "required": ["cmd", "expect"],
+      "properties": {
+        "cmd": {
+          "type": "string",
+          "description": "Command to execute"
+        },
+        "expect": {
+          "type": "string",
+          "description": "Expected output (exact match or empty string)"
+        },
+        "expect_pattern": {
+          "type": "string",
+          "description": "Expected output as regex pattern"
+        },
+        "expect_count": {
+          "type": "string",
+          "description": "Expected count expression (e.g., ${created_files.length})"
+        },
+        "criticality": {
+          "type": "string",
+          "enum": ["blocker", "warning", "info"]
+        },
+        "fail_msg": {
+          "type": "string",
+          "description": "Message to show on failure"
+        },
+        "fix_hint": {
+          "type": "string",
+          "description": "How to fix the issue"
+        },
+        "auto_fix": {
+          "type": "string",
+          "description": "Auto-fix action to take"
+        },
+        "for_each": {
+          "type": "string",
+          "description": "Variable to iterate over"
+        }
+      }
+    },
+    "execution_step": {
+      "type": "object",
+      "required": ["id", "pattern"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Step identifier"
+        },
+        "pattern": {
+          "type": "string",
+          "enum": [
+            "atomic_create",
+            "batch_create",
+            "refactor_patch",
+            "self_heal",
+            "verification",
+            "verification_commit",
+            "test_first"
+          ],
+          "description": "Execution pattern to use"
+        },
+        "template": {
+          "type": "string",
+          "description": "Template file path (for verification pattern)"
+        },
+        "on_fail": {
+          "type": "string",
+          "enum": ["stop", "continue", "enter_fix_loop"],
+          "description": "What to do on failure"
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/file_spec"
+          },
+          "description": "Files to create/modify"
+        },
+        "ground_truth": {
+          "type": "object",
+          "description": "Step-specific verification"
+        }
+      }
+    },
+    "file_spec": {
+      "type": "object",
+      "required": ["path", "type"],
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "File path (may contain variables)"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "implementation",
+            "test_suite",
+            "cli_tool",
+            "configuration",
+            "documentation"
+          ]
+        },
+        "lines": {
+          "type": "string",
+          "pattern": "^[0-9]+-[0-9]+$",
+          "description": "Expected line count range (e.g., 400-500)"
+        },
+        "test_count": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Number of tests to create"
+        },
+        "sections": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Required sections in file"
+        },
+        "content": {
+          "type": "string",
+          "description": "Template content reference"
+        },
+        "fill_sections": {
+          "type": "boolean",
+          "description": "Whether to fill template sections"
+        }
+      }
+    },
+    "auto_fix_scenario": {
+      "type": "object",
+      "required": ["condition", "action", "requires_permission"],
+      "properties": {
+        "condition": {
+          "type": "string",
+          "description": "Error condition to match"
+        },
+        "action": {
+          "type": "string",
+          "description": "Action to take (command or keyword)"
+        },
+        "requires_permission": {
+          "type": "boolean",
+          "description": "Whether to ask before applying fix"
+        },
+        "max_attempts": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Maximum auto-fix attempts"
+        },
+        "verify": {
+          "type": "string",
+          "description": "Verification command after fix"
+        }
+      }
+    }
+  }
+}

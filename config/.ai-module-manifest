@@ -1,0 +1,62 @@
+# .ai-module-manifest
+# AI-readable module specification for config
+
+module: "config"
+purpose: "Configuration files: AI policies, quality gates, project profile"
+layer: "infra"  # Infrastructure - configuration
+
+# Entry points
+entry_points:
+  - file: "ai_policies.yaml"
+    description: "AI tool edit policies and constraints"
+    
+  - file: "QUALITY_GATE.yaml"
+    description: "Quality gate validation commands"
+    
+  - file: "PROJECT_PROFILE.yaml"
+    description: "Project metadata and constraints"
+    
+  - file: "router_config.json"
+    description: "Tool routing configuration"
+
+# Key files
+key_files:
+  ai_policies.yaml:
+    purpose: "Define what AI can/cannot edit"
+    sections: ["edit_zones", "invariants", "forbidden_patterns"]
+    
+  QUALITY_GATE.yaml:
+    purpose: "Validation commands for CI"
+    commands: ["pytest", "ruff", "validate_workstreams.py"]
+    
+  PROJECT_PROFILE.yaml:
+    purpose: "Project metadata"
+    fields: ["name", "type", "languages", "tools"]
+    
+  router_config.json:
+    purpose: "Route tasks to appropriate tools"
+    structure: "action → tool mapping"
+
+# Gotchas
+gotchas:
+  - "YAML files are sensitive to indentation"
+  - "router_config.json controls task routing"
+  - "ai_policies.yaml enforced by AI tools, not CI"
+  - "QUALITY_GATE.yaml used in CI workflows"
+
+# Dependencies
+dependencies:
+  external:
+    - pyyaml
+  internal:
+    - Used by all modules for configuration
+
+# Status
+status:
+  maturity: "stable"
+  production_ready: true
+
+# AI quick reference
+ai_quick_reference:
+  check_policy: "cat config/ai_policies.yaml | grep <module>"
+  quality_gate: "See QUALITY_GATE.yaml for validation commands"

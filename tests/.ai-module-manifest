@@ -1,0 +1,91 @@
+# .ai-module-manifest
+# AI-readable module specification for tests
+
+module: "tests"
+purpose: "Test suite: unit tests, integration tests, fixtures"
+layer: "infra"  # Infrastructure - foundational testing
+
+# Entry points
+entry_points:
+  - command: "pytest tests/"
+    description: "Run all tests"
+    
+  - command: "pytest tests/core/"
+    description: "Run core module tests"
+    
+  - command: "pytest --cov=core --cov=error --cov-report=html"
+    description: "Run tests with coverage"
+
+# Key patterns
+key_patterns:
+  - "Test discovery: pytest auto-discovers test_*.py files"
+  - "Fixtures in tests/conftest.py and tests/fixtures/"
+  - "Database fixtures use in-memory SQLite"
+  - "Mocking external dependencies"
+  - "Test isolation: each test gets fresh state"
+  - "Naming: test_<module>_<function>_<scenario>"
+
+# Test structure
+test_structure:
+  unit_tests: "tests/<module>/test_<file>.py"
+  integration_tests: "tests/integration/test_<workflow>.py"
+  fixtures: "tests/fixtures/ and tests/conftest.py"
+  
+# Common tasks
+common_tasks:
+  - task: "Run all tests"
+    command: "pytest tests/"
+    
+  - task: "Run specific module tests"
+    command: "pytest tests/core/"
+    
+  - task: "Run with coverage"
+    command: "pytest --cov=core --cov=error --cov-report=html"
+    
+  - task: "Run specific test"
+    command: "pytest tests/core/test_orchestrator.py::test_run_plan"
+
+# Test organization
+test_organization:
+  by_module:
+    - "tests/core/ - Core module tests"
+    - "tests/error/ - Error detection tests"
+    - "tests/specifications/ - Spec tool tests"
+    - "tests/aim/ - AIM tests"
+    - "tests/pm/ - PM tests"
+  integration: "tests/integration/ - End-to-end workflows"
+  fixtures: "tests/fixtures/ - Shared test data"
+
+# Gotchas
+gotchas:
+  - "Tests use in-memory DB - don't check .worktrees/"
+  - "Fixtures have scope (function, module, session)"
+  - "Mock external tools (Aider, Ruff, etc.)"
+  - "Test isolation critical - no shared state"
+  - "Coverage excludes test files themselves"
+
+# Test coverage targets
+coverage_targets:
+  core: "~80%"
+  error: "~70%"
+  specifications: "~65%"
+  overall: "~75%"
+
+# Dependencies
+dependencies:
+  external:
+    - pytest
+    - pytest-cov
+    - pytest-mock
+    
+# Status
+status:
+  maturity: "stable"
+  test_coverage: "~75%"
+  production_ready: true
+
+# AI quick reference
+ai_quick_reference:
+  run_tests: "pytest tests/"
+  coverage: "pytest --cov=core --cov-report=html"
+  specific: "pytest tests/core/test_orchestrator.py"

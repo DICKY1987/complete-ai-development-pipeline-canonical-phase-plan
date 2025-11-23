@@ -1,0 +1,59 @@
+# .ai-module-manifest
+# AI-readable module specification for specifications.tools
+
+module: "specifications.tools"
+purpose: "Spec tooling: generator, validator, indexer"
+layer: "api"  # API layer - tools for spec management
+
+# Entry points
+entry_points:
+  - file: "generator.py"
+    function: "generate_spec(template, output, params)"
+    description: "Generate spec from template"
+    
+  - file: "validator.py"
+    function: "validate_spec(spec_path, schema_path)"
+    description: "Validate spec against JSON schema"
+    
+  - file: "indexer/indexer.py"
+    function: "generate_index(root_path)"
+    description: "Generate spec index for navigation"
+
+# Key patterns
+key_patterns:
+  - "Templates in specifications/templates/"
+  - "Validation uses schema/ JSON schemas"
+  - "Generator supports variable substitution"
+  - "Indexer creates AI-readable navigation"
+
+# Common tasks
+common_tasks:
+  - task: "Generate spec"
+    command: "python scripts/spec_generate.py --template workstream"
+    code: "from specifications.tools.generator import generate_spec; generate_spec('workstream', 'out.json')"
+    
+  - task: "Validate spec"
+    code: "from specifications.tools.validator import validate_spec; validate_spec('file.json', 'schema.json')"
+
+# Gotchas
+gotchas:
+  - "Generator overwrites existing files"
+  - "Validator is strict (extra fields fail)"
+  - "Templates use {{variable}} syntax"
+
+# Dependencies
+dependencies:
+  external:
+    - jsonschema
+  internal:
+    - schema/
+
+# Status
+status:
+  maturity: "stable"
+  production_ready: true
+
+# AI quick reference
+ai_quick_reference:
+  generate: "from specifications.tools.generator import generate_spec"
+  validate: "from specifications.tools.validator import validate_spec"
