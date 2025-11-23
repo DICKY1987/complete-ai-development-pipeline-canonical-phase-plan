@@ -11,6 +11,11 @@
 
 ## 🧭 Quick Navigation
 
+### Focused Indexes (AI-Optimized)
+- **[API_INDEX.md](./API_INDEX.md)** – All CLIs, Python APIs, configuration interfaces
+- **[EXECUTION_INDEX.md](./EXECUTION_INDEX.md)** – Execution flows, state machines, DAG patterns
+- **[DEPENDENCY_INDEX.md](./DEPENDENCY_INDEX.md)** – Module dependencies, import rules, layers
+
 ### For AI Tools
 - **Start Here**: [`README.md`](./README.md) - Repository overview
 - **Architecture**: [`ARCHITECTURE.md`](./UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/ARCHITECTURE.md) - System design
