@@ -6,6 +6,12 @@
 # Run full validation
 .\scripts\validate\validate_repo_checklist.ps1
 
+# Auto-fix failures
+.\scripts\validate\auto_remediate.ps1
+
+# Dry-run auto-fix (preview)
+.\scripts\validate\auto_remediate.ps1 -DryRun
+
 # Check only infrastructure (always passes)
 .\scripts\validate\validate_repo_checklist.ps1 -RequirementFilter "STATE-OBS-001,STATE-OBS-002,STATE-OBS-003,STATE-OBS-004,AUDIT-001,AUDIT-002"
 
@@ -22,6 +28,7 @@
 - **.state/current.json** - Current repo state (auto-updated)
 - **.state/transitions.jsonl** - Audit log (append-only)
 - **scripts/validate/validate_repo_checklist.ps1** - The validator
+- **scripts/validate/auto_remediate.ps1** - Auto-fix failures
 - **docs/operations/CHECKLIST_QUICK_START.md** - Full guide
 
 ## Current Status
@@ -62,6 +69,7 @@
 
 - Quick Start: `docs/operations/CHECKLIST_QUICK_START.md`
 - Full Guide: `docs/operations/REPO_CHECKLIST.md`
+- Auto-Remediation: `docs/operations/AUTO_REMEDIATION.md`
 - Status Report: `VALIDATION_STATUS_REPORT.txt`
 
 ---
