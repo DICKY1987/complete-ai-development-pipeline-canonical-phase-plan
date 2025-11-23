@@ -1,0 +1,653 @@
+# UET Framework Templates - Dependency Declarations
+# Version: 1.0.0
+# Last Updated: 2025-11-23
+#
+# This file defines dependencies between templates and external components.
+# Used by AI tools and framework for:
+# - Template validation
+# - Composition planning
+# - Impact analysis
+# - Documentation generation
+
+metadata:
+  version: "1.0.0"
+  description: "Template dependency graph for UET Framework"
+  schema_version: "dependencies.v1"
+  last_updated: "2025-11-23"
+
+# ============================================================================
+# ORCHESTRATION TEMPLATES
+# ============================================================================
+
+orchestration:
+  
+  # Phase Templates
+  phase-core-template:
+    path: "orchestration/phases/phase-core-template.yaml"
+    requires:
+      templates:
+        - workstream-single-template
+        - task-analysis-template
+      schemas:
+        - "schema/phase_spec.v1.json"
+      framework:
+        - "core.engine.orchestrator"
+        - "core.state.db"
+    optional:
+      templates:
+        - constraints-time-template
+      config:
+        - PROJECT_PROFILE.yaml
+    provides:
+      - "phase_specification"
+    used_by:
+      - "Phase-based workflows"
+      - "Bootstrap system"
+  
+  phase-analysis-template:
+    path: "orchestration/phases/phase-analysis-template.yaml"
+    requires:
+      templates:
+        - workstream-single-template
+        - task-analysis-template
+      schemas:
+        - "schema/phase_spec.v1.json"
+    provides:
+      - "analysis_phase_specification"
+    used_by:
+      - "Discovery workflows"
+      - "Requirements gathering"
+  
+  phase-implementation-template:
+    path: "orchestration/phases/phase-implementation-template.yaml"
+    requires:
+      templates:
+        - workstream-parallel-template
+        - task-code-edit-template
+        - task-testing-template
+      schemas:
+        - "schema/phase_spec.v1.json"
+    provides:
+      - "implementation_phase_specification"
+    used_by:
+      - "Development workflows"
+      - "Code generation"
+  
+  phase-validation-template:
+    path: "orchestration/phases/phase-validation-template.yaml"
+    requires:
+      templates:
+        - workstream-single-template
+        - task-testing-template
+      schemas:
+        - "schema/phase_spec.v1.json"
+    provides:
+      - "validation_phase_specification"
+    used_by:
+      - "Testing workflows"
+      - "Quality gates"
+  
+  # Workstream Templates
+  workstream-single-template:
+    path: "orchestration/workstreams/workstream-single-template.json"
+    requires:
+      templates:
+        - task-analysis-template
+      schemas:
+        - "schema/workstream_spec.v1.json"
+      framework:
+        - "core.engine.scheduler"
+    provides:
+      - "sequential_workstream"
+    used_by:
+      - "Single-threaded workflows"
+      - "Simple pipelines"
+  
+  workstream-parallel-template:
+    path: "orchestration/workstreams/workstream-parallel-template.json"
+    requires:
+      templates:
+        - task-analysis-template
+        - dag-parallel-template
+      schemas:
+        - "schema/workstream_spec.v1.json"
+      framework:
+        - "core.engine.scheduler"
+    provides:
+      - "parallel_workstream"
+    used_by:
+      - "Multi-threaded workflows"
+      - "Complex pipelines"
+  
+  workstream-sequential-template:
+    path: "orchestration/workstreams/workstream-sequential-template.json"
+    requires:
+      templates:
+        - task-analysis-template
+        - dag-simple-template
+      schemas:
+        - "schema/workstream_spec.v1.json"
+    provides:
+      - "sequential_workstream"
+    used_by:
+      - "Step-by-step workflows"
+  
+  # DAG Templates
+  dag-simple-template:
+    path: "orchestration/dags/dag-simple-template.yaml"
+    requires:
+      schemas:
+        - "schema/task_spec.v1.json"
+    provides:
+      - "simple_dependency_graph"
+    used_by:
+      - "Sequential workstreams"
+  
+  dag-parallel-template:
+    path: "orchestration/dags/dag-parallel-template.yaml"
+    requires:
+      schemas:
+        - "schema/task_spec.v1.json"
+      framework:
+        - "core.engine.scheduler"
+    provides:
+      - "parallel_dependency_graph"
+    used_by:
+      - "Parallel workstreams"
+  
+  dag-complex-template:
+    path: "orchestration/dags/dag-complex-template.yaml"
+    requires:
+      schemas:
+        - "schema/task_spec.v1.json"
+      framework:
+        - "core.engine.scheduler"
+    provides:
+      - "complex_dependency_graph"
+    used_by:
+      - "Advanced workflows"
+  
+  # Task Templates
+  task-analysis-template:
+    path: "orchestration/tasks/task-analysis-template.yaml"
+    requires:
+      schemas:
+        - "schema/task_spec.v1.json"
+      adapters:
+        - "aider-adapter"
+        - "codex-adapter"
+    provides:
+      - "analysis_task"
+    used_by:
+      - "Analysis phases"
+      - "Discovery workstreams"
+  
+  task-code-edit-template:
+    path: "orchestration/tasks/task-code-edit-template.yaml"
+    requires:
+      schemas:
+        - "schema/task_spec.v1.json"
+      adapters:
+        - "aider-adapter"
+    provides:
+      - "code_edit_task"
+    used_by:
+      - "Implementation phases"
+      - "Refactoring workstreams"
+  
+  task-testing-template:
+    path: "orchestration/tasks/task-testing-template.yaml"
+    requires:
+      schemas:
+        - "schema/task_spec.v1.json"
+      adapters:
+        - "pytest-adapter"
+    provides:
+      - "testing_task"
+    used_by:
+      - "Validation phases"
+      - "Testing workstreams"
+
+# ============================================================================
+# ADAPTER TEMPLATES
+# ============================================================================
+
+adapters:
+  
+  # Subprocess Adapters
+  tool-adapter-template:
+    path: "adapters/subprocess/tool-adapter-template.py"
+    requires:
+      framework:
+        - "core.adapters.base"
+        - "core.engine.resilience"
+      schemas:
+        - "schema/execution_request.v1.json"
+    provides:
+      - "subprocess_tool_adapter"
+    used_by:
+      - "CLI tool integrations"
+  
+  aider-adapter-example:
+    path: "adapters/subprocess/aider-adapter-example.py"
+    requires:
+      templates:
+        - tool-adapter-template
+      external:
+        - "aider (CLI tool)"
+    provides:
+      - "aider_integration"
+    used_by:
+      - "Code editing tasks"
+  
+  pytest-adapter-example:
+    path: "adapters/subprocess/pytest-adapter-example.py"
+    requires:
+      templates:
+        - tool-adapter-template
+      external:
+        - "pytest (CLI tool)"
+    provides:
+      - "pytest_integration"
+    used_by:
+      - "Testing tasks"
+  
+  # API Adapters
+  rest-adapter-template:
+    path: "adapters/api/rest-adapter-template.py"
+    requires:
+      framework:
+        - "core.adapters.base"
+      external:
+        - "requests (Python package)"
+    provides:
+      - "rest_api_adapter"
+    used_by:
+      - "REST API integrations"
+  
+  graphql-adapter-template:
+    path: "adapters/api/graphql-adapter-template.py"
+    requires:
+      framework:
+        - "core.adapters.base"
+      external:
+        - "gql (Python package)"
+    provides:
+      - "graphql_api_adapter"
+    used_by:
+      - "GraphQL API integrations"
+  
+  # Custom Adapters
+  custom-adapter-template:
+    path: "adapters/custom/custom-adapter-template.py"
+    requires:
+      framework:
+        - "core.adapters.base"
+    provides:
+      - "custom_integration"
+    used_by:
+      - "Special-purpose integrations"
+  
+  batch-processor-template:
+    path: "adapters/custom/batch-processor-template.py"
+    requires:
+      framework:
+        - "core.adapters.base"
+        - "core.engine.scheduler"
+    provides:
+      - "batch_processing_adapter"
+    used_by:
+      - "Bulk operations"
+
+# ============================================================================
+# CONFIGURATION TEMPLATES
+# ============================================================================
+
+configuration:
+  
+  # Profile Templates
+  profile-python-template:
+    path: "configuration/profiles/profile-python-template.yaml"
+    requires:
+      schemas:
+        - "schema/project_profile.v1.json"
+    provides:
+      - "python_project_profile"
+    used_by:
+      - "Python project bootstrapping"
+  
+  profile-data-template:
+    path: "configuration/profiles/profile-data-template.yaml"
+    requires:
+      schemas:
+        - "schema/project_profile.v1.json"
+    provides:
+      - "data_pipeline_profile"
+    used_by:
+      - "Data pipeline bootstrapping"
+  
+  profile-docs-template:
+    path: "configuration/profiles/profile-docs-template.yaml"
+    requires:
+      schemas:
+        - "schema/project_profile.v1.json"
+    provides:
+      - "documentation_profile"
+    used_by:
+      - "Documentation project bootstrapping"
+  
+  profile-generic-template:
+    path: "configuration/profiles/profile-generic-template.yaml"
+    requires:
+      schemas:
+        - "schema/project_profile.v1.json"
+    provides:
+      - "generic_project_profile"
+    used_by:
+      - "Unknown project type bootstrapping"
+  
+  # Router Templates
+  router-basic-template:
+    path: "configuration/routers/router-basic-template.json"
+    requires:
+      schemas:
+        - "schema/router_config.v1.json"
+    provides:
+      - "basic_tool_routing"
+    used_by:
+      - "Simple tool selection"
+  
+  router-multi-tool-template:
+    path: "configuration/routers/router-multi-tool-template.json"
+    requires:
+      schemas:
+        - "schema/router_config.v1.json"
+    provides:
+      - "multi_tool_routing"
+    used_by:
+      - "Complex tool selection"
+  
+  router-fallback-template:
+    path: "configuration/routers/router-fallback-template.json"
+    requires:
+      schemas:
+        - "schema/router_config.v1.json"
+    provides:
+      - "fallback_routing"
+    used_by:
+      - "Resilient tool selection"
+  
+  # Constraint Templates
+  constraints-time-template:
+    path: "configuration/constraints/constraints-time-template.yaml"
+    requires:
+      schemas:
+        - "schema/project_profile.v1.json"
+    provides:
+      - "time_constraints"
+    used_by:
+      - "Time-limited execution"
+  
+  constraints-resource-template:
+    path: "configuration/constraints/constraints-resource-template.yaml"
+    requires:
+      schemas:
+        - "schema/project_profile.v1.json"
+    provides:
+      - "resource_constraints"
+    used_by:
+      - "Resource-limited execution"
+  
+  constraints-quality-template:
+    path: "configuration/constraints/constraints-quality-template.yaml"
+    requires:
+      schemas:
+        - "schema/project_profile.v1.json"
+    provides:
+      - "quality_constraints"
+    used_by:
+      - "Quality-gated execution"
+
+# ============================================================================
+# UI TEMPLATES
+# ============================================================================
+
+ui:
+  
+  # Dashboard Templates
+  dashboard-progress-template:
+    path: "ui/dashboards/dashboard-progress-template.html"
+    requires:
+      framework:
+        - "core.engine.monitoring"
+    provides:
+      - "progress_dashboard"
+    used_by:
+      - "Real-time monitoring"
+  
+  dashboard-metrics-template:
+    path: "ui/dashboards/dashboard-metrics-template.html"
+    requires:
+      framework:
+        - "core.engine.monitoring"
+    provides:
+      - "metrics_dashboard"
+    used_by:
+      - "Performance monitoring"
+  
+  dashboard-errors-template:
+    path: "ui/dashboards/dashboard-errors-template.html"
+    requires:
+      framework:
+        - "core.engine.monitoring"
+        - "error.engine"
+    provides:
+      - "error_dashboard"
+    used_by:
+      - "Error tracking"
+  
+  # Report Templates
+  report-execution-template:
+    path: "ui/reports/report-execution-template.md"
+    requires:
+      framework:
+        - "core.state.db"
+    provides:
+      - "execution_report"
+    used_by:
+      - "Post-execution reporting"
+  
+  report-summary-template:
+    path: "ui/reports/report-summary-template.md"
+    requires:
+      framework:
+        - "core.state.db"
+    provides:
+      - "summary_report"
+    used_by:
+      - "High-level summaries"
+  
+  report-detailed-template:
+    path: "ui/reports/report-detailed-template.html"
+    requires:
+      framework:
+        - "core.state.db"
+    provides:
+      - "detailed_report"
+    used_by:
+      - "Deep-dive analysis"
+  
+  # Monitoring Templates
+  monitoring-realtime-template:
+    path: "ui/monitoring/monitoring-realtime-template.json"
+    requires:
+      framework:
+        - "core.engine.monitoring"
+    provides:
+      - "realtime_monitoring_config"
+    used_by:
+      - "Live monitoring"
+  
+  monitoring-historical-template:
+    path: "ui/monitoring/monitoring-historical-template.json"
+    requires:
+      framework:
+        - "core.state.db"
+    provides:
+      - "historical_monitoring_config"
+    used_by:
+      - "Trend analysis"
+
+# ============================================================================
+# EXAMPLES (Complete implementations)
+# ============================================================================
+
+examples:
+  
+  simple-pipeline:
+    path: "examples/simple-pipeline/"
+    requires:
+      templates:
+        - profile-python-template
+        - phase-core-template
+        - workstream-single-template
+    provides:
+      - "minimal_working_example"
+    used_by:
+      - "Learning UET basics"
+  
+  multi-phase:
+    path: "examples/multi-phase/"
+    requires:
+      templates:
+        - profile-python-template
+        - phase-analysis-template
+        - phase-implementation-template
+        - phase-validation-template
+        - workstream-parallel-template
+    provides:
+      - "complete_workflow_example"
+    used_by:
+      - "Understanding multi-phase execution"
+  
+  advanced:
+    path: "examples/advanced/"
+    requires:
+      templates:
+        - profile-python-template
+        - custom-adapter-template
+        - dag-complex-template
+        - constraints-time-template
+    provides:
+      - "advanced_patterns_example"
+    used_by:
+      - "Learning advanced patterns"
+
+# ============================================================================
+# EXTERNAL DEPENDENCIES
+# ============================================================================
+
+external_dependencies:
+  
+  # Framework Components
+  framework:
+    core.state.db:
+      module: "core.state.db"
+      description: "Database and state management"
+    core.engine.orchestrator:
+      module: "core.engine.orchestrator"
+      description: "Workflow orchestration"
+    core.engine.scheduler:
+      module: "core.engine.scheduler"
+      description: "Task scheduling"
+    core.engine.monitoring:
+      module: "core.engine.monitoring"
+      description: "Progress tracking"
+    core.adapters.base:
+      module: "core.adapters.base"
+      description: "Adapter base classes"
+    core.engine.resilience:
+      module: "core.engine.resilience"
+      description: "Circuit breakers and retry logic"
+    error.engine:
+      module: "error.engine"
+      description: "Error detection and handling"
+  
+  # JSON Schemas
+  schemas:
+    phase_spec.v1:
+      path: "../schema/phase_spec.v1.json"
+      description: "Phase specification schema"
+    workstream_spec.v1:
+      path: "../schema/workstream_spec.v1.json"
+      description: "Workstream specification schema"
+    task_spec.v1:
+      path: "../schema/task_spec.v1.json"
+      description: "Task specification schema"
+    project_profile.v1:
+      path: "../schema/project_profile.v1.json"
+      description: "Project profile schema"
+    router_config.v1:
+      path: "../schema/router_config.v1.json"
+      description: "Router configuration schema"
+    execution_request.v1:
+      path: "../schema/execution_request.v1.json"
+      description: "Execution request schema"
+  
+  # External Tools
+  tools:
+    aider:
+      type: "CLI"
+      description: "AI-powered code editing tool"
+      required_by: ["aider-adapter-example"]
+    pytest:
+      type: "CLI"
+      description: "Python testing framework"
+      required_by: ["pytest-adapter-example"]
+    requests:
+      type: "Python package"
+      description: "HTTP library"
+      required_by: ["rest-adapter-template"]
+    gql:
+      type: "Python package"
+      description: "GraphQL client"
+      required_by: ["graphql-adapter-template"]
+
+# ============================================================================
+# DEPENDENCY VALIDATION RULES
+# ============================================================================
+
+validation_rules:
+  
+  # Circular dependency detection
+  circular_dependencies:
+    enabled: true
+    action: "error"
+  
+  # Missing dependency detection
+  missing_dependencies:
+    enabled: true
+    action: "error"
+  
+  # Version compatibility
+  version_check:
+    enabled: true
+    action: "warn"
+  
+  # External tool availability
+  external_tools:
+    enabled: true
+    action: "warn"
+
+# ============================================================================
+# USAGE METADATA
+# ============================================================================
+
+usage_tracking:
+  enabled: true
+  storage: ".state/template_usage.yaml"
+  metrics:
+    - usage_count
+    - last_used
+    - success_rate
+    - validation_failures

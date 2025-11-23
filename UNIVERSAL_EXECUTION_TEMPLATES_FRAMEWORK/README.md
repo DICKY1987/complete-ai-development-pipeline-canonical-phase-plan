@@ -78,6 +78,12 @@ UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/
 │   ├── UET_TASK_ROUTING_SPEC.md # Task routing logic
 │   ├── UET_WORKSTREAM_SPEC.md  # Workstream definitions
 │   └── STATUS.md               # Current progress & metrics
+├── templates/                   # 🎨 Reusable Templates (NEW)
+│   ├── orchestration/          # Phase, workstream, DAG, task templates
+│   ├── adapters/               # Tool adapter templates
+│   ├── configuration/          # Profile, router, constraint templates
+│   ├── ui/                     # Dashboard, report, monitoring templates
+│   └── examples/               # Complete working examples
 ├── core/                        # 🔧 Implementation (26 modules)
 │   ├── bootstrap/              # Project discovery & setup
 │   ├── engine/                 # Orchestration & execution
@@ -103,6 +109,44 @@ UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/
     ├── resilience/
     └── monitoring/
 ```
+
+## Templates (NEW)
+
+The **`templates/`** directory provides reusable components following AI-codebase structure principles. Templates are organized by architectural layer and include comprehensive documentation.
+
+### Quick Access
+
+- **[Templates Overview](templates/README.md)** - Master index and quick start
+- **[Templates Structure](templates/STRUCTURE.md)** - Detailed organization guide
+- **[Templates Context](templates/CONTEXT.md)** - Execution model and usage patterns
+
+### Template Categories
+
+| Category | Purpose | Location |
+|----------|---------|----------|
+| **Orchestration** | Phases, workstreams, DAGs, tasks | [templates/orchestration/](templates/orchestration/) |
+| **Adapters** | Tool integration templates | [templates/adapters/](templates/adapters/) |
+| **Configuration** | Profiles, routers, constraints | [templates/configuration/](templates/configuration/) |
+| **UI** | Dashboards, reports, monitoring | [templates/ui/](templates/ui/) |
+| **Examples** | Complete working implementations | [templates/examples/](templates/examples/) |
+
+### Using Templates
+
+```bash
+# Browse available templates
+ls templates/orchestration/phases/
+
+# Copy a template
+cp templates/orchestration/phases/phase-core-template.yaml my-phase.yaml
+
+# Customize (replace {{PLACEHOLDERS}})
+# Validate
+python core/bootstrap/validator.py my-phase.yaml
+
+# Use in your workflow
+```
+
+See [templates/README.md](templates/README.md) for complete documentation.
 
 ## Documentation
 
