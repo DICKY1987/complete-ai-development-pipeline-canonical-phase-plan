@@ -7,7 +7,7 @@
   ],
   "ccpm_issue": "N/A",
   "files_scope": [
-    "docs/"
+    "docs/HARDCODED_PATH_INDEXER.md"
   ],
   "acceptance_tests": [],
   "depends_on": [],

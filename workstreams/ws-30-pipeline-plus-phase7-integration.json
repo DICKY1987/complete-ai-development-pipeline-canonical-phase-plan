@@ -36,7 +36,15 @@
     "Performance test: 100 tasks complete without errors"
   ],
   "depends_on": [
-    "ws-29-pipeline-plus-phase6-router"
+    "ws-22-pipeline-plus-phase0-schema",
+    "ws-23-pipeline-plus-phase1a-task-queue",
+    "ws-24-pipeline-plus-phase1b-audit",
+    "ws-25-pipeline-plus-phase2-patch-manager",
+    "ws-26-pipeline-plus-phase3-prompt-engine",
+    "ws-27-pipeline-plus-phase4-validation",
+    "ws-28-pipeline-plus-phase5-adapters",
+    "ws-29-pipeline-plus-phase6-router",
+    "ws-18-update-infrastructure-scripts"
   ],
   "tool": "aider",
   "circuit_breaker": {

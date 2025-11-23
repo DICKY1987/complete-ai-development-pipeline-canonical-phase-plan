@@ -5,8 +5,7 @@
   "gate": 1,
   "files_scope": [
     "meta/",
-    "PHASE_DEV_DOCS/",
-    "docs/"
+    "PHASE_DEV_DOCS/"
   ],
   "files_create": [],
   "tasks": [

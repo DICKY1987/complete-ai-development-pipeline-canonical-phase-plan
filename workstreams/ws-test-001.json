@@ -4,7 +4,7 @@
   "ccpm_issue": "TBD",
   "gate": 1,
   "files_scope": [
-    "README.md"
+    "workstreams/ws-test-001.json"
   ],
   "files_create": [],
   "tasks": [

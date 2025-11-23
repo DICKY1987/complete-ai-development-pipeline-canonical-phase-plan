@@ -50,6 +50,8 @@
     "ws-02-section-mapping-config",
     "ws-03-refactor-meta-section",
     "ws-04-refactor-gui-section",
+    "ws-10-openspec-integration",
+    "ws-12-error-shared-utils",
     "ws-05-refactor-infra-ci",
     "ws-06-refactor-aim-section",
     "ws-07-refactor-pm-ccpm",
