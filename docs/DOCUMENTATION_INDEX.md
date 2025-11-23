@@ -36,6 +36,21 @@
 
 ---
 
+## Glossary & Reference
+
+**Quick terminology lookup:**
+
+| Document | Purpose | Coverage |
+|----------|---------|----------|
+| [GLOSSARY.md](../GLOSSARY.md) | Alphabetical term reference with code examples | 65+ terms, 7 categories |
+| [IMPLEMENTATION_LOCATIONS.md](IMPLEMENTATION_LOCATIONS.md) | Code locations (file:line) for each term | 47 terms with precise locations |
+
+**Usage:**
+- **New to the project?** Start with [GLOSSARY.md](../GLOSSARY.md) for term definitions
+- **Looking for implementation?** Check [IMPLEMENTATION_LOCATIONS.md](IMPLEMENTATION_LOCATIONS.md) for exact code locations
+
+---
+
 ## Architecture Decisions (ADRs)
 
 **Why we made key technical choices:**
@@ -226,6 +241,7 @@ python scripts/validate_acs_conformance.py
 | Phase | Plan Document | Checklist | Status | Priority |
 |-------|--------------|-----------|--------|----------|
 | **PH-ACS** | [AI Codebase Structure Implementation](../meta/plans/PH-ACS-AI-CODEBASE-STRUCTURE.md) | [Checklist](../meta/plans/PH-ACS-CHECKLIST.md) | Ready | HIGH |
+| **PH-UET** | [UET V2 Integration](planning/PHASE_UET_INTEGRATION.md) | [Checklist](planning/PHASE_UET_CHECKLIST.md) | READY | HIGH |
 
 **Related Documents:**
 - [ACS Feasibility Analysis](AI_CODEBASE_STRUCTURE_FEASIBILITY.md) - Detailed analysis of requirements vs current state
