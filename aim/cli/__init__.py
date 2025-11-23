@@ -1,10 +1,35 @@
 """AIM+ CLI Module
 
-Command-line interface for AIM+ unified environment manager.
+Command-line interface for AIM+ operations.
 
-Contract Version: AIM_PLUS_V1
+This module provides:
+- Secret management (set, get, list, delete)
+- Health checks and diagnostics
+- Tool installation and management
+- Environment scanning
+- Version control and compatibility checking
+- Audit log querying and export
+
+Public API:
+    cli - Main CLI entry point (Click command group)
+
+Usage:
+    # As module
+    python -m aim.cli <command>
+    
+    # Direct import
+    from aim.cli import cli
+    
+    # In code
+    from click.testing import CliRunner
+    from aim.cli import cli
+    
+    runner = CliRunner()
+    result = runner.invoke(cli, ['health', 'check'])
 """
 
 __version__ = "1.0.0"
 
-__all__ = []
+from .main import cli
+
+__all__ = ["cli"]
