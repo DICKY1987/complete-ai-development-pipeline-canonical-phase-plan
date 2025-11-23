@@ -1,0 +1,501 @@
+[
+  {
+    "op": "add",
+    "path": "/meta/patch_metadata/006",
+    "value": {
+      "patch_id": "006-tool-adapter-interface",
+      "patch_ulid": "01JDK0019AB08252DF7C20A864",
+      "created_at": "2025-11-23T11:38:26.103Z",
+      "description": "Document Tool Adapter Interface pattern - abstraction for routing tasks to external tools (aider, pytest, git, etc.)",
+      "source_files": [
+        "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/core/adapters/base.py",
+        "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/core/adapters/subprocess_adapter.py",
+        "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/core/adapters/registry.py"
+      ],
+      "operations_count": 3,
+      "priority": "MEDIUM",
+      "approved_by": "human",
+      "applied": false
+    }
+  },
+  {
+    "op": "add",
+    "path": "/meta/tool_adapter_pattern",
+    "value": {
+      "description": "Tool Adapter Interface - abstraction layer for routing tasks to external tools",
+      "purpose": "Decouple task execution from specific tool implementations, enabling tool substitution and testing",
+      "location": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/core/adapters/",
+      "workstream": "WS-03-02A",
+      "pattern": "adapter",
+      "components": {
+        "tool_config": {
+          "description": "Configuration for a tool (metadata, capabilities, limits)",
+          "file": "core/adapters/base.py",
+          "dataclass": "ToolConfig",
+          "fields": {
+            "tool_id": "Unique identifier (e.g., 'aider', 'pytest', 'git')",
+            "kind": "Tool category: 'tool', 'validator', 'analyzer'",
+            "command": "Base command to execute",
+            "capabilities": "What the tool can do (task_kinds, domains)",
+            "limits": "Resource constraints (timeout, max_parallel)",
+            "safety_tier": "Safety level: 'low', 'medium', 'high'"
+          },
+          "methods": {
+            "supports_task": "Check if tool supports task_kind and domain",
+            "get_timeout": "Get timeout in seconds (default 300s / 5min)",
+            "get_max_parallel": "Get max parallel executions (default 1)"
+          }
+        },
+        "execution_result": {
+          "description": "Result of tool execution",
+          "file": "core/adapters/base.py",
+          "dataclass": "ExecutionResult",
+          "fields": {
+            "success": "Boolean - did execution succeed",
+            "stdout": "Standard output capture",
+            "stderr": "Standard error capture",
+            "exit_code": "Process exit code",
+            "duration_seconds": "Execution time in seconds",
+            "error_message": "Optional error description",
+            "metadata": "Additional context (command, timeout, etc.)"
+          },
+          "methods": {
+            "to_dict": "Convert to dictionary for storage/serialization"
+          }
+        },
+        "tool_adapter": {
+          "description": "Abstract base class for tool adapters",
+          "file": "core/adapters/base.py",
+          "class": "ToolAdapter",
+          "pattern": "Abstract Base Class (ABC)",
+          "abstract_methods": {
+            "execute": {
+              "signature": "execute(request: Dict, timeout: Optional[int]) -> ExecutionResult",
+              "purpose": "Execute a task request via the tool",
+              "args": {
+                "request": "ExecutionRequest dictionary with task details",
+                "timeout": "Optional timeout override in seconds"
+              },
+              "returns": "ExecutionResult with success/failure and output"
+            },
+            "validate_request": {
+              "signature": "validate_request(request: Dict) -> bool",
+              "purpose": "Validate that adapter can handle the request",
+              "args": {
+                "request": "ExecutionRequest dictionary"
+              },
+              "returns": "True if request is valid for this adapter"
+            }
+          },
+          "concrete_methods": {
+            "supports_task": "Check if adapter supports task_kind/domain",
+            "get_timeout": "Get configured timeout from ToolConfig"
+          }
+        },
+        "subprocess_adapter": {
+          "description": "Concrete adapter that executes tools via subprocess",
+          "file": "core/adapters/subprocess_adapter.py",
+          "class": "SubprocessAdapter",
+          "extends": "ToolAdapter",
+          "responsibilities": [
+            "Command execution with timeout",
+            "stdout/stderr capture",
+            "Exit code handling",
+            "Error reporting",
+            "Timeout handling (TimeoutExpired exception)",
+            "General exception handling"
+          ],
+          "implementation_details": {
+            "subprocess_run": {
+              "capture_output": true,
+              "text": true,
+              "timeout": "From config or override",
+              "shell": true,
+              "note": "shell=True allows complex commands (consider security implications)"
+            },
+            "error_handling": {
+              "TimeoutExpired": "Returns ExecutionResult with timeout_exceeded=True in metadata",
+              "General Exception": "Returns ExecutionResult with exception_type in metadata",
+              "Invalid Request": "Returns ExecutionResult with error_message"
+            },
+            "duration_tracking": "Uses time.time() before/after execution",
+            "command_building": "_build_command() helper (simple implementation, needs enhancement)"
+          }
+        },
+        "adapter_registry": {
+          "description": "Registry for managing tool adapters",
+          "file": "core/adapters/registry.py",
+          "class": "AdapterRegistry",
+          "responsibilities": [
+            "Load adapters from router_config.json",
+            "Register adapters by tool_id",
+            "Look up adapters by tool_id",
+            "Find adapters by task_kind/domain",
+            "List all registered tools"
+          ],
+          "methods": {
+            "load_from_config": {
+              "signature": "load_from_config(config_path: str)",
+              "purpose": "Load adapters from router_config.v1.json",
+              "implementation": "Reads apps section, creates ToolConfig, instantiates SubprocessAdapter"
+            },
+            "register": {
+              "signature": "register(tool_id: str, adapter: ToolAdapter)",
+              "purpose": "Register an adapter instance"
+            },
+            "get": {
+              "signature": "get(tool_id: str) -> Optional[ToolAdapter]",
+              "purpose": "Get adapter by tool_id"
+            },
+            "find_for_task": {
+              "signature": "find_for_task(task_kind: str, domain: Optional[str]) -> List[ToolAdapter]",
+              "purpose": "Find all adapters that support a task kind/domain"
+            },
+            "list_tools": {
+              "signature": "list_tools() -> List[str]",
+              "purpose": "List all registered tool IDs"
+            },
+            "get_config": {
+              "signature": "get_config(tool_id: str) -> Optional[ToolConfig]",
+              "purpose": "Get ToolConfig for a tool"
+            }
+          }
+        }
+      },
+      "usage_flow": {
+        "initialization": [
+          "Create AdapterRegistry with router_config path",
+          "Registry loads apps from config",
+          "For each app, creates ToolConfig",
+          "Instantiates SubprocessAdapter with ToolConfig",
+          "Registers adapter by tool_id"
+        ],
+        "task_routing": [
+          "Receive ExecutionRequest (task_kind, domain, etc.)",
+          "Call registry.find_for_task(task_kind, domain)",
+          "Get list of capable adapters",
+          "Select adapter (first, preferred, round-robin, etc.)",
+          "Call adapter.execute(request, timeout)",
+          "Receive ExecutionResult",
+          "Store result or handle error"
+        ],
+        "direct_tool_access": [
+          "Call registry.get(tool_id) for specific tool",
+          "Call adapter.execute(request)",
+          "Handle result"
+        ]
+      },
+      "adapter_implementations": {
+        "current": [
+          {
+            "name": "SubprocessAdapter",
+            "status": "implemented",
+            "file": "core/adapters/subprocess_adapter.py",
+            "uses": "subprocess.run with timeout",
+            "limitations": [
+              "Simple command building (needs enhancement)",
+              "shell=True may have security implications",
+              "No input streaming support"
+            ]
+          }
+        ],
+        "planned": [
+          {
+            "name": "AiderAdapter",
+            "purpose": "Specialized adapter for aider code editing",
+            "enhancements": [
+              "Parse aider-specific request format",
+              "Handle aider configuration",
+              "Extract structured output"
+            ]
+          },
+          {
+            "name": "PytestAdapter",
+            "purpose": "Specialized adapter for pytest testing",
+            "enhancements": [
+              "Parse pytest request (test files, markers)",
+              "Handle pytest.ini configuration",
+              "Parse pytest JSON output"
+            ]
+          },
+          {
+            "name": "GitAdapter",
+            "purpose": "Specialized adapter for git operations",
+            "enhancements": [
+              "Structured git commands",
+              "Parse git output formats",
+              "Handle authentication"
+            ]
+          },
+          {
+            "name": "HTTPAdapter",
+            "purpose": "Adapter for HTTP API calls",
+            "enhancements": [
+              "REST API requests",
+              "Authentication headers",
+              "JSON request/response"
+            ]
+          }
+        ]
+      },
+      "design_benefits": {
+        "decoupling": "Task execution logic separate from tool-specific details",
+        "testability": "Easy to mock adapters for testing",
+        "extensibility": "Add new tools by implementing ToolAdapter interface",
+        "substitutability": "Swap tool implementations without changing orchestration code",
+        "capability_discovery": "Registry can find capable tools for any task",
+        "configuration_driven": "Tools defined in router_config.json, not hardcoded"
+      },
+      "security_considerations": {
+        "shell_injection": {
+          "risk": "shell=True in subprocess.run enables shell injection",
+          "mitigation": [
+            "Validate/sanitize request inputs",
+            "Use shell=False with list args where possible",
+            "Implement safety_tier enforcement",
+            "Consider using shlex.quote() for arguments"
+          ]
+        },
+        "timeout_enforcement": {
+          "risk": "Runaway processes without timeout",
+          "mitigation": "Always use timeout parameter in subprocess.run"
+        },
+        "resource_limits": {
+          "risk": "Too many parallel executions",
+          "mitigation": "Enforce max_parallel from ToolConfig limits"
+        }
+      },
+      "integration_points": {
+        "task_router": {
+          "description": "Uses AdapterRegistry to route tasks to tools",
+          "reference": "core/router/task_router.py (planned)"
+        },
+        "execution_engine": {
+          "description": "Orchestrator uses adapters to execute workstream steps",
+          "reference": "core/engine/orchestrator.py"
+        },
+        "router_config": {
+          "description": "Configuration file defining available tools",
+          "reference": "router_config.v1.json",
+          "structure": {
+            "apps": {
+              "tool_id": {
+                "kind": "tool|validator|analyzer",
+                "command": "base command string",
+                "capabilities": {
+                  "task_kinds": ["code_edit", "test", "validate"],
+                  "domains": ["python", "javascript"]
+                },
+                "limits": {
+                  "timeout_seconds": 300,
+                  "max_parallel": 1
+                },
+                "safety_tier": "medium"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "op": "add",
+    "path": "/implementation/tool_adapters",
+    "value": {
+      "description": "Tool Adapter implementation status and reference",
+      "pattern": "Adapter Pattern (Gang of Four design pattern)",
+      "status": "partial_implementation",
+      "completion_percentage": 30,
+      "implemented_components": [
+        "ToolConfig dataclass with supports_task logic",
+        "ExecutionResult dataclass with to_dict serialization",
+        "ToolAdapter abstract base class",
+        "SubprocessAdapter concrete implementation",
+        "AdapterRegistry with load_from_config"
+      ],
+      "missing_components": [
+        "Enhanced command building in SubprocessAdapter",
+        "Specialized adapters (AiderAdapter, PytestAdapter, GitAdapter)",
+        "HTTPAdapter for API calls",
+        "Input streaming support",
+        "Structured output parsing",
+        "Safety tier enforcement logic",
+        "max_parallel enforcement (semaphore/pool)"
+      ],
+      "location": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/core/adapters/",
+      "files": {
+        "base.py": {
+          "lines": 123,
+          "classes": ["ToolConfig", "ExecutionResult", "ToolAdapter"],
+          "status": "complete_for_mvp"
+        },
+        "subprocess_adapter.py": {
+          "lines": 128,
+          "classes": ["SubprocessAdapter"],
+          "status": "basic_implementation",
+          "needs": [
+            "Better command building",
+            "Security hardening",
+            "Input streaming"
+          ]
+        },
+        "registry.py": {
+          "lines": 107,
+          "classes": ["AdapterRegistry"],
+          "status": "complete_for_mvp",
+          "needs": [
+            "Adapter selection strategy (first, preferred, round-robin)",
+            "Health checks for adapters",
+            "Lazy loading"
+          ]
+        }
+      },
+      "testing": {
+        "unit_tests": "tests/adapters/",
+        "test_files": {
+          "test_base.py": {
+            "lines": 153,
+            "test_classes": 2,
+            "test_methods": 13,
+            "coverage": ["ToolConfig", "ExecutionResult"],
+            "tests": {
+              "TestToolConfig": {
+                "test_create_tool_config": "Verify config creation",
+                "test_supports_task_matching": "Test task_kind matching",
+                "test_supports_task_with_domain": "Test domain filtering",
+                "test_get_timeout_default": "Test default 300s timeout",
+                "test_get_timeout_custom": "Test custom timeout from limits",
+                "test_get_max_parallel_default": "Test default max_parallel=1",
+                "test_get_max_parallel_custom": "Test custom max_parallel from limits"
+              },
+              "TestExecutionResult": {
+                "test_create_success_result": "Verify success result creation",
+                "test_create_failure_result": "Verify failure result creation",
+                "test_to_dict": "Test serialization to dict"
+              }
+            }
+          },
+          "test_subprocess_adapter.py": {
+            "lines": 163,
+            "test_classes": 1,
+            "test_methods": 10,
+            "coverage": ["SubprocessAdapter"],
+            "tests": {
+              "TestSubprocessAdapter": {
+                "test_create_adapter": "Verify adapter initialization",
+                "test_validate_request_valid": "Test valid request validation",
+                "test_validate_request_missing_fields": "Test invalid request rejection",
+                "test_execute_success": "Test successful command execution (cross-platform python)",
+                "test_execute_failure": "Test failed command (exit code 1)",
+                "test_execute_timeout": "Test timeout handling with TimeoutExpired",
+                "test_execute_invalid_request": "Test invalid request error handling",
+                "test_supports_task": "Test task_kind support checking"
+              }
+            },
+            "cross_platform": "Uses sys.executable for cross-platform Python tests"
+          },
+          "test_registry.py": {
+            "lines": 180,
+            "test_classes": 1,
+            "test_methods": 10,
+            "coverage": ["AdapterRegistry"],
+            "tests": {
+              "TestAdapterRegistry": {
+                "test_create_empty_registry": "Verify empty registry creation",
+                "test_register_adapter": "Test manual adapter registration",
+                "test_get_nonexistent_adapter": "Test None return for missing adapter",
+                "test_list_tools": "Test listing all registered tool IDs",
+                "test_get_config": "Test retrieving ToolConfig by tool_id",
+                "test_find_for_task_basic": "Test finding adapters by task_kind",
+                "test_find_for_task_with_domain": "Test finding adapters with domain filter",
+                "test_load_from_config": "Test loading adapters from router_config.json",
+                "test_load_from_config_on_init": "Test config loading during initialization"
+              }
+            },
+            "uses_test_config": "test_router_config.json with 3 sample tools (aider, codex, ruff)"
+          },
+          "test_router_config.json": {
+            "lines": 64,
+            "purpose": "Test configuration file for registry tests",
+            "tools_defined": 3,
+            "structure": {
+              "version": "1.0.0",
+              "apps": {
+                "aider": {
+                  "kind": "tool",
+                  "task_kinds": ["code_edit", "refactor", "code_review"],
+                  "domains": ["python", "javascript", "typescript", "rust"],
+                  "max_parallel": 2,
+                  "timeout": "600s",
+                  "safety_tier": "medium"
+                },
+                "codex": {
+                  "kind": "tool",
+                  "task_kinds": ["code_edit", "analysis", "documentation"],
+                  "domains": ["python", "javascript", "go", "rust"],
+                  "max_parallel": 3,
+                  "timeout": "300s",
+                  "safety_tier": "high"
+                },
+                "ruff": {
+                  "kind": "validator",
+                  "task_kinds": ["lint", "validation"],
+                  "domains": ["python"],
+                  "max_parallel": 5,
+                  "timeout": "60s",
+                  "safety_tier": "low"
+                }
+              },
+              "routing": {
+                "rules": [
+                  {
+                    "id": "python-editing",
+                    "match": {"task_kind": ["code_edit", "refactor"], "risk_tier": ["low", "medium"]},
+                    "select_from": ["aider", "codex"],
+                    "strategy": "auto",
+                    "validate_with": ["ruff"],
+                    "required": true
+                  }
+                ]
+              },
+              "defaults": {
+                "max_attempts": 3,
+                "timeout_seconds": 300,
+                "strategy": "auto"
+              }
+            }
+          }
+        },
+        "integration_tests": "tests/integration/adapters/ (planned)",
+        "coverage_summary": {
+          "total_test_files": 4,
+          "total_test_classes": 4,
+          "total_test_methods": 33,
+          "total_test_lines": 496,
+          "components_covered": ["ToolConfig", "ExecutionResult", "ToolAdapter", "SubprocessAdapter", "AdapterRegistry"],
+          "coverage_percentage": "~85% (estimated)"
+        },
+        "test_patterns": {
+          "cross_platform": "Uses sys.executable for Python instead of shell commands",
+          "timeout_testing": "Simulates timeout with sleep(10) and timeout=1",
+          "config_loading": "Tests load_from_config with test_router_config.json",
+          "capability_discovery": "Tests find_for_task with task_kind and domain filters",
+          "validation": "Tests validate_request for required fields"
+        },
+        "running_tests": {
+          "command": "pytest tests/adapters/ -v",
+          "individual": "pytest tests/adapters/test_base.py::TestToolConfig::test_supports_task_matching",
+          "coverage": "pytest tests/adapters/ --cov=core.adapters --cov-report=html"
+        }
+      },
+      "next_steps": [
+        "Implement AiderAdapter with aider-specific logic",
+        "Add safety tier enforcement",
+        "Enhance command building with argument parsing",
+        "Add adapter health checks",
+        "Implement max_parallel with semaphore",
+        "Add structured output parsers"
+      ]
+    }
+  }
+]

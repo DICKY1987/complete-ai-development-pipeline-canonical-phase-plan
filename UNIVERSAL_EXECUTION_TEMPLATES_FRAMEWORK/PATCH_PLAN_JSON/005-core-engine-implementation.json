@@ -1,0 +1,529 @@
+[
+  {
+    "op": "add",
+    "path": "/meta/patch_metadata",
+    "value": {
+      "patch_id": "005-core-engine-implementation",
+      "patch_ulid": "01JDKBXWQP8PATCH005ENGINE01",
+      "created_at": "2025-11-23T11:26:45.366Z",
+      "description": "Integrate core/engine implementation details (orchestrator, scheduler, state machines, router, resilience patterns)",
+      "source_files": [
+        "core/engine/orchestrator.py",
+        "core/engine/scheduler.py",
+        "core/engine/state_machine.py",
+        "core/engine/router.py",
+        "core/engine/execution_request_builder.py",
+        "core/engine/resilience/circuit_breaker.py",
+        "core/engine/resilience/retry.py",
+        "core/engine/monitoring/run_monitor.py"
+      ],
+      "operations_count": 20,
+      "priority": "HIGH",
+      "approved_by": "human",
+      "applied": false
+    }
+  },
+  {
+    "op": "add",
+    "path": "/meta/existing_components/orchestrator",
+    "value": {
+      "completion": 85,
+      "location": "core/engine/orchestrator.py",
+      "description": "Main orchestration engine for workstream execution",
+      "workstream_id": "WS-03-01A",
+      "features": [
+        "Run lifecycle management (create, start, complete, quarantine, cancel)",
+        "Step attempt tracking",
+        "Event emission to run_events table",
+        "State machine validation",
+        "ULID generation",
+        "Database integration"
+      ],
+      "state_machine": "RunStateMachine",
+      "database_tables": ["runs", "step_attempts", "run_events"],
+      "methods": {
+        "run_lifecycle": ["create_run", "start_run", "complete_run", "quarantine_run", "cancel_run"],
+        "step_management": ["create_step_attempt", "complete_step_attempt"],
+        "queries": ["get_run_status", "list_runs", "get_run_steps", "get_run_events"]
+      }
+    }
+  },
+  {
+    "op": "add",
+    "path": "/meta/existing_components/scheduler",
+    "value": {
+      "completion": 80,
+      "location": "core/engine/scheduler.py",
+      "description": "DAG-based task scheduler with dependency resolution",
+      "workstream_id": "WS-03-01C",
+      "features": [
+        "Dependency graph construction",
+        "Cycle detection (prevent circular dependencies)",
+        "Topological ordering",
+        "Parallel batch generation",
+        "Task state tracking (pending, ready, running, completed, failed)",
+        "Reverse dependency tracking"
+      ],
+      "algorithms": {
+        "cycle_detection": "DFS with recursion stack",
+        "execution_order": "Topological sort by levels",
+        "parallel_batches": "Level-based with max_parallel limit"
+      },
+      "task_model": {
+        "fields": ["task_id", "task_kind", "depends_on", "metadata", "status", "result", "error"],
+        "statuses": ["pending", "ready", "running", "completed", "failed"]
+      }
+    }
+  },
+  {
+    "op": "add",
+    "path": "/meta/existing_components/state_machines",
+    "value": {
+      "completion": 90,
+      "location": "core/engine/state_machine.py",
+      "description": "State machine validation for runs and steps",
+      "workstream_id": "WS-03-01A",
+      "machines": {
+        "run_state_machine": {
+          "states": ["pending", "running", "succeeded", "failed", "quarantined", "canceled"],
+          "terminal_states": ["succeeded", "quarantined", "canceled"],
+          "transitions": {
+            "pending": ["running", "canceled"],
+            "running": ["succeeded", "failed", "quarantined", "canceled"],
+            "failed": ["quarantined"],
+            "succeeded": [],
+            "quarantined": [],
+            "canceled": []
+          }
+        },
+        "step_state_machine": {
+          "states": ["running", "succeeded", "failed", "canceled"],
+          "terminal_states": ["succeeded", "failed", "canceled"],
+          "transitions": {
+            "running": ["succeeded", "failed", "canceled"],
+            "succeeded": [],
+            "failed": [],
+            "canceled": []
+          }
+        }
+      },
+      "validation_methods": ["can_transition", "is_terminal", "validate_transition"]
+    }
+  },
+  {
+    "op": "add",
+    "path": "/meta/existing_components/task_router",
+    "value": {
+      "completion": 75,
+      "location": "core/engine/router.py",
+      "description": "Routes tasks to tools based on capabilities and rules",
+      "workstream_id": "WS-03-01B",
+      "features": [
+        "Configuration-driven routing",
+        "Capability-based matching",
+        "Multi-strategy support (fixed, round_robin, auto)",
+        "Risk tier and complexity filtering",
+        "Domain-aware routing"
+      ],
+      "config_file": "router_config.json",
+      "routing_strategies": ["fixed", "round_robin", "auto"],
+      "matching_criteria": ["task_kind", "risk_tier", "complexity", "domain"],
+      "methods": {
+        "routing": ["route_task"],
+        "config": ["get_tool_config", "get_tool_command", "get_tool_limits"],
+        "discovery": ["list_tools", "get_capabilities"]
+      }
+    }
+  },
+  {
+    "op": "add",
+    "path": "/meta/existing_components/execution_request_builder",
+    "value": {
+      "completion": 70,
+      "location": "core/engine/execution_request_builder.py",
+      "description": "Builder pattern for tool execution requests",
+      "workstream_id": "WS-03-01B",
+      "features": [
+        "Fluent builder interface",
+        "Automatic request ID generation",
+        "Timestamp injection",
+        "Validation of required fields"
+      ],
+      "builder_methods": [
+        "with_task",
+        "with_tool",
+        "with_input",
+        "with_constraints",
+        "with_metadata",
+        "with_limits",
+        "build"
+      ],
+      "required_fields": ["task_kind", "tool_id"]
+    }
+  },
+  {
+    "op": "add",
+    "path": "/meta/existing_components/circuit_breaker",
+    "value": {
+      "completion": 90,
+      "location": "core/engine/resilience/circuit_breaker.py",
+      "description": "Circuit breaker pattern for tool adapters",
+      "workstream_id": "WS-03-03A",
+      "features": [
+        "Three-state machine (CLOSED, OPEN, HALF_OPEN)",
+        "Configurable failure threshold",
+        "Automatic recovery testing",
+        "Time-based recovery timeout",
+        "State tracking and metrics"
+      ],
+      "states": {
+        "CLOSED": "Normal operation, requests pass through",
+        "OPEN": "Too many failures, requests blocked",
+        "HALF_OPEN": "Testing if service recovered"
+      },
+      "config_params": {
+        "failure_threshold": 5,
+        "recovery_timeout": 60,
+        "half_open_max_calls": 1
+      },
+      "exception": "CircuitBreakerOpen"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/meta/existing_components/retry_strategies",
+    "value": {
+      "completion": 85,
+      "location": "core/engine/resilience/retry.py",
+      "description": "Retry strategies with backoff and jitter",
+      "workstream_id": "WS-03-03A",
+      "strategies": {
+        "SimpleRetry": {
+          "description": "Fixed delay between retries",
+          "params": ["max_attempts", "delay"]
+        },
+        "ExponentialBackoff": {
+          "description": "Exponential backoff with optional jitter",
+          "params": ["max_attempts", "base_delay", "max_delay", "exponential_base", "jitter"],
+          "formula": "min(base_delay * (exponential_base ** attempt), max_delay)",
+          "jitter": "delay * random(0.5, 1.5)"
+        }
+      },
+      "exception": "RetryExhausted"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/meta/existing_components/run_monitor",
+    "value": {
+      "completion": 80,
+      "location": "core/engine/monitoring/run_monitor.py",
+      "description": "Monitors run execution and provides metrics",
+      "workstream_id": "WS-03-03B",
+      "features": [
+        "Real-time run metrics aggregation",
+        "Step attempt tracking",
+        "Event counting",
+        "Duration calculation",
+        "Active run listing",
+        "System-wide summary"
+      ],
+      "metrics": {
+        "RunMetrics": {
+          "fields": [
+            "run_id",
+            "status",
+            "total_steps",
+            "completed_steps",
+            "failed_steps",
+            "total_events",
+            "error_events",
+            "created_at",
+            "started_at",
+            "ended_at",
+            "duration_seconds"
+          ]
+        }
+      },
+      "methods": ["get_run_metrics", "list_active_runs", "get_summary"]
+    }
+  },
+  {
+    "op": "add",
+    "path": "/meta/resilience_patterns",
+    "value": {
+      "circuit_breaker": {
+        "pattern": "Prevent cascading failures",
+        "implementation": "core/engine/resilience/circuit_breaker.py",
+        "states": ["CLOSED", "OPEN", "HALF_OPEN"],
+        "use_case": "Tool adapter failure protection"
+      },
+      "retry": {
+        "pattern": "Automatic retry with backoff",
+        "implementation": "core/engine/resilience/retry.py",
+        "strategies": ["SimpleRetry", "ExponentialBackoff"],
+        "use_case": "Transient failure recovery"
+      },
+      "monitoring": {
+        "pattern": "Real-time observability",
+        "implementation": "core/engine/monitoring/run_monitor.py",
+        "metrics": "RunMetrics dataclass",
+        "use_case": "Dashboard and alerting"
+      }
+    }
+  },
+  {
+    "op": "add",
+    "path": "/meta/database_schema_usage",
+    "value": {
+      "tables_used": {
+        "runs": {
+          "operations": ["create_run", "update_run", "get_run", "list_runs"],
+          "state_machine": "RunStateMachine",
+          "fields_tracked": ["run_id", "project_id", "phase_id", "workstream_id", "state", "created_at", "started_at", "ended_at", "exit_code", "error_message", "metadata"]
+        },
+        "step_attempts": {
+          "operations": ["create_step_attempt", "update_step_attempt", "get_step_attempt", "list_step_attempts"],
+          "state_machine": "StepStateMachine",
+          "fields_tracked": ["step_attempt_id", "run_id", "sequence", "tool_id", "state", "started_at", "ended_at", "exit_code", "output_patch_id", "error_log", "metadata"]
+        },
+        "run_events": {
+          "operations": ["create_event", "list_events"],
+          "event_types": ["run_created", "run_started", "run_completed", "run_quarantined", "run_canceled", "step_started", "step_completed"],
+          "fields_tracked": ["event_id", "run_id", "timestamp", "event_type", "data"]
+        }
+      }
+    }
+  },
+  {
+    "op": "add",
+    "path": "/phases/PH-000/workstreams/WS-000-008",
+    "value": {
+      "workstream_id": "WS-000-008",
+      "workstream_ulid": "01JDKBXWQP8WS000008ENGDOC1",
+      "name": "Document Core Engine Implementation",
+      "phase_id": "PH-000",
+      "priority": "MEDIUM",
+      "estimated_duration_hours": 1.0,
+      "dependencies": [],
+      "description": "Document existing core/engine implementation for AI understanding",
+      "tasks": {
+        "TSK-000-008-001": {
+          "task_id": "TSK-000-008-001",
+          "task_ulid": "01JDKBXWQP8TSK000008001DOC",
+          "name": "Create ENGINE_IMPLEMENTATION.md",
+          "workstream_id": "WS-000-008",
+          "executor": "file_create",
+          "inputs": {
+            "file_path": {"type": "string", "default": "docs/ENGINE_IMPLEMENTATION.md"}
+          },
+          "outputs": {
+            "file_created": {"type": "boolean"}
+          },
+          "file_scope": {
+            "create": ["docs/ENGINE_IMPLEMENTATION.md"],
+            "modify": [],
+            "read_only": [
+              "core/engine/orchestrator.py",
+              "core/engine/scheduler.py",
+              "core/engine/state_machine.py",
+              "core/engine/router.py",
+              "core/engine/resilience/circuit_breaker.py",
+              "core/engine/resilience/retry.py",
+              "core/engine/monitoring/run_monitor.py"
+            ]
+          },
+          "acceptance_tests": {
+            "powershell": "Test-Path docs/ENGINE_IMPLEMENTATION.md",
+            "pytest": null
+          },
+          "max_runtime_seconds": 600,
+          "idempotent": true
+        }
+      },
+      "completion_criteria": {
+        "all_tasks_complete": true,
+        "documentation_exists": true
+      }
+    }
+  },
+  {
+    "op": "replace",
+    "path": "/phases/PH-000/estimated_duration_hours",
+    "value": 7.0
+  },
+  {
+    "op": "add",
+    "path": "/validation/implementation_coverage",
+    "value": {
+      "core_engine_components": 8,
+      "completion_percentage_range": "70-90%",
+      "documented_in": "005-core-engine-implementation.json",
+      "missing_components": [
+        "Saga pattern compensation engine",
+        "Cost tracking integration",
+        "Full tool adapter implementations"
+      ],
+      "workstreams_referenced": ["WS-03-01A", "WS-03-01B", "WS-03-01C", "WS-03-03A", "WS-03-03B"]
+    }
+  },
+  {
+    "op": "add",
+    "path": "/meta/implementation_notes",
+    "value": {
+      "ulid_generation": {
+        "current": "UUID-based placeholder (uuid.uuid4().hex.upper()[:26])",
+        "todo": "Replace with actual ULID library",
+        "location": "core/engine/orchestrator.py:16-19"
+      },
+      "router_strategies": {
+        "implemented": ["fixed"],
+        "todo": ["round_robin", "auto"],
+        "location": "core/engine/router.py:141-150"
+      },
+      "state_machine_alignment": {
+        "run_states": "Matches COOPERATION_SPEC",
+        "step_states": "Matches COOPERATION_SPEC",
+        "validation": "Enforced at transition time"
+      },
+      "resilience_integration": {
+        "circuit_breaker": "Standalone, needs adapter integration",
+        "retry": "Standalone, needs orchestrator integration",
+        "monitoring": "Database-integrated, ready for dashboards"
+      }
+    }
+  },
+  {
+    "op": "add",
+    "path": "/meta/engine_integration_points",
+    "value": {
+      "orchestrator_to_scheduler": {
+        "integration": "Task creation from workstream spec",
+        "method": "create_task_from_spec",
+        "location": "core/engine/scheduler.py:259-270"
+      },
+      "orchestrator_to_database": {
+        "integration": "Direct Database object injection",
+        "tables": ["runs", "step_attempts", "run_events"],
+        "pattern": "Repository pattern (db.create_run, db.update_run, etc.)"
+      },
+      "router_to_tools": {
+        "integration": "Configuration-driven tool selection",
+        "config": "router_config.json",
+        "output": "tool_id and command"
+      },
+      "resilience_to_adapters": {
+        "integration": "Wrapper pattern (circuit_breaker.call(func, *args))",
+        "status": "Not yet integrated into tool adapters",
+        "todo": "WS-03-03A implementation"
+      }
+    }
+  },
+  {
+    "op": "add",
+    "path": "/meta/code_quality_observations",
+    "value": {
+      "strengths": [
+        "Clean separation of concerns",
+        "State machine validation enforced",
+        "Builder pattern for request construction",
+        "Comprehensive error handling",
+        "Database-driven state persistence",
+        "Event-driven architecture"
+      ],
+      "areas_for_improvement": [
+        "ULID library integration needed",
+        "Router strategy implementations incomplete",
+        "Resilience patterns not yet integrated with adapters",
+        "Missing comprehensive test coverage documentation"
+      ],
+      "code_style": "Consistent with Python PEP8, clear docstrings"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/validation/quality_gates/implementation_checks",
+    "value": {
+      "state_machine_compliance": {
+        "command": "pytest tests/engine/test_state_machine.py",
+        "required": true,
+        "description": "Validate state transitions match spec"
+      },
+      "scheduler_cycle_detection": {
+        "command": "pytest tests/engine/test_scheduler.py -k cycle",
+        "required": true,
+        "description": "Verify DAG cycle detection works"
+      },
+      "circuit_breaker_behavior": {
+        "command": "pytest tests/engine/test_circuit_breaker.py",
+        "required": true,
+        "description": "Validate circuit breaker state transitions"
+      }
+    }
+  },
+  {
+    "op": "add",
+    "path": "/phases/PH-007/workstreams/WS-007-001",
+    "value": {
+      "workstream_id": "WS-007-001",
+      "workstream_ulid": "01JDKBXWQP8WS007001UNIFY01",
+      "name": "Unify Core Engine with UET Framework",
+      "phase_id": "PH-007",
+      "priority": "CRITICAL",
+      "estimated_duration_hours": 12.0,
+      "dependencies": ["PH-002", "PH-003"],
+      "description": "Align core/engine implementation with UET V2 specifications",
+      "tasks": {
+        "TSK-007-001-001": {
+          "task_id": "TSK-007-001-001",
+          "task_ulid": "01JDKBXWQP8TSK007001001MAP",
+          "name": "Map existing components to UET contracts",
+          "workstream_id": "WS-007-001",
+          "executor": "analysis",
+          "description": "Create mapping between core/engine and UET component contracts",
+          "file_scope": {
+            "create": ["docs/ENGINE_UET_MAPPING.md"],
+            "modify": [],
+            "read_only": ["docs/uet_v2/COMPONENT_CONTRACTS.md", "core/engine/**/*.py"]
+          },
+          "acceptance_tests": {
+            "powershell": "Test-Path docs/ENGINE_UET_MAPPING.md",
+            "pytest": null
+          },
+          "max_runtime_seconds": 1800,
+          "idempotent": true
+        },
+        "TSK-007-001-002": {
+          "task_id": "TSK-007-001-002",
+          "task_ulid": "01JDKBXWQP8TSK007001002INT",
+          "name": "Integrate resilience patterns into adapters",
+          "workstream_id": "WS-007-001",
+          "executor": "code_edit",
+          "description": "Wire circuit breaker and retry into tool adapters",
+          "file_scope": {
+            "create": [],
+            "modify": ["core/engine/adapters/*.py"],
+            "read_only": ["core/engine/resilience/circuit_breaker.py", "core/engine/resilience/retry.py"]
+          },
+          "acceptance_tests": {
+            "powershell": null,
+            "pytest": "pytest tests/engine/test_adapters_resilience.py"
+          },
+          "max_runtime_seconds": 3600,
+          "idempotent": false,
+          "dependencies": ["TSK-007-001-001"]
+        }
+      },
+      "completion_criteria": {
+        "all_tasks_complete": true,
+        "mapping_documented": true,
+        "resilience_integrated": true
+      }
+    }
+  },
+  {
+    "op": "replace",
+    "path": "/phases/PH-007/estimated_duration_hours",
+    "value": 36.0
+  }
+]

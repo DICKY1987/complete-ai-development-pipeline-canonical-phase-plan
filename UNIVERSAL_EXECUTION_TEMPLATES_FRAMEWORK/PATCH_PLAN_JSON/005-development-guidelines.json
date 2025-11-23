@@ -1,0 +1,636 @@
+[
+  {
+    "op": "add",
+    "path": "/meta/patch_metadata",
+    "value": {
+      "patch_id": "005-development-guidelines",
+      "patch_ulid": "01JDKBXWQP8PATCH005DEVGUIDE",
+      "created_at": "2025-11-23T11:23:15.523Z",
+      "description": "Integrate development guidelines (DO/DON'T rules, AI hygiene, anti-patterns, testing strategy)",
+      "source_files": [
+        "docs/guidelines/UET_DEVELOPMENT RULES DO and DONT.md",
+        "docs/guidelines/AI_DEV_HYGIENE_GUIDELINES.md",
+        "docs/guidelines/ANTI_PATTERNS.md",
+        "docs/guidelines/TESTING_STRATEGY.md"
+      ],
+      "operations_count": 20,
+      "priority": "HIGH",
+      "approved_by": "human",
+      "applied": false
+    }
+  },
+  {
+    "op": "add",
+    "path": "/meta/development_rules",
+    "value": {
+      "spec_ref": "docs/guidelines/UET_DEVELOPMENT RULES DO and DONT.md",
+      "mandatory_practices": {
+        "ground_truth_over_vibes": {
+          "description": "Always verify with CLI commands",
+          "do": [
+            "Verify with CLI commands (git status, pytest, Test-Path)",
+            "Base decisions on observable outputs (exit codes, test results)",
+            "Treat passing tests as ONLY success criterion"
+          ],
+          "dont": [
+            "Declare success based on confidence without verification",
+            "Assume tools did their job without verification",
+            "Mark phases complete without observable test output"
+          ]
+        },
+        "atomic_execution": {
+          "description": "Small, verifiable phases",
+          "do": [
+            "Break work into small phases (1-3 modules max)",
+            "Use patch-style minimal diffs (+1/-1 changes)",
+            "Execute one phase completely before next"
+          ],
+          "dont": [
+            "Create giant refactors touching 20+ files",
+            "Spend 80k+ tokens on planning without execution",
+            "Bundle script creation + 4+ docs into one phase",
+            "Whole-file rewrites when patches will do"
+          ]
+        },
+        "mandatory_phase_structure": {
+          "description": "Every phase must have required fields",
+          "required_fields": [
+            "phase_id",
+            "workstream_id",
+            "objective",
+            "file_scope",
+            "dependencies",
+            "acceptance_tests",
+            "pre_flight_checks"
+          ],
+          "dont": [
+            "Start phases without explicit workstream IDs",
+            "Proceed without file scope declarations",
+            "Skip acceptance test definitions",
+            "Ignore dependency ordering"
+          ]
+        },
+        "self_healing_execution": {
+          "description": "Detect and fix environment issues autonomously",
+          "workflow": [
+            "Run command",
+            "Inspect output",
+            "Fix environment if needed",
+            "Re-verify",
+            "Only then declare success"
+          ],
+          "dont": [
+            "Stop and wait for humans to fix tool failures",
+            "Skip verification after tool execution",
+            "Assume success without re-running tests",
+            "Ask permission to fix obvious failures"
+          ]
+        },
+        "worktree_isolation": {
+          "description": "Isolated execution environments",
+          "do": [
+            "Every workstream in isolated git worktree (.worktrees/ws-*)",
+            "All edits captured as unified diff patches",
+            "Store patches in .ledger/patches/",
+            "Validate patches only touch files in declared scope",
+            "Detect oscillation (same diff hash repeating)"
+          ],
+          "dont": [
+            "Work in main worktree without isolation",
+            "Apply patches touching files outside scope",
+            "Skip patch metadata tracking",
+            "Ignore oscillation detection"
+          ]
+        },
+        "operator_mindset": {
+          "description": "Behave like an operator, not a passive generator",
+          "do": [
+            "Run commands and inspect outputs",
+            "Proceed with obvious next safe action",
+            "Make decisions based on CLI output",
+            "Use Get-ChildItem, git status to discover actual state"
+          ],
+          "dont": [
+            "Act as passive code generator",
+            "Ask 'Would you like me to...' for obvious next steps",
+            "Create permission bottlenecks",
+            "Hallucinate file structure without verifying"
+          ]
+        },
+        "test_driven_everything": {
+          "description": "Tests required for all phases",
+          "do": [
+            "Tests MUST exist before or be created as part of phase",
+            "Run deterministic CLI commands (pytest -q tests/)",
+            "Only accept 'all tests green' as completion",
+            "Cover core subsystems"
+          ],
+          "dont": [
+            "Complete phases without tests",
+            "Skip pytest or filesystem validation",
+            "Use conversational reasoning as basis for completion",
+            "Declare 'tested & verified' without observable output"
+          ]
+        },
+        "standard_architecture": {
+          "description": "Required directories (Phase 0 creates these)",
+          "required_directories": [
+            ".tasks/inbox/",
+            ".tasks/running/",
+            ".tasks/done/",
+            ".tasks/failed/",
+            ".ledger/patches/",
+            ".runs/"
+          ],
+          "required_files": [
+            "schema/migrations/001_add_patches_table.sql",
+            "config/router.config.yaml"
+          ],
+          "dont": [
+            "Invent new architecture on the fly",
+            "Create ad-hoc root-level subsystems",
+            "Contradict established queue/ledger/runs structure"
+          ]
+        }
+      },
+      "golden_workflow": {
+        "steps": [
+          "Pre-Flight Check: Verify prerequisites exist",
+          "If fail: repair & retry",
+          "Execute Atomic Phase: Run workstream command (--ws-id)",
+          "Isolated git worktree, small patch-style changes",
+          "Inspect Reality: git status, Test-Path, pytest -q",
+          "Self-Heal if Needed: Detect missing artifacts, create dirs/files, fix test failures",
+          "Re-Verify: Run acceptance tests again",
+          "Only when all tests green: Mark Complete"
+        ]
+      },
+      "success_criteria": [
+        "All programmatic tests pass (observable output)",
+        "All required files/dirs exist (verified via CLI)",
+        "Git status is clean or matches expected changes",
+        "Patches stored in ledger with metadata",
+        "No files touched outside declared scope"
+      ]
+    }
+  },
+  {
+    "op": "add",
+    "path": "/meta/anti_patterns",
+    "value": {
+      "spec_ref": "docs/guidelines/ANTI_PATTERNS.md",
+      "forbidden_patterns": {
+        "hallucination_of_success": {
+          "code": "ANTI-001",
+          "description": "Declaring complete without observable test output",
+          "rule_violated": "Ground Truth over Vibes",
+          "fix": "Always wait for test completion, inspect exit codes"
+        },
+        "planning_loop_trap": {
+          "code": "ANTI-002",
+          "description": "80k+ token planning sessions with no atomic execution",
+          "rule_violated": "Atomic Execution",
+          "fix": "Execute Phase 0 immediately (create one file + test), then iterate"
+        },
+        "permission_bottlenecks": {
+          "code": "ANTI-003",
+          "description": "Repeatedly asking 'Would you like me to...'",
+          "rule_violated": "Operator Mindset",
+          "fix": "Proceed autonomously with obvious safe actions"
+        },
+        "context_pollution": {
+          "code": "ANTI-004",
+          "description": "Loading 300+ line specs before any atomic step",
+          "rule_violated": "Strict Isolation & Atomic Phasing",
+          "fix": "Start with single test fixture, modify one module, validate, iterate"
+        },
+        "trusting_tools_without_verification": {
+          "code": "ANTI-005",
+          "description": "Assuming tool success without checking filesystem",
+          "rule_violated": "CLI-First, Never Vibes",
+          "fix": "Always verify artifacts exist after tool execution, self-heal if missing"
+        },
+        "completing_without_acceptance": {
+          "code": "ANTI-006",
+          "description": "Marking complete without running acceptance tests",
+          "rule_violated": "Test-Driven Everything",
+          "fix": "Run acceptance tests, verify all checks pass before completion"
+        }
+      },
+      "code_anti_patterns": {
+        "AP-CS-01": {
+          "category": "Core State",
+          "severity": "High",
+          "description": "Direct file database access without using core/state/db.py",
+          "solution": "Use get_connection() and provided functions"
+        },
+        "AP-CS-02": {
+          "category": "Core State",
+          "severity": "Critical",
+          "description": "Missing database migrations for schema changes",
+          "solution": "Create schema/migrations/*.sql files"
+        },
+        "AP-CS-03": {
+          "category": "Core State",
+          "severity": "Medium",
+          "description": "Bypassing state machine transitions",
+          "solution": "Use transition_workstream() function"
+        },
+        "AP-EE-01": {
+          "category": "Error Engine",
+          "severity": "High",
+          "description": "Creating plugin without manifest.json",
+          "solution": "Include manifest.json with plugin metadata"
+        },
+        "AP-EE-02": {
+          "category": "Error Engine",
+          "severity": "Medium",
+          "description": "Rescanning all files instead of using file hash cache",
+          "solution": "Use get_changed_files() for incremental scanning"
+        },
+        "AP-SC-01": {
+          "category": "Scripts",
+          "severity": "Critical",
+          "description": "Hardcoded absolute paths",
+          "solution": "Use repository-relative paths and environment variables"
+        },
+        "AP-SC-03": {
+          "category": "Scripts",
+          "severity": "High",
+          "description": "Printing sensitive information (API keys, tokens)",
+          "solution": "Mask secrets before logging"
+        },
+        "AP-TS-01": {
+          "category": "Testing",
+          "severity": "High",
+          "description": "Network calls in unit tests",
+          "solution": "Mock HTTP requests with unittest.mock"
+        },
+        "AP-TS-02": {
+          "category": "Testing",
+          "severity": "Medium",
+          "description": "Non-deterministic tests (time, random)",
+          "solution": "Mock datetime and seed random values"
+        }
+      }
+    }
+  },
+  {
+    "op": "add",
+    "path": "/meta/ai_development_hygiene",
+    "value": {
+      "spec_ref": "docs/guidelines/AI_DEV_HYGIENE_GUIDELINES.md",
+      "core_principles": {
+        "separation_of_concerns": "ACTIVE CODE ≠ REFERENCE DOCS ≠ ARCHIVE",
+        "explicit_status_tagging": ["ACTIVE", "REFERENCE", "DRAFT", "ARCHIVED", "EXTERNAL"],
+        "context_boundaries": "AI tools should only see files relevant to current task"
+      },
+      "directory_rules": {
+        "max_depth": 4,
+        "purpose_named_directories": ["specs", "docs", "reference", "_archive"],
+        "isolate_archives": "Prefix _ signals exclusion",
+        "forbidden_names": ["stuff", "misc", "temp", "old_versions"]
+      },
+      "file_naming_convention": {
+        "pattern": "[CATEGORY]_[SUBJECT]_[VERSION].[ext]",
+        "categories": {
+          "SPEC_": "Specifications",
+          "GUIDE_": "How-to guides",
+          "REF_": "Reference docs",
+          "IMPL_": "Implementation",
+          "ARCH_": "Architecture",
+          "SESSION_": "Session reports"
+        }
+      },
+      "file_header_standards": {
+        "required_frontmatter": [
+          "status: ACTIVE | REFERENCE | DRAFT | ARCHIVED | EXTERNAL",
+          "ai_context_priority: P0 | P1 | P2 | P3 | P4",
+          "last_reviewed: YYYY-MM-DD",
+          "superseded_by: [path] (if applicable)",
+          "source: INTERNAL | EXTERNAL:[Origin]"
+        ]
+      },
+      "context_priority_levels": {
+        "P0": {
+          "use": "Active specs, contracts",
+          "indexing": "Always indexed",
+          "review": "Monthly"
+        },
+        "P1": {
+          "use": "Production code",
+          "indexing": "Always indexed",
+          "review": "Quarterly"
+        },
+        "P2": {
+          "use": "Current guides",
+          "indexing": "Index on request",
+          "review": "Quarterly"
+        },
+        "P3": {
+          "use": "Reference material",
+          "indexing": "Explicit only",
+          "review": "Annually"
+        },
+        "P4": {
+          "use": "Archive/legacy",
+          "indexing": "Never indexed",
+          "review": "Delete after 2 years if unused"
+        }
+      },
+      "deletion_policy": {
+        "archive_if": [
+          "Contains historical context that might be referenced",
+          "Contains unique ideas/patterns not captured elsewhere",
+          "Part of audit trail"
+        ],
+        "delete_if": [
+          "Duplicate of existing active file",
+          "Temporary file",
+          "External copy available via URL",
+          "Zero references for >2 years"
+        ]
+      },
+      "quarterly_maintenance": [
+        "Week 1: Run health check",
+        "Week 2: Review for duplicates, update docs, archive old files",
+        "Week 3: Delete duplicates, update links, consolidate",
+        "Week 4: Update README, regenerate diagrams, update guidelines"
+      ],
+      "golden_rules": [
+        "Tag Everything - Status, priority, source in frontmatter",
+        "Isolate Archives - Use _archive/ with exclusion patterns",
+        "Name Clearly - CATEGORY_SUBJECT_VERSION.ext",
+        "4 Layers Max - Avoid deep directory nesting",
+        "No Duplicates - One canonical source per concept"
+      ]
+    }
+  },
+  {
+    "op": "add",
+    "path": "/meta/testing_strategy",
+    "value": {
+      "spec_ref": "docs/guidelines/TESTING_STRATEGY.md",
+      "section_specific_patterns": {
+        "core_state": {
+          "test_targets": ["Database CRUD", "State machine transitions", "Migration execution", "Transaction handling"],
+          "key_principles": [
+            "Use in-memory DB (:memory:) for speed",
+            "Test state transitions independently",
+            "Verify migration idempotency",
+            "Don't test SQLite itself"
+          ],
+          "fixture_pattern": "in_memory_db"
+        },
+        "core_engine": {
+          "test_targets": ["Orchestration logic", "Step dependency resolution", "Tool adapter invocation", "Circuit breaker behavior"],
+          "key_principles": [
+            "Mock tool adapter to avoid subprocess calls",
+            "Test dependency resolution logic",
+            "Verify retry/circuit breaker states",
+            "Don't make real subprocess calls"
+          ],
+          "mock_pattern": "patch('core.engine.tools.execute_tool')"
+        },
+        "error_engine": {
+          "test_targets": ["Plugin discovery", "Error parsing", "File hash caching", "Parallel execution"],
+          "key_principles": [
+            "Use tmp_path fixture for temporary files",
+            "Test against real tool output",
+            "Verify error location (line, column)",
+            "Don't test the linter itself"
+          ],
+          "fixture_pattern": "sample_python_file"
+        },
+        "specifications": {
+          "test_targets": ["URI parsing", "Spec resolution", "Cross-reference validation", "Index generation"],
+          "key_principles": [
+            "Use tmp_path for spec file fixtures",
+            "Test URI parsing edge cases",
+            "Verify cache behavior",
+            "Don't test markdown rendering"
+          ]
+        }
+      },
+      "common_fixtures": {
+        "in_memory_db": "In-memory SQLite database for fast tests",
+        "sample_workstream": "Sample workstream for testing orchestration",
+        "mock_subprocess_run": "Mock subprocess.run to avoid actual process execution",
+        "tmp_path": "Pytest fixture for temporary directory"
+      },
+      "test_naming_convention": {
+        "pattern": "test_<function>_<scenario>_<expected>",
+        "examples": [
+          "test_create_workstream_valid_input_success",
+          "test_create_workstream_missing_id_raises_error",
+          "test_transition_workstream_invalid_state_raises_error"
+        ]
+      },
+      "coverage_goals": {
+        "core_state": "90%",
+        "core_engine": "85%",
+        "error_engine": "80%",
+        "error_plugins": "70% per plugin",
+        "specifications_tools": "75%"
+      }
+    }
+  },
+  {
+    "op": "add",
+    "path": "/validation/development_hygiene",
+    "value": {
+      "check_file_status_tags": true,
+      "check_naming_convention": true,
+      "check_duplicate_files": true,
+      "check_broken_links": true,
+      "check_frontmatter_presence": true,
+      "target_metrics": {
+        "files_with_status_tags": "95%+",
+        "duplicate_files": 0,
+        "broken_links": 0,
+        "avg_file_age_active": "<90 days",
+        "ai_context_pollution": "<5%"
+      }
+    }
+  },
+  {
+    "op": "add",
+    "path": "/validation/anti_pattern_detection",
+    "value": {
+      "check_direct_db_access": true,
+      "check_missing_migrations": true,
+      "check_hardcoded_paths": true,
+      "check_network_calls_in_tests": true,
+      "check_non_deterministic_tests": true,
+      "check_missing_plugin_manifests": true,
+      "check_state_machine_bypass": true
+    }
+  },
+  {
+    "op": "add",
+    "path": "/validation/testing_compliance",
+    "value": {
+      "require_tests_for_new_code": true,
+      "require_observable_test_output": true,
+      "require_in_memory_db_for_tests": true,
+      "require_mocked_external_calls": true,
+      "minimum_coverage_core_state": 90,
+      "minimum_coverage_core_engine": 85,
+      "minimum_coverage_error_engine": 80
+    }
+  },
+  {
+    "op": "add",
+    "path": "/phases/PH-000/workstreams/WS-000-008",
+    "value": {
+      "workstream_id": "WS-000-008",
+      "workstream_ulid": "01JDKBXWQP8WS000008DEVHYG1",
+      "name": "Development Hygiene Scripts",
+      "phase_id": "PH-000",
+      "priority": "MEDIUM",
+      "estimated_duration_hours": 2.0,
+      "dependencies": [],
+      "tasks": {
+        "TSK-000-008-001": {
+          "task_id": "TSK-000-008-001",
+          "task_ulid": "01JDKBXWQP8TSK000008001AUD",
+          "name": "Create directory health check script",
+          "workstream_id": "WS-000-008",
+          "executor": "file_create",
+          "inputs": {
+            "file_path": {"type": "string", "default": "scripts/directory_health_check.ps1"}
+          },
+          "outputs": {"file_created": {"type": "boolean"}},
+          "file_scope": {
+            "create": ["scripts/directory_health_check.ps1"],
+            "modify": [],
+            "read_only": ["docs/guidelines/AI_DEV_HYGIENE_GUIDELINES.md"]
+          },
+          "acceptance_tests": {
+            "powershell": "Test-Path scripts/directory_health_check.ps1",
+            "pytest": null
+          },
+          "max_runtime_seconds": 300,
+          "idempotent": true
+        },
+        "TSK-000-008-002": {
+          "task_id": "TSK-000-008-002",
+          "task_ulid": "01JDKBXWQP8TSK000008002DUP",
+          "name": "Create duplicate file detector",
+          "workstream_id": "WS-000-008",
+          "executor": "file_create",
+          "inputs": {
+            "file_path": {"type": "string", "default": "scripts/identify_duplicates.ps1"}
+          },
+          "file_scope": {
+            "create": ["scripts/identify_duplicates.ps1"],
+            "modify": [],
+            "read_only": []
+          },
+          "acceptance_tests": {
+            "powershell": "Test-Path scripts/identify_duplicates.ps1",
+            "pytest": null
+          },
+          "max_runtime_seconds": 300,
+          "idempotent": true,
+          "dependencies": []
+        },
+        "TSK-000-008-003": {
+          "task_id": "TSK-000-008-003",
+          "task_ulid": "01JDKBXWQP8TSK000008003VAL",
+          "name": "Create file validation script",
+          "workstream_id": "WS-000-008",
+          "executor": "file_create",
+          "inputs": {
+            "file_path": {"type": "string", "default": "scripts/validate_new_file.ps1"}
+          },
+          "file_scope": {
+            "create": ["scripts/validate_new_file.ps1"],
+            "modify": [],
+            "read_only": ["docs/guidelines/AI_DEV_HYGIENE_GUIDELINES.md"]
+          },
+          "acceptance_tests": {
+            "powershell": "Test-Path scripts/validate_new_file.ps1",
+            "pytest": null
+          },
+          "max_runtime_seconds": 300,
+          "idempotent": true,
+          "dependencies": []
+        }
+      },
+      "completion_criteria": {
+        "all_tasks_complete": true,
+        "all_scripts_exist": true,
+        "scripts_executable": true
+      }
+    }
+  },
+  {
+    "op": "add",
+    "path": "/phases/PH-000/workstreams/WS-000-009",
+    "value": {
+      "workstream_id": "WS-000-009",
+      "workstream_ulid": "01JDKBXWQP8WS000009ANTIPAT",
+      "name": "Anti-Pattern Detection Integration",
+      "phase_id": "PH-000",
+      "priority": "MEDIUM",
+      "estimated_duration_hours": 1.5,
+      "dependencies": ["WS-000-001"],
+      "tasks": {
+        "TSK-000-009-001": {
+          "task_id": "TSK-000-009-001",
+          "task_ulid": "01JDKBXWQP8TSK000009001LNT",
+          "name": "Create anti-pattern linting script",
+          "workstream_id": "WS-000-009",
+          "executor": "file_create",
+          "inputs": {
+            "file_path": {"type": "string", "default": "scripts/detect_anti_patterns.py"}
+          },
+          "outputs": {"file_created": {"type": "boolean"}},
+          "file_scope": {
+            "create": ["scripts/detect_anti_patterns.py"],
+            "modify": [],
+            "read_only": ["docs/guidelines/ANTI_PATTERNS.md"]
+          },
+          "acceptance_tests": {
+            "powershell": "Test-Path scripts/detect_anti_patterns.py",
+            "pytest": "pytest tests/scripts/test_anti_pattern_detection.py -q"
+          },
+          "max_runtime_seconds": 300,
+          "idempotent": true
+        },
+        "TSK-000-009-002": {
+          "task_id": "TSK-000-009-002",
+          "task_ulid": "01JDKBXWQP8TSK000009002TST",
+          "name": "Create anti-pattern detection tests",
+          "workstream_id": "WS-000-009",
+          "executor": "file_create",
+          "inputs": {
+            "file_path": {"type": "string", "default": "tests/scripts/test_anti_pattern_detection.py"}
+          },
+          "file_scope": {
+            "create": ["tests/scripts/test_anti_pattern_detection.py"],
+            "modify": [],
+            "read_only": ["scripts/detect_anti_patterns.py"]
+          },
+          "acceptance_tests": {
+            "powershell": "Test-Path tests/scripts/test_anti_pattern_detection.py",
+            "pytest": "pytest tests/scripts/test_anti_pattern_detection.py -q"
+          },
+          "max_runtime_seconds": 300,
+          "idempotent": true,
+          "dependencies": ["TSK-000-009-001"]
+        }
+      },
+      "completion_criteria": {
+        "all_tasks_complete": true,
+        "all_tests_pass": true
+      }
+    }
+  },
+  {
+    "op": "replace",
+    "path": "/phases/PH-000/estimated_duration_hours",
+    "value": 9.5
+  }
+]

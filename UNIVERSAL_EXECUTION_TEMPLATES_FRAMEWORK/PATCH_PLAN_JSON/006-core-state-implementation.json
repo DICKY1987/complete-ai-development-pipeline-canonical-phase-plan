@@ -1,0 +1,351 @@
+[
+  {
+    "op": "add",
+    "path": "/meta/patch_metadata",
+    "value": {
+      "patch_id": "006-core-state-implementation",
+      "patch_ulid": "01JDKCXWQP8PATCH006CORESTAT",
+      "created_at": "2025-11-23T11:38:49.896Z",
+      "description": "Document existing core/state implementation (Database class, schema, CRUD operations)",
+      "source_files": [
+        "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/core/state/db.py"
+      ],
+      "operations_count": 8,
+      "priority": "HIGH",
+      "approved_by": "human",
+      "applied": false
+    }
+  },
+  {
+    "op": "add",
+    "path": "/implementation/core_state",
+    "value": {
+      "module": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/core/state",
+      "status": "IMPLEMENTED",
+      "completion_percentage": 90,
+      "implementation_date": "2025-11-23",
+      "spec_ref": "WS-03-01A",
+      "database_file": ".ledger/framework.db",
+      "database_engine": "SQLite3",
+      "connection_pattern": "singleton",
+      "schema_version": "1.0"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/implementation/core_state/database_class",
+    "value": {
+      "class_name": "Database",
+      "location": "core/state/db.py",
+      "responsibilities": [
+        "SQLite backend for run state persistence",
+        "Step attempt tracking",
+        "Event logging",
+        "CRUD operations for runs, steps, events"
+      ],
+      "connection_management": {
+        "method": "singleton pattern",
+        "factory_function": "get_db()",
+        "initialization": "init_db()",
+        "row_factory": "sqlite3.Row (column access by name)"
+      },
+      "default_db_path": ".ledger/framework.db"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/implementation/core_state/schema",
+    "value": {
+      "tables": {
+        "runs": {
+          "description": "RunRecord - Top-level execution runs",
+          "primary_key": "run_id TEXT",
+          "columns": {
+            "run_id": {"type": "TEXT", "constraint": "PRIMARY KEY"},
+            "project_id": {"type": "TEXT", "constraint": "NOT NULL"},
+            "phase_id": {"type": "TEXT", "constraint": "NOT NULL"},
+            "workstream_id": {"type": "TEXT", "constraint": "NULL"},
+            "execution_request_id": {"type": "TEXT", "constraint": "NULL"},
+            "created_at": {"type": "TEXT", "constraint": "NOT NULL"},
+            "started_at": {"type": "TEXT", "constraint": "NULL"},
+            "ended_at": {"type": "TEXT", "constraint": "NULL"},
+            "state": {
+              "type": "TEXT",
+              "constraint": "NOT NULL CHECK(state IN ('pending', 'running', 'succeeded', 'failed', 'quarantined', 'canceled'))"
+            },
+            "exit_code": {"type": "INTEGER", "constraint": "NULL"},
+            "error_message": {"type": "TEXT", "constraint": "NULL"},
+            "metadata": {"type": "TEXT", "constraint": "NULL", "format": "JSON"}
+          },
+          "indices": ["idx_runs_project ON (project_id)", "idx_runs_state ON (state)"],
+          "state_machine": {
+            "states": ["pending", "running", "succeeded", "failed", "quarantined", "canceled"],
+            "initial_state": "pending",
+            "terminal_states": ["succeeded", "failed", "quarantined", "canceled"]
+          }
+        },
+        "step_attempts": {
+          "description": "StepAttempt - Individual tool execution attempts",
+          "primary_key": "step_attempt_id TEXT",
+          "foreign_keys": ["run_id REFERENCES runs(run_id)"],
+          "columns": {
+            "step_attempt_id": {"type": "TEXT", "constraint": "PRIMARY KEY"},
+            "run_id": {"type": "TEXT", "constraint": "NOT NULL"},
+            "sequence": {"type": "INTEGER", "constraint": "NOT NULL"},
+            "tool_id": {"type": "TEXT", "constraint": "NOT NULL"},
+            "tool_run_id": {"type": "TEXT", "constraint": "NULL"},
+            "execution_request_id": {"type": "TEXT", "constraint": "NULL"},
+            "prompt_id": {"type": "TEXT", "constraint": "NULL"},
+            "started_at": {"type": "TEXT", "constraint": "NOT NULL"},
+            "ended_at": {"type": "TEXT", "constraint": "NULL"},
+            "state": {
+              "type": "TEXT",
+              "constraint": "NOT NULL CHECK(state IN ('running', 'succeeded', 'failed', 'canceled'))"
+            },
+            "exit_code": {"type": "INTEGER", "constraint": "NULL"},
+            "input_prompt": {"type": "TEXT", "constraint": "NULL"},
+            "output_patch_id": {"type": "TEXT", "constraint": "NULL"},
+            "error_log": {"type": "TEXT", "constraint": "NULL"},
+            "metadata": {"type": "TEXT", "constraint": "NULL", "format": "JSON"}
+          },
+          "indices": ["idx_steps_run ON (run_id)"],
+          "state_machine": {
+            "states": ["running", "succeeded", "failed", "canceled"],
+            "initial_state": "running",
+            "terminal_states": ["succeeded", "failed", "canceled"]
+          },
+          "ordering": "ORDER BY sequence ASC"
+        },
+        "run_events": {
+          "description": "RunEvent - Audit trail of run lifecycle events",
+          "primary_key": "event_id TEXT",
+          "foreign_keys": ["run_id REFERENCES runs(run_id)"],
+          "columns": {
+            "event_id": {"type": "TEXT", "constraint": "PRIMARY KEY"},
+            "run_id": {"type": "TEXT", "constraint": "NOT NULL"},
+            "timestamp": {"type": "TEXT", "constraint": "NOT NULL"},
+            "event_type": {"type": "TEXT", "constraint": "NOT NULL"},
+            "data": {"type": "TEXT", "constraint": "NULL", "format": "JSON"}
+          },
+          "indices": ["idx_events_run ON (run_id)"],
+          "ordering": "ORDER BY timestamp ASC"
+        }
+      },
+      "foreign_key_cascade": "Manual cascade delete in delete_run()",
+      "json_serialization": "metadata and data fields stored as JSON strings"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/implementation/core_state/crud_operations",
+    "value": {
+      "runs": {
+        "create": {
+          "method": "create_run(run_data: Dict) -> str",
+          "returns": "run_id",
+          "required_fields": ["run_id", "project_id", "phase_id", "created_at"],
+          "optional_fields": ["workstream_id", "execution_request_id", "state", "metadata"],
+          "default_state": "pending"
+        },
+        "read": {
+          "get_single": "get_run(run_id: str) -> Optional[Dict]",
+          "list": "list_runs(filters: Optional[Dict], limit: int = 100) -> List[Dict]",
+          "deserializes": "metadata JSON to dict"
+        },
+        "update": {
+          "method": "update_run(run_id: str, updates: Dict)",
+          "dynamic_query": "Builds SET clause from updates dict",
+          "protected_field": "run_id cannot be updated"
+        },
+        "delete": {
+          "method": "delete_run(run_id: str)",
+          "cascade": "Deletes run_events and step_attempts first"
+        }
+      },
+      "step_attempts": {
+        "create": {
+          "method": "create_step_attempt(step_data: Dict) -> str",
+          "returns": "step_attempt_id",
+          "required_fields": ["step_attempt_id", "run_id", "sequence", "tool_id", "started_at"],
+          "default_state": "running"
+        },
+        "read": {
+          "get_single": "get_step_attempt(step_attempt_id: str) -> Optional[Dict]",
+          "list": "list_step_attempts(run_id: str) -> List[Dict]",
+          "ordering": "Ordered by sequence ASC"
+        },
+        "update": {
+          "method": "update_step_attempt(step_attempt_id: str, updates: Dict)",
+          "typical_updates": ["state", "ended_at", "exit_code", "output_patch_id", "error_log"]
+        }
+      },
+      "events": {
+        "create": {
+          "method": "create_event(event_data: Dict) -> str",
+          "returns": "event_id",
+          "required_fields": ["event_id", "run_id", "timestamp", "event_type"],
+          "data_serialization": "data dict serialized to JSON"
+        },
+        "read": {
+          "list": "list_events(run_id: str) -> List[Dict]",
+          "ordering": "Ordered by timestamp ASC"
+        }
+      }
+    }
+  },
+  {
+    "op": "add",
+    "path": "/implementation/core_state/api_functions",
+    "value": {
+      "get_db": {
+        "signature": "get_db(db_path: str = '.ledger/framework.db') -> Database",
+        "pattern": "Singleton getter",
+        "behavior": "Creates database instance on first call, returns same instance thereafter",
+        "thread_safety": "Not thread-safe (uses global variable)"
+      },
+      "init_db": {
+        "signature": "init_db(db_path: str = '.ledger/framework.db') -> Database",
+        "pattern": "Factory function",
+        "behavior": "Always creates new Database instance and connects",
+        "use_case": "Testing with fresh database or multiple databases"
+      }
+    }
+  },
+  {
+    "op": "add",
+    "path": "/implementation/core_state/integration_points",
+    "value": {
+      "used_by": [
+        "core/engine/orchestrator.py (to be implemented)",
+        "core/engine/step_executor.py (to be implemented)",
+        "core/engine/event_bus.py (to be implemented)"
+      ],
+      "follows_spec": "COOPERATION_SPEC state machine model",
+      "aligns_with": "docs/uet_v2/STATE_MACHINES.md",
+      "differences_from_spec": {
+        "run_states": "Implements 6 states (pending, running, succeeded, failed, quarantined, canceled)",
+        "step_states": "Implements 4 states (running, succeeded, failed, canceled)",
+        "missing_features": [
+          "No WorkerLifecycle table yet",
+          "No PatchLedger table yet",
+          "No TestGate table yet"
+        ]
+      }
+    }
+  },
+  {
+    "op": "add",
+    "path": "/validation/core_state_implementation",
+    "value": {
+      "schema_validation": {
+        "check_tables_exist": ["runs", "step_attempts", "run_events"],
+        "check_indices_exist": ["idx_runs_project", "idx_runs_state", "idx_steps_run", "idx_events_run"],
+        "check_foreign_keys": true
+      },
+      "state_machine_validation": {
+        "run_states_enforced": true,
+        "step_states_enforced": true,
+        "check_constraints": "Database-level CHECK constraints"
+      },
+      "testing_requirements": {
+        "unit_tests": "tests/core/state/test_db.py (to be created)",
+        "fixtures": "Use :memory: database for tests",
+        "test_coverage_target": 90,
+        "test_patterns": [
+          "Test CRUD operations",
+          "Test cascade delete",
+          "Test JSON serialization/deserialization",
+          "Test state constraints",
+          "Test singleton pattern"
+        ]
+      }
+    }
+  },
+  {
+    "op": "add",
+    "path": "/phases/PH-000/workstreams/WS-000-010",
+    "value": {
+      "workstream_id": "WS-000-010",
+      "workstream_ulid": "01JDKCXWQP8WS000010DBTEST1",
+      "name": "Core State Database Tests",
+      "phase_id": "PH-000",
+      "priority": "HIGH",
+      "estimated_duration_hours": 2.0,
+      "dependencies": [],
+      "tasks": {
+        "TSK-000-010-001": {
+          "task_id": "TSK-000-010-001",
+          "task_ulid": "01JDKCXWQP8TSK000010001TST",
+          "name": "Create core state database tests",
+          "workstream_id": "WS-000-010",
+          "executor": "file_create",
+          "inputs": {
+            "file_path": {"type": "string", "default": "tests/core/state/test_db.py"}
+          },
+          "outputs": {"file_created": {"type": "boolean"}},
+          "file_scope": {
+            "create": ["tests/core/state/test_db.py", "tests/core/state/__init__.py"],
+            "modify": [],
+            "read_only": ["UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/core/state/db.py"]
+          },
+          "acceptance_tests": {
+            "powershell": "Test-Path tests/core/state/test_db.py",
+            "pytest": "pytest tests/core/state/test_db.py -v"
+          },
+          "test_requirements": [
+            "Test create_run with valid data",
+            "Test get_run returns correct data",
+            "Test update_run modifies fields",
+            "Test delete_run cascades to events and steps",
+            "Test list_runs with filters",
+            "Test step_attempt CRUD operations",
+            "Test event CRUD operations",
+            "Test JSON serialization/deserialization",
+            "Test state constraints enforcement",
+            "Test singleton get_db() pattern"
+          ],
+          "max_runtime_seconds": 600,
+          "idempotent": true
+        },
+        "TSK-000-010-002": {
+          "task_id": "TSK-000-010-002",
+          "task_ulid": "01JDKCXWQP8TSK000010002FIX",
+          "name": "Create test fixtures for database",
+          "workstream_id": "WS-000-010",
+          "executor": "file_create",
+          "inputs": {
+            "file_path": {"type": "string", "default": "tests/conftest.py"}
+          },
+          "file_scope": {
+            "create": ["tests/conftest.py"],
+            "modify": [],
+            "read_only": ["UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/core/state/db.py"]
+          },
+          "acceptance_tests": {
+            "powershell": "Test-Path tests/conftest.py",
+            "pytest": null
+          },
+          "fixture_requirements": [
+            "in_memory_db: Returns Database instance with :memory:",
+            "sample_run_data: Returns dict with valid run fields",
+            "sample_step_data: Returns dict with valid step fields",
+            "sample_event_data: Returns dict with valid event fields"
+          ],
+          "max_runtime_seconds": 300,
+          "idempotent": true,
+          "dependencies": []
+        }
+      },
+      "completion_criteria": {
+        "all_tasks_complete": true,
+        "all_tests_pass": true,
+        "coverage_target_met": true
+      }
+    }
+  },
+  {
+    "op": "replace",
+    "path": "/phases/PH-000/estimated_duration_hours",
+    "value": 11.5
+  }
+]

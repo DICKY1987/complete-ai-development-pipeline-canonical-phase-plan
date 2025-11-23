@@ -1,0 +1,676 @@
+[
+  {
+    "op": "add",
+    "path": "/meta/patch_metadata/005",
+    "value": {
+      "patch_id": "005-adr-architecture-decisions",
+      "patch_ulid": "01JDK0019AB074E0009C1D18AF",
+      "created_at": "2025-11-23T11:23:26.442Z",
+      "description": "Integrate Architecture Decision Records (ADRs) documenting key architectural choices and rationale",
+      "source_files": [
+        "docs/adr/0001-workstream-model-choice.md",
+        "docs/adr/0002-hybrid-architecture.md",
+        "docs/adr/0003-sqlite-state-storage.md",
+        "docs/adr/0004-section-based-organization.md",
+        "docs/adr/0005-python-primary-language.md",
+        "docs/adr/0006-specifications-unified-management.md",
+        "docs/adr/0007-error-plugin-architecture.md",
+        "docs/adr/0008-database-location-worktree.md",
+        "docs/adr/adr-0005-spec-tooling-consolidation.md",
+        "docs/adr/adr-error-utils-location.md"
+      ],
+      "operations_count": 11,
+      "priority": "HIGH",
+      "approved_by": "human",
+      "applied": false
+    }
+  },
+  {
+    "op": "add",
+    "path": "/meta/architecture_decisions",
+    "value": {
+      "description": "Formal Architecture Decision Records documenting key design choices, rationale, consequences, and rejected alternatives",
+      "purpose": "Help AI agents and developers understand WHY decisions were made, not just WHAT was implemented",
+      "location": "docs/adr/",
+      "format": "Markdown following ADR template",
+      "count": 10,
+      "decisions": {
+        "adr_0001_workstream_model": {
+          "id": "ADR-0001",
+          "title": "Workstream Model Choice",
+          "status": "Accepted",
+          "date": "2025-11-22",
+          "decision": "Use workstream-based execution model as core orchestration pattern",
+          "key_benefits": [
+            "Structured coordination with clear boundaries",
+            "Explicit step-level dependencies enable correct ordering",
+            "Trackable state (pending/running/success/failure)",
+            "AI agent compatibility via declarative structure",
+            "Parallel execution when dependencies allow",
+            "Step-level retry and checkpoint recovery"
+          ],
+          "design_principles": [
+            "Declarative over Imperative - define WHAT not HOW",
+            "Composability - bundle workstreams for complex ops",
+            "Idempotency - steps safe to retry",
+            "Observability - all state transitions tracked"
+          ],
+          "rejected_alternatives": [
+            "Task DAG (too low-level, lacks semantic structure)",
+            "Event-driven (non-deterministic, hard to debug)",
+            "Imperative scripts (no parallelism, poor state management)",
+            "Makefile-style (designed for compilation not workflows)"
+          ],
+          "implementation": "core/engine/orchestrator.py",
+          "schema": "schema/workstream.schema.json"
+        },
+        "adr_0002_hybrid_architecture": {
+          "id": "ADR-0002",
+          "title": "Hybrid Architecture (GUI/Terminal/TUI)",
+          "status": "Accepted",
+          "date": "2025-11-22",
+          "decision": "Support three execution modes sharing common job-based execution engine",
+          "execution_modes": {
+            "gui": {
+              "description": "Rich graphical interface for interactive workflow management",
+              "status": "planned",
+              "use_case": "Visual learners, complex workflow monitoring"
+            },
+            "terminal": {
+              "description": "Command-line execution for automation and CI/CD",
+              "status": "implemented",
+              "use_case": "Power users, scripting, CI/CD integration"
+            },
+            "tui": {
+              "description": "Text-based UI for terminal users without GUI overhead",
+              "status": "planned",
+              "use_case": "Remote/SSH users, terminal-first developers"
+            }
+          },
+          "shared_engine": {
+            "location": "engine/",
+            "pattern": "job-based execution",
+            "responsibilities": [
+              "Convert workstreams into atomic jobs",
+              "Manage job queue and worker pools",
+              "Track state in SQLite database",
+              "Provide tool adapters (aider, pytest, git)"
+            ]
+          },
+          "job_based_execution": {
+            "description": "Workstreams converted to atomic, retryable, trackable jobs",
+            "properties": [
+              "Atomic - complete fully or fail fully",
+              "Retryable - can rerun on failure",
+              "Trackable - state in database",
+              "Queue-based - managed by worker pool"
+            ]
+          },
+          "rejected_alternatives": [
+            "GUI-only (not usable in CI/CD, excludes CLI users)",
+            "Terminal-only (steep learning curve, limited visualization)",
+            "Web-based dashboard (deployment complexity, network overhead)",
+            "Single mode with plugins (plugin complexity without benefit)"
+          ],
+          "implementation_status": {
+            "terminal_mode": "fully implemented via scripts/run_workstream.py",
+            "engine_job_based": "implemented in engine/",
+            "tui_mode": "planned (design docs in gui/)",
+            "gui_mode": "planned (design docs in gui/)"
+          }
+        },
+        "adr_0003_sqlite_state_storage": {
+          "id": "ADR-0003",
+          "title": "SQLite State Storage",
+          "status": "Accepted",
+          "date": "2025-11-22",
+          "decision": "Use SQLite as primary state storage at .worktrees/pipeline_state.db",
+          "rationale": {
+            "requirements": [
+              "Track workstream execution state",
+              "Store job queue and worker state",
+              "Persist error detection results and file hashes",
+              "Enable crash recovery and resume-from-checkpoint",
+              "Support concurrent reads, sequential writes",
+              "Cross-platform (Windows, macOS, Linux)",
+              "Zero external dependencies or server setup"
+            ],
+            "why_sqlite": [
+              "Zero configuration - embedded database",
+              "Cross-platform identical behavior",
+              "ACID compliance - reliable transactions",
+              "Proven technology - browsers, mobile, embedded",
+              "Single-writer model matches use case",
+              "File-based - easy backup and copy",
+              "Excellent Python integration via sqlite3"
+            ]
+          },
+          "concurrency_model": {
+            "pattern": "single-writer, many-readers",
+            "writer": "Orchestrator/engine updates state",
+            "readers": "UI modes query state for display",
+            "wal_mode": true,
+            "description": "Write-Ahead Logging enables readers without blocking writers"
+          },
+          "migration_triggers": [
+            "Multiple orchestrators writing simultaneously (multi-machine)",
+            "Database exceeds 10GB",
+            "Complex queries become bottlenecks",
+            "Need advanced features (full-text search, JSON indexing)"
+          ],
+          "rejected_alternatives": [
+            "PostgreSQL (requires server, overkill for single-writer)",
+            "Redis (less suited for relational data, memory-first)",
+            "JSON files (no ACID, no concurrency control, poor queries)",
+            "DuckDB (less mature, optimized for OLAP not OLTP)"
+          ],
+          "schema_management": {
+            "migrations": "schema/migrations/*.sql",
+            "version_tracking": "schema_version table",
+            "auto_apply": true
+          },
+          "implementation": "core/state/db.py"
+        },
+        "adr_0004_section_based_organization": {
+          "id": "ADR-0004",
+          "title": "Section-Based Organization",
+          "status": "Accepted",
+          "date": "2025-11-22",
+          "decision": "Organize code into domain-driven sections at repository root",
+          "sections": {
+            "core": {
+              "responsibility": "State management, orchestration engine, planning",
+              "key_modules": ["state/", "engine/", "planning/"]
+            },
+            "error": {
+              "responsibility": "Error detection engine and plugins",
+              "key_modules": ["engine/", "plugins/"]
+            },
+            "aim": {
+              "responsibility": "AI environment manager (registry, secrets, health)",
+              "key_modules": ["registry/", "secrets/", "health/"]
+            },
+            "pm": {
+              "responsibility": "Project management and CCPM integrations",
+              "key_modules": ["ccpm/", "estimator/"]
+            },
+            "specifications": {
+              "responsibility": "Unified specification management",
+              "key_modules": ["tools/", "content/", "bridge/"]
+            }
+          },
+          "supporting_infrastructure": {
+            "docs": "Documentation",
+            "scripts": "Automation scripts",
+            "tests": "Test suites",
+            "schema": "JSON/YAML/SQL schemas",
+            "config": "Configuration files"
+          },
+          "bounded_contexts": {
+            "description": "Sections align with Domain-Driven Design bounded contexts",
+            "core": "Execution context (orchestration, state, planning)",
+            "error": "Quality context (detection, validation, fixing)",
+            "aim": "Environment context (tools, secrets, configuration)",
+            "pm": "Project context (planning, scheduling, tracking)",
+            "specifications": "Requirements context (specs, indexing, resolution)"
+          },
+          "import_path_rules": {
+            "correct": [
+              "from core.state.db import init_db",
+              "from error.engine.error_engine import ErrorEngine",
+              "from specifications.tools.indexer import generate_index"
+            ],
+            "deprecated_ci_fails": [
+              "from src.pipeline.db import init_db",
+              "from MOD_ERROR_PIPELINE.error_engine import ErrorEngine",
+              "from spec.tools.spec_indexer import generate_index"
+            ]
+          },
+          "rejected_alternatives": [
+            "Monolithic src/ (doesn't scale, encourages coupling)",
+            "Microservices (overkill, deployment complexity)",
+            "Feature-based (ambiguous, cross-cutting concerns)",
+            "Layer-based (spreads domain logic, tech-first thinking)"
+          ],
+          "migration_timeline": {
+            "phase": "Phase E - November 2025",
+            "steps": [
+              "Create new section directories",
+              "Copy code to new locations (keep old for compatibility)",
+              "Update all imports to new paths",
+              "Add CI enforcement to prevent old paths",
+              "Archive old code to legacy/"
+            ]
+          }
+        },
+        "adr_0005_python_primary_language": {
+          "id": "ADR-0005",
+          "title": "Python Primary Language",
+          "status": "Accepted",
+          "date": "2025-11-22",
+          "decision": "Use Python as primary implementation language, PowerShell for Windows-specific automation",
+          "division_of_responsibility": {
+            "python": "Core logic, orchestration, state management, tool adapters, tests",
+            "powershell": "Bootstrap scripts, environment setup, Windows-specific automation",
+            "shell_scripts": "Linux/macOS parity where beneficial (optional)"
+          },
+          "python_strengths": [
+            "Best-in-class AI tool ecosystem (OpenAI, Anthropic, LangChain)",
+            "Cross-platform identical behavior",
+            "Clear syntax for AI agents to understand and generate",
+            "Rich standard library (JSON, subprocess, sqlite3, pathlib)",
+            "Mature testing ecosystem (pytest, unittest, coverage)",
+            "Well-understood package management (pip, venv)",
+            "Optional static typing via type hints improves AI code gen"
+          ],
+          "python_version": {
+            "required": "3.10+",
+            "rationale": [
+              "Pattern matching (match/case statements)",
+              "Improved union types (X | Y syntax)",
+              "Better performance (startup and runtime)",
+              "Widely available (released Oct 2021)"
+            ]
+          },
+          "powershell_strategy": {
+            "pattern": "Thin wrappers",
+            "responsibilities": [
+              "Set up environment variables",
+              "Call Python scripts with arguments",
+              "Provide Windows-native error messages"
+            ]
+          },
+          "rejected_alternatives": [
+            "TypeScript/Node.js (less AI tooling, callback hell)",
+            "Go (verbose errors, less AI/ML support, smaller dev pool)",
+            "Rust (steep learning curve, minimal AI tooling, AI models struggle)",
+            "C#/.NET (less cross-platform, smaller AI/ML ecosystem)"
+          ],
+          "ai_code_generation_quality": {
+            "gpt4": "Excellent Python generation",
+            "claude": "Strong Python comprehension",
+            "copilot": "Best suggestions in Python",
+            "aider": "Optimized for Python codebases"
+          }
+        },
+        "adr_0006_specifications_unified_management": {
+          "id": "ADR-0006",
+          "title": "Specifications Unified Management",
+          "status": "Accepted",
+          "date": "2025-11-22",
+          "decision": "Consolidate all specifications into unified specifications/ section",
+          "structure": {
+            "content": "Specification documents organized by domain",
+            "tools": "Processing utilities (indexer, resolver, guard, patcher, renderer)",
+            "changes": "Active OpenSpec change proposals",
+            "bridge": "OpenSpec → Workstream integration layer"
+          },
+          "spec_uri_system": {
+            "pattern": "spec://section/module/file#anchor",
+            "example": "spec://core/state/db#initialization",
+            "resolution": [
+              "Parse URI spec://core/state/db",
+              "Resolve to specifications/content/core/state/db.md",
+              "Find anchor #initialization",
+              "Return resolved path or content"
+            ]
+          },
+          "tools": {
+            "indexer": "Generates spec index showing hierarchy and cross-refs",
+            "resolver": "Resolves spec URIs to file paths",
+            "guard": "Validates spec URIs, circular deps, required sections",
+            "patcher": "Applies spec patches",
+            "renderer": "Renders specs to different formats"
+          },
+          "openspec_bridge": {
+            "flow": [
+              "Proposals reviewed in openspec/",
+              "Converted to specifications via bridge/",
+              "Moved to specifications/content/ when accepted",
+              "Transformed into workstreams for implementation"
+            ]
+          },
+          "rejected_alternatives": [
+            "Keep specs in each section (cross-section specs don't fit)",
+            "Wiki or external system (separated from version control)",
+            "README-only (hard to enforce structure, no cross-refs)"
+          ],
+          "validation": {
+            "command": "python specifications/tools/guard/guard.py --validate-all",
+            "checks": [
+              "All spec URIs resolve to real files",
+              "No circular dependencies",
+              "Required sections present",
+              "Code references accurate"
+            ]
+          }
+        },
+        "adr_0007_error_plugin_architecture": {
+          "id": "ADR-0007",
+          "title": "Error Plugin Architecture",
+          "status": "Accepted",
+          "date": "2025-11-22",
+          "decision": "Implement error detection as plugin-based architecture with dynamic discovery via manifest.json",
+          "plugin_interface": {
+            "required": {
+              "parse": "Detect errors in file, return ErrorRecord list"
+            },
+            "optional": {
+              "fix": "Attempt to auto-fix errors, return FixResult"
+            }
+          },
+          "plugin_structure": {
+            "manifest_json": "Plugin metadata, capabilities, dependencies",
+            "plugin_py": "Entry point (parse, fix functions)",
+            "requirements_txt": "Plugin-specific dependencies (optional)",
+            "tests": "Plugin test suite"
+          },
+          "discovery_process": [
+            "Scan error/plugins/ for subdirectories",
+            "Look for manifest.json in each",
+            "Validate manifest against schema",
+            "Load plugin if applicable to project",
+            "Register in plugin registry"
+          ],
+          "manifest_fields": {
+            "plugin_id": "Unique identifier",
+            "name": "Human-readable name",
+            "version": "Plugin version",
+            "supported_languages": "Languages plugin handles",
+            "file_patterns": "Glob patterns for applicable files",
+            "capabilities": "List: parse, fix",
+            "dependencies": "External tools required",
+            "entry_point": "Python file with parse/fix functions"
+          },
+          "current_plugins": [
+            {
+              "id": "python_ruff",
+              "language": "Python",
+              "tool": "ruff",
+              "capabilities": ["parse", "fix"]
+            },
+            {
+              "id": "python_mypy",
+              "language": "Python",
+              "tool": "mypy",
+              "capabilities": ["parse"]
+            },
+            {
+              "id": "javascript_eslint",
+              "language": "JavaScript",
+              "tool": "eslint",
+              "capabilities": ["parse", "fix"]
+            },
+            {
+              "id": "security_gitleaks",
+              "language": "All",
+              "tool": "gitleaks",
+              "capabilities": ["parse"]
+            },
+            {
+              "id": "generic_codespell",
+              "language": "All",
+              "tool": "codespell",
+              "capabilities": ["parse", "fix"]
+            }
+          ],
+          "incremental_detection": {
+            "file_hashing": "Track SHA256 hash of each file",
+            "skip_unchanged": "Don't rescan if hash unchanged",
+            "changed_files_only": "Plugins receive modified files list",
+            "cache_results": "Previous results cached in database"
+          },
+          "rejected_alternatives": [
+            "Monolithic detector (unmaintainable as detectors grow)",
+            "Tool-specific scripts (no unified interface, duplicate logic)",
+            "Configuration-based (limited to standard output formats)"
+          ],
+          "extensibility": {
+            "adding_plugin": [
+              "Create directory error/plugins/your_plugin/",
+              "Add manifest.json with metadata",
+              "Implement plugin.py with parse() function",
+              "Optionally implement fix() for auto-fixing",
+              "Add tests/test_plugin.py",
+              "Document in error/plugins/README.md"
+            ],
+            "no_core_changes": true
+          }
+        },
+        "adr_0008_database_location_worktree": {
+          "id": "ADR-0008",
+          "title": "Database Location in Worktree",
+          "status": "Accepted",
+          "date": "2025-11-22",
+          "decision": "Store SQLite database at .worktrees/pipeline_state.db (configurable via PIPELINE_DB_PATH)",
+          "rationale": {
+            "git_ignored": "State not committed to version control",
+            "discoverable": "Scripts and tools find it reliably",
+            "worktree_isolation": "Each git worktree has independent state",
+            "predictable": "Users and tools know where to look",
+            "override_allowed": "Power users can specify custom location"
+          },
+          "why_worktrees_directory": [
+            "Semantic meaning - clearly worktree-specific data",
+            "Git ignored by default via .gitignore",
+            "Each worktree directory gets own .worktrees/ subfolder",
+            "Standard location relative to repo root",
+            "Future expansion for other worktree data"
+          ],
+          "worktree_behavior": {
+            "main_worktree": "repo/.worktrees/pipeline_state.db",
+            "feature_worktree": "repo-worktree-feature/.worktrees/pipeline_state.db",
+            "isolation": "Feature branches run workflows without affecting main",
+            "concurrency": "Different worktrees don't conflict",
+            "state_per_worktree": true
+          },
+          "environment_override": {
+            "variable": "PIPELINE_DB_PATH",
+            "linux_macos": "export PIPELINE_DB_PATH='/path/to/custom.db'",
+            "windows_powershell": "$env:PIPELINE_DB_PATH = 'C:\\custom\\location.db'",
+            "one_time": "PIPELINE_DB_PATH=/tmp/test.db python scripts/run_workstream.py"
+          },
+          "backup_strategy": {
+            "before_risky_operation": "cp .worktrees/pipeline_state.db .worktrees/pipeline_state.db.backup",
+            "restore": "cp .worktrees/pipeline_state.db.backup .worktrees/pipeline_state.db"
+          },
+          "rejected_alternatives": [
+            "Repository root (easy to commit, clutters root)",
+            "XDG Base Directory (not discoverable, doesn't work for multiple clones)",
+            "Hidden .pipeline/ (not specific to worktree concept)",
+            "Temp directory (state lost on reboot, hard to find)"
+          ]
+        },
+        "adr_spec_tooling_consolidation": {
+          "id": "ADR-SPEC-TOOLING",
+          "title": "Spec Tooling Consolidation",
+          "status": "Accepted",
+          "date": "2025-11-18",
+          "decision": "Treat openspec/specs/ as primary source of truth, keep SPEC_MGMT_V1 tools as legacy",
+          "context": {
+            "spec_mgmt_v1": {
+              "location": "tools/spec_*",
+              "pattern": "Sidecars + suite-index",
+              "index": "docs/.index/suite-index.yaml",
+              "tools": ["renderer", "guard", "resolver", "indexer", "patcher"]
+            },
+            "openspec": {
+              "location": "openspec/specs/ + openspec/changes/",
+              "pattern": "Source-of-truth specs",
+              "flow": "change → bundle → workstream"
+            }
+          },
+          "consolidation_strategy": {
+            "primary_source": "openspec/specs/",
+            "spec_mgmt_v1": "Available but not expanded, legacy status",
+            "renderer_adaptation": "Render from OpenSpec when suite-index not present (fallback)",
+            "documentation": "SPEC_MGMT_V1 documented as legacy/optional",
+            "new_automation": "Prefer OpenSpec-centric flows"
+          },
+          "consequences": {
+            "reduced_duplication": "Single canonical spec location",
+            "minimal_changes": "Renderer fallback for compatibility",
+            "future_automation": "Operate on openspec/specs and openspec/changes"
+          },
+          "migration": {
+            "existing_flows": "Suite-index/sidecars continue unchanged",
+            "openspec_only": "Renderer scans openspec/specs/**/spec.md"
+          }
+        },
+        "adr_error_utils_location": {
+          "id": "ADR-ERROR-UTILS",
+          "title": "Error Utilities Location",
+          "status": "Accepted",
+          "date": "2025-11-18",
+          "decision": "Move utilities to error/shared/utils/ for section isolation",
+          "current_state": {
+            "location": "src/utils/",
+            "modules": ["types.py", "time.py", "hashing.py", "jsonl_manager.py", "env.py"],
+            "import_sites": "23+",
+            "consumers": "21 plugins, error engine, pipeline engine, plugin manager"
+          },
+          "analysis": {
+            "types_py": "Error-specific types (PluginIssue, PluginResult, PipelineReport)",
+            "time_py": "Run ID generation for error pipeline",
+            "hashing_py": "File hashing for error pipeline cache",
+            "jsonl_manager_py": "JSONL logging for error pipeline",
+            "env_py": "Environment variable helpers (potentially reusable)",
+            "current_usage": "Exclusively by error subsystem"
+          },
+          "rationale": [
+            "Single responsibility - all usage is error-pipeline specific",
+            "Clear ownership - error section owns its utilities",
+            "Encapsulation - no cross-section dependencies currently",
+            "Future flexibility - can extract to shared/utils/ if needed"
+          ],
+          "migration_strategy": {
+            "create_directory": "error/shared/utils/",
+            "move_files": "src/utils/*.py → error/shared/utils/*.py",
+            "create_shim": "src/utils/ re-exports from new location",
+            "update_imports": "Error subsystem uses error.shared.utils",
+            "backward_compatibility": "Shim remains during transition"
+          },
+          "future_considerations": [
+            "If non-error code needs utilities, extract to top-level shared/utils/",
+            "Monitor for cross-section utility needs in future refactors"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "op": "add",
+    "path": "/meta/rejected_alternatives_catalog",
+    "value": {
+      "description": "Catalog of architectural alternatives considered and rejected, preventing re-proposal",
+      "purpose": "Help AI agents avoid suggesting previously rejected approaches",
+      "execution_model": {
+        "task_dag": "Too low-level, lacks semantic structure for AI agents",
+        "event_driven": "Non-deterministic execution makes debugging difficult",
+        "imperative_scripts": "No parallelism, poor state management, unsafe for AI modification",
+        "makefile_build": "Designed for compilation, not development workflows"
+      },
+      "user_interface": {
+        "gui_only": "Not usable in CI/CD, excludes terminal-first users",
+        "terminal_only": "Steep learning curve, limited visualization",
+        "web_dashboard": "Deployment complexity, network overhead for local ops",
+        "single_mode_plugins": "Plugin complexity without clear benefit"
+      },
+      "state_storage": {
+        "postgresql": "Requires server setup, overkill for single-writer use case",
+        "redis": "Less suited for relational data, memory-first wastes resources",
+        "json_files": "No ACID guarantees, race conditions, poor query performance",
+        "duckdb": "Less mature, optimized for OLAP not OLTP"
+      },
+      "code_organization": {
+        "monolithic_src": "Doesn't scale, encourages tight coupling",
+        "microservices": "Overkill for current size, deployment complexity",
+        "feature_based": "Ambiguous, doesn't map cross-cutting concerns",
+        "layer_based": "Spreads domain logic, encourages tech-first thinking"
+      },
+      "implementation_language": {
+        "typescript_nodejs": "Less AI tooling integration, callback complexity",
+        "go": "Verbose error handling, less AI/ML library support",
+        "rust": "Steep learning curve, AI models struggle with complexity",
+        "csharp_dotnet": "Less cross-platform, smaller AI/ML ecosystem"
+      },
+      "specifications_management": {
+        "specs_in_sections": "Cross-section specs don't fit anywhere",
+        "wiki_external": "Separated from version control, no offline access",
+        "readme_only": "Hard to enforce structure, no cross-referencing"
+      },
+      "error_detection": {
+        "monolithic_detector": "Unmaintainable as detectors grow",
+        "tool_specific_scripts": "No unified interface, duplicate logic",
+        "configuration_based": "Limited to standard output formats, no custom parsing"
+      },
+      "database_location": {
+        "repository_root": "Easy to accidentally commit despite gitignore",
+        "xdg_base_directory": "Not discoverable from repo, doesn't work for multiple clones",
+        "hidden_pipeline_dir": "Not specific to worktree concept",
+        "temp_directory": "State lost on reboot, hard to find for debugging"
+      }
+    }
+  },
+  {
+    "op": "add",
+    "path": "/validation/adr_compliance",
+    "value": {
+      "description": "Validation that code changes comply with documented architectural decisions",
+      "adr_location": "docs/adr/",
+      "enforcement": "manual_review",
+      "checks": {
+        "workstream_model": "All orchestration uses workstream pattern, not imperative scripts",
+        "section_organization": "Code in correct section (core/error/aim/pm/specifications)",
+        "import_paths": "Use section-based imports (core.*, error.*), not deprecated paths",
+        "python_version": "Python 3.10+ required, use pattern matching and new type hints",
+        "sqlite_location": "Database at .worktrees/pipeline_state.db, respect PIPELINE_DB_PATH",
+        "plugin_architecture": "New error detectors added as plugins, not in monolithic code",
+        "spec_uri_system": "Spec references use spec:// URI format"
+      },
+      "review_questions": [
+        "Does this change violate any documented ADR?",
+        "Does this re-introduce a rejected alternative?",
+        "Should this change be documented as a new ADR?",
+        "Are there ADR consequences that need consideration?"
+      ]
+    }
+  },
+  {
+    "op": "add",
+    "path": "/meta/design_principles",
+    "value": {
+      "source": "Extracted from ADRs",
+      "workstream_execution": {
+        "declarative_over_imperative": "Define WHAT to do, not HOW (execution engine decides HOW)",
+        "composability": "Workstreams can be bundled together for complex operations",
+        "idempotency": "Steps should be safe to retry without side effects",
+        "observability": "Every state transition tracked in database"
+      },
+      "code_organization": {
+        "clear_ownership": "Each section has focused responsibility",
+        "independent_evolution": "Sections can change without affecting others",
+        "explicit_dependencies": "Cross-section imports are explicit and auditable",
+        "test_mirroring": "Tests mirror structure (tests/core/, tests/error/)"
+      },
+      "ai_compatibility": {
+        "semantic_meaning": "Use descriptive names over abbreviations",
+        "declarative_structure": "Clear, declarative patterns for AI comprehension",
+        "python_preference": "Python chosen for AI code generation quality",
+        "documentation_first": "Document WHY before implementing WHAT"
+      },
+      "state_management": {
+        "single_source_of_truth": "SQLite database is authoritative state",
+        "crash_recovery": "State enables resume-from-checkpoint",
+        "worktree_isolation": "Each worktree has independent state",
+        "backward_compatible_migrations": "Schema changes via versioned migrations"
+      },
+      "extensibility": {
+        "plugin_isolation": "Plugin failures don't crash entire system",
+        "dynamic_discovery": "Plugins discovered via manifest.json, no registration code",
+        "clear_interfaces": "Plugins implement standard interface (parse, optional fix)",
+        "no_core_changes": "Adding capabilities doesn't require core modifications"
+      }
+    }
+  }
+]

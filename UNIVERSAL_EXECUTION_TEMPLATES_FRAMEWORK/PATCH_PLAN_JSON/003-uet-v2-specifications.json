@@ -1,0 +1,297 @@
+[
+  {
+    "op": "add",
+    "path": "/meta/patch_metadata/003",
+    "value": {
+      "patch_id": "003-uet-v2-specifications",
+      "patch_ulid": "01JDK9XWQP8PATCH003UETSPEC1",
+      "created_at": "2025-11-23T11:12:14.089Z",
+      "description": "Integrate UET V2 technical specifications (state machines, component contracts, DAG scheduler, file scope, integration points)",
+      "source_files": [
+        "docs/uet_v2/STATE_MACHINES.md",
+        "docs/uet_v2/COMPONENT_CONTRACTS.md",
+        "docs/uet_v2/DAG_SCHEDULER.md",
+        "docs/uet_v2/FILE_SCOPE.md",
+        "docs/uet_v2/INTEGRATION_POINTS.md"
+      ],
+      "operations_count": 25,
+      "priority": "CRITICAL",
+      "approved_by": "human",
+      "applied": false
+    }
+  },
+  {
+    "op": "add",
+    "path": "/meta/state_machines",
+    "value": {
+      "worker_lifecycle": {
+        "states": ["SPAWNING", "IDLE", "BUSY", "DRAINING", "TERMINATED"],
+        "terminal_states": ["TERMINATED"],
+        "transitions": {
+          "SPAWNING": ["IDLE", "TERMINATED"],
+          "IDLE": ["BUSY", "TERMINATED"],
+          "BUSY": ["IDLE", "DRAINING", "TERMINATED"],
+          "DRAINING": ["TERMINATED"],
+          "TERMINATED": []
+        },
+        "invariants": [
+          "Heartbeat required every 60s for IDLE/BUSY",
+          "Missing 2 heartbeats → TERMINATED",
+          "Affinity immutable after SPAWNING",
+          "terminated_at only set in TERMINATED state"
+        ],
+        "database_table": "workers",
+        "spec_ref": "docs/uet_v2/STATE_MACHINES.md#worker-state-machine"
+      },
+      "patch_ledger": {
+        "states": ["created", "validated", "queued", "applied", "apply_failed", "verified", "committed", "rolled_back", "quarantined", "dropped"],
+        "terminal_states": ["committed", "rolled_back", "quarantined", "dropped"],
+        "transitions": {
+          "created": ["validated", "quarantined"],
+          "validated": ["queued", "quarantined"],
+          "queued": ["applied", "dropped"],
+          "applied": ["verified", "apply_failed"],
+          "apply_failed": ["quarantined"],
+          "verified": ["committed", "quarantined"],
+          "committed": ["rolled_back"],
+          "rolled_back": [],
+          "quarantined": [],
+          "dropped": []
+        },
+        "validation_points": ["created → validated", "validated → queued", "applied → verified"],
+        "database_table": "patch_ledger",
+        "spec_ref": "docs/uet_v2/STATE_MACHINES.md#patch-ledger-state-machine"
+      },
+      "test_gate": {
+        "states": ["PENDING", "RUNNING", "PASSED", "FAILED"],
+        "terminal_states": ["PASSED", "FAILED"],
+        "transitions": {
+          "PENDING": ["RUNNING"],
+          "RUNNING": ["PASSED", "FAILED"],
+          "PASSED": [],
+          "FAILED": []
+        },
+        "blocking_behavior": "Tasks blocked until PASSED",
+        "database_table": "test_gates",
+        "spec_ref": "docs/uet_v2/STATE_MACHINES.md#test-gate-state-machine"
+      }
+    }
+  },
+  {
+    "op": "add",
+    "path": "/meta/component_contracts",
+    "value": {
+      "WorkerLifecycle": {
+        "module": "core/engine/worker_lifecycle.py",
+        "status": "not_implemented",
+        "priority": "HIGH",
+        "methods": [
+          "spawn_worker(worker_id: str, worker_type: str, affinity: Dict) -> WorkerRecord",
+          "transition_state(worker_id: str, new_state: WorkerState) -> bool",
+          "heartbeat(worker_id: str) -> None",
+          "terminate_worker(worker_id: str) -> None",
+          "get_idle_workers(worker_type: Optional[str]) -> List[WorkerRecord]"
+        ],
+        "spec_ref": "docs/uet_v2/COMPONENT_CONTRACTS.md#worker-lifecycle"
+      },
+      "PatchLedger": {
+        "module": "core/patches/patch_ledger.py",
+        "status": "partially_implemented",
+        "priority": "CRITICAL",
+        "methods": [
+          "create_entry(patch: PatchArtifact) -> str",
+          "transition_state(ledger_id: str, new_state: str) -> bool",
+          "get_patches_by_state(state: str) -> List[PatchLedgerEntry]",
+          "quarantine_patch(ledger_id: str, reason: str) -> None"
+        ],
+        "spec_ref": "docs/uet_v2/COMPONENT_CONTRACTS.md#patch-ledger"
+      },
+      "PatchValidator": {
+        "module": "core/patches/patch_validator.py",
+        "status": "partially_implemented",
+        "priority": "HIGH",
+        "methods": [
+          "validate(patch: PatchArtifact) -> ValidationResult",
+          "validate_format(diff_text: str) -> bool",
+          "validate_scope(patch: PatchArtifact) -> bool",
+          "validate_constraints(patch: PatchArtifact, policy: PatchPolicy) -> bool"
+        ],
+        "spec_ref": "docs/uet_v2/COMPONENT_CONTRACTS.md#patch-validator"
+      },
+      "MergeOrchestrator": {
+        "module": "core/engine/merge_orchestrator.py",
+        "status": "not_implemented",
+        "priority": "HIGH",
+        "methods": [
+          "order_candidates(patches: List[Patch]) -> List[Patch]",
+          "merge(patch: Patch) -> MergeResult",
+          "detect_conflicts(patch: Patch) -> List[Conflict]"
+        ],
+        "spec_ref": "docs/uet_v2/COMPONENT_CONTRACTS.md#merge-orchestrator"
+      },
+      "TestGateExecutor": {
+        "module": "core/engine/test_gates.py",
+        "status": "partially_implemented",
+        "priority": "MEDIUM",
+        "methods": [
+          "evaluate_gates(phase_id: str) -> bool",
+          "validate_merge(patch_id: str) -> GateResult"
+        ],
+        "spec_ref": "docs/uet_v2/COMPONENT_CONTRACTS.md#test-gate-executor"
+      },
+      "IntegrationWorker": {
+        "module": "core/engine/integration_worker.py",
+        "status": "partially_implemented",
+        "priority": "HIGH",
+        "methods": [
+          "orchestrate_merge(patches: List[Patch]) -> MergeReport"
+        ],
+        "spec_ref": "docs/uet_v2/COMPONENT_CONTRACTS.md#integration-worker"
+      }
+    }
+  },
+  {
+    "op": "add",
+    "path": "/meta/dag_scheduler",
+    "value": {
+      "dependency_types": {
+        "direct": {
+          "field": "depends_on",
+          "description": "Explicit task dependencies",
+          "auto_inference": false,
+          "example": "\"depends_on\": [\"WS-007-001\", \"WS-007-002\"]"
+        },
+        "resource": {
+          "field": "files",
+          "description": "Auto-inferred from file access",
+          "auto_inference": true,
+          "algorithm": "If Task A produces file X and Task B reads file X, then B.depends_on.append(A)"
+        },
+        "gate": {
+          "field": "gates",
+          "description": "Blocked until tests pass",
+          "blocking": true,
+          "example": "\"gates\": [\"GATE_UNIT\", \"GATE_INTEGRATION\"]"
+        },
+        "phase": {
+          "field": "phase_id",
+          "description": "Phase boundaries are sync points",
+          "parallel_within_phase": true,
+          "sequential_between_phases": true
+        }
+      },
+      "algorithms": {
+        "dependency_resolution": "Topological sort with cycle detection (Kahn's algorithm)",
+        "parallel_execution": "Wave-based scheduling (group tasks by dependency level)",
+        "deadlock_detection": "Tarjan's strongly connected components",
+        "conflict_detection": "File scope overlap analysis"
+      },
+      "spec_ref": "docs/uet_v2/DAG_SCHEDULER.md"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/meta/file_scope",
+    "value": {
+      "access_modes": {
+        "read": {"lock": "none", "concurrency": "unlimited", "conflicts_with": []},
+        "edit": {"lock": "exclusive", "concurrency": 1, "conflicts_with": ["edit", "delete"]},
+        "create": {"lock": "exclusive", "concurrency": 1, "conflicts_with": ["create", "edit", "delete"]},
+        "delete": {"lock": "exclusive", "concurrency": 1, "conflicts_with": ["edit", "create", "delete"]},
+        "append": {"lock": "shared", "concurrency": "unlimited", "conflicts_with": ["delete"]}
+      },
+      "scope_granularity": {
+        "file_level": {
+          "syntax": "\"files\": [\"core/executor.py\"]",
+          "description": "Lock entire file",
+          "precision": "low"
+        },
+        "line_level": {
+          "syntax": "\"scope\": \"lines:45-55\"",
+          "description": "Lock specific line range",
+          "precision": "medium"
+        },
+        "function_level": {
+          "syntax": "\"scope\": \"function:execute\"",
+          "description": "Lock via AST analysis",
+          "precision": "high",
+          "requires": "tree-sitter or ast module"
+        }
+      },
+      "isolation_strategy": {
+        "method": "git_worktrees",
+        "directory": ".worktrees",
+        "per_worker": true,
+        "shared_git_db": true,
+        "cleanup_on_termination": true
+      },
+      "spec_ref": "docs/uet_v2/FILE_SCOPE.md"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/meta/integration_points",
+    "value": {
+      "component_call_graph": {
+        "Orchestrator": ["WorkerLifecycle", "PatchLedger", "TestGateExecutor", "IntegrationWorker", "ContextManager", "FeedbackLoop", "EventBus"],
+        "IntegrationWorker": ["PatchLedger", "MergeOrchestrator", "TestGateExecutor", "CompensationEngine", "EventBus"],
+        "MergeOrchestrator": ["PatchValidator", "LanguageValidator", "PatchLedger", "EventBus"],
+        "PatchLedger": ["PatchValidator", "EventBus"],
+        "PatchValidator": ["PatchPolicyEngine"],
+        "TestGateExecutor": ["Scheduler", "EventBus"],
+        "WorkerLifecycle": ["EventBus"],
+        "EventBus": [],
+        "ContextManager": [],
+        "FeedbackLoop": ["Orchestrator"]
+      },
+      "circular_dependency_prevention": {
+        "EventBus": "No outbound calls (pure sink)",
+        "PatchValidator": "No database calls (pure function)",
+        "ContextManager": "No orchestrator calls",
+        "pattern": "dependency_injection"
+      },
+      "database_transaction_boundaries": {
+        "Orchestrator": "Outer transaction for run",
+        "PatchLedger": "Inner transaction per state change",
+        "WorkerLifecycle": "Transaction per heartbeat"
+      },
+      "event_flow": {
+        "pattern": "publish_subscribe",
+        "bus": "EventBus",
+        "subscribers": ["Metrics", "Logging", "Monitoring", "StateSnapshot"]
+      },
+      "dependency_injection_required": true,
+      "spec_ref": "docs/uet_v2/INTEGRATION_POINTS.md"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/validation/state_machine_compliance",
+    "value": {
+      "check_valid_transitions": true,
+      "check_terminal_state_immutability": true,
+      "check_invariants": true,
+      "database_constraints_enforced": true
+    }
+  },
+  {
+    "op": "add",
+    "path": "/validation/file_scope_enforcement",
+    "value": {
+      "check_overlaps": true,
+      "enforce_exclusive_locks": true,
+      "validate_scope_syntax": true,
+      "detect_conflicts_before_execution": true
+    }
+  },
+  {
+    "op": "add",
+    "path": "/validation/dag_validation",
+    "value": {
+      "check_cycles": true,
+      "check_missing_dependencies": true,
+      "validate_phase_boundaries": true,
+      "algorithm": "Tarjan_strongly_connected_components"
+    }
+  }
+]

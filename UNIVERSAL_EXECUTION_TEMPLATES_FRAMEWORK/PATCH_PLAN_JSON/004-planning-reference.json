@@ -1,0 +1,231 @@
+[
+  {
+    "op": "add",
+    "path": "/meta/patch_metadata/004",
+    "value": {
+      "patch_id": "004-planning-reference",
+      "patch_ulid": "01JDKAXWQP8PATCH004PLANREF1",
+      "created_at": "2025-11-23T11:16:48.091Z",
+      "description": "Integrate complete phase plan, workstream prompts, data flows, and error catalog",
+      "source_files": [
+        "docs/planning/PHASE_UET_INTEGRATION.md",
+        "docs/planning/PHASE_UET_CHECKLIST.md",
+        "docs/reference/workstream-style-prompt-structure.md",
+        "docs/reference/DATA_FLOWS.md",
+        "docs/reference/DEPENDENCIES.md",
+        "docs/reference/ERROR_CATALOG.md"
+      ],
+      "operations_count": 18,
+      "priority": "CRITICAL",
+      "approved_by": "human",
+      "applied": false
+    }
+  },
+  {
+    "op": "add",
+    "path": "/meta/complete_phase_plan",
+    "value": {
+      "spec_ref": "docs/planning/PHASE_UET_INTEGRATION.md",
+      "total_duration_hours": 148,
+      "total_duration_weeks": 10,
+      "mvp_milestone_weeks": 4,
+      "current_alignment_percentage": 40,
+      "phase_breakdown": {
+        "Phase_A": {
+          "name": "Quick Wins",
+          "weeks": "1-2",
+          "duration_hours": 26,
+          "workstreams": 5,
+          "priority": "CRITICAL",
+          "workstream_ids": ["WS-UET-A1", "WS-UET-A2", "WS-UET-A3", "WS-UET-A4", "WS-UET-A5"]
+        },
+        "Phase_B": {
+          "name": "Patch System",
+          "weeks": "3-4",
+          "duration_hours": 42,
+          "workstreams": 4,
+          "priority": "CRITICAL",
+          "workstream_ids": ["WS-UET-B1", "WS-UET-B2", "WS-UET-B3", "WS-UET-B4"]
+        },
+        "Phase_C_F": {
+          "name": "Workers, Gates, Orchestration, Testing",
+          "weeks": "5-10",
+          "duration_hours": 80,
+          "workstreams": "TBD",
+          "priority": "HIGH"
+        }
+      },
+      "success_criteria": [
+        "All 17 UET schemas copied to schema/uet/",
+        "Patch ledger with full state machine",
+        "Event bus with persistence to run_events table",
+        "Worker lifecycle with health checks",
+        "DAG scheduler replacing sequential scheduler",
+        "Patch-first adapters (unified diffs only)",
+        "Test gates enforced (LINT, UNIT, INTEGRATION)",
+        "Cost tracking with budget enforcement",
+        "Compensation engine (Saga pattern rollback)"
+      ]
+    }
+  },
+  {
+    "op": "add",
+    "path": "/meta/workstream_prompt_template",
+    "value": {
+      "spec_ref": "docs/reference/workstream-style-prompt-structure.md",
+      "structure": {
+        "role": "Senior software engineer in existing codebase",
+        "sections": [
+          "ROLE",
+          "WORKSTREAM_META",
+          "REPO_CONTEXT",
+          "FILE_SCOPE",
+          "TASKS",
+          "CONSTRAINTS",
+          "TESTS_AND_VALIDATION",
+          "EXECUTION_GUIDANCE",
+          "OUTPUT_FORMAT"
+        ],
+        "output_format_sections": ["PLAN", "CHANGES", "TESTS", "NEXT_STEPS"]
+      },
+      "tool_compatibility": {
+        "aider": {
+          "method": "--message-file",
+          "usage": "aider --message-file workstream_prompt.txt <files>"
+        },
+        "ollama_code": {
+          "method": "First message",
+          "usage": "Start ollama-code, paste prompt as first message"
+        },
+        "codex_cli": {
+          "method": "First user message",
+          "usage": "Use as first message in Agent mode"
+        },
+        "claude_code": {
+          "method": "Initial prompt",
+          "usage": "Provide as initial system or user prompt"
+        }
+      },
+      "universal": true
+    }
+  },
+  {
+    "op": "add",
+    "path": "/meta/data_flows",
+    "value": {
+      "spec_ref": "docs/reference/DATA_FLOWS.md",
+      "workstream_execution_flow": [
+        "User Input (JSON Bundle)",
+        "Validator → Validated Workstream Object",
+        "Orchestrator → Execution Plan (Steps Ordered)",
+        "Database ← Store Initial State (S_PENDING)",
+        "Step Executor → For Each Step",
+        "Tool Adapter → Execute Tool",
+        "Database ← Store Step Result",
+        "State Transition (S_SUCCESS/S_FAILED)",
+        "Database ← Final Workstream State",
+        "User Output (Execution Result)"
+      ],
+      "state_transitions": {
+        "S_PENDING": "Initial state - workstream created",
+        "S_RUNNING": "Execution in progress",
+        "S_SUCCESS": "Completed successfully",
+        "S_FAILED": "Failed with errors"
+      },
+      "data_transformations": {
+        "json_to_object": "File → JSON parse → ValidatedWorkstream",
+        "object_to_db": "ValidatedWorkstream → SQL INSERT → Database row",
+        "template_to_command": "ToolProfile + Context → Rendered command string",
+        "subprocess_to_result": "Command execution → ProcessResult → ToolResult"
+      }
+    }
+  },
+  {
+    "op": "add",
+    "path": "/meta/layer_architecture",
+    "value": {
+      "spec_ref": "docs/reference/DEPENDENCIES.md",
+      "layers": {
+        "layer_4": {
+          "name": "User Interface",
+          "modules": ["scripts/run_workstream.py", "scripts/run_error_engine.py"],
+          "dependencies": ["layer_3"]
+        },
+        "layer_3": {
+          "name": "Orchestration",
+          "modules": ["core.engine.orchestrator", "error.engine.error_engine"],
+          "dependencies": ["layer_2"]
+        },
+        "layer_2": {
+          "name": "Domain Logic",
+          "modules": ["core.state.workstreams", "error.engine.plugin_manager", "specifications.tools.resolver"],
+          "dependencies": ["layer_1"]
+        },
+        "layer_1": {
+          "name": "Infrastructure",
+          "modules": ["core.state.db", "error.engine.file_cache"],
+          "dependencies": ["layer_0"]
+        },
+        "layer_0": {
+          "name": "Standard Library",
+          "modules": ["sqlite3", "subprocess", "json", "pathlib"],
+          "dependencies": []
+        }
+      },
+      "rules": [
+        "Layer N can depend on Layer N-1 or below",
+        "No upward dependencies allowed",
+        "No circular dependencies between layers"
+      ],
+      "enforcement": "Code review and import analysis"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/meta/error_catalog",
+    "value": {
+      "spec_ref": "docs/reference/ERROR_CATALOG.md",
+      "total_errors": 25,
+      "categories": {
+        "database": {"count": 6, "examples": ["ERR-DB-01: Database Locked", "ERR-DB-02: Schema Version Mismatch"]},
+        "workstream": {"count": 5, "examples": ["Dependency cycles", "Timeouts", "Conflicts"]},
+        "plugin": {"count": 4, "examples": ["Manifest issues", "Execution failures"]},
+        "specification": {"count": 3, "examples": ["Not found", "Circular refs"]},
+        "tool_adapter": {"count": 4, "examples": ["Circuit breaker", "Timeout", "Not found"]},
+        "configuration": {"count": 3, "examples": ["Missing files", "Invalid syntax"]}
+      },
+      "recovery_procedures_documented": true,
+      "prevention_strategies_defined": true
+    }
+  },
+  {
+    "op": "add",
+    "path": "/validation/error_handling",
+    "value": {
+      "catalog_ref": "docs/reference/ERROR_CATALOG.md",
+      "recovery_procedures_available": true,
+      "prevention_strategies_available": true,
+      "total_documented_errors": 25,
+      "critical_error_recovery_tested": false
+    }
+  },
+  {
+    "op": "add",
+    "path": "/validation/layer_compliance",
+    "value": {
+      "check_upward_dependencies": true,
+      "check_circular_dependencies": true,
+      "enforce_layer_boundaries": true,
+      "validation_script": "scripts/validate_layer_architecture.py"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/validation/data_flow_integrity",
+    "value": {
+      "check_state_transitions": true,
+      "check_data_transformations": true,
+      "validate_serialization": true
+    }
+  }
+]

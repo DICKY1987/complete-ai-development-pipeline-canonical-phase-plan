@@ -1,0 +1,580 @@
+[
+  {
+    "op": "add",
+    "path": "/meta/patch_metadata/009",
+    "value": {
+      "patch_id": "009-subagent-architecture-slash-commands",
+      "patch_ulid": "01JDK0019AB0CA5B276950EFA0",
+      "created_at": "2025-11-23T12:57:11.337Z",
+      "description": "Document sub-agent architecture and slash command system for decomposing monolithic orchestration into specialized, bounded tasks",
+      "source_files": [
+        "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/agents and custom commands.txt"
+      ],
+      "operations_count": 3,
+      "priority": "HIGH",
+      "approved_by": "human",
+      "applied": false
+    }
+  },
+  {
+    "op": "add",
+    "path": "/meta/subagent_architecture",
+    "value": {
+      "description": "Three-tier architecture: orchestrator → sub-agents → slash commands",
+      "purpose": "Decompose monolithic agent into specialized, bounded, testable sub-agents with user-friendly slash command interface",
+      "design_philosophy": {
+        "separation_of_concerns": "Each sub-agent handles one well-defined task with clear inputs/outputs",
+        "deterministic_workflows": "Sub-agents produce predictable results, easy to test and audit",
+        "user_control": "Slash commands give explicit control over when high-impact operations run",
+        "orchestration_over_autonomy": "Top-level orchestrator routes tasks, sub-agents execute within constraints"
+      },
+      "architecture_tiers": {
+        "tier_1_orchestrator": {
+          "role": "Lead Architect / Orchestrator Agent",
+          "agent_id": "AGENT-ORCH-CORE",
+          "responsibilities": [
+            "Select phase and workstream bundle based on user request",
+            "Validate execution request against schemas and constraints",
+            "Route tasks to appropriate sub-agents",
+            "Enforce quality gates and FILES_SCOPE boundaries",
+            "Coordinate multi-step workflows",
+            "Handle human-facing explanation and negotiation",
+            "Make high-level architecture and tradeoff decisions"
+          ],
+          "when_to_use": [
+            "High-level phase & workstream design",
+            "Initial architecture redesign decisions",
+            "Human-facing explanation/negotiation",
+            "Cross-cutting context and tradeoffs",
+            "Freeform exploration and brainstorming"
+          ],
+          "interface": {
+            "input": "Natural language requests, ExecutionRequest objects, slash commands",
+            "output": "Routed tasks, status updates, explanations, decision logs"
+          }
+        },
+        "tier_2_subagents": {
+          "role": "Specialized Task Executors",
+          "pattern": "Bounded, single-responsibility agents",
+          "characteristics": [
+            "Well-typed inputs and outputs (spec-governed)",
+            "Narrow scope within specific Phase + Workstream + FILES_SCOPE",
+            "No high-level planning or coordination",
+            "Deterministic and repeatable",
+            "Easy to test in isolation",
+            "Composable into larger workflows"
+          ],
+          "contract": {
+            "input_schema": "Defined per sub-agent type",
+            "output_schema": "Defined per sub-agent type",
+            "constraints": "Phase, Workstream, FILES_SCOPE, safety_tier",
+            "error_handling": "Return structured errors, never crash orchestrator"
+          },
+          "categories": {
+            "acs_subagents": {
+              "purpose": "AI Codebase Structure (PH-ACS) tasks",
+              "agents": [
+                {
+                  "id": "SUB-ACS-INDEX",
+                  "name": "ACS Codebase Index Builder",
+                  "phase": "PH-ACS",
+                  "input": ["repo_root", "acs_rules", "file_scope_hint"],
+                  "output": ["CODEBASE_INDEX.yaml"],
+                  "task": "Scan modules, map layers, identify dependencies and public surfaces",
+                  "why_subagent": "Deterministic, repeatable, safe to rerun on repo changes"
+                },
+                {
+                  "id": "SUB-ACS-QUALITY-GATE",
+                  "name": "ACS Quality Gate Synthesizer",
+                  "phase": "PH-ACS",
+                  "input": ["test_setup", "linters", "ci_config"],
+                  "output": ["QUALITY_GATE.yaml"],
+                  "task": "Enumerate checks (pytest, ruff, mypy), thresholds, gating rules",
+                  "why_subagent": "Can be rerun when tooling changes, narrow scope"
+                },
+                {
+                  "id": "SUB-ACS-POLICY",
+                  "name": "ACS Policy Deriver",
+                  "phase": "PH-ACS",
+                  "input": ["repo_structure", "docs", "existing_policies"],
+                  "output": ["ai_policies.yaml"],
+                  "task": "Derive safe edit zones, read-only areas, require-review zones",
+                  "why_subagent": "Tight contract, easy to test and audit"
+                },
+                {
+                  "id": "SUB-ACS-GUIDANCE",
+                  "name": "ACS Guidance Writer",
+                  "phase": "PH-ACS",
+                  "input": ["acs_artifacts", "existing_docs"],
+                  "output": [".meta/AI_GUIDANCE.md"],
+                  "task": "Assemble concise AI onboarding doc from ACS artifacts",
+                  "why_subagent": "Text synthesis over structured sources, rerunnable"
+                }
+              ]
+            },
+            "restructure_subagents": {
+              "purpose": "Restructure/Refactor pipeline tasks",
+              "agents": [
+                {
+                  "id": "SUB-RESTRUCTURE-PLANNER",
+                  "name": "Restructure Planner",
+                  "phase": "PH-RESTRUCTURE",
+                  "input": ["current_acs_index", "restructure_intentions"],
+                  "output": ["RESTRUCTURE_CODEBASE_V1.yaml"],
+                  "task": "Plan moves/merges/splits without changing files",
+                  "why_subagent": "Planning only, no edits, easy to validate"
+                },
+                {
+                  "id": "SUB-RESTRUCTURE-SIMULATOR",
+                  "name": "Restructure Simulator",
+                  "phase": "PH-RESTRUCTURE",
+                  "input": ["RestructureSpec"],
+                  "output": ["simulation_report"],
+                  "task": "Dry-run reasoning, predict conflicts and changes",
+                  "why_subagent": "Read-only analysis, safe to run multiple times"
+                },
+                {
+                  "id": "SUB-RESTRUCTURE-PATCH-GEN",
+                  "name": "Restructure Patch Generator",
+                  "phase": "PH-RESTRUCTURE",
+                  "input": ["RestructureSpec", "simulation_report", "FILES_SCOPE"],
+                  "output": ["patch_files"],
+                  "task": "Implement moves/renames/merges as patches",
+                  "why_subagent": "Bounded to spec, testable output (patches)"
+                },
+                {
+                  "id": "SUB-IMPORT-FIXER",
+                  "name": "Import Fixer",
+                  "phase": "PH-RESTRUCTURE",
+                  "input": ["file_move_map", "language"],
+                  "output": ["import_fix_patches"],
+                  "task": "Update imports, references, wiring after moves",
+                  "why_subagent": "Mechanical transformation, language-specific rules"
+                },
+                {
+                  "id": "SUB-VALIDATION-RUNNER",
+                  "name": "Validation Runner",
+                  "phase": "PH-RESTRUCTURE",
+                  "input": ["post_refactor_state", "validation_suite"],
+                  "output": ["validation_results"],
+                  "task": "Run tests and checks on refactored code",
+                  "why_subagent": "Isolated validation step, clear pass/fail"
+                }
+              ]
+            },
+            "error_pipeline_subagents": {
+              "purpose": "Error detection and self-healing",
+              "agents": [
+                {
+                  "id": "SUB-ERROR-CLASSIFIER",
+                  "name": "Error Classifier",
+                  "phase": "PH-ERROR-PIPELINE",
+                  "input": ["logs", "test_output", "error_context"],
+                  "output": ["error_classification", "severity", "suggested_phase"],
+                  "task": "Classify issue, tag severity, choose repair workstream",
+                  "why_subagent": "Classification logic separate from fix generation"
+                },
+                {
+                  "id": "SUB-FIX-DRAFT-GENERATOR",
+                  "name": "Fix Draft Generator",
+                  "phase": "PH-ERROR-PIPELINE",
+                  "input": ["error_classification", "context_files", "FILES_SCOPE"],
+                  "output": ["fix_patches"],
+                  "task": "Propose patches (patch-only mode, obey FILES_SCOPE)",
+                  "why_subagent": "Bounded to error type, testable patches"
+                },
+                {
+                  "id": "SUB-REGRESSION-VALIDATOR",
+                  "name": "Regression Validator",
+                  "phase": "PH-ERROR-PIPELINE",
+                  "input": ["fix_patches", "affected_tests"],
+                  "output": ["validation_results"],
+                  "task": "Run minimal subset of tests for the change",
+                  "why_subagent": "Focused validation, no side effects"
+                },
+                {
+                  "id": "SUB-ROLLBACK-PLANNER",
+                  "name": "Rollback Planner",
+                  "phase": "PH-ERROR-PIPELINE",
+                  "input": ["failed_fix", "ledger_entries"],
+                  "output": ["rollback_plan"],
+                  "task": "Create patch/plan to revert state or open PR",
+                  "why_subagent": "Safety-critical, needs clear audit trail"
+                }
+              ]
+            },
+            "spec_governance_subagents": {
+              "purpose": "Spec and schema governance",
+              "agents": [
+                {
+                  "id": "SUB-SPEC-LINT-CHECK",
+                  "name": "Spec Lint Checker",
+                  "phase": "PH-GOVERNANCE",
+                  "input": ["spec_files", "schemas"],
+                  "output": ["validation_report"],
+                  "task": "Validate Phase/Workstream/Restructure specs conform to schema",
+                  "why_subagent": "Run before any spec-based execution"
+                },
+                {
+                  "id": "SUB-SCHEMA-SYNC",
+                  "name": "Schema Sync Validator",
+                  "phase": "PH-GOVERNANCE",
+                  "input": ["docs", "schemas"],
+                  "output": ["sync_report"],
+                  "task": "Check docs and schemas are in sync for each spec family",
+                  "why_subagent": "Separate validation concern"
+                },
+                {
+                  "id": "SUB-CHANGE-IMPACT-SUMMARIZER",
+                  "name": "Change Impact Summarizer",
+                  "phase": "PH-GOVERNANCE",
+                  "input": ["spec_changes", "dependency_graph"],
+                  "output": ["impact_notes"],
+                  "task": "Generate impact notes for CHANGE_IMPACT_MATRIX.md",
+                  "why_subagent": "Reporting only, no modifications"
+                }
+              ]
+            },
+            "repo_hygiene_subagents": {
+              "purpose": "Repo hygiene and staleness management",
+              "agents": [
+                {
+                  "id": "SUB-STALENESS-SCANNER",
+                  "name": "Staleness Scanner",
+                  "phase": "PH-HYGIENE",
+                  "input": ["repo", "acs_index", "policies"],
+                  "output": ["STALE_CONTENT_REPORT.json"],
+                  "task": "Flag outdated/duplicate/contradictory docs",
+                  "why_subagent": "Automated analysis, no edits"
+                },
+                {
+                  "id": "SUB-QUARANTINE-PLANNER",
+                  "name": "Quarantine Planner",
+                  "phase": "PH-HYGIENE",
+                  "input": ["staleness_report", "governance_rules"],
+                  "output": ["quarantine_plan"],
+                  "task": "Propose moves to quarantine/ (patches or move plan)",
+                  "why_subagent": "Obeys governance, never deletes outright"
+                }
+              ]
+            }
+          }
+        },
+        "tier_3_slash_commands": {
+          "role": "User-Initiated Workflow Triggers",
+          "pattern": "Named shortcuts that map to Phase + Workstream + Sub-Agent chains",
+          "characteristics": [
+            "Explicit user intent (less ambiguous than natural language)",
+            "Deterministic and auditable (command → known workflow)",
+            "Pre-baked ExecutionRequest templates",
+            "User controls when high-impact operations run"
+          ],
+          "implementation": {
+            "command_structure": {
+              "command_id": "Unique identifier (e.g., /acs-init)",
+              "phase_id": "Associated phase",
+              "workstream_bundle_id": "Associated workstream bundle",
+              "subagent_chain": "Ordered list of sub-agents to execute",
+              "parameters": "Optional parameters (branch, path, strictness)",
+              "validation": "Pre-execution checks"
+            },
+            "execution_flow": [
+              "User types /command [params]",
+              "Orchestrator validates command and parameters",
+              "Orchestrator creates ExecutionRequest from template",
+              "Orchestrator routes to sub-agent chain",
+              "Sub-agents execute in order",
+              "Results aggregated and returned to user"
+            ]
+          },
+          "command_registry": {
+            "acs_commands": [
+              {
+                "command": "/acs-init",
+                "description": "Initialize ACS artifacts for repository",
+                "phase": "PH-ACS",
+                "workstream_bundle": "ACS-INIT-BUNDLE",
+                "subagents": ["SUB-ACS-INDEX", "SUB-ACS-QUALITY-GATE", "SUB-ACS-POLICY", "SUB-ACS-GUIDANCE"],
+                "output": ["CODEBASE_INDEX.yaml", "QUALITY_GATE.yaml", "ai_policies.yaml", ".meta/AI_GUIDANCE.md"],
+                "use_case": "First-time ACS setup on new repo"
+              },
+              {
+                "command": "/acs-refresh-index",
+                "description": "Rebuild CODEBASE_INDEX.yaml",
+                "phase": "PH-ACS",
+                "workstream_bundle": "ACS-REFRESH-INDEX",
+                "subagents": ["SUB-ACS-INDEX"],
+                "output": ["CODEBASE_INDEX.yaml"],
+                "use_case": "After code structure changes"
+              },
+              {
+                "command": "/acs-refresh-policies",
+                "description": "Update ai_policies.yaml",
+                "phase": "PH-ACS",
+                "workstream_bundle": "ACS-REFRESH-POLICIES",
+                "subagents": ["SUB-ACS-POLICY"],
+                "output": ["ai_policies.yaml"],
+                "use_case": "After adding new modules or changing permissions"
+              },
+              {
+                "command": "/acs-guidance",
+                "description": "Regenerate AI_GUIDANCE.md",
+                "phase": "PH-ACS",
+                "workstream_bundle": "ACS-GUIDANCE-GEN",
+                "subagents": ["SUB-ACS-GUIDANCE"],
+                "output": [".meta/AI_GUIDANCE.md"],
+                "use_case": "After updating specs or documentation"
+              }
+            ],
+            "restructure_commands": [
+              {
+                "command": "/restruct-plan",
+                "description": "Create restructure plan (no edits)",
+                "phase": "PH-RESTRUCTURE",
+                "workstream_bundle": "RESTRUCTURE-PLAN",
+                "subagents": ["SUB-RESTRUCTURE-PLANNER"],
+                "output": ["RESTRUCTURE_CODEBASE_V1.yaml"],
+                "parameters": ["intentions"],
+                "use_case": "Planning major refactor"
+              },
+              {
+                "command": "/restruct-dryrun",
+                "description": "Simulate restructure, produce report only",
+                "phase": "PH-RESTRUCTURE",
+                "workstream_bundle": "RESTRUCTURE-DRYRUN",
+                "subagents": ["SUB-RESTRUCTURE-SIMULATOR"],
+                "output": ["simulation_report"],
+                "use_case": "Validate restructure plan before applying"
+              },
+              {
+                "command": "/restruct-apply",
+                "description": "Apply approved restructure plan",
+                "phase": "PH-RESTRUCTURE",
+                "workstream_bundle": "RESTRUCTURE-APPLY",
+                "subagents": ["SUB-RESTRUCTURE-PATCH-GEN", "SUB-IMPORT-FIXER", "SUB-VALIDATION-RUNNER"],
+                "output": ["patches", "validation_results"],
+                "safety": "Requires approved RestructureSpec",
+                "use_case": "Execute planned refactor"
+              },
+              {
+                "command": "/restruct-rollback",
+                "description": "Rollback last restructure",
+                "phase": "PH-RESTRUCTURE",
+                "workstream_bundle": "RESTRUCTURE-ROLLBACK",
+                "subagents": ["SUB-ROLLBACK-PLANNER"],
+                "output": ["rollback_patches"],
+                "use_case": "Undo failed restructure"
+              }
+            ],
+            "error_commands": [
+              {
+                "command": "/err-diagnose",
+                "description": "Classify last error from test/CI",
+                "phase": "PH-ERROR-PIPELINE",
+                "workstream_bundle": "ERROR-DIAGNOSE",
+                "subagents": ["SUB-ERROR-CLASSIFIER"],
+                "output": ["error_classification"],
+                "use_case": "Understand test failures"
+              },
+              {
+                "command": "/err-fix",
+                "description": "Generate fix patch for diagnosed error",
+                "phase": "PH-ERROR-PIPELINE",
+                "workstream_bundle": "ERROR-FIX",
+                "subagents": ["SUB-FIX-DRAFT-GENERATOR"],
+                "output": ["fix_patches"],
+                "safety": "Patch-only, constrained FILES_SCOPE",
+                "use_case": "Auto-fix known error types"
+              },
+              {
+                "command": "/err-verify",
+                "description": "Run minimal validation for fix",
+                "phase": "PH-ERROR-PIPELINE",
+                "workstream_bundle": "ERROR-VERIFY",
+                "subagents": ["SUB-REGRESSION-VALIDATOR"],
+                "output": ["validation_results"],
+                "use_case": "Verify fix doesn't break other tests"
+              },
+              {
+                "command": "/err-open-pr",
+                "description": "Package fix into PR (even if tests failed)",
+                "phase": "PH-ERROR-PIPELINE",
+                "workstream_bundle": "ERROR-PR",
+                "subagents": ["SUB-ROLLBACK-PLANNER"],
+                "output": ["github_pr_url"],
+                "use_case": "Create PR for manual review"
+              }
+            ],
+            "hygiene_commands": [
+              {
+                "command": "/stale-scan",
+                "description": "Scan for stale/outdated content",
+                "phase": "PH-HYGIENE",
+                "workstream_bundle": "HYGIENE-STALE-SCAN",
+                "subagents": ["SUB-STALENESS-SCANNER"],
+                "output": ["STALE_CONTENT_REPORT.json"],
+                "use_case": "Periodic repo cleanup"
+              },
+              {
+                "command": "/stale-quarantine",
+                "description": "Move stale content to quarantine/",
+                "phase": "PH-HYGIENE",
+                "workstream_bundle": "HYGIENE-QUARANTINE",
+                "subagents": ["SUB-QUARANTINE-PLANNER"],
+                "output": ["quarantine_patches"],
+                "safety": "Never deletes, only moves",
+                "use_case": "Clean up after stale scan"
+              },
+              {
+                "command": "/docs-index",
+                "description": "Rebuild documentation index",
+                "phase": "PH-HYGIENE",
+                "workstream_bundle": "HYGIENE-DOCS-INDEX",
+                "subagents": ["SUB-ACS-INDEX"],
+                "output": ["docs_index"],
+                "use_case": "After adding/removing docs"
+              }
+            ],
+            "observability_commands": [
+              {
+                "command": "/phase-status",
+                "description": "Show status of all phases",
+                "phase": "PH-OBSERVABILITY",
+                "workstream_bundle": "OBS-PHASE-STATUS",
+                "output": ["phase_status_report"],
+                "readonly": true,
+                "use_case": "Check pipeline progress"
+              },
+              {
+                "command": "/ws-status",
+                "description": "Show workstream execution status",
+                "phase": "PH-OBSERVABILITY",
+                "workstream_bundle": "OBS-WS-STATUS",
+                "output": ["workstream_status_report"],
+                "readonly": true,
+                "use_case": "Monitor active workstreams"
+              },
+              {
+                "command": "/ledger-last [n]",
+                "description": "Show last N ledger entries",
+                "phase": "PH-OBSERVABILITY",
+                "workstream_bundle": "OBS-LEDGER",
+                "output": ["ledger_entries"],
+                "readonly": true,
+                "parameters": ["count"],
+                "use_case": "Audit recent operations"
+              },
+              {
+                "command": "/graph",
+                "description": "Render Phase/Workstream dependency graph",
+                "phase": "PH-OBSERVABILITY",
+                "workstream_bundle": "OBS-GRAPH",
+                "output": ["graph_visualization"],
+                "readonly": true,
+                "use_case": "Understand system structure"
+              }
+            ]
+          }
+        }
+      },
+      "benefits": {
+        "predictability": "Each sub-agent has well-defined inputs/outputs, no surprises",
+        "testability": "Sub-agents can be tested in isolation with mock inputs",
+        "auditability": "Clear logs of which sub-agent ran, with what inputs, producing what outputs",
+        "safety": "Bounded scope prevents accidental wide-ranging changes",
+        "reusability": "Sub-agents can be composed into different workflows",
+        "user_control": "Slash commands give explicit control over high-impact operations",
+        "debugging": "Easy to identify which sub-agent failed and why",
+        "parallel_execution": "Independent sub-agents can run concurrently"
+      },
+      "implementation_roadmap": {
+        "phase_1_foundation": {
+          "tasks": [
+            "Define SubAgent base interface (input_schema, output_schema, execute())",
+            "Create SlashCommand registry and router",
+            "Implement orchestrator sub-agent routing logic",
+            "Add sub-agent execution to ledger tracking"
+          ]
+        },
+        "phase_2_acs_subagents": {
+          "tasks": [
+            "Implement SUB-ACS-INDEX",
+            "Implement SUB-ACS-QUALITY-GATE",
+            "Implement SUB-ACS-POLICY",
+            "Implement SUB-ACS-GUIDANCE",
+            "Wire up /acs-* commands"
+          ]
+        },
+        "phase_3_restructure_subagents": {
+          "tasks": [
+            "Implement SUB-RESTRUCTURE-PLANNER",
+            "Implement SUB-RESTRUCTURE-SIMULATOR",
+            "Implement SUB-RESTRUCTURE-PATCH-GEN",
+            "Implement SUB-IMPORT-FIXER",
+            "Wire up /restruct-* commands"
+          ]
+        },
+        "phase_4_error_subagents": {
+          "tasks": [
+            "Implement SUB-ERROR-CLASSIFIER",
+            "Implement SUB-FIX-DRAFT-GENERATOR",
+            "Implement SUB-REGRESSION-VALIDATOR",
+            "Wire up /err-* commands"
+          ]
+        }
+      }
+    }
+  },
+  {
+    "op": "add",
+    "path": "/implementation/subagent_system",
+    "value": {
+      "description": "Sub-agent system implementation status and reference",
+      "status": "planned",
+      "completion_percentage": 0,
+      "base_interface": {
+        "location": "core/agents/base_subagent.py (planned)",
+        "class": "BaseSubAgent",
+        "methods": {
+          "execute": {
+            "signature": "execute(input_data: Dict) -> Dict",
+            "description": "Execute sub-agent task with validated input",
+            "returns": "Structured output matching output_schema"
+          },
+          "validate_input": {
+            "signature": "validate_input(input_data: Dict) -> bool",
+            "description": "Validate input against input_schema"
+          },
+          "get_metadata": {
+            "signature": "get_metadata() -> Dict",
+            "description": "Return sub-agent metadata (id, phase, capabilities)"
+          }
+        }
+      },
+      "slash_command_router": {
+        "location": "core/cli/slash_commands.py (planned)",
+        "class": "SlashCommandRouter",
+        "methods": {
+          "register_command": "Register slash command with sub-agent chain",
+          "execute_command": "Parse command, validate, route to sub-agents",
+          "list_commands": "List available commands for current context"
+        }
+      },
+      "orchestrator_integration": {
+        "location": "core/engine/orchestrator.py",
+        "changes_needed": [
+          "Add sub-agent routing logic",
+          "Integrate SlashCommandRouter",
+          "Track sub-agent execution in ledger",
+          "Handle sub-agent errors gracefully"
+        ]
+      },
+      "testing_strategy": {
+        "unit_tests": "Each sub-agent tested in isolation with mock inputs",
+        "integration_tests": "Test sub-agent chains (e.g., /acs-init pipeline)",
+        "slash_command_tests": "Test command parsing and routing",
+        "mock_framework": "Mock sub-agent responses for orchestrator testing"
+      }
+    }
+  }
+]
