@@ -266,6 +266,14 @@ The **Directed Acyclic Graph** that represents all **Tasks** and their `depends_
 * compute parallelism opportunities,
 * detect cycles and impossible constraints.
 
+**Implementation Note:**
+The canonical DAG implementation is provided by `core/state/dag_utils.py`. All DAG operations MUST use the functions defined there (`build_dependency_graph`, `detect_cycles`, `compute_topological_levels`, `compute_critical_path`) rather than re-implementing graph logic.
+
+**Requirements:**
+* **DAG-IMPL-001**: All Phase/Workstream DAG operations MUST be implemented via `core/state/dag_utils.py`.
+* **DAG-IMPL-002**: All DAG consumers MUST operate on the shared `DepGraph` representation (`Dict[str, Set[str]]`).
+* **DAG-IMPL-003**: Cycle detection MUST be applied before computing topological levels.
+
 ---
 
 ### 1.2 TERM: NODE_STATE
