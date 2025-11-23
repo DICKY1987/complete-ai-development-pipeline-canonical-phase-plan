@@ -1,0 +1,240 @@
+# .ai-module-manifest
+# AI-readable module specification for aim
+
+module: "aim"
+purpose: "AI environment manager: tool discovery, installation, configuration"
+layer: "api"  # API/Integration layer - bridges to external AI tools
+
+# Entry points
+entry_points:
+  - file: "bridge.py"
+    function: "get_tool_info(tool_name: str)"
+    description: "Get information about installed AI tool"
+    
+  - file: "bridge.py"
+    function: "install_tool(tool_name: str)"
+    description: "Install AI tool if not present"
+    
+  - file: "discovery.py"
+    function: "discover_tools()"
+    description: "Discover all available AI tools in environment"
+    
+  - command: "python -m aim.discovery"
+    description: "CLI for tool discovery"
+
+# Key patterns
+key_patterns:
+  - "Tools auto-discovered from PATH and known locations"
+  - "Tool adapters implement common interface"
+  - "Installation uses package managers (pip, npm, etc.)"
+  - "Configuration stored in aim_config.yaml"
+  - "Bridges to Aider, Claude Code, GitHub Copilot, etc."
+  - "Lazy loading - tools only loaded when needed"
+
+# Common tasks
+common_tasks:
+  - task: "Check if tool is available"
+    code: |
+      from aim.bridge import get_tool_info
+      info = get_tool_info("aider")
+      if info.installed:
+          print(f"Aider version: {info.version}")
+          
+  - task: "Install missing tool"
+    code: |
+      from aim.bridge import install_tool
+      install_tool("aider")
+      
+  - task: "Discover all available tools"
+    code: |
+      from aim.discovery import discover_tools
+      tools = discover_tools()
+      for tool in tools:
+          print(f"{tool.name}: {tool.status}")
+          
+  - task: "Configure tool preferences"
+    steps:
+      - "Edit aim_config.yaml"
+      - "Set tool paths, preferences"
+      - "Reload configuration"
+
+# Tool adapters
+tool_adapters:
+  aider:
+    description: "Aider AI coding assistant"
+    executable: "aider"
+    install: "pip install aider-chat"
+    
+  claude_code:
+    description: "Claude Code (Anthropic)"
+    executable: "claude"
+    install: "Manual - download from Anthropic"
+    
+  github_copilot:
+    description: "GitHub Copilot CLI"
+    executable: "github-copilot-cli"
+    install: "npm install -g @githubnext/github-copilot-cli"
+
+# Gotchas
+gotchas:
+  - "Tool discovery scans PATH - can be slow on Windows"
+  - "Some tools require API keys (stored separately)"
+  - "Version detection is best-effort (not all tools support --version)"
+  - "Installation requires appropriate package manager (pip/npm)"
+  - "Bridge interface is minimal - tool-specific features via tool itself"
+  - "Auto-installation can fail on permission issues"
+
+# Deprecated
+deprecated:
+  - old: "aim.tools"
+    new: "aim.bridge"
+    reason: "Renamed for clarity (2025-11-15)"
+
+# Dependencies
+dependencies:
+  external:
+    - subprocess  # Tool execution
+    - pathlib
+    - typing
+    - pyyaml  # Configuration
+    
+  internal:
+    - None  # AIM is independent
+    
+  optional:
+    - aider-chat  # If using Aider
+    - "@githubnext/github-copilot-cli"  # If using Copilot
+
+# Architecture
+architecture:
+  components:
+    discovery:
+      responsibility: "Find installed AI tools"
+      mechanism: "PATH scanning + known locations"
+      
+    bridge:
+      responsibility: "Unified interface to tools"
+      interface: "get_tool_info(), install_tool()"
+      
+    adapters:
+      responsibility: "Tool-specific implementations"
+      location: "aim/adapters/"
+
+# Configuration
+configuration:
+  file: "aim_config.yaml"
+  structure:
+    tools:
+      - name: "Tool name"
+        path: "Optional explicit path"
+        enabled: "Boolean"
+        preferences: "Tool-specific settings"
+        
+  example: |
+    tools:
+      - name: aider
+        enabled: true
+        preferences:
+          model: gpt-4
+          
+      - name: claude_code
+        path: /custom/path/to/claude
+        enabled: true
+
+# Test files
+test_files:
+  - "tests/aim/test_discovery.py"
+  - "tests/aim/test_bridge.py"
+  - "tests/aim/test_adapters.py"
+
+# Documentation
+documentation:
+  - "aim/README.md"
+  - "docs/AIM_docs/"
+  - "docs/AIM_INTEGRATION_STATUS.md"
+
+# Status
+status:
+  maturity: "beta"  # ~85% complete
+  test_coverage: "~70%"
+  production_ready: true
+  last_major_change: "2025-11-15 (bridge rename)"
+
+# AI quick reference
+ai_quick_reference:
+  check_tool: "from aim.bridge import get_tool_info; info = get_tool_info('aider')"
+  install: "from aim.bridge import install_tool; install_tool('aider')"
+  discover: "from aim.discovery import discover_tools; tools = discover_tools()"
+
+# Integration with core
+integration:
+  with_core_engine:
+    description: "Tool adapters can be called from workstream steps"
+    example: |
+      {
+        "step_id": "use-aider",
+        "action": "aim.aider.execute",
+        "params": {...}
+      }
+
+# Performance
+performance:
+  - "Discovery: O(n) where n = directories in PATH"
+  - "Tool execution: Depends on external tool"
+  - "Caching: Tool info cached after first discovery"
+
+# Recent changes
+recent_changes:
+  - date: "2025-11-15"
+    change: "Renamed aim.tools to aim.bridge"
+    impact: "Import paths changed"
+    
+  - date: "2025-11-10"
+    change: "Added auto-installation support"
+    impact: "Can install missing tools automatically"
+    
+  - date: "2025-11-08"
+    change: "Improved version detection"
+    impact: "More reliable tool info"
+
+# Related modules
+related_modules:
+  - module: "core.engine"
+    relationship: "Executor calls AIM adapters for AI tool steps"
+    
+  - module: "pm"
+    relationship: "Both are integration layers (AI vs PM)"
+
+# For AI tools
+for_ai_tools:
+  when_to_use: |
+    User wants to:
+    - Use AI coding assistant (Aider, Claude, etc.)
+    - Check if AI tool is installed
+    - Auto-install missing tools
+    
+  suggesting_aim: |
+    1. Check tool availability: get_tool_info('tool_name')
+    2. If not installed: install_tool('tool_name')
+    3. Execute via adapter: adapters.tool_name.execute()
+    
+  common_questions:
+    - q: "Is Aider installed?"
+      a: "from aim.bridge import get_tool_info; get_tool_info('aider').installed"
+      
+    - q: "How do I install Claude Code?"
+      a: "from aim.bridge import install_tool; install_tool('claude_code')"
+      
+    - q: "What AI tools are available?"
+      a: "from aim.discovery import discover_tools; discover_tools()"
+
+# Roadmap
+roadmap:
+  phase_4:
+    - "Complete adapter interfaces"
+    - "Add more AI tools (Cursor, etc.)"
+    
+  future:
+    - "Tool version management"
+    - "Automatic tool updates"
+    - "Tool preference profiles"

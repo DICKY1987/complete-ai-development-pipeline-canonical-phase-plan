@@ -1,4 +1,0 @@
-{"timestamp": "2025-11-19T21:43:16.258804Z", "event_type": "task_received", "task_id": "test-1", "data": {"source_app": "unknown", "mode": "prompt"}}
-{"timestamp": "2025-11-19T21:43:16.280903Z", "event_type": "test_event", "task_id": "task-1", "data": {"test": "data", "_warning": "Unknown event type: test_event"}}
-{"timestamp": "2025-11-19T21:43:28.827978Z", "event_type": "task_received", "task_id": "test-1", "data": {"source_app": "unknown", "mode": "prompt"}}
-{"timestamp": "2025-11-19T21:43:28.847983Z", "event_type": "test_event", "task_id": "task-1", "data": {"test": "data", "_warning": "Unknown event type: test_event"}}
