@@ -1,0 +1,33 @@
+{
+  "id": "ws-uet-phase-b-patch-system",
+  "openspec_change": "uet-001-phase-b-patch-system",
+  "gate": 2,
+  "files_scope": [
+    "core/patches/*.py",
+    "schema/migrations/002_uet_alignment.sql",
+    "config/patch_policies/*.json",
+    "scripts/migrate_db_to_uet.py"
+  ],
+  "files_create": [
+    "core/patches/patch_ledger.py",
+    "core/patches/patch_validator.py",
+    "core/patches/patch_policy.py"
+  ],
+  "tasks": [
+    "Create database migration for patches and ULIDs",
+    "Implement patch ledger with state machine",
+    "Create patch validator",
+    "Implement patch policy engine"
+  ],
+  "acceptance_tests": [
+    "pytest tests/patches/ -v"
+  ],
+  "depends_on": [
+    "ws-uet-phase-a-quick-wins"
+  ],
+  "tool": "aider",
+  "metadata": {
+    "phase": "B",
+    "estimated_hours": 42
+  }
+}

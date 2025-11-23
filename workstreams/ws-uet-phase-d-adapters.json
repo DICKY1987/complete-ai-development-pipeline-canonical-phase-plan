@@ -1,0 +1,21 @@
+{
+  "id": "ws-uet-phase-d-adapters",
+  "openspec_change": "uet-001-phase-d-adapters",
+  "gate": 3,
+  "files_scope": [
+    "core/engine/adapters/*.py",
+    "PROJECT_PROFILE.yaml"
+  ],
+  "tasks": [
+    "Refactor adapters to patch-first mode"
+  ],
+  "depends_on": [
+    "ws-uet-phase-b-patch-system"
+  ],
+  "tool": "aider",
+  "metadata": {
+    "phase": "D",
+    "estimated_hours": 42,
+    "breaking_change": true
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "ws-uet-phase-e-resilience",
+  "openspec_change": "uet-001-phase-e-resilience",
+  "gate": 2,
+  "files_scope": [
+    "core/engine/compensation.py",
+    "core/engine/human_review.py"
+  ],
+  "files_create": [
+    "core/engine/human_review.py",
+    "core/engine/checkpoint.py"
+  ],
+  "tasks": [
+    "Implement Saga compensation pattern",
+    "Create human review workflow"
+  ],
+  "depends_on": [
+    "ws-uet-phase-c-orchestration"
+  ],
+  "tool": "aider",
+  "metadata": {
+    "phase": "E",
+    "estimated_hours": 40
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "id": "ws-uet-phase-c-orchestration",
+  "openspec_change": "uet-001-phase-c-orchestration",
+  "gate": 2,
+  "files_scope": [
+    "core/engine/scheduler_dag.py",
+    "core/engine/merge_strategy.py"
+  ],
+  "files_create": [
+    "core/engine/scheduler_dag.py",
+    "core/engine/merge_strategy.py"
+  ],
+  "tasks": [
+    "Implement DAG scheduler",
+    "Create merge orchestration"
+  ],
+  "acceptance_tests": [
+    "pytest tests/engine/test_scheduler_dag.py -v"
+  ],
+  "depends_on": [
+    "ws-uet-phase-b-patch-system"
+  ],
+  "tool": "aider",
+  "metadata": {
+    "phase": "C",
+    "estimated_hours": 30
+  }
+}

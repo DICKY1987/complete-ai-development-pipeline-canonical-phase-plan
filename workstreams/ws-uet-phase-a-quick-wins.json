@@ -1,0 +1,41 @@
+{
+  "id": "ws-uet-phase-a-quick-wins",
+  "openspec_change": "uet-001-phase-a-quick-wins",
+  "gate": 1,
+  "files_scope": [
+    "schema/uet/*.json",
+    "core/engine/worker_health.py",
+    "core/engine/event_bus.py",
+    "core/engine/feedback_loop.py",
+    "core/engine/context_manager.py",
+    "schema/migrations/001_add_run_events.sql"
+  ],
+  "files_create": [
+    "core/engine/worker_health.py",
+    "core/engine/feedback_loop.py",
+    "core/engine/context_manager.py",
+    "schema/uet/README.md"
+  ],
+  "tasks": [
+    "Copy all 17 UET schemas to schema/uet/",
+    "Implement worker health monitoring with heartbeat",
+    "Add event persistence to database",
+    "Create feedback loop for auto-fix task creation",
+    "Enhance context manager with token estimation and pruning"
+  ],
+  "acceptance_tests": [
+    "pytest tests/engine/test_worker_health.py -v",
+    "pytest tests/engine/test_event_persistence.py -v",
+    "pytest tests/engine/test_feedback_loop.py -v",
+    "pytest tests/engine/test_context_manager.py -v"
+  ],
+  "depends_on": [],
+  "tool": "aider",
+  "metadata": {
+    "parent_change": "uet-001-complete-implementation",
+    "phase": "A",
+    "estimated_hours": 18,
+    "risk_level": "low",
+    "priority": "HIGH"
+  }
+}

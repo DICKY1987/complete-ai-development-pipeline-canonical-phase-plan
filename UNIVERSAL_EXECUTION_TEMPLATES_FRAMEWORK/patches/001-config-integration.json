@@ -1,0 +1,157 @@
+[
+  {
+    "op": "add",
+    "path": "/meta/patch_metadata",
+    "value": {
+      "patch_id": "001-config-integration",
+      "patch_ulid": "01JDK7XWQP8PATCH001CONFIG01",
+      "created_at": "2025-11-23T11:01:12.785Z",
+      "description": "Integrate configuration files (CODEBASE_INDEX, ai_policies, QUALITY_GATE, PROJECT_PROFILE, PRO_Phase Spec) into master plan",
+      "source_files": [
+        "CODEBASE_INDEX.yaml",
+        "ai_policies.yaml",
+        "QUALITY_GATE.yaml",
+        "PROJECT_PROFILE.yaml",
+        "PRO_Phase Specification mandatory structure.md"
+      ],
+      "operations_count": 22,
+      "priority": "CRITICAL",
+      "approved_by": "human",
+      "applied": false
+    }
+  },
+  {
+    "op": "add",
+    "path": "/meta/architecture",
+    "value": {
+      "layers": ["infra", "domain", "api", "ui"],
+      "layer_enforcement": true,
+      "dependency_graph_location": "CODEBASE_INDEX.yaml",
+      "layered_architecture_doc": "docs/ARCHITECTURE.md",
+      "circular_dependency_check": true
+    }
+  },
+  {
+    "op": "add",
+    "path": "/meta/three_engine_problem",
+    "value": {
+      "problem_description": "Repository contains THREE separate execution engines that need unification",
+      "core_engine": {
+        "location": "core/engine/",
+        "model": "Workstream-based orchestration",
+        "state": "SQLite pipeline_state.db",
+        "priority": "primary"
+      },
+      "job_engine": {
+        "location": "engine/",
+        "model": "Job JSON pattern",
+        "state": "JobStateStore protocol",
+        "priority": "secondary"
+      },
+      "uet_framework": {
+        "location": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/",
+        "model": "Bootstrap + Profile + Task Router",
+        "state": "Minimal (portable)",
+        "priority": "reference"
+      },
+      "unification_needed": true,
+      "unification_phase": "PH-007"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/meta/system_alignment",
+    "value": {
+      "uet_framework_location": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/",
+      "production_pipeline_location": ["core/", "engine/", "error/"],
+      "current_alignment_percentage": 40,
+      "alignment_goal": 100,
+      "alignment_strategy": "incremental_migration"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/meta/existing_components",
+    "value": {
+      "worker_lifecycle": {"completion": 80, "location": "core/engine/worker.py"},
+      "event_bus": {"completion": 85, "location": "core/engine/event_bus.py"},
+      "patch_manager": {"completion": 50, "location": "core/engine/patch_manager.py"},
+      "integration_worker": {"completion": 60, "location": "core/engine/integration_worker.py"},
+      "cost_tracker": {"completion": 75, "location": "core/engine/cost_tracker.py"},
+      "test_gates": {"completion": 65, "location": "core/engine/test_gates.py"}
+    }
+  },
+  {
+    "op": "add",
+    "path": "/meta/ai_policies",
+    "value": {
+      "policy_file": "ai_policies.yaml",
+      "zones": {
+        "safe_to_modify": ["core/**/*.py", "tests/**/*.py", "scripts/**/*.py"],
+        "review_required": ["schema/**", "config/**"],
+        "read_only": ["legacy/**", "src/pipeline/**"]
+      }
+    }
+  },
+  {
+    "op": "add",
+    "path": "/meta/project",
+    "value": {
+      "project_id": "PRJ-COMPLETE_AI_DEVELOPMENT_PIPELINE",
+      "project_name": "Complete AI Development Pipeline",
+      "profile_id": "generic",
+      "domain": "mixed"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/meta/constraints",
+    "value": {
+      "max_lines_changed_per_patch": 500,
+      "patch_only_mode": true
+    }
+  },
+  {
+    "op": "add",
+    "path": "/meta/framework_paths",
+    "value": {
+      "worktrees_dir": ".worktrees/",
+      "ledger_dir": ".ledger/",
+      "tasks_dir": ".tasks/",
+      "state_dir": ".state/"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/meta/phase_specification",
+    "value": {
+      "spec_file": "PRO_Phase Specification mandatory structure.md",
+      "enforcement": "mandatory",
+      "required_fields": ["phase_id", "workstream_id", "objective", "file_scope", "acceptance_tests"]
+    }
+  },
+  {
+    "op": "add",
+    "path": "/validation/quality_gates",
+    "value": {
+      "gate_file": "QUALITY_GATE.yaml",
+      "required_gates": ["test.pytest", "ci.path_standards", "error.import_validation"],
+      "blocking_gates": ["test.pytest", "ci.path_standards"]
+    }
+  },
+  {
+    "op": "add",
+    "path": "/phases/PH-007",
+    "value": {
+      "phase_id": "PH-007",
+      "phase_ulid": "01JDK7XWQP8PH007UNIFY00001",
+      "name": "Engine Unification",
+      "description": "Unify three execution engines into coherent architecture",
+      "priority": "CRITICAL",
+      "status": "ready",
+      "estimated_duration_hours": 24,
+      "dependencies": ["PH-002", "PH-003"],
+      "workstreams": {}
+    }
+  }
+]

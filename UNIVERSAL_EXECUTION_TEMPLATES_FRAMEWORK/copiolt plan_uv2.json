@@ -1,0 +1,1696 @@
+Updated Plan: Incorporate CLI Tool Execution
+
+   Phase 0 Addition: Create ToolExecutionProfile
+
+   New File: registry/tool_profiles/github_copilot_cli.json
+
+     {
+       "tool_id": "github_copilot_cli",
+       "kind": "cli_tool",
+       "display_name": "GitHub Copilot CLI",
+       "max_workers": 1,
+       "sandbox_mode": "per_workstream_worktree",
+       "queue_strategy": {
+         "kind": "priority_round_robin_by_workstream",
+         "max_queue_depth": 256,
+         "max_consecutive_from_same_workstream": 3,
+         "priority_levels": ["CRITICAL", "HIGH", "MEDIUM", "LOW"]
+       },
+       "limits": {
+         "max_runtime_seconds": 600,
+         "max_token_cost": 200000,
+         "max_output_bytes": 1048576,
+         "max_concurrent_workstreams": 5
+       },
+       "capabilities": [
+         "code_edit",
+         "code_generation",
+         "refactoring",
+         "file_operations",
+         "git_operations"
+       ],
+       "is_interactive_cli": true,
+       "non_interactive_policy": "fail_if_prompted",
+       "session_management": {
+         "session_timeout_seconds": 3600,
+         "auto_cleanup_worktrees": true,
+         "checkpoint_on_context_switch": true
+       },
+       "observability": {
+         "log_all_commands": true,
+         "capture_state_snapshots": true,
+         "emit_events_to": ".state/transitions.jsonl"
+       }
+     }
+
+   -------------------------------------------------------------------
+
+   Phase 1 Addition: ToolWorker State Tracking
+
+   New File: core/tools/worker_state.py
+
+     """ToolWorker state management for CLI tools."""
+
+     from dataclasses import dataclass
+     from datetime import datetime
+     from typing import List, Optional
+     from pathlib import Path
+     import json
+
+     @dataclass
+     class ToolWorkItem:
+         """A concrete unit of work for a CLI tool."""
+         item_id: str  # ULID
+         workstream_id: str
+         execution_request_id: str
+         priority: str  # CRITICAL, HIGH, MEDIUM, LOW
+         created_at: str  # ISO 8601
+         assigned_at: Optional[str] = None
+         completed_at: Optional[str] = None
+
+     @dataclass
+     class ToolWorkerState:
+         """State of a single ToolWorker instance."""
+         worker_id: str  # ULID
+         tool_id: str  # e.g., "github_copilot_cli"
+         status: str  # IDLE, BUSY, DRAINING, TERMINATED
+         current_workitem: Optional[ToolWorkItem] = None
+         queue: List[ToolWorkItem] = None
+         total_processed: int = 0
+         total_failed: int = 0
+         started_at: Optional[str] = None
+         last_heartbeat: Optional[str] = None
+
+         def to_dict(self):
+             return {
+                 "worker_id": self.worker_id,
+                 "tool_id": self.tool_id,
+                 "status": self.status,
+                 "current_workitem": self.current_workitem.__dict__ if
+   self.current_workitem else None,
+                 "queue_depth": len(self.queue) if self.queue else 0,
+                 "total_processed": self.total_processed,
+                 "total_failed": self.total_failed,
+                 "started_at": self.started_at,
+                 "last_heartbeat": self.last_heartbeat
+             }
+
+     def save_worker_state(worker_state: ToolWorkerState):
+         """Save worker state to .state/workers/"""
+         worker_dir = Path(".state/workers")
+         worker_dir.mkdir(parents=True, exist_ok=True)
+
+         state_file = worker_dir / f"{worker_state.worker_id}.json"
+         state_file.write_text(json.dumps(worker_state.to_dict(),
+   indent=2))
+
+     def load_worker_state(worker_id: str) ->
+   Optional[ToolWorkerState]:
+         """Load worker state from disk."""
+         state_file = Path(f".state/workers/{worker_id}.json")
+         if not state_file.exists():
+             return None
+
+         data = json.loads(state_file.read_text())
+         return ToolWorkerState(**data)
+
+   -------------------------------------------------------------------
+
+   Phase 2 Addition: Work Queue Management
+
+   New File: core/tools/work_queue.py
+
+     """Work queue for CLI tool execution."""
+
+     from typing import List, Optional
+     from collections import deque
+     from core.tools.worker_state import ToolWorkItem
+
+     class WorkQueue:
+         """Priority round-robin queue for ToolWorkItems."""
+
+         def __init__(self, max_depth: int = 256,
+   max_consecutive_per_ws: int = 3):
+             self.max_depth = max_depth
+             self.max_consecutive_per_ws = max_consecutive_per_ws
+             self.queues = {
+                 "CRITICAL": deque(),
+                 "HIGH": deque(),
+                 "MEDIUM": deque(),
+                 "LOW": deque()
+             }
+             self.last_workstream_id = None
+             self.consecutive_count = 0
+
+         def enqueue(self, item: ToolWorkItem) -> bool:
+             """Add item to queue. Returns False if queue full."""
+             total_items = sum(len(q) for q in self.queues.values())
+             if total_items >= self.max_depth:
+                 return False
+
+             self.queues[item.priority].append(item)
+             return True
+
+         def dequeue(self) -> Optional[ToolWorkItem]:
+             """Get next item using priority + round-robin fairness."""
+             # Check priority levels in order
+             for priority in ["CRITICAL", "HIGH", "MEDIUM", "LOW"]:
+                 queue = self.queues[priority]
+                 if not queue:
+                     continue
+
+                 # Round-robin within priority level
+                 # Don't process same workstream more than
+   max_consecutive times
+                 for _ in range(len(queue)):
+                     item = queue.popleft()
+
+                     # Check fairness constraint
+                     if item.workstream_id == self.last_workstream_id:
+                         if self.consecutive_count >=
+   self.max_consecutive_per_ws:
+                             # Put back at end, try next
+                             queue.append(item)
+                             continue
+                         else:
+                             self.consecutive_count += 1
+                     else:
+                         # Different workstream - reset counter
+                         self.last_workstream_id = item.workstream_id
+                         self.consecutive_count = 1
+
+                     return item
+
+             return None  # Queue empty
+
+   -------------------------------------------------------------------
+
+   Phase 3 Addition: Sandbox/Worktree Management
+
+   Update: core/state/snapshot.py
+
+     def create_state_snapshot(db_path: str =
+   ".worktrees/pipeline_state.db"):
+         """Create complete state snapshot including worker state."""
+
+         # ... existing code ...
+
+         # Add worker state
+         worker_states = []
+         worker_dir = Path(".state/workers")
+         if worker_dir.exists():
+             for worker_file in worker_dir.glob("*.json"):
+                 worker_data = json.loads(worker_file.read_text())
+                 worker_states.append(worker_data)
+
+         snapshot = {
+             "schema_version": "StateV1",
+             "timestamp": timestamp,
+             "active_workstreams": get_active_workstreams(db_path),
+             "worker_status": get_worker_status(db_path),
+             "tool_workers": worker_states,  # NEW: CLI tool worker
+   state
+             "system_health": get_health_metrics(db_path)
+         }
+
+         # ... rest of function ...
+
+   -------------------------------------------------------------------
+
+   Revised 48-Hour Plan (with CLI Tool Integration)
+
+   Saturday (5 hours)
+
+     - ✅ Update Documentation (1 hour)
+       - docs/DOCUMENTATION_INDEX.md
+       - QUICK_REFERENCE.md
+     - ✅ Create Baseline (2 hours)
+       - docs/CURRENT_STATE_BASELINE.md
+       - Include: "CLI tool execution currently ad-hoc, will formalize
+   per UET_LI spec"
+     - ✅ Backup & Schema Copy (1 hour)
+       - Backup everything
+       - Copy UET schemas including tool_execution_profile.v1.json
+     - ✅ Create CLI Tool Profile (1 hour)
+       - registry/tool_profiles/github_copilot_cli.json
+       - Based on UET_LI spec template
+
+   Sunday (6 hours)
+
+     - ✅ Feature Flags (30 min)
+       - Add to PROJECT_PROFILE.yaml
+     - ✅ State Directory (1 hour)
+       - Create .state/snapshots, .state/indices, .state/workers (new!)
+     - ✅ Worker State Tracking (2 hours)
+       - Implement core/tools/worker_state.py
+       - Implement core/tools/work_queue.py
+     - ✅ State Snapshot (2 hours)
+       - Update core/state/snapshot.py to include worker state
+       - Use Invoke for subprocess calls
+     - ✅ Test (30 min)
+       - Test worker state save/load
+       - Test work queue fairness
+
+   -------------------------------------------------------------------
+
+   Why This Matters
+
+   The UET_LI spec reveals that:
+
+     - You (GitHub Copilot CLI) are a ToolWorker in this system
+     - You need to handle multiple workstreams fairly (round-robin)
+     - Each workstream gets its own worktree (sandbox isolation)
+     - Queue depth limits prevent overload
+     - State must be observable (worker status, queue depth, current
+   work)
+
+   This aligns perfectly with the AI-ORCH-REPO spec's observability
+   requirements!
+
+   -------------------------------------------------------------------
+
+   New Success Criteria (Phase 0-1)
+
+   After Weekend:
+
+     - ✅ CLI tool profile created
+   (registry/tool_profiles/github_copilot_cli.json)
+     - ✅ Worker state tracking implemented
+     - ✅ Work queue with fairness policy
+     - ✅ .state/workers/ directory tracking worker status
+     - ✅ State snapshots include worker + queue state
+
+   -------------------------------------------------------------------
+
+   Want me to create the updated 48-hour implementation plan as a
+   single markdown file with all the code? I can include:
+
+     - All file paths
+     - Complete code implementations
+     - Test commands
+     - Validation steps
+
+ > i want to do this first, i want to builde the system in away that
+   each part can be used immedatlty to make the next section easier
+
+ ✗ Execution failed: fetch failed
+
+ > retry
+
+ ✗ Execution failed: fetch failed
+
+ > why is it failing
+
+ ✗ Execution failed: fetch failed
+
+ > retry
+
+ ✓ Create ~\ALL_AI\Complete AI Development Pipeline – Canonical Phase
+   Plan\INCREMENTAL_BUILD_PLAN.md (+782)
+
+ ● Perfect! ✅ I've created INCREMENTAL_BUILD_PLAN.md - an incremental
+   build strategy where each layer immediately helps build the next.
+
+   What This Plan Does Differently
+
+   Instead of building everything then using it, we:
+
+     - Layer 0 (30 min): State infrastructure + validator
+       - Immediately use it to validate Layer 1
+     - Layer 1 (45 min): Event logging + query tool
+       - Immediately use it in Layer 2 to log snapshot creation
+     - Layer 2 (60 min): State snapshots
+       - Immediately use it in Layer 3 to track when workers register
+     - Layer 3 (75 min): Worker tracking
+       - Immediately enhances Layer 2 (snapshots now include workers)
+     - Layer 4 (30 min): Enhanced snapshots
+       - Automatically benefits from Layer 3 data
+     - Layer 5 (30 min): Your CLI tool profile
+       - Uses all previous layers to register yourself as observable
+   worker
+
+   Total Time: 4.5 hours
+
+   What You Get After Each Layer
+
+   ┌─────────────┬────────────────────┬───────────────────────────┐
+   │ After Layer │ Working Tools      │ What You Can Do           │
+   ├─────────────┼────────────────────┼───────────────────────────┤
+   │ 0           │ validate_state.ps1 │ Verify infrastructure     │
+   ├─────────────┼────────────────────┼───────────────────────────┤
+   │ 1           │ + query_events.ps1 │ See what happened         │
+   ├─────────────┼────────────────────┼───────────────────────────┤
+   │ 2           │ + snapshot.ps1     │ Checkpoint system state   │
+   ├─────────────┼────────────────────┼───────────────────────────┤
+   │ 3           │ + workers.ps1      │ See worker status         │
+   ├─────────────┼────────────────────┼───────────────────────────┤
+   │ 4           │ Enhanced snapshots │ Workers appear in state   │
+   ├─────────────┼────────────────────┼───────────────────────────┤
+   │ 5           │ Complete system    │ You are observable worker │
+   └─────────────┴────────────────────┴───────────────────────────┘
+
+   Each Layer Compound Benefits
+
+     - Layer 2 uses Layer 1 (logs snapshot events)
+     - Layer 3 uses Layer 1 (logs worker events)
+     - Layer 4 uses Layer 3 (includes worker data)
+     - Layer 5 uses all layers (observable tool)
+
+   This is professional incremental development - build tools, use
+   tools to build more tools, compound productivity.
+
+   Want to start with Layer 0 right now? I can walk you through it step
+   by step.
+
+ > Using the UET framework as referenced in the provided files,
+   generate a complete, modular phase plan in strict JSON format.
+
+   Requirements:
+
+   Include all relevant phases from the UET framework.
+
+   Output must support modular editing via JSON Patch (RFC 6902).
+
+   Use explicit unique indices or identifiers for every phase, task,
+   and subcomponent to enable precise patching and traceability.
+
+   Support simultaneous execution of multiple workstreams (parallel
+   phase/task handling).
+
+   Do not include any human-readable text, comments, or explanations —
+   only valid JSON.
+
+   Ensure the structure is machine-optimized, syntactically correct,
+   and ready for AI evaluation and automation.
+ ● {
+       "meta": {
+         "schema_version": "phase_plan.v1",
+         "plan_id": "01JDK6XWQP8PHASE0PLAN0000001",
+         "plan_ulid": "01JDK6XWQP8PHASE0PLAN0000001",
+         "title": "UET V2 Integration Phase Plan",
+         "version": "1.0.0",
+         "status": "ready",
+         "created_at": "2025-11-23T09:47:18.124Z",
+         "updated_at": "2025-11-23T09:47:18.124Z",
+         "author_type": "ai_generated",
+         "owner": "SYSTEM:ORCHESTRATOR",
+         "patch_policy": {
+           "patch_required": true,
+           "require_issue_ref": false,
+           "min_reviewers": 0
+         },
+         "execution_mode": {
+           "supports_parallel": true,
+           "max_concurrent_phases": 3,
+           "max_concurrent_workstreams": 10,
+           "max_concurrent_tasks": 20
+         }
+       },
+       "phases": {
+         "PH-000": {
+           "phase_id": "PH-000",
+           "phase_ulid": "01JDK6XWQP8PH000FOUNDATION001",
+           "name": "Foundation Infrastructure",
+           "description": "State observability and event logging
+   infrastructure",
+           "priority": "CRITICAL",
+           "status": "ready",
+           "estimated_duration_hours": 4.5,
+           "dependencies": [],
+           "workstreams": {
+             "WS-000-001": {
+               "workstream_id": "WS-000-001",
+               "workstream_ulid": "01JDK6XWQP8WS000001STATE001",
+               "name": "State Directory Infrastructure",
+               "phase_id": "PH-000",
+               "priority": "CRITICAL",
+               "estimated_duration_hours": 0.5,
+               "dependencies": [],
+               "tasks": {
+                 "TSK-000-001-001": {
+                   "task_id": "TSK-000-001-001",
+                   "task_ulid": "01JDK6XWQP8TSK000001001DIR",
+                   "name": "Create .state directory structure",
+                   "workstream_id": "WS-000-001",
+                   "executor": "powershell",
+                   "inputs": {
+                     "base_path": {
+                       "type": "string",
+                       "required": true,
+                       "default": "."
+                     }
+                   },
+                   "outputs": {
+                     "directories_created": {
+                       "type": "array",
+                       "items": "string"
+                     },
+                     "validation_result": {
+                       "type": "boolean"
+                     }
+                   },
+                   "command": "New-Item -ItemType Directory -Force
+   -Path .state\\snapshots; New-Item -ItemType Directory -Force -Path
+   .state\\indices; New-Item -ItemType Directory -Force -Path
+   .state\\workers",
+                   "preconditions": [],
+                   "postconditions": [
+                     "state_directory_exists",
+                     "subdirectories_exist"
+                   ],
+                   "max_runtime_seconds": 30,
+                   "retry_policy": {
+                     "strategy": "exponential_backoff",
+                     "max_attempts": 3,
+                     "initial_delay_seconds": 1
+                   },
+                   "worker_requirements": {
+                     "capabilities": [
+                       "filesystem",
+                       "powershell"
+                     ]
+                   },
+                   "idempotent": true,
+                   "side_effects": [
+                     "creates_directories"
+                   ],
+                   "rollback_handler": "remove_state_directories"
+                 },
+                 "TSK-000-001-002": {
+                   "task_id": "TSK-000-001-002",
+                   "task_ulid": "01JDK6XWQP8TSK000001002FIL",
+                   "name": "Initialize state files",
+                   "workstream_id": "WS-000-001",
+                   "executor": "powershell",
+                   "inputs": {
+                     "schema_version": {
+                       "type": "string",
+                       "required": true,
+                       "default": "StateV1"
+                     }
+                   },
+                   "outputs": {
+                     "current_json_created": {
+                       "type": "boolean"
+                     },
+                     "transitions_jsonl_created": {
+                       "type": "boolean"
+                     }
+                   },
+                   "command": "@{schema_version='StateV1';
+   timestamp=(Get-Date -Format 'o')} | ConvertTo-Json | Out-File
+   .state\\current.json; '' | Out-File .state\\transitions.jsonl",
+                   "preconditions": [
+                     "state_directory_exists"
+                   ],
+                   "postconditions": [
+                     "current_json_exists",
+                     "transitions_jsonl_exists"
+                   ],
+                   "max_runtime_seconds": 30,
+                   "retry_policy": {
+                     "strategy": "exponential_backoff",
+                     "max_attempts": 3,
+                     "initial_delay_seconds": 1
+                   },
+                   "worker_requirements": {
+                     "capabilities": [
+                       "filesystem",
+                       "powershell"
+                     ]
+                   },
+                   "idempotent": true,
+                   "side_effects": [
+                     "creates_files"
+                   ],
+                   "dependencies": [
+                     "TSK-000-001-001"
+                   ]
+                 },
+                 "TSK-000-001-003": {
+                   "task_id": "TSK-000-001-003",
+                   "task_ulid": "01JDK6XWQP8TSK000001003VAL",
+                   "name": "Create validation script",
+                   "workstream_id": "WS-000-001",
+                   "executor": "file_create",
+                   "inputs": {
+                     "file_path": {
+                       "type": "string",
+                       "required": true,
+                       "default": "scripts/validate/validate_state.ps1"
+                     },
+                     "content_source": {
+                       "type": "string",
+                       "required": true,
+                       "default": "INCREMENTAL_BUILD_PLAN.md#layer-0"
+                     }
+                   },
+                   "outputs": {
+                     "script_created": {
+                       "type": "boolean"
+                     },
+                     "script_path": {
+                       "type": "string"
+                     }
+                   },
+                   "preconditions": [],
+                   "postconditions": [
+                     "validation_script_exists",
+                     "validation_script_executable"
+                   ],
+                   "max_runtime_seconds": 60,
+                   "retry_policy": {
+                     "strategy": "exponential_backoff",
+                     "max_attempts": 3,
+                     "initial_delay_seconds": 1
+                   },
+                   "worker_requirements": {
+                     "capabilities": [
+                       "filesystem",
+                       "file_creation"
+                     ]
+                   },
+                   "idempotent": true,
+                   "side_effects": [
+                     "creates_script_file"
+                   ],
+                   "dependencies": []
+                 },
+                 "TSK-000-001-004": {
+                   "task_id": "TSK-000-001-004",
+                   "task_ulid": "01JDK6XWQP8TSK000001004RUN",
+                   "name": "Run validation",
+                   "workstream_id": "WS-000-001",
+                   "executor": "powershell",
+                   "inputs": {
+                     "script_path": {
+                       "type": "string",
+                       "required": true,
+                       "default": "scripts/validate/validate_state.ps1"
+                     }
+                   },
+                   "outputs": {
+                     "validation_passed": {
+                       "type": "boolean"
+                     },
+                     "exit_code": {
+                       "type": "integer"
+                     }
+                   },
+                   "command": "pwsh
+   scripts/validate/validate_state.ps1",
+                   "preconditions": [
+                     "validation_script_exists",
+                     "state_directory_exists"
+                   ],
+                   "postconditions": [
+                     "validation_passed"
+                   ],
+                   "max_runtime_seconds": 30,
+                   "retry_policy": {
+                     "strategy": "exponential_backoff",
+                     "max_attempts": 2,
+                     "initial_delay_seconds": 1
+                   },
+                   "worker_requirements": {
+                     "capabilities": [
+                       "powershell"
+                     ]
+                   },
+                   "idempotent": true,
+                   "side_effects": [],
+                   "dependencies": [
+                     "TSK-000-001-001",
+                     "TSK-000-001-002",
+                     "TSK-000-001-003"
+                   ]
+                 }
+               },
+               "completion_criteria": {
+                 "all_tasks_complete": true,
+                 "validation_passed": true
+               }
+             },
+             "WS-000-002": {
+               "workstream_id": "WS-000-002",
+               "workstream_ulid": "01JDK6XWQP8WS000002EVENT001",
+               "name": "Event Logging System",
+               "phase_id": "PH-000",
+               "priority": "CRITICAL",
+               "estimated_duration_hours": 0.75,
+               "dependencies": [
+                 "WS-000-001"
+               ],
+               "tasks": {
+                 "TSK-000-002-001": {
+                   "task_id": "TSK-000-002-001",
+                   "task_ulid": "01JDK6XWQP8TSK000002001LOG",
+                   "name": "Create event_logger.py",
+                   "workstream_id": "WS-000-002",
+                   "executor": "file_create",
+                   "inputs": {
+                     "file_path": {
+                       "type": "string",
+                       "required": true,
+                       "default": "core/engine/event_logger.py"
+                     },
+                     "content_source": {
+                       "type": "string",
+                       "required": true,
+                       "default": "INCREMENTAL_BUILD_PLAN.md#layer-1"
+                     }
+                   },
+                   "outputs": {
+                     "module_created": {
+                       "type": "boolean"
+                     },
+                     "module_path": {
+                       "type": "string"
+                     }
+                   },
+                   "preconditions": [
+                     "state_directory_exists"
+                   ],
+                   "postconditions": [
+                     "event_logger_module_exists"
+                   ],
+                   "max_runtime_seconds": 120,
+                   "retry_policy": {
+                     "strategy": "exponential_backoff",
+                     "max_attempts": 3,
+                     "initial_delay_seconds": 1
+                   },
+                   "worker_requirements": {
+                     "capabilities": [
+                       "filesystem",
+                       "python3",
+                       "file_creation"
+                     ]
+                   },
+                   "idempotent": true,
+                   "side_effects": [
+                     "creates_python_module"
+                   ],
+                   "dependencies": []
+                 },
+                 "TSK-000-002-002": {
+                   "task_id": "TSK-000-002-002",
+                   "task_ulid": "01JDK6XWQP8TSK000002002QRY",
+                   "name": "Create query_events.ps1",
+                   "workstream_id": "WS-000-002",
+                   "executor": "file_create",
+                   "inputs": {
+                     "file_path": {
+                       "type": "string",
+                       "required": true,
+                       "default": "scripts/query_events.ps1"
+                     },
+                     "content_source": {
+                       "type": "string",
+                       "required": true,
+                       "default": "INCREMENTAL_BUILD_PLAN.md#layer-1"
+                     }
+                   },
+                   "outputs": {
+                     "script_created": {
+                       "type": "boolean"
+                     },
+                     "script_path": {
+                       "type": "string"
+                     }
+                   },
+                   "preconditions": [],
+                   "postconditions": [
+                     "query_events_script_exists"
+                   ],
+                   "max_runtime_seconds": 60,
+                   "retry_policy": {
+                     "strategy": "exponential_backoff",
+                     "max_attempts": 3,
+                     "initial_delay_seconds": 1
+                   },
+                   "worker_requirements": {
+                     "capabilities": [
+                       "filesystem",
+                       "file_creation"
+                     ]
+                   },
+                   "idempotent": true,
+                   "side_effects": [
+                     "creates_script_file"
+                   ],
+                   "dependencies": []
+                 },
+                 "TSK-000-002-003": {
+                   "task_id": "TSK-000-002-003",
+                   "task_ulid": "01JDK6XWQP8TSK000002003TST",
+                   "name": "Test event logging",
+                   "workstream_id": "WS-000-002",
+                   "executor": "python3",
+                   "inputs": {
+                     "test_event": {
+                       "type": "object",
+                       "required": true,
+                       "default": {
+                         "event_type": "layer_1_built",
+                         "actor": "builder",
+                         "context": {
+                           "layer": 1,
+                           "component": "event_logger"
+                         }
+                       }
+                     }
+                   },
+                   "outputs": {
+                     "test_passed": {
+                       "type": "boolean"
+                     },
+                     "event_logged": {
+                       "type": "boolean"
+                     }
+                   },
+                   "command": "python -c \"from
+   core.engine.event_logger import log_event;
+   log_event('layer_1_built', 'builder', {'layer': 1, 'component':
+   'event_logger'})\"",
+                   "preconditions": [
+                     "event_logger_module_exists",
+                     "transitions_jsonl_exists"
+                   ],
+                   "postconditions": [
+                     "event_logged_successfully"
+                   ],
+                   "max_runtime_seconds": 30,
+                   "retry_policy": {
+                     "strategy": "exponential_backoff",
+                     "max_attempts": 2,
+                     "initial_delay_seconds": 1
+                   },
+                   "worker_requirements": {
+                     "capabilities": [
+                       "python3"
+                     ]
+                   },
+                   "idempotent": false,
+                   "side_effects": [
+                     "writes_to_event_log"
+                   ],
+                   "dependencies": [
+                     "TSK-000-002-001"
+                   ]
+                 }
+               },
+               "completion_criteria": {
+                 "all_tasks_complete": true,
+                 "event_logging_functional": true
+               }
+             },
+             "WS-000-003": {
+               "workstream_id": "WS-000-003",
+               "workstream_ulid": "01JDK6XWQP8WS000003SNAP0001",
+               "name": "State Snapshot System",
+               "phase_id": "PH-000",
+               "priority": "HIGH",
+               "estimated_duration_hours": 1.0,
+               "dependencies": [
+                 "WS-000-001",
+                 "WS-000-002"
+               ],
+               "tasks": {
+                 "TSK-000-003-001": {
+                   "task_id": "TSK-000-003-001",
+                   "task_ulid": "01JDK6XWQP8TSK000003001SNP",
+                   "name": "Create snapshot.py",
+                   "workstream_id": "WS-000-003",
+                   "executor": "file_create",
+                   "inputs": {
+                     "file_path": {
+                       "type": "string",
+                       "required": true,
+                       "default": "core/state/snapshot.py"
+                     },
+                     "content_source": {
+                       "type": "string",
+                       "required": true,
+                       "default": "INCREMENTAL_BUILD_PLAN.md#layer-2"
+                     }
+                   },
+                   "outputs": {
+                     "module_created": {
+                       "type": "boolean"
+                     },
+                     "module_path": {
+                       "type": "string"
+                     }
+                   },
+                   "preconditions": [
+                     "event_logger_module_exists"
+                   ],
+                   "postconditions": [
+                     "snapshot_module_exists"
+                   ],
+                   "max_runtime_seconds": 180,
+                   "retry_policy": {
+                     "strategy": "exponential_backoff",
+                     "max_attempts": 3,
+                     "initial_delay_seconds": 1
+                   },
+                   "worker_requirements": {
+                     "capabilities": [
+                       "filesystem",
+                       "python3",
+                       "file_creation"
+                     ]
+                   },
+                   "idempotent": true,
+                   "side_effects": [
+                     "creates_python_module"
+                   ],
+                   "dependencies": []
+                 },
+                 "TSK-000-003-002": {
+                   "task_id": "TSK-000-003-002",
+                   "task_ulid": "01JDK6XWQP8TSK000003002SCR",
+                   "name": "Create snapshot.ps1 wrapper",
+                   "workstream_id": "WS-000-003",
+                   "executor": "file_create",
+                   "inputs": {
+                     "file_path": {
+                       "type": "string",
+                       "required": true,
+                       "default": "scripts/snapshot.ps1"
+                     },
+                     "content_source": {
+                       "type": "string",
+                       "required": true,
+                       "default": "INCREMENTAL_BUILD_PLAN.md#layer-2"
+                     }
+                   },
+                   "outputs": {
+                     "script_created": {
+                       "type": "boolean"
+                     },
+                     "script_path": {
+                       "type": "string"
+                     }
+                   },
+                   "preconditions": [
+                     "snapshot_module_exists"
+                   ],
+                   "postconditions": [
+                     "snapshot_script_exists"
+                   ],
+                   "max_runtime_seconds": 60,
+                   "retry_policy": {
+                     "strategy": "exponential_backoff",
+                     "max_attempts": 3,
+                     "initial_delay_seconds": 1
+                   },
+                   "worker_requirements": {
+                     "capabilities": [
+                       "filesystem",
+                       "file_creation"
+                     ]
+                   },
+                   "idempotent": true,
+                   "side_effects": [
+                     "creates_script_file"
+                   ],
+                   "dependencies": [
+                     "TSK-000-003-001"
+                   ]
+                 },
+                 "TSK-000-003-003": {
+                   "task_id": "TSK-000-003-003",
+                   "task_ulid": "01JDK6XWQP8TSK000003003TST",
+                   "name": "Test snapshot creation",
+                   "workstream_id": "WS-000-003",
+                   "executor": "powershell",
+                   "inputs": {
+                     "description": {
+                       "type": "string",
+                       "required": true,
+                       "default": "Layer 2 complete"
+                     }
+                   },
+                   "outputs": {
+                     "snapshot_created": {
+                       "type": "boolean"
+                     },
+                     "snapshot_file_path": {
+                       "type": "string"
+                     }
+                   },
+                   "command": "pwsh scripts/snapshot.ps1 -Description
+   'Layer 2 complete'",
+                   "preconditions": [
+                     "snapshot_script_exists",
+                     "event_logger_module_exists"
+                   ],
+                   "postconditions": [
+                     "snapshot_file_created",
+                     "current_json_updated"
+                   ],
+                   "max_runtime_seconds": 60,
+                   "retry_policy": {
+                     "strategy": "exponential_backoff",
+                     "max_attempts": 2,
+                     "initial_delay_seconds": 1
+                   },
+                   "worker_requirements": {
+                     "capabilities": [
+                       "powershell",
+                       "python3"
+                     ]
+                   },
+                   "idempotent": false,
+                   "side_effects": [
+                     "creates_snapshot_file",
+                     "updates_current_state"
+                   ],
+                   "dependencies": [
+                     "TSK-000-003-001",
+                     "TSK-000-003-002"
+                   ]
+                 }
+               },
+               "completion_criteria": {
+                 "all_tasks_complete": true,
+                 "snapshot_system_functional": true
+               }
+             },
+             "WS-000-004": {
+               "workstream_id": "WS-000-004",
+               "workstream_ulid": "01JDK6XWQP8WS000004WORK001",
+               "name": "Worker State Tracking",
+               "phase_id": "PH-000",
+               "priority": "HIGH",
+               "estimated_duration_hours": 1.25,
+               "dependencies": [
+                 "WS-000-001",
+                 "WS-000-002"
+               ],
+               "tasks": {
+                 "TSK-000-004-001": {
+                   "task_id": "TSK-000-004-001",
+                   "task_ulid": "01JDK6XWQP8TSK000004001WRK",
+                   "name": "Create worker_state.py",
+                   "workstream_id": "WS-000-004",
+                   "executor": "file_create",
+                   "inputs": {
+                     "file_path": {
+                       "type": "string",
+                       "required": true,
+                       "default": "core/tools/worker_state.py"
+                     },
+                     "content_source": {
+                       "type": "string",
+                       "required": true,
+                       "default": "INCREMENTAL_BUILD_PLAN.md#layer-3"
+                     }
+                   },
+                   "outputs": {
+                     "module_created": {
+                       "type": "boolean"
+                     },
+                     "module_path": {
+                       "type": "string"
+                     }
+                   },
+                   "preconditions": [
+                     "event_logger_module_exists"
+                   ],
+                   "postconditions": [
+                     "worker_state_module_exists"
+                   ],
+                   "max_runtime_seconds": 240,
+                   "retry_policy": {
+                     "strategy": "exponential_backoff",
+                     "max_attempts": 3,
+                     "initial_delay_seconds": 1
+                   },
+                   "worker_requirements": {
+                     "capabilities": [
+                       "filesystem",
+                       "python3",
+                       "file_creation"
+                     ]
+                   },
+                   "idempotent": true,
+                   "side_effects": [
+                     "creates_python_module"
+                   ],
+                   "dependencies": []
+                 },
+                 "TSK-000-004-002": {
+                   "task_id": "TSK-000-004-002",
+                   "task_ulid": "01JDK6XWQP8TSK000004002SCR",
+                   "name": "Create workers.ps1 query tool",
+                   "workstream_id": "WS-000-004",
+                   "executor": "file_create",
+                   "inputs": {
+                     "file_path": {
+                       "type": "string",
+                       "required": true,
+                       "default": "scripts/workers.ps1"
+                     },
+                     "content_source": {
+                       "type": "string",
+                       "required": true,
+                       "default": "INCREMENTAL_BUILD_PLAN.md#layer-3"
+                     }
+                   },
+                   "outputs": {
+                     "script_created": {
+                       "type": "boolean"
+                     },
+                     "script_path": {
+                       "type": "string"
+                     }
+                   },
+                   "preconditions": [],
+                   "postconditions": [
+                     "workers_query_script_exists"
+                   ],
+                   "max_runtime_seconds": 60,
+                   "retry_policy": {
+                     "strategy": "exponential_backoff",
+                     "max_attempts": 3,
+                     "initial_delay_seconds": 1
+                   },
+                   "worker_requirements": {
+                     "capabilities": [
+                       "filesystem",
+                       "file_creation"
+                     ]
+                   },
+                   "idempotent": true,
+                   "side_effects": [
+                     "creates_script_file"
+                   ],
+                   "dependencies": []
+                 },
+                 "TSK-000-004-003": {
+                   "task_id": "TSK-000-004-003",
+                   "task_ulid": "01JDK6XWQP8TSK000004003TST",
+                   "name": "Test worker registration",
+                   "workstream_id": "WS-000-004",
+                   "executor": "python3",
+                   "inputs": {
+                     "tool_id": {
+                       "type": "string",
+                       "required": true,
+                       "default": "test_worker"
+                     }
+                   },
+                   "outputs": {
+                     "worker_registered": {
+                       "type": "boolean"
+                     },
+                     "worker_id": {
+                       "type": "string"
+                     }
+                   },
+                   "command": "python -c \"from core.tools.worker_state
+    import registry; w = registry.register_worker('test_worker');
+   print(f'Worker ID: {w.worker_id}')\"",
+                   "preconditions": [
+                     "worker_state_module_exists",
+                     "event_logger_module_exists"
+                   ],
+                   "postconditions": [
+                     "test_worker_registered",
+                     "worker_file_created"
+                   ],
+                   "max_runtime_seconds": 60,
+                   "retry_policy": {
+                     "strategy": "exponential_backoff",
+                     "max_attempts": 2,
+                     "initial_delay_seconds": 1
+                   },
+                   "worker_requirements": {
+                     "capabilities": [
+                       "python3"
+                     ]
+                   },
+                   "idempotent": false,
+                   "side_effects": [
+                     "creates_worker_file",
+                     "logs_worker_event"
+                   ],
+                   "dependencies": [
+                     "TSK-000-004-001"
+                   ]
+                 }
+               },
+               "completion_criteria": {
+                 "all_tasks_complete": true,
+                 "worker_tracking_functional": true
+               }
+             },
+             "WS-000-005": {
+               "workstream_id": "WS-000-005",
+               "workstream_ulid": "01JDK6XWQP8WS000005ENHAN001",
+               "name": "Enhanced State Snapshots",
+               "phase_id": "PH-000",
+               "priority": "MEDIUM",
+               "estimated_duration_hours": 0.5,
+               "dependencies": [
+                 "WS-000-003",
+                 "WS-000-004"
+               ],
+               "tasks": {
+                 "TSK-000-005-001": {
+                   "task_id": "TSK-000-005-001",
+                   "task_ulid": "01JDK6XWQP8TSK000005001UPD",
+                   "name": "Update snapshot.py with worker state",
+                   "workstream_id": "WS-000-005",
+                   "executor": "file_edit",
+                   "inputs": {
+                     "file_path": {
+                       "type": "string",
+                       "required": true,
+                       "default": "core/state/snapshot.py"
+                     },
+                     "content_source": {
+                       "type": "string",
+                       "required": true,
+                       "default": "INCREMENTAL_BUILD_PLAN.md#layer-4"
+                     }
+                   },
+                   "outputs": {
+                     "file_updated": {
+                       "type": "boolean"
+                     }
+                   },
+                   "preconditions": [
+                     "snapshot_module_exists",
+                     "worker_state_module_exists"
+                   ],
+                   "postconditions": [
+                     "snapshot_includes_worker_state"
+                   ],
+                   "max_runtime_seconds": 180,
+                   "retry_policy": {
+                     "strategy": "exponential_backoff",
+                     "max_attempts": 3,
+                     "initial_delay_seconds": 1
+                   },
+                   "worker_requirements": {
+                     "capabilities": [
+                       "filesystem",
+                       "python3",
+                       "code_edit"
+                     ]
+                   },
+                   "idempotent": true,
+                   "side_effects": [
+                     "modifies_python_module"
+                   ],
+                   "dependencies": []
+                 },
+                 "TSK-000-005-002": {
+                   "task_id": "TSK-000-005-002",
+                   "task_ulid": "01JDK6XWQP8TSK000005002TST",
+                   "name": "Test enhanced snapshot",
+                   "workstream_id": "WS-000-005",
+                   "executor": "powershell",
+                   "inputs": {
+                     "description": {
+                       "type": "string",
+                       "required": true,
+                       "default": "Layer 4 complete - enhanced
+   snapshots"
+                     }
+                   },
+                   "outputs": {
+                     "snapshot_created": {
+                       "type": "boolean"
+                     },
+                     "snapshot_includes_workers": {
+                       "type": "boolean"
+                     }
+                   },
+                   "command": "pwsh scripts/snapshot.ps1 -Description
+   'Layer 4 complete'",
+                   "preconditions": [
+                     "snapshot_includes_worker_state",
+                     "test_worker_registered"
+                   ],
+                   "postconditions": [
+                     "enhanced_snapshot_created",
+                     "worker_data_in_snapshot"
+                   ],
+                   "max_runtime_seconds": 60,
+                   "retry_policy": {
+                     "strategy": "exponential_backoff",
+                     "max_attempts": 2,
+                     "initial_delay_seconds": 1
+                   },
+                   "worker_requirements": {
+                     "capabilities": [
+                       "powershell",
+                       "python3"
+                     ]
+                   },
+                   "idempotent": false,
+                   "side_effects": [
+                     "creates_snapshot_file",
+                     "updates_current_state"
+                   ],
+                   "dependencies": [
+                     "TSK-000-005-001"
+                   ]
+                 }
+               },
+               "completion_criteria": {
+                 "all_tasks_complete": true,
+                 "enhanced_snapshots_functional": true
+               }
+             },
+             "WS-000-006": {
+               "workstream_id": "WS-000-006",
+               "workstream_ulid": "01JDK6XWQP8WS000006PROF001",
+               "name": "CLI Tool Profile",
+               "phase_id": "PH-000",
+               "priority": "MEDIUM",
+               "estimated_duration_hours": 0.5,
+               "dependencies": [
+                 "WS-000-004"
+               ],
+               "tasks": {
+                 "TSK-000-006-001": {
+                   "task_id": "TSK-000-006-001",
+                   "task_ulid": "01JDK6XWQP8TSK000006001PRF",
+                   "name": "Create github_copilot_cli.json profile",
+                   "workstream_id": "WS-000-006",
+                   "executor": "file_create",
+                   "inputs": {
+                     "file_path": {
+                       "type": "string",
+                       "required": true,
+                       "default":
+   "registry/tool_profiles/github_copilot_cli.json"
+                     },
+                     "content_source": {
+                       "type": "string",
+                       "required": true,
+                       "default": "INCREMENTAL_BUILD_PLAN.md#layer-5"
+                     }
+                   },
+                   "outputs": {
+                     "profile_created": {
+                       "type": "boolean"
+                     },
+                     "profile_path": {
+                       "type": "string"
+                     }
+                   },
+                   "preconditions": [],
+                   "postconditions": [
+                     "tool_profile_exists"
+                   ],
+                   "max_runtime_seconds": 120,
+                   "retry_policy": {
+                     "strategy": "exponential_backoff",
+                     "max_attempts": 3,
+                     "initial_delay_seconds": 1
+                   },
+                   "worker_requirements": {
+                     "capabilities": [
+                       "filesystem",
+                       "file_creation"
+                     ]
+                   },
+                   "idempotent": true,
+                   "side_effects": [
+                     "creates_json_file"
+                   ],
+                   "dependencies": []
+                 },
+                 "TSK-000-006-002": {
+                   "task_id": "TSK-000-006-002",
+                   "task_ulid": "01JDK6XWQP8TSK000006002REG",
+                   "name": "Register GitHub Copilot CLI as worker",
+                   "workstream_id": "WS-000-006",
+                   "executor": "python3",
+                   "inputs": {
+                     "profile_path": {
+                       "type": "string",
+                       "required": true,
+                       "default":
+   "registry/tool_profiles/github_copilot_cli.json"
+                     }
+                   },
+                   "outputs": {
+                     "worker_registered": {
+                       "type": "boolean"
+                     },
+                     "worker_id": {
+                       "type": "string"
+                     }
+                   },
+                   "command": "python -c \"from core.tools.worker_state
+    import registry; import json; profile = json.loads(open('registry/t
+   ool_profiles/github_copilot_cli.json').read()); w =
+   registry.register_worker(profile['tool_id']); print(f'Registered:
+   {w.worker_id}')\"",
+                   "preconditions": [
+                     "tool_profile_exists",
+                     "worker_state_module_exists"
+                   ],
+                   "postconditions": [
+                     "github_copilot_cli_registered"
+                   ],
+                   "max_runtime_seconds": 60,
+                   "retry_policy": {
+                     "strategy": "exponential_backoff",
+                     "max_attempts": 2,
+                     "initial_delay_seconds": 1
+                   },
+                   "worker_requirements": {
+                     "capabilities": [
+                       "python3"
+                     ]
+                   },
+                   "idempotent": false,
+                   "side_effects": [
+                     "creates_worker_file",
+                     "logs_registration_event"
+                   ],
+                   "dependencies": [
+                     "TSK-000-006-001"
+                   ]
+                 }
+               },
+               "completion_criteria": {
+                 "all_tasks_complete": true,
+                 "github_copilot_cli_operational": true
+               }
+             }
+           },
+           "completion_criteria": {
+             "all_workstreams_complete": true,
+             "state_infrastructure_operational": true,
+             "event_logging_operational": true,
+             "snapshot_system_operational": true,
+             "worker_tracking_operational": true,
+             "validation_passing": true
+           }
+         },
+         "PH-001": {
+           "phase_id": "PH-001",
+           "phase_ulid": "01JDK6XWQP8PH001SCHEMAS0001",
+           "name": "Schema Foundation",
+           "description": "Copy UET schemas and establish feature
+   flags",
+           "priority": "CRITICAL",
+           "status": "ready",
+           "estimated_duration_hours": 2.0,
+           "dependencies": [
+             "PH-000"
+           ],
+           "workstreams": {
+             "WS-001-001": {
+               "workstream_id": "WS-001-001",
+               "workstream_ulid": "01JDK6XWQP8WS001001SCHCPY01",
+               "name": "Schema Copy",
+               "phase_id": "PH-001",
+               "priority": "CRITICAL",
+               "estimated_duration_hours": 0.5,
+               "dependencies": [],
+               "tasks": {
+                 "TSK-001-001-001": {
+                   "task_id": "TSK-001-001-001",
+                   "task_ulid": "01JDK6XWQP8TSK001001001CPY",
+                   "name": "Copy UET schemas",
+                   "workstream_id": "WS-001-001",
+                   "executor": "powershell",
+                   "inputs": {
+                     "source_path": {
+                       "type": "string",
+                       "required": true,
+                       "default":
+   "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/schema/*.json"
+                     },
+                     "target_path": {
+                       "type": "string",
+                       "required": true,
+                       "default": "schema/uet/"
+                     }
+                   },
+                   "outputs": {
+                     "schemas_copied": {
+                       "type": "integer"
+                     },
+                     "schema_files": {
+                       "type": "array",
+                       "items": "string"
+                     }
+                   },
+                   "command": "Copy-Item
+   UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\schema\\*.json
+   schema\\uet\\",
+                   "preconditions": [],
+                   "postconditions": [
+                     "uet_schemas_exist"
+                   ],
+                   "max_runtime_seconds": 60,
+                   "retry_policy": {
+                     "strategy": "exponential_backoff",
+                     "max_attempts": 3,
+                     "initial_delay_seconds": 1
+                   },
+                   "worker_requirements": {
+                     "capabilities": [
+                       "filesystem",
+                       "powershell"
+                     ]
+                   },
+                   "idempotent": true,
+                   "side_effects": [
+                     "copies_files"
+                   ],
+                   "dependencies": []
+                 },
+                 "TSK-001-001-002": {
+                   "task_id": "TSK-001-001-002",
+                   "task_ulid": "01JDK6XWQP8TSK001001002VAL",
+                   "name": "Validate schema count",
+                   "workstream_id": "WS-001-001",
+                   "executor": "powershell",
+                   "inputs": {
+                     "expected_count": {
+                       "type": "integer",
+                       "required": true,
+                       "default": 17
+                     }
+                   },
+                   "outputs": {
+                     "validation_passed": {
+                       "type": "boolean"
+                     },
+                     "actual_count": {
+                       "type": "integer"
+                     }
+                   },
+                   "command": "Test-Path schema/uet/*.json",
+                   "preconditions": [
+                     "uet_schemas_exist"
+                   ],
+                   "postconditions": [
+                     "schema_count_correct"
+                   ],
+                   "max_runtime_seconds": 30,
+                   "retry_policy": {
+                     "strategy": "exponential_backoff",
+                     "max_attempts": 2,
+                     "initial_delay_seconds": 1
+                   },
+                   "worker_requirements": {
+                     "capabilities": [
+                       "powershell"
+                     ]
+                   },
+                   "idempotent": true,
+                   "side_effects": [],
+                   "dependencies": [
+                     "TSK-001-001-001"
+                   ]
+                 }
+               },
+               "completion_criteria": {
+                 "all_tasks_complete": true,
+                 "schema_count_correct": true
+               }
+             },
+             "WS-001-002": {
+               "workstream_id": "WS-001-002",
+               "workstream_ulid": "01JDK6XWQP8WS001002FEATFLG1",
+               "name": "Feature Flags",
+               "phase_id": "PH-001",
+               "priority": "HIGH",
+               "estimated_duration_hours": 0.5,
+               "dependencies": [],
+               "tasks": {
+                 "TSK-001-002-001": {
+                   "task_id": "TSK-001-002-001",
+                   "task_ulid": "01JDK6XWQP8TSK001002001UPD",
+                   "name": "Add feature flags to PROJECT_PROFILE.yaml",
+                   "workstream_id": "WS-001-002",
+                   "executor": "file_edit",
+                   "inputs": {
+                     "file_path": {
+                       "type": "string",
+                       "required": true,
+                       "default": "PROJECT_PROFILE.yaml"
+                     },
+                     "flags": {
+                       "type": "object",
+                       "required": true,
+                       "default": {
+                         "patch_mode": false,
+                         "parallel_strategy": "sequential",
+                         "ulid_enabled": false,
+                         "uet_schema_validation": false
+                       }
+                     }
+                   },
+                   "outputs": {
+                     "flags_added": {
+                       "type": "boolean"
+                     }
+                   },
+                   "preconditions": [],
+                   "postconditions": [
+                     "feature_flags_exist"
+                   ],
+                   "max_runtime_seconds": 120,
+                   "retry_policy": {
+                     "strategy": "exponential_backoff",
+                     "max_attempts": 3,
+                     "initial_delay_seconds": 1
+                   },
+                   "worker_requirements": {
+                     "capabilities": [
+                       "filesystem",
+                       "yaml_edit"
+                     ]
+                   },
+                   "idempotent": true,
+                   "side_effects": [
+                     "modifies_yaml_file"
+                   ],
+                   "dependencies": []
+                 }
+               },
+               "completion_criteria": {
+                 "all_tasks_complete": true,
+                 "feature_flags_configured": true
+               }
+             },
+             "WS-001-003": {
+               "workstream_id": "WS-001-003",
+               "workstream_ulid": "01JDK6XWQP8WS001003SNAPSHOT1",
+               "name": "Phase Completion Snapshot",
+               "phase_id": "PH-001",
+               "priority": "MEDIUM",
+               "estimated_duration_hours": 0.25,
+               "dependencies": [
+                 "WS-001-001",
+                 "WS-001-002"
+               ],
+               "tasks": {
+                 "TSK-001-003-001": {
+                   "task_id": "TSK-001-003-001",
+                   "task_ulid": "01JDK6XWQP8TSK001003001SNP",
+                   "name": "Create phase completion snapshot",
+                   "workstream_id": "WS-001-003",
+                   "executor": "powershell",
+                   "inputs": {
+                     "description": {
+                       "type": "string",
+                       "required": true,
+                       "default": "Phase 1 complete - Schema
+   foundation"
+                     }
+                   },
+                   "outputs": {
+                     "snapshot_created": {
+                       "type": "boolean"
+                     }
+                   },
+                   "command": "pwsh scripts/snapshot.ps1 -Description
+   'Phase 1 complete'",
+                   "preconditions": [
+                     "schema_count_correct",
+                     "feature_flags_configured"
+                   ],
+                   "postconditions": [
+                     "phase_1_snapshot_exists"
+                   ],
+                   "max_runtime_seconds": 60,
+                   "retry_policy": {
+                     "strategy": "exponential_backoff",
+                     "max_attempts": 2,
+                     "initial_delay_seconds": 1
+                   },
+                   "worker_requirements": {
+                     "capabilities": [
+                       "powershell",
+                       "python3"
+                     ]
+                   },
+                   "idempotent": false,
+                   "side_effects": [
+                     "creates_snapshot_file"
+                   ],
+                   "dependencies": []
+                 }
+               },
+               "completion_criteria": {
+                 "all_tasks_complete": true,
+                 "phase_snapshot_created": true
+               }
+             }
+           },
+           "completion_criteria": {
+             "all_workstreams_complete": true,
+             "uet_schemas_available": true,
+             "feature_flags_configured": true
+           }
+         }
+       },
+       "execution_order": {
+         "parallel_groups": [
+           {
+             "group_id": "GRP-000",
+             "phases": [
+               "PH-000"
+             ],
+             "can_start_immediately": true
+           },
+           {
+             "group_id": "GRP-001",
+             "phases": [
+               "PH-001"
+             ],
+             "requires_completion_of": [
+               "GRP-000"
+             ]
+           }
+         ]
+       },
+       "validation": {
+         "schema_compliance": {
+           "phase_spec_schema": "schema/uet/phase_spec.v1.json",
+           "workstream_spec_schema":
+   "schema/uet/workstream_spec.v1.json",
+           "task_spec_schema": "schema/uet/task_spec.v1.json"
+         },
+         "validation_commands": [
+           "pwsh scripts/validate/validate_state.ps1",
+           "python scripts/validate_schemas.py"
+         ]
+       }
+     }
