@@ -1,0 +1,58 @@
+document_id: validation-pipeline/spec
+title: Validation Pipeline Specification
+version: 0.1.0
+category: validation-pipeline
+last_updated: '2025-11-23T17:19:14Z'
+authors: []
+tags: []
+depends_on: []
+status: draft
+checksum: fdef8f9e9037e739449296f2c75c4b9f61c8ab669841115d420e284124a1a41d
+file: specifications/content/validation-pipeline/spec.md
+mfid: fdef8f9e9037e739449296f2c75c4b9f61c8ab669841115d420e284124a1a41d
+paragraphs:
+- anchor: p-1
+  start_line: 1
+  end_line: 1
+  mfid: f8bb2a779d37fd48f7d073172bf8d8d97c95f7f3edb0058c1ac7f9a0cad9b210
+  id: B61A16D1E90F13F73059F121D7
+- anchor: p-2
+  start_line: 3
+  end_line: 4
+  mfid: f6eff8476da62219e0134218641e0dbeac99f22e3289ef32958b0eaa1c2691f7
+  id: 7BFBB5EE0D133697EFB2D3DA6B
+- anchor: p-3
+  start_line: 6
+  end_line: 10
+  mfid: a6a9c8044e6c1d54af952664d92363e7d65511b87f8b4667505cf674e00bc0c8
+  id: 27E9A0E45BA18617D16C2D1E8B
+- anchor: p-4
+  start_line: 12
+  end_line: 37
+  mfid: 3ec1a1fea56c79d5016bedc46c487a3744ed3e791beb407414904778181a2bcc
+  id: 3599C44A6824725B3251C9EE1A
+- anchor: p-5
+  start_line: 39
+  end_line: 39
+  mfid: 688e1e634abf46bb052394fe18c956731daff6025aac029141f676d1f243c284
+  id: 3F43655F53854B2C73F982F972
+- anchor: p-6
+  start_line: 41
+  end_line: 44
+  mfid: ce2d73a422de11ca59ff401c752436644a3d52bc9fc63f46e1e56314a5bfd1bd
+  id: 51FBF01D3E8B6769FE6E0E2645
+- anchor: p-7
+  start_line: 46
+  end_line: 49
+  mfid: f921b75903b9d16f925516ac9cdceb07bab26fd091ebb5db4e2d02110f35ab33
+  id: FE754570D3E7981D8B7CD96D8D
+- anchor: p-8
+  start_line: 51
+  end_line: 55
+  mfid: 3e217fa568bd52c4927d04b2ffa6961d8075c3a4db2265b7bb82ff23442cb998
+  id: 3839F35A85DD9298486DBF0BA7
+- anchor: p-9
+  start_line: 57
+  end_line: 60
+  mfid: da9b027c8bcc3d7d82933e44cf5daa718eb8dd1113aa958ad36968194bc521de
+  id: 211BDD8DA42901D70FDDEA920A

@@ -1,0 +1,53 @@
+document_id: plugin-system/spec
+title: Plugin System Specification
+version: 0.1.0
+category: plugin-system
+last_updated: '2025-11-23T17:19:14Z'
+authors: []
+tags: []
+depends_on: []
+status: draft
+checksum: 01aeffffd2f3019bb78792ab899d689af2d69c95f1566f0f35537cc4b65450a0
+file: specifications/content/plugin-system/spec.md
+mfid: 01aeffffd2f3019bb78792ab899d689af2d69c95f1566f0f35537cc4b65450a0
+paragraphs:
+- anchor: p-1
+  start_line: 1
+  end_line: 1
+  mfid: f108d7452f746024133349744590f5e95b56590c762588c62baa6adeb55cabec
+  id: EFE19F80368BF137B83CC3757E
+- anchor: p-2
+  start_line: 3
+  end_line: 4
+  mfid: 50a983f85fe31bbdd5bccd04cc9c6e143fbbaf7ead5960371b800773818b099a
+  id: BBAD367E8E379009029F6F9530
+- anchor: p-3
+  start_line: 6
+  end_line: 10
+  mfid: 9ac9492842e716f727eb48d86ab7f73283b5fd727aa9d1b0ea097637ede26268
+  id: 276D909B6A782E655A973E0477
+- anchor: p-4
+  start_line: 12
+  end_line: 21
+  mfid: d0a293e826b1492d60aabbf403b58345e0d4bc0366d4a8537cde5ac32494fc0d
+  id: C4E83C0E71BEDA173DE75CB3F8
+- anchor: p-5
+  start_line: 23
+  end_line: 27
+  mfid: e7d6dc8776795b263cc2ebd8c45532a0faf3e0218cc7c42e6d6f1ee64cca3a38
+  id: A86319CDA5BF9BBC10EC2B9672
+- anchor: p-6
+  start_line: 29
+  end_line: 29
+  mfid: 688e1e634abf46bb052394fe18c956731daff6025aac029141f676d1f243c284
+  id: 649A6336E5DE1EBE4BA266AB9C
+- anchor: p-7
+  start_line: 31
+  end_line: 34
+  mfid: 70c27f9f2876841215b91de70088a7026e6d716b18f5ce0e99f85fc02b46ed5e
+  id: 917D0AC4B0BEAED3C15BE1B6DC
+- anchor: p-8
+  start_line: 36
+  end_line: 39
+  mfid: a4fe3d0da1875386ae56c6ac800c27000f0c66372ca6a64409857f2e45e0d4c0
+  id: C9D07DD536D93F4CDB94A1081F
