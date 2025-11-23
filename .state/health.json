@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "health_id": "HEALTH-INIT-001",
+  "timestamp": "2025-11-23T16:04:25.348Z",
+  "status": "healthy",
+  "checks": {
+    "state_directory": "pass",
+    "current_state_file": "pass",
+    "transitions_log": "pass",
+    "indices_directory": "pass",
+    "snapshots_directory": "pass"
+  },
+  "metrics": {
+    "total_transitions": 1,
+    "total_snapshots": 0,
+    "total_indices": 0
+  },
+  "issues": [],
+  "recommendations": [
+    "Create initial task, workstream, and capability indices",
+    "Run validation suite to establish baseline"
+  ]
+}

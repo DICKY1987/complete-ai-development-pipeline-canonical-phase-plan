@@ -1,0 +1,1 @@
+{"transition_id":"TRANS-INIT-001","from_state":"none","to_state":"STATE-INIT-001","timestamp":"2025-11-23T16:04:25.348Z","trigger":"bootstrap","actor":"system","metadata":{"reason":"Initial state creation","checklist_version":"1.0.0"}}

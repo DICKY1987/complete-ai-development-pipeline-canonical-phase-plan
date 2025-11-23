@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "index_id": "CAP-INDEX-001",
+  "timestamp": "2025-11-23T16:04:25.348Z",
+  "description": "Capability index tracking system capabilities and their status",
+  "items": [
+    {
+      "capability_id": "CAP-VALIDATION-001",
+      "name": "Workstream Validation",
+      "status": "available",
+      "command": "python scripts/validate_workstreams.py"
+    },
+    {
+      "capability_id": "CAP-VALIDATION-002",
+      "name": "ACS Conformance Validation",
+      "status": "available",
+      "command": "python scripts/validate_acs_conformance.py"
+    },
+    {
+      "capability_id": "CAP-VALIDATION-003",
+      "name": "Engine Validation",
+      "status": "available",
+      "command": "python scripts/validate_engine.py"
+    },
+    {
+      "capability_id": "CAP-TEST-001",
+      "name": "Pytest Suite",
+      "status": "available",
+      "command": "python -m pytest -q tests"
+    }
+  ]
+}

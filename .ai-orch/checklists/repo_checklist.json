@@ -1,0 +1,430 @@
+{
+  "schema_version": "1.0.0",
+  "checklist_id": "AI-ORCH-REPO-V1.0",
+  "description": "Repository-wide and folder-level compliance checklist for Complete AI Development Pipeline",
+  "metadata": {
+    "repository": "Complete AI Development Pipeline – Canonical Phase Plan",
+    "last_updated": "2025-11-23",
+    "sources": [
+      "QUALITY_GATE.yaml",
+      "ai_policies.yaml",
+      "scripts/validate_*.py",
+      "CODEBASE_INDEX.yaml"
+    ]
+  },
+  "rules": [
+    {
+      "requirement_id": "ACS-ARTIFACTS-001",
+      "scope": "repo",
+      "type": "required_files",
+      "priority": "HIGH",
+      "description": "Core ACS artifacts must exist",
+      "params": {
+        "files": [
+          {
+            "path": "CODEBASE_INDEX.yaml",
+            "description": "Module structure and dependencies"
+          },
+          {
+            "path": "QUALITY_GATE.yaml",
+            "description": "Quality gates and validation commands"
+          },
+          {
+            "path": "ai_policies.yaml",
+            "description": "AI edit policies and invariants"
+          },
+          {
+            "path": ".aiignore",
+            "description": "AI context exclusions"
+          },
+          {
+            "path": ".meta/AI_GUIDANCE.md",
+            "description": "AI guidance documentation"
+          },
+          {
+            "path": ".meta/ai_context/repo_summary.json",
+            "description": "Repository summary for AI"
+          },
+          {
+            "path": ".meta/ai_context/code_graph.json",
+            "description": "Module dependency graph"
+          }
+        ]
+      }
+    },
+    {
+      "requirement_id": "ACS-MODULE-PATHS-001",
+      "scope": "repo",
+      "type": "module_path_validation",
+      "priority": "HIGH",
+      "description": "All modules in CODEBASE_INDEX.yaml must exist on disk",
+      "params": {
+        "index_file": "CODEBASE_INDEX.yaml",
+        "modules_key": "modules",
+        "path_field": "path"
+      }
+    },
+    {
+      "requirement_id": "ACS-MODULE-DEPS-001",
+      "scope": "repo",
+      "type": "dependency_validation",
+      "priority": "HIGH",
+      "description": "All dependency references in CODEBASE_INDEX must be valid module IDs",
+      "params": {
+        "index_file": "CODEBASE_INDEX.yaml",
+        "modules_key": "modules",
+        "depends_on_field": "depends_on"
+      }
+    },
+    {
+      "requirement_id": "ACS-MODULE-DOCS-001",
+      "scope": "repo",
+      "type": "module_documentation",
+      "priority": "MEDIUM",
+      "description": "HIGH priority modules must have MODULE.md or README.md",
+      "params": {
+        "index_file": "CODEBASE_INDEX.yaml",
+        "modules_key": "modules",
+        "priority_field": "ai_priority",
+        "required_priority": "HIGH",
+        "doc_files": ["MODULE.md", "README.md"]
+      }
+    },
+    {
+      "requirement_id": "ACS-CODE-GRAPH-001",
+      "scope": "repo",
+      "type": "code_graph_consistency",
+      "priority": "MEDIUM",
+      "description": "Code graph must be consistent with CODEBASE_INDEX",
+      "params": {
+        "code_graph_file": ".meta/ai_context/code_graph.json",
+        "index_file": "CODEBASE_INDEX.yaml",
+        "require_acyclic": true
+      }
+    },
+    {
+      "requirement_id": "ACS-POLICY-PATHS-001",
+      "scope": "repo",
+      "type": "policy_path_validation",
+      "priority": "MEDIUM",
+      "description": "Paths in ai_policies.yaml must be valid relative patterns",
+      "params": {
+        "policy_file": "ai_policies.yaml",
+        "zones_key": "zones",
+        "paths_field": "paths"
+      }
+    },
+    {
+      "requirement_id": "ACS-INVARIANTS-001",
+      "scope": "repo",
+      "type": "invariant_validation",
+      "priority": "MEDIUM",
+      "description": "All invariants in ai_policies.yaml must be well-defined",
+      "params": {
+        "policy_file": "ai_policies.yaml",
+        "invariants_key": "invariants",
+        "required_fields": ["id", "name", "description", "enforcement"]
+      }
+    },
+    {
+      "requirement_id": "WS-BUNDLE-001",
+      "scope": "repo",
+      "type": "workstream_validation",
+      "priority": "HIGH",
+      "description": "All workstream bundles must be valid and have no overlapping file scopes",
+      "params": {
+        "workstreams_dir": "workstreams",
+        "schema_file": "schema/workstream.schema.json",
+        "check_overlaps": true,
+        "check_cycles": true
+      }
+    },
+    {
+      "requirement_id": "PATH-STD-001",
+      "scope": "repo",
+      "type": "import_path_standards",
+      "priority": "CRITICAL",
+      "description": "No deprecated import paths allowed (CI enforced)",
+      "params": {
+        "forbidden_patterns": [
+          {
+            "pattern": "from src\\.pipeline",
+            "replacement": "from core.*",
+            "reason": "Post-Phase E refactor"
+          },
+          {
+            "pattern": "from MOD_ERROR_PIPELINE",
+            "replacement": "from error.*",
+            "reason": "Post-Phase E refactor"
+          },
+          {
+            "pattern": "from legacy\\.",
+            "replacement": "Do not import legacy code",
+            "reason": "Archived code - see docs/SECTION_REFACTOR_MAPPING.md"
+          }
+        ],
+        "scan_paths": [
+          "core/**/*.py",
+          "engine/**/*.py",
+          "error/**/*.py",
+          "aim/**/*.py",
+          "pm/**/*.py",
+          "scripts/**/*.py",
+          "tests/**/*.py"
+        ]
+      }
+    },
+    {
+      "requirement_id": "TEST-PYTEST-001",
+      "scope": "repo",
+      "type": "test_suite",
+      "priority": "CRITICAL",
+      "description": "All pytest tests must pass",
+      "params": {
+        "command": "python -m pytest -q tests",
+        "timeout_seconds": 300,
+        "env_vars": {
+          "PYTHONPATH": "."
+        }
+      }
+    },
+    {
+      "requirement_id": "ENGINE-VALIDATE-001",
+      "scope": "repo",
+      "type": "engine_validation",
+      "priority": "HIGH",
+      "description": "Engine components must be valid and importable",
+      "params": {
+        "schema_files": [
+          "schema/jobs/job.schema.json"
+        ],
+        "example_files": [
+          "schema/jobs/examples/aider_job.json"
+        ],
+        "required_imports": [
+          "engine.types",
+          "engine.interfaces",
+          "engine.adapters.aider_adapter",
+          "engine.orchestrator.orchestrator"
+        ]
+      }
+    },
+    {
+      "requirement_id": "ERROR-IMPORTS-001",
+      "scope": "repo",
+      "type": "error_module_imports",
+      "priority": "HIGH",
+      "description": "Error module imports must follow section standards",
+      "params": {
+        "module_path": "error",
+        "expected_pattern": "from error\\.",
+        "scan_paths": [
+          "error/**/*.py",
+          "tests/error/**/*.py"
+        ]
+      }
+    },
+    {
+      "requirement_id": "STATE-OBS-001",
+      "scope": "repo",
+      "type": "directory_layout",
+      "priority": "HIGH",
+      "description": ".state directory must have required structure",
+      "params": {
+        "root": ".state",
+        "required_directories": ["snapshots", "indices"],
+        "required_files": ["current.json", "transitions.jsonl", "health.json"]
+      }
+    },
+    {
+      "requirement_id": "STATE-OBS-002",
+      "scope": "repo",
+      "type": "json_file",
+      "priority": "HIGH",
+      "description": ".state/current.json must be valid with required fields",
+      "params": {
+        "path": ".state/current.json",
+        "required_fields": [
+          "schema_version",
+          "state_id",
+          "timestamp",
+          "project_id",
+          "status"
+        ]
+      }
+    },
+    {
+      "requirement_id": "STATE-OBS-003",
+      "scope": "repo",
+      "type": "json_lines_file",
+      "priority": "HIGH",
+      "description": ".state/transitions.jsonl must be valid JSONL with required fields per line",
+      "params": {
+        "path": ".state/transitions.jsonl",
+        "required_fields_per_line": [
+          "transition_id",
+          "from_state",
+          "to_state",
+          "timestamp",
+          "trigger"
+        ]
+      }
+    },
+    {
+      "requirement_id": "STATE-OBS-004",
+      "scope": "repo",
+      "type": "json_index_files",
+      "priority": "MEDIUM",
+      "description": "Required index files must exist under .state/indices",
+      "params": {
+        "indices_dir": ".state/indices",
+        "required_indices": [
+          "task_index.json",
+          "workstream_index.json",
+          "capability_index.json"
+        ],
+        "index_schema_fields": ["schema_version", "index_id", "items"]
+      }
+    },
+    {
+      "requirement_id": "STATE-OBS-005",
+      "scope": "repo",
+      "type": "derived_index_sanity",
+      "priority": "MEDIUM",
+      "description": "Indices must be derivable from current.json with overlap checks",
+      "params": {
+        "current_state_file": ".state/current.json",
+        "indices_dir": ".state/indices",
+        "check_task_ids_overlap": true
+      }
+    },
+    {
+      "requirement_id": "AUDIT-001",
+      "scope": "repo",
+      "type": "file_exists",
+      "priority": "MEDIUM",
+      "description": "Audit trail documentation must exist",
+      "params": {
+        "path": "docs/operations/AUDIT_TRAIL.md",
+        "allow_in_parent": false
+      }
+    },
+    {
+      "requirement_id": "AUDIT-002",
+      "scope": "repo",
+      "type": "file_exists",
+      "priority": "MEDIUM",
+      "description": "Audit retention policy must exist",
+      "params": {
+        "path": "docs/operations/AUDIT_RETENTION.md",
+        "allow_in_parent": false
+      }
+    }
+  ],
+  "folder_templates": [
+    {
+      "template_id": "FOLDER-DOCS-001",
+      "description": "Code folders must have basic documentation",
+      "applies_to": [
+        "core/**",
+        "engine/**",
+        "error/**",
+        "aim/**",
+        "pm/**",
+        "scripts/**",
+        "tools/**"
+      ],
+      "rules": [
+        {
+          "requirement_id": "FOLDER-DOC-001",
+          "scope": "folder",
+          "type": "file_exists",
+          "priority": "MEDIUM",
+          "description": "Code folders should have README.md",
+          "params": {
+            "path": "README.md",
+            "allow_in_parent": true
+          }
+        }
+      ]
+    },
+    {
+      "template_id": "FOLDER-STATE-001",
+      "description": "Code folders must not mix dev and system files",
+      "applies_to": [
+        "core/**",
+        "engine/**",
+        "error/**",
+        "aim/**",
+        "pm/**"
+      ],
+      "rules": [
+        {
+          "requirement_id": "FOLDER-STATE-001",
+          "scope": "folder",
+          "type": "forbid_mixed_roles",
+          "priority": "MEDIUM",
+          "description": "No dev-only files mixed with system code",
+          "params": {
+            "forbidden_patterns": [
+              "phase_plan*.md",
+              "execution_summary*.md",
+              "temp_*.py",
+              "scratch_*.py"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "template_id": "FOLDER-TESTS-001",
+      "description": "Module folders should have corresponding tests",
+      "applies_to": [
+        "core/**",
+        "engine/**",
+        "error/**",
+        "aim/**",
+        "pm/**"
+      ],
+      "rules": [
+        {
+          "requirement_id": "FOLDER-TESTS-001",
+          "scope": "folder",
+          "type": "test_coverage_check",
+          "priority": "LOW",
+          "description": "Module should have corresponding test files",
+          "params": {
+            "test_dir": "tests",
+            "require_test_ratio": 0.5,
+            "patterns": [
+              "test_*.py",
+              "*_test.py"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "rule_types_documentation": {
+    "required_files": "Check that specific files exist at given paths",
+    "module_path_validation": "Validate module paths from CODEBASE_INDEX exist on disk",
+    "dependency_validation": "Validate all dependency references are valid module IDs",
+    "module_documentation": "Check HIGH priority modules have documentation",
+    "code_graph_consistency": "Validate code graph matches CODEBASE_INDEX",
+    "policy_path_validation": "Validate ai_policies.yaml path patterns are valid",
+    "invariant_validation": "Check invariants have required fields",
+    "workstream_validation": "Validate workstream bundles against schema",
+    "import_path_standards": "Enforce import path standards (no deprecated paths)",
+    "test_suite": "Run test suite and ensure it passes",
+    "engine_validation": "Validate engine components and schemas",
+    "error_module_imports": "Validate error module import patterns",
+    "directory_layout": "Check required directories and files exist under a root",
+    "json_file": "Validate a JSON file exists and has required fields",
+    "json_lines_file": "Validate JSONL file with required fields per line",
+    "json_index_files": "Check required index files exist under a directory",
+    "derived_index_sanity": "Validate indices are derivable from source with sanity checks",
+    "file_exists": "Simple file existence check",
+    "forbid_mixed_roles": "Forbid certain file patterns in a folder",
+    "test_coverage_check": "Check test coverage for a module"
+  }
+}
