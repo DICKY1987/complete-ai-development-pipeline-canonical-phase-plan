@@ -2,8 +2,20 @@
 
 **Purpose:** Comprehensive navigation guide to all Phase K and Phase K+ documentation.
 
-**Last Updated:** 2025-11-22  
+**Last Updated:** 2025-11-23  
 **Maintainer:** System Architecture Team
+
+---
+
+## 🚀 Quick Start Navigation
+
+**New to the repository?** Start with the [**MASTER_NAVIGATION_INDEX.md**](../MASTER_NAVIGATION_INDEX.md) for:
+- **Visual directory tree** of the entire codebase
+- **Quick-start paths** for different roles (developers, AI agents, reviewers)
+- **Direct links** to key entry points
+- **At-a-glance** system overview
+
+**Already familiar?** Continue below for the comprehensive documentation catalog organized by topic and phase.
 
 ---
 
