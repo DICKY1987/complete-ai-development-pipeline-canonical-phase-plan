@@ -1,0 +1,46 @@
+# Pattern Registry
+# Version: 1.0.0
+# Created: 2025-11-24
+# Purpose: Single source of truth for all execution patterns
+
+version: "1.0.0"
+metadata:
+  created: "2025-11-24"
+  last_updated: "2025-11-24"
+  total_patterns: 0
+  total_categories: 0
+
+patterns:
+  # Core patterns will be added here
+  # Format per entry:
+  # - pattern_id: PAT-<CATEGORY>-<NAME>-<SEQ>
+  #   name: <pattern_name>
+  #   version: "1.0.0"
+  #   status: draft | active | deprecated
+  #   category: <category>
+  #   spec_path: patterns/specs/<name>.pattern.yaml
+  #   schema_path: patterns/schemas/<name>.schema.json
+  #   executor_path: patterns/executors/<name>_executor.(ps1|py)
+  #   test_path: patterns/tests/test_<name>_executor.*
+  #   example_dir: patterns/examples/<name>/
+  #   tool_targets:
+  #     - claude_code
+  #     - github_copilot_cli
+  #   time_savings_vs_manual: "XX%"
+  #   proven_uses: 0
+  #   created: "YYYY-MM-DD"
+  #   last_updated: "YYYY-MM-DD"
+
+# Migrated patterns from atomic-workflow-system will be added here
+# Format:
+  # - pattern_id: PAT-MIGRATED-<CATEGORY>-<SEQ>
+  #   name: migrated_<category>_<name>
+  #   version: "1.0.0"
+  #   status: draft
+  #   category: <category>
+  #   spec_path: patterns/legacy_atoms/converted/specs/<name>.pattern.yaml
+  #   schema_path: patterns/legacy_atoms/converted/schemas/<name>.schema.json
+  #   executor_path: patterns/legacy_atoms/converted/executors/<name>_executor.py
+  #   migrated_from: atomic-workflow-system
+  #   original_atom_uid: <uid>
+  #   migration_sequence: <seq>

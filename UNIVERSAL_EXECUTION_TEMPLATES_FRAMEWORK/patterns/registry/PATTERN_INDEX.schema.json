@@ -1,0 +1,229 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://uet.dev/schemas/pattern-index.v1.json",
+  "title": "Pattern Index Schema",
+  "description": "Schema for PATTERN_INDEX.yaml - the single source of truth for all execution patterns",
+  "type": "object",
+  "required": ["version", "metadata", "patterns"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Semantic version of the pattern index format"
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["created", "last_updated", "total_patterns", "total_categories"],
+      "properties": {
+        "created": {
+          "type": "string",
+          "format": "date",
+          "description": "Date the registry was created (YYYY-MM-DD)"
+        },
+        "last_updated": {
+          "type": "string",
+          "format": "date",
+          "description": "Date of last update (YYYY-MM-DD)"
+        },
+        "total_patterns": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total number of registered patterns"
+        },
+        "total_categories": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total number of pattern categories"
+        }
+      }
+    },
+    "patterns": {
+      "type": "array",
+      "description": "List of all registered patterns",
+      "items": {
+        "oneOf": [
+          {"$ref": "#/definitions/corePattern"},
+          {"$ref": "#/definitions/migratedPattern"}
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "corePattern": {
+      "type": "object",
+      "required": [
+        "pattern_id",
+        "name",
+        "version",
+        "status",
+        "category",
+        "spec_path",
+        "schema_path",
+        "executor_path",
+        "test_path",
+        "example_dir"
+      ],
+      "properties": {
+        "pattern_id": {
+          "type": "string",
+          "pattern": "^PAT-[A-Z]+-[A-Z]+-\\d{3}$",
+          "description": "Unique pattern ID: PAT-<CATEGORY>-<NAME>-<SEQ>"
+        },
+        "name": {
+          "type": "string",
+          "pattern": "^[a-z0-9_]+$",
+          "description": "Pattern name in snake_case"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$",
+          "description": "Semantic version of the pattern"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["draft", "active", "deprecated"],
+          "description": "Pattern lifecycle status"
+        },
+        "category": {
+          "type": "string",
+          "enum": [
+            "file_creation",
+            "code_modification",
+            "error_recovery",
+            "verification",
+            "infrastructure",
+            "module_setup"
+          ],
+          "description": "Pattern category"
+        },
+        "spec_path": {
+          "type": "string",
+          "pattern": "^patterns/specs/[a-z0-9_]+\\.pattern\\.yaml$",
+          "description": "Relative path to pattern specification"
+        },
+        "schema_path": {
+          "type": "string",
+          "pattern": "^patterns/schemas/[a-z0-9_]+\\.schema\\.json$",
+          "description": "Relative path to JSON schema"
+        },
+        "executor_path": {
+          "type": "string",
+          "pattern": "^patterns/executors/[a-z0-9_]+_executor\\.(ps1|py)$",
+          "description": "Relative path to executor script"
+        },
+        "test_path": {
+          "type": "string",
+          "pattern": "^patterns/tests/test_[a-z0-9_]+_executor\\.(ps1|py)$",
+          "description": "Relative path to test suite"
+        },
+        "example_dir": {
+          "type": "string",
+          "pattern": "^patterns/examples/[a-z0-9_]+/$",
+          "description": "Relative path to examples directory"
+        },
+        "tool_targets": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["claude_code", "github_copilot_cli", "cursor", "codex"]
+          },
+          "description": "AI tools that can invoke this pattern"
+        },
+        "time_savings_vs_manual": {
+          "type": "string",
+          "pattern": "^\\d+%$",
+          "description": "Percentage time saved vs manual execution"
+        },
+        "proven_uses": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of successful executions"
+        },
+        "created": {
+          "type": "string",
+          "format": "date",
+          "description": "Date pattern was created (YYYY-MM-DD)"
+        },
+        "last_updated": {
+          "type": "string",
+          "format": "date",
+          "description": "Date pattern was last updated (YYYY-MM-DD)"
+        }
+      }
+    },
+    "migratedPattern": {
+      "type": "object",
+      "required": [
+        "pattern_id",
+        "name",
+        "version",
+        "status",
+        "category",
+        "spec_path",
+        "schema_path",
+        "executor_path",
+        "migrated_from",
+        "original_atom_uid"
+      ],
+      "properties": {
+        "pattern_id": {
+          "type": "string",
+          "pattern": "^PAT-MIGRATED-[A-Z]+-\\d{3}$",
+          "description": "Migrated pattern ID: PAT-MIGRATED-<CATEGORY>-<SEQ>"
+        },
+        "name": {
+          "type": "string",
+          "pattern": "^migrated_[a-z0-9_]+$",
+          "description": "Migrated pattern name (prefixed with migrated_)"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$",
+          "description": "Semantic version"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["draft", "active", "deprecated"],
+          "description": "Pattern status (draft until tested)"
+        },
+        "category": {
+          "type": "string",
+          "description": "Pattern category (from original atom role)"
+        },
+        "spec_path": {
+          "type": "string",
+          "pattern": "^patterns/legacy_atoms/converted/specs/migrated_[a-z0-9_]+\\.pattern\\.yaml$",
+          "description": "Path to migrated pattern spec"
+        },
+        "schema_path": {
+          "type": "string",
+          "pattern": "^patterns/legacy_atoms/converted/schemas/migrated_[a-z0-9_]+\\.schema\\.json$",
+          "description": "Path to migrated schema"
+        },
+        "executor_path": {
+          "type": "string",
+          "pattern": "^patterns/legacy_atoms/converted/executors/migrated_[a-z0-9_]+_executor\\.py$",
+          "description": "Path to migrated executor"
+        },
+        "migrated_from": {
+          "type": "string",
+          "const": "atomic-workflow-system",
+          "description": "Source repository (must be 'atomic-workflow-system')"
+        },
+        "original_atom_uid": {
+          "type": "string",
+          "description": "Original atom UID for traceability"
+        },
+        "original_atom_key": {
+          "type": "string",
+          "description": "Original atom key (optional)"
+        },
+        "migration_sequence": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Migration batch sequence number"
+        }
+      }
+    }
+  }
+}
