@@ -7,11 +7,29 @@ version: "1.0.0"
 metadata:
   created: "2025-11-24"
   last_updated: "2025-11-24"
-  total_patterns: 0
-  total_categories: 0
+  total_patterns: 1
+  total_categories: 1
 
 patterns:
-  # Core patterns will be added here
+  # Core pattern: atomic_create
+  - pattern_id: PAT-ATOMIC-CREATE-001
+    name: atomic_create
+    version: "1.0.0"
+    status: draft
+    category: file_creation
+    spec_path: patterns/specs/atomic_create.pattern.yaml
+    schema_path: patterns/schemas/atomic_create.schema.json
+    executor_path: patterns/executors/atomic_create_executor.ps1
+    test_path: patterns/tests/test_atomic_create_executor.ps1
+    example_dir: patterns/examples/atomic_create/
+    tool_targets:
+      - claude_code
+      - github_copilot_cli
+      - cursor
+    time_savings_vs_manual: "60%"
+    proven_uses: 0
+    created: "2025-11-24"
+    last_updated: "2025-11-24"
   # Format per entry:
   # - pattern_id: PAT-<CATEGORY>-<NAME>-<SEQ>
   #   name: <pattern_name>
