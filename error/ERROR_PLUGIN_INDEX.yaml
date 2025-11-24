@@ -1,0 +1,270 @@
+# ERROR_PLUGIN_INDEX.yaml
+# Index of error detection system modules and plugins
+# Generated: 2025-11-24
+# Spec: DOC_ID_FRAMEWORK.md
+
+metadata:
+  category: error
+  description: "Error detection, analysis, and auto-fix system"
+  total_modules: 10
+  last_updated: "2025-11-24"
+
+# Error Engine Core
+engine:
+  - doc_id: DOC-ERROR-ENGINE-001
+    name: error_engine
+    module: error.engine.error_engine
+    file: error/engine/error_engine.py
+    test_file: tests/error/engine/test_error_engine.py
+    purpose: "Main error detection and analysis engine"
+    responsibilities:
+      - Coordinate error detection across plugins
+      - Aggregate error results
+      - Prioritize fixes
+      - Trigger auto-fix workflows
+    priority: high
+    status: active
+    
+  - doc_id: DOC-ERROR-PLUGIN-MANAGER-002
+    name: plugin_manager
+    module: error.engine.plugin_manager
+    file: error/engine/plugin_manager.py
+    test_file: tests/error/engine/test_plugin_manager.py
+    purpose: "Plugin discovery, loading, and lifecycle management"
+    responsibilities:
+      - Discover available plugins
+      - Load plugin modules dynamically
+      - Validate plugin interfaces
+      - Manage plugin configuration
+    priority: high
+    status: active
+    dependencies:
+      - DOC-ERROR-ENGINE-001
+    
+  - doc_id: DOC-ERROR-PIPELINE-ENGINE-003
+    name: pipeline_engine
+    module: error.engine.pipeline_engine
+    file: error/engine/pipeline_engine.py
+    test_file: tests/error/engine/test_pipeline_engine.py
+    purpose: "Orchestrate multi-stage error detection pipelines"
+    responsibilities:
+      - Execute detection → analysis → fix workflow
+      - Coordinate plugin execution order
+      - Handle pipeline failures
+      - Track pipeline state
+    priority: high
+    status: active
+    dependencies:
+      - DOC-ERROR-ENGINE-001
+      - DOC-ERROR-PLUGIN-MANAGER-002
+    
+  - doc_id: DOC-ERROR-STATE-MACHINE-004
+    name: error_state_machine
+    module: error.engine.error_state_machine
+    file: error/engine/error_state_machine.py
+    test_file: tests/error/engine/test_error_state_machine.py
+    purpose: "Manage error lifecycle states (detected → fixed → verified)"
+    responsibilities:
+      - Track error state transitions
+      - Validate state changes
+      - Emit state change events
+      - Persist error history
+    priority: medium
+    status: active
+
+# Python Error Plugins
+plugins_python:
+  - doc_id: DOC-ERROR-PLUGIN-PYTHON-RUFF-005
+    name: python_ruff
+    plugin_type: linter
+    file: error/plugins/python_ruff/plugin.py
+    test_file: tests/error/plugins/test_python_ruff.py
+    purpose: "Fast Python linter (replaces flake8, isort, pyupgrade)"
+    detects:
+      - Code style violations
+      - Import ordering issues
+      - Unused imports
+      - Syntax errors
+    auto_fix: true
+    priority: high
+    status: active
+    
+  - doc_id: DOC-ERROR-PLUGIN-PYTHON-MYPY-006
+    name: python_mypy
+    plugin_type: type_checker
+    file: error/plugins/python_mypy/plugin.py
+    test_file: tests/error/plugins/test_python_mypy.py
+    purpose: "Static type checker for Python"
+    detects:
+      - Type mismatches
+      - Missing type annotations
+      - Incompatible return types
+      - None handling errors
+    auto_fix: false
+    priority: high
+    status: active
+    
+  - doc_id: DOC-ERROR-PLUGIN-PYTHON-PYLINT-007
+    name: python_pylint
+    plugin_type: linter
+    file: error/plugins/python_pylint/plugin.py
+    test_file: tests/error/plugins/test_python_pylint.py
+    purpose: "Comprehensive Python code quality checker"
+    detects:
+      - Code smells
+      - Design issues
+      - Complexity violations
+      - Best practice violations
+    auto_fix: false
+    priority: medium
+    status: active
+    
+  - doc_id: DOC-ERROR-PLUGIN-PYTHON-BANDIT-008
+    name: python_bandit
+    plugin_type: security
+    file: error/plugins/python_bandit/plugin.py
+    test_file: tests/error/plugins/test_python_bandit.py
+    purpose: "Security vulnerability scanner for Python"
+    detects:
+      - Hardcoded passwords
+      - SQL injection risks
+      - Unsafe YAML loading
+      - Command injection
+    auto_fix: false
+    priority: high
+    status: active
+
+# JavaScript Error Plugins
+plugins_javascript:
+  - doc_id: DOC-ERROR-PLUGIN-JS-ESLINT-009
+    name: js_eslint
+    plugin_type: linter
+    file: error/plugins/js_eslint/plugin.py
+    test_file: tests/error/plugins/test_js_eslint.py
+    purpose: "JavaScript/TypeScript linter"
+    detects:
+      - Code style violations
+      - Potential bugs
+      - Best practice violations
+      - Accessibility issues
+    auto_fix: true
+    priority: high
+    status: active
+
+# Security Analysis Plugins
+plugins_security:
+  - doc_id: DOC-ERROR-PLUGIN-SEMGREP-010
+    name: semgrep
+    plugin_type: security
+    file: error/plugins/semgrep/plugin.py
+    test_file: tests/error/plugins/test_semgrep.py
+    purpose: "Multi-language security and code quality scanner"
+    detects:
+      - Security vulnerabilities
+      - Performance issues
+      - Correctness bugs
+      - Custom pattern violations
+    auto_fix: false
+    priority: high
+    status: active
+    languages:
+      - python
+      - javascript
+      - typescript
+      - go
+      - java
+      - ruby
+
+# Plugin Interface Contract
+plugin_interface:
+  required_methods:
+    - name: "parse(output: str) -> List[Error]"
+      purpose: "Parse tool output into structured errors"
+      
+    - name: "detect(file_path: str) -> DetectionResult"
+      purpose: "Run detection on single file"
+  
+  optional_methods:
+    - name: "fix(error: Error) -> FixResult"
+      purpose: "Auto-fix detected error"
+      
+    - name: "batch_detect(files: List[str]) -> List[DetectionResult]"
+      purpose: "Run detection on multiple files"
+
+# Module Dependencies
+dependencies:
+  DOC-ERROR-ENGINE-001:
+    depends_on: []
+    used_by:
+      - DOC-ERROR-PLUGIN-MANAGER-002
+      - DOC-ERROR-PIPELINE-ENGINE-003
+      
+  DOC-ERROR-PLUGIN-MANAGER-002:
+    depends_on:
+      - DOC-ERROR-ENGINE-001
+    used_by:
+      - DOC-ERROR-PIPELINE-ENGINE-003
+      
+  DOC-ERROR-PIPELINE-ENGINE-003:
+    depends_on:
+      - DOC-ERROR-ENGINE-001
+      - DOC-ERROR-PLUGIN-MANAGER-002
+    used_by: []
+
+# Import Patterns
+import_patterns:
+  - pattern: "from error.engine.error_engine import ErrorEngine"
+    doc_id: DOC-ERROR-ENGINE-001
+    
+  - pattern: "from error.engine.plugin_manager import PluginManager"
+    doc_id: DOC-ERROR-PLUGIN-MANAGER-002
+    
+  - pattern: "from error.plugins.python_ruff.plugin import parse, detect"
+    doc_id: DOC-ERROR-PLUGIN-PYTHON-RUFF-005
+
+# Plugin Registry
+plugin_registry:
+  python:
+    - DOC-ERROR-PLUGIN-PYTHON-RUFF-005
+    - DOC-ERROR-PLUGIN-PYTHON-MYPY-006
+    - DOC-ERROR-PLUGIN-PYTHON-PYLINT-007
+    - DOC-ERROR-PLUGIN-PYTHON-BANDIT-008
+    
+  javascript:
+    - DOC-ERROR-PLUGIN-JS-ESLINT-009
+    
+  security:
+    - DOC-ERROR-PLUGIN-PYTHON-BANDIT-008
+    - DOC-ERROR-PLUGIN-SEMGREP-010
+    
+  auto_fix_capable:
+    - DOC-ERROR-PLUGIN-PYTHON-RUFF-005
+    - DOC-ERROR-PLUGIN-JS-ESLINT-009
+
+# AI Assistance Metadata
+ai_priority:
+  high:
+    - DOC-ERROR-ENGINE-001
+    - DOC-ERROR-PLUGIN-MANAGER-002
+    - DOC-ERROR-PLUGIN-PYTHON-RUFF-005
+    - DOC-ERROR-PLUGIN-PYTHON-MYPY-006
+  medium:
+    - DOC-ERROR-PIPELINE-ENGINE-003
+    - DOC-ERROR-PLUGIN-PYTHON-PYLINT-007
+    - DOC-ERROR-PLUGIN-JS-ESLINT-009
+  low:
+    - DOC-ERROR-STATE-MACHINE-004
+
+edit_policy:
+  safe:
+    - All error modules are safe to edit
+    - Follow plugin interface contract
+    - Add DOC_LINK to all new plugins
+    - Update this index when adding plugins
+    
+  plugin_development:
+    - Copy existing plugin as template
+    - Implement required methods (parse, detect)
+    - Optional: implement fix method for auto-fix
+    - Add tests in tests/error/plugins/
+    - Register in this index

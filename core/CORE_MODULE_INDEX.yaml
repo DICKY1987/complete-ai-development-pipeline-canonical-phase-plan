@@ -1,0 +1,223 @@
+# CORE_MODULE_INDEX.yaml
+# Index of all core module documentation
+# Generated: 2025-11-24
+# Spec: DOC_ID_FRAMEWORK.md
+
+metadata:
+  category: core
+  description: "Core modules for state management, orchestration, and execution"
+  total_modules: 10
+  last_updated: "2025-11-24"
+
+# Core State Management
+state:
+  - doc_id: DOC-CORE-STATE-DB-001
+    name: db
+    module: core.state.db
+    file: core/state/db.py
+    test_file: tests/state/test_db.py
+    purpose: "Database initialization and connection management"
+    responsibilities:
+      - SQLite connection management
+      - Database initialization
+      - Schema versioning
+    priority: high
+    status: active
+    
+  - doc_id: DOC-CORE-STATE-CRUD-002
+    name: crud
+    module: core.state.crud
+    file: core/state/crud.py
+    test_file: tests/state/test_crud.py
+    purpose: "CRUD operations for runs, workstreams, steps, errors, events"
+    responsibilities:
+      - Create/Read/Update/Delete operations
+      - Query building
+      - Transaction management
+    priority: high
+    status: active
+    
+  - doc_id: DOC-CORE-STATE-BUNDLES-003
+    name: bundles
+    module: core.state.bundles
+    file: core/state/bundles.py
+    test_file: tests/state/test_bundles.py
+    purpose: "Workstream JSON bundle loading and validation"
+    responsibilities:
+      - Load workstream definitions from JSON
+      - Validate bundle structure
+      - Extract dependencies
+    priority: high
+    status: active
+    
+  - doc_id: DOC-CORE-STATE-WORKTREE-004
+    name: worktree
+    module: core.state.worktree
+    file: core/state/worktree.py
+    test_file: tests/state/test_worktree.py
+    purpose: "Git worktree creation and management"
+    responsibilities:
+      - Create isolated git worktrees
+      - File scope validation
+      - Worktree cleanup
+    priority: high
+    status: active
+
+# Core Orchestration Engine
+engine:
+  - doc_id: DOC-CORE-ORCHESTRATOR-005
+    name: orchestrator
+    module: core.engine.orchestrator
+    file: core/engine/orchestrator.py
+    test_file: tests/engine/test_orchestrator.py
+    purpose: "Main orchestration engine for workstream execution"
+    responsibilities:
+      - Execute workstream steps in dependency order
+      - Coordinate tool invocations
+      - Handle step failures and retries
+      - Manage parallel execution
+    priority: high
+    status: active
+    dependencies:
+      - DOC-CORE-SCHEDULER-006
+      - DOC-CORE-EXECUTOR-007
+      - DOC-CORE-STATE-DB-001
+    
+  - doc_id: DOC-CORE-SCHEDULER-006
+    name: scheduler
+    module: core.engine.scheduler
+    file: core/engine/scheduler.py
+    test_file: tests/engine/test_scheduler.py
+    purpose: "Step scheduling with dependency resolution"
+    responsibilities:
+      - Build dependency DAG
+      - Topological sorting
+      - Cycle detection
+      - Priority-based ordering
+    priority: high
+    status: active
+    
+  - doc_id: DOC-CORE-EXECUTOR-007
+    name: executor
+    module: core.engine.executor
+    file: core/engine/executor.py
+    test_file: tests/engine/test_executor.py
+    purpose: "Step execution with retry and error handling"
+    responsibilities:
+      - Execute individual steps via tool adapters
+      - Implement retry logic with exponential backoff
+      - Capture and log errors
+      - Timeout management
+    priority: high
+    status: active
+    dependencies:
+      - DOC-CORE-TOOLS-008
+      - DOC-CORE-CIRCUIT-BREAKER-009
+    
+  - doc_id: DOC-CORE-TOOLS-008
+    name: tools
+    module: core.engine.tools
+    file: core/engine/tools.py
+    test_file: tests/engine/test_tools.py
+    purpose: "Tool adapter management and invocation"
+    responsibilities:
+      - Load tool profiles
+      - Route to appropriate adapter
+      - Manage tool lifecycle
+    priority: high
+    status: active
+    
+  - doc_id: DOC-CORE-CIRCUIT-BREAKER-009
+    name: circuit_breakers
+    module: core.engine.circuit_breakers
+    file: core/engine/circuit_breakers.py
+    test_file: tests/engine/test_circuit_breakers.py
+    purpose: "Circuit breaker pattern for tool failures"
+    responsibilities:
+      - Track consecutive failures
+      - Open circuit after threshold
+      - Half-open state management
+      - Automatic recovery
+    priority: high
+    status: active
+    
+  - doc_id: DOC-CORE-RECOVERY-010
+    name: recovery
+    module: core.engine.recovery
+    file: core/engine/recovery.py
+    test_file: tests/engine/test_recovery.py
+    purpose: "Workstream recovery after failures"
+    responsibilities:
+      - Checkpoint creation
+      - Resume from last successful step
+      - State restoration
+      - Failure analysis
+    priority: high
+    status: active
+    dependencies:
+      - DOC-CORE-STATE-DB-001
+      - DOC-CORE-ORCHESTRATOR-005
+
+# Module relationships
+dependencies:
+  DOC-CORE-ORCHESTRATOR-005:
+    depends_on:
+      - DOC-CORE-SCHEDULER-006
+      - DOC-CORE-EXECUTOR-007
+      - DOC-CORE-STATE-DB-001
+      - DOC-CORE-STATE-CRUD-002
+    used_by:
+      - DOC-CORE-RECOVERY-010
+      
+  DOC-CORE-EXECUTOR-007:
+    depends_on:
+      - DOC-CORE-TOOLS-008
+      - DOC-CORE-CIRCUIT-BREAKER-009
+    used_by:
+      - DOC-CORE-ORCHESTRATOR-005
+      
+  DOC-CORE-STATE-DB-001:
+    depends_on: []
+    used_by:
+      - DOC-CORE-STATE-CRUD-002
+      - DOC-CORE-ORCHESTRATOR-005
+      - DOC-CORE-RECOVERY-010
+
+# Import patterns (for AI reference)
+import_patterns:
+  - pattern: "from core.state.db import init_db, get_db"
+    doc_id: DOC-CORE-STATE-DB-001
+    
+  - pattern: "from core.state.crud import create_run, update_step"
+    doc_id: DOC-CORE-STATE-CRUD-002
+    
+  - pattern: "from core.engine.orchestrator import Orchestrator"
+    doc_id: DOC-CORE-ORCHESTRATOR-005
+    
+  - pattern: "from core.engine.scheduler import Scheduler"
+    doc_id: DOC-CORE-SCHEDULER-006
+    
+  - pattern: "from core.engine.executor import Executor"
+    doc_id: DOC-CORE-EXECUTOR-007
+
+# AI assistance metadata
+ai_priority:
+  high:
+    - DOC-CORE-ORCHESTRATOR-005
+    - DOC-CORE-EXECUTOR-007
+    - DOC-CORE-SCHEDULER-006
+    - DOC-CORE-STATE-DB-001
+    - DOC-CORE-STATE-CRUD-002
+  medium:
+    - DOC-CORE-TOOLS-008
+    - DOC-CORE-CIRCUIT-BREAKER-009
+    - DOC-CORE-RECOVERY-010
+    - DOC-CORE-STATE-BUNDLES-003
+    - DOC-CORE-STATE-WORKTREE-004
+
+edit_policy:
+  safe:
+    - All core modules are safe to edit
+    - Follow import path standards (core.*)
+    - Add DOC_LINK to all new files
+    - Update this index when adding modules
