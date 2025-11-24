@@ -1,0 +1,12 @@
+{
+  "metadata": {
+    "description": "Comprehensive example",
+    "created": "2025-11-24",
+    "category": "verification"
+  },
+  "doc_id": "DOC-PAT-PREFLIGHT-VERIFY-001",
+  "inputs": {
+    "instance_path": "path/to/instance.json"
+  },
+  "pattern_id": "PAT-PREFLIGHT-VERIFY-001"
+}

@@ -1,0 +1,42 @@
+{
+  "type": "object",
+  "properties": {
+    "metadata": {
+      "description": "Optional metadata",
+      "type": "object"
+    },
+    "doc_id": {
+      "const": "DOC-PAT-VIEW-EDIT-VERIFY-003",
+      "description": "Document ID linking all artifacts",
+      "type": "string"
+    },
+    "outputs": {
+      "description": "Pattern execution outputs",
+      "type": "object"
+    },
+    "inputs": {
+      "description": "Pattern-specific input parameters",
+      "properties": {
+        "instance_path": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "pattern_id": {
+      "const": "PAT-VIEW-EDIT-VERIFY-003",
+      "description": "Pattern identifier",
+      "type": "string"
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "doc_id": "DOC-PAT-VIEW-EDIT-VERIFY-003",
+  "required": [
+    "doc_id",
+    "pattern_id",
+    "inputs"
+  ],
+  "title": "view_edit_verify Pattern Instance",
+  "$id": "view_edit_verify.schema.json",
+  "description": "Schema for view_edit_verify pattern instances"
+}

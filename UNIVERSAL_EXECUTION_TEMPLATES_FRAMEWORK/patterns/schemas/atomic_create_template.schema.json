@@ -1,0 +1,42 @@
+{
+  "type": "object",
+  "properties": {
+    "metadata": {
+      "description": "Optional metadata",
+      "type": "object"
+    },
+    "doc_id": {
+      "const": "DOC-PAT-ATOMIC-CREATE-TEMPLATE-001",
+      "description": "Document ID linking all artifacts",
+      "type": "string"
+    },
+    "outputs": {
+      "description": "Pattern execution outputs",
+      "type": "object"
+    },
+    "inputs": {
+      "description": "Pattern-specific input parameters",
+      "properties": {
+        "instance_path": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "pattern_id": {
+      "const": "PAT-ATOMIC-CREATE-TEMPLATE-001",
+      "description": "Pattern identifier",
+      "type": "string"
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "doc_id": "DOC-PAT-ATOMIC-CREATE-TEMPLATE-001",
+  "required": [
+    "doc_id",
+    "pattern_id",
+    "inputs"
+  ],
+  "title": "atomic_create_template Pattern Instance",
+  "$id": "atomic_create_template.schema.json",
+  "description": "Schema for atomic_create_template pattern instances"
+}

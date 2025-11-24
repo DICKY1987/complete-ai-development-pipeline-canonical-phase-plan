@@ -1,0 +1,12 @@
+{
+  "metadata": {
+    "description": "Minimal valid instance",
+    "created": "2025-11-24",
+    "category": "parallel"
+  },
+  "doc_id": "DOC-PAT-BATCH-FILE-CREATION-001",
+  "inputs": {
+    "instance_path": "path/to/instance.json"
+  },
+  "pattern_id": "PAT-BATCH-FILE-CREATION-001"
+}

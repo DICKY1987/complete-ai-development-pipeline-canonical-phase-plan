@@ -1,0 +1,12 @@
+{
+  "metadata": {
+    "description": "Comprehensive example",
+    "created": "2025-11-24",
+    "category": "meta"
+  },
+  "doc_id": "DOC-PAT-DECISION-ELIMINATION-BOOTSTRAP-001",
+  "inputs": {
+    "instance_path": "path/to/instance.json"
+  },
+  "pattern_id": "PAT-DECISION-ELIMINATION-BOOTSTRAP-001"
+}

@@ -1,0 +1,12 @@
+{
+  "metadata": {
+    "description": "Test scenario",
+    "created": "2025-11-24",
+    "category": "template"
+  },
+  "doc_id": "DOC-PAT-MODULE-CREATION-CONVERGENCE-001",
+  "inputs": {
+    "instance_path": "path/to/instance.json"
+  },
+  "pattern_id": "PAT-MODULE-CREATION-CONVERGENCE-001"
+}

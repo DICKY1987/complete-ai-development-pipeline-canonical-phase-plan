@@ -1,0 +1,37 @@
+# Pattern: create_test_commit
+# Pattern ID: PAT-CREATE-TEST-COMMIT-001
+# doc_id: DOC-PAT-CREATE-TEST-COMMIT-001
+# Version: 1.0.0
+# Category: sequential
+
+doc_id: "DOC-PAT-CREATE-TEST-COMMIT-001"
+pattern_id: "PAT-CREATE-TEST-COMMIT-001"
+name: "create_test_commit"
+version: "1.0.0"
+category: "sequential"
+status: "draft"
+role: "spec"
+
+schema_ref: "patterns/schemas/create_test_commit.schema.json"
+executor_ref: "patterns/executors/create_test_commit_executor.ps1"
+example_dir: "patterns/examples/create_test_commit/"
+
+metadata:
+  created: "2025-11-24"
+  source_template: "templates\patterns\sequential\create_test_commit.pattern.yaml"
+  category: "sequential"
+
+intent: |
+  Pattern generated from template: templates\patterns\sequential\create_test_commit.pattern.yaml
+  Provides reusable execution logic for create_test_commit operations.
+
+inputs:
+  instance_path:
+    type: "string"
+    required: true
+    description: "Path to pattern instance JSON file"
+
+outputs:
+  execution_result:
+    type: "object"
+    description: "Result of pattern execution"

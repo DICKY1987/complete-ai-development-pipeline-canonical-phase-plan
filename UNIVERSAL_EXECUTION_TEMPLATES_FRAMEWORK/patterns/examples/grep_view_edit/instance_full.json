@@ -1,0 +1,12 @@
+{
+  "metadata": {
+    "description": "Comprehensive example",
+    "created": "2025-11-24",
+    "category": "sequential"
+  },
+  "doc_id": "DOC-PAT-GREP-VIEW-EDIT-002",
+  "inputs": {
+    "instance_path": "path/to/instance.json"
+  },
+  "pattern_id": "PAT-GREP-VIEW-EDIT-002"
+}
