@@ -3,7 +3,7 @@ metadata:
   created: '2025-11-24'
   last_updated: '2025-11-24'
   spec_doc: DOC_ID_FRAMEWORK.md
-  total_docs: 39
+  total_docs: 80
 categories:
   patterns:
     prefix: PAT
@@ -62,8 +62,8 @@ categories:
   script:
     prefix: SCRIPT
     description: Automation scripts
-    count: 4
-    next_id: 5
+    count: 45
+    next_id: 46
     index_file: scripts/SCRIPT_INDEX.yaml
   test:
     prefix: TEST
@@ -537,6 +537,498 @@ docs:
   tags:
   - config
   - configuration
+- doc_id: DOC-SCRIPT-AIM-AUDIT-QUERY-005
+  category: script
+  name: aim_audit_query
+  title: AIM Audit Query Tool
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - aim
+  - audit
+  - query
+- doc_id: DOC-SCRIPT-AIM-STATUS-006
+  category: script
+  name: aim_status
+  title: AIM Status Reporter
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - aim
+  - status
+  - monitoring
+- doc_id: DOC-SCRIPT-AUTO-MIGRATE-IMPORTS-007
+  category: script
+  name: auto_migrate_imports
+  title: Automatic Import Path Migration
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - migration
+  - automation
+  - imports
+- doc_id: DOC-SCRIPT-CHECK-DEPRECATED-USAGE-008
+  category: script
+  name: check_deprecated_usage
+  title: Deprecated Path Usage Checker
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - validation
+  - deprecated
+  - ci
+- doc_id: DOC-SCRIPT-CLEAN-REGISTRY-DUPLICATES-009
+  category: script
+  name: clean_registry_duplicates
+  title: DOC_ID Registry Duplicate Cleaner
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - cleanup
+  - registry
+  - utility
+- doc_id: DOC-SCRIPT-DB-INSPECT-010
+  category: script
+  name: db_inspect
+  title: Database Inspection Tool
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - database
+  - debugging
+  - inspection
+- doc_id: DOC-SCRIPT-GH-EPIC-SYNC-011
+  category: script
+  name: gh_epic_sync
+  title: GitHub Epic Synchronization
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - github
+  - sync
+  - project-management
+- doc_id: DOC-SCRIPT-GH-ISSUE-UPDATE-012
+  category: script
+  name: gh_issue_update
+  title: GitHub Issue Update Tool
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - github
+  - issues
+  - automation
+- doc_id: DOC-SCRIPT-IMPLEMENT-UET-PHASES-013
+  category: script
+  name: implement_uet_phases
+  title: UET Phase Implementation Generator
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - uet
+  - generator
+  - automation
+- doc_id: DOC-SCRIPT-INIT-DB-014
+  category: script
+  name: init_db
+  title: Database Initialization Script
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - database
+  - initialization
+  - setup
+- doc_id: DOC-SCRIPT-MIGRATE-IMPORTS-015
+  category: script
+  name: migrate_imports
+  title: Import Path Migration Tool
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - migration
+  - imports
+  - refactoring
+- doc_id: DOC-SCRIPT-MIGRATE-PLUGINS-TO-INVOKE-016
+  category: script
+  name: migrate_plugins_to_invoke
+  title: Plugin to Invoke Migration
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - migration
+  - invoke
+  - plugins
+- doc_id: DOC-SCRIPT-MIGRATE-SPEC-FOLDERS-017
+  category: script
+  name: migrate_spec_folders
+  title: Specification Folder Migration
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - migration
+  - specs
+  - organization
+- doc_id: DOC-SCRIPT-MONITOR-PARALLEL-018
+  category: script
+  name: monitor_parallel
+  title: Parallel Execution Monitor
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - monitoring
+  - parallel
+  - execution
+- doc_id: DOC-SCRIPT-RECOVERY-019
+  category: script
+  name: recovery
+  title: System Recovery Tool
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - recovery
+  - error-handling
+  - maintenance
+- doc_id: DOC-SCRIPT-REPORT-METRICS-020
+  category: script
+  name: report_metrics
+  title: Metrics Reporting Tool
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - metrics
+  - reporting
+  - analytics
+- doc_id: DOC-SCRIPT-RUN-ERROR-ENGINE-021
+  category: script
+  name: run_error_engine
+  title: Error Engine Runner
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - error
+  - execution
+  - testing
+- doc_id: DOC-SCRIPT-RUN-WORKSTREAM-022
+  category: script
+  name: run_workstream
+  title: Workstream Execution Runner
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - workstream
+  - execution
+  - runner
+- doc_id: DOC-SCRIPT-RUN-WS-WRAPPER-023
+  category: script
+  name: run_ws_wrapper
+  title: Workstream Wrapper Runner
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - workstream
+  - wrapper
+  - execution
+- doc_id: DOC-SCRIPT-SPEC-TO-WORKSTREAM-024
+  category: script
+  name: spec_to_workstream
+  title: Specification to Workstream Converter
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - conversion
+  - specs
+  - workstreams
+- doc_id: DOC-SCRIPT-TEST-ADAPTERS-025
+  category: script
+  name: test_adapters
+  title: Adapter Testing Script
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - testing
+  - adapters
+  - validation
+- doc_id: DOC-SCRIPT-TEST-STATE-STORE-026
+  category: script
+  name: test_state_store
+  title: State Store Testing Script
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - testing
+  - state
+  - database
+- doc_id: DOC-SCRIPT-VIEW-EVENTS-027
+  category: script
+  name: view_events
+  title: Event Log Viewer
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - events
+  - logging
+  - debugging
+- doc_id: DOC-SCRIPT-ADD-AIDER-TO-PROFILE-028
+  category: script
+  name: add_aider_to_profile
+  title: Add Aider to PowerShell Profile
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - aider
+  - setup
+  - powershell
+- doc_id: DOC-SCRIPT-AIDER-OLLAMA-029
+  category: script
+  name: aider_ollama
+  title: Aider with Ollama Integration
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - aider
+  - ollama
+  - ai
+- doc_id: DOC-SCRIPT-BOOTSTRAP-030
+  category: script
+  name: bootstrap
+  title: Repository Bootstrap Script
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - setup
+  - initialization
+  - bootstrap
+- doc_id: DOC-SCRIPT-CCPM-INSTALL-031
+  category: script
+  name: ccpm_install
+  title: CCPM Installation Script
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - ccpm
+  - installation
+  - setup
+- doc_id: DOC-SCRIPT-CCPM-UPDATE-032
+  category: script
+  name: ccpm_update
+  title: CCPM Update Script
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - ccpm
+  - update
+  - maintenance
+- doc_id: DOC-SCRIPT-CHECK-WORKSTREAM-STATUS-033
+  category: script
+  name: check_workstream_status
+  title: Workstream Status Checker
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - workstream
+  - status
+  - monitoring
+- doc_id: DOC-SCRIPT-CONSOLIDATE-LEGACY-CODE-034
+  category: script
+  name: consolidate_legacy_code
+  title: Legacy Code Consolidation
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - legacy
+  - cleanup
+  - consolidation
+- doc_id: DOC-SCRIPT-CREATE-DOCID-WORKTREES-035
+  category: script
+  name: create_docid_worktrees
+  title: DOC_ID Worktree Creator
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - worktree
+  - docid
+  - automation
+- doc_id: DOC-SCRIPT-MIGRATE-DOCS-TO-DEVDOCS-036
+  category: script
+  name: migrate_docs_to_devdocs
+  title: Docs to DevDocs Migration
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - migration
+  - documentation
+  - organization
+- doc_id: DOC-SCRIPT-MIGRATE-FILE-ORGANIZATION-037
+  category: script
+  name: migrate_file_organization
+  title: File Organization Migration
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - migration
+  - organization
+  - refactoring
+- doc_id: DOC-SCRIPT-MIGRATE-SPEC-FOLDERS-PS-038
+  category: script
+  name: migrate_spec_folders_ps
+  title: Specification Folder Migration (PS)
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - migration
+  - specs
+  - powershell
+- doc_id: DOC-SCRIPT-SET-AIDER-ENV-039
+  category: script
+  name: set_aider_env
+  title: Set Aider Environment
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - aider
+  - environment
+  - configuration
+- doc_id: DOC-SCRIPT-SPEC-TO-WORKSTREAM-PS-040
+  category: script
+  name: spec_to_workstream_ps
+  title: Spec to Workstream Converter (PS)
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - conversion
+  - specs
+  - powershell
+- doc_id: DOC-SCRIPT-TEST-AIDER-COMPREHENSIVE-041
+  category: script
+  name: test_aider_comprehensive
+  title: Comprehensive Aider Testing
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - testing
+  - aider
+  - validation
+- doc_id: DOC-SCRIPT-TEST-AIDER-DEEPSEEK-042
+  category: script
+  name: test_aider_deepseek
+  title: Aider DeepSeek Testing
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - testing
+  - aider
+  - deepseek
+- doc_id: DOC-SCRIPT-TEST-PS-043
+  category: script
+  name: test_ps
+  title: PowerShell Test Script
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - testing
+  - powershell
+  - development
+- doc_id: DOC-SCRIPT-WORKTREE-MERGE-044
+  category: script
+  name: worktree_merge
+  title: Worktree Merge Helper
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - worktree
+  - merge
+  - automation
+- doc_id: DOC-SCRIPT-WORKTREE-START-045
+  category: script
+  name: worktree_start
+  title: Worktree Start Helper
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - worktree
+  - startup
+  - automation
 migration_queue:
   core_modules:
   - path: core/state/db.py
