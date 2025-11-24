@@ -2,7 +2,7 @@
 # Pattern: decision_elimination_bootstrap (PAT-DECISION-ELIMINATION-BOOTSTRAP-001)
 # Version: 1.0.0
 # Category: meta
-# Purpose: Execute decision_elimination_bootstrap pattern instances
+# Purpose: Initialize decision elimination workflow
 
 param(
     [Parameter(Mandatory=$true)]
@@ -11,28 +11,69 @@ param(
 
 $ErrorActionPreference = "Stop"
 
-Write-Host "Executing decision_elimination_bootstrap pattern..." -ForegroundColor Cyan
+# Load common utilities
+. "$PSScriptRoot\..\scripts\pattern_utilities.ps1"
 
-# Load instance
+Write-PatternLog "Executing decision_elimination_bootstrap pattern..." "INFO"
+
+# Load and validate instance
 if (-not (Test-Path $InstancePath)) {
     throw "Instance file not found: $InstancePath"
 }
 
 $instance = Get-Content $InstancePath -Raw | ConvertFrom-Json
+Test-PatternInstance -Instance $instance `
+    -ExpectedDocId "DOC-PAT-DECISION-ELIMINATION-BOOTSTRAP-001" `
+    -ExpectedPatternId "PAT-DECISION-ELIMINATION-BOOTSTRAP-001"
 
-# Validate doc_id
-if ($instance.doc_id -ne "DOC-PAT-DECISION-ELIMINATION-BOOTSTRAP-001") {
-    throw "Invalid doc_id. Expected: DOC-PAT-DECISION-ELIMINATION-BOOTSTRAP-001, Got: $($instance.doc_id)"
+# Extract inputs
+$context = $instance.inputs.context
+$decisionPoints = $instance.inputs.decision_points
+
+Write-PatternLog "Analyzing $($decisionPoints.Count) decision points..." "INFO"
+
+# Step 1: Analyze decision points
+$eliminatedOptions = @()
+$recommendations = @()
+
+foreach ($point in $decisionPoints) {
+    Write-PatternLog "Decision: $($point.name)" "INFO"
+    
+    # Simple elimination logic - mark options with constraints
+    $viableOptions = $point.options | Where-Object { 
+        -not ($_.constraints -and $_.constraints.Count -gt 0)
+    }
+    
+    $eliminated = $point.options | Where-Object {
+        $_.constraints -and $_.constraints.Count -gt 0
+    }
+    
+    foreach ($opt in $eliminated) {
+        $eliminatedOptions += @{
+            decision = $point.name
+            option = $opt.name
+            reason = "Has constraints: $($opt.constraints -join ', ')"
+        }
+    }
+    
+    if ($viableOptions.Count -gt 0) {
+        $recommended = $viableOptions | Select-Object -First 1
+        $recommendations += @{
+            decision = $point.name
+            recommended_option = $recommended.name
+            viable_options = $viableOptions.Count
+        }
+        Write-PatternLog "  Recommended: $($recommended.name)" "SUCCESS"
+    }
 }
 
-# Validate pattern_id
-if ($instance.pattern_id -ne "PAT-DECISION-ELIMINATION-BOOTSTRAP-001") {
-    throw "Invalid pattern_id. Expected: PAT-DECISION-ELIMINATION-BOOTSTRAP-001, Got: $($instance.pattern_id)"
+Write-PatternLog "Decision elimination complete" "SUCCESS"
+Write-PatternLog "Eliminated $($eliminatedOptions.Count) options" "INFO"
+Write-PatternLog "Generated $($recommendations.Count) recommendations" "INFO"
+
+$result = New-PatternResult -Success $true -Message "Decision elimination bootstrap complete" -Data @{
+    recommendations = $recommendations
+    eliminated_options = $eliminatedOptions
 }
 
-Write-Host "✓ Validation passed" -ForegroundColor Green
-
-# TODO: Implement decision_elimination_bootstrap execution logic
-# See patterns/specs/decision_elimination_bootstrap.pattern.yaml for implementation details
-
-Write-Host "✓ decision_elimination_bootstrap pattern execution complete" -ForegroundColor Green
+Write-Output $result

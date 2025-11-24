@@ -1,12 +1,11 @@
 {
-  "metadata": {
-    "description": "Minimal valid instance",
-    "created": "2025-11-24",
-    "category": "verification"
-  },
   "doc_id": "DOC-PAT-PYTEST-GREEN-VERIFY-002",
   "inputs": {
-    "instance_path": "path/to/instance.json"
+    "pytest_args": [
+      "-v",
+      "-q"
+    ],
+    "test_path": "tests/"
   },
   "pattern_id": "PAT-PYTEST-GREEN-VERIFY-002"
 }

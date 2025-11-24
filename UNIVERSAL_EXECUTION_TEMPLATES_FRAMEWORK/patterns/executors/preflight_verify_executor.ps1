@@ -2,7 +2,7 @@
 # Pattern: preflight_verify (PAT-PREFLIGHT-VERIFY-001)
 # Version: 1.0.0
 # Category: verification
-# Purpose: Execute preflight_verify pattern instances
+# Purpose: Run preflight checks before operation
 
 param(
     [Parameter(Mandatory=$true)]
@@ -11,28 +11,84 @@ param(
 
 $ErrorActionPreference = "Stop"
 
-Write-Host "Executing preflight_verify pattern..." -ForegroundColor Cyan
+# Load common utilities
+. "$PSScriptRoot\..\scripts\pattern_utilities.ps1"
 
-# Load instance
+Write-PatternLog "Executing preflight_verify pattern..." "INFO"
+
+# Load and validate instance
 if (-not (Test-Path $InstancePath)) {
     throw "Instance file not found: $InstancePath"
 }
 
 $instance = Get-Content $InstancePath -Raw | ConvertFrom-Json
+Test-PatternInstance -Instance $instance `
+    -ExpectedDocId "DOC-PAT-PREFLIGHT-VERIFY-001" `
+    -ExpectedPatternId "PAT-PREFLIGHT-VERIFY-001"
 
-# Validate doc_id
-if ($instance.doc_id -ne "DOC-PAT-PREFLIGHT-VERIFY-001") {
-    throw "Invalid doc_id. Expected: DOC-PAT-PREFLIGHT-VERIFY-001, Got: $($instance.doc_id)"
+# Extract inputs
+$checks = $instance.inputs.checks
+$failFast = if ($instance.inputs.fail_fast) { $instance.inputs.fail_fast } else { $false }
+
+Write-PatternLog "Running $($checks.Count) preflight checks..." "INFO"
+
+$results = @()
+$checksPassed = 0
+$checksFailed = 0
+
+foreach ($check in $checks) {
+    Write-PatternLog "Check: $($check.name)" "INFO"
+    
+    try {
+        # Execute check command
+        $checkResult = Invoke-Expression $check.command
+        $passed = $LASTEXITCODE -eq 0
+        
+        if ($passed) {
+            $checksPassed++
+            Write-PatternLog "  ✓ Passed" "SUCCESS"
+        } else {
+            $checksFailed++
+            Write-PatternLog "  ✗ Failed" "ERROR"
+            
+            if ($failFast) {
+                Write-PatternLog "Fail-fast enabled, aborting remaining checks" "WARNING"
+                break
+            }
+        }
+        
+        $results += @{
+            name = $check.name
+            passed = $passed
+            output = $checkResult
+        }
+        
+    } catch {
+        $checksFailed++
+        Write-PatternLog "  ✗ Error: $_" "ERROR"
+        
+        $results += @{
+            name = $check.name
+            passed = $false
+            error = $_.ToString()
+        }
+        
+        if ($failFast) {
+            break
+        }
+    }
 }
 
-# Validate pattern_id
-if ($instance.pattern_id -ne "PAT-PREFLIGHT-VERIFY-001") {
-    throw "Invalid pattern_id. Expected: PAT-PREFLIGHT-VERIFY-001, Got: $($instance.pattern_id)"
+$canProceed = ($checksFailed -eq 0)
+
+Write-PatternLog "Preflight checks complete: $checksPassed passed, $checksFailed failed" $(if ($canProceed) { "SUCCESS" } else { "ERROR" })
+
+# Return result
+$result = New-PatternResult -Success $canProceed -Message "Preflight checks $(if ($canProceed) { 'passed' } else { 'failed' })" -Data @{
+    checks_passed = $checksPassed
+    checks_failed = $checksFailed
+    can_proceed = $canProceed
+    results = $results
 }
 
-Write-Host "✓ Validation passed" -ForegroundColor Green
-
-# TODO: Implement preflight_verify execution logic
-# See patterns/specs/preflight_verify.pattern.yaml for implementation details
-
-Write-Host "✓ preflight_verify pattern execution complete" -ForegroundColor Green
+Write-Output $result

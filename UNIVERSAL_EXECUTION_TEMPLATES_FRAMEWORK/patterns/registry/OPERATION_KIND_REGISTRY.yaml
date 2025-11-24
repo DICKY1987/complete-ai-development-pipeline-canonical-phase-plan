@@ -1,0 +1,503 @@
+# OPERATION_KIND_REGISTRY.yaml
+# Version: 1.0.0
+# Created: 2025-11-24
+# Purpose: Canonical registry of operation kinds for pattern execution system
+# 
+# This registry defines the finite set of operation kinds that can be used in:
+# - Phase plan steps (operation_kind field)
+# - Pattern specifications (operation_kinds array)
+# - Pattern routing (PATTERN_ROUTING.yaml)
+#
+# Format: Each operation kind MUST have:
+# - id: Unique sequential identifier (OPK-0001, OPK-0002, ...)
+# - name: SCREAMING_SNAKE_CASE canonical name
+# - category: One of: filesystem, code_edit, testing, docs, git, orchestration, analysis
+# - summary: Brief description of the operation
+# - examples: List of common phrases that map to this operation
+# - required_params: Parameters that MUST be provided
+# - optional_params: Parameters that MAY be provided
+# - notes: Additional constraints or clarifications
+
+version: 1.0.0
+status: stable
+metadata:
+  created: "2025-11-24"
+  last_updated: "2025-11-24"
+  total_operation_kinds: 25
+  author: "UET Pattern Governance Team"
+
+operation_kinds:
+  # === FILESYSTEM OPERATIONS ===
+  
+  - id: OPK-0001
+    name: CREATE_FILE
+    category: filesystem
+    summary: >
+      Create a new file with optional template content or skeleton structure.
+    examples:
+      - "create new file"
+      - "add file to project"
+      - "generate new script"
+    required_params:
+      - path
+    optional_params:
+      - template_ref
+      - doc_id
+      - content
+    notes:
+      - "Use SAVE_FILE for writing content to existing or newly created files"
+      - "For creating multiple files, consider using batch operations"
+  
+  - id: OPK-0002
+    name: SAVE_FILE
+    category: filesystem
+    summary: >
+      Write content to a file (new or existing) with proper headers, metadata, and audit trail.
+    examples:
+      - "save the file"
+      - "write file to disk"
+      - "update file content"
+    required_params:
+      - path
+      - content
+    optional_params:
+      - doc_id
+      - encoding
+      - mode  # overwrite, append
+    notes:
+      - "All persistent file writes MUST use this operation_kind"
+      - "Automatically adds DOC_LINK headers where applicable"
+  
+  - id: OPK-0003
+    name: DELETE_FILE
+    category: filesystem
+    summary: >
+      Remove a file from the filesystem with optional backup.
+    examples:
+      - "delete file"
+      - "remove temporary file"
+    required_params:
+      - path
+    optional_params:
+      - create_backup
+      - backup_path
+    notes:
+      - "Use with caution - consider archiving instead of deleting"
+  
+  - id: OPK-0004
+    name: MOVE_FILE
+    category: filesystem
+    summary: >
+      Move or rename a file to a new location.
+    examples:
+      - "move file to directory"
+      - "rename file"
+      - "relocate script"
+    required_params:
+      - source_path
+      - destination_path
+    optional_params:
+      - create_backup
+      - update_references
+    notes:
+      - "Should update cross-references automatically where possible"
+
+  # === CODE EDITING OPERATIONS ===
+  
+  - id: OPK-0005
+    name: APPLY_PATCH
+    category: code_edit
+    summary: >
+      Apply a patch file to the codebase using git apply or equivalent mechanism.
+    examples:
+      - "apply patch"
+      - "apply diff file"
+      - "merge changes from patch"
+    required_params:
+      - patch_path
+    optional_params:
+      - dry_run
+      - three_way_merge
+      - reverse
+    notes:
+      - "Supports git patch format (unified diff)"
+      - "Integrates with patch ledger for audit trail"
+  
+  - id: OPK-0006
+    name: REFACTOR_MODULE
+    category: code_edit
+    summary: >
+      Perform scoped refactoring on a module with tests and validation.
+    examples:
+      - "refactor module"
+      - "restructure code"
+      - "improve implementation"
+    required_params:
+      - module_path
+      - refactor_type  # rename, extract, inline, etc.
+    optional_params:
+      - scope  # file, function, class
+      - run_tests
+    notes:
+      - "Always run tests after refactoring"
+      - "Create snapshot before major refactors"
+  
+  - id: OPK-0007
+    name: ADD_FUNCTION
+    category: code_edit
+    summary: >
+      Add a new function or method to an existing code file.
+    examples:
+      - "add function"
+      - "create new method"
+      - "implement helper function"
+    required_params:
+      - file_path
+      - function_name
+    optional_params:
+      - function_body
+      - docstring
+      - type_hints
+    notes:
+      - "Should include proper documentation and type hints"
+
+  # === TESTING OPERATIONS ===
+  
+  - id: OPK-0008
+    name: RUN_TESTS
+    category: testing
+    summary: >
+      Execute the project's automated test suite or a filtered subset.
+    examples:
+      - "run tests"
+      - "run pytest"
+      - "execute test suite"
+    required_params: []
+    optional_params:
+      - test_filter  # path, marker, keyword
+      - verbose
+      - fail_fast
+    notes:
+      - "Default runs entire test suite"
+      - "Supports pytest, unittest, and other frameworks"
+  
+  - id: OPK-0009
+    name: RUN_LINTER
+    category: testing
+    summary: >
+      Run linting tools to check code quality and style compliance.
+    examples:
+      - "run linter"
+      - "check code style"
+      - "run ruff"
+    required_params: []
+    optional_params:
+      - linter_tool  # ruff, pylint, flake8
+      - fix
+      - paths
+    notes:
+      - "Can auto-fix issues if supported by linter"
+  
+  - id: OPK-0010
+    name: RUN_FORMATTER
+    category: testing
+    summary: >
+      Run code formatter to ensure consistent code style.
+    examples:
+      - "format code"
+      - "run black"
+      - "apply code formatting"
+    required_params: []
+    optional_params:
+      - formatter_tool  # black, autopep8
+      - check_only
+      - paths
+    notes:
+      - "Always run before committing code"
+
+  # === DOCUMENTATION OPERATIONS ===
+  
+  - id: OPK-0011
+    name: CREATE_DOC
+    category: docs
+    summary: >
+      Create a new documentation file with proper structure and metadata.
+    examples:
+      - "create documentation"
+      - "generate README"
+      - "add spec document"
+    required_params:
+      - path
+      - doc_type  # spec, readme, guide, reference
+    optional_params:
+      - template_ref
+      - doc_id
+    notes:
+      - "Should include proper frontmatter and metadata"
+  
+  - id: OPK-0012
+    name: UPDATE_DOC
+    category: docs
+    summary: >
+      Update existing documentation with new content or corrections.
+    examples:
+      - "update documentation"
+      - "revise spec"
+      - "fix typo in docs"
+    required_params:
+      - path
+    optional_params:
+      - section
+      - content
+    notes:
+      - "Preserves doc_id and other metadata"
+  
+  - id: OPK-0013
+    name: UPDATE_INDEX
+    category: docs
+    summary: >
+      Update index or registry files to include new entries or changes.
+    examples:
+      - "update index"
+      - "add to registry"
+      - "register new pattern"
+    required_params:
+      - index_path
+    optional_params:
+      - entry_data
+      - operation  # add, update, remove
+    notes:
+      - "Validates index structure after update"
+
+  # === GIT OPERATIONS ===
+  
+  - id: OPK-0014
+    name: CREATE_WORKTREE
+    category: git
+    summary: >
+      Create a new git worktree for parallel development.
+    examples:
+      - "create worktree"
+      - "spin up worktree"
+      - "add git worktree"
+    required_params:
+      - worktree_path
+      - branch_name
+    optional_params:
+      - base_branch
+    notes:
+      - "Enables parallel workstreams without branch switching"
+  
+  - id: OPK-0015
+    name: MERGE_WORKTREE
+    category: git
+    summary: >
+      Merge changes from a worktree back to main branch.
+    examples:
+      - "merge worktree"
+      - "integrate worktree changes"
+    required_params:
+      - worktree_path
+    optional_params:
+      - target_branch
+      - squash
+    notes:
+      - "Should run tests before merging"
+  
+  - id: OPK-0016
+    name: CREATE_COMMIT
+    category: git
+    summary: >
+      Create a git commit with properly formatted message.
+    examples:
+      - "commit changes"
+      - "create commit"
+      - "save changes to git"
+    required_params:
+      - message
+    optional_params:
+      - files
+      - amend
+    notes:
+      - "Commit message should follow conventional commits format"
+  
+  - id: OPK-0017
+    name: OPEN_PULL_REQUEST
+    category: git
+    summary: >
+      Open a pull request on GitHub or other git hosting platform.
+    examples:
+      - "open PR"
+      - "create pull request"
+    required_params:
+      - title
+      - branch
+    optional_params:
+      - description
+      - reviewers
+    notes:
+      - "Should include link to related issues or workstreams"
+
+  # === ORCHESTRATION OPERATIONS ===
+  
+  - id: OPK-0018
+    name: PROCESS_PATCHES
+    category: orchestration
+    summary: >
+      Automated patch lifecycle management: discover, check, apply, and archive patches.
+    examples:
+      - "process all patches"
+      - "run patch workflow"
+      - "manage patches"
+    required_params: []
+    optional_params:
+      - repository_path
+      - dry_run
+      - operation_mode  # process_all, check, apply, validate
+    notes:
+      - "Implements PAT-PATCH-001 pattern"
+      - "Maintains patch ledger for audit trail"
+  
+  - id: OPK-0019
+    name: SEARCH_FILES
+    category: orchestration
+    summary: >
+      Deep recursive search for files matching criteria across directory tree.
+    examples:
+      - "search for files"
+      - "find files by extension"
+      - "locate files recursively"
+    required_params: []
+    optional_params:
+      - pattern
+      - extension
+      - content
+      - max_depth
+    notes:
+      - "Implements PAT-SEARCH-001 pattern"
+      - "Supports multiple filter criteria"
+  
+  - id: OPK-0020
+    name: VALIDATE_COMPLIANCE
+    category: orchestration
+    summary: >
+      Run validation checks to ensure compliance with governance standards.
+    examples:
+      - "validate compliance"
+      - "check pattern compliance"
+      - "run validation"
+    required_params:
+      - validation_type  # pattern, code, docs
+    optional_params:
+      - scope
+      - output_format
+    notes:
+      - "Outputs detailed validation report"
+      - "Sets exit code based on pass/fail"
+
+  # === ANALYSIS OPERATIONS ===
+  
+  - id: OPK-0021
+    name: ANALYZE_CODEBASE
+    category: analysis
+    summary: >
+      Analyze codebase structure, dependencies, and metrics.
+    examples:
+      - "analyze codebase"
+      - "scan code structure"
+      - "generate code metrics"
+    required_params: []
+    optional_params:
+      - scope
+      - output_format
+    notes:
+      - "Useful for codebase understanding and documentation"
+  
+  - id: OPK-0022
+    name: EXTRACT_PATTERNS
+    category: analysis
+    summary: >
+      Mine logs, specs, or code to extract recurring patterns or operation kinds.
+    examples:
+      - "extract patterns"
+      - "mine operation kinds"
+      - "discover patterns from logs"
+    required_params:
+      - source_paths
+    optional_params:
+      - min_frequency
+      - output_path
+    notes:
+      - "Used to discover new operation kinds or patterns"
+  
+  - id: OPK-0023
+    name: GENERATE_REPORT
+    category: analysis
+    summary: >
+      Generate summary reports from validation results or analysis data.
+    examples:
+      - "generate report"
+      - "create summary"
+      - "output analysis report"
+    required_params:
+      - report_type
+    optional_params:
+      - data_source
+      - output_format  # json, markdown, html
+    notes:
+      - "Supports multiple output formats"
+
+  # === REGISTRY OPERATIONS ===
+  
+  - id: OPK-0024
+    name: CREATE_REGISTRY_FILE
+    category: orchestration
+    summary: >
+      Create a new registry file with proper structure and validation.
+    examples:
+      - "create registry"
+      - "initialize index"
+      - "setup registry file"
+    required_params:
+      - registry_type  # pattern, operation_kind, routing
+      - path
+    optional_params:
+      - initial_entries
+    notes:
+      - "Used for bootstrapping new registry infrastructure"
+  
+  - id: OPK-0025
+    name: UPDATE_PATTERN_INDEX
+    category: orchestration
+    summary: >
+      Update PATTERN_INDEX.yaml to add, modify, or remove pattern entries.
+    examples:
+      - "update pattern index"
+      - "register pattern"
+      - "add to index"
+    required_params:
+      - operation  # add, update, remove
+    optional_params:
+      - pattern_data
+      - pattern_id
+    notes:
+      - "Always creates backup before modifying"
+      - "Validates structure after update"
+
+# === CONSTRAINTS & GOVERNANCE ===
+
+constraints:
+  - "New operation_kinds MUST be added via PR that updates this file"
+  - "Existing names MUST NOT be changed; deprecate old and add new if semantics change"
+  - "Phase plans MAY only use operation_kind values present in this registry"
+  - "All operation_kind names MUST be SCREAMING_SNAKE_CASE"
+  - "All operation_kind names MUST be tool-agnostic (no CLAUDE_*, GITHUB_*, etc.)"
+
+versioning:
+  current: "1.0.0"
+  changelog:
+    - version: "1.0.0"
+      date: "2025-11-24"
+      changes:
+        - "Initial release with 25 core operation kinds"
+        - "Categories: filesystem, code_edit, testing, docs, git, orchestration, analysis"

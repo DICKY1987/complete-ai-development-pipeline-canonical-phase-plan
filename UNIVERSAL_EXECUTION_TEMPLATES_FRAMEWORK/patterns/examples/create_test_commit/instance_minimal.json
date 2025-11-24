@@ -1,12 +1,10 @@
 {
-  "metadata": {
-    "description": "Minimal valid instance",
-    "created": "2025-11-24",
-    "category": "sequential"
-  },
   "doc_id": "DOC-PAT-CREATE-TEST-COMMIT-001",
   "inputs": {
-    "instance_path": "path/to/instance.json"
+    "commit_message": "test: add test file",
+    "file_path": "test_output\\test_file.txt",
+    "file_content": "# Test file\nThis is a test.",
+    "test_command": "exit 0"
   },
   "pattern_id": "PAT-CREATE-TEST-COMMIT-001"
 }

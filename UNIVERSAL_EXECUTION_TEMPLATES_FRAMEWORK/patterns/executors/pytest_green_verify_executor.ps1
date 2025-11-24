@@ -2,7 +2,7 @@
 # Pattern: pytest_green_verify (PAT-PYTEST-GREEN-VERIFY-002)
 # Version: 1.0.0
 # Category: verification
-# Purpose: Execute pytest_green_verify pattern instances
+# Purpose: Verify pytest tests are green
 
 param(
     [Parameter(Mandatory=$true)]
@@ -11,28 +11,72 @@ param(
 
 $ErrorActionPreference = "Stop"
 
-Write-Host "Executing pytest_green_verify pattern..." -ForegroundColor Cyan
+# Load common utilities
+. "$PSScriptRoot\..\scripts\pattern_utilities.ps1"
 
-# Load instance
+Write-PatternLog "Executing pytest_green_verify pattern..." "INFO"
+
+# Load and validate instance
 if (-not (Test-Path $InstancePath)) {
     throw "Instance file not found: $InstancePath"
 }
 
 $instance = Get-Content $InstancePath -Raw | ConvertFrom-Json
+Test-PatternInstance -Instance $instance `
+    -ExpectedDocId "DOC-PAT-PYTEST-GREEN-VERIFY-002" `
+    -ExpectedPatternId "PAT-PYTEST-GREEN-VERIFY-002"
 
-# Validate doc_id
-if ($instance.doc_id -ne "DOC-PAT-PYTEST-GREEN-VERIFY-002") {
-    throw "Invalid doc_id. Expected: DOC-PAT-PYTEST-GREEN-VERIFY-002, Got: $($instance.doc_id)"
+# Extract inputs
+$testPath = $instance.inputs.test_path
+$pytestArgs = if ($instance.inputs.pytest_args) { $instance.inputs.pytest_args -join " " } else { "" }
+
+Write-PatternLog "Running pytest on: $testPath" "INFO"
+
+try {
+    # Build pytest command
+    $command = "pytest $testPath $pytestArgs --tb=short -q"
+    
+    Write-PatternLog "Command: $command" "INFO"
+    
+    # Execute pytest
+    $output = Invoke-Expression $command 2>&1
+    $exitCode = $LASTEXITCODE
+    
+    # Parse pytest output
+    $allGreen = ($exitCode -eq 0)
+    
+    # Try to extract test counts from output
+    $testsPassed = 0
+    $testsFailed = 0
+    
+    if ($output -match "(\d+) passed") {
+        $testsPassed = [int]$matches[1]
+    }
+    
+    if ($output -match "(\d+) failed") {
+        $testsFailed = [int]$matches[1]
+    }
+    
+    if ($allGreen) {
+        Write-PatternLog "All tests green! ($testsPassed passed)" "SUCCESS"
+    } else {
+        Write-PatternLog "Tests failed! ($testsPassed passed, $testsFailed failed)" "ERROR"
+    }
+    
+    # Return result
+    $result = New-PatternResult -Success $allGreen -Message "Pytest verification $(if ($allGreen) { 'passed' } else { 'failed' })" -Data @{
+        tests_passed = $testsPassed
+        tests_failed = $testsFailed
+        all_green = $allGreen
+        output = $output -join "`n"
+    }
+    
+} catch {
+    Write-PatternLog "Error running pytest: $_" "ERROR"
+    
+    $result = New-PatternResult -Success $false -Message "Pytest execution error" -Data @{
+        error = $_.ToString()
+    }
 }
 
-# Validate pattern_id
-if ($instance.pattern_id -ne "PAT-PYTEST-GREEN-VERIFY-002") {
-    throw "Invalid pattern_id. Expected: PAT-PYTEST-GREEN-VERIFY-002, Got: $($instance.pattern_id)"
-}
-
-Write-Host "✓ Validation passed" -ForegroundColor Green
-
-# TODO: Implement pytest_green_verify execution logic
-# See patterns/specs/pytest_green_verify.pattern.yaml for implementation details
-
-Write-Host "✓ pytest_green_verify pattern execution complete" -ForegroundColor Green
+Write-Output $result
