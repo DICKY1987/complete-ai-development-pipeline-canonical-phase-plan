@@ -1,0 +1,14 @@
+decision_id: "DEC-PAT-001-001"
+pattern_id: "PAT-ATOMIC-CREATE-001"
+status: "accepted"
+date: "2025-11-24"
+
+context:
+  problem: "Should atomic_create include type hints by default?"
+  
+decision:
+  chosen_option: "Make it configurable via boolean parameter"
+  rationale: "Provides flexibility while defaulting to best practices"
+
+tags:
+  - "architecture"
