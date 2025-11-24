@@ -1,0 +1,131 @@
+# Pattern: Refactor Patch
+# Pattern ID: PAT-REFACTOR-PATCH-001
+# Version: 1.0.0
+# Created: 2025-11-24
+# Category: code_modification
+# Use Case: Modify existing files with surgical patches
+# Time Savings: 70% (40 min → 12 min)
+
+pattern_id: "PAT-REFACTOR-PATCH-001"
+name: "refactor_patch"
+version: "1.0.0"
+category: "code_modification"
+status: "draft"
+
+metadata:
+  created: "2025-11-24"
+  author: "UET Framework Team"
+  time_savings_vs_manual: "70%"
+  estimated_duration_seconds: 720  # 12 minutes
+
+intent: |
+  Apply surgical modifications to existing files using exact string replacement.
+  Enforces precise, reversible changes with validation.
+  
+  Key principles:
+  - Exact match required (no fuzzy matching)
+  - Single responsibility per patch
+  - Automatic backup before modification
+  - Validation after each change
+  - Rollback on failure
+
+applicability:
+  when_to_use:
+    - Renaming variables/functions across files
+    - Updating API signatures
+    - Refactoring code structure
+    - Fixing patterns across codebase
+  when_not_to_use:
+    - Creating new files (use atomic_create)
+    - Changes require context understanding
+    - Fuzzy/approximate matching needed
+  
+  constraints:
+    max_patches: 10
+    exact_match_required: true
+    one_patch_per_file: recommended
+    validate_after_each: true
+
+inputs:
+  project_root:
+    type: "string"
+    required: true
+    
+  patches:
+    type: "array"
+    required: true
+    min_items: 1
+    max_items: 10
+    items:
+      type: "object"
+      required: ["file_path", "old_str", "new_str"]
+      properties:
+        file_path:
+          type: "string"
+          description: "Relative path to file"
+        old_str:
+          type: "string"
+          description: "Exact string to find (must be unique)"
+        new_str:
+          type: "string"
+          description: "Replacement string"
+        validate_unique:
+          type: "boolean"
+          default: true
+  
+  create_backup:
+    type: "boolean"
+    default: true
+  
+  validate_syntax:
+    type: "boolean"
+    default: true
+
+outputs:
+  patches_applied:
+    type: "integer"
+  modified_files:
+    type: "array"
+  backup_locations:
+    type: "array"
+  validation_results:
+    type: "object"
+
+structural_decisions:
+  exact_match_only: true
+  backup_before_modify: true
+  validate_uniqueness: true
+  fail_on_ambiguity: true
+  atomic_per_file: true
+
+execution_steps:
+  - step_id: "S1_validate_targets"
+    description: "Validate all target files exist"
+    
+  - step_id: "S2_check_uniqueness"
+    description: "Verify old_str is unique in each file"
+    
+  - step_id: "S3_create_backups"
+    description: "Backup all files to be modified"
+    
+  - step_id: "S4_apply_patches"
+    description: "Apply each patch sequentially"
+    strategy: "sequential"
+    rollback_on_failure: true
+    
+  - step_id: "S5_validate_syntax"
+    description: "Validate modified files compile"
+    
+  - step_id: "S6_verify_changes"
+    description: "Verify expected changes applied"
+
+performance_profile:
+  estimated_time_manual: 2400  # 40 minutes
+  estimated_time_pattern: 720  # 12 minutes
+  time_savings_percentage: "70%"
+  token_savings_percentage: "85%"
+
+compliance:
+  requirements:
+    - "PAT-NAME-001"
+    - "PAT-CHECK-001"

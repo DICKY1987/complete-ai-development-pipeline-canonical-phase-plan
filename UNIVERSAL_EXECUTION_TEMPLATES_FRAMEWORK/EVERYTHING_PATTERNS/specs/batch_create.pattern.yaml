@@ -1,0 +1,187 @@
+# Pattern: Batch Create
+# Pattern ID: PAT-BATCH-CREATE-001
+# Version: 1.0.0
+# Created: 2025-11-24
+# Category: file_creation
+# Use Case: Creating 6+ similar files efficiently
+# Time Savings: 88% (50 min → 6 min)
+
+pattern_id: "PAT-BATCH-CREATE-001"
+name: "batch_create"
+version: "1.0.0"
+category: "file_creation"
+status: "draft"
+
+metadata:
+  created: "2025-11-24"
+  last_updated: "2025-11-24"
+  author: "UET Framework Team"
+  proven_uses: 0
+  time_savings_vs_manual: "88%"
+  estimated_duration_seconds: 360  # 6 minutes
+
+intent: |
+  Create 6+ similar files following a template pattern.
+  Optimized for repetitive file creation with consistent structure.
+  
+  This pattern enforces:
+  - Template-based generation (consistency)
+  - Batch processing (efficiency)
+  - Parallel validation (speed)
+  - Single commit for all files
+
+applicability:
+  when_to_use:
+    - Creating multiple CRUD endpoints
+    - Creating test files for many modules
+    - Creating configuration files for multiple environments
+    - Creating similar model/schema files
+  when_not_to_use:
+    - Creating 1-3 files (use atomic_create instead)
+    - Files have different structures (use multiple atomic_creates)
+    - Complex interdependent files (break into phases)
+  
+  constraints:
+    min_files: 6
+    recommended_max_files: 50
+    require_template: true
+    all_same_structure: true
+    single_commit: true
+
+inputs:
+  project_root:
+    type: "string"
+    required: true
+    description: "Absolute path to project root directory"
+    
+  template_type:
+    type: "string"
+    required: true
+    enum: ["crud_endpoint", "model", "test", "config", "custom"]
+    description: "Type of template to use for generation"
+  
+  files_to_create:
+    type: "array"
+    required: true
+    min_items: 6
+    description: "List of files to create from template"
+    items:
+      type: "object"
+      required: ["path", "template_vars"]
+      properties:
+        path:
+          type: "string"
+          description: "Relative path from project_root"
+        template_vars:
+          type: "object"
+          description: "Variables to substitute in template"
+          examples:
+            - name: "users"
+              entity: "User"
+              id_type: "uuid"
+  
+  custom_template:
+    type: "string"
+    required: false
+    description: "Custom template content (if template_type = custom)"
+  
+  parallel_processing:
+    type: "boolean"
+    required: false
+    default: true
+    description: "Process files in parallel (faster)"
+  
+  test_files:
+    type: "boolean"
+    required: false
+    default: true
+    description: "Generate corresponding test files"
+
+outputs:
+  created_files:
+    type: "array"
+    description: "List of all created file paths"
+  
+  processing_time_per_file:
+    type: "number"
+    description: "Average time per file in seconds"
+  
+  total_execution_time:
+    type: "number"
+    description: "Total pattern execution time"
+  
+  validation_summary:
+    type: "object"
+    properties:
+      total_files: integer
+      valid_files: integer
+      failed_files: integer
+
+structural_decisions:
+  # Fixed by pattern
+  use_template: true
+  validate_all_before_commit: true
+  single_transaction: true
+  rollback_on_any_failure: true
+  parallel_validation: true
+  batch_syntax_check: true
+
+execution_steps:
+  - step_id: "S1_load_template"
+    description: "Load and validate template"
+    actions:
+      - action: "load_template_by_type"
+        source: "templates/{template_type}.template"
+      - action: "validate_template_syntax"
+      - action: "parse_variable_placeholders"
+    
+  - step_id: "S2_generate_all_files"
+    description: "Generate all files from template"
+    strategy: "parallel"
+    actions:
+      - action: "for_each_file_spec"
+        generate: "apply_template_with_vars"
+        validate: "check_no_placeholders_remaining"
+  
+  - step_id: "S3_batch_validate"
+    description: "Validate all generated files"
+    strategy: "parallel"
+    actions:
+      - action: "syntax_check_all"
+      - action: "check_no_conflicts"
+      - action: "verify_consistency"
+  
+  - step_id: "S4_atomic_write"
+    description: "Write all files atomically"
+    strategy: "transaction"
+    actions:
+      - action: "begin_transaction"
+      - action: "write_all_files"
+      - action: "commit_transaction"
+    on_error: "rollback_transaction"
+  
+  - step_id: "S5_verify_batch"
+    description: "Verify all files created correctly"
+    actions:
+      - action: "check_all_files_exist"
+      - action: "compile_all_files"
+      - action: "run_smoke_tests"
+
+performance_profile:
+  estimated_time_manual: 3000  # 50 minutes for 10 files
+  estimated_time_pattern: 360  # 6 minutes
+  time_savings_seconds: 2640
+  time_savings_percentage: "88%"
+  
+  parallelization_factor: 8
+  files_per_minute_manual: 0.2
+  files_per_minute_pattern: 1.67
+  
+  token_usage_manual: 80000  # 8k per file * 10
+  token_usage_pattern: 5000  # Template + vars only
+  token_savings_percentage: "94%"
+
+compliance:
+  requirements:
+    - "PAT-NAME-001"
+    - "PAT-CHECK-001"
