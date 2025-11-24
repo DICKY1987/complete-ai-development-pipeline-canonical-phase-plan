@@ -1,0 +1,3488 @@
+{
+  "meta": {
+    "plan_name": "UET V2 Master Plan",
+    "version": "2.0.0",
+    "created_at": "2025-11-23T12:08:00Z",
+    "patch_metadata": {
+      "001": {
+        "patch_id": "001-config-integration",
+        "patch_ulid": "01JDK7XWQP8PATCH001CONFIG01",
+        "created_at": "2025-11-23T11:01:12.785Z",
+        "description": "Integrate configuration files (CODEBASE_INDEX, ai_policies, QUALITY_GATE, PROJECT_PROFILE, PRO_Phase Spec) into master plan",
+        "source_files": [
+          "CODEBASE_INDEX.yaml",
+          "ai_policies.yaml",
+          "QUALITY_GATE.yaml",
+          "PROJECT_PROFILE.yaml",
+          "PRO_Phase Specification mandatory structure.md"
+        ],
+        "operations_count": 22,
+        "priority": "CRITICAL",
+        "approved_by": "human",
+        "applied": false
+      },
+      "002": {
+        "patch_id": "002-documentation-integration",
+        "patch_ulid": "01JDK8XWQP8PATCH002DOCS0001",
+        "created_at": "2025-11-23T11:07:25.088Z",
+        "description": "Integrate documentation patterns (AI tool config, sandbox strategy, ACS validation)",
+        "source_files": [
+          "docs/tools-instructions-config.md",
+          "docs/soft-sandbox-pattern.md",
+          "docs/DOCUMENTATION_INDEX.md",
+          "docs/ACS_USAGE_GUIDE.md"
+        ],
+        "operations_count": 15,
+        "priority": "CRITICAL",
+        "approved_by": "human",
+        "applied": false
+      },
+      "003": {
+        "patch_id": "003-uet-v2-specifications",
+        "patch_ulid": "01JDK9XWQP8PATCH003UETSPEC1",
+        "created_at": "2025-11-23T11:12:14.089Z",
+        "description": "Integrate UET V2 technical specifications (state machines, component contracts, DAG scheduler, file scope, integration points)",
+        "source_files": [
+          "docs/uet_v2/STATE_MACHINES.md",
+          "docs/uet_v2/COMPONENT_CONTRACTS.md",
+          "docs/uet_v2/DAG_SCHEDULER.md",
+          "docs/uet_v2/FILE_SCOPE.md",
+          "docs/uet_v2/INTEGRATION_POINTS.md"
+        ],
+        "operations_count": 25,
+        "priority": "CRITICAL",
+        "approved_by": "human",
+        "applied": false
+      },
+      "004": {
+        "patch_id": "004-planning-reference",
+        "patch_ulid": "01JDKAXWQP8PATCH004PLANREF1",
+        "created_at": "2025-11-23T11:16:48.091Z",
+        "description": "Integrate complete phase plan, workstream prompts, data flows, and error catalog",
+        "source_files": [
+          "docs/planning/PHASE_UET_INTEGRATION.md",
+          "docs/planning/PHASE_UET_CHECKLIST.md",
+          "docs/reference/workstream-style-prompt-structure.md",
+          "docs/reference/DATA_FLOWS.md",
+          "docs/reference/DEPENDENCIES.md",
+          "docs/reference/ERROR_CATALOG.md"
+        ],
+        "operations_count": 18,
+        "priority": "CRITICAL",
+        "approved_by": "human",
+        "applied": false
+      },
+      "005": {
+        "patch_id": "005-adr-architecture-decisions",
+        "patch_ulid": "01JDK0019AB074E0009C1D18AF",
+        "created_at": "2025-11-23T11:23:26.442Z",
+        "description": "Integrate Architecture Decision Records (ADRs) documenting key architectural choices and rationale",
+        "source_files": [
+          "docs/adr/0001-workstream-model-choice.md",
+          "docs/adr/0002-hybrid-architecture.md",
+          "docs/adr/0003-sqlite-state-storage.md",
+          "docs/adr/0004-section-based-organization.md",
+          "docs/adr/0005-python-primary-language.md",
+          "docs/adr/0006-specifications-unified-management.md",
+          "docs/adr/0007-error-plugin-architecture.md",
+          "docs/adr/0008-database-location-worktree.md",
+          "docs/adr/adr-0005-spec-tooling-consolidation.md",
+          "docs/adr/adr-error-utils-location.md"
+        ],
+        "operations_count": 11,
+        "priority": "HIGH",
+        "approved_by": "human",
+        "applied": false
+      },
+      "006": {
+        "patch_id": "006-tool-adapter-interface",
+        "patch_ulid": "01JDK0019AB08252DF7C20A864",
+        "created_at": "2025-11-23T11:38:26.103Z",
+        "description": "Document Tool Adapter Interface pattern - abstraction for routing tasks to external tools (aider, pytest, git, etc.)",
+        "source_files": [
+          "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/core/adapters/base.py",
+          "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/core/adapters/subprocess_adapter.py",
+          "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/core/adapters/registry.py"
+        ],
+        "operations_count": 3,
+        "priority": "MEDIUM",
+        "approved_by": "human",
+        "applied": false
+      },
+      "008": {
+        "patch_id": "008-resilience-patterns",
+        "patch_ulid": "01JDK0019AB09DAC1CDC9763AA",
+        "created_at": "2025-11-23T12:15:26.788Z",
+        "description": "Document resilience patterns (Circuit Breaker, Retry Strategies, Resilient Executor) for fault-tolerant execution",
+        "source_files": [
+          "tests/resilience/test_circuit_breaker.py",
+          "tests/resilience/test_retry.py",
+          "tests/resilience/test_resilient_executor.py"
+        ],
+        "operations_count": 2,
+        "priority": "HIGH",
+        "approved_by": "human",
+        "applied": false
+      },
+      "009": {
+        "patch_id": "009-subagent-architecture-slash-commands",
+        "patch_ulid": "01JDK0019AB0CA5B276950EFA0",
+        "created_at": "2025-11-23T12:57:11.337Z",
+        "description": "Document sub-agent architecture and slash command system for decomposing monolithic orchestration into specialized, bounded tasks",
+        "source_files": [
+          "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/agents and custom commands.txt"
+        ],
+        "operations_count": 3,
+        "priority": "HIGH",
+        "approved_by": "human",
+        "applied": false
+      }
+    },
+    "architecture": {
+      "layers": [
+        "infra",
+        "domain",
+        "api",
+        "ui"
+      ],
+      "layer_enforcement": true,
+      "dependency_graph_location": "CODEBASE_INDEX.yaml",
+      "layered_architecture_doc": "docs/ARCHITECTURE.md",
+      "circular_dependency_check": true
+    },
+    "three_engine_problem": {
+      "problem_description": "Repository contains THREE separate execution engines that need unification",
+      "core_engine": {
+        "location": "core/engine/",
+        "model": "Workstream-based orchestration",
+        "state": "SQLite pipeline_state.db",
+        "priority": "primary"
+      },
+      "job_engine": {
+        "location": "engine/",
+        "model": "Job JSON pattern",
+        "state": "JobStateStore protocol",
+        "priority": "secondary"
+      },
+      "uet_framework": {
+        "location": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/",
+        "model": "Bootstrap + Profile + Task Router",
+        "state": "Minimal (portable)",
+        "priority": "reference"
+      },
+      "unification_needed": true,
+      "unification_phase": "PH-007"
+    },
+    "system_alignment": {
+      "uet_framework_location": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/",
+      "production_pipeline_location": [
+        "core/",
+        "engine/",
+        "error/"
+      ],
+      "current_alignment_percentage": 40,
+      "alignment_goal": 100,
+      "alignment_strategy": "incremental_migration"
+    },
+    "existing_components": {
+      "worker_lifecycle": {
+        "completion": 80,
+        "location": "core/engine/worker.py"
+      },
+      "event_bus": {
+        "completion": 85,
+        "location": "core/engine/event_bus.py"
+      },
+      "patch_manager": {
+        "completion": 50,
+        "location": "core/engine/patch_manager.py"
+      },
+      "integration_worker": {
+        "completion": 60,
+        "location": "core/engine/integration_worker.py"
+      },
+      "cost_tracker": {
+        "completion": 75,
+        "location": "core/engine/cost_tracker.py"
+      },
+      "test_gates": {
+        "completion": 65,
+        "location": "core/engine/test_gates.py"
+      }
+    },
+    "ai_policies": {
+      "policy_file": "ai_policies.yaml",
+      "zones": {
+        "safe_to_modify": [
+          "core/**/*.py",
+          "tests/**/*.py",
+          "scripts/**/*.py"
+        ],
+        "review_required": [
+          "schema/**",
+          "config/**"
+        ],
+        "read_only": [
+          "legacy/**",
+          "src/pipeline/**"
+        ]
+      }
+    },
+    "project": {
+      "project_id": "PRJ-COMPLETE_AI_DEVELOPMENT_PIPELINE",
+      "project_name": "Complete AI Development Pipeline",
+      "profile_id": "generic",
+      "domain": "mixed"
+    },
+    "constraints": {
+      "max_lines_changed_per_patch": 500,
+      "patch_only_mode": true
+    },
+    "framework_paths": {
+      "worktrees_dir": ".worktrees/",
+      "ledger_dir": ".ledger/",
+      "tasks_dir": ".tasks/",
+      "state_dir": ".state/"
+    },
+    "phase_specification": {
+      "spec_file": "PRO_Phase Specification mandatory structure.md",
+      "enforcement": "mandatory",
+      "required_fields": [
+        "phase_id",
+        "workstream_id",
+        "objective",
+        "file_scope",
+        "acceptance_tests"
+      ]
+    },
+    "ai_tool_configuration": {
+      "instruction_layers": {
+        "global": {
+          "claude": "~/.claude/CLAUDE.md",
+          "codex": "~/.codex/AGENTS.md",
+          "copilot": "GitHub account custom instructions"
+        },
+        "repo_level": {
+          "claude": "./CLAUDE.md",
+          "codex": "./AGENTS.md",
+          "copilot": ".github/copilot-instructions.md"
+        },
+        "per_invocation": {
+          "claude": "--system-prompt, --append-system-prompt",
+          "codex": "prompt text",
+          "copilot": "command prompt"
+        }
+      },
+      "config_files": {
+        "claude": [
+          "~/.claude/settings.json",
+          ".claude/settings.json"
+        ],
+        "codex": [
+          "~/.codex/config.toml"
+        ],
+        "aider": [
+          ".aider.conf.yml"
+        ]
+      }
+    },
+    "tool_instruction_files_required": [
+      "CLAUDE.md",
+      "AGENTS.md",
+      ".github/copilot-instructions.md"
+    ],
+    "sandbox_strategy": {
+      "pattern": "soft_sandbox",
+      "sandbox_roots": {
+        "windows": "C:\\Users\\richg\\AI_SANDBOX",
+        "wsl": "~/ai-sandbox"
+      },
+      "clone_pattern": "{repo}_sandbox",
+      "branch_pattern": "ai-sandbox/*",
+      "rules": [
+        "AI tools run only in sandbox clones",
+        "Experimental changes on ai-sandbox/* branches",
+        "Stable changes promoted to main repo"
+      ]
+    },
+    "documentation_structure": {
+      "index": "docs/DOCUMENTATION_INDEX.md",
+      "categories": [
+        "getting_started",
+        "architecture_decisions",
+        "reference",
+        "guidelines",
+        "ai_agents"
+      ],
+      "acs_artifacts": [
+        "CODEBASE_INDEX.yaml",
+        "QUALITY_GATE.yaml",
+        "ai_policies.yaml",
+        ".aiignore",
+        ".meta/AI_GUIDANCE.md"
+      ],
+      "generated_context": [
+        ".meta/ai_context/repo_summary.json",
+        ".meta/ai_context/code_graph.json"
+      ]
+    },
+    "future_ai_techniques": {
+      "repository_mapping": {
+        "technique": "AST + PageRank",
+        "priority": "HIGH",
+        "effort_hours": 16
+      },
+      "graph_rag": {
+        "technique": "Knowledge Graph",
+        "priority": "MEDIUM",
+        "effort_hours": 24
+      },
+      "reflexion_loops": {
+        "technique": "Runtime self-correction",
+        "priority": "HIGH",
+        "effort_hours": 12
+      },
+      "raptor_indexing": {
+        "technique": "Hierarchical indexing",
+        "priority": "MEDIUM",
+        "effort_hours": 20
+      }
+    },
+    "state_machines": {
+      "worker_lifecycle": {
+        "states": [
+          "SPAWNING",
+          "IDLE",
+          "BUSY",
+          "DRAINING",
+          "TERMINATED"
+        ],
+        "terminal_states": [
+          "TERMINATED"
+        ],
+        "transitions": {
+          "SPAWNING": [
+            "IDLE",
+            "TERMINATED"
+          ],
+          "IDLE": [
+            "BUSY",
+            "TERMINATED"
+          ],
+          "BUSY": [
+            "IDLE",
+            "DRAINING",
+            "TERMINATED"
+          ],
+          "DRAINING": [
+            "TERMINATED"
+          ],
+          "TERMINATED": []
+        },
+        "invariants": [
+          "Heartbeat required every 60s for IDLE/BUSY",
+          "Missing 2 heartbeats \u2192 TERMINATED",
+          "Affinity immutable after SPAWNING",
+          "terminated_at only set in TERMINATED state"
+        ],
+        "database_table": "workers",
+        "spec_ref": "docs/uet_v2/STATE_MACHINES.md#worker-state-machine"
+      },
+      "patch_ledger": {
+        "states": [
+          "created",
+          "validated",
+          "queued",
+          "applied",
+          "apply_failed",
+          "verified",
+          "committed",
+          "rolled_back",
+          "quarantined",
+          "dropped"
+        ],
+        "terminal_states": [
+          "committed",
+          "rolled_back",
+          "quarantined",
+          "dropped"
+        ],
+        "transitions": {
+          "created": [
+            "validated",
+            "quarantined"
+          ],
+          "validated": [
+            "queued",
+            "quarantined"
+          ],
+          "queued": [
+            "applied",
+            "dropped"
+          ],
+          "applied": [
+            "verified",
+            "apply_failed"
+          ],
+          "apply_failed": [
+            "quarantined"
+          ],
+          "verified": [
+            "committed",
+            "quarantined"
+          ],
+          "committed": [
+            "rolled_back"
+          ],
+          "rolled_back": [],
+          "quarantined": [],
+          "dropped": []
+        },
+        "validation_points": [
+          "created \u2192 validated",
+          "validated \u2192 queued",
+          "applied \u2192 verified"
+        ],
+        "database_table": "patch_ledger",
+        "spec_ref": "docs/uet_v2/STATE_MACHINES.md#patch-ledger-state-machine"
+      },
+      "test_gate": {
+        "states": [
+          "PENDING",
+          "RUNNING",
+          "PASSED",
+          "FAILED"
+        ],
+        "terminal_states": [
+          "PASSED",
+          "FAILED"
+        ],
+        "transitions": {
+          "PENDING": [
+            "RUNNING"
+          ],
+          "RUNNING": [
+            "PASSED",
+            "FAILED"
+          ],
+          "PASSED": [],
+          "FAILED": []
+        },
+        "blocking_behavior": "Tasks blocked until PASSED",
+        "database_table": "test_gates",
+        "spec_ref": "docs/uet_v2/STATE_MACHINES.md#test-gate-state-machine"
+      }
+    },
+    "component_contracts": {
+      "WorkerLifecycle": {
+        "module": "core/engine/worker_lifecycle.py",
+        "status": "not_implemented",
+        "priority": "HIGH",
+        "methods": [
+          "spawn_worker(worker_id: str, worker_type: str, affinity: Dict) -> WorkerRecord",
+          "transition_state(worker_id: str, new_state: WorkerState) -> bool",
+          "heartbeat(worker_id: str) -> None",
+          "terminate_worker(worker_id: str) -> None",
+          "get_idle_workers(worker_type: Optional[str]) -> List[WorkerRecord]"
+        ],
+        "spec_ref": "docs/uet_v2/COMPONENT_CONTRACTS.md#worker-lifecycle"
+      },
+      "PatchLedger": {
+        "module": "core/patches/patch_ledger.py",
+        "status": "partially_implemented",
+        "priority": "CRITICAL",
+        "methods": [
+          "create_entry(patch: PatchArtifact) -> str",
+          "transition_state(ledger_id: str, new_state: str) -> bool",
+          "get_patches_by_state(state: str) -> List[PatchLedgerEntry]",
+          "quarantine_patch(ledger_id: str, reason: str) -> None"
+        ],
+        "spec_ref": "docs/uet_v2/COMPONENT_CONTRACTS.md#patch-ledger"
+      },
+      "PatchValidator": {
+        "module": "core/patches/patch_validator.py",
+        "status": "partially_implemented",
+        "priority": "HIGH",
+        "methods": [
+          "validate(patch: PatchArtifact) -> ValidationResult",
+          "validate_format(diff_text: str) -> bool",
+          "validate_scope(patch: PatchArtifact) -> bool",
+          "validate_constraints(patch: PatchArtifact, policy: PatchPolicy) -> bool"
+        ],
+        "spec_ref": "docs/uet_v2/COMPONENT_CONTRACTS.md#patch-validator"
+      },
+      "MergeOrchestrator": {
+        "module": "core/engine/merge_orchestrator.py",
+        "status": "not_implemented",
+        "priority": "HIGH",
+        "methods": [
+          "order_candidates(patches: List[Patch]) -> List[Patch]",
+          "merge(patch: Patch) -> MergeResult",
+          "detect_conflicts(patch: Patch) -> List[Conflict]"
+        ],
+        "spec_ref": "docs/uet_v2/COMPONENT_CONTRACTS.md#merge-orchestrator"
+      },
+      "TestGateExecutor": {
+        "module": "core/engine/test_gates.py",
+        "status": "partially_implemented",
+        "priority": "MEDIUM",
+        "methods": [
+          "evaluate_gates(phase_id: str) -> bool",
+          "validate_merge(patch_id: str) -> GateResult"
+        ],
+        "spec_ref": "docs/uet_v2/COMPONENT_CONTRACTS.md#test-gate-executor"
+      },
+      "IntegrationWorker": {
+        "module": "core/engine/integration_worker.py",
+        "status": "partially_implemented",
+        "priority": "HIGH",
+        "methods": [
+          "orchestrate_merge(patches: List[Patch]) -> MergeReport"
+        ],
+        "spec_ref": "docs/uet_v2/COMPONENT_CONTRACTS.md#integration-worker"
+      }
+    },
+    "dag_scheduler": {
+      "dependency_types": {
+        "direct": {
+          "field": "depends_on",
+          "description": "Explicit task dependencies",
+          "auto_inference": false,
+          "example": "\"depends_on\": [\"WS-007-001\", \"WS-007-002\"]"
+        },
+        "resource": {
+          "field": "files",
+          "description": "Auto-inferred from file access",
+          "auto_inference": true,
+          "algorithm": "If Task A produces file X and Task B reads file X, then B.depends_on.append(A)"
+        },
+        "gate": {
+          "field": "gates",
+          "description": "Blocked until tests pass",
+          "blocking": true,
+          "example": "\"gates\": [\"GATE_UNIT\", \"GATE_INTEGRATION\"]"
+        },
+        "phase": {
+          "field": "phase_id",
+          "description": "Phase boundaries are sync points",
+          "parallel_within_phase": true,
+          "sequential_between_phases": true
+        }
+      },
+      "algorithms": {
+        "dependency_resolution": "Topological sort with cycle detection (Kahn's algorithm)",
+        "parallel_execution": "Wave-based scheduling (group tasks by dependency level)",
+        "deadlock_detection": "Tarjan's strongly connected components",
+        "conflict_detection": "File scope overlap analysis"
+      },
+      "spec_ref": "docs/uet_v2/DAG_SCHEDULER.md"
+    },
+    "file_scope": {
+      "access_modes": {
+        "read": {
+          "lock": "none",
+          "concurrency": "unlimited",
+          "conflicts_with": []
+        },
+        "edit": {
+          "lock": "exclusive",
+          "concurrency": 1,
+          "conflicts_with": [
+            "edit",
+            "delete"
+          ]
+        },
+        "create": {
+          "lock": "exclusive",
+          "concurrency": 1,
+          "conflicts_with": [
+            "create",
+            "edit",
+            "delete"
+          ]
+        },
+        "delete": {
+          "lock": "exclusive",
+          "concurrency": 1,
+          "conflicts_with": [
+            "edit",
+            "create",
+            "delete"
+          ]
+        },
+        "append": {
+          "lock": "shared",
+          "concurrency": "unlimited",
+          "conflicts_with": [
+            "delete"
+          ]
+        }
+      },
+      "scope_granularity": {
+        "file_level": {
+          "syntax": "\"files\": [\"core/executor.py\"]",
+          "description": "Lock entire file",
+          "precision": "low"
+        },
+        "line_level": {
+          "syntax": "\"scope\": \"lines:45-55\"",
+          "description": "Lock specific line range",
+          "precision": "medium"
+        },
+        "function_level": {
+          "syntax": "\"scope\": \"function:execute\"",
+          "description": "Lock via AST analysis",
+          "precision": "high",
+          "requires": "tree-sitter or ast module"
+        }
+      },
+      "isolation_strategy": {
+        "method": "git_worktrees",
+        "directory": ".worktrees",
+        "per_worker": true,
+        "shared_git_db": true,
+        "cleanup_on_termination": true
+      },
+      "spec_ref": "docs/uet_v2/FILE_SCOPE.md"
+    },
+    "integration_points": {
+      "component_call_graph": {
+        "Orchestrator": [
+          "WorkerLifecycle",
+          "PatchLedger",
+          "TestGateExecutor",
+          "IntegrationWorker",
+          "ContextManager",
+          "FeedbackLoop",
+          "EventBus"
+        ],
+        "IntegrationWorker": [
+          "PatchLedger",
+          "MergeOrchestrator",
+          "TestGateExecutor",
+          "CompensationEngine",
+          "EventBus"
+        ],
+        "MergeOrchestrator": [
+          "PatchValidator",
+          "LanguageValidator",
+          "PatchLedger",
+          "EventBus"
+        ],
+        "PatchLedger": [
+          "PatchValidator",
+          "EventBus"
+        ],
+        "PatchValidator": [
+          "PatchPolicyEngine"
+        ],
+        "TestGateExecutor": [
+          "Scheduler",
+          "EventBus"
+        ],
+        "WorkerLifecycle": [
+          "EventBus"
+        ],
+        "EventBus": [],
+        "ContextManager": [],
+        "FeedbackLoop": [
+          "Orchestrator"
+        ]
+      },
+      "circular_dependency_prevention": {
+        "EventBus": "No outbound calls (pure sink)",
+        "PatchValidator": "No database calls (pure function)",
+        "ContextManager": "No orchestrator calls",
+        "pattern": "dependency_injection"
+      },
+      "database_transaction_boundaries": {
+        "Orchestrator": "Outer transaction for run",
+        "PatchLedger": "Inner transaction per state change",
+        "WorkerLifecycle": "Transaction per heartbeat"
+      },
+      "event_flow": {
+        "pattern": "publish_subscribe",
+        "bus": "EventBus",
+        "subscribers": [
+          "Metrics",
+          "Logging",
+          "Monitoring",
+          "StateSnapshot"
+        ]
+      },
+      "dependency_injection_required": true,
+      "spec_ref": "docs/uet_v2/INTEGRATION_POINTS.md"
+    },
+    "complete_phase_plan": {
+      "spec_ref": "docs/planning/PHASE_UET_INTEGRATION.md",
+      "total_duration_hours": 148,
+      "total_duration_weeks": 10,
+      "mvp_milestone_weeks": 4,
+      "current_alignment_percentage": 40,
+      "phase_breakdown": {
+        "Phase_A": {
+          "name": "Quick Wins",
+          "weeks": "1-2",
+          "duration_hours": 26,
+          "workstreams": 5,
+          "priority": "CRITICAL",
+          "workstream_ids": [
+            "WS-UET-A1",
+            "WS-UET-A2",
+            "WS-UET-A3",
+            "WS-UET-A4",
+            "WS-UET-A5"
+          ]
+        },
+        "Phase_B": {
+          "name": "Patch System",
+          "weeks": "3-4",
+          "duration_hours": 42,
+          "workstreams": 4,
+          "priority": "CRITICAL",
+          "workstream_ids": [
+            "WS-UET-B1",
+            "WS-UET-B2",
+            "WS-UET-B3",
+            "WS-UET-B4"
+          ]
+        },
+        "Phase_C_F": {
+          "name": "Workers, Gates, Orchestration, Testing",
+          "weeks": "5-10",
+          "duration_hours": 80,
+          "workstreams": "TBD",
+          "priority": "HIGH"
+        }
+      },
+      "success_criteria": [
+        "All 17 UET schemas copied to schema/uet/",
+        "Patch ledger with full state machine",
+        "Event bus with persistence to run_events table",
+        "Worker lifecycle with health checks",
+        "DAG scheduler replacing sequential scheduler",
+        "Patch-first adapters (unified diffs only)",
+        "Test gates enforced (LINT, UNIT, INTEGRATION)",
+        "Cost tracking with budget enforcement",
+        "Compensation engine (Saga pattern rollback)"
+      ]
+    },
+    "workstream_prompt_template": {
+      "spec_ref": "docs/reference/workstream-style-prompt-structure.md",
+      "structure": {
+        "role": "Senior software engineer in existing codebase",
+        "sections": [
+          "ROLE",
+          "WORKSTREAM_META",
+          "REPO_CONTEXT",
+          "FILE_SCOPE",
+          "TASKS",
+          "CONSTRAINTS",
+          "TESTS_AND_VALIDATION",
+          "EXECUTION_GUIDANCE",
+          "OUTPUT_FORMAT"
+        ],
+        "output_format_sections": [
+          "PLAN",
+          "CHANGES",
+          "TESTS",
+          "NEXT_STEPS"
+        ]
+      },
+      "tool_compatibility": {
+        "aider": {
+          "method": "--message-file",
+          "usage": "aider --message-file workstream_prompt.txt <files>"
+        },
+        "ollama_code": {
+          "method": "First message",
+          "usage": "Start ollama-code, paste prompt as first message"
+        },
+        "codex_cli": {
+          "method": "First user message",
+          "usage": "Use as first message in Agent mode"
+        },
+        "claude_code": {
+          "method": "Initial prompt",
+          "usage": "Provide as initial system or user prompt"
+        }
+      },
+      "universal": true
+    },
+    "data_flows": {
+      "spec_ref": "docs/reference/DATA_FLOWS.md",
+      "workstream_execution_flow": [
+        "User Input (JSON Bundle)",
+        "Validator \u2192 Validated Workstream Object",
+        "Orchestrator \u2192 Execution Plan (Steps Ordered)",
+        "Database \u2190 Store Initial State (S_PENDING)",
+        "Step Executor \u2192 For Each Step",
+        "Tool Adapter \u2192 Execute Tool",
+        "Database \u2190 Store Step Result",
+        "State Transition (S_SUCCESS/S_FAILED)",
+        "Database \u2190 Final Workstream State",
+        "User Output (Execution Result)"
+      ],
+      "state_transitions": {
+        "S_PENDING": "Initial state - workstream created",
+        "S_RUNNING": "Execution in progress",
+        "S_SUCCESS": "Completed successfully",
+        "S_FAILED": "Failed with errors"
+      },
+      "data_transformations": {
+        "json_to_object": "File \u2192 JSON parse \u2192 ValidatedWorkstream",
+        "object_to_db": "ValidatedWorkstream \u2192 SQL INSERT \u2192 Database row",
+        "template_to_command": "ToolProfile + Context \u2192 Rendered command string",
+        "subprocess_to_result": "Command execution \u2192 ProcessResult \u2192 ToolResult"
+      }
+    },
+    "layer_architecture": {
+      "spec_ref": "docs/reference/DEPENDENCIES.md",
+      "layers": {
+        "layer_4": {
+          "name": "User Interface",
+          "modules": [
+            "scripts/run_workstream.py",
+            "scripts/run_error_engine.py"
+          ],
+          "dependencies": [
+            "layer_3"
+          ]
+        },
+        "layer_3": {
+          "name": "Orchestration",
+          "modules": [
+            "core.engine.orchestrator",
+            "error.engine.error_engine"
+          ],
+          "dependencies": [
+            "layer_2"
+          ]
+        },
+        "layer_2": {
+          "name": "Domain Logic",
+          "modules": [
+            "core.state.workstreams",
+            "error.engine.plugin_manager",
+            "specifications.tools.resolver"
+          ],
+          "dependencies": [
+            "layer_1"
+          ]
+        },
+        "layer_1": {
+          "name": "Infrastructure",
+          "modules": [
+            "core.state.db",
+            "error.engine.file_cache"
+          ],
+          "dependencies": [
+            "layer_0"
+          ]
+        },
+        "layer_0": {
+          "name": "Standard Library",
+          "modules": [
+            "sqlite3",
+            "subprocess",
+            "json",
+            "pathlib"
+          ],
+          "dependencies": []
+        }
+      },
+      "rules": [
+        "Layer N can depend on Layer N-1 or below",
+        "No upward dependencies allowed",
+        "No circular dependencies between layers"
+      ],
+      "enforcement": "Code review and import analysis"
+    },
+    "error_catalog": {
+      "spec_ref": "docs/reference/ERROR_CATALOG.md",
+      "total_errors": 25,
+      "categories": {
+        "database": {
+          "count": 6,
+          "examples": [
+            "ERR-DB-01: Database Locked",
+            "ERR-DB-02: Schema Version Mismatch"
+          ]
+        },
+        "workstream": {
+          "count": 5,
+          "examples": [
+            "Dependency cycles",
+            "Timeouts",
+            "Conflicts"
+          ]
+        },
+        "plugin": {
+          "count": 4,
+          "examples": [
+            "Manifest issues",
+            "Execution failures"
+          ]
+        },
+        "specification": {
+          "count": 3,
+          "examples": [
+            "Not found",
+            "Circular refs"
+          ]
+        },
+        "tool_adapter": {
+          "count": 4,
+          "examples": [
+            "Circuit breaker",
+            "Timeout",
+            "Not found"
+          ]
+        },
+        "configuration": {
+          "count": 3,
+          "examples": [
+            "Missing files",
+            "Invalid syntax"
+          ]
+        }
+      },
+      "recovery_procedures_documented": true,
+      "prevention_strategies_defined": true
+    },
+    "architecture_decisions": {
+      "description": "Formal Architecture Decision Records documenting key design choices, rationale, consequences, and rejected alternatives",
+      "purpose": "Help AI agents and developers understand WHY decisions were made, not just WHAT was implemented",
+      "location": "docs/adr/",
+      "format": "Markdown following ADR template",
+      "count": 10,
+      "decisions": {
+        "adr_0001_workstream_model": {
+          "id": "ADR-0001",
+          "title": "Workstream Model Choice",
+          "status": "Accepted",
+          "date": "2025-11-22",
+          "decision": "Use workstream-based execution model as core orchestration pattern",
+          "key_benefits": [
+            "Structured coordination with clear boundaries",
+            "Explicit step-level dependencies enable correct ordering",
+            "Trackable state (pending/running/success/failure)",
+            "AI agent compatibility via declarative structure",
+            "Parallel execution when dependencies allow",
+            "Step-level retry and checkpoint recovery"
+          ],
+          "design_principles": [
+            "Declarative over Imperative - define WHAT not HOW",
+            "Composability - bundle workstreams for complex ops",
+            "Idempotency - steps safe to retry",
+            "Observability - all state transitions tracked"
+          ],
+          "rejected_alternatives": [
+            "Task DAG (too low-level, lacks semantic structure)",
+            "Event-driven (non-deterministic, hard to debug)",
+            "Imperative scripts (no parallelism, poor state management)",
+            "Makefile-style (designed for compilation not workflows)"
+          ],
+          "implementation": "core/engine/orchestrator.py",
+          "schema": "schema/workstream.schema.json"
+        },
+        "adr_0002_hybrid_architecture": {
+          "id": "ADR-0002",
+          "title": "Hybrid Architecture (GUI/Terminal/TUI)",
+          "status": "Accepted",
+          "date": "2025-11-22",
+          "decision": "Support three execution modes sharing common job-based execution engine",
+          "execution_modes": {
+            "gui": {
+              "description": "Rich graphical interface for interactive workflow management",
+              "status": "planned",
+              "use_case": "Visual learners, complex workflow monitoring"
+            },
+            "terminal": {
+              "description": "Command-line execution for automation and CI/CD",
+              "status": "implemented",
+              "use_case": "Power users, scripting, CI/CD integration"
+            },
+            "tui": {
+              "description": "Text-based UI for terminal users without GUI overhead",
+              "status": "planned",
+              "use_case": "Remote/SSH users, terminal-first developers"
+            }
+          },
+          "shared_engine": {
+            "location": "engine/",
+            "pattern": "job-based execution",
+            "responsibilities": [
+              "Convert workstreams into atomic jobs",
+              "Manage job queue and worker pools",
+              "Track state in SQLite database",
+              "Provide tool adapters (aider, pytest, git)"
+            ]
+          },
+          "job_based_execution": {
+            "description": "Workstreams converted to atomic, retryable, trackable jobs",
+            "properties": [
+              "Atomic - complete fully or fail fully",
+              "Retryable - can rerun on failure",
+              "Trackable - state in database",
+              "Queue-based - managed by worker pool"
+            ]
+          },
+          "rejected_alternatives": [
+            "GUI-only (not usable in CI/CD, excludes CLI users)",
+            "Terminal-only (steep learning curve, limited visualization)",
+            "Web-based dashboard (deployment complexity, network overhead)",
+            "Single mode with plugins (plugin complexity without benefit)"
+          ],
+          "implementation_status": {
+            "terminal_mode": "fully implemented via scripts/run_workstream.py",
+            "engine_job_based": "implemented in engine/",
+            "tui_mode": "planned (design docs in gui/)",
+            "gui_mode": "planned (design docs in gui/)"
+          }
+        },
+        "adr_0003_sqlite_state_storage": {
+          "id": "ADR-0003",
+          "title": "SQLite State Storage",
+          "status": "Accepted",
+          "date": "2025-11-22",
+          "decision": "Use SQLite as primary state storage at .worktrees/pipeline_state.db",
+          "rationale": {
+            "requirements": [
+              "Track workstream execution state",
+              "Store job queue and worker state",
+              "Persist error detection results and file hashes",
+              "Enable crash recovery and resume-from-checkpoint",
+              "Support concurrent reads, sequential writes",
+              "Cross-platform (Windows, macOS, Linux)",
+              "Zero external dependencies or server setup"
+            ],
+            "why_sqlite": [
+              "Zero configuration - embedded database",
+              "Cross-platform identical behavior",
+              "ACID compliance - reliable transactions",
+              "Proven technology - browsers, mobile, embedded",
+              "Single-writer model matches use case",
+              "File-based - easy backup and copy",
+              "Excellent Python integration via sqlite3"
+            ]
+          },
+          "concurrency_model": {
+            "pattern": "single-writer, many-readers",
+            "writer": "Orchestrator/engine updates state",
+            "readers": "UI modes query state for display",
+            "wal_mode": true,
+            "description": "Write-Ahead Logging enables readers without blocking writers"
+          },
+          "migration_triggers": [
+            "Multiple orchestrators writing simultaneously (multi-machine)",
+            "Database exceeds 10GB",
+            "Complex queries become bottlenecks",
+            "Need advanced features (full-text search, JSON indexing)"
+          ],
+          "rejected_alternatives": [
+            "PostgreSQL (requires server, overkill for single-writer)",
+            "Redis (less suited for relational data, memory-first)",
+            "JSON files (no ACID, no concurrency control, poor queries)",
+            "DuckDB (less mature, optimized for OLAP not OLTP)"
+          ],
+          "schema_management": {
+            "migrations": "schema/migrations/*.sql",
+            "version_tracking": "schema_version table",
+            "auto_apply": true
+          },
+          "implementation": "core/state/db.py"
+        },
+        "adr_0004_section_based_organization": {
+          "id": "ADR-0004",
+          "title": "Section-Based Organization",
+          "status": "Accepted",
+          "date": "2025-11-22",
+          "decision": "Organize code into domain-driven sections at repository root",
+          "sections": {
+            "core": {
+              "responsibility": "State management, orchestration engine, planning",
+              "key_modules": [
+                "state/",
+                "engine/",
+                "planning/"
+              ]
+            },
+            "error": {
+              "responsibility": "Error detection engine and plugins",
+              "key_modules": [
+                "engine/",
+                "plugins/"
+              ]
+            },
+            "aim": {
+              "responsibility": "AI environment manager (registry, secrets, health)",
+              "key_modules": [
+                "registry/",
+                "secrets/",
+                "health/"
+              ]
+            },
+            "pm": {
+              "responsibility": "Project management and CCPM integrations",
+              "key_modules": [
+                "ccpm/",
+                "estimator/"
+              ]
+            },
+            "specifications": {
+              "responsibility": "Unified specification management",
+              "key_modules": [
+                "tools/",
+                "content/",
+                "bridge/"
+              ]
+            }
+          },
+          "supporting_infrastructure": {
+            "docs": "Documentation",
+            "scripts": "Automation scripts",
+            "tests": "Test suites",
+            "schema": "JSON/YAML/SQL schemas",
+            "config": "Configuration files"
+          },
+          "bounded_contexts": {
+            "description": "Sections align with Domain-Driven Design bounded contexts",
+            "core": "Execution context (orchestration, state, planning)",
+            "error": "Quality context (detection, validation, fixing)",
+            "aim": "Environment context (tools, secrets, configuration)",
+            "pm": "Project context (planning, scheduling, tracking)",
+            "specifications": "Requirements context (specs, indexing, resolution)"
+          },
+          "import_path_rules": {
+            "correct": [
+              "from core.state.db import init_db",
+              "from error.engine.error_engine import ErrorEngine",
+              "from specifications.tools.indexer import generate_index"
+            ],
+            "deprecated_ci_fails": [
+              "from src.pipeline.db import init_db",
+              "from MOD_ERROR_PIPELINE.error_engine import ErrorEngine",
+              "from spec.tools.spec_indexer import generate_index"
+            ]
+          },
+          "rejected_alternatives": [
+            "Monolithic src/ (doesn't scale, encourages coupling)",
+            "Microservices (overkill, deployment complexity)",
+            "Feature-based (ambiguous, cross-cutting concerns)",
+            "Layer-based (spreads domain logic, tech-first thinking)"
+          ],
+          "migration_timeline": {
+            "phase": "Phase E - November 2025",
+            "steps": [
+              "Create new section directories",
+              "Copy code to new locations (keep old for compatibility)",
+              "Update all imports to new paths",
+              "Add CI enforcement to prevent old paths",
+              "Archive old code to legacy/"
+            ]
+          }
+        },
+        "adr_0005_python_primary_language": {
+          "id": "ADR-0005",
+          "title": "Python Primary Language",
+          "status": "Accepted",
+          "date": "2025-11-22",
+          "decision": "Use Python as primary implementation language, PowerShell for Windows-specific automation",
+          "division_of_responsibility": {
+            "python": "Core logic, orchestration, state management, tool adapters, tests",
+            "powershell": "Bootstrap scripts, environment setup, Windows-specific automation",
+            "shell_scripts": "Linux/macOS parity where beneficial (optional)"
+          },
+          "python_strengths": [
+            "Best-in-class AI tool ecosystem (OpenAI, Anthropic, LangChain)",
+            "Cross-platform identical behavior",
+            "Clear syntax for AI agents to understand and generate",
+            "Rich standard library (JSON, subprocess, sqlite3, pathlib)",
+            "Mature testing ecosystem (pytest, unittest, coverage)",
+            "Well-understood package management (pip, venv)",
+            "Optional static typing via type hints improves AI code gen"
+          ],
+          "python_version": {
+            "required": "3.10+",
+            "rationale": [
+              "Pattern matching (match/case statements)",
+              "Improved union types (X | Y syntax)",
+              "Better performance (startup and runtime)",
+              "Widely available (released Oct 2021)"
+            ]
+          },
+          "powershell_strategy": {
+            "pattern": "Thin wrappers",
+            "responsibilities": [
+              "Set up environment variables",
+              "Call Python scripts with arguments",
+              "Provide Windows-native error messages"
+            ]
+          },
+          "rejected_alternatives": [
+            "TypeScript/Node.js (less AI tooling, callback hell)",
+            "Go (verbose errors, less AI/ML support, smaller dev pool)",
+            "Rust (steep learning curve, minimal AI tooling, AI models struggle)",
+            "C#/.NET (less cross-platform, smaller AI/ML ecosystem)"
+          ],
+          "ai_code_generation_quality": {
+            "gpt4": "Excellent Python generation",
+            "claude": "Strong Python comprehension",
+            "copilot": "Best suggestions in Python",
+            "aider": "Optimized for Python codebases"
+          }
+        },
+        "adr_0006_specifications_unified_management": {
+          "id": "ADR-0006",
+          "title": "Specifications Unified Management",
+          "status": "Accepted",
+          "date": "2025-11-22",
+          "decision": "Consolidate all specifications into unified specifications/ section",
+          "structure": {
+            "content": "Specification documents organized by domain",
+            "tools": "Processing utilities (indexer, resolver, guard, patcher, renderer)",
+            "changes": "Active OpenSpec change proposals",
+            "bridge": "OpenSpec \u2192 Workstream integration layer"
+          },
+          "spec_uri_system": {
+            "pattern": "spec://section/module/file#anchor",
+            "example": "spec://core/state/db#initialization",
+            "resolution": [
+              "Parse URI spec://core/state/db",
+              "Resolve to specifications/content/core/state/db.md",
+              "Find anchor #initialization",
+              "Return resolved path or content"
+            ]
+          },
+          "tools": {
+            "indexer": "Generates spec index showing hierarchy and cross-refs",
+            "resolver": "Resolves spec URIs to file paths",
+            "guard": "Validates spec URIs, circular deps, required sections",
+            "patcher": "Applies spec patches",
+            "renderer": "Renders specs to different formats"
+          },
+          "openspec_bridge": {
+            "flow": [
+              "Proposals reviewed in openspec/",
+              "Converted to specifications via bridge/",
+              "Moved to specifications/content/ when accepted",
+              "Transformed into workstreams for implementation"
+            ]
+          },
+          "rejected_alternatives": [
+            "Keep specs in each section (cross-section specs don't fit)",
+            "Wiki or external system (separated from version control)",
+            "README-only (hard to enforce structure, no cross-refs)"
+          ],
+          "validation": {
+            "command": "python specifications/tools/guard/guard.py --validate-all",
+            "checks": [
+              "All spec URIs resolve to real files",
+              "No circular dependencies",
+              "Required sections present",
+              "Code references accurate"
+            ]
+          }
+        },
+        "adr_0007_error_plugin_architecture": {
+          "id": "ADR-0007",
+          "title": "Error Plugin Architecture",
+          "status": "Accepted",
+          "date": "2025-11-22",
+          "decision": "Implement error detection as plugin-based architecture with dynamic discovery via manifest.json",
+          "plugin_interface": {
+            "required": {
+              "parse": "Detect errors in file, return ErrorRecord list"
+            },
+            "optional": {
+              "fix": "Attempt to auto-fix errors, return FixResult"
+            }
+          },
+          "plugin_structure": {
+            "manifest_json": "Plugin metadata, capabilities, dependencies",
+            "plugin_py": "Entry point (parse, fix functions)",
+            "requirements_txt": "Plugin-specific dependencies (optional)",
+            "tests": "Plugin test suite"
+          },
+          "discovery_process": [
+            "Scan error/plugins/ for subdirectories",
+            "Look for manifest.json in each",
+            "Validate manifest against schema",
+            "Load plugin if applicable to project",
+            "Register in plugin registry"
+          ],
+          "manifest_fields": {
+            "plugin_id": "Unique identifier",
+            "name": "Human-readable name",
+            "version": "Plugin version",
+            "supported_languages": "Languages plugin handles",
+            "file_patterns": "Glob patterns for applicable files",
+            "capabilities": "List: parse, fix",
+            "dependencies": "External tools required",
+            "entry_point": "Python file with parse/fix functions"
+          },
+          "current_plugins": [
+            {
+              "id": "python_ruff",
+              "language": "Python",
+              "tool": "ruff",
+              "capabilities": [
+                "parse",
+                "fix"
+              ]
+            },
+            {
+              "id": "python_mypy",
+              "language": "Python",
+              "tool": "mypy",
+              "capabilities": [
+                "parse"
+              ]
+            },
+            {
+              "id": "javascript_eslint",
+              "language": "JavaScript",
+              "tool": "eslint",
+              "capabilities": [
+                "parse",
+                "fix"
+              ]
+            },
+            {
+              "id": "security_gitleaks",
+              "language": "All",
+              "tool": "gitleaks",
+              "capabilities": [
+                "parse"
+              ]
+            },
+            {
+              "id": "generic_codespell",
+              "language": "All",
+              "tool": "codespell",
+              "capabilities": [
+                "parse",
+                "fix"
+              ]
+            }
+          ],
+          "incremental_detection": {
+            "file_hashing": "Track SHA256 hash of each file",
+            "skip_unchanged": "Don't rescan if hash unchanged",
+            "changed_files_only": "Plugins receive modified files list",
+            "cache_results": "Previous results cached in database"
+          },
+          "rejected_alternatives": [
+            "Monolithic detector (unmaintainable as detectors grow)",
+            "Tool-specific scripts (no unified interface, duplicate logic)",
+            "Configuration-based (limited to standard output formats)"
+          ],
+          "extensibility": {
+            "adding_plugin": [
+              "Create directory error/plugins/your_plugin/",
+              "Add manifest.json with metadata",
+              "Implement plugin.py with parse() function",
+              "Optionally implement fix() for auto-fixing",
+              "Add tests/test_plugin.py",
+              "Document in error/plugins/README.md"
+            ],
+            "no_core_changes": true
+          }
+        },
+        "adr_0008_database_location_worktree": {
+          "id": "ADR-0008",
+          "title": "Database Location in Worktree",
+          "status": "Accepted",
+          "date": "2025-11-22",
+          "decision": "Store SQLite database at .worktrees/pipeline_state.db (configurable via PIPELINE_DB_PATH)",
+          "rationale": {
+            "git_ignored": "State not committed to version control",
+            "discoverable": "Scripts and tools find it reliably",
+            "worktree_isolation": "Each git worktree has independent state",
+            "predictable": "Users and tools know where to look",
+            "override_allowed": "Power users can specify custom location"
+          },
+          "why_worktrees_directory": [
+            "Semantic meaning - clearly worktree-specific data",
+            "Git ignored by default via .gitignore",
+            "Each worktree directory gets own .worktrees/ subfolder",
+            "Standard location relative to repo root",
+            "Future expansion for other worktree data"
+          ],
+          "worktree_behavior": {
+            "main_worktree": "repo/.worktrees/pipeline_state.db",
+            "feature_worktree": "repo-worktree-feature/.worktrees/pipeline_state.db",
+            "isolation": "Feature branches run workflows without affecting main",
+            "concurrency": "Different worktrees don't conflict",
+            "state_per_worktree": true
+          },
+          "environment_override": {
+            "variable": "PIPELINE_DB_PATH",
+            "linux_macos": "export PIPELINE_DB_PATH='/path/to/custom.db'",
+            "windows_powershell": "$env:PIPELINE_DB_PATH = 'C:\\custom\\location.db'",
+            "one_time": "PIPELINE_DB_PATH=/tmp/test.db python scripts/run_workstream.py"
+          },
+          "backup_strategy": {
+            "before_risky_operation": "cp .worktrees/pipeline_state.db .worktrees/pipeline_state.db.backup",
+            "restore": "cp .worktrees/pipeline_state.db.backup .worktrees/pipeline_state.db"
+          },
+          "rejected_alternatives": [
+            "Repository root (easy to commit, clutters root)",
+            "XDG Base Directory (not discoverable, doesn't work for multiple clones)",
+            "Hidden .pipeline/ (not specific to worktree concept)",
+            "Temp directory (state lost on reboot, hard to find)"
+          ]
+        },
+        "adr_spec_tooling_consolidation": {
+          "id": "ADR-SPEC-TOOLING",
+          "title": "Spec Tooling Consolidation",
+          "status": "Accepted",
+          "date": "2025-11-18",
+          "decision": "Treat openspec/specs/ as primary source of truth, keep SPEC_MGMT_V1 tools as legacy",
+          "context": {
+            "spec_mgmt_v1": {
+              "location": "tools/spec_*",
+              "pattern": "Sidecars + suite-index",
+              "index": "docs/.index/suite-index.yaml",
+              "tools": [
+                "renderer",
+                "guard",
+                "resolver",
+                "indexer",
+                "patcher"
+              ]
+            },
+            "openspec": {
+              "location": "openspec/specs/ + openspec/changes/",
+              "pattern": "Source-of-truth specs",
+              "flow": "change \u2192 bundle \u2192 workstream"
+            }
+          },
+          "consolidation_strategy": {
+            "primary_source": "openspec/specs/",
+            "spec_mgmt_v1": "Available but not expanded, legacy status",
+            "renderer_adaptation": "Render from OpenSpec when suite-index not present (fallback)",
+            "documentation": "SPEC_MGMT_V1 documented as legacy/optional",
+            "new_automation": "Prefer OpenSpec-centric flows"
+          },
+          "consequences": {
+            "reduced_duplication": "Single canonical spec location",
+            "minimal_changes": "Renderer fallback for compatibility",
+            "future_automation": "Operate on openspec/specs and openspec/changes"
+          },
+          "migration": {
+            "existing_flows": "Suite-index/sidecars continue unchanged",
+            "openspec_only": "Renderer scans openspec/specs/**/spec.md"
+          }
+        },
+        "adr_error_utils_location": {
+          "id": "ADR-ERROR-UTILS",
+          "title": "Error Utilities Location",
+          "status": "Accepted",
+          "date": "2025-11-18",
+          "decision": "Move utilities to error/shared/utils/ for section isolation",
+          "current_state": {
+            "location": "src/utils/",
+            "modules": [
+              "types.py",
+              "time.py",
+              "hashing.py",
+              "jsonl_manager.py",
+              "env.py"
+            ],
+            "import_sites": "23+",
+            "consumers": "21 plugins, error engine, pipeline engine, plugin manager"
+          },
+          "analysis": {
+            "types_py": "Error-specific types (PluginIssue, PluginResult, PipelineReport)",
+            "time_py": "Run ID generation for error pipeline",
+            "hashing_py": "File hashing for error pipeline cache",
+            "jsonl_manager_py": "JSONL logging for error pipeline",
+            "env_py": "Environment variable helpers (potentially reusable)",
+            "current_usage": "Exclusively by error subsystem"
+          },
+          "rationale": [
+            "Single responsibility - all usage is error-pipeline specific",
+            "Clear ownership - error section owns its utilities",
+            "Encapsulation - no cross-section dependencies currently",
+            "Future flexibility - can extract to shared/utils/ if needed"
+          ],
+          "migration_strategy": {
+            "create_directory": "error/shared/utils/",
+            "move_files": "src/utils/*.py \u2192 error/shared/utils/*.py",
+            "create_shim": "src/utils/ re-exports from new location",
+            "update_imports": "Error subsystem uses error.shared.utils",
+            "backward_compatibility": "Shim remains during transition"
+          },
+          "future_considerations": [
+            "If non-error code needs utilities, extract to top-level shared/utils/",
+            "Monitor for cross-section utility needs in future refactors"
+          ]
+        }
+      }
+    },
+    "rejected_alternatives_catalog": {
+      "description": "Catalog of architectural alternatives considered and rejected, preventing re-proposal",
+      "purpose": "Help AI agents avoid suggesting previously rejected approaches",
+      "execution_model": {
+        "task_dag": "Too low-level, lacks semantic structure for AI agents",
+        "event_driven": "Non-deterministic execution makes debugging difficult",
+        "imperative_scripts": "No parallelism, poor state management, unsafe for AI modification",
+        "makefile_build": "Designed for compilation, not development workflows"
+      },
+      "user_interface": {
+        "gui_only": "Not usable in CI/CD, excludes terminal-first users",
+        "terminal_only": "Steep learning curve, limited visualization",
+        "web_dashboard": "Deployment complexity, network overhead for local ops",
+        "single_mode_plugins": "Plugin complexity without clear benefit"
+      },
+      "state_storage": {
+        "postgresql": "Requires server setup, overkill for single-writer use case",
+        "redis": "Less suited for relational data, memory-first wastes resources",
+        "json_files": "No ACID guarantees, race conditions, poor query performance",
+        "duckdb": "Less mature, optimized for OLAP not OLTP"
+      },
+      "code_organization": {
+        "monolithic_src": "Doesn't scale, encourages tight coupling",
+        "microservices": "Overkill for current size, deployment complexity",
+        "feature_based": "Ambiguous, doesn't map cross-cutting concerns",
+        "layer_based": "Spreads domain logic, encourages tech-first thinking"
+      },
+      "implementation_language": {
+        "typescript_nodejs": "Less AI tooling integration, callback complexity",
+        "go": "Verbose error handling, less AI/ML library support",
+        "rust": "Steep learning curve, AI models struggle with complexity",
+        "csharp_dotnet": "Less cross-platform, smaller AI/ML ecosystem"
+      },
+      "specifications_management": {
+        "specs_in_sections": "Cross-section specs don't fit anywhere",
+        "wiki_external": "Separated from version control, no offline access",
+        "readme_only": "Hard to enforce structure, no cross-referencing"
+      },
+      "error_detection": {
+        "monolithic_detector": "Unmaintainable as detectors grow",
+        "tool_specific_scripts": "No unified interface, duplicate logic",
+        "configuration_based": "Limited to standard output formats, no custom parsing"
+      },
+      "database_location": {
+        "repository_root": "Easy to accidentally commit despite gitignore",
+        "xdg_base_directory": "Not discoverable from repo, doesn't work for multiple clones",
+        "hidden_pipeline_dir": "Not specific to worktree concept",
+        "temp_directory": "State lost on reboot, hard to find for debugging"
+      }
+    },
+    "design_principles": {
+      "source": "Extracted from ADRs",
+      "workstream_execution": {
+        "declarative_over_imperative": "Define WHAT to do, not HOW (execution engine decides HOW)",
+        "composability": "Workstreams can be bundled together for complex operations",
+        "idempotency": "Steps should be safe to retry without side effects",
+        "observability": "Every state transition tracked in database"
+      },
+      "code_organization": {
+        "clear_ownership": "Each section has focused responsibility",
+        "independent_evolution": "Sections can change without affecting others",
+        "explicit_dependencies": "Cross-section imports are explicit and auditable",
+        "test_mirroring": "Tests mirror structure (tests/core/, tests/error/)"
+      },
+      "ai_compatibility": {
+        "semantic_meaning": "Use descriptive names over abbreviations",
+        "declarative_structure": "Clear, declarative patterns for AI comprehension",
+        "python_preference": "Python chosen for AI code generation quality",
+        "documentation_first": "Document WHY before implementing WHAT"
+      },
+      "state_management": {
+        "single_source_of_truth": "SQLite database is authoritative state",
+        "crash_recovery": "State enables resume-from-checkpoint",
+        "worktree_isolation": "Each worktree has independent state",
+        "backward_compatible_migrations": "Schema changes via versioned migrations"
+      },
+      "extensibility": {
+        "plugin_isolation": "Plugin failures don't crash entire system",
+        "dynamic_discovery": "Plugins discovered via manifest.json, no registration code",
+        "clear_interfaces": "Plugins implement standard interface (parse, optional fix)",
+        "no_core_changes": "Adding capabilities doesn't require core modifications"
+      }
+    },
+    "tool_adapter_pattern": {
+      "description": "Tool Adapter Interface - abstraction layer for routing tasks to external tools",
+      "purpose": "Decouple task execution from specific tool implementations, enabling tool substitution and testing",
+      "location": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/core/adapters/",
+      "workstream": "WS-03-02A",
+      "pattern": "adapter",
+      "components": {
+        "tool_config": {
+          "description": "Configuration for a tool (metadata, capabilities, limits)",
+          "file": "core/adapters/base.py",
+          "dataclass": "ToolConfig",
+          "fields": {
+            "tool_id": "Unique identifier (e.g., 'aider', 'pytest', 'git')",
+            "kind": "Tool category: 'tool', 'validator', 'analyzer'",
+            "command": "Base command to execute",
+            "capabilities": "What the tool can do (task_kinds, domains)",
+            "limits": "Resource constraints (timeout, max_parallel)",
+            "safety_tier": "Safety level: 'low', 'medium', 'high'"
+          },
+          "methods": {
+            "supports_task": "Check if tool supports task_kind and domain",
+            "get_timeout": "Get timeout in seconds (default 300s / 5min)",
+            "get_max_parallel": "Get max parallel executions (default 1)"
+          }
+        },
+        "execution_result": {
+          "description": "Result of tool execution",
+          "file": "core/adapters/base.py",
+          "dataclass": "ExecutionResult",
+          "fields": {
+            "success": "Boolean - did execution succeed",
+            "stdout": "Standard output capture",
+            "stderr": "Standard error capture",
+            "exit_code": "Process exit code",
+            "duration_seconds": "Execution time in seconds",
+            "error_message": "Optional error description",
+            "metadata": "Additional context (command, timeout, etc.)"
+          },
+          "methods": {
+            "to_dict": "Convert to dictionary for storage/serialization"
+          }
+        },
+        "tool_adapter": {
+          "description": "Abstract base class for tool adapters",
+          "file": "core/adapters/base.py",
+          "class": "ToolAdapter",
+          "pattern": "Abstract Base Class (ABC)",
+          "abstract_methods": {
+            "execute": {
+              "signature": "execute(request: Dict, timeout: Optional[int]) -> ExecutionResult",
+              "purpose": "Execute a task request via the tool",
+              "args": {
+                "request": "ExecutionRequest dictionary with task details",
+                "timeout": "Optional timeout override in seconds"
+              },
+              "returns": "ExecutionResult with success/failure and output"
+            },
+            "validate_request": {
+              "signature": "validate_request(request: Dict) -> bool",
+              "purpose": "Validate that adapter can handle the request",
+              "args": {
+                "request": "ExecutionRequest dictionary"
+              },
+              "returns": "True if request is valid for this adapter"
+            }
+          },
+          "concrete_methods": {
+            "supports_task": "Check if adapter supports task_kind/domain",
+            "get_timeout": "Get configured timeout from ToolConfig"
+          }
+        },
+        "subprocess_adapter": {
+          "description": "Concrete adapter that executes tools via subprocess",
+          "file": "core/adapters/subprocess_adapter.py",
+          "class": "SubprocessAdapter",
+          "extends": "ToolAdapter",
+          "responsibilities": [
+            "Command execution with timeout",
+            "stdout/stderr capture",
+            "Exit code handling",
+            "Error reporting",
+            "Timeout handling (TimeoutExpired exception)",
+            "General exception handling"
+          ],
+          "implementation_details": {
+            "subprocess_run": {
+              "capture_output": true,
+              "text": true,
+              "timeout": "From config or override",
+              "shell": true,
+              "note": "shell=True allows complex commands (consider security implications)"
+            },
+            "error_handling": {
+              "TimeoutExpired": "Returns ExecutionResult with timeout_exceeded=True in metadata",
+              "General Exception": "Returns ExecutionResult with exception_type in metadata",
+              "Invalid Request": "Returns ExecutionResult with error_message"
+            },
+            "duration_tracking": "Uses time.time() before/after execution",
+            "command_building": "_build_command() helper (simple implementation, needs enhancement)"
+          }
+        },
+        "adapter_registry": {
+          "description": "Registry for managing tool adapters",
+          "file": "core/adapters/registry.py",
+          "class": "AdapterRegistry",
+          "responsibilities": [
+            "Load adapters from router_config.json",
+            "Register adapters by tool_id",
+            "Look up adapters by tool_id",
+            "Find adapters by task_kind/domain",
+            "List all registered tools"
+          ],
+          "methods": {
+            "load_from_config": {
+              "signature": "load_from_config(config_path: str)",
+              "purpose": "Load adapters from router_config.v1.json",
+              "implementation": "Reads apps section, creates ToolConfig, instantiates SubprocessAdapter"
+            },
+            "register": {
+              "signature": "register(tool_id: str, adapter: ToolAdapter)",
+              "purpose": "Register an adapter instance"
+            },
+            "get": {
+              "signature": "get(tool_id: str) -> Optional[ToolAdapter]",
+              "purpose": "Get adapter by tool_id"
+            },
+            "find_for_task": {
+              "signature": "find_for_task(task_kind: str, domain: Optional[str]) -> List[ToolAdapter]",
+              "purpose": "Find all adapters that support a task kind/domain"
+            },
+            "list_tools": {
+              "signature": "list_tools() -> List[str]",
+              "purpose": "List all registered tool IDs"
+            },
+            "get_config": {
+              "signature": "get_config(tool_id: str) -> Optional[ToolConfig]",
+              "purpose": "Get ToolConfig for a tool"
+            }
+          }
+        }
+      },
+      "usage_flow": {
+        "initialization": [
+          "Create AdapterRegistry with router_config path",
+          "Registry loads apps from config",
+          "For each app, creates ToolConfig",
+          "Instantiates SubprocessAdapter with ToolConfig",
+          "Registers adapter by tool_id"
+        ],
+        "task_routing": [
+          "Receive ExecutionRequest (task_kind, domain, etc.)",
+          "Call registry.find_for_task(task_kind, domain)",
+          "Get list of capable adapters",
+          "Select adapter (first, preferred, round-robin, etc.)",
+          "Call adapter.execute(request, timeout)",
+          "Receive ExecutionResult",
+          "Store result or handle error"
+        ],
+        "direct_tool_access": [
+          "Call registry.get(tool_id) for specific tool",
+          "Call adapter.execute(request)",
+          "Handle result"
+        ]
+      },
+      "adapter_implementations": {
+        "current": [
+          {
+            "name": "SubprocessAdapter",
+            "status": "implemented",
+            "file": "core/adapters/subprocess_adapter.py",
+            "uses": "subprocess.run with timeout",
+            "limitations": [
+              "Simple command building (needs enhancement)",
+              "shell=True may have security implications",
+              "No input streaming support"
+            ]
+          }
+        ],
+        "planned": [
+          {
+            "name": "AiderAdapter",
+            "purpose": "Specialized adapter for aider code editing",
+            "enhancements": [
+              "Parse aider-specific request format",
+              "Handle aider configuration",
+              "Extract structured output"
+            ]
+          },
+          {
+            "name": "PytestAdapter",
+            "purpose": "Specialized adapter for pytest testing",
+            "enhancements": [
+              "Parse pytest request (test files, markers)",
+              "Handle pytest.ini configuration",
+              "Parse pytest JSON output"
+            ]
+          },
+          {
+            "name": "GitAdapter",
+            "purpose": "Specialized adapter for git operations",
+            "enhancements": [
+              "Structured git commands",
+              "Parse git output formats",
+              "Handle authentication"
+            ]
+          },
+          {
+            "name": "HTTPAdapter",
+            "purpose": "Adapter for HTTP API calls",
+            "enhancements": [
+              "REST API requests",
+              "Authentication headers",
+              "JSON request/response"
+            ]
+          }
+        ]
+      },
+      "design_benefits": {
+        "decoupling": "Task execution logic separate from tool-specific details",
+        "testability": "Easy to mock adapters for testing",
+        "extensibility": "Add new tools by implementing ToolAdapter interface",
+        "substitutability": "Swap tool implementations without changing orchestration code",
+        "capability_discovery": "Registry can find capable tools for any task",
+        "configuration_driven": "Tools defined in router_config.json, not hardcoded"
+      },
+      "security_considerations": {
+        "shell_injection": {
+          "risk": "shell=True in subprocess.run enables shell injection",
+          "mitigation": [
+            "Validate/sanitize request inputs",
+            "Use shell=False with list args where possible",
+            "Implement safety_tier enforcement",
+            "Consider using shlex.quote() for arguments"
+          ]
+        },
+        "timeout_enforcement": {
+          "risk": "Runaway processes without timeout",
+          "mitigation": "Always use timeout parameter in subprocess.run"
+        },
+        "resource_limits": {
+          "risk": "Too many parallel executions",
+          "mitigation": "Enforce max_parallel from ToolConfig limits"
+        }
+      },
+      "integration_points": {
+        "task_router": {
+          "description": "Uses AdapterRegistry to route tasks to tools",
+          "reference": "core/router/task_router.py (planned)"
+        },
+        "execution_engine": {
+          "description": "Orchestrator uses adapters to execute workstream steps",
+          "reference": "core/engine/orchestrator.py"
+        },
+        "router_config": {
+          "description": "Configuration file defining available tools",
+          "reference": "router_config.v1.json",
+          "structure": {
+            "apps": {
+              "tool_id": {
+                "kind": "tool|validator|analyzer",
+                "command": "base command string",
+                "capabilities": {
+                  "task_kinds": [
+                    "code_edit",
+                    "test",
+                    "validate"
+                  ],
+                  "domains": [
+                    "python",
+                    "javascript"
+                  ]
+                },
+                "limits": {
+                  "timeout_seconds": 300,
+                  "max_parallel": 1
+                },
+                "safety_tier": "medium"
+              }
+            }
+          }
+        }
+      }
+    },
+    "resilience_patterns": {
+      "description": "Fault-tolerance patterns for reliable execution of workstreams and tool operations",
+      "purpose": "Prevent cascading failures, handle transient errors, protect external dependencies",
+      "location": "core/engine/resilience.py",
+      "workstream": "WS-03-03A",
+      "patterns": {
+        "circuit_breaker": {
+          "description": "Prevents cascading failures by blocking calls to failing services",
+          "class": "CircuitBreaker",
+          "states": {
+            "CLOSED": {
+              "description": "Normal operation - calls pass through",
+              "behavior": "Track failures, transition to OPEN if threshold exceeded",
+              "next_states": [
+                "OPEN"
+              ]
+            },
+            "OPEN": {
+              "description": "Failure threshold exceeded - calls blocked",
+              "behavior": "Reject all calls immediately, wait for recovery_timeout",
+              "next_states": [
+                "HALF_OPEN"
+              ],
+              "exception": "CircuitBreakerOpen"
+            },
+            "HALF_OPEN": {
+              "description": "Testing recovery - allow trial call",
+              "behavior": "Single call attempted, success \u2192 CLOSED, failure \u2192 OPEN",
+              "next_states": [
+                "CLOSED",
+                "OPEN"
+              ]
+            }
+          },
+          "state_machine": {
+            "initial_state": "CLOSED",
+            "terminal_states": [],
+            "transitions": {
+              "CLOSED \u2192 OPEN": "failure_count >= failure_threshold",
+              "OPEN \u2192 HALF_OPEN": "time_since_open >= recovery_timeout",
+              "HALF_OPEN \u2192 CLOSED": "trial call succeeds",
+              "HALF_OPEN \u2192 OPEN": "trial call fails"
+            }
+          },
+          "configuration": {
+            "failure_threshold": {
+              "type": "int",
+              "default": 5,
+              "description": "Number of consecutive failures before opening circuit"
+            },
+            "recovery_timeout": {
+              "type": "int",
+              "default": 60,
+              "description": "Seconds to wait before attempting recovery (OPEN \u2192 HALF_OPEN)",
+              "unit": "seconds"
+            },
+            "name": {
+              "type": "str",
+              "default": "unnamed",
+              "description": "Circuit breaker identifier for logging/monitoring"
+            }
+          },
+          "methods": {
+            "call": {
+              "signature": "call(func: Callable, *args, **kwargs) -> Any",
+              "description": "Execute function with circuit breaker protection",
+              "raises": [
+                "CircuitBreakerOpen",
+                "original exceptions"
+              ],
+              "behavior": [
+                "If OPEN: raise CircuitBreakerOpen immediately",
+                "If CLOSED: execute func, track success/failure",
+                "If HALF_OPEN: execute func, transition based on result"
+              ]
+            },
+            "reset": {
+              "signature": "reset() -> None",
+              "description": "Manually reset circuit to CLOSED state",
+              "use_case": "After fixing underlying issue"
+            },
+            "get_state": {
+              "signature": "get_state() -> Dict",
+              "description": "Get current circuit state and metrics",
+              "returns": {
+                "name": "Circuit breaker name",
+                "state": "Current state (closed/open/half_open)",
+                "failure_count": "Consecutive failures",
+                "success_count": "Total successes",
+                "failure_threshold": "Threshold for opening",
+                "opened_at": "Timestamp when opened (if OPEN)"
+              }
+            }
+          },
+          "metrics_tracked": {
+            "failure_count": "Consecutive failures (reset on success)",
+            "success_count": "Total successful calls",
+            "opened_at": "Timestamp when circuit opened",
+            "last_failure_time": "Timestamp of most recent failure"
+          },
+          "test_coverage": {
+            "test_file": "tests/resilience/test_circuit_breaker.py",
+            "test_count": 10,
+            "tests": [
+              "test_create_circuit_breaker - Initialization with config",
+              "test_successful_calls - Successful calls pass through",
+              "test_failed_calls_increment_counter - Failure tracking",
+              "test_circuit_opens_after_threshold - CLOSED \u2192 OPEN transition",
+              "test_open_circuit_blocks_calls - CircuitBreakerOpen exception",
+              "test_circuit_transitions_to_half_open - OPEN \u2192 HALF_OPEN via timeout",
+              "test_half_open_failure_reopens_circuit - HALF_OPEN \u2192 OPEN on failure",
+              "test_manual_reset - Manual reset to CLOSED",
+              "test_get_state - State and metrics retrieval"
+            ]
+          }
+        },
+        "retry_strategies": {
+          "description": "Configurable retry logic for transient failures",
+          "base_class": "RetryStrategy",
+          "implementations": {
+            "simple_retry": {
+              "class": "SimpleRetry",
+              "description": "Fixed delay between retries",
+              "configuration": {
+                "max_attempts": {
+                  "type": "int",
+                  "default": 3,
+                  "description": "Maximum retry attempts"
+                },
+                "delay": {
+                  "type": "float",
+                  "default": 1.0,
+                  "description": "Constant delay between retries (seconds)"
+                }
+              },
+              "delay_pattern": "Constant - same delay for every retry",
+              "formula": "delay = fixed_delay",
+              "example": "3 attempts with 1.0s delay \u2192 delays: [1.0, 1.0, 1.0]",
+              "use_case": "Simple transient errors, predictable timing"
+            },
+            "exponential_backoff": {
+              "class": "ExponentialBackoff",
+              "description": "Exponentially increasing delay with optional jitter",
+              "configuration": {
+                "max_attempts": {
+                  "type": "int",
+                  "default": 5,
+                  "description": "Maximum retry attempts"
+                },
+                "base_delay": {
+                  "type": "float",
+                  "default": 1.0,
+                  "description": "Base delay for exponential calculation (seconds)"
+                },
+                "max_delay": {
+                  "type": "float",
+                  "default": 60.0,
+                  "description": "Maximum delay cap (seconds)"
+                },
+                "exponential_base": {
+                  "type": "float",
+                  "default": 2.0,
+                  "description": "Base for exponential growth (typically 2.0)"
+                },
+                "jitter": {
+                  "type": "bool",
+                  "default": true,
+                  "description": "Add randomness to prevent thundering herd"
+                }
+              },
+              "delay_pattern": "Exponential - delay doubles each retry",
+              "formula": "delay = min(base_delay * exponential_base^attempt, max_delay)",
+              "jitter_formula": "delay * random(0.5, 1.5) if jitter enabled",
+              "example": "base=1.0, exp=2.0 \u2192 delays: [2.0, 4.0, 8.0, 16.0, 32.0]",
+              "example_with_cap": "base=1.0, exp=2.0, max=10.0 \u2192 delays: [2.0, 4.0, 8.0, 10.0, 10.0]",
+              "use_case": "Rate limiting, API throttling, load-based failures"
+            }
+          },
+          "methods": {
+            "execute": {
+              "signature": "execute(func: Callable, *args, **kwargs) -> Any",
+              "description": "Execute function with retry logic",
+              "raises": [
+                "RetryExhausted"
+              ],
+              "behavior": [
+                "Attempt 1: Execute func immediately",
+                "On failure: Wait for get_delay(attempt), retry",
+                "Repeat until success or max_attempts reached",
+                "If all attempts fail: raise RetryExhausted"
+              ]
+            },
+            "get_delay": {
+              "signature": "get_delay(attempt: int) -> float",
+              "description": "Calculate delay for given attempt number",
+              "returns": "Delay in seconds (float)"
+            }
+          },
+          "exception": {
+            "class": "RetryExhausted",
+            "description": "Raised when all retry attempts are exhausted",
+            "fields": {
+              "attempts": "Total attempts made",
+              "last_exception": "The final exception that caused failure"
+            },
+            "usage": "Signals that transient error persisted beyond retry threshold"
+          },
+          "test_coverage": {
+            "test_file": "tests/resilience/test_retry.py",
+            "test_count": 11,
+            "tests_simple_retry": [
+              "test_create_simple_retry - Initialization",
+              "test_get_delay_is_constant - Constant delay verification",
+              "test_successful_execution - Success on first try",
+              "test_retry_after_failure - Retry with delay",
+              "test_exhaust_retries - RetryExhausted exception"
+            ],
+            "tests_exponential_backoff": [
+              "test_create_exponential_backoff - Initialization",
+              "test_exponential_delay_growth - Exponential formula (2, 4, 8, 16)",
+              "test_max_delay_cap - Delay capping at max_delay",
+              "test_jitter_adds_randomness - Jitter variation",
+              "test_successful_after_retries - Success after retries"
+            ],
+            "tests_exception": [
+              "test_exception_has_metadata - RetryExhausted contains attempts and last_exception"
+            ]
+          }
+        },
+        "resilient_executor": {
+          "description": "Combines circuit breaker + retry for robust tool execution",
+          "class": "ResilientExecutor",
+          "purpose": "Per-tool resilience with independent circuits and retry strategies",
+          "architecture": {
+            "pattern": "Decorator/Wrapper",
+            "combines": [
+              "CircuitBreaker",
+              "RetryStrategy"
+            ],
+            "isolation": "Each tool has independent circuit breaker and retry strategy"
+          },
+          "methods": {
+            "register_tool": {
+              "signature": "register_tool(tool_id: str, failure_threshold: int = 5, recovery_timeout: int = 60, max_retries: int = 3, retry_strategy: str = 'simple') -> None",
+              "description": "Register a tool with resilience configuration",
+              "parameters": {
+                "tool_id": "Unique tool identifier",
+                "failure_threshold": "Circuit breaker threshold",
+                "recovery_timeout": "Circuit recovery timeout (seconds)",
+                "max_retries": "Max retry attempts",
+                "retry_strategy": "'simple' or 'exponential'"
+              }
+            },
+            "execute": {
+              "signature": "execute(tool_id: str, func: Callable, *args, **kwargs) -> Any",
+              "description": "Execute function with resilience protection",
+              "behavior": [
+                "Auto-register tool if not registered",
+                "Wrap func with retry strategy",
+                "Wrap retry with circuit breaker",
+                "Return result or raise exception"
+              ],
+              "flow": "func \u2192 retry wrapper \u2192 circuit breaker \u2192 result",
+              "raises": [
+                "CircuitBreakerOpen",
+                "RetryExhausted"
+              ]
+            },
+            "get_tool_state": {
+              "signature": "get_tool_state(tool_id: str) -> Optional[Dict]",
+              "description": "Get circuit breaker state for tool",
+              "returns": "State dict or None if tool not registered"
+            },
+            "get_all_states": {
+              "signature": "get_all_states() -> Dict[str, Dict]",
+              "description": "Get all tool circuit states",
+              "returns": "Map of tool_id to state dict"
+            },
+            "reset_tool": {
+              "signature": "reset_tool(tool_id: str) -> None",
+              "description": "Manually reset tool's circuit breaker"
+            }
+          },
+          "usage_example": {
+            "setup": [
+              "executor = ResilientExecutor()",
+              "executor.register_tool('aider', failure_threshold=3, max_retries=5)"
+            ],
+            "execute": [
+              "result = executor.execute('aider', lambda: aider_api.edit(file))"
+            ],
+            "monitor": [
+              "state = executor.get_tool_state('aider')",
+              "if state['state'] == 'open':",
+              "    log.warning('Aider circuit is open, service may be down')"
+            ]
+          },
+          "isolation_benefits": {
+            "independent_circuits": "Failure in tool A doesn't affect tool B",
+            "per_tool_thresholds": "Configure failure_threshold per tool based on reliability",
+            "selective_blocking": "Circuit opens only for failing tool, others continue",
+            "targeted_recovery": "Reset individual circuits without affecting others"
+          },
+          "test_coverage": {
+            "test_file": "tests/resilience/test_resilient_executor.py",
+            "test_count": 11,
+            "tests": [
+              "test_create_executor - Initialization",
+              "test_register_tool - Tool registration",
+              "test_execute_successful_call - Success execution",
+              "test_auto_register_on_execute - Auto-registration on first use",
+              "test_retry_on_failure - Retry logic integration",
+              "test_circuit_opens_after_threshold - Circuit opening",
+              "test_circuit_blocks_when_open - CircuitBreakerOpen blocking",
+              "test_get_tool_state - State retrieval",
+              "test_get_nonexistent_tool_state - None for missing tool",
+              "test_reset_tool - Manual circuit reset",
+              "test_get_all_states - All tools state retrieval",
+              "test_separate_circuits_per_tool - Circuit isolation verification"
+            ]
+          }
+        }
+      },
+      "integration": {
+        "with_tool_adapters": {
+          "description": "Wrap adapter.execute() with ResilientExecutor",
+          "pattern": [
+            "executor = ResilientExecutor()",
+            "executor.register_tool(tool_id, ...)",
+            "result = executor.execute(tool_id, lambda: adapter.execute(request))"
+          ],
+          "benefit": "Tool adapters get circuit breaker + retry automatically"
+        },
+        "with_workstream_execution": {
+          "description": "Orchestrator uses resilient executor for step execution",
+          "pattern": [
+            "For each step in workstream:",
+            "  tool_id = step.tool_id",
+            "  result = resilient_executor.execute(tool_id, lambda: execute_step(step))",
+            "  Handle CircuitBreakerOpen \u2192 mark step as blocked",
+            "  Handle RetryExhausted \u2192 mark step as failed"
+          ],
+          "benefit": "Workstreams resilient to transient failures and cascading errors"
+        }
+      },
+      "design_benefits": {
+        "prevent_cascading_failures": "Circuit breaker isolates failing dependencies",
+        "handle_transient_errors": "Retry strategies recover from temporary issues",
+        "protect_external_services": "Rate limiting via exponential backoff",
+        "per_tool_configuration": "Tailor resilience to each tool's reliability profile",
+        "observable": "Get states for monitoring and debugging",
+        "testable": "Patterns tested with 32 unit tests"
+      },
+      "best_practices": {
+        "circuit_breaker_thresholds": {
+          "low_reliability_tools": "failure_threshold=2-3 (aider, external APIs)",
+          "high_reliability_tools": "failure_threshold=5-10 (git, pytest)",
+          "critical_operations": "failure_threshold=1 (deployment, data migration)"
+        },
+        "retry_strategies": {
+          "transient_errors": "SimpleRetry with 3 attempts, 1s delay",
+          "rate_limiting": "ExponentialBackoff with jitter to avoid thundering herd",
+          "network_issues": "ExponentialBackoff with max_delay=60s"
+        },
+        "recovery_timeouts": {
+          "fast_recovery": "recovery_timeout=30s (local tools)",
+          "moderate_recovery": "recovery_timeout=60s (external APIs)",
+          "slow_recovery": "recovery_timeout=300s (databases, critical services)"
+        },
+        "monitoring": {
+          "log_circuit_opens": "Alert when circuit opens (service degradation)",
+          "track_retry_counts": "Monitor retry_exhausted frequency",
+          "dashboard_tool_states": "Real-time view of all circuit states"
+        }
+      }
+    },
+    "subagent_architecture": {
+      "description": "Three-tier architecture: orchestrator \u2192 sub-agents \u2192 slash commands",
+      "purpose": "Decompose monolithic agent into specialized, bounded, testable sub-agents with user-friendly slash command interface",
+      "design_philosophy": {
+        "separation_of_concerns": "Each sub-agent handles one well-defined task with clear inputs/outputs",
+        "deterministic_workflows": "Sub-agents produce predictable results, easy to test and audit",
+        "user_control": "Slash commands give explicit control over when high-impact operations run",
+        "orchestration_over_autonomy": "Top-level orchestrator routes tasks, sub-agents execute within constraints"
+      },
+      "architecture_tiers": {
+        "tier_1_orchestrator": {
+          "role": "Lead Architect / Orchestrator Agent",
+          "agent_id": "AGENT-ORCH-CORE",
+          "responsibilities": [
+            "Select phase and workstream bundle based on user request",
+            "Validate execution request against schemas and constraints",
+            "Route tasks to appropriate sub-agents",
+            "Enforce quality gates and FILES_SCOPE boundaries",
+            "Coordinate multi-step workflows",
+            "Handle human-facing explanation and negotiation",
+            "Make high-level architecture and tradeoff decisions"
+          ],
+          "when_to_use": [
+            "High-level phase & workstream design",
+            "Initial architecture redesign decisions",
+            "Human-facing explanation/negotiation",
+            "Cross-cutting context and tradeoffs",
+            "Freeform exploration and brainstorming"
+          ],
+          "interface": {
+            "input": "Natural language requests, ExecutionRequest objects, slash commands",
+            "output": "Routed tasks, status updates, explanations, decision logs"
+          }
+        },
+        "tier_2_subagents": {
+          "role": "Specialized Task Executors",
+          "pattern": "Bounded, single-responsibility agents",
+          "characteristics": [
+            "Well-typed inputs and outputs (spec-governed)",
+            "Narrow scope within specific Phase + Workstream + FILES_SCOPE",
+            "No high-level planning or coordination",
+            "Deterministic and repeatable",
+            "Easy to test in isolation",
+            "Composable into larger workflows"
+          ],
+          "contract": {
+            "input_schema": "Defined per sub-agent type",
+            "output_schema": "Defined per sub-agent type",
+            "constraints": "Phase, Workstream, FILES_SCOPE, safety_tier",
+            "error_handling": "Return structured errors, never crash orchestrator"
+          },
+          "categories": {
+            "acs_subagents": {
+              "purpose": "AI Codebase Structure (PH-ACS) tasks",
+              "agents": [
+                {
+                  "id": "SUB-ACS-INDEX",
+                  "name": "ACS Codebase Index Builder",
+                  "phase": "PH-ACS",
+                  "input": [
+                    "repo_root",
+                    "acs_rules",
+                    "file_scope_hint"
+                  ],
+                  "output": [
+                    "CODEBASE_INDEX.yaml"
+                  ],
+                  "task": "Scan modules, map layers, identify dependencies and public surfaces",
+                  "why_subagent": "Deterministic, repeatable, safe to rerun on repo changes"
+                },
+                {
+                  "id": "SUB-ACS-QUALITY-GATE",
+                  "name": "ACS Quality Gate Synthesizer",
+                  "phase": "PH-ACS",
+                  "input": [
+                    "test_setup",
+                    "linters",
+                    "ci_config"
+                  ],
+                  "output": [
+                    "QUALITY_GATE.yaml"
+                  ],
+                  "task": "Enumerate checks (pytest, ruff, mypy), thresholds, gating rules",
+                  "why_subagent": "Can be rerun when tooling changes, narrow scope"
+                },
+                {
+                  "id": "SUB-ACS-POLICY",
+                  "name": "ACS Policy Deriver",
+                  "phase": "PH-ACS",
+                  "input": [
+                    "repo_structure",
+                    "docs",
+                    "existing_policies"
+                  ],
+                  "output": [
+                    "ai_policies.yaml"
+                  ],
+                  "task": "Derive safe edit zones, read-only areas, require-review zones",
+                  "why_subagent": "Tight contract, easy to test and audit"
+                },
+                {
+                  "id": "SUB-ACS-GUIDANCE",
+                  "name": "ACS Guidance Writer",
+                  "phase": "PH-ACS",
+                  "input": [
+                    "acs_artifacts",
+                    "existing_docs"
+                  ],
+                  "output": [
+                    ".meta/AI_GUIDANCE.md"
+                  ],
+                  "task": "Assemble concise AI onboarding doc from ACS artifacts",
+                  "why_subagent": "Text synthesis over structured sources, rerunnable"
+                }
+              ]
+            },
+            "restructure_subagents": {
+              "purpose": "Restructure/Refactor pipeline tasks",
+              "agents": [
+                {
+                  "id": "SUB-RESTRUCTURE-PLANNER",
+                  "name": "Restructure Planner",
+                  "phase": "PH-RESTRUCTURE",
+                  "input": [
+                    "current_acs_index",
+                    "restructure_intentions"
+                  ],
+                  "output": [
+                    "RESTRUCTURE_CODEBASE_V1.yaml"
+                  ],
+                  "task": "Plan moves/merges/splits without changing files",
+                  "why_subagent": "Planning only, no edits, easy to validate"
+                },
+                {
+                  "id": "SUB-RESTRUCTURE-SIMULATOR",
+                  "name": "Restructure Simulator",
+                  "phase": "PH-RESTRUCTURE",
+                  "input": [
+                    "RestructureSpec"
+                  ],
+                  "output": [
+                    "simulation_report"
+                  ],
+                  "task": "Dry-run reasoning, predict conflicts and changes",
+                  "why_subagent": "Read-only analysis, safe to run multiple times"
+                },
+                {
+                  "id": "SUB-RESTRUCTURE-PATCH-GEN",
+                  "name": "Restructure Patch Generator",
+                  "phase": "PH-RESTRUCTURE",
+                  "input": [
+                    "RestructureSpec",
+                    "simulation_report",
+                    "FILES_SCOPE"
+                  ],
+                  "output": [
+                    "patch_files"
+                  ],
+                  "task": "Implement moves/renames/merges as patches",
+                  "why_subagent": "Bounded to spec, testable output (patches)"
+                },
+                {
+                  "id": "SUB-IMPORT-FIXER",
+                  "name": "Import Fixer",
+                  "phase": "PH-RESTRUCTURE",
+                  "input": [
+                    "file_move_map",
+                    "language"
+                  ],
+                  "output": [
+                    "import_fix_patches"
+                  ],
+                  "task": "Update imports, references, wiring after moves",
+                  "why_subagent": "Mechanical transformation, language-specific rules"
+                },
+                {
+                  "id": "SUB-VALIDATION-RUNNER",
+                  "name": "Validation Runner",
+                  "phase": "PH-RESTRUCTURE",
+                  "input": [
+                    "post_refactor_state",
+                    "validation_suite"
+                  ],
+                  "output": [
+                    "validation_results"
+                  ],
+                  "task": "Run tests and checks on refactored code",
+                  "why_subagent": "Isolated validation step, clear pass/fail"
+                }
+              ]
+            },
+            "error_pipeline_subagents": {
+              "purpose": "Error detection and self-healing",
+              "agents": [
+                {
+                  "id": "SUB-ERROR-CLASSIFIER",
+                  "name": "Error Classifier",
+                  "phase": "PH-ERROR-PIPELINE",
+                  "input": [
+                    "logs",
+                    "test_output",
+                    "error_context"
+                  ],
+                  "output": [
+                    "error_classification",
+                    "severity",
+                    "suggested_phase"
+                  ],
+                  "task": "Classify issue, tag severity, choose repair workstream",
+                  "why_subagent": "Classification logic separate from fix generation"
+                },
+                {
+                  "id": "SUB-FIX-DRAFT-GENERATOR",
+                  "name": "Fix Draft Generator",
+                  "phase": "PH-ERROR-PIPELINE",
+                  "input": [
+                    "error_classification",
+                    "context_files",
+                    "FILES_SCOPE"
+                  ],
+                  "output": [
+                    "fix_patches"
+                  ],
+                  "task": "Propose patches (patch-only mode, obey FILES_SCOPE)",
+                  "why_subagent": "Bounded to error type, testable patches"
+                },
+                {
+                  "id": "SUB-REGRESSION-VALIDATOR",
+                  "name": "Regression Validator",
+                  "phase": "PH-ERROR-PIPELINE",
+                  "input": [
+                    "fix_patches",
+                    "affected_tests"
+                  ],
+                  "output": [
+                    "validation_results"
+                  ],
+                  "task": "Run minimal subset of tests for the change",
+                  "why_subagent": "Focused validation, no side effects"
+                },
+                {
+                  "id": "SUB-ROLLBACK-PLANNER",
+                  "name": "Rollback Planner",
+                  "phase": "PH-ERROR-PIPELINE",
+                  "input": [
+                    "failed_fix",
+                    "ledger_entries"
+                  ],
+                  "output": [
+                    "rollback_plan"
+                  ],
+                  "task": "Create patch/plan to revert state or open PR",
+                  "why_subagent": "Safety-critical, needs clear audit trail"
+                }
+              ]
+            },
+            "spec_governance_subagents": {
+              "purpose": "Spec and schema governance",
+              "agents": [
+                {
+                  "id": "SUB-SPEC-LINT-CHECK",
+                  "name": "Spec Lint Checker",
+                  "phase": "PH-GOVERNANCE",
+                  "input": [
+                    "spec_files",
+                    "schemas"
+                  ],
+                  "output": [
+                    "validation_report"
+                  ],
+                  "task": "Validate Phase/Workstream/Restructure specs conform to schema",
+                  "why_subagent": "Run before any spec-based execution"
+                },
+                {
+                  "id": "SUB-SCHEMA-SYNC",
+                  "name": "Schema Sync Validator",
+                  "phase": "PH-GOVERNANCE",
+                  "input": [
+                    "docs",
+                    "schemas"
+                  ],
+                  "output": [
+                    "sync_report"
+                  ],
+                  "task": "Check docs and schemas are in sync for each spec family",
+                  "why_subagent": "Separate validation concern"
+                },
+                {
+                  "id": "SUB-CHANGE-IMPACT-SUMMARIZER",
+                  "name": "Change Impact Summarizer",
+                  "phase": "PH-GOVERNANCE",
+                  "input": [
+                    "spec_changes",
+                    "dependency_graph"
+                  ],
+                  "output": [
+                    "impact_notes"
+                  ],
+                  "task": "Generate impact notes for CHANGE_IMPACT_MATRIX.md",
+                  "why_subagent": "Reporting only, no modifications"
+                }
+              ]
+            },
+            "repo_hygiene_subagents": {
+              "purpose": "Repo hygiene and staleness management",
+              "agents": [
+                {
+                  "id": "SUB-STALENESS-SCANNER",
+                  "name": "Staleness Scanner",
+                  "phase": "PH-HYGIENE",
+                  "input": [
+                    "repo",
+                    "acs_index",
+                    "policies"
+                  ],
+                  "output": [
+                    "STALE_CONTENT_REPORT.json"
+                  ],
+                  "task": "Flag outdated/duplicate/contradictory docs",
+                  "why_subagent": "Automated analysis, no edits"
+                },
+                {
+                  "id": "SUB-QUARANTINE-PLANNER",
+                  "name": "Quarantine Planner",
+                  "phase": "PH-HYGIENE",
+                  "input": [
+                    "staleness_report",
+                    "governance_rules"
+                  ],
+                  "output": [
+                    "quarantine_plan"
+                  ],
+                  "task": "Propose moves to quarantine/ (patches or move plan)",
+                  "why_subagent": "Obeys governance, never deletes outright"
+                }
+              ]
+            }
+          }
+        },
+        "tier_3_slash_commands": {
+          "role": "User-Initiated Workflow Triggers",
+          "pattern": "Named shortcuts that map to Phase + Workstream + Sub-Agent chains",
+          "characteristics": [
+            "Explicit user intent (less ambiguous than natural language)",
+            "Deterministic and auditable (command \u2192 known workflow)",
+            "Pre-baked ExecutionRequest templates",
+            "User controls when high-impact operations run"
+          ],
+          "implementation": {
+            "command_structure": {
+              "command_id": "Unique identifier (e.g., /acs-init)",
+              "phase_id": "Associated phase",
+              "workstream_bundle_id": "Associated workstream bundle",
+              "subagent_chain": "Ordered list of sub-agents to execute",
+              "parameters": "Optional parameters (branch, path, strictness)",
+              "validation": "Pre-execution checks"
+            },
+            "execution_flow": [
+              "User types /command [params]",
+              "Orchestrator validates command and parameters",
+              "Orchestrator creates ExecutionRequest from template",
+              "Orchestrator routes to sub-agent chain",
+              "Sub-agents execute in order",
+              "Results aggregated and returned to user"
+            ]
+          },
+          "command_registry": {
+            "acs_commands": [
+              {
+                "command": "/acs-init",
+                "description": "Initialize ACS artifacts for repository",
+                "phase": "PH-ACS",
+                "workstream_bundle": "ACS-INIT-BUNDLE",
+                "subagents": [
+                  "SUB-ACS-INDEX",
+                  "SUB-ACS-QUALITY-GATE",
+                  "SUB-ACS-POLICY",
+                  "SUB-ACS-GUIDANCE"
+                ],
+                "output": [
+                  "CODEBASE_INDEX.yaml",
+                  "QUALITY_GATE.yaml",
+                  "ai_policies.yaml",
+                  ".meta/AI_GUIDANCE.md"
+                ],
+                "use_case": "First-time ACS setup on new repo"
+              },
+              {
+                "command": "/acs-refresh-index",
+                "description": "Rebuild CODEBASE_INDEX.yaml",
+                "phase": "PH-ACS",
+                "workstream_bundle": "ACS-REFRESH-INDEX",
+                "subagents": [
+                  "SUB-ACS-INDEX"
+                ],
+                "output": [
+                  "CODEBASE_INDEX.yaml"
+                ],
+                "use_case": "After code structure changes"
+              },
+              {
+                "command": "/acs-refresh-policies",
+                "description": "Update ai_policies.yaml",
+                "phase": "PH-ACS",
+                "workstream_bundle": "ACS-REFRESH-POLICIES",
+                "subagents": [
+                  "SUB-ACS-POLICY"
+                ],
+                "output": [
+                  "ai_policies.yaml"
+                ],
+                "use_case": "After adding new modules or changing permissions"
+              },
+              {
+                "command": "/acs-guidance",
+                "description": "Regenerate AI_GUIDANCE.md",
+                "phase": "PH-ACS",
+                "workstream_bundle": "ACS-GUIDANCE-GEN",
+                "subagents": [
+                  "SUB-ACS-GUIDANCE"
+                ],
+                "output": [
+                  ".meta/AI_GUIDANCE.md"
+                ],
+                "use_case": "After updating specs or documentation"
+              }
+            ],
+            "restructure_commands": [
+              {
+                "command": "/restruct-plan",
+                "description": "Create restructure plan (no edits)",
+                "phase": "PH-RESTRUCTURE",
+                "workstream_bundle": "RESTRUCTURE-PLAN",
+                "subagents": [
+                  "SUB-RESTRUCTURE-PLANNER"
+                ],
+                "output": [
+                  "RESTRUCTURE_CODEBASE_V1.yaml"
+                ],
+                "parameters": [
+                  "intentions"
+                ],
+                "use_case": "Planning major refactor"
+              },
+              {
+                "command": "/restruct-dryrun",
+                "description": "Simulate restructure, produce report only",
+                "phase": "PH-RESTRUCTURE",
+                "workstream_bundle": "RESTRUCTURE-DRYRUN",
+                "subagents": [
+                  "SUB-RESTRUCTURE-SIMULATOR"
+                ],
+                "output": [
+                  "simulation_report"
+                ],
+                "use_case": "Validate restructure plan before applying"
+              },
+              {
+                "command": "/restruct-apply",
+                "description": "Apply approved restructure plan",
+                "phase": "PH-RESTRUCTURE",
+                "workstream_bundle": "RESTRUCTURE-APPLY",
+                "subagents": [
+                  "SUB-RESTRUCTURE-PATCH-GEN",
+                  "SUB-IMPORT-FIXER",
+                  "SUB-VALIDATION-RUNNER"
+                ],
+                "output": [
+                  "patches",
+                  "validation_results"
+                ],
+                "safety": "Requires approved RestructureSpec",
+                "use_case": "Execute planned refactor"
+              },
+              {
+                "command": "/restruct-rollback",
+                "description": "Rollback last restructure",
+                "phase": "PH-RESTRUCTURE",
+                "workstream_bundle": "RESTRUCTURE-ROLLBACK",
+                "subagents": [
+                  "SUB-ROLLBACK-PLANNER"
+                ],
+                "output": [
+                  "rollback_patches"
+                ],
+                "use_case": "Undo failed restructure"
+              }
+            ],
+            "error_commands": [
+              {
+                "command": "/err-diagnose",
+                "description": "Classify last error from test/CI",
+                "phase": "PH-ERROR-PIPELINE",
+                "workstream_bundle": "ERROR-DIAGNOSE",
+                "subagents": [
+                  "SUB-ERROR-CLASSIFIER"
+                ],
+                "output": [
+                  "error_classification"
+                ],
+                "use_case": "Understand test failures"
+              },
+              {
+                "command": "/err-fix",
+                "description": "Generate fix patch for diagnosed error",
+                "phase": "PH-ERROR-PIPELINE",
+                "workstream_bundle": "ERROR-FIX",
+                "subagents": [
+                  "SUB-FIX-DRAFT-GENERATOR"
+                ],
+                "output": [
+                  "fix_patches"
+                ],
+                "safety": "Patch-only, constrained FILES_SCOPE",
+                "use_case": "Auto-fix known error types"
+              },
+              {
+                "command": "/err-verify",
+                "description": "Run minimal validation for fix",
+                "phase": "PH-ERROR-PIPELINE",
+                "workstream_bundle": "ERROR-VERIFY",
+                "subagents": [
+                  "SUB-REGRESSION-VALIDATOR"
+                ],
+                "output": [
+                  "validation_results"
+                ],
+                "use_case": "Verify fix doesn't break other tests"
+              },
+              {
+                "command": "/err-open-pr",
+                "description": "Package fix into PR (even if tests failed)",
+                "phase": "PH-ERROR-PIPELINE",
+                "workstream_bundle": "ERROR-PR",
+                "subagents": [
+                  "SUB-ROLLBACK-PLANNER"
+                ],
+                "output": [
+                  "github_pr_url"
+                ],
+                "use_case": "Create PR for manual review"
+              }
+            ],
+            "hygiene_commands": [
+              {
+                "command": "/stale-scan",
+                "description": "Scan for stale/outdated content",
+                "phase": "PH-HYGIENE",
+                "workstream_bundle": "HYGIENE-STALE-SCAN",
+                "subagents": [
+                  "SUB-STALENESS-SCANNER"
+                ],
+                "output": [
+                  "STALE_CONTENT_REPORT.json"
+                ],
+                "use_case": "Periodic repo cleanup"
+              },
+              {
+                "command": "/stale-quarantine",
+                "description": "Move stale content to quarantine/",
+                "phase": "PH-HYGIENE",
+                "workstream_bundle": "HYGIENE-QUARANTINE",
+                "subagents": [
+                  "SUB-QUARANTINE-PLANNER"
+                ],
+                "output": [
+                  "quarantine_patches"
+                ],
+                "safety": "Never deletes, only moves",
+                "use_case": "Clean up after stale scan"
+              },
+              {
+                "command": "/docs-index",
+                "description": "Rebuild documentation index",
+                "phase": "PH-HYGIENE",
+                "workstream_bundle": "HYGIENE-DOCS-INDEX",
+                "subagents": [
+                  "SUB-ACS-INDEX"
+                ],
+                "output": [
+                  "docs_index"
+                ],
+                "use_case": "After adding/removing docs"
+              }
+            ],
+            "observability_commands": [
+              {
+                "command": "/phase-status",
+                "description": "Show status of all phases",
+                "phase": "PH-OBSERVABILITY",
+                "workstream_bundle": "OBS-PHASE-STATUS",
+                "output": [
+                  "phase_status_report"
+                ],
+                "readonly": true,
+                "use_case": "Check pipeline progress"
+              },
+              {
+                "command": "/ws-status",
+                "description": "Show workstream execution status",
+                "phase": "PH-OBSERVABILITY",
+                "workstream_bundle": "OBS-WS-STATUS",
+                "output": [
+                  "workstream_status_report"
+                ],
+                "readonly": true,
+                "use_case": "Monitor active workstreams"
+              },
+              {
+                "command": "/ledger-last [n]",
+                "description": "Show last N ledger entries",
+                "phase": "PH-OBSERVABILITY",
+                "workstream_bundle": "OBS-LEDGER",
+                "output": [
+                  "ledger_entries"
+                ],
+                "readonly": true,
+                "parameters": [
+                  "count"
+                ],
+                "use_case": "Audit recent operations"
+              },
+              {
+                "command": "/graph",
+                "description": "Render Phase/Workstream dependency graph",
+                "phase": "PH-OBSERVABILITY",
+                "workstream_bundle": "OBS-GRAPH",
+                "output": [
+                  "graph_visualization"
+                ],
+                "readonly": true,
+                "use_case": "Understand system structure"
+              }
+            ]
+          }
+        }
+      },
+      "benefits": {
+        "predictability": "Each sub-agent has well-defined inputs/outputs, no surprises",
+        "testability": "Sub-agents can be tested in isolation with mock inputs",
+        "auditability": "Clear logs of which sub-agent ran, with what inputs, producing what outputs",
+        "safety": "Bounded scope prevents accidental wide-ranging changes",
+        "reusability": "Sub-agents can be composed into different workflows",
+        "user_control": "Slash commands give explicit control over high-impact operations",
+        "debugging": "Easy to identify which sub-agent failed and why",
+        "parallel_execution": "Independent sub-agents can run concurrently"
+      },
+      "implementation_roadmap": {
+        "phase_1_foundation": {
+          "tasks": [
+            "Define SubAgent base interface (input_schema, output_schema, execute())",
+            "Create SlashCommand registry and router",
+            "Implement orchestrator sub-agent routing logic",
+            "Add sub-agent execution to ledger tracking"
+          ]
+        },
+        "phase_2_acs_subagents": {
+          "tasks": [
+            "Implement SUB-ACS-INDEX",
+            "Implement SUB-ACS-QUALITY-GATE",
+            "Implement SUB-ACS-POLICY",
+            "Implement SUB-ACS-GUIDANCE",
+            "Wire up /acs-* commands"
+          ]
+        },
+        "phase_3_restructure_subagents": {
+          "tasks": [
+            "Implement SUB-RESTRUCTURE-PLANNER",
+            "Implement SUB-RESTRUCTURE-SIMULATOR",
+            "Implement SUB-RESTRUCTURE-PATCH-GEN",
+            "Implement SUB-IMPORT-FIXER",
+            "Wire up /restruct-* commands"
+          ]
+        },
+        "phase_4_error_subagents": {
+          "tasks": [
+            "Implement SUB-ERROR-CLASSIFIER",
+            "Implement SUB-FIX-DRAFT-GENERATOR",
+            "Implement SUB-REGRESSION-VALIDATOR",
+            "Wire up /err-* commands"
+          ]
+        }
+      }
+    }
+  },
+  "phases": {
+    "PH-000": {
+      "phase_id": "PH-000",
+      "name": "Bootstrap & Initialization",
+      "description": "Initial project setup and configuration",
+      "status": "active",
+      "estimated_duration_hours": 6.0,
+      "workstreams": {
+        "WS-000-007": {
+          "workstream_id": "WS-000-007",
+          "workstream_ulid": "01JDK8XWQP8WS000007AICONF1",
+          "name": "AI Tool Instruction Files",
+          "phase_id": "PH-000",
+          "priority": "HIGH",
+          "estimated_duration_hours": 1.5,
+          "dependencies": [],
+          "tasks": {
+            "TSK-000-007-001": {
+              "task_id": "TSK-000-007-001",
+              "task_ulid": "01JDK8XWQP8TSK000007001CLA",
+              "name": "Create CLAUDE.md",
+              "workstream_id": "WS-000-007",
+              "executor": "file_create",
+              "inputs": {
+                "file_path": {
+                  "type": "string",
+                  "default": "CLAUDE.md"
+                }
+              },
+              "outputs": {
+                "file_created": {
+                  "type": "boolean"
+                }
+              },
+              "file_scope": {
+                "create": [
+                  "CLAUDE.md"
+                ],
+                "modify": [],
+                "read_only": [
+                  "AGENTS.md",
+                  ".github/copilot-instructions.md"
+                ]
+              },
+              "acceptance_tests": {
+                "powershell": "Test-Path CLAUDE.md",
+                "pytest": null
+              },
+              "max_runtime_seconds": 300,
+              "idempotent": true
+            },
+            "TSK-000-007-002": {
+              "task_id": "TSK-000-007-002",
+              "task_ulid": "01JDK8XWQP8TSK000007002AGT",
+              "name": "Update AGENTS.md for Codex",
+              "workstream_id": "WS-000-007",
+              "executor": "file_edit",
+              "inputs": {
+                "file_path": {
+                  "type": "string",
+                  "default": "AGENTS.md"
+                }
+              },
+              "file_scope": {
+                "create": [],
+                "modify": [
+                  "AGENTS.md"
+                ],
+                "read_only": [
+                  "CLAUDE.md"
+                ]
+              },
+              "acceptance_tests": {
+                "powershell": "Test-Path AGENTS.md",
+                "pytest": null
+              },
+              "max_runtime_seconds": 300,
+              "idempotent": true,
+              "dependencies": [
+                "TSK-000-007-001"
+              ]
+            },
+            "TSK-000-007-003": {
+              "task_id": "TSK-000-007-003",
+              "task_ulid": "01JDK8XWQP8TSK000007003COP",
+              "name": "Verify .github/copilot-instructions.md",
+              "workstream_id": "WS-000-007",
+              "executor": "validation",
+              "command": "Test-Path .github/copilot-instructions.md",
+              "file_scope": {
+                "create": [],
+                "modify": [],
+                "read_only": [
+                  ".github/copilot-instructions.md"
+                ]
+              },
+              "acceptance_tests": {
+                "powershell": "Test-Path .github/copilot-instructions.md",
+                "pytest": null
+              },
+              "max_runtime_seconds": 30,
+              "idempotent": true,
+              "dependencies": []
+            }
+          },
+          "completion_criteria": {
+            "all_tasks_complete": true,
+            "all_instruction_files_exist": true
+          }
+        }
+      },
+      "pre_flight_checks": {
+        "sandbox_available": {
+          "windows": "Test-Path C:\\Users\\richg\\AI_SANDBOX",
+          "wsl": "test -d ~/ai-sandbox"
+        },
+        "git_config": {
+          "user_name": "git config user.name",
+          "user_email": "git config user.email"
+        }
+      }
+    },
+    "PH-002": {
+      "phase_id": "PH-002",
+      "name": "Bootstrap System",
+      "description": "Automated project bootstrap and configuration",
+      "status": "complete",
+      "workstreams": {}
+    },
+    "PH-003": {
+      "phase_id": "PH-003",
+      "name": "Orchestration Engine",
+      "description": "Core execution engine with resilience patterns",
+      "status": "complete",
+      "workstreams": {}
+    },
+    "PH-007": {
+      "phase_id": "PH-007",
+      "phase_ulid": "01JDK7XWQP8PH007UNIFY00001",
+      "name": "Engine Unification",
+      "description": "Unify three execution engines into coherent architecture",
+      "priority": "CRITICAL",
+      "status": "ready",
+      "estimated_duration_hours": 24,
+      "dependencies": [
+        "PH-002",
+        "PH-003"
+      ],
+      "workstreams": {}
+    }
+  },
+  "validation": {
+    "quality_gates": {
+      "gate_file": "QUALITY_GATE.yaml",
+      "required_gates": [
+        "test.pytest",
+        "ci.path_standards",
+        "error.import_validation"
+      ],
+      "blocking_gates": [
+        "test.pytest",
+        "ci.path_standards"
+      ]
+    },
+    "documentation_gates": {
+      "acs_conformance": {
+        "command": "python scripts/validate_acs_conformance.py",
+        "required": true
+      },
+      "code_graph_acyclic": {
+        "command": "python scripts/generate_code_graph.py --validate",
+        "required": true
+      }
+    },
+    "state_machine_compliance": {
+      "check_valid_transitions": true,
+      "check_terminal_state_immutability": true,
+      "check_invariants": true,
+      "database_constraints_enforced": true
+    },
+    "file_scope_enforcement": {
+      "check_overlaps": true,
+      "enforce_exclusive_locks": true,
+      "validate_scope_syntax": true,
+      "detect_conflicts_before_execution": true
+    },
+    "dag_validation": {
+      "check_cycles": true,
+      "check_missing_dependencies": true,
+      "validate_phase_boundaries": true,
+      "algorithm": "Tarjan_strongly_connected_components"
+    },
+    "error_handling": {
+      "catalog_ref": "docs/reference/ERROR_CATALOG.md",
+      "recovery_procedures_available": true,
+      "prevention_strategies_available": true,
+      "total_documented_errors": 25,
+      "critical_error_recovery_tested": false
+    },
+    "layer_compliance": {
+      "check_upward_dependencies": true,
+      "check_circular_dependencies": true,
+      "enforce_layer_boundaries": true,
+      "validation_script": "scripts/validate_layer_architecture.py"
+    },
+    "data_flow_integrity": {
+      "check_state_transitions": true,
+      "check_data_transformations": true,
+      "validate_serialization": true
+    },
+    "adr_compliance": {
+      "description": "Validation that code changes comply with documented architectural decisions",
+      "adr_location": "docs/adr/",
+      "enforcement": "manual_review",
+      "checks": {
+        "workstream_model": "All orchestration uses workstream pattern, not imperative scripts",
+        "section_organization": "Code in correct section (core/error/aim/pm/specifications)",
+        "import_paths": "Use section-based imports (core.*, error.*), not deprecated paths",
+        "python_version": "Python 3.10+ required, use pattern matching and new type hints",
+        "sqlite_location": "Database at .worktrees/pipeline_state.db, respect PIPELINE_DB_PATH",
+        "plugin_architecture": "New error detectors added as plugins, not in monolithic code",
+        "spec_uri_system": "Spec references use spec:// URI format"
+      },
+      "review_questions": [
+        "Does this change violate any documented ADR?",
+        "Does this re-introduce a rejected alternative?",
+        "Should this change be documented as a new ADR?",
+        "Are there ADR consequences that need consideration?"
+      ]
+    }
+  },
+  "workstreams": {},
+  "implementation": {
+    "tool_adapters": {
+      "description": "Tool Adapter implementation status and reference",
+      "pattern": "Adapter Pattern (Gang of Four design pattern)",
+      "status": "partial_implementation",
+      "completion_percentage": 30,
+      "implemented_components": [
+        "ToolConfig dataclass with supports_task logic",
+        "ExecutionResult dataclass with to_dict serialization",
+        "ToolAdapter abstract base class",
+        "SubprocessAdapter concrete implementation",
+        "AdapterRegistry with load_from_config"
+      ],
+      "missing_components": [
+        "Enhanced command building in SubprocessAdapter",
+        "Specialized adapters (AiderAdapter, PytestAdapter, GitAdapter)",
+        "HTTPAdapter for API calls",
+        "Input streaming support",
+        "Structured output parsing",
+        "Safety tier enforcement logic",
+        "max_parallel enforcement (semaphore/pool)"
+      ],
+      "location": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/core/adapters/",
+      "files": {
+        "base.py": {
+          "lines": 123,
+          "classes": [
+            "ToolConfig",
+            "ExecutionResult",
+            "ToolAdapter"
+          ],
+          "status": "complete_for_mvp"
+        },
+        "subprocess_adapter.py": {
+          "lines": 128,
+          "classes": [
+            "SubprocessAdapter"
+          ],
+          "status": "basic_implementation",
+          "needs": [
+            "Better command building",
+            "Security hardening",
+            "Input streaming"
+          ]
+        },
+        "registry.py": {
+          "lines": 107,
+          "classes": [
+            "AdapterRegistry"
+          ],
+          "status": "complete_for_mvp",
+          "needs": [
+            "Adapter selection strategy (first, preferred, round-robin)",
+            "Health checks for adapters",
+            "Lazy loading"
+          ]
+        }
+      },
+      "testing": {
+        "unit_tests": "tests/adapters/",
+        "test_files": {
+          "test_base.py": {
+            "lines": 153,
+            "test_classes": 2,
+            "test_methods": 13,
+            "coverage": [
+              "ToolConfig",
+              "ExecutionResult"
+            ],
+            "tests": {
+              "TestToolConfig": {
+                "test_create_tool_config": "Verify config creation",
+                "test_supports_task_matching": "Test task_kind matching",
+                "test_supports_task_with_domain": "Test domain filtering",
+                "test_get_timeout_default": "Test default 300s timeout",
+                "test_get_timeout_custom": "Test custom timeout from limits",
+                "test_get_max_parallel_default": "Test default max_parallel=1",
+                "test_get_max_parallel_custom": "Test custom max_parallel from limits"
+              },
+              "TestExecutionResult": {
+                "test_create_success_result": "Verify success result creation",
+                "test_create_failure_result": "Verify failure result creation",
+                "test_to_dict": "Test serialization to dict"
+              }
+            }
+          },
+          "test_subprocess_adapter.py": {
+            "lines": 163,
+            "test_classes": 1,
+            "test_methods": 10,
+            "coverage": [
+              "SubprocessAdapter"
+            ],
+            "tests": {
+              "TestSubprocessAdapter": {
+                "test_create_adapter": "Verify adapter initialization",
+                "test_validate_request_valid": "Test valid request validation",
+                "test_validate_request_missing_fields": "Test invalid request rejection",
+                "test_execute_success": "Test successful command execution (cross-platform python)",
+                "test_execute_failure": "Test failed command (exit code 1)",
+                "test_execute_timeout": "Test timeout handling with TimeoutExpired",
+                "test_execute_invalid_request": "Test invalid request error handling",
+                "test_supports_task": "Test task_kind support checking"
+              }
+            },
+            "cross_platform": "Uses sys.executable for cross-platform Python tests"
+          },
+          "test_registry.py": {
+            "lines": 180,
+            "test_classes": 1,
+            "test_methods": 10,
+            "coverage": [
+              "AdapterRegistry"
+            ],
+            "tests": {
+              "TestAdapterRegistry": {
+                "test_create_empty_registry": "Verify empty registry creation",
+                "test_register_adapter": "Test manual adapter registration",
+                "test_get_nonexistent_adapter": "Test None return for missing adapter",
+                "test_list_tools": "Test listing all registered tool IDs",
+                "test_get_config": "Test retrieving ToolConfig by tool_id",
+                "test_find_for_task_basic": "Test finding adapters by task_kind",
+                "test_find_for_task_with_domain": "Test finding adapters with domain filter",
+                "test_load_from_config": "Test loading adapters from router_config.json",
+                "test_load_from_config_on_init": "Test config loading during initialization"
+              }
+            },
+            "uses_test_config": "test_router_config.json with 3 sample tools (aider, codex, ruff)"
+          },
+          "test_router_config.json": {
+            "lines": 64,
+            "purpose": "Test configuration file for registry tests",
+            "tools_defined": 3,
+            "structure": {
+              "version": "1.0.0",
+              "apps": {
+                "aider": {
+                  "kind": "tool",
+                  "task_kinds": [
+                    "code_edit",
+                    "refactor",
+                    "code_review"
+                  ],
+                  "domains": [
+                    "python",
+                    "javascript",
+                    "typescript",
+                    "rust"
+                  ],
+                  "max_parallel": 2,
+                  "timeout": "600s",
+                  "safety_tier": "medium"
+                },
+                "codex": {
+                  "kind": "tool",
+                  "task_kinds": [
+                    "code_edit",
+                    "analysis",
+                    "documentation"
+                  ],
+                  "domains": [
+                    "python",
+                    "javascript",
+                    "go",
+                    "rust"
+                  ],
+                  "max_parallel": 3,
+                  "timeout": "300s",
+                  "safety_tier": "high"
+                },
+                "ruff": {
+                  "kind": "validator",
+                  "task_kinds": [
+                    "lint",
+                    "validation"
+                  ],
+                  "domains": [
+                    "python"
+                  ],
+                  "max_parallel": 5,
+                  "timeout": "60s",
+                  "safety_tier": "low"
+                }
+              },
+              "routing": {
+                "rules": [
+                  {
+                    "id": "python-editing",
+                    "match": {
+                      "task_kind": [
+                        "code_edit",
+                        "refactor"
+                      ],
+                      "risk_tier": [
+                        "low",
+                        "medium"
+                      ]
+                    },
+                    "select_from": [
+                      "aider",
+                      "codex"
+                    ],
+                    "strategy": "auto",
+                    "validate_with": [
+                      "ruff"
+                    ],
+                    "required": true
+                  }
+                ]
+              },
+              "defaults": {
+                "max_attempts": 3,
+                "timeout_seconds": 300,
+                "strategy": "auto"
+              }
+            }
+          }
+        },
+        "integration_tests": "tests/integration/adapters/ (planned)",
+        "coverage_summary": {
+          "total_test_files": 4,
+          "total_test_classes": 4,
+          "total_test_methods": 33,
+          "total_test_lines": 496,
+          "components_covered": [
+            "ToolConfig",
+            "ExecutionResult",
+            "ToolAdapter",
+            "SubprocessAdapter",
+            "AdapterRegistry"
+          ],
+          "coverage_percentage": "~85% (estimated)"
+        },
+        "test_patterns": {
+          "cross_platform": "Uses sys.executable for Python instead of shell commands",
+          "timeout_testing": "Simulates timeout with sleep(10) and timeout=1",
+          "config_loading": "Tests load_from_config with test_router_config.json",
+          "capability_discovery": "Tests find_for_task with task_kind and domain filters",
+          "validation": "Tests validate_request for required fields"
+        },
+        "running_tests": {
+          "command": "pytest tests/adapters/ -v",
+          "individual": "pytest tests/adapters/test_base.py::TestToolConfig::test_supports_task_matching",
+          "coverage": "pytest tests/adapters/ --cov=core.adapters --cov-report=html"
+        }
+      },
+      "next_steps": [
+        "Implement AiderAdapter with aider-specific logic",
+        "Add safety tier enforcement",
+        "Enhance command building with argument parsing",
+        "Add adapter health checks",
+        "Implement max_parallel with semaphore",
+        "Add structured output parsers"
+      ]
+    },
+    "subagent_system": {
+      "description": "Sub-agent system implementation status and reference",
+      "status": "planned",
+      "completion_percentage": 0,
+      "base_interface": {
+        "location": "core/agents/base_subagent.py (planned)",
+        "class": "BaseSubAgent",
+        "methods": {
+          "execute": {
+            "signature": "execute(input_data: Dict) -> Dict",
+            "description": "Execute sub-agent task with validated input",
+            "returns": "Structured output matching output_schema"
+          },
+          "validate_input": {
+            "signature": "validate_input(input_data: Dict) -> bool",
+            "description": "Validate input against input_schema"
+          },
+          "get_metadata": {
+            "signature": "get_metadata() -> Dict",
+            "description": "Return sub-agent metadata (id, phase, capabilities)"
+          }
+        }
+      },
+      "slash_command_router": {
+        "location": "core/cli/slash_commands.py (planned)",
+        "class": "SlashCommandRouter",
+        "methods": {
+          "register_command": "Register slash command with sub-agent chain",
+          "execute_command": "Parse command, validate, route to sub-agents",
+          "list_commands": "List available commands for current context"
+        }
+      },
+      "orchestrator_integration": {
+        "location": "core/engine/orchestrator.py",
+        "changes_needed": [
+          "Add sub-agent routing logic",
+          "Integrate SlashCommandRouter",
+          "Track sub-agent execution in ledger",
+          "Handle sub-agent errors gracefully"
+        ]
+      },
+      "testing_strategy": {
+        "unit_tests": "Each sub-agent tested in isolation with mock inputs",
+        "integration_tests": "Test sub-agent chains (e.g., /acs-init pipeline)",
+        "slash_command_tests": "Test command parsing and routing",
+        "mock_framework": "Mock sub-agent responses for orchestrator testing"
+      }
+    }
+  }
+}
