@@ -1,0 +1,116 @@
+# GUIDE_INDEX.yaml
+# Index of user guides and documentation
+# Generated: 2025-11-24
+
+metadata:
+  category: guide
+  description: "User guides, onboarding docs, and reference materials"
+  total_guides: 6
+  last_updated: "2025-11-24"
+
+# Framework Documentation
+framework_guides:
+  - doc_id: DOC-GUIDE-DOC-ID-FRAMEWORK-001
+    name: doc_id_framework
+    file: DOC_ID_FRAMEWORK.md
+    purpose: "Repository-wide documentation identifier system"
+    audience: developers
+    priority: critical
+    status: active
+    
+  - doc_id: DOC-GUIDE-AGENTS-GUIDE-002
+    name: agents_guide
+    file: AGENTS.md
+    purpose: "Agent system architecture and specifications"
+    audience: developers
+    priority: high
+    status: active
+
+# Onboarding & Getting Started
+onboarding:
+  - doc_id: DOC-GUIDE-QUICK-START-003
+    name: quick_start
+    file: QUICK_START.md
+    purpose: "Quick start guide for new developers"
+    audience: new_developers
+    priority: critical
+    status: active
+
+# Architecture & Organization
+architecture:
+  - doc_id: DOC-GUIDE-REPOSITORY-ORGANIZATION-004
+    name: repository_organization
+    file: REPOSITORY_ORGANIZATION_PLAN.md
+    purpose: "Repository structure and organization plan"
+    audience: developers
+    priority: high
+    status: active
+
+# Execution & Strategy
+execution:
+  - doc_id: DOC-GUIDE-DOCID-EXECUTION-PLAN-005
+    name: docid_execution_plan
+    file: DOC_ID_EXECUTION_PLAN.md
+    purpose: "Execution plan for doc_id system implementation"
+    audience: developers
+    priority: high
+    status: active
+    
+  - doc_id: DOC-GUIDE-PARALLEL-EXECUTION-006
+    name: parallel_execution
+    file: PARALLEL_EXECUTION_STRATEGY.md
+    purpose: "Parallel execution strategy and patterns"
+    audience: developers
+    priority: medium
+    status: active
+
+# Guide categories
+categories:
+  onboarding:
+    - DOC-GUIDE-QUICK-START-003
+  architecture:
+    - DOC-GUIDE-AGENTS-GUIDE-002
+    - DOC-GUIDE-REPOSITORY-ORGANIZATION-004
+  framework:
+    - DOC-GUIDE-DOC-ID-FRAMEWORK-001
+  execution:
+    - DOC-GUIDE-DOCID-EXECUTION-PLAN-005
+    - DOC-GUIDE-PARALLEL-EXECUTION-006
+
+# Reading order for new developers
+reading_order:
+  1_getting_started:
+    - DOC-GUIDE-QUICK-START-003
+    - DOC-GUIDE-REPOSITORY-ORGANIZATION-004
+  2_understanding_systems:
+    - DOC-GUIDE-AGENTS-GUIDE-002
+    - DOC-GUIDE-DOC-ID-FRAMEWORK-001
+  3_advanced_topics:
+    - DOC-GUIDE-PARALLEL-EXECUTION-006
+    - DOC-GUIDE-DOCID-EXECUTION-PLAN-005
+
+# AI assistance metadata
+ai_priority:
+  critical:
+    - DOC-GUIDE-DOC-ID-FRAMEWORK-001
+    - DOC-GUIDE-QUICK-START-003
+  high:
+    - DOC-GUIDE-AGENTS-GUIDE-002
+    - DOC-GUIDE-REPOSITORY-ORGANIZATION-004
+    - DOC-GUIDE-DOCID-EXECUTION-PLAN-005
+  medium:
+    - DOC-GUIDE-PARALLEL-EXECUTION-006
+
+# Edit policy
+edit_policy:
+  safe_to_edit:
+    - All guides can be updated
+    - Keep doc_id references current
+    - Update last_modified dates
+  requires_review:
+    - Major structural changes
+    - Changes to onboarding flow
+  validation_required:
+    - Links must be valid
+    - Examples must be tested
+    - Screenshots must be current

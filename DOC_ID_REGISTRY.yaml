@@ -3,7 +3,7 @@ metadata:
   created: '2025-11-24'
   last_updated: '2025-11-24'
   spec_doc: DOC_ID_FRAMEWORK.md
-  total_docs: 80
+  total_docs: 91
 categories:
   patterns:
     prefix: PAT
@@ -68,14 +68,14 @@ categories:
   test:
     prefix: TEST
     description: Test suites
-    count: 0
-    next_id: 1
+    count: 6
+    next_id: 7
     index_file: tests/TEST_INDEX.yaml
   guide:
     prefix: GUIDE
     description: User guides and documentation
-    count: 1
-    next_id: 2
+    count: 6
+    next_id: 7
     index_file: docs/GUIDE_INDEX.yaml
 docs:
 - doc_id: DOC-GUIDE-DOC-ID-FRAMEWORK-001
@@ -1029,6 +1029,138 @@ docs:
   - worktree
   - startup
   - automation
+- doc_id: DOC-TEST-TEST-DAG-UTILS-001
+  category: test
+  name: test_dag_utils
+  title: DAG Utilities Test Suite
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - test
+  - core
+  - dag
+- doc_id: DOC-TEST-ERROR-CONFTEST-002
+  category: test
+  name: error_conftest
+  title: Error Test Fixtures and Configuration
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - test
+  - error
+  - fixtures
+- doc_id: DOC-TEST-TEST-AGENT-ADAPTERS-003
+  category: test
+  name: test_agent_adapters
+  title: Agent Adapter Test Suite
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - test
+  - error
+  - adapters
+- doc_id: DOC-TEST-TEST-SECURITY-004
+  category: test
+  name: test_security
+  title: Security Validation Test Suite
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - test
+  - error
+  - security
+- doc_id: DOC-TEST-TEST-STATE-MACHINE-005
+  category: test
+  name: test_state_machine
+  title: State Machine Test Suite
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - test
+  - error
+  - state
+- doc_id: DOC-TEST-TEST-RUNNER-PARSING-006
+  category: test
+  name: test_runner_parsing
+  title: Test Runner Parsing Test Suite
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - test
+  - error
+  - parsing
+- doc_id: DOC-GUIDE-AGENTS-GUIDE-002
+  category: guide
+  name: agents_guide
+  title: Agent System Guide and Specifications
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - guide
+  - agents
+  - architecture
+- doc_id: DOC-GUIDE-QUICK-START-003
+  category: guide
+  name: quick_start
+  title: Repository Quick Start Guide
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - guide
+  - onboarding
+  - setup
+- doc_id: DOC-GUIDE-REPOSITORY-ORGANIZATION-004
+  category: guide
+  name: repository_organization
+  title: Repository Organization Plan
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - guide
+  - organization
+  - architecture
+- doc_id: DOC-GUIDE-DOCID-EXECUTION-PLAN-005
+  category: guide
+  name: docid_execution_plan
+  title: DOC_ID System Execution Plan
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - guide
+  - docid
+  - planning
+- doc_id: DOC-GUIDE-PARALLEL-EXECUTION-006
+  category: guide
+  name: parallel_execution
+  title: Parallel Execution Strategy
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - guide
+  - execution
+  - performance
 migration_queue:
   core_modules:
   - path: core/state/db.py
