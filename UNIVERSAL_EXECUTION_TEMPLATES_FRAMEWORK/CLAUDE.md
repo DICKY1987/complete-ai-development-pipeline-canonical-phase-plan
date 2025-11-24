@@ -5,6 +5,24 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 > **⚡ CRITICAL: Read [.meta/AI_GUIDANCE.md](.meta/AI_GUIDANCE.md) FIRST**  
 > That 2-minute guide eliminates 25 min of onboarding per session.
 
+## Section 0.1: Foundation - Global Principles
+
+These core principles apply across **all** your work, regardless of repository:
+
+1. **Minimal, surgical changes** - Make the smallest possible edits to achieve the goal. Prefer targeted patches over broad refactors.
+
+2. **Test awareness** - Propose or update tests when changing behavior. Never comment out or delete tests to make them "pass."
+
+3. **Clear communication** - Explain your plan before large refactors. Ask questions when uncertain about requirements or constraints.
+
+4. **Safety first** - Never modify files outside the current repository. Respect edit zones and read-only boundaries.
+
+5. **Git discipline** - All changes must be git-trackable and revertible. Commit secrets are forbidden; use placeholders like `YOUR_API_KEY_HERE`.
+
+**When project-specific rules conflict with these global principles, project rules win.**
+
+---
+
 ## Role & Context
 
 You are working in the **Universal Execution Templates (UET) Framework**, a production-ready AI orchestration system for autonomous development workflows.

@@ -25,12 +25,21 @@ specifications/- Spec tooling (validator, indexer, generator)
 
 ## 2. Common AI Gotchas (CRITICAL - Read First)
 
+### 🎯 New: AI Codebase Structure (ACS) Artifacts
+**Quick onboarding via these files (created 2025-11-23)**:
+- **`CODEBASE_INDEX.yaml`** - Complete module map with dependencies, layers, exports
+- **`ai_policies.yaml`** - Edit zones, forbidden patterns, invariants
+- **`QUALITY_GATE.yaml`** - All validation checkpoints and commands
+
+**Workflow**: Read CODEBASE_INDEX → Check ai_policies for your task → Run QUALITY_GATE validations
+
 ### ❌ **NEVER** Import From These (CI WILL BLOCK):
 ```python
 from src.pipeline.*           # ❌ Deprecated - use core.*
 from MOD_ERROR_PIPELINE.*     # ❌ Deprecated - use error.*
 from legacy.*                 # ❌ Never import
 ```
+→ See `ai_policies.yaml` section 2 (forbidden_patterns) for complete list
 
 ### ✅ **ALWAYS** Use Section-Based Paths:
 ```python
@@ -40,6 +49,7 @@ from error.engine.error_engine import ErrorEngine
 from error.plugins.python_ruff.plugin import parse
 from aim.bridge import get_tool_info
 ```
+→ See `CODEBASE_INDEX.yaml` section "import_standards" for full reference
 
 ### Database Path Resolution:
 ```python
@@ -184,17 +194,23 @@ Work directly in these zones:
 - `tests/**/*.py` - All test files
 - `scripts/**/*.{py,ps1}` - Automation scripts
 
+→ **Full list**: See `ai_policies.yaml` section 1 (edit_zones.safe)
+
 ### ⚠️ Review Required
 Coordinate before editing:
 - `schema/**/*.json` - Schema contracts (validate downstream impact)
 - `config/**/*.yaml` - Configuration (affects all tools)
 - `core/state/db*.py` - Database operations (coordinate with migrations)
 
+→ **Full list**: See `ai_policies.yaml` section 1 (edit_zones.review_required)
+
 ### ❌ Read-Only (Never Edit)
 - `legacy/**` - Archived deprecated code
 - `src/pipeline/**` - Deprecated (use `core.*` instead)
 - `MOD_ERROR_PIPELINE/**` - Deprecated (use `error.*` instead)
 - `docs/adr/**` - Architecture Decision Records (append only)
+
+→ **Full list**: See `ai_policies.yaml` section 1 (edit_zones.read_only)
 
 ---
 
@@ -272,6 +288,8 @@ python scripts/validate_module_manifests.py --strict
 # Check documentation links
 python scripts/validate_doc_links.py --report-only
 ```
+
+→ **Complete test gates**: See `QUALITY_GATE.yaml` for all validation checkpoints, commands, and pass criteria
 
 ---
 

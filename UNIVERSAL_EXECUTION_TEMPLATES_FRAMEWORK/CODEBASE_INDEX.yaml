@@ -1,0 +1,277 @@
+# CODEBASE_INDEX.yaml
+# AI-friendly module index for the Universal Execution Templates Framework
+# Purpose: Enable AI assistants to quickly understand module structure, dependencies, and layering
+
+version: "1.0.0"
+generated: "2025-11-23"
+framework: "Universal Execution Templates (UET)"
+language: "Python 3.8+"
+
+# Architecture Layer Definitions
+layers:
+  foundation:
+    level: 1
+    description: "Schema foundation and type system"
+    dependencies: []
+  
+  state:
+    level: 2
+    description: "State management and persistence"
+    dependencies: ["foundation"]
+  
+  domain:
+    level: 3
+    description: "Core domain logic (bootstrap, execution, adapters)"
+    dependencies: ["foundation", "state"]
+  
+  orchestration:
+    level: 4
+    description: "High-level orchestration and coordination"
+    dependencies: ["foundation", "state", "domain"]
+
+# Module Registry
+modules:
+  # === FOUNDATION LAYER ===
+  
+  "schema/":
+    layer: "foundation"
+    purpose: "JSON schema contracts for all artifacts"
+    exports:
+      - "phase_spec.v1.json - Phase definitions"
+      - "execution_request.v1.json - Task execution contracts"
+      - "project_profile.v1.json - Project configuration schema"
+      - "router_config.v1.json - Tool routing rules"
+      - "task_spec.v1.json - Task specifications"
+      - "workstream_spec.v1.json - Workstream definitions"
+      - "bootstrap_discovery.v1.json - Discovery results"
+      - "run_record.v1.json - Run state records"
+      - "step_attempt.v1.json - Step execution records"
+      - "patch_artifact.v1.json - Patch/diff metadata"
+      - "17 total schemas"
+    dependencies: []
+    notes: "All artifacts must validate against these schemas"
+  
+  # === STATE LAYER ===
+  
+  "core/state/":
+    layer: "state"
+    purpose: "State management and SQLite persistence"
+    exports:
+      - "db.py - Database singleton, connection pooling"
+      - "get_db() - Global DB access"
+      - "Tables: runs, steps, step_attempts, run_events"
+    dependencies:
+      - "schema/ (for validation)"
+    notes: "SQLite DB at .worktrees/pipeline_state.db"
+  
+  # === DOMAIN LAYER ===
+  
+  "core/bootstrap/":
+    layer: "domain"
+    purpose: "Auto-discovery and project configuration"
+    exports:
+      - "orchestrator.py - Main bootstrap entry point (BootstrapOrchestrator)"
+      - "discovery.py - Project scanner (ProjectScanner)"
+      - "selector.py - Profile selector (ProfileSelector)"
+      - "generator.py - Artifact generator (ArtifactGenerator)"
+      - "validator.py - Validation engine (BootstrapValidator)"
+    dependencies:
+      - "schema/ (bootstrap_discovery.v1, project_profile.v1, router_config.v1)"
+      - "profiles/ (profile templates)"
+    workflow: "discovery → selection → generation → validation → report"
+    entry_point: "python core/bootstrap/orchestrator.py <project_path>"
+    outputs:
+      - "PROJECT_PROFILE.yaml"
+      - "router_config.json"
+      - ".framework_initialized"
+      - "bootstrap_report.json"
+  
+  "core/engine/":
+    layer: "domain"
+    purpose: "Task orchestration and execution engine"
+    exports:
+      - "orchestrator.py - Run management (Orchestrator, generate_ulid)"
+      - "state_machine.py - State transitions (RunStateMachine, RunState)"
+      - "scheduler.py - Dependency resolution (ExecutionScheduler, Task)"
+      - "router.py - Task routing (TaskRouter)"
+      - "execution_request_builder.py - Request validation (ExecutionRequestBuilder)"
+    dependencies:
+      - "schema/ (phase_spec, execution_request, task_spec)"
+      - "core/state/ (run persistence)"
+      - "core/adapters/ (tool execution)"
+      - "core/engine/resilience/ (fault tolerance)"
+      - "core/engine/monitoring/ (progress tracking)"
+    workflow: "create_run → schedule → route → execute → track → transition"
+    notes: "Central orchestration hub"
+  
+  "core/engine/resilience/":
+    layer: "domain"
+    purpose: "Fault tolerance patterns (circuit breaker, retry, backoff)"
+    exports:
+      - "circuit_breaker.py - Circuit breaker (CircuitBreaker, CircuitState)"
+      - "retry.py - Retry strategies (RetryStrategy, ExponentialBackoff)"
+      - "resilient_executor.py - Combined resilience (ResilientExecutor)"
+    dependencies:
+      - "schema/ (execution_request)"
+    patterns:
+      - "Circuit Breaker: CLOSED → OPEN → HALF_OPEN"
+      - "Retry: Exponential backoff with jitter"
+      - "Failure tracking per tool"
+    configuration:
+      - "failure_threshold: Max failures before circuit opens"
+      - "recovery_timeout: Seconds before half-open attempt"
+      - "max_retries: Retry attempts per task"
+      - "base_delay: Initial retry delay (exponential growth)"
+  
+  "core/engine/monitoring/":
+    layer: "domain"
+    purpose: "Progress tracking and run monitoring"
+    exports:
+      - "progress_tracker.py - Task progress (ProgressTracker, ProgressSnapshot)"
+      - "run_monitor.py - Run monitoring (RunMonitor)"
+    dependencies:
+      - "core/state/ (read run state)"
+    features:
+      - "Real-time progress percentages"
+      - "ETA calculation"
+      - "Task timing and duration"
+      - "Run statistics aggregation"
+  
+  "core/adapters/":
+    layer: "domain"
+    purpose: "Tool integration abstraction layer"
+    exports:
+      - "base.py - Abstract adapter (BaseAdapter, ExecutionResult)"
+      - "subprocess_adapter.py - CLI tool wrapper (SubprocessAdapter)"
+      - "registry.py - Adapter registry (AdapterRegistry, ToolConfig)"
+    dependencies:
+      - "schema/ (router_config, execution_request)"
+    patterns:
+      - "ABC pattern for extensibility"
+      - "Capability matching for routing"
+      - "Timeout and parallelism limits"
+    supported_adapters:
+      - "subprocess: Execute CLI tools"
+      - "Future: api, custom, plugin"
+  
+  # === ORCHESTRATION LAYER ===
+  
+  "profiles/":
+    layer: "orchestration"
+    purpose: "Project type templates and routing configs"
+    exports:
+      - "software-dev-python/ - Python projects (most complete)"
+      - "data-pipeline/ - ETL/ML pipelines"
+      - "documentation/ - Docs projects"
+      - "operations/ - DevOps/SRE"
+      - "generic/ - Fallback for any project"
+    dependencies:
+      - "schema/ (project_profile, router_config, phase_template)"
+    contents:
+      - "router_config.json - Tool routing rules"
+      - "phase_templates/*.json - Phase definitions"
+      - "constraints.yaml - Profile-specific constraints"
+    auto_selection: "Based on file pattern scoring in bootstrap"
+  
+  "specs/":
+    layer: "orchestration"
+    purpose: "Specifications and documentation"
+    exports:
+      - "UET_BOOTSTRAP_SPEC.md - Bootstrap system design"
+      - "UET_TASK_ROUTING_SPEC.md - Task routing logic"
+      - "UET_PHASE_SPEC_MASTER.md - Phase-based execution"
+      - "UET_WORKSTREAM_SPEC.md - Workstream definitions"
+      - "UET_COOPERATION_SPEC.md - Multi-agent coordination"
+      - "UET_PATCH_MANAGEMENT_SPEC.md - Patch/diff management"
+      - "STATUS.md - Current progress tracker"
+    dependencies: []
+    notes: "Read these FIRST before modifying framework"
+  
+  "tests/":
+    layer: "orchestration"
+    purpose: "Test suites (196 tests, 100% passing)"
+    exports:
+      - "schema/ - Schema validation (22 tests)"
+      - "bootstrap/ - Bootstrap system (8 tests)"
+      - "engine/ - Orchestration engine (92 tests)"
+      - "adapters/ - Adapter layer (27 tests)"
+      - "resilience/ - Resilience patterns (32 tests)"
+      - "monitoring/ - Progress tracking (15 tests)"
+    dependencies:
+      - "All core/ modules"
+      - "All schema/ files"
+    requirements: "All 196 tests must pass before commits"
+    command: "pytest tests/ -v"
+  
+  "tools/":
+    layer: "orchestration"
+    purpose: "Utilities and helper scripts"
+    exports:
+      - "Utility scripts for framework operations"
+    dependencies:
+      - "core/ modules"
+    notes: "Framework helper tools"
+  
+  "templates/":
+    layer: "orchestration"
+    purpose: "Reusable templates for phases and tasks"
+    exports:
+      - "Template definitions"
+    dependencies:
+      - "schema/ (phase_template, task_spec)"
+    notes: "Generic templates referenced by profiles"
+
+# Import Path Standards
+import_standards:
+  correct_patterns:
+    - "from core.state.db import get_db, Database"
+    - "from core.bootstrap.orchestrator import BootstrapOrchestrator"
+    - "from core.engine.orchestrator import Orchestrator"
+    - "from core.engine.resilience import ResilientExecutor"
+    - "from core.engine.monitoring import ProgressTracker"
+    - "from core.adapters import AdapterRegistry"
+  
+  forbidden_patterns:
+    - "from src.* - Deprecated path (use core.*)"
+    - "from tests.* - Never import tests in production"
+    - "Relative imports across layers - Use absolute imports"
+
+# Dependency Flow (Acyclic)
+dependency_graph:
+  foundation: []
+  state: ["foundation"]
+  domain: ["foundation", "state"]
+  orchestration: ["foundation", "state", "domain"]
+
+# Key Entry Points
+entry_points:
+  bootstrap: "python core/bootstrap/orchestrator.py <project_path>"
+  tests: "pytest tests/ -v"
+  run_orchestration: "from core.engine.orchestrator import Orchestrator; Orchestrator.create_run(...)"
+
+# Module Statistics
+statistics:
+  total_modules: 26
+  total_schemas: 17
+  total_profiles: 5
+  total_tests: 196
+  test_pass_rate: "100%"
+  overall_progress: "78%"
+  phase_complete: "Phase 3 (Orchestration Engine)"
+
+# Quick Reference
+quick_reference:
+  bootstrap_workflow: "discovery → selection → generation → validation → report"
+  execution_workflow: "create_run → schedule → route → execute → track → transition"
+  state_machine: "PENDING → RUNNING → COMPLETED/FAILED"
+  circuit_breaker: "CLOSED → OPEN → HALF_OPEN"
+  retry_strategy: "Exponential backoff with jitter"
+  identifier_format: "26-char uppercase hex (ULID-style)"
+
+# AI Onboarding Shortcuts
+ai_shortcuts:
+  first_time: "Read .meta/AI_GUIDANCE.md (2 min quickstart)"
+  before_editing: "Check CLAUDE.md for project-specific rules"
+  before_commit: "Run pytest tests/ -v (all 196 must pass)"
+  when_confused: "Consult specs/STATUS.md for current state"
+  import_questions: "See import_standards section above"

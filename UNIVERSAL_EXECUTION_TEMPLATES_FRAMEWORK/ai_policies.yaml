@@ -1,0 +1,446 @@
+# ai_policies.yaml
+# AI editing policies for the Universal Execution Templates Framework
+# Purpose: Define safety boundaries, forbidden patterns, and invariants for AI assistants
+
+version: "1.0.0"
+generated: "2025-11-23"
+framework: "Universal Execution Templates (UET)"
+
+# ==============================================================================
+# SECTION 1: EDIT ZONES
+# Defines which files/directories AI can safely modify
+# ==============================================================================
+
+edit_zones:
+  # Safe to modify without review (core implementation)
+  safe:
+    directories:
+      - "core/bootstrap/"
+      - "core/engine/"
+      - "core/adapters/"
+      - "core/state/"
+      - "tests/"
+      - "tools/"
+    
+    file_patterns:
+      - "**/*.py"  # Python source files
+      - "tests/**/*.py"  # Test files
+      - "tools/**/*.py"  # Utility scripts
+    
+    operations:
+      - "edit"
+      - "create"
+      - "refactor"
+    
+    notes: "Make surgical, minimal changes. Add tests for new functionality."
+  
+  # Require review before modification (schemas, configs, profiles)
+  review_required:
+    directories:
+      - "schema/"
+      - "profiles/"
+      - "templates/"
+    
+    file_patterns:
+      - "**/*.json"  # JSON schemas and configs
+      - "**/*.yaml"  # YAML configurations
+      - "PROJECT_PROFILE.yaml"
+      - "router_config.json"
+    
+    operations:
+      - "edit"
+    
+    restrictions:
+      - "Schema changes require new version (e.g., .v1.json → .v2.json)"
+      - "Profile changes must validate against schemas"
+      - "Never break backwards compatibility"
+    
+    notes: "Ask before modifying. Validate changes thoroughly."
+  
+  # Read-only (documentation, specs, generated artifacts)
+  read_only:
+    directories:
+      - "specs/"
+      - "docs/"
+      - ".worktrees/"
+      - ".tasks/"
+      - ".ledger/"
+      - ".pytest_cache/"
+      - "__pycache__/"
+      - "htmlcov/"
+    
+    file_patterns:
+      - "specs/*.md"  # Specifications
+      - "README.md"
+      - "ARCHITECTURE.md"
+      - "DEPENDENCIES.md"
+      - ".framework_initialized"
+      - "**/__pycache__/**"
+      - "**/*.pyc"
+    
+    operations: []
+    
+    notes: "Never edit. Reference only for context."
+
+# ==============================================================================
+# SECTION 2: FORBIDDEN PATTERNS
+# Actions that AI must NEVER perform
+# ==============================================================================
+
+forbidden_patterns:
+  # Deprecated import paths (will fail CI)
+  deprecated_imports:
+    patterns:
+      - "from src.pipeline.*"
+      - "from src.*"
+      - "import src.*"
+    
+    reason: "Legacy paths removed. Use core.* instead."
+    
+    correct_alternative:
+      - "from core.bootstrap.orchestrator import BootstrapOrchestrator"
+      - "from core.engine.orchestrator import Orchestrator"
+      - "from core.engine.resilience import ResilientExecutor"
+      - "from core.adapters import AdapterRegistry"
+    
+    enforcement: "CI gate will reject commits with deprecated imports"
+  
+  # Schema violations
+  schema_violations:
+    patterns:
+      - "Generating artifacts without schema validation"
+      - "Modifying schema/*.json without version bump"
+      - "Creating ExecutionRequest looser than Phase constraints"
+    
+    reason: "Schema-driven development is non-negotiable"
+    
+    enforcement: "Tests will fail if schemas are violated"
+  
+  # Breaking changes
+  breaking_changes:
+    patterns:
+      - "Removing public APIs without deprecation"
+      - "Changing function signatures without backwards compat"
+      - "Deleting modules still referenced by tests"
+      - "Modifying database schema without migration"
+    
+    reason: "Framework stability is critical"
+    
+    enforcement: "196 tests must pass before commit"
+  
+  # Constraint violations
+  constraint_violations:
+    patterns:
+      - "Ignoring patch_only: true in ExecutionRequest"
+      - "Exceeding max_lines_changed in Phase CONSTRAINTS"
+      - "Writing to forbidden paths in FILES_SCOPE"
+      - "Creating files outside FILES_SCOPE.create"
+    
+    reason: "Phase constraints ensure safe, predictable execution"
+    
+    enforcement: "ExecutionRequestBuilder validates constraints"
+  
+  # Test manipulation
+  test_manipulation:
+    patterns:
+      - "Commenting out failing tests"
+      - "Deleting tests without replacing them"
+      - "Modifying test assertions to make them pass"
+      - "Skipping tests without explicit @pytest.mark.skip reason"
+    
+    reason: "Tests are the contract. If tests fail, fix the code."
+    
+    enforcement: "100% test pass rate required"
+  
+  # Unsafe file operations
+  unsafe_operations:
+    patterns:
+      - "Deleting entire directories"
+      - "Recursive file removal without confirmation"
+      - "Modifying files outside repository root"
+      - "Committing secrets or credentials"
+    
+    reason: "Prevent data loss and security issues"
+    
+    enforcement: "Manual review required for destructive ops"
+
+# ==============================================================================
+# SECTION 3: INVARIANTS
+# Properties that must ALWAYS hold true
+# ==============================================================================
+
+invariants:
+  # Schema validation
+  schema_validation:
+    rule: "All generated artifacts MUST validate against their JSON schemas"
+    
+    artifacts:
+      - "PROJECT_PROFILE.yaml → project_profile.v1.json"
+      - "router_config.json → router_config.v1.json"
+      - "execution_request → execution_request.v1.json"
+      - "phase_spec → phase_spec.v1.json"
+      - "task_spec → task_spec.v1.json"
+    
+    validation_command: "pytest tests/schema/ -v"
+    
+    enforcement: "Schema tests in tests/schema/ verify all artifacts"
+  
+  # Test coverage
+  test_coverage:
+    rule: "All 196 tests must pass before commits"
+    
+    test_suites:
+      - "tests/schema/ - 22 tests"
+      - "tests/bootstrap/ - 8 tests"
+      - "tests/engine/ - 92 tests"
+      - "tests/adapters/ - 27 tests"
+      - "tests/resilience/ - 32 tests"
+      - "tests/monitoring/ - 15 tests"
+    
+    pass_rate: "100%"
+    
+    validation_command: "pytest tests/ -v"
+    
+    enforcement: "CI gate on all commits"
+  
+  # Phase constraints
+  phase_constraints:
+    rule: "ExecutionRequest constraints must be subset/equal/stricter than Phase constraints"
+    
+    examples:
+      valid:
+        - "Phase max_lines_changed=500 → Request max_lines_changed=200 ✅"
+        - "Phase write=['core/*'] → Request write=['core/engine/*'] ✅"
+      
+      invalid:
+        - "Phase max_lines_changed=500 → Request max_lines_changed=1000 ❌"
+        - "Phase write=['core/*'] → Request write=['schema/*'] ❌"
+    
+    validation: "ExecutionRequestBuilder.validate_constraints()"
+    
+    enforcement: "Runtime validation before task execution"
+  
+  # State machine
+  state_machine:
+    rule: "All run state transitions must go through RunStateMachine"
+    
+    valid_transitions:
+      - "PENDING → RUNNING"
+      - "RUNNING → COMPLETED"
+      - "RUNNING → FAILED"
+      - "FAILED → RUNNING (retry)"
+    
+    invalid_transitions:
+      - "PENDING → COMPLETED (must go through RUNNING)"
+      - "COMPLETED → RUNNING (cannot restart)"
+    
+    enforcement: "RunStateMachine.transition() validates all state changes"
+  
+  # Acyclic dependencies
+  acyclic_dependencies:
+    rule: "Module dependency graph must remain acyclic"
+    
+    layer_order:
+      - "foundation (level 1) - No dependencies"
+      - "state (level 2) - Depends on foundation"
+      - "domain (level 3) - Depends on foundation + state"
+      - "orchestration (level 4) - Depends on all lower layers"
+    
+    forbidden:
+      - "state importing from domain"
+      - "domain importing from orchestration"
+      - "Circular imports between modules"
+    
+    detection: "pytest tests/engine/test_imports.py (if exists)"
+    
+    enforcement: "Manual code review"
+  
+  # Identifier format
+  identifier_format:
+    rule: "All run/step/task IDs must be 26-character uppercase hex (ULID-style)"
+    
+    format: "[A-Z0-9]{26}"
+    
+    examples:
+      - "01ARZ3NDEKTSV4RRFFQ69G5FAV (valid ULID)"
+      - "550e8400-e29b-41d4-a716-446655440000 (UUID - currently used)"
+    
+    generation: "generate_ulid() in core/engine/orchestrator.py"
+    
+    notes: "Currently using UUID4 as placeholder. TODO: Migrate to real ULID."
+
+# ==============================================================================
+# SECTION 4: AI WORKFLOW GUIDANCE
+# How AI should approach common tasks
+# ==============================================================================
+
+workflow_guidance:
+  # Adding new feature
+  add_feature:
+    steps:
+      - "1. Read relevant spec in specs/ (e.g., UET_*_SPEC.md)"
+      - "2. Update or create JSON schema in schema/ if needed"
+      - "3. Implement feature in core/ module"
+      - "4. Add tests in tests/ (aim for 80% coverage)"
+      - "5. Update specs/STATUS.md with progress"
+      - "6. Run pytest tests/ -v (all must pass)"
+    
+    constraints:
+      - "Minimal changes - surgical edits only"
+      - "Add tests for all new public APIs"
+      - "Validate against schemas"
+  
+  # Fixing bug
+  fix_bug:
+    steps:
+      - "1. Write failing test that reproduces the bug"
+      - "2. Fix the bug with minimal changes"
+      - "3. Verify test now passes"
+      - "4. Run full test suite (pytest tests/ -v)"
+      - "5. No other tests should break"
+    
+    constraints:
+      - "Add regression test"
+      - "Don't introduce new features while fixing bug"
+  
+  # Refactoring
+  refactor:
+    steps:
+      - "1. Ensure all tests pass BEFORE refactoring"
+      - "2. Make refactoring changes"
+      - "3. Ensure all tests STILL pass AFTER refactoring"
+      - "4. No behavior changes - pure restructuring"
+    
+    constraints:
+      - "Tests must pass before and after"
+      - "No breaking changes to public APIs"
+      - "Preserve backwards compatibility"
+  
+  # Modifying schema
+  modify_schema:
+    steps:
+      - "1. Create NEW schema version (e.g., .v1.json → .v2.json)"
+      - "2. Update code to support BOTH versions (migration period)"
+      - "3. Add schema tests for new version"
+      - "4. Update documentation"
+      - "5. Deprecate old version with timeline"
+    
+    constraints:
+      - "NEVER modify existing schema in place"
+      - "Support migration period"
+      - "Validate with schema tests"
+
+# ==============================================================================
+# SECTION 5: QUALITY GATES
+# Checkpoints that must pass before proceeding
+# ==============================================================================
+
+quality_gates:
+  pre_commit:
+    gates:
+      - name: "Schema validation"
+        command: "pytest tests/schema/ -v"
+        timeout: 10
+        required: true
+      
+      - name: "Unit tests"
+        command: "pytest tests/ -v --ignore=tests/integration/"
+        timeout: 60
+        required: true
+      
+      - name: "Import path check"
+        description: "No deprecated imports (src.*, MOD_*)"
+        required: true
+      
+      - name: "No commented tests"
+        description: "All tests enabled unless explicitly skipped"
+        required: true
+    
+    pass_criteria: "All gates must pass"
+  
+  pre_release:
+    gates:
+      - name: "Full test suite"
+        command: "pytest tests/ -v"
+        timeout: 120
+        required: true
+      
+      - name: "Coverage check"
+        command: "pytest tests/ --cov=core --cov-report=term"
+        minimum_coverage: 80
+        required: true
+      
+      - name: "Documentation up-to-date"
+        description: "specs/STATUS.md reflects current progress"
+        required: true
+      
+      - name: "Schema versioning"
+        description: "All schema changes properly versioned"
+        required: true
+    
+    pass_criteria: "All gates must pass + manual review"
+
+# ==============================================================================
+# SECTION 6: ONBOARDING CHECKLIST
+# What AI should do when first encountering this repository
+# ==============================================================================
+
+onboarding_checklist:
+  step_1:
+    action: "Read .meta/AI_GUIDANCE.md"
+    duration: "2 minutes"
+    purpose: "Quick-start guide to repository structure"
+  
+  step_2:
+    action: "Read CLAUDE.md"
+    duration: "5 minutes"
+    purpose: "Detailed project-specific guidance"
+  
+  step_3:
+    action: "Read this file (ai_policies.yaml)"
+    duration: "3 minutes"
+    purpose: "Understand safety boundaries and invariants"
+  
+  step_4:
+    action: "Scan CODEBASE_INDEX.yaml"
+    duration: "2 minutes"
+    purpose: "Map module structure and dependencies"
+  
+  step_5:
+    action: "Review specs/STATUS.md"
+    duration: "2 minutes"
+    purpose: "Understand current progress and next steps"
+  
+  total_time: "~14 minutes (down from 25 min without ACS artifacts)"
+
+# ==============================================================================
+# SECTION 7: EMERGENCY CONTACTS
+# What to do when AI is uncertain
+# ==============================================================================
+
+escalation:
+  uncertain_about_edit:
+    action: "Ask user before proceeding"
+    examples:
+      - "Schema changes"
+      - "Large refactors (>100 lines)"
+      - "Breaking changes to public APIs"
+      - "Database migrations"
+  
+  test_failures:
+    action: "Do NOT comment out tests. Fix the code or ask for guidance."
+    debugging:
+      - "Run failing test in isolation: pytest tests/path/test_file.py::test_name -v"
+      - "Check test output for assertion details"
+      - "Review recent changes that might have broken test"
+  
+  constraint_conflicts:
+    action: "Phase constraints are stricter than your edit requires"
+    resolution:
+      - "Option 1: Reduce scope of edit to fit constraints"
+      - "Option 2: Ask user to relax Phase constraints"
+      - "Option 3: Split work into multiple Phases"
+
+# ==============================================================================
+# END OF AI POLICIES
+# ==============================================================================
