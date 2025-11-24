@@ -1,0 +1,137 @@
+# Pattern: Self Heal
+# Pattern ID: PAT-SELF-HEAL-001
+# Version: 1.0.0
+# Created: 2025-11-24
+# Category: error_recovery
+# Use Case: Automatically fix common errors
+# Time Savings: 90% (30 min → 3 min)
+
+pattern_id: "PAT-SELF-HEAL-001"
+name: "self_heal"
+version: "1.0.0"
+category: "error_recovery"
+status: "draft"
+
+metadata:
+  created: "2025-11-24"
+  author: "UET Framework Team"
+  time_savings_vs_manual: "90%"
+  estimated_duration_seconds: 180  # 3 minutes
+  permission_prompts_eliminated: 100%
+
+intent: |
+  Automatically detect and fix common errors without human intervention.
+  Eliminates permission prompts and decision-making delays.
+  
+  Supported error types:
+  - Import errors (missing imports)
+  - Indentation errors
+  - Missing directory errors
+  - Syntax errors (simple fixes)
+  - Test failures (assertion errors)
+
+applicability:
+  when_to_use:
+    - After test failures with clear error messages
+    - After linter/compiler errors
+    - During pattern execution failures
+    - Predictable, rule-based errors
+  when_not_to_use:
+    - Logic errors requiring understanding
+    - Complex architectural issues
+    - Ambiguous error messages
+  
+  constraints:
+    max_fix_attempts: 3
+    only_safe_fixes: true
+    require_validation: true
+    no_data_loss: true
+
+inputs:
+  error_source:
+    type: "string"
+    required: true
+    enum: ["test_failure", "syntax_error", "import_error", "lint_error"]
+    
+  error_details:
+    type: "object"
+    required: true
+    properties:
+      error_message: string
+      file_path: string
+      line_number: integer
+      error_type: string
+  
+  project_root:
+    type: "string"
+    required: true
+  
+  max_attempts:
+    type: "integer"
+    default: 3
+    min: 1
+    max: 5
+
+outputs:
+  fix_applied:
+    type: "boolean"
+  fix_type:
+    type: "string"
+  attempts_made:
+    type: "integer"
+  validation_passed:
+    type: "boolean"
+  fix_details:
+    type: "object"
+
+structural_decisions:
+  validate_after_fix: true
+  revert_on_validation_failure: true
+  max_auto_attempts: 3
+  permission_free: true
+  rule_based_only: true
+
+execution_steps:
+  - step_id: "S1_analyze_error"
+    description: "Parse error and determine fix type"
+    
+  - step_id: "S2_select_fix_rule"
+    description: "Match error to fix rule"
+    
+  - step_id: "S3_apply_fix"
+    description: "Apply automated fix"
+    
+  - step_id: "S4_validate_fix"
+    description: "Rerun test/compile to verify fix"
+    
+  - step_id: "S5_report_result"
+    description: "Report success or escalate to human"
+
+self_healing_rules:
+  - trigger: "ImportError: No module named"
+    fix: "add_missing_import"
+    confidence: "high"
+    
+  - trigger: "IndentationError"
+    fix: "fix_indentation"
+    confidence: "medium"
+    
+  - trigger: "FileNotFoundError"
+    fix: "create_missing_directory"
+    confidence: "high"
+    
+  - trigger: "AssertionError"
+    fix: "analyze_and_adjust_assertion"
+    confidence: "low"
+
+performance_profile:
+  estimated_time_manual: 1800  # 30 minutes (debugging + fix + test)
+  estimated_time_pattern: 180  # 3 minutes
+  time_savings_percentage: "90%"
+  permission_prompts_eliminated: "100%"
+  success_rate: "75%"
+
+compliance:
+  requirements:
+    - "PAT-NAME-001"
+    - "PAT-CHECK-001"

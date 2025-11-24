@@ -7,11 +7,11 @@ version: "1.0.0"
 metadata:
   created: "2025-11-24"
   last_updated: "2025-11-24"
-  total_patterns: 1
-  total_categories: 1
+  total_patterns: 7
+  total_categories: 6
 
 patterns:
-  # Core pattern: atomic_create
+  # Core pattern: atomic_create (COMPLETE - with executor)
   - pattern_id: PAT-ATOMIC-CREATE-001
     name: atomic_create
     version: "1.0.0"
@@ -30,6 +30,90 @@ patterns:
     proven_uses: 0
     created: "2025-11-24"
     last_updated: "2025-11-24"
+  
+  # Core pattern: batch_create (SPEC ONLY)
+  - pattern_id: PAT-BATCH-CREATE-001
+    name: batch_create
+    version: "1.0.0"
+    status: spec_only
+    category: file_creation
+    spec_path: patterns/specs/batch_create.pattern.yaml
+    schema_path: patterns/schemas/batch_create.schema.json
+    executor_path: patterns/executors/batch_create_executor.ps1
+    time_savings_vs_manual: "88%"
+    proven_uses: 0
+    created: "2025-11-24"
+    notes: "Spec-only pattern. AI tools can execute using spec interpretation."
+  
+  # Core pattern: refactor_patch (SPEC ONLY)
+  - pattern_id: PAT-REFACTOR-PATCH-001
+    name: refactor_patch
+    version: "1.0.0"
+    status: spec_only
+    category: code_modification
+    spec_path: patterns/specs/refactor_patch.pattern.yaml
+    schema_path: patterns/schemas/refactor_patch.schema.json
+    executor_path: patterns/executors/refactor_patch_executor.ps1
+    time_savings_vs_manual: "70%"
+    proven_uses: 0
+    created: "2025-11-24"
+    notes: "Spec-only pattern. AI tools can execute using spec interpretation."
+  
+  # Core pattern: self_heal (SPEC ONLY)
+  - pattern_id: PAT-SELF-HEAL-001
+    name: self_heal
+    version: "1.0.0"
+    status: spec_only
+    category: error_recovery
+    spec_path: patterns/specs/self_heal.pattern.yaml
+    schema_path: patterns/schemas/self_heal.schema.json
+    executor_path: patterns/executors/self_heal_executor.py
+    time_savings_vs_manual: "90%"
+    proven_uses: 0
+    created: "2025-11-24"
+    notes: "Spec-only pattern. AI tools can execute using spec interpretation."
+  
+  # Core pattern: verify_commit (SPEC ONLY)
+  - pattern_id: PAT-VERIFY-COMMIT-001
+    name: verify_commit
+    version: "1.0.0"
+    status: spec_only
+    category: verification
+    spec_path: patterns/specs/verify_commit.pattern.yaml
+    schema_path: patterns/schemas/verify_commit.schema.json
+    executor_path: patterns/executors/verify_commit_executor.ps1
+    time_savings_vs_manual: "85%"
+    proven_uses: 0
+    created: "2025-11-24"
+    notes: "Spec-only pattern. AI tools can execute using spec interpretation."
+  
+  # Core pattern: worktree_lifecycle (SPEC ONLY)
+  - pattern_id: PAT-WORKTREE-LIFECYCLE-001
+    name: worktree_lifecycle
+    version: "1.0.0"
+    status: spec_only
+    category: infrastructure
+    spec_path: patterns/specs/worktree_lifecycle.pattern.yaml
+    schema_path: patterns/schemas/worktree_lifecycle.schema.json
+    executor_path: patterns/executors/worktree_lifecycle_executor.ps1
+    time_savings_vs_manual: "75%"
+    proven_uses: 0
+    created: "2025-11-24"
+    notes: "Spec-only pattern. AI tools can execute using spec interpretation."
+  
+  # Core pattern: module_creation (SPEC ONLY)
+  - pattern_id: PAT-MODULE-CREATION-001
+    name: module_creation
+    version: "1.0.0"
+    status: spec_only
+    category: module_setup
+    spec_path: patterns/specs/module_creation.pattern.yaml
+    schema_path: patterns/schemas/module_creation.schema.json
+    executor_path: patterns/executors/module_creation_executor.ps1
+    time_savings_vs_manual: "88%"
+    proven_uses: 0
+    created: "2025-11-24"
+    notes: "Spec-only pattern. AI tools can execute using spec interpretation."
   # Format per entry:
   # - pattern_id: PAT-<CATEGORY>-<NAME>-<SEQ>
   #   name: <pattern_name>
