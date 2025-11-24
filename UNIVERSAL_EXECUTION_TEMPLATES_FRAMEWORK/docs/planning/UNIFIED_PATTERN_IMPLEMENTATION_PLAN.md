@@ -61,7 +61,7 @@ UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/
 │   ├── registry/                        # Single source of truth
 │   │   ├── PATTERN_INDEX.yaml          # All patterns catalog
 │   │   ├── PATTERN_INDEX.schema.json   # Registry validation
-│   │   └── atoms.registry.jsonl        # Atomic workflow atoms (from old repo)
+│   │   └── atoms.registry.jsonl        # Legacy: Atomic workflow atoms (from old repo)
 │   │
 │   ├── specs/                           # Pattern contracts (RFC 2119)
 │   │   ├── atomic_create.pattern.yaml
@@ -133,9 +133,18 @@ UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/
 │   │   └── import_cycle.fix.yaml
 │   │
 │   ├── legacy_atoms/                    # Migrated from atomic-workflow-system
-│   │   ├── cli/                         # CLI atoms
-│   │   ├── core/                        # Core workflow atoms
-│   │   └── converters/                  # md2atom, ps2atom, py2atom tools
+│   │   ├── source/                      # Raw cloned repositories
+│   │   ├── converted/                   # Generated patterns
+│   │   │   ├── specs/                   # Migrated pattern specs
+│   │   │   ├── schemas/                 # Migrated schemas
+│   │   │   ├── executors/               # Migrated executors
+│   │   │   ├── examples/                # Migrated examples
+│   │   │   ├── mapping.json             # Atom UID → Pattern ID mapping
+│   │   │   └── registry_entries.yaml    # Entries to merge (bare list)
+│   │   ├── reports/                     # Migration documentation
+│   │   │   ├── analysis_report.md       # Pre-migration analysis
+│   │   │   └── EXTRACTION_REPORT.md     # Post-migration summary
+│   │   └── tools/                       # Legacy-specific helpers
 │   │
 │   └── README_PATTERNS.md               # AI usage guide
 │
@@ -1015,191 +1024,49 @@ For each pattern:
 
 ---
 
-## AI Agent Pattern Extraction Prompt
+## AI Agent Pattern Extraction (Phase 5 Implementation)
 
-Use this prompt to direct an agentic AI to extract patterns from atomic-workflow-system:
+**See**: `ATOMIC_WORKFLOW_EXTRACTION_PROMPT.md` for the complete extraction procedure.
 
-```
-# Task: Extract Reusable Patterns from atomic-workflow-system Repository
+This document contains:
+- Detailed 5-phase extraction process
+- Complete migration script (`migrate_atoms_to_patterns.py`)
+- Converter tool integration steps
+- Success criteria and deliverables checklist
+- Estimated time: 3-4 hours
 
-## Objective
-Extract proven workflow patterns from the atomic-workflow-system repository 
-(https://github.com/DICKY1987/atomic-workflow-system) and prepare them for 
-integration into the unified pattern system.
-
-## Steps
-
-### 1. Clone Repository
+**Quick Reference**:
 ```bash
+# Run extraction (from repo root)
 cd patterns/legacy_atoms/
 git clone https://github.com/DICKY1987/atomic-workflow-system.git source/
+
+# Run migration script
+python ../../scripts/migrate_atoms_to_patterns.py \
+    --registry source/atoms.registry.jsonl \
+    --output converted/ \
+    --limit 20 \
+    --min-priority 3
+
+# Merge registry entries
+cat converted/registry_entries.yaml >> ../registry/PATTERN_INDEX.yaml
 ```
 
-### 2. Analyze Registry
-- Read `source/atoms.registry.jsonl` (534KB, ~1000+ atoms)
-- Identify atoms with:
-  - High reuse count
-  - Clear role definitions
-  - Well-defined inputs/outputs
-  - Dependency declarations
-
-### 3. Extract High-Value Patterns
-Focus on atoms in these categories:
-- **CLI operations** (from `source/atoms/cli/`)
-- **Core workflows** (from `source/WORKFLOWS/core/`)
-- **GitHub integrations** (from `source/WORKFLOWS/github/`)
-- **Validation workflows** (from `source/WORKFLOWS/validation/`)
-
-### 4. Convert to Pattern Format
-For each selected atom:
-
-a) Create pattern spec (`patterns/specs/<name>.pattern.yaml`):
-```yaml
-pattern_id: "PAT-MIGRATED-<8_CHAR_UID>"
-name: "<atom_key_last_segment>"
-version: "1.0.0"
-category: "<atom_role>"
-migrated_from: "atomic-workflow-system"
-original_atom_uid: "<atom_uid>"
-
-intent: "<atom_description>"
-
-inputs:
-  # From atom.inputs
-  
-outputs:
-  # From atom.outputs
-
-dependencies:
-  # From atom.depends_on
-
-execution_steps:
-  # Extract from atom metadata or documentation
-```
-
-b) Create schema (`patterns/schemas/<name>.schema.json`):
-```json
-{
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "type": "object",
-  "required": ["pattern_id", "inputs"],
-  "properties": {
-    "pattern_id": {"type": "string"},
-    "inputs": {
-      "type": "object",
-      "properties": {
-        // Based on atom.inputs
-      }
-    }
-  }
-}
-```
-
-c) Create minimal executor stub (`patterns/executors/<name>_executor.py`):
-```python
-#!/usr/bin/env python3
-"""
-Executor for <pattern_name>
-Migrated from atomic-workflow-system atom <atom_uid>
-"""
-
-import json
-import sys
-from pathlib import Path
-
-def execute(instance_path: str):
-    """Execute pattern instance"""
-    with open(instance_path) as f:
-        instance = json.load(f)
-    
-    # TODO: Implement execution logic
-    # Based on original atom behavior
-    
-    result = {
-        'status': 'success',
-        'migrated': True,
-        'original_atom': '<atom_uid>'
-    }
-    
-    return result
-
-if __name__ == '__main__':
-    result = execute(sys.argv[1])
-    print(json.dumps(result, indent=2))
-```
-
-d) Add to registry (`patterns/registry/PATTERN_INDEX.yaml`):
-```yaml
-- pattern_id: PAT-MIGRATED-<8_CHAR_UID>
-  name: <name>
-  version: "1.0.0"
-  status: draft  # Until fully tested
-  category: <category>
-  spec_path: patterns/specs/<name>.pattern.yaml
-  schema_path: patterns/schemas/<name>.schema.json
-  executor_path: patterns/executors/<name>_executor.py
-  migrated_from: atomic-workflow-system
-  original_atom_uid: <atom_uid>
-```
-
-### 5. Copy Converter Tools
-Copy these tools to `tools/atoms/`:
-- `id_utils.py` - ULID generation
-- `atom_validator.py` - Validation
-- `md2atom.py` - Markdown converter
-- `ps2atom.py` - PowerShell converter
-- `py2atom.py` - Python converter
-- `simple2atom.py` - JSON converter
-
-### 6. Extract Workflow Compositions
-Review `WORKFLOWS/` directories:
-- Identify multi-atom workflows
-- Map to pattern compositions
-- Document in `patterns/compositions/<workflow_name>.composition.yaml`
-
-### 7. Output Structure
-Create this in `patterns/legacy_atoms/`:
-
+**Output Structure** (standardized):
 ```
 patterns/legacy_atoms/
-├── extraction_report.md       # What was extracted
-├── source/                     # Cloned repo
-│   └── atomic-workflow-system/
-├── converted/                  # Converted patterns
+├── source/                     # Cloned repositories
+├── converted/                  # Generated patterns
 │   ├── specs/
 │   ├── schemas/
-│   └── executors/
-└── mapping.json                # Atom UID → Pattern ID mapping
-```
-
-### 8. Generate Report
-Create `extraction_report.md` with:
-- Total atoms analyzed
-- Number of patterns extracted
-- High-value patterns identified
-- Conversion issues encountered
-- Recommendations for integration
-
-## Success Criteria
-- [ ] At least 20 high-value atoms converted
-- [ ] All converter tools copied and functional
-- [ ] Pattern specs validate against schemas
-- [ ] Mapping document created
-- [ ] Extraction report complete
-
-## Deliverables
-1. Converted pattern specs in `patterns/specs/`
-2. Schemas in `patterns/schemas/`
-3. Executor stubs in `patterns/executors/`
-4. Updated PATTERN_INDEX.yaml
-5. Converter tools in `tools/atoms/`
-6. Extraction report
-
-## Notes
-- Focus on quality over quantity (20 proven patterns > 100 untested)
-- Preserve original atom UIDs for traceability
-- Mark migrated patterns as "draft" until tested
-- Document any assumptions or missing information
+│   ├── executors/
+│   ├── examples/
+│   ├── mapping.json
+│   └── registry_entries.yaml   # Bare list for merging
+├── reports/
+│   ├── analysis_report.md
+│   └── EXTRACTION_REPORT.md
+└── tools/                      # Legacy-specific helpers
 ```
 
 ---
@@ -1256,10 +1123,18 @@ ROI: 112% return on investment
 
 ## Naming Conventions (RFC 2119)
 
-### Pattern IDs
+### Pattern IDs (PAT-NAME-001)
 - **MUST** use format: `PAT-<CATEGORY>-<NAME>-<SEQ>`
 - **MUST** use uppercase for ID
 - Examples: `PAT-ATOMIC-CREATE-001`, `PAT-BATCH-CREATE-001`
+
+### Migrated Pattern IDs (PAT-NAME-002)
+**Exception for Legacy Imports**:
+- Patterns migrated from atomic-workflow-system **MAY** use: `PAT-MIGRATED-<CATEGORY>-<SEQ>`
+- **MUST** preserve traceability to original atom UID in metadata
+- **MUST** include `migrated_from: atomic-workflow-system` field
+- Examples: `PAT-MIGRATED-CLI-001`, `PAT-MIGRATED-GITHUB-002`
+- **SHOULD** be refactored to standard naming once tested and validated
 
 ### Pattern Names
 - **MUST** use `snake_case`
@@ -1358,15 +1233,26 @@ tasks:
 
 Pattern System Compliance:
 - [ ] `patterns/` directory exists
-- [ ] All 9 subdirectories exist (registry, specs, schemas, executors, examples, tests, verification, decisions, self_healing)
-- [ ] `PATTERN_INDEX.yaml` is valid YAML
-- [ ] Every pattern has all 4 required components
+- [ ] All 10 subdirectories exist (registry, specs, schemas, executors, examples, tests, verification, decisions, self_healing, legacy_atoms)
+- [ ] `PATTERN_INDEX.yaml` is valid YAML with `patterns:` list
+- [ ] Every core pattern (non-migrated) has all 4 required components
 - [ ] All referenced files in registry exist
-- [ ] Naming follows conventions (snake_case, PAT-* IDs)
+- [ ] Core pattern naming follows conventions (`PAT-<CATEGORY>-<NAME>-<SEQ>`)
+- [ ] Migrated pattern naming follows exception (`PAT-MIGRATED-<CATEGORY>-<SEQ>`)
 - [ ] All patterns have working examples
 - [ ] All patterns have passing tests
 - [ ] README_PATTERNS.md exists and is complete
 - [ ] Schemas validate all example instances
+
+### Migrated Pattern Exception (PAT-CHECK-002)
+
+Patterns migrated from atomic-workflow-system:
+- [ ] **MAY** use `PAT-MIGRATED-<CATEGORY>-<SEQ>` format
+- [ ] **MUST** include `migrated_from: atomic-workflow-system` in metadata
+- [ ] **MUST** include `original_atom_uid` in metadata
+- [ ] **MUST** have status: "draft" until tested
+- [ ] **SHOULD** be refactored to standard naming once validated
+- [ ] **MUST** validate against migration-aware schemas
 
 ---
 

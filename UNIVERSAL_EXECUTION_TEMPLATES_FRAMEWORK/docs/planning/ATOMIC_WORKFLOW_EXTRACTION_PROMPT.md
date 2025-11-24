@@ -8,9 +8,11 @@
 
 ---
 
-## Mission
+## Mission (PAT-MIG-001)
 
-Extract reusable workflow patterns from the atomic-workflow-system repository and convert them into the unified pattern format for integration into the UET framework.
+**Requirement**: Extract reusable workflow patterns from the atomic-workflow-system repository and convert them into the unified pattern format for integration into the UET framework.
+
+**Compliance**: This document defines the canonical Phase 5 implementation procedure referenced by `UNIFIED_PATTERN_IMPLEMENTATION_PLAN.md`.
 
 ---
 
@@ -191,25 +193,41 @@ def calculate_priority(atom: Dict) -> int:
     
     return max(1, min(5, priority))
 
-def convert_atom_to_pattern(atom: Dict) -> Dict:
-    """Convert atom format to pattern spec format"""
+def convert_atom_to_pattern(atom: Dict, sequence: int) -> Dict:
+    """Convert atom format to pattern spec format
+    
+    Args:
+        atom: Atom dict from registry
+        sequence: Sequential number for this migration batch (001, 002, etc.)
+    
+    Returns:
+        Pattern dict following PAT-MIGRATED-<CATEGORY>-<SEQ> convention
+    """
+    
+    # Extract category from atom role
+    category = atom.get('role', 'general').upper()
     
     # Extract atom_key components for pattern name
     atom_key = atom.get('atom_key', 'unknown/unknown/v1/ph0/ln0/000')
     name_part = atom_key.split('/')[-1].split('-')[0]  # Get seq part, remove variants
+    pattern_name = f"migrated_{category.lower()}_{name_part}"
+    
+    # Build pattern ID following PAT-MIGRATED-<CATEGORY>-<SEQ> (PAT-NAME-002)
+    pattern_id = f"PAT-MIGRATED-{category}-{sequence:03d}"
     
     pattern = {
-        'pattern_id': f"PAT-MIGRATED-{atom['atom_uid'][:8].upper()}",
-        'name': f"migrated_{name_part}",
+        'pattern_id': pattern_id,
+        'name': pattern_name,
         'version': '1.0.0',
-        'category': atom.get('role', 'general'),
+        'category': category.lower(),
         
         'meta': {
             'migrated_from': 'atomic-workflow-system',
             'original_atom_uid': atom['atom_uid'],
             'original_atom_key': atom.get('atom_key'),
             'migration_date': '2025-11-24',
-            'status': 'draft'  # Until tested
+            'status': 'draft',  # Until tested
+            'migration_sequence': sequence
         },
         
         'intent': atom.get('description', 'Migrated from atomic-workflow-system'),
@@ -225,8 +243,8 @@ def convert_atom_to_pattern(atom: Dict) -> Dict:
         },
         
         'dependencies': [
-            {'pattern_id': f"PAT-MIGRATED-{dep[:8].upper()}"}
-            for dep in atom.get('depends_on', [])
+            {'pattern_id': f"PAT-MIGRATED-{atom.get('role', 'GENERAL').upper()}-{i:03d}"}
+            for i, dep in enumerate(atom.get('depends_on', []), start=1)
         ],
         
         'execution_steps': [
@@ -235,19 +253,23 @@ def convert_atom_to_pattern(atom: Dict) -> Dict:
                 'description': 'Execute migrated atom logic',
                 'note': 'TODO: Implement based on original atom behavior'
             }
-        ],
-        
-        'tool_bindings': {
-            'claude_code': {
-                'invoke': f"pattern {pattern['name']} --instance ${{instance_path}}"
-            }
+        ]
+    }
+    
+    # Add tool_bindings after pattern dict is complete (fixes NameError)
+    pattern['tool_bindings'] = {
+        'claude_code': {
+            'invoke': f"pattern {pattern_name} --instance ${{instance_path}}"
         }
     }
     
     return pattern
 
 def generate_pattern_schema(pattern: Dict) -> Dict:
-    """Generate JSON schema for pattern"""
+    """Generate JSON schema for pattern
+    
+    Follows PAT-MIGRATED-<CATEGORY>-<SEQ> naming convention (PAT-NAME-002)
+    """
     
     input_properties = {
         name: {
@@ -257,6 +279,7 @@ def generate_pattern_schema(pattern: Dict) -> Dict:
         for name, meta in pattern.get('inputs', {}).items()
     }
     
+    # Updated regex to match PAT-MIGRATED-<CATEGORY>-<SEQ> format
     schema = {
         '$schema': 'http://json-schema.org/draft-07/schema#',
         'type': 'object',
@@ -264,12 +287,20 @@ def generate_pattern_schema(pattern: Dict) -> Dict:
         'properties': {
             'pattern_id': {
                 'type': 'string',
-                'pattern': '^PAT-MIGRATED-[A-Z0-9]{8}$'
+                'pattern': '^PAT-MIGRATED-[A-Z]+-\\d{3}$',
+                'description': 'Pattern ID following PAT-MIGRATED-<CATEGORY>-<SEQ> convention'
             },
             'inputs': {
                 'type': 'object',
                 'properties': input_properties,
-                'required': list(input_properties.keys())
+                'required': list(input_properties.keys()) if input_properties else []
+            },
+            'meta': {
+                'type': 'object',
+                'properties': {
+                    'original_atom_uid': {'type': 'string'},
+                    'migration_sequence': {'type': 'integer'}
+                }
             }
         }
     }
@@ -304,26 +335,27 @@ def execute(instance: Dict[str, Any]) -> Dict[str, Any]:
     https://github.com/DICKY1987/atomic-workflow-system
     """
     
-    # Validate inputs
-    required_inputs = {list(pattern.get('inputs', {}).keys())}
+    # Validate inputs (fixed: use list() not set())
+    required_inputs = list(pattern.get('inputs', {}).keys())
     for inp in required_inputs:
-        if inp not in instance.get('inputs', {{}}):
-            raise ValueError(f"Missing required input: {{inp}}")
+        if inp not in instance.get('inputs', {}):
+            raise ValueError(f"Missing required input: {inp}")
     
     # TODO: Implement atom logic here
     print(f"Executing {pattern['name']}...")
-    print(f"Inputs: {{json.dumps(instance['inputs'], indent=2)}}")
+    print(f"Inputs: {json.dumps(instance.get('inputs', {}), indent=2)}")
     
     # Placeholder result
-    result = {{
+    result = {
         'status': 'success',
         'message': 'Pattern executed (stub implementation)',
         'migrated': True,
         'original_atom': '{pattern['meta']['original_atom_uid']}',
-        'outputs': {{
-            # TODO: Generate actual outputs
-        }}
-    }}
+        'pattern_id': pattern['pattern_id'],
+        'outputs': {
+            # TODO: Generate actual outputs based on pattern spec
+        }
+    }
     
     return result
 
@@ -429,9 +461,9 @@ def main():
     output_dir = Path(args.output)
     migrated = []
     
-    for atom in to_migrate:
+    for sequence, atom in enumerate(to_migrate, start=1):
         try:
-            pattern = convert_atom_to_pattern(atom)
+            pattern = convert_atom_to_pattern(atom, sequence)
             paths = save_pattern(pattern, output_dir)
             
             migrated.append({
@@ -474,9 +506,15 @@ def main():
             'original_atom_uid': m['original_atom_uid']
         })
     
-    registry_path = output_dir / 'PATTERN_INDEX_entries.yaml'
+    # Generate bare list for easy merging (fixes YAML concatenation issue)
+    registry_path = output_dir / 'registry_entries.yaml'
     with open(registry_path, 'w') as f:
-        yaml.dump({'patterns': registry_entries}, f, default_flow_style=False)
+        # Write as bare list (no 'patterns:' key) for direct append
+        f.write('# Migrated pattern registry entries\n')
+        f.write('# Append to patterns/registry/PATTERN_INDEX.yaml under patterns: key\n\n')
+        for entry in registry_entries:
+            f.write(yaml.dump([entry], default_flow_style=False))
+            f.write('\n')
     
     print(f"  Registry entries saved to: {registry_path}")
     print(f"\nNext steps:")
@@ -509,23 +547,23 @@ Expected output structure:
 ```
 patterns/legacy_atoms/converted/
 ├── specs/
-│   ├── migrated_000.pattern.yaml
-│   ├── migrated_001.pattern.yaml
+│   ├── migrated_cli_000.pattern.yaml       # PAT-MIGRATED-CLI-001
+│   ├── migrated_github_001.pattern.yaml    # PAT-MIGRATED-GITHUB-001
 │   └── ...
 ├── schemas/
-│   ├── migrated_000.schema.json
-│   ├── migrated_001.schema.json
+│   ├── migrated_cli_000.schema.json
+│   ├── migrated_github_001.schema.json
 │   └── ...
 ├── executors/
-│   ├── migrated_000_executor.py
-│   ├── migrated_001_executor.py
+│   ├── migrated_cli_000_executor.py
+│   ├── migrated_github_001_executor.py
 │   └── ...
 ├── examples/
-│   ├── migrated_000/
+│   ├── migrated_cli_000/
 │   │   └── instance_minimal.json
 │   └── ...
 ├── mapping.json
-└── PATTERN_INDEX_entries.yaml
+└── registry_entries.yaml       # Bare list for merging
 ```
 
 ---
@@ -605,11 +643,47 @@ Create at least 5 high-value workflow compositions.
 
 ## Phase 5: Integration & Documentation (45 min)
 
-### Step 5.1: Merge Registry Entries
+### Step 5.1: Merge Registry Entries (PAT-MIG-002)
+
+**Requirement**: Registry entries **MUST** be merged programmatically to avoid YAML corruption.
+
+```python
+# scripts/merge_registry_entries.py
+import yaml
+from pathlib import Path
+
+def merge_registry_entries():
+    """Merge migrated pattern entries into main registry"""
+    
+    # Load main registry
+    main_registry_path = Path('patterns/registry/PATTERN_INDEX.yaml')
+    with open(main_registry_path) as f:
+        main_registry = yaml.safe_load(f)
+    
+    # Load migrated entries (bare list)
+    migrated_path = Path('patterns/legacy_atoms/converted/registry_entries.yaml')
+    with open(migrated_path) as f:
+        migrated_entries = yaml.safe_load(f)
+    
+    # Append entries
+    if 'patterns' not in main_registry:
+        main_registry['patterns'] = []
+    
+    main_registry['patterns'].extend(migrated_entries)
+    
+    # Save merged registry
+    with open(main_registry_path, 'w') as f:
+        yaml.dump(main_registry, f, default_flow_style=False, sort_keys=False)
+    
+    print(f"✓ Merged {len(migrated_entries)} patterns into registry")
+
+if __name__ == '__main__':
+    merge_registry_entries()
+```
 
 ```bash
-# Append to main pattern registry
-cat patterns/legacy_atoms/converted/PATTERN_INDEX_entries.yaml >> patterns/registry/PATTERN_INDEX.yaml
+# Run merge
+python scripts/merge_registry_entries.py
 
 # Validate registry
 python scripts/validate_pattern_registry.ps1
@@ -746,55 +820,95 @@ python tools/atoms/atom_validator.py pattern.json
 
 ---
 
-## Success Criteria
+## Success Criteria (PAT-MIG-003)
 
-**Phase 1 Complete**:
-- [ ] Repository cloned
-- [ ] Analysis report created
+**Phase 1 Complete** (Analysis):
+- [ ] Repository cloned to `patterns/legacy_atoms/source/`
+- [ ] Analysis report created at `patterns/legacy_atoms/reports/analysis_report.md`
 - [ ] High-value patterns identified (20+)
+- [ ] Priority calculations documented
 
-**Phase 2 Complete**:
+**Phase 2 Complete** (Tooling):
 - [ ] 6 converter tools copied to `tools/atoms/`
-- [ ] Tools tested (26 tests passing)
+- [ ] All 26 tests passing
 - [ ] Atom schema copied to `schema/atom.v1.json`
+- [ ] Tool documentation updated
 
-**Phase 3 Complete**:
-- [ ] Migration script created and working
-- [ ] 20+ patterns extracted
+**Phase 3 Complete** (Extraction):
+- [ ] Migration script created and tested
+- [ ] 20+ patterns extracted with correct ID format (`PAT-MIGRATED-<CATEGORY>-<SEQ>`)
 - [ ] Pattern specs, schemas, executors generated
 - [ ] Example instances created
-- [ ] Mapping file created
+- [ ] Mapping file created at `patterns/legacy_atoms/converted/mapping.json`
+- [ ] Registry entries created as bare list
 
-**Phase 4 Complete**:
+**Phase 4 Complete** (Workflows):
 - [ ] 5+ workflow compositions created
-- [ ] Compositions documented
+- [ ] Compositions documented in `patterns/compositions/`
+- [ ] Cross-references validated
 
-**Phase 5 Complete**:
-- [ ] Registry entries merged
-- [ ] Extraction report complete
-- [ ] Documentation updated
-- [ ] Ready for implementation phase
+**Phase 5 Complete** (Integration):
+- [ ] Registry entries merged programmatically (not with `cat`)
+- [ ] Extraction report complete at `patterns/legacy_atoms/reports/EXTRACTION_REPORT.md`
+- [ ] Documentation updated in `patterns/README_PATTERNS.md`
+- [ ] All migrated patterns validate against schemas
+- [ ] Compliance checker updated to recognize `PAT-MIGRATED-*` exception
 
 ---
 
-## Deliverables Checklist
+## Pattern Naming Compliance (PAT-MIG-004)
 
-Files to create:
+**Requirement**: All migrated patterns **MUST** follow `PAT-MIGRATED-<CATEGORY>-<SEQ>` naming.
+
+**Examples**:
+- CLI operations: `PAT-MIGRATED-CLI-001`, `PAT-MIGRATED-CLI-002`
+- GitHub integrations: `PAT-MIGRATED-GITHUB-001`
+- Validation workflows: `PAT-MIGRATED-VALIDATION-001`
+- Generator workflows: `PAT-MIGRATED-GENERATOR-001`
+
+**Schema Validation**:
+```regex
+^PAT-MIGRATED-[A-Z]+-\d{3}$
+```
+
+**Metadata Requirements**:
+- **MUST** include `migrated_from: atomic-workflow-system`
+- **MUST** include `original_atom_uid` in meta
+- **MUST** include `migration_sequence` number
+- **SHOULD** include `original_atom_key` for traceability
+
+---
+
+## Deliverables Checklist (PAT-MIG-005)
+
+**Directory Structure** (MUST match):
 - [ ] `patterns/legacy_atoms/source/` (cloned repo)
-- [ ] `patterns/legacy_atoms/analysis_report.md`
-- [ ] `tools/atoms/*.py` (6 converter tools)
-- [ ] `schema/atom.v1.json`
-- [ ] `scripts/migrate_atoms_to_patterns.py`
 - [ ] `patterns/legacy_atoms/converted/specs/*.pattern.yaml` (20+ files)
 - [ ] `patterns/legacy_atoms/converted/schemas/*.schema.json` (20+ files)
 - [ ] `patterns/legacy_atoms/converted/executors/*_executor.py` (20+ files)
 - [ ] `patterns/legacy_atoms/converted/examples/*/instance_minimal.json` (20+ files)
 - [ ] `patterns/legacy_atoms/converted/mapping.json`
-- [ ] `patterns/legacy_atoms/converted/PATTERN_INDEX_entries.yaml`
+- [ ] `patterns/legacy_atoms/converted/registry_entries.yaml` (bare list format)
+- [ ] `patterns/legacy_atoms/reports/analysis_report.md`
+- [ ] `patterns/legacy_atoms/reports/EXTRACTION_REPORT.md`
+
+**Code Artifacts**:
+- [ ] `tools/atoms/*.py` (6 converter tools)
+- [ ] `schema/atom.v1.json`
+- [ ] `scripts/migrate_atoms_to_patterns.py`
+- [ ] `scripts/merge_registry_entries.py`
 - [ ] `patterns/compositions/*.composition.yaml` (5+ files)
-- [ ] `patterns/legacy_atoms/EXTRACTION_REPORT.md`
+
+**Documentation**:
 - [ ] Updated `patterns/README_PATTERNS.md`
 - [ ] Updated `patterns/registry/PATTERN_INDEX.yaml`
+- [ ] Extraction reports complete with metrics
+
+**Validation**:
+- [ ] All patterns validate against schemas
+- [ ] All pattern IDs follow `PAT-MIGRATED-<CATEGORY>-<SEQ>` format
+- [ ] Registry merge completes without YAML errors
+- [ ] No naming conflicts with existing patterns
 
 ---
 
