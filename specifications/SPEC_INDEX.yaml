@@ -1,0 +1,136 @@
+# SPEC_INDEX.yaml
+# Index of specifications, schemas, and configuration files
+# Generated: 2025-11-24
+
+metadata:
+  category: spec
+  description: "JSON schemas, specifications, and configuration files"
+  total_files: 10
+  last_updated: "2025-11-24"
+
+# JSON Schemas
+schemas:
+  - doc_id: DOC-SPEC-WORKSTREAM-SCHEMA-001
+    name: workstream-schema
+    file: schema/workstream.schema.json
+    schema_type: json-schema-draft-07
+    purpose: "Schema definition for workstream JSON files"
+    validates: "Workstream objects"
+    priority: high
+    status: active
+
+# Configuration Files
+configurations:
+  - doc_id: DOC-CONFIG-AIM-CONFIG-001
+    name: aim-config
+    file: config/aim_config.yaml
+    purpose: "AIM Environment Configuration"
+    scope: "AIM environment manager settings"
+    priority: high
+    status: active
+
+  - doc_id: DOC-CONFIG-CCPM-CONFIG-002
+    name: ccpm-config
+    file: config/ccpm.yaml
+    purpose: "CCPM Pipeline Configuration"
+    scope: "Core pipeline settings"
+    priority: high
+    status: active
+
+  - doc_id: DOC-CONFIG-CIRCUIT-BREAKERS-003
+    name: circuit-breakers
+    file: config/circuit_breakers.yaml
+    purpose: "Circuit Breaker Patterns Configuration"
+    scope: "Fault tolerance patterns"
+    priority: medium
+    status: active
+
+  - doc_id: DOC-CONFIG-DECOMPOSITION-RULES-004
+    name: decomposition-rules
+    file: config/decomposition_rules.yaml
+    purpose: "Task Decomposition Rules"
+    scope: "Work breakdown strategies"
+    priority: medium
+    status: active
+
+  - doc_id: DOC-CONFIG-GITHUB-CONFIG-005
+    name: github-config
+    file: config/github.yaml
+    purpose: "GitHub Integration Configuration"
+    scope: "GitHub API and integration settings"
+    priority: medium
+    status: active
+
+  - doc_id: DOC-CONFIG-PATH-INDEX-006
+    name: path-index
+    file: config/path_index.yaml
+    purpose: "Path Index Configuration"
+    scope: "File path mappings and indexes"
+    priority: low
+    status: active
+
+  - doc_id: DOC-CONFIG-ROUTER-CONFIG-007
+    name: router-config
+    file: config/router.config.yaml
+    purpose: "Request Router Configuration"
+    scope: "Routing rules for requests"
+    priority: medium
+    status: active
+
+  - doc_id: DOC-CONFIG-SECTION-MAP-008
+    name: section-map
+    file: config/section_map.yaml
+    purpose: "Section Mapping Configuration"
+    scope: "Module section definitions"
+    priority: low
+    status: active
+
+  - doc_id: DOC-CONFIG-UI-SETTINGS-009
+    name: ui-settings
+    file: config/ui_settings.yaml
+    purpose: "UI Settings and Preferences"
+    scope: "User interface configuration"
+    priority: low
+    status: active
+
+# Validation metadata
+validation:
+  schema_tool: ajv
+  schema_command: "ajv validate -s {schema} -d {data}"
+  config_tool: yamllint
+  config_command: "yamllint {file}"
+
+# Import patterns
+import_patterns:
+  - pattern: "from schema import workstream_schema"
+    doc_id: DOC-SPEC-WORKSTREAM-SCHEMA-001
+    usage: "Import schema for validation"
+
+# AI assistance metadata
+ai_priority:
+  high:
+    - DOC-SPEC-WORKSTREAM-SCHEMA-001
+    - DOC-CONFIG-AIM-CONFIG-001
+    - DOC-CONFIG-CCPM-CONFIG-002
+  medium:
+    - DOC-CONFIG-CIRCUIT-BREAKERS-003
+    - DOC-CONFIG-DECOMPOSITION-RULES-004
+    - DOC-CONFIG-GITHUB-CONFIG-005
+    - DOC-CONFIG-ROUTER-CONFIG-007
+  low:
+    - DOC-CONFIG-PATH-INDEX-006
+    - DOC-CONFIG-SECTION-MAP-008
+    - DOC-CONFIG-UI-SETTINGS-009
+
+# Edit policy
+edit_policy:
+  safe_to_edit:
+    - All configuration files are safe to edit
+    - Schema changes require validation
+    - Update doc_id metadata when modifying files
+  requires_review:
+    - Schema structural changes
+    - Breaking config changes
+  validation_required:
+    - All schema modifications
+    - Critical config changes (ccpm, aim, circuit-breakers)

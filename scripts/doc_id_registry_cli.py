@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 # DOC_LINK: DOC-SCRIPT-DOC-ID-REGISTRY-CLI-001
 """
 DOC_ID Registry CLI
@@ -14,10 +15,16 @@ USAGE:
 import argparse
 import re
 import sys
+import io
 from pathlib import Path
 from typing import List, Dict, Optional
 import yaml
 from datetime import datetime
+
+# Fix Windows console encoding
+if sys.platform == 'win32':
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
 
 # Repository root
 REPO_ROOT = Path(__file__).parent.parent
@@ -35,7 +42,7 @@ class DocIDRegistry:
     def _load_registry(self) -> dict:
         """Load registry from YAML file."""
         if not self.registry_path.exists():
-            print(f"❌ Registry not found: {self.registry_path}")
+            print(f"[ERROR] Registry not found: {self.registry_path}")
             sys.exit(1)
         
         with open(self.registry_path, 'r', encoding='utf-8') as f:
@@ -48,7 +55,7 @@ class DocIDRegistry:
         with open(self.registry_path, 'w', encoding='utf-8') as f:
             yaml.dump(self.data, f, default_flow_style=False, sort_keys=False)
         
-        print(f"✅ Registry updated: {self.registry_path}")
+        print(f"[OK] Registry updated: {self.registry_path}")
     
     def mint_doc_id(self, category: str, name: str, title: str = None, 
                     artifacts: List[Dict] = None, tags: List[str] = None) -> str:
@@ -68,7 +75,7 @@ class DocIDRegistry:
         category_lower = category.lower()
         
         if category_lower not in self.data['categories']:
-            print(f"❌ Unknown category: {category}")
+            print(f"[ERROR] Unknown category: {category}")
             print(f"Available: {', '.join(self.data['categories'].keys())}")
             sys.exit(1)
         
@@ -84,13 +91,13 @@ class DocIDRegistry:
         
         # Validate format
         if not DOC_ID_REGEX.match(doc_id):
-            print(f"❌ Generated doc_id failed validation: {doc_id}")
+            print(f"[ERROR] Generated doc_id failed validation: {doc_id}")
             sys.exit(1)
         
         # Check for duplicates
         existing = [d['doc_id'] for d in self.data['docs']]
         if doc_id in existing:
-            print(f"❌ doc_id already exists: {doc_id}")
+            print(f"[ERROR] doc_id already exists: {doc_id}")
             sys.exit(1)
         
         # Create doc entry
@@ -114,7 +121,7 @@ class DocIDRegistry:
         
         self._save_registry()
         
-        print(f"\n✅ Minted new doc_id: {doc_id}")
+        print(f"\n[OK] Minted new doc_id: {doc_id}")
         print(f"   Category: {category_lower}")
         print(f"   Name: {name}")
         if title:
@@ -248,7 +255,7 @@ def cmd_search(args):
     )
     
     if not results:
-        print("❌ No matching doc_ids found")
+        print("[ERROR] No matching doc_ids found")
         return
     
     print(f"\n📋 Found {len(results)} doc_id(s):\n")
@@ -276,23 +283,23 @@ def cmd_validate(args):
     print(f"Total docs: {report['total_docs']}")
     
     if report['errors']:
-        print(f"\n❌ Errors ({len(report['errors'])}):")
+        print(f"\n[ERROR] Errors ({len(report['errors'])}):")
         for err in report['errors']:
             print(f"   - {err}")
     
     if report['warnings']:
-        print(f"\n⚠️  Warnings ({len(report['warnings'])}):")
+        print(f"\n[WARN]  Warnings ({len(report['warnings'])}):")
         for warn in report['warnings']:
             print(f"   - {warn}")
     
     if report['valid'] and not report['warnings']:
-        print("\n✅ All doc_ids are valid!")
+        print("\n[OK] All doc_ids are valid!")
         return 0
     elif report['valid']:
-        print("\n✅ Format valid, but warnings present")
+        print("\n[OK] Format valid, but warnings present")
         return 0
     else:
-        print("\n❌ Validation failed")
+        print("\n[ERROR] Validation failed")
         return 1
 
 
@@ -302,7 +309,7 @@ def cmd_stats(args):
     
     stats = registry.get_stats()
     
-    print("\n📊 DOC_ID Registry Statistics\n")
+    print("\n[STATS] DOC_ID Registry Statistics\n")
     print(f"Total docs: {stats['total_docs']}")
     print(f"Total categories: {stats['total_categories']}")
     print(f"Last updated: {stats['last_updated']}")

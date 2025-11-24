@@ -3,7 +3,7 @@ metadata:
   created: '2025-11-24'
   last_updated: '2025-11-24'
   spec_doc: DOC_ID_FRAMEWORK.md
-  total_docs: 29
+  total_docs: 39
 categories:
   patterns:
     prefix: PAT
@@ -26,8 +26,8 @@ categories:
   spec:
     prefix: SPEC
     description: Specifications and schemas
-    count: 0
-    next_id: 1
+    count: 1
+    next_id: 2
     index_file: specifications/SPEC_INDEX.yaml
   arch:
     prefix: ARCH
@@ -56,8 +56,8 @@ categories:
   config:
     prefix: CONFIG
     description: Configuration files
-    count: 0
-    next_id: 1
+    count: 9
+    next_id: 10
     index_file: config/CONFIG_INDEX.yaml
   script:
     prefix: SCRIPT
@@ -426,6 +426,117 @@ docs:
   tags:
   - patterns
   - reference
+- doc_id: DOC-SPEC-WORKSTREAM-SCHEMA-001
+  category: spec
+  name: workstream_schema
+  title: Workstream JSON Schema Definition
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - spec
+  - schema
+  - validation
+- doc_id: DOC-CONFIG-AIM-CONFIG-001
+  category: config
+  name: aim_config
+  title: AIM Environment Configuration
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - config
+  - configuration
+- doc_id: DOC-CONFIG-CCPM-CONFIG-002
+  category: config
+  name: ccpm_config
+  title: CCPM Pipeline Configuration
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - config
+  - configuration
+- doc_id: DOC-CONFIG-CIRCUIT-BREAKERS-003
+  category: config
+  name: circuit_breakers
+  title: Circuit Breaker Patterns Configuration
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - config
+  - configuration
+- doc_id: DOC-CONFIG-DECOMPOSITION-RULES-004
+  category: config
+  name: decomposition_rules
+  title: Task Decomposition Rules
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - config
+  - configuration
+- doc_id: DOC-CONFIG-GITHUB-CONFIG-005
+  category: config
+  name: github_config
+  title: GitHub Integration Configuration
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - config
+  - configuration
+- doc_id: DOC-CONFIG-PATH-INDEX-006
+  category: config
+  name: path_index
+  title: Path Index Configuration
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - config
+  - configuration
+- doc_id: DOC-CONFIG-ROUTER-CONFIG-007
+  category: config
+  name: router_config
+  title: Request Router Configuration
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - config
+  - configuration
+- doc_id: DOC-CONFIG-SECTION-MAP-008
+  category: config
+  name: section_map
+  title: Section Mapping Configuration
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - config
+  - configuration
+- doc_id: DOC-CONFIG-UI-SETTINGS-009
+  category: config
+  name: ui_settings
+  title: UI Settings and Preferences
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - config
+  - configuration
 migration_queue:
   core_modules:
   - path: core/state/db.py
