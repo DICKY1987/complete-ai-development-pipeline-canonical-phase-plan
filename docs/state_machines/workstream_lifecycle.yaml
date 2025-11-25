@@ -1,0 +1,299 @@
+# Workstream Lifecycle State Machine
+# Formal definition of valid workstream states and transitions
+
+schema_version: "1.0.0"
+description: "State machine governing workstream lifecycle in orchestration system"
+
+states:
+  planned:
+    description: "Workstream defined, tasks not yet created"
+    terminal: false
+    entry_actions:
+      - set_created_at_timestamp
+      - initialize_task_counter
+    
+  ready:
+    description: "All tasks created, ready to begin execution"
+    terminal: false
+    entry_actions:
+      - generate_dag_file
+      - create_execution_plan
+      - validate_no_dependency_cycles
+    
+  executing:
+    description: "At least one task is running"
+    terminal: false
+    entry_actions:
+      - start_workstream_timer
+      - begin_metrics_collection
+    
+  validating:
+    description: "All tasks completed, final validation in progress"
+    terminal: false
+    entry_actions:
+      - run_final_workstream_validation
+      - prepare_merge_plan
+    
+  completed:
+    description: "Workstream successful, merged to main"
+    terminal: true
+    entry_actions:
+      - merge_to_main_branch
+      - archive_state_to_archive_directory
+      - cleanup_worktree
+      - set_completed_at_timestamp
+    
+  failed:
+    description: "Workstream failed, state preserved for analysis"
+    terminal: true
+    entry_actions:
+      - cancel_remaining_tasks
+      - preserve_state_in_archive
+      - set_failed_at_timestamp
+    
+  cancelled:
+    description: "Workstream cancelled by user"
+    terminal: true
+    entry_actions:
+      - cancel_all_tasks
+      - preserve_state_in_archive
+      - cleanup_worktree
+      - set_cancelled_at_timestamp
+
+transitions:
+  - name: "Tasks created"
+    from: planned
+    to: ready
+    trigger: all_tasks_created
+    guard:
+      condition: task_count_matches_specification
+      description: "Number of tasks matches workstream specification"
+    actions:
+      - emit_workstream_event
+    
+  - name: "Execution started"
+    from: ready
+    to: executing
+    trigger: first_task_started
+    guard:
+      condition: at_least_one_task_running
+      description: "At least one task transitioned to running state"
+    actions:
+      - emit_workstream_event
+    
+  - name: "All tasks completed successfully"
+    from: executing
+    to: validating
+    trigger: all_tasks_completed
+    guard:
+      condition: all_tasks_completed_no_failures
+      description: "All tasks in completed state, no failures"
+    actions:
+      - emit_workstream_event
+    
+  - name: "Critical task failed"
+    from: executing
+    to: failed
+    trigger: critical_task_failed
+    guard:
+      condition: critical_task_in_failed_state
+      description: "At least one critical task reached failed state"
+    actions:
+      - emit_workstream_event_severity_critical
+    
+  - name: "Workstream timeout"
+    from: executing
+    to: failed
+    trigger: workstream_timeout
+    guard:
+      condition: duration_exceeds_max_allowed
+      description: "Workstream duration exceeds max_duration_seconds"
+    actions:
+      - emit_workstream_event_severity_critical
+    
+  - name: "Validation passed"
+    from: validating
+    to: completed
+    trigger: validation_passed
+    guard:
+      condition: final_validation_successful
+      description: "Final workstream validation passed"
+    actions:
+      - emit_workstream_event
+    
+  - name: "Validation failed"
+    from: validating
+    to: failed
+    trigger: validation_failed
+    guard:
+      condition: final_validation_failed
+      description: "Final workstream validation failed"
+    actions:
+      - emit_workstream_event_severity_error
+    
+  - name: "Cancel planned workstream"
+    from: planned
+    to: cancelled
+    trigger: user_cancelled
+    guard: null
+    actions:
+      - emit_workstream_event
+    
+  - name: "Cancel ready workstream"
+    from: ready
+    to: cancelled
+    trigger: user_cancelled
+    guard: null
+    actions:
+      - emit_workstream_event
+    
+  - name: "Cancel executing workstream"
+    from: executing
+    to: cancelled
+    trigger: user_cancelled
+    guard: null
+    actions:
+      - emit_workstream_event
+
+# State derivation from task states
+state_derivation:
+  description: "Workstream state can be derived from constituent task states"
+  
+  rules:
+    - condition: "any(task.state == 'running' for task in tasks)"
+      derived_state: executing
+      description: "If any task is running, workstream is executing"
+    
+    - condition: "all(task.state == 'completed' for task in tasks)"
+      derived_state: validating
+      description: "If all tasks completed successfully, proceed to validation"
+    
+    - condition: "any(task.state == 'failed' and task.critical for task in tasks)"
+      derived_state: failed
+      description: "If any critical task failed, workstream fails"
+    
+    - condition: "all(task.state in ['pending', 'queued'] for task in tasks)"
+      derived_state: ready
+      description: "If all tasks pending or queued, workstream is ready"
+    
+    - condition: "any(task.state == 'running' for task in tasks) or any(task.state == 'queued' for task in tasks)"
+      derived_state: executing
+      description: "If any task running or queued, workstream is executing"
+    
+    - condition: "len(tasks) == 0"
+      derived_state: planned
+      description: "If no tasks exist, workstream is in planning"
+
+invariants:
+  - name: "Single active state"
+    description: "A workstream is in exactly one state at any time"
+    validation: "count(workstream.state) == 1"
+  
+  - name: "Task state consistency"
+    description: "Workstream state is consistent with task states"
+    validation: "workstream.state == derive_state_from_tasks(workstream.tasks)"
+  
+  - name: "Completion requirement"
+    description: "Can only reach completed if all tasks completed"
+    validation: "workstream.state == completed → all(task.state == completed for task in workstream.tasks)"
+  
+  - name: "Failure propagation"
+    description: "Critical task failure causes workstream failure"
+    validation: "any(task.state == failed and task.critical for task in tasks) → workstream.state == failed"
+  
+  - name: "Archive preservation"
+    description: "Failed workstreams are preserved in archive"
+    validation: "workstream.state in [failed, cancelled] → exists(.state/archive/{workstream_id}/)"
+  
+  - name: "Worktree cleanup"
+    description: "Completed or cancelled workstreams have worktrees cleaned up"
+    validation: "workstream.state in [completed, cancelled] → not exists(worktree_path)"
+
+event_schema:
+  timestamp:
+    type: string
+    format: iso8601
+    required: true
+  
+  event_type:
+    type: string
+    enum: [workstream_state_transition]
+    required: true
+  
+  severity:
+    type: string
+    enum: [info, warning, error, critical]
+    required: true
+  
+  entity_id:
+    type: string
+    description: "workstream_id"
+    required: true
+  
+  from_state:
+    type: string
+    enum: [planned, ready, executing, validating, completed, failed, cancelled]
+    required: true
+  
+  to_state:
+    type: string
+    enum: [planned, ready, executing, validating, completed, failed, cancelled]
+    required: true
+  
+  trigger:
+    type: string
+    description: "Event that triggered this transition"
+    required: true
+  
+  metadata:
+    type: object
+    required: false
+    properties:
+      total_tasks:
+        type: integer
+      completed_tasks:
+        type: integer
+      failed_tasks:
+        type: integer
+      duration_seconds:
+        type: number
+      critical_task_id:
+        type: string
+        description: "ID of critical task that caused failure"
+
+metrics:
+  description: "Metrics collected for workstream lifecycle"
+  
+  counters:
+    - name: workstreams_completed
+      description: "Total completed workstreams"
+    
+    - name: workstreams_failed
+      description: "Total failed workstreams"
+    
+    - name: workstreams_cancelled
+      description: "Total cancelled workstreams"
+  
+  gauges:
+    - name: active_workstreams
+      description: "Current number of executing workstreams"
+    
+    - name: avg_workstream_duration
+      description: "Average duration of completed workstreams (seconds)"
+  
+  histograms:
+    - name: workstream_task_count
+      description: "Distribution of task counts per workstream"
+      buckets: [1, 5, 10, 20, 50, 100]
+    
+    - name: workstream_duration
+      description: "Distribution of workstream durations (seconds)"
+      buckets: [60, 300, 600, 1800, 3600, 7200]
+
+validation_rules:
+  - All transitions must be defined in transitions list
+  - State derivation rules must be deterministic
+  - Workstream state must be computable from task states
+  - Terminal states (completed, failed, cancelled) cannot transition to other states
+  - State changes must emit events to .state/transitions.jsonl
+  - Events must conform to event_schema

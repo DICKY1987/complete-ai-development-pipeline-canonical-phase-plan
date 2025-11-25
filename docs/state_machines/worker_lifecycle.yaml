@@ -1,0 +1,340 @@
+# Worker Lifecycle State Machine
+# Formal definition of valid worker states and transitions
+
+schema_version: "1.0.0"
+description: "State machine governing worker lifecycle in orchestration system"
+
+states:
+  initializing:
+    description: "Worker process starting up, registering capabilities"
+    terminal: false
+    entry_actions:
+      - load_worker_configuration
+      - initialize_capabilities
+      - connect_to_orchestrator
+    
+  idle:
+    description: "Worker ready for task assignment, no active tasks"
+    terminal: false
+    entry_actions:
+      - add_to_available_worker_pool
+      - start_health_check_monitoring
+      - start_heartbeat_sender
+    
+  busy:
+    description: "Worker executing assigned task(s)"
+    terminal: false
+    entry_actions:
+      - update_worker_utilization_metrics
+    exit_actions:
+      - update_worker_utilization_metrics
+    
+  unresponsive:
+    description: "Worker not responding to health checks"
+    terminal: false
+    entry_actions:
+      - mark_assigned_tasks_for_reassignment
+      - begin_recovery_attempts
+      - emit_worker_unresponsive_alert
+    
+  shutdown:
+    description: "Worker gracefully shutting down"
+    terminal: true
+    entry_actions:
+      - complete_assigned_tasks_if_possible
+      - release_all_resources
+      - deregister_from_orchestrator
+      - stop_heartbeat_sender
+
+transitions:
+  - name: "Worker registration complete"
+    from: initializing
+    to: idle
+    trigger: registration_complete
+    guard:
+      condition: capabilities_registered_with_orchestrator
+      description: "Worker successfully registered capabilities with orchestrator"
+    actions:
+      - emit_worker_registration_event
+    
+  - name: "Task assigned to worker"
+    from: idle
+    to: busy
+    trigger: task_assigned
+    guard:
+      condition: task_requires_worker_capabilities
+      description: "Assigned task requires capabilities this worker provides"
+    actions:
+      - assign_task_to_worker
+      - start_task_execution
+      - emit_worker_state_event
+    
+  - name: "Task execution completed"
+    from: busy
+    to: idle
+    trigger: task_completed
+    guard:
+      condition: task_finished_no_more_tasks
+      description: "Task finished (success or failure) and no more tasks queued"
+    actions:
+      - release_task_assignment
+      - return_to_available_pool
+      - emit_worker_state_event
+    
+  - name: "Health check timeout"
+    from: busy
+    to: unresponsive
+    trigger: health_check_timeout
+    guard:
+      condition: missed_n_consecutive_health_checks
+      description: "Worker missed N consecutive health checks (default: 3)"
+    actions:
+      - emit_worker_unresponsive_event_severity_error
+    
+  - name: "Health check timeout from idle"
+    from: idle
+    to: unresponsive
+    trigger: health_check_timeout
+    guard:
+      condition: missed_n_consecutive_health_checks
+      description: "Worker missed N consecutive health checks (default: 3)"
+    actions:
+      - emit_worker_unresponsive_event_severity_warning
+    
+  - name: "Worker recovered"
+    from: unresponsive
+    to: idle
+    trigger: health_check_recovered
+    guard:
+      condition: worker_responds_to_health_check
+      description: "Worker successfully responded to health check"
+    actions:
+      - clear_unresponsive_status
+      - emit_worker_recovery_event
+    
+  - name: "Max timeout exceeded"
+    from: unresponsive
+    to: shutdown
+    trigger: max_timeout_exceeded
+    guard:
+      condition: unresponsive_duration_exceeds_max
+      description: "Worker unresponsive for > max_unresponsive_duration (default: 3 minutes)"
+    actions:
+      - reassign_tasks_to_other_workers
+      - emit_worker_shutdown_event_severity_error
+    
+  - name: "Graceful shutdown requested (idle)"
+    from: idle
+    to: shutdown
+    trigger: shutdown_requested
+    guard: null
+    actions:
+      - emit_worker_shutdown_event
+    
+  - name: "Graceful shutdown requested (busy)"
+    from: busy
+    to: shutdown
+    trigger: shutdown_requested
+    guard:
+      condition: after_task_complete
+      description: "Wait for current task to complete before shutdown"
+    actions:
+      - wait_for_task_completion
+      - emit_worker_shutdown_event
+    
+  - name: "Worker crashed during initialization"
+    from: initializing
+    to: shutdown
+    trigger: worker_crashed
+    guard: null
+    actions:
+      - emit_worker_crashed_event_severity_error
+    
+  - name: "Worker crashed during execution"
+    from: busy
+    to: shutdown
+    trigger: worker_crashed
+    guard: null
+    actions:
+      - reassign_tasks_to_other_workers
+      - emit_worker_crashed_event_severity_error
+
+invariants:
+  - name: "Single active state"
+    description: "A worker is in exactly one state at any time"
+    validation: "count(worker.state) == 1"
+  
+  - name: "Capacity limit"
+    description: "Worker in busy state has task count <= max_concurrent_tasks"
+    validation: "worker.state == busy → worker.active_task_count <= worker.max_concurrent_tasks"
+  
+  - name: "Health monitoring"
+    description: "Only idle and busy workers send heartbeats"
+    validation: "worker.sends_heartbeat ↔ worker.state in [idle, busy]"
+  
+  - name: "Graceful shutdown"
+    description: "Workers in shutdown state complete current tasks before terminating"
+    validation: "worker.state == shutdown → worker.active_task_count == 0"
+  
+  - name: "Resource cleanup"
+    description: "Failed workers release all held resources"
+    validation: "worker.state == shutdown → worker.held_resources.count == 0"
+  
+  - name: "Registration requirement"
+    description: "Workers cannot transition to idle without registration"
+    validation: "worker.state == idle → worker.registered == true"
+
+event_schema:
+  timestamp:
+    type: string
+    format: iso8601
+    required: true
+  
+  event_type:
+    type: string
+    enum: [worker_state_transition, worker_registration, worker_unresponsive, worker_crashed]
+    required: true
+  
+  severity:
+    type: string
+    enum: [info, warning, error, critical]
+    required: true
+  
+  entity_id:
+    type: string
+    description: "worker_id"
+    required: true
+  
+  from_state:
+    type: string
+    enum: [initializing, idle, busy, unresponsive, shutdown]
+    required: false  # Not required for registration/crash events
+  
+  to_state:
+    type: string
+    enum: [initializing, idle, busy, unresponsive, shutdown]
+    required: false  # Not required for registration/crash events
+  
+  trigger:
+    type: string
+    description: "Event that triggered this transition"
+    required: true
+  
+  metadata:
+    type: object
+    required: false
+    properties:
+      capabilities:
+        type: array
+        items:
+          type: string
+      active_task_count:
+        type: integer
+      missed_health_checks:
+        type: integer
+      unresponsive_duration_seconds:
+        type: number
+      exit_code:
+        type: integer
+        description: "Process exit code for crashed workers"
+
+capabilities:
+  description: "Capabilities that workers can provide"
+  
+  examples:
+    - aider:
+        name: "Aider Code Editing"
+        description: "AI-assisted code editing using Aider"
+        version: "1.0.0"
+        requirements:
+          - aider_installed: true
+          - min_python_version: "3.10"
+    
+    - pytest:
+        name: "Pytest Test Execution"
+        description: "Execute Python tests using pytest"
+        version: "1.0.0"
+        requirements:
+          - pytest_installed: true
+          - min_python_version: "3.10"
+    
+    - ruff:
+        name: "Ruff Linting"
+        description: "Python linting using Ruff"
+        version: "1.0.0"
+        requirements:
+          - ruff_installed: true
+    
+    - git:
+        name: "Git Operations"
+        description: "Git repository operations"
+        version: "1.0.0"
+        requirements:
+          - git_installed: true
+          - min_git_version: "2.30"
+
+health_checks:
+  description: "Health check configuration for workers"
+  
+  heartbeat:
+    interval_seconds: 10
+    description: "Workers send heartbeat every 10 seconds"
+  
+  health_check:
+    interval_seconds: 30
+    description: "Orchestrator checks worker health every 30 seconds"
+    timeout_seconds: 5
+    description: "Health check must complete within 5 seconds"
+    max_consecutive_failures: 3
+    description: "Worker marked unresponsive after 3 consecutive failures"
+  
+  recovery:
+    max_unresponsive_duration_seconds: 180
+    description: "Worker forced shutdown if unresponsive > 3 minutes"
+    recovery_check_interval_seconds: 10
+    description: "Check for recovery every 10 seconds"
+
+metrics:
+  description: "Metrics collected for worker lifecycle"
+  
+  counters:
+    - name: workers_registered
+      description: "Total workers registered"
+    
+    - name: workers_unresponsive
+      description: "Total workers that became unresponsive"
+    
+    - name: workers_crashed
+      description: "Total workers that crashed"
+  
+  gauges:
+    - name: active_workers
+      description: "Current number of workers in idle or busy state"
+    
+    - name: idle_workers
+      description: "Current number of idle workers"
+    
+    - name: busy_workers
+      description: "Current number of busy workers"
+    
+    - name: avg_worker_utilization
+      description: "Average worker utilization (0.0 to 1.0)"
+      calculation: "busy_workers / active_workers"
+  
+  histograms:
+    - name: worker_task_duration
+      description: "Distribution of task execution times per worker (seconds)"
+      buckets: [10, 30, 60, 120, 300, 600]
+    
+    - name: worker_concurrent_tasks
+      description: "Distribution of concurrent tasks per worker"
+      buckets: [1, 2, 3, 5, 10]
+
+validation_rules:
+  - All transitions must be defined in transitions list
+  - Guard conditions must evaluate to boolean
+  - Workers must register capabilities before accepting tasks
+  - Health checks must be sent on schedule
+  - Crashed workers must release all resources
+  - State changes must emit events to .state/transitions.jsonl
+  - Events must conform to event_schema
