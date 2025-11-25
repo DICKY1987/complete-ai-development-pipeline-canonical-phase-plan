@@ -1,0 +1,82 @@
+# TEST BATCH TEMPLATE
+# Pattern: EXEC-003 Test Suite Multiplier
+# DOC_ID: DOC-TEMPLATE-TEST-BATCH-001
+
+metadata:
+  template_version: "1.0.0"
+  pattern: EXEC-003
+  purpose: eliminate_decisions_for_test_execution
+  decisions_eliminated: 3
+  estimated_time_savings: 1.5_hours
+
+parameters:
+  test_suite_name:
+    type: string
+    required: true
+    example: "uet_migration_integration"
+  
+  test_files:
+    type: list
+    required: true
+    example:
+      - "tests/state/test_db_unified.py"
+      - "tests/engine/test_uet_orchestrator.py"
+  
+  required_pass_rate:
+    type: float
+    required: true
+    default: 1.0
+    example: 1.0
+  
+  timeout_per_test:
+    type: int
+    required: false
+    default: 300
+    example: 300
+
+ground_truth_gates:
+  gate_1_tests_collected:
+    command: "pytest {test_files} --collect-only -q"
+    expect_stdout_contains: "test collected"
+    failure_action: halt_and_report
+  
+  gate_2_all_tests_pass:
+    command: "pytest {test_files} -q --tb=short -x"
+    expect_exit_code: 0
+    expect_stdout_contains: "passed"
+    failure_action: report_and_continue
+  
+  gate_3_coverage_maintained:
+    command: "pytest {test_files} --cov=core --cov-report=term-missing --cov-fail-under=70"
+    expect_exit_code: 0
+    failure_action: warn_only
+
+execution_sequence:
+  - step: collect_tests
+    gate: gate_1_tests_collected
+  
+  - step: run_tests
+    gate: gate_2_all_tests_pass
+    retry_on_failure: false
+  
+  - step: check_coverage
+    gate: gate_3_coverage_maintained
+    optional: true
+
+anti_pattern_guards:
+  hallucination_of_success:
+    enabled: true
+    rule: "Never mark tests complete without gate_2_all_tests_pass exit_code == 0"
+  
+  planning_loop_trap:
+    enabled: true
+    rule: "If tests fail, report failure immediately; do not re-plan"
+
+telemetry:
+  track:
+    - tests_collected
+    - tests_passed
+    - tests_failed
+    - coverage_percentage
+    - execution_time
+  output: ".execution/telemetry.jsonl"

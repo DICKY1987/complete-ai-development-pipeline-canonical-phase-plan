@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd C:UsersrichgALL_AIComplete AI Development Pipeline – Canonical Phase PlanUNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORKpatterns)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

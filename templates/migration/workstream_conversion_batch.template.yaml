@@ -1,0 +1,99 @@
+# WORKSTREAM CONVERSION BATCH TEMPLATE
+# Pattern: EXEC-001 + EXEC-007 (Batch + Schema)
+# DOC_ID: DOC-TEMPLATE-WORKSTREAM-CONVERT-001
+
+metadata:
+  template_version: "1.0.0"
+  pattern: [EXEC-001, EXEC-007]
+  purpose: eliminate_decisions_for_json_to_yaml_conversion
+  decisions_eliminated: 8
+  estimated_time_savings: 4_hours
+
+parameters:
+  input_dir:
+    type: path
+    required: true
+    example: "workstreams/"
+  
+  output_dir:
+    type: path
+    required: true
+    example: "workstreams_uet/"
+  
+  mapping_rules:
+    type: dict
+    required: true
+    example:
+      "id": "workstream_id"
+      "tool": "execution_request.tool_id"
+      "files_scope": "constraints.file_scope.allowed_paths"
+      "tasks": "execution_request.prompt"
+      "acceptance_tests": "acceptance_criteria.commands"
+      "depends_on": "dependencies"
+      "circuit_breaker": "resilience_policy"
+  
+  validation_schema:
+    type: path
+    required: true
+    example: "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/specs/core/UET_WORKSTREAM_SPEC.md"
+
+ground_truth_gates:
+  gate_1_all_files_converted:
+    command: "python tools/workstream_converter.py {input_dir} {output_dir}"
+    expect_exit_code: 0
+    expect_files_created: 46
+    failure_action: halt_and_report
+  
+  gate_2_all_validated:
+    command: "python tools/workstream_validator.py {output_dir}/*.yaml"
+    expect_exit_code: 0
+    expect_stdout_contains: "All workstreams valid"
+    failure_action: halt_and_report
+  
+  gate_3_no_data_loss:
+    command: "python tools/workstream_converter.py --verify-no-loss {input_dir} {output_dir}"
+    expect_exit_code: 0
+    failure_action: halt_and_report
+  
+  gate_4_dependency_graph_valid:
+    command: "python tools/workstream_validator.py --check-cycles {output_dir}/*.yaml"
+    expect_exit_code: 0
+    expect_stdout_contains: "No dependency cycles"
+    failure_action: halt_and_report
+
+execution_sequence:
+  - step: convert_all_workstreams
+    gate: gate_1_all_files_converted
+  
+  - step: validate_against_schema
+    gate: gate_2_all_validated
+  
+  - step: verify_data_integrity
+    gate: gate_3_no_data_loss
+  
+  - step: check_dependency_graph
+    gate: gate_4_dependency_graph_valid
+
+batch_configuration:
+  batch_size: 10
+  parallel: false
+  create_conversion_report: true
+  report_path: ".execution/workstream_conversion_report.txt"
+
+anti_pattern_guards:
+  hallucination_of_success:
+    enabled: true
+    rule: "Never mark conversion complete without all 4 gates passing"
+  
+  partial_success_amnesia:
+    enabled: true
+    rule: "Track conversion progress in .execution/workstream_conversion_progress.jsonl"
+
+telemetry:
+  track:
+    - workstreams_converted
+    - validation_pass_rate
+    - data_loss_detected
+    - dependency_cycles_found
+    - conversion_time
+  output: ".execution/telemetry.jsonl"

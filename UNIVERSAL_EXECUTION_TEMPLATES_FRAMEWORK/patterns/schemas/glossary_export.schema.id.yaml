@@ -1,0 +1,8 @@
+schema_id: glossary_export.schema.json
+pattern_id: PAT-GLOSSARY-EXPORT-001
+doc_id: DOC-GLOSSARY-EXPORT-001
+title: Glossary Export Pattern
+description: Export glossary to various formats (JSON, Markdown, CSV, HTML, YAML)
+version: 1.0.0
+status: active
+executor: glossary_export_executor.ps1

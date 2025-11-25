@@ -1,0 +1,111 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "glossary_export.schema.json",
+  "title": "Glossary Export Pattern Instance",
+  "description": "Schema for glossary_export pattern instances - export glossary to various formats",
+  "type": "object",
+  "required": [
+    "pattern_id",
+    "doc_id",
+    "inputs"
+  ],
+  "properties": {
+    "pattern_id": {
+      "type": "string",
+      "const": "PAT-GLOSSARY-EXPORT-001",
+      "description": "Pattern identifier for glossary export"
+    },
+    "doc_id": {
+      "type": "string",
+      "const": "DOC-GLOSSARY-EXPORT-001",
+      "pattern": "^DOC-[A-Z0-9-]+$",
+      "description": "Document ID for this pattern"
+    },
+    "inputs": {
+      "type": "object",
+      "required": [
+        "project_root",
+        "output_format",
+        "output_path"
+      ],
+      "properties": {
+        "project_root": {
+          "type": "string",
+          "description": "Root directory of the project"
+        },
+        "output_format": {
+          "type": "string",
+          "enum": ["json", "markdown", "csv", "html", "yaml"],
+          "description": "Export format"
+        },
+        "output_path": {
+          "type": "string",
+          "description": "Path for exported file"
+        },
+        "include_metadata": {
+          "type": "boolean",
+          "default": true,
+          "description": "Include full metadata in export"
+        },
+        "filter_by_category": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Export only specific categories"
+        },
+        "filter_by_status": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["active", "draft", "proposed", "deprecated"]
+          },
+          "description": "Export only terms with specific status"
+        },
+        "include_examples": {
+          "type": "boolean",
+          "default": true,
+          "description": "Include usage examples"
+        },
+        "include_related_terms": {
+          "type": "boolean",
+          "default": true,
+          "description": "Include related terms section"
+        },
+        "template_path": {
+          "type": "string",
+          "description": "Optional custom template for HTML/Markdown export"
+        }
+      }
+    },
+    "outputs": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["success", "failure"],
+          "description": "Execution status"
+        },
+        "output_file": {
+          "type": "string",
+          "description": "Path to generated export file"
+        },
+        "terms_exported": {
+          "type": "integer",
+          "description": "Number of terms exported"
+        },
+        "file_size_bytes": {
+          "type": "integer",
+          "description": "Size of exported file"
+        },
+        "execution_duration_seconds": {
+          "type": "number",
+          "description": "Total execution time"
+        },
+        "errors": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "List of errors encountered"
+        }
+      }
+    }
+  }
+}
