@@ -1,0 +1,144 @@
+{
+  "$schema": "../../../schema/module.schema.json",
+  "module_id": "error-plugin-ruff",
+  "ulid_prefix": "01KAYE",
+  "purpose": "Ruff linter integration for Python error detection with auto-fix capabilities",
+  "layer": "ui",
+  "version": "1.0.0",
+  
+  "state": {
+    "enabled": true,
+    "state_file": ".state/current.json",
+    "snapshots_enabled": false
+  },
+  
+  "artifacts": {
+    "code": [
+      {
+        "path": "01KAYE_plugin.py",
+        "ulid": "01KAYE0000000000000000000A",
+        "entry_point": true,
+        "exports": [
+          {
+            "name": "parse",
+            "type": "function",
+            "signature": "parse(file_path: str) -> List[ErrorRecord]"
+          },
+          {
+            "name": "fix",
+            "type": "function",
+            "signature": "fix(file_path: str, error: ErrorRecord) -> bool"
+          }
+        ]
+      }
+    ],
+    "schemas": [
+      {
+        "path": "01KAYE_manifest.schema.json",
+        "ulid": "01KAYE0000000000000000000B",
+        "validates": "plugin_manifest"
+      }
+    ],
+    "configs": [
+      {
+        "path": "01KAYE_manifest.json",
+        "ulid": "01KAYE0000000000000000000C",
+        "config_type": "plugin_manifest",
+        "schema": "01KAYE0000000000000000000B"
+      }
+    ],
+    "docs": [
+      {
+        "path": "01KAYE_README.md",
+        "ulid": "01KAYE0000000000000000000D",
+        "doc_type": "README"
+      }
+    ]
+  },
+  
+  "dependencies": {
+    "modules": ["error-engine"],
+    "external": [
+      {
+        "name": "ruff",
+        "version": ">=0.1.0",
+        "package_manager": "pip"
+      }
+    ]
+  },
+  
+  "import_patterns": [
+    {
+      "pattern": "from error.plugins.python_ruff.plugin import parse",
+      "description": "Parse Python file for errors using Ruff",
+      "deprecated": false
+    },
+    {
+      "pattern": "from error.plugins.python_ruff.plugin import fix",
+      "description": "Auto-fix Ruff errors in Python file",
+      "deprecated": false
+    }
+  ],
+  
+  "contracts": {
+    "inputs": [
+      {
+        "name": "file_path",
+        "schema": "builtin:string",
+        "description": "Absolute path to Python file to analyze"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "errors",
+        "schema": "error-engine:ErrorRecord[]",
+        "description": "List of detected errors with locations and severities"
+      }
+    ],
+    "invariants": [
+      {
+        "statement": "parse() returns empty list for non-Python files",
+        "enforced_by": "test_non_python_files"
+      },
+      {
+        "statement": "fix() is idempotent - running twice produces same result",
+        "enforced_by": "test_fix_idempotent"
+      },
+      {
+        "statement": "All detected errors include line, column, and rule_id",
+        "enforced_by": "test_error_record_completeness"
+      }
+    ]
+  },
+  
+  "ai_metadata": {
+    "priority": "HIGH",
+    "edit_policy": "safe",
+    "context_tokens_estimate": 1500,
+    "key_patterns": [
+      "Implements error.engine.Plugin interface",
+      "Uses manifest.json for plugin discovery",
+      "Delegates to external ruff CLI tool",
+      "Supports both detection (parse) and remediation (fix)"
+    ],
+    "common_tasks": [
+      {
+        "task": "Detect errors in Python file",
+        "entry_point": "parse",
+        "example": "errors = parse('/path/to/file.py')"
+      },
+      {
+        "task": "Auto-fix specific error",
+        "entry_point": "fix",
+        "example": "success = fix('/path/to/file.py', error_record)"
+      }
+    ]
+  },
+  
+  "metadata": {
+    "created": "2025-11-25T21:30:00Z",
+    "last_updated": "2025-11-25T21:30:00Z",
+    "authors": ["AI Pipeline Team"],
+    "status": "active"
+  }
+}
