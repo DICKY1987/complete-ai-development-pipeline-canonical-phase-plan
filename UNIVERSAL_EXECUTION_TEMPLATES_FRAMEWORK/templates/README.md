@@ -1,395 +1,385 @@
-# Templates Directory
+# UET Framework Templates
 
-Pre-compiled execution templates for decision elimination and autonomous execution.
-
-**Based on**: Decision Elimination Through Pattern Recognition methodology  
-**Objective**: 3-5x speedup by eliminating runtime decisions
+> **Universal Execution Templates - Reusable Components for AI Development Pipelines**  
+> **Last Updated**: 2025-11-23  
+> **Version**: 1.0.0
 
 ---
 
-## Directory Structure
+## 📋 Overview
+
+This directory contains reusable templates for the Universal Execution Templates (UET) Framework. These templates provide starting points for common pipeline components, following AI-codebase structure principles for maximum discoverability and maintainability.
+
+### Purpose
+
+The templates directory serves as a **single source of truth** for:
+- Project configuration templates
+- Orchestration patterns (phases, workstreams, DAGs)
+- Tool adapter implementations
+- UI/dashboard components
+- Example implementations
+
+### Design Principles
+
+1. **Explicit Hierarchy**: Directory structure mirrors architectural layers
+2. **Self-Documenting**: Each directory has clear documentation
+3. **Consistent Naming**: Same operations use same naming patterns
+4. **Single Responsibility**: Each template focuses on one concept
+5. **Dependency Declarations**: Clear dependency metadata
+6. **Discoverability**: Index files and conventional entry points
+
+---
+
+## 🗂️ Directory Structure
 
 ```
 templates/
-├── README.md                        # This file
-├── phase_templates/                 # Complete phase execution templates
-│   ├── worktree_lifecycle.template.yaml
-│   ├── module_creation.template.yaml
-│   ├── task_queue.template.yaml
-│   ├── validation_loop.template.yaml
-│   └── recovery_handler.template.yaml
+├── README.md                    # This file - master template index
+├── STRUCTURE.md                 # Detailed organization guide
+├── CONTEXT.md                   # Execution model and usage patterns
+├── dependencies.yaml            # Template dependencies
 │
-├── execution_patterns/              # Atomic execution patterns
-│   ├── atomic_create.pattern.yaml
-│   ├── batch_create.pattern.yaml
-│   ├── refactor_patch.pattern.yaml
-│   ├── self_heal.pattern.yaml
-│   ├── test_first.pattern.yaml
-│   └── verify_commit.pattern.yaml
+├── orchestration/              # 📊 Orchestration & Workflow Templates
+│   ├── README.md               # Orchestration template guide
+│   ├── phases/                 # Phase specification templates
+│   ├── workstreams/            # Workstream bundle templates
+│   ├── dags/                   # DAG definition templates
+│   └── tasks/                  # Task specification templates
 │
-├── verification_templates/          # Ground truth validators
-│   ├── preflight.verify.yaml
-│   ├── pytest_green.verify.yaml
-│   ├── git_clean.verify.yaml
-│   ├── scope_valid.verify.yaml
-│   ├── file_exists.verify.yaml
-│   └── import_valid.verify.yaml
+├── adapters/                   # 🔌 Tool Adapter Templates
+│   ├── README.md               # Adapter template guide
+│   ├── subprocess/             # Subprocess-based adapters
+│   ├── api/                    # API-based adapters
+│   └── custom/                 # Custom adapter templates
 │
-├── decision_templates/              # Pre-authorized decisions
-│   ├── worktree_creation.decisions.yaml
-│   ├── scope_validation.decisions.yaml
-│   ├── self_healing.decisions.yaml
-│   ├── test_coverage.decisions.yaml
-│   └── code_style.decisions.yaml
+├── configuration/              # ⚙️ Configuration Templates
+│   ├── README.md               # Configuration template guide
+│   ├── profiles/               # Project profile templates
+│   ├── routers/                # Router configuration templates
+│   └── constraints/            # Constraint definition templates
 │
-├── self_healing/                    # Auto-fix rules
-│   ├── missing_directory.fix.yaml
-│   ├── missing_import.fix.yaml
-│   ├── syntax_error.fix.yaml
-│   ├── test_failure.fix.yaml
-│   └── import_cycle.fix.yaml
+├── ui/                         # 🎨 UI Component Templates
+│   ├── README.md               # UI template guide
+│   ├── dashboards/             # Dashboard layout templates
+│   ├── reports/                # Report generation templates
+│   └── monitoring/             # Monitoring view templates
 │
-└── examples/                        # Complete examples
-    └── (coming soon)
+└── examples/                   # 📚 Complete Example Implementations
+    ├── README.md               # Examples guide
+    ├── simple-pipeline/        # Minimal working example
+    ├── multi-phase/            # Multi-phase workflow example
+    └── advanced/               # Advanced patterns example
 ```
 
 ---
 
-## Template Categories
+## 🚀 Quick Start
 
-### 1. Phase Templates
-**Purpose**: Complete pre-compiled phase execution plans  
-**Schema**: `schema/phase_template.v1.json`  
-**Time Savings**: 60-75% (133 min → 45 min)
+### Using Templates
 
-Complete templates that define:
-- All structural decisions (file paths, functions, structure)
-- Variable sections (filled at runtime)
-- Execution sequence (pre-ordered steps)
-- Ground truth verification (programmatic checks)
-- Self-healing rules (pre-authorized fixes)
+1. **Browse by Category**: Navigate to the appropriate subdirectory
+2. **Read Documentation**: Check the local README.md for usage instructions
+3. **Copy Template**: Copy the template file to your project
+4. **Customize**: Modify placeholders and configuration
+5. **Validate**: Use UET validation tools to verify
 
-**Example**: `worktree_lifecycle.template.yaml`
-- Creates Git worktree management module
-- 400-500 lines of implementation
-- 9 tests
-- CLI tool
-- 45 minutes (vs 3 hours manual)
+### Example: Creating a New Phase Template
 
-### 2. Execution Patterns
-**Purpose**: Reusable atomic execution patterns  
-**Schema**: `schema/execution_pattern.v1.json`  
-**Time Savings**: 60% coordination reduction
-
-Patterns for common operations:
-- `atomic_create`: Create 1-3 files with tests
-- `batch_create`: Create N similar files in parallel
-- `refactor_patch`: Modify existing code safely
-- `self_heal`: Detect → fix → retry loop
-- `test_first`: TDD workflow
-- `verify_commit`: Verify → commit atomic unit
-
-**Example**: `atomic_create.pattern.yaml`
-- Used in 80% of phases
-- Creates files + tests in one turn
-- No placeholders
-- Automatic verification
-- 60% faster than manual
-
-### 3. Verification Templates
-**Purpose**: Programmatic ground truth checks  
-**Schema**: `schema/verification_template.v1.json`  
-**Time Savings**: 90% (30 sec → 2 sec)
-
-Observable success criteria:
-- `preflight.verify`: Environment ready before execution
-- `pytest_green.verify`: All tests pass
-- `git_clean.verify`: No uncommitted changes
-- `scope_valid.verify`: Files within declared scope
-- `file_exists.verify`: Artifacts created
-- `import_valid.verify`: No deprecated imports
-
-**Example**: `pytest_green.verify.yaml`
-- Runs pytest programmatically
-- Parses output for metrics
-- Success = all tests pass
-- 2 seconds vs 30 seconds manual
-
-### 4. Decision Templates
-**Purpose**: Pre-authorized decision rules  
-**Schema**: Custom per template
-
-Pre-made decisions for:
-- When to create worktrees
-- File scope validation rules
-- Self-healing authorization
-- Test coverage requirements
-- Code style standards
-
-**Example**: `self_healing.decisions.yaml`
-- Missing directory → auto-create
-- Missing import → pip install
-- Syntax error → black format
-- Test failure → fix + retry (3x)
-
-### 5. Self-Healing Rules
-**Purpose**: Automatic error recovery  
-**Schema**: Custom per fix
-
-Auto-fix scenarios:
-- `missing_directory.fix`: Create dirs automatically
-- `missing_import.fix`: Install packages
-- `syntax_error.fix`: Auto-format code
-- `test_failure.fix`: Analyze + fix + retry
-- `import_cycle.fix`: Refactor imports
-
-**Example**: `missing_import.fix.yaml`
-- Detects: `ModuleNotFoundError: No module named 'X'`
-- Action: `pip install X --quiet`
-- Verify: `python -c 'import X'`
-- Max attempts: 1
-
----
-
-## How Templates Work
-
-### Traditional Execution (SLOW)
-```
-1. Load 300-line spec           → 30 sec
-2. Analyze dependencies         → 60 sec
-3. Design file structure        → 120 sec
-4. Plan verification            → 180 sec
-5. Create execution plan        → 120 sec
-6. Ask permissions              → 90 sec
-7. Execute                      → 7200 sec
-8. Manual verify                → 150 sec
-───────────────────────────────────────────
-TOTAL: 8000 sec (133 min)
-Tokens: 80k
-Human interventions: 3+
-```
-
-### Template-Driven Execution (FAST)
-```
-1. Load template                → 1 sec (pre-compiled)
-2. Fill context vars            → 2 sec
-3. Pre-flight verify            → 5 sec (programmatic)
-4. Execute                      → 2700 sec
-5. Auto-verify                  → 10 sec (programmatic)
-───────────────────────────────────────────
-TOTAL: 2720 sec (45 min)
-Tokens: 5k (-94%)
-Human interventions: 0 (-100%)
-```
-
-**Speedup**: 2.96x faster  
-**Key**: Decisions made once at template creation, not every execution
-
----
-
-## Using Templates
-
-### From Python
-```python
-from core.engine.template_loader import TemplateLoader
-from core.engine.pattern_executor import PatternExecutor
-
-# Load template
-loader = TemplateLoader()
-template = loader.load("worktree_lifecycle_v1")
-
-# Fill context variables
-context = {
-    "PROJECT_ROOT": "/path/to/project",
-    "BASE_BRANCH": "main",
-    "RUN_ID": "run-2025-11-23",
-    "WS_ID": "ws-001"
-}
-
-# Execute
-executor = PatternExecutor()
-result = executor.execute_template(template, context)
-```
-
-### From Workstream
-```yaml
-# workstream spec
-workstream_id: "WS-001"
-template_ref:
-  template_id: "module_creation_v1"
-  context_vars:
-    MODULE_NAME: "error_detector"
-    MODULE_PATH: "src/error/detector"
-    MODULE_PURPOSE: "Detect errors in patches"
-    LAYER: "domain"
-```
-
----
-
-## Creating New Templates
-
-### 1. Execute Phase Manually First
 ```bash
-# Run phase and track time/decisions
-python -m core.engine.orchestrator execute WS-001
+# 1. Navigate to orchestration templates
+cd templates/orchestration/phases/
 
-# Result: 133 minutes, 15 decisions made
+# 2. Copy a base template
+cp phase-template.yaml my-new-phase.yaml
+
+# 3. Edit the template
+# Replace placeholders: {{PHASE_ID}}, {{DESCRIPTION}}, etc.
+
+# 4. Validate
+python ../../core/bootstrap/validator.py my-new-phase.yaml
 ```
 
-### 2. Extract Template
+### Example: Creating a Tool Adapter
+
 ```bash
-# Analyze execution and create template
-python tools/extract_template.py \
-  --workstream WS-001 \
-  --run run-2025-11-23 \
-  --output templates/phase_templates/my_phase.template.yaml
-```
+# 1. Navigate to adapter templates
+cd templates/adapters/subprocess/
 
-### 3. Validate Template
-```bash
-# Check schema compliance
-python tools/validate_template.py \
-  templates/phase_templates/my_phase.template.yaml
-```
+# 2. Copy the template
+cp tool-adapter-template.py my_tool_adapter.py
 
-### 4. Use Template
-```bash
-# Execute using template (should be 60-75% faster)
-python -m core.engine.orchestrator execute WS-002 --use-template my_phase_v1
-```
+# 3. Implement required methods
+# - detect_capabilities()
+# - execute()
+# - validate_result()
 
-### 5. Measure ROI
-```
-First execution (manual):     133 min
-Template creation:             30 min
-─────────────────────────────────────
-Total investment:             163 min
-
-Second execution (template):   45 min
-Time saved:                    88 min
-
-Break-even:                     2 uses
-After 5 uses:                 440 min saved (7.3 hours)
-After 10 uses:                880 min saved (14.7 hours)
+# 4. Register in adapter registry
 ```
 
 ---
 
-## Template Standards
+## 📖 Template Categories
 
-### Naming Convention
-- Phase templates: `{phase_name}.template.yaml`
-- Execution patterns: `{pattern_name}.pattern.yaml`
-- Verification templates: `{check_name}.verify.yaml`
-- Decision templates: `{decision_area}.decisions.yaml`
-- Self-healing rules: `{error_type}.fix.yaml`
+### 1. Orchestration Templates (`orchestration/`)
 
-### Version Strategy
-- Semantic versioning: v1, v2, v3
-- Template ID includes version: `atomic_create_v1`
-- Breaking changes → new version
-- Old versions supported for 6 months
+**Purpose**: Define workflow structure and execution patterns
 
-### Required Metadata
-Every template MUST include:
-- `meta.template_id`: Unique identifier with version
-- `meta.category`: Template category
-- `meta.estimated_time_minutes`: Expected duration
-- `meta.time_savings_vs_manual`: Measured speedup
-- `meta.description`: What it does
-- `ground_truth_verification`: Observable success criteria
+**Use Cases**:
+- Creating new phase specifications
+- Defining workstream bundles
+- Building task DAGs
+- Configuring execution order
 
-### Testing
-Every template MUST have:
-- Unit tests (load, validate, fill variables)
-- Integration tests (full execution)
-- Performance benchmarks (vs manual)
-- Example in `examples/` directory
+**Key Templates**:
+- `phase-template.yaml` - Phase specification
+- `workstream-bundle-template.json` - Workstream bundle
+- `dag-template.yaml` - Dependency graph
+- `task-template.yaml` - Task definition
+
+**See**: [orchestration/README.md](orchestration/README.md)
 
 ---
 
-## Template Library Status
+### 2. Adapter Templates (`adapters/`)
 
-### Week 1: Core Infrastructure (4 templates)
-- [ ] `atomic_create.pattern.yaml` - File creation pattern
-- [ ] `pytest_green.verify.yaml` - Test verification
-- [ ] `preflight.verify.yaml` - Environment checks
-- [ ] `self_heal.pattern.yaml` - Auto-fix loop
+**Purpose**: Integrate external tools and services
 
-### Week 2: Phase Templates (3 templates)
-- [ ] `worktree_lifecycle.template.yaml` - Git worktree management
-- [ ] `module_creation.template.yaml` - Module + manifest creation
-- [ ] `scope_valid.verify.yaml` - Scope validation
+**Use Cases**:
+- Adding new CLI tool support
+- Integrating REST APIs
+- Creating custom tool wrappers
+- Implementing retry/resilience patterns
 
-### Week 3: Additional Patterns (6 templates)
-- [ ] `batch_create.pattern.yaml` - Parallel file creation
-- [ ] `refactor_patch.pattern.yaml` - Safe refactoring
-- [ ] `test_first.pattern.yaml` - TDD workflow
-- [ ] `git_clean.verify.yaml` - Git status check
-- [ ] `file_exists.verify.yaml` - Artifact verification
-- [ ] `import_valid.verify.yaml` - Import path check
+**Key Templates**:
+- `subprocess-adapter-template.py` - CLI tool wrapper
+- `api-adapter-template.py` - REST API client
+- `custom-adapter-template.py` - Custom integration
 
-### Week 4: Self-Healing & Decisions (10 templates)
-- [ ] `missing_directory.fix.yaml`
-- [ ] `missing_import.fix.yaml`
-- [ ] `syntax_error.fix.yaml`
-- [ ] `test_failure.fix.yaml`
-- [ ] `import_cycle.fix.yaml`
-- [ ] `worktree_creation.decisions.yaml`
-- [ ] `scope_validation.decisions.yaml`
-- [ ] `self_healing.decisions.yaml`
-- [ ] `test_coverage.decisions.yaml`
-- [ ] `code_style.decisions.yaml`
-
-**Total**: 28 templates planned  
-**Current**: 0 implemented  
-**Progress**: 0%
+**See**: [adapters/README.md](adapters/README.md)
 
 ---
 
-## ROI Analysis
+### 3. Configuration Templates (`configuration/`)
 
-### Template Library (28 templates)
+**Purpose**: Project and runtime configuration
+
+**Use Cases**:
+- Bootstrapping new projects
+- Defining tool routing
+- Setting up constraints
+- Configuring execution policies
+
+**Key Templates**:
+- `project-profile-template.yaml` - Project configuration
+- `router-config-template.json` - Tool routing rules
+- `constraints-template.yaml` - Execution constraints
+
+**See**: [configuration/README.md](configuration/README.md)
+
+---
+
+### 4. UI Templates (`ui/`)
+
+**Purpose**: User interface and reporting components
+
+**Use Cases**:
+- Creating dashboards
+- Generating reports
+- Building monitoring views
+- Visualizing progress
+
+**Key Templates**:
+- `dashboard-template.html` - Dashboard layout
+- `report-template.md` - Report format
+- `monitoring-view-template.json` - Monitor config
+
+**See**: [ui/README.md](ui/README.md)
+
+---
+
+### 5. Examples (`examples/`)
+
+**Purpose**: Complete working implementations
+
+**Use Cases**:
+- Learning UET patterns
+- Starting new projects
+- Reference implementations
+- Testing new features
+
+**Key Examples**:
+- `simple-pipeline/` - Minimal example
+- `multi-phase/` - Complex workflow
+- `advanced/` - Advanced patterns
+
+**See**: [examples/README.md](examples/README.md)
+
+---
+
+## 🔍 Finding the Right Template
+
+### By Use Case
+
+| I want to... | Use Template | Location |
+|--------------|-------------|----------|
+| Create a new execution phase | Phase Template | `orchestration/phases/` |
+| Add a new CLI tool | Subprocess Adapter | `adapters/subprocess/` |
+| Configure a new project | Project Profile | `configuration/profiles/` |
+| Build a monitoring dashboard | Dashboard Template | `ui/dashboards/` |
+| See a complete example | Simple Pipeline | `examples/simple-pipeline/` |
+
+### By Architecture Layer
+
+| Layer | Templates | Purpose |
+|-------|-----------|---------|
+| **Orchestration** | `orchestration/` | Workflow definition |
+| **Adapters** | `adapters/` | Tool integration |
+| **Configuration** | `configuration/` | Project setup |
+| **UI** | `ui/` | User interface |
+| **Examples** | `examples/` | Reference implementations |
+
+---
+
+## 📚 Documentation
+
+### Core Documents
+
+- **[STRUCTURE.md](STRUCTURE.md)** - Detailed structural organization
+- **[CONTEXT.md](CONTEXT.md)** - Execution model and context management
+- **[dependencies.yaml](dependencies.yaml)** - Template dependency graph
+
+### Related Documentation
+
+- **[UET Framework README](../README.md)** - Main framework documentation
+- **[UET Specifications](../specs/)** - Detailed specifications
+- **[UET Schemas](../schema/)** - JSON schemas for validation
+- **[UET Profiles](../profiles/)** - Project type profiles
+
+---
+
+## 🎯 Template Naming Conventions
+
+### File Naming Pattern
+
 ```
-Creation cost:
-  28 templates × 178 min/template = 4,984 min (83 hours)
+{component-type}-{variant}-template.{extension}
 
-Savings (avg 5 uses per template):
-  28 templates × 5 uses × 88 min saved = 12,320 min (205 hours)
-
-Net savings:
-  205 hours - 83 hours = 122 hours
-
-ROI:
-  147% return on investment
+Examples:
+- phase-core-template.yaml
+- workstream-parallel-template.json
+- adapter-subprocess-template.py
+- dashboard-progress-template.html
 ```
 
-### Per Template
+### Directory Naming Pattern
+
 ```
-Investment: 178 min (first execution + extraction)
-Break-even: 2 uses
-After 5 uses: 7.3 hours saved
-After 10 uses: 14.7 hours saved
+{layer}/{category}/{subcategory}/
+
+Examples:
+- orchestration/phases/
+- adapters/subprocess/
+- configuration/profiles/
+- ui/dashboards/
 ```
 
 ---
 
-## Schema References
+## ✅ Template Quality Standards
 
-- `schema/phase_template.v1.json` - Phase template schema
-- `schema/execution_pattern.v1.json` - Execution pattern schema
-- `schema/verification_template.v1.json` - Verification template schema
+All templates must:
+
+1. **Include Header Comments**: Explain purpose, usage, and parameters
+2. **Provide Examples**: Show realistic usage scenarios
+3. **Document Placeholders**: Clear `{{PLACEHOLDER}}` syntax
+4. **Include Validation**: Reference validation schemas
+5. **Show Dependencies**: List required components
+6. **Link to Specs**: Reference relevant specifications
+
+### Template Checklist
+
+```markdown
+- [ ] Header comment with purpose and usage
+- [ ] All placeholders documented
+- [ ] Example values provided
+- [ ] Validation schema referenced
+- [ ] Dependencies listed
+- [ ] Related specs linked
+- [ ] Test example included
+```
 
 ---
 
-## Documentation
+## 🔗 Integration Points
 
-- `TEMPLATE_IMPLEMENTATION_PLAN.md` - Full implementation plan
-- `docs/templates/` - Detailed template documentation
-- `examples/` - Working examples
+### With UET Framework Components
+
+Templates integrate with:
+- **Bootstrap System**: Used during project initialization
+- **Orchestration Engine**: Loaded at runtime for execution
+- **Tool Adapters**: Implement adapter interface
+- **Validation System**: Validated against JSON schemas
+- **Documentation**: Referenced in specs and guides
+
+### With External Systems
+
+Templates support:
+- **Version Control**: Git-friendly formats
+- **CI/CD**: Automated validation and deployment
+- **IDEs**: Syntax highlighting and autocomplete
+- **AI Tools**: Machine-readable structure
 
 ---
 
-**Created**: 2025-11-23  
-**Status**: Directory structure created, schemas defined  
-**Next**: Implement Week 1 core templates
+## 🛠️ Contributing Templates
+
+### Adding a New Template
+
+1. **Choose Category**: Select appropriate subdirectory
+2. **Follow Naming Convention**: Use standard naming pattern
+3. **Add Documentation**: Include header comments and examples
+4. **Update Index**: Add entry to category README.md
+5. **Validate**: Run validation scripts
+6. **Submit PR**: Include usage example and tests
+
+### Template Guidelines
+
+- **Keep It Simple**: Focus on one concept per template
+- **Use Clear Placeholders**: `{{VARIABLE}}` format
+- **Provide Defaults**: Sensible default values
+- **Document Thoroughly**: Explain non-obvious choices
+- **Link to Specs**: Reference canonical specifications
+
+---
+
+## 📞 Support
+
+### Getting Help
+
+- **Documentation**: Check category-specific README.md
+- **Examples**: Review working examples in `examples/`
+- **Specifications**: Consult [UET Specs](../specs/)
+- **Issues**: Report problems via GitHub issues
+
+### Common Questions
+
+**Q: Which template should I use?**  
+A: See [Finding the Right Template](#-finding-the-right-template)
+
+**Q: How do I customize a template?**  
+A: Copy the template, replace `{{PLACEHOLDERS}}`, validate with schemas
+
+**Q: Can I create my own templates?**  
+A: Yes! Follow [Contributing Templates](#-contributing-templates) guidelines
+
+---
+
+## 📄 License
+
+Templates are part of the UET Framework and follow the same license.
+
+---
+
+**Built with**: AI-Codebase Structure Principles  
+**Status**: Initial Release (v1.0.0)  
+**Next**: Expand template library with community contributions
