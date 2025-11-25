@@ -1,0 +1,408 @@
+metadata:
+  generated: '2025-11-25T22:00:00Z'
+  total_modules: 33
+  version: 1.0.0
+layers:
+  infra:
+  - core-state
+  domain:
+  - core-ast
+  - core-engine
+  - core-planning
+  - error-engine
+  - specifications-tools
+  api:
+  - aim-cli
+  - aim-environment
+  - aim-registry
+  - aim-services
+  - aim-tests
+  - pm-integrations
+  ui:
+  - error-plugin-codespell
+  - error-plugin-echo
+  - error-plugin-gitleaks
+  - error-plugin-json-jq
+  - error-plugin-js-eslint
+  - error-plugin-js-prettier-fix
+  - error-plugin-md-markdownlint
+  - error-plugin-md-mdformat-fix
+  - error-plugin-path-standardizer
+  - error-plugin-powershell-pssa
+  - error-plugin-python-bandit
+  - error-plugin-python-black-fix
+  - error-plugin-python-isort-fix
+  - error-plugin-python-mypy
+  - error-plugin-python-pylint
+  - error-plugin-python-pyright
+  - error-plugin-python-ruff
+  - error-plugin-python-safety
+  - error-plugin-semgrep
+  - error-plugin-test-runner
+  - error-plugin-yaml-yamllint
+modules:
+- id: core-ast
+  name: Core Ast
+  layer: domain
+  source_dir: core\ast
+  files:
+  - core\ast\extractors.py
+  ulid_prefix: '010000'
+  dependencies: []
+  file_count: 1
+- id: core-engine
+  name: Core Engine
+  layer: domain
+  source_dir: core\engine
+  files:
+  - core\engine\aim_integration.py
+  - core\engine\circuit_breakers.py
+  - core\engine\compensation.py
+  - core\engine\context_estimator.py
+  - core\engine\cost_tracker.py
+  - core\engine\dag_builder.py
+  - core\engine\event_bus.py
+  - core\engine\executor.py
+  - core\engine\hardening.py
+  - core\engine\integration_worker.py
+  - core\engine\metrics.py
+  - core\engine\orchestrator.py
+  - core\engine\patch_applier.py
+  - core\engine\patch_converter.py
+  - core\engine\performance.py
+  - core\engine\pipeline_plus_orchestrator.py
+  - core\engine\plan_validator.py
+  - core\engine\process_spawner.py
+  - core\engine\prompt_engine.py
+  - core\engine\recovery.py
+  - core\engine\recovery_manager.py
+  - core\engine\scheduler.py
+  - core\engine\test_gates.py
+  - core\engine\tools.py
+  - core\engine\uet_orchestrator.py
+  - core\engine\uet_patch_ledger.py
+  - core\engine\uet_router.py
+  - core\engine\uet_scheduler.py
+  - core\engine\uet_state_machine.py
+  - core\engine\validators.py
+  - core\engine\worker.py
+  ulid_prefix: '010001'
+  dependencies:
+  - aim-environment
+  - aim-registry
+  - core-planning
+  - core-state
+  file_count: 31
+- id: core-planning
+  name: Core Planning
+  layer: domain
+  source_dir: core\planning
+  files:
+  - core\planning\archive.py
+  - core\planning\ccpm_integration.py
+  - core\planning\parallelism_detector.py
+  - core\planning\planner.py
+  ulid_prefix: '010002'
+  dependencies:
+  - core-state
+  file_count: 4
+- id: core-state
+  name: Core State
+  layer: infra
+  source_dir: core\state
+  files:
+  - core\state\audit_logger.py
+  - core\state\bundles.py
+  - core\state\crud.py
+  - core\state\dag_utils.py
+  - core\state\db.py
+  - core\state\db_sqlite.py
+  - core\state\db_unified.py
+  - core\state\pattern_telemetry_db.py
+  - core\state\task_queue.py
+  - core\state\uet_db.py
+  - core\state\uet_db_adapter.py
+  - core\state\worktree.py
+  ulid_prefix: '010003'
+  dependencies:
+  - error-engine
+  file_count: 12
+- id: error-engine
+  name: Error Detection Engine
+  layer: domain
+  source_dir: error\engine
+  files:
+  - error\engine\agent_adapters.py
+  - error\engine\error_context.py
+  - error\engine\error_engine.py
+  - error\engine\error_pipeline_cli.py
+  - error\engine\error_pipeline_service.py
+  - error\engine\error_state_machine.py
+  - error\engine\file_hash_cache.py
+  - error\engine\pipeline_engine.py
+  - error\engine\plugin_manager.py
+  ulid_prefix: '010004'
+  dependencies: []
+  file_count: 9
+- id: error-plugin-codespell
+  name: 'Error Plugin: codespell'
+  layer: ui
+  source_dir: error\plugins\codespell
+  files:
+  - error\plugins\codespell\plugin.py
+  ulid_prefix: '010005'
+  dependencies: []
+  file_count: 1
+- id: error-plugin-echo
+  name: 'Error Plugin: echo'
+  layer: ui
+  source_dir: error\plugins\echo
+  files:
+  - error\plugins\echo\plugin.py
+  ulid_prefix: '010006'
+  dependencies: []
+  file_count: 1
+- id: error-plugin-gitleaks
+  name: 'Error Plugin: gitleaks'
+  layer: ui
+  source_dir: error\plugins\gitleaks
+  files:
+  - error\plugins\gitleaks\plugin.py
+  ulid_prefix: '010007'
+  dependencies: []
+  file_count: 1
+- id: error-plugin-json-jq
+  name: 'Error Plugin: json_jq'
+  layer: ui
+  source_dir: error\plugins\json_jq
+  files:
+  - error\plugins\json_jq\plugin.py
+  ulid_prefix: 010008
+  dependencies: []
+  file_count: 1
+- id: error-plugin-js-eslint
+  name: 'Error Plugin: js_eslint'
+  layer: ui
+  source_dir: error\plugins\js_eslint
+  files:
+  - error\plugins\js_eslint\plugin.py
+  ulid_prefix: 010009
+  dependencies: []
+  file_count: 1
+- id: error-plugin-js-prettier-fix
+  name: 'Error Plugin: js_prettier_fix'
+  layer: ui
+  source_dir: error\plugins\js_prettier_fix
+  files:
+  - error\plugins\js_prettier_fix\plugin.py
+  ulid_prefix: 01000A
+  dependencies: []
+  file_count: 1
+- id: error-plugin-md-markdownlint
+  name: 'Error Plugin: md_markdownlint'
+  layer: ui
+  source_dir: error\plugins\md_markdownlint
+  files:
+  - error\plugins\md_markdownlint\plugin.py
+  ulid_prefix: 01000B
+  dependencies: []
+  file_count: 1
+- id: error-plugin-md-mdformat-fix
+  name: 'Error Plugin: md_mdformat_fix'
+  layer: ui
+  source_dir: error\plugins\md_mdformat_fix
+  files:
+  - error\plugins\md_mdformat_fix\plugin.py
+  ulid_prefix: 01000C
+  dependencies: []
+  file_count: 1
+- id: error-plugin-path-standardizer
+  name: 'Error Plugin: path_standardizer'
+  layer: ui
+  source_dir: error\plugins\path_standardizer
+  files:
+  - error\plugins\path_standardizer\plugin.py
+  ulid_prefix: 01000D
+  dependencies: []
+  file_count: 1
+- id: error-plugin-powershell-pssa
+  name: 'Error Plugin: powershell_pssa'
+  layer: ui
+  source_dir: error\plugins\powershell_pssa
+  files:
+  - error\plugins\powershell_pssa\plugin.py
+  ulid_prefix: 01000E
+  dependencies: []
+  file_count: 1
+- id: error-plugin-python-bandit
+  name: 'Error Plugin: python_bandit'
+  layer: ui
+  source_dir: error\plugins\python_bandit
+  files:
+  - error\plugins\python_bandit\plugin.py
+  ulid_prefix: 01000F
+  dependencies: []
+  file_count: 1
+- id: error-plugin-python-black-fix
+  name: 'Error Plugin: python_black_fix'
+  layer: ui
+  source_dir: error\plugins\python_black_fix
+  files:
+  - error\plugins\python_black_fix\plugin.py
+  ulid_prefix: '010010'
+  dependencies: []
+  file_count: 1
+- id: error-plugin-python-isort-fix
+  name: 'Error Plugin: python_isort_fix'
+  layer: ui
+  source_dir: error\plugins\python_isort_fix
+  files:
+  - error\plugins\python_isort_fix\plugin.py
+  ulid_prefix: '010011'
+  dependencies: []
+  file_count: 1
+- id: error-plugin-python-mypy
+  name: 'Error Plugin: python_mypy'
+  layer: ui
+  source_dir: error\plugins\python_mypy
+  files:
+  - error\plugins\python_mypy\plugin.py
+  ulid_prefix: '010012'
+  dependencies: []
+  file_count: 1
+- id: error-plugin-python-pylint
+  name: 'Error Plugin: python_pylint'
+  layer: ui
+  source_dir: error\plugins\python_pylint
+  files:
+  - error\plugins\python_pylint\plugin.py
+  ulid_prefix: '010013'
+  dependencies: []
+  file_count: 1
+- id: error-plugin-python-pyright
+  name: 'Error Plugin: python_pyright'
+  layer: ui
+  source_dir: error\plugins\python_pyright
+  files:
+  - error\plugins\python_pyright\plugin.py
+  ulid_prefix: '010014'
+  dependencies: []
+  file_count: 1
+- id: error-plugin-python-ruff
+  name: 'Error Plugin: python_ruff'
+  layer: ui
+  source_dir: error\plugins\python_ruff
+  files:
+  - error\plugins\python_ruff\plugin.py
+  ulid_prefix: '010015'
+  dependencies: []
+  file_count: 1
+- id: error-plugin-python-safety
+  name: 'Error Plugin: python_safety'
+  layer: ui
+  source_dir: error\plugins\python_safety
+  files:
+  - error\plugins\python_safety\plugin.py
+  ulid_prefix: '010016'
+  dependencies: []
+  file_count: 1
+- id: error-plugin-semgrep
+  name: 'Error Plugin: semgrep'
+  layer: ui
+  source_dir: error\plugins\semgrep
+  files:
+  - error\plugins\semgrep\plugin.py
+  ulid_prefix: '010017'
+  dependencies: []
+  file_count: 1
+- id: error-plugin-test-runner
+  name: 'Error Plugin: test_runner'
+  layer: ui
+  source_dir: error\plugins\test_runner
+  files:
+  - error\plugins\test_runner\plugin.py
+  ulid_prefix: 010018
+  dependencies: []
+  file_count: 1
+- id: error-plugin-yaml-yamllint
+  name: 'Error Plugin: yaml_yamllint'
+  layer: ui
+  source_dir: error\plugins\yaml_yamllint
+  files:
+  - error\plugins\yaml_yamllint\plugin.py
+  ulid_prefix: 010019
+  dependencies: []
+  file_count: 1
+- id: aim-cli
+  name: AIM Cli
+  layer: api
+  source_dir: aim\cli
+  files:
+  - aim\cli\main.py
+  ulid_prefix: 01001A
+  dependencies: []
+  file_count: 1
+- id: aim-environment
+  name: AIM Environment
+  layer: api
+  source_dir: aim\environment
+  files:
+  - aim\environment\audit.py
+  - aim\environment\exceptions.py
+  - aim\environment\health.py
+  - aim\environment\installer.py
+  - aim\environment\scanner.py
+  - aim\environment\secrets.py
+  - aim\environment\version_control.py
+  ulid_prefix: 01001B
+  dependencies: []
+  file_count: 7
+- id: aim-registry
+  name: AIM Registry
+  layer: api
+  source_dir: aim\registry
+  files:
+  - aim\registry\config_loader.py
+  ulid_prefix: 01001C
+  dependencies:
+  - aim-environment
+  file_count: 1
+- id: aim-services
+  name: AIM Services
+  layer: api
+  source_dir: aim\services
+  files: []
+  ulid_prefix: 01001D
+  dependencies: []
+  file_count: 0
+- id: aim-tests
+  name: AIM Tests
+  layer: api
+  source_dir: aim\tests
+  files:
+  - aim\tests\conftest.py
+  ulid_prefix: 01001E
+  dependencies: []
+  file_count: 1
+- id: pm-integrations
+  name: PM Integrations
+  layer: api
+  source_dir: pm\integrations
+  files:
+  - pm\integrations\github_sync.py
+  ulid_prefix: 01001F
+  dependencies: []
+  file_count: 1
+- id: specifications-tools
+  name: Specifications Tools
+  layer: domain
+  source_dir: specifications\tools
+  files:
+  - specifications\tools\guard\guard.py
+  - specifications\tools\indexer\indexer.py
+  - specifications\tools\patcher\patcher.py
+  - specifications\tools\renderer\renderer.py
+  - specifications\tools\resolver\resolver.py
+  ulid_prefix: '010020'
+  dependencies: []
+  file_count: 5
