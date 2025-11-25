@@ -3,7 +3,7 @@ metadata:
   created: '2025-11-24'
   last_updated: '2025-11-24'
   spec_doc: DOC_ID_FRAMEWORK.md
-  total_docs: 91
+  total_docs: 123
 categories:
   patterns:
     prefix: PAT
@@ -38,14 +38,14 @@ categories:
   aim:
     prefix: AIM
     description: AIM environment manager modules
-    count: 0
-    next_id: 1
+    count: 26
+    next_id: 27
     index_file: aim/AIM_INDEX.yaml
   pm:
     prefix: PM
     description: Project management artifacts
-    count: 0
-    next_id: 1
+    count: 6
+    next_id: 7
     index_file: pm/PM_INDEX.yaml
   infra:
     prefix: INFRA
@@ -1161,6 +1161,384 @@ docs:
   - guide
   - execution
   - performance
+- doc_id: DOC-AIM-AIM-BRIDGE-001
+  category: aim
+  name: aim_bridge
+  title: 'AIM: bridge'
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - aim
+  - environment
+  - management
+- doc_id: DOC-AIM-AIM-EXCEPTIONS-002
+  category: aim
+  name: aim_exceptions
+  title: 'AIM: exceptions'
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - aim
+  - environment
+  - management
+- doc_id: DOC-AIM-AIM-CLI-MAIN-003
+  category: aim
+  name: aim_cli_main
+  title: 'AIM: main'
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - aim
+  - environment
+  - management
+- doc_id: DOC-AIM-AIM-CLI-COMMANDS-AUDIT-004
+  category: aim
+  name: aim_cli_commands_audit
+  title: 'AIM: audit'
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - aim
+  - environment
+  - management
+- doc_id: DOC-AIM-AIM-CLI-COMMANDS-HEALTH-005
+  category: aim
+  name: aim_cli_commands_health
+  title: 'AIM: health'
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - aim
+  - environment
+  - management
+- doc_id: DOC-AIM-AIM-CLI-COMMANDS-INSTALL-006
+  category: aim
+  name: aim_cli_commands_install
+  title: 'AIM: install'
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - aim
+  - environment
+  - management
+- doc_id: DOC-AIM-AIM-CLI-COMMANDS-SCAN-007
+  category: aim
+  name: aim_cli_commands_scan
+  title: 'AIM: scan'
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - aim
+  - environment
+  - management
+- doc_id: DOC-AIM-AIM-CLI-COMMANDS-SECRETS-008
+  category: aim
+  name: aim_cli_commands_secrets
+  title: 'AIM: secrets'
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - aim
+  - environment
+  - management
+- doc_id: DOC-AIM-AIM-CLI-COMMANDS-TOOLS-009
+  category: aim
+  name: aim_cli_commands_tools
+  title: 'AIM: tools'
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - aim
+  - environment
+  - management
+- doc_id: DOC-AIM-AIM-CLI-COMMANDS-VERSION-010
+  category: aim
+  name: aim_cli_commands_version
+  title: 'AIM: version'
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - aim
+  - environment
+  - management
+- doc_id: DOC-AIM-AIM-ENVIRONMENT-AUDIT-011
+  category: aim
+  name: aim_environment_audit
+  title: 'AIM: audit'
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - aim
+  - environment
+  - management
+- doc_id: DOC-AIM-AIM-ENVIRONMENT-EXCEPTIONS-012
+  category: aim
+  name: aim_environment_exceptions
+  title: 'AIM: exceptions'
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - aim
+  - environment
+  - management
+- doc_id: DOC-AIM-AIM-ENVIRONMENT-HEALTH-013
+  category: aim
+  name: aim_environment_health
+  title: 'AIM: health'
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - aim
+  - environment
+  - management
+- doc_id: DOC-AIM-AIM-ENVIRONMENT-INSTALLER-014
+  category: aim
+  name: aim_environment_installer
+  title: 'AIM: installer'
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - aim
+  - environment
+  - management
+- doc_id: DOC-AIM-AIM-ENVIRONMENT-SCANNER-015
+  category: aim
+  name: aim_environment_scanner
+  title: 'AIM: scanner'
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - aim
+  - environment
+  - management
+- doc_id: DOC-AIM-AIM-ENVIRONMENT-SECRETS-016
+  category: aim
+  name: aim_environment_secrets
+  title: 'AIM: secrets'
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - aim
+  - environment
+  - management
+- doc_id: DOC-AIM-AIM-ENVIRONMENT-VERSION-CONTROL-017
+  category: aim
+  name: aim_environment_version_control
+  title: 'AIM: version control'
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - aim
+  - environment
+  - management
+- doc_id: DOC-AIM-AIM-REGISTRY-CONFIG-LOADER-018
+  category: aim
+  name: aim_registry_config_loader
+  title: 'AIM: config loader'
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - aim
+  - environment
+  - management
+- doc_id: DOC-AIM-AIM-TESTS-CONFTEST-019
+  category: aim
+  name: aim_tests_conftest
+  title: 'AIM: conftest'
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - aim
+  - environment
+  - management
+- doc_id: DOC-AIM-AIM-TESTS-ENVIRONMENT-TEST-AUDIT-020
+  category: aim
+  name: aim_tests_environment_test_audit
+  title: 'AIM: test audit'
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - aim
+  - environment
+  - management
+- doc_id: DOC-AIM-AIM-TESTS-ENVIRONMENT-TEST-HEALTH-021
+  category: aim
+  name: aim_tests_environment_test_health
+  title: 'AIM: test health'
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - aim
+  - environment
+  - management
+- doc_id: DOC-AIM-AIM-TESTS-ENVIRONMENT-TEST-INSTALLER-022
+  category: aim
+  name: aim_tests_environment_test_installer
+  title: 'AIM: test installer'
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - aim
+  - environment
+  - management
+- doc_id: DOC-AIM-AIM-TESTS-ENVIRONMENT-TEST-SCANNER-023
+  category: aim
+  name: aim_tests_environment_test_scanner
+  title: 'AIM: test scanner'
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - aim
+  - environment
+  - management
+- doc_id: DOC-AIM-AIM-TESTS-ENVIRONMENT-TEST-SECRETS-024
+  category: aim
+  name: aim_tests_environment_test_secrets
+  title: 'AIM: test secrets'
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - aim
+  - environment
+  - management
+- doc_id: DOC-AIM-AIM-TESTS-ENVIRONMENT-TEST-VERSION-CONTROL-025
+  category: aim
+  name: aim_tests_environment_test_version_control
+  title: 'AIM: test version control'
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - aim
+  - environment
+  - management
+- doc_id: DOC-AIM-AIM-TESTS-REGISTRY-TEST-CONFIG-LOADER-026
+  category: aim
+  name: aim_tests_registry_test_config_loader
+  title: 'AIM: test config loader'
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - aim
+  - environment
+  - management
+- doc_id: DOC-PM-PM-BRIDGE-001
+  category: pm
+  name: pm_bridge
+  title: 'PM: bridge'
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - pm
+  - project-management
+- doc_id: DOC-PM-PM-EPIC-002
+  category: pm
+  name: pm_epic
+  title: 'PM: epic'
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - pm
+  - project-management
+- doc_id: DOC-PM-PM-EVENT-HANDLER-003
+  category: pm
+  name: pm_event_handler
+  title: 'PM: event handler'
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - pm
+  - project-management
+- doc_id: DOC-PM-PM-MODELS-004
+  category: pm
+  name: pm_models
+  title: 'PM: models'
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - pm
+  - project-management
+- doc_id: DOC-PM-PM-PRD-005
+  category: pm
+  name: pm_prd
+  title: 'PM: prd'
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - pm
+  - project-management
+- doc_id: DOC-PM-PM-INTEGRATIONS-GITHUB-SYNC-006
+  category: pm
+  name: pm_integrations_github_sync
+  title: 'PM: github sync'
+  status: active
+  artifacts: []
+  created: '2025-11-24'
+  last_modified: '2025-11-24'
+  tags:
+  - pm
+  - project-management
 migration_queue:
   core_modules:
   - path: core/state/db.py

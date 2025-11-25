@@ -1,0 +1,122 @@
+# PM_INDEX.yaml
+# Index of Project Management (PM) modules
+# Generated: 2025-11-24
+
+metadata:
+  category: pm
+  description: "Project management and coordination modules"
+  total_modules: 6
+  last_updated: "2025-11-24"
+
+# Core PM modules
+core:
+  - doc_id: DOC-PM-PM-BRIDGE-001
+    name: bridge
+    file: pm/bridge.py
+    purpose: "Bridge between PM system and main pipeline"
+    priority: high
+    status: active
+    
+  - doc_id: DOC-PM-PM-MODELS-004
+    name: models
+    file: pm/models.py
+    purpose: "Data models for project management entities"
+    priority: high
+    status: active
+    
+  - doc_id: DOC-PM-PM-EVENT-HANDLER-003
+    name: event_handler
+    file: pm/event_handler.py
+    purpose: "Handle project management events"
+    priority: medium
+    status: active
+
+# Epic Management
+epics:
+  - doc_id: DOC-PM-PM-EPIC-002
+    name: epic
+    file: pm/epic.py
+    purpose: "Epic creation and management"
+    priority: high
+    status: active
+    features:
+      - Epic breakdown
+      - User story generation
+      - Task decomposition
+      - Status tracking
+
+# PRD (Product Requirements Document)
+requirements:
+  - doc_id: DOC-PM-PM-PRD-005
+    name: prd
+    file: pm/prd.py
+    purpose: "PRD generation and management"
+    priority: medium
+    status: active
+    features:
+      - PRD templates
+      - Requirements capture
+      - Acceptance criteria
+      - Technical specifications
+
+# Integrations
+integrations:
+  - doc_id: DOC-PM-PM-INTEGRATIONS-GITHUB-SYNC-006
+    name: github_sync
+    file: pm/integrations/github_sync.py
+    purpose: "Synchronize with GitHub Projects and Issues"
+    priority: high
+    status: active
+    features:
+      - Issue synchronization
+      - Epic tracking
+      - Status updates
+      - Metadata sync
+
+# PM Workflows
+workflows:
+  epic_to_execution:
+    steps:
+      - "Create epic in PM system"
+      - "Break down into user stories"
+      - "Generate workstreams"
+      - "Sync to GitHub"
+      - "Track execution status"
+      - "Update progress"
+  
+  prd_workflow:
+    steps:
+      - "Define requirements in PRD"
+      - "Generate acceptance criteria"
+      - "Create technical specs"
+      - "Link to epics"
+      - "Track implementation"
+
+# Usage examples
+usage:
+  create_epic: "from pm.epic import Epic; epic = Epic.create(...)"
+  sync_github: "from pm.integrations.github_sync import sync; sync.update_issues()"
+  event_handling: "from pm.event_handler import handle_event; handle_event('epic_created', data)"
+
+# AI assistance metadata
+ai_priority:
+  high:
+    - DOC-PM-PM-BRIDGE-001
+    - DOC-PM-PM-EPIC-002
+    - DOC-PM-PM-MODELS-004
+    - DOC-PM-PM-INTEGRATIONS-GITHUB-SYNC-006
+  medium:
+    - DOC-PM-PM-EVENT-HANDLER-003
+    - DOC-PM-PM-PRD-005
+
+# Edit policy
+edit_policy:
+  safe_to_edit:
+    - All PM modules are safe to modify
+    - Update doc_id references when changing
+  requires_testing:
+    - Epic breakdown logic
+    - GitHub sync operations
+  validation_required:
+    - Data model changes
+    - Integration updates
