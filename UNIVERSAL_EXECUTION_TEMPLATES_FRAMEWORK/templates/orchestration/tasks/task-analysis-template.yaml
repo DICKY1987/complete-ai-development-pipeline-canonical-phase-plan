@@ -1,0 +1,77 @@
+# Template: Task Analysis Template
+# Purpose: Analysis/discovery task specification template
+# Version: 1.0.0
+# Schema: schema/task_spec.v1.json
+# Dependencies: Tool adapters (aider, codex, etc.)
+# Last Updated: 2025-11-23
+#
+# Usage:
+#   1. Copy: cp task-analysis-template.yaml my-task.yaml
+#   2. Replace {{PLACEHOLDERS}}
+#   3. Validate: python core/bootstrap/validator.py --schema schema/task_spec.v1.json --file my-task.yaml
+#
+# Placeholders:
+#   {{TASK_ID}}         - Unique task identifier
+#   {{DESCRIPTION}}     - Task description
+#   {{FILES}}           - File patterns to analyze
+#   {{INSTRUCTIONS}}    - Specific instructions for the tool
+
+task_id: "{{TASK_ID}}"
+description: "{{DESCRIPTION}}"
+version: "1.0.0"
+
+# Task type and capability requirement
+task_type: "analysis"
+capability_required: "code_analysis"
+
+# Tool configuration
+tool_requirement:
+  capability: "code_analysis"
+  tool_preference: "aider"  # Preferred tool (can fallback via router)
+  fallback_allowed: true
+
+# Input specification
+input:
+  files: ["{{FILES}}"]  # e.g., ["src/**/*.py", "tests/**/*.py"]
+  instructions: "{{INSTRUCTIONS}}"
+  context: {}  # Additional context as needed
+
+# Output specification
+output:
+  format: "markdown"
+  destination: "reports/{{TASK_ID}}_analysis.md"
+  
+# Execution configuration
+execution:
+  timeout: 300  # 5 minutes
+  retry_policy:
+    max_retries: 2
+    backoff_multiplier: 2.0
+    initial_delay: 5
+  work_dir: "{{WORK_DIR}}"  # Optional: defaults to project root
+
+# Validation
+validation:
+  required_output_files:
+    - "reports/{{TASK_ID}}_analysis.md"
+  success_criteria:
+    - type: "file_exists"
+      path: "reports/{{TASK_ID}}_analysis.md"
+    - type: "non_empty_file"
+      path: "reports/{{TASK_ID}}_analysis.md"
+
+# Metadata
+meta:
+  created: "2025-11-23"
+  template_version: "1.0.0"
+  tags: ["analysis", "discovery"]
+
+# Example
+# 
+# task_id: "task-001"
+# description: "Analyze Python codebase structure"
+# input:
+#   files: ["src/**/*.py"]
+#   instructions: "Analyze code structure, identify main modules, list dependencies"
+# output:
+#   destination: "reports/codebase_analysis.md"
