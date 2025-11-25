@@ -156,3 +156,6 @@ refactor_paths.db
 # .meta/ai_context/repo_summary.json
 # .meta/ai_context/repo_summary.md
 # .meta/ai_context/code_graph.json
+
+# Environment variables (sensitive)
+.env
