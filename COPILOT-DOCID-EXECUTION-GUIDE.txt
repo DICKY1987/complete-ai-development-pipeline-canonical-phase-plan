@@ -196,7 +196,7 @@ You MUST NOT start a repo-wide rename/minting effort until triage is in place.
 3. Create one batch spec for that module’s docs, e.g.:
 
    ```yaml
-   # docid_batches/docid_batch_modules_pipeline.yaml
+   # doc_id/docid_batches/docid_batch_modules_pipeline.yaml
    batch_id: DOCID-BATCH-MODULES-PIPELINE-001
    description: Assign doc_ids to pipeline module docs
    category: docs
@@ -214,22 +214,22 @@ You MUST NOT start a repo-wide rename/minting effort until triage is in place.
 
    ```bash
    python doc_id_registry_cli.py \
-     --registry DOC_ID_REGISTRY.yaml \
+     --registry doc_id/DOC_ID_REGISTRY.yaml \
      batch-mint \
-     --batch docid_batches/docid_batch_modules_pipeline.yaml \
+     --batch doc_id/docid_batches/docid_batch_modules_pipeline.yaml \
      --mode dry-run \
-     --dry-run-report docid_reports/preview_PIPELINE_001.md
+     --dry-run-report doc_id/docid_reports/preview_PIPELINE_001.md
    ```
 
 5. If clean, run in **deltas-only** mode:
 
    ```bash
    python doc_id_registry_cli.py \
-     --registry DOC_ID_REGISTRY.yaml \
+     --registry doc_id/DOC_ID_REGISTRY.yaml \
      batch-mint \
-     --batch docid_batches/docid_batch_modules_pipeline.yaml \
+     --batch doc_id/docid_batches/docid_batch_modules_pipeline.yaml \
      --mode deltas-only \
-     --delta-out docid_deltas/delta_DOCID_PIPELINE_001.jsonl \
+     --delta-out doc_id/docid_deltas/delta_DOCID_PIPELINE_001.jsonl \
      --no-registry
    ```
 
@@ -237,17 +237,17 @@ You MUST NOT start a repo-wide rename/minting effort until triage is in place.
 
    ```bash
    python doc_id_registry_cli.py \
-     --registry DOC_ID_REGISTRY.yaml \
+     --registry doc_id/DOC_ID_REGISTRY.yaml \
      merge-deltas \
-     docid_deltas/delta_DOCID_PIPELINE_001.jsonl \
-     --report docid_reports/merge_DOCID_PIPELINE_001.md
+     doc_id/docid_deltas/delta_DOCID_PIPELINE_001.jsonl \
+     --report doc_id/docid_reports/merge_DOCID_PIPELINE_001.md
    ```
 
 7. Validate:
 
    ```bash
    python doc_id_registry_cli.py validate --duplicates \
-     --report docid_reports/final_validation_PIPELINE_001.md
+     --report doc_id/docid_reports/final_validation_PIPELINE_001.md
    ```
 
 Only after this pattern works end-to-end should you scale to more modules.
@@ -265,7 +265,7 @@ Only after this pattern works end-to-end should you scale to more modules.
 
 **Steps (for each batch):**
 
-1. Create/extend a batch spec under `docid_batches/`, defining:
+1. Create/extend a batch spec under `doc_id/docid_batches/`, defining:
 
    * `batch_id`, `description`, `category`
    * `items[]` with `logical_name`, `title`, and `artifacts[].path`
@@ -274,20 +274,20 @@ Only after this pattern works end-to-end should you scale to more modules.
 
    ```bash
    python doc_id_registry_cli.py batch-mint \
-     --registry DOC_ID_REGISTRY.yaml \
-     --batch docid_batches/<batch>.yaml \
+     --registry doc_id/DOC_ID_REGISTRY.yaml \
+     --batch doc_id/docid_batches/<batch>.yaml \
      --mode dry-run \
-     --dry-run-report docid_reports/preview_<batch>.md
+     --dry-run-report doc_id/docid_reports/preview_<batch>.md
    ```
 
 3. If dry-run passes, run deltas-only:
 
    ```bash
    python doc_id_registry_cli.py batch-mint \
-     --registry DOC_ID_REGISTRY.yaml \
-     --batch docid_batches/<batch>.yaml \
+     --registry doc_id/DOC_ID_REGISTRY.yaml \
+     --batch doc_id/docid_batches/<batch>.yaml \
      --mode deltas-only \
-     --delta-out docid_deltas/delta_<batch>_001.jsonl \
+     --delta-out doc_id/docid_deltas/delta_<batch>_001.jsonl \
      --no-registry
    ```
 
@@ -318,10 +318,10 @@ This pattern **replaces** the old behavior where each worktree directly edited `
 
    ```bash
    python doc_id_registry_cli.py \
-     --registry DOC_ID_REGISTRY.yaml \
+     --registry doc_id/DOC_ID_REGISTRY.yaml \
      merge-deltas \
-     docid_deltas/delta_*.jsonl \
-     --report docid_reports/merge_DOCID_ALL_001.md
+     doc_id/docid_deltas/delta_*.jsonl \
+     --report doc_id/docid_reports/merge_DOCID_ALL_001.md
    ```
 
 3. If merge fails or introduces bad state:
@@ -377,7 +377,7 @@ This pattern directly addresses earlier inefficiencies where partial updates and
 
 3. In main checkout:
 
-   * Pull deltas from both worktrees (or ensure they’re visible in `docid_deltas/`).
+   * Pull deltas from both worktrees (or ensure they’re visible in `doc_id/docid_deltas/`).
    * Run `merge-deltas` and `validate`.
    * Run full tests.
    * Commit updated registry + indexes.
@@ -443,3 +443,4 @@ If any of these conditions are not met, you SHOULD propose corrections using the
 ```
 ::contentReference[oaicite:0]{index=0}
 ```
+

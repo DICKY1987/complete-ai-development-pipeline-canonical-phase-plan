@@ -9,7 +9,7 @@
 ## What Was Accomplished
 
 ### 1. Created Phase 3 Planning Document ✓
-- **File**: `workstreams/plans/PLAN_DOC_ID_PHASE3_EXECUTION__v1.md`
+- **File**: `doc_id/PLAN_DOC_ID_PHASE3_EXECUTION__v1.md`
 - **Status**: Draft
 - **Doc_ID**: `DOC-PLANS-PHASE3-EXECUTION-001` (assigned via batch workflow)
 - Contains all 5 execution patterns and completion criteria
@@ -54,7 +54,7 @@ Added three new commands per the phase plan:
 Tested the complete workflow on the Phase 3 plan document:
 
 **Steps completed**:
-1. ✓ Created batch spec: `docid_batches/docid_batch_phase3_plan.yaml`
+1. ✓ Created batch spec: `doc_id/docid_batches/docid_batch_phase3_plan.yaml`
 2. ✓ Ran dry-run: Generated preview report
 3. ✓ Ran deltas-only: Created delta JSONL
 4. ✓ Created rollback tag: `pre-docid-phase3-smoke-20251125-042745`
@@ -70,10 +70,10 @@ Tested the complete workflow on the Phase 3 plan document:
 
 ### 5. Created Directory Structure ✓
 Established required directories per phase plan:
-- `workstreams/plans/` – Plan documents
-- `docid_batches/` – Batch specification files
-- `docid_deltas/` – Delta JSONL files
-- `docid_reports/` – Dry-run and merge reports
+- `doc_id/PLAN_DOC_ID_PHASE3_EXECUTION__v1.md` - Plan document
+- `doc_id/docid_batches/` – Batch specification files
+- `doc_id/docid_deltas/` – Delta JSONL files
+- `doc_id/docid_reports/` – Dry-run and merge reports
 
 ---
 
@@ -158,17 +158,17 @@ Established required directories per phase plan:
 ## Files Created/Modified
 
 ### Created
-- `workstreams/plans/PLAN_DOC_ID_PHASE3_EXECUTION__v1.md`
+- `doc_id/PLAN_DOC_ID_PHASE3_EXECUTION__v1.md`
 - `scripts/doc_triage.py`
-- `docid_batches/docid_batch_phase3_plan.yaml`
-- `docid_deltas/delta_PHASE3_PLAN_001.jsonl`
-- `docid_reports/preview_PHASE3_PLAN_001.md`
-- `docid_reports/merge_PHASE3_PLAN_001.md`
+- `doc_id/docid_batches/docid_batch_phase3_plan.yaml`
+- `doc_id/docid_deltas/delta_PHASE3_PLAN_001.jsonl`
+- `doc_id/docid_reports/preview_PHASE3_PLAN_001.md`
+- `doc_id/docid_reports/merge_PHASE3_PLAN_001.md`
 - `developer/_DEV_PHASE3_PROGRESS.md` (this file)
 
 ### Modified
 - `scripts/doc_id_registry_cli.py` – Added batch-mint, merge-deltas, generate-index commands
-- `DOC_ID_REGISTRY.yaml` – Added DOC-PLANS-PHASE3-EXECUTION-001
+- `doc_id/DOC_ID_REGISTRY.yaml` – Added DOC-PLANS-PHASE3-EXECUTION-001
 
 ### Git Tags Created
 - `pre-docid-phase3-smoke-20251125-042745` – Rollback point before first merge
@@ -197,3 +197,4 @@ Established required directories per phase plan:
 ---
 
 **Next session**: Start Week 1 cleanup (rename 104 files, move 6 files, create batch specs).
+

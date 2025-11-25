@@ -11,6 +11,7 @@ This repository hosts a structured, phase-based plan and lightweight tooling for
 - 🧭 [**NAVIGATION.md**](NAVIGATION.md) - **Unified navigation hub** ⭐
 - 📘 [QUICK_START.md](QUICK_START.md) - Fast entry points for common tasks
 - 📋 [AGENTS.md](AGENTS.md) - Coding conventions and guidelines
+- 📖 [**glossary/**](glossary/) - **Comprehensive terminology reference** (75+ terms) ⭐
 - 🔍 [IMPLEMENTATION_LOCATIONS.md](docs/IMPLEMENTATION_LOCATIONS.md) - Find any term's code location (file:line)
 
 **For AI Tools**: Start with [.ai-context.md](.ai-context.md) for instant orientation, then use [NAVIGATION.md](NAVIGATION.md) for comprehensive navigation.

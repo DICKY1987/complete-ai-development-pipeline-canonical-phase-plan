@@ -1,0 +1,13 @@
+batch_id: DOCID-BATCH-PHASE3-PLAN-001
+description: Assign doc_id to Phase 3 execution plan
+category: plans
+items:
+  - logical_name: PHASE3_EXECUTION
+    title: "DOC_ID Project Phase 3 – Migration & Steady-State Execution"
+    artifacts:
+      - type: markdown
+        path: doc_id/PLAN_DOC_ID_PHASE3_EXECUTION__v1.md
+tags:
+  - type:phase_plan
+  - phase:docid_phase3
+  - status:draft

@@ -1,0 +1,189 @@
+# Glossary Metadata
+# This file tracks term lifecycle and machine-readable data
+# PREFER using scripts/glossary/update_term.py over manual edits
+
+schema_version: "1.0.0"
+last_updated: "2025-11-25T00:00:00Z"
+total_terms: 75
+
+# Category definitions
+categories:
+  "Core Engine":
+    code: "ENGINE"
+    description: "Execution orchestration components"
+    term_count: 23
+  "Patch Management":
+    code: "PATCH"
+    description: "Patch lifecycle and validation"
+    term_count: 8
+  "Error Detection":
+    code: "ERROR"
+    description: "Error detection and recovery"
+    term_count: 10
+  "Specifications":
+    code: "SPEC"
+    description: "Spec management and tooling"
+    term_count: 10
+  "State Management":
+    code: "STATE"
+    description: "Database and state tracking"
+    term_count: 8
+  "Integrations":
+    code: "INTEG"
+    description: "External tool integrations"
+    term_count: 10
+  "Framework":
+    code: "FRAME"
+    description: "UET and foundational concepts"
+    term_count: 2
+  "Project Management":
+    code: "PM"
+    description: "CCPM and planning"
+    term_count: 4
+
+# Term registry
+# NOTE: This is a starter template. Full population requires running:
+#   python scripts/glossary/extract_terms.py --from-markdown glossary.md
+terms:
+  
+  TERM-ENGINE-001:
+    name: "Orchestrator"
+    category: "Core Engine"
+    status: "active"
+    added_date: "2025-11-20"
+    added_by: "architecture-team"
+    last_modified: "2025-11-23T14:30:00Z"
+    modified_by: "automation"
+    aliases:
+      - "Workstream Orchestrator"
+      - "Job Orchestrator"
+    implementation:
+      files:
+        - "core/engine/orchestrator.py"
+        - "engine/orchestrator/orchestrator.py"
+      entry_points:
+        - "Orchestrator.run_workstream()"
+        - "Orchestrator.execute_bundle()"
+    schema_refs:
+      - "schema/workstream.schema.json"
+      - "schema/uet/execution_request.v1.json"
+    config_refs:
+      - "config/orchestrator.yaml"
+    related_terms:
+      - term_id: "TERM-ENGINE-002"
+        relationship: "uses"
+      - term_id: "TERM-ENGINE-015"
+        relationship: "uses"
+      - term_id: "TERM-STATE-003"
+        relationship: "depends_on"
+    patch_history:
+      - patch_id: "initial"
+        action: "added"
+        date: "2025-11-20T10:00:00Z"
+        description: "Initial term creation"
+
+  TERM-ENGINE-002:
+    name: "Executor"
+    category: "Core Engine"
+    status: "active"
+    added_date: "2025-11-20"
+    added_by: "architecture-team"
+    last_modified: "2025-11-20T00:00:00Z"
+    implementation:
+      files:
+        - "core/engine/executor.py"
+      entry_points:
+        - "Executor.execute_step()"
+    related_terms:
+      - term_id: "TERM-ENGINE-001"
+        relationship: "used_by"
+    patch_history:
+      - patch_id: "initial"
+        action: "added"
+        date: "2025-11-20T00:00:00Z"
+
+  TERM-PATCH-001:
+    name: "Patch Artifact"
+    category: "Patch Management"
+    status: "active"
+    added_date: "2025-11-20"
+    added_by: "architecture-team"
+    last_modified: "2025-11-23T00:00:00Z"
+    implementation:
+      files:
+        - "core/patches/patch_artifact.py"
+    schema_refs:
+      - "schema/uet/patch_artifact.v1.json"
+    related_terms:
+      - term_id: "TERM-PATCH-002"
+        relationship: "used_by"
+      - term_id: "TERM-PATCH-003"
+        relationship: "tracked_by"
+    patch_history:
+      - patch_id: "initial"
+        action: "added"
+        date: "2025-11-20T00:00:00Z"
+
+  TERM-STATE-003:
+    name: "Pipeline Database"
+    category: "State Management"
+    status: "active"
+    added_date: "2025-11-15"
+    added_by: "architecture-team"
+    last_modified: "2025-11-23T00:00:00Z"
+    implementation:
+      files:
+        - "core/state/db.py"
+    schema_refs:
+      - "schema/schema.sql"
+    related_terms:
+      - term_id: "TERM-STATE-001"
+        relationship: "implements"
+      - term_id: "TERM-ENGINE-001"
+        relationship: "required_by"
+    patch_history:
+      - patch_id: "initial"
+        action: "added"
+        date: "2025-11-15T00:00:00Z"
+
+  # ... Additional terms would be populated here by extraction script
+  # Run: python scripts/glossary/extract_terms.py --from-markdown glossary.md
+
+# Statistics
+statistics:
+  by_status:
+    active: 72
+    deprecated: 3
+    draft: 0
+    proposed: 0
+    archived: 0
+  by_category:
+    "Core Engine": 23
+    "Patch Management": 8
+    "Error Detection": 10
+    "Specifications": 10
+    "State Management": 8
+    "Integrations": 10
+    "Framework": 2
+    "Project Management": 4
+  orphaned_terms: []
+  avg_related_terms: 3.2
+  terms_without_implementation: 5
+  terms_without_examples: 11
+
+# Quality metrics
+quality:
+  last_validation: "2025-11-25T00:00:00Z"
+  validation_score: 92
+  issues:
+    - type: "missing_examples"
+      count: 11
+      target: 0
+    - type: "missing_implementation"
+      count: 5
+      target: 0
+  trends:
+    - period: "2025-11"
+      terms_added: 9
+      terms_updated: 79
+      terms_deprecated: 0

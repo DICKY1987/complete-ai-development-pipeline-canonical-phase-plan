@@ -214,7 +214,7 @@ python ../../scripts/doc_id_registry_cli.py list --category spec
 # Expected: 8 schema doc_ids
 
 # 5. COMMIT
-git add ../../DOC_ID_REGISTRY.yaml
+git add ../../doc_id/DOC_ID_REGISTRY.yaml
 git commit -m "feat: register schema file doc_ids (8 files)"
 ```
 
@@ -343,3 +343,4 @@ cd .worktrees/wt-docid-modules
 ---
 
 **DOC_LINK**: DOC-PAT-EXECUTION-DOCID-REGISTRATION-001
+

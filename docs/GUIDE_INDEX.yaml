@@ -12,7 +12,7 @@ metadata:
 framework_guides:
   - doc_id: DOC-GUIDE-DOC-ID-FRAMEWORK-001
     name: doc_id_framework
-    file: DOC_ID_FRAMEWORK.md
+    file: doc_id/DOC_ID_FRAMEWORK.md
     purpose: "Repository-wide documentation identifier system"
     audience: developers
     priority: critical
@@ -50,7 +50,7 @@ architecture:
 execution:
   - doc_id: DOC-GUIDE-DOCID-EXECUTION-PLAN-005
     name: docid_execution_plan
-    file: DOC_ID_EXECUTION_PLAN.md
+    file: doc_id/DOC_ID_EXECUTION_PLAN.md
     purpose: "Execution plan for doc_id system implementation"
     audience: developers
     priority: high
