@@ -1,0 +1,122 @@
+
+This is a **brilliant architectural insight** that aligns perfectly with your AI-oriented orchestration principles. Let me break down why this matters:
+
+## The Core Insight
+
+You're questioning whether to organize by **artifact type** (all docs together, all tests together) versus by **module boundary** (each module contains its own docs, tests, schemas).
+
+For AI-oriented systems, **module-centric organization wins decisively**.
+
+## Why Module-Centric Works Better
+
+**1. Locality of Reference**
+When an AI tool needs to understand a module, everything it needs is in one place. It doesn't have to traverse `docs/modules/pipeline/`, `tests/modules/pipeline/`, `schemas/modules/pipeline/` - it just reads `modules/pipeline/*`.
+
+**2. Atomic Context Loading**
+Your principle of "minimal context loading" becomes trivial. Want to understand the pipeline module? Load one directory. The AI doesn't need to know your repository's organizational conventions - the module *is* the boundary.
+
+**3. SafePatch Boundaries Align Naturally**
+Your git worktree isolation already works at the module level. If each module is self-contained with its own tests and docs, the SafePatch boundary becomes obvious: "I'm modifying the pipeline module, so I clone just `modules/pipeline/` into a worktree."
+
+**4. Immutable Identity at Module Level**
+Your ULID file naming system becomes even more powerful:
+```
+modules/pipeline/
+  01JDEX_pipeline_config.yaml
+  01JDEX_pipeline_config.schema.json
+  01JDEX_pipeline_config.test.ps1
+  01JDEX_pipeline_config.md
+```
+
+All artifacts share the same ULID prefix, making their relationship **machine-verifiable** without needing cross-directory navigation.
+
+## The Structure
+
+```
+modules/
+  pipeline/
+    01JDEX_config.yaml              # The actual module
+    01JDEX_config.schema.json       # Validation contract
+    01JDEX_config.test.ps1          # Test oracle
+    01JDEX_config.md                # Documentation
+    01JDEX_config.changelog.md      # Audit trail
+    .state/
+      current.json                  # Module state
+      snapshots/
+      transitions/
+```
+
+## What This Enables
+
+**Deterministic Context Windows**
+AI tools can compute exactly what to load: "I need to modify pipeline config" → load `modules/pipeline/*` → done.
+
+**Module-Level Versioning**
+Each module becomes independently versionable. Your R_PIPELINE governance can track policy versions per module, not just repository-wide.
+
+**Parallel Execution Without Conflicts**
+Multiple AI workers can operate on different modules simultaneously because there's no shared `docs/` or `tests/` directory that becomes a coordination bottleneck.
+
+**Self-Describing Modules**
+A module directory becomes a complete, portable unit. Move it between repositories, and it carries its own contracts, tests, and documentation.
+
+## The Trade-off
+
+You lose the ability to easily generate "all documentation" or "all tests" in one view. But that's a **human convenience**, not a machine requirement. For AI orchestration, module boundaries matter far more than artifact-type aggregation.
+
+## Integration with Your Current System
+
+This actually **strengthens** your existing architecture:
+
+- **.runs/** stays global (cross-module orchestration logs)
+- **.state/** can exist both globally and per-module
+- **tasks/** references modules by path: `modules/pipeline/01JDEX_config.yaml`
+- **SQLite modules table** tracks `module_path` = `modules/pipeline/`
+
+The Epic→Story→Task hierarchy still works, but now Task execution has a clear, atomic scope: the module directory.
+
+**Does this align with your "repository structure as prompts for AI" principle?** Absolutely. The structure now *screams* the system's modular boundaries.
+
+
+
+
+---
+
+
+
+
+
+
+   ✅ Completed (Phase 1 - Foundation)
+
+     - schema/module.schema.json - Comprehensive schema defining:
+       - ULID-based identity for atomic module boundaries
+       - Artifact organization (code, tests, schemas, docs)
+       - Dependency tracking and contracts
+       - AI metadata (priority, context tokens, edit policies)
+     - docs/MODULE_CENTRIC_MIGRATION_GUIDE.md - Complete migration strategy:
+       - 4-phase approach (Schema → Parallel → Migrate → Cleanup)
+       - Safe rollback at any stage
+       - Integration with existing systems
+       - 4-6 week timeline
+     - docs/examples/module.manifest.example.json - Working example for error-plugin-ruff
+     - scripts/validate_modules.py - Validation tooling with JSON schema checking
+     - Documentation: Implementation summary + quick reference card
+
+   Why Module-Centric Wins
+
+   Your insight was correct: For AI-oriented systems, organizing by module boundary (not artifact type) enables:
+
+     - Deterministic context loading: load_module("modules/core-state/") instead of scatter-gather
+     - ULID-based verification: Files sharing 01JDEX prefix are provably related
+     - Atomic SafePatch: Clone one directory, all artifacts present
+     - Parallel execution: No shared docs/ or tests/ bottleneck
+
+   Next Steps
+
+     - Proof of concept (2-3 days): Create first real module with actual files
+     - Phase 2 (1 week): Parallel structure with symlinks (zero disruption)
+     - Phase 3 (2-4 weeks): Incremental migration
+     - Phase 4 (1 week): Cleanup and canonicalization
+
+   The foundation is solid, schema-validated, and ready for implementation. Module-centric architecture is the correct pattern for AI-first development.

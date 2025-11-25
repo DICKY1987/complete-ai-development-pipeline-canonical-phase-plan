@@ -3,7 +3,11 @@
     "allow": [
       "Bash(pwsh -File:*)",
       "Bash(curl:*)",
-      "Bash(python:*)"
+      "Bash(python:*)",
+      "Bash(dir:*)",
+      "Bash(findstr:*)",
+      "Bash(Get-ChildItem -Directory)",
+      "Bash(Select-Object -First 15 Name)"
     ],
     "deny": [],
     "ask": []

@@ -1,0 +1,53 @@
+# Module Manifest Template
+# Use with template_renderer.py
+
+module_id: "core-ast"
+ulid_prefix: "010000"
+purpose: "Core Ast"
+layer: "domain"
+version: "1.0.0"
+
+state:
+  enabled: false
+  state_file: ".state/current.json"
+  snapshots_enabled: false
+
+artifacts:
+  code:
+    - path: "010000_extractors.py"
+      ulid: "01000000000000000000000000"
+      entry_point: true
+  
+  tests: []
+  schemas: []
+  docs:
+    - path: "010000_README.md"
+      ulid: "0100000000000000000000000Z"
+      doc_type: "README"
+
+dependencies:
+  modules: []
+  external: []
+
+import_patterns:
+  - pattern: "from core.ast.extractors import"
+    description: "Import from extractors"
+    deprecated: false
+
+contracts:
+  inputs: []
+  outputs: []
+  invariants: []
+
+ai_metadata:
+  priority: "MEDIUM"
+  edit_policy: "safe"
+  context_tokens_estimate: 0
+  key_patterns: []
+  common_tasks: []
+
+metadata:
+  created: "2025-11-25T16:21:48.717685Z"
+  last_updated: "2025-11-25T16:21:48.717685Z"
+  authors: ["AI Pipeline Team"]
+  status: "active"

@@ -120,7 +120,7 @@ def main():
         print(f"   - {module['id']}: {files} file(s), {deps} dep(s), layer={module['layer']}")
     
     if args.dry_run:
-        print(f"\n✓ Dry run complete. Use without --dry-run to execute.")
+        print(f"\nDry run complete. Use without --dry-run to execute.")
         return
     
     # Confirm

@@ -108,6 +108,29 @@ large_files = searcher.search("*", filter_func=is_large)
 
 ---
 
+### PAT-SEARCH-002: README Presence Audit
+**Purpose**: Identify which directories contain a README and which are missing one
+
+**Features**:
+- ? Recursively scans directories with configurable depth
+- ? Detects common README filename variants (case-insensitive)
+- ? Groups output into "with README" and "without README"
+- ? Optional JSON output for automation pipelines
+
+**Usage**:
+```bash
+# Text report for the current tree
+python scripts/readme_presence_scan.py --root .
+
+# JSON for tooling
+python scripts/readme_presence_scan.py --root . --json
+
+# Custom README names and depth limit
+python scripts/readme_presence_scan.py --root . --names README.md README.txt --max-depth 2
+```
+
+---
+
 ## Integration Examples
 
 ### Combined Workflow: Find and Process Patches
