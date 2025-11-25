@@ -1,0 +1,53 @@
+# Module Manifest Template
+# Use with template_renderer.py
+
+module_id: "error-plugin-python-bandit"
+ulid_prefix: "01000F"
+purpose: "Error Plugin: python_bandit"
+layer: "ui"
+version: "1.0.0"
+
+state:
+  enabled: false
+  state_file: ".state/current.json"
+  snapshots_enabled: false
+
+artifacts:
+  code:
+    - path: "01000F_plugin.py"
+      ulid: "01000F00000000000000000000"
+      entry_point: true
+  
+  tests: []
+  schemas: []
+  docs:
+    - path: "01000F_README.md"
+      ulid: "01000F0000000000000000000Z"
+      doc_type: "README"
+
+dependencies:
+  modules: []
+  external: []
+
+import_patterns:
+  - pattern: "from error.pluginsthon_bandit.plugin import"
+    description: "Import from plugin"
+    deprecated: false
+
+contracts:
+  inputs: []
+  outputs: []
+  invariants: []
+
+ai_metadata:
+  priority: "MEDIUM"
+  edit_policy: "safe"
+  context_tokens_estimate: 0
+  key_patterns: []
+  common_tasks: []
+
+metadata:
+  created: "2025-11-25T16:19:35.749861Z"
+  last_updated: "2025-11-25T16:19:35.749861Z"
+  authors: ["AI Pipeline Team"]
+  status: "active"

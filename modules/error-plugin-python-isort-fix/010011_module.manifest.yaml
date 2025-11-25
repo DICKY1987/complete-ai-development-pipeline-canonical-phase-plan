@@ -1,0 +1,53 @@
+# Module Manifest Template
+# Use with template_renderer.py
+
+module_id: "error-plugin-python-isort-fix"
+ulid_prefix: "010011"
+purpose: "Error Plugin: python_isort_fix"
+layer: "ui"
+version: "1.0.0"
+
+state:
+  enabled: false
+  state_file: ".state/current.json"
+  snapshots_enabled: false
+
+artifacts:
+  code:
+    - path: "010011_plugin.py"
+      ulid: "01001100000000000000000000"
+      entry_point: true
+  
+  tests: []
+  schemas: []
+  docs:
+    - path: "010011_README.md"
+      ulid: "0100110000000000000000000Z"
+      doc_type: "README"
+
+dependencies:
+  modules: []
+  external: []
+
+import_patterns:
+  - pattern: "from error.pluginsthon_isort_fix.plugin import"
+    description: "Import from plugin"
+    deprecated: false
+
+contracts:
+  inputs: []
+  outputs: []
+  invariants: []
+
+ai_metadata:
+  priority: "MEDIUM"
+  edit_policy: "safe"
+  context_tokens_estimate: 0
+  key_patterns: []
+  common_tasks: []
+
+metadata:
+  created: "2025-11-25T16:19:35.987543Z"
+  last_updated: "2025-11-25T16:19:35.987543Z"
+  authors: ["AI Pipeline Team"]
+  status: "active"

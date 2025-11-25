@@ -1,0 +1,53 @@
+# Module Manifest Template
+# Use with template_renderer.py
+
+module_id: "error-plugin-python-safety"
+ulid_prefix: "010016"
+purpose: "Error Plugin: python_safety"
+layer: "ui"
+version: "1.0.0"
+
+state:
+  enabled: false
+  state_file: ".state/current.json"
+  snapshots_enabled: false
+
+artifacts:
+  code:
+    - path: "010016_plugin.py"
+      ulid: "01001600000000000000000000"
+      entry_point: true
+  
+  tests: []
+  schemas: []
+  docs:
+    - path: "010016_README.md"
+      ulid: "0100160000000000000000000Z"
+      doc_type: "README"
+
+dependencies:
+  modules: []
+  external: []
+
+import_patterns:
+  - pattern: "from error.pluginsthon_safety.plugin import"
+    description: "Import from plugin"
+    deprecated: false
+
+contracts:
+  inputs: []
+  outputs: []
+  invariants: []
+
+ai_metadata:
+  priority: "MEDIUM"
+  edit_policy: "safe"
+  context_tokens_estimate: 0
+  key_patterns: []
+  common_tasks: []
+
+metadata:
+  created: "2025-11-25T16:19:36.574351Z"
+  last_updated: "2025-11-25T16:19:36.574351Z"
+  authors: ["AI Pipeline Team"]
+  status: "active"
