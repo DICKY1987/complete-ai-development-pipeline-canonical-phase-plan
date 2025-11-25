@@ -11,25 +11,40 @@ Write-Host ''
 
 $DryRun = $false  # Execute deletions
 
+function Invoke-Removal {
+    param(
+        [string]$RelativePath,
+        [switch]$Directory
+    )
+
+    $fullPath = Join-Path $RepoRoot $RelativePath
+    if (-not (Test-Path $fullPath)) {
+        Write-Host "Skip (not found): $RelativePath" -ForegroundColor DarkGray
+        return
+    }
+
+    if ($Directory) {
+        Remove-Item -Path $fullPath -Recurse -Force
+    } else {
+        Remove-Item -Path $fullPath -Force
+    }
+
+    Write-Host "Deleted: $RelativePath" -ForegroundColor Green
+}
+
 # CCPM commands duplicated (Confidence: 95%)
 # Note: Deleting parent directory ccpm/ccpm/ covers all subdirectories
 if ($DryRun) {
     Write-Host '[DRY-RUN] Would delete: ccpm/ccpm/' -ForegroundColor Yellow
 } else {
-    if (Test-Path (Join-Path $RepoRoot 'ccpm/ccpm/')) {
-        Remove-Item -Path (Join-Path $RepoRoot 'ccpm/ccpm/') -Recurse -Force
-        Write-Host 'Deleted: ccpm/ccpm/ (includes commands/, rules/, agents/)' -ForegroundColor Green
-    }
+    Invoke-Removal 'ccpm/ccpm/' -Directory
 }
 
 # Pattern extraction tools duplicated (Confidence: 90%)
 if ($DryRun) {
     Write-Host '[DRY-RUN] Would delete: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/scripts/pattern_extraction/' -ForegroundColor Yellow
 } else {
-    if (Test-Path (Join-Path $RepoRoot 'UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/scripts/pattern_extraction/')) {
-        Remove-Item -Path (Join-Path $RepoRoot 'UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/scripts/pattern_extraction/') -Recurse -Force
-        Write-Host 'Deleted: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/scripts/pattern_extraction/' -ForegroundColor Green
-    }
+    Invoke-Removal 'UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/scripts/pattern_extraction/' -Directory
 }
 
 # ai-logs-analyzer\aggregated\.gitkeep
@@ -39,8 +54,7 @@ if ($DryRun) {
 if ($DryRun) {
     Write-Host '[DRY-RUN] Would delete: ai-logs-analyzer\aggregated\.gitkeep' -ForegroundColor Yellow
 } else {
-    Remove-Item -Path (Join-Path $RepoRoot 'ai-logs-analyzer\aggregated\.gitkeep') -Force
-    Write-Host 'Deleted: ai-logs-analyzer\aggregated\.gitkeep' -ForegroundColor Green
+    Invoke-Removal 'ai-logs-analyzer\aggregated\.gitkeep'
 }
 
 # ai-logs-analyzer\analysis\.gitkeep
@@ -50,8 +64,7 @@ if ($DryRun) {
 if ($DryRun) {
     Write-Host '[DRY-RUN] Would delete: ai-logs-analyzer\analysis\.gitkeep' -ForegroundColor Yellow
 } else {
-    Remove-Item -Path (Join-Path $RepoRoot 'ai-logs-analyzer\analysis\.gitkeep') -Force
-    Write-Host 'Deleted: ai-logs-analyzer\analysis\.gitkeep' -ForegroundColor Green
+    Invoke-Removal 'ai-logs-analyzer\analysis\.gitkeep'
 }
 
 # ai-logs-analyzer\analysis\summary-report-20251124-104847.json
@@ -61,8 +74,7 @@ if ($DryRun) {
 if ($DryRun) {
     Write-Host '[DRY-RUN] Would delete: ai-logs-analyzer\analysis\summary-report-20251124-104847.json' -ForegroundColor Yellow
 } else {
-    Remove-Item -Path (Join-Path $RepoRoot 'ai-logs-analyzer\analysis\summary-report-20251124-104847.json') -Force
-    Write-Host 'Deleted: ai-logs-analyzer\analysis\summary-report-20251124-104847.json' -ForegroundColor Green
+    Invoke-Removal 'ai-logs-analyzer\analysis\summary-report-20251124-104847.json'
 }
 
 # ai-logs-analyzer\exports\.gitkeep
@@ -72,8 +84,7 @@ if ($DryRun) {
 if ($DryRun) {
     Write-Host '[DRY-RUN] Would delete: ai-logs-analyzer\exports\.gitkeep' -ForegroundColor Yellow
 } else {
-    Remove-Item -Path (Join-Path $RepoRoot 'ai-logs-analyzer\exports\.gitkeep') -Force
-    Write-Host 'Deleted: ai-logs-analyzer\exports\.gitkeep' -ForegroundColor Green
+    Invoke-Removal 'ai-logs-analyzer\exports\.gitkeep'
 }
 
 # aim\.AIM_ai-tools-registry\logs\error.log

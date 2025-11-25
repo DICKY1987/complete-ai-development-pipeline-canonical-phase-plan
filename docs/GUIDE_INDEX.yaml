@@ -56,6 +56,14 @@ execution:
     priority: high
     status: active
     
+  - doc_id: DOC-GUIDE-DOC-CLEANUP-007
+    name: doc_cleanup_pattern
+    file: DOC_DOCUMENTATION_CLEANUP_PATTERN.md
+    purpose: "Reusable pattern for documentation cleanup and consolidation"
+    audience: developers
+    priority: medium
+    status: active
+    
   - doc_id: DOC-GUIDE-PARALLEL-EXECUTION-006
     name: parallel_execution
     file: PARALLEL_EXECUTION_STRATEGY.md
