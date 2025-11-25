@@ -1,3 +1,0 @@
-- [ ] Create bundle YAML
-- [ ] Create GitHub issue
-- [ ] Run pipeline validation
