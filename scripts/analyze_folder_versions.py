@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """
-Advanced Folder Version Detector
-=================================
+Advanced Folder Version Detector v2.0
+======================================
+Implements FOLDER_VERSION_SCORING_SPEC.md
+
 Identifies which folder is the "canonical" version when duplicates exist.
 
 Scoring factors:
@@ -10,30 +12,37 @@ Scoring factors:
 3. File completeness (more files = canonical) - 15 points
 4. Git history (created first = canonical) - 15 points
 5. Import/usage analysis (actively imported = canonical) - 15 points
-6. Location score (root-level > nested) - 10 points
+6. Location score (blessed tiers) - 10 points
+
+HARD Guardrails for deletion:
+- Score < 50 AND usage == 0 AND not in registry AND location == graveyard
 
 Total: 100 points
 Higher score = more likely to be the canonical (keep) version
+
+Reference: docs/FOLDER_VERSION_SCORING_SPEC.md
 """
 
 import hashlib
 import json
 import subprocess
+import re
 from pathlib import Path
 from datetime import datetime, timezone
 from collections import defaultdict
-from dataclasses import dataclass, asdict
+from dataclasses import dataclass, asdict, field
 from typing import Dict, List, Set, Tuple, Optional
 
 @dataclass
 class FolderVersionScore:
-    """Comprehensive scoring for folder version detection."""
+    """Comprehensive scoring for folder version detection (v2.0)."""
     path: str
     
     # Content analysis
     file_count: int
     total_size: int
-    file_hashes: Set[str]
+    file_hashes: Set[str] = field(default_factory=set)
+    file_names: Set[str] = field(default_factory=set)  # For strict similarity
     content_score: int = 0  # 0-25
     
     # Temporal analysis
@@ -45,6 +54,8 @@ class FolderVersionScore:
     # Completeness
     has_readme: bool = False
     has_init: bool = False  # __init__.py
+    has_tests: bool = False
+    has_pattern_spec: bool = False
     completeness_score: int = 0  # 0-15
     
     # Git history
@@ -53,21 +64,27 @@ class FolderVersionScore:
     commit_count: int = 0
     history_score: int = 0  # 0-15
     
-    # Usage analysis
+    # Usage analysis (expanded)
     is_imported: bool = False
     import_count: int = 0
+    powershell_refs: int = 0
+    yaml_refs: int = 0
+    pattern_registry_refs: int = 0
     is_in_codebase_index: bool = False
+    has_doc_id: bool = False
     usage_score: int = 0  # 0-15
     
-    # Location
+    # Location (tier-based)
     depth: int = 0  # Path depth (0 = root)
+    location_tier: int = 0  # 0=graveyard, 1=experimental, 2=library, 3=canonical
     is_in_legacy: bool = False
     is_in_archive: bool = False
     location_score: int = 0  # 0-10
     
     # Final
     total_score: int = 0  # 0-100
-    verdict: str = "KEEP"  # KEEP, DELETE, ARCHIVE
+    verdict: str = "KEEP"  # KEEP, DELETE, ARCHIVE, REVIEW, DIFFERENT_PURPOSE
+    can_delete: bool = False  # Guardrail check
 
 def compute_file_hash(filepath: Path) -> str:
     """Compute SHA-256 hash of a file."""
