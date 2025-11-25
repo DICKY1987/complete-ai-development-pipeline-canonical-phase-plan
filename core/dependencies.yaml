@@ -1,0 +1,271 @@
+# Core Module Dependencies
+# Module: core
+# Purpose: Declare internal and external dependencies for the core module
+# Last Updated: 2025-11-23
+
+metadata:
+  module: core
+  description: Core pipeline implementation - state, orchestration, planning, AST analysis
+  layer: domain + infrastructure
+  status: production
+
+# Internal module dependencies (within core/)
+internal_dependencies:
+  core.state:
+    depends_on: []
+    purpose: Data layer - no internal dependencies
+    
+  core.engine:
+    depends_on:
+      - core.state
+    purpose: Orchestration layer depends on state for persistence
+    
+  core.planning:
+    depends_on:
+      - core.state
+      - core.ast
+    purpose: Planning layer uses state and AST analysis
+    
+  core.ast:
+    depends_on: []
+    purpose: Analysis layer - pure utility, no internal dependencies
+
+# External Python package dependencies
+external_dependencies:
+  required:
+    - name: PyYAML
+      version: ">=6.0"
+      purpose: YAML configuration parsing
+      used_by:
+        - core.engine (circuit breaker config)
+        - core.planning (decomposition rules)
+    
+    - name: tree-sitter
+      version: ">=0.20.0"
+      purpose: AST parsing library
+      used_by:
+        - core.ast
+    
+    - name: tree-sitter-python
+      version: ">=0.20.0"
+      purpose: Python language grammar for Tree-sitter
+      used_by:
+        - core.ast.languages.python
+  
+  optional:
+    - name: tree-sitter-javascript
+      version: ">=0.20.0"
+      purpose: JavaScript language grammar (future support)
+      used_by:
+        - core.ast.languages.javascript (planned)
+    
+    - name: tree-sitter-typescript
+      version: ">=0.20.0"
+      purpose: TypeScript language grammar (future support)
+      used_by:
+        - core.ast.languages.typescript (planned)
+    
+    - name: rich
+      version: ">=13.0.0"
+      purpose: Terminal formatting for CLI
+      used_by:
+        - core.ui_cli
+        - core.ui_settings_cli
+
+# System dependencies
+system_dependencies:
+  required:
+    - name: sqlite3
+      version: ">=3.35.0"
+      purpose: Database engine
+      used_by:
+        - core.state.db
+        - core.state.db_sqlite
+    
+    - name: git
+      version: ">=2.30.0"
+      purpose: Worktree management
+      used_by:
+        - core.state.worktree
+  
+  optional:
+    - name: aider
+      purpose: AI coding tool
+      used_by:
+        - core.engine.adapters.aider_adapter
+    
+    - name: claude
+      purpose: Claude CLI tool
+      used_by:
+        - core.engine.adapters.claude_adapter
+
+# Schema dependencies
+schema_dependencies:
+  - path: schema/schema.sql
+    purpose: Database schema definition
+    used_by:
+      - core.state.db
+  
+  - path: schema/workstream_bundle.schema.json
+    purpose: JSON schema for workstream bundles
+    used_by:
+      - core.state.bundles
+  
+  - path: config/tool_profiles.json
+    purpose: Tool adapter configurations
+    used_by:
+      - core.engine.tools
+      - core.engine.adapters.*
+  
+  - path: config/circuit_breaker_config.yaml
+    purpose: Circuit breaker settings
+    used_by:
+      - core.engine.circuit_breakers
+      - core.engine.orchestrator
+
+# Cross-module dependencies (other sections)
+cross_module_dependencies:
+  provides_to:
+    - module: engine
+      services:
+        - Workstream orchestration
+        - State management
+        - Tool adapters
+    
+    - module: error
+      services:
+        - Error recording via core.state.crud
+        - State tracking
+    
+    - module: specifications
+      services:
+        - AST analysis for spec validation
+        - File dependency detection
+    
+    - module: pm
+      services:
+        - CCPM integration bridge
+        - Workstream lifecycle management
+  
+  consumes_from:
+    - module: aim
+      services:
+        - Capability-based tool routing
+        - Tool registry
+      optional: true
+      fallback: Direct tool invocation via profiles
+    
+    - module: specifications.tools
+      services:
+        - Spec parsing and indexing
+      optional: true
+      used_by:
+        - core.planning (automated planning - future)
+
+# Environment variable dependencies
+environment_variables:
+  required: []
+  
+  optional:
+    - name: PIPELINE_DB_PATH
+      default: .worktrees/pipeline_state.db
+      purpose: Override database location
+      used_by:
+        - core.state.db
+    
+    - name: PIPELINE_WORKSTREAM_DIR
+      default: workstreams/
+      purpose: Override workstream bundles directory
+      used_by:
+        - core.state.bundles
+    
+    - name: PIPELINE_DRY_RUN
+      default: "0"
+      purpose: Skip tool invocations for testing
+      used_by:
+        - core.engine.orchestrator
+        - core.engine.executor
+    
+    - name: PIPELINE_MAX_WORKERS
+      default: "4"
+      purpose: Maximum parallel workers
+      used_by:
+        - core.engine.orchestrator
+        - core.engine.worker
+    
+    - name: PIPELINE_TIMEOUT_SEC
+      default: "3600"
+      purpose: Global execution timeout
+      used_by:
+        - core.engine.executor
+        - core.engine.adapters.*
+    
+    - name: AIM_REGISTRY_PATH
+      default: null
+      purpose: AIM registry location (auto-detected if not set)
+      used_by:
+        - core.engine.aim_integration
+    
+    - name: TREE_SITTER_LIB_PATH
+      default: null
+      purpose: Override Tree-sitter library location
+      used_by:
+        - core.ast.languages.*
+
+# API dependencies (external services)
+api_dependencies:
+  optional:
+    - service: OpenAI API
+      purpose: Codex adapter
+      used_by:
+        - core.engine.adapters.codex_adapter
+      auth: OPENAI_API_KEY environment variable
+    
+    - service: Anthropic API
+      purpose: Claude adapter
+      used_by:
+        - core.engine.adapters.claude_adapter
+      auth: ANTHROPIC_API_KEY environment variable
+
+# Dependency constraints
+constraints:
+  - rule: core.state must have no internal dependencies
+    rationale: Pure data layer, foundation for other layers
+    enforced_by: Architecture review
+  
+  - rule: core.engine must not import from higher layers
+    rationale: Prevents circular dependencies
+    enforced_by: Import linting (future)
+  
+  - rule: Adapters must only depend on BaseAdapter
+    rationale: Ensures adapter independence
+    enforced_by: Code review
+  
+  - rule: AST parsers must be language-independent
+    rationale: Enables uniform analysis interface
+    enforced_by: Interface specification
+
+# Breaking change policy
+breaking_changes:
+  notification:
+    - Database schema changes require migration scripts
+    - Public API changes require deprecation warnings
+    - Adapter interface changes require all adapters to update
+  
+  migration_support:
+    - Legacy import paths supported via deprecation warnings
+    - Old schema versions supported for 2 minor releases
+    - Configuration format changes include auto-migration
+
+# Version compatibility
+compatibility:
+  python: ">=3.9"
+  sqlite: ">=3.35.0"
+  tree-sitter: ">=0.20.0"
+
+# Notes for AI tools
+ai_notes:
+  - Always check this file before adding new dependencies
+  - Respect layer dependencies (state → engine → planning)
+  - External dependencies require security review
+  - API dependencies should have fallback strategies

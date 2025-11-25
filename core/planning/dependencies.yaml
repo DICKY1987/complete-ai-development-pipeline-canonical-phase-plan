@@ -1,0 +1,269 @@
+# Planning Layer Dependencies
+# Module: core.planning
+# Purpose: Workstream planning and lifecycle management dependencies
+# Last Updated: 2025-11-23
+
+metadata:
+  module: core.planning
+  description: Workstream generation, archiving, and analysis
+  layer: domain
+  status: beta (planner stub), production (archive, CCPM, parallelism)
+
+# Internal dependencies
+internal_dependencies:
+  from_other_core_modules:
+    - core.state:
+        imports:
+          - from core.state.bundles import WorkstreamBundle, load_and_validate_bundles
+          - from core.state.crud import create_workstream
+        
+        purpose: Bundle management and database operations
+    
+    - core.ast:
+        imports:
+          - from core.ast.extractors import extract_dependencies
+        
+        purpose: Code analysis for automated decomposition
+        status: future (planned for v2.0 planner)
+
+# External Python dependencies
+external_dependencies:
+  required:
+    - name: pathlib
+      version: Built-in
+      purpose: Path manipulation
+      used_by:
+        - archive.py
+        - planner.py
+    
+    - name: typing
+      version: Built-in
+      purpose: Type hints
+      used_by:
+        - All modules
+    
+    - name: json
+      version: Built-in
+      purpose: Bundle serialization
+      used_by:
+        - planner.py
+        - ccpm_integration.py
+  
+  optional:
+    - name: PyYAML
+      version: ">=6.0"
+      purpose: Decomposition rules configuration
+      used_by:
+        - planner.py (future v2.0)
+    
+    - name: zipfile
+      version: Built-in
+      purpose: Archive creation
+      used_by:
+        - archive.py
+
+# Configuration dependencies
+config_dependencies:
+  - path: config/decomposition_rules.yaml
+    purpose: Automated planning configuration
+    used_by:
+      - planner.py
+    
+    status: future (planned for v2.0)
+    
+    structure:
+      file_decomposition:
+        enabled: bool
+        max_files_per_workstream: int
+      
+      language_rules:
+        python:
+          max_lines_per_workstream: int
+          group_test_with_impl: bool
+
+# Cross-module dependencies
+cross_module_dependencies:
+  depends_on:
+    - module: core.state
+      services:
+        - Bundle management
+        - Workstream creation
+        - Database operations
+      
+      critical: true
+    
+    - module: core.ast
+      services:
+        - Dependency analysis
+        - Code structure extraction
+      
+      critical: false
+      used_by: planner.py (future)
+      fallback: Manual bundle authoring
+    
+    - module: specifications.tools
+      services:
+        - Spec parsing
+        - Change proposal analysis
+      
+      critical: false
+      used_by: planner.py (future)
+      fallback: Manual bundle authoring
+    
+    - module: pm
+      services:
+        - CCPM client
+        - Task management
+      
+      critical: false
+      used_by: ccpm_integration.py
+      fallback: Standalone operation
+  
+  provides_to:
+    - module: core.engine
+      services:
+        - Workstream bundles
+    
+    - module: pm
+      services:
+        - CCPM integration bridge
+
+# Environment variables
+environment_variables:
+  optional:
+    - name: PIPELINE_ARCHIVE_DIR
+      default: archives/
+      purpose: Override archive directory
+      used_by:
+        - archive.py
+    
+    - name: CCPM_API_URL
+      default: null
+      purpose: CCPM server URL
+      used_by:
+        - ccpm_integration.py
+      
+      required_for: CCPM bidirectional sync
+
+# File system dependencies
+filesystem_dependencies:
+  required:
+    - path: workstreams/
+      purpose: Bundle source directory
+      accessed_by:
+        - planner.py (input for manual bundles)
+  
+  created:
+    - path: archives/
+      purpose: Completed workstream archives
+      created_by: archive.py
+
+# Public API exports
+public_api:
+  planner.py:
+    - plan_workstreams_from_spec() (stub)
+  
+  archive.py:
+    - auto_archive()
+  
+  ccpm_integration.py:
+    - task_to_workstream()
+    - epic_to_workstream_bundle()
+    - sync_workstream_result()
+    - validate_parallel_tasks()
+    - CCPMIntegration (class)
+  
+  parallelism_detector.py:
+    - detect_parallel_opportunities()
+    - detect_conflict_groups()
+
+# Consumed by
+consumed_by:
+  - module: core.engine
+    imports:
+      - from core.planning.archive import auto_archive
+    
+    usage:
+      - Archive completed workstreams
+  
+  - module: pm
+    imports:
+      - from core.planning.ccpm_integration import CCPMIntegration
+    
+    usage:
+      - Bidirectional CCPM sync
+  
+  - scripts:
+      - Analysis and reporting scripts
+
+# Performance characteristics
+performance:
+  archive:
+    - Complexity: O(n) for n files
+    - Compression: ZIP deflate
+    - Typical: ~100ms for 10 files
+  
+  parallelism_detection:
+    - Complexity: O(n + e) for n workstreams, e dependencies
+    - Includes: Topological sort
+    - Typical: ~50ms for 100 workstreams
+
+# Testing requirements
+testing:
+  unit_tests:
+    - tests/pipeline/test_archive.py
+    - tests/pipeline/test_ccpm_integration.py
+    - tests/pipeline/test_parallelism_detector.py
+  
+  integration_tests:
+    - tests/integration/test_planning_pipeline.py
+  
+  coverage_target: ">80%"
+
+# Roadmap
+roadmap:
+  current:
+    - Archive utilities (production)
+    - CCPM integration (production)
+    - Parallelism detection (production)
+    - Planner (stub)
+  
+  phase_2_v2.0:
+    - Full automated planner
+    - OpenSpec parsing integration
+    - AI-assisted decomposition
+    - Automatic dependency detection
+  
+  phase_3_future:
+    - Multi-repository planning
+    - ML-based decomposition
+    - Cost optimization
+
+# Constraints and invariants
+constraints:
+  - rule: Planner must validate bundles before creation
+    enforcement: Code in planner.py
+    rationale: Prevent invalid bundles
+  
+  - rule: Archive must preserve all metadata
+    enforcement: Archive format specification
+    rationale: Enable post-mortem analysis
+  
+  - rule: CCPM integration must be bidirectional
+    enforcement: Integration tests
+    rationale: Keep PM tools synchronized
+
+# Migration notes
+migration_notes:
+  legacy_paths:
+    - from: src.pipeline.planner
+      to: core.planning.planner
+      status: deprecated
+
+# Notes for AI tools
+ai_notes:
+  - Planner is currently a stub - manual bundle authoring recommended
+  - Always archive successful workstreams for analysis
+  - Use parallelism detection to optimize worker pool size
+  - CCPM integration requires pm module
+  - Archive format includes execution logs and metrics

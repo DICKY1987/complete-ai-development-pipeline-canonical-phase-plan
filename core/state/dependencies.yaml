@@ -1,0 +1,316 @@
+# State Layer Dependencies
+# Module: core.state
+# Purpose: Database and state management dependencies
+# Last Updated: 2025-11-23
+
+metadata:
+  module: core.state
+  description: State management, database operations, and bundle handling
+  layer: infrastructure
+  status: production
+
+# Internal dependencies (within core.state)
+internal_dependencies:
+  # No internal module dependencies - this is the foundation layer
+  dependencies: []
+  
+  rationale: |
+    State layer is the lowest layer in the architecture.
+    All other layers depend on it, so it must have no dependencies.
+
+# External Python dependencies
+external_dependencies:
+  required:
+    - name: sqlite3
+      version: Built-in (Python standard library)
+      purpose: Database operations
+      used_by:
+        - db.py
+        - db_sqlite.py
+        - crud.py
+    
+    - name: json
+      version: Built-in (Python standard library)
+      purpose: JSON bundle parsing and serialization
+      used_by:
+        - bundles.py
+        - crud.py
+    
+    - name: pathlib
+      version: Built-in (Python standard library)
+      purpose: Path manipulation
+      used_by:
+        - worktree.py
+        - bundles.py
+    
+    - name: typing
+      version: Built-in (Python standard library)
+      purpose: Type hints
+      used_by:
+        - All modules
+
+  optional: []
+
+# System dependencies
+system_dependencies:
+  required:
+    - name: sqlite3
+      version: ">=3.35.0"
+      purpose: Database engine with foreign key support
+      used_by:
+        - db.py
+        - db_sqlite.py
+      
+      features_required:
+        - Foreign key constraints
+        - JSON functions
+        - Common table expressions (CTE)
+    
+    - name: git
+      version: ">=2.30.0"
+      purpose: Worktree management (future full integration)
+      used_by:
+        - worktree.py
+      
+      features_required:
+        - git worktree command
+        - git init
+      
+      notes: |
+        Current implementation creates directories only.
+        Full git worktree integration planned for future release.
+
+# Schema dependencies
+schema_dependencies:
+  - path: schema/schema.sql
+    purpose: Database schema definition
+    used_by:
+      - db.py (schema initialization)
+    
+    tables:
+      - runs
+      - workstreams
+      - step_attempts
+      - errors
+      - events
+    
+    constraints:
+      - Foreign keys enforced
+      - Unique constraints on IDs
+      - Check constraints on status fields
+  
+  - path: schema/workstream_bundle.schema.json
+    purpose: JSON schema for bundle validation
+    used_by:
+      - bundles.py (bundle validation)
+    
+    validates:
+      - Required fields (id, openspec_change, gate, etc.)
+      - Field types and formats
+      - Dependency structure
+
+# File system dependencies
+filesystem_dependencies:
+  required:
+    - path: .worktrees/
+      purpose: Database and worktree storage
+      created_by: db.py (init_db)
+      
+      structure:
+        - pipeline_state.db (SQLite database)
+        - ws-{id}/ (per-workstream directories)
+    
+    - path: workstreams/
+      purpose: Default bundle directory
+      created_by: User or automation
+      
+      contents: JSON bundle files
+
+# Environment variables
+environment_variables:
+  optional:
+    - name: PIPELINE_DB_PATH
+      default: .worktrees/pipeline_state.db
+      purpose: Override database location
+      used_by:
+        - db.py
+      
+      validation:
+        - Must be writable path
+        - Directory must exist or be creatable
+    
+    - name: PIPELINE_WORKSTREAM_DIR
+      default: workstreams/
+      purpose: Override bundle directory
+      used_by:
+        - bundles.py
+      
+      validation:
+        - Must be readable directory
+        - Must contain .json files
+    
+    - name: ERROR_PIPELINE_DB
+      default: null
+      purpose: Legacy database path (backward compatibility)
+      used_by:
+        - db.py (fallback if PIPELINE_DB_PATH not set)
+      
+      status: deprecated
+      migration: Use PIPELINE_DB_PATH instead
+
+# Public API exports
+public_api:
+  db.py:
+    - init_db()
+    - get_connection()
+  
+  crud.py:
+    - create_run()
+    - get_run()
+    - update_run_status()
+    - create_workstream()
+    - get_workstream()
+    - update_workstream_status()
+    - record_step_attempt()
+    - get_step_attempts()
+    - record_error()
+    - get_errors_for_step()
+    - record_event()
+    - get_events()
+  
+  bundles.py:
+    - WorkstreamBundle (dataclass)
+    - load_and_validate_bundles()
+    - build_dependency_graph()
+    - detect_cycles()
+    - sync_bundles_to_db()
+  
+  worktree.py:
+    - get_repo_root()
+    - get_worktrees_base()
+    - create_worktree_for_ws()
+    - validate_scope()
+
+# Consumed by (reverse dependencies)
+consumed_by:
+  - module: core.engine
+    imports:
+      - from core.state.db import init_db, get_connection
+      - from core.state.crud import create_workstream, get_workstream
+      - from core.state.bundles import load_and_validate_bundles
+    
+    usage:
+      - Load bundles for orchestration
+      - Track execution state
+      - Record step attempts and errors
+  
+  - module: core.planning
+    imports:
+      - from core.state.bundles import WorkstreamBundle
+      - from core.state.crud import create_workstream
+    
+    usage:
+      - Create workstream bundles
+      - Sync to database
+  
+  - module: engine
+    imports:
+      - from core.state.db import init_db
+      - from core.state.crud import record_error
+    
+    usage:
+      - Initialize database
+      - Record job execution errors
+  
+  - module: error
+    imports:
+      - from core.state.crud import record_error
+    
+    usage:
+      - Record detected errors
+
+# Database schema version
+schema_version:
+  current: "1.0.0"
+  migration_path: schema/migrations/
+  
+  compatibility:
+    - version: "1.0.0"
+      changes: Initial schema
+      breaking: false
+
+# Performance characteristics
+performance:
+  database:
+    - type: SQLite
+    - concurrency: Single writer, multiple readers
+    - file_size: ~10MB per 1000 workstreams
+    - query_time: Sub-millisecond for indexed queries
+  
+  bundle_loading:
+    - complexity: O(n) for n bundles
+    - includes: Cycle detection (O(n+e) for e dependencies)
+    - typical: ~100ms for 100 bundles
+  
+  worktree_creation:
+    - complexity: File system dependent
+    - typical: ~50ms per worktree directory
+
+# Testing requirements
+testing:
+  unit_tests:
+    - tests/pipeline/test_crud.py
+    - tests/pipeline/test_bundles.py
+    - tests/pipeline/test_worktree.py
+  
+  integration_tests:
+    - tests/integration/test_state_persistence.py
+  
+  coverage_target: ">90%"
+
+# Constraints and invariants
+constraints:
+  - rule: No internal dependencies
+    enforcement: Architecture review
+    rationale: Foundation layer must be independent
+  
+  - rule: Database must use foreign keys
+    enforcement: Schema definition + runtime check
+    rationale: Data integrity
+  
+  - rule: All timestamps must be UTC ISO 8601
+    enforcement: Code review
+    rationale: Consistency and timezone safety
+  
+  - rule: Workstream IDs must match pattern ws-[a-z0-9-]+
+    enforcement: Validation in bundles.py
+    rationale: Consistent naming
+  
+  - rule: Gate must be in range 1-10
+    enforcement: Validation in bundles.py
+    rationale: Defined gate system
+
+# Migration notes
+migration_notes:
+  legacy_paths:
+    - from: src.pipeline.db
+      to: core.state.db
+      status: deprecated
+      removal: Future release
+    
+    - from: src.pipeline.crud
+      to: core.state.crud
+      status: deprecated
+      removal: Future release
+  
+  backward_compatibility:
+    - ERROR_PIPELINE_DB environment variable supported
+    - Will be removed in v3.0.0
+
+# Notes for AI tools
+ai_notes:
+  - This is the foundation layer - keep it dependency-free
+  - Always call init_db() before database operations
+  - Use UTC timestamps in ISO 8601 format
+  - Validate bundles before sync to database
+  - Check for dependency cycles

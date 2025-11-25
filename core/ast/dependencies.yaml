@@ -1,0 +1,340 @@
+# AST Layer Dependencies
+# Module: core.ast
+# Purpose: Code analysis and AST parsing dependencies
+# Last Updated: 2025-11-23
+
+metadata:
+  module: core.ast
+  description: Abstract Syntax Tree parsing and code analysis
+  layer: utilities
+  status: production (Python), planned (JavaScript, TypeScript)
+
+# Internal dependencies
+internal_dependencies:
+  within_ast:
+    - extractors.py depends on languages/*.py
+    - languages/__init__.py registers all parsers
+  
+  from_other_core_modules:
+    # No dependencies - pure utility layer
+    dependencies: []
+    
+    rationale: |
+      AST layer is a pure utility layer with no business logic dependencies.
+      It can be used independently by any other module.
+
+# External Python dependencies
+external_dependencies:
+  required:
+    - name: tree-sitter
+      version: ">=0.20.0"
+      purpose: Fast incremental parsing library
+      used_by:
+        - languages/python.py
+        - extractors.py
+      
+      installation: pip install tree-sitter
+    
+    - name: tree-sitter-python
+      version: ">=0.20.0"
+      purpose: Python language grammar
+      used_by:
+        - languages/python.py
+      
+      installation: pip install tree-sitter-python
+    
+    - name: typing
+      version: Built-in
+      purpose: Type hints
+      used_by:
+        - All modules
+    
+    - name: pathlib
+      version: Built-in
+      purpose: Path manipulation
+      used_by:
+        - extractors.py
+  
+  optional:
+    - name: tree-sitter-javascript
+      version: ">=0.20.0"
+      purpose: JavaScript language grammar (future support)
+      used_by:
+        - languages/javascript.py (planned)
+      
+      installation: pip install tree-sitter-javascript
+    
+    - name: tree-sitter-typescript
+      version: ">=0.20.0"
+      purpose: TypeScript language grammar (future support)
+      used_by:
+        - languages/typescript.py (planned)
+      
+      installation: pip install tree-sitter-typescript
+    
+    - name: tree-sitter-go
+      version: ">=0.20.0"
+      purpose: Go language grammar (future support)
+      used_by:
+        - languages/go.py (planned)
+      
+      installation: pip install tree-sitter-go
+
+# System dependencies
+system_dependencies:
+  optional:
+    - name: C compiler
+      purpose: Compile Tree-sitter language grammars
+      used_by:
+        - tree-sitter (during installation)
+      
+      platforms:
+        linux: gcc or clang
+        macos: clang (Xcode Command Line Tools)
+        windows: MSVC or MinGW
+      
+      notes: |
+        Required only if installing from source.
+        Pre-built wheels available for most platforms.
+
+# Environment variables
+environment_variables:
+  optional:
+    - name: TREE_SITTER_LIB_PATH
+      default: null
+      purpose: Override Tree-sitter library location
+      used_by:
+        - languages/*.py
+      
+      use_case: Custom Tree-sitter installation
+
+# Cross-module dependencies
+cross_module_dependencies:
+  depends_on: []
+  
+  provides_to:
+    - module: core.planning
+      services:
+        - Dependency detection
+        - Code structure analysis
+      
+      used_for: Automated decomposition (future)
+    
+    - module: core.state
+      services:
+        - File scope validation
+      
+      used_for: Bundle validation (future)
+    
+    - module: specifications.tools
+      services:
+        - Spec impact analysis
+        - Change detection
+      
+      used_for: Specification validation
+
+# Language support status
+language_support:
+  production:
+    - name: Python
+      parser: languages/python.py
+      grammar: tree-sitter-python
+      
+      features:
+        - Functions (regular and async)
+        - Classes with inheritance
+        - Imports (import, from...import)
+        - Docstrings
+        - Type hints
+        - Decorators
+  
+  planned:
+    - name: JavaScript
+      parser: languages/javascript.py
+      grammar: tree-sitter-javascript
+      
+      features:
+        - Functions (regular and arrow)
+        - Classes
+        - ES6 imports
+        - JSDoc comments
+    
+    - name: TypeScript
+      parser: languages/typescript.py
+      grammar: tree-sitter-typescript
+      
+      features:
+        - Type definitions
+        - Interfaces
+        - All JavaScript features
+    
+    - name: Go
+      parser: languages/go.py
+      grammar: tree-sitter-go
+      
+      features:
+        - Functions
+        - Structs and methods
+        - Imports
+        - Interfaces
+
+# Public API exports
+public_api:
+  extractors.py:
+    - extract_functions(file_path, language)
+    - extract_classes(file_path, language)
+    - extract_imports(file_path, language)
+    - extract_dependencies(file_path, project_root)
+  
+  languages/python.py:
+    - parse_python(source_code)
+    - extract_python_functions(file_path)
+    - extract_python_classes(file_path)
+    - extract_python_imports(file_path)
+  
+  languages/__init__.py:
+    - LANGUAGE_PARSERS (registry dict)
+
+# Consumed by
+consumed_by:
+  - module: core.planning
+    imports:
+      - from core.ast.extractors import extract_dependencies
+    
+    usage:
+      - Automated decomposition
+      - Dependency inference
+  
+  - module: core.state
+    imports:
+      - from core.ast.extractors import extract_dependencies
+    
+    usage:
+      - File scope validation (future)
+  
+  - module: specifications.tools
+    imports:
+      - from core.ast.extractors import extract_functions
+    
+    usage:
+      - Spec validation
+
+# Parser interface specification
+parser_interface:
+  required_functions:
+    - parse_{language}(source_code: str) -> Tree
+    - extract_{language}_functions(file_path: str) -> list[dict]
+    - extract_{language}_classes(file_path: str) -> list[dict]
+    - extract_{language}_imports(file_path: str) -> list[dict]
+  
+  function_metadata:
+    required_fields:
+      - name: str
+      - line_start: int
+      - line_end: int
+    
+    optional_fields:
+      - params: list[dict]
+      - return_type: str
+      - docstring: str
+      - is_async: bool
+      - decorators: list[str]
+  
+  class_metadata:
+    required_fields:
+      - name: str
+      - line_start: int
+      - line_end: int
+    
+    optional_fields:
+      - bases: list[str]
+      - methods: list[dict]
+      - attributes: list[str]
+      - docstring: str
+  
+  import_metadata:
+    required_fields:
+      - type: str  # "import" | "from_import" | etc.
+      - module: str
+      - line: int
+    
+    optional_fields:
+      - names: list[dict]
+      - alias: str
+
+# Performance characteristics
+performance:
+  parsing:
+    - speed: ~100K lines/sec (typical laptop)
+    - memory: Low overhead per file
+    - incremental: Yes (Tree-sitter feature)
+  
+  extraction:
+    - complexity: O(n) for n AST nodes
+    - typical: ~5ms per 1000 lines
+  
+  dependency_detection:
+    - complexity: O(n * m) for n files, m imports
+    - typical: ~100ms for 100 files
+  
+  caching:
+    - strategy: None (parse on each call)
+    - recommendation: Cache results if analyzing repeatedly
+
+# Testing requirements
+testing:
+  unit_tests:
+    - tests/ast/test_extractors.py
+    - tests/ast/test_python_parser.py
+  
+  test_data:
+    - Sample Python files with various constructs
+    - Edge cases (syntax errors, complex nesting)
+  
+  coverage_target: ">85%"
+
+# Constraints and invariants
+constraints:
+  - rule: No internal dependencies
+    enforcement: Architecture review
+    rationale: Pure utility layer
+  
+  - rule: Language parsers must implement standard interface
+    enforcement: Interface specification in languages/README.md
+    rationale: Consistency across languages
+  
+  - rule: Parse errors must not crash analysis
+    enforcement: Error handling in parsers
+    rationale: Graceful degradation
+  
+  - rule: Extractors must be language-agnostic
+    enforcement: Code review
+    rationale: Uniform API
+
+# Error handling
+error_handling:
+  - Parse errors:
+      strategy: Log warning, return partial results
+      fallback: Regex-based extraction
+  
+  - Grammar not found:
+      strategy: Raise ImportError with installation instructions
+      recovery: Install missing grammar
+  
+  - File not found:
+      strategy: Raise FileNotFoundError
+      recovery: Check file path
+
+# Migration notes
+migration_notes:
+  - Tree-sitter 0.20+ required for Python 3.11+ support
+  - Language grammars must match Tree-sitter version
+  - Pre-built wheels available for most platforms
+
+# Notes for AI tools
+ai_notes:
+  - Use extractors.py for high-level API
+  - Always specify language explicitly
+  - Handle parse errors gracefully
+  - Cache results if analyzing same file multiple times
+  - AST analysis is safer than executing code
