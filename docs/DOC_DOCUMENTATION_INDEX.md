@@ -163,6 +163,46 @@ python scripts/validate_acs_conformance.py
 
 ---
 
+## Agent Documentation
+
+### Custom Automation Agents
+
+| Document | Purpose | Audience |
+|----------|---------|----------|
+| [Agent Analysis & Recommendations](AGENT_ANALYSIS_AND_RECOMMENDATIONS.md) | Comprehensive agent analysis and development plan | All developers & AI agents |
+| [Agent Quick Reference](AGENT_QUICK_REFERENCE.md) | Fast decision guide for which agent to use | All developers |
+| [Custom Agents Directory](../scripts/agents/README.md) | Custom agent implementations and templates | Agent developers |
+
+**Available Agents:**
+- ✅ **GitHub Copilot** - Code completion and small edits (configured in `.github/copilot-instructions.md`)
+- ✅ **Claude Code** - Patch-first development (see `CLAUDE.md`)
+- ✅ **Codex CLI** - Workstream coordination (see `AGENTS.md`)
+- ✅ **Error Engine** - Code quality automation (15+ plugins)
+- ✅ **Job Engine** - Task orchestration (4 adapters)
+- ✅ **40+ Automation Scripts** - Validation, generation, migration
+
+**Planned Custom Agents:**
+- 🔧 **Workstream Generator** (HIGH) - Template ready at `scripts/agents/workstream_generator.py`
+- 📋 **Code Migration Agent** (HIGH) - Systematic refactoring
+- 📋 **Test Generator** (MEDIUM) - Automated test scaffolding
+- 📋 **Doc Sync Agent** (MEDIUM) - Documentation consistency
+- 📋 **Spec Validator** (MEDIUM) - Unified validation
+- 📋 **Plugin Scaffold** (LOW) - Plugin development
+- 📋 **Dependency Updater** (LOW) - Security maintenance
+
+**Quick Start:**
+```bash
+# Use existing agents
+python scripts/run_error_engine.py <files>
+python scripts/validate_workstreams.py
+
+# Start developing custom agents
+cd scripts/agents
+python workstream_generator.py --interactive
+```
+
+---
+
 ## Guidelines
 
 ### Development Best Practices
@@ -241,6 +281,12 @@ python scripts/validate_acs_conformance.py
 
 **...optimize performance**  
 → Review [Execution Traces](EXECUTION_TRACES_SUMMARY.md)
+
+**...automate repetitive tasks**  
+→ Check [Agent Quick Reference](AGENT_QUICK_REFERENCE.md) or develop custom agent (see [Agent Analysis](AGENT_ANALYSIS_AND_RECOMMENDATIONS.md))
+
+**...understand which agent to use**  
+→ Review [Agent Quick Reference](AGENT_QUICK_REFERENCE.md) decision tree
 
 ---
 
