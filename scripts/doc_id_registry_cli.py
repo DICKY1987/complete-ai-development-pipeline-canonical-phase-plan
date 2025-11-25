@@ -338,10 +338,169 @@ def cmd_list(args):
         print(f"  {doc['doc_id']:<40} {doc['category']:10} {doc['status']:10}")
 
 
+def cmd_batch_mint(args):
+    """Batch mint doc_ids from a batch spec file."""
+    import json
+    
+    registry = DocIDRegistry(args.registry)
+    
+    # Load batch spec
+    batch_spec_path = Path(args.batch)
+    if not batch_spec_path.exists():
+        print(f"[ERROR] Batch spec not found: {batch_spec_path}")
+        sys.exit(1)
+    
+    with open(batch_spec_path, 'r', encoding='utf-8') as f:
+        batch_spec = yaml.safe_load(f)
+    
+    batch_id = batch_spec.get('batch_id', 'UNKNOWN')
+    items = batch_spec.get('items', [])
+    
+    print(f"\n[INFO] Processing batch: {batch_id}")
+    print(f"[INFO] Items: {len(items)}")
+    print(f"[INFO] Mode: {args.mode}")
+    
+    deltas = []
+    
+    for item in items:
+        logical_name = item['logical_name']
+        title = item['title']
+        artifacts = item.get('artifacts', [])
+        category = batch_spec.get('category', 'docs')
+        tags = batch_spec.get('tags', [])
+        
+        # Generate doc_id (normalize: replace _ with -)
+        logical_name_normalized = logical_name.upper().replace('_', '-')
+        doc_id = f"DOC-{category.upper()}-{logical_name_normalized}-001"
+        
+        delta_entry = {
+            'doc_id': doc_id,
+            'category': category,
+            'name': logical_name.lower(),
+            'title': title,
+            'status': 'active',
+            'artifacts': artifacts,
+            'created': datetime.now().strftime("%Y-%m-%d"),
+            'last_modified': datetime.now().strftime("%Y-%m-%d"),
+            'tags': tags
+        }
+        
+        deltas.append(delta_entry)
+        
+        if args.mode == 'dry-run':
+            print(f"  [DRY-RUN] Would mint: {doc_id}")
+    
+    # Handle output based on mode
+    if args.mode == 'dry-run':
+        if args.dry_run_report:
+            report_path = Path(args.dry_run_report)
+            report_path.parent.mkdir(parents=True, exist_ok=True)
+            with open(report_path, 'w', encoding='utf-8') as f:
+                f.write(f"# Dry-Run Report: {batch_id}\n\n")
+                f.write(f"Total items: {len(deltas)}\n\n")
+                for delta in deltas:
+                    f.write(f"- {delta['doc_id']}: {delta['title']}\n")
+            print(f"\n[OK] Dry-run report: {report_path}")
+    
+    elif args.mode == 'deltas-only':
+        if args.delta_out:
+            delta_path = Path(args.delta_out)
+            delta_path.parent.mkdir(parents=True, exist_ok=True)
+            with open(delta_path, 'w', encoding='utf-8') as f:
+                for delta in deltas:
+                    f.write(json.dumps(delta) + '\n')
+            print(f"\n[OK] Delta file created: {delta_path}")
+            print(f"[INFO] Run merge-deltas on control checkout to apply")
+        
+        if not args.no_registry:
+            print("[WARN] --no-registry not specified; use it to prevent registry writes from worktrees")
+
+
+def cmd_merge_deltas(args):
+    """Merge delta JSONL files into the registry."""
+    import json
+    
+    registry = DocIDRegistry(args.registry)
+    
+    delta_files = args.delta_files
+    
+    print(f"\n[INFO] Merging {len(delta_files)} delta file(s)")
+    
+    total_merged = 0
+    
+    for delta_file in delta_files:
+        delta_path = Path(delta_file)
+        if not delta_path.exists():
+            print(f"[WARN] Delta file not found, skipping: {delta_path}")
+            continue
+        
+        with open(delta_path, 'r', encoding='utf-8') as f:
+            for line in f:
+                if line.strip():
+                    delta = json.loads(line)
+                    registry.data['docs'].append(delta)
+                    total_merged += 1
+                    print(f"  [+] {delta['doc_id']}")
+    
+    registry.data['metadata']['total_docs'] = len(registry.data['docs'])
+    registry._save_registry()
+    
+    print(f"\n[OK] Merged {total_merged} doc_id(s)")
+    
+    # Generate merge report
+    if args.report:
+        report_path = Path(args.report)
+        report_path.parent.mkdir(parents=True, exist_ok=True)
+        with open(report_path, 'w', encoding='utf-8') as f:
+            f.write(f"# Merge Report\n\n")
+            f.write(f"Timestamp: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n")
+            f.write(f"Total merged: {total_merged}\n\n")
+            f.write(f"Delta files:\n")
+            for df in delta_files:
+                f.write(f"- {df}\n")
+        print(f"[OK] Merge report: {report_path}")
+
+
+def cmd_generate_index(args):
+    """Generate index files from registry."""
+    registry = DocIDRegistry(args.registry)
+    
+    # Generate by-category index
+    by_category = {}
+    for doc in registry.data['docs']:
+        cat = doc['category']
+        if cat not in by_category:
+            by_category[cat] = []
+        by_category[cat].append(doc)
+    
+    index_path = REPO_ROOT / "CODEBASE_INDEX.yaml"
+    print(f"\n[INFO] Generating index: {index_path}")
+    
+    # Simple index structure
+    index = {
+        'generated': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        'total_docs': len(registry.data['docs']),
+        'by_category': {}
+    }
+    
+    for cat, docs in by_category.items():
+        index['by_category'][cat] = {
+            'count': len(docs),
+            'doc_ids': [d['doc_id'] for d in docs]
+        }
+    
+    with open(index_path, 'w', encoding='utf-8') as f:
+        yaml.dump(index, f, default_flow_style=False)
+    
+    print(f"[OK] Index generated: {index_path}")
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="DOC_ID Registry CLI - Manage repository documentation identifiers"
     )
+    parser.add_argument('--registry', type=Path, default=REGISTRY_PATH, 
+                       help='Path to DOC_ID_REGISTRY.yaml')
     
     subparsers = parser.add_subparsers(dest='command', help='Command to run')
     
@@ -369,6 +528,24 @@ def main():
     list_parser = subparsers.add_parser('list', help='List all doc_ids')
     list_parser.add_argument('--category', help='Filter by category')
     
+    # Batch-mint command (Phase 3)
+    batch_mint_parser = subparsers.add_parser('batch-mint', help='Batch mint doc_ids from spec file')
+    batch_mint_parser.add_argument('--batch', required=True, help='Path to batch spec YAML')
+    batch_mint_parser.add_argument('--mode', choices=['dry-run', 'deltas-only', 'direct'], 
+                                   default='dry-run', help='Execution mode')
+    batch_mint_parser.add_argument('--dry-run-report', help='Output path for dry-run report')
+    batch_mint_parser.add_argument('--delta-out', help='Output path for delta JSONL')
+    batch_mint_parser.add_argument('--no-registry', action='store_true', 
+                                   help='Do not write to registry (deltas-only mode)')
+    
+    # Merge-deltas command (Phase 3)
+    merge_deltas_parser = subparsers.add_parser('merge-deltas', help='Merge delta files into registry')
+    merge_deltas_parser.add_argument('delta_files', nargs='+', help='Delta JSONL file(s) to merge')
+    merge_deltas_parser.add_argument('--report', help='Output path for merge report')
+    
+    # Generate-index command (Phase 3)
+    generate_index_parser = subparsers.add_parser('generate-index', help='Generate index from registry')
+    
     args = parser.parse_args()
     
     if not args.command:
@@ -380,7 +557,10 @@ def main():
         'search': cmd_search,
         'validate': cmd_validate,
         'stats': cmd_stats,
-        'list': cmd_list
+        'list': cmd_list,
+        'batch-mint': cmd_batch_mint,
+        'merge-deltas': cmd_merge_deltas,
+        'generate-index': cmd_generate_index
     }
     
     return commands[args.command](args)

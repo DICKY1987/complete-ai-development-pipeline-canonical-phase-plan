@@ -1,9 +1,9 @@
 metadata:
   version: 1.0.0
   created: '2025-11-24'
-  last_updated: '2025-11-24'
+  last_updated: '2025-11-25'
   spec_doc: DOC_ID_FRAMEWORK.md
-  total_docs: 123
+  total_docs: 124
 categories:
   patterns:
     prefix: PAT
@@ -1539,6 +1539,20 @@ docs:
   tags:
   - pm
   - project-management
+- doc_id: DOC-PLANS-PHASE3-EXECUTION-001
+  category: plans
+  name: phase3_execution
+  title: "DOC_ID Project Phase 3 \u2013 Migration & Steady-State Execution"
+  status: active
+  artifacts:
+  - type: markdown
+    path: workstreams/plans/PLAN_DOC_ID_PHASE3_EXECUTION__v1.md
+  created: '2025-11-25'
+  last_modified: '2025-11-25'
+  tags:
+  - type:phase_plan
+  - phase:docid_phase3
+  - status:draft
 migration_queue:
   core_modules:
   - path: core/state/db.py

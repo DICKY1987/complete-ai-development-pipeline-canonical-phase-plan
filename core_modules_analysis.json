@@ -1,0 +1,46 @@
+{
+  "analyzed_paths": [
+    "core"
+  ],
+  "file_pattern": "*.py",
+  "total_files": 74,
+  "patterns_found": 1,
+  "suggestions": [
+    {
+      "pattern": ".py_pattern_1",
+      "file_type": ".py",
+      "num_files": 2,
+      "similarity": 0.09523809523809523,
+      "files": [
+        "core\\engine\\executor.py",
+        "core\\engine\\recovery.py"
+      ],
+      "template_structure": {
+        "total_lines": 12,
+        "common_lines": 4,
+        "variable_lines": 6,
+        "stability_ratio": 0.4,
+        "sample_common": [
+          "",
+          "\"\"\"",
+          "from __future__ import annotations",
+          "__all__ = []"
+        ],
+        "sample_variable": [
+          "# TODO: Implement worker pool and task execution.",
+          "# TODO: Implement checkpoint storage and recovery routines.",
+          "Facilities for checkpointing progress and resuming failed workstreams.",
+          "Runs scheduled workstream tasks with isolation and telemetry capture.",
+          "\"\"\"Parallel execution workers"
+        ]
+      },
+      "time_savings": {
+        "manual_minutes": 60,
+        "with_template_minutes": 130,
+        "savings_minutes": -70,
+        "savings_percent": -116.66666666666667
+      },
+      "recommended_pattern": "EXEC-002 (Code Module Generator)"
+    }
+  ]
+}
