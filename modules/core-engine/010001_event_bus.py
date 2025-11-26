@@ -105,7 +105,7 @@ class EventBus:
     
     def emit(self, event: Event) -> None:
         """Persist event to database and notify listeners."""
-        from modules.core_state.010003_db import get_connection
+        from modules.core_state import get_connection
         
         conn = get_connection()
         try:
@@ -147,7 +147,7 @@ class EventBus:
         limit: int = 100
     ) -> List[Event]:
         """Query events from database with flexible filters."""
-        from modules.core_state.010003_db import get_connection
+        from modules.core_state import get_connection
         
         conn = get_connection()
         try:

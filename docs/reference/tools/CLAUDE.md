@@ -2,6 +2,34 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## 0. MANDATORY: Execution Patterns First
+
+**CRITICAL**: Before beginning ANY task, read and follow:  
+📋 **`docs/reference/ai-agents/EXECUTION_PATTERNS_MANDATORY.md`**
+
+### Pattern-First Workflow (ENFORCED)
+```
+Step 1: Check if N ≥ 3 similar items → Use execution pattern
+Step 2: Enable 11 anti-pattern guards → Prevent 85h waste
+Step 3: Execute in batches → 3x-10x faster
+Step 4: Ground truth verification → Exit code, not "looks good"
+```
+
+### The Golden Rule
+> **Decide once → Apply N times → Trust ground truth → Move on**
+
+**Anti-Patterns Blocked**:
+- ❌ Hallucination of success (declare complete without verification)
+- ❌ Planning loops (80k tokens planning, zero execution)
+- ❌ Approval loops ("Would you like me to...")
+- ❌ Incomplete implementations (TODO/pass placeholders)
+- ❌ Framework over-engineering (create infrastructure, never use it)
+
+**Time Savings**: Tasks complete in 3.4h instead of 8.5h (2.5x speedup)  
+**ROI**: 255:1 (20 min setup saves 85h waste per project)
+
+---
+
 ## Critical Rules (From .claude/rules/)
 
 ### DateTime Standard

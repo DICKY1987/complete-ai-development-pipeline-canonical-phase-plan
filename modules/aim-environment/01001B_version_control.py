@@ -9,8 +9,8 @@ import asyncio
 from dataclasses import dataclass, field
 from typing import Literal, Optional
 
-from modules.aim_environment.01001B_exceptions import VersionControlError
-from modules.aim_environment.01001B_installer import ToolInstaller
+from modules.aim_environment import VersionControlError
+from modules.aim_environment import ToolInstaller
 
 
 @dataclass

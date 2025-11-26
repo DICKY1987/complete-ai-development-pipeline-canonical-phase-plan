@@ -1,7 +1,7 @@
 """Rollback and compensation (Saga pattern)."""
 
 from typing import List
-from modules.core_state.010003_bundles import WorkstreamBundle
+from modules.core_state import WorkstreamBundle
 
 
 class CompensationEngine:

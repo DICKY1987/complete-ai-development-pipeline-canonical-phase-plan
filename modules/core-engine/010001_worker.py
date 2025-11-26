@@ -57,7 +57,7 @@ class WorkerPool:
         # Process spawner (optional)
         self.process_spawner = None
         if enable_processes:
-            from modules.core_engine.010001_process_spawner import ProcessSpawner
+            from modules.core_engine import ProcessSpawner
             self.process_spawner = ProcessSpawner()
     
     def spawn_worker(self, adapter_type: str, worker_id: Optional[str] = None) -> Worker:
@@ -234,7 +234,7 @@ class WorkerPool:
         worker.heartbeat_at = datetime.now(timezone.utc)
         
         # Persist to DB
-        from modules.core_state.010003_db import get_connection
+        from modules.core_state import get_connection
         conn = get_connection()
         try:
             conn.execute(
@@ -304,7 +304,7 @@ class WorkerPool:
         Args:
             worker: Worker instance
         """
-        from modules.core_state.010003_db import get_connection
+        from modules.core_state import get_connection
         import json
         
         conn = get_connection()
