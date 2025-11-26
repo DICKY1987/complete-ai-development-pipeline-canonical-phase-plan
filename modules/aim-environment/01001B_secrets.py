@@ -22,7 +22,7 @@ try:
 except ImportError:
     KEYRING_AVAILABLE = False
 
-from aim.environment.exceptions import SecretsError
+from modules.aim_environment.01001B_exceptions import SecretsError
 
 
 class SecretsManager:

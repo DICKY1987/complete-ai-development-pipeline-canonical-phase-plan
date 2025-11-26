@@ -8,7 +8,7 @@ from typing import Optional
 from dataclasses import asdict
 import sqlite3
 import subprocess
-from core.engine.patch_converter import UnifiedPatch
+from modules.core_engine.010001_patch_converter import UnifiedPatch
 
 
 class PatchApplier:

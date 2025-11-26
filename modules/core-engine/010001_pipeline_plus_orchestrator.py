@@ -6,11 +6,11 @@ from typing import Dict, Any, Optional
 from pathlib import Path
 from datetime import datetime, timezone
 
-from core.state.task_queue import TaskQueue, Task, TaskResult
-from core.state.audit_logger import AuditLogger
+from modules.core_state.010003_task_queue import TaskQueue, Task, TaskResult
+from modules.core_state.010003_audit_logger import AuditLogger
 from core.engine.patch_manager import PatchManager
-from core.engine.prompt_engine import PromptEngine, PromptContext
-from core.engine.validators import ScopeValidator, CircuitBreaker
+from modules.core_engine.010001_prompt_engine import PromptEngine, PromptContext
+from modules.core_engine.010001_validators import ScopeValidator, CircuitBreaker
 from core.engine.adapters import AiderAdapter, CodexAdapter, ClaudeAdapter
 
 class PipelinePlusOrchestrator:

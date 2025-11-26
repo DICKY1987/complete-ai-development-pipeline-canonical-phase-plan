@@ -6,7 +6,7 @@ import sqlite3
 from pathlib import Path
 from typing import Any, Dict, Optional
 
-from error.engine.error_context import ErrorPipelineContext
+from modules.error_engine.010004_error_context import ErrorPipelineContext
 from . import db_sqlite
 
 

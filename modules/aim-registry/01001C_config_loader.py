@@ -23,7 +23,7 @@ try:
 except ImportError:
     JSONSCHEMA_AVAILABLE = False
 
-from aim.environment.exceptions import ConfigurationError
+from modules.aim_environment.01001B_exceptions import ConfigurationError
 
 
 class ConfigLoader:

@@ -6,7 +6,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict
 
-from error.engine.error_context import ErrorPipelineContext
+from modules.error_engine.010004_error_context import ErrorPipelineContext
 
 
 def _utc_now() -> str:
