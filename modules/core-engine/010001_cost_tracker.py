@@ -53,7 +53,7 @@ class CostTracker:
         output_tokens: int
     ) -> float:
         """Record token usage and calculate cost."""
-        from modules.core_state import get_connection
+        from core.state.db import get_connection
         
         pricing = PRICING_TABLE.get(model_name, PRICING_TABLE['gpt-4'])
         
@@ -82,7 +82,7 @@ class CostTracker:
     
     def get_total_cost(self, run_id: str) -> float:
         """Get total cost for a run."""
-        from modules.core_state import get_connection
+        from core.state.db import get_connection
         
         conn = get_connection()
         try:
@@ -119,7 +119,7 @@ class CostTracker:
     
     def _emit_budget_warning(self, run_id: str, total_cost: float, usage: float) -> None:
         """Emit budget warning event."""
-        from modules.core_state import db
+        from core.state import db
         
         db.record_event(
             event_type='budget_warning',
@@ -141,7 +141,7 @@ class CostTracker:
             total_cost: Total cost
             usage: Budget usage fraction
         """
-        from modules.core_state import db
+        from core.state import db
         
         db.record_event(
             event_type='budget_exceeded',

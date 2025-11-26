@@ -7,8 +7,8 @@ The actual implementation has been replaced by the UET (Universal
 Execution Templates) engine in core.engine.uet_orchestrator.
 
 Migration path:
-  OLD: from modules.core_engine import Orchestrator
-  NEW: from modules.core_engine import Orchestrator
+  OLD: from core.engine.orchestrator import Orchestrator
+  NEW: from core.engine.uet_orchestrator import Orchestrator
 
 This adapter will be removed in a future release.
 """

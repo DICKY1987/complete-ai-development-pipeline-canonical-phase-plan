@@ -11,13 +11,13 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Sequence
 
-from modules.error_engine import (
+from error.engine.agent_adapters import (
     AgentInvocation,
     AgentResult,
     get_agent_adapter,
 )
-from modules.error_engine import ErrorPipelineContext
-from modules.error_engine import advance_state
+from error.engine.error_context import ErrorPipelineContext
+from error.engine.error_state_machine import advance_state
 from error.shared.utils.time import utc_now_iso
 
 

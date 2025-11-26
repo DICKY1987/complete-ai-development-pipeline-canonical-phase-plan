@@ -9,7 +9,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Dict, List, Set, Tuple
 
-from modules.core_state import WorkstreamBundle
+from core.state.bundles import WorkstreamBundle
 
 
 @dataclass
