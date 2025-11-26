@@ -8,7 +8,7 @@ from typing import Dict, Any, Optional, List
 import sqlite3
 from pathlib import Path
 
-from modules.core_state import get_connection
+from core.state.db import get_connection
 
 
 class Database:
