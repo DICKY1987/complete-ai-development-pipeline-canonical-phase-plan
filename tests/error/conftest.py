@@ -18,9 +18,9 @@ from typing import Dict, Any
 
 import pytest
 
-from error.engine.plugin_manager import PluginManager
-from error.engine.file_hash_cache import FileHashCache
-from error.engine.error_context import ErrorPipelineContext
+from modules.error_engine.m010004_plugin_manager import PluginManager
+from modules.error_engine.m010004_file_hash_cache import FileHashCache
+from modules.error_engine.m010004_error_context import ErrorPipelineContext
 
 
 @pytest.fixture

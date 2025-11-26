@@ -10,7 +10,7 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from core.state.db import get_connection
+from modules.core_state.m010003_db import get_connection
 from core.ui_models import (
     ErrorCategory,
     ErrorRecord,
@@ -578,7 +578,7 @@ class LogsClient:
         limit: int = 100
     ) -> List[Dict[str, Any]]:
         """Query events with flexible filters."""
-        from core.engine.event_bus import EventBus
+        from modules.core_engine.m010001_event_bus import EventBus
         
         bus = EventBus()
         # This would use the enhanced query method
@@ -587,7 +587,7 @@ class LogsClient:
     
     def export_logs(self, run_id: str, output_path: str) -> int:
         """Export logs for a run to JSON/JSONL file."""
-        from core.engine.event_bus import EventBus
+        from modules.core_engine.m010001_event_bus import EventBus
         
         bus = EventBus()
         return bus.export_to_jsonl(output_path, run_id=run_id, limit=10000)

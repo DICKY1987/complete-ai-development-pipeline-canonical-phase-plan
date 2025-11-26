@@ -15,8 +15,8 @@ from datetime import datetime
 # Add project root to sys.path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from core.state import db
-from core.engine.event_bus import EventType
+from modules.core_state import m010003_db
+from modules.core_engine.m010001_event_bus import EventType
 
 
 def format_event(event: dict) -> str:

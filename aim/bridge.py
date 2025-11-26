@@ -22,7 +22,7 @@ import yaml
 
 # AIM+ imports (graceful degradation if not available)
 try:
-    from aim.environment.secrets import get_secrets_manager
+    from modules.aim_environment.m01001B_secrets import get_secrets_manager
     SECRETS_AVAILABLE = True
 except ImportError:
     SECRETS_AVAILABLE = False

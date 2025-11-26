@@ -13,7 +13,7 @@ import argparse
 import sqlite3
 from typing import Iterable
 
-from core.state import db as pipeline_db
+from modules.core_state import m010003_db as pipeline_db
 
 
 def iter_tables(conn: sqlite3.Connection) -> Iterable[str]:

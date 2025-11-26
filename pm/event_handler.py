@@ -19,7 +19,7 @@ from pm.models import WorkstreamEvent, EventType, Status
 
 # Try to import GitHub sync (optional)
 try:
-    from pm.integrations.github_sync import comment, set_status, post_lifecycle_comment, LifecycleEvent
+    from modules.pm_integrations.m01001F_github_sync import comment, set_status, post_lifecycle_comment, LifecycleEvent
     HAS_GITHUB_SYNC = True
 except ImportError:
     HAS_GITHUB_SYNC = False
@@ -62,7 +62,7 @@ class PipelineEventHandler:
         
         # Check config
         try:
-            from pm.integrations.github_sync import _enabled
+            from modules.pm_integrations.m01001F_github_sync import _enabled
             return _enabled()
         except Exception:
             return False

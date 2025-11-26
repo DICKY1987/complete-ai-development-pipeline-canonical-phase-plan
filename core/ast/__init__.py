@@ -26,7 +26,7 @@ Public API:
         - languages.LANGUAGE_PARSERS - Available parsers
 
 Usage:
-    from core.ast.extractors import extract_functions, extract_dependencies
+    from modules.core_ast.m010000_extractors import extract_functions, extract_dependencies
     from core.ast.languages.python import extract_python_functions
     
     # High-level API (language-agnostic)
@@ -47,7 +47,7 @@ This module supports Phase 4 AI Enhancement features:
 - Semantic code understanding
 """
 
-from core.ast.extractors import (
+from modules.core_ast.m010000_extractors import (
     extract_functions,
     extract_classes,
     extract_imports,

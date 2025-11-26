@@ -5,8 +5,8 @@ from pathlib import Path
 import tempfile
 import shutil
 
-from aim.environment.secrets import SecretsManager, get_secrets_manager
-from aim.environment.exceptions import SecretsError
+from modules.aim_environment.m01001B_secrets import SecretsManager, get_secrets_manager
+from modules.aim_environment.m01001B_exceptions import SecretsError
 
 
 @pytest.fixture

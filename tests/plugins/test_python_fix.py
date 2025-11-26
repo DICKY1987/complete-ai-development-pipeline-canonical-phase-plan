@@ -9,8 +9,8 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from error.plugins.python_isort_fix.plugin import IsortFixPlugin
-from error.plugins.python_black_fix.plugin import BlackFixPlugin
+from modules.error_plugin_python_isort_fix.m010011_plugin import IsortFixPlugin
+from modules.error_plugin_python_black_fix.m010010_plugin import BlackFixPlugin
 from tests.plugins.conftest import (
     assert_plugin_result_valid,
     create_sample_file,

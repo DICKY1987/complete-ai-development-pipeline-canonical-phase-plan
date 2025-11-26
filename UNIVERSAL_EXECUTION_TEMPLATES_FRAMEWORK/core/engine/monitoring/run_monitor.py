@@ -12,7 +12,7 @@ from pathlib import Path
 # Add framework root to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
 
-from core.state.db import Database
+from modules.core_state.m010003_db import Database
 
 
 class RunStatus(Enum):

@@ -3,7 +3,7 @@
 import pytest
 from pathlib import Path
 
-from aim.environment.health import HealthMonitor, HealthCheck, check_health
+from modules.aim_environment.m01001B_health import HealthMonitor, HealthCheck, check_health
 
 
 class TestHealthCheck:

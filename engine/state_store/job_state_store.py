@@ -16,7 +16,7 @@ from datetime import datetime
 from typing import Dict, Any, List, Optional
 from pathlib import Path
 
-from core.state import db, crud
+from modules.core_state import m010003_db, crud
 from engine.types import JobResult
 
 

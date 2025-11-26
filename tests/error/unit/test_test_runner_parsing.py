@@ -6,7 +6,7 @@ from pathlib import Path
 _repo_root = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(_repo_root))
 
-from error.plugins.test_runner.plugin import (
+from modules.error_plugin_test_runner.m010018_plugin import (
     parse_test_output,
     parse_test_failure_line,
     extract_file,

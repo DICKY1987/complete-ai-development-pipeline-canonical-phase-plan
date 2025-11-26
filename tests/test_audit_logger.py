@@ -5,7 +5,7 @@ import pytest
 import json
 from pathlib import Path
 from datetime import datetime
-from core.state.audit_logger import (
+from modules.core_state.m010003_audit_logger import (
     AuditLogger, AuditEvent, EventFilters,
     PatchLedger, PatchArtifact
 )

@@ -4,7 +4,7 @@ import os
 import importlib
 
 from core import orchestrator
-from core.state import bundles
+from modules.core_state import m010003_bundles
 
 
 def test_lifecycle_comments_are_emitted(monkeypatch):

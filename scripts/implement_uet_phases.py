@@ -62,7 +62,7 @@ class EventBus:
     
     def emit(self, event: Event) -> None:
         \"\"\"Persist event to database and notify listeners.\"\"\"
-        from core.state.db import get_connection
+        from modules.core_state.m010003_db import get_connection
         
         conn = get_connection()
         try:
@@ -91,7 +91,7 @@ class EventBus:
         limit: int = 100
     ) -> List[Event]:
         \"\"\"Query events from database.\"\"\"
-        from core.state.db import get_connection
+        from modules.core_state.m010003_db import get_connection
         
         conn = get_connection()
         try:
@@ -138,8 +138,8 @@ class EventBus:
 
 from typing import Dict, List, Set, Optional
 from dataclasses import dataclass, field
-from core.state.bundles import WorkstreamBundle
-from core.engine.worker import WorkerPool, Worker
+from modules.core_state.m010003_bundles import WorkstreamBundle
+from modules.core_engine.m010001_worker import WorkerPool, Worker
 
 
 @dataclass
@@ -163,7 +163,7 @@ def build_execution_plan(
     max_workers: int = 4
 ) -> ExecutionPlan:
     \"\"\"Generate multi-wave execution plan using parallelism detector.\"\"\"
-    from core.planning.parallelism_detector import detect_parallel_opportunities
+    from modules.core_planning.m010002_parallelism_detector import detect_parallel_opportunities
     
     profile = detect_parallel_opportunities(bundles, max_workers)
     
@@ -223,7 +223,7 @@ from pathlib import Path
 project_root = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(project_root))
 
-from core.engine.event_bus import EventBus, EventType
+from modules.core_engine.m010001_event_bus import EventBus, EventType
 
 
 def main():
@@ -294,7 +294,7 @@ class RecoveryManager:
         4. Apply self-heal policy
         5. Restore workers and resume scheduling
         \"\"\"
-        from core.state.db import get_connection
+        from modules.core_state.m010003_db import get_connection
         
         conn = get_connection()
         orphaned = []
@@ -331,7 +331,7 @@ class RecoveryManager:
     "core/engine/compensation.py": """\"\"\"Rollback and compensation (Saga pattern).\"\"\"
 
 from typing import List
-from core.state.bundles import WorkstreamBundle
+from modules.core_state.m010003_bundles import WorkstreamBundle
 
 
 class CompensationEngine:
@@ -401,7 +401,7 @@ class CostTracker:
         output_tokens: int
     ) -> float:
         \"\"\"Record token usage and calculate cost.\"\"\"
-        from core.state.db import get_connection
+        from modules.core_state.m010003_db import get_connection
         
         pricing = PRICING_TABLE.get(model_name, PRICING_TABLE['gpt-4'])
         
@@ -426,7 +426,7 @@ class CostTracker:
     
     def get_total_cost(self, run_id: str) -> float:
         \"\"\"Get total cost for a run.\"\"\"
-        from core.state.db import get_connection
+        from modules.core_state.m010003_db import get_connection
         
         conn = get_connection()
         try:
@@ -490,7 +490,7 @@ class MetricsAggregator:
     
     def compute_metrics(self, run_id: str) -> ExecutionMetrics:
         \"\"\"Aggregate all metrics for a run.\"\"\"
-        from core.engine.cost_tracker import CostTracker
+        from modules.core_engine.m010001_cost_tracker import CostTracker
         
         tracker = CostTracker()
         total_cost = tracker.get_total_cost(run_id)

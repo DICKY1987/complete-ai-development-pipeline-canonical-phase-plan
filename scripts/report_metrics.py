@@ -13,7 +13,7 @@ from pathlib import Path
 # Add project root to sys.path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from core.engine.metrics import MetricsAggregator
+from modules.core_engine.m010001_metrics import MetricsAggregator
 
 
 def show_metrics(run_id: str) -> None:

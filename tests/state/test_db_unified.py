@@ -2,7 +2,7 @@
 import pytest
 import sqlite3
 from pathlib import Path
-from core.state.db_unified import UnifiedDBBridge
+from modules.core_state.m010003_db_unified import UnifiedDBBridge
 
 def test_import():
     """Test that imports work."""

@@ -14,7 +14,7 @@ from pathlib import Path
 # Add project root to sys.path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from core.engine.recovery_manager import RecoveryManager
+from modules.core_engine.m010001_recovery_manager import RecoveryManager
 
 
 def list_recoverable_runs() -> None:

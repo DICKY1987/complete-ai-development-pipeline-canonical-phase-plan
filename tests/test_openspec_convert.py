@@ -3,7 +3,7 @@ import json
 
 from core.openspec_parser import load_bundle_from_change
 from core.openspec_convert import bundle_to_workstream
-from core.state import bundles as ws_bundles
+from modules.core_state import m010003_bundles as ws_bundles
 
 
 def _write_change(tmp: Path, change_id: str) -> Path:

@@ -14,8 +14,8 @@ project_root = Path(__file__).resolve().parent.parent
 if str(project_root) not in sys.path:
     sys.path.insert(0, str(project_root))
 
-from core.state.bundles import load_and_validate_bundles, BundleValidationError
-from core.engine.plan_validator import validate_phase_plan, ValidationMode
+from modules.core_state.m010003_bundles import load_and_validate_bundles, BundleValidationError
+from modules.core_engine.m010001_plan_validator import validate_phase_plan, ValidationMode
 
 
 def main():

@@ -9,9 +9,9 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from error.plugins.powershell_pssa.plugin import PSScriptAnalyzerPlugin
-from error.plugins.js_prettier_fix.plugin import PrettierFixPlugin
-from error.plugins.js_eslint.plugin import ESLintPlugin
+from modules.error_plugin_powershell_pssa.m01000E_plugin import PSScriptAnalyzerPlugin
+from modules.error_plugin_js_prettier_fix.m01000A_plugin import PrettierFixPlugin
+from modules.error_plugin_js_eslint.m010009_plugin import ESLintPlugin
 from tests.plugins.conftest import (
     assert_issue_valid,
     assert_plugin_result_valid,

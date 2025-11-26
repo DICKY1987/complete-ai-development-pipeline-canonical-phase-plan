@@ -3,7 +3,7 @@ Tests for DAG Builder
 """
 
 import pytest
-from core.engine.dag_builder import DAGBuilder
+from modules.core_engine.m010001_dag_builder import DAGBuilder
 
 
 def test_simple_dag():

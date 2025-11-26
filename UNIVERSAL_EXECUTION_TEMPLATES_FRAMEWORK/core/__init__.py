@@ -33,7 +33,7 @@ except ImportError:
     BootstrapOrchestrator = None
 
 try:
-    from core.engine.scheduler import ExecutionScheduler
+    from modules.core_engine.m010001_scheduler import ExecutionScheduler
 except ImportError:
     ExecutionScheduler = None
 

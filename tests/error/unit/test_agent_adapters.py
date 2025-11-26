@@ -14,7 +14,7 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from error.engine.agent_adapters import (
+from modules.error_engine.m010004_agent_adapters import (
     AgentAdapter,
     AgentInvocation,
     AgentResult,

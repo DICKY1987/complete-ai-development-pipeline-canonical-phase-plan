@@ -25,8 +25,8 @@ Public API:
         - parallelism_detector.detect_conflict_groups()
 
 Usage:
-    from core.planning.archive import auto_archive
-    from core.planning.parallelism_detector import detect_parallel_opportunities
+    from modules.core_planning.m010002_archive import auto_archive
+    from modules.core_planning.m010002_parallelism_detector import detect_parallel_opportunities
     
     # Archive completed workstream
     archive_path = auto_archive(worktree_path, archive_dir)

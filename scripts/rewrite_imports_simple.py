@@ -33,7 +33,7 @@ def build_conversion_rules(inventory: dict) -> List[Tuple[str, str]]:
     
     Strategy: Convert to module-level imports since ULID filenames can't be imported directly.
     Example:
-        from core.state.db import X  ->  from modules.core_state import X
+        from modules.core_state.m010003_db import X  ->  from modules.core_state import X
     """
     rules = []
     

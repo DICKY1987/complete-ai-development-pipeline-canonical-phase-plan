@@ -7,7 +7,7 @@ import json
 from pathlib import Path
 from datetime import datetime, timezone
 
-from aim.environment.audit import (
+from modules.aim_environment.m01001B_audit import (
     AuditLogger,
     AuditEvent,
     EventType,

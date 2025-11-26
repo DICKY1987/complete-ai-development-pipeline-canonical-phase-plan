@@ -17,7 +17,7 @@ from rich.table import Table
 from rich.progress import Progress, SpinnerColumn, TextColumn
 import json
 
-from aim.environment.installer import get_installer, InstallResult
+from modules.aim_environment.m01001B_installer import get_installer, InstallResult
 
 
 console = Console()
@@ -154,7 +154,7 @@ def bootstrap(skip_health: bool, dry_run: bool):
     
     # Health checks
     if not skip_health:
-        from aim.environment.health import check_health
+        from modules.aim_environment.m01001B_health import check_health
         
         console.print("[bold]Step 1: Health Checks[/bold]")
         health = check_health()

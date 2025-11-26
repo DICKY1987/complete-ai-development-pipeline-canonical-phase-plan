@@ -6,7 +6,7 @@ import time
 import subprocess
 import sys
 from pathlib import Path
-from core.engine.validators import (
+from modules.core_engine.m010001_validators import (
     ScopeValidator, TimeoutMonitor, CircuitBreaker,
     ScopeResult, TimeoutResult, CircuitBreakerTrip
 )

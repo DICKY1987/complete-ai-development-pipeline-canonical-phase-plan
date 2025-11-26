@@ -9,7 +9,7 @@ from pathlib import Path
 
 import pytest
 
-from aim.environment.scanner import (
+from modules.aim_environment.m01001B_scanner import (
     DuplicateGroup,
     EnvironmentScanner,
     MisplacedCache,

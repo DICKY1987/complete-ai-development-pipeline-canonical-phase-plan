@@ -2,7 +2,7 @@
 
 import pytest
 from datetime import datetime, timezone
-from core.engine.event_bus import Event, EventType, EventBus
+from modules.core_engine.m010001_event_bus import Event, EventType, EventBus
 
 
 def test_event_creation():

@@ -32,8 +32,8 @@ Public API:
         - recovery.attempt_recovery()
 
 Usage:
-    from core.engine.orchestrator import run_workstream
-    from core.engine.scheduler import build_execution_plan
+    from modules.core_engine.m010001_orchestrator import run_workstream
+    from modules.core_engine.m010001_scheduler import build_execution_plan
     
     plan = build_execution_plan(bundles)
     result = run_workstream(run_id, ws_id, bundle)

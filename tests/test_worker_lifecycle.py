@@ -2,7 +2,7 @@
 
 import pytest
 from datetime import datetime, timedelta, timezone
-from core.engine.worker import Worker, WorkerState, WorkerPool
+from modules.core_engine.m010001_worker import Worker, WorkerState, WorkerPool
 
 
 def test_worker_creation():

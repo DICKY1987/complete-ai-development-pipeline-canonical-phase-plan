@@ -13,8 +13,8 @@ import click
 from rich.console import Console
 from rich.table import Table
 
-from aim.registry.config_loader import ConfigLoader
-from aim.environment.installer import ToolInstaller
+from modules.aim_registry.m01001C_config_loader import ConfigLoader
+from modules.aim_environment.m01001B_installer import ToolInstaller
 
 
 console = Console()

@@ -9,7 +9,7 @@ import json
 from datetime import datetime, timezone
 from typing import Optional
 
-from core.state.db import get_connection
+from modules.core_state.m010003_db import get_connection
 from core.tool_instrumentation import emit_error_raised
 
 
@@ -203,7 +203,7 @@ def mark_error_resolved(
         )
         
         # Emit event
-        from core.engine.event_bus import Event, EventBus, EventSeverity, EventType
+        from modules.core_engine.m010001_event_bus import Event, EventBus, EventSeverity, EventType
         bus = EventBus()
         
         bus.emit(Event(

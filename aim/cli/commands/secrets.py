@@ -16,8 +16,8 @@ from rich.table import Table
 from pathlib import Path
 from typing import Optional
 
-from aim.environment.secrets import get_secrets_manager
-from aim.environment.exceptions import SecretsError
+from modules.aim_environment.m01001B_secrets import get_secrets_manager
+from modules.aim_environment.m01001B_exceptions import SecretsError
 
 
 console = Console()

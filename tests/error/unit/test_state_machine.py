@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import pytest
 
-from error.engine.error_state_machine import (
+from modules.error_engine.m010004_error_state_machine import (
     advance_state,
     S_INIT,
     S0_BASELINE_CHECK,
@@ -18,7 +18,7 @@ from error.engine.error_state_machine import (
     S4_QUARANTINE,
     S_SUCCESS,
 )
-from error.engine.error_context import ErrorPipelineContext
+from modules.error_engine.m010004_error_context import ErrorPipelineContext
 
 
 class TestStateTransitions:

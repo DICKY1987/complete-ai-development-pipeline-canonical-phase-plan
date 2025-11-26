@@ -125,7 +125,7 @@ def test_legacy_config_fallback():
     """Legacy config files trigger deprecation warnings."""
     # Import tools module which has legacy fallback
     import warnings
-    from core.engine import tools
+    from modules.core_engine import m010001_tools
     
     # Loading should work (falls back to invoke.yaml)
     with warnings.catch_warnings(record=True) as w:
@@ -139,7 +139,7 @@ def test_legacy_config_fallback():
 
 def test_circuit_breaker_config_migration():
     """Circuit breaker config migrates from legacy structure."""
-    from core.engine import circuit_breakers
+    from modules.core_engine import m010001_circuit_breakers
     
     config = circuit_breakers.load_config()
     assert 'defaults' in config

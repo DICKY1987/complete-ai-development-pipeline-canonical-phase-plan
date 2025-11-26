@@ -3,7 +3,7 @@ from types import SimpleNamespace
 
 import pytest
 
-from core.state import db
+from modules.core_state import m010003_db
 from core import orchestrator
 
 

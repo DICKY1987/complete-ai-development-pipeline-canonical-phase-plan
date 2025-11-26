@@ -10,8 +10,8 @@ from pathlib import Path
 from unittest.mock import MagicMock, patch
 import pytest
 
-from core.engine.aim_integration import execute_with_aim, is_aim_available
-from core.engine.tools import ToolResult
+from modules.core_engine.m010001_aim_integration import execute_with_aim, is_aim_available
+from modules.core_engine.m010001_tools import ToolResult
 
 
 class TestAIMIntegration:

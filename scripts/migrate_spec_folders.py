@@ -232,9 +232,9 @@ python specifications/tools/renderer/renderer.py --output rendered_spec.md
 ## Import Paths
 
 ```python
-from specifications.tools.indexer.indexer import generate_index
-from specifications.tools.resolver.resolver import resolve_spec_uri
-from specifications.tools.guard.guard import validate_suite
+from modules.specifications_tools.m010020_indexer import generate_index
+from modules.specifications_tools.m010020_resolver import resolve_spec_uri
+from modules.specifications_tools.m010020_guard import validate_suite
 ```
 
 ## Migration

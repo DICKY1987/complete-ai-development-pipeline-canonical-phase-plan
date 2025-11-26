@@ -8,7 +8,7 @@ from pathlib import Path
 project_root = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(project_root))
 
-from core.engine.event_bus import EventBus, EventType
+from modules.core_engine.m010001_event_bus import EventBus, EventType
 
 
 def main():

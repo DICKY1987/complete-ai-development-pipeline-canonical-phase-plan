@@ -9,7 +9,7 @@ from datetime import datetime
 from typing import Dict, Any, Optional, List
 from pathlib import Path
 
-from core.state.db import Database, get_db
+from modules.core_state.m010003_db import Database, get_db
 from core.engine.state_machine import RunStateMachine, StepStateMachine
 
 

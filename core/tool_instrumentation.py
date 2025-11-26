@@ -9,7 +9,7 @@ from contextlib import contextmanager
 from datetime import datetime, timezone
 from typing import Any, Dict, Optional
 
-from core.engine.event_bus import Event, EventBus, EventSeverity, EventType
+from modules.core_engine.m010001_event_bus import Event, EventBus, EventSeverity, EventType
 
 
 class ToolInvocationTracker:
@@ -122,7 +122,7 @@ class ToolInvocationTracker:
     
     def _update_tool_metrics(self, latency: float, success: bool):
         """Update tool health metrics in the database."""
-        from core.state.db import get_connection
+        from modules.core_state.m010003_db import get_connection
         
         conn = get_connection()
         try:
@@ -321,7 +321,7 @@ def update_tool_health_status(
         version: Optional tool version
         category: Optional tool category
     """
-    from core.state.db import get_connection
+    from modules.core_state.m010003_db import get_connection
     
     conn = get_connection()
     try:

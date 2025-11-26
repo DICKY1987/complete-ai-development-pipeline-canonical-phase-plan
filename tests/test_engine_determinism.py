@@ -2,9 +2,9 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from error.engine.pipeline_engine import PipelineEngine
-from error.engine.plugin_manager import PluginManager
-from error.engine.file_hash_cache import FileHashCache
+from modules.error_engine.m010004_pipeline_engine import PipelineEngine
+from modules.error_engine.m010004_plugin_manager import PluginManager
+from modules.error_engine.m010004_file_hash_cache import FileHashCache
 
 
 def test_engine_skip_on_unchanged(tmp_path: Path) -> None:

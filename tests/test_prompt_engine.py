@@ -3,7 +3,7 @@ Unit tests for Prompt Engine V1.1
 """
 import pytest
 from pathlib import Path
-from core.engine.prompt_engine import (
+from modules.core_engine.m010001_prompt_engine import (
     PromptEngine, Classification, PromptContext
 )
 

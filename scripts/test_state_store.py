@@ -78,8 +78,8 @@ def test_job_result_update():
     try:
         from engine.state_store.job_state_store import JobStateStore
         from engine.types import JobResult
-        from core.state import crud
-        from core.state.db import get_connection
+        from modules.core_state import m010003_crud
+        from modules.core_state.m010003_db import get_connection
         from datetime import datetime
         
         store = JobStateStore(db_path="state/test_pipeline.db")
@@ -151,8 +151,8 @@ def test_event_logging():
     print("Testing event logging...")
     try:
         from engine.state_store.job_state_store import JobStateStore
-        from core.state import crud
-        from core.state.db import get_connection
+        from modules.core_state import m010003_crud
+        from modules.core_state.m010003_db import get_connection
         from datetime import datetime
         
         store = JobStateStore(db_path="state/test_pipeline.db")

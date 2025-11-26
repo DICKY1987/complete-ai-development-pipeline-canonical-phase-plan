@@ -3,7 +3,7 @@ Import Rewriter v2 - Module-level imports only
 
 Rewrites file-level imports to module-level imports.
 Example:
-    from core.state.db import get_connection
+    from modules.core_state.m010003_db import get_connection
     → from modules.core_state import get_connection
 
 Usage:

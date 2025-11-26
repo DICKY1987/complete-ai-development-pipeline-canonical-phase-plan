@@ -4,7 +4,7 @@ Integration Tests for UET Migration
 
 import pytest
 from pathlib import Path
-from core.engine.dag_builder import DAGBuilder
+from modules.core_engine.m010001_dag_builder import DAGBuilder
 from core.engine.parallel_orchestrator import ParallelOrchestrator
 
 

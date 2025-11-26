@@ -36,23 +36,23 @@ from typing import Dict, List, Tuple
 # Import mapping: old pattern → new pattern
 IMPORT_MIGRATIONS = {
     # State management
-    (r'from\s+src\.pipeline\.db\s+import', 'from core.state.db import'),
-    (r'from\s+src\.pipeline\.db_sqlite\s+import', 'from core.state.db_sqlite import'),
-    (r'from\s+src\.pipeline\.crud_operations\s+import', 'from core.state.crud import'),
-    (r'from\s+src\.pipeline\.bundles\s+import', 'from core.state.bundles import'),
-    (r'from\s+src\.pipeline\.worktree\s+import', 'from core.state.worktree import'),
+    (r'from\s+src\.pipeline\.db\s+import', 'from modules.core_state.m010003_db import'),
+    (r'from\s+src\.pipeline\.db_sqlite\s+import', 'from modules.core_state.m010003_db_sqlite import'),
+    (r'from\s+src\.pipeline\.crud_operations\s+import', 'from modules.core_state.m010003_crud import'),
+    (r'from\s+src\.pipeline\.bundles\s+import', 'from modules.core_state.m010003_bundles import'),
+    (r'from\s+src\.pipeline\.worktree\s+import', 'from modules.core_state.m010003_worktree import'),
     
     # Engine/orchestration
-    (r'from\s+src\.pipeline\.orchestrator\s+import', 'from core.engine.orchestrator import'),
-    (r'from\s+src\.pipeline\.scheduler\s+import', 'from core.engine.scheduler import'),
-    (r'from\s+src\.pipeline\.executor\s+import', 'from core.engine.executor import'),
-    (r'from\s+src\.pipeline\.tools\s+import', 'from core.engine.tools import'),
-    (r'from\s+src\.pipeline\.circuit_breakers\s+import', 'from core.engine.circuit_breakers import'),
-    (r'from\s+src\.pipeline\.recovery\s+import', 'from core.engine.recovery import'),
+    (r'from\s+src\.pipeline\.orchestrator\s+import', 'from modules.core_engine.m010001_orchestrator import'),
+    (r'from\s+src\.pipeline\.scheduler\s+import', 'from modules.core_engine.m010001_scheduler import'),
+    (r'from\s+src\.pipeline\.executor\s+import', 'from modules.core_engine.m010001_executor import'),
+    (r'from\s+src\.pipeline\.tools\s+import', 'from modules.core_engine.m010001_tools import'),
+    (r'from\s+src\.pipeline\.circuit_breakers\s+import', 'from modules.core_engine.m010001_circuit_breakers import'),
+    (r'from\s+src\.pipeline\.recovery\s+import', 'from modules.core_engine.m010001_recovery import'),
     
     # Planning
-    (r'from\s+src\.pipeline\.planner\s+import', 'from core.planning.planner import'),
-    (r'from\s+src\.pipeline\.archive\s+import', 'from core.planning.archive import'),
+    (r'from\s+src\.pipeline\.planner\s+import', 'from modules.core_planning.m010002_planner import'),
+    (r'from\s+src\.pipeline\.archive\s+import', 'from modules.core_planning.m010002_archive import'),
     
     # Other core components
     (r'from\s+src\.pipeline\.openspec_parser\s+import', 'from core.openspec_parser import'),
@@ -64,21 +64,21 @@ IMPORT_MIGRATIONS = {
     (r'from\s+src\.pipeline\.aim_bridge\s+import', 'from aim.bridge import'),
     
     # Error subsystem (from src.pipeline)
-    (r'from\s+src\.pipeline\.error_engine\s+import', 'from error.engine.error_engine import'),
-    (r'from\s+src\.pipeline\.error_state_machine\s+import', 'from error.engine.error_state_machine import'),
-    (r'from\s+src\.pipeline\.error_pipeline_cli\s+import', 'from error.engine.error_pipeline_cli import'),
-    (r'from\s+src\.pipeline\.error_pipeline_service\s+import', 'from error.engine.error_pipeline_service import'),
-    (r'from\s+src\.pipeline\.error_context\s+import', 'from error.engine.error_context import'),
+    (r'from\s+src\.pipeline\.error_engine\s+import', 'from modules.error_engine.m010004_error_engine import'),
+    (r'from\s+src\.pipeline\.error_state_machine\s+import', 'from modules.error_engine.m010004_error_state_machine import'),
+    (r'from\s+src\.pipeline\.error_pipeline_cli\s+import', 'from modules.error_engine.m010004_error_pipeline_cli import'),
+    (r'from\s+src\.pipeline\.error_pipeline_service\s+import', 'from modules.error_engine.m010004_error_pipeline_service import'),
+    (r'from\s+src\.pipeline\.error_context\s+import', 'from modules.error_engine.m010004_error_context import'),
     
     # Error subsystem (from MOD_ERROR_PIPELINE)
     (r'from\s+MOD_ERROR_PIPELINE\.file_hash_cache\s+import', 'from error.file_hash_cache import'),
     (r'from\s+MOD_ERROR_PIPELINE\.plugin_manager\s+import', 'from error.plugin_manager import'),
     (r'from\s+MOD_ERROR_PIPELINE\.pipeline_engine\s+import', 'from error.pipeline_engine import'),
-    (r'from\s+MOD_ERROR_PIPELINE\.error_engine\s+import', 'from error.engine.error_engine import'),
-    (r'from\s+MOD_ERROR_PIPELINE\.error_state_machine\s+import', 'from error.engine.error_state_machine import'),
-    (r'from\s+MOD_ERROR_PIPELINE\.error_pipeline_cli\s+import', 'from error.engine.error_pipeline_cli import'),
-    (r'from\s+MOD_ERROR_PIPELINE\.error_pipeline_service\s+import', 'from error.engine.error_pipeline_service import'),
-    (r'from\s+MOD_ERROR_PIPELINE\.error_context\s+import', 'from error.engine.error_context import'),
+    (r'from\s+MOD_ERROR_PIPELINE\.error_engine\s+import', 'from modules.error_engine.m010004_error_engine import'),
+    (r'from\s+MOD_ERROR_PIPELINE\.error_state_machine\s+import', 'from modules.error_engine.m010004_error_state_machine import'),
+    (r'from\s+MOD_ERROR_PIPELINE\.error_pipeline_cli\s+import', 'from modules.error_engine.m010004_error_pipeline_cli import'),
+    (r'from\s+MOD_ERROR_PIPELINE\.error_pipeline_service\s+import', 'from modules.error_engine.m010004_error_pipeline_service import'),
+    (r'from\s+MOD_ERROR_PIPELINE\.error_context\s+import', 'from modules.error_engine.m010004_error_context import'),
 }
 
 # Setup logging

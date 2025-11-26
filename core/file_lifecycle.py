@@ -10,7 +10,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional
 
-from core.state.db import get_connection
+from modules.core_state.m010003_db import get_connection
 from core.tool_instrumentation import emit_file_state_change
 
 

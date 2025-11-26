@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from error.engine.file_hash_cache import FileHashCache
+from modules.error_engine.m010004_file_hash_cache import FileHashCache
 
 
 def test_file_hash_cache_roundtrip(tmp_path: Path) -> None:

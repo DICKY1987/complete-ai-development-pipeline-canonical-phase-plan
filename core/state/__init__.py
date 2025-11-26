@@ -30,9 +30,9 @@ Public API:
         - worktree.get_repo_root()
 
 Usage:
-    from core.state.db import init_db
-    from core.state.crud import create_workstream
-    from core.state.bundles import load_and_validate_bundles
+    from modules.core_state.m010003_db import init_db
+    from modules.core_state.m010003_crud import create_workstream
+    from modules.core_state.m010003_bundles import load_and_validate_bundles
     
     init_db()
     bundles = load_and_validate_bundles("workstreams/")

@@ -44,9 +44,12 @@ def generate_rewrite_map() -> Dict[str, str]:
             original_path = file_path.replace('\\', '/').replace('.py', '').replace('/', '.')
             
             # New import path in modules
-            # Example: modules.core-state.010003_db
-            new_filename = f"{ulid}_{file_obj.stem}"
-            new_path = f"modules.{module_id}.{new_filename}"
+            # Example: modules.core_state.m010003_db (m prefix + underscores for valid Python)
+            # Python doesn't allow identifiers starting with digits or containing hyphens
+            new_filename = f"m{ulid}_{file_obj.stem}"
+            # Replace hyphens with underscores for valid Python identifiers
+            safe_module_id = module_id.replace('-', '_')
+            new_path = f"modules.{safe_module_id}.{new_filename}"
             
             # Add rewrite rules for different import patterns
             # Pattern 1: from X import Y
@@ -60,9 +63,9 @@ def generate_rewrite_map() -> Dict[str, str]:
             if len(parts) > 1:
                 parent = '.'.join(parts[:-1])
                 module_part = parts[-1]
-                # from core.state import db -> from modules.core-state import 010003_db
+                # from modules.core_state import m010003_db -> from modules.core_state import m010003_db
                 old_parent_import = f"from {parent} import {module_part}"
-                new_parent_import = f"from modules.{module_id} import {new_filename}"
+                new_parent_import = f"from modules.{safe_module_id} import {new_filename}"
                 rewrites[old_parent_import] = new_parent_import
     
     print(f"  Generated {len(rewrites)} rewrite rules")

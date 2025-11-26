@@ -1,0 +1,207 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "pattern_event.v1.json",
+  "title": "Pattern Event Schema",
+  "description": "Schema for pattern execution lifecycle events",
+  "type": "object",
+  "required": [
+    "event_id",
+    "event_type",
+    "timestamp",
+    "job_id",
+    "pattern_run_id",
+    "pattern_id",
+    "status",
+    "details"
+  ],
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "pattern": "^EVT-[0-9A-HJKMNP-TV-Z]{26}$",
+      "description": "ULID-based event identifier with EVT- prefix"
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "pattern.selection.started",
+        "pattern.selection.resolved",
+        "pattern.selection.failed",
+        "pattern.template.expanded",
+        "pattern.validation.started",
+        "pattern.validation.completed",
+        "pattern.validation.failed",
+        "pattern.execution.started",
+        "pattern.execution.completed",
+        "pattern.execution.failed"
+      ],
+      "description": "Type of pattern lifecycle event"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp with timezone (UTC)"
+    },
+    "job_id": {
+      "type": "string",
+      "pattern": "^JOB-[0-9A-HJKMNP-TV-Z]{26}$",
+      "description": "Parent job identifier"
+    },
+    "step_id": {
+      "type": ["string", "null"],
+      "pattern": "^STEP-[0-9A-HJKMNP-TV-Z]{26}$",
+      "description": "Job step identifier (null for job-level patterns)"
+    },
+    "pattern_run_id": {
+      "type": "string",
+      "pattern": "^PRUN-[0-9A-HJKMNP-TV-Z]{26}$",
+      "description": "Pattern run identifier for this execution instance"
+    },
+    "pattern_id": {
+      "type": "string",
+      "pattern": "^PAT-[A-Z0-9-]+$",
+      "description": "Pattern identifier (e.g., PAT-SEMGRP-001)"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["in_progress", "success", "failed", "warning", "skipped"],
+      "description": "Current execution status"
+    },
+    "details": {
+      "type": "object",
+      "description": "Event-specific metadata (schema varies by event_type)"
+    }
+  },
+  "definitions": {
+    "selection_started_details": {
+      "type": "object",
+      "properties": {
+        "operation_kind": { "type": "string" },
+        "context": { "type": "object" },
+        "candidate_patterns": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "required": ["operation_kind"]
+    },
+    "selection_resolved_details": {
+      "type": "object",
+      "properties": {
+        "operation_kind": { "type": "string" },
+        "pattern_id": { "type": "string" },
+        "selection_method": {
+          "type": "string",
+          "enum": ["explicit", "auto", "fallback"]
+        },
+        "inputs_preview": { "type": "object" }
+      },
+      "required": ["operation_kind", "pattern_id", "selection_method"]
+    },
+    "selection_failed_details": {
+      "type": "object",
+      "properties": {
+        "operation_kind": { "type": "string" },
+        "reason": { "type": "string" },
+        "attempted_patterns": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "error": { "type": "string" }
+      },
+      "required": ["operation_kind", "reason"]
+    },
+    "template_expanded_details": {
+      "type": "object",
+      "properties": {
+        "template_version": { "type": "string" },
+        "variables_resolved": { "type": "integer" },
+        "generated_artifacts": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "command_preview": { "type": "string" }
+      }
+    },
+    "validation_started_details": {
+      "type": "object",
+      "properties": {
+        "validation_type": { "type": "string" },
+        "checks": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "required": ["validation_type", "checks"]
+    },
+    "validation_completed_details": {
+      "type": "object",
+      "properties": {
+        "validation_type": { "type": "string" },
+        "checks_passed": { "type": "integer" },
+        "checks_failed": { "type": "integer" },
+        "warnings": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "required": ["validation_type", "checks_passed", "checks_failed"]
+    },
+    "validation_failed_details": {
+      "type": "object",
+      "properties": {
+        "validation_type": { "type": "string" },
+        "checks_passed": { "type": "integer" },
+        "checks_failed": { "type": "integer" },
+        "failed_checks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "check": { "type": "string" },
+              "error": { "type": "string" }
+            },
+            "required": ["check", "error"]
+          }
+        }
+      },
+      "required": ["validation_type", "checks_failed", "failed_checks"]
+    },
+    "execution_started_details": {
+      "type": "object",
+      "properties": {
+        "executor": { "type": "string" },
+        "command": { "type": "string" },
+        "working_dir": { "type": "string" },
+        "timeout_seconds": { "type": "integer" }
+      },
+      "required": ["executor", "command"]
+    },
+    "execution_completed_details": {
+      "type": "object",
+      "properties": {
+        "exit_code": { "type": "integer" },
+        "duration_seconds": { "type": "number" },
+        "result_summary": { "type": "object" },
+        "artifacts": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "stdout_lines": { "type": "integer" },
+        "stderr_lines": { "type": "integer" }
+      },
+      "required": ["exit_code", "duration_seconds"]
+    },
+    "execution_failed_details": {
+      "type": "object",
+      "properties": {
+        "exit_code": { "type": "integer" },
+        "duration_seconds": { "type": "number" },
+        "error_type": { "type": "string" },
+        "error_message": { "type": "string" },
+        "stdout_preview": { "type": "string" },
+        "stderr_preview": { "type": "string" }
+      },
+      "required": ["exit_code", "error_type", "error_message"]
+    }
+  }
+}

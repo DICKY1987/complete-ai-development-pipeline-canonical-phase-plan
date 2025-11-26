@@ -4,7 +4,7 @@ Validates DAG-IMPL-001, DAG-IMPL-002, DAG-IMPL-003 requirements.
 """
 
 import pytest
-from core.state.dag_utils import (
+from modules.core_state.m010003_dag_utils import (
     build_dependency_graph,
     build_reverse_graph,
     detect_cycles,
@@ -13,7 +13,7 @@ from core.state.dag_utils import (
     analyze_bundles,
     DagAnalysis,
 )
-from core.state.bundles import WorkstreamBundle
+from modules.core_state.m010003_bundles import WorkstreamBundle
 
 
 def make_bundle(ws_id: str, depends_on: list[str] | None = None) -> WorkstreamBundle:
@@ -432,7 +432,7 @@ class TestDagRequirements:
     def test_dag_impl_001_single_source_of_truth(self):
         """DAG-IMPL-001: All operations in dag_utils.py"""
         # This is validated by module structure - all functions defined here
-        from core.state import dag_utils
+        from modules.core_state import m010003_dag_utils
         
         required_functions = [
             'build_dependency_graph',
@@ -448,7 +448,7 @@ class TestDagRequirements:
     
     def test_dag_impl_002_shared_depgraph_type(self):
         """DAG-IMPL-002: All consumers use DepGraph type"""
-        from core.state.dag_utils import DepGraph
+        from modules.core_state.m010003_dag_utils import DepGraph
         
         # DepGraph should be Dict[str, Set[str]]
         bundles = [make_bundle("ws-a"), make_bundle("ws-b", ["ws-a"])]

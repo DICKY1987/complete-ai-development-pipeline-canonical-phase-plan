@@ -9,7 +9,7 @@ from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 
-from aim.environment.version_control import (
+from modules.aim_environment.m01001B_version_control import (
     VersionControl,
     VersionReport,
     VersionStatus,
@@ -269,7 +269,7 @@ class TestVersionControl:
     @pytest.mark.asyncio
     async def test_sync_install_missing(self, version_control, mock_installer):
         """Test sync installs missing tools."""
-        from aim.environment.installer import InstallResult
+        from modules.aim_environment.m01001B_installer import InstallResult
         
         async def mock_get_version(manager, package):
             return None  # All missing
@@ -293,7 +293,7 @@ class TestVersionControl:
     @pytest.mark.asyncio
     async def test_sync_force(self, version_control, mock_installer):
         """Test sync with force flag."""
-        from aim.environment.installer import InstallResult
+        from modules.aim_environment.m01001B_installer import InstallResult
         
         async def mock_get_version(manager, package):
             # Return matching version

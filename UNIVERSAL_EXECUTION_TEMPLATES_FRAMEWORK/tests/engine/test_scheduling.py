@@ -6,7 +6,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from core.engine.scheduler import ExecutionScheduler, Task, create_task_from_spec
+from modules.core_engine.m010001_scheduler import ExecutionScheduler, Task, create_task_from_spec
 
 
 class TestTaskCreation:

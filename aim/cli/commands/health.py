@@ -14,7 +14,7 @@ from rich.console import Console
 from rich.table import Table
 from rich.panel import Panel
 
-from aim.environment.health import HealthMonitor, check_health
+from modules.aim_environment.m01001B_health import HealthMonitor, check_health
 
 
 console = Console()

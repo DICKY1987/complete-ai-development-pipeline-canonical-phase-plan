@@ -7,7 +7,7 @@ Implements BaseExtractor for Python using Tree-sitter Python grammar.
 from typing import List, Optional
 from tree_sitter import Node, Tree
 
-from core.ast.extractors import (
+from modules.core_ast.m010000_extractors import (
     BaseExtractor,
     FunctionInfo,
     ClassInfo,

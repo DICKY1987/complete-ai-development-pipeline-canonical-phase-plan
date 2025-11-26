@@ -37,8 +37,8 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     # Lazy import to avoid heavy module import at CLI startup
-    from core.engine import orchestrator
-    from core.state import bundles
+    from modules.core_engine import m010001_orchestrator
+    from modules.core_state import m010003_bundles
 
     context: Dict[str, Any] = {}
     if args.dry_run:

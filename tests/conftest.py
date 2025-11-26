@@ -22,7 +22,7 @@ def temp_db():
     os.environ['PIPELINE_DB_PATH'] = db_path
     
     # Initialize database
-    from core.state.db import init_db
+    from modules.core_state.m010003_db import init_db
     init_db(db_path)
     
     yield db_path
@@ -37,5 +37,5 @@ def temp_db():
 @pytest.fixture(scope="function")
 def worker_pool(temp_db):
     """Create a worker pool with temp database."""
-    from core.engine.worker import WorkerPool
+    from modules.core_engine.m010001_worker import WorkerPool
     return WorkerPool(max_workers=4)

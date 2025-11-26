@@ -14,9 +14,9 @@ import click
 from rich.console import Console
 from rich.table import Table
 
-from aim.environment.version_control import VersionControl
-from aim.environment.installer import ToolInstaller
-from aim.registry.config_loader import ConfigLoader
+from modules.aim_environment.m01001B_version_control import VersionControl
+from modules.aim_environment.m01001B_installer import ToolInstaller
+from modules.aim_registry.m01001C_config_loader import ConfigLoader
 
 
 console = Console()

@@ -15,7 +15,7 @@ from rich import box
 import json
 from datetime import datetime, timedelta, timezone
 
-from aim.environment.audit import get_audit_logger, EventType, EventSeverity
+from modules.aim_environment.m01001B_audit import get_audit_logger, EventType, EventSeverity
 
 
 console = Console()

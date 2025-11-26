@@ -1,8 +1,8 @@
 """Integration tests for Pipeline Plus"""
 import pytest
 from pathlib import Path
-from core.engine.pipeline_plus_orchestrator import PipelinePlusOrchestrator
-from core.state.task_queue import Task, TaskPayload
+from modules.core_engine.m010001_pipeline_plus_orchestrator import PipelinePlusOrchestrator
+from modules.core_state.m010003_task_queue import Task, TaskPayload
 
 @pytest.fixture
 def orchestrator():

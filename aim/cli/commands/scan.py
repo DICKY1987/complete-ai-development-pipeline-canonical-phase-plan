@@ -16,8 +16,8 @@ from rich.console import Console
 from rich.table import Table
 from rich.panel import Panel
 
-from aim.environment.scanner import EnvironmentScanner
-from aim.registry.config_loader import ConfigLoader
+from modules.aim_environment.m01001B_scanner import EnvironmentScanner
+from modules.aim_registry.m01001C_config_loader import ConfigLoader
 
 
 console = Console()

@@ -5,8 +5,8 @@ import json
 from pathlib import Path
 import tempfile
 
-from aim.registry.config_loader import ConfigLoader, get_config_loader, load_config
-from aim.environment.exceptions import ConfigurationError
+from modules.aim_registry.m01001C_config_loader import ConfigLoader, get_config_loader, load_config
+from modules.aim_environment.m01001B_exceptions import ConfigurationError
 
 
 @pytest.fixture
@@ -235,7 +235,7 @@ class TestConfigLoaderHelpers:
     def test_load_config_convenience(self, temp_config_file, monkeypatch):
         """Test load_config convenience function."""
         # Temporarily override default path
-        import aim.registry.config_loader as module
+        import modules.aim_registry.m01001C_config_loader as module
         original_path = ConfigLoader.DEFAULT_CONFIG_PATH
         ConfigLoader.DEFAULT_CONFIG_PATH = temp_config_file
         

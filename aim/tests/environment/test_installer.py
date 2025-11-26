@@ -11,7 +11,7 @@ from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 
-from aim.environment.installer import InstallResult, ToolInstaller
+from modules.aim_environment.m01001B_installer import InstallResult, ToolInstaller
 
 
 @pytest.fixture

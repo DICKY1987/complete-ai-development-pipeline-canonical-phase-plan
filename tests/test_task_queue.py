@@ -6,7 +6,7 @@ import json
 import tempfile
 import shutil
 from pathlib import Path
-from core.state.task_queue import (
+from modules.core_state.m010003_task_queue import (
     Task, TaskQueue, TaskPayload, TaskConstraints,
     TaskTimeouts, RoutingState, TaskResult, TaskStatus
 )
