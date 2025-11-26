@@ -7,6 +7,24 @@ Classification: {{ classification.complexity }} | {{ classification.quality }} |
 Role: {{ role }}
 OpenSpec: {{ openspec_change }} | Issue: {{ ccpm_issue }} | Gate: {{ gate }}
 
+[EXECUTION_PATTERNS]
+MANDATORY: Read docs/reference/ai-agents/EXECUTION_PATTERNS_MANDATORY.md first
+
+Pattern Check (30 sec):
+  IF N ≥ 3 similar items → Use EXEC-001 to EXEC-006 pattern
+  ELSE proceed with single implementation
+
+Anti-Pattern Guards (ENABLED):
+  ✅ No hallucination (verify exit codes, not "looks good")
+  ✅ No planning loops (max 2 iterations, then execute)
+  ✅ No incomplete code (no TODO/pass placeholders)
+  ✅ Ground truth only (file.exists() = success)
+
+The Golden Rule: Decide once → Apply N times → Trust ground truth → Move on
+
+Time Savings: 3x-10x faster | 85h waste prevented | ROI: 255:1
+Reference: docs/reference/ai-agents/QUICK_REFERENCE_CARD.md
+
 [OBJECTIVE]
 Complete the following autonomous workstream tasks.
 
@@ -47,8 +65,12 @@ Tests to pass:
 {% endfor %}
 
 [EXECUTION_HINTS]
+- Check execution pattern applicability first (N ≥ 3 similar items?)
+- Enable anti-pattern guards before starting
+- Execute in batches when using patterns (6 files, 4 modules, 8 tests)
+- Ground truth verification only (exit codes, file existence, not "looks good")
 - Analyze the codebase structure first
-- Plan changes before implementing
+- Plan changes before implementing (max 2 iterations)
 - Test after each significant change
 - Use git for version control awareness
 - Review diffs before finalizing

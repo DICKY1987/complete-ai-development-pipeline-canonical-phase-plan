@@ -1,0 +1,115 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "pattern_run.v1.json",
+  "title": "Pattern Run Schema",
+  "description": "Complete execution record for a pattern instance",
+  "type": "object",
+  "required": [
+    "pattern_run_id",
+    "pattern_id",
+    "job_id",
+    "operation_kind",
+    "status",
+    "started_at"
+  ],
+  "properties": {
+    "pattern_run_id": {
+      "type": "string",
+      "pattern": "^PRUN-[0-9A-HJKMNP-TV-Z]{26}$",
+      "description": "Unique identifier for this pattern execution"
+    },
+    "pattern_id": {
+      "type": "string",
+      "pattern": "^PAT-[A-Z0-9-]+$",
+      "description": "Pattern identifier"
+    },
+    "pattern_version": {
+      "type": "string",
+      "description": "Semantic version of the pattern spec"
+    },
+    "job_id": {
+      "type": "string",
+      "pattern": "^JOB-[0-9A-HJKMNP-TV-Z]{26}$",
+      "description": "Parent job identifier"
+    },
+    "step_id": {
+      "type": ["string", "null"],
+      "pattern": "^STEP-[0-9A-HJKMNP-TV-Z]{26}$",
+      "description": "Job step identifier (null for job-level patterns)"
+    },
+    "operation_kind": {
+      "type": "string",
+      "description": "Type of operation (e.g., semgrep_scan, pytest_suite, aider_refactor)"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["pending", "in_progress", "success", "failed", "warning", "skipped"],
+      "description": "Overall execution status"
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Execution start timestamp (ISO 8601)"
+    },
+    "finished_at": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "Execution end timestamp (null if still running)"
+    },
+    "duration_seconds": {
+      "type": ["number", "null"],
+      "description": "Total execution duration (null if still running)"
+    },
+    "inputs": {
+      "type": "object",
+      "description": "Resolved pattern inputs (from template expansion)"
+    },
+    "outputs": {
+      "type": "object",
+      "description": "Pattern execution outputs (exit code, findings, metrics, etc.)"
+    },
+    "artifacts": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Generated artifact file paths"
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^EVT-[0-9A-HJKMNP-TV-Z]{26}$"
+      },
+      "description": "Event IDs associated with this run (chronological)"
+    },
+    "metrics": {
+      "type": "object",
+      "properties": {
+        "template_expansion_ms": { "type": "number" },
+        "validation_ms": { "type": "number" },
+        "execution_ms": { "type": "number" },
+        "artifact_generation_ms": { "type": "number" }
+      },
+      "description": "Performance metrics for each phase"
+    },
+    "tool_metadata": {
+      "type": "object",
+      "properties": {
+        "tool_name": { "type": "string" },
+        "tool_version": { "type": "string" },
+        "command": { "type": "string" }
+      },
+      "description": "Metadata about the executed tool"
+    },
+    "error": {
+      "type": ["object", "null"],
+      "properties": {
+        "type": { "type": "string" },
+        "message": { "type": "string" },
+        "stdout": { "type": "string" },
+        "stderr": { "type": "string" },
+        "exit_code": { "type": "integer" }
+      },
+      "description": "Error details if execution failed"
+    }
+  }
+}

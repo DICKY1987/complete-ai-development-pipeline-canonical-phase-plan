@@ -1,0 +1,17 @@
+# Module Inventory Entry Template
+# Used to generate entries in MODULES_INVENTORY.yaml
+
+- id: "{module_id}"
+  ulid: "{ulid_prefix}"
+  layer: "{layer}"
+  files:
+    - source: "{source_file_1}"
+      dest: "modules/{module_id}/{ulid}_{filename_1}.py"
+    - source: "{source_file_2}"
+      dest: "modules/{module_id}/{ulid}_{filename_2}.py"
+  dependencies:
+    - "{dep1}"
+    - "{dep2}"
+  circular_check: pass
+  file_count: {file_count}
+  status: "pending"
