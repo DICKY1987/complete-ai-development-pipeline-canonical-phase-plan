@@ -1,0 +1,326 @@
+analysis_date: '2025-11-26'
+directory: modules
+summary:
+  files_analyzed: 92
+  total_imports: 856
+  deprecated_count: 0
+  cross_module_count: 179
+by_category:
+  external_stdlib: 650
+  other: 2
+  project_aim: 38
+  project_core: 58
+  relative_import: 25
+  project_pm: 8
+  project_error: 75
+  deprecated_src: 0
+  deprecated_mod: 0
+by_module:
+  external_stdlib:
+    click: 1
+    asyncio: 4
+    traceback: 1
+    json: 41
+    pathlib: 66
+    typing: 236
+    dataclasses: 54
+    datetime: 43
+    enum: 5
+    os: 16
+    uuid: 3
+    shutil: 25
+    subprocess: 27
+    sys: 3
+    hashlib: 5
+    collections: 4
+    keyring: 1
+    re: 15
+    jsonschema: 3
+    pytest: 1
+    abc: 2
+    tree_sitter: 2
+    logging: 2
+    __future__: 52
+    warnings: 3
+    yaml: 7
+    functools: 1
+    time: 6
+    sqlite3: 6
+    math: 1
+    tempfile: 2
+    jinja2: 3
+    psutil: 1
+    filelock: 1
+    ulid: 1
+    argparse: 5
+    graphlib: 1
+  other:
+    rich.console: 1
+    importlib.util: 1
+  project_aim:
+    aim.cli.commands.secrets: 1
+    aim.cli.commands.health: 1
+    aim.cli.commands.tools: 1
+    aim.cli.commands.scan: 1
+    aim.cli.commands.version: 1
+    aim.cli.commands.audit: 1
+    aim.environment.health: 4
+    aim.registry.config_loader: 7
+    aim.environment.installer: 3
+    aim.environment.version_control: 2
+    aim.environment.exceptions: 6
+    aim.environment.secrets: 1
+    aim.bridge: 2
+    aim.exceptions: 4
+    aim.environment.audit: 3
+  project_core:
+    core.engine.tools: 2
+    core.config_loader: 2
+    core.state.bundles: 6
+    core.state.db: 16
+    core.state: 5
+    core.engine.cost_tracker: 1
+    core.engine.patch_converter: 1
+    core.engine.metrics: 1
+    core.state.task_queue: 3
+    core.state.audit_logger: 1
+    core.engine.patch_manager: 1
+    core.engine.prompt_engine: 2
+    core.engine.validators: 2
+    core.engine.adapters: 3
+    core.planning.parallelism_detector: 2
+    core.engine.orchestrator: 1
+    core.engine: 1
+    core.state.uet_db_adapter: 2
+    core.engine.uet_state_machine: 2
+    core.state.crud: 2
+    core.engine.process_spawner: 1
+    core.invoke_utils: 1
+  relative_import:
+    uet_orchestrator: 1
+    uet_scheduler: 1
+    db: 1
+    bundles: 1
+    crud: 14
+    error_context: 3
+    error_pipeline_service: 1
+  project_pm:
+    pm.models: 5
+    pm.bridge: 2
+    pm.epic: 1
+  project_error:
+    error.engine.error_context: 3
+    error.engine.pipeline_engine: 1
+    error.engine.plugin_manager: 1
+    error.engine.file_hash_cache: 1
+    error.shared.utils.types: 41
+    error.engine.agent_adapters: 3
+    error.engine.error_state_machine: 1
+    error.shared.utils.time: 4
+    error.shared.utils.hashing: 1
+    error.shared.utils.jsonl_manager: 1
+    error.shared.utils.env: 18
+deprecated_files: []
+cross_module_refs:
+- file: aim-cli\01001A_main.py
+  import: aim.cli.commands.secrets
+  line: 19
+- file: aim-cli\01001A_main.py
+  import: aim.cli.commands.health
+  line: 20
+- file: aim-cli\01001A_main.py
+  import: aim.cli.commands.tools
+  line: 21
+- file: aim-cli\01001A_main.py
+  import: aim.cli.commands.scan
+  line: 22
+- file: aim-cli\01001A_main.py
+  import: aim.cli.commands.version
+  line: 23
+- file: aim-cli\01001A_main.py
+  import: aim.cli.commands.audit
+  line: 24
+- file: aim-cli\01001A_main.py
+  import: aim.environment.health
+  line: 63
+- file: aim-cli\01001A_main.py
+  import: aim.registry.config_loader
+  line: 64
+- file: aim-cli\01001A_main.py
+  import: aim.registry.config_loader
+  line: 143
+- file: aim-cli\01001A_main.py
+  import: aim.environment.installer
+  line: 144
+- file: aim-cli\01001A_main.py
+  import: aim.environment.version_control
+  line: 145
+- file: aim-cli\01001A_main.py
+  import: aim.environment.health
+  line: 146
+- file: aim-cli\01001A_main.py
+  import: aim.environment.health
+  line: 248
+- file: aim-cli\01001A_main.py
+  import: aim.registry.config_loader
+  line: 249
+- file: aim-environment\01001B_health.py
+  import: aim.environment.exceptions
+  line: 24
+- file: aim-environment\01001B_health.py
+  import: aim.registry.config_loader
+  line: 148
+- file: aim-environment\01001B_health.py
+  import: aim.environment.secrets
+  line: 216
+- file: aim-environment\01001B_health.py
+  import: aim.registry.config_loader
+  line: 258
+- file: aim-environment\01001B_health.py
+  import: aim.registry.config_loader
+  line: 333
+- file: aim-environment\01001B_installer.py
+  import: aim.environment.exceptions
+  line: 16
+- file: aim-environment\01001B_scanner.py
+  import: aim.environment.exceptions
+  line: 19
+- file: aim-environment\01001B_secrets.py
+  import: aim.environment.exceptions
+  line: 25
+- file: aim-environment\01001B_version_control.py
+  import: aim.environment.exceptions
+  line: 12
+- file: aim-environment\01001B_version_control.py
+  import: aim.environment.installer
+  line: 13
+- file: aim-registry\01001C_config_loader.py
+  import: aim.environment.exceptions
+  line: 26
+- file: core-engine\010001_aim_integration.py
+  import: aim.bridge
+  line: 17
+- file: core-engine\010001_aim_integration.py
+  import: aim.bridge
+  line: 17
+- file: core-engine\010001_aim_integration.py
+  import: aim.exceptions
+  line: 18
+- file: core-engine\010001_aim_integration.py
+  import: aim.exceptions
+  line: 18
+- file: core-engine\010001_aim_integration.py
+  import: aim.exceptions
+  line: 18
+- file: core-engine\010001_aim_integration.py
+  import: aim.exceptions
+  line: 18
+- file: core-engine\010001_aim_integration.py
+  import: core.engine.tools
+  line: 24
+- file: core-engine\010001_aim_integration.py
+  import: core.engine.tools
+  line: 24
+- file: core-engine\010001_aim_integration.py
+  import: aim.environment.health
+  line: 27
+- file: core-engine\010001_aim_integration.py
+  import: aim.environment.version_control
+  line: 28
+- file: core-engine\010001_aim_integration.py
+  import: aim.environment.audit
+  line: 29
+- file: core-engine\010001_aim_integration.py
+  import: aim.environment.audit
+  line: 29
+- file: core-engine\010001_aim_integration.py
+  import: aim.environment.audit
+  line: 29
+- file: core-engine\010001_aim_integration.py
+  import: aim.environment.installer
+  line: 30
+- file: core-engine\010001_aim_integration.py
+  import: aim.registry.config_loader
+  line: 31
+- file: core-engine\010001_circuit_breakers.py
+  import: core.config_loader
+  line: 61
+- file: core-engine\010001_compensation.py
+  import: core.state.bundles
+  line: 4
+- file: core-engine\010001_cost_tracker.py
+  import: core.state.db
+  line: 56
+- file: core-engine\010001_cost_tracker.py
+  import: core.state.db
+  line: 85
+- file: core-engine\010001_cost_tracker.py
+  import: core.state
+  line: 122
+- file: core-engine\010001_cost_tracker.py
+  import: core.state
+  line: 144
+- file: core-engine\010001_event_bus.py
+  import: core.state.db
+  line: 108
+- file: core-engine\010001_event_bus.py
+  import: core.state.db
+  line: 150
+- file: core-engine\010001_hardening.py
+  import: core.state.db
+  line: 146
+- file: core-engine\010001_hardening.py
+  import: core.state.db
+  line: 172
+conversion_rules_needed: 51
+sample_conversion_rules:
+- old_pattern: from core.config_loader import
+  old_module: core.config_loader
+  target_module_id: core-config-loader
+  note: ULID and file name to be determined from MODULES_INVENTORY.yaml
+  occurrences: 2
+- old_pattern: from core.engine import
+  old_module: core.engine
+  target_module_id: core-engine
+  note: ULID and file name to be determined from MODULES_INVENTORY.yaml
+  occurrences: 1
+- old_pattern: from core.engine.adapters import
+  old_module: core.engine.adapters
+  target_module_id: core-engine
+  note: ULID and file name to be determined from MODULES_INVENTORY.yaml
+  occurrences: 3
+- old_pattern: from core.engine.cost_tracker import
+  old_module: core.engine.cost_tracker
+  target_module_id: core-engine
+  note: ULID and file name to be determined from MODULES_INVENTORY.yaml
+  occurrences: 1
+- old_pattern: from core.engine.metrics import
+  old_module: core.engine.metrics
+  target_module_id: core-engine
+  note: ULID and file name to be determined from MODULES_INVENTORY.yaml
+  occurrences: 1
+- old_pattern: from core.engine.orchestrator import
+  old_module: core.engine.orchestrator
+  target_module_id: core-engine
+  note: ULID and file name to be determined from MODULES_INVENTORY.yaml
+  occurrences: 1
+- old_pattern: from core.engine.patch_converter import
+  old_module: core.engine.patch_converter
+  target_module_id: core-engine
+  note: ULID and file name to be determined from MODULES_INVENTORY.yaml
+  occurrences: 1
+- old_pattern: from core.engine.patch_manager import
+  old_module: core.engine.patch_manager
+  target_module_id: core-engine
+  note: ULID and file name to be determined from MODULES_INVENTORY.yaml
+  occurrences: 1
+- old_pattern: from core.engine.process_spawner import
+  old_module: core.engine.process_spawner
+  target_module_id: core-engine
+  note: ULID and file name to be determined from MODULES_INVENTORY.yaml
+  occurrences: 1
+- old_pattern: from core.engine.prompt_engine import
+  old_module: core.engine.prompt_engine
+  target_module_id: core-engine
+  note: ULID and file name to be determined from MODULES_INVENTORY.yaml
+  occurrences: 2
