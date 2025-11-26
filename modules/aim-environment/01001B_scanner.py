@@ -16,7 +16,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
 
-from modules.aim_environment import ScannerError
+from aim.environment.exceptions import ScannerError
 
 
 @dataclass

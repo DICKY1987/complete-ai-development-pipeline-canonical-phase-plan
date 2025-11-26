@@ -13,7 +13,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Literal, Optional
 
-from modules.aim_environment import InstallationError
+from aim.environment.exceptions import InstallationError
 
 
 @dataclass
