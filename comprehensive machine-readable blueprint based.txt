@@ -1,0 +1,599 @@
+comprehensive machine-readable blueprint based on the four input files analyzed:
+
+     <gui_plan_blueprint>
+       <section>
+         <id>1.system_ux_overview</id>
+         <title>System & UX Overview</title>
+         <purpose>Establish the context, audience, and high-level goals of the hybrid GUI. Explain what it is, why it exists, and how it fits into the AI development pipeline workflow.</purpose>
+
+         <plan_topics>
+           <topic>What is the hybrid GUI and who is it for (developers, AI operators, DevOps)</topic>
+           <topic>Why a hybrid GUI-TUI architecture (embedded terminal + tile grid)</topic>
+           <topic>High-level design philosophy (read-only GUI layer on top of active engine)</topic>
+           <topic>Primary user goals (monitor pipeline state, debug failures, inspect outputs, manage errors/quarantine)</topic>
+           <topic>Key differentiators from traditional IDE or dashboard tools</topic>
+         </plan_topics>
+
+         <source_mapping>
+           <file_usage name="GUI_MODULE_ANALYSIS_SUMMARY.md">
+             <role>Primary source for high-level overview and interface context description.</role>
+             <content_to_extract>
+               <item>"Interface Context" section describing the hybrid GUI shell (bottom 1/3 terminal, top 2/3 tile grid).</item>
+               <item>"Analysis Overview" describing what the GUI does NOT do (never calls tools directly, only reads state).</item>
+               <item>"Summary" section for quick-reference statistics (9 modules analyzed, 20+ tiles, 4 databases).</item>
+             </content_to_extract>
+           </file_usage>
+
+           <file_usage name="module_outputs_and_visuals.md">
+             <role>Minimal use; primarily for confirming technical architecture.</role>
+             <content_to_extract>
+               <item>High-level summary bullet points (major runtime modules, primary outputs, cross-module visuals).</item>
+             </content_to_extract>
+           </file_usage>
+
+           <file_usage name="AI Development Pipeline_Hybrid GUI Analysis.txt">
+             <role>Supporting detail for global perspective and cross-module visuals concept.</role>
+             <content_to_extract>
+               <item>High-Level Summary describing the 11 primary engine/runtime modules.</item>
+               <item>Cross-Module/Global Visuals section (Pipeline Radar, Global Metrics Dashboard, System Health Monitor, Cost Tracker).</item>
+             </content_to_extract>
+           </file_usage>
+
+           <file_usage name="GUICODEX.txt">
+             <role>Not applicable for this section.</role>
+             <content_to_extract>
+               <item>None.</item>
+             </content_to_extract>
+           </file_usage>
+         </source_mapping>
+
+         <integration_guidelines>
+           <deduplication_rules>
+             Use GUI_MODULE_ANALYSIS_SUMMARY.md as the primary narrative voice. Cross-reference AI Development Pipeline_Hybrid GUI Analysis.txt for module counts and global tile concepts but avoid duplicating
+    the full module list.
+           </deduplication_rules>
+           <priority_rules>
+             - Interface description → GUI_MODULE_ANALYSIS_SUMMARY.md
+             - Global cross-module concepts → AI Development Pipeline_Hybrid GUI Analysis.txt
+             - Quick stats → GUI_MODULE_ANALYSIS_SUMMARY.md "Summary" section
+           </priority_rules>
+           <normalization_rules>
+             Consistently refer to the hybrid architecture as "Hybrid GUI Shell" with "embedded terminal (bottom 1/3)" and "tile grid (top 2/3)". Use "read-only observability layer" to describe the GUI's
+   relationship to the engine.
+           </normalization_rules>
+         </integration_guidelines>
+
+         <delivery_hints>
+           <suggested_order>Section 1 (first section of the plan document)</suggested_order>
+           <recommended_format>Narrative prose with a bulleted list of key goals and a simple ASCII diagram showing the hybrid layout (terminal below, tiles above). Keep it concise (1-2
+   pages).</recommended_format>
+           <cross_links>Reference "Engine & Data Architecture" (Section 2) for technical module details and "Tile Catalog & UX Layout" (Section 4) for visual design details.</cross_links>
+         </delivery_hints>
+       </section>
+
+       <section>
+         <id>2.engine_data_architecture</id>
+         <title>Engine & Data Architecture</title>
+         <purpose>Document the runtime architecture, module responsibilities, and where the GUI reads data from. Establish the foundation for understanding data sources referenced in later sections.</purpose>
+
+         <plan_topics>
+           <topic>Runtime module inventory (orchestrator, queue, state_store, adapters, error pipeline, planning, AIM, patterns/UET, PM/CCPM, file lifecycle, cost tracking)</topic>
+           <topic>Module roles and responsibilities (one-sentence per module)</topic>
+           <topic>Data storage locations (pipeline.db, pipeline_state.db, .state/, logs/, validation caches, JSON reports)</topic>
+           <topic>Output categories taxonomy (DB tables, log files, JSON reports, event streams, metrics, sidecar files)</topic>
+           <topic>Database file locations and schema overview (3-4 separate SQLite databases)</topic>
+         </plan_topics>
+
+         <source_mapping>
+           <file_usage name="GUI_MODULE_ANALYSIS_SUMMARY.md">
+             <role>Use for structured module tables and output category summary.</role>
+             <content_to_extract>
+               <item>"Modules Discovered" tables (Engine Layer and Core Modules) with module names, roles, and key outputs.</item>
+               <item>"Output Categories" table listing 6 categories with examples.</item>
+               <item>"Database Locations" and "Log Locations" sections for file paths.</item>
+             </content_to_extract>
+           </file_usage>
+
+           <file_usage name="module_outputs_and_visuals.md">
+             <role>Primary detailed reference for per-module architecture and outputs.</role>
+             <content_to_extract>
+               <item>High-level summary (major runtime modules list, primary outputs list).</item>
+               <item>Per-module "Role" descriptions (one-sentence summaries).</item>
+               <item>Database file paths and table names from ST-1..ST-6, Q-1, CS-1..CS-6, UI-1..UI-6 output IDs.</item>
+             </content_to_extract>
+           </file_usage>
+
+           <file_usage name="AI Development Pipeline_Hybrid GUI Analysis.txt">
+             <role>Use for comprehensive module enumeration (11 modules vs 9 in summary) and main output categories table.</role>
+             <content_to_extract>
+               <item>"Major Modules Discovered" list (11 modules: Orchestrator, Job Queue, Job State Store, Adapters, Error Pipeline, Planning, AIM, Pattern/UET, PM/CCPM, File Lifecycle, Queue
+   Manager).</item>
+               <item>"Main Output Categories" table with 6 rows (DB Tables, Log Files, JSON Reports, Event Streams, Metrics, Sidecar Files) and concrete examples.</item>
+             </content_to_extract>
+           </file_usage>
+
+           <file_usage name="GUICODEX.txt">
+             <role>Not directly used; this file focuses on job examples, not architecture.</role>
+             <content_to_extract>
+               <item>None for this section.</item>
+             </content_to_extract>
+           </file_usage>
+         </source_mapping>
+
+         <integration_guidelines>
+           <deduplication_rules>
+             Use AI Development Pipeline_Hybrid GUI Analysis.txt for the full 11-module list. Use GUI_MODULE_ANALYSIS_SUMMARY.md for the organized Engine Layer vs Core Modules breakdown. Prefer
+   module_outputs_and_visuals.md for per-module role statements (concise and authoritative).
+           </deduplication_rules>
+           <priority_rules>
+             - Module count and full list → AI Development Pipeline_Hybrid GUI Analysis.txt
+             - Module categorization (engine vs core) → GUI_MODULE_ANALYSIS_SUMMARY.md
+             - Per-module role descriptions → module_outputs_and_visuals.md
+             - Output category taxonomy → AI Development Pipeline_Hybrid GUI Analysis.txt (Main Output Categories table)
+             - Database file paths → GUI_MODULE_ANALYSIS_SUMMARY.md (Database Locations section)
+           </priority_rules>
+           <normalization_rules>
+             Normalize module names: use "engine/orchestrator", "engine/queue", "error/engine", "modules/core-state", etc. Ensure database paths are consistently written as `.worktrees/pipeline_state.db`,
+   `pipeline.db`, `.state/`, etc.
+           </normalization_rules>
+         </integration_guidelines>
+
+         <delivery_hints>
+           <suggested_order>Section 2 (immediately after System & UX Overview)</suggested_order>
+           <recommended_format>Mixed: narrative introduction, followed by a module inventory table (Name | Role | Key Outputs), followed by the output categories table, and ending with a file system/database
+   location reference list.</recommended_format>
+           <cross_links>Reference "Output Inventory & Data Sources" (Section 3) for detailed per-output schema. Reference "Data Access Layer & Tile Manifests" (Section 5) for how the GUI queries these
+   sources.</cross_links>
+         </delivery_hints>
+       </section>
+
+       <section>
+         <id>3.output_inventory_data_sources</id>
+         <title>Output Inventory & Data Sources</title>
+         <purpose>Provide a canonical, detailed listing of every output (DB table, log file, JSON report, event stream, metric, sidecar) organized by module, with schema hints, key fields, and access
+   patterns. This is the reference section for tile developers.</purpose>
+
+         <plan_topics>
+           <topic>Per-module output tables (Output ID, Type, Source, Key Fields/Schema)</topic>
+           <topic>Database table schemas (CREATE TABLE statements or approximations)</topic>
+           <topic>Log file formats and locations</topic>
+           <topic>JSON report schemas and example payloads</topic>
+           <topic>Event stream structures and event types</topic>
+           <topic>Metrics and telemetry data formats</topic>
+           <topic>Sidecar file types (auto-fixed files, quarantine metadata, generated artifacts)</topic>
+           <topic>Generic output examples for each module</topic>
+         </plan_topics>
+
+         <source_mapping>
+           <file_usage name="GUI_MODULE_ANALYSIS_SUMMARY.md">
+             <role>Use for high-level schema quick reference and example wiring patterns.</role>
+             <content_to_extract>
+               <item>"Database Schema Quick Reference" section (main tables and key fields).</item>
+               <item>"Example: Wiring Up a Tile" → JobQueueTile data sources (SQL query examples).</item>
+             </content_to_extract>
+           </file_usage>
+
+           <file_usage name="module_outputs_and_visuals.md">
+             <role>PRIMARY SOURCE. Use for detailed per-module output tables and generic output examples.</role>
+             <content_to_extract>
+               <item>All per-module "Outputs" tables (Output ID, Type, Source, Key Fields/Schema) for orchestrator, adapters (aider, codex, tests, git), state_store, queue, error/engine, core-state, UI
+   infrastructure, schema/jobs.</item>
+               <item>All "Generic Output Example" code blocks showing sample log text, JSON payloads, and DB row examples.</item>
+               <item>Schema hints embedded in Key Fields columns (e.g., ST-3 step_attempts result_json structure).</item>
+             </content_to_extract>
+           </file_usage>
+
+           <file_usage name="AI Development Pipeline_Hybrid GUI Analysis.txt">
+             <role>Use for additional modules not fully covered in module_outputs_and_visuals.md (e.g., AIM, Patterns/UET, PM/CCPM, File Lifecycle, Cost Tracking, Planning).</role>
+             <content_to_extract>
+               <item>Per-module output tables for modules: engine/orchestrator, engine/queue, engine/state_store, engine/adapters, error/engine, aim, patterns/UET, pm, planning, file lifecycle, cost
+   tracking.</item>
+               <item>Generic output examples for each module.</item>
+             </content_to_extract>
+           </file_usage>
+
+           <file_usage name="GUICODEX.txt">
+             <role>Use for job schema structure and example job JSON payloads.</role>
+             <content_to_extract>
+               <item>Job JSON examples (job_id, tool, paths {log_file, error_report}, metadata {retry_policy, timeout_seconds, files_scope}).</item>
+               <item>Job schema hints (job.schema.json references).</item>
+               <item>Confirmation that module_outputs_and_visuals.md is the authoritative detailed analysis.</item>
+             </content_to_extract>
+           </file_usage>
+         </source_mapping>
+
+         <integration_guidelines>
+           <deduplication_rules>
+             module_outputs_and_visuals.md is the master source. Where a module appears in both module_outputs_and_visuals.md and AI Development Pipeline_Hybrid GUI Analysis.txt, prefer
+   module_outputs_and_visuals.md for schema detail. Use AI Development Pipeline_Hybrid GUI Analysis.txt to fill gaps for modules not in module_outputs_and_visuals.md (e.g., AIM, PM, Patterns, File Lifecycle,
+   Cost Tracking). Merge output IDs where they overlap (e.g., ST-1..ST-6 from module_outputs_and_visuals.md matches OUT-STATE-1..OUT-STATE-6 from the other file).
+           </deduplication_rules>
+           <priority_rules>
+             - Per-module outputs and schema → module_outputs_and_visuals.md (highest priority)
+             - Additional modules (AIM, PM, Patterns, etc.) → AI Development Pipeline_Hybrid GUI Analysis.txt
+             - Job schema and examples → GUICODEX.txt
+             - Quick reference for main tables → GUI_MODULE_ANALYSIS_SUMMARY.md
+           </priority_rules>
+           <normalization_rules>
+             Normalize output ID naming: use module prefixes (ORC-, AID-, COD-, TST-, GIT-, ST-, Q-, ERR-, CS-, UI-, JOB-, OUT-AIM-, OUT-PAT-, OUT-PM-, OUT-PLAN-, OUT-FILE-, OUT-COST-). Ensure consistent
+   table names (runs, workstreams, step_attempts, events, errors, patches, job_queue, file_lifecycle, tool_health_metrics, error_records, uet_events, jobs, workers, cost_tracking, pattern_metrics). Normalize
+   DB paths to `.worktrees/pipeline_state.db`, `pipeline.db`, `.state/`.
+           </normalization_rules>
+         </integration_guidelines>
+
+         <delivery_hints>
+           <suggested_order>Section 3 (after Engine & Data Architecture)</suggested_order>
+           <recommended_format>Per-module subsections, each with: (1) a table of outputs (Output ID, Type, Source, Key Fields), (2) a "Generic Output Example" code block. Group modules logically (Engine
+   modules first, then Error/State, then Observability/UI, then Planning/PM). Use collapsible sections or appendices for very large schema details.</recommended_format>
+           <cross_links>Reference "Engine & Data Architecture" (Section 2) for module roles. Reference "Tile Catalog & UX Layout" (Section 4) for which tiles consume which outputs. Reference "Data Access
+   Layer & Tile Manifests" (Section 5) for how to query these outputs.</cross_links>
+         </delivery_hints>
+       </section>
+
+       <section>
+         <id>4.tile_catalog_ux_layout</id>
+         <title>Tile Catalog & UX Layout</title>
+         <purpose>Describe the complete set of proposed tiles (both per-module and cross-module/global), their purposes, visual types, data sources, and how they fit into the hybrid GUI layout. Provide a
+   prioritized roadmap for tile implementation.</purpose>
+
+         <plan_topics>
+           <topic>Hybrid layout design (terminal pane vs tile grid, tile swapping, multi-run support)</topic>
+           <topic>Tile manifest format (panel_id, data_sources, visual_type, refresh_interval, supports_filtering)</topic>
+           <topic>Per-module tile catalog (orchestrator, queue, state_store, adapters, error pipeline, AIM, patterns, PM, planning, file lifecycle, cost tracking)</topic>
+           <topic>Cross-module/global tiles (PipelineRadar, SystemHealthMonitor, GlobalDashboard, CostTracker)</topic>
+           <topic>Visual types taxonomy (table, timeline, kanban, status chips, log feed, DAG, gauge, card grid, JSON viewer, progress bar, heatmap, etc.)</topic>
+           <topic>Top 10 priority tiles (MVP essentials → core operations → metrics/insights)</topic>
+           <topic>Tile complexity and implementation effort estimates</topic>
+         </plan_topics>
+
+         <source_mapping>
+           <file_usage name="GUI_MODULE_ANALYSIS_SUMMARY.md">
+             <role>Use for top 10 recommended tiles, visual types table, tile manifest pattern, and generic output tile strategy.</role>
+             <content_to_extract>
+               <item>"Top 10 Recommended Tiles" section with Phase 1/2/3 breakdown.</item>
+               <item>"Visual Types Used" table (11 visual types with use cases and examples).</item>
+               <item>"Tile Manifest Pattern" JSON example.</item>
+               <item>"Implementation Strategy" section (generic output tile first, then custom tiles incrementally).</item>
+             </content_to_extract>
+           </file_usage>
+
+           <file_usage name="module_outputs_and_visuals.md">
+             <role>PRIMARY SOURCE for per-module tile suggestions. Use "Suggested Visuals (Tiles)" tables.</role>
+             <content_to_extract>
+               <item>All per-module "Suggested Visuals (Tiles)" tables (Tile Name, Uses Output IDs, Visual Type, Description) for orchestrator, adapters, state_store, queue, error/engine, core-state, UI
+   infrastructure, schema/jobs.</item>
+             </content_to_extract>
+           </file_usage>
+
+           <file_usage name="AI Development Pipeline_Hybrid GUI Analysis.txt">
+             <role>Use for additional per-module tiles (AIM, Patterns, PM, Planning, File Lifecycle, Cost Tracking) and cross-module tiles (PipelineRadar, SystemHealthMonitor).</role>
+             <content_to_extract>
+               <item>Per-module "Suggested Visuals (Tiles)" tables for modules: orchestrator, queue, state_store, adapters, error/engine, AIM, patterns/UET, PM, planning, file lifecycle, cost tracking.</item>
+               <item>"Cross-Module Tile: Pipeline Radar" section (outputs used, visual type, generic output example).</item>
+               <item>"Cross-Module Tile: System Health Monitor" section (outputs used, visual type, generic output example).</item>
+               <item>"Summary Table: All Tiles" (comprehensive tile list with complexity and priority ratings).</item>
+             </content_to_extract>
+           </file_usage>
+
+           <file_usage name="GUICODEX.txt">
+             <role>Minimal use; confirms wiring strategy.</role>
+             <content_to_extract>
+               <item>"Natural next steps" note confirming tile-to-source wiring strategy (start with generic JSON/log viewers, then layer custom tiles).</item>
+             </content_to_extract>
+           </file_usage>
+         </source_mapping>
+
+         <integration_guidelines>
+           <deduplication_rules>
+             Merge tile lists from module_outputs_and_visuals.md and AI Development Pipeline_Hybrid GUI Analysis.txt. Where the same tile appears in both (e.g., JobQueueTile, ErrorQuarantineTile), prefer
+   module_outputs_and_visuals.md for tile description and data sources, but cross-reference the "Summary Table: All Tiles" from AI Development Pipeline_Hybrid GUI Analysis.txt for complexity/priority ratings.
+    Use GUI_MODULE_ANALYSIS_SUMMARY.md for top-level phasing and visual types taxonomy.
+           </deduplication_rules>
+           <priority_rules>
+             - Per-module tile suggestions → module_outputs_and_visuals.md (primary), AI Development Pipeline_Hybrid GUI Analysis.txt (fill gaps)
+             - Cross-module/global tiles → AI Development Pipeline_Hybrid GUI Analysis.txt (PipelineRadar, SystemHealthMonitor sections)
+             - Top 10 tiles and phasing → GUI_MODULE_ANALYSIS_SUMMARY.md
+             - Visual types taxonomy → GUI_MODULE_ANALYSIS_SUMMARY.md "Visual Types Used" table
+             - Tile complexity/priority ratings → AI Development Pipeline_Hybrid GUI Analysis.txt "Summary Table: All Tiles"
+             - Tile manifest format → GUI_MODULE_ANALYSIS_SUMMARY.md "Tile Manifest Pattern"
+           </priority_rules>
+           <normalization_rules>
+             Normalize tile names: use consistent naming (JobQueueTile, ErrorQuarantineTile, WorkstreamBoardTile, PipelineRadar, SystemHealthMonitor, etc.). Normalize visual type names (table, timeline,
+   kanban board, status chips, log feed, DAG visualization, gauge/sparkline, card grid, JSON viewer, progress bar, heatmap + status grid, health dashboard). Ensure data source references match Output IDs from
+    Section 3.
+           </normalization_rules>
+         </integration_guidelines>
+
+         <delivery_hints>
+           <suggested_order>Section 4 (after Output Inventory & Data Sources)</suggested_order>
+           <recommended_format>Mixed: (1) Narrative describing hybrid layout and tile grid concept, (2) Visual types taxonomy table, (3) Tile manifest format example with annotations, (4) Per-module tile
+   catalog (tables or structured lists), (5) Cross-module/global tiles subsection, (6) Top 10 priority tiles list with phasing, (7) Summary table of all tiles with complexity/priority ratings. Consider
+   including wireframe diagrams or ASCII art showing tile layouts.</recommended_format>
+           <cross_links>Reference "Output Inventory & Data Sources" (Section 3) for data source details. Reference "Data Access Layer & Tile Manifests" (Section 5) for how tiles query data. Reference
+   "Implementation Phasing & Roadmap" (Section 6) for build order.</cross_links>
+         </delivery_hints>
+       </section>
+
+       <section>
+         <id>5.data_access_layer_tile_manifests</id>
+         <title>Data Access Layer & Tile Manifests</title>
+         <purpose>Define how the GUI queries databases, reads log files, watches file changes, and refreshes data. Specify the tile manifest format, data source configuration, and refresh strategies. Provide
+   concrete code examples for common access patterns.</purpose>
+
+         <plan_topics>
+           <topic>Database query patterns (direct SQLite queries vs Python API wrappers)</topic>
+           <topic>File reading strategies (tail logs, watch DB modified timestamps, poll JSON reports)</topic>
+           <topic>Refresh strategies (polling intervals, file watching, pub-sub events, WebSockets)</topic>
+           <topic>Tile manifest schema (panel_id, data_sources[], visual_type, refresh_interval, supports_filtering, etc.)</topic>
+           <topic>Data source types (db_query, log_file, json_file, api_call, event_stream)</topic>
+           <topic>Example queries for common access patterns (get recent runs, get job queue stats, tail log file, query events since cursor)</topic>
+           <topic>Error handling and fallback strategies (stale data, DB locked, missing files)</topic>
+         </plan_topics>
+
+         <source_mapping>
+           <file_usage name="GUI_MODULE_ANALYSIS_SUMMARY.md">
+             <role>PRIMARY SOURCE for data access patterns, refresh strategies, and tile manifest format.</role>
+             <content_to_extract>
+               <item>"Data Access Patterns" section (database queries examples, file watching examples, suggested refresh rates).</item>
+               <item>"Tile Manifest Pattern" JSON example with panel_id, data_sources, visual_type, refresh_interval.</item>
+               <item>"Example: Wiring Up a Tile" → JobQueueTile data sources (SQL queries, JobQueue API calls).</item>
+             </content_to_extract>
+           </file_usage>
+
+           <file_usage name="module_outputs_and_visuals.md">
+             <role>Use for specific output source paths and API method names.</role>
+             <content_to_extract>
+               <item>Source column from per-module output tables (e.g., "SQLite `.worktrees/pipeline_state.db` → `runs`", "`job["paths"]["log_file"]`", "`JobQueue.get_stats()`").</item>
+               <item>API method names embedded in output descriptions (e.g., `get_run()`, `list_workstreams()`, `get_job_status()`, `get_events_since()`).</item>
+             </content_to_extract>
+           </file_usage>
+
+           <file_usage name="AI Development Pipeline_Hybrid GUI Analysis.txt">
+             <role>Not heavily used; minimal additional detail on access patterns.</role>
+             <content_to_extract>
+               <item>None specifically for this section.</item>
+             </content_to_extract>
+           </file_usage>
+
+           <file_usage name="GUICODEX.txt">
+             <role>Use for job schema and path references (log_file, error_report paths).</role>
+             <content_to_extract>
+               <item>Job JSON examples showing `job["paths"]["log_file"]` and `job["paths"]["error_report"]` structure.</item>
+               <item>"Natural next steps" note on wiring tiles to log/error/report/DB sources.</item>
+             </content_to_extract>
+           </file_usage>
+         </source_mapping>
+
+         <integration_guidelines>
+           <deduplication_rules>
+             Use GUI_MODULE_ANALYSIS_SUMMARY.md as the primary narrative and example source. Cross-reference module_outputs_and_visuals.md for specific API method names and source paths. GUICODEX.txt provides
+    job path structure examples.
+           </deduplication_rules>
+           <priority_rules>
+             - Access pattern examples (SQL, API, file tailing) → GUI_MODULE_ANALYSIS_SUMMARY.md
+             - Tile manifest format → GUI_MODULE_ANALYSIS_SUMMARY.md
+             - API method names → module_outputs_and_visuals.md
+             - Job path structure → GUICODEX.txt
+             - Refresh rates → GUI_MODULE_ANALYSIS_SUMMARY.md "Suggested Refresh Rates"
+           </priority_rules>
+           <normalization_rules>
+             Normalize data source types: db_query, log_file, json_file, api_call, event_stream. Normalize refresh intervals to milliseconds (500ms, 1000ms, 2000ms, 5000ms, 10000ms, 30000ms). Normalize API
+   module paths (e.g., `from modules.core_state import m010003_crud as crud`, `from engine.queue.job_queue import JobQueue`).
+           </normalization_rules>
+         </integration_guidelines>
+
+         <delivery_hints>
+           <suggested_order>Section 5 (after Tile Catalog & UX Layout)</suggested_order>
+           <recommended_format>Mixed: (1) Narrative describing access layer philosophy (direct SQL vs API wrappers), (2) Tile manifest schema specification (JSON schema or annotated example), (3) Data source
+   type taxonomy, (4) Refresh strategies comparison table (polling vs file watching vs WebSockets), (5) Code examples for common queries (Python snippets for SQL, API calls, log tailing), (6) Error handling
+   guidelines.</recommended_format>
+           <cross_links>Reference "Output Inventory & Data Sources" (Section 3) for specific table schemas and file paths. Reference "Tile Catalog & UX Layout" (Section 4) for which tiles use which access
+   patterns. Reference "Implementation Phasing & Roadmap" (Section 6) for build order of data access helpers.</cross_links>
+         </delivery_hints>
+       </section>
+
+       <section>
+         <id>6.implementation_phasing_roadmap</id>
+         <title>Implementation Phasing & Roadmap</title>
+         <purpose>Provide a clear, actionable build plan organized into phases (MVP → core operations → metrics/insights → advanced interactivity → long-tail tiles). Map tiles to phases, specify dependencies,
+    and suggest validation/testing strategies for each phase.</purpose>
+
+         <plan_topics>
+           <topic>Phase 1: MVP / Generic Output Tile (universal adapter for logs/JSON/tables)</topic>
+           <topic>Phase 2: Core Operational Tiles (essential for pipeline monitoring and debugging)</topic>
+           <topic>Phase 3: Metrics & Insights Tiles (analytics, telemetry, cost tracking)</topic>
+           <topic>Phase 4: Advanced Interactivity (drill-down, actions, live updates, WebSockets)</topic>
+           <topic>Phase 5: Long-Tail / Custom Tiles (niche modules, planning, PM, low-priority tiles)</topic>
+           <topic>Tile-to-phase mapping (which tiles in which phase)</topic>
+           <topic>Data access layer build order (generic helpers first, then module-specific APIs)</topic>
+           <topic>Validation and testing strategies per phase</topic>
+           <topic>Dependencies and prerequisites (e.g., Phase 2 depends on Phase 1 generic tile)</topic>
+         </plan_topics>
+
+         <source_mapping>
+           <file_usage name="GUI_MODULE_ANALYSIS_SUMMARY.md">
+             <role>PRIMARY SOURCE for phased implementation strategy and top 10 tiles phasing.</role>
+             <content_to_extract>
+               <item>"Top 10 Recommended Tiles" section with Phase 1/2/3 breakdown.</item>
+               <item>"Implementation Strategy" section (generic output tile first, then custom tiles incrementally with 4-phase plan).</item>
+               <item>"Next Steps for GUI Development" section (build data access layer, implement generic output tile, build Phase 1 tiles, wire up terminal integration).</item>
+             </content_to_extract>
+           </file_usage>
+
+           <file_usage name="module_outputs_and_visuals.md">
+             <role>Use for understanding tile data source dependencies (which tiles require which outputs).</role>
+             <content_to_extract>
+               <item>Per-tile "Uses Output IDs" column from "Suggested Visuals (Tiles)" tables to infer dependencies.</item>
+             </content_to_extract>
+           </file_usage>
+
+           <file_usage name="AI Development Pipeline_Hybrid GUI Analysis.txt">
+             <role>PRIMARY SOURCE for detailed phased implementation recommendations and tile priority ratings.</role>
+             <content_to_extract>
+               <item>"Implementation Recommendations" section with Phase 1/2/3/4 breakdown.</item>
+               <item>"Summary Table: All Tiles" Priority column (Critical, High, Medium, Low) for prioritization.</item>
+               <item>Phase 1 description (Generic Output Tiles MVP), Phase 2 (Priority Custom Tiles), Phase 3 (Advanced Interactivity), Phase 4 (Custom Tiles for Remaining Modules).</item>
+             </content_to_extract>
+           </file_usage>
+
+           <file_usage name="GUICODEX.txt">
+             <role>Minimal use; confirms natural next steps wiring strategy.</role>
+             <content_to_extract>
+               <item>"Natural next steps" note (start with generic JSON/log viewers, then layer tables/timelines).</item>
+             </content_to_extract>
+           </file_usage>
+         </source_mapping>
+
+         <integration_guidelines>
+           <deduplication_rules>
+             Merge phasing schemes from GUI_MODULE_ANALYSIS_SUMMARY.md (3 phases) and AI Development Pipeline_Hybrid GUI Analysis.txt (4 phases). Reconcile by mapping GUI_MODULE_ANALYSIS_SUMMARY.md Phase 1 →
+   MVP, Phase 2 → Core Operations, Phase 3 → Metrics/Insights, and adding AI Development Pipeline_Hybrid GUI Analysis.txt Phase 3 (Advanced Interactivity) and Phase 4 (Long-Tail Tiles) as additional phases.
+   Use tile priority ratings from AI Development Pipeline_Hybrid GUI Analysis.txt "Summary Table: All Tiles" to validate phasing.
+           </deduplication_rules>
+           <priority_rules>
+             - Phase definitions → AI Development Pipeline_Hybrid GUI Analysis.txt "Implementation Recommendations"
+             - Top 10 tiles phasing → GUI_MODULE_ANALYSIS_SUMMARY.md "Top 10 Recommended Tiles"
+             - Tile priority ratings → AI Development Pipeline_Hybrid GUI Analysis.txt "Summary Table: All Tiles"
+             - Next steps / build order → GUI_MODULE_ANALYSIS_SUMMARY.md "Next Steps for GUI Development"
+           </priority_rules>
+           <normalization_rules>
+             Normalize phase names: Phase 1 (MVP / Generic Output Tile), Phase 2 (Core Operational Tiles), Phase 3 (Metrics & Insights Tiles), Phase 4 (Advanced Interactivity), Phase 5 (Long-Tail / Custom
+   Tiles). Map tile priorities (Critical → Phase 2, High → Phase 2-3, Medium → Phase 3-5, Low → Phase 5).
+           </normalization_rules>
+         </integration_guidelines>
+
+         <delivery_hints>
+           <suggested_order>Section 6 (after Data Access Layer & Tile Manifests)</suggested_order>
+           <recommended_format>Phase-by-phase breakdown with: (1) phase name and goals, (2) tile list for that phase, (3) data access layer tasks for that phase, (4) validation/testing criteria, (5) estimated
+    effort/timeline (optional). Use tables or bulleted lists for tile assignments. Include a Gantt chart or dependency diagram if possible.</recommended_format>
+           <cross_links>Reference "Tile Catalog & UX Layout" (Section 4) for full tile descriptions. Reference "Data Access Layer & Tile Manifests" (Section 5) for access layer build tasks. Reference "Open
+   Questions, Risks & Design Decisions" (Section 7) for risks and tradeoffs per phase.</cross_links>
+         </delivery_hints>
+       </section>
+
+       <section>
+         <id>7.open_questions_risks_design_decisions</id>
+         <title>Open Questions, Risks & Design Decisions</title>
+         <purpose>Explicitly list unresolved design decisions, tradeoffs, risks, and questions that need stakeholder input or further research. Provide context for each question and suggest potential
+   approaches.</purpose>
+
+         <plan_topics>
+           <topic>Database access strategy (direct SQLite queries vs Python API layer vs both)</topic>
+           <topic>Refresh strategy (polling intervals vs file watching vs pub-sub events vs WebSockets)</topic>
+           <topic>Multi-run support (can user view multiple runs simultaneously in separate tile sets?)</topic>
+           <topic>Tile swapping and customization (how easy is it to rearrange/replace tiles?)</topic>
+           <topic>State sync (how does GUI detect when terminal completes a job?)</topic>
+           <topic>Error handling (what happens when DB is locked, logs are missing, or state is inconsistent?)</topic>
+           <topic>Performance and scalability (can the GUI handle large job queues, long-running jobs, high event throughput?)</topic>
+           <topic>Security and access control (does the GUI need auth, read-only enforcement, audit logging?)</topic>
+           <topic>Cross-platform compatibility (Windows vs Linux/Mac path handling, SQLite locking differences)</topic>
+           <topic>Architecture choices and tradeoffs (e.g., React vs native GUI framework, local-first vs cloud-hosted)</topic>
+         </plan_topics>
+
+         <source_mapping>
+           <file_usage name="GUI_MODULE_ANALYSIS_SUMMARY.md">
+             <role>PRIMARY SOURCE for explicit "Questions to Consider" list.</role>
+             <content_to_extract>
+               <item>"Questions to Consider" section with 5 questions (Database Choice, Refresh Strategy, Multi-Run Support, Tile Swapping, State Sync).</item>
+             </content_to_extract>
+           </file_usage>
+
+           <file_usage name="module_outputs_and_visuals.md">
+             <role>Not directly applicable; focus is on outputs, not open questions.</role>
+             <content_to_extract>
+               <item>None for this section.</item>
+             </content_to_extract>
+           </file_usage>
+
+           <file_usage name="AI Development Pipeline_Hybrid GUI Analysis.txt">
+             <role>Use for additional context on architecture choices and tradeoffs (e.g., refresh strategies, tile complexity).</role>
+             <content_to_extract>
+               <item>Implied questions from "Implementation Recommendations" (e.g., how to implement drill-down, how to add actions to tiles, how to handle live updates).</item>
+             </content_to_extract>
+           </file_usage>
+
+           <file_usage name="GUICODEX.txt">
+             <role>Minimal use; no explicit questions section.</role>
+             <content_to_extract>
+               <item>None for this section.</item>
+             </content_to_extract>
+           </file_usage>
+         </source_mapping>
+
+         <integration_guidelines>
+           <deduplication_rules>
+             Start with the 5 questions from GUI_MODULE_ANALYSIS_SUMMARY.md. Expand with additional questions inferred from implementation challenges and architecture choices mentioned in AI Development
+   Pipeline_Hybrid GUI Analysis.txt (e.g., how to implement advanced interactivity, how to handle large-scale data).
+           </deduplication_rules>
+           <priority_rules>
+             - Explicit questions → GUI_MODULE_ANALYSIS_SUMMARY.md "Questions to Consider"
+             - Implied questions from implementation complexity → AI Development Pipeline_Hybrid GUI Analysis.txt
+           </priority_rules>
+           <normalization_rules>
+             Format each question as: (1) Question title, (2) Context (why this matters), (3) Potential approaches (2-3 options), (4) Recommendation or "needs stakeholder input".
+           </normalization_rules>
+         </integration_guidelines>
+
+         <delivery_hints>
+           <suggested_order>Section 7 (final section of the plan document)</suggested_order>
+           <recommended_format>Structured list or table of questions, each with: Question, Context, Potential Approaches, Recommendation/Status. Group questions by category (Data Access, Refresh Strategies,
+   UX/Layout, Performance, Security, Architecture). Use callout boxes or sidebars for high-priority/high-risk questions.</recommended_format>
+           <cross_links>Reference relevant earlier sections for context (e.g., "Database Choice" → Section 5 Data Access Layer, "Tile Swapping" → Section 4 Tile Catalog, "State Sync" → Section 2 Engine
+   Architecture).</cross_links>
+         </delivery_hints>
+       </section>
+
+       <coverage_gaps>
+         <gap>
+           <topic>UI/UX design mockups and wireframes</topic>
+           <notes>None of the four files include visual mockups, wireframes, or detailed UI design specifications. To make the plan more actionable for frontend developers, would need: (1) wireframes of the
+   hybrid layout showing tile grid arrangements, (2) tile component design specs (e.g., table column widths, chart axis labels, color schemes), (3) interaction flows (e.g., click a workstream → open detail
+   tile). Could be addressed with a separate design document or Figma/Sketch files.</notes>
+         </gap>
+         <gap>
+           <topic>Technology stack and framework selection</topic>
+           <notes>Files describe *what* the GUI should do but not *how* to build it (React, Vue, Electron, native frameworks, etc.). A robust plan should include: (1) frontend framework recommendation
+   (web-based vs native), (2) state management strategy (Redux, MobX, React Context), (3) charting/visualization libraries (D3.js, Chart.js, Recharts), (4) terminal embedding approach (xterm.js, pty.js).
+   Could be addressed with a separate technical design document or ADR.</notes>
+         </gap>
+         <gap>
+           <topic>Deployment and packaging strategy</topic>
+           <notes>Files do not address how the GUI will be packaged, distributed, or deployed. A complete plan should cover: (1) packaging (Electron app, web app with local server, VS Code extension), (2)
+   installation and setup (dependencies, database initialization), (3) updates and versioning, (4) cross-platform compatibility (Windows, macOS, Linux). Could be addressed with a deployment guide or
+   infrastructure document.</notes>
+         </gap>
+         <gap>
+           <topic>Testing strategy and quality assurance</topic>
+           <notes>Files mention validation per phase but lack detail on testing approach. A robust plan should include: (1) unit testing strategy for data access layer and tile components, (2) integration
+   testing for tile-to-backend data flows, (3) end-to-end testing for user workflows, (4) performance testing for large-scale data (1000+ jobs, 100+ MB logs), (5) cross-browser/platform testing matrix. Could
+   be addressed with a QA plan or test specification document.</notes>
+         </gap>
+         <gap>
+           <topic>Performance optimization and scalability</topic>
+           <notes>Files describe refresh intervals and data access patterns but lack detail on performance optimization strategies. A complete plan should address: (1) pagination and virtual scrolling for
+   large tables, (2) caching strategies for frequently accessed data, (3) lazy loading for heavy tiles, (4) debouncing/throttling for high-frequency updates, (5) memory management for long-running GUI
+   sessions. Could be addressed with a performance engineering document.</notes>
+         </gap>
+         <gap>
+           <topic>Accessibility and internationalization</topic>
+           <notes>Files do not mention accessibility (a11y) or internationalization (i18n). A robust plan should include: (1) keyboard navigation support, (2) screen reader compatibility (ARIA labels), (3)
+   color contrast and colorblind-friendly palettes, (4) i18n strategy for multi-language support (if needed). Could be addressed with an accessibility/i18n requirements document.</notes>
+         </gap>
+         <gap>
+           <topic>User onboarding and documentation</topic>
+           <notes>Files describe the GUI architecture but not the user experience of learning it. A complete plan should include: (1) user onboarding flow (first-run wizard, sample data, tutorial), (2) in-app
+    help and tooltips, (3) user documentation (user guide, FAQ, troubleshooting), (4) developer documentation for extending tiles or adding new data sources. Could be addressed with a documentation plan or
+   user experience design document.</notes>
+         </gap>
+       </coverage_gaps>
+     </gui_plan_blueprint>
+
+   This blueprint provides a complete, machine-readable specification for assembling the Hybrid GUI Plan Document. It:
+
+     - Covers all required areas from the task (7 sections matching the 7 minimum areas)
+     - Maps all four input files to specific sections with clear roles and extraction targets
+     - Provides integration guidelines for deduplication, prioritization, and normalization
+     - Includes delivery hints for order, format, and cross-references
+     - Identifies coverage gaps for topics not well-supported by the input files
+
+   A downstream AI can follow this blueprint to construct a comprehensive, well-organized plan document without re-inventing the analysis or duplicating content
