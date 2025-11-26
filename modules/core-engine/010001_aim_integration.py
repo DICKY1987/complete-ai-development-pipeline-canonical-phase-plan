@@ -21,14 +21,14 @@ from aim.exceptions import (
     AIMCapabilityNotFoundError,
     AIMAllToolsFailedError,
 )
-from modules.core_engine import ToolResult, run_tool
+from core.engine.tools import ToolResult, run_tool
 
 # AIM+ imports
-from modules.aim_environment import HealthMonitor
-from modules.aim_environment import VersionControl
-from modules.aim_environment import get_audit_logger, EventType, EventSeverity
-from modules.aim_environment import ToolInstaller
-from modules.aim_registry import ConfigLoader
+from aim.environment.health import HealthMonitor
+from aim.environment.version_control import VersionControl
+from aim.environment.audit import get_audit_logger, EventType, EventSeverity
+from aim.environment.installer import ToolInstaller
+from aim.registry.config_loader import ConfigLoader
 
 logger = logging.getLogger(__name__)
 
