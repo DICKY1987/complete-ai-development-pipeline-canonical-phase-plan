@@ -1,0 +1,19 @@
+
+Name                              Size (KB) LastWriteTime
+----                              --------- -------------
+COPIED_2025-11-26.txt                  0.24 11/26/2025 8:55:08 AM
+FILE_LIST.txt                          0.00 11/26/2025 8:57:05 AM
+INDEX.md                              12.49 11/26/2025 8:56:21 AM
+PACKAGE_SUMMARY.txt                    5.42 11/26/2025 8:56:57 AM
+PATTERN_EVENT_DELIVERY_SUMMARY.md      9.60 11/26/2025 8:53:32 AM
+PATTERN_EVENT_INTEGRATION.md          12.38 11/26/2025 8:53:32 AM
+PATTERN_EVENT_SPEC.md                 11.88 11/26/2025 8:53:32 AM
+pattern_event.v1.json                  6.29 11/26/2025 8:53:32 AM
+pattern_events_example.py              7.52 11/26/2025 8:53:32 AM
+PATTERN_EVENTS_QUICK_REFERENCE.md      5.35 11/26/2025 8:53:32 AM
+pattern_events.py                     12.11 11/26/2025 8:53:32 AM
+pattern_inspect.py                     7.34 11/26/2025 8:53:32 AM
+pattern_run.v1.json                    3.47 11/26/2025 8:53:32 AM
+README_IMPLEMENTATION.md              13.05 11/26/2025 8:54:57 AM
+
+
