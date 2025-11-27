@@ -1,0 +1,16 @@
+"""Panel implementations for TUI app."""
+
+# Import all panels to trigger registration
+from .dashboard_panel import DashboardPanel
+from .file_lifecycle_panel import FileLifecyclePanel
+from .tool_health_panel import ToolHealthPanel
+from .log_stream_panel import LogStreamPanel
+from .pattern_activity_panel import PatternActivityPanel
+
+__all__ = [
+    "DashboardPanel",
+    "FileLifecyclePanel",
+    "ToolHealthPanel",
+    "LogStreamPanel",
+    "PatternActivityPanel",
+]
