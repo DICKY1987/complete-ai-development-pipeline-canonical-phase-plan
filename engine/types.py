@@ -15,8 +15,8 @@ class JobResult:
     """Result from executing a job via an adapter."""
     
     exit_code: int
-    error_report_path: str
-    duration_s: float
+    error_report_path: str = ""
+    duration_s: float = 0.0
     stdout: str = ""
     stderr: str = ""
     success: bool = False
