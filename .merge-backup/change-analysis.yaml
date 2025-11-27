@@ -1,0 +1,97 @@
+summary:
+  total_modified: 2
+  total_staged: 0
+  total_untracked: 4
+  total_files: 6
+categories:
+  keep_local:
+  - scripts/analyze_local_changes.py
+  merge:
+  - SAFE_MERGE_STRATEGY.md
+  - MERGE_QUICKSTART.md
+  review:
+  - ccpm
+  - scripts/execute_safe_merge.ps1
+  - archive/legacy/AI_MANGER_archived_2025-11-22
+  discard: []
+files:
+  SAFE_MERGE_STRATEGY.md:
+    category: merge
+    status:
+    - untracked
+    analysis:
+      exists: true
+      size_bytes: 14690
+      modified_time: 1764234130.1513128
+      content_sample: "# Safe Merge Strategy & Consolidation Plan\n\n**Document ID**:\
+        \ PLAN-MERGE-CONSOLIDATION-001  \n**Created**: 2025-11-27T09:00:00Z  \n**Status**:\
+        \ READY FOR EXECUTION  \n"
+  MERGE_QUICKSTART.md:
+    category: merge
+    status:
+    - untracked
+    analysis:
+      exists: true
+      size_bytes: 7775
+      modified_time: 1764234250.9113693
+      content_sample: "# Safe Merge Strategy - Quick Start Guide\n\n**Document**:\
+        \ Quick reference for executing safe merge strategy  \n**Created**: 2025-11-27\
+        \  \n**Status**: READY TO EXECUTE\n"
+  ccpm:
+    category: review
+    status:
+    - modified
+    analysis:
+      exists: true
+      size_bytes: 4096
+      modified_time: 1764083599.6126916
+      content_sample: ''
+  scripts/analyze_local_changes.py:
+    category: keep_local
+    status:
+    - untracked
+    analysis:
+      exists: true
+      size_bytes: 6633
+      modified_time: 1764234156.2530823
+      content_sample: '#!/usr/bin/env python3
+
+        """
+
+        Analyze local directory changes and categorize them for merge strategy.
+
+
+        Usage:
+
+        '
+  scripts/execute_safe_merge.ps1:
+    category: review
+    status:
+    - untracked
+    analysis:
+      exists: true
+      size_bytes: 9535
+      modified_time: 1764234203.643916
+      content_sample: ''
+  archive/legacy/AI_MANGER_archived_2025-11-22:
+    category: review
+    status:
+    - modified
+    analysis:
+      exists: true
+      size_bytes: 8192
+      modified_time: 1763829422.9485905
+      content_sample: ''
+recommendations:
+  keep_local:
+    count: 1
+    action: Stash or commit these changes - they contain local work
+  merge:
+    count: 2
+    action: Review and merge with incoming changes
+  review:
+    count: 3
+    action: Manual review required - may need case-by-case decision
+  discard:
+    count: 0
+    action: Safe to discard - generated or temporary files
