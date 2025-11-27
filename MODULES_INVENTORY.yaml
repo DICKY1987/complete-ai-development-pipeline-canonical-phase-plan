@@ -1,0 +1,299 @@
+modules:
+- id: aim-cli
+  name: AIM
+  layer: api
+  ulid_prefix: 01001A
+  source_dir: modules\aim-cli
+  files:
+  - m01001A_main.py
+- id: aim-environment
+  name: AIM
+  layer: api
+  ulid_prefix: 01001B
+  source_dir: modules\aim-environment
+  files:
+  - m01001B_audit.py
+  - m01001B_exceptions.py
+  - m01001B_health.py
+  - m01001B_installer.py
+  - m01001B_scanner.py
+  - m01001B_secrets.py
+  - m01001B_version_control.py
+- id: aim-registry
+  name: AIM
+  layer: api
+  ulid_prefix: 01001C
+  source_dir: modules\aim-registry
+  files:
+  - m01001C_config_loader.py
+- id: aim-services
+  name: AIM
+  layer: api
+  ulid_prefix: 01001D
+  source_dir: modules\aim-services
+  files: []
+- id: aim-tests
+  name: AIM
+  layer: api
+  ulid_prefix: 01001E
+  source_dir: modules\aim-tests
+  files:
+  - m01001E_conftest.py
+- id: core-ast
+  name: Core
+  layer: domain
+  ulid_prefix: '010000'
+  source_dir: modules\core-ast
+  files:
+  - m010000_extractors.py
+- id: core-engine
+  name: Core
+  layer: domain
+  ulid_prefix: '010001'
+  source_dir: modules\core-engine
+  files:
+  - m010001_aim_integration.py
+  - m010001_circuit_breakers.py
+  - m010001_compensation.py
+  - m010001_context_estimator.py
+  - m010001_cost_tracker.py
+  - m010001_dag_builder.py
+  - m010001_event_bus.py
+  - m010001_executor.py
+  - m010001_hardening.py
+  - m010001_integration_worker.py
+  - m010001_metrics.py
+  - m010001_orchestrator.py
+  - m010001_patch_applier.py
+  - m010001_patch_converter.py
+  - m010001_performance.py
+  - m010001_pipeline_plus_orchestrator.py
+  - m010001_plan_validator.py
+  - m010001_process_spawner.py
+  - m010001_prompt_engine.py
+  - m010001_recovery.py
+  - m010001_recovery_manager.py
+  - m010001_scheduler.py
+  - m010001_test_gates.py
+  - m010001_tools.py
+  - m010001_uet_orchestrator.py
+  - m010001_uet_patch_ledger.py
+  - m010001_uet_router.py
+  - m010001_uet_scheduler.py
+  - m010001_uet_state_machine.py
+  - m010001_validators.py
+  - m010001_worker.py
+- id: core-planning
+  name: Core
+  layer: domain
+  ulid_prefix: '010002'
+  source_dir: modules\core-planning
+  files:
+  - m010002_archive.py
+  - m010002_ccpm_integration.py
+  - m010002_parallelism_detector.py
+  - m010002_planner.py
+- id: core-state
+  name: Core
+  layer: infra
+  ulid_prefix: '010003'
+  source_dir: modules\core-state
+  files:
+  - m010003_audit_logger.py
+  - m010003_bundles.py
+  - m010003_crud.py
+  - m010003_dag_utils.py
+  - m010003_db.py
+  - m010003_db_sqlite.py
+  - m010003_db_unified.py
+  - m010003_pattern_telemetry_db.py
+  - m010003_task_queue.py
+  - m010003_uet_db.py
+  - m010003_uet_db_adapter.py
+  - m010003_worktree.py
+- id: error-engine
+  name: Error
+  layer: domain
+  ulid_prefix: '010004'
+  source_dir: modules\error-engine
+  files:
+  - m010004_agent_adapters.py
+  - m010004_error_context.py
+  - m010004_error_engine.py
+  - m010004_error_pipeline_cli.py
+  - m010004_error_pipeline_service.py
+  - m010004_error_state_machine.py
+  - m010004_file_hash_cache.py
+  - m010004_pipeline_engine.py
+  - m010004_plugin_manager.py
+- id: error-plugin-codespell
+  name: Error
+  layer: ui
+  ulid_prefix: '010005'
+  source_dir: modules\error-plugin-codespell
+  files:
+  - m010005_plugin.py
+- id: error-plugin-echo
+  name: Error
+  layer: ui
+  ulid_prefix: '010006'
+  source_dir: modules\error-plugin-echo
+  files:
+  - m010006_plugin.py
+- id: error-plugin-gitleaks
+  name: Error
+  layer: ui
+  ulid_prefix: '010007'
+  source_dir: modules\error-plugin-gitleaks
+  files:
+  - m010007_plugin.py
+- id: error-plugin-js-eslint
+  name: Error
+  layer: ui
+  ulid_prefix: 010009
+  source_dir: modules\error-plugin-js-eslint
+  files:
+  - m010009_plugin.py
+- id: error-plugin-js-prettier-fix
+  name: Error
+  layer: ui
+  ulid_prefix: 01000A
+  source_dir: modules\error-plugin-js-prettier-fix
+  files:
+  - m01000A_plugin.py
+- id: error-plugin-json-jq
+  name: Error
+  layer: ui
+  ulid_prefix: 010008
+  source_dir: modules\error-plugin-json-jq
+  files:
+  - m010008_plugin.py
+- id: error-plugin-md-markdownlint
+  name: Error
+  layer: ui
+  ulid_prefix: 01000B
+  source_dir: modules\error-plugin-md-markdownlint
+  files:
+  - m01000B_plugin.py
+- id: error-plugin-md-mdformat-fix
+  name: Error
+  layer: ui
+  ulid_prefix: 01000C
+  source_dir: modules\error-plugin-md-mdformat-fix
+  files:
+  - m01000C_plugin.py
+- id: error-plugin-path-standardizer
+  name: Error
+  layer: ui
+  ulid_prefix: 01000D
+  source_dir: modules\error-plugin-path-standardizer
+  files:
+  - m01000D_plugin.py
+- id: error-plugin-powershell-pssa
+  name: Error
+  layer: ui
+  ulid_prefix: 01000E
+  source_dir: modules\error-plugin-powershell-pssa
+  files:
+  - m01000E_plugin.py
+- id: error-plugin-python-bandit
+  name: Error
+  layer: ui
+  ulid_prefix: 01000F
+  source_dir: modules\error-plugin-python-bandit
+  files:
+  - m01000F_plugin.py
+- id: error-plugin-python-black-fix
+  name: Error
+  layer: ui
+  ulid_prefix: '010010'
+  source_dir: modules\error-plugin-python-black-fix
+  files:
+  - m010010_plugin.py
+- id: error-plugin-python-isort-fix
+  name: Error
+  layer: ui
+  ulid_prefix: '010011'
+  source_dir: modules\error-plugin-python-isort-fix
+  files:
+  - m010011_plugin.py
+- id: error-plugin-python-mypy
+  name: Error
+  layer: ui
+  ulid_prefix: '010012'
+  source_dir: modules\error-plugin-python-mypy
+  files:
+  - m010012_plugin.py
+- id: error-plugin-python-pylint
+  name: Error
+  layer: ui
+  ulid_prefix: '010013'
+  source_dir: modules\error-plugin-python-pylint
+  files:
+  - m010013_plugin.py
+- id: error-plugin-python-pyright
+  name: Error
+  layer: ui
+  ulid_prefix: '010014'
+  source_dir: modules\error-plugin-python-pyright
+  files:
+  - m010014_plugin.py
+- id: error-plugin-python-ruff
+  name: Error
+  layer: ui
+  ulid_prefix: '010015'
+  source_dir: modules\error-plugin-python-ruff
+  files:
+  - m010015_plugin.py
+- id: error-plugin-python-safety
+  name: Error
+  layer: ui
+  ulid_prefix: '010016'
+  source_dir: modules\error-plugin-python-safety
+  files:
+  - m010016_plugin.py
+- id: error-plugin-ruff
+  name: error-plugin-ruff
+  layer: unknown
+  ulid_prefix: ''
+  source_dir: modules\error-plugin-ruff
+  files: []
+- id: error-plugin-semgrep
+  name: Error
+  layer: ui
+  ulid_prefix: '010017'
+  source_dir: modules\error-plugin-semgrep
+  files:
+  - m010017_plugin.py
+- id: error-plugin-test-runner
+  name: Error
+  layer: ui
+  ulid_prefix: 010018
+  source_dir: modules\error-plugin-test-runner
+  files:
+  - m010018_plugin.py
+- id: error-plugin-yaml-yamllint
+  name: Error
+  layer: ui
+  ulid_prefix: 010019
+  source_dir: modules\error-plugin-yaml-yamllint
+  files:
+  - m010019_plugin.py
+- id: pm-integrations
+  name: PM
+  layer: api
+  ulid_prefix: 01001F
+  source_dir: modules\pm-integrations
+  files:
+  - m01001F_github_sync.py
+- id: specifications-tools
+  name: Specifications
+  layer: domain
+  ulid_prefix: '010020'
+  source_dir: modules\specifications-tools
+  files:
+  - m010020_guard.py
+  - m010020_indexer.py
+  - m010020_patcher.py
+  - m010020_renderer.py
+  - m010020_resolver.py

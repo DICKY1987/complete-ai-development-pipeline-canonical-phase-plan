@@ -85,3 +85,13 @@ class RuffPlugin:
 def register():
     return RuffPlugin()
 
+
+
+
+def parse(file_path: Path) -> PluginResult:
+    """Compatibility shim matching legacy parse entrypoint."""
+    plugin = RuffPlugin()
+    return plugin.execute(file_path)
+
+
+__all__ = ["RuffPlugin", "parse"]

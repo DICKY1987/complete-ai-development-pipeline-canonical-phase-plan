@@ -11,14 +11,16 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Sequence
 
-from modules.error_engine.m010004_agent_adapters import (
-    AgentInvocation,
-    AgentResult,
-    get_agent_adapter,
-)
-from modules.error_engine.m010004_error_context import ErrorPipelineContext
-from modules.error_engine.m010004_error_state_machine import advance_state
+from .m010004_agent_adapters import AgentInvocation, AgentResult, get_agent_adapter
+from .m010004_error_context import ErrorPipelineContext
+from .m010004_error_state_machine import advance_state
 from error.shared.utils.time import utc_now_iso
+
+
+def tick(ctx: ErrorPipelineContext) -> ErrorPipelineContext:
+    """Advance the error pipeline by one step."""
+    advance_state(ctx)
+    return ctx
 
 
 @dataclass

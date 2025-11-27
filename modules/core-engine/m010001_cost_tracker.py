@@ -53,7 +53,7 @@ class CostTracker:
         output_tokens: int
     ) -> float:
         """Record token usage and calculate cost."""
-        from modules.core_state.m010003_db import get_connection
+        from modules.core_state import get_connection
         
         pricing = PRICING_TABLE.get(model_name, PRICING_TABLE['gpt-4'])
         
@@ -82,7 +82,7 @@ class CostTracker:
     
     def get_total_cost(self, run_id: str) -> float:
         """Get total cost for a run."""
-        from modules.core_state.m010003_db import get_connection
+        from modules.core_state import get_connection
         
         conn = get_connection()
         try:
