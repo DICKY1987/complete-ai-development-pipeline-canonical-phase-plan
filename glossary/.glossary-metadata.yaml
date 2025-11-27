@@ -3,11 +3,15 @@
 # PREFER using scripts/glossary/update_term.py over manual edits
 
 schema_version: "1.0.0"
-last_updated: "2025-11-25T00:00:00Z"
-total_terms: 75
+last_updated: "2025-11-27T14:13:51Z"
+total_terms: 83
 
 # Category definitions
 categories:
+  "Architecture":
+    code: "ARCH"
+    description: "Module-centric architecture and organization"
+    term_count: 8
   "Core Engine":
     code: "ENGINE"
     description: "Execution orchestration components"
@@ -35,7 +39,7 @@ categories:
   "Framework":
     code: "FRAME"
     description: "UET and foundational concepts"
-    term_count: 2
+    term_count: 3
   "Project Management":
     code: "PM"
     description: "CCPM and planning"

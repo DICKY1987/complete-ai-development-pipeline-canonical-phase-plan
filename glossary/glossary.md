@@ -1,6 +1,6 @@
 # Glossary – AI Development Pipeline
 
-**Last Updated**: 2025-11-23  
+**Last Updated**: 2025-11-27  
 **Purpose**: Comprehensive alphabetical reference of all specialized terms  
 **Audience**: Developers, AI agents, and documentation readers
 
@@ -86,6 +86,34 @@ python -m aim register <tool>  # Register a tool manually
 **Implementation**: `core/planning/archive.py`
 
 **Related Terms**: [Worktree Management](#worktree-management), [State Transition](#state-transition)
+
+---
+
+### Artifact-Type Organization
+**Category**: Architecture  
+**Definition**: Legacy code organization pattern where artifacts are grouped by type (code/, tests/, docs/, schema/) rather than by module. Being migrated to module-centric architecture.
+
+**Status**: DEPRECATED - replaced by [Module-Centric Architecture](#module-centric-architecture)
+
+**Legacy Structure**:
+```
+core/state/db.py
+tests/state/test_db.py
+docs/STATE_GUIDE.md
+schema/state.schema.json
+```
+
+**Problems**:
+- AI must load context from 4+ directories
+- SafePatch worktrees need complex file tracking
+- No atomic module boundaries
+- Cross-directory coordination required
+
+**Migration Status**: In progress - see `MIGRATION_STATUS_SUMMARY.md`
+
+**Related Terms**: [Module-Centric Architecture](#module-centric-architecture), [Module](#module)
+
+**References**: `docs/MODULE_CENTRIC_MIGRATION_GUIDE.md`
 
 ---
 
@@ -593,6 +621,44 @@ See [Patch Ledger](#patch-ledger)
 
 ---
 
+### Layer
+**Category**: Architecture  
+**Definition**: Architectural layer assignment (infra, domain, api, ui) that enforces dependency rules. Modules can only depend on same or lower layers.
+
+**Layers** (low to high):
+
+1. **Infrastructure (`infra`)**
+   - Description: Database, state, schemas, configuration
+   - Dependencies: None
+   - Modules: `core.state`, `schema`, `config`
+
+2. **Domain Logic (`domain`)**
+   - Description: Core business logic and orchestration
+   - Dependencies: infra
+   - Modules: `core.engine`, `core.planning`, `error.engine`, `specifications.tools`
+
+3. **API & Integrations (`api`)**
+   - Description: External tool integrations and bridges
+   - Dependencies: infra, domain
+   - Modules: `aim`, `pm`, `specifications.bridge`
+
+4. **User Interface (`ui`)**
+   - Description: CLI, GUI, user-facing tools
+   - Dependencies: infra, domain, api (all lower layers)
+   - Modules: `engine`, `error.plugins`, `scripts`, `gui`
+
+**Dependency Rules**:
+- No circular dependencies between modules
+- Modules can only depend on same or lower layer
+- Infrastructure layer has no dependencies
+- UI layer can depend on all lower layers
+
+**Implementation**: `docs/CODEBASE_INDEX.yaml`, `schema/module.schema.json`
+
+**Related Terms**: [Module](#module), [Module Dependencies](#module-dependencies)
+
+---
+
 ## M
 
 ### Merge Strategy
@@ -609,6 +675,124 @@ See [Patch Ledger](#patch-ledger)
 **Implementation**: `core/engine/merge_strategy.py` (UET alignment)
 
 **Related Terms**: [Integration Worker](#integration-worker), [DAG](#dag-directed-acyclic-graph), [UET Integration](#uet-universal-execution-templates)
+
+---
+
+### Module
+**Category**: Architecture  
+**Definition**: Self-contained functional unit with ULID-prefixed artifacts, clear boundaries, and layer assignment. All related code, tests, schemas, and docs colocated in one directory.
+
+**Structure**:
+```
+modules/core-state/
+  010003_db.py                    # Code with ULID prefix
+  010003_db.test.py               # Test oracle
+  010003_db.schema.json           # Contract
+  010003_module.manifest.yaml     # Module identity
+  .state/current.json             # Module state
+```
+
+**Module Boundaries Determined By**:
+- **Functional cohesion** - Related capabilities grouped together
+- **Layer rules** - Can only depend on same or lower layers
+- **Import independence** - Clear import contracts
+- **AI context size** - Optimized for AI tool loading
+
+**Implementation**: `modules/*/`, `schema/module.schema.json`, `MODULES_INVENTORY.yaml`
+
+**Related Terms**: [Module-Centric Architecture](#module-centric-architecture), [ULID Prefix](#ulid-universally-unique-lexicographically-sortable-identifier), [Module Manifest](#module-manifest), [Layer](#layer), [Submodule](#submodule)
+
+**References**: `docs/MODULE_CENTRIC_MIGRATION_GUIDE.md`
+
+---
+
+### Module-Centric Architecture
+**Category**: Architecture  
+**Definition**: Code organization pattern where all module artifacts (code, tests, schemas, docs) are colocated in a single directory, enabling deterministic AI context loading and atomic SafePatch operations.
+
+**Benefits**:
+- **Deterministic context loading**: `load_module("modules/core-state/")`  
+- **Atomic SafePatch**: Clone just one directory
+- **ULID-based identity**: Machine-verifiable relationships
+- **Parallel AI execution**: No shared bottlenecks
+
+**vs Artifact-Type Organization**:
+
+| Aspect | Artifact-Type (Legacy) | Module-Centric (Current) |
+|--------|------------------------|--------------------------|
+| Structure | `core/state/db.py`<br>`tests/state/test_db.py`<br>`docs/STATE_GUIDE.md`<br>`schema/state.schema.json` | `modules/core-state/`<br>`010003_db.py`<br>`010003_db.test.py`<br>`010003_db.md`<br>`010003_db.schema.json` |
+| Context Loading | 4 separate locations | Single directory |
+| Relationships | Implicit (naming convention) | Explicit (ULID prefix) |
+| SafePatch | Complex file tracking | Atomic clone |
+
+**Implementation**: `modules/`, `MODULES_INVENTORY.yaml`
+
+**Related Terms**: [Module](#module), [Artifact-Type Organization](#artifact-type-organization), [ULID Prefix](#ulid-universally-unique-lexicographically-sortable-identifier)
+
+**References**: `docs/MODULE_CENTRIC_MIGRATION_GUIDE.md`, `Module-Centric/architecture/WHY_MODULE_CENTRIC_WORKS.md`
+
+---
+
+### Module Dependencies
+**Category**: Architecture  
+**Definition**: Explicit dependencies between modules, tracked in module manifests and enforced by layer rules.
+
+**Dependency Types**:
+- **Module Dependencies**: Other modules required (by `module_id`)
+- **External Dependencies**: Third-party packages (pip, npm, etc.)
+
+**Example** (from `core-engine` manifest):
+```yaml
+dependencies:
+  modules:
+    - "aim-environment"
+    - "aim-registry"
+    - "core-planning"
+    - "core-state"
+  external:
+    - name: "pyyaml"
+      version: ">=6.0"
+```
+
+**Enforcement**: Layer rules + CI validation
+
+**Related Terms**: [Module](#module), [Layer](#layer), [Module Manifest](#module-manifest)
+
+---
+
+### Module Manifest
+**Category**: Architecture  
+**Definition**: YAML file (`module.manifest.yaml`) defining module identity, dependencies, artifacts, contracts, and AI metadata. Machine-readable module specification.
+
+**Required Fields**:
+- `module_id` - Kebab-case identifier (e.g., `core-state`)
+- `ulid_prefix` - 6-character prefix (e.g., `010003`)
+- `purpose` - Concise purpose statement
+- `layer` - Architectural layer (`infra`/`domain`/`api`/`ui`)
+
+**Example**:
+```yaml
+module_id: "core-state"
+ulid_prefix: "010003"
+purpose: "Database operations and state management"
+layer: "infra"
+artifacts:
+  code:
+    - path: "010003_db.py"
+      ulid: "01000300000000000000000001"
+  tests:
+    - path: "010003_db.test.py"
+      ulid: "01000300000000000000000002"
+dependencies:
+  modules: []
+  external:
+    - name: "sqlite3"
+```
+
+**Schema**: `schema/module.schema.json`  
+**Template**: `templates/module.manifest.template.yaml`
+
+**Related Terms**: [Module](#module), [ULID Prefix](#ulid-universally-unique-lexicographically-sortable-identifier), [Layer](#layer)
 
 ---
 
@@ -1016,6 +1200,44 @@ execution_history:
 
 ---
 
+### Shared Module
+**Category**: Architecture  
+**Definition**: Standalone module providing common utilities/types to other modules. Listed explicitly in `dependencies.modules` of consuming modules. Has independent lifecycle.
+
+**Example** (`error-shared` module):
+```
+modules/error-shared/
+  010021_types.py
+  010021_time.py
+  010021_hashing.py
+  010021_jsonl_manager.py
+  010021_security.py
+  010021_module.manifest.yaml
+```
+
+**Usage** (in consuming module):
+```yaml
+dependencies:
+  modules: ["error-shared"]
+```
+
+**vs Submodule**:
+
+| Aspect | Shared Module | Submodule |
+|--------|---------------|-----------|
+| Ownership | Independent module | Parent module controls |
+| Dependency | Explicit in manifest | Implicit (internal) |
+| Lifecycle | Independent versioning | Follows parent |
+| Example | `error-shared` (ULID 010021) | `error-engine/submodules/state-machine` |
+
+**Implementation**: `modules/error-shared/`
+
+**Related Terms**: [Module](#module), [Submodule](#submodule), [Module Dependencies](#module-dependencies)
+
+**References**: `AGENT_3_COMPLETION_REPORT.md`, `MODULES_INVENTORY.yaml`
+
+---
+
 ### Spec Bridge
 **Category**: Specifications  
 **Definition**: Integration layer between OpenSpec change proposals and workstream generation.
@@ -1029,6 +1251,38 @@ execution_history:
 **Implementation**: `specifications/bridge/`
 
 **Related Terms**: [OpenSpec](#openspec), [Change Proposal](#change-proposal)
+
+---
+
+### Submodule
+**Category**: Architecture  
+**Definition**: Hierarchical organization within a complex module. Each submodule has its own manifest and is controlled by parent module. Used for internal structure, not external dependencies.
+
+**Example Structure**:
+```
+modules/error-engine/
+  010004_module.manifest.yaml
+  submodules/
+    state-machine/
+      manifest.yaml
+      010004_state_machine.py
+    plugin-manager/
+      manifest.yaml
+      010004_plugin_manager.py
+```
+
+**vs Shared Module**:
+
+| Aspect | Submodule | Shared Module |
+|--------|-----------|---------------|
+| Purpose | Internal organization | External dependency |
+| Control | Parent module controls | Independent lifecycle |
+| Dependencies | No external dependencies | Listed in `dependencies.modules` |
+| Example | `error-engine/submodules/state-machine` | `error-shared` (ULID 010021) |
+
+**Schema**: `schema/module.schema.json` (lines 331-346)
+
+**Related Terms**: [Module](#module), [Shared Module](#shared-module), [Module Manifest](#module-manifest)
 
 ---
 
@@ -1239,26 +1493,75 @@ aider:
 ---
 
 ### ULID (Universally Unique Lexicographically Sortable Identifier)
-**Category**: State Management  
-**Definition**: 26-character Base32 identifier that is globally unique and sortable by creation time.
+**Category**: Framework  
+**Definition**: 26-character globally unique identifier with lexicographic sorting (timestamp-based). Used for run IDs and module identity. First 6 characters serve as module prefix.
 
-**Format**: `01J2ZB1B3Y5D0C8QK7F3HA2XYZ` (26 characters, uppercase)
+**Format**: 26 uppercase alphanumeric characters (base32, Base32-Crockford)
+- **Example**: `01JDZX2A3B4C5D6E7F8G9H0J1K`
 
-**Benefits**:
-- Globally unique (like UUID)
-- Sortable by timestamp (unlike UUID v4)
-- Compact (26 chars vs 36 for UUID)
-- URL-safe
+**Properties**:
+- **Globally unique** - No collisions across systems
+- **Lexicographically sortable** - Chronological order
+- **Timestamp-based** - First 48 bits encode millisecond timestamp
+- **Compact** - More compact than UUID v4 (26 vs 36 chars)
+- **URL-safe** - No special characters
 
-**Usage in UET**:
-- `patch_id` - Patch identifier
+**Module Usage**:
+
+1. **ULID Prefix** (first 6 chars):
+   - Identifies module: `010003` = `core-state` module
+   - Shared by all artifacts in module
+   - Examples: `010003_db.py`, `010003_db.test.py`
+
+2. **Full ULID** (26 chars):
+   - Identifies specific artifact
+   - Example: `01000300000000000000000001`
+
+**Benefits for Modules**:
+- Machine-verifiable relationships (same prefix = same module)
+- Lexicographic sorting (chronological order)
+- Globally unique (no collisions)
+
+**Database Usage**:
+- `run_ulid` - Run identifier
+- `patch_id` - Patch artifact identifier
 - `ledger_id` - Patch ledger entry ID
 - `event_id` - Event identifier
-- `run_ulid` - Run identifier (migrating from auto-increment)
 
 **Implementation**: `python-ulid` package
 
-**Related Terms**: [Patch Artifact](#patch-artifact), [Pipeline Database](#pipeline-database), [UET Integration](#uet-universal-execution-templates)
+**Related Terms**: [Module](#module), [Module Manifest](#module-manifest), [ULID Prefix](#ulid-prefix), [Patch Artifact](#patch-artifact)
+
+**References**: `schema/module.schema.json`
+
+---
+
+### ULID Prefix
+**Category**: Architecture  
+**Definition**: First 6 characters of a ULID used to identify a module. All artifacts within a module share the same prefix.
+
+**Examples**:
+- `010003` - `core-state` module
+- `010004` - `error-engine` module
+- `010021` - `error-shared` module
+
+**Usage in File Naming**:
+```
+modules/core-state/
+  010003_db.py
+  010003_db.test.py
+  010003_db.schema.json
+  010003_module.manifest.yaml
+```
+
+**Benefits**:
+- Machine-verifiable module membership
+- Consistent naming convention
+- Enables tooling to auto-detect module boundaries
+
+**Assigned in**: `module.manifest.yaml` (`ulid_prefix` field)
+
+**Related Terms**: [ULID](#ulid-universally-unique-lexicographically-sortable-identifier), [Module](#module), [Module Manifest](#module-manifest)
 
 ---
 
