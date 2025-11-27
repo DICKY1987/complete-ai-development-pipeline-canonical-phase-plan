@@ -982,6 +982,21 @@ apply_failed, rolled_back, quarantined, dropped
 
 ---
 
+### Pattern Automation Hooks
+**Category**: Framework  
+**Definition**: Self-learning automation layer that attaches to the UET orchestrator to capture execution telemetry, persist it to the pattern automation database, and generate pattern drafts/approvals.
+
+**Features**:
+- Orchestrator hooks for task start/finish events with graceful fallback when automation is unavailable
+- Detection-config-driven behavior (drafts, approvals, database writes)
+- Telemetry capture for future automation and pattern refinement
+
+**Implementation**: `UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/automation/` (hooks, config, database), integration in `modules/core-engine/m010001_uet_orchestrator.py`
+
+**Related Terms**: [UET (Universal Execution Templates)](#uet-universal-execution-templates), [Orchestrator](#orchestrator)
+
+---
+
 ### Phase
 **Category**: Project Management  
 **Definition**: Major development milestone containing multiple related workstreams.
@@ -1492,6 +1507,21 @@ aider:
 
 ---
 
+### UET Compatibility Shim
+**Category**: Framework  
+**Definition**: Backward-compatibility adapters that re-export UET implementations under legacy import paths so existing tools continue working after the module-centric migration.
+
+**Behavior**:
+- Reuses UET orchestrator and scheduler while keeping old module names
+- Keeps tests and scripts running without immediate refactors
+- Emits optional warnings for future migration
+
+**Implementation**: `modules/core-engine/m010001_orchestrator.py`, `modules/core-engine/m010001_pipeline_plus_orchestrator.py`, shared fallbacks under `modules/error-shared/__init__.py`
+
+**Related Terms**: [Module-Centric Architecture](#module-centric-architecture), [Orchestrator](#orchestrator), [UET (Universal Execution Templates)](#uet-universal-execution-templates)
+
+---
+
 ### ULID (Universally Unique Lexicographically Sortable Identifier)
 **Category**: Framework  
 **Definition**: 26-character globally unique identifier with lexicographic sorting (timestamp-based). Used for run IDs and module identity. First 6 characters serve as module prefix.
@@ -1767,6 +1797,9 @@ modules/core-state/
 - [Tool Registry](#tool-registry)
 
 ### Framework (2 terms)
+### Framework (4 terms)
+- [Pattern Automation Hooks](#pattern-automation-hooks)
+- [UET Compatibility Shim](#uet-compatibility-shim)
 - [UET (Universal Execution Templates)](#uet-universal-execution-templates)
 - [ULID](#ulid-universally-unique-lexicographically-sortable-identifier)
 
@@ -1807,6 +1840,6 @@ python -m aim status
 
 ---
 
-**Last Updated**: 2025-11-23  
+**Last Updated**: 2025-11-27  
 **Maintained By**: Architecture Team  
 **Glossary Version**: 1.0.0
