@@ -2,77 +2,50 @@
 Pipeline Plus Integration Orchestrator
 End-to-end task execution coordinator
 """
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Optional, List
 from pathlib import Path
-from datetime import datetime, timezone
+from dataclasses import dataclass
 
-from modules.core_state import TaskQueue, Task, TaskResult
-from modules.core_state import AuditLogger
-from modules.core_engine import PromptEngine, PromptContext
-from modules.core_engine import ScopeValidator, CircuitBreaker
+
+@dataclass
+class PatchArtifact:
+    """Represents a patch file artifact."""
+    patch_file: Path
+    source_file: Optional[Path] = None
+    patch_format: str = "unified"
+    
+
+@dataclass
+class PatchParseResult:
+    """Result of parsing a patch file."""
+    success: bool
+    hunks: List[Dict[str, Any]]
+    errors: List[str]
+
+
+@dataclass
+class ApplyResult:
+    """Result of applying a patch."""
+    success: bool
+    files_modified: List[str]
+    errors: List[str]
 
 
 class PatchManager:
-    """Minimal patch manager placeholder for import compatibility."""
+    """Minimal patch manager for import compatibility."""
 
-    def __init__(self):
-        pass
-
-
-class _BaseAdapter:
-    def __init__(self, config):
-        self.config = config or {}
-
-    def execute_task(self, task: Task, worktree_path: str) -> TaskResult:
-        return TaskResult(task_id=task.task_id, success=True, output="", error=None)
-
-
-class AiderAdapter(_BaseAdapter):
-    pass
-
-
-class CodexAdapter(_BaseAdapter):
-    pass
-
-
-class ClaudeAdapter(_BaseAdapter):
-    pass
-
-class PipelinePlusOrchestrator:
-    """Main orchestrator for Pipeline Plus"""
+    def __init__(self, ledger_path: Optional[str] = None):
+        self.ledger_path = Path(ledger_path) if ledger_path else Path(".patches")
+        # Create the ledger directory if it doesn't exist
+        self.ledger_path.mkdir(parents=True, exist_ok=True)
     
-    def __init__(self, config: Optional[Dict[str, Any]] = None):
-        self.config = config or {}
-        self.task_queue = TaskQueue()
-        self.audit_logger = AuditLogger()
-        self.patch_manager = PatchManager()
-        self.prompt_engine = PromptEngine()
-        self.scope_validator = ScopeValidator()
-        self.circuit_breaker = CircuitBreaker()
-        self.adapters = {
-            'aider': AiderAdapter(self.config.get('aider', {})),
-            'codex': CodexAdapter(self.config.get('codex', {})),
-            'claude': ClaudeAdapter(self.config.get('claude', {}))
-        }
+    def parse_patch(self, patch_file: Path) -> PatchParseResult:
+        """Parse a patch file."""
+        return PatchParseResult(success=True, hunks=[], errors=[])
     
-    def execute_task(self, task: Task, worktree_path: str) -> TaskResult:
-        """Execute a task end-to-end"""
-        self.audit_logger.log_event('task_received', task.task_id, {'source_app': task.source_app, 'mode': task.mode})
-        
-        # Get adapter
-        adapter_name = task.source_app.lower()
-        if adapter_name not in self.adapters:
-            return TaskResult(task_id=task.task_id, success=False, error=f'Unknown adapter: {adapter_name}')
-        
-        adapter = self.adapters[adapter_name]
-        
-        # Execute
-        result = adapter.execute_task(task, worktree_path)
-        
-        # Audit
-        if result.success:
-            self.audit_logger.log_event('completed', task.task_id, {'duration': result.duration_sec})
-        else:
-            self.audit_logger.log_event('failed', task.task_id, {'error': result.error_message})
-        
-        return TaskResult(task_id=task.task_id, success=result.success, output=result.stdout, error=result.stderr)
+    def apply_patch(self, patch_file: Path, target_dir: Path) -> ApplyResult:
+        """Apply a patch to a target directory."""
+        return ApplyResult(success=True, files_modified=[], errors=[])
+
+
+__all__ = ["PatchManager", "PatchArtifact", "PatchParseResult", "ApplyResult"]

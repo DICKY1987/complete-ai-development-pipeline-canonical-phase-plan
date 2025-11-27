@@ -31,6 +31,7 @@ _ulid_files = [
     "m010004_file_hash_cache",
     "m010004_pipeline_engine",
     "m010004_plugin_manager",
+    "m010004_test_helpers",
 ]
 
 _pending = list(_ulid_files)
