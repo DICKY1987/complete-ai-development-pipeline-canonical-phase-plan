@@ -5,7 +5,7 @@ All 33 modules organized with ULID-based file naming.
 
 Import from module level:
     from modules.core_state import get_connection  # ✅
-    from modules.core_state.010003_db import get_connection  # ❌ (won't work)
+    # Legacy ULID-named files are internal; import via package alias instead.
 
 Module organization:
 - Core: core-state, core-engine, core-planning, core-ast

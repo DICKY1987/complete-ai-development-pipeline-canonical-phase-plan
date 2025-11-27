@@ -21,10 +21,15 @@ Usage:
 
 Internal modules (use at your own risk):
 - core.state: State management internals
-- core.adapters: Tool adapter implementations  
+- core.adapters: Tool adapter implementations
 - core.engine: Orchestration engine internals
 - core.bootstrap: Bootstrap implementation
 """
+
+import importlib
+import importlib.util
+import sys
+from pathlib import Path
 
 # Public API exports
 try:
@@ -53,9 +58,63 @@ except ImportError:
     AdapterRegistry = None
 
 __all__ = [
-    'BootstrapOrchestrator',
-    'ExecutionScheduler',
-    'ResilientExecutor',
-    'ProgressTracker',
-    'AdapterRegistry',
+    "BootstrapOrchestrator",
+    "ExecutionScheduler",
+    "ResilientExecutor",
+    "ProgressTracker",
+    "AdapterRegistry",
 ]
+
+
+def _alias_module(fullname: str, target_path: Path):
+    """Load a module from an absolute path and register it under fullname."""
+    if fullname in sys.modules:
+        return sys.modules[fullname]
+    spec = importlib.util.spec_from_file_location(fullname, target_path)
+    if spec and spec.loader:
+        module = importlib.util.module_from_spec(spec)
+        sys.modules[fullname] = module
+        spec.loader.exec_module(module)
+        return module
+    return None
+
+
+def _alias_existing(fullname: str, target: str):
+    """Alias an already importable module under a new name."""
+    try:
+        module = importlib.import_module(target)
+    except Exception:
+        return None
+    sys.modules[fullname] = module
+    return module
+
+
+def _install_compatibility_aliases():
+    """Provide legacy import paths when UETF shadows the repo root."""
+    repo_root = Path(__file__).resolve().parents[2]
+    compat_files = {
+        "core.prompts": repo_root / "core" / "prompts.py",
+        "core.openspec_parser": repo_root / "core" / "openspec_parser.py",
+        "core.invoke_utils": repo_root / "core" / "invoke_utils.py",
+    }
+    for fullname, path in compat_files.items():
+        if path.exists():
+            _alias_module(fullname, path)
+
+    # Map core.ast and core.engine to module-centric packages so submodules resolve.
+    ast_pkg = _alias_existing("core.ast", "modules.core_ast")
+    if ast_pkg is not None:
+        setattr(sys.modules[__name__], "ast", ast_pkg)
+
+    engine_pkg = _alias_existing("core.engine", "modules.core_engine")
+    if engine_pkg is not None:
+        setattr(sys.modules[__name__], "engine", engine_pkg)
+        try:
+            from modules.core_engine import parallel_orchestrator as _po  # noqa: F401
+
+            sys.modules["core.engine.parallel_orchestrator"] = _po
+        except Exception:
+            pass
+
+
+_install_compatibility_aliases()

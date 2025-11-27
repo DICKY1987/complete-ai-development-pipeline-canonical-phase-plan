@@ -1,0 +1,5 @@
+name: self_healing
+purpose: Reserved workspace for self-healing pattern assets and experiments.
+contents: []
+usage: Add self-healing implementations or experiments here before promoting to specs/executors.
+status: placeholder

@@ -118,6 +118,19 @@ def record_error_report(ctx: ErrorPipelineContext, report: Dict[str, Any], step_
     p.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
     return p
 
+# UET compatibility layer
+from .m010003_uet_db_adapter import Database
+
+
+__all__ = [
+    "get_connection",
+    "init_db",
+    "get_error_context",
+    "save_error_context",
+    "record_error_report",
+    "Database",
+]
+
 
 def record_ai_attempt(ctx: ErrorPipelineContext, attempt: Dict[str, Any]) -> None:
     ctx.record_ai_attempt(attempt)

@@ -1,0 +1,9 @@
+name: executors
+purpose: PowerShell executors implementing pattern actions plus shared helper library.
+subdirectories:
+  - name: lib
+    purpose: Shared helper modules (error_rules.ps1, parallel.ps1, reporting.ps1, templates.ps1, testing.ps1, transactions.ps1, validation.ps1).
+files:
+  - *executor.ps1: Executors for each pattern (atomic_create, glossary_*, patch, workflow, etc.).
+usage: Run executors directly or via CLI tooling; reuse lib modules for new executor development.
+status: active
