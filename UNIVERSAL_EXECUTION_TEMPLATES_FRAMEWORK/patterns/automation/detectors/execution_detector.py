@@ -326,7 +326,7 @@ metadata:
         )
         self.db.commit()
         
-        print(f"✅ Auto-approved pattern: {pattern['pattern_id']} (confidence: {pattern['confidence']:.2%})")
+        print(f"[auto-approve] pattern: {pattern['pattern_id']} (confidence: {pattern['confidence']:.2%})")
 
 
 def analyze_executions(db_path: Path, output_dir: Path):
@@ -339,7 +339,7 @@ def analyze_executions(db_path: Path, output_dir: Path):
     # Get recent executions
     cursor = conn.execute(
         """
-        SELECT operation_kind, file_types, tools_used, input_signature, output_signature,
+        SELECT id, operation_kind, file_types, tools_used, input_signature, output_signature,
                success, time_taken_seconds, context
         FROM execution_logs
         WHERE timestamp >= datetime('now', '-30 days')
@@ -352,14 +352,15 @@ def analyze_executions(db_path: Path, output_dir: Path):
     
     for row in cursor.fetchall():
         record = {
-            'operation_kind': row[0],
-            'file_types': json.loads(row[1]) if row[1] else [],
-            'tools_used': json.loads(row[2]) if row[2] else [],
-            'inputs': {'signature': row[3]},
-            'outputs': {'signature': row[4]},
-            'success': bool(row[5]),
-            'time_taken_seconds': row[6],
-            'context': json.loads(row[7]) if row[7] else {}
+            'id': row[0],
+            'operation_kind': row[1],
+            'file_types': json.loads(row[2]) if row[2] else [],
+            'tools_used': json.loads(row[3]) if row[3] else [],
+            'inputs': {'signature': row[4]},
+            'outputs': {'signature': row[5]},
+            'success': bool(row[6]),
+            'time_taken_seconds': row[7],
+            'context': json.loads(row[8]) if row[8] else {}
         }
         
         detector.on_execution_complete(record)
