@@ -1,526 +1,497 @@
-# Pattern Registry
-# Version: 1.0.0
-# Created: 2025-11-24
-# Purpose: Single source of truth for all execution patterns
-
-version: "1.0.0"
+version: 1.0.0
 metadata:
-  created: "2025-11-24"
-  last_updated: "2025-11-24"
+  created: '2025-11-24'
+  last_updated: '2025-11-24'
   total_patterns: 24
   total_categories: 9
   migrated_patterns: 17
   core_patterns: 7
-
 patterns:
-  # Core pattern: atomic_create (COMPLETE - with executor)
-  - pattern_id: PAT-ATOMIC-CREATE-001
-    name: atomic_create
-    version: "1.0.0"
-    status: draft
-    category: file_creation
-    spec_path: patterns/specs/atomic_create.pattern.yaml
-    schema_path: patterns/schemas/atomic_create.schema.json
-    executor_path: patterns/executors/atomic_create_executor.ps1
-    test_path: patterns/tests/test_atomic_create_executor.ps1
-    example_dir: patterns/examples/atomic_create/
-    tool_targets:
-      - claude_code
-      - github_copilot_cli
-      - cursor
-    time_savings_vs_manual: "60%"
-    proven_uses: 0
-    created: "2025-11-24"
-    last_updated: "2025-11-24"
-  
-  # Core pattern: batch_create (SPEC ONLY)
-  - pattern_id: PAT-BATCH-CREATE-001
-    name: batch_create
-    version: "1.0.0"
-    status: spec_only
-    category: file_creation
-    spec_path: patterns/specs/batch_create.pattern.yaml
-    schema_path: patterns/schemas/batch_create.schema.json
-    executor_path: patterns/executors/batch_create_executor.ps1
-    time_savings_vs_manual: "88%"
-    proven_uses: 0
-    created: "2025-11-24"
-    notes: "Spec-only pattern. AI tools can execute using spec interpretation."
-  
-  # Core pattern: refactor_patch (SPEC ONLY)
-  - pattern_id: PAT-REFACTOR-PATCH-001
-    name: refactor_patch
-    version: "1.0.0"
-    status: spec_only
-    category: code_modification
-    spec_path: patterns/specs/refactor_patch.pattern.yaml
-    schema_path: patterns/schemas/refactor_patch.schema.json
-    executor_path: patterns/executors/refactor_patch_executor.ps1
-    time_savings_vs_manual: "70%"
-    proven_uses: 0
-    created: "2025-11-24"
-    notes: "Spec-only pattern. AI tools can execute using spec interpretation."
-  
-  # Core pattern: self_heal (SPEC ONLY)
-  - pattern_id: PAT-SELF-HEAL-001
-    name: self_heal
-    version: "1.0.0"
-    status: spec_only
-    category: error_recovery
-    spec_path: patterns/specs/self_heal.pattern.yaml
-    schema_path: patterns/schemas/self_heal.schema.json
-    executor_path: patterns/executors/self_heal_executor.py
-    time_savings_vs_manual: "90%"
-    proven_uses: 0
-    created: "2025-11-24"
-    notes: "Spec-only pattern. AI tools can execute using spec interpretation."
-  
-  # Core pattern: verify_commit (SPEC ONLY)
-  - pattern_id: PAT-VERIFY-COMMIT-001
-    name: verify_commit
-    version: "1.0.0"
-    status: spec_only
-    category: verification
-    spec_path: patterns/specs/verify_commit.pattern.yaml
-    schema_path: patterns/schemas/verify_commit.schema.json
-    executor_path: patterns/executors/verify_commit_executor.ps1
-    time_savings_vs_manual: "85%"
-    proven_uses: 0
-    created: "2025-11-24"
-    notes: "Spec-only pattern. AI tools can execute using spec interpretation."
-  
-  # Core pattern: worktree_lifecycle (SPEC ONLY)
-  - pattern_id: PAT-WORKTREE-LIFECYCLE-001
-    name: worktree_lifecycle
-    version: "1.0.0"
-    status: spec_only
-    category: infrastructure
-    spec_path: patterns/specs/worktree_lifecycle.pattern.yaml
-    schema_path: patterns/schemas/worktree_lifecycle.schema.json
-    executor_path: patterns/executors/worktree_lifecycle_executor.ps1
-    time_savings_vs_manual: "75%"
-    proven_uses: 0
-    created: "2025-11-24"
-    notes: "Spec-only pattern. AI tools can execute using spec interpretation."
-  
-  # Core pattern: module_creation (SPEC ONLY)
-  - pattern_id: PAT-MODULE-CREATION-001
-    name: module_creation
-    version: "1.0.0"
-    status: spec_only
-    category: module_setup
-    spec_path: patterns/specs/module_creation.pattern.yaml
-    schema_path: patterns/schemas/module_creation.schema.json
-    executor_path: patterns/executors/module_creation_executor.ps1
-    time_savings_vs_manual: "88%"
-    proven_uses: 0
-    created: "2025-11-24"
-    notes: "Spec-only pattern. AI tools can execute using spec interpretation."
-
-  # ==========================================
-  # MIGRATED PATTERNS from atomic-workflow-system
-  # Total: 17 patterns
-  # Status: migrated (requires review)
-  # ==========================================
-  - pattern_id: PAT-MIGRATED-ORCHESTRATE-001
-    name: migrated_orchestrator_001
-    version: "1.0.0"
-    status: migrated
-    category: orchestrate
-    spec_path: patterns/legacy_atoms/converted/specs/migrated_orchestrator_001.pattern.yaml
-    schema_path: patterns/legacy_atoms/converted/schemas/migrated_orchestrator_001.schema.json
-    executor_path: patterns/legacy_atoms/converted/executors/migrated_orchestrator_001_executor.py
-    migrated_from: "atomic-workflow-system"
-    original_atom_uid: "01K7CYJ4VM7RKRG2RHDVFJ7DCB"
-    original_role: "orchestrator"
-    migration_date: "2025-11-24"
-    notes: "Auto-migrated from atomic-workflow-system. Requires review and enhancement."
-  - pattern_id: PAT-MIGRATED-ORCHESTRATE-002
-    name: migrated_orchestrator_002
-    version: "1.0.0"
-    status: migrated
-    category: orchestrate
-    spec_path: patterns/legacy_atoms/converted/specs/migrated_orchestrator_002.pattern.yaml
-    schema_path: patterns/legacy_atoms/converted/schemas/migrated_orchestrator_002.schema.json
-    executor_path: patterns/legacy_atoms/converted/executors/migrated_orchestrator_002_executor.py
-    migrated_from: "atomic-workflow-system"
-    original_atom_uid: "01K7CYJ4W9DD9WD9E4DXDQ8CWE"
-    original_role: "orchestrator"
-    migration_date: "2025-11-24"
-    notes: "Auto-migrated from atomic-workflow-system. Requires review and enhancement."
-  - pattern_id: PAT-MIGRATED-CORE-003
-    name: migrated_qa_test_agent_003
-    version: "1.0.0"
-    status: migrated
-    category: core
-    spec_path: patterns/legacy_atoms/converted/specs/migrated_qa_test_agent_003.pattern.yaml
-    schema_path: patterns/legacy_atoms/converted/schemas/migrated_qa_test_agent_003.schema.json
-    executor_path: patterns/legacy_atoms/converted/executors/migrated_qa_test_agent_003_executor.py
-    migrated_from: "atomic-workflow-system"
-    original_atom_uid: "01K7CYJ4Y3MMCVZV3Q9ZRMCW5A"
-    original_role: "qa_test_agent"
-    migration_date: "2025-11-24"
-    notes: "Auto-migrated from atomic-workflow-system. Requires review and enhancement."
-  - pattern_id: PAT-MIGRATED-ORCHESTRATE-004
-    name: migrated_orchestrator_004
-    version: "1.0.0"
-    status: migrated
-    category: orchestrate
-    spec_path: patterns/legacy_atoms/converted/specs/migrated_orchestrator_004.pattern.yaml
-    schema_path: patterns/legacy_atoms/converted/schemas/migrated_orchestrator_004.schema.json
-    executor_path: patterns/legacy_atoms/converted/executors/migrated_orchestrator_004_executor.py
-    migrated_from: "atomic-workflow-system"
-    original_atom_uid: "01K7CYJ4YEACSMVEDJQSM823MR"
-    original_role: "orchestrator"
-    migration_date: "2025-11-24"
-    notes: "Auto-migrated from atomic-workflow-system. Requires review and enhancement."
-  - pattern_id: PAT-MIGRATED-ORCHESTRATE-005
-    name: migrated_orchestrator_005
-    version: "1.0.0"
-    status: migrated
-    category: orchestrate
-    spec_path: patterns/legacy_atoms/converted/specs/migrated_orchestrator_005.pattern.yaml
-    schema_path: patterns/legacy_atoms/converted/schemas/migrated_orchestrator_005.schema.json
-    executor_path: patterns/legacy_atoms/converted/executors/migrated_orchestrator_005_executor.py
-    migrated_from: "atomic-workflow-system"
-    original_atom_uid: "01K7CYJ4YWS50GYQ3VKXRAY4QW"
-    original_role: "orchestrator"
-    migration_date: "2025-11-24"
-    notes: "Auto-migrated from atomic-workflow-system. Requires review and enhancement."
-  - pattern_id: PAT-MIGRATED-ORCHESTRATE-006
-    name: migrated_orchestrator_006
-    version: "1.0.0"
-    status: migrated
-    category: orchestrate
-    spec_path: patterns/legacy_atoms/converted/specs/migrated_orchestrator_006.pattern.yaml
-    schema_path: patterns/legacy_atoms/converted/schemas/migrated_orchestrator_006.schema.json
-    executor_path: patterns/legacy_atoms/converted/executors/migrated_orchestrator_006_executor.py
-    migrated_from: "atomic-workflow-system"
-    original_atom_uid: "01K7CYJ4Z52MP0GQAVWAXJ7PNB"
-    original_role: "orchestrator"
-    migration_date: "2025-11-24"
-    notes: "Auto-migrated from atomic-workflow-system. Requires review and enhancement."
-  - pattern_id: PAT-MIGRATED-CORE-007
-    name: migrated_resilience_agent_007
-    version: "1.0.0"
-    status: migrated
-    category: core
-    spec_path: patterns/legacy_atoms/converted/specs/migrated_resilience_agent_007.pattern.yaml
-    schema_path: patterns/legacy_atoms/converted/schemas/migrated_resilience_agent_007.schema.json
-    executor_path: patterns/legacy_atoms/converted/executors/migrated_resilience_agent_007_executor.py
-    migrated_from: "atomic-workflow-system"
-    original_atom_uid: "01K7CYJ546FPV1TAHC236H7YNB"
-    original_role: "resilience_agent"
-    migration_date: "2025-11-24"
-    notes: "Auto-migrated from atomic-workflow-system. Requires review and enhancement."
-  - pattern_id: PAT-MIGRATED-CORE-008
-    name: migrated_qa_test_agent_008
-    version: "1.0.0"
-    status: migrated
-    category: core
-    spec_path: patterns/legacy_atoms/converted/specs/migrated_qa_test_agent_008.pattern.yaml
-    schema_path: patterns/legacy_atoms/converted/schemas/migrated_qa_test_agent_008.schema.json
-    executor_path: patterns/legacy_atoms/converted/executors/migrated_qa_test_agent_008_executor.py
-    migrated_from: "atomic-workflow-system"
-    original_atom_uid: "01K7CYJ57HGFFEXWG9CCVJSG6C"
-    original_role: "qa_test_agent"
-    migration_date: "2025-11-24"
-    notes: "Auto-migrated from atomic-workflow-system. Requires review and enhancement."
-  - pattern_id: PAT-MIGRATED-CORE-009
-    name: migrated_docs_summarizer_009
-    version: "1.0.0"
-    status: migrated
-    category: core
-    spec_path: patterns/legacy_atoms/converted/specs/migrated_docs_summarizer_009.pattern.yaml
-    schema_path: patterns/legacy_atoms/converted/schemas/migrated_docs_summarizer_009.schema.json
-    executor_path: patterns/legacy_atoms/converted/executors/migrated_docs_summarizer_009_executor.py
-    migrated_from: "atomic-workflow-system"
-    original_atom_uid: "01K7CYJ57TF0H8824Q3HXF89CN"
-    original_role: "docs_summarizer"
-    migration_date: "2025-11-24"
-    notes: "Auto-migrated from atomic-workflow-system. Requires review and enhancement."
-  - pattern_id: PAT-MIGRATED-CORE-010
-    doc_id: DOC-MIGRATED-CORE-010
-    name: migrated_resilience_agent_010
-    version: "1.0.0"
-    status: migrated
-    category: core
-    spec_path: patterns/legacy_atoms/converted/specs/migrated_resilience_agent_010.pattern.yaml
-    schema_path: patterns/legacy_atoms/converted/schemas/migrated_resilience_agent_010.schema.json
-    executor_path: patterns/legacy_atoms/converted/executors/migrated_resilience_agent_010_executor.py
-    migrated_from: "atomic-workflow-system"
-    original_atom_uid: "01K7CYJ5911AX31YYVX1VPHM39"
-    original_role: "resilience_agent"
-    migration_date: "2025-11-24"
-    notes: "Auto-migrated from atomic-workflow-system. Requires review and enhancement."
-  - pattern_id: PAT-MIGRATED-CORE-011
-    name: migrated_resilience_agent_011
-    version: "1.0.0"
-    status: migrated
-    category: core
-    spec_path: patterns/legacy_atoms/converted/specs/migrated_resilience_agent_011.pattern.yaml
-    schema_path: patterns/legacy_atoms/converted/schemas/migrated_resilience_agent_011.schema.json
-    executor_path: patterns/legacy_atoms/converted/executors/migrated_resilience_agent_011_executor.py
-    migrated_from: "atomic-workflow-system"
-    original_atom_uid: "01K7CYJ5CPVEERFGHTR39SZ0W6"
-    original_role: "resilience_agent"
-    migration_date: "2025-11-24"
-    notes: "Auto-migrated from atomic-workflow-system. Requires review and enhancement."
-  - pattern_id: PAT-MIGRATED-CORE-012
-    name: migrated_qa_test_agent_012
-    version: "1.0.0"
-    status: migrated
-    category: core
-    spec_path: patterns/legacy_atoms/converted/specs/migrated_qa_test_agent_012.pattern.yaml
-    schema_path: patterns/legacy_atoms/converted/schemas/migrated_qa_test_agent_012.schema.json
-    executor_path: patterns/legacy_atoms/converted/executors/migrated_qa_test_agent_012_executor.py
-    migrated_from: "atomic-workflow-system"
-    original_atom_uid: "01K7CYJ5DA929BVS0F1CTR73NV"
-    original_role: "qa_test_agent"
-    migration_date: "2025-11-24"
-    notes: "Auto-migrated from atomic-workflow-system. Requires review and enhancement."
-  - pattern_id: PAT-MIGRATED-CORE-013
-    name: migrated_ide_code_editor_013
-    version: "1.0.0"
-    status: migrated
-    category: core
-    spec_path: patterns/legacy_atoms/converted/specs/migrated_ide_code_editor_013.pattern.yaml
-    schema_path: patterns/legacy_atoms/converted/schemas/migrated_ide_code_editor_013.schema.json
-    executor_path: patterns/legacy_atoms/converted/executors/migrated_ide_code_editor_013_executor.py
-    migrated_from: "atomic-workflow-system"
-    original_atom_uid: "01K7CYJ5VJPYZ2JBWHXKX2J8XE"
-    original_role: "ide_code_editor"
-    migration_date: "2025-11-24"
-    notes: "Auto-migrated from atomic-workflow-system. Requires review and enhancement."
-  - pattern_id: PAT-MIGRATED-CORE-014
-    name: migrated_ide_code_editor_014
-    version: "1.0.0"
-    status: migrated
-    category: core
-    spec_path: patterns/legacy_atoms/converted/specs/migrated_ide_code_editor_014.pattern.yaml
-    schema_path: patterns/legacy_atoms/converted/schemas/migrated_ide_code_editor_014.schema.json
-    executor_path: patterns/legacy_atoms/converted/executors/migrated_ide_code_editor_014_executor.py
-    migrated_from: "atomic-workflow-system"
-    original_atom_uid: "01K7CYJ5VTMG2RDJPRTK6ZYCR2"
-    original_role: "ide_code_editor"
-    migration_date: "2025-11-24"
-    notes: "Auto-migrated from atomic-workflow-system. Requires review and enhancement."
-  - pattern_id: PAT-MIGRATED-CORE-015
-    name: migrated_ide_code_editor_015
-    version: "1.0.0"
-    status: migrated
-    category: core
-    spec_path: patterns/legacy_atoms/converted/specs/migrated_ide_code_editor_015.pattern.yaml
-    schema_path: patterns/legacy_atoms/converted/schemas/migrated_ide_code_editor_015.schema.json
-    executor_path: patterns/legacy_atoms/converted/executors/migrated_ide_code_editor_015_executor.py
-    migrated_from: "atomic-workflow-system"
-    original_atom_uid: "01K7CYJ5W27BHEFEQ76K4XG866"
-    original_role: "ide_code_editor"
-    migration_date: "2025-11-24"
-    notes: "Auto-migrated from atomic-workflow-system. Requires review and enhancement."
-  - pattern_id: PAT-MIGRATED-CORE-016
-    name: migrated_docs_summarizer_016
-    version: "1.0.0"
-    status: migrated
-    category: core
-    spec_path: patterns/legacy_atoms/converted/specs/migrated_docs_summarizer_016.pattern.yaml
-    schema_path: patterns/legacy_atoms/converted/schemas/migrated_docs_summarizer_016.schema.json
-    executor_path: patterns/legacy_atoms/converted/executors/migrated_docs_summarizer_016_executor.py
-    migrated_from: "atomic-workflow-system"
-    original_atom_uid: "01K7CYJ5Z1FKD0XKTYZ97SCKA7"
-    original_role: "docs_summarizer"
-    migration_date: "2025-11-24"
-    notes: "Auto-migrated from atomic-workflow-system. Requires review and enhancement."
-  - pattern_id: PAT-MIGRATED-CORE-017
-    doc_id: DOC-MIGRATED-CORE-017
-    name: migrated_docs_summarizer_017
-    version: "1.0.0"
-    status: migrated
-    category: core
-    spec_path: patterns/legacy_atoms/converted/specs/migrated_docs_summarizer_017.pattern.yaml
-    schema_path: patterns/legacy_atoms/converted/schemas/migrated_docs_summarizer_017.schema.json
-    executor_path: patterns/legacy_atoms/converted/executors/migrated_docs_summarizer_017_executor.py
-    migrated_from: "atomic-workflow-system"
-    original_atom_uid: "01K7CYJ6057XE382WS4RX3ESNJ"
-    original_role: "docs_summarizer"
-    migration_date: "2025-11-24"
-    notes: "Auto-migrated from atomic-workflow-system. Requires review and enhancement."
-
-
-  # Format per entry:
-  # - pattern_id: PAT-<CATEGORY>-<NAME>-<SEQ>
-  #   name: <pattern_name>
-  #   version: "1.0.0"
-  #   status: draft | active | deprecated
-  #   category: <category>
-  #   spec_path: patterns/specs/<name>.pattern.yaml
-  #   schema_path: patterns/schemas/<name>.schema.json
-  #   executor_path: patterns/executors/<name>_executor.(ps1|py)
-  #   test_path: patterns/tests/test_<name>_executor.*
-  #   example_dir: patterns/examples/<name>/
-  #   tool_targets:
-  #     - claude_code
-  #     - github_copilot_cli
-  #   time_savings_vs_manual: "XX%"
-  #   proven_uses: 0
-  #   created: "YYYY-MM-DD"
-  #   last_updated: "YYYY-MM-DD"
-
-# Migrated patterns from atomic-workflow-system will be added here
-# Format:
-  # - pattern_id: PAT-MIGRATED-<CATEGORY>-<SEQ>
-  #   name: migrated_<category>_<name>
-  #   version: "1.0.0"
-  #   status: draft
-  #   category: <category>
-  #   spec_path: patterns/legacy_atoms/converted/specs/<name>.pattern.yaml
-  #   schema_path: patterns/legacy_atoms/converted/schemas/<name>.schema.json
-  #   executor_path: patterns/legacy_atoms/converted/executors/<name>_executor.py
-  #   migrated_from: atomic-workflow-system
-  #   original_atom_uid: <uid>
-  #   migration_sequence: <seq>
-
-
-  # Pattern: batch_file_creation (from template)
-  - doc_id: DOC-PAT-BATCH-FILE-CREATION-001
-    pattern_id: PAT-BATCH-FILE-CREATION-001
-    name: batch_file_creation
-    version: "1.0.0"
-    status: draft
-    category: parallel
-    spec_path: patterns/specs/batch_file_creation.pattern.yaml
-    schema_path: patterns/schemas/batch_file_creation.schema.json
-    executor_path: patterns/executors/batch_file_creation_executor.ps1
-    test_path: patterns/tests/test_batch_file_creation_executor.ps1
-    example_dir: patterns/examples/batch_file_creation/
-    source_template: templates\patterns\parallel\batch_file_creation.pattern.yaml
-    created: "2025-11-24"
-    last_updated: "2025-11-24"
-
-  # Pattern: module_creation_convergence (from template)
-  - doc_id: DOC-PAT-MODULE-CREATION-CONVERGENCE-001
-    pattern_id: PAT-MODULE-CREATION-CONVERGENCE-001
-    name: module_creation_convergence
-    version: "1.0.0"
-    status: draft
-    category: template
-    spec_path: patterns/specs/module_creation_convergence.pattern.yaml
-    schema_path: patterns/schemas/module_creation_convergence.schema.json
-    executor_path: patterns/executors/module_creation_convergence_executor.ps1
-    test_path: patterns/tests/test_module_creation_convergence_executor.ps1
-    example_dir: patterns/examples/module_creation_convergence/
-    source_template: templates\patterns\template\module_creation_convergence.pattern.yaml
-    created: "2025-11-24"
-    last_updated: "2025-11-24"
-
-  # Pattern: preflight_verify (from template)
-  - doc_id: DOC-PAT-PREFLIGHT-VERIFY-001
-    pattern_id: PAT-PREFLIGHT-VERIFY-001
-    name: preflight_verify
-    version: "1.0.0"
-    status: draft
-    category: verification
-    spec_path: patterns/specs/preflight_verify.pattern.yaml
-    schema_path: patterns/schemas/preflight_verify.schema.json
-    executor_path: patterns/executors/preflight_verify_executor.ps1
-    test_path: patterns/tests/test_preflight_verify_executor.ps1
-    example_dir: patterns/examples/preflight_verify/
-    source_template: templates\verification_templates\preflight.verify.yaml
-    created: "2025-11-24"
-    last_updated: "2025-11-24"
-
-  # Pattern: atomic_create_template (from template)
-  - doc_id: DOC-PAT-ATOMIC-CREATE-TEMPLATE-001
-    pattern_id: PAT-ATOMIC-CREATE-TEMPLATE-001
-    name: atomic_create_template
-    version: "1.0.0"
-    status: draft
-    category: execution
-    spec_path: patterns/specs/atomic_create_template.pattern.yaml
-    schema_path: patterns/schemas/atomic_create_template.schema.json
-    executor_path: patterns/executors/atomic_create_template_executor.ps1
-    test_path: patterns/tests/test_atomic_create_template_executor.ps1
-    example_dir: patterns/examples/atomic_create_template/
-    source_template: templates\execution_patterns\atomic_create.pattern.yaml
-    created: "2025-11-24"
-    last_updated: "2025-11-24"
-
-  # Pattern: decision_elimination_bootstrap (from template)
-  - doc_id: DOC-PAT-DECISION-ELIMINATION-BOOTSTRAP-001
-    pattern_id: PAT-DECISION-ELIMINATION-BOOTSTRAP-001
-    name: decision_elimination_bootstrap
-    version: "1.0.0"
-    status: draft
-    category: meta
-    spec_path: patterns/specs/decision_elimination_bootstrap.pattern.yaml
-    schema_path: patterns/schemas/decision_elimination_bootstrap.schema.json
-    executor_path: patterns/executors/decision_elimination_bootstrap_executor.ps1
-    test_path: patterns/tests/test_decision_elimination_bootstrap_executor.ps1
-    example_dir: patterns/examples/decision_elimination_bootstrap/
-    source_template: templates\patterns\meta\decision_elimination_bootstrap.pattern.yaml
-    created: "2025-11-24"
-    last_updated: "2025-11-24"
-
-  # Pattern: create_test_commit (from template)
-  - doc_id: DOC-PAT-CREATE-TEST-COMMIT-001
-    pattern_id: PAT-CREATE-TEST-COMMIT-001
-    name: create_test_commit
-    version: "1.0.0"
-    status: draft
-    category: sequential
-    spec_path: patterns/specs/create_test_commit.pattern.yaml
-    schema_path: patterns/schemas/create_test_commit.schema.json
-    executor_path: patterns/executors/create_test_commit_executor.ps1
-    test_path: patterns/tests/test_create_test_commit_executor.ps1
-    example_dir: patterns/examples/create_test_commit/
-    source_template: templates\patterns\sequential\create_test_commit.pattern.yaml
-    created: "2025-11-24"
-    last_updated: "2025-11-24"
-
-  # Pattern: view_edit_verify (from template)
-  - doc_id: DOC-PAT-VIEW-EDIT-VERIFY-003
-    pattern_id: PAT-VIEW-EDIT-VERIFY-003
-    name: view_edit_verify
-    version: "1.0.0"
-    status: draft
-    category: sequential
-    spec_path: patterns/specs/view_edit_verify.pattern.yaml
-    schema_path: patterns/schemas/view_edit_verify.schema.json
-    executor_path: patterns/executors/view_edit_verify_executor.ps1
-    test_path: patterns/tests/test_view_edit_verify_executor.ps1
-    example_dir: patterns/examples/view_edit_verify/
-    source_template: templates\patterns\sequential\view_edit_verify.pattern.yaml
-    created: "2025-11-24"
-    last_updated: "2025-11-24"
-
-  # Pattern: pytest_green_verify (from template)
-  - doc_id: DOC-PAT-PYTEST-GREEN-VERIFY-002
-    pattern_id: PAT-PYTEST-GREEN-VERIFY-002
-    name: pytest_green_verify
-    version: "1.0.0"
-    status: draft
-    category: verification
-    spec_path: patterns/specs/pytest_green_verify.pattern.yaml
-    schema_path: patterns/schemas/pytest_green_verify.schema.json
-    executor_path: patterns/executors/pytest_green_verify_executor.ps1
-    test_path: patterns/tests/test_pytest_green_verify_executor.ps1
-    example_dir: patterns/examples/pytest_green_verify/
-    source_template: templates\verification_templates\pytest_green.verify.yaml
-    created: "2025-11-24"
-    last_updated: "2025-11-24"
-
-  # Pattern: grep_view_edit (from template)
-  - doc_id: DOC-PAT-GREP-VIEW-EDIT-002
-    pattern_id: PAT-GREP-VIEW-EDIT-002
-    name: grep_view_edit
-    version: "1.0.0"
-    status: draft
-    category: sequential
-    spec_path: patterns/specs/grep_view_edit.pattern.yaml
-    schema_path: patterns/schemas/grep_view_edit.schema.json
-    executor_path: patterns/executors/grep_view_edit_executor.ps1
-    test_path: patterns/tests/test_grep_view_edit_executor.ps1
-    example_dir: patterns/examples/grep_view_edit/
-    source_template: templates\patterns\sequential\grep_view_edit.pattern.yaml
-    created: "2025-11-24"
-    last_updated: "2025-11-24"
+- pattern_id: PAT-ATOMIC-CREATE-001
+  name: atomic_create
+  version: 1.0.0
+  status: draft
+  category: file_creation
+  spec_path: patterns/specs/atomic_create.pattern.yaml
+  schema_path: patterns/schemas/atomic_create.schema.json
+  executor_path: patterns/executors/atomic_create_executor.ps1
+  test_path: patterns/tests/test_atomic_create_executor.ps1
+  example_dir: patterns/examples/atomic_create/
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  - cursor
+  time_savings_vs_manual: 60%
+  proven_uses: 0
+  created: '2025-11-24'
+  last_updated: '2025-11-24'
+- pattern_id: PAT-BATCH-CREATE-001
+  name: batch_create
+  version: 1.0.0
+  status: spec_only
+  category: file_creation
+  spec_path: patterns/specs/batch_create.pattern.yaml
+  schema_path: patterns/schemas/batch_create.schema.json
+  executor_path: patterns/executors/batch_create_executor.ps1
+  time_savings_vs_manual: 88%
+  proven_uses: 0
+  created: '2025-11-24'
+  notes: Spec-only pattern. AI tools can execute using spec interpretation.
+- pattern_id: PAT-REFACTOR-PATCH-001
+  name: refactor_patch
+  version: 1.0.0
+  status: spec_only
+  category: code_modification
+  spec_path: patterns/specs/refactor_patch.pattern.yaml
+  schema_path: patterns/schemas/refactor_patch.schema.json
+  executor_path: patterns/executors/refactor_patch_executor.ps1
+  time_savings_vs_manual: 70%
+  proven_uses: 0
+  created: '2025-11-24'
+  notes: Spec-only pattern. AI tools can execute using spec interpretation.
+- pattern_id: PAT-SELF-HEAL-001
+  name: self_heal
+  version: 1.0.0
+  status: spec_only
+  category: error_recovery
+  spec_path: patterns/specs/self_heal.pattern.yaml
+  schema_path: patterns/schemas/self_heal.schema.json
+  executor_path: patterns/executors/self_heal_executor.py
+  time_savings_vs_manual: 90%
+  proven_uses: 0
+  created: '2025-11-24'
+  notes: Spec-only pattern. AI tools can execute using spec interpretation.
+- pattern_id: PAT-VERIFY-COMMIT-001
+  name: verify_commit
+  version: 1.0.0
+  status: spec_only
+  category: verification
+  spec_path: patterns/specs/verify_commit.pattern.yaml
+  schema_path: patterns/schemas/verify_commit.schema.json
+  executor_path: patterns/executors/verify_commit_executor.ps1
+  time_savings_vs_manual: 85%
+  proven_uses: 0
+  created: '2025-11-24'
+  notes: Spec-only pattern. AI tools can execute using spec interpretation.
+- pattern_id: PAT-WORKTREE-LIFECYCLE-001
+  name: worktree_lifecycle
+  version: 1.0.0
+  status: spec_only
+  category: infrastructure
+  spec_path: patterns/specs/worktree_lifecycle.pattern.yaml
+  schema_path: patterns/schemas/worktree_lifecycle.schema.json
+  executor_path: patterns/executors/worktree_lifecycle_executor.ps1
+  time_savings_vs_manual: 75%
+  proven_uses: 0
+  created: '2025-11-24'
+  notes: Spec-only pattern. AI tools can execute using spec interpretation.
+- pattern_id: PAT-MODULE-CREATION-001
+  name: module_creation
+  version: 1.0.0
+  status: spec_only
+  category: module_setup
+  spec_path: patterns/specs/module_creation.pattern.yaml
+  schema_path: patterns/schemas/module_creation.schema.json
+  executor_path: patterns/executors/module_creation_executor.ps1
+  time_savings_vs_manual: 88%
+  proven_uses: 0
+  created: '2025-11-24'
+  notes: Spec-only pattern. AI tools can execute using spec interpretation.
+- pattern_id: PAT-MIGRATED-ORCHESTRATE-001
+  name: migrated_orchestrator_001
+  version: 1.0.0
+  status: migrated
+  category: orchestrate
+  spec_path: patterns/legacy_atoms/converted/specs/migrated_orchestrator_001.pattern.yaml
+  schema_path: patterns/legacy_atoms/converted/schemas/migrated_orchestrator_001.schema.json
+  executor_path: patterns/legacy_atoms/converted/executors/migrated_orchestrator_001_executor.py
+  migrated_from: atomic-workflow-system
+  original_atom_uid: 01K7CYJ4VM7RKRG2RHDVFJ7DCB
+  original_role: orchestrator
+  migration_date: '2025-11-24'
+  notes: Auto-migrated from atomic-workflow-system. Requires review and enhancement.
+- pattern_id: PAT-MIGRATED-ORCHESTRATE-002
+  name: migrated_orchestrator_002
+  version: 1.0.0
+  status: migrated
+  category: orchestrate
+  spec_path: patterns/legacy_atoms/converted/specs/migrated_orchestrator_002.pattern.yaml
+  schema_path: patterns/legacy_atoms/converted/schemas/migrated_orchestrator_002.schema.json
+  executor_path: patterns/legacy_atoms/converted/executors/migrated_orchestrator_002_executor.py
+  migrated_from: atomic-workflow-system
+  original_atom_uid: 01K7CYJ4W9DD9WD9E4DXDQ8CWE
+  original_role: orchestrator
+  migration_date: '2025-11-24'
+  notes: Auto-migrated from atomic-workflow-system. Requires review and enhancement.
+- pattern_id: PAT-MIGRATED-CORE-003
+  name: migrated_qa_test_agent_003
+  version: 1.0.0
+  status: migrated
+  category: core
+  spec_path: patterns/legacy_atoms/converted/specs/migrated_qa_test_agent_003.pattern.yaml
+  schema_path: patterns/legacy_atoms/converted/schemas/migrated_qa_test_agent_003.schema.json
+  executor_path: patterns/legacy_atoms/converted/executors/migrated_qa_test_agent_003_executor.py
+  migrated_from: atomic-workflow-system
+  original_atom_uid: 01K7CYJ4Y3MMCVZV3Q9ZRMCW5A
+  original_role: qa_test_agent
+  migration_date: '2025-11-24'
+  notes: Auto-migrated from atomic-workflow-system. Requires review and enhancement.
+- pattern_id: PAT-MIGRATED-ORCHESTRATE-004
+  name: migrated_orchestrator_004
+  version: 1.0.0
+  status: migrated
+  category: orchestrate
+  spec_path: patterns/legacy_atoms/converted/specs/migrated_orchestrator_004.pattern.yaml
+  schema_path: patterns/legacy_atoms/converted/schemas/migrated_orchestrator_004.schema.json
+  executor_path: patterns/legacy_atoms/converted/executors/migrated_orchestrator_004_executor.py
+  migrated_from: atomic-workflow-system
+  original_atom_uid: 01K7CYJ4YEACSMVEDJQSM823MR
+  original_role: orchestrator
+  migration_date: '2025-11-24'
+  notes: Auto-migrated from atomic-workflow-system. Requires review and enhancement.
+- pattern_id: PAT-MIGRATED-ORCHESTRATE-005
+  name: migrated_orchestrator_005
+  version: 1.0.0
+  status: migrated
+  category: orchestrate
+  spec_path: patterns/legacy_atoms/converted/specs/migrated_orchestrator_005.pattern.yaml
+  schema_path: patterns/legacy_atoms/converted/schemas/migrated_orchestrator_005.schema.json
+  executor_path: patterns/legacy_atoms/converted/executors/migrated_orchestrator_005_executor.py
+  migrated_from: atomic-workflow-system
+  original_atom_uid: 01K7CYJ4YWS50GYQ3VKXRAY4QW
+  original_role: orchestrator
+  migration_date: '2025-11-24'
+  notes: Auto-migrated from atomic-workflow-system. Requires review and enhancement.
+- pattern_id: PAT-MIGRATED-ORCHESTRATE-006
+  name: migrated_orchestrator_006
+  version: 1.0.0
+  status: migrated
+  category: orchestrate
+  spec_path: patterns/legacy_atoms/converted/specs/migrated_orchestrator_006.pattern.yaml
+  schema_path: patterns/legacy_atoms/converted/schemas/migrated_orchestrator_006.schema.json
+  executor_path: patterns/legacy_atoms/converted/executors/migrated_orchestrator_006_executor.py
+  migrated_from: atomic-workflow-system
+  original_atom_uid: 01K7CYJ4Z52MP0GQAVWAXJ7PNB
+  original_role: orchestrator
+  migration_date: '2025-11-24'
+  notes: Auto-migrated from atomic-workflow-system. Requires review and enhancement.
+- pattern_id: PAT-MIGRATED-CORE-007
+  name: migrated_resilience_agent_007
+  version: 1.0.0
+  status: migrated
+  category: core
+  spec_path: patterns/legacy_atoms/converted/specs/migrated_resilience_agent_007.pattern.yaml
+  schema_path: patterns/legacy_atoms/converted/schemas/migrated_resilience_agent_007.schema.json
+  executor_path: patterns/legacy_atoms/converted/executors/migrated_resilience_agent_007_executor.py
+  migrated_from: atomic-workflow-system
+  original_atom_uid: 01K7CYJ546FPV1TAHC236H7YNB
+  original_role: resilience_agent
+  migration_date: '2025-11-24'
+  notes: Auto-migrated from atomic-workflow-system. Requires review and enhancement.
+- pattern_id: PAT-MIGRATED-CORE-008
+  name: migrated_qa_test_agent_008
+  version: 1.0.0
+  status: migrated
+  category: core
+  spec_path: patterns/legacy_atoms/converted/specs/migrated_qa_test_agent_008.pattern.yaml
+  schema_path: patterns/legacy_atoms/converted/schemas/migrated_qa_test_agent_008.schema.json
+  executor_path: patterns/legacy_atoms/converted/executors/migrated_qa_test_agent_008_executor.py
+  migrated_from: atomic-workflow-system
+  original_atom_uid: 01K7CYJ57HGFFEXWG9CCVJSG6C
+  original_role: qa_test_agent
+  migration_date: '2025-11-24'
+  notes: Auto-migrated from atomic-workflow-system. Requires review and enhancement.
+- pattern_id: PAT-MIGRATED-CORE-009
+  name: migrated_docs_summarizer_009
+  version: 1.0.0
+  status: migrated
+  category: core
+  spec_path: patterns/legacy_atoms/converted/specs/migrated_docs_summarizer_009.pattern.yaml
+  schema_path: patterns/legacy_atoms/converted/schemas/migrated_docs_summarizer_009.schema.json
+  executor_path: patterns/legacy_atoms/converted/executors/migrated_docs_summarizer_009_executor.py
+  migrated_from: atomic-workflow-system
+  original_atom_uid: 01K7CYJ57TF0H8824Q3HXF89CN
+  original_role: docs_summarizer
+  migration_date: '2025-11-24'
+  notes: Auto-migrated from atomic-workflow-system. Requires review and enhancement.
+- pattern_id: PAT-MIGRATED-CORE-010
+  doc_id: DOC-MIGRATED-CORE-010
+  name: migrated_resilience_agent_010
+  version: 1.0.0
+  status: migrated
+  category: core
+  spec_path: patterns/legacy_atoms/converted/specs/migrated_resilience_agent_010.pattern.yaml
+  schema_path: patterns/legacy_atoms/converted/schemas/migrated_resilience_agent_010.schema.json
+  executor_path: patterns/legacy_atoms/converted/executors/migrated_resilience_agent_010_executor.py
+  migrated_from: atomic-workflow-system
+  original_atom_uid: 01K7CYJ5911AX31YYVX1VPHM39
+  original_role: resilience_agent
+  migration_date: '2025-11-24'
+  notes: Auto-migrated from atomic-workflow-system. Requires review and enhancement.
+- pattern_id: PAT-MIGRATED-CORE-011
+  name: migrated_resilience_agent_011
+  version: 1.0.0
+  status: migrated
+  category: core
+  spec_path: patterns/legacy_atoms/converted/specs/migrated_resilience_agent_011.pattern.yaml
+  schema_path: patterns/legacy_atoms/converted/schemas/migrated_resilience_agent_011.schema.json
+  executor_path: patterns/legacy_atoms/converted/executors/migrated_resilience_agent_011_executor.py
+  migrated_from: atomic-workflow-system
+  original_atom_uid: 01K7CYJ5CPVEERFGHTR39SZ0W6
+  original_role: resilience_agent
+  migration_date: '2025-11-24'
+  notes: Auto-migrated from atomic-workflow-system. Requires review and enhancement.
+- pattern_id: PAT-MIGRATED-CORE-012
+  name: migrated_qa_test_agent_012
+  version: 1.0.0
+  status: migrated
+  category: core
+  spec_path: patterns/legacy_atoms/converted/specs/migrated_qa_test_agent_012.pattern.yaml
+  schema_path: patterns/legacy_atoms/converted/schemas/migrated_qa_test_agent_012.schema.json
+  executor_path: patterns/legacy_atoms/converted/executors/migrated_qa_test_agent_012_executor.py
+  migrated_from: atomic-workflow-system
+  original_atom_uid: 01K7CYJ5DA929BVS0F1CTR73NV
+  original_role: qa_test_agent
+  migration_date: '2025-11-24'
+  notes: Auto-migrated from atomic-workflow-system. Requires review and enhancement.
+- pattern_id: PAT-MIGRATED-CORE-013
+  name: migrated_ide_code_editor_013
+  version: 1.0.0
+  status: migrated
+  category: core
+  spec_path: patterns/legacy_atoms/converted/specs/migrated_ide_code_editor_013.pattern.yaml
+  schema_path: patterns/legacy_atoms/converted/schemas/migrated_ide_code_editor_013.schema.json
+  executor_path: patterns/legacy_atoms/converted/executors/migrated_ide_code_editor_013_executor.py
+  migrated_from: atomic-workflow-system
+  original_atom_uid: 01K7CYJ5VJPYZ2JBWHXKX2J8XE
+  original_role: ide_code_editor
+  migration_date: '2025-11-24'
+  notes: Auto-migrated from atomic-workflow-system. Requires review and enhancement.
+- pattern_id: PAT-MIGRATED-CORE-014
+  name: migrated_ide_code_editor_014
+  version: 1.0.0
+  status: migrated
+  category: core
+  spec_path: patterns/legacy_atoms/converted/specs/migrated_ide_code_editor_014.pattern.yaml
+  schema_path: patterns/legacy_atoms/converted/schemas/migrated_ide_code_editor_014.schema.json
+  executor_path: patterns/legacy_atoms/converted/executors/migrated_ide_code_editor_014_executor.py
+  migrated_from: atomic-workflow-system
+  original_atom_uid: 01K7CYJ5VTMG2RDJPRTK6ZYCR2
+  original_role: ide_code_editor
+  migration_date: '2025-11-24'
+  notes: Auto-migrated from atomic-workflow-system. Requires review and enhancement.
+- pattern_id: PAT-MIGRATED-CORE-015
+  name: migrated_ide_code_editor_015
+  version: 1.0.0
+  status: migrated
+  category: core
+  spec_path: patterns/legacy_atoms/converted/specs/migrated_ide_code_editor_015.pattern.yaml
+  schema_path: patterns/legacy_atoms/converted/schemas/migrated_ide_code_editor_015.schema.json
+  executor_path: patterns/legacy_atoms/converted/executors/migrated_ide_code_editor_015_executor.py
+  migrated_from: atomic-workflow-system
+  original_atom_uid: 01K7CYJ5W27BHEFEQ76K4XG866
+  original_role: ide_code_editor
+  migration_date: '2025-11-24'
+  notes: Auto-migrated from atomic-workflow-system. Requires review and enhancement.
+- pattern_id: PAT-MIGRATED-CORE-016
+  name: migrated_docs_summarizer_016
+  version: 1.0.0
+  status: migrated
+  category: core
+  spec_path: patterns/legacy_atoms/converted/specs/migrated_docs_summarizer_016.pattern.yaml
+  schema_path: patterns/legacy_atoms/converted/schemas/migrated_docs_summarizer_016.schema.json
+  executor_path: patterns/legacy_atoms/converted/executors/migrated_docs_summarizer_016_executor.py
+  migrated_from: atomic-workflow-system
+  original_atom_uid: 01K7CYJ5Z1FKD0XKTYZ97SCKA7
+  original_role: docs_summarizer
+  migration_date: '2025-11-24'
+  notes: Auto-migrated from atomic-workflow-system. Requires review and enhancement.
+- pattern_id: PAT-MIGRATED-CORE-017
+  doc_id: DOC-MIGRATED-CORE-017
+  name: migrated_docs_summarizer_017
+  version: 1.0.0
+  status: migrated
+  category: core
+  spec_path: patterns/legacy_atoms/converted/specs/migrated_docs_summarizer_017.pattern.yaml
+  schema_path: patterns/legacy_atoms/converted/schemas/migrated_docs_summarizer_017.schema.json
+  executor_path: patterns/legacy_atoms/converted/executors/migrated_docs_summarizer_017_executor.py
+  migrated_from: atomic-workflow-system
+  original_atom_uid: 01K7CYJ6057XE382WS4RX3ESNJ
+  original_role: docs_summarizer
+  migration_date: '2025-11-24'
+  notes: Auto-migrated from atomic-workflow-system. Requires review and enhancement.
+- doc_id: DOC-PAT-BATCH-FILE-CREATION-001
+  pattern_id: PAT-BATCH-FILE-CREATION-001
+  name: batch_file_creation
+  version: 1.0.0
+  status: draft
+  category: parallel
+  spec_path: patterns/specs/batch_file_creation.pattern.yaml
+  schema_path: patterns/schemas/batch_file_creation.schema.json
+  executor_path: patterns/executors/batch_file_creation_executor.ps1
+  test_path: patterns/tests/test_batch_file_creation_executor.ps1
+  example_dir: patterns/examples/batch_file_creation/
+  source_template: templates\patterns\parallel\batch_file_creation.pattern.yaml
+  created: '2025-11-24'
+  last_updated: '2025-11-24'
+- doc_id: DOC-PAT-MODULE-CREATION-CONVERGENCE-001
+  pattern_id: PAT-MODULE-CREATION-CONVERGENCE-001
+  name: module_creation_convergence
+  version: 1.0.0
+  status: draft
+  category: template
+  spec_path: patterns/specs/module_creation_convergence.pattern.yaml
+  schema_path: patterns/schemas/module_creation_convergence.schema.json
+  executor_path: patterns/executors/module_creation_convergence_executor.ps1
+  test_path: patterns/tests/test_module_creation_convergence_executor.ps1
+  example_dir: patterns/examples/module_creation_convergence/
+  source_template: templates\patterns\template\module_creation_convergence.pattern.yaml
+  created: '2025-11-24'
+  last_updated: '2025-11-24'
+- doc_id: DOC-PAT-PREFLIGHT-VERIFY-001
+  pattern_id: PAT-PREFLIGHT-VERIFY-001
+  name: preflight_verify
+  version: 1.0.0
+  status: draft
+  category: verification
+  spec_path: patterns/specs/preflight_verify.pattern.yaml
+  schema_path: patterns/schemas/preflight_verify.schema.json
+  executor_path: patterns/executors/preflight_verify_executor.ps1
+  test_path: patterns/tests/test_preflight_verify_executor.ps1
+  example_dir: patterns/examples/preflight_verify/
+  source_template: templates\verification_templates\preflight.verify.yaml
+  created: '2025-11-24'
+  last_updated: '2025-11-24'
+- doc_id: DOC-PAT-ATOMIC-CREATE-TEMPLATE-001
+  pattern_id: PAT-ATOMIC-CREATE-TEMPLATE-001
+  name: atomic_create_template
+  version: 1.0.0
+  status: draft
+  category: execution
+  spec_path: patterns/specs/atomic_create_template.pattern.yaml
+  schema_path: patterns/schemas/atomic_create_template.schema.json
+  executor_path: patterns/executors/atomic_create_template_executor.ps1
+  test_path: patterns/tests/test_atomic_create_template_executor.ps1
+  example_dir: patterns/examples/atomic_create_template/
+  source_template: templates\execution_patterns\atomic_create.pattern.yaml
+  created: '2025-11-24'
+  last_updated: '2025-11-24'
+- doc_id: DOC-PAT-DECISION-ELIMINATION-BOOTSTRAP-001
+  pattern_id: PAT-DECISION-ELIMINATION-BOOTSTRAP-001
+  name: decision_elimination_bootstrap
+  version: 1.0.0
+  status: draft
+  category: meta
+  spec_path: patterns/specs/decision_elimination_bootstrap.pattern.yaml
+  schema_path: patterns/schemas/decision_elimination_bootstrap.schema.json
+  executor_path: patterns/executors/decision_elimination_bootstrap_executor.ps1
+  test_path: patterns/tests/test_decision_elimination_bootstrap_executor.ps1
+  example_dir: patterns/examples/decision_elimination_bootstrap/
+  source_template: templates\patterns\meta\decision_elimination_bootstrap.pattern.yaml
+  created: '2025-11-24'
+  last_updated: '2025-11-24'
+- doc_id: DOC-PAT-CREATE-TEST-COMMIT-001
+  pattern_id: PAT-CREATE-TEST-COMMIT-001
+  name: create_test_commit
+  version: 1.0.0
+  status: draft
+  category: sequential
+  spec_path: patterns/specs/create_test_commit.pattern.yaml
+  schema_path: patterns/schemas/create_test_commit.schema.json
+  executor_path: patterns/executors/create_test_commit_executor.ps1
+  test_path: patterns/tests/test_create_test_commit_executor.ps1
+  example_dir: patterns/examples/create_test_commit/
+  source_template: templates\patterns\sequential\create_test_commit.pattern.yaml
+  created: '2025-11-24'
+  last_updated: '2025-11-24'
+- doc_id: DOC-PAT-VIEW-EDIT-VERIFY-003
+  pattern_id: PAT-VIEW-EDIT-VERIFY-003
+  name: view_edit_verify
+  version: 1.0.0
+  status: draft
+  category: sequential
+  spec_path: patterns/specs/view_edit_verify.pattern.yaml
+  schema_path: patterns/schemas/view_edit_verify.schema.json
+  executor_path: patterns/executors/view_edit_verify_executor.ps1
+  test_path: patterns/tests/test_view_edit_verify_executor.ps1
+  example_dir: patterns/examples/view_edit_verify/
+  source_template: templates\patterns\sequential\view_edit_verify.pattern.yaml
+  created: '2025-11-24'
+  last_updated: '2025-11-24'
+- doc_id: DOC-PAT-PYTEST-GREEN-VERIFY-002
+  pattern_id: PAT-PYTEST-GREEN-VERIFY-002
+  name: pytest_green_verify
+  version: 1.0.0
+  status: draft
+  category: verification
+  spec_path: patterns/specs/pytest_green_verify.pattern.yaml
+  schema_path: patterns/schemas/pytest_green_verify.schema.json
+  executor_path: patterns/executors/pytest_green_verify_executor.ps1
+  test_path: patterns/tests/test_pytest_green_verify_executor.ps1
+  example_dir: patterns/examples/pytest_green_verify/
+  source_template: templates\verification_templates\pytest_green.verify.yaml
+  created: '2025-11-24'
+  last_updated: '2025-11-24'
+- doc_id: DOC-PAT-GREP-VIEW-EDIT-002
+  pattern_id: PAT-GREP-VIEW-EDIT-002
+  name: grep_view_edit
+  version: 1.0.0
+  status: draft
+  category: sequential
+  spec_path: patterns/specs/grep_view_edit.pattern.yaml
+  schema_path: patterns/schemas/grep_view_edit.schema.json
+  executor_path: patterns/executors/grep_view_edit_executor.ps1
+  test_path: patterns/tests/test_grep_view_edit_executor.ps1
+  example_dir: patterns/examples/grep_view_edit/
+  source_template: templates\patterns\sequential\grep_view_edit.pattern.yaml
+  created: '2025-11-24'
+  last_updated: '2025-11-24'
+- pattern_id: PAT-BATCH-FILE-GEN-001
+  doc_id: DOC-BATCH-FILE-GEN-001
+  name: batch_file_generation_from_spec
+  category: code_generation
+  status: active
+  auto_generated: true
+  created_at: '2025-11-27T10:14:12.526533'
+- pattern_id: PAT-CONFIG-SETUP-001
+  doc_id: DOC-PAT-CONFIG-SETUP-001
+  name: configuration_setup
+  category: infrastructure
+  status: active
+  auto_generated: true
+  created_at: '2025-11-27T10:14:12.654433'
+- pattern_id: PAT-DATABASE-SETUP-001
+  doc_id: DOC-PAT-DATABASE-SETUP-001
+  name: database_setup
+  category: infrastructure
+  status: active
+  auto_generated: true
+  created_at: '2025-11-27T10:14:12.829731'
+- pattern_id: PAT-INTEGRATION-HOOK-001
+  doc_id: DOC-PAT-INTEGRATION-HOOK-001
+  name: integration_hook
+  category: integration
+  status: active
+  auto_generated: true
+  created_at: '2025-11-27T10:14:13.004983'
+- pattern_id: PAT-MULTI-WORKSTREAM-DOC-SUITE-GEN-001
+  doc_id: DOC-PAT-MULTI-WORKSTREAM-DOC-SUITE-GEN-001
+  name: multi_workstream_doc_suite_generation
+  category: code_generation
+  status: active
+  auto_generated: true
+  created_at: '2025-11-27T10:14:13.234605'
+- pattern_id: PAT-PHASE-DISCOVERY-001
+  doc_id: DOC-PAT-PHASE-DISCOVERY-001
+  name: phase_discovery
+  category: discovery
+  status: active
+  auto_generated: true
+  created_at: '2025-11-27T10:14:13.387339'
+- pattern_id: PAT-E2E-VALIDATION-001
+  doc_id: DOC-PAT-E2E-VALIDATION-001
+  name: end_to_end_validation
+  category: validation
+  status: active
+  auto_generated: true
+  created_at: '2025-11-27T10:14:13.608208'

@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "batch_create",
+  "description": "Create 6+ similar files following a template pattern.\nOptimized for repetitive file creation with consistent structure.\n\nThis pattern enforces:\n- Template-based generation (consistency)\n- Batch processing (efficiency)\n- Parallel validation (speed)\n- Single commit for all files\n",
+  "type": "object",
+  "properties": {
+    "project_root": {
+      "type": "string",
+      "required": true,
+      "description": "Absolute path to project root directory"
+    },
+    "template_type": {
+      "type": "string",
+      "required": true,
+      "enum": [
+        "crud_endpoint",
+        "model",
+        "test",
+        "config",
+        "custom"
+      ],
+      "description": "Type of template to use for generation"
+    },
+    "files_to_create": {
+      "type": "array",
+      "required": true,
+      "min_items": 6,
+      "description": "List of files to create from template",
+      "items": {
+        "type": "object",
+        "required": [
+          "path",
+          "template_vars"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "Relative path from project_root"
+          },
+          "template_vars": {
+            "type": "object",
+            "description": "Variables to substitute in template",
+            "examples": [
+              {
+                "name": "users",
+                "entity": "User",
+                "id_type": "uuid"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "custom_template": {
+      "type": "string",
+      "required": false,
+      "description": "Custom template content (if template_type = custom)"
+    },
+    "parallel_processing": {
+      "type": "boolean",
+      "required": false,
+      "default": true,
+      "description": "Process files in parallel (faster)"
+    },
+    "test_files": {
+      "type": "boolean",
+      "required": false,
+      "default": true,
+      "description": "Generate corresponding test files"
+    }
+  },
+  "required": [
+    "project_root",
+    "template_type",
+    "files_to_create"
+  ]
+}

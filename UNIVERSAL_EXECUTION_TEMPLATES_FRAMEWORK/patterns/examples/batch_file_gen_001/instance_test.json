@@ -1,0 +1,10 @@
+{
+  "source_specs": [],
+  "templates": {},
+  "generation_rules": {},
+  "batch_config": {
+    "batch_size": 10,
+    "parallel_batches": 3,
+    "validation_mode": "per_batch"
+  }
+}

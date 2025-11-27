@@ -8,8 +8,9 @@ patterns without user intervention.
 2. Detect common user phrases/requests
 3. Auto-generate pattern specs
 4. Auto-approve high-confidence patterns (≥90%)
-5. Inject patterns into workflow on next similar request
-6. User types familiar phrase → Pattern auto-executes
+5. **AUTO-GENERATE DOC SUITES** for new patterns
+6. Inject patterns into workflow on next similar request
+7. User types familiar phrase → Pattern auto-executes
 
 **Zero User Input**: System learns and improves autonomously.
 """
@@ -22,9 +23,10 @@ from typing import Dict, List, Optional
 import subprocess
 import sys
 
-# Import the log miner
+# Import the log miner and doc suite generator
 sys.path.append(str(Path(__file__).parent.parent))
 from detectors.multi_ai_log_miner import MultiAILogMiner, UserRequest
+from generators.doc_suite_generator import DocSuiteGenerator
 
 
 class ZeroTouchWorkflowEngine:
@@ -35,6 +37,7 @@ class ZeroTouchWorkflowEngine:
         self.db = sqlite3.connect(db_path)
         self.patterns_dir = patterns_dir
         self.log_miner = MultiAILogMiner(self.db)
+        self.doc_suite_gen = DocSuiteGenerator(patterns_dir)
         
         # Auto-approval thresholds
         self.high_confidence_threshold = 0.90  # Auto-approve
@@ -53,37 +56,42 @@ class ZeroTouchWorkflowEngine:
         }
         
         # Phase 1: Mine AI logs
-        print("📊 PHASE 1: Mining AI Tool Logs...")
+        print("[DATA] PHASE 1: Mining AI Tool Logs...")
         mine_results = self._phase_1_mine_logs()
         results['phases']['mining'] = mine_results
         
         # Phase 2: Detect patterns
-        print("\n🔍 PHASE 2: Detecting Common Patterns...")
+        print("\n[DETECT] PHASE 2: Detecting Common Patterns...")
         detect_results = self._phase_2_detect_patterns(mine_results['requests'])
         results['phases']['detection'] = detect_results
         
         # Phase 3: Generate pattern specs
-        print("\n⚙️  PHASE 3: Generating Pattern Specifications...")
+        print("\n[GEN] PHASE 3: Generating Pattern Specifications...")
         generate_results = self._phase_3_generate_specs(detect_results['common_phrases'])
         results['phases']['generation'] = generate_results
         
         # Phase 4: Auto-approve high-confidence
-        print("\n✅ PHASE 4: Auto-Approving High-Confidence Patterns...")
+        print("\n[APPROVE] PHASE 4: Auto-Approving High-Confidence Patterns...")
         approve_results = self._phase_4_auto_approve(generate_results['patterns'])
         results['phases']['approval'] = approve_results
         
         # Phase 5: Update registry
-        print("\n📝 PHASE 5: Updating Pattern Registry...")
+        print("\n[REGISTRY] PHASE 5: Updating Pattern Registry...")
         registry_results = self._phase_5_update_registry(approve_results['approved'])
         results['phases']['registry'] = registry_results
         
+        # Phase 5.5: Auto-generate doc suites for new patterns
+        print("\n[DOC-SUITE] PHASE 5.5: Auto-Generating Doc Suites...")
+        doc_suite_results = self._phase_5_5_generate_doc_suites()
+        results['phases']['doc_suite_generation'] = doc_suite_results
+        
         # Phase 6: Generate report
-        print("\n📈 PHASE 6: Generating Workflow Report...")
+        print("\n[REPORT] PHASE 6: Generating Workflow Report...")
         report = self._phase_6_generate_report(results)
         results['report_path'] = str(report)
         
         print("\n" + "="*80)
-        print("✓ ZERO-TOUCH WORKFLOW COMPLETE")
+        print("[OK] ZERO-TOUCH WORKFLOW COMPLETE")
         print("="*80)
         
         return results
@@ -218,10 +226,10 @@ metrics:
                         'file_path': str(dst)
                     })
                     
-                    print(f"  ✓ Auto-approved: {pattern['pattern_id']} ({pattern['confidence']:.0%} confidence)")
+                    print(f"  [OK] Auto-approved: {pattern['pattern_id']} ({pattern['confidence']:.0%} confidence)")
             else:
                 pending_review.append(pattern)
-                print(f"  ⏳ Pending review: {pattern['pattern_id']} ({pattern['confidence']:.0%} confidence)")
+                print(f"  [PENDING] Pending review: {pattern['pattern_id']} ({pattern['confidence']:.0%} confidence)")
         
         return {
             'approved': approved,
@@ -234,7 +242,7 @@ metrics:
         registry_file = self.patterns_dir / "registry" / "PATTERN_INDEX.yaml"
         
         if not registry_file.exists():
-            print(f"  ⚠️  Registry file not found: {registry_file}")
+            print(f"  [WARN]  Registry file not found: {registry_file}")
             return {'updated': False}
         
         # Read existing registry
@@ -243,7 +251,7 @@ metrics:
             with registry_file.open('r', encoding='utf-8') as f:
                 registry = yaml.safe_load(f) or {}
         except Exception as e:
-            print(f"  ⚠️  Failed to read registry: {e}")
+            print(f"  [WARN]  Failed to read registry: {e}")
             return {'updated': False, 'error': str(e)}
         
         # Add new patterns
@@ -268,12 +276,47 @@ metrics:
             with registry_file.open('w', encoding='utf-8') as f:
                 yaml.dump(registry, f, default_flow_style=False, sort_keys=False)
             
-            print(f"  ✓ Registry updated: {len(approved_patterns)} patterns added")
+            print(f"  [OK] Registry updated: {len(approved_patterns)} patterns added")
             return {'updated': True, 'patterns_added': len(approved_patterns)}
         
         except Exception as e:
-            print(f"  ⚠️  Failed to write registry: {e}")
+            print(f"  [WARN]  Failed to write registry: {e}")
             return {'updated': False, 'error': str(e)}
+    
+    def _phase_5_5_generate_doc_suites(self) -> Dict:
+        """Auto-generate doc suites for patterns missing them."""
+        # Find incomplete patterns
+        incomplete = self.doc_suite_gen.find_incomplete_patterns()
+        
+        if not incomplete:
+            print("  [OK] All patterns have complete doc suites")
+            return {
+                'patterns_processed': 0,
+                'files_generated': 0,
+                'timestamp': datetime.now().isoformat()
+            }
+        
+        print(f"  [FOUND] {len(incomplete)} patterns need doc suites")
+        
+        # Generate doc suites
+        results = []
+        for pattern in incomplete:
+            spec_file = Path(pattern['spec_file'])
+            try:
+                result = self.doc_suite_gen.generate_doc_suite(pattern['pattern_id'], spec_file)
+                results.append(result)
+            except Exception as e:
+                print(f"  [ERROR] Failed to generate doc suite for {pattern['pattern_id']}: {e}")
+        
+        total_files = sum(len(r['files_generated']) for r in results)
+        print(f"  [OK] Generated {total_files} files for {len(results)} patterns")
+        
+        return {
+            'patterns_processed': len(results),
+            'files_generated': total_files,
+            'details': results,
+            'timestamp': datetime.now().isoformat()
+        }
     
     def _phase_6_generate_report(self, results: Dict) -> Path:
         """Generate comprehensive workflow report."""
@@ -297,7 +340,7 @@ metrics:
 """
         
         report_file.write_text(md, encoding='utf-8')
-        print(f"  ✓ Report generated: {report_file.name}")
+        print(f"  [OK] Report generated: {report_file.name}")
         
         return report_file
     
@@ -318,7 +361,7 @@ def main():
         results = engine.run_end_to_end_workflow()
         
         # Print summary
-        print("\n📊 WORKFLOW SUMMARY:")
+        print("\n[DATA] WORKFLOW SUMMARY:")
         print(f"  - Requests Mined: {results['phases']['mining']['total_requests']}")
         print(f"  - Patterns Generated: {results['phases']['generation']['patterns_generated']}")
         print(f"  - Auto-Approved: {results['phases']['approval']['auto_approval_count']}")
@@ -327,7 +370,7 @@ def main():
         return 0
     
     except Exception as e:
-        print(f"\n❌ ERROR: {e}")
+        print(f"\n[ERROR] ERROR: {e}")
         import traceback
         traceback.print_exc()
         return 1

@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "module_creation",
+  "description": "Create a complete, production-ready module with all supporting files.\n\nIncludes:\n- Module implementation\n- Comprehensive test suite\n- Package manifest (setup.py, package.json, etc.)\n- README documentation\n- __init__.py (Python) or index.js (JS)\n- Example usage files\n",
+  "type": "object",
+  "properties": {
+    "project_root": {
+      "type": "string",
+      "required": true
+    },
+    "module_name": {
+      "type": "string",
+      "required": true,
+      "pattern": "^[a-z][a-z0-9_]*$"
+    },
+    "language": {
+      "type": "string",
+      "required": true,
+      "enum": [
+        "python",
+        "javascript",
+        "typescript"
+      ]
+    },
+    "module_type": {
+      "type": "string",
+      "required": true,
+      "enum": [
+        "library",
+        "cli",
+        "api",
+        "utility"
+      ]
+    },
+    "include_cli": {
+      "type": "boolean",
+      "default": false
+    },
+    "include_examples": {
+      "type": "boolean",
+      "default": true
+    },
+    "license": {
+      "type": "string",
+      "required": false,
+      "enum": [
+        "MIT",
+        "Apache-2.0",
+        "GPL-3.0",
+        "BSD-3-Clause"
+      ],
+      "default": "MIT"
+    }
+  },
+  "required": [
+    "project_root",
+    "module_name",
+    "language",
+    "module_type"
+  ]
+}
