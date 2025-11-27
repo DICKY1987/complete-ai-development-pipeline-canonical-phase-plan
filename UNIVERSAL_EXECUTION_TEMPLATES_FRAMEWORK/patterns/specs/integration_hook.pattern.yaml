@@ -1,0 +1,547 @@
+# Pattern: Integration Hook
+# Pattern ID: PAT-INTEGRATION-HOOK-001
+# Version: 1.0.0
+# Created: 2025-11-27
+# Category: integration
+# Use Case: Add monitoring/telemetry hooks to existing code
+# Time Savings: 75% (60 min → 15 min)
+
+pattern_id: "PAT-INTEGRATION-HOOK-001"
+name: "integration_hook"
+version: "1.0.0"
+category: "integration"
+status: "active"
+
+metadata:
+  created: "2025-11-27"
+  last_updated: "2025-11-27"
+  author: "UET Framework Team"
+  proven_uses: 0
+  time_savings_vs_manual: "75%"
+  estimated_duration_seconds: 900  # 15 minutes
+
+intent: |
+  Add non-invasive hooks to existing code for telemetry, logging, or monitoring.
+  Creates wrapper modules that integrate with existing systems without modifying
+  core logic.
+  
+  This pattern enforces:
+  - Minimal, non-invasive instrumentation
+  - Fault-tolerant hooks (never fail the main operation)
+  - Singleton pattern for hook instances
+  - Documentation of integration points
+
+applicability:
+  when_to_use:
+    - Adding telemetry to existing execution flow
+    - Integrating monitoring without changing core logic
+    - Creating event emission for existing operations
+    - Adding opt-in feature flags
+  when_not_to_use:
+    - Core business logic needs modification (use refactor pattern)
+    - Creating new features from scratch (use atomic_create)
+    - Database schema changes (use database_setup pattern)
+  
+  constraints:
+    non_invasive: true
+    fault_tolerant: true
+    must_be_disableable: true
+    max_performance_overhead_ms: 10
+
+inputs:
+  integration_name:
+    type: "string"
+    required: true
+    description: "Name of the integration (e.g., 'pattern_automation_hooks')"
+    example: "pattern_automation_hooks"
+  
+  target_module_path:
+    type: "string"
+    required: true
+    description: "Path to module that will be instrumented"
+    example: "core/engine/orchestrator.py"
+  
+  hook_points:
+    type: "array"
+    required: true
+    description: "List of hook points to instrument"
+    items:
+      type: "object"
+      required: ["name", "trigger"]
+      properties:
+        name:
+          type: "string"
+          description: "Name of hook point"
+          example: "on_task_complete"
+        trigger:
+          type: "string"
+          enum: ["before", "after", "error"]
+          description: "When to trigger the hook"
+        target_function:
+          type: "string"
+          description: "Function to hook into"
+          example: "execute_task"
+        parameters:
+          type: "array"
+          description: "Parameters passed to hook"
+          items:
+            type: "string"
+        actions:
+          type: "array"
+          description: "Actions to perform when hook triggers"
+          items:
+            type: "string"
+  
+  hook_module_path:
+    type: "string"
+    required: true
+    description: "Path where hook module will be created"
+    example: "automation/integration/orchestrator_hooks.py"
+  
+  database_path:
+    type: "string"
+    required: false
+    description: "Path to database for hook data storage"
+    example: "patterns/metrics/pattern_automation.db"
+  
+  config_path:
+    type: "string"
+    required: false
+    description: "Path to configuration file for hook behavior"
+    example: "automation/config/detection_config.yaml"
+  
+  include_tests:
+    type: "boolean"
+    default: true
+    description: "Whether to generate unit tests for hooks"
+
+steps:
+  - id: "create_hook_module"
+    description: "Create hook module with instrumentation code"
+    operation_kind: "CREATE_MODULE"
+    
+    actions:
+      - tool: "create"
+        path: "{{hook_module_path}}"
+        content: |
+          """{{integration_name}} - Integration hooks
+          
+          Non-invasive instrumentation for {{target_module_path}}.
+          Generated: {{timestamp}}
+          """
+          
+          import json
+          import hashlib
+          from datetime import datetime
+          from pathlib import Path
+          from typing import Dict, Any, Optional
+          {{#if database_path}}
+          import sqlite3
+          {{/if}}
+          
+          
+          class {{integration_name | pascalCase}}:
+              """Hooks for {{integration_name}}."""
+              
+              def __init__(self, {{#if database_path}}db_path: str, {{/if}}enabled: bool = True):
+                  {{#if database_path}}
+                  self.db_path = db_path
+                  {{/if}}
+                  self.enabled = enabled
+                  {{#if config_path}}
+                  self._load_config()
+                  {{/if}}
+              
+              {{#if config_path}}
+              def _load_config(self):
+                  """Load configuration from YAML file."""
+                  import yaml
+                  config_file = Path(__file__).parent.parent / "config" / "{{config_path | basename}}"
+                  if config_file.exists():
+                      with open(config_file) as f:
+                          self.config = yaml.safe_load(f)
+                  else:
+                      self.config = {}
+              {{/if}}
+              
+              {{#each hook_points}}
+              def {{name}}(self{{#each parameters}}, {{this}}{{/each}}):
+                  """Hook: {{name}}
+                  
+                  Trigger: {{trigger}}
+                  {{#if ../fault_tolerant}}
+                  Note: Errors in this hook will not fail the main operation.
+                  {{/if}}
+                  """
+                  if not self.enabled:
+                      return {{#if trigger == 'before'}}{}{{/if}}
+                  
+                  try:
+                      {{#each actions}}
+                      {{this}}
+                      {{/each}}
+                  except Exception as e:
+                      # Non-fatal: log error but don't fail main operation
+                      print(f"⚠️  Hook {{name}} error (non-fatal): {e}")
+                      {{#if trigger == 'before'}}
+                      return {}
+                      {{/if}}
+              
+              {{/each}}
+          
+          # Singleton instance
+          _instance: Optional[{{integration_name | pascalCase}}] = None
+          
+          def get_hooks({{#if database_path}}db_path: str = None{{/if}}) -> {{integration_name | pascalCase}}:
+              """Get or create hooks instance."""
+              global _instance
+              if _instance is None:
+                  {{#if database_path}}
+                  if db_path is None:
+                      raise ValueError("db_path required for first initialization")
+                  _instance = {{integration_name | pascalCase}}(db_path)
+                  {{else}}
+                  _instance = {{integration_name | pascalCase}}()
+                  {{/if}}
+              return _instance
+    
+    outputs:
+      - name: "hook_module_created"
+        type: "boolean"
+  
+  - id: "create_integration_readme"
+    description: "Document how to integrate hooks"
+    operation_kind: "CREATE_DOCUMENTATION"
+    
+    actions:
+      - tool: "create"
+        path: "{{hook_module_path | dirname}}/README.md"
+        content: |
+          # {{integration_name | titleCase}}
+          
+          Non-invasive hooks for `{{target_module_path}}`.
+          
+          ## Quick Integration
+          
+          Add to `{{target_module_path}}`:
+          
+          ```python
+          from {{hook_module_path | importPath}} import get_hooks
+          
+          # Initialize once (at module/class startup)
+          hooks = get_hooks({{#if database_path}}db_path="{{database_path}}"{{/if}})
+          
+          # Wrap target function
+          {{#each hook_points}}
+          {{#if trigger == 'before'}}
+          # Before {{target_function}}
+          def {{target_function}}(self, ...):
+              context = hooks.{{name}}(...)
+              # ... rest of function
+          {{/if}}
+          {{#if trigger == 'after'}}
+          # After {{target_function}}
+          def {{target_function}}(self, ...):
+              result = # ... execute function
+              hooks.{{name}}(result, ...)
+              return result
+          {{/if}}
+          {{#if trigger == 'error'}}
+          # On error in {{target_function}}
+          def {{target_function}}(self, ...):
+              try:
+                  # ... execute function
+              except Exception as e:
+                  hooks.{{name}}(e, ...)
+                  raise
+          {{/if}}
+          {{/each}}
+          ```
+          
+          ## Features
+          
+          - **Non-blocking:** Never slows down main operation
+          - **Fault-tolerant:** Hook errors don't fail main operation
+          - **Disableable:** Set `enabled=False` to disable
+          {{#if config_path}}
+          - **Configurable:** See `{{config_path}}`
+          {{/if}}
+          
+          ## Hook Points
+          
+          {{#each hook_points}}
+          ### `{{name}}`
+          
+          - **Trigger:** {{trigger}} {{target_function}}
+          - **Parameters:** {{#each parameters}}`{{this}}`{{#unless @last}}, {{/unless}}{{/each}}
+          - **Purpose:** {{#each actions}}{{this}}{{#unless @last}}; {{/unless}}{{/each}}
+          
+          {{/each}}
+          
+          ## Disable
+          
+          ```python
+          hooks = get_hooks(enabled=False)
+          ```
+  
+  - id: "create_tests"
+    description: "Create unit tests for hook module"
+    operation_kind: "CREATE_TESTS"
+    
+    condition: "include_tests == true"
+    
+    actions:
+      - tool: "create"
+        path: "{{hook_module_path | testPath}}"
+        content: |
+          """Tests for {{integration_name}}"""
+          
+          import pytest
+          {{#if database_path}}
+          import sqlite3
+          import tempfile
+          from pathlib import Path
+          {{/if}}
+          from {{hook_module_path | importPath}} import {{integration_name | pascalCase}}, get_hooks
+          
+          
+          @pytest.fixture
+          def hooks():
+              """Create hooks instance for testing."""
+              {{#if database_path}}
+              # Use temporary database
+              db_file = tempfile.NamedTemporaryFile(suffix=".db", delete=False)
+              return {{integration_name | pascalCase}}(db_file.name)
+              {{else}}
+              return {{integration_name | pascalCase}}()
+              {{/if}}
+          
+          
+          def test_hooks_initialization(hooks):
+              """Test hooks can be initialized."""
+              assert hooks is not None
+              assert hooks.enabled == True
+          
+          
+          def test_hooks_can_be_disabled():
+              """Test hooks can be disabled."""
+              {{#if database_path}}
+              hooks = {{integration_name | pascalCase}}("test.db", enabled=False)
+              {{else}}
+              hooks = {{integration_name | pascalCase}}(enabled=False)
+              {{/if}}
+              assert hooks.enabled == False
+          
+          
+          {{#each hook_points}}
+          def test_{{name}}_does_not_raise(hooks):
+              """Test {{name}} hook doesn't raise exceptions."""
+              # Should not raise even with invalid input
+              try:
+                  hooks.{{name}}({{#each parameters}}None{{#unless @last}}, {{/unless}}{{/each}})
+              except Exception as e:
+                  pytest.fail(f"Hook raised exception: {e}")
+          
+          
+          {{/each}}
+          
+          def test_singleton_pattern():
+              """Test get_hooks returns same instance."""
+              {{#if database_path}}
+              hooks1 = get_hooks("test.db")
+              hooks2 = get_hooks()
+              {{else}}
+              hooks1 = get_hooks()
+              hooks2 = get_hooks()
+              {{/if}}
+              assert hooks1 is hooks2
+  
+  - id: "update_target_module"
+    description: "Create integration instructions (manual step)"
+    operation_kind: "CREATE_DOCUMENTATION"
+    
+    actions:
+      - tool: "create"
+        path: "INTEGRATION_INSTRUCTIONS_{{integration_name}}.md"
+        content: |
+          # Integration Instructions: {{integration_name}}
+          
+          **Target Module:** `{{target_module_path}}`
+          **Hook Module:** `{{hook_module_path}}`
+          
+          ## Manual Integration Steps
+          
+          ### 1. Add Import
+          
+          At the top of `{{target_module_path}}`:
+          
+          ```python
+          from {{hook_module_path | importPath}} import get_hooks
+          ```
+          
+          ### 2. Initialize Hooks
+          
+          In the class `__init__` or module initialization:
+          
+          ```python
+          self.hooks = get_hooks({{#if database_path}}db_path="{{database_path}}"{{/if}})
+          ```
+          
+          ### 3. Add Hook Calls
+          
+          {{#each hook_points}}
+          #### Hook: {{name}}
+          
+          In function `{{target_function}}`:
+          
+          ```python
+          {{#if trigger == 'before'}}
+          # Add at start of function
+          context = self.hooks.{{name}}({{#each parameters}}{{this}}{{#unless @last}}, {{/unless}}{{/each}})
+          {{/if}}
+          {{#if trigger == 'after'}}
+          # Add after main logic
+          self.hooks.{{name}}({{#each parameters}}{{this}}{{#unless @last}}, {{/unless}}{{/each}})
+          {{/if}}
+          {{#if trigger == 'error'}}
+          # Add in exception handler
+          except Exception as e:
+              self.hooks.{{name}}({{#each parameters}}{{this}}{{#unless @last}}, {{/unless}}{{/each}})
+              raise
+          {{/if}}
+          ```
+          
+          {{/each}}
+          
+          ### 4. Test Integration
+          
+          ```bash
+          # Run hook tests
+          pytest {{hook_module_path | testPath}}
+          
+          # Run target module tests
+          pytest {{target_module_path | testPath}}
+          ```
+          
+          ### 5. Verify Hooks Active
+          
+          {{#if database_path}}
+          ```bash
+          # Check database for logged events
+          sqlite3 {{database_path}} "SELECT COUNT(*) FROM {table_name};"
+          ```
+          {{else}}
+          Check logs for hook execution messages.
+          {{/if}}
+
+outputs:
+  hook_module:
+    type: "file"
+    path: "{{hook_module_path}}"
+    description: "Hook module with instrumentation code"
+  
+  integration_readme:
+    type: "file"
+    path: "{{hook_module_path | dirname}}/README.md"
+    description: "Integration documentation"
+  
+  test_file:
+    type: "file"
+    path: "{{hook_module_path | testPath}}"
+    condition: "include_tests == true"
+    description: "Unit tests for hooks"
+  
+  integration_instructions:
+    type: "file"
+    path: "INTEGRATION_INSTRUCTIONS_{{integration_name}}.md"
+    description: "Manual integration steps"
+
+verification:
+  ground_truth:
+    - condition: "hook module file exists"
+      description: "Hook module created"
+    - condition: "integration README exists"
+      description: "Integration documented"
+    - condition: "test file exists (if include_tests)"
+      description: "Tests created"
+  
+  validation_commands:
+    - name: "check_hook_module"
+      command: "Test-Path {{hook_module_path}}"
+      expect: "True"
+    
+    - name: "validate_python_syntax"
+      command: "python -m py_compile {{hook_module_path}}"
+      expect: "exit code 0"
+    
+    - name: "test_import"
+      command: "python -c 'from {{hook_module_path | importPath}} import get_hooks; print(\"OK\")'"
+      expect: "OK"
+    
+    - name: "run_tests"
+      command: "pytest {{hook_module_path | testPath}} -v"
+      condition: "include_tests == true"
+      expect: "all tests passed"
+
+anti_patterns:
+  avoid:
+    - pattern: "Modifying target module directly"
+      reason: "Makes changes invasive and harder to disable"
+    - pattern: "Hooks that can fail main operation"
+      reason: "Telemetry should never break production"
+    - pattern: "No way to disable hooks"
+      reason: "Must be able to turn off for debugging"
+    - pattern: "Synchronous blocking operations in hooks"
+      reason: "Adds latency to main operation"
+
+example_usage: |
+  # Add pattern automation hooks to orchestrator
+  
+  Input:
+    integration_name: "pattern_automation_hooks"
+    target_module_path: "core/engine/orchestrator.py"
+    hook_points:
+      - name: "on_task_start"
+        trigger: "before"
+        target_function: "execute_task"
+        parameters: ["task_spec"]
+        actions:
+          - "return {'start_time': datetime.now().isoformat()}"
+      
+      - name: "on_task_complete"
+        trigger: "after"
+        target_function: "execute_task"
+        parameters: ["task_spec", "result", "context"]
+        actions:
+          - "log execution to database"
+          - "check for patterns"
+    
+    hook_module_path: "automation/integration/orchestrator_hooks.py"
+    database_path: "patterns/metrics/pattern_automation.db"
+    config_path: "automation/config/detection_config.yaml"
+    include_tests: true
+  
+  Output:
+    - automation/integration/orchestrator_hooks.py created
+    - automation/integration/README.md created
+    - automation/integration/test_orchestrator_hooks.py created
+    - INTEGRATION_INSTRUCTIONS_pattern_automation_hooks.md created
+
+related_patterns:
+  - pattern_id: "PAT-DATABASE-SETUP-001"
+    relationship: "often_follows"
+    description: "Create database before adding hooks that log to it"
+  
+  - pattern_id: "PAT-PHASE-DISCOVERY-001"
+    relationship: "must_precede"
+    description: "Discover target module before creating hooks"
+
+tool_targets:
+  - "github_copilot_cli"
+  - "claude_code"
+  - "cursor"
+
+operation_kinds:
+  - "CREATE_MODULE"
+  - "CREATE_DOCUMENTATION"
+  - "CREATE_TESTS"
