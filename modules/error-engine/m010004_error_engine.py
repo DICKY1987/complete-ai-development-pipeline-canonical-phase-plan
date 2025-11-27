@@ -4,9 +4,9 @@ import json
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
-from modules.error_engine.m010004_pipeline_engine import PipelineEngine
-from modules.error_engine.m010004_plugin_manager import PluginManager
-from modules.error_engine.m010004_file_hash_cache import FileHashCache
+from .m010004_pipeline_engine import PipelineEngine
+from .m010004_plugin_manager import PluginManager
+from .m010004_file_hash_cache import FileHashCache
 from error.shared.utils.types import PluginIssue
 from .error_context import ErrorPipelineContext
 
@@ -89,3 +89,13 @@ def run_error_pipeline(
     }
 
     return report
+
+
+class ErrorEngine:
+    """Minimal wrapper to align with legacy import expectations."""
+
+    def run(self, python_files, powershell_files, ctx: ErrorPipelineContext):
+        return run_error_pipeline(list(python_files), list(powershell_files), ctx)
+
+
+__all__ = ["run_error_pipeline", "ErrorEngine"]

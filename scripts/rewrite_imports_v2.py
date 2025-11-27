@@ -44,19 +44,26 @@ def build_conversion_map(inventory: dict) -> Dict[str, str]:
         # Convert to Python import format
         module_import_name = module_id.replace('-', '_')
         new_module_path = f"modules.{module_import_name}"
-        
-        # Map source directory path
+
+        # Base import paths to rewrite to module-level
+        base_paths = set()
+        # From source directory (e.g., modules/core-state -> modules.core-state/core_state)
         source_parts = Path(source_dir).parts
         if source_parts:
-            old_import_path = '.'.join(source_parts)
-            conversion_map[old_import_path] = new_module_path
-            
-            # Also map file-level imports from this module to module level
-            # e.g., core.state.db -> modules.core_state
+            base_paths.add('.'.join(source_parts))
+        base_paths.add(f"modules.{module_id}")  # modules.core-engine
+        base_paths.add(f"modules.{module_import_name}")  # modules.core_engine
+        # Legacy section-based imports (core.state, error.engine, etc.)
+        section_parts = module_id.split('-', 1)
+        if len(section_parts) == 2:
+            base_paths.add('.'.join(section_parts))
+
+        # Map base paths and their file-level imports to module-level
+        for base_path in base_paths:
+            conversion_map[base_path] = new_module_path
             for file_path in module.get('files', []):
                 file_stem = Path(file_path).stem
-                old_file_import = f"{old_import_path}.{file_stem}"
-                conversion_map[old_file_import] = new_module_path
+                conversion_map[f"{base_path}.{file_stem}"] = new_module_path
     
     return conversion_map
 

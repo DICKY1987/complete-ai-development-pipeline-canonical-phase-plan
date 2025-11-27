@@ -1,0 +1,35 @@
+# Pattern Automation Configuration
+# Created: 2025-11-27
+
+version: "1.0.0"
+
+# Feature flags
+automation_enabled: true
+auto_approve_high_confidence: true
+
+# Detection thresholds
+detection:
+  min_similar_executions: 3
+  similarity_threshold: 0.75
+  lookback_days: 30
+  auto_approval_confidence: 0.75
+
+# Database
+database:
+  path: "patterns/metrics/pattern_automation.db"
+
+# Output
+output:
+  drafts_dir: "patterns/drafts"
+  reports_dir: "patterns/reports"
+
+# Anti-pattern detection
+anti_patterns:
+  enabled: true
+  min_occurrences: 3
+
+# File pattern mining
+file_patterns:
+  enabled: true
+  time_window_hours: 24
+  min_similar_files: 3

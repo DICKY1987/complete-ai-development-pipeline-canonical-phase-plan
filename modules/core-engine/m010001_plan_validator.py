@@ -10,8 +10,8 @@ from dataclasses import dataclass, field
 from enum import Enum
 from typing import Any, Dict, List
 
-from modules.core_planning.m010002_parallelism_detector import ParallelismProfile, detect_parallel_opportunities
-from modules.core_state.m010003_bundles import WorkstreamBundle, build_dependency_graph, detect_cycles
+from modules.core_planning import ParallelismProfile, detect_parallel_opportunities
+from modules.core_state import WorkstreamBundle, build_dependency_graph, detect_cycles
 
 
 class ValidationMode(Enum):
@@ -164,7 +164,7 @@ def validate_phase_plan(
     
     # File scope validation
     try:
-        from modules.core_state.m010003_bundles import detect_filescope_overlaps
+        from modules.core_state import detect_filescope_overlaps
         overlaps = detect_filescope_overlaps(bundles)
         if overlaps:
             # overlaps is {file_path: [ws_ids]} - find pairs

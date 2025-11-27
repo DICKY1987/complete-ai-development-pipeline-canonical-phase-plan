@@ -1,0 +1,7 @@
+name: .claude
+purpose: Local Claude workspace settings for this repository.
+contents:
+  - file: settings.local.json
+    purpose: Machine-specific assistant configuration; do not commit secrets here.
+usage: Adjust settings locally to tune assistant behavior; regenerate if tooling changes.
+status: active

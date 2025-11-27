@@ -1,0 +1,5 @@
+"""Compatibility wrapper for AST utilities."""
+
+from modules.core_ast.parser import ASTParser
+
+__all__ = ["ASTParser"]

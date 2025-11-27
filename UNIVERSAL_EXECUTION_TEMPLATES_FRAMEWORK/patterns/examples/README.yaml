@@ -1,0 +1,11 @@
+name: examples
+purpose: Reference examples for each pattern, including generated outputs and glossary assets.
+subdirectories:
+  - name: atomic_create (and other pattern-named folders)
+    purpose: Pattern-specific example inputs and outputs.
+  - name: generated_docs
+    purpose: Consolidated generated documentation samples.
+  - name: glossary
+    purpose: Glossary-related artifacts and exports.
+usage: Explore pattern-specific folders to see expected inputs/outputs before executing patterns.
+status: active

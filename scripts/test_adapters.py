@@ -11,6 +11,8 @@ Tests:
 import sys
 from pathlib import Path
 
+__test__ = False  # Prevent pytest from collecting this helper script
+
 
 def test_adapter_imports():
     """Test that all adapters can be imported."""

@@ -1,0 +1,1 @@
+Phase 0 complete: guard checklist and pattern selection recorded.

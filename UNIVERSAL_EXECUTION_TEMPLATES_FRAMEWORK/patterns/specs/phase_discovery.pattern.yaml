@@ -1,0 +1,306 @@
+# Pattern: Phase Discovery
+# Pattern ID: PAT-PHASE-DISCOVERY-001
+# Version: 1.0.0
+# Created: 2025-11-27
+# Category: discovery
+# Use Case: Locate key modules/files in repository structure
+# Time Savings: 80% (20 min → 4 min)
+
+pattern_id: "PAT-PHASE-DISCOVERY-001"
+name: "phase_discovery"
+version: "1.0.0"
+category: "discovery"
+status: "active"
+
+metadata:
+  created: "2025-11-27"
+  last_updated: "2025-11-27"
+  author: "UET Framework Team"
+  proven_uses: 0
+  time_savings_vs_manual: "80%"
+  estimated_duration_seconds: 240  # 4 minutes
+
+intent: |
+  Systematically discover the location of key modules, files, and directories
+  in a repository to understand the codebase structure before making changes.
+  
+  This pattern enforces:
+  - Systematic search with glob/grep patterns
+  - Document findings in structured format
+  - Validate import paths and module structure
+  - Create reusable path mapping
+
+applicability:
+  when_to_use:
+    - Starting work in unfamiliar repository
+    - Before integrating new components
+    - Validating expected module structure
+    - Creating documentation of codebase layout
+  when_not_to_use:
+    - Repository structure is well-known
+    - Working on isolated pattern system
+    - Only modifying single known file
+  
+  constraints:
+    max_search_depth: 4
+    document_findings: true
+    validate_imports: true
+
+inputs:
+  repository_root:
+    type: "string"
+    required: true
+    description: "Absolute path to repository root"
+    example: "C:\\Projects\\MyApp"
+  
+  search_targets:
+    type: "array"
+    required: true
+    description: "List of modules/files to locate"
+    items:
+      type: "object"
+      required: ["name", "search_patterns"]
+      properties:
+        name:
+          type: "string"
+          description: "Descriptive name for what we're searching for"
+          example: "orchestrator"
+        search_patterns:
+          type: "array"
+          description: "Glob patterns to find the target"
+          items:
+            type: "string"
+          example: ["*orchestrator*.py", "*executor*.py"]
+        required:
+          type: "boolean"
+          default: true
+          description: "Whether this target must be found"
+        validation:
+          type: "string"
+          description: "Optional validation command to run"
+          example: "python -c 'from core.orchestrator import Orchestrator'"
+  
+  output_doc_path:
+    type: "string"
+    required: true
+    description: "Path for documentation of findings"
+    example: "PATTERN_AUTOMATION_PATHS.md"
+  
+  max_depth:
+    type: "integer"
+    default: 3
+    description: "Maximum directory depth to search"
+
+steps:
+  - id: "search_targets"
+    description: "Search for each target using glob patterns"
+    tools: ["glob", "grep"]
+    operation_kind: "SEARCH_FILES"
+    
+    for_each: "search_targets"
+    actions:
+      - tool: "glob"
+        pattern: "{{search_pattern}}"
+        path: "{{repository_root}}"
+      - tool: "powershell"
+        command: |
+          Get-ChildItem "{{repository_root}}" -Recurse `
+            -Include {{search_patterns}} -Depth {{max_depth}} `
+            | Select-Object Name, Directory, FullName
+    
+    outputs:
+      - name: "found_files"
+        type: "array"
+        description: "List of matching files for each target"
+  
+  - id: "validate_imports"
+    description: "Validate that found modules can be imported"
+    operation_kind: "VALIDATE_IMPORTS"
+    
+    for_each: "found_files"
+    condition: "validation_command exists"
+    actions:
+      - tool: "powershell"
+        command: "{{validation_command}}"
+        expect_exit_code: 0
+    
+    outputs:
+      - name: "validation_results"
+        type: "object"
+        description: "Import validation results per target"
+  
+  - id: "analyze_structure"
+    description: "Analyze directory structure around found files"
+    operation_kind: "ANALYZE_STRUCTURE"
+    
+    actions:
+      - tool: "powershell"
+        command: |
+          Get-ChildItem "{{repository_root}}" -Directory -Depth 1 `
+            | Where-Object {$_.Name -notlike ".*"} `
+            | Select-Object Name, FullName
+  
+  - id: "document_findings"
+    description: "Create structured documentation of discoveries"
+    operation_kind: "CREATE_DOCUMENTATION"
+    
+    actions:
+      - tool: "create"
+        path: "{{output_doc_path}}"
+        content: |
+          # Repository Structure Discovery
+          
+          **Generated:** {{timestamp}}
+          **Repository:** {{repository_root}}
+          
+          ## Discovered Modules
+          
+          {{#each search_targets}}
+          ### {{name}}
+          
+          **Status:** {{#if found}}✅ Found{{else}}❌ Not Found{{/if}}
+          
+          {{#if found}}
+          **Location:** `{{found_path}}`
+          **Import Path:** `{{import_path}}`
+          
+          {{#if validation_passed}}
+          **Validation:** ✅ Import successful
+          {{else}}
+          **Validation:** ⚠️ Import failed
+          {{/if}}
+          {{/if}}
+          
+          {{/each}}
+          
+          ## Directory Structure
+          
+          ```
+          {{directory_tree}}
+          ```
+          
+          ## Import Examples
+          
+          ```python
+          {{#each search_targets}}
+          {{#if import_path}}
+          # {{name}}
+          from {{import_path}} import {{module_name}}
+          {{/if}}
+          {{/each}}
+          ```
+          
+          ## Next Steps
+          
+          {{#if all_required_found}}
+          ✅ All required modules found - proceed with integration
+          {{else}}
+          ⚠️ Missing required modules:
+          {{#each missing_targets}}
+          - {{name}}: {{search_patterns}}
+          {{/each}}
+          {{/if}}
+
+outputs:
+  discovery_doc:
+    type: "file"
+    path: "{{output_doc_path}}"
+    description: "Markdown documentation of discovered structure"
+  
+  module_paths:
+    type: "object"
+    description: "Mapping of module names to file paths"
+    schema:
+      type: "object"
+      additionalProperties:
+        type: "object"
+        properties:
+          path:
+            type: "string"
+          import_path:
+            type: "string"
+          validation_passed:
+            type: "boolean"
+  
+  all_required_found:
+    type: "boolean"
+    description: "Whether all required targets were found"
+
+verification:
+  ground_truth:
+    - condition: "output_doc_path exists"
+      description: "Discovery documentation created"
+    - condition: "all required targets found OR documented as missing"
+      description: "All search targets processed"
+  
+  validation_commands:
+    - name: "check_doc_exists"
+      command: "Test-Path {{output_doc_path}}"
+      expect: "True"
+    
+    - name: "validate_doc_content"
+      command: "Get-Content {{output_doc_path}} | Select-String 'Repository Structure Discovery'"
+      expect: "match found"
+
+anti_patterns:
+  avoid:
+    - pattern: "Manual exploration without documentation"
+      reason: "Discoveries are lost, must re-discover later"
+    - pattern: "Searching entire drive instead of repository"
+      reason: "Slow and returns false positives"
+    - pattern: "Assuming standard structure without verification"
+      reason: "Leads to import errors and failed integrations"
+
+example_usage: |
+  # Discover orchestrator and database modules
+  
+  Input:
+    repository_root: "C:\\Projects\\AI-Pipeline"
+    search_targets:
+      - name: "orchestrator"
+        search_patterns: ["*orchestrator*.py", "*executor*.py"]
+        validation: "python -c 'from core.orchestrator import Orchestrator'"
+      - name: "database"
+        search_patterns: ["db.py", "*database*.py", "*.db"]
+        required: true
+      - name: "error_engine"
+        search_patterns: ["*error*engine*.py"]
+        required: false
+    output_doc_path: "PATTERN_AUTOMATION_PATHS.md"
+    max_depth: 3
+  
+  Output:
+    - PATTERN_AUTOMATION_PATHS.md created
+    - module_paths: {
+        "orchestrator": {
+          "path": "core/engine/orchestrator.py",
+          "import_path": "core.engine.orchestrator",
+          "validation_passed": true
+        },
+        "database": {
+          "path": "core/state/db.py",
+          "import_path": "core.state.db",
+          "validation_passed": true
+        }
+      }
+    - all_required_found: true
+
+related_patterns:
+  - pattern_id: "PAT-ATOMIC-CREATE-001"
+    relationship: "often_precedes"
+    description: "Discovery precedes file creation"
+  
+  - pattern_id: "PAT-REFACTOR-PATCH-001"
+    relationship: "often_precedes"
+    description: "Must discover before refactoring"
+
+tool_targets:
+  - "github_copilot_cli"
+  - "claude_code"
+  - "cursor"
+
+operation_kinds:
+  - "SEARCH_FILES"
+  - "VALIDATE_IMPORTS"
+  - "ANALYZE_STRUCTURE"
+  - "CREATE_DOCUMENTATION"

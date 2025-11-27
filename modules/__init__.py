@@ -5,7 +5,7 @@ All 33 modules organized with ULID-based file naming.
 
 Import from module level:
     from modules.core_state import get_connection  # ✅
-    from modules.core_state.010003_db import get_connection  # ❌ (won't work)
+    # Legacy ULID-named files are internal; import via package alias instead.
 
 Module organization:
 - Core: core-state, core-engine, core-planning, core-ast
@@ -61,3 +61,46 @@ __all__ = [
     # Specifications
     "specifications_tools",
 ]
+
+# Register underscore-friendly aliases for hyphenated module directories.
+import importlib.util
+import importlib.abc
+import sys
+from pathlib import Path
+
+_modules_dir = Path(__file__).parent
+_alias_map = {
+    d.name.replace("-", "_"): d
+    for d in _modules_dir.iterdir()
+    if d.is_dir() and not d.name.startswith("_") and d.name != "__pycache__"
+}
+
+
+class _HyphenModuleFinder(importlib.abc.MetaPathFinder):
+    """Resolve modules.<alias> to hyphenated directories under modules/."""
+
+    def find_spec(self, fullname, path=None, target=None):
+        prefix = __name__ + "."
+        if not fullname.startswith(prefix):
+            return None
+        remainder = fullname[len(prefix) :]
+        alias = remainder.split(".", 1)[0]
+        subdir = _alias_map.get(alias)
+        if not subdir:
+            return None
+        init_path = subdir / "__init__.py"
+        if not init_path.exists():
+            return None
+        # Only handle package-level import; let package __init__ manage submodules.
+        if "." in remainder:
+            return None
+        return importlib.util.spec_from_file_location(
+            fullname,
+            init_path,
+            submodule_search_locations=[str(subdir)],
+        )
+
+
+_finder = _HyphenModuleFinder()
+if not any(isinstance(f, _HyphenModuleFinder) for f in sys.meta_path):
+    sys.meta_path.insert(0, _finder)

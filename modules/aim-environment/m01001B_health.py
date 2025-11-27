@@ -21,7 +21,7 @@ from pathlib import Path
 from typing import Optional, List, Dict, Any
 from datetime import datetime, timezone
 
-from modules.aim_environment.m01001B_exceptions import HealthCheckError
+from modules.aim_environment import HealthCheckError
 
 
 @dataclass
@@ -145,7 +145,7 @@ class HealthMonitor:
             HealthCheck result
         """
         try:
-            from modules.aim_registry.m01001C_config_loader import get_config_loader
+            from modules.aim_registry import get_config_loader
             
             loader = get_config_loader()
             registry = loader.get_registry()
@@ -213,7 +213,7 @@ class HealthMonitor:
             HealthCheck result
         """
         try:
-            from modules.aim_environment.m01001B_secrets import get_secrets_manager
+            from modules.aim_environment import get_secrets_manager
             
             manager = get_secrets_manager()
             vault_path = manager.vault_path
@@ -255,7 +255,7 @@ class HealthMonitor:
             HealthCheck result
         """
         try:
-            from modules.aim_registry.m01001C_config_loader import get_config_loader
+            from modules.aim_registry import get_config_loader
             
             loader = get_config_loader()
             config = loader.load(validate=False)
@@ -330,7 +330,7 @@ class HealthMonitor:
             List of required command names
         """
         try:
-            from modules.aim_registry.m01001C_config_loader import get_config_loader
+            from modules.aim_registry import get_config_loader
             
             loader = get_config_loader()
             env = loader.get_environment()

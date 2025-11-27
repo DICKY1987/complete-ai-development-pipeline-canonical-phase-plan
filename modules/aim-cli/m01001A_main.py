@@ -60,8 +60,8 @@ def status():
     
     Shows system health and configuration summary.
     """
-    from modules.aim_environment.m01001B_health import HealthMonitor
-    from modules.aim_registry.m01001C_config_loader import load_config
+    from modules.aim_environment import HealthMonitor
+    from modules.aim_registry import load_config
     
     console.print("\n[bold cyan]AIM+ System Status[/bold cyan]\n")
     
@@ -140,10 +140,10 @@ def setup(all: bool, tools: bool, sync: bool, manager: str, dry_run: bool):
         aim setup --dry-run --all  # Preview what would be done
     """
     import asyncio
-    from modules.aim_registry.m01001C_config_loader import ConfigLoader
-    from modules.aim_environment.m01001B_installer import ToolInstaller
-    from modules.aim_environment.m01001B_version_control import VersionControl
-    from modules.aim_environment.m01001B_health import HealthMonitor
+    from modules.aim_registry import ConfigLoader
+    from modules.aim_environment import ToolInstaller
+    from modules.aim_environment import VersionControl
+    from modules.aim_environment import HealthMonitor
     
     try:
         console.print("\n[bold cyan]AIM+ Environment Setup[/bold cyan]\n")
@@ -245,8 +245,8 @@ def status():
     
     Shows system health and configuration summary.
     """
-    from modules.aim_environment.m01001B_health import HealthMonitor
-    from modules.aim_registry.m01001C_config_loader import load_config
+    from modules.aim_environment import HealthMonitor
+    from modules.aim_registry import load_config
     
     console.print("\n[bold cyan]AIM+ System Status[/bold cyan]\n")
     

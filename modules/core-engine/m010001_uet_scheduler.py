@@ -268,3 +268,7 @@ def create_task_from_spec(spec: Dict[str, Any]) -> Task:
             'outputs': spec.get('outputs', [])
         }
     )
+
+# Backwards compatibility alias used by other modules
+UETScheduler = ExecutionScheduler
+

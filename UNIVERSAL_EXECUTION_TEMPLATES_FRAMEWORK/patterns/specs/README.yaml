@@ -1,0 +1,10 @@
+name: specs
+purpose: Canonical pattern specifications and supporting design docs.
+files:
+  - PATTERN_INDEX backups and schema: PATTERN_INDEX.yaml plus backups and schema JSON.
+  - *.pattern.yaml: Individual pattern contracts (atomic_create, batch_create, self_heal, etc.).
+  - PAT-PATCH-001_patch_lifecycle_management.md: Patch lifecycle guidance.
+  - PAT-SEARCH-* docs: Deep directory search and README audit specs.
+  - EXEC-00*-*.md: Execution design records (doc ID registration, index builder, worktree workflow).
+usage: Treat YAML specs as source of truth for executors, schemas, and tests.
+status: active

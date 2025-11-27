@@ -143,7 +143,7 @@ class HealthCheck:
             Health check result
         """
         try:
-            from modules.core_state.m010003_db import get_connection
+            from modules.core_state import get_connection
             
             conn = get_connection()
             cursor = conn.cursor()
@@ -169,7 +169,7 @@ class HealthCheck:
             Health check result
         """
         try:
-            from modules.core_state.m010003_db import get_connection
+            from modules.core_state import get_connection
             
             conn = get_connection()
             cursor = conn.execute("""

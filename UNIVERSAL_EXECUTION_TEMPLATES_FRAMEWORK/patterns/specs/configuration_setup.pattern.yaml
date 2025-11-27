@@ -1,0 +1,523 @@
+# Pattern: Configuration Setup
+# Pattern ID: PAT-CONFIG-SETUP-001
+# Version: 1.0.0
+# Created: 2025-11-27
+# Category: infrastructure
+# Use Case: Create configuration files with validation
+# Time Savings: 70% (30 min → 9 min)
+
+pattern_id: "PAT-CONFIG-SETUP-001"
+name: "configuration_setup"
+version: "1.0.0"
+category: "infrastructure"
+status: "active"
+
+metadata:
+  created: "2025-11-27"
+  last_updated: "2025-11-27"
+  author: "UET Framework Team"
+  proven_uses: 0
+  time_savings_vs_manual: "70%"
+  estimated_duration_seconds: 540  # 9 minutes
+
+intent: |
+  Create configuration files (YAML/JSON/TOML) with validation, documentation,
+  and type-safe loading code.
+  
+  This pattern enforces:
+  - Schema validation for config files
+  - Type-safe loading functions
+  - Default values documented
+  - Example configurations provided
+
+applicability:
+  when_to_use:
+    - Adding new configurable feature
+    - Creating application settings
+    - Setting up threshold/parameter files
+    - Externalizing hardcoded values
+  when_not_to_use:
+    - Secrets/credentials (use secrets management)
+    - One-time setup values (use constants)
+    - Frequently changing runtime data (use database)
+  
+  constraints:
+    must_have_defaults: true
+    must_validate_syntax: true
+    must_document_options: true
+
+inputs:
+  config_name:
+    type: "string"
+    required: true
+    description: "Name of configuration"
+    example: "detection_config"
+  
+  config_format:
+    type: "string"
+    required: true
+    enum: ["yaml", "json", "toml"]
+    default: "yaml"
+    description: "Configuration file format"
+  
+  config_path:
+    type: "string"
+    required: true
+    description: "Path where config file will be created"
+    example: "automation/config/detection_config.yaml"
+  
+  settings:
+    type: "array"
+    required: true
+    description: "List of configuration settings"
+    items:
+      type: "object"
+      required: ["key", "type", "default"]
+      properties:
+        key:
+          type: "string"
+          description: "Setting key (dot-notation for nested)"
+          example: "detection.min_similar_executions"
+        type:
+          type: "string"
+          enum: ["string", "integer", "float", "boolean", "array", "object"]
+        default:
+          description: "Default value"
+        description:
+          type: "string"
+          description: "What this setting controls"
+        validation:
+          type: "object"
+          description: "Validation rules"
+          properties:
+            min:
+              type: "number"
+            max:
+              type: "number"
+            pattern:
+              type: "string"
+            enum:
+              type: "array"
+        required:
+          type: "boolean"
+          default: false
+  
+  create_loader:
+    type: "boolean"
+    default: true
+    description: "Generate Python/PowerShell config loader code"
+  
+  loader_language:
+    type: "string"
+    enum: ["python", "powershell", "both"]
+    default: "python"
+    condition: "create_loader == true"
+
+steps:
+  - id: "generate_config_file"
+    description: "Create configuration file with all settings"
+    operation_kind: "CREATE_CONFIG"
+    
+    actions:
+      - tool: "create"
+        path: "{{config_path}}"
+        content: |
+          {{#if config_format == 'yaml'}}
+          # {{config_name | titleCase}} Configuration
+          # Created: {{timestamp}}
+          # Format: YAML
+          
+          version: "1.0.0"
+          
+          {{#each settings}}
+          # {{description}}
+          {{#if validation}}
+          # Validation: {{#if validation.min}}min={{validation.min}}{{/if}}{{#if validation.max}} max={{validation.max}}{{/if}}{{#if validation.enum}} enum={{validation.enum}}{{/if}}
+          {{/if}}
+          # Type: {{type}}
+          # Default: {{default}}
+          {{key | yamlPath}}: {{default | yamlValue}}
+          
+          {{/each}}
+          {{/if}}
+          
+          {{#if config_format == 'json'}}
+          {
+            "_meta": {
+              "name": "{{config_name}}",
+              "created": "{{timestamp}}",
+              "version": "1.0.0"
+            },
+            {{#each settings}}
+            "{{key}}": {{default | jsonValue}}{{#unless @last}},{{/unless}}
+            {{/each}}
+          }
+          {{/if}}
+    
+    outputs:
+      - name: "config_file_path"
+        type: "string"
+  
+  - id: "generate_schema"
+    description: "Create JSON Schema for validation"
+    operation_kind: "CREATE_SCHEMA"
+    
+    actions:
+      - tool: "create"
+        path: "{{config_path | replaceExt '.schema.json'}}"
+        content: |
+          {
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "title": "{{config_name | titleCase}} Configuration",
+            "description": "Schema for {{config_path}}",
+            "type": "object",
+            "required": [{{#each settings}}{{#if required}}"{{key}}"{{#unless @last}}, {{/unless}}{{/if}}{{/each}}],
+            "properties": {
+              {{#each settings}}
+              "{{key}}": {
+                "type": "{{type}}",
+                "description": "{{description}}",
+                "default": {{default | jsonValue}}
+                {{#if validation}}
+                {{#if validation.min}},"minimum": {{validation.min}}{{/if}}
+                {{#if validation.max}},"maximum": {{validation.max}}{{/if}}
+                {{#if validation.pattern}},"pattern": "{{validation.pattern}}"{{/if}}
+                {{#if validation.enum}},"enum": {{validation.enum | jsonValue}}{{/if}}
+                {{/if}}
+              }{{#unless @last}},{{/unless}}
+              {{/each}}
+            }
+          }
+    
+    outputs:
+      - name: "schema_file_path"
+        type: "string"
+  
+  - id: "generate_loader_python"
+    description: "Create Python config loader"
+    operation_kind: "CREATE_LOADER"
+    
+    condition: "create_loader == true && (loader_language == 'python' || loader_language == 'both')"
+    
+    actions:
+      - tool: "create"
+        path: "{{config_path | dirname}}/config_loader.py"
+        content: |
+          """Configuration loader for {{config_name}}
+          
+          Type-safe configuration loading with validation.
+          Generated: {{timestamp}}
+          """
+          
+          from pathlib import Path
+          from typing import Any, Dict
+          {{#if config_format == 'yaml'}}
+          import yaml
+          {{/if}}
+          {{#if config_format == 'json'}}
+          import json
+          {{/if}}
+          
+          
+          class {{config_name | pascalCase}}:
+              """Type-safe configuration for {{config_name}}."""
+              
+              def __init__(self, config_path: str = None):
+                  if config_path is None:
+                      config_path = Path(__file__).parent / "{{config_path | basename}}"
+                  
+                  self.config_path = Path(config_path)
+                  self._load()
+              
+              def _load(self):
+                  """Load and validate configuration."""
+                  if not self.config_path.exists():
+                      raise FileNotFoundError(f"Config not found: {self.config_path}")
+                  
+                  with open(self.config_path) as f:
+                      {{#if config_format == 'yaml'}}
+                      self._config = yaml.safe_load(f)
+                      {{/if}}
+                      {{#if config_format == 'json'}}
+                      self._config = json.load(f)
+                      {{/if}}
+                  
+                  self._validate()
+              
+              def _validate(self):
+                  """Validate configuration values."""
+                  {{#each settings}}
+                  {{#if validation}}
+                  # Validate {{key}}
+                  value = self.{{key | pythonAttr}}
+                  {{#if validation.min}}
+                  if value < {{validation.min}}:
+                      raise ValueError(f"{{key}} must be >= {{validation.min}}, got {value}")
+                  {{/if}}
+                  {{#if validation.max}}
+                  if value > {{validation.max}}:
+                      raise ValueError(f"{{key}} must be <= {{validation.max}}, got {value}")
+                  {{/if}}
+                  {{#if validation.enum}}
+                  if value not in {{validation.enum | repr}}:
+                      raise ValueError(f"{{key}} must be one of {{validation.enum}}, got {value}")
+                  {{/if}}
+                  {{/if}}
+                  {{/each}}
+              
+              {{#each settings}}
+              @property
+              def {{key | pythonAttr}}(self) -> {{type | pythonType}}:
+                  """{{description}}
+                  
+                  Default: {{default}}
+                  {{#if validation}}
+                  Validation: {{#if validation.min}}min={{validation.min}}{{/if}}{{#if validation.max}} max={{validation.max}}{{/if}}
+                  {{/if}}
+                  """
+                  return self._config.get("{{key}}", {{default | repr}})
+              
+              {{/each}}
+              
+              def to_dict(self) -> Dict[str, Any]:
+                  """Export configuration as dictionary."""
+                  return self._config.copy()
+          
+          
+          # Singleton instance
+          _instance = None
+          
+          def get_config(config_path: str = None) -> {{config_name | pascalCase}}:
+              """Get or create config instance."""
+              global _instance
+              if _instance is None:
+                  _instance = {{config_name | pascalCase}}(config_path)
+              return _instance
+    
+    outputs:
+      - name: "loader_python_path"
+        type: "string"
+  
+  - id: "generate_loader_powershell"
+    description: "Create PowerShell config loader"
+    operation_kind: "CREATE_LOADER"
+    
+    condition: "create_loader == true && (loader_language == 'powershell' || loader_language == 'both')"
+    
+    actions:
+      - tool: "create"
+        path: "{{config_path | dirname}}/Load-Config.ps1"
+        content: |
+          # Configuration loader for {{config_name}}
+          # Created: {{timestamp}}
+          
+          function Load-{{config_name | pascalCase}} {
+              param(
+                  [string]$ConfigPath = "{{config_path}}"
+              )
+              
+              if (-not (Test-Path $ConfigPath)) {
+                  throw "Config not found: $ConfigPath"
+              }
+              
+              {{#if config_format == 'yaml'}}
+              # Load YAML (requires PowerShell-Yaml module)
+              $config = Get-Content $ConfigPath -Raw | ConvertFrom-Yaml
+              {{/if}}
+              {{#if config_format == 'json'}}
+              # Load JSON
+              $config = Get-Content $ConfigPath -Raw | ConvertFrom-Json
+              {{/if}}
+              
+              # Validate
+              {{#each settings}}
+              {{#if validation}}
+              {{#if validation.min}}
+              if ($config.{{key}} -lt {{validation.min}}) {
+                  throw "{{key}} must be >= {{validation.min}}"
+              }
+              {{/if}}
+              {{#if validation.max}}
+              if ($config.{{key}} -gt {{validation.max}}) {
+                  throw "{{key}} must be <= {{validation.max}}"
+              }
+              {{/if}}
+              {{/if}}
+              {{/each}}
+              
+              return $config
+          }
+  
+  - id: "create_examples"
+    description: "Create example configurations"
+    operation_kind: "CREATE_EXAMPLES"
+    
+    actions:
+      - tool: "create"
+        path: "{{config_path}}.example"
+        content: |
+          # Example: {{config_name}}
+          # Copy this file to {{config_path | basename}} and customize
+          
+          {{#each settings}}
+          # {{description}}
+          # Example value: {{default}}
+          {{key}}: {{default | yamlValue}}
+          
+          {{/each}}
+  
+  - id: "create_readme"
+    description: "Document configuration options"
+    operation_kind: "CREATE_DOCUMENTATION"
+    
+    actions:
+      - tool: "create"
+        path: "{{config_path | dirname}}/README_CONFIG.md"
+        content: |
+          # {{config_name | titleCase}} Configuration
+          
+          **File:** `{{config_path}}`  
+          **Format:** {{config_format | upper}}  
+          **Schema:** `{{config_path | replaceExt '.schema.json'}}`
+          
+          ## Settings
+          
+          {{#each settings}}
+          ### `{{key}}`
+          
+          {{description}}
+          
+          - **Type:** `{{type}}`
+          - **Default:** `{{default}}`
+          {{#if required}}
+          - **Required:** Yes
+          {{/if}}
+          {{#if validation}}
+          - **Validation:**
+            {{#if validation.min}}  - Minimum: {{validation.min}}{{/if}}
+            {{#if validation.max}}  - Maximum: {{validation.max}}{{/if}}
+            {{#if validation.enum}}  - Allowed values: {{validation.enum}}{{/if}}
+          {{/if}}
+          
+          {{/each}}
+          
+          ## Usage
+          
+          {{#if create_loader}}
+          ### Python
+          
+          ```python
+          from {{config_path | dirname | importPath}}.config_loader import get_config
+          
+          config = get_config()
+          {{#each settings}}
+          {{key | pythonAttr}} = config.{{key | pythonAttr}}
+          {{/each}}
+          ```
+          
+          {{#if loader_language == 'powershell' || loader_language == 'both'}}
+          ### PowerShell
+          
+          ```powershell
+          . {{config_path | dirname}}/Load-Config.ps1
+          $config = Load-{{config_name | pascalCase}}
+          {{#each settings}}
+          ${{key | replaceAll '.' '_'}} = $config.{{key}}
+          {{/each}}
+          ```
+          {{/if}}
+          {{/if}}
+          
+          ## Validation
+          
+          Validate configuration file:
+          
+          ```bash
+          # JSON Schema validation
+          ajv validate -s {{config_path | replaceExt '.schema.json'}} -d {{config_path}}
+          ```
+
+outputs:
+  config_file:
+    type: "file"
+    path: "{{config_path}}"
+    description: "Configuration file"
+  
+  schema_file:
+    type: "file"
+    path: "{{config_path | replaceExt '.schema.json'}}"
+    description: "JSON Schema for validation"
+  
+  loader_python:
+    type: "file"
+    path: "{{config_path | dirname}}/config_loader.py"
+    condition: "create_loader && (loader_language == 'python' || loader_language == 'both')"
+    description: "Python configuration loader"
+  
+  loader_powershell:
+    type: "file"
+    path: "{{config_path | dirname}}/Load-Config.ps1"
+    condition: "create_loader && (loader_language == 'powershell' || loader_language == 'both')"
+    description: "PowerShell configuration loader"
+  
+  example_file:
+    type: "file"
+    path: "{{config_path}}.example"
+    description: "Example configuration"
+  
+  readme:
+    type: "file"
+    path: "{{config_path | dirname}}/README_CONFIG.md"
+    description: "Configuration documentation"
+
+verification:
+  ground_truth:
+    - condition: "config file exists and is valid YAML/JSON"
+      description: "Configuration file created"
+    - condition: "schema file exists"
+      description: "JSON Schema created"
+    - condition: "loader can import and load config"
+      description: "Loader works"
+  
+  validation_commands:
+    - name: "check_syntax"
+      command: "python -c 'import yaml; yaml.safe_load(open(\"{{config_path}}\"))'"
+      condition: "config_format == 'yaml'"
+      expect: "no errors"
+    
+    - name: "validate_schema"
+      command: "ajv validate -s {{config_path | replaceExt '.schema.json'}} -d {{config_path}}"
+      expect: "valid"
+    
+    - name: "test_loader"
+      command: "python -c 'from {{config_path | dirname | importPath}}.config_loader import get_config; c = get_config(); print(\"OK\")'"
+      condition: "create_loader && loader_language == 'python'"
+      expect: "OK"
+
+anti_patterns:
+  avoid:
+    - pattern: "Hardcoded configuration in code"
+      reason: "Cannot change without code modification"
+    - pattern: "No default values"
+      reason: "Breaks on missing config"
+    - pattern: "No validation"
+      reason: "Invalid values cause runtime errors"
+    - pattern: "Undocumented settings"
+      reason: "Users don't know what options exist"
+
+related_patterns:
+  - pattern_id: "PAT-INTEGRATION-HOOK-001"
+    relationship: "often_used_with"
+    description: "Config often created for hook behavior"
+
+tool_targets:
+  - "github_copilot_cli"
+  - "claude_code"
+  - "cursor"
+
+operation_kinds:
+  - "CREATE_CONFIG"
+  - "CREATE_SCHEMA"
+  - "CREATE_LOADER"
+  - "CREATE_EXAMPLES"
+  - "CREATE_DOCUMENTATION"

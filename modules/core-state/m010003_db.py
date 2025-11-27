@@ -6,7 +6,7 @@ import sqlite3
 from pathlib import Path
 from typing import Any, Dict, Optional
 
-from modules.error_engine.m010004_error_context import ErrorPipelineContext
+from modules.error_engine import ErrorPipelineContext
 from . import db_sqlite
 
 
@@ -118,6 +118,19 @@ def record_error_report(ctx: ErrorPipelineContext, report: Dict[str, Any], step_
     p.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
     return p
 
+# UET compatibility layer
+from .m010003_uet_db_adapter import Database
+
+
+__all__ = [
+    "get_connection",
+    "init_db",
+    "get_error_context",
+    "save_error_context",
+    "record_error_report",
+    "Database",
+]
+
 
 def record_ai_attempt(ctx: ErrorPipelineContext, attempt: Dict[str, Any]) -> None:
     ctx.record_ai_attempt(attempt)
@@ -135,40 +148,28 @@ def record_ai_attempt(ctx: ErrorPipelineContext, attempt: Dict[str, Any]) -> Non
 # ----------------------
 
 # Re-export CRUD operations so callers can import `db` consistently
-from .crud import (  # noqa: E402
-    create_run,
-    get_run,
-    update_run_status,
-    list_runs,
-    create_workstream,
-    get_workstream,
-    get_workstreams_for_run,
-    update_workstream_status,
-    record_step_attempt,
-    get_step_attempts,
-    record_error,
-    get_errors,
-    record_event,
-    get_events,
-)
-
-
 # ----------------------
 # Phase I: Event helpers for monitoring
 # ----------------------
 
 def get_recent_events(limit: int = 20, db_path: Optional[str] = None) -> list[dict]:
     """Get recent events for monitoring."""
+    from .m010003_crud import get_events
+
     return get_events(limit=limit, db_path=db_path)
 
 
 def get_all_events(db_path: Optional[str] = None) -> list[dict]:
     """Get all events."""
+    from .m010003_crud import get_events
+
     return get_events(limit=10000, db_path=db_path)
 
 
 def get_events_since(last_event_id: int, db_path: Optional[str] = None) -> list[dict]:
     """Get events since a specific ID."""
+    from .m010003_crud import get_events
+
     conn = get_connection(db_path)
     cur = conn.cursor()
     
