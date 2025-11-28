@@ -1,0 +1,8 @@
+Defaulting to user installation because normal site-packages is not writeable
+Requirement already satisfied: pytest in /home/runner/.local/lib/python3.12/site-packages (6.2.5)
+Requirement already satisfied: attrs>=19.2.0 in /usr/lib/python3/dist-packages (from pytest) (23.2.0)
+Requirement already satisfied: iniconfig in /home/runner/.local/lib/python3.12/site-packages (from pytest) (2.3.0)
+Requirement already satisfied: packaging in /usr/lib/python3/dist-packages (from pytest) (24.0)
+Requirement already satisfied: pluggy<2.0,>=0.12 in /home/runner/.local/lib/python3.12/site-packages (from pytest) (1.6.0)
+Requirement already satisfied: py>=1.8.2 in /home/runner/.local/lib/python3.12/site-packages (from pytest) (1.11.0)
+Requirement already satisfied: toml in /home/runner/.local/lib/python3.12/site-packages (from pytest) (0.10.2)
