@@ -177,12 +177,22 @@ def _check_resource_leaks(
 
 
 def _is_in_with_statement(lines: List[str], line_num: int) -> bool:
-    """Check if a line is inside a with statement."""
-    # Simple heuristic: check if the line or previous lines start with 'with'
+    """Check if a line is inside a with statement.
+    
+    Uses indentation-based heuristic: if a 'with' statement is found
+    in the previous lines and the target line has greater indentation,
+    it's likely inside the with block.
+    """
+    target_line = lines[line_num - 1] if line_num <= len(lines) else ""
+    target_indent = len(target_line) - len(target_line.lstrip())
+    
     for i in range(max(0, line_num - 5), line_num):
-        if lines[i].strip().startswith("with "):
-            # Check indentation
-            return True
+        line = lines[i]
+        if line.strip().startswith("with "):
+            with_indent = len(line) - len(line.lstrip())
+            # Target line should be more indented than the 'with' line
+            if target_indent > with_indent:
+                return True
     return False
 
 

@@ -130,6 +130,25 @@ HANDLING_PATTERNS = {
     ],
 }
 
+# Pre-compile regex patterns for efficiency
+_COMPILED_HANDLING_PATTERNS: Dict[str, List[re.Pattern]] = {}
+
+
+def _get_compiled_patterns() -> Dict[str, List[re.Pattern]]:
+    """Get compiled regex patterns (cached for efficiency).
+    
+    Compiles patterns once on first call for better performance
+    when checking multiple files or seams.
+    """
+    global _COMPILED_HANDLING_PATTERNS
+    if not _COMPILED_HANDLING_PATTERNS:
+        for check_name, patterns in HANDLING_PATTERNS.items():
+            _COMPILED_HANDLING_PATTERNS[check_name] = [
+                re.compile(pattern, re.IGNORECASE)
+                for pattern in patterns
+            ]
+    return _COMPILED_HANDLING_PATTERNS
+
 
 def identify_integration_seams(file_path: Path) -> List[IntegrationSeam]:
     """Identify integration points in a Python file.
@@ -191,11 +210,15 @@ def _extract_imports(tree: ast.Module) -> Set[str]:
 
 
 def _check_handling_exists(source: str, check_name: str) -> bool:
-    """Check if a specific type of handling exists in the source."""
-    patterns = HANDLING_PATTERNS.get(check_name, [])
+    """Check if a specific type of handling exists in the source.
+    
+    Uses pre-compiled patterns for efficiency when checking multiple files.
+    """
+    compiled = _get_compiled_patterns()
+    patterns = compiled.get(check_name, [])
     
     for pattern in patterns:
-        if re.search(pattern, source, re.IGNORECASE):
+        if pattern.search(source):
             return True
     
     return False

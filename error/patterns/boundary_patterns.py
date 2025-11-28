@@ -305,7 +305,15 @@ def _generate_test_suggestion(param_name: str, annotation: Optional[ast.expr]) -
     """Generate a test case suggestion for boundary testing."""
     type_str = "Any"
     if annotation:
-        type_str = ast.unparse(annotation) if hasattr(ast, "unparse") else str(annotation)
+        # Use ast.unparse for Python 3.9+, fallback to readable representation
+        if hasattr(ast, "unparse"):
+            type_str = ast.unparse(annotation)
+        elif isinstance(annotation, ast.Name):
+            type_str = annotation.id
+        elif isinstance(annotation, ast.Constant):
+            type_str = str(annotation.value)
+        else:
+            type_str = annotation.__class__.__name__
     
     return f"""
 def test_{param_name}_boundary_values():

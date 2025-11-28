@@ -184,12 +184,21 @@ class PatternAnalyzer:
         else:
             files = list(dir_path.glob(file_pattern))
         
+        # Directories and patterns to skip during analysis
+        skip_patterns = ["__pycache__", ".pytest_cache", ".git"]
+        test_patterns = ["test_", "_test.py", "tests/"]
+        
         for file_path in files:
-            # Skip test files and __pycache__
-            if "__pycache__" in str(file_path):
+            path_str = str(file_path)
+            
+            # Skip cache directories and version control
+            if any(skip in path_str for skip in skip_patterns):
                 continue
-            if "test_" in file_path.name and "test_runner" not in file_path.name:
-                continue
+            
+            # Skip test files (but not plugin test_runner)
+            if any(pattern in path_str for pattern in test_patterns):
+                if "test_runner" not in file_path.name:
+                    continue
             
             result = self.analyze_file(file_path)
             results.append(result)

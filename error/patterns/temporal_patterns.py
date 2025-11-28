@@ -42,7 +42,7 @@ TEMPORAL_PATTERNS = {
         "description": "Datetime operations without timezone awareness",
         "patterns": [
             r"datetime\.now\(\)(?!\.astimezone)",
-            r"datetime\.utcnow\(\)",  # utcnow is deprecated
+            r"datetime\.utcnow\(\)",  # Deprecated in Python 3.12+
             r"datetime\(.*\)(?!.*tzinfo)",
         ],
         "severity": PatternSeverity.MAJOR,
