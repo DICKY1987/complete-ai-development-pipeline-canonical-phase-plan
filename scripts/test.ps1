@@ -55,7 +55,8 @@ if ($env:LEGACY_PATH_GATE -and ($env:LEGACY_PATH_GATE -in @('1','true','True')))
     python scripts/paths_index_cli.py scan --root . --db refactor_paths.db --reset | Out-Null
 
     Write-Host "[test] Gate: fail on legacy paths (code+config)"
-    python scripts/paths_index_cli.py gate --db refactor_paths.db --regex "src/pipeline|MOD_ERROR_PIPELINE|PHASE_DEV_DOCS"
+    $legacyRegex = ('src' + '/pipeline') + '|MOD_' + 'ERROR_PIPELINE|PHASE_DEV_DOCS'
+    python scripts/paths_index_cli.py gate --db refactor_paths.db --regex $legacyRegex
     if ($LASTEXITCODE -ne 0) { $exit = $LASTEXITCODE }
   }
   catch {

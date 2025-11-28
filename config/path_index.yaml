@@ -25,9 +25,9 @@ paths:
 
   error_docs:
     operating_contract:
-      path: "MOD_ERROR_PIPELINE/ERROR_Operating Contract.txt"
+      path: "archive/2025-11-26_developer/2025-11/error_legacy/ERROR_Operating Contract.txt"
       section: "error"
-      description: "Operating contract for error pipeline"
+      description: "Operating contract for error pipeline (archived legacy copy)"
 
   aider:
     workstream_template:

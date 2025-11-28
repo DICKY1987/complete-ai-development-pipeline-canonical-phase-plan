@@ -1,0 +1,417 @@
+Here’s a concrete **phase plan with named execution patterns** that pulls together everything we’ve been talking about: real-time pattern detection in the orchestrator/CLI, AUTO-001..008, and your old automation YAMLs.
+
+I’ll structure it so you can *lift patterns into PATTERN_DOC_SUITE right away*.
+
+---
+
+# PHASE_PLAN_PATTERN_EXECUTION_V1
+
+Goal:
+Turn your system into a **pattern-first orchestrator** where:
+
+* Every CLI/orchestrator step goes through pattern routing
+* Unpatterned steps are logged into AUTO-001..008
+* Existing automation (merge, docs, GitHub flows) is surfaced as **first-class patterns**
+
+Phases:
+
+1. Foundation & inventory
+2. Orchestrator pattern-first execution
+3. Policy & automation wiring (merge → pattern)
+4. Legacy workflows → execution patterns
+5. AUTO-001..008 activation & feedback loops
+6. UX & observability
+
+---
+
+## Phase 1 – Foundation & Inventory
+
+**Objective:** Make the current state of patterns, operation kinds, and automation **explicit and machine-readable** so orchestration changes don’t guess.
+
+### PAT-SCAN-PATTERN-REGISTRY-001 – Pattern registry inventory
+
+* **Operation kind:** `OPK-REGISTRY-SCAN`
+* **Trigger:** Manual / CI on `patterns/**` changes
+* **Inputs:**
+
+  * `patterns/registry/PATTERN_INDEX.yaml`
+  * `patterns/registry/OPERATION_KIND_REGISTRY.yaml`
+  * `patterns/registry/PATTERN_ROUTING.yaml`
+* **Actions:**
+
+  * Parse all three registry files
+  * Generate:
+
+    * `patterns/.state/pattern_registry_summary.json`
+    * `patterns/.state/operation_kind_usage.json` (which operation_kinds exist, how many patterns each)
+* **Outputs:**
+
+  * Machine-readable inventory used by later phases (especially Phase 2–4)
+* **Doc suite (target):**
+
+  * Spec: `patterns/specs/scan_pattern_registry.pattern.yaml`
+  * Schema: `patterns/schemas/scan_pattern_registry.schema.json`
+  * Executor: `patterns/executors/scan_pattern_registry_executor.py`
+  * Tests: `patterns/tests/test_scan_pattern_registry_executor.py`
+
+---
+
+### PAT-SCAN-AUTO-FEATURES-001 – Automation feature inventory (AUTO-001..008)
+
+* **Operation kind:** `OPK-AUTO-SCAN`
+* **Inputs:** Your AUTO-001..008 specs from `PATTERN_AUTOMATION_MASTER_PLAN` (wherever that lives)
+* **Actions:**
+
+  * Extract all AUTO-00X definitions
+  * Emit `patterns/.state/automation_features.json` with:
+
+    * id (AUTO-001..008)
+    * description
+    * inputs
+    * expected outputs
+    * linked tables (`execution_logs`, `pattern_candidates`, etc.)
+* **Outputs:** Single source of truth for automation features
+
+---
+
+## Phase 2 – Orchestrator Pattern-First Execution
+
+**Objective:** Make the orchestrator the **enforcer** of “pattern first, raw second” for every step.
+
+### PAT-ORCH-PATTERN-ROUTER-INIT-001 – Pattern router wiring
+
+* **Operation kind:** `OPK-ORCH-ROUTER-INIT`
+* **Trigger:** Orchestrator startup
+* **Actions:**
+
+  * Implement `PatternRouter` in `core/engine/orchestrator.py`:
+
+    * Load `PATTERN_ROUTING.yaml` & `PATTERN_INDEX.yaml`
+    * Provide `resolve_pattern(operation_kind, context)` → `pattern_id | None`
+    * Provide `get_pattern_executor_path(pattern_id)` → executor path
+* **Outputs:**
+
+  * Router instance available as `self.pattern_router` in orchestrator
+
+---
+
+### PAT-ORCH-STEP-WRAP-EXECUTION-001 – Step execution wrapper
+
+* **Operation kind:** `OPK-ORCH-STEP-EXECUTE`
+* **Trigger:** Every step attempt
+* **Actions:**
+
+  * Refactor orchestrator:
+
+    * Original logic moved to `_execute_step_raw(step, step_attempt_id, …)`
+    * New wrapper `_execute_step_with_patterns(step, step_attempt_id, …)`:
+
+      1. Read `operation_kind` from `step.metadata.operation_kind`
+      2. Call `PatternRouter.resolve_pattern`
+      3. If a `pattern_id` exists → `_execute_pattern(pattern_id, …)`
+      4. Else → fall back to `_execute_step_raw` and `_log_unpatterned_execution`
+* **Outputs:**
+
+  * All step executions now go through a pattern check path
+
+---
+
+### PAT-ORCH-PATTERN-EXECUTE-001 – Pattern executor bridge
+
+* **Operation kind:** `OPK-PATTERN-EXECUTE`
+* **Actions:**
+
+  * Implement `_execute_pattern(pattern_id, step, step_attempt_id, …)`:
+
+    * Look up `executor_path` via `pattern_router`
+    * Call `pattern_executor.execute_pattern(...)` with:
+
+      * `pattern_id`
+      * `executor_path`
+      * `step`/`context`
+    * Emit `pattern.executed` events via `pattern_events.py`
+* **Outputs:**
+
+  * Unified bridge from orchestrator → pattern executors
+* **Doc suite target:**
+
+  * Spec: `patterns/specs/orch_execute_pattern.pattern.yaml`
+  * Executor: `core/engine/pattern_executor.py` (referenced)
+
+---
+
+### PAT-ORCH-UNPATTERNED-LOG-001 – Unpatterned execution logging
+
+* **Operation kind:** `OPK-PATTERN-MISSING-LOG`
+* **Actions:**
+
+  * Implement `_log_unpatterned_execution(operation_kind, step, result)`:
+
+    * Emit `pattern.missing` event to `pattern_events.py`
+    * Insert a row into `execution_logs` with `used_pattern=false`
+    * Optionally append to `.state/pattern-automation.jsonl`
+* **Outputs:**
+
+  * Structured record of every time the CLI/orchestrator runs without a pattern
+  * Input data for AUTO-001..008
+
+---
+
+## Phase 3 – Policy & Automation Wiring (Merge → Pattern)
+
+**Objective:** Promote your **merge policy & automation** into the pattern system and mirror their structure for patterns.
+
+### PAT-POLICY-IMPORT-MERGE-001 – Import merge policy as pattern policy
+
+* **Operation kind:** `OPK-POLICY-MERGE-IMPORT`
+* **Inputs:** `merge-policy.yaml`
+* **Actions:**
+
+  * Copy/transform into:
+
+    * `patterns/automation/pattern-policy.merge.yaml`
+  * Preserve:
+
+    * `weighted_resolution`
+    * `branch_priority`
+    * `path_strategies`
+    * `verification`
+    * `safety_limits`
+    * `quarantine_routing`
+* **Outputs:**
+
+  * Pattern-level policy doc for merge operation_kinds
+* **Resulting behavior:**
+
+  * Merge patterns can declare `policy_ref: patterns/automation/pattern-policy.merge.yaml`
+
+---
+
+### PAT-AUTO-IMPORT-MERGE-001 – Import merge automation as pattern automation
+
+* **Operation kind:** `OPK-AUTO-MERGE-IMPORT`
+* **Inputs:** `merge-automation.yaml`
+* **Actions:**
+
+  * Convert into `patterns/automation/pattern-automation.merge.yaml`:
+
+    * Map `tools` → pattern tools
+    * Map `merge_queue` → queue config for merge patterns
+    * Map `audit.path` → reused by pattern execution logs
+    * Map `notifications` → pattern failure routing
+* **Outputs:**
+
+  * Automation config that pattern executors can read instead of hardcoding behavior
+
+---
+
+### PAT-CI-MERGE-TRAIN-PATTERN-001 – Merge train as CI executor pattern
+
+* **Operation kind:** `OPK-MERGE-TRAIN`
+* **Inputs:** `merge-train.yml`
+* **Actions:**
+
+  * Create pattern doc suite:
+
+    * Spec: `patterns/specs/merge_train.pattern.yaml`
+    * Schema & tests: standard PATTERN_DOC_SUITE structure
+    * Executor references:
+
+      * Local: `scripts/AutoMerge-Workstream.ps1` (or similar)
+      * CI: `.github/workflows/merge-train.yml` as “remote executor”
+  * Register in `PATTERN_INDEX.yaml`
+  * Route from `OPERATION_KIND_REGISTRY`:
+
+    * `operation_kind: OPK-MERGE-TRAIN` → `pattern_id: PAT-MERGE-TRAIN-001` in `PATTERN_ROUTING.yaml`
+* **Outputs:**
+
+  * Fully patternized merge train, callable from orchestrator
+
+---
+
+## Phase 4 – Legacy Workflows → First-Class Execution Patterns
+
+**Objective:** Convert your “old idea” workflows into reusable execution patterns.
+
+### PAT-DOCS-VALIDATION-001 – Docs validation pattern
+
+* **Operation kind:** `OPK-DOCS-VALIDATE`
+* **Inputs:** `docs-validation.yml`
+* **Actions:**
+
+  * Pattern spec describing “docs validation”:
+
+    * Run doc coverage + freshness scripts
+  * Executor:
+
+    * Local: Python scripts (`check_doc_coverage.py`, `check_doc_freshness.py`)
+    * CI: `.github/workflows/docs-validation.yml`
+  * Register & route via registry
+* **Outputs:** CLI and CI can both call docs validation via pattern
+
+---
+
+### PAT-GH-ISSUE-AUTO-001 – GitHub issue automation pattern
+
+* **Operation kind:** `OPK-GH-ISSUE-AUTO`
+* **Inputs:** `GITHUB_ISSUE_AUTOMATION.yaml`
+* **Actions:**
+
+  * Lift current YAML into a proper pattern spec with:
+
+    * `doc_id`, `pattern_id`, `role: spec`
+    * Inputs: repo, labels, time windows
+    * Steps: fetch, triage, verify, summarize, create issues
+  * Create executor:
+
+    * Script that uses GitHub CLI + AI where appropriate
+* **Outputs:** Auto issue triage as a pattern callable by orchestrator/CLI
+
+---
+
+### PAT-GH-PR-REVIEW-001 – GitHub PR review pattern
+
+* **Operation kind:** `OPK-GH-PR-REVIEW`
+* **Inputs:** `GITHUB_PR_REVIEW.yaml`, `PULL_REQUEST_TEMPLATE.md`
+* **Actions:**
+
+  * Pattern spec describing:
+
+    * Pull PR data, run validations, generate structured AI review, optional auto-merge
+  * Use PR template as:
+
+    * `examples/` and guidance for human input structure
+  * Register & route
+* **Outputs:** PR review becomes an execution pattern rather than ad-hoc AI help
+
+---
+
+### PAT-GIT-BRANCH-CLEANUP-001 – Branch cleanup pattern
+
+* **Operation kind:** `OPK-GIT-BRANCH-CLEANUP`
+* **Inputs:** `branch_cleanup.yml`
+* **Actions:**
+
+  * Pattern spec:
+
+    * Weekly job; delete non-protected branches whose head PR is merged
+  * Executor:
+
+    * GitHub workflow as remote executor
+* **Outputs:** Safe branch cleanup as a governed pattern
+
+---
+
+## Phase 5 – AUTO-001..008 Activation & Feedback Loops
+
+**Objective:** Turn unpatterned execution logs into **self-updating pattern coverage**.
+
+### PAT-AUTO-EXECUTION-DETECTOR-001 – AUTO-001 wiring
+
+* **Operation kind:** `OPK-AUTO-DETECT-EXEC-PATTERNS`
+* **Inputs:**
+
+  * `execution_logs` table
+  * `.state/pattern-automation.jsonl`
+  * `pattern-automation.yaml` (new)
+* **Actions:**
+
+  * Implement `scripts/run_pattern_detection.py`:
+
+    * Cluster unpatterned executions by `operation_kind + parameters`
+    * When `min_repetitions` and `similarity_threshold` met:
+
+      * Write `patterns/drafts/*.pattern.yaml`
+      * Append draft entries to `PATTERN_INDEX.yaml` (marked `status: draft`)
+* **Outputs:**
+
+  * Draft patterns for repeated behaviors
+
+---
+
+### PAT-AUTO-SUGGEST-PATTERN-001 – AUTO-006 real-time suggestions
+
+* **Operation kind:** `OPK-AUTO-SUGGEST-PATTERN`
+* **Actions:**
+
+  * Optional interactive layer:
+
+    * In `_execute_step_with_patterns`, call `PatternSuggester` before routing
+    * If confidence high:
+
+      * Use suggested pattern *without* prompting (for fully automatic mode)
+* **Outputs:**
+
+  * Steps begin to use learned patterns even **before** routing YAML is manually updated, depending on policy
+
+---
+
+### PAT-CI-PATTERN-TRAIN-001 – Pattern train workflow
+
+* **Operation kind:** `OPK-CI-PATTERN-TRAIN`
+* **Inputs:**
+
+  * New `.github/workflows/pattern-train.yml`
+* **Actions:**
+
+  * CI job that:
+
+    * Validates pattern registry
+    * Runs detectors (AUTO-001..008) in `--dry-run` mode
+    * Fails/quarantines PRs that break pattern guarantees
+* **Outputs:**
+
+  * Guardrail to keep pattern system healthy as repo evolves
+
+---
+
+## Phase 6 – UX & Observability
+
+**Objective:** Make pattern usage **visible** so you can trust + tune the system.
+
+### PAT-OBS-PATTERN-ACTIVITY-PANEL-001 – Pattern activity view
+
+* **Operation kind:** `OPK-OBS-PATTERN-ACTIVITY`
+* **Inputs:**
+
+  * `execution_logs`
+  * `pattern_events` JSONL stream
+* **Actions:**
+
+  * Expose in UI:
+
+    * For each pattern: executions, success/failure, coverage
+    * For each `operation_kind`: % of executions covered by a pattern
+* **Outputs:**
+
+  * Visual confirmation that “almost everything is using patterns now”
+
+---
+
+### PAT-OBS-UNPATTERNED-ALERTS-001 – Unpatterned activity alerts
+
+* **Operation kind:** `OPK-OBS-UNPATTERNED-ALERT`
+* **Actions:**
+
+  * Queries `execution_logs` for:
+
+    * High-volume unpatterned operations
+    * Operations required by policy to have patterns (`require_pattern_for`)
+  * Sends notifications to owner(s) to:
+
+    * Add pattern
+    * Tune routing
+* **Outputs:**
+
+  * Humans get looped in only where automation hasn’t yet closed gaps
+
+---
+
+## How to use this plan
+
+1. **Start with Phase 2** (orchestrator pattern-first execution) – this is the piece that unlocks everything else.
+2. In parallel, run small parts of **Phase 3 & 4** to “promote” your mature YAML workflows into patterns (merge, docs, GH flows).
+3. Once real-time logging is solid, wire **AUTO-001..008** (Phase 5) so the system starts proposing and drafting new patterns.
+4. Add observability (Phase 6) last, so you can *see* pattern coverage improving over time.
+
+If you want, next I can pick **one** of these patterns (e.g., `PAT-ORCH-STEP-WRAP-EXECUTION-001` or `PAT-DOCS-VALIDATION-001`) and write a **full PATTERN_DOC_SUITE** (spec + schema skeleton + executor stub + tests layout) ready to drop into `UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns`.

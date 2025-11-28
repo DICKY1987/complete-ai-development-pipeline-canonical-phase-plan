@@ -1,0 +1,271 @@
+version: 1
+default_pipe_id: PIPE-26_LEARN_AND_UPDATE_PATTERNS_PROMPTS_CONFIG
+
+# Rules are evaluated in order; first match wins
+rules:
+  # ============================================================================
+  # A. INTAKE AND SPECS (PIPE-01 to PIPE-03)
+  # ============================================================================
+  
+  - name: intake_request
+    pipe_id: PIPE-01_INTAKE_REQUEST
+    match:
+      path_prefix:
+        - "pm/"
+        - "prompting/"
+      file_glob:
+        - "AGENTS.md"
+        - ".ai-context.md"
+        - "AI_SANDBOX/**"
+
+  - name: discover_specs
+    pipe_id: PIPE-02_DISCOVER_RELATED_SPECS
+    match:
+      path_prefix:
+        - "openspec/"
+        - "specifications/content/"
+        - "docs/specs/"
+
+  - name: normalize_requirements
+    pipe_id: PIPE-03_NORMALIZE_REQUIREMENTS
+    match:
+      path_prefix:
+        - "specifications/tools/"
+      file_glob:
+        - "specifications/SPEC_INDEX.yaml"
+
+  # ============================================================================
+  # B. WORKSTREAM AND CONFIG (PIPE-04 to PIPE-07)
+  # ============================================================================
+
+  - name: materialize_workstream
+    pipe_id: PIPE-04_MATERIALIZE_WORKSTREAM_FILE
+    match:
+      path_prefix:
+        - "workstreams/"
+        - "workstreams_uet/"
+      file_glob:
+        - "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/templates/orchestration/workstreams/**"
+
+  - name: validate_workstream_schema
+    pipe_id: PIPE-05_VALIDATE_WORKSTREAM_SCHEMA
+    match:
+      path_prefix:
+        - "schema/"
+      file_glob:
+        - "scripts/validate_workstreams.py"
+        - "docs/state_machines/**"
+
+  - name: resolve_config_cascade
+    pipe_id: PIPE-06_RESOLVE_CONFIG_CASCADE
+    match:
+      path_prefix:
+        - "config/"
+        - ".config/"
+
+  - name: resolve_capabilities_registry
+    pipe_id: PIPE-07_RESOLVE_CAPABILITIES_AND_REGISTRY
+    match:
+      path_prefix:
+        - "registry/"
+        - "capabilities/"
+        - "doc_id/"
+      file_glob:
+        - "MODULES_INVENTORY.yaml"
+        - "modules/**/module.manifest.yaml"
+        - "aim/AIM_INDEX.yaml"
+
+  # ============================================================================
+  # C. PATTERNS AND PLANNING (PIPE-08 to PIPE-12)
+  # ============================================================================
+
+  - name: select_uet_patterns
+    pipe_id: PIPE-08_SELECT_UET_PATTERNS
+    match:
+      path_prefix:
+        - "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/registry/"
+        - "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/specs/"
+      file_glob:
+        - "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/registry/PATTERN_INDEX.yaml"
+
+  - name: specialize_patterns
+    pipe_id: PIPE-09_SPECIALIZE_PATTERNS_WITH_CONTEXT
+    match:
+      path_prefix:
+        - "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/templates/patterns/"
+        - "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/templates/"
+        - "templates/"
+
+  - name: validate_pattern_plan
+    pipe_id: PIPE-10_VALIDATE_PATTERN_PLAN
+    match:
+      path_prefix:
+        - "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/verification/"
+      file_glob:
+        - "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/templates/verification_templates/**"
+
+  - name: build_task_graph
+    pipe_id: PIPE-11_BUILD_TASK_GRAPH_DAG
+    match:
+      path_prefix:
+        - "core/planning/"
+      file_glob:
+        - "dag1.txt"
+        - "dag2.txt"
+
+  - name: persist_plan_state
+    pipe_id: PIPE-12_PERSIST_PLAN_IN_STATE
+    match:
+      path_prefix:
+        - "state/"
+        - ".state/"
+      file_glob:
+        - "core/state/**"
+
+  # ============================================================================
+  # D. WORKSPACE AND SCHEDULING (PIPE-13 to PIPE-15)
+  # ============================================================================
+
+  - name: prepare_worktrees
+    pipe_id: PIPE-13_PREPARE_WORKTREES_AND_CHECKPOINTS
+    match:
+      path_prefix:
+        - ".worktrees/"
+      file_glob:
+        - "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/specs/worktree_lifecycle.pattern.yaml"
+
+  - name: admit_ready_tasks
+    pipe_id: PIPE-14_ADMIT_READY_TASKS_TO_QUEUE
+    match:
+      file_glob:
+        - "core/engine/scheduler*.py"
+        - "core/engine/queue*.py"
+
+  - name: assign_priorities
+    pipe_id: PIPE-15_ASSIGN_PRIORITIES_AND_SLOTS
+    match:
+      file_glob:
+        - "core/engine/priority*.py"
+
+  # ============================================================================
+  # E. EXECUTION AND VALIDATION (PIPE-16 to PIPE-18)
+  # ============================================================================
+
+  - name: route_task_adapter
+    pipe_id: PIPE-16_ROUTE_TASK_TO_TOOL_ADAPTER
+    match:
+      path_prefix:
+        - "aim/"
+      file_glob:
+        - "core/engine/router*.py"
+        - "core/engine/adapter*.py"
+
+  - name: execute_tool
+    pipe_id: PIPE-17_EXECUTE_TOOL_AND_CAPTURE_OUTPUT
+    match:
+      path_prefix:
+        - "core/engine/"
+        - "engine/"
+        - "aider/"
+        - ".claude/"
+        - ".ai/"
+      file_glob:
+        - "ccpm/**"
+
+  - name: post_exec_validation
+    pipe_id: PIPE-18_RUN_POST_EXEC_TESTS_AND_CHECKS
+    match:
+      path_prefix:
+        - "tests/"
+      file_glob:
+        - "scripts/run_tests*.py"
+
+  # ============================================================================
+  # F. ERROR AND RECOVERY (PIPE-19 to PIPE-21)
+  # ============================================================================
+
+  - name: error_plugins_pipeline
+    pipe_id: PIPE-19_RUN_ERROR_PLUGINS_PIPELINE
+    match:
+      path_prefix:
+        - "error/plugins/"
+      file_glob:
+        - "error/ERROR_PLUGIN_INDEX.yaml"
+
+  - name: classify_errors
+    pipe_id: PIPE-20_CLASSIFY_ERRORS_AND_CHOOSE_ACTION
+    match:
+      path_prefix:
+        - "error/engine/"
+
+  - name: autofix_retry_circuit
+    pipe_id: PIPE-21_APPLY_AUTOFIX_RETRY_AND_CIRCUIT_CONTROL
+    match:
+      file_glob:
+        - "config/circuit_breakers.yaml"
+        - "core/engine/circuit*.py"
+        - "core/engine/retry*.py"
+
+  # ============================================================================
+  # G. FINALIZATION AND LEARNING (PIPE-22 to PIPE-26)
+  # ============================================================================
+
+  - name: commit_results
+    pipe_id: PIPE-22_COMMIT_TASK_RESULTS_TO_STATE_AND_MODULES
+    match:
+      path_prefix:
+        - "modules/"
+      file_glob:
+        - "scripts/commit*.py"
+
+  - name: complete_workstream_archive
+    pipe_id: PIPE-23_COMPLETE_WORKSTREAM_AND_ARCHIVE
+    match:
+      path_prefix:
+        - "archive/"
+      file_glob:
+        - "scripts/archive*.py"
+        - "cleanup_reports/**"
+
+  - name: metrics_reports_summaries
+    pipe_id: PIPE-24_UPDATE_METRICS_REPORTS_AND_SUMMARIES
+    match:
+      path_prefix:
+        - "logs/"
+      file_glob:
+        - "*SUMMARY*.md"
+        - "*REPORT*.md"
+        - "*PROGRESS*.md"
+        - "EXECUTION_SUMMARY.md"
+        - "TASK_EXECUTION_SUMMARY.txt"
+
+  - name: surface_gui_tui
+    pipe_id: PIPE-25_SURFACE_TO_GUI_AND_TUI
+    match:
+      path_prefix:
+        - "gui/"
+        - "tui_app/"
+      file_glob:
+        - "GUI*.md"
+        - "GUI*.txt"
+
+  - name: learn_update_patterns
+    pipe_id: PIPE-26_LEARN_AND_UPDATE_PATTERNS_PROMPTS_CONFIG
+    match:
+      path_prefix:
+        - "ai-logs-analyzer/"
+        - "docs/"
+        - "adr/"
+        - "glossary/"
+        - "developer/"
+        - "examples/"
+        - "tools/"
+        - "infra/"
+        - "scripts/"
+      file_glob:
+        - "README.md"
+        - "*.md"
+        - ".gitignore"
+        - ".aiderignore"
+        - ".aiignore"
+        - ".env.example"

@@ -1,0 +1,151 @@
+%%{init: {'theme':'base', 'themeVariables': { 'fontSize':'14px'}}}%%
+graph TB
+    %% Top Layer - User & Scripts
+    subgraph ENTRY["🚪 Entry Layer"]
+        USER["👤 User/Developer"]
+        CLI["💻 CLI Scripts<br/><small>scripts/</small>"]
+    end
+    
+    %% Core Integration Layer
+    subgraph CORE["📦 Core Pipeline (core/)"]
+        direction TB
+        
+        subgraph STATE["💾 State Management (core/state/)"]
+            DB["Database<br/><small>SQLite</small>"]
+            BUNDLES["Bundle Loader"]
+            CRUD["CRUD Ops"]
+            WORKTREE["Git Worktrees"]
+        end
+        
+        subgraph ENGINE["⚙️ Execution Engine (core/engine/)"]
+            ORCHESTRATOR["Orchestrator"]
+            SCHEDULER["Scheduler"]
+            EXECUTOR["Executor"]
+            TOOLS["Tool Profiles"]
+            CB["Circuit Breakers"]
+            RECOVERY["Recovery"]
+        end
+        
+        subgraph PLANNING["📋 Planning (core/planning/)"]
+            PLANNER["Workstream Gen"]
+            ARCHIVE["Archive Utils"]
+        end
+    end
+    
+    %% Error Detection Layer
+    subgraph ERROR["🔍 Error Detection (error/)"]
+        direction TB
+        
+        subgraph ERROR_ENGINE_BOX["⚡ Error Engine (error/engine/)"]
+            ERROR_ENGINE["Error Engine"]
+            STATE_MACHINE["State Machine"]
+            PLUGIN_MGR["Plugin Manager"]
+        end
+        
+        subgraph ERROR_PLUGINS_BOX["🔌 Plugins (error/plugins/)"]
+            PLUGINS_PY["Python Linters"]
+            PLUGINS_JS["JS Linters"]
+            PLUGINS_SEC["Security"]
+            PLUGINS_OTHER["Other Tools"]
+        end
+    end
+    
+    %% External Integration Layer
+    subgraph EXTERNAL["🌐 External Integrations"]
+        direction LR
+        
+        AIM["🎯 AIM<br/><small>AI Model Integration</small>"]
+        AIDER["🤖 Aider<br/><small>AI Code Editor</small>"]
+        PM["📊 PM/CCPM<br/><small>Project Management</small>"]
+        SPEC["📝 Spec Tools<br/><small>Validation</small>"]
+    end
+    
+    %% Configuration & Data Layer
+    subgraph CONFIG_DATA["⚙️ Configuration & Data"]
+        direction LR
+        
+        CONFIG["config/<br/><small>Tool Profiles</small>"]
+        SCHEMA["schema/<br/><small>Schemas</small>"]
+        WORKSTREAMS["workstreams/<br/><small>Bundles</small>"]
+    end
+    
+    %% Legacy Shim Layer
+    subgraph SHIM["⚠️ Backward Compatibility (Deprecated)"]
+        direction LR
+        
+        SHIM_SRC["src/pipeline/*<br/><small>→ core.*</small>"]
+        SHIM_MOD["MOD_ERROR_PIPELINE/*<br/><small>→ error.*</small>"]
+    end
+    
+    %% Connections
+    USER --> CLI
+    CLI --> ORCHESTRATOR
+    CLI --> SCHEDULER
+    CLI --> ERROR_ENGINE
+    
+    %% Core State Dependencies
+    BUNDLES --> DB
+    CRUD --> DB
+    WORKTREE --> DB
+    
+    %% Core Engine Dependencies
+    ORCHESTRATOR --> BUNDLES
+    ORCHESTRATOR --> CRUD
+    ORCHESTRATOR --> EXECUTOR
+    ORCHESTRATOR --> WORKTREE
+    
+    SCHEDULER --> BUNDLES
+    SCHEDULER --> ORCHESTRATOR
+    
+    EXECUTOR --> TOOLS
+    EXECUTOR --> CB
+    EXECUTOR --> RECOVERY
+    EXECUTOR --> CRUD
+    
+    %% Planning Dependencies
+    PLANNER --> BUNDLES
+    ARCHIVE --> CRUD
+    
+    %% Error Engine Dependencies
+    ERROR_ENGINE --> PLUGIN_MGR
+    ERROR_ENGINE --> STATE_MACHINE
+    ERROR_ENGINE --> CRUD
+    
+    PLUGIN_MGR --> PLUGINS_PY
+    PLUGIN_MGR --> PLUGINS_JS
+    PLUGIN_MGR --> PLUGINS_SEC
+    PLUGIN_MGR --> PLUGINS_OTHER
+    
+    %% External Integration Connections
+    EXECUTOR -.-> AIDER
+    EXECUTOR -.-> AIM
+    PLANNER -.-> PM
+    BUNDLES -.-> SPEC
+    
+    %% Configuration Connections
+    TOOLS --> CONFIG
+    BUNDLES --> WORKSTREAMS
+    BUNDLES --> SCHEMA
+    
+    %% Shim Connections (Deprecated)
+    SHIM_SRC -.-> ORCHESTRATOR
+    SHIM_SRC -.-> BUNDLES
+    SHIM_SRC -.-> DB
+    
+    SHIM_MOD -.-> ERROR_ENGINE
+    SHIM_MOD -.-> PLUGIN_MGR
+    
+    %% Styling
+    classDef entryStyle fill:#9B59B6,stroke:#6C3483,stroke-width:3px,color:#fff
+    classDef coreStyle fill:#4A90E2,stroke:#2E5C8A,stroke-width:3px,color:#fff
+    classDef errorStyle fill:#E24A4A,stroke:#8A2E2E,stroke-width:3px,color:#fff
+    classDef externalStyle fill:#50C878,stroke:#2E8A4E,stroke-width:3px,color:#fff
+    classDef configStyle fill:#F39C12,stroke:#D68910,stroke-width:3px,color:#fff
+    classDef shimStyle fill:#95A5A6,stroke:#7F8C8D,stroke-width:2px,stroke-dasharray: 5 5,color:#fff
+    
+    class ENTRY entryStyle
+    class CORE,STATE,ENGINE,PLANNING coreStyle
+    class ERROR,ERROR_ENGINE_BOX,ERROR_PLUGINS_BOX errorStyle
+    class EXTERNAL externalStyle
+    class CONFIG_DATA configStyle
+    class SHIM shimStyle

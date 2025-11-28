@@ -100,12 +100,12 @@ sections:
     risk: low
     notes: phase notes and coordination guides
 
-  - name: mod-error-pipeline
-    target-root: MOD_ERROR_PIPELINE/
+  - name: error
+    target-root: error/
     match:
-      - "MOD_ERROR_PIPELINE/**"
+      - "error/**"
     risk: medium
-    notes: error pipeline modules and docs
+    notes: active error pipeline modules and docs
 
   - name: gui
     target-root: gui/
@@ -156,6 +156,6 @@ mapping-rules:
       openspec: openspec/
       workstreams: workstreams/
       PHASE_DEV_DOCS: PHASE_DEV_DOCS/
-      MOD_ERROR_PIPELINE: MOD_ERROR_PIPELINE/
+      error: error/
       gui: gui/
       sandbox_repos: sandbox_repos/
