@@ -34,6 +34,29 @@ class TaskInfo:
     error_message: Optional[str] = None
 
 
+@dataclass
+class ExecutionInfo:
+    """Information about a pipeline execution."""
+    execution_id: str
+    phase_name: Optional[str]
+    status: str
+    started_at: Optional[datetime]
+    completed_at: Optional[datetime]
+    metadata: Dict[str, Any]
+
+
+@dataclass
+class PatchLedgerEntry:
+    """Patch ledger record for tracking file changes."""
+    patch_id: str
+    execution_id: Optional[str]
+    created_at: Optional[datetime]
+    state: str
+    patch_content: str
+    metadata: Dict[str, Any]
+    files: List[str]
+
+
 class StateBackend(ABC):
     """Abstract backend for state storage."""
     
@@ -52,6 +75,16 @@ class StateBackend(ABC):
         """Get specific task by ID."""
         pass
 
+    @abstractmethod
+    def get_executions(self, limit: int = 50) -> List[ExecutionInfo]:
+        """Get recent executions."""
+        pass
+
+    @abstractmethod
+    def get_patch_ledger(self, limit: int = 50) -> List[PatchLedgerEntry]:
+        """Get recent patch ledger entries."""
+        pass
+
 
 class InMemoryStateBackend(StateBackend):
     """In-memory state backend for testing and development."""
@@ -66,7 +99,7 @@ class InMemoryStateBackend(StateBackend):
             last_update=datetime.now(),
             status="running"
         )
-        
+
         self._tasks = [
             TaskInfo(
                 task_id="task-001",
@@ -94,6 +127,47 @@ class InMemoryStateBackend(StateBackend):
                 error_message="Ruff plugin timeout"
             ),
         ]
+
+        now = datetime.now()
+        self._executions = [
+            ExecutionInfo(
+                execution_id="exec-001",
+                phase_name="PHASE_1",
+                status="completed",
+                started_at=now,
+                completed_at=now,
+                metadata={"owner": "pipeline"}
+            ),
+            ExecutionInfo(
+                execution_id="exec-002",
+                phase_name="PHASE_2",
+                status="running",
+                started_at=now,
+                completed_at=None,
+                metadata={"owner": "pipeline"}
+            ),
+        ]
+
+        self._patches = [
+            PatchLedgerEntry(
+                patch_id="patch-001",
+                execution_id="exec-002",
+                created_at=now,
+                state="validated",
+                patch_content="diff --git a/example.py b/example.py\n+print('hello')",
+                metadata={"files": ["example.py"], "tool": "uet"},
+                files=["example.py"]
+            ),
+            PatchLedgerEntry(
+                patch_id="patch-002",
+                execution_id="exec-002",
+                created_at=now,
+                state="pending",
+                patch_content="# Patch placeholder",
+                metadata={"files": ["placeholder.py"]},
+                files=["placeholder.py"]
+            ),
+        ]
     
     def get_pipeline_summary(self) -> PipelineSummary:
         return self._summary
@@ -106,6 +180,12 @@ class InMemoryStateBackend(StateBackend):
             if task.task_id == task_id:
                 return task
         return None
+
+    def get_executions(self, limit: int = 50) -> List[ExecutionInfo]:
+        return self._executions[:limit]
+
+    def get_patch_ledger(self, limit: int = 50) -> List[PatchLedgerEntry]:
+        return self._patches[:limit]
 
 
 class StateClient:
@@ -143,3 +223,25 @@ class StateClient:
             TaskInfo if found, None otherwise
         """
         return self._backend.get_task(task_id)
+
+    def get_executions(self, limit: int = 50) -> List[ExecutionInfo]:
+        """Get recent executions.
+        
+        Args:
+            limit: Maximum number of executions to return
+            
+        Returns:
+            List of ExecutionInfo objects
+        """
+        return self._backend.get_executions(limit)
+
+    def get_patch_ledger(self, limit: int = 50) -> List[PatchLedgerEntry]:
+        """Get recent patch ledger entries.
+        
+        Args:
+            limit: Maximum number of patch records
+            
+        Returns:
+            List of PatchLedgerEntry objects
+        """
+        return self._backend.get_patch_ledger(limit)

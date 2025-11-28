@@ -3,6 +3,8 @@
 Connects to .worktrees/pipeline_state.db and provides StateBackend implementation.
 """
 
+import ast
+import json
 import sqlite3
 import time
 from datetime import datetime
@@ -10,6 +12,8 @@ from typing import List, Optional
 from pathlib import Path
 
 from tui_app.core.state_client import (
+    ExecutionInfo,
+    PatchLedgerEntry,
     StateBackend,
     PipelineSummary,
     TaskInfo
@@ -29,6 +33,63 @@ class SQLiteStateBackend(StateBackend):
         self.db_path = db_path
         self.max_retries = max_retries
         self._conn = self._connect_with_retry()
+
+    @staticmethod
+    def _parse_timestamp(value: Optional[str]) -> Optional[datetime]:
+        """Parse timestamp string to datetime."""
+        if not value:
+            return None
+        try:
+            return datetime.fromisoformat(value)
+        except ValueError:
+            try:
+                return datetime.strptime(value, "%Y-%m-%d %H:%M:%S")
+            except Exception:
+                return None
+
+    @staticmethod
+    def _parse_metadata(metadata_raw: Optional[str]) -> dict:
+        """Parse metadata JSON or Python dict string safely."""
+        if not metadata_raw:
+            return {}
+        if isinstance(metadata_raw, dict):
+            return metadata_raw
+        try:
+            return json.loads(metadata_raw)
+        except Exception:
+            try:
+                return ast.literal_eval(metadata_raw)
+            except Exception:
+                return {"raw": metadata_raw}
+
+    @staticmethod
+    def _extract_files_from_patch(patch_content: Optional[str], metadata: dict) -> List[str]:
+        """Extract file paths from patch content or metadata."""
+        files: list[str] = []
+        if metadata:
+            meta_files = metadata.get("files")
+            if isinstance(meta_files, list):
+                files.extend(str(f) for f in meta_files)
+
+        if patch_content:
+            for line in patch_content.splitlines():
+                if line.startswith("diff --git"):
+                    parts = line.split()
+                    if len(parts) >= 3:
+                        candidate = parts[2]
+                        files.append(candidate.replace("a/", "", 1))
+                elif line.startswith("--- ") or line.startswith("+++ "):
+                    path = line[4:]
+                    files.append(path.replace("a/", "", 1).replace("b/", "", 1))
+
+        # Preserve order while deduplicating
+        seen = set()
+        unique_files = []
+        for f in files:
+            if f not in seen:
+                unique_files.append(f)
+                seen.add(f)
+        return unique_files
 
     def _connect_with_retry(self) -> sqlite3.Connection:
         """Connect to database with retry logic.
@@ -139,7 +200,7 @@ class SQLiteStateBackend(StateBackend):
         # Get last update time
         cursor.execute("SELECT MAX(started_at) FROM uet_executions")
         last_update_str = cursor.fetchone()[0]
-        last_update = datetime.fromisoformat(last_update_str) if last_update_str else datetime.now()
+        last_update = self._parse_timestamp(last_update_str) or datetime.now()
 
         # Determine overall status
         if running_tasks > 0 or active_workers > 0:
@@ -196,8 +257,8 @@ class SQLiteStateBackend(StateBackend):
                 name=row[1] or f"Task {row[0][:8]}",  # Use task_type as name
                 status=row[2] or "unknown",
                 worker_id=row[3],  # execution_id as worker_id
-                start_time=datetime.fromisoformat(row[4]) if row[4] else None,
-                end_time=datetime.fromisoformat(row[5]) if row[5] else None,
+                start_time=self._parse_timestamp(row[4]),
+                end_time=self._parse_timestamp(row[5]),
                 error_message=None  # Not stored in current schema
             )
             tasks.append(task)
@@ -236,8 +297,8 @@ class SQLiteStateBackend(StateBackend):
             name=row[1] or f"Task {row[0][:8]}",
             status=row[2] or "unknown",
             worker_id=row[3],
-            start_time=datetime.fromisoformat(row[4]) if row[4] else None,
-            end_time=datetime.fromisoformat(row[5]) if row[5] else None,
+            start_time=self._parse_timestamp(row[4]),
+            end_time=self._parse_timestamp(row[5]),
             error_message=None
         )
 
@@ -249,3 +310,73 @@ class SQLiteStateBackend(StateBackend):
     def __del__(self):
         """Cleanup on destruction."""
         self.close()
+
+    def get_executions(self, limit: int = 50) -> List[ExecutionInfo]:
+        """Get recent executions ordered by start time descending."""
+        cursor = self._conn.cursor()
+        cursor.execute(
+            """
+            SELECT
+                execution_id,
+                phase_name,
+                status,
+                started_at,
+                completed_at,
+                metadata
+            FROM uet_executions
+            ORDER BY started_at DESC
+            LIMIT ?
+            """,
+            (limit,),
+        )
+
+        executions: list[ExecutionInfo] = []
+        for row in cursor.fetchall():
+            metadata = self._parse_metadata(row[5])
+            executions.append(
+                ExecutionInfo(
+                    execution_id=row[0],
+                    phase_name=row[1],
+                    status=row[2] or "unknown",
+                    started_at=self._parse_timestamp(row[3]),
+                    completed_at=self._parse_timestamp(row[4]),
+                    metadata=metadata,
+                )
+            )
+        return executions
+
+    def get_patch_ledger(self, limit: int = 50) -> List[PatchLedgerEntry]:
+        """Get recent patch ledger entries ordered by creation time."""
+        cursor = self._conn.cursor()
+        cursor.execute(
+            """
+            SELECT
+                patch_id,
+                execution_id,
+                created_at,
+                state,
+                patch_content,
+                metadata
+            FROM patch_ledger
+            ORDER BY created_at DESC
+            LIMIT ?
+            """,
+            (limit,),
+        )
+
+        patches: list[PatchLedgerEntry] = []
+        for row in cursor.fetchall():
+            metadata = self._parse_metadata(row[5])
+            files = self._extract_files_from_patch(row[4], metadata)
+            patches.append(
+                PatchLedgerEntry(
+                    patch_id=row[0],
+                    execution_id=row[1],
+                    created_at=self._parse_timestamp(row[2]),
+                    state=row[3] or "unknown",
+                    patch_content=row[4] or "",
+                    metadata=metadata,
+                    files=files,
+                )
+            )
+        return patches

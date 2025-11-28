@@ -7,7 +7,7 @@ A Textual-based terminal user interface for monitoring and controlling the AI De
 ### Installation
 
 ```bash
-pip install textual
+pip install -r config/requirements.txt
 ```
 
 ### Running the TUI
@@ -30,9 +30,9 @@ python -m tui_app.main --smoke-test
 | Panel ID | Key Binding | Description |
 |----------|-------------|-------------|
 | `dashboard` | `d` | Pipeline summary and recent tasks |
-| `file_lifecycle` | `f` | File tracking through pipeline stages (skeleton) |
-| `tool_health` | `t` | Error detection tool status (skeleton) |
-| `log_stream` | `l` | Real-time pipeline logs (skeleton) |
+| `file_lifecycle` | `f` | Patch ledger with file/exec state and counters |
+| `tool_health` | `t` | Log-derived tool status grid with last-seen info |
+| `log_stream` | `l` | Live tail of the configured pipeline log file |
 | `pattern_activity` | `p` | Pattern execution timeline and events |
 
 ## Key Bindings
@@ -97,6 +97,10 @@ class MyPanel:
 # Run all TUI tests
 pytest tests/tui_panel_framework -q
 
+# Run backend and TUI smoke integration
+pytest tests/test_sqlite_backend.py -q
+pytest tests/test_tui_integration.py -q
+
 # Run specific test file
 pytest tests/tui_panel_framework/test_panels_smoke.py -v
 ```
@@ -113,5 +117,4 @@ pytest tests/tui_panel_framework/test_panels_smoke.py -v
 - Multi-panel split layouts (horizontal/vertical)
 - Link groups for shared selection context
 - Thin GUI wrapper for visual enhancements
-- Real database backends for state/pattern data
-- Live data refresh and auto-update
+- Background/tray mode for always-on monitoring

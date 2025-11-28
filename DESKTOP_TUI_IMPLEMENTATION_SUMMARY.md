@@ -11,14 +11,17 @@ Successfully implemented a desktop-launchable, real-time monitoring TUI (Termina
 
 ### What Was Delivered
 
-**Phases Completed**: 1-4 (out of 7 planned)
+**Phases Completed**: 1-7 (out of 7 planned)
 
-✅ **Phase 1**: Foundation Setup (Textual dependency)
-✅ **Phase 2**: Real Data Integration (SQLiteStateBackend)
-✅ **Phase 3**: Auto-Refresh Implementation (2-5 second intervals)
-✅ **Phase 4**: Desktop Launcher (Windows shortcut + batch script)
-✅ **Phase 6** (partial): User Documentation
+- Phase 1: Foundation Setup (Textual dependency)
+- Phase 2: Real Data Integration (SQLiteStateBackend)
+- Phase 3: Auto-Refresh Implementation (2-5 second intervals)
+- Phase 4: Desktop Launcher (Windows shortcut + batch script)
+- Phase 5: Panel Completion (Files, Tools, Logs)
+- Phase 6: Testing (integration coverage for TUI + SQLite backend)
+- Phase 7: Visual polish + configurable theme/refresh via `tui_config.yaml`
 
+---
 ---
 
 ## Key Features Implemented
@@ -35,13 +38,15 @@ Successfully implemented a desktop-launchable, real-time monitoring TUI (Termina
 - **Database Schema**: Supports execution tracking, task management, patch ledger
 - **Mock Data Fallback**: `--use-mock-data` flag for testing without database
 
-### 3. Auto-Refresh System ✅
-- **Dashboard Panel**: 2-second refresh interval
-- **Pattern Activity Panel**: 5-second refresh interval
-- **Manual Refresh**: Press 'r' to force immediate update
-- **Last Updated Indicator**: Timestamp showing last refresh on each panel
+### 3. Auto-Refresh System
+- Dashboard Panel: 2-second refresh interval
+- Pattern Activity Panel: 5-second refresh interval
+- File Lifecycle Panel: 3-second refresh interval
+- Tool Health Panel: 4-second refresh interval
+- Log Stream Panel: 3-second refresh interval
+- Manual Refresh: Press "r" to force immediate update
 
-### 4. Fully Functional Panels (2/5) ✅
+### 4. Fully Functional Panels (5/5)
 
 #### Dashboard Panel
 - Pipeline status (IDLE, RUNNING, ERROR)
@@ -52,60 +57,68 @@ Successfully implemented a desktop-launchable, real-time monitoring TUI (Termina
 
 #### Pattern Activity Panel
 - Pattern run timeline (recent 10 runs)
-- Status symbols (✓ completed, ⟳ running, ✗ failed)
+- Status symbols for completed/running/failed runs
 - Progress tracking (percentage)
-- Event details for selected run
+- Event details for selected run (from patch ledger + tasks)
 - Real-time updates every 5 seconds
 
-### 5. Keyboard Navigation ✅
+#### File Lifecycle Panel
+- Patch ledger table with state, execution, created time, files
+- Summary counters for validated/pending/failed patches
+- Execution summary (running vs total)
+- Real-time updates every 3 seconds
+
+#### Tool Health Panel
+- Parses `logs/combined.log` for tool registration and health
+- Status grid with last-seen timestamp and latest message
+- Real-time updates every 4 seconds
+
+#### Log Stream Panel
+- Live tail of configured log file (default `logs/combined.log`)
+- Displays last 60 lines with automatic refresh every 3 seconds
+
+### 5. Keyboard Navigation
 | Key | Action |
 |-----|--------|
 | `q` | Quit |
 | `r` | Refresh |
 | `d` | Dashboard |
-| `f` | Files (skeleton) |
-| `t` | Tools (skeleton) |
-| `l` | Logs (skeleton) |
+| `f` | Files |
+| `t` | Tools |
+| `l` | Logs |
 | `p` | Patterns |
 
 ---
 
-## Files Created (9 new files)
+## Key Files Added/Updated
 
-| File | Purpose | LOC |
-|------|---------|-----|
-| `tui_app/core/sqlite_state_backend.py` | SQLite database backend | 238 |
-| `tui_app/panels/dashboard_panel.py` (modified) | Auto-refresh dashboard | 91 |
-| `tui_app/panels/pattern_activity_panel.py` (modified) | Auto-refresh patterns | 113 |
-| `scripts/launch_tui.bat` | Windows launcher script | 35 |
-| `scripts/create_desktop_shortcut.ps1` | Shortcut generator | 55 |
-| `docs/GUI_QUICK_START.md` | User documentation | 330 |
-| `DESKTOP_TUI_IMPLEMENTATION_SUMMARY.md` | This file | - |
-| **Desktop**: `AI Pipeline TUI.lnk` | Windows shortcut | - |
-
-## Files Modified (3 files)
-
-| File | Changes |
+| File | Purpose |
 |------|---------|
-| `config/requirements.txt` | Added `textual>=0.40.0` |
-| `tui_app/main.py` | SQLiteStateBackend integration, `--use-mock-data` flag, refresh keybinding |
-| `tui_app/panels/dashboard_panel.py` | DashboardWidget with auto-refresh |
-| `tui_app/panels/pattern_activity_panel.py` | PatternActivityWidget with auto-refresh |
+| `tui_app/core/sqlite_state_backend.py` | SQLite database backend with schema bootstrap |
+| `tui_app/panels/file_lifecycle_panel.py` | Patch ledger table + summary view |
+| `tui_app/panels/tool_health_panel.py` | Log-derived tool status grid |
+| `tui_app/panels/log_stream_panel.py` | Live log tail panel |
+| `tui_app/panels/dashboard_panel.py` | Auto-refresh dashboard |
+| `tui_app/panels/pattern_activity_panel.py` | Auto-refresh pattern activity |
+| `tui_app/config/tui_config.yaml` | Theme, refresh rates, log settings |
+| `docs/GUI_QUICK_START.md` | Updated user documentation |
+| `tests/test_sqlite_backend.py` | SQLite backend integration test |
+| `tests/test_tui_integration.py` | Headless TUI smoke test |
 
 ---
-
 ## Implementation Metrics
 
 | Metric | Value |
 |--------|-------|
-| **Total Implementation Time** | ~2 hours |
-| **Phases Completed** | 4 of 7 |
-| **Files Created** | 7 new files |
-| **Files Modified** | 4 files |
-| **Lines of Code Added** | ~900 LOC |
-| **Test Pass Rate** | 26/26 existing tests passing |
-| **Smoke Test** | ✅ Exit code 0 |
+| **Total Implementation Time** | ~3 hours cumulative |
+| **Phases Completed** | 7 of 7 |
+| **Files Added** | 10 key files (panels, config, tests) |
+| **Files Modified** | Core panels, main app, docs |
+| **Lines of Code Added** | ~1,300 LOC (cumulative) |
+| **Tests Added** | Backend + TUI integration smoke tests |
+| **Smoke Test** | Pass (headless launch exits cleanly) |
 
+---
 ---
 
 ## Architecture Overview
@@ -188,24 +201,10 @@ python -m pytest tests/tui_panel_framework -v
 You can now:
 1. **Double-click** the "AI Pipeline TUI" desktop shortcut
 2. **Monitor** pipeline execution in real-time
-3. **Switch** between Dashboard and Pattern Activity panels
-4. **Refresh** manually with 'r' or wait for auto-refresh
+3. **Switch** between all panels (Dashboard, Patterns, Files, Tools, Logs)
+4. **Refresh** manually with 'r' or rely on auto-refresh
 
 ### Future Phases (Optional Enhancements)
-
-#### Phase 5: Panel Completion (1-2 hours)
-- Complete FileLifecyclePanel (file tracking table)
-- Complete ToolHealthPanel (tool status grid)
-- Complete LogStreamPanel (live log tailing)
-
-#### Phase 6: Testing (30 mins)
-- Integration tests (`tests/test_tui_integration.py`)
-- Backend tests (`tests/test_sqlite_backend.py`)
-
-#### Phase 7: Polish (20 mins)
-- Custom color scheme (blues, greens, reds)
-- Status indicators (icons, colors)
-- Configuration file (`tui_app/config/tui_config.yaml`)
 
 #### Phase 8+: Advanced Features (Future)
 - Background service mode
@@ -214,6 +213,7 @@ You can now:
 - Multi-panel layouts (split views)
 - Interactive controls (start/stop jobs)
 
+---
 ---
 
 ## Technical Decisions
@@ -243,41 +243,15 @@ You can now:
 
 ## Deviations from Original Plan
 
-### Deferred to Future
-- **Phase 5** (Panel Completion): Skeleton panels left as-is (FileLifecycle, ToolHealth, LogStream)
-  - **Reason**: MVP achieved without full panel implementations
-  - **Impact**: Low - core monitoring works with Dashboard + Patterns
-
-- **Phase 6** (Testing): Integration tests not created
-  - **Reason**: Existing tests pass, smoke test validates MVP
-  - **Impact**: Low - can add tests later
-
-- **Phase 7** (Polish): Visual polish and config file deferred
-  - **Reason**: Functional MVP prioritized over aesthetics
-  - **Impact**: Low - TUI works, polish is cosmetic
-
-### Accelerated
-- **Phase 4** (Desktop Launcher): Completed fully
-  - Desktop shortcut created successfully
-  - Launcher script works perfectly
-  - User can launch TUI with one click
-
----
+- Phases 5-7 were completed in this update (panels, testing, polish).
+- Remaining work is limited to Phase 8+ enhancements (background/tray/web/dashboard layouts).
 
 ## Known Limitations
 
-1. **Skeleton Panels**: 3 panels (Files, Tools, Logs) are placeholders
-   - Display generic messages
-   - No real data integration
-   - Planned for Phase 5
+1. Background/daemon mode is not implemented (planned for Phase 8).
+2. Pattern data continues to use the in-memory store; SQLite-backed patterns are future work.
+3. Multi-panel layouts and interactive controls are not yet built.
 
-2. **No Configuration File**: Refresh rates hardcoded in panel code
-   - Can't adjust without editing code
-   - `tui_config.yaml` planned for Phase 7
-
-3. **Basic Visual Design**: Uses default Textual colors
-   - Custom color scheme planned for Phase 7
-   - Status indicators could be more prominent
 
 4. **No Error Quarantine UI**: Can't manage quarantined items from TUI
    - Read-only dashboard

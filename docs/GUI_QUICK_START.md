@@ -53,6 +53,9 @@ scripts\launch_tui.bat
 # Start with a specific panel
 python -m tui_app.main --panel pattern_activity
 
+# Dual layout (primary + secondary panel side-by-side)
+python -m tui_app.main --layout dual --secondary-panel log_stream
+
 # Use mock data instead of real database
 python -m tui_app.main --use-mock-data
 
@@ -79,60 +82,43 @@ python -m tui_app.main --smoke-test
 ## Panels Overview
 
 ### Dashboard (Press 'd')
-**Status**: ✅ Fully Implemented
+Status: Implemented
 
-Shows pipeline summary with auto-refresh every 2 seconds:
-- **Pipeline Status**: Current state (IDLE, RUNNING, ERROR)
-- **Task Counts**: Total, Running, Completed, Failed
-- **Active Workers**: Number of active executions
-- **Recent Tasks**: Last 5 tasks with status indicators
-  - 🟢 Green = Completed
-  - 🟡 Yellow = Running
-  - 🔴 Red = Failed
-- **Last Updated**: Timestamp showing last refresh
+Auto-refresh (default 2s) with:
+- Pipeline status (IDLE, RUNNING, ERROR)
+- Task counts: Total, Running, Completed, Failed
+- Active workers and recent tasks with status indicators
+- Last updated timestamp
 
 ### Pattern Activity (Press 'p')
-**Status**: ✅ Fully Implemented
+Status: Implemented
 
-Displays pattern execution timeline with auto-refresh every 5 seconds:
-- **Pattern Runs**: List of recent pattern executions
-  - ✓ Completed (green)
-  - ⟳ Running (yellow)
-  - ✗ Failed (red)
-- **Event Details**: Event log for selected run
-- **Progress Tracking**: Percentage completion for each run
-- **Phase Information**: Current phase for running patterns
+Shows pattern execution timeline (default 5s refresh):
+- Pattern runs with status and progress
+- Event details for the selected run (derived from SQLite patch ledger)
+- Current phase for running patterns
 
 ### File Lifecycle (Press 'f')
-**Status**: ⏳ Skeleton (Minimal implementation)
+Status: Implemented
 
-Will show:
-- Files tracked by pipeline
-- Current state (DISCOVERED, PROCESSING, IN_FLIGHT, etc.)
-- Last updated timestamp
-- Processing tool
-
-*Note: Full implementation pending (Phase 5)*
+- Patch ledger table: patch ID, execution, state, created time, files touched
+- Summary counters for validated, pending, failed patches and running executions
+- Refresh: every 3 seconds (configurable)
 
 ### Tool Health (Press 't')
-**Status**: ⏳ Skeleton (Minimal implementation)
+Status: Implemented
 
-Will show:
-- Tool registry status (aim, aider, codex, etc.)
-- Health indicators
-- Configuration from `gui/ui_settings.yaml`
-
-*Note: Full implementation pending (Phase 5)*
+- Parses `logs/combined.log` for tool registration/health signals
+- Grid: tool name, status (OK/WARN/ERROR), last seen time, latest message
+- Refresh: every 4 seconds (configurable)
 
 ### Log Stream (Press 'l')
-**Status**: ⏳ Skeleton (Minimal implementation)
+Status: Implemented
 
-Will show:
-- Live pipeline logs
-- Orchestrator output
-- Real-time streaming (tail -f style)
+- Live tail of the configured log file
+- Defaults: `logs/combined.log`, last 60 lines
+- Refresh: every 3 seconds (configurable)
 
-*Note: Full implementation pending (Phase 5)*
 
 ---
 
@@ -148,15 +134,17 @@ The TUI connects to real pipeline data by default:
   - `patch_ledger` - Patch tracking
 
 ### Configuration
-- **UI Settings**: `gui/ui_settings.yaml`
+- **TUI Config**: `tui_app/config/tui_config.yaml` (theme, refresh rates, log path)
 - **Tool Modes**: Interactive vs headless configuration
 
-### Auto-Refresh Rates
+### Auto-Refresh Rates (defaults)
 - Dashboard: 2 seconds
 - Pattern Activity: 5 seconds
-- File Lifecycle: 3 seconds (when implemented)
-- Tool Health: 10 seconds (when implemented)
-- Log Stream: 1 second (when implemented)
+- File Lifecycle: 3 seconds
+- Tool Health: 4 seconds
+- Log Stream: 3 seconds
+- Configure via: `tui_app/config/tui_config.yaml`
+
 
 ---
 
@@ -210,14 +198,14 @@ The TUI connects to real pipeline data by default:
 Currently, TUI runs in foreground only. Background service mode planned.
 
 ### Custom Configuration
-*Future feature (Phase 7)*
-Configuration file: `tui_app/config/tui_config.yaml` (planned)
+Configuration file: `tui_app/config/tui_config.yaml`
 
-Will support:
-- Custom refresh intervals
-- Database path override
-- Theme/color scheme
-- Panel visibility
+Supports:
+- Refresh intervals per panel
+- Theme/color palette
+- Log path and tail length
+- Panel defaults and shortcuts
+- Dual layout defaults (secondary panel selection)
 
 ### Testing
 
@@ -226,15 +214,17 @@ Will support:
 python -m tui_app.main --smoke-test
 ```
 
-**Unit Tests**:
+**Panel and client tests**:
 ```bash
 python -m pytest tests/tui_panel_framework -v
 ```
 
-**Integration Tests** (future):
+**Backend + TUI integration**:
 ```bash
+python -m pytest tests/test_sqlite_backend.py -v
 python -m pytest tests/test_tui_integration.py -v
 ```
+
 
 ---
 
@@ -265,30 +255,26 @@ python -m pytest tests/test_tui_integration.py -v
 
 ## What's Next?
 
-### Completed (Phases 1-4)
-- ✅ Textual framework integration
-- ✅ SQLite database backend
-- ✅ Auto-refresh (Dashboard & Pattern Activity)
-- ✅ Desktop shortcut launcher
-- ✅ Real-time monitoring
+### Completed (Phases 1-7)
+- Textual framework integration
+- SQLite database backend
+- Auto-refresh across panels
+- Desktop shortcut launcher
+- File Lifecycle panel
+- Tool Health panel
+- Log Stream panel
+- TUI config + theme polish
+- Integration tests
+- Optional dual-pane layout (primary + secondary panel)
+- Background-friendly launch script (`scripts/run_tui_background.ps1`)
 
-### In Progress (Phase 5)
-- ⏳ Complete File Lifecycle panel
-- ⏳ Complete Tool Health panel
-- ⏳ Complete Log Stream panel
+### Planned (Phase 8+)
+- Background service mode
+- System tray integration
+- Web dashboard (browser-based)
+- Multi-panel layouts (split views)
+- Interactive controls (start/stop jobs)
 
-### Planned (Phases 6-7)
-- 📋 Integration tests
-- 📋 Visual polish (custom color scheme, status indicators)
-- 📋 Configuration file (tui_config.yaml)
-- 📋 Panel resizing and layouts
-
-### Future Enhancements
-- 🔮 Background service mode
-- 🔮 System tray integration
-- 🔮 Web dashboard (browser-based)
-- 🔮 Multi-panel layouts (split views)
-- 🔮 Interactive controls (start/stop jobs)
 
 ---
 

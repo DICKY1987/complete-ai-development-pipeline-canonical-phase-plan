@@ -6,9 +6,11 @@ and events for visualization.
 
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import List, Optional
 from datetime import datetime
 from enum import Enum
+from pathlib import Path
+from typing import List, Optional
+import sqlite3
 
 
 class PatternStatus(Enum):
@@ -188,3 +190,223 @@ class PatternClient:
             List of active PatternRun objects
         """
         return self._store.get_active_patterns()
+
+
+class SQLitePatternStateStore(PatternStateStore):
+    """SQLite-backed pattern state derived from pipeline tables.
+
+    Uses `uet_executions` as pattern runs and `patch_ledger` entries as events.
+    """
+
+    def __init__(self, db_path: str = ".worktrees/pipeline_state.db"):
+        self.db_path = db_path
+        self._conn = sqlite3.connect(db_path, check_same_thread=False)
+        self._conn.row_factory = sqlite3.Row
+        self._ensure_schema()
+
+    def _ensure_schema(self) -> None:
+        """Create required tables if they do not exist (mirrors SQLiteStateBackend)."""
+        cur = self._conn.cursor()
+        cur.execute(
+            """
+            CREATE TABLE IF NOT EXISTS uet_executions (
+                execution_id TEXT PRIMARY KEY,
+                phase_name TEXT,
+                started_at TIMESTAMP,
+                completed_at TIMESTAMP,
+                status TEXT,
+                metadata JSON
+            )
+            """
+        )
+        cur.execute(
+            """
+            CREATE TABLE IF NOT EXISTS uet_tasks (
+                task_id TEXT PRIMARY KEY,
+                execution_id TEXT,
+                task_type TEXT,
+                dependencies JSON,
+                status TEXT,
+                created_at TIMESTAMP,
+                started_at TIMESTAMP,
+                completed_at TIMESTAMP,
+                result JSON,
+                FOREIGN KEY (execution_id) REFERENCES uet_executions(execution_id)
+            )
+            """
+        )
+        cur.execute(
+            """
+            CREATE TABLE IF NOT EXISTS patch_ledger (
+                patch_id TEXT PRIMARY KEY,
+                execution_id TEXT,
+                created_at TIMESTAMP,
+                state TEXT,
+                patch_content TEXT,
+                validation_result JSON,
+                metadata JSON,
+                FOREIGN KEY (execution_id) REFERENCES uet_executions(execution_id)
+            )
+            """
+        )
+        self._conn.commit()
+
+    def _parse_timestamp(self, value: Optional[str]) -> Optional[datetime]:
+        if not value:
+            return None
+        try:
+            return datetime.fromisoformat(value)
+        except Exception:
+            try:
+                return datetime.strptime(value, "%Y-%m-%d %H:%M:%S")
+            except Exception:
+                return None
+
+    def get_recent_runs(self, limit: int = 50) -> List[PatternRun]:
+        cur = self._conn.cursor()
+        cur.execute(
+            """
+            SELECT execution_id, phase_name, status, started_at, completed_at
+            FROM uet_executions
+            ORDER BY COALESCE(started_at, completed_at) DESC
+            LIMIT ?
+            """,
+            (limit,),
+        )
+
+        runs: list[PatternRun] = []
+        for row in cur.fetchall():
+            status = (row["status"] or "pending").lower()
+            status_enum = {
+                "running": PatternStatus.RUNNING,
+                "completed": PatternStatus.COMPLETED,
+                "failed": PatternStatus.FAILED,
+                "cancelled": PatternStatus.CANCELLED,
+                "pending": PatternStatus.PENDING,
+            }.get(status, PatternStatus.PENDING)
+
+            progress = 1.0 if status_enum in (PatternStatus.COMPLETED, PatternStatus.FAILED, PatternStatus.CANCELLED) else 0.6
+            runs.append(
+                PatternRun(
+                    run_id=row["execution_id"],
+                    pattern_id=row["execution_id"],
+                    pattern_name=row["phase_name"] or "Execution",
+                    status=status_enum,
+                    start_time=self._parse_timestamp(row["started_at"]),
+                    end_time=self._parse_timestamp(row["completed_at"]),
+                    progress=progress,
+                    current_phase=row["phase_name"],
+                    error_message=None if status_enum != PatternStatus.FAILED else "Execution reported failure",
+                )
+            )
+        return runs
+
+    def get_run_events(self, run_id: str) -> List[PatternEvent]:
+        cur = self._conn.cursor()
+        events: list[PatternEvent] = []
+
+        # Execution lifecycle
+        cur.execute(
+            """
+            SELECT started_at, completed_at, status
+            FROM uet_executions
+            WHERE execution_id = ?
+            """,
+            (run_id,),
+        )
+        row = cur.fetchone()
+        if row:
+            started_at = self._parse_timestamp(row["started_at"]) or datetime.now()
+            status = (row["status"] or "pending").lower()
+            events.append(
+                PatternEvent(
+                    event_id=f"{run_id}-start",
+                    run_id=run_id,
+                    event_type=PatternEventType.STARTED,
+                    timestamp=started_at,
+                    phase=status,
+                    message="Execution started",
+                )
+            )
+            if row["completed_at"]:
+                events.append(
+                    PatternEvent(
+                        event_id=f"{run_id}-complete",
+                        run_id=run_id,
+                        event_type=PatternEventType.COMPLETED if status != "failed" else PatternEventType.FAILED,
+                        timestamp=self._parse_timestamp(row["completed_at"]) or started_at,
+                        phase=status,
+                        message="Execution completed",
+                    )
+                )
+
+        # Task milestones
+        cur.execute(
+            """
+            SELECT task_id, task_type, status, started_at, completed_at
+            FROM uet_tasks
+            WHERE execution_id = ?
+            ORDER BY COALESCE(started_at, completed_at) ASC
+            """,
+            (run_id,),
+        )
+        for idx, row in enumerate(cur.fetchall(), start=1):
+            status = (row["status"] or "pending").lower()
+            evt_type = PatternEventType.PHASE_STARTED if status in ("pending", "running") else PatternEventType.PHASE_COMPLETED
+            events.append(
+                PatternEvent(
+                    event_id=f"{run_id}-task-{idx}",
+                    run_id=run_id,
+                    event_type=evt_type,
+                    timestamp=self._parse_timestamp(row["started_at"]) or datetime.now(),
+                    phase=row["task_type"],
+                    message=f"Task {row['task_id']} ({row['task_type']}) {status}",
+                )
+            )
+
+        # Patch ledger entries
+        cur.execute(
+            """
+            SELECT created_at, state, patch_id, patch_content
+            FROM patch_ledger
+            WHERE execution_id = ?
+            ORDER BY created_at ASC
+            """,
+            (run_id,),
+        )
+        for idx, row in enumerate(cur.fetchall(), start=1):
+            state = (row["state"] or "").lower()
+            event_type = {
+                "validated": PatternEventType.VALIDATION_PASSED,
+                "failed": PatternEventType.VALIDATION_FAILED,
+                "applied": PatternEventType.COMPLETED,
+            }.get(state, PatternEventType.EXECUTED)
+
+            events.append(
+                PatternEvent(
+                    event_id=f"{run_id}-patch-{idx}",
+                    run_id=run_id,
+                    event_type=event_type,
+                    timestamp=self._parse_timestamp(row["created_at"]) or datetime.now(),
+                    phase=row["state"],
+                    message=f"Patch {row['patch_id']} ({state or 'executed'})",
+                    details={"patch_excerpt": (row["patch_content"] or "")[:80]},
+                )
+            )
+
+        if not events:
+            events.append(
+                PatternEvent(
+                    event_id=f"evt-{run_id}-placeholder",
+                    run_id=run_id,
+                    event_type=PatternEventType.STARTED,
+                    timestamp=datetime.now(),
+                    phase=None,
+                    message="No events recorded for this execution.",
+                    details=None,
+                )
+            )
+        return events
+
+    def get_active_patterns(self) -> List[PatternRun]:
+        return [run for run in self.get_recent_runs() if run.status == PatternStatus.RUNNING]

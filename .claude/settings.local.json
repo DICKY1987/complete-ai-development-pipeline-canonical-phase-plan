@@ -7,7 +7,10 @@
       "Bash(dir:*)",
       "Bash(findstr:*)",
       "Bash(Get-ChildItem -Directory)",
-      "Bash(Select-Object -First 15 Name)"
+      "Bash(Select-Object -First 15 Name)",
+      "Bash(cat:*)",
+      "Bash(sqlite3:*)",
+      "Bash(wmic os get caption:*)"
     ],
     "deny": [],
     "ask": []

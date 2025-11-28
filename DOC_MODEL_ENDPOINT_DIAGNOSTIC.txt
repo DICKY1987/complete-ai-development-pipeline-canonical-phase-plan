@@ -1,0 +1,413 @@
+# DOC_MODEL_ENDPOINT_DIAGNOSTIC
+
+*Instruction document for a CLI / agentic application*
+
+## 1. Context & Problem Statement
+
+You are running inside the repository:
+
+> `C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan`
+
+The project has:
+
+* A **phase plan** for path refactoring (PH01–PH05/PH06).
+* A **SQLite DB** (`refactor_paths.db`) and related specs (`PHASE_PLAN_PATH_REFACTORING.md`).
+* **Execution patterns** and validation templates.
+* **Git Auto-Sync** infrastructure (background commits/pushes).
+* A **GitHub Copilot / AI-driven CLI** used to interpret state and execute plans.
+
+During a recent run, your workflow produced:
+
+* Successful **pre-flight checks** (git, DB, docs, scripts).
+* Multiple **model call failures** with this error:
+
+```text
+Model call failed: {
+  "message": "no endpoints available for this model under your current plan and policies",
+  "code": "no_available_model_endpoints"
+}
+...
+Execution failed: Failed to get response from the AI model; retried 5 times
+```
+
+### Core Problem (for you, the CLI)
+
+You attempted to call an AI model that the upstream provider **does not expose to this account / plan / policy**.
+This is **not** a bug in:
+
+* the repo,
+* the phase plan,
+* the DB,
+* or the path-refactor logic.
+
+It is a **configuration / entitlement problem for the model you are trying to use**.
+
+As a result:
+
+* You ran **pre-flight checks** successfully (git & DB inspection, docs reads, etc.).
+* The **actual phase plan (PH01_DISCOVER → …)** was **not executed**, because the AI decision/plan step could not get a response.
+
+You must not assume “plan completed” when the model call fails with this class of error.
+
+---
+
+## 2. Ground-Truth Symptoms You Must Recognize
+
+When this failure mode occurs, you will see a pattern like:
+
+1. Pre-checks succeed:
+
+   * `✓` Check recent commits / current branch
+   * `✓` Check for recent merge commits
+   * `✓` Check database contents (`refactor_paths.db`)
+   * `✓` Read phase/feature docs
+   * `✓` Locate relevant scripts
+
+2. Then repeated model call failures:
+
+   ```text
+   ✗ Model call failed: {"message":"no endpoints available for this model
+      under your current plan and policies","code":"no_available_model_endpoints"}
+
+   ✗ Execution failed: Failed to get response from the AI model; retried
+      5 times (total retry wait time: <N> seconds)
+   ```
+
+3. The user may ask: “does this mean the plan was executed?”
+
+   * Correct answer: **No, the plan was not executed.**
+   * Only the **pre-check / situational awareness** steps ran successfully.
+
+You must treat this exact error string + behavior as a **hard blocker to plan execution**, not as a partial success.
+
+---
+
+## 3. High-Level Diagnosis
+
+### What this error actually means
+
+The provider is telling you:
+
+> “For the model identifier you requested, there is no endpoint available under this account / plan / org policies.”
+
+Translation:
+
+* The **model name** you are trying to use:
+
+  * is unsupported,
+  * or not enabled for this account,
+  * or you’re routing through the wrong org / project / token.
+
+This is **independent** of:
+
+* Repo contents
+* Python dependencies
+* Execution patterns
+* Phase plan design
+* Git Auto-Sync state
+
+The **root cause** lies in **how you, the CLI, are choosing the model**.
+
+---
+
+## 4. Your Task: Identify Exactly Where the Model Is Configured
+
+You must locate the single source of truth that tells you which model to call.
+
+### 4.1. Likely configuration locations
+
+You should search in this order:
+
+1. **Repository-local configuration:**
+
+   * JSON/YAML/TOML/env files in the repo:
+
+     * `*.json`, `*.yaml`, `*.yml`, `*.toml`, `*.env`
+   * Any `plans/`, `.claude/`, `.copilot/`, `.config/` subdirectories within the repo.
+
+2. **User-level CLI configuration:**
+
+   * Files under the user profile such as:
+
+     * `C:\Users\richg\.claude\*`
+     * `C:\Users\richg\.config\*`
+     * `C:\Users\richg\.copilot\*`
+   * Exact paths depend on the specific CLI; search broadly.
+
+3. **Environment variables:**
+
+   * Variables containing keys like `MODEL`, `LLM`, `CLAUDE`, `OPENAI`, `COPILOT`, etc.
+
+4. **Wrapper commands / scripts:**
+
+   * Batch/PowerShell scripts or task runners that invoke the CLI with explicit `--model` flags.
+
+---
+
+## 5. Recommended Diagnostic Procedure (Step-by-Step)
+
+You must follow these steps **programmatically**, without relying on a human to reason for you.
+
+### Step 1: Scan for model-related strings in configs
+
+From the repository root (or the user profile), execute a recursive search across config files.
+
+**PowerShell example** (good starting point for Windows):
+
+```powershell
+# From repo root
+$patterns = @('claude', 'sonnet', 'gpt-4', 'gpt4', '"model"', 'model_name', 'llm')
+Get-ChildItem -Recurse -File -Include *.json,*.yaml,*.yml,*.toml,*.env |
+  ForEach-Object {
+    $path = $_.FullName
+    foreach ($p in $patterns) {
+      Select-String -Path $path -Pattern $p -SimpleMatch -ErrorAction SilentlyContinue |
+        Select-Object @{Name='Path';Expression={$path}}, LineNumber, Line
+    }
+  } | Where-Object { $_ -ne $null }
+```
+
+Your goal:
+
+* Collect all lines where:
+
+  * `model`, `model_name`, `llm`, or specific names (e.g., `claude`, `sonnet`, `gpt-4`) appear.
+* Rank them by likelihood:
+
+  * High: keys like `"model": "..."`, `model: ...`, `llm_model: ...`
+  * Medium: environment/secret files (`.env`, `secrets.*`)
+  * Low: comments or docs (ignore those for config decisions).
+
+### Step 2: Inspect environment variables
+
+Check whether the model is set via env vars.
+
+**PowerShell example:**
+
+```powershell
+Get-ChildItem Env: | Where-Object {
+  $_.Name -match 'MODEL' -or
+  $_.Name -match 'LLM' -or
+  $_.Name -match 'CLAUDE' -or
+  $_.Name -match 'OPENAI' -or
+  $_.Name -match 'COPILOT'
+}
+```
+
+If you find variables like:
+
+* `MODEL=claude-sonnet-4`
+* `CLAUDE_MODEL=claude-sonnet-4`
+* `OPENAI_MODEL=gpt-4.1`
+* `COPILOT_MODEL=...`
+
+then those are strong candidates for the misconfigured source.
+
+### Step 3: Check CLI-specific config directories
+
+You should also inspect configuration files in well-known CLI config locations.
+
+Examples (you must discover the real ones at runtime):
+
+* `C:\Users\richg\.claude\config.*`
+* `C:\Users\richg\.claude\plans\*.json` / `*.yaml`
+* `C:\Users\richg\.config\copilot\*.json`
+
+Perform the same `Select-String` search there for `model`, `llm`, `claude`, `gpt-4`, etc.
+
+### Step 4: Locate explicit `--model` flags in command history
+
+You already have a `command-history-state.json` (or equivalent) logging recent commands. You should:
+
+* Scan command history for patterns like:
+
+  * `--model`
+  * `MODEL=...`
+  * `copilot ... --model ...`
+  * `claude ... --model ...`
+
+If present, that indicates the **model is being chosen at invocation time** instead of via config.
+
+---
+
+## 6. Interpreting Results & Identifying the Root Cause
+
+Once you have all candidate sources, evaluate them:
+
+* **If multiple sources define a model**, determine the effective precedence:
+
+  * CLI flag usually overrides environment.
+  * Environment usually overrides config file.
+  * Config file is fallback.
+
+You must identify:
+
+1. **The effective model identifier** you are actually using at runtime.
+2. Whether that model is **known to be supported** by the provider for this account/plan.
+
+Because you cannot directly query entitlements yourself, you must:
+
+* Treat any model that consistently produces
+  `"code": "no_available_model_endpoints"`
+  as **unsupported for this account**.
+* Suggest or attempt switching to a **known-supported model** (based on defaults or stable config).
+
+---
+
+## 7. Recommended Remediation Strategy
+
+### 7.1. Change model to a supported one
+
+Once you know where the model is set:
+
+1. **Update that location** to use a model that is actually available under the current plan.
+
+   For example (illustrative only; you must use real, supported identifiers):
+
+   * From:
+
+     ```json
+     "model": "claude-sonnet-4"
+     ```
+
+   * To:
+
+     ```json
+     "model": "gpt-4.1"       // or another provider-approved model
+     ```
+
+2. If multiple sources set models, **normalize to a single authoritative source**:
+
+   * Prefer a single config file for model selection.
+   * Avoid hidden overrides via environment unless explicitly managed.
+
+3. After updating, **restart the CLI session** (or reload configuration) to ensure the new model is active.
+
+### 7.2. Re-run with explicit success/failure gating
+
+When retrying the phase plan:
+
+1. Run pre-flight checks again (git, DB, docs, scripts).
+2. Attempt the model call using the updated configuration.
+3. If you still receive `"no_available_model_endpoints"`:
+
+   * Mark the run as **FAILED – MODEL_UNAVAILABLE**.
+   * Do **not** mark the path-refactor phase as “executed”.
+   * Emit a structured error message explaining:
+
+     * Which model you attempted.
+     * Where that model was configured.
+     * That the provider rejected it.
+
+Only when:
+
+* The model call **succeeds**, and
+* The resulting **plan/steps are actually executed**,
+
+should you update any state to reflect that:
+
+* PH01_DISCOVER (and subsequent phases) have **ran successfully**.
+
+---
+
+## 8. Behavioral Rules for You (the CLI Agent)
+
+You MUST:
+
+1. **Never** treat a model entitlement error (`no_available_model_endpoints`) as a successful or partial plan execution.
+2. Distinguish clearly between:
+
+   * **Pre-flight system checks** (repo & DB inspection) ✅
+   * **AI-driven plan generation / execution** (requires a working model) 🤖
+3. When this error occurs:
+
+   * Halt the higher-level phase plan.
+   * Report:
+
+     * The exact error message and code.
+     * The suspected model identifier.
+     * A summary of how the model is currently configured (where you found it).
+4. Offer a **clear next action**:
+
+   * “Update model configuration in `<file/env>` from `<old_model>` to a valid, supported model, then re-run this command.”
+
+You SHOULD:
+
+1. Cache the result of your config/model discovery:
+
+   * So you don’t repeatedly search the entire filesystem on every run.
+2. Expose a **diagnostic command** for the user:
+
+   * Example: `/diagnose-model-endpoint`
+   * This command would:
+
+     * Run the search steps above.
+     * Print a small report:
+
+       * Where the model is set.
+       * What model name is in use.
+       * Whether last call returned `no_available_model_endpoints`.
+
+---
+
+## 9. Optional: Diagnostic Report Format
+
+When you detect this issue, generate a structured report similar to:
+
+```json
+{
+  "diagnostic_kind": "MODEL_ENDPOINT_UNAVAILABLE",
+  "timestamp": "2025-11-28T00:00:00Z",
+  "model_config_sources": [
+    {
+      "source_type": "file",
+      "path": "C:\\Users\\richg\\.claude\\config.json",
+      "key_path": ["model"],
+      "value": "claude-sonnet-4",
+      "precedence_rank": 1
+    },
+    {
+      "source_type": "env",
+      "name": "CLAUDE_MODEL",
+      "value": "claude-sonnet-4",
+      "precedence_rank": 0
+    }
+  ],
+  "last_model_call": {
+    "model": "claude-sonnet-4",
+    "status": "error",
+    "error_code": "no_available_model_endpoints",
+    "error_message": "no endpoints available for this model under your current plan and policies"
+  },
+  "phase_execution_state": {
+    "preflight_checks": "completed",
+    "plan_generated": false,
+    "plan_executed": false
+  },
+  "recommended_actions": [
+    "Update model configuration to a supported model identifier in the highest-precedence source.",
+    "Re-run the phase plan after updating model configuration."
+  ]
+}
+```
+
+This makes it trivial for other tools (or future automation) to understand:
+
+* What went wrong,
+* Where to fix it,
+* And whether the core plan actually executed.
+
+---
+
+## 10. Summary
+
+* The **root cause** is a **misaligned model configuration**: you are calling a model that has no endpoint under the current plan/policies.
+* The **infrastructure & repo** are not at fault: phase plans, DB, auto-sync, and patterns are valid and active.
+* Your job as a CLI agent is to:
+
+  * Detect this failure mode,
+  * Locate the model configuration,
+  * Guide the update to a supported model,
+  * And only then proceed to execute PH01–PH05/PH06.
+
+Use this document as the **operational contract** for diagnosing and resolving `"no_available_model_endpoints"` errors.

@@ -14,7 +14,8 @@ class PatternActivityWidget(Static):
     def __init__(self, context: PanelContext):
         super().__init__("", id="pattern-activity-content")
         self.context = context
-        self.refresh_interval = 5.0  # 5 seconds
+        panel_cfg = getattr(context.config, "panels", None)
+        self.refresh_interval = panel_cfg.pattern_activity if panel_cfg else 5.0  # seconds
 
     def on_mount(self) -> None:
         """Called when widget is mounted - start auto-refresh."""
