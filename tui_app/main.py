@@ -12,6 +12,7 @@ from textual.widgets import Header, Footer, Static
 from tui_app.core.panel_registry import get_registry
 from tui_app.core.layout_manager import BasicLayoutManager
 from tui_app.core.state_client import StateClient, InMemoryStateBackend
+from tui_app.core.sqlite_state_backend import SQLiteStateBackend
 from tui_app.core.pattern_client import PatternClient, InMemoryPatternStateStore
 from tui_app.core.panel_plugin import PanelContext
 from tui_app.config.layout_config import LayoutConfig
@@ -45,6 +46,7 @@ class PipelineTUI(App):
     
     BINDINGS = [
         ("q", "quit", "Quit"),
+        ("r", "refresh", "Refresh"),
         ("d", "switch_dashboard", "Dashboard"),
         ("f", "switch_file_lifecycle", "Files"),
         ("t", "switch_tool_health", "Tools"),
@@ -52,13 +54,16 @@ class PipelineTUI(App):
         ("p", "switch_pattern_activity", "Patterns"),
     ]
     
-    def __init__(self, panel_id: str = "dashboard", smoke_test: bool = False):
+    def __init__(self, panel_id: str = "dashboard", smoke_test: bool = False, use_mock_data: bool = False):
         super().__init__()
         self.panel_id = panel_id
         self.smoke_test = smoke_test
-        
-        # Initialize clients
-        self.state_client = StateClient(InMemoryStateBackend())
+
+        # Initialize clients (use SQLite by default, InMemory for testing)
+        if use_mock_data:
+            self.state_client = StateClient(InMemoryStateBackend())
+        else:
+            self.state_client = StateClient(SQLiteStateBackend())
         self.pattern_client = PatternClient(InMemoryPatternStateStore())
         
         # Initialize layout manager
@@ -133,6 +138,11 @@ class PipelineTUI(App):
         """Switch to pattern activity panel."""
         self._mount_panel("pattern_activity")
 
+    def action_refresh(self) -> None:
+        """Force immediate refresh of current panel."""
+        # Remount the current panel to trigger refresh
+        self._mount_panel(self.panel_id)
+
 
 def main():
     """Main entry point."""
@@ -148,10 +158,15 @@ def main():
         action="store_true",
         help="Run smoke test (launch and exit immediately)"
     )
-    
+    parser.add_argument(
+        "--use-mock-data",
+        action="store_true",
+        help="Use mock in-memory data instead of SQLite database"
+    )
+
     args = parser.parse_args()
-    
-    app = PipelineTUI(panel_id=args.panel, smoke_test=args.smoke_test)
+
+    app = PipelineTUI(panel_id=args.panel, smoke_test=args.smoke_test, use_mock_data=args.use_mock_data)
     
     try:
         app.run()
