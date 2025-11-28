@@ -1,7 +1,7 @@
 # config/decomposition_rules.yaml
 #
 # This file provides a placeholder for future automated workstream decomposition rules.
-# The rules defined here are NOT yet enforced by the planner stub (src/pipeline/planner.py)
+# The rules defined here are NOT yet enforced by the planner stub (core/planning/planner.py)
 # but serve as an example of how such rules might be structured for v2.0 automation.
 
 # Grouping rules:
@@ -19,9 +19,11 @@ group_by:
           - "scripts/**/*.ps1"
   directory:
     - pipeline_core:
-        description: "Group changes within the core pipeline directory"
+        description: "Group changes within the core/engine/state directories"
         patterns:
-          - "src/pipeline/**/*"
+          - "core/**/*"
+          - "engine/**/*"
+          - "error/**/*"
     - documentation:
         description: "Group changes within the documentation directory"
         patterns:

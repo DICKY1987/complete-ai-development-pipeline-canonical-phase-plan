@@ -1,0 +1,1125 @@
+Short version: these new files basically lock in **what your mission-control GUI/TUI should show** *and* **exactly how the Pattern module plugs into it, end-to-end**—from engine lifecycle to DB tables to WebSocket events to the concrete panel components.
+
+Let me break it down.
+
+---
+
+## 1. Overall: what story they’re telling now
+
+Putting them together, the project knowledge now says:
+
+* You want **one unified hybrid GUI/TUI “control tower”**, not a separate pattern UI—everything driven by the same engine events and state store.
+* The **UET pattern module is fully formalized**: 5-phase lifecycle, internal APIs, event schema, and persistence model. 
+* The **Pattern Activity Panel is a first-class panel (#8)** in your modular GUI, wired through PatternClient + event bus, sharing DB, WebSocket, and REST conventions with the rest of the system.
+* There’s now a **concrete integration checklist and command sequence** that tells you exactly which files to create, which SQL to run, and how to smoke-test it.
+
+So you’ve gone from “I want to see patterns firing live” to “here is a nearly implementation-ready spec for how to implement and visualize pattern activity inside the existing GUI.”
+
+---
+
+## 2. Control-center / mission-control UX (GUI_TUI_TASK_DISPLAY + UI PAR DOC)
+
+These files define what the **global GUI/TUI shell** must look like for the whole pipeline, not just patterns:
+
+* **Global status header** at the top: project/phase name, pipeline state (IDLE/RUNNING/PAUSED/DEGRADED/ERROR-MODE), OS mode (NORMAL/FOCUS_DEV/CRITICAL_PIPELINE), live parallelism (tasks ready/running/blocked, workers active/idle/drained), error indicator, and high-level cost/budget snapshot.
+* **Phase / DAG view**: list of phases with status plus a per-phase task DAG and a “parallelism window” that shows how many tasks could be parallel vs how many actually are—this is your “where are we in the plan?” visualization. 
+* **Workers & tools panel**: “who’s doing what” board listing each worker (tool, role, sandbox/worktree, state, current task, health) and MCP services (state, who’s using them).
+* **Task queue & error stream**: grouped task states (READY/RUNNING/BLOCKED/QUARANTINED) plus an error stream showing error type, location (phase/task/worker/sandbox), error-pipeline state, last attempt, and the kernel’s proposed next action.
+* **Resources & circuit breakers**: live CPU/RAM/disk with thresholds, OS mode, circuit breaker state, and the actions the system has taken (e.g., “stopped spinning up workers due to soft CPU limit”). 
+* **Cost panel**: token usage per worker/phase/run, dollar estimates, budget %, and “top spenders”. 
+* **Control affordances**:
+
+  * For workers/tasks: drain, restart, reassign role/sandbox, retry, force tool choice, skip/mark done, quarantine, rollback. 
+  * For “plan vs reality”: re-scan repo, rebuild DAG, re-anchor to checkpoint, regenerate prompts/contexts. 
+
+Net: you’ve pinned down *exactly* what your top-level GUI/TUI needs to show and which knobs a human gets when AI self-healing needs supervision.
+
+---
+
+## 3. Pattern engine: lifecycle, events, and data contracts
+
+The new pattern docs turn your earlier “current understanding” into a formal engine spec:
+
+* **5-phase lifecycle**:
+
+  1. Selection (match job step → pattern using operation_kind, context, profile preferences)
+  2. Expansion (materialize templates into concrete commands/prompts/configs)
+  3. Validation (schema + preflight + resource checks)
+  4. Execution (run tools, capture stdout/stderr, timing, artifacts)
+  5. Persistence (save pattern_run, link to job/worktree, emit final events).
+* Each phase has **precise inputs/outputs** like `pattern_binding`, `materialized_pattern`, `validation_result`, `pattern_result`, `pattern_run_record`. 
+* A full **internal API surface** is defined (IPatternExecutor, IPatternRegistry, IPatternTemplateEngine, IPatternEventEmitter, IPatternStateStore) so the engine and UI can talk via stable contracts. 
+* **Event model**: a PatternEvent schema with IDs, timestamps, job/step/pattern_run/pattern IDs, event_type taxonomy (`pattern.selection.*`, `pattern.template.*`, `pattern.validation.*`, `pattern.execution.*`, `pattern.result.persisted`), status, and phase-specific details.
+
+This is the “source of truth” the GUI will be reading from.
+
+---
+
+## 4. Pattern Activity Panel: integration into the GUI/TUI
+
+The three Pattern Panel docs together give you a complete story:
+
+### a) Alignment & architecture
+
+* Pattern Activity Panel is defined as **Panel #8** alongside dashboard, workstreams, file lifecycle, tool health, errors/quarantine, live logs, and controls/settings. 
+* It’s slotted into the layered stack: Presentation (GUI panel) → API clients (`PatternClient`) → Engine (PatternExecutor with event emitter) → Persistence (`pattern_runs`, `pattern_events` tables).
+* It explicitly **reuses existing infra**: same SQLite DB, event bus, WebSocket server, REST patterns, client conventions, and panel layout idioms (timeline view, summary cards, detail drawer).
+
+### b) Panel implementation shape
+
+* Framework-agnostic `PatternActivityPanel` class taking a `PatternClient` and an `EventBus`, with `initialize`, `refresh`, `cleanup`, and `set_filter(job_id)` methods. 
+* It creates three main UI elements:
+
+  * **Summary header** (per-job pattern stats),
+  * **Timeline view** (event stream),
+  * **Detail drawer** (pattern_run metadata, inputs, outputs, artifacts, logs).
+* An IPatternPanel/IPatternClient protocol defines what any implementation must support: get events for a job, get pattern summary, get run detail. 
+
+### c) DB schema + wiring checklist
+
+* New migration `006_add_pattern_tables.sql` creates `pattern_runs` and `pattern_events` with indexes by job, pattern, status, event type, timestamp. 
+* New code artifacts to add:
+
+  * `core/state/pattern_state_store.py` with methods like `save_run`, `save_event`, `get_events_for_job`, `get_run_detail`, `query_runs`.
+  * `core/ui_clients/pattern_client.py`.
+  * `api/routes/patterns.py` REST endpoints.
+  * `patterns/gui/pattern_activity_panel.py` + `timeline_view.py`, `summary_header.py`, `detail_drawer.py`.
+* Frontend checklist: panel implemented (React or Textual), WS connection, correct stats, correct timeline ordering, detail drawer works, integrated into layout, no perf issues on 100+ events. 
+* Quick start commands: run migration, test PatternClient, test CLI (`pattern-summary`), start API (`uvicorn`), hit REST endpoint, start GUI, execute test pattern. 
+
+So this isn’t just conceptual anymore—you’ve basically written the playbook for a dev to add the panel in ~1–1.5k lines of code.
+
+---
+
+## 5. What this means / natural next steps
+
+Given what these files now say, your GUI project is at the point where you can:
+
+1. **Treat the Pattern Activity Panel as a self-contained mini-project.**
+   You have its DB schema, engine hooks, APIs, client, panel class, and acceptance criteria all written down.
+
+2. **Build a “fake-data first” implementation.**
+   You could stand up `PatternStateStore` and `PatternClient` with seeded data and implement the panel (React or Textual) without waiting for full engine wiring, then swap in real events later.
+
+3. **Use the control-center spec as the backbone of the whole GUI.**
+   Start a `gui/main` that literally follows the bar/left/tree/center-DAG/right-tabs/bottom-logs layout you described; the Pattern Activity Panel plugs into that as one of the right-side or center-bottom views.
+
+If you want, I can turn this into a **step-by-step implementation plan** (“Week 1: DB + state store + CLI; Week 2: API + WebSocket; Week 3: TUI panel; Week 4: React panel + tests”) using exactly the files and checklists you’ve already defined.
+
+---
+
+## 1. Panel Layout and Interactivity
+
+### 1.1 Swapping & Linking (Config + IDs)
+
+**Core idea:**
+All layout and wiring is **config-driven**, not hardcoded. The app knows only:
+
+* *What slots exist in the layout* (top_left, bottom, sidebar, etc.).
+* *Which panel type is currently mounted in each slot*.
+* *Which “link groups” connect panels together*.
+
+**Key data structures:**
+
+```yaml
+layout:
+  slots:
+    - id: main_top
+      type: row
+      weight: 2
+      panel: runs_board         # panel_type id
+    - id: main_bottom
+      type: row
+      weight: 1
+      panel: logs_view
+
+panels:
+  runs_board:
+    component: panels.runs.RunsBoardPanel
+    default_links: [selection_group_main]
+
+  logs_view:
+    component: panels.logs.LogStreamPanel
+    default_links: [selection_group_main]
+
+links:
+  selection_group_main:
+    key: "run_id"
+    sources: ["runs_board"]
+    targets: ["logs_view", "details_panel"]
+```
+
+**Mechanism:**
+
+* **Panel registry**:
+  A dictionary like `{ "runs_board": PanelClass, "logs_view": PanelClass, ... }`.
+* **Layout config**:
+  Maps slot IDs → panel IDs.
+* **Link groups**:
+
+  * `key`: the context field to share (e.g., `run_id`, `file_id`).
+  * `sources`: panels that publish selection events.
+  * `targets`: panels that react to those events.
+
+**Runtime behavior:**
+
+* Swapping a panel:
+
+  * User hits a hotkey or GUI dropdown.
+  * Layout Manager swaps `panel` in that slot’s config.
+  * New panel instance is created and registered in the relevant link groups.
+* Linking/unlinking:
+
+  * In TUI: a key toggles “follow selection” for a panel.
+  * Internally: add/remove panel from a link group’s `targets`.
+
+This gives:
+
+* Dynamic layout with zero core-code changes—just config + registry.
+* A consistent linking model: all cross-panel behavior runs through **link groups** + context keys.
+
+---
+
+### 1.2 Resizing Panels
+
+**Strategy:**
+Use **weight-based split layout** with interactive adjustments:
+
+* Top-level layout uses rows and columns with `weight` values.
+* Actual pixel/character sizes are computed proportionally.
+* Resizing modifies the weights, not raw pixels.
+
+Example in config:
+
+```yaml
+layout:
+  rows:
+    - id: row_top
+      weight: 2
+      columns:
+        - id: col_left
+          weight: 1
+          panel: workstreams
+        - id: col_right
+          weight: 2
+          panel: file_radar
+    - id: row_bottom
+      weight: 1
+      panel: logs_view
+```
+
+**Implementation details (TUI):**
+
+* Layout Manager tracks a tree of splits:
+
+  * `SplitRow(children=[SplitCol(...), SplitCol(...)], weights=[1,2])`
+  * `SplitCol(children=[PanelSlot(...)])`
+* Keyboard/mouse actions (e.g., Alt+Arrow) adjust weights:
+
+  * Pressing `Alt+Up` with focus on `row_bottom` increments `row_top.weight`, decrements `row_bottom.weight`.
+* Updated weights are persisted (e.g., to a `layout_state.json`) so the layout reopens as last used.
+
+**GUI wrapper** can expose the same weight adjustments via draggable split bars (Qt splitters, etc.) but internally still just changes weights → identical to TUI.
+
+---
+
+## 2. Display Modularity and Efficiency
+
+### 2.1 “Module-in-a-Panel” Design
+
+Treat each panel as a **plugin module** with a small interface:
+
+```python
+class PanelPlugin(Protocol):
+    id: str  # 'runs_board', 'file_radar', etc.
+
+    def __init__(self, context: PanelContext): ...
+    def render(self) -> None: ...
+    def handle_event(self, event: PanelEvent) -> None: ...
+    def resize(self, width: int, height: int) -> None: ...
+    def on_focus(self) -> None: ...
+    def on_blur(self) -> None: ...
+```
+
+Where `PanelContext` includes:
+
+* Data access (read-only): `StateClient`, `LogClient`, `ToolClient`.
+* Event bus: subscribe to link groups, publish selection events.
+* Config: panel-specific options.
+
+Each panel lives in its own module, e.g.:
+
+```text
+panels/
+  runs/
+    __init__.py
+    plugin.py        # RunsBoardPanel
+  file_radar/
+    __init__.py
+    plugin.py
+  logs/
+    __init__.py
+    plugin.py
+```
+
+The core never imports these directly—only via **Panel Registry**:
+
+```python
+PANEL_REGISTRY = {
+    "runs_board": "panels.runs.plugin.RunsBoardPanel",
+    "file_radar": "panels.file_radar.plugin.FileRadarPanel",
+    "logs_view": "panels.logs.plugin.LogsPanel",
+}
+```
+
+The registry loader resolves strings → classes via `importlib`.
+
+### 2.2 Minimizing Core Code Edits
+
+To add a new panel:
+
+1. Create `panels/new_panel/plugin.py` with a class implementing `PanelPlugin`.
+2. Register its id → path in `PANEL_REGISTRY` (or via entry points / plugin discovery).
+3. Add it to layout config if you want it mounted by default.
+
+No changes to:
+
+* Layout Manager
+* TUI shell
+* Orchestrator
+* Core state store
+
+Because:
+
+* **Layout** only cares about slot IDs and panel IDs, not panel internals.
+* **Event bus** is generic: events are just `{ type, payload, context_key }`.
+* **State clients** are generic, accessed via context, not global imports.
+
+Result: new functionality is “module-in-a-panel,” keeping the core tiny and stable.
+
+---
+
+## 3. TUI/GUI Hybrid Strategy for Low Overhead
+
+### 3.1 TUI Core
+
+The **TUI is the primary UI** and runs everything:
+
+* Layout Manager: rows/cols, split weights, panel slots.
+* Panel Manager: instantiates plugins, routes resize/render/events.
+* Event Bus: links panels and dispatches keybindings.
+* State Clients: talk to the headless tools’ outputs (DB, JSON files, sockets).
+* Config service: loads layout, bindings, tool paths, env.
+
+The TUI runs directly in a terminal using a capable toolkit (e.g., curses-style or rich/Textual-style) but stays minimal:
+
+* No graphics, just text, borders, and simple lists/tables.
+* Heavy operations (data aggregation, expensive queries) are in headless tools or a backend daemon.
+
+The TUI is enough on its own for a “server-room friendly” environment.
+
+### 3.2 Thin GUI Wrapper
+
+The GUI is *not* a separate heavy app re-implementing logic. It’s:
+
+* An **optional shell** around the TUI and backend.
+* Provides only **high-value extras**:
+
+High-value features for GUI wrapper:
+
+1. **Embedded terminal panel**
+
+   * Renders the TUI exactly as-is (via pty) inside a GUI window.
+   * Allows resizing, font scaling, copy/paste.
+
+2. **Rich visualization panels**
+
+   * For charts, graphs, DAGs, timelines that are hard in pure text.
+   * These panels talk to the same backend (state store / API) as TUI.
+
+3. **Configuration editor**
+
+   * Nice form-based editor for `config.yaml`, layout configs, tool profiles.
+   * Writes config files that the TUI reads at startup (or on reload).
+
+4. **Drag-and-drop layout editing**
+
+   * Rearrange panels visually; GUI writes back `layout.yaml`.
+   * TUI reads the updated layout on restart or via a reload command.
+
+5. **Multi-window / multi-monitor convenience**
+
+   * Multiple GUI windows showing different sets of panels.
+   * Under the hood, they’re just additional clients to the same backend.
+
+Everything else—control flow, orchestration, core interactivity—stays in TUI + CLI tools. If the GUI is closed, the system still works fully via TUI.
+
+---
+
+## 4. Headless Execution and Orchestration
+
+### 4.1 Tool Architecture: Headless Workers
+
+Each major function is a **headless tool**:
+
+* Can be a CLI binary or a Python module wrapped in a CLI.
+* Takes a job description (JSON/YAML) and outputs structured results.
+
+Example contract:
+
+* Input: `job.json`
+
+```json
+{
+  "job_id": "J123",
+  "tool_id": "file_scanner",
+  "args": {
+    "path": "/repo/modules",
+    "filters": ["*.py"]
+  }
+}
+```
+
+* Output: JSON lines on stdout + optional artifacts:
+
+```json
+{"event": "start", "job_id": "J123", "timestamp": "..."}
+{"event": "file_scanned", "path": "...", "status": "ok"}
+{"event": "completed", "job_id": "J123", "duration_ms": 4321}
+```
+
+Tools:
+
+* Never manage layout or UI.
+* Never assume interactive input.
+* Only read job spec and emit events/results.
+
+### 4.2 CLI Orchestration
+
+A single **primary CLI orchestrator** manages tool invocation:
+
+* Commands like:
+
+  * `pipeline run --job-file job.json`
+  * `pipeline tail --run-id RUN123`
+  * `pipeline state --format json`
+* Responsibilities:
+
+  * Load job definitions from config or user input.
+  * Start tools as child processes (or threads) with the right env.
+  * Capture stdout/stderr, parse events, and write them into:
+
+    * A **state store** (SQLite/Postgres/JSON files).
+    * A **log directory** with per-job logs.
+  * Optionally expose a **local API** (HTTP/WebSocket) that TUI/GUI uses.
+
+**Data flow to TUI:**
+
+1. Orchestrator writes state:
+
+   * `runs` table, `tasks` table, `tool_events` table, etc.
+2. TUI StateClient reads these tables/files periodically or subscribes to events.
+3. Panels render from that state; they never talk directly to tools.
+
+So the path is: **tool → orchestrator → state store → TUI panels**.
+
+### 4.3 Window/Panel Sizing via Config
+
+Keep sizing simple and predictable:
+
+* Global config file (YAML/TOML):
+
+```yaml
+ui:
+  initial_window:
+    columns: 160
+    rows: 48
+  layout_presets:
+    default:
+      rows:
+        - id: main
+          weight: 2
+          columns:
+            - id: left
+              weight: 1
+            - id: right
+              weight: 2
+        - id: bottom
+          weight: 1
+          panel: logs_view
+```
+
+* Optional environment overrides:
+
+```bash
+PANEL_APP_ROWS=60
+PANEL_APP_COLS=200
+```
+
+The TUI app:
+
+* Reads env first, then config, then falls back to terminal size.
+* Uses these values to initialize the layout weights.
+
+For the GUI wrapper:
+
+* Maps those rows/cols to pixels (based on font metrics) to set initial window size.
+* The split weights stay the same between TUI and GUI.
+
+---
+
+## 5. Consolidated Architecture & Core Components
+
+Putting it all together, the architecture looks like this:
+
+### 5.1 Main Layers
+
+1. **Headless tools (workers)**
+
+   * Domain-specific executors: scanners, analyzers, pattern engines, etc.
+   * Run via CLI, emit structured events/results.
+
+2. **CLI Orchestrator**
+
+   * Manages jobs, runs tools, collects outputs.
+   * Maintains the **state store** (DB + logs + JSON).
+   * Optionally provides a small local HTTP/WebSocket API.
+
+3. **TUI Shell (Core UI)**
+
+   * Layout Manager, Panel Manager, Event Bus.
+   * Renders panel plugins in a terminal.
+   * Consumes state from StateClient.
+
+4. **Thin GUI Wrapper (Optional)**
+
+   * Embedded terminal for the TUI.
+   * Extra rich panels for graphs/DAGs.
+   * Config editor and drag-drop layout editor.
+   * Talks to the same orchestrator/state store.
+
+---
+
+### 5.2 Core Components & Responsibilities
+
+**1. Configuration Service**
+
+* Loads and validates:
+
+  * `layout.yaml` (slots, panels, default link groups).
+  * `ui.yaml` (window size, keybindings, themes).
+  * `tools.yaml` (paths, profiles, env).
+* Exposes a simple API:
+
+  * `get_layout()`
+  * `get_ui_settings()`
+  * `get_tool_config(tool_id)`
+* Watches for changes (optional hot-reload).
+
+---
+
+**2. Layout Manager**
+
+* Maintains the tree of splits (rows/cols) and panel slots.
+* Computes size allocations from weights and terminal/window size.
+* Supports:
+
+  * Resizing (change weights).
+  * Swapping panels in slots.
+  * Toggling layouts (different presets).
+
+---
+
+**3. Panel Registry**
+
+* Maps `panel_id` → Python class.
+* Discovers plugins (static registry, entry points, or folder scan).
+* Instantiates panels with `PanelContext`.
+
+---
+
+**4. Panel Manager**
+
+* Owns panel instances mounted in slots.
+* Calls:
+
+  * `panel.resize(w, h)` when layout changes.
+  * `panel.render()` each frame / when updated.
+  * `panel.handle_event(e)` for key/mouse/link events.
+* Tracks focus and route input to focused panel or global handlers.
+
+---
+
+**5. Event Bus / Link Manager**
+
+* Central pub/sub for UI events:
+
+  * Selections, filter changes, refresh requests.
+* Implements link groups:
+
+  * Maintains mapping of group → source panels → target panels.
+  * Forwards selection events with context key (`run_id`, `file_id` etc.).
+* Lets panels subscribe/unsubscribe dynamically for linking/unlinking.
+
+---
+
+**6. State Store & State Clients**
+
+* State Store:
+
+  * DB (SQLite/Postgres) and filesystem layout for logs and artifacts.
+  * Tables for runs, tasks, tools, errors, metrics, pattern events, etc.
+* State Clients:
+
+  * `StateClient` (read-only queries).
+  * `LogClient` (tail logs).
+  * `MetricsClient` (rolling stats).
+* TUI and GUI panels use these clients, **never** call tools directly.
+
+---
+
+**7. Orchestrator / Tool Runner**
+
+* Reads job specs.
+* Spawns headless tools with proper env.
+* Consumes stdout/stderr from tools → parses events → writes to State Store.
+* Maintains high-level run/task states.
+* Provides CLI commands and, optionally, a small API server.
+
+---
+
+**8. TUI Application Shell**
+
+* Bootstraps:
+
+  * Config Service
+  * Layout Manager
+  * Panel Registry/Manager
+  * Event Bus
+  * State Clients
+* Main loop:
+
+  * Handle input → dispatch to Event Bus / Panel Manager.
+  * Update layout → call panel resize/render.
+  * Pull updated state from State Clients.
+
+---
+
+**9. GUI Wrapper (Optional)**
+
+* Embeds a terminal running the TUI.
+* Hosts extra GUI-native panels (charts, DAG view, config editor).
+* Loads same config files (so layout + linking model is shared).
+* Communicates with orchestrator/state via HTTP/WebSocket/DB just like TUI.
+
+---
+
+If you want, the next step can be:
+
+* A concrete `layout.yaml` + `PANEL_REGISTRY` skeleton.
+* Or a minimal `PanelPlugin` base class and Layout Manager pseudo-code that fits into your existing repo structure.
+
+I’ll assume:
+
+* **TUI toolkit**: `textual` (per your plan)
+* **Goal for now**: Phase 1 / Week 1 → single working `DashboardPanel` showing real data via a `StateClient`
+* **Language**: Python 3.11+
+
+I’ll give you:
+
+1. A concrete **folder structure**
+2. A minimal but future-proof **Panel framework** (plugin + context + events)
+3. A **BasicLayoutManager** for a single panel
+4. A stubbed **StateClient**
+5. A `DashboardPanel` implementation scaffold
+6. A `main.py` Textual app that wires it all together
+7. A quick note on how this naturally extends into Phase 2/3
+
+---
+
+## 1. Folder / Package Layout
+
+Something like:
+
+```text
+tui_app/
+  __init__.py
+  main.py                     # Textual entrypoint
+  config/
+    __init__.py
+    ui_config.py              # reads env, config files
+  core/
+    __init__.py
+    panel_context.py          # PanelContext, PanelEvent, PanelPlugin
+    layout_manager.py         # BasicLayoutManager (single panel for now)
+    registry.py               # PanelRegistry (start simple)
+    state_client.py           # StateClient stub
+  panels/
+    __init__.py
+    dashboard/
+      __init__.py
+      dashboard_panel.py      # DashboardPanel implementation
+```
+
+Later (Phase 2/3) you just drop in more panels:
+
+```text
+  panels/
+    file_lifecycle/
+    tool_health/
+    logs/
+    pattern_activity/
+```
+
+No core edits needed beyond registering the new panel.
+
+---
+
+## 2. Panel Framework: Context, Events, Plugin
+
+### 2.1 `PanelContext`, `PanelEvent`, `PanelPlugin`
+
+**File:** `core/panel_context.py`
+
+```python
+from __future__ import annotations
+
+from dataclasses import dataclass
+from typing import Protocol, Any, Optional, Dict
+
+
+@dataclass
+class PanelEvent:
+    """Generic event passed between panels / layout."""
+    type: str
+    payload: Dict[str, Any]
+    source_panel_id: Optional[str] = None
+    context_key: Optional[str] = None  # e.g. "run_id", "file_id"
+
+
+@dataclass
+class PanelContext:
+    """Context passed to each panel on construction."""
+    panel_id: str
+    state_client: "StateClient"       # forward ref
+    # later: log_client, metrics_client, event_bus, config, etc.
+
+
+class PanelPlugin(Protocol):
+    """Panel plugin protocol.
+
+    Panels can be implemented in terms of Textual Widgets,
+    but this keeps a clean interface independent of the toolkit.
+    """
+
+    panel_id: str
+
+    def __init__(self, context: PanelContext) -> None:
+        ...
+
+    def on_mount(self) -> None:
+        """Called when panel is added to the layout."""
+
+    def on_unmount(self) -> None:
+        """Called when panel is removed from the layout."""
+
+    def resize(self, width: int, height: int) -> None:
+        """Notify panel of new size."""
+
+    def handle_event(self, event: PanelEvent) -> None:
+        """Handle cross-panel or system events."""
+```
+
+We’ll layer Textual on top of this via a subclass that mixes in `Widget`.
+
+---
+
+## 3. State Client (Minimal, Real-DB Friendly)
+
+### 3.1 `StateClient` stub
+
+**File:** `core/state_client.py`
+
+This is intentionally tiny and read-only. You can later back it with SQLite or whatever DB you already have.
+
+```python
+from __future__ import annotations
+
+from dataclasses import dataclass
+from typing import Any, Dict, List, Protocol
+
+
+class StateBackend(Protocol):
+    """Protocol for an underlying state backend (DB, API, etc.)."""
+
+    def fetch_pipeline_summary(self) -> Dict[str, Any]:
+        ...
+
+
+@dataclass
+class InMemoryStateBackend:
+    """Simple backend for early testing / seeding fake data."""
+    summary: Dict[str, Any]
+
+    def fetch_pipeline_summary(self) -> Dict[str, Any]:
+        return self.summary
+
+
+class StateClient:
+    """High-level read-only interface panels use to get state."""
+
+    def __init__(self, backend: StateBackend) -> None:
+        self._backend = backend
+
+    def get_pipeline_summary(self) -> Dict[str, Any]:
+        """Returns aggregate data for the dashboard."""
+        return self._backend.fetch_pipeline_summary()
+```
+
+Later you can implement a `SQLiteStateBackend` that queries your real database and pass it into `StateClient`.
+
+---
+
+## 4. Panel Registry (simple for now)
+
+### 4.1 Registry mapping IDs → classes
+
+**File:** `core/registry.py`
+
+```python
+from __future__ import annotations
+
+from typing import Dict, Type
+
+from .panel_context import PanelPlugin, PanelContext
+
+# NOTE: we’ll import DashboardPanel here after it exists
+from tui_app.panels.dashboard.dashboard_panel import DashboardPanel  # adjust import as needed
+
+
+class PanelRegistry:
+    """Maps panel_ids to plugin classes."""
+
+    def __init__(self) -> None:
+        self._registry: Dict[str, Type[PanelPlugin]] = {}
+
+    def register(self, panel_id: str, cls: Type[PanelPlugin]) -> None:
+        self._registry[panel_id] = cls
+
+    def get(self, panel_id: str) -> Type[PanelPlugin]:
+        if panel_id not in self._registry:
+            raise KeyError(f"Unknown panel id: {panel_id}")
+        return self._registry[panel_id]
+
+    def create(self, panel_id: str, context: PanelContext) -> PanelPlugin:
+        cls = self.get(panel_id)
+        return cls(context)
+
+
+def create_default_registry() -> PanelRegistry:
+    registry = PanelRegistry()
+    registry.register("dashboard", DashboardPanel)
+    # later: registry.register("file_lifecycle", FileLifecyclePanel) etc.
+    return registry
+```
+
+For Phase 1, we only have `"dashboard"` registered.
+
+---
+
+## 5. Basic Layout Manager (Phase 1: Single Panel)
+
+### 5.1 `BasicLayoutManager`
+
+Phase 1 doesn’t need splits yet; we treat the entire Textual screen as one slot with a single panel.
+
+**File:** `core/layout_manager.py`
+
+```python
+from __future__ import annotations
+
+from dataclasses import dataclass
+from typing import Optional
+
+from .panel_context import PanelPlugin, PanelContext
+
+
+@dataclass
+class LayoutState:
+    """Simple representation of layout for Phase 1: one panel."""
+    active_panel_id: str = "dashboard"
+
+
+class BasicLayoutManager:
+    """Minimal layout manager: hosts a single panel."""
+
+    def __init__(self, context: PanelContext, panel_factory: callable) -> None:
+        """
+        panel_factory: callable(panel_id: str, context: PanelContext) -> PanelPlugin
+        """
+        self._context = context
+        self._panel_factory = panel_factory
+        self._layout_state = LayoutState()
+        self._panel: Optional[PanelPlugin] = None
+
+    @property
+    def panel(self) -> PanelPlugin:
+        assert self._panel is not None
+        return self._panel
+
+    def initialize(self) -> None:
+        """Create the initial panel."""
+        panel_id = self._layout_state.active_panel_id
+        self._panel = self._panel_factory(panel_id, self._context)
+        self._panel.on_mount()
+
+    def resize(self, width: int, height: int) -> None:
+        if self._panel:
+            self._panel.resize(width, height)
+
+    def shutdown(self) -> None:
+        if self._panel:
+            self._panel.on_unmount()
+```
+
+In Phase 2 this grows into a tree of splits and multiple panels; the interface remains compatible.
+
+---
+
+## 6. DashboardPanel (Textual Widget + PanelPlugin)
+
+### 6.1 Implementation
+
+**File:** `panels/dashboard/dashboard_panel.py`
+
+```python
+from __future__ import annotations
+
+from dataclasses import dataclass
+from typing import Optional
+
+from textual.widget import Widget
+from textual.reactive import reactive
+from textual import events
+
+from tui_app.core.panel_context import PanelPlugin, PanelContext, PanelEvent
+
+
+@dataclass
+class DashboardState:
+    runs_total: int = 0
+    runs_in_progress: int = 0
+    runs_failed: int = 0
+    workers_active: int = 0
+    workers_idle: int = 0
+
+
+class DashboardPanel(Widget, PanelPlugin):
+
+    panel_id: str = "dashboard"
+
+    def __init__(self, context: PanelContext) -> None:
+        # Note: Textual Widget requires name kwarg for identifying
+        super().__init__(name="dashboard_panel")
+        self._context = context
+        self._state = reactive(DashboardState())  # tracks UI-visible state
+
+    # ---- PanelPlugin interface ----
+
+    def on_mount(self) -> None:
+        """Called when layout manager mounts this panel."""
+        self.refresh_data()
+
+    def on_unmount(self) -> None:
+        """Clean up resources if needed."""
+        # For now, nothing to do.
+        pass
+
+    def resize(self, width: int, height: int) -> None:
+        """We could respond to size changes if needed."""
+        # Textual handles much of this implicitly; keep for future.
+        pass
+
+    def handle_event(self, event: PanelEvent) -> None:
+        """React to external events if needed (Phase 2+)."""
+        # e.g., if event.type == "refresh": self.refresh_data()
+        pass
+
+    # ---- Textual lifecycle ----
+
+    async def on_key(self, event: events.Key) -> None:
+        """Basic keyboard handling inside this panel."""
+        if event.key == "r":
+            self.refresh_data()
+            event.stop()
+
+    def render(self) -> str:
+        """Textual render: return a string or Rich renderable."""
+        s = self._state
+        lines = [
+            " Pipeline Dashboard ",
+            "--------------------",
+            f"Total Runs      : {s.runs_total}",
+            f"In Progress     : {s.runs_in_progress}",
+            f"Failed          : {s.runs_failed}",
+            "",
+            f"Workers Active  : {s.workers_active}",
+            f"Workers Idle    : {s.workers_idle}",
+            "",
+            "(Press 'r' to refresh)",
+        ]
+        return "\n".join(lines)
+
+    # ---- Internal helpers ----
+
+    def refresh_data(self) -> None:
+        summary = self._context.state_client.get_pipeline_summary()
+        self._state = DashboardState(
+            runs_total=summary.get("runs_total", 0),
+            runs_in_progress=summary.get("runs_in_progress", 0),
+            runs_failed=summary.get("runs_failed", 0),
+            workers_active=summary.get("workers_active", 0),
+            workers_idle=summary.get("workers_idle", 0),
+        )
+        self.refresh()
+```
+
+Early on, you can feed this with fake data; later, `StateClient` hits your real DB.
+
+---
+
+## 7. Textual App Entry Point
+
+### 7.1 Config service (very basic for now)
+
+**File:** `config/ui_config.py`
+
+```python
+from __future__ import annotations
+
+import os
+from dataclasses import dataclass
+
+
+@dataclass
+class UISettings:
+    rows: int
+    cols: int
+
+
+def load_ui_settings() -> UISettings:
+    rows = int(os.getenv("PANEL_APP_ROWS", "40"))
+    cols = int(os.getenv("PANEL_APP_COLS", "120"))
+    return UISettings(rows=rows, cols=cols)
+```
+
+### 7.2 `main.py` – wire everything together
+
+**File:** `main.py`
+
+```python
+from __future__ import annotations
+
+from textual.app import App, ComposeResult
+from textual.widgets import Static
+
+from tui_app.config.ui_config import load_ui_settings
+from tui_app.core.state_client import StateClient, InMemoryStateBackend
+from tui_app.core.panel_context import PanelContext
+from tui_app.core.layout_manager import BasicLayoutManager
+from tui_app.core.registry import create_default_registry
+
+
+class PanelApp(App):
+
+    CSS_PATH = None  # we can add Textual CSS later
+
+    def __init__(self) -> None:
+        super().__init__()
+        self._layout_manager: BasicLayoutManager | None = None
+
+    def compose(self) -> ComposeResult:
+        # 1. Load config
+        ui_settings = load_ui_settings()
+
+        # 2. Initialize state client (fake data for now)
+        fake_summary = {
+            "runs_total": 42,
+            "runs_in_progress": 3,
+            "runs_failed": 5,
+            "workers_active": 4,
+            "workers_idle": 2,
+        }
+        backend = InMemoryStateBackend(summary=fake_summary)
+        state_client = StateClient(backend=backend)
+
+        # 3. Panel context
+        panel_context = PanelContext(
+            panel_id="dashboard",
+            state_client=state_client,
+        )
+
+        # 4. Panel registry + layout manager
+        registry = create_default_registry()
+        layout_manager = BasicLayoutManager(
+            context=panel_context,
+            panel_factory=registry.create,
+        )
+        layout_manager.initialize()
+        self._layout_manager = layout_manager
+
+        # 5. Mount the single dashboard widget
+        dashboard_widget = layout_manager.panel  # DashboardPanel (Textual Widget)
+        yield dashboard_widget
+
+    async def on_resize(self, event) -> None:
+        """Forward resize events to layout manager."""
+        if self._layout_manager:
+            width, height = self.size.width, self.size.height
+            self._layout_manager.resize(width, height)
+
+    def on_exit(self) -> None:
+        if self._layout_manager:
+            self._layout_manager.shutdown()
+
+
+if __name__ == "__main__":
+    app = PanelApp()
+    app.run()
+```
+
+Run it with:
+
+```bash
+cd path/to/tui_app_root
+python -m tui_app.main
+```
+
+You should see a text dashboard showing the fake summary; pressing `r` refreshes from the `StateClient`.
+
+---
+
+## 8. How This Naturally Extends to Phase 2 & 3
+
+With this skeleton:
+
+* **Phase 2 (multi-panel & layout)**
+
+  * Replace `BasicLayoutManager` with a split-aware manager (`SplitRow`, `SplitCol`, etc.).
+  * Change `compose()` to mount multiple Widgets (panel instances) organized in Textual containers.
+  * Add more panels in `panels/` directory and `create_default_registry`.
+  * Introduce link groups and a simple `EventBus` for selection sharing (`run_id`, `file_id`, etc.).
+
+* **Phase 3 (Pattern integration)**
+
+  * Implement real `PatternStateStore` and `PatternClient` alongside `StateClient`.
+  * Add `PatternActivityPanel` in `panels/pattern_activity/`.
+  * Extend `PanelContext` to include `pattern_client`.
+  * Seed fake pattern events first, then wire to your actual pattern engine once the backend is ready.
+
+---
+
+If you’d like, next step I can do:
+
+* A **Phase 2 version** of `LayoutManager` with row/column splits + simple keybindings for resizing/switching, or
+* The interface for `PatternStateStore` / `PatternClient` that mirrors your pattern engine spec so the Pattern Activity Panel can be built against it.

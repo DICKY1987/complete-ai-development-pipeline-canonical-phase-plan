@@ -1,0 +1,36 @@
+default_interactive_tool: aim
+available_interactive_tools:
+- aim
+- aider
+- codex
+- core.ui_cli
+tool_modes:
+  aim:
+    default_mode: interactive
+    supports_headless: true
+    description: AIM+ Unified CLI - AI Development Environment Manager
+  aider:
+    default_mode: headless
+    supports_headless: true
+    description: AI pair programming tool
+  codex:
+    default_mode: headless
+    supports_headless: true
+    description: Codex CLI for autonomous code generation
+  core.ui_cli:
+    default_mode: headless
+    supports_headless: true
+    description: Pipeline state query CLI
+  pytest:
+    default_mode: headless
+    supports_headless: true
+    description: Python test runner
+  git:
+    default_mode: headless
+    supports_headless: true
+    description: Git version control
+startup:
+  auto_launch_interactive: true
+  auto_launch_headless:
+  - core.ui_cli
+  interactive_tool_layout: main_terminal
