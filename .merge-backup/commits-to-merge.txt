@@ -1,0 +1,6 @@
+11cb2d2 docs: add comprehensive safe merge strategy and automation
+0daf233 feat: auto-generate pattern drafts and approvals
+2934cc8 feat: activate pattern automation hooks and db
+861820d docs: add Codex CLI execution instructions for pattern automation activation
+942025a feat: add pattern automation activation plan and 5 execution patterns
+b3bb8de fix: add uet import compatibility shims

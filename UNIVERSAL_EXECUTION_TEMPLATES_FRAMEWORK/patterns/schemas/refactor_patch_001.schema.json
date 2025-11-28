@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "refactor_patch",
+  "description": "Apply surgical modifications to existing files using exact string replacement.\nEnforces precise, reversible changes with validation.\n\nKey principles:\n- Exact match required (no fuzzy matching)\n- Single responsibility per patch\n- Automatic backup before modification\n- Validation after each change\n- Rollback on failure\n",
+  "type": "object",
+  "properties": {
+    "project_root": {
+      "type": "string",
+      "required": true
+    },
+    "patches": {
+      "type": "array",
+      "required": true,
+      "min_items": 1,
+      "max_items": 10,
+      "items": {
+        "type": "object",
+        "required": [
+          "file_path",
+          "old_str",
+          "new_str"
+        ],
+        "properties": {
+          "file_path": {
+            "type": "string",
+            "description": "Relative path to file"
+          },
+          "old_str": {
+            "type": "string",
+            "description": "Exact string to find (must be unique)"
+          },
+          "new_str": {
+            "type": "string",
+            "description": "Replacement string"
+          },
+          "validate_unique": {
+            "type": "boolean",
+            "default": true
+          }
+        }
+      }
+    },
+    "create_backup": {
+      "type": "boolean",
+      "default": true
+    },
+    "validate_syntax": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "project_root",
+    "patches"
+  ]
+}

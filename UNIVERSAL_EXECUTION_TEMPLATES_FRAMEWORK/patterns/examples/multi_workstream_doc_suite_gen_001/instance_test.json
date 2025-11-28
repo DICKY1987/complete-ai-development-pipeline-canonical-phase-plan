@@ -1,0 +1,9 @@
+{
+  "templates": [],
+  "workstream_config": {
+    "parallel_workstreams": 4,
+    "templates_per_workstream": 3
+  },
+  "doc_id_format": "example_doc_id_format",
+  "validation_mode": "example_validation_mode"
+}

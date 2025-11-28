@@ -1,0 +1,7 @@
+{
+  "project_root": "example_project_root",
+  "verification_checks": [],
+  "commit_message": "example_commit_message",
+  "expected_files": [],
+  "coverage_threshold": 80
+}

@@ -1,0 +1,112 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "configuration_setup",
+  "description": "Create configuration files (YAML/JSON/TOML) with validation, documentation,\nand type-safe loading code.\n\nThis pattern enforces:\n- Schema validation for config files\n- Type-safe loading functions\n- Default values documented\n- Example configurations provided\n",
+  "type": "object",
+  "properties": {
+    "config_name": {
+      "type": "string",
+      "required": true,
+      "description": "Name of configuration",
+      "example": "detection_config"
+    },
+    "config_format": {
+      "type": "string",
+      "required": true,
+      "enum": [
+        "yaml",
+        "json",
+        "toml"
+      ],
+      "default": "yaml",
+      "description": "Configuration file format"
+    },
+    "config_path": {
+      "type": "string",
+      "required": true,
+      "description": "Path where config file will be created",
+      "example": "automation/config/detection_config.yaml"
+    },
+    "settings": {
+      "type": "array",
+      "required": true,
+      "description": "List of configuration settings",
+      "items": {
+        "type": "object",
+        "required": [
+          "key",
+          "type",
+          "default"
+        ],
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "Setting key (dot-notation for nested)",
+            "example": "detection.min_similar_executions"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "string",
+              "integer",
+              "float",
+              "boolean",
+              "array",
+              "object"
+            ]
+          },
+          "default": {
+            "description": "Default value"
+          },
+          "description": {
+            "type": "string",
+            "description": "What this setting controls"
+          },
+          "validation": {
+            "type": "object",
+            "description": "Validation rules",
+            "properties": {
+              "min": {
+                "type": "number"
+              },
+              "max": {
+                "type": "number"
+              },
+              "pattern": {
+                "type": "string"
+              },
+              "enum": {
+                "type": "array"
+              }
+            }
+          },
+          "required": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      }
+    },
+    "create_loader": {
+      "type": "boolean",
+      "default": true,
+      "description": "Generate Python/PowerShell config loader code"
+    },
+    "loader_language": {
+      "type": "string",
+      "enum": [
+        "python",
+        "powershell",
+        "both"
+      ],
+      "default": "python",
+      "condition": "create_loader == true"
+    }
+  },
+  "required": [
+    "config_name",
+    "config_format",
+    "config_path",
+    "settings"
+  ]
+}
