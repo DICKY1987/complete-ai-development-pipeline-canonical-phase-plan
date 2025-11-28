@@ -1,0 +1,378 @@
+{
+  "generated_at": "2025-11-28T08:23:16.540384+00:00",
+  "inputs": {
+    "paths_clusters": "reports\\paths_clusters.json",
+    "inventory": "modules\\MODULES_INVENTORY.yaml"
+  },
+  "module_kind_enum": [
+    "PIPELINE_STAGE_MODULE",
+    "FEATURE_SERVICE_MODULE",
+    "INTEGRATION_BRIDGE_MODULE",
+    "INTERFACE_MODULE",
+    "REGISTRY_METADATA_MODULE",
+    "INFRA_PLATFORM_MODULE",
+    "OBSERVABILITY_REPORTING_MODULE",
+    "GOVERNANCE_KNOWLEDGE_MODULE",
+    "SANDBOX_EXPERIMENTAL_MODULE",
+    "ARCHIVE_LEGACY_BUCKET"
+  ],
+  "sections": [
+    {
+      "section": "doc_id",
+      "total": 10926,
+      "by_kind": {
+        "code_path": 10,
+        "doc_link": 10788,
+        "config_path": 81,
+        "code_import": 10,
+        "fs_literal": 37
+      },
+      "module_kind_guess": "REGISTRY_METADATA_MODULE",
+      "module_id_guess": null,
+      "legacy_match": [],
+      "inventory_module_kind": null
+    },
+    {
+      "section": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK",
+      "total": 10057,
+      "by_kind": {
+        "doc_link": 6731,
+        "config_path": 2187,
+        "code_import": 367,
+        "fs_literal": 386,
+        "code_path": 386
+      },
+      "module_kind_guess": "FEATURE_SERVICE_MODULE",
+      "module_id_guess": null,
+      "legacy_match": [],
+      "inventory_module_kind": null
+    },
+    {
+      "section": "cleanup_reports",
+      "total": 10042,
+      "by_kind": {
+        "doc_link": 80,
+        "code_path": 642,
+        "config_path": 9320
+      },
+      "module_kind_guess": "OBSERVABILITY_REPORTING_MODULE",
+      "module_id_guess": null,
+      "legacy_match": [],
+      "inventory_module_kind": null
+    },
+    {
+      "section": "developer",
+      "total": 9563,
+      "by_kind": {
+        "doc_link": 9563
+      },
+      "module_kind_guess": null,
+      "module_id_guess": null,
+      "legacy_match": [],
+      "inventory_module_kind": null
+    },
+    {
+      "section": "archive",
+      "total": 5583,
+      "by_kind": {
+        "code_path": 339,
+        "code_import": 736,
+        "fs_literal": 535,
+        "doc_link": 3616,
+        "config_path": 357
+      },
+      "module_kind_guess": "ARCHIVE_LEGACY_BUCKET",
+      "module_id_guess": null,
+      "legacy_match": [],
+      "inventory_module_kind": null
+    },
+    {
+      "section": "docs",
+      "total": 4672,
+      "by_kind": {
+        "doc_link": 4404,
+        "config_path": 268
+      },
+      "module_kind_guess": "GOVERNANCE_KNOWLEDGE_MODULE",
+      "module_id_guess": null,
+      "legacy_match": [],
+      "inventory_module_kind": null
+    },
+    {
+      "section": "ToDo_Task",
+      "total": 4098,
+      "by_kind": {
+        "doc_link": 4063,
+        "code_import": 12,
+        "fs_literal": 23
+      },
+      "module_kind_guess": null,
+      "module_id_guess": null,
+      "legacy_match": [],
+      "inventory_module_kind": null
+    },
+    {
+      "section": "aim",
+      "total": 2906,
+      "by_kind": {
+        "code_import": 16,
+        "fs_literal": 20,
+        "doc_link": 2780,
+        "config_path": 90
+      },
+      "module_kind_guess": "FEATURE_SERVICE_MODULE",
+      "module_id_guess": "aim-cli",
+      "legacy_match": [
+        "aim\\\\",
+        "config\\\\aim_config.yaml"
+      ],
+      "inventory_module_kind": "FEATURE_SERVICE_MODULE"
+    },
+    {
+      "section": "PIPELINE_VIRTUAL_TREE.txt",
+      "total": 2763,
+      "by_kind": {
+        "doc_link": 2763
+      },
+      "module_kind_guess": "PIPELINE_STAGE_MODULE",
+      "module_id_guess": null,
+      "legacy_match": [],
+      "inventory_module_kind": null
+    },
+    {
+      "section": "scripts",
+      "total": 2367,
+      "by_kind": {
+        "code_path": 580,
+        "doc_link": 263,
+        "code_import": 374,
+        "fs_literal": 1036,
+        "config_path": 114
+      },
+      "module_kind_guess": "INFRA_PLATFORM_MODULE",
+      "module_id_guess": null,
+      "legacy_match": [],
+      "inventory_module_kind": null
+    },
+    {
+      "section": "pm",
+      "total": 1930,
+      "by_kind": {
+        "doc_link": 1366,
+        "code_import": 48,
+        "fs_literal": 80,
+        "code_path": 424,
+        "config_path": 12
+      },
+      "module_kind_guess": "INTEGRATION_BRIDGE_MODULE",
+      "module_id_guess": "pm-integrations",
+      "legacy_match": [
+        "pm\\\\",
+        "ccpm\\\\"
+      ],
+      "inventory_module_kind": "INTEGRATION_BRIDGE_MODULE"
+    },
+    {
+      "section": "gui",
+      "total": 1806,
+      "by_kind": {
+        "doc_link": 1677,
+        "code_import": 39,
+        "fs_literal": 90
+      },
+      "module_kind_guess": "INTERFACE_MODULE",
+      "module_id_guess": null,
+      "legacy_match": [],
+      "inventory_module_kind": null
+    },
+    {
+      "section": "ccpm.bat",
+      "total": 1643,
+      "by_kind": {
+        "code_path": 1643
+      },
+      "module_kind_guess": "INTEGRATION_BRIDGE_MODULE",
+      "module_id_guess": "pm-integrations",
+      "legacy_match": [
+        "pm\\\\",
+        "ccpm\\\\"
+      ],
+      "inventory_module_kind": "INTEGRATION_BRIDGE_MODULE"
+    },
+    {
+      "section": "modules",
+      "total": 1116,
+      "by_kind": {
+        "code_import": 716,
+        "fs_literal": 303,
+        "config_path": 64,
+        "doc_link": 33
+      },
+      "module_kind_guess": null,
+      "module_id_guess": null,
+      "legacy_match": [],
+      "inventory_module_kind": null
+    },
+    {
+      "section": "prompting",
+      "total": 1113,
+      "by_kind": {
+        "doc_link": 1113
+      },
+      "module_kind_guess": null,
+      "module_id_guess": null,
+      "legacy_match": [],
+      "inventory_module_kind": null
+    },
+    {
+      "section": "workstreams",
+      "total": 982,
+      "by_kind": {
+        "config_path": 955,
+        "doc_link": 27
+      },
+      "module_kind_guess": "PIPELINE_STAGE_MODULE",
+      "module_id_guess": null,
+      "legacy_match": [],
+      "inventory_module_kind": null
+    },
+    {
+      "section": "tests",
+      "total": 887,
+      "by_kind": {
+        "code_import": 378,
+        "fs_literal": 440,
+        "doc_link": 45,
+        "config_path": 24
+      },
+      "module_kind_guess": null,
+      "module_id_guess": "aim-tests",
+      "legacy_match": [
+        "aim\\\\tests\\\\",
+        "tests\\\\aim\\\\"
+      ],
+      "inventory_module_kind": "FEATURE_SERVICE_MODULE"
+    },
+    {
+      "section": "glossary",
+      "total": 832,
+      "by_kind": {
+        "doc_link": 618,
+        "config_path": 134,
+        "code_import": 16,
+        "fs_literal": 64
+      },
+      "module_kind_guess": "GOVERNANCE_KNOWLEDGE_MODULE",
+      "module_id_guess": null,
+      "legacy_match": [],
+      "inventory_module_kind": null
+    },
+    {
+      "section": "ccpm",
+      "total": 705,
+      "by_kind": {
+        "doc_link": 698,
+        "code_path": 7
+      },
+      "module_kind_guess": "INTEGRATION_BRIDGE_MODULE",
+      "module_id_guess": "pm-integrations",
+      "legacy_match": [
+        "pm\\\\",
+        "ccpm\\\\"
+      ],
+      "inventory_module_kind": "INTEGRATION_BRIDGE_MODULE"
+    },
+    {
+      "section": "AI_GENERATED_FILES.md",
+      "total": 610,
+      "by_kind": {
+        "doc_link": 610
+      },
+      "module_kind_guess": null,
+      "module_id_guess": null,
+      "legacy_match": [],
+      "inventory_module_kind": null
+    },
+    {
+      "section": "error",
+      "total": 577,
+      "by_kind": {
+        "doc_link": 194,
+        "code_import": 254,
+        "fs_literal": 85,
+        "config_path": 44
+      },
+      "module_kind_guess": null,
+      "module_id_guess": "error-engine",
+      "legacy_match": [
+        "error\\\\engine\\\\",
+        "error\\\\"
+      ],
+      "inventory_module_kind": "PIPELINE_STAGE_MODULE"
+    },
+    {
+      "section": "tools",
+      "total": 572,
+      "by_kind": {
+        "code_import": 181,
+        "fs_literal": 280,
+        "doc_link": 111
+      },
+      "module_kind_guess": null,
+      "module_id_guess": null,
+      "legacy_match": [],
+      "inventory_module_kind": null
+    },
+    {
+      "section": "GUI is a hybrid GUI shell wrapped around .txt",
+      "total": 422,
+      "by_kind": {
+        "doc_link": 422
+      },
+      "module_kind_guess": "INTERFACE_MODULE",
+      "module_id_guess": null,
+      "legacy_match": [],
+      "inventory_module_kind": null
+    },
+    {
+      "section": "openspec",
+      "total": 343,
+      "by_kind": {
+        "doc_link": 343
+      },
+      "module_kind_guess": "INTEGRATION_BRIDGE_MODULE",
+      "module_id_guess": "specifications-tools",
+      "legacy_match": [
+        "specifications\\\\",
+        "openspec\\\\"
+      ],
+      "inventory_module_kind": "INTEGRATION_BRIDGE_MODULE"
+    },
+    {
+      "section": "comprehensive machine-readable blueprint based.txt",
+      "total": 336,
+      "by_kind": {
+        "doc_link": 336
+      },
+      "module_kind_guess": null,
+      "module_id_guess": null,
+      "legacy_match": [],
+      "inventory_module_kind": null
+    }
+  ],
+  "summary": {
+    "counts_by_inferred_module_kind": {
+      "REGISTRY_METADATA_MODULE": 1,
+      "FEATURE_SERVICE_MODULE": 2,
+      "OBSERVABILITY_REPORTING_MODULE": 1,
+      "ARCHIVE_LEGACY_BUCKET": 1,
+      "GOVERNANCE_KNOWLEDGE_MODULE": 2,
+      "PIPELINE_STAGE_MODULE": 2,
+      "INFRA_PLATFORM_MODULE": 1,
+      "INTEGRATION_BRIDGE_MODULE": 4,
+      "INTERFACE_MODULE": 2
+    },
+    "inventory_entries_loaded": 34,
+    "sections_classified": 25
+  }
+}

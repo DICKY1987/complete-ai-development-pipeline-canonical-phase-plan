@@ -21,7 +21,7 @@
     },
     "claude": {
       "enabled": false,
-      "model": "claude-3-sonnet-20240229",
+      "model": "claude-3-5-sonnet-20241022",
       "timeout_seconds": 120,
       "max_attempts": 1,
       "api_key_env": "ANTHROPIC_API_KEY",

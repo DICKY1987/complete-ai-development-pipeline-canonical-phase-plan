@@ -74,3 +74,21 @@ def test_state_client_get_task():
     task = client.get_task("task-001")
     assert task is not None
     assert task.task_id == "task-001"
+
+
+def test_inmemory_backend_get_executions():
+    """Test getting executions from in-memory backend."""
+    backend = InMemoryStateBackend()
+    executions = backend.get_executions()
+
+    assert executions
+    assert executions[0].execution_id.startswith("exec")
+
+
+def test_inmemory_backend_get_patch_ledger():
+    """Test getting patch ledger entries from in-memory backend."""
+    backend = InMemoryStateBackend()
+    patches = backend.get_patch_ledger()
+
+    assert patches
+    assert patches[0].patch_id.startswith("patch")

@@ -1,0 +1,362 @@
+module_kind_enum:
+  - PIPELINE_STAGE_MODULE
+  - FEATURE_SERVICE_MODULE
+  - INTEGRATION_BRIDGE_MODULE
+  - INTERFACE_MODULE
+  - REGISTRY_METADATA_MODULE
+  - INFRA_PLATFORM_MODULE
+  - OBSERVABILITY_REPORTING_MODULE
+  - GOVERNANCE_KNOWLEDGE_MODULE
+  - SANDBOX_EXPERIMENTAL_MODULE
+  - ARCHIVE_LEGACY_BUCKET
+
+modules:
+  - module_id: aim-cli
+    module_kind: FEATURE_SERVICE_MODULE
+    ulid_prefix: "01001A"
+    layer: api
+    description: CLI entrypoints for AIM+ tool bootstrap and profile commands.
+    legacy_paths:
+      - 'aim\\'
+      - 'config\\aim_config.yaml'
+    source_dir: 'modules\\aim-cli'
+    status: active
+
+  - module_id: aim-environment
+    module_kind: FEATURE_SERVICE_MODULE
+    ulid_prefix: "01001B"
+    layer: api
+    description: Tool environment health, installation, and version control for AIM+.
+    legacy_paths:
+      - 'aim\\'
+      - '.AIM_ai-tools-registry\\'
+    source_dir: 'modules\\aim-environment'
+    status: active
+
+  - module_id: aim-registry
+    module_kind: FEATURE_SERVICE_MODULE
+    ulid_prefix: "01001C"
+    layer: api
+    description: Registry bridge for AIM+ tool metadata and config loading.
+    legacy_paths:
+      - 'aim\\'
+      - 'config\\aim_config.yaml'
+    source_dir: 'modules\\aim-registry'
+    status: active
+
+  - module_id: aim-services
+    module_kind: FEATURE_SERVICE_MODULE
+    ulid_prefix: "01001D"
+    layer: api
+    description: AIM+ service orchestration helpers shared across AIM modules.
+    legacy_paths:
+      - 'aim\\'
+    source_dir: 'modules\\aim-services'
+    status: active
+
+  - module_id: aim-tests
+    module_kind: FEATURE_SERVICE_MODULE
+    ulid_prefix: "01001E"
+    layer: api
+    description: Test fixtures and harnesses for AIM+ behaviors.
+    legacy_paths:
+      - 'aim\\tests\\'
+      - 'tests\\aim\\'
+    source_dir: 'modules\\aim-tests'
+    status: active
+
+  - module_id: core-ast
+    module_kind: PIPELINE_STAGE_MODULE
+    ulid_prefix: "010000"
+    layer: domain
+    description: AST and extractor utilities feeding planning and execution.
+    legacy_paths:
+      - 'core\\'
+    source_dir: 'modules\\core-ast'
+    status: active
+
+  - module_id: core-engine
+    module_kind: PIPELINE_STAGE_MODULE
+    ulid_prefix: "010001"
+    layer: domain
+    description: Orchestrator, workers, DAG builder, and UET execution engine.
+    legacy_paths:
+      - 'core\\engine\\'
+      - 'engine\\'
+    source_dir: 'modules\\core-engine'
+    status: active
+
+  - module_id: core-planning
+    module_kind: PIPELINE_STAGE_MODULE
+    ulid_prefix: "010002"
+    layer: domain
+    description: Planning utilities for workstream decomposition and parallelism detection.
+    legacy_paths:
+      - 'core\\planning\\'
+      - 'planning\\'
+    source_dir: 'modules\\core-planning'
+    status: active
+
+  - module_id: core-state
+    module_kind: PIPELINE_STAGE_MODULE
+    ulid_prefix: "010003"
+    layer: infra
+    description: State persistence, DAG utilities, and worktree lifecycle management.
+    legacy_paths:
+      - 'core\\state\\'
+      - 'state\\'
+    source_dir: 'modules\\core-state'
+    status: active
+
+  - module_id: error-engine
+    module_kind: PIPELINE_STAGE_MODULE
+    ulid_prefix: "010004"
+    layer: domain
+    description: Error engine, pipeline service, and plugin orchestration.
+    legacy_paths:
+      - 'error\\engine\\'
+      - 'error\\'
+    source_dir: 'modules\\error-engine'
+    status: active
+
+  - module_id: error-plugin-codespell
+    module_kind: PIPELINE_STAGE_MODULE
+    ulid_prefix: "010005"
+    layer: ui
+    description: Codespell plugin for error engine.
+    legacy_paths:
+      - 'error\\plugins\\codespell\\'
+    source_dir: 'modules\\error-plugin-codespell'
+    status: active
+
+  - module_id: error-plugin-echo
+    module_kind: PIPELINE_STAGE_MODULE
+    ulid_prefix: "010006"
+    layer: ui
+    description: Echo plugin used for smoke checks and harness validation.
+    legacy_paths:
+      - 'error\\plugins\\echo\\'
+    source_dir: 'modules\\error-plugin-echo'
+    status: active
+
+  - module_id: error-plugin-gitleaks
+    module_kind: PIPELINE_STAGE_MODULE
+    ulid_prefix: "010007"
+    layer: ui
+    description: Gitleaks plugin for secret scanning in the error engine.
+    legacy_paths:
+      - 'error\\plugins\\gitleaks\\'
+    source_dir: 'modules\\error-plugin-gitleaks'
+    status: active
+
+  - module_id: error-plugin-js-eslint
+    module_kind: PIPELINE_STAGE_MODULE
+    ulid_prefix: "010009"
+    layer: ui
+    description: ESLint-driven JavaScript linting plugin.
+    legacy_paths:
+      - 'error\\plugins\\js-eslint\\'
+    source_dir: 'modules\\error-plugin-js-eslint'
+    status: active
+
+  - module_id: error-plugin-js-prettier-fix
+    module_kind: PIPELINE_STAGE_MODULE
+    ulid_prefix: "01000A"
+    layer: ui
+    description: Prettier-based JavaScript formatter plugin.
+    legacy_paths:
+      - 'error\\plugins\\js-prettier-fix\\'
+    source_dir: 'modules\\error-plugin-js-prettier-fix'
+    status: active
+
+  - module_id: error-plugin-json-jq
+    module_kind: PIPELINE_STAGE_MODULE
+    ulid_prefix: "010008"
+    layer: ui
+    description: JSON jq-based fixer for structured payloads.
+    legacy_paths:
+      - 'error\\plugins\\json-jq\\'
+    source_dir: 'modules\\error-plugin-json-jq'
+    status: active
+
+  - module_id: error-plugin-md-markdownlint
+    module_kind: PIPELINE_STAGE_MODULE
+    ulid_prefix: "01000B"
+    layer: ui
+    description: Markdownlint validation plugin.
+    legacy_paths:
+      - 'error\\plugins\\md-markdownlint\\'
+    source_dir: 'modules\\error-plugin-md-markdownlint'
+    status: active
+
+  - module_id: error-plugin-md-mdformat-fix
+    module_kind: PIPELINE_STAGE_MODULE
+    ulid_prefix: "01000C"
+    layer: ui
+    description: mdformat-based formatter plugin for markdown files.
+    legacy_paths:
+      - 'error\\plugins\\md-mdformat-fix\\'
+    source_dir: 'modules\\error-plugin-md-mdformat-fix'
+    status: active
+
+  - module_id: error-plugin-path-standardizer
+    module_kind: PIPELINE_STAGE_MODULE
+    ulid_prefix: "01000D"
+    layer: ui
+    description: Path normalization plugin guarding repo-standard path conventions.
+    legacy_paths:
+      - 'error\\plugins\\path-standardizer\\'
+    source_dir: 'modules\\error-plugin-path-standardizer'
+    status: active
+
+  - module_id: error-plugin-powershell-pssa
+    module_kind: PIPELINE_STAGE_MODULE
+    ulid_prefix: "01000E"
+    layer: ui
+    description: PowerShell ScriptAnalyzer plugin for PowerShell sources.
+    legacy_paths:
+      - 'error\\plugins\\powershell-pssa\\'
+    source_dir: 'modules\\error-plugin-powershell-pssa'
+    status: active
+
+  - module_id: error-plugin-python-bandit
+    module_kind: PIPELINE_STAGE_MODULE
+    ulid_prefix: "01000F"
+    layer: ui
+    description: Bandit static analysis plugin for Python security checks.
+    legacy_paths:
+      - 'error\\plugins\\python-bandit\\'
+    source_dir: 'modules\\error-plugin-python-bandit'
+    status: active
+
+  - module_id: error-plugin-python-black-fix
+    module_kind: PIPELINE_STAGE_MODULE
+    ulid_prefix: "010010"
+    layer: ui
+    description: Black auto-formatting plugin.
+    legacy_paths:
+      - 'error\\plugins\\python-black-fix\\'
+    source_dir: 'modules\\error-plugin-python-black-fix'
+    status: active
+
+  - module_id: error-plugin-python-isort-fix
+    module_kind: PIPELINE_STAGE_MODULE
+    ulid_prefix: "010011"
+    layer: ui
+    description: isort import reordering plugin.
+    legacy_paths:
+      - 'error\\plugins\\python-isort-fix\\'
+    source_dir: 'modules\\error-plugin-python-isort-fix'
+    status: active
+
+  - module_id: error-plugin-python-mypy
+    module_kind: PIPELINE_STAGE_MODULE
+    ulid_prefix: "010012"
+    layer: ui
+    description: Mypy type-checker plugin.
+    legacy_paths:
+      - 'error\\plugins\\python-mypy\\'
+    source_dir: 'modules\\error-plugin-python-mypy'
+    status: active
+
+  - module_id: error-plugin-python-pylint
+    module_kind: PIPELINE_STAGE_MODULE
+    ulid_prefix: "010013"
+    layer: ui
+    description: Pylint static analysis plugin.
+    legacy_paths:
+      - 'error\\plugins\\python-pylint\\'
+    source_dir: 'modules\\error-plugin-python-pylint'
+    status: active
+
+  - module_id: error-plugin-python-pyright
+    module_kind: PIPELINE_STAGE_MODULE
+    ulid_prefix: "010014"
+    layer: ui
+    description: Pyright type analysis plugin.
+    legacy_paths:
+      - 'error\\plugins\\python-pyright\\'
+    source_dir: 'modules\\error-plugin-python-pyright'
+    status: active
+
+  - module_id: error-plugin-python-ruff
+    module_kind: PIPELINE_STAGE_MODULE
+    ulid_prefix: "010015"
+    layer: ui
+    description: Ruff linting plugin.
+    legacy_paths:
+      - 'error\\plugins\\python-ruff\\'
+    source_dir: 'modules\\error-plugin-python-ruff'
+    status: active
+
+  - module_id: error-plugin-python-safety
+    module_kind: PIPELINE_STAGE_MODULE
+    ulid_prefix: "010016"
+    layer: ui
+    description: Safety dependency vulnerability plugin.
+    legacy_paths:
+      - 'error\\plugins\\python-safety\\'
+    source_dir: 'modules\\error-plugin-python-safety'
+    status: active
+
+  - module_id: error-plugin-ruff
+    module_kind: PIPELINE_STAGE_MODULE
+    ulid_prefix: ""
+    layer: ui
+    description: Legacy Ruff plugin placeholder; needs ulid assignment.
+    legacy_paths:
+      - 'error\\plugins\\ruff\\'
+    source_dir: 'modules\\error-plugin-ruff'
+    status: review-required
+
+  - module_id: error-plugin-semgrep
+    module_kind: PIPELINE_STAGE_MODULE
+    ulid_prefix: "010017"
+    layer: ui
+    description: Semgrep static analysis plugin.
+    legacy_paths:
+      - 'error\\plugins\\semgrep\\'
+    source_dir: 'modules\\error-plugin-semgrep'
+    status: active
+
+  - module_id: error-plugin-test-runner
+    module_kind: PIPELINE_STAGE_MODULE
+    ulid_prefix: "010018"
+    layer: ui
+    description: Test runner plugin for executing suites via error engine.
+    legacy_paths:
+      - 'error\\plugins\\test-runner\\'
+    source_dir: 'modules\\error-plugin-test-runner'
+    status: active
+
+  - module_id: error-plugin-yaml-yamllint
+    module_kind: PIPELINE_STAGE_MODULE
+    ulid_prefix: "010019"
+    layer: ui
+    description: Yamllint validation plugin.
+    legacy_paths:
+      - 'error\\plugins\\yaml-yamllint\\'
+    source_dir: 'modules\\error-plugin-yaml-yamllint'
+    status: active
+
+  - module_id: pm-integrations
+    module_kind: INTEGRATION_BRIDGE_MODULE
+    ulid_prefix: "01001F"
+    layer: api
+    description: Project management connectors (e.g., GitHub sync).
+    legacy_paths:
+      - 'pm\\'
+      - 'ccpm\\'
+    source_dir: 'modules\\pm-integrations'
+    status: active
+
+  - module_id: specifications-tools
+    module_kind: INTEGRATION_BRIDGE_MODULE
+    ulid_prefix: "010020"
+    layer: domain
+    description: Specification tooling (resolver, indexer, guard, renderer).
+    legacy_paths:
+      - 'specifications\\'
+      - 'openspec\\'
+    source_dir: 'modules\\specifications-tools'
+    status: active

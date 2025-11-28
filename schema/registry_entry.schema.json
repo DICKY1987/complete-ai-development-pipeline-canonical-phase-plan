@@ -1,0 +1,75 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://ai-pipeline.dev/schemas/registry_entry.v1.json",
+  "title": "Registry Entry Schema",
+  "description": "Schema for registry entries that map artifact ids to module ownership and on-disk paths.",
+  "type": "object",
+  "required": ["artifact_id", "artifact_kind", "path"],
+  "properties": {
+    "artifact_id": {
+      "type": "string",
+      "description": "Stable identifier used by callers (doc_id, pattern_id, config_id, etc.)."
+    },
+    "artifact_kind": {
+      "type": "string",
+      "description": "Artifact type such as spec_doc, pattern_doc, schema, unit_test, code_module."
+    },
+    "module_id": {
+      "type": "string",
+      "description": "Owning module identifier (kebab-case)."
+    },
+    "module_kind": {
+      "type": "string",
+      "enum": [
+        "PIPELINE_STAGE_MODULE",
+        "FEATURE_SERVICE_MODULE",
+        "INTEGRATION_BRIDGE_MODULE",
+        "INTERFACE_MODULE",
+        "REGISTRY_METADATA_MODULE",
+        "INFRA_PLATFORM_MODULE",
+        "OBSERVABILITY_REPORTING_MODULE",
+        "GOVERNANCE_KNOWLEDGE_MODULE",
+        "SANDBOX_EXPERIMENTAL_MODULE",
+        "ARCHIVE_LEGACY_BUCKET"
+      ],
+      "description": "Module classification enum used for refactor planning and validation."
+    },
+    "path": {
+      "type": "string",
+      "description": "Repository-relative path to the artifact."
+    },
+    "version": {
+      "type": "string",
+      "description": "Semantic version for the artifact entry."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "deprecated", "archived", "draft"],
+      "description": "Lifecycle state for this registry row."
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-friendly description of the artifact."
+    },
+    "checksum": {
+      "type": "string",
+      "description": "Optional checksum (sha256 or similar) for file verification."
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Searchable tags for grouping artifacts."
+    },
+    "last_updated": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of the last update to this entry."
+    },
+    "module_notes": {
+      "type": "string",
+      "description": "Optional notes on module scope or migration considerations."
+    }
+  }
+}

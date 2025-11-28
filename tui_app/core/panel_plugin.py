@@ -24,7 +24,7 @@ class PanelContext:
     panel_id: str
     state_client: Optional[Any] = None  # Will be StateClient instance
     pattern_client: Optional[Any] = None  # Will be PatternClient instance
-    config: Optional[dict] = None
+    config: Optional[Any] = None
     event_bus: Optional[Any] = None  # For future event pub/sub
     
     def emit_event(self, event: PanelEvent, data: Optional[dict] = None) -> None:

@@ -61,6 +61,14 @@ Define OpenSpec change proposal format and metadata.
 - `specifications/bridge/` - OpenSpec conversion
 - OpenSpec CLI tools
 
+### Registry Schemas
+
+Define registry records that bind artifact ids to module metadata and paths.
+
+**Key Schema**:
+- `registry_entry.schema.json` - Adds `module_id` and `module_kind` fields to
+  keep the registry aligned with the module-centric refactor.
+
 ## Schema Validation
 
 ### Validate Against Schema

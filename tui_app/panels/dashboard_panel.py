@@ -15,7 +15,8 @@ class DashboardWidget(Static):
     def __init__(self, context: PanelContext):
         super().__init__("", id="dashboard-content")
         self.context = context
-        self.refresh_interval = 2.0  # 2 seconds
+        panel_cfg = getattr(context.config, "panels", None)
+        self.refresh_interval = panel_cfg.dashboard if panel_cfg else 2.0  # seconds
 
     def on_mount(self) -> None:
         """Called when widget is mounted - start auto-refresh."""

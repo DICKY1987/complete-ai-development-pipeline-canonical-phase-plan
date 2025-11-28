@@ -5,17 +5,23 @@ Textual-based terminal UI for AI Development Pipeline monitoring and control.
 
 import argparse
 import sys
+from typing import Optional
+
 from textual.app import App, ComposeResult
-from textual.containers import Container
+from textual.containers import Container, Horizontal
 from textual.widgets import Header, Footer, Static
 
 from tui_app.core.panel_registry import get_registry
 from tui_app.core.layout_manager import BasicLayoutManager
 from tui_app.core.state_client import StateClient, InMemoryStateBackend
 from tui_app.core.sqlite_state_backend import SQLiteStateBackend
-from tui_app.core.pattern_client import PatternClient, InMemoryPatternStateStore
+from tui_app.core.pattern_client import (
+    PatternClient,
+    InMemoryPatternStateStore,
+    SQLitePatternStateStore,
+)
 from tui_app.core.panel_plugin import PanelContext
-from tui_app.config.layout_config import LayoutConfig
+from tui_app.config.layout_config import load_tui_config, TUIConfig
 
 # Import panels to trigger registration
 import tui_app.panels
@@ -23,27 +29,9 @@ import tui_app.panels
 
 class PipelineTUI(App):
     """Main TUI application for pipeline monitoring."""
-    
-    CSS = """
-    Screen {
-        background: $surface;
-    }
-    
-    #panel-container {
-        height: 100%;
-        border: solid $primary;
-        padding: 1;
-    }
-    
-    Header {
-        background: $primary;
-    }
-    
-    Footer {
-        background: $primary;
-    }
-    """
-    
+
+    CSS = ""
+
     BINDINGS = [
         ("q", "quit", "Quit"),
         ("r", "refresh", "Refresh"),
@@ -53,22 +41,36 @@ class PipelineTUI(App):
         ("l", "switch_log_stream", "Logs"),
         ("p", "switch_pattern_activity", "Patterns"),
     ]
-    
-    def __init__(self, panel_id: str = "dashboard", smoke_test: bool = False, use_mock_data: bool = False):
+
+    def __init__(
+        self,
+        panel_id: str = "dashboard",
+        smoke_test: bool = False,
+        use_mock_data: bool = False,
+        config: Optional[TUIConfig] = None,
+        layout: str = "single",
+        secondary_panel: Optional[str] = None,
+    ):
         super().__init__()
         self.panel_id = panel_id
         self.smoke_test = smoke_test
+        self.tui_config: TUIConfig = config or load_tui_config()
+        self._css = self._build_css()
+        self.layout_mode = layout
+        self.secondary_panel = secondary_panel if layout == "dual" else None
 
         # Initialize clients (use SQLite by default, InMemory for testing)
         if use_mock_data:
             self.state_client = StateClient(InMemoryStateBackend())
+            self.pattern_client = PatternClient(InMemoryPatternStateStore())
         else:
-            self.state_client = StateClient(SQLiteStateBackend())
-        self.pattern_client = PatternClient(InMemoryPatternStateStore())
-        
+            state_backend = SQLiteStateBackend()
+            self.state_client = StateClient(state_backend)
+            self.pattern_client = PatternClient(SQLitePatternStateStore(db_path=state_backend.db_path))
+
         # Initialize layout manager
         self.layout_manager = BasicLayoutManager()
-        
+
         # Get panel registry
         self.registry = get_registry()
     
@@ -77,21 +79,84 @@ class PipelineTUI(App):
         yield Header(show_clock=True)
         yield Container(id="panel-container")
         yield Footer()
-    
+
+    def _build_css(self) -> str:
+        """Generate CSS based on the current theme configuration."""
+        palette = self.tui_config.theme
+        return f"""
+        :root {{
+            --surface: {palette.surface};
+            --text-color: {palette.text};
+            --primary: {palette.primary};
+            --accent: {palette.accent};
+            --warning: {palette.warning};
+            --danger: {palette.danger};
+            --muted: {palette.muted};
+        }}
+
+        Screen {{
+            background: var(--surface);
+            color: var(--text-color);
+        }}
+
+        #panel-container {{
+            height: 100%;
+            border: solid 1px var(--primary);
+            padding: 1;
+        }}
+
+        Header, Footer {{
+            background: var(--primary);
+            color: var(--text-color);
+        }}
+
+        .card {{
+            background: var(--surface);
+            border: solid 1px var(--muted);
+            padding: 1;
+        }}
+
+        .accent {{
+            color: var(--accent);
+        }}
+
+        .warning {{
+            color: var(--warning);
+        }}
+
+        .danger {{
+            color: var(--danger);
+        }}
+
+        #dual-container {{
+            height: 100%;
+        }}
+
+        #dual-container > * {{
+            width: 1fr;
+            height: 100%;
+            border: solid 1px var(--muted);
+            padding: 1;
+        }}
+        """
+
     def on_mount(self) -> None:
         """Called when app is mounted."""
+        if self._css:
+            self.stylesheet.read(self._css)
         self.title = "AI Pipeline TUI"
         self.sub_title = "Monitoring & Control"
-        
+
         # Mount initial panel
         self._mount_panel(self.panel_id)
-        
+
         # If smoke test, exit immediately
         if self.smoke_test:
             self.exit(0)
     
     def _mount_panel(self, panel_id: str) -> None:
         """Mount a panel by ID."""
+        self.panel_id = panel_id
         panel = self.registry.create_panel(panel_id)
         if not panel:
             # Fallback to dashboard
@@ -104,17 +169,31 @@ class PipelineTUI(App):
         context = PanelContext(
             panel_id=panel_id,
             state_client=self.state_client,
-            pattern_client=self.pattern_client
+            pattern_client=self.pattern_client,
+            config=self.tui_config
         )
         
         # Mount panel
         widget = self.layout_manager.mount_panel(panel, context)
-        
+
+        content = widget
+        if self.secondary_panel:
+            secondary = self.registry.create_panel(self.secondary_panel)
+            if secondary:
+                secondary_context = PanelContext(
+                    panel_id=self.secondary_panel,
+                    state_client=self.state_client,
+                    pattern_client=self.pattern_client,
+                    config=self.tui_config,
+                )
+                secondary_widget = BasicLayoutManager().mount_panel(secondary, secondary_context)
+                content = Horizontal(widget, secondary_widget, id="dual-container")
+
         # Update container
         container = self.query_one("#panel-container", Container)
         container.remove_children()
-        container.mount(widget)
-        
+        container.mount(content)
+
         # Update subtitle
         self.sub_title = panel.title
     
@@ -163,10 +242,28 @@ def main():
         action="store_true",
         help="Use mock in-memory data instead of SQLite database"
     )
+    parser.add_argument(
+        "--layout",
+        choices=["single", "dual"],
+        default="single",
+        help="Layout mode (single panel or dual split view)"
+    )
+    parser.add_argument(
+        "--secondary-panel",
+        choices=["dashboard", "file_lifecycle", "tool_health", "log_stream", "pattern_activity"],
+        default=None,
+        help="Secondary panel to show in dual layout"
+    )
 
     args = parser.parse_args()
 
-    app = PipelineTUI(panel_id=args.panel, smoke_test=args.smoke_test, use_mock_data=args.use_mock_data)
+    app = PipelineTUI(
+        panel_id=args.panel,
+        smoke_test=args.smoke_test,
+        use_mock_data=args.use_mock_data,
+        layout=args.layout,
+        secondary_panel=args.secondary_panel,
+    )
     
     try:
         app.run()
