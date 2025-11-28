@@ -27,6 +27,10 @@ SANDBOX_EXPERIMENTAL_MODULE, ARCHIVE_LEGACY_BUCKET.
   physical moves.
 - Error plugins share the PIPELINE_STAGE_MODULE kind to align with the error
   detection data flow.
+- registry backfill planner: scripts/generate_registry_backfill_plan.py scans
+  the tree (skipping archive/sandbox) and emits
+  reports/registry_backfill_plan.json with inferred module_id/module_kind and
+  artifact_kind per file.
 
 ## Classification workflow
 - Script: scripts/classify_module_registry.py reads the inventory and
