@@ -764,3 +764,16 @@
   mode: run
   result: failed
   timestamp: '2025-11-29T17:15:48.760007+00:00'
+- batch_id: VALIDATION
+  component: imports
+  details:
+    imports:
+    - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine.state_machine
+    - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.engine.error_engine
+    - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.exceptions
+    - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.pm.github_sync
+    warnings:
+    - 'modules.core_state.m010003_crud shim: missing get_connection in core.state.db'
+  mode: run
+  result: warning
+  timestamp: '2025-11-29T17:18:34.523294+00:00'
