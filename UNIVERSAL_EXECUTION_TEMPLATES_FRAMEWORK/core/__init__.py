@@ -101,20 +101,7 @@ def _install_compatibility_aliases():
         if path.exists():
             _alias_module(fullname, path)
 
-    # Map core.ast and core.engine to module-centric packages so submodules resolve.
-    ast_pkg = _alias_existing("core.ast", "modules.core_ast")
-    if ast_pkg is not None:
-        setattr(sys.modules[__name__], "ast", ast_pkg)
-
-    engine_pkg = _alias_existing("core.engine", "modules.core_engine")
-    if engine_pkg is not None:
-        setattr(sys.modules[__name__], "engine", engine_pkg)
-        try:
-            from modules.core_engine import parallel_orchestrator as _po  # noqa: F401
-
-            sys.modules["core.engine.parallel_orchestrator"] = _po
-        except Exception:
-            pass
+    # Keep legacy aliases for specific files; prefer native core package for engine/ast.
 
 
 _install_compatibility_aliases()
