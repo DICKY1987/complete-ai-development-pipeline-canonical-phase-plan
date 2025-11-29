@@ -724,3 +724,9 @@
       stage\\WS-020\\gui\\ui_infrastructure_usage.py"
   staged_count: 3
   timestamp: '2025-11-29T16:50:01.159311+00:00'
+- batch_id: PLAN
+  component: documentation
+  mode: info
+  note: Placement plan documented in .migration/PLACEMENT_PLAN.md; staging complete
+    WS-001..WS-020 pending placement/import updates/tests.
+  timestamp: '2025-11-29T17:03:05.674764+00:00'
