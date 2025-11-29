@@ -12,6 +12,12 @@ from core.interfaces.state_store import (
     WorkstreamNotFoundError,
     ExecutionNotFoundError,
 )
+from core.interfaces.tool_adapter import (
+    ToolAdapter,
+    ToolAdapterError,
+    CapabilityNotSupportedError,
+    JobPreparationError,
+)
 
 __all__ = [
     "ProcessExecutor",
@@ -22,4 +28,8 @@ __all__ = [
     "StateStoreError",
     "WorkstreamNotFoundError",
     "ExecutionNotFoundError",
+    "ToolAdapter",
+    "ToolAdapterError",
+    "CapabilityNotSupportedError",
+    "JobPreparationError",
 ]
