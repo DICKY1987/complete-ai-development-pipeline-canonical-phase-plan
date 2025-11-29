@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: plan
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-DOC_ID_COMPLETION_001-126
+---
+
 # Phase Plan: ID Framework Completion & Integration
 **Document ID**: PLAN-DOC-ID-COMPLETION-001  
 **Date**: 2025-11-29  

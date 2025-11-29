@@ -1,0 +1,15 @@
+batch_id: DOCID-BATCH-PLANS-001
+description: Assign doc_ids to workstream plan documents
+category: guide
+items:
+  - logical_name: DOC_ID_COMPLETION_001
+    title: "DOC_ID Completion Plan 001"
+    artifacts:
+      - path: workstreams/plans/PLAN_DOC_ID_COMPLETION_001.md
+  - logical_name: DOC_ID_COMPLETION_001_FILE_CHANGES
+    title: "DOC_ID Completion Plan 001 - File Changes"
+    artifacts:
+      - path: workstreams/plans/PLAN_DOC_ID_COMPLETION_001_FILE_CHANGES.md
+tags:
+  - type:plan
+  - category:doc_id

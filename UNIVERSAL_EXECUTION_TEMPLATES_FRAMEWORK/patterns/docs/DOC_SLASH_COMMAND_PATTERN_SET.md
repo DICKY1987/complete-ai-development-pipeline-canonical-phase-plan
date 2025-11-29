@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-PAT-SLASH_COMMAND_PATTERN_SET-009
+---
+
 # Slash Command Pattern Set
 
 Slash commands are the entrypoints into the deterministic pipeline: each command maps to a fixed Phase, Workstream bundle, FILES_SCOPE, and ExecutionRequest template. Use these definitions when wiring chat surfaces, TUI buttons, or GitHub slash shortcuts so the right agent stack is invoked every time.

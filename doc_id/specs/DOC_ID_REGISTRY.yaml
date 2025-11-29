@@ -3,13 +3,13 @@ metadata:
   created: '2025-11-24'
   last_updated: '2025-11-29'
   spec_doc: doc_id/DOC_ID_FRAMEWORK.md
-  total_docs: 185
+  total_docs: 271
 categories:
   patterns:
     prefix: PAT
     description: UET patterns in UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/
-    count: 4
-    next_id: 5
+    count: 10
+    next_id: 11
     index_file: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/registry/PATTERN_INDEX.yaml
   core:
     prefix: CORE
@@ -32,8 +32,8 @@ categories:
   arch:
     prefix: ARCH
     description: Architecture decisions and design docs
-    count: 10
-    next_id: 11
+    count: 20
+    next_id: 21
     index_file: adr/ADR_INDEX.yaml
   aim:
     prefix: AIM
@@ -74,8 +74,8 @@ categories:
   guide:
     prefix: GUIDE
     description: User guides and documentation
-    count: 57
-    next_id: 58
+    count: 127
+    next_id: 128
     index_file: docs/GUIDE_INDEX.yaml
 docs:
 - doc_id: DOC-GUIDE-DOC-ID-FRAMEWORK-001
@@ -2285,6 +2285,1038 @@ docs:
   tags:
   - type:glossary
   - location:glossary/docs
+- doc_id: DOC-ARCH-ADR_0001_WORKSTREAM_MODEL_CHOICE-011
+  category: arch
+  name: adr-0001-workstream-model-choice
+  title: 'ADR 0001: Workstream Model Choice'
+  status: active
+  artifacts:
+  - path: adr/DOC_ADR_0001_WORKSTREAM_MODEL_CHOICE.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:adr
+  - location:adr
+- doc_id: DOC-ARCH-ADR_0002_HYBRID_ARCHITECTURE-012
+  category: arch
+  name: adr-0002-hybrid-architecture
+  title: 'ADR 0002: Hybrid Architecture'
+  status: active
+  artifacts:
+  - path: adr/DOC_ADR_0002_HYBRID_ARCHITECTURE.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:adr
+  - location:adr
+- doc_id: DOC-ARCH-ADR_0003_SQLITE_STATE_STORAGE-013
+  category: arch
+  name: adr-0003-sqlite-state-storage
+  title: 'ADR 0003: SQLite State Storage'
+  status: active
+  artifacts:
+  - path: adr/DOC_ADR_0003_SQLITE_STATE_STORAGE.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:adr
+  - location:adr
+- doc_id: DOC-ARCH-ADR_0004_SECTION_BASED_ORGANIZATION-014
+  category: arch
+  name: adr-0004-section-based-organization
+  title: 'ADR 0004: Section-Based Organization'
+  status: active
+  artifacts:
+  - path: adr/DOC_ADR_0004_SECTION_BASED_ORGANIZATION.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:adr
+  - location:adr
+- doc_id: DOC-ARCH-ADR_0005_PYTHON_PRIMARY_LANGUAGE-015
+  category: arch
+  name: adr-0005-python-primary-language
+  title: 'ADR 0005: Python as Primary Language'
+  status: active
+  artifacts:
+  - path: adr/DOC_ADR_0005_PYTHON_PRIMARY_LANGUAGE.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:adr
+  - location:adr
+- doc_id: DOC-ARCH-ADR_0006_SPECIFICATIONS_UNIFIED_MANAGEMENT-016
+  category: arch
+  name: adr-0006-specifications-unified-management
+  title: 'ADR 0006: Specifications Unified Management'
+  status: active
+  artifacts:
+  - path: adr/DOC_ADR_0006_SPECIFICATIONS_UNIFIED_MANAGEMENT.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:adr
+  - location:adr
+- doc_id: DOC-ARCH-ADR_0007_ERROR_PLUGIN_ARCHITECTURE-017
+  category: arch
+  name: adr-0007-error-plugin-architecture
+  title: 'ADR 0007: Error Plugin Architecture'
+  status: active
+  artifacts:
+  - path: adr/DOC_ADR_0007_ERROR_PLUGIN_ARCHITECTURE.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:adr
+  - location:adr
+- doc_id: DOC-ARCH-ADR_0008_DATABASE_LOCATION_WORKTREE-018
+  category: arch
+  name: adr-0008-database-location-worktree
+  title: 'ADR 0008: Database Location in Worktree'
+  status: active
+  artifacts:
+  - path: adr/DOC_ADR_0008_DATABASE_LOCATION_WORKTREE.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:adr
+  - location:adr
+- doc_id: DOC-ARCH-ADR_SPEC_TOOLING_CONSOLIDATION-019
+  category: arch
+  name: adr-spec-tooling-consolidation
+  title: 'ADR: Spec Tooling Consolidation'
+  status: active
+  artifacts:
+  - path: adr/DOC_ADR_SPEC_TOOLING_CONSOLIDATION.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:adr
+  - location:adr
+- doc_id: DOC-ARCH-ADR_ERROR_UTILS_LOCATION-020
+  category: arch
+  name: adr-error-utils-location
+  title: 'ADR: Error Utils Location'
+  status: active
+  artifacts:
+  - path: adr/DOC_ADR_ERROR_UTILS_LOCATION.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:adr
+  - location:adr
+- doc_id: DOC-GUIDE-ERROR_ESCALATION_DIAGRAM-058
+  category: guide
+  name: error-escalation-diagram
+  title: Error Escalation Flow Diagram
+  status: active
+  artifacts:
+  - path: docs/diagrams/DOC_ERROR_ESCALATION_DIAGRAM.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:diagram
+  - location:docs/diagrams
+- doc_id: DOC-GUIDE-SPEC_INTEGRATION_DIAGRAM-059
+  category: guide
+  name: spec-integration-diagram
+  title: Specification Integration Diagram
+  status: active
+  artifacts:
+  - path: docs/diagrams/DOC_SPEC_INTEGRATION_DIAGRAM.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:diagram
+  - location:docs/diagrams
+- doc_id: DOC-GUIDE-SYSTEM_ARCHITECTURE_DIAGRAM-060
+  category: guide
+  name: system-architecture-diagram
+  title: System Architecture Diagram
+  status: active
+  artifacts:
+  - path: docs/diagrams/DOC_SYSTEM_ARCHITECTURE_DIAGRAM.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:diagram
+  - location:docs/diagrams
+- doc_id: DOC-GUIDE-TASK_LIFECYCLE_DIAGRAM-061
+  category: guide
+  name: task-lifecycle-diagram
+  title: Task Lifecycle Diagram
+  status: active
+  artifacts:
+  - path: docs/diagrams/DOC_TASK_LIFECYCLE_DIAGRAM.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:diagram
+  - location:docs/diagrams
+- doc_id: DOC-GUIDE-TOOL_SELECTION_DIAGRAM-062
+  category: guide
+  name: tool-selection-diagram
+  title: Tool Selection Flow Diagram
+  status: active
+  artifacts:
+  - path: docs/diagrams/DOC_TOOL_SELECTION_DIAGRAM.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:diagram
+  - location:docs/diagrams
+- doc_id: DOC-GUIDE-VISUAL_ARCHITECTURE_GUIDE-063
+  category: guide
+  name: visual-architecture-guide
+  title: Visual Architecture Guide
+  status: active
+  artifacts:
+  - path: docs/diagrams/DOC_VISUAL_ARCHITECTURE_GUIDE.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:diagram
+  - location:docs/diagrams
+- doc_id: DOC-GUIDE-EXAMPLE_SIMPLE_TASK-064
+  category: guide
+  name: example-simple-task
+  title: 'Example 01: Simple Task Execution'
+  status: active
+  artifacts:
+  - path: docs/examples/DOC_EXAMPLE_01_SIMPLE_TASK.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:example
+  - location:docs/examples
+- doc_id: DOC-GUIDE-EXAMPLE_PARALLEL_EXECUTION-065
+  category: guide
+  name: example-parallel-execution
+  title: 'Example 02: Parallel Execution'
+  status: active
+  artifacts:
+  - path: docs/examples/DOC_EXAMPLE_02_PARALLEL_EXECUTION.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:example
+  - location:docs/examples
+- doc_id: DOC-GUIDE-EXAMPLE_ERROR_HANDLING-066
+  category: guide
+  name: example-error-handling
+  title: 'Example 03: Error Handling'
+  status: active
+  artifacts:
+  - path: docs/examples/DOC_EXAMPLE_03_ERROR_HANDLING.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:example
+  - location:docs/examples
+- doc_id: DOC-GUIDE-EXAMPLE_MULTI_PHASE-067
+  category: guide
+  name: example-multi-phase
+  title: 'Example 04: Multi-Phase Workstream'
+  status: active
+  artifacts:
+  - path: docs/examples/DOC_EXAMPLE_04_MULTI_PHASE.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:example
+  - location:docs/examples
+- doc_id: DOC-GUIDE-EXAMPLE_SAGA_PATTERN-068
+  category: guide
+  name: example-saga-pattern
+  title: 'Example 05: Saga Pattern Implementation'
+  status: active
+  artifacts:
+  - path: docs/examples/DOC_EXAMPLE_05_SAGA_PATTERN.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:example
+  - location:docs/examples
+- doc_id: DOC-GUIDE-AI_DEV_HYGIENE_GUIDELINES-069
+  category: guide
+  name: ai-dev-hygiene-guidelines
+  title: AI Development Hygiene Guidelines
+  status: active
+  artifacts:
+  - path: docs/guidelines/DOC_AI_DEV_HYGIENE_GUIDELINES.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:guideline
+  - location:docs/guidelines
+- doc_id: DOC-GUIDE-ANTI_PATTERNS-070
+  category: guide
+  name: anti-patterns
+  title: Anti-Patterns to Avoid
+  status: active
+  artifacts:
+  - path: docs/guidelines/DOC_ANTI_PATTERNS.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:guideline
+  - location:docs/guidelines
+- doc_id: DOC-GUIDE-TESTING_STRATEGY-071
+  category: guide
+  name: testing-strategy
+  title: Testing Strategy
+  status: active
+  artifacts:
+  - path: docs/guidelines/DOC_TESTING_STRATEGY.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:guideline
+  - location:docs/guidelines
+- doc_id: DOC-GUIDE-UET_DEVELOPMENT_RULES-072
+  category: guide
+  name: uet-development-rules
+  title: UET Development Rules
+  status: active
+  artifacts:
+  - path: docs/guidelines/DOC_UET_DEVELOPMENT_RULES.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:guideline
+  - location:docs/guidelines
+- doc_id: DOC-GUIDE-ACS_USAGE_GUIDE-073
+  category: guide
+  name: acs-usage-guide
+  title: AI Codebase Structure Usage Guide
+  status: active
+  artifacts:
+  - path: docs/DOC_ACS_USAGE_GUIDE.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:guide
+  - location:docs
+- doc_id: DOC-GUIDE-AIDER_CONTRACT-074
+  category: guide
+  name: aider-contract
+  title: Aider Tool Contract
+  status: active
+  artifacts:
+  - path: docs/DOC_AIDER_CONTRACT.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:guide
+  - location:docs
+- doc_id: DOC-GUIDE-AIM_INTEGRATION_STATUS-075
+  category: guide
+  name: aim-integration-status
+  title: AIM Integration Status
+  status: active
+  artifacts:
+  - path: docs/DOC_AIM_INTEGRATION_STATUS.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:guide
+  - location:docs
+- doc_id: DOC-GUIDE-ARCHITECTURE-076
+  category: guide
+  name: architecture
+  title: System Architecture Overview
+  status: active
+  artifacts:
+  - path: docs/DOC_ARCHITECTURE.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:guide
+  - location:docs
+- doc_id: DOC-GUIDE-CI_PATH_STANDARDS-077
+  category: guide
+  name: ci-path-standards
+  title: CI Path Standards
+  status: active
+  artifacts:
+  - path: docs/DOC_CI_PATH_STANDARDS.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:guide
+  - location:docs
+- doc_id: DOC-GUIDE-CLEANUP_LOG-078
+  category: guide
+  name: cleanup-log
+  title: Repository Cleanup Log
+  status: active
+  artifacts:
+  - path: docs/DOC_CLEANUP_LOG.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:guide
+  - location:docs
+- doc_id: DOC-GUIDE-CONFIGURATION_GUIDE-079
+  category: guide
+  name: configuration-guide
+  title: Configuration Guide
+  status: active
+  artifacts:
+  - path: docs/DOC_CONFIGURATION_GUIDE.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:guide
+  - location:docs
+- doc_id: DOC-GUIDE-COORDINATION_GUIDE-080
+  category: guide
+  name: coordination-guide
+  title: Multi-Agent Coordination Guide
+  status: active
+  artifacts:
+  - path: docs/DOC_COORDINATION_GUIDE.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:guide
+  - location:docs
+- doc_id: DOC-GUIDE-DOCUMENTATION_CLEANUP_PATTERN-081
+  category: guide
+  name: documentation-cleanup-pattern
+  title: Documentation Cleanup Pattern
+  status: active
+  artifacts:
+  - path: docs/DOC_DOCUMENTATION_CLEANUP_PATTERN.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:guide
+  - location:docs
+- doc_id: DOC-GUIDE-DOCUMENTATION_INDEX-082
+  category: guide
+  name: documentation-index
+  title: Documentation Index
+  status: active
+  artifacts:
+  - path: docs/DOC_DOCUMENTATION_INDEX.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:guide
+  - location:docs
+- doc_id: DOC-GUIDE-ENGINE_QUICK_REFERENCE-083
+  category: guide
+  name: engine-quick-reference
+  title: Engine Quick Reference
+  status: active
+  artifacts:
+  - path: docs/DOC_ENGINE_QUICK_REFERENCE.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:guide
+  - location:docs
+- doc_id: DOC-GUIDE-FILE_ORGANIZATION_QUICK_REF-084
+  category: guide
+  name: file-organization-quick-ref
+  title: File Organization Quick Reference
+  status: active
+  artifacts:
+  - path: docs/DOC_FILE_ORGANIZATION_QUICK_REF.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:guide
+  - location:docs
+- doc_id: DOC-GUIDE-FILE_ORGANIZATION_SYSTEM-085
+  category: guide
+  name: file-organization-system
+  title: File Organization System
+  status: active
+  artifacts:
+  - path: docs/DOC_FILE_ORGANIZATION_SYSTEM.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:guide
+  - location:docs
+- doc_id: DOC-GUIDE-HARDCODED_PATH_INDEXER-086
+  category: guide
+  name: hardcoded-path-indexer
+  title: Hardcoded Path Indexer
+  status: active
+  artifacts:
+  - path: docs/DOC_HARDCODED_PATH_INDEXER.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:guide
+  - location:docs
+- doc_id: DOC-GUIDE-IMPLEMENTATION_LOCATIONS-087
+  category: guide
+  name: implementation-locations
+  title: Implementation Locations
+  status: active
+  artifacts:
+  - path: docs/DOC_IMPLEMENTATION_LOCATIONS.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:guide
+  - location:docs
+- doc_id: DOC-GUIDE-PLUGIN_ECOSYSTEM_SUMMARY-088
+  category: guide
+  name: plugin-ecosystem-summary
+  title: Plugin Ecosystem Summary
+  status: active
+  artifacts:
+  - path: docs/DOC_PLUGIN_ECOSYSTEM_SUMMARY.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:guide
+  - location:docs
+- doc_id: DOC-GUIDE-PLUGIN_QUICK_REFERENCE-089
+  category: guide
+  name: plugin-quick-reference
+  title: Plugin Quick Reference
+  status: active
+  artifacts:
+  - path: docs/DOC_PLUGIN_QUICK_REFERENCE.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:guide
+  - location:docs
+- doc_id: DOC-GUIDE-PLUGIN_TEST_SUITE_SUMMARY-090
+  category: guide
+  name: plugin-test-suite-summary
+  title: Plugin Test Suite Summary
+  status: active
+  artifacts:
+  - path: docs/DOC_PLUGIN_TEST_SUITE_SUMMARY.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:guide
+  - location:docs
+- doc_id: DOC-GUIDE-SAFE_RENAME_STRATEGY-091
+  category: guide
+  name: safe-rename-strategy
+  title: Safe Rename Strategy
+  status: active
+  artifacts:
+  - path: docs/DOC_SAFE_RENAME_STRATEGY.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:guide
+  - location:docs
+- doc_id: DOC-GUIDE-SOFT_SANDBOX_PATTERN-092
+  category: guide
+  name: soft-sandbox-pattern
+  title: Soft Sandbox Pattern
+  status: active
+  artifacts:
+  - path: docs/DOC_SOFT_SANDBOX_PATTERN.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:guide
+  - location:docs
+- doc_id: DOC-GUIDE-SPEC_MANAGEMENT_CONTRACT-093
+  category: guide
+  name: spec-management-contract
+  title: Specification Management Contract
+  status: active
+  artifacts:
+  - path: docs/DOC_SPEC_MANAGEMENT_CONTRACT.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:guide
+  - location:docs
+- doc_id: DOC-GUIDE-SPEC_MIGRATION_GUIDE-094
+  category: guide
+  name: spec-migration-guide
+  title: Specification Migration Guide
+  status: active
+  artifacts:
+  - path: docs/DOC_SPEC_MIGRATION_GUIDE.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:guide
+  - location:docs
+- doc_id: DOC-GUIDE-SPEC_TOOLING_CONSOLIDATION-095
+  category: guide
+  name: spec-tooling-consolidation
+  title: Specification Tooling Consolidation
+  status: active
+  artifacts:
+  - path: docs/DOC_SPEC_TOOLING_CONSOLIDATION.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:guide
+  - location:docs
+- doc_id: DOC-GUIDE-STATE_MACHINE-096
+  category: guide
+  name: state-machine
+  title: State Machine Design
+  status: active
+  artifacts:
+  - path: docs/DOC_STATE_MACHINE.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:guide
+  - location:docs
+- doc_id: DOC-GUIDE-TOOLS_INSTRUCTIONS_CONFIG-097
+  category: guide
+  name: tools-instructions-config
+  title: Tools Instructions Configuration
+  status: active
+  artifacts:
+  - path: docs/DOC_TOOLS_INSTRUCTIONS_CONFIG.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:guide
+  - location:docs
+- doc_id: DOC-GUIDE-WORKSTREAM_PROMPT_STRUCTURE-098
+  category: guide
+  name: workstream-prompt-structure
+  title: Workstream Prompt Structure
+  status: active
+  artifacts:
+  - path: docs/DOC_WORKSTREAM_PROMPT_STRUCTURE.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:guide
+  - location:docs
+- doc_id: DOC-GUIDE-ZERO_TOUCH_SYNC_DESIGN-099
+  category: guide
+  name: zero-touch-sync-design
+  title: Zero Touch Sync Design
+  status: active
+  artifacts:
+  - path: docs/DOC_ZERO_TOUCH_SYNC_DESIGN.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:guide
+  - location:docs
+- doc_id: DOC-GUIDE-AUDIT_RETENTION-100
+  category: guide
+  name: audit-retention
+  title: Audit Retention Policy
+  status: active
+  artifacts:
+  - path: docs/operations/DOC_AUDIT_RETENTION.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:operations
+  - location:docs/operations
+- doc_id: DOC-GUIDE-AUDIT_TRAIL-101
+  category: guide
+  name: audit-trail
+  title: Audit Trail Documentation
+  status: active
+  artifacts:
+  - path: docs/operations/DOC_AUDIT_TRAIL.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:operations
+  - location:docs/operations
+- doc_id: DOC-GUIDE-AUTO_REMEDIATION-102
+  category: guide
+  name: auto-remediation
+  title: Automated Remediation Guide
+  status: active
+  artifacts:
+  - path: docs/operations/DOC_AUTO_REMEDIATION.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:operations
+  - location:docs/operations
+- doc_id: DOC-GUIDE-CHECKLIST_QUICK_START-103
+  category: guide
+  name: checklist-quick-start
+  title: Checklist Quick Start
+  status: active
+  artifacts:
+  - path: docs/operations/DOC_CHECKLIST_QUICK_START.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:operations
+  - location:docs/operations
+- doc_id: DOC-GUIDE-REPO_CHECKLIST-104
+  category: guide
+  name: repo-checklist
+  title: Repository Checklist
+  status: active
+  artifacts:
+  - path: docs/operations/DOC_REPO_CHECKLIST.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:operations
+  - location:docs/operations
+- doc_id: DOC-GUIDE-VALIDATION_ENHANCEMENT_ROADMAP-105
+  category: guide
+  name: validation-enhancement-roadmap
+  title: Validation Enhancement Roadmap
+  status: active
+  artifacts:
+  - path: docs/operations/DOC_VALIDATION_ENHANCEMENT_ROADMAP.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:operations
+  - location:docs/operations
+- doc_id: DOC-GUIDE-AI_CONTEXT-106
+  category: guide
+  name: ai-context
+  title: AI Context Documentation
+  status: active
+  artifacts:
+  - path: docs/DOC_AI_CONTEXT.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:guide
+  - batch:remaining
+- doc_id: DOC-GUIDE-AGENTS-107
+  category: guide
+  name: agents
+  title: Agents Documentation
+  status: active
+  artifacts:
+  - path: docs/DOC_AGENTS.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:guide
+  - batch:remaining
+- doc_id: DOC-GUIDE-AGENT_ANALYSIS_AND_RECOMMENDATIONS-108
+  category: guide
+  name: agent-analysis-and-recommendations
+  title: Agent Analysis and Recommendations
+  status: active
+  artifacts:
+  - path: docs/DOC_AGENT_ANALYSIS_AND_RECOMMENDATIONS.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:guide
+  - batch:remaining
+- doc_id: DOC-GUIDE-AGENT_GUIDE_START_HERE-109
+  category: guide
+  name: agent-guide-start-here
+  title: Agent Guide - Start Here
+  status: active
+  artifacts:
+  - path: docs/DOC_AGENT_GUIDE_START_HERE.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:guide
+  - batch:remaining
+- doc_id: DOC-GUIDE-AGENT_QUICK_REFERENCE-110
+  category: guide
+  name: agent-quick-reference
+  title: Agent Quick Reference
+  status: active
+  artifacts:
+  - path: docs/DOC_AGENT_QUICK_REFERENCE.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:guide
+  - batch:remaining
+- doc_id: DOC-GUIDE-ANTI_PATTERN_11_FRAMEWORK_OVER_ENGINEERING-111
+  category: guide
+  name: anti-pattern-11-framework-over-engineering
+  title: 'Anti-Pattern 11: Framework Over-Engineering'
+  status: active
+  artifacts:
+  - path: docs/DOC_ANTI_PATTERN_11_FRAMEWORK_OVER_ENGINEERING.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:guide
+  - batch:remaining
+- doc_id: DOC-GUIDE-DATA_FLOWS-112
+  category: guide
+  name: data-flows
+  title: Data Flows Documentation
+  status: active
+  artifacts:
+  - path: docs/DOC_DATA_FLOWS.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:guide
+  - batch:remaining
+- doc_id: DOC-GUIDE-DEPENDENCIES-113
+  category: guide
+  name: dependencies
+  title: Dependencies Documentation
+  status: active
+  artifacts:
+  - path: docs/DOC_DEPENDENCIES.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:guide
+  - batch:remaining
+- doc_id: DOC-GUIDE-ERROR_CATALOG-114
+  category: guide
+  name: error-catalog
+  title: Error Catalog
+  status: active
+  artifacts:
+  - path: docs/DOC_ERROR_CATALOG.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:guide
+  - batch:remaining
+- doc_id: DOC-GUIDE-EXECUTION_ACCELERATION_ANALYSIS-115
+  category: guide
+  name: execution-acceleration-analysis
+  title: Execution Acceleration Analysis
+  status: active
+  artifacts:
+  - path: docs/DOC_EXECUTION_ACCELERATION_ANALYSIS.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:guide
+  - batch:remaining
+- doc_id: DOC-GUIDE-EXECUTION_GAPS_AND_ENHANCEMENTS-116
+  category: guide
+  name: execution-gaps-and-enhancements
+  title: Execution Gaps and Enhancements
+  status: active
+  artifacts:
+  - path: docs/DOC_EXECUTION_GAPS_AND_ENHANCEMENTS.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:guide
+  - batch:remaining
+- doc_id: DOC-GUIDE-FOLDER_VERSION_SCORING_SPEC-117
+  category: guide
+  name: folder-version-scoring-spec
+  title: Folder Version Scoring Specification
+  status: active
+  artifacts:
+  - path: docs/DOC_FOLDER_VERSION_SCORING_SPEC.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:guide
+  - batch:remaining
+- doc_id: DOC-GUIDE-GUI_QUICK_START-118
+  category: guide
+  name: gui-quick-start
+  title: GUI Quick Start Guide
+  status: active
+  artifacts:
+  - path: docs/DOC_GUI_QUICK_START.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:guide
+  - batch:remaining
+- doc_id: DOC-GUIDE-MODULE_CENTRIC_ARCHITECTURE_OVERVIEW-119
+  category: guide
+  name: module-centric-architecture-overview
+  title: Module-Centric Architecture Overview
+  status: active
+  artifacts:
+  - path: docs/DOC_MODULE_CENTRIC_ARCHITECTURE_OVERVIEW.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:guide
+  - batch:remaining
+- doc_id: DOC-GUIDE-MODULE_CENTRIC_IMPLEMENTATION_SUMMARY-120
+  category: guide
+  name: module-centric-implementation-summary
+  title: Module-Centric Implementation Summary
+  status: active
+  artifacts:
+  - path: docs/DOC_MODULE_CENTRIC_IMPLEMENTATION_SUMMARY.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:guide
+  - batch:remaining
+- doc_id: DOC-GUIDE-MODULE_CENTRIC_MIGRATION_GUIDE-121
+  category: guide
+  name: module-centric-migration-guide
+  title: Module-Centric Migration Guide
+  status: active
+  artifacts:
+  - path: docs/DOC_MODULE_CENTRIC_MIGRATION_GUIDE.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:guide
+  - batch:remaining
+- doc_id: DOC-GUIDE-ID_COMPLETE_EXECUTION_SUMMARY-122
+  category: guide
+  name: id-complete-execution-summary
+  title: DOC_ID Complete Execution Summary
+  status: active
+  artifacts:
+  - path: docs/DOC_ID_COMPLETE_EXECUTION_SUMMARY.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:guide
+  - batch:remaining
+- doc_id: DOC-GUIDE-GLOSSARY_CHANGELOG-123
+  category: guide
+  name: glossary-changelog
+  title: Glossary Changelog
+  status: active
+  artifacts:
+  - path: glossary/docs/DOC_GLOSSARY_CHANGELOG.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:glossary
+  - location:glossary/docs
+- doc_id: DOC-GUIDE-GLOSSARY_GOVERNANCE-124
+  category: guide
+  name: glossary-governance
+  title: Glossary Governance
+  status: active
+  artifacts:
+  - path: glossary/docs/DOC_GLOSSARY_GOVERNANCE.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:glossary
+  - location:glossary/docs
+- doc_id: DOC-GUIDE-GLOSSARY_SCHEMA-125
+  category: guide
+  name: glossary-schema
+  title: Glossary Schema
+  status: active
+  artifacts:
+  - path: glossary/docs/DOC_GLOSSARY_SCHEMA.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:glossary
+  - location:glossary/docs
+- doc_id: DOC-GUIDE-DOC_ID_COMPLETION_001-126
+  category: guide
+  name: doc-id-completion-001
+  title: DOC_ID Completion Plan 001
+  status: active
+  artifacts:
+  - path: workstreams/plans/PLAN_DOC_ID_COMPLETION_001.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:plan
+  - category:doc_id
+- doc_id: DOC-GUIDE-DOC_ID_COMPLETION_001_FILE_CHANGES-127
+  category: guide
+  name: doc-id-completion-001-file-changes
+  title: DOC_ID Completion Plan 001 - File Changes
+  status: active
+  artifacts:
+  - path: workstreams/plans/PLAN_DOC_ID_COMPLETION_001_FILE_CHANGES.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:plan
+  - category:doc_id
+- doc_id: DOC-PAT-EVERY_REUSABLE_PATTERN-005
+  category: patterns
+  name: every-reusable-pattern
+  title: Every Reusable Pattern Catalog
+  status: active
+  artifacts:
+  - path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/docs/DOC_EVERY_REUSABLE_PATTERN.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:pattern
+  - category:uet
+- doc_id: DOC-PAT-IMPLEMENTATION_COMPLETE_SUMMARY-006
+  category: patterns
+  name: implementation-complete-summary
+  title: UET Implementation Complete Summary
+  status: active
+  artifacts:
+  - path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/docs/DOC_IMPLEMENTATION_COMPLETE_SUMMARY.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:pattern
+  - category:uet
+- doc_id: DOC-PAT-IMPLEMENTATION_STATUS-007
+  category: patterns
+  name: implementation-status
+  title: UET Implementation Status
+  status: active
+  artifacts:
+  - path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/docs/DOC_IMPLEMENTATION_STATUS.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:pattern
+  - category:uet
+- doc_id: DOC-PAT-PATTERN_AUTOMATION_MASTER_PLAN-008
+  category: patterns
+  name: pattern-automation-master-plan
+  title: Pattern Automation Master Plan
+  status: active
+  artifacts:
+  - path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/docs/DOC_PATTERN_AUTOMATION_MASTER_PLAN.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:pattern
+  - category:uet
+- doc_id: DOC-PAT-SLASH_COMMAND_PATTERN_SET-009
+  category: patterns
+  name: slash-command-pattern-set
+  title: Slash Command Pattern Set
+  status: active
+  artifacts:
+  - path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/docs/DOC_SLASH_COMMAND_PATTERN_SET.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:pattern
+  - category:uet
+- doc_id: DOC-PAT-ASSISTANT_RESPONSES_OPERATION_KINDS-010
+  category: patterns
+  name: assistant-responses-operation-kinds
+  title: Assistant Responses Operation Kinds
+  status: active
+  artifacts:
+  - path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/docs/DOC_ASSISTANT_RESPONSES_OPERATION_KINDS.md
+  created: '2025-11-29'
+  last_modified: '2025-11-29'
+  tags:
+  - type:pattern
+  - category:uet
 migration_queue:
   core_modules:
   - path: core/state/db.py

@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-ERROR_CATALOG-114
+---
+
 # Error Catalog
 
 **Purpose:** Document common errors with recovery procedures to help AI agents and developers diagnose and fix issues quickly.

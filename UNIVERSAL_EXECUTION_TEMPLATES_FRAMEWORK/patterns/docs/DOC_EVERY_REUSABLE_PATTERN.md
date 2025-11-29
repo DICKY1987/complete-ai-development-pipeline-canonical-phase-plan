@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-PAT-EVERY_REUSABLE_PATTERN-005
+---
+
 
 
 ---

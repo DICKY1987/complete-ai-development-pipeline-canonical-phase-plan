@@ -3,7 +3,7 @@ status: draft
 doc_type: guide
 module_refs: []
 script_refs: []
-doc_id: DOC-GUIDE-GLOSSARY_GOVERNANCE-056
+doc_id: DOC-GUIDE-GLOSSARY_GOVERNANCE-124
 ---
 
 # Glossary Governance Framework

@@ -3,7 +3,7 @@ status: draft
 doc_type: guide
 module_refs: []
 script_refs: []
-doc_id: DOC-GUIDE-AIDER_CONTRACT-023
+doc_id: DOC-GUIDE-AIDER_CONTRACT-074
 ---
 
 # Aider Integration Contract (AIDER_CONTRACT_V1)

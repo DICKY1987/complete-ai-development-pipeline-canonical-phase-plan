@@ -3,7 +3,7 @@ status: canonical
 doc_type: adr
 module_refs: []
 script_refs: []
-doc_id: DOC-ARCH-ADR_0003_SQLITE_STATE_STORAGE-003
+doc_id: DOC-ARCH-ADR_0003_SQLITE_STATE_STORAGE-013
 ---
 
 # ADR-0003: SQLite State Storage

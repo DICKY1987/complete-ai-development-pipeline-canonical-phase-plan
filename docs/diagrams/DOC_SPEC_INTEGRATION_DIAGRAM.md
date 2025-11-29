@@ -3,7 +3,7 @@ status: draft
 doc_type: guide
 module_refs: []
 script_refs: []
-doc_id: DOC-GUIDE-SPEC_INTEGRATION_DIAGRAM-008
+doc_id: DOC-GUIDE-SPEC_INTEGRATION_DIAGRAM-059
 ---
 
 # Specification Integration

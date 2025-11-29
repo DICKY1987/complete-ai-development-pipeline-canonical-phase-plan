@@ -3,7 +3,7 @@ status: draft
 doc_type: guide
 module_refs: []
 script_refs: []
-doc_id: DOC-GUIDE-DOCUMENTATION_CLEANUP_PATTERN-030
+doc_id: DOC-GUIDE-DOCUMENTATION_CLEANUP_PATTERN-081
 ---
 
 # DOC Documentation Cleanup Pattern

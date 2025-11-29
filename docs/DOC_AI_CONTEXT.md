@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-AI_CONTEXT-106
+---
+
 # AI Context - Complete AI Development Pipeline
 
 ## What This Repository Does

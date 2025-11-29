@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-AGENT_GUIDE_START_HERE-109
+---
+
 # Agent Guide - START HERE
 
 > **Quick Navigation**: Find the right agent documentation for your needs

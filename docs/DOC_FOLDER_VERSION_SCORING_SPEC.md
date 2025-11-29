@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-FOLDER_VERSION_SCORING_SPEC-117
+---
+
 # Folder Version Scoring Specification
 
 **Version**: 2.0  

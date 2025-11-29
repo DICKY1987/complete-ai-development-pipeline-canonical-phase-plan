@@ -3,7 +3,7 @@ status: draft
 doc_type: guide
 module_refs: []
 script_refs: []
-doc_id: DOC-GUIDE-TESTING_STRATEGY-020
+doc_id: DOC-GUIDE-TESTING_STRATEGY-071
 ---
 
 # Testing Strategy Guide

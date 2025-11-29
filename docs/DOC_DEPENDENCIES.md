@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-DEPENDENCIES-113
+---
+
 # Dependency Analysis
 
 **Purpose:** Document code dependencies and conceptual relationships to help AI agents understand module coupling and change impact.

@@ -7,6 +7,9 @@ import argparse
 import sys
 from typing import Optional
 
+import tempfile
+import os
+
 from textual.app import App, ComposeResult
 from textual.containers import Container, Horizontal
 from textual.widgets import Header, Footer, Static
@@ -143,7 +146,7 @@ class PipelineTUI(App):
     def on_mount(self) -> None:
         """Called when app is mounted."""
         if self._css:
-            self.stylesheet.read(self._css)
+            self.stylesheet.add_source(self._css)
         self.title = "AI Pipeline TUI"
         self.sub_title = "Monitoring & Control"
 

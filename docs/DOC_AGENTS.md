@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-AGENTS-107
+---
+
 # Repository Guidelines – Codex / Agentic CLI Instructions
 
 > **Note**: This file serves dual purposes:

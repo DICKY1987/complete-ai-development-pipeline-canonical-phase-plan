@@ -3,7 +3,7 @@ status: draft
 doc_type: guide
 module_refs: []
 script_refs: []
-doc_id: DOC-GUIDE-EXAMPLE_SIMPLE_TASK-013
+doc_id: DOC-GUIDE-EXAMPLE_SIMPLE_TASK-064
 ---
 
 # Example 01: Simple Task - Hello World

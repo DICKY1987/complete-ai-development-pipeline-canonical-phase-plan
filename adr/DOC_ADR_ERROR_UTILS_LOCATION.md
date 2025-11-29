@@ -3,7 +3,7 @@ status: canonical
 doc_type: adr
 module_refs: []
 script_refs: []
-doc_id: DOC-ARCH-ADR_ERROR_UTILS_LOCATION-010
+doc_id: DOC-ARCH-ADR_ERROR_UTILS_LOCATION-020
 ---
 
 # ADR: Error Utilities Location

@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-GUI_QUICK_START-118
+---
+
 # TUI Quick Start Guide
 
 **AI Pipeline TUI - Desktop-Launchable Real-time Monitoring Dashboard**

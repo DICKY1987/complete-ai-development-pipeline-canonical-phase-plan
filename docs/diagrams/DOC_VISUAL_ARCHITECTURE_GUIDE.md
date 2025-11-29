@@ -3,7 +3,7 @@ status: draft
 doc_type: guide
 module_refs: []
 script_refs: []
-doc_id: DOC-GUIDE-VISUAL_ARCHITECTURE_GUIDE-012
+doc_id: DOC-GUIDE-VISUAL_ARCHITECTURE_GUIDE-063
 ---
 
 # Visual Architecture Guide

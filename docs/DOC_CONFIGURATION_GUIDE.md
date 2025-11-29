@@ -3,7 +3,7 @@ status: draft
 doc_type: guide
 module_refs: []
 script_refs: []
-doc_id: DOC-GUIDE-CONFIGURATION_GUIDE-028
+doc_id: DOC-GUIDE-CONFIGURATION_GUIDE-079
 ---
 
 # Configuration Guide - AI Development Pipeline

@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: plan
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-DOC_ID_COMPLETION_001_FILE_CHANGES-127
+---
+
 # PLAN_DOC_ID_COMPLETION_001 - File Modifications Summary
 
 **Plan**: PLAN_DOC_ID_COMPLETION_001  

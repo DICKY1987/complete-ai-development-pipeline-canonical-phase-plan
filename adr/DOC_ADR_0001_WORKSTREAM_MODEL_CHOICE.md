@@ -3,7 +3,7 @@ status: canonical
 doc_type: adr
 module_refs: []
 script_refs: []
-doc_id: DOC-ARCH-ADR_0001_WORKSTREAM_MODEL_CHOICE-001
+doc_id: DOC-ARCH-ADR_0001_WORKSTREAM_MODEL_CHOICE-011
 ---
 
 # ADR-0001: Workstream Model Choice

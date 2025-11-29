@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-ANTI_PATTERN_11_FRAMEWORK_OVER_ENGINEERING-111
+---
+
 # Anti-Pattern 11: Framework Over-Engineering & Worktree Contamination
 
 **Pattern ID**: ANTI_PATTERN_11_FRAMEWORK_OVER_ENGINEERING  

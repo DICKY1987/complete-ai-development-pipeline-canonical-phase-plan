@@ -3,7 +3,7 @@ status: draft
 doc_type: guide
 module_refs: []
 script_refs: []
-doc_id: DOC-GUIDE-CHECKLIST_QUICK_START-052
+doc_id: DOC-GUIDE-CHECKLIST_QUICK_START-103
 ---
 
 # Repository Checklist - Quick Start

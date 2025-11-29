@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-MODULE_CENTRIC_IMPLEMENTATION_SUMMARY-120
+---
+
 # Module-Centric Architecture Implementation - Summary
 
 **Date**: 2025-11-25  

@@ -3,7 +3,7 @@ status: draft
 doc_type: guide
 module_refs: []
 script_refs: []
-doc_id: DOC-GUIDE-SOFT_SANDBOX_PATTERN-041
+doc_id: DOC-GUIDE-SOFT_SANDBOX_PATTERN-092
 ---
 
 Cool, let’s lock this in tool-by-tool.

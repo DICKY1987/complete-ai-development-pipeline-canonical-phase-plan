@@ -3,7 +3,7 @@ status: canonical
 doc_type: adr
 module_refs: []
 script_refs: []
-doc_id: DOC-ARCH-ADR_0006_SPECIFICATIONS_UNIFIED_MANAGEMENT-006
+doc_id: DOC-ARCH-ADR_0006_SPECIFICATIONS_UNIFIED_MANAGEMENT-016
 ---
 
 # ADR-0006: Specifications Unified Management

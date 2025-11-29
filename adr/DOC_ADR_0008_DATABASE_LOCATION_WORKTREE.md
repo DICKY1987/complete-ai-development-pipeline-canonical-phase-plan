@@ -3,7 +3,7 @@ status: canonical
 doc_type: adr
 module_refs: []
 script_refs: []
-doc_id: DOC-ARCH-ADR_0008_DATABASE_LOCATION_WORKTREE-008
+doc_id: DOC-ARCH-ADR_0008_DATABASE_LOCATION_WORKTREE-018
 ---
 
 # ADR-0008: Database Location in Worktree

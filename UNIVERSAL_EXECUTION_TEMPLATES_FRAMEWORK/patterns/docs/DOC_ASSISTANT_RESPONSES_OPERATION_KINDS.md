@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-PAT-ASSISTANT_RESPONSES_OPERATION_KINDS-010
+---
+
 # Assistant Responses – Operation Kind & Pattern Conversation
 
 ## Response 1 – Where to find proven patterns

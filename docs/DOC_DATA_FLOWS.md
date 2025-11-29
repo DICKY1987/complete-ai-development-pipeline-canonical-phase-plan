@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-DATA_FLOWS-112
+---
+
 # Data Flow Diagrams
 
 **Purpose:** Visualize how data moves through the system to help AI agents understand request/response patterns and state propagation.

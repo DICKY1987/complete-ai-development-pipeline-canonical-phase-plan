@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-PAT-PATTERN_AUTOMATION_MASTER_PLAN-008
+---
+
 # Pattern Automation Master Plan
 
 **DOC_ID:** DOC-PAT-AUTO-MASTER-001  

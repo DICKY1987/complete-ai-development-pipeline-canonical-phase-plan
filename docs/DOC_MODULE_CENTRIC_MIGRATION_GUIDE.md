@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-MODULE_CENTRIC_MIGRATION_GUIDE-121
+---
+
 # Module-Centric Architecture Migration Guide
 
 ## Overview

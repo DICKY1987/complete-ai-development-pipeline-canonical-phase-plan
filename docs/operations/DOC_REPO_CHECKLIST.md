@@ -3,7 +3,7 @@ status: draft
 doc_type: guide
 module_refs: []
 script_refs: []
-doc_id: DOC-GUIDE-REPO_CHECKLIST-053
+doc_id: DOC-GUIDE-REPO_CHECKLIST-104
 ---
 
 # Repository Checklist System

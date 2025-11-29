@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-EXECUTION_GAPS_AND_ENHANCEMENTS-116
+---
+
 # Execution Gap Analysis & Anti-Pattern Guard Enhancements
 
 **Document ID**: DOC-ANALYSIS-EXECUTION-GAPS-001  

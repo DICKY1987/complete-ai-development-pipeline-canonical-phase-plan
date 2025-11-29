@@ -3,7 +3,7 @@ status: draft
 doc_type: guide
 module_refs: []
 script_refs: []
-doc_id: DOC-GUIDE-SAFE_RENAME_STRATEGY-040
+doc_id: DOC-GUIDE-SAFE_RENAME_STRATEGY-091
 ---
 
 # Safe Rename Strategy for AI-Friendly Codebase

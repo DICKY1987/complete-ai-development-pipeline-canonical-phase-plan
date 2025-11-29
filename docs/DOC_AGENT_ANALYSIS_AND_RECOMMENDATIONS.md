@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-AGENT_ANALYSIS_AND_RECOMMENDATIONS-108
+---
+
 # Agent Analysis and Development Recommendations
 
 > **Purpose**: Identify existing agents and recommend new agents to improve task automation  

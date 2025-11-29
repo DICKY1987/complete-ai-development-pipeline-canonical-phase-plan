@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-ID_COMPLETE_EXECUTION_SUMMARY-122
+---
+
 # DOC_ID Complete Execution Summary
 
 **Execution Date**: 2025-11-29  

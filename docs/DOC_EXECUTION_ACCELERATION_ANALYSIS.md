@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-EXECUTION_ACCELERATION_ANALYSIS-115
+---
+
 # Execution Acceleration Analysis - UET Migration Case Study
 
 **Document ID**: DOC-ANALYSIS-EXECUTION-ACCELERATION-001  

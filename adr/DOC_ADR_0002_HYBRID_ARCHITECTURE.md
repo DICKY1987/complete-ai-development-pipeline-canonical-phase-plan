@@ -3,7 +3,7 @@ status: canonical
 doc_type: adr
 module_refs: []
 script_refs: []
-doc_id: DOC-ARCH-ADR_0002_HYBRID_ARCHITECTURE-002
+doc_id: DOC-ARCH-ADR_0002_HYBRID_ARCHITECTURE-012
 ---
 
 # ADR-0002: Hybrid Architecture (GUI/Terminal/TUI)
