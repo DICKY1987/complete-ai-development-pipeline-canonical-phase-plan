@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-AIM_INTEGRATION_STATUS-024
+---
+
 # AIM Integration Status Report
 
 **Date:** 2025-11-22  

@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-GLOSSARY_CHANGELOG-055
+---
+
 # Glossary Changelog
 
 **Doc ID**: `DOC-GLOSSARY-CHANGELOG-001`  

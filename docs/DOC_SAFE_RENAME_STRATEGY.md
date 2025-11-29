@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-SAFE_RENAME_STRATEGY-040
+---
+
 # Safe Rename Strategy for AI-Friendly Codebase
 
 **Date**: 2025-11-23  

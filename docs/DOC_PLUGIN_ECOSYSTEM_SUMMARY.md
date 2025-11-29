@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-PLUGIN_ECOSYSTEM_SUMMARY-037
+---
+
 # Error Pipeline Plugin Ecosystem - Implementation Summary
 
 ## Overview

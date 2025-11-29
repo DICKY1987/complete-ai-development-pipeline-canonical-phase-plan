@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-SOFT_SANDBOX_PATTERN-041
+---
+
 Cool, let’s lock this in tool-by-tool.
 I’ll assume your “soft sandbox” pattern is:
 

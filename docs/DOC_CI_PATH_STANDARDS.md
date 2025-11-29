@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-CI_PATH_STANDARDS-026
+---
+
 # CI Path Standards Enforcement
 
 **Created**: 2025-11-19  

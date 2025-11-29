@@ -1,3 +1,11 @@
+---
+status: canonical
+doc_type: adr
+module_refs: []
+script_refs: []
+doc_id: DOC-ARCH-ADR_0005_PYTHON_PRIMARY_LANGUAGE-005
+---
+
 # ADR-0005: Python Primary Language
 
 **Status:** Accepted  

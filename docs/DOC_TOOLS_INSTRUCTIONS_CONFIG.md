@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-TOOLS_INSTRUCTIONS_CONFIG-046
+---
+
 Short version:
 Each of these tools has **its own “instructions file” + config** you can hook into:
 

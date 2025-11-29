@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-FILE_ORGANIZATION_SYSTEM-034
+---
+
 # File Organization System – Development vs System Files
 
 > **Purpose**: Define a clear separation strategy between development artifacts and production system files to prevent mixing and facilitate clean handover.  

@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-SYSTEM_ARCHITECTURE_DIAGRAM-009
+---
+
 # System Architecture
 
 **Purpose**: High-level overview of the Complete AI Development Pipeline system architecture, showing all major components and their interactions.

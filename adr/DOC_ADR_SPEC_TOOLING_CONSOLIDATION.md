@@ -1,3 +1,11 @@
+---
+status: canonical
+doc_type: adr
+module_refs: []
+script_refs: []
+doc_id: DOC-ARCH-ADR_SPEC_TOOLING_CONSOLIDATION-009
+---
+
 # ADR-0005: Spec tooling consolidation
 
 ## Status

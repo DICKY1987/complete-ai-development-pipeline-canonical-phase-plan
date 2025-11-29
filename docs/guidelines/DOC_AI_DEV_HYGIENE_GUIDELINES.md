@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-AI_DEV_HYGIENE_GUIDELINES-018
+---
+
 # AI Development Hygiene - Quick Reference Guidelines
 
 **Purpose:** Maintain context clarity for AI-assisted development  

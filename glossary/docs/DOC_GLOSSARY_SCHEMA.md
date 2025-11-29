@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-GLOSSARY_SCHEMA-057
+---
+
 # Glossary Term Schema
 
 **Doc ID**: `DOC-GLOSSARY-SCHEMA-001`  

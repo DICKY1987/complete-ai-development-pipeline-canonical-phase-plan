@@ -1,0 +1,27 @@
+batch_id: DOCID-BATCH-DOCS-EXAMPLES-001
+description: Assign doc_ids to example documents in docs/examples/
+category: guide
+items:
+  - logical_name: EXAMPLE_SIMPLE_TASK
+    title: "Example 01: Simple Task Execution"
+    artifacts:
+      - path: docs/examples/DOC_EXAMPLE_01_SIMPLE_TASK.md
+  - logical_name: EXAMPLE_PARALLEL_EXECUTION
+    title: "Example 02: Parallel Execution"
+    artifacts:
+      - path: docs/examples/DOC_EXAMPLE_02_PARALLEL_EXECUTION.md
+  - logical_name: EXAMPLE_ERROR_HANDLING
+    title: "Example 03: Error Handling"
+    artifacts:
+      - path: docs/examples/DOC_EXAMPLE_03_ERROR_HANDLING.md
+  - logical_name: EXAMPLE_MULTI_PHASE
+    title: "Example 04: Multi-Phase Workstream"
+    artifacts:
+      - path: docs/examples/DOC_EXAMPLE_04_MULTI_PHASE.md
+  - logical_name: EXAMPLE_SAGA_PATTERN
+    title: "Example 05: Saga Pattern Implementation"
+    artifacts:
+      - path: docs/examples/DOC_EXAMPLE_05_SAGA_PATTERN.md
+tags:
+  - type:example
+  - location:docs/examples

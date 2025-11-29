@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-STATE_MACHINE-045
+---
+
 # State machine
 
 This document describes the canonical states and transitions for runs and

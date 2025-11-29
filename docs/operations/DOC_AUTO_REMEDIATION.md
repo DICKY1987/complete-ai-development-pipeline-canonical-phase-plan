@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-AUTO_REMEDIATION-051
+---
+
 # Auto-Remediation System
 
 ## Overview

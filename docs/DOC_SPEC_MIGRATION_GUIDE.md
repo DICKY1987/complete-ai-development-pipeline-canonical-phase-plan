@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-SPEC_MIGRATION_GUIDE-043
+---
+
 # Specification Folder Migration Guide
 
 ## Overview

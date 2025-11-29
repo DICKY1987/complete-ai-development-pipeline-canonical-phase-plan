@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-GLOSSARY_GOVERNANCE-056
+---
+
 # Glossary Governance Framework
 
 **Doc ID**: `DOC-GLOSSARY-GOV-001`  

@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-VISUAL_ARCHITECTURE_GUIDE-012
+---
+
 # Visual Architecture Guide
 
 **Purpose**: Index and guide for all architecture diagrams, including conventions, update procedures, and validation.

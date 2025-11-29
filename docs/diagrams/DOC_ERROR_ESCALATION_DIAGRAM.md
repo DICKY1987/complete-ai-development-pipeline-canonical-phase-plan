@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-ERROR_ESCALATION_DIAGRAM-007
+---
+
 # Error Escalation
 
 **Purpose**: Visualization of error detection, analysis, and escalation flow through the plugin architecture.

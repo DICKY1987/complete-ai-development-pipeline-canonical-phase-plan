@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-ARCHITECTURE-025
+---
+
 # Architecture Overview
 
 **Last Updated**: 2025-11-19  

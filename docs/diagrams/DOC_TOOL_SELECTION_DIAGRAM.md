@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-TOOL_SELECTION_DIAGRAM-011
+---
+
 # Tool Selection
 
 **Purpose**: Decision tree and flow for selecting the appropriate tool adapter based on task requirements and tool profiles.

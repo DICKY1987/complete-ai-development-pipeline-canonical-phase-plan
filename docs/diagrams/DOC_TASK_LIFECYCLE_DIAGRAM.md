@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-TASK_LIFECYCLE_DIAGRAM-010
+---
+
 # Task Lifecycle
 
 **Purpose**: Detailed state machine diagram showing the complete lifecycle of a workstream task from creation to completion.

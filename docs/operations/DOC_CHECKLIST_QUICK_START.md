@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-CHECKLIST_QUICK_START-052
+---
+
 # Repository Checklist - Quick Start
 
 ## What Is This?

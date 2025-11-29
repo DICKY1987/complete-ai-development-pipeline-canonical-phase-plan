@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-EXAMPLE_MULTI_PHASE-016
+---
+
 # Example 04: Multi-Phase Workflow - Data Pipeline
 
 **Pattern**: Multi-phase with checkpointing and state transitions  

@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-DOCUMENTATION_INDEX-031
+---
+
 # Complete Documentation Index
 
 **Purpose:** Comprehensive navigation guide to all Phase K and Phase K+ documentation.

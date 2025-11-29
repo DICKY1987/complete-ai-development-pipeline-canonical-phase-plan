@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-CONFIGURATION_GUIDE-028
+---
+
 # Configuration Guide - AI Development Pipeline
 
 **Last Updated**: 2025-11-21  

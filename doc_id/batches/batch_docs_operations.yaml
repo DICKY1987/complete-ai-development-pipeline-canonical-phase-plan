@@ -1,0 +1,31 @@
+batch_id: DOCID-BATCH-DOCS-OPERATIONS-001
+description: Assign doc_ids to operations documents in docs/operations/
+category: guide
+items:
+  - logical_name: AUDIT_RETENTION
+    title: "Audit Retention Policy"
+    artifacts:
+      - path: docs/operations/DOC_AUDIT_RETENTION.md
+  - logical_name: AUDIT_TRAIL
+    title: "Audit Trail Documentation"
+    artifacts:
+      - path: docs/operations/DOC_AUDIT_TRAIL.md
+  - logical_name: AUTO_REMEDIATION
+    title: "Automated Remediation Guide"
+    artifacts:
+      - path: docs/operations/DOC_AUTO_REMEDIATION.md
+  - logical_name: CHECKLIST_QUICK_START
+    title: "Checklist Quick Start"
+    artifacts:
+      - path: docs/operations/DOC_CHECKLIST_QUICK_START.md
+  - logical_name: REPO_CHECKLIST
+    title: "Repository Checklist"
+    artifacts:
+      - path: docs/operations/DOC_REPO_CHECKLIST.md
+  - logical_name: VALIDATION_ENHANCEMENT_ROADMAP
+    title: "Validation Enhancement Roadmap"
+    artifacts:
+      - path: docs/operations/DOC_VALIDATION_ENHANCEMENT_ROADMAP.md
+tags:
+  - type:operations
+  - location:docs/operations

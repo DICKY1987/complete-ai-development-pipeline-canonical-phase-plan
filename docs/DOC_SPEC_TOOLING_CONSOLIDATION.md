@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-SPEC_TOOLING_CONSOLIDATION-044
+---
+
 # Spec tooling consolidation
 
 This repository standardizes on OpenSpec for specifications while preserving compatibility with

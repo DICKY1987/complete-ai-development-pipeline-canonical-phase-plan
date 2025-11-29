@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-SPEC_MANAGEMENT_CONTRACT-042
+---
+
 # Specification Management Contract (SPEC_MGMT_V1)
 
 This document defines the contract for multi‑document versioning and specification management in this repository. It standardizes how documents are identified, versioned, linked, and validated so both humans and AI agents can operate deterministically.

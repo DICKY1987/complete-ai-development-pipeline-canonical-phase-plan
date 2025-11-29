@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-ANTI_PATTERNS-019
+---
+
 # Anti-Patterns Catalog
 
 **Purpose:** Document common mistakes and discouraged practices to help AI agents and developers avoid repeating historical errors.

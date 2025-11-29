@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-ZERO_TOUCH_SYNC_DESIGN-048
+---
+
 # Zero-Touch Sync Solution - Universal Design
 
 **Goal**: User never thinks about sync. Local and remote are always identical, automatically.

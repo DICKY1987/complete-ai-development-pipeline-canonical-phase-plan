@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-DOCUMENTATION_CLEANUP_PATTERN-030
+---
+
 # DOC Documentation Cleanup Pattern
 
 Reusable workflow for pruning, consolidating, and archiving repository

@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-COORDINATION_GUIDE-029
+---
+
 # Workstream Coordination Guide
 ## For Claude Code, Codex CLI, Aider & Other AI Tools
 

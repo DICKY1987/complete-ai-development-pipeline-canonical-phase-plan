@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-WORKSTREAM_PROMPT_STRUCTURE-047
+---
+
 workstream-style” prompt structure_Aider_Ollama Code_OpenAI Codex_Claude Code
 * **Aider** (with Ollama models via `aider --model ...`)
 * **Ollama Code / ollama-code**([GitHub][1])

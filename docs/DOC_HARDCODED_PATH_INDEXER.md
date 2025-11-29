@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-HARDCODED_PATH_INDEXER-035
+---
+
 # Hardcoded Path Indexer
 
 This tool scans the repository to index hardcoded paths, Python imports, and path-like references across code, configs, and docs. Results persist in a SQLite database for planning section-aware refactors.

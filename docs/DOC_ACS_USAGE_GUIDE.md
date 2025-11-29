@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-ACS_USAGE_GUIDE-022
+---
+
 # ACS Usage Guide
 
 **AI Codebase Structure (ACS) Specification - Usage Documentation**

@@ -1,0 +1,115 @@
+batch_id: DOCID-BATCH-DOCS-GUIDES-001
+description: Assign doc_ids to guide documents in docs/
+category: guide
+items:
+  - logical_name: ACS_USAGE_GUIDE
+    title: "AI Codebase Structure Usage Guide"
+    artifacts:
+      - path: docs/DOC_ACS_USAGE_GUIDE.md
+  - logical_name: AIDER_CONTRACT
+    title: "Aider Tool Contract"
+    artifacts:
+      - path: docs/DOC_AIDER_CONTRACT.md
+  - logical_name: AIM_INTEGRATION_STATUS
+    title: "AIM Integration Status"
+    artifacts:
+      - path: docs/DOC_AIM_INTEGRATION_STATUS.md
+  - logical_name: ARCHITECTURE
+    title: "System Architecture Overview"
+    artifacts:
+      - path: docs/DOC_ARCHITECTURE.md
+  - logical_name: CI_PATH_STANDARDS
+    title: "CI Path Standards"
+    artifacts:
+      - path: docs/DOC_CI_PATH_STANDARDS.md
+  - logical_name: CLEANUP_LOG
+    title: "Repository Cleanup Log"
+    artifacts:
+      - path: docs/DOC_CLEANUP_LOG.md
+  - logical_name: CONFIGURATION_GUIDE
+    title: "Configuration Guide"
+    artifacts:
+      - path: docs/DOC_CONFIGURATION_GUIDE.md
+  - logical_name: COORDINATION_GUIDE
+    title: "Multi-Agent Coordination Guide"
+    artifacts:
+      - path: docs/DOC_COORDINATION_GUIDE.md
+  - logical_name: DOCUMENTATION_CLEANUP_PATTERN
+    title: "Documentation Cleanup Pattern"
+    artifacts:
+      - path: docs/DOC_DOCUMENTATION_CLEANUP_PATTERN.md
+  - logical_name: DOCUMENTATION_INDEX
+    title: "Documentation Index"
+    artifacts:
+      - path: docs/DOC_DOCUMENTATION_INDEX.md
+  - logical_name: ENGINE_QUICK_REFERENCE
+    title: "Engine Quick Reference"
+    artifacts:
+      - path: docs/DOC_ENGINE_QUICK_REFERENCE.md
+  - logical_name: FILE_ORGANIZATION_QUICK_REF
+    title: "File Organization Quick Reference"
+    artifacts:
+      - path: docs/DOC_FILE_ORGANIZATION_QUICK_REF.md
+  - logical_name: FILE_ORGANIZATION_SYSTEM
+    title: "File Organization System"
+    artifacts:
+      - path: docs/DOC_FILE_ORGANIZATION_SYSTEM.md
+  - logical_name: HARDCODED_PATH_INDEXER
+    title: "Hardcoded Path Indexer"
+    artifacts:
+      - path: docs/DOC_HARDCODED_PATH_INDEXER.md
+  - logical_name: IMPLEMENTATION_LOCATIONS
+    title: "Implementation Locations"
+    artifacts:
+      - path: docs/DOC_IMPLEMENTATION_LOCATIONS.md
+  - logical_name: PLUGIN_ECOSYSTEM_SUMMARY
+    title: "Plugin Ecosystem Summary"
+    artifacts:
+      - path: docs/DOC_PLUGIN_ECOSYSTEM_SUMMARY.md
+  - logical_name: PLUGIN_QUICK_REFERENCE
+    title: "Plugin Quick Reference"
+    artifacts:
+      - path: docs/DOC_PLUGIN_QUICK_REFERENCE.md
+  - logical_name: PLUGIN_TEST_SUITE_SUMMARY
+    title: "Plugin Test Suite Summary"
+    artifacts:
+      - path: docs/DOC_PLUGIN_TEST_SUITE_SUMMARY.md
+  - logical_name: SAFE_RENAME_STRATEGY
+    title: "Safe Rename Strategy"
+    artifacts:
+      - path: docs/DOC_SAFE_RENAME_STRATEGY.md
+  - logical_name: SOFT_SANDBOX_PATTERN
+    title: "Soft Sandbox Pattern"
+    artifacts:
+      - path: docs/DOC_SOFT_SANDBOX_PATTERN.md
+  - logical_name: SPEC_MANAGEMENT_CONTRACT
+    title: "Specification Management Contract"
+    artifacts:
+      - path: docs/DOC_SPEC_MANAGEMENT_CONTRACT.md
+  - logical_name: SPEC_MIGRATION_GUIDE
+    title: "Specification Migration Guide"
+    artifacts:
+      - path: docs/DOC_SPEC_MIGRATION_GUIDE.md
+  - logical_name: SPEC_TOOLING_CONSOLIDATION
+    title: "Specification Tooling Consolidation"
+    artifacts:
+      - path: docs/DOC_SPEC_TOOLING_CONSOLIDATION.md
+  - logical_name: STATE_MACHINE
+    title: "State Machine Design"
+    artifacts:
+      - path: docs/DOC_STATE_MACHINE.md
+  - logical_name: TOOLS_INSTRUCTIONS_CONFIG
+    title: "Tools Instructions Configuration"
+    artifacts:
+      - path: docs/DOC_TOOLS_INSTRUCTIONS_CONFIG.md
+  - logical_name: WORKSTREAM_PROMPT_STRUCTURE
+    title: "Workstream Prompt Structure"
+    artifacts:
+      - path: docs/DOC_WORKSTREAM_PROMPT_STRUCTURE.md
+  - logical_name: ZERO_TOUCH_SYNC_DESIGN
+    title: "Zero Touch Sync Design"
+    artifacts:
+      - path: docs/DOC_ZERO_TOUCH_SYNC_DESIGN.md
+tags:
+  - type:guide
+  - location:docs

@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-EXAMPLE_PARALLEL_EXECUTION-014
+---
+
 # Example 02: Parallel Execution - Multi-Step Utilities
 
 **Pattern**: Multi-step workstream with parallel execution  

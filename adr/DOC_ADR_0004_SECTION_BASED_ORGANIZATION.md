@@ -1,3 +1,11 @@
+---
+status: canonical
+doc_type: adr
+module_refs: []
+script_refs: []
+doc_id: DOC-ARCH-ADR_0004_SECTION_BASED_ORGANIZATION-004
+---
+
 # ADR-0004: Section-Based Organization
 
 **Status:** Accepted  

@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-EXAMPLE_ERROR_HANDLING-015
+---
+
 # Example 03: Error Handling - Resilient Network Client
 
 **Pattern**: Circuit breaker, retry, and recovery  

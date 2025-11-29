@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-EXAMPLE_SAGA_PATTERN-017
+---
+
 # Example 05: SAGA Pattern - Distributed Transactions
 
 **Pattern**: SAGA with compensation and rollback  

@@ -1,3 +1,11 @@
+---
+status: draft
+doc_type: guide
+module_refs: []
+script_refs: []
+doc_id: DOC-GUIDE-FILE_ORGANIZATION_QUICK_REF-033
+---
+
 # File Organization Quick Reference
 
 > **Purpose**: Quick lookup guide for where files should go  

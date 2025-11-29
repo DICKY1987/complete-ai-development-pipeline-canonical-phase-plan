@@ -1,3 +1,11 @@
+---
+status: canonical
+doc_type: adr
+module_refs: []
+script_refs: []
+doc_id: DOC-ARCH-ADR_0007_ERROR_PLUGIN_ARCHITECTURE-007
+---
+
 # ADR-0007: Error Plugin Architecture
 
 **Status:** Accepted  
