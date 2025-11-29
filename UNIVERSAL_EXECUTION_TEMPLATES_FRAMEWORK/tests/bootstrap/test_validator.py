@@ -2,6 +2,7 @@
 import json
 import yaml
 import pytest
+pytest.importorskip("jsonschema")
 import sys
 from pathlib import Path
 

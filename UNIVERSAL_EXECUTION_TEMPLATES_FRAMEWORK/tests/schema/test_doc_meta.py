@@ -5,6 +5,8 @@ Tests for doc-meta.v1.json schema validation.
 import json
 import pytest
 from pathlib import Path
+
+pytest.importorskip("jsonschema")
 from jsonschema import validate, ValidationError, Draft7Validator
 
 SCHEMA_PATH = Path(__file__).parent.parent.parent / "schema" / "doc-meta.v1.json"
