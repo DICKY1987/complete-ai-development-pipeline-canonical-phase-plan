@@ -1,0 +1,115 @@
+# Workstream: Versioned Document Template
+workstream_id: WS-T09
+title: Versioned Document Template
+pattern: EXEC-001
+track: Track 3 - Documentation & Quality Templates
+agent: codex-agent-3
+
+metadata:
+  priority: HIGH
+  complexity: LOW
+  time_estimate_hours: 2
+  dependencies: []
+  blocked_by: []
+  blocks: [WS-T13]
+
+description: |
+  Create reusable Markdown template for versioned documents with:
+  - YAML frontmatter (doc_key, semver, status, effective_date, owner, contract_type)
+  - Semantic versioning compliance
+  - Change log section
+  - Document governance metadata
+  
+  Based on VERSIONING_OPERATING_CONTRACT.md requirements.
+
+execution_request:
+  tool_id: codex-cli
+  worktree: .worktrees/track-3
+  constraints:
+    file_scope:
+      allowed_paths:
+        - templates/versioned_doc.template.md
+        - templates/_schema/versioned_doc.schema.json
+        - templates/_examples/versioned_doc.example.json
+        - tools/validate_doc_frontmatter.py
+      forbidden_paths:
+        - core/**
+        - error/**
+        - .git/**
+  
+  prompt: |
+    Create a versioned document Markdown template following EXEC-001 pattern.
+    
+    INPUTS:
+    1. Analyze existing CLAUDE.md structure:
+       - C:\Users\richg\.claude\file-history\420ac47a-d8e7-4448-921d-20a1dd4dee20\31be8919df36d14b@v3
+    2. Extract frontmatter requirements from VERSIONING_OPERATING_CONTRACT
+    
+    OUTPUTS:
+    1. templates/_schema/versioned_doc.schema.json
+       - Define variables: {doc_key}, {semver}, {status}, {effective_date}, {owner}, {contract_type}
+       - Validate: semver format, status enum, date format
+    
+    2. templates/versioned_doc.template.md
+       - Jinja2 template with YAML frontmatter
+       - Include: Purpose, Scope, Change Log sections
+       - Support: All contract types (policy, intent, execution_contract)
+    
+    3. tools/validate_doc_frontmatter.py
+       - Validator script for frontmatter
+       - Check: Required fields, semver format, status enum
+       - Exit 0 if valid, 1 if invalid
+    
+    4. templates/_examples/versioned_doc.example.json
+       - Sample variables for policy document
+       - Test data with valid frontmatter
+    
+    GROUND TRUTH GATES:
+    - Schema validates against JSON Schema meta-schema
+    - Template syntax is valid Jinja2
+    - Rendered document has valid YAML frontmatter
+    - Validator accepts generated document
+
+validation_gates:
+  gate_1_schema_valid:
+    command: python -c "import json, jsonschema; schema=json.load(open('templates/_schema/versioned_doc.schema.json')); jsonschema.Draft7Validator.check_schema(schema)"
+    expect_exit_code: 0
+    failure_action: halt_and_report
+  
+  gate_2_template_syntax:
+    command: python -c "from jinja2 import Template; Template(open('templates/versioned_doc.template.md').read())"
+    expect_exit_code: 0
+    failure_action: halt_and_report
+  
+  gate_3_renders_successfully:
+    command: python tools/render_template.py templates/versioned_doc.template.md templates/_examples/versioned_doc.example.json --output test_doc.md
+    expect_exit_code: 0
+    failure_action: halt_and_report
+  
+  gate_4_frontmatter_valid:
+    command: python tools/validate_doc_frontmatter.py test_doc.md
+    expect_exit_code: 0
+    failure_action: halt_and_report
+
+acceptance_criteria:
+  - Variable schema enforces all required frontmatter fields
+  - Template renders with valid YAML frontmatter
+  - Validator script correctly checks semver format
+  - Validator script validates status enum
+  - Change log section structure is present
+  - All contract types supported
+
+rollback_strategy:
+  checkpoint_before: true
+  rollback_command: git worktree remove --force .worktrees/track-3
+  recovery_steps:
+    - Delete .worktrees/track-3
+    - Remove any created files in templates/ and tools/
+
+telemetry:
+  track:
+    - template_creation_time
+    - schema_validation_result
+    - validator_script_result
+    - frontmatter_validation_result
+  output: .execution/telemetry/ws-t09.jsonl
