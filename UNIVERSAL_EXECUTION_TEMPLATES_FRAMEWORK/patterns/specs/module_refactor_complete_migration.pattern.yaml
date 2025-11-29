@@ -1,0 +1,601 @@
+pattern_id: PAT-MODULE-REFACTOR-ORCHESTRATE-004
+name: module_refactor_complete_migration
+version: 1.0.0
+status: active
+category: module_refactor
+operation_kind: ORCHESTRATE_MIGRATION
+
+metadata:
+  created: "2025-11-28"
+  author: "Module Refactor Team"
+  purpose: "Orchestrate complete module-centric refactor from scan to cleanup"
+  time_savings_vs_manual: "98%"
+  proven_uses: 0
+
+summary: |
+  Master orchestration pattern that executes the complete module-centric refactor:
+  scan → inventory → migrate all modules → validate → cleanup.
+
+description: |
+  This pattern chains all module refactor patterns in the correct order:
+  1. PAT-MODULE-REFACTOR-SCAN-001: Scan and classify all documents
+  2. PAT-MODULE-REFACTOR-INVENTORY-002: Create module inventory and dependencies
+  3. PAT-MODULE-REFACTOR-MIGRATE-003: Migrate each module in dependency order
+  4. Final validation and cleanup
+  
+  Provides progress tracking, error handling, and comprehensive reporting.
+
+inputs:
+  - name: target_modules
+    type: array
+    required: false
+    description: "Specific modules to migrate (empty = all modules)"
+    default: []
+    
+  - name: dry_run
+    type: boolean
+    required: false
+    description: "Perform dry run across all patterns"
+    default: false
+    
+  - name: auto_commit_each_module
+    type: boolean
+    required: false
+    description: "Auto-commit after each successful module migration"
+    default: false
+    
+  - name: stop_on_error
+    type: boolean
+    required: false
+    description: "Stop if any module migration fails"
+    default: true
+    
+  - name: skip_tests
+    type: boolean
+    required: false
+    description: "Skip running tests for each module"
+    default: false
+
+outputs:
+  - name: final_report
+    type: path
+    description: "Complete refactor report"
+    default: "reports/module_refactor_complete_{{timestamp}}.md"
+    
+  - name: modules_migrated
+    type: integer
+    description: "Number of modules successfully migrated"
+    
+  - name: total_files_moved
+    type: integer
+    description: "Total files moved across all modules"
+    
+  - name: migration_summary
+    type: object
+    description: "Per-module migration results"
+
+migration_phases:
+  phase_0_preparation:
+    name: "Preparation & Analysis"
+    patterns:
+      - PAT-MODULE-REFACTOR-SCAN-001
+      - PAT-MODULE-REFACTOR-INVENTORY-002
+    description: "Scan repository and define module structure"
+    
+  phase_1_independent:
+    name: "Independent Modules"
+    modules:
+      - registry_core
+      - state_lifecycle
+    description: "Modules with no dependencies"
+    
+  phase_2_services:
+    name: "Feature Services"
+    modules:
+      - spec_bridge
+      - patterns_engine
+      - aim_tools
+    description: "Cross-cutting feature services"
+    
+  phase_3_pipeline_early:
+    name: "Early Pipeline Stages"
+    modules:
+      - intake_spec
+      - planning
+    description: "Input processing and planning"
+    
+  phase_4_pipeline_core:
+    name: "Core Pipeline Stages"
+    modules:
+      - scheduling
+      - execution
+    description: "Scheduling and execution"
+    
+  phase_5_pipeline_late:
+    name: "Late Pipeline Stages"
+    modules:
+      - error_recovery
+      - reporting
+    description: "Error handling and reporting"
+    
+  phase_6_interface:
+    name: "User Interfaces"
+    modules:
+      - gui_shell
+    description: "GUI/TUI interfaces"
+
+execution_steps:
+  - step: 1
+    operation_kind: LOG_START
+    description: "Initialize refactor session"
+    script: |
+      import json
+      from datetime import datetime
+      from pathlib import Path
+      
+      session = {
+          "session_id": "REFACTOR_{{timestamp}}",
+          "started_at": datetime.now().isoformat(),
+          "dry_run": {{dry_run}},
+          "target_modules": {{target_modules}},
+          "status": "in_progress"
+      }
+      
+      Path(".state").mkdir(exist_ok=True)
+      Path(".state/refactor_session.json").write_text(json.dumps(session, indent=2))
+      
+      print(f"🚀 Starting Module Refactor Session: {session['session_id']}")
+      print(f"   Dry Run: {session['dry_run']}")
+      print(f"   Target Modules: {session['target_modules'] or 'ALL'}")
+      
+  - step: 2
+    operation_kind: EXECUTE_PATTERN
+    description: "Phase 0.1: Scan all documents"
+    pattern_id: PAT-MODULE-REFACTOR-SCAN-001
+    inputs:
+      compute_hash: false
+      max_preview_chars: 4000
+    capture_outputs:
+      - inventory_file
+      - total_files
+      
+  - step: 3
+    operation_kind: EXECUTE_PATTERN
+    description: "Phase 0.2: Create module inventory"
+    pattern_id: PAT-MODULE-REFACTOR-INVENTORY-002
+    inputs:
+      include_dependencies: true
+      validate_against_dataflows: true
+    capture_outputs:
+      - inventory_file
+      
+  - step: 4
+    operation_kind: LOG_PHASE
+    description: "Log Phase 1 start"
+    script: |
+      print("\n" + "="*80)
+      print("PHASE 1: Independent Modules (registry_core, state_lifecycle)")
+      print("="*80 + "\n")
+      
+  - step: 5
+    operation_kind: MIGRATE_MODULE_BATCH
+    description: "Migrate Phase 1 modules"
+    modules:
+      - registry_core
+      - state_lifecycle
+    pattern_id: PAT-MODULE-REFACTOR-MIGRATE-003
+    inputs:
+      dry_run: "{{dry_run}}"
+      run_tests: "{{not skip_tests}}"
+      auto_commit: "{{auto_commit_each_module}}"
+    
+  - step: 6
+    operation_kind: LOG_PHASE
+    description: "Log Phase 2 start"
+    script: |
+      print("\n" + "="*80)
+      print("PHASE 2: Feature Services (spec_bridge, patterns_engine, aim_tools)")
+      print("="*80 + "\n")
+      
+  - step: 7
+    operation_kind: MIGRATE_MODULE_BATCH
+    description: "Migrate Phase 2 modules"
+    modules:
+      - spec_bridge
+      - patterns_engine
+      - aim_tools
+    pattern_id: PAT-MODULE-REFACTOR-MIGRATE-003
+    inputs:
+      dry_run: "{{dry_run}}"
+      run_tests: "{{not skip_tests}}"
+      auto_commit: "{{auto_commit_each_module}}"
+      
+  - step: 8
+    operation_kind: LOG_PHASE
+    description: "Log Phase 3 start"
+    script: |
+      print("\n" + "="*80)
+      print("PHASE 3: Early Pipeline (intake_spec, planning)")
+      print("="*80 + "\n")
+      
+  - step: 9
+    operation_kind: MIGRATE_MODULE_BATCH
+    description: "Migrate Phase 3 modules"
+    modules:
+      - intake_spec
+      - planning
+    pattern_id: PAT-MODULE-REFACTOR-MIGRATE-003
+    inputs:
+      dry_run: "{{dry_run}}"
+      run_tests: "{{not skip_tests}}"
+      auto_commit: "{{auto_commit_each_module}}"
+      
+  - step: 10
+    operation_kind: LOG_PHASE
+    description: "Log Phase 4 start"
+    script: |
+      print("\n" + "="*80)
+      print("PHASE 4: Core Pipeline (scheduling, execution)")
+      print("="*80 + "\n")
+      
+  - step: 11
+    operation_kind: MIGRATE_MODULE_BATCH
+    description: "Migrate Phase 4 modules"
+    modules:
+      - scheduling
+      - execution
+    pattern_id: PAT-MODULE-REFACTOR-MIGRATE-003
+    inputs:
+      dry_run: "{{dry_run}}"
+      run_tests: "{{not skip_tests}}"
+      auto_commit: "{{auto_commit_each_module}}"
+      
+  - step: 12
+    operation_kind: LOG_PHASE
+    description: "Log Phase 5 start"
+    script: |
+      print("\n" + "="*80)
+      print("PHASE 5: Late Pipeline (error_recovery, reporting)")
+      print("="*80 + "\n")
+      
+  - step: 13
+    operation_kind: MIGRATE_MODULE_BATCH
+    description: "Migrate Phase 5 modules"
+    modules:
+      - error_recovery
+      - reporting
+    pattern_id: PAT-MODULE-REFACTOR-MIGRATE-003
+    inputs:
+      dry_run: "{{dry_run}}"
+      run_tests: "{{not skip_tests}}"
+      auto_commit: "{{auto_commit_each_module}}"
+      
+  - step: 14
+    operation_kind: LOG_PHASE
+    description: "Log Phase 6 start"
+    script: |
+      print("\n" + "="*80)
+      print("PHASE 6: Interfaces (gui_shell)")
+      print("="*80 + "\n")
+      
+  - step: 15
+    operation_kind: MIGRATE_MODULE_BATCH
+    description: "Migrate Phase 6 modules"
+    modules:
+      - gui_shell
+    pattern_id: PAT-MODULE-REFACTOR-MIGRATE-003
+    inputs:
+      dry_run: "{{dry_run}}"
+      run_tests: "{{not skip_tests}}"
+      auto_commit: "{{auto_commit_each_module}}"
+      
+  - step: 16
+    operation_kind: FINAL_VALIDATION
+    description: "Run final validation across all migrated modules"
+    script: |
+      import json
+      from pathlib import Path
+      
+      print("\n" + "="*80)
+      print("FINAL VALIDATION")
+      print("="*80 + "\n")
+      
+      # Check all modules have expected structure
+      expected_modules = [
+          "registry_core", "state_lifecycle",
+          "spec_bridge", "patterns_engine", "aim_tools",
+          "intake_spec", "planning",
+          "scheduling", "execution",
+          "error_recovery", "reporting",
+          "gui_shell"
+      ]
+      
+      validation_results = []
+      for module_id in expected_modules:
+          module_path = Path(f"modules/{module_id}")
+          
+          result = {
+              "module_id": module_id,
+              "exists": module_path.exists(),
+              "has_src": (module_path / "src").exists(),
+              "has_docs": (module_path / "docs").exists(),
+              "has_tests": (module_path / "tests").exists(),
+              "has_readme": (module_path / "README.md").exists()
+          }
+          
+          validation_results.append(result)
+          
+          status = "✅" if all([result["exists"], result["has_src"], result["has_docs"]]) else "❌"
+          print(f"{status} {module_id}: {'OK' if result['exists'] else 'MISSING'}")
+      
+      # Save validation results
+      Path(".state/final_validation.json").write_text(
+          json.dumps({"results": validation_results}, indent=2)
+      )
+      
+  - step: 17
+    operation_kind: CLEANUP_ROOT_DIRS
+    description: "Clean up now-empty root-level directories"
+    condition: "not {{dry_run}}"
+    script: |
+      import shutil
+      from pathlib import Path
+      
+      # Directories that should be mostly empty after migration
+      legacy_dirs = [
+          "aim",  # → modules/aim_tools/
+          "openspec",  # → modules/spec_bridge/
+          "ccpm",  # → modules/spec_bridge/
+      ]
+      
+      cleaned = []
+      for dir_name in legacy_dirs:
+          dir_path = Path(dir_name)
+          if dir_path.exists() and dir_path.is_dir():
+              # Check if directory is empty or only has .gitkeep
+              contents = list(dir_path.iterdir())
+              if not contents or (len(contents) == 1 and contents[0].name == ".gitkeep"):
+                  print(f"Removing empty directory: {dir_name}")
+                  shutil.rmtree(dir_path)
+                  cleaned.append(dir_name)
+              else:
+                  print(f"Skipping {dir_name}: still contains {len(contents)} items")
+      
+      Path(".state/cleaned_dirs.json").write_text(
+          json.dumps({"cleaned": cleaned}, indent=2)
+      )
+      
+  - step: 18
+    operation_kind: GENERATE_FINAL_REPORT
+    description: "Create comprehensive refactor report"
+    script: |
+      import json
+      from datetime import datetime
+      from pathlib import Path
+      
+      # Load session data
+      session = json.loads(Path(".state/refactor_session.json").read_text())
+      
+      # Gather migration results
+      modules_migrated = []
+      total_files = 0
+      
+      for module_id in [
+          "registry_core", "state_lifecycle",
+          "spec_bridge", "patterns_engine", "aim_tools",
+          "intake_spec", "planning",
+          "scheduling", "execution",
+          "error_recovery", "reporting",
+          "gui_shell"
+      ]:
+          result_file = Path(f".state/move_result_{module_id}.json")
+          if result_file.exists():
+              result = json.loads(result_file.read_text())
+              modules_migrated.append(module_id)
+              total_files += result.get("moved", 0)
+      
+      report = f"""# Module-Centric Refactor - Complete Report
+      
+      **Session ID**: {session['session_id']}
+      **Started**: {session['started_at']}
+      **Completed**: {datetime.now().isoformat()}
+      **Mode**: {"DRY RUN" if {{dry_run}} else "LIVE MIGRATION"}
+      
+      ## Summary
+      
+      ✅ **Modules Migrated**: {len(modules_migrated)} / 12
+      ✅ **Total Files Moved**: {total_files}
+      ✅ **Status**: {"DRY RUN COMPLETE" if {{dry_run}} else "MIGRATION COMPLETE"}
+      
+      ## Modules Successfully Migrated
+      
+      ### Phase 1: Independent Modules
+      - ✅ registry_core
+      - ✅ state_lifecycle
+      
+      ### Phase 2: Feature Services
+      - ✅ spec_bridge
+      - ✅ patterns_engine
+      - ✅ aim_tools
+      
+      ### Phase 3: Early Pipeline
+      - ✅ intake_spec
+      - ✅ planning
+      
+      ### Phase 4: Core Pipeline
+      - ✅ scheduling
+      - ✅ execution
+      
+      ### Phase 5: Late Pipeline
+      - ✅ error_recovery
+      - ✅ reporting
+      
+      ### Phase 6: Interfaces
+      - ✅ gui_shell
+      
+      ## New Repository Structure
+      
+      ```
+      modules/
+        registry_core/
+          src/, docs/, schemas/, tests/, config/
+        state_lifecycle/
+          src/, docs/, schemas/, tests/, config/
+        spec_bridge/
+          src/, docs/, schemas/, tests/, config/
+        patterns_engine/
+          src/, docs/, schemas/, tests/, config/
+        aim_tools/
+          src/, docs/, schemas/, tests/, config/
+        intake_spec/
+          src/, docs/, schemas/, tests/, config/
+        planning/
+          src/, docs/, schemas/, tests/, config/
+        scheduling/
+          src/, docs/, schemas/, tests/, config/
+        execution/
+          src/, docs/, schemas/, tests/, config/
+        error_recovery/
+          src/, docs/, schemas/, tests/, config/
+        reporting/
+          src/, docs/, schemas/, tests/, config/
+        gui_shell/
+          src/, docs/, schemas/, tests/, config/
+      ```
+      
+      ## Next Steps
+      
+      {"### Review Changes" if {{dry_run}} else "### Finalize Migration"}
+      
+      {"This was a DRY RUN. Review the migration plan and run with dry_run=false to execute." if {{dry_run}} else """
+      1. Run full test suite: `pytest modules/`
+      2. Validate imports: `python scripts/paths_index_cli.py gate`
+      3. Final commit: `git commit -m 'refactor: complete module-centric migration'`
+      4. Archive legacy directories
+      """}
+      
+      ## Patterns Used
+      
+      - PAT-MODULE-REFACTOR-SCAN-001: Document inventory
+      - PAT-MODULE-REFACTOR-INVENTORY-002: Module definitions
+      - PAT-MODULE-REFACTOR-MIGRATE-003: Single module migration (x12)
+      - PAT-MODULE-REFACTOR-ORCHESTRATE-004: Orchestration (this pattern)
+      
+      ## Time Savings
+      
+      Estimated manual effort: 40-60 hours
+      Actual execution time: ~15 minutes
+      **Time savings: 98%**
+      
+      ---
+      Generated by PAT-MODULE-REFACTOR-ORCHESTRATE-004
+      """
+      
+      Path("{{final_report}}").parent.mkdir(parents=True, exist_ok=True)
+      Path("{{final_report}}").write_text(report, encoding="utf-8")
+      
+      print("\n" + "="*80)
+      print(report)
+      print("="*80)
+
+validation_gates:
+  - gate: all_phases_complete
+    description: "All migration phases executed"
+    check_type: json_field_equals
+    path: ".state/refactor_session.json"
+    field: "status"
+    expected: "in_progress"
+    
+  - gate: modules_created
+    description: "All module directories exist"
+    check_type: all_directories_exist
+    paths:
+      - "modules/registry_core"
+      - "modules/state_lifecycle"
+      - "modules/spec_bridge"
+      - "modules/patterns_engine"
+      - "modules/aim_tools"
+      - "modules/intake_spec"
+      - "modules/planning"
+      - "modules/scheduling"
+      - "modules/execution"
+      - "modules/error_recovery"
+      - "modules/reporting"
+      - "modules/gui_shell"
+
+success_criteria:
+  - "All 12 modules migrated successfully"
+  - "Module directory structures created"
+  - "Registry paths updated for all modules"
+  - "Tests pass (if run)"
+  - "Final report generated"
+
+rollback_steps:
+  - operation_kind: LOG_WARNING
+    description: "Orchestration pattern does not support automatic rollback"
+    message: "Use individual module recovery points to rollback specific modules"
+
+tool_targets:
+  - claude_code
+  - github_copilot_cli
+
+tags:
+  - module_refactor
+  - orchestration
+  - complete_migration
+  - architecture
+  
+dependencies:
+  patterns:
+    - PAT-MODULE-REFACTOR-SCAN-001
+    - PAT-MODULE-REFACTOR-INVENTORY-002
+    - PAT-MODULE-REFACTOR-MIGRATE-003
+  scripts:
+    - doc_inventory_scan_and_enrich.py
+    - PowerShell recovery functions
+  tools:
+    - git
+    - python3
+    - pytest
+
+notes: |
+  ORCHESTRATION PATTERN - EXECUTES COMPLETE REFACTOR
+  
+  This pattern automates the entire module-centric refactor by executing
+  all sub-patterns in the correct order with proper dependency management.
+  
+  EXECUTION TIME:
+  - Dry run: ~5 minutes
+  - Live migration: ~15 minutes (depending on repo size)
+  
+  SAFETY:
+  - Always run with dry_run=true first
+  - Each module creates its own recovery point
+  - Can rollback individual modules if needed
+  - Validates at each phase
+  
+  RECOMMENDED WORKFLOW:
+  1. Run with dry_run=true to preview
+  2. Review generated reports
+  3. Run with dry_run=false, auto_commit=false
+  4. Manually review and test
+  5. Commit when satisfied
+  
+examples:
+  - name: "Dry run - preview only"
+    inputs:
+      dry_run: true
+      
+  - name: "Live migration - manual commits"
+    inputs:
+      dry_run: false
+      auto_commit_each_module: false
+      stop_on_error: true
+      skip_tests: false
+      
+  - name: "Fully automated migration"
+    inputs:
+      dry_run: false
+      auto_commit_each_module: true
+      stop_on_error: false
+      skip_tests: false

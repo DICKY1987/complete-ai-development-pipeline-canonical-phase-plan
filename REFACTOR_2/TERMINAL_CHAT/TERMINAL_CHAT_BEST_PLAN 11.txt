@@ -1,0 +1,259 @@
+Yeah, this is the perfect time to do a *little* extra work on the docs while you’ve got them all in your hands.
+
+You don’t want to go crazy, but there are a few **high-leverage extras** you can add during extraction that make classification, refactors, and future AI usage much easier.
+
+I’ll break it into:
+
+1. Extra metadata to capture while scanning
+2. Keyword / pattern systems to help auto-categorize
+3. Python tools/libraries that are a good fit
+4. A concrete “DOC_ENRICH_V1” pattern you could implement
+
+---
+
+## 1. Extra metadata to capture while you’re already touching the file
+
+You’re already getting: `path`, `ext`, `size`, `mtime`, `in_archive`, etc.
+
+While extracting, I’d add:
+
+### a) Structural hints from the content
+
+For each `.md` / `.txt`, grab:
+
+* **First heading (H1)**
+
+  * For Markdown: first line starting with `# `
+  * For plain text: treat `first_line` as title.
+* **List of headings (H1/H2)**
+
+  * Up to some limit (say first 20 headings)
+  * This alone is insanely helpful for classifying docs.
+
+Example JSON fields:
+
+```json
+"first_heading": "# Execution Engine Phase Plan",
+"headings": [
+  "# Execution Engine Phase Plan",
+  "## Overview",
+  "## Phase 1 – Inventory",
+  "## Phase 2 – Module Migration"
+]
+```
+
+### b) Short normalized text excerpt(s)
+
+Instead of just one `sample_excerpt`, you can store:
+
+* `excerpt_start`: first ~300–500 chars (normalized: lowercase, whitespace collapsed)
+* Optionally `excerpt_middle`: ~300–500 chars from the middle of the file for long docs.
+
+Those give you more signal for keyword/ML classification later without loading the whole file again.
+
+### c) Simple content stats
+
+Super cheap but powerful:
+
+* `line_count`
+* `char_count`
+* `has_frontmatter` (starts with `---` and then YAML)
+* `has_code_blocks` (contains ```)
+
+This helps you differentiate:
+
+* long specs vs tiny notes
+* “serious” docs with frontmatter vs scratch logs
+
+### d) “AI-ish” / “system-ish” flags
+
+Given your world, you may want to flag:
+
+* `looks_ai_generated`: heuristics like:
+
+  * file name is ALLCAPS
+  * contains “You are an AI assistant…” or similar system prompt language
+* `looks_prompt_template`:
+
+  * contains `{{PLACEHOLDER}}` or `<PROMPT_BLOCK>` style markers
+  * lots of ALLCAPS tags like `[TASK]`, `[CONTEXT]`, etc.
+
+Those can auto-assign `doc_role = PROMPT_TEMPLATE` or `LOG_NOTE`.
+
+---
+
+## 2. Keyword / pattern systems to use for categorization
+
+You already have strong domain concepts: AIM, patterns, execution, error engine, spec, CCPM, OpenSpec, etc.
+
+I’d use **two layers of patterning**:
+
+### a) Doc role keywords (SPEC vs PLAN vs REPORT etc.)
+
+For `doc_role`, define keyword lists. For example:
+
+* `SPEC`
+  Keywords in title or headings:
+
+  * `spec`, `specification`, `requirements`, `contract`, `blueprint`
+* `DESIGN`
+
+  * `architecture`, `design`, `diagram`, `topology`, `module layout`
+* `PLAN`
+
+  * `phase plan`, `migration plan`, `roadmap`, `schedule`
+* `REPORT`
+
+  * `report`, `summary`, `what happened`, `execution report`, `status`
+* `ADR`
+
+  * `ADR`, `decision record`, `decision`, `tradeoffs`
+* `HOWTO`
+
+  * `how to`, `guide`, `tutorial`, `usage`, `examples`
+* `GLOSSARY`
+
+  * `glossary`, `terms`, `vocabulary`
+* `PROMPT_TEMPLATE`
+
+  * `prompt`, `template`, `you are an ai`, `system prompt`, `{{PLACEHOLDER}}`, `[TASK]`, etc.
+* `LOG_NOTE`
+
+  * `notes`, `scratch`, `journal`, `session log`, heavy timestamps / bullet logs
+
+You can implement this as a simple **keyword → score** system and pick the top scoring role.
+
+### b) Module/topic keywords (execution vs aim vs patterns, etc.)
+
+Similarly, for `module_id` inference, make a keyword map using your own concepts:
+
+* `aim_tools`
+
+  * `AIM`, `tool selection`, `profiles`, `cli tool`, `aider`, `codex`, `gemini`
+* `execution`
+
+  * `execution engine`, `orchestrator`, `executor`, `workstream run`, `task run`
+* `error_recovery`
+
+  * `error engine`, `retry`, `circuit breaker`, `rollback`, `error classification`
+* `patterns_engine`
+
+  * `pattern doc suite`, `UET`, `pattern registry`, `operation_kind`, `pattern_id`
+* `spec_bridge`
+
+  * `OpenSpec`, `CCPM`, `spec://`, `uri resolver`, `phase plan import`
+* `registry_core`
+
+  * `doc_id`, `registry`, `ULID`, `artifact registry`
+* `gui_shell`
+
+  * `GUI`, `TUI`, `panel`, `dashboard`, `visual`, `view`
+* `state_lifecycle`
+
+  * `file lifecycle`, `task state`, `RUNS`, `WORKSTREAMS`, `S_PENDING`, `S_RUNNING`
+
+Apply this to `first_heading`, `headings`, and `excerpt_start` to auto-suggest `module_id` when the path isn’t obvious.
+
+---
+
+## 3. Python tools & techniques for efficient reading / parsing
+
+You don’t need heavyweight NLP to start, but there are some very handy libraries:
+
+### a) Markdown/frontmatter parsing
+
+To get structure cheaply:
+
+* **`python-frontmatter`** – parses YAML frontmatter + body from Markdown.
+* **`markdown-it-py`** or **`mistune`** – parse Markdown to an AST if you ever want to do more fancy heading extraction.
+
+But for just headings, a simple regex/line scan is usually enough:
+
+```python
+headings = []
+with open(path, "r", encoding="utf-8", errors="ignore") as f:
+    for line in f:
+        if line.startswith("#"):
+            headings.append(line.strip())
+        if len(headings) >= 20:
+            break
+```
+
+### b) Efficient partial reads
+
+For classification you *don’t* need the full file in memory:
+
+* Just open and:
+
+  * read first N lines for headings/title
+  * read first ~1–2 KB for `excerpt_start`
+  * maybe seek to the middle for `excerpt_middle` on large files (using `f.seek()`).
+
+This is dirt cheap and works on thousands of files.
+
+### c) Fuzzy matching / similarity
+
+If you want more robust keyword detection later:
+
+* **`rapidfuzz`** – very fast fuzzy matching/string scoring. Great for “does this look like a pattern doc?” style checks.
+* Or simple `in` checks + `.lower()` will be fine for v1.
+
+### d) Optional: embeddings / semantic classification
+
+Later, if you want AI-grade semantic grouping:
+
+* Use **`sentence-transformers`** to embed `excerpt_start` and cluster docs.
+* This would let you find “all error engine docs” even if they don’t share exact keywords.
+
+That’s extra; I wouldn’t start there unless you’re itching to.
+
+---
+
+## 4. A concrete enrichment pattern: `DOC_ENRICH_V1`
+
+You could define a pattern something like:
+
+> When a `docs_inventory.jsonl` entry is created, enrich it with structural and semantic hints.
+
+**Inputs per file:**
+
+* `path`
+* `ext`
+
+**Steps:**
+
+1. Open file with `utf-8` and `errors="ignore"`.
+2. Capture:
+
+   * `first_line`
+   * `first_heading`
+   * `headings` (first N headings)
+   * `excerpt_start` (first ~400 chars, normalized)
+   * `line_count`, `char_count`
+3. Run keyword classification:
+
+   * doc_role
+   * module_id (optional guess)
+4. Set:
+
+   * `zone` (ARCHIVE/SANDBOX/GLOBAL/MODULE_CANDIDATE/MISC) from path.
+5. Append/overwrite the entry in `docs_inventory.jsonl`.
+
+**Outputs:**
+
+* Updated `docs_inventory.jsonl` that now has:
+
+  * enough info to auto-file docs into modules
+  * enough context for AI to operate with minimal re-reading.
+
+---
+
+If you’d like, I can:
+
+* Draft the **exact Python script** `doc_inventory_scan_and_enrich.py` that:
+
+  * walks the tree,
+  * collects all the basic fields,
+  * grabs headings/excerpts,
+  * runs a simple keyword classifier for `doc_role` + `module_id`,
+  * and emits valid `docs_inventory.jsonl` lines matching your schema.

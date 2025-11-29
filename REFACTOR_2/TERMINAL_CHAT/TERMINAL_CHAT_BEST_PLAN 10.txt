@@ -1,0 +1,148 @@
+You’ve got a very standard problem, which is good news: there are *battle-tested* patterns for this in every environment.
+
+Let me give you **three proven options** (PowerShell, Python, Bash) so you can pick what fits your workflow. All of them:
+
+* Drill **recursively** through all subdirectories
+* Return **only** `.md` and `.txt`
+* Are easy to plug into your `docs_inventory.jsonl` flow later
+
+---
+
+## 1. PowerShell pattern (great for your Windows setup)
+
+PowerShell’s `Get-ChildItem` is the canonical way to recurse and filter. Official docs show using `-Recurse` with filters for extensions. ([Microsoft Learn][1])
+
+**Minimal proven pattern:**
+
+```powershell
+# From the repo root
+Get-ChildItem -Path . -Recurse -File -Include *.md, *.txt
+```
+
+That will emit every `.md` / `.txt` file under the current dir and all subdirs.
+
+**Better: write it straight to a list file**
+
+```powershell
+# List all .md and .txt files (full paths) into docs_paths.txt
+Get-ChildItem -Path . -Recurse -File -Include *.md, *.txt |
+    Select-Object -ExpandProperty FullName |
+    Set-Content -Encoding UTF8 docs_paths.txt
+```
+
+**Even better: produce `docs_inventory.jsonl` skeleton from PowerShell**
+
+If you want to start building your inventory right away:
+
+```powershell
+$now = Get-Date
+
+Get-ChildItem -Path . -Recurse -File -Include *.md, *.txt |
+    ForEach-Object {
+        $rel = $_.FullName.Substring((Get-Location).Path.Length + 1) -replace '\\','/'
+        $obj = [ordered]@{
+            path        = $rel
+            ext         = $_.Extension.ToLower()
+            basename    = $_.Name
+            size_bytes  = $_.Length
+            mtime       = $_.LastWriteTimeUtc.ToString("o")
+            in_archive  = $rel.StartsWith("archive/")
+            in_sandbox  = $rel.StartsWith("AI_SANDBOX/")
+            in_modules  = $rel.StartsWith("modules/")
+        }
+        $obj | ConvertTo-Json -Compress
+    } | Set-Content -Encoding UTF8 docs_inventory.jsonl
+```
+
+That file will already conform to the **core** of your `DocsInventoryEntry` schema (you can enrich later with roles, module_id, etc.).
+
+---
+
+## 2. Python pattern (portable + easy to extend for JSONL)
+
+The standard pattern for recursive traversal in Python is `os.walk()`. It’s the recommended approach in tutorials and docs for walking a directory tree. ([Python programming language][2])
+
+**Proven base snippet:**
+
+```python
+import os
+
+for root, dirs, files in os.walk("."):
+    for name in files:
+        if name.lower().endswith((".md", ".txt")):
+            full_path = os.path.join(root, name)
+            print(full_path)
+```
+
+To integrate directly with your inventory schema:
+
+```python
+import os, json, time
+
+repo_root = os.path.abspath(".")
+inventory_path = os.path.join(repo_root, "docs_inventory.jsonl")
+
+with open(inventory_path, "w", encoding="utf-8") as out:
+    for root, dirs, files in os.walk(repo_root):
+        for name in files:
+            if not name.lower().endswith((".md", ".txt")):
+                continue
+
+            full_path = os.path.join(root, name)
+            rel_path = os.path.relpath(full_path, repo_root).replace("\\", "/")
+            stat = os.stat(full_path)
+
+            record = {
+                "path": rel_path,
+                "ext": os.path.splitext(name)[1].lower(),
+                "basename": name,
+                "size_bytes": stat.st_size,
+                "mtime": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(stat.st_mtime)),
+                "in_archive": rel_path.startswith("archive/"),
+                "in_sandbox": rel_path.startswith("AI_SANDBOX/"),
+                "in_modules": rel_path.startswith("modules/")
+                # you’ll add zone/doc_role/module_id later
+            }
+
+            out.write(json.dumps(record, ensure_ascii=False) + "\n")
+```
+
+That gives you **one JSON object per line** for every `.md` / `.txt` in the entire tree.
+
+---
+
+## 3. Bash / Linux pattern (if you’re ever in WSL or a dev container)
+
+The classic Unix way is `find`. This pattern from StackOverflow/GeeksforGeeks is widely used for recursive wildcard matching. ([Stack Overflow][3])
+
+```bash
+# From repo root
+find . -type f \( -iname "*.md" -o -iname "*.txt" \)
+```
+
+To save to a file:
+
+```bash
+find . -type f \( -iname "*.md" -o -iname "*.txt" \) > docs_paths.txt
+```
+
+You can then feed `docs_paths.txt` into a Python or PowerShell script that builds `docs_inventory.jsonl` with all the extra fields.
+
+---
+
+## Recommended approach for *you* specifically
+
+Given your stack (Windows 11 + PowerShell + Python, and a JSON schema already defined), I’d do this:
+
+1. **Step 1: Use Python `os.walk` from the repo root** to generate `docs_inventory.jsonl` exactly matching your schema’s *required* fields (path/ext/size/in_archive/etc.).
+2. **Step 2: Add a second pass script** (`DOC_CLASSIFY_V1`) that:
+
+   * Reads `docs_inventory.jsonl`
+   * Fills in `zone`, `doc_role`, `module_id`, `module_kind`, etc.
+3. **Step 3: Use that enriched inventory** to drive your module doc migrations.
+
+If you want, I can next write a ready-to-drop-in `docs_inventory_scan.py` that fully matches the JSON Schema we just designed.
+
+[1]: https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-childitem?view=powershell-7.5&utm_source=chatgpt.com "Get-ChildItem (Microsoft.PowerShell.Management)"
+[2]: https://python.code-maven.com/python-traversing-directory-tree?utm_source=chatgpt.com "Traversing directory tree using walk in Python"
+[3]: https://stackoverflow.com/questions/5905054/how-can-i-recursively-find-all-files-in-current-and-subfolders-based-on-wildcard?utm_source=chatgpt.com "How can I recursively find all files in current and subfolders ..."

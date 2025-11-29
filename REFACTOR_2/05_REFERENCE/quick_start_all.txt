@@ -1,0 +1,391 @@
+<#
+.SYNOPSIS
+One-click setup and launch for the entire CLI environment.
+
+.DESCRIPTION
+This all-in-one script:
+1. Checks prerequisites
+2. Installs missing components (with confirmation)
+3. Configures all CLI tools
+4. Launches the environment
+5. Opens the monitor dashboard
+
+Perfect for first-time setup or quick daily launch.
+
+.PARAMETER FirstTime
+Run full setup including installations (use on first run)
+
+.PARAMETER Layout
+Choose 'tabs' or 'panes' for terminal layout
+
+.PARAMETER SkipMonitor
+Don't launch the monitoring dashboard
+
+.EXAMPLE
+# First time setup
+.\Quick-Start.ps1 -FirstTime
+
+# Daily launch
+.\Quick-Start.ps1
+
+# With panes layout
+.\Quick-Start.ps1 -Layout panes
+#>
+
+param(
+    [Parameter(Mandatory=$false)]
+    [switch]$FirstTime,
+    
+    [Parameter(Mandatory=$false)]
+    [ValidateSet('tabs', 'panes')]
+    [string]$Layout = 'tabs',
+    
+    [Parameter(Mandatory=$false)]
+    [switch]$SkipMonitor
+)
+
+$ErrorActionPreference = "Continue"
+
+#region Configuration
+$Config = @{
+    RequiredScripts = @(
+        'Enhanced-Configuration.ps1',
+        'Enhanced-CLI-Launcher.ps1',
+        'Session-Manager.ps1',
+        'CLI-Orchestrator.ps1',
+        'Monitor-Dashboard.ps1'
+    )
+    OllamaModel = 'deepseek-r1:latest'
+}
+#endregion
+
+#region Banner
+function Show-WelcomeBanner {
+    Clear-Host
+    Write-Host ""
+    Write-Host "╔════════════════════════════════════════════════════════════╗" -ForegroundColor Cyan
+    Write-Host "║                                                            ║" -ForegroundColor Cyan
+    Write-Host "║        ENHANCED MULTI-CLI DEVELOPMENT ENVIRONMENT          ║" -ForegroundColor Cyan
+    Write-Host "║                   QUICK START v2.0                         ║" -ForegroundColor Cyan
+    Write-Host "║                                                            ║" -ForegroundColor Cyan
+    Write-Host "╚════════════════════════════════════════════════════════════╝" -ForegroundColor Cyan
+    Write-Host ""
+    
+    if ($FirstTime) {
+        Write-Host "  🎉 First Time Setup Mode" -ForegroundColor Yellow
+        Write-Host "  This will install and configure everything you need`n" -ForegroundColor Gray
+    }
+    else {
+        Write-Host "  🚀 Quick Launch Mode" -ForegroundColor Green
+        Write-Host "  Launching your configured environment`n" -ForegroundColor Gray
+    }
+}
+#endregion
+
+#region Script Verification
+function Test-ScriptFiles {
+    Write-Host "Checking for required scripts..." -ForegroundColor Cyan
+    
+    $missing = @()
+    foreach ($script in $Config.RequiredScripts) {
+        if (-not (Test-Path $script)) {
+            $missing += $script
+            Write-Host "  ✗ Missing: $script" -ForegroundColor Red
+        }
+        else {
+            Write-Host "  ✓ Found: $script" -ForegroundColor Green
+        }
+    }
+    
+    if ($missing.Count -gt 0) {
+        Write-Host "`nError: Missing required scripts!" -ForegroundColor Red
+        Write-Host "Please ensure all script files are in the current directory.`n" -ForegroundColor Yellow
+        return $false
+    }
+    
+    Write-Host ""
+    return $true
+}
+#endregion
+
+#region Prerequisites Check
+function Test-SystemRequirements {
+    Write-Host "Checking system requirements..." -ForegroundColor Cyan
+    
+    $checks = @{
+        'Windows Terminal' = { Get-Command wt.exe -ErrorAction SilentlyContinue }
+        'Git' = { Get-Command git -ErrorAction SilentlyContinue }
+        'Ollama' = { Get-Command ollama -ErrorAction SilentlyContinue }
+        'Python' = { Get-Command python -ErrorAction SilentlyContinue }
+        'Node.js' = { Get-Command node -ErrorAction SilentlyContinue }
+    }
+    
+    $results = @{}
+    $critical = @('Windows Terminal', 'Git', 'Ollama')
+    $missingCritical = @()
+    
+    foreach ($item in $checks.GetEnumerator()) {
+        $result = & $item.Value
+        $results[$item.Key] = [bool]$result
+        
+        if ($result) {
+            Write-Host "  ✓ $($item.Key)" -ForegroundColor Green
+        }
+        else {
+            $color = if ($critical -contains $item.Key) { 'Red' } else { 'Yellow' }
+            Write-Host "  ✗ $($item.Key)" -ForegroundColor $color
+            
+            if ($critical -contains $item.Key) {
+                $missingCritical += $item.Key
+            }
+        }
+    }
+    
+    Write-Host ""
+    
+    if ($missingCritical.Count -gt 0) {
+        Write-Host "Critical components missing: $($missingCritical -join ', ')" -ForegroundColor Red
+        Write-Host ""
+        Write-Host "Installation Links:" -ForegroundColor Yellow
+        Write-Host "  Windows Terminal: " -NoNewline
+        Write-Host "winget install Microsoft.WindowsTerminal" -ForegroundColor White
+        Write-Host "  Git: " -NoNewline
+        Write-Host "winget install Git.Git" -ForegroundColor White
+        Write-Host "  Ollama: " -NoNewline
+        Write-Host "https://ollama.ai/download" -ForegroundColor White
+        Write-Host ""
+        
+        if ($FirstTime) {
+            $install = Read-Host "Would you like to try automatic installation? (y/N)"
+            if ($install -eq 'y' -or $install -eq 'Y') {
+                Install-CriticalComponents -Missing $missingCritical
+            }
+            else {
+                return $false
+            }
+        }
+        else {
+            return $false
+        }
+    }
+    
+    return $true
+}
+
+function Install-CriticalComponents {
+    param([array]$Missing)
+    
+    Write-Host "`nAttempting to install missing components..." -ForegroundColor Cyan
+    
+    foreach ($component in $Missing) {
+        switch ($component) {
+            'Windows Terminal' {
+                Write-Host "  Installing Windows Terminal..." -ForegroundColor Yellow
+                winget install Microsoft.WindowsTerminal --accept-source-agreements --accept-package-agreements
+            }
+            'Git' {
+                Write-Host "  Installing Git..." -ForegroundColor Yellow
+                winget install Git.Git --accept-source-agreements --accept-package-agreements
+            }
+            'Ollama' {
+                Write-Host "  Ollama requires manual installation from https://ollama.ai" -ForegroundColor Yellow
+            }
+        }
+    }
+    
+    Write-Host "`nPlease restart PowerShell and run this script again.`n" -ForegroundColor Yellow
+    exit 0
+}
+#endregion
+
+#region First Time Setup
+function Invoke-FirstTimeSetup {
+    Write-Host "═══════════════════════════════════════════════════════" -ForegroundColor Cyan
+    Write-Host "  FIRST TIME SETUP" -ForegroundColor Cyan
+    Write-Host "═══════════════════════════════════════════════════════" -ForegroundColor Cyan
+    Write-Host ""
+    
+    Write-Host "This will:" -ForegroundColor White
+    Write-Host "  1. Install Aider and Claude Code CLI" -ForegroundColor Gray
+    Write-Host "  2. Download and configure DeepSeek model" -ForegroundColor Gray
+    Write-Host "  3. Set up all configuration files" -ForegroundColor Gray
+    Write-Host "  4. Create directory structure" -ForegroundColor Gray
+    Write-Host "  5. Initialize Git hooks" -ForegroundColor Gray
+    Write-Host ""
+    
+    $confirm = Read-Host "Continue with setup? (Y/n)"
+    if ($confirm -eq 'n' -or $confirm -eq 'N') {
+        Write-Host "Setup cancelled.`n" -ForegroundColor Yellow
+        exit 0
+    }
+    
+    Write-Host ""
+    Write-Host "Running configuration script..." -ForegroundColor Cyan
+    Write-Host ""
+    
+    & .\Enhanced-Configuration.ps1
+    
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "`nConfiguration failed. Please check errors above.`n" -ForegroundColor Red
+        exit 1
+    }
+    
+    Write-Host ""
+    Write-Host "✓ First time setup complete!" -ForegroundColor Green
+    Write-Host ""
+}
+#endregion
+
+#region Quick Launch
+function Invoke-QuickLaunch {
+    Write-Host "═══════════════════════════════════════════════════════" -ForegroundColor Cyan
+    Write-Host "  LAUNCHING ENVIRONMENT" -ForegroundColor Cyan
+    Write-Host "═══════════════════════════════════════════════════════" -ForegroundColor Cyan
+    Write-Host ""
+    
+    # Check if Ollama is running
+    Write-Host "Checking Ollama status..." -ForegroundColor Cyan
+    $ollamaProcess = Get-Process ollama -ErrorAction SilentlyContinue
+    
+    if (-not $ollamaProcess) {
+        Write-Host "  Starting Ollama service..." -ForegroundColor Yellow
+        Start-Process ollama -ArgumentList "serve" -WindowStyle Hidden
+        Start-Sleep 3
+        Write-Host "  ✓ Ollama started" -ForegroundColor Green
+    }
+    else {
+        Write-Host "  ✓ Ollama already running" -ForegroundColor Green
+    }
+    
+    # Check for available sessions
+    Write-Host ""
+    Write-Host "Checking for saved sessions..." -ForegroundColor Cyan
+    
+    if (Test-Path ".cli-sessions") {
+        $sessions = Get-ChildItem -Path ".cli-sessions" -Filter "*.json" | 
+                    Where-Object { $_.Name -notlike "auto-*" }
+        
+        if ($sessions.Count -gt 0) {
+            Write-Host "  Found $($sessions.Count) saved session(s)" -ForegroundColor Green
+            Write-Host ""
+            Write-Host "  Recent sessions:" -ForegroundColor White
+            $sessions | Select-Object -First 5 | ForEach-Object {
+                $name = $_.BaseName
+                Write-Host "    • $name" -ForegroundColor Gray
+            }
+            Write-Host ""
+            
+            $loadSession = Read-Host "Load a session? (Enter name or press Enter to skip)"
+            if ($loadSession) {
+                Write-Host "  Loading session: $loadSession" -ForegroundColor Yellow
+                & .\Enhanced-CLI-Launcher.ps1 -Layout $Layout -SessionName $loadSession
+                return
+            }
+        }
+    }
+    
+    # Launch with default settings
+    Write-Host ""
+    Write-Host "Launching CLI environment with $Layout layout..." -ForegroundColor Yellow
+    Write-Host ""
+    
+    & .\Enhanced-CLI-Launcher.ps1 -Layout $Layout
+    
+    Start-Sleep 2
+    
+    Write-Host ""
+    Write-Host "✓ Environment launched!" -ForegroundColor Green
+}
+#endregion
+
+#region Monitor Launch
+function Invoke-MonitorDashboard {
+    if ($SkipMonitor) {
+        Write-Host "Skipping monitor dashboard (SkipMonitor flag set)" -ForegroundColor Yellow
+        return
+    }
+    
+    Write-Host ""
+    Write-Host "═══════════════════════════════════════════════════════" -ForegroundColor Cyan
+    Write-Host "  MONITORING DASHBOARD" -ForegroundColor Cyan
+    Write-Host "═══════════════════════════════════════════════════════" -ForegroundColor Cyan
+    Write-Host ""
+    
+    $launchMonitor = Read-Host "Launch monitoring dashboard? (Y/n)"
+    if ($launchMonitor -ne 'n' -and $launchMonitor -ne 'N') {
+        Write-Host "  Opening monitor in new window..." -ForegroundColor Yellow
+        Start-Process pwsh.exe -ArgumentList "-NoExit", "-Command", ".\Monitor-Dashboard.ps1"
+        Write-Host "  ✓ Monitor launched" -ForegroundColor Green
+    }
+}
+#endregion
+
+#region Quick Tips
+function Show-QuickTips {
+    Write-Host ""
+    Write-Host "═══════════════════════════════════════════════════════" -ForegroundColor Green
+    Write-Host "  QUICK TIPS" -ForegroundColor Green
+    Write-Host "═══════════════════════════════════════════════════════" -ForegroundColor Green
+    Write-Host ""
+    
+    Write-Host "🎯 Task Orchestrator:" -ForegroundColor Yellow
+    Write-Host "   Need help choosing a CLI?" -ForegroundColor White
+    Write-Host "   .\CLI-Orchestrator.ps1 -Task 'describe what you want to do'" -ForegroundColor Gray
+    Write-Host ""
+    
+    Write-Host "💾 Session Management:" -ForegroundColor Yellow
+    Write-Host "   Save your current workspace:" -ForegroundColor White
+    Write-Host "   .\Session-Manager.ps1 -Action Save -Name 'MyProject'" -ForegroundColor Gray
+    Write-Host ""
+    
+    Write-Host "📊 Monitor Dashboard:" -ForegroundColor Yellow
+    Write-Host "   Already launched! Check the new window." -ForegroundColor White
+    Write-Host ""
+    
+    Write-Host "⌨️  Keyboard Shortcuts:" -ForegroundColor Yellow
+    Write-Host "   Ctrl+Tab       - Next tab" -ForegroundColor Gray
+    Write-Host "   Ctrl+Shift+Tab - Previous tab" -ForegroundColor Gray
+    Write-Host "   Ctrl+1-6       - Jump to specific tab" -ForegroundColor Gray
+    Write-Host ""
+    
+    Write-Host "📝 Context File:" -ForegroundColor Yellow
+    Write-Host "   Keep .context.md updated - all CLIs read it!" -ForegroundColor White
+    Write-Host "   notepad .context.md" -ForegroundColor Gray
+    Write-Host ""
+    
+    Write-Host "═══════════════════════════════════════════════════════" -ForegroundColor Green
+    Write-Host ""
+}
+#endregion
+
+#region Main Execution
+Show-WelcomeBanner
+
+# Verify script files exist
+if (-not (Test-ScriptFiles)) {
+    exit 1
+}
+
+# Check system requirements
+if (-not (Test-SystemRequirements)) {
+    Write-Host "Please install missing requirements and try again.`n" -ForegroundColor Red
+    exit 1
+}
+
+# First time setup if requested
+if ($FirstTime) {
+    Invoke-FirstTimeSetup
+}
+
+# Launch the environment
+Invoke-QuickLaunch
+
+# Optional: Launch monitor
+Invoke-MonitorDashboard
+
+# Show helpful tips
+Show-QuickTips
+
+Write-Host "🚀 You're all set! Happy coding!`n" -ForegroundColor Cyan
+
+#endregion

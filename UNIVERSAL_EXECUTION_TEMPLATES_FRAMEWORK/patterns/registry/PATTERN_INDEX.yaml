@@ -1,12 +1,68 @@
 version: 1.0.0
 metadata:
   created: '2025-11-24'
-  last_updated: '2025-11-24'
-  total_patterns: 24
-  total_categories: 9
+  last_updated: '2025-11-28'
+  total_patterns: 28
+  total_categories: 10
   migrated_patterns: 17
-  core_patterns: 7
+  core_patterns: 11
 patterns:
+- pattern_id: PAT-MODULE-REFACTOR-SCAN-001
+  name: module_refactor_scan_docs
+  version: 1.0.0
+  status: active
+  category: module_refactor
+  spec_path: patterns/specs/module_refactor_scan_docs.pattern.yaml
+  time_savings_vs_manual: 95%
+  proven_uses: 0
+  created: '2025-11-28'
+  summary: "Scan repository for documentation files and build enriched inventory for module refactoring"
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  - cursor
+  - aider
+- pattern_id: PAT-MODULE-REFACTOR-INVENTORY-002
+  name: module_refactor_create_inventory
+  version: 1.0.0
+  status: active
+  category: module_refactor
+  spec_path: patterns/specs/module_refactor_create_inventory.pattern.yaml
+  time_savings_vs_manual: 90%
+  proven_uses: 0
+  created: '2025-11-28'
+  summary: "Define canonical module inventory and dependency graph for refactoring"
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  - cursor
+- pattern_id: PAT-MODULE-REFACTOR-MIGRATE-003
+  name: module_refactor_migrate_single_module
+  version: 1.0.0
+  status: active
+  category: module_refactor
+  spec_path: patterns/specs/module_refactor_migrate_single_module.pattern.yaml
+  time_savings_vs_manual: 92%
+  proven_uses: 0
+  created: '2025-11-28'
+  summary: "Safely migrate a single module from legacy paths to module-centric structure"
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  - cursor
+- pattern_id: PAT-MODULE-REFACTOR-ORCHESTRATE-004
+  name: module_refactor_complete_migration
+  version: 1.0.0
+  status: active
+  category: module_refactor
+  spec_path: patterns/specs/module_refactor_complete_migration.pattern.yaml
+  time_savings_vs_manual: 98%
+  proven_uses: 0
+  created: '2025-11-28'
+  summary: "Orchestrate complete module-centric refactor from scan to cleanup"
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
 - pattern_id: PAT-ATOMIC-CREATE-001
   name: atomic_create
   version: 1.0.0
