@@ -1,13 +1,3 @@
-from __future__ import annotations
-
-import hashlib
-from pathlib import Path
-
-
-def sha256_file(path: Path) -> str:
-    h = hashlib.sha256()
-    with path.open("rb") as f:
-        for chunk in iter(lambda: f.read(1024 * 1024), b""):
-            h.update(chunk)
-    return h.hexdigest()
-
+import warnings
+warnings.warn("DEPRECATED: use UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.shared.utils.hashing", DeprecationWarning, stacklevel=2)
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.shared.utils.hashing import *  # type: ignore # noqa

@@ -10,7 +10,10 @@
       "Bash(Select-Object -First 15 Name)",
       "Bash(cat:*)",
       "Bash(sqlite3:*)",
-      "Bash(wmic os get caption:*)"
+      "Bash(wmic os get caption:*)",
+      "Bash(tree:*)",
+      "Bash(find:*)",
+      "Bash(xargs:*)"
     ],
     "deny": [],
     "ask": []

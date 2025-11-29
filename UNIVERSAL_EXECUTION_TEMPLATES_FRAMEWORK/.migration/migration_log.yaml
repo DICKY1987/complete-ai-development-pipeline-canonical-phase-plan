@@ -730,3 +730,72 @@
   note: Placement plan documented in .migration/PLACEMENT_PLAN.md; staging complete
     WS-001..WS-020 pending placement/import updates/tests.
   timestamp: '2025-11-29T17:03:05.674764+00:00'
+- batch_id: PLACEMENT
+  component: bulk-copy
+  mode: apply
+  moved_count: 0
+  note: Copied staged WS-001..WS-020 files to UET targets using mapping; shims written
+    for modules/* sources; existing targets skipped.
+  shimmed_count: 0
+  skipped_existing: []
+  timestamp: '2025-11-29T17:14:23.808187+00:00'
+- batch_id: PLACEMENT
+  component: bulk-copy
+  mode: apply
+  moved_count: 74
+  note: Copied staged WS-001..WS-020 files to UET targets using mapping; shims written
+    for modules/* sources; existing targets skipped.
+  shimmed_count: 62
+  skipped_existing: []
+  timestamp: '2025-11-29T17:14:53.262305+00:00'
+- batch_id: VALIDATION
+  component: imports
+  details:
+    errors:
+    - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.engine.error_engine missing (no
+      module)
+    - 'modules.core_state.m010003_crud shim warns: cannot import name ''get_connection''
+      from core.state.db'
+    imports:
+    - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine.state_machine
+    - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.engine.error_engine
+    - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.exceptions
+    - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.pm.github_sync
+  mode: run
+  result: failed
+  timestamp: '2025-11-29T17:15:48.760007+00:00'
+- batch_id: VALIDATION
+  component: imports
+  details:
+    imports:
+    - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine.state_machine
+    - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.engine.error_engine
+    - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.exceptions
+    - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.pm.github_sync
+    warnings:
+    - 'modules.core_state.m010003_crud shim: missing get_connection in core.state.db'
+  mode: run
+  result: warning
+  timestamp: '2025-11-29T17:18:34.523294+00:00'
+- batch_id: VALIDATION
+  component: imports
+  details:
+    imports:
+    - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine.state_machine
+    - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.engine.error_engine
+    - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.exceptions
+    - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.pm.github_sync
+    notes:
+    - Shim warning resolved after adding get_connection and package inits.
+  mode: run
+  result: pass
+  timestamp: '2025-11-29T17:38:19.461212+00:00'
+- batch_id: CLEANUP
+  component: backups/shims
+  details:
+    backups: kept under .migration/backups/originals/ for rollback safety
+    shims: left in place in modules/ to maintain compatibility; removal deferred until
+      deprecation window ends
+  mode: review
+  result: retained
+  timestamp: '2025-11-29T18:12:07.442959+00:00'

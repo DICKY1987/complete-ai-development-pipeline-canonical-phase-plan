@@ -1,6 +1,8 @@
 """Test suite for all core framework schemas."""
 import json, pytest
 from pathlib import Path
+
+pytest.importorskip("jsonschema")
 from jsonschema import Draft7Validator
 
 SCHEMA_DIR = Path(__file__).parent.parent.parent / "schema"
