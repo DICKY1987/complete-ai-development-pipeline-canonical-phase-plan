@@ -1,0 +1,4210 @@
+{
+  "scan_date": "2025-11-29T15:35:00.137203",
+  "threshold": 70,
+  "total_files": 735,
+  "stale_files": 0,
+  "active_files": 735,
+  "stale_file_details": [],
+  "all_scores": [
+    {
+      "file_path": "REFACTOR_2/nul",
+      "components": {
+        "last_modified": {
+          "score": 30,
+          "max_score": 30,
+          "days_old": 20421,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 0,
+          "max_score": 20,
+          "reference_count": 243
+        },
+        "location": {
+          "score": 6,
+          "max_score": 10,
+          "tier": "REFACTOR_2/",
+          "tier_score": 60
+        },
+        "file_size": {
+          "score": 10,
+          "max_score": 10,
+          "size_bytes": 0,
+          "size_kb": 0.0
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 66,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\AL_MASTER\\Connect Claude Code to tools via MCP.md",
+      "components": {
+        "last_modified": {
+          "score": 3,
+          "max_score": 30,
+          "days_old": 18,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 12,
+          "max_score": 20,
+          "reference_count": 4
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 28032,
+          "size_kb": 27.38
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 54,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\.editorconfig",
+      "components": {
+        "last_modified": {
+          "score": 4,
+          "max_score": 30,
+          "days_old": 24,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 10,
+          "max_score": 20,
+          "reference_count": 5
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 114,
+          "size_kb": 0.11
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 53,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\AL_MASTER\\MD\\TODO_keep your CLI tools updated.md",
+      "components": {
+        "last_modified": {
+          "score": 2,
+          "max_score": 30,
+          "days_old": 17,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 12,
+          "max_score": 20,
+          "reference_count": 4
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 7629,
+          "size_kb": 7.45
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 53,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\docs\\ConfigReference.md",
+      "components": {
+        "last_modified": {
+          "score": 4,
+          "max_score": 30,
+          "days_old": 24,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 10,
+          "max_score": 20,
+          "reference_count": 5
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 19,
+          "size_kb": 0.02
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 53,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\docs\\SecurityGuide.md",
+      "components": {
+        "last_modified": {
+          "score": 4,
+          "max_score": 30,
+          "days_old": 24,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 10,
+          "max_score": 20,
+          "reference_count": 5
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 17,
+          "size_kb": 0.02
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 53,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\plugins\\Common\\Plugin.Interfaces.psm1",
+      "components": {
+        "last_modified": {
+          "score": 4,
+          "max_score": 30,
+          "days_old": 24,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 10,
+          "max_score": 20,
+          "reference_count": 5
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 433,
+          "size_kb": 0.42
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 53,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\scripts\\gitignore_global.txt",
+      "components": {
+        "last_modified": {
+          "score": 4,
+          "max_score": 30,
+          "days_old": 24,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 10,
+          "max_score": 20,
+          "reference_count": 5
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 131,
+          "size_kb": 0.13
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 53,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\tests\\Integration\\MasterBin.Tests.ps1",
+      "components": {
+        "last_modified": {
+          "score": 4,
+          "max_score": 30,
+          "days_old": 24,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 10,
+          "max_score": 20,
+          "reference_count": 5
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 63,
+          "size_kb": 0.06
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 53,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\tests\\Unit\\Common.Tests.ps1",
+      "components": {
+        "last_modified": {
+          "score": 4,
+          "max_score": 30,
+          "days_old": 24,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 10,
+          "max_score": 20,
+          "reference_count": 5
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 60,
+          "size_kb": 0.06
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 53,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\AL_MASTER\\FILE_MANIFEST.md",
+      "components": {
+        "last_modified": {
+          "score": 3,
+          "max_score": 30,
+          "days_old": 19,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 10,
+          "max_score": 20,
+          "reference_count": 5
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 9932,
+          "size_kb": 9.7
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 52,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\AL_MASTER\\docs\\MCP servers and PowerShell Gallery.md",
+      "components": {
+        "last_modified": {
+          "score": 3,
+          "max_score": 30,
+          "days_old": 20,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 10,
+          "max_score": 20,
+          "reference_count": 5
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 48254,
+          "size_kb": 47.12
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 52,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\AL_MASTER\\MD\\COMPLETE_FILE_TREE.txt",
+      "components": {
+        "last_modified": {
+          "score": 3,
+          "max_score": 30,
+          "days_old": 19,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 10,
+          "max_score": 20,
+          "reference_count": 5
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 8868,
+          "size_kb": 8.66
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 52,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\AL_MASTER\\MD\\DOWNLOAD_SUMMARY.txt",
+      "components": {
+        "last_modified": {
+          "score": 3,
+          "max_score": 30,
+          "days_old": 19,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 10,
+          "max_score": 20,
+          "reference_count": 5
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 8806,
+          "size_kb": 8.6
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 52,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\scripts\\ConfigCache_Enforcer.ps1",
+      "components": {
+        "last_modified": {
+          "score": 4,
+          "max_score": 30,
+          "days_old": 24,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 8,
+          "max_score": 20,
+          "reference_count": 6
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 8137,
+          "size_kb": 7.95
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 51,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\scripts\\installer\\Install-CliStack.ps1",
+      "components": {
+        "last_modified": {
+          "score": 4,
+          "max_score": 30,
+          "days_old": 24,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 8,
+          "max_score": 20,
+          "reference_count": 6
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 29,
+          "size_kb": 0.03
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 51,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\tests\\E2E\\Bootstrap.Tests.ps1",
+      "components": {
+        "last_modified": {
+          "score": 4,
+          "max_score": 30,
+          "days_old": 24,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 8,
+          "max_score": 20,
+          "reference_count": 6
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 62,
+          "size_kb": 0.06
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 51,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\AL_MASTER\\config\\claude\\code-runner.template.json",
+      "components": {
+        "last_modified": {
+          "score": 3,
+          "max_score": 30,
+          "days_old": 19,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 8,
+          "max_score": 20,
+          "reference_count": 6
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 200,
+          "size_kb": 0.2
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 50,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\AL_MASTER\\config\\claude\\gitmcp.template.json",
+      "components": {
+        "last_modified": {
+          "score": 3,
+          "max_score": 30,
+          "days_old": 19,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 8,
+          "max_score": 20,
+          "reference_count": 6
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 195,
+          "size_kb": 0.19
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 50,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\AL_MASTER\\config\\claude\\jupyter.template.json",
+      "components": {
+        "last_modified": {
+          "score": 3,
+          "max_score": 30,
+          "days_old": 19,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 8,
+          "max_score": 20,
+          "reference_count": 6
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 194,
+          "size_kb": 0.19
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 50,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\AL_MASTER\\config\\claude\\pypi-intel.template.json",
+      "components": {
+        "last_modified": {
+          "score": 3,
+          "max_score": 30,
+          "days_old": 19,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 8,
+          "max_score": 20,
+          "reference_count": 6
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 130,
+          "size_kb": 0.13
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 50,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\AL_MASTER\\config\\claude\\python-lft.template.json",
+      "components": {
+        "last_modified": {
+          "score": 3,
+          "max_score": 30,
+          "days_old": 19,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 8,
+          "max_score": 20,
+          "reference_count": 6
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 130,
+          "size_kb": 0.13
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 50,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\AL_MASTER\\config\\claude\\uv-executor.template.json",
+      "components": {
+        "last_modified": {
+          "score": 3,
+          "max_score": 30,
+          "days_old": 19,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 8,
+          "max_score": 20,
+          "reference_count": 6
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 132,
+          "size_kb": 0.13
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 50,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\AL_MASTER\\Json\\plugin-manifest-schema.json",
+      "components": {
+        "last_modified": {
+          "score": 3,
+          "max_score": 30,
+          "days_old": 19,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 8,
+          "max_score": 20,
+          "reference_count": 6
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 1579,
+          "size_kb": 1.54
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 50,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\AL_MASTER\\Json\\tool-manifest-schema.json",
+      "components": {
+        "last_modified": {
+          "score": 3,
+          "max_score": 30,
+          "days_old": 19,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 8,
+          "max_score": 20,
+          "reference_count": 6
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 2560,
+          "size_kb": 2.5
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 50,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\AL_MASTER\\Json\\toolstack-schema.json",
+      "components": {
+        "last_modified": {
+          "score": 3,
+          "max_score": 30,
+          "days_old": 19,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 8,
+          "max_score": 20,
+          "reference_count": 6
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 4438,
+          "size_kb": 4.33
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 50,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\AL_MASTER\\scripts\\extra\\Install-CliStack.ps1",
+      "components": {
+        "last_modified": {
+          "score": 3,
+          "max_score": 30,
+          "days_old": 22,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 8,
+          "max_score": 20,
+          "reference_count": 6
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 1802,
+          "size_kb": 1.76
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 50,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\AL_MASTER\\scripts\\extra\\Install-DevTools.ps1",
+      "components": {
+        "last_modified": {
+          "score": 3,
+          "max_score": 30,
+          "days_old": 19,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 8,
+          "max_score": 20,
+          "reference_count": 6
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 2373,
+          "size_kb": 2.32
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 50,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\CliStack.psd1",
+      "components": {
+        "last_modified": {
+          "score": 4,
+          "max_score": 30,
+          "days_old": 24,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 6,
+          "max_score": 20,
+          "reference_count": 7
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 79,
+          "size_kb": 0.08
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 49,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\AL_MASTER\\Json\\node-tools.json",
+      "components": {
+        "last_modified": {
+          "score": 2,
+          "max_score": 30,
+          "days_old": 16,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 8,
+          "max_score": 20,
+          "reference_count": 6
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 1335,
+          "size_kb": 1.3
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 49,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\AL_MASTER\\Json\\python-tools.json",
+      "components": {
+        "last_modified": {
+          "score": 2,
+          "max_score": 30,
+          "days_old": 16,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 8,
+          "max_score": 20,
+          "reference_count": 6
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 2011,
+          "size_kb": 1.96
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 49,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\AL_MASTER\\Json\\system-tools.json",
+      "components": {
+        "last_modified": {
+          "score": 2,
+          "max_score": 30,
+          "days_old": 16,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 8,
+          "max_score": 20,
+          "reference_count": 6
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 826,
+          "size_kb": 0.81
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 49,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\config\\toolstack.schema.json",
+      "components": {
+        "last_modified": {
+          "score": 4,
+          "max_score": 30,
+          "days_old": 24,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 6,
+          "max_score": 20,
+          "reference_count": 7
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 57,
+          "size_kb": 0.06
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 49,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\scripts\\centralize_cli_config.ps1",
+      "components": {
+        "last_modified": {
+          "score": 4,
+          "max_score": 30,
+          "days_old": 24,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 6,
+          "max_score": 20,
+          "reference_count": 7
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 5301,
+          "size_kb": 5.18
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 49,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\scripts\\rebuild_dev_stack.ps1",
+      "components": {
+        "last_modified": {
+          "score": 4,
+          "max_score": 30,
+          "days_old": 24,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 6,
+          "max_score": 20,
+          "reference_count": 7
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 7668,
+          "size_kb": 7.49
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 49,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\AL_MASTER\\config\\claude\\github.template.json",
+      "components": {
+        "last_modified": {
+          "score": 3,
+          "max_score": 30,
+          "days_old": 19,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 6,
+          "max_score": 20,
+          "reference_count": 7
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 203,
+          "size_kb": 0.2
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 48,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\AL_MASTER\\Json\\cache-patterns-schema.json",
+      "components": {
+        "last_modified": {
+          "score": 3,
+          "max_score": 30,
+          "days_old": 19,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 6,
+          "max_score": 20,
+          "reference_count": 7
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 1776,
+          "size_kb": 1.73
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 48,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\AL_MASTER\\scripts\\Migrate-ToConfigDriven.ps1",
+      "components": {
+        "last_modified": {
+          "score": 3,
+          "max_score": 30,
+          "days_old": 19,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 6,
+          "max_score": 20,
+          "reference_count": 7
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 10580,
+          "size_kb": 10.33
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 48,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\AL_MASTER\\scripts\\ToolStack.Validation.psm1",
+      "components": {
+        "last_modified": {
+          "score": 3,
+          "max_score": 30,
+          "days_old": 19,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 6,
+          "max_score": 20,
+          "reference_count": 7
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 1805,
+          "size_kb": 1.76
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 48,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\AL_MASTER\\scripts\\extra\\centralize_cli_config.ps1",
+      "components": {
+        "last_modified": {
+          "score": 3,
+          "max_score": 30,
+          "days_old": 19,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 6,
+          "max_score": 20,
+          "reference_count": 7
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 5469,
+          "size_kb": 5.34
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 48,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\AL_MASTER\\scripts\\extra\\rebuild_dev_stack.ps1",
+      "components": {
+        "last_modified": {
+          "score": 3,
+          "max_score": 30,
+          "days_old": 19,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 6,
+          "max_score": 20,
+          "reference_count": 7
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 8682,
+          "size_kb": 8.48
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 48,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\AL_MASTER\\Json\\cache-patterns.json",
+      "components": {
+        "last_modified": {
+          "score": 2,
+          "max_score": 30,
+          "days_old": 16,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 6,
+          "max_score": 20,
+          "reference_count": 7
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 1357,
+          "size_kb": 1.33
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 47,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\AL_MASTER\\scripts\\Enforce-CachePolicy.ps1",
+      "components": {
+        "last_modified": {
+          "score": 2,
+          "max_score": 30,
+          "days_old": 16,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 6,
+          "max_score": 20,
+          "reference_count": 7
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 8508,
+          "size_kb": 8.31
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 47,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\AL_MASTER\\scripts\\Install-Tools.ps1",
+      "components": {
+        "last_modified": {
+          "score": 2,
+          "max_score": 30,
+          "days_old": 16,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 6,
+          "max_score": 20,
+          "reference_count": 7
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 3943,
+          "size_kb": 3.85
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 47,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\AL_MASTER\\scripts\\Install-ToolStack.ps1",
+      "components": {
+        "last_modified": {
+          "score": 2,
+          "max_score": 30,
+          "days_old": 16,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 6,
+          "max_score": 20,
+          "reference_count": 7
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 2685,
+          "size_kb": 2.62
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 47,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\AL_MASTER\\scripts\\Set-Environment.ps1",
+      "components": {
+        "last_modified": {
+          "score": 2,
+          "max_score": 30,
+          "days_old": 16,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 6,
+          "max_score": 20,
+          "reference_count": 7
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 7526,
+          "size_kb": 7.35
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 47,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\AL_MASTER\\scripts\\ToolStack.Helpers.psm1",
+      "components": {
+        "last_modified": {
+          "score": 2,
+          "max_score": 30,
+          "days_old": 16,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 6,
+          "max_score": 20,
+          "reference_count": 7
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 5821,
+          "size_kb": 5.68
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 47,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\ARCHIVE_REASON.md",
+      "components": {
+        "last_modified": {
+          "score": 1,
+          "max_score": 30,
+          "days_old": 7,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 6,
+          "max_score": 20,
+          "reference_count": 7
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 761,
+          "size_kb": 0.74
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 46,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\build.ps1",
+      "components": {
+        "last_modified": {
+          "score": 4,
+          "max_score": 30,
+          "days_old": 24,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 0,
+          "max_score": 20,
+          "reference_count": 433
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 2116,
+          "size_kb": 2.07
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 43,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\README.md",
+      "components": {
+        "last_modified": {
+          "score": 4,
+          "max_score": 30,
+          "days_old": 24,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 0,
+          "max_score": 20,
+          "reference_count": 517
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 2379,
+          "size_kb": 2.32
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 43,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\config\\toolstack.config.json",
+      "components": {
+        "last_modified": {
+          "score": 4,
+          "max_score": 30,
+          "days_old": 24,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 0,
+          "max_score": 20,
+          "reference_count": 12
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 2332,
+          "size_kb": 2.28
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 43,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\docs\\Runbook.md",
+      "components": {
+        "last_modified": {
+          "score": 4,
+          "max_score": 30,
+          "days_old": 24,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 0,
+          "max_score": 20,
+          "reference_count": 13
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 19,
+          "size_kb": 0.02
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 43,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\docs\\Troubleshooting.md",
+      "components": {
+        "last_modified": {
+          "score": 4,
+          "max_score": 30,
+          "days_old": 24,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 0,
+          "max_score": 20,
+          "reference_count": 133
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 18,
+          "size_kb": 0.02
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 43,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\plugins\\Audit\\Plugin.psm1",
+      "components": {
+        "last_modified": {
+          "score": 4,
+          "max_score": 30,
+          "days_old": 24,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 0,
+          "max_score": 20,
+          "reference_count": 289
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 624,
+          "size_kb": 0.61
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 43,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\plugins\\AuditAlert\\Plugin.psm1",
+      "components": {
+        "last_modified": {
+          "score": 4,
+          "max_score": 30,
+          "days_old": 24,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 0,
+          "max_score": 20,
+          "reference_count": 289
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 6819,
+          "size_kb": 6.66
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 43,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\plugins\\CentralizeConfig\\Plugin.psm1",
+      "components": {
+        "last_modified": {
+          "score": 4,
+          "max_score": 30,
+          "days_old": 24,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 0,
+          "max_score": 20,
+          "reference_count": 289
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 646,
+          "size_kb": 0.63
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 43,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\plugins\\Common\\Plugin.psm1",
+      "components": {
+        "last_modified": {
+          "score": 4,
+          "max_score": 30,
+          "days_old": 24,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 0,
+          "max_score": 20,
+          "reference_count": 289
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 139,
+          "size_kb": 0.14
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 43,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\plugins\\HealthCheck\\Plugin.psm1",
+      "components": {
+        "last_modified": {
+          "score": 4,
+          "max_score": 30,
+          "days_old": 24,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 0,
+          "max_score": 20,
+          "reference_count": 289
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 3265,
+          "size_kb": 3.19
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 43,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\plugins\\MasterBin\\Plugin.psm1",
+      "components": {
+        "last_modified": {
+          "score": 4,
+          "max_score": 30,
+          "days_old": 24,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 0,
+          "max_score": 20,
+          "reference_count": 289
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 2449,
+          "size_kb": 2.39
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 43,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\plugins\\NpmTools\\Plugin.psm1",
+      "components": {
+        "last_modified": {
+          "score": 4,
+          "max_score": 30,
+          "days_old": 24,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 0,
+          "max_score": 20,
+          "reference_count": 289
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 946,
+          "size_kb": 0.92
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 43,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\plugins\\Pinning\\Plugin.psm1",
+      "components": {
+        "last_modified": {
+          "score": 4,
+          "max_score": 30,
+          "days_old": 24,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 0,
+          "max_score": 20,
+          "reference_count": 289
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 2256,
+          "size_kb": 2.2
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 43,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\plugins\\PipxTools\\Plugin.psm1",
+      "components": {
+        "last_modified": {
+          "score": 4,
+          "max_score": 30,
+          "days_old": 24,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 0,
+          "max_score": 20,
+          "reference_count": 289
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 547,
+          "size_kb": 0.53
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 43,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\plugins\\Scanner\\Plugin.psm1",
+      "components": {
+        "last_modified": {
+          "score": 4,
+          "max_score": 30,
+          "days_old": 24,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 0,
+          "max_score": 20,
+          "reference_count": 289
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 3318,
+          "size_kb": 3.24
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 43,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\plugins\\Secrets\\Plugin.psm1",
+      "components": {
+        "last_modified": {
+          "score": 4,
+          "max_score": 30,
+          "days_old": 24,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 0,
+          "max_score": 20,
+          "reference_count": 289
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 3158,
+          "size_kb": 3.08
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 43,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\plugins\\Update\\Plugin.psm1",
+      "components": {
+        "last_modified": {
+          "score": 4,
+          "max_score": 30,
+          "days_old": 24,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 0,
+          "max_score": 20,
+          "reference_count": 289
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 3079,
+          "size_kb": 3.01
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 43,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\plugins\\Watcher\\Plugin.psm1",
+      "components": {
+        "last_modified": {
+          "score": 4,
+          "max_score": 30,
+          "days_old": 24,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 0,
+          "max_score": 20,
+          "reference_count": 289
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 1304,
+          "size_kb": 1.27
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 43,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\AL_MASTER\\config\\claude\\config.template.json",
+      "components": {
+        "last_modified": {
+          "score": 3,
+          "max_score": 30,
+          "days_old": 19,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 0,
+          "max_score": 20,
+          "reference_count": 12
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 161,
+          "size_kb": 0.16
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 42,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\AL_MASTER\\plugins\\MCP\\plugin.manifest.json",
+      "components": {
+        "last_modified": {
+          "score": 3,
+          "max_score": 30,
+          "days_old": 19,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 0,
+          "max_score": 20,
+          "reference_count": 33
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 250,
+          "size_kb": 0.24
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 42,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\AL_MASTER\\plugins\\MCP\\Plugin.psm1",
+      "components": {
+        "last_modified": {
+          "score": 3,
+          "max_score": 30,
+          "days_old": 19,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 0,
+          "max_score": 20,
+          "reference_count": 289
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 1067,
+          "size_kb": 1.04
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 42,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\AL_MASTER\\scripts\\extra\\build.ps1",
+      "components": {
+        "last_modified": {
+          "score": 3,
+          "max_score": 30,
+          "days_old": 19,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 0,
+          "max_score": 20,
+          "reference_count": 433
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 3312,
+          "size_kb": 3.23
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 42,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/2025-11-26_developer\\2025-11\\phase-h-legacy\\build\\spec.md",
+      "components": {
+        "last_modified": {
+          "score": 2,
+          "max_score": 30,
+          "days_old": 13,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 0,
+          "max_score": 20,
+          "reference_count": 1267
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 23684,
+          "size_kb": 23.13
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 41,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\AGENTS.md",
+      "components": {
+        "last_modified": {
+          "score": 2,
+          "max_score": 30,
+          "days_old": 17,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 0,
+          "max_score": 20,
+          "reference_count": 106
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 660,
+          "size_kb": 0.64
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 41,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\CLAUDE.md",
+      "components": {
+        "last_modified": {
+          "score": 2,
+          "max_score": 30,
+          "days_old": 17,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 0,
+          "max_score": 20,
+          "reference_count": 138
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 15151,
+          "size_kb": 14.8
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 41,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\.claude\\commands\\openspec\\apply.md",
+      "components": {
+        "last_modified": {
+          "score": 2,
+          "max_score": 30,
+          "days_old": 17,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 0,
+          "max_score": 20,
+          "reference_count": 231
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 1288,
+          "size_kb": 1.26
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 41,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\.claude\\commands\\openspec\\archive.md",
+      "components": {
+        "last_modified": {
+          "score": 2,
+          "max_score": 30,
+          "days_old": 17,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 0,
+          "max_score": 20,
+          "reference_count": 279
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 2006,
+          "size_kb": 1.96
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 41,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\.claude\\commands\\openspec\\proposal.md",
+      "components": {
+        "last_modified": {
+          "score": 2,
+          "max_score": 30,
+          "days_old": 17,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 0,
+          "max_score": 20,
+          "reference_count": 87
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 2327,
+          "size_kb": 2.27
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 41,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\AL_MASTER\\AGENTS.md",
+      "components": {
+        "last_modified": {
+          "score": 2,
+          "max_score": 30,
+          "days_old": 17,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 0,
+          "max_score": 20,
+          "reference_count": 106
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 2862,
+          "size_kb": 2.79
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 41,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\AL_MASTER\\README.md",
+      "components": {
+        "last_modified": {
+          "score": 2,
+          "max_score": 30,
+          "days_old": 17,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 0,
+          "max_score": 20,
+          "reference_count": 517
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 8047,
+          "size_kb": 7.86
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 41,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AI_MANGER_archived_2025-11-22\\AL_MASTER\\Json\\toolstack.config.json",
+      "components": {
+        "last_modified": {
+          "score": 2,
+          "max_score": 30,
+          "days_old": 16,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 0,
+          "max_score": 20,
+          "reference_count": 12
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 1872,
+          "size_kb": 1.83
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 41,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/2025-11-26_developer\\2025-11\\phase-h-legacy\\pipeline_plus\\.aiderignore",
+      "components": {
+        "last_modified": {
+          "score": 1,
+          "max_score": 30,
+          "days_old": 9,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 20,
+          "max_score": 20,
+          "days_old": 999,
+          "note": "No git history"
+        },
+        "references": {
+          "score": 0,
+          "max_score": 20,
+          "reference_count": 17
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 125,
+          "size_kb": 0.12
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 40,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "ToDo_Task/CLAUDE PLANS\\EXECUTION_PROMPT_TEMPLATE_V2_DAG_MULTI_WORKSTREAMplan.md",
+      "components": {
+        "last_modified": {
+          "score": 0,
+          "max_score": 30,
+          "days_old": 0,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 0,
+          "max_score": 20,
+          "days_old": 0,
+          "threshold": 365
+        },
+        "references": {
+          "score": 20,
+          "max_score": 20,
+          "reference_count": 0
+        },
+        "location": {
+          "score": 7,
+          "max_score": 10,
+          "tier": "ToDo_Task/",
+          "tier_score": 70
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 14725,
+          "size_kb": 14.38
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 36,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "ToDo_Task/CLAUDE PLANS\\hidden-pondering-treasure.md",
+      "components": {
+        "last_modified": {
+          "score": 0,
+          "max_score": 30,
+          "days_old": 3,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 0,
+          "max_score": 20,
+          "days_old": 0,
+          "threshold": 365
+        },
+        "references": {
+          "score": 20,
+          "max_score": 20,
+          "reference_count": 0
+        },
+        "location": {
+          "score": 7,
+          "max_score": 10,
+          "tier": "ToDo_Task/",
+          "tier_score": 70
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 18276,
+          "size_kb": 17.85
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 36,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "ToDo_Task/CLAUDE PLANS\\jazzy-napping-pizza.md",
+      "components": {
+        "last_modified": {
+          "score": 0,
+          "max_score": 30,
+          "days_old": 3,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 0,
+          "max_score": 20,
+          "days_old": 0,
+          "threshold": 365
+        },
+        "references": {
+          "score": 20,
+          "max_score": 20,
+          "reference_count": 0
+        },
+        "location": {
+          "score": 7,
+          "max_score": 10,
+          "tier": "ToDo_Task/",
+          "tier_score": 70
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 19875,
+          "size_kb": 19.41
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 36,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "ToDo_Task/CLAUDE PLANS\\magical-launching-elephant.md",
+      "components": {
+        "last_modified": {
+          "score": 0,
+          "max_score": 30,
+          "days_old": 3,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 0,
+          "max_score": 20,
+          "days_old": 0,
+          "threshold": 365
+        },
+        "references": {
+          "score": 20,
+          "max_score": 20,
+          "reference_count": 0
+        },
+        "location": {
+          "score": 7,
+          "max_score": 10,
+          "tier": "ToDo_Task/",
+          "tier_score": 70
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 21465,
+          "size_kb": 20.96
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 36,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "ToDo_Task/CLAUDE PLANS\\radiant-imagining-tarjan.md",
+      "components": {
+        "last_modified": {
+          "score": 0,
+          "max_score": 30,
+          "days_old": 4,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 0,
+          "max_score": 20,
+          "days_old": 0,
+          "threshold": 365
+        },
+        "references": {
+          "score": 20,
+          "max_score": 20,
+          "reference_count": 0
+        },
+        "location": {
+          "score": 7,
+          "max_score": 10,
+          "tier": "ToDo_Task/",
+          "tier_score": 70
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 33878,
+          "size_kb": 33.08
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 36,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "ToDo_Task/CLAUDE PLANS\\sleepy-popping-honey-agent-044ee24a.md",
+      "components": {
+        "last_modified": {
+          "score": 0,
+          "max_score": 30,
+          "days_old": 2,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 0,
+          "max_score": 20,
+          "days_old": 0,
+          "threshold": 365
+        },
+        "references": {
+          "score": 20,
+          "max_score": 20,
+          "reference_count": 0
+        },
+        "location": {
+          "score": 7,
+          "max_score": 10,
+          "tier": "ToDo_Task/",
+          "tier_score": 70
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 49,
+          "size_kb": 0.05
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 36,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "ToDo_Task/CLAUDE PLANS\\sleepy-popping-honey.md",
+      "components": {
+        "last_modified": {
+          "score": 0,
+          "max_score": 30,
+          "days_old": 2,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 0,
+          "max_score": 20,
+          "days_old": 0,
+          "threshold": 365
+        },
+        "references": {
+          "score": 20,
+          "max_score": 20,
+          "reference_count": 0
+        },
+        "location": {
+          "score": 7,
+          "max_score": 10,
+          "tier": "ToDo_Task/",
+          "tier_score": 70
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 29605,
+          "size_kb": 28.91
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 36,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "ToDo_Task/CLAUDE PLANS\\snug-forging-wreath.md",
+      "components": {
+        "last_modified": {
+          "score": 0,
+          "max_score": 30,
+          "days_old": 1,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 0,
+          "max_score": 20,
+          "days_old": 0,
+          "threshold": 365
+        },
+        "references": {
+          "score": 20,
+          "max_score": 20,
+          "reference_count": 0
+        },
+        "location": {
+          "score": 7,
+          "max_score": 10,
+          "tier": "ToDo_Task/",
+          "tier_score": 70
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 13029,
+          "size_kb": 12.72
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 36,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "ToDo_Task/CLAUDE PLANS\\tidy-swimming-quail.md",
+      "components": {
+        "last_modified": {
+          "score": 0,
+          "max_score": 30,
+          "days_old": 3,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 0,
+          "max_score": 20,
+          "days_old": 0,
+          "threshold": 365
+        },
+        "references": {
+          "score": 20,
+          "max_score": 20,
+          "reference_count": 0
+        },
+        "location": {
+          "score": 7,
+          "max_score": 10,
+          "tier": "ToDo_Task/",
+          "tier_score": 70
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 27647,
+          "size_kb": 27.0
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 36,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "ToDo_Task/CLAUDE PLANS\\typed-marinating-neumann.md",
+      "components": {
+        "last_modified": {
+          "score": 0,
+          "max_score": 30,
+          "days_old": 3,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 0,
+          "max_score": 20,
+          "days_old": 0,
+          "threshold": 365
+        },
+        "references": {
+          "score": 20,
+          "max_score": 20,
+          "reference_count": 0
+        },
+        "location": {
+          "score": 7,
+          "max_score": 10,
+          "tier": "ToDo_Task/",
+          "tier_score": 70
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 4822,
+          "size_kb": 4.71
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 36,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "ToDo_Task/CLAUDE PLANS\\sleepy-dreaming-bubble.md",
+      "components": {
+        "last_modified": {
+          "score": 0,
+          "max_score": 30,
+          "days_old": 0,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 0,
+          "max_score": 20,
+          "days_old": 0,
+          "threshold": 365
+        },
+        "references": {
+          "score": 18,
+          "max_score": 20,
+          "reference_count": 1
+        },
+        "location": {
+          "score": 7,
+          "max_score": 10,
+          "tier": "ToDo_Task/",
+          "tier_score": 70
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 11659,
+          "size_kb": 11.39
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 34,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "scripts/classify_module_registry.py",
+      "components": {
+        "last_modified": {
+          "score": 0,
+          "max_score": 30,
+          "days_old": 1,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 0,
+          "max_score": 20,
+          "days_old": 1,
+          "threshold": 365
+        },
+        "references": {
+          "score": 14,
+          "max_score": 20,
+          "reference_count": 3
+        },
+        "location": {
+          "score": 0,
+          "max_score": 10,
+          "tier": "active",
+          "tier_score": 0
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 5671,
+          "size_kb": 5.54
+        },
+        "test_coverage": {
+          "score": 10,
+          "max_score": 10,
+          "has_tests": false
+        }
+      },
+      "total_score": 33,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "REFACTOR_2/TERMINAL_CHAT\\TERMINAL_CHAT_BEST_PLAN 3.txt",
+      "components": {
+        "last_modified": {
+          "score": 0,
+          "max_score": 30,
+          "days_old": 1,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 0,
+          "max_score": 20,
+          "days_old": 0,
+          "threshold": 365
+        },
+        "references": {
+          "score": 18,
+          "max_score": 20,
+          "reference_count": 1
+        },
+        "location": {
+          "score": 6,
+          "max_score": 10,
+          "tier": "REFACTOR_2/",
+          "tier_score": 60
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 5994,
+          "size_kb": 5.85
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 33,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "REFACTOR_2/TERMINAL_CHAT\\TERMINAL_CHAT_BEST_PLAN 6.txt",
+      "components": {
+        "last_modified": {
+          "score": 0,
+          "max_score": 30,
+          "days_old": 1,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 0,
+          "max_score": 20,
+          "days_old": 0,
+          "threshold": 365
+        },
+        "references": {
+          "score": 18,
+          "max_score": 20,
+          "reference_count": 1
+        },
+        "location": {
+          "score": 6,
+          "max_score": 10,
+          "tier": "REFACTOR_2/",
+          "tier_score": 60
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 7154,
+          "size_kb": 6.99
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 33,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "REFACTOR_2/TERMINAL_CHAT\\TERMINAL_CHAT_BEST_PLAN 9.txt",
+      "components": {
+        "last_modified": {
+          "score": 0,
+          "max_score": 30,
+          "days_old": 1,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 0,
+          "max_score": 20,
+          "days_old": 0,
+          "threshold": 365
+        },
+        "references": {
+          "score": 18,
+          "max_score": 20,
+          "reference_count": 1
+        },
+        "location": {
+          "score": 6,
+          "max_score": 10,
+          "tier": "REFACTOR_2/",
+          "tier_score": 60
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 6013,
+          "size_kb": 5.87
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 33,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/2025-11-26_developer\\2025-11\\phase-h-legacy\\pipeline_plus\\Aider-optimized\u201d workstreams.md",
+      "components": {
+        "last_modified": {
+          "score": 1,
+          "max_score": 30,
+          "days_old": 7,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 0,
+          "max_score": 20,
+          "days_old": 3,
+          "threshold": 365
+        },
+        "references": {
+          "score": 12,
+          "max_score": 20,
+          "reference_count": 4
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 10257,
+          "size_kb": 10.02
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 32,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "archive/legacy\\AUX_mcp-data_archived_2025-11-22\\init_db.py",
+      "components": {
+        "last_modified": {
+          "score": 3,
+          "max_score": 30,
+          "days_old": 20,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 0,
+          "max_score": 20,
+          "days_old": 3,
+          "threshold": 365
+        },
+        "references": {
+          "score": 0,
+          "max_score": 20,
+          "reference_count": 127
+        },
+        "location": {
+          "score": 10,
+          "max_score": 10,
+          "tier": "archive/",
+          "tier_score": 100
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 767,
+          "size_kb": 0.75
+        },
+        "test_coverage": {
+          "score": 10,
+          "max_score": 10,
+          "has_tests": false
+        }
+      },
+      "total_score": 32,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "ToDo_Task/UET_FOLDER_ANALYSIS_REPORT.md",
+      "components": {
+        "last_modified": {
+          "score": 0,
+          "max_score": 30,
+          "days_old": 1,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 0,
+          "max_score": 20,
+          "days_old": 2,
+          "threshold": 365
+        },
+        "references": {
+          "score": 16,
+          "max_score": 20,
+          "reference_count": 2
+        },
+        "location": {
+          "score": 7,
+          "max_score": 10,
+          "tier": "ToDo_Task/",
+          "tier_score": 70
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 18418,
+          "size_kb": 17.99
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 32,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "ToDo_Task/CLAUDE PLANS\\enumerated-cuddling-frost.md",
+      "components": {
+        "last_modified": {
+          "score": 0,
+          "max_score": 30,
+          "days_old": 1,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 0,
+          "max_score": 20,
+          "days_old": 0,
+          "threshold": 365
+        },
+        "references": {
+          "score": 16,
+          "max_score": 20,
+          "reference_count": 2
+        },
+        "location": {
+          "score": 7,
+          "max_score": 10,
+          "tier": "ToDo_Task/",
+          "tier_score": 70
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 26791,
+          "size_kb": 26.16
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 32,
+      "is_stale": false,
+      "recommendation": "keep"
+    },
+    {
+      "file_path": "ToDo_Task/CLAUDE PLANS\\nested-sparking-stardust.md",
+      "components": {
+        "last_modified": {
+          "score": 0,
+          "max_score": 30,
+          "days_old": 3,
+          "threshold": 180
+        },
+        "last_commit": {
+          "score": 0,
+          "max_score": 20,
+          "days_old": 0,
+          "threshold": 365
+        },
+        "references": {
+          "score": 16,
+          "max_score": 20,
+          "reference_count": 2
+        },
+        "location": {
+          "score": 7,
+          "max_score": 10,
+          "tier": "ToDo_Task/",
+          "tier_score": 70
+        },
+        "file_size": {
+          "score": 9,
+          "max_score": 10,
+          "size_bytes": 38045,
+          "size_kb": 37.15
+        },
+        "test_coverage": {
+          "score": 0,
+          "max_score": 10,
+          "note": "Non-Python file"
+        }
+      },
+      "total_score": 32,
+      "is_stale": false,
+      "recommendation": "keep"
+    }
+  ]
+}
