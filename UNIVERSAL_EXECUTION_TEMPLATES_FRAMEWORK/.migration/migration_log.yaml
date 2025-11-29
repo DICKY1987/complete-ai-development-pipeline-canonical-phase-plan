@@ -1,0 +1,366 @@
+- batch_id: WS-001
+  component: core-state
+  missing: []
+  missing_count: 0
+  mode: dry-run
+  staged:
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\core-state\\m010003_worktree.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-001\\modules\\core-state\\m010003_worktree.py"
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\core-state\\m010003_db_unified.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-001\\modules\\core-state\\m010003_db_unified.py"
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\core-state\\m010003_task_queue.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-001\\modules\\core-state\\m010003_task_queue.py"
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\core-state\\m010003_bundles.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-001\\modules\\core-state\\m010003_bundles.py"
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\core-state\\m010003_pattern_telemetry_db.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-001\\modules\\core-state\\m010003_pattern_telemetry_db.py"
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\core-state\\m010003_crud.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-001\\modules\\core-state\\m010003_crud.py"
+  staged_count: 6
+  timestamp: '2025-11-29T16:37:56.303804+00:00'
+- batch_id: WS-001
+  component: core-state
+  missing: []
+  missing_count: 0
+  mode: dry-run
+  staged:
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\core-state\\m010003_worktree.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-001\\modules\\core-state\\m010003_worktree.py"
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\core-state\\m010003_db_unified.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-001\\modules\\core-state\\m010003_db_unified.py"
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\core-state\\m010003_task_queue.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-001\\modules\\core-state\\m010003_task_queue.py"
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\core-state\\m010003_bundles.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-001\\modules\\core-state\\m010003_bundles.py"
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\core-state\\m010003_pattern_telemetry_db.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-001\\modules\\core-state\\m010003_pattern_telemetry_db.py"
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\core-state\\m010003_crud.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-001\\modules\\core-state\\m010003_crud.py"
+  staged_count: 6
+  timestamp: '2025-11-29T16:38:11.029746+00:00'
+- batch_id: WS-001
+  component: core-state
+  missing: []
+  missing_count: 0
+  mode: apply
+  staged:
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\core-state\\m010003_worktree.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-001\\modules\\core-state\\m010003_worktree.py"
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\core-state\\m010003_db_unified.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-001\\modules\\core-state\\m010003_db_unified.py"
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\core-state\\m010003_task_queue.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-001\\modules\\core-state\\m010003_task_queue.py"
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\core-state\\m010003_bundles.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-001\\modules\\core-state\\m010003_bundles.py"
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\core-state\\m010003_pattern_telemetry_db.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-001\\modules\\core-state\\m010003_pattern_telemetry_db.py"
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\core-state\\m010003_crud.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-001\\modules\\core-state\\m010003_crud.py"
+  staged_count: 6
+  timestamp: '2025-11-29T16:43:26.061567+00:00'
+- batch_id: WS-002
+  component: core-state
+  missing: []
+  missing_count: 0
+  mode: apply
+  staged:
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\core-state\\m010003_audit_logger.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-002\\modules\\core-state\\m010003_audit_logger.py"
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\core-state\\m010003_uet_db.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-002\\modules\\core-state\\m010003_uet_db.py"
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\core-state\\m010003_dag_utils.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-002\\modules\\core-state\\m010003_dag_utils.py"
+  staged_count: 3
+  timestamp: '2025-11-29T16:47:03.392392+00:00'
+- batch_id: WS-003
+  component: core-ast
+  missing: []
+  missing_count: 0
+  mode: apply
+  staged:
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\core-ast\\m010000_extractors.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-003\\modules\\core-ast\\m010000_extractors.py"
+  staged_count: 1
+  timestamp: '2025-11-29T16:47:08.866425+00:00'
+- batch_id: WS-004
+  component: core-planning
+  missing: []
+  missing_count: 0
+  mode: apply
+  staged:
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\core-planning\\m010002_planner.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-004\\modules\\core-planning\\m010002_planner.py"
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\core-planning\\m010002_ccpm_integration.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-004\\modules\\core-planning\\m010002_ccpm_integration.py"
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\core-planning\\m010002_archive.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-004\\modules\\core-planning\\m010002_archive.py"
+  staged_count: 3
+  timestamp: '2025-11-29T16:47:14.448986+00:00'
+- batch_id: WS-005
+  component: core-engine
+  missing: []
+  missing_count: 0
+  mode: apply
+  staged:
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\core-engine\\m010001_tools.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-005\\modules\\core-engine\\m010001_tools.py"
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\core-engine\\m010001_prompt_engine.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-005\\modules\\core-engine\\m010001_prompt_engine.py"
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\core-engine\\m010001_context_estimator.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-005\\modules\\core-engine\\m010001_context_estimator.py"
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\core-engine\\m010001_circuit_breakers.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-005\\modules\\core-engine\\m010001_circuit_breakers.py"
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\core-engine\\m010001_patch_converter.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-005\\modules\\core-engine\\m010001_patch_converter.py"
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\core-engine\\m010001_executor.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-005\\modules\\core-engine\\m010001_executor.py"
+  staged_count: 6
+  timestamp: '2025-11-29T16:47:20.493295+00:00'
+- batch_id: WS-006
+  component: core-engine
+  missing: []
+  missing_count: 0
+  mode: apply
+  staged:
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\core-engine\\m010001_dag_builder.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-006\\modules\\core-engine\\m010001_dag_builder.py"
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\core-engine\\m010001_recovery.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-006\\modules\\core-engine\\m010001_recovery.py"
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\core-engine\\m010001_process_spawner.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-006\\modules\\core-engine\\m010001_process_spawner.py"
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\core-engine\\m010001_integration_worker.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-006\\modules\\core-engine\\m010001_integration_worker.py"
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\core\\engine\\scheduler.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-006\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\core\\engine\\scheduler.py"
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\core\\engine\\router.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-006\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\core\\engine\\router.py"
+  staged_count: 6
+  timestamp: '2025-11-29T16:47:25.819832+00:00'
+- batch_id: WS-007
+  component: core-engine
+  missing: []
+  missing_count: 0
+  mode: apply
+  staged:
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\core\\engine\\patch_ledger.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-007\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\core\\engine\\patch_ledger.py"
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\core\\engine\\state_machine.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-007\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\core\\engine\\state_machine.py"
+  staged_count: 2
+  timestamp: '2025-11-29T16:47:31.021946+00:00'
+- batch_id: WS-008
+  component: error-shared
+  missing: []
+  missing_count: 0
+  mode: apply
+  staged:
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\error-shared\\m010021_types.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-008\\modules\\error-shared\\m010021_types.py"
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\error-shared\\m010021_jsonl_manager.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-008\\modules\\error-shared\\m010021_jsonl_manager.py"
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\error-shared\\m010021_env.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-008\\modules\\error-shared\\m010021_env.py"
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\error-shared\\m010021_security.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-008\\modules\\error-shared\\m010021_security.py"
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\error-shared\\m010021_time.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-008\\modules\\error-shared\\m010021_time.py"
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\error-shared\\m010021_hashing.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-008\\modules\\error-shared\\m010021_hashing.py"
+  staged_count: 6
+  timestamp: '2025-11-29T16:47:38.007370+00:00'
+- batch_id: WS-009
+  component: error-engine
+  missing: []
+  missing_count: 0
+  mode: apply
+  staged:
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\error-engine\\m010004_agent_adapters.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-009\\modules\\error-engine\\m010004_agent_adapters.py"
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\error-engine\\m010004_error_context.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-009\\modules\\error-engine\\m010004_error_context.py"
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\error-engine\\m010004_file_hash_cache.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-009\\modules\\error-engine\\m010004_file_hash_cache.py"
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\error-engine\\m010004_plugin_manager.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-009\\modules\\error-engine\\m010004_plugin_manager.py"
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\error-engine\\m010004_error_state_machine.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-009\\modules\\error-engine\\m010004_error_state_machine.py"
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\error-engine\\m010004_pipeline_engine.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-009\\modules\\error-engine\\m010004_pipeline_engine.py"
+  staged_count: 6
+  timestamp: '2025-11-29T16:47:43.037222+00:00'
+- batch_id: WS-010
+  component: aim
+  missing: []
+  missing_count: 0
+  mode: apply
+  staged:
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\aim-environment\\m01001B_audit.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-010\\modules\\aim-environment\\m01001B_audit.py"
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\aim-tests\\m01001E_conftest.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-010\\modules\\aim-tests\\m01001E_conftest.py"
+  - source: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical\
+      \ Phase Plan\\modules\\aim-environment\\m01001B_exceptions.py"
+    staged_to: "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013\
+      \ Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\.migration\\\
+      stage\\WS-010\\modules\\aim-environment\\m01001B_exceptions.py"
+  staged_count: 3
+  timestamp: '2025-11-29T16:47:48.353930+00:00'
