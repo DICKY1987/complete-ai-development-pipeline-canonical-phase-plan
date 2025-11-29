@@ -18,6 +18,12 @@ from core.interfaces.tool_adapter import (
     CapabilityNotSupportedError,
     JobPreparationError,
 )
+from core.interfaces.config_manager import (
+    ConfigManager,
+    ConfigError,
+    ConfigValidationError,
+    ToolProfileNotFoundError,
+)
 
 __all__ = [
     "ProcessExecutor",
@@ -32,4 +38,8 @@ __all__ = [
     "ToolAdapterError",
     "CapabilityNotSupportedError",
     "JobPreparationError",
+    "ConfigManager",
+    "ConfigError",
+    "ConfigValidationError",
+    "ToolProfileNotFoundError",
 ]
