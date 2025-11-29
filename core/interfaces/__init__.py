@@ -6,10 +6,20 @@ from core.interfaces.process_executor import (
     ProcessHandle,
     ProcessExecutionError,
 )
+from core.interfaces.state_store import (
+    StateStore,
+    StateStoreError,
+    WorkstreamNotFoundError,
+    ExecutionNotFoundError,
+)
 
 __all__ = [
     "ProcessExecutor",
     "ProcessResult", 
     "ProcessHandle",
     "ProcessExecutionError",
+    "StateStore",
+    "StateStoreError",
+    "WorkstreamNotFoundError",
+    "ExecutionNotFoundError",
 ]
