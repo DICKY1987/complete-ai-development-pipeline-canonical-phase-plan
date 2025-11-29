@@ -790,3 +790,12 @@
   mode: run
   result: pass
   timestamp: '2025-11-29T17:38:19.461212+00:00'
+- batch_id: CLEANUP
+  component: backups/shims
+  details:
+    backups: kept under .migration/backups/originals/ for rollback safety
+    shims: left in place in modules/ to maintain compatibility; removal deferred until
+      deprecation window ends
+  mode: review
+  result: retained
+  timestamp: '2025-11-29T18:12:07.442959+00:00'
