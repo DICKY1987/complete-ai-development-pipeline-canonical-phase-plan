@@ -37,7 +37,7 @@ class FileLifecycleWidget(Vertical):
     def _refresh(self) -> None:
         """Refresh patch ledger view."""
         client = self.context.state_client
-        self.table.clear(rows=True)
+        self.table.clear()
 
         if not client:
             self.summary.update("[red]No state client configured[/]")

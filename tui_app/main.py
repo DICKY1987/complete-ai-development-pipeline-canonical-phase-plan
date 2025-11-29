@@ -86,49 +86,41 @@ class PipelineTUI(App):
     def _build_css(self) -> str:
         """Generate CSS based on the current theme configuration."""
         palette = self.tui_config.theme
+        # Note: Textual CSS doesn't support CSS variables (:root, var())
+        # We substitute the palette values directly into the CSS
         return f"""
-        :root {{
-            --surface: {palette.surface};
-            --text-color: {palette.text};
-            --primary: {palette.primary};
-            --accent: {palette.accent};
-            --warning: {palette.warning};
-            --danger: {palette.danger};
-            --muted: {palette.muted};
-        }}
-
         Screen {{
-            background: var(--surface);
-            color: var(--text-color);
+            background: {palette.surface};
+            color: {palette.text};
         }}
 
         #panel-container {{
             height: 100%;
-            border: solid 1px var(--primary);
+            border: solid {palette.primary};
             padding: 1;
         }}
 
         Header, Footer {{
-            background: var(--primary);
-            color: var(--text-color);
+            background: {palette.primary};
+            color: {palette.text};
         }}
 
         .card {{
-            background: var(--surface);
-            border: solid 1px var(--muted);
+            background: {palette.surface};
+            border: solid {palette.muted};
             padding: 1;
         }}
 
         .accent {{
-            color: var(--accent);
+            color: {palette.accent};
         }}
 
         .warning {{
-            color: var(--warning);
+            color: {palette.warning};
         }}
 
         .danger {{
-            color: var(--danger);
+            color: {palette.danger};
         }}
 
         #dual-container {{
@@ -138,7 +130,7 @@ class PipelineTUI(App):
         #dual-container > * {{
             width: 1fr;
             height: 100%;
-            border: solid 1px var(--muted);
+            border: solid {palette.muted};
             padding: 1;
         }}
         """

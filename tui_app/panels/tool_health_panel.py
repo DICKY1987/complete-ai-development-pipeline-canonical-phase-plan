@@ -50,7 +50,7 @@ class ToolHealthWidget(Vertical):
         log_path = Path(getattr(getattr(self.context.config, "logs", {}), "path", "logs/combined.log"))
         statuses = self._load_statuses(log_path)
 
-        self.table.clear(rows=True)
+        self.table.clear()
         if not statuses:
             self.summary.update("[yellow]No tool activity found in logs[/]")
             self.table.add_row("n/a", "n/a", "-", "No tool data available")
