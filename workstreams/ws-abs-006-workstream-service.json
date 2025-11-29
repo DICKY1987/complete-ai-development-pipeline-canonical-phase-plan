@@ -1,0 +1,16 @@
+{
+  "id": "{ws-abs-006-workstream-service}",
+  "tool": "{codex}",
+  "priority": "{P1-HIGH}",
+  "duration_days": {3},
+  "depends_on": {['ws-abs-001-tool-adapter', 'ws-abs-002-state-store']},
+  "title": "{WorkstreamService Abstraction}",
+  "description": "{Unified workstream lifecycle management API with hooks}",
+  "files_create": {['core/interfaces/workstream_service.py', 'core/workstreams/__init__.py', 'core/workstreams/workstream_service_impl.py', 'core/workstreams/lifecycle_hooks.py', 'tests/interfaces/test_workstream_service.py']},
+  "files_modify": {['scripts/run_workstream.py', 'scripts/validate_workstreams.py', 'engine/orchestrator/orchestrator.py']},
+  "tasks": {['Define WorkstreamService protocol with create(), load(), execute(), get_status(), archive() methods', 'Implement WorkstreamServiceImpl using StateStore', 'Create lifecycle hooks system (on_start, on_complete, on_error)', 'Add workstream validation in service layer', 'Refactor run_workstream.py to use WorkstreamService', 'Refactor validate_workstreams.py to use WorkstreamService', 'Update orchestrator to use WorkstreamService', 'Write tests for lifecycle hooks', 'Write tests for workstream CRUD operations', 'Document workstream service usage']},
+  "acceptance_tests": {['python -c "from core.workstreams.workstream_service_impl import WorkstreamServiceImpl; svc = WorkstreamServiceImpl(); svc.load(\'ws-test-001\')"', 'pytest tests/interfaces/test_workstream_service.py -q', 'mypy core/interfaces/workstream_service.py --strict']},
+  "ground_truth": "{test -f core/interfaces/workstream_service.py && pytest tests/interfaces/test_workstream_service.py -q && echo '✅ WS-ABS-006 COMPLETE'}",
+  "downstream_enables": {['CLI workstream commands', 'GUI workstream panels', 'API endpoints']},
+  "gate": {1}
+}

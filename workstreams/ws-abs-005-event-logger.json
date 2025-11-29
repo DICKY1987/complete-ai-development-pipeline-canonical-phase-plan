@@ -1,0 +1,16 @@
+{
+  "id": "{ws-abs-005-event-logger}",
+  "tool": "{codex}",
+  "priority": "{P1-HIGH}",
+  "duration_days": {3},
+  "depends_on": {[]},
+  "title": "{EventBus & Logger Abstraction}",
+  "description": "{Unified event emission and structured logging across all modules}",
+  "files_create": {['core/interfaces/event_bus.py', 'core/interfaces/logger.py', 'core/events/__init__.py', 'core/events/simple_event_bus.py', 'core/logging/__init__.py', 'core/logging/structured_logger.py', 'tests/interfaces/test_event_bus.py', 'tests/interfaces/test_logger.py']},
+  "files_modify": {['All modules using print() or direct logging']},
+  "tasks": {['Define EventBus protocol with emit(), subscribe(), unsubscribe() methods', 'Define Logger protocol with info(), error(), job_event() methods', 'Implement SimpleEventBus with in-memory pub/sub', 'Implement StructuredLogger with JSON output', 'Create global event bus singleton', 'Create global logger singleton', 'Migrate print() statements to use Logger', 'Migrate direct event_bus usage to EventBus interface', 'Write tests for event subscription', 'Write tests for structured log format']},
+  "acceptance_tests": {['python -c "from core.events.simple_event_bus import SimpleEventBus; bus = SimpleEventBus(); bus.emit(\'test\', {})"', 'python -c "from core.logging.structured_logger import StructuredLogger; log = StructuredLogger(); log.info(\'test\')"', 'pytest tests/interfaces/test_event_bus.py -q', 'pytest tests/interfaces/test_logger.py -q', 'mypy core/interfaces/event_bus.py core/interfaces/logger.py --strict']},
+  "ground_truth": "{test -f core/interfaces/event_bus.py && pytest tests/interfaces/test_event_bus.py tests/interfaces/test_logger.py -q && echo '✅ WS-ABS-005 COMPLETE'}",
+  "downstream_enables": {['GUI event streaming', 'TUI panels', 'Observability']},
+  "gate": {1}
+}

@@ -1,0 +1,16 @@
+{
+  "id": "{ws-abs-011-metrics-collector}",
+  "tool": "{codex}",
+  "priority": "{P3-LOW}",
+  "duration_days": {2},
+  "depends_on": {[]},
+  "title": "{MetricsCollector Abstraction}",
+  "description": "{Unified metrics collection for performance tracking and cost analysis}",
+  "files_create": {['core/interfaces/metrics_collector.py', 'core/metrics/__init__.py', 'core/metrics/prometheus_collector.py', 'core/metrics/simple_collector.py', 'tests/interfaces/test_metrics_collector.py']},
+  "files_modify": {['Modules with timing/counting code']},
+  "tasks": {['Define MetricsCollector protocol with record_duration(), increment_counter(), record_gauge() methods', 'Implement SimpleCollector for in-memory metrics', 'Implement PrometheusCollector for Prometheus export', 'Add metrics aggregation and summary methods', 'Instrument key operations (job execution, adapter calls, etc.)', 'Write tests for metrics aggregation', 'Write tests for time-series queries', 'Document metrics collection guide']},
+  "acceptance_tests": {['python -c "from core.metrics.simple_collector import SimpleCollector; c = SimpleCollector(); c.record_duration(\'test\', 1.5)"', 'pytest tests/interfaces/test_metrics_collector.py -q', 'mypy core/interfaces/metrics_collector.py --strict']},
+  "ground_truth": "{test -f core/interfaces/metrics_collector.py && pytest tests/interfaces/test_metrics_collector.py -q && echo '✅ WS-ABS-011 COMPLETE'}",
+  "downstream_enables": {['Performance dashboards', 'Cost tracking', 'Bottleneck analysis']},
+  "gate": {1}
+}

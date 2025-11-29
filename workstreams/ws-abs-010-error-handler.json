@@ -1,0 +1,16 @@
+{
+  "id": "{ws-abs-010-error-handler}",
+  "tool": "{codex}",
+  "priority": "{P3-LOW}",
+  "duration_days": {3},
+  "depends_on": {[]},
+  "title": "{ErrorHandler & Recovery Abstraction}",
+  "description": "{Consistent error handling with circuit breakers and retry strategies}",
+  "files_create": {['core/interfaces/error_handler.py', 'core/interfaces/recovery_strategy.py', 'core/resilience/__init__.py', 'core/resilience/error_handler_impl.py', 'core/resilience/strategies.py', 'tests/interfaces/test_error_handler.py']},
+  "files_modify": {['All modules with try/catch blocks']},
+  "tasks": {['Define ErrorHandler protocol with with_retry(), with_circuit_breaker() methods', 'Define RecoveryStrategy protocol with should_retry(), backoff_delay() methods', 'Implement ErrorHandlerImpl with retry logic', 'Create ExponentialBackoff strategy', 'Create CircuitBreakerStrategy', 'Integrate with existing circuit_breakers.yaml', 'Migrate error handling to use ErrorHandler', 'Write tests for retry with backoff', 'Write tests for circuit breaker behavior', 'Document error handling best practices']},
+  "acceptance_tests": {['python -c "from core.resilience.error_handler_impl import ErrorHandlerImpl; h = ErrorHandlerImpl()"', 'pytest tests/interfaces/test_error_handler.py -q -k test_retry', 'pytest tests/interfaces/test_error_handler.py -q -k test_circuit_breaker', 'mypy core/interfaces/error_handler.py --strict']},
+  "ground_truth": "{test -f core/interfaces/error_handler.py && pytest tests/interfaces/test_error_handler.py -q && echo '✅ WS-ABS-010 COMPLETE'}",
+  "downstream_enables": {['Resilient adapters', 'Graceful degradation']},
+  "gate": {1}
+}

@@ -1,0 +1,16 @@
+{
+  "id": "{ws-abs-003-process-executor}",
+  "tool": "{codex}",
+  "priority": "{P0-CRITICAL}",
+  "duration_days": {2},
+  "depends_on": {[]},
+  "title": "{ProcessExecutor & ToolInvoker Abstraction}",
+  "description": "{Centralize subprocess handling with unified retry/timeout/error handling and dry-run mode}",
+  "files_create": {['core/interfaces/process_executor.py', 'core/execution/__init__.py', 'core/execution/subprocess_executor.py', 'core/execution/tool_invoker.py', 'tests/interfaces/test_process_executor.py']},
+  "files_modify": {['engine/adapters/aider_adapter.py', 'engine/adapters/codex_adapter.py', 'error/plugins/*/plugin.py']},
+  "tasks": {['Define ProcessExecutor protocol with run(), run_async(), kill() methods', 'Implement SubprocessExecutor with timeout enforcement', 'Add dry-run mode support to ProcessExecutor', 'Create ToolInvoker wrapper for higher-level tool abstraction', 'Migrate all adapter subprocess calls to use ProcessExecutor', 'Migrate error plugin subprocess calls to use ProcessExecutor', 'Write tests for timeout behavior', 'Write tests for dry-run mode', 'Document ProcessExecutor usage patterns']},
+  "acceptance_tests": {['python -c "from core.execution.subprocess_executor import SubprocessExecutor; e = SubprocessExecutor(); r = e.run([\'echo\', \'test\']); assert r.exit_code == 0"', 'pytest tests/interfaces/test_process_executor.py -q -k test_timeout', 'pytest tests/interfaces/test_process_executor.py -q -k test_dry_run', 'mypy core/interfaces/process_executor.py --strict']},
+  "ground_truth": "{test -f core/interfaces/process_executor.py && pytest tests/interfaces/test_process_executor.py -q && echo '✅ WS-ABS-003 COMPLETE'}",
+  "downstream_enables": {['ws-abs-001-tool-adapter', 'All adapters', 'All error plugins']},
+  "gate": {1}
+}

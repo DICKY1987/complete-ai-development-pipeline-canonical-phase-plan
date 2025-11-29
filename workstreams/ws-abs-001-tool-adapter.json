@@ -1,0 +1,16 @@
+{
+  "id": "{ws-abs-001-tool-adapter}",
+  "tool": "{codex}",
+  "priority": "{P0-CRITICAL}",
+  "duration_days": {3},
+  "depends_on": {['ws-abs-003-process-executor']},
+  "title": "{ToolAdapter Abstraction Interface}",
+  "description": "{Create unified ToolAdapter protocol for all tool adapters (Aider, Codex, Tests, Git)}",
+  "files_create": {['core/interfaces/__init__.py', 'core/interfaces/tool_adapter.py', 'core/adapters/base.py', 'core/adapters/registry.py', 'tests/interfaces/__init__.py', 'tests/interfaces/test_tool_adapter.py']},
+  "files_modify": {['engine/adapters/aider_adapter.py', 'engine/adapters/codex_adapter.py', 'engine/adapters/tests_adapter.py', 'engine/adapters/git_adapter.py']},
+  "tasks": {['Define ToolAdapter protocol with methods: supports(), prepare_job(), run(), normalize_result()', 'Create base adapter implementation with common functionality', 'Implement ToolRegistry for adapter discovery and selection', 'Migrate AiderAdapter to implement ToolAdapter protocol', 'Migrate CodexAdapter to implement ToolAdapter protocol', 'Migrate TestsAdapter to implement ToolAdapter protocol', 'Migrate GitAdapter to implement ToolAdapter protocol', 'Write unit tests for ToolAdapter protocol compliance', 'Write integration tests for ToolRegistry', 'Update documentation with usage examples']},
+  "acceptance_tests": {['python -c "from core.interfaces.tool_adapter import ToolAdapter"', 'python -c "from core.adapters.registry import ToolRegistry; r = ToolRegistry(); r.get_adapter({\'edit_code\'})"', 'pytest tests/interfaces/test_tool_adapter.py -q', 'mypy core/interfaces/tool_adapter.py --strict']},
+  "ground_truth": "{test -f core/interfaces/tool_adapter.py && pytest tests/interfaces/test_tool_adapter.py -q && echo '✅ WS-ABS-001 COMPLETE'}",
+  "downstream_enables": {['ws-abs-006-workstream-service', 'GUI tool selection panels']},
+  "gate": {1}
+}

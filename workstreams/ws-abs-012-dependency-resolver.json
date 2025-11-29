@@ -1,0 +1,16 @@
+{
+  "id": "{ws-abs-012-dependency-resolver}",
+  "tool": "{codex}",
+  "priority": "{P3-LOW}",
+  "duration_days": {2},
+  "depends_on": {[]},
+  "title": "{DependencyResolver Abstraction}",
+  "description": "{Centralized dependency resolution and parallel wave detection}",
+  "files_create": {['core/interfaces/dependency_resolver.py', 'core/planning/__init__.py', 'core/planning/dag_resolver.py', 'tests/interfaces/test_dependency_resolver.py']},
+  "files_modify": {['core/state/dag_utils.py', 'scripts/run_workstream.py']},
+  "tasks": {['Define DependencyResolver protocol with add_task(), resolve_order(), detect_cycles() methods', 'Implement DagResolver with topological sort', 'Add parallel wave detection algorithm', 'Add cycle detection with clear error messages', 'Migrate existing DAG logic to use DependencyResolver', 'Write tests for parallel wave grouping', 'Write tests for cycle detection', 'Document dependency resolution algorithm']},
+  "acceptance_tests": {['python -c "from core.planning.dag_resolver import DagResolver; r = DagResolver(); r.add_task(\'A\', []); r.resolve_order()"', 'pytest tests/interfaces/test_dependency_resolver.py -q -k test_waves', 'pytest tests/interfaces/test_dependency_resolver.py -q -k test_cycles', 'mypy core/interfaces/dependency_resolver.py --strict']},
+  "ground_truth": "{test -f core/interfaces/dependency_resolver.py && pytest tests/interfaces/test_dependency_resolver.py -q && echo '✅ WS-ABS-012 COMPLETE'}",
+  "downstream_enables": {['Parallel execution', 'Dependency visualization', 'Build optimization']},
+  "gate": {1}
+}

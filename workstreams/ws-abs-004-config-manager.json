@@ -1,0 +1,16 @@
+{
+  "id": "{ws-abs-004-config-manager}",
+  "tool": "{codex}",
+  "priority": "{P1-HIGH}",
+  "duration_days": {2},
+  "depends_on": {['ws-abs-002-state-store']},
+  "title": "{ConfigManager Abstraction Interface}",
+  "description": "{Centralize config access with validation and hot-reloading}",
+  "files_create": {['core/interfaces/config_manager.py', 'core/config/__init__.py', 'core/config/yaml_config_manager.py', 'core/config/schemas.py', 'tests/interfaces/test_config_manager.py']},
+  "files_modify": {['All modules currently reading YAML/JSON configs directly']},
+  "tasks": {['Define ConfigManager protocol with get(), get_tool_profile(), validate_all(), reload() methods', 'Implement YamlConfigManager for YAML-based configs', 'Create Pydantic schemas for all config types', 'Add config validation on load', 'Implement hot-reload functionality', 'Migrate direct config file access to use ConfigManager', 'Write tests for config validation', 'Write tests for hot-reload behavior', 'Document config schema specifications']},
+  "acceptance_tests": {['python -c "from core.config.yaml_config_manager import YamlConfigManager; cm = YamlConfigManager(); cm.get_tool_profile(\'aider\')"', 'pytest tests/interfaces/test_config_manager.py -q', 'mypy core/interfaces/config_manager.py --strict']},
+  "ground_truth": "{test -f core/interfaces/config_manager.py && pytest tests/interfaces/test_config_manager.py -q && echo '✅ WS-ABS-004 COMPLETE'}",
+  "downstream_enables": {['All modules using configs']},
+  "gate": {1}
+}

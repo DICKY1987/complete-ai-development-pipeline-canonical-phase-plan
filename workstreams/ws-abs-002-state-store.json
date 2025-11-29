@@ -1,0 +1,16 @@
+{
+  "id": "{ws-abs-002-state-store}",
+  "tool": "{codex}",
+  "priority": "{P0-CRITICAL}",
+  "duration_days": {3},
+  "depends_on": {[]},
+  "title": "{StateStore Abstraction Interface}",
+  "description": "{Create StateStore protocol to hide DB/filesystem details behind clean state management API}",
+  "files_create": {['core/interfaces/state_store.py', 'core/state/sqlite_store.py', 'tests/interfaces/test_state_store.py']},
+  "files_modify": {['core/state/db.py', 'core/state/crud.py', 'engine/orchestrator/orchestrator.py']},
+  "tasks": {['Define StateStore protocol with methods: get_workstream(), save_workstream(), record_execution(), list_executions()', 'Implement SQLiteStateStore with all protocol methods', 'Add in-memory state store for testing', 'Refactor existing CRUD operations to use StateStore', 'Update orchestrator to inject StateStore dependency', 'Write unit tests for StateStore implementations', 'Write integration tests for state persistence', 'Add migration guide for consumers']},
+  "acceptance_tests": {['python -c "from core.state.sqlite_store import SQLiteStateStore; s = SQLiteStateStore(); s.get_workstream(\'test\')"', 'pytest tests/interfaces/test_state_store.py -q', 'mypy core/interfaces/state_store.py --strict']},
+  "ground_truth": "{test -f core/interfaces/state_store.py && pytest tests/interfaces/test_state_store.py -q && echo '✅ WS-ABS-002 COMPLETE'}",
+  "downstream_enables": {['ws-abs-004-config-manager', 'ws-abs-006-workstream-service', 'ws-abs-008-data-provider']},
+  "gate": {1}
+}

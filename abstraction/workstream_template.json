@@ -1,0 +1,16 @@
+{
+  "id": "{{id}}",
+  "tool": "{{tool}}",
+  "priority": "{{priority}}",
+  "duration_days": {{duration_days}},
+  "depends_on": {{depends_on}},
+  "title": "{{title}}",
+  "description": "{{description}}",
+  "files_create": {{files_create}},
+  "files_modify": {{files_modify}},
+  "tasks": {{tasks}},
+  "acceptance_tests": {{acceptance_tests}},
+  "ground_truth": "{{ground_truth}}",
+  "downstream_enables": {{downstream_enables}},
+  "gate": {{gate}}
+}

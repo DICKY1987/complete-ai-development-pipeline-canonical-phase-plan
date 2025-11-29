@@ -1,0 +1,16 @@
+{
+  "id": "{ws-abs-007-file-store}",
+  "tool": "{codex}",
+  "priority": "{P2-MEDIUM}",
+  "duration_days": {2},
+  "depends_on": {[]},
+  "title": "{FileStore & PathResolver Abstraction}",
+  "description": "{Safe file operations with path validation and virtual filesystem support}",
+  "files_create": {['core/interfaces/file_store.py', 'core/interfaces/path_resolver.py', 'core/filesystem/__init__.py', 'core/filesystem/safe_file_store.py', 'core/filesystem/repo_path_resolver.py', 'tests/interfaces/test_file_store.py', 'tests/interfaces/test_path_resolver.py']},
+  "files_modify": {['Modules using direct Path() operations']},
+  "tasks": {['Define FileStore protocol with read(), write(), exists(), list_dir() methods', 'Define PathResolver protocol with resolve(), is_safe(), normalize() methods', 'Implement SafeFileStore with path validation', 'Implement RepoPathResolver to prevent path escapes', 'Add virtual filesystem support for testing', 'Migrate file I/O to use FileStore', 'Write tests for path escape prevention', 'Write tests for virtual filesystem', 'Document safe file operations guide']},
+  "acceptance_tests": {['python -c "from core.filesystem.safe_file_store import SafeFileStore; fs = SafeFileStore(); fs.read(\'README.md\')"', 'pytest tests/interfaces/test_file_store.py -q -k test_path_escape', 'pytest tests/interfaces/test_file_store.py -q -k test_virtual', 'mypy core/interfaces/file_store.py core/interfaces/path_resolver.py --strict']},
+  "ground_truth": "{test -f core/interfaces/file_store.py && pytest tests/interfaces/test_file_store.py -q && echo '✅ WS-ABS-007 COMPLETE'}",
+  "downstream_enables": {['Security hardening', 'Test isolation', 'Sandboxing']},
+  "gate": {1}
+}

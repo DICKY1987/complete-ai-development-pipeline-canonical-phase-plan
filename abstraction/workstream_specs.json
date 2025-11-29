@@ -1,0 +1,524 @@
+[
+  {
+    "filename": "ws-abs-001-tool-adapter.json",
+    "variables": {
+      "id": "ws-abs-001-tool-adapter",
+      "tool": "codex",
+      "priority": "P0-CRITICAL",
+      "duration_days": 3,
+      "depends_on": ["ws-abs-003-process-executor"],
+      "title": "ToolAdapter Abstraction Interface",
+      "description": "Create unified ToolAdapter protocol for all tool adapters (Aider, Codex, Tests, Git)",
+      "files_create": [
+        "core/interfaces/__init__.py",
+        "core/interfaces/tool_adapter.py",
+        "core/adapters/base.py",
+        "core/adapters/registry.py",
+        "tests/interfaces/__init__.py",
+        "tests/interfaces/test_tool_adapter.py"
+      ],
+      "files_modify": [
+        "engine/adapters/aider_adapter.py",
+        "engine/adapters/codex_adapter.py",
+        "engine/adapters/tests_adapter.py",
+        "engine/adapters/git_adapter.py"
+      ],
+      "tasks": [
+        "Define ToolAdapter protocol with methods: supports(), prepare_job(), run(), normalize_result()",
+        "Create base adapter implementation with common functionality",
+        "Implement ToolRegistry for adapter discovery and selection",
+        "Migrate AiderAdapter to implement ToolAdapter protocol",
+        "Migrate CodexAdapter to implement ToolAdapter protocol",
+        "Migrate TestsAdapter to implement ToolAdapter protocol",
+        "Migrate GitAdapter to implement ToolAdapter protocol",
+        "Write unit tests for ToolAdapter protocol compliance",
+        "Write integration tests for ToolRegistry",
+        "Update documentation with usage examples"
+      ],
+      "acceptance_tests": [
+        "python -c \"from core.interfaces.tool_adapter import ToolAdapter\"",
+        "python -c \"from core.adapters.registry import ToolRegistry; r = ToolRegistry(); r.get_adapter({'edit_code'})\"",
+        "pytest tests/interfaces/test_tool_adapter.py -q",
+        "mypy core/interfaces/tool_adapter.py --strict"
+      ],
+      "ground_truth": "test -f core/interfaces/tool_adapter.py && pytest tests/interfaces/test_tool_adapter.py -q && echo '✅ WS-ABS-001 COMPLETE'",
+      "downstream_enables": ["ws-abs-006-workstream-service", "GUI tool selection panels"],
+      "gate": 1
+    }
+  },
+  {
+    "filename": "ws-abs-002-state-store.json",
+    "variables": {
+      "id": "ws-abs-002-state-store",
+      "tool": "codex",
+      "priority": "P0-CRITICAL",
+      "duration_days": 3,
+      "depends_on": [],
+      "title": "StateStore Abstraction Interface",
+      "description": "Create StateStore protocol to hide DB/filesystem details behind clean state management API",
+      "files_create": [
+        "core/interfaces/state_store.py",
+        "core/state/sqlite_store.py",
+        "tests/interfaces/test_state_store.py"
+      ],
+      "files_modify": [
+        "core/state/db.py",
+        "core/state/crud.py",
+        "engine/orchestrator/orchestrator.py"
+      ],
+      "tasks": [
+        "Define StateStore protocol with methods: get_workstream(), save_workstream(), record_execution(), list_executions()",
+        "Implement SQLiteStateStore with all protocol methods",
+        "Add in-memory state store for testing",
+        "Refactor existing CRUD operations to use StateStore",
+        "Update orchestrator to inject StateStore dependency",
+        "Write unit tests for StateStore implementations",
+        "Write integration tests for state persistence",
+        "Add migration guide for consumers"
+      ],
+      "acceptance_tests": [
+        "python -c \"from core.state.sqlite_store import SQLiteStateStore; s = SQLiteStateStore(); s.get_workstream('test')\"",
+        "pytest tests/interfaces/test_state_store.py -q",
+        "mypy core/interfaces/state_store.py --strict"
+      ],
+      "ground_truth": "test -f core/interfaces/state_store.py && pytest tests/interfaces/test_state_store.py -q && echo '✅ WS-ABS-002 COMPLETE'",
+      "downstream_enables": ["ws-abs-004-config-manager", "ws-abs-006-workstream-service", "ws-abs-008-data-provider"],
+      "gate": 1
+    }
+  },
+  {
+    "filename": "ws-abs-003-process-executor.json",
+    "variables": {
+      "id": "ws-abs-003-process-executor",
+      "tool": "codex",
+      "priority": "P0-CRITICAL",
+      "duration_days": 2,
+      "depends_on": [],
+      "title": "ProcessExecutor & ToolInvoker Abstraction",
+      "description": "Centralize subprocess handling with unified retry/timeout/error handling and dry-run mode",
+      "files_create": [
+        "core/interfaces/process_executor.py",
+        "core/execution/__init__.py",
+        "core/execution/subprocess_executor.py",
+        "core/execution/tool_invoker.py",
+        "tests/interfaces/test_process_executor.py"
+      ],
+      "files_modify": [
+        "engine/adapters/aider_adapter.py",
+        "engine/adapters/codex_adapter.py",
+        "error/plugins/*/plugin.py"
+      ],
+      "tasks": [
+        "Define ProcessExecutor protocol with run(), run_async(), kill() methods",
+        "Implement SubprocessExecutor with timeout enforcement",
+        "Add dry-run mode support to ProcessExecutor",
+        "Create ToolInvoker wrapper for higher-level tool abstraction",
+        "Migrate all adapter subprocess calls to use ProcessExecutor",
+        "Migrate error plugin subprocess calls to use ProcessExecutor",
+        "Write tests for timeout behavior",
+        "Write tests for dry-run mode",
+        "Document ProcessExecutor usage patterns"
+      ],
+      "acceptance_tests": [
+        "python -c \"from core.execution.subprocess_executor import SubprocessExecutor; e = SubprocessExecutor(); r = e.run(['echo', 'test']); assert r.exit_code == 0\"",
+        "pytest tests/interfaces/test_process_executor.py -q -k test_timeout",
+        "pytest tests/interfaces/test_process_executor.py -q -k test_dry_run",
+        "mypy core/interfaces/process_executor.py --strict"
+      ],
+      "ground_truth": "test -f core/interfaces/process_executor.py && pytest tests/interfaces/test_process_executor.py -q && echo '✅ WS-ABS-003 COMPLETE'",
+      "downstream_enables": ["ws-abs-001-tool-adapter", "All adapters", "All error plugins"],
+      "gate": 1
+    }
+  },
+  {
+    "filename": "ws-abs-004-config-manager.json",
+    "variables": {
+      "id": "ws-abs-004-config-manager",
+      "tool": "codex",
+      "priority": "P1-HIGH",
+      "duration_days": 2,
+      "depends_on": ["ws-abs-002-state-store"],
+      "title": "ConfigManager Abstraction Interface",
+      "description": "Centralize config access with validation and hot-reloading",
+      "files_create": [
+        "core/interfaces/config_manager.py",
+        "core/config/__init__.py",
+        "core/config/yaml_config_manager.py",
+        "core/config/schemas.py",
+        "tests/interfaces/test_config_manager.py"
+      ],
+      "files_modify": [
+        "All modules currently reading YAML/JSON configs directly"
+      ],
+      "tasks": [
+        "Define ConfigManager protocol with get(), get_tool_profile(), validate_all(), reload() methods",
+        "Implement YamlConfigManager for YAML-based configs",
+        "Create Pydantic schemas for all config types",
+        "Add config validation on load",
+        "Implement hot-reload functionality",
+        "Migrate direct config file access to use ConfigManager",
+        "Write tests for config validation",
+        "Write tests for hot-reload behavior",
+        "Document config schema specifications"
+      ],
+      "acceptance_tests": [
+        "python -c \"from core.config.yaml_config_manager import YamlConfigManager; cm = YamlConfigManager(); cm.get_tool_profile('aider')\"",
+        "pytest tests/interfaces/test_config_manager.py -q",
+        "mypy core/interfaces/config_manager.py --strict"
+      ],
+      "ground_truth": "test -f core/interfaces/config_manager.py && pytest tests/interfaces/test_config_manager.py -q && echo '✅ WS-ABS-004 COMPLETE'",
+      "downstream_enables": ["All modules using configs"],
+      "gate": 1
+    }
+  },
+  {
+    "filename": "ws-abs-005-event-logger.json",
+    "variables": {
+      "id": "ws-abs-005-event-logger",
+      "tool": "codex",
+      "priority": "P1-HIGH",
+      "duration_days": 3,
+      "depends_on": [],
+      "title": "EventBus & Logger Abstraction",
+      "description": "Unified event emission and structured logging across all modules",
+      "files_create": [
+        "core/interfaces/event_bus.py",
+        "core/interfaces/logger.py",
+        "core/events/__init__.py",
+        "core/events/simple_event_bus.py",
+        "core/logging/__init__.py",
+        "core/logging/structured_logger.py",
+        "tests/interfaces/test_event_bus.py",
+        "tests/interfaces/test_logger.py"
+      ],
+      "files_modify": [
+        "All modules using print() or direct logging"
+      ],
+      "tasks": [
+        "Define EventBus protocol with emit(), subscribe(), unsubscribe() methods",
+        "Define Logger protocol with info(), error(), job_event() methods",
+        "Implement SimpleEventBus with in-memory pub/sub",
+        "Implement StructuredLogger with JSON output",
+        "Create global event bus singleton",
+        "Create global logger singleton",
+        "Migrate print() statements to use Logger",
+        "Migrate direct event_bus usage to EventBus interface",
+        "Write tests for event subscription",
+        "Write tests for structured log format"
+      ],
+      "acceptance_tests": [
+        "python -c \"from core.events.simple_event_bus import SimpleEventBus; bus = SimpleEventBus(); bus.emit('test', {})\"",
+        "python -c \"from core.logging.structured_logger import StructuredLogger; log = StructuredLogger(); log.info('test')\"",
+        "pytest tests/interfaces/test_event_bus.py -q",
+        "pytest tests/interfaces/test_logger.py -q",
+        "mypy core/interfaces/event_bus.py core/interfaces/logger.py --strict"
+      ],
+      "ground_truth": "test -f core/interfaces/event_bus.py && pytest tests/interfaces/test_event_bus.py tests/interfaces/test_logger.py -q && echo '✅ WS-ABS-005 COMPLETE'",
+      "downstream_enables": ["GUI event streaming", "TUI panels", "Observability"],
+      "gate": 1
+    }
+  },
+  {
+    "filename": "ws-abs-006-workstream-service.json",
+    "variables": {
+      "id": "ws-abs-006-workstream-service",
+      "tool": "codex",
+      "priority": "P1-HIGH",
+      "duration_days": 3,
+      "depends_on": ["ws-abs-001-tool-adapter", "ws-abs-002-state-store"],
+      "title": "WorkstreamService Abstraction",
+      "description": "Unified workstream lifecycle management API with hooks",
+      "files_create": [
+        "core/interfaces/workstream_service.py",
+        "core/workstreams/__init__.py",
+        "core/workstreams/workstream_service_impl.py",
+        "core/workstreams/lifecycle_hooks.py",
+        "tests/interfaces/test_workstream_service.py"
+      ],
+      "files_modify": [
+        "scripts/run_workstream.py",
+        "scripts/validate_workstreams.py",
+        "engine/orchestrator/orchestrator.py"
+      ],
+      "tasks": [
+        "Define WorkstreamService protocol with create(), load(), execute(), get_status(), archive() methods",
+        "Implement WorkstreamServiceImpl using StateStore",
+        "Create lifecycle hooks system (on_start, on_complete, on_error)",
+        "Add workstream validation in service layer",
+        "Refactor run_workstream.py to use WorkstreamService",
+        "Refactor validate_workstreams.py to use WorkstreamService",
+        "Update orchestrator to use WorkstreamService",
+        "Write tests for lifecycle hooks",
+        "Write tests for workstream CRUD operations",
+        "Document workstream service usage"
+      ],
+      "acceptance_tests": [
+        "python -c \"from core.workstreams.workstream_service_impl import WorkstreamServiceImpl; svc = WorkstreamServiceImpl(); svc.load('ws-test-001')\"",
+        "pytest tests/interfaces/test_workstream_service.py -q",
+        "mypy core/interfaces/workstream_service.py --strict"
+      ],
+      "ground_truth": "test -f core/interfaces/workstream_service.py && pytest tests/interfaces/test_workstream_service.py -q && echo '✅ WS-ABS-006 COMPLETE'",
+      "downstream_enables": ["CLI workstream commands", "GUI workstream panels", "API endpoints"],
+      "gate": 1
+    }
+  },
+  {
+    "filename": "ws-abs-007-file-store.json",
+    "variables": {
+      "id": "ws-abs-007-file-store",
+      "tool": "codex",
+      "priority": "P2-MEDIUM",
+      "duration_days": 2,
+      "depends_on": [],
+      "title": "FileStore & PathResolver Abstraction",
+      "description": "Safe file operations with path validation and virtual filesystem support",
+      "files_create": [
+        "core/interfaces/file_store.py",
+        "core/interfaces/path_resolver.py",
+        "core/filesystem/__init__.py",
+        "core/filesystem/safe_file_store.py",
+        "core/filesystem/repo_path_resolver.py",
+        "tests/interfaces/test_file_store.py",
+        "tests/interfaces/test_path_resolver.py"
+      ],
+      "files_modify": [
+        "Modules using direct Path() operations"
+      ],
+      "tasks": [
+        "Define FileStore protocol with read(), write(), exists(), list_dir() methods",
+        "Define PathResolver protocol with resolve(), is_safe(), normalize() methods",
+        "Implement SafeFileStore with path validation",
+        "Implement RepoPathResolver to prevent path escapes",
+        "Add virtual filesystem support for testing",
+        "Migrate file I/O to use FileStore",
+        "Write tests for path escape prevention",
+        "Write tests for virtual filesystem",
+        "Document safe file operations guide"
+      ],
+      "acceptance_tests": [
+        "python -c \"from core.filesystem.safe_file_store import SafeFileStore; fs = SafeFileStore(); fs.read('README.md')\"",
+        "pytest tests/interfaces/test_file_store.py -q -k test_path_escape",
+        "pytest tests/interfaces/test_file_store.py -q -k test_virtual",
+        "mypy core/interfaces/file_store.py core/interfaces/path_resolver.py --strict"
+      ],
+      "ground_truth": "test -f core/interfaces/file_store.py && pytest tests/interfaces/test_file_store.py -q && echo '✅ WS-ABS-007 COMPLETE'",
+      "downstream_enables": ["Security hardening", "Test isolation", "Sandboxing"],
+      "gate": 1
+    }
+  },
+  {
+    "filename": "ws-abs-008-data-provider.json",
+    "variables": {
+      "id": "ws-abs-008-data-provider",
+      "tool": "codex",
+      "priority": "P2-MEDIUM",
+      "duration_days": 3,
+      "depends_on": ["ws-abs-002-state-store"],
+      "title": "DataProvider (GUI) Abstraction",
+      "description": "Decouple GUI from database schema with reactive updates",
+      "files_create": [
+        "core/interfaces/data_provider.py",
+        "gui/data/__init__.py",
+        "gui/data/job_data_provider.py",
+        "gui/data/queue_data_provider.py",
+        "gui/data/observable_model.py",
+        "tests/gui/test_data_provider.py"
+      ],
+      "files_modify": [
+        "gui/panels/*.py",
+        "tui_app/panels/*.py"
+      ],
+      "tasks": [
+        "Define DataProvider protocol with get_jobs(), get_queue_stats(), subscribe_to_updates() methods",
+        "Create ObservableModel for reactive UI binding",
+        "Implement JobDataProvider using StateStore",
+        "Implement QueueDataProvider using StateStore",
+        "Add data filtering and pagination support",
+        "Migrate GUI panels to use DataProvider",
+        "Migrate TUI panels to use DataProvider",
+        "Write tests for reactive updates",
+        "Write tests for data filtering",
+        "Document data provider usage for UI developers"
+      ],
+      "acceptance_tests": [
+        "python -c \"from gui.data.job_data_provider import JobDataProvider; dp = JobDataProvider(); dp.get_jobs()\"",
+        "pytest tests/gui/test_data_provider.py -q -k test_reactive",
+        "pytest tests/gui/test_data_provider.py -q -k test_filtering",
+        "mypy core/interfaces/data_provider.py --strict"
+      ],
+      "ground_truth": "test -f core/interfaces/data_provider.py && pytest tests/gui/test_data_provider.py -q && echo '✅ WS-ABS-008 COMPLETE'",
+      "downstream_enables": ["GUI panels", "TUI panels", "Database migration"],
+      "gate": 1
+    }
+  },
+  {
+    "filename": "ws-abs-009-validation-suite.json",
+    "variables": {
+      "id": "ws-abs-009-validation-suite",
+      "tool": "codex",
+      "priority": "P2-MEDIUM",
+      "duration_days": 3,
+      "depends_on": [],
+      "title": "ValidationSuite Abstraction",
+      "description": "Unified validation framework with composable validators",
+      "files_create": [
+        "core/interfaces/validator.py",
+        "core/validation/__init__.py",
+        "core/validation/validation_suite.py",
+        "core/validation/validators/__init__.py",
+        "core/validation/validators/schema_validator.py",
+        "core/validation/validators/path_validator.py",
+        "core/validation/validators/import_validator.py",
+        "tests/interfaces/test_validator.py"
+      ],
+      "files_modify": [
+        "scripts/validate_*.py"
+      ],
+      "tasks": [
+        "Define Validator protocol with validate() method",
+        "Implement ValidationSuite with composable validators",
+        "Create SchemaValidator for JSON/YAML schema validation",
+        "Create PathValidator for deprecated path detection",
+        "Create ImportValidator for import standards",
+        "Add quality gate grouping (pre-commit, ci, release)",
+        "Migrate existing validation scripts to use ValidationSuite",
+        "Write tests for validator composition",
+        "Write tests for quality gates",
+        "Document validator creation guide"
+      ],
+      "acceptance_tests": [
+        "python -c \"from core.validation.validation_suite import ValidationSuite; suite = ValidationSuite(); suite.run_all({})\"",
+        "pytest tests/interfaces/test_validator.py -q",
+        "mypy core/interfaces/validator.py --strict"
+      ],
+      "ground_truth": "test -f core/interfaces/validator.py && pytest tests/interfaces/test_validator.py -q && echo '✅ WS-ABS-009 COMPLETE'",
+      "downstream_enables": ["CI quality gates", "Pre-commit hooks", "Release validation"],
+      "gate": 1
+    }
+  },
+  {
+    "filename": "ws-abs-010-error-handler.json",
+    "variables": {
+      "id": "ws-abs-010-error-handler",
+      "tool": "codex",
+      "priority": "P3-LOW",
+      "duration_days": 3,
+      "depends_on": [],
+      "title": "ErrorHandler & Recovery Abstraction",
+      "description": "Consistent error handling with circuit breakers and retry strategies",
+      "files_create": [
+        "core/interfaces/error_handler.py",
+        "core/interfaces/recovery_strategy.py",
+        "core/resilience/__init__.py",
+        "core/resilience/error_handler_impl.py",
+        "core/resilience/strategies.py",
+        "tests/interfaces/test_error_handler.py"
+      ],
+      "files_modify": [
+        "All modules with try/catch blocks"
+      ],
+      "tasks": [
+        "Define ErrorHandler protocol with with_retry(), with_circuit_breaker() methods",
+        "Define RecoveryStrategy protocol with should_retry(), backoff_delay() methods",
+        "Implement ErrorHandlerImpl with retry logic",
+        "Create ExponentialBackoff strategy",
+        "Create CircuitBreakerStrategy",
+        "Integrate with existing circuit_breakers.yaml",
+        "Migrate error handling to use ErrorHandler",
+        "Write tests for retry with backoff",
+        "Write tests for circuit breaker behavior",
+        "Document error handling best practices"
+      ],
+      "acceptance_tests": [
+        "python -c \"from core.resilience.error_handler_impl import ErrorHandlerImpl; h = ErrorHandlerImpl()\"",
+        "pytest tests/interfaces/test_error_handler.py -q -k test_retry",
+        "pytest tests/interfaces/test_error_handler.py -q -k test_circuit_breaker",
+        "mypy core/interfaces/error_handler.py --strict"
+      ],
+      "ground_truth": "test -f core/interfaces/error_handler.py && pytest tests/interfaces/test_error_handler.py -q && echo '✅ WS-ABS-010 COMPLETE'",
+      "downstream_enables": ["Resilient adapters", "Graceful degradation"],
+      "gate": 1
+    }
+  },
+  {
+    "filename": "ws-abs-011-metrics-collector.json",
+    "variables": {
+      "id": "ws-abs-011-metrics-collector",
+      "tool": "codex",
+      "priority": "P3-LOW",
+      "duration_days": 2,
+      "depends_on": [],
+      "title": "MetricsCollector Abstraction",
+      "description": "Unified metrics collection for performance tracking and cost analysis",
+      "files_create": [
+        "core/interfaces/metrics_collector.py",
+        "core/metrics/__init__.py",
+        "core/metrics/prometheus_collector.py",
+        "core/metrics/simple_collector.py",
+        "tests/interfaces/test_metrics_collector.py"
+      ],
+      "files_modify": [
+        "Modules with timing/counting code"
+      ],
+      "tasks": [
+        "Define MetricsCollector protocol with record_duration(), increment_counter(), record_gauge() methods",
+        "Implement SimpleCollector for in-memory metrics",
+        "Implement PrometheusCollector for Prometheus export",
+        "Add metrics aggregation and summary methods",
+        "Instrument key operations (job execution, adapter calls, etc.)",
+        "Write tests for metrics aggregation",
+        "Write tests for time-series queries",
+        "Document metrics collection guide"
+      ],
+      "acceptance_tests": [
+        "python -c \"from core.metrics.simple_collector import SimpleCollector; c = SimpleCollector(); c.record_duration('test', 1.5)\"",
+        "pytest tests/interfaces/test_metrics_collector.py -q",
+        "mypy core/interfaces/metrics_collector.py --strict"
+      ],
+      "ground_truth": "test -f core/interfaces/metrics_collector.py && pytest tests/interfaces/test_metrics_collector.py -q && echo '✅ WS-ABS-011 COMPLETE'",
+      "downstream_enables": ["Performance dashboards", "Cost tracking", "Bottleneck analysis"],
+      "gate": 1
+    }
+  },
+  {
+    "filename": "ws-abs-012-dependency-resolver.json",
+    "variables": {
+      "id": "ws-abs-012-dependency-resolver",
+      "tool": "codex",
+      "priority": "P3-LOW",
+      "duration_days": 2,
+      "depends_on": [],
+      "title": "DependencyResolver Abstraction",
+      "description": "Centralized dependency resolution and parallel wave detection",
+      "files_create": [
+        "core/interfaces/dependency_resolver.py",
+        "core/planning/__init__.py",
+        "core/planning/dag_resolver.py",
+        "tests/interfaces/test_dependency_resolver.py"
+      ],
+      "files_modify": [
+        "core/state/dag_utils.py",
+        "scripts/run_workstream.py"
+      ],
+      "tasks": [
+        "Define DependencyResolver protocol with add_task(), resolve_order(), detect_cycles() methods",
+        "Implement DagResolver with topological sort",
+        "Add parallel wave detection algorithm",
+        "Add cycle detection with clear error messages",
+        "Migrate existing DAG logic to use DependencyResolver",
+        "Write tests for parallel wave grouping",
+        "Write tests for cycle detection",
+        "Document dependency resolution algorithm"
+      ],
+      "acceptance_tests": [
+        "python -c \"from core.planning.dag_resolver import DagResolver; r = DagResolver(); r.add_task('A', []); r.resolve_order()\"",
+        "pytest tests/interfaces/test_dependency_resolver.py -q -k test_waves",
+        "pytest tests/interfaces/test_dependency_resolver.py -q -k test_cycles",
+        "mypy core/interfaces/dependency_resolver.py --strict"
+      ],
+      "ground_truth": "test -f core/interfaces/dependency_resolver.py && pytest tests/interfaces/test_dependency_resolver.py -q && echo '✅ WS-ABS-012 COMPLETE'",
+      "downstream_enables": ["Parallel execution", "Dependency visualization", "Build optimization"],
+      "gate": 1
+    }
+  }
+]

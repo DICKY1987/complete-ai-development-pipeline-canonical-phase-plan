@@ -1,0 +1,16 @@
+{
+  "id": "{ws-abs-009-validation-suite}",
+  "tool": "{codex}",
+  "priority": "{P2-MEDIUM}",
+  "duration_days": {3},
+  "depends_on": {[]},
+  "title": "{ValidationSuite Abstraction}",
+  "description": "{Unified validation framework with composable validators}",
+  "files_create": {['core/interfaces/validator.py', 'core/validation/__init__.py', 'core/validation/validation_suite.py', 'core/validation/validators/__init__.py', 'core/validation/validators/schema_validator.py', 'core/validation/validators/path_validator.py', 'core/validation/validators/import_validator.py', 'tests/interfaces/test_validator.py']},
+  "files_modify": {['scripts/validate_*.py']},
+  "tasks": {['Define Validator protocol with validate() method', 'Implement ValidationSuite with composable validators', 'Create SchemaValidator for JSON/YAML schema validation', 'Create PathValidator for deprecated path detection', 'Create ImportValidator for import standards', 'Add quality gate grouping (pre-commit, ci, release)', 'Migrate existing validation scripts to use ValidationSuite', 'Write tests for validator composition', 'Write tests for quality gates', 'Document validator creation guide']},
+  "acceptance_tests": {['python -c "from core.validation.validation_suite import ValidationSuite; suite = ValidationSuite(); suite.run_all({})"', 'pytest tests/interfaces/test_validator.py -q', 'mypy core/interfaces/validator.py --strict']},
+  "ground_truth": "{test -f core/interfaces/validator.py && pytest tests/interfaces/test_validator.py -q && echo '✅ WS-ABS-009 COMPLETE'}",
+  "downstream_enables": {['CI quality gates', 'Pre-commit hooks', 'Release validation']},
+  "gate": {1}
+}

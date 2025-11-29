@@ -1,0 +1,16 @@
+{
+  "id": "{ws-abs-008-data-provider}",
+  "tool": "{codex}",
+  "priority": "{P2-MEDIUM}",
+  "duration_days": {3},
+  "depends_on": {['ws-abs-002-state-store']},
+  "title": "{DataProvider (GUI) Abstraction}",
+  "description": "{Decouple GUI from database schema with reactive updates}",
+  "files_create": {['core/interfaces/data_provider.py', 'gui/data/__init__.py', 'gui/data/job_data_provider.py', 'gui/data/queue_data_provider.py', 'gui/data/observable_model.py', 'tests/gui/test_data_provider.py']},
+  "files_modify": {['gui/panels/*.py', 'tui_app/panels/*.py']},
+  "tasks": {['Define DataProvider protocol with get_jobs(), get_queue_stats(), subscribe_to_updates() methods', 'Create ObservableModel for reactive UI binding', 'Implement JobDataProvider using StateStore', 'Implement QueueDataProvider using StateStore', 'Add data filtering and pagination support', 'Migrate GUI panels to use DataProvider', 'Migrate TUI panels to use DataProvider', 'Write tests for reactive updates', 'Write tests for data filtering', 'Document data provider usage for UI developers']},
+  "acceptance_tests": {['python -c "from gui.data.job_data_provider import JobDataProvider; dp = JobDataProvider(); dp.get_jobs()"', 'pytest tests/gui/test_data_provider.py -q -k test_reactive', 'pytest tests/gui/test_data_provider.py -q -k test_filtering', 'mypy core/interfaces/data_provider.py --strict']},
+  "ground_truth": "{test -f core/interfaces/data_provider.py && pytest tests/gui/test_data_provider.py -q && echo '✅ WS-ABS-008 COMPLETE'}",
+  "downstream_enables": {['GUI panels', 'TUI panels', 'Database migration']},
+  "gate": {1}
+}
