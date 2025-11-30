@@ -3,13 +3,13 @@ metadata:
   created: '2025-11-24'
   last_updated: '2025-11-30'
   spec_doc: doc_id/DOC_ID_FRAMEWORK.md
-  total_docs: 963
+  total_docs: 984
 categories:
   patterns:
     prefix: PAT
     description: UET patterns in UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/
-    count: 241
-    next_id: 242
+    count: 262
+    next_id: 263
     index_file: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/registry/PATTERN_INDEX.yaml
   core:
     prefix: CORE
@@ -11621,6 +11621,258 @@ docs:
   last_modified: '2025-11-30'
   tags:
   - ps1
+- doc_id: DOC-PAT-SYNC-LOG-242
+  category: patterns
+  name: sync_log
+  title: .sync-log
+  status: active
+  artifacts:
+  - type: source
+    path: .sync-log.txt
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - txt
+- doc_id: DOC-PAT-AGENT-SUMMARY-243
+  category: patterns
+  name: agent_summary
+  title: AGENT_SUMMARY
+  status: active
+  artifacts:
+  - type: source
+    path: AGENT_SUMMARY.txt
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - txt
+- doc_id: DOC-PAT-AI-DEVELOPMENT-PIPELINE-HYBRID-GUI-244
+  category: patterns
+  name: ai_development_pipeline_hybrid_gui
+  title: AI Development Pipeline_Hybrid GUI Analysis
+  status: active
+  artifacts:
+  - type: source
+    path: AI Development Pipeline_Hybrid GUI Analysis.txt
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - txt
+- doc_id: DOC-PAT-ASAFTERTHEMOVEREPO-245
+  category: patterns
+  name: asafterthemoverepo
+  title: asafterthemoverepo
+  status: active
+  artifacts:
+  - type: source
+    path: asafterthemoverepo.txt
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - txt
+- doc_id: DOC-PAT-COMPREHENSIVE-MACHINE-READABLE-246
+  category: patterns
+  name: comprehensive_machine_readable
+  title: comprehensive machine-readable blueprint based
+  status: active
+  artifacts:
+  - type: source
+    path: comprehensive machine-readable blueprint based.txt
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - txt
+- doc_id: DOC-PAT-DAG1-247
+  category: patterns
+  name: dag1
+  title: dag1
+  status: active
+  artifacts:
+  - type: source
+    path: dag1.txt
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - txt
+- doc_id: DOC-PAT-DAG2-248
+  category: patterns
+  name: dag2
+  title: dag2
+  status: active
+  artifacts:
+  - type: source
+    path: dag2.txt
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - txt
+- doc_id: DOC-PAT-DOC-MODEL-ENDPOINT-DIAGNOSTIC-249
+  category: patterns
+  name: doc_model_endpoint_diagnostic
+  title: DOC_MODEL_ENDPOINT_DIAGNOSTIC
+  status: active
+  artifacts:
+  - type: source
+    path: DOC_MODEL_ENDPOINT_DIAGNOSTIC.txt
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - txt
+- doc_id: DOC-PAT-GUI-IS-A-HYBRID-GUI-SHELL-WRAPPED-AROUND-250
+  category: patterns
+  name: gui_is_a_hybrid_gui_shell_wrapped_around
+  title: 'GUI is a hybrid GUI shell wrapped around '
+  status: active
+  artifacts:
+  - type: source
+    path: GUI is a hybrid GUI shell wrapped around .txt
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - txt
+- doc_id: DOC-PAT-GUICODEX-251
+  category: patterns
+  name: guicodex
+  title: GUICODEX
+  status: active
+  artifacts:
+  - type: source
+    path: GUICODEX.txt
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - txt
+- doc_id: DOC-PAT-JUST-NEED-TO-CREATE-THE-FILES-252
+  category: patterns
+  name: just_need_to_create_the_files
+  title: just need to create the files
+  status: active
+  artifacts:
+  - type: source
+    path: just need to create the files.txt
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - txt
+- doc_id: DOC-PAT-MODULE-REFACTOR-ATTEMPT-2-253
+  category: patterns
+  name: module_refactor_attempt_2
+  title: module_refactor_attempt_2
+  status: active
+  artifacts:
+  - type: source
+    path: module_refactor_attempt_2.txt
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - txt
+- doc_id: DOC-PAT-PHASEPLAN-COPY-254
+  category: patterns
+  name: phaseplan_copy
+  title: PHASEPLAN - Copy
+  status: active
+  artifacts:
+  - type: source
+    path: PHASEPLAN - Copy.txt
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - txt
+- doc_id: DOC-PAT-REPO-TREE-255
+  category: patterns
+  name: repo_tree
+  title: repo_tree
+  status: active
+  artifacts:
+  - type: source
+    path: repo_tree.txt
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - txt
+- doc_id: DOC-PAT-TASK-EXECUTION-SUMMARY-256
+  category: patterns
+  name: task_execution_summary
+  title: TASK_EXECUTION_SUMMARY
+  status: active
+  artifacts:
+  - type: source
+    path: TASK_EXECUTION_SUMMARY.txt
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - txt
+- doc_id: DOC-PAT-TEMP-DB-PREV-257
+  category: patterns
+  name: temp_db_prev
+  title: TEMP_db_prev
+  status: active
+  artifacts:
+  - type: source
+    path: TEMP_db_prev.txt
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - txt
+- doc_id: DOC-PAT-WHY-MODULE-CENTRIC-WORKS-BETTER-258
+  category: patterns
+  name: why_module_centric_works_better
+  title: Why Module-Centric Works Better
+  status: active
+  artifacts:
+  - type: source
+    path: Why Module-Centric Works Better.txt
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - txt
+- doc_id: DOC-PAT-CURRENT-PATTERN-259
+  category: patterns
+  name: current_pattern
+  title: current_pattern
+  status: active
+  artifacts:
+  - type: source
+    path: .execution/current_pattern.txt
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - txt
+- doc_id: DOC-PAT-COMMITS-TO-MERGE-260
+  category: patterns
+  name: commits_to_merge
+  title: commits-to-merge
+  status: active
+  artifacts:
+  - type: source
+    path: .merge-backup/commits-to-merge.txt
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - txt
+- doc_id: DOC-PAT-STASH-LIST-261
+  category: patterns
+  name: stash_list
+  title: stash-list
+  status: active
+  artifacts:
+  - type: source
+    path: .merge-backup/stash-list.txt
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - txt
+- doc_id: DOC-PAT-ABSTRACTION-262
+  category: patterns
+  name: abstraction
+  title: ABSTRACTION
+  status: active
+  artifacts:
+  - type: source
+    path: abstraction/ABSTRACTION.txt
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - txt
 migration_queue:
   core_modules:
   - path: core/state/db.py
