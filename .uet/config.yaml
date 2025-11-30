@@ -1,0 +1,83 @@
+---
+project:
+  name: "AI Development Pipeline"
+  type: "software-dev-python"
+  root: "."
+
+execution:
+  max_workers: 3
+  worker_timeout_seconds: 300
+  retry_policy:
+    max_retries: 2
+    backoff_seconds: 5
+    backoff_multiplier: 2
+  workstream_dir: "workstreams"
+  workstream_pattern: "ws-*.json"
+  state_db: ".state/orchestration.db"
+  log_dir: "logs/uet"
+  log_level: "INFO"
+  default_tool: "aider"
+  tool_timeout_seconds: 600
+
+tools:
+  aider:
+    executable: "aider"
+    model: "gpt-4"
+    auto_commit: false
+    args: ["--yes-always"]
+  codex:
+    mode: "interactive"
+    auto_save: true
+  git:
+    auto_push: false
+  tests:
+    framework: "pytest"
+    args: ["-v", "--tb=short"]
+
+adapters:
+  enabled:
+    - aider
+    - codex
+    - git
+    - tests
+  routing:
+    - pattern: "*.py"
+      tool: "aider"
+      priority: 10
+    - pattern: "*.md"
+      tool: "codex"
+      priority: 5
+    - pattern: "test_*.py"
+      tool: "tests"
+      priority: 20
+    - pattern: "*"
+      tool: "aider"
+      priority: 1
+
+dag:
+  enabled: true
+  max_wave_parallelism: 3
+  topological_sort: "kahn"
+  cycle_detection: true
+  fail_fast: false
+
+state_machines:
+  run: "modules.core_engine.RunStateMachine"
+  step: "modules.core_engine.StepStateMachine"
+
+database:
+  path: ".state/orchestration.db"
+  pool_size: 5
+  timeout_seconds: 30
+
+monitoring:
+  enabled: true
+  progress_interval_seconds: 30
+  metrics_enabled: true
+  event_logging: true
+
+safety:
+  sandbox_mode: false
+  dry_run: false
+  require_confirmation: false
+  backup_before_execution: true
