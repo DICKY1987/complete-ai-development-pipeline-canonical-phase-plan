@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-BOOTSTRAP-343
 # DOC_LINK: DOC-SCRIPT-BOOTSTRAP-052
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'

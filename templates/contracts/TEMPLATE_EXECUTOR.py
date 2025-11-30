@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-CORE-CONTRACTS-TEMPLATE-EXECUTOR-203
 # TEMPLATE: Executor Module
 # Purpose: Implements ExecutionRequestV1/ExecutionResultV1 contract
 # Location: modules/executors/{name}_executor.py

@@ -1,4 +1,5 @@
 #!/usr/bin/env pwsh
+# DOC_LINK: DOC-PAT-TESTING-975
 # DOC_LINK: DOC-PAT-TESTING-239
 <#
 .SYNOPSIS

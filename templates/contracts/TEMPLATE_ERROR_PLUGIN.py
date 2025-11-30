@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-CORE-CONTRACTS-TEMPLATE-ERROR-PLUGIN-202
 # TEMPLATE: Error Detection Plugin
 # Purpose: Implements ErrorEventV1 contract for error handling
 # Location: modules/error_plugins/{name}_plugin.py

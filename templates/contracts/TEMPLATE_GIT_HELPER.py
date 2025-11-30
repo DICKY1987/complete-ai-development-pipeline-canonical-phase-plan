@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-CORE-CONTRACTS-TEMPLATE-GIT-HELPER-204
 # TEMPLATE: Git/Worktree Helper Module
 # Purpose: Implements GitWorkspaceRefV1/GitStatusV1 contracts
 # Location: modules/git_shared/{name}.py

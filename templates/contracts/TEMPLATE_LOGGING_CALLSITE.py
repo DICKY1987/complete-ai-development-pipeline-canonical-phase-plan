@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-CORE-CONTRACTS-TEMPLATE-LOGGING-CALLSITE-205
 # TEMPLATE: Logging Callsite
 # Purpose: Standard pattern for logging events using LogEventV1 contract
 # Usage: Copy these snippets wherever you need to log events

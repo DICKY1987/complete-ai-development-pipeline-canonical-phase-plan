@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-PAT-DOCID-PHASE0-COMPLETION-EXECUTOR-971
 # DOC_ID Phase 0 Completion - Execution Pattern Executor
 # Pattern: PAT-DOCID-PHASE0-COMPLETION-001
 # Executor for completing Phase 0 doc_id universal coverage
