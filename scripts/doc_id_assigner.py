@@ -114,43 +114,114 @@ def infer_category(path: str, available_categories: List[str]) -> str:
     """
     Infer registry category from file path.
 
-    This is heuristic and intentionally simple; it favors existing categories
-    and falls back to 'legacy' or the first available category if needed.
+    Enhanced with comprehensive directory-to-category mappings for 100% coverage.
+    Priority order:
+    1. Exact directory path matches (most specific)
+    2. Partial path matches
+    3. File extension fallbacks
+    4. Default fallback (legacy/patterns)
     """
     normalized = path.replace("\\", "/")
     if not normalized.startswith("/"):
         normalized = "/" + normalized
 
-    heuristics: List[Tuple[str, str]] = [
+    # Priority 1: Exact directory mappings (most specific first)
+    exact_mappings: List[Tuple[str, str]] = [
+        # Core system components
         ("core", "/core/"),
         ("error", "/error/"),
-        ("script", "/scripts/"),
-        ("test", "/tests/"),
-        ("guide", "/docs/"),
         ("aim", "/aim/"),
         ("pm", "/pm/"),
+        ("engine", "/engine/"),
+        ("infra", "/infra/"),
+        
+        # Patterns and UET
+        ("patterns", "/UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/"),
         ("patterns", "/patterns/"),
+        ("guide", "/UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/guides/"),
+        ("spec", "/UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/specs/"),
+        
+        # Documentation
+        ("guide", "/docs/"),
+        ("guide", "/documentation/"),
+        ("guide", "/developer/"),
+        ("arch", "/adr/"),
+        
+        # Modules and components
+        ("core", "/modules/"),
+        ("spec", "/specifications/"),
         ("spec", "/schema/"),
-        ("spec", "/spec/"),
+        ("spec", "/openspec/"),
+        
+        # Testing
+        ("test", "/tests/"),
+        
+        # Scripts and tools
+        ("script", "/scripts/"),
+        ("script", "/tools/"),
+        
+        # Configuration
         ("config", "/config/"),
-        ("guide", ".md"),
-        ("script", ".ps1"),
-        ("script", ".sh"),
-        ("config", ".yaml"),
-        ("config", ".yml"),
-        ("config", ".json"),
+        ("config", "/.github/"),
+        
+        # Special directories
+        ("legacy", "/archive/"),
+        ("legacy", "/legacy/"),
+        ("task", "/ToDo_Task/"),
+        ("task", "/workstreams/"),
+        ("task", "/workstreams_uet/"),
+        
+        # Doc_id system
+        ("guide", "/doc_id/"),
+        
+        # Build and package artifacts
+        ("infra", "/build/"),
+        ("infra", "/__pycache__/"),
+        ("infra", "/.venv/"),
+        ("infra", "/node_modules/"),
     ]
 
-    candidates: List[str] = []
-    for candidate, marker in heuristics:
+    # Priority 2: Partial path matches (for nested structures)
+    partial_mappings: List[Tuple[str, str]] = [
+        ("test", "/test"),
+        ("spec", "/spec"),
+        ("guide", "/guide"),
+        ("patterns", "/pattern"),
+        ("config", "/config"),
+    ]
+
+    # Priority 3: File extension mappings
+    extension_mappings: List[Tuple[str, str]] = [
+        ("script", ".ps1"),
+        ("script", ".sh"),
+        ("script", ".bat"),
+        ("config", ".yaml"),
+        ("config", ".yml"),
+        ("config", ".toml"),
+        ("config", ".ini"),
+        ("config", ".json"),
+        ("guide", ".md"),
+        ("guide", ".txt"),
+        ("core", ".py"),
+    ]
+
+    # Try exact directory matches first
+    for candidate, marker in exact_mappings:
         if marker in normalized and candidate in available_categories:
-            candidates.append(candidate)
+            return candidate
 
-    if candidates:
-        return candidates[0]
+    # Try partial path matches
+    for candidate, marker in partial_mappings:
+        if marker in normalized and candidate in available_categories:
+            return candidate
 
-    # Prefer docs/legacy if they exist
-    for fallback in ("docs", "legacy"):
+    # Try extension-based mapping
+    for candidate, ext in extension_mappings:
+        if normalized.endswith(ext) and candidate in available_categories:
+            return candidate
+
+    # Fallback priority: patterns > guide > legacy > first available
+    for fallback in ("patterns", "guide", "legacy"):
         if fallback in available_categories:
             return fallback
 

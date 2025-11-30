@@ -77,6 +77,18 @@ categories:
     count: 1667
     next_id: 1668
     index_file: docs/GUIDE_INDEX.yaml
+  legacy:
+    prefix: LEGACY
+    description: Legacy and archived files
+    count: 0
+    next_id: 1
+    index_file: archive/LEGACY_INDEX.yaml
+  task:
+    prefix: TASK
+    description: Task tracking and workstream artifacts
+    count: 0
+    next_id: 1
+    index_file: workstreams/TASK_INDEX.yaml
 docs:
 - doc_id: DOC-GUIDE-DOC-ID-FRAMEWORK-001
   category: guide
