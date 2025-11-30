@@ -31,6 +31,7 @@
 ✅ Phase 3 (Nov 29)    Documentation Governance      COMPLETE
 ⏳ Phase 0 (Nov 30)    Universal Coverage           60% COMPLETE
 🔜 Phase 1             CI/CD Integration            NOT STARTED
+🔜 Phase 1.5           Module ID Extension          NOT STARTED
 🔜 Phase 2             Production Hardening         NOT STARTED
 🔜 Phase 3.5           Documentation Consolidation  NOT STARTED
 ```
@@ -280,6 +281,172 @@ python scripts/doc_id_preflight.py --min-coverage 1.0
 - [ ] Pre-commit hook (optional)
 
 **Estimated Time**: 2 hours
+
+---
+
+## PHASE 1.5: Module ID Extension
+
+### Goal
+Extend DOC_ID_REGISTRY.yaml with `module_id` field for every doc entry to enable module-centric organization.
+
+### Background
+After achieving 100% doc_id coverage (Phase 0) and establishing CI/CD gates (Phase 1), we need to add module ownership metadata. This prepares the codebase for future module-centric refactoring.
+
+**Specification**: See `MODULE_ID_EXTENSION_AND_MODULE_MAP_SPEC_V1.md`  
+**Integration Plan**: See `MODULE_ID_INTEGRATION_PLAN.md`
+
+### Prerequisites
+- ✅ Phase 0 complete (100% coverage)
+- ✅ Phase 1 complete (CI/CD gates active)
+- ✅ Registry validates with 0 errors
+
+### Tasks
+
+**Task 1.5.1: Create Module Assignment Script** (60 min)
+
+Create `scripts/module_id_assigner.py`:
+- Parse DOC_ID_REGISTRY.yaml
+- Implement path-based inference rules
+- Support dry-run and apply modes
+- Generate assignment reports
+
+**Path inference rules**:
+```python
+# Core modules
+'core/engine/' → 'core.engine'
+'core/state/' → 'core.state'
+'error/' → 'core.error'
+
+# AIM
+'aim/adapters/' → 'aim.adapters'
+'aim/core/' → 'aim.core'
+
+# Patterns
+'patterns/specs/' → 'patterns.specs'
+'patterns/executors/' → 'patterns.executors'
+
+# Docs/Guides
+'doc_id/', 'docs/' → 'docs.guides'
+
+# ADR
+'adr/' → 'adr.architecture'
+
+# Config/Infra
+'config/' → 'config.global'
+'infra/', '.github/' → 'infra.ci'
+
+# Tests inherit from source module
+'tests/engine/' → 'core.engine'
+```
+
+**Task 1.5.2: Create Module Taxonomy** (30 min)
+
+Create `doc_id/specs/module_taxonomy.yaml`:
+```yaml
+module_taxonomy:
+  core.engine:
+    description: Core execution engine components
+    root_paths:
+      - core/engine
+      - tests/engine
+  
+  core.state:
+    description: State management and persistence
+    root_paths:
+      - core/state
+      - tests/state
+  
+  # ... 12 total modules defined
+```
+
+**Task 1.5.3: Dry-Run Assignment** (15 min)
+```bash
+# Run dry-run
+python scripts/module_id_assigner.py --dry-run
+
+# Review reports
+cat doc_id/reports/MODULE_ID_ASSIGNMENT_DRY_RUN.md
+cat doc_id/reports/MODULE_ID_UNASSIGNED.jsonl
+
+# Verify distribution looks reasonable
+```
+
+**Task 1.5.4: Apply Module ID Assignment** (30 min)
+```bash
+# Backup registry
+cp doc_id/specs/DOC_ID_REGISTRY.yaml \
+   doc_id/specs/DOC_ID_REGISTRY.backup.$(date +%Y%m%d_%H%M).yaml
+
+# Apply assignment
+python scripts/module_id_assigner.py --apply
+
+# Validate
+python doc_id/tools/doc_id_registry_cli.py validate
+
+# Review final stats
+cat doc_id/reports/MODULE_ID_ASSIGNMENT_FINAL.json
+
+# Commit
+git add doc_id/specs/ doc_id/reports/
+git commit -m "feat: Add module_id to all docs in registry"
+```
+
+**Task 1.5.5: Create Module Map** (30 min)
+
+Create `scripts/build_module_map.py` and generate:
+```bash
+# Generate module-centric map
+python scripts/build_module_map.py
+
+# Output: modules/MODULE_DOC_MAP.yaml
+# Structure: modules grouped by module_id
+
+# Commit
+git add modules/MODULE_DOC_MAP.yaml
+git commit -m "feat: Create module-centric documentation map"
+```
+
+**Task 1.5.6: Extend Registry CLI** (Optional, 45 min)
+
+Add to `doc_id/tools/doc_id_registry_cli.py`:
+```python
+@cli.command()
+def module_assign():
+    """Assign module_id to all docs"""
+    
+@cli.command()
+def build_module_map():
+    """Build MODULE_DOC_MAP.yaml"""
+```
+
+**Task 1.5.7: Final Validation** (15 min)
+```bash
+# Validate all module_ids assigned
+python scripts/validate_module_ids.py
+
+# Generate summary
+python scripts/module_id_summary.py > doc_id/reports/MODULE_ID_SUMMARY.md
+
+# Final checks
+python scripts/doc_id_scanner.py stats
+python doc_id/tools/doc_id_registry_cli.py validate
+```
+
+### Success Criteria
+- [ ] Every doc has `module_id` field
+- [ ] `module_taxonomy` section in registry
+- [ ] MODULE_DOC_MAP.yaml created
+- [ ] ≤ 5% docs marked `unassigned`
+- [ ] Registry validates
+- [ ] All reports generated
+
+### Outputs
+- Updated `DOC_ID_REGISTRY.yaml` with module_id
+- New `module_taxonomy` in registry
+- `modules/MODULE_DOC_MAP.yaml`
+- Reports in `doc_id/reports/MODULE_ID_*`
+
+**Estimated Time**: 3 hours
 
 ---
 
@@ -539,7 +706,11 @@ Phase 1 (CI/CD)  ────────────────────┬
                         │ 2 hours    │
                         └────────────┐
                                      ▼
-Phase 2 (Hardening) ─────────────────┬────┐
+Phase 1.5 (Module)  ─────────────────┬────┐
+                        │ 3 hours    │    │
+                        └────────────┐    │
+                                     ▼    │
+Phase 2 (Hardening) ─────────────────┬────┤
                         │ 2.5 hours  │    │
                         └────────────┐    │
                                      ▼    │
@@ -549,7 +720,7 @@ Phase 3.5 (Docs)  ───────────────────┴�
                                   COMPLETE
 ```
 
-**Total Estimated Time**: 11.5 hours (1.5 workdays)
+**Total Estimated Time**: 14.5 hours (1.8 workdays)
 
 ---
 
@@ -565,6 +736,12 @@ Phase 3.5 (Docs)  ───────────────────┴�
 - ✅ CI/CD enforcing coverage
 - ✅ Preflight gates working
 - ✅ Build badge on README
+
+### Phase 1.5 Complete
+- ✅ All docs have module_id
+- ✅ Module taxonomy defined
+- ✅ MODULE_DOC_MAP.yaml created
+- ✅ ≤ 5% unassigned docs
 
 ### Phase 2 Complete
 - ✅ Edge cases handled
