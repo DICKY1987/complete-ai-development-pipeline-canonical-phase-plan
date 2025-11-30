@@ -1,0 +1,601 @@
+````markdown
+---
+doc_id: DOC-ID-WORKTREES-SPEC-TBD
+title: ID × Worktrees Integration Spec v1
+status: draft
+version: 0.1.0
+owner: id_system
+created: 2025-11-29
+---
+
+# ID × Worktrees Integration Spec v1
+
+## 0. Purpose & Scope
+
+This spec defines **how the identity system (doc_id, module_id, pattern_id)** integrates with the **multi-agent, multi-worktree orchestration layer**.
+
+Goals:
+
+- Prevent **ID divergence** across parallel worktrees.
+- Keep **doc_id** as a stable, single source of truth.
+- Ensure the **Doc ID scanner + inventory** stay correct while worktrees are active.
+- Avoid a future “massive re-ID project” by setting **clear invariants now**.
+
+This spec **only** uses concepts already described in this chat:
+- `doc_id`, `module_id`, `pattern_id`, ULID/snapshot IDs
+- `docs_inventory.jsonl`, `DOC_ID_COVERAGE_REPORT.md`
+- worktrees/workstreams and a multi-agent orchestrator.
+
+---
+
+## 1. Core Concepts & Definitions
+
+### 1.1 Identity Types
+
+- **`doc_id`**
+  - Primary identity for a **single artifact** (file): docs, code, binaries.
+  - Stored in:
+    - Markdown: YAML frontmatter (`doc_id:`).
+    - Code: top-of-file comment (`# DOC_ID:` / `# doc_id:`).
+    - Binaries: sidecar `.meta.json` (`"doc_id": ...`).
+  - Used for:
+    - traceability,
+    - mapping before/after refactors,
+    - automation inputs.
+
+- **`module_id`**
+  - Identity of a **semantic module or submodule** (a conceptual folder).
+  - Represents the *concept*, not the literal filesystem path.
+
+- **`pattern_id`**
+  - Identity of a **pattern concept** (e.g. `PAT-EXEC-…`).
+  - Shared across all files in the pattern suite (spec, executor, tests, examples, etc.).
+  - Each file still has its own `doc_id`.
+
+- **`snapshot_id` / ULID**
+  - Non-semantic, unique identifiers like `01001B` or full ULIDs.
+  - Good for runs/events/snapshots; **not required** for doc-level identity.
+
+### 1.2 Worktrees & Workstreams
+
+- **Worktree**
+  - A Git worktree used to isolate an AI agent’s changes:
+    - `.worktrees/agent-1-ws-22/…`
+    - `.worktrees/agent-2-ws-03/…`
+  - Contains a **copy of tracked files** at a specific commit.
+
+- **Workstream**
+  - A planned unit of work for an AI agent.
+  - Has a spec (JSON/YAML) which **MUST** include:
+    - `id` – workstream id (e.g. `ws-22`)
+    - `name`
+    - `depends_on`
+    - `tool` (e.g. `aider`)
+    - `files_to_edit` – list of existing files this WS will modify
+    - `files_to_create` – list of new files this WS will create
+
+Example:
+
+```json
+{
+  "id": "ws-22",
+  "name": "Pipeline Plus Phase 0 - Schema",
+  "depends_on": [],
+  "tool": "aider",
+  "files_to_edit": [
+    "core/state/db.py",
+    "core/config/router.py"
+  ],
+  "files_to_create": [
+    "schemas/pipeline_plus.yaml"
+  ]
+}
+````
+
+---
+
+## 2. Invariants
+
+These rules **must hold at all times** once this spec is adopted.
+
+1. **IDs represent concepts, not paths.**
+
+   * `doc_id`, `module_id`, `pattern_id` **MUST NOT** encode exact filesystem paths.
+   * Paths are **metadata**, stored in inventory/registry and free to change.
+
+2. **doc_id is unique and immutable.**
+
+   * Once assigned, a `doc_id` **MUST NOT** be reused for a different artifact.
+   * Meaning of a `doc_id` **MUST NOT** change over time.
+
+3. **doc_id lives in canonical locations.**
+
+   * Every refactor-participating file **MUST** have exactly one `doc_id` in the canonical place for its type.
+
+4. **Worktrees never mint their own IDs.**
+
+   * Worktrees **MUST NOT** generate new `doc_id`s directly.
+   * All `doc_id` assignment **MUST** go through a central coordinator that updates the canonical registry/inventory.
+
+5. **Scanner ignores worktrees and state directories.**
+
+   * The Doc ID scanner **MUST** exclude:
+
+     * `.git/`
+     * `.venv/`
+     * `__pycache__/`
+     * `.worktrees/`
+     * `.state/`
+     * other temp dirs (node_modules, cache, etc.)
+
+6. **IDs ≠ Python module names.**
+
+   * Python module filenames **MUST** be valid identifiers (start with letter or `_`).
+   * ULID/snapshot codes **MAY** appear as suffixes (e.g. `health_01001B.py`), never as leading digits.
+   * doc_id/snapshot_id **MUST** live in header comments / metadata, not as raw import names.
+
+7. **Refactor patterns operate on IDs, not bare paths.**
+
+   * Refactor and migration logic **SHOULD** treat `doc_id` (and optionally `module_id`) as primary keys.
+   * Paths are derived from IDs + module metadata.
+
+---
+
+## 3. Component Architecture
+
+### 3.1 ID Registry Layer
+
+* **doc_id registry + CLI** (existing concept)
+
+  * Single source of truth for:
+
+    * registered `doc_id`s,
+    * associated metadata (name, module, status).
+  * All doc_id minting flows through this registry (not directly from worktrees).
+
+### 3.2 Scanning & Inventory
+
+* **DocIdScanner**
+
+  * Scans **main repo only** (no `.worktrees/`).
+  * Extracts IDs & metadata into:
+
+    * `docs_inventory.jsonl` (machine-readable),
+    * `DOC_ID_COVERAGE_REPORT.md` (human/AI).
+
+### 3.3 Auto-Assigner
+
+* **DocIdAssigner** (to be implemented)
+
+  * Reads `docs_inventory.jsonl`.
+  * Finds files without `doc_id`.
+  * Calls registry CLI to mint `doc_id`s.
+  * Inserts IDs into files in canonical locations.
+  * Rewrites inventory entries with newly assigned `doc_id`s.
+
+### 3.4 IDCoordinator
+
+* **IDCoordinator** (new integration component)
+
+Responsibilities:
+
+* Provide a **single process-wide interface** for `doc_id` assignment during orchestrated runs.
+* Ensure the **same file path** always gets the **same `doc_id`** within a run.
+* Delegate actual ID minting to:
+
+  * registry CLI, or
+  * DocIdAssigner-like logic.
+
+Constraints:
+
+* Must be **thread-safe** and safe under concurrent workstreams.
+* Must **not** deadlock (use `RLock` or careful locking).
+
+Sketch:
+
+```python
+class IDCoordinator:
+    """
+    Centralized doc_id assignment for orchestrated execution.
+    All workstreams must use this instead of minting IDs locally.
+    """
+
+    def __init__(self, registry_client, inventory_path: Path):
+        self._lock = threading.RLock()
+        self._assigned_by_path: dict[str, str] = {}
+        self._registry_client = registry_client
+        self._inventory_path = inventory_path
+
+    def assign_doc_id(self, file_path: str, module_id: str | None = None) -> str:
+        """
+        Return the stable doc_id for this file_path, minting if needed.
+        file_path MUST be the path in main, not the worktree path.
+        """
+        with self._lock:
+            if file_path in self._assigned_by_path:
+                return self._assigned_by_path[file_path]
+
+            # Ask registry to mint an ID (implementation-specific)
+            doc_id = self._registry_client.mint_doc_id(file_path=file_path,
+                                                       module_id=module_id)
+
+            self._assigned_by_path[file_path] = doc_id
+            self._update_inventory(file_path, doc_id, module_id)
+            return doc_id
+
+    def _update_inventory(self, file_path: str, doc_id: str, module_id: str | None):
+        """
+        Update docs_inventory.jsonl entry for this file_path.
+        Implementation detail; must NOT recurse into assign_doc_id().
+        """
+        # Load inventory, update record, save. Details omitted here.
+        ...
+```
+
+> **Integration rule:**
+> Any code that needs to assign a `doc_id` for a file during orchestration **MUST** call `IDCoordinator.assign_doc_id()`.
+
+### 3.5 WorktreeManager
+
+* Handles:
+
+  * creating worktrees,
+  * copying files,
+  * injecting IDs before the AI tool runs,
+  * merging back to main,
+  * triggering incremental inventory updates.
+
+---
+
+## 4. End-to-End Lifecycle Across Worktrees
+
+### 4.1 Phase 0 – Pre-Orchestration Setup
+
+**Objective:** main branch is in a known state, Tier 1 files have IDs, inventory is up-to-date.
+
+Steps:
+
+1. **Run initial scan (main only)**
+
+   * Execute DocIdScanner on main.
+   * Produce:
+
+     * `docs_inventory.jsonl`,
+     * `DOC_ID_COVERAGE_REPORT.md`.
+
+2. **Assign IDs to Tier 1 files (if desired)**
+
+   * Tier 1 examples:
+
+     * `**/*.py`
+     * `patterns/**`
+     * critical docs (`docs/**`).
+   * Run DocIdAssigner to:
+
+     * mint `doc_id`s via registry,
+     * patch files,
+     * update inventory.
+
+3. **Commit baseline**
+
+   * Commit the ID changes on main:
+
+     * `chore: assign doc_ids to tier-1 artifacts`.
+
+> After Phase 0, all critical code/pattern/docs have `doc_id`.
+> Non-critical or rarely touched files can be handled lazily when touched.
+
+### 4.2 During Orchestration – Per Workstream
+
+For each workstream `ws-X`:
+
+1. **Determine files**
+
+   * Use `files_to_edit` and `files_to_create` from workstream spec.
+   * If absent, the orchestrator **SHOULD** attempt to infer them (e.g. from a prior static analysis step), but the spec’s goal is to make them explicit.
+
+2. **Pre-assign IDs on main (not in worktree)**
+
+   For every `file_path` in `files_to_edit`:
+
+   * If the file exists and **does not** have a `doc_id`:
+
+     * Call `IDCoordinator.assign_doc_id(file_path, module_id=…)`.
+     * This:
+
+       * mints `doc_id` via registry,
+       * records it in `docs_inventory.jsonl`,
+       * (optionally) patches file on main if you choose to do it here.
+
+   For every `file_path` in `files_to_create`:
+
+   * The workstream tool must be given templates that include:
+
+     * `doc_id` placeholders to be filled using `IDCoordinator` when the file is created.
+   * At file creation time, the orchestration layer **MUST** call `IDCoordinator` and inject `doc_id` into the template.
+
+3. **Create worktree from main**
+
+   * Create a Git worktree at the chosen base commit.
+   * By this time, main already has `doc_id`s for all Tier 1 + this workstream’s files (if required).
+
+4. **Inject IDs into worktree files**
+
+   * If main has `doc_id` but worktree copy doesn’t yet (e.g. because you chose to patch IDs only inside worktrees):
+
+     * The WorktreeManager **MUST**:
+
+       * synchronize `doc_id` values from inventory into the worktree files,
+       * before invoking the AI tool.
+   * Result: each file in the worktree already has a stable, canonical `doc_id` at AI runtime.
+
+5. **Run AI tool (e.g. aider)**
+
+   * Tool edits files with `doc_id` already present.
+   * Worktrees **MUST NOT** run any independent ID generators.
+
+6. **Merge back to main**
+
+   * When the workstream completes, merge the worktree branch into main.
+   * Because all IDs were established centrally before divergence, ID fields should **not** conflict (any conflicts are now logical, not structural).
+
+7. **Incremental inventory update**
+
+   * After merge:
+
+     * compute the list of changed files (e.g. `git diff --name-only HEAD~1..HEAD`),
+     * for each changed file, rescan just that file to refresh its entry in `docs_inventory.jsonl`.
+
+### 4.3 Post-Orchestration – Final Validation
+
+At the end of a multi-workstream orchestration run:
+
+1. **Full scan (verification)**
+
+   * Optionally, rerun DocIdScanner on main to:
+
+     * verify all `doc_id`s are still present,
+     * rebuild `docs_inventory.jsonl` from scratch.
+
+2. **Coverage report**
+
+   * Regenerate `DOC_ID_COVERAGE_REPORT.md`.
+   * Commit a summarized “post-refactor” snapshot:
+
+     * `chore: update doc inventory post-orchestration`.
+
+---
+
+## 5. Conflict Resolution Rules
+
+These apply whenever Git merges result in ID-related conflicts or structural changes.
+
+### 5.1 Same File, Different doc_id
+
+Scenario:
+Two branches independently assign `doc_id`s to the same file due to a coordination failure.
+
+Policy:
+
+* **First merged wins.**
+
+  * The first merged `doc_id` becomes canonical.
+* Second merge:
+
+  * The second doc_id is considered invalid/duplicate.
+  * The merge driver **MUST**:
+
+    * keep the first `doc_id`,
+    * log an entry in the registry/inventory that the second `doc_id` was rejected.
+
+### 5.2 Different Files, Same doc_id
+
+Scenario:
+Two distinct files share the same `doc_id`.
+
+Policy:
+
+* This is a **hard error**.
+* Registry validation or scanner **MUST** refuse to accept this state and raise an error.
+* Operator or automated repair tool must:
+
+  * assign a new `doc_id` to one of the files using `IDCoordinator`,
+  * update inventory and registry accordingly.
+
+### 5.3 File Split
+
+Before:
+
+* `orchestrator.py` — `doc_id: DOC-ORCH-001`
+
+After:
+
+* `orchestrator_core.py`
+* `orchestrator_helpers.py`
+
+Policy:
+
+* The “primary” file (usually the one retaining the main behavior) **SHOULD** keep the original `doc_id`.
+* New files **MUST** get new `doc_id`s, with metadata:
+
+  * `derived_from: DOC-ORCH-001`.
+
+### 5.4 File Merge
+
+Before:
+
+* `orchestrator_core.py` — `DOC-ORCH-CORE-001`
+* `orchestrator_helpers.py` — `DOC-ORCH-HELP-002`
+
+After:
+
+* `orchestrator.py` — merged implementation.
+
+Policy:
+
+* New merged file **MUST** receive a new `doc_id`.
+* Original doc_ids are marked:
+
+  * `superseded_by: DOC-ORCH-MERGED-003`.
+
+### 5.5 File Move / Rename
+
+* `doc_id` **MUST NOT** change.
+* `path` in inventory/registry is updated:
+
+  * `previous_paths` gets the old path,
+  * `current_path` updated to the new path.
+
+### 5.6 File Delete
+
+* `doc_id` **MUST** be marked:
+
+  * `status: retired`,
+  * `deleted_in_commit: <hash>`.
+
+---
+
+## 6. Scanner & Inventory Integration
+
+### 6.1 Exclusions
+
+DocIdScanner **MUST** exclude:
+
+* `.git/`
+* `.venv/`
+* `.worktrees/`
+* `.state/`
+* `__pycache__/`
+* `node_modules/`
+* other obvious caches.
+
+This ensures only **main repo state** contributes to `docs_inventory.jsonl`.
+
+### 6.2 Locking
+
+Optionally:
+
+* When orchestration starts:
+
+  * create `.state/orchestration.lock`.
+* Scanner behavior:
+
+  * If `orchestration.lock` exists:
+
+    * either abort with clear error, or
+    * run in **read-only verification mode** (no auto-fixing, no ID minting).
+
+This is a safety net to prevent heavy operations mid-run.
+
+### 6.3 Incremental Updates
+
+* A small `IncrementalInventoryUpdater` **SHOULD** be used after each merge to avoid full rescans.
+* Full rescans **MAY** be reserved for:
+
+  * nightly jobs,
+  * major refactor milestones.
+
+---
+
+## 7. Coverage Policy (Strict vs Progressive)
+
+The system can be tuned via **coverage tiers**:
+
+* **Tier 1 (Immediate)**
+
+  * Files that **must** have IDs before orchestration:
+
+    * core Python modules,
+    * patterns,
+    * key docs.
+* **Tier 2 (On-demand)**
+
+  * Files that get IDs the **first time they are touched** by a workstream.
+* **Tier 3 (Optional)**
+
+  * Files that never need IDs (artifacts, caches).
+
+Configuration (example):
+
+```yaml
+id_assignment_policy:
+  coverage_strategy: progressive
+
+  tier_1_immediate:
+    - "modules/**.py"
+    - "patterns/**"
+    - "docs/**"
+
+  tier_2_on_demand:
+    - "tests/**"
+    - "examples/**"
+
+  tier_3_never:
+    - "__pycache__/**"
+    - ".git/**"
+    - ".worktrees/**"
+```
+
+> Regardless of tiering, **no worktree** may mint `doc_id`s directly; all assignment still flows through `IDCoordinator`.
+
+---
+
+## 8. Implementation Checklist
+
+Use this as a practical “done list” for integrating IDs with worktrees.
+
+1. **Registry & Taxonomy**
+
+   * [ ] Confirm `doc_id` registry + CLI is the single minting authority.
+   * [ ] Document ID grammar (even if simple) in an `ID_TAXONOMY`-style doc.
+
+2. **Scanner**
+
+   * [ ] Ensure `.worktrees/` and `.state/` are excluded.
+   * [ ] Emit `docs_inventory.jsonl` and `DOC_ID_COVERAGE_REPORT.md`.
+
+3. **DocIdAssigner**
+
+   * [ ] Implement tool to assign IDs based on `docs_inventory.jsonl`.
+   * [ ] Wire it to registry CLI for minting.
+
+4. **IDCoordinator**
+
+   * [ ] Implement in orchestrator process (thread-safe, no deadlock).
+   * [ ] Ensure **all** new IDs during runs come from IDCoordinator.
+
+5. **Workstream Specs**
+
+   * [ ] Extend workstream format with `files_to_edit` and `files_to_create`.
+   * [ ] Ensure orchestrator populates these (AI-assisted if needed).
+
+6. **WorktreeManager**
+
+   * [ ] Pre-assign IDs on main using IDCoordinator.
+   * [ ] Inject IDs into worktree copies before running AI tools.
+   * [ ] After merge, call incremental inventory updater.
+
+7. **Lifecycle & Conflict Rules**
+
+   * [ ] Encode split/merge/move/delete + conflict rules in documentation.
+   * [ ] Add validation checks (tests/CI) to enforce them.
+
+8. **CI & Gates**
+
+   * [ ] Add preflight checks:
+
+     * coverage threshold for selected tiers/modules,
+     * no duplicate `doc_id`s,
+     * no scanner hits in `.worktrees/`.
+   * [ ] Fail refactor pipelines if gates are not met.
+
+---
+
+If you’d like, next step I can turn this into:
+
+* a **concrete `IDCoordinator` Python module**, and
+* a **WorktreeManager integration diff** (pseudo-patch)
+  that you can drop into your orchestrator code as a starting point.
+
+```
+```

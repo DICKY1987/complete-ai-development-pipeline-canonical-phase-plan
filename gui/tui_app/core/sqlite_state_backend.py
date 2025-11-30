@@ -11,7 +11,7 @@ from datetime import datetime
 from typing import List, Optional
 from pathlib import Path
 
-from tui_app.core.state_client import (
+from gui.tui_app.core.state_client import (
     ExecutionInfo,
     PatchLedgerEntry,
     StateBackend,

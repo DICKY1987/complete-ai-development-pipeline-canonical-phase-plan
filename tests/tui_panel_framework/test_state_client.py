@@ -2,7 +2,7 @@
 
 import pytest
 from datetime import datetime
-from tui_app.core.state_client import (
+from gui.tui_app.core.state_client import (
     StateClient,
     InMemoryStateBackend,
     PipelineSummary,

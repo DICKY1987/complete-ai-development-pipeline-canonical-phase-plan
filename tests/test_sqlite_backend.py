@@ -3,7 +3,7 @@
 import sqlite3
 from datetime import datetime
 
-from tui_app.core.sqlite_state_backend import SQLiteStateBackend
+from gui.tui_app.core.sqlite_state_backend import SQLiteStateBackend
 
 
 def test_sqlite_backend_reads_data(tmp_path):

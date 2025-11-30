@@ -105,7 +105,7 @@ class DAGBuilder:
             rec_stack.remove(node)
             return False
         
-        for node in self.graph:
+        for node in list(self.graph.keys()):
             if node not in visited:
                 if dfs(node, []):
                     return cycle_path

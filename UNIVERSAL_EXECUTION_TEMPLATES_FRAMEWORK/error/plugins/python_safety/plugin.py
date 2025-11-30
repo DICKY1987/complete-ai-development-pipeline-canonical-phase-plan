@@ -7,8 +7,8 @@ import subprocess
 from pathlib import Path
 from typing import List, Optional
 
-from error.shared.utils.env import scrub_env
-from error.shared.utils.types import PluginIssue, PluginResult
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.shared.utils.env import scrub_env
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.shared.utils.types import PluginIssue, PluginResult
 
 
 def _find_requirements(start: Path) -> Optional[Path]:

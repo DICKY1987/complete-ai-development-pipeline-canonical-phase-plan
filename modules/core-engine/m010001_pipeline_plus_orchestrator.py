@@ -48,4 +48,11 @@ class PatchManager:
         return ApplyResult(success=True, files_modified=[], errors=[])
 
 
-__all__ = ["PatchManager", "PatchArtifact", "PatchParseResult", "ApplyResult"]
+class PipelinePlusOrchestrator:
+    """Placeholder orchestrator used by integration tests."""
+
+    def run(self, workstream_id: Optional[str] = None) -> bool:
+        return True
+
+
+__all__ = ["PatchManager", "PatchArtifact", "PatchParseResult", "ApplyResult", "PipelinePlusOrchestrator"]

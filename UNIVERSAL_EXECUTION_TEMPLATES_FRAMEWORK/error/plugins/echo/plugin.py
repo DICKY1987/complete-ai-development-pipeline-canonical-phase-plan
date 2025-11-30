@@ -3,7 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import List
 
-from error.shared.utils.types import PluginResult, PluginIssue
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.shared.utils.types import PluginResult, PluginIssue
 
 
 class EchoPlugin:

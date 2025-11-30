@@ -4,8 +4,8 @@ from datetime import datetime
 from textual.widgets import Static, DataTable
 from textual.containers import Container, Horizontal, Vertical
 
-from tui_app.core.panel_plugin import PanelPlugin, PanelContext
-from tui_app.core.panel_registry import register_panel
+from gui.tui_app.core.panel_plugin import PanelPlugin, PanelContext
+from gui.tui_app.core.panel_registry import register_panel
 
 
 class PatternActivityWidget(Static):

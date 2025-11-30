@@ -3,7 +3,7 @@
 from datetime import datetime
 import sqlite3
 
-from tui_app.core.pattern_client import SQLitePatternStateStore, PatternStatus
+from gui.tui_app.core.pattern_client import SQLitePatternStateStore, PatternStatus
 
 
 def test_sqlite_pattern_store_reads_runs_and_events(tmp_path):

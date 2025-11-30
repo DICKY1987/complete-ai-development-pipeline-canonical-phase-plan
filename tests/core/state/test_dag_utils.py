@@ -4,6 +4,7 @@ Validates DAG-IMPL-001, DAG-IMPL-002, DAG-IMPL-003 requirements.
 """
 
 import pytest
+from modules.core_state import m010003_dag_utils as dag_utils
 from modules.core_state.m010003_dag_utils import (
     build_dependency_graph,
     build_reverse_graph,

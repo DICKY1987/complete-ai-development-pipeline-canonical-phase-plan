@@ -1,8 +1,8 @@
 """Tests for layout manager."""
 
 import pytest
-from tui_app.core.layout_manager import BasicLayoutManager
-from tui_app.core.panel_plugin import PanelContext
+from gui.tui_app.core.layout_manager import BasicLayoutManager
+from gui.tui_app.core.panel_plugin import PanelContext
 from textual.widgets import Static
 
 

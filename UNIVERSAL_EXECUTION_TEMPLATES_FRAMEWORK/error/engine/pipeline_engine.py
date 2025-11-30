@@ -10,9 +10,9 @@ import tempfile
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional
 
-from error.shared.utils.time import new_run_id, utc_now_iso
-from error.shared.utils.jsonl_manager import append as jsonl_append
-from error.shared.utils.types import (
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.shared.utils.time import new_run_id, utc_now_iso
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.shared.utils.jsonl_manager import append as jsonl_append
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.shared.utils.types import (
     PipelineReport,
     PluginResult,
     PipelineSummary,

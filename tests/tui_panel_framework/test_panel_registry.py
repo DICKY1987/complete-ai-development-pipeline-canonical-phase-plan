@@ -1,8 +1,8 @@
 """Tests for panel registry."""
 
 import pytest
-from tui_app.core.panel_registry import PanelRegistry, register_panel
-from tui_app.core.panel_plugin import PanelPlugin, PanelContext
+from gui.tui_app.core.panel_registry import PanelRegistry, register_panel
+from gui.tui_app.core.panel_plugin import PanelPlugin, PanelContext
 from textual.widgets import Static
 
 

@@ -1,13 +1,13 @@
 """Smoke tests for panel creation."""
 
 import pytest
-from tui_app.core.panel_registry import get_registry
-from tui_app.core.panel_plugin import PanelContext
-from tui_app.core.state_client import StateClient, InMemoryStateBackend
-from tui_app.core.pattern_client import PatternClient, InMemoryPatternStateStore
+from gui.tui_app.core.panel_registry import get_registry
+from gui.tui_app.core.panel_plugin import PanelContext
+from gui.tui_app.core.state_client import StateClient, InMemoryStateBackend
+from gui.tui_app.core.pattern_client import PatternClient, InMemoryPatternStateStore
 
 # Import panels to trigger registration
-import tui_app.panels
+import gui.tui_app.panels
 
 
 @pytest.fixture

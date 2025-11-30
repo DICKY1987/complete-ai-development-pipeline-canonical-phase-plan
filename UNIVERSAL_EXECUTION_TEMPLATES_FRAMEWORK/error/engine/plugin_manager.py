@@ -11,7 +11,7 @@ from graphlib import TopologicalSorter
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional
 
-from error.shared.utils.types import PluginManifest, PluginResult
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.shared.utils.types import PluginManifest, PluginResult
 
 
 class PluginManager:

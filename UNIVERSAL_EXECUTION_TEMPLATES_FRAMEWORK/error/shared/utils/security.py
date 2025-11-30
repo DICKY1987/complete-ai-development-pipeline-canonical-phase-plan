@@ -104,15 +104,15 @@ def redact_secrets(text: str) -> str:
     
     # Define patterns for common secrets
     patterns = [
-        # API keys (generic) - must match full key pattern
-        (r"sk-[a-zA-Z0-9]{20,}", "[REDACTED_API_KEY]"),
-        (r"key_[a-zA-Z0-9]{20,}", "[REDACTED_API_KEY]"),
-        
-        # OpenAI keys
-        (r"(sk-proj-[a-zA-Z0-9\-]{20,})", "[REDACTED_OPENAI_KEY]"),
+        # OpenAI keys (must come before generic sk- pattern)
+        (r"sk-proj-[a-zA-Z0-9\-]{10,}", "[REDACTED_OPENAI_KEY]"),
         
         # Anthropic keys
-        (r"(sk-ant-[a-zA-Z0-9\-]{20,})", "[REDACTED_ANTHROPIC_KEY]"),
+        (r"sk-ant-[a-zA-Z0-9\-]{10,}", "[REDACTED_ANTHROPIC_KEY]"),
+        
+        # API keys (generic)
+        (r"sk-[a-zA-Z0-9]{20,}", "[REDACTED_API_KEY]"),
+        (r"key_[a-zA-Z0-9]{20,}", "[REDACTED_API_KEY]"),
         
         # Generic tokens
         (r"(token[\s:=]+['\"]?)([a-zA-Z0-9\-\.\_]+)(['\"]?)", r"\1[REDACTED_TOKEN]\3"),

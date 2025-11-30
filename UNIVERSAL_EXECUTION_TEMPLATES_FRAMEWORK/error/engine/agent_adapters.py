@@ -262,6 +262,7 @@ class ClaudeAdapter(AgentAdapter):
                 stdout="",
                 stderr="ANTHROPIC_API_KEY not set",
                 duration_ms=0,
+                metadata={"status": "stub"},
                 error_message="Claude API key not configured"
             )
         

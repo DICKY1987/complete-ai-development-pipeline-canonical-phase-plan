@@ -7,7 +7,7 @@ _repo_root = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(_repo_root))
 
 import pytest
-from error.shared.utils.security import (
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.shared.utils.security import (
     SecurityError,
     validate_file_path,
     validate_file_size,

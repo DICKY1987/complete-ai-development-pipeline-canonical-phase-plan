@@ -9,8 +9,8 @@ import os
 from pathlib import Path
 from typing import Dict, Optional
 
-from error.shared.utils.hashing import sha256_file
-from error.shared.utils.time import utc_now_iso
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.shared.utils.hashing import sha256_file
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.shared.utils.time import utc_now_iso
 
 
 class FileHashCache:

@@ -1,7 +1,7 @@
 """Lightweight integration test for the TUI entrypoint."""
 
-from tui_app.config.layout_config import LogConfig, PanelRefreshConfig, ThemeConfig, TUIConfig
-from tui_app.main import PipelineTUI
+from gui.tui_app.config.layout_config import LogConfig, PanelRefreshConfig, ThemeConfig, TUIConfig
+from gui.tui_app.main import PipelineTUI
 
 
 def test_pipeline_tui_headless_smoke(tmp_path):

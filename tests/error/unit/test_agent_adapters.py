@@ -321,9 +321,9 @@ class TestAgentFactory:
 class TestCheckAgentAvailability:
     """Test availability checking function."""
     
-    @patch("error.engine.agent_adapters.AiderAdapter.check_available")
-    @patch("error.engine.agent_adapters.CodexAdapter.check_available")
-    @patch("error.engine.agent_adapters.ClaudeAdapter.check_available")
+    @patch("UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.engine.agent_adapters.AiderAdapter.check_available")
+    @patch("UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.engine.agent_adapters.CodexAdapter.check_available")
+    @patch("UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.engine.agent_adapters.ClaudeAdapter.check_available")
     def test_check_all_agents_available(self, mock_claude, mock_codex, mock_aider):
         """Test checking availability of all agents."""
         mock_aider.return_value = True
@@ -336,9 +336,9 @@ class TestCheckAgentAvailability:
         assert availability["codex"] is True
         assert availability["claude"] is True
     
-    @patch("error.engine.agent_adapters.AiderAdapter.check_available")
-    @patch("error.engine.agent_adapters.CodexAdapter.check_available")
-    @patch("error.engine.agent_adapters.ClaudeAdapter.check_available")
+    @patch("UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.engine.agent_adapters.AiderAdapter.check_available")
+    @patch("UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.engine.agent_adapters.CodexAdapter.check_available")
+    @patch("UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.engine.agent_adapters.ClaudeAdapter.check_available")
     def test_check_mixed_availability(self, mock_claude, mock_codex, mock_aider):
         """Test mixed availability."""
         mock_aider.return_value = True

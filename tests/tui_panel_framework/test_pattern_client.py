@@ -1,7 +1,7 @@
 """Tests for pattern client."""
 
 import pytest
-from tui_app.core.pattern_client import (
+from gui.tui_app.core.pattern_client import (
     PatternClient,
     InMemoryPatternStateStore,
     PatternRun,
