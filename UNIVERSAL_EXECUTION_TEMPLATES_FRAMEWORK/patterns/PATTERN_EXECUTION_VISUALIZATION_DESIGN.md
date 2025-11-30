@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-PATTERN-EXECUTION-VISUALIZATION-DESIGN-759
+---
+
 # Pattern Execution Visualization Design
 
 **Document Version**: 1.0.0

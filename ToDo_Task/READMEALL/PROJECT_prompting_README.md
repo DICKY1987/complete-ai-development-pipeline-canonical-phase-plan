@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROJECT-PROMPTING-README-1588
+---
+
 # Prompt Engineering References
 
 This directory contains reference materials and guides for crafting effective prompts for AI systems.

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-955
+---
+
 # Executors Library
 
 **Purpose**: Shared helper modules for pattern executor development.

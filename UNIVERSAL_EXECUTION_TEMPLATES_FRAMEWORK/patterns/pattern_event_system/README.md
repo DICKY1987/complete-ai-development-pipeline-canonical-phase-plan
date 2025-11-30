@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-811
+---
+
 # Pattern Event System - Implementation Ready
 
 **Location**: `ToDo_Task/pattern_event_system/`

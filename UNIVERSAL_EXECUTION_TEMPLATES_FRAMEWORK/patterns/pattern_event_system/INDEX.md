@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-INDEX-801
+---
+
 # Pattern Event System - Implementation Package
 
 **Package Created**: 2025-11-26  

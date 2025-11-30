@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROJECT-UNIVERSAL-EXECUTION-TEMPLATES-1598
+---
+
 # core/state
 
 **Purpose**: State management and persistence for execution runs, tasks, and checkpoints.

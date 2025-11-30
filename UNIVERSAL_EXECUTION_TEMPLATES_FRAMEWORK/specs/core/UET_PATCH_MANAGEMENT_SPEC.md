@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-UET-PATCH-MANAGEMENT-SPEC-195
+---
+
 Good target. Let’s lock down **what PATCH_MANAGEMENT_SPEC actually is** in your stack and define the core data structures + rules, without writing an actual spec file yet.
 
 I’ll treat it just like we did PROMPT_RENDERING_SPEC and TASK_ROUTING_SPEC: **schemas + behaviors + invariants.**

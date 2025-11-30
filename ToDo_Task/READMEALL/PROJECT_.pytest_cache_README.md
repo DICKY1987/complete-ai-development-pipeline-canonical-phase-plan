@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROJECT-PYTEST-CACHE-README-1568
+---
+
 # pytest cache directory #
 
 This directory contains data from the pytest's cache plugin,

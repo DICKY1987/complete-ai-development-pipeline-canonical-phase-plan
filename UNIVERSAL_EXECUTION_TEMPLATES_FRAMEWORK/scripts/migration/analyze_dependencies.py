@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-MIGRATION-ANALYZE-DEPENDENCIES-336
 import ast
 import re
 from pathlib import Path

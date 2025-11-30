@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROJECT-UNIVERSAL-EXECUTION-TEMPLATES-1609
+---
+
 # UET Framework Integration Documentation
 
 **Location**: `UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/docs/integration/`  

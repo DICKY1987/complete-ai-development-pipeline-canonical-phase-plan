@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-TEST-SUITE-834
+---
+
 # Safe Merge Pattern Test Suite
 
 Tests for validating Safe Merge patterns in various scenarios.

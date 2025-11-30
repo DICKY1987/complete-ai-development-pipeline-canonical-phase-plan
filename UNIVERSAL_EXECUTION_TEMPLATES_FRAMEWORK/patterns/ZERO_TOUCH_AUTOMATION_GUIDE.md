@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-ZERO-TOUCH-AUTOMATION-GUIDE-772
+---
+
 # Zero-Touch Pattern Automation - Complete Guide
 
 **Status**: ✅ Ready to Deploy  

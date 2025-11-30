@@ -1,4 +1,5 @@
 #!/bin/bash
+# DOC_LINK: DOC-SCRIPT-NEXT-318
 echo "Getting status..."
 echo ""
 echo ""

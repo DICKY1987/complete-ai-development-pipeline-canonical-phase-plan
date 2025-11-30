@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-963
+---
+
 # Auto-Approved Patterns
 
 **Purpose**: Pattern specifications that have been automatically approved based on confidence thresholds.

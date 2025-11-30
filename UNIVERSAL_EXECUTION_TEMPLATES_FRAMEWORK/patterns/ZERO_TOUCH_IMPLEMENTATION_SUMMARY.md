@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-ZERO-TOUCH-IMPLEMENTATION-SUMMARY-774
+---
+
 # Zero-Touch Pattern Automation - Implementation Summary
 
 **Created**: 2025-11-27  

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PLUGIN-BASED-AGENT-ARCHITECTURE-1535
+---
+
 # Plugin-Based Agent Architecture
 ## Dynamic CLI Tool Orchestration System
 

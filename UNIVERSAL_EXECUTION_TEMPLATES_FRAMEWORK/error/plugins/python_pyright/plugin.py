@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-ERROR-PYTHON-PYRIGHT-PLUGIN-137
 from __future__ import annotations
 
 import json

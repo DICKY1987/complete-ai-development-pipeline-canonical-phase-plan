@@ -2,6 +2,7 @@
 
 Prevents cascading failures by stopping requests to failing services.
 """
+DOC_ID: DOC-CORE-RESILIENCE-CIRCUIT-BREAKER-186
 
 from enum import Enum
 from typing import Optional, Callable, Any

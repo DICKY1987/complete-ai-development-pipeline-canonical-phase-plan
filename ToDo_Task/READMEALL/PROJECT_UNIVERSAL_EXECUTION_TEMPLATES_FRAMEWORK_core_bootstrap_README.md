@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROJECT-UNIVERSAL-EXECUTION-TEMPLATES-1594
+---
+
 # core/bootstrap
 
 **Purpose**: Autonomous project discovery and configuration system that analyzes any project and generates appropriate UET configuration.

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-TASKS-1514
+---
+
 # Phase D Tasks - Adapters (Patch-First)
 
 ## Feature Flags

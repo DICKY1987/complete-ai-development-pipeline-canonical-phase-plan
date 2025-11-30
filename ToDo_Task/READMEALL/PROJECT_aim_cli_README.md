@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROJECT-AIM-CLI-README-1571
+---
+
 # AIM CLI Module
 
 > **Module**: `aim.cli`  

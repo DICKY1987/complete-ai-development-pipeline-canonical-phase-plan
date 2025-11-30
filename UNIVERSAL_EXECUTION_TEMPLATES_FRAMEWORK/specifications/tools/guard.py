@@ -3,6 +3,7 @@ Guard validator for SPEC_MGMT_V1.
 
 Validates that suite-index.yaml, sidecars, and files are consistent.
 """
+DOC_ID: DOC-PAT-TOOLS-GUARD-965
 
 from __future__ import annotations
 

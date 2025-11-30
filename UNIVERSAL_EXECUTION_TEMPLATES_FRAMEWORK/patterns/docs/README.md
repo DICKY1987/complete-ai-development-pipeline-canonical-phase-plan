@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-1642
+---
+
 # Docs Directory
 
 **Purpose**: Core documentation for the execution template framework, including plans and reference guides.

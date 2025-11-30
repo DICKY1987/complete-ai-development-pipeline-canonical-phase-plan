@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-MULTI-AGENT-SIMPLE-VISUAL-1534
+---
+
 # How 1 CLI Command Runs 3 Simultaneous AI Agents - Simple Visual Guide
 
 ## 🎯 **What You Type**

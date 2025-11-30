@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-856
+---
+
 # Self Healing Directory
 
 **Purpose**: Reserved workspace for self-healing pattern assets and experiments.

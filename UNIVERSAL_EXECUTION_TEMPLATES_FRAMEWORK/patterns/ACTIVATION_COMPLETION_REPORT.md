@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-ACTIVATION-COMPLETION-REPORT-737
+---
+
 # Pattern Automation Activation - Completion Report
 
 **Date:** 2025-11-27  

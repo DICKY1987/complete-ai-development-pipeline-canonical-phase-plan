@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROJECT-CORE-PLANNING-README-1580
+---
+
 # Core Planning Utilities
 
 > **Module**: `core.planning`  

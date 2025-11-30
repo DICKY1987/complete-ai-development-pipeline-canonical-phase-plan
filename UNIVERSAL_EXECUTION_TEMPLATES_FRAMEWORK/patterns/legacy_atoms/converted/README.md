@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-956
+---
+
 # Converted Legacy Atoms
 
 **Purpose**: Migrated legacy atoms grouped into examples, executors, reports, schemas, and specs.

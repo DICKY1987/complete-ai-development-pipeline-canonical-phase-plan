@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-PATTERN-EVENT-INTEGRATION-808
+---
+
 # Pattern Event System - Integration Guide
 
 **Quick Start**: Wire pattern event tracking into your existing engine in 3 steps.

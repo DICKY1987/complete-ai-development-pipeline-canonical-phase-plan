@@ -1,4 +1,5 @@
 #!/bin/bash
+# DOC_LINK: DOC-SCRIPT-HELP-315
 echo "Helping..."
 echo ""
 echo ""

@@ -2,6 +2,7 @@
 
 Combines circuit breakers and retry logic for robust task execution.
 """
+DOC_ID: DOC-CORE-RESILIENCE-RESILIENT-EXECUTOR-188
 
 from typing import Optional, Callable, Any, Dict
 from .circuit_breaker import CircuitBreaker, CircuitBreakerOpen

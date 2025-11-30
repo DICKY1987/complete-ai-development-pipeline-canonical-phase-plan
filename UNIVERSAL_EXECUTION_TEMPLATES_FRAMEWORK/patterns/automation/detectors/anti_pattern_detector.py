@@ -2,6 +2,7 @@
 
 Automatically detect and document recurring failure patterns.
 """
+DOC_ID: DOC-PAT-DETECTORS-ANTI-PATTERN-DETECTOR-878
 
 import json
 from pathlib import Path

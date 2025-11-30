@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-927
+---
+
 # Module Creation Examples
 
 **Pattern**: `PAT-MODULE-CREATION`

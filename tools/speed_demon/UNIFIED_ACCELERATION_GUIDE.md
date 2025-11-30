@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-UNIFIED-ACCELERATION-GUIDE-1611
+---
+
 # Speed Demon + UET Integration: Complete Acceleration System
 
 **Date**: 2025-11-23  

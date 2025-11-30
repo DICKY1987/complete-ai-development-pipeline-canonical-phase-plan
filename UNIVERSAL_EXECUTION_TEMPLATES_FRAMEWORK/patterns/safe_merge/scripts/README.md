@@ -1,3 +1,7 @@
+---
+doc_id: DOC-SCRIPT-README-334
+---
+
 # Safe Merge Scripts
 
 **Purpose**: Scripts implementing safe merge pattern operations.

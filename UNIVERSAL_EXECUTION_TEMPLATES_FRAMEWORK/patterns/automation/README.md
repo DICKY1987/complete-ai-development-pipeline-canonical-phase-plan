@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-785
+---
+
 # Automation Directory
 
 **Purpose**: Automation utilities that detect, analyze, and triage pattern execution signals.

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-UTE-UNIVERSAL-PHASE-SPECIFICATION-775
+---
+
 # 1. UNIVERSAL PHASE SPECIFICATION
 
 *(The “What”) – Non-Negotiable Requirements for Every Development Phase*

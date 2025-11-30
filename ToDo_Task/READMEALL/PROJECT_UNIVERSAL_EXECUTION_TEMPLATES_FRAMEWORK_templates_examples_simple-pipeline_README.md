@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROJECT-UNIVERSAL-EXECUTION-TEMPLATES-1606
+---
+
 # Simple Pipeline Example
 
 > **Minimal Working Example of UET Framework**  

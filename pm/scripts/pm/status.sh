@@ -1,4 +1,5 @@
 #!/bin/bash
+# DOC_LINK: DOC-SCRIPT-STATUS-323
 
 echo "Getting status..."
 echo ""

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-COMPLETION-REPORT-826
+---
+
 # Safe Merge Pattern Completion Report
 
 **Date**: 2025-11-27  

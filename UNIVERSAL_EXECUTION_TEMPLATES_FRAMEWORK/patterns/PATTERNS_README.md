@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-PATTERNS-README-757
+---
+
 # Pattern Management Tools
 
 This directory contains automation patterns for repository management.

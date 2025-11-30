@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-UET-FRAMEWORK-FILE-INVENTORY-PROJECT-1651
+---
+
 Here’s a single document you can drop into the repo as your **“what files belong in the framework”** map.
 
 I’ll keep it project-agnostic and call out where things are:

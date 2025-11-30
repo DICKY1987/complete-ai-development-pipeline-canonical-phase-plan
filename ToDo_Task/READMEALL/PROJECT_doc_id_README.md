@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROJECT-DOC-ID-README-1585
+---
+
 # DOC ID Module
 
 This module centralizes every artifact that defines, documents, or operates the

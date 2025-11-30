@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-UTE-DEPENDENCIES-1635
+---
+
 # UET Framework Dependency Graph
 
 ## Dependency Layers

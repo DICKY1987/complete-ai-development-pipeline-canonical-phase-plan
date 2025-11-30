@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-CODEX-EXECUTION-INSTRUCTIONS-744
+---
+
 # CODEX CLI EXECUTION INSTRUCTIONS
 # Pattern Automation Activation - Complete Execution Guide
 

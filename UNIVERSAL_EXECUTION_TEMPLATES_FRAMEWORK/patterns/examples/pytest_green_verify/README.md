@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-933
+---
+
 # Pytest Green Verify Examples
 
 **Pattern**: `PAT-PYTEST-GREEN-VERIFY`

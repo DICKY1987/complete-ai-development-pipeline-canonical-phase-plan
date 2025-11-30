@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-COMPONENT-CONTRACTS-1662
+---
+
 # UET V2 Component Contracts
 
 **Purpose**: Define API contracts for all UET V2 components to enable parallel development  

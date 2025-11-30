@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-1538
+---
+
 # 03_IMPLEMENTATION - Executable Code & Scripts
 
 **Production-ready orchestration engine, worktree management, and automation scripts**

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-PATTERN-EVENT-SPEC-809
+---
+
 # Pattern Event Specification
 
 **Version**: 1.0.0  

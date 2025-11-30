@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-PHASE-4-COMPLETE-823
+---
+
 # Phase 4: Verification & Decision Templates
 
 **Status**: ✅ Complete  

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-TERMINAL-CHAT-BEST-PLAN-11-729
+---
+
 Yeah, this is the perfect time to do a *little* extra work on the docs while you’ve got them all in your hands.
 
 You don’t want to go crazy, but there are a few **high-leverage extras** you can add during extraction that make classification, refactors, and future AI usage much easier.

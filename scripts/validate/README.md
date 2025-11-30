@@ -1,3 +1,7 @@
+---
+doc_id: DOC-SCRIPT-README-326
+---
+
 # Validation Scripts
 
 This directory contains validation scripts for verifying compliance with the orchestration specification requirements.

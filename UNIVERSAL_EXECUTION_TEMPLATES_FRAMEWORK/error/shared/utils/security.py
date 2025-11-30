@@ -3,6 +3,7 @@
 Provides input validation, secret redaction, and security checks to prevent
 common vulnerabilities.
 """
+DOC_ID: DOC-ERROR-UTILS-SECURITY-144
 from __future__ import annotations
 
 import re

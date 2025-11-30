@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROJECT-AIM-REGISTRY-README-1573
+---
+
 # AIM Registry Module
 
 > **Module**: `aim.registry`  

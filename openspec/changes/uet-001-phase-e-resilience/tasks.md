@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-TASKS-1516
+---
+
 # Phase E Tasks - Resilience
 
 ## Compensation Engine

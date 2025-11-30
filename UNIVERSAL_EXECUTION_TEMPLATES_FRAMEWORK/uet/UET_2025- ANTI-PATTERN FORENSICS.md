@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-UET-2025-ANTI-PATTERN-FORENSICS-1627
+---
+
 # ANTI-PATTERN FORENSICS
 
 *Forensic review of historical execution logs against the “Game Board” Non-Negotiables.*

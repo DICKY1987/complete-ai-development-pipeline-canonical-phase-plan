@@ -3,6 +3,7 @@
 This module provides adapters for integrating AI agents (Aider, Codex, Claude)
 into the error pipeline for automated code fixing.
 """
+DOC_ID: DOC-ERROR-ENGINE-AGENT-ADAPTERS-113
 from __future__ import annotations
 
 import shutil

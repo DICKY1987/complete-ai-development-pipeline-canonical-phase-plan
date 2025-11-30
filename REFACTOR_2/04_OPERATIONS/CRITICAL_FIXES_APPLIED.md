@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-CRITICAL-FIXES-APPLIED-1540
+---
+
 # Critical Issues Fixed - Summary
 
 ## 🔴 **Blocking Issues Resolved**

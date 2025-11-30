@@ -1,4 +1,5 @@
 #!/bin/bash
+# DOC_LINK: DOC-SCRIPT-EPIC-LIST-312
 echo "Getting epics..."
 echo ""
 echo ""

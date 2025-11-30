@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-IMPLEMENTATION-SUMMARY-828
+---
+
 # Safe Merge Pattern Library - Implementation Summary
 
 **Date**: 2025-11-27  

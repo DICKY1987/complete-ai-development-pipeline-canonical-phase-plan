@@ -16,6 +16,7 @@ from core.engine.state_machine import RunStateMachine, StepStateMachine
 @pytest.fixture
 def test_db(tmp_path):
     """Create a temporary test database"""
+DOC_ID: DOC-TEST-ENGINE-TEST-RUN-LIFECYCLE-176
     db_path = tmp_path / "test.db"
     db = Database(str(db_path))
     db.connect()

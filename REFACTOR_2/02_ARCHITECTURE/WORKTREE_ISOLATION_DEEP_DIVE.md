@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-WORKTREE-ISOLATION-DEEP-DIVE-1537
+---
+
 # Git Worktrees & Parallel Execution - Deep Dive
 
 ## 🔒 Worktree Isolation Explained

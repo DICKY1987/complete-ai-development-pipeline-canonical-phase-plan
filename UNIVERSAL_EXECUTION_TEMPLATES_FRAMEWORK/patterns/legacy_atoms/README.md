@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-796
+---
+
 # Legacy Atoms Directory
 
 **Purpose**: Legacy atom migration workspace with converted assets, reports, and tools.

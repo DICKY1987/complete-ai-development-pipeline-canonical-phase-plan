@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-184
+---
+
 # core/engine/monitoring
 
 **Purpose**: Real-time progress tracking and execution metrics.

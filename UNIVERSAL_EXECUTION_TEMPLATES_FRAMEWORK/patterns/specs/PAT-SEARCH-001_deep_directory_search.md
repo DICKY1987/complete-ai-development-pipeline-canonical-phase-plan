@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-PAT-SEARCH-001-DEEP-DIRECTORY-SEARCH-866
+---
+
 # PAT-SEARCH-001: Deep Directory Search
 
 ## Pattern ID

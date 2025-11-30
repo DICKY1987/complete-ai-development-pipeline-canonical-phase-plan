@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-STATUS-1650
+---
+
 # Framework Status Summary
 
 **Date:** 2025-11-22 20:41 UTC

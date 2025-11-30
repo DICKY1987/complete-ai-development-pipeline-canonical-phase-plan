@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROJECT-LEGACY-AI-MANGER-ARCHIVED-2025-1586
+---
+
 # ToolStack - Configuration-Driven Development Environment Manager
 
 ## Overview

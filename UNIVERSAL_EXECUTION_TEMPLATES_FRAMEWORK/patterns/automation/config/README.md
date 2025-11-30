@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-877
+---
+
 # Automation Configuration
 
 **Purpose**: Shared automation configuration and defaults.

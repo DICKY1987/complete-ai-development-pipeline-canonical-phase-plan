@@ -2,6 +2,7 @@
 
 Retry logic with exponential backoff and jitter.
 """
+DOC_ID: DOC-CORE-RESILIENCE-RETRY-189
 
 from abc import ABC, abstractmethod
 from typing import Optional, Callable, Any

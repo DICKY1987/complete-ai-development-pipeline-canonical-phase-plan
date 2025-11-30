@@ -1,4 +1,5 @@
 #!/bin/bash
+# DOC_LINK: DOC-SCRIPT-VALIDATE-324
 
 echo "Validating PM System..."
 echo ""

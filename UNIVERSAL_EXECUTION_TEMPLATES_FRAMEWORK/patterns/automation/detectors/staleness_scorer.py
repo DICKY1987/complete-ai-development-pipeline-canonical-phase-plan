@@ -13,6 +13,7 @@ Scoring Criteria (total = 100 points):
 
 Files with ≥70 points are marked as stale and recommended for archival.
 """
+DOC_ID: DOC-PAT-DETECTORS-STALENESS-SCORER-886
 
 import os
 import sys

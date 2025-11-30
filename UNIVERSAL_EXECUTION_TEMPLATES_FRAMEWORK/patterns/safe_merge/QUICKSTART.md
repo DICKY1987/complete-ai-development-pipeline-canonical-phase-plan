@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-QUICKSTART-830
+---
+
 # Safe Merge Automation - Quick Start
 
 ## Installation

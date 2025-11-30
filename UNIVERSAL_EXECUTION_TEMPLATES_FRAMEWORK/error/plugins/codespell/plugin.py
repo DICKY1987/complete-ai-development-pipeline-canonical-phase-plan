@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-ERROR-CODESPELL-PLUGIN-122
 from __future__ import annotations
 
 import re

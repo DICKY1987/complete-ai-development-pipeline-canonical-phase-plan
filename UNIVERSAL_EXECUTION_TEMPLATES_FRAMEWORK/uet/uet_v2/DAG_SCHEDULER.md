@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-DAG-SCHEDULER-1663
+---
+
 # UET V2 DAG Scheduler & Task Dependencies
 
 **Purpose**: Define DAG-based task scheduling with dependency resolution  

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-910
+---
+
 # Decision Elimination Bootstrap Examples
 
 **Pattern**: `PAT-DECISION-ELIMINATION-BOOTSTRAP`

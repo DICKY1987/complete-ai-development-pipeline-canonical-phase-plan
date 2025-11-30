@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-ATOMIC-WORKFLOW-EXTRACTION-PROMPT-1655
+---
+
 # AI Agent: Extract Patterns from atomic-workflow-system
 
 **Purpose**: Direct an agentic AI to extract proven patterns from the atomic-workflow-system repository and integrate them into the unified pattern system.

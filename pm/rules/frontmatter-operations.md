@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PM-FRONTMATTER-OPERATIONS-122
+---
+
 # Frontmatter Operations Rule
 
 Standard patterns for working with YAML frontmatter in markdown files.

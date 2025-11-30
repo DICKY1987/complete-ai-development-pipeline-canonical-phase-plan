@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-ORCHESTRATOR-README-913
+---
+
 # Module Documentation Template
 # TEMPLATE: module-readme
 # Variables: Orchestrator, Coordinate workstream execution across multiple tools with retry and circuit breaker patterns, Domain (core.engine), - Circuit breaker pattern

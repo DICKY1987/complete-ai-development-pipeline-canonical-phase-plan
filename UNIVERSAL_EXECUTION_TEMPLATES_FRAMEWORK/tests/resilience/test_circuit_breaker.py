@@ -13,6 +13,7 @@ from core.engine.resilience import CircuitBreaker, CircuitBreakerState, CircuitB
 
 class TestCircuitBreaker:
     """Test CircuitBreaker functionality"""
+DOC_ID: DOC-TEST-RESILIENCE-TEST-CIRCUIT-BREAKER-187
     
     def test_create_circuit_breaker(self):
         """Test creating a circuit breaker"""

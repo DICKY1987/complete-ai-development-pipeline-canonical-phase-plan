@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PHASE-4-AI-ENHANCEMENT-PLAN-1649
+---
+
 # Phase 4: AI Enhancement - Advanced Codebase Intelligence
 
 **Created:** 2025-11-22  

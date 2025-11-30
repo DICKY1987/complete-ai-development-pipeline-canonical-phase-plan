@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-ZERO-TOUCH-COMPLETE-SOLUTION-773
+---
+
 # Zero-Touch Pattern Automation - COMPLETE SOLUTION
 
 **Status**: ✅ **PRODUCTION READY**  

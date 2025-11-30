@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-783
+---
+
 # Anti-Patterns Directory
 
 **Purpose**: Forensic analysis of execution failures and anti-patterns to avoid.

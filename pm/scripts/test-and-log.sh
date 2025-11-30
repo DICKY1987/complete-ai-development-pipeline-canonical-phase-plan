@@ -1,4 +1,5 @@
 #!/bin/bash
+# DOC_LINK: DOC-SCRIPT-TEST-AND-LOG-310
 
 # Script to run tests with automatic log redirection
 # Supports multiple languages and test frameworks

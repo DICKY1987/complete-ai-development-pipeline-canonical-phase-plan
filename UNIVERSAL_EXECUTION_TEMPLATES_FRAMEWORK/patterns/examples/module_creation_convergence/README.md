@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-929
+---
+
 # Module Creation Convergence Examples
 
 **Pattern**: `PAT-MODULE-CREATION-CONVERGENCE`

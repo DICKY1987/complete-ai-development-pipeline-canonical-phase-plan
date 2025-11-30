@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-1644
+---
+
 # Documentation Planning
 
 **Purpose**: Strategic plans and analyses for the execution template framework.

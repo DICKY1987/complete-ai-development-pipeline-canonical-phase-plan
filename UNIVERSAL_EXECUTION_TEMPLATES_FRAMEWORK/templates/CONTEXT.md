@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-CONTEXT-1619
+---
+
 # Templates Context & Execution Model
 
 > **Context Management and Execution Patterns for UET Framework Templates**  

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-SAFE-MEREGE-PATTERN-767
+---
+
 Deliverables (6 files, 1,919 lines)
 
      - SAFE_MERGE_STRATEGY.md (14.6 KB)

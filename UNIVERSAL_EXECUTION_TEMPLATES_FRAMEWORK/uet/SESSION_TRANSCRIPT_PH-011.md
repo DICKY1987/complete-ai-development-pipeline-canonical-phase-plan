@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-SESSION-TRANSCRIPT-PH-011-1625
+---
+
 # Complete Session Transcript: PH-011 AI Codebase Optimization
 
 **Session Date**: 2025-11-23  

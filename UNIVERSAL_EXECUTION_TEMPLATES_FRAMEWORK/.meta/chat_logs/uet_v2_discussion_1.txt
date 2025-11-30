@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-UET-V2-DISCUSSION-1-778
+---
+
 Core Principles
 Explicit hierarchy with clear boundaries. AI tools navigate by understanding scope and relationships. Your directory structure should make dependencies flow in one direction—typically from generic/foundational at the root toward specific/application at the leaves. When AI sees core/, services/, api/, cli/ it immediately understands architectural layers without reading any code.
 Self-documenting organization. Every directory should have a single, clear purpose that's obvious from its name. Avoid clever abstractions or overly generic names like utils/, helpers/, or misc/. Instead use validation/, serialization/, cli_parsers/. The goal is that an AI (or human) can predict what's in a directory before opening it.

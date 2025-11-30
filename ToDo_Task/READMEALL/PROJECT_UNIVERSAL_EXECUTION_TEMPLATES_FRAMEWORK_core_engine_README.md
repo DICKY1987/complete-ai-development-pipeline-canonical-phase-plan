@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROJECT-UNIVERSAL-EXECUTION-TEMPLATES-1596
+---
+
 # core/engine
 
 **Purpose**: Task orchestration engine providing scheduling, routing, resilient execution, and real-time monitoring for autonomous workflows.

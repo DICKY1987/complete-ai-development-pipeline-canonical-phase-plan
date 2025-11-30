@@ -2,6 +2,7 @@
 
 Circuit breakers and retry logic for robust execution.
 """
+DOC_ID: DOC-CORE-RESILIENCE-INIT-190
 
 from .circuit_breaker import CircuitBreaker, CircuitBreakerState, CircuitBreakerOpen
 from .retry import RetryStrategy, ExponentialBackoff, SimpleRetry, RetryExhausted

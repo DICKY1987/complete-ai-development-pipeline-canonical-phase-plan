@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-PAT-PATCH-001-PATCH-LIFECYCLE-MANAGEMENT-865
+---
+
 # PAT-PATCH-001: Patch Lifecycle Management
 
 ## Pattern ID

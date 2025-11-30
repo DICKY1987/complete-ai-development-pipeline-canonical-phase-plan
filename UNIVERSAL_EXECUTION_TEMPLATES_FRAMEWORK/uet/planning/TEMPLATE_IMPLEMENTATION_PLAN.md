@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-TEMPLATE-IMPLEMENTATION-PLAN-1659
+---
+
 # Template Implementation Plan
 ## Decision Elimination via Pre-Compiled Execution Templates
 

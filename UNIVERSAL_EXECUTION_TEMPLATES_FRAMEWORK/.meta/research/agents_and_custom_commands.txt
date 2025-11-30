@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-AGENTS-AND-CUSTOM-COMMANDS-781
+---
+
 Yes—based on the plan in those chats/files, there are several parts of the project where **sub-agents are clearly more efficient and safer** than “more full agents,” and a few places where a single top-level agent is better.
 
 I’ll break it into:

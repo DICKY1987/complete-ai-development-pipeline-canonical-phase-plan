@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-UET-WS-ERR-01A-1647
+---
+
 Good target for a dry-run. Let’s treat this as a **design rehearsal** for `WS-ERR-01A`, not a final document.
 
 I’ll do three things:

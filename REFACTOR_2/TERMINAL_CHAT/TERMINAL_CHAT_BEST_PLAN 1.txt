@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-TERMINAL-CHAT-BEST-PLAN-1-727
+---
+
 Yes, it makes *a lot* of sense — and it actually lines up almost perfectly with how your current diagrams already think about the system. You’re basically just saying:
 
 > “Treat each **section of the end-to-end data flow** as a module, **plus** a few big cross-cutting modules like AIM, patterns, GUI.”

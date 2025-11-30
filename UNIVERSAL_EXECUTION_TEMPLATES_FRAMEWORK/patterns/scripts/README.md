@@ -1,3 +1,7 @@
+---
+doc_id: DOC-SCRIPT-README-327
+---
+
 # Scripts Directory
 
 **Purpose**: Utility scripts for repository-wide checks and automation.

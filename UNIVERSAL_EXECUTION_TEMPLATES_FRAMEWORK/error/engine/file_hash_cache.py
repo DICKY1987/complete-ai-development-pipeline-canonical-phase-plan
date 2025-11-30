@@ -2,6 +2,7 @@
 
 Stores a JSON mapping of absolute file paths to their last validated hash and metadata.
 """
+DOC_ID: DOC-ERROR-ENGINE-FILE-HASH-CACHE-117
 from __future__ import annotations
 
 import json

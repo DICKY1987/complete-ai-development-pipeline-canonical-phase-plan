@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-876
+---
+
 # Automation Analyzers
 
 **Purpose**: Performance analysis scripts for pattern execution.

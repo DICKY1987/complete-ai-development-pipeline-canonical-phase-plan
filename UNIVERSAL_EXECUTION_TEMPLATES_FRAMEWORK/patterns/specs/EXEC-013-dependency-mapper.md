@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-EXEC-013-DEPENDENCY-MAPPER-859
+---
+
 # EXEC-013: Dependency Mapper Pattern
 # Pattern for visualizing import dependencies before migration
 

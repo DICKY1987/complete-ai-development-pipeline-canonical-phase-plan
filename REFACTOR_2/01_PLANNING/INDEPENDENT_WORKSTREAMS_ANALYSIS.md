@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-INDEPENDENT-WORKSTREAMS-ANALYSIS-1527
+---
+
 # Independent Workstreams Analysis
 
 **Date**: 2025-11-28  

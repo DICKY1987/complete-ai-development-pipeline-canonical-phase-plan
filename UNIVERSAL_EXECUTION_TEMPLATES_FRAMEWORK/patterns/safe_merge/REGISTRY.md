@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-REGISTRY-833
+---
+
 # Safe Merge Pattern Registry
 
 ## Pattern Family: SAFE_MERGE

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROJECT-UNIVERSAL-EXECUTION-TEMPLATES-1593
+---
+
 # core/adapters
 
 **Purpose**: Tool integration layer providing uniform interfaces for executing external tools (CLI, API, custom implementations).

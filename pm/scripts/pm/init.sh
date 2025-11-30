@@ -1,4 +1,5 @@
 #!/bin/bash
+# DOC_LINK: DOC-SCRIPT-INIT-317
 
 echo "Initializing..."
 echo ""

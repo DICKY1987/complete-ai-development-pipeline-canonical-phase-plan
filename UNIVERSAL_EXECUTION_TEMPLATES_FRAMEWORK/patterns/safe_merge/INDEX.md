@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-INDEX-829
+---
+
 # Safe Merge Pattern Library - Complete Implementation
 
 **Version**: 1.0.0  

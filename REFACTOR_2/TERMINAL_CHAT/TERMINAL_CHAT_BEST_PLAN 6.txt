@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-TERMINAL-CHAT-BEST-PLAN-6-735
+---
+
 Yes, they’re *very* relevant — they’re basically the missing “x-ray” for your repo.
 
 Let me break down what each one gives you and how it ties into the module/categories + refactor you’re designing.

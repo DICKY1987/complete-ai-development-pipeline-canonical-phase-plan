@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROJECT-UNIVERSAL-EXECUTION-TEMPLATES-1600
+---
+
 # Project Profiles
 
 Pre-built configuration templates for different project types. Each profile contains tool routing, phase definitions, and domain-specific workflows.

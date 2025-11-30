@@ -10,6 +10,7 @@ from typing import Any, Dict, Optional
 
 class PatternAutomationHooks:
     """Hooks for pattern detection in orchestrator flows."""
+DOC_ID: DOC-PAT-INTEGRATION-ORCHESTRATOR-HOOKS-889
 
     def __init__(self, db_path: Optional[str] = None, config_path: Optional[str] = None, enabled: bool = True):
         self.patterns_dir = Path(__file__).resolve().parents[2]

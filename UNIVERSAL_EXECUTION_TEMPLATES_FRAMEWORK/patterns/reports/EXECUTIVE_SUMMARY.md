@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-EXECUTIVE-SUMMARY-820
+---
+
 # 📊 Executive Summary: Pattern System + Enhancement Roadmap
 
 **Date**: 2025-11-24  

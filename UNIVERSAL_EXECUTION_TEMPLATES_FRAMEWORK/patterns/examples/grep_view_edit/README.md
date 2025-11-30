@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-922
+---
+
 # Grep View Edit Examples
 
 **Pattern**: `PAT-GREP-VIEW-EDIT`

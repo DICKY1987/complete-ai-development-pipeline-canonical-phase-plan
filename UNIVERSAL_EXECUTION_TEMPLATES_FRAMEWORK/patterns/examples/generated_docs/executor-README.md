@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-EXECUTOR-README-912
+---
+
 # Module Documentation Template
 # TEMPLATE: module-readme
 # Variables: Executor, Execute individual workstream steps via tool adapters with retry logic, Domain (core.engine), - Exponential backoff retry

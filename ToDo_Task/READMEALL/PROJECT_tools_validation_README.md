@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROJECT-TOOLS-VALIDATION-README-1591
+---
+
 # Validation Tools
 
 User-facing validation tools for checking repository health and conformance.

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROJECT-UNIVERSAL-EXECUTION-TEMPLATES-1595
+---
+
 # core/engine/monitoring
 
 **Purpose**: Real-time progress tracking and execution metrics.

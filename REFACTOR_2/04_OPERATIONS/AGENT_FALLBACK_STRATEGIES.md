@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-AGENT-FALLBACK-STRATEGIES-1539
+---
+
 # Agent Fallback & Self-Replication Strategies
 
 **Problem**: What happens when primary agent (Aider) fails? How can the orchestrator spawn alternative agents?

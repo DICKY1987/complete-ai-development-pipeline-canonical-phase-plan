@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-AGENT-ARCHITECTURE-DEEP-DIVE-1532
+---
+
 # Agent Architecture Deep Dive: Self-Replication vs Background Tasks
 
 **Created**: 2025-11-29  

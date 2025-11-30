@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-948
+---
+
 # Verify Commit 001 Examples
 
 **Pattern**: `PAT-VERIFY-COMMIT-001`

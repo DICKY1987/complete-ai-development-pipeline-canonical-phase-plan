@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-918
+---
+
 # Glossary Examples
 
 **Purpose**: Glossary-related artifacts and operation examples.

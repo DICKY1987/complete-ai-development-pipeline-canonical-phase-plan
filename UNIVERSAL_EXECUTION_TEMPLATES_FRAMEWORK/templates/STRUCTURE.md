@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-STRUCTURE-1621
+---
+
 # Templates Directory Structure
 
 > **Detailed Organization Guide for UET Framework Templates**  

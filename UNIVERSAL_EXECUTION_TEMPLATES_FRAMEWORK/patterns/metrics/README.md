@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-798
+---
+
 # Metrics Directory
 
 **Purpose**: Pattern automation database and SQL migration scripts.

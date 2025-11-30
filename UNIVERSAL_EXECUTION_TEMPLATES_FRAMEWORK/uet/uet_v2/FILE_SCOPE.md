@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-FILE-SCOPE-1664
+---
+
 # UET V2 File Scope & Isolation
 
 **Purpose**: Define file access rules and isolation boundaries to prevent conflicts  

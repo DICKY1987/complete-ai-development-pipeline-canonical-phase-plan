@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-SCHEDULER-README-915
+---
+
 # Module Documentation Template
 # TEMPLATE: module-readme
 # Variables: Scheduler, Schedule and prioritize workstream steps based on dependencies and resources, Domain (core.engine), - Dependency resolution

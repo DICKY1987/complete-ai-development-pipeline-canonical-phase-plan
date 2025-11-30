@@ -14,6 +14,7 @@ GENERATES:
 - Test file (test_*.ps1)
 - 3 Example instances (.json)
 """
+DOC_ID: DOC-PAT-GENERATORS-DOC-SUITE-GENERATOR-887
 
 import json
 import yaml

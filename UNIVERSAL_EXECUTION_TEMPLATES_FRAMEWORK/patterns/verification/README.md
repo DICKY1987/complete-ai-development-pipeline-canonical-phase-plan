@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-873
+---
+
 # Verification Directory
 
 **Purpose**: Ground-truth templates and examples for validating pattern outputs.

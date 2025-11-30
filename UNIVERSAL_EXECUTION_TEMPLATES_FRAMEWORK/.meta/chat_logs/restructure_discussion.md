@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-RESTRUCTURE-DISCUSSION-1628
+---
+
 
 
 Gotcha — you want **this second blob of concepts** wired into the same architecture we just mapped onto your repo, *and* you want it to cover the “no general-purpose restructuring tool” reality.

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROJECT-DOCS-REFERENCE-AI-AGENTS-README-1584
+---
+
 # AI Agent Instructions - Execution Patterns & Anti-Pattern Guards
 
 **Last Updated**: 2025-11-26T09:27:23Z  

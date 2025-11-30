@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-187
+---
+
 # core/engine/resilience
 
 **Purpose**: Fault tolerance patterns for reliable external tool execution.

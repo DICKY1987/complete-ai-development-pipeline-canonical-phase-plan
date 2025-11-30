@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-914
+---
+
 # Generated Docs Examples
 
 **Purpose**: Consolidated generated documentation samples.

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PLACEMENT-PLAN-1614
+---
+
 # Placement plan for staged batches WS-001–WS-020
 
 Scope: staged copies live under `.migration/stage/WS-*/` on branch `ai-sandbox/codex/uet-batch-staging`. This plan maps each staged file set to its canonical UET target and notes shim/validation steps before moving originals.

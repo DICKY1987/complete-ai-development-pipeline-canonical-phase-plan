@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-UTE-ARCHITECTURE-1634
+---
+
 # UET Architecture Guide
 
 ## Mental Model

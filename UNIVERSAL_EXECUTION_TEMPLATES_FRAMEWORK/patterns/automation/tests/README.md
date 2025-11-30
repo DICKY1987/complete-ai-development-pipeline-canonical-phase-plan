@@ -1,3 +1,7 @@
+---
+doc_id: DOC-TEST-README-165
+---
+
 # Automation Tests
 
 **Purpose**: Test suites for automation modules.

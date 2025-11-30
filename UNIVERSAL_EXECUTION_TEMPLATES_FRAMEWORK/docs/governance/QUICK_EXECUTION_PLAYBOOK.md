@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-QUICK-EXECUTION-PLAYBOOK-1633
+---
+
 # Quick Execution Playbook - One-Page Reference
 
 **Use this for ANY UET phase execution to achieve 5-37x speedup**

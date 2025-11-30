@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-ENHANCEMENT-PHASE-PLAN-819
+---
+
 # Execution Pattern Analysis & Enhancement Phase Plan
 
 **Date**: 2025-11-24  

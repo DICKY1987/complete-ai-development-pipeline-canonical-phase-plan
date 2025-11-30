@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-964
+---
+
 # Verification Examples
 
 **Purpose**: Sample verification artifacts demonstrating expected structure.

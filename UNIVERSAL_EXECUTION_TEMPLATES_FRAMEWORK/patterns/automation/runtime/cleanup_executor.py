@@ -8,6 +8,7 @@ Usage:
     python cleanup_executor.py --pattern EXEC-016 --auto-approve
     python cleanup_executor.py --pattern EXEC-014 --config custom.yaml
 """
+DOC_ID: DOC-PAT-RUNTIME-CLEANUP-EXECUTOR-892
 
 from __future__ import annotations
 

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-911
+---
+
 # E2E Validation 001 Examples
 
 **Pattern**: `PAT-E2E-VALIDATION-001`

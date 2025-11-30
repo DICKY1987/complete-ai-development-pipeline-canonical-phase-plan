@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROJECT-CORE-AST-LANGUAGES-README-1576
+---
+
 # AST Language Parsers
 
 > **Module**: `core.ast.languages`  

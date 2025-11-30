@@ -1,3 +1,7 @@
+---
+doc_id: DOC-TEST-README-163
+---
+
 # Tests Directory
 
 **Purpose**: Deterministic PowerShell test harnesses for pattern executors.

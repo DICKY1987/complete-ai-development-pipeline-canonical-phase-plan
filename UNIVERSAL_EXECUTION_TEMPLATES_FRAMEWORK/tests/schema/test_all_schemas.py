@@ -18,3 +18,4 @@ def test_all_schemas_exist():
 
 def test_schema_count():
     assert len(list(SCHEMA_DIR.glob("*.json"))) == 17
+# DOC_LINK: DOC-TEST-SCHEMA-TEST-ALL-SCHEMAS-191

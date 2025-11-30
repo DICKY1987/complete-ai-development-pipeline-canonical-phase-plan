@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-INDEX-752
+---
+
 # 🎉 Pattern Automation System - COMPLETE & OPERATIONAL
 
 **Status**: ✅ **100% COMPLETE**  

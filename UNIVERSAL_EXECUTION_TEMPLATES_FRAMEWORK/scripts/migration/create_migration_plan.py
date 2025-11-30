@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-MIGRATION-CREATE-MIGRATION-PLAN-337
 import yaml
 import json
 from pathlib import Path

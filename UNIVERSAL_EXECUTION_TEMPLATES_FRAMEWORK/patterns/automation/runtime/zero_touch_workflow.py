@@ -14,6 +14,7 @@ patterns without user intervention.
 
 **Zero User Input**: System learns and improves autonomously.
 """
+DOC_ID: DOC-PAT-RUNTIME-ZERO-TOUCH-WORKFLOW-894
 
 import json
 import sqlite3

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-788
+---
+
 # Decisions Directory
 
 **Purpose**: Decision records and templates for pattern-related choices.

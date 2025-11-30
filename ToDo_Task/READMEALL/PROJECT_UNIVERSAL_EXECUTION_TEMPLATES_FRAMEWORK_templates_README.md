@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROJECT-UNIVERSAL-EXECUTION-TEMPLATES-1608
+---
+
 # UET Framework Templates
 
 > **Universal Execution Templates - Reusable Components for AI Development Pipelines**  

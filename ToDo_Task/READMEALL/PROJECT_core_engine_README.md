@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROJECT-CORE-ENGINE-README-1579
+---
+
 # Core Orchestration Engine
 
 > **Module**: `core.engine`  

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-ONE-TOUCH-SOLUTION-PLAN-1529
+---
+
 # One-Touch Multi-Agent Solution - Complete Implementation Plan
 
 ## Executive Summary

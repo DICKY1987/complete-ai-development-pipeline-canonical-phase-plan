@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PHASE-PLAN-REVIEW-1632
+---
+
 # Phase Plan Review & Adjustments
 
 **Review Date**: 2025-11-24  

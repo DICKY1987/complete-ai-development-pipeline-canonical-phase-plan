@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROJECT-UNIVERSAL-EXECUTION-TEMPLATES-1603
+---
+
 # Adapter Templates
 
 > **Tool Integration Templates - Connect External Tools to UET Framework**  

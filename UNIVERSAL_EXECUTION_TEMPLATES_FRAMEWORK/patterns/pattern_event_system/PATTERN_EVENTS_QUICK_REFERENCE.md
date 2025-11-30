@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-PATTERN-EVENTS-QUICK-REFERENCE-806
+---
+
 # Pattern Events - Quick Reference Card
 
 ## 🚀 Quick Start (Copy-Paste)

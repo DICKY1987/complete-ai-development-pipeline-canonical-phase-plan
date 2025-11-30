@@ -5,6 +5,7 @@ Usage:
     python -m core.engine.pattern_inspect run --pattern-run-id PRUN-...
     python -m core.engine.pattern_inspect events --follow
 """
+DOC_ID: DOC-PAT-PATTERN-EVENT-SYSTEM-PATTERN-INSPECT-810
 
 import argparse
 import json

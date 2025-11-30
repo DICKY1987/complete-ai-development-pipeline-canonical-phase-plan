@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROPOSAL-1511
+---
+
 # Phase C: Orchestration - UET Implementation
 
 **Change ID**: uet-001-phase-c-orchestration  

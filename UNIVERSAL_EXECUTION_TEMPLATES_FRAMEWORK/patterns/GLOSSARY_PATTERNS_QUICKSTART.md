@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-GLOSSARY-PATTERNS-QUICKSTART-750
+---
+
 # Glossary UET Patterns - Quick Start Guide
 
 **Status**: ✅ 100% Production Ready  

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PM-USE-AST-GREP-124
+---
+
 # AST-Grep Integration Protocol for Cursor Agent
 
 ## When to Use AST-Grep

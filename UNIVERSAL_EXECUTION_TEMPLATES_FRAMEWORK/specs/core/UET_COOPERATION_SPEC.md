@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-UET-COOPERATION-SPEC-193
+---
+
 Here’s a structured formalization of **COOPERATION_SPEC** as a *framework-level spec*, in the same style as the others (PROMPT / TASK_ROUTING / PATCH).
 
 No prose doc, just: **objects, schemas, and behavior rules**.

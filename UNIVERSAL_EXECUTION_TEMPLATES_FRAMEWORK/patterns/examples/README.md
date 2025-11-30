@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-792
+---
+
 # Examples Directory
 
 **Purpose**: Reference examples for each pattern, including generated outputs and glossary assets.

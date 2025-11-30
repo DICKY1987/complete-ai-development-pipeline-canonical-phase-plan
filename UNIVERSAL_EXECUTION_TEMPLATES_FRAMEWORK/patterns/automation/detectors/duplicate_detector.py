@@ -7,6 +7,7 @@ Usage:
     python duplicate_detector.py --scan-paths . --report duplicates.json
     python duplicate_detector.py --verify  # Verify no duplicates remain
 """
+DOC_ID: DOC-PAT-DETECTORS-DUPLICATE-DETECTOR-879
 
 from __future__ import annotations
 

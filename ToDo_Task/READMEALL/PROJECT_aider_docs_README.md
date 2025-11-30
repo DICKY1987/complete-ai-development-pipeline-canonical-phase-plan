@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROJECT-AIDER-DOCS-README-1570
+---
+
 # Aider Integration Documentation
 
 > **Purpose**: Documentation specific to Aider integration  

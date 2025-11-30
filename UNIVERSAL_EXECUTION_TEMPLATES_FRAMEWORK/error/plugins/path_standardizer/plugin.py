@@ -10,6 +10,7 @@ import re
 
 def validate_paths(file_paths: List[str], project_root: str, autofix: bool = False) -> Dict[str, Any]:
     """Validate and optionally fix path standards"""
+DOC_ID: DOC-ERROR-PATH-STANDARDIZER-PLUGIN-130
 
     check_script = Path(project_root) / "scripts" / "check-path-standards.sh"
     fix_script = Path(project_root) / "scripts" / "fix-path-standards.sh"

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-MODULE-REFACTOR-PATTERNS-GUIDE-754
+---
+
 # Module Refactor Patterns - Quick Reference
 
 ## Overview

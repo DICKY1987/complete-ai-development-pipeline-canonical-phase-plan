@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-959
+---
+
 # Converted Legacy Specs
 
 **Purpose**: Migrated legacy atom pattern specifications.

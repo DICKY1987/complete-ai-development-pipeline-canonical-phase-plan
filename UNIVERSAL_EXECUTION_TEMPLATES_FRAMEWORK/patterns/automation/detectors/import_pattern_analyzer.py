@@ -8,6 +8,7 @@ Usage:
     python import_pattern_analyzer.py --check-deprecated --fail-on-violation
     python import_pattern_analyzer.py --migrate --dry-run
 """
+DOC_ID: DOC-PAT-DETECTORS-IMPORT-PATTERN-ANALYZER-883
 
 from __future__ import annotations
 
