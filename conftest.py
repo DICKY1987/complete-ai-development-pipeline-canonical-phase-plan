@@ -2,6 +2,7 @@
 
 This file is loaded before any tests and sets up the Python path.
 """
+DOC_ID: DOC-CORE-CONFTEST-317
 DOC_ID: DOC-CORE-CONFTEST-240
 DOC_ID: DOC-CORE-CONFTEST-201
 DOC_ID: DOC-PAT-CONFTEST-690

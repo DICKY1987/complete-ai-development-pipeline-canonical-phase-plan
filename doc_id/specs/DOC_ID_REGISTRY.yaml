@@ -3,91 +3,91 @@ metadata:
   created: '2025-11-24'
   last_updated: '2025-11-30'
   spec_doc: doc_id/DOC_ID_FRAMEWORK.md
-  total_docs: 2096
+  total_docs: 2622
 categories:
   patterns:
     prefix: PAT
     description: UET patterns in UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/
-    count: 1192
-    next_id: 1193
+    count: 1344
+    next_id: 1345
     index_file: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/registry/PATTERN_INDEX.yaml
   core:
     prefix: CORE
     description: Core modules in core/
-    count: 278
-    next_id: 279
+    count: 317
+    next_id: 318
     index_file: core/CORE_MODULE_INDEX.yaml
   error:
     prefix: ERROR
     description: Error system modules and plugins in error/
-    count: 193
-    next_id: 194
+    count: 219
+    next_id: 220
     index_file: error/ERROR_PLUGIN_INDEX.yaml
   spec:
     prefix: SPEC
     description: Specifications and schemas
-    count: 66
-    next_id: 67
+    count: 91
+    next_id: 92
     index_file: specifications/SPEC_INDEX.yaml
   arch:
     prefix: ARCH
     description: Architecture decisions and design docs
-    count: 32
-    next_id: 33
+    count: 44
+    next_id: 45
     index_file: adr/ADR_INDEX.yaml
   aim:
     prefix: AIM
     description: AIM environment manager modules
-    count: 187
-    next_id: 188
+    count: 196
+    next_id: 197
     index_file: aim/AIM_INDEX.yaml
   pm:
     prefix: PM
     description: Project management artifacts
-    count: 220
-    next_id: 221
+    count: 273
+    next_id: 274
     index_file: pm/PM_INDEX.yaml
   infra:
     prefix: INFRA
     description: Infrastructure and deployment
-    count: 8
-    next_id: 9
+    count: 13
+    next_id: 14
     index_file: infra/INFRA_INDEX.yaml
   config:
     prefix: CONFIG
     description: Configuration files
-    count: 354
-    next_id: 355
+    count: 371
+    next_id: 372
     index_file: config/CONFIG_INDEX.yaml
   script:
     prefix: SCRIPT
     description: Automation scripts
-    count: 357
-    next_id: 358
+    count: 369
+    next_id: 370
     index_file: scripts/SCRIPT_INDEX.yaml
   test:
     prefix: TEST
     description: Test suites
-    count: 195
-    next_id: 196
+    count: 198
+    next_id: 199
     index_file: tests/TEST_INDEX.yaml
   guide:
     prefix: GUIDE
     description: User guides and documentation
-    count: 1841
-    next_id: 1842
+    count: 2001
+    next_id: 2002
     index_file: docs/GUIDE_INDEX.yaml
   legacy:
     prefix: LEGACY
     description: Legacy and archived files
-    count: 16
-    next_id: 17
+    count: 25
+    next_id: 26
     index_file: archive/LEGACY_INDEX.yaml
   task:
     prefix: TASK
     description: Task tracking and workstream artifacts
-    count: 6
-    next_id: 7
+    count: 10
+    next_id: 11
     index_file: workstreams/TASK_INDEX.yaml
 docs:
 - doc_id: DOC-GUIDE-DOC-ID-FRAMEWORK-001
@@ -25249,3 +25249,6315 @@ docs:
   last_modified: '2025-11-30'
   tags:
   - md
+- doc_id: DOC-CONFIG-CURRENT-355
+  category: config
+  name: current
+  title: 'JSON spec: current'
+  status: active
+  artifacts:
+  - type: source
+    path: .state/current.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-CONFIG-HEALTH-356
+  category: config
+  name: health
+  title: 'JSON spec: health'
+  status: active
+  artifacts:
+  - type: source
+    path: .state/health.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-GUIDE-INDEX-1842
+  category: guide
+  name: index
+  title: 'JSON spec: index'
+  status: active
+  artifacts:
+  - type: source
+    path: docs/index.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-CONFIG-BATCH-FINAL-COMPLETE-357
+  category: config
+  name: batch_final_complete
+  title: 'JSON spec: batch_final_complete'
+  status: active
+  artifacts:
+  - type: source
+    path: reports/batch_final_complete.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-CONFIG-BATCH-MD-1-358
+  category: config
+  name: batch_md_1
+  title: 'JSON spec: batch_md_1'
+  status: active
+  artifacts:
+  - type: source
+    path: reports/batch_md_1.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-CONFIG-BATCH-MD-2-359
+  category: config
+  name: batch_md_2
+  title: 'JSON spec: batch_md_2'
+  status: active
+  artifacts:
+  - type: source
+    path: reports/batch_md_2.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-CONFIG-BATCH-MD-3-360
+  category: config
+  name: batch_md_3
+  title: 'JSON spec: batch_md_3'
+  status: active
+  artifacts:
+  - type: source
+    path: reports/batch_md_3.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-LEGACY-RESULT-017
+  category: legacy
+  name: result
+  title: 'JSON spec: result'
+  status: active
+  artifacts:
+  - type: source
+    path: archive/2025-11-26_uet_root/2025-11-25_root_cleanup/result.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-ERROR-MANIFEST-194
+  category: error
+  name: manifest
+  title: 'JSON spec: manifest'
+  status: active
+  artifacts:
+  - type: source
+    path: error/plugins/codespell/manifest.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-ERROR-MANIFEST-195
+  category: error
+  name: manifest
+  title: 'JSON spec: manifest'
+  status: active
+  artifacts:
+  - type: source
+    path: error/plugins/echo/manifest.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-ERROR-MANIFEST-196
+  category: error
+  name: manifest
+  title: 'JSON spec: manifest'
+  status: active
+  artifacts:
+  - type: source
+    path: error/plugins/gitleaks/manifest.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-ERROR-MANIFEST-197
+  category: error
+  name: manifest
+  title: 'JSON spec: manifest'
+  status: active
+  artifacts:
+  - type: source
+    path: error/plugins/json_jq/manifest.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-ERROR-MANIFEST-198
+  category: error
+  name: manifest
+  title: 'JSON spec: manifest'
+  status: active
+  artifacts:
+  - type: source
+    path: error/plugins/js_eslint/manifest.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-ERROR-MANIFEST-199
+  category: error
+  name: manifest
+  title: 'JSON spec: manifest'
+  status: active
+  artifacts:
+  - type: source
+    path: error/plugins/js_prettier_fix/manifest.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-ERROR-MANIFEST-200
+  category: error
+  name: manifest
+  title: 'JSON spec: manifest'
+  status: active
+  artifacts:
+  - type: source
+    path: error/plugins/md_markdownlint/manifest.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-ERROR-MANIFEST-201
+  category: error
+  name: manifest
+  title: 'JSON spec: manifest'
+  status: active
+  artifacts:
+  - type: source
+    path: error/plugins/md_mdformat_fix/manifest.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-ERROR-MANIFEST-202
+  category: error
+  name: manifest
+  title: 'JSON spec: manifest'
+  status: active
+  artifacts:
+  - type: source
+    path: error/plugins/path_standardizer/manifest.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-ERROR-MANIFEST-203
+  category: error
+  name: manifest
+  title: 'JSON spec: manifest'
+  status: active
+  artifacts:
+  - type: source
+    path: error/plugins/powershell_pssa/manifest.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-ERROR-MANIFEST-204
+  category: error
+  name: manifest
+  title: 'JSON spec: manifest'
+  status: active
+  artifacts:
+  - type: source
+    path: error/plugins/python_bandit/manifest.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-ERROR-MANIFEST-205
+  category: error
+  name: manifest
+  title: 'JSON spec: manifest'
+  status: active
+  artifacts:
+  - type: source
+    path: error/plugins/python_black_fix/manifest.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-ERROR-MANIFEST-206
+  category: error
+  name: manifest
+  title: 'JSON spec: manifest'
+  status: active
+  artifacts:
+  - type: source
+    path: error/plugins/python_isort_fix/manifest.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-ERROR-MANIFEST-207
+  category: error
+  name: manifest
+  title: 'JSON spec: manifest'
+  status: active
+  artifacts:
+  - type: source
+    path: error/plugins/python_mypy/manifest.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-ERROR-MANIFEST-208
+  category: error
+  name: manifest
+  title: 'JSON spec: manifest'
+  status: active
+  artifacts:
+  - type: source
+    path: error/plugins/python_pylint/manifest.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-ERROR-MANIFEST-209
+  category: error
+  name: manifest
+  title: 'JSON spec: manifest'
+  status: active
+  artifacts:
+  - type: source
+    path: error/plugins/python_pyright/manifest.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-ERROR-MANIFEST-210
+  category: error
+  name: manifest
+  title: 'JSON spec: manifest'
+  status: active
+  artifacts:
+  - type: source
+    path: error/plugins/python_ruff/manifest.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-ERROR-MANIFEST-211
+  category: error
+  name: manifest
+  title: 'JSON spec: manifest'
+  status: active
+  artifacts:
+  - type: source
+    path: error/plugins/python_safety/manifest.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-ERROR-MANIFEST-212
+  category: error
+  name: manifest
+  title: 'JSON spec: manifest'
+  status: active
+  artifacts:
+  - type: source
+    path: error/plugins/semgrep/manifest.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-ERROR-MANIFEST-213
+  category: error
+  name: manifest
+  title: 'JSON spec: manifest'
+  status: active
+  artifacts:
+  - type: source
+    path: error/plugins/test_runner/manifest.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-ERROR-MANIFEST-214
+  category: error
+  name: manifest
+  title: 'JSON spec: manifest'
+  status: active
+  artifacts:
+  - type: source
+    path: error/plugins/yaml_yamllint/manifest.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-CORE-CURRENT-279
+  category: core
+  name: current
+  title: 'JSON spec: current'
+  status: active
+  artifacts:
+  - type: source
+    path: modules/aim-cli/.state/current.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-CORE-CURRENT-280
+  category: core
+  name: current
+  title: 'JSON spec: current'
+  status: active
+  artifacts:
+  - type: source
+    path: modules/aim-environment/.state/current.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-CORE-CURRENT-281
+  category: core
+  name: current
+  title: 'JSON spec: current'
+  status: active
+  artifacts:
+  - type: source
+    path: modules/aim-registry/.state/current.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-CORE-CURRENT-282
+  category: core
+  name: current
+  title: 'JSON spec: current'
+  status: active
+  artifacts:
+  - type: source
+    path: modules/aim-services/.state/current.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-CORE-CURRENT-283
+  category: core
+  name: current
+  title: 'JSON spec: current'
+  status: active
+  artifacts:
+  - type: source
+    path: modules/aim-tests/.state/current.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-CORE-CURRENT-284
+  category: core
+  name: current
+  title: 'JSON spec: current'
+  status: active
+  artifacts:
+  - type: source
+    path: modules/core-ast/.state/current.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-CORE-CURRENT-285
+  category: core
+  name: current
+  title: 'JSON spec: current'
+  status: active
+  artifacts:
+  - type: source
+    path: modules/core-engine/.state/current.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-CORE-CURRENT-286
+  category: core
+  name: current
+  title: 'JSON spec: current'
+  status: active
+  artifacts:
+  - type: source
+    path: modules/core-planning/.state/current.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-CORE-CURRENT-287
+  category: core
+  name: current
+  title: 'JSON spec: current'
+  status: active
+  artifacts:
+  - type: source
+    path: modules/core-state/.state/current.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-CORE-CURRENT-288
+  category: core
+  name: current
+  title: 'JSON spec: current'
+  status: active
+  artifacts:
+  - type: source
+    path: modules/error-engine/.state/current.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-CORE-CURRENT-289
+  category: core
+  name: current
+  title: 'JSON spec: current'
+  status: active
+  artifacts:
+  - type: source
+    path: modules/error-plugin-codespell/.state/current.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-CORE-CURRENT-290
+  category: core
+  name: current
+  title: 'JSON spec: current'
+  status: active
+  artifacts:
+  - type: source
+    path: modules/error-plugin-echo/.state/current.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-CORE-CURRENT-291
+  category: core
+  name: current
+  title: 'JSON spec: current'
+  status: active
+  artifacts:
+  - type: source
+    path: modules/error-plugin-gitleaks/.state/current.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-CORE-CURRENT-292
+  category: core
+  name: current
+  title: 'JSON spec: current'
+  status: active
+  artifacts:
+  - type: source
+    path: modules/error-plugin-js-eslint/.state/current.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-CORE-CURRENT-293
+  category: core
+  name: current
+  title: 'JSON spec: current'
+  status: active
+  artifacts:
+  - type: source
+    path: modules/error-plugin-js-prettier-fix/.state/current.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-CORE-CURRENT-294
+  category: core
+  name: current
+  title: 'JSON spec: current'
+  status: active
+  artifacts:
+  - type: source
+    path: modules/error-plugin-json-jq/.state/current.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-CORE-CURRENT-295
+  category: core
+  name: current
+  title: 'JSON spec: current'
+  status: active
+  artifacts:
+  - type: source
+    path: modules/error-plugin-md-markdownlint/.state/current.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-CORE-CURRENT-296
+  category: core
+  name: current
+  title: 'JSON spec: current'
+  status: active
+  artifacts:
+  - type: source
+    path: modules/error-plugin-md-mdformat-fix/.state/current.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-CORE-CURRENT-297
+  category: core
+  name: current
+  title: 'JSON spec: current'
+  status: active
+  artifacts:
+  - type: source
+    path: modules/error-plugin-path-standardizer/.state/current.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-CORE-CURRENT-298
+  category: core
+  name: current
+  title: 'JSON spec: current'
+  status: active
+  artifacts:
+  - type: source
+    path: modules/error-plugin-powershell-pssa/.state/current.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-CORE-CURRENT-299
+  category: core
+  name: current
+  title: 'JSON spec: current'
+  status: active
+  artifacts:
+  - type: source
+    path: modules/error-plugin-python-bandit/.state/current.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-CORE-CURRENT-300
+  category: core
+  name: current
+  title: 'JSON spec: current'
+  status: active
+  artifacts:
+  - type: source
+    path: modules/error-plugin-python-black-fix/.state/current.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-CORE-CURRENT-301
+  category: core
+  name: current
+  title: 'JSON spec: current'
+  status: active
+  artifacts:
+  - type: source
+    path: modules/error-plugin-python-isort-fix/.state/current.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-CORE-CURRENT-302
+  category: core
+  name: current
+  title: 'JSON spec: current'
+  status: active
+  artifacts:
+  - type: source
+    path: modules/error-plugin-python-mypy/.state/current.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-CORE-CURRENT-303
+  category: core
+  name: current
+  title: 'JSON spec: current'
+  status: active
+  artifacts:
+  - type: source
+    path: modules/error-plugin-python-pylint/.state/current.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-CORE-CURRENT-304
+  category: core
+  name: current
+  title: 'JSON spec: current'
+  status: active
+  artifacts:
+  - type: source
+    path: modules/error-plugin-python-pyright/.state/current.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-CORE-CURRENT-305
+  category: core
+  name: current
+  title: 'JSON spec: current'
+  status: active
+  artifacts:
+  - type: source
+    path: modules/error-plugin-python-ruff/.state/current.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-CORE-CURRENT-306
+  category: core
+  name: current
+  title: 'JSON spec: current'
+  status: active
+  artifacts:
+  - type: source
+    path: modules/error-plugin-python-safety/.state/current.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-CORE-CURRENT-307
+  category: core
+  name: current
+  title: 'JSON spec: current'
+  status: active
+  artifacts:
+  - type: source
+    path: modules/error-plugin-semgrep/.state/current.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-CORE-CURRENT-308
+  category: core
+  name: current
+  title: 'JSON spec: current'
+  status: active
+  artifacts:
+  - type: source
+    path: modules/error-plugin-test-runner/.state/current.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-CORE-CURRENT-309
+  category: core
+  name: current
+  title: 'JSON spec: current'
+  status: active
+  artifacts:
+  - type: source
+    path: modules/error-plugin-yaml-yamllint/.state/current.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-CORE-CURRENT-310
+  category: core
+  name: current
+  title: 'JSON spec: current'
+  status: active
+  artifacts:
+  - type: source
+    path: modules/pm-integrations/.state/current.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-CORE-CURRENT-311
+  category: core
+  name: current
+  title: 'JSON spec: current'
+  status: active
+  artifacts:
+  - type: source
+    path: modules/specifications-tools/.state/current.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-PAT-DOC-ID-MAPPING-1193
+  category: patterns
+  name: doc_id_mapping
+  title: 'JSON spec: doc_id_mapping'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/registry/doc_id_mapping.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-PAT-BATCH-CREATE-SCHEMA-1194
+  category: patterns
+  name: batch_create_schema
+  title: 'JSON spec: batch_create.schema'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/schemas/batch_create.schema.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-PAT-GLOSSARY-EXPORT-SCHEMA-1195
+  category: patterns
+  name: glossary_export_schema
+  title: 'JSON spec: glossary_export.schema'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/schemas/glossary_export.schema.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-PAT-GLOSSARY-SYNC-SCHEMA-1196
+  category: patterns
+  name: glossary_sync_schema
+  title: 'JSON spec: glossary_sync.schema'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/schemas/glossary_sync.schema.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-PAT-GLOSSARY-VALIDATE-SCHEMA-1197
+  category: patterns
+  name: glossary_validate_schema
+  title: 'JSON spec: glossary_validate.schema'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/schemas/glossary_validate.schema.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-PAT-MODULE-CREATION-SCHEMA-1198
+  category: patterns
+  name: module_creation_schema
+  title: 'JSON spec: module_creation.schema'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/schemas/module_creation.schema.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-PAT-REFACTOR-PATCH-SCHEMA-1199
+  category: patterns
+  name: refactor_patch_schema
+  title: 'JSON spec: refactor_patch.schema'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/schemas/refactor_patch.schema.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-PAT-SELF-HEAL-SCHEMA-1200
+  category: patterns
+  name: self_heal_schema
+  title: 'JSON spec: self_heal.schema'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/schemas/self_heal.schema.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-PAT-VERIFY-COMMIT-SCHEMA-1201
+  category: patterns
+  name: verify_commit_schema
+  title: 'JSON spec: verify_commit.schema'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/schemas/verify_commit.schema.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-PAT-WORKTREE-LIFECYCLE-SCHEMA-1202
+  category: patterns
+  name: worktree_lifecycle_schema
+  title: 'JSON spec: worktree_lifecycle.schema'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/schemas/worktree_lifecycle.schema.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-PAT-INSTANCE-FULL-1203
+  category: patterns
+  name: instance_full
+  title: 'JSON spec: instance_full'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/batch_create/instance_full.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-PAT-INSTANCE-MINIMAL-1204
+  category: patterns
+  name: instance_minimal
+  title: 'JSON spec: instance_minimal'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/batch_create/instance_minimal.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-PAT-INSTANCE-TEST-1205
+  category: patterns
+  name: instance_test
+  title: 'JSON spec: instance_test'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/batch_create/instance_test.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-PAT-EXPORT-HTML-1206
+  category: patterns
+  name: export_html
+  title: 'JSON spec: export_html'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/glossary/export_html.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-PAT-EXPORT-JSON-1207
+  category: patterns
+  name: export_json
+  title: 'JSON spec: export_json'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/glossary/export_json.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-PAT-SYNC-CODEBASE-1208
+  category: patterns
+  name: sync_codebase
+  title: 'JSON spec: sync_codebase'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/glossary/sync_codebase.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-PAT-VALIDATE-FULL-1209
+  category: patterns
+  name: validate_full
+  title: 'JSON spec: validate_full'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/glossary/validate_full.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-PAT-VALIDATE-QUICK-1210
+  category: patterns
+  name: validate_quick
+  title: 'JSON spec: validate_quick'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/glossary/validate_quick.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-PAT-INSTANCE-FULL-1211
+  category: patterns
+  name: instance_full
+  title: 'JSON spec: instance_full'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/module_creation/instance_full.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-PAT-INSTANCE-MINIMAL-1212
+  category: patterns
+  name: instance_minimal
+  title: 'JSON spec: instance_minimal'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/module_creation/instance_minimal.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-PAT-INSTANCE-TEST-1213
+  category: patterns
+  name: instance_test
+  title: 'JSON spec: instance_test'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/module_creation/instance_test.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-PAT-INSTANCE-FULL-1214
+  category: patterns
+  name: instance_full
+  title: 'JSON spec: instance_full'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/refactor_patch/instance_full.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-PAT-INSTANCE-MINIMAL-1215
+  category: patterns
+  name: instance_minimal
+  title: 'JSON spec: instance_minimal'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/refactor_patch/instance_minimal.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-PAT-INSTANCE-TEST-1216
+  category: patterns
+  name: instance_test
+  title: 'JSON spec: instance_test'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/refactor_patch/instance_test.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-PAT-INSTANCE-FULL-1217
+  category: patterns
+  name: instance_full
+  title: 'JSON spec: instance_full'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/self_heal/instance_full.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-PAT-INSTANCE-MINIMAL-1218
+  category: patterns
+  name: instance_minimal
+  title: 'JSON spec: instance_minimal'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/self_heal/instance_minimal.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-PAT-INSTANCE-TEST-1219
+  category: patterns
+  name: instance_test
+  title: 'JSON spec: instance_test'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/self_heal/instance_test.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-PAT-INSTANCE-FULL-1220
+  category: patterns
+  name: instance_full
+  title: 'JSON spec: instance_full'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/verify_commit/instance_full.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-PAT-INSTANCE-MINIMAL-1221
+  category: patterns
+  name: instance_minimal
+  title: 'JSON spec: instance_minimal'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/verify_commit/instance_minimal.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-PAT-INSTANCE-TEST-1222
+  category: patterns
+  name: instance_test
+  title: 'JSON spec: instance_test'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/verify_commit/instance_test.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-PAT-INSTANCE-FULL-1223
+  category: patterns
+  name: instance_full
+  title: 'JSON spec: instance_full'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/worktree_lifecycle/instance_full.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-PAT-INSTANCE-MINIMAL-1224
+  category: patterns
+  name: instance_minimal
+  title: 'JSON spec: instance_minimal'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/worktree_lifecycle/instance_minimal.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-PAT-INSTANCE-TEST-1225
+  category: patterns
+  name: instance_test
+  title: 'JSON spec: instance_test'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/worktree_lifecycle/instance_test.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-CONFIG-PROFILE-361
+  category: config
+  name: profile
+  title: 'JSON spec: profile'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/profiles/data-pipeline/profile.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-GUIDE-PROFILE-1843
+  category: guide
+  name: profile
+  title: 'JSON spec: profile'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/profiles/documentation/profile.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-CONFIG-PROFILE-362
+  category: config
+  name: profile
+  title: 'JSON spec: profile'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/profiles/generic/profile.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-CONFIG-PROFILE-363
+  category: config
+  name: profile
+  title: 'JSON spec: profile'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/profiles/operations/profile.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-CONFIG-PROFILE-364
+  category: config
+  name: profile
+  title: 'JSON spec: profile'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/profiles/software-dev-python/profile.json
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - json
+- doc_id: DOC-GUIDE-CLAUDE-1844
+  category: guide
+  name: claude
+  title: Claude
+  status: active
+  artifacts:
+  - type: source
+    path: CLAUDE.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-1845
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-CONTEXT-1846
+  category: guide
+  name: context
+  title: Context
+  status: active
+  artifacts:
+  - type: source
+    path: .ai/context.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-CLAUDE-1847
+  category: guide
+  name: claude
+  title: Claude
+  status: active
+  artifacts:
+  - type: source
+    path: .config/claude.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-1848
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: abstraction/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-ARCH-DOC-ADR-0001-WORKSTREAM-MODEL-CHOICE-033
+  category: arch
+  name: doc_adr_0001_workstream_model_choice
+  title: Doc Adr 0001 Workstream Model Choice
+  status: active
+  artifacts:
+  - type: source
+    path: adr/DOC_ADR_0001_WORKSTREAM_MODEL_CHOICE.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-ARCH-DOC-ADR-0002-HYBRID-ARCHITECTURE-034
+  category: arch
+  name: doc_adr_0002_hybrid_architecture
+  title: Doc Adr 0002 Hybrid Architecture
+  status: active
+  artifacts:
+  - type: source
+    path: adr/DOC_ADR_0002_HYBRID_ARCHITECTURE.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-ARCH-DOC-ADR-0003-SQLITE-STATE-STORAGE-035
+  category: arch
+  name: doc_adr_0003_sqlite_state_storage
+  title: Doc Adr 0003 Sqlite State Storage
+  status: active
+  artifacts:
+  - type: source
+    path: adr/DOC_ADR_0003_SQLITE_STATE_STORAGE.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-ARCH-DOC-ADR-0004-SECTION-BASED-ORGANIZATION-036
+  category: arch
+  name: doc_adr_0004_section_based_organization
+  title: Doc Adr 0004 Section Based Organization
+  status: active
+  artifacts:
+  - type: source
+    path: adr/DOC_ADR_0004_SECTION_BASED_ORGANIZATION.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-ARCH-DOC-ADR-0005-PYTHON-PRIMARY-LANGUAGE-037
+  category: arch
+  name: doc_adr_0005_python_primary_language
+  title: Doc Adr 0005 Python Primary Language
+  status: active
+  artifacts:
+  - type: source
+    path: adr/DOC_ADR_0005_PYTHON_PRIMARY_LANGUAGE.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-ARCH-DOC-ADR-0006-SPECIFICATIONS-UNIFIED-038
+  category: arch
+  name: doc_adr_0006_specifications_unified
+  title: Doc Adr 0006 Specifications Unified Management
+  status: active
+  artifacts:
+  - type: source
+    path: adr/DOC_ADR_0006_SPECIFICATIONS_UNIFIED_MANAGEMENT.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-ARCH-DOC-ADR-0007-ERROR-PLUGIN-ARCHITECTURE-039
+  category: arch
+  name: doc_adr_0007_error_plugin_architecture
+  title: Doc Adr 0007 Error Plugin Architecture
+  status: active
+  artifacts:
+  - type: source
+    path: adr/DOC_ADR_0007_ERROR_PLUGIN_ARCHITECTURE.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-ARCH-DOC-ADR-0008-DATABASE-LOCATION-WORKTREE-040
+  category: arch
+  name: doc_adr_0008_database_location_worktree
+  title: Doc Adr 0008 Database Location Worktree
+  status: active
+  artifacts:
+  - type: source
+    path: adr/DOC_ADR_0008_DATABASE_LOCATION_WORKTREE.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-ARCH-DOC-ADR-ERROR-UTILS-LOCATION-041
+  category: arch
+  name: doc_adr_error_utils_location
+  title: Doc Adr Error Utils Location
+  status: active
+  artifacts:
+  - type: source
+    path: adr/DOC_ADR_ERROR_UTILS_LOCATION.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-ARCH-DOC-ADR-SPEC-TOOLING-CONSOLIDATION-042
+  category: arch
+  name: doc_adr_spec_tooling_consolidation
+  title: Doc Adr Spec Tooling Consolidation
+  status: active
+  artifacts:
+  - type: source
+    path: adr/DOC_ADR_SPEC_TOOLING_CONSOLIDATION.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-ARCH-README-043
+  category: arch
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: adr/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-ARCH-TEMPLATE-044
+  category: arch
+  name: template
+  title: Template
+  status: active
+  artifacts:
+  - type: source
+    path: adr/template.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-QUICKSTART-1849
+  category: guide
+  name: quickstart
+  title: Quickstart
+  status: active
+  artifacts:
+  - type: source
+    path: ai-logs-analyzer/QUICKSTART.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-1850
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: ai-logs-analyzer/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-1851
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: aider/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-AIM-DEPENDENCIES-188
+  category: aim
+  name: dependencies
+  title: Dependencies
+  status: active
+  artifacts:
+  - type: source
+    path: aim/DEPENDENCIES.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-AIM-MODULE-189
+  category: aim
+  name: module
+  title: Module
+  status: active
+  artifacts:
+  - type: source
+    path: aim/MODULE.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-AIM-README-190
+  category: aim
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: aim/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-AIM-STATUS-191
+  category: aim
+  name: status
+  title: Status
+  status: active
+  artifacts:
+  - type: source
+    path: aim/STATUS.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-AIM-STRUCTURE-192
+  category: aim
+  name: structure
+  title: Structure
+  status: active
+  artifacts:
+  - type: source
+    path: aim/STRUCTURE.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-1852
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: assets/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-AGENTS-1853
+  category: guide
+  name: agents
+  title: Agents
+  status: active
+  artifacts:
+  - type: source
+    path: ccpm/AGENTS.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-CHANGELOG-1854
+  category: guide
+  name: changelog
+  title: Changelog
+  status: active
+  artifacts:
+  - type: source
+    path: ccpm/CHANGELOG.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-CLAUDE-1855
+  category: guide
+  name: claude
+  title: Claude
+  status: active
+  artifacts:
+  - type: source
+    path: ccpm/CLAUDE.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-COMMANDS-1856
+  category: guide
+  name: commands
+  title: Commands
+  status: active
+  artifacts:
+  - type: source
+    path: ccpm/COMMANDS.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-1857
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: ccpm/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-CONFIG-README-365
+  category: config
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: config/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-CORE-README-312
+  category: core
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: core/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-CORE-STRUCTURE-313
+  category: core
+  name: structure
+  title: Structure
+  status: active
+  artifacts:
+  - type: source
+    path: core/STRUCTURE.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-ACS-USAGE-GUIDE-1858
+  category: guide
+  name: doc_acs_usage_guide
+  title: Doc Acs Usage Guide
+  status: active
+  artifacts:
+  - type: source
+    path: docs/DOC_ACS_USAGE_GUIDE.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-AGENTS-1859
+  category: guide
+  name: doc_agents
+  title: Doc Agents
+  status: active
+  artifacts:
+  - type: source
+    path: docs/DOC_AGENTS.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-AGENT-ANALYSIS-AND-RECOMMENDATIONS-1860
+  category: guide
+  name: doc_agent_analysis_and_recommendations
+  title: Doc Agent Analysis And Recommendations
+  status: active
+  artifacts:
+  - type: source
+    path: docs/DOC_AGENT_ANALYSIS_AND_RECOMMENDATIONS.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-AGENT-GUIDE-START-HERE-1861
+  category: guide
+  name: doc_agent_guide_start_here
+  title: Doc Agent Guide Start Here
+  status: active
+  artifacts:
+  - type: source
+    path: docs/DOC_AGENT_GUIDE_START_HERE.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-AGENT-QUICK-REFERENCE-1862
+  category: guide
+  name: doc_agent_quick_reference
+  title: Doc Agent Quick Reference
+  status: active
+  artifacts:
+  - type: source
+    path: docs/DOC_AGENT_QUICK_REFERENCE.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-AIDER-CONTRACT-1863
+  category: guide
+  name: doc_aider_contract
+  title: Doc Aider Contract
+  status: active
+  artifacts:
+  - type: source
+    path: docs/DOC_AIDER_CONTRACT.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-AIM-INTEGRATION-STATUS-1864
+  category: guide
+  name: doc_aim_integration_status
+  title: Doc Aim Integration Status
+  status: active
+  artifacts:
+  - type: source
+    path: docs/DOC_AIM_INTEGRATION_STATUS.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-AI-CONTEXT-1865
+  category: guide
+  name: doc_ai_context
+  title: Doc Ai Context
+  status: active
+  artifacts:
+  - type: source
+    path: docs/DOC_AI_CONTEXT.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-ANTI-PATTERN-11-FRAMEWORK-OVER-1866
+  category: guide
+  name: doc_anti_pattern_11_framework_over
+  title: Doc Anti Pattern 11 Framework Over Engineering
+  status: active
+  artifacts:
+  - type: source
+    path: docs/DOC_ANTI_PATTERN_11_FRAMEWORK_OVER_ENGINEERING.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-ARCHITECTURE-1867
+  category: guide
+  name: doc_architecture
+  title: Doc Architecture
+  status: active
+  artifacts:
+  - type: source
+    path: docs/DOC_ARCHITECTURE.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-CI-PATH-STANDARDS-1868
+  category: guide
+  name: doc_ci_path_standards
+  title: Doc Ci Path Standards
+  status: active
+  artifacts:
+  - type: source
+    path: docs/DOC_CI_PATH_STANDARDS.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-CLEANUP-LOG-1869
+  category: guide
+  name: doc_cleanup_log
+  title: Doc Cleanup Log
+  status: active
+  artifacts:
+  - type: source
+    path: docs/DOC_CLEANUP_LOG.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-CONFIGURATION-GUIDE-1870
+  category: guide
+  name: doc_configuration_guide
+  title: Doc Configuration Guide
+  status: active
+  artifacts:
+  - type: source
+    path: docs/DOC_CONFIGURATION_GUIDE.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-COORDINATION-GUIDE-1871
+  category: guide
+  name: doc_coordination_guide
+  title: Doc Coordination Guide
+  status: active
+  artifacts:
+  - type: source
+    path: docs/DOC_COORDINATION_GUIDE.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-DATA-FLOWS-1872
+  category: guide
+  name: doc_data_flows
+  title: Doc Data Flows
+  status: active
+  artifacts:
+  - type: source
+    path: docs/DOC_DATA_FLOWS.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-DEPENDENCIES-1873
+  category: guide
+  name: doc_dependencies
+  title: Doc Dependencies
+  status: active
+  artifacts:
+  - type: source
+    path: docs/DOC_DEPENDENCIES.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-DOCUMENTATION-CLEANUP-PATTERN-1874
+  category: guide
+  name: doc_documentation_cleanup_pattern
+  title: Doc Documentation Cleanup Pattern
+  status: active
+  artifacts:
+  - type: source
+    path: docs/DOC_DOCUMENTATION_CLEANUP_PATTERN.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-DOCUMENTATION-INDEX-1875
+  category: guide
+  name: doc_documentation_index
+  title: Doc Documentation Index
+  status: active
+  artifacts:
+  - type: source
+    path: docs/DOC_DOCUMENTATION_INDEX.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-ENGINE-QUICK-REFERENCE-1876
+  category: guide
+  name: doc_engine_quick_reference
+  title: Doc Engine Quick Reference
+  status: active
+  artifacts:
+  - type: source
+    path: docs/DOC_ENGINE_QUICK_REFERENCE.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-ERROR-CATALOG-1877
+  category: guide
+  name: doc_error_catalog
+  title: Doc Error Catalog
+  status: active
+  artifacts:
+  - type: source
+    path: docs/DOC_ERROR_CATALOG.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-FILE-ORGANIZATION-QUICK-REF-1878
+  category: guide
+  name: doc_file_organization_quick_ref
+  title: Doc File Organization Quick Ref
+  status: active
+  artifacts:
+  - type: source
+    path: docs/DOC_FILE_ORGANIZATION_QUICK_REF.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-FILE-ORGANIZATION-SYSTEM-1879
+  category: guide
+  name: doc_file_organization_system
+  title: Doc File Organization System
+  status: active
+  artifacts:
+  - type: source
+    path: docs/DOC_FILE_ORGANIZATION_SYSTEM.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-FOLDER-VERSION-SCORING-SPEC-1880
+  category: guide
+  name: doc_folder_version_scoring_spec
+  title: Doc Folder Version Scoring Spec
+  status: active
+  artifacts:
+  - type: source
+    path: docs/DOC_FOLDER_VERSION_SCORING_SPEC.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-GUI-QUICK-START-1881
+  category: guide
+  name: doc_gui_quick_start
+  title: Doc Gui Quick Start
+  status: active
+  artifacts:
+  - type: source
+    path: docs/DOC_GUI_QUICK_START.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-HARDCODED-PATH-INDEXER-1882
+  category: guide
+  name: doc_hardcoded_path_indexer
+  title: Doc Hardcoded Path Indexer
+  status: active
+  artifacts:
+  - type: source
+    path: docs/DOC_HARDCODED_PATH_INDEXER.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-ID-COMPLETE-EXECUTION-SUMMARY-1883
+  category: guide
+  name: doc_id_complete_execution_summary
+  title: Doc Id Complete Execution Summary
+  status: active
+  artifacts:
+  - type: source
+    path: docs/DOC_ID_COMPLETE_EXECUTION_SUMMARY.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-IMPLEMENTATION-LOCATIONS-1884
+  category: guide
+  name: doc_implementation_locations
+  title: Doc Implementation Locations
+  status: active
+  artifacts:
+  - type: source
+    path: docs/DOC_IMPLEMENTATION_LOCATIONS.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-MODULE-CENTRIC-ARCHITECTURE-OVERVIEW-1885
+  category: guide
+  name: doc_module_centric_architecture_overview
+  title: Doc Module Centric Architecture Overview
+  status: active
+  artifacts:
+  - type: source
+    path: docs/DOC_MODULE_CENTRIC_ARCHITECTURE_OVERVIEW.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-MODULE-CENTRIC-IMPLEMENTATION-1886
+  category: guide
+  name: doc_module_centric_implementation
+  title: Doc Module Centric Implementation Summary
+  status: active
+  artifacts:
+  - type: source
+    path: docs/DOC_MODULE_CENTRIC_IMPLEMENTATION_SUMMARY.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-MODULE-CENTRIC-MIGRATION-GUIDE-1887
+  category: guide
+  name: doc_module_centric_migration_guide
+  title: Doc Module Centric Migration Guide
+  status: active
+  artifacts:
+  - type: source
+    path: docs/DOC_MODULE_CENTRIC_MIGRATION_GUIDE.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-PLUGIN-ECOSYSTEM-SUMMARY-1888
+  category: guide
+  name: doc_plugin_ecosystem_summary
+  title: Doc Plugin Ecosystem Summary
+  status: active
+  artifacts:
+  - type: source
+    path: docs/DOC_PLUGIN_ECOSYSTEM_SUMMARY.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-PLUGIN-QUICK-REFERENCE-1889
+  category: guide
+  name: doc_plugin_quick_reference
+  title: Doc Plugin Quick Reference
+  status: active
+  artifacts:
+  - type: source
+    path: docs/DOC_PLUGIN_QUICK_REFERENCE.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-PLUGIN-TEST-SUITE-SUMMARY-1890
+  category: guide
+  name: doc_plugin_test_suite_summary
+  title: Doc Plugin Test Suite Summary
+  status: active
+  artifacts:
+  - type: source
+    path: docs/DOC_PLUGIN_TEST_SUITE_SUMMARY.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-SAFE-RENAME-STRATEGY-1891
+  category: guide
+  name: doc_safe_rename_strategy
+  title: Doc Safe Rename Strategy
+  status: active
+  artifacts:
+  - type: source
+    path: docs/DOC_SAFE_RENAME_STRATEGY.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-SOFT-SANDBOX-PATTERN-1892
+  category: guide
+  name: doc_soft_sandbox_pattern
+  title: Doc Soft Sandbox Pattern
+  status: active
+  artifacts:
+  - type: source
+    path: docs/DOC_SOFT_SANDBOX_PATTERN.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-SPEC-MANAGEMENT-CONTRACT-1893
+  category: guide
+  name: doc_spec_management_contract
+  title: Doc Spec Management Contract
+  status: active
+  artifacts:
+  - type: source
+    path: docs/DOC_SPEC_MANAGEMENT_CONTRACT.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-SPEC-MIGRATION-GUIDE-1894
+  category: guide
+  name: doc_spec_migration_guide
+  title: Doc Spec Migration Guide
+  status: active
+  artifacts:
+  - type: source
+    path: docs/DOC_SPEC_MIGRATION_GUIDE.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-SPEC-TOOLING-CONSOLIDATION-1895
+  category: guide
+  name: doc_spec_tooling_consolidation
+  title: Doc Spec Tooling Consolidation
+  status: active
+  artifacts:
+  - type: source
+    path: docs/DOC_SPEC_TOOLING_CONSOLIDATION.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-STATE-MACHINE-1896
+  category: guide
+  name: doc_state_machine
+  title: Doc State Machine
+  status: active
+  artifacts:
+  - type: source
+    path: docs/DOC_STATE_MACHINE.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-TOOLS-INSTRUCTIONS-CONFIG-1897
+  category: guide
+  name: doc_tools_instructions_config
+  title: Doc Tools Instructions Config
+  status: active
+  artifacts:
+  - type: source
+    path: docs/DOC_TOOLS_INSTRUCTIONS_CONFIG.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-WORKSTREAM-PROMPT-STRUCTURE-1898
+  category: guide
+  name: doc_workstream_prompt_structure
+  title: Doc Workstream Prompt Structure
+  status: active
+  artifacts:
+  - type: source
+    path: docs/DOC_WORKSTREAM_PROMPT_STRUCTURE.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-ZERO-TOUCH-SYNC-DESIGN-1899
+  category: guide
+  name: doc_zero_touch_sync_design
+  title: Doc Zero Touch Sync Design
+  status: active
+  artifacts:
+  - type: source
+    path: docs/DOC_ZERO_TOUCH_SYNC_DESIGN.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-COMPLETE-REPO-ID-COVERAGE-PLAN-1900
+  category: guide
+  name: complete_repo_id_coverage_plan
+  title: Complete Repo Id Coverage Plan
+  status: active
+  artifacts:
+  - type: source
+    path: doc_id/COMPLETE_REPO_ID_COVERAGE_PLAN.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-1901
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: doc_id/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-1902
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: engine/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-ERROR-AGENTS-215
+  category: error
+  name: agents
+  title: Agents
+  status: active
+  artifacts:
+  - type: source
+    path: error/AGENTS.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-ERROR-README-216
+  category: error
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: error/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-1903
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: examples/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-GLOSSARY-1904
+  category: guide
+  name: glossary
+  title: Glossary
+  status: active
+  artifacts:
+  - type: source
+    path: glossary/glossary.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-1905
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: glossary/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-CLAUDE-1906
+  category: guide
+  name: claude
+  title: Claude
+  status: active
+  artifacts:
+  - type: source
+    path: gui/CLAUDE.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-1907
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: gui/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-INFRA-README-009
+  category: infra
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: infra/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-SPEC-PROJECT-067
+  category: spec
+  name: project
+  title: Project
+  status: active
+  artifacts:
+  - type: source
+    path: openspec/project.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-SPEC-README-068
+  category: spec
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: openspec/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PM-CONTRACT-221
+  category: pm
+  name: contract
+  title: Contract
+  status: active
+  artifacts:
+  - type: source
+    path: pm/CONTRACT.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PM-MODULE-222
+  category: pm
+  name: module
+  title: Module
+  status: active
+  artifacts:
+  - type: source
+    path: pm/MODULE.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PM-README-223
+  category: pm
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: pm/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PM-CCPMW-224
+  category: pm
+  name: ccpmw
+  title: '  Ccpmw'
+  status: active
+  artifacts:
+  - type: source
+    path: pm/__ccpmw.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-1908
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: prompting/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-1909
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: REFACTOR_2/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-1910
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: registry/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-SPEC-README-069
+  category: spec
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: schema/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-SCRIPT-README-358
+  category: script
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-SPEC-README-070
+  category: spec
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: specifications/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-TEST-README-196
+  category: test
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: tests/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-SCRIPT-README-359
+  category: script
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: tools/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-CLAUDE-1911
+  category: guide
+  name: claude
+  title: Claude
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/CLAUDE.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-1912
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-TASK-README-007
+  category: task
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: workstreams/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DATETIME-1913
+  category: guide
+  name: datetime
+  title: Datetime
+  status: active
+  artifacts:
+  - type: source
+    path: .claude/rules/datetime.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PM-HELP-225
+  category: pm
+  name: help
+  title: Help
+  status: active
+  artifacts:
+  - type: source
+    path: .claude/commands/pm/help.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PM-NEXT-226
+  category: pm
+  name: next
+  title: Next
+  status: active
+  artifacts:
+  - type: source
+    path: .claude/commands/pm/next.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PM-STATUS-227
+  category: pm
+  name: status
+  title: Status
+  status: active
+  artifacts:
+  - type: source
+    path: .claude/commands/pm/status.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-1914
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: aider/docs/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-AIM-AGENTS-193
+  category: aim
+  name: agents
+  title: Agents
+  status: active
+  artifacts:
+  - type: source
+    path: aim/.AIM_ai-tools-registry/AGENTS.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-AIM-CLAUDE-194
+  category: aim
+  name: claude
+  title: Claude
+  status: active
+  artifacts:
+  - type: source
+    path: aim/.AIM_ai-tools-registry/CLAUDE.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-AIM-README-195
+  category: aim
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: aim/config/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-AIM-README-196
+  category: aim
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: aim/services/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-AGENTS-1915
+  category: guide
+  name: agents
+  title: Agents
+  status: active
+  artifacts:
+  - type: source
+    path: AI_SANDBOX/_template_sandbox/AGENTS.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-CLAUDE-1916
+  category: guide
+  name: claude
+  title: Claude
+  status: active
+  artifacts:
+  - type: source
+    path: AI_SANDBOX/_template_sandbox/CLAUDE.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-1917
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: AI_SANDBOX/_template_sandbox/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DEV-RULES-CORE-1918
+  category: guide
+  name: dev_rules_core
+  title: Dev Rules Core
+  status: active
+  artifacts:
+  - type: source
+    path: AI_SANDBOX/_template_sandbox/docs/DEV_RULES_CORE.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-LEGACY-ARCHITECTURE-018
+  category: legacy
+  name: architecture
+  title: Architecture
+  status: active
+  artifacts:
+  - type: source
+    path: archive/2025-11-26_developer/2025-11/error_legacy/ARCHITECTURE.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-LEGACY-DEPRECATED-019
+  category: legacy
+  name: deprecated
+  title: Deprecated
+  status: active
+  artifacts:
+  - type: source
+    path: archive/2025-11-26_docs/navigation/DEPRECATED.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-1919
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: ccpm/install/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-PROMPT-1920
+  category: guide
+  name: prompt
+  title: Prompt
+  status: active
+  artifacts:
+  - type: source
+    path: ccpm/ccpm/commands/prompt.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-1921
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: ccpm/ccpm/context/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-1922
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: ccpm/ccpm/hooks/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DATETIME-1923
+  category: guide
+  name: datetime
+  title: Datetime
+  status: active
+  artifacts:
+  - type: source
+    path: ccpm/ccpm/rules/datetime.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-CREATE-1924
+  category: guide
+  name: create
+  title: Create
+  status: active
+  artifacts:
+  - type: source
+    path: ccpm/ccpm/commands/context/create.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-PRIME-1925
+  category: guide
+  name: prime
+  title: Prime
+  status: active
+  artifacts:
+  - type: source
+    path: ccpm/ccpm/commands/context/prime.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-UPDATE-1926
+  category: guide
+  name: update
+  title: Update
+  status: active
+  artifacts:
+  - type: source
+    path: ccpm/ccpm/commands/context/update.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PM-BLOCKED-228
+  category: pm
+  name: blocked
+  title: Blocked
+  status: active
+  artifacts:
+  - type: source
+    path: ccpm/ccpm/commands/pm/blocked.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PM-CLEAN-229
+  category: pm
+  name: clean
+  title: Clean
+  status: active
+  artifacts:
+  - type: source
+    path: ccpm/ccpm/commands/pm/clean.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PM-HELP-230
+  category: pm
+  name: help
+  title: Help
+  status: active
+  artifacts:
+  - type: source
+    path: ccpm/ccpm/commands/pm/help.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PM-IMPORT-231
+  category: pm
+  name: import
+  title: Import
+  status: active
+  artifacts:
+  - type: source
+    path: ccpm/ccpm/commands/pm/import.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PM-INIT-232
+  category: pm
+  name: init
+  title: Init
+  status: active
+  artifacts:
+  - type: source
+    path: ccpm/ccpm/commands/pm/init.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PM-NEXT-233
+  category: pm
+  name: next
+  title: Next
+  status: active
+  artifacts:
+  - type: source
+    path: ccpm/ccpm/commands/pm/next.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PM-SEARCH-234
+  category: pm
+  name: search
+  title: Search
+  status: active
+  artifacts:
+  - type: source
+    path: ccpm/ccpm/commands/pm/search.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PM-STANDUP-235
+  category: pm
+  name: standup
+  title: Standup
+  status: active
+  artifacts:
+  - type: source
+    path: ccpm/ccpm/commands/pm/standup.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PM-STATUS-236
+  category: pm
+  name: status
+  title: Status
+  status: active
+  artifacts:
+  - type: source
+    path: ccpm/ccpm/commands/pm/status.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PM-SYNC-237
+  category: pm
+  name: sync
+  title: Sync
+  status: active
+  artifacts:
+  - type: source
+    path: ccpm/ccpm/commands/pm/sync.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PM-VALIDATE-238
+  category: pm
+  name: validate
+  title: Validate
+  status: active
+  artifacts:
+  - type: source
+    path: ccpm/ccpm/commands/pm/validate.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-TEST-PRIME-197
+  category: test
+  name: prime
+  title: Prime
+  status: active
+  artifacts:
+  - type: source
+    path: ccpm/ccpm/commands/testing/prime.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-TEST-RUN-198
+  category: test
+  name: run
+  title: Run
+  status: active
+  artifacts:
+  - type: source
+    path: ccpm/ccpm/commands/testing/run.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-1927
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: developer/analysis/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-1928
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: developer/planning/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-COMPLETE-1929
+  category: guide
+  name: complete
+  title: Complete
+  status: active
+  artifacts:
+  - type: source
+    path: developer/phases/phase-2a/COMPLETE.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-COMPLETE-1930
+  category: guide
+  name: complete
+  title: Complete
+  status: active
+  artifacts:
+  - type: source
+    path: developer/phases/phase-2b/COMPLETE.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-PLAN-1931
+  category: guide
+  name: plan
+  title: Plan
+  status: active
+  artifacts:
+  - type: source
+    path: developer/phases/phase-3/PLAN.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-PLAN-1932
+  category: guide
+  name: plan
+  title: Plan
+  status: active
+  artifacts:
+  - type: source
+    path: developer/phases/phase-4/PLAN.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-COMPLETE-1933
+  category: guide
+  name: complete
+  title: Complete
+  status: active
+  artifacts:
+  - type: source
+    path: developer/phases/phase-4a/COMPLETE.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-CHECKLIST-1934
+  category: guide
+  name: checklist
+  title: Checklist
+  status: active
+  artifacts:
+  - type: source
+    path: developer/phases/phase-f/CHECKLIST.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-CHECKLIST-1935
+  category: guide
+  name: checklist
+  title: Checklist
+  status: active
+  artifacts:
+  - type: source
+    path: developer/phases/phase-g/CHECKLIST.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-PROGRESS-1936
+  category: guide
+  name: progress
+  title: Progress
+  status: active
+  artifacts:
+  - type: source
+    path: developer/phases/phase-g/PROGRESS.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-COMPLETE-1937
+  category: guide
+  name: complete
+  title: Complete
+  status: active
+  artifacts:
+  - type: source
+    path: developer/phases/phase-h/COMPLETE.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-COMPLETE-1938
+  category: guide
+  name: complete
+  title: Complete
+  status: active
+  artifacts:
+  - type: source
+    path: developer/phases/phase-i/COMPLETE.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-PLAN-1939
+  category: guide
+  name: plan
+  title: Plan
+  status: active
+  artifacts:
+  - type: source
+    path: developer/phases/phase-i/PLAN.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-PLAN-1940
+  category: guide
+  name: plan
+  title: Plan
+  status: active
+  artifacts:
+  - type: source
+    path: developer/phases/phase-k/PLAN.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-RECOMMENDATIONS-1941
+  category: guide
+  name: recommendations
+  title: Recommendations
+  status: active
+  artifacts:
+  - type: source
+    path: developer/phases/phase-k/RECOMMENDATIONS.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-ERROR-ESCALATION-DIAGRAM-1942
+  category: guide
+  name: doc_error_escalation_diagram
+  title: Doc Error Escalation Diagram
+  status: active
+  artifacts:
+  - type: source
+    path: docs/diagrams/DOC_ERROR_ESCALATION_DIAGRAM.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-SPEC-INTEGRATION-DIAGRAM-1943
+  category: guide
+  name: doc_spec_integration_diagram
+  title: Doc Spec Integration Diagram
+  status: active
+  artifacts:
+  - type: source
+    path: docs/diagrams/DOC_SPEC_INTEGRATION_DIAGRAM.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-SYSTEM-ARCHITECTURE-DIAGRAM-1944
+  category: guide
+  name: doc_system_architecture_diagram
+  title: Doc System Architecture Diagram
+  status: active
+  artifacts:
+  - type: source
+    path: docs/diagrams/DOC_SYSTEM_ARCHITECTURE_DIAGRAM.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-TASK-LIFECYCLE-DIAGRAM-1945
+  category: guide
+  name: doc_task_lifecycle_diagram
+  title: Doc Task Lifecycle Diagram
+  status: active
+  artifacts:
+  - type: source
+    path: docs/diagrams/DOC_TASK_LIFECYCLE_DIAGRAM.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-TOOL-SELECTION-DIAGRAM-1946
+  category: guide
+  name: doc_tool_selection_diagram
+  title: Doc Tool Selection Diagram
+  status: active
+  artifacts:
+  - type: source
+    path: docs/diagrams/DOC_TOOL_SELECTION_DIAGRAM.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-VISUAL-ARCHITECTURE-GUIDE-1947
+  category: guide
+  name: doc_visual_architecture_guide
+  title: Doc Visual Architecture Guide
+  status: active
+  artifacts:
+  - type: source
+    path: docs/diagrams/DOC_VISUAL_ARCHITECTURE_GUIDE.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-EXAMPLE-01-SIMPLE-TASK-1948
+  category: guide
+  name: doc_example_01_simple_task
+  title: Doc Example 01 Simple Task
+  status: active
+  artifacts:
+  - type: source
+    path: docs/examples/DOC_EXAMPLE_01_SIMPLE_TASK.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-EXAMPLE-02-PARALLEL-EXECUTION-1949
+  category: guide
+  name: doc_example_02_parallel_execution
+  title: Doc Example 02 Parallel Execution
+  status: active
+  artifacts:
+  - type: source
+    path: docs/examples/DOC_EXAMPLE_02_PARALLEL_EXECUTION.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-EXAMPLE-03-ERROR-HANDLING-1950
+  category: guide
+  name: doc_example_03_error_handling
+  title: Doc Example 03 Error Handling
+  status: active
+  artifacts:
+  - type: source
+    path: docs/examples/DOC_EXAMPLE_03_ERROR_HANDLING.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-EXAMPLE-04-MULTI-PHASE-1951
+  category: guide
+  name: doc_example_04_multi_phase
+  title: Doc Example 04 Multi Phase
+  status: active
+  artifacts:
+  - type: source
+    path: docs/examples/DOC_EXAMPLE_04_MULTI_PHASE.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-EXAMPLE-05-SAGA-PATTERN-1952
+  category: guide
+  name: doc_example_05_saga_pattern
+  title: Doc Example 05 Saga Pattern
+  status: active
+  artifacts:
+  - type: source
+    path: docs/examples/DOC_EXAMPLE_05_SAGA_PATTERN.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-OVERVIEW-1953
+  category: guide
+  name: overview
+  title: Overview
+  status: active
+  artifacts:
+  - type: source
+    path: docs/execution_model/OVERVIEW.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-RECOVERY-1954
+  category: guide
+  name: recovery
+  title: Recovery
+  status: active
+  artifacts:
+  - type: source
+    path: docs/execution_model/RECOVERY.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-CATALOG-1955
+  category: guide
+  name: catalog
+  title: Catalog
+  status: active
+  artifacts:
+  - type: source
+    path: docs/failure_modes/CATALOG.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-AI-DEV-HYGIENE-GUIDELINES-1956
+  category: guide
+  name: doc_ai_dev_hygiene_guidelines
+  title: Doc Ai Dev Hygiene Guidelines
+  status: active
+  artifacts:
+  - type: source
+    path: docs/guidelines/DOC_AI_DEV_HYGIENE_GUIDELINES.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-ANTI-PATTERNS-1957
+  category: guide
+  name: doc_anti_patterns
+  title: Doc Anti Patterns
+  status: active
+  artifacts:
+  - type: source
+    path: docs/guidelines/DOC_ANTI_PATTERNS.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-TESTING-STRATEGY-1958
+  category: guide
+  name: doc_testing_strategy
+  title: Doc Testing Strategy
+  status: active
+  artifacts:
+  - type: source
+    path: docs/guidelines/DOC_TESTING_STRATEGY.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-UET-DEVELOPMENT-RULES-1959
+  category: guide
+  name: doc_uet_development_rules
+  title: Doc Uet Development Rules
+  status: active
+  artifacts:
+  - type: source
+    path: docs/guidelines/DOC_UET_DEVELOPMENT_RULES.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-AUDIT-RETENTION-1960
+  category: guide
+  name: doc_audit_retention
+  title: Doc Audit Retention
+  status: active
+  artifacts:
+  - type: source
+    path: docs/operations/DOC_AUDIT_RETENTION.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-AUDIT-TRAIL-1961
+  category: guide
+  name: doc_audit_trail
+  title: Doc Audit Trail
+  status: active
+  artifacts:
+  - type: source
+    path: docs/operations/DOC_AUDIT_TRAIL.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-AUTO-REMEDIATION-1962
+  category: guide
+  name: doc_auto_remediation
+  title: Doc Auto Remediation
+  status: active
+  artifacts:
+  - type: source
+    path: docs/operations/DOC_AUTO_REMEDIATION.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-CHECKLIST-QUICK-START-1963
+  category: guide
+  name: doc_checklist_quick_start
+  title: Doc Checklist Quick Start
+  status: active
+  artifacts:
+  - type: source
+    path: docs/operations/DOC_CHECKLIST_QUICK_START.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-REPO-CHECKLIST-1964
+  category: guide
+  name: doc_repo_checklist
+  title: Doc Repo Checklist
+  status: active
+  artifacts:
+  - type: source
+    path: docs/operations/DOC_REPO_CHECKLIST.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-VALIDATION-ENHANCEMENT-ROADMAP-1965
+  category: guide
+  name: doc_validation_enhancement_roadmap
+  title: Doc Validation Enhancement Roadmap
+  status: active
+  artifacts:
+  - type: source
+    path: docs/operations/DOC_VALIDATION_ENHANCEMENT_ROADMAP.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-1966
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: docs/reference/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-CLAUDE-1967
+  category: guide
+  name: claude
+  title: Claude
+  status: active
+  artifacts:
+  - type: source
+    path: docs/reference/tools/CLAUDE.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-CODEX-1968
+  category: guide
+  name: codex
+  title: Codex
+  status: active
+  artifacts:
+  - type: source
+    path: docs/reference/tools/CODEX.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-GEMINI-1969
+  category: guide
+  name: gemini
+  title: Gemini
+  status: active
+  artifacts:
+  - type: source
+    path: docs/reference/tools/GEMINI.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-1970
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: doc_id/analysis/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-1971
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: doc_id/batches/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-1972
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: doc_id/deltas/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-1973
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: doc_id/plans/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-1974
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: doc_id/reports/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-1975
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: doc_id/session_reports/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-1976
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: doc_id/specs/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-1977
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: doc_id/templates/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-SCRIPT-README-360
+  category: script
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: doc_id/tools/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-ERROR-README-217
+  category: error
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: error/engine/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-ERROR-README-218
+  category: error
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: error/plugins/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-ERROR-README-219
+  category: error
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: error/shared/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-GLOSSARY-CHANGELOG-1978
+  category: guide
+  name: doc_glossary_changelog
+  title: Doc Glossary Changelog
+  status: active
+  artifacts:
+  - type: source
+    path: glossary/docs/DOC_GLOSSARY_CHANGELOG.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-GLOSSARY-GOVERNANCE-1979
+  category: guide
+  name: doc_glossary_governance
+  title: Doc Glossary Governance
+  status: active
+  artifacts:
+  - type: source
+    path: glossary/docs/DOC_GLOSSARY_GOVERNANCE.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DOC-GLOSSARY-SCHEMA-1980
+  category: guide
+  name: doc_glossary_schema
+  title: Doc Glossary Schema
+  status: active
+  artifacts:
+  - type: source
+    path: glossary/docs/DOC_GLOSSARY_SCHEMA.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-1981
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: glossary/proposals/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-SCRIPT-README-361
+  category: script
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: glossary/scripts/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-1982
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: glossary/updates/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-1983
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: gui/tui_app/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-INFRA-README-010
+  category: infra
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: infra/sync/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-SPEC-PROPOSAL-071
+  category: spec
+  name: proposal
+  title: Proposal
+  status: active
+  artifacts:
+  - type: source
+    path: openspec/changes/uet-001-complete-implementation/proposal.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-SPEC-TASKS-072
+  category: spec
+  name: tasks
+  title: Tasks
+  status: active
+  artifacts:
+  - type: source
+    path: openspec/changes/uet-001-complete-implementation/tasks.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-SPEC-PROPOSAL-073
+  category: spec
+  name: proposal
+  title: Proposal
+  status: active
+  artifacts:
+  - type: source
+    path: openspec/changes/uet-001-phase-a-quick-wins/proposal.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-SPEC-TASKS-074
+  category: spec
+  name: tasks
+  title: Tasks
+  status: active
+  artifacts:
+  - type: source
+    path: openspec/changes/uet-001-phase-a-quick-wins/tasks.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-SPEC-PROPOSAL-075
+  category: spec
+  name: proposal
+  title: Proposal
+  status: active
+  artifacts:
+  - type: source
+    path: openspec/changes/uet-001-phase-b-patch-system/proposal.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-SPEC-TASKS-076
+  category: spec
+  name: tasks
+  title: Tasks
+  status: active
+  artifacts:
+  - type: source
+    path: openspec/changes/uet-001-phase-b-patch-system/tasks.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-SPEC-PROPOSAL-077
+  category: spec
+  name: proposal
+  title: Proposal
+  status: active
+  artifacts:
+  - type: source
+    path: openspec/changes/uet-001-phase-c-orchestration/proposal.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-SPEC-TASKS-078
+  category: spec
+  name: tasks
+  title: Tasks
+  status: active
+  artifacts:
+  - type: source
+    path: openspec/changes/uet-001-phase-c-orchestration/tasks.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-SPEC-PROPOSAL-079
+  category: spec
+  name: proposal
+  title: Proposal
+  status: active
+  artifacts:
+  - type: source
+    path: openspec/changes/uet-001-phase-d-adapters/proposal.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-SPEC-TASKS-080
+  category: spec
+  name: tasks
+  title: Tasks
+  status: active
+  artifacts:
+  - type: source
+    path: openspec/changes/uet-001-phase-d-adapters/tasks.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-SPEC-PROPOSAL-081
+  category: spec
+  name: proposal
+  title: Proposal
+  status: active
+  artifacts:
+  - type: source
+    path: openspec/changes/uet-001-phase-e-resilience/proposal.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-SPEC-TASKS-082
+  category: spec
+  name: tasks
+  title: Tasks
+  status: active
+  artifacts:
+  - type: source
+    path: openspec/changes/uet-001-phase-e-resilience/tasks.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-SPEC-SPEC-083
+  category: spec
+  name: spec
+  title: Spec
+  status: active
+  artifacts:
+  - type: source
+    path: openspec/specs/orchestration/spec.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-SPEC-SPEC-084
+  category: spec
+  name: spec
+  title: Spec
+  status: active
+  artifacts:
+  - type: source
+    path: openspec/specs/plugin-system/spec.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-SPEC-SPEC-085
+  category: spec
+  name: spec
+  title: Spec
+  status: active
+  artifacts:
+  - type: source
+    path: openspec/specs/validation-pipeline/spec.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PM-PROMPT-239
+  category: pm
+  name: prompt
+  title: Prompt
+  status: active
+  artifacts:
+  - type: source
+    path: pm/commands/prompt.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PM-README-240
+  category: pm
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: pm/context/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PM-README-241
+  category: pm
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: pm/hooks/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PM-CREATE-242
+  category: pm
+  name: create
+  title: Create
+  status: active
+  artifacts:
+  - type: source
+    path: pm/commands/context/create.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PM-PRIME-243
+  category: pm
+  name: prime
+  title: Prime
+  status: active
+  artifacts:
+  - type: source
+    path: pm/commands/context/prime.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PM-UPDATE-244
+  category: pm
+  name: update
+  title: Update
+  status: active
+  artifacts:
+  - type: source
+    path: pm/commands/context/update.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PM-BLOCKED-245
+  category: pm
+  name: blocked
+  title: Blocked
+  status: active
+  artifacts:
+  - type: source
+    path: pm/commands/pm/blocked.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PM-CLEAN-246
+  category: pm
+  name: clean
+  title: Clean
+  status: active
+  artifacts:
+  - type: source
+    path: pm/commands/pm/clean.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PM-HELP-247
+  category: pm
+  name: help
+  title: Help
+  status: active
+  artifacts:
+  - type: source
+    path: pm/commands/pm/help.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PM-IMPORT-248
+  category: pm
+  name: import
+  title: Import
+  status: active
+  artifacts:
+  - type: source
+    path: pm/commands/pm/import.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PM-INIT-249
+  category: pm
+  name: init
+  title: Init
+  status: active
+  artifacts:
+  - type: source
+    path: pm/commands/pm/init.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PM-NEXT-250
+  category: pm
+  name: next
+  title: Next
+  status: active
+  artifacts:
+  - type: source
+    path: pm/commands/pm/next.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PM-SEARCH-251
+  category: pm
+  name: search
+  title: Search
+  status: active
+  artifacts:
+  - type: source
+    path: pm/commands/pm/search.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PM-STANDUP-252
+  category: pm
+  name: standup
+  title: Standup
+  status: active
+  artifacts:
+  - type: source
+    path: pm/commands/pm/standup.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PM-STATUS-253
+  category: pm
+  name: status
+  title: Status
+  status: active
+  artifacts:
+  - type: source
+    path: pm/commands/pm/status.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PM-SYNC-254
+  category: pm
+  name: sync
+  title: Sync
+  status: active
+  artifacts:
+  - type: source
+    path: pm/commands/pm/sync.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PM-VALIDATE-255
+  category: pm
+  name: validate
+  title: Validate
+  status: active
+  artifacts:
+  - type: source
+    path: pm/commands/pm/validate.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PM-PRIME-256
+  category: pm
+  name: prime
+  title: Prime
+  status: active
+  artifacts:
+  - type: source
+    path: pm/commands/testing/prime.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PM-RUN-257
+  category: pm
+  name: run
+  title: Run
+  status: active
+  artifacts:
+  - type: source
+    path: pm/commands/testing/run.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-1984
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: REFACTOR_2/01_PLANNING/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-1985
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: REFACTOR_2/02_ARCHITECTURE/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-1986
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: REFACTOR_2/03_IMPLEMENTATION/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-1987
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: REFACTOR_2/04_OPERATIONS/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-1988
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: REFACTOR_2/05_REFERENCE/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-SCRIPT-README-362
+  category: script
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/agents/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-SCRIPT-README-363
+  category: script
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/validate/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-SPEC-README-086
+  category: spec
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: specifications/content/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-SPEC-README-087
+  category: spec
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: specifications/tools/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-SPEC-PROPOSAL-088
+  category: spec
+  name: proposal
+  title: Proposal
+  status: active
+  artifacts:
+  - type: source
+    path: specifications/changes/test-001/proposal.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-SPEC-TASKS-089
+  category: spec
+  name: tasks
+  title: Tasks
+  status: active
+  artifacts:
+  - type: source
+    path: specifications/changes/test-001/tasks.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-SPEC-SPEC-090
+  category: spec
+  name: spec
+  title: Spec
+  status: active
+  artifacts:
+  - type: source
+    path: specifications/content/orchestration/spec.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-SCRIPT-README-364
+  category: script
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: tools/validation/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-1989
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/.migration/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-AGENTS-1226
+  category: patterns
+  name: agents
+  title: Agents
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/AGENTS.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-INDEX-1227
+  category: patterns
+  name: index
+  title: Index
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/INDEX.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1228
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-UTE-REGISTRY-LAYER-SPEC-1229
+  category: patterns
+  name: ute_registry_layer_spec
+  title: Ute Registry Layer Spec
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/UTE_REGISTRY_LAYER_SPEC.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-CONTEXT-1990
+  category: guide
+  name: context
+  title: Context
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/templates/CONTEXT.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-STRUCTURE-1991
+  category: guide
+  name: structure
+  title: Structure
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/templates/STRUCTURE.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-CORE-README-314
+  category: core
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/core/engine/monitoring/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-CORE-README-315
+  category: core
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/core/engine/resilience/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-CLAUDE-1992
+  category: guide
+  name: claude
+  title: Claude
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/docs/governance/CLAUDE.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1230
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/anti_patterns/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1231
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/automation/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1232
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/decisions/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-DOC-ASSISTANT-RESPONSES-OPERATION-KINDS-1233
+  category: patterns
+  name: doc_assistant_responses_operation_kinds
+  title: Doc Assistant Responses Operation Kinds
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/docs/DOC_ASSISTANT_RESPONSES_OPERATION_KINDS.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-DOC-EVERY-REUSABLE-PATTERN-1234
+  category: patterns
+  name: doc_every_reusable_pattern
+  title: Doc Every Reusable Pattern
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/docs/DOC_EVERY_REUSABLE_PATTERN.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-DOC-IMPLEMENTATION-COMPLETE-SUMMARY-1235
+  category: patterns
+  name: doc_implementation_complete_summary
+  title: Doc Implementation Complete Summary
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/docs/DOC_IMPLEMENTATION_COMPLETE_SUMMARY.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-DOC-IMPLEMENTATION-STATUS-1236
+  category: patterns
+  name: doc_implementation_status
+  title: Doc Implementation Status
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/docs/DOC_IMPLEMENTATION_STATUS.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-DOC-SLASH-COMMAND-PATTERN-SET-1237
+  category: patterns
+  name: doc_slash_command_pattern_set
+  title: Doc Slash Command Pattern Set
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/docs/DOC_SLASH_COMMAND_PATTERN_SET.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1238
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/docs/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1239
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/drafts/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1240
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1241
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1242
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/legacy_atoms/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1243
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/metrics/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-INDEX-1244
+  category: patterns
+  name: index
+  title: Index
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/pattern_event_system/INDEX.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1245
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/pattern_event_system/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1246
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/registry/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1247
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/reports/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-INDEX-1248
+  category: patterns
+  name: index
+  title: Index
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/safe_merge/INDEX.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-QUICKSTART-1249
+  category: patterns
+  name: quickstart
+  title: Quickstart
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/safe_merge/QUICKSTART.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1250
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/safe_merge/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-REGISTRY-1251
+  category: patterns
+  name: registry
+  title: Registry
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/safe_merge/REGISTRY.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1252
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/schemas/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1253
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/scripts/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1254
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/self_healing/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1255
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/specs/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1256
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/templates/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1257
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/tests/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1258
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/verification/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1259
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/automation/analyzers/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1260
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/automation/config/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1261
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/automation/detectors/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1262
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/automation/generators/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1263
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/automation/integration/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1264
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/automation/runtime/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1265
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/automation/tests/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1266
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/decisions/examples/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1267
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/docs/planning/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1268
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/atomic_create/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1269
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/atomic_create_001/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1270
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/atomic_create_template/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1271
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/atomic_create_template_001/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1272
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/batch_create/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1273
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/batch_create_001/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1274
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/batch_file_creation/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1275
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/batch_file_gen_001/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1276
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/config_setup_001/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1277
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/create_test_commit/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1278
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/database_setup_001/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1279
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/decision_elimination_bootstrap/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1280
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/e2e_validation_001/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1281
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/generated_docs/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1282
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/glossary/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1283
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/grep_view_edit/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1284
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/integration_hook_001/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1285
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/module_creation/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1286
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/module_creation_001/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1287
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/module_creation_convergence/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1288
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/multi_workstream_doc_suite_gen_001/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1289
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/phase_discovery_001/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1290
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/preflight_verify/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1291
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/pytest_green_verify/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1292
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/refactor_patch/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1293
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/refactor_patch_001/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1294
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/self_heal/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1295
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/self_heal_001/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1296
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/verify_commit/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1297
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/verify_commit_001/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1298
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/view_edit_verify/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1299
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/worktree_lifecycle/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1300
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/worktree_lifecycle_001/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1301
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/lib/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1302
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/legacy_atoms/converted/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1303
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/legacy_atoms/converted/reports/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1304
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/legacy_atoms/converted/specs/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1305
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/reports/zero_touch/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1306
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/safe_merge/scripts/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1307
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/specs/auto_approved/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-1308
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/verification/examples/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-1993
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/profiles/software-dev-python/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-SCRIPT-README-365
+  category: script
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/scripts/migration/README.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-SPEC-STATUS-091
+  category: spec
+  name: status
+  title: Status
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/specs/planning/STATUS.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-TASK-PLAN-DOC-ID-COMPLETION-001-008
+  category: task
+  name: plan_doc_id_completion_001
+  title: Plan Doc Id Completion 001
+  status: active
+  artifacts:
+  - type: source
+    path: workstreams/plans/PLAN_DOC_ID_COMPLETION_001.md
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - md
+- doc_id: DOC-SCRIPT-CCPM-366
+  category: script
+  name: ccpm
+  title: 'Script: ccpm'
+  status: active
+  artifacts:
+  - type: source
+    path: ccpm/install/ccpm.sh
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - sh
+- doc_id: DOC-PM-BLOCKED-258
+  category: pm
+  name: blocked
+  title: 'Script: blocked'
+  status: active
+  artifacts:
+  - type: source
+    path: ccpm/ccpm/scripts/pm/blocked.sh
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - sh
+- doc_id: DOC-PM-HELP-259
+  category: pm
+  name: help
+  title: 'Script: help'
+  status: active
+  artifacts:
+  - type: source
+    path: ccpm/ccpm/scripts/pm/help.sh
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - sh
+- doc_id: DOC-PM-INIT-260
+  category: pm
+  name: init
+  title: 'Script: init'
+  status: active
+  artifacts:
+  - type: source
+    path: ccpm/ccpm/scripts/pm/init.sh
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - sh
+- doc_id: DOC-PM-NEXT-261
+  category: pm
+  name: next
+  title: 'Script: next'
+  status: active
+  artifacts:
+  - type: source
+    path: ccpm/ccpm/scripts/pm/next.sh
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - sh
+- doc_id: DOC-PM-SEARCH-262
+  category: pm
+  name: search
+  title: 'Script: search'
+  status: active
+  artifacts:
+  - type: source
+    path: ccpm/ccpm/scripts/pm/search.sh
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - sh
+- doc_id: DOC-PM-STANDUP-263
+  category: pm
+  name: standup
+  title: 'Script: standup'
+  status: active
+  artifacts:
+  - type: source
+    path: ccpm/ccpm/scripts/pm/standup.sh
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - sh
+- doc_id: DOC-PM-STATUS-264
+  category: pm
+  name: status
+  title: 'Script: status'
+  status: active
+  artifacts:
+  - type: source
+    path: ccpm/ccpm/scripts/pm/status.sh
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - sh
+- doc_id: DOC-PM-VALIDATE-265
+  category: pm
+  name: validate
+  title: 'Script: validate'
+  status: active
+  artifacts:
+  - type: source
+    path: ccpm/ccpm/scripts/pm/validate.sh
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - sh
+- doc_id: DOC-PM-BLOCKED-266
+  category: pm
+  name: blocked
+  title: 'Script: blocked'
+  status: active
+  artifacts:
+  - type: source
+    path: pm/scripts/pm/blocked.sh
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - sh
+- doc_id: DOC-PM-HELP-267
+  category: pm
+  name: help
+  title: 'Script: help'
+  status: active
+  artifacts:
+  - type: source
+    path: pm/scripts/pm/help.sh
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - sh
+- doc_id: DOC-PM-INIT-268
+  category: pm
+  name: init
+  title: 'Script: init'
+  status: active
+  artifacts:
+  - type: source
+    path: pm/scripts/pm/init.sh
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - sh
+- doc_id: DOC-PM-NEXT-269
+  category: pm
+  name: next
+  title: 'Script: next'
+  status: active
+  artifacts:
+  - type: source
+    path: pm/scripts/pm/next.sh
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - sh
+- doc_id: DOC-PM-SEARCH-270
+  category: pm
+  name: search
+  title: 'Script: search'
+  status: active
+  artifacts:
+  - type: source
+    path: pm/scripts/pm/search.sh
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - sh
+- doc_id: DOC-PM-STANDUP-271
+  category: pm
+  name: standup
+  title: 'Script: standup'
+  status: active
+  artifacts:
+  - type: source
+    path: pm/scripts/pm/standup.sh
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - sh
+- doc_id: DOC-PM-STATUS-272
+  category: pm
+  name: status
+  title: 'Script: status'
+  status: active
+  artifacts:
+  - type: source
+    path: pm/scripts/pm/status.sh
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - sh
+- doc_id: DOC-PM-VALIDATE-273
+  category: pm
+  name: validate
+  title: 'Script: validate'
+  status: active
+  artifacts:
+  - type: source
+    path: pm/scripts/pm/validate.sh
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - sh
+- doc_id: DOC-GUIDE-ASAFTERTHEMOVEREPO-1994
+  category: guide
+  name: asafterthemoverepo
+  title: asafterthemoverepo
+  status: active
+  artifacts:
+  - type: source
+    path: asafterthemoverepo.txt
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - txt
+- doc_id: DOC-GUIDE-DAG1-1995
+  category: guide
+  name: dag1
+  title: dag1
+  status: active
+  artifacts:
+  - type: source
+    path: dag1.txt
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - txt
+- doc_id: DOC-GUIDE-DAG2-1996
+  category: guide
+  name: dag2
+  title: dag2
+  status: active
+  artifacts:
+  - type: source
+    path: dag2.txt
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - txt
+- doc_id: DOC-GUIDE-GUICODEX-1997
+  category: guide
+  name: guicodex
+  title: GUICODEX
+  status: active
+  artifacts:
+  - type: source
+    path: GUICODEX.txt
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - txt
+- doc_id: DOC-GUIDE-ABSTRACTION-1998
+  category: guide
+  name: abstraction
+  title: ABSTRACTION
+  status: active
+  artifacts:
+  - type: source
+    path: abstraction/ABSTRACTION.txt
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - txt
+- doc_id: DOC-CONFIG-REQUIREMENTS-366
+  category: config
+  name: requirements
+  title: requirements
+  status: active
+  artifacts:
+  - type: source
+    path: config/requirements.txt
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - txt
+- doc_id: DOC-TASK-KPLUSPLN-009
+  category: task
+  name: kpluspln
+  title: kpluspln
+  status: active
+  artifacts:
+  - type: source
+    path: ToDo_Task/kpluspln.txt
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - txt
+- doc_id: DOC-TASK-REPOUNDERSTANDING-010
+  category: task
+  name: repounderstanding
+  title: repounderstanding
+  status: active
+  artifacts:
+  - type: source
+    path: ToDo_Task/repounderstanding.txt
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - txt
+- doc_id: DOC-LEGACY-ERRORFIXPIPLEINECHAT-020
+  category: legacy
+  name: errorfixpipleinechat
+  title: errorfixpipleinechat
+  status: active
+  artifacts:
+  - type: source
+    path: archive/2025-11-26_developer/2025-11/error_legacy/errorfixpipleinechat.txt
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - txt
+- doc_id: DOC-LEGACY-REQUIREMENTS-021
+  category: legacy
+  name: requirements
+  title: requirements
+  status: active
+  artifacts:
+  - type: source
+    path: archive/2025-11-26_developer/2025-11/error_legacy/requirements.txt
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - txt
+- doc_id: DOC-GUIDE-TEMPLATE-DOC-ID-HEADER-MD-1999
+  category: guide
+  name: template_doc_id_header_md
+  title: TEMPLATE_doc_id_header.md
+  status: active
+  artifacts:
+  - type: source
+    path: doc_id/templates/TEMPLATE_doc_id_header.md.txt
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - txt
+- doc_id: DOC-GUIDE-GUIFIRSTBIGPROMNT-2000
+  category: guide
+  name: guifirstbigpromnt
+  title: guifirstbigpromnt
+  status: active
+  artifacts:
+  - type: source
+    path: gui/docs/guifirstbigpromnt.txt
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - txt
+- doc_id: DOC-INFRA-REQUIREMENTS-011
+  category: infra
+  name: requirements
+  title: requirements
+  status: active
+  artifacts:
+  - type: source
+    path: infra/ci/requirements.txt
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - txt
+- doc_id: DOC-CONFIG-CONFIG-367
+  category: config
+  name: config
+  title: 'Config: config'
+  status: active
+  artifacts:
+  - type: source
+    path: .uet/config.yaml
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - yaml
+- doc_id: DOC-CONFIG-CCPM-368
+  category: config
+  name: ccpm
+  title: 'Config: ccpm'
+  status: active
+  artifacts:
+  - type: source
+    path: config/ccpm.yaml
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - yaml
+- doc_id: DOC-CONFIG-GITHUB-369
+  category: config
+  name: github
+  title: 'Config: github'
+  status: active
+  artifacts:
+  - type: source
+    path: config/github.yaml
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - yaml
+- doc_id: DOC-CONFIG-INVOKE-370
+  category: config
+  name: invoke
+  title: 'Config: invoke'
+  status: active
+  artifacts:
+  - type: source
+    path: config/invoke.yaml
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - yaml
+- doc_id: DOC-CORE-DEPENDENCIES-316
+  category: core
+  name: dependencies
+  title: 'Config: dependencies'
+  status: active
+  artifacts:
+  - type: source
+    path: core/dependencies.yaml
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - yaml
+- doc_id: DOC-GUIDE-WORKTREES-INTEGRATION-SPEC-V12-2001
+  category: guide
+  name: worktrees_integration_spec_v12
+  title: 'Config: Worktrees Integration Spec v12'
+  status: active
+  artifacts:
+  - type: source
+    path: doc_id/Worktrees Integration Spec v12.yml
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - yml
+- doc_id: DOC-LEGACY-DEPENDENCIES-022
+  category: legacy
+  name: dependencies
+  title: 'Config: dependencies'
+  status: active
+  artifacts:
+  - type: source
+    path: archive/2025-11-26_094309_old-structure/core-ast/dependencies.yaml
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - yaml
+- doc_id: DOC-LEGACY-DEPENDENCIES-023
+  category: legacy
+  name: dependencies
+  title: 'Config: dependencies'
+  status: active
+  artifacts:
+  - type: source
+    path: archive/2025-11-26_094309_old-structure/core-engine/dependencies.yaml
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - yaml
+- doc_id: DOC-LEGACY-DEPENDENCIES-024
+  category: legacy
+  name: dependencies
+  title: 'Config: dependencies'
+  status: active
+  artifacts:
+  - type: source
+    path: archive/2025-11-26_094309_old-structure/core-planning/dependencies.yaml
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - yaml
+- doc_id: DOC-LEGACY-DEPENDENCIES-025
+  category: legacy
+  name: dependencies
+  title: 'Config: dependencies'
+  status: active
+  artifacts:
+  - type: source
+    path: archive/2025-11-26_094309_old-structure/core-state/dependencies.yaml
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - yaml
+- doc_id: DOC-INFRA-CI-012
+  category: infra
+  name: ci
+  title: 'Config: ci'
+  status: active
+  artifacts:
+  - type: source
+    path: infra/ci/workflows/ci.yml
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - yml
+- doc_id: DOC-CONFIG-DEPENDENCIES-371
+  category: config
+  name: dependencies
+  title: 'Config: dependencies'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/templates/dependencies.yaml
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - yaml
+- doc_id: DOC-PAT-README-1309
+  category: patterns
+  name: readme
+  title: 'Config: README'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/.claude/README.yaml
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - yaml
+- doc_id: DOC-PAT-README-1310
+  category: patterns
+  name: readme
+  title: 'Config: README'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/anti_patterns/README.yaml
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - yaml
+- doc_id: DOC-PAT-README-1311
+  category: patterns
+  name: readme
+  title: 'Config: README'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/automation/README.yaml
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - yaml
+- doc_id: DOC-PAT-README-1312
+  category: patterns
+  name: readme
+  title: 'Config: README'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/decisions/README.yaml
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - yaml
+- doc_id: DOC-PAT-README-1313
+  category: patterns
+  name: readme
+  title: 'Config: README'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/docs/README.yaml
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - yaml
+- doc_id: DOC-PAT-README-1314
+  category: patterns
+  name: readme
+  title: 'Config: README'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/drafts/README.yaml
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - yaml
+- doc_id: DOC-PAT-README-1315
+  category: patterns
+  name: readme
+  title: 'Config: README'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/README.yaml
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - yaml
+- doc_id: DOC-PAT-README-1316
+  category: patterns
+  name: readme
+  title: 'Config: README'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/README.yaml
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - yaml
+- doc_id: DOC-PAT-README-1317
+  category: patterns
+  name: readme
+  title: 'Config: README'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/legacy_atoms/README.yaml
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - yaml
+- doc_id: DOC-PAT-README-1318
+  category: patterns
+  name: readme
+  title: 'Config: README'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/pattern_event_system/README.yaml
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - yaml
+- doc_id: DOC-PAT-README-1319
+  category: patterns
+  name: readme
+  title: 'Config: README'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/registry/README.yaml
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - yaml
+- doc_id: DOC-PAT-README-1320
+  category: patterns
+  name: readme
+  title: 'Config: README'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/reports/README.yaml
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - yaml
+- doc_id: DOC-PAT-ATOMIC-CREATE-SCHEMA-ID-1321
+  category: patterns
+  name: atomic_create_schema_id
+  title: 'Config: atomic_create.schema.id'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/schemas/atomic_create.schema.id.yaml
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - yaml
+- doc_id: DOC-PAT-BATCH-CREATE-SCHEMA-ID-1322
+  category: patterns
+  name: batch_create_schema_id
+  title: 'Config: batch_create.schema.id'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/schemas/batch_create.schema.id.yaml
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - yaml
+- doc_id: DOC-PAT-GLOSSARY-EXPORT-SCHEMA-ID-1323
+  category: patterns
+  name: glossary_export_schema_id
+  title: 'Config: glossary_export.schema.id'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/schemas/glossary_export.schema.id.yaml
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - yaml
+- doc_id: DOC-PAT-GLOSSARY-SYNC-SCHEMA-ID-1324
+  category: patterns
+  name: glossary_sync_schema_id
+  title: 'Config: glossary_sync.schema.id'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/schemas/glossary_sync.schema.id.yaml
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - yaml
+- doc_id: DOC-PAT-GLOSSARY-VALIDATE-SCHEMA-ID-1325
+  category: patterns
+  name: glossary_validate_schema_id
+  title: 'Config: glossary_validate.schema.id'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/schemas/glossary_validate.schema.id.yaml
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - yaml
+- doc_id: DOC-PAT-MODULE-CREATION-SCHEMA-ID-1326
+  category: patterns
+  name: module_creation_schema_id
+  title: 'Config: module_creation.schema.id'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/schemas/module_creation.schema.id.yaml
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - yaml
+- doc_id: DOC-PAT-README-1327
+  category: patterns
+  name: readme
+  title: 'Config: README'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/schemas/README.yaml
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - yaml
+- doc_id: DOC-PAT-REFACTOR-PATCH-SCHEMA-ID-1328
+  category: patterns
+  name: refactor_patch_schema_id
+  title: 'Config: refactor_patch.schema.id'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/schemas/refactor_patch.schema.id.yaml
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - yaml
+- doc_id: DOC-PAT-SELF-HEAL-SCHEMA-ID-1329
+  category: patterns
+  name: self_heal_schema_id
+  title: 'Config: self_heal.schema.id'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/schemas/self_heal.schema.id.yaml
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - yaml
+- doc_id: DOC-PAT-VERIFY-COMMIT-SCHEMA-ID-1330
+  category: patterns
+  name: verify_commit_schema_id
+  title: 'Config: verify_commit.schema.id'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/schemas/verify_commit.schema.id.yaml
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - yaml
+- doc_id: DOC-PAT-WORKTREE-LIFECYCLE-SCHEMA-ID-1331
+  category: patterns
+  name: worktree_lifecycle_schema_id
+  title: 'Config: worktree_lifecycle.schema.id'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/schemas/worktree_lifecycle.schema.id.yaml
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - yaml
+- doc_id: DOC-PAT-README-1332
+  category: patterns
+  name: readme
+  title: 'Config: README'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/scripts/README.yaml
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - yaml
+- doc_id: DOC-PAT-README-1333
+  category: patterns
+  name: readme
+  title: 'Config: README'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/self_healing/README.yaml
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - yaml
+- doc_id: DOC-PAT-MULTI-WORKSTREAM-DOC-SUITE-GENERATION-1334
+  category: patterns
+  name: multi_workstream_doc_suite_generation
+  title: 'Config: multi_workstream_doc_suite_generation.pattern'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/specs/multi_workstream_doc_suite_generation.pattern.yaml
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - yaml
+- doc_id: DOC-PAT-README-1335
+  category: patterns
+  name: readme
+  title: 'Config: README'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/specs/README.yaml
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - yaml
+- doc_id: DOC-PAT-README-1336
+  category: patterns
+  name: readme
+  title: 'Config: README'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/templates/README.yaml
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - yaml
+- doc_id: DOC-PAT-README-1337
+  category: patterns
+  name: readme
+  title: 'Config: README'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/tests/README.yaml
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - yaml
+- doc_id: DOC-PAT-README-1338
+  category: patterns
+  name: readme
+  title: 'Config: README'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/verification/README.yaml
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - yaml
+- doc_id: DOC-SCRIPT-BOOTSTRAP-367
+  category: script
+  name: bootstrap
+  title: 'Script: bootstrap'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/bootstrap.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-TEST-368
+  category: script
+  name: test
+  title: 'Script: test'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/test.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-INFRA-GITAUTOSYNC-013
+  category: infra
+  name: gitautosync
+  title: 'Script: GitAutoSync'
+  status: active
+  artifacts:
+  - type: source
+    path: infra/sync/GitAutoSync.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-PAT-PARALLEL-1339
+  category: patterns
+  name: parallel
+  title: 'Script: parallel'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/lib/parallel.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-PAT-REPORTING-1340
+  category: patterns
+  name: reporting
+  title: 'Script: reporting'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/lib/reporting.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-PAT-TEMPLATES-1341
+  category: patterns
+  name: templates
+  title: 'Script: templates'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/lib/templates.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-PAT-TESTING-1342
+  category: patterns
+  name: testing
+  title: 'Script: testing'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/lib/testing.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-PAT-TRANSACTIONS-1343
+  category: patterns
+  name: transactions
+  title: 'Script: transactions'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/lib/transactions.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-PAT-VALIDATION-1344
+  category: patterns
+  name: validation
+  title: 'Script: validation'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/lib/validation.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-CORE-CONFTEST-317
+  category: core
+  name: conftest
+  title: ' module: conftest'
+  status: active
+  artifacts:
+  - type: source
+    path: conftest.py
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-TOOLS-VALIDATE-DOC-ORG-369
+  category: script
+  name: tools_validate_doc_org
+  title: 'tools module: validate_doc_org'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/tools/validate_doc_org.py
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - py
