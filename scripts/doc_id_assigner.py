@@ -171,9 +171,14 @@ def infer_name_and_title(path: str, file_type: str) -> Tuple[str, str]:
     stem = rel.stem
     parent = rel.parent.name
     
-    # Sanitize stem: remove special chars, limit length
-    stem_clean = re.sub(r'[^a-zA-Z0-9_-]', '-', stem)
-    stem_clean = re.sub(r'-+', '-', stem_clean).strip('-')
+    # Special case: __init__ files
+    if stem == "__init__":
+        stem = "init"
+        stem_clean = "INIT"
+    else:
+        # Sanitize stem: remove special chars, limit length
+        stem_clean = re.sub(r'[^a-zA-Z0-9_-]', '-', stem)
+        stem_clean = re.sub(r'-+', '-', stem_clean).strip('-')
     
     # Limit to reasonable length (max 50 chars for stem)
     if len(stem_clean) > 50:
