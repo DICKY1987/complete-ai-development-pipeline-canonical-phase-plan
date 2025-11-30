@@ -27,8 +27,8 @@ if sys.platform == 'win32':
     sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
 
 # Repository root
-REPO_ROOT = Path(__file__).parent.parent
-REGISTRY_PATH = REPO_ROOT / "doc_id" / "DOC_ID_REGISTRY.yaml"
+REPO_ROOT = Path(__file__).parent.parent.parent
+REGISTRY_PATH = REPO_ROOT / "doc_id" / "specs" / "DOC_ID_REGISTRY.yaml"
 DOC_ID_REGEX = re.compile(r"^DOC-[A-Z0-9]+-[A-Z0-9]+(-[A-Z0-9]+)*-[0-9]{3}$")
 
 
