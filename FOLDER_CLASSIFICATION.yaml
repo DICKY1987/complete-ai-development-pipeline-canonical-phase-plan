@@ -1,0 +1,669 @@
+# FOLDER_CLASSIFICATION.yaml
+# Classification of all root folders by MODULE_KIND
+# Generated: 2025-11-30
+#
+# MODULE_KIND Categories:
+#   PIPELINE_STAGE_MODULE      - Core pipeline stages (Intake → Execution → Reporting)
+#   FEATURE_SERVICE_MODULE     - Cross-cutting capabilities used by pipeline
+#   INTEGRATION_BRIDGE_MODULE  - Bridges to external systems
+#   INTERFACE_MODULE           - User-facing entrypoints & interfaces
+#   REGISTRY_METADATA_MODULE   - ID systems, registries, schemas
+#   INFRA_PLATFORM_MODULE      - CI, environment, tool configs, scripts
+#   OBSERVABILITY_REPORTING_MODULE - Logs, reports, metrics
+#   GOVERNANCE_KNOWLEDGE_MODULE - Docs, ADRs, glossaries, architecture
+#   SANDBOX_EXPERIMENTAL_MODULE - Experimental/sandbox areas
+#   ARCHIVE_LEGACY_BUCKET      - Historical, non-active code/docs
+
+folders:
+  # =============================================================================
+  # PIPELINE_STAGE_MODULE - Core pipeline stages
+  # =============================================================================
+  
+  - name: core
+    kind: PIPELINE_STAGE_MODULE
+    description: >
+      Central pipeline logic including orchestration, scheduling, execution,
+      error handling, state management, and planning components.
+    key_contents:
+      - orchestrator.py
+      - scheduler.py
+      - executor.py
+      - planner.py
+      - "engine/"
+      - "state/"
+      
+  - name: engine
+    kind: PIPELINE_STAGE_MODULE
+    description: >
+      Execution engine components including adapters, orchestration interfaces,
+      queue management, and state storage.
+    key_contents:
+      - "orchestrator/"
+      - "adapters/"
+      - "queue/"
+      - "state_store/"
+      
+  - name: state
+    kind: PIPELINE_STAGE_MODULE
+    description: >
+      State persistence layer with event storage.
+    key_contents:
+      - "events/"
+      
+  - name: error
+    kind: PIPELINE_STAGE_MODULE
+    description: >
+      Error detection and handling pipeline with plugin architecture.
+    key_contents:
+      - "engine/"
+      - "plugins/"
+      - "patterns/"
+      - "shared/"
+
+  - name: workstreams
+    kind: PIPELINE_STAGE_MODULE
+    description: >
+      Workstream definitions (JSON specs) that drive pipeline execution.
+      Contains 50+ workstream specs for various pipeline operations.
+    key_contents:
+      - "ws-*.json (workstream specs)"
+      - "plans/"
+      - "examples/"
+
+  - name: workstreams_uet
+    kind: PIPELINE_STAGE_MODULE
+    description: >
+      UET-specific workstreams staging area.
+    key_contents:
+      - ".gitkeep"
+
+  # =============================================================================
+  # FEATURE_SERVICE_MODULE - Cross-cutting capabilities
+  # =============================================================================
+  
+  - name: aim
+    kind: FEATURE_SERVICE_MODULE
+    description: >
+      AI Manager (AIM) - tool registry, selection, and management service.
+      Provides bridge to external tools and configuration loading.
+    key_contents:
+      - bridge.py
+      - "services/"
+      - "config/"
+      - AIM_INDEX.yaml
+      
+  - name: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK
+    kind: FEATURE_SERVICE_MODULE
+    description: >
+      UET Framework - execution patterns engine providing reusable templates
+      for common pipeline operations. Self-contained mini-repo structure.
+    key_contents:
+      - "patterns/"
+      - "templates/"
+      - "specs/"
+      - "core/"
+      - "tools/"
+      
+  - name: ai-logs-analyzer
+    kind: FEATURE_SERVICE_MODULE
+    description: >
+      AI log analysis service for parsing and understanding execution logs.
+    key_contents:
+      - "config/"
+      - "scripts/"
+      
+  - name: abstraction
+    kind: FEATURE_SERVICE_MODULE
+    description: >
+      Abstraction layer implementation for workstream generation and
+      cross-cutting concerns. Contains phase planning documentation.
+    key_contents:
+      - implement_all_phases.py
+      - workstream_specs.json
+      - "REPORT.md files"
+      
+  - name: prompting
+    kind: FEATURE_SERVICE_MODULE
+    description: >
+      Prompt engineering reference and templates for AI interactions.
+      Contains guides and patterns for effective prompting.
+    key_contents:
+      - anthropic_prompt_engineering_guide.md
+      - PRR_ai_prompt_engineering_reference.md
+      - "Prompt_block/"
+
+  # =============================================================================
+  # INTEGRATION_BRIDGE_MODULE - External system bridges
+  # =============================================================================
+  
+  - name: openspec
+    kind: INTEGRATION_BRIDGE_MODULE
+    description: >
+      OpenSpec integration bridge for specification management and
+      external spec format interoperability.
+    key_contents:
+      - "specs/"
+      - "changes/"
+      - "bridge/"
+      
+  - name: ccpm
+    kind: INTEGRATION_BRIDGE_MODULE
+    description: >
+      Critical Chain Project Management integration. Currently empty
+      (implementation may be elsewhere or pending).
+    key_contents: []
+      
+  - name: pm
+    kind: INTEGRATION_BRIDGE_MODULE
+    description: >
+      Project Management bridge integrating with GitHub and external PM tools.
+      Provides epic/PRD management and GitHub sync capabilities.
+    key_contents:
+      - bridge.py
+      - "integrations/"
+      - "commands/"
+      - "agents/"
+      
+  - name: tools
+    kind: INTEGRATION_BRIDGE_MODULE
+    description: >
+      External tool integration utilities including spec validation,
+      workstream conversion, and migration helpers.
+    key_contents:
+      - "spec_guard/"
+      - "spec_indexer/"
+      - workstream_validator.py
+      - migration_validator.py
+      
+  - name: aider
+    kind: INTEGRATION_BRIDGE_MODULE
+    description: >
+      Aider AI coding assistant integration with templates and configuration.
+    key_contents:
+      - engine.py
+      - "templates/"
+      - "help/"
+
+  # =============================================================================
+  # INTERFACE_MODULE - User-facing entrypoints
+  # =============================================================================
+  
+  - name: gui
+    kind: INTERFACE_MODULE
+    description: >
+      Graphical User Interface module with TUI (Text UI) application.
+    key_contents:
+      - "tui_app/"
+      - "config/"
+      - "docs/"
+      - "tests/"
+      
+  - name: textual
+    kind: INTERFACE_MODULE
+    description: >
+      Textual library components for terminal UI rendering.
+    key_contents:
+      - app.py
+      - widgets.py
+      - containers.py
+      
+  - name: rich
+    kind: INTERFACE_MODULE
+    description: >
+      Rich library components for terminal formatting and text display.
+    key_contents:
+      - text.py
+      
+  - name: invoke
+    kind: INTERFACE_MODULE
+    description: >
+      Invoke task runner integration (CLI task definitions).
+    key_contents:
+      - "__init__.py"
+
+  # =============================================================================
+  # REGISTRY_METADATA_MODULE - ID systems and schemas
+  # =============================================================================
+  
+  - name: registry
+    kind: REGISTRY_METADATA_MODULE
+    description: >
+      Module registry for tracking pipeline components.
+    key_contents:
+      - README.md
+      
+  - name: doc_id
+    kind: REGISTRY_METADATA_MODULE
+    description: >
+      Document ID management system for unique identification of docs/specs.
+      Contains tools, reports, and specifications for ID assignment.
+    key_contents:
+      - "tools/"
+      - "specs/"
+      - "batches/"
+      - "reports/"
+      
+  - name: schema
+    kind: REGISTRY_METADATA_MODULE
+    description: >
+      JSON/YAML schemas defining data structures for modules, workstreams,
+      registry entries, and jobs.
+    key_contents:
+      - module.schema.json
+      - workstream.schema.json
+      - registry_entry.schema.json
+      - schema.sql
+      
+  - name: modules
+    kind: REGISTRY_METADATA_MODULE
+    description: >
+      Module inventory with organized submodules following naming conventions.
+      Contains actual module code organized by domain (aim-*, core-*, error-*).
+    key_contents:
+      - MODULES_INVENTORY.yaml
+      - "aim-*/"
+      - "core-*/"
+      - "error-*/"
+      - "pm-*/"
+      
+  - name: ulid
+    kind: REGISTRY_METADATA_MODULE
+    description: >
+      ULID (Universally Unique Lexicographically Sortable Identifier) utilities.
+    key_contents:
+      - "__init__.py"
+      
+  - name: tree_sitter
+    kind: REGISTRY_METADATA_MODULE
+    description: >
+      Tree-sitter parsing utilities for code analysis.
+    key_contents:
+      - "__init__.py"
+
+  # =============================================================================
+  # INFRA_PLATFORM_MODULE - CI, environment, configs, scripts
+  # =============================================================================
+  
+  - name: ".github"
+    kind: INFRA_PLATFORM_MODULE
+    description: >
+      GitHub configuration including workflows, Copilot instructions, and CI.
+    key_contents:
+      - "workflows/"
+      - copilot-instructions.md
+      
+  - name: ".ai"
+    kind: INFRA_PLATFORM_MODULE
+    description: >
+      AI tool configuration including codebase mapping and patterns.
+    key_contents:
+      - codebase-map.yaml
+      - common-patterns.md
+      - context.md
+      
+  - name: ".claude"
+    kind: INFRA_PLATFORM_MODULE
+    description: >
+      Claude AI assistant configuration with commands and rules.
+    key_contents:
+      - "commands/"
+      - "rules/"
+      - settings.local.json
+      
+  - name: ".config"
+    kind: INFRA_PLATFORM_MODULE
+    description: >
+      Project configuration files including AI policies and quality gates.
+    key_contents:
+      - ai-policies.yaml
+      - quality-gate.yaml
+      - project-profile.yaml
+      
+  - name: ".execution"
+    kind: INFRA_PLATFORM_MODULE
+    description: >
+      Execution state tracking including checkpoints, telemetry, and patterns.
+    key_contents:
+      - "checkpoints/"
+      - telemetry.jsonl
+      - anti_patterns.yaml
+      
+  - name: ".state"
+    kind: INFRA_PLATFORM_MODULE
+    description: >
+      Runtime state storage for current execution context.
+    key_contents:
+      - current.json
+      - health.json
+      - "indices/"
+      
+  - name: ".uet"
+    kind: INFRA_PLATFORM_MODULE
+    description: >
+      UET runtime configuration.
+    key_contents:
+      - config.yaml
+      
+  - name: ".merge-backup"
+    kind: INFRA_PLATFORM_MODULE
+    description: >
+      Backup storage for merge operations.
+    key_contents:
+      - change-analysis.yaml
+      - commits-to-merge.txt
+      
+  - name: infra
+    kind: INFRA_PLATFORM_MODULE
+    description: >
+      Infrastructure configuration including CI and sync utilities.
+    key_contents:
+      - "ci/"
+      - "sync/"
+      - "data/"
+      
+  - name: scripts
+    kind: INFRA_PLATFORM_MODULE
+    description: >
+      Automation scripts for validation, migration, cleanup, and dev tasks.
+      Contains 80+ scripts for various pipeline operations.
+    key_contents:
+      - "validate/"
+      - "dev/"
+      - "agents/"
+      - "*.py, *.ps1, *.sh"
+      
+  - name: config
+    kind: INFRA_PLATFORM_MODULE
+    description: >
+      Central configuration files for all pipeline components.
+    key_contents:
+      - aim_config.yaml
+      - circuit_breakers.yaml
+      - section_map.yaml
+      - requirements.txt
+      
+  - name: tests
+    kind: INFRA_PLATFORM_MODULE
+    description: >
+      Test suite for all pipeline components.
+    key_contents:
+      - conftest.py
+      - "core/"
+      - "engine/"
+      - "error/"
+      - "gui/"
+      
+  - name: src
+    kind: INFRA_PLATFORM_MODULE
+    description: >
+      Legacy source directory (deprecated - use core.*, error.* instead).
+      Contains orchestrator and path registry.
+    key_contents:
+      - orchestrator.py
+      - path_registry.py
+      - "plugins/"
+      
+  - name: templates
+    kind: INFRA_PLATFORM_MODULE
+    description: >
+      Code and documentation templates for generating new components.
+    key_contents:
+      - "workstreams/"
+      - "migration/"
+      - module.manifest.template.yaml
+      
+  - name: examples
+    kind: INFRA_PLATFORM_MODULE
+    description: >
+      Example code demonstrating pipeline usage.
+    key_contents:
+      - orchestrator_integration_demo.py
+      
+  - name: specifications
+    kind: INFRA_PLATFORM_MODULE
+    description: >
+      Specification management including content, tools, and indexing.
+    key_contents:
+      - "content/"
+      - "tools/"
+      - "bridge/"
+      - SPEC_INDEX.yaml
+
+  # =============================================================================
+  # OBSERVABILITY_REPORTING_MODULE - Logs, reports, metrics
+  # =============================================================================
+  
+  - name: reports
+    kind: OBSERVABILITY_REPORTING_MODULE
+    description: >
+      Generated reports from various analysis tools and pipelines.
+    key_contents:
+      - module_classification_report.json
+      - paths_summary.txt
+      - registry_backfill_plan.json
+      
+  - name: cleanup_reports
+    kind: OBSERVABILITY_REPORTING_MODULE
+    description: >
+      Reports from cleanup and maintenance operations.
+    key_contents:
+      - "cleanup_report_*.json"
+      - "folder_*_analysis.json"
+      - "SESSION_SUMMARY_*.md"
+      
+  - name: assets
+    kind: OBSERVABILITY_REPORTING_MODULE
+    description: >
+      Static assets and resources (currently minimal content).
+    key_contents:
+      - README.md
+      - ".gitkeep"
+
+  # =============================================================================
+  # GOVERNANCE_KNOWLEDGE_MODULE - Docs, ADRs, glossaries
+  # =============================================================================
+  
+  - name: docs
+    kind: GOVERNANCE_KNOWLEDGE_MODULE
+    description: >
+      Central documentation hub with architecture, guides, and references.
+      Contains 80+ documentation files organized by topic.
+    key_contents:
+      - CODEBASE_INDEX.yaml
+      - DOC_ARCHITECTURE.md
+      - "diagrams/"
+      - "guides/"
+      - "reference/"
+      
+  - name: adr
+    kind: GOVERNANCE_KNOWLEDGE_MODULE
+    description: >
+      Architecture Decision Records documenting key technical decisions.
+    key_contents:
+      - DOC_ADR_0001_WORKSTREAM_MODEL_CHOICE.md
+      - DOC_ADR_0002_HYBRID_ARCHITECTURE.md
+      - template.md
+      
+  - name: glossary
+    kind: GOVERNANCE_KNOWLEDGE_MODULE
+    description: >
+      Project glossary and terminology with automated update system.
+    key_contents:
+      - glossary.md
+      - "config/"
+      - "scripts/"
+      
+  - name: capabilities
+    kind: GOVERNANCE_KNOWLEDGE_MODULE
+    description: >
+      Capability registry definitions (PowerShell data files).
+    key_contents:
+      - registry.psd1
+      - resources.psd1
+      
+  - name: developer
+    kind: GOVERNANCE_KNOWLEDGE_MODULE
+    description: >
+      Developer-focused documentation including guidelines, sessions,
+      and development planning resources.
+    key_contents:
+      - "_DEV_*.md files"
+      - "analysis/"
+      - "handoffs/"
+      - "sessions/"
+      
+  - name: Module-Centric
+    kind: GOVERNANCE_KNOWLEDGE_MODULE
+    description: >
+      Module-centric architecture documentation and migration guides.
+    key_contents:
+      - "architecture/"
+      - "developer_guides/"
+      - "migration/"
+      - "reference/"
+      
+  - name: REFACTOR_2
+    kind: GOVERNANCE_KNOWLEDGE_MODULE
+    description: >
+      Refactoring documentation and planning materials organized by phase.
+    key_contents:
+      - "01_PLANNING/"
+      - "02_ARCHITECTURE/"
+      - "03_IMPLEMENTATION/"
+      - "04_OPERATIONS/"
+      
+  - name: bring_back_docs_
+    kind: GOVERNANCE_KNOWLEDGE_MODULE
+    description: >
+      Documentation recovery/restoration materials.
+    key_contents:
+      - CONSOLIDATION_MANIFEST.md
+      - DIRECTORY_GUIDE.md
+      - phase-spec-mandatory-structure.md
+
+  # =============================================================================
+  # SANDBOX_EXPERIMENTAL_MODULE - Experimental areas
+  # =============================================================================
+  
+  - name: AI_SANDBOX
+    kind: SANDBOX_EXPERIMENTAL_MODULE
+    description: >
+      AI experimentation sandbox with template structures.
+    key_contents:
+      - "_template_sandbox/"
+      
+  - name: ToDo_Task
+    kind: SANDBOX_EXPERIMENTAL_MODULE
+    description: >
+      Task planning and tracking materials (experimental/in-progress).
+    key_contents:
+      - "Various planning .md and .txt files"
+      - implementation_progress.json
+
+  # =============================================================================
+  # ARCHIVE_LEGACY_BUCKET - Historical, non-active content
+  # =============================================================================
+  
+  - name: archive
+    kind: ARCHIVE_LEGACY_BUCKET
+    description: >
+      Archived content including dated backups, legacy code, and
+      migration completion records.
+    key_contents:
+      - "2025-11-26_*/"
+      - "legacy/"
+      - "*_MIGRATION_*.md"
+
+# =============================================================================
+# SUMMARY
+# =============================================================================
+summary:
+  total_folders: 56
+  by_category:
+    PIPELINE_STAGE_MODULE: 6
+    FEATURE_SERVICE_MODULE: 5
+    INTEGRATION_BRIDGE_MODULE: 5
+    INTERFACE_MODULE: 4
+    REGISTRY_METADATA_MODULE: 6
+    INFRA_PLATFORM_MODULE: 16
+    OBSERVABILITY_REPORTING_MODULE: 3
+    GOVERNANCE_KNOWLEDGE_MODULE: 8
+    SANDBOX_EXPERIMENTAL_MODULE: 2
+    ARCHIVE_LEGACY_BUCKET: 1
+  
+  category_folders:
+    PIPELINE_STAGE_MODULE:
+      - core
+      - engine
+      - state
+      - error
+      - workstreams
+      - workstreams_uet
+      
+    FEATURE_SERVICE_MODULE:
+      - aim
+      - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK
+      - ai-logs-analyzer
+      - abstraction
+      - prompting
+      
+    INTEGRATION_BRIDGE_MODULE:
+      - openspec
+      - ccpm
+      - pm
+      - tools
+      - aider
+      
+    INTERFACE_MODULE:
+      - gui
+      - textual
+      - rich
+      - invoke
+      
+    REGISTRY_METADATA_MODULE:
+      - registry
+      - doc_id
+      - schema
+      - modules
+      - ulid
+      - tree_sitter
+      
+    INFRA_PLATFORM_MODULE:
+      - ".github"
+      - ".ai"
+      - ".claude"
+      - ".config"
+      - ".execution"
+      - ".state"
+      - ".uet"
+      - ".merge-backup"
+      - infra
+      - scripts
+      - config
+      - tests
+      - src
+      - templates
+      - examples
+      - specifications
+      
+    OBSERVABILITY_REPORTING_MODULE:
+      - reports
+      - cleanup_reports
+      - assets
+      
+    GOVERNANCE_KNOWLEDGE_MODULE:
+      - docs
+      - adr
+      - glossary
+      - capabilities
+      - developer
+      - Module-Centric
+      - REFACTOR_2
+      - bring_back_docs_
+      
+    SANDBOX_EXPERIMENTAL_MODULE:
+      - AI_SANDBOX
+      - ToDo_Task
+      
+    ARCHIVE_LEGACY_BUCKET:
+      - archive
