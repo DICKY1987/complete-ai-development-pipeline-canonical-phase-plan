@@ -7,7 +7,7 @@ Resolves:
 
 Uses docs/.index/suite-index.yaml and sidecars to resolve to file and (optionally) line ranges.
 """
-DOC_ID: DOC-PAT-TOOLS-RESOLVER-969
+# DOC_ID: DOC-PAT-TOOLS-RESOLVER-969
 
 from __future__ import annotations
 

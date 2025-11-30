@@ -70,7 +70,7 @@ DocIDRegistry = _registry_module.DocIDRegistry  # type: ignore[attr-defined]
 @dataclass
 class InventoryEntry:
     path: str
-    doc_id: Optional[str]
+    # DOC_ID: Optional[str]
     status: str
     file_type: str
     last_modified: str = ""
@@ -455,7 +455,7 @@ def inject_doc_id_into_content(content: str, file_type: str, doc_id: str) -> str
 @dataclass
 class AssignmentResult:
     path: str
-    doc_id: str
+    # DOC_ID: str
     category: str
     name: str
     skipped: bool

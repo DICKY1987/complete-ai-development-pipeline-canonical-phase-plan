@@ -7,7 +7,7 @@ Provides simplified interface for:
 - Worker pool control
 - Job cancellation
 """
-DOC_ID: DOC-PAT-QUEUE-QUEUE-MANAGER-455
+# DOC_ID: DOC-PAT-QUEUE-QUEUE-MANAGER-455
 
 import asyncio
 from typing import Optional, Dict, Any, List

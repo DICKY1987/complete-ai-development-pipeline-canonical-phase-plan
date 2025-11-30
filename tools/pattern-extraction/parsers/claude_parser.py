@@ -2,7 +2,7 @@
 Claude Code Log Parser
 Parses Claude Code debug logs and history.jsonl
 """
-DOC_ID: DOC-PAT-PARSERS-CLAUDE-PARSER-649
+# DOC_ID: DOC-PAT-PARSERS-CLAUDE-PARSER-649
 
 import json
 from pathlib import Path

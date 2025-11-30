@@ -15,7 +15,7 @@ USAGE:
 - Supports pytest, unittest, and custom test runners
 - Captures test results and coverage reports
 """
-DOC_ID: DOC-PAT-ADAPTERS-TESTS-ADAPTER-443
+# DOC_ID: DOC-PAT-ADAPTERS-TESTS-ADAPTER-443
 
 import json
 import subprocess

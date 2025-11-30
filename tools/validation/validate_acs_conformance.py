@@ -13,7 +13,7 @@ Exit codes:
   0 - All validations passed
   1 - Validation failures found
 """
-DOC_ID: DOC-PAT-VALIDATION-VALIDATE-ACS-CONFORMANCE-634
+# DOC_ID: DOC-PAT-VALIDATION-VALIDATE-ACS-CONFORMANCE-634
 
 import json
 import sys

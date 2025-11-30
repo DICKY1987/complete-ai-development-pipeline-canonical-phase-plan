@@ -3,8 +3,8 @@ Auto-generated module migration script
 Pattern: EXEC-001 (Batch File Creator)
 Generated: {generation_date}
 """
-DOC_ID: DOC-PAT-TEMPLATES-MIGRATE-MODULE-TEMPLATE-361
-DOC_ID: DOC-PAT-TEMPLATES-MIGRATE-MODULE-TEMPLATE-317
+# DOC_ID: DOC-PAT-TEMPLATES-MIGRATE-MODULE-TEMPLATE-361
+# DOC_ID: DOC-PAT-TEMPLATES-MIGRATE-MODULE-TEMPLATE-317
 
 from pathlib import Path
 import shutil

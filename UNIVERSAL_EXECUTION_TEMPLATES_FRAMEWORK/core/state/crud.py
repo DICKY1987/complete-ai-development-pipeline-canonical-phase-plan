@@ -5,7 +5,7 @@ Provides create, read, update operations for runs, workstreams, step_attempts,
 errors, and events. All functions use ISO 8601 UTC timestamps and follow
 transactional patterns for data integrity.
 """
-DOC_ID: DOC-CORE-STATE-CRUD-169
+# DOC_ID: DOC-CORE-STATE-CRUD-169
 
 from __future__ import annotations
 

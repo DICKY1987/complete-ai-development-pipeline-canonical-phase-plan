@@ -4,7 +4,7 @@ Tool installer for AIM+ environment management.
 Provides automated installation of tools via pipx, npm, and winget
 with version pinning, parallel installation, and rollback support.
 """
-DOC_ID: DOC-PAT-AIM-ENVIRONMENT-M01001B-INSTALLER-476
+# DOC_ID: DOC-PAT-AIM-ENVIRONMENT-M01001B-INSTALLER-476
 
 import asyncio
 import json

@@ -8,7 +8,7 @@ Provides structured representation of queued jobs with:
 - Retry counting
 - Metadata storage
 """
-DOC_ID: DOC-PAT-QUEUE-JOB-WRAPPER-454
+# DOC_ID: DOC-PAT-QUEUE-JOB-WRAPPER-454
 
 from dataclasses import dataclass, field
 from datetime import datetime

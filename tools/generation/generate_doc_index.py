@@ -8,7 +8,7 @@ and generates an updated DOCUMENTATION_INDEX.md file.
 Usage:
     python scripts/generate_doc_index.py [--output DOCS/DOCUMENTATION_INDEX.md]
 """
-DOC_ID: DOC-PAT-GENERATION-GENERATE-DOC-INDEX-619
+# DOC_ID: DOC-PAT-GENERATION-GENERATE-DOC-INDEX-619
 
 import argparse
 import json

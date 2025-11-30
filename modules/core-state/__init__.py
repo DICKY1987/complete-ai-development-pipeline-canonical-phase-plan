@@ -9,7 +9,7 @@ Import from this module:
 
     from modules.core_state import function_name  # ?
 """
-DOC_ID: DOC-PAT-CORE-STATE-INIT-540
+# DOC_ID: DOC-PAT-CORE-STATE-INIT-540
 
 import importlib
 import sys

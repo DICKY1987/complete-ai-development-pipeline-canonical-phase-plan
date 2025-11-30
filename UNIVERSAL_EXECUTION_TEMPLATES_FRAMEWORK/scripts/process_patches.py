@@ -10,7 +10,7 @@ Usage:
     python scripts/process_patches.py --dry-run          # Show what would happen
     python scripts/process_patches.py --validate         # Validate no pending patches
 """
-DOC_ID: DOC-SCRIPT-SCRIPTS-PROCESS-PATCHES-275
+# DOC_ID: DOC-SCRIPT-SCRIPTS-PROCESS-PATCHES-275
 
 import argparse
 import subprocess

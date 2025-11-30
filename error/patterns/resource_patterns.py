@@ -11,7 +11,7 @@ Resource leak patterns:
 - Infinite loops or recursion without bounds
 - Cache growth without eviction
 """
-DOC_ID: DOC-ERROR-PATTERNS-RESOURCE-PATTERNS-052
+# DOC_ID: DOC-ERROR-PATTERNS-RESOURCE-PATTERNS-052
 from __future__ import annotations
 
 import ast

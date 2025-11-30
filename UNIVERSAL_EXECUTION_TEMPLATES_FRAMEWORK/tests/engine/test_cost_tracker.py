@@ -8,7 +8,7 @@ Author: AI Development Pipeline
 Created: 2025-11-23
 WS: WS-NEXT-002-004 (Testing)
 """
-DOC_ID: DOC-TEST-ENGINE-TEST-COST-TRACKER-173
+# DOC_ID: DOC-TEST-ENGINE-TEST-COST-TRACKER-173
 
 import pytest
 import sys

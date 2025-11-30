@@ -8,7 +8,7 @@ Usage:
     python -m engine.queue stats
     python -m engine.queue start-workers [--count COUNT]
 """
-DOC_ID: DOC-PAT-QUEUE-MAIN-459
+# DOC_ID: DOC-PAT-QUEUE-MAIN-459
 
 import argparse
 import asyncio

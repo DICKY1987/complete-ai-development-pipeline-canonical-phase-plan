@@ -13,7 +13,7 @@ and fold them into patterns without user input.
 
 **Output**: Auto-generated patterns for common user requests
 """
-DOC_ID: DOC-PAT-DETECTORS-MULTI-AI-LOG-MINER-884
+# DOC_ID: DOC-PAT-DETECTORS-MULTI-AI-LOG-MINER-884
 
 import json
 import re

@@ -31,7 +31,7 @@ class SubprocessExecutor:
         >>> print(result.stdout)
         Hello
     """
-DOC_ID: DOC-CORE-EXECUTION-SUBPROCESS-EXECUTOR-087
+# DOC_ID: DOC-CORE-EXECUTION-SUBPROCESS-EXECUTOR-087
     
     def __init__(self, dry_run: bool = False):
         """Initialize SubprocessExecutor.

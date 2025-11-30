@@ -14,7 +14,7 @@ from core.engine.execution_request_builder import ExecutionRequestBuilder, creat
 @pytest.fixture
 def router_config(tmp_path):
     """Create a test router configuration"""
-DOC_ID: DOC-TEST-ENGINE-TEST-ROUTING-175
+# DOC_ID: DOC-TEST-ENGINE-TEST-ROUTING-175
     config = {
         "version": "1.0.0",
         "defaults": {

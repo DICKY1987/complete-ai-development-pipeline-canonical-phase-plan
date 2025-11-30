@@ -2,7 +2,7 @@
 GitHub Copilot CLI Log Parser
 Parses session-state JSONL files from ~/.copilot/session-state/
 """
-DOC_ID: DOC-PAT-PARSERS-COPILOT-PARSER-650
+# DOC_ID: DOC-PAT-PARSERS-COPILOT-PARSER-650
 
 import json
 import re

@@ -2,7 +2,7 @@
 
 Generate weekly reports on pattern usage and effectiveness.
 """
-DOC_ID: DOC-PAT-ANALYZERS-PERFORMANCE-ANALYZER-875
+# DOC_ID: DOC-PAT-ANALYZERS-PERFORMANCE-ANALYZER-875
 
 import json
 from pathlib import Path

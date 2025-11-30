@@ -8,7 +8,7 @@ from datetime import datetime
 
 class ProjectScanner:
     """Scans project and detects characteristics."""
-DOC_ID: DOC-CORE-BOOTSTRAP-DISCOVERY-138
+# DOC_ID: DOC-CORE-BOOTSTRAP-DISCOVERY-138
     
     LANGUAGE_EXTENSIONS = {
         'python': ['.py'],

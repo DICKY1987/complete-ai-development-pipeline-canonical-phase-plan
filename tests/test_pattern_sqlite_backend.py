@@ -8,8 +8,8 @@ from gui.tui_app.core.pattern_client import SQLitePatternStateStore, PatternStat
 
 def test_sqlite_pattern_store_reads_runs_and_events(tmp_path):
     """Ensure runs/events map from executions and patch ledger."""
-DOC_ID: DOC-TEST-TESTS-TEST-PATTERN-SQLITE-BACKEND-099
-DOC_ID: DOC-TEST-TESTS-TEST-PATTERN-SQLITE-BACKEND-060
+# DOC_ID: DOC-TEST-TESTS-TEST-PATTERN-SQLITE-BACKEND-099
+# DOC_ID: DOC-TEST-TESTS-TEST-PATTERN-SQLITE-BACKEND-060
     db_path = tmp_path / "pipeline_state.db"
     store = SQLitePatternStateStore(db_path=str(db_path))
     conn: sqlite3.Connection = store._conn  # test hook

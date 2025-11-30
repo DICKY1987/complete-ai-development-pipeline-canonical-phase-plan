@@ -7,7 +7,7 @@ Tests:
 3. Orchestrator CLI
 4. Adapter interface
 """
-DOC_ID: DOC-PAT-VALIDATION-VALIDATE-ENGINE-636
+# DOC_ID: DOC-PAT-VALIDATION-VALIDATE-ENGINE-636
 
 import json
 import sys

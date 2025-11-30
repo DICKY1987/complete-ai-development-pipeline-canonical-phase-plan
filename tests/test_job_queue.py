@@ -2,8 +2,8 @@
 Integration tests for JobQueue (Phase 4B)
 Tests priority queue operations, persistence, and dependency tracking.
 """
-DOC_ID: DOC-TEST-TESTS-TEST-JOB-QUEUE-088
-DOC_ID: DOC-TEST-TESTS-TEST-JOB-QUEUE-049
+# DOC_ID: DOC-TEST-TESTS-TEST-JOB-QUEUE-088
+# DOC_ID: DOC-TEST-TESTS-TEST-JOB-QUEUE-049
 import pytest
 import asyncio
 import tempfile

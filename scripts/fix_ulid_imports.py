@@ -10,8 +10,8 @@ Usage:
     python scripts/fix_ulid_imports.py --dry-run
     python scripts/fix_ulid_imports.py --execute
 """
-DOC_ID: DOC-SCRIPT-SCRIPTS-FIX-ULID-IMPORTS-209
-DOC_ID: DOC-SCRIPT-SCRIPTS-FIX-ULID-IMPORTS-146
+# DOC_ID: DOC-SCRIPT-SCRIPTS-FIX-ULID-IMPORTS-209
+# DOC_ID: DOC-SCRIPT-SCRIPTS-FIX-ULID-IMPORTS-146
 
 import re
 import sys

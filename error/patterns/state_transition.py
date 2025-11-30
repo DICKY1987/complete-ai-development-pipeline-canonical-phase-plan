@@ -9,7 +9,7 @@ Pattern: What transitions are missing?
 3. Generate matrix of ALL possible transitions
 4. Gap = (All Possible) - (Implemented)
 """
-DOC_ID: DOC-ERROR-PATTERNS-STATE-TRANSITION-053
+# DOC_ID: DOC-ERROR-PATTERNS-STATE-TRANSITION-053
 from __future__ import annotations
 
 import ast

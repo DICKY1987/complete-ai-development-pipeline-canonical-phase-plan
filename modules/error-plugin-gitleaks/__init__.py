@@ -9,7 +9,7 @@ Import from this module:
 
     from modules.error_plugin_gitleaks import function_name  # ?
 """
-DOC_ID: DOC-PAT-ERROR-PLUGIN-GITLEAKS-INIT-557
+# DOC_ID: DOC-PAT-ERROR-PLUGIN-GITLEAKS-INIT-557
 
 import importlib
 import sys

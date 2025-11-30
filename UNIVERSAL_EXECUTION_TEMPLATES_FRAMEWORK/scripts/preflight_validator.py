@@ -3,7 +3,7 @@
 Pre-Flight Validator for Multi-Agent Orchestration
 Validates prerequisites before execution
 """
-DOC_ID: DOC-SCRIPT-SCRIPTS-PREFLIGHT-VALIDATOR-274
+# DOC_ID: DOC-SCRIPT-SCRIPTS-PREFLIGHT-VALIDATOR-274
 
 import subprocess
 import sys

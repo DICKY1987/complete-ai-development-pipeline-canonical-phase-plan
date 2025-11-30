@@ -7,7 +7,7 @@ Options:
 - keep_as_submodule: Register in .gitmodules
 - absorb_as_folder: Remove .git and treat as regular files
 """
-DOC_ID: DOC-SCRIPT-SCRIPTS-NESTED-REPO-NORMALIZER-333
+# DOC_ID: DOC-SCRIPT-SCRIPTS-NESTED-REPO-NORMALIZER-333
 
 import json
 import subprocess

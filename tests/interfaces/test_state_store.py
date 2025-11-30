@@ -15,7 +15,7 @@ from core.state.sqlite_store import SQLiteStateStore
 
 class TestStateStoreProtocol:
     """Test StateStore protocol compliance."""
-DOC_ID: DOC-TEST-INTERFACES-TEST-STATE-STORE-124
+# DOC_ID: DOC-TEST-INTERFACES-TEST-STATE-STORE-124
     
     def test_sqlite_store_implements_protocol(self):
         """SQLiteStateStore implements StateStore protocol."""

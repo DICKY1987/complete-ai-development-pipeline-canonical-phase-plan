@@ -11,7 +11,7 @@ from core.state.sqlite_store import SQLiteStateStore
 
 class TestWorkstreamServiceProtocol:
     """Test WorkstreamService protocol compliance."""
-DOC_ID: DOC-TEST-INTERFACES-TEST-WORKSTREAM-SERVICE-127
+# DOC_ID: DOC-TEST-INTERFACES-TEST-WORKSTREAM-SERVICE-127
     
     def test_impl_implements_protocol(self):
         """WorkstreamServiceImpl implements protocol."""

@@ -3,7 +3,7 @@
 These tests verify the full AIM workflow with real AIM registry and adapters.
 Tests are skipped if AIM registry is unavailable.
 """
-DOC_ID: DOC-TEST-INTEGRATION-TEST-AIM-END-TO-END-118
+# DOC_ID: DOC-TEST-INTEGRATION-TEST-AIM-END-TO-END-118
 
 import pytest
 

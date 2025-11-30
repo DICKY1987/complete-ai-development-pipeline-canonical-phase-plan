@@ -3,7 +3,7 @@
 This module coordinates the state machine, agent adapters, and validation pipeline
 to provide automated error remediation.
 """
-DOC_ID: DOC-PAT-ERROR-ENGINE-M010004-ERROR-PIPELINE-545
+# DOC_ID: DOC-PAT-ERROR-ENGINE-M010004-ERROR-PIPELINE-545
 from __future__ import annotations
 
 import dataclasses

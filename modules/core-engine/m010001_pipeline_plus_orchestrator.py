@@ -2,7 +2,7 @@
 Pipeline Plus Integration Orchestrator
 End-to-end task execution coordinator
 """
-DOC_ID: DOC-PAT-CORE-ENGINE-M010001-PIPELINE-PLUS-504
+# DOC_ID: DOC-PAT-CORE-ENGINE-M010001-PIPELINE-PLUS-504
 from typing import Dict, Any, Optional, List
 from pathlib import Path
 from dataclasses import dataclass

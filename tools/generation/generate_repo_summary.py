@@ -15,7 +15,7 @@ Inputs:
 Output:
 - .meta/ai_context/repo_summary.{md,json}
 """
-DOC_ID: DOC-PAT-GENERATION-GENERATE-REPO-SUMMARY-621
+# DOC_ID: DOC-PAT-GENERATION-GENERATE-REPO-SUMMARY-621
 
 import json
 import sys

@@ -1,7 +1,7 @@
 """
 Tests for doc-meta.v1.json schema validation.
 """
-DOC_ID: DOC-TEST-SCHEMA-TEST-DOC-META-192
+# DOC_ID: DOC-TEST-SCHEMA-TEST-DOC-META-192
 
 import json
 import pytest

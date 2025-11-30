@@ -24,7 +24,7 @@ from error.patterns.types import PatternCategory, PatternSeverity
 
 class TestExternalCallPatterns:
     """Test external call pattern detection."""
-DOC_ID: DOC-TEST-PATTERN-TESTS-TEST-ERROR-PATH-131
+# DOC_ID: DOC-TEST-PATTERN-TESTS-TEST-ERROR-PATH-131
     
     def test_http_patterns_defined(self):
         """HTTP call patterns should be defined."""

@@ -12,8 +12,8 @@ Examples:
     python scripts/aim_audit_query.py --format json
     python scripts/aim_audit_query.py --tool aider --format csv > results.csv
 """
-DOC_ID: DOC-SCRIPT-SCRIPTS-AIM-AUDIT-QUERY-183
-DOC_ID: DOC-SCRIPT-SCRIPTS-AIM-AUDIT-QUERY-120
+# DOC_ID: DOC-SCRIPT-SCRIPTS-AIM-AUDIT-QUERY-183
+# DOC_ID: DOC-SCRIPT-SCRIPTS-AIM-AUDIT-QUERY-120
 
 import argparse
 import csv

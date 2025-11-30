@@ -12,7 +12,7 @@ from gui.tui_app.core.state_client import (
 
 def test_inmemory_backend_get_pipeline_summary():
     """Test getting pipeline summary from in-memory backend."""
-DOC_ID: DOC-TEST-TUI-PANEL-FRAMEWORK-TEST-STATE-CLIENT-159
+# DOC_ID: DOC-TEST-TUI-PANEL-FRAMEWORK-TEST-STATE-CLIENT-159
     backend = InMemoryStateBackend()
     summary = backend.get_pipeline_summary()
     

@@ -1,7 +1,7 @@
 """
 Tests for Python-specific AST extractor.
 """
-DOC_ID: DOC-TEST-SYNTAX-ANALYSIS-TEST-PYTHON-153
+# DOC_ID: DOC-TEST-SYNTAX-ANALYSIS-TEST-PYTHON-153
 
 import pytest
 from core.ast.parser import ASTParser

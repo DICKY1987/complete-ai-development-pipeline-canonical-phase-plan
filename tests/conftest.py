@@ -15,8 +15,8 @@ if str(project_root) not in sys.path:
 @pytest.fixture(scope="function")
 def temp_db():
     """Create a temporary test database."""
-DOC_ID: DOC-TEST-TESTS-CONFTEST-072
-DOC_ID: DOC-TEST-TESTS-CONFTEST-033
+# DOC_ID: DOC-TEST-TESTS-CONFTEST-072
+# DOC_ID: DOC-TEST-TESTS-CONFTEST-033
     with tempfile.NamedTemporaryFile(mode='w', suffix='.db', delete=False) as f:
         db_path = f.name
     

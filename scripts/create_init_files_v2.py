@@ -11,8 +11,8 @@ Usage:
     python scripts/create_init_files_v2.py --all --execute
     python scripts/create_init_files_v2.py --module core-state --execute
 """
-DOC_ID: DOC-SCRIPT-SCRIPTS-CREATE-INIT-FILES-V2-200
-DOC_ID: DOC-SCRIPT-SCRIPTS-CREATE-INIT-FILES-V2-137
+# DOC_ID: DOC-SCRIPT-SCRIPTS-CREATE-INIT-FILES-V2-200
+# DOC_ID: DOC-SCRIPT-SCRIPTS-CREATE-INIT-FILES-V2-137
 
 from pathlib import Path
 import yaml

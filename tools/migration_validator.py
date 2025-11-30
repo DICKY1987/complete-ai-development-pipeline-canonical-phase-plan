@@ -2,8 +2,8 @@
 Migration Validator - Verify Migration Integrity
 Compares old and new database schemas, validates conversions
 """
-DOC_ID: DOC-PAT-TOOLS-MIGRATION-VALIDATOR-368
-DOC_ID: DOC-PAT-TOOLS-MIGRATION-VALIDATOR-324
+# DOC_ID: DOC-PAT-TOOLS-MIGRATION-VALIDATOR-368
+# DOC_ID: DOC-PAT-TOOLS-MIGRATION-VALIDATOR-324
 
 from pathlib import Path
 import sqlite3

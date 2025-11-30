@@ -9,7 +9,7 @@ Import from this module:
 
     from modules.error_plugin_test_runner import function_name  # ?
 """
-DOC_ID: DOC-PAT-ERROR-PLUGIN-TEST-RUNNER-INIT-591
+# DOC_ID: DOC-PAT-ERROR-PLUGIN-TEST-RUNNER-INIT-591
 
 import importlib
 import sys

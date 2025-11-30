@@ -9,7 +9,7 @@ Import from this module:
 
     from modules.error_plugin_semgrep import function_name  # ?
 """
-DOC_ID: DOC-PAT-ERROR-PLUGIN-SEMGREP-INIT-589
+# DOC_ID: DOC-PAT-ERROR-PLUGIN-SEMGREP-INIT-589
 
 import importlib
 import sys

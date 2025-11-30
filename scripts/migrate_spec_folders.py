@@ -15,8 +15,8 @@ This script:
 Usage:
     python scripts/migrate_spec_folders.py [--dry-run] [--backup]
 """
-DOC_ID: DOC-SCRIPT-SCRIPTS-MIGRATE-SPEC-FOLDERS-218
-DOC_ID: DOC-SCRIPT-SCRIPTS-MIGRATE-SPEC-FOLDERS-155
+# DOC_ID: DOC-SCRIPT-SCRIPTS-MIGRATE-SPEC-FOLDERS-218
+# DOC_ID: DOC-SCRIPT-SCRIPTS-MIGRATE-SPEC-FOLDERS-155
 
 import argparse
 import shutil

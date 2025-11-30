@@ -3,7 +3,7 @@
 Automatically detect repetitive execution patterns from telemetry data.
 Generates pattern candidates after detecting 3+ similar executions.
 """
-DOC_ID: DOC-PAT-DETECTORS-EXECUTION-DETECTOR-881
+# DOC_ID: DOC-PAT-DETECTORS-EXECUTION-DETECTOR-881
 
 import hashlib
 import json

@@ -2,7 +2,7 @@
 Parallel Pattern Detector
 Detects when multiple tools are executed in parallel
 """
-DOC_ID: DOC-PAT-DETECTORS-PARALLEL-DETECTOR-642
+# DOC_ID: DOC-PAT-DETECTORS-PARALLEL-DETECTOR-642
 
 from typing import List, Dict
 from collections import defaultdict

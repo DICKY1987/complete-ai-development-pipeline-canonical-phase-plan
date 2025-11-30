@@ -7,8 +7,8 @@ List all tasks: invoke --list
 
 Note: Uses forward slashes for cross-platform compatibility.
 """
-DOC_ID: DOC-CONFIG-CONFIG-TASKS-254
-DOC_ID: DOC-CONFIG-CONFIG-TASKS-253
+# DOC_ID: DOC-CONFIG-CONFIG-TASKS-254
+# DOC_ID: DOC-CONFIG-CONFIG-TASKS-253
 
 from invoke import task, Collection
 

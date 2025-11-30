@@ -3,8 +3,8 @@ Tests for Invoke utilities (Phase G - WS-G2).
 
 Validates CommandResult, run_command(), and MockContext integration.
 """
-DOC_ID: DOC-TEST-TESTS-TEST-INVOKE-UTILS-087
-DOC_ID: DOC-TEST-TESTS-TEST-INVOKE-UTILS-048
+# DOC_ID: DOC-TEST-TESTS-TEST-INVOKE-UTILS-087
+# DOC_ID: DOC-TEST-TESTS-TEST-INVOKE-UTILS-048
 
 import pytest
 from pathlib import Path

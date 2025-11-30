@@ -4,7 +4,7 @@ Orchestrator Interface Protocol
 Defines the contract for the job orchestrator.
 This is the main entry point for job execution.
 """
-DOC_ID: DOC-PAT-INTERFACES-ORCHESTRATOR-INTERFACE-446
+# DOC_ID: DOC-PAT-INTERFACES-ORCHESTRATOR-INTERFACE-446
 
 from typing import Protocol, Dict, Any
 from engine.types import JobResult

@@ -4,8 +4,8 @@ Configuration utilities for Invoke integration.
 Provides helpers to load and access project configuration
 from invoke.yaml with proper structure.
 """
-DOC_ID: DOC-CORE-CORE-CONFIG-LOADER-038
-DOC_ID: DOC-CORE-CORE-CONFIG-LOADER-015
+# DOC_ID: DOC-CORE-CORE-CONFIG-LOADER-038
+# DOC_ID: DOC-CORE-CORE-CONFIG-LOADER-015
 
 from typing import Any, Dict, Optional
 from pathlib import Path

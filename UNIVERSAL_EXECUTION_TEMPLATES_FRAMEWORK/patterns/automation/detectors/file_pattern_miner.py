@@ -2,7 +2,7 @@
 
 Detect when user creates N similar files manually and suggest batch patterns.
 """
-DOC_ID: DOC-PAT-DETECTORS-FILE-PATTERN-MINER-882
+# DOC_ID: DOC-PAT-DETECTORS-FILE-PATTERN-MINER-882
 
 import hashlib
 import json

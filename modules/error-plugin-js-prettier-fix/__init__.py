@@ -9,7 +9,7 @@ Import from this module:
 
     from modules.error_plugin_js_prettier_fix import function_name  # ?
 """
-DOC_ID: DOC-PAT-ERROR-PLUGIN-JS-PRETTIER-FIX-INIT-561
+# DOC_ID: DOC-PAT-ERROR-PLUGIN-JS-PRETTIER-FIX-INIT-561
 
 import importlib
 import sys

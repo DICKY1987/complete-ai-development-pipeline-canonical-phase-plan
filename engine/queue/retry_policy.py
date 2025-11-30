@@ -6,7 +6,7 @@ Provides retry mechanisms with:
 - Configurable retry limits
 - Retry delay calculation
 """
-DOC_ID: DOC-PAT-QUEUE-RETRY-POLICY-456
+# DOC_ID: DOC-PAT-QUEUE-RETRY-POLICY-456
 
 from enum import Enum
 from typing import Optional

@@ -8,7 +8,7 @@ OpenSpec fallback mode:
 - If suite-index is not present, renders all `openspec/specs/**/spec.md` files
   in deterministic order into a single Markdown stream with headings.
 """
-DOC_ID: DOC-PAT-TOOLS-RENDERER-968
+# DOC_ID: DOC-PAT-TOOLS-RENDERER-968
 
 from __future__ import annotations
 

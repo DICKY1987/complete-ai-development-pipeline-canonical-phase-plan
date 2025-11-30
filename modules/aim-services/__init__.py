@@ -8,7 +8,7 @@ This module is reserved for future development of AIM (AI Environment Manager)
 service layer integrations. Currently serves as a structural placeholder
 following the ULID-prefixed module pattern.
 """
-DOC_ID: DOC-PAT-AIM-SERVICES-INIT-483
+# DOC_ID: DOC-PAT-AIM-SERVICES-INIT-483
 
 __module_id__ = "aim-services"
 __ulid_prefix__ = "01001D"

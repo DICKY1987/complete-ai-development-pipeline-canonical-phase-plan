@@ -37,9 +37,9 @@ See Also:
     - aim/STRUCTURE.md - Architecture and structure
     - aim/DEPENDENCIES.md - Dependency declarations
 """
-DOC_ID: DOC-AIM-AIM-INIT-082
-DOC_ID: DOC-AIM-AIM-INIT-077
-DOC_ID: DOC-AIM-AIM-INIT-074
+# DOC_ID: DOC-AIM-AIM-INIT-082
+# DOC_ID: DOC-AIM-AIM-INIT-077
+# DOC_ID: DOC-AIM-AIM-INIT-074
 
 __version__ = "1.0.0"
 

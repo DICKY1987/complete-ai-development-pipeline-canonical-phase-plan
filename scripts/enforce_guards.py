@@ -2,8 +2,8 @@
 Anti-Pattern Guard Enforcement Script
 Prevents 79h of waste during module migration
 """
-DOC_ID: DOC-SCRIPT-SCRIPTS-ENFORCE-GUARDS-208
-DOC_ID: DOC-SCRIPT-SCRIPTS-ENFORCE-GUARDS-145
+# DOC_ID: DOC-SCRIPT-SCRIPTS-ENFORCE-GUARDS-208
+# DOC_ID: DOC-SCRIPT-SCRIPTS-ENFORCE-GUARDS-145
 
 import subprocess
 import sys

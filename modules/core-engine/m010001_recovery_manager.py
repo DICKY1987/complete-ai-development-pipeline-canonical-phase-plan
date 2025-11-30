@@ -2,7 +2,7 @@
 
 Phase I WS-I5: Enhanced recovery with parallel execution support.
 """
-DOC_ID: DOC-PAT-CORE-ENGINE-M010001-RECOVERY-MANAGER-509
+# DOC_ID: DOC-PAT-CORE-ENGINE-M010001-RECOVERY-MANAGER-509
 
 from typing import Dict, List, Any, Optional, Set
 from datetime import datetime, timezone

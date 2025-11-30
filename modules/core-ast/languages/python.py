@@ -14,7 +14,7 @@ from modules.core_ast.m010000_extractors import (
 
 def _unparse(node: ast.AST) -> str:
     """Safely render an AST node to source."""
-DOC_ID: DOC-PAT-LANGUAGES-PYTHON-609
+# DOC_ID: DOC-PAT-LANGUAGES-PYTHON-609
     try:
         return ast.unparse(node)  # type: ignore[attr-defined]
     except Exception:

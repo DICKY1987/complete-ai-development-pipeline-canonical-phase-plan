@@ -2,7 +2,7 @@
 
 Adds methods to core/state/db.py for logging pattern executions and metrics.
 """
-DOC_ID: DOC-CORE-STATE-PATTERN-TELEMETRY-DB-173
+# DOC_ID: DOC-CORE-STATE-PATTERN-TELEMETRY-DB-173
 
 import json
 from datetime import datetime

@@ -20,8 +20,8 @@ Integration:
 
 See pm/CONTRACT.md for detailed interface specifications.
 """
-DOC_ID: DOC-PM-PM-INIT-018
-DOC_ID: DOC-PM-PM-INIT-012
+# DOC_ID: DOC-PM-PM-INIT-018
+# DOC_ID: DOC-PM-PM-INIT-012
 
 from pathlib import Path
 

@@ -9,7 +9,7 @@ Import from this module:
 
     from modules.aim_registry import function_name  # ?
 """
-DOC_ID: DOC-PAT-AIM-REGISTRY-INIT-482
+# DOC_ID: DOC-PAT-AIM-REGISTRY-INIT-482
 
 import importlib
 import sys

@@ -3,8 +3,8 @@ Test JobStateStore implementation.
 
 Validates state store integration with existing database schema.
 """
-DOC_ID: DOC-SCRIPT-SCRIPTS-TEST-STATE-STORE-237
-DOC_ID: DOC-SCRIPT-SCRIPTS-TEST-STATE-STORE-174
+# DOC_ID: DOC-SCRIPT-SCRIPTS-TEST-STATE-STORE-237
+# DOC_ID: DOC-SCRIPT-SCRIPTS-TEST-STATE-STORE-174
 
 import sys
 import json

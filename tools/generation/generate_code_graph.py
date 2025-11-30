@@ -12,7 +12,7 @@ Inputs:
 Output:
 - .meta/ai_context/code_graph.json
 """
-DOC_ID: DOC-PAT-GENERATION-GENERATE-CODE-GRAPH-618
+# DOC_ID: DOC-PAT-GENERATION-GENERATE-CODE-GRAPH-618
 
 import json
 import sys

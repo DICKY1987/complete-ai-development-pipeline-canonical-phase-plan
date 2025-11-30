@@ -9,7 +9,7 @@ Example:
     >>> adapter = registry.get_adapter({'edit_code'})
     >>> result = adapter.run(job, executor=executor)
 """
-DOC_ID: DOC-CORE-INTERFACES-TOOL-ADAPTER-103
+# DOC_ID: DOC-CORE-INTERFACES-TOOL-ADAPTER-103
 
 from __future__ import annotations
 

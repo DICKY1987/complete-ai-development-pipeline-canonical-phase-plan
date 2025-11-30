@@ -3,7 +3,7 @@
 Documentation Move Plan Applicator
 Implements DOC-ORG-040 through DOC-ORG-043a
 """
-DOC_ID: DOC-PAT-TOOLS-APPLY-DOC-MOVE-PLAN-657
+# DOC_ID: DOC-PAT-TOOLS-APPLY-DOC-MOVE-PLAN-657
 import argparse
 import json
 import subprocess

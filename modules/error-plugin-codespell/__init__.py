@@ -9,7 +9,7 @@ Import from this module:
 
     from modules.error_plugin_codespell import function_name  # ?
 """
-DOC_ID: DOC-PAT-ERROR-PLUGIN-CODESPELL-INIT-553
+# DOC_ID: DOC-PAT-ERROR-PLUGIN-CODESPELL-INIT-553
 
 import importlib
 import sys

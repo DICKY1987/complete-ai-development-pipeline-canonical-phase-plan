@@ -5,7 +5,7 @@ lifecycle events and building PatternRun objects.
 
 See: docs/PATTERN_EVENT_SPEC.md
 """
-DOC_ID: DOC-PAT-PATTERN-EVENT-SYSTEM-PATTERN-EVENTS-804
+# DOC_ID: DOC-PAT-PATTERN-EVENT-SYSTEM-PATTERN-EVENTS-804
 
 from __future__ import annotations
 

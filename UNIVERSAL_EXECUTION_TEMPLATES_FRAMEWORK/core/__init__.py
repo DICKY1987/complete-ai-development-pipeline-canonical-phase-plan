@@ -25,7 +25,7 @@ Internal modules (use at your own risk):
 - core.engine: Orchestration engine internals
 - core.bootstrap: Bootstrap implementation
 """
-DOC_ID: DOC-CORE-CORE-INIT-131
+# DOC_ID: DOC-CORE-CORE-INIT-131
 
 import importlib
 import importlib.util

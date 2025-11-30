@@ -6,10 +6,10 @@ the Aider CLI via the tool adapter (`run_tool`). Prompt files are stored under
 
 Moved from src/pipeline/prompts.py as part of WS-08.
 """
-DOC_ID: DOC-PAT-AIDER-ENGINE-351
-DOC_ID: DOC-PAT-AIDER-ENGINE-307
-DOC_ID: DOC-PAT-AIDER-ENGINE-292
-DOC_ID: DOC-PAT-AIDER-ENGINE-277
+# DOC_ID: DOC-PAT-AIDER-ENGINE-351
+# DOC_ID: DOC-PAT-AIDER-ENGINE-307
+# DOC_ID: DOC-PAT-AIDER-ENGINE-292
+# DOC_ID: DOC-PAT-AIDER-ENGINE-277
 
 from __future__ import annotations
 

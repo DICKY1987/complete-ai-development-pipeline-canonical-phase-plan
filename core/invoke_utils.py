@@ -10,8 +10,8 @@ Key features:
 - Mock-friendly for testing (use MockContext)
 - Configuration-aware (loads from invoke.yaml)
 """
-DOC_ID: DOC-CORE-CORE-INVOKE-UTILS-044
-DOC_ID: DOC-CORE-CORE-INVOKE-UTILS-021
+# DOC_ID: DOC-CORE-CORE-INVOKE-UTILS-044
+# DOC_ID: DOC-CORE-CORE-INVOKE-UTILS-021
 
 from __future__ import annotations
 

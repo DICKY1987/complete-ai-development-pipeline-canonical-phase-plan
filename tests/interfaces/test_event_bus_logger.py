@@ -9,7 +9,7 @@ from core.logging.structured_logger import StructuredLogger
 
 class TestEventBusProtocol:
     """Test EventBus protocol compliance."""
-DOC_ID: DOC-TEST-INTERFACES-TEST-EVENT-BUS-LOGGER-122
+# DOC_ID: DOC-TEST-INTERFACES-TEST-EVENT-BUS-LOGGER-122
     
     def test_simple_event_bus_implements_protocol(self):
         """SimpleEventBus implements EventBus protocol."""

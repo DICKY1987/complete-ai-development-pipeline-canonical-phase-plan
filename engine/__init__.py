@@ -1,17 +1,29 @@
 """
-Engine package for the AI Development Pipeline.
+Compatibility shim for root engine/ → core.engine/
 
-This package provides the core execution engine that coordinates
-tool adapters, manages job lifecycle, and maintains state.
+The UET engine in core/engine/ is now canonical.
+Some features from the old job queue system are not yet ported.
 
-Architecture:
-- orchestrator/: Job orchestration and queue management
-- adapters/: Tool-specific adapters (Aider, Codex, tests, git)
-- state_store/: Job and workstream state persistence
-- interfaces/: Protocol definitions for section contracts
-- types.py: Shared type definitions
+Deprecated: Use 'from core.engine.*' directly
+Remove after: 2025-12-31
 """
-DOC_ID: DOC-PAT-ENGINE-INIT-353
-DOC_ID: DOC-PAT-ENGINE-INIT-309
 
-__version__ = "0.1.0"
+import warnings
+
+warnings.warn(
+    "Importing from 'engine' is deprecated. "
+    "Use 'from core.engine.*' instead. "
+    "Job queue features are being ported to core.engine.",
+    DeprecationWarning,
+    stacklevel=2
+)
+
+# Map what we can to core.engine
+try:
+    from core.engine.orchestrator import Orchestrator
+    from core.engine.executor import Executor
+except ImportError:
+    # Fallback to old implementation if needed
+    pass
+
+__all__ = ['Orchestrator', 'Executor']

@@ -9,7 +9,7 @@ Import from this module:
 
     from modules.error_plugin_python_bandit import function_name  # ?
 """
-DOC_ID: DOC-PAT-ERROR-PLUGIN-PYTHON-BANDIT-INIT-573
+# DOC_ID: DOC-PAT-ERROR-PLUGIN-PYTHON-BANDIT-INIT-573
 
 import importlib
 import sys

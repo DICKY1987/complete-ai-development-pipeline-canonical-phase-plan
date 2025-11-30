@@ -11,7 +11,7 @@ Error path questions for each function/module:
 - What if this returns malformed data?
 - What if this is called twice simultaneously?
 """
-DOC_ID: DOC-ERROR-PATTERNS-ERROR-PATH-049
+# DOC_ID: DOC-ERROR-PATTERNS-ERROR-PATH-049
 from __future__ import annotations
 
 import ast

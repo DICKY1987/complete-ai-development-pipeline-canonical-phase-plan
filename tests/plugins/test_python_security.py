@@ -1,7 +1,7 @@
 """
 Tests for Python security plugins (bandit, safety).
 """
-DOC_ID: DOC-TEST-PLUGINS-TEST-PYTHON-SECURITY-148
+# DOC_ID: DOC-TEST-PLUGINS-TEST-PYTHON-SECURITY-148
 from __future__ import annotations
 
 import json

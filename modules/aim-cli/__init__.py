@@ -9,7 +9,7 @@ Import from this module:
 
     from modules.aim_cli import function_name  # ?
 """
-DOC_ID: DOC-PAT-AIM-CLI-INIT-472
+# DOC_ID: DOC-PAT-AIM-CLI-INIT-472
 
 import importlib
 import sys

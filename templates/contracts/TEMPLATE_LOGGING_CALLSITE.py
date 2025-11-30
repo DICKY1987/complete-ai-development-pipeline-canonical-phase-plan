@@ -157,7 +157,7 @@ def log_file_operation(
     run_id: str,
     operation: str,  # "created" | "modified" | "deleted"
     file_path: str,
-    doc_id: str = None,
+    # DOC_ID: str = None,
     details: dict = None
 ) -> None:
     """Log file operation."""

@@ -8,8 +8,8 @@ Output:
 - reports/module_classification_report.json summarizing inferred module_kind and
   module_id per section to guide registry backfill before moves.
 """
-DOC_ID: DOC-SCRIPT-SCRIPTS-CLASSIFY-MODULE-REGISTRY-197
-DOC_ID: DOC-SCRIPT-SCRIPTS-CLASSIFY-MODULE-REGISTRY-134
+# DOC_ID: DOC-SCRIPT-SCRIPTS-CLASSIFY-MODULE-REGISTRY-197
+# DOC_ID: DOC-SCRIPT-SCRIPTS-CLASSIFY-MODULE-REGISTRY-134
 
 import argparse
 import json

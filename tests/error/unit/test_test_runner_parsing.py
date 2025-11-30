@@ -16,7 +16,7 @@ from modules.error_plugin_test_runner.m010018_plugin import (
 
 def test_pytest_output_parsing():
     """Test parsing pytest output."""
-DOC_ID: DOC-ERROR-UNIT-TEST-TEST-RUNNER-PARSING-084
+# DOC_ID: DOC-ERROR-UNIT-TEST-TEST-RUNNER-PARSING-084
     
     sample_pytest_output = """
 ============================= test session starts ==============================

@@ -9,7 +9,7 @@ Import from this module:
 
     from modules.error_plugin_python_black_fix import function_name  # ?
 """
-DOC_ID: DOC-PAT-ERROR-PLUGIN-PYTHON-BLACK-FIX-INIT-575
+# DOC_ID: DOC-PAT-ERROR-PLUGIN-PYTHON-BLACK-FIX-INIT-575
 
 import importlib
 import sys

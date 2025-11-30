@@ -7,7 +7,7 @@ Provides concurrent job execution with:
 - Job cancellation
 - Resource limits
 """
-DOC_ID: DOC-PAT-QUEUE-WORKER-POOL-457
+# DOC_ID: DOC-PAT-QUEUE-WORKER-POOL-457
 
 import asyncio
 from typing import Optional, Callable, Awaitable

@@ -4,8 +4,8 @@ Batch migration script for Phase G WS-G2 Part 2.
 Migrates all error plugins from subprocess.run() to run_command().
 Validates changes with AST parsing to ensure correctness.
 """
-DOC_ID: DOC-SCRIPT-SCRIPTS-MIGRATE-PLUGINS-TO-INVOKE-217
-DOC_ID: DOC-SCRIPT-SCRIPTS-MIGRATE-PLUGINS-TO-INVOKE-154
+# DOC_ID: DOC-SCRIPT-SCRIPTS-MIGRATE-PLUGINS-TO-INVOKE-217
+# DOC_ID: DOC-SCRIPT-SCRIPTS-MIGRATE-PLUGINS-TO-INVOKE-154
 
 import os
 import re

@@ -3,7 +3,7 @@
 This module defines the data structures used by TUI/GUI panels to display
 pipeline state, health, and observability data.
 """
-DOC_ID: DOC-CORE-CORE-UI-MODELS-128
+# DOC_ID: DOC-CORE-CORE-UI-MODELS-128
 
 from dataclasses import dataclass, field
 from datetime import datetime

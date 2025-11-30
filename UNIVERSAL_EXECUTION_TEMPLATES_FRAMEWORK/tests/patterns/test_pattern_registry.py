@@ -6,7 +6,7 @@ from pathlib import Path
 
 def test_pattern_index_exists():
     """Test that PATTERN_INDEX.yaml exists."""
-DOC_ID: DOC-TEST-PATTERNS-TEST-PATTERN-REGISTRY-185
+# DOC_ID: DOC-TEST-PATTERNS-TEST-PATTERN-REGISTRY-185
     index_path = Path("patterns/registry/PATTERN_INDEX.yaml")
     assert index_path.exists(), "PATTERN_INDEX.yaml not found"
 

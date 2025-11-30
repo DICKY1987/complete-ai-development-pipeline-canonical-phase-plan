@@ -3,7 +3,7 @@
 Tests the full flow of capability-based routing through the orchestrator,
 including fallback behavior and backward compatibility.
 """
-DOC_ID: DOC-TEST-INTEGRATION-TEST-AIM-ORCHESTRATOR-119
+# DOC_ID: DOC-TEST-INTEGRATION-TEST-AIM-ORCHESTRATOR-119
 
 import json
 import tempfile

@@ -4,8 +4,8 @@ PRD (Product Requirements Document) Management
 Handles creation, loading, validation, and management of PRDs.
 PRDs are stored as Markdown files with YAML frontmatter in pm/workspace/prds/
 """
-DOC_ID: DOC-PM-PM-PRD-017
-DOC_ID: DOC-PM-PM-PRD-011
+# DOC_ID: DOC-PM-PM-PRD-017
+# DOC_ID: DOC-PM-PM-PRD-011
 
 from datetime import datetime
 from pathlib import Path

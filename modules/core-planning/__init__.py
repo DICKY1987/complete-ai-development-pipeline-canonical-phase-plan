@@ -9,7 +9,7 @@ Import from this module:
 
     from modules.core_planning import function_name  # ?
 """
-DOC_ID: DOC-PAT-CORE-PLANNING-INIT-527
+# DOC_ID: DOC-PAT-CORE-PLANNING-INIT-527
 
 import importlib
 import sys

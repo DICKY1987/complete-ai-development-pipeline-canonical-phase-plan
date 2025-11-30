@@ -3,7 +3,7 @@
 Documentation Inventory Generator
 Implements DOC-ORG-020 through DOC-ORG-024
 """
-DOC_ID: DOC-PAT-TOOLS-DOC-INVENTORY-659
+# DOC_ID: DOC-PAT-TOOLS-DOC-INVENTORY-659
 import argparse
 import json
 import sys

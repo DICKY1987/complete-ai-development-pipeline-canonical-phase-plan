@@ -1,8 +1,8 @@
 """
 Unit tests for Audit Logger and Patch Ledger
 """
-DOC_ID: DOC-TEST-TESTS-TEST-AUDIT-LOGGER-075
-DOC_ID: DOC-TEST-TESTS-TEST-AUDIT-LOGGER-036
+# DOC_ID: DOC-TEST-TESTS-TEST-AUDIT-LOGGER-075
+# DOC_ID: DOC-TEST-TESTS-TEST-AUDIT-LOGGER-036
 import pytest
 import json
 from pathlib import Path

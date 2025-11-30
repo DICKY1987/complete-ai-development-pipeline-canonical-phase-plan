@@ -9,7 +9,7 @@ Examples:
   python scripts/generate_workstreams_from_openspec.py --bundle bundles/openspec-test-001.yaml \
     --files-scope src/pipeline/** --ccpm-issue 123
 """
-DOC_ID: DOC-PAT-GENERATION-GENERATE-WORKSTREAMS-FROM-625
+# DOC_ID: DOC-PAT-GENERATION-GENERATE-WORKSTREAMS-FROM-625
 
 from __future__ import annotations
 

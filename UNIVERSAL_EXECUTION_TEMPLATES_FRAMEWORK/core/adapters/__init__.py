@@ -2,7 +2,7 @@
 
 Adapters for executing tasks via external tools.
 """
-DOC_ID: DOC-CORE-ADAPTERS-INIT-136
+# DOC_ID: DOC-CORE-ADAPTERS-INIT-136
 
 from .base import ToolAdapter, ExecutionResult, ToolConfig
 from .subprocess_adapter import SubprocessAdapter

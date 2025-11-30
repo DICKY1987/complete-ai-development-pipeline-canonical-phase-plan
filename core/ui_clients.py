@@ -3,8 +3,8 @@
 This module provides read-only query interfaces for the TUI/GUI to access
 pipeline state, metrics, and observability data without direct database access.
 """
-DOC_ID: DOC-CORE-CORE-UI-CLIENTS-055
-DOC_ID: DOC-CORE-CORE-UI-CLIENTS-032
+# DOC_ID: DOC-CORE-CORE-UI-CLIENTS-055
+# DOC_ID: DOC-CORE-CORE-UI-CLIENTS-032
 
 import json
 import sqlite3

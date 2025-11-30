@@ -26,7 +26,7 @@ Usage:
     # Validate after update
     python update_term.py --spec updates/add-schemas.yaml --apply --validate
 """
-DOC_ID: DOC-SCRIPT-SCRIPTS-UPDATE-TERM-264
+# DOC_ID: DOC-SCRIPT-SCRIPTS-UPDATE-TERM-264
 
 import sys
 import yaml

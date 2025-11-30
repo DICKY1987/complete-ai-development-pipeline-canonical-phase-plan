@@ -5,7 +5,7 @@ By default this runs in dry-run mode and only reports what would be staged.
 Use --apply to copy source files into the staging area under
 .migration/stage/<batch_id>/ without touching originals.
 """
-DOC_ID: DOC-SCRIPT-MIGRATION-EXECUTE-BATCH-338
+# DOC_ID: DOC-SCRIPT-MIGRATION-EXECUTE-BATCH-338
 
 import argparse
 import shutil

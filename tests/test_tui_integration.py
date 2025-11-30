@@ -6,8 +6,8 @@ from gui.tui_app.main import PipelineTUI
 
 def test_pipeline_tui_headless_smoke(tmp_path):
     """Ensure the TUI boots and exits cleanly in smoke-test mode."""
-DOC_ID: DOC-TEST-TESTS-TEST-TUI-INTEGRATION-107
-DOC_ID: DOC-TEST-TESTS-TEST-TUI-INTEGRATION-068
+# DOC_ID: DOC-TEST-TESTS-TEST-TUI-INTEGRATION-107
+# DOC_ID: DOC-TEST-TESTS-TEST-TUI-INTEGRATION-068
     log_file = tmp_path / "integration.log"
     log_file.write_text("test log line\n")
 

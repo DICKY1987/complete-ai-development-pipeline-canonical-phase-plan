@@ -18,7 +18,7 @@ from core.engine.resilience import (
 
 class TestSimpleRetry:
     """Test SimpleRetry strategy"""
-DOC_ID: DOC-TEST-RESILIENCE-TEST-RETRY-189
+# DOC_ID: DOC-TEST-RESILIENCE-TEST-RETRY-189
     
     def test_create_simple_retry(self):
         """Test creating simple retry strategy"""

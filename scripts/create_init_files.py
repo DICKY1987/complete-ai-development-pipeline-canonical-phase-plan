@@ -3,8 +3,8 @@ Create __init__.py files for modules to enable imports.
 
 Each module's __init__.py will re-export its contents with clean names.
 """
-DOC_ID: DOC-SCRIPT-SCRIPTS-CREATE-INIT-FILES-199
-DOC_ID: DOC-SCRIPT-SCRIPTS-CREATE-INIT-FILES-136
+# DOC_ID: DOC-SCRIPT-SCRIPTS-CREATE-INIT-FILES-199
+# DOC_ID: DOC-SCRIPT-SCRIPTS-CREATE-INIT-FILES-136
 
 from pathlib import Path
 import yaml

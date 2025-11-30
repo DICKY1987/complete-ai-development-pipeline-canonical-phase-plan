@@ -5,7 +5,7 @@ This demonstrates how the UI should use the UISettingsManager to:
 2. Launch tools in headless vs interactive mode
 3. Allow users to change the interactive tool selection
 """
-DOC_ID: DOC-PAT-GUI-UI-TOOL-SELECTION-DEMO-654
+# DOC_ID: DOC-PAT-GUI-UI-TOOL-SELECTION-DEMO-654
 
 from core.ui_settings import UISettingsManager
 

@@ -2,7 +2,7 @@
 
 Error pipeline orchestration, plugin management, and state machine.
 """
-DOC_ID: DOC-ERROR-ENGINE-INIT-047
+# DOC_ID: DOC-ERROR-ENGINE-INIT-047
 
 __all__ = [
     "plugin_manager",

@@ -4,7 +4,7 @@ MERGE-002: Sync Log Summary
 
 Parses .sync-log.txt into structured data for automation rules.
 """
-DOC_ID: DOC-SCRIPT-SCRIPTS-SYNC-LOG-SUMMARY-335
+# DOC_ID: DOC-SCRIPT-SCRIPTS-SYNC-LOG-SUMMARY-335
 
 import re
 import json

@@ -12,7 +12,7 @@ from core.engine.monitoring import ProgressTracker
 
 class TestProgressTracker:
     """Test ProgressTracker functionality"""
-DOC_ID: DOC-TEST-MONITORING-TEST-PROGRESS-TRACKER-181
+# DOC_ID: DOC-TEST-MONITORING-TEST-PROGRESS-TRACKER-181
     
     def test_create_tracker(self):
         """Test creating a progress tracker"""

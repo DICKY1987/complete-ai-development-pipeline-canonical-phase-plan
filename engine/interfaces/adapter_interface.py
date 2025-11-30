@@ -4,7 +4,7 @@ Adapter Interface Protocol
 Defines the contract for tool adapters.
 Each tool (Aider, Codex, tests, git) implements this interface.
 """
-DOC_ID: DOC-PAT-INTERFACES-ADAPTER-INTERFACE-445
+# DOC_ID: DOC-PAT-INTERFACES-ADAPTER-INTERFACE-445
 
 from typing import Protocol, Dict, Any
 from engine.types import JobResult

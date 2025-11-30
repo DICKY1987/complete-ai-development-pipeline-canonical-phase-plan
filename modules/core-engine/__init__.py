@@ -9,7 +9,7 @@ Import from this module:
 
     from modules.core_engine import function_name  # ?
 """
-DOC_ID: DOC-PAT-CORE-ENGINE-INIT-522
+# DOC_ID: DOC-PAT-CORE-ENGINE-INIT-522
 
 import importlib
 import sys

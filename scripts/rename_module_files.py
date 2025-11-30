@@ -3,8 +3,8 @@ Rename Module Files to Python-Safe Names
 Adds 'm' prefix to ULID-prefixed files so they can be imported in Python
 Pattern: EXEC-001 - Batch file renaming
 """
-DOC_ID: DOC-SCRIPT-SCRIPTS-RENAME-MODULE-FILES-223
-DOC_ID: DOC-SCRIPT-SCRIPTS-RENAME-MODULE-FILES-160
+# DOC_ID: DOC-SCRIPT-SCRIPTS-RENAME-MODULE-FILES-223
+# DOC_ID: DOC-SCRIPT-SCRIPTS-RENAME-MODULE-FILES-160
 
 import sys
 from pathlib import Path

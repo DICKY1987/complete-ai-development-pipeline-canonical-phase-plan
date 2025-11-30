@@ -5,8 +5,8 @@ Usage:
     python auto_pattern_detector.py --suggest     # Generate suggestions
     python auto_pattern_detector.py --report      # Weekly report
 """
-DOC_ID: DOC-SCRIPT-SCRIPTS-AUTO-PATTERN-DETECTOR-192
-DOC_ID: DOC-SCRIPT-SCRIPTS-AUTO-PATTERN-DETECTOR-129
+# DOC_ID: DOC-SCRIPT-SCRIPTS-AUTO-PATTERN-DETECTOR-192
+# DOC_ID: DOC-SCRIPT-SCRIPTS-AUTO-PATTERN-DETECTOR-129
 
 import argparse
 import sqlite3

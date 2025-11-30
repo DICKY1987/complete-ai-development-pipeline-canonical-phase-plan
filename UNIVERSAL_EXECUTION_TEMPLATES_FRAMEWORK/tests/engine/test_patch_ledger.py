@@ -8,7 +8,7 @@ Author: AI Development Pipeline
 Created: 2025-11-23
 WS: WS-NEXT-002-002 (Testing)
 """
-DOC_ID: DOC-TEST-ENGINE-TEST-PATCH-LEDGER-174
+# DOC_ID: DOC-TEST-ENGINE-TEST-PATCH-LEDGER-174
 
 import pytest
 import sys

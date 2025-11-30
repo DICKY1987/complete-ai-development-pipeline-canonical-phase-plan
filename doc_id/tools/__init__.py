@@ -2,4 +2,4 @@
 
 Collects registry assets, docs, and tooling for document IDs.
 """
-DOC_ID: DOC-PAT-TOOLS-INIT-439
+# DOC_ID: DOC-PAT-TOOLS-INIT-439

@@ -7,7 +7,7 @@ Scans for:
 - Multiple tool installations
 - Inefficient storage patterns
 """
-DOC_ID: DOC-PAT-AIM-ENVIRONMENT-M01001B-SCANNER-477
+# DOC_ID: DOC-PAT-AIM-ENVIRONMENT-M01001B-SCANNER-477
 
 import hashlib
 import os

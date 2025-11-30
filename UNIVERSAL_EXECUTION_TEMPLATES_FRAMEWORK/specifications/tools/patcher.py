@@ -3,7 +3,7 @@ Paragraph patcher for SPEC_MGMT_V1.
 
 Replaces a paragraph by id, updates the sidecar and suite index.
 """
-DOC_ID: DOC-PAT-TOOLS-PATCHER-967
+# DOC_ID: DOC-PAT-TOOLS-PATCHER-967
 
 from __future__ import annotations
 

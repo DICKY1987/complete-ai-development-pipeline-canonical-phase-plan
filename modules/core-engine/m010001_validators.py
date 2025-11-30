@@ -2,7 +2,7 @@
 Validation & Circuit Breakers for Pipeline Plus
 Safety gates—scope validation, oscillation detection, timeouts
 """
-DOC_ID: DOC-PAT-CORE-ENGINE-M010001-VALIDATORS-518
+# DOC_ID: DOC-PAT-CORE-ENGINE-M010001-VALIDATORS-518
 import time
 import psutil
 from dataclasses import dataclass, field

@@ -7,7 +7,7 @@ Provides:
 - Retry policies
 - Escalation handling
 """
-DOC_ID: DOC-PAT-QUEUE-INIT-458
+# DOC_ID: DOC-PAT-QUEUE-INIT-458
 
 from engine.queue.job_queue import JobQueue
 from engine.queue.job_wrapper import JobWrapper, JobStatus, JobPriority

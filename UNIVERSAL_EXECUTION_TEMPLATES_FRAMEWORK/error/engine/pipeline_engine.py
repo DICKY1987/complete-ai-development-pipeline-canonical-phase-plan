@@ -2,7 +2,7 @@
 
 Coordinates hashing, plugin execution, temp-dir isolation, and reporting.
 """
-DOC_ID: DOC-ERROR-ENGINE-PIPELINE-ENGINE-118
+# DOC_ID: DOC-ERROR-ENGINE-PIPELINE-ENGINE-118
 from __future__ import annotations
 
 import json

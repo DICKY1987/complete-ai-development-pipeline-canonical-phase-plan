@@ -4,7 +4,7 @@ Custom exceptions for the AIM+ environment management system.
 
 Contract Version: AIM_PLUS_V1
 """
-DOC_ID: DOC-AIM-AIM-EXCEPTIONS-146
+# DOC_ID: DOC-AIM-AIM-EXCEPTIONS-146
 
 
 class AIMPlusError(Exception):

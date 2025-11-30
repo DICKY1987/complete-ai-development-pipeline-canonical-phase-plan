@@ -6,8 +6,8 @@ Displays tool detection status and capability routing information for AIM regist
 Usage:
     python scripts/aim_status.py
 """
-DOC_ID: DOC-SCRIPT-SCRIPTS-AIM-STATUS-184
-DOC_ID: DOC-SCRIPT-SCRIPTS-AIM-STATUS-121
+# DOC_ID: DOC-SCRIPT-SCRIPTS-AIM-STATUS-184
+# DOC_ID: DOC-SCRIPT-SCRIPTS-AIM-STATUS-121
 
 import sys
 from pathlib import Path

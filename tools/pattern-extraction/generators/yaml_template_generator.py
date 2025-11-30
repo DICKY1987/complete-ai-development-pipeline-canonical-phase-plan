@@ -2,7 +2,7 @@
 YAML Template Generator
 Generates UET-style YAML templates from detected patterns
 """
-DOC_ID: DOC-PAT-GENERATORS-YAML-TEMPLATE-GENERATOR-646
+# DOC_ID: DOC-PAT-GENERATORS-YAML-TEMPLATE-GENERATOR-646
 
 from typing import Dict, Any
 from pathlib import Path

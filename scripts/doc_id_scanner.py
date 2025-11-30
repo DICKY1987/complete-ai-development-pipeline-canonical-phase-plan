@@ -67,7 +67,7 @@ EXCLUDED_DIRS = {
 class FileEntry:
     """Represents a scanned file and its doc_id status."""
     path: str
-    doc_id: Optional[str]
+    # DOC_ID: Optional[str]
     status: str  # 'present', 'missing'
     file_type: str
     last_modified: str
