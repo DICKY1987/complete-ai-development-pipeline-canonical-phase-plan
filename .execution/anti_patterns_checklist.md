@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-ANTI-PATTERNS-CHECKLIST-193
+---
+
 # Anti-Pattern Guard Checklist
 
 ## Before Each Commit

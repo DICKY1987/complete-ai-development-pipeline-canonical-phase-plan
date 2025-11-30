@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-AI-AGENT-INSTRUCTIONS-UPDATE-SUMMARY-230
+---
+
 # AI Agent Instructions Update Summary
 
 **Date**: 2025-11-26T09:27:23Z  

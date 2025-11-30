@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PHASE-PLAN-PATH-REFACTORING-168
+---
+
 # Path refactoring phase plan
 
 ## Overview

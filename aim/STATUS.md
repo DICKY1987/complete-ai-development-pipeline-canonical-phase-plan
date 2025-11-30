@@ -1,3 +1,7 @@
+---
+doc_id: DOC-AIM-STATUS-095
+---
+
 # AIM Module - Production Readiness Status
 
 **Last Updated:** 2025-11-20 21:08 UTC  

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-SPEC-README-038
+---
+
 # Schema Definitions
 
 > **Purpose**: JSON/YAML/SQL schemas defining workstream and sidecar metadata contracts  

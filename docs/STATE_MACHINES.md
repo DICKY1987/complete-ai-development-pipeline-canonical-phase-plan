@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-STATE-MACHINES-397
+---
+
 # State Machine Documentation
 
 **Purpose:** Document state machines with visual diagrams, transition rules, and recovery procedures.

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-AIM-README-092
+---
+
 # AIM - AI Tools Registry & Environment Manager
 
 > **Module**: `aim`  

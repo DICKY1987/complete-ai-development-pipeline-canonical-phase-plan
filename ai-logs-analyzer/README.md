@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-219
+---
+
 # AI Tools Log Aggregation & Analysis
 
 Centralized system for capturing, aggregating, and analyzing logs from multiple AI coding assistants.

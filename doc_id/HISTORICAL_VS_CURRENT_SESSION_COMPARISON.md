@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-HISTORICAL-VS-CURRENT-SESSION-COMPARISON-406
+---
+
 # Doc ID Sessions - Historical vs Current Comparison
 
 **Date**: 2025-11-30  

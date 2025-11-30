@@ -1,3 +1,7 @@
+---
+doc_id: DOC-SCRIPT-AIDER-COMPREHENSIVE-TEST-PLAN-246
+---
+
 # Aider Comprehensive Test Plan
 
 **Objective**: Definitively prove that aider + Ollama + DeepSeek-R1 is fully functional and can generate responses and modify code.

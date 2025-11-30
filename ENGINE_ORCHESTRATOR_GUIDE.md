@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-ENGINE-ORCHESTRATOR-GUIDE-149
+---
+
 # 🎯 Engine-Based Orchestrator - Quick Start
 
 **Found**: Complete job queue system in `engine/` folder  

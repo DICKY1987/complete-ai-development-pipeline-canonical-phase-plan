@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-WEEK1-IMPLEMENTATION-COMPLETE-186
+---
+
 # Week 1 Cleanup Automation - Implementation Complete
 
 **Date:** 2025-11-29  

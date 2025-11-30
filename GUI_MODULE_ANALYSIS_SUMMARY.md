@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-GUI-MODULE-ANALYSIS-SUMMARY-157
+---
+
 # GUI Module Analysis Summary
 
 **Analysis Date:** 2025-11-26

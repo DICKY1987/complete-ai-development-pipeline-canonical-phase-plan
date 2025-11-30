@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-REMAINING-IMPLEMENTATION-GUIDE-201
+---
+
 # Abstraction Layer - Remaining Implementation Guide
 
 **Created**: 2025-11-29 17:18 UTC  

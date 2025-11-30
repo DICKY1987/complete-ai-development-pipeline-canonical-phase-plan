@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-MISSING-TEMPLATE-TYPES-411
+---
+
 Yes — there are a few **big missing template types** that would make the whole doc_id system *way* more standardized and “AI-safe.”
 
 You already have:

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-SESSION-2-PROGRESS-202
+---
+
 # Abstraction Layer - Session 2 Progress Report
 
 **Date**: 2025-11-29 17:55 UTC  

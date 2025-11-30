@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-MASTER-NAVIGATION-INDEX-235
+---
+
 # Master Navigation Index
 
 **Complete AI Development Pipeline – Canonical Phase Plan**

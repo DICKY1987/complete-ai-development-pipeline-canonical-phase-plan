@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-MERGE-COMPLETION-REPORT-161
+---
+
 # Merge Execution - Completion Report
 
 **Execution ID**: MERGE-20251127-030912  

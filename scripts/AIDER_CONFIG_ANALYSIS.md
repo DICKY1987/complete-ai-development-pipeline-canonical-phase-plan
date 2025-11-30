@@ -1,3 +1,7 @@
+---
+doc_id: DOC-SCRIPT-AIDER-CONFIG-ANALYSIS-247
+---
+
 # Aider Configuration Analysis - Complete System Map
 
 **Status**: ⚠️ **CRITICAL CONFLICTS FOUND**

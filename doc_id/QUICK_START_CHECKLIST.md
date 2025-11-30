@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-QUICK-START-CHECKLIST-414
+---
+
 # Quick Start Checklist - Phase 0 Doc ID Assignment
 
 **Goal**: Achieve 100% doc_id coverage (5.6% → 100%)  

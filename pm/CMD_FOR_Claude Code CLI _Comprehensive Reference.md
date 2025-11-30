@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PM-CMD-FOR-CLAUDE-CODE-CLI-COMPREHENSIVE-020
+---
+
 Claude Code CLI – Comprehensive Reference
 Overview
 

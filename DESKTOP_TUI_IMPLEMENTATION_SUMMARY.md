@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-DESKTOP-TUI-IMPLEMENTATION-SUMMARY-148
+---
+
 # Desktop TUI Implementation Summary
 
 **Date**: 2025-11-28

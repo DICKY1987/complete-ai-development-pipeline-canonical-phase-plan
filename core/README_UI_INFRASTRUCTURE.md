@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-UI-INFRASTRUCTURE-059
+---
+
 # User-Facing Interface Infrastructure
 
 This directory contains the core infrastructure for building TUI/GUI frontends on top of the AI Development Pipeline.

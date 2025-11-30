@@ -1,3 +1,7 @@
+---
+doc_id: DOC-AIM-FULL-STACK-OF-APPS-TOOLS-THIS-PIPELINE-088
+---
+
 Here’s the full stack of apps/tools this pipeline expects, organized by **“must have vs nice-to-have”** and by ecosystem.
 
 I’m only listing things that actually show up in the spec + phase plan (plus the obvious runtimes they depend on), not random extras.

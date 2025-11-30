@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-EXECUTE-WEEK1-NOW-153
+---
+
 # 🎯 Cleanup Automation - Week 1 Execution Ready
 
 **Date:** 2025-11-29  

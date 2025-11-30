@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-HYBRID-IMPORT-EXECUTION-PATTERN-234
+---
+
 # Hybrid Import Strategy - Execution Pattern
 
 **Date**: 2025-11-26  

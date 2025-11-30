@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-WAVE-1-FINAL-REPORT-204
+---
+
 # Wave 1 - COMPLETE ✅
 
 **Completion Date**: 2025-11-29 17:42 UTC  

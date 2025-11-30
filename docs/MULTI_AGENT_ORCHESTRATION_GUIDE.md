@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-MULTI-AGENT-ORCHESTRATION-GUIDE-392
+---
+
 # Multi-Agent Orchestration - Usage Guide
 
 ## Quick Start

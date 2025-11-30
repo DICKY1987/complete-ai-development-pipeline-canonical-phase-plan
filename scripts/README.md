@@ -1,3 +1,7 @@
+---
+doc_id: DOC-SCRIPT-README-251
+---
+
 # Scripts - Automation and Utilities
 
 > **Purpose**: Automation scripts for common operational tasks  

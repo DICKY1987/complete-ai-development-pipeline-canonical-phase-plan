@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-446
+---
+
 # Specifications Directory
 
 This directory contains all specification documents and tools for managing them.

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PIPELINE-IO-CONTRACTS-CHAT1-169
+---
+
 Short version: you **have** defined most of the handoffs in pieces (phase specs, DAG snapshots, run DB tables, patch ledger, pattern automation tables), but you **haven’t yet captured them in one “Pipeline I/O Contract” doc**, and a couple of handoffs (esp. orchestrator ↔ error engine/pattern automation) are still only partially wired.
 
 Let me walk the chain you asked about:

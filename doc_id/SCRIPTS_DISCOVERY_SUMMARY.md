@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-SCRIPTS-DISCOVERY-SUMMARY-416
+---
+
 # Scripts Directory - Doc ID Related Tools Discovery
 
 **Date**: 2025-11-30  

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-UET-COMPONENT-ANALYSIS-183
+---
+
 # 🔍 UET Framework Component Analysis
 
 **Created**: 2025-11-30T02:05:00Z  

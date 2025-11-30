@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-DEV-AI-DEVELOPMENT-TECHNIQUES-342
+---
+
 Based on recent developments in AI-assisted development, here are advanced, underused, and emerging techniques to enhance CLI applications. These approaches move beyond simple text generation to focus on **structural understanding, runtime context, and agentic reasoning**.
 
 ### 1. Repository Mapping (AST + PageRank)

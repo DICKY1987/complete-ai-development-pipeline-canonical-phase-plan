@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-REPOSITORY-OPTIMIZATION-ROADMAP-394
+---
+
 # Repository Optimization Roadmap
 
 **Date**: 2025-11-25  

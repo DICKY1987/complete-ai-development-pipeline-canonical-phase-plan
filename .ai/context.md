@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-CONTEXT-191
+---
+
 # Repository Context for AI
 
 **Repository**: Complete AI Development Pipeline – Canonical Phase Plan  

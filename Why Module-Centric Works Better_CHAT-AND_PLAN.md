@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-WHY-MODULE-CENTRIC-WORKS-BETTER-CHAT-188
+---
+
 You are a senior software architect and repo refactor
 planner.
 

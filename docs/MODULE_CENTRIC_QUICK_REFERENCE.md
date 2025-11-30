@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-MODULE-CENTRIC-QUICK-REFERENCE-391
+---
+
 # Module-Centric Architecture - Quick Reference
 
 **TL;DR**: Organize by module (not artifact type). Each module = atomic, self-contained unit.

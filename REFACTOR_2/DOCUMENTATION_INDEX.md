@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-DOCUMENTATION-INDEX-443
+---
+
 # Documentation Index - Multi-Agent Orchestration
 
 ## 🎯 Quick Navigation

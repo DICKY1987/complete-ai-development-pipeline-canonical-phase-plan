@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-QUICK-START-393
+---
+
 # Quick Start Guide
 
 > **Purpose**: Fast entry points for common tasks  

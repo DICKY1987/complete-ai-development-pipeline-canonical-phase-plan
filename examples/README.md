@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-418
+---
+
 # Example Implementations
 
 **Purpose**: Reference implementations demonstrating pipeline integration patterns, UI usage, and orchestrator workflows.

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-MERGE-ANALYSIS-COMPLETE-160
+---
+
 # Safe Merge Strategy - Analysis Complete
 
 **Document**: Pre-merge analysis and readiness report  

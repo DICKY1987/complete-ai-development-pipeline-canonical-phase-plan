@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-CONSOLIDATED-MIGRATION-PLAN-221
+---
+
 # Consolidated Migration & Automation Assessment
 
 **Date**: 2025-11-25  

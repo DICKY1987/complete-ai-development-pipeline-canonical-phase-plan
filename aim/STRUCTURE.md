@@ -1,3 +1,7 @@
+---
+doc_id: DOC-AIM-STRUCTURE-096
+---
+
 # AIM Module Structure
 
 > **Module**: `aim`  

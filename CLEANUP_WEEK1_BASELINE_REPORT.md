@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-CLEANUP-WEEK1-BASELINE-REPORT-146
+---
+
 # Cleanup Automation - Week 1 Baseline Report
 
 **Date:** 2025-11-29  

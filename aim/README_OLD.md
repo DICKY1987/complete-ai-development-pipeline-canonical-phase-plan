@@ -1,3 +1,7 @@
+---
+doc_id: DOC-AIM-README-OLD-093
+---
+
 # AIM (AI Tools Registry) Module
 
 **Version:** 1.0  

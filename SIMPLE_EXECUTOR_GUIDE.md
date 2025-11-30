@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-SIMPLE-EXECUTOR-GUIDE-179
+---
+
 # Simple Workstream Executor - Quick Start
 
 **Created**: 2025-11-29  

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PHASE0-PROGRESS-REPORT-SESSION2-413
+---
+
 # Phase 0 Progress Report - Session 2025-11-30
 
 **Session Start**: 2025-11-30 02:36:58  

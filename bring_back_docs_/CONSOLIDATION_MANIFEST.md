@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-CONSOLIDATION-MANIFEST-231
+---
+
 # Archive Consolidation Manifest
 Date: 2025-11-26
 Consolidated by: Archive Consolidation Script

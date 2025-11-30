@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-QUICKSTART-218
+---
+
 # Quick Start Guide - AI Logs Analyzer
 
 ## Initial Setup (One-Time)

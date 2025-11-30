@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-MODULE-ID-INTEGRATION-PLAN-412
+---
+
 # Integration Plan: MODULE_ID Extension into Phase Plan
 
 **Date**: 2025-11-30  

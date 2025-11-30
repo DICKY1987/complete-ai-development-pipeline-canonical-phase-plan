@@ -1,3 +1,7 @@
+---
+doc_id: DOC-ERROR-ERROR-PIPELINE-EVALUATION-036
+---
+
 # Error Pipeline Evaluation
 
 **Evaluation Date:** 2025-11-20  

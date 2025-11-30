@@ -1,3 +1,7 @@
+---
+doc_id: DOC-SCRIPT-AIDER-FIXES-APPLIED-248
+---
+
 # Aider Fixes Applied - 2025-11-22
 
 ## Executive Summary

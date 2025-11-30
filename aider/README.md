@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-220
+---
+
 # Aider Integration Module
 
 > **Module**: `aider`  

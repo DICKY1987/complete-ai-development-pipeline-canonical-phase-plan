@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-CLEANUP-QUICKSTART-145
+---
+
 # Cleanup Automation - Quick Reference
 
 **Version:** 1.0.0  

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-DEV-DOCS-README-343
+---
+
 # docs/
 
 **Purpose**: Comprehensive documentation hub - architecture decisions, implementation guides, planning documents, and developer resources.

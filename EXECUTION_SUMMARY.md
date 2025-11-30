@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-EXECUTION-SUMMARY-155
+---
+
 # EXECUTION SUMMARY
 
 ## Task Completed: Hybrid GUI Plan Document Assembly

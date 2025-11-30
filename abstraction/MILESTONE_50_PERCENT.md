@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-MILESTONE-50-PERCENT-198
+---
+
 # Abstraction Layer - 50% MILESTONE REACHED! 🎉
 
 **Date**: 2025-11-29 18:10 UTC  

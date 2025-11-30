@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-058
+---
+
 # Core Pipeline Implementation
 
 > **Purpose**: Core pipeline functionality - state management, orchestration, and planning  

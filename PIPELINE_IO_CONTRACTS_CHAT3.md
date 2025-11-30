@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PIPELINE-IO-CONTRACTS-CHAT3-170
+---
+
 Short answer: **yes, but you already *are* using abstraction — the trick is to use it deliberately at the contract boundaries and not everywhere.**
 
 Let me unpack that in your context.

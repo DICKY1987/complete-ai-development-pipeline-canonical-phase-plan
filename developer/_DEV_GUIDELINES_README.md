@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-DEV-GUIDELINES-README-346
+---
+
 # Development Guidelines
 
 This directory contains coding standards, hygiene practices, and development rules.

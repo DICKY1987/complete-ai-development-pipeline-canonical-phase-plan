@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-ANALYSIS-VS-IMPLEMENTATION-COMPARISON-401
+---
+
 # Doc ID Work Comparison - Analysis vs Implementation
 
 **Date**: 2025-11-30  

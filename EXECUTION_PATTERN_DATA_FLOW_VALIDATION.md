@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-EXECUTION-PATTERN-DATA-FLOW-VALIDATION-154
+---
+
 # Execution Pattern: Data Flow Validation (EXEC-DATAFLOW-001)
 
 **Pattern ID**: EXEC-DATAFLOW-001  

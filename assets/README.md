@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-228
+---
+
 # Assets - Diagrams and Images
 
 **Purpose**: Visual documentation, architecture diagrams, and reference images for the AI Development Pipeline.

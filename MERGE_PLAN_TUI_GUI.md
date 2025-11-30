@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-MERGE-PLAN-TUI-GUI-162
+---
+
 # Merge Plan: tui_app/ → gui/
 
 ## Executive Summary

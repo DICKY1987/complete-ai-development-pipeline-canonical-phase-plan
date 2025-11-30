@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-ZERO-TOUCH-EXECUTION-REPORT-189
+---
+
 # Zero-Touch Execution Report: TUI Panel Framework
 
 **Execution ID**: EXEC-2025-11-27-TUI-ZERO-TOUCH  

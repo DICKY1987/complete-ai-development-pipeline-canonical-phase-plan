@@ -1,3 +1,7 @@
+---
+doc_id: DOC-AIM-DEPENDENCIES-085
+---
+
 # AIM Module Dependencies
 
 > **Module**: `aim`  

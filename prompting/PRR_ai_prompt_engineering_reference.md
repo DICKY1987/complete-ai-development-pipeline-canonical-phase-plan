@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PRR-AI-PROMPT-ENGINEERING-REFERENCE-440
+---
+
 # AI-Optimized Prompt Engineering Reference System
 *Machine-Readable Comprehensive Framework for Autonomous Agent Development*
 

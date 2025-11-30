@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CONFIG-README-255
+---
+
 # Configuration Directory
 
 **Purpose**: Centralized configuration for tool profiles, agent settings, circuit breakers, and pipeline behavior.

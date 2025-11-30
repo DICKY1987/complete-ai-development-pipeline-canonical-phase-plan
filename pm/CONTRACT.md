@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PM-CONTRACT-021
+---
+
 # PM Section Integration Contract
 
 **Version:** 1.0  

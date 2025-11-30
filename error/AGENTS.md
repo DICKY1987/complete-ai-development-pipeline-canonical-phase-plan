@@ -1,3 +1,7 @@
+---
+doc_id: DOC-ERROR-AGENTS-035
+---
+
 # Repository Guidelines
 
 ## Project Structure & Module Organization

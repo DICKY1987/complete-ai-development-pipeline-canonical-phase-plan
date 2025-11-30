@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-TEMPLATE-217
+---
+
 # ADR-XXXX: [Title]
 
 **Status:** [Proposed | Accepted | Deprecated | Superseded by ADR-YYYY]  
