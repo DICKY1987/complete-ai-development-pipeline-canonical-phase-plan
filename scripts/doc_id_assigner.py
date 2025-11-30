@@ -215,16 +215,19 @@ def infer_name_and_title(path: str, file_type: str) -> Tuple[str, str]:
 
     # Final name cleanup: ensure uppercase, no underscores
     name = name.replace("_", "-").upper()
-    # Remove leading/trailing dashes
-    name = name.strip('-')
+    # Remove leading/trailing dashes and collapse multiple dashes
+    name = re.sub(r'-+', '-', name).strip('-')
     # If name is empty or invalid, use fallback
     if not name or not re.match(r'^[A-Z0-9]', name):
-        name = f"FILE-{parent.upper()}-{stem_clean[:20].upper()}".strip('-')
+        name = f"FILE-{parent.upper()}-{stem_clean[:20].upper()}"
+        name = re.sub(r'-+', '-', name).strip('-')
     # Limit total name length to avoid overly long IDs
     if len(name) > 40:
-        name = name[:40].rsplit('-', 1)[0]
-    # Final validation: must not be empty
-    if not name:
+        name = name[:40].rsplit('-', 1)[0] if '-' in name[:40] else name[:40]
+    # Remove any trailing dashes again
+    name = name.rstrip('-')
+    # Final validation: must not be empty and not end with dash
+    if not name or name.endswith('-'):
         name = "UNNAMED"
     
     return name, title
