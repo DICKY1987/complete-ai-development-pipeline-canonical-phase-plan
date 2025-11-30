@@ -3,10 +3,17 @@
   "openspec_change": "TEST",
   "ccpm_issue": "N/A",
   "gate": 1,
-  "files_scope": ["README.md"],
+  "files_scope": [
+    "README.md"
+  ],
   "files_create": [],
-  "tasks": ["Add a comment to README.md"],
-  "acceptance_tests": ["test -f README.md"],
+  "tasks": [
+    "Add a comment to README.md"
+  ],
+  "acceptance_tests": [
+    "test -f README.md"
+  ],
   "depends_on": [],
-  "tool": "aider"
+  "tool": "aider",
+  "doc_id": "DOC-CONFIG-TEST-AIDER-252"
 }

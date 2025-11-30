@@ -4,5 +4,6 @@
   "language": "example_language",
   "test_framework": "example_test_framework",
   "include_type_hints": true,
-  "include_docstrings": true
+  "include_docstrings": true,
+  "doc_id": "DOC-PAT-INSTANCE-FULL-137"
 }

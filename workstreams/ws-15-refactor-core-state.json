@@ -34,5 +34,6 @@
   "tool": "aider",
   "metadata": {
     "notes": "VERY HIGH risk - foundation for orchestration"
-  }
+  },
+  "doc_id": "DOC-CONFIG-WS-15-REFACTOR-CORE-STATE-155"
 }

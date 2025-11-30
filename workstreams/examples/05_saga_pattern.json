@@ -3,14 +3,11 @@
   "_comment_purpose": "Example 5: SAGA Pattern - Distributed transaction with compensation and rollback",
   "_comment_use_case": "Use this pattern for: Multi-service operations, distributed transactions, reversible workflows",
   "_comment_header_end": "========================================",
-
   "id": "ws-example-05-saga-pattern",
-  
   "openspec_change": "EX-005",
   "ccpm_issue": 1005,
   "gate": 3,
   "_comment_gate": "Highest gate (3) - critical workflow with compensation logic",
-
   "files_scope": [
     "examples/user_service.py",
     "examples/payment_service.py",
@@ -23,27 +20,21 @@
     "examples/notification_service.py",
     "examples/saga_coordinator.py"
   ],
-
   "saga": {
     "enabled": true,
     "_comment_enabled": "Enable SAGA pattern for this workstream",
-    
     "strategy": "orchestration",
     "_comment_strategy": "orchestration: central coordinator; choreography: event-driven",
-    
     "rollback_on_failure": true,
     "_comment_rollback_on_failure": "Automatically execute compensation actions on failure",
-    
     "timeout": 600,
     "_comment_timeout": "Total SAGA timeout in seconds (10 minutes)"
   },
-
   "steps": [
     {
       "id": "step-01-user-service",
       "description": "Create user service with account creation",
       "tool": "aider",
-      
       "tasks": [
         "Create examples/user_service.py",
         "Add UserService class with create_account() method",
@@ -51,36 +42,28 @@
         "Include idempotency checks",
         "Add transaction ID tracking"
       ],
-      
       "depends_on": [],
-      
       "acceptance_tests": [
         "python -c \"from examples.user_service import UserService; svc = UserService(); print('OK')\""
       ],
-      
       "compensation": {
         "enabled": true,
         "_comment_enabled": "This step has a compensation action",
-        
         "action": "delete_account",
         "_comment_action": "Method to call for rollback",
-        
         "parameters": {
           "user_id": "${step_output.user_id}",
           "reason": "saga_rollback"
         },
-        
         "timeout": 30,
         "retries": 3,
         "_comment_retries": "Compensation actions are also retried if they fail"
       }
     },
-
     {
       "id": "step-02-payment-service",
       "description": "Create payment service with charge processing",
       "tool": "aider",
-      
       "tasks": [
         "Create examples/payment_service.py",
         "Add PaymentService class with charge() method",
@@ -88,37 +71,31 @@
         "Include payment validation",
         "Add receipt generation"
       ],
-      
-      "depends_on": ["step-01-user-service"],
+      "depends_on": [
+        "step-01-user-service"
+      ],
       "_comment_depends_on": "Must create user before processing payment",
-      
       "acceptance_tests": [
         "python -c \"from examples.payment_service import PaymentService; svc = PaymentService(); print('OK')\""
       ],
-      
       "compensation": {
         "enabled": true,
         "action": "refund",
-        
         "parameters": {
           "transaction_id": "${step_output.transaction_id}",
           "amount": "${step_output.amount}",
           "reason": "saga_rollback"
         },
-        
         "timeout": 60,
         "_comment_timeout": "Longer timeout for payment refunds",
-        
         "retries": 5,
         "_comment_retries": "More retries for financial operations"
       }
     },
-
     {
       "id": "step-03-notification-service",
       "description": "Create notification service for confirmations",
       "tool": "aider",
-      
       "tasks": [
         "Create examples/notification_service.py",
         "Add NotificationService class with send() method",
@@ -126,34 +103,29 @@
         "Include email/SMS templates",
         "Add delivery tracking"
       ],
-      
-      "depends_on": ["step-02-payment-service"],
+      "depends_on": [
+        "step-02-payment-service"
+      ],
       "_comment_depends_on": "Send notification after payment succeeds",
-      
       "acceptance_tests": [
         "python -c \"from examples.notification_service import NotificationService; svc = NotificationService(); print('OK')\""
       ],
-      
       "compensation": {
         "enabled": true,
         "action": "cancel_notification",
-        
         "parameters": {
           "notification_id": "${step_output.notification_id}",
           "reason": "saga_rollback"
         },
-        
         "timeout": 15,
         "retries": 2,
         "_comment_retries": "Fewer retries for notifications (less critical)"
       }
     },
-
     {
       "id": "step-04-saga-coordinator",
       "description": "Create SAGA coordinator to orchestrate the workflow",
       "tool": "aider",
-      
       "tasks": [
         "Create examples/saga_coordinator.py",
         "Add SagaCoordinator class",
@@ -162,94 +134,90 @@
         "Include transaction logging",
         "Add recovery mechanisms"
       ],
-      
       "depends_on": [
         "step-01-user-service",
-        "step-02-payment-service", 
+        "step-02-payment-service",
         "step-03-notification-service"
       ],
       "_comment_depends_on": "Coordinator needs all services created first",
-      
       "acceptance_tests": [
         "python -c \"from examples.saga_coordinator import SagaCoordinator; coord = SagaCoordinator(); print('OK')\""
       ],
-      
       "compensation": {
         "enabled": false,
         "_comment_enabled": "Coordinator itself doesn't need compensation"
       }
     }
   ],
-
   "rollback_order": "reverse",
   "_comment_rollback_order": "reverse: undo in reverse order; parallel: undo all at once; custom: specify order",
-
   "rollback_strategy": {
     "on_compensation_failure": "log_and_continue",
     "_comment_on_compensation_failure": "Options: log_and_continue, fail_fast, retry_later",
-    
     "max_rollback_retries": 3,
     "rollback_timeout": 300,
     "_comment_rollback_timeout": "Total time allowed for all compensations (5 minutes)",
-    
     "partial_rollback": true,
     "_comment_partial_rollback": "Allow partial rollback if some compensations fail"
   },
-
   "error_handling": {
     "on_step_failure": {
       "action": "trigger_saga_rollback",
       "log_level": "ERROR",
-      "notify": ["example@team.com"],
+      "notify": [
+        "example@team.com"
+      ],
       "collect_diagnostics": true
     },
-    
     "on_rollback_start": {
       "action": "log",
       "log_level": "WARNING",
       "message": "SAGA rollback initiated for ${workstream_id}"
     },
-    
     "on_rollback_complete": {
       "action": "log",
       "log_level": "INFO",
       "message": "SAGA rollback completed. ${compensation_count} compensations executed."
     },
-    
     "on_rollback_failure": {
       "action": "escalate",
       "log_level": "CRITICAL",
-      "notify": ["example@team.com", "ops@team.com"],
+      "notify": [
+        "example@team.com",
+        "ops@team.com"
+      ],
       "message": "SAGA rollback failed! Manual intervention required."
     }
   },
-
   "circuit_breaker": {
     "max_attempts": 3,
     "max_error_repeats": 2,
     "per_step": true,
     "_comment_per_step": "Each step (and compensation) has own circuit breaker"
   },
-
   "metadata": {
     "owner": "example@team.com",
     "priority": "critical",
     "_comment_priority": "Critical because involves payments",
-    
     "estimated_duration": "8-12 minutes (success path), +3-5min (rollback path)",
-    "tags": ["example", "tutorial", "saga", "compensation", "rollback", "distributed-transaction"],
-    
+    "tags": [
+      "example",
+      "tutorial",
+      "saga",
+      "compensation",
+      "rollback",
+      "distributed-transaction"
+    ],
     "transaction_type": "distributed",
     "compensatable": true,
     "idempotent": true,
     "_comment_idempotent": "All operations can be safely retried",
-    
     "sla": {
       "max_duration": 900,
       "_comment_max_duration": "Must complete (success or rollback) within 15 minutes",
-      
       "compensation_time_limit": 300,
       "_comment_compensation_time_limit": "Rollback must complete within 5 minutes"
     }
-  }
+  },
+  "doc_id": "DOC-CONFIG-05-SAGA-PATTERN-251"
 }

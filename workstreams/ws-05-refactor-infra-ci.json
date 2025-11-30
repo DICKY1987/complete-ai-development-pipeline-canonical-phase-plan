@@ -27,5 +27,6 @@
   "tool": "aider",
   "metadata": {
     "notes": "LOW-MEDIUM risk - CI important but isolated"
-  }
+  },
+  "doc_id": "DOC-CONFIG-WS-05-REFACTOR-INFRA-CI-145"
 }

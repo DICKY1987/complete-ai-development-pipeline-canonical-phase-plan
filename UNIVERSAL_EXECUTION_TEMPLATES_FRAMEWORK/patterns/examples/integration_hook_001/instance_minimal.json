@@ -2,5 +2,6 @@
   "integration_name": "pattern_automation_hooks",
   "target_module_path": "core/engine/orchestrator.py",
   "hook_points": [],
-  "hook_module_path": "automation/integration/orchestrator_hooks.py"
+  "hook_module_path": "automation/integration/orchestrator_hooks.py",
+  "doc_id": "DOC-PAT-INSTANCE-MINIMAL-167"
 }

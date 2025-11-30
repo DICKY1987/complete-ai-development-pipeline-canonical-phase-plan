@@ -19,5 +19,6 @@
   "recommendations": [
     "Create initial task, workstream, and capability indices",
     "Run validation suite to establish baseline"
-  ]
+  ],
+  "doc_id": "DOC-CONFIG-HEALTH-123"
 }

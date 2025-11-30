@@ -28,5 +28,6 @@
       "status": "available",
       "command": "python -m pytest -q tests"
     }
-  ]
+  ],
+  "doc_id": "DOC-CONFIG-CAPABILITY-INDEX-190"
 }

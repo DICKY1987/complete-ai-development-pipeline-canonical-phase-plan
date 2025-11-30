@@ -108,5 +108,6 @@
     "config_format",
     "config_path",
     "settings"
-  ]
+  ],
+  "doc_id": "DOC-PAT-CONFIG-SETUP-001-SCHEMA-114"
 }

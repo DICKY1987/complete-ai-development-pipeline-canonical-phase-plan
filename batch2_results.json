@@ -53,5 +53,6 @@
     "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\tests\\resilience\\__pycache__\\test_resilient_executor.cpython-312-pytest-9.0.0.pyc",
     "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\tests\\resilience\\__pycache__\\test_retry.cpython-312-pytest-9.0.0.pyc"
   ],
-  "skipped": []
+  "skipped": [],
+  "doc_id": "DOC-CONFIG-BATCH2-RESULTS-114"
 }

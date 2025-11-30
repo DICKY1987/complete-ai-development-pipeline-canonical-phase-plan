@@ -4,5 +4,6 @@
   "files_to_create": [],
   "custom_template": "example_custom_template",
   "parallel_processing": true,
-  "test_files": true
+  "test_files": true,
+  "doc_id": "DOC-PAT-INSTANCE-TEST-148"
 }

@@ -12,5 +12,6 @@
   "acceptance_tests": [],
   "depends_on": [],
   "openspec_change": "WS-01",
-  "id": "ws-01-hardcoded-path-index"
+  "id": "ws-01-hardcoded-path-index",
+  "doc_id": "DOC-CONFIG-WS-01-HARDCODED-PATH-INDEX-141"
 }

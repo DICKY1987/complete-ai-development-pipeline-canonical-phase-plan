@@ -66,5 +66,6 @@
     "estimated_effort_hours": "3-4",
     "optional": true,
     "notes": "Creates CI enforcement to prevent regressions after refactor. Ensures no new hardcoded references to old directory structure are introduced. Uses paths_index_cli.py to scan for deprecated patterns. Once enabled, enforces that all 'special' file references use the path registry abstraction layer."
-  }
+  },
+  "doc_id": "DOC-CONFIG-WS-21-CI-GATE-PATH-STANDARDS-161"
 }

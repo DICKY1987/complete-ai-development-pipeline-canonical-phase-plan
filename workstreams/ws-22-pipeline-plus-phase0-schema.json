@@ -41,5 +41,6 @@
     "description": "Establish database schema and directory structure before any code",
     "owner": "pipeline-plus",
     "priority": "critical"
-  }
+  },
+  "doc_id": "DOC-CONFIG-WS-22-PIPELINE-PLUS-PHASE0-SCHEMA-162"
 }

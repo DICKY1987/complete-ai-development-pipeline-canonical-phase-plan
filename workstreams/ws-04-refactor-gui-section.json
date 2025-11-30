@@ -23,5 +23,6 @@
   "tool": "aider",
   "metadata": {
     "notes": "LOW risk - stub implementation only"
-  }
+  },
+  "doc_id": "DOC-CONFIG-WS-04-REFACTOR-GUI-SECTION-144"
 }

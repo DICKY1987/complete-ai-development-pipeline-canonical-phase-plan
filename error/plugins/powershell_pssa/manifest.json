@@ -1,9 +1,15 @@
 {
   "plugin_id": "powershell_pssa",
   "name": "PSScriptAnalyzer",
-  "file_extensions": ["ps1", "psm1"],
+  "file_extensions": [
+    "ps1",
+    "psm1"
+  ],
   "requires": [],
   "tool": {
-    "success_codes": [0]
-  }
+    "success_codes": [
+      0
+    ]
+  },
+  "doc_id": "DOC-ERROR-MANIFEST-021"
 }

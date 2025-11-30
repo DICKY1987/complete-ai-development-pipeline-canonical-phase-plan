@@ -29,11 +29,17 @@
       "description": "Phase being executed"
     },
     "workstream_id": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "description": "Optional workstream being executed"
     },
     "execution_request_id": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$",
       "description": "Optional execution request that triggered this run"
     },
@@ -43,12 +49,18 @@
       "description": "When the run was created"
     },
     "started_at": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "date-time",
       "description": "When the run actually started execution"
     },
     "ended_at": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "date-time",
       "description": "When the run completed or failed"
     },
@@ -65,7 +77,10 @@
       "description": "Current state of the run"
     },
     "state_reason": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "description": "Human-readable reason for current state"
     },
     "origin": {
@@ -85,11 +100,17 @@
           "description": "How this run was triggered"
         },
         "trigger_ref": {
-          "type": ["string", "null"],
+          "type": [
+            "string",
+            "null"
+          ],
           "description": "Reference to triggering entity (e.g., issue ID, CI run ID)"
         },
         "requested_by": {
-          "type": ["string", "null"],
+          "type": [
+            "string",
+            "null"
+          ],
           "description": "User or system that requested this run"
         }
       }
@@ -121,5 +142,6 @@
         }
       }
     }
-  }
+  },
+  "doc_id": "DOC-SPEC-RUN-RECORD-V1-031"
 }

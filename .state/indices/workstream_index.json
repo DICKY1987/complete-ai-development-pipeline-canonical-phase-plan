@@ -3,5 +3,6 @@
   "index_id": "WS-INDEX-001",
   "timestamp": "2025-11-23T16:04:25.348Z",
   "description": "Workstream index tracking active and completed workstreams",
-  "items": []
+  "items": [],
+  "doc_id": "DOC-CONFIG-WORKSTREAM-INDEX-192"
 }

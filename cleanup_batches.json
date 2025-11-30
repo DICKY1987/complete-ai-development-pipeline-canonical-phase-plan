@@ -154,5 +154,6 @@
     "archive\\legacy\\AI_MANGER_archived_2025-11-22\\.git\\hooks\\pre-commit.sample",
     "ccpm\\.git\\hooks\\pre-commit.sample",
     "archive\\legacy\\AI_MANGER_archived_2025-11-22\\.git\\hooks\\pre-push.sample"
-  ]
+  ],
+  "doc_id": "DOC-CONFIG-CLEANUP-BATCHES-117"
 }

@@ -89,7 +89,9 @@
     "ground_truth": {
       "type": "object",
       "description": "Success criteria for this pattern",
-      "required": ["success_criteria"],
+      "required": [
+        "success_criteria"
+      ],
       "properties": {
         "success_criteria": {
           "type": "array",
@@ -175,7 +177,10 @@
         },
         "strategy": {
           "type": "string",
-          "enum": ["sequential", "parallel"]
+          "enum": [
+            "sequential",
+            "parallel"
+          ]
         },
         "order": {
           "type": "array",
@@ -217,7 +222,11 @@
           "type": "array",
           "items": {
             "type": "string",
-            "enum": ["stdout", "stderr", "exit_code"]
+            "enum": [
+              "stdout",
+              "stderr",
+              "exit_code"
+            ]
           }
         },
         "if_any_check_failed": {
@@ -242,7 +251,11 @@
     },
     "auto_fix": {
       "type": "object",
-      "required": ["detection", "action", "max_auto_attempts"],
+      "required": [
+        "detection",
+        "action",
+        "max_auto_attempts"
+      ],
       "properties": {
         "detection": {
           "type": "string",
@@ -269,7 +282,11 @@
     },
     "human_intervention": {
       "type": "object",
-      "required": ["detection", "action", "reason"],
+      "required": [
+        "detection",
+        "action",
+        "reason"
+      ],
       "properties": {
         "detection": {
           "type": "string",
@@ -277,7 +294,10 @@
         },
         "action": {
           "type": "string",
-          "enum": ["stop_and_report", "stop_and_ask"]
+          "enum": [
+            "stop_and_report",
+            "stop_and_ask"
+          ]
         },
         "reason": {
           "type": "string",
@@ -285,5 +305,6 @@
         }
       }
     }
-  }
+  },
+  "doc_id": "DOC-SPEC-EXECUTION-PATTERN-V1-016"
 }

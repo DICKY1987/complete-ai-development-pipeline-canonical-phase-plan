@@ -9,11 +9,9 @@
     "2. Replace {{PLACEHOLDERS}}",
     "3. Validate: python core/bootstrap/validator.py --schema schema/router_config.v1.json --file router_config.json"
   ],
-
   "router_id": "default-router",
   "version": "1.0.0",
   "description": "Basic tool routing configuration",
-
   "routes": [
     {
       "capability": "code_edit",
@@ -23,7 +21,11 @@
           "name": "aider",
           "priority": 1,
           "conditions": {
-            "languages": ["python", "javascript", "typescript"],
+            "languages": [
+              "python",
+              "javascript",
+              "typescript"
+            ],
             "min_version": "0.40.0"
           },
           "config": {
@@ -34,7 +36,6 @@
       ],
       "fallback": "manual"
     },
-    
     {
       "capability": "code_analysis",
       "description": "Route code analysis tasks",
@@ -43,13 +44,15 @@
           "name": "aider",
           "priority": 1,
           "conditions": {
-            "languages": ["python", "javascript"]
+            "languages": [
+              "python",
+              "javascript"
+            ]
           }
         }
       ],
       "fallback": "manual"
     },
-    
     {
       "capability": "testing",
       "description": "Route testing tasks",
@@ -58,17 +61,21 @@
           "name": "pytest",
           "priority": 1,
           "conditions": {
-            "languages": ["python"]
+            "languages": [
+              "python"
+            ]
           },
           "config": {
             "config_file": "pytest.ini",
-            "args": ["-v", "--tb=short"]
+            "args": [
+              "-v",
+              "--tb=short"
+            ]
           }
         }
       ],
       "fallback": "skip"
     },
-    
     {
       "capability": "linting",
       "description": "Route linting tasks",
@@ -77,24 +84,27 @@
           "name": "ruff",
           "priority": 1,
           "conditions": {
-            "languages": ["python"]
+            "languages": [
+              "python"
+            ]
           },
           "config": {
-            "args": ["check", "--fix"]
+            "args": [
+              "check",
+              "--fix"
+            ]
           }
         }
       ],
       "fallback": "continue"
     }
   ],
-
   "global_settings": {
     "max_retries": 3,
     "timeout": 300,
     "fallback_behavior": "fail",
     "log_level": "INFO"
   },
-
   "resilience": {
     "circuit_breaker": {
       "enabled": true,
@@ -107,13 +117,14 @@
       "initial_delay": 5
     }
   },
-
   "meta": {
     "created": "2025-11-23",
     "template_version": "1.0.0",
-    "tags": ["basic", "router"]
+    "tags": [
+      "basic",
+      "router"
+    ]
   },
-
   "_example_usage": {
     "_comment": "Example: Route a code_edit task",
     "task": {
@@ -122,5 +133,6 @@
     },
     "selected_tool": "aider",
     "reason": "Matches capability and language condition"
-  }
+  },
+  "doc_id": "DOC-CONFIG-ROUTER-BASIC-TEMPLATE-245"
 }

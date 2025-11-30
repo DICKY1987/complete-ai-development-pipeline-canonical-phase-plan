@@ -1,9 +1,17 @@
 {
   "plugin_id": "md_markdownlint",
   "name": "markdownlint-cli",
-  "file_extensions": ["md"],
-  "requires": ["md_mdformat_fix"],
+  "file_extensions": [
+    "md"
+  ],
+  "requires": [
+    "md_mdformat_fix"
+  ],
   "tool": {
-    "success_codes": [0, 1]
-  }
+    "success_codes": [
+      0,
+      1
+    ]
+  },
+  "doc_id": "DOC-ERROR-MANIFEST-018"
 }

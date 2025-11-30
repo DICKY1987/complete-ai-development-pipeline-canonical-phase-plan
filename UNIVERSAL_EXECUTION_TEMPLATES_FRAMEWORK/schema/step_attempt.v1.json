@@ -35,16 +35,25 @@
       "description": "Identifier of the tool being invoked"
     },
     "tool_run_id": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "description": "Tool-specific run identifier if available"
     },
     "execution_request_id": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$",
       "description": "Optional execution request this step fulfills"
     },
     "prompt_id": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$",
       "description": "Optional prompt instance used for this step"
     },
@@ -54,7 +63,10 @@
       "description": "When this step started execution"
     },
     "ended_at": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "date-time",
       "description": "When this step completed or failed"
     },
@@ -70,7 +82,10 @@
       "description": "Current state of this step"
     },
     "state_reason": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "description": "Human-readable reason for current state"
     },
     "outputs": {
@@ -88,14 +103,21 @@
           "description": "Patch artifacts produced by this step"
         },
         "logs_path": {
-          "type": ["string", "null"],
+          "type": [
+            "string",
+            "null"
+          ],
           "description": "Path to execution logs"
         },
         "raw_response_path": {
-          "type": ["string", "null"],
+          "type": [
+            "string",
+            "null"
+          ],
           "description": "Path to raw tool response"
         }
       }
     }
-  }
+  },
+  "doc_id": "DOC-SPEC-STEP-ATTEMPT-V1-032"
 }

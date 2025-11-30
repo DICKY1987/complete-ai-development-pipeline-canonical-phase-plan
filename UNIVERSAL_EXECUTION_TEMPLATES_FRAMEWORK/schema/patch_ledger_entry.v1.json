@@ -5,7 +5,13 @@
   "description": "Audit trail and lifecycle record for a patch. Tracks validation, application, and quarantine states.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["ledger_id", "patch_id", "project_id", "state", "validation"],
+  "required": [
+    "ledger_id",
+    "patch_id",
+    "project_id",
+    "state",
+    "validation"
+  ],
   "properties": {
     "ledger_id": {
       "type": "string",
@@ -23,15 +29,24 @@
       "description": "Project this patch belongs to"
     },
     "phase_id": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "description": "Phase this patch was created in"
     },
     "workstream_id": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "description": "Workstream this patch belongs to"
     },
     "execution_request_id": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$",
       "description": "Execution request that produced this patch"
     },
@@ -56,7 +71,10 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["state", "at"],
+        "required": [
+          "state",
+          "at"
+        ],
         "properties": {
           "state": {
             "type": "string",
@@ -78,7 +96,11 @@
     "validation": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["format_ok", "scope_ok", "constraints_ok"],
+      "required": [
+        "format_ok",
+        "scope_ok",
+        "constraints_ok"
+      ],
       "description": "Validation results",
       "properties": {
         "format_ok": {
@@ -177,20 +199,30 @@
       "description": "Relationships to other patches",
       "properties": {
         "replaces_patch_id": {
-          "type": ["string", "null"],
+          "type": [
+            "string",
+            "null"
+          ],
           "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$",
           "description": "Patch this one replaces"
         },
         "rollback_of_patch_id": {
-          "type": ["string", "null"],
+          "type": [
+            "string",
+            "null"
+          ],
           "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$",
           "description": "Patch this one rolls back"
         },
         "chain_id": {
-          "type": ["string", "null"],
+          "type": [
+            "string",
+            "null"
+          ],
           "description": "Chain ID for related patches"
         }
       }
     }
-  }
+  },
+  "doc_id": "DOC-SPEC-PATCH-LEDGER-ENTRY-V1-019"
 }

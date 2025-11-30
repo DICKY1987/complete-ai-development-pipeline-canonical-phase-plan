@@ -4,7 +4,12 @@
   "title": "AI Module Manifest",
   "description": "Schema for .ai-module-manifest files - AI-readable module documentation",
   "type": "object",
-  "required": ["module", "purpose", "layer", "entry_points"],
+  "required": [
+    "module",
+    "purpose",
+    "layer",
+    "entry_points"
+  ],
   "additionalProperties": false,
   "properties": {
     "module": {
@@ -20,7 +25,12 @@
     },
     "layer": {
       "type": "string",
-      "enum": ["infra", "domain", "api", "ui"],
+      "enum": [
+        "infra",
+        "domain",
+        "api",
+        "ui"
+      ],
       "description": "Architecture layer: infra (foundation), domain (business logic), api (interfaces), ui (presentation)"
     },
     "entry_points": {
@@ -29,7 +39,11 @@
       "minItems": 1,
       "items": {
         "type": "object",
-        "required": ["file", "function", "description"],
+        "required": [
+          "file",
+          "function",
+          "description"
+        ],
         "properties": {
           "file": {
             "type": "string",
@@ -59,7 +73,10 @@
       "description": "Typical tasks AI agents perform with this module",
       "items": {
         "type": "object",
-        "required": ["task", "approach"],
+        "required": [
+          "task",
+          "approach"
+        ],
         "properties": {
           "task": {
             "type": "string",
@@ -110,15 +127,26 @@
     "status": {
       "type": "object",
       "description": "Module maturity and readiness",
-      "required": ["maturity"],
+      "required": [
+        "maturity"
+      ],
       "properties": {
         "maturity": {
           "type": "string",
-          "enum": ["alpha", "beta", "stable", "deprecated", "planned"],
+          "enum": [
+            "alpha",
+            "beta",
+            "stable",
+            "deprecated",
+            "planned"
+          ],
           "description": "Development stage"
         },
         "test_coverage": {
-          "type": ["string", "number"],
+          "type": [
+            "string",
+            "number"
+          ],
           "description": "Test coverage percentage or 'N/A'"
         },
         "production_ready": {
@@ -138,5 +166,6 @@
         "type": "string"
       }
     }
-  }
+  },
+  "doc_id": "DOC-SPEC-AI-MODULE-MANIFEST-SCHEMA-011"
 }

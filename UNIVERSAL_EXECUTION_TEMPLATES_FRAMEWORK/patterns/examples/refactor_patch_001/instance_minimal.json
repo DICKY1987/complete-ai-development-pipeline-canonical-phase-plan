@@ -1,4 +1,5 @@
 {
   "project_root": "example_project_root",
-  "patches": []
+  "patches": [],
+  "doc_id": "DOC-PAT-INSTANCE-MINIMAL-185"
 }

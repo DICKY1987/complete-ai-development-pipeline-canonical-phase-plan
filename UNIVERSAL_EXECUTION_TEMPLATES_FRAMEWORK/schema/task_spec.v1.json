@@ -5,7 +5,11 @@
   "description": "Individual task within a workstream.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["task_id", "name", "kind"],
+  "required": [
+    "task_id",
+    "name",
+    "kind"
+  ],
   "properties": {
     "task_id": {
       "type": "string",
@@ -23,7 +27,9 @@
     },
     "depends_on": {
       "type": "array",
-      "items": {"type": "string"},
+      "items": {
+        "type": "string"
+      },
       "description": "Task IDs this task depends on"
     },
     "allow_parallel": {
@@ -34,10 +40,18 @@
     "classification": {
       "type": "object",
       "properties": {
-        "complexity": {"type": "string"},
-        "risk_tier": {"type": "string"},
-        "domain": {"type": "string"},
-        "priority": {"type": "string"}
+        "complexity": {
+          "type": "string"
+        },
+        "risk_tier": {
+          "type": "string"
+        },
+        "domain": {
+          "type": "string"
+        },
+        "priority": {
+          "type": "string"
+        }
       }
     },
     "resource_scope_delta": {
@@ -51,10 +65,20 @@
     "execution": {
       "type": "object",
       "properties": {
-        "max_attempts": {"type": "integer", "minimum": 1},
-        "timeout_seconds": {"type": "integer", "minimum": 1},
-        "retry_strategy": {"type": "string"},
-        "background": {"type": "boolean"}
+        "max_attempts": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "timeout_seconds": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "retry_strategy": {
+          "type": "string"
+        },
+        "background": {
+          "type": "boolean"
+        }
       }
     },
     "prompt_template_ref": {
@@ -72,7 +96,9 @@
     "error_handling": {
       "type": "object",
       "properties": {
-        "on_failure": {"type": "string"}
+        "on_failure": {
+          "type": "string"
+        }
       }
     },
     "acceptance": {
@@ -80,9 +106,12 @@
       "properties": {
         "checks": {
           "type": "array",
-          "items": {"type": "object"}
+          "items": {
+            "type": "object"
+          }
         }
       }
     }
-  }
+  },
+  "doc_id": "DOC-SPEC-TASK-SPEC-V1-033"
 }

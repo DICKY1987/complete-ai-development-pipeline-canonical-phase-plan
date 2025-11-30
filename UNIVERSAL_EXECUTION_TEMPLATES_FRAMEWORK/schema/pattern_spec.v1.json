@@ -46,5 +46,6 @@
   "title": "Pattern Specification Schema",
   "description": "Schema for pattern specification files",
   "$id": "pattern_spec.v1.json",
-  "$schema": "http://json-schema.org/draft-07/schema#"
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "doc_id": "DOC-SPEC-PATTERN-SPEC-V1-023"
 }

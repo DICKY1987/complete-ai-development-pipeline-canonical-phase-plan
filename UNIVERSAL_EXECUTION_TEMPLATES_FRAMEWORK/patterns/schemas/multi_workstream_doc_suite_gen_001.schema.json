@@ -79,5 +79,6 @@
   },
   "required": [
     "templates"
-  ]
+  ],
+  "doc_id": "DOC-PAT-MULTI-WORKSTREAM-DOC-SUITE-GEN-001-123"
 }

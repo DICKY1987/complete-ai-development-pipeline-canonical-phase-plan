@@ -30,7 +30,7 @@
     }
   },
   "aggregation": {
-    "outputDir": "~/ALL_AI/Complete AI Development Pipeline – Canonical Phase Plan/ai-logs-analyzer/aggregated",
+    "outputDir": "~/ALL_AI/Complete AI Development Pipeline \u2013 Canonical Phase Plan/ai-logs-analyzer/aggregated",
     "format": "jsonl",
     "compression": {
       "enabled": false,
@@ -46,8 +46,11 @@
     }
   },
   "analysis": {
-    "outputDir": "~/ALL_AI/Complete AI Development Pipeline – Canonical Phase Plan/ai-logs-analyzer/analysis",
-    "formats": ["json", "markdown"],
+    "outputDir": "~/ALL_AI/Complete AI Development Pipeline \u2013 Canonical Phase Plan/ai-logs-analyzer/analysis",
+    "formats": [
+      "json",
+      "markdown"
+    ],
     "types": [
       "summary",
       "usage-metrics",
@@ -106,12 +109,13 @@
       },
       "sqlite": {
         "enabled": true,
-        "database": "~/ALL_AI/Complete AI Development Pipeline – Canonical Phase Plan/ai-logs-analyzer/logs.db"
+        "database": "~/ALL_AI/Complete AI Development Pipeline \u2013 Canonical Phase Plan/ai-logs-analyzer/logs.db"
       },
       "json": {
         "enabled": true,
         "pretty": true
       }
     }
-  }
+  },
+  "doc_id": "DOC-CONFIG-LOGGING-CONFIG-198"
 }

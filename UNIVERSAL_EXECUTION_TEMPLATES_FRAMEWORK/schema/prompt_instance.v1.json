@@ -5,7 +5,13 @@
   "description": "Rendered prompt ready for tool consumption. Contains all sections needed to execute a task.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["prompt_instance_id", "template_id", "target_tool", "kind", "sections"],
+  "required": [
+    "prompt_instance_id",
+    "template_id",
+    "target_tool",
+    "kind",
+    "sections"
+  ],
   "properties": {
     "prompt_instance_id": {
       "type": "string",
@@ -27,7 +33,9 @@
     "sections": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["OBJECTIVE"],
+      "required": [
+        "OBJECTIVE"
+      ],
       "description": "Prompt sections",
       "properties": {
         "HEADER": {
@@ -60,5 +68,6 @@
         }
       }
     }
-  }
+  },
+  "doc_id": "DOC-SPEC-PROMPT-INSTANCE-V1-028"
 }

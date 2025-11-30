@@ -16,8 +16,8 @@
     "PYTEST_CURRENT_TEST": ""
   },
   "paths": {
-    "repo_root": "C:/Users/richg/ALL_AI/Complete AI Development Pipeline – Canonical Phase Plan",
-    "working_dir": "C:/Users/richg/ALL_AI/Complete AI Development Pipeline – Canonical Phase Plan",
+    "repo_root": "C:/Users/richg/ALL_AI/Complete AI Development Pipeline \u2013 Canonical Phase Plan",
+    "working_dir": "C:/Users/richg/ALL_AI/Complete AI Development Pipeline \u2013 Canonical Phase Plan",
     "log_file": "logs/ws-validation-suite/job-2025-11-21-tests-001.log",
     "error_report": "logs/ws-validation-suite/job-2025-11-21-tests-001.error.json"
   },
@@ -26,5 +26,6 @@
     "timeout_seconds": 300,
     "test_type": "unit",
     "coverage_report": "logs/ws-validation-suite/coverage.xml"
-  }
+  },
+  "doc_id": "DOC-SPEC-TESTS-JOB-010"
 }

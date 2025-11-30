@@ -45,5 +45,6 @@
     "project_root",
     "verification_checks",
     "commit_message"
-  ]
+  ],
+  "doc_id": "DOC-PAT-VERIFY-COMMIT-001-SCHEMA-130"
 }

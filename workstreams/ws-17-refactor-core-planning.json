@@ -26,5 +26,6 @@
   "tool": "aider",
   "metadata": {
     "notes": "MEDIUM risk - not heavily used (stubs)"
-  }
+  },
+  "doc_id": "DOC-CONFIG-WS-17-REFACTOR-CORE-PLANNING-157"
 }

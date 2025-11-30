@@ -3,69 +3,58 @@
   "_comment_purpose": "Example 1: Simple Task - Single-step workstream demonstrating basic structure",
   "_comment_use_case": "Use this pattern for: Simple file creation, basic refactoring, adding a single feature",
   "_comment_header_end": "========================================",
-
   "id": "ws-example-01-simple-task",
   "_comment_id": "Unique identifier for this workstream. Must start with 'ws-' and use lowercase with hyphens.",
-
   "openspec_change": "EX-001",
   "_comment_openspec_change": "Links to an OpenSpec change proposal. Optional but recommended for traceability.",
-
   "ccpm_issue": 1001,
   "_comment_ccpm_issue": "Related issue number from GitHub or CCPM project management. Can be integer or string.",
-
   "gate": 1,
   "_comment_gate": "Minimum approval gate level required. 1 = basic review, higher = more approvals needed.",
-
   "files_scope": [
     "examples/hello_world.py"
   ],
   "_comment_files_scope": "Files this workstream claims ownership over. Prevents conflicts with other workstreams.",
-
   "files_create": [
     "examples/hello_world.py"
   ],
   "_comment_files_create": "Files this workstream is allowed to create. Must be subset of files_scope.",
-
   "tasks": [
     "Create a simple hello world Python module",
     "Add docstring explaining the module purpose",
     "Include basic error handling"
   ],
   "_comment_tasks": "High-level human-readable tasks. Guides the AI tool on what to accomplish.",
-
   "acceptance_tests": [
     "python -c \"import examples.hello_world; print('Import OK')\"",
     "python examples/hello_world.py"
   ],
   "_comment_acceptance_tests": "Commands to validate the workstream succeeded. Executed after completion.",
-
   "depends_on": [],
   "_comment_depends_on": "List of workstream IDs that must complete before this one. Empty for simple tasks.",
-
   "tool": "aider",
   "_comment_tool": "Tool profile to use. Options: aider, codex, custom-ai-tool. See config/tool_profiles.yaml",
-
   "circuit_breaker": {
     "max_attempts": 3,
     "_comment_max_attempts": "Maximum retry attempts before giving up. Prevents infinite loops.",
-    
     "max_error_repeats": 2,
     "_comment_max_error_repeats": "Max times same error can repeat before escalating. Detects stuck states."
   },
   "_comment_circuit_breaker": "Safety mechanism to prevent runaway execution. Triggers if too many failures occur.",
-
   "metadata": {
     "owner": "example@team.com",
     "_comment_owner": "Email of person responsible for this workstream.",
-    
     "priority": "medium",
     "_comment_priority": "Priority level: low, medium, high, critical. Affects execution order.",
-    
     "estimated_duration": "2-5 minutes",
     "_comment_estimated_duration": "Expected time to complete. Helps with scheduling and timeout configuration.",
-    
-    "tags": ["example", "tutorial", "hello-world"],
+    "tags": [
+      "example",
+      "tutorial",
+      "hello-world"
+    ],
     "_comment_tags": "Tags for categorization and filtering."
   },
-  "_comment_metadata": "Optional metadata for tracking, reporting, and UI display."
+  "_comment_metadata": "Optional metadata for tracking, reporting, and UI display.",
+  "doc_id": "DOC-CONFIG-01-SIMPLE-TASK-247"
 }

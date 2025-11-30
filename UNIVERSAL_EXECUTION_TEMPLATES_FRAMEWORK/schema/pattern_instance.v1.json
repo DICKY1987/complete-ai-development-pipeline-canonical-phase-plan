@@ -27,5 +27,6 @@
   "title": "Pattern Instance Schema",
   "description": "Schema for pattern instance files",
   "$id": "pattern_instance.v1.json",
-  "$schema": "http://json-schema.org/draft-07/schema#"
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "doc_id": "DOC-SPEC-PATTERN-INSTANCE-V1-022"
 }

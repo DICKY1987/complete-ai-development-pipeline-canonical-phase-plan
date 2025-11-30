@@ -26,7 +26,7 @@
   "depends_on": [],
   "tool": "aider",
   "metadata": {
-    "notes": "WS-12 follows completion of Phase 5 (WS-09–WS-11). Start with analysis + ADR before code moves."
-  }
+    "notes": "WS-12 follows completion of Phase 5 (WS-09\u2013WS-11). Start with analysis + ADR before code moves."
+  },
+  "doc_id": "DOC-CONFIG-WS-12-ERROR-SHARED-UTILS-152"
 }
-

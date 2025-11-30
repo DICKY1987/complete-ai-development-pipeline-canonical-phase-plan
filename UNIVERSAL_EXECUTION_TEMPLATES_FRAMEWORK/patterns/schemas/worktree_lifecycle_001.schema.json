@@ -45,5 +45,6 @@
     "repository_root",
     "operation",
     "branch_name"
-  ]
+  ],
+  "doc_id": "DOC-PAT-WORKTREE-LIFECYCLE-001-SCHEMA-132"
 }

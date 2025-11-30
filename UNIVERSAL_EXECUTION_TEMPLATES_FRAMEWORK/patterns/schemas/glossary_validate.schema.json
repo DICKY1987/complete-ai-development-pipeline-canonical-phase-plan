@@ -34,7 +34,12 @@
         },
         "validation_mode": {
           "type": "string",
-          "enum": ["full", "quick", "orphans", "paths"],
+          "enum": [
+            "full",
+            "quick",
+            "orphans",
+            "paths"
+          ],
           "default": "full",
           "description": "Type of validation to perform"
         },
@@ -50,7 +55,11 @@
       "properties": {
         "status": {
           "type": "string",
-          "enum": ["success", "failure", "warnings"],
+          "enum": [
+            "success",
+            "failure",
+            "warnings"
+          ],
           "description": "Validation status"
         },
         "total_terms": {
@@ -59,17 +68,23 @@
         },
         "errors": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "description": "List of validation errors"
         },
         "warnings": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "description": "List of validation warnings"
         },
         "orphaned_terms": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "description": "Terms with no incoming links"
         },
         "quality_score": {
@@ -84,5 +99,6 @@
         }
       }
     }
-  }
+  },
+  "doc_id": "DOC-PAT-GLOSSARY-VALIDATE-SCHEMA-119"
 }

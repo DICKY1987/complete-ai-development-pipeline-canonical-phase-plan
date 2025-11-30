@@ -19,16 +19,31 @@
     },
     "worker_type": {
       "type": "string",
-      "enum": ["executor", "monitor", "validator", "scheduler", "custom"],
+      "enum": [
+        "executor",
+        "monitor",
+        "validator",
+        "scheduler",
+        "custom"
+      ],
       "description": "Type of worker process"
     },
     "state": {
       "type": "string",
-      "enum": ["idle", "busy", "paused", "stopped", "crashed"],
+      "enum": [
+        "idle",
+        "busy",
+        "paused",
+        "stopped",
+        "crashed"
+      ],
       "description": "Current state of the worker"
     },
     "current_task_id": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$",
       "description": "ID of task currently being executed (if busy)"
     },
@@ -38,17 +53,26 @@
       "description": "When the worker was started"
     },
     "last_heartbeat": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "date-time",
       "description": "Last heartbeat timestamp"
     },
     "stopped_at": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "date-time",
       "description": "When the worker was stopped"
     },
     "crash_info": {
-      "type": ["object", "null"],
+      "type": [
+        "object",
+        "null"
+      ],
       "description": "Information about worker crash",
       "properties": {
         "crashed_at": {
@@ -88,7 +112,10 @@
       }
     },
     "config": {
-      "type": ["object", "null"],
+      "type": [
+        "object",
+        "null"
+      ],
       "description": "Worker-specific configuration",
       "properties": {
         "max_parallel_tasks": {
@@ -107,8 +134,12 @@
       }
     },
     "metadata": {
-      "type": ["object", "null"],
+      "type": [
+        "object",
+        "null"
+      ],
       "description": "Additional worker metadata"
     }
-  }
+  },
+  "doc_id": "DOC-SPEC-WORKER-LIFECYCLE-V1-036"
 }

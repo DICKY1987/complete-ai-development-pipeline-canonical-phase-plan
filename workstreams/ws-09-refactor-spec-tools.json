@@ -35,5 +35,6 @@
   "tool": "aider",
   "metadata": {
     "notes": "MEDIUM risk - used by parser/scripts"
-  }
+  },
+  "doc_id": "DOC-CONFIG-WS-09-REFACTOR-SPEC-TOOLS-149"
 }

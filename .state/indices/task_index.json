@@ -3,5 +3,6 @@
   "index_id": "TASK-INDEX-001",
   "timestamp": "2025-11-23T16:04:25.348Z",
   "description": "Task index derived from current state and workstream bundles",
-  "items": []
+  "items": [],
+  "doc_id": "DOC-CONFIG-TASK-INDEX-191"
 }

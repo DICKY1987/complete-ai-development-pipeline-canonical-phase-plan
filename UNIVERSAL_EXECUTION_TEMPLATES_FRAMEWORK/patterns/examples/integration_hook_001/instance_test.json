@@ -5,5 +5,6 @@
   "hook_module_path": "automation/integration/orchestrator_hooks.py",
   "database_path": "patterns/metrics/pattern_automation.db",
   "config_path": "automation/config/detection_config.yaml",
-  "include_tests": true
+  "include_tests": true,
+  "doc_id": "DOC-PAT-INSTANCE-TEST-168"
 }

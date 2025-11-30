@@ -24,7 +24,7 @@
     "Implement _infer_classification(bundle) -> Classification: analyze file count, task complexity, dependencies",
     "Implement _infer_role(classification) -> str: map to persona string",
     "Implement _select_template(target_app) -> str: choose universal|aider|codex|claude variant",
-    "Create Jinja2 templates with V1.1 sections: [HEADER]→[OBJECTIVE]→[CONTEXT]→[FILE_SCOPE]→[TASKS]→[CONSTRAINTS]→[OUTPUT_FORMAT]→[VALIDATION]→[NEXT_STEPS]→[EXECUTION_HINTS]",
+    "Create Jinja2 templates with V1.1 sections: [HEADER]\u2192[OBJECTIVE]\u2192[CONTEXT]\u2192[FILE_SCOPE]\u2192[TASKS]\u2192[CONSTRAINTS]\u2192[OUTPUT_FORMAT]\u2192[VALIDATION]\u2192[NEXT_STEPS]\u2192[EXECUTION_HINTS]",
     "Modify aider/engine.py to add V1.1 rendering support",
     "Create unit tests for classification inference, template rendering, V1.1 schema validation",
     "Test regression: existing bundles render correctly"
@@ -50,5 +50,6 @@
     "owner": "pipeline-plus",
     "priority": "high",
     "can_parallel_with": "ws-27-pipeline-plus-phase4-validation"
-  }
+  },
+  "doc_id": "DOC-CONFIG-WS-26-PIPELINE-PLUS-PHASE3-PROMPT-ENGINE-166"
 }

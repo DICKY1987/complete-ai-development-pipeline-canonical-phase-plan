@@ -12,5 +12,6 @@
     "message": "AIM_jules adapter stub handled capability 'code_generation'",
     "success": true
   },
-  "actor": "human:richg"
+  "actor": "human:richg",
+  "doc_id": "DOC-AIM-2025-11-12T18-03-56Z-CAPABILITY-040"
 }

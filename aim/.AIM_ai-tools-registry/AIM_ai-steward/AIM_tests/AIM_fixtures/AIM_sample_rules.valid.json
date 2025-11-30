@@ -2,9 +2,11 @@
   "capabilities": {
     "code_generation": {
       "primary": "jules",
-      "fallback": ["claude-cli"],
+      "fallback": [
+        "claude-cli"
+      ],
       "loadBalance": false
     }
-  }
+  },
+  "doc_id": "DOC-AIM-AIM-SAMPLE-RULES-VALID-039"
 }
-

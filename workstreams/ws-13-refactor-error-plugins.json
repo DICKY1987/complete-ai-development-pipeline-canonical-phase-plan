@@ -28,5 +28,6 @@
   "tool": "aider",
   "metadata": {
     "notes": "HIGH risk - 21 plugins, extensive testing needed"
-  }
+  },
+  "doc_id": "DOC-CONFIG-WS-13-REFACTOR-ERROR-PLUGINS-153"
 }

@@ -1,7 +1,6 @@
 {
   "$schema": "./aim_config.schema.json",
   "version": "1.0.0",
-  
   "registry": {
     "tools": {
       "aider": {
@@ -10,10 +9,18 @@
           "aider",
           "%USERPROFILE%/.local/bin/aider.exe"
         ],
-        "versionCommand": ["aider", "--version"],
-        "configPaths": ["%USERPROFILE%/.aider"],
+        "versionCommand": [
+          "aider",
+          "--version"
+        ],
+        "configPaths": [
+          "%USERPROFILE%/.aider"
+        ],
         "logPaths": [],
-        "capabilities": ["code_generation", "refactoring"],
+        "capabilities": [
+          "code_generation",
+          "refactoring"
+        ],
         "adapterScript": "%AIM_REGISTRY_PATH%/AIM_adapters/AIM_aider.ps1",
         "pinnedVersion": "",
         "autoUpdate": false
@@ -24,10 +31,19 @@
           "jules",
           "%APPDATA%/npm/jules.cmd"
         ],
-        "versionCommand": ["jules", "--version"],
-        "configPaths": ["%USERPROFILE%/.jules"],
-        "logPaths": ["%USERPROFILE%/.jules/cache/cli.log"],
-        "capabilities": ["code_generation"],
+        "versionCommand": [
+          "jules",
+          "--version"
+        ],
+        "configPaths": [
+          "%USERPROFILE%/.jules"
+        ],
+        "logPaths": [
+          "%USERPROFILE%/.jules/cache/cli.log"
+        ],
+        "capabilities": [
+          "code_generation"
+        ],
         "adapterScript": "%AIM_REGISTRY_PATH%/AIM_adapters/AIM_jules.ps1",
         "pinnedVersion": "",
         "autoUpdate": false
@@ -38,10 +54,17 @@
           "claude",
           "%USERPROFILE%/.local/bin/claude.exe"
         ],
-        "versionCommand": ["claude", "--version"],
-        "configPaths": ["%USERPROFILE%/.claude"],
+        "versionCommand": [
+          "claude",
+          "--version"
+        ],
+        "configPaths": [
+          "%USERPROFILE%/.claude"
+        ],
         "logPaths": [],
-        "capabilities": ["code_generation"],
+        "capabilities": [
+          "code_generation"
+        ],
         "adapterScript": "%AIM_REGISTRY_PATH%/AIM_adapters/AIM_claude-cli.ps1",
         "pinnedVersion": "",
         "autoUpdate": false
@@ -50,7 +73,10 @@
     "capabilities": {
       "code_generation": {
         "primaryTool": "aider",
-        "fallbacks": ["jules", "claude-cli"]
+        "fallbacks": [
+          "jules",
+          "claude-cli"
+        ]
       },
       "refactoring": {
         "primaryTool": "aider",
@@ -59,7 +85,6 @@
     },
     "crossToolRulesPath": "%AIM_REGISTRY_PATH%/AIM_cross-tool/AIM_coordination-rules.json"
   },
-  
   "environment": {
     "toolsRoot": "C:\\Tools",
     "pipxApps": [
@@ -84,8 +109,16 @@
     "centralCache": "C:\\Tools\\cache\\aim",
     "healthChecks": {
       "enabled": true,
-      "requiredCommands": ["git", "python", "node", "pipx", "npm"],
-      "requiredPaths": ["C:\\Tools\\pipx\\bin"]
+      "requiredCommands": [
+        "git",
+        "python",
+        "node",
+        "pipx",
+        "npm"
+      ],
+      "requiredPaths": [
+        "C:\\Tools\\pipx\\bin"
+      ]
     },
     "versionPins": {
       "pipx": {
@@ -114,7 +147,6 @@
       "minSizeKB": 100
     }
   },
-  
   "audit": {
     "enabled": true,
     "logPath": "%AIM_REGISTRY_PATH%/AIM_audit/audit.jsonl",
@@ -124,5 +156,6 @@
       "health_check",
       "install"
     ]
-  }
+  },
+  "doc_id": "DOC-AIM-AIM-CONFIG-030"
 }

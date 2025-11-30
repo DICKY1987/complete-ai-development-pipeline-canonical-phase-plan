@@ -25,7 +25,7 @@
     "Populate config/router.config.yaml with apps (aider, codex, claude) and routing rules",
     "Modify core/engine/orchestrator.py to integrate router",
     "Create unit tests for routing rules, capability matching, fallback selection",
-    "Create integration test: end-to-end task → route → execute → patch → validate",
+    "Create integration test: end-to-end task \u2192 route \u2192 execute \u2192 patch \u2192 validate",
     "Create scenario test: fallback triggers on primary failure"
   ],
   "acceptance_tests": [
@@ -48,5 +48,6 @@
     "description": "Central routing logic and orchestrator integration",
     "owner": "pipeline-plus",
     "priority": "critical"
-  }
+  },
+  "doc_id": "DOC-CONFIG-WS-29-PIPELINE-PLUS-PHASE6-ROUTER-169"
 }

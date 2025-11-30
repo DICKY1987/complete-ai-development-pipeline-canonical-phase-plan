@@ -127,19 +127,31 @@
       "description": "Visibility and handling classification"
     },
     "project_id": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "description": "Project this document belongs to (null for global docs)"
     },
     "module_id": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "description": "Module/component ID when applicable"
     },
     "phase_id": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "description": "Phase ID for phase-related documents"
     },
     "workstream_id": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "description": "Workstream ID for workstream-related documents"
     },
     "spec_refs": {
@@ -202,5 +214,6 @@
       "type": "string",
       "description": "Hash of body content (e.g., sha256:...)"
     }
-  }
+  },
+  "doc_id": "DOC-SPEC-DOC-META-V1-015"
 }

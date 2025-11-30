@@ -4,36 +4,60 @@
   "title": "AI Module Manifest Schema",
   "description": "Schema for module manifests in AI-oriented, module-centric codebase architecture. Enables deterministic context loading, atomic module boundaries, and ULID-based identity.",
   "type": "object",
-  "required": ["module_id", "ulid_prefix", "purpose", "layer"],
+  "required": [
+    "module_id",
+    "ulid_prefix",
+    "purpose",
+    "layer"
+  ],
   "properties": {
     "module_id": {
       "type": "string",
       "pattern": "^[a-z][a-z0-9-]*$",
       "description": "Unique module identifier (kebab-case). Examples: 'core-state', 'error-plugin-ruff', 'specifications-tools'",
-      "examples": ["core-state", "error-engine", "aim-registry"]
+      "examples": [
+        "core-state",
+        "error-engine",
+        "aim-registry"
+      ]
     },
     "ulid_prefix": {
       "type": "string",
       "pattern": "^[0-9A-HJKMNP-TV-Z]{6}$",
       "description": "ULID prefix (first 6 chars) shared by all artifacts in this module. Enables machine-verifiable relationships.",
-      "examples": ["01JDEX", "01JDEY", "01JDEZ"]
+      "examples": [
+        "01JDEX",
+        "01JDEY",
+        "01JDEZ"
+      ]
     },
     "purpose": {
       "type": "string",
       "maxLength": 200,
       "description": "Concise statement of module purpose (for AI context loading)",
-      "examples": ["Database operations and state management", "Error detection engine with plugin orchestration"]
+      "examples": [
+        "Database operations and state management",
+        "Error detection engine with plugin orchestration"
+      ]
     },
     "layer": {
       "type": "string",
-      "enum": ["infra", "domain", "api", "ui"],
+      "enum": [
+        "infra",
+        "domain",
+        "api",
+        "ui"
+      ],
       "description": "Architectural layer (enforces dependency rules)"
     },
     "version": {
       "type": "string",
       "pattern": "^\\d+\\.\\d+\\.\\d+$",
       "description": "Semantic version of this module",
-      "examples": ["1.0.0", "2.1.3"]
+      "examples": [
+        "1.0.0",
+        "2.1.3"
+      ]
     },
     "state": {
       "type": "object",
@@ -65,7 +89,10 @@
           "description": "Source code files",
           "items": {
             "type": "object",
-            "required": ["path", "ulid"],
+            "required": [
+              "path",
+              "ulid"
+            ],
             "properties": {
               "path": {
                 "type": "string",
@@ -86,14 +113,26 @@
                 "description": "Public exports from this file",
                 "items": {
                   "type": "object",
-                  "required": ["name", "type"],
+                  "required": [
+                    "name",
+                    "type"
+                  ],
                   "properties": {
-                    "name": {"type": "string"},
+                    "name": {
+                      "type": "string"
+                    },
                     "type": {
                       "type": "string",
-                      "enum": ["class", "function", "constant", "type"]
+                      "enum": [
+                        "class",
+                        "function",
+                        "constant",
+                        "type"
+                      ]
                     },
-                    "signature": {"type": "string"}
+                    "signature": {
+                      "type": "string"
+                    }
                   }
                 }
               }
@@ -105,10 +144,18 @@
           "description": "JSON/YAML schemas for contracts",
           "items": {
             "type": "object",
-            "required": ["path", "ulid"],
+            "required": [
+              "path",
+              "ulid"
+            ],
             "properties": {
-              "path": {"type": "string"},
-              "ulid": {"type": "string", "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$"},
+              "path": {
+                "type": "string"
+              },
+              "ulid": {
+                "type": "string",
+                "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$"
+              },
               "validates": {
                 "type": "string",
                 "description": "What this schema validates (e.g., 'input', 'output', 'config')"
@@ -121,13 +168,26 @@
           "description": "Test oracles for this module",
           "items": {
             "type": "object",
-            "required": ["path", "ulid"],
+            "required": [
+              "path",
+              "ulid"
+            ],
             "properties": {
-              "path": {"type": "string"},
-              "ulid": {"type": "string", "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$"},
+              "path": {
+                "type": "string"
+              },
+              "ulid": {
+                "type": "string",
+                "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$"
+              },
               "test_type": {
                 "type": "string",
-                "enum": ["unit", "integration", "e2e", "property"],
+                "enum": [
+                  "unit",
+                  "integration",
+                  "e2e",
+                  "property"
+                ],
                 "description": "Type of test"
               },
               "coverage_target": {
@@ -142,13 +202,27 @@
           "description": "Documentation artifacts",
           "items": {
             "type": "object",
-            "required": ["path", "ulid"],
+            "required": [
+              "path",
+              "ulid"
+            ],
             "properties": {
-              "path": {"type": "string"},
-              "ulid": {"type": "string", "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$"},
+              "path": {
+                "type": "string"
+              },
+              "ulid": {
+                "type": "string",
+                "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$"
+              },
               "doc_type": {
                 "type": "string",
-                "enum": ["README", "API", "guide", "changelog", "ADR"],
+                "enum": [
+                  "README",
+                  "API",
+                  "guide",
+                  "changelog",
+                  "ADR"
+                ],
                 "description": "Type of documentation"
               }
             }
@@ -159,10 +233,18 @@
           "description": "Configuration files",
           "items": {
             "type": "object",
-            "required": ["path", "ulid"],
+            "required": [
+              "path",
+              "ulid"
+            ],
             "properties": {
-              "path": {"type": "string"},
-              "ulid": {"type": "string", "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$"},
+              "path": {
+                "type": "string"
+              },
+              "ulid": {
+                "type": "string",
+                "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$"
+              },
               "config_type": {
                 "type": "string",
                 "description": "What this configures"
@@ -183,21 +265,39 @@
         "modules": {
           "type": "array",
           "description": "Other modules this depends on (by module_id)",
-          "items": {"type": "string"},
-          "examples": [["core-state", "schema"]]
+          "items": {
+            "type": "string"
+          },
+          "examples": [
+            [
+              "core-state",
+              "schema"
+            ]
+          ]
         },
         "external": {
           "type": "array",
           "description": "External dependencies (packages)",
           "items": {
             "type": "object",
-            "required": ["name"],
+            "required": [
+              "name"
+            ],
             "properties": {
-              "name": {"type": "string"},
-              "version": {"type": "string"},
+              "name": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              },
               "package_manager": {
                 "type": "string",
-                "enum": ["pip", "npm", "cargo", "go"]
+                "enum": [
+                  "pip",
+                  "npm",
+                  "cargo",
+                  "go"
+                ]
               }
             }
           }
@@ -209,14 +309,21 @@
       "description": "Canonical import patterns for AI code generation",
       "items": {
         "type": "object",
-        "required": ["pattern", "description"],
+        "required": [
+          "pattern",
+          "description"
+        ],
         "properties": {
           "pattern": {
             "type": "string",
             "description": "Import statement pattern",
-            "examples": ["from core.state.db import init_db"]
+            "examples": [
+              "from core.state.db import init_db"
+            ]
           },
-          "description": {"type": "string"},
+          "description": {
+            "type": "string"
+          },
           "deprecated": {
             "type": "boolean",
             "description": "Mark deprecated import patterns",
@@ -238,14 +345,21 @@
           "description": "Input contracts (what this module accepts)",
           "items": {
             "type": "object",
-            "required": ["name", "schema"],
+            "required": [
+              "name",
+              "schema"
+            ],
             "properties": {
-              "name": {"type": "string"},
+              "name": {
+                "type": "string"
+              },
               "schema": {
                 "type": "string",
                 "description": "ULID of schema defining this input"
               },
-              "description": {"type": "string"}
+              "description": {
+                "type": "string"
+              }
             }
           }
         },
@@ -254,14 +368,21 @@
           "description": "Output contracts (what this module produces)",
           "items": {
             "type": "object",
-            "required": ["name", "schema"],
+            "required": [
+              "name",
+              "schema"
+            ],
             "properties": {
-              "name": {"type": "string"},
+              "name": {
+                "type": "string"
+              },
               "schema": {
                 "type": "string",
                 "description": "ULID of schema defining this output"
               },
-              "description": {"type": "string"}
+              "description": {
+                "type": "string"
+              }
             }
           }
         },
@@ -270,12 +391,17 @@
           "description": "Module invariants (properties that must always hold)",
           "items": {
             "type": "object",
-            "required": ["statement"],
+            "required": [
+              "statement"
+            ],
             "properties": {
               "statement": {
                 "type": "string",
                 "description": "Human and machine-readable invariant",
-                "examples": ["All state mutations logged to events table", "Database connections always use connection pool"]
+                "examples": [
+                  "All state mutations logged to events table",
+                  "Database connections always use connection pool"
+                ]
               },
               "enforced_by": {
                 "type": "string",
@@ -292,13 +418,22 @@
       "properties": {
         "priority": {
           "type": "string",
-          "enum": ["HIGH", "MEDIUM", "LOW", "EXCLUDE"],
+          "enum": [
+            "HIGH",
+            "MEDIUM",
+            "LOW",
+            "EXCLUDE"
+          ],
           "description": "AI loading priority",
           "default": "MEDIUM"
         },
         "edit_policy": {
           "type": "string",
-          "enum": ["safe", "review-required", "read-only"],
+          "enum": [
+            "safe",
+            "review-required",
+            "read-only"
+          ],
           "description": "Edit safety policy for AI tools",
           "default": "safe"
         },
@@ -310,19 +445,35 @@
         "key_patterns": {
           "type": "array",
           "description": "Key architectural patterns in this module",
-          "items": {"type": "string"},
-          "examples": [["State managed via core.state layer", "DAG-based dependency resolution"]]
+          "items": {
+            "type": "string"
+          },
+          "examples": [
+            [
+              "State managed via core.state layer",
+              "DAG-based dependency resolution"
+            ]
+          ]
         },
         "common_tasks": {
           "type": "array",
           "description": "Common tasks/operations for this module",
           "items": {
             "type": "object",
-            "required": ["task", "entry_point"],
+            "required": [
+              "task",
+              "entry_point"
+            ],
             "properties": {
-              "task": {"type": "string"},
-              "entry_point": {"type": "string"},
-              "example": {"type": "string"}
+              "task": {
+                "type": "string"
+              },
+              "entry_point": {
+                "type": "string"
+              },
+              "example": {
+                "type": "string"
+              }
             }
           }
         }
@@ -333,14 +484,21 @@
       "description": "Submodules (for hierarchical organization)",
       "items": {
         "type": "object",
-        "required": ["module_id", "path"],
+        "required": [
+          "module_id",
+          "path"
+        ],
         "properties": {
-          "module_id": {"type": "string"},
+          "module_id": {
+            "type": "string"
+          },
           "path": {
             "type": "string",
             "description": "Path to submodule manifest"
           },
-          "purpose": {"type": "string"}
+          "purpose": {
+            "type": "string"
+          }
         }
       }
     },
@@ -349,16 +507,24 @@
       "description": "Module changelog entries",
       "items": {
         "type": "object",
-        "required": ["version", "date", "changes"],
+        "required": [
+          "version",
+          "date",
+          "changes"
+        ],
         "properties": {
-          "version": {"type": "string"},
+          "version": {
+            "type": "string"
+          },
           "date": {
             "type": "string",
             "format": "date"
           },
           "changes": {
             "type": "array",
-            "items": {"type": "string"}
+            "items": {
+              "type": "string"
+            }
           },
           "breaking": {
             "type": "boolean",
@@ -382,11 +548,18 @@
         },
         "authors": {
           "type": "array",
-          "items": {"type": "string"}
+          "items": {
+            "type": "string"
+          }
         },
         "status": {
           "type": "string",
-          "enum": ["active", "deprecated", "experimental", "archived"],
+          "enum": [
+            "active",
+            "deprecated",
+            "experimental",
+            "archived"
+          ],
           "default": "active"
         },
         "deprecated_reason": {
@@ -399,5 +572,6 @@
         }
       }
     }
-  }
+  },
+  "doc_id": "DOC-SPEC-MODULE-SCHEMA-003"
 }

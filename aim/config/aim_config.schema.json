@@ -4,7 +4,11 @@
   "title": "AIM+ Configuration",
   "description": "Unified configuration for AIM+ AI Development Environment Manager",
   "type": "object",
-  "required": ["version", "registry", "environment"],
+  "required": [
+    "version",
+    "registry",
+    "environment"
+  ],
   "properties": {
     "version": {
       "type": "string",
@@ -14,7 +18,9 @@
     "registry": {
       "type": "object",
       "description": "AI tool registry and capability routing",
-      "required": ["tools"],
+      "required": [
+        "tools"
+      ],
       "properties": {
         "tools": {
           "type": "object",
@@ -162,7 +168,11 @@
   "definitions": {
     "tool": {
       "type": "object",
-      "required": ["name", "detectCommands", "capabilities"],
+      "required": [
+        "name",
+        "detectCommands",
+        "capabilities"
+      ],
       "properties": {
         "name": {
           "type": "string",
@@ -222,7 +232,9 @@
     },
     "capability": {
       "type": "object",
-      "required": ["primaryTool"],
+      "required": [
+        "primaryTool"
+      ],
       "properties": {
         "primaryTool": {
           "type": "string",
@@ -237,5 +249,6 @@
         }
       }
     }
-  }
+  },
+  "doc_id": "DOC-AIM-AIM-CONFIG-SCHEMA-031"
 }

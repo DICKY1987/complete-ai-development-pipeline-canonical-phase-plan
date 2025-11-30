@@ -21,8 +21,12 @@
       "title": "Issue Reference",
       "description": "Related issue identifier (e.g., GitHub/CCPM).",
       "oneOf": [
-        { "type": "integer" },
-        { "type": "string" }
+        {
+          "type": "integer"
+        },
+        {
+          "type": "string"
+        }
       ]
     },
     "gate": {
@@ -35,34 +39,44 @@
       "title": "Files Scope",
       "description": "List of file paths this workstream claims ownership over (relative paths).",
       "type": "array",
-      "items": { "type": "string" },
+      "items": {
+        "type": "string"
+      },
       "minItems": 1
     },
     "files_create": {
       "title": "Files Create",
       "description": "Files this workstream is allowed to create (relative paths).",
       "type": "array",
-      "items": { "type": "string" },
+      "items": {
+        "type": "string"
+      },
       "default": []
     },
     "tasks": {
       "title": "Tasks",
       "description": "High-level tasks to perform within this workstream.",
       "type": "array",
-      "items": { "type": "string" }
+      "items": {
+        "type": "string"
+      }
     },
     "acceptance_tests": {
       "title": "Acceptance Tests",
       "description": "Acceptance test descriptions or commands.",
       "type": "array",
-      "items": { "type": "string" },
+      "items": {
+        "type": "string"
+      },
       "default": []
     },
     "depends_on": {
       "title": "Dependencies",
       "description": "Upstream workstream IDs this workstream depends on.",
       "type": "array",
-      "items": { "type": "string" },
+      "items": {
+        "type": "string"
+      },
       "default": []
     },
     "tool": {
@@ -74,7 +88,13 @@
       "title": "Capability",
       "description": "Capability to invoke via AIM (e.g., 'code_generation', 'linting'). Takes precedence over 'tool' when AIM is enabled.",
       "type": "string",
-      "enum": ["code_generation", "linting", "refactoring", "testing", "version_checking"]
+      "enum": [
+        "code_generation",
+        "linting",
+        "refactoring",
+        "testing",
+        "version_checking"
+      ]
     },
     "capability_payload": {
       "title": "Capability Payload",
@@ -84,7 +104,9 @@
       "properties": {
         "files": {
           "type": "array",
-          "items": { "type": "string" }
+          "items": {
+            "type": "string"
+          }
         },
         "prompt": {
           "type": "string"
@@ -106,9 +128,18 @@
       "type": "object",
       "additionalProperties": true,
       "properties": {
-        "max_attempts": { "type": "integer", "minimum": 1 },
-        "max_error_repeats": { "type": "integer", "minimum": 0 },
-        "oscillation_threshold": { "type": "integer", "minimum": 0 }
+        "max_attempts": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "max_error_repeats": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "oscillation_threshold": {
+          "type": "integer",
+          "minimum": 0
+        }
       }
     },
     "metadata": {
@@ -132,14 +163,26 @@
       "title": "Kind",
       "description": "Workstream classification type.",
       "type": "string",
-      "enum": ["design", "impl", "test", "docs", "infra", "refactor", "background", "spike"],
+      "enum": [
+        "design",
+        "impl",
+        "test",
+        "docs",
+        "infra",
+        "refactor",
+        "background",
+        "spike"
+      ],
       "default": "impl"
     },
     "priority": {
       "title": "Priority",
       "description": "Execution priority for scheduling.",
       "type": "string",
-      "enum": ["foreground", "background"],
+      "enum": [
+        "foreground",
+        "background"
+      ],
       "default": "foreground"
     },
     "estimated_context_tokens": {
@@ -158,7 +201,9 @@
       "title": "Compensation Actions",
       "description": "Rollback/undo steps for Saga pattern.",
       "type": "array",
-      "items": { "type": "string" },
+      "items": {
+        "type": "string"
+      },
       "default": []
     },
     "test_gates": {
@@ -170,12 +215,23 @@
         "properties": {
           "type": {
             "type": "string",
-            "enum": ["GATE_LINT", "GATE_UNIT", "GATE_INTEGRATION", "GATE_SECURITY"]
+            "enum": [
+              "GATE_LINT",
+              "GATE_UNIT",
+              "GATE_INTEGRATION",
+              "GATE_SECURITY"
+            ]
           },
-          "required": { "type": "boolean" },
-          "blocking": { "type": "boolean" }
+          "required": {
+            "type": "boolean"
+          },
+          "blocking": {
+            "type": "boolean"
+          }
         },
-        "required": ["type"]
+        "required": [
+          "type"
+        ]
       },
       "default": []
     }
@@ -188,6 +244,6 @@
     "files_scope",
     "tasks",
     "tool"
-  ]
+  ],
+  "doc_id": "DOC-SPEC-WORKSTREAM-SCHEMA-005"
 }
-

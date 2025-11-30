@@ -92,5 +92,6 @@
     "target_module_path",
     "hook_points",
     "hook_module_path"
-  ]
+  ],
+  "doc_id": "DOC-PAT-INTEGRATION-HOOK-001-SCHEMA-120"
 }

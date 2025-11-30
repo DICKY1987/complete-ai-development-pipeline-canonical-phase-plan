@@ -17,8 +17,8 @@
   ],
   "files_create": [],
   "tasks": [
-    "Align OpenSpec bundle schema and parser; round-trip change→bundle.",
-    "Validate converter: bundle→workstream JSON via schema.",
+    "Align OpenSpec bundle schema and parser; round-trip change\u2192bundle.",
+    "Validate converter: bundle\u2192workstream JSON via schema.",
     "Document flow and examples in docs/ccpm-openspec-workflow.md.",
     "Ensure openspec/specs acts as source of truth for spec artifacts.",
     "Run generate_workstreams_from_openspec.py on example bundle."
@@ -32,6 +32,6 @@
   "tool": "aider",
   "metadata": {
     "notes": "Per dependency plan: WS-10 follows WS-09; recorded here without hard dependency to avoid cross-file validation failures."
-  }
+  },
+  "doc_id": "DOC-CONFIG-WS-10-OPENSPEC-INTEGRATION-150"
 }
-

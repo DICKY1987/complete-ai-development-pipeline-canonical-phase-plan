@@ -5,7 +5,12 @@
   "description": "Append-only log entry for run observability. Records all state transitions and significant events.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["event_id", "run_id", "ts", "kind"],
+  "required": [
+    "event_id",
+    "run_id",
+    "ts",
+    "kind"
+  ],
   "properties": {
     "event_id": {
       "type": "string",
@@ -18,7 +23,10 @@
       "description": "Run this event belongs to"
     },
     "step_attempt_id": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$",
       "description": "Optional step attempt this event relates to"
     },
@@ -52,5 +60,6 @@
       "type": "object",
       "description": "Event-specific data (structure varies by kind)"
     }
-  }
+  },
+  "doc_id": "DOC-SPEC-RUN-EVENT-V1-030"
 }

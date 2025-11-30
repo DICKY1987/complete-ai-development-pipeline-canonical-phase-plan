@@ -5,8 +5,12 @@
   "model_config_sources": [
     {
       "source_type": "file",
-      "path": "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline – Canonical Phase Plan\\config\\agent_profiles.json",
-      "key_path": ["agents", "claude", "model"],
+      "path": "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical Phase Plan\\config\\agent_profiles.json",
+      "key_path": [
+        "agents",
+        "claude",
+        "model"
+      ],
       "value_before_fix": "claude-3-sonnet-20240229",
       "value_after_fix": "claude-3-5-sonnet-20241022",
       "precedence_rank": 2,
@@ -15,7 +19,10 @@
     {
       "source_type": "file",
       "path": "C:\\Users\\richg\\.claude\\settings.json",
-      "key_path": ["temperature", "max_tokens"],
+      "key_path": [
+        "temperature",
+        "max_tokens"
+      ],
       "value": "No model configuration found",
       "precedence_rank": 1,
       "status": "NO_MODEL_CONFIG"
@@ -23,7 +30,9 @@
     {
       "source_type": "file",
       "path": "C:\\Users\\richg\\.claude\\settings.local.json",
-      "key_path": ["permissions"],
+      "key_path": [
+        "permissions"
+      ],
       "value": "No model configuration found",
       "precedence_rank": 1,
       "status": "NO_MODEL_CONFIG"
@@ -64,5 +73,6 @@
     "Valid Claude 3.5 Sonnet models follow the pattern: claude-3-5-sonnet-YYYYMMDD",
     "The model may be specified elsewhere (Python code, CLI wrapper, or runtime flag)",
     "Agent profiles show Claude adapter is currently disabled (enabled: false)"
-  ]
+  ],
+  "doc_id": "DOC-CONFIG-MODEL-ENDPOINT-DIAGNOSTIC-REPORT-119"
 }

@@ -5,7 +5,13 @@
   "description": "Quality gate execution record. Tracks test execution, results, and gate pass/fail status.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["gate_id", "name", "gate_type", "state", "criteria"],
+  "required": [
+    "gate_id",
+    "name",
+    "gate_type",
+    "state",
+    "criteria"
+  ],
   "properties": {
     "gate_id": {
       "type": "string",
@@ -19,20 +25,40 @@
     },
     "gate_type": {
       "type": "string",
-      "enum": ["unit_tests", "integration_tests", "e2e_tests", "security_scan", "lint", "custom"],
+      "enum": [
+        "unit_tests",
+        "integration_tests",
+        "e2e_tests",
+        "security_scan",
+        "lint",
+        "custom"
+      ],
       "description": "Type of quality gate"
     },
     "state": {
       "type": "string",
-      "enum": ["pending", "running", "passed", "failed", "skipped", "error"],
+      "enum": [
+        "pending",
+        "running",
+        "passed",
+        "failed",
+        "skipped",
+        "error"
+      ],
       "description": "Current state of the gate"
     },
     "project_id": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "description": "Project this gate belongs to"
     },
     "execution_request_id": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$",
       "description": "Execution request that triggered this gate"
     },
@@ -70,7 +96,10 @@
       }
     },
     "execution": {
-      "type": ["object", "null"],
+      "type": [
+        "object",
+        "null"
+      ],
       "description": "Execution details",
       "properties": {
         "started_at": {
@@ -99,7 +128,10 @@
       }
     },
     "results": {
-      "type": ["object", "null"],
+      "type": [
+        "object",
+        "null"
+      ],
       "description": "Test execution results",
       "properties": {
         "total_tests": {
@@ -144,7 +176,10 @@
       }
     },
     "decision": {
-      "type": ["object", "null"],
+      "type": [
+        "object",
+        "null"
+      ],
       "description": "Gate pass/fail decision",
       "properties": {
         "passed": {
@@ -175,8 +210,12 @@
       "description": "When gate was last updated"
     },
     "metadata": {
-      "type": ["object", "null"],
+      "type": [
+        "object",
+        "null"
+      ],
       "description": "Additional metadata"
     }
-  }
+  },
+  "doc_id": "DOC-SPEC-TEST-GATE-V1-034"
 }

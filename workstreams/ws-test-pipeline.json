@@ -23,5 +23,6 @@
   "metadata": {
     "owner": "test-user",
     "notes": "Simple test workstream to verify pipeline functionality"
-  }
+  },
+  "doc_id": "DOC-CONFIG-WS-TEST-PIPELINE-184"
 }

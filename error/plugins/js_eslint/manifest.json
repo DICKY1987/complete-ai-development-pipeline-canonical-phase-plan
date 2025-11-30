@@ -1,9 +1,20 @@
 {
   "plugin_id": "js_eslint",
   "name": "ESLint",
-  "file_extensions": ["js", "jsx", "ts", "tsx"],
-  "requires": ["js_prettier_fix"],
+  "file_extensions": [
+    "js",
+    "jsx",
+    "ts",
+    "tsx"
+  ],
+  "requires": [
+    "js_prettier_fix"
+  ],
   "tool": {
-    "success_codes": [0, 1]
-  }
+    "success_codes": [
+      0,
+      1
+    ]
+  },
+  "doc_id": "DOC-ERROR-MANIFEST-016"
 }

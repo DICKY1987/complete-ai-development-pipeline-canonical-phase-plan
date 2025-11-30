@@ -2,7 +2,10 @@
   "capabilities": {
     "code_generation": {
       "primary": "jules",
-      "fallback": ["aider", "claude-cli"],
+      "fallback": [
+        "aider",
+        "claude-cli"
+      ],
       "loadBalance": false,
       "timeout_ms": 60000,
       "max_retries": 1,
@@ -12,7 +15,9 @@
     },
     "linting": {
       "primary": "ruff",
-      "fallback": ["pylint"],
+      "fallback": [
+        "pylint"
+      ],
       "loadBalance": false,
       "timeout_ms": 10000,
       "max_retries": 0,
@@ -22,7 +27,9 @@
     },
     "refactoring": {
       "primary": "aider",
-      "fallback": ["claude-cli"],
+      "fallback": [
+        "claude-cli"
+      ],
       "loadBalance": false,
       "timeout_ms": 120000,
       "max_retries": 1,
@@ -43,7 +50,10 @@
     },
     "version_checking": {
       "primary": "aider",
-      "fallback": ["jules", "claude-cli"],
+      "fallback": [
+        "jules",
+        "claude-cli"
+      ],
       "loadBalance": true,
       "timeout_ms": 5000,
       "max_retries": 0,
@@ -88,5 +98,6 @@
     ],
     "max_payload_size_bytes": 1048576,
     "max_file_count": 50
-  }
+  },
+  "doc_id": "DOC-AIM-AIM-COORDINATION-RULES-032"
 }

@@ -39,9 +39,10 @@
   },
   "metadata": {
     "phase": "Phase 4: Validation & Circuit Breakers (Section 6)",
-    "description": "Safety gates—scope validation, oscillation detection, timeouts",
+    "description": "Safety gates\u2014scope validation, oscillation detection, timeouts",
     "owner": "pipeline-plus",
     "priority": "critical",
     "can_parallel_with": "ws-26-pipeline-plus-phase3-prompt-engine"
-  }
+  },
+  "doc_id": "DOC-CONFIG-WS-27-PIPELINE-PLUS-PHASE4-VALIDATION-167"
 }

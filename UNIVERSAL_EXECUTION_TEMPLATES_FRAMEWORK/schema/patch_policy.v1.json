@@ -5,7 +5,11 @@
   "description": "Policy constraints for what patches are allowed. Can be defined at global, project, phase, or document level.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["patch_policy_id", "scope", "constraints"],
+  "required": [
+    "patch_policy_id",
+    "scope",
+    "constraints"
+  ],
   "properties": {
     "patch_policy_id": {
       "type": "string",
@@ -15,24 +19,40 @@
     "scope": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["level"],
+      "required": [
+        "level"
+      ],
       "description": "Scope where this policy applies",
       "properties": {
         "level": {
           "type": "string",
-          "enum": ["global", "project", "phase", "doc"],
+          "enum": [
+            "global",
+            "project",
+            "phase",
+            "doc"
+          ],
           "description": "Level at which this policy applies"
         },
         "project_id": {
-          "type": ["string", "null"],
+          "type": [
+            "string",
+            "null"
+          ],
           "description": "Project ID if level is project"
         },
         "phase_id": {
-          "type": ["string", "null"],
+          "type": [
+            "string",
+            "null"
+          ],
           "description": "Phase ID if level is phase"
         },
         "doc_ulid": {
-          "type": ["string", "null"],
+          "type": [
+            "string",
+            "null"
+          ],
           "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$",
           "description": "Document ULID if level is doc"
         }
@@ -110,5 +130,6 @@
         }
       }
     }
-  }
+  },
+  "doc_id": "DOC-SPEC-PATCH-POLICY-V1-020"
 }
