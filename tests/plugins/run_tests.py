@@ -8,6 +8,7 @@ Usage:
     pytest tests/plugins/ --tb=short         # Short traceback
     pytest tests/plugins/ -x                 # Stop on first failure
 """
+DOC_ID: DOC-TEST-PLUGINS-RUN-TESTS-141
 import sys
 from pathlib import Path
 

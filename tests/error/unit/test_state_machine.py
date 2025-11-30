@@ -23,6 +23,7 @@ from modules.error_engine.m010004_error_context import ErrorPipelineContext
 
 class TestStateTransitions:
     """Test state machine transitions."""
+DOC_ID: DOC-ERROR-UNIT-TEST-STATE-MACHINE-083
     
     def test_init_to_baseline(self):
         """Test S_INIT → S0_BASELINE_CHECK."""

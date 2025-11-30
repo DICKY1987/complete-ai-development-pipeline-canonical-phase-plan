@@ -10,6 +10,7 @@ structures ready for orchestration. It provides:
 - File-scope overlap detection
 - Optional DB sync of validated bundles to the `workstreams` table
 """
+DOC_ID: DOC-CORE-STATE-BUNDLES-168
 
 from __future__ import annotations
 

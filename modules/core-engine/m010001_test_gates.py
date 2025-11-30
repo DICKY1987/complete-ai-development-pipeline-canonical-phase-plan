@@ -2,6 +2,7 @@
 
 Phase I WS-I7: Quality gates and test enforcement.
 """
+DOC_ID: DOC-PAT-CORE-ENGINE-M010001-TEST-GATES-511
 
 from __future__ import annotations
 

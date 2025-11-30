@@ -9,6 +9,7 @@ Boundary categories:
 - Collection: empty, single_item, full, overflow
 - State: uninitialized, valid, invalid, transitioning
 """
+DOC_ID: DOC-ERROR-PATTERNS-BOUNDARY-PATTERNS-048
 from __future__ import annotations
 
 import ast

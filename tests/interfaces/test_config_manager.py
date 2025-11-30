@@ -14,6 +14,7 @@ from core.config.yaml_config_manager import YamlConfigManager
 
 class TestConfigManagerProtocol:
     """Test ConfigManager protocol compliance."""
+DOC_ID: DOC-TEST-INTERFACES-TEST-CONFIG-MANAGER-121
     
     def test_yaml_config_manager_implements_protocol(self):
         """YamlConfigManager implements ConfigManager protocol."""

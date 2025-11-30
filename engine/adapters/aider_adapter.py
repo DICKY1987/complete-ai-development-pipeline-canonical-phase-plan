@@ -10,6 +10,7 @@ RESPONSIBILITY:
 - Stream logs to job['paths']['log_file'].
 - Return a JobResult object (exit_code, error_report_path, duration_s).
 """
+DOC_ID: DOC-PAT-ADAPTERS-AIDER-ADAPTER-440
 
 import json
 import subprocess

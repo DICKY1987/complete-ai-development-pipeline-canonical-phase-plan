@@ -10,6 +10,7 @@ Example:
     >>> print(ws['id'])
     ws-test-001
 """
+DOC_ID: DOC-CORE-INTERFACES-STATE-STORE-102
 
 from __future__ import annotations
 

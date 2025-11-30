@@ -2,6 +2,7 @@
 Base Tool Adapter for Pipeline Plus
 Abstract interface for tool-specific execution
 """
+DOC_ID: DOC-PAT-ADAPTERS-BASE-683
 import subprocess
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field

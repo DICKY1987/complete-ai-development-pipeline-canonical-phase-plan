@@ -9,6 +9,7 @@ Import from this module:
 
     from modules.error_plugin_echo import function_name  # ?
 """
+DOC_ID: DOC-PAT-ERROR-PLUGIN-ECHO-INIT-555
 
 import importlib
 import sys

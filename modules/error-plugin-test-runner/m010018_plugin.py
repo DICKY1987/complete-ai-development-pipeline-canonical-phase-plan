@@ -9,6 +9,7 @@ from typing import List, Dict, Any
 
 def run_tests(file_paths: List[str], project_root: str) -> Dict[str, Any]:
     """Execute tests using test-and-log.sh and return results"""
+DOC_ID: DOC-PAT-ERROR-PLUGIN-TEST-RUNNER-M010018-PLUGIN-590
 
     script_path = Path(project_root) / "scripts" / "test-and-log.sh"
 

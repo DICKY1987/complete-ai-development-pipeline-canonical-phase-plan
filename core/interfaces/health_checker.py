@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-CORE-INTERFACES-HEALTH-CHECKER-098
 from __future__ import annotations
 from typing import Protocol, runtime_checkable
 

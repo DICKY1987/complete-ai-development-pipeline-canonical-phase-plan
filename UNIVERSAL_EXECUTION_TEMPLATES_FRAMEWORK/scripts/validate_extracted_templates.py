@@ -3,6 +3,7 @@
 Validate Extracted Templates
 Validates YAML templates for schema compliance and correctness
 """
+DOC_ID: DOC-SCRIPT-SCRIPTS-VALIDATE-EXTRACTED-TEMPLATES-276
 
 import sys
 from pathlib import Path

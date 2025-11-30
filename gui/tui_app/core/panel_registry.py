@@ -2,6 +2,7 @@
 
 Provides registration and lookup for panel plugins.
 """
+DOC_ID: DOC-CORE-CORE-PANEL-REGISTRY-121
 
 from typing import Dict, Type, Optional, Callable
 from .panel_plugin import PanelPlugin

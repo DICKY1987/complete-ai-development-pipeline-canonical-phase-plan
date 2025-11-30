@@ -16,6 +16,7 @@ Usage:
         categories=[PatternCategory.BOUNDARY_VALUE, PatternCategory.ERROR_PATH]
     )
 """
+DOC_ID: DOC-ERROR-PATTERNS-PATTERN-ANALYZER-051
 from __future__ import annotations
 
 import time

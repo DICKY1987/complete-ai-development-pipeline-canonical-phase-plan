@@ -8,6 +8,7 @@ from typing import Protocol, Any, runtime_checkable
 @runtime_checkable
 class WorkstreamService(Protocol):
     """Protocol for workstream lifecycle management."""
+DOC_ID: DOC-CORE-INTERFACES-WORKSTREAM-SERVICE-105
     
     def create(self, spec: dict[str, Any]) -> str:
         """Create new workstream, return ID."""

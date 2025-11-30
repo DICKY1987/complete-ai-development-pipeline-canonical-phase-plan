@@ -9,6 +9,7 @@ Import from this module:
 
     from modules.error_plugin_python_isort_fix import function_name  # ?
 """
+DOC_ID: DOC-PAT-ERROR-PLUGIN-PYTHON-ISORT-FIX-INIT-577
 
 import importlib
 import sys

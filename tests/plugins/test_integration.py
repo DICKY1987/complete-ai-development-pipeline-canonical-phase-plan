@@ -1,6 +1,7 @@
 """
 Integration tests for plugin discovery, ordering, and execution flow.
 """
+DOC_ID: DOC-TEST-PLUGINS-TEST-INTEGRATION-143
 from __future__ import annotations
 
 from pathlib import Path

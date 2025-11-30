@@ -6,6 +6,7 @@ Provides automatic escalation when jobs fail:
 - Escalation job creation
 - Escalation history tracking
 """
+DOC_ID: DOC-PAT-QUEUE-ESCALATION-452
 
 from typing import Optional, Dict, Any
 from dataclasses import dataclass

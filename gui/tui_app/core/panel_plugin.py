@@ -2,6 +2,7 @@
 
 Defines the contract that all TUI panels must implement.
 """
+DOC_ID: DOC-CORE-CORE-PANEL-PLUGIN-120
 
 from dataclasses import dataclass
 from enum import Enum

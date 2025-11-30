@@ -35,3 +35,4 @@ class ClaudeAdapter(ToolAdapter):
     
     def execute(self, command: List[str], cwd: str, timeout: int = 600) -> ExecutionResult:
         return self._run_subprocess(command, cwd, timeout)
+# DOC_LINK: DOC-PAT-ADAPTERS-CLAUDE-ADAPTER-682

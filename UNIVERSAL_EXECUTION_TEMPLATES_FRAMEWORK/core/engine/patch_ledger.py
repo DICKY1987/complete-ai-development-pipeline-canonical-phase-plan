@@ -14,6 +14,7 @@ Author: AI Development Pipeline
 Created: 2025-11-23
 WS: WS-NEXT-002-002
 """
+DOC_ID: DOC-CORE-ENGINE-PATCH-LEDGER-153
 
 from datetime import datetime, UTC
 from typing import Dict, Optional, List

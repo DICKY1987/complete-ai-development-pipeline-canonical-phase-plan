@@ -3,6 +3,7 @@
 Adapts the functional database API in core.state.db to match
 the class-based API expected by UET modules.
 """
+DOC_ID: DOC-PAT-CORE-STATE-M010003-UET-DB-ADAPTER-538
 
 from typing import Dict, Any, Optional, List
 import sqlite3

@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-PAT-GENERATION-GENERATE-WORKSTREAMS-624
 import argparse
 import json
 import sys

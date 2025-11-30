@@ -18,6 +18,7 @@ Usage:
     analyzer = PatternAnalyzer()
     results = analyzer.analyze_module("path/to/module.py")
 """
+DOC_ID: DOC-ERROR-PATTERNS-INIT-056
 
 from .types import (
     PatternCategory,

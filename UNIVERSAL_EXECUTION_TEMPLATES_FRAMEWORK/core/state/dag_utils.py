@@ -18,6 +18,7 @@ Requirement IDs:
 - DAG-IMPL-002: All DAG consumers MUST use shared DepGraph representation
 - DAG-IMPL-003: Cycle detection MUST be applied before computing topological levels
 """
+DOC_ID: DOC-CORE-STATE-DAG-UTILS-170
 
 from __future__ import annotations
 

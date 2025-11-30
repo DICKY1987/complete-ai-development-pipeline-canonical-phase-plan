@@ -3,6 +3,7 @@
 Schedules and executes tasks with dependency resolution.
 Handles parallel and sequential execution.
 """
+DOC_ID: DOC-CORE-ENGINE-SCHEDULER-158
 
 from typing import Dict, Any, List, Optional, Set
 from collections import defaultdict

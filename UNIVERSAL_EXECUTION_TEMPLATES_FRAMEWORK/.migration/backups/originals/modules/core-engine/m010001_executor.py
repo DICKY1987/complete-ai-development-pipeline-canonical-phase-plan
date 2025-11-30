@@ -2,6 +2,7 @@
 
 Runs scheduled workstream tasks with isolation and telemetry capture.
 """
+DOC_ID: DOC-PAT-CORE-ENGINE-M010001-EXECUTOR-662
 
 # TODO: Implement worker pool and task execution.
 

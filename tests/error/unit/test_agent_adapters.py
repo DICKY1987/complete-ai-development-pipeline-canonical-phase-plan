@@ -28,6 +28,7 @@ from modules.error_engine.m010004_agent_adapters import (
 
 class TestAgentInvocation:
     """Test AgentInvocation dataclass."""
+DOC_ID: DOC-ERROR-UNIT-TEST-AGENT-ADAPTERS-081
     
     def test_create_invocation(self):
         """Test creating an agent invocation."""

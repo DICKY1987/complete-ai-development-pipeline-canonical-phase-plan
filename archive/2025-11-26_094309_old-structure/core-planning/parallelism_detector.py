@@ -3,6 +3,7 @@
 This module analyzes workstream bundles to identify parallel execution opportunities
 based on DAG topology, file scope conflicts, and UET metadata.
 """
+DOC_ID: DOC-PAT-CORE-PLANNING-PARALLELISM-DETECTOR-407
 
 from __future__ import annotations
 

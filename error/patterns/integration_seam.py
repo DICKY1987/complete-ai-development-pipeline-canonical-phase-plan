@@ -12,6 +12,7 @@ For each integration seam, check:
 - Data validation at boundary
 - Version mismatch handling
 """
+DOC_ID: DOC-ERROR-PATTERNS-INTEGRATION-SEAM-050
 from __future__ import annotations
 
 import ast

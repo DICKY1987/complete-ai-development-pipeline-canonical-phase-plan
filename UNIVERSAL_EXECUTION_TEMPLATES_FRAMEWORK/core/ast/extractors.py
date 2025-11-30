@@ -3,6 +3,7 @@ Base extractor classes for language-specific AST analysis.
 
 Provides abstract interfaces that language-specific extractors must implement.
 """
+DOC_ID: DOC-CORE-AST-EXTRACTORS-137
 
 from abc import ABC, abstractmethod
 from dataclasses import dataclass

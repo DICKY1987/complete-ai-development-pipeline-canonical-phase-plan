@@ -3,6 +3,7 @@
 Routes tasks to appropriate tools based on router_config.json.
 Supports multiple routing strategies and capability matching.
 """
+DOC_ID: DOC-CORE-ENGINE-ROUTER-157
 
 import json
 from pathlib import Path

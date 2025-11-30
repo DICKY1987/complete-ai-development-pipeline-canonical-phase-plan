@@ -3,6 +3,7 @@
 Provides validation modes for phase plans with parallelism analysis,
 cost estimation, and what-if simulation capabilities.
 """
+DOC_ID: DOC-PAT-CORE-ENGINE-M010001-PLAN-VALIDATOR-505
 
 from __future__ import annotations
 

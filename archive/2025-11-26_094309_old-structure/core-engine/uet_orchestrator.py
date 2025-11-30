@@ -3,6 +3,7 @@
 Main orchestration logic for executing workstreams.
 Manages run lifecycle, state transitions, and event emission.
 """
+DOC_ID: DOC-PAT-CORE-ENGINE-UET-ORCHESTRATOR-402
 
 import uuid
 from datetime import datetime

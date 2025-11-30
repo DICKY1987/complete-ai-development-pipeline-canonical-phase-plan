@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-PAT-ERROR-ENGINE-M010004-ERROR-PIPELINE-CLI-544
 from __future__ import annotations
 
 import argparse

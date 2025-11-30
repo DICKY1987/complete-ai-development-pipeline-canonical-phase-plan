@@ -12,6 +12,7 @@ Migration path:
 
 This adapter will be removed in a future release.
 """
+DOC_ID: DOC-PAT-CORE-ENGINE-M010001-ORCHESTRATOR-500
 
 import warnings
 

@@ -5,6 +5,7 @@ Provides config-driven external tool execution with subprocess handling,
 timeouts, error capture, and result tracking. Supports template-based
 command rendering and standardized result reporting.
 """
+DOC_ID: DOC-CORE-ENGINE-TOOLS-161
 
 import json
 import subprocess

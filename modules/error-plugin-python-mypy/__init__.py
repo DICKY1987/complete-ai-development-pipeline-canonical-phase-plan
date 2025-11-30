@@ -9,6 +9,7 @@ Import from this module:
 
     from modules.error_plugin_python_mypy import function_name  # ?
 """
+DOC_ID: DOC-PAT-ERROR-PLUGIN-PYTHON-MYPY-INIT-579
 
 import importlib
 import sys

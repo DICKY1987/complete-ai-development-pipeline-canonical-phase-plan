@@ -1,6 +1,7 @@
 """
 Tests for Python fix plugins (isort, black).
 """
+DOC_ID: DOC-TEST-PLUGINS-TEST-PYTHON-FIX-146
 from __future__ import annotations
 
 import json

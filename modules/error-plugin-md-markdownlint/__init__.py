@@ -9,6 +9,7 @@ Import from this module:
 
     from modules.error_plugin_md_markdownlint import function_name  # ?
 """
+DOC_ID: DOC-PAT-ERROR-PLUGIN-MD-MARKDOWNLINT-INIT-565
 
 import importlib
 import sys

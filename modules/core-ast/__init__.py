@@ -9,6 +9,7 @@ Import from this module:
 
     from modules.core_ast import function_name  # ?
 """
+DOC_ID: DOC-PAT-CORE-AST-INIT-488
 
 import importlib
 import sys

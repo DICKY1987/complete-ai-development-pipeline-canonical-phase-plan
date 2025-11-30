@@ -2,6 +2,7 @@
 
 Provides simplified test interface for legacy test compatibility.
 """
+DOC_ID: DOC-PAT-ERROR-ENGINE-M010004-TEST-HELPERS-550
 from typing import Dict, List, Any
 
 # Re-export state constants for test compatibility

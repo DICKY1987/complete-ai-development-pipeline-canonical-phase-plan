@@ -15,6 +15,7 @@ class EventBus(Protocol):
     - Unsubscribe from events
     - Async event delivery support
     """
+DOC_ID: DOC-CORE-INTERFACES-EVENT-BUS-096
     
     def emit(self, event_type: str, payload: dict[str, Any]) -> None:
         """Emit an event to all subscribers.

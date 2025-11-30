@@ -9,6 +9,7 @@ Import from this module:
 
     from modules.error_plugin_js_eslint import function_name  # ?
 """
+DOC_ID: DOC-PAT-ERROR-PLUGIN-JS-ESLINT-INIT-559
 
 import importlib
 import sys

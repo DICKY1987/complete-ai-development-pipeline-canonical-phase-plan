@@ -10,6 +10,7 @@ Outputs a formatted Markdown table to docs/spec/spec_index_map.md.
 Usage:
     python scripts/generate_spec_mapping.py [--docs-dir docs] [--output docs/spec/spec_index_map.md]
 """
+DOC_ID: DOC-PAT-GENERATION-GENERATE-SPEC-MAPPING-623
 
 from __future__ import annotations
 

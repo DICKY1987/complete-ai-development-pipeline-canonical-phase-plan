@@ -15,6 +15,7 @@ from core.interfaces.config_manager import (
 
 class YamlConfigManager:
     """ConfigManager implementation using YAML files."""
+DOC_ID: DOC-CORE-CONFIG-YAML-CONFIG-MANAGER-077
     
     def __init__(self, config_path: str | Path):
         self.config_path = Path(config_path)

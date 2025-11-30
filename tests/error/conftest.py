@@ -26,6 +26,7 @@ from modules.error_engine.m010004_error_context import ErrorPipelineContext
 @pytest.fixture
 def temp_cache(tmp_path: Path) -> FileHashCache:
     """Create a temporary file hash cache for testing."""
+DOC_ID: DOC-ERROR-ERROR-CONFTEST-078
     cache_path = tmp_path / "test_cache.json"
     cache = FileHashCache(cache_path)
     cache.load()

@@ -9,6 +9,7 @@ Commands:
     aim verify <tool>           - Verify tool installation
     aim bootstrap               - Bootstrap entire development environment
 """
+DOC_ID: DOC-PAT-COMMANDS-INSTALL-417
 
 import click
 from pathlib import Path

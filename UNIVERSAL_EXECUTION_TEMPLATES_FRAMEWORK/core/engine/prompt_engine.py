@@ -2,6 +2,7 @@
 Prompt Engine V1.1 for Pipeline Plus
 WORKSTREAM_V1.1 template rendering with classification inference
 """
+DOC_ID: DOC-CORE-ENGINE-PROMPT-ENGINE-155
 from dataclasses import dataclass
 from typing import Dict, Any, List, Optional
 from pathlib import Path

@@ -9,6 +9,7 @@ Import from this module:
 
     from modules.error_plugin_python_pyright import function_name  # ?
 """
+DOC_ID: DOC-PAT-ERROR-PLUGIN-PYTHON-PYRIGHT-INIT-583
 
 import importlib
 import sys

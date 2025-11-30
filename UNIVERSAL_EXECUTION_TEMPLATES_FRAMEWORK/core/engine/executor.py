@@ -2,6 +2,7 @@
 
 Runs scheduled workstream tasks with isolation and telemetry capture.
 """
+DOC_ID: DOC-CORE-ENGINE-EXECUTOR-149
 
 # TODO: Implement worker pool and task execution.
 

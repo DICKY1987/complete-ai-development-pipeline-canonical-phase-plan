@@ -5,6 +5,7 @@ Ground truth verification: observable evidence only
 Usage:
     python verify_ground_truth.py --spec verify.json
 """
+DOC_ID: DOC-PAT-SPEED-DEMON-VERIFY-GROUND-TRUTH-633
 import argparse
 import json
 import subprocess

@@ -11,6 +11,7 @@ Temporal test patterns:
 - What happens with concurrent requests?
 - What happens when X runs while Y is mid-execution?
 """
+DOC_ID: DOC-ERROR-PATTERNS-TEMPORAL-PATTERNS-054
 from __future__ import annotations
 
 import ast

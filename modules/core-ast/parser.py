@@ -19,6 +19,7 @@ _LANGUAGES = {
 
 class ASTParser:
     """Simple wrapper around tree-sitter parsers for multiple languages."""
+DOC_ID: DOC-PAT-CORE-AST-PARSER-487
 
     def __init__(self, language: str):
         if not language:

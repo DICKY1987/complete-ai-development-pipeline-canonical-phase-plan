@@ -12,6 +12,7 @@ Features:
 
 Contract Version: AIM_PLUS_V1
 """
+DOC_ID: DOC-PAT-AIM-ENVIRONMENT-M01001B-HEALTH-475
 
 import shutil
 import subprocess

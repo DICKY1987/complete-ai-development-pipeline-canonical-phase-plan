@@ -28,6 +28,7 @@ PRICING_TABLE: Dict[str, ModelPricing] = {
 @dataclass
 class UsageInfo:
     """Resource usage details for cost tracking."""
+DOC_ID: DOC-PAT-CORE-ENGINE-M010001-COST-TRACKER-493
 
     quantity: float
     unit: str

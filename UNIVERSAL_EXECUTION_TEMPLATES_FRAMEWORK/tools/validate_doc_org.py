@@ -3,6 +3,7 @@
 Documentation Organization Validator
 Implements DOC-ORG-CHK-001 through DOC-ORG-CHK-006
 """
+DOC_ID: DOC-PAT-TOOLS-VALIDATE-DOC-ORG-660
 import argparse
 import json
 import jsonschema

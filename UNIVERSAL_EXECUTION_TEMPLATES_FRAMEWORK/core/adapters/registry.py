@@ -2,6 +2,7 @@
 
 Manages tool adapters and loads them from router_config.
 """
+DOC_ID: DOC-CORE-ADAPTERS-REGISTRY-134
 
 import json
 from pathlib import Path

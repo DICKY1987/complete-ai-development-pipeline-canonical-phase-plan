@@ -7,6 +7,7 @@ Provides priority-based job queuing with:
 - State persistence
 - Thread-safe operations
 """
+DOC_ID: DOC-PAT-QUEUE-JOB-QUEUE-453
 
 import asyncio
 import sqlite3

@@ -18,6 +18,7 @@ from core.interfaces.state_store import (
 
 class SQLiteStateStore:
     """Concrete StateStore implementation using SQLite."""
+DOC_ID: DOC-CORE-STATE-SQLITE-STORE-111
     
     def __init__(self, db_path: str | Path = ".state/pipeline.db"):
         """Initialize SQLiteStateStore."""

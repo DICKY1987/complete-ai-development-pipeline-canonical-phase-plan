@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-CORE-LOGGING-STRUCTURED-LOGGER-107
 from __future__ import annotations
 import json
 import sys

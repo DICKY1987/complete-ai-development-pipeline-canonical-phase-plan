@@ -7,5 +7,6 @@ The orchestrator is the central coordinator that:
 - Updates state store with results
 - Handles retries and escalations
 """
+DOC_ID: DOC-PAT-ORCHESTRATOR-INIT-450
 
 __version__ = "0.1.0"

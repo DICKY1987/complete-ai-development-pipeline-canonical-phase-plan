@@ -8,6 +8,7 @@ Design goals:
 - Deterministic defaults when config missing.
 - Easy to monkeypatch in tests.
 """
+DOC_ID: DOC-CORE-ENGINE-CIRCUIT-BREAKERS-144
 
 from __future__ import annotations
 

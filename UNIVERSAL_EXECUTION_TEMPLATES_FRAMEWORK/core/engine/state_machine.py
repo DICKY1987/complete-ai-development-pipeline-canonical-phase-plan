@@ -3,6 +3,7 @@
 Implements the state machine for run lifecycle following COOPERATION_SPEC.
 Defines valid state transitions and transition logic.
 """
+DOC_ID: DOC-CORE-ENGINE-STATE-MACHINE-159
 
 from typing import Set, Dict, Optional
 from enum import Enum

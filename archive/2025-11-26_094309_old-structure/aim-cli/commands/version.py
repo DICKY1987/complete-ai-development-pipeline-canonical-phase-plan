@@ -6,6 +6,7 @@ Commands:
 - aim version sync    - Sync to pinned versions
 - aim version pin     - Pin current versions
 """
+DOC_ID: DOC-PAT-COMMANDS-VERSION-421
 
 import asyncio
 import json

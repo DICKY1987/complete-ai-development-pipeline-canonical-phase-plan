@@ -12,6 +12,7 @@ Incorrect patterns (deprecated):
   - from error.pipeline_engine import ... (should be error.engine.pipeline_engine)
   - from error.file_hash_cache import ... (should be error.engine.file_hash_cache)
 """
+DOC_ID: DOC-PAT-VALIDATION-VALIDATE-ERROR-IMPORTS-637
 from __future__ import annotations
 
 import re

@@ -9,6 +9,7 @@ Import from this module:
 
     from modules.error_plugin_python_ruff import function_name  # ?
 """
+DOC_ID: DOC-PAT-ERROR-PLUGIN-PYTHON-RUFF-INIT-585
 
 import importlib
 import sys

@@ -10,6 +10,7 @@ from core.interfaces.process_executor import ProcessExecutor, ProcessResult
 
 class ToolRegistry:
     """Registry for discovering and selecting tool adapters."""
+DOC_ID: DOC-CORE-ADAPTERS-REGISTRY-071
     
     def __init__(self):
         self._adapters: dict[str, ToolAdapter] = {}

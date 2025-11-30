@@ -2,6 +2,7 @@
 Task Queue Management for Pipeline Plus
 File-based task lifecycle management with concurrent access safety
 """
+DOC_ID: DOC-CORE-STATE-TASK-QUEUE-174
 import json
 import os
 from dataclasses import dataclass, field, asdict

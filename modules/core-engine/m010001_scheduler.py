@@ -4,6 +4,7 @@ Exposes the UET scheduler primitives under the legacy filename so
 downstream tests can import `ExecutionScheduler`, `Task`, and
 `create_task_from_spec` from this module path.
 """
+DOC_ID: DOC-PAT-CORE-ENGINE-M010001-SCHEDULER-510
 
 from .m010001_uet_scheduler import (
     ExecutionScheduler,

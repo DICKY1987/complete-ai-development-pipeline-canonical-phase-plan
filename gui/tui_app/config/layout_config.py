@@ -10,6 +10,7 @@ import yaml
 @dataclass
 class LayoutConfig:
     """Configuration for TUI layout."""
+DOC_ID: DOC-CONFIG-CONFIG-LAYOUT-CONFIG-259
     default_panel: str = "dashboard"
     theme: str = "dark"
     refresh_interval: int = 1000  # milliseconds

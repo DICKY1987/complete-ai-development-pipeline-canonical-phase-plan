@@ -48,6 +48,7 @@ Adapter Interface:
     - validate_config() -> bool
     - get_capabilities() -> dict (optional)
 """
+DOC_ID: DOC-PAT-ADAPTERS-INIT-437
 
 from core.engine.adapters.base import BaseAdapter, ToolAdapter, ExecutionResult
 from core.engine.adapters.aider_adapter import AiderAdapter

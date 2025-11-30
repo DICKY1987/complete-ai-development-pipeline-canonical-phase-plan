@@ -6,6 +6,7 @@ from typing import Dict, List, Set
 
 class ParallelOrchestrator:
     """Execute simple dependency graphs in waves."""
+DOC_ID: DOC-PAT-CORE-ENGINE-PARALLEL-ORCHESTRATOR-520
 
     def __init__(self, max_workers: int = 4):
         self.max_workers = max_workers

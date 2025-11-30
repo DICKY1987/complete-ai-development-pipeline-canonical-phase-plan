@@ -4,6 +4,7 @@ State Interface Protocol
 Defines the contract for state storage implementations.
 All sections interact with persistent state through this interface.
 """
+DOC_ID: DOC-PAT-INTERFACES-STATE-INTERFACE-447
 
 from typing import Protocol, Dict, Any, List, Optional
 from engine.types import JobResult

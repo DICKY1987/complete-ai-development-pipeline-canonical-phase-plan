@@ -3,6 +3,7 @@
 Documentation Orphan Checker
 Finds documentation files outside governed directories
 """
+DOC_ID: DOC-PAT-TOOLS-CHECK-DOC-ORPHANS-658
 import argparse
 import sys
 from pathlib import Path

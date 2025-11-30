@@ -25,6 +25,7 @@ Status: TEMPLATE - Ready for implementation
 Priority: HIGH
 See: docs/AGENT_ANALYSIS_AND_RECOMMENDATIONS.md for full specification
 """
+DOC_ID: DOC-SCRIPT-AGENTS-WORKSTREAM-GENERATOR-266
 
 import argparse
 import json

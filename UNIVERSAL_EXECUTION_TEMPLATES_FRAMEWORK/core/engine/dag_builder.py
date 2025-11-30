@@ -2,6 +2,7 @@
 DAG Builder - Constructs Execution DAG from Workstreams
 Performs topological sort for wave-based parallel execution
 """
+DOC_ID: DOC-CORE-ENGINE-DAG-BUILDER-147
 
 from typing import List, Dict, Set, Optional, Tuple
 from collections import defaultdict, deque

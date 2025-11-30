@@ -2,6 +2,7 @@
 
 Tests the UI settings configuration and interactive tool management.
 """
+DOC_ID: DOC-TEST-TESTS-TEST-TOOL-SETTINGS-114
 
 import os
 import tempfile

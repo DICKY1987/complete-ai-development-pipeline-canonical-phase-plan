@@ -15,6 +15,7 @@ USAGE:
 - Integrates with GitHub Copilot CLI
 - Provides alternative AI coding assistance
 """
+DOC_ID: DOC-PAT-ADAPTERS-CODEX-ADAPTER-441
 
 import json
 import subprocess

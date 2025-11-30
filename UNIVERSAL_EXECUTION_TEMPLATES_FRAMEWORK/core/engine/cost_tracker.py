@@ -8,6 +8,7 @@ Author: AI Development Pipeline
 Created: 2025-11-23
 WS: WS-NEXT-002-004
 """
+DOC_ID: DOC-CORE-ENGINE-COST-TRACKER-146
 
 from datetime import datetime, UTC
 from typing import Dict, Optional, List

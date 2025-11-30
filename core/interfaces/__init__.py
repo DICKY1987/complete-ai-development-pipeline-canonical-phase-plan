@@ -43,3 +43,4 @@ __all__ = [
     "ConfigValidationError",
     "ToolProfileNotFoundError",
 ]
+# DOC_LINK: DOC-CORE-INTERFACES-INIT-106

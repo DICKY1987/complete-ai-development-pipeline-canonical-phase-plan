@@ -8,6 +8,7 @@ summary in text or JSON format.
 Usage:
   python scripts/generate_spec_index.py --docs-dir docs --format json
 """
+DOC_ID: DOC-PAT-GENERATION-GENERATE-SPEC-INDEX-622
 
 from __future__ import annotations
 

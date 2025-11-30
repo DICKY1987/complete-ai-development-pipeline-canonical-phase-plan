@@ -14,6 +14,7 @@ from gui.tui_app.core.panel_registry import register_panel
 
 class FileLifecycleWidget(Vertical):
     """Displays patch ledger entries with auto-refresh."""
+DOC_ID: DOC-PAT-PANELS-FILE-LIFECYCLE-PANEL-465
 
     def __init__(self, context: PanelContext):
         super().__init__(id="file-lifecycle-root")

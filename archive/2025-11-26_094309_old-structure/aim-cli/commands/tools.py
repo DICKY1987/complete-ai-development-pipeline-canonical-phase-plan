@@ -4,6 +4,7 @@ CLI commands for tool installation and management.
 Provides commands to install, update, and manage development tools
 via pipx, npm, and winget.
 """
+DOC_ID: DOC-PAT-COMMANDS-TOOLS-420
 
 import asyncio
 import json

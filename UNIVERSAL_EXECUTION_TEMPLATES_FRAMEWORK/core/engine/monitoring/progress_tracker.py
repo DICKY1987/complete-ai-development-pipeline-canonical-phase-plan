@@ -2,6 +2,7 @@
 
 Tracks execution progress and calculates completion percentages.
 """
+DOC_ID: DOC-CORE-MONITORING-PROGRESS-TRACKER-178
 
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional

@@ -12,6 +12,7 @@ from modules.aim_environment.m01001B_exceptions import ConfigurationError
 @pytest.fixture
 def valid_config():
     """Create a valid configuration dict."""
+DOC_ID: DOC-PAT-REGISTRY-TEST-CONFIG-LOADER-430
     return {
         "version": "1.0.0",
         "registry": {

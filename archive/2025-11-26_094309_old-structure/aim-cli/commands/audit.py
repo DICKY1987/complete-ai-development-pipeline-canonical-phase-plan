@@ -7,6 +7,7 @@ Commands:
     aim audit stats             - Show audit log statistics
     aim audit export            - Export audit log
 """
+DOC_ID: DOC-PAT-COMMANDS-AUDIT-415
 
 import click
 from rich.console import Console

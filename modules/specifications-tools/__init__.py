@@ -9,6 +9,7 @@ Import from this module:
 
     from modules.specifications_tools import function_name  # ?
 """
+DOC_ID: DOC-PAT-SPECIFICATIONS-TOOLS-INIT-608
 
 import importlib
 import sys

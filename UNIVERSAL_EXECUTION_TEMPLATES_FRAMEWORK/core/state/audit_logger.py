@@ -2,6 +2,7 @@
 Audit Logger and Patch Ledger for Pipeline Plus
 Structured logging infrastructure with JSONL format
 """
+DOC_ID: DOC-CORE-STATE-AUDIT-LOGGER-167
 import json
 from dataclasses import dataclass, field, asdict
 from datetime import datetime, timezone

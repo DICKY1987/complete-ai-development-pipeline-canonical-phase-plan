@@ -3,6 +3,7 @@ Tests for version control module.
 
 Tests version drift detection, syncing, and pinning operations.
 """
+DOC_ID: DOC-PAT-ENVIRONMENT-TEST-VERSION-CONTROL-428
 
 import asyncio
 from unittest.mock import AsyncMock, MagicMock, patch

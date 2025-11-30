@@ -7,6 +7,7 @@ Primary path uses the `gh` CLI when present. Fallback is a no-op unless a
 All functions are safe to call when disabled; they become no-ops.
 Enable via env var `ENABLE_GH_SYNC=true` or config `config/github.yaml`.
 """
+DOC_ID: DOC-PM-PM-GITHUB-SYNC-044
 
 from __future__ import annotations
 

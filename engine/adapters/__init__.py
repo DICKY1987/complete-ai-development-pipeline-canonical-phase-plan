@@ -8,5 +8,6 @@ Adapters are responsible for:
 - Capturing logs and results
 - Returning standardized JobResult objects
 """
+DOC_ID: DOC-PAT-ADAPTERS-INIT-444
 
 __version__ = "0.1.0"

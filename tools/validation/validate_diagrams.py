@@ -14,6 +14,7 @@ Usage:
     python scripts/validate_diagrams.py docs/diagrams/SYSTEM_ARCHITECTURE.md
     python scripts/validate_diagrams.py --fix
 """
+DOC_ID: DOC-PAT-VALIDATION-VALIDATE-DIAGRAMS-635
 
 import re
 import sys

@@ -2,6 +2,7 @@
 
 Phase I WS-I11: Production-ready error handling and resilience.
 """
+DOC_ID: DOC-PAT-CORE-ENGINE-M010001-HARDENING-497
 
 from __future__ import annotations
 

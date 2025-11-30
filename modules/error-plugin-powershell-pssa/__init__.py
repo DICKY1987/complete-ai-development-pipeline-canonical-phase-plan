@@ -9,6 +9,7 @@ Import from this module:
 
     from modules.error_plugin_powershell_pssa import function_name  # ?
 """
+DOC_ID: DOC-PAT-ERROR-PLUGIN-POWERSHELL-PSSA-INIT-571
 
 import importlib
 import sys

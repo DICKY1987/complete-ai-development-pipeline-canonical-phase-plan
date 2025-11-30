@@ -7,6 +7,7 @@ Usage:
     python scripts/validate_module_manifests.py --strict       # Exit 1 on errors
     python scripts/validate_module_manifests.py --fix          # Auto-fix common issues
 """
+DOC_ID: DOC-SCRIPT-SCRIPTS-VALIDATE-MODULE-MANIFESTS-277
 
 import argparse
 import json

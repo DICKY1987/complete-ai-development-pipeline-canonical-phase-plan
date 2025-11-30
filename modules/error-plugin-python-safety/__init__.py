@@ -9,6 +9,7 @@ Import from this module:
 
     from modules.error_plugin_python_safety import function_name  # ?
 """
+DOC_ID: DOC-PAT-ERROR-PLUGIN-PYTHON-SAFETY-INIT-587
 
 import importlib
 import sys

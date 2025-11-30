@@ -18,6 +18,7 @@ from gui.tui_app.core.panel_registry import register_panel
 @dataclass
 class ToolStatus:
     """Represents the health of a tool observed in logs."""
+DOC_ID: DOC-PAT-PANELS-TOOL-HEALTH-PANEL-468
     name: str
     status: str
     last_seen: Optional[datetime]

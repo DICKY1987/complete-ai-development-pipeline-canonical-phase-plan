@@ -5,6 +5,7 @@ Batch file creation with parallel execution
 Usage:
     python batch_create.py --template templates/my.template --spec batch.json
 """
+DOC_ID: DOC-PAT-SPEED-DEMON-BATCH-CREATE-632
 import argparse
 import json
 from pathlib import Path

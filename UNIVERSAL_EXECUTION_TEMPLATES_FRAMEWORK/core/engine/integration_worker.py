@@ -2,6 +2,7 @@
 
 Phase I WS-I4: Handles merging of parallel workstream results.
 """
+DOC_ID: DOC-CORE-ENGINE-INTEGRATION-WORKER-150
 
 from __future__ import annotations
 

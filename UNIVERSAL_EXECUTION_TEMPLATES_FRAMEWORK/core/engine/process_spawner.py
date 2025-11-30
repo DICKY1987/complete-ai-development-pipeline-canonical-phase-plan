@@ -3,6 +3,7 @@
 Manages subprocess creation, sandboxing, and lifecycle for tool adapters.
 Phase I-1 WS-I2 implementation.
 """
+DOC_ID: DOC-CORE-ENGINE-PROCESS-SPAWNER-154
 
 from __future__ import annotations
 

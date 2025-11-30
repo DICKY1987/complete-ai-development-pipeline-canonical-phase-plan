@@ -43,6 +43,7 @@ For details, see:
     - core/engine/dependencies.yaml
     - core/engine/adapters/README.md
 """
+DOC_ID: DOC-PAT-CORE-ENGINE-INIT-405
 
 __all__ = [
     "orchestrator",
