@@ -5,7 +5,7 @@ Monitors run execution and aggregates metrics.
 # DOC_ID: DOC-CORE-MONITORING-RUN-MONITOR-179
 
 from dataclasses import dataclass
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, TYPE_CHECKING
 from enum import Enum
 import sys
 from pathlib import Path
@@ -13,7 +13,8 @@ from pathlib import Path
 # Add framework root to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
 
-from modules.core_state.m010003_db import Database
+if TYPE_CHECKING:
+    from modules.core_state.m010003_uet_db_adapter import Database
 
 
 class RunStatus(Enum):
@@ -72,13 +73,13 @@ class RunMonitor:
     monitoring and dashboard-ready metrics.
     """
     
-    def __init__(self, db_path: str = ":memory:"):
+    def __init__(self, db_path: Optional[str] = None):
         """
         Args:
-            db_path: Path to SQLite database
+            db_path: Path to SQLite database (optional)
         """
-        self.db = Database(db_path)
-        self.db.connect()  # Initialize connection
+        from modules.core_state.m010003_uet_db_adapter import get_db
+        self.db = get_db(db_path)
     
     def get_run_metrics(self, run_id: str) -> Optional[RunMetrics]:
         """Get metrics for a specific run

@@ -10,7 +10,14 @@ from datetime import datetime
 from typing import Dict, Any, Optional, List
 from pathlib import Path
 
-from modules.core_state.m010003_db import Database, get_db
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from modules.core_state.m010003_uet_db_adapter import Database
+else:
+    # Lazy import to avoid circular dependency
+    Database = None
+
 from core.engine.state_machine import RunStateMachine, StepStateMachine
 
 
@@ -28,8 +35,11 @@ def now_iso() -> str:
 class Orchestrator:
     """Main orchestration engine for running workstreams"""
     
-    def __init__(self, db: Optional[Database] = None):
-        self.db = db or get_db()
+    def __init__(self, db: Optional['Database'] = None):
+        if db is None:
+            from modules.core_state.m010003_uet_db_adapter import get_db
+            db = get_db()
+        self.db = db
     
     # Run lifecycle management
     

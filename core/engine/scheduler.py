@@ -269,3 +269,25 @@ def create_task_from_spec(spec: Dict[str, Any]) -> Task:
             'outputs': spec.get('outputs', [])
         }
     )
+
+
+def build_execution_plan(tasks: List[Dict[str, Any]]) -> List[List[str]]:
+    """
+    Build an execution plan from task specifications.
+    
+    Args:
+        tasks: List of task specification dictionaries
+        
+    Returns:
+        List of execution levels (each level can run in parallel)
+    """
+    scheduler = ExecutionScheduler()
+    
+    for task_spec in tasks:
+        task = create_task_from_spec(task_spec)
+        scheduler.add_task(task)
+    
+    return scheduler.get_execution_order()
+
+
+__all__ = ['Task', 'ExecutionScheduler', 'create_task_from_spec', 'build_execution_plan']
