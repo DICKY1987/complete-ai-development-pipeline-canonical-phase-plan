@@ -3,13 +3,13 @@ metadata:
   created: '2025-11-24'
   last_updated: '2025-11-30'
   spec_doc: doc_id/DOC_ID_FRAMEWORK.md
-  total_docs: 2051
+  total_docs: 55
 categories:
   patterns:
     prefix: PAT
     description: UET patterns in UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/
-    count: 687
-    next_id: 688
+    count: 688
+    next_id: 689
     index_file: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/registry/PATTERN_INDEX.yaml
   core:
     prefix: CORE
@@ -708,3 +708,15 @@ docs:
 - doc_id: DOC-SCRIPT-RECOVERY-019
   category: script
   name: recovery
+- doc_id: DOC-PAT-ASAFTERTHEMOVEREPO-688
+  category: patterns
+  name: asafterthemoverepo
+  title: asafterthemoverepo
+  status: active
+  artifacts:
+  - type: source
+    path: asafterthemoverepo.txt
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - txt
