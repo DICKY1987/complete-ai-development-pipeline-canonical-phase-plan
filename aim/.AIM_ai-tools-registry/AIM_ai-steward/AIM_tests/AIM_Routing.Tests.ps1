@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-AIM-AIM-ROUTING-TESTS-068
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 

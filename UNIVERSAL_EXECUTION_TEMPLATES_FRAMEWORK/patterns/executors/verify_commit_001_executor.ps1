@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-PAT-VERIFY-COMMIT-001-EXECUTOR-230
 # Pattern Executor: verify_commit
 # Pattern ID: PAT-VERIFY-COMMIT-001
 # Auto-generated: 2025-11-27T10:14:13.686960

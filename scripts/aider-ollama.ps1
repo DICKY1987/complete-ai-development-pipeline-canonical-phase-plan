@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-AIDER-OLLAMA-051
 # Wrapper script to run aider with Ollama and proper encoding
 # Usage: .\scripts\aider-ollama.ps1 [aider arguments]
 

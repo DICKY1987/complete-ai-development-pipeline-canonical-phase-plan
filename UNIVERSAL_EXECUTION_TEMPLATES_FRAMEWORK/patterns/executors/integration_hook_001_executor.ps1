@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-PAT-INTEGRATION-HOOK-001-EXECUTOR-221
 # Pattern Executor: integration_hook
 # Pattern ID: PAT-INTEGRATION-HOOK-001
 # Auto-generated: 2025-11-27T10:14:12.909114

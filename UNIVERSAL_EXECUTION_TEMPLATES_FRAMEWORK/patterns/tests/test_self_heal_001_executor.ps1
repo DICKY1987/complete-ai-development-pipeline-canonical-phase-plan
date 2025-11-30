@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-TEST-TEST-SELF-HEAL-001-EXECUTOR-025
 # Tests for: self_heal
 # Pattern ID: PAT-SELF-HEAL-001
 # Auto-generated: 2025-11-27T10:14:13.519180

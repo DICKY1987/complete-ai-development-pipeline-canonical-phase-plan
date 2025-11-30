@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-PAT-MULTI-WORKSTREAM-DOC-SUITE-GEN-001-224
 # Pattern Executor: multi_workstream_doc_suite_generation
 # Pattern ID: PAT-MULTI-WORKSTREAM-DOC-SUITE-GEN-001
 # Auto-generated: 2025-11-27T10:14:13.148718

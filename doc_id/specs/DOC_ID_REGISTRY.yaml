@@ -3,13 +3,13 @@ metadata:
   created: '2025-11-24'
   last_updated: '2025-11-30'
   spec_doc: doc_id/DOC_ID_FRAMEWORK.md
-  total_docs: 820
+  total_docs: 963
 categories:
   patterns:
     prefix: PAT
     description: UET patterns in UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/
-    count: 205
-    next_id: 206
+    count: 241
+    next_id: 242
     index_file: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/registry/PATTERN_INDEX.yaml
   core:
     prefix: CORE
@@ -38,8 +38,8 @@ categories:
   aim:
     prefix: AIM
     description: AIM environment manager modules
-    count: 59
-    next_id: 60
+    count: 69
+    next_id: 70
     index_file: aim/AIM_INDEX.yaml
   pm:
     prefix: PM
@@ -62,14 +62,14 @@ categories:
   script:
     prefix: SCRIPT
     description: Automation scripts
-    count: 46
-    next_id: 47
+    count: 119
+    next_id: 120
     index_file: scripts/SCRIPT_INDEX.yaml
   test:
     prefix: TEST
     description: Test suites
-    count: 8
-    next_id: 9
+    count: 32
+    next_id: 33
     index_file: tests/TEST_INDEX.yaml
   guide:
     prefix: GUIDE
@@ -9905,6 +9905,1722 @@ docs:
   last_modified: '2025-11-30'
   tags:
   - json
+- doc_id: DOC-SCRIPT-TEST-RUN-047
+  category: script
+  name: test_run
+  title: 'Script: TEST-RUN'
+  status: active
+  artifacts:
+  - type: source
+    path: ai-logs-analyzer/TEST-RUN.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-CLEANUP-HIGH-CONFIDENCE-20251125-090442-048
+  category: script
+  name: cleanup_high_confidence_20251125_090442
+  title: 'Script: cleanup_high_confidence_20251125_090442'
+  status: active
+  artifacts:
+  - type: source
+    path: cleanup_reports/cleanup_high_confidence_20251125_090442.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-CLEANUP-SAFE-INDIVIDUAL-049
+  category: script
+  name: cleanup_safe_individual
+  title: 'Script: cleanup_safe_individual'
+  status: active
+  artifacts:
+  - type: source
+    path: cleanup_reports/cleanup_safe_individual.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-ADD-AIDER-TO-PROFILE-050
+  category: script
+  name: add_aider_to_profile
+  title: 'Script: add-aider-to-profile'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/add-aider-to-profile.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-AIDER-OLLAMA-051
+  category: script
+  name: aider_ollama
+  title: 'Script: aider-ollama'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/aider-ollama.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-BOOTSTRAP-052
+  category: script
+  name: bootstrap
+  title: 'Script: bootstrap'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/bootstrap.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-CCPM-INSTALL-053
+  category: script
+  name: ccpm_install
+  title: 'Script: ccpm_install'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/ccpm_install.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-CCPM-UPDATE-054
+  category: script
+  name: ccpm_update
+  title: 'Script: ccpm_update'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/ccpm_update.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-CHECK-WORKSTREAM-STATUS-055
+  category: script
+  name: check_workstream_status
+  title: 'Script: check_workstream_status'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/check_workstream_status.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-CLEANUP-UNUSED-WORKTREES-056
+  category: script
+  name: cleanup_unused_worktrees
+  title: 'Script: cleanup_unused_worktrees'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/cleanup_unused_worktrees.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-CLEANUP-WORKTREES-057
+  category: script
+  name: cleanup_worktrees
+  title: 'Script: cleanup_worktrees'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/cleanup_worktrees.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-CONSOLIDATE-ARCHIVES-058
+  category: script
+  name: consolidate_archives
+  title: 'Script: consolidate_archives'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/consolidate_archives.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-CONSOLIDATE-LEGACY-CODE-059
+  category: script
+  name: consolidate_legacy_code
+  title: 'Script: consolidate_legacy_code'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/consolidate_legacy_code.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-CREATE-DESKTOP-SHORTCUT-060
+  category: script
+  name: create_desktop_shortcut
+  title: 'Script: create_desktop_shortcut'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/create_desktop_shortcut.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-CREATE-DOCID-WORKTREES-061
+  category: script
+  name: create_docid_worktrees
+  title: 'Script: create_docid_worktrees'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/create_docid_worktrees.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-CREATE-MIGRATION-WORKTREES-062
+  category: script
+  name: create_migration_worktrees
+  title: 'Script: create_migration_worktrees'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/create_migration_worktrees.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-EXECUTE-SAFE-MERGE-063
+  category: script
+  name: execute_safe_merge
+  title: 'Script: execute_safe_merge'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/execute_safe_merge.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-MIGRATE-DOCS-TO-DEVDOCS-064
+  category: script
+  name: migrate_docs_to_devdocs
+  title: 'Script: migrate_docs_to_devdocs'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/migrate_docs_to_devdocs.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-MIGRATE-FILE-ORGANIZATION-065
+  category: script
+  name: migrate_file_organization
+  title: 'Script: migrate_file_organization'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/migrate_file_organization.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-MIGRATE-SPEC-FOLDERS-066
+  category: script
+  name: migrate_spec_folders
+  title: 'Script: migrate_spec_folders'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/migrate_spec_folders.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-RUN-MULTI-AGENT-REFACTOR-067
+  category: script
+  name: run_multi_agent_refactor
+  title: 'Script: run_multi_agent_refactor'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/run_multi_agent_refactor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-RUN-SIMPLE-EXECUTOR-068
+  category: script
+  name: run_simple_executor
+  title: 'Script: run_simple_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/run_simple_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-RUN-TUI-BACKGROUND-069
+  category: script
+  name: run_tui_background
+  title: 'Script: run_tui_background'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/run_tui_background.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-SET-AIDER-ENV-070
+  category: script
+  name: set_aider_env
+  title: 'Script: set-aider-env'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/set-aider-env.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-SPEC-TO-WORKSTREAM-071
+  category: script
+  name: spec_to_workstream
+  title: 'Script: spec_to_workstream'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/spec_to_workstream.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-TEST-AIDER-COMPREHENSIVE-072
+  category: script
+  name: test_aider_comprehensive
+  title: 'Script: test-aider-comprehensive'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/test-aider-comprehensive.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-TEST-AIDER-DEEPSEEK-073
+  category: script
+  name: test_aider_deepseek
+  title: 'Script: test-aider-deepseek'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/test-aider-deepseek.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-TEST-074
+  category: script
+  name: test
+  title: 'Script: test'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/test.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-WORKTREE-MERGE-075
+  category: script
+  name: worktree_merge
+  title: 'Script: worktree_merge'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/worktree_merge.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-WORKTREE-START-076
+  category: script
+  name: worktree_start
+  title: 'Script: worktree_start'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/worktree_start.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-AGGREGATE-LOGS-077
+  category: script
+  name: aggregate_logs
+  title: 'Script: aggregate-logs'
+  status: active
+  artifacts:
+  - type: source
+    path: ai-logs-analyzer/scripts/aggregate-logs.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-ANALYZE-LOGS-078
+  category: script
+  name: analyze_logs
+  title: 'Script: analyze-logs'
+  status: active
+  artifacts:
+  - type: source
+    path: ai-logs-analyzer/scripts/analyze-logs.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-EXPORT-LOGS-079
+  category: script
+  name: export_logs
+  title: 'Script: export-logs'
+  status: active
+  artifacts:
+  - type: source
+    path: ai-logs-analyzer/scripts/export-logs.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-SETUP-SCHEDULED-TASK-080
+  category: script
+  name: setup_scheduled_task
+  title: 'Script: setup-scheduled-task'
+  status: active
+  artifacts:
+  - type: source
+    path: ai-logs-analyzer/scripts/setup-scheduled-task.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-WATCH-LOGS-081
+  category: script
+  name: watch_logs
+  title: 'Script: watch-logs'
+  status: active
+  artifacts:
+  - type: source
+    path: ai-logs-analyzer/scripts/watch-logs.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-AIM-AIM-AIDER-060
+  category: aim
+  name: aim_aider
+  title: 'Script: AIM_aider'
+  status: active
+  artifacts:
+  - type: source
+    path: aim/.AIM_ai-tools-registry/AIM_adapters/AIM_aider.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-AIM-AIM-CLAUDE-CLI-061
+  category: aim
+  name: aim_claude_cli
+  title: 'Script: AIM_claude-cli'
+  status: active
+  artifacts:
+  - type: source
+    path: aim/.AIM_ai-tools-registry/AIM_adapters/AIM_claude-cli.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-AIM-AIM-JULES-062
+  category: aim
+  name: aim_jules
+  title: 'Script: AIM_jules'
+  status: active
+  artifacts:
+  - type: source
+    path: aim/.AIM_ai-tools-registry/AIM_adapters/AIM_jules.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-AIM-AIM-AI-STEWARD-063
+  category: aim
+  name: aim_ai_steward
+  title: 'Script: AIM_ai-steward'
+  status: active
+  artifacts:
+  - type: source
+    path: aim/.AIM_ai-tools-registry/AIM_ai-steward/AIM_ai-steward.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-AIM-AIM-DEV-064
+  category: aim
+  name: aim_dev
+  title: 'Script: AIM_dev'
+  status: active
+  artifacts:
+  - type: source
+    path: aim/.AIM_ai-tools-registry/AIM_ai-steward/AIM_scripts/AIM_dev.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-AIM-AIM-ADAPTERS-TESTS-065
+  category: aim
+  name: aim_adapters_tests
+  title: 'Script: AIM_Adapters.Tests'
+  status: active
+  artifacts:
+  - type: source
+    path: aim/.AIM_ai-tools-registry/AIM_ai-steward/AIM_tests/AIM_Adapters.Tests.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-AIM-AIM-AITOOLSREGISTRY-TESTS-066
+  category: aim
+  name: aim_aitoolsregistry_tests
+  title: 'Script: AIM_AIToolsRegistry.Tests'
+  status: active
+  artifacts:
+  - type: source
+    path: aim/.AIM_ai-tools-registry/AIM_ai-steward/AIM_tests/AIM_AIToolsRegistry.Tests.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-AIM-AIM-CONTRACTS-TESTS-067
+  category: aim
+  name: aim_contracts_tests
+  title: 'Script: AIM_Contracts.Tests'
+  status: active
+  artifacts:
+  - type: source
+    path: aim/.AIM_ai-tools-registry/AIM_ai-steward/AIM_tests/AIM_Contracts.Tests.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-AIM-AIM-ROUTING-TESTS-068
+  category: aim
+  name: aim_routing_tests
+  title: 'Script: AIM_Routing.Tests'
+  status: active
+  artifacts:
+  - type: source
+    path: aim/.AIM_ai-tools-registry/AIM_ai-steward/AIM_tests/AIM_Routing.Tests.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-AIM-AIM-STEWARDCLI-TESTS-069
+  category: aim
+  name: aim_stewardcli_tests
+  title: 'Script: AIM_StewardCli.Tests'
+  status: active
+  artifacts:
+  - type: source
+    path: aim/.AIM_ai-tools-registry/AIM_ai-steward/AIM_tests/AIM_StewardCli.Tests.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-CREATE-BACKUP-20251120-125719-082
+  category: script
+  name: create_backup_20251120_125719
+  title: 'Script: create_backup_20251120_125719'
+  status: active
+  artifacts:
+  - type: source
+    path: archive/2025-11-26_094125_scripts-backups/create_backup_20251120_125719.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-PHASE0-BOOTSTRAP-083
+  category: script
+  name: phase0_bootstrap
+  title: 'Script: Phase0_Bootstrap'
+  status: active
+  artifacts:
+  - type: source
+    path: archive/2025-11-26_developer/2025-11/error_legacy/Phase0_Bootstrap.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-GITAUTOSYNC-084
+  category: script
+  name: gitautosync
+  title: 'Script: GitAutoSync'
+  status: active
+  artifacts:
+  - type: source
+    path: infra/sync/GitAutoSync.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-INSTALL-GITAUTOSYNC-085
+  category: script
+  name: install_gitautosync
+  title: 'Script: Install-GitAutoSync'
+  status: active
+  artifacts:
+  - type: source
+    path: infra/sync/Install-GitAutoSync.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-START-AUTOSYNC-086
+  category: script
+  name: start_autosync
+  title: 'Script: Start-AutoSync'
+  status: active
+  artifacts:
+  - type: source
+    path: infra/sync/Start-AutoSync.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-WATCH-SYNCSTATUS-087
+  category: script
+  name: watch_syncstatus
+  title: 'Script: Watch-SyncStatus'
+  status: active
+  artifacts:
+  - type: source
+    path: infra/sync/Watch-SyncStatus.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-AUTO-REMEDIATE-088
+  category: script
+  name: auto_remediate
+  title: 'Script: auto_remediate'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/validate/auto_remediate.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-VALIDATE-COMPLIANCE-089
+  category: script
+  name: validate_compliance
+  title: 'Script: validate_compliance'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/validate/validate_compliance.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-VALIDATE-DAG-STRUCTURE-090
+  category: script
+  name: validate_dag_structure
+  title: 'Script: validate_dag_structure'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/validate/validate_dag_structure.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-VALIDATE-FAILURE-MODES-091
+  category: script
+  name: validate_failure_modes
+  title: 'Script: validate_failure_modes'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/validate/validate_failure_modes.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-VALIDATE-REPO-CHECKLIST-092
+  category: script
+  name: validate_repo_checklist
+  title: 'Script: validate_repo_checklist'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/validate/validate_repo_checklist.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-VALIDATE-SPEC-IMPLEMENTATION-093
+  category: script
+  name: validate_spec_implementation
+  title: 'Script: validate_spec_implementation'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/validate/validate_spec_implementation.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-VALIDATE-STATE-OBS-094
+  category: script
+  name: validate_state_obs
+  title: 'Script: validate_state_obs'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/validate/validate_state_obs.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-VALIDATE-TASK-DEFS-095
+  category: script
+  name: validate_task_defs
+  title: 'Script: validate_task_defs'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/validate/validate_task_defs.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-AIDER-WSL-096
+  category: script
+  name: aider_wsl
+  title: 'Script: aider-wsl'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/wsl/aider-wsl.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-CONFIGURE-OLLAMA-FOR-WSL-097
+  category: script
+  name: configure_ollama_for_wsl
+  title: 'Script: configure-ollama-for-wsl'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/wsl/configure-ollama-for-wsl.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-OLLAMA-CODE-WSL-098
+  category: script
+  name: ollama_code_wsl
+  title: 'Script: ollama-code-wsl'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/wsl/ollama-code-wsl.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-START-HERE-099
+  category: script
+  name: start_here
+  title: 'Script: start-here'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/wsl/start-here.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-VALIDATE-ALL-100
+  category: script
+  name: validate_all
+  title: 'Script: validate-all'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/wsl/validate-all.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-WSL-CREATE-LAUNCHERS-FIXED-101
+  category: script
+  name: wsl_create_launchers_fixed
+  title: 'Script: wsl-create-launchers-fixed'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/wsl/wsl-create-launchers-fixed.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-WSL-CREATE-LAUNCHERS-102
+  category: script
+  name: wsl_create_launchers
+  title: 'Script: wsl-create-launchers'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/wsl/wsl-create-launchers.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-WSL-INSTALL-AIDER-103
+  category: script
+  name: wsl_install_aider
+  title: 'Script: wsl-install-aider'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/wsl/wsl-install-aider.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-WSL-INSTALL-CODEX-104
+  category: script
+  name: wsl_install_codex
+  title: 'Script: wsl-install-codex'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/wsl/wsl-install-codex.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-WSL-INSTALL-STEP1-ADMIN-105
+  category: script
+  name: wsl_install_step1_admin
+  title: 'Script: wsl-install-step1-admin'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/wsl/wsl-install-step1-admin.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-WSL-INSTALL-STEP2-VERIFY-106
+  category: script
+  name: wsl_install_step2_verify
+  title: 'Script: wsl-install-step2-verify'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/wsl/wsl-install-step2-verify.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-WSL-SETUP-API-KEYS-107
+  category: script
+  name: wsl_setup_api_keys
+  title: 'Script: wsl-setup-api-keys'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/wsl/wsl-setup-api-keys.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-WSL-SETUP-STEP3-UBUNTU-108
+  category: script
+  name: wsl_setup_step3_ubuntu
+  title: 'Script: wsl-setup-step3-ubuntu'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/wsl/wsl-setup-step3-ubuntu.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-GENERATE-PATTERN-FILES-109
+  category: script
+  name: generate_pattern_files
+  title: 'Script: generate_pattern_files'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/scripts/generate_pattern_files.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-MIGRATE-ATOMS-TO-PATTERNS-110
+  category: script
+  name: migrate_atoms_to_patterns
+  title: 'Script: migrate_atoms_to_patterns'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/scripts/migrate_atoms_to_patterns.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-PATTERN-DIR-CHECK-111
+  category: script
+  name: pattern_dir_check
+  title: 'Script: PATTERN_DIR_CHECK'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/scripts/PATTERN_DIR_CHECK.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-PATTERN-UTILITIES-112
+  category: script
+  name: pattern_utilities
+  title: 'Script: pattern_utilities'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/scripts/pattern_utilities.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-VALIDATE-DOC-ID-CONSISTENCY-113
+  category: script
+  name: validate_doc_id_consistency
+  title: 'Script: validate_doc_id_consistency'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/scripts/validate_doc_id_consistency.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-VALIDATE-PATTERN-REGISTRY-114
+  category: script
+  name: validate_pattern_registry
+  title: 'Script: validate_pattern_registry'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/scripts/validate_pattern_registry.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-PAT-ATOMIC-CREATE-001-EXECUTOR-206
+  category: patterns
+  name: atomic_create_001_executor
+  title: 'Script: atomic_create_001_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/atomic_create_001_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-PAT-ATOMIC-CREATE-EXECUTOR-207
+  category: patterns
+  name: atomic_create_executor
+  title: 'Script: atomic_create_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/atomic_create_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-PAT-ATOMIC-CREATE-TEMPLATE-001-EXECUTOR-208
+  category: patterns
+  name: atomic_create_template_001_executor
+  title: 'Script: atomic_create_template_001_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/atomic_create_template_001_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-PAT-BATCH-CREATE-001-EXECUTOR-209
+  category: patterns
+  name: batch_create_001_executor
+  title: 'Script: batch_create_001_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/batch_create_001_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-PAT-BATCH-CREATE-EXECUTOR-210
+  category: patterns
+  name: batch_create_executor
+  title: 'Script: batch_create_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/batch_create_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-PAT-BATCH-FILE-GEN-001-EXECUTOR-211
+  category: patterns
+  name: batch_file_gen_001_executor
+  title: 'Script: batch_file_gen_001_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/batch_file_gen_001_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-PAT-CONFIG-SETUP-001-EXECUTOR-212
+  category: patterns
+  name: config_setup_001_executor
+  title: 'Script: config_setup_001_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/config_setup_001_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-PAT-DATABASE-SETUP-001-EXECUTOR-213
+  category: patterns
+  name: database_setup_001_executor
+  title: 'Script: database_setup_001_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/database_setup_001_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-PAT-E2E-VALIDATION-001-EXECUTOR-214
+  category: patterns
+  name: e2e_validation_001_executor
+  title: 'Script: e2e_validation_001_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/e2e_validation_001_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-PAT-GLOSSARY-EXPORT-EXECUTOR-215
+  category: patterns
+  name: glossary_export_executor
+  title: 'Script: glossary_export_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/glossary_export_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-PAT-GLOSSARY-LINK-CHECK-EXECUTOR-216
+  category: patterns
+  name: glossary_link_check_executor
+  title: 'Script: glossary_link_check_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/glossary_link_check_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-PAT-GLOSSARY-PATCH-APPLY-EXECUTOR-217
+  category: patterns
+  name: glossary_patch_apply_executor
+  title: 'Script: glossary_patch_apply_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/glossary_patch_apply_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-PAT-GLOSSARY-SYNC-EXECUTOR-218
+  category: patterns
+  name: glossary_sync_executor
+  title: 'Script: glossary_sync_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/glossary_sync_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-PAT-GLOSSARY-TERM-ADD-EXECUTOR-219
+  category: patterns
+  name: glossary_term_add_executor
+  title: 'Script: glossary_term_add_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/glossary_term_add_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-PAT-GLOSSARY-VALIDATE-EXECUTOR-220
+  category: patterns
+  name: glossary_validate_executor
+  title: 'Script: glossary_validate_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/glossary_validate_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-PAT-INTEGRATION-HOOK-001-EXECUTOR-221
+  category: patterns
+  name: integration_hook_001_executor
+  title: 'Script: integration_hook_001_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/integration_hook_001_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-PAT-MODULE-CREATION-001-EXECUTOR-222
+  category: patterns
+  name: module_creation_001_executor
+  title: 'Script: module_creation_001_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/module_creation_001_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-PAT-MODULE-CREATION-EXECUTOR-223
+  category: patterns
+  name: module_creation_executor
+  title: 'Script: module_creation_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/module_creation_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-PAT-MULTI-WORKSTREAM-DOC-SUITE-GEN-001-224
+  category: patterns
+  name: multi_workstream_doc_suite_gen_001
+  title: 'Script: multi_workstream_doc_suite_gen_001_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/multi_workstream_doc_suite_gen_001_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-PAT-PHASE-DISCOVERY-001-EXECUTOR-225
+  category: patterns
+  name: phase_discovery_001_executor
+  title: 'Script: phase_discovery_001_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/phase_discovery_001_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-PAT-REFACTOR-PATCH-001-EXECUTOR-226
+  category: patterns
+  name: refactor_patch_001_executor
+  title: 'Script: refactor_patch_001_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/refactor_patch_001_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-PAT-REFACTOR-PATCH-EXECUTOR-227
+  category: patterns
+  name: refactor_patch_executor
+  title: 'Script: refactor_patch_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/refactor_patch_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-PAT-SELF-HEAL-001-EXECUTOR-228
+  category: patterns
+  name: self_heal_001_executor
+  title: 'Script: self_heal_001_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/self_heal_001_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-PAT-SELF-HEAL-EXECUTOR-229
+  category: patterns
+  name: self_heal_executor
+  title: 'Script: self_heal_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/self_heal_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-PAT-VERIFY-COMMIT-001-EXECUTOR-230
+  category: patterns
+  name: verify_commit_001_executor
+  title: 'Script: verify_commit_001_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/verify_commit_001_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-PAT-VERIFY-COMMIT-EXECUTOR-231
+  category: patterns
+  name: verify_commit_executor
+  title: 'Script: verify_commit_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/verify_commit_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-PAT-WORKTREE-LIFECYCLE-001-EXECUTOR-232
+  category: patterns
+  name: worktree_lifecycle_001_executor
+  title: 'Script: worktree_lifecycle_001_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/worktree_lifecycle_001_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-PAT-WORKTREE-LIFECYCLE-EXECUTOR-233
+  category: patterns
+  name: worktree_lifecycle_executor
+  title: 'Script: worktree_lifecycle_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/worktree_lifecycle_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-PAT-SAFE-MERGE-234
+  category: patterns
+  name: safe_merge
+  title: 'Script: safe_merge'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/safe_merge/safe_merge.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-PAT-VALIDATE-INSTALLATION-235
+  category: patterns
+  name: validate_installation
+  title: 'Script: validate_installation'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/safe_merge/validate_installation.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-SCHEDULE-ZEROTOUCHAUTOMATION-115
+  category: script
+  name: schedule_zerotouchautomation
+  title: 'Script: Schedule-ZeroTouchAutomation'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/scripts/Schedule-ZeroTouchAutomation.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-TEST-ZEROTOUCHAUTOMATION-116
+  category: script
+  name: test_zerotouchautomation
+  title: 'Script: Test-ZeroTouchAutomation'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/scripts/Test-ZeroTouchAutomation.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-TEST-TEST-ATOMIC-CREATE-001-EXECUTOR-009
+  category: test
+  name: test_atomic_create_001_executor
+  title: 'Script: test_atomic_create_001_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/tests/test_atomic_create_001_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-TEST-TEST-ATOMIC-CREATE-EXECUTOR-010
+  category: test
+  name: test_atomic_create_executor
+  title: 'Script: test_atomic_create_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/tests/test_atomic_create_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-TEST-TEST-ATOMIC-CREATE-TEMPLATE-001-EXECUTOR-011
+  category: test
+  name: test_atomic_create_template_001_executor
+  title: 'Script: test_atomic_create_template_001_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/tests/test_atomic_create_template_001_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-TEST-TEST-BATCH-CREATE-001-EXECUTOR-012
+  category: test
+  name: test_batch_create_001_executor
+  title: 'Script: test_batch_create_001_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/tests/test_batch_create_001_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-TEST-TEST-BATCH-CREATE-EXECUTOR-013
+  category: test
+  name: test_batch_create_executor
+  title: 'Script: test_batch_create_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/tests/test_batch_create_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-TEST-TEST-BATCH-FILE-GEN-001-EXECUTOR-014
+  category: test
+  name: test_batch_file_gen_001_executor
+  title: 'Script: test_batch_file_gen_001_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/tests/test_batch_file_gen_001_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-TEST-TEST-CONFIG-SETUP-001-EXECUTOR-015
+  category: test
+  name: test_config_setup_001_executor
+  title: 'Script: test_config_setup_001_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/tests/test_config_setup_001_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-TEST-TEST-DATABASE-SETUP-001-EXECUTOR-016
+  category: test
+  name: test_database_setup_001_executor
+  title: 'Script: test_database_setup_001_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/tests/test_database_setup_001_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-TEST-TEST-E2E-VALIDATION-001-EXECUTOR-017
+  category: test
+  name: test_e2e_validation_001_executor
+  title: 'Script: test_e2e_validation_001_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/tests/test_e2e_validation_001_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-TEST-TEST-INTEGRATION-HOOK-001-EXECUTOR-018
+  category: test
+  name: test_integration_hook_001_executor
+  title: 'Script: test_integration_hook_001_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/tests/test_integration_hook_001_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-TEST-TEST-MODULE-CREATION-001-EXECUTOR-019
+  category: test
+  name: test_module_creation_001_executor
+  title: 'Script: test_module_creation_001_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/tests/test_module_creation_001_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-TEST-TEST-MODULE-CREATION-EXECUTOR-020
+  category: test
+  name: test_module_creation_executor
+  title: 'Script: test_module_creation_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/tests/test_module_creation_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-TEST-TEST-MULTI-WORKSTREAM-DOC-SUITE-GEN-001-021
+  category: test
+  name: test_multi_workstream_doc_suite_gen_001
+  title: 'Script: test_multi_workstream_doc_suite_gen_001_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/tests/test_multi_workstream_doc_suite_gen_001_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-TEST-TEST-PHASE-DISCOVERY-001-EXECUTOR-022
+  category: test
+  name: test_phase_discovery_001_executor
+  title: 'Script: test_phase_discovery_001_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/tests/test_phase_discovery_001_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-TEST-TEST-REFACTOR-PATCH-001-EXECUTOR-023
+  category: test
+  name: test_refactor_patch_001_executor
+  title: 'Script: test_refactor_patch_001_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/tests/test_refactor_patch_001_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-TEST-TEST-REFACTOR-PATCH-EXECUTOR-024
+  category: test
+  name: test_refactor_patch_executor
+  title: 'Script: test_refactor_patch_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/tests/test_refactor_patch_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-TEST-TEST-SELF-HEAL-001-EXECUTOR-025
+  category: test
+  name: test_self_heal_001_executor
+  title: 'Script: test_self_heal_001_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/tests/test_self_heal_001_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-TEST-TEST-SELF-HEAL-EXECUTOR-026
+  category: test
+  name: test_self_heal_executor
+  title: 'Script: test_self_heal_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/tests/test_self_heal_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-TEST-TEST-VERIFY-COMMIT-001-EXECUTOR-027
+  category: test
+  name: test_verify_commit_001_executor
+  title: 'Script: test_verify_commit_001_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/tests/test_verify_commit_001_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-TEST-TEST-VERIFY-COMMIT-EXECUTOR-028
+  category: test
+  name: test_verify_commit_executor
+  title: 'Script: test_verify_commit_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/tests/test_verify_commit_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-TEST-TEST-WORKTREE-LIFECYCLE-001-EXECUTOR-029
+  category: test
+  name: test_worktree_lifecycle_001_executor
+  title: 'Script: test_worktree_lifecycle_001_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/tests/test_worktree_lifecycle_001_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-TEST-TEST-WORKTREE-LIFECYCLE-EXECUTOR-030
+  category: test
+  name: test_worktree_lifecycle_executor
+  title: 'Script: test_worktree_lifecycle_executor'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/tests/test_worktree_lifecycle_executor.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-TEST-DEMO-PATTERN-DETECTION-031
+  category: test
+  name: demo_pattern_detection
+  title: 'Script: demo_pattern_detection'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/automation/tests/demo_pattern_detection.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-TEST-TEST-ACTIVATION-032
+  category: test
+  name: test_activation
+  title: 'Script: test_activation'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/automation/tests/test_activation.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-PAT-PARALLEL-236
+  category: patterns
+  name: parallel
+  title: 'Script: parallel'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/lib/parallel.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-PAT-REPORTING-237
+  category: patterns
+  name: reporting
+  title: 'Script: reporting'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/lib/reporting.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-PAT-TEMPLATES-238
+  category: patterns
+  name: templates
+  title: 'Script: templates'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/lib/templates.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-PAT-TESTING-239
+  category: patterns
+  name: testing
+  title: 'Script: testing'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/lib/testing.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-PAT-TRANSACTIONS-240
+  category: patterns
+  name: transactions
+  title: 'Script: transactions'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/lib/transactions.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-PAT-VALIDATION-241
+  category: patterns
+  name: validation
+  title: 'Script: validation'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/lib/validation.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-MERGE-ENV-SCAN-117
+  category: script
+  name: merge_env_scan
+  title: 'Script: merge_env_scan'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/safe_merge/scripts/merge_env_scan.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-SAFE-MERGE-AUTO-118
+  category: script
+  name: safe_merge_auto
+  title: 'Script: safe_merge_auto'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/safe_merge/scripts/safe_merge_auto.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-SAFE-PULL-AND-PUSH-119
+  category: script
+  name: safe_pull_and_push
+  title: 'Script: safe_pull_and_push'
+  status: active
+  artifacts:
+  - type: source
+    path: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/safe_merge/scripts/safe_pull_and_push.ps1
+  created: '2025-11-30'
+  last_modified: '2025-11-30'
+  tags:
+  - ps1
 migration_queue:
   core_modules:
   - path: core/state/db.py

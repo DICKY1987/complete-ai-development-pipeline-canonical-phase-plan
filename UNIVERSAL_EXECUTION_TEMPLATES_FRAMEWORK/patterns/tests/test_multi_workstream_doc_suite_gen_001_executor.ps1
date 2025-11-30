@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-TEST-TEST-MULTI-WORKSTREAM-DOC-SUITE-GEN-001-021
 # Tests for: multi_workstream_doc_suite_generation
 # Pattern ID: PAT-MULTI-WORKSTREAM-DOC-SUITE-GEN-001
 # Auto-generated: 2025-11-27T10:14:13.148718

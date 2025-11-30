@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-TEST-AIDER-DEEPSEEK-073
 # Test script to verify Aider + DeepSeek-R1 integration
 # This creates a temporary test and verifies aider can make code changes
 

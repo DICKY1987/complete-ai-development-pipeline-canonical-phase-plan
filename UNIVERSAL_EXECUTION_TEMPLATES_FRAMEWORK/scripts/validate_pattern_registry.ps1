@@ -1,4 +1,5 @@
 #!/usr/bin/env pwsh
+# DOC_LINK: DOC-SCRIPT-VALIDATE-PATTERN-REGISTRY-114
 <#
 .SYNOPSIS
     Validate PATTERN_INDEX.yaml against schema and check compliance

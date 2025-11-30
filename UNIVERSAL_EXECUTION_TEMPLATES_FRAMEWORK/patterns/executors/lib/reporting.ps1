@@ -1,4 +1,5 @@
 #!/usr/bin/env pwsh
+# DOC_LINK: DOC-PAT-REPORTING-237
 <#
 .SYNOPSIS
     Reporting and verification record library for pattern executors

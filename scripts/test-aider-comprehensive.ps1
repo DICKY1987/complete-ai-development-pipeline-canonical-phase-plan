@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-TEST-AIDER-COMPREHENSIVE-072
 # Comprehensive Aider Test Suite - 6-Layer Validation
 # This script definitively proves whether aider + Ollama + DeepSeek-R1 is fully functional
 

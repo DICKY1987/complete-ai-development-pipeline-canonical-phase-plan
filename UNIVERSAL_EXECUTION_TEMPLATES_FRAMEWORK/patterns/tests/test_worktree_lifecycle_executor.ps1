@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-TEST-TEST-WORKTREE-LIFECYCLE-EXECUTOR-030
 # DOC_LINK: DOC-WORKTREE-LIFECYCLE-001
 # Tests for worktree_lifecycle pattern executor
 

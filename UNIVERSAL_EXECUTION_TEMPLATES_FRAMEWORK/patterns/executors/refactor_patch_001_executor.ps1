@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-PAT-REFACTOR-PATCH-001-EXECUTOR-226
 # Pattern Executor: refactor_patch
 # Pattern ID: PAT-REFACTOR-PATCH-001
 # Auto-generated: 2025-11-27T10:14:13.466651

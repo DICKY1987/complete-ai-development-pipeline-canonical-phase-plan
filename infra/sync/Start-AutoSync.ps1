@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-START-AUTOSYNC-086
 # Smart Auto-Start Git Sync
 # Only starts sync if no other PowerShell window has it running
 # Add this to your PowerShell profile: $PROFILE

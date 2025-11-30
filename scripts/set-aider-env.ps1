@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-SET-AIDER-ENV-070
 # Set Aider Environment Variables
 # Run this before using aider, or add to your PowerShell profile
 

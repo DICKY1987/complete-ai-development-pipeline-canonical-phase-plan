@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-WSL-SETUP-STEP3-UBUNTU-108
 #Requires -Version 5.1
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'

@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-WSL-SETUP-API-KEYS-107
 #Requires -Version 5.1
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'

@@ -1,4 +1,5 @@
 #!/usr/bin/env pwsh
+# DOC_LINK: DOC-PAT-PARALLEL-236
 <#
 .SYNOPSIS
     Shared parallel processing library for pattern executors

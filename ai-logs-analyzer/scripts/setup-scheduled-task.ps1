@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-SETUP-SCHEDULED-TASK-080
 # Setup Scheduled Task for Daily Log Aggregation
 # Runs aggregate-logs.ps1 automatically every day at midnight
 

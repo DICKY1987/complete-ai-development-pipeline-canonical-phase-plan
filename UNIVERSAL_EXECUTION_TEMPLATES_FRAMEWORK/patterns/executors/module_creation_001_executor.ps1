@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-PAT-MODULE-CREATION-001-EXECUTOR-222
 # Pattern Executor: module_creation
 # Pattern ID: PAT-MODULE-CREATION-001
 # Auto-generated: 2025-11-27T10:14:13.068675

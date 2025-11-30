@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-PAT-E2E-VALIDATION-001-EXECUTOR-214
 # Pattern Executor: end_to_end_validation
 # Pattern ID: PAT-E2E-VALIDATION-001
 # Auto-generated: 2025-11-27T10:14:13.576460

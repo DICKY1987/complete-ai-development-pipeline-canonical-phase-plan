@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-RUN-MULTI-AGENT-REFACTOR-067
 <#
 .SYNOPSIS
     One-touch launcher for multi-agent workstream execution

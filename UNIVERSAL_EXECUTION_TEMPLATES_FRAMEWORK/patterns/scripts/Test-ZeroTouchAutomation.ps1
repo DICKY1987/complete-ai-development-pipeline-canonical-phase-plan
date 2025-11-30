@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-TEST-ZEROTOUCHAUTOMATION-116
 # Quick Test - Zero-Touch Pattern Automation
 # Runs immediate test without waiting for nightly schedule
 

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-ASAFTERTHEMOVEREPO-209
+---
+
 REPOSITORY FILE TREE AFTER MODULE-CENTRIC REFACTOR PLAN EXECUTION
 ================================================================================
 

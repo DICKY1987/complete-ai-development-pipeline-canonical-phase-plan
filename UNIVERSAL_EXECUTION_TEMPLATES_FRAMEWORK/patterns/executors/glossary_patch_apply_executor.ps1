@@ -1,4 +1,5 @@
 #!/usr/bin/env pwsh
+# DOC_LINK: DOC-PAT-GLOSSARY-PATCH-APPLY-EXECUTOR-217
 <#
 .SYNOPSIS
     Executor for glossary_patch_apply pattern (PAT-GLOSSARY-PATCH-APPLY-001)

@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-AIM-AIM-AI-STEWARD-063
 <#
   AIM_ai-steward.ps1
   Thin CLI entrypoint for ai-steward (AIM_-prefixed).

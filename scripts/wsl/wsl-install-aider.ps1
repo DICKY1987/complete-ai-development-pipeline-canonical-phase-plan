@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-WSL-INSTALL-AIDER-103
 #Requires -Version 5.1
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'

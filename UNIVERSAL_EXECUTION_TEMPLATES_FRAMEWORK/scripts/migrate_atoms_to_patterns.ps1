@@ -1,4 +1,5 @@
 #!/usr/bin/env pwsh
+# DOC_LINK: DOC-SCRIPT-MIGRATE-ATOMS-TO-PATTERNS-110
 <#
 .SYNOPSIS
     Extract patterns from atomic-workflow-system atoms registry

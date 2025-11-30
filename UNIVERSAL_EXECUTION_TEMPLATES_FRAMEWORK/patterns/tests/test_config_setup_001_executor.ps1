@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-TEST-TEST-CONFIG-SETUP-001-EXECUTOR-015
 # Tests for: configuration_setup
 # Pattern ID: PAT-CONFIG-SETUP-001
 # Auto-generated: 2025-11-27T10:14:12.606421

@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-TEST-074
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 

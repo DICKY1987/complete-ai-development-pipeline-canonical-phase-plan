@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-ADD-AIDER-TO-PROFILE-050
 # Add Aider environment variables to PowerShell profile
 # This makes the settings permanent across all PowerShell sessions
 

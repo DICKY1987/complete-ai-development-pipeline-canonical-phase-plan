@@ -1,4 +1,5 @@
 #!/usr/bin/env pwsh
+# DOC_LINK: DOC-PAT-GLOSSARY-LINK-CHECK-EXECUTOR-216
 <#
 .SYNOPSIS
     Executor for glossary_link_check pattern (PAT-GLOSSARY-LINK-CHECK-001)

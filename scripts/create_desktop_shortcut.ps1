@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-CREATE-DESKTOP-SHORTCUT-060
 # PowerShell script to create desktop shortcut for AI Pipeline TUI
 # Run with: powershell -ExecutionPolicy Bypass -File scripts\create_desktop_shortcut.ps1
 

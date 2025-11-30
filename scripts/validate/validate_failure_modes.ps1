@@ -1,4 +1,5 @@
 #!/usr/bin/env pwsh
+# DOC_LINK: DOC-SCRIPT-VALIDATE-FAILURE-MODES-091
 <#
 .SYNOPSIS
     Validate Failure Mode Documentation (ERR-FM-*)

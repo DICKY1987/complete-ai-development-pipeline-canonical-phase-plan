@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-RUN-TUI-BACKGROUND-069
 # Starts the AI Pipeline TUI in a minimized console window (background-friendly).
 
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path

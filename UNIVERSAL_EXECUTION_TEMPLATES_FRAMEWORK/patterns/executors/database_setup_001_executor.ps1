@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-PAT-DATABASE-SETUP-001-EXECUTOR-213
 # Pattern Executor: database_setup
 # Pattern ID: PAT-DATABASE-SETUP-001
 # Auto-generated: 2025-11-27T10:14:12.733698

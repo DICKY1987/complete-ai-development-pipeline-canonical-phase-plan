@@ -1,4 +1,5 @@
 #!/usr/bin/env pwsh
+# DOC_LINK: DOC-PAT-TRANSACTIONS-240
 <#
 .SYNOPSIS
     Shared transaction management library for pattern executors

@@ -1,4 +1,5 @@
 #!/usr/bin/env pwsh
+# DOC_LINK: DOC-PAT-TEMPLATES-238
 <#
 .SYNOPSIS
     Shared template library for pattern executors

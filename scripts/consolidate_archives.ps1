@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-CONSOLIDATE-ARCHIVES-058
 # Archive Consolidation Script
 # Consolidates all scattered archive folders into one centralized location
 # Date: 2025-11-26

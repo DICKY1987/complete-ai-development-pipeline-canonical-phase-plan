@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-CONSOLIDATE-LEGACY-CODE-059
 # Legacy Code Consolidation Script
 # Moves all shims/deprecated code to _DEPRECATED/ directory
 

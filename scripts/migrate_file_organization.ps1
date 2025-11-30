@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-MIGRATE-FILE-ORGANIZATION-065
 # File Organization Migration Script
 # Purpose: Migrate files from current mixed structure to organized devdocs/ structure
 # Usage: Run interactively or with -WhatIf to preview changes

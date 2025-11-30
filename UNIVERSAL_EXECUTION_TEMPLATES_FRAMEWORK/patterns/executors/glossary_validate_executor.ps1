@@ -1,4 +1,5 @@
 #!/usr/bin/env pwsh
+# DOC_LINK: DOC-PAT-GLOSSARY-VALIDATE-EXECUTOR-220
 <#
 .SYNOPSIS
     Executor for glossary_validate pattern (PAT-GLOSSARY-VALIDATE-001)

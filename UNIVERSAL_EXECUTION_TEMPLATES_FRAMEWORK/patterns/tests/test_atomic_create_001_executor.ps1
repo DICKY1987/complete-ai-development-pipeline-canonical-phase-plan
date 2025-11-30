@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-TEST-TEST-ATOMIC-CREATE-001-EXECUTOR-009
 # Tests for: atomic_create
 # Pattern ID: PAT-ATOMIC-CREATE-001
 # Auto-generated: 2025-11-27T10:14:12.189825

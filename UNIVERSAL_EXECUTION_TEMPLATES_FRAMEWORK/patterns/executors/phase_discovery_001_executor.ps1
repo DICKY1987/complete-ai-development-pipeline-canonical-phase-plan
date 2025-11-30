@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-PAT-PHASE-DISCOVERY-001-EXECUTOR-225
 # Pattern Executor: phase_discovery
 # Pattern ID: PAT-PHASE-DISCOVERY-001
 # Auto-generated: 2025-11-27T10:14:13.325682

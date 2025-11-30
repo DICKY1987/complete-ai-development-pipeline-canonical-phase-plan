@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-AGGREGATE-LOGS-077
 # AI Tools Log Aggregator
 # Collects logs from all AI coding assistants into a centralized location
 

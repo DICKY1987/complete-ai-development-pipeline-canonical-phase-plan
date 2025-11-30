@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-AIM-AIM-DEV-064
 param([switch]$Tests)
 if ($Tests) {
   Write-Host 'Running Pester tests (if available)...'

@@ -1,0 +1,1157 @@
+{
+  "summary": {
+    "total_missing_in_inventory": 2560,
+    "processed": 143,
+    "assigned": 143,
+    "skipped": 0,
+    "dry_run": false,
+    "timestamp": "2025-11-30T01:07:19.465769"
+  },
+  "assignments": [
+    {
+      "path": "ai-logs-analyzer/TEST-RUN.ps1",
+      "doc_id": "DOC-SCRIPT-TEST-RUN-047",
+      "category": "script",
+      "name": "TEST-RUN",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "cleanup_reports/cleanup_high_confidence_20251125_090442.ps1",
+      "doc_id": "DOC-SCRIPT-CLEANUP-HIGH-CONFIDENCE-20251125-090442-048",
+      "category": "script",
+      "name": "CLEANUP-HIGH-CONFIDENCE-20251125-090442",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "cleanup_reports/cleanup_safe_individual.ps1",
+      "doc_id": "DOC-SCRIPT-CLEANUP-SAFE-INDIVIDUAL-049",
+      "category": "script",
+      "name": "CLEANUP-SAFE-INDIVIDUAL",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "scripts/add-aider-to-profile.ps1",
+      "doc_id": "DOC-SCRIPT-ADD-AIDER-TO-PROFILE-050",
+      "category": "script",
+      "name": "ADD-AIDER-TO-PROFILE",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "scripts/aider-ollama.ps1",
+      "doc_id": "DOC-SCRIPT-AIDER-OLLAMA-051",
+      "category": "script",
+      "name": "AIDER-OLLAMA",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "scripts/bootstrap.ps1",
+      "doc_id": "DOC-SCRIPT-BOOTSTRAP-052",
+      "category": "script",
+      "name": "BOOTSTRAP",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "scripts/ccpm_install.ps1",
+      "doc_id": "DOC-SCRIPT-CCPM-INSTALL-053",
+      "category": "script",
+      "name": "CCPM-INSTALL",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "scripts/ccpm_update.ps1",
+      "doc_id": "DOC-SCRIPT-CCPM-UPDATE-054",
+      "category": "script",
+      "name": "CCPM-UPDATE",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "scripts/check_workstream_status.ps1",
+      "doc_id": "DOC-SCRIPT-CHECK-WORKSTREAM-STATUS-055",
+      "category": "script",
+      "name": "CHECK-WORKSTREAM-STATUS",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "scripts/cleanup_unused_worktrees.ps1",
+      "doc_id": "DOC-SCRIPT-CLEANUP-UNUSED-WORKTREES-056",
+      "category": "script",
+      "name": "CLEANUP-UNUSED-WORKTREES",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "scripts/cleanup_worktrees.ps1",
+      "doc_id": "DOC-SCRIPT-CLEANUP-WORKTREES-057",
+      "category": "script",
+      "name": "CLEANUP-WORKTREES",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "scripts/consolidate_archives.ps1",
+      "doc_id": "DOC-SCRIPT-CONSOLIDATE-ARCHIVES-058",
+      "category": "script",
+      "name": "CONSOLIDATE-ARCHIVES",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "scripts/consolidate_legacy_code.ps1",
+      "doc_id": "DOC-SCRIPT-CONSOLIDATE-LEGACY-CODE-059",
+      "category": "script",
+      "name": "CONSOLIDATE-LEGACY-CODE",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "scripts/create_desktop_shortcut.ps1",
+      "doc_id": "DOC-SCRIPT-CREATE-DESKTOP-SHORTCUT-060",
+      "category": "script",
+      "name": "CREATE-DESKTOP-SHORTCUT",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "scripts/create_docid_worktrees.ps1",
+      "doc_id": "DOC-SCRIPT-CREATE-DOCID-WORKTREES-061",
+      "category": "script",
+      "name": "CREATE-DOCID-WORKTREES",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "scripts/create_migration_worktrees.ps1",
+      "doc_id": "DOC-SCRIPT-CREATE-MIGRATION-WORKTREES-062",
+      "category": "script",
+      "name": "CREATE-MIGRATION-WORKTREES",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "scripts/execute_safe_merge.ps1",
+      "doc_id": "DOC-SCRIPT-EXECUTE-SAFE-MERGE-063",
+      "category": "script",
+      "name": "EXECUTE-SAFE-MERGE",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "scripts/migrate_docs_to_devdocs.ps1",
+      "doc_id": "DOC-SCRIPT-MIGRATE-DOCS-TO-DEVDOCS-064",
+      "category": "script",
+      "name": "MIGRATE-DOCS-TO-DEVDOCS",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "scripts/migrate_file_organization.ps1",
+      "doc_id": "DOC-SCRIPT-MIGRATE-FILE-ORGANIZATION-065",
+      "category": "script",
+      "name": "MIGRATE-FILE-ORGANIZATION",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "scripts/migrate_spec_folders.ps1",
+      "doc_id": "DOC-SCRIPT-MIGRATE-SPEC-FOLDERS-066",
+      "category": "script",
+      "name": "MIGRATE-SPEC-FOLDERS",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "scripts/run_multi_agent_refactor.ps1",
+      "doc_id": "DOC-SCRIPT-RUN-MULTI-AGENT-REFACTOR-067",
+      "category": "script",
+      "name": "RUN-MULTI-AGENT-REFACTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "scripts/run_simple_executor.ps1",
+      "doc_id": "DOC-SCRIPT-RUN-SIMPLE-EXECUTOR-068",
+      "category": "script",
+      "name": "RUN-SIMPLE-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "scripts/run_tui_background.ps1",
+      "doc_id": "DOC-SCRIPT-RUN-TUI-BACKGROUND-069",
+      "category": "script",
+      "name": "RUN-TUI-BACKGROUND",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "scripts/set-aider-env.ps1",
+      "doc_id": "DOC-SCRIPT-SET-AIDER-ENV-070",
+      "category": "script",
+      "name": "SET-AIDER-ENV",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "scripts/spec_to_workstream.ps1",
+      "doc_id": "DOC-SCRIPT-SPEC-TO-WORKSTREAM-071",
+      "category": "script",
+      "name": "SPEC-TO-WORKSTREAM",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "scripts/test-aider-comprehensive.ps1",
+      "doc_id": "DOC-SCRIPT-TEST-AIDER-COMPREHENSIVE-072",
+      "category": "script",
+      "name": "TEST-AIDER-COMPREHENSIVE",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "scripts/test-aider-deepseek.ps1",
+      "doc_id": "DOC-SCRIPT-TEST-AIDER-DEEPSEEK-073",
+      "category": "script",
+      "name": "TEST-AIDER-DEEPSEEK",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "scripts/test.ps1",
+      "doc_id": "DOC-SCRIPT-TEST-074",
+      "category": "script",
+      "name": "TEST",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "scripts/worktree_merge.ps1",
+      "doc_id": "DOC-SCRIPT-WORKTREE-MERGE-075",
+      "category": "script",
+      "name": "WORKTREE-MERGE",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "scripts/worktree_start.ps1",
+      "doc_id": "DOC-SCRIPT-WORKTREE-START-076",
+      "category": "script",
+      "name": "WORKTREE-START",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "ai-logs-analyzer/scripts/aggregate-logs.ps1",
+      "doc_id": "DOC-SCRIPT-AGGREGATE-LOGS-077",
+      "category": "script",
+      "name": "AGGREGATE-LOGS",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "ai-logs-analyzer/scripts/analyze-logs.ps1",
+      "doc_id": "DOC-SCRIPT-ANALYZE-LOGS-078",
+      "category": "script",
+      "name": "ANALYZE-LOGS",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "ai-logs-analyzer/scripts/export-logs.ps1",
+      "doc_id": "DOC-SCRIPT-EXPORT-LOGS-079",
+      "category": "script",
+      "name": "EXPORT-LOGS",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "ai-logs-analyzer/scripts/setup-scheduled-task.ps1",
+      "doc_id": "DOC-SCRIPT-SETUP-SCHEDULED-TASK-080",
+      "category": "script",
+      "name": "SETUP-SCHEDULED-TASK",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "ai-logs-analyzer/scripts/watch-logs.ps1",
+      "doc_id": "DOC-SCRIPT-WATCH-LOGS-081",
+      "category": "script",
+      "name": "WATCH-LOGS",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "aim/.AIM_ai-tools-registry/AIM_adapters/AIM_aider.ps1",
+      "doc_id": "DOC-AIM-AIM-AIDER-060",
+      "category": "aim",
+      "name": "AIM-AIDER",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "aim/.AIM_ai-tools-registry/AIM_adapters/AIM_claude-cli.ps1",
+      "doc_id": "DOC-AIM-AIM-CLAUDE-CLI-061",
+      "category": "aim",
+      "name": "AIM-CLAUDE-CLI",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "aim/.AIM_ai-tools-registry/AIM_adapters/AIM_jules.ps1",
+      "doc_id": "DOC-AIM-AIM-JULES-062",
+      "category": "aim",
+      "name": "AIM-JULES",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "aim/.AIM_ai-tools-registry/AIM_ai-steward/AIM_ai-steward.ps1",
+      "doc_id": "DOC-AIM-AIM-AI-STEWARD-063",
+      "category": "aim",
+      "name": "AIM-AI-STEWARD",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "aim/.AIM_ai-tools-registry/AIM_ai-steward/AIM_scripts/AIM_dev.ps1",
+      "doc_id": "DOC-AIM-AIM-DEV-064",
+      "category": "aim",
+      "name": "AIM-DEV",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "aim/.AIM_ai-tools-registry/AIM_ai-steward/AIM_tests/AIM_Adapters.Tests.ps1",
+      "doc_id": "DOC-AIM-AIM-ADAPTERS-TESTS-065",
+      "category": "aim",
+      "name": "AIM-ADAPTERS-TESTS",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "aim/.AIM_ai-tools-registry/AIM_ai-steward/AIM_tests/AIM_AIToolsRegistry.Tests.ps1",
+      "doc_id": "DOC-AIM-AIM-AITOOLSREGISTRY-TESTS-066",
+      "category": "aim",
+      "name": "AIM-AITOOLSREGISTRY-TESTS",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "aim/.AIM_ai-tools-registry/AIM_ai-steward/AIM_tests/AIM_Contracts.Tests.ps1",
+      "doc_id": "DOC-AIM-AIM-CONTRACTS-TESTS-067",
+      "category": "aim",
+      "name": "AIM-CONTRACTS-TESTS",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "aim/.AIM_ai-tools-registry/AIM_ai-steward/AIM_tests/AIM_Routing.Tests.ps1",
+      "doc_id": "DOC-AIM-AIM-ROUTING-TESTS-068",
+      "category": "aim",
+      "name": "AIM-ROUTING-TESTS",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "aim/.AIM_ai-tools-registry/AIM_ai-steward/AIM_tests/AIM_StewardCli.Tests.ps1",
+      "doc_id": "DOC-AIM-AIM-STEWARDCLI-TESTS-069",
+      "category": "aim",
+      "name": "AIM-STEWARDCLI-TESTS",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "archive/2025-11-26_094125_scripts-backups/create_backup_20251120_125719.ps1",
+      "doc_id": "DOC-SCRIPT-CREATE-BACKUP-20251120-125719-082",
+      "category": "script",
+      "name": "CREATE-BACKUP-20251120-125719",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "archive/2025-11-26_developer/2025-11/error_legacy/Phase0_Bootstrap.ps1",
+      "doc_id": "DOC-SCRIPT-PHASE0-BOOTSTRAP-083",
+      "category": "script",
+      "name": "PHASE0-BOOTSTRAP",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "infra/sync/GitAutoSync.ps1",
+      "doc_id": "DOC-SCRIPT-GITAUTOSYNC-084",
+      "category": "script",
+      "name": "GITAUTOSYNC",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "infra/sync/Install-GitAutoSync.ps1",
+      "doc_id": "DOC-SCRIPT-INSTALL-GITAUTOSYNC-085",
+      "category": "script",
+      "name": "INSTALL-GITAUTOSYNC",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "infra/sync/Start-AutoSync.ps1",
+      "doc_id": "DOC-SCRIPT-START-AUTOSYNC-086",
+      "category": "script",
+      "name": "START-AUTOSYNC",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "infra/sync/Watch-SyncStatus.ps1",
+      "doc_id": "DOC-SCRIPT-WATCH-SYNCSTATUS-087",
+      "category": "script",
+      "name": "WATCH-SYNCSTATUS",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "scripts/validate/auto_remediate.ps1",
+      "doc_id": "DOC-SCRIPT-AUTO-REMEDIATE-088",
+      "category": "script",
+      "name": "AUTO-REMEDIATE",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "scripts/validate/validate_compliance.ps1",
+      "doc_id": "DOC-SCRIPT-VALIDATE-COMPLIANCE-089",
+      "category": "script",
+      "name": "VALIDATE-COMPLIANCE",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "scripts/validate/validate_dag_structure.ps1",
+      "doc_id": "DOC-SCRIPT-VALIDATE-DAG-STRUCTURE-090",
+      "category": "script",
+      "name": "VALIDATE-DAG-STRUCTURE",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "scripts/validate/validate_failure_modes.ps1",
+      "doc_id": "DOC-SCRIPT-VALIDATE-FAILURE-MODES-091",
+      "category": "script",
+      "name": "VALIDATE-FAILURE-MODES",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "scripts/validate/validate_repo_checklist.ps1",
+      "doc_id": "DOC-SCRIPT-VALIDATE-REPO-CHECKLIST-092",
+      "category": "script",
+      "name": "VALIDATE-REPO-CHECKLIST",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "scripts/validate/validate_spec_implementation.ps1",
+      "doc_id": "DOC-SCRIPT-VALIDATE-SPEC-IMPLEMENTATION-093",
+      "category": "script",
+      "name": "VALIDATE-SPEC-IMPLEMENTATION",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "scripts/validate/validate_state_obs.ps1",
+      "doc_id": "DOC-SCRIPT-VALIDATE-STATE-OBS-094",
+      "category": "script",
+      "name": "VALIDATE-STATE-OBS",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "scripts/validate/validate_task_defs.ps1",
+      "doc_id": "DOC-SCRIPT-VALIDATE-TASK-DEFS-095",
+      "category": "script",
+      "name": "VALIDATE-TASK-DEFS",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "scripts/wsl/aider-wsl.ps1",
+      "doc_id": "DOC-SCRIPT-AIDER-WSL-096",
+      "category": "script",
+      "name": "AIDER-WSL",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "scripts/wsl/configure-ollama-for-wsl.ps1",
+      "doc_id": "DOC-SCRIPT-CONFIGURE-OLLAMA-FOR-WSL-097",
+      "category": "script",
+      "name": "CONFIGURE-OLLAMA-FOR-WSL",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "scripts/wsl/ollama-code-wsl.ps1",
+      "doc_id": "DOC-SCRIPT-OLLAMA-CODE-WSL-098",
+      "category": "script",
+      "name": "OLLAMA-CODE-WSL",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "scripts/wsl/start-here.ps1",
+      "doc_id": "DOC-SCRIPT-START-HERE-099",
+      "category": "script",
+      "name": "START-HERE",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "scripts/wsl/validate-all.ps1",
+      "doc_id": "DOC-SCRIPT-VALIDATE-ALL-100",
+      "category": "script",
+      "name": "VALIDATE-ALL",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "scripts/wsl/wsl-create-launchers-fixed.ps1",
+      "doc_id": "DOC-SCRIPT-WSL-CREATE-LAUNCHERS-FIXED-101",
+      "category": "script",
+      "name": "WSL-CREATE-LAUNCHERS-FIXED",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "scripts/wsl/wsl-create-launchers.ps1",
+      "doc_id": "DOC-SCRIPT-WSL-CREATE-LAUNCHERS-102",
+      "category": "script",
+      "name": "WSL-CREATE-LAUNCHERS",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "scripts/wsl/wsl-install-aider.ps1",
+      "doc_id": "DOC-SCRIPT-WSL-INSTALL-AIDER-103",
+      "category": "script",
+      "name": "WSL-INSTALL-AIDER",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "scripts/wsl/wsl-install-codex.ps1",
+      "doc_id": "DOC-SCRIPT-WSL-INSTALL-CODEX-104",
+      "category": "script",
+      "name": "WSL-INSTALL-CODEX",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "scripts/wsl/wsl-install-step1-admin.ps1",
+      "doc_id": "DOC-SCRIPT-WSL-INSTALL-STEP1-ADMIN-105",
+      "category": "script",
+      "name": "WSL-INSTALL-STEP1-ADMIN",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "scripts/wsl/wsl-install-step2-verify.ps1",
+      "doc_id": "DOC-SCRIPT-WSL-INSTALL-STEP2-VERIFY-106",
+      "category": "script",
+      "name": "WSL-INSTALL-STEP2-VERIFY",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "scripts/wsl/wsl-setup-api-keys.ps1",
+      "doc_id": "DOC-SCRIPT-WSL-SETUP-API-KEYS-107",
+      "category": "script",
+      "name": "WSL-SETUP-API-KEYS",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "scripts/wsl/wsl-setup-step3-ubuntu.ps1",
+      "doc_id": "DOC-SCRIPT-WSL-SETUP-STEP3-UBUNTU-108",
+      "category": "script",
+      "name": "WSL-SETUP-STEP3-UBUNTU",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/scripts/generate_pattern_files.ps1",
+      "doc_id": "DOC-SCRIPT-GENERATE-PATTERN-FILES-109",
+      "category": "script",
+      "name": "GENERATE-PATTERN-FILES",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/scripts/migrate_atoms_to_patterns.ps1",
+      "doc_id": "DOC-SCRIPT-MIGRATE-ATOMS-TO-PATTERNS-110",
+      "category": "script",
+      "name": "MIGRATE-ATOMS-TO-PATTERNS",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/scripts/PATTERN_DIR_CHECK.ps1",
+      "doc_id": "DOC-SCRIPT-PATTERN-DIR-CHECK-111",
+      "category": "script",
+      "name": "PATTERN-DIR-CHECK",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/scripts/pattern_utilities.ps1",
+      "doc_id": "DOC-SCRIPT-PATTERN-UTILITIES-112",
+      "category": "script",
+      "name": "PATTERN-UTILITIES",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/scripts/validate_doc_id_consistency.ps1",
+      "doc_id": "DOC-SCRIPT-VALIDATE-DOC-ID-CONSISTENCY-113",
+      "category": "script",
+      "name": "VALIDATE-DOC-ID-CONSISTENCY",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/scripts/validate_pattern_registry.ps1",
+      "doc_id": "DOC-SCRIPT-VALIDATE-PATTERN-REGISTRY-114",
+      "category": "script",
+      "name": "VALIDATE-PATTERN-REGISTRY",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/atomic_create_001_executor.ps1",
+      "doc_id": "DOC-PAT-ATOMIC-CREATE-001-EXECUTOR-206",
+      "category": "patterns",
+      "name": "ATOMIC-CREATE-001-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/atomic_create_executor.ps1",
+      "doc_id": "DOC-PAT-ATOMIC-CREATE-EXECUTOR-207",
+      "category": "patterns",
+      "name": "ATOMIC-CREATE-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/atomic_create_template_001_executor.ps1",
+      "doc_id": "DOC-PAT-ATOMIC-CREATE-TEMPLATE-001-EXECUTOR-208",
+      "category": "patterns",
+      "name": "ATOMIC-CREATE-TEMPLATE-001-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/batch_create_001_executor.ps1",
+      "doc_id": "DOC-PAT-BATCH-CREATE-001-EXECUTOR-209",
+      "category": "patterns",
+      "name": "BATCH-CREATE-001-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/batch_create_executor.ps1",
+      "doc_id": "DOC-PAT-BATCH-CREATE-EXECUTOR-210",
+      "category": "patterns",
+      "name": "BATCH-CREATE-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/batch_file_gen_001_executor.ps1",
+      "doc_id": "DOC-PAT-BATCH-FILE-GEN-001-EXECUTOR-211",
+      "category": "patterns",
+      "name": "BATCH-FILE-GEN-001-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/config_setup_001_executor.ps1",
+      "doc_id": "DOC-PAT-CONFIG-SETUP-001-EXECUTOR-212",
+      "category": "patterns",
+      "name": "CONFIG-SETUP-001-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/database_setup_001_executor.ps1",
+      "doc_id": "DOC-PAT-DATABASE-SETUP-001-EXECUTOR-213",
+      "category": "patterns",
+      "name": "DATABASE-SETUP-001-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/e2e_validation_001_executor.ps1",
+      "doc_id": "DOC-PAT-E2E-VALIDATION-001-EXECUTOR-214",
+      "category": "patterns",
+      "name": "E2E-VALIDATION-001-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/glossary_export_executor.ps1",
+      "doc_id": "DOC-PAT-GLOSSARY-EXPORT-EXECUTOR-215",
+      "category": "patterns",
+      "name": "GLOSSARY-EXPORT-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/glossary_link_check_executor.ps1",
+      "doc_id": "DOC-PAT-GLOSSARY-LINK-CHECK-EXECUTOR-216",
+      "category": "patterns",
+      "name": "GLOSSARY-LINK-CHECK-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/glossary_patch_apply_executor.ps1",
+      "doc_id": "DOC-PAT-GLOSSARY-PATCH-APPLY-EXECUTOR-217",
+      "category": "patterns",
+      "name": "GLOSSARY-PATCH-APPLY-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/glossary_sync_executor.ps1",
+      "doc_id": "DOC-PAT-GLOSSARY-SYNC-EXECUTOR-218",
+      "category": "patterns",
+      "name": "GLOSSARY-SYNC-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/glossary_term_add_executor.ps1",
+      "doc_id": "DOC-PAT-GLOSSARY-TERM-ADD-EXECUTOR-219",
+      "category": "patterns",
+      "name": "GLOSSARY-TERM-ADD-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/glossary_validate_executor.ps1",
+      "doc_id": "DOC-PAT-GLOSSARY-VALIDATE-EXECUTOR-220",
+      "category": "patterns",
+      "name": "GLOSSARY-VALIDATE-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/integration_hook_001_executor.ps1",
+      "doc_id": "DOC-PAT-INTEGRATION-HOOK-001-EXECUTOR-221",
+      "category": "patterns",
+      "name": "INTEGRATION-HOOK-001-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/module_creation_001_executor.ps1",
+      "doc_id": "DOC-PAT-MODULE-CREATION-001-EXECUTOR-222",
+      "category": "patterns",
+      "name": "MODULE-CREATION-001-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/module_creation_executor.ps1",
+      "doc_id": "DOC-PAT-MODULE-CREATION-EXECUTOR-223",
+      "category": "patterns",
+      "name": "MODULE-CREATION-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/multi_workstream_doc_suite_gen_001_executor.ps1",
+      "doc_id": "DOC-PAT-MULTI-WORKSTREAM-DOC-SUITE-GEN-001-224",
+      "category": "patterns",
+      "name": "MULTI-WORKSTREAM-DOC-SUITE-GEN-001",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/phase_discovery_001_executor.ps1",
+      "doc_id": "DOC-PAT-PHASE-DISCOVERY-001-EXECUTOR-225",
+      "category": "patterns",
+      "name": "PHASE-DISCOVERY-001-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/refactor_patch_001_executor.ps1",
+      "doc_id": "DOC-PAT-REFACTOR-PATCH-001-EXECUTOR-226",
+      "category": "patterns",
+      "name": "REFACTOR-PATCH-001-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/refactor_patch_executor.ps1",
+      "doc_id": "DOC-PAT-REFACTOR-PATCH-EXECUTOR-227",
+      "category": "patterns",
+      "name": "REFACTOR-PATCH-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/self_heal_001_executor.ps1",
+      "doc_id": "DOC-PAT-SELF-HEAL-001-EXECUTOR-228",
+      "category": "patterns",
+      "name": "SELF-HEAL-001-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/self_heal_executor.ps1",
+      "doc_id": "DOC-PAT-SELF-HEAL-EXECUTOR-229",
+      "category": "patterns",
+      "name": "SELF-HEAL-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/verify_commit_001_executor.ps1",
+      "doc_id": "DOC-PAT-VERIFY-COMMIT-001-EXECUTOR-230",
+      "category": "patterns",
+      "name": "VERIFY-COMMIT-001-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/verify_commit_executor.ps1",
+      "doc_id": "DOC-PAT-VERIFY-COMMIT-EXECUTOR-231",
+      "category": "patterns",
+      "name": "VERIFY-COMMIT-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/worktree_lifecycle_001_executor.ps1",
+      "doc_id": "DOC-PAT-WORKTREE-LIFECYCLE-001-EXECUTOR-232",
+      "category": "patterns",
+      "name": "WORKTREE-LIFECYCLE-001-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/worktree_lifecycle_executor.ps1",
+      "doc_id": "DOC-PAT-WORKTREE-LIFECYCLE-EXECUTOR-233",
+      "category": "patterns",
+      "name": "WORKTREE-LIFECYCLE-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/safe_merge/safe_merge.ps1",
+      "doc_id": "DOC-PAT-SAFE-MERGE-234",
+      "category": "patterns",
+      "name": "SAFE-MERGE",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/safe_merge/validate_installation.ps1",
+      "doc_id": "DOC-PAT-VALIDATE-INSTALLATION-235",
+      "category": "patterns",
+      "name": "VALIDATE-INSTALLATION",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/scripts/Schedule-ZeroTouchAutomation.ps1",
+      "doc_id": "DOC-SCRIPT-SCHEDULE-ZEROTOUCHAUTOMATION-115",
+      "category": "script",
+      "name": "SCHEDULE-ZEROTOUCHAUTOMATION",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/scripts/Test-ZeroTouchAutomation.ps1",
+      "doc_id": "DOC-SCRIPT-TEST-ZEROTOUCHAUTOMATION-116",
+      "category": "script",
+      "name": "TEST-ZEROTOUCHAUTOMATION",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/tests/test_atomic_create_001_executor.ps1",
+      "doc_id": "DOC-TEST-TEST-ATOMIC-CREATE-001-EXECUTOR-009",
+      "category": "test",
+      "name": "TEST-ATOMIC-CREATE-001-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/tests/test_atomic_create_executor.ps1",
+      "doc_id": "DOC-TEST-TEST-ATOMIC-CREATE-EXECUTOR-010",
+      "category": "test",
+      "name": "TEST-ATOMIC-CREATE-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/tests/test_atomic_create_template_001_executor.ps1",
+      "doc_id": "DOC-TEST-TEST-ATOMIC-CREATE-TEMPLATE-001-EXECUTOR-011",
+      "category": "test",
+      "name": "TEST-ATOMIC-CREATE-TEMPLATE-001-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/tests/test_batch_create_001_executor.ps1",
+      "doc_id": "DOC-TEST-TEST-BATCH-CREATE-001-EXECUTOR-012",
+      "category": "test",
+      "name": "TEST-BATCH-CREATE-001-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/tests/test_batch_create_executor.ps1",
+      "doc_id": "DOC-TEST-TEST-BATCH-CREATE-EXECUTOR-013",
+      "category": "test",
+      "name": "TEST-BATCH-CREATE-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/tests/test_batch_file_gen_001_executor.ps1",
+      "doc_id": "DOC-TEST-TEST-BATCH-FILE-GEN-001-EXECUTOR-014",
+      "category": "test",
+      "name": "TEST-BATCH-FILE-GEN-001-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/tests/test_config_setup_001_executor.ps1",
+      "doc_id": "DOC-TEST-TEST-CONFIG-SETUP-001-EXECUTOR-015",
+      "category": "test",
+      "name": "TEST-CONFIG-SETUP-001-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/tests/test_database_setup_001_executor.ps1",
+      "doc_id": "DOC-TEST-TEST-DATABASE-SETUP-001-EXECUTOR-016",
+      "category": "test",
+      "name": "TEST-DATABASE-SETUP-001-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/tests/test_e2e_validation_001_executor.ps1",
+      "doc_id": "DOC-TEST-TEST-E2E-VALIDATION-001-EXECUTOR-017",
+      "category": "test",
+      "name": "TEST-E2E-VALIDATION-001-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/tests/test_integration_hook_001_executor.ps1",
+      "doc_id": "DOC-TEST-TEST-INTEGRATION-HOOK-001-EXECUTOR-018",
+      "category": "test",
+      "name": "TEST-INTEGRATION-HOOK-001-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/tests/test_module_creation_001_executor.ps1",
+      "doc_id": "DOC-TEST-TEST-MODULE-CREATION-001-EXECUTOR-019",
+      "category": "test",
+      "name": "TEST-MODULE-CREATION-001-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/tests/test_module_creation_executor.ps1",
+      "doc_id": "DOC-TEST-TEST-MODULE-CREATION-EXECUTOR-020",
+      "category": "test",
+      "name": "TEST-MODULE-CREATION-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/tests/test_multi_workstream_doc_suite_gen_001_executor.ps1",
+      "doc_id": "DOC-TEST-TEST-MULTI-WORKSTREAM-DOC-SUITE-GEN-001-021",
+      "category": "test",
+      "name": "TEST-MULTI-WORKSTREAM-DOC-SUITE-GEN-001",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/tests/test_phase_discovery_001_executor.ps1",
+      "doc_id": "DOC-TEST-TEST-PHASE-DISCOVERY-001-EXECUTOR-022",
+      "category": "test",
+      "name": "TEST-PHASE-DISCOVERY-001-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/tests/test_refactor_patch_001_executor.ps1",
+      "doc_id": "DOC-TEST-TEST-REFACTOR-PATCH-001-EXECUTOR-023",
+      "category": "test",
+      "name": "TEST-REFACTOR-PATCH-001-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/tests/test_refactor_patch_executor.ps1",
+      "doc_id": "DOC-TEST-TEST-REFACTOR-PATCH-EXECUTOR-024",
+      "category": "test",
+      "name": "TEST-REFACTOR-PATCH-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/tests/test_self_heal_001_executor.ps1",
+      "doc_id": "DOC-TEST-TEST-SELF-HEAL-001-EXECUTOR-025",
+      "category": "test",
+      "name": "TEST-SELF-HEAL-001-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/tests/test_self_heal_executor.ps1",
+      "doc_id": "DOC-TEST-TEST-SELF-HEAL-EXECUTOR-026",
+      "category": "test",
+      "name": "TEST-SELF-HEAL-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/tests/test_verify_commit_001_executor.ps1",
+      "doc_id": "DOC-TEST-TEST-VERIFY-COMMIT-001-EXECUTOR-027",
+      "category": "test",
+      "name": "TEST-VERIFY-COMMIT-001-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/tests/test_verify_commit_executor.ps1",
+      "doc_id": "DOC-TEST-TEST-VERIFY-COMMIT-EXECUTOR-028",
+      "category": "test",
+      "name": "TEST-VERIFY-COMMIT-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/tests/test_worktree_lifecycle_001_executor.ps1",
+      "doc_id": "DOC-TEST-TEST-WORKTREE-LIFECYCLE-001-EXECUTOR-029",
+      "category": "test",
+      "name": "TEST-WORKTREE-LIFECYCLE-001-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/tests/test_worktree_lifecycle_executor.ps1",
+      "doc_id": "DOC-TEST-TEST-WORKTREE-LIFECYCLE-EXECUTOR-030",
+      "category": "test",
+      "name": "TEST-WORKTREE-LIFECYCLE-EXECUTOR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/automation/tests/demo_pattern_detection.ps1",
+      "doc_id": "DOC-TEST-DEMO-PATTERN-DETECTION-031",
+      "category": "test",
+      "name": "DEMO-PATTERN-DETECTION",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/automation/tests/test_activation.ps1",
+      "doc_id": "DOC-TEST-TEST-ACTIVATION-032",
+      "category": "test",
+      "name": "TEST-ACTIVATION",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/lib/parallel.ps1",
+      "doc_id": "DOC-PAT-PARALLEL-236",
+      "category": "patterns",
+      "name": "PARALLEL",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/lib/reporting.ps1",
+      "doc_id": "DOC-PAT-REPORTING-237",
+      "category": "patterns",
+      "name": "REPORTING",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/lib/templates.ps1",
+      "doc_id": "DOC-PAT-TEMPLATES-238",
+      "category": "patterns",
+      "name": "TEMPLATES",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/lib/testing.ps1",
+      "doc_id": "DOC-PAT-TESTING-239",
+      "category": "patterns",
+      "name": "TESTING",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/lib/transactions.ps1",
+      "doc_id": "DOC-PAT-TRANSACTIONS-240",
+      "category": "patterns",
+      "name": "TRANSACTIONS",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/lib/validation.ps1",
+      "doc_id": "DOC-PAT-VALIDATION-241",
+      "category": "patterns",
+      "name": "VALIDATION",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/safe_merge/scripts/merge_env_scan.ps1",
+      "doc_id": "DOC-SCRIPT-MERGE-ENV-SCAN-117",
+      "category": "script",
+      "name": "MERGE-ENV-SCAN",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/safe_merge/scripts/safe_merge_auto.ps1",
+      "doc_id": "DOC-SCRIPT-SAFE-MERGE-AUTO-118",
+      "category": "script",
+      "name": "SAFE-MERGE-AUTO",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/safe_merge/scripts/safe_pull_and_push.ps1",
+      "doc_id": "DOC-SCRIPT-SAFE-PULL-AND-PUSH-119",
+      "category": "script",
+      "name": "SAFE-PULL-AND-PUSH",
+      "skipped": false,
+      "reason": null
+    }
+  ],
+  "skipped": []
+}

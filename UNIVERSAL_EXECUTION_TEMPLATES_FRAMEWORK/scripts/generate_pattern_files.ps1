@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-GENERATE-PATTERN-FILES-109
 # Master Pattern File Generation Script
 # Auto-generates all missing pattern framework files
 # Version: 1.0.0

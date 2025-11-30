@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-VALIDATE-DOC-ID-CONSISTENCY-113
 # validate_doc_id_consistency.ps1
 # Validates doc_id consistency across all artifacts
 # Per ID-SYSTEM-SPEC-V1

@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-VALIDATE-ALL-100
 #Requires -Version 5.1
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'

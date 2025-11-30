@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-SAFE-MERGE-AUTO-118
 <#
 .SYNOPSIS
     MERGE-004: Safe Merge Automation (Orchestrator)

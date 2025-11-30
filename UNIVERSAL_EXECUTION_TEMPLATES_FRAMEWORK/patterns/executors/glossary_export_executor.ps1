@@ -1,4 +1,5 @@
 #!/usr/bin/env pwsh
+# DOC_LINK: DOC-PAT-GLOSSARY-EXPORT-EXECUTOR-215
 <#
 .SYNOPSIS
     Executor for glossary_export pattern (PAT-GLOSSARY-EXPORT-001)

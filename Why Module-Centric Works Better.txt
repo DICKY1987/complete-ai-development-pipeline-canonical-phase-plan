@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-WHY-MODULE-CENTRIC-WORKS-BETTER-222
+---
+
 
 This is a **brilliant architectural insight** that aligns perfectly with your AI-oriented orchestration principles. Let me break down why this matters:
 

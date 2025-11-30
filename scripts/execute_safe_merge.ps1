@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-EXECUTE-SAFE-MERGE-063
 # Safe Merge Execution Script
 # Automates SAFE_MERGE_STRATEGY.md phases with checkpoints and rollback
 # Usage: .\scripts\execute_safe_merge.ps1 [-DryRun] [-SkipTests]
