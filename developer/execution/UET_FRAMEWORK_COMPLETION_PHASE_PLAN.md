@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-UET-FRAMEWORK-COMPLETION-PHASE-PLAN-1212
+---
+
 # Universal Execution Templates Framework - Completion Phase Plan
 
 ```yaml

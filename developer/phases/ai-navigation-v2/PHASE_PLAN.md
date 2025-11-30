@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PHASE-PLAN-1264
+---
+
 # AI Navigation Enhancement v2 - Detailed Phase Plan
 
 **Phase ID**: PH-AI-NAV-002  

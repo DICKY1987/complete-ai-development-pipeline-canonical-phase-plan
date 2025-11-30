@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-WS-02-04A-COMPLETION-REPORT-1216
+---
+
 # WS-02-04A Completion Report: Bootstrap Orchestrator
 
 **Date:** 2025-11-20 22:15 UTC  

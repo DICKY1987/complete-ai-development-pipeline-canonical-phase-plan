@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-LEGACY-ARCHIVE-CANDIDATES-1191
+---
+
 # Legacy Archive Candidates
 
 **Date:** 2025-11-21  

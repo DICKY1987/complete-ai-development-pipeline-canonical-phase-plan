@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-GEMINI-1373
+---
+
 # GEMINI.md
 
 ## Project Overview

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-UET-INTEGRATION-SUMMARY-1213
+---
+
 # UET Integration - Implementation Summary
 
 **Date**: 2025-11-22  

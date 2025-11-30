@@ -1,3 +1,7 @@
+---
+doc_id: DOC-AIM-AIM-CAPABILITIES-CATALOG-160
+---
+
 # AIM Capabilities Catalog
 
 **Version:** 1.0

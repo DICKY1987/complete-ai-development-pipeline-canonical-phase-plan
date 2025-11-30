@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-CHAT-GPT-ID-718
+---
+
 Below is an expert review of the ID strategy **based only on what appears in this chat**.
 
 ---

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PHASE-08-COMPLETION-SUMMARY-1268
+---
+
 # Phase 08: CCPM + OpenSpec Integration - Completion Summary
 
 **Date Completed:** 2025-11-16

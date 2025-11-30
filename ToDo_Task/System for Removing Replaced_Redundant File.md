@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-SYSTEM-FOR-REMOVING-REPLACED-REDUNDANT-1091
+---
+
 
    🗑️ Part 2: System for Removing Replaced/Redundant File
 

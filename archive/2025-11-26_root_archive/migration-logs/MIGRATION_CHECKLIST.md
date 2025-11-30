@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-MIGRATION-CHECKLIST-1141
+---
+
 # Documentation Migration Checklist
 
 > **Date**: 2025-11-22  

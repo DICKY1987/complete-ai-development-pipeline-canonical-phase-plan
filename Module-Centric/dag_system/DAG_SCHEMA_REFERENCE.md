@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-DAG-SCHEMA-REFERENCE-1448
+---
+
 # DAG Schema Reference (v1.0.0)
 
 Baseline JSON fields for all DAG tiers. Extend `metadata` as needed; keep `schema_version` to allow

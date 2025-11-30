@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-DAG-ARCHITECTURE-1445
+---
+
 # DAG Architecture (Three-Tier, Derived State)
 
 This repository treats all DAG artifacts as **derived state** built from manifests, patterns, and

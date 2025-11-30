@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PIPELINE-RADAR-PLUGIN-1419
+---
+
 # Pipeline Radar Plugin
 
 ## Overview

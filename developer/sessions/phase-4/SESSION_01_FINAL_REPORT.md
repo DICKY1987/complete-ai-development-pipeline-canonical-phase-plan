@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-SESSION-01-FINAL-REPORT-1314
+---
+
 # Phase 4 Week 1 Session 1: COMPLETE
 
 **Session ID:** SESSION-04-W1-01  

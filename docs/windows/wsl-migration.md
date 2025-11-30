@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-WSL-MIGRATION-1367
+---
+
 # WSL migration: Codex CLI and Aider on Windows
 
 This document centralizes the Windows‑first WSL2 migration guides and scripts to run Codex CLI and Aider with local Ollama models. Scripts remain in their original folder to avoid breaking changes; thin wrappers are provided under `scripts/wsl/` for convenience and consistency with repository conventions.

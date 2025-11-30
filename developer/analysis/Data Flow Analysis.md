@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-DATA-FLOW-ANALYSIS-1190
+---
+
 
  ▐▛███▜▌   Claude Code v2.0.42
 ▝▜█████▛▘  Sonnet 4.5 · Claude Pro

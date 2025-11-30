@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-FILE-ORG-VISUAL-1243
+---
+
 # File Organization Visual Guide
 
 > **Purpose**: Visual diagrams showing the file organization system  

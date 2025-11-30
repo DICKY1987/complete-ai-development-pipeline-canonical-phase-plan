@@ -1,3 +1,7 @@
+---
+doc_id: DOC-AIM-AI-STEWARD-CONFIG-ORCHESTRATOR-TUI-156
+---
+
 # AI-Steward Config Orchestrator (TUI-Aware, Headless-First)
 
 **Technical Design for Agentic AI Implementation (No UI Spec)**

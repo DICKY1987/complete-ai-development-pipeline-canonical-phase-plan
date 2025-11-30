@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-ERROR-PIPELINE-MOD-README-1129
+---
+
 # ERROR_PIPELINE_MOD - Validation Pipeline GUI
 
 A deterministic, plugin-based file validation system with a Windows desktop GUI. Automatically validates and fixes files using configurable plugins (Ruff, Black, Pylint, ESLint, etc.) with incremental validation and comprehensive error reporting.

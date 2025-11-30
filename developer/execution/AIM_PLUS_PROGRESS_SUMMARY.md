@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-AIM-PLUS-PROGRESS-SUMMARY-1202
+---
+
 # AIM+ Integration - Overall Progress Summary
 
 **Updated**: 2025-11-21  

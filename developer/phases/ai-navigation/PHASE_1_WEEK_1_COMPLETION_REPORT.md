@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PHASE-1-WEEK-1-COMPLETION-REPORT-1262
+---
+
 # 🎉 Phase 1 Week 1 - Near Completion Report
 
 **Date**: 2025-11-23  

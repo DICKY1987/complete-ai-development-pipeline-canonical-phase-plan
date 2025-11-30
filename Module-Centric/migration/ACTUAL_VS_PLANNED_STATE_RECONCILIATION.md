@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-ACTUAL-VS-PLANNED-STATE-RECONCILIATION-1456
+---
+
 # Actual vs Planned State Reconciliation
 
 Goal: reconcile the real repository layout (`repo_tree.txt`) with the planned module-centric “after”

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-S01-COMPLETION-REPORT-1151
+---
+
 # S01 Completion Report: Create OPERATION_KIND_REGISTRY.yaml
 
 **Step**: S01  

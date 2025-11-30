@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PHASE-OPENSPEC-INTEGRATION-1274
+---
+
 # OpenSpec integration phase plan
 
 ## Overview

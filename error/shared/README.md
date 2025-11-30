@@ -1,3 +1,7 @@
+---
+doc_id: DOC-ERROR-README-091
+---
+
 # Error System Shared Utilities
 
 **Purpose**: Common utilities, types, and helpers for the error detection system.

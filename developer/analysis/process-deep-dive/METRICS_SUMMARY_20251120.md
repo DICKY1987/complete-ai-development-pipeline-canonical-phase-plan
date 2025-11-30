@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-METRICS-SUMMARY-20251120-1257
+---
+
 # Development Metrics Summary Report
 
 **Generated:** 2025-11-20T10:16:55.501222

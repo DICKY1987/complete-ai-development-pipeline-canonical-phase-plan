@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-01000A-README-1485
+---
+
 # Error Plugin: js_prettier_fix
 
 **Module ID**: error-plugin-js-prettier-fix  

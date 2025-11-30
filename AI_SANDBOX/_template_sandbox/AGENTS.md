@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-AGENTS-1111
+---
+
 # Codex CLI Instructions - AI Sandbox Clone (Windows)
 
 ## Context

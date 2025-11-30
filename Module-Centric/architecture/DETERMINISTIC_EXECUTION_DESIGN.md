@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-DETERMINISTIC-EXECUTION-DESIGN-1443
+---
+
 # Deterministic Execution Design
 
 How ULID identity + manifests + derived DAGs produce reproducible, verifiable execution plans.

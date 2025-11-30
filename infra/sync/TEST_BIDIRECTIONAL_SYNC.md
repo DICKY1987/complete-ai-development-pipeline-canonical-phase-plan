@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-TEST-BIDIRECTIONAL-SYNC-1437
+---
+
 # Test Zero-Touch Sync Bidirectionality
 
 ## Test 1: Create File Locally

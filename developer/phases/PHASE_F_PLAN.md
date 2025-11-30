@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PHASE-F-PLAN-1233
+---
+
 # Phase F: Post-Refactor Finalization & Long-Term Maintenance
 
 **Status**: Optional - Can be executed incrementally  

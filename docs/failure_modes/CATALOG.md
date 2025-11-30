@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-CATALOG-1337
+---
+
 # Failure Mode Catalog
 
 ## Purpose

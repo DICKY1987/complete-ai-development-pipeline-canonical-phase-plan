@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-EXECUTION-SUMMARY-PH-010-FAST-1259
+---
+
 # Documentation Reorganization - Execution Summary
 
 **Phase**: PH-010-FAST  

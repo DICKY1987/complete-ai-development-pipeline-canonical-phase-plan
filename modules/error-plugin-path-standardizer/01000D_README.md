@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-01000D-README-1489
+---
+
 # Error Plugin: path_standardizer
 
 **Module ID**: error-plugin-path-standardizer  

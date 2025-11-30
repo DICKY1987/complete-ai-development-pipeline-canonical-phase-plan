@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-SECTION-REFACTOR-PLAN-1252
+---
+
 # Section refactor plan (WS‑02)
 
 This document captures the section mapping configuration and analysis derived from the WS‑01

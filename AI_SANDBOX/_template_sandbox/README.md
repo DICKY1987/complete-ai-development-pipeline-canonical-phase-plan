@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-1113
+---
+
 # AI Sandbox Template
 
 This is a template directory containing all the configuration files needed for AI-assisted development with multiple tools.

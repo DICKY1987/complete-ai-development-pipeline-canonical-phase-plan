@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-WHY-MODULE-CENTRIC-WORKS-1444
+---
+
 # Why Module-Centric Works
 
 Module-centric organization outperforms artifact-type layouts for AI-first development.

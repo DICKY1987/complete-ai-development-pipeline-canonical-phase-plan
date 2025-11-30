@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-SESSION-SUMMARY-2025-11-19-1255
+---
+
 # Session Summary: WS-21 & WS-22 Complete - Phase F Documentation & CI Enforcement
 
 **Session Date**: 2025-11-19  

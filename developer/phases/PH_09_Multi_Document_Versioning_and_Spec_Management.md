@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PH-09-MULTI-DOCUMENT-VERSIONING-AND-1239
+---
+
 TITLE: PH-09 – Multi-Document Versioning & Spec Management (Codex Autonomous Phase Executor)
 
 ROLE

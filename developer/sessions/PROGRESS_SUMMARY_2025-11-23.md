@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROGRESS-SUMMARY-2025-11-23-1253
+---
+
 # Repository Progress Summary
 **Date:** 2025-11-23  
 **Review Period:** Last 24 hours  

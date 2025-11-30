@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-ARCHITECTURE-MIGRATION-PLAN-1411
+---
+
   Recommended Approach
 
   Question 1: Interface Type → Python Protocols + Event-Based Messaging

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-TESTS-OPENSPEC-CHECKLIST-1358
+---
+
 # OpenSpec test checklist
 
 This checklist enumerates existing tests and proposed tests to ensure the OpenSpec → Bundle → Workstream → Pipeline flow remains correct and deterministic.

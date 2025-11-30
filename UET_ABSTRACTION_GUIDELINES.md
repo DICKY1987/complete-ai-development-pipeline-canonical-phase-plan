@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-UET-ABSTRACTION-GUIDELINES-1002
+---
+
 # UET Abstraction Guidelines
 
 **Status**: Active  

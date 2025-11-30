@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-1433
+---
+
 # TUI App - AI Development Pipeline Terminal UI
 
 A Textual-based terminal user interface for monitoring and controlling the AI Development Pipeline.

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-CLEANUP-REPORT-1140
+---
+
 # Repository Cleanup - Execution Report
 **Date**: 2025-11-23  
 **Status**: ✅ Complete  

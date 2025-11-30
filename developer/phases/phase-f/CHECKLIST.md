@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-CHECKLIST-1281
+---
+
 # Phase F Checklist - Post-Refactor Finalization
 
 Quick reference checklist for completing Phase F optional tasks.

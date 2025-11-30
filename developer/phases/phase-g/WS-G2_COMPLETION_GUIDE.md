@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-WS-G2-COMPLETION-GUIDE-1294
+---
+
 # Phase G - WS-G2 Implementation Guide
 
 **Status**: Foundation Complete + Pattern Established  

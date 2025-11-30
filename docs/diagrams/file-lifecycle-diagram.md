@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-FILE-LIFECYCLE-DIAGRAM-1328
+---
+
 # File lifecycle diagram
 
 This diagram mirrors the file lifecycle states defined in `core/ui_models.py`

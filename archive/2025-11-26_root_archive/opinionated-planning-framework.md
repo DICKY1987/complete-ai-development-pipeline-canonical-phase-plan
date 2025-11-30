@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-OPINIONATED-PLANNING-FRAMEWORK-1117
+---
+
 Below is a comprehensive, opinionated planning framework you can use to rewrite your project plan so it is:
 
 1. Directly actionable by Aider (clear prompts, file scoping, acceptance criteria).

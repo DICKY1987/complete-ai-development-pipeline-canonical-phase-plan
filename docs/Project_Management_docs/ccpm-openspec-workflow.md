@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-CCPM-OPENSPEC-WORKFLOW-1355
+---
+
 # CCPM + OpenSpec + Pipeline Unified Workflow
 
 ## Overview

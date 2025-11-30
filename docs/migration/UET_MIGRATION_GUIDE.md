@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-UET-MIGRATION-GUIDE-1345
+---
+
 # UET Migration Guide
 **Version**: 1.0.0 | **Date**: 2025-11-25
 

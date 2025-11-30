@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-GITHUB-ISSUES-RESOLUTION-1210
+---
+
 # Phase: GitHub Issues Resolution Plan
 
 **Phase ID:** `PHASE-GH-ISSUES-2025-11`  

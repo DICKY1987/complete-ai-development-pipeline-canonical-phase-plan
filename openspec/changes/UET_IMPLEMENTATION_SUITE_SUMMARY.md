@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-UET-IMPLEMENTATION-SUITE-SUMMARY-1504
+---
+
 # UET Implementation OpenSpec Suite - Summary
 
 **Created**: 2025-11-23  

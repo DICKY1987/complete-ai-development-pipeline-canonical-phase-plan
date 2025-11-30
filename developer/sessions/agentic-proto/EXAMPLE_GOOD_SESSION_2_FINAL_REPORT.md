@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-EXAMPLE-GOOD-SESSION-2-FINAL-REPORT-1307
+---
+
    All documentation, ledger entries, and test reports have been created in SESSION_2_FINAL_REPORT.md.
 
  > save modifications in session 1 & 2 to github repo

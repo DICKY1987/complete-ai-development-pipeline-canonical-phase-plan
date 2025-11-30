@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-RECOMMENDATIONS-1306
+---
+
 # Phase K Enhancement Recommendations: Beyond Documentation Structure
 
 **Created**: 2025-11-22

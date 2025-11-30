@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROPOSED-DIRECTORY-TREE-1250
+---
+
 # Proposed Directory Structure - Visual Reference
 
 **Project:** Pipeline Plus AI Development System  

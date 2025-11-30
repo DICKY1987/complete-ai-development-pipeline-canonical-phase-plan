@@ -1,3 +1,7 @@
+---
+doc_id: DOC-AIM-AIM-ADAPTERS-INTERFACE-164
+---
+
 Adapter Interface (AIM_)
 
 Purpose

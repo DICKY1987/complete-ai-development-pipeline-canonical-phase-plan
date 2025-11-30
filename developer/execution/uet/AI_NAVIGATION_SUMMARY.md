@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-AI-NAVIGATION-SUMMARY-1258
+---
+
 # AI Navigation Implementation Summary
 
 This document summarizes the AI navigation enhancements applied to the UET framework based on best practices for AI tool discoverability.

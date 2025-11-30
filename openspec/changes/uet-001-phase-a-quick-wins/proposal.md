@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROPOSAL-1507
+---
+
 # Phase A: Quick Wins - UET Implementation
 
 **Change ID**: uet-001-phase-a-quick-wins  

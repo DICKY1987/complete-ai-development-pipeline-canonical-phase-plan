@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-ARCHITECTURE-1128
+---
+
 # Technical Architecture Documentation
 
 ## System Overview

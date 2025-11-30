@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-INSTALLATION-COMPLETE-1434
+---
+
 # ✅ Git Auto-Sync Setup Complete
 
 ## What Was Installed

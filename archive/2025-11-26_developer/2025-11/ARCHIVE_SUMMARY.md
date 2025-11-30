@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-ARCHIVE-SUMMARY-1126
+---
+
 # Archive Summary - 2025-11-22
 
 **Operation**: Archive AI_MANGER and AUX_mcp-data folders  

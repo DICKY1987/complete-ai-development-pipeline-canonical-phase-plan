@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-COMPLETE-1279
+---
+
 # Phase 4A Complete: Queue Infrastructure
 
 **Completed**: 2025-11-21  

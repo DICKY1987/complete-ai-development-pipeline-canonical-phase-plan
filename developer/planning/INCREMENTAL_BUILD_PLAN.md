@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-INCREMENTAL-BUILD-PLAN-1245
+---
+
 # Incremental Build Plan - AI Orchestration System
 ## Each Part Immediately Useful for the Next
 

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-USER-PROCESS-ASSESSMENT-1195
+---
+
 # User Process Understanding Assessment
 
 > **Purpose**: Assessment of user's understanding vs actual codebase capabilities  

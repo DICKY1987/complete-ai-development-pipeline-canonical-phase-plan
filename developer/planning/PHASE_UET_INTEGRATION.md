@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PHASE-UET-INTEGRATION-1249
+---
+
 # PHASE UET: Universal Execution Templates Integration
 
 **Phase ID**: PH-UET  

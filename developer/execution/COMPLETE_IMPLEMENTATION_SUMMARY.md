@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-COMPLETE-IMPLEMENTATION-SUMMARY-1204
+---
+
 # Complete Implementation Summary
 
 ## Error Pipeline Plugin Ecosystem + Test Suite

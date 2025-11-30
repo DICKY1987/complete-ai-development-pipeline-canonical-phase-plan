@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-AI-NAVIGATION-SESSION-SUMMARY-1311
+---
+
 # AI Navigation Enhancement - Session Summary
 **Date**: 2025-11-23  
 **Session**: Batch Execution Implementation  

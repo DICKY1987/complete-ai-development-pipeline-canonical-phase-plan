@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-AI-EVAL-REALITY-CHECK-1376
+---
+
 # AI Evaluation Reality Check & Corrections
 **Date**: 2025-11-29  
 **Purpose**: Separate actual issues from assumed problems in AI evaluations  

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-WS-G1-COMPLETE-1293
+---
+
 # Phase G - WS-G1 Implementation Complete ✅
 
 **Date Completed**: 2025-11-21  

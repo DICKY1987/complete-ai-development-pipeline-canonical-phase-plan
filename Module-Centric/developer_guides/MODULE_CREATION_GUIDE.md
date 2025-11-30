@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-MODULE-CREATION-GUIDE-1450
+---
+
 # Module Creation Guide
 
 Steps to create a new module following the module-centric pattern.

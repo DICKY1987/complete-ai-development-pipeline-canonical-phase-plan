@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PHASE-09-CCPM-INTEGRATION-PLAN-1271
+---
+
 # Phase 09: CCPM Integration - Recommended Plan
 
 **Status:** Draft  

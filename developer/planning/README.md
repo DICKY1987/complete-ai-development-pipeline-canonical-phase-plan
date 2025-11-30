@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-1251
+---
+
 # Planning Documents
 
 > **Purpose**: Planning documents, proposals, and design discussions  

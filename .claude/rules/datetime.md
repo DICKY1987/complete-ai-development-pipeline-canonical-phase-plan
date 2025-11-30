@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-DATETIME-1099
+---
+
 # DateTime Rule
 
 ## Getting Current Date and Time

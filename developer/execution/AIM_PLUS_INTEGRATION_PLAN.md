@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-AIM-PLUS-INTEGRATION-PLAN-1200
+---
+
 # AIM+ Integration Plan: Unified AI Development Environment Manager
 
 **Status**: Planning  

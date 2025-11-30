@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-COMPLETE-1276
+---
+
 # Phase 2B Complete: Additional Adapters
 
 **Completed**: 2025-11-21  

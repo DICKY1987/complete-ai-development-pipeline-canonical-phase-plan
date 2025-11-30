@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-COMPLETE-AI-DEVELOPMENT-PIPELINE-1228
+---
+
 # Complete AI Development Pipeline – Canonical Phase Plan
 
 

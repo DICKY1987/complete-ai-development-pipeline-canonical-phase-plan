@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROGRESS-CHECKPOINT-2025-11-20-1123
+---
+
 # Universal Execution Templates Framework - Progress Report
 
 **Date:** 2025-11-20  

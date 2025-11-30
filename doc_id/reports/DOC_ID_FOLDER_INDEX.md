@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-DOC-ID-FOLDER-INDEX-1386
+---
+
 # Doc ID Folder - Complete Index
 **Generated**: 2025-11-29  
 **Status**: All files reviewed, no conflicts  

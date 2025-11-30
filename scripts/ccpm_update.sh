@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# DOC_LINK: DOC-SCRIPT-CCPM-UPDATE-280
 set -euo pipefail
 
 ROOT_DIR=$(cd "$(dirname "$0")/.." && pwd)

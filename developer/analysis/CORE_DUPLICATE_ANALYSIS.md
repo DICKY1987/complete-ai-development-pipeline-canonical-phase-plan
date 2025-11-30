@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-CORE-DUPLICATE-ANALYSIS-1189
+---
+
 # Core Duplicate Analysis
 
 **Date:** 2025-11-21  

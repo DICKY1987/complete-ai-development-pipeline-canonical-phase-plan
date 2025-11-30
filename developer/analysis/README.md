@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-1192
+---
+
 # Technical Analysis
 
 > **Purpose**: Technical analysis documents and data flow diagrams  

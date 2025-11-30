@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-GUIDANCE-FOR-STRUCTURING-AIDER-1110
+---
+
 guidance for structuring Aider workstream instruction files 
 
 

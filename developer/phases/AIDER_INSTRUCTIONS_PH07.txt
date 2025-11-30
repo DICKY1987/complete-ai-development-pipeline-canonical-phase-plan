@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-AIDER-INSTRUCTIONS-PH07-717
+---
+
 TASK: Execute Phase PH-07 Implementation
 
 Please read the complete specifications from PHASE_DEV_DOCS/PH_07_GUI_Layer_and_Plugin_System.md and execute the entire phase implementation autonomously.

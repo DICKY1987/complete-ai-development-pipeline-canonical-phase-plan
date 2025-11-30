@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-1402
+---
+
 # Tools Directory
 
 **Purpose**: CLI tools, scripts, and utilities for Doc ID framework  

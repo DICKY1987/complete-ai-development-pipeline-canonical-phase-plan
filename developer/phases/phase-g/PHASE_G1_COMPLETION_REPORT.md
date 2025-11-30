@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PHASE-G1-COMPLETION-REPORT-1289
+---
+
 # Phase G1 Completion Report
 
 **Phase**: G1 - Critical Fixes & Foundation  

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-ENGINE-IMPLEMENTATION-SUMMARY-1206
+---
+
 # Hybrid GUI Architecture - Implementation Summary
 
 ## What Was Created

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-ERROR-README-090
+---
+
 # Error Detection Plugins
 
 **Purpose**: Pluggable detection tools for Python, JavaScript, Markdown, YAML, security, and testing.

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-TEST-RUNNER-1370
+---
+
 # Test Runner Plugin
 
 Uses CCPM's `test-and-log.sh` for multi-language test execution.

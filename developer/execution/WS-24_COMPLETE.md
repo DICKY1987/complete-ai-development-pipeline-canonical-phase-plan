@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-WS-24-COMPLETE-1221
+---
+
 # WS-24 Completion Summary: Deprecation & Shim Removal Plan
 
 **Date Completed**: 2025-11-19  

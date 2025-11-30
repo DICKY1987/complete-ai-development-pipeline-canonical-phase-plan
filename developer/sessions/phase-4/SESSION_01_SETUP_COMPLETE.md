@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-SESSION-01-SETUP-COMPLETE-1315
+---
+
 # Phase 4 Week 1 Session 1: Setup Complete
 
 **Session ID:** SESSION-04-W1-01  

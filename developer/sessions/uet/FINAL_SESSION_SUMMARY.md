@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-FINAL-SESSION-SUMMARY-1316
+---
+
 # Final Session Summary - 2025-11-23
 
 **Total Duration**: ~2 hours  

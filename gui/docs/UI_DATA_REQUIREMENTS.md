@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-UI-DATA-REQUIREMENTS-1424
+---
+
 # UI Component Data Requirements
 
 This document defines the data requirements and API contracts for the 7 main UI components described in the interface specification.

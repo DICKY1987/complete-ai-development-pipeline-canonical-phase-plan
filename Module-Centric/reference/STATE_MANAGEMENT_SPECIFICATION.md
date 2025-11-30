@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-STATE-MANAGEMENT-SPECIFICATION-1465
+---
+
 # State Management Specification
 
 Defines how module and global state are stored and referenced.

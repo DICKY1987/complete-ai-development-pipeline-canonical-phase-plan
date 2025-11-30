@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-WORKSTREAM-SUMMARY-1265
+---
+
 # AI Navigation Enhancement v2 - Workstream Summary
 
 **Phase**: PH-AI-NAV-002  

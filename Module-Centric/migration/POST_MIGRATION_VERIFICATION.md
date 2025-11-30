@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-POST-MIGRATION-VERIFICATION-1458
+---
+
 # Post-Migration Verification
 
 Use this checklist after completing the migration to confirm the repo is in a stable module-centric

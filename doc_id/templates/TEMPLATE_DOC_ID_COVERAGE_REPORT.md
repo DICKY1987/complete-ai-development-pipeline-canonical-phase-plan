@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-TEMPLATE-DOC-ID-COVERAGE-REPORT-1399
+---
+
 # Doc ID Coverage Report
 **Generated**: {{timestamp}}
 **Inventory**: {{inventory_file}}

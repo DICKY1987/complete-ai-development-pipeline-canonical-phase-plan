@@ -1,1 +1,5 @@
+---
+doc_id: DOC-PAT-PHASE0-GUARD-SETUP-709
+---
+
 Phase 0 complete: guard checklist and pattern selection recorded.

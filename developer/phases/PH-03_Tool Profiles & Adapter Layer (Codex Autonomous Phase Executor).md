@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PH-03-TOOL-PROFILES-ADAPTER-LAYER-CODEX-1232
+---
+
 PH-03_Tool Profiles & Adapter Layer (Codex Autonomous Phase Executor)
 
 ROLE

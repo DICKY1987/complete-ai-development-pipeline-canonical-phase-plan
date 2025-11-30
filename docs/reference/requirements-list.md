@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-REQUIREMENTS-LIST-1364
+---
+
 # Repository Validation Requirements - Complete List
 
 **Checklist ID**: AI-ORCH-REPO-V1.0  

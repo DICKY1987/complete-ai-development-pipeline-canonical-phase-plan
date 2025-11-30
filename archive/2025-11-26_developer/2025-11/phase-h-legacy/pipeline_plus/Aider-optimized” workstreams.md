@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-AIDER-OPTIMIZED-WORKSTREAMS-1132
+---
+
 Short version:
 Yes, “Aider-optimized” workstreams are absolutely viable – **if you treat “Aider-optimized” as a *view* on a tool-neutral spec, not the spec itself.** Other CLIs can work off the same tasks just fine, as long as you don’t hard-wire Aider slash-command semantics into the *only* representation.
 

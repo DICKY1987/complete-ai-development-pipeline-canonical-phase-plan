@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-GITHUB-OPERATIONS-1100
+---
+
 # GitHub Operations Rule
 
 Standard patterns for GitHub CLI operations across all commands.

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PHASE-3-PLAN-1120
+---
+
 # Phase 3: Orchestration Engine - Implementation Plan
 
 **Date:** 2025-11-20  

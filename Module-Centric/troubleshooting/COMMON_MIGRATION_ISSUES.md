@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-COMMON-MIGRATION-ISSUES-1467
+---
+
 # Common Migration Issues
 
 - Missing manifest: `validate_modules.py` fails or DAG generation skips a module.

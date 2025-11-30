@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-WS-21-COMPLETE-1219
+---
+
 # WS-21: CI Gate Path Standards - Completion Summary
 
 **Date Completed**: 2025-11-19  

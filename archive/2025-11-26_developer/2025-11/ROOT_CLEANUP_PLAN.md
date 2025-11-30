@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-ROOT-CLEANUP-PLAN-1127
+---
+
 # Root Directory Cleanup Plan
 
 > **Purpose**: Document reorganization of root-level files  

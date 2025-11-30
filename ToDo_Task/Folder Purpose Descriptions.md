@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-FOLDER-PURPOSE-DESCRIPTIONS-1086
+---
+
 
    Folder Purpose Descriptions
 

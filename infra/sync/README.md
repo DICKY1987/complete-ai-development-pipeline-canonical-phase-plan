@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-1436
+---
+
 # Zero-Touch Git Auto-Sync
 
 **Problem**: Users constantly worry "Am I in sync with GitHub?"

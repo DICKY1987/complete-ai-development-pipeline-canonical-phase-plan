@@ -1,3 +1,7 @@
+---
+doc_id: DOC-AIM-TOOL-INVENTORY-159
+---
+
 # Complete AI Development Pipeline - Tool & Application Inventory
 # Generated: 2025-11-18 12:26:48
 # Repository: Complete AI Development Pipeline – Canonical Phase Plan

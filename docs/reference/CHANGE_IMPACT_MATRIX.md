@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-CHANGE-IMPACT-MATRIX-1360
+---
+
 # Change Impact Matrix
 
 **Purpose:** Document critical dependencies in the codebase so that AI agents and developers can predict ripple effects before making changes.

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PLAN-1305
+---
+
 # Phase K: Documentation Enhancement & AI Understanding Improvement
 
 **Status**: Planning  

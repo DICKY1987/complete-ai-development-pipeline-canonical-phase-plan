@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-01001A-README-1471
+---
+
 # AIM Cli
 
 **Module ID**: aim-cli  

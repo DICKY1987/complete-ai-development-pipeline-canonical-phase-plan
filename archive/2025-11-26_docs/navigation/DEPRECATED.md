@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-DEPRECATED-1135
+---
+
 # DEPRECATED - Navigation Documents Archived
 
 **Date**: 2025-11-23  

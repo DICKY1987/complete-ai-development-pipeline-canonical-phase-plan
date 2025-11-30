@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-UET-INTEGRATION-WITH-MODULES-1455
+---
+
 # UET Integration with Modules
 
 How Universal Execution Templates (UET) interact with the module-centric structure.

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-TUI-PANEL-FRAMEWORK-GUIDE-1338
+---
+
 # TUI Panel Framework Guide
 
 ## Overview

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROTOTYPE-ANALYSIS-1118
+---
+
 # AGENTIC_DEV_PROTOTYPE Analysis Report
 
 **Analyzed**: 2025-11-23  

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-WS-08-COMPLETION-PLAN-1218
+---
+
 # WS-08 Refactor Completion Plan
 
 **Status**: In Progress

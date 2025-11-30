@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-AI-CONTEXT-LOADING-OPTIMIZATION-1442
+---
+
 # AI Context Loading Optimization
 
 Goal: minimize context size and ambiguity for AI tools by aligning repository structure with module

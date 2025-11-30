@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-1096
+---
+
 # Universal Execution Templates Framework - Documentation Index
 
 **Status**: Framework 78% Complete (Phase 3 Done, Phase 4 Planned)  

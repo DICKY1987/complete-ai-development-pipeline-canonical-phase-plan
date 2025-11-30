@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-UET-DOC-CLEANUP-COMPLETION-REPORT-1153
+---
+
 # UET Documentation Cleanup - Completion Report
 
 **Execution Date**: 2025-11-25 05:57  

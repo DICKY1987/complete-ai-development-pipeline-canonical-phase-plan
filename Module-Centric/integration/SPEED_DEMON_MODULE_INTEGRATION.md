@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-SPEED-DEMON-MODULE-INTEGRATION-1454
+---
+
 # Speed Demon Integration with Modules
 
 How the Speed Demon orchestration system should use the module-centric layout.

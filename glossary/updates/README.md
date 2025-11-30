@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-1408
+---
+
 # Glossary Updates (Patch Specifications)
 
 **Purpose**: Store patch specifications for bulk glossary updates

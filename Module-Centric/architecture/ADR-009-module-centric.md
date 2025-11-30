@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-ADR-009-MODULE-CENTRIC-1438
+---
+
 # ADR-009: Module-Centric Architecture Decision
 
 ## Context

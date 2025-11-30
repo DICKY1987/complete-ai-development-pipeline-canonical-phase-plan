@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-SESSION-1-FINAL-REPORT-1308
+---
+
 # Game Board Protocol - Session 1 Final Report
 
 **Date:** 2025-11-20  

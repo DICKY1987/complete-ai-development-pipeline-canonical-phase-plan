@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PH-05-GIT-WORKTREE-LIFECYCLE-MANAGEMENT-1235
+---
+
 TITLE: PH-05 – Orchestrator Core Loop (Single Workstream) (Codex Autonomous Phase Executor)
 
 ROLE

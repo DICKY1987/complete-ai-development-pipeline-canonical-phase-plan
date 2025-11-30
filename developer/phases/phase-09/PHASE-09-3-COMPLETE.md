@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PHASE-09-3-COMPLETE-1270
+---
+
 # Phase 09.3: Bridge Layer - COMPLETE
 
 **Date:** 2025-11-21  

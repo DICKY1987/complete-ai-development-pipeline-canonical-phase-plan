@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-TELEMETRY-SPECIFICATION-1462
+---
+
 # Telemetry Specification
 
 Defines what is logged to `.execution/telemetry.jsonl` (or similar) during migration and operations.

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-MIGRATION-COMPLETE-1211
+---
+
 # ✅ Specification Folder Migration - COMPLETE
 
 **Date:** 2025-11-20  

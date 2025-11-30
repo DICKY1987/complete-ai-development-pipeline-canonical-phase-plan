@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-AGENTIC-PROTO-EXECUTION-SUMMARY-1197
+---
+
 # Game Board Protocol - Execution Summary
 
 **Date:** 2025-11-20  

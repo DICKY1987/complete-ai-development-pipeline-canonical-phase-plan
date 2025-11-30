@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PHASE-001-SUMMARY-1145
+---
+
 # Phase PH-NEXT-001 Execution Summary
 
 **Date**: 2025-11-23  

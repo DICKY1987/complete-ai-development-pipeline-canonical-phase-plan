@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-MODULE-CONFLICT-RESOLUTION-1470
+---
+
 # Module Conflict Resolution
 
 Handling merge conflicts and overlapping changes in module-centric structure.

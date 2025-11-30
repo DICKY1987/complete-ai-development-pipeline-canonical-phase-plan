@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-SESSION-CHECKPOINT-2025-11-20-FINAL-1317
+---
+
 # Universal Execution Templates Framework
 ## Session Checkpoint - 2025-11-20 21:42 UTC
 

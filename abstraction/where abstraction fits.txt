@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-WHERE-ABSTRACTION-FITS-696
+---
+
 
  **where abstraction fits** in *your* pipeline and then give a **concrete “abstraction plan”** you can implement.
 

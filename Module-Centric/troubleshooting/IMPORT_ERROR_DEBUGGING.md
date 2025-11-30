@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-IMPORT-ERROR-DEBUGGING-1469
+---
+
 # Import Error Debugging
 
 Checklist for "cannot import name" or similar issues after the module-centric migration.

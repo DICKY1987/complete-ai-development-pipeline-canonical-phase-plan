@@ -1,4 +1,5 @@
 #!/bin/bash
+# DOC_LINK: DOC-SCRIPT-CHECK-PATH-STANDARDS-281
 
 # Path Standards Validation Script
 # Validates that project documentation follows path format standards

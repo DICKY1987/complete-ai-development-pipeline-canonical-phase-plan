@@ -1,3 +1,7 @@
+---
+doc_id: DOC-AIM-AIM-REGISTRY-FORMAT-166
+---
+
 Registry Format (AIM_)
 
 Top-level fields

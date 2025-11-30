@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-HYBRID-UI-GUI-SHELL-TERMINAL-TUI-ENGINE-1416
+---
+
 Hybrid UI_GUI shell_terminal_TUI engine
 
 This style means:

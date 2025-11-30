@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-MODULE-OUTPUTS-AND-VISUALS-1418
+---
+
 **High-Level Summary**
 - Major runtime modules: `engine/orchestrator`, `engine/adapters` (aider/codex/tests/git), `engine/state_store`, `engine/queue`, `error/engine`, and the shared state/observability stack in `modules/core-state` + `core/*` UI infra (file lifecycle, tool health, error/quarantine, events).
 - Primary outputs: per-job log files and error reports, `JobResult` JSON payloads, SQLite tables (`runs`, `workstreams`, `step_attempts`, `events`, `errors`, `patches`, `job_queue`, `file_lifecycle`, `tool_health_metrics`, `error_records`, `uet_events`, `jobs`), validation caches, and structured error/pattern reports.

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-01000F-README-1491
+---
+
 # Error Plugin: python_bandit
 
 **Module ID**: error-plugin-python-bandit  

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PATH-ABSTRACTION-SPEC-1087
+---
+
 # Path abstraction and indirection layer
 
 This document defines the key→path indirection layer used by scripts and tools to

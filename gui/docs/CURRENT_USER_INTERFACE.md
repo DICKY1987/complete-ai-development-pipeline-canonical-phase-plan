@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-CURRENT-USER-INTERFACE-1412
+---
+
 # Current User Interface - Complete Description
 
 ## Overview

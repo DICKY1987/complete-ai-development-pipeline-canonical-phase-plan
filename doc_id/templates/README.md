@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-1398
+---
+
 # Doc ID Templates
 
 Standardized templates for the doc_id system.

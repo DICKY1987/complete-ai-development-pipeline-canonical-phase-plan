@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-SAFEPATCH-WORKTREE-GUIDE-1453
+---
+
 # SafePatch Worktree Guide
 
 Using git worktrees safely with module-centric boundaries.

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-UI-FLOW-DIAGRAM-1427
+---
+
 # User Interface Flow Diagram
 
 This document provides a visual representation of how users interact with the current CLI-based interface.

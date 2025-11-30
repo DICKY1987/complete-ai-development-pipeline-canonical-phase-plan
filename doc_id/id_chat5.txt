@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-ID-CHAT5-698
+---
+
 You’re remembering exactly right — this *is* the “Phase 0: auto-assign IDs to everything” we designed in the ID framework exploration. 
 
 Right now you already have:

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PH-01-SPEC-ALIGNMENT-INDEX-MAPPING-CODEX-1230
+---
+
 PH-01_Spec Alignment & Index Mapping (Codex Autonomous Phase Executor)
 
 ROLE

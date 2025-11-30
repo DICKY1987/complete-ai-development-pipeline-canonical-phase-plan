@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-UET-ZERO-TOUCH-GIT-SYNC-1093
+---
+
 # UET: Zero-Touch Git Auto-Sync System
 
 **Universal Execution Template for AI-Driven Development**

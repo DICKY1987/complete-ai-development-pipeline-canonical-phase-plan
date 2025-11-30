@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-QUICK-REFERENCE-CARD-1368
+---
+
 # 🚀 Execution Patterns Quick Reference Card
 
 **For**: Claude Code, GitHub Copilot, Codex, all AI agents  

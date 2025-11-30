@@ -1,3 +1,4 @@
+doc_id: DOC-CONFIG-TEMPLATE-MODULE-DOC-MAP-281
 metadata:
   generated_at: "{{timestamp}}"
   total_modules: {{module_count}}
