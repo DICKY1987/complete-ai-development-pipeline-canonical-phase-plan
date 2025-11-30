@@ -1,0 +1,6 @@
+# DOC_ID: {{DOC_ID}}
+"""
+{{TITLE}}
+
+{{SHORT_DESCRIPTION}}
+"""

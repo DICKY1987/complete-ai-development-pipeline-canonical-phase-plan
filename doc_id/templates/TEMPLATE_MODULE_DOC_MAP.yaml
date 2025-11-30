@@ -1,0 +1,10 @@
+metadata:
+  generated_at: "{{timestamp}}"
+  total_modules: {{module_count}}
+
+modules:
+  {{module_id}}:
+    description: {{description}}
+    docs:
+      - doc_id: {{DOC_ID}}
+        path: {{path}}

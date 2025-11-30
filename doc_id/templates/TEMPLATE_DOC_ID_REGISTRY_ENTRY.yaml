@@ -1,0 +1,15 @@
+# TEMPLATE_DOC_ID_REGISTRY_ENTRY.yaml
+
+- doc_id: DOC-{{CATEGORY}}-{{NAME}}-{{NNN}}
+  category: {{category_slug}}
+  name: {{short_machine_name}}
+  title: {{human_readable_title}}
+  status: active
+  module_id: {{module.namespace}}
+  artifacts:
+    - type: {{artifact_type}}
+      path: {{relative/path.ext}}
+  created: "{{YYYY-MM-DD}}"
+  last_modified: "{{YYYY-MM-DD}}"
+  tags:
+    - {{tag_1}}
