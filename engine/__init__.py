@@ -11,5 +11,7 @@ Architecture:
 - interfaces/: Protocol definitions for section contracts
 - types.py: Shared type definitions
 """
+DOC_ID: DOC-PAT-ENGINE-INIT-353
+DOC_ID: DOC-PAT-ENGINE-INIT-309
 
 __version__ = "0.1.0"

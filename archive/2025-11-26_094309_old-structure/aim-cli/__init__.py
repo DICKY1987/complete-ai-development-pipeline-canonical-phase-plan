@@ -27,6 +27,8 @@ Usage:
     runner = CliRunner()
     result = runner.invoke(cli, ['health', 'check'])
 """
+DOC_ID: DOC-PAT-AIM-CLI-INIT-374
+DOC_ID: DOC-PAT-AIM-CLI-INIT-330
 
 __version__ = "1.0.0"
 

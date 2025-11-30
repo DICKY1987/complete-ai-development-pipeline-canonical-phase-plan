@@ -1,3 +1,5 @@
+# DOC_LINK: DOC-PAT-TEXTUAL-APP-363
+# DOC_LINK: DOC-PAT-TEXTUAL-APP-319
 from __future__ import annotations
 
 from typing import Iterable, List, Optional

@@ -12,3 +12,5 @@ from scripts.run_workstream import main
 
 if __name__ == "__main__":
     sys.exit(main())
+# DOC_LINK: DOC-SCRIPT-SCRIPTS-RUN-WS-WRAPPER-168
+# DOC_LINK: DOC-SCRIPT-SCRIPTS-RUN-WS-WRAPPER-231

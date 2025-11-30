@@ -8,6 +8,8 @@ Output:
 - reports/registry_backfill_plan.json containing inferred module ownership and
   artifact_kind per file to drive registry population before moving files.
 """
+DOC_ID: DOC-SCRIPT-SCRIPTS-GENERATE-REGISTRY-BACKFILL-PLAN-211
+DOC_ID: DOC-SCRIPT-SCRIPTS-GENERATE-REGISTRY-BACKFILL-PLAN-148
 
 import argparse
 import json

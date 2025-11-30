@@ -3,6 +3,8 @@
 Worktree Manager for Multi-Agent Orchestration
 Provides isolated git worktrees for parallel agent execution
 """
+DOC_ID: DOC-SCRIPT-SCRIPTS-WORKTREE-MANAGER-245
+DOC_ID: DOC-SCRIPT-SCRIPTS-WORKTREE-MANAGER-182
 
 import subprocess
 import logging

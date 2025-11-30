@@ -1,3 +1,5 @@
+# DOC_LINK: DOC-PAT-TREE-SITTER-INIT-371
+# DOC_LINK: DOC-PAT-TREE-SITTER-INIT-327
 from __future__ import annotations
 
 from dataclasses import dataclass

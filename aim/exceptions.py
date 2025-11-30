@@ -3,6 +3,10 @@
 Provides domain-specific exception classes for better error handling
 and debugging of AIM registry operations.
 """
+DOC_ID: DOC-AIM-AIM-EXCEPTIONS-081
+DOC_ID: DOC-AIM-AIM-EXCEPTIONS-076
+DOC_ID: DOC-AIM-AIM-EXCEPTIONS-073
+DOC_ID: DOC-AIM-AIM-EXCEPTIONS-071
 
 from typing import Any, Dict, List, Tuple
 

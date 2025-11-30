@@ -7,6 +7,8 @@ Tests:
 3. Test basic execution (without external tools)
 4. Validate error handling
 """
+DOC_ID: DOC-SCRIPT-SCRIPTS-TEST-ADAPTERS-235
+DOC_ID: DOC-SCRIPT-SCRIPTS-TEST-ADAPTERS-172
 
 import sys
 from pathlib import Path

@@ -3,6 +3,8 @@
 Quick script to remove duplicate config entries from DOC_ID_REGISTRY.yaml
 Keeps only the first occurrence of each config file (lowest sequence number)
 """
+DOC_ID: DOC-SCRIPT-SCRIPTS-CLEAN-REGISTRY-DUPLICATES-198
+DOC_ID: DOC-SCRIPT-SCRIPTS-CLEAN-REGISTRY-DUPLICATES-135
 
 import yaml
 from pathlib import Path

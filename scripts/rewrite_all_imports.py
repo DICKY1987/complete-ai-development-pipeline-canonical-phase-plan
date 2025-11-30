@@ -3,6 +3,8 @@ Automated Import Rewriter
 Pattern: EXEC-001 + Batch Processing
 Generates and applies import path rewrites across all Python files
 """
+DOC_ID: DOC-SCRIPT-SCRIPTS-REWRITE-ALL-IMPORTS-225
+DOC_ID: DOC-SCRIPT-SCRIPTS-REWRITE-ALL-IMPORTS-162
 
 import sys
 from pathlib import Path

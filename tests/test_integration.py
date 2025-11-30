@@ -80,3 +80,5 @@ def test_all_pipeline_components_present(orchestrator):
     assert hasattr(orchestrator, 'circuit_breaker')
     # Phase 5: Adapters
     assert hasattr(orchestrator, 'adapters')
+# DOC_LINK: DOC-TEST-TESTS-TEST-INTEGRATION-046
+# DOC_LINK: DOC-TEST-TESTS-TEST-INTEGRATION-085

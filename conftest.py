@@ -2,6 +2,10 @@
 
 This file is loaded before any tests and sets up the Python path.
 """
+DOC_ID: DOC-PAT-CONFTEST-338
+DOC_ID: DOC-PAT-CONFTEST-294
+DOC_ID: DOC-PAT-CONFTEST-279
+DOC_ID: DOC-PAT-CONFTEST-264
 import sys
 from pathlib import Path
 

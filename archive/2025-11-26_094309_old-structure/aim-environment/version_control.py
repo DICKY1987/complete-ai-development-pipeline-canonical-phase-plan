@@ -4,6 +4,7 @@ Version control for tracking and syncing tool versions.
 Manages version drift detection and synchronization of installed tools
 against pinned versions in configuration.
 """
+DOC_ID: DOC-PAT-AIM-ENVIRONMENT-VERSION-CONTROL-380
 
 import asyncio
 from dataclasses import dataclass, field

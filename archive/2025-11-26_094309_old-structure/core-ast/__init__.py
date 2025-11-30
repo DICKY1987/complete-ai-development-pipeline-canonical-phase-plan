@@ -46,6 +46,7 @@ This module supports Phase 4 AI Enhancement features:
 - Knowledge graph construction
 - Semantic code understanding
 """
+DOC_ID: DOC-PAT-CORE-AST-INIT-385
 
 from modules.core_ast.m010000_extractors import (
     extract_functions,

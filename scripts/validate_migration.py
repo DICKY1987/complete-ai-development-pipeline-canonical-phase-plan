@@ -3,6 +3,8 @@ Migration Validation Script
 Ground truth verification gates
 Pattern: Zero hallucination debugging
 """
+DOC_ID: DOC-SCRIPT-SCRIPTS-VALIDATE-MIGRATION-241
+DOC_ID: DOC-SCRIPT-SCRIPTS-VALIDATE-MIGRATION-178
 
 import subprocess
 import sys

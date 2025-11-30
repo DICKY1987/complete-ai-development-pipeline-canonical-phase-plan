@@ -9,6 +9,8 @@ Handles events from the core pipeline orchestrator and:
 This is the final integration piece that connects pipeline execution
 to CCPM workflow tracking and GitHub visibility.
 """
+DOC_ID: DOC-PM-PM-EVENT-HANDLER-015
+DOC_ID: DOC-PM-PM-EVENT-HANDLER-009
 
 from datetime import datetime
 from pathlib import Path

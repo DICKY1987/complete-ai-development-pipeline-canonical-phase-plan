@@ -12,6 +12,8 @@ Usage:
     
     output = render_template('templates/module.manifest.template.yaml', context)
 """
+DOC_ID: DOC-SCRIPT-SCRIPTS-TEMPLATE-RENDERER-234
+DOC_ID: DOC-SCRIPT-SCRIPTS-TEMPLATE-RENDERER-171
 
 from pathlib import Path
 from typing import Dict, Any, List

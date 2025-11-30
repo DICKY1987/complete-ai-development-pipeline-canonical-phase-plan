@@ -6,6 +6,8 @@ from modules.core_engine.m010001_cost_tracker import CostTracker, PRICING_TABLE
 
 def test_pricing_table():
     """Test pricing table has expected models."""
+DOC_ID: DOC-TEST-TESTS-TEST-COST-TRACKING-078
+DOC_ID: DOC-TEST-TESTS-TEST-COST-TRACKING-039
     assert 'gpt-4' in PRICING_TABLE
     assert 'claude-3-sonnet' in PRICING_TABLE
     

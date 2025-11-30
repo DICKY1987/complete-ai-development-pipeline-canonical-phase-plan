@@ -2,6 +2,7 @@
 Pipeline Plus Integration Orchestrator
 End-to-end task execution coordinator
 """
+DOC_ID: DOC-PAT-CORE-ENGINE-PIPELINE-PLUS-ORCHESTRATOR-396
 from typing import Dict, Any, Optional
 from pathlib import Path
 from datetime import datetime, timezone

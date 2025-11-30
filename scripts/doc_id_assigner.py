@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DOC_LINK: DOC-SCRIPT-SCRIPTS-DOC-ID-ASSIGNER-204
+# DOC_LINK: DOC-SCRIPT-SCRIPTS-DOC-ID-ASSIGNER-141
 # -*- coding: utf-8 -*-
 """
 Doc ID Auto-Assigner

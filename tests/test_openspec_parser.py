@@ -1,3 +1,5 @@
+# DOC_LINK: DOC-TEST-TESTS-TEST-OPENSPEC-PARSER-091
+# DOC_LINK: DOC-TEST-TESTS-TEST-OPENSPEC-PARSER-052
 from pathlib import Path
 from core.openspec_parser import load_bundle_from_yaml, write_bundle
 

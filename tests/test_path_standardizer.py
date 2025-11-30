@@ -1,3 +1,5 @@
+# DOC_LINK: DOC-TEST-TESTS-TEST-PATH-STANDARDIZER-098
+# DOC_LINK: DOC-TEST-TESTS-TEST-PATH-STANDARDIZER-059
 from __future__ import annotations
 
 from pathlib import Path

@@ -4,6 +4,8 @@
 Usage:
   python scripts/gh_epic_sync.py --title "Epic: feature-name" --label epic:feature-name
 """
+DOC_ID: DOC-SCRIPT-SCRIPTS-GH-EPIC-SYNC-212
+DOC_ID: DOC-SCRIPT-SCRIPTS-GH-EPIC-SYNC-149
 
 from __future__ import annotations
 

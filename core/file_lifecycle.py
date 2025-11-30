@@ -3,6 +3,8 @@
 This module provides helpers for tracking files through the pipeline lifecycle,
 recording state transitions and tool touches.
 """
+DOC_ID: DOC-CORE-CORE-FILE-LIFECYCLE-043
+DOC_ID: DOC-CORE-CORE-FILE-LIFECYCLE-020
 
 import hashlib
 import json

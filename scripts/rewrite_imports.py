@@ -14,6 +14,8 @@ Features:
 - Dry-run mode for safety
 - Syntax validation after rewriting
 """
+DOC_ID: DOC-SCRIPT-SCRIPTS-REWRITE-IMPORTS-226
+DOC_ID: DOC-SCRIPT-SCRIPTS-REWRITE-IMPORTS-163
 
 import ast
 import sys

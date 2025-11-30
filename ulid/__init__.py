@@ -1,3 +1,5 @@
+# DOC_LINK: DOC-PAT-ULID-INIT-372
+# DOC_LINK: DOC-PAT-ULID-INIT-328
 from __future__ import annotations
 
 import time

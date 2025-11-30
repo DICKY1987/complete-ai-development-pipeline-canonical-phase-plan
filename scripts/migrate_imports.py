@@ -5,6 +5,8 @@ Placeholder migration helper.
 Legacy import paths have been removed from the repository. This script remains
 as a scaffold to add future migrations; it currently performs no changes.
 """
+DOC_ID: DOC-SCRIPT-SCRIPTS-MIGRATE-IMPORTS-216
+DOC_ID: DOC-SCRIPT-SCRIPTS-MIGRATE-IMPORTS-153
 
 import argparse
 from pathlib import Path

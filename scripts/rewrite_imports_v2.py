@@ -11,6 +11,8 @@ Usage:
     python scripts/rewrite_imports_v2.py --modules "core-*" --execute
     python scripts/rewrite_imports_v2.py --all --execute
 """
+DOC_ID: DOC-SCRIPT-SCRIPTS-REWRITE-IMPORTS-V2-228
+DOC_ID: DOC-SCRIPT-SCRIPTS-REWRITE-IMPORTS-V2-165
 
 import re
 import sys

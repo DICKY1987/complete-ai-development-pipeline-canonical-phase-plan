@@ -4,6 +4,8 @@
 Usage:
   python scripts/init_db.py [--db PATH] [--schema PATH]
 """
+DOC_ID: DOC-SCRIPT-SCRIPTS-INIT-DB-215
+DOC_ID: DOC-SCRIPT-SCRIPTS-INIT-DB-152
 
 from __future__ import annotations
 

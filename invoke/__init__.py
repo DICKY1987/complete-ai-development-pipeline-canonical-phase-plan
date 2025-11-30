@@ -1,3 +1,5 @@
+# DOC_LINK: DOC-PAT-INVOKE-INIT-355
+# DOC_LINK: DOC-PAT-INVOKE-INIT-311
 from __future__ import annotations
 
 import contextlib

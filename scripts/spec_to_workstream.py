@@ -11,6 +11,8 @@ Usage:
     python scripts/spec_to_workstream.py --list
     python scripts/spec_to_workstream.py --interactive
 """
+DOC_ID: DOC-SCRIPT-SCRIPTS-SPEC-TO-WORKSTREAM-233
+DOC_ID: DOC-SCRIPT-SCRIPTS-SPEC-TO-WORKSTREAM-170
 
 import argparse
 import json

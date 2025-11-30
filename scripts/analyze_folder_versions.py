@@ -22,6 +22,8 @@ Higher score = more likely to be the canonical (keep) version
 
 Reference: docs/FOLDER_VERSION_SCORING_SPEC.md
 """
+DOC_ID: DOC-SCRIPT-SCRIPTS-ANALYZE-FOLDER-VERSIONS-187
+DOC_ID: DOC-SCRIPT-SCRIPTS-ANALYZE-FOLDER-VERSIONS-124
 
 import hashlib
 import json

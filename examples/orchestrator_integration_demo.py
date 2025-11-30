@@ -3,6 +3,8 @@
 This shows how the engine orchestrator integrates with UI settings
 to determine whether tools should run in headless or interactive mode.
 """
+DOC_ID: DOC-PAT-EXAMPLES-ORCHESTRATOR-INTEGRATION-DEMO-354
+DOC_ID: DOC-PAT-EXAMPLES-ORCHESTRATOR-INTEGRATION-DEMO-310
 
 from typing import List, Dict, Any
 from core.ui_settings import get_settings_manager

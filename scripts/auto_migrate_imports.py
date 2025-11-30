@@ -5,6 +5,8 @@ Automated Import Migration Tool
 Safely migrates all legacy src.* imports to new section-based imports.
 Handles the complete refactor from src/pipeline/* to core/*, error/*, etc.
 """
+DOC_ID: DOC-SCRIPT-SCRIPTS-AUTO-MIGRATE-IMPORTS-191
+DOC_ID: DOC-SCRIPT-SCRIPTS-AUTO-MIGRATE-IMPORTS-128
 
 import re
 import sys

@@ -1,3 +1,5 @@
+# DOC_LINK: DOC-PAT-SRC-PATH-REGISTRY-360
+# DOC_LINK: DOC-PAT-SRC-PATH-REGISTRY-316
 from __future__ import annotations
 
 import threading

@@ -6,6 +6,8 @@ Prints the list of tables and counts for quick verification.
 Usage:
   python scripts/db_inspect.py [--db PATH]
 """
+DOC_ID: DOC-SCRIPT-SCRIPTS-DB-INSPECT-203
+DOC_ID: DOC-SCRIPT-SCRIPTS-DB-INSPECT-140
 
 from __future__ import annotations
 

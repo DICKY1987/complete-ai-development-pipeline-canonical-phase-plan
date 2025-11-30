@@ -2,6 +2,7 @@
 Patch Applier - Apply and Track Patches via Ledger
 Implements patch state machine and ledger tracking
 """
+DOC_ID: DOC-PAT-CORE-ENGINE-PATCH-APPLIER-394
 
 from pathlib import Path
 from typing import Optional

@@ -19,3 +19,5 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+# DOC_LINK: DOC-SCRIPT-SCRIPTS-DOC-ID-REGISTRY-CLI-142
+# DOC_LINK: DOC-SCRIPT-SCRIPTS-DOC-ID-REGISTRY-CLI-205

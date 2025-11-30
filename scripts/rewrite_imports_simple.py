@@ -8,6 +8,8 @@ Usage:
     python scripts/rewrite_imports_simple.py --dry-run
     python scripts/rewrite_imports_simple.py --execute
 """
+DOC_ID: DOC-SCRIPT-SCRIPTS-REWRITE-IMPORTS-SIMPLE-227
+DOC_ID: DOC-SCRIPT-SCRIPTS-REWRITE-IMPORTS-SIMPLE-164
 
 import re
 import sys

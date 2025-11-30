@@ -9,6 +9,8 @@ Usage:
 Example:
     python scripts/create_module_from_inventory.py error-plugin-ruff
 """
+DOC_ID: DOC-SCRIPT-SCRIPTS-CREATE-MODULE-FROM-INVENTORY-202
+DOC_ID: DOC-SCRIPT-SCRIPTS-CREATE-MODULE-FROM-INVENTORY-139
 
 import sys
 import yaml

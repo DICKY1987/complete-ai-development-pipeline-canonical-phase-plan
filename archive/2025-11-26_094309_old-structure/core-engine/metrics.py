@@ -2,6 +2,7 @@
 
 Phase I WS-I9: Enhanced metrics and reporting for parallel execution.
 """
+DOC_ID: DOC-PAT-CORE-ENGINE-METRICS-392
 
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Any

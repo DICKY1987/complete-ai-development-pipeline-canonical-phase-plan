@@ -6,6 +6,7 @@ from modules.core_state.m010003_bundles import WorkstreamBundle
 
 class CompensationEngine:
     """Logical rollback via Saga pattern."""
+DOC_ID: DOC-PAT-CORE-ENGINE-COMPENSATION-387
     
     def rollback_workstream(self, workstream_id: str) -> bool:
         """Execute compensation actions for a workstream."""

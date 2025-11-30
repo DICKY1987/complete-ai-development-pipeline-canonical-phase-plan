@@ -3,6 +3,8 @@
 Batch rename docs/ files to DOC_ naming convention
 Per PAT-DOCID-TRIAGE-001
 """
+DOC_ID: DOC-SCRIPT-SCRIPTS-BATCH-RENAME-DOCS-194
+DOC_ID: DOC-SCRIPT-SCRIPTS-BATCH-RENAME-DOCS-131
 
 from pathlib import Path
 import re

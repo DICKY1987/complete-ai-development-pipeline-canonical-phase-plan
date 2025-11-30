@@ -7,6 +7,8 @@ No hallucination - all checks use exit codes and file system verification.
 Usage:
     python scripts/validate_migration_phase1.py
 """
+DOC_ID: DOC-SCRIPT-SCRIPTS-VALIDATE-MIGRATION-PHASE1-242
+DOC_ID: DOC-SCRIPT-SCRIPTS-VALIDATE-MIGRATION-PHASE1-179
 
 import subprocess
 import sys

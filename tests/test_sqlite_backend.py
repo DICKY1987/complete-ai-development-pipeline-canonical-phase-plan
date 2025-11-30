@@ -8,6 +8,8 @@ from gui.tui_app.core.sqlite_state_backend import SQLiteStateBackend
 
 def test_sqlite_backend_reads_data(tmp_path):
     """Ensure SQLite backend returns executions, tasks, and patches."""
+DOC_ID: DOC-TEST-TESTS-TEST-SQLITE-BACKEND-105
+DOC_ID: DOC-TEST-TESTS-TEST-SQLITE-BACKEND-066
     db_path = tmp_path / "pipeline_state.db"
     backend = SQLiteStateBackend(db_path=str(db_path))
 

@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DOC_LINK: DOC-SCRIPT-SCRIPTS-DOC-ID-SCANNER-206
+# DOC_LINK: DOC-SCRIPT-SCRIPTS-DOC-ID-SCANNER-143
 # -*- coding: utf-8 -*-
 """
 Doc ID Scanner

@@ -8,4 +8,6 @@ Submodules:
 - error.patterns: Pattern-driven error detection framework
 - error.shared: Shared utilities and types
 """
+DOC_ID: DOC-ERROR-ERROR-INIT-034
+DOC_ID: DOC-ERROR-ERROR-INIT-033
 

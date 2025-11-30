@@ -4,3 +4,5 @@ from modules.aim_cli.m01001A_main import cli
 
 if __name__ == "__main__":
     cli()
+# DOC_LINK: DOC-AIM-AIM-MAIN-078
+# DOC_LINK: DOC-AIM-AIM-MAIN-083
