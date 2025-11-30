@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-QUICK-REFERENCE-763
+---
+
 # Pattern Automation - Quick Reference
 
 **Status**: ✅ Fully Operational  

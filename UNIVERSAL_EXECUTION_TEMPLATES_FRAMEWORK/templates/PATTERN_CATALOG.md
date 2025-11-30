@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PATTERN-CATALOG-1620
+---
+
 # Pattern Catalog
 **Generated**: 2025-11-23  
 **Total Patterns**: 3  

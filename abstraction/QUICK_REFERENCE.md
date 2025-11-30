@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-QUICK-REFERENCE-199
+---
+
 # Abstraction Layer - Quick Reference
 
 **Quick Start Guide for Implementing Abstractions**

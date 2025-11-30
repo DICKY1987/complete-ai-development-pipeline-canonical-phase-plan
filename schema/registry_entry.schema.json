@@ -4,7 +4,11 @@
   "title": "Registry Entry Schema",
   "description": "Schema for registry entries that map artifact ids to module ownership and on-disk paths.",
   "type": "object",
-  "required": ["artifact_id", "artifact_kind", "path"],
+  "required": [
+    "artifact_id",
+    "artifact_kind",
+    "path"
+  ],
   "properties": {
     "artifact_id": {
       "type": "string",
@@ -44,7 +48,12 @@
     },
     "status": {
       "type": "string",
-      "enum": ["active", "deprecated", "archived", "draft"],
+      "enum": [
+        "active",
+        "deprecated",
+        "archived",
+        "draft"
+      ],
       "description": "Lifecycle state for this registry row."
     },
     "description": {
@@ -71,5 +80,6 @@
       "type": "string",
       "description": "Optional notes on module scope or migration considerations."
     }
-  }
+  },
+  "doc_id": "DOC-SPEC-REGISTRY-ENTRY-SCHEMA-004"
 }

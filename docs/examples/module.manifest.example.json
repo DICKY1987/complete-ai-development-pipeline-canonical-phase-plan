@@ -5,13 +5,11 @@
   "purpose": "Ruff linter integration for Python error detection with auto-fix capabilities",
   "layer": "ui",
   "version": "1.0.0",
-  
   "state": {
     "enabled": true,
     "state_file": ".state/current.json",
     "snapshots_enabled": false
   },
-  
   "artifacts": {
     "code": [
       {
@@ -55,9 +53,10 @@
       }
     ]
   },
-  
   "dependencies": {
-    "modules": ["error-engine"],
+    "modules": [
+      "error-engine"
+    ],
     "external": [
       {
         "name": "ruff",
@@ -66,7 +65,6 @@
       }
     ]
   },
-  
   "import_patterns": [
     {
       "pattern": "from error.plugins.python_ruff.plugin import parse",
@@ -79,7 +77,6 @@
       "deprecated": false
     }
   ],
-  
   "contracts": {
     "inputs": [
       {
@@ -110,7 +107,6 @@
       }
     ]
   },
-  
   "ai_metadata": {
     "priority": "HIGH",
     "edit_policy": "safe",
@@ -134,11 +130,13 @@
       }
     ]
   },
-  
   "metadata": {
     "created": "2025-11-25T21:30:00Z",
     "last_updated": "2025-11-25T21:30:00Z",
-    "authors": ["AI Pipeline Team"],
+    "authors": [
+      "AI Pipeline Team"
+    ],
     "status": "active"
-  }
+  },
+  "doc_id": "DOC-GUIDE-MODULE-MANIFEST-EXAMPLE-143"
 }

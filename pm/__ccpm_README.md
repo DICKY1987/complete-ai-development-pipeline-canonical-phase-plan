@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PM-CCPM-README-026
+---
+
 # Claude Code PM
 
 [![Automaze](https://img.shields.io/badge/By-automaze.io-4b3baf)](https://automaze.io)

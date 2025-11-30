@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-EXECUTION-CHECKPOINTS-GUIDE-1461
+---
+
 # Execution Checkpoints Guide
 
 `.execution/checkpoints/` tracks progress across migration and pipeline runs.

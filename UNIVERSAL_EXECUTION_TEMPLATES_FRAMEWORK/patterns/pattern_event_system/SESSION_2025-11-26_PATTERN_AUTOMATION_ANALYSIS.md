@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-SESSION-2025-11-26-PATTERN-AUTOMATION-814
+---
+
 # Session 2025-11-26: Pattern Automation Analysis
 
 **Date**: 2025-11-26

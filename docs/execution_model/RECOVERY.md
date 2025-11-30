@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-RECOVERY-1335
+---
+
 # Recovery Procedures
 
 ## Purpose

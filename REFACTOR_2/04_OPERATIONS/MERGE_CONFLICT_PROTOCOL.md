@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-MERGE-CONFLICT-PROTOCOL-1542
+---
+
 # Merge Conflict Resolution Protocol
 
 ## 🎯 Purpose

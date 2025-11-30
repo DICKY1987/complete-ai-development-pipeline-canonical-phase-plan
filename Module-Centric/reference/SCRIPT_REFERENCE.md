@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-SCRIPT-REFERENCE-1464
+---
+
 # Script Reference (Migration & Validation)
 
 Purpose and usage for key scripts used in the module-centric migration.

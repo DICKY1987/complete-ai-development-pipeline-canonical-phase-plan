@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-QUICKSTART-OPENSPEC-1357
+---
+
 # OpenSpec Integration Quick Start
 
 ## 5-Minute Quick Start

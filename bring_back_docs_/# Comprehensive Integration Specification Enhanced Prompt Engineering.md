@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-COMPREHENSIVE-INTEGRATION-SPECIFICATION-229
+---
+
 # Comprehensive Integration Specification: Enhanced Prompt Engineering for Production AI Development Pipeline
 
 **Document Type**: Technical Integration Specification  

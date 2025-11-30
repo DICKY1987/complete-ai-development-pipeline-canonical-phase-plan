@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-HYBRID-GUI-PLAN-158
+---
+
 
 ### 3.1 Module: engine/orchestrator
 

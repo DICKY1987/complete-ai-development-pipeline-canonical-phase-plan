@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-WORKSTREAMS-QUICK-REF-449
+---
+
 # Template Expansion Workstreams - Quick Reference
 
 ## 📋 Overview

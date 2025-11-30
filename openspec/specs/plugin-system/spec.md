@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-SPEC-1518
+---
+
 # Plugin System Specification
 
 ## Purpose

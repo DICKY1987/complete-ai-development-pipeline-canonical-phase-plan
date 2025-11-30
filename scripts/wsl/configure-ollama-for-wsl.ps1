@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-CONFIGURE-OLLAMA-FOR-WSL-097
 #Requires -Version 5.1
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'

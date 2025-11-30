@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PH-00-BASELINE-PROJECT-SKELETON-CODEX-1229
+---
+
 %# PH-00 — Baseline & Project Skeleton (Codex Autonomous Phase Executor)
 
 Establish the initial repository structure, tooling, and conventions so later phases can execute autonomously and consistently.

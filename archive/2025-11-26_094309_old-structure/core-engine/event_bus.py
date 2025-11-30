@@ -62,6 +62,7 @@ class EventType(Enum):
 
 class EventSeverity(Enum):
     """Severity levels for events."""
+DOC_ID: DOC-PAT-CORE-ENGINE-EVENT-BUS-389
     DEBUG = "debug"
     INFO = "info"
     WARNING = "warning"

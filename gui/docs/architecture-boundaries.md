@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-ARCHITECTURE-BOUNDARIES-1410
+---
+
 
 ---
 

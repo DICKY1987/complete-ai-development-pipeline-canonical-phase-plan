@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROJECT-DEVELOPER-ARCHIVE-2025-11-PHASE-1583
+---
+
 # Phase H Legacy Archive
 
 **Date:** 2025-11-21  

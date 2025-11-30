@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-PAT-CORE-STATE-M010003-DB-532
 from __future__ import annotations
 
 import json

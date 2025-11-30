@@ -4,6 +4,7 @@
 Usage:
   python scripts/validate_workstreams.py [--run-id RUN] [--json]
 """
+# DOC_ID: DOC-PAT-VALIDATION-VALIDATE-WORKSTREAMS-639
 
 from __future__ import annotations
 

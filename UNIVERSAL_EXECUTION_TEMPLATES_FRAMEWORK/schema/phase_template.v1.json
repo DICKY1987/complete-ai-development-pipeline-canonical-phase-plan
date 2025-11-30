@@ -16,7 +16,11 @@
     "meta": {
       "type": "object",
       "description": "Template metadata and metrics",
-      "required": ["template_id", "category", "estimated_time_minutes"],
+      "required": [
+        "template_id",
+        "category",
+        "estimated_time_minutes"
+      ],
       "properties": {
         "template_id": {
           "type": "string",
@@ -76,7 +80,14 @@
       "properties": {
         "file_format": {
           "type": "string",
-          "enum": ["python", "javascript", "yaml", "json", "markdown", "shell"]
+          "enum": [
+            "python",
+            "javascript",
+            "yaml",
+            "json",
+            "markdown",
+            "shell"
+          ]
         },
         "module_location": {
           "type": "string",
@@ -136,7 +147,9 @@
     "ground_truth_verification": {
       "type": "object",
       "description": "Observable success criteria",
-      "required": ["post_execution"],
+      "required": [
+        "post_execution"
+      ],
       "properties": {
         "pre_flight": {
           "type": "array",
@@ -164,7 +177,9 @@
     "execution_sequence": {
       "type": "object",
       "description": "Ordered steps to execute",
-      "required": ["steps"],
+      "required": [
+        "steps"
+      ],
       "properties": {
         "steps": {
           "type": "array",
@@ -217,7 +232,10 @@
   "definitions": {
     "verification_check": {
       "type": "object",
-      "required": ["cmd", "expect"],
+      "required": [
+        "cmd",
+        "expect"
+      ],
       "properties": {
         "cmd": {
           "type": "string",
@@ -237,7 +255,11 @@
         },
         "criticality": {
           "type": "string",
-          "enum": ["blocker", "warning", "info"]
+          "enum": [
+            "blocker",
+            "warning",
+            "info"
+          ]
         },
         "fail_msg": {
           "type": "string",
@@ -259,7 +281,10 @@
     },
     "execution_step": {
       "type": "object",
-      "required": ["id", "pattern"],
+      "required": [
+        "id",
+        "pattern"
+      ],
       "properties": {
         "id": {
           "type": "string",
@@ -284,7 +309,11 @@
         },
         "on_fail": {
           "type": "string",
-          "enum": ["stop", "continue", "enter_fix_loop"],
+          "enum": [
+            "stop",
+            "continue",
+            "enter_fix_loop"
+          ],
           "description": "What to do on failure"
         },
         "files": {
@@ -302,7 +331,10 @@
     },
     "file_spec": {
       "type": "object",
-      "required": ["path", "type"],
+      "required": [
+        "path",
+        "type"
+      ],
       "properties": {
         "path": {
           "type": "string",
@@ -347,7 +379,11 @@
     },
     "auto_fix_scenario": {
       "type": "object",
-      "required": ["condition", "action", "requires_permission"],
+      "required": [
+        "condition",
+        "action",
+        "requires_permission"
+      ],
       "properties": {
         "condition": {
           "type": "string",
@@ -372,5 +408,6 @@
         }
       }
     }
-  }
+  },
+  "doc_id": "DOC-SPEC-PHASE-TEMPLATE-V1-025"
 }

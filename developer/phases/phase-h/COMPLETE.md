@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-COMPLETE-1295
+---
+
 # UET Integration Implementation - Completion Report
 
 **Date**: 2025-11-21  

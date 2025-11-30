@@ -7,6 +7,7 @@ Commands:
 
 Contract Version: AIM_PLUS_V1
 """
+DOC_ID: DOC-PAT-COMMANDS-HEALTH-416
 
 import click
 import json

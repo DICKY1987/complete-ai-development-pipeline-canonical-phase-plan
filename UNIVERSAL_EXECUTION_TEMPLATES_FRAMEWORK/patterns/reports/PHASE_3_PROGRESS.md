@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-PHASE-3-PROGRESS-822
+---
+
 # Phase 3: Core Pattern Library - Progress Tracker
 
 **Started**: 2025-11-24 09:09 UTC  

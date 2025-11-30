@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-1383
+---
+
 # Plans Directory
 
 **Purpose**: Execution plans, guides, and roadmaps  

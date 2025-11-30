@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PM-README-118
+---
+
 # Context Directory
 
 This directory contains project context documentation that provides comprehensive information about the current state, structure, and direction of your project. The context files serve as a knowledge base for AI agents and team members to quickly understand and contribute to the project.

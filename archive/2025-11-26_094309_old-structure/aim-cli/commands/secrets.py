@@ -9,6 +9,7 @@ Commands:
 
 Contract Version: AIM_PLUS_V1
 """
+DOC_ID: DOC-PAT-COMMANDS-SECRETS-419
 
 import click
 from rich.console import Console

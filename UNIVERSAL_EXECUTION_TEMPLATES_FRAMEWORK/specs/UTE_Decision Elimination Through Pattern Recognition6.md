@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-UTE-DECISION-ELIMINATION-THROUGH-PATTERN-1618
+---
+
  1.1 The Technique (Corrected)
 
    What Actually Happened: I batched 6 create tool calls into a

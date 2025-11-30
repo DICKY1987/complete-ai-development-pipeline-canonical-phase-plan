@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-FILE-MAPPING-OLD-TO-NEW-233
+---
+
 # Migration File Mapping - What Replaces What
 
 **Date**: 2025-11-26  

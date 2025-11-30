@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-AI-NAVIGATION-PHASE-PLAN-1261
+---
+
 # AI Navigation Enhancement - Phase Plan
 **Complete AI Development Pipeline Repository**
 

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-GUI-DEVELOPMENT-GUIDE-1414
+---
+
 # GUI Development Guide - Next Steps
 
 This guide shows how to proceed with implementing the GUI layer now that the engine foundation is complete.

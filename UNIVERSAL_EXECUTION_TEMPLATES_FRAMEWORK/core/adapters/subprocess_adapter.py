@@ -2,6 +2,7 @@
 
 Executes tools via subprocess with timeout and error handling.
 """
+# DOC_ID: DOC-CORE-ADAPTERS-SUBPROCESS-ADAPTER-135
 
 import subprocess
 import time

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-905
+---
+
 # Batch File Creation Examples
 
 **Pattern**: `PAT-BATCH-FILE-CREATION`

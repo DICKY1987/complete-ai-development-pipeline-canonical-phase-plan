@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-427
+---
+
 # GUI Components and Design Documentation
 
 **Purpose**: Hybrid GUI/Terminal/TUI architecture design documents, specifications, and interface definitions for the standalone execution engine.

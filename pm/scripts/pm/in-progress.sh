@@ -1,4 +1,5 @@
 #!/bin/bash
+# DOC_LINK: DOC-SCRIPT-IN-PROGRESS-316
 echo "Getting status..."
 echo ""
 echo ""

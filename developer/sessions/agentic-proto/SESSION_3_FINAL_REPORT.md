@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-SESSION-3-FINAL-REPORT-1310
+---
+
 # Session 3 Final Report - Milestone M2 Complete
 
 **Date:** 2025-11-20  

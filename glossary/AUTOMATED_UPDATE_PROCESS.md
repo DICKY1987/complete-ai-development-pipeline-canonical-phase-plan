@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-AUTOMATED-UPDATE-PROCESS-419
+---
+
 # Automated Glossary Update Process
 
 **Purpose**: Structured, automated process for updating glossary terms using patches  

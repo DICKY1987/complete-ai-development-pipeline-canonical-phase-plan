@@ -10,6 +10,7 @@ Usage:
     python validate_glossary.py --check-paths      # Verify implementation paths
     python validate_glossary.py --quick            # Fast validation (structure only)
 """
+# DOC_ID: DOC-SCRIPT-SCRIPTS-VALIDATE-GLOSSARY-265
 
 import re
 import sys

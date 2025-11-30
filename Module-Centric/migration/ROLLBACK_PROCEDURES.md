@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-ROLLBACK-PROCEDURES-1459
+---
+
 # Rollback Procedures (Module-Centric Migration)
 
 Principles: favor minimal scope rollback (single module or DAG set) before repo-wide revert. Never

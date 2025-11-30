@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-SESSION-SUMMARY-2025-11-20-MEGA-SESSION-1318
+---
+
 # 🎉 MEGA SESSION COMPLETE: Phase 3 Core Engine Built!
 
 **Date:** 2025-11-20  

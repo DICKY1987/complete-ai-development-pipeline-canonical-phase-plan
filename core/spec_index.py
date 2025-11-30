@@ -1,2 +1,4 @@
+# DOC_LINK: DOC-CORE-CORE-SPEC-INDEX-052
+# DOC_LINK: DOC-CORE-CORE-SPEC-INDEX-029
 from core.spec_index import *  # type: ignore F401,F403
 

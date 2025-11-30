@@ -1,4 +1,5 @@
 #!/usr/bin/env pwsh
+# DOC_LINK: DOC-SCRIPT-VALIDATE-STATE-OBS-094
 <#
 .SYNOPSIS
     Validate State Observability Requirements (STATE-OBS-*)

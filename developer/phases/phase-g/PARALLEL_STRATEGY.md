@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PARALLEL-STRATEGY-1288
+---
+
 # Phase G: Parallel Development Strategy
 
 **Created**: 2025-11-21  

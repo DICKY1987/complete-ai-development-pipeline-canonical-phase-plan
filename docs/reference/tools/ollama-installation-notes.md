@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-OLLAMA-INSTALLATION-NOTES-1375
+---
+
 
  ▐▛███▜▌   Claude Code v2.0.46
 ▝▜█████▛▘  Sonnet 4.5 · Claude Pro

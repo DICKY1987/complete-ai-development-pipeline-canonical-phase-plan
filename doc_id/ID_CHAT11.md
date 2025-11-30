@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-ID-CHAT11-409
+---
+
 Here’s a concrete starting point you can actually drop into your repo and wire up.
 
 ---

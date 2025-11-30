@@ -2,6 +2,7 @@
 
 Phase I WS-I6: Enhanced with budget enforcement.
 """
+DOC_ID: DOC-PAT-CORE-ENGINE-COST-TRACKER-388
 
 from dataclasses import dataclass
 from typing import Dict, Optional

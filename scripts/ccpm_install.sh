@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# DOC_LINK: DOC-SCRIPT-CCPM-INSTALL-279
 set -euo pipefail
 
 # Install PM runtime into ./pm (scripts, commands, rules, agents, ...)

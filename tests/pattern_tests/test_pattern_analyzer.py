@@ -29,6 +29,7 @@ from error.patterns.pattern_analyzer import (
 
 class TestPatternAnalyzer:
     """Test the main PatternAnalyzer class."""
+# DOC_ID: DOC-TEST-PATTERN-TESTS-TEST-PATTERN-ANALYZER-132
     
     def test_init_default_categories(self):
         """Initialize with default categories."""

@@ -9,6 +9,7 @@ Import from this module:
 
     from modules.aim_environment import function_name  # ?
 """
+# DOC_ID: DOC-PAT-AIM-ENVIRONMENT-INIT-480
 
 import importlib
 import sys

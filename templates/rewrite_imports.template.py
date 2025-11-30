@@ -3,6 +3,8 @@ Auto-generated import rewriter
 Pattern: Automated Import Path Updates
 Module: {module_id}
 """
+# DOC_ID: DOC-PAT-TEMPLATES-REWRITE-IMPORTS-TEMPLATE-362
+# DOC_ID: DOC-PAT-TEMPLATES-REWRITE-IMPORTS-TEMPLATE-318
 
 from pathlib import Path
 from typing import Dict

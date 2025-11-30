@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROJECT-UNIVERSAL-EXECUTION-TEMPLATES-1605
+---
+
 # Examples - Complete Template Implementations
 
 > **Working Examples Demonstrating UET Framework Patterns**  

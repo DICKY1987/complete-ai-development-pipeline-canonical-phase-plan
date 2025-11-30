@@ -10,6 +10,7 @@ Supports:
 
 Contract Version: AIM_PLUS_V1
 """
+DOC_ID: DOC-PAT-AIM-REGISTRY-CONFIG-LOADER-382
 
 import json
 import os

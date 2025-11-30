@@ -39,6 +39,7 @@ For details, see:
     - core/planning/README.md
     - core/planning/dependencies.yaml
 """
+DOC_ID: DOC-PAT-CORE-PLANNING-INIT-408
 
 __all__ = [
     "planner",

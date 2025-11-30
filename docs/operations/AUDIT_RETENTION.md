@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-AUDIT-RETENTION-1347
+---
+
 # Audit Retention Policy
 
 ## Purpose

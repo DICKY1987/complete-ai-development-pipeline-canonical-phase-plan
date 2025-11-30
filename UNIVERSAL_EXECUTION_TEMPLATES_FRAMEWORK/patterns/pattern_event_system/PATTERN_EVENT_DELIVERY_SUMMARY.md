@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-PATTERN-EVENT-DELIVERY-SUMMARY-807
+---
+
 # Pattern Event System - Delivery Summary
 
 **Status**: ✅ **Complete and Validated**  

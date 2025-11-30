@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-DEV-NORMALIZE-PATHS-267
 from __future__ import annotations
 
 import argparse

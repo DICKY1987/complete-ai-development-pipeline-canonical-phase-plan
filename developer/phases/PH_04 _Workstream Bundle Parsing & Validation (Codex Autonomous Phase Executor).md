@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PH-04-WORKSTREAM-BUNDLE-PARSING-1234
+---
+
 TITLE: PH-04 – Workstream Bundle Parsing & Validation (Codex Autonomous Phase Executor)
 
 ROLE

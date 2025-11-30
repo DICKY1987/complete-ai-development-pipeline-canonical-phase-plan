@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-173
+---
+
 # Complete AI Development Pipeline – Canonical Phase Plan
 
 ![Path Standards](https://github.com/USERNAME/REPOSITORY/actions/workflows/path_standards.yml/badge.svg)

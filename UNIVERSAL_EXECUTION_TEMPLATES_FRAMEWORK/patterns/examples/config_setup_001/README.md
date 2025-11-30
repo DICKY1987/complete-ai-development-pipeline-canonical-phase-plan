@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-907
+---
+
 # Config Setup 001 Examples
 
 **Pattern**: `PAT-CONFIG-SETUP-001`

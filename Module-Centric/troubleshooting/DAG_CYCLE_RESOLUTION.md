@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-DAG-CYCLE-RESOLUTION-1468
+---
+
 # DAG Cycle Resolution
 
 How to detect and resolve dependency cycles in module and pipeline DAGs.

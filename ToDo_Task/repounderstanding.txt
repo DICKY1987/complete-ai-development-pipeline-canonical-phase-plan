@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-REPOUNDERSTANDING-708
+---
+
 The actual Phase K plan hasn't been created yet in the docs
    folder. Based on the summary, this plan aims to create:
 

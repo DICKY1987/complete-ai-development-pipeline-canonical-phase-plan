@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-START-HERE-099
 #Requires -Version 5.1
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'

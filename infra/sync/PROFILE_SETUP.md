@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROFILE-SETUP-1435
+---
+
 # Git Auto-Sync - PowerShell Profile Integration
 # Setup Instructions for Smart Sync
 

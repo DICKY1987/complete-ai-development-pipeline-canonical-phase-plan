@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-HOW-REMAINING-DOCS-GET-IDS-407
+---
+
 # How Remaining Documents Get IDs
 
 **Question**: How do the rest of the documents get doc_ids?  

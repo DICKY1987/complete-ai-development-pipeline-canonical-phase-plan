@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-AIM-PLUS-FINAL-REPORT-1198
+---
+
 # AIM+ Complete - Final Implementation Report
 
 **Project**: AIM+ (AI Manager Plus)  

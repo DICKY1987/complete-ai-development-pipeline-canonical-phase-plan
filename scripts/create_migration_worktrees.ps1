@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-CREATE-MIGRATION-WORKTREES-062
 # Migration Worktrees Setup Script
 # Creates 4 parallel worktrees for module migration
 # Pattern: Parallel execution (4x speedup)

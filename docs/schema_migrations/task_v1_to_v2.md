@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-TASK-V1-TO-V2-1366
+---
+
 # Schema Migration: Task Definition v1 to v2
 
 ## Overview

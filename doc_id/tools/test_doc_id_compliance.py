@@ -9,6 +9,7 @@ DOC_ID_PATTERN = r'^[A-Z0-9]+(-[A-Z0-9]+)*$'
 
 def test_doc_id_format():
     """Test that all doc_id values match required format."""
+# DOC_ID: DOC-PAT-TOOLS-TEST-DOC-ID-COMPLIANCE-438
     index_path = Path("patterns/registry/PATTERN_INDEX.yaml")
     with open(index_path) as f:
         data = yaml.safe_load(f)

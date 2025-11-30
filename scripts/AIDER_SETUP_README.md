@@ -1,3 +1,7 @@
+---
+doc_id: DOC-SCRIPT-AIDER-SETUP-README-249
+---
+
 # Aider + Ollama + DeepSeek-R1 Setup
 
 **Status**: ✅ **CONFIGURED AND READY**

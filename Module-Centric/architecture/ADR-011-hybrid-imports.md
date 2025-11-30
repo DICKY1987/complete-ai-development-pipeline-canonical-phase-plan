@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-ADR-011-HYBRID-IMPORTS-1440
+---
+
 # ADR-011: Hybrid Import Strategy (ULID Filenames + Clean Imports)
 
 ## Context

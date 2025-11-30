@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-API-INDEX-1359
+---
+
 # API Index – Public Interfaces & Entry Points
 
 **Purpose**: Quick reference for all public APIs, CLIs, and programmatic entry points.

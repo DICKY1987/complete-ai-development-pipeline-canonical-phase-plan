@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-TERMINAL-CHAT-BEST-PLAN-10-728
+---
+
 You’ve got a very standard problem, which is good news: there are *battle-tested* patterns for this in every environment.
 
 Let me give you **three proven options** (PowerShell, Python, Bash) so you can pick what fits your workflow. All of them:

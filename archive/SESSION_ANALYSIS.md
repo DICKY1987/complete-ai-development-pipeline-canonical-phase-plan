@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-SESSION-ANALYSIS-226
+---
+
 # Copilot Session Analysis - Engine Migration & Pattern Automation
 
 **Date**: 2025-11-25  

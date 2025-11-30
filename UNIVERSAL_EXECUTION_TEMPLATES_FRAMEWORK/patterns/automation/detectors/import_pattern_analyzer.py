@@ -8,6 +8,7 @@ Usage:
     python import_pattern_analyzer.py --check-deprecated --fail-on-violation
     python import_pattern_analyzer.py --migrate --dry-run
 """
+# DOC_ID: DOC-PAT-DETECTORS-IMPORT-PATTERN-ANALYZER-883
 
 from __future__ import annotations
 
@@ -71,12 +72,12 @@ class ImportPatternAnalyzer:
         return [
             {
                 "old_pattern": r"^from core\.orchestrator import",
-                "new_pattern": "from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine import",
+                "new_pattern": "from core.engine import",
                 "confidence": 100
             },
             {
                 "old_pattern": r"^from core\.executor import",
-                "new_pattern": "from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine import",
+                "new_pattern": "from core.engine import",
                 "confidence": 100
             },
             {
@@ -86,7 +87,7 @@ class ImportPatternAnalyzer:
             },
             {
                 "old_pattern": r"^from modules\.core_engine import",
-                "new_pattern": "from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine import",
+                "new_pattern": "from core.engine import",
                 "confidence": 100
             },
             {

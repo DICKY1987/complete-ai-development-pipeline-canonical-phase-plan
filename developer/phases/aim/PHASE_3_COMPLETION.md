@@ -1,3 +1,7 @@
+---
+doc_id: DOC-AIM-PHASE-3-COMPLETION-176
+---
+
 # Phase 3 Completion Summary
 
 **Date:** 2025-11-20  

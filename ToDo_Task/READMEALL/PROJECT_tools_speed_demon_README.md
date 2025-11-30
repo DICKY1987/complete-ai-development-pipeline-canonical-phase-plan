@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROJECT-TOOLS-SPEED-DEMON-README-1590
+---
+
 # Speed Demon Replication System
 
 **Created**: 2025-11-23  

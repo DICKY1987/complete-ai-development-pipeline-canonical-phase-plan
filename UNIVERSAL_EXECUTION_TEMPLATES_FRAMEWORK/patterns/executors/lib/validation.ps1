@@ -1,4 +1,8 @@
 #!/usr/bin/env pwsh
+# DOC_LINK: DOC-PAT-VALIDATION-1344
+# DOC_LINK: DOC-PAT-VALIDATION-1185
+# DOC_LINK: DOC-PAT-VALIDATION-977
+# DOC_LINK: DOC-PAT-VALIDATION-241
 <#
 .SYNOPSIS
     Shared validation library for pattern executors

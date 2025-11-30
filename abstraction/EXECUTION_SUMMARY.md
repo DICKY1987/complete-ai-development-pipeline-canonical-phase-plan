@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-EXECUTION-SUMMARY-194
+---
+
 # Abstraction Layer - Execution Summary
 
 **Project**: AI Development Pipeline - Abstraction Layer Implementation  

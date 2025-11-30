@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-1531
+---
+
 # 01_PLANNING - Strategic Planning & Analysis
 
 **Workstream identification, execution strategy, and validation planning**

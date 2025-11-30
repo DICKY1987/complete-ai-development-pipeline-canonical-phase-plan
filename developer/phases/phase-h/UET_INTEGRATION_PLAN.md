@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-UET-INTEGRATION-PLAN-1297
+---
+
 # UET Integration Plan: Universal Execution Templates Framework
 
 **Created**: 2025-11-21  

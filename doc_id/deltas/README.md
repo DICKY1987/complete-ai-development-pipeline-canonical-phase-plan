@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-1381
+---
+
 # Deltas Directory
 
 **Purpose**: Incremental registry updates and delta records  

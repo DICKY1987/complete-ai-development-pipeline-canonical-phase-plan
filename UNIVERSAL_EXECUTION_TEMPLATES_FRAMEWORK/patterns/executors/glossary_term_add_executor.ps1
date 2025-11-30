@@ -1,4 +1,5 @@
 #!/usr/bin/env pwsh
+# DOC_LINK: DOC-PAT-GLOSSARY-TERM-ADD-EXECUTOR-219
 <#
 .SYNOPSIS
     Executor for glossary_term_add pattern (PAT-GLOSSARY-TERM-ADD-001)

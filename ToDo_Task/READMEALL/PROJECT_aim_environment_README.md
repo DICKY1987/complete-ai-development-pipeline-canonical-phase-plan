@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROJECT-AIM-ENVIRONMENT-README-1572
+---
+
 # AIM Environment Module
 
 > **Module**: `aim.environment`  

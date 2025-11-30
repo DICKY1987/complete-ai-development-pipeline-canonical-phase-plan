@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-WEEK-1-COMPLETION-REPORT-399
+---
+
 # Week 1 Optimization Completion Report
 
 **Date**: 2025-11-25  

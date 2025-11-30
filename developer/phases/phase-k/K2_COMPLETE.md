@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-K2-COMPLETE-1304
+---
+
 # Phase K-2: Concrete Examples - COMPLETE ✅
 
 **Completed**: 2025-11-22  

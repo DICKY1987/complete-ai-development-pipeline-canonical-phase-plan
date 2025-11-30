@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-UI-INTERACTIVE-TOOL-SELECTION-1429
+---
+
 # UI Interactive Tool Selection
 
 ## Overview

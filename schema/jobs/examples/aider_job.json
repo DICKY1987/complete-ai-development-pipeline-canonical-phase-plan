@@ -18,8 +18,8 @@
     "GIT_EDITOR": "true"
   },
   "paths": {
-    "repo_root": "C:/Users/richg/ALL_AI/Complete AI Development Pipeline – Canonical Phase Plan",
-    "working_dir": "C:/Users/richg/ALL_AI/Complete AI Development Pipeline – Canonical Phase Plan",
+    "repo_root": "C:/Users/richg/ALL_AI/Complete AI Development Pipeline \u2013 Canonical Phase Plan",
+    "working_dir": "C:/Users/richg/ALL_AI/Complete AI Development Pipeline \u2013 Canonical Phase Plan",
     "log_file": "logs/ws-PH07-refactor-path-resolver/job-2025-11-20-001.log",
     "error_report": "logs/ws-PH07-refactor-path-resolver/job-2025-11-20-001.error.json"
   },
@@ -32,5 +32,6 @@
       "core/planning/planner.py",
       "core/planning/archive.py"
     ]
-  }
+  },
+  "doc_id": "DOC-SPEC-AIDER-JOB-007"
 }

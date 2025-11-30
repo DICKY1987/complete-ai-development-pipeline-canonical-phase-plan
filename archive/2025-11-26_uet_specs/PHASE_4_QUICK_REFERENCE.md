@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PHASE-4-QUICK-REFERENCE-1122
+---
+
 # Phase 4 Quick Reference: AI Enhancement Features
 
 **Version:** 1.0.0  

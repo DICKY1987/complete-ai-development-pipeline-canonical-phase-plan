@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-EXEC-014-EXACT-DUPLICATE-ELIMINATOR-860
+---
+
 # EXEC-014: Exact Duplicate Eliminator
 
 **Pattern ID:** EXEC-014

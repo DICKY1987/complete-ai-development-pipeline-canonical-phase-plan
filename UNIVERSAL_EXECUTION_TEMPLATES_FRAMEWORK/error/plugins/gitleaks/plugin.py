@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-ERROR-GITLEAKS-PLUGIN-124
 from __future__ import annotations
 
 import json

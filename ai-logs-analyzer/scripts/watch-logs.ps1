@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-WATCH-LOGS-081
 # Real-time AI Tools Log Monitor
 # Watches all AI tool logs and displays updates in real-time
 

@@ -5,7 +5,14 @@
   "description": "Results of project discovery during bootstrap. Contains detected characteristics used for profile selection.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["project_root", "project_name", "domain", "languages", "resource_types", "available_tools"],
+  "required": [
+    "project_root",
+    "project_name",
+    "domain",
+    "languages",
+    "resource_types",
+    "available_tools"
+  ],
   "properties": {
     "project_root": {
       "type": "string",
@@ -19,7 +26,13 @@
     },
     "domain": {
       "type": "string",
-      "enum": ["software-dev", "data-pipeline", "operations", "documentation", "mixed"],
+      "enum": [
+        "software-dev",
+        "data-pipeline",
+        "operations",
+        "documentation",
+        "mixed"
+      ],
       "description": "Detected primary domain"
     },
     "domain_confidence": {
@@ -32,7 +45,10 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["language", "percentage"],
+        "required": [
+          "language",
+          "percentage"
+        ],
         "properties": {
           "language": {
             "type": "string",
@@ -57,7 +73,10 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["framework", "indicator"],
+        "required": [
+          "framework",
+          "indicator"
+        ],
         "properties": {
           "framework": {
             "type": "string",
@@ -82,7 +101,10 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["tool_id", "detected_via"],
+        "required": [
+          "tool_id",
+          "detected_via"
+        ],
         "properties": {
           "tool_id": {
             "type": "string",
@@ -101,11 +123,17 @@
       "description": "Tools detected in environment"
     },
     "existing_ci": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "description": "CI system detected (github-actions, gitlab-ci, etc.)"
     },
     "vcs": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "description": "Version control system detected (git, etc.)"
     },
     "inferred_constraints": {
@@ -132,23 +160,33 @@
       "properties": {
         "src_dirs": {
           "type": "array",
-          "items": {"type": "string"}
+          "items": {
+            "type": "string"
+          }
         },
         "test_dirs": {
           "type": "array",
-          "items": {"type": "string"}
+          "items": {
+            "type": "string"
+          }
         },
         "doc_dirs": {
           "type": "array",
-          "items": {"type": "string"}
+          "items": {
+            "type": "string"
+          }
         },
         "config_dirs": {
           "type": "array",
-          "items": {"type": "string"}
+          "items": {
+            "type": "string"
+          }
         },
         "script_dirs": {
           "type": "array",
-          "items": {"type": "string"}
+          "items": {
+            "type": "string"
+          }
         }
       }
     },
@@ -157,5 +195,6 @@
       "format": "date-time",
       "description": "When discovery was performed"
     }
-  }
+  },
+  "doc_id": "DOC-SPEC-BOOTSTRAP-DISCOVERY-V1-012"
 }

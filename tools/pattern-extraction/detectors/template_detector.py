@@ -2,6 +2,7 @@
 Template Convergence Detector
 Detects when patterns converge to reusable templates
 """
+# DOC_ID: DOC-PAT-DETECTORS-TEMPLATE-DETECTOR-644
 
 from typing import List, Dict
 from collections import defaultdict

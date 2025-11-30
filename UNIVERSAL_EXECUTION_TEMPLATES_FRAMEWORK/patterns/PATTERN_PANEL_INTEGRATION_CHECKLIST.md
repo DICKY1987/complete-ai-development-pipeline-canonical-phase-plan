@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-PATTERN-PANEL-INTEGRATION-CHECKLIST-761
+---
+
 # Pattern Activity Panel - Integration Checklist
 
 **Quick reference for integrating Pattern Activity Panel into existing GUI framework**

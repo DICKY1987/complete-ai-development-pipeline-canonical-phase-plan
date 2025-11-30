@@ -9,6 +9,8 @@ import shutil
 
 class TestCCPMComponents:
     """Test CCPM component installation"""
+# DOC_ID: DOC-TEST-TESTS-TEST-CCPM-OPENSPEC-INTEGRATION-076
+# DOC_ID: DOC-TEST-TESTS-TEST-CCPM-OPENSPEC-INTEGRATION-037
 
     def test_agents_installed(self):
         """Verify all 4 CCPM agents are installed"""

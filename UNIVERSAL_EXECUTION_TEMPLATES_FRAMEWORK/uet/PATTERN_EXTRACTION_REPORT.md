@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PATTERN-EXTRACTION-REPORT-1624
+---
+
 # Pattern Extraction Summary Report
 **Workstream**: WS-PATTERN-01  
 **Date**: 2025-11-23  

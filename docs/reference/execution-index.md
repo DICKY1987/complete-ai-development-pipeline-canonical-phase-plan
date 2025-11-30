@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-EXECUTION-INDEX-1362
+---
+
 # Execution Index – How Things Run
 
 **Purpose**: Map execution flows, entry points, and runtime behavior.

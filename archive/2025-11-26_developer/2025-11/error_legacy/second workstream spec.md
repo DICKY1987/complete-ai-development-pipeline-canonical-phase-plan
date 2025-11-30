@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-SECOND-WORKSTREAM-SPEC-1130
+---
+
 
 Here’s the **second workstream spec** you asked for – written so you can drop it straight into Codex or Claude Code as a single `.md` workstream file.
 

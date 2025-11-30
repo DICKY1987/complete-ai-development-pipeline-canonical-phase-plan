@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-GLOSSARY-422
+---
+
 # Glossary – AI Development Pipeline
 
 **Last Updated**: 2025-11-27  

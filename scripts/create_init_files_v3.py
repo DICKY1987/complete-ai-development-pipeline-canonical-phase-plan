@@ -7,6 +7,8 @@ to dynamically import ULID-prefixed files and re-export their symbols.
 Usage:
     python scripts/create_init_files_v3.py --all --execute
 """
+# DOC_ID: DOC-SCRIPT-SCRIPTS-CREATE-INIT-FILES-V3-201
+# DOC_ID: DOC-SCRIPT-SCRIPTS-CREATE-INIT-FILES-V3-138
 
 from pathlib import Path
 import argparse

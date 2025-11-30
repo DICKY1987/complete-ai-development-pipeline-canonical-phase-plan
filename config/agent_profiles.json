@@ -40,5 +40,6 @@
     "aider_fix": "You are a code quality expert. Fix the following issues in the code:\n\n{error_report}\n\nMake minimal changes to resolve these issues while maintaining code functionality.",
     "codex_fix": "Fix these code quality issues:\n{error_report}",
     "claude_fix": "Please analyze and fix the following code quality issues:\n\n{error_report}\n\nProvide clean, well-tested fixes."
-  }
+  },
+  "doc_id": "DOC-CONFIG-AGENT-PROFILES-132"
 }

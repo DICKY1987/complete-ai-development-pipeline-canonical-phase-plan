@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PM-CCPM-AI-INSTRUCTIONS-019
+---
+
 # CCPM Setup and Usage Instructions for AI Assistants
 
 ## Table of Contents

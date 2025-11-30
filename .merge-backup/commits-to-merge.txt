@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-COMMITS-TO-MERGE-224
+---
+
 11cb2d2 docs: add comprehensive safe merge strategy and automation
 0daf233 feat: auto-generate pattern drafts and approvals
 2934cc8 feat: activate pattern automation hooks and db

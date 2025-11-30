@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-CLEANUP-EXECUTION-SUMMARY-20251125-340
+---
+
 # Automated Cleanup Execution Summary
 
 **Date**: 2025-11-25  

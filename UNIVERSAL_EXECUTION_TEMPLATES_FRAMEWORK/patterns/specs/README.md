@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-868
+---
+
 # Specs Directory
 
 **Purpose**: Canonical pattern specifications and supporting design docs.

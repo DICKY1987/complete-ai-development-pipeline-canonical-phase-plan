@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-AIM-AIM-CLAUDE-CLI-061
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 

@@ -29,5 +29,6 @@
   "tool": "aider",
   "metadata": {
     "notes": "MEDIUM risk - large (70+ files) but self-contained"
-  }
+  },
+  "doc_id": "DOC-CONFIG-WS-07-REFACTOR-PM-CCPM-147"
 }

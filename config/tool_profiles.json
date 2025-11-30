@@ -2,21 +2,30 @@
   "echo": {
     "type": "utility",
     "command": "echo",
-    "args": ["{message}"],
+    "args": [
+      "{message}"
+    ],
     "env": {},
     "working-dir": "{cwd}",
     "timeout-sec": 10,
-    "success-exit-codes": [0],
+    "success-exit-codes": [
+      0
+    ],
     "capture-output": true
   },
   "pytest": {
     "type": "test",
     "command": "pytest",
-    "args": ["-q"],
+    "args": [
+      "-q"
+    ],
     "env": {},
     "working-dir": "{repo_root}",
     "timeout-sec": 600,
-    "success-exit-codes": [0, 5],
+    "success-exit-codes": [
+      0,
+      5
+    ],
     "capture-output": true,
     "headless_mode_supported": true
   },
@@ -32,77 +41,121 @@
     "env": {},
     "working-dir": "{repo_root}",
     "timeout-sec": 120,
-    "success-exit-codes": [0],
+    "success-exit-codes": [
+      0
+    ],
     "capture-output": true
   },
   "pester": {
     "type": "test",
     "command": "pwsh",
-    "args": ["-NoLogo", "-NoProfile", "-Command", "Invoke-Pester -PassThru"],
+    "args": [
+      "-NoLogo",
+      "-NoProfile",
+      "-Command",
+      "Invoke-Pester -PassThru"
+    ],
     "env": {},
     "working-dir": "{repo_root}",
     "timeout-sec": 600,
-    "success-exit-codes": [0],
+    "success-exit-codes": [
+      0
+    ],
     "capture-output": true
   },
   "ruff": {
     "type": "static-check",
     "command": "ruff",
-    "args": ["check", "src", "scripts"],
+    "args": [
+      "check",
+      "src",
+      "scripts"
+    ],
     "env": {},
     "working-dir": "{repo_root}",
     "timeout-sec": 120,
-    "success-exit-codes": [0],
+    "success-exit-codes": [
+      0
+    ],
     "capture-output": true
   },
   "black": {
     "type": "static-check",
     "command": "black",
-    "args": ["--check", "src", "scripts"],
+    "args": [
+      "--check",
+      "src",
+      "scripts"
+    ],
     "env": {},
     "working-dir": "{repo_root}",
     "timeout-sec": 180,
-    "success-exit-codes": [0],
+    "success-exit-codes": [
+      0
+    ],
     "capture-output": true
   },
   "mypy": {
     "type": "static-check",
     "command": "mypy",
-    "args": ["src"],
+    "args": [
+      "src"
+    ],
     "env": {},
     "working-dir": "{repo_root}",
     "timeout-sec": 300,
-    "success-exit-codes": [0],
+    "success-exit-codes": [
+      0
+    ],
     "capture-output": true
   },
   "yamllint": {
     "type": "static-check",
     "command": "yamllint",
-    "args": ["-s", "docs", "plans"],
+    "args": [
+      "-s",
+      "docs",
+      "plans"
+    ],
     "env": {},
     "working-dir": "{repo_root}",
     "timeout-sec": 120,
-    "success-exit-codes": [0],
+    "success-exit-codes": [
+      0
+    ],
     "capture-output": true
   },
   "codespell": {
     "type": "static-check",
     "command": "codespell",
-    "args": ["docs", "src", "scripts", "README.md"],
+    "args": [
+      "docs",
+      "src",
+      "scripts",
+      "README.md"
+    ],
     "env": {},
     "working-dir": "{repo_root}",
     "timeout-sec": 120,
-    "success-exit-codes": [0],
+    "success-exit-codes": [
+      0
+    ],
     "capture-output": true
   },
   "gitleaks": {
     "type": "static-check",
     "command": "gitleaks",
-    "args": ["detect", "--no-banner", "--redact"],
+    "args": [
+      "detect",
+      "--no-banner",
+      "--redact"
+    ],
     "env": {},
     "working-dir": "{repo_root}",
     "timeout-sec": 300,
-    "success-exit-codes": [0],
+    "success-exit-codes": [
+      0
+    ],
     "capture-output": true
   },
   "aider": {
@@ -111,8 +164,10 @@
     "args": [
       "--no-auto-commits",
       "--yes",
-      "--model", "{model_name}",
-      "--message-file", "{prompt_file}"
+      "--model",
+      "{model_name}",
+      "--message-file",
+      "{prompt_file}"
     ],
     "env": {
       "AIDER_NO_AUTO_COMMITS": "1",
@@ -120,30 +175,46 @@
     },
     "working_dir": "{worktree_path}",
     "timeout_sec": 1800,
-    "success_exit_codes": [0],
+    "success_exit_codes": [
+      0
+    ],
     "capture_output": true,
     "aim_tool_id": "aider",
-    "aim_capabilities": ["code_generation", "refactoring"],
+    "aim_capabilities": [
+      "code_generation",
+      "refactoring"
+    ],
     "headless_mode_supported": true,
-    "headless_args": ["--yes", "--no-auto-commits"]
+    "headless_args": [
+      "--yes",
+      "--no-auto-commits"
+    ]
   },
   "gh": {
     "type": "utility",
     "command": "gh",
-    "args": ["--version"],
+    "args": [
+      "--version"
+    ],
     "env": {},
     "working-dir": "{repo_root}",
     "timeout-sec": 30,
-    "success-exit-codes": [0],
+    "success-exit-codes": [
+      0
+    ],
     "capture-output": true
   },
   "sleep-test": {
     "type": "utility",
     "command": "sleep",
-    "args": ["5"],
+    "args": [
+      "5"
+    ],
     "env": {},
     "timeout-sec": 2,
-    "success-exit-codes": [0],
+    "success-exit-codes": [
+      0
+    ],
     "capture-output": true
   },
   "missing-tool": {
@@ -152,7 +223,10 @@
     "args": [],
     "env": {},
     "timeout-sec": 10,
-    "success-exit-codes": [0],
+    "success-exit-codes": [
+      0
+    ],
     "capture-output": true
-  }
+  },
+  "doc_id": "DOC-CONFIG-TOOL-PROFILES-134"
 }

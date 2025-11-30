@@ -4,6 +4,7 @@ Tests for the tool installer module.
 Tests installation, uninstallation, version checking, and rollback
 for pipx, npm, and winget package managers.
 """
+DOC_ID: DOC-PAT-ENVIRONMENT-TEST-INSTALLER-425
 
 import asyncio
 import json

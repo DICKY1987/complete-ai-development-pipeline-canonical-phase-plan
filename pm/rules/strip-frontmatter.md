@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PM-STRIP-FRONTMATTER-123
+---
+
 # Strip Frontmatter
 
 Standard approach for removing YAML frontmatter before sending content to GitHub.

@@ -4,7 +4,11 @@
   "title": "Pattern Index Schema",
   "description": "Schema for PATTERN_INDEX.yaml - the single source of truth for all execution patterns",
   "type": "object",
-  "required": ["version", "metadata", "patterns"],
+  "required": [
+    "version",
+    "metadata",
+    "patterns"
+  ],
   "properties": {
     "version": {
       "type": "string",
@@ -13,7 +17,12 @@
     },
     "metadata": {
       "type": "object",
-      "required": ["created", "last_updated", "total_patterns", "total_categories"],
+      "required": [
+        "created",
+        "last_updated",
+        "total_patterns",
+        "total_categories"
+      ],
       "properties": {
         "created": {
           "type": "string",
@@ -42,8 +51,12 @@
       "description": "List of all registered patterns",
       "items": {
         "oneOf": [
-          {"$ref": "#/definitions/corePattern"},
-          {"$ref": "#/definitions/migratedPattern"}
+          {
+            "$ref": "#/definitions/corePattern"
+          },
+          {
+            "$ref": "#/definitions/migratedPattern"
+          }
         ]
       }
     }
@@ -81,7 +94,11 @@
         },
         "status": {
           "type": "string",
-          "enum": ["draft", "active", "deprecated"],
+          "enum": [
+            "draft",
+            "active",
+            "deprecated"
+          ],
           "description": "Pattern lifecycle status"
         },
         "category": {
@@ -125,7 +142,12 @@
           "type": "array",
           "items": {
             "type": "string",
-            "enum": ["claude_code", "github_copilot_cli", "cursor", "codex"]
+            "enum": [
+              "claude_code",
+              "github_copilot_cli",
+              "cursor",
+              "codex"
+            ]
           },
           "description": "AI tools that can invoke this pattern"
         },
@@ -183,7 +205,11 @@
         },
         "status": {
           "type": "string",
-          "enum": ["draft", "active", "deprecated"],
+          "enum": [
+            "draft",
+            "active",
+            "deprecated"
+          ],
           "description": "Pattern status (draft until tested)"
         },
         "category": {
@@ -225,5 +251,6 @@
         }
       }
     }
-  }
+  },
+  "doc_id": "DOC-PAT-PATTERN-INDEX-SCHEMA-107"
 }

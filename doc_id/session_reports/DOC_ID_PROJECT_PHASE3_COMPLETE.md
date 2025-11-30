@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-DOC-ID-PROJECT-PHASE3-COMPLETE-1392
+---
+
 # DOC_ID Phase 3 Completion Report
 
 **Date**: 2025-11-29  

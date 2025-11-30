@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-FILE-ORG-IMPLEMENTATION-SUMMARY-1209
+---
+
 # File Organization System - Implementation Summary
 
 > **Created**: 2025-11-22  

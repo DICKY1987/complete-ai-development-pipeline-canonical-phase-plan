@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-AUTOMATION-COMPLETE-420
+---
+
 # Glossary Automation System - Complete Guide
 
 **Created**: 2025-11-25  

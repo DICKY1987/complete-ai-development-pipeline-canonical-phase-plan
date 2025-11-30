@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-01001C-README-1473
+---
+
 # AIM Registry
 
 **Module ID**: aim-registry  

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-415
+---
+
 # Doc ID Framework - Main Directory
 
 **Last Updated**: 2025-11-29  

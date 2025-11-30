@@ -5,7 +5,12 @@
   "description": "Domain-specific profile that extends core framework with resource types, change types, task kinds, and constraints.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["profile_id", "profile_version", "extends_core", "adds_resource_types"],
+  "required": [
+    "profile_id",
+    "profile_version",
+    "extends_core",
+    "adds_resource_types"
+  ],
   "properties": {
     "profile_id": {
       "type": "string",
@@ -44,7 +49,11 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["type", "scope_format", "operations"],
+        "required": [
+          "type",
+          "scope_format",
+          "operations"
+        ],
         "properties": {
           "type": {
             "type": "string",
@@ -58,7 +67,13 @@
             "type": "array",
             "items": {
               "type": "string",
-              "enum": ["read", "write", "create", "delete", "execute"]
+              "enum": [
+                "read",
+                "write",
+                "create",
+                "delete",
+                "execute"
+              ]
             },
             "description": "Supported operations on this resource type"
           }
@@ -70,7 +85,10 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["kind", "format"],
+        "required": [
+          "kind",
+          "format"
+        ],
         "properties": {
           "kind": {
             "type": "string",
@@ -82,7 +100,9 @@
           },
           "validation": {
             "type": "array",
-            "items": {"type": "string"},
+            "items": {
+              "type": "string"
+            },
             "description": "Validation steps required"
           }
         }
@@ -121,7 +141,10 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["type", "command"],
+        "required": [
+          "type",
+          "command"
+        ],
         "properties": {
           "type": {
             "type": "string",
@@ -140,13 +163,22 @@
       "items": {
         "type": "object",
         "properties": {
-          "phase_id": {"type": "string"},
-          "name": {"type": "string"},
-          "category": {"type": "string"},
-          "template_path": {"type": "string"}
+          "phase_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "template_path": {
+            "type": "string"
+          }
         }
       },
       "description": "Phase templates provided by this profile"
     }
-  }
+  },
+  "doc_id": "DOC-SPEC-PROFILE-EXTENSION-V1-026"
 }

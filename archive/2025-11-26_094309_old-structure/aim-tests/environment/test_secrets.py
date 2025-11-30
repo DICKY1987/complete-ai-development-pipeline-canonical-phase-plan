@@ -12,6 +12,7 @@ from modules.aim_environment.m01001B_exceptions import SecretsError
 @pytest.fixture
 def temp_vault_path(tmp_path):
     """Create a temporary vault path for testing."""
+DOC_ID: DOC-PAT-ENVIRONMENT-TEST-SECRETS-427
     vault_path = tmp_path / "test_secrets.json"
     yield vault_path
     # Cleanup is automatic with tmp_path

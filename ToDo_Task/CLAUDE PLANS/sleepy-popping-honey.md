@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-SLEEPY-POPPING-HONEY-1563
+---
+
 # 5-Phase Completion Plan: Module Migration & Pattern Automation Integration
 
 **Status**: 93% Complete | **Remaining**: 7% (5 phases, ~2-4 hours)

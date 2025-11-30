@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-AUTOMATED-CONVERSION-EXAMPLES-SHOWING-1109
+---
+
 Below are automated conversion examples showing how to transform existing Codex/Claude style phase prompts into Aider-compatible workstream instruction files, plus a reference Python script that performs heuristic conversion.
 
 ---

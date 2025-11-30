@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-PAT-ERROR-SHARED-M010021-HASHING-675
 from __future__ import annotations
 
 import hashlib

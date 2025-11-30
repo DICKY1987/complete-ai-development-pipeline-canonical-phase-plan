@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-EXTRACTION-REPORT-957
+---
+
 # Atomic Workflow System - Extraction Report
 
 **Generated**: 2025-11-24 03:16:22  

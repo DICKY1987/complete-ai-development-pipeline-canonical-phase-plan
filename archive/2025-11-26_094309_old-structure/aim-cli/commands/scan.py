@@ -7,6 +7,7 @@ Commands:
 - aim scan caches        - Find misplaced caches
 - aim scan clean         - Clean up caches
 """
+DOC_ID: DOC-PAT-COMMANDS-SCAN-418
 
 import json
 from pathlib import Path

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-COVERAGE-ANALYSIS-1661
+---
+
 # Coverage Analysis Report
 
 **Generated**: 2025-11-23 12:51:40  

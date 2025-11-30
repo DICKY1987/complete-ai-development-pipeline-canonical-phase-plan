@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PHASE-PLAN-PATTERN-GOVERNANCE-1631
+---
+
 # PHASE PLAN: Pattern System Governance Implementation
 
 **Phase ID**: PH-PAT-GOV-001  

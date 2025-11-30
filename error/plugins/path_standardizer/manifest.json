@@ -5,9 +5,14 @@
   "plugin_type": "validator",
   "language": "multi",
   "autofix": true,
-  "dependencies": ["bash", "check-path-standards.sh", "fix-path-standards.sh"],
+  "dependencies": [
+    "bash",
+    "check-path-standards.sh",
+    "fix-path-standards.sh"
+  ],
   "capabilities": {
     "path_validation": true,
     "path_correction": true
-  }
+  },
+  "doc_id": "DOC-ERROR-MANIFEST-020"
 }

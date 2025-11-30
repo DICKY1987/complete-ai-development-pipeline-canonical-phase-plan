@@ -13,6 +13,7 @@ from core.adapters.subprocess_adapter import SubprocessAdapter
 
 class TestSubprocessAdapter:
     """Test SubprocessAdapter functionality"""
+# DOC_ID: DOC-TEST-ADAPTERS-TEST-SUBPROCESS-ADAPTER-168
     
     def test_create_adapter(self):
         """Test creating a subprocess adapter"""

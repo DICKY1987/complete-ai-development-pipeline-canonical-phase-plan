@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-STATE-MACHINE-1336
+---
+
 # State Machine Documentation
 
 ## Purpose

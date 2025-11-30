@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-890
+---
+
 # Orchestrator integration
 
 Add the hooks to your orchestrator's task execution method:

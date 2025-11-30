@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-RADIANT-IMAGINING-TARJAN-1560
+---
+
 # Pattern Automation Master Plan - Gap Analysis & Improvements
 
 ## Executive Summary

@@ -5,6 +5,7 @@ heartbeat monitoring, and task assignment.
 
 Phase I: Added process spawning integration.
 """
+DOC_ID: DOC-PAT-CORE-ENGINE-WORKER-404
 
 from __future__ import annotations
 

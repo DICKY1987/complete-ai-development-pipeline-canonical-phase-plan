@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROJECT-DEVELOPER-ANALYSIS-README-1582
+---
+
 # Technical Analysis
 
 > **Purpose**: Technical analysis documents and data flow diagrams  

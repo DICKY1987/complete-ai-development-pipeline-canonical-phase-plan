@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-FOLDER-GOVERNANCE-SPEC-1553
+---
+
 ````markdown
 ---
 spec_id: FOLDER_GOVERNANCE_SPEC

@@ -14,6 +14,8 @@ Usage:
 Output:
     import_analysis_report.yaml
 """
+# DOC_ID: DOC-SCRIPT-SCRIPTS-ANALYZE-IMPORTS-189
+# DOC_ID: DOC-SCRIPT-SCRIPTS-ANALYZE-IMPORTS-126
 
 import ast
 import sys

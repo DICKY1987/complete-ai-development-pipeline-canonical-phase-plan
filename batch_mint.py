@@ -3,6 +3,10 @@
 Batch mint doc_ids from batch specifications
 Generates deltas for later merge
 """
+# DOC_ID: DOC-PAT-BATCH-MINT-337
+# DOC_ID: DOC-PAT-BATCH-MINT-293
+# DOC_ID: DOC-PAT-BATCH-MINT-278
+# DOC_ID: DOC-PAT-BATCH-MINT-263
 
 from pathlib import Path
 import yaml

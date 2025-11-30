@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PM-BRANCH-OPERATIONS-121
+---
+
 # Branch Operations
 
 Git branches enable parallel development by allowing multiple developers to work on the same repository with isolated changes.

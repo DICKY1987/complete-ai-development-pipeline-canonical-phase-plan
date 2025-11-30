@@ -3,6 +3,7 @@
 Selects the best profile for a project based on discovery results.
 Uses a decision tree approach with confidence scoring.
 """
+# DOC_ID: DOC-CORE-BOOTSTRAP-SELECTOR-141
 
 import json
 from pathlib import Path

@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-TEST-DEMO-PATTERN-DETECTION-031
 # Pattern Detection Demo (optional)
 $ErrorActionPreference = "Stop"
 

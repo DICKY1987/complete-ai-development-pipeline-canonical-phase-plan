@@ -4,5 +4,6 @@
   "config_path": "automation/config/detection_config.yaml",
   "settings": [],
   "create_loader": true,
-  "loader_language": "example_loader_language"
+  "loader_language": "example_loader_language",
+  "doc_id": "DOC-PAT-INSTANCE-FULL-152"
 }

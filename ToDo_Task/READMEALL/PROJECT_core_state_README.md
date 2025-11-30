@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROJECT-CORE-STATE-README-1581
+---
+
 # Core State Management
 
 > **Module**: `core.state`  

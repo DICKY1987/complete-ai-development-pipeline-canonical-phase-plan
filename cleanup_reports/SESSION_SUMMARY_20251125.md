@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-SESSION-SUMMARY-20251125-341
+---
+
 # Session Summary: Automated Repository Cleanup
 
 **Date**: 2025-11-25  

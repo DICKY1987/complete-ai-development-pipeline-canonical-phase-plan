@@ -1,4 +1,8 @@
 #!/bin/bash
+# DOC_LINK: DOC-PM-STATUS-272
+# DOC_LINK: DOC-PM-STATUS-219
+# DOC_LINK: DOC-PM-STATUS-166
+# DOC_LINK: DOC-SCRIPT-STATUS-323
 
 echo "Getting status..."
 echo ""

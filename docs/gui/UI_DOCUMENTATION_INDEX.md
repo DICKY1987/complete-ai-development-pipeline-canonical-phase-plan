@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-UI-DOCUMENTATION-INDEX-1339
+---
+
 # UI Documentation Index
 
 This directory contains documentation for the AI Development Pipeline user interfaces.

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-TIDY-SWIMMING-QUAIL-1565
+---
+
 # Implementation Plan: Three-Tier DAG-as-Derived-State System
 
 ## Executive Summary

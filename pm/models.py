@@ -9,6 +9,8 @@ Defines core data structures:
 
 All models use Python dataclasses with type hints.
 """
+# DOC_ID: DOC-PM-PM-MODELS-016
+# DOC_ID: DOC-PM-PM-MODELS-010
 
 from dataclasses import dataclass, field
 from datetime import datetime

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-FULL-TRIP-THROUGH-THE-PIPELINE-713
+---
+
 Got it—no code, just “what flows where” and in what order. I’ll describe one full trip through the pipeline for a given script (or set of scripts), including the extra tools, auto-correct, and MCP escalation.
 
 Think of it as a **timeline** of artifacts:

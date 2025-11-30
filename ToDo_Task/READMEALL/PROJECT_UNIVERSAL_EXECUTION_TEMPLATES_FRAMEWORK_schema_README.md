@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROJECT-UNIVERSAL-EXECUTION-TEMPLATES-1602
+---
+
 # UET Schema Catalog
 
 Complete reference for all JSON schemas defining the UET framework's type contracts.

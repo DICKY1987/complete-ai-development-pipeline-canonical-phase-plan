@@ -11,6 +11,7 @@ from gui.tui_app.core.panel_registry import register_panel
 
 class DashboardWidget(Static):
     """Dashboard widget with auto-refresh capability."""
+# DOC_ID: DOC-PAT-PANELS-DASHBOARD-PANEL-464
 
     def __init__(self, context: PanelContext):
         super().__init__("", id="dashboard-content")

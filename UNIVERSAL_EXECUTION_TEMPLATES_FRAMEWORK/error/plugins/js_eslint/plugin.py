@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-ERROR-JS-ESLINT-PLUGIN-126
 from __future__ import annotations
 
 import json

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-AIM-AIM-INTEGRATION-CONTRACT-161
+---
+
 # AIM Integration Contract
 
 **Contract Version:** AIM_INTEGRATION_V1

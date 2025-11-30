@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-REPOSITORY-REORGANIZATION-COMPLETE-396
+---
+
 # Repository Reorganization Complete ✅
 
 **Date**: 2025-11-23  

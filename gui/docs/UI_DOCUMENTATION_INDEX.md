@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-UI-DOCUMENTATION-INDEX-1425
+---
+
 # User Interface Documentation Index
 
 ## Quick Answer to: "What does the user see?"

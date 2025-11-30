@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-SPEC-CONSOLIDATION-INVENTORY-1193
+---
+
 # Specification Consolidation Inventory
 
 **Date:** 2025-11-21  

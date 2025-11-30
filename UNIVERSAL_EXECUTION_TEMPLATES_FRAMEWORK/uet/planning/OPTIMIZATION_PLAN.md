@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-OPTIMIZATION-PLAN-1657
+---
+
 # UET Framework - AI Optimization Plan
 
 ## Executive Summary

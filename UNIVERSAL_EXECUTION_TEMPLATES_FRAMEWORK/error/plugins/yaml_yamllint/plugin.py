@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-ERROR-YAML-YAMLLINT-PLUGIN-140
 from __future__ import annotations
 
 import re

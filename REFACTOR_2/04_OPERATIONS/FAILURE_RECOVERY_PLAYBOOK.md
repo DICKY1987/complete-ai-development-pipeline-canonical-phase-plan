@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-FAILURE-RECOVERY-PLAYBOOK-1541
+---
+
 # Failure Recovery Playbook
 
 ## 🎯 Purpose

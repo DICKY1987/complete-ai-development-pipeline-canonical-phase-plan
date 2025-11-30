@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-CODEX-1372
+---
+
 # CODEX.md
 
 This file provides guidance to OpenAI Codex when working with code in this repository through Aider workstream templates.

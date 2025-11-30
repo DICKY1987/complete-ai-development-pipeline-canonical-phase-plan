@@ -1,3 +1,5 @@
+# DOC_LINK: DOC-PAT-SRC-ORCHESTRATOR-359
+# DOC_LINK: DOC-PAT-SRC-ORCHESTRATOR-315
 from __future__ import annotations
 
 from dataclasses import dataclass

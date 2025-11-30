@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-SESSION-SUMMARY-2025-11-20-WS-03-02A-1321
+---
+
 # Session Summary: WS-03-02A Tool Adapter Framework Complete!
 
 **Date:** 2025-11-20 23:35 UTC  

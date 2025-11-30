@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-UET-CHAT-1-1125
+---
+
 Got it — I’ll stay in planning/architecture mode only and **won’t** start drafting any actual documents yet.
 
 Based on the project knowledge you’ve fed in, here’s how I’d frame the *documentation suite* we should design next, plus how it ties back to what already exists.

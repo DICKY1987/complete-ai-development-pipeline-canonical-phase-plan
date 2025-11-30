@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-PATTERN-AUTOMATION-PATHS-758
+---
+
 # Pattern automation paths
 
 **Orchestrator/engine modules**

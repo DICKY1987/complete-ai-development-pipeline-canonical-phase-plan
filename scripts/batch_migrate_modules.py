@@ -12,6 +12,8 @@ Examples:
     python scripts/batch_migrate_modules.py error-plugin-*
     python scripts/batch_migrate_modules.py --layer ui --independent
 """
+# DOC_ID: DOC-SCRIPT-SCRIPTS-BATCH-MIGRATE-MODULES-193
+# DOC_ID: DOC-SCRIPT-SCRIPTS-BATCH-MIGRATE-MODULES-130
 
 import sys
 import yaml

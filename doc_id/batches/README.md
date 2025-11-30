@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-1380
+---
+
 # Batches Directory
 
 **Purpose**: Batch ID assignment files  

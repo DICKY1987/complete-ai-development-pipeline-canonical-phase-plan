@@ -1,3 +1,5 @@
+# DOC_LINK: DOC-CORE-CORE-OPENSPEC-PARSER-046
+# DOC_LINK: DOC-CORE-CORE-OPENSPEC-PARSER-023
 from __future__ import annotations
 
 import argparse

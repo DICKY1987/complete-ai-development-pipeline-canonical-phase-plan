@@ -29,7 +29,7 @@ if sys.platform == 'win32':
 # Repository root
 REPO_ROOT = Path(__file__).parent.parent.parent
 REGISTRY_PATH = REPO_ROOT / "doc_id" / "specs" / "DOC_ID_REGISTRY.yaml"
-DOC_ID_REGEX = re.compile(r"^DOC-[A-Z0-9]+-[A-Z0-9]+(-[A-Z0-9]+)*-[0-9]{3}$")
+DOC_ID_REGEX = re.compile(r"^DOC-[A-Z0-9]+-[A-Z0-9]+(-[A-Z0-9]+)*-[0-9]{3,}$")
 
 
 class DocIDRegistry:

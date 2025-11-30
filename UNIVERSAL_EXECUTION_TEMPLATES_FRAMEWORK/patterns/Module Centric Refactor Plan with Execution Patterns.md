@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-MODULE-CENTRIC-REFACTOR-PLAN-WITH-753
+---
+
 Module-Centric Refactor Plan with Execution Patterns        │
      │                                                             │
      │ Document ID: PLAN-REFACTOR-MODULE-CENTRIC-001               │

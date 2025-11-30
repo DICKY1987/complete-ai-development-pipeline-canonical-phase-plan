@@ -2,6 +2,7 @@
 
 Phase I WS-I10: Performance tuning and optimization.
 """
+DOC_ID: DOC-PAT-CORE-ENGINE-PERFORMANCE-395
 
 from __future__ import annotations
 

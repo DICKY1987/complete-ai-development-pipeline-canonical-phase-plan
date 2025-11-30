@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-STANDARD-PATTERNS-1102
+---
+
 # Standard Patterns for Commands
 
 This file defines common patterns that all commands should follow to maintain consistency and simplicity.

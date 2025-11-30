@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-DEPRECATION-PLAN-1242
+---
+
 # Deprecation & Shim Removal Plan
 
 **Date Created**: 2025-11-19  

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-MERGE-QUICKSTART-163
+---
+
 # Safe Merge Strategy - Quick Start Guide
 
 **Document**: Quick reference for executing safe merge strategy  

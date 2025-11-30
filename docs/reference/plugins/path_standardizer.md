@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PATH-STANDARDIZER-1369
+---
+
 # Path Standardizer Plugin
 
 Uses CCPM's path validation tools to ensure consistent path usage across the codebase.

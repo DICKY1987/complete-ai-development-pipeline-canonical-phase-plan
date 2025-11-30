@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-947
+---
+
 # Verify Commit Examples
 
 **Pattern**: `PAT-VERIFY-COMMIT`

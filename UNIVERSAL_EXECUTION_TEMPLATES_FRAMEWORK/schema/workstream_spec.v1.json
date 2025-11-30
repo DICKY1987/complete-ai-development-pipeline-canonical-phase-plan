@@ -5,7 +5,14 @@
   "description": "Workstream definition containing a sequence of tasks to execute within a phase.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["workstream_id", "project_id", "phase_id", "name", "objective", "tasks"],
+  "required": [
+    "workstream_id",
+    "project_id",
+    "phase_id",
+    "name",
+    "objective",
+    "tasks"
+  ],
   "properties": {
     "workstream_id": {
       "type": "string",
@@ -33,7 +40,9 @@
     },
     "tags": {
       "type": "array",
-      "items": {"type": "string"}
+      "items": {
+        "type": "string"
+      }
     },
     "resource_scope": {
       "type": "object",
@@ -57,7 +66,11 @@
       "properties": {
         "strategy": {
           "type": "string",
-          "enum": ["fail_fast", "continue", "escalate"]
+          "enum": [
+            "fail_fast",
+            "continue",
+            "escalate"
+          ]
         }
       }
     },
@@ -66,11 +79,17 @@
       "properties": {
         "mode": {
           "type": "string",
-          "enum": ["all", "any", "custom"]
+          "enum": [
+            "all",
+            "any",
+            "custom"
+          ]
         },
         "checks": {
           "type": "array",
-          "items": {"type": "object"}
+          "items": {
+            "type": "object"
+          }
         }
       }
     },
@@ -81,5 +100,6 @@
       },
       "description": "Tasks to execute in this workstream"
     }
-  }
+  },
+  "doc_id": "DOC-SPEC-WORKSTREAM-SPEC-V1-037"
 }

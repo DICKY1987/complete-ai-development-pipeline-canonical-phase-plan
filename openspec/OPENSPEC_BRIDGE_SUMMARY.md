@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-OPENSPEC-BRIDGE-SUMMARY-431
+---
+
 # OpenSpec Bridge Implementation Summary
 
 ## What Was Created

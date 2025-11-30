@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# DOC_LINK: DOC-SCRIPT-TEST-AND-LOG-286
 set -euo pipefail
 
 # Script to run tests with automatic log redirection

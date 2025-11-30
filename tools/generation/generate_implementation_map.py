@@ -9,6 +9,7 @@ exact implementation locations (file:line).
 Usage:
     python scripts/generate_implementation_map.py [--output DOCS/IMPLEMENTATION_LOCATIONS.md]
 """
+# DOC_ID: DOC-PAT-GENERATION-GENERATE-IMPLEMENTATION-MAP-620
 
 import argparse
 import ast

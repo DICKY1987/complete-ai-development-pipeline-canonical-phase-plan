@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-ENGINE-MIGRATION-PLAN-697
+---
+
 
  ▐▛███▜▌   Claude Code v2.0.53
 ▝▜█████▛▘  Sonnet 4.5 · Claude Pro

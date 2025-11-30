@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-TESTING-MODULE-INTEGRATION-1452
+---
+
 # Testing Module Integration
 
 How to test modules in isolation and together after the module-centric migration.

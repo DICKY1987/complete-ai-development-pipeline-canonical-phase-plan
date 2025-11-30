@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-CCPM-GITHUB-SETUP-1354
+---
+
 # CCPM GitHub setup
 
 ## Prerequisites

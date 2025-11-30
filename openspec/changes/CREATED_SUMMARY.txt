@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-CREATED-SUMMARY-724
+---
+
 # ========================================
 # UET Implementation Suite - Complete
 # ========================================

@@ -33,5 +33,6 @@
   "tool": "aider",
   "metadata": {
     "notes": "MEDIUM risk - used by orchestrator"
-  }
+  },
+  "doc_id": "DOC-CONFIG-WS-08-REFACTOR-AIDER-SECTION-148"
 }

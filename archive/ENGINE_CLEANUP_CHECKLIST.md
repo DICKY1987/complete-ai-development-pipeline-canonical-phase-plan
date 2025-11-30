@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-ENGINE-CLEANUP-CHECKLIST-222
+---
+
 # Engine Cleanup Checklist - Quick Win Path
 
 **Goal**: Remove unused engine code, keep only the active legacy orchestrator  

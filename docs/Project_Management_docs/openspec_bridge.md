@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-OPENSPEC-BRIDGE-1356
+---
+
 # OpenSpec Bridge Documentation
 
 ## Overview

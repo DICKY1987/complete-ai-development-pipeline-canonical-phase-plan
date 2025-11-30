@@ -1,3 +1,5 @@
+# DOC_LINK: DOC-PAT-TEXTUAL-WIDGETS-366
+# DOC_LINK: DOC-PAT-TEXTUAL-WIDGETS-322
 from __future__ import annotations
 
 from typing import Any

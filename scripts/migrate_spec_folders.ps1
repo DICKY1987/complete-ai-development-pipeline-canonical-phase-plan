@@ -1,4 +1,5 @@
 #!/usr/bin/env pwsh
+# DOC_LINK: DOC-SCRIPT-MIGRATE-SPEC-FOLDERS-066
 <#
 .SYNOPSIS
     Migrate openspec/ and spec/ into unified specifications/ directory.

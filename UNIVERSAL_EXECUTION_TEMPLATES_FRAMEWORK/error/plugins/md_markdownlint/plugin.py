@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-ERROR-MD-MARKDOWNLINT-PLUGIN-128
 from __future__ import annotations
 
 import json

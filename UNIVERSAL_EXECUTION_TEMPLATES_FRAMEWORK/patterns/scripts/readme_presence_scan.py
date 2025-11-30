@@ -29,6 +29,7 @@ DEFAULT_SKIP_DIRS: tuple[str, ...] = (
 
 def has_readme(dir_path: Path, names: Iterable[str]) -> bool:
     """Return True if the directory contains a README using any allowed name."""
+# DOC_ID: DOC-SCRIPT-SCRIPTS-README-PRESENCE-SCAN-329
     names_lower = {name.lower() for name in names}
     try:
         for child in dir_path.iterdir():

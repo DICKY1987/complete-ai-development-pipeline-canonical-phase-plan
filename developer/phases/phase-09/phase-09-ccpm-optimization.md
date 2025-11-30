@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PHASE-09-CCPM-OPTIMIZATION-1272
+---
+
 # Phase 09: CCPM integration optimization plan
 
 ## Objectives

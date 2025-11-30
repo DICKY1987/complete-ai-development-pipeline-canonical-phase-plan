@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PHASE-002-FINAL-SUMMARY-1146
+---
+
 # Phase PH-NEXT-002 Final Summary
 
 **Date**: 2025-11-23T19:45:00Z  

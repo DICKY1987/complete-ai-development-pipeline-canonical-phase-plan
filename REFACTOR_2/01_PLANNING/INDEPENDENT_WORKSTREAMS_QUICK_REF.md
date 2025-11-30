@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-INDEPENDENT-WORKSTREAMS-QUICK-REF-1528
+---
+
 # Independent Workstreams - Quick Reference
 
 ## 🎯 11 Workstreams Ready to Execute NOW

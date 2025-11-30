@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-FINAL-RECOMMENDATION-225
+---
+
 # Migration Plan Comparison & Final Recommendation
 
 **Date**: 2025-11-25  

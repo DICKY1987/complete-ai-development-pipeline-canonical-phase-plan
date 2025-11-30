@@ -9,6 +9,7 @@ Import from this module:
 
     from modules.error_engine import function_name  # ?
 """
+# DOC_ID: DOC-PAT-ERROR-ENGINE-INIT-551
 
 import importlib
 import sys

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-PATTERN-PANEL-GUI-ALIGNMENT-760
+---
+
 # Pattern Activity Panel - GUI Framework Alignment
 
 **Document Version**: 1.0.0

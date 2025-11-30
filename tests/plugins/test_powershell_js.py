@@ -1,6 +1,7 @@
 """
 Tests for PowerShell and JavaScript/TypeScript plugins.
 """
+# DOC_ID: DOC-TEST-PLUGINS-TEST-POWERSHELL-JS-145
 from __future__ import annotations
 
 import json

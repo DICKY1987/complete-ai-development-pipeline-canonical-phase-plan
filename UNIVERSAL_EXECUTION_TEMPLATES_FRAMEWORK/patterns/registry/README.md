@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-817
+---
+
 # Registry Directory
 
 **Purpose**: Generated registries and schemas describing available patterns and operation kinds.

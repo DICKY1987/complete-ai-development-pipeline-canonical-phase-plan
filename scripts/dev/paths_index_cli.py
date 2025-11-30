@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-DEV-PATHS-INDEX-CLI-268
 from __future__ import annotations
 
 import argparse

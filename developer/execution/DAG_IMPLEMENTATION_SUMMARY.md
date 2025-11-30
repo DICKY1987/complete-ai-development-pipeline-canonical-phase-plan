@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-DAG-IMPLEMENTATION-SUMMARY-1205
+---
+
 # DAG Implementation - Completion Summary
 
 ## ✅ Completed

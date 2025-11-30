@@ -3,6 +3,8 @@
 This module provides helpers for tool adapters to emit metrics and events,
 enabling full observability of tool invocations for the UI.
 """
+# DOC_ID: DOC-CORE-CORE-TOOL-INSTRUMENTATION-054
+# DOC_ID: DOC-CORE-CORE-TOOL-INSTRUMENTATION-031
 
 import time
 from contextlib import contextmanager

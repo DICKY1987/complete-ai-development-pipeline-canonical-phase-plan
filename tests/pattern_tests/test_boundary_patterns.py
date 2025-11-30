@@ -24,6 +24,7 @@ from error.patterns.types import PatternCategory, PatternSeverity
 
 class TestBoundaryPatterns:
     """Test boundary pattern detection."""
+# DOC_ID: DOC-TEST-PATTERN-TESTS-TEST-BOUNDARY-PATTERNS-130
     
     def test_boundary_patterns_exist(self):
         """Verify boundary patterns are defined for common types."""

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-WORKTREE-OPERATIONS-1104
+---
+
 # Worktree Operations
 
 Git worktrees enable parallel development by allowing multiple working directories for the same repository.

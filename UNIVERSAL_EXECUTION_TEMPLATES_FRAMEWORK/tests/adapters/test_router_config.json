@@ -5,8 +5,17 @@
       "kind": "tool",
       "command": "aider --yes",
       "capabilities": {
-        "task_kinds": ["code_edit", "refactor", "code_review"],
-        "domains": ["python", "javascript", "typescript", "rust"]
+        "task_kinds": [
+          "code_edit",
+          "refactor",
+          "code_review"
+        ],
+        "domains": [
+          "python",
+          "javascript",
+          "typescript",
+          "rust"
+        ]
       },
       "limits": {
         "max_parallel": 2,
@@ -18,8 +27,17 @@
       "kind": "tool",
       "command": "gh copilot",
       "capabilities": {
-        "task_kinds": ["code_edit", "analysis", "documentation"],
-        "domains": ["python", "javascript", "go", "rust"]
+        "task_kinds": [
+          "code_edit",
+          "analysis",
+          "documentation"
+        ],
+        "domains": [
+          "python",
+          "javascript",
+          "go",
+          "rust"
+        ]
       },
       "limits": {
         "max_parallel": 3,
@@ -31,8 +49,13 @@
       "kind": "validator",
       "command": "ruff check",
       "capabilities": {
-        "task_kinds": ["lint", "validation"],
-        "domains": ["python"]
+        "task_kinds": [
+          "lint",
+          "validation"
+        ],
+        "domains": [
+          "python"
+        ]
       },
       "limits": {
         "max_parallel": 5,
@@ -46,12 +69,23 @@
       {
         "id": "python-editing",
         "match": {
-          "task_kind": ["code_edit", "refactor"],
-          "risk_tier": ["low", "medium"]
+          "task_kind": [
+            "code_edit",
+            "refactor"
+          ],
+          "risk_tier": [
+            "low",
+            "medium"
+          ]
         },
-        "select_from": ["aider", "codex"],
+        "select_from": [
+          "aider",
+          "codex"
+        ],
         "strategy": "auto",
-        "validate_with": ["ruff"],
+        "validate_with": [
+          "ruff"
+        ],
         "required": true
       }
     ]
@@ -60,5 +94,6 @@
     "max_attempts": 3,
     "timeout_seconds": 300,
     "strategy": "auto"
-  }
+  },
+  "doc_id": "DOC-TEST-TEST-ROUTER-CONFIG-008"
 }

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROPOSAL-1515
+---
+
 # Phase E: Resilience - UET Implementation
 
 **Change ID**: uet-001-phase-e-resilience  

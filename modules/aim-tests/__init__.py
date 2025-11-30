@@ -9,6 +9,7 @@ Import from this module:
 
     from modules.aim_tests import function_name  # ?
 """
+# DOC_ID: DOC-PAT-AIM-TESTS-INIT-485
 
 import importlib
 import sys

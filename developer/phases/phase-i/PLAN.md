@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PLAN-1301
+---
+
 # Phase I: UET Production Integration & Enhancement
 
 **Created**: 2025-11-21  

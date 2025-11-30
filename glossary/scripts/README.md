@@ -1,3 +1,7 @@
+---
+doc_id: DOC-SCRIPT-README-309
+---
+
 # Glossary Tooling
 
 **Purpose**: Tools for maintaining, validating, and updating the repository glossary.

@@ -2,6 +2,8 @@
 UET Tool Adapter
 Wraps existing engine adapters for UET orchestrator
 """
+# DOC_ID: DOC-SCRIPT-SCRIPTS-UET-TOOL-ADAPTER-239
+# DOC_ID: DOC-SCRIPT-SCRIPTS-UET-TOOL-ADAPTER-176
 
 import logging
 from typing import Dict, Any

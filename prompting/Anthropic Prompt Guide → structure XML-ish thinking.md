@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-ANTHROPIC-PROMPT-GUIDE-STRUCTURE-XML-435
+---
+
 
 ---
 

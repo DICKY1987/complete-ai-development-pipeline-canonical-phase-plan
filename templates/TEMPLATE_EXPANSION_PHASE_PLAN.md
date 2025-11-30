@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-TEMPLATE-EXPANSION-PHASE-PLAN-448
+---
+
 # Template Expansion Phase Plan
 **Pattern**: EXEC-001 (Batch File Creator) + EXEC-002 (Code Module Generator)  
 **Goal**: Build 15-template system saving 218h/year  

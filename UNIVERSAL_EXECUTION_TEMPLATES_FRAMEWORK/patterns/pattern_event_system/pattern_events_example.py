@@ -3,6 +3,7 @@
 This example shows how to integrate pattern event emission into
 your existing engine/orchestrator code.
 """
+# DOC_ID: DOC-PAT-PATTERN-EVENT-SYSTEM-PATTERN-EVENTS-805
 
 from core.engine.pattern_events import (
     PatternEvent,

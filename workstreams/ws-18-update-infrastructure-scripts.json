@@ -92,5 +92,6 @@
     "risk_level": "HIGH",
     "estimated_effort_hours": "10-14",
     "notes": "Updates 30+ scripts to use new section-based import paths. Critical integration point - all scripts must work after refactor. Can partially overlap with WS-19 if file conflicts are managed carefully."
-  }
+  },
+  "doc_id": "DOC-CONFIG-WS-18-UPDATE-INFRASTRUCTURE-SCRIPTS-158"
 }

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-MASTER-INDEX-802
+---
+
 # Pattern Event System - Master Index
 
 **Folder**: `ToDo_Task/pattern_event_system/`

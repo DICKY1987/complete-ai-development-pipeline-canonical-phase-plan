@@ -4,6 +4,7 @@ Custom exceptions for the AIM+ environment management system.
 
 Contract Version: AIM_PLUS_V1
 """
+# DOC_ID: DOC-PAT-AIM-ENVIRONMENT-M01001B-EXCEPTIONS-661
 
 
 class AIMPlusError(Exception):

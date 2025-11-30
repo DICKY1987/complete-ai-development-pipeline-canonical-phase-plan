@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROJECT-UET-FRAMEWORK-README-1421
+---
+
 # UI Templates
 
 > **User Interface Component Templates - Dashboards, Reports, and Monitoring**  

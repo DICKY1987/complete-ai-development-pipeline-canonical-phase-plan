@@ -1,6 +1,8 @@
 """
 Test that imports work correctly with the new module structure.
 """
+# DOC_ID: DOC-SCRIPT-SCRIPTS-TEST-IMPORTS-236
+# DOC_ID: DOC-SCRIPT-SCRIPTS-TEST-IMPORTS-173
 
 import sys
 from pathlib import Path

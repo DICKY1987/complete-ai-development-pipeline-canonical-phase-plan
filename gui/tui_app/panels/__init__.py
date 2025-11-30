@@ -14,3 +14,4 @@ __all__ = [
     "LogStreamPanel",
     "PatternActivityPanel",
 ]
+# DOC_LINK: DOC-PAT-PANELS-INIT-469

@@ -133,7 +133,10 @@
           "type": "array",
           "items": {
             "type": "object",
-            "required": ["pattern", "capture"],
+            "required": [
+              "pattern",
+              "capture"
+            ],
             "properties": {
               "pattern": {
                 "type": "string",
@@ -186,7 +189,10 @@
   "definitions": {
     "check": {
       "type": "object",
-      "required": ["cmd", "expect"],
+      "required": [
+        "cmd",
+        "expect"
+      ],
       "properties": {
         "cmd": {
           "type": "string",
@@ -209,7 +215,11 @@
         },
         "criticality": {
           "type": "string",
-          "enum": ["blocker", "warning", "info"]
+          "enum": [
+            "blocker",
+            "warning",
+            "info"
+          ]
         },
         "fix_hint": {
           "type": "string",
@@ -223,7 +233,11 @@
     },
     "validation_step": {
       "type": "object",
-      "required": ["for_each", "check", "on_fail"],
+      "required": [
+        "for_each",
+        "check",
+        "on_fail"
+      ],
       "properties": {
         "for_each": {
           "type": "string",
@@ -239,5 +253,6 @@
         }
       }
     }
-  }
+  },
+  "doc_id": "DOC-SPEC-VERIFICATION-TEMPLATE-V1-035"
 }

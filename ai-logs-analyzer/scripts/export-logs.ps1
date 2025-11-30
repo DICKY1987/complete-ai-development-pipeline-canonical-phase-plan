@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-EXPORT-LOGS-079
 # Export AI Logs to Various Formats
 # Exports aggregated logs to CSV, JSON, or SQLite for external analysis
 

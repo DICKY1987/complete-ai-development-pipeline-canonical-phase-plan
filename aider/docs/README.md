@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-1107
+---
+
 # Aider Integration Documentation
 
 > **Purpose**: Documentation specific to Aider integration  

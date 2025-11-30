@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-INVOKE-ADOPTION-1287
+---
+
 # Phase G: Invoke/Invoke-Build Adoption & PowerShell Gallery Publishing
 
 **Status**: PROPOSED - Not Yet Started  

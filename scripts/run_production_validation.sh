@@ -1,4 +1,5 @@
 #!/bin/bash
+# DOC_LINK: DOC-SCRIPT-RUN-PRODUCTION-VALIDATION-285
 set -e
 
 echo "=== Production-Ready Validation Suite ==="

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-EXECUTION-PATTERNS-CHEATSHEET-748
+---
+
 # Execution Patterns - Quick Reference
 
 **Speed Up Development: 3x-10x faster through decision elimination**

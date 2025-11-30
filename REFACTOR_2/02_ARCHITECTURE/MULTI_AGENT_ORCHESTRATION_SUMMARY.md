@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-MULTI-AGENT-ORCHESTRATION-SUMMARY-1533
+---
+
 # Multi-Agent Orchestration - Implementation Summary
 
 ## ✅ What I Created

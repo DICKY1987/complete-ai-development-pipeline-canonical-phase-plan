@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-PAT-CORE-PLANNING-ARCHIVE-406
 from __future__ import annotations
 
 import shutil

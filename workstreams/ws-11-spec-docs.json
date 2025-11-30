@@ -25,6 +25,6 @@
   "tool": "aider",
   "metadata": {
     "notes": "Per plan: WS-11 depends on WS-10 completion; enforced procedurally rather than via bundle dependency."
-  }
+  },
+  "doc_id": "DOC-CONFIG-WS-11-SPEC-DOCS-151"
 }
-

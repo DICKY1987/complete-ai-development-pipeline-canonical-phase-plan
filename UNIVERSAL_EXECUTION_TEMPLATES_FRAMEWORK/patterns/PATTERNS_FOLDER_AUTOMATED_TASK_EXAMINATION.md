@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-PATTERNS-FOLDER-AUTOMATED-TASK-756
+---
+
 # Patterns Folder - Automated Task Examination Report
 
 **Date**: 2025-11-26

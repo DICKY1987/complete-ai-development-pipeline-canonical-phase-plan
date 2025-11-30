@@ -1,3 +1,7 @@
+---
+doc_id: DOC-AIM-PHASE-4-COMPLETE-177
+---
+
 # AIM+ Phase 4 - Integration & Polish - COMPLETE
 
 **Phase**: 4 - Integration & Polish  

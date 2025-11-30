@@ -18,5 +18,6 @@
     "phase": "D",
     "estimated_hours": 42,
     "breaking_change": true
-  }
+  },
+  "doc_id": "DOC-CONFIG-WS-UET-PHASE-D-ADAPTERS-188"
 }

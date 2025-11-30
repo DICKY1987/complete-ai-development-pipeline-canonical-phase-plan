@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-ASSIGNER-IMPLEMENTATION-SUMMARY-402
+---
+
 # Doc ID Auto-Assigner Implementation Summary
 
 **Date**: 2025-11-30  

@@ -1,4 +1,5 @@
 ---
+doc_id: DOC-GUIDE-AIDER-PH-08-AIM-TOOL-REGISTRY-1226
 workstream_id: ph-08-aim-integration
 phase: PH-08
 difficulty: medium

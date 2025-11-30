@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-UET-DOCUMENTATION-ANALYSIS-REPORT-1152
+---
+
 # UET Documentation Analysis Report
 Generated: 2025-11-25 04:45:14
 

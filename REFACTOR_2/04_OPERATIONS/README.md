@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-1543
+---
+
 # 04_OPERATIONS - Runtime Operations & Recovery
 
 **Failure handling, recovery procedures, and operational playbooks**

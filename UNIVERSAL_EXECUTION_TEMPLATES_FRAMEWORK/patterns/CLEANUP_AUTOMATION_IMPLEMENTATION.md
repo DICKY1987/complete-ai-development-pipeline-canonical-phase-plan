@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-CLEANUP-AUTOMATION-IMPLEMENTATION-743
+---
+
 # Cleanup Automation Implementation Guide
 
 **Status:** ✅ Core Implementation Complete

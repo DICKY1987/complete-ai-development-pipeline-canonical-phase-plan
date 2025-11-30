@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-SESSION-2025-11-23-PHASE2-1313
+---
+
 # AI Navigation Enhancement v2 - Phase 2 Session Summary
 
 **Date**: 2025-11-23  

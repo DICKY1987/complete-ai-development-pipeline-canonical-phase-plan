@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-MULTI-AGENT-ORCHESTRATION-PATTERN-863
+---
+
 # Multi-Agent Orchestration Pattern for Workstream Execution
 
 **Pattern ID**: PAT-MULTI-AGENT-ORCHESTRATE-001  

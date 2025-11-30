@@ -3,10 +3,11 @@
     "allow": [
       "Bash(Measure-Object)",
       "Bash(Select-Object -ExpandProperty Count)",
-      "Bash(git -C \"C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline – Canonical Phase Plan\" worktree list:*)",
-      "Bash(git -C \"C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline – Canonical Phase Plan\" log --oneline -10)"
+      "Bash(git -C \"C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical Phase Plan\" worktree list:*)",
+      "Bash(git -C \"C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical Phase Plan\" log --oneline -10)"
     ],
     "deny": [],
     "ask": []
-  }
+  },
+  "doc_id": "DOC-CONFIG-SETTINGS-LOCAL-237"
 }

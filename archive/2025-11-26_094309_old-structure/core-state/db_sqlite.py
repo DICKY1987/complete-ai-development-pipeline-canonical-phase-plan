@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-PAT-CORE-STATE-DB-SQLITE-411
 from __future__ import annotations
 
 import json

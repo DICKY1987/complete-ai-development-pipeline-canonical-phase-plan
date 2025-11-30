@@ -5,5 +5,6 @@
   "checks": [],
   "demo_script_path": "automation/tests/demo_pattern_detection.ps1",
   "demo_scenario": {},
-  "report_path": "VALIDATION_REPORT_{{timestamp}}.md"
+  "report_path": "VALIDATION_REPORT_{{timestamp}}.md",
+  "doc_id": "DOC-PAT-INSTANCE-FULL-158"
 }

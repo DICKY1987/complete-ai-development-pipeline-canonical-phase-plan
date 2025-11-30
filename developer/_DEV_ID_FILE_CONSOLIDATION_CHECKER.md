@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-DEV-ID-FILE-CONSOLIDATION-CHECKER-347
+---
+
 › im trying to find the id/uniuqe identifier files and documents. i dont think the are standrized. check these locations: "C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase
 
 

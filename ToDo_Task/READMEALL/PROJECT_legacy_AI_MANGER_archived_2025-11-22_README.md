@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROJECT-LEGACY-AI-MANGER-ARCHIVED-2025-1587
+---
+
 # InvokeBuild Modular Stack (Centralized CLI + Guards)
 
 ## Prereqs

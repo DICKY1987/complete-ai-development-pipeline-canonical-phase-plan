@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-TERMINAL-CHAT-BEST-PLAN-12-730
+---
+
 Here’s a complete first version of `doc_inventory_scan_and_enrich.py`:
 
 ````python

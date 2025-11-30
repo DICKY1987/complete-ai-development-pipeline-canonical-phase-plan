@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-PAT-SEARCH-002-README-PRESENCE-AUDIT-867
+---
+
 # PAT-SEARCH-002: README presence audit
 
 ## Pattern ID

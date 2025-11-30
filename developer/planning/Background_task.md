@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-BACKGROUND-TASK-1241
+---
+
 
 You treat each **work-stream** as a **task definition**, give it its own **Git work-tree + branch**, then have a small **orchestrator CLI** that:
 

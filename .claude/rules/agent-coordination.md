@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-AGENT-COORDINATION-1098
+---
+
 # Agent Coordination
 
 Rules for multiple agents working in parallel within the same epic worktree.

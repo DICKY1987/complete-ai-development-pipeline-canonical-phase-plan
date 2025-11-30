@@ -1,3 +1,4 @@
+doc_id: DOC-CONFIG-UTE-AI-POLICIES-101
 # ai_policies.yaml
 # AI editing policies for the Universal Execution Templates Framework
 # Purpose: Define safety boundaries, forbidden patterns, and invariants for AI assistants

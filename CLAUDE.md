@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-CLAUDE-144
+---
+
 # Claude Code - Project Instructions
 
 > Think carefully and implement the most concise solution that changes as little code as possible.

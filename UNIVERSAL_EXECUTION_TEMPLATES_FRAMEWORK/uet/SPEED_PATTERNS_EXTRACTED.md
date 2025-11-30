@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-SPEED-PATTERNS-EXTRACTED-1626
+---
+
 # Speed Patterns Extracted from PH-011 Execution
 
 **Context**: PH-011 AI Codebase Optimization delivered 60% of value in 20% of planned time (95 minutes vs. 6 hours estimated)

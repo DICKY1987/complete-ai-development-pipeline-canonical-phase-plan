@@ -1,3 +1,5 @@
+# DOC_LINK: DOC-CORE-CORE-OPENSPEC-CONVERT-045
+# DOC_LINK: DOC-CORE-CORE-OPENSPEC-CONVERT-022
 from __future__ import annotations
 
 from typing import Any, Dict, Iterable, Mapping, Sequence

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-COVERAGE-ANALYSIS-1142
+---
+
 # Coverage Analysis Report
 
 **Report Date**: 2025-11-23T19:12:28Z  

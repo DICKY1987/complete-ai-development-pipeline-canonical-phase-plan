@@ -1,3 +1,5 @@
+# DOC_LINK: DOC-PAT-RICH-TEXT-357
+# DOC_LINK: DOC-PAT-RICH-TEXT-313
 from __future__ import annotations
 
 

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-SIMPLE-EXECUTOR-COMPLETE-177
+---
+
 # ✅ Simple Workstream Executor - READY TO USE
 
 **Created**: 2025-11-29  

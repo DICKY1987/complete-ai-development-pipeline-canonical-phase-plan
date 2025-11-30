@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-REORGANIZATION-COMPLETE-425
+---
+
 # Glossary Reorganization Complete
 
 **Date**: 2025-11-25  

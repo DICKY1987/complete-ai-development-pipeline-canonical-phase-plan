@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROMPT-BLOCK-PHASE-PLAN-438
+---
+
 # Prompt Block Development Phase Plan
 
 This document tracks every phase of the prompt-block initiative in a consistent, patch-friendly format. Use Markdown-aware diffs (`apply_patch`) to update statuses, add deliverables, or append new phases without disturbing earlier history.

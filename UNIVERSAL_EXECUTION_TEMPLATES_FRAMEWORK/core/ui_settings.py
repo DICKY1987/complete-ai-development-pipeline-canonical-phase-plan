@@ -17,6 +17,7 @@ Usage:
     # Check if a tool should run in headless mode
     is_headless = settings.is_headless("codex")
 """
+# DOC_ID: DOC-CORE-CORE-UI-SETTINGS-129
 
 import os
 from pathlib import Path

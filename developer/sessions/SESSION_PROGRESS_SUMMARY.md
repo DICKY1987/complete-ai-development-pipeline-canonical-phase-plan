@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-SESSION-PROGRESS-SUMMARY-1254
+---
+
 # Session Progress Summary
 
 **Date**: 2025-11-23  

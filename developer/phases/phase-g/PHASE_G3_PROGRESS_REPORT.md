@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PHASE-G3-PROGRESS-REPORT-1291
+---
+
 # Phase G3 Progress Report (Partial)
 
 **Phase**: G3 - Production Hardening  

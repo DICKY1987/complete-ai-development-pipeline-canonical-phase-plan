@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-UET-DOC-CLEANUP-PHASE-PLAN-1154
+---
+
 # UET Documentation Cleanup - Quick Execution Phase Plan
 
 **Phase ID**: PH-UET-DOC-01  

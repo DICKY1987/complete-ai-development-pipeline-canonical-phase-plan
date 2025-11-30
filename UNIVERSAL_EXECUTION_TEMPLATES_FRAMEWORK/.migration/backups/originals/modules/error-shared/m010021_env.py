@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-PAT-ERROR-SHARED-M010021-ENV-667
 from __future__ import annotations
 
 import os

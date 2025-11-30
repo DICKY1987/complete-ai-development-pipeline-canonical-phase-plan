@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-A-GUIDE-TO-HIGH-QUALITY-PROMPTS-FOR-699
+---
+
 ## Crafting the Key: A Guide to High-Quality Prompts for Superior AI Output
 
 **The art and science of crafting effective prompts—known as prompt engineering—is the single most crucial skill for unlocking the full potential of artificial intelligence.** A well-constructed prompt acts as a precise set of instructions, guiding the AI to generate outputs that are not only accurate and relevant but also tailored to a specific tone, format, and purpose. Conversely, a vague or poorly formulated prompt will almost invariably lead to generic, unhelpful, or even nonsensical results.

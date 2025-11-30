@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PM-CCPMW-025
+---
+
 # CCPM + OpenSpec + Pipeline Unified Workflow
 
 ## Overview

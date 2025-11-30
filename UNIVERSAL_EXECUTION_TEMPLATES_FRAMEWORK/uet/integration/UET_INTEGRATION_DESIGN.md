@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-UET-INTEGRATION-DESIGN-1653
+---
+
 # UET Framework Selective Integration - Design Document
 
 **Status**: Active Implementation  

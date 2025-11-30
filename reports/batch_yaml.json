@@ -1,0 +1,1693 @@
+{
+  "summary": {
+    "total_missing_in_inventory": 2726,
+    "processed": 210,
+    "assigned": 210,
+    "skipped": 0,
+    "dry_run": false,
+    "timestamp": "2025-11-30T01:03:09.274847"
+  },
+  "assignments": [
+    {
+      "path": "import_analysis_after.yaml",
+      "doc_id": "DOC-CONFIG-IMPORT-ANALYSIS-AFTER-010",
+      "category": "config",
+      "name": "IMPORT-ANALYSIS-AFTER",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "import_analysis_report.yaml",
+      "doc_id": "DOC-CONFIG-IMPORT-ANALYSIS-REPORT-011",
+      "category": "config",
+      "name": "IMPORT-ANALYSIS-REPORT",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "MODULES_INVENTORY.yaml",
+      "doc_id": "DOC-CONFIG-MODULES-INVENTORY-012",
+      "category": "config",
+      "name": "MODULES-INVENTORY",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": ".ai/codebase-map.yaml",
+      "doc_id": "DOC-CONFIG-CODEBASE-MAP-013",
+      "category": "config",
+      "name": "CODEBASE-MAP",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": ".config/ai-policies.yaml",
+      "doc_id": "DOC-CONFIG-AI-POLICIES-014",
+      "category": "config",
+      "name": "AI-POLICIES",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": ".config/project-profile.yaml",
+      "doc_id": "DOC-CONFIG-PROJECT-PROFILE-015",
+      "category": "config",
+      "name": "PROJECT-PROFILE",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": ".config/quality-gate.yaml",
+      "doc_id": "DOC-CONFIG-QUALITY-GATE-016",
+      "category": "config",
+      "name": "QUALITY-GATE",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": ".merge-backup/change-analysis.yaml",
+      "doc_id": "DOC-CONFIG-CHANGE-ANALYSIS-017",
+      "category": "config",
+      "name": "CHANGE-ANALYSIS",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": ".uet/config.yaml",
+      "doc_id": "DOC-CONFIG-CONFIG-018",
+      "category": "config",
+      "name": "CONFIG",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "config/aim_config.yaml",
+      "doc_id": "DOC-CONFIG-AIM-CONFIG-019",
+      "category": "config",
+      "name": "AIM-CONFIG",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "config/ccpm.yaml",
+      "doc_id": "DOC-CONFIG-CCPM-020",
+      "category": "config",
+      "name": "CCPM",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "config/circuit_breakers.yaml",
+      "doc_id": "DOC-CONFIG-CIRCUIT-BREAKERS-021",
+      "category": "config",
+      "name": "CIRCUIT-BREAKERS",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "config/cleanup_automation_config.yaml",
+      "doc_id": "DOC-CONFIG-CLEANUP-AUTOMATION-CONFIG-022",
+      "category": "config",
+      "name": "CLEANUP-AUTOMATION-CONFIG",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "config/decomposition_rules.yaml",
+      "doc_id": "DOC-CONFIG-DECOMPOSITION-RULES-023",
+      "category": "config",
+      "name": "DECOMPOSITION-RULES",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "config/github.yaml",
+      "doc_id": "DOC-CONFIG-GITHUB-024",
+      "category": "config",
+      "name": "GITHUB",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "config/import_migration_map.yaml",
+      "doc_id": "DOC-CONFIG-IMPORT-MIGRATION-MAP-025",
+      "category": "config",
+      "name": "IMPORT-MIGRATION-MAP",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "config/invoke.yaml",
+      "doc_id": "DOC-CONFIG-INVOKE-026",
+      "category": "config",
+      "name": "INVOKE",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "config/path_index.yaml",
+      "doc_id": "DOC-CONFIG-PATH-INDEX-027",
+      "category": "config",
+      "name": "PATH-INDEX",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "config/router.config.yaml",
+      "doc_id": "DOC-CONFIG-ROUTER-CONFIG-028",
+      "category": "config",
+      "name": "ROUTER-CONFIG",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "config/section_map.yaml",
+      "doc_id": "DOC-CONFIG-SECTION-MAP-029",
+      "category": "config",
+      "name": "SECTION-MAP",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "config/ui_settings.yaml",
+      "doc_id": "DOC-CONFIG-UI-SETTINGS-030",
+      "category": "config",
+      "name": "UI-SETTINGS",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "core/dependencies.yaml",
+      "doc_id": "DOC-CORE-DEPENDENCIES-011",
+      "category": "core",
+      "name": "DEPENDENCIES",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "docs/CODEBASE_INDEX.yaml",
+      "doc_id": "DOC-GUIDE-CODEBASE-INDEX-131",
+      "category": "guide",
+      "name": "CODEBASE-INDEX",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "docs/ID_suite-index.yml",
+      "doc_id": "DOC-GUIDE-ID-SUITE-INDEX-132",
+      "category": "guide",
+      "name": "ID-SUITE-INDEX",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "doc_id/Worktrees Integration Spec v12.yml",
+      "doc_id": "DOC-CONFIG-WORKTREES-INTEGRATION-SPEC-V12-031",
+      "category": "config",
+      "name": "WORKTREES-INTEGRATION-SPEC-V12",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "error/ERROR_PLUGIN_INDEX.yaml",
+      "doc_id": "DOC-ERROR-ERROR-PLUGIN-INDEX-011",
+      "category": "error",
+      "name": "ERROR-PLUGIN-INDEX",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "glossary/.glossary-metadata.yaml",
+      "doc_id": "DOC-CONFIG-GLOSSARY-METADATA-032",
+      "category": "config",
+      "name": "GLOSSARY-METADATA",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "modules/MODULES_INVENTORY.yaml",
+      "doc_id": "DOC-CONFIG-MODULES-INVENTORY-033",
+      "category": "config",
+      "name": "MODULES-INVENTORY",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "schema/sidecar_metadata.schema.yaml",
+      "doc_id": "DOC-SPEC-SIDECAR-METADATA-SCHEMA-002",
+      "category": "spec",
+      "name": "SIDECAR-METADATA-SCHEMA",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "templates/module.manifest.template.yaml",
+      "doc_id": "DOC-CONFIG-MODULE-MANIFEST-TEMPLATE-034",
+      "category": "config",
+      "name": "MODULE-MANIFEST-TEMPLATE",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "templates/module_inventory_entry.yaml",
+      "doc_id": "DOC-CONFIG-MODULE-INVENTORY-ENTRY-035",
+      "category": "config",
+      "name": "MODULE-INVENTORY-ENTRY",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/CODEBASE_INDEX.yaml",
+      "doc_id": "DOC-CONFIG-CODEBASE-INDEX-036",
+      "category": "config",
+      "name": "CODEBASE-INDEX",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "aider/help/templated front-matter block.yml",
+      "doc_id": "DOC-CONFIG-TEMPLATED-FRONT-MATTER-BLOCK-037",
+      "category": "config",
+      "name": "TEMPLATED-FRONT-MATTER-BLOCK",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "aim/.AIM_ai-tools-registry/AIM_ai-steward/AIM_plan/AIM_file-map.yaml",
+      "doc_id": "DOC-AIM-AIM-FILE-MAP-027",
+      "category": "aim",
+      "name": "AIM-FILE-MAP",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "aim/.AIM_ai-tools-registry/AIM_ai-steward/AIM_plan/AIM_rtm.yaml",
+      "doc_id": "DOC-AIM-AIM-RTM-028",
+      "category": "aim",
+      "name": "AIM-RTM",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "AI_SANDBOX/_template_sandbox/.aider.conf.yml",
+      "doc_id": "DOC-CONFIG-AIDER-CONF-038",
+      "category": "config",
+      "name": "AIDER-CONF",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "archive/2025-11-26_094309_old-structure/core-ast/dependencies.yaml",
+      "doc_id": "DOC-CONFIG-DEPENDENCIES-039",
+      "category": "config",
+      "name": "DEPENDENCIES",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "archive/2025-11-26_094309_old-structure/core-engine/dependencies.yaml",
+      "doc_id": "DOC-CONFIG-DEPENDENCIES-040",
+      "category": "config",
+      "name": "DEPENDENCIES",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "archive/2025-11-26_094309_old-structure/core-planning/dependencies.yaml",
+      "doc_id": "DOC-CONFIG-DEPENDENCIES-041",
+      "category": "config",
+      "name": "DEPENDENCIES",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "archive/2025-11-26_094309_old-structure/core-state/dependencies.yaml",
+      "doc_id": "DOC-CONFIG-DEPENDENCIES-042",
+      "category": "config",
+      "name": "DEPENDENCIES",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "config/examples/tool_profile_annotated.yaml",
+      "doc_id": "DOC-CONFIG-TOOL-PROFILE-ANNOTATED-043",
+      "category": "config",
+      "name": "TOOL-PROFILE-ANNOTATED",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "docs/.index/suite-index.yaml",
+      "doc_id": "DOC-GUIDE-SUITE-INDEX-133",
+      "category": "guide",
+      "name": "SUITE-INDEX",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "docs/state_machines/task_lifecycle.yaml",
+      "doc_id": "DOC-GUIDE-TASK-LIFECYCLE-134",
+      "category": "guide",
+      "name": "TASK-LIFECYCLE",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "docs/state_machines/worker_lifecycle.yaml",
+      "doc_id": "DOC-GUIDE-WORKER-LIFECYCLE-135",
+      "category": "guide",
+      "name": "WORKER-LIFECYCLE",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "docs/state_machines/workstream_lifecycle.yaml",
+      "doc_id": "DOC-GUIDE-WORKSTREAM-LIFECYCLE-136",
+      "category": "guide",
+      "name": "WORKSTREAM-LIFECYCLE",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "doc_id/batches/batch_adr.yaml",
+      "doc_id": "DOC-CONFIG-BATCH-ADR-044",
+      "category": "config",
+      "name": "BATCH-ADR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "doc_id/batches/batch_docs_diagrams.yaml",
+      "doc_id": "DOC-CONFIG-BATCH-DOCS-DIAGRAMS-045",
+      "category": "config",
+      "name": "BATCH-DOCS-DIAGRAMS",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "doc_id/batches/batch_docs_examples.yaml",
+      "doc_id": "DOC-CONFIG-BATCH-DOCS-EXAMPLES-046",
+      "category": "config",
+      "name": "BATCH-DOCS-EXAMPLES",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "doc_id/batches/batch_docs_guidelines.yaml",
+      "doc_id": "DOC-CONFIG-BATCH-DOCS-GUIDELINES-047",
+      "category": "config",
+      "name": "BATCH-DOCS-GUIDELINES",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "doc_id/batches/batch_docs_guides.yaml",
+      "doc_id": "DOC-CONFIG-BATCH-DOCS-GUIDES-048",
+      "category": "config",
+      "name": "BATCH-DOCS-GUIDES",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "doc_id/batches/batch_docs_operations.yaml",
+      "doc_id": "DOC-CONFIG-BATCH-DOCS-OPERATIONS-049",
+      "category": "config",
+      "name": "BATCH-DOCS-OPERATIONS",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "doc_id/batches/batch_docs_remaining.yaml",
+      "doc_id": "DOC-CONFIG-BATCH-DOCS-REMAINING-050",
+      "category": "config",
+      "name": "BATCH-DOCS-REMAINING",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "doc_id/batches/batch_glossary.yaml",
+      "doc_id": "DOC-CONFIG-BATCH-GLOSSARY-051",
+      "category": "config",
+      "name": "BATCH-GLOSSARY",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "doc_id/batches/batch_plans.yaml",
+      "doc_id": "DOC-CONFIG-BATCH-PLANS-052",
+      "category": "config",
+      "name": "BATCH-PLANS",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "doc_id/batches/batch_uet_patterns.yaml",
+      "doc_id": "DOC-CONFIG-BATCH-UET-PATTERNS-053",
+      "category": "config",
+      "name": "BATCH-UET-PATTERNS",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "doc_id/batches/docid_batch_phase3_plan.yaml",
+      "doc_id": "DOC-CONFIG-DOCID-BATCH-PHASE3-PLAN-054",
+      "category": "config",
+      "name": "DOCID-BATCH-PHASE3-PLAN",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "glossary/config/glossary_policy.yaml",
+      "doc_id": "DOC-CONFIG-GLOSSARY-POLICY-055",
+      "category": "config",
+      "name": "GLOSSARY-POLICY",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "glossary/updates/add-module-architecture-terms.yaml",
+      "doc_id": "DOC-CONFIG-ADD-MODULE-ARCHITECTURE-TERMS-056",
+      "category": "config",
+      "name": "ADD-MODULE-ARCHITECTURE-TERMS",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "glossary/updates/example-add-implementation-paths.yaml",
+      "doc_id": "DOC-CONFIG-EXAMPLE-ADD-IMPLEMENTATION-PATHS-057",
+      "category": "config",
+      "name": "EXAMPLE-ADD-IMPLEMENTATION-PATHS",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "glossary/updates/example-add-uet-schemas.yaml",
+      "doc_id": "DOC-CONFIG-EXAMPLE-ADD-UET-SCHEMAS-058",
+      "category": "config",
+      "name": "EXAMPLE-ADD-UET-SCHEMAS",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "gui/config/tool_settings.yaml",
+      "doc_id": "DOC-CONFIG-TOOL-SETTINGS-059",
+      "category": "config",
+      "name": "TOOL-SETTINGS",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "gui/tui_app/config/tui_config.yaml",
+      "doc_id": "DOC-CONFIG-TUI-CONFIG-060",
+      "category": "config",
+      "name": "TUI-CONFIG",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "infra/ci/workflows/ci.yml",
+      "doc_id": "DOC-CONFIG-CI-061",
+      "category": "config",
+      "name": "CI",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "modules/aim-cli/01001A_module.manifest.yaml",
+      "doc_id": "DOC-CONFIG-01001A-MODULE-MANIFEST-062",
+      "category": "config",
+      "name": "01001A-MODULE-MANIFEST",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "modules/aim-environment/01001B_module.manifest.yaml",
+      "doc_id": "DOC-CONFIG-01001B-MODULE-MANIFEST-063",
+      "category": "config",
+      "name": "01001B-MODULE-MANIFEST",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "modules/aim-registry/01001C_module.manifest.yaml",
+      "doc_id": "DOC-CONFIG-01001C-MODULE-MANIFEST-064",
+      "category": "config",
+      "name": "01001C-MODULE-MANIFEST",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "modules/aim-services/01001D_module.manifest.yaml",
+      "doc_id": "DOC-CONFIG-01001D-MODULE-MANIFEST-065",
+      "category": "config",
+      "name": "01001D-MODULE-MANIFEST",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "modules/aim-tests/01001E_module.manifest.yaml",
+      "doc_id": "DOC-CONFIG-01001E-MODULE-MANIFEST-066",
+      "category": "config",
+      "name": "01001E-MODULE-MANIFEST",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "modules/core-ast/010000_module.manifest.yaml",
+      "doc_id": "DOC-CONFIG-010000-MODULE-MANIFEST-067",
+      "category": "config",
+      "name": "010000-MODULE-MANIFEST",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "modules/core-engine/010001_module.manifest.yaml",
+      "doc_id": "DOC-CONFIG-010001-MODULE-MANIFEST-068",
+      "category": "config",
+      "name": "010001-MODULE-MANIFEST",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "modules/core-planning/010002_module.manifest.yaml",
+      "doc_id": "DOC-CONFIG-010002-MODULE-MANIFEST-069",
+      "category": "config",
+      "name": "010002-MODULE-MANIFEST",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "modules/core-state/010003_module.manifest.yaml",
+      "doc_id": "DOC-CONFIG-010003-MODULE-MANIFEST-070",
+      "category": "config",
+      "name": "010003-MODULE-MANIFEST",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "modules/error-engine/010004_module.manifest.yaml",
+      "doc_id": "DOC-CONFIG-010004-MODULE-MANIFEST-071",
+      "category": "config",
+      "name": "010004-MODULE-MANIFEST",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "modules/error-plugin-codespell/010005_module.manifest.yaml",
+      "doc_id": "DOC-CONFIG-010005-MODULE-MANIFEST-072",
+      "category": "config",
+      "name": "010005-MODULE-MANIFEST",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "modules/error-plugin-echo/010006_module.manifest.yaml",
+      "doc_id": "DOC-CONFIG-010006-MODULE-MANIFEST-073",
+      "category": "config",
+      "name": "010006-MODULE-MANIFEST",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "modules/error-plugin-gitleaks/010007_module.manifest.yaml",
+      "doc_id": "DOC-CONFIG-010007-MODULE-MANIFEST-074",
+      "category": "config",
+      "name": "010007-MODULE-MANIFEST",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "modules/error-plugin-js-eslint/010009_module.manifest.yaml",
+      "doc_id": "DOC-CONFIG-010009-MODULE-MANIFEST-075",
+      "category": "config",
+      "name": "010009-MODULE-MANIFEST",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "modules/error-plugin-js-prettier-fix/01000A_module.manifest.yaml",
+      "doc_id": "DOC-CONFIG-01000A-MODULE-MANIFEST-076",
+      "category": "config",
+      "name": "01000A-MODULE-MANIFEST",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "modules/error-plugin-json-jq/010008_module.manifest.yaml",
+      "doc_id": "DOC-CONFIG-010008-MODULE-MANIFEST-077",
+      "category": "config",
+      "name": "010008-MODULE-MANIFEST",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "modules/error-plugin-md-markdownlint/01000B_module.manifest.yaml",
+      "doc_id": "DOC-CONFIG-01000B-MODULE-MANIFEST-078",
+      "category": "config",
+      "name": "01000B-MODULE-MANIFEST",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "modules/error-plugin-md-mdformat-fix/01000C_module.manifest.yaml",
+      "doc_id": "DOC-CONFIG-01000C-MODULE-MANIFEST-079",
+      "category": "config",
+      "name": "01000C-MODULE-MANIFEST",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "modules/error-plugin-path-standardizer/01000D_module.manifest.yaml",
+      "doc_id": "DOC-CONFIG-01000D-MODULE-MANIFEST-080",
+      "category": "config",
+      "name": "01000D-MODULE-MANIFEST",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "modules/error-plugin-powershell-pssa/01000E_module.manifest.yaml",
+      "doc_id": "DOC-CONFIG-01000E-MODULE-MANIFEST-081",
+      "category": "config",
+      "name": "01000E-MODULE-MANIFEST",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "modules/error-plugin-python-bandit/01000F_module.manifest.yaml",
+      "doc_id": "DOC-CONFIG-01000F-MODULE-MANIFEST-082",
+      "category": "config",
+      "name": "01000F-MODULE-MANIFEST",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "modules/error-plugin-python-black-fix/010010_module.manifest.yaml",
+      "doc_id": "DOC-CONFIG-010010-MODULE-MANIFEST-083",
+      "category": "config",
+      "name": "010010-MODULE-MANIFEST",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "modules/error-plugin-python-isort-fix/010011_module.manifest.yaml",
+      "doc_id": "DOC-CONFIG-010011-MODULE-MANIFEST-084",
+      "category": "config",
+      "name": "010011-MODULE-MANIFEST",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "modules/error-plugin-python-mypy/010012_module.manifest.yaml",
+      "doc_id": "DOC-CONFIG-010012-MODULE-MANIFEST-085",
+      "category": "config",
+      "name": "010012-MODULE-MANIFEST",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "modules/error-plugin-python-pylint/010013_module.manifest.yaml",
+      "doc_id": "DOC-CONFIG-010013-MODULE-MANIFEST-086",
+      "category": "config",
+      "name": "010013-MODULE-MANIFEST",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "modules/error-plugin-python-pyright/010014_module.manifest.yaml",
+      "doc_id": "DOC-CONFIG-010014-MODULE-MANIFEST-087",
+      "category": "config",
+      "name": "010014-MODULE-MANIFEST",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "modules/error-plugin-python-ruff/010015_module.manifest.yaml",
+      "doc_id": "DOC-CONFIG-010015-MODULE-MANIFEST-088",
+      "category": "config",
+      "name": "010015-MODULE-MANIFEST",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "modules/error-plugin-python-safety/010016_module.manifest.yaml",
+      "doc_id": "DOC-CONFIG-010016-MODULE-MANIFEST-089",
+      "category": "config",
+      "name": "010016-MODULE-MANIFEST",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "modules/error-plugin-semgrep/010017_module.manifest.yaml",
+      "doc_id": "DOC-CONFIG-010017-MODULE-MANIFEST-090",
+      "category": "config",
+      "name": "010017-MODULE-MANIFEST",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "modules/error-plugin-test-runner/010018_module.manifest.yaml",
+      "doc_id": "DOC-CONFIG-010018-MODULE-MANIFEST-091",
+      "category": "config",
+      "name": "010018-MODULE-MANIFEST",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "modules/error-plugin-yaml-yamllint/010019_module.manifest.yaml",
+      "doc_id": "DOC-CONFIG-010019-MODULE-MANIFEST-092",
+      "category": "config",
+      "name": "010019-MODULE-MANIFEST",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "modules/pm-integrations/01001F_module.manifest.yaml",
+      "doc_id": "DOC-CONFIG-01001F-MODULE-MANIFEST-093",
+      "category": "config",
+      "name": "01001F-MODULE-MANIFEST",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "modules/specifications-tools/010020_module.manifest.yaml",
+      "doc_id": "DOC-CONFIG-010020-MODULE-MANIFEST-094",
+      "category": "config",
+      "name": "010020-MODULE-MANIFEST",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "specifications/content/governance/folder-governance-spec.md.sidecar.yaml",
+      "doc_id": "DOC-GUIDE-FOLDER-GOVERNANCE-SPEC-MD-SIDECAR-137",
+      "category": "guide",
+      "name": "FOLDER-GOVERNANCE-SPEC-MD-SIDECAR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "specifications/content/orchestration/spec.md.sidecar.yaml",
+      "doc_id": "DOC-GUIDE-SPEC-MD-SIDECAR-138",
+      "category": "guide",
+      "name": "SPEC-MD-SIDECAR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "specifications/content/plugin-system/spec.md.sidecar.yaml",
+      "doc_id": "DOC-GUIDE-SPEC-MD-SIDECAR-139",
+      "category": "guide",
+      "name": "SPEC-MD-SIDECAR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "specifications/content/validation-pipeline/spec.md.sidecar.yaml",
+      "doc_id": "DOC-GUIDE-SPEC-MD-SIDECAR-140",
+      "category": "guide",
+      "name": "SPEC-MD-SIDECAR",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "templates/workstreams/WS-T01-powershell-installer-template.yaml",
+      "doc_id": "DOC-CONFIG-WS-T01-POWERSHELL-INSTALLER-TEMPLATE-095",
+      "category": "config",
+      "name": "WS-T01-POWERSHELL-INSTALLER-TEMPLATE",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "templates/workstreams/WS-T05-validation-report-template.yaml",
+      "doc_id": "DOC-CONFIG-WS-T05-VALIDATION-REPORT-TEMPLATE-096",
+      "category": "config",
+      "name": "WS-T05-VALIDATION-REPORT-TEMPLATE",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "templates/workstreams/WS-T09-versioned-doc-template.yaml",
+      "doc_id": "DOC-CONFIG-WS-T09-VERSIONED-DOC-TEMPLATE-097",
+      "category": "config",
+      "name": "WS-T09-VERSIONED-DOC-TEMPLATE",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/.migration/duplicate_registry.yaml",
+      "doc_id": "DOC-CONFIG-DUPLICATE-REGISTRY-098",
+      "category": "config",
+      "name": "DUPLICATE-REGISTRY",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/.migration/migration_log.yaml",
+      "doc_id": "DOC-CONFIG-MIGRATION-LOG-099",
+      "category": "config",
+      "name": "MIGRATION-LOG",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/.migration/migration_plan.yaml",
+      "doc_id": "DOC-CONFIG-MIGRATION-PLAN-100",
+      "category": "config",
+      "name": "MIGRATION-PLAN",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/config/UTE_ai_policies.yaml",
+      "doc_id": "DOC-CONFIG-UTE-AI-POLICIES-101",
+      "category": "config",
+      "name": "UTE-AI-POLICIES",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/config/UTE_QUALITY_GATE.yaml",
+      "doc_id": "DOC-CONFIG-UTE-QUALITY-GATE-102",
+      "category": "config",
+      "name": "UTE-QUALITY-GATE",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/templates/dependencies.yaml",
+      "doc_id": "DOC-CONFIG-DEPENDENCIES-103",
+      "category": "config",
+      "name": "DEPENDENCIES",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/.claude/README.yaml",
+      "doc_id": "DOC-PAT-README-011",
+      "category": "patterns",
+      "name": "README",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/anti_patterns/README.yaml",
+      "doc_id": "DOC-PAT-README-012",
+      "category": "patterns",
+      "name": "README",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/automation/README.yaml",
+      "doc_id": "DOC-PAT-README-013",
+      "category": "patterns",
+      "name": "README",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/decisions/decision_template.yaml",
+      "doc_id": "DOC-PAT-DECISION-TEMPLATE-014",
+      "category": "patterns",
+      "name": "DECISION-TEMPLATE",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/decisions/README.yaml",
+      "doc_id": "DOC-PAT-README-015",
+      "category": "patterns",
+      "name": "README",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/docs/README.yaml",
+      "doc_id": "DOC-GUIDE-README-141",
+      "category": "guide",
+      "name": "README",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/drafts/AUTO-20251127-001.yaml",
+      "doc_id": "DOC-PAT-AUTO-20251127-001-016",
+      "category": "patterns",
+      "name": "AUTO-20251127-001",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/drafts/AUTO-20251127-002.yaml",
+      "doc_id": "DOC-PAT-AUTO-20251127-002-017",
+      "category": "patterns",
+      "name": "AUTO-20251127-002",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/drafts/AUTO-20251127-003.yaml",
+      "doc_id": "DOC-PAT-AUTO-20251127-003-018",
+      "category": "patterns",
+      "name": "AUTO-20251127-003",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/drafts/AUTO-20251127-004.yaml",
+      "doc_id": "DOC-PAT-AUTO-20251127-004-019",
+      "category": "patterns",
+      "name": "AUTO-20251127-004",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/drafts/AUTO-20251127-005.yaml",
+      "doc_id": "DOC-PAT-AUTO-20251127-005-020",
+      "category": "patterns",
+      "name": "AUTO-20251127-005",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/drafts/AUTO-20251127-006.yaml",
+      "doc_id": "DOC-PAT-AUTO-20251127-006-021",
+      "category": "patterns",
+      "name": "AUTO-20251127-006",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/drafts/AUTO-20251127-007.yaml",
+      "doc_id": "DOC-PAT-AUTO-20251127-007-022",
+      "category": "patterns",
+      "name": "AUTO-20251127-007",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/drafts/README.yaml",
+      "doc_id": "DOC-PAT-README-023",
+      "category": "patterns",
+      "name": "README",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples/README.yaml",
+      "doc_id": "DOC-PAT-README-024",
+      "category": "patterns",
+      "name": "README",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors/README.yaml",
+      "doc_id": "DOC-PAT-README-025",
+      "category": "patterns",
+      "name": "README",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/legacy_atoms/README.yaml",
+      "doc_id": "DOC-PAT-README-026",
+      "category": "patterns",
+      "name": "README",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/pattern_event_system/README.yaml",
+      "doc_id": "DOC-PAT-README-027",
+      "category": "patterns",
+      "name": "README",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/registry/OPERATION_KIND_REGISTRY.yaml",
+      "doc_id": "DOC-PAT-OPERATION-KIND-REGISTRY-028",
+      "category": "patterns",
+      "name": "OPERATION-KIND-REGISTRY",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/registry/PATTERN_INDEX.yaml",
+      "doc_id": "DOC-PAT-PATTERN-INDEX-029",
+      "category": "patterns",
+      "name": "PATTERN-INDEX",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/registry/README.yaml",
+      "doc_id": "DOC-PAT-README-030",
+      "category": "patterns",
+      "name": "README",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/reports/README.yaml",
+      "doc_id": "DOC-PAT-README-031",
+      "category": "patterns",
+      "name": "README",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/schemas/atomic_create.schema.id.yaml",
+      "doc_id": "DOC-PAT-ATOMIC-CREATE-SCHEMA-ID-032",
+      "category": "patterns",
+      "name": "ATOMIC-CREATE-SCHEMA-ID",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/schemas/batch_create.schema.id.yaml",
+      "doc_id": "DOC-PAT-BATCH-CREATE-SCHEMA-ID-033",
+      "category": "patterns",
+      "name": "BATCH-CREATE-SCHEMA-ID",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/schemas/glossary_export.schema.id.yaml",
+      "doc_id": "DOC-PAT-GLOSSARY-EXPORT-SCHEMA-ID-034",
+      "category": "patterns",
+      "name": "GLOSSARY-EXPORT-SCHEMA-ID",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/schemas/glossary_sync.schema.id.yaml",
+      "doc_id": "DOC-PAT-GLOSSARY-SYNC-SCHEMA-ID-035",
+      "category": "patterns",
+      "name": "GLOSSARY-SYNC-SCHEMA-ID",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/schemas/glossary_validate.schema.id.yaml",
+      "doc_id": "DOC-PAT-GLOSSARY-VALIDATE-SCHEMA-ID-036",
+      "category": "patterns",
+      "name": "GLOSSARY-VALIDATE-SCHEMA-ID",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/schemas/module_creation.schema.id.yaml",
+      "doc_id": "DOC-PAT-MODULE-CREATION-SCHEMA-ID-037",
+      "category": "patterns",
+      "name": "MODULE-CREATION-SCHEMA-ID",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/schemas/README.yaml",
+      "doc_id": "DOC-PAT-README-038",
+      "category": "patterns",
+      "name": "README",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/schemas/refactor_patch.schema.id.yaml",
+      "doc_id": "DOC-PAT-REFACTOR-PATCH-SCHEMA-ID-039",
+      "category": "patterns",
+      "name": "REFACTOR-PATCH-SCHEMA-ID",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/schemas/self_heal.schema.id.yaml",
+      "doc_id": "DOC-PAT-SELF-HEAL-SCHEMA-ID-040",
+      "category": "patterns",
+      "name": "SELF-HEAL-SCHEMA-ID",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/schemas/verify_commit.schema.id.yaml",
+      "doc_id": "DOC-PAT-VERIFY-COMMIT-SCHEMA-ID-041",
+      "category": "patterns",
+      "name": "VERIFY-COMMIT-SCHEMA-ID",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/schemas/worktree_lifecycle.schema.id.yaml",
+      "doc_id": "DOC-PAT-WORKTREE-LIFECYCLE-SCHEMA-ID-042",
+      "category": "patterns",
+      "name": "WORKTREE-LIFECYCLE-SCHEMA-ID",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/scripts/README.yaml",
+      "doc_id": "DOC-SCRIPT-README-046",
+      "category": "script",
+      "name": "README",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/self_healing/README.yaml",
+      "doc_id": "DOC-PAT-README-043",
+      "category": "patterns",
+      "name": "README",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/specs/atomic_create.pattern.yaml",
+      "doc_id": "DOC-PAT-ATOMIC-CREATE-PATTERN-044",
+      "category": "patterns",
+      "name": "ATOMIC-CREATE-PATTERN",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/specs/batch_create.pattern.yaml",
+      "doc_id": "DOC-PAT-BATCH-CREATE-PATTERN-045",
+      "category": "patterns",
+      "name": "BATCH-CREATE-PATTERN",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/specs/configuration_setup.pattern.yaml",
+      "doc_id": "DOC-PAT-CONFIGURATION-SETUP-PATTERN-046",
+      "category": "patterns",
+      "name": "CONFIGURATION-SETUP-PATTERN",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/specs/database_setup.pattern.yaml",
+      "doc_id": "DOC-PAT-DATABASE-SETUP-PATTERN-047",
+      "category": "patterns",
+      "name": "DATABASE-SETUP-PATTERN",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/specs/integration_hook.pattern.yaml",
+      "doc_id": "DOC-PAT-INTEGRATION-HOOK-PATTERN-048",
+      "category": "patterns",
+      "name": "INTEGRATION-HOOK-PATTERN",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/specs/module_creation.pattern.yaml",
+      "doc_id": "DOC-PAT-MODULE-CREATION-PATTERN-049",
+      "category": "patterns",
+      "name": "MODULE-CREATION-PATTERN",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/specs/module_refactor_complete_migration.pattern.yaml",
+      "doc_id": "DOC-PAT-MODULE-REFACTOR-COMPLETE-MIGRATION-050",
+      "category": "patterns",
+      "name": "MODULE-REFACTOR-COMPLETE-MIGRATION",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/specs/module_refactor_create_inventory.pattern.yaml",
+      "doc_id": "DOC-PAT-MODULE-REFACTOR-CREATE-INVENTORY-PATTERN-051",
+      "category": "patterns",
+      "name": "MODULE-REFACTOR-CREATE-INVENTORY-PATTERN",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/specs/module_refactor_migrate_single_module.pattern.yaml",
+      "doc_id": "DOC-PAT-MODULE-REFACTOR-MIGRATE-SINGLE-MODULE-052",
+      "category": "patterns",
+      "name": "MODULE-REFACTOR-MIGRATE-SINGLE-MODULE",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/specs/module_refactor_scan_docs.pattern.yaml",
+      "doc_id": "DOC-PAT-MODULE-REFACTOR-SCAN-DOCS-PATTERN-053",
+      "category": "patterns",
+      "name": "MODULE-REFACTOR-SCAN-DOCS-PATTERN",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/specs/multi_workstream_doc_suite_generation.pattern.yaml",
+      "doc_id": "DOC-PAT-MULTI-WORKSTREAM-DOC-SUITE-GENERATION-054",
+      "category": "patterns",
+      "name": "MULTI-WORKSTREAM-DOC-SUITE-GENERATION",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/specs/phase_discovery.pattern.yaml",
+      "doc_id": "DOC-PAT-PHASE-DISCOVERY-PATTERN-055",
+      "category": "patterns",
+      "name": "PHASE-DISCOVERY-PATTERN",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/specs/README.yaml",
+      "doc_id": "DOC-PAT-README-056",
+      "category": "patterns",
+      "name": "README",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/specs/refactor_patch.pattern.yaml",
+      "doc_id": "DOC-PAT-REFACTOR-PATCH-PATTERN-057",
+      "category": "patterns",
+      "name": "REFACTOR-PATCH-PATTERN",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/specs/self_heal.pattern.yaml",
+      "doc_id": "DOC-PAT-SELF-HEAL-PATTERN-058",
+      "category": "patterns",
+      "name": "SELF-HEAL-PATTERN",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/specs/validation_e2e.pattern.yaml",
+      "doc_id": "DOC-PAT-VALIDATION-E2E-PATTERN-059",
+      "category": "patterns",
+      "name": "VALIDATION-E2E-PATTERN",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/specs/verify_commit.pattern.yaml",
+      "doc_id": "DOC-PAT-VERIFY-COMMIT-PATTERN-060",
+      "category": "patterns",
+      "name": "VERIFY-COMMIT-PATTERN",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/specs/worktree_lifecycle.pattern.yaml",
+      "doc_id": "DOC-PAT-WORKTREE-LIFECYCLE-PATTERN-061",
+      "category": "patterns",
+      "name": "WORKTREE-LIFECYCLE-PATTERN",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/templates/gui-doc-assembly-pattern.yaml",
+      "doc_id": "DOC-PAT-GUI-DOC-ASSEMBLY-PATTERN-062",
+      "category": "patterns",
+      "name": "GUI-DOC-ASSEMBLY-PATTERN",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/templates/README.yaml",
+      "doc_id": "DOC-PAT-README-063",
+      "category": "patterns",
+      "name": "README",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/tests/README.yaml",
+      "doc_id": "DOC-TEST-README-007",
+      "category": "test",
+      "name": "README",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/verification/ground_truth_template.yaml",
+      "doc_id": "DOC-PAT-GROUND-TRUTH-TEMPLATE-064",
+      "category": "patterns",
+      "name": "GROUND-TRUTH-TEMPLATE",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/verification/README.yaml",
+      "doc_id": "DOC-PAT-README-065",
+      "category": "patterns",
+      "name": "README",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/automation/config/detection_config.yaml",
+      "doc_id": "DOC-PAT-DETECTION-CONFIG-066",
+      "category": "patterns",
+      "name": "DETECTION-CONFIG",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/decisions/examples/example_decision.yaml",
+      "doc_id": "DOC-PAT-EXAMPLE-DECISION-067",
+      "category": "patterns",
+      "name": "EXAMPLE-DECISION",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/legacy_atoms/converted/MIGRATED_ENTRIES.yaml",
+      "doc_id": "DOC-PAT-MIGRATED-ENTRIES-068",
+      "category": "patterns",
+      "name": "MIGRATED-ENTRIES",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/legacy_atoms/converted/specs/migrated_docs_summarizer_009.pattern.yaml",
+      "doc_id": "DOC-PAT-MIGRATED-DOCS-SUMMARIZER-009-PATTERN-069",
+      "category": "patterns",
+      "name": "MIGRATED-DOCS-SUMMARIZER-009-PATTERN",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/legacy_atoms/converted/specs/migrated_docs_summarizer_016.pattern.yaml",
+      "doc_id": "DOC-PAT-MIGRATED-DOCS-SUMMARIZER-016-PATTERN-070",
+      "category": "patterns",
+      "name": "MIGRATED-DOCS-SUMMARIZER-016-PATTERN",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/legacy_atoms/converted/specs/migrated_docs_summarizer_017.pattern.yaml",
+      "doc_id": "DOC-PAT-MIGRATED-DOCS-SUMMARIZER-017-PATTERN-071",
+      "category": "patterns",
+      "name": "MIGRATED-DOCS-SUMMARIZER-017-PATTERN",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/legacy_atoms/converted/specs/migrated_ide_code_editor_013.pattern.yaml",
+      "doc_id": "DOC-PAT-MIGRATED-IDE-CODE-EDITOR-013-PATTERN-072",
+      "category": "patterns",
+      "name": "MIGRATED-IDE-CODE-EDITOR-013-PATTERN",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/legacy_atoms/converted/specs/migrated_ide_code_editor_014.pattern.yaml",
+      "doc_id": "DOC-PAT-MIGRATED-IDE-CODE-EDITOR-014-PATTERN-073",
+      "category": "patterns",
+      "name": "MIGRATED-IDE-CODE-EDITOR-014-PATTERN",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/legacy_atoms/converted/specs/migrated_ide_code_editor_015.pattern.yaml",
+      "doc_id": "DOC-PAT-MIGRATED-IDE-CODE-EDITOR-015-PATTERN-074",
+      "category": "patterns",
+      "name": "MIGRATED-IDE-CODE-EDITOR-015-PATTERN",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/legacy_atoms/converted/specs/migrated_orchestrator_001.pattern.yaml",
+      "doc_id": "DOC-PAT-MIGRATED-ORCHESTRATOR-001-PATTERN-075",
+      "category": "patterns",
+      "name": "MIGRATED-ORCHESTRATOR-001-PATTERN",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/legacy_atoms/converted/specs/migrated_orchestrator_002.pattern.yaml",
+      "doc_id": "DOC-PAT-MIGRATED-ORCHESTRATOR-002-PATTERN-076",
+      "category": "patterns",
+      "name": "MIGRATED-ORCHESTRATOR-002-PATTERN",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/legacy_atoms/converted/specs/migrated_orchestrator_003.pattern.yaml",
+      "doc_id": "DOC-PAT-MIGRATED-ORCHESTRATOR-003-PATTERN-077",
+      "category": "patterns",
+      "name": "MIGRATED-ORCHESTRATOR-003-PATTERN",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/legacy_atoms/converted/specs/migrated_orchestrator_004.pattern.yaml",
+      "doc_id": "DOC-PAT-MIGRATED-ORCHESTRATOR-004-PATTERN-078",
+      "category": "patterns",
+      "name": "MIGRATED-ORCHESTRATOR-004-PATTERN",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/legacy_atoms/converted/specs/migrated_orchestrator_005.pattern.yaml",
+      "doc_id": "DOC-PAT-MIGRATED-ORCHESTRATOR-005-PATTERN-079",
+      "category": "patterns",
+      "name": "MIGRATED-ORCHESTRATOR-005-PATTERN",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/legacy_atoms/converted/specs/migrated_orchestrator_006.pattern.yaml",
+      "doc_id": "DOC-PAT-MIGRATED-ORCHESTRATOR-006-PATTERN-080",
+      "category": "patterns",
+      "name": "MIGRATED-ORCHESTRATOR-006-PATTERN",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/legacy_atoms/converted/specs/migrated_qa_test_agent_003.pattern.yaml",
+      "doc_id": "DOC-PAT-MIGRATED-QA-TEST-AGENT-003-PATTERN-081",
+      "category": "patterns",
+      "name": "MIGRATED-QA-TEST-AGENT-003-PATTERN",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/legacy_atoms/converted/specs/migrated_qa_test_agent_008.pattern.yaml",
+      "doc_id": "DOC-PAT-MIGRATED-QA-TEST-AGENT-008-PATTERN-082",
+      "category": "patterns",
+      "name": "MIGRATED-QA-TEST-AGENT-008-PATTERN",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/legacy_atoms/converted/specs/migrated_qa_test_agent_012.pattern.yaml",
+      "doc_id": "DOC-PAT-MIGRATED-QA-TEST-AGENT-012-PATTERN-083",
+      "category": "patterns",
+      "name": "MIGRATED-QA-TEST-AGENT-012-PATTERN",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/legacy_atoms/converted/specs/migrated_resilience_agent_007.pattern.yaml",
+      "doc_id": "DOC-PAT-MIGRATED-RESILIENCE-AGENT-007-PATTERN-084",
+      "category": "patterns",
+      "name": "MIGRATED-RESILIENCE-AGENT-007-PATTERN",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/legacy_atoms/converted/specs/migrated_resilience_agent_010.pattern.yaml",
+      "doc_id": "DOC-PAT-MIGRATED-RESILIENCE-AGENT-010-PATTERN-085",
+      "category": "patterns",
+      "name": "MIGRATED-RESILIENCE-AGENT-010-PATTERN",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/legacy_atoms/converted/specs/migrated_resilience_agent_011.pattern.yaml",
+      "doc_id": "DOC-PAT-MIGRATED-RESILIENCE-AGENT-011-PATTERN-086",
+      "category": "patterns",
+      "name": "MIGRATED-RESILIENCE-AGENT-011-PATTERN",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/specs/auto_approved/AUTO-20251127-001.yaml",
+      "doc_id": "DOC-PAT-AUTO-20251127-001-087",
+      "category": "patterns",
+      "name": "AUTO-20251127-001",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/specs/auto_approved/AUTO-20251127-002.yaml",
+      "doc_id": "DOC-PAT-AUTO-20251127-002-088",
+      "category": "patterns",
+      "name": "AUTO-20251127-002",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/specs/auto_approved/AUTO-20251127-003.yaml",
+      "doc_id": "DOC-PAT-AUTO-20251127-003-089",
+      "category": "patterns",
+      "name": "AUTO-20251127-003",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/specs/auto_approved/AUTO-20251127-004.yaml",
+      "doc_id": "DOC-PAT-AUTO-20251127-004-090",
+      "category": "patterns",
+      "name": "AUTO-20251127-004",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/specs/auto_approved/AUTO-20251127-005.yaml",
+      "doc_id": "DOC-PAT-AUTO-20251127-005-091",
+      "category": "patterns",
+      "name": "AUTO-20251127-005",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/specs/auto_approved/AUTO-20251127-006.yaml",
+      "doc_id": "DOC-PAT-AUTO-20251127-006-092",
+      "category": "patterns",
+      "name": "AUTO-20251127-006",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/specs/auto_approved/AUTO-20251127-007.yaml",
+      "doc_id": "DOC-PAT-AUTO-20251127-007-093",
+      "category": "patterns",
+      "name": "AUTO-20251127-007",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/verification/examples/example_success.yaml",
+      "doc_id": "DOC-PAT-EXAMPLE-SUCCESS-094",
+      "category": "patterns",
+      "name": "EXAMPLE-SUCCESS",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/profiles/software-dev-python/phase_templates/PH-CORE-01.yaml",
+      "doc_id": "DOC-CONFIG-PH-CORE-01-104",
+      "category": "config",
+      "name": "PH-CORE-01",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/templates/execution_patterns/atomic_create.pattern.yaml",
+      "doc_id": "DOC-CONFIG-ATOMIC-CREATE-PATTERN-105",
+      "category": "config",
+      "name": "ATOMIC-CREATE-PATTERN",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/templates/verification_templates/preflight.verify.yaml",
+      "doc_id": "DOC-CONFIG-PREFLIGHT-VERIFY-106",
+      "category": "config",
+      "name": "PREFLIGHT-VERIFY",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/templates/verification_templates/pytest_green.verify.yaml",
+      "doc_id": "DOC-CONFIG-PYTEST-GREEN-VERIFY-107",
+      "category": "config",
+      "name": "PYTEST-GREEN-VERIFY",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/templates/configuration/profiles/profile-python-template.yaml",
+      "doc_id": "DOC-CONFIG-PROFILE-PYTHON-TEMPLATE-108",
+      "category": "config",
+      "name": "PROFILE-PYTHON-TEMPLATE",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/templates/orchestration/phases/phase-core-template.yaml",
+      "doc_id": "DOC-CONFIG-PHASE-CORE-TEMPLATE-109",
+      "category": "config",
+      "name": "PHASE-CORE-TEMPLATE",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/templates/orchestration/tasks/task-analysis-template.yaml",
+      "doc_id": "DOC-CONFIG-TASK-ANALYSIS-TEMPLATE-110",
+      "category": "config",
+      "name": "TASK-ANALYSIS-TEMPLATE",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/templates/patterns/meta/decision_elimination_bootstrap.pattern.yaml",
+      "doc_id": "DOC-PAT-DECISION-ELIMINATION-BOOTSTRAP-PATTERN-095",
+      "category": "patterns",
+      "name": "DECISION-ELIMINATION-BOOTSTRAP-PATTERN",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/templates/patterns/parallel/batch_file_creation.pattern.yaml",
+      "doc_id": "DOC-PAT-BATCH-FILE-CREATION-PATTERN-096",
+      "category": "patterns",
+      "name": "BATCH-FILE-CREATION-PATTERN",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/templates/patterns/sequential/create_test_commit.pattern.yaml",
+      "doc_id": "DOC-PAT-CREATE-TEST-COMMIT-PATTERN-097",
+      "category": "patterns",
+      "name": "CREATE-TEST-COMMIT-PATTERN",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/templates/patterns/sequential/grep_view_edit.pattern.yaml",
+      "doc_id": "DOC-PAT-GREP-VIEW-EDIT-PATTERN-098",
+      "category": "patterns",
+      "name": "GREP-VIEW-EDIT-PATTERN",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/templates/patterns/sequential/view_edit_verify.pattern.yaml",
+      "doc_id": "DOC-PAT-VIEW-EDIT-VERIFY-PATTERN-099",
+      "category": "patterns",
+      "name": "VIEW-EDIT-VERIFY-PATTERN",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/templates/patterns/template/module_creation_convergence.pattern.yaml",
+      "doc_id": "DOC-PAT-MODULE-CREATION-CONVERGENCE-PATTERN-100",
+      "category": "patterns",
+      "name": "MODULE-CREATION-CONVERGENCE-PATTERN",
+      "skipped": false,
+      "reason": null
+    },
+    {
+      "path": "workstreams/examples/openspec-test-001.yaml",
+      "doc_id": "DOC-CONFIG-OPENSPEC-TEST-001-111",
+      "category": "config",
+      "name": "OPENSPEC-TEST-001",
+      "skipped": false,
+      "reason": null
+    }
+  ],
+  "skipped": []
+}

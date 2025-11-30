@@ -52,5 +52,6 @@
   "required": [
     "project_root",
     "patches"
-  ]
+  ],
+  "doc_id": "DOC-PAT-REFACTOR-PATCH-001-SCHEMA-126"
 }

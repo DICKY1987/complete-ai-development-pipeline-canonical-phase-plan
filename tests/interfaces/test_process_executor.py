@@ -15,6 +15,7 @@ from core.execution.subprocess_executor import SubprocessExecutor
 
 class TestProcessExecutorProtocol:
     """Test ProcessExecutor protocol compliance."""
+# DOC_ID: DOC-TEST-INTERFACES-TEST-PROCESS-EXECUTOR-123
     
     def test_subprocess_executor_implements_protocol(self):
         """SubprocessExecutor implements ProcessExecutor protocol."""

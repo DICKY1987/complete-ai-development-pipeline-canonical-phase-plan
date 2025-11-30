@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-DONT-HAVE-TO-MINE-YOUR-OWN-LOGS-FOREVER-451
+---
+
 Short version: you *don’t* have to mine your own logs forever. There are already good, battle-tested pattern libraries you can steal from and then normalize into your `patterns/` registry.
 
 I’ll split this into two things:

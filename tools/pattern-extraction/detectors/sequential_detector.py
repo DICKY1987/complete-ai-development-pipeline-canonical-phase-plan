@@ -2,6 +2,7 @@
 Sequential Pattern Detector
 Detects common sequential workflow patterns
 """
+# DOC_ID: DOC-PAT-DETECTORS-SEQUENTIAL-DETECTOR-643
 
 from typing import List, Dict
 from collections import defaultdict, Counter

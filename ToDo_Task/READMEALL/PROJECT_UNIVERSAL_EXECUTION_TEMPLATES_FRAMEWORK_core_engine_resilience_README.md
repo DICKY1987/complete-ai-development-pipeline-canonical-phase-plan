@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROJECT-UNIVERSAL-EXECUTION-TEMPLATES-1597
+---
+
 # core/engine/resilience
 
 **Purpose**: Fault tolerance patterns for reliable external tool execution.

@@ -42,6 +42,7 @@ For details, see:
     - core/state/README.md
     - core/state/dependencies.yaml
 """
+DOC_ID: DOC-PAT-CORE-STATE-INIT-414
 
 __all__ = [
     "db",

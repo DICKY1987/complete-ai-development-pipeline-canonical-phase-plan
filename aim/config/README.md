@@ -1,3 +1,7 @@
+---
+doc_id: DOC-AIM-README-162
+---
+
 # AIM Configuration
 
 > **Directory**: `aim/config/`  

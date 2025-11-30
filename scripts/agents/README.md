@@ -1,3 +1,7 @@
+---
+doc_id: DOC-SCRIPT-README-325
+---
+
 # Custom Agents Directory
 
 > **Purpose**: House custom automation agents that enhance development workflows  

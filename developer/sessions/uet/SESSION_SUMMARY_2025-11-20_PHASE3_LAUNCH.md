@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-SESSION-SUMMARY-2025-11-20-PHASE3-LAUNCH-1320
+---
+
 # Session Summary: Phase 3 Launch - WS-03-01A Complete!
 
 **Date:** 2025-11-20  

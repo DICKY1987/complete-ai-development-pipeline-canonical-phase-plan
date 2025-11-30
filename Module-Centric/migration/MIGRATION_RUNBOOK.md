@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-MIGRATION-RUNBOOK-1457
+---
+
 # Migration Runbook (Module-Centric Refactor)
 
 Windows-first commands shown (PowerShell). Run from repo root. Each step ends with a validation

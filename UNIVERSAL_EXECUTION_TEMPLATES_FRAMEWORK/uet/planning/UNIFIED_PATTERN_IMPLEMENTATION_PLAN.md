@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-UNIFIED-PATTERN-IMPLEMENTATION-PLAN-1660
+---
+
 # Unified Pattern Implementation Plan
 ## Decision Elimination via Pattern System Architecture
 

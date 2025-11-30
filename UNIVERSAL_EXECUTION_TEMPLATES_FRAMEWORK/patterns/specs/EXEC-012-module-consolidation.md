@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-EXEC-012-MODULE-CONSOLIDATION-858
+---
+
 # EXEC-012: Module Consolidation Pattern
 # Pattern for migrating duplicate code into canonical UET structure
 

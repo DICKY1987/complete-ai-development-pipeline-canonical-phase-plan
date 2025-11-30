@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-ERROR-PIPELINE-FINAL-SUMMARY-1284
+---
+
 # Error Pipeline Production Readiness - Final Summary
 
 **Project**: Complete AI Development Pipeline  

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-885
+---
+
 # Automation Detectors
 
 **Purpose**: Anti-pattern and error detection scripts.

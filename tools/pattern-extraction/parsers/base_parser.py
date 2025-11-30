@@ -2,6 +2,7 @@
 Base Parser Interface
 All log parsers implement this interface
 """
+# DOC_ID: DOC-PAT-PARSERS-BASE-PARSER-648
 
 from abc import ABC, abstractmethod
 from typing import List, Dict, Any

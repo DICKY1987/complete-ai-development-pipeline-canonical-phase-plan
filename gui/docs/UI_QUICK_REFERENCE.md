@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-UI-QUICK-REFERENCE-1430
+---
+
 # UI Quick Reference Guide
 
 This guide provides concrete examples and common usage patterns for the command-line interface.

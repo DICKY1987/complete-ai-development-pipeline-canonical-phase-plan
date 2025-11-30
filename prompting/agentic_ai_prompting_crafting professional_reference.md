@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-AGENTIC-AI-PROMPTING-CRAFTING-434
+---
+
 # Professional Agentic AI Prompting Reference
 
 **Purpose:**

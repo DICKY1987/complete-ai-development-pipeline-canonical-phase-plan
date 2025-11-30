@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-WS-02-03A-COMPLETION-REPORT-1215
+---
+
 # WS-02-03A Completion Report: Bootstrap Validation Engine
 
 **Date:** 2025-11-20 21:58 UTC  

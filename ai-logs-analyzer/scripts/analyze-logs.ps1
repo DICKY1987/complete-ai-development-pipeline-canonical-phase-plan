@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-ANALYZE-LOGS-078
 # AI Tools Log Analyzer
 # Analyzes aggregated logs and generates insights
 

@@ -12,5 +12,6 @@
   },
   "required": [
     "instance_path"
-  ]
+  ],
+  "doc_id": "DOC-PAT-ATOMIC-CREATE-TEMPLATE-001-SCHEMA-110"
 }

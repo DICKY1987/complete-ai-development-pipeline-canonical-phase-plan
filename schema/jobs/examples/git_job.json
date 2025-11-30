@@ -14,8 +14,8 @@
     "GIT_TERMINAL_PROMPT": "0"
   },
   "paths": {
-    "repo_root": "C:/Users/richg/ALL_AI/Complete AI Development Pipeline – Canonical Phase Plan",
-    "working_dir": "C:/Users/richg/ALL_AI/Complete AI Development Pipeline – Canonical Phase Plan",
+    "repo_root": "C:/Users/richg/ALL_AI/Complete AI Development Pipeline \u2013 Canonical Phase Plan",
+    "working_dir": "C:/Users/richg/ALL_AI/Complete AI Development Pipeline \u2013 Canonical Phase Plan",
     "log_file": "logs/ws-commit-changes/job-2025-11-21-git-001.log",
     "error_report": "logs/ws-commit-changes/job-2025-11-21-git-001.error.json"
   },
@@ -23,5 +23,6 @@
     "retry_policy": "none",
     "timeout_seconds": 30,
     "git_operation": "status"
-  }
+  },
+  "doc_id": "DOC-SPEC-GIT-JOB-009"
 }

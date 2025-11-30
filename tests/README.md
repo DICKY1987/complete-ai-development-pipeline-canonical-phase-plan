@@ -1,3 +1,7 @@
+---
+doc_id: DOC-TEST-README-111
+---
+
 # Test Suite
 
 **Purpose**: Comprehensive testing infrastructure for core pipeline, error engine, plugins, and integrations.

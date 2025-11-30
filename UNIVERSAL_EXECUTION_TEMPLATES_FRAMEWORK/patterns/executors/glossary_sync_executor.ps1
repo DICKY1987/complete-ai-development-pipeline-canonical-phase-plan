@@ -1,4 +1,5 @@
 #!/usr/bin/env pwsh
+# DOC_LINK: DOC-PAT-GLOSSARY-SYNC-EXECUTOR-218
 <#
 .SYNOPSIS
     Executor for glossary_sync pattern (PAT-GLOSSARY-SYNC-001)

@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-PRD-LIST-319
 # !/bin/bash
 # Check if PRD directory exists
 if [ ! -d ".claude/prds" ]; then

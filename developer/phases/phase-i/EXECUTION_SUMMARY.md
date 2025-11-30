@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-EXECUTION-SUMMARY-1300
+---
+
 # Phase I Execution Summary
 
 **Execution Date**: 2025-11-21  

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PATCH-ANALYSIS-1658
+---
+
 # Patch Analysis - Configuration Files Impact on UET V2 Master Plan
 
 **Generated**: 2025-11-23T11:01:12.785Z  

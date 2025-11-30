@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-CORE-ENGINE-PATCH-MANAGER-083
 from __future__ import annotations
 
 import hashlib

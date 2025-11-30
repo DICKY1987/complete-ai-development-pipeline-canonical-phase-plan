@@ -4,5 +4,6 @@
   "branch_name": "example_branch_name",
   "worktree_name": "example_worktree_name",
   "commands_to_execute": [],
-  "cleanup_after_execution": true
+  "cleanup_after_execution": true,
+  "doc_id": "DOC-PAT-INSTANCE-TEST-204"
 }

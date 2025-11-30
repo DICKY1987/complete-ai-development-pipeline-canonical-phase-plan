@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROGRESS-CHECKPOINT-2025-11-20-PHASE3-1124
+---
+
 # Session Checkpoint: Phase 3 Progress
 
 **Date:** 2025-11-20 22:25 UTC  

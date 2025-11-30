@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-UET-INDEX-1652
+---
+
 # UET Framework - Complete Documentation Index
 
 **Universal Execution Templates Integration**  

@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-CORE-CACHE-MEMORY-CACHE-MANAGER-075
 from __future__ import annotations
 from typing import Any, Optional
 import time

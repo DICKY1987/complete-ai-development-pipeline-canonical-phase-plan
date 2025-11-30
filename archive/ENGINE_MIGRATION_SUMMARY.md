@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-ENGINE-MIGRATION-SUMMARY-224
+---
+
 # Engine Migration Assessment - Executive Summary
 
 **Date**: 2025-11-25  

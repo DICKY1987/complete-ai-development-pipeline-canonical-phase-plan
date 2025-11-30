@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-AIM-AIM-CONTRACTS-TESTS-067
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-ID-FRAMEWORK-EXPLORATION-SUMMARY-1378
+---
+
 # ID Framework System Exploration - Complete Summary
 **Date**: 2025-11-29  
 **Status**: Ready for Phase 0 Execution  

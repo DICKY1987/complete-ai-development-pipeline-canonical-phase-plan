@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-930
+---
+
 # Multi Workstream Doc Suite Gen 001 Examples
 
 **Pattern**: `PAT-MULTI-WORKSTREAM-DOC-SUITE-GEN-001`

@@ -1,4 +1,5 @@
 #!/bin/sh
+# DOC_LINK: DOC-PM-BASH-WORKTREE-FIX-119
 # POSIX-compliant pre-tool-use hook for Bash tool
 # If inside a Git *worktree checkout*, prefix the incoming command with:
 #   cd '<worktree_root>' && <original_command>

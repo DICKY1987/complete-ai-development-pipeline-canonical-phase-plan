@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-TEMP-DB-PREV-221
+---
+
 """Database layer for UET Framework - WS-03-01A
 
 Provides SQLite backend for persisting run state, step attempts, and events.

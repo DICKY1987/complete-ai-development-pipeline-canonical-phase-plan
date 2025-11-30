@@ -4,6 +4,7 @@ This module defines the foundational types used throughout the pattern
 detection framework, following the principles of deterministic,
 pattern-based bug detection.
 """
+# DOC_ID: DOC-ERROR-PATTERNS-TYPES-055
 from __future__ import annotations
 
 from dataclasses import dataclass, field

@@ -107,5 +107,6 @@
     "test_script_path",
     "checks",
     "report_path"
-  ]
+  ],
+  "doc_id": "DOC-PAT-E2E-VALIDATION-001-SCHEMA-116"
 }

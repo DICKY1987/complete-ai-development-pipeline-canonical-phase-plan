@@ -3,6 +3,8 @@ Tests for Invoke configuration system (Phase G).
 
 Validates config loading hierarchy, tool profiles, and legacy fallback.
 """
+# DOC_ID: DOC-TEST-TESTS-TEST-INVOKE-CONFIG-086
+# DOC_ID: DOC-TEST-TESTS-TEST-INVOKE-CONFIG-047
 
 import os
 import pytest

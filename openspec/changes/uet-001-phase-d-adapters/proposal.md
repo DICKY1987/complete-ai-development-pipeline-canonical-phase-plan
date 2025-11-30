@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROPOSAL-1513
+---
+
 # Phase D: Adapters - Patch-First Refactoring
 
 **Change ID**: uet-001-phase-d-adapters  

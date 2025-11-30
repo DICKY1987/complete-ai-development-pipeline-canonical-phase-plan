@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-FINAL-SUMMARY-1286
+---
+
 # Phase G Implementation - Final Summary & Status
 
 **Date**: 2025-11-21  

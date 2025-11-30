@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-EXEC015-DISCOVERY-RESULTS-151
+---
+
 # EXEC-015 Discovery Results - No Action Required
 
 **Date:** 2025-11-29  

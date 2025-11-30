@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-WS-22-COMPLETE-1220
+---
+
 # WS-22: Update Core Documentation - Completion Summary
 
 **Date Completed**: 2025-11-19T08:45:40.683Z  

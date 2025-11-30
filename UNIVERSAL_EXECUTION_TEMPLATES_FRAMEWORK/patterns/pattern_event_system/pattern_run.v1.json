@@ -33,7 +33,10 @@
       "description": "Parent job identifier"
     },
     "step_id": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "pattern": "^STEP-[0-9A-HJKMNP-TV-Z]{26}$",
       "description": "Job step identifier (null for job-level patterns)"
     },
@@ -43,7 +46,14 @@
     },
     "status": {
       "type": "string",
-      "enum": ["pending", "in_progress", "success", "failed", "warning", "skipped"],
+      "enum": [
+        "pending",
+        "in_progress",
+        "success",
+        "failed",
+        "warning",
+        "skipped"
+      ],
       "description": "Overall execution status"
     },
     "started_at": {
@@ -52,12 +62,18 @@
       "description": "Execution start timestamp (ISO 8601)"
     },
     "finished_at": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "date-time",
       "description": "Execution end timestamp (null if still running)"
     },
     "duration_seconds": {
-      "type": ["number", "null"],
+      "type": [
+        "number",
+        "null"
+      ],
       "description": "Total execution duration (null if still running)"
     },
     "inputs": {
@@ -70,7 +86,9 @@
     },
     "artifacts": {
       "type": "array",
-      "items": { "type": "string" },
+      "items": {
+        "type": "string"
+      },
       "description": "Generated artifact file paths"
     },
     "events": {
@@ -84,32 +102,60 @@
     "metrics": {
       "type": "object",
       "properties": {
-        "template_expansion_ms": { "type": "number" },
-        "validation_ms": { "type": "number" },
-        "execution_ms": { "type": "number" },
-        "artifact_generation_ms": { "type": "number" }
+        "template_expansion_ms": {
+          "type": "number"
+        },
+        "validation_ms": {
+          "type": "number"
+        },
+        "execution_ms": {
+          "type": "number"
+        },
+        "artifact_generation_ms": {
+          "type": "number"
+        }
       },
       "description": "Performance metrics for each phase"
     },
     "tool_metadata": {
       "type": "object",
       "properties": {
-        "tool_name": { "type": "string" },
-        "tool_version": { "type": "string" },
-        "command": { "type": "string" }
+        "tool_name": {
+          "type": "string"
+        },
+        "tool_version": {
+          "type": "string"
+        },
+        "command": {
+          "type": "string"
+        }
       },
       "description": "Metadata about the executed tool"
     },
     "error": {
-      "type": ["object", "null"],
+      "type": [
+        "object",
+        "null"
+      ],
       "properties": {
-        "type": { "type": "string" },
-        "message": { "type": "string" },
-        "stdout": { "type": "string" },
-        "stderr": { "type": "string" },
-        "exit_code": { "type": "integer" }
+        "type": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "stdout": {
+          "type": "string"
+        },
+        "stderr": {
+          "type": "string"
+        },
+        "exit_code": {
+          "type": "integer"
+        }
       },
       "description": "Error details if execution failed"
     }
-  }
+  },
+  "doc_id": "DOC-PAT-PATTERN-RUN-V1-105"
 }

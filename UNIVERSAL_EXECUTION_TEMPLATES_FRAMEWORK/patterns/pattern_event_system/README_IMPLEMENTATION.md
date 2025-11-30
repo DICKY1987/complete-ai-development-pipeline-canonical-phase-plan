@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-IMPLEMENTATION-813
+---
+
 # Pattern Event System - Implementation Task
 
 **Created**: 2025-11-26  

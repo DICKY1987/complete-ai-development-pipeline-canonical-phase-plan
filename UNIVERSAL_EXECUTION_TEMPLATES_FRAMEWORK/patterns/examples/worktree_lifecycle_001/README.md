@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-954
+---
+
 # Worktree Lifecycle 001 Examples
 
 **Pattern**: `PAT-WORKTREE-LIFECYCLE-001`

@@ -1,3 +1,4 @@
+doc_id: DOC-SPEC-SIDECAR-METADATA-SCHEMA-002
 $schema: "https://json-schema.org/draft/2020-12/schema"
 $id: "https://example.com/schema/sidecar_metadata.schema.yaml"
 title: Sidecar Metadata Schema

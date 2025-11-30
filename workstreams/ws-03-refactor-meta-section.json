@@ -22,5 +22,6 @@
   "tool": "aider",
   "metadata": {
     "notes": "LOW risk - docs only, no code changes"
-  }
+  },
+  "doc_id": "DOC-CONFIG-WS-03-REFACTOR-META-SECTION-143"
 }

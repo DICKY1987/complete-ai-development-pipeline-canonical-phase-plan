@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# DOC_LINK: DOC-SCRIPT-WORKTREE-MERGE-287
 set -euo pipefail
 
 EPIC_NAME="${1:-}"

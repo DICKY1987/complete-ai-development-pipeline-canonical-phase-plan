@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-1094
+---
+
 # Internal Python Utilities
 
 **Purpose**: Internal tools for repository maintenance, path tracking, and specification management.

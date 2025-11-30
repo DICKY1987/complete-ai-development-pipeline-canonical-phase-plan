@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-445
+---
+
 # Registry System
 
 **Purpose**: Placeholder for future registry system implementation - component registration, discovery, and lifecycle management.

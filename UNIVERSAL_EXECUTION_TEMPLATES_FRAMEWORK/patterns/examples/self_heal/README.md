@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-942
+---
+
 # Self Heal Examples
 
 **Pattern**: `PAT-SELF-HEAL`

@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-CORE-EVENTS-SIMPLE-EVENT-BUS-085
 from __future__ import annotations
 import uuid
 from typing import Any, Callable

@@ -5,7 +5,15 @@
   "description": "Unit of work to be routed to a tool. Contains task, constraints, and routing information.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["request_id", "project_id", "phase_id", "task_kind", "classification", "resource_scope", "routing"],
+  "required": [
+    "request_id",
+    "project_id",
+    "phase_id",
+    "task_kind",
+    "classification",
+    "resource_scope",
+    "routing"
+  ],
   "properties": {
     "request_id": {
       "type": "string",
@@ -23,7 +31,10 @@
       "description": "Phase this request executes in"
     },
     "workstream_id": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "description": "Optional workstream"
     },
     "task_kind": {
@@ -49,7 +60,13 @@
       "properties": {
         "complexity": {
           "type": "string",
-          "enum": ["trivial", "simple", "moderate", "complex", "expert"]
+          "enum": [
+            "trivial",
+            "simple",
+            "moderate",
+            "complex",
+            "expert"
+          ]
         },
         "risk_tier": {
           "type": "string"
@@ -59,7 +76,12 @@
         },
         "priority": {
           "type": "string",
-          "enum": ["low", "normal", "high", "critical"]
+          "enum": [
+            "low",
+            "normal",
+            "high",
+            "critical"
+          ]
         }
       }
     },
@@ -69,19 +91,27 @@
       "properties": {
         "read": {
           "type": "array",
-          "items": {"type": "string"}
+          "items": {
+            "type": "string"
+          }
         },
         "write": {
           "type": "array",
-          "items": {"type": "string"}
+          "items": {
+            "type": "string"
+          }
         },
         "create": {
           "type": "array",
-          "items": {"type": "string"}
+          "items": {
+            "type": "string"
+          }
         },
         "forbidden": {
           "type": "array",
-          "items": {"type": "string"}
+          "items": {
+            "type": "string"
+          }
         }
       }
     },
@@ -101,21 +131,32 @@
       }
     },
     "prompt_spec": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$",
       "description": "Prompt instance to use"
     },
     "routing": {
       "type": "object",
-      "required": ["strategy"],
+      "required": [
+        "strategy"
+      ],
       "properties": {
         "strategy": {
           "type": "string",
-          "enum": ["fixed", "round_robin", "auto"]
+          "enum": [
+            "fixed",
+            "round_robin",
+            "auto"
+          ]
         },
         "allowed_tools": {
           "type": "array",
-          "items": {"type": "string"}
+          "items": {
+            "type": "string"
+          }
         },
         "max_attempts": {
           "type": "integer",
@@ -135,9 +176,12 @@
         },
         "trace_flags": {
           "type": "array",
-          "items": {"type": "string"}
+          "items": {
+            "type": "string"
+          }
         }
       }
     }
-  }
+  },
+  "doc_id": "DOC-SPEC-EXECUTION-REQUEST-V1-017"
 }

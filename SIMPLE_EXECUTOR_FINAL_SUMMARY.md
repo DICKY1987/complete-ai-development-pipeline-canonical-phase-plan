@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-SIMPLE-EXECUTOR-FINAL-SUMMARY-178
+---
+
 # Simple workstream executor - final summary
 
 Created: 2025-11-29  

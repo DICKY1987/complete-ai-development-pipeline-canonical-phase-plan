@@ -1,0 +1,6 @@
+---
+doc_id: DOC-CONFIG-TEMPLATE-DOC-ID-HEADER-YAML-279
+---
+
+doc_id: {{DOC_ID}}
+# {{TITLE}}

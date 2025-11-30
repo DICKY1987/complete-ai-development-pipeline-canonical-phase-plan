@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-UI-TOOL-SELECTION-QUICK-REF-1431
+---
+
 # UI Interactive Tool Selection - Quick Reference
 
 ## What is it?

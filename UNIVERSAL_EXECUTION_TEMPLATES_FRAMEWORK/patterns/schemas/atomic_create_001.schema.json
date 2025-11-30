@@ -89,5 +89,6 @@
   "required": [
     "project_root",
     "files_to_create"
-  ]
+  ],
+  "doc_id": "DOC-PAT-ATOMIC-CREATE-001-SCHEMA-109"
 }

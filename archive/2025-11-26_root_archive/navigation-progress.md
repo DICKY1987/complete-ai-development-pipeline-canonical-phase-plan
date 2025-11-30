@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-NAVIGATION-PROGRESS-1116
+---
+
 # AI Navigation Enhancement - Progress Report
 **Date**: 2025-11-23  
 **Phase**: Week 1 - Days 1-3 Completed

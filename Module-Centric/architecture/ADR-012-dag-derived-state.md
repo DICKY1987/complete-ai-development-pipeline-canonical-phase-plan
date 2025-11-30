@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-ADR-012-DAG-DERIVED-STATE-1441
+---
+
 # ADR-012: DAG-as-Derived-State
 
 ## Context

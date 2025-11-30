@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DOC_LINK: DOC-SCRIPT-SCRIPTS-DOC-TRIAGE-207
+# DOC_LINK: DOC-SCRIPT-SCRIPTS-DOC-TRIAGE-144
 # -*- coding: utf-8 -*-
 """
 DOC_TRIAGE - Repository Documentation Triage Tool

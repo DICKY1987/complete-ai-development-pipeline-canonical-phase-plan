@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-CLAUDE-1112
+---
+
 # Claude Code Instructions - AI Sandbox Clone
 
 ## Context

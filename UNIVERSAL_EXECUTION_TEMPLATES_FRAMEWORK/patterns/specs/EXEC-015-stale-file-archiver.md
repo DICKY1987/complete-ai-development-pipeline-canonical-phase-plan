@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-EXEC-015-STALE-FILE-ARCHIVER-861
+---
+
 # EXEC-015: Stale File Archiver Pattern Specification
 
 **Pattern ID:** EXEC-015  

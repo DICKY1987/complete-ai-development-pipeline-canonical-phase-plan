@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-COMMON-PATTERNS-190
+---
+
 # Common Patterns
 
 **Purpose**: Standard coding patterns and best practices for this repository  

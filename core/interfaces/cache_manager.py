@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-CORE-INTERFACES-CACHE-MANAGER-093
 from __future__ import annotations
 from typing import Protocol, Any, Optional, runtime_checkable
 

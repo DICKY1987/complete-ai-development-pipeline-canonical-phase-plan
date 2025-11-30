@@ -8,6 +8,7 @@ from modules.aim_environment.m01001B_health import HealthMonitor, HealthCheck, c
 
 class TestHealthCheck:
     """Test HealthCheck dataclass."""
+DOC_ID: DOC-PAT-ENVIRONMENT-TEST-HEALTH-424
     
     def test_creation(self):
         """Test creating a HealthCheck."""

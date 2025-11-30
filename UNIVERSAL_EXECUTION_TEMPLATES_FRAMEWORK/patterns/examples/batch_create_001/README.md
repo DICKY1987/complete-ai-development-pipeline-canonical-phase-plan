@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-904
+---
+
 # Batch Create 001 Examples
 
 **Pattern**: `PAT-BATCH-CREATE-001`

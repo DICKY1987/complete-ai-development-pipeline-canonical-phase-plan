@@ -23,7 +23,7 @@
     "Create scripts/workstream_metrics.py with MetricsCollector class: compute first-pass success rate by tool, average fix attempts, circuit breaker trip reasons, execution time distributions",
     "Modify scripts/run_workstream.py to use new router",
     "Enhance scripts/SubmitTask.ps1 to support new parameters: -Mode, -PatchFile, -ValidationCommands",
-    "Create end-to-end integration test: Codex → patch → Claude reviews → Aider applies → validated → committed",
+    "Create end-to-end integration test: Codex \u2192 patch \u2192 Claude reviews \u2192 Aider applies \u2192 validated \u2192 committed",
     "Create performance test: 100 tasks through queue",
     "Create metrics test: dashboard shows accurate data"
   ],
@@ -57,5 +57,6 @@
     "description": "End-to-end workflows, CLI entry points, metrics",
     "owner": "pipeline-plus",
     "priority": "high"
-  }
+  },
+  "doc_id": "DOC-CONFIG-WS-30-PIPELINE-PLUS-PHASE7-INTEGRATION-170"
 }

@@ -2,6 +2,7 @@
 Base Detector Interface
 All pattern detectors implement this interface
 """
+# DOC_ID: DOC-PAT-DETECTORS-BASE-DETECTOR-641
 
 from abc import ABC, abstractmethod
 from typing import List, Dict, Any

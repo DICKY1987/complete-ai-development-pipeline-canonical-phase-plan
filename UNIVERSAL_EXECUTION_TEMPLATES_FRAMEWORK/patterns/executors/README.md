@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-794
+---
+
 # Executors Directory
 
 **Purpose**: PowerShell executors implementing pattern actions plus shared helper library.

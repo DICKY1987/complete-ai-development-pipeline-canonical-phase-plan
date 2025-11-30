@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-906
+---
+
 # Batch File Generation 001 Examples
 
 **Pattern**: `PAT-BATCH-FILE-GEN-001`

@@ -29,6 +29,7 @@ from error.patterns.types import (
 
 class TestStateDiagram:
     """Test StateDiagram class functionality."""
+# DOC_ID: DOC-TEST-PATTERN-TESTS-TEST-STATE-TRANSITION-133
     
     def test_get_missing_transitions_basic(self):
         """Find missing transitions in a simple state machine."""

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-WS23-COMPLETION-SUMMARY-1222
+---
+
 # WS-23 Completion Summary
 
 **Workstream**: WS-23 - Create Architecture Diagrams  

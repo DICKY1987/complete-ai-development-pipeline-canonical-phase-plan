@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-CONFLICT-ANALYSIS-AND-RESOLUTION-1377
+---
+
 # Doc ID Folder Conflict Analysis & Resolution
 **Date**: 2025-11-29  
 **Purpose**: Analyze existing doc_id work vs new exploration approach  

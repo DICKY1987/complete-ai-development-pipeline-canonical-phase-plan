@@ -1,4 +1,5 @@
 #!/usr/bin/env pwsh
+# DOC_LINK: DOC-SCRIPT-SPEC-TO-WORKSTREAM-071
 <#
 .SYNOPSIS
     Convert OpenSpec proposals to workstream bundles (PowerShell wrapper).

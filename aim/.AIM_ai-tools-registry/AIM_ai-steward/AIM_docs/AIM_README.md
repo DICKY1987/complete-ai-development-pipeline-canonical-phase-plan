@@ -1,3 +1,7 @@
+---
+doc_id: DOC-AIM-AIM-README-165
+---
+
 # AIM ai-steward
 
 Thin CLI + registry module orchestrating local AI tools via a validated runtime registry.

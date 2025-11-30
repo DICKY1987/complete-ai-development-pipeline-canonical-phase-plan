@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PHASE-K1-OPTIONAL-CLEANUP-1088
+---
+
 # Phase K-1 Optional Cleanup Tasks
 
 **Created**: 2025-11-22  

@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-WATCH-SYNCSTATUS-087
 # Watch Git Auto-Sync Status in Real-Time
 # Run this in a separate PowerShell window to monitor sync activity
 

@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-AIM-AIM-AIDER-060
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 

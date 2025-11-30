@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-KEY-INNOVATIONS-FOR-FILE-PASSING-1134
+---
+
  ● Based on my analysis of these comprehensive specifications in the pipeline_plus directory, here's how this information creates a better way to pass files between CLI tools:
 
    Key Innovations for File Passing Between CLI Tools

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROJECT-CORE-AST-README-1577
+---
+
 # Core AST Utilities
 
 > **Module**: `core.ast`  

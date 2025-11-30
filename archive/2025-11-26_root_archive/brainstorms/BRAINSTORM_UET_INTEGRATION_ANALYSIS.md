@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-BRAINSTORM-UET-INTEGRATION-ANALYSIS-1136
+---
+
 # DEEP DIVE ANALYSIS: Integration Gaps Between UET Framework & Main Pipeline
 
 ## Executive Summary

@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-AIM-AIM-AITOOLSREGISTRY-TESTS-066
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 

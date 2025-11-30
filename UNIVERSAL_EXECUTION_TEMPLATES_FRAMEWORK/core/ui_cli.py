@@ -11,6 +11,7 @@ Usage:
     python -m core.ui_cli tools --json
     python -m core.ui_cli errors --severity error --json
 """
+# DOC_ID: DOC-CORE-CORE-UI-CLI-127
 
 import argparse
 import json

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-931
+---
+
 # Phase Discovery 001 Examples
 
 **Pattern**: `PAT-PHASE-DISCOVERY-001`

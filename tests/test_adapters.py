@@ -100,3 +100,5 @@ def test_adapter_name_inference():
     assert AiderAdapter().name == 'aider'
     assert CodexAdapter().name == 'codex'
     assert ClaudeAdapter().name == 'claude'
+# DOC_LINK: DOC-TEST-TESTS-TEST-ADAPTERS-034
+# DOC_LINK: DOC-TEST-TESTS-TEST-ADAPTERS-073

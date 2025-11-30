@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-CLAUDE-192
+---
+
 # Claude Code Instructions – Patch-First Development Agent
 
 ## 0. Role and Context

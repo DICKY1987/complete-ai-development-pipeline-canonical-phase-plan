@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-UET-WORKSTREAM-QUICKSTART-184
+---
+
 # 🚀 UET Framework Quick Start - Execute Your Workstreams
 
 **Created**: 2025-11-30  

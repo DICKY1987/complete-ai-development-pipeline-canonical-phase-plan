@@ -1,4 +1,5 @@
 #!/usr/bin/env pwsh
+# DOC_LINK: DOC-SCRIPT-VALIDATE-TASK-DEFS-095
 <#
 .SYNOPSIS
     Validate Task Definition Requirements (TASK-DEF-*)

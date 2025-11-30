@@ -31,6 +31,8 @@ For detailed documentation, see:
     - core/dependencies.yaml - Module dependencies
     - core/{layer}/README.md - Layer-specific documentation
 """
+# DOC_ID: DOC-CORE-CORE-INIT-057
+# DOC_ID: DOC-CORE-CORE-INIT-034
 
 __version__ = "2.0.0"
 

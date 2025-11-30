@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-DIRECTORY-INDEX-405
+---
+
 # Doc ID Directory - Complete Index
 
 **Date**: 2025-11-29  

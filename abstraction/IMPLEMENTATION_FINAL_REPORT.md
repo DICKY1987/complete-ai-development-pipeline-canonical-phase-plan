@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-IMPLEMENTATION-FINAL-REPORT-196
+---
+
 # Abstraction Layer Implementation - Final Report
 
 **Execution Date**: 2025-11-29 17:06 UTC  

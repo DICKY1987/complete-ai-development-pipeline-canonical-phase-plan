@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-WORKSTREAM-STYLE-PROMPT-STRUCTURE-1365
+---
+
 Yes — you *can* use one “workstream-style” prompt structure that plays nicely with:
 
 * **Aider** (with Ollama models via `aider --model ...`)

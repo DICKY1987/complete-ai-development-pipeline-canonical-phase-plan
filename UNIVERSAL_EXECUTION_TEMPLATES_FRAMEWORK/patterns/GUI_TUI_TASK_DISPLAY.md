@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-GUI-TUI-TASK-DISPLAY-751
+---
+
 You are helping me design and document how the UET pattern module works internally, and how to surface its behavior as a live visual in a GUI/TUI.
 
 I want you to reason about this in two layers:

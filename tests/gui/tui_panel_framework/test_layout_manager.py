@@ -8,6 +8,7 @@ from textual.widgets import Static
 
 class MockPanel:
     """Mock panel for testing."""
+# DOC_ID: DOC-TEST-TUI-PANEL-FRAMEWORK-TEST-LAYOUT-MANAGER-155
     
     def __init__(self):
         self.mounted = False

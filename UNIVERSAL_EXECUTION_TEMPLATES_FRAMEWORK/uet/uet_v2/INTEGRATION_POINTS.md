@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-INTEGRATION-POINTS-1665
+---
+
 # UET V2 Integration Points
 
 **Purpose**: Document how components call each other to prevent circular dependencies  

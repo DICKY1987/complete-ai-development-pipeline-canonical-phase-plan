@@ -123,5 +123,6 @@
     "migration_approach",
     "tables",
     "rollback_script_path"
-  ]
+  ],
+  "doc_id": "DOC-PAT-DATABASE-SETUP-001-SCHEMA-115"
 }

@@ -1,4 +1,5 @@
 #!/bin/bash
+# DOC_LINK: DOC-SCRIPT-FIX-PATH-STANDARDS-283
 
 # Path Standards Fix Script
 # Automatically converts absolute paths to relative paths in documentation

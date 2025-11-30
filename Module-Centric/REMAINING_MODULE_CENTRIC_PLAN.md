@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-REMAINING-MODULE-CENTRIC-PLAN-429
+---
+
 # Module-Centric Refactor Plan (Remaining Steps Only)
 
 Document ID: PLAN-REFACTOR-MODULE-CENTRIC-001-REMAINING  

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-AI-DEVELOPMENT-PIPELINE-WORKSTREAM-1224
+---
+
 
      ╭─────────────────────────────────────────────────────────────────────────╮
      │ AI Development Pipeline: Workstream Execution Plan (PH-01 to PH-03)     │

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-COMPREHENSIVE-MACHINE-READABLE-210
+---
+
 comprehensive machine-readable blueprint based on the four input files analyzed:
 
      <gui_plan_blueprint>

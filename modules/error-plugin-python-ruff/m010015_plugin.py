@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-PAT-ERROR-PLUGIN-PYTHON-RUFF-M010015-PLUGIN-584
 from __future__ import annotations
 
 import importlib.util

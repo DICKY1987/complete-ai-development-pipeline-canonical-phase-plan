@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-INVOKE-POWERSHELLGALLERY-1374
+---
+
 Here’s a combined, AI-friendly document that:
 
 * Gives **short summaries** of each attached file

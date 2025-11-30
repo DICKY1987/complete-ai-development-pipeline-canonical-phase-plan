@@ -2,6 +2,7 @@
 
 Facilities for checkpointing progress and resuming failed workstreams.
 """
+DOC_ID: DOC-PAT-CORE-ENGINE-RECOVERY-398
 
 # TODO: Implement checkpoint storage and recovery routines.
 

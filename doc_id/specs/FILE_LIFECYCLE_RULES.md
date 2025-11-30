@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-FILE-LIFECYCLE-RULES-1396
+---
+
 # DOC_ID File Lifecycle Rules
 
 **Version**: 1.0  

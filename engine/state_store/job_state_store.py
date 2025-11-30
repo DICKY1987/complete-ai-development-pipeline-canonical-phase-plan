@@ -8,6 +8,7 @@ maintaining compatibility with the existing workstream-based schema.
 ADAPTER_ROLE: state_store
 VERSION: 0.1.0
 """
+# DOC_ID: DOC-PAT-STATE-STORE-JOB-STATE-STORE-460
 
 from __future__ import annotations
 

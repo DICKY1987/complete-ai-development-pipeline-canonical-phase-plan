@@ -1,3 +1,7 @@
+---
+doc_id: DOC-AIM-PHASE-3A-COMPLETE-174
+---
+
 # AIM+ Phase 3A Completion Report
 
 **Phase**: 3A - Environment Scanner  

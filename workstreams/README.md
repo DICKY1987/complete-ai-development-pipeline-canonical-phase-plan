@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-1097
+---
+
 # Workstream Examples
 
 > **Purpose**: Example workstream JSON bundles for reference and testing  

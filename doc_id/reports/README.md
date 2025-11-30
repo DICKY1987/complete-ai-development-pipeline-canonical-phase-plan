@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-1389
+---
+
 # Reports Directory
 
 **Purpose**: Coverage reports, inventory, and validation outputs  

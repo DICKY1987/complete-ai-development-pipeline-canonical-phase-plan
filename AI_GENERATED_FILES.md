@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-AI-GENERATED-FILES-129
+---
+
 C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\adr\README.md
 C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\AGENT_SUMMARY.txt
 C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\AI_AGENT_INSTRUCTIONS_UPDATE_SUMMARY.md

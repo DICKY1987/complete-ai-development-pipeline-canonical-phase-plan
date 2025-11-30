@@ -16,6 +16,7 @@ USAGE:
 - Commit and branch operations
 - Repository state queries
 """
+# DOC_ID: DOC-PAT-ADAPTERS-GIT-ADAPTER-442
 
 import json
 import subprocess

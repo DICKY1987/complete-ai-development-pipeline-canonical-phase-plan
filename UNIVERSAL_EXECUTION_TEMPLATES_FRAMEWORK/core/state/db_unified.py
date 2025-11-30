@@ -2,6 +2,7 @@
 Unified Database Layer - Bridges Legacy and UET Schemas
 Implements dual-write pattern for migration safety
 """
+# DOC_ID: DOC-CORE-STATE-DB-UNIFIED-172
 
 import sqlite3
 from pathlib import Path

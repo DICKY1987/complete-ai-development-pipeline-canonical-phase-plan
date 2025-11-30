@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-QUICK-START-AUTOMATION-764
+---
+
 # Quick Start: Activate Pattern Automation (30 Minutes)
 
 **Goal**: Get pattern auto-learning working with minimal effort

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-HANDOFF-PROMPT-1223
+---
+
 # AI Agent Handoff Prompt - Universal Execution Templates Framework
 
 **Paste this entire prompt into your AI assistant to continue development.**

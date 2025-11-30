@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PH-08-AIM-TOOL-REGISTRY-INTEGRATION-1238
+---
+
 TITLE: PH-08 – AIM Tool Registry Integration (Codex Autonomous Phase Executor)
 
 ROLE

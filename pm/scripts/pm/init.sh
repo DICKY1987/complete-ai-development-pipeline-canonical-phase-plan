@@ -1,4 +1,8 @@
 #!/bin/bash
+# DOC_LINK: DOC-PM-INIT-268
+# DOC_LINK: DOC-PM-INIT-215
+# DOC_LINK: DOC-PM-INIT-162
+# DOC_LINK: DOC-SCRIPT-INIT-317
 
 echo "Initializing..."
 echo ""

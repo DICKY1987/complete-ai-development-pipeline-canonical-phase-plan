@@ -4,6 +4,7 @@
 Analyzes workstream bundles to identify parallel execution opportunities,
 detect conflicts, and estimate execution time with different worker configurations.
 """
+# DOC_ID: DOC-PAT-VALIDATION-VALIDATE-PLAN-638
 
 import argparse
 import sys

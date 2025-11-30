@@ -16,6 +16,7 @@ from core.interfaces.process_executor import ProcessResult
 
 class TestToolAdapterProtocol:
     """Test ToolAdapter protocol compliance."""
+# DOC_ID: DOC-TEST-INTERFACES-TEST-TOOL-ADAPTER-125
     
     def test_base_adapter_implements_protocol(self):
         """BaseToolAdapter implements ToolAdapter protocol."""

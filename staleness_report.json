@@ -4206,5 +4206,6 @@
       "is_stale": false,
       "recommendation": "keep"
     }
-  ]
+  ],
+  "doc_id": "DOC-CONFIG-STALENESS-REPORT-120"
 }

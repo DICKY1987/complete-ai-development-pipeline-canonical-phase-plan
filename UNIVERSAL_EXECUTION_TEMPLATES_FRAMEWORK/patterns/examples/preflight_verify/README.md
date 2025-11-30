@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-932
+---
+
 # Preflight Verify Examples
 
 **Pattern**: `PAT-PREFLIGHT-VERIFY`

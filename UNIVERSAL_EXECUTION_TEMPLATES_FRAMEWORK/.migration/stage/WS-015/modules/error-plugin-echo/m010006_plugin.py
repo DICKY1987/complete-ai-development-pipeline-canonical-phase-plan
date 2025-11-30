@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-PAT-ERROR-PLUGIN-ECHO-M010006-PLUGIN-680
 from __future__ import annotations
 
 from pathlib import Path

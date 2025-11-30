@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PHASE-09-2-COMPLETE-1269
+---
+
 # Phase 09.2: Core PM Workflow - COMPLETE
 
 **Date:** 2025-11-21

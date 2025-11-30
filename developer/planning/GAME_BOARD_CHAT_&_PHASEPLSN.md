@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-GAME-BOARD-CHAT-PHASEPLSN-1244
+---
+
 
  ▐▛███▜▌   Claude Code v2.0.47
 ▝▜█████▛▘  Sonnet 4.5 · Claude Pro

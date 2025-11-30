@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-FINAL-SESSION-SUMMARY-1143
+---
+
 # Final Session Summary
 
 **Session Date**: 2025-11-23  

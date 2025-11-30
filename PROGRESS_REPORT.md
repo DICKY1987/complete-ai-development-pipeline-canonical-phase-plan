@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROGRESS-REPORT-172
+---
+
 # Progress Report - Module-Centric Migration (Current Session)
 
 ## Completed

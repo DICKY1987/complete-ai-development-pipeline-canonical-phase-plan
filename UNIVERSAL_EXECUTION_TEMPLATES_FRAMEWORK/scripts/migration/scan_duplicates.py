@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-MIGRATION-SCAN-DUPLICATES-340
 import hashlib
 from pathlib import Path
 from typing import Dict, List

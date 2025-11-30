@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-AUTOMATION-STATUS-REPORT-742
+---
+
 # Pattern Automation - Status Report
 
 **Generated**: 2025-11-27

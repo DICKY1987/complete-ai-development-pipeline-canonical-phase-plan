@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-CLEANUP-DECISIONS-20251125-1384
+---
+
 # DOC Cleanup Decisions – 2025-11-25
 
 Pilot run of `DOC_DOCUMENTATION_CLEANUP_PATTERN.md` against the latest cleanup

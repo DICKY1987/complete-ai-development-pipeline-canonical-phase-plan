@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-WEEK1-IMPLEMENTATION-1298
+---
+
 # UET Integration - Week 1 Implementation Plan
 
 **Date**: 2025-11-22  

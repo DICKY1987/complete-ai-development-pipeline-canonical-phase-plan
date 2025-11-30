@@ -1,4 +1,5 @@
 #!/usr/bin/env pwsh
+# DOC_LINK: DOC-SCRIPT-VALIDATE-DAG-STRUCTURE-090
 <#
 .SYNOPSIS
     Validate DAG Structure Requirements (DAG-VIEW-*)

@@ -4,6 +4,8 @@ Epic Management
 Handles creation, loading, validation, and task decomposition for Epics.
 Epics are stored as Markdown files with metadata sidecars in pm/workspace/epics/{epic-name}/
 """
+# DOC_ID: DOC-PM-PM-EPIC-014
+# DOC_ID: DOC-PM-PM-EPIC-008
 
 from datetime import datetime
 from pathlib import Path

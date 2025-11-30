@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-DEV-UPDATE-MARKDOWN-PATHS-270
 import os
 import re
 from pathlib import Path

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-899
+---
+
 # Atomic Create Template 001 Examples
 
 **Pattern**: `PAT-ATOMIC-CREATE-TEMPLATE-001`

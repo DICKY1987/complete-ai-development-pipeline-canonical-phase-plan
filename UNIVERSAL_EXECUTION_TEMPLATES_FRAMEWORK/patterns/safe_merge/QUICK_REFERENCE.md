@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-QUICK-REFERENCE-831
+---
+
 # Safe Merge Quick Reference Card
 
 **Location**: `UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/safe_merge/`

@@ -19,6 +19,7 @@ Placeholders:
     {{CAPABILITIES}}    - List of capabilities (e.g., ["linting", "formatting"])
     {{VERSION_CMD}}     - Command to check version (e.g., ["mytool", "--version"])
 """
+# DOC_ID: DOC-PAT-SUBPROCESS-TOOL-ADAPTER-TEMPLATE-970
 
 import subprocess
 import logging

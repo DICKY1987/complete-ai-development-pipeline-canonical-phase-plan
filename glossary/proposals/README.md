@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-1406
+---
+
 # Glossary Term Proposals
 
 **Purpose**: Store proposals for new glossary terms

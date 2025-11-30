@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PATH-STANDARDS-1101
+---
+
 # Path Standards Specification
 
 ## Overview

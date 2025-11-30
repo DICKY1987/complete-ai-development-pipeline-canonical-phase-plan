@@ -1,3 +1,7 @@
+---
+doc_id: DOC-SCRIPT-PATH-TOOLS-README-250
+---
+
 # Path Standards Tools
 
 ## Overview

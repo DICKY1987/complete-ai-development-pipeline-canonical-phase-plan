@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-PATTERN-DIR-CHECK-111
 # PATTERN_DIR_CHECK.ps1
 # Validates patterns/ directory against PAT-CHECK-001 compliance
 # Version: 1.0.0

@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-PAT-PLUGINS-SPEC-VALIDATOR-617
 from __future__ import annotations
 
 import re

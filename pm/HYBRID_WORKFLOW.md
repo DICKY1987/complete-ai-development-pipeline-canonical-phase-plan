@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PM-HYBRID-WORKFLOW-022
+---
+
 # OpenSpec + Pipeline Hybrid Workflow
 
 ## Overview

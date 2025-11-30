@@ -36,5 +36,6 @@
   "tool": "aider",
   "metadata": {
     "notes": "VERY HIGH risk - heart of the system"
-  }
+  },
+  "doc_id": "DOC-CONFIG-WS-16-REFACTOR-CORE-ORCHESTRATION-156"
 }

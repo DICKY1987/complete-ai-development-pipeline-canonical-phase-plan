@@ -9,6 +9,7 @@ from core.interfaces.process_executor import ProcessExecutor, ProcessResult
 
 class BaseToolAdapter:
     """Base implementation for ToolAdapter protocol."""
+# DOC_ID: DOC-CORE-ADAPTERS-BASE-070
     
     def __init__(self, name: str, capabilities: set[str]):
         self._name = name

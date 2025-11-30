@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-EXECUTION-TRACES-SUMMARY-1208
+---
+
 # Execution Traces Summary
 
 **Purpose:** Document runtime behavior of 5 critical workflows

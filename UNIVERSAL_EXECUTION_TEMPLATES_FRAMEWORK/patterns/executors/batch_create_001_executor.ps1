@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-PAT-BATCH-CREATE-001-EXECUTOR-209
 # Pattern Executor: batch_create
 # Pattern ID: PAT-BATCH-CREATE-001
 # Auto-generated: 2025-11-27T10:14:12.399094

@@ -9,6 +9,7 @@ AIM+ Features:
 - Version drift detection
 - Audit logging for all operations
 """
+DOC_ID: DOC-PAT-CORE-ENGINE-AIM-INTEGRATION-386
 
 from typing import Any, Dict, Optional
 import logging

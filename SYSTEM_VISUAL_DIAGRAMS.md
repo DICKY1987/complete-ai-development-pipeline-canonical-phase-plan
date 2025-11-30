@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-SYSTEM-VISUAL-DIAGRAMS-180
+---
+
 # System Visual Understanding Diagrams
 
 ## 1. Data Flow & State Transitions

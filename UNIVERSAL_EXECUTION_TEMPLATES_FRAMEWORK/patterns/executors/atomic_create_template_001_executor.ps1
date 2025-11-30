@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-PAT-ATOMIC-CREATE-TEMPLATE-001-EXECUTOR-208
 # Pattern Executor: atomic_create_template
 # Pattern ID: PAT-ATOMIC-CREATE-TEMPLATE-001
 # Auto-generated: 2025-11-27T10:14:12.334703

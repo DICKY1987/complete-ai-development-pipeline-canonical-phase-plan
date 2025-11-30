@@ -14,6 +14,7 @@ class Logger(Protocol):
     - Multiple log levels
     - Job-specific event logging
     """
+# DOC_ID: DOC-CORE-INTERFACES-LOGGER-099
     
     def info(self, msg: str, **context: Any) -> None:
         """Log info message with context."""

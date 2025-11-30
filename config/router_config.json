@@ -7,5 +7,6 @@
   "defaults": {
     "max_attempts": 3,
     "timeout_seconds": 600
-  }
+  },
+  "doc_id": "DOC-CONFIG-ROUTER-CONFIG-133"
 }

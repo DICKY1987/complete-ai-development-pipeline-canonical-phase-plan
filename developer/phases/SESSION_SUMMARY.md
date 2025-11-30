@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-SESSION-SUMMARY-1240
+---
+
 # Claude Code Session Summary
 **Date:** 2025-11-16
 **Session Duration:** Full implementation session

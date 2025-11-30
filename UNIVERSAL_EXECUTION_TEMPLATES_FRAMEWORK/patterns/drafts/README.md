@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-790
+---
+
 # Drafts Directory
 
 **Purpose**: Scratch area for in-progress pattern drafts and exploratory notes.

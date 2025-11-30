@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PHASE-PLAN-1246
+---
+
 # Phase plan summary
 
 This document summarizes the PH-01 to PH-03 plan and associated Codex/Claude

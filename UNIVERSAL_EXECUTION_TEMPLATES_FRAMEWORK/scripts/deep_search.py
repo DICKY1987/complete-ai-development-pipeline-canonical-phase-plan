@@ -13,6 +13,7 @@ Usage:
     python scripts/deep_search.py --modified-days 7               # Modified in last 7 days
     python scripts/deep_search.py --json                          # JSON output
 """
+# DOC_ID: DOC-SCRIPT-SCRIPTS-DEEP-SEARCH-271
 
 import argparse
 import json

@@ -7,6 +7,8 @@ from modules.core_engine.m010001_event_bus import Event, EventType, EventBus
 
 def test_event_creation():
     """Test event instance creation."""
+# DOC_ID: DOC-TEST-TESTS-TEST-EVENT-BUS-081
+# DOC_ID: DOC-TEST-TESTS-TEST-EVENT-BUS-042
     now = datetime.now(timezone.utc)
     
     event = Event(

@@ -1,4 +1,5 @@
 #!/bin/bash
+# DOC_LINK: DOC-SCRIPT-EPIC-STATUS-314
 
 echo "Getting status..."
 echo ""

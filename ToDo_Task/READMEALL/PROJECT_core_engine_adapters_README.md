@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROJECT-CORE-ENGINE-ADAPTERS-README-1578
+---
+
 # Tool Adapters
 
 > **Module**: `core.engine.adapters`  

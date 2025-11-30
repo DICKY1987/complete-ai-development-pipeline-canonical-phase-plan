@@ -8,6 +8,7 @@ return its path. A later phase can wire real ``git worktree`` commands.
 
 Functions here are intentionally lightweight and easy to monkeypatch in tests.
 """
+# DOC_ID: DOC-CORE-STATE-WORKTREE-176
 
 from __future__ import annotations
 

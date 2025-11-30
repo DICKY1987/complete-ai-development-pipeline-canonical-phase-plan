@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-DOCUMENTATION-ENHANCEMENT-PLAN-1302
+---
+
 # Phase K: Documentation Enhancement & AI Understanding Improvement
 
 **Phase ID:** PH-K  

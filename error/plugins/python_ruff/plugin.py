@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-ERROR-PYTHON-RUFF-PLUGIN-068
 from __future__ import annotations
 
 import json

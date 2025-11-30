@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-WAVE-1-COMPLETION-REPORT-203
+---
+
 # Abstraction Layer - Wave 1 Completion Report
 
 **Date**: 2025-11-29  

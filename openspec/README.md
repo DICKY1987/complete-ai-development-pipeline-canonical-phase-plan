@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-433
+---
+
 # OpenSpec Specifications
 
 **Purpose**: Source OpenSpec proposals, specifications, and bridge documentation before conversion into workstreams.

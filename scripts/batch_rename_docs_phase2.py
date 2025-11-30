@@ -3,6 +3,8 @@
 Batch rename docs/ subdirectory files to DOC_ naming convention
 Phase 2 of cleanup
 """
+# DOC_ID: DOC-SCRIPT-SCRIPTS-BATCH-RENAME-DOCS-PHASE2-195
+# DOC_ID: DOC-SCRIPT-SCRIPTS-BATCH-RENAME-DOCS-PHASE2-132
 
 from pathlib import Path
 

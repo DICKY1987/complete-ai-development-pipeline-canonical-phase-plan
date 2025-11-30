@@ -1,3 +1,7 @@
+---
+doc_id: DOC-ERROR-README-089
+---
+
 # Error Detection Engine
 
 **Purpose**: Incremental, plugin-based error detection system with state machine-driven escalation.

@@ -14,6 +14,8 @@ Module organization:
 - PM: pm-integrations
 - Specifications: specifications-tools
 """
+# DOC_ID: DOC-PAT-MODULES-INIT-356
+# DOC_ID: DOC-PAT-MODULES-INIT-312
 
 __version__ = "1.0.0"
 __all__ = [

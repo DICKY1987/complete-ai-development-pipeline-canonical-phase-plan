@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-PAT-CHECK-001-PATTERN-DIRECTORY-ID-755
+---
+
 PAT-CHECK-001 – Pattern Directory & ID System Compliance (v2)
 
 Spec ID: PAT-CHECK-001-v2

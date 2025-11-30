@@ -1,6 +1,6 @@
 {
   "pattern_id": "PAT-ATOMIC-CREATE-001",
-  "project_root": "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline – Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK",
+  "project_root": "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical Phase Plan\\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK",
   "files_to_create": [
     {
       "path": "patterns/executors/helpers/file_generator.py",
@@ -16,5 +16,6 @@
   "language": "python",
   "test_framework": "pytest",
   "include_type_hints": true,
-  "include_docstrings": true
+  "include_docstrings": true,
+  "doc_id": "DOC-PAT-INSTANCE-TEST-136"
 }

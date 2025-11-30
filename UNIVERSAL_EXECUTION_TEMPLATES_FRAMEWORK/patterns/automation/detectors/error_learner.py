@@ -3,6 +3,7 @@
 Learn from successful error resolutions and create self-healing patterns.
 Integrates with error/engine/error_engine.py.
 """
+# DOC_ID: DOC-PAT-DETECTORS-ERROR-LEARNER-880
 
 import json
 from pathlib import Path

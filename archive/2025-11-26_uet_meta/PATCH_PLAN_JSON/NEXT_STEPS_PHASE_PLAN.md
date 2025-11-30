@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-NEXT-STEPS-PHASE-PLAN-1144
+---
+
 # Next Steps Phase Plan
 
 **Created**: 2025-11-23T18:35:17Z  

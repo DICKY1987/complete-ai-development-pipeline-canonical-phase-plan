@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROJECT-432
+---
+
 # AI Development Pipeline - Project Conventions
 
 ## Overview

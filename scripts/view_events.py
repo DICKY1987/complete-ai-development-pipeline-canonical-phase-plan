@@ -43,3 +43,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+# DOC_LINK: DOC-SCRIPT-SCRIPTS-VIEW-EVENTS-181
+# DOC_LINK: DOC-SCRIPT-SCRIPTS-VIEW-EVENTS-244

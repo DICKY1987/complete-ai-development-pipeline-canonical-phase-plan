@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-GLOSSARY-SYSTEM-OVERVIEW-423
+---
+
 # Glossary System Overview
 
 **Created**: 2025-11-25  

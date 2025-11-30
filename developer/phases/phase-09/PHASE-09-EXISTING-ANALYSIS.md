@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PHASE-09-EXISTING-ANALYSIS-1273
+---
+
 # Phase 09.1: Existing PM Folder Analysis
 
 **Date:** 2025-11-21  

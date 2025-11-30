@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-CLEANUP-UNUSED-WORKTREES-056
 # Cleanup Unused Worktrees Script
 # Anti-Pattern Guard #11: Worktree contamination
 # Auto-cleanup worktrees older than 24 hours

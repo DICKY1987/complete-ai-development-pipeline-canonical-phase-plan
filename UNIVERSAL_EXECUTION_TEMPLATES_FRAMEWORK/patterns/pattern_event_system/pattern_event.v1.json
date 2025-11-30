@@ -47,7 +47,10 @@
       "description": "Parent job identifier"
     },
     "step_id": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "pattern": "^STEP-[0-9A-HJKMNP-TV-Z]{26}$",
       "description": "Job step identifier (null for job-level patterns)"
     },
@@ -63,7 +66,13 @@
     },
     "status": {
       "type": "string",
-      "enum": ["in_progress", "success", "failed", "warning", "skipped"],
+      "enum": [
+        "in_progress",
+        "success",
+        "failed",
+        "warning",
+        "skipped"
+      ],
       "description": "Current execution status"
     },
     "details": {
@@ -75,133 +84,253 @@
     "selection_started_details": {
       "type": "object",
       "properties": {
-        "operation_kind": { "type": "string" },
-        "context": { "type": "object" },
+        "operation_kind": {
+          "type": "string"
+        },
+        "context": {
+          "type": "object"
+        },
         "candidate_patterns": {
           "type": "array",
-          "items": { "type": "string" }
+          "items": {
+            "type": "string"
+          }
         }
       },
-      "required": ["operation_kind"]
+      "required": [
+        "operation_kind"
+      ]
     },
     "selection_resolved_details": {
       "type": "object",
       "properties": {
-        "operation_kind": { "type": "string" },
-        "pattern_id": { "type": "string" },
+        "operation_kind": {
+          "type": "string"
+        },
+        "pattern_id": {
+          "type": "string"
+        },
         "selection_method": {
           "type": "string",
-          "enum": ["explicit", "auto", "fallback"]
+          "enum": [
+            "explicit",
+            "auto",
+            "fallback"
+          ]
         },
-        "inputs_preview": { "type": "object" }
+        "inputs_preview": {
+          "type": "object"
+        }
       },
-      "required": ["operation_kind", "pattern_id", "selection_method"]
+      "required": [
+        "operation_kind",
+        "pattern_id",
+        "selection_method"
+      ]
     },
     "selection_failed_details": {
       "type": "object",
       "properties": {
-        "operation_kind": { "type": "string" },
-        "reason": { "type": "string" },
+        "operation_kind": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        },
         "attempted_patterns": {
           "type": "array",
-          "items": { "type": "string" }
+          "items": {
+            "type": "string"
+          }
         },
-        "error": { "type": "string" }
+        "error": {
+          "type": "string"
+        }
       },
-      "required": ["operation_kind", "reason"]
+      "required": [
+        "operation_kind",
+        "reason"
+      ]
     },
     "template_expanded_details": {
       "type": "object",
       "properties": {
-        "template_version": { "type": "string" },
-        "variables_resolved": { "type": "integer" },
+        "template_version": {
+          "type": "string"
+        },
+        "variables_resolved": {
+          "type": "integer"
+        },
         "generated_artifacts": {
           "type": "array",
-          "items": { "type": "string" }
+          "items": {
+            "type": "string"
+          }
         },
-        "command_preview": { "type": "string" }
+        "command_preview": {
+          "type": "string"
+        }
       }
     },
     "validation_started_details": {
       "type": "object",
       "properties": {
-        "validation_type": { "type": "string" },
+        "validation_type": {
+          "type": "string"
+        },
         "checks": {
           "type": "array",
-          "items": { "type": "string" }
+          "items": {
+            "type": "string"
+          }
         }
       },
-      "required": ["validation_type", "checks"]
+      "required": [
+        "validation_type",
+        "checks"
+      ]
     },
     "validation_completed_details": {
       "type": "object",
       "properties": {
-        "validation_type": { "type": "string" },
-        "checks_passed": { "type": "integer" },
-        "checks_failed": { "type": "integer" },
+        "validation_type": {
+          "type": "string"
+        },
+        "checks_passed": {
+          "type": "integer"
+        },
+        "checks_failed": {
+          "type": "integer"
+        },
         "warnings": {
           "type": "array",
-          "items": { "type": "string" }
+          "items": {
+            "type": "string"
+          }
         }
       },
-      "required": ["validation_type", "checks_passed", "checks_failed"]
+      "required": [
+        "validation_type",
+        "checks_passed",
+        "checks_failed"
+      ]
     },
     "validation_failed_details": {
       "type": "object",
       "properties": {
-        "validation_type": { "type": "string" },
-        "checks_passed": { "type": "integer" },
-        "checks_failed": { "type": "integer" },
+        "validation_type": {
+          "type": "string"
+        },
+        "checks_passed": {
+          "type": "integer"
+        },
+        "checks_failed": {
+          "type": "integer"
+        },
         "failed_checks": {
           "type": "array",
           "items": {
             "type": "object",
             "properties": {
-              "check": { "type": "string" },
-              "error": { "type": "string" }
+              "check": {
+                "type": "string"
+              },
+              "error": {
+                "type": "string"
+              }
             },
-            "required": ["check", "error"]
+            "required": [
+              "check",
+              "error"
+            ]
           }
         }
       },
-      "required": ["validation_type", "checks_failed", "failed_checks"]
+      "required": [
+        "validation_type",
+        "checks_failed",
+        "failed_checks"
+      ]
     },
     "execution_started_details": {
       "type": "object",
       "properties": {
-        "executor": { "type": "string" },
-        "command": { "type": "string" },
-        "working_dir": { "type": "string" },
-        "timeout_seconds": { "type": "integer" }
+        "executor": {
+          "type": "string"
+        },
+        "command": {
+          "type": "string"
+        },
+        "working_dir": {
+          "type": "string"
+        },
+        "timeout_seconds": {
+          "type": "integer"
+        }
       },
-      "required": ["executor", "command"]
+      "required": [
+        "executor",
+        "command"
+      ]
     },
     "execution_completed_details": {
       "type": "object",
       "properties": {
-        "exit_code": { "type": "integer" },
-        "duration_seconds": { "type": "number" },
-        "result_summary": { "type": "object" },
+        "exit_code": {
+          "type": "integer"
+        },
+        "duration_seconds": {
+          "type": "number"
+        },
+        "result_summary": {
+          "type": "object"
+        },
         "artifacts": {
           "type": "array",
-          "items": { "type": "string" }
+          "items": {
+            "type": "string"
+          }
         },
-        "stdout_lines": { "type": "integer" },
-        "stderr_lines": { "type": "integer" }
+        "stdout_lines": {
+          "type": "integer"
+        },
+        "stderr_lines": {
+          "type": "integer"
+        }
       },
-      "required": ["exit_code", "duration_seconds"]
+      "required": [
+        "exit_code",
+        "duration_seconds"
+      ]
     },
     "execution_failed_details": {
       "type": "object",
       "properties": {
-        "exit_code": { "type": "integer" },
-        "duration_seconds": { "type": "number" },
-        "error_type": { "type": "string" },
-        "error_message": { "type": "string" },
-        "stdout_preview": { "type": "string" },
-        "stderr_preview": { "type": "string" }
+        "exit_code": {
+          "type": "integer"
+        },
+        "duration_seconds": {
+          "type": "number"
+        },
+        "error_type": {
+          "type": "string"
+        },
+        "error_message": {
+          "type": "string"
+        },
+        "stdout_preview": {
+          "type": "string"
+        },
+        "stderr_preview": {
+          "type": "string"
+        }
       },
-      "required": ["exit_code", "error_type", "error_message"]
+      "required": [
+        "exit_code",
+        "error_type",
+        "error_message"
+      ]
     }
-  }
+  },
+  "doc_id": "DOC-PAT-PATTERN-EVENT-V1-104"
 }

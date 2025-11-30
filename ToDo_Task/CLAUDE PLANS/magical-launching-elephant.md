@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-MAGICAL-LAUNCHING-ELEPHANT-1558
+---
+
 # Documentation Discovery and Creation Plan for Module-Centric Refactoring
 
 ## Executive Summary

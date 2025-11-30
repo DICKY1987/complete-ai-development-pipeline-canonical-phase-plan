@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-923
+---
+
 # Integration Hook 001 Examples
 
 **Pattern**: `PAT-INTEGRATION-HOOK-001`

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROGRESS-1292
+---
+
 # Phase G - WS-G2 Progress Summary
 
 **Date**: 2025-11-21  

@@ -3,6 +3,7 @@
 Schedules and executes tasks with dependency resolution.
 Handles parallel and sequential execution.
 """
+# DOC_ID: DOC-PAT-CORE-ENGINE-M010001-UET-SCHEDULER-516
 
 from typing import Dict, Any, List, Optional, Set
 from collections import defaultdict

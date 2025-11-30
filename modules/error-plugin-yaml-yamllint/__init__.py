@@ -9,6 +9,7 @@ Import from this module:
 
     from modules.error_plugin_yaml_yamllint import function_name  # ?
 """
+# DOC_ID: DOC-PAT-ERROR-PLUGIN-YAML-YAMLLINT-INIT-593
 
 import importlib
 import sys

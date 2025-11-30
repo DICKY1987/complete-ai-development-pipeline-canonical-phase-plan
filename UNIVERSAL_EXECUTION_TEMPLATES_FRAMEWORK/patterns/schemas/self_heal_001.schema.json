@@ -39,5 +39,6 @@
     "error_source",
     "error_details",
     "project_root"
-  ]
+  ],
+  "doc_id": "DOC-PAT-SELF-HEAL-001-SCHEMA-128"
 }

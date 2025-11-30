@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-K1-COMPLETE-1303
+---
+
 # Phase K-1: Foundation & Index - COMPLETE ✅
 
 **Completed**: 2025-11-22  

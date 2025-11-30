@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-CORE-METRICS-SIMPLE-METRICS-COLLECTOR-109
 from __future__ import annotations
 from collections import defaultdict
 

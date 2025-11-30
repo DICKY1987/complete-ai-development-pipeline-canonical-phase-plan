@@ -3,6 +3,7 @@ Tests for the environment scanner module.
 
 Tests scanning for duplicates, misplaced caches, and cleanup operations.
 """
+DOC_ID: DOC-PAT-ENVIRONMENT-TEST-SCANNER-426
 
 import tempfile
 from pathlib import Path

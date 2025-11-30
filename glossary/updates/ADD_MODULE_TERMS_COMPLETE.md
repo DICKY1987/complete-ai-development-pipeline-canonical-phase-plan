@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-ADD-MODULE-TERMS-COMPLETE-1407
+---
+
 # Module Architecture Terms - Glossary Update Complete
 
 **Date**: 2025-11-27  

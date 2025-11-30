@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-UET-PHASE-SPEC-MASTER-196
+---
+
 Nice, this is where everything starts to snap together.
 
 I’ll keep this as an **outline + structure** for `PHASE_SPEC_MASTER`, and focus on the three key sections you named:

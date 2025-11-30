@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-UET-PROMPT-RENDERING-SPEC-197
+---
+
 Nice, this is the fun one.
 
 I’ll treat **PROMPT_RENDERING_SPEC** as a *core spec* that does two things:

@@ -1,9 +1,16 @@
 {
   "plugin_id": "python_black_fix",
   "name": "Black Formatter (fix)",
-  "file_extensions": ["py"],
-  "requires": ["python_isort_fix"],
+  "file_extensions": [
+    "py"
+  ],
+  "requires": [
+    "python_isort_fix"
+  ],
   "tool": {
-    "success_codes": [0]
-  }
+    "success_codes": [
+      0
+    ]
+  },
+  "doc_id": "DOC-ERROR-MANIFEST-023"
 }

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-DOC-ID-PROJECT-PHASE2-COMPLETE-1391
+---
+
 # Repository DOC_ID Project - Phase 2 Complete ✅
 
 **Updated**: 2025-11-24  

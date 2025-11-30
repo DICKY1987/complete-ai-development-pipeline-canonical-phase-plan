@@ -9,6 +9,7 @@ Import from this module:
 
     from modules.error_plugin_md_mdformat_fix import function_name  # ?
 """
+# DOC_ID: DOC-PAT-ERROR-PLUGIN-MD-MDFORMAT-FIX-INIT-567
 
 import importlib
 import sys

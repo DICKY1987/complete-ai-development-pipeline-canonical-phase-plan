@@ -17,6 +17,7 @@ Usage:
     loader = ConfigLoader()
     config = loader.load(validate=True)
 """
+DOC_ID: DOC-PAT-AIM-REGISTRY-INIT-383
 
 from .config_loader import ConfigLoader
 

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PM-README-120
+---
+
 # Claude Hooks Configuration
 
 ## Bash Worktree Fix Hook

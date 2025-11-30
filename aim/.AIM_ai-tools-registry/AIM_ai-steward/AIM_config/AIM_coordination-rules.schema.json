@@ -7,14 +7,25 @@
       "type": "object",
       "additionalProperties": {
         "type": "object",
-        "required": ["primary"],
+        "required": [
+          "primary"
+        ],
         "properties": {
-          "primary": { "type": "string" },
-          "fallback": { "type": "array", "items": { "type": "string" } },
-          "loadBalance": { "type": "boolean" }
+          "primary": {
+            "type": "string"
+          },
+          "fallback": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "loadBalance": {
+            "type": "boolean"
+          }
         }
       }
     }
-  }
+  },
+  "doc_id": "DOC-AIM-AIM-COORDINATION-RULES-SCHEMA-034"
 }
-

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-1394
+---
+
 # Session Reports Directory
 
 **Purpose**: Phase completion reports and session summaries  

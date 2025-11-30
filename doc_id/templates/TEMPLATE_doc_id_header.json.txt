@@ -1,0 +1,8 @@
+---
+doc_id: DOC-CONFIG-TEMPLATE-DOC-ID-HEADER-JSON-278
+---
+
+{
+  "doc_id": "{{DOC_ID}}",
+  "title": "{{TITLE}}"
+}

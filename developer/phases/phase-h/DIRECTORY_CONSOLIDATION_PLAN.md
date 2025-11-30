@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-DIRECTORY-CONSOLIDATION-PLAN-1296
+---
+
 # Phase H: Directory Consolidation & Structure Cleanup Plan
 
 **Version:** 1.0.0  

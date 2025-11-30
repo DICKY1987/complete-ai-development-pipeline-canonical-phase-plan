@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PH-02-DATA-MODEL-SQLITE-STATE-LAYER-1231
+---
+
 PH-02_Data Model, SQLite State Layer & State Machine (Codex Autonomous Phase Executor)
 
 ROLE

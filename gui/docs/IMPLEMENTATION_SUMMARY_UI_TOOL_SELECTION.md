@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-IMPLEMENTATION-SUMMARY-UI-TOOL-SELECTION-1417
+---
+
 # Implementation Summary: UI Interactive Tool Selection
 
 ## Problem Statement

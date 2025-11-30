@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-846
+---
+
 # Schemas Directory
 
 **Purpose**: JSON and YAML schemas validating pattern inputs, glossary workflows, and outputs.

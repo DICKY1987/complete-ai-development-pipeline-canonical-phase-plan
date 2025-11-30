@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-SCHEDULE-ZEROTOUCHAUTOMATION-115
 # Zero-Touch Pattern Automation - Windows Task Scheduler Setup
 # Runs nightly to mine AI logs and auto-generate patterns
 

@@ -31,5 +31,6 @@
   "tool": "aider",
   "metadata": {
     "notes": "HIGH risk - consolidates 8 modules from 2 locations"
-  }
+  },
+  "doc_id": "DOC-CONFIG-WS-14-REFACTOR-ERROR-ENGINE-154"
 }

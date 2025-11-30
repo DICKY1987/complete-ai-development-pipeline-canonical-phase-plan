@@ -5,6 +5,8 @@ Analyze local directory changes and categorize them for merge strategy.
 Usage:
     python scripts/analyze_local_changes.py --output .merge-backup/change-analysis.yaml
 """
+# DOC_ID: DOC-SCRIPT-SCRIPTS-ANALYZE-LOCAL-CHANGES-190
+# DOC_ID: DOC-SCRIPT-SCRIPTS-ANALYZE-LOCAL-CHANGES-127
 
 import argparse
 import subprocess

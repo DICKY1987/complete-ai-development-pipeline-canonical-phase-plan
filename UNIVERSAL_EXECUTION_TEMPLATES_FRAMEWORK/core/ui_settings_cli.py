@@ -9,6 +9,7 @@ Usage:
     python -m core.ui_settings_cli set-interactive aider
     python -m core.ui_settings_cli list-tools
 """
+# DOC_ID: DOC-CORE-CORE-UI-SETTINGS-CLI-130
 
 import argparse
 import json

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-STRUCTURE-060
+---
+
 # Core Module Structure
 
 > **Module**: `core`  

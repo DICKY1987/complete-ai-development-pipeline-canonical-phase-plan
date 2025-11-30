@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-TERMINAL-CHAT-BEST-PLAN-3-733
+---
+
 It actually makes your life **easier** – but it changes *what* you refactor.
 
 Because you don’t hard-code paths in scripts, your repo refactor becomes:

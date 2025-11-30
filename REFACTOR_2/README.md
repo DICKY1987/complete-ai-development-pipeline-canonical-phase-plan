@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-444
+---
+
 # REFACTOR_2 - Multi-Agent Orchestration (Production Ready)
 
 **Status**: ✅ **95% Production Ready**  

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-REPOSITORY-ORGANIZATION-PLAN-395
+---
+
 # Repository Organization Plan: Separation of Concerns
 **Date**: 2025-11-23  
 **Current State**: Mixed concerns, 49 root files, duplicated directories  

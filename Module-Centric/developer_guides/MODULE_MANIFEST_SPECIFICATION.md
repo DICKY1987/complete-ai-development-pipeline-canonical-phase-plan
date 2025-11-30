@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-MODULE-MANIFEST-SPECIFICATION-1451
+---
+
 # Module Manifest Specification
 
 Canonical format for `modules/<module>/module.manifest.json|yaml`. One manifest per module; it is

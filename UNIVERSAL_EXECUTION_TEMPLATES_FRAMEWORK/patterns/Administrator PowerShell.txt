@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-ADMINISTRATOR-POWERSHELL-738
+---
+
 PowerShell 7.5.4
 ╔══════════════════════════════════════════╗
 ║  Starting Git Auto-Sync (First Window)  ║

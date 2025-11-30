@@ -9,6 +9,7 @@ Example:
     >>> timeout = config.get('execution.timeout', 300)
     >>> profile = config.get_tool_profile('aider')
 """
+# DOC_ID: DOC-CORE-INTERFACES-CONFIG-MANAGER-094
 
 from __future__ import annotations
 

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-SESSION-2-FINAL-REPORT-1309
+---
+
 # Session 2 Final Report - Parallel Group 2 Complete
 
 **Date:** 2025-11-20  

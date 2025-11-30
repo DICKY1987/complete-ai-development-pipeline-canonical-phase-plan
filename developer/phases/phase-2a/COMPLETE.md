@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-COMPLETE-1275
+---
+
 # Phase 2A Complete: State Store Integration
 
 **Completed**: 2025-11-21  

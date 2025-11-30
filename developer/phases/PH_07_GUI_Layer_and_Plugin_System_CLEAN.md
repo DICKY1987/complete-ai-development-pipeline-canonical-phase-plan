@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PH-07-GUI-LAYER-AND-PLUGIN-SYSTEM-CLEAN-1237
+---
+
 TITLE: PH-07 -- GUI Layer & Plugin System (Codex Autonomous Phase Executor)
 
 ROLE

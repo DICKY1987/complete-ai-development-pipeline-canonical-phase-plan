@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-CLEANUP-PLAN-1138
+---
+
 # Repository Cleanup Plan - 2025-11-23
 
 ## Analysis Summary

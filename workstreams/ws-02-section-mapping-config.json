@@ -14,5 +14,6 @@
     "ws-01-hardcoded-path-index"
   ],
   "openspec_change": "WS-02",
-  "id": "ws-02-section-mapping-config"
+  "id": "ws-02-section-mapping-config",
+  "doc_id": "DOC-CONFIG-WS-02-SECTION-MAPPING-CONFIG-142"
 }

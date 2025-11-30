@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-CHECKLIST-1282
+---
+
 # Phase G Execution Checklist
 
 **Phase**: Invoke/Invoke-Build Adoption & PowerShell Gallery Publishing  

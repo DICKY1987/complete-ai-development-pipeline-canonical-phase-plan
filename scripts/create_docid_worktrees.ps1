@@ -1,4 +1,5 @@
 #!/usr/bin/env pwsh
+# DOC_LINK: DOC-SCRIPT-CREATE-DOCID-WORKTREES-061
 # Thin wrapper that proxies to the doc_id module script so existing tooling keeps working.
 
 $repoRoot = Split-Path -Parent $PSScriptRoot

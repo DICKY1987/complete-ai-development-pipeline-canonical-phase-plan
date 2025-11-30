@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-CORE-INTERFACES-VALIDATION-SERVICE-104
 from __future__ import annotations
 from typing import Protocol, Any, runtime_checkable
 

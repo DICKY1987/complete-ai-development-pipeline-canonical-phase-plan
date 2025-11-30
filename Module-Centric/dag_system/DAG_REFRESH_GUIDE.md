@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-DAG-REFRESH-GUIDE-1447
+---
+
 # DAG Refresh Guide
 
 DAGs are derived artifacts. Regenerate them whenever manifests, inventory, pattern registry, or

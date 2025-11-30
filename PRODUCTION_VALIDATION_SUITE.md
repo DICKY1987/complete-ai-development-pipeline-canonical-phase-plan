@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PRODUCTION-VALIDATION-SUITE-171
+---
+
 # Production-Ready Validation Suite
 
 **Purpose**: Comprehensive validation framework for module migration completion  

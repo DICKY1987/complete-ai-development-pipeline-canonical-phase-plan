@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PR-DRAFT-1615
+---
+
 # PR Draft - UET Batch Staging (WS-001..WS-020)
 
 Branch: `ai-sandbox/codex/uet-batch-staging`

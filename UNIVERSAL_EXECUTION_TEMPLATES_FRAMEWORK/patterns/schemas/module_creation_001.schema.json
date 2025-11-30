@@ -57,5 +57,6 @@
     "module_name",
     "language",
     "module_type"
-  ]
+  ],
+  "doc_id": "DOC-PAT-MODULE-CREATION-001-SCHEMA-122"
 }

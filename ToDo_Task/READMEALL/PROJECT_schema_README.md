@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROJECT-SCHEMA-README-1589
+---
+
 # Schema Definitions
 
 > **Purpose**: JSON/YAML/SQL schemas defining workstream and sidecar metadata contracts  

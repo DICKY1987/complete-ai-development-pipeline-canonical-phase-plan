@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PHASE-SPEC-MANDATORY-STRUCTURE-236
+---
+
 # Document 1: The Universal Phase Specification mandatory structure (“The What”)
 
 This specification defines the **mandatory structure** for every Development Phase executed by an autonomous AI in this ecosystem. If a phase does not meet this specification, the AI MUST NOT execute it.

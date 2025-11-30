@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-UET-WORKSTREAM-SPEC-199
+---
+
 Here’s a clean formalization of **WORKSTREAM_SPEC** that fits with everything we already defined (PHASE_SPEC_MASTER, ExecutionRequest, PromptInstance, Patch, Run, etc.).
 
 Staying in **schema/structure mode only**, no narrative doc.

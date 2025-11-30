@@ -16,6 +16,7 @@ FIXTURES_DIR = Path(__file__).parent / "fixtures"
 @pytest.fixture
 def setup_fixtures(tmp_path):
     """Create test fixtures"""
+# DOC_ID: DOC-TEST-BOOTSTRAP-TEST-VALIDATOR-171
     # Valid PROJECT_PROFILE.yaml
     valid_profile = {
         "project_id": "PRJ-TEST",

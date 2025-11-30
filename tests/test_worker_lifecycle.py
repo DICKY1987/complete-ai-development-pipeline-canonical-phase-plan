@@ -7,6 +7,8 @@ from modules.core_engine.m010001_worker import Worker, WorkerState, WorkerPool
 
 def test_worker_creation():
     """Test worker instance creation."""
+# DOC_ID: DOC-TEST-TESTS-TEST-WORKER-LIFECYCLE-109
+# DOC_ID: DOC-TEST-TESTS-TEST-WORKER-LIFECYCLE-070
     worker = Worker(
         worker_id="test-worker-1",
         adapter_type="aider",

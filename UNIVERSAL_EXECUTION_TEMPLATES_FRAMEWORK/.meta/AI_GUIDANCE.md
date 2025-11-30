@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-AI-GUIDANCE-1613
+---
+
 # AI Agent Quick Start Guide
 **Read this FIRST before any session - saves 25 min onboarding time**
 

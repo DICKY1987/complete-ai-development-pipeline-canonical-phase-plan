@@ -1,3 +1,7 @@
+---
+doc_id: DOC-SCRIPT-README-339
+---
+
 # UET Consolidation Migration Scripts
 
 **Purpose**: Consolidate 67% duplicate code into UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK

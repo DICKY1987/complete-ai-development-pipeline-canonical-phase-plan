@@ -34,14 +34,23 @@
         },
         "scan_paths": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "minItems": 1,
           "description": "Paths to scan for term usage"
         },
         "exclude_patterns": {
           "type": "array",
-          "items": { "type": "string" },
-          "default": ["tests/", "__pycache__/", ".venv/", "node_modules/"],
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "tests/",
+            "__pycache__/",
+            ".venv/",
+            "node_modules/"
+          ],
           "description": "Patterns to exclude from scanning"
         },
         "suggest_new_terms": {
@@ -61,12 +70,18 @@
       "properties": {
         "status": {
           "type": "string",
-          "enum": ["success", "failure", "warnings"],
+          "enum": [
+            "success",
+            "failure",
+            "warnings"
+          ],
           "description": "Execution status"
         },
         "missing_terms": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "description": "Terms referenced in code but not in glossary"
         },
         "stale_terms": {
@@ -74,9 +89,15 @@
           "items": {
             "type": "object",
             "properties": {
-              "term_id": { "type": "string" },
-              "name": { "type": "string" },
-              "reason": { "type": "string" }
+              "term_id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "reason": {
+                "type": "string"
+              }
             }
           },
           "description": "Terms in glossary but not found in code"
@@ -86,10 +107,18 @@
           "items": {
             "type": "object",
             "properties": {
-              "name": { "type": "string" },
-              "definition": { "type": "string" },
-              "source_file": { "type": "string" },
-              "confidence": { "type": "number" }
+              "name": {
+                "type": "string"
+              },
+              "definition": {
+                "type": "string"
+              },
+              "source_file": {
+                "type": "string"
+              },
+              "confidence": {
+                "type": "number"
+              }
             }
           },
           "description": "Suggested new terms from code analysis"
@@ -99,8 +128,12 @@
           "items": {
             "type": "object",
             "properties": {
-              "term_id": { "type": "string" },
-              "path": { "type": "string" }
+              "term_id": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              }
             }
           },
           "description": "Implementation paths that don't exist"
@@ -115,10 +148,13 @@
         },
         "errors": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "description": "List of errors encountered"
         }
       }
     }
-  }
+  },
+  "doc_id": "DOC-PAT-GLOSSARY-SYNC-SCHEMA-118"
 }

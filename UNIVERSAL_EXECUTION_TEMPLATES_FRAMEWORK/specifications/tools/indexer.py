@@ -18,6 +18,7 @@ Defaults:
 - source: "docs/source" if exists; otherwise fallback to
   "Multi-Document Versioning Automation final_spec_docs/docs/source".
 """
+# DOC_ID: DOC-PAT-TOOLS-INDEXER-966
 
 from __future__ import annotations
 

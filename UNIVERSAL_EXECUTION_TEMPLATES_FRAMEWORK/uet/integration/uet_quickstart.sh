@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# DOC_LINK: DOC-SCRIPT-UET-QUICKSTART-341
 # UET Integration - Quick Start Script
 # 
 # This script performs the Week 1 Day 1 setup tasks in one command

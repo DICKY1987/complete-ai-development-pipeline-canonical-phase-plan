@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROPOSAL-1509
+---
+
 # Phase B: Patch System - UET Implementation
 
 **Change ID**: uet-001-phase-b-patch-system  

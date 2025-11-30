@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-INTEGRATION-ANALYSIS-1656
+---
+
 # Integration Analysis: Zero-Touch Git Sync → UET Framework
 
 **Document Purpose**: Comprehensive analysis for AI review

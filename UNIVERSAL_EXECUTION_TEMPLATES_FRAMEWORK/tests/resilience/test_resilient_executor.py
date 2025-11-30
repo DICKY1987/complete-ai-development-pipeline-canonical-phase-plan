@@ -13,6 +13,7 @@ from core.engine.resilience import ResilientExecutor, CircuitBreakerOpen, RetryE
 
 class TestResilientExecutor:
     """Test ResilientExecutor functionality"""
+# DOC_ID: DOC-TEST-RESILIENCE-TEST-RESILIENT-EXECUTOR-188
     
     def test_create_executor(self):
         """Test creating resilient executor"""

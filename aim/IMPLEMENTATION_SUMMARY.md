@@ -1,3 +1,7 @@
+---
+doc_id: DOC-AIM-IMPLEMENTATION-SUMMARY-089
+---
+
 # AIM Folder Structure - Implementation Summary
 
 > **Task**: Create comprehensive structure documentation for the AIM folder  

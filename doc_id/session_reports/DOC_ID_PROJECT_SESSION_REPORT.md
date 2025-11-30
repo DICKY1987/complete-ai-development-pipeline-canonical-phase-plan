@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-DOC-ID-PROJECT-SESSION-REPORT-1393
+---
+
 # DOC_ID Project Session Report
 **Date:** 2025-11-24  
 **Session Duration:** 95 minutes  

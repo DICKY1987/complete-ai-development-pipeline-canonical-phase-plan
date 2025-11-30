@@ -1,6 +1,7 @@
 """
 Tests for cross-cutting plugins (codespell, semgrep, gitleaks).
 """
+# DOC_ID: DOC-TEST-PLUGINS-TEST-CROSS-CUTTING-142
 from __future__ import annotations
 
 import json

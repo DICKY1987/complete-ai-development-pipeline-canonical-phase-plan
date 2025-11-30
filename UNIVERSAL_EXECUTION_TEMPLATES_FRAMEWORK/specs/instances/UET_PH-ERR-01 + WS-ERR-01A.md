@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-UET-PH-ERR-01-WS-ERR-01A-1646
+---
+
 Here’s a tight “Error Pipeline Bundle” design that stays in planning mode and snaps into everything we’ve already defined.
 
 We’ll define:

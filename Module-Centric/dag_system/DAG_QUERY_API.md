@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-DAG-QUERY-API-1446
+---
+
 # DAG Query API (Usage Patterns)
 
 Lightweight guidance for consuming precomputed DAG JSON from Python or tools. Aim: fast lookup for

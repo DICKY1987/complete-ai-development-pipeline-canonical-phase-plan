@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-895
+---
+
 # Decision Examples
 
 **Purpose**: Sample decision records illustrating expected structure.

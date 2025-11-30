@@ -31,5 +31,6 @@
   "tool": "aider",
   "metadata": {
     "notes": "MEDIUM risk - clear interface but used by tools.py"
-  }
+  },
+  "doc_id": "DOC-CONFIG-WS-06-REFACTOR-AIM-SECTION-146"
 }

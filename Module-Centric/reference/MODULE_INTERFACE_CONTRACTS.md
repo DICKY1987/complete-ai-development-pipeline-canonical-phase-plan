@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-MODULE-INTERFACE-CONTRACTS-1463
+---
+
 # Module Interface Contracts
 
 Defines what each module exposes and how consumers should depend on it.

@@ -9,6 +9,7 @@ Import from this module:
 
     from modules.error_plugin_python_pylint import function_name  # ?
 """
+# DOC_ID: DOC-PAT-ERROR-PLUGIN-PYTHON-PYLINT-INIT-581
 
 import importlib
 import sys

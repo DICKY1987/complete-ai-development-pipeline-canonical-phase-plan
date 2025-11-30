@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-LATEST-MERGE-COMPLETION-159
+---
+
 # Latest Merge Completion Report
 **Completed**: 2025-11-28 05:46 UTC  
 **Status**: ✅ SUCCESS

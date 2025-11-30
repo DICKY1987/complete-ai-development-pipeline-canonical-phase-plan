@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-WSL-INSTALL-STEP2-VERIFY-106
 #Requires -Version 5.1
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'

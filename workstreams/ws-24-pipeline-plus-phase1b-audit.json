@@ -39,5 +39,6 @@
     "owner": "pipeline-plus",
     "priority": "high",
     "parallel_with": "ws-23-pipeline-plus-phase1a-task-queue"
-  }
+  },
+  "doc_id": "DOC-CONFIG-WS-24-PIPELINE-PLUS-PHASE1B-AUDIT-164"
 }

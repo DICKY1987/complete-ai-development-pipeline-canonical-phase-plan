@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PLAN-1278
+---
+
 # Phase 4: Job Queue System - Implementation Plan
 
 **Status**: Ready to Implement  

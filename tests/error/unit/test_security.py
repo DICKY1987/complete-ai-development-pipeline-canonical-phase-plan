@@ -20,6 +20,7 @@ from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.shared.utils.security import 
 
 class TestValidateFilePath:
     """Test file path validation."""
+# DOC_ID: DOC-ERROR-UNIT-TEST-SECURITY-082
     
     def test_valid_path_in_cwd(self, tmp_path):
         """Test that valid paths within cwd are accepted."""

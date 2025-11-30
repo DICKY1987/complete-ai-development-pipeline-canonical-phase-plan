@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PRE-FLIGHT-CHECKLIST-1530
+---
+
 # ✅ Pre-Flight Checklist - Before First Production Run
 
 ## 🎯 Purpose

@@ -1,3 +1,5 @@
+# DOC_LINK: DOC-CORE-CORE-AGENT-COORDINATOR-035
+# DOC_LINK: DOC-CORE-CORE-AGENT-COORDINATOR-012
 from __future__ import annotations
 
 from dataclasses import dataclass

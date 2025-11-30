@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-TEST-TEST-ACTIVATION-032
 # Pattern Automation Activation Test
 $ErrorActionPreference = "Stop"
 

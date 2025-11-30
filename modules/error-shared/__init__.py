@@ -4,6 +4,7 @@ ULID Prefix: 010021
 Layer: domain
 Status: Shared utilities for error detection pipeline
 """
+# DOC_ID: DOC-PAT-ERROR-SHARED-INIT-600
 
 import importlib
 import sys

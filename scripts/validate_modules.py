@@ -5,6 +5,8 @@ Usage:
     python scripts/validate_modules.py [module_path]
     python scripts/validate_modules.py --all
 """
+# DOC_ID: DOC-SCRIPT-SCRIPTS-VALIDATE-MODULES-243
+# DOC_ID: DOC-SCRIPT-SCRIPTS-VALIDATE-MODULES-180
 
 import json
 import sys

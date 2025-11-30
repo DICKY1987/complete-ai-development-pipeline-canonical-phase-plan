@@ -3,6 +3,7 @@
 Discovers plugins under `src/plugins/*/` that contain a `manifest.json` and
 `plugin.py` exposing a `register()` function returning a `BasePlugin` instance.
 """
+# DOC_ID: DOC-ERROR-ENGINE-PLUGIN-MANAGER-119
 from __future__ import annotations
 
 import importlib.util

@@ -1,0 +1,10 @@
+---
+doc_id: DOC-PAT-TEMPLATE-DOC-ID-HEADER-PYTHON-722
+---
+
+# DOC_ID: {{DOC_ID}}
+"""
+{{TITLE}}
+
+{{SHORT_DESCRIPTION}}
+"""

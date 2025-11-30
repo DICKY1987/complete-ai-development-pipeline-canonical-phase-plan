@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-DEV-GITIGNORE-RECOMMENDATIONS-345
+---
+
 # .gitignore Recommendations for File Organization System
 # Add these entries to your .gitignore file
 

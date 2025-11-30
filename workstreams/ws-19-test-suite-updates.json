@@ -90,5 +90,6 @@
     "risk_level": "HIGH",
     "estimated_effort_hours": "12-16",
     "notes": "Validates entire refactor by updating test suite. Critical that all tests pass after updates. Can partially overlap with WS-18 if careful about file conflicts. This workstream ensures behavioral equivalence is maintained."
-  }
+  },
+  "doc_id": "DOC-CONFIG-WS-19-TEST-SUITE-UPDATES-159"
 }

@@ -5,7 +5,14 @@
   "description": "Human-readable report generated after bootstrap completion. Summarizes what was configured and next steps.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["project_name", "domain", "profile_id", "status", "generated_artifacts", "configuration"],
+  "required": [
+    "project_name",
+    "domain",
+    "profile_id",
+    "status",
+    "generated_artifacts",
+    "configuration"
+  ],
   "properties": {
     "project_name": {
       "type": "string",
@@ -25,7 +32,12 @@
     },
     "status": {
       "type": "string",
-      "enum": ["ready", "partial", "failed", "needs_human"],
+      "enum": [
+        "ready",
+        "partial",
+        "failed",
+        "needs_human"
+      ],
       "description": "Bootstrap completion status"
     },
     "discovery_summary": {
@@ -38,7 +50,9 @@
         },
         "frameworks": {
           "type": "array",
-          "items": {"type": "string"}
+          "items": {
+            "type": "string"
+          }
         },
         "version_control": {
           "type": "string"
@@ -52,7 +66,10 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["path", "status"],
+        "required": [
+          "path",
+          "status"
+        ],
         "properties": {
           "path": {
             "type": "string",
@@ -64,7 +81,11 @@
           },
           "status": {
             "type": "string",
-            "enum": ["created", "validated", "failed"],
+            "enum": [
+              "created",
+              "validated",
+              "failed"
+            ],
             "description": "Artifact creation status"
           }
         }
@@ -73,7 +94,9 @@
     },
     "directories_created": {
       "type": "array",
-      "items": {"type": "string"},
+      "items": {
+        "type": "string"
+      },
       "description": "Directories created during bootstrap"
     },
     "configuration": {
@@ -91,7 +114,9 @@
         },
         "available_tools": {
           "type": "array",
-          "items": {"type": "string"}
+          "items": {
+            "type": "string"
+          }
         }
       }
     },
@@ -101,15 +126,23 @@
       "properties": {
         "validation_status": {
           "type": "string",
-          "enum": ["passed", "failed", "needs_human"]
+          "enum": [
+            "passed",
+            "failed",
+            "needs_human"
+          ]
         },
         "errors": {
           "type": "array",
-          "items": {"type": "string"}
+          "items": {
+            "type": "string"
+          }
         },
         "warnings": {
           "type": "array",
-          "items": {"type": "string"}
+          "items": {
+            "type": "string"
+          }
         },
         "auto_fixes_applied": {
           "type": "integer",
@@ -127,11 +160,15 @@
       "properties": {
         "for_human": {
           "type": "array",
-          "items": {"type": "string"}
+          "items": {
+            "type": "string"
+          }
         },
         "for_ai_agent": {
           "type": "array",
-          "items": {"type": "string"}
+          "items": {
+            "type": "string"
+          }
         }
       }
     },
@@ -144,5 +181,6 @@
       "type": "boolean",
       "description": "Whether framework is ready to accept workstreams"
     }
-  }
+  },
+  "doc_id": "DOC-SPEC-BOOTSTRAP-REPORT-V1-013"
 }

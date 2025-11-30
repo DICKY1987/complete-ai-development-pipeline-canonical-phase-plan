@@ -1,9 +1,10 @@
 {
   "permissions": {
     "allow": [
-      "Bash(cd C:UsersrichgALL_AIComplete AI Development Pipeline – Canonical Phase PlanUNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORKpatterns)"
+      "Bash(cd C:UsersrichgALL_AIComplete AI Development Pipeline \u2013 Canonical Phase PlanUNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORKpatterns)"
     ],
     "deny": [],
     "ask": []
-  }
+  },
+  "doc_id": "DOC-PAT-SETTINGS-LOCAL-103"
 }

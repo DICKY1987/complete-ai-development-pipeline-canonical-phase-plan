@@ -1,4 +1,5 @@
 ---
+doc_id: DOC-GUIDE-HOW-TO-OPTIMIZED-FOR-MACHINE-READABILITY-437
 ## 1. Is this version optimized for machine readability?
 
 **Content-wise: yes. Structure-wise: partially.**

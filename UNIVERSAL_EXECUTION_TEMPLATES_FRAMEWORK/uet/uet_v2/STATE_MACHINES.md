@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-STATE-MACHINES-1666
+---
+
 # UET V2 State Machines
 
 **Purpose**: Define all state machines for UET V2 components with transition rules and invariants  

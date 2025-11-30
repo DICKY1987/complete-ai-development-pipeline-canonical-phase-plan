@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-WS-002-002-PATCHLEDGER-COMPLETE-1150
+---
+
 # WS-NEXT-002-002 Completion: PatchLedger
 
 **Date**: 2025-11-23T19:35:00Z  

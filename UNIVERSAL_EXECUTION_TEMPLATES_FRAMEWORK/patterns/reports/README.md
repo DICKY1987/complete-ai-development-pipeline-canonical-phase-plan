@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-824
+---
+
 # Reports Directory
 
 **Purpose**: Implementation and progress reports for the execution template program.

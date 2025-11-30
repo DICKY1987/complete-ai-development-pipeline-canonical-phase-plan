@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-ANTHROPIC-PROMPT-ENGINEERING-GUIDE-436
+---
+
 # Complete Claude Prompt Engineering Reference Guide
 
 ## 1. Claude 4 Best Practices

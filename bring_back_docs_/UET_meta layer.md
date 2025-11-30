@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-UET-META-LAYER-331
+---
+
 Perfect, this is a clean place to standardize things.
 
 Here’s a **single, universal “Doc Meta Schema”** we can apply to *every* document in your system. This is the frontmatter that sits at the top of each file and gives the pipeline everything it needs to:

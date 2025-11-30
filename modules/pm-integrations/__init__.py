@@ -9,6 +9,7 @@ Import from this module:
 
     from modules.pm_integrations import function_name  # ?
 """
+# DOC_ID: DOC-PAT-PM-INTEGRATIONS-INIT-602
 
 import importlib
 import sys

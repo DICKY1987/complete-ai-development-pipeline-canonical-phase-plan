@@ -4,6 +4,8 @@ Shared type definitions for the engine package.
 These types are used across orchestrator, adapters, and state store
 to ensure consistent contracts.
 """
+# DOC_ID: DOC-PAT-ENGINE-TYPES-352
+# DOC_ID: DOC-PAT-ENGINE-TYPES-308
 
 from dataclasses import dataclass, field
 from typing import Dict, Any, Optional

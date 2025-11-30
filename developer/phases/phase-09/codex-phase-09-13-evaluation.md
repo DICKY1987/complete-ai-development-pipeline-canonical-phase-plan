@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-CODEX-PHASE-09-13-EVALUATION-1267
+---
+
 # Codex Work Evaluation: Phases 09-13 Implementation
 
 **Evaluation Date:** 2025-11-16

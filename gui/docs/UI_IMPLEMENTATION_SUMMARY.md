@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-UI-IMPLEMENTATION-SUMMARY-1428
+---
+
 # UI Infrastructure Implementation Summary
 
 ## Overview

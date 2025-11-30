@@ -1,3 +1,7 @@
+---
+doc_id: DOC-ERROR-README-037
+---
+
 # Error Pipeline
 
 **Version**: 1.0.0  

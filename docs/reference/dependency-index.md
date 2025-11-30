@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-DEPENDENCY-INDEX-1361
+---
+
 # Dependency Index – Module Relationships
 
 **Purpose**: Map dependencies between modules and layers.

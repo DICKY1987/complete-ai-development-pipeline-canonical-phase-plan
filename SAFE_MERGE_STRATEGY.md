@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-SAFE-MERGE-STRATEGY-176
+---
+
 # Safe Merge Strategy & Consolidation Plan
 
 **Document ID**: PLAN-MERGE-CONSOLIDATION-001  

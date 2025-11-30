@@ -21,7 +21,7 @@
     "Implement reverse_patch(patch_file, target_path) -> ApplyResult",
     "Modify core/state/db.py to add patch CRUD operations",
     "Modify core/state/crud.py to add record_patch(), get_patches_by_ws()",
-    "Create unit tests for parse unified diff, hash consistency, capture→store→retrieve→apply cycle",
+    "Create unit tests for parse unified diff, hash consistency, capture\u2192store\u2192retrieve\u2192apply cycle",
     "Test edge cases: empty diff, binary files, paths with spaces"
   ],
   "acceptance_tests": [
@@ -42,8 +42,9 @@
   },
   "metadata": {
     "phase": "Phase 2: Patch Management System (Section 5)",
-    "description": "Core patch lifecycle—capture, store, parse, apply",
+    "description": "Core patch lifecycle\u2014capture, store, parse, apply",
     "owner": "pipeline-plus",
     "priority": "critical"
-  }
+  },
+  "doc_id": "DOC-CONFIG-WS-25-PIPELINE-PLUS-PHASE2-PATCH-MANAGER-165"
 }

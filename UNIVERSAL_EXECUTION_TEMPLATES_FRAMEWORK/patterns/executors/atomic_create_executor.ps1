@@ -1,4 +1,5 @@
 #!/usr/bin/env pwsh
+# DOC_LINK: DOC-PAT-ATOMIC-CREATE-EXECUTOR-207
 <#
 .SYNOPSIS
     Executor for atomic_create pattern (PAT-ATOMIC-CREATE-001)

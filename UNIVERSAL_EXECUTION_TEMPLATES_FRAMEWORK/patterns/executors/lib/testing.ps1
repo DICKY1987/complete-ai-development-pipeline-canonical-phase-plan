@@ -1,4 +1,8 @@
 #!/usr/bin/env pwsh
+# DOC_LINK: DOC-PAT-TESTING-1342
+# DOC_LINK: DOC-PAT-TESTING-1183
+# DOC_LINK: DOC-PAT-TESTING-975
+# DOC_LINK: DOC-PAT-TESTING-239
 <#
 .SYNOPSIS
     Test execution and result parsing library for pattern executors

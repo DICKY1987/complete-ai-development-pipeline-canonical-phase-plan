@@ -1,3 +1,7 @@
+---
+doc_id: DOC-AIM-FINAL-STATUS-087
+---
+
 # AIM Module - Production Ready! 🎉
 
 **Status:** ✅ **95% PRODUCTION-READY**  

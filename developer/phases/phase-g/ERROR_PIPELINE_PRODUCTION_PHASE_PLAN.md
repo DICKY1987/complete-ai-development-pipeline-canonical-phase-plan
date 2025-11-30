@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-ERROR-PIPELINE-PRODUCTION-PHASE-PLAN-1285
+---
+
 # Error Pipeline Production Readiness Phase Plan
 
 **Document ID**: ERROR-PROD-PLAN-001  

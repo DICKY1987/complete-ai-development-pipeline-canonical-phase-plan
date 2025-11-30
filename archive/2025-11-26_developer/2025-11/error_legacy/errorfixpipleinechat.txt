@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-ERRORFIXPIPLEINECHAT-711
+---
+
 Help me brainstorm this idea:I want to create an editing pipeline with a gui. The gui allows for drag and drop up to 10 files. Python or powershell. The pipeline sends the script through a series of applications to find errors. The applications that can autofix should auto fix. Any errors not auto fixed should be recorded in a JSON report. That is generated after the file exits the pipeline. The gui should have the ability to select a folder in the user local evn where output goes. The file name should change to add an identifier indicating its been through the pipeline. All json errors files also are added on to a jsonL file that is located in the output folder. JSONL files deletes entries once the file is larger than 75kb.  Rich error messages and logging. Should be deterministic without use of ai in the pipeline.Architected comprehensive file processing pipeline with deterministic error handling.This is an interesting project idea! The user wants to create an editing pipeline with a GUI for processing files through various error-checking and auto-fixing applications. Let me break down the requirements:
 
 GUI with drag-and-drop for up to 10 files

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-DIRECTORY-GUIDE-232
+---
+
 # Directory Guide - AI Development Pipeline
 
 > **Purpose**: Quick navigation and understanding of the repository structure for both humans and AI tools.  

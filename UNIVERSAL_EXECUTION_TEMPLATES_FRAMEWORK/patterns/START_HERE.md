@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-START-HERE-768
+---
+
 # Pattern Automation - Start Here
 
 **Created**: 2025-11-26

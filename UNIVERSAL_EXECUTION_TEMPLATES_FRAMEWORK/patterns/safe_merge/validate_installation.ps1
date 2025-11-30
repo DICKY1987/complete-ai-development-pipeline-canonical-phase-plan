@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-PAT-VALIDATE-INSTALLATION-235
 <#
 .SYNOPSIS
     Validate Safe Merge Pattern Installation

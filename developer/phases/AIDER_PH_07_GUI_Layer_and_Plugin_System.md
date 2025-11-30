@@ -1,4 +1,5 @@
 ---
+doc_id: DOC-GUIDE-AIDER-PH-07-GUI-LAYER-AND-PLUGIN-SYSTEM-1225
 workstream_id: ph-07-gui-layer
 phase: PH-07
 difficulty: hard

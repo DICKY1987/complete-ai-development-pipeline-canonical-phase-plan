@@ -8,6 +8,8 @@ Usage:
 Output:
     MODULES_INVENTORY.yaml - Complete module catalog
 """
+# DOC_ID: DOC-SCRIPT-SCRIPTS-GENERATE-MODULE-INVENTORY-210
+# DOC_ID: DOC-SCRIPT-SCRIPTS-GENERATE-MODULE-INVENTORY-147
 
 import yaml
 from pathlib import Path

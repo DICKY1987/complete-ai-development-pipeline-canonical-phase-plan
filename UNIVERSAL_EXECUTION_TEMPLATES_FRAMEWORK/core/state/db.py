@@ -3,6 +3,7 @@
 Provides SQLite backend for persisting run state, step attempts, and events.
 Follows COOPERATION_SPEC state machine model.
 """
+# DOC_ID: DOC-CORE-STATE-DB-171
 
 from __future__ import annotations
 

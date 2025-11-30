@@ -1,3 +1,7 @@
+---
+doc_id: DOC-AIM-PRODUCTION-READINESS-ANALYSIS-091
+---
+
 # AIM Module Production Readiness Analysis
 
 **Analysis Date:** 2025-11-20  

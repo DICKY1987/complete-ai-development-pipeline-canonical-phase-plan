@@ -1,3 +1,7 @@
+---
+doc_id: DOC-AIM-AI-MANGER-AIM-HANDOFF-148
+---
+
      - Secure storage using Windows Credential Manager (DPAPI)
      - Auto-injection of API keys (OpenAI, Anthropic, Google, GitHub)
    when invoking AI tools

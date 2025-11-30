@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-AI-EXECUTION-SNIPPETS-447
+---
+
 # AI execution snippets (ready-to-run)
 
 Short, repeatable snippets for Copilot/Codex sessions. PowerShell-first; keep paths literal/quoted.

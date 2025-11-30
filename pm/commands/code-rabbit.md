@@ -1,4 +1,5 @@
 ---
+doc_id: DOC-PM-CODE-RABBIT-115
 allowed-tools: Task, Read, Edit, MultiEdit, Write, LS, Grep
 ---
 

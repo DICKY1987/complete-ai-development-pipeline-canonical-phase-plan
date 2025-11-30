@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PHASE-G2-PROGRESS-REPORT-1290
+---
+
 # Phase G2 Progress Report (Partial)
 
 **Phase**: G2 - AI Agent Integration & Testing  

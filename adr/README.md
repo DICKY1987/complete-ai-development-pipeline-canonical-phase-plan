@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-216
+---
+
 # Architecture Decision Records
 
 This directory contains Architecture Decision Records (ADRs) for the AI Development Pipeline project.

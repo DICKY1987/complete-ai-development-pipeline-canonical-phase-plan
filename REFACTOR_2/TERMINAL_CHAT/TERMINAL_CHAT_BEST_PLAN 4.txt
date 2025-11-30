@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-TERMINAL-CHAT-BEST-PLAN-4-734
+---
+
 Short answer: yes, I can see a pretty clear way this repo wants to be refactored into the module-centric shape you’re describing.
 
 Let me walk it through in terms of:

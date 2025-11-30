@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-PAT-ERROR-SHARED-M010021-TIME-669
 from __future__ import annotations
 
 from datetime import datetime, timezone

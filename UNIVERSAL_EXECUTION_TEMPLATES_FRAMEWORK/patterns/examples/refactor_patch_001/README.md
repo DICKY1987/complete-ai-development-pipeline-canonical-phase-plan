@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-938
+---
+
 # Refactor Patch 001 Examples
 
 **Pattern**: `PAT-REFACTOR-PATCH-001`

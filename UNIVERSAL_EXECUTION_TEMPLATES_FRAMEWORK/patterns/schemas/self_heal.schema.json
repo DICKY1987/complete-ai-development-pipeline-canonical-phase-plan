@@ -27,5 +27,6 @@
     "inputs"
   ],
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "type": "object"
+  "type": "object",
+  "doc_id": "DOC-PAT-SELF-HEAL-SCHEMA-127"
 }

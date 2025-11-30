@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-01000C-README-1488
+---
+
 # Error Plugin: md_mdformat_fix
 
 **Module ID**: error-plugin-md-mdformat-fix  

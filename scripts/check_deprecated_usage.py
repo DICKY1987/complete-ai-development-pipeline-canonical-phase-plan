@@ -6,6 +6,8 @@ Legacy path patterns have been removed from the repository; this script remains
 as a guardrail scaffold and can be repopulated if new deprecated namespaces
 emerge. It currently reports success by default.
 """
+# DOC_ID: DOC-SCRIPT-SCRIPTS-CHECK-DEPRECATED-USAGE-196
+# DOC_ID: DOC-SCRIPT-SCRIPTS-CHECK-DEPRECATED-USAGE-133
 
 import argparse
 import json

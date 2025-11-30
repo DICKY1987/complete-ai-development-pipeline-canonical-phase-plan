@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-AIM-PLUS-FINAL-SUMMARY-1199
+---
+
 # AIM+ Integration COMPLETE
 
 **Date**: 2025-11-22  

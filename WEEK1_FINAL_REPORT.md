@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-WEEK1-FINAL-REPORT-185
+---
+
 # Week 1 Cleanup Automation - Final Report
 
 **Date Completed:** 2025-11-29  

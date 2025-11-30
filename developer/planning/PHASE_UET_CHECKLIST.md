@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PHASE-UET-CHECKLIST-1248
+---
+
 # Phase UET: Integration Checklist
 
 **Phase**: Universal Execution Templates V2 Integration  

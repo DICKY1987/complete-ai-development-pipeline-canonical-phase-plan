@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-871
+---
+
 # Templates Directory
 
 **Purpose**: Template assets and examples used across pattern authoring and documentation.

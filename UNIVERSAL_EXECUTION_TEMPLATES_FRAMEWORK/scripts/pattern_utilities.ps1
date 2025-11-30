@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-PATTERN-UTILITIES-112
 # Pattern Execution Utilities
 # Shared functions for all pattern executors
 # Version: 1.0.0

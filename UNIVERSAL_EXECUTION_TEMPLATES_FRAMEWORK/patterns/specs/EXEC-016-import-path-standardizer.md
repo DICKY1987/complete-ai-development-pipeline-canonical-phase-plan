@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-EXEC-016-IMPORT-PATH-STANDARDIZER-862
+---
+
 # EXEC-016: Import Path Standardizer
 
 **Pattern ID:** EXEC-016

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-888
+---
+
 # Automation Generators
 
 **Purpose**: Pattern generation utilities.

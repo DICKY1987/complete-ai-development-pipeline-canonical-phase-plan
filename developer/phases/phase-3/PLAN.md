@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PLAN-1277
+---
+
 # Phase 3: GUI Foundation - Implementation Plan
 
 **Status**: Ready to Implement  

@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-PAT-BRING-BACK-DOCS-HARDCODED-PATH-INDEXER-652
 from __future__ import annotations
 
 import ast

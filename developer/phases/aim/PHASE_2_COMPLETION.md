@@ -1,3 +1,7 @@
+---
+doc_id: DOC-AIM-PHASE-2-COMPLETION-173
+---
+
 # Phase 2 Completion Summary
 
 **Date:** 2025-11-20  

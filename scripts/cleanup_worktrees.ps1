@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-CLEANUP-WORKTREES-057
 # Cleanup Unused Worktrees
 # Auto-removes git worktrees that have no unique commits
 # Prevents worktree contamination

@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# DOC_LINK: DOC-SCRIPT-DEV-PATHS-RESOLVE-CLI-269
 from __future__ import annotations
 
 import argparse

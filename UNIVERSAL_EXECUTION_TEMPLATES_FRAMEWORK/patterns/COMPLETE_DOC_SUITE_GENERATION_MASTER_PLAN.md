@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-COMPLETE-DOC-SUITE-GENERATION-MASTER-745
+---
+
 # COMPLETE DOC SUITE GENERATION - MASTER PLAN
 # Pattern: Multi-Workstream Doc Suite Generation
 # Version: 1.0.0

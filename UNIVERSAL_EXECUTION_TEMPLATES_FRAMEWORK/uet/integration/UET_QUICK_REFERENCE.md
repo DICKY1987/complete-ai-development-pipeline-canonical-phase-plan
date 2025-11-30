@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-UET-QUICK-REFERENCE-1654
+---
+
 # UET Integration Quick Reference
 
 **Last Updated**: 2025-11-22  

@@ -38,6 +38,7 @@ Usage:
     monitor = HealthMonitor()
     health = monitor.check_health()
 """
+DOC_ID: DOC-PAT-AIM-ENVIRONMENT-INIT-381
 
 __version__ = "1.0.0"
 

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-COMPLIANCE-REPORT-1115
+---
+
 # AI_CODEBASE_FOR_COPILOT_SPEC - Compliance Report
 
 **Spec Version**: 1.0.0  

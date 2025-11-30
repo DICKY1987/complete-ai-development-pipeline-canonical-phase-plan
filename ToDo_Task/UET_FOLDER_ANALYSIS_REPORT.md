@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-UET-FOLDER-ANALYSIS-REPORT-1092
+---
+
 # UET Folder Deep Dive Analysis Report
 
 **Location**: `UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/uet/`  

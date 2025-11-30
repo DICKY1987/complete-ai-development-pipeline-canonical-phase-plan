@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-SESSION-COMPLETION-SUMMARY-1148
+---
+
 # Session Completion Summary
 
 **Date**: 2025-11-23  

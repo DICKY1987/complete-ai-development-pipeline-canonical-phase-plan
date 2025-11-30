@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-MODULE-REFACTOR-PATTERNS-SUMMARY-1545
+---
+
 # Module Refactor Patterns - Summary
 
 ## What I Created

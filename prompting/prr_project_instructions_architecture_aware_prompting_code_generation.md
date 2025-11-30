@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PRR-PROJECT-INSTRUCTIONS-ARCHITECTURE-441
+---
+
 # PRR Project Instructions — Architecture‑Aware Prompting & Code Generation
 
 **Purpose.** Provide a single, machine‑readable set of instructions that every AI task follows to (1) create high‑quality prompts that respect project architecture and (2) generate production‑ready code that conforms to PRR enterprise best practices.

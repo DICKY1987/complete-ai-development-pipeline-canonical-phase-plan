@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-SESSION-SUMMARY-2025-11-20-PHASE2-1319
+---
+
 # Session Summary: WS-02-03A & WS-02-04A - Phase 2 Complete!
 
 **Date:** 2025-11-20  

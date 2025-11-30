@@ -1,4 +1,8 @@
 #!/bin/bash
+# DOC_LINK: DOC-PM-NEXT-269
+# DOC_LINK: DOC-PM-NEXT-216
+# DOC_LINK: DOC-PM-NEXT-163
+# DOC_LINK: DOC-SCRIPT-NEXT-318
 echo "Getting status..."
 echo ""
 echo ""

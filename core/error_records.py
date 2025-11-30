@@ -3,6 +3,8 @@
 This module provides utilities for creating and managing structured error records
 that power the Error & Quarantine Center UI component.
 """
+# DOC_ID: DOC-CORE-CORE-ERROR-RECORDS-041
+# DOC_ID: DOC-CORE-CORE-ERROR-RECORDS-018
 
 import hashlib
 import json

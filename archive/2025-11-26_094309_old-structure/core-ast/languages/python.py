@@ -3,6 +3,7 @@ Python-specific AST extractor.
 
 Implements BaseExtractor for Python using Tree-sitter Python grammar.
 """
+DOC_ID: DOC-PAT-LANGUAGES-PYTHON-431
 
 from typing import List, Optional
 from tree_sitter import Node, Tree

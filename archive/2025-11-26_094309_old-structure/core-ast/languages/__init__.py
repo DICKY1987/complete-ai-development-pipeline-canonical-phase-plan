@@ -6,6 +6,7 @@ Each language module provides:
 - Language-specific node extraction
 - Syntax handling and error recovery
 """
+DOC_ID: DOC-PAT-LANGUAGES-INIT-432
 
 __all__ = []  # Populated as languages are added
 

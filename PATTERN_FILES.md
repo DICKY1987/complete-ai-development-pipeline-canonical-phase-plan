@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PATTERN-FILES-167
+---
+
 C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\.ai\common-patterns.md
 C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\.claude\rules\standard-patterns.md
 C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\.execution\anti_patterns.yaml

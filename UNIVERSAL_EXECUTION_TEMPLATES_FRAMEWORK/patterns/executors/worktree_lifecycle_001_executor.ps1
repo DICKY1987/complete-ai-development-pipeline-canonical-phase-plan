@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-PAT-WORKTREE-LIFECYCLE-001-EXECUTOR-232
 # Pattern Executor: worktree_lifecycle
 # Pattern ID: PAT-WORKTREE-LIFECYCLE-001
 # Auto-generated: 2025-11-27T10:14:13.730476

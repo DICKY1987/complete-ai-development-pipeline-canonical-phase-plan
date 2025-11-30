@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-WS-ERROR-ENGINE-CORE-1131
+---
+
 WS-ERROR-ENGINE-CORE
 Here’s a drop-in workstream spec you can hand straight to **Codex or Claude Code** to wire up the core error/validation pipeline using those old files.
 

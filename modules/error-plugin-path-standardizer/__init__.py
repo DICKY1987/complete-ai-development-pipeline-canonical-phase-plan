@@ -9,6 +9,7 @@ Import from this module:
 
     from modules.error_plugin_path_standardizer import function_name  # ?
 """
+# DOC_ID: DOC-PAT-ERROR-PLUGIN-PATH-STANDARDIZER-INIT-569
 
 import importlib
 import sys

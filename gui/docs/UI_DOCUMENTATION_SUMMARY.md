@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-UI-DOCUMENTATION-SUMMARY-1426
+---
+
 # User Interface Documentation Summary
 
 ## Problem Statement Response

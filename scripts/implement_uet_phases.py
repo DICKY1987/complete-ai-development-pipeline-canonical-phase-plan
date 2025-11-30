@@ -3,6 +3,8 @@
 Implements remaining UET integration phases programmatically.
 Continues from Phase 1 completion.
 """
+# DOC_ID: DOC-SCRIPT-SCRIPTS-IMPLEMENT-UET-PHASES-214
+# DOC_ID: DOC-SCRIPT-SCRIPTS-IMPLEMENT-UET-PHASES-151
 
 import sys
 from pathlib import Path

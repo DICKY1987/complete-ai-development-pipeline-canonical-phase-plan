@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-ANALYSIS-OF-CHAT-FILES-400
+---
+
 # Analysis of doc_id Chat & Spec Files
 
 **Date**: 2025-11-29  

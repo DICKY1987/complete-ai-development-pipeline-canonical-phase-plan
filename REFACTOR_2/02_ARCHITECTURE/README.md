@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-1536
+---
+
 # 02_ARCHITECTURE - System Architecture & Design
 
 **Technical design patterns, worktree mechanics, and orchestration architecture**

@@ -24,7 +24,7 @@
     "docs/SECTION_REFACTOR_VERIFICATION.md"
   ],
   "tasks": [
-    "Create docs/SECTION_REFACTOR_MAPPING.md - Complete old→new path mapping for all sections",
+    "Create docs/SECTION_REFACTOR_MAPPING.md - Complete old\u2192new path mapping for all sections",
     "Create docs/SECTION_REFACTOR_VERIFICATION.md - Test results, validation log, and verification summary",
     "Update README.md with new directory structure and section organization",
     "Update CLAUDE.md with new section-aware file paths and development workflow",
@@ -38,7 +38,7 @@
     "Cross-reference all architectural documents to ensure consistency"
   ],
   "acceptance_tests": [
-    "Verify docs/SECTION_REFACTOR_MAPPING.md contains complete old→new mappings",
+    "Verify docs/SECTION_REFACTOR_MAPPING.md contains complete old\u2192new mappings",
     "Verify docs/SECTION_REFACTOR_VERIFICATION.md includes test results from all previous workstreams",
     "Check all code examples in documentation use correct import paths",
     "Validate all internal documentation links still work",
@@ -80,5 +80,6 @@
     "risk_level": "MEDIUM",
     "estimated_effort_hours": "8-10",
     "notes": "Comprehensive documentation of the entire refactor. Creates authoritative mapping and verification documents. Updates all user-facing and developer-facing documentation to reflect new section-aware structure. Critical for knowledge transfer and future maintenance."
-  }
+  },
+  "doc_id": "DOC-CONFIG-WS-20-FINAL-DOCUMENTATION-MAPPING-160"
 }

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-1397
+---
+
 # Specs Directory
 
 **Purpose**: Specifications, standards, and canonical references  

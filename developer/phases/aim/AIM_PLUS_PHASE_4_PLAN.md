@@ -1,3 +1,7 @@
+---
+doc_id: DOC-AIM-AIM-PLUS-PHASE-4-PLAN-167
+---
+
 # AIM+ Phase 4: Final Integration Plan
 
 **Date**: 2025-11-22  

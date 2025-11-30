@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-VALIDATION-CHECKLIST-1460
+---
+
 # Validation Checklist (Module-Centric Migration)
 
 Run these checks after each phase and before commit.

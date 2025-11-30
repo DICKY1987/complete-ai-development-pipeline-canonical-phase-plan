@@ -5,7 +5,11 @@
   "description": "Configuration for task routing engine. Defines available tools and routing rules.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["version", "apps", "routing"],
+  "required": [
+    "version",
+    "apps",
+    "routing"
+  ],
   "properties": {
     "version": {
       "type": "string",
@@ -16,11 +20,19 @@
       "type": "object",
       "additionalProperties": {
         "type": "object",
-        "required": ["kind", "command", "capabilities"],
+        "required": [
+          "kind",
+          "command",
+          "capabilities"
+        ],
         "properties": {
           "kind": {
             "type": "string",
-            "enum": ["tool", "validator", "analyzer"],
+            "enum": [
+              "tool",
+              "validator",
+              "analyzer"
+            ],
             "description": "Type of application"
           },
           "command": {
@@ -32,24 +44,36 @@
             "properties": {
               "task_kinds": {
                 "type": "array",
-                "items": {"type": "string"}
+                "items": {
+                  "type": "string"
+                }
               },
               "domains": {
                 "type": "array",
-                "items": {"type": "string"}
+                "items": {
+                  "type": "string"
+                }
               }
             }
           },
           "limits": {
             "type": "object",
             "properties": {
-              "max_parallel": {"type": "integer"},
-              "timeout_seconds": {"type": "integer"}
+              "max_parallel": {
+                "type": "integer"
+              },
+              "timeout_seconds": {
+                "type": "integer"
+              }
             }
           },
           "safety_tier": {
             "type": "string",
-            "enum": ["low", "medium", "high"]
+            "enum": [
+              "low",
+              "medium",
+              "high"
+            ]
           }
         }
       },
@@ -62,30 +86,57 @@
           "type": "array",
           "items": {
             "type": "object",
-            "required": ["id", "match"],
+            "required": [
+              "id",
+              "match"
+            ],
             "properties": {
-              "id": {"type": "string"},
+              "id": {
+                "type": "string"
+              },
               "match": {
                 "type": "object",
                 "properties": {
-                  "task_kind": {"type": "array", "items": {"type": "string"}},
-                  "risk_tier": {"type": "array", "items": {"type": "string"}},
-                  "complexity": {"type": "string"}
+                  "task_kind": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "risk_tier": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "complexity": {
+                    "type": "string"
+                  }
                 }
               },
               "select_from": {
                 "type": "array",
-                "items": {"type": "string"}
+                "items": {
+                  "type": "string"
+                }
               },
               "strategy": {
                 "type": "string",
-                "enum": ["fixed", "round_robin", "auto"]
+                "enum": [
+                  "fixed",
+                  "round_robin",
+                  "auto"
+                ]
               },
               "validate_with": {
                 "type": "array",
-                "items": {"type": "string"}
+                "items": {
+                  "type": "string"
+                }
               },
-              "required": {"type": "boolean"}
+              "required": {
+                "type": "boolean"
+              }
             }
           }
         }
@@ -94,10 +145,17 @@
     "defaults": {
       "type": "object",
       "properties": {
-        "max_attempts": {"type": "integer"},
-        "timeout_seconds": {"type": "integer"},
-        "strategy": {"type": "string"}
+        "max_attempts": {
+          "type": "integer"
+        },
+        "timeout_seconds": {
+          "type": "integer"
+        },
+        "strategy": {
+          "type": "string"
+        }
       }
     }
-  }
+  },
+  "doc_id": "DOC-SPEC-ROUTER-CONFIG-V1-029"
 }

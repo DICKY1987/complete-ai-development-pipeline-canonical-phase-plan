@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-UET-INTEGRATION-PLAN-ANALYSIS-1194
+---
+
 # UET Framework Integration Plan - Comprehensive Analysis
 
 **Generated**: 2025-11-23  

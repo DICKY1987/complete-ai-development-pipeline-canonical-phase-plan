@@ -1,3 +1,7 @@
+---
+doc_id: DOC-AIM-PHASE-2A-COMPLETE-171
+---
+
 # AIM+ Phase 2A Completion Summary
 
 **Date**: 2025-11-21  

@@ -1,1 +1,20 @@
-{"profile_id":"data-pipeline","profile_version":"1.0.0","domain":"data-pipeline","description":"Data pipeline profile","extends_core":["COOPERATION_SPEC"],"adds_resource_types":[{"type":"tables","scope_format":"sql","operations":["read","write"]}]}
+{
+  "profile_id": "data-pipeline",
+  "profile_version": "1.0.0",
+  "domain": "data-pipeline",
+  "description": "Data pipeline profile",
+  "extends_core": [
+    "COOPERATION_SPEC"
+  ],
+  "adds_resource_types": [
+    {
+      "type": "tables",
+      "scope_format": "sql",
+      "operations": [
+        "read",
+        "write"
+      ]
+    }
+  ],
+  "doc_id": "DOC-CONFIG-PROFILE-240"
+}

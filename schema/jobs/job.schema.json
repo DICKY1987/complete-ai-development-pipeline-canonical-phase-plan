@@ -4,7 +4,14 @@
   "title": "Pipeline Job Schema",
   "description": "Standard job format for all tool executions in the AI Development Pipeline",
   "type": "object",
-  "required": ["job_id", "workstream_id", "tool", "command", "env", "paths"],
+  "required": [
+    "job_id",
+    "workstream_id",
+    "tool",
+    "command",
+    "env",
+    "paths"
+  ],
   "properties": {
     "job_id": {
       "type": "string",
@@ -18,11 +25,23 @@
     "tool": {
       "type": "string",
       "description": "Tool to execute (aider, codex, tests, git, etc.)",
-      "enum": ["aider", "codex", "gemini", "claude", "tests", "git", "error_pipeline", "mechanical"]
+      "enum": [
+        "aider",
+        "codex",
+        "gemini",
+        "claude",
+        "tests",
+        "git",
+        "error_pipeline",
+        "mechanical"
+      ]
     },
     "command": {
       "type": "object",
-      "required": ["exe", "args"],
+      "required": [
+        "exe",
+        "args"
+      ],
       "properties": {
         "exe": {
           "type": "string",
@@ -46,7 +65,12 @@
     },
     "paths": {
       "type": "object",
-      "required": ["repo_root", "working_dir", "log_file", "error_report"],
+      "required": [
+        "repo_root",
+        "working_dir",
+        "log_file",
+        "error_report"
+      ],
       "properties": {
         "repo_root": {
           "type": "string",
@@ -73,7 +97,12 @@
         "retry_policy": {
           "type": "string",
           "description": "Retry/escalation policy",
-          "enum": ["none", "retry_same", "escalate_to_codex", "escalate_to_claude"]
+          "enum": [
+            "none",
+            "retry_same",
+            "escalate_to_codex",
+            "escalate_to_claude"
+          ]
         },
         "timeout_seconds": {
           "type": "integer",
@@ -98,5 +127,6 @@
         }
       }
     }
-  }
+  },
+  "doc_id": "DOC-SPEC-JOB-SCHEMA-006"
 }

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PHASE-002-PROGRESS-1147
+---
+
 # Phase PH-NEXT-002 Progress Update
 
 **Date**: 2025-11-23T19:30:00Z  

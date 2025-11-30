@@ -4,6 +4,7 @@ MERGE-003: Nested Repo Detector
 
 Finds and classifies nested Git repos / submodules that can break merges.
 """
+# DOC_ID: DOC-SCRIPT-SCRIPTS-NESTED-REPO-DETECTOR-332
 
 import json
 from pathlib import Path

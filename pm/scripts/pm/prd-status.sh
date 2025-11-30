@@ -1,4 +1,5 @@
 #!/bin/bash
+# DOC_LINK: DOC-SCRIPT-PRD-STATUS-320
 
 echo "📄 PRD Status Report"
 echo "===================="

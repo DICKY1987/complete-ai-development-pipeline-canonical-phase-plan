@@ -8,6 +8,7 @@ Author: AI Development Pipeline
 Created: 2025-11-23
 WS: WS-NEXT-002-001 (Testing)
 """
+# DOC_ID: DOC-TEST-ENGINE-TEST-WORKER-LIFECYCLE-179
 
 import pytest
 import sys

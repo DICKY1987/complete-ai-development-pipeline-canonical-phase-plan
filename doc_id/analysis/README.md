@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-1379
+---
+
 # Analysis Directory
 
 **Purpose**: AI evaluations, conflict analysis, and framework exploration  

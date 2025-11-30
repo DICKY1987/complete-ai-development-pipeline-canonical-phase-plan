@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-1363
+---
+
 # Reference Documentation
 
 > **Purpose**: Reference material, patterns, and external resources  

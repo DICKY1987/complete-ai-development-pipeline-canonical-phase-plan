@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-CLEANUP-SAFE-INDIVIDUAL-049
 # Safe Cleanup Script - Individual Files Only
 # Generated: 2025-11-25
 # Skips already-deleted items

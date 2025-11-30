@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-IMPORT-PATTERNS-GUIDE-1449
+---
+
 # Import Patterns Guide (Hybrid ULID Strategy)
 
 Goal: keep ULID-prefixed filenames for identity while preserving Python-import-safe names for code.

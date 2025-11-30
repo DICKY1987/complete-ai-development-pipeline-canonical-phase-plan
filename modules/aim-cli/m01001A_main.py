@@ -12,6 +12,7 @@ Commands:
 
 Contract Version: AIM_PLUS_V1
 """
+# DOC_ID: DOC-PAT-AIM-CLI-M01001A-MAIN-471
 
 import click
 from rich.console import Console

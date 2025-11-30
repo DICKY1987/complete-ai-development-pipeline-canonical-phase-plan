@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-765
+---
+
 # EVERYTHING_PATTERNS - Master Index
 Generated: 2025-11-24 04:41:16
 

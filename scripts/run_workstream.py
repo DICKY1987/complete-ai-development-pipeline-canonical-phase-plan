@@ -2,6 +2,8 @@
 """
 CLI to run a single workstream end-to-end via the PH-05 orchestrator.
 """
+# DOC_ID: DOC-SCRIPT-SCRIPTS-RUN-WORKSTREAM-230
+# DOC_ID: DOC-SCRIPT-SCRIPTS-RUN-WORKSTREAM-167
 
 from __future__ import annotations
 

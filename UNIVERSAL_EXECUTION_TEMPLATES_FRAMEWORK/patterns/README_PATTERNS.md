@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-PATTERNS-766
+---
+
 # Pattern System Guide
 
 **Version**: 1.0.0  

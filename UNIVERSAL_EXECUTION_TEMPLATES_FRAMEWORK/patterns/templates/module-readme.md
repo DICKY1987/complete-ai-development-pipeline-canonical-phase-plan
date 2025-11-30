@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-MODULE-README-870
+---
+
 # Module Documentation Template
 # TEMPLATE: module-readme
 # Variables: {module_name}, {purpose}, {layer}, {key_features}, {usage_example}

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PIPELINE-RADAR-PLUGIN-1420
+---
+
 You can think of this as a **“Pipeline Radar” plugin** for your future GUI: one pluggable panel whose only job is to answer:
 
 > “For any file or workstream, where is it right now in the pipeline, and how did it get here?”

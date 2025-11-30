@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROPOSAL-1505
+---
+
 # UET Framework Complete Implementation
 
 **Change ID**: uet-001-complete-implementation  

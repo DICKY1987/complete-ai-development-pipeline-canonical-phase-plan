@@ -1,3 +1,7 @@
+---
+doc_id: DOC-AIM-PHASE-1C-COMPLETE-169
+---
+
 # AIM+ Phase 1C Completion Summary
 
 **Date**: 2025-11-21  

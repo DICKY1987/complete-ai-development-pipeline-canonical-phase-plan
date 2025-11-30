@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-ENUMERATED-CUDDLING-FROST-1555
+---
+
 # Desktop-Launchable TUI Interface - Implementation Plan
 
 **Goal**: Create a desktop-launchable, real-time monitoring TUI interface for the AI Development Pipeline that opens via Windows shortcut with live data integration.

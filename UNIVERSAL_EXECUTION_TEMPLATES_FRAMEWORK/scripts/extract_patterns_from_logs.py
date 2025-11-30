@@ -3,6 +3,7 @@
 Extract Patterns from CLI Logs
 Main CLI for pattern extraction workstream WS-PATTERN-01
 """
+# DOC_ID: DOC-SCRIPT-SCRIPTS-EXTRACT-PATTERNS-FROM-LOGS-272
 
 import argparse
 import sys

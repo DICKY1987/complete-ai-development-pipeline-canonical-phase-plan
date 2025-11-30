@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-WEEK-1-COMPLETE-1263
+---
+
 # 🏆 WEEK 1 PHASE 1 - COMPLETE!
 
 **Date**: 2025-11-23  

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-GETTING-STARTED-1622
+---
+
 # Getting Started with UET
 
 Quick navigation guide for common tasks. Choose your path below.

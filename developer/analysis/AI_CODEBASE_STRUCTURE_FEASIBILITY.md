@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-AI-CODEBASE-STRUCTURE-FEASIBILITY-1188
+---
+
 # AI Codebase Structure Specification - Feasibility Analysis
 
 **Analysis Date:** 2025-11-22  

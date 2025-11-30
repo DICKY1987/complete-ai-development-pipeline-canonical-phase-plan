@@ -3,14 +3,11 @@
   "_comment_purpose": "Example 4: Multi-Phase - Complex workstream with checkpointing and state transitions",
   "_comment_use_case": "Use this pattern for: Long-running workflows, resumable processes, staged deployments",
   "_comment_header_end": "========================================",
-
   "id": "ws-example-04-multi-phase",
-  
   "openspec_change": "EX-004",
   "ccpm_issue": 1004,
   "gate": 2,
   "_comment_gate": "Higher gate (2) indicates this is a more critical workflow requiring more approvals",
-
   "files_scope": [
     "examples/data_processor.py",
     "examples/data_validator.py",
@@ -21,13 +18,11 @@
     "examples/data_validator.py",
     "examples/data_reporter.py"
   ],
-
   "phases": [
     {
       "id": "phase-01-setup",
       "name": "Setup and Validation",
       "description": "Prepare environment and validate inputs",
-      
       "steps": [
         {
           "id": "step-01-create-processor",
@@ -46,27 +41,27 @@
           ]
         }
       ],
-      
       "checkpoint": {
         "enabled": true,
         "_comment_enabled": "Save state after phase completes",
-        
         "strategy": "automatic",
         "_comment_strategy": "automatic: save after phase; manual: explicit save points",
-        
         "location": "${worktree_path}/.checkpoints/phase-01.json",
-        "include": ["step_status", "file_changes", "metadata"]
+        "include": [
+          "step_status",
+          "file_changes",
+          "metadata"
+        ]
       }
     },
-
     {
       "id": "phase-02-processing",
       "name": "Data Processing",
       "description": "Process data in stages with validation",
-      
-      "depends_on": ["phase-01-setup"],
+      "depends_on": [
+        "phase-01-setup"
+      ],
       "_comment_depends_on": "This phase waits for phase-01 to complete",
-      
       "steps": [
         {
           "id": "step-02-create-validator",
@@ -78,37 +73,39 @@
             "Implement validation rules",
             "Add detailed error reporting"
           ],
-          "depends_on": ["step-01-create-processor"],
+          "depends_on": [
+            "step-01-create-processor"
+          ],
           "acceptance_tests": [
             "python -c \"from examples.data_validator import DataValidator; assert DataValidator\""
           ]
         }
       ],
-      
       "checkpoint": {
         "enabled": true,
         "strategy": "automatic",
         "location": "${worktree_path}/.checkpoints/phase-02.json",
-        "include": ["step_status", "validation_results", "metrics"]
+        "include": [
+          "step_status",
+          "validation_results",
+          "metrics"
+        ]
       },
-      
       "resume_strategy": {
         "on_failure": "retry_phase",
         "_comment_on_failure": "Options: retry_phase, skip_phase, restart_from_checkpoint",
-        
         "max_phase_retries": 2,
         "checkpoint_interval": 300,
         "_comment_checkpoint_interval": "Auto-save checkpoint every 5 minutes during long phases"
       }
     },
-
     {
       "id": "phase-03-reporting",
       "name": "Generate Reports",
       "description": "Create output reports and summaries",
-      
-      "depends_on": ["phase-02-processing"],
-      
+      "depends_on": [
+        "phase-02-processing"
+      ],
       "steps": [
         {
           "id": "step-03-create-reporter",
@@ -121,87 +118,121 @@
             "Export results to JSON",
             "Create human-readable report"
           ],
-          "depends_on": ["step-02-create-validator"],
+          "depends_on": [
+            "step-02-create-validator"
+          ],
           "acceptance_tests": [
             "python -c \"from examples.data_reporter import Reporter; assert Reporter\""
           ]
         }
       ],
-      
       "checkpoint": {
         "enabled": true,
         "strategy": "automatic",
         "location": "${worktree_path}/.checkpoints/phase-03.json",
-        "include": ["reports", "metrics", "completion_status"]
+        "include": [
+          "reports",
+          "metrics",
+          "completion_status"
+        ]
       }
     }
   ],
   "_comment_phases": "Phases execute sequentially. Each phase can contain parallel steps.",
-
   "state_transitions": {
     "initial": "pending",
     "states": [
       "pending",
       "phase_01_running",
       "phase_01_complete",
-      "phase_02_running", 
+      "phase_02_running",
       "phase_02_complete",
       "phase_03_running",
       "completed",
       "failed",
       "paused"
     ],
-    
     "transitions": [
-      { "from": "pending", "to": "phase_01_running", "trigger": "start" },
-      { "from": "phase_01_running", "to": "phase_01_complete", "trigger": "phase_complete" },
-      { "from": "phase_01_complete", "to": "phase_02_running", "trigger": "continue" },
-      { "from": "phase_02_running", "to": "phase_02_complete", "trigger": "phase_complete" },
-      { "from": "phase_02_complete", "to": "phase_03_running", "trigger": "continue" },
-      { "from": "phase_03_running", "to": "completed", "trigger": "phase_complete" },
-      { "from": "*", "to": "failed", "trigger": "error" },
-      { "from": "*", "to": "paused", "trigger": "pause" }
+      {
+        "from": "pending",
+        "to": "phase_01_running",
+        "trigger": "start"
+      },
+      {
+        "from": "phase_01_running",
+        "to": "phase_01_complete",
+        "trigger": "phase_complete"
+      },
+      {
+        "from": "phase_01_complete",
+        "to": "phase_02_running",
+        "trigger": "continue"
+      },
+      {
+        "from": "phase_02_running",
+        "to": "phase_02_complete",
+        "trigger": "phase_complete"
+      },
+      {
+        "from": "phase_02_complete",
+        "to": "phase_03_running",
+        "trigger": "continue"
+      },
+      {
+        "from": "phase_03_running",
+        "to": "completed",
+        "trigger": "phase_complete"
+      },
+      {
+        "from": "*",
+        "to": "failed",
+        "trigger": "error"
+      },
+      {
+        "from": "*",
+        "to": "paused",
+        "trigger": "pause"
+      }
     ]
   },
   "_comment_state_transitions": "State machine tracking overall workstream progress",
-
   "resume": {
     "enabled": true,
     "_comment_enabled": "Allow resuming from checkpoints after failure or pause",
-    
     "strategy": "from_last_checkpoint",
     "_comment_strategy": "Options: from_last_checkpoint, from_phase_start, from_beginning",
-    
     "on_resume": {
       "validate_state": true,
       "check_file_changes": true,
       "verify_dependencies": true
     },
-    
     "cleanup_on_complete": false,
     "_comment_cleanup_on_complete": "Keep checkpoints for audit trail"
   },
-
   "circuit_breaker": {
     "max_attempts": 3,
     "max_error_repeats": 2,
     "per_phase": true,
     "_comment_per_phase": "Each phase has its own circuit breaker"
   },
-
   "metadata": {
     "owner": "example@team.com",
     "priority": "high",
     "estimated_duration": "10-15 minutes (complete workflow)",
-    "tags": ["example", "tutorial", "multi-phase", "checkpoints", "state-machine"],
-    
+    "tags": [
+      "example",
+      "tutorial",
+      "multi-phase",
+      "checkpoints",
+      "state-machine"
+    ],
     "phase_estimates": {
       "phase-01-setup": "3-5 minutes",
       "phase-02-processing": "4-6 minutes",
       "phase-03-reporting": "3-4 minutes"
     },
-    
     "resumable": true,
     "checkpoint_retention": "7 days"
-  }
+  },
+  "doc_id": "DOC-CONFIG-04-MULTI-PHASE-250"
 }

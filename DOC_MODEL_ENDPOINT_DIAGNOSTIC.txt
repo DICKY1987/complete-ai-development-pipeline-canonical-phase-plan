@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-DOC-MODEL-ENDPOINT-DIAGNOSTIC-213
+---
+
 # DOC_MODEL_ENDPOINT_DIAGNOSTIC
 
 *Instruction document for a CLI / agentic application*

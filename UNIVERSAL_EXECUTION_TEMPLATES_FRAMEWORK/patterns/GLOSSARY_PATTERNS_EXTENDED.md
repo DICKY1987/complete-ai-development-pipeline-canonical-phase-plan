@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-GLOSSARY-PATTERNS-EXTENDED-749
+---
+
 # Glossary UET Patterns - Extended Implementation
 
 **Created**: 2025-11-25  

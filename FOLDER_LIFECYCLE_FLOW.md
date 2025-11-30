@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-FOLDER-LIFECYCLE-FLOW-156
+---
+
 # Pipeline Folder Lifecycle Flow Diagram
 
 ```

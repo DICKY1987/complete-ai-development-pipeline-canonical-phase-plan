@@ -1,3 +1,5 @@
+# DOC_LINK: DOC-TEST-TESTS-TEST-SPEC-VALIDATOR-104
+# DOC_LINK: DOC-TEST-TESTS-TEST-SPEC-VALIDATOR-065
 from src.plugins.spec_validator import parse_when_then, validate
 
 

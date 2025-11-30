@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-HOW-TO-EXTEND-TO-SCRIPTS-408
+---
+
 # How to Extend DOC_ID to Scripts
 
 **Question**: How do we extend doc_ids to scripts?  

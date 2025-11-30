@@ -1,9 +1,15 @@
 {
   "plugin_id": "semgrep",
   "name": "Semgrep",
-  "file_extensions": ["*"],
+  "file_extensions": [
+    "*"
+  ],
   "requires": [],
   "tool": {
-    "success_codes": [0, 1]
-  }
+    "success_codes": [
+      0,
+      1
+    ]
+  },
+  "doc_id": "DOC-ERROR-MANIFEST-030"
 }
