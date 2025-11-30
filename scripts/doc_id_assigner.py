@@ -171,10 +171,11 @@ def infer_name_and_title(path: str, file_type: str) -> Tuple[str, str]:
     stem = rel.stem
     parent = rel.parent.name
     
-    # Special case: __init__ files
-    if stem == "__init__":
-        stem = "init"
-        stem_clean = "INIT"
+    # Special case: __*__ files (dunder files)
+    if stem.startswith("__") and stem.endswith("__"):
+        stem_clean = stem[2:-2].upper()  # Remove __ from both ends
+        if not stem_clean:
+            stem_clean = "DUNDER"
     else:
         # Sanitize stem: remove special chars, limit length
         stem_clean = re.sub(r'[^a-zA-Z0-9_-]', '-', stem)
