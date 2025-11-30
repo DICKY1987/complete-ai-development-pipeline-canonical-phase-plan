@@ -1,3 +1,4 @@
+doc_id: DOC-CONFIG-INVOKE-026
 # Invoke Configuration for AI Development Pipeline
 # Project-level config (versioned)
 # User overrides: Create ~/.invoke.yaml or ./.invoke.yaml (gitignored)

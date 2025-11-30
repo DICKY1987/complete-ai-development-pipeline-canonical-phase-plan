@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-ANTI-PATTERN-GUARDS-130
+---
+
 # Anti-Pattern Guards - Manual Checklist
 
 ## Phase 1: Foundation (Week 1)

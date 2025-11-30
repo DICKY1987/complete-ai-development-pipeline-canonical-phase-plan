@@ -1,3 +1,4 @@
+doc_id: DOC-CONFIG-TEMPLATED-FRONT-MATTER-BLOCK-037
 ---
 # Core identifiers
 workstream_id: "ws-<phase>-<slug>"           # e.g., ws-ph02-state-machine

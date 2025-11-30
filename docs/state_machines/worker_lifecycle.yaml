@@ -1,3 +1,4 @@
+doc_id: DOC-GUIDE-WORKER-LIFECYCLE-135
 # Worker Lifecycle State Machine
 # Formal definition of valid worker states and transitions
 

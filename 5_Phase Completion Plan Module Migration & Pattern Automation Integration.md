@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-5-PHASE-COMPLETION-PLAN-MODULE-128
+---
+
      ╭───────────────────────────────────────────────────────────────────────────────────────────────╮
      │ 5-Phase Completion Plan: Module Migration & Pattern Automation Integration                    │
      │                                                                                               │

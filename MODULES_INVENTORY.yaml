@@ -1,3 +1,4 @@
+doc_id: DOC-CONFIG-MODULES-INVENTORY-012
 modules:
 - id: aim-cli
   name: AIM

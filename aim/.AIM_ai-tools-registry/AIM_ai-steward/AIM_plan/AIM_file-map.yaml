@@ -1,3 +1,4 @@
+doc_id: DOC-AIM-AIM-FILE-MAP-027
 repo_root: C:\\Users\\richg\\AIM_ai-steward\\
 files:
   AIM_ai-steward.ps1: [cli_entrypoint]

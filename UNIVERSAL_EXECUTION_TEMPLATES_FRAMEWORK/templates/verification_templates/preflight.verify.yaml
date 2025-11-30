@@ -1,3 +1,4 @@
+doc_id: DOC-CONFIG-PREFLIGHT-VERIFY-106
 # Verification: Pre-Flight Environment Checks
 # PURPOSE: Ensure environment is ready before phase execution
 # TIME: < 5 seconds

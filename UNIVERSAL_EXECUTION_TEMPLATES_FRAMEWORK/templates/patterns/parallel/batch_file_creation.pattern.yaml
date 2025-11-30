@@ -1,3 +1,4 @@
+doc_id: DOC-PAT-BATCH-FILE-CREATION-PATTERN-096
 # Pattern: Batch File Creation (Parallel Execution)
 # Extracted from: CLI usage analysis + parallel execution principles
 # Proven uses: 15+ (estimated from common workflows)

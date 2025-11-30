@@ -1,3 +1,4 @@
+doc_id: DOC-SCRIPT-README-046
 name: scripts
 purpose: Utility scripts for repository-wide checks and automation.
 files:

@@ -1,3 +1,4 @@
+doc_id: DOC-PAT-README-027
 name: pattern_event_system
 purpose: Assets for the pattern event bus, including specs, schemas, examples, and automation notes.
 files:

@@ -1,3 +1,4 @@
+doc_id: DOC-CONFIG-PYTEST-GREEN-VERIFY-107
 # Verification: All Tests Pass (Pytest Green)
 # PURPOSE: Ground truth verification that all tests pass
 # TIME: Variable (depends on test count, typically 2-10 seconds)
