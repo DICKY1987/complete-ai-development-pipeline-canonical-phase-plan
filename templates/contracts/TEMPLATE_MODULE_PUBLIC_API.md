@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-TEMPLATE-MODULE-PUBLIC-API-1835
+---
+
 # {Module Name} – Public API (V1)
 
 **Module ID**: `{module_id}`  

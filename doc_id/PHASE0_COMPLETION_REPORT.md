@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PHASE0-COMPLETION-REPORT-1742
+---
+
 # Phase 0 Completion Report
 
 **Date**: 2025-11-30  

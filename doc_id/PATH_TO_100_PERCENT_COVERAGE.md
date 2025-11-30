@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PATH-TO-100-PERCENT-COVERAGE-1741
+---
+
 # Path to 100% Coverage - Doc ID Assignment Strategy
 
 **Current Status**: 81.8% coverage (based on scanner stats for eligible types)  
