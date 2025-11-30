@@ -231,7 +231,7 @@
    -v
 
       # Smoke test with real data
-      python -m tui_app.main --smoke-test
+      python -m gui.tui_app.main --smoke-test
       ```
 
       **Validation**:
@@ -519,9 +519,9 @@
    -v
 
       # Manual smoke test
-      python -m tui_app.main --panel file_lifecycle
-      python -m tui_app.main --panel tool_health
-      python -m tui_app.main --panel log_stream
+      python -m gui.tui_app.main --panel file_lifecycle
+      python -m gui.tui_app.main --panel tool_health
+      python -m gui.tui_app.main --panel log_stream
       ```
 
       **Validation**:
@@ -572,7 +572,7 @@
       **Validation**:
       ```bash
       # Manual test
-      python -m tui_app.main
+      python -m gui.tui_app.main
       # Press 'r' key - should see "Data refreshed" notification
       # Verify panel reloads
       ```
@@ -606,7 +606,7 @@
       )
 
       REM Launch TUI
-      python -m tui_app.main
+      python -m gui.tui_app.main
 
       REM Pause on exit (so user sees errors)
       PAUSE
@@ -910,14 +910,14 @@
 
       ```bash
       # Launch TUI
-      python -m tui_app.main
+      python -m gui.tui_app.main
 
       # Launch specific panel
-      python -m tui_app.main --panel dashboard
-      python -m tui_app.main --panel file_lifecycle
-      python -m tui_app.main --panel tool_health
-      python -m tui_app.main --panel log_stream
-      python -m tui_app.main --panel pattern_activity
+      python -m gui.tui_app.main --panel dashboard
+      python -m gui.tui_app.main --panel file_lifecycle
+      python -m gui.tui_app.main --panel tool_health
+      python -m gui.tui_app.main --panel log_stream
+      python -m gui.tui_app.main --panel pattern_activity
       ```
 
       ## Keyboard Shortcuts
@@ -945,7 +945,7 @@
       pip install -r config/requirements.txt
 
       # Verify installation
-      python -m tui_app.main --smoke-test
+      python -m gui.tui_app.main --smoke-test
       ```
 
       ## Architecture
@@ -1138,7 +1138,7 @@
       ### Phase 0: Dependencies
       - [x] `pip show textual` shows version >= 0.50.0
       - [x] Database file exists at `.worktrees/pipeline_state.db`
-      - [x] `python -m tui_app.main --smoke-test` exits 0
+      - [x] `python -m gui.tui_app.main --smoke-test` exits 0
 
       ### Phase 1: SQLite Backend
       - [x] `SQLiteStateBackend` class exists
@@ -1284,21 +1284,21 @@
       ```bash
       # 1. Launch with empty database
       rm .worktrees/pipeline_state.db
-      python -m tui_app.main
+      python -m gui.tui_app.main
       # Expected: Shows "No data available"
 
       # 2. Launch with real database
-      python -m tui_app.main
+      python -m gui.tui_app.main
       # Expected: Shows actual data
 
       # 3. Test all panels
       for panel in dashboard file_lifecycle tool_health log_stream
       pattern_activity; do
-          python -m tui_app.main --panel $panel
+          python -m gui.tui_app.main --panel $panel
       done
 
       # 4. Test refresh
-      python -m tui_app.main
+      python -m gui.tui_app.main
       # Press 'r' key
       # Expected: "Data refreshed" notification
 
@@ -1311,7 +1311,7 @@
       ### Smoke Tests (Quick Validation)
       ```bash
       # 10-second smoke test
-      python -m tui_app.main --smoke-test
+      python -m gui.tui_app.main --smoke-test
       echo $?  # Should be 0
       ```
 
@@ -1321,21 +1321,21 @@
 
       ### Pre-Deployment
       - [x] All tests pass (`pytest tests/tui_panel_framework/`)
-      - [x] Smoke test passes (`python -m tui_app.main --smoke-test`)
+      - [x] Smoke test passes (`python -m gui.tui_app.main --smoke-test`)
       - [x] Database exists and has schema
       - [x] README.md complete
 
       ### Installation Steps
       1. Install dependencies: `pip install -r config/requirements.txt`
       2. Verify database: `ls .worktrees/pipeline_state.db`
-      3. Test TUI: `python -m tui_app.main --smoke-test`
+      3. Test TUI: `python -m gui.tui_app.main --smoke-test`
       4. Create shortcut: `.\tui_app\launcher\create_shortcut.ps1`
       5. Test shortcut: Double-click desktop icon
 
       ### Verification
       ```bash
       # 1. Launch TUI
-      python -m tui_app.main
+      python -m gui.tui_app.main
 
       # 2. Check all panels
       # Press: d, f, t, l, p (cycle through panels)

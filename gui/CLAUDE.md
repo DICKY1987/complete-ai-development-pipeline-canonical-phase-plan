@@ -6,8 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is the **GUI module** of the Complete AI Development Pipeline project. It contains:
 - **Design documentation** for a hybrid GUI/TUI/Terminal architecture
-- **Python UI infrastructure** for pipeline state visualization
-- **CLI tools** for querying pipeline state (for TUI/GUI consumption)
+- **Python TUI implementation** for pipeline state visualization
 - **Configuration** for interactive tool selection and UI settings
 
 **Critical**: This directory is primarily **design and infrastructure**, not a full GUI implementation yet. The actual execution engine lives in `../engine/` and core pipeline in `../core/`.
@@ -29,9 +28,8 @@ The GUI follows a **hybrid shell** architecture:
               ▼
 ┌─────────────────────────────┐
 │   UI Infrastructure         │  ← Data layer (THIS DIRECTORY)
-│   - ui_cli.py               │     Query CLI
-│   - ui_models.py            │     Data models
-│   - ui_settings.yaml        │     Tool configs
+│   - TUI implementation      │    
+│   - Configuration           │     Tool configs
 └─────────────┬───────────────┘
               │
               ▼
@@ -44,7 +42,7 @@ The GUI follows a **hybrid shell** architecture:
 
 ### Key Design Principles
 
-From `gui/README.md` and `gui/GUI_DEVELOPMENT_GUIDE.md`:
+From `gui/README.md` and `gui/docs/GUI_DEVELOPMENT_GUIDE.md`:
 
 1. **Read-heavy, write-light**: GUI primarily observes state, rarely mutates
 2. **Headless-first**: Everything GUI does must work via CLI/API
@@ -52,63 +50,32 @@ From `gui/README.md` and `gui/GUI_DEVELOPMENT_GUIDE.md`:
 4. **Panel-based plugins**: Extensible dashboard architecture
 5. **No direct file system access**: All queries through state API
 
-## File Structure
+## Current File Structure (as of merge)
 
 ```
 gui/
-├── ui_cli.py                 # CLI for querying pipeline state (JSON output)
-├── ui_models.py              # Data models (FileState, ToolHealth, etc.)
-├── ui_settings.yaml          # Tool mode configuration
-├── ui_settings.py            # Settings management
-├── ui_settings_cli.py        # Settings CLI interface
-├── test_ui_settings.py       # Unit tests
-├── ui_infrastructure_usage.py    # Usage examples
-├── ui_tool_selection_demo.py     # Interactive tool selection demo
-└── *.md                      # Design documentation
+├── config/                   # Configuration files (e.g., tool_settings.yaml)
+│   └── tool_settings.yaml    # Renamed from ui_settings.yaml
+├── docs/                     # Design documentation (moved from gui/)
+├── tests/                    # Test files
+│   └── tui_panel_framework/  # TUI Panel Framework tests
+├── tui_app/                  # TUI implementation
+│   ├── __init__.py           # Python package initializer
+│   ├── main.py               # TUI application entry point
+│   ├── README.md             # TUI usage documentation
+│   ├── config/               # TUI specific configuration
+│   ├── core/                 # TUI core logic (panels, state, pattern clients)
+│   └── panels/               # TUI panel implementations
+├── .ai-module-manifest       # AI module manifest
+├── CLAUDE.md                 # This guidance document
+└── README.md                 # Combined GUI/TUI overview
 ```
 
-## Common Commands
-
-### Query Pipeline State
+## Testing
 
 ```bash
-# Dashboard summary
-python ui_cli.py dashboard --json
-
-# List files by state
-python ui_cli.py files --state in_flight --json
-
-# List workstreams for a run
-python ui_cli.py workstreams --run-id run-123 --json
-
-# Get tool health status
-python ui_cli.py tools --json
-
-# Query errors by severity
-python ui_cli.py errors --severity error --json
-
-# Get file counts by state
-python ui_cli.py file-counts --run-id run-123 --json
-```
-
-### UI Settings Management
-
-```bash
-# View current settings
-python ui_settings_cli.py show
-
-# Change default interactive tool
-python ui_settings_cli.py set default_interactive_tool codex
-
-# Toggle tool headless mode
-python ui_settings_cli.py toggle-headless aim
-```
-
-### Testing
-
-```bash
-# Run UI tests (from gui/ directory)
-python -m pytest test_ui_settings.py
+# Run GUI tests (from gui/ directory)
+python -m pytest gui/tests/tui_panel_framework/
 
 # Run all project tests (from parent directory)
 cd .. && python -m pytest tests/
@@ -122,7 +89,7 @@ When integrating with the parent pipeline:
 
 ```python
 # State client (queries database)
-from core.ui_clients import StateClient, LogsClient, ToolsClient
+from core.ui_clients import StateClient, LogsClient, ToolsClient # Assuming these exist in core
 
 # Data models
 from core.ui_models import (
@@ -141,56 +108,18 @@ files = client.list_files(state=FileState.IN_FLIGHT, limit=50)
 ### Data Flow
 
 1. **Engine** (in `../engine/`) executes jobs and updates state DB
-2. **UI CLI** (`ui_cli.py`) reads state DB and emits JSON
-3. **TUI/GUI** consumes JSON to render panels
+2. **TUI/GUI** consumes state DB via `StateClient` and `PatternClient` to render panels
 
 ### Database Location
 
 Default: `../.worktrees/pipeline_state.db`
 
 Override via:
-- `--db-path` argument to `ui_cli.py`
 - Environment variable (see parent project settings)
-
-## UI Data Models
-
-From `ui_models.py`:
-
-### File Lifecycle States
-
-```python
-FileState.DISCOVERED       # Initial detection
-FileState.CLASSIFIED       # Type identified
-FileState.INTAKE           # Queued for processing
-FileState.PROCESSING       # Tool actively working
-FileState.IN_FLIGHT        # Between tools
-FileState.AWAITING_REVIEW  # Ready for human review
-FileState.COMMITTED        # Merged to repo
-FileState.QUARANTINED      # Isolated due to errors
-```
-
-### Workstream Status
-
-```python
-WorkstreamStatus.QUEUED
-WorkstreamStatus.RUNNING
-WorkstreamStatus.SUCCEEDED
-WorkstreamStatus.FAILED
-WorkstreamStatus.CANCELLED
-```
-
-### Error Severity
-
-```python
-ErrorSeverity.INFO
-ErrorSeverity.WARNING
-ErrorSeverity.ERROR
-ErrorSeverity.CRITICAL
-```
 
 ## Development Phases
 
-From `GUI_DEVELOPMENT_GUIDE.md`:
+From `gui/docs/GUI_DEVELOPMENT_GUIDE.md`:
 
 - ✅ **Phase 1**: Engine foundation (in `../engine/`)
 - ✅ **Phase 2A**: State store integration
@@ -203,15 +132,14 @@ From `GUI_DEVELOPMENT_GUIDE.md`:
 
 When implementing GUI panels:
 
-1. Create panel plugin structure in `gui/panels/`
-2. Use `ui_cli.py` for data fetching (already works)
-3. Implement `ServiceLocator` pattern for dependency injection
-4. Follow panel plugin manifest format (see `GUI_DEVELOPMENT_GUIDE.md`)
-5. Enforce permissions matrix (see `README.md`)
+1. Create panel plugin structure in `gui/tui_app/panels/`
+2. Implement `ServiceLocator` pattern for dependency injection
+3. Follow panel plugin manifest format (see `gui/docs/GUI_DEVELOPMENT_GUIDE.md`)
+4. Enforce permissions matrix (see `gui/README.md`)
 
 ## Tool Configuration
 
-From `ui_settings.yaml`:
+From `gui/config/tool_settings.yaml`:
 
 ```yaml
 default_interactive_tool: aim
@@ -237,15 +165,15 @@ tool_modes:
 Key architecture documents in this directory:
 
 - `README.md` - GUI overview and permissions matrix
-- `GUI_DEVELOPMENT_GUIDE.md` - Implementation roadmap
-- `Hybrid UI_GUI shell_terminal_TUI engine.md` - Multi-mode UI design
-- `Pipeline Radar" plugin.md` - Real-time pipeline monitoring spec
-- `GUI_PLAN_EXECUTION_PATTERNS.md` - Execution patterns
-- `UI_QUICK_REFERENCE.md` - Quick reference guide
+- `gui/docs/GUI_DEVELOPMENT_GUIDE.md` - Implementation roadmap
+- `gui/docs/hybrid-ui-architecture.md` - Multi-mode UI design
+- `gui/docs/pipeline-radar-plugin.md` - Real-time pipeline monitoring spec
+- `gui/docs/GUI_PLAN_EXECUTION_PATTERNS.md` - Execution patterns
+- `gui/docs/UI_QUICK_REFERENCE.md` - Quick reference guide
 
 ## Security & Permissions
 
-From `GUI_PERMISSIONS_MATRIX.md` (referenced in `README.md`):
+From `gui/docs/GUI_PERMISSIONS_MATRIX.md` (referenced in `gui/README.md`):
 
 **GUI is NOT allowed to**:
 - Modify code directly
@@ -263,28 +191,28 @@ From `GUI_PERMISSIONS_MATRIX.md` (referenced in `README.md`):
 
 - Python 3.12+
 - Type hints for public functions
-- Dataclasses for models (see `ui_models.py`)
+- Dataclasses for models
 - Enum for state constants
 - JSON output via `json.dumps(indent=2)` for CLI tools
 
 ## Testing Strategy
 
-- **Unit tests**: `test_ui_settings.py` (settings management)
+- **Unit tests**: `gui/tests/tui_panel_framework/` (settings management)
 - **Integration tests**: In `../tests/` (cross-module)
 - **GUI tests**: Not yet implemented (Phase 3+)
 
 When adding tests:
 ```bash
 # Run from gui/ directory
-python -m pytest test_*.py -v
+python -m pytest gui/tests/tui_panel_framework/ -v
 
 # Run with coverage
-python -m pytest --cov=. test_*.py
+python -m pytest --cov=gui/tui_app gui/tests/tui_panel_framework/
 ```
 
 ## Notes for Future Development
 
-1. **Panel Plugins**: Follow `dashboard.panel.json` manifest pattern (see `GUI_DEVELOPMENT_GUIDE.md`)
+1. **Panel Plugins**: Follow `dashboard.panel.json` manifest pattern (see `gui/docs/GUI_DEVELOPMENT_GUIDE.md`)
 2. **Real-time Updates**: Consider WebSocket or polling (design docs suggest both)
 3. **PyQt6 vs Web**: Design supports both (not decided yet)
 4. **State Client**: Wrapper around `../core/state/db.py` queries

@@ -28,7 +28,7 @@ The architecture is TUI-first with a clear path for multi-panel layouts and a th
 - Created feature branch `feature/tui-panel-framework-v1`
 
 ### Phase B: Core TUI Shell + Panel Infrastructure ✅
-- Created directory structure (`tui_app/`, `tests/tui_panel_framework/`)
+- Created directory structure (`gui/tui_app/`, `tests/tui_panel_framework/`)
 - Implemented PanelPlugin protocol and PanelContext
 - Implemented PanelRegistry with `@register_panel` decorator
 - Implemented BasicLayoutManager (single-panel mounting)
@@ -36,7 +36,7 @@ The architecture is TUI-first with a clear path for multi-panel layouts and a th
 - Implemented PatternClient with InMemoryPatternStateStore
 - Created main TUI app with Textual
 
-**Validation**: `python -m tui_app.main --smoke-test` ✅ Exit code 0
+**Validation**: `python -m gui.tui_app.main --smoke-test` ✅ Exit code 0
 
 ### Phase C: Initial Panels ✅
 - Implemented DashboardPanel (full) - displays pipeline summary and tasks
@@ -53,7 +53,7 @@ The architecture is TUI-first with a clear path for multi-panel layouts and a th
 - Implemented PatternActivityPanel with timeline and event detail views
 - Panel successfully renders pattern runs and events
 
-**Validation**: `python -m tui_app.main --panel pattern_activity --smoke-test` ✅ Exit code 0
+**Validation**: `python -m gui.tui_app.main --panel pattern_activity --smoke-test` ✅ Exit code 0
 
 ### Phase E: Tests + Documentation ✅
 - Created comprehensive test suite:
@@ -66,7 +66,7 @@ The architecture is TUI-first with a clear path for multi-panel layouts and a th
 - Created documentation:
   - `TUI_PANEL_FRAMEWORK_GUIDE.md` - Complete architecture and usage guide
   - `UI_DOCUMENTATION_INDEX.md` - Documentation index
-  - `tui_app/README.md` - Quick start guide
+  - `gui/tui_app/README.md` - Quick start guide
 
 **Validation**: `python -m pytest tests/tui_panel_framework -q` ✅ 26 passed
 
@@ -85,7 +85,7 @@ None. Execution followed the documented patterns (PAT-GUI-PANEL-FRAMEWORK-001, P
 
 # CHANGES_MADE
 
-## Core Framework (`tui_app/core/`)
+## Core Framework (`gui/tui_app/core/`)
 
 | File | Description | Reason |
 |------|-------------|--------|
@@ -95,13 +95,13 @@ None. Execution followed the documented patterns (PAT-GUI-PANEL-FRAMEWORK-001, P
 | `panel_registry.py` | PanelRegistry, @register_panel decorator | Manage panel registration |
 | `layout_manager.py` | BasicLayoutManager, MultiPanelLayoutManager (placeholder) | Handle panel mounting |
 
-## Configuration (`tui_app/config/`)
+## Configuration (`gui/tui_app/config/`)
 
 | File | Description | Reason |
 |------|-------------|--------|
 | `layout_config.py` | LayoutConfig, PanelConfig dataclasses | Define configuration schema |
 
-## Panels (`tui_app/panels/`)
+## Panels (`gui/tui_app/panels/`)
 
 | File | Description | Reason |
 |------|-------------|--------|
@@ -116,8 +116,8 @@ None. Execution followed the documented patterns (PAT-GUI-PANEL-FRAMEWORK-001, P
 
 | File | Description | Reason |
 |------|-------------|--------|
-| `tui_app/main.py` | Textual app, CLI args, panel switching | Main entry point |
-| `tui_app/__init__.py` | Package initialization | Module structure |
+| `gui/tui_app/main.py` | Textual app, CLI args, panel switching | Main entry point |
+| `gui/tui_app/__init__.py` | Package initialization | Module structure |
 
 ## Tests (`tests/tui_panel_framework/`)
 
@@ -129,18 +129,18 @@ None. Execution followed the documented patterns (PAT-GUI-PANEL-FRAMEWORK-001, P
 | `test_layout_manager.py` | Test layout manager mounting | Validate panel lifecycle |
 | `test_panels_smoke.py` | Test all panel creation | Validate panel instantiation |
 
-## Documentation (`docs/gui/`, `tui_app/`)
+## Documentation (`docs/gui/`, `gui/tui_app/`)
 
 | File | Description | Reason |
 |------|-------------|--------|
 | `TUI_PANEL_FRAMEWORK_GUIDE.md` | Complete architecture guide | Developer documentation |
 | `UI_DOCUMENTATION_INDEX.md` | Documentation index | Quick navigation |
-| `tui_app/README.md` | Quick start guide | User-facing docs |
+| `gui/tui_app/README.md` | Quick start guide | User-facing docs |
 
 ## Risk Notes
 
 **No risky changes.** All changes were:
-- Scoped to new `tui_app/` module (no existing code modified)
+- Scoped to new `gui/tui_app/` module (no existing code modified)
 - Self-contained (no dependencies on core pipeline code)
 - Tested independently (26 tests, all passing)
 
@@ -150,11 +150,11 @@ None. Execution followed the documented patterns (PAT-GUI-PANEL-FRAMEWORK-001, P
 
 ## Validation Commands
 
-### 1. `python -m tui_app.main --smoke-test`
+### 1. `python -m gui.tui_app.main --smoke-test`
 **Result**: ✅ **PASS**  
 **Output**: Exit code 0 (app launches and exits cleanly)
 
-### 2. `python -m tui_app.main --panel pattern_activity --smoke-test`
+### 2. `python -m gui.tui_app.main --panel pattern_activity --smoke-test`
 **Result**: ✅ **PASS**  
 **Output**: Exit code 0 (pattern panel renders timeline and events)
 

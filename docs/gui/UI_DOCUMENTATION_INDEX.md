@@ -18,13 +18,13 @@ This directory contains documentation for the AI Development Pipeline user inter
 
 ```bash
 # Launch TUI with dashboard
-python -m tui_app.main
+python -m gui.tui_app.main
 
 # Launch with pattern activity panel
-python -m tui_app.main --panel pattern_activity
+python -m gui.tui_app.main --panel pattern_activity
 
 # Run smoke test
-python -m tui_app.main --smoke-test
+python -m gui.tui_app.main --smoke-test
 ```
 
 ### Running Tests

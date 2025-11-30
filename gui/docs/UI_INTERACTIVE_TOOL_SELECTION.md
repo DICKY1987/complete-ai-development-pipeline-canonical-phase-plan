@@ -229,6 +229,6 @@ Headless Tools:
 
 ## See Also
 
-- [Hybrid UI Architecture](../gui/Hybrid%20UI_GUI%20shell_terminal_TUI%20engine.md)
-- [Engine Implementation](../docs/ENGINE_IMPLEMENTATION_SUMMARY.md)
-- [Tool Profiles](../config/tool_profiles.json)
+- [Hybrid UI Architecture](../../gui/Hybrid%20UI_GUI%20shell_terminal_TUI%20engine.md)
+- [Engine Implementation](../../docs/ENGINE_IMPLEMENTATION_SUMMARY.md)
+- [Tool Profiles](../../config/tool_profiles.json)

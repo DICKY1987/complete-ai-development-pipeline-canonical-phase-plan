@@ -95,7 +95,7 @@ steps:
 
 **Validation**: Smoke test passed
 ```bash
-python -m tui_app.main --smoke-test  # Exit code: 0
+python -m gui.tui_app.main --smoke-test  # Exit code: 0
 ```
 
 **Time**: 15 minutes
@@ -139,9 +139,9 @@ execution:
 
 **Validation**: All panels instantiate successfully
 ```bash
-python -m tui_app.main --panel dashboard --smoke-test       # ✓
-python -m tui_app.main --panel pattern_activity --smoke-test # ✓
-python -m tui_app.main --panel file_lifecycle --smoke-test   # ✓
+python -m gui.tui_app.main --panel dashboard --smoke-test       # ✓
+python -m gui.tui_app.main --panel pattern_activity --smoke-test # ✓
+python -m gui.tui_app.main --panel file_lifecycle --smoke-test   # ✓
 ```
 
 **Time**: 10 minutes
@@ -321,7 +321,7 @@ validation: Re-run all tests after cleanup
 
 **Validation**:
 ```bash
-python -m tui_app.main --smoke-test          # ✓
+python -m gui.tui_app.main --smoke-test          # ✓
 python -m pytest tests/tui_panel_framework -q # 26/26 ✓
 ```
 
@@ -372,7 +372,7 @@ time_saved: ~15 minutes of manual git/GitHub operations
 
 **Final Validation on Main**:
 ```bash
-python -m tui_app.main --smoke-test          # ✓
+python -m gui.tui_app.main --smoke-test          # ✓
 python -m pytest tests/tui_panel_framework -q # 26/26 ✓
 ```
 
@@ -1032,22 +1032,22 @@ reusability: High
 
 ### Smoke Test Results
 ```bash
-$ python -m tui_app.main --smoke-test
+$ python -m gui.tui_app.main --smoke-test
 # Exit code: 0 ✓
 
-$ python -m tui_app.main --panel dashboard --smoke-test
+$ python -m gui.tui_app.main --panel dashboard --smoke-test
 # Exit code: 0 ✓
 
-$ python -m tui_app.main --panel pattern_activity --smoke-test
+$ python -m gui.tui_app.main --panel pattern_activity --smoke-test
 # Exit code: 0 ✓
 
-$ python -m tui_app.main --panel file_lifecycle --smoke-test
+$ python -m gui.tui_app.main --panel file_lifecycle --smoke-test
 # Exit code: 0 ✓
 
-$ python -m tui_app.main --panel tool_health --smoke-test
+$ python -m gui.tui_app.main --panel tool_health --smoke-test
 # Exit code: 0 ✓
 
-$ python -m tui_app.main --panel log_stream --smoke-test
+$ python -m gui.tui_app.main --panel log_stream --smoke-test
 # Exit code: 0 ✓
 ```
 

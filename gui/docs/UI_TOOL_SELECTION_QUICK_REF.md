@@ -107,5 +107,5 @@ available_interactive_tools:
 ## See Full Documentation
 
 - [UI_INTERACTIVE_TOOL_SELECTION.md](UI_INTERACTIVE_TOOL_SELECTION.md) - Complete guide
-- [Examples](../examples/ui_tool_selection_demo.py) - Usage demonstrations
-- [Tests](../tests/test_ui_settings.py) - Test suite
+- [Examples](../../examples/ui_tool_selection_demo.py) - Usage demonstrations
+- [Tests](../../tests/test_ui_settings.py) - Test suite

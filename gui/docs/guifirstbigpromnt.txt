@@ -69,7 +69,7 @@ PREFERRED_PATTERNS:
 # How to prove success (commands you MUST run and pass before considering the run complete):
 VALIDATION_COMMANDS:
   - "pytest tests/tui_panel_framework -q"                  # Minimal test suite for panel framework and state client
-  - "python -m tui_app.main --smoke-test"                  # Launch TUI, ensure it starts and exits cleanly
+  - "python -m gui.tui_app.main --smoke-test"                  # Launch TUI, ensure it starts and exits cleanly
   - "python scripts/validate_gui_tui_config.py"            # Validate layout/config schemas if script exists or is created
 
 # Any important constraints or environment notes:
@@ -77,7 +77,7 @@ CONSTRAINTS:
   - "Core architecture MUST remain TUI-first using Textual; GUI wrapper is optional and thin."
   - "Do not introduce new heavy GUI stacks (e.g., Electron) beyond what is already documented/approved."
   - "Do not modify CI workflows except to add new tests for the TUI/GUI panel framework."
-  - "Prefer adding new files under tui_app/, docs/gui/, and tests/tui_panel_framework/."
+  - "Prefer adding new files under gui/tui_app/, docs/gui/, and tests/tui_panel_framework/."
   - "Pattern engine integration must use the documented PatternStateStore and PatternClient contracts from the GUI pattern docs."
   - "Do not break existing CLI tools, orchestrator, or state store behavior; changes must be backwards compatible or gated."
 
@@ -104,10 +104,10 @@ RUN_OBJECTIVES:
   - "Ensure the architecture cleanly supports future multi-panel layouts and a thin GUI wrapper without major refactors."
 
 SCOPE_INCLUDE:
-  - "tui_app/main.py"
-  - "tui_app/config/"
-  - "tui_app/core/"
-  - "tui_app/panels/"
+  - "gui/tui_app/main.py"
+  - "gui/tui_app/config/"
+  - "gui/tui_app/core/"
+  - "gui/tui_app/panels/"
   - "tests/tui_panel_framework/"
   - "docs/gui/"               # Only to add/update docs for the new TUI/GUI framework
 
@@ -118,7 +118,7 @@ SCOPE_EXCLUDE:
   - ".github/"                # Only touch if explicitly required for new tests
 
 SUCCESS_CRITERIA:
-  - "Running 'python -m tui_app.main --smoke-test' launches the TUI, mounts the DashboardPanel, and exits cleanly."
+  - "Running 'python -m gui.tui_app.main --smoke-test' launches the TUI, mounts the DashboardPanel, and exits cleanly."
   - "DashboardPanel successfully reads from StateClient (backed by InMemoryStateBackend or a DB backend if available) and displays non-empty pipeline summary data."
   - "PanelPlugin, PanelContext, and PanelEvent are implemented and used by all panels, with no duplicated panel-specific infrastructure."
   - "BasicLayoutManager correctly mounts the DashboardPanel and is structured so that adding split-based multi-panel support does not require breaking changes."
@@ -173,7 +173,7 @@ DONE_DEFINITION: >
 While executing:
 
 - Always:
-  - Use commands and tests to validate outcomes (`python -m tui_app.main --smoke-test`, `pytest tests/tui_panel_framework -q`, etc.).
+  - Use commands and tests to validate outcomes (`python -m gui.tui_app.main --smoke-test`, `pytest tests/tui_panel_framework -q`, etc.).
   - Keep changes scoped to SCOPE_INCLUDE and avoid SCOPE_EXCLUDE.
   - Favor small, logically coherent change sets (e.g., one commit for panel framework, one for initial panels, one for pattern scaffolding, one for tests/docs).
 - For framework and panel implementation:
@@ -192,7 +192,7 @@ Before declaring the run complete, you MUST:
 
 1. Run all VALIDATION_COMMANDS and confirm success (exit code 0), or explain clearly why any command cannot yet pass:
    - `pytest tests/tui_panel_framework -q`
-   - `python -m tui_app.main --smoke-test`
+   - `python -m gui.tui_app.main --smoke-test`
    - `python scripts/validate_gui_tui_config.py` (if present/created)
 2. Confirm SUCCESS_CRITERIA are satisfied:
    - TUI launches and renders DashboardPanel.
@@ -232,7 +232,7 @@ When you are finished, produce a **single structured Markdown report** with thes
    - Any deviations from the source plan (GUI_PLAN_EXECUTION_PATTERNS, etc.) and why.
 
 3. `# CHANGES_MADE`
-   - Bullet list of files changed or created (group by subsystem: tui_app/core, tui_app/panels, tests, docs/gui).
+   - Bullet list of files changed or created (group by subsystem: gui/tui_app/core, gui/tui_app/panels, tests, docs/gui).
    - For each: short description of the change and reason.
    - Note any risky or non-trivial changes explicitly (e.g., touching orchestrator, existing state store).
 

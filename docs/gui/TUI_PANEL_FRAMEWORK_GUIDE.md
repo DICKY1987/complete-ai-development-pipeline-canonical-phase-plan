@@ -101,7 +101,7 @@ def action_switch_my_panel(self) -> None:
 ### Step 4: Test Your Panel
 
 ```bash
-python -m tui_app.main --panel my_panel --smoke-test
+python -m gui.tui_app.main --panel my_panel --smoke-test
 ```
 
 ## Using StateClient
@@ -153,13 +153,13 @@ def create_widget(self, context: PanelContext) -> Static:
 
 ```bash
 # Run with default (dashboard) panel
-python -m tui_app.main
+python -m gui.tui_app.main
 
 # Run with specific panel
-python -m tui_app.main --panel pattern_activity
+python -m gui.tui_app.main --panel pattern_activity
 
 # Smoke test (launch and exit)
-python -m tui_app.main --smoke-test
+python -m gui.tui_app.main --smoke-test
 ```
 
 ### Key Bindings

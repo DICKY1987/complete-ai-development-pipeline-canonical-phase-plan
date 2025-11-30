@@ -172,7 +172,7 @@ Successfully implemented a desktop-launchable, real-time monitoring TUI (Termina
 
 ### Smoke Test ✅
 ```bash
-python -m tui_app.main --smoke-test
+python -m gui.tui_app.main --smoke-test
 # Exit code: 0 (SUCCESS)
 ```
 

@@ -136,7 +136,7 @@ ui/
 
 ```bash
 # 1. Copy template
-cp templates/ui/dashboards/dashboard-progress-template.html \
+cp gui/tui_app/dashboards/dashboard-progress-template.html \
    my-dashboard.html
 
 # 2. Customize
@@ -153,7 +153,7 @@ python -m http.server 8000
 
 ```bash
 # 1. Copy template
-cp templates/ui/reports/report-execution-template.md \
+cp gui/tui_app/reports/report-execution-template.md \
    report.md
 
 # 2. Populate with data
@@ -170,7 +170,7 @@ pandoc report-123.md -o report-123.pdf
 
 ```bash
 # 1. Copy template
-cp templates/ui/monitoring/monitoring-realtime-template.json \
+cp gui/tui_app/monitoring/monitoring-realtime-template.json \
    monitoring-config.json
 
 # 2. Configure
@@ -421,9 +421,9 @@ async function fetchData(url) {
 
 ## 📚 Related Documentation
 
-- **[Templates Main README](../README.md)** - Overview
+- **[Templates Main README](../../README.md)** - Overview
 - **[STYLING_GUIDE.md](STYLING_GUIDE.md)** - Design standards
-- **[Orchestration Templates](../orchestration/README.md)** - Execution data
+- **[Orchestration Templates](../../orchestration/README.md)** - Execution data
 - **[UET Monitoring Spec](../../specs/UET_EXECUTION_KERNEL_PARALLELISM_STRATEGY_SPEC_V2.md)**
 
 ---
@@ -463,4 +463,4 @@ A: Use tools like `pandoc` (Markdown → PDF) or `wkhtmltopdf` (HTML → PDF).
 ---
 
 **Last Updated**: 2025-11-23  
-**Related**: [Configuration](../configuration/README.md), [Examples](../examples/README.md)
+**Related**: [Configuration](../../configuration/README.md), [Examples](../../examples/README.md)

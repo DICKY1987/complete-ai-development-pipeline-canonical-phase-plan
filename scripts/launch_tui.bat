@@ -30,7 +30,7 @@ echo Press 'p' for Patterns
 echo.
 
 REM Launch TUI
-python -m tui_app.main
+python -m gui.tui_app.main
 
 REM Check exit code and keep window open on error
 if errorlevel 1 (

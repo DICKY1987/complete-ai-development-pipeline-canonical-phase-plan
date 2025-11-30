@@ -50,7 +50,7 @@ doc_id: DOC-GUIDE-GUI_QUICK_START-118
 ### Method 2: Command Line
 ```bash
 # From project root
-python -m tui_app.main
+python -m gui.tui_app.main
 
 # Or use the launcher script
 scripts\launch_tui.bat
@@ -59,16 +59,16 @@ scripts\launch_tui.bat
 ### Method 3: With Options
 ```bash
 # Start with a specific panel
-python -m tui_app.main --panel pattern_activity
+python -m gui.tui_app.main --panel pattern_activity
 
 # Dual layout (primary + secondary panel side-by-side)
-python -m tui_app.main --layout dual --secondary-panel log_stream
+python -m gui.tui_app.main --layout dual --secondary-panel log_stream
 
 # Use mock data instead of real database
-python -m tui_app.main --use-mock-data
+python -m gui.tui_app.main --use-mock-data
 
 # Run smoke test (launch and exit immediately)
-python -m tui_app.main --smoke-test
+python -m gui.tui_app.main --smoke-test
 ```
 
 ---
@@ -162,7 +162,7 @@ The TUI connects to real pipeline data by default:
 
 **Problem**: Double-clicking shortcut does nothing
 - **Solution**: Check that textual is installed: `pip install textual>=0.40.0`
-- **Solution**: Run from command line to see error messages: `python -m tui_app.main`
+- **Solution**: Run from command line to see error messages: `python -m gui.tui_app.main`
 
 **Problem**: ImportError or ModuleNotFoundError
 - **Solution**: Install all dependencies: `pip install -r config/requirements.txt`
@@ -171,7 +171,7 @@ The TUI connects to real pipeline data by default:
 
 **Problem**: Dashboard shows 0 tasks despite pipeline running
 - **Solution**: Verify database exists: Check for `.worktrees/pipeline_state.db`
-- **Solution**: Run with mock data to test TUI: `python -m tui_app.main --use-mock-data`
+- **Solution**: Run with mock data to test TUI: `python -m gui.tui_app.main --use-mock-data`
 
 **Problem**: Database file not found
 - **Solution**: Create the database directory: `mkdir .worktrees`
@@ -219,7 +219,7 @@ Supports:
 
 **Smoke Test** (verify TUI launches):
 ```bash
-python -m tui_app.main --smoke-test
+python -m gui.tui_app.main --smoke-test
 ```
 
 **Panel and client tests**:

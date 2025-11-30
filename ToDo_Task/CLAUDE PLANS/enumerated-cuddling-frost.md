@@ -107,7 +107,7 @@ The TUI framework is **95% complete** (tui_app/, 27 files, 1,910 LOC, 26 passing
 │   launch_tui.bat                 │
 │   - Set working directory        │
 │   - Activate venv if present     │
-│   - Launch: python -m tui_app.main
+│   - Launch: python -m gui.tui_app.main
 │   - Keep window open on error    │
 └──────────────┬───────────────────┘
                │
@@ -193,7 +193,7 @@ if exist ".venv\Scripts\activate.bat" (
 )
 
 REM Launch TUI
-python -m tui_app.main
+python -m gui.tui_app.main
 
 REM Keep window open on error
 if errorlevel 1 (
@@ -214,7 +214,7 @@ if errorlevel 1 (
 **Steps**:
 1. Add `textual>=0.40.0` to config/requirements.txt
 2. Install: `pip install textual`
-3. Smoke test: `python -m tui_app.main --smoke-test`
+3. Smoke test: `python -m gui.tui_app.main --smoke-test`
 4. Verify exit code 0
 
 **Files Modified**:
@@ -226,7 +226,7 @@ if errorlevel 1 (
 
 **Testing**:
 ```bash
-python -m tui_app.main --smoke-test
+python -m gui.tui_app.main --smoke-test
 echo Exit code: %ERRORLEVEL%
 ```
 
@@ -291,7 +291,7 @@ echo Exit code: %ERRORLEVEL%
 sqlite3 .worktrees/pipeline_state.db "SELECT COUNT(*) FROM tasks"
 
 # Launch TUI and verify data
-python -m tui_app.main --panel dashboard
+python -m gui.tui_app.main --panel dashboard
 # Press 'q' to quit
 ```
 
@@ -348,7 +348,7 @@ python -m tui_app.main --panel dashboard
 **Testing**:
 ```bash
 # Launch TUI and watch for updates
-python -m tui_app.main --panel dashboard
+python -m gui.tui_app.main --panel dashboard
 # Watch task counts change (if pipeline is running)
 # Press 'r' to force refresh
 ```
@@ -377,7 +377,7 @@ python -m tui_app.main --panel dashboard
    title AI Pipeline TUI - Monitoring Dashboard
 
    REM Launch TUI
-   python -m tui_app.main
+   python -m gui.tui_app.main
 
    REM Keep window open on error
    if errorlevel 1 (
@@ -579,7 +579,7 @@ def _tail_logs(self) -> None:
 
    ## Launching
    - Double-click "AI Pipeline TUI" on desktop
-   - Or: `python -m tui_app.main`
+   - Or: `python -m gui.tui_app.main`
 
    ## Keyboard Shortcuts
    - `d` - Dashboard (default)

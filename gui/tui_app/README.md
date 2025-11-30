@@ -14,15 +14,15 @@ pip install -r config/requirements.txt
 
 ```bash
 # Launch with default dashboard panel
-python -m tui_app.main
+python -m gui.tui_app.main
 
 # Launch with specific panel
-python -m tui_app.main --panel dashboard
-python -m tui_app.main --panel pattern_activity
-python -m tui_app.main --panel file_lifecycle
+python -m gui.tui_app.main --panel dashboard
+python -m gui.tui_app.main --panel pattern_activity
+python -m gui.tui_app.main --panel file_lifecycle
 
 # Run smoke test (launch and exit)
-python -m tui_app.main --smoke-test
+python -m gui.tui_app.main --smoke-test
 ```
 
 ## Available Panels

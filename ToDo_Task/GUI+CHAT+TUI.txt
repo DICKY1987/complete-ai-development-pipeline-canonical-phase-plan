@@ -1092,7 +1092,7 @@ Run it with:
 
 ```bash
 cd path/to/tui_app_root
-python -m tui_app.main
+python -m gui.tui_app.main
 ```
 
 You should see a text dashboard showing the fake summary; pressing `r` refreshes from the `StateClient`.

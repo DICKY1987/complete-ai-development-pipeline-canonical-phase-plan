@@ -219,9 +219,9 @@ Design documents exist in the `gui/` directory:
 
 ## Related Documentation
 
-- **[QUICK_START.md](../QUICK_START.md)** - Repository quick start guide
-- **[DIRECTORY_GUIDE.md](../DIRECTORY_GUIDE.md)** - Repository navigation
-- **[README.md](../README.md)** - Main repository README
+- **[QUICK_START.md](../../QUICK_START.md)** - Repository quick start guide
+- **[DIRECTORY_GUIDE.md](../../DIRECTORY_GUIDE.md)** - Repository navigation
+- **[README.md](../../README.md)** - Main repository README
 - **[ENGINE_QUICK_REFERENCE.md](ENGINE_QUICK_REFERENCE.md)** - Engine usage guide
 - **[GUI_DEVELOPMENT_GUIDE.md](GUI_DEVELOPMENT_GUIDE.md)** - Future GUI development
 
