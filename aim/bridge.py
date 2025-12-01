@@ -582,10 +582,13 @@ class ToolProcessPool:
         detect_cmds = tool_config["detectCommands"]
         cmd = detect_cmds[0] if isinstance(detect_cmds[0], list) else [detect_cmds[0]]
         
+        # Ensure cmd is a list
+        if not isinstance(cmd, list):
+            cmd = [cmd]
+        
         # Add flags for interactive mode based on tool
-        if self.tool_id == "aider":
-            cmd = cmd if isinstance(cmd, list) else [cmd]
-            cmd.extend(["--yes-always"])  # Non-blocking mode
+        if self.tool_id == "aider" and "--yes-always" not in cmd:
+            cmd.append("--yes-always")  # Non-blocking mode
         
         # Spawn process
         proc = subprocess.Popen(
@@ -732,8 +735,11 @@ class ToolProcessPool:
         
         # Kill old process if still running
         if old_instance.process.poll() is None:
-            old_instance.process.kill()
-            old_instance.process.wait()
+            try:
+                old_instance.process.kill()
+                old_instance.process.wait()
+            except OSError:
+                pass
         
         # Spawn new instance
         try:
