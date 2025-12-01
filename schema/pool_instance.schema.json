@@ -1,0 +1,73 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://aim-pipeline.dev/schemas/pool_instance.schema.json",
+  "title": "Process Pool Instance Schema",
+  "description": "Schema for process pool instance configuration and status",
+  "type": "object",
+  "properties": {
+    "index": {
+      "type": "integer",
+      "description": "Unique index within pool (0-based)",
+      "minimum": 0
+    },
+    "tool_id": {
+      "type": "string",
+      "description": "Tool identifier from AIM registry",
+      "examples": ["aider", "jules", "codex", "claude-cli"]
+    },
+    "pid": {
+      "type": "integer",
+      "description": "Process ID of spawned instance",
+      "minimum": 1
+    },
+    "alive": {
+      "type": "boolean",
+      "description": "Whether instance is responsive"
+    },
+    "return_code": {
+      "type": ["integer", "null"],
+      "description": "Exit code if terminated, null if still running"
+    },
+    "spawn_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when instance was spawned"
+    },
+    "command": {
+      "type": "array",
+      "description": "Command line used to spawn process",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "metrics": {
+      "type": "object",
+      "description": "Runtime metrics for instance",
+      "properties": {
+        "prompts_sent": {
+          "type": "integer",
+          "description": "Total prompts sent to instance",
+          "minimum": 0
+        },
+        "responses_read": {
+          "type": "integer",
+          "description": "Total responses read from instance",
+          "minimum": 0
+        },
+        "errors_encountered": {
+          "type": "integer",
+          "description": "Number of errors encountered",
+          "minimum": 0
+        },
+        "uptime_seconds": {
+          "type": "number",
+          "description": "Time since spawn in seconds",
+          "minimum": 0
+        }
+      }
+    }
+  },
+  "required": ["index", "tool_id", "alive"],
+  "additionalProperties": false
+}
