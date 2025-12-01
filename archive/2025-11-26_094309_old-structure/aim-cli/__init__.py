@@ -18,11 +18,11 @@ Usage:
     python -m aim.cli <command>
     
     # Direct import
-    from aim.cli import cli
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.cli import cli
     
     # In code
     from click.testing import CliRunner
-    from aim.cli import cli
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.cli import cli
     
     runner = CliRunner()
     result = runner.invoke(cli, ['health', 'check'])

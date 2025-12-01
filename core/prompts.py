@@ -1,4 +1,4 @@
 # DOC_LINK: DOC-CORE-CORE-PROMPTS-049
 # DOC_LINK: DOC-CORE-CORE-PROMPTS-026
-from core.prompts import *  # type: ignore F401,F403
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.prompts import *  # type: ignore F401,F403
 

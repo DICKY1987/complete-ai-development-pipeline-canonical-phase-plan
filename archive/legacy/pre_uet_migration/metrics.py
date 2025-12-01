@@ -56,8 +56,8 @@ class MetricsAggregator:
         Returns:
             ExecutionMetrics with complete run statistics
         """
-        from core.engine.cost_tracker import CostTracker
-        from core.state.db import get_connection, get_events
+        from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine.cost_tracker import CostTracker
+        from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.state.db import get_connection, get_events
         
         tracker = CostTracker()
         total_cost = tracker.get_total_cost(run_id)
@@ -169,7 +169,7 @@ class MetricsAggregator:
         Returns:
             List of WorkstreamMetrics
         """
-        from core.state.db import get_connection
+        from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.state.db import get_connection
         
         conn = get_connection()
         

@@ -9,10 +9,10 @@ from datetime import datetime, timezone
 
 from modules.core_state.m010003_task_queue import TaskQueue, Task, TaskResult
 from modules.core_state.m010003_audit_logger import AuditLogger
-from core.engine.patch_manager import PatchManager
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine.patch_manager import PatchManager
 from modules.core_engine.m010001_prompt_engine import PromptEngine, PromptContext
 from modules.core_engine.m010001_validators import ScopeValidator, CircuitBreaker
-from core.engine.adapters import AiderAdapter, CodexAdapter, ClaudeAdapter
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine.adapters import AiderAdapter, CodexAdapter, ClaudeAdapter
 
 class PipelinePlusOrchestrator:
     """Main orchestrator for Pipeline Plus"""

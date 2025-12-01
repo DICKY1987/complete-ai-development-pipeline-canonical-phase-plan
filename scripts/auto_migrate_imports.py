@@ -43,14 +43,14 @@ IMPORT_MAPPINGS = {
     r'from src\.pipeline\.error_context import': 'from modules.error_engine.m010004_error_context import',
     
     # Core modules (src.pipeline -> core)
-    r'from src\.pipeline\.openspec_parser import': 'from core.openspec_parser import',
-    r'from src\.pipeline\.openspec_convert import': 'from core.openspec_convert import',
-    r'from src\.pipeline\.spec_index import': 'from core.spec_index import',
-    r'from src\.pipeline\.agent_coordinator import': 'from core.agent_coordinator import',
-    r'from src\.pipeline\.prompts import': 'from core.prompts import',
+    r'from src\.pipeline\.openspec_parser import': 'from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.openspec_parser import',
+    r'from src\.pipeline\.openspec_convert import': 'from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.openspec_convert import',
+    r'from src\.pipeline\.spec_index import': 'from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.spec_index import',
+    r'from src\.pipeline\.agent_coordinator import': 'from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.agent_coordinator import',
+    r'from src\.pipeline\.prompts import': 'from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.prompts import',
     
     # AIM Integration (src.pipeline -> aim)
-    r'from src\.pipeline\.aim_bridge import': 'from aim.bridge import',
+    r'from src\.pipeline\.aim_bridge import': 'from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.bridge import',
     
     # Plugins (src.plugins.X.plugin -> error.plugins.X.plugin)
     r'from src\.plugins\.python_ruff\.plugin import': 'from modules.error_plugin_python_ruff.m010015_plugin import',
@@ -79,12 +79,12 @@ IMPORT_MAPPINGS = {
     r'from src\.integrations\.github_sync import': 'from src.integrations.github_sync import',
     
     # Utils (src.utils -> error.shared.utils)
-    r'from src\.utils\.types import': 'from error.shared.utils.types import',
-    r'from src\.utils\.time import': 'from error.shared.utils.time import',
-    r'from src\.utils\.hashing import': 'from error.shared.utils.hashing import',
-    r'from src\.utils\.jsonl_manager import': 'from error.shared.utils.jsonl_manager import',
-    r'from src\.utils\.env import': 'from error.shared.utils.env import',
-    r'from src\.utils import': 'from error.shared.utils import',
+    r'from src\.utils\.types import': 'from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.shared.utils.types import',
+    r'from src\.utils\.time import': 'from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.shared.utils.time import',
+    r'from src\.utils\.hashing import': 'from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.shared.utils.hashing import',
+    r'from src\.utils\.jsonl_manager import': 'from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.shared.utils.jsonl_manager import',
+    r'from src\.utils\.env import': 'from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.shared.utils.env import',
+    r'from src\.utils import': 'from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.shared.utils import',
 }
 
 

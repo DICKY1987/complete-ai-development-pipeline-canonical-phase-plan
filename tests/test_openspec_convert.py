@@ -3,8 +3,8 @@
 from pathlib import Path
 import json
 
-from core.openspec_parser import load_bundle_from_change
-from core.openspec_convert import bundle_to_workstream
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.openspec_parser import load_bundle_from_change
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.openspec_convert import bundle_to_workstream
 from modules.core_state import m010003_bundles as ws_bundles
 
 

@@ -4,12 +4,12 @@ import pytest
 import tempfile
 from pathlib import Path
 
-from core.interfaces.config_manager import (
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.interfaces.config_manager import (
     ConfigManager,
     ConfigValidationError,
     ToolProfileNotFoundError,
 )
-from core.config.yaml_config_manager import YamlConfigManager
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.config.yaml_config_manager import YamlConfigManager
 
 
 class TestConfigManagerProtocol:

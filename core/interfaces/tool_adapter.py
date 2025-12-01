@@ -4,7 +4,7 @@ This module defines the ToolAdapter protocol for unified tool execution
 across different tools (Aider, Codex, Tests, Git, etc.).
 
 Example:
-    >>> from core.adapters.registry import ToolRegistry
+    >>> from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.adapters.registry import ToolRegistry
     >>> registry = ToolRegistry()
     >>> adapter = registry.get_adapter({'edit_code'})
     >>> result = adapter.run(job, executor=executor)
@@ -14,7 +14,7 @@ Example:
 from __future__ import annotations
 
 from typing import Protocol, Any, runtime_checkable
-from core.interfaces.process_executor import ProcessExecutor, ProcessResult
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.interfaces.process_executor import ProcessExecutor, ProcessResult
 
 
 @runtime_checkable
@@ -98,7 +98,7 @@ class ToolAdapter(Protocol):
             ProcessResult from execution
             
         Example:
-            >>> from core.execution.subprocess_executor import SubprocessExecutor
+            >>> from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.execution.subprocess_executor import SubprocessExecutor
             >>> result = adapter.run(job, executor=SubprocessExecutor())
             >>> if result.success:
             ...     print("Job completed successfully")

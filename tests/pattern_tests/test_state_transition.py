@@ -13,13 +13,13 @@ if str(_repo_root) not in sys.path:
 import pytest
 import tempfile
 
-from error.patterns.state_transition import (
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.patterns.state_transition import (
     extract_state_machine,
     analyze_state_gaps,
     generate_transition_matrix,
     scan_file_for_state_issues,
 )
-from error.patterns.types import (
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.patterns.types import (
     PatternCategory,
     PatternSeverity,
     StateDiagram,

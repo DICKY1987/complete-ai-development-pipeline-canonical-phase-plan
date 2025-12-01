@@ -4,7 +4,7 @@ Manages UI startup settings, including which tools run in interactive vs headles
 Allows changing the interactive tool selection at runtime.
 
 Usage:
-    from core.ui_settings import UISettingsManager
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.ui_settings import UISettingsManager
 
     settings = UISettingsManager()
 

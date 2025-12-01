@@ -4,7 +4,7 @@ This example demonstrates using ToolProcessPool to refactor
 multiple files in parallel using separate aider instances.
 """
 
-from aim.bridge import ToolProcessPool
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.bridge import ToolProcessPool
 import time
 
 

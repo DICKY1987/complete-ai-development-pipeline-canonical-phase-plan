@@ -1,7 +1,7 @@
 # DOC_LINK: DOC-CORE-DATA-STATE-DATA-PROVIDER-079
 from __future__ import annotations
 from typing import Any
-from core.interfaces.state_store import StateStore
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.interfaces.state_store import StateStore
 
 class StateDataProvider:
     def __init__(self, state_store: StateStore):

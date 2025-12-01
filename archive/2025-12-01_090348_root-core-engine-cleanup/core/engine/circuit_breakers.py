@@ -59,7 +59,7 @@ def load_config() -> Dict[str, Any]:
     """
     # Try loading from invoke.yaml first (Phase G)
     try:
-        from core.config_loader import get_circuit_breaker_config
+        from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.config_loader import get_circuit_breaker_config
         cfg = get_circuit_breaker_config()
         if cfg:
             # Map new structure to expected format

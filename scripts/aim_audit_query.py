@@ -25,7 +25,7 @@ from pathlib import Path
 # Add src to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from aim.bridge import get_aim_registry_path
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.bridge import get_aim_registry_path
 
 
 def load_audit_logs(

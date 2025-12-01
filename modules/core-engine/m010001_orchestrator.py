@@ -1,7 +1,7 @@
 """Orchestrator - Backward Compatibility Adapter
 
 This module provides backward compatibility for code importing
-from core.engine.orchestrator.
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine.orchestrator.
 
 The actual implementation has been replaced by the UET (Universal
 Execution Templates) engine in core.engine.uet_orchestrator.

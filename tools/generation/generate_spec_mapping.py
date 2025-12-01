@@ -24,7 +24,7 @@ from typing import Iterable, List, Dict
 # Add repo root for local imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from core.spec_index import create_mapping, generate_mapping_table, SpecMapping
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.spec_index import create_mapping, generate_mapping_table, SpecMapping
 
 
 # Inline scanner functions to avoid import issues

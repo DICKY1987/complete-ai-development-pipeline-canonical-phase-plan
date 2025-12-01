@@ -83,8 +83,8 @@ class PerformanceOptimizer:
         Returns:
             List of optimization recommendations
         """
-        from core.engine.metrics import MetricsAggregator
-        from core.state.db import get_events
+        from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine.metrics import MetricsAggregator
+        from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.state.db import get_events
         
         aggregator = MetricsAggregator()
         metrics = aggregator.compute_metrics(run_id)

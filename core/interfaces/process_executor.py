@@ -4,7 +4,7 @@ This module defines the ProcessExecutor protocol for centralizing all subprocess
 operations with unified timeout, error handling, and dry-run support.
 
 Example:
-    >>> from core.execution.subprocess_executor import SubprocessExecutor
+    >>> from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.execution.subprocess_executor import SubprocessExecutor
     >>> executor = SubprocessExecutor()
     >>> result = executor.run(['echo', 'Hello World'])
     >>> print(result.stdout)

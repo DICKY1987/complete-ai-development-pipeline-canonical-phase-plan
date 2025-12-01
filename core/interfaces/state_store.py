@@ -4,7 +4,7 @@ This module defines the StateStore protocol for centralizing all state operation
 (workstreams, executions, jobs, errors) with unified DB/filesystem hiding.
 
 Example:
-    >>> from core.state.sqlite_store import SQLiteStateStore
+    >>> from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.state.sqlite_store import SQLiteStateStore
     >>> store = SQLiteStateStore()
     >>> ws = store.get_workstream('ws-test-001')
     >>> print(ws['id'])

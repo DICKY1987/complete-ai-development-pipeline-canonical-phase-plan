@@ -4,9 +4,9 @@ import pytest
 import tempfile
 from pathlib import Path
 
-from core.interfaces.workstream_service import WorkstreamService
-from core.workstreams.workstream_service_impl import WorkstreamServiceImpl
-from core.state.sqlite_store import SQLiteStateStore
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.interfaces.workstream_service import WorkstreamService
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.workstreams.workstream_service_impl import WorkstreamServiceImpl
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.state.sqlite_store import SQLiteStateStore
 
 
 class TestWorkstreamServiceProtocol:

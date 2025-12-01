@@ -12,7 +12,7 @@ from datetime import datetime, timezone
 from typing import Optional
 
 from modules.core_state.m010003_db import get_connection
-from core.tool_instrumentation import emit_error_raised
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.tool_instrumentation import emit_error_raised
 
 
 def generate_error_id(

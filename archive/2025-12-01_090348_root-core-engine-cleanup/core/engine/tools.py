@@ -80,7 +80,7 @@ def load_tool_profiles(profile_path: Optional[str] = None) -> Dict[str, Any]:
         )
     
     # Load from invoke.yaml via config_loader
-    from core.config_loader import load_project_config
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.config_loader import load_project_config
     cfg = load_project_config()
     tools_config = cfg.get('tools', {})
     

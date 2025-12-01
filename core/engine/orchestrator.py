@@ -18,7 +18,7 @@ else:
     # Lazy import to avoid circular dependency
     Database = None
 
-from core.engine.state_machine import RunStateMachine, StepStateMachine
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine.state_machine import RunStateMachine, StepStateMachine
 
 
 def generate_ulid() -> str:

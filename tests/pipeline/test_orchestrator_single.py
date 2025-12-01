@@ -38,7 +38,7 @@ def bundle_ws(monkeypatch):
 
 
 def _tool_result(tool_id: str, success: bool):
-    from core.tools import ToolResult
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.tools import ToolResult
 
     return ToolResult(
         tool_id=tool_id,

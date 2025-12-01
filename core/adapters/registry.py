@@ -3,9 +3,9 @@
 from __future__ import annotations
 
 from typing import Optional, Any
-from core.interfaces.tool_adapter import ToolAdapter, CapabilityNotSupportedError
-from core.adapters.base import BaseToolAdapter
-from core.interfaces.process_executor import ProcessExecutor, ProcessResult
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.interfaces.tool_adapter import ToolAdapter, CapabilityNotSupportedError
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.adapters.base import BaseToolAdapter
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.interfaces.process_executor import ProcessExecutor, ProcessResult
 
 
 class ToolRegistry:
@@ -61,7 +61,7 @@ class MockAdapter(BaseToolAdapter):
         *,
         executor: ProcessExecutor,
     ) -> ProcessResult:
-        from core.interfaces.process_executor import ProcessResult
+        from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.interfaces.process_executor import ProcessResult
         
         action = job.get('action', 'unknown')
         

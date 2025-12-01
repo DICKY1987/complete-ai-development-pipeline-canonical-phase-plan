@@ -28,7 +28,7 @@ Exceptions:
     ScannerError - Scanner errors
 
 Usage:
-    from aim.environment import get_secrets_manager, HealthMonitor
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.environment import get_secrets_manager, HealthMonitor
     
     # Secret management
     manager = get_secrets_manager()

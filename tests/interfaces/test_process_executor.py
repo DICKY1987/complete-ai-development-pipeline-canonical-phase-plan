@@ -4,13 +4,13 @@ import time
 import pytest
 from pathlib import Path
 
-from core.interfaces.process_executor import (
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.interfaces.process_executor import (
     ProcessExecutor,
     ProcessResult,
     ProcessHandle,
     ProcessExecutionError,
 )
-from core.execution.subprocess_executor import SubprocessExecutor
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.execution.subprocess_executor import SubprocessExecutor
 
 
 class TestProcessExecutorProtocol:

@@ -12,7 +12,7 @@ Public API:
     ConfigLoader - Load and validate AIM configuration
 
 Usage:
-    from aim.registry import ConfigLoader
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.registry import ConfigLoader
     
     loader = ConfigLoader()
     config = loader.load(validate=True)

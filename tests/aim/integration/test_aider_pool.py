@@ -16,7 +16,7 @@ import shutil
 import time
 from pathlib import Path
 
-from aim.bridge import ToolProcessPool, load_aim_registry
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.bridge import ToolProcessPool, load_aim_registry
 
 
 def _aider_installed() -> bool:

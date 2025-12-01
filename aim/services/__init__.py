@@ -10,7 +10,7 @@ Planned Public API:
     ServiceCache - Service-level caching (planned)
 
 Planned Usage:
-    from aim.services import AIMService
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.services import AIMService
     
     # Initialize service
     service = AIMService()

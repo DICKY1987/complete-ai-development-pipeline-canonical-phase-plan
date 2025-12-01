@@ -15,7 +15,7 @@ from pathlib import Path
 # Add repo root to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from aim.bridge import (
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.bridge import (
     detect_tool,
     get_aim_registry_path,
     get_tool_version,

@@ -86,7 +86,7 @@ def run_command(
         CommandResult with execution details
         
     Example:
-        >>> from core.invoke_utils import run_command
+        >>> from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.invoke_utils import run_command
         >>> result = run_command('pytest tests/unit -q', timeout=60)
         >>> if result.success:
         >>>     print(f"Tests passed: {result.stdout}")
@@ -193,7 +193,7 @@ def run_tool_command(
         >>> result = run_tool_command('pytest', 'pytest tests/ -q')
         >>> # Timeout and env loaded from invoke.yaml tools.pytest section
     """
-    from core.config_loader import get_tool_config
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.config_loader import get_tool_config
     
     # Load tool configuration
     tool_cfg = get_tool_config(tool_id)

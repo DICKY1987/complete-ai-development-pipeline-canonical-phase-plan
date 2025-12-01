@@ -126,13 +126,13 @@ class UETEngineMigration:
         return {
             # UET imports → core.engine
             r'from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\.core\.engine\.([a-zA-Z0-9_\.]+) import': 
-                r'from core.engine.\1 import',
+                r'from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine.\1 import',
             r'from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\.core\.engine import': 
-                r'from core.engine import',
+                r'from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine import',
             r'import UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\.core\.engine\.([a-zA-Z0-9_\.]+)': 
-                r'import core.engine.\1',
+                r'import UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine.\1',
             r'import UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\.core\.engine': 
-                r'import core.engine',
+                r'import UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine',
                 
             # Root engine imports → core.engine (for compatible features)
             # Note: Not all root engine features have UET equivalents
@@ -208,7 +208,7 @@ class UETEngineMigration:
                 # Change UET imports to core.engine
                 content = content.replace(
                     "from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine.",
-                    "from core.engine."
+                    "from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine."
                 )
                 
                 if content != original:
@@ -234,7 +234,7 @@ Compatibility shim for root engine/ → core.engine/
 The UET engine in core/engine/ is now canonical.
 Some features from the old job queue system are not yet ported.
 
-Deprecated: Use 'from core.engine.*' directly
+Deprecated: Use 'from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine.*' directly
 Remove after: 2025-12-31
 """
 
@@ -242,7 +242,7 @@ import warnings
 
 warnings.warn(
     "Importing from 'engine' is deprecated. "
-    "Use 'from core.engine.*' instead. "
+    "Use 'from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine.*' instead. "
     "Job queue features are being ported to core.engine.",
     DeprecationWarning,
     stacklevel=2
@@ -250,8 +250,8 @@ warnings.warn(
 
 # Map what we can to core.engine
 try:
-    from core.engine.orchestrator import Orchestrator
-    from core.engine.executor import Executor
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine.orchestrator import Orchestrator
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine.executor import Executor
 except ImportError:
     # Fallback to old implementation if needed
     pass

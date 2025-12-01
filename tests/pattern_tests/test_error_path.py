@@ -13,13 +13,13 @@ if str(_repo_root) not in sys.path:
 import pytest
 import tempfile
 
-from error.patterns.error_path import (
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.patterns.error_path import (
     analyze_error_paths,
     generate_error_path_checklist,
     scan_file_for_error_path_issues,
     EXTERNAL_CALL_PATTERNS,
 )
-from error.patterns.types import PatternCategory, PatternSeverity
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.patterns.types import PatternCategory, PatternSeverity
 
 
 class TestExternalCallPatterns:

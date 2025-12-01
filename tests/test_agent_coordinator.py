@@ -1,6 +1,6 @@
 # DOC_LINK: DOC-TEST-TESTS-TEST-AGENT-COORDINATOR-074
 # DOC_LINK: DOC-TEST-TESTS-TEST-AGENT-COORDINATOR-035
-from core.agent_coordinator import partition_units, run_parallel, summarize, PluginResult
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.agent_coordinator import partition_units, run_parallel, summarize, PluginResult
 
 
 def dummy_plugin(uid, args):

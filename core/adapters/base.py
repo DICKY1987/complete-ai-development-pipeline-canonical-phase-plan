@@ -3,8 +3,8 @@
 from __future__ import annotations
 
 from typing import Any
-from core.interfaces.tool_adapter import ToolAdapter, JobPreparationError
-from core.interfaces.process_executor import ProcessExecutor, ProcessResult
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.interfaces.tool_adapter import ToolAdapter, JobPreparationError
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.interfaces.process_executor import ProcessExecutor, ProcessResult
 
 
 class BaseToolAdapter:

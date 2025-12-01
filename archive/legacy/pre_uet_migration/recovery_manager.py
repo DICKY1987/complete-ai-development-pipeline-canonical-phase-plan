@@ -32,7 +32,7 @@ class RecoveryManager:
         Returns:
             Recovery report with orphaned tasks and status
         """
-        from core.state.db import get_connection
+        from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.state.db import get_connection
         
         conn = get_connection()
         orphaned = []
@@ -82,7 +82,7 @@ class RecoveryManager:
         Returns:
             List of run records with incomplete workstreams
         """
-        from core.state.db import get_connection
+        from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.state.db import get_connection
         
         conn = get_connection()
         
@@ -124,9 +124,9 @@ class RecoveryManager:
         Returns:
             Resumption status
         """
-        from core.state.db import get_connection
-        from core.state import bundles
-        from core.engine.orchestrator import execute_workstreams_parallel
+        from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.state.db import get_connection
+        from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.state import bundles
+        from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine.orchestrator import execute_workstreams_parallel
         
         # Get incomplete workstreams
         conn = get_connection()

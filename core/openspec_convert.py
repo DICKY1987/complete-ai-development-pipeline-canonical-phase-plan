@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Any, Dict, Iterable, Mapping, Sequence
 
-from core.openspec_parser import OpenSpecBundle
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.openspec_parser import OpenSpecBundle
 
 
 def bundle_to_workstream(

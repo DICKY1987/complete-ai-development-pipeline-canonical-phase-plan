@@ -27,7 +27,7 @@ Public API:
 
 Usage:
     from modules.core_ast.m010000_extractors import extract_functions, extract_dependencies
-    from core.ast.languages.python import extract_python_functions
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.ast.languages.python import extract_python_functions
     
     # High-level API (language-agnostic)
     functions = extract_functions("src/auth.py", language="python")

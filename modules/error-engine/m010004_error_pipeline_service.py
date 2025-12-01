@@ -15,7 +15,7 @@ from typing import Any, Dict, List, Optional, Sequence
 from .m010004_agent_adapters import AgentInvocation, AgentResult, get_agent_adapter
 from .m010004_error_context import ErrorPipelineContext
 from .m010004_error_state_machine import advance_state
-from error.shared.utils.time import utc_now_iso
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.shared.utils.time import utc_now_iso
 
 
 def tick(ctx: ErrorPipelineContext) -> ErrorPipelineContext:

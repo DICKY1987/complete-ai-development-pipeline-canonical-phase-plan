@@ -13,7 +13,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from modules.core_state.m010003_db import get_connection
-from core.ui_models import (
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.ui_models import (
     ErrorCategory,
     ErrorRecord,
     ErrorSeverity,

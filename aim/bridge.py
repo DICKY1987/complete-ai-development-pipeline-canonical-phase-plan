@@ -524,7 +524,7 @@ def record_audit_log(
 # Process Pool Implementation (Multi-Instance CLI Control)
 # ============================================================================
 
-from aim.pool_interface import ProcessInstance
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.pool_interface import ProcessInstance
 
 
 class ToolProcessPool:

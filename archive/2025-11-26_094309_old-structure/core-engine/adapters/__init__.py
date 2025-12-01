@@ -22,7 +22,7 @@ Public API:
         - ADAPTERS - Registry dictionary
 
 Usage:
-    from core.engine.adapters import get_adapter, list_adapters
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine.adapters import get_adapter, list_adapters
     
     # List available tools
     tools = list_adapters()
@@ -50,10 +50,10 @@ Adapter Interface:
 """
 DOC_ID: DOC-PAT-ADAPTERS-INIT-437
 
-from core.engine.adapters.base import BaseAdapter, ToolAdapter, ExecutionResult
-from core.engine.adapters.aider_adapter import AiderAdapter
-from core.engine.adapters.codex_adapter import CodexAdapter
-from core.engine.adapters.claude_adapter import ClaudeAdapter
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine.adapters.base import BaseAdapter, ToolAdapter, ExecutionResult
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine.adapters.aider_adapter import AiderAdapter
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine.adapters.codex_adapter import CodexAdapter
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine.adapters.claude_adapter import ClaudeAdapter
 
 # Adapter registry
 ADAPTERS = {

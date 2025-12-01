@@ -10,8 +10,8 @@ from unittest.mock import Mock, patch, MagicMock, call
 import queue
 import time
 
-from aim.bridge import ToolProcessPool
-from aim.pool_interface import ProcessInstance
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.bridge import ToolProcessPool
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.pool_interface import ProcessInstance
 
 
 @pytest.fixture

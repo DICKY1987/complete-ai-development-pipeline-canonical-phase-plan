@@ -220,7 +220,7 @@ class IntegrationWorker:
             conflicts: List of conflicts
             run_id: Execution run ID
         """
-        from core.state import db
+        from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.state import db
         
         db.init_db()
         

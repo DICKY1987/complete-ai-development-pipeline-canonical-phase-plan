@@ -24,7 +24,7 @@ try:
 except ImportError:
     HAS_JINJA2 = False
 
-from pm.models import PRD, Status, Priority, ValidationError
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.pm.models import PRD, Status, Priority, ValidationError
 from pm import WORKSPACE_ROOT, TEMPLATES_ROOT
 
 

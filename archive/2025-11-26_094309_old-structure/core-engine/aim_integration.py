@@ -15,8 +15,8 @@ from typing import Any, Dict, Optional
 import logging
 import asyncio
 
-from aim.bridge import route_capability, load_aim_registry
-from aim.exceptions import (
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.bridge import route_capability, load_aim_registry
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.exceptions import (
     AIMError,
     AIMRegistryNotFoundError,
     AIMCapabilityNotFoundError,

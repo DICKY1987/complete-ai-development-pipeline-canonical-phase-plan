@@ -1,7 +1,7 @@
 """Unit tests for Tool Adapters"""
 import pytest
 from pathlib import Path
-from core.engine.adapters import ToolAdapter, ExecutionResult, AiderAdapter, CodexAdapter, ClaudeAdapter
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine.adapters import ToolAdapter, ExecutionResult, AiderAdapter, CodexAdapter, ClaudeAdapter
 
 @pytest.fixture
 def sample_task():

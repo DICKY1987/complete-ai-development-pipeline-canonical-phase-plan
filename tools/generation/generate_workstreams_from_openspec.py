@@ -22,7 +22,7 @@ from typing import List, Optional
 # Add repo root for local imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from core.openspec_convert import (
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.openspec_convert import (
     bundle_to_workstream,
     load_bundles_from_input,
 )

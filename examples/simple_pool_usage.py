@@ -3,7 +3,7 @@
 Basic example showing core functionality of ToolProcessPool.
 """
 
-from aim.bridge import ToolProcessPool
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.bridge import ToolProcessPool
 import time
 
 

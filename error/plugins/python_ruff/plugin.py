@@ -6,9 +6,9 @@ import shutil
 from pathlib import Path
 from typing import List
 
-from core.invoke_utils import run_command
-from error.shared.utils.env import scrub_env
-from error.shared.utils.types import PluginIssue, PluginResult
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.invoke_utils import run_command
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.shared.utils.env import scrub_env
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.shared.utils.types import PluginIssue, PluginResult
 
 
 class RuffPlugin:

@@ -71,9 +71,14 @@ def rewrite_imports(file_path: Path, dry_run: bool = True) -> Tuple[bool, int]:
 
 def main():
     """Execute EXEC-016: Import Path Standardizer."""
+    import sys
+    
+    # Check for --execute flag
+    execute = "--execute" in sys.argv
     
     print("="*70)
     print("EXEC-016: Import Path Standardizer")
+    print(f"Mode: {'EXECUTE' if execute else 'DISCOVERY'}")
     print("="*70)
     print()
     
@@ -98,39 +103,91 @@ def main():
     print(f"Total import statements to update: {total_imports}")
     print()
     
-    # Show top 20 files
-    print("Top 20 files needing updates:")
-    print("-" * 70)
-    sorted_files = sorted(files_to_update, key=lambda x: x[1], reverse=True)
-    for file_path, count in sorted_files[:20]:
-        rel_path = str(file_path.relative_to(root))
-        print(f"  {count:3d} imports - {rel_path}")
+    if not execute:
+        # Show top 20 files
+        print("Top 20 files needing updates:")
+        print("-" * 70)
+        sorted_files = sorted(files_to_update, key=lambda x: x[1], reverse=True)
+        for file_path, count in sorted_files[:20]:
+            rel_path = str(file_path.relative_to(root))
+            print(f"  {count:3d} imports - {rel_path}")
+        
+        print()
+        print("=" * 70)
+        print(f"SUMMARY: {len(files_to_update)} files, {total_imports} imports")
+        print("=" * 70)
+        print()
+        print("Next steps:")
+        print("1. Review the files above")
+        print("2. Run with --execute to perform the migration")
+        print("3. Test after migration: pytest tests/ -v")
+        print()
+        
+        # Save report
+        report_path = Path("import_migration_analysis.txt")
+        with open(report_path, "w", encoding="utf-8") as f:
+            f.write("EXEC-016: Import Path Standardizer - Analysis Report\\n")
+            f.write("=" * 70 + "\\n\\n")
+            f.write(f"Files to update: {len(files_to_update)}\\n")
+            f.write(f"Total imports: {total_imports}\\n\\n")
+            f.write("Files (sorted by import count):\\n")
+            f.write("-" * 70 + "\\n")
+            for file_path, count in sorted_files:
+                rel_path = str(file_path.relative_to(root))
+                f.write(f"{count:3d} imports - {rel_path}\\n")
+        
+        print(f"Report saved: {report_path}")
+        return
     
+    # Phase 2: Execute Migration (Batched)
     print()
+    print("Phase 2: Executing Migration")
+    print("-" * 70)
+    
+    # Sort files by import count (do high-impact files first)
+    sorted_files = sorted(files_to_update, key=lambda x: x[1], reverse=True)
+    
+    # Batch files (25 per batch per EXEC-016 spec)
+    batch_size = 25
+    batches = [sorted_files[i:i+batch_size] for i in range(0, len(sorted_files), batch_size)]
+    
+    print(f"Total batches: {len(batches)}")
+    print()
+    
+    files_updated = 0
+    imports_changed = 0
+    
+    for batch_num, batch in enumerate(batches, 1):
+        print(f"Batch {batch_num}/{len(batches)}: Processing {len(batch)} files...")
+        
+        batch_files_updated = 0
+        batch_imports_changed = 0
+        
+        for file_path, expected_count in batch:
+            changed, count = rewrite_imports(file_path, dry_run=False)
+            if changed:
+                batch_files_updated += 1
+                batch_imports_changed += count
+                rel_path = str(file_path.relative_to(root))
+                print(f"  ✓ {rel_path} ({count} imports)")
+        
+        files_updated += batch_files_updated
+        imports_changed += batch_imports_changed
+        
+        print(f"  Batch {batch_num} complete: {batch_files_updated} files, {batch_imports_changed} imports")
+        print()
+    
     print("=" * 70)
-    print(f"SUMMARY: {len(files_to_update)} files, {total_imports} imports")
+    print("MIGRATION COMPLETE")
     print("=" * 70)
+    print(f"Files updated: {files_updated}/{len(files_to_update)}")
+    print(f"Imports changed: {imports_changed}/{total_imports}")
     print()
     print("Next steps:")
-    print("1. Review the files above")
-    print("2. Run with --execute to perform the migration")
-    print("3. Test after migration: pytest tests/ -v")
-    print()
-    
-    # Save report
-    report_path = Path("import_migration_analysis.txt")
-    with open(report_path, "w", encoding="utf-8") as f:
-        f.write("EXEC-016: Import Path Standardizer - Analysis Report\\n")
-        f.write("=" * 70 + "\\n\\n")
-        f.write(f"Files to update: {len(files_to_update)}\\n")
-        f.write(f"Total imports: {total_imports}\\n\\n")
-        f.write("Files (sorted by import count):\\n")
-        f.write("-" * 70 + "\\n")
-        for file_path, count in sorted_files:
-            rel_path = str(file_path.relative_to(root))
-            f.write(f"{count:3d} imports - {rel_path}\\n")
-    
-    print(f"Report saved: {report_path}")
+    print("1. Git status: git status")
+    print("2. Review changes: git diff")
+    print("3. Commit: git add . && git commit -m 'refactor(exec-016): Update imports to UET paths'")
+    print("4. Test: pytest tests/ -v")
 
 if __name__ == "__main__":
     main()

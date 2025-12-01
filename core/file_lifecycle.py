@@ -13,7 +13,7 @@ from pathlib import Path
 from typing import Optional
 
 from modules.core_state.m010003_db import get_connection
-from core.tool_instrumentation import emit_file_state_change
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.tool_instrumentation import emit_file_state_change
 
 
 def compute_file_id(file_path: str) -> str:

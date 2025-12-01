@@ -3,7 +3,7 @@
 Simple smoke test to verify core functionality.
 """
 
-from aim.bridge import ToolProcessPool
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.bridge import ToolProcessPool
 
 
 def test_pool_basic():

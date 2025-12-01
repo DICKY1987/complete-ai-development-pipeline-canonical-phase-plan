@@ -88,8 +88,8 @@ class TestGateEnforcer:
         Returns:
             GateResult
         """
-        from core.engine import tools
-        from core.state import db
+        from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine import tools
+        from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.state import db
         
         executed_at = datetime.now(timezone.utc)
         

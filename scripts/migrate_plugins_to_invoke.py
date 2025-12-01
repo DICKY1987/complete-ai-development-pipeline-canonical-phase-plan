@@ -54,7 +54,7 @@ def migrate_plugin(plugin_path: Path) -> Tuple[bool, str]:
     content = plugin_file.read_text(encoding='utf-8')
     
     # Check if already migrated
-    if 'from core.invoke_utils import run_command' in content:
+    if 'from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.invoke_utils import run_command' in content:
         return True, f"Already migrated: {plugin_path.name}"
     
     # Check if uses subprocess
@@ -63,7 +63,7 @@ def migrate_plugin(plugin_path: Path) -> Tuple[bool, str]:
     
     # Add import at top (after existing imports)
     import_pattern = r'(import .*\n(?:from .* import .*\n)*)'
-    new_import = r'\1from core.invoke_utils import run_command\n'
+    new_import = r'\1from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.invoke_utils import run_command\n'
     content = re.sub(import_pattern, new_import, content, count=1)
     
     # Replace subprocess.run patterns

@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Any
 from copy import deepcopy
 
-from core.interfaces.config_manager import (
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.interfaces.config_manager import (
     ConfigManager,
     ToolProfileNotFoundError,
 )

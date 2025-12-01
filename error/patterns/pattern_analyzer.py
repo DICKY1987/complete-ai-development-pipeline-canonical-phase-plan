@@ -5,7 +5,7 @@ pattern-based analysis on code. It coordinates all pattern categories
 and generates comprehensive reports.
 
 Usage:
-    from error.patterns import PatternAnalyzer
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.patterns import PatternAnalyzer
     
     analyzer = PatternAnalyzer()
     result = analyzer.analyze_file("path/to/file.py")

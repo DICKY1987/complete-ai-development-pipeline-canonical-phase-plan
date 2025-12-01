@@ -4,7 +4,7 @@ Demonstrates using multiple aider instances to perform
 different types of code review on the same codebase.
 """
 
-from aim.bridge import ToolProcessPool
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.bridge import ToolProcessPool
 import time
 from typing import Dict, List
 

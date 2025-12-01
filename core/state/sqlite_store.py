@@ -9,7 +9,7 @@ from datetime import datetime
 from pathlib import Path
 import uuid
 
-from core.interfaces.state_store import (
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.interfaces.state_store import (
     StateStore,
     WorkstreamNotFoundError,
     ExecutionNotFoundError,

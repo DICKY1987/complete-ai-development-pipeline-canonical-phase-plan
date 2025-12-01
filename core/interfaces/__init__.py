@@ -1,24 +1,24 @@
 """Core Interfaces Package - Protocol definitions for abstraction layer."""
 
-from core.interfaces.process_executor import (
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.interfaces.process_executor import (
     ProcessExecutor,
     ProcessResult,
     ProcessHandle,
     ProcessExecutionError,
 )
-from core.interfaces.state_store import (
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.interfaces.state_store import (
     StateStore,
     StateStoreError,
     WorkstreamNotFoundError,
     ExecutionNotFoundError,
 )
-from core.interfaces.tool_adapter import (
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.interfaces.tool_adapter import (
     ToolAdapter,
     ToolAdapterError,
     CapabilityNotSupportedError,
     JobPreparationError,
 )
-from core.interfaces.config_manager import (
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.interfaces.config_manager import (
     ConfigManager,
     ConfigError,
     ConfigValidationError,

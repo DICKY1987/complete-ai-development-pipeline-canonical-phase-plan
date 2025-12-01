@@ -5,7 +5,7 @@ Tests for AST parser core functionality.
 
 import pytest
 from pathlib import Path
-from core.ast.parser import ASTParser
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.ast.parser import ASTParser
 
 
 class TestASTParserInit:

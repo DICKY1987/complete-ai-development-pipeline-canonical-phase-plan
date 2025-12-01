@@ -3,14 +3,14 @@
 Validate that all imports from the error package follow the correct path structure.
 
 Correct patterns:
-  - from error.engine.* import ...
-  - from error.plugins.* import ...
-  - from error.shared.* import ...
+  - from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.engine.* import ...
+  - from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.plugins.* import ...
+  - from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.shared.* import ...
 
 Incorrect patterns (deprecated):
-  - from error.plugin_manager import ...  (should be error.engine.plugin_manager)
-  - from error.pipeline_engine import ... (should be error.engine.pipeline_engine)
-  - from error.file_hash_cache import ... (should be error.engine.file_hash_cache)
+  - from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.plugin_manager import ...  (should be error.engine.plugin_manager)
+  - from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.pipeline_engine import ... (should be error.engine.pipeline_engine)
+  - from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.file_hash_cache import ... (should be error.engine.file_hash_cache)
 """
 # DOC_ID: DOC-PAT-VALIDATION-VALIDATE-ERROR-IMPORTS-637
 from __future__ import annotations
@@ -36,7 +36,7 @@ def check_file(file_path: Path) -> List[Tuple[int, str, str]]:
         print(f"Warning: Could not read {file_path}: {e}", file=sys.stderr)
         return violations
     
-    # Pattern to match: from error.XXX import ... where XXX is not engine/plugins/shared
+    # Pattern to match: from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.XXX import ... where XXX is not engine/plugins/shared
     bad_pattern = re.compile(r'^from error\.(?!engine|plugins|shared)(\w+)')
     
     for line_num, line in enumerate(lines, start=1):
@@ -44,7 +44,7 @@ def check_file(file_path: Path) -> List[Tuple[int, str, str]]:
         match = bad_pattern.match(line)
         if match:
             module = match.group(1)
-            reason = f"Deprecated import pattern - should use 'from error.engine.{module}' instead"
+            reason = f"Deprecated import pattern - should use 'from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.engine.{module}' instead"
             violations.append((line_num, line, reason))
     
     return violations

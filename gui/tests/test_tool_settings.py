@@ -10,7 +10,7 @@ from pathlib import Path
 import pytest
 import yaml
 
-from core.ui_settings import UISettingsManager, get_settings_manager
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.ui_settings import UISettingsManager, get_settings_manager
 
 
 class TestUISettingsManager:

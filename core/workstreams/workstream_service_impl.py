@@ -2,7 +2,7 @@
 from __future__ import annotations
 import uuid
 from typing import Any
-from core.interfaces.state_store import StateStore
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.interfaces.state_store import StateStore
 
 class WorkstreamServiceImpl:
     def __init__(self, state_store: StateStore):

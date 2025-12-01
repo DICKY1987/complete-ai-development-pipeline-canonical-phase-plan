@@ -8,7 +8,7 @@ import time
 from pathlib import Path
 from typing import Optional, Sequence
 
-from core.interfaces.process_executor import (
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.interfaces.process_executor import (
     ProcessExecutor,
     ProcessResult,
     ProcessHandle,

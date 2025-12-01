@@ -17,7 +17,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 # Import UET components
 from modules.core_engine import Orchestrator
 from modules.core_engine.m010001_uet_scheduler import ExecutionScheduler, Task
-from core.engine.dag_builder import DAGBuilder
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine.dag_builder import DAGBuilder
 from scripts.uet_workstream_loader import WorkstreamLoader
 from scripts.uet_tool_adapter import ToolAdapter
 

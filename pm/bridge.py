@@ -18,9 +18,9 @@ from typing import List, Optional, Dict, Any
 import json
 import re
 
-from pm.models import PRD, Epic, Task, Status, Priority, Effort
-from pm.prd import PRDManager
-from pm.epic import EpicManager
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.pm.models import PRD, Epic, Task, Status, Priority, Effort
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.pm.prd import PRDManager
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.pm.epic import EpicManager
 
 
 class OpenSpecToPRDConverter:

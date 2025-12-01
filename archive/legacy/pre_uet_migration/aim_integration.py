@@ -14,21 +14,21 @@ from typing import Any, Dict, Optional
 import logging
 import asyncio
 
-from aim.bridge import route_capability, load_aim_registry
-from aim.exceptions import (
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.bridge import route_capability, load_aim_registry
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.exceptions import (
     AIMError,
     AIMRegistryNotFoundError,
     AIMCapabilityNotFoundError,
     AIMAllToolsFailedError,
 )
-from core.engine.tools import ToolResult, run_tool
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine.tools import ToolResult, run_tool
 
 # AIM+ imports
-from aim.environment.health import HealthMonitor
-from aim.environment.version_control import VersionControl
-from aim.environment.audit import get_audit_logger, EventType, EventSeverity
-from aim.environment.installer import ToolInstaller
-from aim.registry.config_loader import ConfigLoader
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.environment.health import HealthMonitor
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.environment.version_control import VersionControl
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.environment.audit import get_audit_logger, EventType, EventSeverity
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.environment.installer import ToolInstaller
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.registry.config_loader import ConfigLoader
 
 logger = logging.getLogger(__name__)
 

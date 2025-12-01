@@ -6,12 +6,12 @@ from typing import Dict, Any, Optional
 from pathlib import Path
 from datetime import datetime, timezone
 
-from core.state.task_queue import TaskQueue, Task, TaskResult
-from core.state.audit_logger import AuditLogger
-from core.engine.patch_manager import PatchManager
-from core.engine.prompt_engine import PromptEngine, PromptContext
-from core.engine.validators import ScopeValidator, CircuitBreaker
-from core.engine.adapters import AiderAdapter, CodexAdapter, ClaudeAdapter
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.state.task_queue import TaskQueue, Task, TaskResult
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.state.audit_logger import AuditLogger
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine.patch_manager import PatchManager
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine.prompt_engine import PromptEngine, PromptContext
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine.validators import ScopeValidator, CircuitBreaker
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine.adapters import AiderAdapter, CodexAdapter, ClaudeAdapter
 
 class PipelinePlusOrchestrator:
     """Main orchestrator for Pipeline Plus"""

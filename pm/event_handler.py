@@ -17,7 +17,7 @@ from pathlib import Path
 from typing import Optional, Dict, Any
 import logging
 
-from pm.models import WorkstreamEvent, EventType, Status
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.pm.models import WorkstreamEvent, EventType, Status
 
 # Try to import GitHub sync (optional)
 try:
@@ -28,7 +28,7 @@ except ImportError:
 
 # Try to import epic manager for status updates
 try:
-    from pm.epic import EpicManager
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.pm.epic import EpicManager
     HAS_EPIC_MANAGER = True
 except ImportError:
     HAS_EPIC_MANAGER = False

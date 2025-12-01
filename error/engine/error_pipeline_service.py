@@ -19,7 +19,7 @@ from modules.error_engine.m010004_agent_adapters import (
 )
 from modules.error_engine.m010004_error_context import ErrorPipelineContext
 from modules.error_engine.m010004_error_state_machine import advance_state
-from error.shared.utils.time import utc_now_iso
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.shared.utils.time import utc_now_iso
 
 
 @dataclass

@@ -242,7 +242,7 @@ class CircuitBreaker:
             CircuitBreakerTrip if oscillation detected, None otherwise
         """
         # Import here to avoid circular dependency
-        from core.state.crud import get_patches_by_hash
+        from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.state.crud import get_patches_by_hash
         
         # Query patches with same diff hash
         matching_patches = get_patches_by_hash(ws_id, diff_hash, db_path)
@@ -327,7 +327,7 @@ class CircuitBreaker:
             CircuitBreakerTrip if too many repeats, None otherwise
         """
         # Import here to avoid circular dependency
-        from core.state.crud import list_errors
+        from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.state.crud import list_errors
         
         # Query recent errors for this workstream/step
         errors = list_errors(

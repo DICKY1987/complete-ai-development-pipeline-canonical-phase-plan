@@ -24,7 +24,7 @@ try:
 except ImportError:
     HAS_JINJA2 = False
 
-from pm.models import Epic, Task, PRD, Status, Priority, Effort
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.pm.models import Epic, Task, PRD, Status, Priority, Effort
 from pm import WORKSPACE_ROOT, TEMPLATES_ROOT
 
 

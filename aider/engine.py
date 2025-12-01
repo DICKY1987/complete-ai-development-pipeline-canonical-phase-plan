@@ -21,7 +21,7 @@ from pathlib import Path
 from typing import Any, Dict, Mapping, Optional
 
 # Use core.tools wrapper (staged migration from src.pipeline.tools)
-from core.tools import run_tool, ToolResult
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.tools import run_tool, ToolResult
 
 try:
     from jinja2 import Environment, FileSystemLoader, select_autoescape  # type: ignore

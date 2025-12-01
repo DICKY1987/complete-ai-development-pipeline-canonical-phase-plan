@@ -18,12 +18,12 @@ DOC_ID: DOC-PAT-AIM-CLI-MAIN-329
 import click
 from rich.console import Console
 
-from aim.cli.commands.secrets import secrets_cli
-from aim.cli.commands.health import health_cli
-from aim.cli.commands.tools import tools
-from aim.cli.commands.scan import scan_cli
-from aim.cli.commands.version import version_cli
-from aim.cli.commands.audit import audit
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.cli.commands.secrets import secrets_cli
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.cli.commands.health import health_cli
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.cli.commands.tools import tools
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.cli.commands.scan import scan_cli
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.cli.commands.version import version_cli
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.cli.commands.audit import audit
 
 
 console = Console()

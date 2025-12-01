@@ -8,7 +8,7 @@ from typing import Any, Dict, List, Tuple
 from modules.error_engine.m010004_pipeline_engine import PipelineEngine
 from modules.error_engine.m010004_plugin_manager import PluginManager
 from modules.error_engine.m010004_file_hash_cache import FileHashCache
-from error.shared.utils.types import PluginIssue
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.shared.utils.types import PluginIssue
 from .error_context import ErrorPipelineContext
 
 

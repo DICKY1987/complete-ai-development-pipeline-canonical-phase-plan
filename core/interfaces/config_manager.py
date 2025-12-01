@@ -4,7 +4,7 @@ This module defines the ConfigManager protocol for unified configuration
 access across the pipeline.
 
 Example:
-    >>> from core.config.yaml_config_manager import YamlConfigManager
+    >>> from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.config.yaml_config_manager import YamlConfigManager
     >>> config = YamlConfigManager('config.yaml')
     >>> timeout = config.get('execution.timeout', 300)
     >>> profile = config.get_tool_profile('aider')

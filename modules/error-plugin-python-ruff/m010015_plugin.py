@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import List
 
 try:
-    from core.invoke_utils import run_command
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.invoke_utils import run_command
 except ImportError:
     _repo_root = Path(__file__).resolve().parents[2]
     _invoke_path = _repo_root / "core" / "invoke_utils.py"
@@ -19,8 +19,8 @@ except ImportError:
         run_command = _invoke_mod.run_command  # type: ignore[attr-defined]
     else:
         raise
-from error.shared.utils.env import scrub_env
-from error.shared.utils.types import PluginIssue, PluginResult
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.shared.utils.env import scrub_env
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.shared.utils.types import PluginIssue, PluginResult
 
 
 class RuffPlugin:

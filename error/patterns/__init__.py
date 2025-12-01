@@ -13,7 +13,7 @@ Pattern Categories:
 - Temporal Bug Patterns: Time-based bug detection
 
 Usage:
-    from error.patterns import PatternAnalyzer, PatternCategory
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.patterns import PatternAnalyzer, PatternCategory
     
     analyzer = PatternAnalyzer()
     results = analyzer.analyze_module("path/to/module.py")
