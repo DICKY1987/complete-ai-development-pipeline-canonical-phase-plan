@@ -1,0 +1,28 @@
+{
+  "generated_at": "2025-12-01T09:40:05.126832Z",
+  "total_docs": 2622,
+  "modules": {
+    "adr.architecture": 36,
+    "aim.misc": 37,
+    "config.global": 28,
+    "core.engine": 3,
+    "core.error": 109,
+    "core.misc": 23,
+    "docs.guides": 929,
+    "docs.tooling": 58,
+    "infra.ci": 44,
+    "legacy.archived": 79,
+    "patterns.examples": 207,
+    "patterns.executors": 29,
+    "patterns.misc": 362,
+    "patterns.specs": 28,
+    "pm.cli": 174,
+    "pm.misc": 91,
+    "pm.scripts": 39,
+    "scripts.automation": 63,
+    "test.suite": 3,
+    "unassigned": 199,
+    "workstreams.tasks": 81
+  },
+  "unassigned_count": 199
+}

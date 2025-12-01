@@ -1,0 +1,134 @@
+---
+# Module Taxonomy - Canonical module definitions
+# doc_id: DOC-SPEC-MODULE-TAXONOMY-001
+metadata:
+  version: 1.0.0
+  created: '2025-12-01'
+  purpose: Define canonical module_id values and their ownership boundaries
+
+module_taxonomy:
+  core.engine:
+    description: Core execution engine components (orchestrator, scheduler, executor)
+    root_paths:
+      - core/engine
+      - tests/engine
+    
+  core.state:
+    description: State management, persistence, snapshots, database operations
+    root_paths:
+      - core/state
+      - tests/state
+  
+  core.error:
+    description: Error detection, reporting, and recovery system
+    root_paths:
+      - error
+      - tests/error
+  
+  core.misc:
+    description: Other core utilities and shared components
+    root_paths:
+      - core
+  
+  aim.adapters:
+    description: AIM adapters, tool bridges, and integrations
+    root_paths:
+      - aim/adapters
+  
+  aim.core:
+    description: AIM core functionality and environment management
+    root_paths:
+      - aim/core
+  
+  aim.misc:
+    description: Other AIM utilities and supporting code
+    root_paths:
+      - aim
+  
+  pm.cli:
+    description: Project management CLI tools and commands
+    root_paths:
+      - pm/cli
+  
+  pm.scripts:
+    description: Project management automation scripts
+    root_paths:
+      - pm/scripts
+  
+  pm.misc:
+    description: Other project management utilities
+    root_paths:
+      - pm
+  
+  patterns.specs:
+    description: UET pattern specifications
+    root_paths:
+      - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/specs
+  
+  patterns.executors:
+    description: UET pattern executors and implementations
+    root_paths:
+      - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/executors
+  
+  patterns.examples:
+    description: UET pattern examples and templates
+    root_paths:
+      - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/examples
+  
+  patterns.misc:
+    description: Other UET pattern utilities
+    root_paths:
+      - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns
+  
+  docs.guides:
+    description: High-level framework and user guides
+    root_paths:
+      - doc_id
+      - docs
+  
+  docs.tooling:
+    description: Tool-specific documentation
+    root_paths:
+      - docs/tooling
+  
+  adr.architecture:
+    description: Architecture decision records
+    root_paths:
+      - adr
+  
+  config.global:
+    description: Global configuration files and settings
+    root_paths:
+      - config
+  
+  infra.ci:
+    description: CI/CD infrastructure and deployment automation
+    root_paths:
+      - infra
+      - .github/workflows
+      - ci
+  
+  scripts.automation:
+    description: General automation and utility scripts
+    root_paths:
+      - scripts
+  
+  test.suite:
+    description: Test suites and testing utilities
+    root_paths:
+      - tests
+  
+  legacy.archived:
+    description: Legacy and archived code
+    root_paths:
+      - legacy
+      - archive
+  
+  workstreams.tasks:
+    description: Task tracking and workstream artifacts
+    root_paths:
+      - workstreams
+  
+  unassigned:
+    description: Docs without clear module assignment (requires manual review)
+    root_paths: []
