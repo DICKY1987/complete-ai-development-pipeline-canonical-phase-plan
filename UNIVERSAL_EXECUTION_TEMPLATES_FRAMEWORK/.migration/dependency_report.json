@@ -1,31 +1,28 @@
 {
-  "analysis_date": "2025-11-29T16:31:41.694519+00:00",
+  "analysis_date": "2025-12-01T14:55:18.483399+00:00",
   "summary": {
-    "total_modules": 198,
-    "total_dependencies": 490,
-    "average_dependencies": 2.47,
-    "leaf_modules_count": 13,
-    "circular_dependencies_count": 5
+    "total_modules": 223,
+    "total_dependencies": 520,
+    "average_dependencies": 2.33,
+    "leaf_modules_count": 6,
+    "circular_dependencies_count": 2
   },
   "leaf_modules": [
     "aim.exceptions",
     "core.config_loader",
+    "core.engine.router",
     "core.ui_settings",
-    "error.plugins.path_standardizer.plugin",
-    "error.plugins.test_runner.plugin",
-    "modules.aim-environment.m01001B_exceptions",
     "modules.aim-tests.m01001E_conftest",
-    "modules.core-engine.m010001_uet_router",
-    "modules.core-planning.m010002_planner",
-    "modules.core-state.m010003_pattern_telemetry_db",
-    "modules.core-state.m010003_uet_db",
-    "modules.error-plugin-path-standardizer.m01000D_plugin",
     "modules.error-plugin-test-runner.m010018_plugin"
   ],
   "highly_coupled": [
     [
       "modules.aim-cli.m01001A_main",
       11
+    ],
+    [
+      "error.patterns.pattern_analyzer",
+      9
     ],
     [
       "engine.orchestrator.orchestrator",
@@ -58,211 +55,223 @@
     [
       "modules.error-engine.m010004_error_engine",
       6
-    ],
-    [
-      "modules.error-engine.m010004_error_pipeline_service",
-      6
     ]
   ],
   "circular_dependencies": [
-    [
-      "core.prompts",
-      "core.prompts"
-    ],
-    [
-      "core.agent_coordinator",
-      "core.agent_coordinator"
-    ],
-    [
-      "core.openspec_convert",
-      "core.openspec_convert"
-    ],
     [
       "core.spec_index",
       "core.spec_index"
     ],
     [
-      "core.openspec_parser",
-      "core.openspec_parser"
+      "core.prompts",
+      "core.prompts"
     ]
   ],
   "migration_order": [
-    "modules.error-shared.m010021_types",
-    "core.circuit_breakers",
-    "modules.core-engine.m010001_tools",
-    "modules.core-engine.parallel_orchestrator",
-    "modules.core-engine.m010001_pipeline_plus_orchestrator",
-    "core.tools",
-    "modules.core-state.m010003_worktree",
-    "modules.pm-integrations.m01001F_github_sync",
-    "modules.error-plugin-python-isort-fix.m010011_plugin",
-    "modules.core-state.m010003_db_unified",
-    "core.executor",
-    "modules.aim-cli.m01001A_main",
-    "modules.error-plugin-python-mypy.m010012_plugin",
-    "specifications.tools.renderer.renderer",
-    "error.engine.error_context",
-    "modules.aim-environment.m01001B_scanner",
-    "error.plugins.js_prettier_fix.plugin",
-    "modules.core-engine.m010001_prompt_engine",
-    "error.plugins.python_isort_fix.plugin",
-    "modules.error-shared.m010021_jsonl_manager",
-    "modules.error-engine.m010004_agent_adapters",
-    "modules.core-state.m010003_task_queue",
-    "error.plugins.powershell_pssa.plugin",
-    "modules.specifications-tools.m010020_patcher",
-    "modules.error-shared.m010021_env",
-    "error.plugins.js_eslint.plugin",
-    "modules.error-engine.m010004_error_engine",
-    "specifications.tools.guard.guard",
-    "modules.error-plugin-python-pyright.m010014_plugin",
-    "modules.error-plugin-python-ruff.m010015_plugin",
-    "error.engine.agent_adapters",
-    "modules.error-plugin-python-black-fix.m010010_plugin",
-    "error.engine.pipeline_engine",
-    "modules.core-engine.m010001_compensation",
-    "aim.__main__",
-    "modules.core-engine.m010001_scheduler",
-    "modules.error-plugin-test-runner.m010018_plugin",
-    "modules.core-engine.m010001_hardening",
-    "modules.error-plugin-python-safety.m010016_plugin",
-    "modules.error-shared.m010021_security",
-    "modules.core-engine.m010001_context_estimator",
-    "core.scheduler",
-    "modules.core-planning.m010002_planner",
-    "modules.aim-environment.m01001B_installer",
-    "modules.core-engine.m010001_event_bus",
-    "modules.core-engine.m010001_circuit_breakers",
-    "modules.aim-registry.m01001C_config_loader",
-    "error.shared.utils.security",
-    "engine.interfaces.adapter_interface",
-    "core.archive",
-    "modules.core-engine.m010001_patch_converter",
-    "modules.core-engine.m010001_performance",
-    "modules.error-engine.m010004_error_context",
-    "modules.aim-environment.m01001B_audit",
-    "modules.core-planning.m010002_parallelism_detector",
-    "modules.aim-environment.m01001B_health",
-    "modules.core-engine.m010001_plan_validator",
-    "modules.specifications-tools.m010020_resolver",
-    "modules.core-state.m010003_bundles",
-    "modules.error-engine.m010004_error_pipeline_cli",
-    "specifications.tools.indexer.indexer",
-    "modules.aim-environment.m01001B_secrets",
-    "core.recovery",
-    "modules.specifications-tools.m010020_guard",
-    "error.plugins.echo.plugin",
-    "core.ui_settings_cli",
-    "error.plugins.gitleaks.plugin",
-    "modules.core-engine.m010001_recovery_manager",
-    "modules.error-plugin-js-eslint.m010009_plugin",
-    "core.file_lifecycle",
-    "engine.orchestrator.__main__",
-    "modules.core-planning.m010002_ccpm_integration",
-    "engine.queue.__main__",
-    "error.plugins.python_mypy.plugin",
-    "engine.interfaces.orchestrator_interface",
+    "modules.error-plugin-json-jq.m010008_plugin",
     "core.orchestrator",
-    "modules.aim-tests.m01001E_conftest",
-    "modules.core-state.m010003_pattern_telemetry_db",
-    "core.ast.parser",
-    "modules.core-engine.m010001_aim_integration",
-    "pm.integrations.github_sync",
-    "specifications.tools.resolver.resolver",
+    "modules.core-engine.m010001_scheduler",
+    "modules.core-engine.m010001_recovery",
+    "core.engine.monitoring.run_monitor",
+    "modules.aim-environment.m01001B_secrets",
+    "modules.core-state.m010003_worktree",
+    "modules.error-plugin-python-pylint.m010013_plugin",
+    "modules.error-plugin-python-ruff.m010015_plugin",
     "core.ast.languages.python",
-    "modules.core-engine.m010001_validators",
-    "modules.specifications-tools.m010020_indexer",
-    "modules.error-plugin-semgrep.m010017_plugin",
-    "error.plugins.python_safety.plugin",
-    "modules.error-engine.m010004_error_pipeline_service",
-    "core.planner",
+    "modules.core-engine.m010001_aim_integration",
     "modules.core-state.m010003_db_sqlite",
-    "modules.core-ast.languages.python",
-    "error.plugins.python_bandit.plugin",
-    "modules.core-engine.m010001_uet_state_machine",
-    "modules.error-engine.m010004_file_hash_cache",
-    "modules.error-engine.m010004_plugin_manager",
-    "error.plugins.json_jq.plugin",
-    "modules.core-planning.m010002_archive",
-    "modules.error-plugin-codespell.m010005_plugin",
-    "modules.error-plugin-md-markdownlint.m01000B_plugin",
-    "modules.core-engine.m010001_cost_tracker",
+    "modules.core-state.m010003_uet_db_adapter",
+    "modules.aim-environment.m01001B_version_control",
     "modules.error-plugin-path-standardizer.m01000D_plugin",
-    "pm.event_handler",
-    "modules.core-state.m010003_db",
+    "core.error_pipeline_service",
+    "modules.core-engine.m010001_event_bus",
+    "modules.error-plugin-md-mdformat-fix.m01000C_plugin",
+    "modules.core-state.m010003_pattern_telemetry_db",
+    "modules.error-plugin-python-safety.m010016_plugin",
+    "core.file_lifecycle",
+    "core.ui_clients",
+    "modules.pm-integrations.m01001F_github_sync",
+    "error.engine.error_pipeline_service",
+    "error.patterns.state_transition",
+    "modules.error-plugin-test-runner.m010018_plugin",
+    "modules.core-engine.m010001_cost_tracker",
+    "modules.core-engine.m010001_prompt_engine",
+    "modules.core-engine.m010001_plan_validator",
+    "modules.aim-environment.m01001B_health",
+    "core.planner",
+    "modules.error-plugin-gitleaks.m010007_plugin",
+    "modules.error-engine.m010004_plugin_manager",
     "modules.error-shared.m010021_time",
+    "core.config.yaml_config_manager",
+    "modules.error-plugin-js-eslint.m010009_plugin",
+    "core.logging.structured_logger",
+    "core.engine.execution_request_builder",
+    "modules.core-engine.m010001_uet_patch_ledger",
+    "engine.interfaces.adapter_interface",
+    "modules.core-engine.m010001_uet_scheduler",
+    "error.patterns.resource_patterns",
+    "modules.core-engine.m010001_dag_builder",
+    "modules.core-state.m010003_dag_utils",
+    "modules.core-engine.m010001_circuit_breakers",
+    "modules.error-plugin-powershell-pssa.m01000E_plugin",
+    "core.agent_coordinator",
+    "modules.core-state.m010003_crud",
+    "modules.error-plugin-echo.m010006_plugin",
+    "modules.error-engine.m010004_error_pipeline_service",
+    "core.events.simple_event_bus",
+    "error.shared.utils.security",
+    "pm.event_handler",
+    "modules.core-engine.uet_orchestrator",
+    "core.workstreams.workstream_service_impl",
+    "modules.core-engine.m010001_worker",
+    "modules.core-engine.m010001_orchestrator",
+    "core.interfaces.cache_manager",
+    "core.engine.monitoring.progress_tracker",
+    "error.engine.error_pipeline_cli",
+    "core.engine.cost_tracker",
+    "core.error_context",
+    "core.error_records",
+    "core.health.system_health_checker",
+    "core.interfaces.metrics_collector",
+    "modules.aim-cli.m01001A_main",
+    "error.shared.utils.hashing",
+    "modules.error-shared.m010021_jsonl_manager",
+    "core.recovery",
+    "core.state.sqlite_store",
+    "modules.core-engine.m010001_patch_applier",
+    "engine.queue.__main__",
+    "pm.bridge",
+    "modules.core-planning.m010002_archive",
+    "modules.error-shared.m010021_env",
+    "modules.core-engine.m010001_patch_converter",
+    "modules.core-planning.m010002_planner",
+    "core.engine.resilience.resilient_executor",
+    "modules.core-engine.m010001_validators",
+    "modules.error-shared.m010021_security",
+    "core.scheduler",
+    "core.interfaces.logger",
+    "error.engine.error_engine",
+    "modules.error-engine.m010004_error_engine",
+    "modules.error-plugin-yaml-yamllint.m010019_plugin",
+    "modules.core-engine.m010001_process_spawner",
+    "modules.core-engine.m010001_uet_state_machine",
+    "error.plugins.python_ruff.plugin",
+    "core.ast.parser",
+    "core.cache.memory_cache_manager",
+    "error.patterns.types",
+    "modules.error-plugin-semgrep.m010017_plugin",
+    "core.adapters.registry",
+    "core.engine.orchestrator",
+    "core.metrics.simple_metrics_collector",
+    "modules.aim-environment.m01001B_audit",
+    "modules.error-engine.m010004_file_hash_cache",
+    "error.plugins.echo.plugin",
+    "modules.core-engine.parallel_orchestrator",
+    "modules.error-plugin-js-prettier-fix.m01000A_plugin",
+    "modules.core-state.m010003_audit_logger",
+    "modules.core-engine.m010001_uet_router",
+    "modules.error-engine.m010004_error_pipeline_cli",
+    "core.file_ops.local_file_operations",
+    "core.tools",
+    "core.engine.resilience.retry",
+    "modules.core-state.m010003_db",
+    "modules.core-state.m010003_bundles",
+    "modules.core-engine.m010001_uet_orchestrator",
+    "modules.specifications-tools.m010020_indexer",
+    "modules.core-planning.m010002_ccpm_integration",
+    "modules.aim-environment.m01001B_installer",
+    "core.engine.patch_ledger",
+    "core.interfaces.data_provider",
+    "modules.core-engine.m010001_performance",
+    "error.patterns.integration_seam",
+    "modules.error-engine.m010004_agent_adapters",
+    "modules.error-plugin-python-pyright.m010014_plugin",
+    "modules.core-engine.m010001_recovery_manager",
+    "modules.core-engine.m010001_tools",
+    "modules.error-shared.m010021_types",
+    "core.executor",
+    "modules.error-plugin-codespell.m010005_plugin",
+    "modules.error-engine.m010004_pipeline_engine",
+    "core.execution.subprocess_executor",
     "modules.aim-environment.m01001B_exceptions",
     "modules.core-engine.m010001_executor",
-    "error.plugins.semgrep.plugin",
-    "modules.core-engine.m010001_dag_builder",
-    "error.engine.plugin_manager",
-    "modules.error-shared.m010021_hashing",
-    "error.plugins.python_pyright.plugin",
-    "modules.error-plugin-powershell-pssa.m01000E_plugin",
-    "core.error_records",
-    "modules.core-ast.parser",
-    "error.plugins.python_black_fix.plugin",
-    "modules.core-engine.m010001_uet_orchestrator",
-    "error.engine.error_engine",
-    "modules.core-engine.m010001_worker",
-    "modules.error-plugin-json-jq.m010008_plugin",
-    "error.plugins.test_runner.plugin",
-    "error.plugins.md_markdownlint.plugin",
-    "error.engine.error_pipeline_service",
-    "modules.core-engine.m010001_uet_router",
-    "modules.core-engine.m010001_uet_scheduler",
-    "modules.error-plugin-echo.m010006_plugin",
-    "modules.error-plugin-python-bandit.m01000F_plugin",
-    "modules.error-plugin-python-pylint.m010013_plugin",
-    "error.engine.error_pipeline_cli",
-    "error.plugins.md_mdformat_fix.plugin",
-    "modules.aim-environment.m01001B_version_control",
-    "modules.specifications-tools.m010020_renderer",
-    "core.error_pipeline_service",
-    "modules.core-state.m010003_crud",
-    "engine.interfaces.state_interface",
-    "core.ui_cli",
-    "error.plugins.path_standardizer.plugin",
-    "modules.core-state.m010003_audit_logger",
-    "error.engine.error_state_machine",
-    "modules.core-state.m010003_uet_db_adapter",
+    "modules.specifications-tools.m010020_patcher",
     "modules.error-engine.m010004_error_state_machine",
-    "error.plugins.python_ruff.plugin",
-    "error.engine.file_hash_cache",
-    "modules.core-engine.m010001_orchestrator",
-    "modules.core-engine.m010001_recovery",
-    "modules.core-engine.m010001_metrics",
-    "modules.error-plugin-gitleaks.m010007_plugin",
-    "error.plugins.yaml_yamllint.plugin",
-    "modules.error-plugin-js-prettier-fix.m01000A_plugin",
-    "modules.error-engine.m010004_pipeline_engine",
-    "specifications.tools.patcher.patcher",
-    "core.error_context",
-    "error.plugins.python_pylint.plugin",
-    "modules.error-plugin-md-mdformat-fix.m01000C_plugin",
-    "core.engine.parallel_orchestrator",
-    "modules.core-engine.m010001_process_spawner",
-    "modules.core-engine.m010001_patch_applier",
-    "modules.core-state.m010003_uet_db",
-    "modules.core-ast.m010000_extractors",
+    "core.validation.basic_validation_service",
+    "core.openspec_convert",
+    "modules.error-plugin-python-mypy.m010012_plugin",
+    "core.interfaces.event_bus",
+    "core.engine.router",
+    "core.interfaces.workstream_service",
+    "modules.specifications-tools.m010020_renderer",
+    "modules.core-ast.languages.python",
+    "modules.core-engine.m010001_hardening",
     "modules.core-engine.m010001_integration_worker",
-    "modules.error-plugin-yaml-yamllint.m010019_plugin",
-    "error.plugins.codespell.plugin",
-    "modules.core-state.m010003_dag_utils",
-    "modules.core-engine.m010001_uet_patch_ledger",
+    "error.patterns.pattern_analyzer",
+    "error.shared.utils.jsonl_manager",
+    "modules.core-engine.m010001_context_estimator",
+    "error.patterns.temporal_patterns",
+    "engine.interfaces.state_interface",
+    "core.interfaces.health_checker",
+    "modules.core-state.m010003_task_queue",
+    "modules.core-planning.m010002_parallelism_detector",
+    "modules.core-ast.m010000_extractors",
+    "modules.aim-environment.m01001B_scanner",
+    "modules.aim-registry.m01001C_config_loader",
+    "modules.error-shared.m010021_hashing",
+    "modules.core-ast.parser",
+    "modules.error-plugin-md-markdownlint.m01000B_plugin",
+    "modules.specifications-tools.m010020_resolver",
+    "modules.error-plugin-python-isort-fix.m010011_plugin",
+    "error.patterns.error_path",
+    "core.data.state_data_provider",
+    "engine.orchestrator.__main__",
+    "modules.core-engine.m010001_compensation",
+    "core.circuit_breakers",
+    "modules.core-engine.m010001_pipeline_plus_orchestrator",
+    "aim.__main__",
+    "modules.core-state.m010003_db_unified",
+    "modules.error-plugin-python-black-fix.m010010_plugin",
+    "core.interfaces.validation_service",
+    "modules.core-state.m010003_uet_db",
+    "modules.aim-tests.m01001E_conftest",
+    "modules.error-engine.m010004_error_context",
+    "modules.specifications-tools.m010020_guard",
+    "core.ui_settings",
+    "core.engine.worker_lifecycle",
+    "core.engine.resilience.circuit_breaker",
+    "engine.interfaces.orchestrator_interface",
+    "modules.core-engine.m010001_metrics",
+    "modules.error-plugin-python-bandit.m01000F_plugin",
+    "core.engine.scheduler",
+    "core.archive",
+    "core.interfaces.file_operations",
+    "error.patterns.boundary_patterns",
     "aim.bridge",
     "aim.exceptions",
-    "core.agent_coordinator",
+    "aim.pool_interface",
+    "core.adapters.base",
     "core.config_loader",
+    "core.engine.circuit_breakers",
+    "core.engine.context_estimator",
+    "core.engine.dag_builder",
+    "core.engine.executor",
+    "core.engine.integration_worker",
+    "core.engine.patch_converter",
+    "core.engine.process_spawner",
+    "core.engine.prompt_engine",
+    "core.engine.recovery",
+    "core.engine.state_machine",
+    "core.engine.tools",
+    "core.interfaces.config_manager",
+    "core.interfaces.process_executor",
+    "core.interfaces.state_store",
+    "core.interfaces.tool_adapter",
     "core.invoke_utils",
-    "core.openspec_convert",
     "core.openspec_parser",
     "core.prompts",
     "core.spec_index",
     "core.tool_instrumentation",
-    "core.ui_clients",
-    "core.ui_models",
-    "core.ui_settings",
     "engine.adapters.aider_adapter",
     "engine.adapters.codex_adapter",
     "engine.adapters.git_adapter",
@@ -277,18 +286,16 @@
     "engine.state_store.job_state_store",
     "engine.types",
     "error.shared.utils.env",
-    "error.shared.utils.hashing",
-    "error.shared.utils.jsonl_manager",
     "error.shared.utils.time",
     "error.shared.utils.types",
-    "pm.bridge",
     "pm.epic",
     "pm.models",
     "pm.prd"
   ],
   "dependency_graph": {
     "core.agent_coordinator": [
-      "core.agent_coordinator"
+      "__future__",
+      "dataclasses"
     ],
     "core.archive": [
       "modules.core_planning.m010002_archive"
@@ -301,31 +308,34 @@
       "modules.error_engine.m010004_error_context"
     ],
     "core.error_pipeline_service": [
-      "modules.error_engine.m010004_error_pipeline_service"
+      "__future__"
     ],
     "core.error_records": [
-      "core.tool_instrumentation",
       "modules.core_state.m010003_db",
-      "modules.core_engine.m010001_event_bus"
+      "modules.core_engine.m010001_event_bus",
+      "core.tool_instrumentation"
     ],
     "core.executor": [
       "modules.core_engine.m010001_executor"
     ],
     "core.file_lifecycle": [
-      "core.tool_instrumentation",
-      "modules.core_state.m010003_db"
+      "modules.core_state.m010003_db",
+      "core.tool_instrumentation"
     ],
     "core.invoke_utils": [
-      "__future__",
-      "core.config_loader",
       "invoke",
-      "dataclasses"
+      "__future__",
+      "dataclasses",
+      "core.config_loader"
     ],
     "core.openspec_convert": [
-      "core.openspec_convert"
+      "__future__",
+      "core.openspec_parser"
     ],
     "core.openspec_parser": [
-      "core.openspec_parser"
+      "dataclasses",
+      "__future__",
+      "argparse"
     ],
     "core.orchestrator": [
       "modules.core_engine.m010001_orchestrator"
@@ -350,14 +360,9 @@
     ],
     "core.tool_instrumentation": [
       "modules.core_engine.m010001_event_bus",
-      "time",
       "modules.core_state.m010003_db",
+      "time",
       "contextlib"
-    ],
-    "core.ui_cli": [
-      "core.ui_models",
-      "argparse",
-      "core.ui_clients"
     ],
     "core.ui_clients": [
       "core.ui_models",
@@ -365,173 +370,279 @@
       "modules.core_engine.m010001_event_bus",
       "sqlite3"
     ],
-    "core.ui_models": [
-      "enum",
-      "dataclasses"
-    ],
     "core.ui_settings": [],
-    "core.ui_settings_cli": [
-      "traceback",
-      "core.ui_settings",
-      "argparse"
+    "core.adapters.base": [
+      "__future__",
+      "core.interfaces.tool_adapter",
+      "core.interfaces.process_executor"
+    ],
+    "core.adapters.registry": [
+      "__future__",
+      "core.adapters.base",
+      "core.interfaces.tool_adapter",
+      "core.interfaces.process_executor"
     ],
     "core.ast.parser": [
       "modules.core_ast.parser"
     ],
-    "core.engine.parallel_orchestrator": [
-      "modules.core_engine.parallel_orchestrator"
+    "core.cache.memory_cache_manager": [
+      "__future__",
+      "time"
+    ],
+    "core.config.yaml_config_manager": [
+      "core.interfaces.config_manager",
+      "__future__",
+      "copy"
+    ],
+    "core.data.state_data_provider": [
+      "__future__",
+      "core.interfaces.state_store"
+    ],
+    "core.engine.circuit_breakers": [
+      "warnings",
+      "__future__",
+      "dataclasses",
+      "core.config_loader"
+    ],
+    "core.engine.context_estimator": [
+      "dataclasses"
+    ],
+    "core.engine.cost_tracker": [
+      "dataclasses"
+    ],
+    "core.engine.dag_builder": [
+      "collections"
+    ],
+    "core.engine.execution_request_builder": [
+      "uuid"
+    ],
+    "core.engine.executor": [
+      "__future__",
+      "dataclasses"
+    ],
+    "core.engine.integration_worker": [
+      "__future__",
+      "dataclasses",
+      "modules.core_state"
+    ],
+    "core.engine.orchestrator": [
+      "uuid",
+      "core.engine.state_machine",
+      "modules.core_state.m010003_uet_db_adapter"
+    ],
+    "core.engine.patch_converter": [
+      "dataclasses"
+    ],
+    "core.engine.patch_ledger": [
+      "dataclasses"
+    ],
+    "core.engine.process_spawner": [
+      "__future__",
+      "dataclasses",
+      "tempfile"
+    ],
+    "core.engine.prompt_engine": [
+      "dataclasses",
+      "jinja2"
+    ],
+    "core.engine.recovery": [
+      "__future__"
+    ],
+    "core.engine.router": [],
+    "core.engine.scheduler": [
+      "time",
+      "collections"
+    ],
+    "core.engine.state_machine": [
+      "enum"
+    ],
+    "core.engine.tools": [
+      "warnings",
+      "time",
+      "dataclasses",
+      "core.config_loader"
+    ],
+    "core.engine.worker_lifecycle": [
+      "dataclasses"
+    ],
+    "core.events.simple_event_bus": [
+      "__future__",
+      "uuid",
+      "collections"
+    ],
+    "core.execution.subprocess_executor": [
+      "__future__",
+      "time",
+      "core.interfaces.process_executor"
+    ],
+    "core.file_ops.local_file_operations": [
+      "__future__"
+    ],
+    "core.health.system_health_checker": [
+      "__future__"
+    ],
+    "core.interfaces.cache_manager": [
+      "__future__"
+    ],
+    "core.interfaces.config_manager": [
+      "__future__"
+    ],
+    "core.interfaces.data_provider": [
+      "__future__"
+    ],
+    "core.interfaces.event_bus": [
+      "__future__"
+    ],
+    "core.interfaces.file_operations": [
+      "__future__"
+    ],
+    "core.interfaces.health_checker": [
+      "__future__"
+    ],
+    "core.interfaces.logger": [
+      "__future__"
+    ],
+    "core.interfaces.metrics_collector": [
+      "__future__"
+    ],
+    "core.interfaces.process_executor": [
+      "__future__",
+      "dataclasses"
+    ],
+    "core.interfaces.state_store": [
+      "__future__"
+    ],
+    "core.interfaces.tool_adapter": [
+      "__future__",
+      "core.interfaces.process_executor"
+    ],
+    "core.interfaces.validation_service": [
+      "__future__"
+    ],
+    "core.interfaces.workstream_service": [
+      "__future__"
+    ],
+    "core.logging.structured_logger": [
+      "__future__"
+    ],
+    "core.metrics.simple_metrics_collector": [
+      "__future__",
+      "collections"
+    ],
+    "core.state.sqlite_store": [
+      "__future__",
+      "uuid",
+      "sqlite3",
+      "core.interfaces.state_store"
+    ],
+    "core.validation.basic_validation_service": [
+      "__future__"
+    ],
+    "core.workstreams.workstream_service_impl": [
+      "__future__",
+      "uuid",
+      "core.interfaces.state_store"
     ],
     "core.ast.languages.python": [
       "modules.core_ast.languages.python"
     ],
-    "error.engine.agent_adapters": [
-      "time",
-      "__future__",
+    "core.engine.monitoring.progress_tracker": [
       "dataclasses"
     ],
-    "error.engine.error_context": [
-      "__future__",
-      "dataclasses"
+    "core.engine.monitoring.run_monitor": [
+      "dataclasses",
+      "enum",
+      "modules.core_state.m010003_uet_db_adapter"
+    ],
+    "core.engine.resilience.circuit_breaker": [
+      "enum",
+      "time"
+    ],
+    "core.engine.resilience.resilient_executor": [
+      "circuit_breaker",
+      "retry"
+    ],
+    "core.engine.resilience.retry": [
+      "abc",
+      "time",
+      "random"
     ],
     "error.engine.error_engine": [
       "modules.error_engine.m010004_plugin_manager",
       "modules.error_engine.m010004_pipeline_engine",
-      "error.shared.utils.types",
-      "__future__",
       "error_context",
-      "modules.error_engine.m010004_file_hash_cache"
+      "modules.error_engine.m010004_file_hash_cache",
+      "__future__",
+      "error.shared.utils.types"
     ],
     "error.engine.error_pipeline_cli": [
-      "error_pipeline_service",
       "__future__",
+      "error_pipeline_service",
       "argparse",
       "error_context"
     ],
     "error.engine.error_pipeline_service": [
-      "error.shared.utils.time",
-      "dataclasses",
-      "modules.error_engine.m010004_error_context",
-      "modules.error_engine.m010004_agent_adapters",
       "modules.error_engine.m010004_error_state_machine",
-      "__future__"
-    ],
-    "error.engine.error_state_machine": [
+      "modules.error_engine.m010004_error_context",
       "__future__",
-      "error_context"
+      "modules.error_engine.m010004_agent_adapters",
+      "dataclasses",
+      "error.shared.utils.time"
     ],
-    "error.engine.file_hash_cache": [
-      "error.shared.utils.time",
+    "error.patterns.boundary_patterns": [
       "__future__",
-      "error.shared.utils.hashing"
+      "types",
+      "ast"
     ],
-    "error.engine.pipeline_engine": [
-      "error.shared.utils.time",
-      "error.shared.utils.jsonl_manager",
-      "tempfile",
+    "error.patterns.error_path": [
       "__future__",
-      "error.shared.utils.types"
+      "types",
+      "ast"
     ],
-    "error.engine.plugin_manager": [
-      "importlib.util",
+    "error.patterns.integration_seam": [
       "__future__",
-      "error.shared.utils.types",
-      "graphlib"
+      "types",
+      "ast"
     ],
-    "error.plugins.codespell.plugin": [
+    "error.patterns.pattern_analyzer": [
+      "temporal_patterns",
+      "state_transition",
+      "integration_seam",
+      "resource_patterns",
+      "boundary_patterns",
+      "error_path",
+      "types",
       "__future__",
-      "error.shared.utils.types",
-      "error.shared.utils.env"
+      "time"
+    ],
+    "error.patterns.resource_patterns": [
+      "__future__",
+      "types",
+      "ast"
+    ],
+    "error.patterns.state_transition": [
+      "__future__",
+      "types",
+      "ast"
+    ],
+    "error.patterns.temporal_patterns": [
+      "__future__",
+      "types",
+      "ast"
+    ],
+    "error.patterns.types": [
+      "__future__",
+      "dataclasses",
+      "enum"
     ],
     "error.plugins.echo.plugin": [
       "__future__",
       "error.shared.utils.types"
     ],
-    "error.plugins.gitleaks.plugin": [
-      "__future__",
-      "error.shared.utils.types",
-      "error.shared.utils.env"
-    ],
-    "error.plugins.json_jq.plugin": [
-      "__future__",
-      "error.shared.utils.types",
-      "error.shared.utils.env"
-    ],
-    "error.plugins.js_eslint.plugin": [
-      "__future__",
-      "error.shared.utils.types",
-      "error.shared.utils.env"
-    ],
-    "error.plugins.js_prettier_fix.plugin": [
-      "__future__",
-      "error.shared.utils.types",
-      "error.shared.utils.env"
-    ],
-    "error.plugins.md_markdownlint.plugin": [
-      "__future__",
-      "error.shared.utils.types",
-      "error.shared.utils.env"
-    ],
-    "error.plugins.md_mdformat_fix.plugin": [
-      "__future__",
-      "error.shared.utils.types",
-      "error.shared.utils.env"
-    ],
-    "error.plugins.path_standardizer.plugin": [],
-    "error.plugins.powershell_pssa.plugin": [
-      "__future__",
-      "error.shared.utils.types",
-      "error.shared.utils.env"
-    ],
-    "error.plugins.python_bandit.plugin": [
-      "__future__",
-      "error.shared.utils.types",
-      "error.shared.utils.env"
-    ],
-    "error.plugins.python_black_fix.plugin": [
-      "__future__",
-      "error.shared.utils.types",
-      "error.shared.utils.env"
-    ],
-    "error.plugins.python_isort_fix.plugin": [
-      "__future__",
-      "error.shared.utils.types",
-      "error.shared.utils.env"
-    ],
-    "error.plugins.python_mypy.plugin": [
-      "__future__",
-      "error.shared.utils.types",
-      "error.shared.utils.env"
-    ],
-    "error.plugins.python_pylint.plugin": [
-      "__future__",
-      "error.shared.utils.types",
-      "error.shared.utils.env"
-    ],
-    "error.plugins.python_pyright.plugin": [
-      "__future__",
-      "error.shared.utils.types",
-      "error.shared.utils.env"
-    ],
     "error.plugins.python_ruff.plugin": [
-      "__future__",
       "error.shared.utils.types",
-      "error.shared.utils.env",
-      "core.invoke_utils"
-    ],
-    "error.plugins.python_safety.plugin": [
       "__future__",
-      "error.shared.utils.types",
-      "error.shared.utils.env"
-    ],
-    "error.plugins.semgrep.plugin": [
-      "__future__",
-      "error.shared.utils.types",
-      "error.shared.utils.env"
-    ],
-    "error.plugins.test_runner.plugin": [],
-    "error.plugins.yaml_yamllint.plugin": [
-      "__future__",
-      "error.shared.utils.types",
+      "core.invoke_utils",
       "error.shared.utils.env"
     ],
     "error.shared.utils.env": [
@@ -541,11 +652,12 @@
       "__future__"
     ],
     "error.shared.utils.jsonl_manager": [
-      "io",
-      "__future__"
+      "__future__",
+      "io"
     ],
     "error.shared.utils.security": [
-      "__future__"
+      "__future__",
+      "dataclasses"
     ],
     "error.shared.utils.time": [
       "__future__",
@@ -556,74 +668,80 @@
       "dataclasses"
     ],
     "aim.bridge": [
-      "modules.aim_environment.m01001B_secrets"
+      "queue",
+      "aim.pool_interface",
+      "modules.aim_environment.m01001B_secrets",
+      "threading",
+      "time"
     ],
     "aim.exceptions": [],
+    "aim.pool_interface": [
+      "queue",
+      "dataclasses"
+    ],
     "aim.__main__": [
       "modules.aim_cli.m01001A_main"
     ],
     "pm.bridge": [
-      "pm.epic",
       "pm.prd",
-      "pm.models"
+      "pm.models",
+      "pm.epic"
     ],
     "pm.epic": [
-      "jinja2",
       "pm.models",
-      "pm"
+      "pm",
+      "jinja2"
     ],
     "pm.event_handler": [
-      "logging",
-      "pm.epic",
       "pm.models",
+      "pm.epic",
+      "logging",
       "modules.pm_integrations.m01001F_github_sync"
     ],
     "pm.models": [
-      "enum",
-      "dataclasses"
+      "dataclasses",
+      "enum"
     ],
     "pm.prd": [
-      "jinja2",
       "pm.models",
-      "pm"
-    ],
-    "pm.integrations.github_sync": [
-      "__future__",
-      "dataclasses"
+      "pm",
+      "jinja2"
     ],
     "modules.aim-cli.m01001A_main": [
-      "rich.console",
+      "traceback",
       "aim.cli.commands.tools",
       "aim.cli.commands.health",
       "modules.aim_environment",
-      "aim.cli.commands.version",
-      "modules.aim_registry",
-      "aim.cli.commands.audit",
+      "rich.console",
       "asyncio",
       "aim.cli.commands.secrets",
+      "aim.cli.commands.version",
+      "modules.aim_registry",
       "aim.cli.commands.scan",
-      "traceback"
+      "aim.cli.commands.audit"
     ],
     "modules.aim-environment.m01001B_audit": [
-      "enum",
-      "uuid",
-      "dataclasses"
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.audit"
     ],
-    "modules.aim-environment.m01001B_exceptions": [],
+    "modules.aim-environment.m01001B_exceptions": [
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.exceptions"
+    ],
     "modules.aim-environment.m01001B_health": [
-      "modules.aim_environment",
       "dataclasses",
+      "modules.aim_environment",
       "modules.aim_registry"
     ],
     "modules.aim-environment.m01001B_installer": [
       "asyncio",
-      "modules.aim_environment",
-      "dataclasses"
+      "dataclasses",
+      "modules.aim_environment"
     ],
     "modules.aim-environment.m01001B_scanner": [
-      "collections",
+      "dataclasses",
       "modules.aim_environment",
-      "dataclasses"
+      "collections"
     ],
     "modules.aim-environment.m01001B_secrets": [
       "modules.aim_environment",
@@ -640,439 +758,434 @@
     ],
     "modules.aim-tests.m01001E_conftest": [],
     "modules.core-ast.m010000_extractors": [
-      "abc",
-      "tree_sitter",
-      "dataclasses"
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.ast.extractors"
     ],
     "modules.core-ast.parser": [
-      "tree_sitter_python",
-      "tree_sitter_javascript",
       "tree_sitter_typescript",
       "__future__",
-      "tree_sitter"
+      "tree_sitter_javascript",
+      "tree_sitter",
+      "tree_sitter_python"
     ],
     "modules.core-engine.m010001_aim_integration": [
-      "modules.core_engine",
-      "logging",
       "aim.bridge",
-      "asyncio",
       "aim.exceptions",
+      "asyncio",
+      "logging",
+      "modules.aim_registry",
       "modules.aim_environment",
-      "modules.aim_registry"
+      "modules.core_engine"
     ],
     "modules.core-engine.m010001_circuit_breakers": [
-      "__future__",
-      "core.config_loader",
-      "dataclasses",
-      "warnings"
+      "warnings",
+      "core.engine.circuit_breakers"
     ],
     "modules.core-engine.m010001_compensation": [
       "modules.core_state"
     ],
     "modules.core-engine.m010001_context_estimator": [
-      "dataclasses"
+      "warnings",
+      "core.engine.context_estimator"
     ],
     "modules.core-engine.m010001_cost_tracker": [
       "modules.core_state",
-      "dataclasses",
-      "sqlite3"
-    ],
-    "modules.core-engine.m010001_dag_builder": [
-      "collections"
-    ],
-    "modules.core-engine.m010001_event_bus": [
-      "enum",
-      "dataclasses",
-      "modules.core_state"
-    ],
-    "modules.core-engine.m010001_executor": [
-      "__future__"
-    ],
-    "modules.core-engine.m010001_hardening": [
-      "time",
-      "__future__",
-      "functools",
-      "logging",
-      "modules.core_state"
-    ],
-    "modules.core-engine.m010001_integration_worker": [
-      "__future__",
-      "dataclasses",
-      "modules.core_state"
-    ],
-    "modules.core-engine.m010001_metrics": [
-      "modules.core_engine",
-      "dataclasses",
-      "modules.core_state"
-    ],
-    "modules.core-engine.m010001_orchestrator": [
-      "uet_orchestrator",
-      "warnings"
-    ],
-    "modules.core-engine.m010001_patch_applier": [
-      "modules.core_engine",
-      "dataclasses",
-      "sqlite3"
-    ],
-    "modules.core-engine.m010001_patch_converter": [
+      "sqlite3",
       "dataclasses"
     ],
+    "modules.core-engine.m010001_dag_builder": [
+      "warnings",
+      "core.engine.dag_builder"
+    ],
+    "modules.core-engine.m010001_event_bus": [
+      "modules.core_state",
+      "dataclasses",
+      "enum"
+    ],
+    "modules.core-engine.m010001_executor": [
+      "warnings",
+      "core.engine.executor"
+    ],
+    "modules.core-engine.m010001_hardening": [
+      "modules.core_state",
+      "logging",
+      "__future__",
+      "functools",
+      "time"
+    ],
+    "modules.core-engine.m010001_integration_worker": [
+      "warnings",
+      "core.engine.integration_worker"
+    ],
+    "modules.core-engine.m010001_metrics": [
+      "modules.core_state",
+      "dataclasses",
+      "modules.core_engine"
+    ],
+    "modules.core-engine.m010001_orchestrator": [
+      "warnings",
+      "uet_orchestrator"
+    ],
+    "modules.core-engine.m010001_patch_applier": [
+      "sqlite3",
+      "dataclasses",
+      "modules.core_engine"
+    ],
+    "modules.core-engine.m010001_patch_converter": [
+      "warnings",
+      "core.engine.patch_converter"
+    ],
     "modules.core-engine.m010001_performance": [
+      "modules.core_state",
       "modules.core_engine",
+      "__future__",
       "dataclasses",
       "time",
-      "__future__",
-      "math",
-      "modules.core_state"
+      "math"
     ],
     "modules.core-engine.m010001_pipeline_plus_orchestrator": [
       "dataclasses"
     ],
     "modules.core-engine.m010001_plan_validator": [
-      "modules.core_planning",
-      "dataclasses",
+      "modules.core_state",
       "enum",
       "__future__",
-      "modules.core_state"
+      "dataclasses",
+      "modules.core_planning"
     ],
     "modules.core-engine.m010001_process_spawner": [
-      "__future__",
-      "tempfile",
-      "dataclasses"
+      "warnings",
+      "core.engine.process_spawner"
     ],
     "modules.core-engine.m010001_prompt_engine": [
-      "jinja2",
-      "dataclasses"
+      "warnings",
+      "core.engine.prompt_engine"
     ],
     "modules.core-engine.m010001_recovery": [
-      "__future__"
+      "warnings",
+      "core.engine.recovery"
     ],
     "modules.core-engine.m010001_recovery_manager": [
-      "modules.core_engine",
-      "modules.core_state"
+      "modules.core_state",
+      "modules.core_engine"
     ],
     "modules.core-engine.m010001_scheduler": [
       "m010001_uet_scheduler"
     ],
     "modules.core-engine.m010001_tools": [
-      "time",
-      "core.config_loader",
-      "dataclasses",
-      "warnings"
+      "warnings",
+      "core.engine.tools"
     ],
     "modules.core-engine.m010001_uet_orchestrator": [
-      "modules.core_engine",
       "uuid",
-      "modules.core_state"
+      "modules.core_state",
+      "modules.core_engine"
     ],
     "modules.core-engine.m010001_uet_patch_ledger": [
-      "dataclasses"
+      "__future__"
     ],
-    "modules.core-engine.m010001_uet_router": [],
+    "modules.core-engine.m010001_uet_router": [
+      "__future__"
+    ],
     "modules.core-engine.m010001_uet_scheduler": [
       "time",
       "collections"
     ],
     "modules.core-engine.m010001_uet_state_machine": [
-      "enum"
+      "__future__"
     ],
     "modules.core-engine.m010001_validators": [
       "modules.core_state",
-      "time",
       "dataclasses",
+      "time",
       "psutil"
     ],
     "modules.core-engine.m010001_worker": [
-      "modules.core_engine",
+      "modules.core_state",
+      "__future__",
+      "enum",
       "uuid",
       "dataclasses",
-      "enum",
-      "__future__",
-      "modules.core_state"
+      "modules.core_engine"
     ],
     "modules.core-engine.parallel_orchestrator": [
       "__future__"
     ],
+    "modules.core-engine.uet_orchestrator": [
+      "__future__",
+      "m010001_uet_orchestrator"
+    ],
     "modules.core-planning.m010002_archive": [
-      "__future__"
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.planning.archive"
     ],
     "modules.core-planning.m010002_ccpm_integration": [
-      "pm.bridge",
-      "pm.epic",
-      "pm.models"
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.planning.ccpm_integration"
     ],
     "modules.core-planning.m010002_parallelism_detector": [
       "__future__",
       "dataclasses",
       "modules.core_state"
     ],
-    "modules.core-planning.m010002_planner": [],
+    "modules.core-planning.m010002_planner": [
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.planning.planner"
+    ],
     "modules.core-state.m010003_audit_logger": [
-      "dataclasses"
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.state.audit_logger"
     ],
     "modules.core-state.m010003_bundles": [
-      "jsonschema",
-      "__future__",
-      "dataclasses"
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.state.bundles"
     ],
     "modules.core-state.m010003_crud": [
-      "db",
-      "__future__",
-      "sqlite3"
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.state.crud"
     ],
     "modules.core-state.m010003_dag_utils": [
-      "bundles",
-      "dataclasses",
-      "__future__"
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.state.dag_utils"
     ],
     "modules.core-state.m010003_db": [
-      "m010003_uet_db_adapter",
-      "m010003_crud",
-      "sqlite3",
+      "__future__",
       "modules.error_engine",
-      "__future__"
+      "m010003_uet_db_adapter",
+      "sqlite3",
+      "m010003_crud"
     ],
     "modules.core-state.m010003_db_sqlite": [
-      "modules.error_engine",
       "__future__",
-      "sqlite3"
+      "sqlite3",
+      "modules.error_engine"
     ],
     "modules.core-state.m010003_db_unified": [
-      "sqlite3"
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.state.db_unified"
     ],
-    "modules.core-state.m010003_pattern_telemetry_db": [],
+    "modules.core-state.m010003_pattern_telemetry_db": [
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.state.pattern_telemetry_db"
+    ],
     "modules.core-state.m010003_task_queue": [
-      "ulid",
-      "filelock",
-      "dataclasses"
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.state.task_queue"
     ],
-    "modules.core-state.m010003_uet_db": [],
+    "modules.core-state.m010003_uet_db": [
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.state.uet_db"
+    ],
     "modules.core-state.m010003_uet_db_adapter": [
-      "m010003_db",
-      "sqlite3"
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.state.crud",
+      "sqlite3",
+      "m010003_db"
     ],
     "modules.core-state.m010003_worktree": [
-      "__future__"
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.state.worktree"
     ],
     "modules.error-engine.m010004_agent_adapters": [
-      "time",
-      "__future__",
-      "dataclasses"
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.engine.agent_adapters"
     ],
     "modules.error-engine.m010004_error_context": [
-      "__future__",
-      "dataclasses"
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.engine.error_context"
     ],
     "modules.error-engine.m010004_error_engine": [
-      "m010004_plugin_manager",
-      "error.shared.utils.types",
       "__future__",
+      "m010004_plugin_manager",
       "error_context",
+      "error.shared.utils.types",
       "m010004_pipeline_engine",
       "m010004_file_hash_cache"
     ],
     "modules.error-engine.m010004_error_pipeline_cli": [
-      "m010004_error_pipeline_service",
       "__future__",
       "argparse",
+      "m010004_error_pipeline_service",
       "error_context"
     ],
     "modules.error-engine.m010004_error_pipeline_service": [
-      "error.shared.utils.time",
-      "dataclasses",
+      "__future__",
+      "m010004_agent_adapters",
       "m010004_error_state_machine",
       "m010004_error_context",
-      "__future__",
-      "m010004_agent_adapters"
+      "dataclasses",
+      "error.shared.utils.time"
     ],
     "modules.error-engine.m010004_error_state_machine": [
-      "__future__",
-      "error_context"
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.engine.error_state_machine"
     ],
     "modules.error-engine.m010004_file_hash_cache": [
-      "error.shared.utils.time",
-      "__future__",
-      "error.shared.utils.hashing"
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.engine.file_hash_cache"
     ],
     "modules.error-engine.m010004_pipeline_engine": [
-      "error.shared.utils.time",
-      "error.shared.utils.jsonl_manager",
-      "tempfile",
-      "__future__",
-      "error.shared.utils.types"
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.engine.pipeline_engine"
     ],
     "modules.error-engine.m010004_plugin_manager": [
-      "importlib.util",
-      "__future__",
-      "error.shared.utils.types",
-      "graphlib"
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.engine.plugin_manager"
     ],
     "modules.error-plugin-codespell.m010005_plugin": [
-      "__future__",
-      "error.shared.utils.types",
-      "error.shared.utils.env"
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.plugins.codespell.plugin"
     ],
     "modules.error-plugin-echo.m010006_plugin": [
-      "__future__",
-      "error.shared.utils.types"
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.plugins.echo.plugin"
     ],
     "modules.error-plugin-gitleaks.m010007_plugin": [
-      "__future__",
-      "error.shared.utils.types",
-      "error.shared.utils.env"
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.plugins.gitleaks.plugin"
     ],
     "modules.error-plugin-js-eslint.m010009_plugin": [
-      "__future__",
-      "error.shared.utils.types",
-      "error.shared.utils.env"
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.plugins.js_eslint.plugin"
     ],
     "modules.error-plugin-js-prettier-fix.m01000A_plugin": [
-      "__future__",
-      "error.shared.utils.types",
-      "error.shared.utils.env"
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.plugins.js_prettier_fix.plugin"
     ],
     "modules.error-plugin-json-jq.m010008_plugin": [
-      "__future__",
-      "error.shared.utils.types",
-      "error.shared.utils.env"
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.plugins.json_jq.plugin"
     ],
     "modules.error-plugin-md-markdownlint.m01000B_plugin": [
-      "__future__",
-      "error.shared.utils.types",
-      "error.shared.utils.env"
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.plugins.md_markdownlint.plugin"
     ],
     "modules.error-plugin-md-mdformat-fix.m01000C_plugin": [
-      "__future__",
-      "error.shared.utils.types",
-      "error.shared.utils.env"
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.plugins.md_mdformat_fix.plugin"
     ],
-    "modules.error-plugin-path-standardizer.m01000D_plugin": [],
+    "modules.error-plugin-path-standardizer.m01000D_plugin": [
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.plugins.path_standardizer.plugin"
+    ],
     "modules.error-plugin-powershell-pssa.m01000E_plugin": [
-      "__future__",
-      "error.shared.utils.types",
-      "error.shared.utils.env"
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.plugins.powershell_pssa.plugin"
     ],
     "modules.error-plugin-python-bandit.m01000F_plugin": [
-      "__future__",
-      "error.shared.utils.types",
-      "error.shared.utils.env"
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.plugins.python_bandit.plugin"
     ],
     "modules.error-plugin-python-black-fix.m010010_plugin": [
-      "__future__",
-      "error.shared.utils.types",
-      "error.shared.utils.env"
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.plugins.python_black_fix.plugin"
     ],
     "modules.error-plugin-python-isort-fix.m010011_plugin": [
-      "__future__",
-      "error.shared.utils.types",
-      "error.shared.utils.env"
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.plugins.python_isort_fix.plugin"
     ],
     "modules.error-plugin-python-mypy.m010012_plugin": [
-      "__future__",
-      "error.shared.utils.types",
-      "error.shared.utils.env"
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.plugins.python_mypy.plugin"
     ],
     "modules.error-plugin-python-pylint.m010013_plugin": [
-      "__future__",
-      "error.shared.utils.types",
-      "error.shared.utils.env"
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.plugins.python_pylint.plugin"
     ],
     "modules.error-plugin-python-pyright.m010014_plugin": [
-      "__future__",
-      "error.shared.utils.types",
-      "error.shared.utils.env"
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.plugins.python_pyright.plugin"
     ],
     "modules.error-plugin-python-ruff.m010015_plugin": [
+      "__future__",
       "importlib.util",
       "core.invoke_utils",
-      "__future__",
-      "error.shared.utils.types",
-      "error.shared.utils.env"
+      "error.shared.utils.env",
+      "error.shared.utils.types"
     ],
     "modules.error-plugin-python-safety.m010016_plugin": [
-      "__future__",
-      "error.shared.utils.types",
-      "error.shared.utils.env"
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.plugins.python_safety.plugin"
     ],
     "modules.error-plugin-semgrep.m010017_plugin": [
-      "__future__",
-      "error.shared.utils.types",
-      "error.shared.utils.env"
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.plugins.semgrep.plugin"
     ],
     "modules.error-plugin-test-runner.m010018_plugin": [],
     "modules.error-plugin-yaml-yamllint.m010019_plugin": [
-      "__future__",
-      "error.shared.utils.types",
-      "error.shared.utils.env"
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.plugins.yaml_yamllint.plugin"
     ],
     "modules.error-shared.m010021_env": [
-      "__future__"
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.shared.utils.env"
     ],
     "modules.error-shared.m010021_hashing": [
-      "__future__"
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.shared.utils.hashing"
     ],
     "modules.error-shared.m010021_jsonl_manager": [
-      "io",
-      "__future__"
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.shared.utils.jsonl_manager"
     ],
     "modules.error-shared.m010021_security": [
-      "__future__"
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.shared.utils.security"
     ],
     "modules.error-shared.m010021_time": [
-      "__future__",
-      "ulid"
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.shared.utils.time"
     ],
     "modules.error-shared.m010021_types": [
-      "__future__",
-      "dataclasses"
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.shared.utils.types"
     ],
     "modules.pm-integrations.m01001F_github_sync": [
-      "__future__",
-      "dataclasses"
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.pm.github_sync"
     ],
     "modules.specifications-tools.m010020_guard": [
-      "__future__"
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.specifications.tools.guard"
     ],
     "modules.specifications-tools.m010020_indexer": [
-      "jsonschema",
-      "__future__",
-      "argparse"
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.specifications.tools.indexer"
     ],
     "modules.specifications-tools.m010020_patcher": [
-      "__future__",
-      "argparse"
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.specifications.tools.patcher"
     ],
     "modules.specifications-tools.m010020_renderer": [
-      "__future__",
-      "argparse"
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.specifications.tools.renderer"
     ],
     "modules.specifications-tools.m010020_resolver": [
-      "__future__",
-      "argparse"
+      "warnings",
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.specifications.tools.resolver"
     ],
     "modules.core-ast.languages.python": [
+      "__future__",
       "modules.core_ast.m010000_extractors",
-      "ast",
-      "__future__"
+      "ast"
     ],
     "engine.types": [
       "dataclasses"
     ],
     "engine.adapters.aider_adapter": [
-      "time",
-      "engine.types"
+      "engine.types",
+      "time"
     ],
     "engine.adapters.codex_adapter": [
-      "time",
-      "engine.types"
+      "engine.types",
+      "time"
     ],
     "engine.adapters.git_adapter": [
-      "time",
-      "engine.types"
+      "engine.types",
+      "time"
     ],
     "engine.adapters.tests_adapter": [
-      "time",
-      "engine.types"
+      "engine.types",
+      "time"
     ],
     "engine.interfaces.adapter_interface": [
       "engine.types"
@@ -1084,14 +1197,14 @@
       "engine.types"
     ],
     "engine.orchestrator.orchestrator": [
-      "engine.adapters.tests_adapter",
       "argparse",
-      "engine.state_store.job_state_store",
+      "engine.types",
+      "engine.adapters.tests_adapter",
+      "engine.adapters.aider_adapter",
+      "engine.adapters.codex_adapter",
       "engine.adapters.git_adapter",
       "engine.interfaces",
-      "engine.types",
-      "engine.adapters.aider_adapter",
-      "engine.adapters.codex_adapter"
+      "engine.state_store.job_state_store"
     ],
     "engine.orchestrator.__main__": [
       "engine.orchestrator.orchestrator"
@@ -1101,65 +1214,44 @@
       "dataclasses"
     ],
     "engine.queue.job_queue": [
-      "asyncio",
-      "engine.queue.job_wrapper",
-      "sqlite3"
-    ],
-    "engine.queue.job_wrapper": [
-      "enum",
-      "dataclasses"
-    ],
-    "engine.queue.queue_manager": [
-      "engine.queue.job_queue",
       "engine.queue.job_wrapper",
       "sqlite3",
+      "asyncio"
+    ],
+    "engine.queue.job_wrapper": [
+      "dataclasses",
+      "enum"
+    ],
+    "engine.queue.queue_manager": [
+      "engine.queue.job_wrapper",
       "asyncio",
-      "engine.queue.worker_pool",
+      "engine.queue.retry_policy",
       "engine.queue.escalation",
-      "engine.queue.retry_policy"
+      "engine.queue.job_queue",
+      "sqlite3",
+      "engine.queue.worker_pool"
     ],
     "engine.queue.retry_policy": [
       "enum",
       "math"
     ],
     "engine.queue.worker_pool": [
-      "engine.queue.job_queue",
       "engine.queue.job_wrapper",
+      "asyncio",
       "engine.orchestrator.orchestrator",
-      "engine.types",
-      "asyncio",
-      "logging"
-    ],
-    "engine.queue.__main__": [
-      "engine.queue.queue_manager",
-      "asyncio",
-      "argparse"
-    ],
-    "engine.state_store.job_state_store": [
-      "modules.core_state",
-      "__future__",
+      "logging",
+      "engine.queue.job_queue",
       "engine.types"
     ],
-    "specifications.tools.guard.guard": [
+    "engine.queue.__main__": [
+      "asyncio",
+      "argparse",
+      "engine.queue.queue_manager"
+    ],
+    "engine.state_store.job_state_store": [
+      "engine.types",
+      "modules.core_state",
       "__future__"
-    ],
-    "specifications.tools.indexer.indexer": [
-      "jsonschema",
-      "__future__",
-      "argparse"
-    ],
-    "specifications.tools.patcher.patcher": [
-      "__future__",
-      "argparse"
-    ],
-    "specifications.tools.renderer.renderer": [
-      "__future__",
-      "argparse"
-    ],
-    "specifications.tools.resolver.resolver": [
-      "__future__",
-      "argparse"
     ]
-  },
-  "doc_id": "DOC-CONFIG-DEPENDENCY-REPORT-239"
+  }
 }

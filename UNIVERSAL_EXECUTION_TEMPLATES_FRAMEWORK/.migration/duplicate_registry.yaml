@@ -1,691 +1,172 @@
-doc_id: DOC-CONFIG-DUPLICATE-REGISTRY-098
 duplicates:
-  044c5476eaf5b24d:
-    canonical: modules\pm-integrations\m01001F_github_sync.py
+  08b85d27017a6b7c:
+    canonical: engine\orchestrator\__main__.py
     count: 2
-    file_size: 6003
+    file_size: 186
     locations:
-    - modules\pm-integrations\m01001F_github_sync.py
-    - pm\integrations\github_sync.py
-  06615c0f7667a605:
-    canonical: modules\core-state\m010003_dag_utils.py
+    - archive\2025-11-30_060626_engine-consolidation\root-engine-jobqueue\orchestrator\__main__.py
+    - engine\orchestrator\__main__.py
+  10471c263e911cf1:
+    canonical: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\recovery.py
     count: 2
-    file_size: 11274
+    file_size: 268
     locations:
-    - archive\2025-11-26_094309_old-structure\core-state\dag_utils.py
-    - modules\core-state\m010003_dag_utils.py
-  07db6f1bfafa56b1:
-    canonical: core\ui_settings.py
+    - core\engine\recovery.py
+    - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\recovery.py
+  183bcd8c4c03eab9:
+    canonical: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\worker_lifecycle.py
     count: 2
-    file_size: 8954
+    file_size: 15910
     locations:
-    - core\ui_settings.py
-    - gui\ui_settings.py
-  0d10808318d56f54:
-    canonical: modules\error-plugin-python-bandit\m01000F_plugin.py
+    - core\engine\worker_lifecycle.py
+    - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\worker_lifecycle.py
+  2390d0cfeba035a9:
+    canonical: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\patch_converter.py
     count: 2
-    file_size: 2700
+    file_size: 3190
     locations:
-    - error\plugins\python_bandit\plugin.py
-    - modules\error-plugin-python-bandit\m01000F_plugin.py
-  0d814ff1111a2e6f:
-    canonical: modules\error-plugin-python-isort-fix\m010011_plugin.py
+    - core\engine\patch_converter.py
+    - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\patch_converter.py
+  298e60cd8d9ab249:
+    canonical: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\execution_request_builder.py
     count: 2
-    file_size: 1619
+    file_size: 4042
     locations:
-    - error\plugins\python_isort_fix\plugin.py
-    - modules\error-plugin-python-isort-fix\m010011_plugin.py
-  10ca810b1e492ca8:
-    canonical: modules\core-engine\m010001_tools.py
-    count: 3
-    file_size: 9272
-    locations:
-    - archive\2025-11-26_094309_old-structure\core-engine\tools.py
-    - archive\legacy\pre_uet_migration\tools.py
-    - modules\core-engine\m010001_tools.py
-  110279508adde6b1:
-    canonical: modules\error-engine\m010004_error_state_machine.py
+    - core\engine\execution_request_builder.py
+    - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\execution_request_builder.py
+  2d72bf1928435efc:
+    canonical: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\resilience\circuit_breaker.py
     count: 2
-    file_size: 4906
+    file_size: 6116
     locations:
-    - error\engine\error_state_machine.py
-    - modules\error-engine\m010004_error_state_machine.py
-  15ab2aa48556e0e4:
-    canonical: modules\aim-environment\m01001B_audit.py
+    - core\engine\resilience\circuit_breaker.py
+    - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\resilience\circuit_breaker.py
+  33d0f4154da1c706:
+    canonical: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\cost_tracker.py
     count: 2
-    file_size: 13503
+    file_size: 9593
     locations:
-    - archive\2025-11-26_094309_old-structure\aim-environment\audit.py
-    - modules\aim-environment\m01001B_audit.py
-  16f8b1ab7b0069a4:
-    canonical: modules\core-engine\m010001_executor.py
-    count: 3
-    file_size: 218
-    locations:
-    - archive\2025-11-26_094309_old-structure\core-engine\executor.py
-    - archive\legacy\pre_uet_migration\executor.py
-    - modules\core-engine\m010001_executor.py
-  1714978e1046ea22:
-    canonical: modules\core-state\m010003_db_unified.py
+    - core\engine\cost_tracker.py
+    - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\cost_tracker.py
+  3639da6271505ff5:
+    canonical: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\dag_builder.py
     count: 2
-    file_size: 3419
+    file_size: 4039
     locations:
-    - archive\2025-11-26_094309_old-structure\core-state\db_unified.py
-    - modules\core-state\m010003_db_unified.py
-  1793c9834399e765:
-    canonical: modules\error-plugin-md-markdownlint\m01000B_plugin.py
+    - core\engine\dag_builder.py
+    - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\dag_builder.py
+  39672f6e1fba6c06:
+    canonical: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\process_spawner.py
     count: 2
-    file_size: 3750
+    file_size: 4540
     locations:
-    - error\plugins\md_markdownlint\plugin.py
-    - modules\error-plugin-md-markdownlint\m01000B_plugin.py
-  1c3b7b2e286e331e:
-    canonical: scripts\multi_agent_orchestrator.py
+    - core\engine\process_spawner.py
+    - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\process_spawner.py
+  3a0e417ab24c7d22:
+    canonical: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\resilience\__init__.py
     count: 2
-    file_size: 23947
+    file_size: 575
     locations:
-    - scripts\multi_agent_orchestrator.py
-    - REFACTOR_2\03_IMPLEMENTATION\multi_agent_orchestrator.py
-  259bc1290bd49042:
-    canonical: modules\error-plugin-semgrep\m010017_plugin.py
+    - core\engine\resilience\__init__.py
+    - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\resilience\__init__.py
+  623ad8f40c623a52:
+    canonical: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\monitoring\__init__.py
     count: 2
-    file_size: 3306
+    file_size: 372
     locations:
-    - error\plugins\semgrep\plugin.py
-    - modules\error-plugin-semgrep\m010017_plugin.py
-  29e7785a00b76a84:
-    canonical: modules\core-engine\m010001_integration_worker.py
+    - core\engine\monitoring\__init__.py
+    - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\monitoring\__init__.py
+  687a57c2ca77acd8:
+    canonical: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\monitoring\progress_tracker.py
     count: 2
-    file_size: 8718
+    file_size: 7293
     locations:
-    - archive\2025-11-26_094309_old-structure\core-engine\integration_worker.py
-    - modules\core-engine\m010001_integration_worker.py
-  2c772bc7b9bc7ea0:
-    canonical: core\ui_settings_cli.py
+    - core\engine\monitoring\progress_tracker.py
+    - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\monitoring\progress_tracker.py
+  6e838bf00585ca5f:
+    canonical: archive\2025-11-30_060626_engine-consolidation\root-engine-jobqueue\__init__.py
     count: 2
-    file_size: 6886
+    file_size: 566
     locations:
-    - core\ui_settings_cli.py
-    - gui\ui_settings_cli.py
-  2f3c86fd63ffbb6c:
-    canonical: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\patterns\pattern_event_system\pattern_inspect.py
-    count: 2
-    file_size: 7520
-    locations:
-    - archive\2025-11-26_094309_old-structure\core-engine\pattern_inspect.py
-    - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\patterns\pattern_event_system\pattern_inspect.py
-  2fa3303211b31fd2:
-    canonical: archive\2025-11-26_094309_old-structure\core-engine\adapters\claude_adapter.py
-    count: 2
-    file_size: 1632
-    locations:
-    - archive\2025-11-26_094309_old-structure\core-engine\adapters\claude_adapter.py
-    - archive\legacy\pre_uet_migration\adapters\claude_adapter.py
-  3118f430125ac76d:
-    canonical: archive\legacy\pre_uet_migration\parallel_orchestrator.py
-    count: 2
-    file_size: 3612
-    locations:
-    - archive\legacy\pre_uet_migration\parallel_orchestrator.py
-    - archive\legacy\pre_uet_migration\parallel_orchestrator_v1.py
-  393e21d807f9e17a:
-    canonical: modules\core-planning\m010002_ccpm_integration.py
-    count: 2
-    file_size: 7974
-    locations:
-    - archive\2025-11-26_094309_old-structure\core-planning\ccpm_integration.py
-    - modules\core-planning\m010002_ccpm_integration.py
-  3979da41d426f0df:
-    canonical: archive\legacy\pre_uet_migration\patch_manager.py
-    count: 2
-    file_size: 9770
-    locations:
-    - archive\legacy\pre_uet_migration\patch_manager.py
-    - archive\legacy\pre_uet_migration\patch_manager_v1.py
-  3a112bc826ddd0a7:
-    canonical: scripts\worktree_manager.py
-    count: 2
-    file_size: 8594
-    locations:
-    - scripts\worktree_manager.py
-    - REFACTOR_2\03_IMPLEMENTATION\worktree_manager.py
-  3b1c46a10b0161d1:
-    canonical: modules\error-plugin-path-standardizer\m01000D_plugin.py
-    count: 2
-    file_size: 3950
-    locations:
-    - error\plugins\path_standardizer\plugin.py
-    - modules\error-plugin-path-standardizer\m01000D_plugin.py
-  3c59934d9b9abf87:
-    canonical: archive\2025-11-26_094309_old-structure\core-engine\adapters\aider_adapter.py
-    count: 2
-    file_size: 1593
-    locations:
-    - archive\2025-11-26_094309_old-structure\core-engine\adapters\aider_adapter.py
-    - archive\legacy\pre_uet_migration\adapters\aider_adapter.py
-  408adf4506428436:
-    canonical: modules\error-plugin-js-prettier-fix\m01000A_plugin.py
-    count: 2
-    file_size: 1638
-    locations:
-    - error\plugins\js_prettier_fix\plugin.py
-    - modules\error-plugin-js-prettier-fix\m01000A_plugin.py
-  440fe6d90858282f:
-    canonical: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\scheduler.py
-    count: 2
-    file_size: 9056
-    locations:
-    - archive\2025-11-26_094309_old-structure\core-engine\uet_scheduler.py
-    - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\scheduler.py
-  49d852b43e2eaf43:
-    canonical: modules\error-plugin-echo\m010006_plugin.py
-    count: 2
-    file_size: 705
-    locations:
-    - error\plugins\echo\plugin.py
-    - modules\error-plugin-echo\m010006_plugin.py
-  4ac904b1eb1feb57:
-    canonical: modules\error-plugin-gitleaks\m010007_plugin.py
-    count: 2
-    file_size: 3186
-    locations:
-    - error\plugins\gitleaks\plugin.py
-    - modules\error-plugin-gitleaks\m010007_plugin.py
-  4c4f83bab85b31aa:
-    canonical: bring_back_docs_\hardcoded_path_indexer.py
-    count: 3
-    file_size: 12340
-    locations:
-    - bring_back_docs_\hardcoded_path_indexer.py
-    - tools\hardcoded_path_indexer.py
-    - ToDo_Task\bring_back_docs_\hardcoded_path_indexer.py
-  53cb174eae385caa:
-    canonical: modules\core-engine\m010001_dag_builder.py
-    count: 3
-    file_size: 3983
-    locations:
-    - archive\2025-11-26_094309_old-structure\core-engine\dag_builder.py
-    - archive\legacy\pre_uet_migration\dag_builder.py
-    - modules\core-engine\m010001_dag_builder.py
-  54c232d0370e7c23:
-    canonical: modules\core-ast\m010000_extractors.py
-    count: 2
-    file_size: 4457
-    locations:
-    - archive\2025-11-26_094309_old-structure\core-ast\extractors.py
-    - modules\core-ast\m010000_extractors.py
-  57f8fd4b030cd706:
-    canonical: modules\core-engine\m010001_context_estimator.py
-    count: 3
-    file_size: 6476
-    locations:
-    - archive\2025-11-26_094309_old-structure\core-engine\context_estimator.py
-    - archive\legacy\pre_uet_migration\context_estimator.py
-    - modules\core-engine\m010001_context_estimator.py
-  5b6d0647c432216d:
-    canonical: modules\error-plugin-python-mypy\m010012_plugin.py
-    count: 2
-    file_size: 2766
-    locations:
-    - error\plugins\python_mypy\plugin.py
-    - modules\error-plugin-python-mypy\m010012_plugin.py
-  6162bf5331b784ba:
-    canonical: modules\core-engine\m010001_patch_converter.py
-    count: 3
-    file_size: 3143
-    locations:
-    - archive\2025-11-26_094309_old-structure\core-engine\patch_converter.py
-    - archive\legacy\pre_uet_migration\patch_converter.py
-    - modules\core-engine\m010001_patch_converter.py
-  698087fd9b5c9167:
-    canonical: modules\error-plugin-yaml-yamllint\m010019_plugin.py
-    count: 2
-    file_size: 2634
-    locations:
-    - error\plugins\yaml_yamllint\plugin.py
-    - modules\error-plugin-yaml-yamllint\m010019_plugin.py
-  69b6a698a1b62342:
-    canonical: modules\error-shared\m010021_jsonl_manager.py
-    count: 2
-    file_size: 2304
-    locations:
-    - error\shared\utils\jsonl_manager.py
-    - modules\error-shared\m010021_jsonl_manager.py
-  6ebb493cbdc5e7be:
-    canonical: archive\2025-11-26_094309_old-structure\core-engine\adapters\uet_subprocess.py
-    count: 2
-    file_size: 115
-    locations:
-    - archive\2025-11-26_094309_old-structure\core-engine\adapters\uet_subprocess.py
-    - archive\legacy\pre_uet_migration\adapters\uet_subprocess.py
-  7641c6b00e317f6e:
-    canonical: modules\core-state\m010003_task_queue.py
-    count: 2
-    file_size: 10686
-    locations:
-    - archive\2025-11-26_094309_old-structure\core-state\task_queue.py
-    - modules\core-state\m010003_task_queue.py
-  775b5dda599ef0cb:
-    canonical: specifications\tools\__init__.py
-    count: 6
-    file_size: 28
-    locations:
-    - specifications\tools\__init__.py
-    - specifications\tools\guard\__init__.py
-    - specifications\tools\indexer\__init__.py
-    - specifications\tools\patcher\__init__.py
-    - specifications\tools\renderer\__init__.py
-    - specifications\tools\resolver\__init__.py
-  77ce0b39fc5f1c0b:
-    canonical: archive\2025-11-26_094309_old-structure\core-engine\adapters\base.py
-    count: 2
-    file_size: 2980
-    locations:
-    - archive\2025-11-26_094309_old-structure\core-engine\adapters\base.py
-    - archive\legacy\pre_uet_migration\adapters\base.py
-  7a24a7ed27fe322a:
-    canonical: modules\error-engine\m010004_pipeline_engine.py
-    count: 2
-    file_size: 6523
-    locations:
-    - error\engine\pipeline_engine.py
-    - modules\error-engine\m010004_pipeline_engine.py
-  7ac73076c3f794bc:
-    canonical: modules\aim-environment\m01001B_exceptions.py
-    count: 2
-    file_size: 841
-    locations:
-    - archive\2025-11-26_094309_old-structure\aim-environment\exceptions.py
-    - modules\aim-environment\m01001B_exceptions.py
-  8003ee4bcd1a7d48:
-    canonical: modules\core-engine\m010001_recovery.py
-    count: 3
-    file_size: 228
-    locations:
-    - archive\2025-11-26_094309_old-structure\core-engine\recovery.py
-    - archive\legacy\pre_uet_migration\recovery.py
-    - modules\core-engine\m010001_recovery.py
-  83fc31a0f332274c:
-    canonical: modules\error-shared\m010021_security.py
-    count: 2
-    file_size: 7067
-    locations:
-    - error\shared\utils\security.py
-    - modules\error-shared\m010021_security.py
-  880cfb996b22a1ae:
-    canonical: modules\core-planning\m010002_planner.py
-    count: 2
-    file_size: 2583
-    locations:
-    - archive\2025-11-26_094309_old-structure\core-planning\planner.py
-    - modules\core-planning\m010002_planner.py
-  89a3f497680f8d2c:
-    canonical: modules\specifications-tools\m010020_patcher.py
-    count: 2
-    file_size: 5005
-    locations:
-    - modules\specifications-tools\m010020_patcher.py
-    - specifications\tools\patcher\patcher.py
-  92da0115dbd51320:
-    canonical: modules\core-state\m010003_audit_logger.py
-    count: 2
-    file_size: 8526
-    locations:
-    - archive\2025-11-26_094309_old-structure\core-state\audit_logger.py
-    - modules\core-state\m010003_audit_logger.py
-  93c27f2d010681c4:
-    canonical: modules\error-shared\m010021_time.py
-    count: 2
-    file_size: 595
-    locations:
-    - error\shared\utils\time.py
-    - modules\error-shared\m010021_time.py
-  942b31df392b6946:
-    canonical: modules\core-engine\m010001_circuit_breakers.py
-    count: 3
-    file_size: 6072
-    locations:
-    - archive\2025-11-26_094309_old-structure\core-engine\circuit_breakers.py
-    - archive\legacy\pre_uet_migration\circuit_breakers.py
-    - modules\core-engine\m010001_circuit_breakers.py
-  973a194f49f4d148:
-    canonical: archive\2025-11-26_094309_old-structure\core-engine\adapters\uet_registry.py
-    count: 2
-    file_size: 113
-    locations:
-    - archive\2025-11-26_094309_old-structure\core-engine\adapters\uet_registry.py
-    - archive\legacy\pre_uet_migration\adapters\uet_registry.py
-  9760c4e6ba11f288:
-    canonical: core\ui_cli.py
-    count: 2
-    file_size: 13736
-    locations:
-    - core\ui_cli.py
-    - gui\ui_cli.py
-  97bcf61bc191cafc:
-    canonical: archive\2025-11-26_094309_old-structure\core-engine\adapters\codex_adapter.py
-    count: 2
-    file_size: 879
-    locations:
-    - archive\2025-11-26_094309_old-structure\core-engine\adapters\codex_adapter.py
-    - archive\legacy\pre_uet_migration\adapters\codex_adapter.py
-  98c9a96952f10a31:
-    canonical: archive\2025-11-26_094309_old-structure\core-engine\adapters\uet_base.py
-    count: 2
-    file_size: 109
-    locations:
-    - archive\2025-11-26_094309_old-structure\core-engine\adapters\uet_base.py
-    - archive\legacy\pre_uet_migration\adapters\uet_base.py
-  9e4b556a54e847cb:
-    canonical: modules\core-engine\m010001_prompt_engine.py
-    count: 3
-    file_size: 9838
-    locations:
-    - archive\2025-11-26_094309_old-structure\core-engine\prompt_engine.py
-    - archive\legacy\pre_uet_migration\prompt_engine.py
-    - modules\core-engine\m010001_prompt_engine.py
-  9eedcfb07ede8173:
-    canonical: modules\error-engine\m010004_error_context.py
-    count: 2
-    file_size: 1734
-    locations:
-    - error\engine\error_context.py
-    - modules\error-engine\m010004_error_context.py
-  9f25e4f0d85c61b4:
-    canonical: modules\error-engine\m010004_agent_adapters.py
-    count: 2
-    file_size: 11183
-    locations:
-    - error\engine\agent_adapters.py
-    - modules\error-engine\m010004_agent_adapters.py
-  9f589b7f5a55e5e0:
-    canonical: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\router.py
-    count: 3
-    file_size: 7201
-    locations:
-    - archive\2025-11-26_094309_old-structure\core-engine\uet_router.py
-    - modules\core-engine\m010001_uet_router.py
-    - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\router.py
-  a3df1e3fe0bdfe5a:
-    canonical: scripts\preflight_validator.py
-    count: 2
-    file_size: 8638
-    locations:
-    - scripts\preflight_validator.py
-    - REFACTOR_2\03_IMPLEMENTATION\preflight_validator.py
-  a4cd4e76a988274a:
-    canonical: modules\error-shared\m010021_env.py
-    count: 2
-    file_size: 531
-    locations:
-    - error\shared\utils\env.py
-    - modules\error-shared\m010021_env.py
-  a638b8ecb175b44f:
-    canonical: modules\core-state\m010003_bundles.py
-    count: 2
-    file_size: 18050
-    locations:
-    - archive\2025-11-26_094309_old-structure\core-state\bundles.py
-    - modules\core-state\m010003_bundles.py
-  a834f7830013bb32:
-    canonical: modules\error-shared\m010021_types.py
-    count: 2
-    file_size: 1760
-    locations:
-    - error\shared\utils\types.py
-    - modules\error-shared\m010021_types.py
-  aa47ea2b566b981e:
-    canonical: modules\core-state\m010003_uet_db.py
-    count: 2
-    file_size: 97
-    locations:
-    - archive\2025-11-26_094309_old-structure\core-state\uet_db.py
-    - modules\core-state\m010003_uet_db.py
-  accfd37a5162b785:
-    canonical: modules\core-state\m010003_worktree.py
-    count: 2
-    file_size: 1926
-    locations:
-    - archive\2025-11-26_094309_old-structure\core-state\worktree.py
-    - modules\core-state\m010003_worktree.py
-  ad576d5dc783c1c1:
-    canonical: modules\core-state\m010003_pattern_telemetry_db.py
-    count: 2
-    file_size: 8424
-    locations:
-    - archive\2025-11-26_094309_old-structure\core-state\pattern_telemetry_db.py
-    - modules\core-state\m010003_pattern_telemetry_db.py
-  add5e6bcaa28ca0f:
-    canonical: gui\ui_tool_selection_demo.py
-    count: 2
-    file_size: 7617
-    locations:
-    - examples\ui_tool_selection_demo.py
-    - gui\ui_tool_selection_demo.py
-  b2227a2248bed9b2:
+    - archive\2025-11-30_060626_engine-consolidation\root-engine-init-backup.py
+    - archive\2025-11-30_060626_engine-consolidation\root-engine-jobqueue\__init__.py
+  703683988e6a08f5:
     canonical: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\patch_ledger.py
-    count: 3
-    file_size: 20448
+    count: 2
+    file_size: 20492
     locations:
-    - archive\2025-11-26_094309_old-structure\core-engine\uet_patch_ledger.py
-    - modules\core-engine\m010001_uet_patch_ledger.py
+    - core\engine\patch_ledger.py
     - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\patch_ledger.py
-  b4fc99e1e5c30bf2:
-    canonical: modules\specifications-tools\m010020_indexer.py
+  795fd90599dc592f:
+    canonical: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\prompt_engine.py
     count: 2
-    file_size: 9924
+    file_size: 9883
     locations:
-    - modules\specifications-tools\m010020_indexer.py
-    - specifications\tools\indexer\indexer.py
-  b76ed769fb052046:
-    canonical: modules\specifications-tools\m010020_guard.py
-    count: 2
-    file_size: 4665
-    locations:
-    - modules\specifications-tools\m010020_guard.py
-    - specifications\tools\guard\guard.py
-  b92ba89824683701:
-    canonical: modules\error-engine\m010004_plugin_manager.py
-    count: 2
-    file_size: 5317
-    locations:
-    - error\engine\plugin_manager.py
-    - modules\error-engine\m010004_plugin_manager.py
-  b967497997c81257:
-    canonical: modules\error-plugin-python-pyright\m010014_plugin.py
-    count: 2
-    file_size: 2807
-    locations:
-    - error\plugins\python_pyright\plugin.py
-    - modules\error-plugin-python-pyright\m010014_plugin.py
-  bf17ff6d91b63bdf:
-    canonical: modules\error-plugin-json-jq\m010008_plugin.py
-    count: 2
-    file_size: 2092
-    locations:
-    - error\plugins\json_jq\plugin.py
-    - modules\error-plugin-json-jq\m010008_plugin.py
-  c3ac89d3db0b89ca:
-    canonical: modules\error-plugin-codespell\m010005_plugin.py
-    count: 2
-    file_size: 2357
-    locations:
-    - error\plugins\codespell\plugin.py
-    - modules\error-plugin-codespell\m010005_plugin.py
-  c48f435af4cd7b11:
+    - core\engine\prompt_engine.py
+    - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\prompt_engine.py
+  9fab0f83a16592c2:
     canonical: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\state_machine.py
-    count: 3
-    file_size: 6543
+    count: 2
+    file_size: 6588
     locations:
-    - archive\2025-11-26_094309_old-structure\core-engine\uet_state_machine.py
-    - modules\core-engine\m010001_uet_state_machine.py
+    - core\engine\state_machine.py
     - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\state_machine.py
-  c63c61e54b40df1d:
-    canonical: modules\core-engine\m010001_process_spawner.py
-    count: 3
-    file_size: 4493
-    locations:
-    - archive\2025-11-26_094309_old-structure\core-engine\process_spawner.py
-    - archive\legacy\pre_uet_migration\process_spawner.py
-    - modules\core-engine\m010001_process_spawner.py
-  cd06f1087c36737d:
-    canonical: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\patterns\pattern_event_system\pattern_events_example.py
+  c40b2a20d622764e:
+    canonical: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\resilience\retry.py
     count: 2
-    file_size: 7701
+    file_size: 4390
     locations:
-    - examples\pattern_events_example.py
-    - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\patterns\pattern_event_system\pattern_events_example.py
-  cfa31cfde96a9abf:
-    canonical: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\patterns\pattern_event_system\pattern_events.py
+    - core\engine\resilience\retry.py
+    - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\resilience\retry.py
+  cf735dab60d269fc:
+    canonical: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\context_estimator.py
     count: 2
-    file_size: 12397
+    file_size: 6525
     locations:
-    - archive\2025-11-26_094309_old-structure\core-engine\pattern_events.py
-    - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\patterns\pattern_event_system\pattern_events.py
-  cfcef8114923c943:
-    canonical: modules\error-plugin-python-black-fix\m010010_plugin.py
+    - core\engine\context_estimator.py
+    - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\context_estimator.py
+  d83ac428e4151b85:
+    canonical: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\resilience\resilient_executor.py
     count: 2
-    file_size: 1670
+    file_size: 3859
     locations:
-    - error\plugins\python_black_fix\plugin.py
-    - modules\error-plugin-python-black-fix\m010010_plugin.py
-  d77426c9b6a79a8b:
-    canonical: modules\core-state\m010003_crud.py
+    - core\engine\resilience\resilient_executor.py
+    - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\resilience\resilient_executor.py
+  dc37649210497af4:
+    canonical: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\circuit_breakers.py
     count: 2
-    file_size: 25655
+    file_size: 6120
     locations:
-    - archive\2025-11-26_094309_old-structure\core-state\crud.py
-    - modules\core-state\m010003_crud.py
-  d90361bc54565f19:
-    canonical: scripts\doc_id_scanner.py
+    - core\engine\circuit_breakers.py
+    - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\circuit_breakers.py
+  e19b54322cba2746:
+    canonical: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\__init__.py
     count: 2
-    file_size: 15208
+    file_size: 78
     locations:
-    - scripts\doc_id_scanner.py
-    - doc_id\tools\doc_id_scanner.py
-  d9f12f73ff2a16e7:
-    canonical: core\ui_models.py
+    - core\engine\__init__.py
+    - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\__init__.py
+  ebede76ba4db0cdf:
+    canonical: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\tools.py
     count: 2
-    file_size: 10746
+    file_size: 9309
     locations:
-    - core\ui_models.py
-    - gui\ui_models.py
-  da131b076c14d77c:
-    canonical: modules\error-plugin-js-eslint\m010009_plugin.py
+    - core\engine\tools.py
+    - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\tools.py
+  f088960528cc9d71:
+    canonical: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\integration_worker.py
     count: 2
-    file_size: 3080
+    file_size: 8768
     locations:
-    - error\plugins\js_eslint\plugin.py
-    - modules\error-plugin-js-eslint\m010009_plugin.py
-  da46fc01b12b5f75:
-    canonical: modules\error-plugin-python-pylint\m010013_plugin.py
+    - core\engine\integration_worker.py
+    - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\integration_worker.py
+  fb8f6e5d7948a728:
+    canonical: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\router.py
     count: 2
-    file_size: 3219
+    file_size: 7239
     locations:
-    - error\plugins\python_pylint\plugin.py
-    - modules\error-plugin-python-pylint\m010013_plugin.py
-  dec401bc0dda0499:
-    canonical: modules\error-plugin-md-mdformat-fix\m01000C_plugin.py
-    count: 2
-    file_size: 1617
-    locations:
-    - error\plugins\md_mdformat_fix\plugin.py
-    - modules\error-plugin-md-mdformat-fix\m01000C_plugin.py
-  e2e0fed1972ad8e4:
-    canonical: modules\error-plugin-python-safety\m010016_plugin.py
-    count: 2
-    file_size: 4008
-    locations:
-    - error\plugins\python_safety\plugin.py
-    - modules\error-plugin-python-safety\m010016_plugin.py
-  e3b0c44298fc1c14:
-    canonical: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\bootstrap\__init__.py
-    count: 13
-    file_size: 0
-    locations:
-    - error\plugins\codespell\__init__.py
-    - error\plugins\gitleaks\__init__.py
-    - error\plugins\json_jq\__init__.py
-    - error\plugins\js_eslint\__init__.py
-    - error\plugins\js_prettier_fix\__init__.py
-    - error\plugins\md_markdownlint\__init__.py
-    - error\plugins\md_mdformat_fix\__init__.py
-    - error\plugins\powershell_pssa\__init__.py
-    - error\plugins\semgrep\__init__.py
-    - error\plugins\yaml_yamllint\__init__.py
-    - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\bootstrap\__init__.py
-    - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\patterns\automation\__init__.py
-    - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\patterns\automation\integration\__init__.py
-  e66e71498b4e9238:
-    canonical: modules\specifications-tools\m010020_resolver.py
-    count: 2
-    file_size: 4830
-    locations:
-    - modules\specifications-tools\m010020_resolver.py
-    - specifications\tools\resolver\resolver.py
-  e95933697c62c11d:
-    canonical: archive\legacy\pre_uet_migration\scheduler.py
-    count: 2
-    file_size: 2583
-    locations:
-    - archive\legacy\pre_uet_migration\scheduler.py
-    - archive\legacy\pre_uet_migration\scheduler_v1.py
-  eb420c218449945e:
-    canonical: modules\error-engine\m010004_file_hash_cache.py
-    count: 2
-    file_size: 2808
-    locations:
-    - error\engine\file_hash_cache.py
-    - modules\error-engine\m010004_file_hash_cache.py
-  f1a12345f21556a0:
-    canonical: modules\error-plugin-powershell-pssa\m01000E_plugin.py
-    count: 2
-    file_size: 3558
-    locations:
-    - error\plugins\powershell_pssa\plugin.py
-    - modules\error-plugin-powershell-pssa\m01000E_plugin.py
-  f33d64a77dbf2d56:
-    canonical: archive\legacy\pre_uet_migration\orchestrator.py
-    count: 2
-    file_size: 26675
-    locations:
-    - archive\legacy\pre_uet_migration\orchestrator.py
-    - archive\legacy\pre_uet_migration\orchestrator_v1.py
-  f3c28c71c1625cde:
-    canonical: modules\specifications-tools\m010020_renderer.py
-    count: 2
-    file_size: 3296
-    locations:
-    - modules\specifications-tools\m010020_renderer.py
-    - specifications\tools\renderer\renderer.py
-  f892c7d2f69c74b1:
-    canonical: modules\aim-tests\m01001E_conftest.py
-    count: 2
-    file_size: 133
-    locations:
-    - archive\2025-11-26_094309_old-structure\aim-tests\conftest.py
-    - modules\aim-tests\m01001E_conftest.py
-  f9c94d07e53ddec0:
-    canonical: modules\error-shared\m010021_hashing.py
-    count: 2
-    file_size: 298
-    locations:
-    - error\shared\utils\hashing.py
-    - modules\error-shared\m010021_hashing.py
-  f9f3248501b745e3:
-    canonical: modules\core-planning\m010002_archive.py
-    count: 2
-    file_size: 356
-    locations:
-    - archive\2025-11-26_094309_old-structure\core-planning\archive.py
-    - modules\core-planning\m010002_archive.py
-  fa901071ebac3738:
-    canonical: gui\ui_infrastructure_usage.py
-    count: 2
-    file_size: 9437
-    locations:
-    - examples\ui_infrastructure_usage.py
-    - gui\ui_infrastructure_usage.py
-scan_date: '2025-11-29T16:31:35.615436+00:00'
-total_duplicate_files: 216
-total_duplicates: 94
+    - core\engine\router.py
+    - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\router.py
+scan_date: '2025-12-01T14:55:10.525548+00:00'
+total_duplicate_files: 48
+total_duplicates: 24

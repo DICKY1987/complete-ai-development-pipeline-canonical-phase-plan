@@ -1,239 +1,63 @@
-doc_id: DOC-CONFIG-MIGRATION-PLAN-100
 batches:
 - batch_id: WS-001
-  component: core-state
+  component: core-engine
   dependencies: []
   file_count: 6
   files:
-  - modules\core-state\m010003_worktree.py
-  - modules\core-state\m010003_db_unified.py
-  - modules\core-state\m010003_task_queue.py
-  - modules\core-state\m010003_bundles.py
-  - modules\core-state\m010003_pattern_telemetry_db.py
-  - modules\core-state\m010003_crud.py
+  - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\recovery.py
+  - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\worker_lifecycle.py
+  - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\patch_converter.py
+  - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\execution_request_builder.py
+  - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\resilience\circuit_breaker.py
+  - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\cost_tracker.py
   status: pending
 - batch_id: WS-002
-  component: core-state
+  component: core-engine
   dependencies:
   - WS-001
-  file_count: 3
+  file_count: 6
   files:
-  - modules\core-state\m010003_audit_logger.py
-  - modules\core-state\m010003_uet_db.py
-  - modules\core-state\m010003_dag_utils.py
+  - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\dag_builder.py
+  - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\process_spawner.py
+  - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\resilience\__init__.py
+  - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\monitoring\__init__.py
+  - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\monitoring\progress_tracker.py
+  - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\patch_ledger.py
   status: pending
 - batch_id: WS-003
-  component: core-ast
+  component: core-engine
   dependencies:
   - WS-002
-  file_count: 1
+  file_count: 6
   files:
-  - modules\core-ast\m010000_extractors.py
+  - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\prompt_engine.py
+  - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\state_machine.py
+  - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\resilience\retry.py
+  - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\context_estimator.py
+  - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\resilience\resilient_executor.py
+  - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\circuit_breakers.py
   status: pending
 - batch_id: WS-004
-  component: core-planning
+  component: core-engine
   dependencies:
   - WS-003
-  file_count: 3
+  file_count: 4
   files:
-  - modules\core-planning\m010002_planner.py
-  - modules\core-planning\m010002_ccpm_integration.py
-  - modules\core-planning\m010002_archive.py
-  status: pending
-- batch_id: WS-005
-  component: core-engine
-  dependencies:
-  - WS-004
-  file_count: 6
-  files:
-  - modules\core-engine\m010001_tools.py
-  - modules\core-engine\m010001_prompt_engine.py
-  - modules\core-engine\m010001_context_estimator.py
-  - modules\core-engine\m010001_circuit_breakers.py
-  - modules\core-engine\m010001_patch_converter.py
-  - modules\core-engine\m010001_executor.py
-  status: pending
-- batch_id: WS-006
-  component: core-engine
-  dependencies:
-  - WS-005
-  file_count: 6
-  files:
-  - modules\core-engine\m010001_dag_builder.py
-  - modules\core-engine\m010001_recovery.py
-  - modules\core-engine\m010001_process_spawner.py
-  - modules\core-engine\m010001_integration_worker.py
-  - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\scheduler.py
+  - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\__init__.py
+  - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\tools.py
+  - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\integration_worker.py
   - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\router.py
   status: pending
-- batch_id: WS-007
-  component: core-engine
+- batch_id: WS-005
+  component: other
   dependencies:
-  - WS-006
+  - WS-004
   file_count: 2
   files:
-  - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\patch_ledger.py
-  - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\engine\state_machine.py
+  - engine\orchestrator\__main__.py
+  - archive\2025-11-30_060626_engine-consolidation\root-engine-jobqueue\__init__.py
   status: pending
-- batch_id: WS-008
-  component: error-shared
-  dependencies:
-  - WS-007
-  file_count: 6
-  files:
-  - modules\error-shared\m010021_types.py
-  - modules\error-shared\m010021_jsonl_manager.py
-  - modules\error-shared\m010021_env.py
-  - modules\error-shared\m010021_security.py
-  - modules\error-shared\m010021_time.py
-  - modules\error-shared\m010021_hashing.py
-  status: pending
-- batch_id: WS-009
-  component: error-engine
-  dependencies:
-  - WS-008
-  file_count: 6
-  files:
-  - modules\error-engine\m010004_agent_adapters.py
-  - modules\error-engine\m010004_error_context.py
-  - modules\error-engine\m010004_file_hash_cache.py
-  - modules\error-engine\m010004_plugin_manager.py
-  - modules\error-engine\m010004_error_state_machine.py
-  - modules\error-engine\m010004_pipeline_engine.py
-  status: pending
-- batch_id: WS-010
-  component: aim
-  dependencies:
-  - WS-009
-  file_count: 3
-  files:
-  - modules\aim-environment\m01001B_audit.py
-  - modules\aim-tests\m01001E_conftest.py
-  - modules\aim-environment\m01001B_exceptions.py
-  status: pending
-- batch_id: WS-011
-  component: pm
-  dependencies:
-  - WS-010
-  file_count: 1
-  files:
-  - modules\pm-integrations\m01001F_github_sync.py
-  status: pending
-- batch_id: WS-012
-  component: specifications
-  dependencies:
-  - WS-011
-  file_count: 6
-  files:
-  - modules\specifications-tools\m010020_patcher.py
-  - modules\specifications-tools\m010020_resolver.py
-  - modules\specifications-tools\m010020_guard.py
-  - modules\specifications-tools\m010020_indexer.py
-  - modules\specifications-tools\m010020_renderer.py
-  - specifications\tools\__init__.py
-  status: pending
-- batch_id: WS-013
-  component: other
-  dependencies:
-  - WS-012
-  file_count: 6
-  files:
-  - modules\error-plugin-python-isort-fix\m010011_plugin.py
-  - modules\error-plugin-python-mypy\m010012_plugin.py
-  - modules\error-plugin-python-pyright\m010014_plugin.py
-  - modules\error-plugin-python-black-fix\m010010_plugin.py
-  - modules\error-plugin-python-safety\m010016_plugin.py
-  - core\ui_settings_cli.py
-  status: pending
-- batch_id: WS-014
-  component: other
-  dependencies:
-  - WS-013
-  file_count: 6
-  files:
-  - modules\error-plugin-js-eslint\m010009_plugin.py
-  - modules\error-plugin-semgrep\m010017_plugin.py
-  - modules\error-plugin-codespell\m010005_plugin.py
-  - modules\error-plugin-md-markdownlint\m01000B_plugin.py
-  - modules\error-plugin-path-standardizer\m01000D_plugin.py
-  - modules\error-plugin-powershell-pssa\m01000E_plugin.py
-  status: pending
-- batch_id: WS-015
-  component: other
-  dependencies:
-  - WS-014
-  file_count: 6
-  files:
-  - modules\error-plugin-json-jq\m010008_plugin.py
-  - modules\error-plugin-echo\m010006_plugin.py
-  - modules\error-plugin-python-bandit\m01000F_plugin.py
-  - modules\error-plugin-python-pylint\m010013_plugin.py
-  - core\ui_cli.py
-  - modules\error-plugin-gitleaks\m010007_plugin.py
-  status: pending
-- batch_id: WS-016
-  component: other
-  dependencies:
-  - WS-015
-  file_count: 6
-  files:
-  - modules\error-plugin-js-prettier-fix\m01000A_plugin.py
-  - modules\error-plugin-md-mdformat-fix\m01000C_plugin.py
-  - modules\error-plugin-yaml-yamllint\m010019_plugin.py
-  - core\ui_models.py
-  - core\ui_settings.py
-  - scripts\multi_agent_orchestrator.py
-  status: pending
-- batch_id: WS-017
-  component: other
-  dependencies:
-  - WS-016
-  file_count: 6
-  files:
-  - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\patterns\pattern_event_system\pattern_inspect.py
-  - archive\2025-11-26_094309_old-structure\core-engine\adapters\claude_adapter.py
-  - archive\legacy\pre_uet_migration\parallel_orchestrator.py
-  - archive\legacy\pre_uet_migration\patch_manager.py
-  - scripts\worktree_manager.py
-  - archive\2025-11-26_094309_old-structure\core-engine\adapters\aider_adapter.py
-  status: pending
-- batch_id: WS-018
-  component: other
-  dependencies:
-  - WS-017
-  file_count: 6
-  files:
-  - bring_back_docs_\hardcoded_path_indexer.py
-  - archive\2025-11-26_094309_old-structure\core-engine\adapters\uet_subprocess.py
-  - archive\2025-11-26_094309_old-structure\core-engine\adapters\base.py
-  - archive\2025-11-26_094309_old-structure\core-engine\adapters\uet_registry.py
-  - archive\2025-11-26_094309_old-structure\core-engine\adapters\codex_adapter.py
-  - archive\2025-11-26_094309_old-structure\core-engine\adapters\uet_base.py
-  status: pending
-- batch_id: WS-019
-  component: other
-  dependencies:
-  - WS-018
-  file_count: 6
-  files:
-  - scripts\preflight_validator.py
-  - gui\ui_tool_selection_demo.py
-  - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\patterns\pattern_event_system\pattern_events_example.py
-  - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\patterns\pattern_event_system\pattern_events.py
-  - scripts\doc_id_scanner.py
-  - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\core\bootstrap\__init__.py
-  status: pending
-- batch_id: WS-020
-  component: other
-  dependencies:
-  - WS-019
-  file_count: 3
-  files:
-  - archive\legacy\pre_uet_migration\scheduler.py
-  - archive\legacy\pre_uet_migration\orchestrator.py
-  - gui\ui_infrastructure_usage.py
-  status: pending
-execution_estimate_hours: 10.0
-plan_date: '2025-11-29T16:31:46.571954+00:00'
-total_batches: 20
-total_files: 94
+execution_estimate_hours: 2.5
+plan_date: '2025-12-01T14:55:28.427605+00:00'
+total_batches: 5
+total_files: 24
