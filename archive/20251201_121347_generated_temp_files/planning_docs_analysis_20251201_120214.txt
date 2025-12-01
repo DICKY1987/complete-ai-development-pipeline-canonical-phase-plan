@@ -1,0 +1,105 @@
+PLANNING & EXECUTION DOCUMENTS ANALYSIS
+Generated: 2025-12-01 12:02:14
+Root: C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan
+
+========================================
+SUMMARY
+========================================
+Total Files Found: 333
+  - Old (>30 days): 0
+  - Recent (≤30 days): 333
+  - In Root: 53
+
+========================================
+BREAKDOWN BY KEYWORD
+========================================
+  PLAN: 71 files
+  REPORT: 54 files
+  QUICKSTART: 7 files
+  SUMMARY: 66 files
+  COMPLETE: 66 files
+  COMPLETED: 0 files
+  CHAT: 11 files
+  PHASE: 89 files
+  PROGRESS: 15 files
+  STATUS: 15 files
+  SESSION: 31 files
+  EXECUTION: 42 files
+
+========================================
+OLD FILES (>30 days) - 0 files
+========================================
+  (none)
+
+========================================
+ROOT-LEVEL FILES - 53 files
+========================================
+  [0 days] FOLDER_CLEANUP_COMPLETE.md
+  [0 days] CLEANUP_QUICKSTART.md
+  [0 days] FOLDER_CLEANUP_REPORT.md
+  [0 days] CLEANUP_COMPLETE_FINAL_REPORT.md
+  [0 days] EXEC016_COMPLETION_REPORT.md
+  [0 days] OLD_FOLDERS_CLEANUP_PLAN.md
+  [0 days] WEEK2_PHASE_PLAN.md
+  [0 days] UET_MIGRATION_WEEK1_COMPLETE.md
+  [0 days] UET_OVERLAP_IMPLEMENTATION_REPORT.md
+  [0 days] REFACTOR_2_STATUS_REPORT.md
+  [0 days] UET_MIGRATION_COMPLETE.md
+  [0 days] UET_MIGRATION_EXECUTION_SUMMARY.md
+  [0 days] MULTI_INSTANCE_CLI_WEEK1_COMPLETE.md
+  [0 days] MULTI_INSTANCE_CLI_CONTROL_PHASE_PLAN.md
+  [0 days] PROGRESS_DAY1.md
+  [0 days] DAY4_COMPLETE.md
+  [0 days] DAY3_COMPLETE.md
+  [1 days] Why Module-Centric Works Better_CHAT-AND_PLAN.md
+  [1 days] ZERO_TOUCH_EXECUTION_REPORT.md
+  [1 days] WEEK1_FINAL_REPORT.md
+  [1 days] WEEK1_IMPLEMENTATION_COMPLETE.md
+  [1 days] WEEK2_FINAL_REPORT.md
+  [1 days] UET_WORKSTREAM_QUICKSTART.md
+  [1 days] UET_ENGINE_MIGRATION_REPORT.md
+  [1 days] TEST_SUITE_PROGRESS_REPORT.md
+  [1 days] TEST_FIXES_COMPLETION_REPORT.md
+  [1 days] TASK_EXECUTION_SUMMARY.txt
+  [1 days] SIMPLE_EXECUTOR_FINAL_SUMMARY.md
+  [1 days] SIMPLE_EXECUTOR_COMPLETE.md
+  [1 days] PROGRESS_REPORT.md
+  [1 days] PHASE_PLAN_PATH_REFACTORING.md
+  [1 days] PIPELINE_IO_CONTRACTS_CHAT2.md
+  [1 days] PIPELINE_IO_CONTRACTS_CHAT1.md
+  [1 days] PHASEPLAN - Copy.txt
+  [1 days] PIPELINE_IO_CONTRACTS_CHAT3.md
+  [1 days] EXECUTION_PATTERN_DATA_FLOW_VALIDATION.md
+  [1 days] EXECUTION_SUMMARY.md
+  [1 days] GUI_MODULE_ANALYSIS_SUMMARY.md
+  [1 days] MERGE_ANALYSIS_COMPLETE.md
+  [1 days] HYBRID_GUI_PLAN.md
+  [1 days] MERGE_PLAN_TUI_GUI.md
+  [1 days] MERGE_QUICKSTART.md
+  [1 days] MODEL_FIX_SUMMARY.md
+  [1 days] MODULE-CENTRIC REFACTOR PLAN (FOR Codex CODE CLI).md
+  [1 days] MERGE_COMPLETION_REPORT.md
+  [1 days] EXEC014_COMPLETION_REPORT.md
+  [1 days] DESKTOP_TUI_IMPLEMENTATION_SUMMARY.md
+  [1 days] CLEANUP_WEEK1_BASELINE_REPORT.md
+  [1 days] AGENT_SUMMARY.txt
+  [1 days] 5_Phase Completion Plan Module Migration & Pattern Automation Integration.md
+  [2 days] UET_FINAL_10PCT_PHASE_PLAN.md
+  [2 days] UET_WORKSTREAM_EXECUTION_PHASE_PLAN.md
+  [4 days] GUI_PLAN_EXECUTION_PATTERNS.md
+
+========================================
+RECOMMENDATIONS
+========================================
+✓ Move 53 root-level docs to organized folders
+
+========================================
+NEXT STEPS
+========================================
+1. Review this analysis: planning_docs_analysis_20251201_120214.txt
+2. Check CSV details: planning_docs_index_20251201_120214.csv
+3. Re-run with archival:
+   .\cleanup-planning-docs.ps1
+
+4. Or archive older files:
+   .\cleanup-planning-docs.ps1 -ArchiveOlderThanDays 60

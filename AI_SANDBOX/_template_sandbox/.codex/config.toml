@@ -1,9 +1,0 @@
-# Codex CLI Configuration - Repository Level (Windows Sandbox)
-
-workspace_mode = "workspace-write"
-auto_apply_edits = true
-git_aware = true
-
-read_files = [
-    "docs\\DEV_RULES_CORE.md"
-]

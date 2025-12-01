@@ -1,0 +1,693 @@
+---
+doc_id: DOC-PAT-KPLUSPLN-704
+---
+
+Yeah, there *is* more we can squeeze out of what’s happening in the ecosystem now that we’ve looked around.
+
+Below is a distilled “upgrade pack” based on recent tools, research, and best-practice articles — focused specifically on helping **AI/CLI tools** understand a codebase and make better decisions.
+
+I’ll only call out things that add *new* angles beyond what you’re already doing with Phase K and your docs-as-code setup.
+
+---
+
+## 1. Design for RAG / code graphs, not just “files on disk”
+
+Modern AI codebase tools aren’t just scanning files; they’re building **indexes and graphs** over your repo (RAG + knowledge graphs). Tools like Sourcegraph Cody, GitLoop, and Empromptu’s platform explicitly index structure, cross-file references, and call graphs instead of just dumping raw text. ([Empromptu][1])
+
+**What you can do in the repo:**
+
+* **Make relationships explicit in machine-readable form**, not only in prose:
+
+  * A `dependency-graph.json` or `code_relations.yaml` that lists modules, their imports, and key cross-module dependencies.
+  * Example (very simple):
+
+    ```yaml
+    modules:
+      - name: auth
+        path: src/auth/
+        depends_on: [db, email]
+      - name: db
+        path: src/db/
+        depends_on: []
+    ```
+
+* **Keep imports and dependency structure clean and layered** so graph builders have a sane signal:
+
+  * Avoid circular imports, “god” modules, and deep cross-layer tangles.
+  * Try to map directory layout to architecture layers (UI / API / domain / infra), which is a long-standing advice in SE that also benefits AI. ([Software Engineering Stack Exchange][2])
+
+*Why it matters:*
+RAG / graph-based systems work best when the architecture is actually visible in the code relationships. If architecture is “secretly in people’s heads” and not reflected in folders/imports/metadata, AI tools can’t reconstruct it reliably.
+
+---
+
+## 2. Align your docs and metadata with **global → local** understanding flow
+
+Recent research on professional code auditors using ChatGPT found they always go:
+
+> project overview → high-level architecture → module relationships & data flow → local functions/variables. ([arXiv][3])
+
+AI tools that follow this pattern perform better, and you can **shape your repo** to match that flow:
+
+* **Global layer (top of repo):**
+
+  * `README.md`: purpose, how to run, where the main entrypoints are.
+  * `ARCHITECTURE.md`: components, data flows, external systems.
+  * `CODEBASE_INDEX.yaml`: modules, responsibilities, dependencies, safe/unsafe zones.
+
+* **Middle layer (per-module docs):**
+
+  * `src/auth/README.md` or `MODULE.md` in each key module explaining:
+
+    * What this module is responsible for.
+    * What it *depends on*.
+    * What other parts of the system rely on it.
+
+* **Local layer (inline + docstrings):**
+
+  * Clean function/class docstrings for public APIs.
+  * Comments used sparingly for non-obvious behavior.
+
+GitHub’s own docs emphasize **logical architecture + consistent naming + clear README** as fundamentals; that lines up almost perfectly with the “global → local” pattern auditors use. ([GitHub][4])
+
+*Why it matters:*
+You’re already doing a ton of documentation work; this just says “stack it in layers that match how humans (and good AI tools) actually digest a repo.”
+
+---
+
+## 3. Make the repo easy to **compress and filter** for AI context tools
+
+Tools like **Repomix** and **Code2.ai** literally exist to pack an entire repo into AI-friendly bundles: they respect ignore files, extract key structures via Tree-sitter, generate summaries, and compress repetitive noise. ([GitHub][5])
+
+Those tools are “opinionated clients” — but you can structure your repo so *any* AI/CLI tool doing similar things has a better time:
+
+* **Use ignores consistently:**
+
+  * Keep `.gitignore` clean and representative of what should *never* be fed to tools (build artifacts, logs, large binaries, secrets).
+  * If your AI tools support extra ignore files (`.repomixignore`, `.toolignore`, etc.), maintain them alongside `.gitignore` so every tool sees the same “visibility rules.”
+
+* **Separate signal from noise:**
+
+  * Put generated code / vendor libraries / big data dumps into clearly named folders (`generated/`, `vendor/`, `data/`) that can be excluded en masse.
+  * Keep heavy binary assets out of the main tree where possible.
+
+* **Keep doc output in a predictable place:**
+
+  * If you auto-generate docs (or plan to, e.g., with RepoAgent or similar), put them under `docs/generated/` or `markdown_docs/` like RepoAgent does. ([GitHub][6])
+
+*Why it matters:*
+Any CLI doing “repo → summary” or “repo → context file” will lean heavily on ignore patterns and directory boundaries. Give them clean, deliberate boundaries and you get much better summaries.
+
+---
+
+## 4. Treat “AI context artifacts” as first-class build outputs
+
+Newer tools (Repomix, Code2.ai, RepoAgent, etc.) don’t just read your repo — they **produce artifacts** like compressed context files, knowledge graphs, or per-file docs. ([GitHub][5])
+
+You can design your repo so these artifacts are:
+
+* **Expected**: define a standard place and format for them, e.g.:
+
+  ```text
+  .meta/
+    ai_context/
+      repo-summary.md
+      repo-summary.json
+      code-graph.json
+      token-stats.json
+  docs/generated/
+      per-file-docs/
+  ```
+
+* **Documented**: short `AI_CONTEXT_SPEC.md` in `.meta/` describing:
+
+  * Which tools generate what.
+  * Where those outputs live.
+  * Which of them other agents/CLIs should read as “canonical context.”
+
+* **Version-controlled (when appropriate)**:
+
+  * Some artifacts (like high-level summaries) are worth committing; others (token stats, raw packed files) should be ignored and regenerated.
+
+*Why it matters:*
+Research and industry experience both say context management is the big limiter: context windows, noise, missing architectural info, etc. ([Empromptu][1])
+If your repo has a clear “AI context layer,” any CLI that knows how to look for it gets a massive head start.
+
+---
+
+## 5. Structure for **static analysis + CI** so AI can trust the safety rails
+
+Static analysis blogs from Codacy, Splunk, Parasoft, and others all converge on the same themes: centralized configs, clear pass/fail rules, and integration into CI pipelines. ([Codacy Blog][7])
+
+For AI/CLI tools, that translates into:
+
+* **Centralized tool configs at the repo root**, not scattered:
+
+  * `pyproject.toml` / `eslint.config.js` / `ruff.toml` / `mypy.ini` / `typos.toml`… all in predictable locations (Repomix’s own repo is a good example of this style). ([GitHub][5])
+
+* **Simple, documented quality commands:**
+
+  * `make lint`, `make test`, `npm test`, etc.
+  * A short `QUALITY_GATE.md` explaining which commands must pass before changes are considered safe.
+
+* **Directory-specific rules when needed:**
+
+  * If certain folders have different constraints (e.g., `infra/` vs `src/`), capture that in linter/formatter config, not just in prose.
+
+*Why it matters:*
+If a CLI tool can:
+
+1. Make a change, and
+2. Run a **single canonical command** to check if it’s okay
+
+…it can use that feedback loop to refine its edits automatically instead of guessing.
+
+---
+
+## 6. Make docs “RAG-friendly”
+
+People building repo-RAG systems report that naive “just vectorize everything” quickly becomes stale and messy; better results come from **structured, predictable docs and a pipeline that can re-index easily**. ([Reddit][8])
+
+Helpful repo patterns:
+
+* **Stable doc categories:**
+
+  * `docs/overview/` – project, architecture, high-level flows.
+  * `docs/specs/` – formal specs, contracts, invariants.
+  * `docs/decisions/` – ADRs, tradeoffs.
+  * `docs/howto/` – operational runbooks, recipes.
+
+* **Cross-linking code ↔ docs:**
+
+  * Keep stable IDs or paths in docs so an indexer can connect them to files (you’re already doing this with term→file mappings; that’s actually ahead of the curve).
+
+* **Single doc index:**
+
+  * A `docs/index.yaml` or `DOCUMENTATION_INDEX.md` listing all doc types and their paths (which you already have, but this is exactly what RAG pipelines want). ([GitHub][4])
+
+*Why it matters:*
+RAG systems and repo agents (like RepoAgent) work best when they can easily separate “global design”, “local API docs”, and “historical decisions” instead of just chewing one giant blob. ([GitHub][6])
+
+---
+
+## 7. Be explicit about **what AI is allowed to change**
+
+This is one of the big gaps in many repos, and most guides still don’t talk about it directly.
+
+Given what GitHub’s new Copilot agent and other tools do (clone repo, analyze, then start editing autonomously) and the fact that they respect custom repository instructions, it’s becoming important to make **edit policies machine-readable**. ([The Verge][9])
+
+You can:
+
+* **Define safe/unsafe zones in a config file**, e.g. `ai_policies.yaml`:
+
+  ```yaml
+  safe_to_modify:
+    - src/**
+    - tests/**
+  review_required:
+    - infra/**
+    - config/**
+  read_only:
+    - .archive/**
+    - docs/decisions/**
+  ```
+
+* Reference that file in:
+
+  * Your `.meta/AI_GUIDANCE.md` (for humans + AIs).
+  * Tool-specific configs (Copilot repo instructions, Claude Code config, etc.).
+
+*Why it matters:*
+If an autonomous agent or CLI knows exactly where it can edit and what must be treated as read-only, its decisions will line up much more closely with how you expect the system to behave.
+
+---
+
+## 8. Summing up: “Advanced” structure patterns beyond the basics
+
+On top of the good practices you already have (docs-as-code, term→file mapping, ADRs, etc.), the web search adds these extra patterns worth baking into your Build Metadata / Phase K world:
+
+1. **Design for RAG + code graphs:** explicit module/dep metadata + clean layered imports. ([Empromptu][1])
+2. **Match the global→local understanding flow:** structure README/ARCHITECTURE/module docs accordingly. ([arXiv][3])
+3. **Support compression tools:** clear ignore patterns, separation of generated/vendor/noise, predictable output dirs. ([GitHub][5])
+4. **First-class AI context artifacts:** `.meta/ai_context/` with summaries, graphs, token stats. ([Code2][10])
+5. **Central static-analysis + CI rails:** one place for configs; one canonical quality command. ([Codacy Blog][7])
+6. **RAG-friendly doc layout:** stable doc categories + doc index; cross-links to code. ([GitHub][4])
+7. **Machine-readable edit policies:** safe/review/read-only zones for autonomous agents. ([The Verge][9])
+
+
+
+[1]: https://empromptu.ai/blog/ai-codebase-analysis-why-most-tools-fall-short "AI Codebase Analysis: Why Most Tools Fall Short | Empromptu - AI Application Builder"
+[2]: https://softwareengineering.stackexchange.com/questions/81899/how-should-i-organize-my-source-tree?utm_source=chatgpt.com "How should I organize my source tree?"
+[3]: https://arxiv.org/html/2504.04553v2 "Understanding Codebase like a Professional! Human–AI Collaboration for Code Comprehension"
+[4]: https://github.com/resources/articles/tools-and-techniques-for-effective-code-documentation "Tools and techniques for effective code documentation · GitHub"
+[5]: https://github.com/yamadashy/repomix "GitHub - yamadashy/repomix:  Repomix is a powerful tool that packs your entire repository into a single, AI-friendly file. Perfect for when you need to feed your codebase to Large Language Models (LLMs) or other AI tools like Claude, ChatGPT, DeepSeek, Perplexity, Gemini, Gemma, Llama, Grok, and more."
+[6]: https://github.com/OpenBMB/RepoAgent "GitHub - OpenBMB/RepoAgent: An LLM-powered repository agent designed to assist developers and teams in generating documentation and understanding repositories quickly."
+[7]: https://blog.codacy.com/static-code-analysis?utm_source=chatgpt.com "Static Code Analysis: Everything You Need To Know"
+[8]: https://www.reddit.com/r/LLMDevs/comments/1isdx7y/indexing_github_project_docs_for_rag_how_are/ "Indexing Github project docs for RAG - how are people doing it? : r/LLMDevs"
+[9]: https://www.theverge.com/news/669339/github-ai-coding-agent-fix-bugs?utm_source=chatgpt.com "GitHub's new AI coding agent can fix bugs for you"
+[10]: https://code2.ai/solutions/code-understanding "Code Understanding - Code2.AI"
+
+
+
+---
+
+
+Here’s a ready-to-drop spec file you can save as:
+
+`AI_CODEBASE_STRUCTURE_SPEC.md`
+
+I wrote it to plug into your existing Build Metadata / Phase K ecosystem: IDs, MUST/SHOULD language, and explicit YAML “schemas” that other agents can reason over.
+
+---
+
+````markdown
+---
+spec_id: AI_CODEBASE_STRUCTURE_SPEC
+title: AI Codebase Structure Specification
+version: 0.1.0
+status: draft
+relates_to:
+  - PHASE_K_DOCUMENTATION_ENHANCEMENT_PLAN
+  - BUILD_METADATA_SPEC
+owner: ARCHITECTURE_GOVERNANCE
+---
+
+# AI Codebase Structure Specification
+
+## 0. Purpose & Scope
+
+This specification defines **repository structure** and **machine-readable metadata** requirements that enable AI/CLI tools to:
+
+- Build **RAG indexes** and **code graphs** reliably.
+- Understand the codebase from **global → local**.
+- Compress and filter content for **context-limited models**.
+- Use **static analysis + CI** as safety rails.
+- Respect **edit policies** and avoid restricted areas.
+
+This spec is **codebase-agnostic** and is intended to be used **alongside Phase K** documentation (e.g., term maps, documentation index, examples, diagrams).
+
+> **Normative language:**  
+> - “MUST”, “MUST NOT”, “REQUIRED” are mandatory.  
+> - “SHOULD”, “SHOULD NOT” are strong recommendations.  
+> - “MAY” is optional.
+
+---
+
+## 1. Core Artifacts Overview
+
+The following artifacts MUST be present in any repository claiming conformance:
+
+| Artifact ID | Name                     | Location (default)          | Format  |
+|------------|--------------------------|-----------------------------|---------|
+| ACS-A01    | CODEBASE_INDEX           | `CODEBASE_INDEX.yaml`       | YAML    |
+| ACS-A02    | ARCHITECTURE_LAYERING    | `README.md`, `ARCHITECTURE.md`, `MODULE.md` | Markdown |
+| ACS-A03    | AI_IGNORE_RULES          | `.gitignore`, `.toolignore` | Text    |
+| ACS-A04    | AI_CONTEXT_ARTIFACTS     | `.meta/ai_context/`         | Mixed   |
+| ACS-A05    | QUALITY_GATE_CONFIG      | `QUALITY_GATE.yaml` + commands | YAML + shell |
+| ACS-A06    | DOC_LAYOUT_INDEX         | `docs/index.yaml` or `DOCUMENTATION_INDEX.md` | YAML/MD |
+| ACS-A07    | AI_POLICIES              | `ai_policies.yaml`, `.meta/AI_GUIDANCE.md` | YAML/MD |
+
+Phase K documents MAY reference these artifacts via their IDs (ACS-A0x) and MUST treat them as part of the **Build Metadata layer**.
+
+---
+
+## 2. Requirement Group ACS-1: Design for RAG & Code Graphs
+
+### ACS-1.1 Module & Dependency Metadata
+
+**ACS-REQ-001**
+
+- The repository **MUST** provide a machine-readable module/dependency index as `CODEBASE_INDEX.yaml` (ACS-A01) at the repository root.
+- This index **MUST** enumerate modules, their filesystem locations, responsibilities, and high-level dependencies.
+
+#### 2.1.1 `CODEBASE_INDEX.yaml` Schema (Conceptual)
+
+```yaml
+# ACS-A01 CODEBASE_INDEX (conceptual schema)
+
+project:
+  name: string              # REQUIRED
+  language: string          # e.g. "python", "typescript"
+  description: string       # short description
+
+modules:
+  - id: string              # stable module id, e.g. "mod-api"
+    name: string            # human-readable, e.g. "API"
+    path: string            # e.g. "src/api/"
+    layer: string           # e.g. "api" | "domain" | "infra" | "ui"
+    responsibility: string  # concise description
+    depends_on:             # list of module ids this module depends on
+      - string
+    public_entrypoints:     # OPTIONAL: files exported or used as entrypoints
+      - path: string
+        description: string
+
+relations:                  # OPTIONAL explicit additional graph edges
+  - from: string            # module id
+    to: string              # module id
+    type: string            # e.g. "reads_from", "publishes_to", "uses_queue"
+````
+
+**ACS-REQ-002**
+
+* `modules[*].path` **MUST** correspond to real directories in the repository.
+* `modules[*].depends_on` **MUST NOT** contain cycles for layers that are intended to be acyclic (e.g. domain → infra is forbidden if policy requires infra depend on domain only).
+
+### ACS-1.2 Layered Imports and Structure
+
+**ACS-REQ-003**
+
+* The physical directory layout and import structure **SHOULD** reflect the layered architecture defined in `CODEBASE_INDEX.yaml`.
+* Cross-layer dependencies that violate the declared layering **MUST** be treated as violations by static analysis or CI (see ACS-5).
+
+---
+
+## 3. Requirement Group ACS-2: Global → Local Understanding Flow
+
+### ACS-2.1 Root Overview Documents
+
+**ACS-REQ-004**
+
+* The repository **MUST** include a concise `README.md` at the root that provides:
+
+  * project purpose,
+  * primary entrypoints,
+  * minimal quick-start (run, test).
+* The repository **MUST** include `ARCHITECTURE.md` at the root describing:
+
+  * major components,
+  * data flows,
+  * external systems,
+  * a mapping to `modules[*]` in `CODEBASE_INDEX.yaml` when applicable.
+
+#### 3.1.1 `ARCHITECTURE.md` Structure (Minimal Sections)
+
+```markdown
+# Architecture
+
+## Components
+- <ComponentName> (`<path>`): <short responsibility>, relates to modules: [mod-id-1, mod-id-2, ...]
+
+## Data Flows
+- <FlowName>: <source> → <processing> → <sink>
+
+## External Dependencies
+- <SystemName>: used by <modules>, protocol/SDK notes.
+```
+
+### ACS-2.2 Module-Level Documentation
+
+**ACS-REQ-005**
+
+* Each non-trivial module listed in `CODEBASE_INDEX.yaml` **SHOULD** contain a `MODULE.md` (or `README.md`) in its root directory (`modules[*].path`) that describes:
+
+  * its responsibility,
+  * its public APIs,
+  * its dependencies (referencing other module ids).
+
+```markdown
+# Module: <Name> (mod-id)
+
+## Responsibility
+<one short paragraph>
+
+## Public APIs
+- `<symbol>` in `<file>`: <short description>
+
+## Dependencies
+- depends_on: [mod-domain, mod-db]
+- used_by: [mod-api, mod-worker]
+```
+
+---
+
+## 4. Requirement Group ACS-3: Compression & Filtering for Context Tools
+
+### ACS-3.1 Ignore Rules
+
+**ACS-REQ-006**
+
+* The repository **MUST** contain a maintained `.gitignore`.
+* The repository **SHOULD** contain an additional AI-focused ignore file (e.g. `.toolignore`, `.repomixignore`) defining:
+
+  * generated artifacts,
+  * large binaries,
+  * vendor directories,
+  * logs and temp files
+    that **MUST NOT** be offered as default context to AI tools.
+
+```text
+# Example .toolignore fragment
+
+node_modules/
+dist/
+build/
+.env
+*.log
+data/large/**
+generated/**
+vendor/**
+```
+
+### ACS-3.2 Noise Separation
+
+**ACS-REQ-007**
+
+* Large or generated content **SHOULD** live under explicitly named directories (e.g. `generated/`, `vendor/`, `data/`) so AI/CLI tools MAY safely exclude them in bulk.
+
+---
+
+## 5. Requirement Group ACS-4: First-Class AI Context Artifacts
+
+### ACS-4.1 AI Context Directory
+
+**ACS-REQ-008**
+
+* The repository **MUST** provide a dedicated directory for AI context artifacts: `.meta/ai_context/` (ACS-A04).
+
+**ACS-REQ-009**
+
+* At minimum, `.meta/ai_context/` **SHOULD** contain:
+
+  * `repo_summary.md` — human/AI readable project summary.
+  * `repo_summary.json` — structured summary.
+  * `code_graph.json` — optional derived graph from `CODEBASE_INDEX.yaml` plus static analysis.
+
+#### 5.1.1 `repo_summary.json` Schema (Conceptual)
+
+```jsonc
+{
+  "project": {
+    "name": "string",
+    "description": "string",
+    "primary_language": "string"
+  },
+  "modules": [
+    {
+      "id": "string",
+      "name": "string",
+      "path": "string",
+      "summary": "string",
+      "depends_on": ["string"]
+    }
+  ],
+  "key_flows": [
+    {
+      "id": "string",
+      "name": "string",
+      "description": "string",
+      "modules": ["string"]
+    }
+  ]
+}
+```
+
+---
+
+## 6. Requirement Group ACS-5: Static Analysis & CI Safety Rails
+
+### ACS-5.1 Quality Gate Configuration
+
+**ACS-REQ-010**
+
+* The repository **MUST** define a canonical set of quality commands (lint, test, format) and expose them via:
+
+  * a `QUALITY_GATE.yaml` (ACS-A05), **and**
+  * one or more executable entrypoints (e.g. `make`, `just`, `npm scripts`).
+
+#### 6.1.1 `QUALITY_GATE.yaml` Schema (Conceptual)
+
+```yaml
+# ACS-A05 QUALITY_GATE configuration
+
+commands:
+  test:
+    description: "Run full test suite"
+    run: "pytest"          # or "npm test", "go test ./..."
+    required: true
+  lint:
+    description: "Run all linters"
+    run: "ruff check . && mypy ."
+    required: true
+  format:
+    description: "Autoformat code"
+    run: "ruff format ."
+    required: false
+
+policy:
+  fail_on:
+    - test
+    - lint         # commands that MUST pass before changes are accepted
+```
+
+**ACS-REQ-011**
+
+* CI pipelines (if present) **SHOULD** invoke the commands defined in `QUALITY_GATE.yaml` verbatim.
+* AI/CLI agents **SHOULD** use these commands to validate edits before proposing or applying changes.
+
+---
+
+## 7. Requirement Group ACS-6: RAG-Friendly Documentation Layout
+
+### ACS-6.1 Doc Categories and Index
+
+**ACS-REQ-012**
+
+* Documentation **MUST** be organized into stable categories, e.g.:
+
+```text
+docs/
+  overview/
+  specs/
+  decisions/
+  howto/
+```
+
+* The repository **MUST** provide a doc index:
+
+  * either `docs/index.yaml`, or
+  * `DOCUMENTATION_INDEX.md` (ACS-A06, compatible with Phase K).
+
+#### 7.1.1 `docs/index.yaml` Schema (Conceptual)
+
+```yaml
+# ACS-A06 DOC_LAYOUT_INDEX
+
+sections:
+  - id: "overview"
+    name: "Overview"
+    path: "docs/overview/"
+    description: "High-level project and architecture overviews"
+  - id: "specs"
+    name: "Specifications"
+    path: "docs/specs/"
+    description: "Formal specs, contracts, invariants"
+  - id: "decisions"
+    name: "Decisions"
+    path: "docs/decisions/"
+    description: "ADRs, tradeoffs, decision records"
+  - id: "howto"
+    name: "How-To Guides"
+    path: "docs/howto/"
+    description: "Operational and developer runbooks"
+```
+
+**ACS-REQ-013**
+
+* Each doc referenced in the index **SHOULD** clearly indicate:
+
+  * its purpose,
+  * its status (draft/stable/deprecated),
+  * any referenced modules (by module id from `CODEBASE_INDEX.yaml`).
+
+---
+
+## 8. Requirement Group ACS-7: Machine-Readable Edit Policies
+
+### ACS-7.1 AI Policies File
+
+**ACS-REQ-014**
+
+* The repository **MUST** define explicit edit policies in `ai_policies.yaml` (ACS-A07) at the root.
+
+#### 8.1.1 `ai_policies.yaml` Schema (Conceptual)
+
+```yaml
+# ACS-A07 AI_POLICIES
+
+zones:
+  safe_to_modify:
+    - "src/**"
+    - "tests/**"
+  review_required:
+    - "infra/**"
+    - "config/**"
+  read_only:
+    - ".archive/**"
+    - "docs/decisions/**"
+
+invariants:
+  - id: "INV-DB-SCHEMA"
+    description: "DB schema changes MUST be accompanied by migrations"
+    affected_paths:
+      - "src/db/schema/**"
+      - "src/db/migrations/**"
+  - id: "INV-DOMAIN-LOGIC"
+    description: "Core business logic MUST reside in domain modules, not controllers"
+    affected_paths:
+      - "src/domain/**"
+      - "src/api/**"
+```
+
+**ACS-REQ-015**
+
+* `.meta/AI_GUIDANCE.md` **SHOULD** exist and:
+
+  * reference `ai_policies.yaml`,
+  * summarize key invariants in human-readable form,
+  * explain typical “safe” vs “dangerous” edit operations for agents.
+
+```markdown
+# AI Guidance (Summary)
+
+- Refer to `ai_policies.yaml` for exact paths and invariants.
+- Safe edits: `src/**`, `tests/**` under existing patterns.
+- Read-only: `.archive/**`, historical ADRs, Phase K records.
+```
+
+---
+
+## 9. Conformance & Integration with Phase K
+
+**ACS-REQ-016**
+
+* Phase K documentation (e.g., term maps, implementation locations, gap analyses) **SHOULD**:
+
+  * reference `CODEBASE_INDEX.yaml` module ids when pointing to implementation,
+  * use `docs/index.yaml` or `DOCUMENTATION_INDEX.md` as the canonical doc index,
+  * treat `ai_policies.yaml` as the single source of truth for edit zones and invariants.
+
+**ACS-REQ-017**
+
+* Any **Build Metadata Spec** or **Phase Plan** that relies on repository structure **SHOULD**:
+
+  * treat ACS-A01–A07 as required inputs when generating prompts, task plans, or AI execution contexts.
+
+---
+
+## 10. Future Extensions (Non-Normative)
+
+The following extensions are **non-normative** but recommended for future versions:
+
+* Automatic generation of `CODEBASE_INDEX.yaml` and `code_graph.json` via static analysis.
+* Separate `ai_policies.yaml` profiles per environment (dev/stage/prod).
+* Per-tool overrides (e.g., Copilot/Claude/Aider configs) that **import** shared policies from ACS-A07 instead of duplicating them.
+
+```
+
+---
+
+
+```
+
+

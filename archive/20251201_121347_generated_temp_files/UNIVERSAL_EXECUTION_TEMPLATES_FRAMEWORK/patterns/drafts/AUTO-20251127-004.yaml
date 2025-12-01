@@ -1,0 +1,31 @@
+doc_id: DOC-PAT-AUTO-20251127-004-019
+# Auto-Generated Pattern
+# Created: 2025-11-27T02:40:48.428905
+# Confidence: 86.50%
+# Learned from: 7 executions
+
+pattern_id: AUTO-20251127-004
+name: "Auto-File Creation for txt"
+version: "1.0.0"
+status: draft
+category: auto_detected
+auto_generated: true
+
+metadata:
+  confidence: 0.86
+  learned_from_executions: 7
+  estimated_time_savings: "0 minutes per execution"
+  example_execution_ids: [8, 6, 7, 3, 4, 5, 6]
+
+# Auto-Generated Pattern Template
+# Detected from 0 similar executions
+
+operation_kind: file_creation
+
+inputs:
+  file_types: {file_types}  # list
+  context_params: {context_params}  # dict
+
+steps:
+  - tool: create
+

@@ -1,0 +1,1253 @@
+{
+  "generated_at": "2025-11-25T15:04:42.581077+00:00",
+  "confidence_threshold": 85,
+  "total_items": 68,
+  "items": [
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\core\\engine\\__init__.py",
+      "duplication_score": 60,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 90,
+      "total_score": 75,
+      "confidence": 71,
+      "action": "DELETE",
+      "reasons": [
+        "Same filename exists in 76 locations",
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported and imports nothing (orphaned)"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-20T16:16:38-06:00",
+      "file_size": 40
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\core\\state\\__init__.py",
+      "duplication_score": 60,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 90,
+      "total_score": 75,
+      "confidence": 71,
+      "action": "DELETE",
+      "reasons": [
+        "Same filename exists in 76 locations",
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported and imports nothing (orphaned)"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-20T16:16:38-06:00",
+      "file_size": 39
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\tests\\adapters\\__init__.py",
+      "duplication_score": 60,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 90,
+      "total_score": 75,
+      "confidence": 71,
+      "action": "DELETE",
+      "reasons": [
+        "Same filename exists in 76 locations",
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported and imports nothing (orphaned)"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-20T18:48:11-06:00",
+      "file_size": 43
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\tests\\bootstrap\\__init__.py",
+      "duplication_score": 60,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 90,
+      "total_score": 75,
+      "confidence": 71,
+      "action": "DELETE",
+      "reasons": [
+        "Same filename exists in 76 locations",
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported and imports nothing (orphaned)"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-20T16:06:30-06:00",
+      "file_size": 30
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\tests\\engine\\__init__.py",
+      "duplication_score": 60,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 90,
+      "total_score": 75,
+      "confidence": 71,
+      "action": "DELETE",
+      "reasons": [
+        "Same filename exists in 76 locations",
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported and imports nothing (orphaned)"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-20T16:22:52-06:00",
+      "file_size": 32
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\tests\\monitoring\\__init__.py",
+      "duplication_score": 60,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 90,
+      "total_score": 75,
+      "confidence": 71,
+      "action": "DELETE",
+      "reasons": [
+        "Same filename exists in 76 locations",
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported and imports nothing (orphaned)"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-20T18:48:11-06:00",
+      "file_size": 62
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\tests\\patterns\\__init__.py",
+      "duplication_score": 60,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 90,
+      "total_score": 75,
+      "confidence": 71,
+      "action": "DELETE",
+      "reasons": [
+        "Same filename exists in 76 locations",
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported and imports nothing (orphaned)"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-25T04:33:51-06:00",
+      "file_size": 25
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\tests\\resilience\\__init__.py",
+      "duplication_score": 60,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 90,
+      "total_score": 75,
+      "confidence": 71,
+      "action": "DELETE",
+      "reasons": [
+        "Same filename exists in 76 locations",
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported and imports nothing (orphaned)"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-20T18:48:11-06:00",
+      "file_size": 49
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\core\\__init__.py",
+      "duplication_score": 60,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 67,
+      "confidence": 53,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Same filename exists in 76 locations",
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-23T12:30:55-06:00",
+      "file_size": 1669
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\core\\adapters\\base.py",
+      "duplication_score": 60,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 67,
+      "confidence": 53,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Same filename exists in 2 locations",
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-20T18:48:11-06:00",
+      "file_size": 3698
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\core\\adapters\\__init__.py",
+      "duplication_score": 60,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 67,
+      "confidence": 53,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Same filename exists in 76 locations",
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-20T18:48:11-06:00",
+      "file_size": 371
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\core\\bootstrap\\orchestrator.py",
+      "duplication_score": 60,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 67,
+      "confidence": 53,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Same filename exists in 5 locations",
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-20T16:13:34-06:00",
+      "file_size": 12593
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\core\\engine\\cost_tracker.py",
+      "duplication_score": 60,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 67,
+      "confidence": 53,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Same filename exists in 2 locations",
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-23T13:51:37-06:00",
+      "file_size": 9549
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\core\\engine\\orchestrator.py",
+      "duplication_score": 60,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 67,
+      "confidence": 53,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Same filename exists in 5 locations",
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-20T16:22:52-06:00",
+      "file_size": 10937
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\core\\engine\\scheduler.py",
+      "duplication_score": 60,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 67,
+      "confidence": 53,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Same filename exists in 3 locations",
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-20T17:08:41-06:00",
+      "file_size": 9056
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\core\\engine\\monitoring\\__init__.py",
+      "duplication_score": 60,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 67,
+      "confidence": 53,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Same filename exists in 76 locations",
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-20T18:48:11-06:00",
+      "file_size": 332
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\core\\engine\\resilience\\__init__.py",
+      "duplication_score": 60,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 67,
+      "confidence": 53,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Same filename exists in 76 locations",
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-20T18:48:11-06:00",
+      "file_size": 535
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\core\\state\\db.py",
+      "duplication_score": 60,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 67,
+      "confidence": 53,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Same filename exists in 2 locations",
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-20T16:22:52-06:00",
+      "file_size": 12532
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\tests\\engine\\test_worker_lifecycle.py",
+      "duplication_score": 60,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 67,
+      "confidence": 53,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Same filename exists in 2 locations",
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-23T13:51:37-06:00",
+      "file_size": 18903
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\tools\\speed_demon\\batch_create.py",
+      "duplication_score": 60,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 67,
+      "confidence": 53,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Same filename exists in 2 locations",
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-23T16:32:41-06:00",
+      "file_size": 4801
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\tools\\speed_demon\\verify_ground_truth.py",
+      "duplication_score": 60,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 67,
+      "confidence": 53,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Same filename exists in 2 locations",
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-23T16:32:41-06:00",
+      "file_size": 4735
+    },
+    {
+      "path": "tests\\plugins\\__init__.py",
+      "duplication_score": 60,
+      "staleness_score": 0,
+      "obsolescence_score": 70,
+      "isolation_score": 90,
+      "total_score": 55,
+      "confidence": 51,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Same filename exists in 76 locations",
+        "Superseded by canonical module in tools",
+        "Not imported and imports nothing (orphaned)"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-16T19:01:54-06:00",
+      "file_size": 45
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\core\\adapters\\registry.py",
+      "duplication_score": 0,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 52,
+      "confidence": 50,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-20T18:48:11-06:00",
+      "file_size": 3317
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\core\\adapters\\subprocess_adapter.py",
+      "duplication_score": 0,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 52,
+      "confidence": 50,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-20T18:48:11-06:00",
+      "file_size": 4236
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\core\\bootstrap\\discovery.py",
+      "duplication_score": 0,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 52,
+      "confidence": 50,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-20T15:35:15-06:00",
+      "file_size": 3198
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\core\\bootstrap\\generator.py",
+      "duplication_score": 0,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 52,
+      "confidence": 50,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-20T15:44:54-06:00",
+      "file_size": 2440
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\core\\bootstrap\\selector.py",
+      "duplication_score": 0,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 52,
+      "confidence": 50,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-20T15:44:54-06:00",
+      "file_size": 2854
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\core\\bootstrap\\validator.py",
+      "duplication_score": 0,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 52,
+      "confidence": 50,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-20T16:06:30-06:00",
+      "file_size": 9943
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\core\\engine\\execution_request_builder.py",
+      "duplication_score": 0,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 52,
+      "confidence": 50,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-20T16:31:07-06:00",
+      "file_size": 3985
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\core\\engine\\patch_ledger.py",
+      "duplication_score": 0,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 52,
+      "confidence": 50,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-23T13:51:37-06:00",
+      "file_size": 20448
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\core\\engine\\router.py",
+      "duplication_score": 0,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 52,
+      "confidence": 50,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-20T16:26:32-06:00",
+      "file_size": 7201
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\core\\engine\\state_machine.py",
+      "duplication_score": 0,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 52,
+      "confidence": 50,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-20T16:22:52-06:00",
+      "file_size": 6543
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\core\\engine\\test_gate.py",
+      "duplication_score": 0,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 52,
+      "confidence": 50,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-23T13:51:37-06:00",
+      "file_size": 14016
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\core\\engine\\worker_lifecycle.py",
+      "duplication_score": 0,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 52,
+      "confidence": 50,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-23T13:51:37-06:00",
+      "file_size": 15862
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\core\\engine\\monitoring\\progress_tracker.py",
+      "duplication_score": 0,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 52,
+      "confidence": 50,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-20T18:48:11-06:00",
+      "file_size": 7241
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\core\\engine\\monitoring\\run_monitor.py",
+      "duplication_score": 0,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 52,
+      "confidence": 50,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-20T18:48:11-06:00",
+      "file_size": 6113
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\core\\engine\\resilience\\circuit_breaker.py",
+      "duplication_score": 0,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 52,
+      "confidence": 50,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-20T18:48:11-06:00",
+      "file_size": 6065
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\core\\engine\\resilience\\resilient_executor.py",
+      "duplication_score": 0,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 52,
+      "confidence": 50,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-20T18:48:11-06:00",
+      "file_size": 3805
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\core\\engine\\resilience\\retry.py",
+      "duplication_score": 0,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 52,
+      "confidence": 50,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-20T18:48:11-06:00",
+      "file_size": 4349
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\scripts\\deep_search.py",
+      "duplication_score": 0,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 52,
+      "confidence": 50,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-24T07:41:49-06:00",
+      "file_size": 14128
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\scripts\\extract_patterns_from_logs.py",
+      "duplication_score": 0,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 52,
+      "confidence": 50,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-23T16:22:05-06:00",
+      "file_size": 4108
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\scripts\\process_patches.py",
+      "duplication_score": 0,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 52,
+      "confidence": 50,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-24T07:41:49-06:00",
+      "file_size": 10387
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\scripts\\validate_extracted_templates.py",
+      "duplication_score": 0,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 52,
+      "confidence": 50,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-23T16:22:05-06:00",
+      "file_size": 4402
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\scripts\\validate_module_manifests.py",
+      "duplication_score": 0,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 52,
+      "confidence": 50,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-23T16:30:24-06:00",
+      "file_size": 4638
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\tests\\adapters\\test_base.py",
+      "duplication_score": 0,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 52,
+      "confidence": 50,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-20T18:48:11-06:00",
+      "file_size": 4528
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\tests\\adapters\\test_registry.py",
+      "duplication_score": 0,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 52,
+      "confidence": 50,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-20T18:48:11-06:00",
+      "file_size": 6116
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\tests\\adapters\\test_subprocess_adapter.py",
+      "duplication_score": 0,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 52,
+      "confidence": 50,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-20T18:48:11-06:00",
+      "file_size": 5109
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\tests\\bootstrap\\test_validator.py",
+      "duplication_score": 0,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 52,
+      "confidence": 50,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-20T16:06:30-06:00",
+      "file_size": 8957
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\tests\\engine\\test_cost_tracker.py",
+      "duplication_score": 0,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 52,
+      "confidence": 50,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-23T13:51:37-06:00",
+      "file_size": 14197
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\tests\\engine\\test_patch_ledger.py",
+      "duplication_score": 0,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 52,
+      "confidence": 50,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-23T13:51:37-06:00",
+      "file_size": 23988
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\tests\\engine\\test_routing.py",
+      "duplication_score": 0,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 52,
+      "confidence": 50,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-20T16:31:07-06:00",
+      "file_size": 15366
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\tests\\engine\\test_run_lifecycle.py",
+      "duplication_score": 0,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 52,
+      "confidence": 50,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-20T16:22:52-06:00",
+      "file_size": 13409
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\tests\\engine\\test_scheduling.py",
+      "duplication_score": 0,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 52,
+      "confidence": 50,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-20T17:08:41-06:00",
+      "file_size": 17010
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\tests\\engine\\test_test_gate.py",
+      "duplication_score": 0,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 52,
+      "confidence": 50,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-23T13:51:37-06:00",
+      "file_size": 17890
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\tests\\monitoring\\test_progress_tracker.py",
+      "duplication_score": 0,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 52,
+      "confidence": 50,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-20T18:48:11-06:00",
+      "file_size": 4581
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\tests\\monitoring\\test_run_monitor.py",
+      "duplication_score": 0,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 52,
+      "confidence": 50,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-20T18:48:11-06:00",
+      "file_size": 2620
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\tests\\patterns\\test_doc_id_compliance.py",
+      "duplication_score": 0,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 52,
+      "confidence": 50,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-25T04:33:51-06:00",
+      "file_size": 979
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\tests\\patterns\\test_pattern_registry.py",
+      "duplication_score": 0,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 52,
+      "confidence": 50,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-25T04:33:51-06:00",
+      "file_size": 1029
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\tests\\resilience\\test_circuit_breaker.py",
+      "duplication_score": 0,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 52,
+      "confidence": 50,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-20T18:48:11-06:00",
+      "file_size": 5314
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\tests\\resilience\\test_resilient_executor.py",
+      "duplication_score": 0,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 52,
+      "confidence": 50,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-20T18:48:11-06:00",
+      "file_size": 6674
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\tests\\resilience\\test_retry.py",
+      "duplication_score": 0,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 52,
+      "confidence": 50,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-20T18:48:11-06:00",
+      "file_size": 5748
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\tests\\schema\\test_all_schemas.py",
+      "duplication_score": 0,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 52,
+      "confidence": 50,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-20T15:30:40-06:00",
+      "file_size": 996
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\tests\\schema\\test_doc_meta.py",
+      "duplication_score": 0,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 52,
+      "confidence": 50,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-20T15:30:40-06:00",
+      "file_size": 1971
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\tools\\apply_doc_move_plan.py",
+      "duplication_score": 0,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 52,
+      "confidence": 50,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-23T12:18:43-06:00",
+      "file_size": 5226
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\tools\\check_doc_orphans.py",
+      "duplication_score": 0,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 52,
+      "confidence": 50,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-23T12:18:43-06:00",
+      "file_size": 3370
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\tools\\doc_inventory.py",
+      "duplication_score": 0,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 52,
+      "confidence": 50,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-23T12:18:43-06:00",
+      "file_size": 3627
+    },
+    {
+      "path": "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\\tools\\validate_doc_org.py",
+      "duplication_score": 0,
+      "staleness_score": 80,
+      "obsolescence_score": 70,
+      "isolation_score": 60,
+      "total_score": 52,
+      "confidence": 50,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Path contains 'temp'",
+        "Superseded by canonical module in tools",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-23T12:18:43-06:00",
+      "file_size": 6070
+    },
+    {
+      "path": "legacy\\AUX_mcp-data_archived_2025-11-22\\init_db.py",
+      "duplication_score": 60,
+      "staleness_score": 80,
+      "obsolescence_score": 0,
+      "isolation_score": 60,
+      "total_score": 50,
+      "confidence": 50,
+      "action": "ARCHIVE",
+      "reasons": [
+        "Same filename exists in 2 locations",
+        "Path contains 'archive'",
+        "Not imported by any file"
+      ],
+      "duplicate_of": null,
+      "last_modified": "2025-11-22T10:38:16-06:00",
+      "file_size": 767
+    }
+  ],
+  "doc_id": "DOC-CONFIG-CLEANUP-REVIEW-NEEDED-20251125-090442-128"
+}

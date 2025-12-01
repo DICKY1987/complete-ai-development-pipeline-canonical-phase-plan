@@ -1,0 +1,121 @@
+{
+  "version": "1.0.0",
+  "logPaths": {
+    "claude": {
+      "history": "~/.claude/history.jsonl",
+      "debug": "~/.claude/debug",
+      "enabled": true
+    },
+    "codex": {
+      "history": "~/.codex/history.jsonl",
+      "log": "~/.codex/log/codex-tui.log",
+      "sessions": "~/.codex/sessions",
+      "enabled": true
+    },
+    "copilot": {
+      "logs": "~/.copilot/logs",
+      "commandHistory": "~/.copilot/command-history-state.json",
+      "enabled": true
+    },
+    "gemini": {
+      "tmp": "~/.gemini/tmp",
+      "enabled": true,
+      "note": "Gemini has minimal built-in logging"
+    },
+    "aider": {
+      "chatHistory": "~/Documents/aider-config/history/.aider.chat.history.md",
+      "llmHistory": "~/Documents/aider-config/history/.aider.llm.history",
+      "inputHistory": "~/Documents/aider-config/history/.aider.input.history",
+      "enabled": true
+    }
+  },
+  "aggregation": {
+    "outputDir": "~/ALL_AI/Complete AI Development Pipeline \u2013 Canonical Phase Plan/ai-logs-analyzer/aggregated",
+    "format": "jsonl",
+    "compression": {
+      "enabled": false,
+      "algorithm": "gzip"
+    },
+    "rotation": {
+      "enabled": true,
+      "frequency": "daily",
+      "retention": {
+        "days": 90,
+        "maxSizeMB": 1000
+      }
+    }
+  },
+  "analysis": {
+    "outputDir": "~/ALL_AI/Complete AI Development Pipeline \u2013 Canonical Phase Plan/ai-logs-analyzer/analysis",
+    "formats": [
+      "json",
+      "markdown"
+    ],
+    "types": [
+      "summary",
+      "usage-metrics",
+      "code-changes",
+      "patterns",
+      "full-report"
+    ]
+  },
+  "privacy": {
+    "redaction": {
+      "enabled": true,
+      "patterns": [
+        {
+          "name": "api_keys",
+          "regex": "(sk-[a-zA-Z0-9]{32,}|[a-zA-Z0-9]{32,}-[a-zA-Z0-9]{8,})",
+          "replacement": "[REDACTED_API_KEY]"
+        },
+        {
+          "name": "tokens",
+          "regex": "(ghp_[a-zA-Z0-9]{36}|gho_[a-zA-Z0-9]{36})",
+          "replacement": "[REDACTED_TOKEN]"
+        },
+        {
+          "name": "passwords",
+          "regex": "(password|passwd|pwd)\\s*[=:]\\s*['\"]?([^'\"\\s]+)",
+          "replacement": "$1=[REDACTED]"
+        },
+        {
+          "name": "email",
+          "regex": "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}\\b",
+          "replacement": "[REDACTED_EMAIL]"
+        }
+      ]
+    },
+    "encryption": {
+      "enabled": false,
+      "algorithm": "AES256"
+    }
+  },
+  "monitoring": {
+    "realtime": {
+      "enabled": false,
+      "refreshSeconds": 2
+    },
+    "alerts": {
+      "enabled": false,
+      "errorThreshold": 10,
+      "notificationMethod": "console"
+    }
+  },
+  "export": {
+    "formats": {
+      "csv": {
+        "enabled": true,
+        "delimiter": ","
+      },
+      "sqlite": {
+        "enabled": true,
+        "database": "~/ALL_AI/Complete AI Development Pipeline \u2013 Canonical Phase Plan/ai-logs-analyzer/logs.db"
+      },
+      "json": {
+        "enabled": true,
+        "pretty": true
+      }
+    }
+  },
+  "doc_id": "DOC-CONFIG-LOGGING-CONFIG-198"
+}
