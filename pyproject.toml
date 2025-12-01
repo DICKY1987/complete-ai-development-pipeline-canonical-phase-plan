@@ -5,3 +5,7 @@ python_files = ["test_*.py"]
 python_classes = ["Test*"]
 python_functions = ["test_*"]
 addopts = "--import-mode=importlib"
+markers = [
+    "integration: marks tests as integration tests (requires real tools installed)",
+    "slow: marks tests as slow running (>10 seconds)",
+]
