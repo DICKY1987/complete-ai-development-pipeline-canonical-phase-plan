@@ -774,6 +774,7 @@ docs:
   category: script
   name: recovery
   module_id: scripts.automation
+  status: active
 - doc_id: DOC-PAT-ASAFTERTHEMOVEREPO-688
   category: patterns
   name: asafterthemoverepo

@@ -1,0 +1,84 @@
+name: DOC_ID Validation
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  validate-doc-id-coverage:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      
+      - name: Validate doc_id coverage
+        id: coverage
+        run: |
+          python scripts/validate_doc_id_coverage.py \
+            --baseline 0.90 \
+            --report coverage_report.json
+        continue-on-error: true
+      
+      - name: Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: doc-id-coverage-report
+          path: coverage_report.json
+          retention-days: 30
+      
+      - name: Comment PR with results
+        if: github.event_name == 'pull_request' && always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = JSON.parse(fs.readFileSync('coverage_report.json', 'utf8'));
+            
+            const coverage = report.coverage_percent;
+            const total = report.total_eligible;
+            const withId = report.with_doc_id;
+            const withoutId = report.without_doc_id;
+            
+            const status = coverage >= 90 ? '✅ PASS' : '❌ FAIL';
+            const emoji = coverage >= 90 ? '🎉' : '⚠️';
+            
+            let comment = `## ${emoji} DOC_ID Coverage Report\n\n`;
+            comment += `**Status**: ${status}\n\n`;
+            comment += `| Metric | Value |\n`;
+            comment += `|--------|-------|\n`;
+            comment += `| Total eligible files | ${total} |\n`;
+            comment += `| Files with doc_id | ${withId} (${coverage}%) |\n`;
+            comment += `| Files without doc_id | ${withoutId} |\n`;
+            comment += `| Baseline required | 90% |\n\n`;
+            
+            if (withoutId > 0 && withoutId <= 20) {
+              comment += `### Files missing doc_id:\n\n`;
+              for (const file of report.files_without_doc_id.slice(0, 20)) {
+                comment += `- \`${file}\`\n`;
+              }
+            } else if (withoutId > 20) {
+              comment += `### Files missing doc_id (first 20):\n\n`;
+              for (const file of report.files_without_doc_id.slice(0, 20)) {
+                comment += `- \`${file}\`\n`;
+              }
+              comment += `\n_... and ${withoutId - 20} more_\n`;
+            }
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+      
+      - name: Fail if coverage below baseline
+        if: steps.coverage.outcome == 'failure'
+        run: exit 1

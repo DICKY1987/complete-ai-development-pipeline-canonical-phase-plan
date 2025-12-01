@@ -159,3 +159,10 @@ refactor_paths.db
 
 # Environment variables (sensitive)
 .env
+
+# >>> SAFE_CLEAN_V1
+__pycache__/
+.pytest_cache/
+*.log
+# <<< SAFE_CLEAN_V1
+

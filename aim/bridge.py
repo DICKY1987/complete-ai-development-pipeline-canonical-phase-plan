@@ -17,7 +17,10 @@ Contract Version: AIM_PLUS_V1 (backward compatible with AIM_INTEGRATION_V1)
 
 import json
 import os
+import queue
 import subprocess
+import threading
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -515,3 +518,259 @@ def record_audit_log(
     except OSError as e:
         # Log warning but don't crash
         print(f"[AIM] Warning: Could not write audit log: {e}")
+
+
+# ============================================================================
+# Process Pool Implementation (Multi-Instance CLI Control)
+# ============================================================================
+
+from aim.pool_interface import ProcessInstance
+
+
+class ToolProcessPool:
+    """Manage multiple long-lived tool CLI instances.
+    
+    Spawns N instances of a tool from AIM registry and manages their lifecycle.
+    Uses background threads to read stdout/stderr into queues, enabling
+    non-blocking interactive communication.
+    
+    Example:
+        pool = ToolProcessPool("aider", count=3)
+        pool.send_prompt(0, "/add core/state.py")
+        response = pool.read_response(0, timeout=10)
+        pool.shutdown()
+    
+    Thread Safety:
+        - send_prompt() and read_response() are thread-safe
+        - Each instance has dedicated I/O threads
+        - Queue operations are internally synchronized
+    
+    Resource Management:
+        - Always call shutdown() to cleanup processes
+    """
+    
+    def __init__(self, tool_id: str, count: int, registry: Optional[Dict] = None):
+        """Initialize process pool.
+        
+        Args:
+            tool_id: Tool from AIM registry (e.g., "aider", "jules", "codex")
+            count: Number of instances to spawn (1-10 recommended)
+            registry: Optional registry override (for testing)
+            
+        Raises:
+            ValueError: If tool_id not in registry
+            RuntimeError: If process spawn fails
+        """
+        self.tool_id = tool_id
+        self.count = count
+        self.instances: List[ProcessInstance] = []
+        self.registry = registry or load_aim_registry()
+        
+        # Validate tool exists
+        if tool_id not in self.registry.get("tools", {}):
+            raise ValueError(f"Tool '{tool_id}' not in AIM registry")
+        
+        # Spawn instances
+        for i in range(count):
+            self._spawn_instance(i)
+    
+    def _spawn_instance(self, index: int) -> ProcessInstance:
+        """Spawn a single tool instance with I/O threads."""
+        tool_config = self.registry["tools"][self.tool_id]
+        
+        # Build command from registry
+        detect_cmds = tool_config["detectCommands"]
+        cmd = detect_cmds[0] if isinstance(detect_cmds[0], list) else [detect_cmds[0]]
+        
+        # Ensure cmd is a list
+        if not isinstance(cmd, list):
+            cmd = [cmd]
+        
+        # Add flags for interactive mode based on tool
+        if self.tool_id == "aider" and "--yes-always" not in cmd:
+            cmd.append("--yes-always")  # Non-blocking mode
+        
+        # Spawn process
+        proc = subprocess.Popen(
+            cmd,
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            bufsize=1  # Line-buffered
+        )
+        
+        # Create output queues
+        stdout_q = queue.Queue()
+        stderr_q = queue.Queue()
+        
+        # Start reader threads
+        threading.Thread(
+            target=self._read_stream,
+            args=(proc.stdout, stdout_q),
+            daemon=True
+        ).start()
+        
+        threading.Thread(
+            target=self._read_stream,
+            args=(proc.stderr, stderr_q),
+            daemon=True
+        ).start()
+        
+        instance = ProcessInstance(
+            index=index,
+            tool_id=self.tool_id,
+            process=proc,
+            stdout_queue=stdout_q,
+            stderr_queue=stderr_q
+        )
+        
+        self.instances.append(instance)
+        return instance
+    
+    def _read_stream(self, stream, q: queue.Queue):
+        """Background thread to read stream into queue."""
+        try:
+            for line in stream:
+                q.put(line.rstrip('\n'))
+        except ValueError:
+            # Stream closed
+            pass
+        finally:
+            try:
+                stream.close()
+            except Exception:
+                pass
+    
+    def send_prompt(self, instance_idx: int, prompt: str) -> bool:
+        """Send prompt to specific instance.
+        
+        Args:
+            instance_idx: Instance index (0 to count-1)
+            prompt: Command/prompt to send
+            
+        Returns:
+            bool: True if sent successfully
+        """
+        if instance_idx >= len(self.instances):
+            return False
+        
+        instance = self.instances[instance_idx]
+        if not instance.alive:
+            return False
+        
+        try:
+            instance.process.stdin.write(prompt + "\n")
+            instance.process.stdin.flush()
+            return True
+        except (BrokenPipeError, OSError):
+            instance.alive = False
+            return False
+    
+    def read_response(self, instance_idx: int, timeout: float = 5.0) -> Optional[str]:
+        """Read response from instance stdout.
+        
+        Args:
+            instance_idx: Instance index
+            timeout: Max seconds to wait for response
+            
+        Returns:
+            str: Response line, or None if timeout/error
+        """
+        if instance_idx >= len(self.instances):
+            return None
+        
+        instance = self.instances[instance_idx]
+        
+        try:
+            line = instance.stdout_queue.get(timeout=timeout)
+            return line
+        except queue.Empty:
+            return None
+    
+    def get_status(self) -> List[Dict[str, Any]]:
+        """Get status of all instances.
+        
+        Returns:
+            List of status dicts with index, alive, return_code
+        """
+        statuses = []
+        for inst in self.instances:
+            statuses.append({
+                "index": inst.index,
+                "alive": inst.alive and inst.process.poll() is None,
+                "return_code": inst.process.poll()
+            })
+        return statuses
+    
+    def check_health(self) -> Dict[str, Any]:
+        """Check health of all instances.
+        
+        Returns:
+            Health report with alive count, dead count, details
+        """
+        statuses = self.get_status()
+        alive_count = sum(1 for s in statuses if s["alive"])
+        
+        return {
+            "total": len(self.instances),
+            "alive": alive_count,
+            "dead": len(self.instances) - alive_count,
+            "instances": statuses
+        }
+    
+    def restart_instance(self, instance_idx: int) -> bool:
+        """Restart a dead instance.
+        
+        Args:
+            instance_idx: Instance to restart
+            
+        Returns:
+            bool: True if restarted successfully
+        """
+        if instance_idx >= len(self.instances):
+            return False
+        
+        old_instance = self.instances[instance_idx]
+        
+        # Kill old process if still running
+        if old_instance.process.poll() is None:
+            try:
+                old_instance.process.kill()
+                old_instance.process.wait()
+            except OSError:
+                pass
+        
+        # Spawn new instance
+        try:
+            new_instance = self._spawn_instance(instance_idx)
+            self.instances[instance_idx] = new_instance
+            return True
+        except Exception:
+            return False
+    
+    def shutdown(self, timeout: float = 5.0):
+        """Gracefully shutdown all instances.
+        
+        Args:
+            timeout: Seconds to wait for graceful exit
+        """
+        for inst in self.instances:
+            if inst.process.poll() is None:
+                try:
+                    inst.process.terminate()
+                except OSError:
+                    pass
+        
+        # Wait for all to exit
+        start = time.time()
+        while time.time() - start < timeout:
+            if all(inst.process.poll() is not None for inst in self.instances):
+                break
+            time.sleep(0.1)
+        
+        # Force kill stragglers
+        for inst in self.instances:
+            if inst.process.poll() is None:
+                inst.process.kill()
+                inst.process.wait()
