@@ -1,0 +1,258 @@
+# Example Phase Plan - Pipeline Plus Workstream
+# This demonstrates the structure expected by Invoke-UetPhasePlanToGitHubProjectSync.ps1
+
+metadata:
+  workstream_id: "ws-pipeline-plus-00"
+  title: "Pipeline Plus - Job-Based Execution System"
+  version: "1.0"
+  created: "2025-12-02"
+  owner: "@me"
+  github_project: 1  # Project number for sync
+  description: |
+    Refactor orchestrator to use job-based execution model with proper
+    state management, queue system, and error handling.
+
+phases:
+  # ============================================================================
+  # Phase 0: Foundation
+  # ============================================================================
+  - phase_id: "PH-00"
+    workstream_id: "ws-pipeline-plus-00-schema"
+    title: "Pre-Flight & Schema Setup"
+    objective: |
+      Create .tasks/.ledger/.runs baseline directories and initial database
+      migrations. Establish data contracts for job execution pipeline.
+    phase_type: "implementation"
+    depends_on: []
+    status: "not_started"  # not_started | in_progress | done | blocked
+    gh_item_id: null       # AUTO-FILLED by sync script
+    estimate_hours: 2
+    deliverables:
+      - "Schema files in .tasks/schema/"
+      - "Initial migration scripts"
+      - "Validation test suite"
+    acceptance_criteria:
+      - "Schema files exist and are valid SQL"
+      - "Migrations run successfully on clean database"
+      - "pytest tests/schema/ passes"
+    tags:
+      - "foundation"
+      - "schema"
+
+  # ============================================================================
+  # Phase 1: Core Engine
+  # ============================================================================
+  - phase_id: "PH-01"
+    workstream_id: "ws-pipeline-plus-01-execution"
+    title: "Job Execution Engine"
+    objective: |
+      Build core job runner with queue management, state persistence, and
+      proper isolation between jobs. Support parallel execution.
+    phase_type: "implementation"
+    depends_on: ["PH-00"]
+    status: "not_started"
+    gh_item_id: null
+    estimate_hours: 8
+    deliverables:
+      - "engine/executor.py with job execution logic"
+      - "engine/queue.py with priority queue"
+      - "engine/state_store.py for persistence"
+    acceptance_criteria:
+      - "Jobs can be enqueued via API"
+      - "Jobs execute in isolated processes"
+      - "State persists across process restarts"
+      - "pytest tests/engine/ passes (>80% coverage)"
+    tags:
+      - "core"
+      - "execution"
+
+  - phase_id: "PH-02"
+    workstream_id: "ws-pipeline-plus-02-adapters"
+    title: "Tool Adapters"
+    objective: |
+      Create adapter pattern for external tools (aider, codex, tests, git).
+      Each adapter implements standard interface and handles tool-specific concerns.
+    phase_type: "implementation"
+    depends_on: ["PH-01"]
+    status: "not_started"
+    gh_item_id: null
+    estimate_hours: 6
+    deliverables:
+      - "engine/adapters/base.py interface"
+      - "engine/adapters/aider_adapter.py"
+      - "engine/adapters/codex_adapter.py"
+      - "engine/adapters/tests_adapter.py"
+      - "engine/adapters/git_adapter.py"
+    acceptance_criteria:
+      - "All adapters implement AdapterInterface"
+      - "Each adapter has integration tests"
+      - "Error handling is consistent"
+      - "Adapter registry can discover all adapters"
+    tags:
+      - "adapters"
+      - "integration"
+
+  # ============================================================================
+  # Phase 3: Orchestration
+  # ============================================================================
+  - phase_id: "PH-03"
+    workstream_id: "ws-pipeline-plus-03-orchestrator"
+    title: "Job Orchestrator"
+    objective: |
+      Build high-level orchestrator that coordinates job queue, executor,
+      and adapters. Handles workstream bundle loading and execution planning.
+    phase_type: "implementation"
+    depends_on: ["PH-02"]
+    status: "not_started"
+    gh_item_id: null
+    estimate_hours: 10
+    deliverables:
+      - "engine/orchestrator/orchestrator.py"
+      - "engine/orchestrator/dag_builder.py"
+      - "engine/orchestrator/scheduler.py"
+    acceptance_criteria:
+      - "Can load workstream bundles (JSON)"
+      - "Builds execution DAG from dependencies"
+      - "Schedules jobs respecting dependencies"
+      - "Handles parallel execution correctly"
+      - "pytest tests/orchestrator/ passes"
+    tags:
+      - "orchestration"
+      - "dag"
+
+  # ============================================================================
+  # Phase 4: Error Handling
+  # ============================================================================
+  - phase_id: "PH-04"
+    workstream_id: "ws-pipeline-plus-04-errors"
+    title: "Error Handling & Recovery"
+    objective: |
+      Implement circuit breakers, retry policies, and recovery strategies.
+      Integrate with existing error pipeline for quality gates.
+    phase_type: "implementation"
+    depends_on: ["PH-03"]
+    status: "not_started"
+    gh_item_id: null
+    estimate_hours: 6
+    deliverables:
+      - "engine/circuit_breakers.py"
+      - "engine/retry_policy.py"
+      - "engine/recovery_manager.py"
+    acceptance_criteria:
+      - "Circuit breakers trip on repeated failures"
+      - "Retry policies honor backoff strategies"
+      - "Recovery manager can restart failed jobs"
+      - "Integration with error pipeline works"
+    tags:
+      - "error-handling"
+      - "resilience"
+
+  # ============================================================================
+  # Phase 5: CLI & Integration
+  # ============================================================================
+  - phase_id: "PH-05"
+    workstream_id: "ws-pipeline-plus-05-cli"
+    title: "CLI Interface"
+    objective: |
+      Create user-friendly CLI for job submission, status checking, and
+      log retrieval. Support both interactive and script usage.
+    phase_type: "implementation"
+    depends_on: ["PH-04"]
+    status: "not_started"
+    gh_item_id: null
+    estimate_hours: 4
+    deliverables:
+      - "python -m engine.orchestrator run-job"
+      - "python -m engine.orchestrator status"
+      - "python -m engine.orchestrator logs"
+    acceptance_criteria:
+      - "CLI can submit jobs from JSON files"
+      - "CLI shows real-time job status"
+      - "CLI retrieves and displays logs"
+      - "Help text is comprehensive"
+    tags:
+      - "cli"
+      - "ux"
+
+  # ============================================================================
+  # Phase 6: Testing & Documentation
+  # ============================================================================
+  - phase_id: "PH-06"
+    workstream_id: "ws-pipeline-plus-06-qa"
+    title: "Testing & Documentation"
+    objective: |
+      Ensure comprehensive test coverage, write user documentation,
+      and create example workstream bundles.
+    phase_type: "validation"
+    depends_on: ["PH-05"]
+    status: "not_started"
+    gh_item_id: null
+    estimate_hours: 8
+    deliverables:
+      - "Test coverage >80% for all engine modules"
+      - "User guide in docs/guides/ENGINE_USER_GUIDE.md"
+      - "Example workstreams in examples/"
+      - "Architecture diagrams in docs/diagrams/"
+    acceptance_criteria:
+      - "pytest --cov=engine reports >80% coverage"
+      - "All public APIs have docstrings"
+      - "User guide includes end-to-end examples"
+      - "Integration tests pass with real tools"
+    tags:
+      - "testing"
+      - "documentation"
+
+  # ============================================================================
+  # Phase 7: Production Readiness
+  # ============================================================================
+  - phase_id: "PH-07"
+    workstream_id: "ws-pipeline-plus-07-production"
+    title: "Production Validation & Deployment"
+    objective: |
+      Run production validation suite, performance benchmarks, and
+      cutover from old orchestrator to new job-based system.
+    phase_type: "deployment"
+    depends_on: ["PH-06"]
+    status: "not_started"
+    gh_item_id: null
+    estimate_hours: 6
+    deliverables:
+      - "Production validation suite (PRODUCTION_VALIDATION_SUITE.md)"
+      - "Performance benchmarks"
+      - "Migration guide from old to new"
+      - "Rollback procedure"
+    acceptance_criteria:
+      - "All production validation checks pass"
+      - "Performance meets targets (10s job submission, 100 parallel jobs)"
+      - "Migration completed successfully"
+      - "No regressions in existing workstreams"
+    tags:
+      - "production"
+      - "validation"
+      - "deployment"
+
+# ============================================================================
+# Summary Statistics (auto-calculated by tooling)
+# ============================================================================
+summary:
+  total_phases: 8
+  total_estimate_hours: 50
+  phases_by_type:
+    implementation: 6
+    validation: 1
+    deployment: 1
+  phases_by_status:
+    not_started: 8
+    in_progress: 0
+    done: 0
+    blocked: 0
+  critical_path:  # Calculated by DAG analysis
+    - "PH-00"
+    - "PH-01"
+    - "PH-02"
+    - "PH-03"
+    - "PH-04"
+    - "PH-05"
+    - "PH-06"
+    - "PH-07"
+  parallel_opportunities: []  # All phases are sequential in this plan
