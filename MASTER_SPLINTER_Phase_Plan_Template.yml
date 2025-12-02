@@ -55,7 +55,10 @@ index:
     phase_id: "phase_identity.phase_id"
     workstream_id: "phase_identity.workstream_id"
     phase_title: "phase_identity.title"
+    objective: "phase_identity.objective"
     phase_status: "phase_identity.status"
+    estimate_hours: "phase_identity.estimate_hours"
+    gh_item_id: "phase_identity.gh_item_id"
     tags: "phase_identity.tags"
     dependencies: "dag_and_dependencies.depends_on"
     parallelizable_with: "dag_and_dependencies.may_run_parallel_with"
@@ -93,8 +96,11 @@ phase_identity:
   workstream_id: "ws-xxx"
   title: "Short human-readable phase name"
   summary: "Single-paragraph summary of the outcome this phase must produce."
+  objective: "Definition of done phrased as the phase objective."
   phase_type: "implementation"  # one of: implementation | refactor | integration | migration | validation_only | documentation_only
-  status: "planned"             # planned | active | blocked | done | abandoned
+  status: "planned"             # planned | active | blocked | done | abandoned | not_started | in_progress
+  estimate_hours: 0             # Rough estimate for scheduling and GitHub project sync
+  gh_item_id: null              # GitHub Project draft item id once created by sync script
   tags:
     - "state_layer"
     - "orchestrator"

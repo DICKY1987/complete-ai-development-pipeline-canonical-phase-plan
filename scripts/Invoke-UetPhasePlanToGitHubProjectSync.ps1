@@ -17,47 +17,10 @@
       - Validates that phase_id values are unique.
       - Validates phase.status is from an allowed set.
 
-.PARAMETER PlanPath
-    Path to the phase plan YAML file relative to repo root.
-    Default: "plans/PHASE_PLAN.yaml"
-
-.PARAMETER ProjectNumber
-    GitHub Project number (as shown in gh project view/list).
-    Required.
-
-.PARAMETER ProjectOwner
-    GitHub project owner. Use "@me" for current user or an org name.
-    Default: "@me"
-
-.PARAMETER DryRun
-    If set, do not call gh or write back to the plan file.
-    Shows what would be created.
-
-.PARAMETER RequireCleanGitStatus
-    If set, require that `git status --porcelain` is empty before writing.
-    Prevents accidental plan modifications when working tree is dirty.
-
-.EXAMPLE
-    # Dry run to see what would be created
-    .\Invoke-UetPhasePlanToGitHubProjectSync.ps1 -ProjectNumber 1 -DryRun -Verbose
-
-.EXAMPLE
-    # Actually sync phases to GitHub Project
-    .\Invoke-UetPhasePlanToGitHubProjectSync.ps1 -ProjectNumber 1 -RequireCleanGitStatus -Verbose
-
-.EXAMPLE
-    # Sync to an org project
-    .\Invoke-UetPhasePlanToGitHubProjectSync.ps1 `
-        -ProjectNumber 3 `
-        -ProjectOwner "my-org" `
-        -PlanPath "workstreams/ws-pipeline-plus/PHASE_PLAN.yaml"
-
 .NOTES
     Pattern Id: PAT_EXEC_GHPROJECT_PHASE_PLAN_SYNC_V1
     Phase Id  : PH-PLAN-GHPROJECT-SYNC
     Author    : UET / Canonical Pipeline tooling
-    Version   : 1.0.0
-    Created   : 2025-12-02
 
     Expected YAML shape (minimal):
 
@@ -71,16 +34,6 @@
         status: "not_started"   # not_started | in_progress | done | blocked
         gh_item_id: null        # will be set by this script
         estimate_hours: 2
-
-    Requirements:
-      - GitHub CLI installed: gh auth status
-      - GitHub CLI project scope: gh auth refresh -s project
-      - PowerShell 7+ (for native YAML support)
-        OR powershell-yaml module for PS 5.1
-
-.LINK
-    https://cli.github.com/manual/gh_project
-    https://cli.github.com/manual/gh_project_item-create
 #>
 
 [CmdletBinding(SupportsShouldProcess = $true)]
@@ -123,7 +76,7 @@ function Assert-CmdletAvailable {
         [string]$Name
     )
     if (-not (Get-Command $Name -ErrorAction SilentlyContinue)) {
-        throw "Required cmdlet '$Name' is not available. On PowerShell 7+, ConvertFrom-Yaml/ConvertTo-Yaml should exist. Otherwise install powershell-yaml module."
+        throw "Required cmdlet '$Name' is not available. On PowerShell 7+, ConvertFrom-Yaml/ConvertTo-Yaml should exist. Otherwise install a YAML module."
     }
 }
 
@@ -271,40 +224,28 @@ function New-GitHubProjectDraftItemForPhase {
     }
 
     $bodyLines = @()
-    $bodyLines += "**Phase ID:** ``$($Phase.phase_id)``"
-    $bodyLines += "**Workstream ID:** ``$($Phase.workstream_id)``"
+    $bodyLines += "Phase ID: $($Phase.phase_id)"
+    $bodyLines += "Workstream ID: $($Phase.workstream_id)"
     if ($Phase.phase_type) {
-        $bodyLines += "**Phase Type:** $($Phase.phase_type)"
+        $bodyLines += "Phase Type: $($Phase.phase_type)"
     }
     if ($Phase.estimate_hours) {
-        $bodyLines += "**Estimated Hours:** $($Phase.estimate_hours)"
-    }
-    if ($Phase.status) {
-        $bodyLines += "**Status:** $($Phase.status)"
+        $bodyLines += "Estimated Hours: $($Phase.estimate_hours)"
     }
     if ($dependsOn) {
-        $bodyLines += "**Depends On:** $dependsOn"
+        $bodyLines += "Depends On: $dependsOn"
     }
     $bodyLines += ""
-    $bodyLines += "## Objective"
+    $bodyLines += "Objective:"
     $bodyLines += $Phase.objective
-    
-    # Add acceptance criteria if present
-    if ($Phase.acceptance_criteria) {
-        $bodyLines += ""
-        $bodyLines += "## Acceptance Criteria"
-        foreach ($criterion in $Phase.acceptance_criteria) {
-            $bodyLines += "- [ ] $criterion"
-        }
-    }
 
     $body = $bodyLines -join "`n"
 
     if ($DryRun) {
-        Write-Host "[DRY-RUN] Would create GitHub project draft item for phase '$($Phase.phase_id)':" -ForegroundColor Cyan
-        Write-Host "          Title: $title" -ForegroundColor Gray
-        Write-Host "          Body :" -ForegroundColor Gray
-        Write-Host ($body -replace "`n", "`n          ") -ForegroundColor DarkGray
+        Write-Host "[DRY-RUN] Would create GitHub project draft item for phase '$($Phase.phase_id)':"
+        Write-Host "          Title: $title"
+        Write-Host "          Body :"
+        Write-Host ($body -replace "`n", "`n          ")
         return $null
     }
 
@@ -336,7 +277,7 @@ function New-GitHubProjectDraftItemForPhase {
         throw "gh project item-create did not return an 'id' for phase '$($Phase.phase_id)'. Raw output:`n$output"
     }
 
-    Write-Host "✓ Created item for phase '$($Phase.phase_id)' → gh_item_id: $($json.id)" -ForegroundColor Green
+    Write-Verbose "Phase '$($Phase.phase_id)' mapped to GitHub item id '$($json.id)'."
     return $json.id
 }
 
@@ -344,34 +285,14 @@ function New-GitHubProjectDraftItemForPhase {
 # MAIN
 # ---------------------------------------------------------------------------
 
-Write-Host ""
-Write-Host "═══════════════════════════════════════════════════════════" -ForegroundColor Cyan
-Write-Host "  UET Phase Plan → GitHub Project Sync" -ForegroundColor Cyan
-Write-Host "  Pattern: PAT_EXEC_GHPROJECT_PHASE_PLAN_SYNC_V1" -ForegroundColor Cyan
-Write-Host "═══════════════════════════════════════════════════════════" -ForegroundColor Cyan
-Write-Host ""
-
 try {
-    # Pre-flight checks
-    Write-Verbose "Running pre-flight checks..."
-    Assert-CommandAvailable -Name "gh"
-    Assert-CmdletAvailable -Name "ConvertFrom-Yaml"
-    Assert-CmdletAvailable -Name "ConvertTo-Yaml"
-    
-    # Verify GitHub CLI authentication
-    $authStatus = gh auth status 2>&1
-    if ($LASTEXITCODE -ne 0) {
-        throw "GitHub CLI not authenticated. Run 'gh auth login' first."
-    }
-    
     Assert-GitCleanIfRequested -RequireClean:$RequireCleanGitStatus
 
     $planInfo = Load-UetPhasePlan -Path $PlanPath
     $plan     = $planInfo.Plan
     $phases   = $planInfo.Phases
 
-    Write-Host "Loaded $($phases.Count) phase(s) from '$PlanPath'" -ForegroundColor Gray
-    Write-Host ""
+    Write-Verbose ("Loaded {0} phase(s) from plan." -f $phases.Count)
 
     $phasesNeedingItems = $phases | Where-Object {
         -not $_.PSObject.Properties.Name.Contains('gh_item_id') -or
@@ -379,28 +300,14 @@ try {
     }
 
     if ($phasesNeedingItems.Count -eq 0) {
-        Write-Host "✓ All phases already have gh_item_id. Nothing to create." -ForegroundColor Green
-        Write-Host ""
+        Write-Host "All phases already have gh_item_id. Nothing to create."
         return
     }
 
-    Write-Host "$($phasesNeedingItems.Count) phase(s) will have GitHub Project items created:" -ForegroundColor Yellow
-    foreach ($phase in $phasesNeedingItems) {
-        Write-Host "  • $($phase.phase_id): $($phase.title)" -ForegroundColor Gray
-    }
-    Write-Host ""
-
-    if ($DryRun) {
-        Write-Host "[DRY-RUN MODE] No changes will be made." -ForegroundColor Cyan
-        Write-Host ""
-    }
+    Write-Host ("{0} phase(s) will have GitHub Project items created." -f $phasesNeedingItems.Count)
 
     foreach ($phase in $phasesNeedingItems) {
-        $newId = New-GitHubProjectDraftItemForPhase `
-            -Phase $phase `
-            -ProjectNumber $ProjectNumber `
-            -ProjectOwner $ProjectOwner `
-            -DryRun:$DryRun
+        $newId = New-GitHubProjectDraftItemForPhase -Phase $phase -ProjectNumber $ProjectNumber -ProjectOwner $ProjectOwner -DryRun:$DryRun
 
         if (-not $DryRun -and $newId) {
             # Attach gh_item_id to the phase object in memory
@@ -413,32 +320,17 @@ try {
     }
 
     if ($DryRun) {
-        Write-Host ""
-        Write-Host "Dry-run complete. No changes written to '$PlanPath'." -ForegroundColor Cyan
-        Write-Host ""
+        Write-Host "Dry-run complete. No changes written to '$PlanPath'."
         return
     }
 
     # Persist updated plan with gh_item_id back to disk
     Save-UetPhasePlan -Plan $plan -Path $PlanPath
 
-    Write-Host ""
-    Write-Host "═══════════════════════════════════════════════════════════" -ForegroundColor Green
-    Write-Host "  Sync Complete!" -ForegroundColor Green
-    Write-Host "═══════════════════════════════════════════════════════════" -ForegroundColor Green
-    Write-Host ""
-    Write-Host "✓ Updated plan written to '$PlanPath'" -ForegroundColor Green
-    Write-Host "✓ Each phase now has a gh_item_id for future status syncs" -ForegroundColor Green
-    Write-Host ""
-    Write-Host "Next steps:" -ForegroundColor Cyan
-    Write-Host "  1. View your project: gh project view $ProjectNumber --owner $ProjectOwner --web" -ForegroundColor Gray
-    Write-Host "  2. Update phase status in the YAML as work progresses" -ForegroundColor Gray
-    Write-Host "  3. Run status sync script to update GitHub Project fields" -ForegroundColor Gray
-    Write-Host ""
+    Write-Host "Sync complete. Updated plan written to '$PlanPath'."
+    Write-Host "Each phase now has a gh_item_id that can be used for future status syncs."
 
 } catch {
-    Write-Host ""
-    Write-Host "ERROR: $($_.Exception.Message)" -ForegroundColor Red
-    Write-Host ""
+    Write-Error $_.Exception.Message
     exit 1
 }
