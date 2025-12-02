@@ -1,0 +1,220 @@
+{
+  "doc_id": "DOC-WS-NEXT-003-TEST-COVERAGE-2025-12-02",
+  "id": "ws-next-003-test-coverage-improvement",
+  "title": "Test Coverage Improvement - 2.6% to 10% Target",
+  "workstream_type": "quality_improvement",
+  "priority": "medium",
+  "owner": "QA Engineer",
+  "status": "completed",
+  "created_date": "2025-12-02",
+  
+  "objective": "Incrementally improve test coverage from current 2.6% to 10% target, focusing on critical paths and high-risk areas",
+  
+  "scope": {
+    "modules": [
+      "core/engine/",
+      "error/plugins/",
+      "cleanup_reports/",
+      "scripts/"
+    ],
+    "priority_areas": [
+      "core/engine/ (critical path)",
+      "error/plugins/ (high risk)",
+      "cleanup automation scripts",
+      "GitHub sync patterns"
+    ]
+  },
+  
+  "effort_estimate": {
+    "hours_per_week": 3,
+    "duration_weeks": 4,
+    "total_hours": 12,
+    "complexity": "medium",
+    "risk": "low"
+  },
+  
+  "dependencies": {
+    "depends_on": [],
+    "blocks": [],
+    "prerequisite_tools": ["pytest", "pytest-cov"]
+  },
+  
+  "execution_approach": "Incremental - Add tests weekly, focusing on one module at a time",
+  
+  "weekly_plan": [
+    {
+      "week": 1,
+      "focus": "Core engine critical paths",
+      "targets": [
+        "core/engine/orchestrator.py",
+        "core/engine/executor.py"
+      ],
+      "goal": "Cover main execution flows",
+      "estimated_coverage_gain": "1.5%"
+    },
+    {
+      "week": 2,
+      "focus": "Error detection plugins",
+      "targets": [
+        "error/plugins/python_ruff/",
+        "error/engine/error_engine.py"
+      ],
+      "goal": "Cover parse() and fix() methods",
+      "estimated_coverage_gain": "2.0%"
+    },
+    {
+      "week": 3,
+      "focus": "Cleanup automation",
+      "targets": [
+        "prepare_cleanup.py",
+        "scripts/analyze_reachability.py"
+      ],
+      "goal": "Cover reachability analysis",
+      "estimated_coverage_gain": "1.5%"
+    },
+    {
+      "week": 4,
+      "focus": "GitHub integration",
+      "targets": [
+        "scripts/Invoke-UetPhasePlanToGitHubProjectSync.ps1"
+      ],
+      "goal": "Cover sync logic (PowerShell tests)",
+      "estimated_coverage_gain": "1.5%"
+    }
+  ],
+  
+  "test_patterns": [
+    {
+      "pattern": "Unit tests for pure functions",
+      "example": "test_parse_error_output()",
+      "priority": "high"
+    },
+    {
+      "pattern": "Integration tests for workflows",
+      "example": "test_execute_with_retry()",
+      "priority": "high"
+    },
+    {
+      "pattern": "Mock external dependencies",
+      "example": "patch('subprocess.run')",
+      "priority": "medium"
+    },
+    {
+      "pattern": "Edge case coverage",
+      "example": "test_handles_missing_file()",
+      "priority": "medium"
+    }
+  ],
+  
+  "acceptance_criteria": [
+    {
+      "criterion": "Overall coverage reaches 10%",
+      "test_method": "pytest --cov=. --cov-report=term",
+      "pass_condition": "Coverage >= 10%"
+    },
+    {
+      "criterion": "Core engine coverage >= 30%",
+      "test_method": "pytest --cov=core/engine --cov-report=term",
+      "pass_condition": "core/engine/ >= 30%"
+    },
+    {
+      "criterion": "Error plugins coverage >= 25%",
+      "test_method": "pytest --cov=error/plugins --cov-report=term",
+      "pass_condition": "error/plugins/ >= 25%"
+    },
+    {
+      "criterion": "All new tests pass",
+      "test_method": "pytest tests/",
+      "pass_condition": "100% pass rate"
+    },
+    {
+      "criterion": "Tests run in under 30 seconds",
+      "test_method": "time pytest",
+      "pass_condition": "Total time < 30s"
+    }
+  ],
+  
+  "deliverables": [
+    {
+      "name": "Weekly coverage reports",
+      "description": "Coverage progress tracking",
+      "location": "reports/coverage/week_N_coverage.md",
+      "format": "markdown",
+      "frequency": "weekly"
+    },
+    {
+      "name": "New test files",
+      "description": "Test coverage for critical modules",
+      "location": "tests/",
+      "format": "Python pytest files"
+    },
+    {
+      "name": "Final coverage report",
+      "description": "Comprehensive coverage analysis",
+      "location": "reports/COVERAGE_IMPROVEMENT_FINAL.md",
+      "format": "markdown"
+    }
+  ],
+  
+  "risks": [
+    {
+      "risk": "Tests slow down CI pipeline",
+      "mitigation": "Keep tests fast, use mocks, parallel execution",
+      "severity": "medium"
+    },
+    {
+      "risk": "Low-value tests (testing trivial code)",
+      "mitigation": "Focus on business logic and edge cases",
+      "severity": "low"
+    }
+  ],
+  
+  "success_metrics": {
+    "must_have": [
+      "Coverage >= 10%",
+      "Core engine >= 30%",
+      "All tests pass"
+    ],
+    "nice_to_have": [
+      "Coverage >= 15%",
+      "Error plugins >= 30%",
+      "Tests under 20 seconds"
+    ],
+    "long_term_goals": [
+      "Coverage >= 25-30% (production quality)",
+      "All critical paths covered",
+      "Edge cases documented and tested"
+    ]
+  },
+  
+  "tracking": {
+    "baseline": {
+      "date": "2025-12-02",
+      "overall_coverage": "2.6%",
+      "core_engine_coverage": "~5%",
+      "error_plugins_coverage": "~3%"
+    },
+    "milestones": [
+      {
+        "date": "2025-12-09",
+        "target_coverage": "5%",
+        "focus": "Core engine"
+      },
+      {
+        "date": "2025-12-16",
+        "target_coverage": "7%",
+        "focus": "Error plugins"
+      },
+      {
+        "date": "2025-12-23",
+        "target_coverage": "9%",
+        "focus": "Cleanup automation"
+      },
+      {
+        "date": "2025-12-30",
+        "target_coverage": "10%",
+        "focus": "GitHub integration"
+      }
+    ]
+  }
+}

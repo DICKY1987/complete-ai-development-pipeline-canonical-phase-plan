@@ -1,0 +1,165 @@
+{
+  "doc_id": "DOC-WS-NEXT-005-UET-REVIEW-2025-12-02",
+  "id": "ws-next-005-uet-framework-review",
+  "title": "UNIVERSAL_EXECUTION_TEMPLATES Framework Review",
+  "workstream_type": "documentation_review",
+  "priority": "medium",
+  "owner": "Architecture Reviewer",
+  "status": "completed",
+  "created_date": "2025-12-02",
+  
+  "objective": "Review UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/ for reusable patterns, orphaned templates, and usage validation",
+  
+  "scope": {
+    "modules": [
+      "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/"
+    ],
+    "focus_areas": [
+      "Template inventory",
+      "Usage patterns",
+      "Orphaned templates",
+      "Integration with current automation"
+    ]
+  },
+  
+  "effort_estimate": {
+    "hours": 1,
+    "complexity": "low",
+    "risk": "low"
+  },
+  
+  "dependencies": {
+    "depends_on": [],
+    "blocks": [],
+    "prerequisite_tools": ["ripgrep or grep"]
+  },
+  
+  "execution_steps": [
+    {
+      "step": 1,
+      "action": "List all templates in UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/",
+      "command": "ls -R UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/",
+      "expected_output": "Complete file listing"
+    },
+    {
+      "step": 2,
+      "action": "Identify template categories",
+      "method": "Group by subdirectory and purpose",
+      "expected_output": "Categorized template list"
+    },
+    {
+      "step": 3,
+      "action": "Check template usage in codebase",
+      "command": "grep -r 'UNIVERSAL_EXECUTION_TEMPLATES' .",
+      "expected_output": "List of files importing/using templates"
+    },
+    {
+      "step": 4,
+      "action": "Identify orphaned templates",
+      "method": "Templates with zero usage in codebase",
+      "expected_output": "List of unused templates"
+    },
+    {
+      "step": 5,
+      "action": "Document reusable patterns",
+      "method": "Extract common patterns from active templates",
+      "expected_output": "Pattern catalog"
+    },
+    {
+      "step": 6,
+      "action": "Validate against current automation",
+      "method": "Check if scripts/ uses UET patterns",
+      "expected_output": "Integration assessment"
+    }
+  ],
+  
+  "acceptance_criteria": [
+    {
+      "criterion": "Complete template inventory",
+      "test_method": "Review generated inventory",
+      "pass_condition": "All templates catalogued"
+    },
+    {
+      "criterion": "Usage patterns documented",
+      "test_method": "Review pattern catalog",
+      "pass_condition": "Common patterns identified"
+    },
+    {
+      "criterion": "Orphaned templates identified",
+      "test_method": "Check usage analysis",
+      "pass_condition": "Clear list of unused templates"
+    },
+    {
+      "criterion": "Integration assessed",
+      "test_method": "Review integration report",
+      "pass_condition": "Clear recommendations provided"
+    }
+  ],
+  
+  "deliverables": [
+    {
+      "name": "UET_FRAMEWORK_REVIEW.md",
+      "description": "Comprehensive framework review",
+      "location": "reports/",
+      "format": "markdown",
+      "sections": [
+        "Template Inventory",
+        "Usage Patterns",
+        "Orphaned Templates",
+        "Reusable Patterns Catalog",
+        "Integration Assessment",
+        "Recommendations"
+      ]
+    }
+  ],
+  
+  "review_template": {
+    "template_inventory": {
+      "description": "List all templates with metadata",
+      "fields": [
+        "template_path",
+        "template_type",
+        "purpose",
+        "usage_count",
+        "last_modified"
+      ]
+    },
+    "usage_patterns": {
+      "description": "Common patterns found in templates",
+      "fields": [
+        "pattern_name",
+        "frequency",
+        "example_templates",
+        "recommended_use_cases"
+      ]
+    },
+    "orphaned_templates": {
+      "description": "Templates with zero usage",
+      "fields": [
+        "template_path",
+        "reason_orphaned",
+        "recommendation (keep/archive/delete)"
+      ]
+    }
+  },
+  
+  "risks": [
+    {
+      "risk": "Accidentally marking active template as orphaned",
+      "mitigation": "Double-check with multiple search methods",
+      "severity": "medium"
+    }
+  ],
+  
+  "success_metrics": {
+    "must_have": [
+      "Complete inventory",
+      "Usage analysis done",
+      "Recommendations clear"
+    ],
+    "nice_to_have": [
+      "Reusable patterns extracted",
+      "Integration roadmap created"
+    ]
+  }
+}

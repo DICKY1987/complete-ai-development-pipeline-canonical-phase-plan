@@ -25,6 +25,8 @@ import argparse
 import ast
 import json
 import logging
+import shutil
+import subprocess
 from collections import defaultdict, deque
 from dataclasses import dataclass, asdict
 from pathlib import Path
@@ -56,6 +58,7 @@ class EntryPointReachabilityAnalyzer:
         self.import_graph: Dict[str, Set[str]] = defaultdict(set)
         self.all_modules: Set[str] = set()
         self.reachability: Dict[str, ReachabilityScore] = {}
+        self.cross_validation_warnings: List[str] = []
         
     def find_entry_points(self) -> Set[str]:
         """Identify all entry points in the repository."""
@@ -95,14 +98,44 @@ class EntryPointReachabilityAnalyzer:
         # 4. Scripts in ./scripts/
         scripts_dir = self.root / 'scripts'
         if scripts_dir.exists():
-            for script_file in scripts_dir.glob('*.py'):
+            for script_file in scripts_dir.rglob('*.py'):
                 if script_file.name.startswith('_'):
                     continue
                 module = self._get_module_name(script_file)
                 entry_points.add(module)
                 logger.debug(f"Entry point (script): {module}")
-        
-        # 5. Pytest fixtures (conftest.py)
+
+        # 5. Tools directory
+        tools_dir = self.root / 'tools'
+        if tools_dir.exists():
+            for tool_file in tools_dir.rglob('*.py'):
+                if self._should_skip(tool_file) or tool_file.name.startswith('_'):
+                    continue
+                module = self._get_module_name(tool_file)
+                entry_points.add(module)
+                logger.debug(f"Entry point (tool): {module}")
+
+        # 6. Templates directory (code templates used by automation)
+        templates_dir = self.root / 'templates'
+        if templates_dir.exists():
+            for template_file in templates_dir.rglob('*.py'):
+                if self._should_skip(template_file):
+                    continue
+                module = self._get_module_name(template_file)
+                entry_points.add(module)
+                logger.debug(f"Entry point (template): {module}")
+
+        # 7. Universal execution templates framework (acts like shared library)
+        uet_dir = self.root / 'UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK'
+        if uet_dir.exists():
+            for uet_file in uet_dir.rglob('*.py'):
+                if self._should_skip(uet_file):
+                    continue
+                module = self._get_module_name(uet_file)
+                entry_points.add(module)
+                logger.debug(f"Entry point (uet): {module}")
+
+        # 8. Pytest fixtures (conftest.py)
         for conftest in self.root.rglob('conftest.py'):
             module = self._get_module_name(conftest)
             entry_points.add(module)
@@ -187,6 +220,34 @@ class EntryPointReachabilityAnalyzer:
         logger.info(f"Reachability computed: {unreachable_count} unreachable modules")
         
         return self.reachability
+
+    def cross_validate_orphans(self, search_roots: Optional[List[Path]] = None) -> List[str]:
+        """Cross-validate unreachable modules using ripgrep/text search to reduce false positives."""
+        roots = search_roots or [
+            self.root / 'tests',
+            self.root / 'tools',
+            self.root / 'templates',
+            self.root / 'UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK',
+            self.root / 'scripts'
+        ]
+
+        self.cross_validation_warnings = []
+        unreachable = [score for score in self.reachability.values() if not score.is_reachable]
+
+        for score in unreachable:
+            references = self._find_references(score.module_path, roots)
+            if references:
+                warning = (
+                    f"{score.module_path} marked orphaned but referenced in "
+                    f"{len(references)} file(s): {', '.join(sorted(set(references))[:5])}"
+                )
+                self.cross_validation_warnings.append(warning)
+                logger.warning(warning)
+
+        if self.cross_validation_warnings:
+            logger.info("Cross-validation warnings detected for orphaned modules")
+
+        return self.cross_validation_warnings
     
     def _should_skip(self, path: Path) -> bool:
         """Skip __pycache__, .git, etc."""
@@ -223,6 +284,87 @@ class EntryPointReachabilityAnalyzer:
             logger.debug(f"Cannot parse {file_path}: {e}")
         
         return imports
+
+    def _find_references(self, module: str, roots: List[Path]) -> List[str]:
+        """Find textual references to a module across search roots."""
+        module_file = (self.root / Path(*module.split('.'))).with_suffix('.py')
+        valid_roots = [root for root in roots if root.exists()]
+        if not valid_roots:
+            return []
+
+        if shutil.which("rg"):
+            return self._find_references_with_ripgrep(module, valid_roots, module_file)
+        return self._find_references_with_scan(module, valid_roots, module_file)
+
+    def _find_references_with_ripgrep(self, module: str, roots: List[Path], module_file: Path) -> List[str]:
+        references: List[str] = []
+        for root in roots:
+            try:
+                result = subprocess.run(
+                    [
+                        "rg",
+                        "--fixed-strings",
+                        "--with-filename",
+                        "--no-heading",
+                        "--glob",
+                        "*.py",
+                        module,
+                        str(root),
+                    ],
+                    check=False,
+                    capture_output=True,
+                    text=True,
+                )
+            except Exception as exc:
+                logger.debug(f"rg failed for {module} in {root}: {exc}")
+                continue
+
+            for line in result.stdout.splitlines():
+                if not line.strip():
+                    continue
+                file_part = line.split(':', 1)[0]
+                file_path = Path(file_part)
+                try:
+                    resolved_path = file_path.resolve()
+                except Exception:
+                    resolved_path = file_path
+
+                if module_file.exists() and resolved_path == module_file.resolve():
+                    continue
+
+                try:
+                    references.append(str(resolved_path.relative_to(self.root)))
+                except ValueError:
+                    references.append(str(resolved_path))
+
+        return references
+
+    def _find_references_with_scan(self, module: str, roots: List[Path], module_file: Path) -> List[str]:
+        references: List[str] = []
+
+        for root in roots:
+            for py_file in root.rglob('*.py'):
+                try:
+                    resolved_path = py_file.resolve()
+                except Exception:
+                    resolved_path = py_file
+
+                if module_file.exists() and resolved_path == module_file.resolve():
+                    continue
+
+                try:
+                    content = py_file.read_text(encoding='utf-8', errors='ignore')
+                except Exception as exc:
+                    logger.debug(f"Cannot read {py_file}: {exc}")
+                    continue
+
+                if module in content:
+                    try:
+                        references.append(str(resolved_path.relative_to(self.root)))
+                    except ValueError:
+                        references.append(str(resolved_path))
+
+        return references
     
     def generate_report(self, output_path: Path):
         """Generate JSON report."""
@@ -249,6 +391,9 @@ class EntryPointReachabilityAnalyzer:
                 "score_70_plus": sum(1 for r in self.reachability.values() if r.score >= 70),
             }
         }
+
+        if self.cross_validation_warnings:
+            report["cross_validation_warnings"] = self.cross_validation_warnings
         
         output_path.parent.mkdir(exist_ok=True)
         with open(output_path, 'w', encoding='utf-8') as f:
@@ -269,6 +414,10 @@ class EntryPointReachabilityAnalyzer:
         print(f"  Score 100 (orphaned):     {report['statistics']['score_100']:,}")
         print(f"  Score 85+ (questionable): {report['statistics']['score_85_plus']:,}")
         print(f"  Score 70+ (deep deps):    {report['statistics']['score_70_plus']:,}")
+        if self.cross_validation_warnings:
+            print(f"\nWarnings: {len(self.cross_validation_warnings)} potential false positives detected")
+            for warning in self.cross_validation_warnings[:5]:
+                print(f"  - {warning}")
         print(f"\nReport: {output_path}")
         print("="*70 + "\n")
 
@@ -307,6 +456,7 @@ def main():
     analyzer.entry_points = analyzer.find_entry_points()
     analyzer.build_import_graph()
     analyzer.compute_reachability()
+    analyzer.cross_validate_orphans()
     analyzer.generate_report(args.output)
 
 if __name__ == '__main__':

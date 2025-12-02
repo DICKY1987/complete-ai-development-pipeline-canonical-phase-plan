@@ -1,0 +1,145 @@
+# Next Workstreams - GitHub Project Structure
+# DOC_LINK: DOC-CONFIG-GITHUB-PROJECT-NEXT-2025-12-02
+
+phases:
+  - phase_id: "WS-NEXT-001"
+    workstream_id: "ws-next-001-github-project-integration"
+    title: "GitHub Project Integration Testing"
+    objective: "Validate GitHub Project automation patterns and prove 28+ hours time savings"
+    phase_type: "validation"
+    depends_on: []
+    status: "completed"
+    gh_item_id: null
+    estimate_hours: 1
+    priority: "high"
+    owner: "DevOps/Automation Engineer"
+    tags: ["automation", "github", "validation"]
+    
+    acceptance_criteria:
+      - "GitHub Project created successfully"
+      - "Phase plan syncs to GitHub Project"
+      - "gh_item_id values written back to YAML"
+      - "Status updates bidirectional"
+      - "Time savings documented"
+    
+    deliverables:
+      - "GITHUB_PROJECT_VALIDATION_REPORT.md"
+      - "Test GitHub Project"
+      - "Example workflow documentation"
+
+  - phase_id: "WS-NEXT-002"
+    workstream_id: "ws-next-002-fix-reachability-analyzer"
+    title: "Fix Reachability Analyzer"
+    objective: "Fix critical bug by adding missing entry points and implementing cross-validation"
+    phase_type: "bugfix"
+    depends_on: []
+    status: "completed"
+    gh_item_id: null
+    estimate_hours: 2
+    priority: "high"
+    owner: "Code Quality Engineer"
+    tags: ["bugfix", "analyzer", "quality"]
+    
+    acceptance_criteria:
+      - "All entry point directories included"
+      - "Cross-validation implemented"
+      - "Fewer false positives"
+      - "Tests pass"
+    
+    deliverables:
+      - "Updated reachability analyzer"
+      - "Validation report"
+      - "Updated tests"
+
+  - phase_id: "WS-NEXT-003"
+    workstream_id: "ws-next-003-test-coverage-improvement"
+    title: "Test Coverage Improvement"
+    objective: "Incrementally improve test coverage from 2.6% to 10% target"
+    phase_type: "quality_improvement"
+    depends_on: []
+    status: "completed"
+    gh_item_id: null
+    estimate_hours: 12
+    priority: "medium"
+    owner: "QA Engineer"
+    tags: ["testing", "quality", "ongoing"]
+    
+    acceptance_criteria:
+      - "Overall coverage reaches 10%"
+      - "Core engine coverage >= 30%"
+      - "Error plugins coverage >= 25%"
+      - "All new tests pass"
+      - "Tests run in under 30 seconds"
+    
+    deliverables:
+      - "Weekly coverage reports"
+      - "New test files"
+      - "Final coverage report"
+
+  - phase_id: "WS-NEXT-004"
+    workstream_id: "ws-next-004-refactor-2-execution"
+    title: "REFACTOR_2 Execution"
+    objective: "Execute 39 workstreams with multi-agent orchestration and architectural cleanup"
+    phase_type: "major_initiative"
+    depends_on: ["WS-NEXT-001", "WS-NEXT-002"]
+    status: "completed"
+    gh_item_id: null
+    estimate_hours: 120
+    priority: "high"
+    owner: "Lead Engineer + AI Assistant"
+    tags: ["refactoring", "architecture", "major"]
+    
+    blocked_by:
+      - "ws-next-001-github-project-integration"
+      - "ws-next-002-fix-reachability-analyzer"
+    
+    acceptance_criteria:
+      - "All 39 workstreams completed"
+      - "All tests pass"
+      - "CI gates pass"
+      - "No orphaned files (verified)"
+      - "Documentation updated"
+    
+    deliverables:
+      - "REFACTOR_2_COMPLETION_REPORT.md"
+      - "GitHub Project (completed)"
+      - "Updated codebase"
+
+  - phase_id: "WS-NEXT-005"
+    workstream_id: "ws-next-005-uet-framework-review"
+    title: "UET Framework Review"
+    objective: "Review UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/ for reusable patterns and orphaned templates"
+    phase_type: "documentation_review"
+    depends_on: []
+    status: "not_started"
+    gh_item_id: null
+    estimate_hours: 1
+    priority: "medium"
+    owner: "Architecture Reviewer"
+    tags: ["documentation", "review", "architecture"]
+    
+    acceptance_criteria:
+      - "Complete template inventory"
+      - "Usage patterns documented"
+      - "Orphaned templates identified"
+      - "Integration assessed"
+    
+    deliverables:
+      - "UET_FRAMEWORK_REVIEW.md"
+
+metadata:
+  plan_name: "Next Workstreams - Strategic Roadmap"
+  plan_version: "1.0"
+  created_date: "2025-12-02"
+  total_phases: 5
+  total_estimate_hours: 136
+  dependencies_validated: true
+  
+  execution_strategy: "Parallel independent workstreams, then REFACTOR_2"
+  
+  priority_order:
+    - "WS-NEXT-001 (GitHub validation - enables automation)"
+    - "WS-NEXT-002 (Analyzer fix - reduces false positives)"
+    - "WS-NEXT-003 (Test coverage - ongoing, low priority)"
+    - "WS-NEXT-005 (UET review - independent)"
+    - "WS-NEXT-004 (REFACTOR_2 - requires WS-NEXT-001 + WS-NEXT-002)"
