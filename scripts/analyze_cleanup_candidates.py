@@ -51,7 +51,7 @@ logger = logging.getLogger(__name__)
 # =============================================================================
 
 CHUNK_SIZE = 65536  # 64KB for file hashing
-STALENESS_DAYS = 180  # 6 months = stale
+STALENESS_DAYS = 90  # 3 months = stale (EXEC-017: changed from 180)
 RECENT_DAYS = 30  # Last 30 days = recent
 
 # Patterns that indicate deprecation
@@ -71,6 +71,9 @@ CODE_EXTENSIONS = {'.py', '.ps1', '.bat', '.sh'}
 DOC_EXTENSIONS = {'.md', '.txt', '.rst'}
 CONFIG_EXTENSIONS = {'.yaml', '.yml', '.json', '.toml', '.ini'}
 
+# EXEC-017: Extensions to exclude from analysis
+EXCLUDE_EXTENSIONS = {'.md', '.txt'}  # Per user requirement
+
 # =============================================================================
 # Data Classes
 # =============================================================================
@@ -83,7 +86,9 @@ class FileScore:
     staleness_score: int = 0    # 0-100
     obsolescence_score: int = 0  # 0-100
     isolation_score: int = 0     # 0-100
-    total_score: int = 0         # Average of above
+    reachability_score: int = 0  # 0-100 (EXEC-017: NEW)
+    test_coverage_score: int = 0  # 0-100 (EXEC-017: NEW)
+    total_score: int = 0         # Weighted composite
     confidence: int = 0          # Confidence in recommendation
     action: str = "KEEP"         # KEEP, DELETE, ARCHIVE, CONSOLIDATE
     reasons: List[str] = None
@@ -94,10 +99,15 @@ class FileScore:
     def __post_init__(self):
         if self.reasons is None:
             self.reasons = []
-        self.total_score = (
-            self.duplication_score + self.staleness_score + 
-            self.obsolescence_score + self.isolation_score
-        ) // 4
+        # EXEC-017: Weighted composite (6 signals)
+        self.total_score = int(
+            self.duplication_score * 0.25 +      # 25%
+            self.staleness_score * 0.15 +        # 15%
+            self.obsolescence_score * 0.20 +     # 20%
+            self.isolation_score * 0.15 +        # 15%
+            self.reachability_score * 0.15 +     # 15%
+            self.test_coverage_score * 0.10      # 10%
+        )
 
 @dataclass
 class CleanupRecommendation:
@@ -727,8 +737,15 @@ Examples:
     parser.add_argument(
         '--confidence-threshold', '-c',
         type=int,
-        default=85,
-        help='Confidence threshold for automated cleanup (default: 85)'
+        default=90,
+        help='Confidence threshold for automated cleanup (default: 90, EXEC-017)'
+    )
+    
+    parser.add_argument(
+        '--exclude-extensions',
+        type=str,
+        default='.md,.txt',
+        help='Comma-separated list of extensions to exclude (default: .md,.txt)'
     )
     
     parser.add_argument(
