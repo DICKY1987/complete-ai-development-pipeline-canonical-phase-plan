@@ -1,7 +1,0 @@
----
-doc_id: {{DOC_ID}}
-title: {{TITLE}}
-status: {{STATUS}}
----
-
-# {{H1_TITLE}}
