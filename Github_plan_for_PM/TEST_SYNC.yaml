@@ -1,0 +1,20 @@
+phases:
+  - phase_id: "PH-TEST-01"
+    workstream_id: "ws-github-sync-test"
+    title: "Test Phase 1 - Setup"
+    objective: "Test GitHub Project sync with minimal example"
+    phase_type: "test"
+    depends_on: []
+    status: "not_started"
+    gh_item_id: null
+    estimate_hours: 1
+    
+  - phase_id: "PH-TEST-02"
+    workstream_id: "ws-github-sync-test"
+    title: "Test Phase 2 - Validation"
+    objective: "Validate bidirectional sync works correctly"
+    phase_type: "test"
+    depends_on: ["PH-TEST-01"]
+    status: "not_started"
+    gh_item_id: null
+    estimate_hours: 1
