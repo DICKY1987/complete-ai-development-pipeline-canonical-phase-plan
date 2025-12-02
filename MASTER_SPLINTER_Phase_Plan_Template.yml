@@ -1,5 +1,7 @@
 # PHASE_PLAN_TEMPLATE_V3
 # This file is intended for MACHINE CONSUMPTION by your orchestrator / CLI tools.
+# Authoring guide for field-by-field fill and decision-elimination rules:
+# see MASTER_SPLINTER_Phase_Plan_Template_GUIDE.md
 
 doc_id: "DOC-PHASE-TEMPLATE-V3-XXX"
 template_version: 3
