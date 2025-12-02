@@ -1,0 +1,284 @@
+# PHASE_PLAN_TEMPLATE_V3
+# This file is intended for MACHINE CONSUMPTION by your orchestrator / CLI tools.
+
+doc_id: "DOC-PHASE-TEMPLATE-V3-XXX"
+template_version: 3
+
+phase_identity:
+  phase_id: "PH-XX"
+  workstream_id: "ws-xxx"
+  title: "Short human-readable phase name"
+  summary: "Single-paragraph summary of the outcome this phase must produce."
+  phase_type: "implementation"  # one of: implementation | refactor | integration | migration | validation_only | documentation_only
+  status: "planned"             # planned | active | blocked | done | abandoned
+  tags:
+    - "state_layer"
+    - "orchestrator"
+    - "pipeline_core"
+
+dag_and_dependencies:
+  workstream_bundle_id: "ws-bundle-xx"   # ID from workstreams/*.json; optional if not using yet
+  depends_on:                            # HARD dependencies (must be DONE)
+    - "PH-00"
+    - "PH-01"
+  may_run_parallel_with:                 # SAFE to parallelize if scopes don’t conflict
+    - "PH-10"
+  parallel_group: "core-pipeline-v1"     # Optional grouping label for scheduler
+  is_critical_path: true                 # If true, scheduler treats this as critical for overall completion
+
+scope_and_modules:
+  repo_root: "."                         # Relative to repo root
+  modules:
+    - module_id: "mod.core.state"
+      description: "SQLite-backed state DB and state machine"
+    - module_id: "mod.pipeline.orchestrator"
+      description: "Main orchestrator entrypoints"
+  file_scope:
+    read_only:
+      - "README.md"
+      - "docs/**/*.md"
+      - "config/**/*.yaml"
+    modify:
+      - "src/pipeline/**/*.py"
+      - "tests/pipeline/**/*.py"
+    create:
+      - "schema/**/*.sql"
+      - "docs/state/**/*.md"
+      - "scripts/**/*.py"
+    forbidden_paths:
+      - ".git/**"
+      - ".venv/**"
+      - ".worktrees/**"
+  worktree_strategy:
+    mode: "per_workstream"               # per_workstream | shared | none
+    name_pattern: "wt-${workstream_id}-${phase_id}"
+    base_branch: "main"
+
+environment_and_tools:
+  target_os: "windows"                   # windows | linux | macos | cross
+  default_shell: "powershell"            # powershell | bash | zsh | cmd
+  primary_language: "python"
+  python:
+    version_constraint: ">=3.11,<3.13"
+    venv_path: ".venv"
+  required_services:
+    - name: "sqlite_db"
+      type: "file"
+      path: ".state/pipeline.db"
+      must_exist_before_phase: false
+  config_files:
+    - "config/tool_profiles.json"
+    - "config/circuit_breakers.yaml"
+  ai_operators:
+    primary_agent: "codex"               # codex | claude-code | aider | other
+    secondary_agents:
+      - "claude-code"
+      - "aider"
+  tool_profiles:
+    preferred_ids:
+      - "pytest"
+      - "ruff"
+      - "black"
+      - "powershell-script"
+      - "aider-edit"
+      - "aider-fix"
+
+execution_profile:
+  prompt_template_id: "EXECUTION_PROMPT_TEMPLATE_V2_DAG_MULTI_WORKSTREAM"
+  run_mode: "execute"                    # plan_only | dry_run | execute
+  max_runtime_minutes: 60
+  concurrency:
+    allowed_for_phase: true
+    max_parallel_steps: 1                # This is per-phase, not DAG-wide
+  retry_policy:
+    default_max_attempts: 1              # Phase-level retries; FIX loop is separate
+
+pre_flight_checks:
+  # These must PASS before any execution steps run.
+  checks:
+    - id: "pf-git-clean"
+      description: "Repo has no uncommitted changes in target paths."
+      when: "always"
+      command:
+        tool_id: "powershell-script"
+        args:
+          - "git status --porcelain"
+      success_pattern: "^$"              # Empty output = clean
+      on_fail: "abort"                   # abort | attempt_repair_phase | mark_blocked
+
+    - id: "pf-venv-present"
+      description: "Python virtual env exists."
+      when: "always"
+      command:
+        tool_id: "powershell-script"
+        args:
+          - "Test-Path .venv"
+      success_pattern: "True"
+      on_fail: "attempt_repair_phase"
+
+    - id: "pf-state-db-schema"
+      description: "State DB schema file exists where expected (if required for this phase)."
+      when: "if_phase_type_in:[implementation,integration,migration]"
+      command:
+        tool_id: "powershell-script"
+        args:
+          - "Test-Path schema/pipeline_state.sql"
+      success_pattern: "True"
+      on_fail: "abort"
+
+execution_plan:
+  # Ordered steps that the AI operator and orchestrator follow.
+  steps:
+    - id: "step-01-analyze-context"
+      name: "Analyze current repo and specs"
+      operation_kind: "OP-ANALYZE-CONTEXT"
+      pattern_ids:
+        - "PAT-ANALYZE-REPO-001"
+      description: "Scan relevant modules, docs, and config to understand the current state."
+      tool_id: "codex"
+      inputs:
+        repo_paths:
+          - "src/pipeline/**"
+          - "docs/spec/**"
+          - "schema/**"
+        constraints:
+          respect_file_scope: true
+      expected_outputs:
+        - "Refined internal plan for changes (not persisted)."
+      requires_human_confirmation: false
+
+    - id: "step-02-implement-changes"
+      name: "Apply scoped edits in isolated worktree"
+      operation_kind: "OP-EDIT-IMPLEMENT"
+      pattern_ids:
+        - "PAT-EDIT-WORKTREE-001"
+        - "PAT-FILE-SCOPE-ENFORCE-001"
+      description: "Use Aider/Codex to implement changes within declared file_scope in a dedicated worktree."
+      tool_id: "aider-edit"
+      inputs:
+        worktree_strategy_ref: "worktree_strategy"
+        file_scope_ref: "scope_and_modules.file_scope.modify"
+      expected_outputs:
+        - "Worktree with candidate implementation."
+      requires_human_confirmation: false
+
+    - id: "step-03-static-checks"
+      name: "Run static validation tools"
+      operation_kind: "OP-VALIDATE-STATIC"
+      pattern_ids:
+        - "PAT-LINT-001"
+        - "PAT-TYPECHECK-001"
+      description: "Run ruff, mypy, and other static tools via tool_profiles."
+      tool_id: "pytest"  # or a generic 'run_tool_batch'
+      inputs:
+        commands:
+          - "ruff src/pipeline tests/pipeline"
+          - "mypy src/pipeline"
+      expected_outputs:
+        - "All static tools pass or produce structured error output."
+      requires_human_confirmation: false
+
+    - id: "step-04-runtime-tests"
+      name: "Run runtime tests"
+      operation_kind: "OP-VALIDATE-RUNTIME"
+      pattern_ids:
+        - "PAT-PYTEST-CORE-001"
+      description: "Run pytest suite for modules touched by this phase."
+      tool_id: "pytest"
+      inputs:
+        commands:
+          - "pytest tests/pipeline -q"
+      expected_outputs:
+        - "All relevant tests pass."
+      requires_human_confirmation: false
+
+fix_loop_and_circuit_breakers:
+  enabled: true
+  applies_to_steps:
+    - "step-03-static-checks"
+    - "step-04-runtime-tests"
+  circuit_breaker_config_ref: "config/circuit_breakers.yaml"
+  defaults:
+    max_attempts: 3
+    oscillation_window: 3
+    oscillation_threshold: 2
+  behavior:
+    on_first_failure: "invoke_fix_pattern"
+    on_subsequent_failure: "re-run-base-step"
+    on_breaker_trip: "mark_phase_failed"
+
+expected_artifacts:
+  patches:
+    - path: ".ledger/patches/${phase_id}_${workstream_id}.patch"
+      must_exist: true
+  logs:
+    - path: ".runs/${workstream_id}/${phase_id}/static_checks.log"
+      must_exist: true
+    - path: ".runs/${workstream_id}/${phase_id}/runtime_tests.log"
+      must_exist: true
+  docs:
+    - path: "docs/state/state_machine.md"
+      must_exist: true
+    - path: "docs/architecture/PHASE_PLAN.md"
+      must_exist: true
+  db:
+    migrations_applied:
+      - "schema/migrations/00_create_state_tables.sql"
+
+acceptance_tests:
+  # Command-level phase acceptance (beyond step-level checks).
+  tests:
+    - id: "acc-01-pipeline-smoke"
+      description: "Pipeline CLI can run a no-op workstream successfully."
+      command:
+        tool_id: "powershell-script"
+        args:
+          - "python scripts/run_workstream.py --ws-id ${workstream_id} --dry-run"
+      success_pattern: "STATUS: SUCCESS"
+      must_pass: true
+
+    - id: "acc-02-db-state-transitions"
+      description: "State machine refuses invalid transitions."
+      command:
+        tool_id: "pytest"
+        args:
+          - "pytest tests/pipeline/test_db_state.py -q"
+      success_pattern: "0 failed"
+      must_pass: true
+
+completion_gate:
+  # This is what the orchestrator evaluates to mark phase DONE.
+  rules:
+    dependencies_done: true              # All depends_on phases must be done.
+    pre_flight_passed: true
+    acceptance_tests_all_passed: true
+    required_artifacts_present: true
+    no_scope_violations_detected: true
+    circuit_breakers_not_tripped: true
+  manual_override:
+    allowed: false                       # If true, humans can mark done with justification.
+    justification_required: true
+
+observability_and_metrics:
+  event_tags:
+    - "phase:${phase_identity.phase_id}"
+    - "workstream:${phase_identity.workstream_id}"
+    - "phase_type:${phase_identity.phase_type}"
+  metrics:
+    record_durations: true
+    record_attempt_counts: true
+    record_fix_loop_stats: true
+
+governance_and_constraints:
+  anti_patterns_blocked:
+    - "ANTI-GIANT-REFRACTOR-001"
+    - "ANTI-EDIT-OUTSIDE-SCOPE-001"
+    - "ANTI-SKIP-TESTS-001"
+  notes_for_operators:
+    - "Never modify files outside declared file_scope."
+    - "Always trust git/tests/filesystem over conversational summaries."
+    - "If tools under-deliver, repair or escalate—do not silently accept."
+
+extensions:
+  # Free-form structured fields that future patches can extend.
+  custom_fields: {}
