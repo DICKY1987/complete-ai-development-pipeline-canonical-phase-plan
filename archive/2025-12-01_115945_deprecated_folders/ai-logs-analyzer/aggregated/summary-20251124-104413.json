@@ -1,0 +1,21 @@
+{
+  "outputFile": "C:\\Users\\richg\\ALL_AI\\ai-logs-analyzer\\aggregated\\aggregated-20251124-104413.jsonl",
+  "timestamp": "2025-11-24T10:44:34.2912548-06:00",
+  "dateRange": {
+    "start": "2025-11-24",
+    "end": "2025-11-24"
+  },
+  "statistics": {
+    "gemini": 0,
+    "codex": 0,
+    "aider": 0,
+    "total": 1032,
+    "copilot": 0,
+    "errors": 0,
+    "claude": 1032
+  },
+  "tools": [
+    "claude"
+  ],
+  "doc_id": "DOC-CONFIG-SUMMARY-20251124-104413-193"
+}

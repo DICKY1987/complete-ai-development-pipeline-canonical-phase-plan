@@ -1,0 +1,21 @@
+{
+  "tools": [
+    "claude"
+  ],
+  "statistics": {
+    "codex": 0,
+    "copilot": 0,
+    "aider": 0,
+    "total": 1034,
+    "gemini": 0,
+    "claude": 1034,
+    "errors": 0
+  },
+  "dateRange": {
+    "end": "2025-11-24",
+    "start": "2025-11-24"
+  },
+  "timestamp": "2025-11-24T11:25:27.5981503-06:00",
+  "outputFile": "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical Phase Plan\\ai-logs-analyzer\\aggregated\\aggregated-20251124-112505.jsonl",
+  "doc_id": "DOC-CONFIG-SUMMARY-20251124-112505-195"
+}

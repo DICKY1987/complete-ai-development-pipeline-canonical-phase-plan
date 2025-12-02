@@ -1,0 +1,25 @@
+{
+  "timestamp": "2025-11-24T10:48:46.2578237-06:00",
+  "dateRange": {
+    "end": "2025-11-24",
+    "start": "2025-11-24"
+  },
+  "tools": [
+    "claude",
+    "codex",
+    "copilot",
+    "gemini",
+    "aider"
+  ],
+  "statistics": {
+    "total": 15028,
+    "codex": 0,
+    "gemini": 10,
+    "copilot": 13801,
+    "errors": 454,
+    "aider": 190,
+    "claude": 1032
+  },
+  "outputFile": "C:\\Users\\richg\\ALL_AI\\ai-logs-analyzer\\aggregated\\aggregated-20251124-104503.jsonl",
+  "doc_id": "DOC-CONFIG-SUMMARY-20251124-104503-194"
+}
