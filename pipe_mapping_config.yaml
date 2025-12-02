@@ -1,0 +1,286 @@
+version: 1
+default_pipe_id: PIPE-26_LEARN_AND_UPDATE_PATTERNS_PROMPTS_CONFIG
+
+# Rules are processed in order; first match wins
+# Each rule maps existing repo paths to one of the 26 PIPE modules
+rules:
+  # ============================================================================
+  # PHASE A: INTAKE & SPECS (PIPE-01 to PIPE-03)
+  # ============================================================================
+  
+  - name: intake_request
+    pipe_id: PIPE-01_INTAKE_REQUEST
+    match:
+      path_prefix:
+        - "modules/pm-integrations/"
+        - "scripts/gh_epic_sync.py"
+        - "scripts/gh_issue_update.py"
+        - "scripts/sync_workstreams_to_github.py"
+      file_glob:
+        - "AGENTS.md"
+        - ".ai-context.md"
+        - "prompting/**/*.md"
+
+  - name: discover_specs
+    pipe_id: PIPE-02_DISCOVER_RELATED_SPECS
+    match:
+      path_prefix:
+        - "openspec/"
+        - "specifications/"
+        - "adr/"
+        - "glossary/"
+        - "docs/specs/"
+
+  - name: normalize_requirements
+    pipe_id: PIPE-03_NORMALIZE_REQUIREMENTS
+    match:
+      path_prefix:
+        - "scripts/spec_to_workstream.py"
+        - "scripts/spec_to_workstream.ps1"
+      file_glob:
+        - "docs/openspec_bridge.md"
+
+  # ============================================================================
+  # PHASE B: WORKSTREAM & CONFIG (PIPE-04 to PIPE-07)
+  # ============================================================================
+
+  - name: materialize_workstream
+    pipe_id: PIPE-04_MATERIALIZE_WORKSTREAM_FILE
+    match:
+      path_prefix:
+        - "workstreams/"
+        - "scripts/run_workstream.py"
+        - "scripts/execute_next_workstreams.py"
+        - "scripts/uet_workstream_loader.py"
+        - "scripts/track_workstream_status.py"
+
+  - name: validate_schema
+    pipe_id: PIPE-05_VALIDATE_WORKSTREAM_SCHEMA
+    match:
+      path_prefix:
+        - "schema/"
+        - "scripts/validate_modules.py"
+        - "scripts/preflight_validator.py"
+
+  - name: config_cascade
+    pipe_id: PIPE-06_RESOLVE_CONFIG_CASCADE
+    match:
+      path_prefix:
+        - "config/"
+        - "scripts/bootstrap.ps1"
+      file_glob:
+        - "pyproject.toml"
+        - ".env.example"
+
+  - name: capabilities_registry
+    pipe_id: PIPE-07_RESOLVE_CAPABILITIES_AND_REGISTRY
+    match:
+      path_prefix:
+        - "capabilities/"
+        - "registry/"
+        - "modules/aim-registry/"
+        - "modules/aim-cli/"
+        - "scripts/validate_registry.py"
+        - "scripts/classify_module_registry.py"
+
+  # ============================================================================
+  # PHASE C: PATTERNS & PLANNING (PIPE-08 to PIPE-12)
+  # ============================================================================
+
+  - name: select_patterns
+    pipe_id: PIPE-08_SELECT_UET_PATTERNS
+    match:
+      path_prefix:
+        - "templates/"
+        - "scripts/pattern_discovery.py"
+        - "scripts/auto_pattern_detector.py"
+
+  - name: specialize_patterns
+    pipe_id: PIPE-09_SPECIALIZE_PATTERNS_WITH_CONTEXT
+    match:
+      path_prefix:
+        - "scripts/template_renderer.py"
+        - "modules/core-planning/"
+
+  - name: validate_pattern_plan
+    pipe_id: PIPE-10_VALIDATE_PATTERN_PLAN
+    match:
+      path_prefix:
+        - "scripts/validate/validate_pattern_plan.py"
+
+  - name: build_dag
+    pipe_id: PIPE-11_BUILD_TASK_GRAPH_DAG
+    match:
+      path_prefix:
+        - "modules/core-planning/"
+        - "engine/queue/"
+
+  - name: persist_plan
+    pipe_id: PIPE-12_PERSIST_PLAN_IN_STATE
+    match:
+      path_prefix:
+        - "modules/core-state/"
+        - "engine/state_store/"
+        - "scripts/init_db.py"
+        - "scripts/db_inspect.py"
+      file_glob:
+        - "state/**/*.db"
+        - ".state/**/*.db"
+
+  # ============================================================================
+  # PHASE D: WORKSPACE & SCHEDULING (PIPE-13 to PIPE-15)
+  # ============================================================================
+
+  - name: prepare_worktrees
+    pipe_id: PIPE-13_PREPARE_WORKTREES_AND_CHECKPOINTS
+    match:
+      path_prefix:
+        - ".worktrees/"
+        - "scripts/worktree_manager.py"
+        - "scripts/cleanup_worktrees.ps1"
+        - "scripts/create_docid_worktrees.ps1"
+        - "scripts/create_migration_worktrees.ps1"
+        - "scripts/worktree_start.ps1"
+        - "scripts/worktree_start.sh"
+
+  - name: queue_admission
+    pipe_id: PIPE-14_ADMIT_READY_TASKS_TO_QUEUE
+    match:
+      path_prefix:
+        - "engine/queue/"
+        - "modules/core-engine/"
+
+  - name: priority_assignment
+    pipe_id: PIPE-15_ASSIGN_PRIORITIES_AND_SLOTS
+    match:
+      path_prefix:
+        - "engine/orchestrator/"
+        - "scripts/monitor_parallel.py"
+
+  # ============================================================================
+  # PHASE E: EXECUTION & VALIDATION (PIPE-16 to PIPE-18)
+  # ============================================================================
+
+  - name: route_to_adapter
+    pipe_id: PIPE-16_ROUTE_TASK_TO_TOOL_ADAPTER
+    match:
+      path_prefix:
+        - "engine/adapters/"
+        - "modules/aim-services/"
+        - "scripts/uet_tool_adapter.py"
+      file_glob:
+        - "config/router_config.json"
+        - "config/router.config.yaml"
+
+  - name: execute_tool
+    pipe_id: PIPE-17_EXECUTE_TOOL_AND_CAPTURE_OUTPUT
+    match:
+      path_prefix:
+        - "engine/orchestrator/"
+        - "aider/"
+        - ".ai/"
+        - ".claude/"
+        - "modules/aim-environment/"
+        - "scripts/run_ws_wrapper.py"
+        - "scripts/simple_workstream_executor.py"
+
+  - name: post_exec_validation
+    pipe_id: PIPE-18_RUN_POST_EXEC_TESTS_AND_CHECKS
+    match:
+      path_prefix:
+        - "tests/"
+        - "scripts/test_state_store.py"
+        - "scripts/test_adapters.py"
+        - "scripts/test_imports.py"
+        - "scripts/validate/"
+      file_glob:
+        - "conftest.py"
+
+  # ============================================================================
+  # PHASE F: ERROR & RECOVERY (PIPE-19 to PIPE-21)
+  # ============================================================================
+
+  - name: error_plugins
+    pipe_id: PIPE-19_RUN_ERROR_PLUGINS_PIPELINE
+    match:
+      path_prefix:
+        - "modules/error-plugin-"
+        - "modules/error-shared/"
+        - "scripts/run_error_engine.py"
+
+  - name: error_classification
+    pipe_id: PIPE-20_CLASSIFY_ERRORS_AND_CHOOSE_ACTION
+    match:
+      path_prefix:
+        - "modules/error-engine/"
+      file_glob:
+        - "pipeline_errors.jsonl"
+
+  - name: autofix_retry_circuit
+    pipe_id: PIPE-21_APPLY_AUTOFIX_RETRY_AND_CIRCUIT_CONTROL
+    match:
+      path_prefix:
+        - "modules/error-engine/"
+        - "scripts/recovery.py"
+      file_glob:
+        - "config/circuit_breakers.yaml"
+
+  # ============================================================================
+  # PHASE G: FINALIZATION & LEARNING (PIPE-22 to PIPE-26)
+  # ============================================================================
+
+  - name: commit_results
+    pipe_id: PIPE-22_COMMIT_TASK_RESULTS_TO_STATE_AND_MODULES
+    match:
+      path_prefix:
+        - "modules/core-state/"
+        - "state/"
+        - ".state/"
+        - "scripts/report_metrics.py"
+
+  - name: complete_and_archive
+    pipe_id: PIPE-23_COMPLETE_WORKSTREAM_AND_ARCHIVE
+    match:
+      path_prefix:
+        - "scripts/consolidate_archives.ps1"
+        - "scripts/validate_archival_safety.py"
+        - "scripts/test_coverage_archival.py"
+      file_glob:
+        - "cleanup_batches.json"
+
+  - name: metrics_and_reports
+    pipe_id: PIPE-24_UPDATE_METRICS_REPORTS_AND_SUMMARIES
+    match:
+      path_prefix:
+        - "ai-logs-analyzer/"
+        - "scripts/generate_summary.py"
+        - "scripts/report_metrics.py"
+      file_glob:
+        - "active_plans_filtered.csv"
+        - "file_index_*.csv"
+        - "docs_inventory.jsonl"
+
+  - name: surface_to_ui
+    pipe_id: PIPE-25_SURFACE_TO_GUI_AND_TUI
+    match:
+      path_prefix:
+        - "gui/"
+        - "scripts/launch_tui.bat"
+        - "scripts/run_tui_background.ps1"
+      file_glob:
+        - "GUI_PLAN_EXECUTION_PATTERNS.md"
+        - "HYBRID_GUI_PLAN.md"
+
+  - name: learn_and_update
+    pipe_id: PIPE-26_LEARN_AND_UPDATE_PATTERNS_PROMPTS_CONFIG
+    match:
+      path_prefix:
+        - "docs/"
+        - "prompting/"
+        - "scripts/doc_id_assigner.py"
+        - "scripts/doc_id_scanner.py"
+        - "scripts/batch_rename_docs.py"
+      file_glob:
+        - "README.md"
+        - "MASTER_SPLINTER_Phase_Plan_Template.yml"
+        - "*.md"
