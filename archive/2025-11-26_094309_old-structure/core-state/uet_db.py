@@ -1,4 +1,0 @@
-# DOC_LINK: DOC-PAT-CORE-STATE-UET-DB-412
-# UET Module: core\state\uet_db.py
-# To be copied from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK
-
