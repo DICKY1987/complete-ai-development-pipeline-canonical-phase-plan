@@ -1,0 +1,42 @@
+{
+  "metadata": {
+    "timestamp": "2025-12-02T10:28:52.800639+00:00",
+    "pattern": "EXEC-017",
+    "configuration": {
+      "confidence_threshold": 90,
+      "staleness_days": 90,
+      "exclude_extensions": [
+        ".txt",
+        ".md"
+      ]
+    }
+  },
+  "statistics": {
+    "total_files_analyzed": 934,
+    "tier_1_count": 0,
+    "tier_2_count": 0,
+    "tier_3_count": 0,
+    "tier_4_count": 934
+  },
+  "tier_1_summary": {
+    "count": 0,
+    "confidence_range": "90-100%",
+    "action": "SAFE FOR AUTOMATED ARCHIVAL",
+    "files": []
+  },
+  "tier_2_summary": {
+    "count": 0,
+    "confidence_range": "75-89%",
+    "action": "REVIEW RECOMMENDED",
+    "files": []
+  },
+  "tier_3_summary": {
+    "count": 0,
+    "confidence_range": "60-74%",
+    "action": "MANUAL EXPERT REVIEW",
+    "files": []
+  },
+  "signal_convergence": {
+    "3_plus_signals": 0
+  }
+}
