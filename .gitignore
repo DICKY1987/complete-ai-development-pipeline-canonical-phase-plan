@@ -118,6 +118,11 @@ nul
 # Project-Specific
 # ===========================
 
+# Archives moved to external storage
+# Location: C:\Users\richg\ALL_AI\Archives\Complete_AI_Development_Pipeline_Archive_*
+archive/
+legacy/
+
 # CCPM workspace (local planning artifacts)
 pm/workspace/
 pm/__pycache__/
