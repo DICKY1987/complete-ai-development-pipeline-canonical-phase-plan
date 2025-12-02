@@ -145,6 +145,12 @@ scope_and_modules:
     mode: "per_workstream"               # per_workstream | shared | none
     name_pattern: "wt-${workstream_id}-${phase_id}"
     base_branch: "main"
+    multi_worktree_enabled: false        # Optional: enable multi-worktree execution
+    worktrees:                           # Optional: declare worker worktrees (id/scope/branch)
+      - id: "WT-EXAMPLE"
+        scope:                           # Paths this worktree may touch
+          - "docs/**"
+        branch_pattern: "feature/${phase_id}-${workstream_id}-${id}"
 
 environment_and_tools:
   target_os: "windows"                   # windows | linux | macos | cross
@@ -235,6 +241,7 @@ execution_plan:
           - "schema/**"
         constraints:
           respect_file_scope: true
+        execution_templates: []          # Optional: link to execution patterns/templates (e.g., WT-EXEC-001)
       expected_outputs:
         - "Refined internal plan for changes (not persisted)."
       requires_human_confirmation: false
@@ -250,6 +257,7 @@ execution_plan:
       inputs:
         worktree_strategy_ref: "worktree_strategy"
         file_scope_ref: "scope_and_modules.file_scope.modify"
+        execution_templates: []          # Optional: execution pattern IDs to apply for this step
       expected_outputs:
         - "Worktree with candidate implementation."
       requires_human_confirmation: false
@@ -266,6 +274,7 @@ execution_plan:
         commands:
           - "ruff src/pipeline tests/pipeline"
           - "mypy src/pipeline"
+        execution_templates: []          # Optional: execution pattern IDs for this step
       expected_outputs:
         - "All static tools pass or produce structured error output."
       requires_human_confirmation: false
