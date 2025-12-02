@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "timestamp": "2025-12-02T10:23:18.537677+00:00",
+    "timestamp": "2025-12-02T17:48:47.975423+00:00",
     "root_directory": "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical Phase Plan",
     "pattern": "EXEC-017"
   },
@@ -22,7 +22,7 @@
             "No ULID prefixes"
           ],
           "characteristics": {
-            "days_since_update": 0,
+            "days_since_update": 1,
             "import_references": 137,
             "test_files": 100,
             "documentation": "Medium",
@@ -46,7 +46,7 @@
             "Partial test coverage"
           ],
           "characteristics": {
-            "days_since_update": 0,
+            "days_since_update": 1,
             "import_references": 0,
             "test_files": 0,
             "documentation": "Medium",
@@ -70,7 +70,7 @@
             "Low documentation"
           ],
           "characteristics": {
-            "days_since_update": 1,
+            "days_since_update": 2,
             "import_references": 26,
             "test_files": 1,
             "documentation": "Low",
@@ -102,7 +102,7 @@
             "Partial test coverage"
           ],
           "characteristics": {
-            "days_since_update": 0,
+            "days_since_update": 1,
             "import_references": 0,
             "test_files": 0,
             "documentation": "Medium",
@@ -127,7 +127,7 @@
             "Low documentation"
           ],
           "characteristics": {
-            "days_since_update": 1,
+            "days_since_update": 2,
             "import_references": 43,
             "test_files": 28,
             "documentation": "Low",
@@ -160,7 +160,7 @@
             "Low documentation"
           ],
           "characteristics": {
-            "days_since_update": 5,
+            "days_since_update": 6,
             "import_references": 113,
             "test_files": 100,
             "documentation": "Low",
@@ -184,7 +184,7 @@
             "Partial test coverage"
           ],
           "characteristics": {
-            "days_since_update": 1,
+            "days_since_update": 2,
             "import_references": 0,
             "test_files": 0,
             "documentation": "Medium",
@@ -208,7 +208,7 @@
             "Low documentation"
           ],
           "characteristics": {
-            "days_since_update": 1,
+            "days_since_update": 2,
             "import_references": 27,
             "test_files": 0,
             "documentation": "Low",
@@ -233,7 +233,7 @@
             "Low documentation"
           ],
           "characteristics": {
-            "days_since_update": 1,
+            "days_since_update": 2,
             "import_references": 4,
             "test_files": 0,
             "documentation": "Low",

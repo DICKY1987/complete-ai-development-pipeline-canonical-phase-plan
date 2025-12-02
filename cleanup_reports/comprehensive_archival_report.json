@@ -1,22 +1,22 @@
 {
   "metadata": {
-    "timestamp": "2025-12-02T10:28:52.800639+00:00",
+    "timestamp": "2025-12-02T17:54:56.244300+00:00",
     "pattern": "EXEC-017",
     "configuration": {
       "confidence_threshold": 90,
       "staleness_days": 90,
       "exclude_extensions": [
-        ".txt",
-        ".md"
+        ".md",
+        ".txt"
       ]
     }
   },
   "statistics": {
-    "total_files_analyzed": 934,
+    "total_files_analyzed": 939,
     "tier_1_count": 0,
     "tier_2_count": 0,
     "tier_3_count": 0,
-    "tier_4_count": 934
+    "tier_4_count": 939
   },
   "tier_1_summary": {
     "count": 0,

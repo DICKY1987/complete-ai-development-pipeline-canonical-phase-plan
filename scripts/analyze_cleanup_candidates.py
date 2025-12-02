@@ -811,7 +811,7 @@ Examples:
     
     # Print summary
     print("\n" + "="*70)
-    print("📊 CLEANUP ANALYSIS SUMMARY")
+    print("[REPORT] CLEANUP ANALYSIS SUMMARY")
     print("="*70)
     print(f"\nTotal files analyzed: {len(scores):,}")
     print(f"\nRecommendations:")

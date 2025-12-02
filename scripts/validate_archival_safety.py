@@ -68,7 +68,7 @@ class ArchivalSafetyValidator:
         # 3. Entry point validation (placeholder)
         logger.info("3. Checking entry points...")
         # TODO: Implement entry point check
-        logger.info("   ⚠️  Entry point validation not yet implemented (assumed OK)")
+        logger.info("   [!] Entry point validation not yet implemented (assumed OK)")
         self.warnings.append("Entry point validation not yet implemented")
         
         # 4. Test suite validation
@@ -97,7 +97,7 @@ class ArchivalSafetyValidator:
         
         # 2. Import check (placeholder)
         logger.info("2. Checking imports...")
-        logger.info("   ⚠️  Import validation not yet implemented (assumed OK)")
+        logger.info("   [!] Import validation not yet implemented (assumed OK)")
         self.warnings.append("Import validation not yet implemented")
         
         return is_valid
@@ -145,23 +145,23 @@ class ArchivalSafetyValidator:
     def print_summary(self, is_safe: bool):
         """Print validation summary."""
         print("\n" + "="*70)
-        print("🛡️  ARCHIVAL SAFETY VALIDATION SUMMARY")
+        print("[!] ARCHIVAL SAFETY VALIDATION SUMMARY")
         print("="*70)
         
         if self.blockers:
-            print(f"\n❌ BLOCKERS FOUND ({len(self.blockers)}):")
+            print(f"\n[X] BLOCKERS FOUND ({len(self.blockers)}):")
             for blocker in self.blockers:
                 print(f"   - {blocker}")
         
         if self.warnings:
-            print(f"\n⚠️  WARNINGS ({len(self.warnings)}):")
+            print(f"\n[!] WARNINGS ({len(self.warnings)}):")
             for warning in self.warnings:
                 print(f"   - {warning}")
         
         if is_safe:
             print("\n✅ VALIDATION PASSED - Safe to proceed")
         else:
-            print("\n❌ VALIDATION FAILED - Do NOT proceed with archival")
+            print("\n[X] VALIDATION FAILED - Do NOT proceed with archival")
         
         print("="*70 + "\n")
 

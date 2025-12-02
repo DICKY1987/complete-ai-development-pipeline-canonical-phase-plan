@@ -441,11 +441,11 @@ class ComprehensiveArchivalAnalyzer:
         script_lines.extend([
             "if ($DryRun) {",
             "    Write-Host ''",
-            "    Write-Host '⚠️  DRY RUN MODE - No files were moved' -ForegroundColor Yellow",
+            "    Write-Host '[!] DRY RUN MODE - No files were moved' -ForegroundColor Yellow",
             "    Write-Host 'To execute: Edit this script and set $DryRun = $false' -ForegroundColor Yellow",
             "} else {",
             "    Write-Host ''",
-            "    Write-Host '✅ Archival complete!' -ForegroundColor Green",
+            "    Write-Host '[OK] Archival complete!' -ForegroundColor Green",
             f"    Write-Host 'Files archived to: {archive_dir}' -ForegroundColor Green",
             "}"
         ])
@@ -652,10 +652,10 @@ Examples:
         
         sys.exit(0)
     except KeyboardInterrupt:
-        logger.error("\n❌ Analysis interrupted by user")
+        logger.error("\n[X] Analysis interrupted by user")
         sys.exit(1)
     except Exception as e:
-        logger.error(f"\n❌ Analysis failed: {e}")
+        logger.error(f"\n[X] Analysis failed: {e}")
         import traceback
         traceback.print_exc()
         sys.exit(1)
