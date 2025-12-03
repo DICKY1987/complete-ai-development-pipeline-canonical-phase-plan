@@ -1,9 +1,0 @@
-{
-  "database_type": "example_database_type",
-  "database_path": "patterns/metrics/pattern_automation.db",
-  "migration_approach": "example_migration_approach",
-  "migration_file_path": "core/state/migrations/004_pattern_automation.sql",
-  "tables": [],
-  "rollback_script_path": "rollback_004_pattern_automation.sql",
-  "doc_id": "DOC-PAT-INSTANCE-FULL-155"
-}

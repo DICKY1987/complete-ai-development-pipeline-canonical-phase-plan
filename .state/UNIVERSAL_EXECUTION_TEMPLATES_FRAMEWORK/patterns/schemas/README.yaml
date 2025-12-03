@@ -1,8 +1,0 @@
-doc_id: DOC-PAT-README-038
-name: schemas
-purpose: JSON and YAML schemas validating pattern inputs, glossary workflows, and outputs.
-files:
-  - *schema.json: JSON schemas for patterns and glossary operations.
-  - *schema.id.yaml: Identifier stubs for schema registration.
-usage: Validate pattern instances and glossary workflows against these schemas before execution.
-status: active

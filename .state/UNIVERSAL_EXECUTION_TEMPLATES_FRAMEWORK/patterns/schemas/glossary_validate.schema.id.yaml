@@ -1,8 +1,0 @@
-schema_id: glossary_validate.schema.json
-pattern_id: PAT-GLOSSARY-VALIDATE-001
-doc_id: DOC-GLOSSARY-VALIDATE-001
-title: Glossary Validate Pattern
-description: Validate glossary structure, content, and quality
-version: 1.0.0
-status: active
-executor: glossary_validate_executor.ps1

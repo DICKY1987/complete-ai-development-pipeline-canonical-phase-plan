@@ -1,7 +1,0 @@
-doc_id: DOC-PAT-README-012
-name: anti_patterns
-purpose: Guidance and forensic notes on anti-patterns within the execution template ecosystem.
-files:
-  - UET_2025- ANTI-PATTERN FORENSICS.md: Catalog of known anti-patterns and mitigations.
-usage: Review before designing or updating patterns to avoid recurring pitfalls.
-status: active

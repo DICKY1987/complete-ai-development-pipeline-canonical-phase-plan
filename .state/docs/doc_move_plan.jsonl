@@ -1,0 +1,76 @@
+{"path": "AI_NAVIGATION_SUMMARY.md", "category": "ai", "target_dir": "docs/ai/", "reason": "Classified as ai based on filename and path patterns"}
+{"path": "ARCHITECTURE.md", "category": "runtime", "target_dir": "docs/runtime/", "reason": "Classified as runtime based on filename and path patterns"}
+{"path": "CLAUDE.md", "category": "ai", "target_dir": "docs/ai/", "reason": "Classified as ai based on filename and path patterns"}
+{"path": "DEPENDENCIES.md", "category": "runtime", "target_dir": "docs/runtime/", "reason": "Classified as runtime based on filename and path patterns"}
+{"path": "GETTING_STARTED.md", "category": "runtime", "target_dir": "docs/runtime/", "reason": "Classified as runtime based on filename and path patterns"}
+{"path": "INTEGRATION_ANALYSIS_SYNC_TO_UET.md", "category": "unknown", "target_dir": "", "reason": "Classified as unknown based on filename and path patterns"}
+{"path": "PATCH_ANALYSIS.md", "category": "unknown", "target_dir": "", "reason": "Classified as unknown based on filename and path patterns"}
+{"path": "README.md", "category": "runtime", "target_dir": "docs/runtime/", "reason": "Classified as runtime based on filename and path patterns"}
+{"path": "master_plan/ADR_PATCH_ANALYSIS.md", "category": "planning", "target_dir": "docs/planning/", "reason": "Classified as planning based on filename and path patterns"}
+{"path": "master_plan/COMPLETE_PATCH_SUMMARY.md", "category": "planning", "target_dir": "docs/planning/", "reason": "Classified as planning based on filename and path patterns"}
+{"path": "master_plan/CORE_ENGINE_PATCH_ANALYSIS.md", "category": "planning", "target_dir": "docs/planning/", "reason": "Classified as planning based on filename and path patterns"}
+{"path": "master_plan/CORE_STATE_IMPLEMENTATION_PATCH_ANALYSIS.md", "category": "planning", "target_dir": "docs/planning/", "reason": "Classified as planning based on filename and path patterns"}
+{"path": "master_plan/CREATION_SUCCESS_REPORT.md", "category": "planning", "target_dir": "docs/planning/", "reason": "Classified as planning based on filename and path patterns"}
+{"path": "master_plan/DEVELOPMENT_GUIDELINES_PATCH_ANALYSIS.md", "category": "planning", "target_dir": "docs/planning/", "reason": "Classified as planning based on filename and path patterns"}
+{"path": "master_plan/DOCUMENTATION_PATCH_ANALYSIS.md", "category": "planning", "target_dir": "docs/planning/", "reason": "Classified as planning based on filename and path patterns"}
+{"path": "master_plan/EXISTING_TEST_COVERAGE_SUMMARY.md", "category": "planning", "target_dir": "docs/planning/", "reason": "Classified as planning based on filename and path patterns"}
+{"path": "master_plan/MASTER_PLAN_DELIVERABLES.md", "category": "planning", "target_dir": "docs/planning/", "reason": "Classified as planning based on filename and path patterns"}
+{"path": "master_plan/MASTER_PLAN_STATUS.md", "category": "planning", "target_dir": "docs/planning/", "reason": "Classified as planning based on filename and path patterns"}
+{"path": "master_plan/MASTER_PLAN_SUMMARY.md", "category": "planning", "target_dir": "docs/planning/", "reason": "Classified as planning based on filename and path patterns"}
+{"path": "master_plan/PATCH_005_SUMMARY.md", "category": "planning", "target_dir": "docs/planning/", "reason": "Classified as planning based on filename and path patterns"}
+{"path": "master_plan/PATCH_006_SUMMARY.md", "category": "planning", "target_dir": "docs/planning/", "reason": "Classified as planning based on filename and path patterns"}
+{"path": "master_plan/PATCH_007_SUMMARY.md", "category": "planning", "target_dir": "docs/planning/", "reason": "Classified as planning based on filename and path patterns"}
+{"path": "master_plan/PATCH_008_SUMMARY.md", "category": "planning", "target_dir": "docs/planning/", "reason": "Classified as planning based on filename and path patterns"}
+{"path": "master_plan/PATCH_009_SUMMARY.md", "category": "planning", "target_dir": "docs/planning/", "reason": "Classified as planning based on filename and path patterns"}
+{"path": "master_plan/PATCH_APPLICATION_GUIDE.md", "category": "planning", "target_dir": "docs/planning/", "reason": "Classified as planning based on filename and path patterns"}
+{"path": "master_plan/PATCH_DEPENDENCY_ANALYSIS.md", "category": "planning", "target_dir": "docs/planning/", "reason": "Classified as planning based on filename and path patterns"}
+{"path": "master_plan/PLANNING_REFERENCE_PATCH_ANALYSIS.md", "category": "planning", "target_dir": "docs/planning/", "reason": "Classified as planning based on filename and path patterns"}
+{"path": "master_plan/SCHEMA_PATCH_ANALYSIS.md", "category": "planning", "target_dir": "docs/planning/", "reason": "Classified as planning based on filename and path patterns"}
+{"path": "master_plan/TEST_ADAPTER_ANALYSIS.md", "category": "planning", "target_dir": "docs/planning/", "reason": "Classified as planning based on filename and path patterns"}
+{"path": "master_plan/TEST_INFRASTRUCTURE_PATCH_ANALYSIS.md", "category": "planning", "target_dir": "docs/planning/", "reason": "Classified as planning based on filename and path patterns"}
+{"path": "master_plan/TOOL_ADAPTER_PATCH_ANALYSIS.md", "category": "planning", "target_dir": "docs/planning/", "reason": "Classified as planning based on filename and path patterns"}
+{"path": "master_plan/UET_V2_SPECS_PATCH_ANALYSIS.md", "category": "spec", "target_dir": "docs/spec/", "reason": "Classified as spec based on filename and path patterns"}
+{"path": "profiles/README.md", "category": "runtime", "target_dir": "docs/runtime/", "reason": "Classified as runtime based on filename and path patterns"}
+{"path": "schema/README.md", "category": "runtime", "target_dir": "docs/runtime/", "reason": "Classified as runtime based on filename and path patterns"}
+{"path": "specs/# Comprehensive Integration Specification Enhanced Prompt Engineering.md", "category": "spec", "target_dir": "docs/spec/", "reason": "Classified as spec based on filename and path patterns"}
+{"path": "specs/# Patch Files as Unified Diff & Optimal .md", "category": "unknown", "target_dir": "", "reason": "Classified as unknown based on filename and path patterns"}
+{"path": "specs/PHASE_3_COMPLETION_REPORT.md", "category": "unknown", "target_dir": "", "reason": "Classified as unknown based on filename and path patterns"}
+{"path": "specs/PHASE_3_PLAN.md", "category": "unknown", "target_dir": "", "reason": "Classified as unknown based on filename and path patterns"}
+{"path": "specs/PHASE_4_AI_ENHANCEMENT_PLAN.md", "category": "unknown", "target_dir": "", "reason": "Classified as unknown based on filename and path patterns"}
+{"path": "specs/PHASE_4_IMPLEMENTATION_SUMMARY.md", "category": "unknown", "target_dir": "", "reason": "Classified as unknown based on filename and path patterns"}
+{"path": "specs/PHASE_4_QUICK_REFERENCE.md", "category": "unknown", "target_dir": "", "reason": "Classified as unknown based on filename and path patterns"}
+{"path": "specs/PROGRESS_CHECKPOINT_2025-11-20.md", "category": "unknown", "target_dir": "", "reason": "Classified as unknown based on filename and path patterns"}
+{"path": "specs/PROGRESS_CHECKPOINT_2025-11-20_PHASE3.md", "category": "unknown", "target_dir": "", "reason": "Classified as unknown based on filename and path patterns"}
+{"path": "specs/STATUS.md", "category": "unknown", "target_dir": "", "reason": "Classified as unknown based on filename and path patterns"}
+{"path": "specs/UET_BOOTSTRAP_SPEC.md", "category": "spec", "target_dir": "docs/spec/", "reason": "Classified as spec based on filename and path patterns"}
+{"path": "specs/UET_CHAT_1.md", "category": "scratch", "target_dir": "docs/scratch/", "reason": "Classified as scratch based on filename and path patterns"}
+{"path": "specs/UET_COOPERATION_SPEC.md", "category": "spec", "target_dir": "docs/spec/", "reason": "Classified as spec based on filename and path patterns"}
+{"path": "specs/UET_Error Pipeline a Card_Ledger _Registry system.md", "category": "unknown", "target_dir": "", "reason": "Classified as unknown based on filename and path patterns"}
+{"path": "specs/UET_EXECUTION_KERNEL_PARALLELISM_STRATEGY_SPEC_V2.md", "category": "spec", "target_dir": "docs/spec/", "reason": "Classified as spec based on filename and path patterns"}
+{"path": "specs/UET_Framework File Inventory (Project-Agnostic Core + Profiles + Examples.md", "category": "unknown", "target_dir": "", "reason": "Classified as unknown based on filename and path patterns"}
+{"path": "specs/UET_generic enough_ERROR_REVERSE.md", "category": "unknown", "target_dir": "", "reason": "Classified as unknown based on filename and path patterns"}
+{"path": "specs/UET_meta layer.md", "category": "unknown", "target_dir": "", "reason": "Classified as unknown based on filename and path patterns"}
+{"path": "specs/UET_PATCH_MANAGEMENT_SPEC.md", "category": "spec", "target_dir": "docs/spec/", "reason": "Classified as spec based on filename and path patterns"}
+{"path": "specs/UET_PH-ERR-01 + WS-ERR-01A.md", "category": "unknown", "target_dir": "", "reason": "Classified as unknown based on filename and path patterns"}
+{"path": "specs/UET_PHASE_SPEC_MASTER.md", "category": "spec", "target_dir": "docs/spec/", "reason": "Classified as spec based on filename and path patterns"}
+{"path": "specs/UET_PROMPT_RENDERING_SPEC.md", "category": "spec", "target_dir": "docs/spec/", "reason": "Classified as spec based on filename and path patterns"}
+{"path": "specs/UET_TASK_ROUTING_SPEC.md", "category": "spec", "target_dir": "docs/spec/", "reason": "Classified as spec based on filename and path patterns"}
+{"path": "specs/UET_WORKSTREAM_SPEC.md", "category": "spec", "target_dir": "docs/spec/", "reason": "Classified as spec based on filename and path patterns"}
+{"path": "specs/UET_WS-ERR-01A.md", "category": "unknown", "target_dir": "", "reason": "Classified as unknown based on filename and path patterns"}
+{"path": "core/adapters/README.md", "category": "runtime", "target_dir": "docs/runtime/", "reason": "Classified as runtime based on filename and path patterns"}
+{"path": "core/bootstrap/README.md", "category": "runtime", "target_dir": "docs/runtime/", "reason": "Classified as runtime based on filename and path patterns"}
+{"path": "core/engine/README.md", "category": "runtime", "target_dir": "docs/runtime/", "reason": "Classified as runtime based on filename and path patterns"}
+{"path": "core/state/README.md", "category": "runtime", "target_dir": "docs/runtime/", "reason": "Classified as runtime based on filename and path patterns"}
+{"path": "core/engine/monitoring/README.md", "category": "runtime", "target_dir": "docs/runtime/", "reason": "Classified as runtime based on filename and path patterns"}
+{"path": "core/engine/resilience/README.md", "category": "runtime", "target_dir": "docs/runtime/", "reason": "Classified as runtime based on filename and path patterns"}
+{"path": "docs/integration/README.md", "category": "runtime", "target_dir": "docs/runtime/", "reason": "Classified as runtime based on filename and path patterns"}
+{"path": "docs/integration/UET_INDEX.md", "category": "unknown", "target_dir": "", "reason": "Classified as unknown based on filename and path patterns"}
+{"path": "docs/integration/UET_INTEGRATION_DESIGN.md", "category": "unknown", "target_dir": "", "reason": "Classified as unknown based on filename and path patterns"}
+{"path": "docs/integration/UET_QUICK_REFERENCE.md", "category": "unknown", "target_dir": "", "reason": "Classified as unknown based on filename and path patterns"}
+{"path": "profiles/software-dev-python/README.md", "category": "runtime", "target_dir": "docs/runtime/", "reason": "Classified as runtime based on filename and path patterns"}
+{"path": "2025-11-22-command-messageinit-is-analyzing-your-codebase.txt", "category": "unknown", "target_dir": "", "reason": "Classified as unknown based on filename and path patterns"}
+{"path": "agents and custom commands.txt", "category": "unknown", "target_dir": "", "reason": "Classified as unknown based on filename and path patterns"}
+{"path": "cladueplan.txt", "category": "unknown", "target_dir": "", "reason": "Classified as unknown based on filename and path patterns"}
+{"path": "claude chat.txt", "category": "ai", "target_dir": "docs/ai/", "reason": "Classified as ai based on filename and path patterns"}
+{"path": "three instruction docs for cli tools.txt", "category": "unknown", "target_dir": "", "reason": "Classified as unknown based on filename and path patterns"}
+{"path": "UET_LI Tool Execution Specification.txt", "category": "spec", "target_dir": "docs/spec/", "reason": "Classified as spec based on filename and path patterns"}

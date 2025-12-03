@@ -1,9 +1,0 @@
-{
-  "repository_root": "example_repository_root",
-  "operation": "example_operation",
-  "branch_name": "example_branch_name",
-  "worktree_name": "example_worktree_name",
-  "commands_to_execute": [],
-  "cleanup_after_execution": true,
-  "doc_id": "DOC-PAT-INSTANCE-FULL-202"
-}
