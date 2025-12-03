@@ -109,10 +109,10 @@ These directories support multiple phases and should remain at root level:
   - Framework documentation and specs
   - Tier 1-4 specification system
   - Component contracts and integration guides
-- `uet/` - UET implementation guides (22 files)
+- `uet/` - UET workspace and implementation guides (24 files)
   - Implementation guides used across all phases
-- `.uet/` - UET workspace (2 files)
-  - Workspace management for UET framework
+  - Workspace configuration (config.yaml)
+  - Framework documentation and patterns
 
 ### Static Assets
 - `assets/` - Static assets
@@ -132,7 +132,7 @@ These directories support multiple phases and should remain at root level:
 
 1. **Phase directories are containers** - Each `phaseN_*/` directory contains the folders relevant to that phase
 2. **Core engine orchestrates** - `core/` contains the orchestrator, scheduler, executor that tie all phases together
-3. **Cross-cutting remains at root** - `patterns/`, `tests/`, `scripts/`, `docs/`, `uet/`, `.uet/` support all phases
+3. **Cross-cutting remains at root** - `patterns/`, `tests/`, `scripts/`, `docs/`, `uet/` support all phases
 4. **Import paths unchanged** - Code still imports from `core.*`, `error.*`, etc. (now under phase directories)
 5. **Phase isolation** - Each phase is self-contained with its specific tools and configurations
 6. **Documentation & scripts stay at root** - `docs/` (158 files), `scripts/` (186 files) are cross-cutting infrastructure
@@ -141,7 +141,7 @@ These directories support multiple phases and should remain at root level:
 ## Why These Directories Are NOT in Phase Folders
 
 **Cross-cutting by design:**
-- `.uet/`, `uet/` - Framework workspace and implementation guides (all phases)
+- `uet/` - Framework workspace and implementation guides (all phases) - **merged from .uet/ + uet/**
 - `docs/` - Documentation and reference material (all phases)
 - `scripts/` - Operational automation scripts (multiple phases)
 - `core/` - The orchestrator that RUNS the phases (not part of them)
