@@ -1,0 +1,173 @@
+{
+  "$id": "schema/phase_spec.v1.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PhaseSpec v1",
+  "description": "Phase definition with scope, constraints, and acceptance criteria.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "phase_id",
+    "name",
+    "category",
+    "resource_scope",
+    "constraints",
+    "acceptance"
+  ],
+  "properties": {
+    "phase_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Unique phase identifier"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable phase name"
+    },
+    "category": {
+      "type": "string",
+      "description": "Phase category (core_dev, refactor, documentation, etc.)"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of what this phase does"
+    },
+    "resource_scope": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "description": "Resources this phase can access",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Type of resources (files, tables, services, etc.)"
+        },
+        "read": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "write": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "create": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "forbidden": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "constraints": {
+      "type": "object",
+      "description": "Phase-level constraints",
+      "properties": {
+        "patch": {
+          "type": "object",
+          "properties": {
+            "patch_required": {
+              "type": "boolean"
+            },
+            "max_lines_changed": {
+              "type": "integer"
+            },
+            "max_files_changed": {
+              "type": "integer"
+            }
+          }
+        },
+        "tests": {
+          "type": "object",
+          "properties": {
+            "tests_must_run": {
+              "type": "boolean"
+            },
+            "tests_must_pass": {
+              "type": "boolean"
+            },
+            "test_command": {
+              "type": "string"
+            }
+          }
+        },
+        "behavior": {
+          "type": "object",
+          "properties": {
+            "ascii_only": {
+              "type": "boolean"
+            },
+            "require_doc_update": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+    "acceptance": {
+      "type": "object",
+      "required": [
+        "mode",
+        "checks"
+      ],
+      "description": "Acceptance criteria for phase completion",
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": [
+            "all",
+            "any",
+            "custom"
+          ]
+        },
+        "checks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "type"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "command": {
+                "type": "string"
+              },
+              "required": {
+                "type": "boolean"
+              },
+              "severity": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "post_actions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "doc_id": "DOC-SPEC-PHASE-SPEC-V1-024"
+}

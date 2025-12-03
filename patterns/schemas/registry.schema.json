@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "DOC-PAT-REGISTRY-833",
+  "title": "PAT-REGISTRY-833 Pattern Instance",
+  "type": "object",
+  "required": ["pattern_id", "version"],
+  "properties": {
+    "pattern_id": {
+      "type": "string",
+      "const": "PAT-REGISTRY-833"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "inputs": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": true
+    },
+    "outputs": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": true
+    }
+  }
+}

@@ -1,5 +1,0 @@
----
-doc_id: DOC-PAT-STASH-LIST-225
----
-
-stash@{0}: autostash

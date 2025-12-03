@@ -1,0 +1,73 @@
+{
+  "$id": "schema/prompt_instance.v1.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PromptInstance v1",
+  "description": "Rendered prompt ready for tool consumption. Contains all sections needed to execute a task.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "prompt_instance_id",
+    "template_id",
+    "target_tool",
+    "kind",
+    "sections"
+  ],
+  "properties": {
+    "prompt_instance_id": {
+      "type": "string",
+      "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$",
+      "description": "Unique identifier for this prompt instance (ULID)"
+    },
+    "template_id": {
+      "type": "string",
+      "description": "Template this prompt was rendered from"
+    },
+    "target_tool": {
+      "type": "string",
+      "description": "Tool this prompt is intended for (aider, codex, claude, etc.)"
+    },
+    "kind": {
+      "type": "string",
+      "description": "Kind of task (code_edit, code_review, analysis, etc.)"
+    },
+    "sections": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "OBJECTIVE"
+      ],
+      "description": "Prompt sections",
+      "properties": {
+        "HEADER": {
+          "type": "string",
+          "description": "Optional header with metadata"
+        },
+        "OBJECTIVE": {
+          "type": "string",
+          "description": "What needs to be accomplished"
+        },
+        "CONTEXT": {
+          "type": "string",
+          "description": "Background information"
+        },
+        "CONSTRAINTS": {
+          "type": "string",
+          "description": "Rules and limitations"
+        },
+        "FILES_SCOPE": {
+          "type": "string",
+          "description": "Files that can be read/written"
+        },
+        "OUTPUT_SPEC": {
+          "type": "string",
+          "description": "Expected output format"
+        },
+        "VALIDATION": {
+          "type": "string",
+          "description": "How to validate results"
+        }
+      }
+    }
+  },
+  "doc_id": "DOC-SPEC-PROMPT-INSTANCE-V1-028"
+}

@@ -1,0 +1,10 @@
+{
+  "project_root": "example_project_root",
+  "module_name": "example_module_name",
+  "language": "example_language",
+  "module_type": "example_module_type",
+  "include_cli": false,
+  "include_examples": true,
+  "license": "example_license",
+  "doc_id": "DOC-PAT-INSTANCE-TEST-174"
+}

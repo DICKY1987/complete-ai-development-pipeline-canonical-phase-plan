@@ -1,0 +1,219 @@
+{
+  "$id": "schema/doc-meta.v1.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Doc Meta Schema v1",
+  "description": "Universal metadata schema for all framework documents. Provides identity, lifecycle, ownership, and validation metadata.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "meta_version",
+    "doc_ulid",
+    "doc_type",
+    "doc_layer",
+    "title",
+    "summary",
+    "version",
+    "status",
+    "schema_ref",
+    "created_at",
+    "updated_at",
+    "author_type",
+    "owner",
+    "security_tier"
+  ],
+  "properties": {
+    "meta_version": {
+      "type": "string",
+      "const": "doc-meta.v1",
+      "description": "Fixed identifier for this meta schema version"
+    },
+    "doc_ulid": {
+      "type": "string",
+      "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$",
+      "description": "Stable unique ID for this document (ULID format)"
+    },
+    "doc_type": {
+      "type": "string",
+      "enum": [
+        "global_spec",
+        "core_spec",
+        "project_profile",
+        "phase_spec_master",
+        "phase_spec_instance",
+        "workstream_spec",
+        "error_pipeline_spec",
+        "tool_profile",
+        "capability_card",
+        "run_artifact",
+        "other"
+      ],
+      "description": "Type of document"
+    },
+    "doc_layer": {
+      "type": "string",
+      "enum": [
+        "global",
+        "framework",
+        "project",
+        "module",
+        "run"
+      ],
+      "description": "Layer in the stack where this document lives"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Short human-readable name"
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512,
+      "description": "1-3 sentence description"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "description": "Semantic version of document content"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "active",
+        "deprecated",
+        "superseded",
+        "experimental"
+      ],
+      "description": "Lifecycle state"
+    },
+    "schema_ref": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Path to schema that validates the document body"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "First creation timestamp (never changes)"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last content modification timestamp"
+    },
+    "author_type": {
+      "type": "string",
+      "enum": [
+        "human",
+        "ai",
+        "mixed"
+      ],
+      "description": "Who primarily created/edited the document"
+    },
+    "owner": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Logical owner (team, role, or person)"
+    },
+    "security_tier": {
+      "type": "string",
+      "enum": [
+        "public",
+        "internal",
+        "confidential",
+        "restricted"
+      ],
+      "description": "Visibility and handling classification"
+    },
+    "project_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Project this document belongs to (null for global docs)"
+    },
+    "module_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Module/component ID when applicable"
+    },
+    "phase_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Phase ID for phase-related documents"
+    },
+    "workstream_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Workstream ID for workstream-related documents"
+    },
+    "spec_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$"
+      },
+      "uniqueItems": true,
+      "description": "ULIDs of documents this one depends on/implements/extends"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true,
+      "description": "Flat tags for filtering and classification"
+    },
+    "patch_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Controls how changes to this document are allowed",
+      "properties": {
+        "patch_required": {
+          "type": "boolean",
+          "default": true,
+          "description": "If true, only unified diff edits allowed"
+        },
+        "require_issue_ref": {
+          "type": "boolean",
+          "default": true,
+          "description": "If true, edits must reference a ticket/issue"
+        },
+        "min_reviewers": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 1,
+          "description": "Minimum required reviewers"
+        }
+      }
+    },
+    "ascii_only": {
+      "type": "boolean",
+      "default": true,
+      "description": "If true, body text must be ASCII-only"
+    },
+    "max_line_length": {
+      "type": "integer",
+      "minimum": 40,
+      "description": "Soft limit for line length"
+    },
+    "last_validated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last time this document passed schema validation"
+    },
+    "checksum": {
+      "type": "string",
+      "description": "Hash of body content (e.g., sha256:...)"
+    }
+  },
+  "doc_id": "DOC-SPEC-DOC-META-V1-015"
+}

@@ -1,0 +1,106 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "batch_file_generation_from_spec",
+  "description": "Generate large batches of related files from specifications using parallel\nexecution with per-batch validation. Optimized for consistency, speed, and\ncompliance with governance specs.\n",
+  "type": "object",
+  "properties": {
+    "source_specs": {
+      "type": "array",
+      "required": true,
+      "description": "Source specification files to parse",
+      "items": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "format": {
+            "type": "string",
+            "enum": [
+              "yaml",
+              "json"
+            ]
+          },
+          "spec_type": {
+            "type": "string",
+            "enum": [
+              "pattern_spec",
+              "schema",
+              "registry"
+            ]
+          }
+        }
+      }
+    },
+    "templates": {
+      "type": "object",
+      "required": true,
+      "description": "Template files for each generation type",
+      "properties": {
+        "schema_template": {
+          "type": "string"
+        },
+        "example_template": {
+          "type": "string"
+        },
+        "executor_template": {
+          "type": "string"
+        },
+        "test_template": {
+          "type": "string"
+        }
+      }
+    },
+    "generation_rules": {
+      "type": "object",
+      "required": true,
+      "description": "Rules and compliance specs",
+      "properties": {
+        "compliance_specs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "naming_convention": {
+          "type": "string"
+        },
+        "output_structure": {
+          "type": "object"
+        }
+      }
+    },
+    "batch_config": {
+      "type": "object",
+      "required": false,
+      "default": {
+        "batch_size": 10,
+        "parallel_batches": 3,
+        "validation_mode": "per_batch"
+      },
+      "properties": {
+        "batch_size": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 50
+        },
+        "parallel_batches": {
+          "type": "integer"
+        },
+        "validation_mode": {
+          "enum": [
+            "per_file",
+            "per_batch",
+            "end_only"
+          ]
+        }
+      }
+    }
+  },
+  "required": [
+    "source_specs",
+    "templates",
+    "generation_rules"
+  ],
+  "doc_id": "DOC-PAT-BATCH-FILE-GEN-001-SCHEMA-113"
+}

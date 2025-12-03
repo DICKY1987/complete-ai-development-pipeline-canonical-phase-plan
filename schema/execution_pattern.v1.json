@@ -1,0 +1,310 @@
+{
+  "$id": "schema/execution_pattern.v1.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Execution Pattern v1",
+  "description": "Reusable atomic execution pattern (e.g., atomic_create, self_heal)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "pattern_id",
+    "category",
+    "execution_steps",
+    "ground_truth"
+  ],
+  "properties": {
+    "pattern_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9_]+_v[0-9]+$",
+      "description": "Unique pattern identifier with version (e.g., atomic_create_v1)"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "file_creation",
+        "file_modification",
+        "error_recovery",
+        "verification",
+        "commit"
+      ],
+      "description": "Pattern category"
+    },
+    "description": {
+      "type": "string",
+      "description": "What this pattern does"
+    },
+    "use_case": {
+      "type": "string",
+      "description": "When to use this pattern"
+    },
+    "time_savings": {
+      "type": "string",
+      "pattern": "^[0-9]+%.*$",
+      "description": "Time savings vs manual (e.g., 60% (30 min -> 12 min))"
+    },
+    "structural_decisions": {
+      "type": "object",
+      "description": "Pre-made decisions for this pattern",
+      "properties": {
+        "max_files_per_phase": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "always_include_tests": {
+          "type": "boolean"
+        },
+        "test_ratio": {
+          "type": "string",
+          "description": "Test to implementation ratio"
+        },
+        "approach": {
+          "type": "string",
+          "description": "How to execute this pattern"
+        },
+        "no_placeholders": {
+          "type": "boolean",
+          "description": "Whether placeholders are forbidden"
+        },
+        "include_docstrings": {
+          "type": "boolean"
+        },
+        "include_type_hints": {
+          "type": "boolean"
+        },
+        "min_test_count": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "execution_steps": {
+      "type": "object",
+      "description": "Ordered steps (keys define execution order)",
+      "patternProperties": {
+        "^[0-9]+_[a-z_]+$": {
+          "$ref": "#/definitions/pattern_step"
+        }
+      },
+      "minProperties": 1
+    },
+    "ground_truth": {
+      "type": "object",
+      "description": "Success criteria for this pattern",
+      "required": [
+        "success_criteria"
+      ],
+      "properties": {
+        "success_criteria": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "description": "ALL must pass for success"
+        },
+        "failure_indicators": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "ANY match indicates failure"
+        }
+      }
+    },
+    "pre_authorized_fixes": {
+      "type": "object",
+      "description": "Auto-fixes for self_heal pattern",
+      "patternProperties": {
+        "^[a-z_]+$": {
+          "$ref": "#/definitions/auto_fix"
+        }
+      }
+    },
+    "requires_human_intervention": {
+      "type": "object",
+      "description": "Scenarios that need human approval",
+      "patternProperties": {
+        "^[a-z_]+$": {
+          "$ref": "#/definitions/human_intervention"
+        }
+      }
+    },
+    "execution_loop": {
+      "type": "object",
+      "description": "Loop configuration for self_heal pattern",
+      "properties": {
+        "max_iterations": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10
+        },
+        "flow": {
+          "type": "object",
+          "patternProperties": {
+            "^[0-9]+_[a-z_]+$": {
+              "type": "object"
+            }
+          }
+        },
+        "loop_exit_conditions": {
+          "type": "object",
+          "properties": {
+            "success": {
+              "type": "string"
+            },
+            "max_iterations_exceeded": {
+              "type": "string"
+            },
+            "human_intervention_required": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "pattern_step": {
+      "type": "object",
+      "properties": {
+        "checks": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "on_fail": {
+          "type": "string"
+        },
+        "strategy": {
+          "type": "string",
+          "enum": [
+            "sequential",
+            "parallel"
+          ]
+        },
+        "order": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "implementation_files": {
+          "type": "object"
+        },
+        "test_files": {
+          "type": "object"
+        },
+        "cmd": {
+          "type": "string",
+          "description": "Command to execute"
+        },
+        "for_each": {
+          "type": "string",
+          "description": "Variable to iterate over"
+        },
+        "expect": {
+          "type": "string",
+          "description": "Expected output"
+        },
+        "expect_pattern": {
+          "type": "string",
+          "description": "Expected pattern"
+        },
+        "expect_count": {
+          "type": "string",
+          "description": "Expected count"
+        },
+        "action": {
+          "type": "string",
+          "description": "Action to perform"
+        },
+        "capture": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "stdout",
+              "stderr",
+              "exit_code"
+            ]
+          }
+        },
+        "if_any_check_failed": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "if": {
+          "type": "string"
+        },
+        "log": {
+          "type": "string"
+        },
+        "if_success": {
+          "type": "string"
+        },
+        "if_fail": {
+          "type": "string"
+        }
+      }
+    },
+    "auto_fix": {
+      "type": "object",
+      "required": [
+        "detection",
+        "action",
+        "max_auto_attempts"
+      ],
+      "properties": {
+        "detection": {
+          "type": "string",
+          "description": "Regex pattern to detect this error"
+        },
+        "action": {
+          "type": "string",
+          "description": "Command or action keyword to execute"
+        },
+        "tool": {
+          "type": "string",
+          "description": "Tool to use for fix (e.g., black, ruff)"
+        },
+        "verify": {
+          "type": "string",
+          "description": "Command to verify fix worked"
+        },
+        "max_auto_attempts": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5
+        }
+      }
+    },
+    "human_intervention": {
+      "type": "object",
+      "required": [
+        "detection",
+        "action",
+        "reason"
+      ],
+      "properties": {
+        "detection": {
+          "type": "string",
+          "description": "Pattern to detect this scenario"
+        },
+        "action": {
+          "type": "string",
+          "enum": [
+            "stop_and_report",
+            "stop_and_ask"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "description": "Why human intervention is needed"
+        }
+      }
+    }
+  },
+  "doc_id": "DOC-SPEC-EXECUTION-PATTERN-V1-016"
+}

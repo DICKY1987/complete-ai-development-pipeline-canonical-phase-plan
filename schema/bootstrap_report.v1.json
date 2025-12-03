@@ -1,0 +1,186 @@
+{
+  "$id": "schema/bootstrap_report.v1.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "BootstrapReport v1",
+  "description": "Human-readable report generated after bootstrap completion. Summarizes what was configured and next steps.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "project_name",
+    "domain",
+    "profile_id",
+    "status",
+    "generated_artifacts",
+    "configuration"
+  ],
+  "properties": {
+    "project_name": {
+      "type": "string",
+      "description": "Project name"
+    },
+    "domain": {
+      "type": "string",
+      "description": "Domain classification"
+    },
+    "profile_id": {
+      "type": "string",
+      "description": "Selected profile"
+    },
+    "profile_version": {
+      "type": "string",
+      "description": "Profile version"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "ready",
+        "partial",
+        "failed",
+        "needs_human"
+      ],
+      "description": "Bootstrap completion status"
+    },
+    "discovery_summary": {
+      "type": "object",
+      "description": "Summary of what was discovered",
+      "properties": {
+        "languages": {
+          "type": "string",
+          "description": "Language breakdown (e.g., 'Python (87%), Markdown (13%)')"
+        },
+        "frameworks": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "version_control": {
+          "type": "string"
+        },
+        "ci_cd": {
+          "type": "string"
+        }
+      }
+    },
+    "generated_artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "path",
+          "status"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "Path to generated artifact"
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of artifact"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "created",
+              "validated",
+              "failed"
+            ],
+            "description": "Artifact creation status"
+          }
+        }
+      },
+      "description": "List of generated artifacts"
+    },
+    "directories_created": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Directories created during bootstrap"
+    },
+    "configuration": {
+      "type": "object",
+      "description": "Key configuration settings",
+      "properties": {
+        "patch_only_mode": {
+          "type": "boolean"
+        },
+        "test_requirement": {
+          "type": "string"
+        },
+        "max_lines_per_patch": {
+          "type": "integer"
+        },
+        "available_tools": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "validation_results": {
+      "type": "object",
+      "description": "Validation results",
+      "properties": {
+        "validation_status": {
+          "type": "string",
+          "enum": [
+            "passed",
+            "failed",
+            "needs_human"
+          ]
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "auto_fixes_applied": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "human_decisions_needed": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "next_steps": {
+      "type": "object",
+      "description": "Recommended next steps",
+      "properties": {
+        "for_human": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "for_ai_agent": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "initialization_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When bootstrap completed"
+    },
+    "ready_for_workstreams": {
+      "type": "boolean",
+      "description": "Whether framework is ready to accept workstreams"
+    }
+  },
+  "doc_id": "DOC-SPEC-BOOTSTRAP-REPORT-V1-013"
+}

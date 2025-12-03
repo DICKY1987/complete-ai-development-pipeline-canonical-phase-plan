@@ -1,0 +1,221 @@
+doc_id: DOC-PAT-MODULE-REFACTOR-SCAN-DOCS-PATTERN-053
+pattern_id: PAT-MODULE-REFACTOR-SCAN-001
+name: module_refactor_scan_docs
+version: 1.0.0
+status: active
+category: module_refactor
+operation_kind: SCAN_REPOSITORY
+
+metadata:
+  created: "2025-11-28"
+  author: "Module Refactor Team"
+  purpose: "Scan repository for all documentation files and build enriched inventory"
+  time_savings_vs_manual: "95%"
+  proven_uses: 0
+
+summary: |
+  Recursively scan repository for .md and .txt files, extract metadata, classify by module,
+  and generate docs_inventory.jsonl with enriched semantic hints for AI-aware refactoring.
+
+description: |
+  This pattern automates the discovery and classification of all documentation in the repository.
+  It produces a machine-readable inventory that enables:
+  - Module ownership determination
+  - Automated doc migration planning
+  - Semantic classification (spec, design, plan, report, etc.)
+  - Lifecycle layer mapping
+  - Keyword and ID extraction for intelligent routing
+
+  The output inventory is the foundation for all subsequent module refactor patterns.
+
+inputs:
+  - name: repo_root
+    type: path
+    required: true
+    description: "Absolute path to repository root"
+    default: "."
+    
+  - name: output_path
+    type: path
+    required: false
+    description: "Path for output inventory file"
+    default: ".state/docs_inventory.jsonl"
+    
+  - name: max_preview_chars
+    type: integer
+    required: false
+    description: "Maximum characters to read per file for classification"
+    default: 4000
+    
+  - name: include_extensions
+    type: array
+    required: false
+    description: "File extensions to include in scan"
+    default: [".md", ".txt", ".markdown"]
+    
+  - name: exclude_dirs
+    type: array
+    required: false
+    description: "Directories to exclude from scan"
+    default: [".git", ".venv", "node_modules", "__pycache__", ".pytest_cache"]
+    
+  - name: compute_hash
+    type: boolean
+    required: false
+    description: "Compute SHA256 hash for each file"
+    default: false
+
+outputs:
+  - name: inventory_file
+    type: path
+    description: "Generated JSONL inventory file"
+    
+  - name: total_files
+    type: integer
+    description: "Total number of files scanned"
+    
+  - name: classification_summary
+    type: object
+    description: "Summary of files by module_kind and zone"
+
+execution_steps:
+  - step: 1
+    operation_kind: VALIDATE_ENVIRONMENT
+    description: "Verify Python 3.8+ is available"
+    command: "python --version"
+    success_criteria:
+      - type: exit_code
+        value: 0
+        
+  - step: 2
+    operation_kind: CREATE_OUTPUT_DIR
+    description: "Ensure output directory exists"
+    script: |
+      import pathlib
+      output = pathlib.Path("{{output_path}}")
+      output.parent.mkdir(parents=True, exist_ok=True)
+      
+  - step: 3
+    operation_kind: RUN_SCAN_SCRIPT
+    description: "Execute document inventory scan"
+    script_path: "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/scripts/doc_inventory_scan_and_enrich.py"
+    command: |
+      python scripts/doc_inventory_scan_and_enrich.py \
+        "{{repo_root}}" \
+        --output "{{output_path}}" \
+        --max-preview-chars {{max_preview_chars}} \
+        {{#compute_hash}}{{/compute_hash}}{{^compute_hash}}--no-hash{{/compute_hash}}
+    timeout: 300
+    
+  - step: 4
+    operation_kind: VALIDATE_OUTPUT
+    description: "Verify inventory file was created and is valid JSONL"
+    validation:
+      - check: file_exists
+        path: "{{output_path}}"
+      - check: file_size
+        path: "{{output_path}}"
+        min_bytes: 10
+      - check: jsonl_valid
+        path: "{{output_path}}"
+        max_test_lines: 10
+        
+  - step: 5
+    operation_kind: GENERATE_SUMMARY
+    description: "Create classification summary report"
+    script: |
+      import json
+      from collections import Counter
+      
+      module_kinds = Counter()
+      zones = Counter()
+      total = 0
+      
+      with open("{{output_path}}", "r", encoding="utf-8") as f:
+          for line in f:
+              if line.strip():
+                  record = json.loads(line)
+                  module_kinds[record.get("module_kind", "unknown")] += 1
+                  zones[record.get("zone", "unknown")] += 1
+                  total += 1
+      
+      summary = {
+          "total_files": total,
+          "by_module_kind": dict(module_kinds),
+          "by_zone": dict(zones)
+      }
+      
+      print(json.dumps(summary, indent=2))
+      
+      with open("{{output_path}}.summary.json", "w", encoding="utf-8") as out:
+          json.dump(summary, out, indent=2)
+
+validation_gates:
+  - gate: output_exists
+    description: "Inventory file was created"
+    check_type: file_exists
+    path: "{{output_path}}"
+    
+  - gate: minimum_records
+    description: "At least 10 documents found"
+    check_type: file_line_count
+    path: "{{output_path}}"
+    min_lines: 10
+    
+  - gate: valid_json
+    description: "All records are valid JSON"
+    check_type: jsonl_format
+    path: "{{output_path}}"
+
+success_criteria:
+  - "Inventory file created at {{output_path}}"
+  - "All JSONL records are valid"
+  - "Summary report generated"
+  - "At least 10 documents discovered"
+
+rollback_steps:
+  - operation_kind: DELETE_FILE
+    path: "{{output_path}}"
+    condition: "validation_failed"
+
+tool_targets:
+  - claude_code
+  - github_copilot_cli
+  - cursor
+  - aider
+
+tags:
+  - module_refactor
+  - documentation
+  - inventory
+  - scanning
+  - classification
+  
+dependencies:
+  patterns: []
+  scripts:
+    - doc_inventory_scan_and_enrich.py
+  tools:
+    - python3
+
+notes: |
+  This pattern must run BEFORE any module migration patterns.
+  The inventory it produces is the source of truth for determining what files
+  belong to which modules.
+  
+  For large repositories (>1000 docs), consider using --no-hash flag to speed up scanning.
+  Hash computation can be added later if needed for change detection.
+  
+examples:
+  - name: "Basic scan"
+    command: "Execute PAT-MODULE-REFACTOR-SCAN-001 with default parameters"
+    
+  - name: "Fast scan without hashing"
+    inputs:
+      compute_hash: false
+      max_preview_chars: 2000
+    
+  - name: "Full scan with hashing"
+    inputs:
+      compute_hash: true
+      max_preview_chars: 8000

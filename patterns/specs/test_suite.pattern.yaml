@@ -1,0 +1,38 @@
+# DOC-PAT-TEST-SUITE-834
+pattern_id: PAT-TEST-SUITE-834
+name: test_suite
+version: 1.0.0
+doc_id: DOC-PAT-TEST-SUITE-834
+
+metadata:
+  created: 2025-12-02
+  status: draft
+  source: Converted from TEST_SUITE.md
+  
+intent: |
+  Safe Merge Pattern Test Suite
+
+inputs:
+  required: []
+  optional: []
+
+outputs:
+  artifacts: []
+  
+steps:
+  - name: pattern_execution
+    description: Execute pattern logic
+    
+ground_truth:
+  criteria:
+    - description: Pattern executes without errors
+      
+validation:
+  pre_conditions: []
+  post_conditions: []
+  
+tool_bindings:
+  - tool: claude_code
+    priority: 1
+  - tool: github_copilot_cli
+    priority: 2

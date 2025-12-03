@@ -1,0 +1,70 @@
+{
+  "_comment": "Template: Workstream Single Template",
+  "_purpose": "Sequential single-workstream bundle template for UET Framework",
+  "_version": "1.0.0",
+  "_schema": "schema/workstream_spec.v1.json",
+  "_dependencies": [
+    "task templates"
+  ],
+  "_last_updated": "2025-11-23",
+  "_usage": [
+    "1. Copy this file: cp workstream-single-template.json my-workstream.json",
+    "2. Replace all {{PLACEHOLDERS}} with actual values",
+    "3. Validate: python core/bootstrap/validator.py --schema schema/workstream_spec.v1.json --file my-workstream.json",
+    "4. Reference in phase configuration"
+  ],
+  "_placeholders": {
+    "WORKSTREAM_ID": "Unique workstream identifier (e.g., 'ws-001')",
+    "DESCRIPTION": "Human-readable description",
+    "TASK_IDS": "List of task IDs to execute",
+    "TIMEOUT": "Maximum workstream duration in seconds (default: 600)"
+  },
+  "workstream_id": "{{WORKSTREAM_ID}}",
+  "description": "{{DESCRIPTION}}",
+  "version": "1.0.0",
+  "execution_mode": "sequential",
+  "max_parallel": 1,
+  "tasks": [
+    {
+      "task_id": "{{TASK_IDS[0]}}",
+      "task_ref": "file://tasks/{{TASK_IDS[0]}}.yaml",
+      "priority": 1,
+      "depends_on": [],
+      "timeout": 300,
+      "retry_policy": {
+        "max_retries": 2,
+        "backoff_multiplier": 2.0
+      }
+    }
+  ],
+  "execution": {
+    "timeout": "{{TIMEOUT}}",
+    "on_failure": "abort",
+    "continue_on_error": false
+  },
+  "meta": {
+    "created": "2025-11-23",
+    "template_version": "1.0.0",
+    "tags": [
+      "sequential",
+      "single-workstream"
+    ]
+  },
+  "_example": {
+    "_comment": "Example: Discovery workstream",
+    "workstream_id": "ws-discovery",
+    "description": "Project discovery and analysis",
+    "tasks": [
+      {
+        "task_id": "task-001",
+        "task_ref": "file://tasks/task-001.yaml",
+        "priority": 1,
+        "timeout": 300
+      }
+    ],
+    "execution": {
+      "timeout": 600
+    }
+  },
+  "doc_id": "DOC-CONFIG-WORKSTREAM-SINGLE-TEMPLATE-246"
+}

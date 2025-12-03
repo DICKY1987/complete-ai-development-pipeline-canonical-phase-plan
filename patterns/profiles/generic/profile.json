@@ -1,0 +1,20 @@
+{
+  "profile_id": "generic",
+  "profile_version": "1.0.0",
+  "domain": "mixed",
+  "description": "Generic fallback profile",
+  "extends_core": [
+    "COOPERATION_SPEC"
+  ],
+  "adds_resource_types": [
+    {
+      "type": "resources",
+      "scope_format": "glob",
+      "operations": [
+        "read",
+        "write"
+      ]
+    }
+  ],
+  "doc_id": "DOC-CONFIG-PROFILE-242"
+}

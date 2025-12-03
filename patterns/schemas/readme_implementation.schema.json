@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "DOC-PAT-README-IMPLEMENTATION-813",
+  "title": "PAT-README-IMPLEMENTATION-813 Pattern Instance",
+  "type": "object",
+  "required": ["pattern_id", "version"],
+  "properties": {
+    "pattern_id": {
+      "type": "string",
+      "const": "PAT-README-IMPLEMENTATION-813"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "inputs": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": true
+    },
+    "outputs": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": true
+    }
+  }
+}

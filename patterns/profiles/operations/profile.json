@@ -1,0 +1,20 @@
+{
+  "profile_id": "operations",
+  "profile_version": "1.0.0",
+  "domain": "operations",
+  "description": "Operations profile",
+  "extends_core": [
+    "COOPERATION_SPEC"
+  ],
+  "adds_resource_types": [
+    {
+      "type": "services",
+      "scope_format": "names",
+      "operations": [
+        "read",
+        "write"
+      ]
+    }
+  ],
+  "doc_id": "DOC-CONFIG-PROFILE-243"
+}

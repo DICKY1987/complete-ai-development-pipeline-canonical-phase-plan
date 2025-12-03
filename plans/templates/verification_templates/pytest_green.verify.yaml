@@ -1,0 +1,165 @@
+doc_id: DOC-CONFIG-PYTEST-GREEN-VERIFY-107
+# Verification: All Tests Pass (Pytest Green)
+# PURPOSE: Ground truth verification that all tests pass
+# TIME: Variable (depends on test count, typically 2-10 seconds)
+# ELIMINATES: Manual test verification (30+ seconds)
+
+verification_id: "pytest_green_v1"
+category: "testing"
+
+description: "Verify that all pytest tests pass programmatically"
+purpose: "Ground truth verification - tests passing is the ONLY success criterion"
+estimated_time: "Variable (2-10 seconds typical)"
+
+# Command to execute
+command: "python -m pytest ${test_path} -v --tb=short --color=no"
+
+# Success indicators (ANY of these patterns)
+success_patterns:
+  - ".*passed.*"
+  - ".*0 failed.*"
+  - ".*0 errors.*"
+
+# Failure indicators (ANY of these patterns)
+failure_patterns:
+  - "FAILED"
+  - "ERROR"
+  - ".*[1-9][0-9]* failed.*"
+  - ".*[1-9][0-9]* errors.*"
+
+# Ground truth criteria (ALL must be true)
+ground_truth_criteria:
+  - "exit_code == 0"
+  - "Match at least one success_pattern"
+  - "No match against any failure_pattern"
+  - "Output contains test count (e.g., '5 passed')"
+
+# Parse pytest output for metrics
+parsing:
+  extract_metrics:
+    - pattern: "(\\d+) passed"
+      capture: "passed_count"
+    
+    - pattern: "(\\d+) failed"
+      capture: "failed_count"
+    
+    - pattern: "(\\d+) errors?"
+      capture: "error_count"
+    
+    - pattern: "(\\d+) skipped"
+      capture: "skipped_count"
+    
+    - pattern: "in ([0-9.]+)s"
+      capture: "duration_seconds"
+
+# Execution configuration
+execution:
+  timeout_seconds: 300  # 5 minutes max
+  run_all: true
+  report_warnings: true
+
+# Reporting templates
+reporting:
+  on_success: |
+    ✅ Tests passed: ${passed_count}/${passed_count}
+    ⏱️  Duration: ${duration_seconds}s
+  
+  on_failure: |
+    ❌ Tests failed: ${passed_count}/${passed_count + failed_count}
+    
+    Failed tests:
+    ${failed_test_list}
+    
+    Error summary:
+    ${error_summary}
+    
+    Full output available in test logs
+
+# Inputs required
+inputs:
+  test_path:
+    description: "Path to test file or directory"
+    required: true
+    example: "tests/error/test_detector.py"
+  
+  fail_fast:
+    description: "Stop on first failure (-x flag)"
+    required: false
+    default: false
+  
+  verbose:
+    description: "Verbose output (-v flag)"
+    required: false
+    default: true
+
+# Common failure scenarios
+common_failures:
+  no_tests_collected:
+    detection: "collected 0 items"
+    message: "No tests found in ${test_path}"
+    hint: "Check test file path or test naming (test_*.py, *_test.py)"
+  
+  import_errors:
+    detection: "ImportError|ModuleNotFoundError"
+    message: "Import error in test file"
+    hint: "Check that all dependencies are installed and importable"
+  
+  assertion_failures:
+    detection: "AssertionError"
+    message: "Test assertion failed"
+    hint: "Review test expectations and actual behavior"
+  
+  fixture_errors:
+    detection: "fixture .* not found"
+    message: "Pytest fixture not available"
+    hint: "Check conftest.py or fixture definitions"
+
+# Anti-patterns to avoid
+anti_patterns:
+  - "Don't declare success without running tests"
+  - "Don't ignore test warnings"
+  - "Don't skip tests without explicit reason"
+  - "Don't modify tests to make them pass"
+
+# Example usage
+example:
+  context:
+    test_path: "tests/error/test_detector.py"
+  
+  expected_output: |
+    ============================= test session starts =============================
+    collected 5 items
+    
+    tests/error/test_detector.py::test_detect_syntax_error PASSED         [ 20%]
+    tests/error/test_detector.py::test_detect_import_error PASSED         [ 40%]
+    tests/error/test_detector.py::test_detect_assertion_error PASSED      [ 60%]
+    tests/error/test_detector.py::test_no_error_on_success PASSED         [ 80%]
+    tests/error/test_detector.py::test_error_message_parsing PASSED       [100%]
+    
+    ============================== 5 passed in 0.34s ===============================
+  
+  parsed_metrics:
+    passed_count: 5
+    failed_count: 0
+    error_count: 0
+    skipped_count: 0
+    duration_seconds: 0.34
+  
+  result: "SUCCESS"
+
+# Integration with self-healing
+self_healing_hooks:
+  on_test_failure:
+    - "Capture failed test names"
+    - "Extract error messages"
+    - "Check against known auto-fix patterns"
+    - "If fixable, apply fix and re-run"
+    - "If not fixable, report to human"
+
+# Metadata
+meta:
+  created_at: "2025-11-23"
+  version: "1.0.0"
+  based_on: "SPEED_DEMON ground truth principles"
+  proven_uses: 0
+  time_savings: "90% (30 sec -> 2 sec)"

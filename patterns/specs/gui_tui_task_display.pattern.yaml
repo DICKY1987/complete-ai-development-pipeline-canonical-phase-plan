@@ -1,0 +1,38 @@
+# DOC-PAT-GUI-TUI-TASK-DISPLAY-751
+pattern_id: PAT-GUI-TUI-TASK-DISPLAY-751
+name: gui_tui_task_display
+version: 1.0.0
+doc_id: DOC-PAT-GUI-TUI-TASK-DISPLAY-751
+
+metadata:
+  created: 2025-12-02
+  status: draft
+  source: Converted from GUI_TUI_TASK_DISPLAY.md
+  
+intent: |
+  You are helping me design and document how the UET pattern module works internally, and how to su...
+
+inputs:
+  required: []
+  optional: []
+
+outputs:
+  artifacts: []
+  
+steps:
+  - name: pattern_execution
+    description: Execute pattern logic
+    
+ground_truth:
+  criteria:
+    - description: Pattern executes without errors
+      
+validation:
+  pre_conditions: []
+  post_conditions: []
+  
+tool_bindings:
+  - tool: claude_code
+    priority: 1
+  - tool: github_copilot_cli
+    priority: 2

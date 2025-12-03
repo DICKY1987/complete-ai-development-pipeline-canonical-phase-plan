@@ -1,0 +1,37 @@
+# Pattern: decision_elimination_bootstrap
+# Pattern ID: PAT-DECISION-ELIMINATION-BOOTSTRAP-001
+# doc_id: DOC-PAT-DECISION-ELIMINATION-BOOTSTRAP-001
+# Version: 1.0.0
+# Category: meta
+
+doc_id: "DOC-PAT-DECISION-ELIMINATION-BOOTSTRAP-001"
+pattern_id: "PAT-DECISION-ELIMINATION-BOOTSTRAP-001"
+name: "decision_elimination_bootstrap"
+version: "1.0.0"
+category: "meta"
+status: "draft"
+role: "spec"
+
+schema_ref: "patterns/schemas/decision_elimination_bootstrap.schema.json"
+executor_ref: "patterns/executors/decision_elimination_bootstrap_executor.ps1"
+example_dir: "patterns/examples/decision_elimination_bootstrap/"
+
+metadata:
+  created: "2025-11-24"
+  source_template: "templates\patterns\meta\decision_elimination_bootstrap.pattern.yaml"
+  category: "meta"
+
+intent: |
+  Pattern generated from template: templates\patterns\meta\decision_elimination_bootstrap.pattern.yaml
+  Provides reusable execution logic for decision_elimination_bootstrap operations.
+
+inputs:
+  instance_path:
+    type: "string"
+    required: true
+    description: "Path to pattern instance JSON file"
+
+outputs:
+  execution_result:
+    type: "object"
+    description: "Result of pattern execution"

@@ -1,0 +1,120 @@
+{
+  "$id": "schema/cost_record.v1.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CostRecord v1",
+  "description": "Tracks costs for execution requests, including API calls, compute time, and resource usage.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "cost_id",
+    "resource_type",
+    "amount",
+    "currency",
+    "recorded_at"
+  ],
+  "properties": {
+    "cost_id": {
+      "type": "string",
+      "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$",
+      "description": "Unique identifier for this cost record (ULID)"
+    },
+    "execution_request_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$",
+      "description": "Execution request this cost belongs to"
+    },
+    "project_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Project this cost belongs to"
+    },
+    "resource_type": {
+      "type": "string",
+      "enum": [
+        "api_call",
+        "compute_time",
+        "storage",
+        "network",
+        "tool_usage",
+        "custom"
+      ],
+      "description": "Type of resource consumed"
+    },
+    "resource_name": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Specific resource name (e.g., 'gpt-4', 'claude-3')"
+    },
+    "amount": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Cost amount"
+    },
+    "currency": {
+      "type": "string",
+      "pattern": "^[A-Z]{3}$",
+      "description": "Currency code (ISO 4217)"
+    },
+    "usage": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "Detailed usage information",
+      "properties": {
+        "quantity": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Quantity consumed"
+        },
+        "unit": {
+          "type": "string",
+          "description": "Unit of measurement (tokens, seconds, GB, etc.)"
+        },
+        "rate": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Rate per unit"
+        }
+      }
+    },
+    "recorded_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the cost was recorded"
+    },
+    "metadata": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "Additional metadata",
+      "properties": {
+        "model": {
+          "type": "string",
+          "description": "Model name for API calls"
+        },
+        "tokens_input": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "tokens_output": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "duration_seconds": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    }
+  },
+  "doc_id": "DOC-SPEC-COST-RECORD-V1-014"
+}

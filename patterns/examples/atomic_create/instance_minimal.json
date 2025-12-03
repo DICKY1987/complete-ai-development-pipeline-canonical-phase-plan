@@ -1,0 +1,16 @@
+{
+  "pattern_id": "PAT-ATOMIC-CREATE-001",
+  "project_root": "C:\\MyProject",
+  "files_to_create": [
+    {
+      "path": "src/utils/helper.py",
+      "file_type": "implementation",
+      "purpose": "Helper utilities"
+    },
+    {
+      "path": "tests/test_helper.py",
+      "file_type": "test"
+    }
+  ],
+  "doc_id": "DOC-PAT-INSTANCE-MINIMAL-135"
+}

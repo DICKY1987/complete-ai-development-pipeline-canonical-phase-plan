@@ -1,0 +1,20 @@
+{
+  "profile_id": "documentation",
+  "profile_version": "1.0.0",
+  "domain": "documentation",
+  "description": "Documentation profile",
+  "extends_core": [
+    "COOPERATION_SPEC"
+  ],
+  "adds_resource_types": [
+    {
+      "type": "documents",
+      "scope_format": "glob",
+      "operations": [
+        "read",
+        "write"
+      ]
+    }
+  ],
+  "doc_id": "DOC-CONFIG-PROFILE-241"
+}

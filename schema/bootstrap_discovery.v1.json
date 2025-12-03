@@ -1,0 +1,200 @@
+{
+  "$id": "schema/bootstrap_discovery.v1.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "BootstrapDiscovery v1",
+  "description": "Results of project discovery during bootstrap. Contains detected characteristics used for profile selection.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "project_root",
+    "project_name",
+    "domain",
+    "languages",
+    "resource_types",
+    "available_tools"
+  ],
+  "properties": {
+    "project_root": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Absolute path to project root"
+    },
+    "project_name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Detected project name"
+    },
+    "domain": {
+      "type": "string",
+      "enum": [
+        "software-dev",
+        "data-pipeline",
+        "operations",
+        "documentation",
+        "mixed"
+      ],
+      "description": "Detected primary domain"
+    },
+    "domain_confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Confidence in domain classification (0-1)"
+    },
+    "languages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "language",
+          "percentage"
+        ],
+        "properties": {
+          "language": {
+            "type": "string",
+            "description": "Detected language"
+          },
+          "percentage": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "description": "Percentage of project in this language"
+          },
+          "file_count": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Number of files in this language"
+          }
+        }
+      },
+      "description": "Languages detected in project"
+    },
+    "frameworks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "framework",
+          "indicator"
+        ],
+        "properties": {
+          "framework": {
+            "type": "string",
+            "description": "Detected framework"
+          },
+          "indicator": {
+            "type": "string",
+            "description": "File/pattern that indicated this framework"
+          }
+        }
+      },
+      "description": "Frameworks detected"
+    },
+    "resource_types": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Resource types detected (files, modules, tables, etc.)"
+    },
+    "available_tools": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "tool_id",
+          "detected_via"
+        ],
+        "properties": {
+          "tool_id": {
+            "type": "string",
+            "description": "Tool identifier"
+          },
+          "detected_via": {
+            "type": "string",
+            "description": "How tool was detected (command check, config file, etc.)"
+          },
+          "version": {
+            "type": "string",
+            "description": "Tool version if detected"
+          }
+        }
+      },
+      "description": "Tools detected in environment"
+    },
+    "existing_ci": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "CI system detected (github-actions, gitlab-ci, etc.)"
+    },
+    "vcs": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Version control system detected (git, etc.)"
+    },
+    "inferred_constraints": {
+      "type": "object",
+      "description": "Constraints inferred from project structure",
+      "properties": {
+        "tests_must_pass": {
+          "type": "boolean",
+          "description": "Inferred from CI config"
+        },
+        "lint_required": {
+          "type": "boolean",
+          "description": "Inferred from linter configs"
+        },
+        "patch_only": {
+          "type": "boolean",
+          "description": "Inferred from CONTRIBUTING.md or similar"
+        }
+      }
+    },
+    "directory_structure": {
+      "type": "object",
+      "description": "Detected directory structure",
+      "properties": {
+        "src_dirs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "test_dirs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "doc_dirs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "config_dirs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "script_dirs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "discovery_timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When discovery was performed"
+    }
+  },
+  "doc_id": "DOC-SPEC-BOOTSTRAP-DISCOVERY-V1-012"
+}

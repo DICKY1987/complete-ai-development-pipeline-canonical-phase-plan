@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "DOC-PAT-PATTERN-PANEL-GUI-ALIGNMENT-760",
+  "title": "PAT-PATTERN-PANEL-GUI-ALIGNMENT-760 Pattern Instance",
+  "type": "object",
+  "required": ["pattern_id", "version"],
+  "properties": {
+    "pattern_id": {
+      "type": "string",
+      "const": "PAT-PATTERN-PANEL-GUI-ALIGNMENT-760"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "inputs": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": true
+    },
+    "outputs": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": true
+    }
+  }
+}

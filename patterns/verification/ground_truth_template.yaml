@@ -1,0 +1,111 @@
+doc_id: DOC-PAT-GROUND-TRUTH-TEMPLATE-064
+# Ground Truth Verification Template
+# Version: 1.0.0
+# Purpose: Capture verification results for pattern executions
+# Used by: PAT-VERIFY-COMMIT-001 and all pattern executors
+
+verification_id: ""  # Format: VER-{PATTERN_ID}-{TIMESTAMP}
+pattern_id: ""       # Pattern that was executed
+execution_id: ""     # Unique execution instance ID
+timestamp: ""        # ISO 8601 timestamp
+executor: ""         # Tool/agent that executed (claude_code, copilot, etc.)
+
+# Ground truth checks performed
+checks:
+  tests_pass:
+    checked: false
+    passed: false
+    details:
+      total_tests: 0
+      passed_tests: 0
+      failed_tests: 0
+      skipped_tests: 0
+      duration_seconds: 0
+      failures: []  # List of failure messages
+  
+  syntax_valid:
+    checked: false
+    passed: false
+    details:
+      files_checked: 0
+      files_valid: 0
+      files_invalid: 0
+      errors: []  # List of syntax errors
+  
+  no_todos:
+    checked: false
+    passed: false
+    details:
+      files_scanned: 0
+      todos_found: 0
+      locations: []  # List of file:line
+  
+  git_clean:
+    checked: false
+    passed: false
+    details:
+      expected_files: []
+      actual_files: []
+      unexpected_files: []
+  
+  lint_pass:
+    checked: false
+    passed: false
+    details:
+      linter: ""  # e.g., "ruff", "eslint"
+      errors: 0
+      warnings: 0
+      messages: []
+  
+  coverage_threshold:
+    checked: false
+    passed: false
+    details:
+      threshold: 0    # Expected %
+      actual: 0       # Actual %
+      uncovered_lines: []
+
+# Overall verification result
+result:
+  all_checks_passed: false
+  total_checks: 0
+  passed_checks: 0
+  failed_checks: 0
+  
+  # Commit information (if verification passed)
+  committed: false
+  commit_sha: ""
+  commit_message: ""
+  commit_timestamp: ""
+
+# Files affected by this execution
+files:
+  created: []
+  modified: []
+  deleted: []
+
+# Metrics
+metrics:
+  total_execution_time_seconds: 0
+  verification_time_seconds: 0
+  time_saved_vs_manual: ""  # e.g., "85%"
+
+# Metadata
+metadata:
+  project_root: ""
+  branch: ""
+  environment: ""  # dev, staging, prod
+  ci_build_id: ""
+
+# Optional: link to artifacts
+artifacts:
+  test_report_path: ""
+  coverage_report_path: ""
+  lint_report_path: ""
+  execution_log_path: ""
+
+# Tags for categorization/search
+tags: []
+
+# Notes (optional)
+notes: ""

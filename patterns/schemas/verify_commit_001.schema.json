@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "verify_commit",
+  "description": "Validate changes against ground truth criteria then commit atomically.\nEnsures quality gates pass before committing to repository.\n\nGround truth checks:\n- All tests pass\n- Syntax valid\n- No TODO/placeholder comments\n- Git status clean (only expected changes)\n- Optional: lint checks, coverage thresholds\n",
+  "type": "object",
+  "properties": {
+    "project_root": {
+      "type": "string",
+      "required": true
+    },
+    "verification_checks": {
+      "type": "array",
+      "required": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "tests_pass",
+          "syntax_valid",
+          "no_todos",
+          "git_clean",
+          "lint_pass",
+          "coverage_threshold"
+        ]
+      }
+    },
+    "commit_message": {
+      "type": "string",
+      "required": true,
+      "min_length": 10
+    },
+    "expected_files": {
+      "type": "array",
+      "required": false,
+      "description": "Files expected to be modified/created"
+    },
+    "coverage_threshold": {
+      "type": "integer",
+      "required": false,
+      "min": 0,
+      "max": 100,
+      "default": 80
+    }
+  },
+  "required": [
+    "project_root",
+    "verification_checks",
+    "commit_message"
+  ],
+  "doc_id": "DOC-PAT-VERIFY-COMMIT-001-SCHEMA-130"
+}

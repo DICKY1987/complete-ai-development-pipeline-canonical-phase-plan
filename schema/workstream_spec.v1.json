@@ -1,0 +1,105 @@
+{
+  "$id": "schema/workstream_spec.v1.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "WorkstreamSpec v1",
+  "description": "Workstream definition containing a sequence of tasks to execute within a phase.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "workstream_id",
+    "project_id",
+    "phase_id",
+    "name",
+    "objective",
+    "tasks"
+  ],
+  "properties": {
+    "workstream_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Unique workstream identifier"
+    },
+    "project_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Project this workstream belongs to"
+    },
+    "phase_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Phase this workstream executes in"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable workstream name"
+    },
+    "objective": {
+      "type": "string",
+      "description": "What this workstream accomplishes"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "resource_scope": {
+      "type": "object",
+      "description": "Optional narrower scope than phase"
+    },
+    "constraints": {
+      "type": "object",
+      "description": "Optional tighter constraints than phase"
+    },
+    "concurrency": {
+      "type": "object",
+      "properties": {
+        "max_parallel": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "error_handling": {
+      "type": "object",
+      "properties": {
+        "strategy": {
+          "type": "string",
+          "enum": [
+            "fail_fast",
+            "continue",
+            "escalate"
+          ]
+        }
+      }
+    },
+    "acceptance": {
+      "type": "object",
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": [
+            "all",
+            "any",
+            "custom"
+          ]
+        },
+        "checks": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "tasks": {
+      "type": "array",
+      "items": {
+        "$ref": "schema/task_spec.v1.json"
+      },
+      "description": "Tasks to execute in this workstream"
+    }
+  },
+  "doc_id": "DOC-SPEC-WORKSTREAM-SPEC-V1-037"
+}

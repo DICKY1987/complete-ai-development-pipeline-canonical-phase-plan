@@ -1,0 +1,9 @@
+{
+  "project_root": "C:\\Projects\\MyApp",
+  "files_to_create": [],
+  "language": "example_language",
+  "test_framework": "example_test_framework",
+  "include_type_hints": true,
+  "include_docstrings": true,
+  "doc_id": "DOC-PAT-INSTANCE-TEST-139"
+}

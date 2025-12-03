@@ -1,0 +1,10 @@
+doc_id: DOC-PAT-README-030
+name: registry
+purpose: Generated registries and schemas describing available patterns and operation kinds.
+files:
+  - PATTERN_INDEX.yaml: Primary registry of patterns (with dated backups).
+  - PATTERN_INDEX.schema.json: Schema for validating the pattern index.
+  - OPERATION_KIND_REGISTRY.yaml: Catalog of operation kinds used across patterns.
+  - doc_id_mapping.json: Mapping of document IDs; includes template_doc_id_mapping.json.
+usage: Update registries after adding or modifying patterns; validate against included schemas.
+status: active

@@ -1,0 +1,14 @@
+doc_id: DOC-GUIDE-README-141
+name: docs
+purpose: Core documentation for the execution template framework, including plans and reference guides.
+subdirectories:
+  - name: planning
+    purpose: Strategic plans and analyses (e.g., UNIFIED_PATTERN_IMPLEMENTATION_PLAN.md).
+files:
+  - assistant_responses_operation_kinds.md: Operation kind reference for assistants.
+  - IMPLEMENTATION_COMPLETE_SUMMARY.md: Consolidated implementation status.
+  - IMPLEMENTATION_STATUS.md: Current delivery progress snapshot.
+  - PATTERN_AUTOMATION_MASTER_PLAN.md: Automation roadmap and milestones.
+  - SLASH_COMMAND_PATTERN_SET.md: Slash command usage for pattern operations.
+usage: Start with planning docs for architecture context, then use references during execution work.
+status: active

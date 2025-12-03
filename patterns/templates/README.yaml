@@ -1,0 +1,9 @@
+doc_id: DOC-PAT-README-063
+name: templates
+purpose: Template assets and examples used across pattern authoring and documentation.
+files:
+  - example-items.json: Sample data items for template-driven generation.
+  - gui-doc-assembly-pattern.yaml: Template for GUI/TUI documentation assembly.
+  - module-readme.md: Starter README template for generated modules.
+usage: Copy or adapt these templates when creating new patterns or documentation bundles.
+status: active

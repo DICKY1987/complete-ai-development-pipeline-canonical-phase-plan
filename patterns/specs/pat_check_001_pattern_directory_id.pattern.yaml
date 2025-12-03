@@ -1,0 +1,38 @@
+# DOC-PAT-PAT-CHECK-001-PATTERN-DIRECTORY-ID-755
+pattern_id: PAT-PAT-CHECK-001-PATTERN-DIRECTORY-ID-755
+name: pat_check_001_pattern_directory_id
+version: 1.0.0
+doc_id: DOC-PAT-PAT-CHECK-001-PATTERN-DIRECTORY-ID-755
+
+metadata:
+  created: 2025-12-02
+  status: draft
+  source: Converted from PAT-CHECK-001  Pattern Directory & ID System Compliance (v2).md
+  
+intent: |
+  PAT-CHECK-001 – Pattern Directory & ID System Compliance (v2)
+
+inputs:
+  required: []
+  optional: []
+
+outputs:
+  artifacts: []
+  
+steps:
+  - name: pattern_execution
+    description: Execute pattern logic
+    
+ground_truth:
+  criteria:
+    - description: Pattern executes without errors
+      
+validation:
+  pre_conditions: []
+  post_conditions: []
+  
+tool_bindings:
+  - tool: claude_code
+    priority: 1
+  - tool: github_copilot_cli
+    priority: 2

@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "DOC-PAT-GUI-TUI-TASK-DISPLAY-751",
+  "title": "PAT-GUI-TUI-TASK-DISPLAY-751 Pattern Instance",
+  "type": "object",
+  "required": ["pattern_id", "version"],
+  "properties": {
+    "pattern_id": {
+      "type": "string",
+      "const": "PAT-GUI-TUI-TASK-DISPLAY-751"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "inputs": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": true
+    },
+    "outputs": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": true
+    }
+  }
+}

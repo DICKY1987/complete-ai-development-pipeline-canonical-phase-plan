@@ -1,0 +1,52 @@
+doc_id: DOC-PAT-EXAMPLE-SUCCESS-094
+verification_id: "VER-PAT-ATOMIC-CREATE-001-20251124T092000Z"
+pattern_id: "PAT-ATOMIC-CREATE-001"
+execution_id: "EXEC-20251124T092000Z-abc123"
+timestamp: "2025-11-24T09:20:00Z"
+executor: "atomic_create_executor.ps1"
+
+checks:
+  tests_pass:
+    checked: true
+    passed: true
+    details:
+      total_tests: 2
+      passed_tests: 2
+      failed_tests: 0
+      skipped_tests: 0
+      duration_seconds: 1.2
+      failures: []
+  
+  syntax_valid:
+    checked: true
+    passed: true
+    details:
+      files_checked: 2
+      files_valid: 2
+      files_invalid: 0
+      errors: []
+
+result:
+  all_checks_passed: true
+  total_checks: 2
+  passed_checks: 2
+  failed_checks: 0
+  
+  committed: true
+  commit_sha: "abc123def456"
+  commit_message: "Add helper utilities with tests"
+  commit_timestamp: "2025-11-24T09:21:30Z"
+
+files:
+  created:
+    - "src/utils/helper.py"
+    - "tests/test_helper.py"
+
+metrics:
+  total_execution_time_seconds: 45
+  verification_time_seconds: 5
+  time_saved_vs_manual: "60%"
+
+tags:
+  - "atomic_create"
+  - "success"

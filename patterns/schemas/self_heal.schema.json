@@ -1,0 +1,32 @@
+{
+  "description": "Schema for self_heal pattern instances",
+  "title": "self_heal Pattern Instance",
+  "$id": "self_heal.schema.json",
+  "properties": {
+    "pattern_id": {
+      "type": "string",
+      "const": "PAT-SELF-HEAL-001"
+    },
+    "doc_id": {
+      "type": "string",
+      "const": "DOC-SELF-HEAL-001",
+      "pattern": "^DOC-[A-Z0-9-]+$"
+    },
+    "inputs": {
+      "type": "object",
+      "description": "Pattern-specific input parameters"
+    },
+    "outputs": {
+      "type": "object",
+      "description": "Pattern execution outputs"
+    }
+  },
+  "required": [
+    "doc_id",
+    "pattern_id",
+    "inputs"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "doc_id": "DOC-PAT-SELF-HEAL-SCHEMA-127"
+}

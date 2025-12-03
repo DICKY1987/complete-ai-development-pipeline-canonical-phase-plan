@@ -1,0 +1,11 @@
+{
+  "pattern_id": "PAT-SELF-HEAL-001",
+  "doc_id": "DOC-SELF-HEAL-001",
+  "metadata": {
+    "created": "2025-11-24",
+    "description": "Full example for self_heal pattern"
+  },
+  "inputs": {
+    "project_root": "C:\\Projects\\Example"
+  }
+}

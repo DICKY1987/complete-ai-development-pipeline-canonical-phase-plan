@@ -1,210 +1,248 @@
 ---
-doc_id: DOC-GUIDE-README-173
+doc_id: DOC-GUIDE-README-1096
 ---
 
-# Complete AI Development Pipeline – Canonical Phase Plan
+# Universal Execution Templates Framework - Documentation Index
 
-![Path Standards](https://github.com/USERNAME/REPOSITORY/actions/workflows/path_standards.yml/badge.svg)
+**Status**: Framework 78% Complete (Phase 3 Done, Phase 4 Planned)  
+**Last Updated**: 2025-11-25  
+**Organization**: 4-Tier Quality System  
+**Duplication**: 0% (eliminated in cleanup)
 
-This repository hosts a structured, phase-based plan and lightweight tooling for building and operating an AI development pipeline. Start with PH-00 to establish the baseline skeleton, then proceed through subsequent phases.
+---
 
-## 🗺️ Navigation
+## Quick Navigation
 
-**New to the repository?** Start here:
-- 🤖 [**.ai-context.md**](.ai-context.md) - **AI-optimized orientation** (30 seconds) ⭐
-- 🧭 [**NAVIGATION.md**](NAVIGATION.md) - **Unified navigation hub** ⭐
-- 📘 [QUICK_START.md](QUICK_START.md) - Fast entry points for common tasks
-- 📋 [AGENTS.md](AGENTS.md) - Coding conventions and guidelines
-- 📖 [**glossary/**](glossary/) - **Comprehensive terminology reference** (75+ terms) ⭐
-- 🔍 [IMPLEMENTATION_LOCATIONS.md](docs/IMPLEMENTATION_LOCATIONS.md) - Find any term's code location (file:line)
+### 🤖 For AI Agents
+- **Start Here**: [Bootstrap Spec](specs/core/UET_BOOTSTRAP_SPEC.md) - Autonomous framework installation
+- **Core Protocol**: [Cooperation Spec](specs/core/UET_COOPERATION_SPEC.md) - Multi-tool cooperation
+- **Speed Patterns**: [Quick Execution Playbook](QUICK_EXECUTION_PLAYBOOK.md) - 5-37x speedup techniques
+- **Phase Plan**: [Documentation Cleanup Plan](UET_DOC_CLEANUP_PHASE_PLAN.md) - Example execution
 
-**For AI Tools**: Start with [.ai-context.md](.ai-context.md) for instant orientation, then use [NAVIGATION.md](NAVIGATION.md) for comprehensive navigation.
+### 👨‍💻 For Developers
+- **Getting Started**: [UET Getting Started](uet/GETTING_STARTED.md)
+- **Integration Guide**: [Integration Design](uet/integration/UET_INTEGRATION_DESIGN.md)
+- **Component Contracts**: [UET V2 Contracts](uet/uet_v2/COMPONENT_CONTRACTS.md)
+- **Examples**: [Phase Instances](specs/instances/)
 
-## Quick Start
-- Ensure PowerShell (`pwsh`) is available on Windows.
-- Bootstrap directories and basic checks:
-  - `pwsh ./scripts/bootstrap.ps1`
-  - `pwsh ./scripts/test.ps1`
-- See [QUICK_START.md](QUICK_START.md) for detailed setup and common tasks
+### 📊 For Project Managers
+- **Current Status**: [Framework Status](specs/planning/STATUS.md) (78% complete)
+- **Future Plans**: [Phase 4 Enhancement Plan](specs/planning/PHASE_4_AI_ENHANCEMENT_PLAN.md)
+- **Analysis Reports**: [Documentation Analysis](UET_DOCUMENTATION_ANALYSIS_REPORT.md)
 
-### UET Framework Integration (NEW)
+---
 
-The repository now integrates the **Universal Execution Templates (UET) Framework** for autonomous project configuration and production-grade orchestration:
 
-```bash
-# Bootstrap with UET auto-configuration
-python scripts/bootstrap_uet.py .
 
-# Generates: PROJECT_PROFILE.yaml, router_config.json
-# Auto-detects: Project type, tools, constraints
-```
+---
 
-**Documentation**:
-- Documentation Index: [UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/docs/integration/UET_INDEX.md](UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/docs/integration/UET_INDEX.md)
-- Quick Reference: [UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/docs/integration/UET_QUICK_REFERENCE.md](UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/docs/integration/UET_QUICK_REFERENCE.md)
-- Integration Design: [UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/docs/integration/UET_INTEGRATION_DESIGN.md](UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/docs/integration/UET_INTEGRATION_DESIGN.md)
+## Core Specifications (Tier 1) ![Production](https://img.shields.io/badge/Status-Production-green)
 
-**Status**: Planning Complete - Ready for Option A (Selective Integration) - 3-4 week timeline
+*High-quality, schema-driven specifications - Authoritative source of truth*
 
-### Engine & Job-Based Execution
+### Framework Foundation
+1. **[UET_BOOTSTRAP_SPEC.md](specs/core/UET_BOOTSTRAP_SPEC.md)**  
+   Autonomous framework installation protocol for AI agents
 
-The repository now includes a **hybrid GUI/Terminal architecture** with job-based execution and full state persistence:
+2. **[UET_COOPERATION_SPEC.md](specs/core/UET_COOPERATION_SPEC.md)**  
+   Multi-tool cooperation protocol (Run/Step/Event model)
 
-```bash
-# Validate engine implementation
-python scripts/validate_engine.py          # 7/7 tests
+3. **[UET_EXECUTION_KERNEL_PARALLELISM_STRATEGY_SPEC_V2.md](specs/core/UET_EXECUTION_KERNEL_PARALLELISM_STRATEGY_SPEC_V2.md)**  
+   DAG-based parallel execution with worker pools
 
-# Test state store integration
-python scripts/test_state_store.py         # 6/6 tests
+### Core Components
+4. **[UET_PHASE_SPEC_MASTER.md](specs/core/UET_PHASE_SPEC_MASTER.md)**  
+   Phase template/schema definition (files_scope, constraints, acceptance)
 
-# Run a job through the orchestrator
-python -m engine.orchestrator run-job --job-file schema/jobs/aider_job.example.json
-```
+5. **[UET_WORKSTREAM_SPEC.md](specs/core/UET_WORKSTREAM_SPEC.md)**  
+   Workstream bundle specifications with task dependencies
 
-**Phase Status**:
-- ✅ Phase 1: Engine foundation complete
-- ✅ Phase 2A: State integration complete  
-- ✅ Phase 2B: Additional adapters complete (Codex, Tests, Git)
-- ⏳ Phase 3: GUI panels
-- ⏳ Phase 4: Job queue
+6. **[UET_TASK_ROUTING_SPEC.md](specs/core/UET_TASK_ROUTING_SPEC.md)**  
+   ExecutionRequest routing and validation
 
-**Adapters Available**: 4 (Aider, Codex, Tests, Git)
-**Test Coverage**: 19/19 tests passing (100%)
+7. **[UET_PROMPT_RENDERING_SPEC.md](specs/core/UET_PROMPT_RENDERING_SPEC.md)**  
+   Universal prompt object and rendering rules
 
-See:
-- `docs/ENGINE_IMPLEMENTATION_SUMMARY.md` - Architecture overview
-- `docs/PHASE_2A_COMPLETE.md` - State integration details
-- `docs/PHASE_2B_COMPLETE.md` - Adapter implementation details
-- `docs/GUI_DEVELOPMENT_GUIDE.md` - Next steps
-- `docs/ENGINE_QUICK_REFERENCE.md` - Usage guide
-- `engine/README.md` - Technical documentation
+8. **[UET_PATCH_MANAGEMENT_SPEC.md](specs/core/UET_PATCH_MANAGEMENT_SPEC.md)**  
+   Patch artifact, ledger, and policy management
 
-### OpenSpec Integration Quick Start
+### Tool Integration
+9. **[UET_CLI_TOOL_EXECUTION_SPEC.md](specs/core/UET_CLI_TOOL_EXECUTION_SPEC.md)**  
+   Single CLI instance execution with queue management
 
-**5-Minute Workflow:**
+10. **[UTE_ID_SYSTEM_SPEC.md](specs/core/UTE_ID_SYSTEM_SPEC.md)**  
+    Cross-artifact linking ID system (doc_id)
 
-1. **Create proposal** (use Claude Code):
-   ```
-   /openspec:proposal "Your feature description"
-   ```
+---
 
-2. **Convert to workstream**:
-   ```bash
-   # Interactive mode (recommended)
-   python scripts/spec_to_workstream.py --interactive
+## Implementation Guides (Tier 2) ![Stable](https://img.shields.io/badge/Status-Stable-blue)
 
-   # Or direct conversion
-   python scripts/spec_to_workstream.py --change-id <id>
-   ```
+### UET V2 Component Contracts (Draft)
+- **[Component Contracts](uet/uet_v2/COMPONENT_CONTRACTS.md)** - API contracts for parallel development
+- **[DAG Scheduler](uet/uet_v2/DAG_SCHEDULER.md)** - DAG-based task scheduling
+- **[File Scope](uet/uet_v2/FILE_SCOPE.md)** - File scope management
+- **[State Machines](uet/uet_v2/STATE_MACHINES.md)** - State machine definitions
+- **[Integration Points](uet/uet_v2/INTEGRATION_POINTS.md)** - System integration
 
-3. **Validate and run**:
-   ```bash
-   python scripts/validate_workstreams.py
-   python scripts/run_workstream.py --ws-id ws-<id>
-   ```
+### Integration Documentation
+- **[UET Index](uet/integration/UET_INDEX.md)** - Complete framework index
+- **[Integration Design](uet/integration/UET_INTEGRATION_DESIGN.md)** - Selective integration approach
+- **[Quick Reference](uet/integration/UET_QUICK_REFERENCE.md)** - Quick reference card
 
-4. **Archive completed work**:
-   ```
-   /openspec:archive <change-id>
-   ```
+### Planning & Analysis
+- **[Integration Analysis](uet/planning/INTEGRATION_ANALYSIS.md)** - Integration strategy
+- **[Optimization Plan](uet/planning/OPTIMIZATION_PLAN.md)** - Performance optimization
+- **[Patch Analysis](uet/planning/PATCH_ANALYSIS.md)** - Patch system analysis
+- **[Template Implementation](uet/planning/TEMPLATE_IMPLEMENTATION_PLAN.md)** - Template strategy
 
-**Full Documentation:**
-- Quick Start: `docs/QUICKSTART_OPENSPEC.md`
-- Bridge Guide: `docs/openspec_bridge.md`
-- OpenSpec CLI: `npm install -g @fission-ai/openspec`
+### Execution Patterns
+- **[Meta Execution Pattern](uet/META_EXECUTION_PATTERN.md)** - 37x speedup achievement
+- **[Speed Patterns](uet/SPEED_PATTERNS_EXTRACTED.md)** - Extracted speed patterns
+- **[Pattern Extraction Report](uet/PATTERN_EXTRACTION_REPORT.md)** - Pattern analysis
 
-## Migration Guide (Phase E Refactor)
+---
 
-If you're updating code written before the Phase E refactor, use these new import paths:
+## Examples & Instances (Tier 3) ![Reference](https://img.shields.io/badge/Status-Reference-yellow)
 
-**State Management**:
-```python
-# Old: from src.pipeline.db import init_db
-from core.state.db import init_db
+### Phase Instances
+- **[PH-ERR-01 + WS-ERR-01A](specs/instances/UET_PH-ERR-01%20+%20WS-ERR-01A.md)** - Error pipeline phase example
+- **[WS-ERR-01A](specs/instances/UET_WS-ERR-01A.md)** - Error workstream example
 
-# Old: from src.pipeline.crud_operations import get_workstream
-from core.state.crud import get_workstream
+### Session Transcripts
+- **[Session PH-011](uet/SESSION_TRANSCRIPT_PH-011.md)** - Execution session transcript
 
-# Old: from src.pipeline.bundles import load_bundle
-from core.state.bundles import load_bundle
-```
+---
 
-**Orchestration & Execution**:
-```python
-# Old: from src.pipeline.orchestrator import Orchestrator
-from core.engine.orchestrator import Orchestrator
+## Planning & Historical (Tier 4) ![Historical](https://img.shields.io/badge/Status-Historical-gray)
 
-# Old: from src.pipeline.scheduler import Scheduler
-from core.engine.scheduler import Scheduler
+### Current Planning
+- **[Status](specs/planning/STATUS.md)** - Framework status (78% complete)
+- **[Phase 4 AI Enhancement Plan](specs/planning/PHASE_4_AI_ENHANCEMENT_PLAN.md)** - Advanced AI features
+- **[CLI Tool Instructions](specs/planning/CLI_TOOL_INSTRUCTIONS.md)** - Tool usage guide
+- **[Framework Inventory](specs/planning/UET_Framework%20File%20Inventory%20(Project-Agnostic%20Core%20+%20Profiles%20+%20Examples.md)** - Complete inventory
 
-# Old: from src.pipeline.tools import invoke_tool
-from core.engine.tools import invoke_tool
-```
+### Archive
+- Located in \specs/archive/\ - Historical and deprecated documents
 
-**Error Detection**:
-```python
-# Old: from MOD_ERROR_PIPELINE.error_engine import ErrorEngine
-from error.engine.error_engine import ErrorEngine
+---
 
-# Old: from MOD_ERROR_PIPELINE.plugins.syntax_checker import SyntaxChecker
-from error.plugins.syntax_checker import SyntaxChecker
-```
+## Execution Guides
 
-See [docs/SECTION_REFACTOR_MAPPING.md](docs/SECTION_REFACTOR_MAPPING.md) for the complete mapping.
+### Quick Execution Resources
+1. **[Quick Execution Playbook](QUICK_EXECUTION_PLAYBOOK.md)** - One-page reference for 5-37x speedup
+2. **[Documentation Cleanup Phase Plan](UET_DOC_CLEANUP_PHASE_PLAN.md)** - Complete 5-wave execution example
+3. **[Visual Execution Map](UET_DOC_CLEANUP_VISUAL_MAP.md)** - ASCII art execution flow
+4. **[Documentation Analysis Report](UET_DOCUMENTATION_ANALYSIS_REPORT.md)** - Analysis and recommendations
 
-## Repository Layout
+---
 
-### Core Sections (Post-Phase E Refactor)
+## Quality Tier Legend
 
-**Core Pipeline**:
-- `core/state/` – Database, CRUD operations, bundles, worktree management
-- `core/engine/` – Orchestrator, scheduler, executor, tools adapter, circuit breakers, recovery
-- `core/planning/` – Workstream planner and archive utilities
-- `core/` – OpenSpec parser/converter, spec indexing, agent coordinator
+| Tier | Badge | Description | Quality Level |
+|------|-------|-------------|---------------|
+| **Tier 1 (Core)** | ![Production](https://img.shields.io/badge/Status-Production-green) | Production-ready specifications with schemas | **High** - Authoritative source |
+| **Tier 2 (Implementation)** | ![Stable](https://img.shields.io/badge/Status-Stable-blue) | Stable implementation guides and contracts | **Medium** - Well-tested |
+| **Tier 3 (Examples)** | ![Reference](https://img.shields.io/badge/Status-Reference-yellow) | Reference implementations and examples | **Good** - Learning resources |
+| **Tier 4 (Archive)** | ![Historical](https://img.shields.io/badge/Status-Historical-gray) | Planning docs and historical artifacts | **Varies** - Context-dependent |
 
-**Error Detection & Analysis**:
-- `error/engine/` – Error engine, state machine, pipeline service, CLI
-- `error/plugins/` – Detection plugins (Python, JS, linting, security, etc.)
-- `error/shared/utils/` – Hashing, time utilities, JSONL manager
+---
 
-**Domain-Specific Sections**:
-- `aim/` – AIM integration bridge and tool registry
-- `pm/` – Project management and CCPM integrations
-- `spec/` – Spec validation and tooling
-- `aider/` – Aider integration and prompt templates
+## Architecture Overview
 
-**Repository Infrastructure**:
-- `docs/` – Architecture notes, ADRs, specifications, refactor mapping
-- `plans/` – Phase checklists and templates
-- `meta/` – Phase development docs and planning documents
-- `scripts/` – Automation (bootstrap, tests, workstream runners)
-- `schema/` – JSON/YAML/SQL schemas for workstreams and sidecars
-- `workstreams/` – Authored workstream bundle JSONs
-- `config/` – Runtime configuration (tool profiles, breakers, decomposition rules)
-- `tools/` – Internal utilities (spec indexer, resolver, hardcoded path indexer)
-- `tests/` – Unit/integration/pipeline tests
-- `openspec/` – OpenSpec project and specifications
-- `sandbox_repos/` – Toy repos for integration testing
-- `assets/` – Diagrams and images
-- `.worktrees/` – Per-workstream working folders (created at runtime)
-- `state/` and `.state/` – Local state, reports, and DB files
+The UET framework provides a complete AI-assisted development orchestration system:
 
-**Legacy Compatibility**:
-- `src/pipeline/` – Backward-compatibility shims (⚠️ deprecated, use `core.*` instead)
-- `MOD_ERROR_PIPELINE/` – Legacy shims (⚠️ deprecated, use `error.*` instead)
+### Key Capabilities
+- **Autonomous Bootstrap** - AI agents self-configure for any project
+- **DAG-based Parallel Execution** - 3-37x speedup demonstrated in practice
+- **Multi-tool Cooperation** - Coordinate Claude, Copilot, Aider simultaneously
+- **Patch-first Development** - Unified diff with validation and ledger
+- **Production Resilience** - Circuit breakers, retry logic, recovery
+- **Decision Elimination** - Pre-compiled templates for instant execution
 
-See [docs/SECTION_REFACTOR_MAPPING.md](docs/SECTION_REFACTOR_MAPPING.md) for complete old→new path mappings.
+### Proven Results
+- **37x speedup** on pattern extraction (55 min vs 31 hours)
+- **2.7x speedup** on module manifests (55 min vs 2.5 hours)
+- **5-10x speedup** on documentation cleanup (2-3 hours vs 10+ hours)
 
-## Contributing
-Read `AGENTS.md` for coding style, testing guidance, and PR conventions. Use Conventional Commits (e.g., `docs: add phase overview`, `chore: scaffold skeleton`).
+### Pattern Applied
+- Decision Elimination (all structural decisions pre-made)
+- Parallel Execution (independent tasks run simultaneously)
+- Infrastructure Over Deliverables (build reusable tools)
+- Ground Truth Verification (automated, zero subjective review)
 
-### CI Path Standards
-All pull requests are automatically checked for deprecated import patterns. The CI enforces the new section-based structure after the Phase E refactor:
-- ✅ Use `from core.state.*`, `from core.engine.*`, `from error.*`
-- ❌ Avoid `from src.pipeline.*`, `from MOD_ERROR_PIPELINE.*`
+---
 
-See [docs/CI_PATH_STANDARDS.md](docs/CI_PATH_STANDARDS.md) for details on fixing violations.
+## Directory Structure
 
-## Phases
-- `PH-00_Baseline & Project Skeleton (Codex Autonomous Phase Executor).md` - create the base structure and verify local execution.
+\\\
+UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/
+├── specs/                      # Specifications (organized by tier)
+│   ├── core/                  # Tier 1: Production-ready core specs (10 files)
+│   ├── instances/             # Tier 3: Example phase/workstream instances (2 files)
+│   ├── planning/              # Tier 4: Planning and status docs (4 files)
+│   └── archive/               # Historical/deprecated documents (8 files)
+│
+├── uet/                        # Implementation documentation
+│   ├── integration/           # Integration guides and indexes
+│   ├── planning/              # Analysis and planning documents
+│   ├── reports/               # Coverage and analysis reports
+│   └── uet_v2/                # Version 2 component contracts
+│
+├── README.md                   # This file - Master index
+├── QUICK_EXECUTION_PLAYBOOK.md # One-page speedup guide
+├── UET_DOC_CLEANUP_PHASE_PLAN.md # Example 5-wave execution
+└── UET_DOCUMENTATION_ANALYSIS_REPORT.md # Analysis report
+\\\
 
+---
+
+## Contribution Guidelines
+
+### Adding New Specifications
+1. Follow existing spec template structure
+2. Include doc metadata (doc_ulid, doc_type, doc_layer)
+3. Define JSON schemas for all data structures
+4. Add to appropriate tier directory
+5. Update this index with link and description
+
+### Quality Standards
+- **Tier 1**: Must have JSON schema, validation, and tests
+- **Tier 2**: Must have implementation examples
+- **Tier 3**: Must demonstrate working usage
+- **Tier 4**: Informational only, no strict requirements
+
+### Validation Tools
+- Link checker: \scripts/validate_docs.ps1\ (created in Wave 4)
+- Schema validator: Coming soon
+- Consistency checker: Coming soon
+
+---
+
+## Next Steps
+
+### Immediate (Week 1)
+- [x] Consolidate documentation (COMPLETE)
+- [x] Eliminate duplication (COMPLETE)
+- [x] Create master index (COMPLETE)
+- [ ] Add quality badges to all tier 1 specs
+- [ ] Create link validation script
+
+### Short-term (Week 2-4)
+- [ ] Formalize DRAFT specs (add JSON schemas)
+- [ ] Promote uet_v2 contracts to specs/core
+- [ ] Create contribution guide
+- [ ] Add CI/CD validation
+
+### Long-term (Month 2+)
+- [ ] Implement semantic versioning
+- [ ] Create migration guides for breaking changes
+- [ ] Build MkDocs documentation site
+- [ ] Create video tutorials
+
+---
+
+**Last Updated**: 2025-11-25 05:54  
+**Cleanup Phase**: Completed (5 waves in ~2 hours)  
+**Pattern Applied**: Decision Elimination + Parallel Execution  
+**Duplication**: 0% (was 88% before cleanup)  
+**Organization**: 4-tier quality system (core/instances/planning/archive)

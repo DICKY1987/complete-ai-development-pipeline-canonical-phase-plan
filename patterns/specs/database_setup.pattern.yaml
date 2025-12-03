@@ -1,0 +1,417 @@
+doc_id: DOC-PAT-DATABASE-SETUP-PATTERN-047
+# Pattern: Database Setup
+# Pattern ID: PAT-DATABASE-SETUP-001
+# Version: 1.0.0
+# Created: 2025-11-27
+# Category: infrastructure
+# Use Case: Create database tables and indexes
+# Time Savings: 85% (40 min → 6 min)
+
+pattern_id: "PAT-DATABASE-SETUP-001"
+name: "database_setup"
+version: "1.0.0"
+category: "infrastructure"
+status: "active"
+
+metadata:
+  created: "2025-11-27"
+  last_updated: "2025-11-27"
+  author: "UET Framework Team"
+  proven_uses: 0
+  time_savings_vs_manual: "85%"
+  estimated_duration_seconds: 360  # 6 minutes
+
+intent: |
+  Create database tables, indexes, and initial schema for a new feature.
+  Handles migration files, direct SQL execution, or standalone database creation.
+  
+  This pattern enforces:
+  - Schema validation before execution
+  - Rollback scripts created automatically
+  - Index optimization for common queries
+  - Verification of table creation
+
+applicability:
+  when_to_use:
+    - Adding new database tables for a feature
+    - Setting up telemetry/logging infrastructure
+    - Creating standalone SQLite databases
+    - Adding indexes for performance
+  when_not_to_use:
+    - Modifying existing tables (use migration pattern)
+    - One-time data imports (use data_migration pattern)
+    - Schema changes in production (requires approval workflow)
+  
+  constraints:
+    require_rollback_script: true
+    validate_before_execution: true
+    verify_after_creation: true
+
+inputs:
+  database_type:
+    type: "string"
+    required: true
+    enum: ["sqlite", "postgres", "mysql"]
+    description: "Type of database"
+    default: "sqlite"
+  
+  database_path:
+    type: "string"
+    required: true
+    description: "Path to database file or connection string"
+    example: "patterns/metrics/pattern_automation.db"
+  
+  migration_approach:
+    type: "string"
+    required: true
+    enum: ["migration_file", "direct_sql", "standalone"]
+    description: "How to apply schema changes"
+    default: "standalone"
+  
+  migration_file_path:
+    type: "string"
+    required: false
+    description: "Path for migration file (if migration_file approach)"
+    example: "core/state/migrations/004_pattern_automation.sql"
+  
+  tables:
+    type: "array"
+    required: true
+    description: "List of tables to create"
+    items:
+      type: "object"
+      required: ["name", "columns"]
+      properties:
+        name:
+          type: "string"
+          description: "Table name"
+          example: "execution_logs"
+        columns:
+          type: "array"
+          description: "Column definitions"
+          items:
+            type: "object"
+            required: ["name", "type"]
+            properties:
+              name:
+                type: "string"
+              type:
+                type: "string"
+                example: "INTEGER PRIMARY KEY AUTOINCREMENT"
+              nullable:
+                type: "boolean"
+                default: true
+              default:
+                type: "string"
+        indexes:
+          type: "array"
+          description: "Indexes to create for this table"
+          items:
+            type: "object"
+            required: ["name", "columns"]
+            properties:
+              name:
+                type: "string"
+              columns:
+                type: "array"
+                items:
+                  type: "string"
+              unique:
+                type: "boolean"
+                default: false
+  
+  rollback_script_path:
+    type: "string"
+    required: true
+    description: "Path for rollback script"
+    example: "rollback_004_pattern_automation.sql"
+
+steps:
+  - id: "validate_schema"
+    description: "Validate table definitions and SQL syntax"
+    operation_kind: "VALIDATE_SCHEMA"
+    
+    actions:
+      - tool: "powershell"
+        description: "Check for required fields"
+        command: |
+          # Validate table definitions have required fields
+          $valid = $true
+          foreach ($table in {{tables}}) {
+              if (-not $table.name -or -not $table.columns) {
+                  Write-Error "Table missing name or columns"
+                  $valid = $false
+              }
+          }
+          if (-not $valid) { exit 1 }
+    
+    outputs:
+      - name: "schema_valid"
+        type: "boolean"
+  
+  - id: "generate_sql"
+    description: "Generate CREATE TABLE and CREATE INDEX statements"
+    operation_kind: "GENERATE_SQL"
+    
+    actions:
+      - tool: "create"
+        path: "{{migration_file_path if migration_approach == 'migration_file' else 'temp_schema.sql'}}"
+        content: |
+          -- Database Schema
+          -- Generated: {{timestamp}}
+          -- Tables: {{tables.length}}
+          
+          {{#each tables}}
+          -- Table: {{name}}
+          CREATE TABLE IF NOT EXISTS {{name}} (
+          {{#each columns}}
+              {{name}} {{type}}{{#unless nullable}} NOT NULL{{/unless}}{{#if default}} DEFAULT {{default}}{{/if}}{{#unless @last}},{{/unless}}
+          {{/each}}
+          );
+          
+          {{#each indexes}}
+          -- Index: {{name}}
+          CREATE {{#if unique}}UNIQUE {{/if}}INDEX IF NOT EXISTS {{name}} 
+          ON {{../name}}({{#each columns}}{{this}}{{#unless @last}}, {{/unless}}{{/each}});
+          
+          {{/each}}
+          {{/each}}
+    
+    outputs:
+      - name: "sql_file_path"
+        type: "string"
+  
+  - id: "generate_rollback"
+    description: "Generate rollback script (DROP statements)"
+    operation_kind: "GENERATE_ROLLBACK"
+    
+    actions:
+      - tool: "create"
+        path: "{{rollback_script_path}}"
+        content: |
+          -- Rollback Script
+          -- Generated: {{timestamp}}
+          -- WARNING: This will delete all data in these tables
+          
+          {{#each tables}}
+          -- Drop table: {{name}}
+          DROP TABLE IF EXISTS {{name}};
+          
+          {{/each}}
+    
+    outputs:
+      - name: "rollback_file_path"
+        type: "string"
+  
+  - id: "create_database"
+    description: "Execute SQL to create tables and indexes"
+    operation_kind: "EXECUTE_SQL"
+    
+    condition: "schema_valid == true"
+    
+    actions:
+      - tool: "powershell"
+        command: |
+          # Determine execution approach
+          {{#if migration_approach == 'migration_file'}}
+          # Run migration script
+          & {{migration_runner_command}} {{migration_file_path}}
+          {{else}}
+          # Direct SQL execution
+          {{#if database_type == 'sqlite'}}
+          # SQLite
+          if (-not (Test-Path "{{database_path}}")) {
+              # Create database file
+              sqlite3 "{{database_path}}" "SELECT 1;"
+          }
+          Get-Content "{{sql_file_path}}" | sqlite3 "{{database_path}}"
+          {{/if}}
+          {{#if database_type == 'postgres'}}
+          # PostgreSQL
+          psql {{database_path}} -f "{{sql_file_path}}"
+          {{/if}}
+          {{/if}}
+          
+          if ($LASTEXITCODE -ne 0) {
+              Write-Error "Database creation failed"
+              exit 1
+          }
+    
+    error_handling:
+      on_failure: "execute_rollback"
+    
+    outputs:
+      - name: "execution_success"
+        type: "boolean"
+  
+  - id: "verify_tables"
+    description: "Verify all tables and indexes were created"
+    operation_kind: "VERIFY_SCHEMA"
+    
+    actions:
+      - tool: "powershell"
+        command: |
+          {{#if database_type == 'sqlite'}}
+          # Check tables exist
+          $tables = sqlite3 "{{database_path}}" ".tables"
+          {{#each tables}}
+          if ($tables -notmatch "{{name}}") {
+              Write-Error "Table {{name}} not created"
+              exit 1
+          }
+          {{/each}}
+          
+          # Check table structure
+          {{#each tables}}
+          $schema = sqlite3 "{{database_path}}" ".schema {{name}}"
+          Write-Host "Table {{name}} schema:"
+          Write-Host $schema
+          {{/each}}
+          {{/if}}
+    
+    outputs:
+      - name: "verification_results"
+        type: "object"
+        description: "Table verification status"
+
+  - id: "cleanup_temp_files"
+    description: "Remove temporary SQL files if not migration approach"
+    operation_kind: "CLEANUP"
+    
+    condition: "migration_approach != 'migration_file'"
+    
+    actions:
+      - tool: "powershell"
+        command: "Remove-Item temp_schema.sql -ErrorAction SilentlyContinue"
+
+outputs:
+  database_created:
+    type: "boolean"
+    description: "Whether database was successfully created"
+  
+  tables_created:
+    type: "array"
+    description: "List of table names created"
+  
+  rollback_script:
+    type: "file"
+    path: "{{rollback_script_path}}"
+    description: "Script to rollback changes"
+  
+  migration_file:
+    type: "file"
+    path: "{{migration_file_path}}"
+    condition: "migration_approach == 'migration_file'"
+    description: "Migration file for version control"
+
+verification:
+  ground_truth:
+    - condition: "database file exists at database_path"
+      description: "Database file created"
+    - condition: "all tables in input exist in database"
+      description: "All tables created successfully"
+    - condition: "rollback script exists"
+      description: "Rollback script generated"
+  
+  validation_commands:
+    - name: "check_database_exists"
+      command: "Test-Path {{database_path}}"
+      expect: "True"
+    
+    - name: "verify_table_count"
+      command: "sqlite3 {{database_path}} \".tables\" | Measure-Object -Line"
+      expect: "Count >= {{tables.length}}"
+    
+    - name: "check_rollback_exists"
+      command: "Test-Path {{rollback_script_path}}"
+      expect: "True"
+
+rollback:
+  automatic: false
+  manual_steps:
+    - description: "Execute rollback script"
+      command: "Get-Content {{rollback_script_path}} | sqlite3 {{database_path}}"
+    - description: "Delete database file (if standalone)"
+      command: "Remove-Item {{database_path}}"
+      condition: "migration_approach == 'standalone'"
+
+anti_patterns:
+  avoid:
+    - pattern: "Creating tables without indexes"
+      reason: "Poor query performance, must be fixed later"
+    - pattern: "No rollback script"
+      reason: "Cannot undo changes if needed"
+    - pattern: "Not verifying table creation"
+      reason: "Silent failures lead to runtime errors"
+    - pattern: "Hardcoded schema in application code"
+      reason: "Schema changes require code changes"
+
+example_usage: |
+  # Create pattern automation database
+  
+  Input:
+    database_type: "sqlite"
+    database_path: "patterns/metrics/pattern_automation.db"
+    migration_approach: "standalone"
+    tables:
+      - name: "execution_logs"
+        columns:
+          - name: "id"
+            type: "INTEGER PRIMARY KEY AUTOINCREMENT"
+            nullable: false
+          - name: "timestamp"
+            type: "DATETIME"
+            default: "CURRENT_TIMESTAMP"
+          - name: "operation_kind"
+            type: "TEXT"
+            nullable: false
+          - name: "success"
+            type: "BOOLEAN"
+            nullable: false
+        indexes:
+          - name: "idx_execution_timestamp"
+            columns: ["timestamp"]
+          - name: "idx_execution_operation"
+            columns: ["operation_kind"]
+      
+      - name: "pattern_candidates"
+        columns:
+          - name: "id"
+            type: "INTEGER PRIMARY KEY AUTOINCREMENT"
+          - name: "pattern_id"
+            type: "TEXT UNIQUE"
+          - name: "confidence"
+            type: "REAL"
+        indexes:
+          - name: "idx_pattern_status"
+            columns: ["status"]
+    
+    rollback_script_path: "rollback_pattern_automation.sql"
+  
+  Output:
+    - patterns/metrics/pattern_automation.db created
+    - 2 tables created with 4 indexes
+    - rollback_pattern_automation.sql generated
+    - database_created: true
+
+related_patterns:
+  - pattern_id: "PAT-PHASE-DISCOVERY-001"
+    relationship: "often_follows"
+    description: "Discover database location before creating tables"
+  
+  - pattern_id: "PAT-ATOMIC-CREATE-001"
+    relationship: "complementary"
+    description: "Create integration code after database setup"
+
+tool_targets:
+  - "github_copilot_cli"
+  - "claude_code"
+  - "cursor"
+
+operation_kinds:
+  - "VALIDATE_SCHEMA"
+  - "GENERATE_SQL"
+  - "GENERATE_ROLLBACK"
+  - "EXECUTE_SQL"
+  - "VERIFY_SCHEMA"
+  - "CLEANUP"

@@ -1,0 +1,258 @@
+{
+  "$id": "schema/verification_template.v1.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Verification Template v1",
+  "description": "Ground truth verification template for programmatic checks",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "verification_id",
+    "category"
+  ],
+  "properties": {
+    "verification_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9_]+_v[0-9]+$",
+      "description": "Unique verification identifier with version (e.g., pytest_green_v1)"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "testing",
+        "environment",
+        "security",
+        "quality",
+        "compliance"
+      ],
+      "description": "Verification category"
+    },
+    "description": {
+      "type": "string",
+      "description": "What this verification checks"
+    },
+    "purpose": {
+      "type": "string",
+      "description": "Why this verification is important"
+    },
+    "estimated_time": {
+      "type": "string",
+      "description": "Expected execution time (e.g., < 5 seconds, Variable)"
+    },
+    "command": {
+      "type": "string",
+      "description": "Command to execute (for single-command verifications)"
+    },
+    "checks": {
+      "type": "object",
+      "description": "Multiple named checks (for multi-check verifications)",
+      "patternProperties": {
+        "^[a-z_]+$": {
+          "$ref": "#/definitions/check"
+        }
+      }
+    },
+    "inputs": {
+      "type": "object",
+      "description": "Input variables required for verification",
+      "properties": {
+        "test_path": {
+          "type": "string"
+        },
+        "files_scope": {
+          "type": "object",
+          "properties": {
+            "read": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "write": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "create": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "forbidden": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "actual_files_touched": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "success_patterns": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Regex patterns that indicate success (ANY match)"
+    },
+    "failure_patterns": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Regex patterns that indicate failure (ANY match)"
+    },
+    "ground_truth_criteria": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "ALL must be true for success"
+    },
+    "validation_logic": {
+      "type": "object",
+      "description": "Step-by-step validation logic (for complex verifications)",
+      "patternProperties": {
+        "^[0-9]+_[a-z_]+$": {
+          "$ref": "#/definitions/validation_step"
+        }
+      }
+    },
+    "parsing": {
+      "type": "object",
+      "description": "How to parse command output",
+      "properties": {
+        "extract_metrics": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "pattern",
+              "capture"
+            ],
+            "properties": {
+              "pattern": {
+                "type": "string",
+                "description": "Regex pattern with capture group"
+              },
+              "capture": {
+                "type": "string",
+                "description": "Variable name to capture into"
+              }
+            }
+          }
+        }
+      }
+    },
+    "execution": {
+      "type": "object",
+      "description": "Execution configuration",
+      "properties": {
+        "run_all": {
+          "type": "boolean",
+          "description": "Whether to run all checks or stop on first failure"
+        },
+        "stop_on_first_blocker": {
+          "type": "boolean"
+        },
+        "report_warnings": {
+          "type": "boolean"
+        },
+        "timeout_seconds": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "reporting": {
+      "type": "object",
+      "description": "How to report results",
+      "properties": {
+        "on_success": {
+          "type": "string",
+          "description": "Success message template (can use ${variables})"
+        },
+        "on_failure": {
+          "type": "string",
+          "description": "Failure message template (can use ${variables})"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "check": {
+      "type": "object",
+      "required": [
+        "cmd",
+        "expect"
+      ],
+      "properties": {
+        "cmd": {
+          "type": "string",
+          "description": "Command to execute"
+        },
+        "expect": {
+          "type": "string",
+          "description": "Expected exact output"
+        },
+        "expect_pattern": {
+          "type": "string",
+          "description": "Expected regex pattern"
+        },
+        "for_each": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Run check for each item in list"
+        },
+        "criticality": {
+          "type": "string",
+          "enum": [
+            "blocker",
+            "warning",
+            "info"
+          ]
+        },
+        "fix_hint": {
+          "type": "string",
+          "description": "How to fix if check fails"
+        },
+        "auto_fix": {
+          "type": "string",
+          "description": "Auto-fix action to take"
+        }
+      }
+    },
+    "validation_step": {
+      "type": "object",
+      "required": [
+        "for_each",
+        "check",
+        "on_fail"
+      ],
+      "properties": {
+        "for_each": {
+          "type": "string",
+          "description": "Variable to iterate over"
+        },
+        "check": {
+          "type": "string",
+          "description": "Boolean condition to check"
+        },
+        "on_fail": {
+          "type": "string",
+          "description": "Error code to raise on failure"
+        }
+      }
+    }
+  },
+  "doc_id": "DOC-SPEC-VERIFICATION-TEMPLATE-V1-035"
+}

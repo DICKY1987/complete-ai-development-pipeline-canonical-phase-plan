@@ -1,0 +1,37 @@
+# Pattern: view_edit_verify
+# Pattern ID: PAT-VIEW-EDIT-VERIFY-003
+# doc_id: DOC-PAT-VIEW-EDIT-VERIFY-003
+# Version: 1.0.0
+# Category: sequential
+
+doc_id: "DOC-PAT-VIEW-EDIT-VERIFY-003"
+pattern_id: "PAT-VIEW-EDIT-VERIFY-003"
+name: "view_edit_verify"
+version: "1.0.0"
+category: "sequential"
+status: "draft"
+role: "spec"
+
+schema_ref: "patterns/schemas/view_edit_verify.schema.json"
+executor_ref: "patterns/executors/view_edit_verify_executor.ps1"
+example_dir: "patterns/examples/view_edit_verify/"
+
+metadata:
+  created: "2025-11-24"
+  source_template: "templates\patterns\sequential\view_edit_verify.pattern.yaml"
+  category: "sequential"
+
+intent: |
+  Pattern generated from template: templates\patterns\sequential\view_edit_verify.pattern.yaml
+  Provides reusable execution logic for view_edit_verify operations.
+
+inputs:
+  instance_path:
+    type: "string"
+    required: true
+    description: "Path to pattern instance JSON file"
+
+outputs:
+  execution_result:
+    type: "object"
+    description: "Result of pattern execution"

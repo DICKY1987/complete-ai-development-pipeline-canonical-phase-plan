@@ -1,0 +1,119 @@
+doc_id: DOC-CONFIG-PHASE-CORE-TEMPLATE-109
+# Template: Phase Core Template
+# Purpose: Basic phase specification template for UET Framework
+# Version: 1.0.0
+# Schema: schema/phase_spec.v1.json
+# Dependencies: workstream templates, task templates
+# Last Updated: 2025-11-23
+#
+# Usage:
+#   1. Copy this file: cp phase-core-template.yaml my-phase.yaml
+#   2. Replace all {{PLACEHOLDERS}} with actual values
+#   3. Validate: python core/bootstrap/validator.py --schema schema/phase_spec.v1.json --file my-phase.yaml
+#   4. Reference in your workflow configuration
+#
+# Placeholders:
+#   {{PHASE_ID}}        - Unique phase identifier (e.g., "PH-IMPL-01")
+#   {{DESCRIPTION}}     - Human-readable description of the phase
+#   {{WORKSTREAM_IDS}}  - List of workstream IDs to execute in this phase
+#   {{TIMEOUT}}         - Maximum phase duration in seconds (default: 3600)
+#   {{MAX_PARALLEL}}    - Maximum parallel workstreams (default: 3)
+
+# =============================================================================
+# PHASE IDENTIFICATION
+# =============================================================================
+
+phase_id: "{{PHASE_ID}}"
+description: "{{DESCRIPTION}}"
+version: "1.0.0"
+
+# =============================================================================
+# WORKSTREAM CONFIGURATION
+# =============================================================================
+
+workstreams:
+  # List all workstreams to execute in this phase
+  # Workstreams can run sequentially or in parallel based on dependencies
+  - workstream_id: "{{WORKSTREAM_IDS[0]}}"
+    workstream_ref: "file://workstreams/{{WORKSTREAM_IDS[0]}}.json"
+    priority: 1
+    depends_on: []  # No dependencies for first workstream
+  
+  # Example: Additional workstream
+  # - workstream_id: "{{WORKSTREAM_IDS[1]}}"
+  #   workstream_ref: "file://workstreams/{{WORKSTREAM_IDS[1]}}.json"
+  #   priority: 1
+  #   depends_on: ["{{WORKSTREAM_IDS[0]}}"]  # Runs after first workstream
+
+# =============================================================================
+# EXECUTION CONFIGURATION
+# =============================================================================
+
+execution:
+  # Maximum time for entire phase (seconds)
+  timeout: "{{TIMEOUT}}"  # Default: 3600 (1 hour)
+  
+  # Maximum parallel workstreams
+  max_parallel: "{{MAX_PARALLEL}}"  # Default: 3
+  
+  # Retry policy for failed workstreams
+  retry_policy:
+    max_retries: 2
+    backoff_multiplier: 2.0
+    initial_delay: 5
+  
+  # Failure handling
+  on_failure: "abort"  # Options: abort, continue, skip_phase
+
+# =============================================================================
+# VALIDATION RULES
+# =============================================================================
+
+validation:
+  # Pre-conditions (checked before phase starts)
+  pre_conditions:
+    - type: "file_exists"
+      description: "Project profile exists"
+      path: "PROJECT_PROFILE.yaml"
+  
+  # Post-conditions (checked after phase completes)
+  post_conditions:
+    - type: "all_tasks_completed"
+      description: "All workstream tasks completed successfully"
+
+# =============================================================================
+# METADATA
+# =============================================================================
+
+meta:
+  created: "2025-11-23"
+  template_version: "1.0.0"
+  schema_version: "1.0.0"
+  tags:
+    - "core"
+    - "phase"
+  applicable_to:
+    - "python"
+    - "javascript"
+    - "generic"
+
+# =============================================================================
+# EXAMPLE USAGE
+# =============================================================================
+
+# Example: Analysis Phase
+# 
+# phase_id: "PH-ANALYSIS-01"
+# description: "Project analysis and discovery phase"
+# workstreams:
+#   - workstream_id: "ws-discovery"
+#     workstream_ref: "file://workstreams/ws-discovery.json"
+#     priority: 1
+#     depends_on: []
+#   - workstream_id: "ws-requirements"
+#     workstream_ref: "file://workstreams/ws-requirements.json"
+#     priority: 1
+#     depends_on: ["ws-discovery"]
+# execution:
+#   timeout: 1800  # 30 minutes
+#   max_parallel: 2

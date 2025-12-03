@@ -1,0 +1,1634 @@
+doc_id: DOC-PAT-PATTERN-INDEX-029
+version: 1.0.0
+metadata:
+  created: '2025-11-24'
+  last_updated: '2025-11-28'
+  total_patterns: 28
+  total_categories: 10
+  migrated_patterns: 17
+  core_patterns: 11
+patterns:
+- pattern_id: PAT-MODULE-REFACTOR-SCAN-001
+  name: module_refactor_scan_docs
+  version: 1.0.0
+  status: active
+  category: module_refactor
+  spec_path: patterns/specs/module_refactor_scan_docs.pattern.yaml
+  time_savings_vs_manual: 95%
+  proven_uses: 0
+  created: '2025-11-28'
+  summary: "Scan repository for documentation files and build enriched inventory for module refactoring"
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  - cursor
+  - aider
+- pattern_id: PAT-MODULE-REFACTOR-INVENTORY-002
+  name: module_refactor_create_inventory
+  version: 1.0.0
+  status: active
+  category: module_refactor
+  spec_path: patterns/specs/module_refactor_create_inventory.pattern.yaml
+  time_savings_vs_manual: 90%
+  proven_uses: 0
+  created: '2025-11-28'
+  summary: "Define canonical module inventory and dependency graph for refactoring"
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  - cursor
+- pattern_id: PAT-MODULE-REFACTOR-MIGRATE-003
+  name: module_refactor_migrate_single_module
+  version: 1.0.0
+  status: active
+  category: module_refactor
+  spec_path: patterns/specs/module_refactor_migrate_single_module.pattern.yaml
+  time_savings_vs_manual: 92%
+  proven_uses: 0
+  created: '2025-11-28'
+  summary: "Safely migrate a single module from legacy paths to module-centric structure"
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  - cursor
+- pattern_id: PAT-MODULE-REFACTOR-ORCHESTRATE-004
+  name: module_refactor_complete_migration
+  version: 1.0.0
+  status: active
+  category: module_refactor
+  spec_path: patterns/specs/module_refactor_complete_migration.pattern.yaml
+  time_savings_vs_manual: 98%
+  proven_uses: 0
+  created: '2025-11-28'
+  summary: "Orchestrate complete module-centric refactor from scan to cleanup"
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+- pattern_id: PAT-ATOMIC-CREATE-001
+  name: atomic_create
+  version: 1.0.0
+  status: draft
+  category: file_creation
+  spec_path: patterns/specs/atomic_create.pattern.yaml
+  schema_path: patterns/schemas/atomic_create.schema.json
+  executor_path: patterns/executors/atomic_create_executor.ps1
+  test_path: patterns/tests/test_atomic_create_executor.ps1
+  example_dir: patterns/examples/atomic_create/
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  - cursor
+  time_savings_vs_manual: 60%
+  proven_uses: 0
+  created: '2025-11-24'
+  last_updated: '2025-11-24'
+- pattern_id: PAT-BATCH-CREATE-001
+  name: batch_create
+  version: 1.0.0
+  status: spec_only
+  category: file_creation
+  spec_path: patterns/specs/batch_create.pattern.yaml
+  schema_path: patterns/schemas/batch_create.schema.json
+  executor_path: patterns/executors/batch_create_executor.ps1
+  time_savings_vs_manual: 88%
+  proven_uses: 0
+  created: '2025-11-24'
+  notes: Spec-only pattern. AI tools can execute using spec interpretation.
+- pattern_id: PAT-REFACTOR-PATCH-001
+  name: refactor_patch
+  version: 1.0.0
+  status: spec_only
+  category: code_modification
+  spec_path: patterns/specs/refactor_patch.pattern.yaml
+  schema_path: patterns/schemas/refactor_patch.schema.json
+  executor_path: patterns/executors/refactor_patch_executor.ps1
+  time_savings_vs_manual: 70%
+  proven_uses: 0
+  created: '2025-11-24'
+  notes: Spec-only pattern. AI tools can execute using spec interpretation.
+- pattern_id: PAT-SELF-HEAL-001
+  name: self_heal
+  version: 1.0.0
+  status: spec_only
+  category: error_recovery
+  spec_path: patterns/specs/self_heal.pattern.yaml
+  schema_path: patterns/schemas/self_heal.schema.json
+  executor_path: patterns/executors/self_heal_executor.py
+  time_savings_vs_manual: 90%
+  proven_uses: 0
+  created: '2025-11-24'
+  notes: Spec-only pattern. AI tools can execute using spec interpretation.
+- pattern_id: PAT-VERIFY-COMMIT-001
+  name: verify_commit
+  version: 1.0.0
+  status: spec_only
+  category: verification
+  spec_path: patterns/specs/verify_commit.pattern.yaml
+  schema_path: patterns/schemas/verify_commit.schema.json
+  executor_path: patterns/executors/verify_commit_executor.ps1
+  time_savings_vs_manual: 85%
+  proven_uses: 0
+  created: '2025-11-24'
+  notes: Spec-only pattern. AI tools can execute using spec interpretation.
+- pattern_id: PAT-WORKTREE-LIFECYCLE-001
+  name: worktree_lifecycle
+  version: 1.0.0
+  status: spec_only
+  category: infrastructure
+  spec_path: patterns/specs/worktree_lifecycle.pattern.yaml
+  schema_path: patterns/schemas/worktree_lifecycle.schema.json
+  executor_path: patterns/executors/worktree_lifecycle_executor.ps1
+  time_savings_vs_manual: 75%
+  proven_uses: 0
+  created: '2025-11-24'
+  notes: Spec-only pattern. AI tools can execute using spec interpretation.
+- pattern_id: PAT-MODULE-CREATION-001
+  name: module_creation
+  version: 1.0.0
+  status: spec_only
+  category: module_setup
+  spec_path: patterns/specs/module_creation.pattern.yaml
+  schema_path: patterns/schemas/module_creation.schema.json
+  executor_path: patterns/executors/module_creation_executor.ps1
+  time_savings_vs_manual: 88%
+  proven_uses: 0
+  created: '2025-11-24'
+  notes: Spec-only pattern. AI tools can execute using spec interpretation.
+- pattern_id: PAT-MIGRATED-ORCHESTRATE-001
+  name: migrated_orchestrator_001
+  version: 1.0.0
+  status: migrated
+  category: orchestrate
+  spec_path: patterns/legacy_atoms/converted/specs/migrated_orchestrator_001.pattern.yaml
+  schema_path: patterns/legacy_atoms/converted/schemas/migrated_orchestrator_001.schema.json
+  executor_path: patterns/legacy_atoms/converted/executors/migrated_orchestrator_001_executor.py
+  migrated_from: atomic-workflow-system
+  original_atom_uid: 01K7CYJ4VM7RKRG2RHDVFJ7DCB
+  original_role: orchestrator
+  migration_date: '2025-11-24'
+  notes: Auto-migrated from atomic-workflow-system. Requires review and enhancement.
+- pattern_id: PAT-MIGRATED-ORCHESTRATE-002
+  name: migrated_orchestrator_002
+  version: 1.0.0
+  status: migrated
+  category: orchestrate
+  spec_path: patterns/legacy_atoms/converted/specs/migrated_orchestrator_002.pattern.yaml
+  schema_path: patterns/legacy_atoms/converted/schemas/migrated_orchestrator_002.schema.json
+  executor_path: patterns/legacy_atoms/converted/executors/migrated_orchestrator_002_executor.py
+  migrated_from: atomic-workflow-system
+  original_atom_uid: 01K7CYJ4W9DD9WD9E4DXDQ8CWE
+  original_role: orchestrator
+  migration_date: '2025-11-24'
+  notes: Auto-migrated from atomic-workflow-system. Requires review and enhancement.
+- pattern_id: PAT-MIGRATED-CORE-003
+  name: migrated_qa_test_agent_003
+  version: 1.0.0
+  status: migrated
+  category: core
+  spec_path: patterns/legacy_atoms/converted/specs/migrated_qa_test_agent_003.pattern.yaml
+  schema_path: patterns/legacy_atoms/converted/schemas/migrated_qa_test_agent_003.schema.json
+  executor_path: patterns/legacy_atoms/converted/executors/migrated_qa_test_agent_003_executor.py
+  migrated_from: atomic-workflow-system
+  original_atom_uid: 01K7CYJ4Y3MMCVZV3Q9ZRMCW5A
+  original_role: qa_test_agent
+  migration_date: '2025-11-24'
+  notes: Auto-migrated from atomic-workflow-system. Requires review and enhancement.
+- pattern_id: PAT-MIGRATED-ORCHESTRATE-004
+  name: migrated_orchestrator_004
+  version: 1.0.0
+  status: migrated
+  category: orchestrate
+  spec_path: patterns/legacy_atoms/converted/specs/migrated_orchestrator_004.pattern.yaml
+  schema_path: patterns/legacy_atoms/converted/schemas/migrated_orchestrator_004.schema.json
+  executor_path: patterns/legacy_atoms/converted/executors/migrated_orchestrator_004_executor.py
+  migrated_from: atomic-workflow-system
+  original_atom_uid: 01K7CYJ4YEACSMVEDJQSM823MR
+  original_role: orchestrator
+  migration_date: '2025-11-24'
+  notes: Auto-migrated from atomic-workflow-system. Requires review and enhancement.
+- pattern_id: PAT-MIGRATED-ORCHESTRATE-005
+  name: migrated_orchestrator_005
+  version: 1.0.0
+  status: migrated
+  category: orchestrate
+  spec_path: patterns/legacy_atoms/converted/specs/migrated_orchestrator_005.pattern.yaml
+  schema_path: patterns/legacy_atoms/converted/schemas/migrated_orchestrator_005.schema.json
+  executor_path: patterns/legacy_atoms/converted/executors/migrated_orchestrator_005_executor.py
+  migrated_from: atomic-workflow-system
+  original_atom_uid: 01K7CYJ4YWS50GYQ3VKXRAY4QW
+  original_role: orchestrator
+  migration_date: '2025-11-24'
+  notes: Auto-migrated from atomic-workflow-system. Requires review and enhancement.
+- pattern_id: PAT-MIGRATED-ORCHESTRATE-006
+  name: migrated_orchestrator_006
+  version: 1.0.0
+  status: migrated
+  category: orchestrate
+  spec_path: patterns/legacy_atoms/converted/specs/migrated_orchestrator_006.pattern.yaml
+  schema_path: patterns/legacy_atoms/converted/schemas/migrated_orchestrator_006.schema.json
+  executor_path: patterns/legacy_atoms/converted/executors/migrated_orchestrator_006_executor.py
+  migrated_from: atomic-workflow-system
+  original_atom_uid: 01K7CYJ4Z52MP0GQAVWAXJ7PNB
+  original_role: orchestrator
+  migration_date: '2025-11-24'
+  notes: Auto-migrated from atomic-workflow-system. Requires review and enhancement.
+- pattern_id: PAT-MIGRATED-CORE-007
+  name: migrated_resilience_agent_007
+  version: 1.0.0
+  status: migrated
+  category: core
+  spec_path: patterns/legacy_atoms/converted/specs/migrated_resilience_agent_007.pattern.yaml
+  schema_path: patterns/legacy_atoms/converted/schemas/migrated_resilience_agent_007.schema.json
+  executor_path: patterns/legacy_atoms/converted/executors/migrated_resilience_agent_007_executor.py
+  migrated_from: atomic-workflow-system
+  original_atom_uid: 01K7CYJ546FPV1TAHC236H7YNB
+  original_role: resilience_agent
+  migration_date: '2025-11-24'
+  notes: Auto-migrated from atomic-workflow-system. Requires review and enhancement.
+- pattern_id: PAT-MIGRATED-CORE-008
+  name: migrated_qa_test_agent_008
+  version: 1.0.0
+  status: migrated
+  category: core
+  spec_path: patterns/legacy_atoms/converted/specs/migrated_qa_test_agent_008.pattern.yaml
+  schema_path: patterns/legacy_atoms/converted/schemas/migrated_qa_test_agent_008.schema.json
+  executor_path: patterns/legacy_atoms/converted/executors/migrated_qa_test_agent_008_executor.py
+  migrated_from: atomic-workflow-system
+  original_atom_uid: 01K7CYJ57HGFFEXWG9CCVJSG6C
+  original_role: qa_test_agent
+  migration_date: '2025-11-24'
+  notes: Auto-migrated from atomic-workflow-system. Requires review and enhancement.
+- pattern_id: PAT-MIGRATED-CORE-009
+  name: migrated_docs_summarizer_009
+  version: 1.0.0
+  status: migrated
+  category: core
+  spec_path: patterns/legacy_atoms/converted/specs/migrated_docs_summarizer_009.pattern.yaml
+  schema_path: patterns/legacy_atoms/converted/schemas/migrated_docs_summarizer_009.schema.json
+  executor_path: patterns/legacy_atoms/converted/executors/migrated_docs_summarizer_009_executor.py
+  migrated_from: atomic-workflow-system
+  original_atom_uid: 01K7CYJ57TF0H8824Q3HXF89CN
+  original_role: docs_summarizer
+  migration_date: '2025-11-24'
+  notes: Auto-migrated from atomic-workflow-system. Requires review and enhancement.
+- pattern_id: PAT-MIGRATED-CORE-010
+  doc_id: DOC-MIGRATED-CORE-010
+  name: migrated_resilience_agent_010
+  version: 1.0.0
+  status: migrated
+  category: core
+  spec_path: patterns/legacy_atoms/converted/specs/migrated_resilience_agent_010.pattern.yaml
+  schema_path: patterns/legacy_atoms/converted/schemas/migrated_resilience_agent_010.schema.json
+  executor_path: patterns/legacy_atoms/converted/executors/migrated_resilience_agent_010_executor.py
+  migrated_from: atomic-workflow-system
+  original_atom_uid: 01K7CYJ5911AX31YYVX1VPHM39
+  original_role: resilience_agent
+  migration_date: '2025-11-24'
+  notes: Auto-migrated from atomic-workflow-system. Requires review and enhancement.
+- pattern_id: PAT-MIGRATED-CORE-011
+  name: migrated_resilience_agent_011
+  version: 1.0.0
+  status: migrated
+  category: core
+  spec_path: patterns/legacy_atoms/converted/specs/migrated_resilience_agent_011.pattern.yaml
+  schema_path: patterns/legacy_atoms/converted/schemas/migrated_resilience_agent_011.schema.json
+  executor_path: patterns/legacy_atoms/converted/executors/migrated_resilience_agent_011_executor.py
+  migrated_from: atomic-workflow-system
+  original_atom_uid: 01K7CYJ5CPVEERFGHTR39SZ0W6
+  original_role: resilience_agent
+  migration_date: '2025-11-24'
+  notes: Auto-migrated from atomic-workflow-system. Requires review and enhancement.
+- pattern_id: PAT-MIGRATED-CORE-012
+  name: migrated_qa_test_agent_012
+  version: 1.0.0
+  status: migrated
+  category: core
+  spec_path: patterns/legacy_atoms/converted/specs/migrated_qa_test_agent_012.pattern.yaml
+  schema_path: patterns/legacy_atoms/converted/schemas/migrated_qa_test_agent_012.schema.json
+  executor_path: patterns/legacy_atoms/converted/executors/migrated_qa_test_agent_012_executor.py
+  migrated_from: atomic-workflow-system
+  original_atom_uid: 01K7CYJ5DA929BVS0F1CTR73NV
+  original_role: qa_test_agent
+  migration_date: '2025-11-24'
+  notes: Auto-migrated from atomic-workflow-system. Requires review and enhancement.
+- pattern_id: PAT-MIGRATED-CORE-013
+  name: migrated_ide_code_editor_013
+  version: 1.0.0
+  status: migrated
+  category: core
+  spec_path: patterns/legacy_atoms/converted/specs/migrated_ide_code_editor_013.pattern.yaml
+  schema_path: patterns/legacy_atoms/converted/schemas/migrated_ide_code_editor_013.schema.json
+  executor_path: patterns/legacy_atoms/converted/executors/migrated_ide_code_editor_013_executor.py
+  migrated_from: atomic-workflow-system
+  original_atom_uid: 01K7CYJ5VJPYZ2JBWHXKX2J8XE
+  original_role: ide_code_editor
+  migration_date: '2025-11-24'
+  notes: Auto-migrated from atomic-workflow-system. Requires review and enhancement.
+- pattern_id: PAT-MIGRATED-CORE-014
+  name: migrated_ide_code_editor_014
+  version: 1.0.0
+  status: migrated
+  category: core
+  spec_path: patterns/legacy_atoms/converted/specs/migrated_ide_code_editor_014.pattern.yaml
+  schema_path: patterns/legacy_atoms/converted/schemas/migrated_ide_code_editor_014.schema.json
+  executor_path: patterns/legacy_atoms/converted/executors/migrated_ide_code_editor_014_executor.py
+  migrated_from: atomic-workflow-system
+  original_atom_uid: 01K7CYJ5VTMG2RDJPRTK6ZYCR2
+  original_role: ide_code_editor
+  migration_date: '2025-11-24'
+  notes: Auto-migrated from atomic-workflow-system. Requires review and enhancement.
+- pattern_id: PAT-MIGRATED-CORE-015
+  name: migrated_ide_code_editor_015
+  version: 1.0.0
+  status: migrated
+  category: core
+  spec_path: patterns/legacy_atoms/converted/specs/migrated_ide_code_editor_015.pattern.yaml
+  schema_path: patterns/legacy_atoms/converted/schemas/migrated_ide_code_editor_015.schema.json
+  executor_path: patterns/legacy_atoms/converted/executors/migrated_ide_code_editor_015_executor.py
+  migrated_from: atomic-workflow-system
+  original_atom_uid: 01K7CYJ5W27BHEFEQ76K4XG866
+  original_role: ide_code_editor
+  migration_date: '2025-11-24'
+  notes: Auto-migrated from atomic-workflow-system. Requires review and enhancement.
+- pattern_id: PAT-MIGRATED-CORE-016
+  name: migrated_docs_summarizer_016
+  version: 1.0.0
+  status: migrated
+  category: core
+  spec_path: patterns/legacy_atoms/converted/specs/migrated_docs_summarizer_016.pattern.yaml
+  schema_path: patterns/legacy_atoms/converted/schemas/migrated_docs_summarizer_016.schema.json
+  executor_path: patterns/legacy_atoms/converted/executors/migrated_docs_summarizer_016_executor.py
+  migrated_from: atomic-workflow-system
+  original_atom_uid: 01K7CYJ5Z1FKD0XKTYZ97SCKA7
+  original_role: docs_summarizer
+  migration_date: '2025-11-24'
+  notes: Auto-migrated from atomic-workflow-system. Requires review and enhancement.
+- pattern_id: PAT-MIGRATED-CORE-017
+  doc_id: DOC-MIGRATED-CORE-017
+  name: migrated_docs_summarizer_017
+  version: 1.0.0
+  status: migrated
+  category: core
+  spec_path: patterns/legacy_atoms/converted/specs/migrated_docs_summarizer_017.pattern.yaml
+  schema_path: patterns/legacy_atoms/converted/schemas/migrated_docs_summarizer_017.schema.json
+  executor_path: patterns/legacy_atoms/converted/executors/migrated_docs_summarizer_017_executor.py
+  migrated_from: atomic-workflow-system
+  original_atom_uid: 01K7CYJ6057XE382WS4RX3ESNJ
+  original_role: docs_summarizer
+  migration_date: '2025-11-24'
+  notes: Auto-migrated from atomic-workflow-system. Requires review and enhancement.
+- doc_id: DOC-PAT-BATCH-FILE-CREATION-001
+  pattern_id: PAT-BATCH-FILE-CREATION-001
+  name: batch_file_creation
+  version: 1.0.0
+  status: draft
+  category: parallel
+  spec_path: patterns/specs/batch_file_creation.pattern.yaml
+  schema_path: patterns/schemas/batch_file_creation.schema.json
+  executor_path: patterns/executors/batch_file_creation_executor.ps1
+  test_path: patterns/tests/test_batch_file_creation_executor.ps1
+  example_dir: patterns/examples/batch_file_creation/
+  source_template: templates\patterns\parallel\batch_file_creation.pattern.yaml
+  created: '2025-11-24'
+  last_updated: '2025-11-24'
+- doc_id: DOC-PAT-MODULE-CREATION-CONVERGENCE-001
+  pattern_id: PAT-MODULE-CREATION-CONVERGENCE-001
+  name: module_creation_convergence
+  version: 1.0.0
+  status: draft
+  category: template
+  spec_path: patterns/specs/module_creation_convergence.pattern.yaml
+  schema_path: patterns/schemas/module_creation_convergence.schema.json
+  executor_path: patterns/executors/module_creation_convergence_executor.ps1
+  test_path: patterns/tests/test_module_creation_convergence_executor.ps1
+  example_dir: patterns/examples/module_creation_convergence/
+  source_template: templates\patterns\template\module_creation_convergence.pattern.yaml
+  created: '2025-11-24'
+  last_updated: '2025-11-24'
+- doc_id: DOC-PAT-PREFLIGHT-VERIFY-001
+  pattern_id: PAT-PREFLIGHT-VERIFY-001
+  name: preflight_verify
+  version: 1.0.0
+  status: draft
+  category: verification
+  spec_path: patterns/specs/preflight_verify.pattern.yaml
+  schema_path: patterns/schemas/preflight_verify.schema.json
+  executor_path: patterns/executors/preflight_verify_executor.ps1
+  test_path: patterns/tests/test_preflight_verify_executor.ps1
+  example_dir: patterns/examples/preflight_verify/
+  source_template: templates\verification_templates\preflight.verify.yaml
+  created: '2025-11-24'
+  last_updated: '2025-11-24'
+- doc_id: DOC-PAT-ATOMIC-CREATE-TEMPLATE-001
+  pattern_id: PAT-ATOMIC-CREATE-TEMPLATE-001
+  name: atomic_create_template
+  version: 1.0.0
+  status: draft
+  category: execution
+  spec_path: patterns/specs/atomic_create_template.pattern.yaml
+  schema_path: patterns/schemas/atomic_create_template.schema.json
+  executor_path: patterns/executors/atomic_create_template_executor.ps1
+  test_path: patterns/tests/test_atomic_create_template_executor.ps1
+  example_dir: patterns/examples/atomic_create_template/
+  source_template: templates\execution_patterns\atomic_create.pattern.yaml
+  created: '2025-11-24'
+  last_updated: '2025-11-24'
+- doc_id: DOC-PAT-DECISION-ELIMINATION-BOOTSTRAP-001
+  pattern_id: PAT-DECISION-ELIMINATION-BOOTSTRAP-001
+  name: decision_elimination_bootstrap
+  version: 1.0.0
+  status: draft
+  category: meta
+  spec_path: patterns/specs/decision_elimination_bootstrap.pattern.yaml
+  schema_path: patterns/schemas/decision_elimination_bootstrap.schema.json
+  executor_path: patterns/executors/decision_elimination_bootstrap_executor.ps1
+  test_path: patterns/tests/test_decision_elimination_bootstrap_executor.ps1
+  example_dir: patterns/examples/decision_elimination_bootstrap/
+  source_template: templates\patterns\meta\decision_elimination_bootstrap.pattern.yaml
+  created: '2025-11-24'
+  last_updated: '2025-11-24'
+- doc_id: DOC-PAT-CREATE-TEST-COMMIT-001
+  pattern_id: PAT-CREATE-TEST-COMMIT-001
+  name: create_test_commit
+  version: 1.0.0
+  status: draft
+  category: sequential
+  spec_path: patterns/specs/create_test_commit.pattern.yaml
+  schema_path: patterns/schemas/create_test_commit.schema.json
+  executor_path: patterns/executors/create_test_commit_executor.ps1
+  test_path: patterns/tests/test_create_test_commit_executor.ps1
+  example_dir: patterns/examples/create_test_commit/
+  source_template: templates\patterns\sequential\create_test_commit.pattern.yaml
+  created: '2025-11-24'
+  last_updated: '2025-11-24'
+- doc_id: DOC-PAT-VIEW-EDIT-VERIFY-003
+  pattern_id: PAT-VIEW-EDIT-VERIFY-003
+  name: view_edit_verify
+  version: 1.0.0
+  status: draft
+  category: sequential
+  spec_path: patterns/specs/view_edit_verify.pattern.yaml
+  schema_path: patterns/schemas/view_edit_verify.schema.json
+  executor_path: patterns/executors/view_edit_verify_executor.ps1
+  test_path: patterns/tests/test_view_edit_verify_executor.ps1
+  example_dir: patterns/examples/view_edit_verify/
+  source_template: templates\patterns\sequential\view_edit_verify.pattern.yaml
+  created: '2025-11-24'
+  last_updated: '2025-11-24'
+- doc_id: DOC-PAT-PYTEST-GREEN-VERIFY-002
+  pattern_id: PAT-PYTEST-GREEN-VERIFY-002
+  name: pytest_green_verify
+  version: 1.0.0
+  status: draft
+  category: verification
+  spec_path: patterns/specs/pytest_green_verify.pattern.yaml
+  schema_path: patterns/schemas/pytest_green_verify.schema.json
+  executor_path: patterns/executors/pytest_green_verify_executor.ps1
+  test_path: patterns/tests/test_pytest_green_verify_executor.ps1
+  example_dir: patterns/examples/pytest_green_verify/
+  source_template: templates\verification_templates\pytest_green.verify.yaml
+  created: '2025-11-24'
+  last_updated: '2025-11-24'
+- doc_id: DOC-PAT-GREP-VIEW-EDIT-002
+  pattern_id: PAT-GREP-VIEW-EDIT-002
+  name: grep_view_edit
+  version: 1.0.0
+  status: draft
+  category: sequential
+  spec_path: patterns/specs/grep_view_edit.pattern.yaml
+  schema_path: patterns/schemas/grep_view_edit.schema.json
+  executor_path: patterns/executors/grep_view_edit_executor.ps1
+  test_path: patterns/tests/test_grep_view_edit_executor.ps1
+  example_dir: patterns/examples/grep_view_edit/
+  source_template: templates\patterns\sequential\grep_view_edit.pattern.yaml
+  created: '2025-11-24'
+  last_updated: '2025-11-24'
+- pattern_id: PAT-BATCH-FILE-GEN-001
+  doc_id: DOC-BATCH-FILE-GEN-001
+  name: batch_file_generation_from_spec
+  category: code_generation
+  status: active
+  auto_generated: true
+  created_at: '2025-11-27T10:14:12.526533'
+- pattern_id: PAT-CONFIG-SETUP-001
+  doc_id: DOC-PAT-CONFIG-SETUP-001
+  name: configuration_setup
+  category: infrastructure
+  status: active
+  auto_generated: true
+  created_at: '2025-11-27T10:14:12.654433'
+- pattern_id: PAT-DATABASE-SETUP-001
+  doc_id: DOC-PAT-DATABASE-SETUP-001
+  name: database_setup
+  category: infrastructure
+  status: active
+  auto_generated: true
+  created_at: '2025-11-27T10:14:12.829731'
+- pattern_id: PAT-INTEGRATION-HOOK-001
+  doc_id: DOC-PAT-INTEGRATION-HOOK-001
+  name: integration_hook
+  category: integration
+  status: active
+  auto_generated: true
+  created_at: '2025-11-27T10:14:13.004983'
+- pattern_id: PAT-MULTI-WORKSTREAM-DOC-SUITE-GEN-001
+  doc_id: DOC-PAT-MULTI-WORKSTREAM-DOC-SUITE-GEN-001
+  name: multi_workstream_doc_suite_generation
+  category: code_generation
+  status: active
+  auto_generated: true
+  created_at: '2025-11-27T10:14:13.234605'
+- pattern_id: PAT-PHASE-DISCOVERY-001
+  doc_id: DOC-PAT-PHASE-DISCOVERY-001
+  name: phase_discovery
+  category: discovery
+  status: active
+  auto_generated: true
+  created_at: '2025-11-27T10:14:13.387339'
+- pattern_id: PAT-E2E-VALIDATION-001
+  doc_id: DOC-PAT-E2E-VALIDATION-001
+  name: end_to_end_validation
+  category: validation
+  status: active
+  auto_generated: true
+  created_at: '2025-11-27T10:14:13.608208'
+
+- pattern_id: PAT-AGENTS-739
+  name: agents
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-AGENTS-739
+  spec_path: patterns/specs/agents.pattern.yaml
+  schema_path: patterns/schemas/agents.schema.json
+  executor_path: patterns/executors/agents_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "Repository Guidelines"
+  notes: "Converted from AGENTS.md"
+
+- pattern_id: PAT-AUTOMATION-ENABLED-STATUS-741
+  name: automation_enabled_status
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-AUTOMATION-ENABLED-STATUS-741
+  spec_path: patterns/specs/automation_enabled_status.pattern.yaml
+  schema_path: patterns/schemas/automation_enabled_status.schema.json
+  executor_path: patterns/executors/automation_enabled_status_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "FULL AUTOMATION ENABLED - STATUS REPORT"
+  notes: "Converted from AUTOMATION_ENABLED_STATUS.md"
+
+- pattern_id: PAT-CLEANUP-AUTOMATION-IMPLEMENTATION-743
+  name: cleanup_automation_implementation
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-CLEANUP-AUTOMATION-IMPLEMENTATION-743
+  spec_path: patterns/specs/cleanup_automation_implementation.pattern.yaml
+  schema_path: patterns/schemas/cleanup_automation_implementation.schema.json
+  executor_path: patterns/executors/cleanup_automation_implementation_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "Cleanup Automation Implementation Guide"
+  notes: "Converted from CLEANUP_AUTOMATION_IMPLEMENTATION.md"
+
+- pattern_id: PAT-CODEX-EXECUTION-INSTRUCTIONS-744
+  name: codex_execution_instructions
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-CODEX-EXECUTION-INSTRUCTIONS-744
+  spec_path: patterns/specs/codex_execution_instructions.pattern.yaml
+  schema_path: patterns/schemas/codex_execution_instructions.schema.json
+  executor_path: patterns/executors/codex_execution_instructions_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "CODEX CLI EXECUTION INSTRUCTIONS"
+  notes: "Converted from CODEX_EXECUTION_INSTRUCTIONS.md"
+
+- pattern_id: PAT-COMPLETE-DOC-SUITE-GENERATION-MASTER-745
+  name: complete_doc_suite_generation_master
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-COMPLETE-DOC-SUITE-GENERATION-MASTER-745
+  spec_path: patterns/specs/complete_doc_suite_generation_master.pattern.yaml
+  schema_path: patterns/schemas/complete_doc_suite_generation_master.schema.json
+  executor_path: patterns/executors/complete_doc_suite_generation_master_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "COMPLETE DOC SUITE GENERATION - MASTER PLAN"
+  notes: "Converted from COMPLETE_DOC_SUITE_GENERATION_MASTER_PLAN.md"
+
+- pattern_id: PAT-EXECUTION-PATTERNS-CHEATSHEET-748
+  name: execution_patterns_cheatsheet
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-EXECUTION-PATTERNS-CHEATSHEET-748
+  spec_path: patterns/specs/execution_patterns_cheatsheet.pattern.yaml
+  schema_path: patterns/schemas/execution_patterns_cheatsheet.schema.json
+  executor_path: patterns/executors/execution_patterns_cheatsheet_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "Execution Patterns - Quick Reference"
+  notes: "Converted from EXECUTION_PATTERNS_CHEATSHEET.md"
+
+- pattern_id: PAT-EXECUTIONREQUE-VALIDATOR-ORCHESTRATOR-747
+  name: executionreque_validator_orchestrator
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-EXECUTIONREQUE-VALIDATOR-ORCHESTRATOR-747
+  spec_path: patterns/specs/executionreque_validator_orchestrator.pattern.yaml
+  schema_path: patterns/schemas/executionreque_validator_orchestrator.schema.json
+  executor_path: patterns/executors/executionreque_validator_orchestrator_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "So I’ll treat this as:"
+  notes: "Converted from ExecutionReque_Validator_Orchestrator_ Game Board protocol.md"
+
+- pattern_id: PAT-GLOSSARY-PATTERNS-EXTENDED-749
+  name: glossary_patterns_extended
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-GLOSSARY-PATTERNS-EXTENDED-749
+  spec_path: patterns/specs/glossary_patterns_extended.pattern.yaml
+  schema_path: patterns/schemas/glossary_patterns_extended.schema.json
+  executor_path: patterns/executors/glossary_patterns_extended_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "Glossary UET Patterns - Extended Implementation"
+  notes: "Converted from GLOSSARY_PATTERNS_EXTENDED.md"
+
+- pattern_id: PAT-GLOSSARY-PATTERNS-QUICKSTART-750
+  name: glossary_patterns_quickstart
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-GLOSSARY-PATTERNS-QUICKSTART-750
+  spec_path: patterns/specs/glossary_patterns_quickstart.pattern.yaml
+  schema_path: patterns/schemas/glossary_patterns_quickstart.schema.json
+  executor_path: patterns/executors/glossary_patterns_quickstart_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "Glossary UET Patterns - Quick Start Guide"
+  notes: "Converted from GLOSSARY_PATTERNS_QUICKSTART.md"
+
+- pattern_id: PAT-GUI-TUI-TASK-DISPLAY-751
+  name: gui_tui_task_display
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-GUI-TUI-TASK-DISPLAY-751
+  spec_path: patterns/specs/gui_tui_task_display.pattern.yaml
+  schema_path: patterns/schemas/gui_tui_task_display.schema.json
+  executor_path: patterns/executors/gui_tui_task_display_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "You are helping me design and document how the UET pattern module works internally, and how to su..."
+  notes: "Converted from GUI_TUI_TASK_DISPLAY.md"
+
+- pattern_id: PAT-INDEX-752
+  name: index
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-INDEX-752
+  spec_path: patterns/specs/index.pattern.yaml
+  schema_path: patterns/schemas/index.schema.json
+  executor_path: patterns/executors/index_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "🎉 Pattern Automation System - COMPLETE & OPERATIONAL"
+  notes: "Converted from INDEX.md"
+
+- pattern_id: PAT-MODULE-CENTRIC-REFACTOR-PLAN-WITH-753
+  name: module_centric_refactor_plan_with
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-MODULE-CENTRIC-REFACTOR-PLAN-WITH-753
+  spec_path: patterns/specs/module_centric_refactor_plan_with.pattern.yaml
+  schema_path: patterns/schemas/module_centric_refactor_plan_with.schema.json
+  executor_path: patterns/executors/module_centric_refactor_plan_with_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "Module-Centric Refactor Plan with Execution Patterns        │"
+  notes: "Converted from Module Centric Refactor Plan with Execution Patterns.md"
+
+- pattern_id: PAT-MODULE-REFACTOR-PATTERNS-GUIDE-754
+  name: module_refactor_patterns_guide
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-MODULE-REFACTOR-PATTERNS-GUIDE-754
+  spec_path: patterns/specs/module_refactor_patterns_guide.pattern.yaml
+  schema_path: patterns/schemas/module_refactor_patterns_guide.schema.json
+  executor_path: patterns/executors/module_refactor_patterns_guide_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "Module Refactor Patterns - Quick Reference"
+  notes: "Converted from MODULE_REFACTOR_PATTERNS_GUIDE.md"
+
+- pattern_id: PAT-PAT-CHECK-001-PATTERN-DIRECTORY-ID-755
+  name: pat_check_001_pattern_directory_id
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-PAT-CHECK-001-PATTERN-DIRECTORY-ID-755
+  spec_path: patterns/specs/pat_check_001_pattern_directory_id.pattern.yaml
+  schema_path: patterns/schemas/pat_check_001_pattern_directory_id.schema.json
+  executor_path: patterns/executors/pat_check_001_pattern_directory_id_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "PAT-CHECK-001 – Pattern Directory & ID System Compliance (v2)"
+  notes: "Converted from PAT-CHECK-001  Pattern Directory & ID System Compliance (v2).md"
+
+- pattern_id: PAT-PATTERN-AUTOMATION-PATHS-758
+  name: pattern_automation_paths
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-PATTERN-AUTOMATION-PATHS-758
+  spec_path: patterns/specs/pattern_automation_paths.pattern.yaml
+  schema_path: patterns/schemas/pattern_automation_paths.schema.json
+  executor_path: patterns/executors/pattern_automation_paths_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "Pattern automation paths"
+  notes: "Converted from PATTERN_AUTOMATION_PATHS.md"
+
+- pattern_id: PAT-SAVE-FILE-001
+  name: save_file
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-SAVE-FILE-001
+  spec_path: patterns/specs/save_file.pattern.yaml
+  schema_path: patterns/schemas/save_file.schema.json
+  executor_path: patterns/executors/save_file_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "PATTERN_DOC_SUITE_SPEC"
+  notes: "Converted from PATTERN_DOC_SUITE_SPEC.md"
+
+- pattern_id: PAT-PATTERN-EXECUTION-VISUALIZATION-DESIGN-759
+  name: pattern_execution_visualization_design
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-PATTERN-EXECUTION-VISUALIZATION-DESIGN-759
+  spec_path: patterns/specs/pattern_execution_visualization_design.pattern.yaml
+  schema_path: patterns/schemas/pattern_execution_visualization_design.schema.json
+  executor_path: patterns/executors/pattern_execution_visualization_design_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "Pattern Execution Visualization Design"
+  notes: "Converted from PATTERN_EXECUTION_VISUALIZATION_DESIGN.md"
+
+- pattern_id: PAT-PATTERN-PANEL-GUI-ALIGNMENT-760
+  name: pattern_panel_gui_alignment
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-PATTERN-PANEL-GUI-ALIGNMENT-760
+  spec_path: patterns/specs/pattern_panel_gui_alignment.pattern.yaml
+  schema_path: patterns/schemas/pattern_panel_gui_alignment.schema.json
+  executor_path: patterns/executors/pattern_panel_gui_alignment_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "Pattern Activity Panel - GUI Framework Alignment"
+  notes: "Converted from PATTERN_PANEL_GUI_ALIGNMENT.md"
+
+- pattern_id: PAT-PATTERN-PANEL-INTEGRATION-CHECKLIST-761
+  name: pattern_panel_integration_checklist
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-PATTERN-PANEL-INTEGRATION-CHECKLIST-761
+  spec_path: patterns/specs/pattern_panel_integration_checklist.pattern.yaml
+  schema_path: patterns/schemas/pattern_panel_integration_checklist.schema.json
+  executor_path: patterns/executors/pattern_panel_integration_checklist_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "Pattern Activity Panel - Integration Checklist"
+  notes: "Converted from PATTERN_PANEL_INTEGRATION_CHECKLIST.md"
+
+- pattern_id: PAT-PATTERNS-FOLDER-AUTOMATED-TASK-756
+  name: patterns_folder_automated_task
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-PATTERNS-FOLDER-AUTOMATED-TASK-756
+  spec_path: patterns/specs/patterns_folder_automated_task.pattern.yaml
+  schema_path: patterns/schemas/patterns_folder_automated_task.schema.json
+  executor_path: patterns/executors/patterns_folder_automated_task_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "Patterns Folder - Automated Task Examination Report"
+  notes: "Converted from PATTERNS_FOLDER_AUTOMATED_TASK_EXAMINATION.md"
+
+- pattern_id: PAT-PATTERNS-README-757
+  name: patterns_readme
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-PATTERNS-README-757
+  spec_path: patterns/specs/patterns_readme.pattern.yaml
+  schema_path: patterns/schemas/patterns_readme.schema.json
+  executor_path: patterns/executors/patterns_readme_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "Pattern Management Tools"
+  notes: "Converted from PATTERNS_README.md"
+
+- pattern_id: PAT-QUICK-REFERENCE-763
+  name: quick_reference
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-QUICK-REFERENCE-763
+  spec_path: patterns/specs/quick_reference.pattern.yaml
+  schema_path: patterns/schemas/quick_reference.schema.json
+  executor_path: patterns/executors/quick_reference_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "Pattern Automation - Quick Reference"
+  notes: "Converted from QUICK_REFERENCE.md"
+
+- pattern_id: PAT-QUICK-START-AUTOMATION-764
+  name: quick_start_automation
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-QUICK-START-AUTOMATION-764
+  spec_path: patterns/specs/quick_start_automation.pattern.yaml
+  schema_path: patterns/schemas/quick_start_automation.schema.json
+  executor_path: patterns/executors/quick_start_automation_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "Quick Start: Activate Pattern Automation (30 Minutes)"
+  notes: "Converted from QUICK_START_AUTOMATION.md"
+
+- pattern_id: PAT-README-PATTERNS-766
+  name: readme_patterns
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-README-PATTERNS-766
+  spec_path: patterns/specs/readme_patterns.pattern.yaml
+  schema_path: patterns/schemas/readme_patterns.schema.json
+  executor_path: patterns/executors/readme_patterns_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "Pattern System Guide"
+  notes: "Converted from README_PATTERNS.md"
+
+- pattern_id: PAT-SESSION-BOOTSTRAP-001
+  name: session_bootstrap
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-SESSION-BOOTSTRAP-001
+  spec_path: patterns/specs/session_bootstrap.pattern.yaml
+  schema_path: patterns/schemas/session_bootstrap.schema.json
+  executor_path: patterns/executors/session_bootstrap_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "Yes. Using your two specs as the ground truth, I can build a full **pattern doc suite skeleton** ..."
+  notes: "Converted from ready to paste doc suite 7 patterns.md"
+
+- pattern_id: PAT-SAFE-MEREGE-PATTERN-767
+  name: safe_merege_pattern
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-SAFE-MEREGE-PATTERN-767
+  spec_path: patterns/specs/safe_merege_pattern.pattern.yaml
+  schema_path: patterns/schemas/safe_merege_pattern.schema.json
+  executor_path: patterns/executors/safe_merege_pattern_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "Deliverables (6 files, 1,919 lines)"
+  notes: "Converted from safe merege pattern.md"
+
+- pattern_id: PAT-START-HERE-768
+  name: start_here
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-START-HERE-768
+  spec_path: patterns/specs/start_here.pattern.yaml
+  schema_path: patterns/schemas/start_here.schema.json
+  executor_path: patterns/executors/start_here_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "Pattern Automation - Start Here"
+  notes: "Converted from START_HERE.md"
+
+- pattern_id: PAT-UET-2025-ANTI-PATTERN-FORENSICS-769
+  name: uet_2025_anti_pattern_forensics
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-UET-2025-ANTI-PATTERN-FORENSICS-769
+  spec_path: patterns/specs/uet_2025_anti_pattern_forensics.pattern.yaml
+  schema_path: patterns/schemas/uet_2025_anti_pattern_forensics.schema.json
+  executor_path: patterns/executors/uet_2025_anti_pattern_forensics_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "ANTI-PATTERN FORENSICS"
+  notes: "Converted from UET_2025- ANTI-PATTERN FORENSICS.md"
+
+- pattern_id: PAT-ZERO-TOUCH-AUTOMATION-GUIDE-772
+  name: zero_touch_automation_guide
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-ZERO-TOUCH-AUTOMATION-GUIDE-772
+  spec_path: patterns/specs/zero_touch_automation_guide.pattern.yaml
+  schema_path: patterns/schemas/zero_touch_automation_guide.schema.json
+  executor_path: patterns/executors/zero_touch_automation_guide_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "Zero-Touch Pattern Automation - Complete Guide"
+  notes: "Converted from ZERO_TOUCH_AUTOMATION_GUIDE.md"
+
+- pattern_id: PAT-ZERO-TOUCH-COMPLETE-SOLUTION-773
+  name: zero_touch_complete_solution
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-ZERO-TOUCH-COMPLETE-SOLUTION-773
+  spec_path: patterns/specs/zero_touch_complete_solution.pattern.yaml
+  schema_path: patterns/schemas/zero_touch_complete_solution.schema.json
+  executor_path: patterns/executors/zero_touch_complete_solution_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "Zero-Touch Pattern Automation - COMPLETE SOLUTION"
+  notes: "Converted from ZERO_TOUCH_COMPLETE_SOLUTION.md"
+
+- pattern_id: PAT-ASSISTANT_RESPONSES_OPERATION_KINDS-010
+  name: assistant_responses_operation_kinds
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-ASSISTANT_RESPONSES_OPERATION_KINDS-010
+  spec_path: patterns/specs/assistant_responses_operation_kinds.pattern.yaml
+  schema_path: patterns/schemas/assistant_responses_operation_kinds.schema.json
+  executor_path: patterns/executors/assistant_responses_operation_kinds_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "Assistant Responses – Operation Kind & Pattern Conversation"
+  notes: "Converted from DOC_ASSISTANT_RESPONSES_OPERATION_KINDS.md"
+
+- pattern_id: PAT-EVERY_REUSABLE_PATTERN-005
+  name: every_reusable_pattern
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-EVERY_REUSABLE_PATTERN-005
+  spec_path: patterns/specs/every_reusable_pattern.pattern.yaml
+  schema_path: patterns/schemas/every_reusable_pattern.schema.json
+  executor_path: patterns/executors/every_reusable_pattern_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "---"
+  notes: "Converted from DOC_EVERY_REUSABLE_PATTERN.md"
+
+- pattern_id: PAT-IMPLEMENTATION_STATUS-007
+  name: implementation_status
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-IMPLEMENTATION_STATUS-007
+  spec_path: patterns/specs/implementation_status.pattern.yaml
+  schema_path: patterns/schemas/implementation_status.schema.json
+  executor_path: patterns/executors/implementation_status_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "Pattern Automation Implementation - Complete"
+  notes: "Converted from DOC_IMPLEMENTATION_STATUS.md"
+
+- pattern_id: PAT-PATTERN_AUTOMATION_MASTER_PLAN-008
+  name: pattern_automation_master_plan
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-PATTERN_AUTOMATION_MASTER_PLAN-008
+  spec_path: patterns/specs/pattern_automation_master_plan.pattern.yaml
+  schema_path: patterns/schemas/pattern_automation_master_plan.schema.json
+  executor_path: patterns/executors/pattern_automation_master_plan_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "Pattern Automation Master Plan"
+  notes: "Converted from DOC_PATTERN_AUTOMATION_MASTER_PLAN.md"
+
+- pattern_id: PAT-SLASH_COMMAND_PATTERN_SET-009
+  name: slash_command_pattern_set
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-SLASH_COMMAND_PATTERN_SET-009
+  spec_path: patterns/specs/slash_command_pattern_set.pattern.yaml
+  schema_path: patterns/schemas/slash_command_pattern_set.schema.json
+  executor_path: patterns/executors/slash_command_pattern_set_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "Slash Command Pattern Set"
+  notes: "Converted from DOC_SLASH_COMMAND_PATTERN_SET.md"
+
+- pattern_id: PAT-INDEX-801
+  name: index
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-INDEX-801
+  spec_path: patterns/specs/index.pattern.yaml
+  schema_path: patterns/schemas/index.schema.json
+  executor_path: patterns/executors/index_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "Pattern Event System - Implementation Package"
+  notes: "Converted from INDEX.md"
+
+- pattern_id: PAT-MASTER-INDEX-802
+  name: master_index
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-MASTER-INDEX-802
+  spec_path: patterns/specs/master_index.pattern.yaml
+  schema_path: patterns/schemas/master_index.schema.json
+  executor_path: patterns/executors/master_index_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "Pattern Event System - Master Index"
+  notes: "Converted from MASTER_INDEX.md"
+
+- pattern_id: PAT-PATTERN-EVENT-DELIVERY-SUMMARY-807
+  name: pattern_event_delivery_summary
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-PATTERN-EVENT-DELIVERY-SUMMARY-807
+  spec_path: patterns/specs/pattern_event_delivery_summary.pattern.yaml
+  schema_path: patterns/schemas/pattern_event_delivery_summary.schema.json
+  executor_path: patterns/executors/pattern_event_delivery_summary_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "Pattern Event System - Delivery Summary"
+  notes: "Converted from PATTERN_EVENT_DELIVERY_SUMMARY.md"
+
+- pattern_id: PAT-PATTERN-EVENT-INTEGRATION-808
+  name: pattern_event_integration
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-PATTERN-EVENT-INTEGRATION-808
+  spec_path: patterns/specs/pattern_event_integration.pattern.yaml
+  schema_path: patterns/schemas/pattern_event_integration.schema.json
+  executor_path: patterns/executors/pattern_event_integration_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "Pattern Event System - Integration Guide"
+  notes: "Converted from PATTERN_EVENT_INTEGRATION.md"
+
+- pattern_id: PAT-PATTERN-EVENT-SPEC-809
+  name: pattern_event_spec
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-PATTERN-EVENT-SPEC-809
+  spec_path: patterns/specs/pattern_event_spec.pattern.yaml
+  schema_path: patterns/schemas/pattern_event_spec.schema.json
+  executor_path: patterns/executors/pattern_event_spec_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "Pattern Event Specification"
+  notes: "Converted from PATTERN_EVENT_SPEC.md"
+
+- pattern_id: PAT-PATTERN-EVENTS-QUICK-REFERENCE-806
+  name: pattern_events_quick_reference
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-PATTERN-EVENTS-QUICK-REFERENCE-806
+  spec_path: patterns/specs/pattern_events_quick_reference.pattern.yaml
+  schema_path: patterns/schemas/pattern_events_quick_reference.schema.json
+  executor_path: patterns/executors/pattern_events_quick_reference_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "Pattern Events - Quick Reference Card"
+  notes: "Converted from PATTERN_EVENTS_QUICK_REFERENCE.md"
+
+- pattern_id: PAT-README-IMPLEMENTATION-813
+  name: readme_implementation
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-README-IMPLEMENTATION-813
+  spec_path: patterns/specs/readme_implementation.pattern.yaml
+  schema_path: patterns/schemas/readme_implementation.schema.json
+  executor_path: patterns/executors/readme_implementation_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "Pattern Event System - Implementation Task"
+  notes: "Converted from README_IMPLEMENTATION.md"
+
+- pattern_id: PAT-SESSION-2025-11-26-PATTERN-AUTOMATION-814
+  name: session_2025_11_26_pattern_automation
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-SESSION-2025-11-26-PATTERN-AUTOMATION-814
+  spec_path: patterns/specs/session_2025_11_26_pattern_automation.pattern.yaml
+  schema_path: patterns/schemas/session_2025_11_26_pattern_automation.schema.json
+  executor_path: patterns/executors/session_2025_11_26_pattern_automation_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "Session 2025-11-26: Pattern Automation Analysis"
+  notes: "Converted from SESSION_2025-11-26_PATTERN_AUTOMATION_ANALYSIS.md"
+
+- pattern_id: PAT-ENHANCEMENT-PHASE-PLAN-819
+  name: enhancement_phase_plan
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-ENHANCEMENT-PHASE-PLAN-819
+  spec_path: patterns/specs/enhancement_phase_plan.pattern.yaml
+  schema_path: patterns/schemas/enhancement_phase_plan.schema.json
+  executor_path: patterns/executors/enhancement_phase_plan_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "Execution Pattern Analysis & Enhancement Phase Plan"
+  notes: "Converted from ENHANCEMENT_PHASE_PLAN.md"
+
+- pattern_id: PAT-EXECUTIVE-SUMMARY-820
+  name: executive_summary
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-EXECUTIVE-SUMMARY-820
+  spec_path: patterns/specs/executive_summary.pattern.yaml
+  schema_path: patterns/schemas/executive_summary.schema.json
+  executor_path: patterns/executors/executive_summary_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "📊 Executive Summary: Pattern System + Enhancement Roadmap"
+  notes: "Converted from EXECUTIVE_SUMMARY.md"
+
+- pattern_id: PAT-WORKFLOW-REPORT-20251127-101218-961
+  name: workflow_report_20251127_101218
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-WORKFLOW-REPORT-20251127-101218-961
+  spec_path: patterns/specs/workflow_report_20251127_101218.pattern.yaml
+  schema_path: patterns/schemas/workflow_report_20251127_101218.schema.json
+  executor_path: patterns/executors/workflow_report_20251127_101218_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "Zero-Touch Workflow Automation Report"
+  notes: "Converted from workflow_report_20251127_101218.md"
+
+- pattern_id: PAT-WORKFLOW-REPORT-20251127-101514-962
+  name: workflow_report_20251127_101514
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-WORKFLOW-REPORT-20251127-101514-962
+  spec_path: patterns/specs/workflow_report_20251127_101514.pattern.yaml
+  schema_path: patterns/schemas/workflow_report_20251127_101514.schema.json
+  executor_path: patterns/executors/workflow_report_20251127_101514_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "Zero-Touch Workflow Automation Report"
+  notes: "Converted from workflow_report_20251127_101514.md"
+
+- pattern_id: PAT-INDEX-829
+  name: index
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-INDEX-829
+  spec_path: patterns/specs/index.pattern.yaml
+  schema_path: patterns/schemas/index.schema.json
+  executor_path: patterns/executors/index_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "Safe Merge Pattern Library - Complete Implementation"
+  notes: "Converted from INDEX.md"
+
+- pattern_id: PAT-QUICK-REFERENCE-831
+  name: quick_reference
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-QUICK-REFERENCE-831
+  spec_path: patterns/specs/quick_reference.pattern.yaml
+  schema_path: patterns/schemas/quick_reference.schema.json
+  executor_path: patterns/executors/quick_reference_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "Safe Merge Quick Reference Card"
+  notes: "Converted from QUICK_REFERENCE.md"
+
+- pattern_id: PAT-QUICKSTART-830
+  name: quickstart
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-QUICKSTART-830
+  spec_path: patterns/specs/quickstart.pattern.yaml
+  schema_path: patterns/schemas/quickstart.schema.json
+  executor_path: patterns/executors/quickstart_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "Safe Merge Automation - Quick Start"
+  notes: "Converted from QUICKSTART.md"
+
+- pattern_id: PAT-REGISTRY-833
+  name: registry
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-REGISTRY-833
+  spec_path: patterns/specs/registry.pattern.yaml
+  schema_path: patterns/schemas/registry.schema.json
+  executor_path: patterns/executors/registry_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "Safe Merge Pattern Registry"
+  notes: "Converted from REGISTRY.md"
+
+- pattern_id: PAT-TEST-SUITE-834
+  name: test_suite
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-TEST-SUITE-834
+  spec_path: patterns/specs/test_suite.pattern.yaml
+  schema_path: patterns/schemas/test_suite.schema.json
+  executor_path: patterns/executors/test_suite_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "Safe Merge Pattern Test Suite"
+  notes: "Converted from TEST_SUITE.md"
+
+- pattern_id: PAT-MODULE-README-870
+  name: module_readme
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-MODULE-README-870
+  spec_path: patterns/specs/module_readme.pattern.yaml
+  schema_path: patterns/schemas/module_readme.schema.json
+  executor_path: patterns/executors/module_readme_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "Module Documentation Template"
+  notes: "Converted from module-readme.md"
+
+- pattern_id: PAT-ADMINISTRATOR-POWERSHELL-738
+  name: administrator_powershell
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-ADMINISTRATOR-POWERSHELL-738
+  spec_path: patterns/specs/administrator_powershell.pattern.yaml
+  schema_path: patterns/schemas/administrator_powershell.schema.json
+  executor_path: patterns/executors/administrator_powershell_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "PowerShell 7.5.4"
+  notes: "Converted from Administrator PowerShell.txt"
+
+- pattern_id: PAT-PATTERN-PLAN-ENC-762
+  name: pattern_plan_enc
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-PATTERN-PLAN-ENC-762
+  spec_path: patterns/specs/pattern_plan_enc.pattern.yaml
+  schema_path: patterns/schemas/pattern_plan_enc.schema.json
+  executor_path: patterns/executors/pattern_plan_enc_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌..."
+  notes: "Converted from PATTERN_plan_enc.txt"
+
+- pattern_id: PAT-WE-CAN-T-FLIP-TO-100-AUTOMATION-771
+  name: we_can_t_flip_to_100_automation
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-WE-CAN-T-FLIP-TO-100-AUTOMATION-771
+  spec_path: patterns/specs/we_can_t_flip_to_100_automation.pattern.yaml
+  schema_path: patterns/schemas/we_can_t_flip_to_100_automation.schema.json
+  executor_path: patterns/executors/we_can_t_flip_to_100_automation_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "• We can’t flip to 100% automation instantly, but here’s a practical path to full"
+  notes: "Converted from We can’t flip to 100% automation.txt"
+
+- pattern_id: PAT-COPIED-2025-11-26-799
+  name: copied_2025_11_26
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-COPIED-2025-11-26-799
+  spec_path: patterns/specs/copied_2025_11_26.pattern.yaml
+  schema_path: patterns/schemas/copied_2025_11_26.schema.json
+  executor_path: patterns/executors/copied_2025_11_26_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "Pattern Event System - Quick Summary"
+  notes: "Converted from COPIED_2025-11-26.txt"
+
+- pattern_id: PAT-FILE-LIST-800
+  name: file_list
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-FILE-LIST-800
+  spec_path: patterns/specs/file_list.pattern.yaml
+  schema_path: patterns/schemas/file_list.schema.json
+  executor_path: patterns/executors/file_list_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "Name                              Size (KB) LastWriteTime"
+  notes: "Converted from FILE_LIST.txt"
+
+- pattern_id: PAT-PACKAGE-SUMMARY-803
+  name: package_summary
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-PACKAGE-SUMMARY-803
+  spec_path: patterns/specs/package_summary.pattern.yaml
+  schema_path: patterns/schemas/package_summary.schema.json
+  executor_path: patterns/executors/package_summary_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "================================================================================"
+  notes: "Converted from PACKAGE_SUMMARY.txt"
+
+- pattern_id: PAT-START-HERE-815
+  name: start_here
+  version: 1.0.0
+  status: draft
+  category: converted
+  doc_id: DOC-PAT-START-HERE-815
+  spec_path: patterns/specs/start_here.pattern.yaml
+  schema_path: patterns/schemas/start_here.schema.json
+  executor_path: patterns/executors/start_here_executor.ps1
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  time_savings_vs_manual: 0%
+  proven_uses: 0
+  created: '2025-12-02'
+  summary: "╔══════════════════════════════════════════════════════════════════════════════╗"
+  notes: "Converted from START_HERE.txt"

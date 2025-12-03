@@ -1,0 +1,12 @@
+# Schema Sidecar ID File
+# Links schema to doc_id for cross-artifact joins
+
+schema_path: patterns/schemas/pytest_green_verify.schema.json
+doc_id: DOC-PAT-PYTEST-GREEN-VERIFY-002
+pattern_id: PAT-PYTEST-GREEN-VERIFY-002
+role: schema_metadata
+linked_spec: patterns/specs/pytest_green_verify.pattern.yaml
+linked_executor: patterns/executors/pytest_green_verify_executor.ps1
+linked_tests: patterns/tests/test_pytest_green_verify_executor.ps1
+linked_examples: patterns/examples/pytest_green_verify/
+created: "2025-11-24"

@@ -1,0 +1,145 @@
+{
+  "$id": "schema/worker_lifecycle.v1.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "WorkerLifecycle v1",
+  "description": "Worker lifecycle tracking with state machine for managing worker processes",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "worker_id",
+    "worker_type",
+    "state",
+    "started_at"
+  ],
+  "properties": {
+    "worker_id": {
+      "type": "string",
+      "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$",
+      "description": "Unique identifier for this worker (ULID)"
+    },
+    "worker_type": {
+      "type": "string",
+      "enum": [
+        "executor",
+        "monitor",
+        "validator",
+        "scheduler",
+        "custom"
+      ],
+      "description": "Type of worker process"
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "idle",
+        "busy",
+        "paused",
+        "stopped",
+        "crashed"
+      ],
+      "description": "Current state of the worker"
+    },
+    "current_task_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$",
+      "description": "ID of task currently being executed (if busy)"
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the worker was started"
+    },
+    "last_heartbeat": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time",
+      "description": "Last heartbeat timestamp"
+    },
+    "stopped_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time",
+      "description": "When the worker was stopped"
+    },
+    "crash_info": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "Information about worker crash",
+      "properties": {
+        "crashed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "error_message": {
+          "type": "string"
+        },
+        "stack_trace": {
+          "type": "string"
+        }
+      }
+    },
+    "statistics": {
+      "type": "object",
+      "description": "Worker execution statistics",
+      "properties": {
+        "tasks_completed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "tasks_failed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "total_execution_time": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Total execution time in seconds"
+        },
+        "avg_task_duration": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Average task duration in seconds"
+        }
+      }
+    },
+    "config": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "Worker-specific configuration",
+      "properties": {
+        "max_parallel_tasks": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "heartbeat_interval": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Heartbeat interval in seconds"
+        },
+        "timeout_seconds": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "metadata": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "Additional worker metadata"
+    }
+  },
+  "doc_id": "DOC-SPEC-WORKER-LIFECYCLE-V1-036"
+}

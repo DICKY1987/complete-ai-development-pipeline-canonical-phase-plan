@@ -1,0 +1,84 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "multi_workstream_doc_suite_generation",
+  "description": "Generate 100% complete pattern documentation suites for multiple template files\nsimultaneously using parallel workstream execution. Each doc suite includes all\n8 required files per PATTERN_DOC_SUITE_SPEC-V1.\n",
+  "type": "object",
+  "properties": {
+    "templates": {
+      "type": "array",
+      "required": true,
+      "description": "List of template files requiring doc suites",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "source_path",
+          "category"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Pattern name (snake_case)"
+          },
+          "source_path": {
+            "type": "string",
+            "description": "Path to source template YAML"
+          },
+          "category": {
+            "type": "string",
+            "description": "Pattern category",
+            "enum": [
+              "sequential",
+              "parallel",
+              "meta",
+              "template",
+              "verification",
+              "execution"
+            ]
+          }
+        }
+      }
+    },
+    "workstream_config": {
+      "type": "object",
+      "required": false,
+      "default": {
+        "parallel_workstreams": 4,
+        "templates_per_workstream": 3
+      },
+      "properties": {
+        "parallel_workstreams": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 8,
+          "description": "Number of parallel workstreams"
+        },
+        "templates_per_workstream": {
+          "type": "integer",
+          "description": "Max templates per workstream"
+        }
+      }
+    },
+    "doc_id_format": {
+      "type": "string",
+      "required": false,
+      "default": "DOC-PAT-{NAME}-{NNN}",
+      "description": "Format for generating doc_ids"
+    },
+    "validation_mode": {
+      "type": "string",
+      "required": false,
+      "default": "comprehensive",
+      "enum": [
+        "quick",
+        "standard",
+        "comprehensive"
+      ],
+      "description": "Level of validation to perform"
+    }
+  },
+  "required": [
+    "templates"
+  ],
+  "doc_id": "DOC-PAT-MULTI-WORKSTREAM-DOC-SUITE-GEN-001-123"
+}

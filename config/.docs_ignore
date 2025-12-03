@@ -1,0 +1,29 @@
+# Exclude build artifacts
+**/node_modules/**
+**/dist/**
+**/.venv/**
+**/__pycache__/**
+
+# Exclude state/cache directories
+.state/**
+.ai/**
+.cache/**
+.git/**
+.worktrees/**
+.ledger/**
+.tasks/**
+
+# Exclude chat logs (will be moved to docs/scratch/)
+docs/scratch/chat_*.md
+CLAUDE_CHAT_*.txt
+chat*.txt
+chat*.md
+
+# Exclude temporary files
+temp_*.json
+temp_*.md
+
+# Exclude legacy/deprecated
+legacy/**
+src/pipeline/**
+MOD_ERROR_PIPELINE/**

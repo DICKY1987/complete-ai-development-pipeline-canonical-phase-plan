@@ -1,0 +1,153 @@
+doc_id: DOC-PAT-VERIFY-COMMIT-PATTERN-060
+# Pattern: Verify Commit
+# Pattern ID: PAT-VERIFY-COMMIT-001
+# Version: 1.0.0
+# Created: 2025-11-24
+# Category: verification
+# Use Case: Ground truth validation + git commit
+# Time Savings: 85% (20 min → 3 min)
+
+pattern_id: "PAT-VERIFY-COMMIT-001"
+name: "verify_commit"
+version: "1.0.0"
+category: "verification"
+status: "draft"
+
+metadata:
+  created: "2025-11-24"
+  author: "UET Framework Team"
+  time_savings_vs_manual: "85%"
+  estimated_duration_seconds: 180  # 3 minutes
+
+intent: |
+  Validate changes against ground truth criteria then commit atomically.
+  Ensures quality gates pass before committing to repository.
+  
+  Ground truth checks:
+  - All tests pass
+  - Syntax valid
+  - No TODO/placeholder comments
+  - Git status clean (only expected changes)
+  - Optional: lint checks, coverage thresholds
+
+applicability:
+  when_to_use:
+    - After completing workstream
+    - After pattern execution
+    - Before merging changes
+    - Automated CI/CD pipelines
+  when_not_to_use:
+    - Work in progress (use manual commits)
+    - Experimental changes
+    - Draft/WIP commits needed
+  
+  constraints:
+    all_checks_must_pass: true
+    no_force_commit: true
+    requires_clean_working_tree: false
+
+inputs:
+  project_root:
+    type: "string"
+    required: true
+    
+  verification_checks:
+    type: "array"
+    required: true
+    items:
+      type: "string"
+      enum: ["tests_pass", "syntax_valid", "no_todos", "git_clean", "lint_pass", "coverage_threshold"]
+  
+  commit_message:
+    type: "string"
+    required: true
+    min_length: 10
+    
+  expected_files:
+    type: "array"
+    required: false
+    description: "Files expected to be modified/created"
+  
+  coverage_threshold:
+    type: "integer"
+    required: false
+    min: 0
+    max: 100
+    default: 80
+
+outputs:
+  verification_passed:
+    type: "boolean"
+  checks_results:
+    type: "object"
+  commit_sha:
+    type: "string"
+  commit_timestamp:
+    type: "string"
+
+structural_decisions:
+  fail_fast: true
+  no_partial_commits: true
+  validate_before_commit: true
+  rollback_on_failure: false  # Git handles this
+
+execution_steps:
+  - step_id: "S1_run_tests"
+    description: "Execute test suite"
+    required: true
+    
+  - step_id: "S2_check_syntax"
+    description: "Validate all files compile"
+    required: true
+    
+  - step_id: "S3_scan_todos"
+    description: "Check for TODO/placeholder comments"
+    required: if_specified
+    
+  - step_id: "S4_verify_git_status"
+    description: "Verify only expected files changed"
+    required: true
+    
+  - step_id: "S5_run_linter"
+    description: "Run code linter"
+    required: if_specified
+    
+  - step_id: "S6_check_coverage"
+    description: "Verify test coverage threshold"
+    required: if_specified
+    
+  - step_id: "S7_commit"
+    description: "Commit changes if all checks pass"
+    required: true
+
+ground_truth_criteria:
+  required:
+    - criterion: "tests_pass"
+      description: "All tests pass (0 failures)"
+      
+    - criterion: "syntax_valid"
+      description: "All files have valid syntax"
+      
+    - criterion: "git_status_expected"
+      description: "Only expected files modified"
+  
+  optional:
+    - criterion: "no_todos"
+      description: "No TODO or placeholder comments"
+      
+    - criterion: "lint_clean"
+      description: "No lint errors"
+      
+    - criterion: "coverage_met"
+      description: "Test coverage >= threshold"
+
+performance_profile:
+  estimated_time_manual: 1200  # 20 minutes
+  estimated_time_pattern: 180  # 3 minutes
+  time_savings_percentage: "85%"
+  human_decisions_eliminated: 5
+
+compliance:
+  requirements:
+    - "PAT-NAME-001"
+    - "PAT-CHECK-001"

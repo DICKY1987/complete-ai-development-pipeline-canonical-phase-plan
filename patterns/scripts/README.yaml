@@ -1,0 +1,7 @@
+doc_id: DOC-SCRIPT-README-046
+name: scripts
+purpose: Utility scripts for repository-wide checks and automation.
+files:
+  - readme_presence_scan.py: Scans directories to verify README coverage.
+usage: Run Python scripts locally to audit structure; extend for additional repo checks.
+status: active

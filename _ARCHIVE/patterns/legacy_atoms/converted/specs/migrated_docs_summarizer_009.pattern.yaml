@@ -1,0 +1,51 @@
+doc_id: DOC-PAT-MIGRATED-DOCS-SUMMARIZER-009-PATTERN-069
+# Migrated Pattern: Analyze Documentation Needs
+# Pattern ID: PAT-MIGRATED-CORE-009
+# Original Atom UID: 01K7CYJ57TF0H8824Q3HXF89CN
+# Original Role: docs_summarizer
+# Source: atomic-workflow-system
+# Migrated: 2025-11-24
+
+pattern_id: "PAT-MIGRATED-CORE-009"
+name: "migrated_docs_summarizer_009"
+version: "1.0.0"
+category: "core"
+status: "migrated"
+
+metadata:
+  migrated_from: "atomic-workflow-system"
+  original_atom_uid: "01K7CYJ57TF0H8824Q3HXF89CN"
+  original_atom_key: "cli/unified-atomic-workflow-tool-agnostic-multi-agent-code-modificat/v1/p01-unified-planning-analysis-60-atoms/all/039"
+  original_role: "docs_summarizer"
+  source_doc: "ATOMIZED_PROCESSES\Tool-Agnostic Multi-Agent Code Modification Pipeline.md"
+  migration_date: "2025-11-24"
+  migration_sequence: 9
+
+intent: |
+  Migrated from: Analyze Documentation Needs
+  Original atom role: docs_summarizer
+  
+  This pattern was automatically migrated from the atomic-workflow-system.
+  Review and enhance before production use.
+
+applicability:
+  when_to_use:
+    - "Refer to original atom documentation"
+  when_not_to_use:
+    - "Pattern requires manual review and enhancement"
+
+inputs:
+  # TO BE DEFINED based on original atom requirements
+  placeholder: true
+
+outputs:
+  # TO BE DEFINED based on original atom outputs
+  placeholder: true
+
+execution_steps:
+  - step_id: "S1_placeholder"
+    description: "Review original atom: 01K7CYJ57TF0H8824Q3HXF89CN"
+
+compliance:
+  requirements:
+    - "PAT-CHECK-002"  # Migrated pattern compliance

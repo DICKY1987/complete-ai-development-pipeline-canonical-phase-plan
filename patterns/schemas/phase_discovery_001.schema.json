@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "phase_discovery",
+  "description": "Systematically discover the location of key modules, files, and directories\nin a repository to understand the codebase structure before making changes.\n\nThis pattern enforces:\n- Systematic search with glob/grep patterns\n- Document findings in structured format\n- Validate import paths and module structure\n- Create reusable path mapping\n",
+  "type": "object",
+  "properties": {
+    "repository_root": {
+      "type": "string",
+      "required": true,
+      "description": "Absolute path to repository root",
+      "example": "C:\\Projects\\MyApp"
+    },
+    "search_targets": {
+      "type": "array",
+      "required": true,
+      "description": "List of modules/files to locate",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "search_patterns"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Descriptive name for what we're searching for",
+            "example": "orchestrator"
+          },
+          "search_patterns": {
+            "type": "array",
+            "description": "Glob patterns to find the target",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "*orchestrator*.py",
+              "*executor*.py"
+            ]
+          },
+          "required": {
+            "type": "boolean",
+            "default": true,
+            "description": "Whether this target must be found"
+          },
+          "validation": {
+            "type": "string",
+            "description": "Optional validation command to run",
+            "example": "python -c 'from core.orchestrator import Orchestrator'"
+          }
+        }
+      }
+    },
+    "output_doc_path": {
+      "type": "string",
+      "required": true,
+      "description": "Path for documentation of findings",
+      "example": "PATTERN_AUTOMATION_PATHS.md"
+    },
+    "max_depth": {
+      "type": "integer",
+      "default": 3,
+      "description": "Maximum directory depth to search"
+    }
+  },
+  "required": [
+    "repository_root",
+    "search_targets",
+    "output_doc_path"
+  ],
+  "doc_id": "DOC-PAT-PHASE-DISCOVERY-001-SCHEMA-124"
+}

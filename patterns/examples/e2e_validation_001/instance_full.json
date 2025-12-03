@@ -1,0 +1,10 @@
+{
+  "validation_name": "pattern_automation_activation",
+  "validation_type": "example_validation_type",
+  "test_script_path": "automation/tests/test_activation.ps1",
+  "checks": [],
+  "demo_script_path": "automation/tests/demo_pattern_detection.ps1",
+  "demo_scenario": {},
+  "report_path": "VALIDATION_REPORT_{{timestamp}}.md",
+  "doc_id": "DOC-PAT-INSTANCE-FULL-158"
+}

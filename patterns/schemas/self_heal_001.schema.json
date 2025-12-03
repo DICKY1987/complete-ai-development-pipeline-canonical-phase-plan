@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "self_heal",
+  "description": "Automatically detect and fix common errors without human intervention.\nEliminates permission prompts and decision-making delays.\n\nSupported error types:\n- Import errors (missing imports)\n- Indentation errors\n- Missing directory errors\n- Syntax errors (simple fixes)\n- Test failures (assertion errors)\n",
+  "type": "object",
+  "properties": {
+    "error_source": {
+      "type": "string",
+      "required": true,
+      "enum": [
+        "test_failure",
+        "syntax_error",
+        "import_error",
+        "lint_error"
+      ]
+    },
+    "error_details": {
+      "type": "object",
+      "required": true,
+      "properties": {
+        "error_message": "string",
+        "file_path": "string",
+        "line_number": "integer",
+        "error_type": "string"
+      }
+    },
+    "project_root": {
+      "type": "string",
+      "required": true
+    },
+    "max_attempts": {
+      "type": "integer",
+      "default": 3,
+      "min": 1,
+      "max": 5
+    }
+  },
+  "required": [
+    "error_source",
+    "error_details",
+    "project_root"
+  ],
+  "doc_id": "DOC-PAT-SELF-HEAL-001-SCHEMA-128"
+}

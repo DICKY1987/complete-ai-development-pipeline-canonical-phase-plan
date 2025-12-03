@@ -1,0 +1,56 @@
+{
+  "batch_file_creation": {
+    "source_path": "templates\\patterns\\parallel\\batch_file_creation.pattern.yaml",
+    "doc_id": "DOC-PAT-BATCH-FILE-CREATION-001",
+    "category": "parallel",
+    "pattern_id": "PAT-BATCH-FILE-CREATION-001"
+  },
+  "module_creation_convergence": {
+    "source_path": "templates\\patterns\\template\\module_creation_convergence.pattern.yaml",
+    "doc_id": "DOC-PAT-MODULE-CREATION-CONVERGENCE-001",
+    "category": "template",
+    "pattern_id": "PAT-MODULE-CREATION-CONVERGENCE-001"
+  },
+  "preflight_verify": {
+    "source_path": "templates\\verification_templates\\preflight.verify.yaml",
+    "doc_id": "DOC-PAT-PREFLIGHT-VERIFY-001",
+    "category": "verification",
+    "pattern_id": "PAT-PREFLIGHT-VERIFY-001"
+  },
+  "atomic_create_template": {
+    "source_path": "templates\\execution_patterns\\atomic_create.pattern.yaml",
+    "doc_id": "DOC-PAT-ATOMIC-CREATE-TEMPLATE-001",
+    "category": "execution",
+    "pattern_id": "PAT-ATOMIC-CREATE-TEMPLATE-001"
+  },
+  "decision_elimination_bootstrap": {
+    "source_path": "templates\\patterns\\meta\\decision_elimination_bootstrap.pattern.yaml",
+    "doc_id": "DOC-PAT-DECISION-ELIMINATION-BOOTSTRAP-001",
+    "category": "meta",
+    "pattern_id": "PAT-DECISION-ELIMINATION-BOOTSTRAP-001"
+  },
+  "create_test_commit": {
+    "source_path": "templates\\patterns\\sequential\\create_test_commit.pattern.yaml",
+    "doc_id": "DOC-PAT-CREATE-TEST-COMMIT-001",
+    "category": "sequential",
+    "pattern_id": "PAT-CREATE-TEST-COMMIT-001"
+  },
+  "view_edit_verify": {
+    "source_path": "templates\\patterns\\sequential\\view_edit_verify.pattern.yaml",
+    "doc_id": "DOC-PAT-VIEW-EDIT-VERIFY-003",
+    "category": "sequential",
+    "pattern_id": "PAT-VIEW-EDIT-VERIFY-003"
+  },
+  "pytest_green_verify": {
+    "source_path": "templates\\verification_templates\\pytest_green.verify.yaml",
+    "doc_id": "DOC-PAT-PYTEST-GREEN-VERIFY-002",
+    "category": "verification",
+    "pattern_id": "PAT-PYTEST-GREEN-VERIFY-002"
+  },
+  "grep_view_edit": {
+    "source_path": "templates\\patterns\\sequential\\grep_view_edit.pattern.yaml",
+    "doc_id": "DOC-PAT-GREP-VIEW-EDIT-002",
+    "category": "sequential",
+    "pattern_id": "PAT-GREP-VIEW-EDIT-002"
+  }
+}

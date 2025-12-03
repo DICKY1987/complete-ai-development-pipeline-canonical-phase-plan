@@ -1,0 +1,10 @@
+doc_id: DOC-PAT-README-065
+name: verification
+purpose: Ground-truth templates and examples for validating pattern outputs.
+subdirectories:
+  - name: examples
+    purpose: Sample verification artifacts.
+files:
+  - ground_truth_template.yaml: Baseline structure for verification documents.
+usage: Use the template when crafting new verification assets for patterns.
+status: active
