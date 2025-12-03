@@ -70,18 +70,53 @@ This document maps the repository structure to the Phase-Based AI Dev Pipeline (
 
 ## Cross-Cutting Directories (Not Phase-Specific)
 
-These directories support multiple phases and should NOT be forced into 0-7:
+These directories support multiple phases and should remain at root level:
 
-- `core/` - Core engine (orchestrator, scheduler, executor) - used across phases 2-7
-- `patterns/` - Cross-cutting patterns layer (Layer A)
-- `modules/` - Module system
+### Core Implementation
+- `core/` - Core engine (orchestrator, scheduler, executor) - **The spine that orchestrates all phases**
+  - Used across phases 2-7
+  - Contains the orchestrator that runs the entire pipeline
+
+### Pattern System (Cross-Cutting Layer A)
+- `patterns/` - Cross-cutting patterns layer
+  - Pattern library and templates
+  - Used by all phases (0-7)
+  - 24,524 bytes of execution patterns
+
+### Testing & Quality
 - `tests/` - Testing infrastructure
-- `scripts/` - Utility scripts
-- `docs/` - Documentation
-- `glossary/` - Terminology
-- `assets/` - Static assets
-- `uet/` - Universal Execution Templates
+  - Test organization mirrors core/ structure
+  - 196 passing tests
+  - Tests phases 0, 2, 3, 4, 5, 6, 7
+
+### Operational Tooling
+- `scripts/` - Utility scripts (186 files, 6 directories)
+  - Used across multiple phases for automation
+  - DAG validation (Phase 3)
+  - Schema validation (Phase 0, 2)
+  - Quality gates (Phase 5)
+  - Pattern extraction (Phase 1, 7)
+
+### Documentation & Reference
+- `docs/` - Project documentation (158 files, 19 directories)
+  - Reference material for all phases
+  - Architecture guides, diagrams, examples
+- `glossary/` - Terminology reference
+  - Shared definitions used across all phases
+
+### Framework Infrastructure
 - `UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/` - UET framework
+  - Framework documentation and specs
+  - Tier 1-4 specification system
+  - Component contracts and integration guides
+- `uet/` - UET implementation guides (22 files)
+  - Implementation guides used across all phases
+- `.uet/` - UET workspace (2 files)
+  - Workspace management for UET framework
+
+### Static Assets
+- `assets/` - Static assets
+  - Images, diagrams, resources used in documentation
 
 ## Archive and System Directories
 
@@ -97,10 +132,22 @@ These directories support multiple phases and should NOT be forced into 0-7:
 
 1. **Phase directories are containers** - Each `phaseN_*/` directory contains the folders relevant to that phase
 2. **Core engine orchestrates** - `core/` contains the orchestrator, scheduler, executor that tie all phases together
-3. **Cross-cutting remains separate** - `patterns/`, `tests/`, `scripts/`, `docs/`, `uet/` support all phases
+3. **Cross-cutting remains at root** - `patterns/`, `tests/`, `scripts/`, `docs/`, `uet/`, `.uet/` support all phases
 4. **Import paths unchanged** - Code still imports from `core.*`, `error.*`, etc. (now under phase directories)
 5. **Phase isolation** - Each phase is self-contained with its specific tools and configurations
-6. **Archived modules/** - Legacy m-prefix implementation moved to `_ARCHIVE/modules_legacy_m-prefix_implementation/` (2025-12-03)
+6. **Documentation & scripts stay at root** - `docs/` (158 files), `scripts/` (186 files) are cross-cutting infrastructure
+7. **Archived modules/** - Legacy m-prefix implementation moved to `_ARCHIVE/modules_legacy_m-prefix_implementation/` (2025-12-03)
+
+## Why These Directories Are NOT in Phase Folders
+
+**Cross-cutting by design:**
+- `.uet/`, `uet/` - Framework workspace and implementation guides (all phases)
+- `docs/` - Documentation and reference material (all phases)
+- `scripts/` - Operational automation scripts (multiple phases)
+- `core/` - The orchestrator that RUNS the phases (not part of them)
+- `patterns/` - Pattern library used by all phases
+- `tests/` - Tests for all phase implementations
+- `UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/` - Framework foundation
 
 ## Reference
 
