@@ -13,7 +13,8 @@
       "Bash(wmic os get caption:*)",
       "Bash(tree:*)",
       "Bash(find:*)",
-      "Bash(xargs:*)"
+      "Bash(xargs:*)",
+      "Bash(powershell -Command:*)"
     ],
     "deny": [],
     "ask": []

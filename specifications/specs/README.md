@@ -1,41 +1,45 @@
-# specs
+# core
 
-**Module Path**: `specs`  
-**Layer**: Foundation  
-**Status**: Deprecated - Use schema/ instead
+**Module Path**: `specs/core`  
+**Layer**: Not specified  
+**Status**: Active
 
 ## Purpose
 
-Legacy specification files (migrated to schema/)
+Purpose to be documented
 
 ## Contents
 
-- `core/` - Directory
-- `instances/` - Directory
-- `MULTI_CLI_WORKTREES_EXECUTION_SPEC.md` - File
-- `planning/` - Directory
-- `UTE_Decision Elimination Through Pattern Recognition6.md` - File
-- `UTE_UNIVERSAL PHASE SPECIFICATION.txt` - File
+- `UET_BOOTSTRAP_SPEC.md` - File
+- `UET_CLI_TOOL_EXECUTION_SPEC.md` - File
+- `UET_COOPERATION_SPEC.md` - File
+- `UET_EXECUTION_KERNEL_PARALLELISM_STRATEGY_SPEC_V2.md` - File
+- `UET_PATCH_MANAGEMENT_SPEC.md` - File
+- `UET_PHASE_SPEC_MASTER.md` - File
+- `UET_PROMPT_RENDERING_SPEC.md` - File
+- `UET_TASK_ROUTING_SPEC.md` - File
+- `UET_WORKSTREAM_SPEC.md` - File
+- `UTE_ID_SYSTEM_SPEC.md` - File
 
 ## Key Components
 
-Old spec files
+To be documented
 
 ## Dependencies
 
-None
+None specified
 
 ## Usage
 
-Do not use - migrate to schema/
+Usage examples to be added
 
 ## Integration Points
 
-None - deprecated
+To be documented
 
 ## Related Documentation
 
-ARCHIVE_LOCATION.md
+None specified
 
 ---
 

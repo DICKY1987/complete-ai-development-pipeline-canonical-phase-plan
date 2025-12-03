@@ -14,6 +14,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 **Language**: Python 3.8+
 **Tests**: 196 tests, 100% passing
 **Architecture**: 4-layer spec-driven pipeline (Schema → State → Domain → Orchestration)
+**Environment**: Windows (PowerShell), cross-platform Python code
 
 ## Essential Commands
 
@@ -25,14 +26,20 @@ python -m pytest tests/ -v
 # Run specific test file
 python -m pytest tests/engine/test_orchestrator.py -q
 
-# Run tests by marker
+# Run tests by marker (defined in pytest.ini)
 python -m pytest -m unit -q
 python -m pytest -m integration -q
 python -m pytest -m "not slow" -q
+python -m pytest -m bootstrap -q
+python -m pytest -m engine -q
+python -m pytest -m adapter -q
+python -m pytest -m resilience -q
 
 # Run with coverage (optional)
 pytest --cov=core --cov=error --cov=aim --cov=pm tests/
 ```
+
+**Note**: Test configuration exists in both `pytest.ini` (primary) and `pyproject.toml`. If there are conflicts, pytest.ini takes precedence.
 
 ### Validation
 ```bash
@@ -70,7 +77,7 @@ python core/bootstrap/orchestrator.py <project_path>
 - Database singleton with connection pooling
 - Path resolution: ENV var > function arg > default
 
-**Layer 3 - Domain (core/, error/, aim/, pm/)**
+**Layer 3 - Domain (core/, error/, aim/, pm/, tools/)**
 - `core/bootstrap/` - Auto-discovery and project configuration
 - `core/engine/` - Task orchestration, routing, and scheduling
 - `core/engine/resilience/` - Circuit breakers, retry logic, exponential backoff
@@ -79,6 +86,7 @@ python core/bootstrap/orchestrator.py <project_path>
 - `error/` - Plugin-based error detection and fixing
 - `aim/` - AI tool capability matching bridge
 - `pm/` - Project metadata management
+- `tools/` - Specification tools (guard, indexer, patcher, renderer, resolver)
 
 **Layer 4 - Orchestration (profiles/, specs/, templates/)**
 - 5 project profiles: software-dev-python, data-pipeline, documentation, operations, generic
@@ -119,6 +127,7 @@ CLOSED → OPEN → HALF_OPEN
 | `core/engine/monitoring/` | Progress tracking | `progress_tracker.ProgressTracker` |
 | `schema/` | JSON schemas | N/A (data files) |
 | `profiles/` | Project templates | N/A (config files) |
+| `tools/` | Spec tooling modules | Various (guard, indexer, patcher, etc.) |
 
 ## Import Standards
 
@@ -132,6 +141,11 @@ from core.engine.monitoring import ProgressTracker
 from core.adapters import AdapterRegistry
 from error.engine.error_engine import ErrorEngine
 from aim.bridge import get_tool_info
+from tools.guard import guard_function
+from tools.indexer import create_index
+from tools.patcher import apply_patch
+from tools.renderer import render_template
+from tools.resolver import resolve_dependency
 ```
 
 ### ❌ Forbidden (CI Will Block)
@@ -173,15 +187,18 @@ from legacy.*                 # Never import
 - `README.md` - Master documentation index
 
 **When Working:**
-- `ai_policies.yaml` - Edit zones, forbidden patterns, invariants
-- `QUALITY_GATE.yaml` - All validation checkpoints and commands
-- `specs/planning/STATUS.md` - Current framework status
+- `ai_policies.yaml` - Edit zones, forbidden patterns, invariants (if exists)
+- `QUALITY_GATE.yaml` - All validation checkpoints and commands (if exists)
+- `specifications/specs/STATUS.md` - Current framework status
+- `DOC_ID_SYSTEM_STATUS.md` - Status of the doc_id cross-referencing system
 
 **Specifications:**
-- `specs/core/UET_BOOTSTRAP_SPEC.md` - Autonomous framework installation
-- `specs/core/UET_COOPERATION_SPEC.md` - Multi-tool cooperation
-- `specs/core/UET_PHASE_SPEC_MASTER.md` - Phase template definitions
-- `specs/core/UET_TASK_ROUTING_SPEC.md` - Task routing logic
+- `specifications/specs/UET_BOOTSTRAP_SPEC.md` - Autonomous framework installation
+- `specifications/specs/UET_COOPERATION_SPEC.md` - Multi-tool cooperation
+- `specifications/specs/UET_PHASE_SPEC_MASTER.md` - Phase template definitions
+- `specifications/specs/UET_TASK_ROUTING_SPEC.md` - Task routing logic
+
+**Note**: Specifications were recently reorganized. Always use paths under `specifications/specs/` (not the old `specs/` directory structure).
 
 ## Edit Zones
 
@@ -190,7 +207,7 @@ from legacy.*                 # Never import
 - `error/**/*.py` - Error detection plugins
 - `aim/**/*.py` - AI tool bridge
 - `pm/**/*.py` - Project management
-- `specifications/tools/**/*.py` - Spec tooling
+- `tools/**/*.py` - Spec tooling modules (guard, indexer, patcher, etc.)
 - `tests/**/*.py` - All test files
 - `scripts/**/*.{py,ps1}` - Automation scripts
 
@@ -201,9 +218,11 @@ from legacy.*                 # Never import
 
 ### Read-Only (Never Edit)
 - `legacy/**` - Archived deprecated code
-- `src/pipeline/**` - Deprecated (use `core.*`)
-- `MOD_ERROR_PIPELINE/**` - Deprecated (use `error.*`)
-- `docs/adr/**` - Architecture Decision Records (append only)
+- `_ARCHIVE/**` - Archived historical content
+- `src/pipeline/**` - Deprecated (use `core.*`) [may not exist]
+- `MOD_ERROR_PIPELINE/**` - Deprecated (use `error.*`) [may not exist]
+- `docs/adr/**` - Architecture Decision Records (append only) [if exists]
+- `UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/**` - Primary spec documentation (read-only reference)
 
 ## Common Patterns
 
@@ -290,9 +309,25 @@ A task is complete when ALL of these are true:
 4. ✅ Validation scripts pass: Exit code 0
 5. ✅ Git status clean or expected: No surprise modifications
 
+## Document ID System
+
+This codebase uses a `doc_id` system for cross-referencing documents. Each major document has a unique ID in YAML frontmatter:
+
+```yaml
+---
+doc_id: DOC-GUIDE-CLAUDE-1095
+---
+```
+
+- Check `DOC_ID_SYSTEM_STATUS.md` for the current status
+- Use `write_doc_ids_to_files.py` to add doc_ids to new documents
+- Always preserve existing doc_ids when editing files
+
 ## Additional Resources
 
 - `QUICK_EXECUTION_PLAYBOOK.md` - Speed patterns and techniques
 - `UET_DOC_CLEANUP_PHASE_PLAN.md` - Example 5-wave execution
-- `specs/planning/PHASE_4_AI_ENHANCEMENT_PLAN.md` - Future roadmap
+- `specifications/specs/PHASE_4_AI_ENHANCEMENT_PLAN.md` - Future roadmap
 - `profiles/README.md` - Profile system documentation
+- `E2E_PROCESS_VISUAL_DIAGRAM.md` - End-to-end process visualization
+- `SYSTEM_VISUAL_DIAGRAMS.md` - System architecture diagrams
