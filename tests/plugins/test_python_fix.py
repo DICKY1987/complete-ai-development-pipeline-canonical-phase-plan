@@ -13,11 +13,11 @@ import pytest
 
 # Try to import plugins - may fail if error shared modules not migrated
 try:
-    from phase6_error_recovery.modules.plugins.python_isort_fix.src.python_isort_fix.plugin import (
-        IsortFixPlugin,
-    )
     from phase6_error_recovery.modules.plugins.python_black_fix.src.python_black_fix.plugin import (
         BlackFixPlugin,
+    )
+    from phase6_error_recovery.modules.plugins.python_isort_fix.src.python_isort_fix.plugin import (
+        IsortFixPlugin,
     )
 
     PLUGINS_AVAILABLE = True
@@ -32,7 +32,6 @@ from tests.plugins.conftest import (
     skip_if_tool_missing,
     tool_available,
 )
-
 
 # Sample Python code with unsorted imports
 UNSORTED_IMPORTS = """

@@ -3,15 +3,15 @@ Integration tests for WorkerPool (Phase 4B)
 Tests worker pool operations, job execution, and concurrency.
 """
 
+import asyncio
+from unittest.mock import AsyncMock, Mock, patch
+
 # DOC_ID: DOC-TEST-TESTS-TEST-WORKER-POOL-110
 # DOC_ID: DOC-TEST-TESTS-TEST-WORKER-POOL-071
 import pytest
-import asyncio
-from unittest.mock import Mock, AsyncMock, patch
-
-from engine.queue.worker_pool import WorkerPool
 from engine.queue.job_queue import JobQueue
-from engine.queue.job_wrapper import JobWrapper, JobStatus, JobPriority
+from engine.queue.job_wrapper import JobPriority, JobStatus, JobWrapper
+from engine.queue.worker_pool import WorkerPool
 from engine.types import JobResult
 
 

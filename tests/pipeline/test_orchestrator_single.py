@@ -4,8 +4,8 @@ import os
 from types import SimpleNamespace
 
 import pytest
-
 from modules.core_state import m010003_db
+
 from core import orchestrator
 
 
@@ -202,7 +202,8 @@ def test_scope_violation(monkeypatch, bundle_ws):
 
 def test_cli_dry_run(tmp_path):
     # Use built-in example bundle via ws id; request dry-run to avoid externals
-    import subprocess, sys
+    import subprocess
+    import sys
 
     cmd = [
         sys.executable,

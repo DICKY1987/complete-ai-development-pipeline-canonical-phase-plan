@@ -10,9 +10,10 @@ Usage:
 
 import argparse
 import subprocess
-import yaml
 from pathlib import Path
 from typing import Dict, List, Set
+
+import yaml
 
 
 def run_git_command(args: List[str]) -> str:

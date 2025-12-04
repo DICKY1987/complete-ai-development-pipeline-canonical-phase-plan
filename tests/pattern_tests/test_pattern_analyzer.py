@@ -11,20 +11,20 @@ _repo_root = _test_file.parents[2]
 if str(_repo_root) not in sys.path:
     sys.path.insert(0, str(_repo_root))
 
-import pytest
 import tempfile
 
+import pytest
 from error.patterns import (
     PatternAnalyzer,
     PatternCategory,
-    PatternSeverity,
     PatternFinding,
     PatternResult,
+    PatternSeverity,
 )
 from error.patterns.pattern_analyzer import (
+    DEFAULT_CHECKLIST,
     analyze_module,
     generate_gap_report,
-    DEFAULT_CHECKLIST,
 )
 
 

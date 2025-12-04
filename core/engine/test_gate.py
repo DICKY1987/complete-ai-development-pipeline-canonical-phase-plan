@@ -15,10 +15,10 @@ WS: WS-NEXT-002-003
 
 # DOC_ID: DOC-CORE-ENGINE-TEST-GATE-160
 
-from datetime import datetime, UTC
-from typing import Dict, Optional, List
-from dataclasses import dataclass, field
 import json
+from dataclasses import dataclass, field
+from datetime import UTC, datetime
+from typing import Dict, List, Optional
 
 
 @dataclass

@@ -1,9 +1,10 @@
 # DOC_LINK: DOC-SCRIPT-MIGRATION-CREATE-MIGRATION-PLAN-337
-import yaml
 import json
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, List
-from datetime import datetime, timezone
+
+import yaml
 
 
 class MigrationPlanner:

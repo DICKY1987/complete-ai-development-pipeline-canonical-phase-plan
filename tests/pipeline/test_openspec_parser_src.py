@@ -1,8 +1,8 @@
 # DOC_LINK: DOC-TEST-PIPELINE-TEST-OPENSPEC-PARSER-SRC-137
 from __future__ import annotations
 
-from pathlib import Path
 import sys
+from pathlib import Path
 
 import pytest
 
@@ -10,11 +10,13 @@ from core.openspec_parser import (
     OpenSpecBundle,
     SpecItem,
     WhenThen,
-    load_bundle_from_yaml,
-    load_bundle_from_change,
     discover_specs,
+    load_bundle_from_change,
+    load_bundle_from_yaml,
+)
+from core.openspec_parser import main as openspec_main
+from core.openspec_parser import (
     write_bundle,
-    main as openspec_main,
 )
 
 

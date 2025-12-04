@@ -16,10 +16,10 @@ Usage:
 # DOC_ID: DOC-SCRIPT-SCRIPTS-TEMPLATE-RENDERER-234
 # DOC_ID: DOC-SCRIPT-SCRIPTS-TEMPLATE-RENDERER-171
 
-from pathlib import Path
-from typing import Dict, Any, List
 import re
 from datetime import datetime
+from pathlib import Path
+from typing import Any, Dict, List
 
 
 def render_template(template_path: str, context: Dict[str, Any]) -> str:

@@ -15,9 +15,10 @@ Usage:
 # DOC_ID: DOC-SCRIPT-SCRIPTS-CREATE-INIT-FILES-V2-200
 # DOC_ID: DOC-SCRIPT-SCRIPTS-CREATE-INIT-FILES-V2-137
 
-from pathlib import Path
-import yaml
 import argparse
+from pathlib import Path
+
+import yaml
 
 
 def create_init_file_v2(

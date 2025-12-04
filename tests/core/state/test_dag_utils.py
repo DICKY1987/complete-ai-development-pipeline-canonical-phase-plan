@@ -7,16 +7,16 @@ Validates DAG-IMPL-001, DAG-IMPL-002, DAG-IMPL-003 requirements.
 
 import pytest
 from modules.core_state import m010003_dag_utils as dag_utils
+from modules.core_state.m010003_bundles import WorkstreamBundle
 from modules.core_state.m010003_dag_utils import (
+    DagAnalysis,
+    analyze_bundles,
     build_dependency_graph,
     build_reverse_graph,
-    detect_cycles,
-    compute_topological_levels,
     compute_critical_path,
-    analyze_bundles,
-    DagAnalysis,
+    compute_topological_levels,
+    detect_cycles,
 )
-from modules.core_state.m010003_bundles import WorkstreamBundle
 
 
 def make_bundle(ws_id: str, depends_on: list[str] | None = None) -> WorkstreamBundle:

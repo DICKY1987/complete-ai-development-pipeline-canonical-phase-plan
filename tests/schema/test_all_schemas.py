@@ -1,7 +1,9 @@
 """Test suite for all core framework schemas."""
 
-import json, pytest
+import json
 from pathlib import Path
+
+import pytest
 
 pytest.importorskip("jsonschema")
 from jsonschema import Draft7Validator

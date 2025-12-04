@@ -3,11 +3,12 @@ Unit tests for JobWrapper (Phase 4B)
 Tests job metadata, priorities, dependencies, and state transitions.
 """
 
+from datetime import datetime, timedelta
+
 # DOC_ID: DOC-TEST-TESTS-TEST-JOB-WRAPPER-089
 # DOC_ID: DOC-TEST-TESTS-TEST-JOB-WRAPPER-050
 import pytest
-from datetime import datetime, timedelta
-from engine.queue.job_wrapper import JobWrapper, JobPriority, JobStatus
+from engine.queue.job_wrapper import JobPriority, JobStatus, JobWrapper
 
 
 def test_job_priority_ordering():

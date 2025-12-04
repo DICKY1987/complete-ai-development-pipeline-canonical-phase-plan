@@ -1,10 +1,11 @@
 """Integration tests for CCPM + OpenSpec + Pipeline workflow"""
 
-import pytest
-from pathlib import Path
 import json
-import tempfile
 import shutil
+import tempfile
+from pathlib import Path
+
+import pytest
 
 
 class TestCCPMComponents:

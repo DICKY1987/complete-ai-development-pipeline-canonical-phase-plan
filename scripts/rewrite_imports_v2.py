@@ -15,14 +15,15 @@ Usage:
 # DOC_ID: DOC-SCRIPT-SCRIPTS-REWRITE-IMPORTS-V2-228
 # DOC_ID: DOC-SCRIPT-SCRIPTS-REWRITE-IMPORTS-V2-165
 
+import argparse
+import fnmatch
 import re
+import shutil
 import sys
 from pathlib import Path
 from typing import Dict, List
+
 import yaml
-import argparse
-import fnmatch
-import shutil
 
 
 def load_inventory() -> dict:

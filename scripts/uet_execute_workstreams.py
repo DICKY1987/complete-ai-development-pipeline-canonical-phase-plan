@@ -6,10 +6,11 @@ Main script to execute workstreams using UET framework
 # DOC_ID: DOC-SCRIPT-SCRIPTS-UET-EXECUTE-WORKSTREAMS-238
 # DOC_ID: DOC-SCRIPT-SCRIPTS-UET-EXECUTE-WORKSTREAMS-175
 
-import sys
 import logging
-from pathlib import Path
+import sys
 from datetime import datetime
+from pathlib import Path
+
 import yaml
 
 # Add project root to path
@@ -18,9 +19,10 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 # Import UET components
 from modules.core_engine import Orchestrator
 from modules.core_engine.m010001_uet_scheduler import ExecutionScheduler, Task
-from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine.dag_builder import DAGBuilder
-from scripts.uet_workstream_loader import WorkstreamLoader
+
 from scripts.uet_tool_adapter import ToolAdapter
+from scripts.uet_workstream_loader import WorkstreamLoader
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine.dag_builder import DAGBuilder
 
 
 def load_config(config_path: str = ".uet/config.yaml") -> dict:

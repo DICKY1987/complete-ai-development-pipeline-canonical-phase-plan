@@ -1,11 +1,11 @@
 """Tests for parallelism detection module."""
 
 import pytest
-from modules.core_state.m010003_bundles import WorkstreamBundle
 from modules.core_planning.m010002_parallelism_detector import (
-    detect_parallel_opportunities,
     detect_conflict_groups,
+    detect_parallel_opportunities,
 )
+from modules.core_state.m010003_bundles import WorkstreamBundle
 
 
 def test_simple_parallel_detection():

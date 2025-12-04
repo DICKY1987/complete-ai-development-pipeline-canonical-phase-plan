@@ -1,8 +1,9 @@
 """Tests for pattern registry validation."""
 
+from pathlib import Path
+
 import pytest
 import yaml
-from pathlib import Path
 
 
 def test_pattern_index_exists():

@@ -6,9 +6,9 @@ Implements dual-write pattern for migration safety
 # DOC_ID: DOC-CORE-STATE-DB-UNIFIED-172
 
 import sqlite3
+from datetime import UTC, datetime
 from pathlib import Path
-from typing import Dict, Any, Optional
-from datetime import datetime, UTC
+from typing import Any, Dict, Optional
 
 
 class UnifiedDBBridge:

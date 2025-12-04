@@ -13,10 +13,11 @@ Example:
 # DOC_ID: DOC-SCRIPT-SCRIPTS-CREATE-MODULE-FROM-INVENTORY-202
 # DOC_ID: DOC-SCRIPT-SCRIPTS-CREATE-MODULE-FROM-INVENTORY-139
 
-import sys
-import yaml
-from pathlib import Path
 import shutil
+import sys
+from pathlib import Path
+
+import yaml
 from template_renderer import render_module_manifest
 
 

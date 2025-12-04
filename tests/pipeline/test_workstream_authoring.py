@@ -1,11 +1,12 @@
 # DOC_LINK: DOC-TEST-PIPELINE-TEST-WORKSTREAM-AUTHORING-139
 import json
-import pytest
+import os
+import shutil
 import subprocess
 import sys
 from pathlib import Path
-import shutil
-import os
+
+import pytest
 
 # Adjust sys.path to allow importing bundles
 project_root = Path(__file__).resolve().parents[2]

@@ -14,11 +14,11 @@ Usage:
 # DOC_ID: DOC-SCRIPT-SCRIPTS-FIX-ULID-IMPORTS-209
 # DOC_ID: DOC-SCRIPT-SCRIPTS-FIX-ULID-IMPORTS-146
 
+import argparse
 import re
+import shutil
 import sys
 from pathlib import Path
-import argparse
-import shutil
 
 
 def fix_ulid_imports_in_file(filepath: Path, dry_run: bool = True) -> int:

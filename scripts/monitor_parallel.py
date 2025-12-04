@@ -11,14 +11,14 @@ from __future__ import annotations
 import argparse
 import sys
 import time
-from pathlib import Path
 from datetime import datetime
+from pathlib import Path
 
 # Add project root to sys.path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from modules.core_state import m010003_db
 from modules.core_engine.m010001_event_bus import EventType
+from modules.core_state import m010003_db
 
 
 def format_event(event: dict) -> str:

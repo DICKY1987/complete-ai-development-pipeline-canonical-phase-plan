@@ -8,11 +8,11 @@ Handles the complete refactor from src/pipeline/* to core/*, error/*, etc.
 # DOC_ID: DOC-SCRIPT-SCRIPTS-AUTO-MIGRATE-IMPORTS-191
 # DOC_ID: DOC-SCRIPT-SCRIPTS-AUTO-MIGRATE-IMPORTS-128
 
+import argparse
 import re
 import sys
 from pathlib import Path
 from typing import Dict, List, Tuple
-import argparse
 
 # Define import mapping rules
 IMPORT_MAPPINGS = {

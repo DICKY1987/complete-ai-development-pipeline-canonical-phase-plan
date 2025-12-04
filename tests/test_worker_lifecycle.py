@@ -1,8 +1,9 @@
 """Tests for worker lifecycle management."""
 
-import pytest
 from datetime import datetime, timedelta, timezone
-from modules.core_engine.m010001_worker import Worker, WorkerState, WorkerPool
+
+import pytest
+from modules.core_engine.m010001_worker import Worker, WorkerPool, WorkerState
 
 
 def test_worker_creation():

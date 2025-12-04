@@ -4,8 +4,10 @@ Integration Tests for UET Migration
 
 # DOC_ID: DOC-TEST-INTEGRATION-TEST-UET-MIGRATION-120
 
-import pytest
 from pathlib import Path
+
+import pytest
+
 from core.engine.dag_builder import DAGBuilder
 from core.engine.parallel_orchestrator import ParallelOrchestrator
 

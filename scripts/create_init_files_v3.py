@@ -11,9 +11,10 @@ Usage:
 # DOC_ID: DOC-SCRIPT-SCRIPTS-CREATE-INIT-FILES-V3-201
 # DOC_ID: DOC-SCRIPT-SCRIPTS-CREATE-INIT-FILES-V3-138
 
-from pathlib import Path
 import argparse
 import textwrap
+from pathlib import Path
+
 import yaml
 
 

@@ -6,9 +6,10 @@ import pytest
 
 # Try to import error engine modules
 try:
+    from phase6_error_recovery.modules.error_engine.src.engine.error_context import (
+        ErrorPipelineContext,
+    )
     from phase6_error_recovery.modules.error_engine.src.engine.error_state_machine import (
-        advance_state,
-        S_INIT,
         S0_BASELINE_CHECK,
         S0_MECHANICAL_AUTOFIX,
         S0_MECHANICAL_RECHECK,
@@ -19,10 +20,9 @@ try:
         S3_CLAUDE_FIX,
         S3_CLAUDE_RECHECK,
         S4_QUARANTINE,
+        S_INIT,
         S_SUCCESS,
-    )
-    from phase6_error_recovery.modules.error_engine.src.engine.error_context import (
-        ErrorPipelineContext,
+        advance_state,
     )
 
     ERROR_ENGINE_AVAILABLE = True

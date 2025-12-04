@@ -27,13 +27,13 @@ Reference: docs/FOLDER_VERSION_SCORING_SPEC.md
 
 import hashlib
 import json
-import subprocess
 import re
-from pathlib import Path
-from datetime import datetime, timezone
+import subprocess
 from collections import defaultdict
-from dataclasses import dataclass, asdict, field
-from typing import Dict, List, Set, Tuple, Optional
+from dataclasses import asdict, dataclass, field
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Dict, List, Optional, Set, Tuple
 
 
 @dataclass

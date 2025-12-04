@@ -1,9 +1,10 @@
 """Tests for panel registry."""
 
 import pytest
-from gui.tui_app.core.panel_registry import PanelRegistry, register_panel
-from gui.tui_app.core.panel_plugin import PanelPlugin, PanelContext
 from textual.widgets import Static
+
+from gui.tui_app.core.panel_plugin import PanelContext, PanelPlugin
+from gui.tui_app.core.panel_registry import PanelRegistry, register_panel
 
 
 class MockPanel:

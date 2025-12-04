@@ -16,12 +16,13 @@ Examples:
 # DOC_ID: DOC-SCRIPT-SCRIPTS-BATCH-MIGRATE-MODULES-193
 # DOC_ID: DOC-SCRIPT-SCRIPTS-BATCH-MIGRATE-MODULES-130
 
-import sys
-import yaml
 import argparse
-from pathlib import Path
 import subprocess
+import sys
+from pathlib import Path
 from typing import List
+
+import yaml
 
 
 def load_inventory() -> dict:

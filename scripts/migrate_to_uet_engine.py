@@ -17,11 +17,11 @@ Actions:
 
 import re
 import shutil
-from pathlib import Path
-from datetime import datetime
-from typing import List, Tuple, Dict
 import subprocess
 import sys
+from datetime import datetime
+from pathlib import Path
+from typing import Dict, List, Tuple
 
 PROJECT_ROOT = Path(__file__).parent.parent
 UET_ENGINE = (

@@ -13,12 +13,12 @@ PHASE: Discovery phase automation (EXEC-001 through EXEC-008)
 """
 
 import argparse
-import sys
-from pathlib import Path
-from typing import List, Dict, Set, Tuple
-from collections import defaultdict, Counter
 import difflib
 import json
+import sys
+from collections import Counter, defaultdict
+from pathlib import Path
+from typing import Dict, List, Set, Tuple
 
 
 class PatternDiscoverer:

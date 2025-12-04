@@ -1,8 +1,9 @@
 """Tests for event bus."""
 
-import pytest
 from datetime import datetime, timezone
-from modules.core_engine.m010001_event_bus import Event, EventType, EventBus
+
+import pytest
+from modules.core_engine.m010001_event_bus import Event, EventBus, EventType
 
 
 def test_event_creation():

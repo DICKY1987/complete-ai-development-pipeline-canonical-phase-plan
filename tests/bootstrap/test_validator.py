@@ -1,8 +1,9 @@
 """Tests for Bootstrap Validation Engine - WS-02-03A"""
 
 import json
-import yaml
+
 import pytest
+import yaml
 
 pytest.importorskip("jsonschema")
 import sys

@@ -11,16 +11,17 @@ WS: WS-NEXT-002-003 (Testing)
 
 # DOC_ID: DOC-TEST-ENGINE-TEST-TEST-GATE-178
 
-import pytest
-import sys
-import sqlite3
-from datetime import datetime, UTC
-from pathlib import Path
 import json
+import sqlite3
+import sys
+from datetime import UTC, datetime
+from pathlib import Path
+
+import pytest
 
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from core.engine.test_gate import TestGate, GateCriteria, TestResults
+from core.engine.test_gate import GateCriteria, TestGate, TestResults
 
 
 class MockDB:

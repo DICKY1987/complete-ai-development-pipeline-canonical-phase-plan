@@ -7,8 +7,8 @@ Wraps existing engine adapters for UET orchestrator
 # DOC_ID: DOC-SCRIPT-SCRIPTS-UET-TOOL-ADAPTER-176
 
 import logging
-from typing import Dict, Any
 from pathlib import Path
+from typing import Any, Dict
 
 logger = logging.getLogger(__name__)
 

@@ -1,11 +1,13 @@
 """Tests for state client."""
 
-import pytest
 from datetime import datetime
+
+import pytest
+
 from gui.tui_app.core.state_client import (
-    StateClient,
     InMemoryStateBackend,
     PipelineSummary,
+    StateClient,
     TaskInfo,
 )
 

@@ -6,8 +6,8 @@ Tests escalation rules, job creation, and escalation chains.
 # DOC_ID: DOC-TEST-TESTS-TEST-ESCALATION-080
 # DOC_ID: DOC-TEST-TESTS-TEST-ESCALATION-041
 import pytest
-from engine.queue.escalation import EscalationManager, ESCALATION_RULES
-from engine.queue.job_wrapper import JobWrapper, JobPriority
+from engine.queue.escalation import ESCALATION_RULES, EscalationManager
+from engine.queue.job_wrapper import JobPriority, JobWrapper
 
 
 def test_default_escalation_rules():

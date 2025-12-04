@@ -34,7 +34,6 @@ from tests.plugins.conftest import (
     tool_available,
 )
 
-
 # Sample Bandit JSON output
 BANDIT_SAMPLE_OUTPUT = json.dumps(
     {

@@ -1,7 +1,7 @@
 """Tests for cost tracking."""
 
 import pytest
-from modules.core_engine.m010001_cost_tracker import CostTracker, PRICING_TABLE
+from modules.core_engine.m010001_cost_tracker import PRICING_TABLE, CostTracker
 
 
 def test_pricing_table():

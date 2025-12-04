@@ -44,7 +44,6 @@ from tests.plugins.conftest import (
     tool_available,
 )
 
-
 # Sample Ruff JSON output
 RUFF_SAMPLE_OUTPUT = json.dumps(
     [

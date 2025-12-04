@@ -1,9 +1,10 @@
 """Tests for EventBus and Logger protocols."""
 
 import pytest
+
 from core.event_bus import EventBus
-from core.logger import Logger
 from core.events.simple_event_bus import SimpleEventBus
+from core.logger import Logger
 from core.logging.structured_logger import StructuredLogger
 
 

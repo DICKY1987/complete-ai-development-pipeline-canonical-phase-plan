@@ -6,8 +6,8 @@ Per PAT-DOCID-TRIAGE-001
 # DOC_ID: DOC-SCRIPT-SCRIPTS-BATCH-RENAME-DOCS-194
 # DOC_ID: DOC-SCRIPT-SCRIPTS-BATCH-RENAME-DOCS-131
 
-from pathlib import Path
 import re
+from pathlib import Path
 
 REPO_ROOT = Path(__file__).parent.parent
 

@@ -1,16 +1,17 @@
 """Tests for StateStore protocol and SQLiteStateStore implementation."""
 
-import pytest
-from pathlib import Path
-from datetime import datetime
 import tempfile
+from datetime import datetime
+from pathlib import Path
 
+import pytest
+
+from core.state.sqlite_store import SQLiteStateStore
 from core.state_store import (
+    ExecutionNotFoundError,
     StateStore,
     WorkstreamNotFoundError,
-    ExecutionNotFoundError,
 )
-from core.state.sqlite_store import SQLiteStateStore
 
 
 class TestStateStoreProtocol:

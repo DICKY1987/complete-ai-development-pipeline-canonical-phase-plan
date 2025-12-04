@@ -15,20 +15,20 @@ _repo_root_str = str(_repo_root).replace("\\", "/")
 if _repo_root_str not in sys.path:
     sys.path.insert(0, str(_repo_root))
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 import pytest
 
 # Import error engine modules with fallback for incomplete migration
 try:
-    from phase6_error_recovery.modules.error_engine.src.engine.plugin_manager import (
-        PluginManager,
+    from phase6_error_recovery.modules.error_engine.src.engine.error_context import (
+        ErrorPipelineContext,
     )
     from phase6_error_recovery.modules.error_engine.src.engine.file_hash_cache import (
         FileHashCache,
     )
-    from phase6_error_recovery.modules.error_engine.src.engine.error_context import (
-        ErrorPipelineContext,
+    from phase6_error_recovery.modules.error_engine.src.engine.plugin_manager import (
+        PluginManager,
     )
 
     ERROR_ENGINE_AVAILABLE = True

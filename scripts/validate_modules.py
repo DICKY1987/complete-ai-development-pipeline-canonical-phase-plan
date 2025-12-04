@@ -15,7 +15,7 @@ from pathlib import Path
 from typing import List, Tuple
 
 try:
-    from jsonschema import validate, ValidationError
+    from jsonschema import ValidationError, validate
 except ImportError:
     print("❌ jsonschema not installed. Run: pip install jsonschema")
     sys.exit(1)

@@ -5,10 +5,10 @@ Structured logging infrastructure with JSONL format
 
 # DOC_ID: DOC-CORE-STATE-AUDIT-LOGGER-167
 import json
-from dataclasses import dataclass, field, asdict
+from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Optional, List, Dict, Any, Iterator
+from typing import Any, Dict, Iterator, List, Optional
 
 
 @dataclass

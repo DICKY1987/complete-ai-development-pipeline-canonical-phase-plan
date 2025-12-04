@@ -2,11 +2,12 @@
 # DOC_LINK: DOC-TEST-TESTS-TEST-ORCHESTRATOR-LIFECYCLE-SYNC-053
 from __future__ import annotations
 
-import os
 import importlib
+import os
+
+from modules.core_state import m010003_bundles
 
 from core import orchestrator
-from modules.core_state import m010003_bundles
 
 
 def test_lifecycle_comments_are_emitted(monkeypatch):

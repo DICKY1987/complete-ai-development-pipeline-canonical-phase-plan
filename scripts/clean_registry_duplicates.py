@@ -6,8 +6,9 @@ Keeps only the first occurrence of each config file (lowest sequence number)
 # DOC_ID: DOC-SCRIPT-SCRIPTS-CLEAN-REGISTRY-DUPLICATES-198
 # DOC_ID: DOC-SCRIPT-SCRIPTS-CLEAN-REGISTRY-DUPLICATES-135
 
-import yaml
 from pathlib import Path
+
+import yaml
 
 REGISTRY_PATH = Path(__file__).parent.parent / "DOC_ID_REGISTRY.yaml"
 

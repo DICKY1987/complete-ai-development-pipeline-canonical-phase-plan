@@ -6,11 +6,11 @@ Covers initialization, I/O operations, error handling, and cleanup.
 
 # DOC_ID: DOC-TEST-AIM-PROCESS-POOL-001
 
-import pytest
-from unittest.mock import Mock, patch, MagicMock, call
 import queue
 import time
+from unittest.mock import MagicMock, Mock, call, patch
 
+import pytest
 from aim.bridge import ToolProcessPool
 from aim.pool_interface import ProcessInstance
 

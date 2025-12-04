@@ -12,11 +12,11 @@ Skip if aider is not available.
 
 # DOC_ID: DOC-TEST-AIM-INTEGRATION-AIDER-001
 
-import pytest
 import shutil
 import time
 from pathlib import Path
 
+import pytest
 from aim.bridge import ToolProcessPool, load_aim_registry
 
 # Skip all tests in this module - AIM not yet implemented (Phase 4)

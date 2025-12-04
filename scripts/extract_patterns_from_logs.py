@@ -13,9 +13,9 @@ from typing import List
 # Add parent directory to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from pattern_extraction.parsers.copilot_parser import CopilotParser
 from pattern_extraction.detectors.parallel_detector import ParallelDetector
 from pattern_extraction.generators.yaml_template_generator import YAMLTemplateGenerator
+from pattern_extraction.parsers.copilot_parser import CopilotParser
 
 
 def main():

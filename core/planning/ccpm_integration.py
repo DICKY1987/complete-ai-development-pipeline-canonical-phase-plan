@@ -8,12 +8,12 @@ It converts CCPM epics/tasks into workstream bundles and validates parallel exec
 # DOC_ID: DOC-CORE-PLANNING-CCPM-INTEGRATION-165
 
 from pathlib import Path
-from typing import List, Dict, Any, Optional
+from typing import Any, Dict, List, Optional
 
 # Import PM models (will use bridge when needed)
 try:
-    from pm.models import Task, Epic, ConflictError
     from pm.bridge import BridgeAPI
+    from pm.models import ConflictError, Epic, Task
 
     HAS_PM = True
 except ImportError:
@@ -50,8 +50,9 @@ def task_to_workstream(
 
     # Create a temporary epic for conversion
     # (In practice, task would already be part of an epic)
-    from pm.models import Epic as EpicModel
     from datetime import datetime
+
+    from pm.models import Epic as EpicModel
 
     temp_epic = EpicModel(
         name=task.epic_name,

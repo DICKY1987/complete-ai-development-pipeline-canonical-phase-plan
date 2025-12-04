@@ -11,14 +11,14 @@ _repo_root = _test_file.parents[2]
 if str(_repo_root) not in sys.path:
     sys.path.insert(0, str(_repo_root))
 
-import pytest
 import tempfile
 
+import pytest
 from error.patterns.boundary_patterns import (
     BOUNDARY_PATTERNS,
+    analyze_function_boundaries,
     generate_boundary_tests,
     scan_file_for_boundary_issues,
-    analyze_function_boundaries,
 )
 from error.patterns.types import PatternCategory, PatternSeverity
 

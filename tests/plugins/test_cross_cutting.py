@@ -16,11 +16,11 @@ try:
     from phase6_error_recovery.modules.plugins.codespell.src.codespell.plugin import (
         CodespellPlugin,
     )
-    from phase6_error_recovery.modules.plugins.semgrep.src.semgrep.plugin import (
-        SemgrepPlugin,
-    )
     from phase6_error_recovery.modules.plugins.gitleaks.src.gitleaks.plugin import (
         GitleaksPlugin,
+    )
+    from phase6_error_recovery.modules.plugins.semgrep.src.semgrep.plugin import (
+        SemgrepPlugin,
     )
 
     PLUGINS_AVAILABLE = True
@@ -36,7 +36,6 @@ from tests.plugins.conftest import (
     skip_if_tool_missing,
     tool_available,
 )
-
 
 # Sample codespell output
 CODESPELL_SAMPLE_OUTPUT = """

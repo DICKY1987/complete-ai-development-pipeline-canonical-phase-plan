@@ -13,17 +13,17 @@ import pytest
 
 # Try to import plugins - may fail if error shared modules not migrated
 try:
-    from phase6_error_recovery.modules.plugins.yaml_yamllint.src.yaml_yamllint.plugin import (
-        YamllintPlugin,
-    )
-    from phase6_error_recovery.modules.plugins.md_mdformat_fix.src.md_mdformat_fix.plugin import (
-        MdformatFixPlugin,
+    from phase6_error_recovery.modules.plugins.json_jq.src.json_jq.plugin import (
+        JsonJqPlugin,
     )
     from phase6_error_recovery.modules.plugins.md_markdownlint.src.md_markdownlint.plugin import (
         MarkdownlintPlugin,
     )
-    from phase6_error_recovery.modules.plugins.json_jq.src.json_jq.plugin import (
-        JsonJqPlugin,
+    from phase6_error_recovery.modules.plugins.md_mdformat_fix.src.md_mdformat_fix.plugin import (
+        MdformatFixPlugin,
+    )
+    from phase6_error_recovery.modules.plugins.yaml_yamllint.src.yaml_yamllint.plugin import (
+        YamllintPlugin,
     )
 
     PLUGINS_AVAILABLE = True
@@ -39,7 +39,6 @@ from tests.plugins.conftest import (
     skip_if_tool_missing,
     tool_available,
 )
-
 
 # Sample yamllint parsable output
 YAMLLINT_SAMPLE_OUTPUT = """

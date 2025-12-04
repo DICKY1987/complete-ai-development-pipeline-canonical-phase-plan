@@ -18,13 +18,14 @@ Features:
 # DOC_ID: DOC-SCRIPT-SCRIPTS-REWRITE-IMPORTS-226
 # DOC_ID: DOC-SCRIPT-SCRIPTS-REWRITE-IMPORTS-163
 
+import argparse
 import ast
+import shutil
 import sys
 from pathlib import Path
 from typing import Dict, List, Tuple
+
 import yaml
-import argparse
-import shutil
 
 
 class ImportRewriter(ast.NodeTransformer):

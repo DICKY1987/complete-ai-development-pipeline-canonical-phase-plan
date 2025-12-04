@@ -16,10 +16,10 @@ pytestmark = pytest.mark.skip(
 
 try:
     from modules.error_plugin_test_runner.m010018_plugin import (
-        parse_test_output,
-        parse_test_failure_line,
         extract_file,
         extract_line,
+        parse_test_failure_line,
+        parse_test_output,
     )
 except ImportError:
     # Provide stub functions for the test file to load

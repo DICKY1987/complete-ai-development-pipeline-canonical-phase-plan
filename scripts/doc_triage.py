@@ -14,12 +14,13 @@ USAGE:
     python scripts/doc_triage.py --report-only      # Summary only
 """
 
-import sys
 import io
-from pathlib import Path
-from typing import List, Dict, Set
-import yaml
 import re
+import sys
+from pathlib import Path
+from typing import Dict, List, Set
+
+import yaml
 
 # Fix Windows console encoding
 if sys.platform == "win32":

@@ -1,9 +1,10 @@
 """Tests for layout manager."""
 
 import pytest
+from textual.widgets import Static
+
 from gui.tui_app.core.layout_manager import BasicLayoutManager
 from gui.tui_app.core.panel_plugin import PanelContext
-from textual.widgets import Static
 
 
 class MockPanel:

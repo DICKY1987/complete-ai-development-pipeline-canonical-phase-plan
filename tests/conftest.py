@@ -1,10 +1,11 @@
 """Pytest configuration and fixtures for UET tests."""
 
-import pytest
-import tempfile
 import os
 import sys
+import tempfile
 from pathlib import Path
+
+import pytest
 
 # Add project root to Python path
 project_root = Path(__file__).parent.parent

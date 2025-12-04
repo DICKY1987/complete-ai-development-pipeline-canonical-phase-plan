@@ -21,7 +21,6 @@ from typing import Dict, List, Optional
 
 import yaml
 
-
 MODULE_KIND_ENUM = [
     "PIPELINE_STAGE_MODULE",
     "FEATURE_SERVICE_MODULE",

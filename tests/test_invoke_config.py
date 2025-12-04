@@ -8,15 +8,17 @@ Validates config loading hierarchy, tool profiles, and legacy fallback.
 # DOC_ID: DOC-TEST-TESTS-TEST-INVOKE-CONFIG-047
 
 import os
-import pytest
 from pathlib import Path
+
+import pytest
+
 from core.config_loader import (
-    load_project_config,
-    get_tool_config,
-    get_orchestrator_config,
-    get_paths_config,
     get_circuit_breaker_config,
     get_error_engine_config,
+    get_orchestrator_config,
+    get_paths_config,
+    get_tool_config,
+    load_project_config,
 )
 
 
@@ -128,6 +130,7 @@ def test_legacy_config_fallback():
     """Legacy config files trigger deprecation warnings."""
     # Import tools module which has legacy fallback
     import warnings
+
     from modules.core_engine import m010001_tools
 
     # Loading should work (falls back to invoke.yaml)

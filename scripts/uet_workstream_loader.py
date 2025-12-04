@@ -7,9 +7,9 @@ Loads workstream JSON files and converts to Task objects
 # DOC_ID: DOC-SCRIPT-SCRIPTS-UET-WORKSTREAM-LOADER-177
 
 import json
-from pathlib import Path
-from typing import List, Dict, Any
 import logging
+from pathlib import Path
+from typing import Any, Dict, List
 
 logger = logging.getLogger(__name__)
 

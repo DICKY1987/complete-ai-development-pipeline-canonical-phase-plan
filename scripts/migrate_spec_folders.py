@@ -25,7 +25,6 @@ import sys
 from pathlib import Path
 from typing import Dict, List, Tuple
 
-
 # Define the migration mapping
 MIGRATION_MAP = {
     # openspec content

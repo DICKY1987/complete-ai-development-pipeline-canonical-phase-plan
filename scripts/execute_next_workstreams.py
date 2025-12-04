@@ -9,8 +9,8 @@ This script executes the 5 next-generation workstreams in dependency order.
 import json
 import subprocess
 import sys
-from pathlib import Path
 from datetime import datetime
+from pathlib import Path
 
 WORKSTREAMS = [
     {

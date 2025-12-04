@@ -1,16 +1,17 @@
 """Tests for ProcessExecutor protocol and SubprocessExecutor implementation."""
 
 import time
-import pytest
 from pathlib import Path
 
-from core.process_executor import (
-    ProcessExecutor,
-    ProcessResult,
-    ProcessHandle,
-    ProcessExecutionError,
-)
+import pytest
+
 from core.execution.subprocess_executor import SubprocessExecutor
+from core.process_executor import (
+    ProcessExecutionError,
+    ProcessExecutor,
+    ProcessHandle,
+    ProcessResult,
+)
 
 
 class TestProcessExecutorProtocol:

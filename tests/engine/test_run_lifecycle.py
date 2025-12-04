@@ -1,16 +1,17 @@
 """Tests for Run Lifecycle - WS-03-01A"""
 
-import pytest
 import sys
-from pathlib import Path
 from datetime import datetime
+from pathlib import Path
+
+import pytest
 
 # Add framework root to path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from core.state.db import Database
 from core.engine.orchestrator import Orchestrator
 from core.engine.state_machine import RunStateMachine, StepStateMachine
+from core.state.db import Database
 
 
 @pytest.fixture

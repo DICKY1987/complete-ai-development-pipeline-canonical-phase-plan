@@ -5,10 +5,10 @@ Standardizes patches from different tools (aider, custom tools)
 
 # DOC_ID: DOC-CORE-ENGINE-PATCH-CONVERTER-152
 
-from typing import Dict, Any
 import re
 from dataclasses import dataclass
-from datetime import datetime, UTC
+from datetime import UTC, datetime
+from typing import Any, Dict
 
 
 @dataclass

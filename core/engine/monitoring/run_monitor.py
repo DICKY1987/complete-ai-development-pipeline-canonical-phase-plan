@@ -5,11 +5,11 @@ Monitors run execution and aggregates metrics.
 
 # DOC_ID: DOC-CORE-MONITORING-RUN-MONITOR-179
 
-from dataclasses import dataclass
-from typing import Dict, List, Optional
-from enum import Enum
 import sys
+from dataclasses import dataclass
+from enum import Enum
 from pathlib import Path
+from typing import Dict, List, Optional
 
 # Add framework root to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))

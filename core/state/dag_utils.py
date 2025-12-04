@@ -24,10 +24,9 @@ Requirement IDs:
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Dict, Set, List, Sequence, Tuple, Optional
+from typing import Dict, List, Optional, Sequence, Set, Tuple
 
 from .bundles import WorkstreamBundle
-
 
 # Canonical DAG representation used across the codebase
 DepGraph = Dict[str, Set[str]]  # node_id -> set of node_ids it depends on

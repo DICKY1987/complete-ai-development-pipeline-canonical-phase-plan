@@ -13,12 +13,12 @@ Usage:
 # DOC_ID: DOC-SCRIPT-SCRIPTS-PROCESS-PATCHES-275
 
 import argparse
+import shutil
 import subprocess
 import sys
-from pathlib import Path
 from datetime import datetime
+from pathlib import Path
 from typing import Dict, List
-import shutil
 
 
 class PatchManager:

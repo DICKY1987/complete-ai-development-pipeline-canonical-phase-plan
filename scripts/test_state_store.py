@@ -7,10 +7,10 @@ Validates state store integration with existing database schema.
 # DOC_ID: DOC-SCRIPT-SCRIPTS-TEST-STATE-STORE-237
 # DOC_ID: DOC-SCRIPT-SCRIPTS-TEST-STATE-STORE-174
 
-import sys
 import json
-from pathlib import Path
+import sys
 from datetime import datetime
+from pathlib import Path
 
 
 def test_state_store_import():
@@ -81,11 +81,12 @@ def test_job_result_update():
     """Test updating job results."""
     print("Testing job result updates...")
     try:
+        from datetime import datetime
+
         from engine.state_store.job_state_store import JobStateStore
         from engine.types import JobResult
         from modules.core_state import m010003_crud
         from modules.core_state.m010003_db import get_connection
-        from datetime import datetime
 
         store = JobStateStore(db_path="state/test_pipeline.db")
 
@@ -156,10 +157,11 @@ def test_event_logging():
     """Test event logging."""
     print("Testing event logging...")
     try:
+        from datetime import datetime
+
         from engine.state_store.job_state_store import JobStateStore
         from modules.core_state import m010003_crud
         from modules.core_state.m010003_db import get_connection
-        from datetime import datetime
 
         store = JobStateStore(db_path="state/test_pipeline.db")
 

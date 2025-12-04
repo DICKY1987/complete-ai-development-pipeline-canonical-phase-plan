@@ -11,20 +11,20 @@ Usage:
 
 import argparse
 import sqlite3
-from pathlib import Path
 import sys
+from pathlib import Path
 
 # Add parent to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from patterns.automation.detectors.execution_detector import (
-    ExecutionPatternDetector,
-    analyze_executions,
-)
 from patterns.automation.analyzers.performance_analyzer import (
     PatternPerformanceAnalyzer,
 )
 from patterns.automation.detectors.anti_pattern_detector import AntiPatternDetector
+from patterns.automation.detectors.execution_detector import (
+    ExecutionPatternDetector,
+    analyze_executions,
+)
 
 
 def main():

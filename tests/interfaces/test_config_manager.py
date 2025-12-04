@@ -1,15 +1,16 @@
 """Tests for ConfigManager protocol and implementations."""
 
-import pytest
 import tempfile
 from pathlib import Path
 
+import pytest
+
+from core.config.yaml_config_manager import YamlConfigManager
 from core.config_manager import (
     ConfigManager,
     ConfigValidationError,
     ToolProfileNotFoundError,
 )
-from core.config.yaml_config_manager import YamlConfigManager
 
 
 class TestConfigManagerProtocol:

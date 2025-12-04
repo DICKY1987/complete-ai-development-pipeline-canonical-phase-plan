@@ -1,9 +1,10 @@
 # DOC_LINK: DOC-SCRIPT-MIGRATION-SCAN-DUPLICATES-340
 import hashlib
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, List
+
 import yaml
-from datetime import datetime, timezone
 
 
 class DuplicateFinder:

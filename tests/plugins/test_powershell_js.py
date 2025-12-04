@@ -13,14 +13,14 @@ import pytest
 
 # Try to import plugins - may fail if error shared modules not migrated
 try:
-    from phase6_error_recovery.modules.plugins.powershell_pssa.src.powershell_pssa.plugin import (
-        PSScriptAnalyzerPlugin,
+    from phase6_error_recovery.modules.plugins.js_eslint.src.js_eslint.plugin import (
+        ESLintPlugin,
     )
     from phase6_error_recovery.modules.plugins.js_prettier_fix.src.js_prettier_fix.plugin import (
         PrettierFixPlugin,
     )
-    from phase6_error_recovery.modules.plugins.js_eslint.src.js_eslint.plugin import (
-        ESLintPlugin,
+    from phase6_error_recovery.modules.plugins.powershell_pssa.src.powershell_pssa.plugin import (
+        PSScriptAnalyzerPlugin,
     )
 
     PLUGINS_AVAILABLE = True
@@ -36,7 +36,6 @@ from tests.plugins.conftest import (
     skip_if_tool_missing,
     tool_available,
 )
-
 
 # Sample PSScriptAnalyzer JSON output
 PSSA_SAMPLE_OUTPUT = json.dumps(

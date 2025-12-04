@@ -3,8 +3,8 @@
 from __future__ import annotations
 
 import argparse
-from pathlib import Path
 import sys
+from pathlib import Path
 
 # Ensure repository root and 'src' are importable when launched from scripts/
 _ROOT = Path(__file__).resolve().parents[1]
@@ -12,9 +12,9 @@ sys.path.insert(0, str(_ROOT))
 sys.path.insert(0, str(_ROOT / "src"))
 from typing import List
 
+from modules.error_engine.m010004_file_hash_cache import FileHashCache
 from modules.error_engine.m010004_pipeline_engine import PipelineEngine
 from modules.error_engine.m010004_plugin_manager import PluginManager
-from modules.error_engine.m010004_file_hash_cache import FileHashCache
 
 
 def main() -> int:

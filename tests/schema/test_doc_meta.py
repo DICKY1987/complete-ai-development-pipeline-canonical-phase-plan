@@ -5,11 +5,12 @@ Tests for doc-meta.v1.json schema validation.
 # DOC_ID: DOC-TEST-SCHEMA-TEST-DOC-META-192
 
 import json
-import pytest
 from pathlib import Path
 
+import pytest
+
 pytest.importorskip("jsonschema")
-from jsonschema import validate, ValidationError, Draft7Validator
+from jsonschema import Draft7Validator, ValidationError, validate
 
 SCHEMA_PATH = Path(__file__).parent.parent.parent / "schema" / "doc-meta.v1.json"
 with open(SCHEMA_PATH, "r") as f:

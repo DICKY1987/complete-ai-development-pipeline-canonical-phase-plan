@@ -3,16 +3,16 @@ Integration tests for JobQueue (Phase 4B)
 Tests priority queue operations, persistence, and dependency tracking.
 """
 
+import asyncio
+import tempfile
+from datetime import datetime
+from pathlib import Path
+
 # DOC_ID: DOC-TEST-TESTS-TEST-JOB-QUEUE-088
 # DOC_ID: DOC-TEST-TESTS-TEST-JOB-QUEUE-049
 import pytest
-import asyncio
-import tempfile
-from pathlib import Path
-from datetime import datetime
-
 from engine.queue.job_queue import JobQueue
-from engine.queue.job_wrapper import JobWrapper, JobPriority, JobStatus
+from engine.queue.job_wrapper import JobPriority, JobStatus, JobWrapper
 
 
 @pytest.fixture

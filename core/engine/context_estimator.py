@@ -5,9 +5,9 @@ Phase I WS-I8: Enhanced context optimization for parallel execution.
 
 # DOC_ID: DOC-CORE-ENGINE-CONTEXT-ESTIMATOR-145
 
-from typing import List, Dict, Any, Optional
-from pathlib import Path
 from dataclasses import dataclass
+from pathlib import Path
+from typing import Any, Dict, List, Optional
 
 
 @dataclass

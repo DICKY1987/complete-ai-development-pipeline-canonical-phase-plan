@@ -1,16 +1,17 @@
 """Tests for adapter registry - WS-03-02A"""
 
-import pytest
 import json
-import tempfile
 import sys
+import tempfile
 from pathlib import Path
+
+import pytest
 
 # Add framework root to path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from core.adapters.registry import AdapterRegistry
 from core.adapters.base import ToolConfig
+from core.adapters.registry import AdapterRegistry
 from core.adapters.subprocess_adapter import SubprocessAdapter
 
 

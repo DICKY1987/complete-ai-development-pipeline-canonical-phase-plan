@@ -7,12 +7,12 @@ Tests retry logic, backoff strategies, and delay calculations.
 # DOC_ID: DOC-TEST-TESTS-TEST-RETRY-POLICY-064
 import pytest
 from engine.queue.retry_policy import (
-    RetryPolicy,
-    BackoffStrategy,
     DEFAULT_RETRY_POLICY,
     FAST_RETRY_POLICY,
-    SLOW_RETRY_POLICY,
     NO_RETRY_POLICY,
+    SLOW_RETRY_POLICY,
+    BackoffStrategy,
+    RetryPolicy,
 )
 
 

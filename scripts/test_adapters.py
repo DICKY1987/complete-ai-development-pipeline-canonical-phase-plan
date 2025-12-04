@@ -48,8 +48,8 @@ def test_adapter_interface():
 
     from engine.adapters.aider_adapter import AiderAdapter
     from engine.adapters.codex_adapter import CodexAdapter
-    from engine.adapters.tests_adapter import TestsAdapter
     from engine.adapters.git_adapter import GitAdapter
+    from engine.adapters.tests_adapter import TestsAdapter
 
     adapters = [
         ("aider", AiderAdapter()),
@@ -83,8 +83,8 @@ def test_tool_info():
 
     from engine.adapters.aider_adapter import AiderAdapter
     from engine.adapters.codex_adapter import CodexAdapter
-    from engine.adapters.tests_adapter import TestsAdapter
     from engine.adapters.git_adapter import GitAdapter
+    from engine.adapters.tests_adapter import TestsAdapter
 
     adapters = [
         ("aider", AiderAdapter()),
@@ -188,9 +188,10 @@ def test_git_adapter_execution():
     print("Testing git adapter execution...")
 
     try:
-        from engine.adapters.git_adapter import GitAdapter
-        from pathlib import Path
         import tempfile
+        from pathlib import Path
+
+        from engine.adapters.git_adapter import GitAdapter
 
         # Create temp directory for logs
         temp_dir = Path(tempfile.mkdtemp())

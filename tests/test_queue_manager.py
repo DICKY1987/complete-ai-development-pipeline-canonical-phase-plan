@@ -3,17 +3,17 @@ Integration tests for QueueManager (Phase 4B)
 Tests high-level queue operations, job submission, and status tracking.
 """
 
-# DOC_ID: DOC-TEST-TESTS-TEST-QUEUE-MANAGER-102
-# DOC_ID: DOC-TEST-TESTS-TEST-QUEUE-MANAGER-063
-import pytest
 import asyncio
 import json
 import tempfile
 from pathlib import Path
 
-from engine.queue.queue_manager import QueueManager
+# DOC_ID: DOC-TEST-TESTS-TEST-QUEUE-MANAGER-102
+# DOC_ID: DOC-TEST-TESTS-TEST-QUEUE-MANAGER-063
+import pytest
 from engine.queue.job_wrapper import JobPriority, JobStatus
-from engine.queue.retry_policy import RetryPolicy, BackoffStrategy
+from engine.queue.queue_manager import QueueManager
+from engine.queue.retry_policy import BackoffStrategy, RetryPolicy
 
 
 @pytest.fixture

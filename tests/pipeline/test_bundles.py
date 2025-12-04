@@ -3,14 +3,13 @@ from __future__ import annotations
 
 import json
 import os
-from pathlib import Path
 import sys
+from pathlib import Path
 
 # Ensure repository root is on sys.path so `src` package is importable
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 import pytest
-
 from modules.core_state import m010003_bundles as ws
 
 

@@ -15,11 +15,11 @@ import sqlite3
 import subprocess
 import sys
 import traceback
-from dataclasses import dataclass, asdict
+from dataclasses import asdict, dataclass
 from datetime import datetime
-from pathlib import Path
-from typing import List, Dict, Any, Optional, Set
 from enum import Enum
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Set
 
 import networkx as nx
 

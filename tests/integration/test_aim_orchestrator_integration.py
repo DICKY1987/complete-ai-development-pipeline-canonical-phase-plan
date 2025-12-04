@@ -10,6 +10,7 @@ import json
 import tempfile
 from pathlib import Path
 from unittest.mock import MagicMock, patch
+
 import pytest
 
 from core.engine.aim_integration import execute_with_aim, is_aim_available

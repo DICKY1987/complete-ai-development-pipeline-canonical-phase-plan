@@ -18,7 +18,9 @@ from pathlib import Path
 
 import pytest
 
-from phase6_error_recovery.modules.error_engine.src.shared.utils import hashing
+from phase6_error_recovery.modules.error_engine.src.shared.utils import (
+    hashing,
+)
 from phase6_error_recovery.modules.error_engine.src.shared.utils import (
     time as time_utils,
 )

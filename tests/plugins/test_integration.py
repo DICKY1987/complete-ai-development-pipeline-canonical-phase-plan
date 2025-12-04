@@ -256,9 +256,9 @@ class TestEnvironmentSecurity:
     @pytest.mark.skip(reason="Ruff plugin not yet migrated to phase6_error_recovery")
     def test_subprocess_uses_scrubbed_env(self, tmp_path: Path):
         """Test that all plugins use scrub_env() for subprocess calls."""
-        from phase6_error_recovery.modules.plugins.python_ruff.src.python_ruff.plugin import (
+        from phase6_error_recovery.modules.plugins.python_ruff.src.python_ruff.plugin import (  # Note: Ruff plugin not yet migrated
             RuffPlugin,
-        )  # Note: Ruff plugin not yet migrated
+        )
 
         plugin = RuffPlugin()
         test_file = tmp_path / "test.py"
@@ -281,9 +281,9 @@ class TestEnvironmentSecurity:
     @pytest.mark.skip(reason="Ruff plugin not yet migrated to phase6_error_recovery")
     def test_subprocess_uses_shell_false(self, tmp_path: Path):
         """Test that all plugins use shell=False for security."""
-        from phase6_error_recovery.modules.plugins.python_ruff.src.python_ruff.plugin import (
+        from phase6_error_recovery.modules.plugins.python_ruff.src.python_ruff.plugin import (  # Note: Ruff plugin not yet migrated
             RuffPlugin,
-        )  # Note: Ruff plugin not yet migrated
+        )
 
         plugin = RuffPlugin()
         test_file = tmp_path / "test.py"
@@ -305,9 +305,9 @@ class TestEnvironmentSecurity:
     @pytest.mark.skip(reason="Ruff plugin not yet migrated to phase6_error_recovery")
     def test_subprocess_has_timeout(self, tmp_path: Path):
         """Test that all plugins enforce timeouts."""
-        from phase6_error_recovery.modules.plugins.python_ruff.src.python_ruff.plugin import (
+        from phase6_error_recovery.modules.plugins.python_ruff.src.python_ruff.plugin import (  # Note: Ruff plugin not yet migrated
             RuffPlugin,
-        )  # Note: Ruff plugin not yet migrated
+        )
 
         plugin = RuffPlugin()
         test_file = tmp_path / "test.py"

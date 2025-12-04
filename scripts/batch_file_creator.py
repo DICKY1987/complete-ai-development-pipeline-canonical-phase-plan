@@ -18,9 +18,9 @@ TIME SAVINGS: 58-62% vs manual creation
 import argparse
 import json
 import sys
-from pathlib import Path
-from typing import List, Dict, Any
 from datetime import datetime
+from pathlib import Path
+from typing import Any, Dict, List
 
 
 class BatchFileCreator:

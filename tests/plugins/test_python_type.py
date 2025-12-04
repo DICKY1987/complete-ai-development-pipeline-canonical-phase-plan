@@ -34,7 +34,6 @@ from tests.plugins.conftest import (
     tool_available,
 )
 
-
 # Sample mypy JSON output
 MYPY_SAMPLE_OUTPUT = """
 {"file": "test.py", "line": 5, "column": 10, "severity": "error", "message": "Incompatible types in assignment", "code": "assignment"}

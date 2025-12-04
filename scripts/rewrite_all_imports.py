@@ -7,11 +7,12 @@ Generates and applies import path rewrites across all Python files
 # DOC_ID: DOC-SCRIPT-SCRIPTS-REWRITE-ALL-IMPORTS-225
 # DOC_ID: DOC-SCRIPT-SCRIPTS-REWRITE-ALL-IMPORTS-162
 
+import re
 import sys
 from pathlib import Path
+from typing import Dict, List, Set
+
 import yaml
-from typing import Dict, Set, List
-import re
 
 
 def load_inventory() -> Dict:

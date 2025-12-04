@@ -15,11 +15,11 @@ Output: Recommendations for RENAME, CONSOLIDATE, or KEEP
 # DOC_ID: DOC-SCRIPT-SCRIPTS-ANALYZE-FOLDER-PURPOSES-186
 # DOC_ID: DOC-SCRIPT-SCRIPTS-ANALYZE-FOLDER-PURPOSES-123
 
-import json
 import hashlib
-from pathlib import Path
+import json
 from collections import defaultdict
-from dataclasses import dataclass, asdict
+from dataclasses import asdict, dataclass
+from pathlib import Path
 from typing import Dict, List, Set, Tuple
 
 

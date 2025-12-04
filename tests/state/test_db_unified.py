@@ -1,8 +1,9 @@
 """Tests for Unified Database Layer"""
 
-import pytest
 import sqlite3
 from pathlib import Path
+
+import pytest
 from modules.core_state.m010003_db_unified import UnifiedDBBridge
 
 

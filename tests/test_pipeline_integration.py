@@ -1,6 +1,6 @@
 # DOC_LINK: DOC-TEST-TESTS-TEST-PIPELINE-INTEGRATION-100
 # DOC_LINK: DOC-TEST-TESTS-TEST-PIPELINE-INTEGRATION-061
-from core.error_pipeline_service import run_pipeline, S_SUCCESS, S_FAILED
+from core.error_pipeline_service import S_FAILED, S_SUCCESS, run_pipeline
 
 
 def test_pipeline_success():

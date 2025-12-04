@@ -12,9 +12,8 @@ from __future__ import annotations
 
 import argparse
 import sys
-from typing import List
-
 from pathlib import Path
+from typing import List
 
 
 def _repo_import():

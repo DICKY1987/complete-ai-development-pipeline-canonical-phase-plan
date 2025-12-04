@@ -11,12 +11,12 @@ _repo_root = _test_file.parents[2]
 if str(_repo_root) not in sys.path:
     sys.path.insert(0, str(_repo_root))
 
-import pytest
 import tempfile
 
+import pytest
 from error.patterns.state_transition import (
-    extract_state_machine,
     analyze_state_gaps,
+    extract_state_machine,
     generate_transition_matrix,
     scan_file_for_state_issues,
 )

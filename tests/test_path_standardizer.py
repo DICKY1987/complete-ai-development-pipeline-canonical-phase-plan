@@ -2,8 +2,8 @@
 # DOC_LINK: DOC-TEST-TESTS-TEST-PATH-STANDARDIZER-059
 from __future__ import annotations
 
-from pathlib import Path
 import types
+from pathlib import Path
 
 from modules.error_plugin_path_standardizer.m01000D_plugin import validate_paths
 

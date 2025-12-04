@@ -7,9 +7,9 @@ Pattern: EXEC-001 - Batch file renaming
 # DOC_ID: DOC-SCRIPT-SCRIPTS-RENAME-MODULE-FILES-223
 # DOC_ID: DOC-SCRIPT-SCRIPTS-RENAME-MODULE-FILES-160
 
+import shutil
 import sys
 from pathlib import Path
-import shutil
 
 
 def rename_module_files(dry_run: bool = False) -> int:

@@ -2,20 +2,21 @@
 Unit tests for Validators and Circuit Breakers
 """
 
+import subprocess
+import sys
+import time
+from pathlib import Path
+
 # DOC_ID: DOC-TEST-TESTS-TEST-VALIDATORS-108
 # DOC_ID: DOC-TEST-TESTS-TEST-VALIDATORS-069
 import pytest
-import time
-import subprocess
-import sys
-from pathlib import Path
 from modules.core_engine.m010001_validators import (
+    CircuitBreaker,
+    CircuitBreakerTrip,
+    ScopeResult,
     ScopeValidator,
     TimeoutMonitor,
-    CircuitBreaker,
-    ScopeResult,
     TimeoutResult,
-    CircuitBreakerTrip,
 )
 
 

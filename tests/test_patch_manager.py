@@ -2,18 +2,20 @@
 Unit tests for Patch Management System
 """
 
+import shutil
+import subprocess
+import tempfile
+from pathlib import Path
+
 # DOC_ID: DOC-TEST-TESTS-TEST-PATCH-MANAGER-096
 # DOC_ID: DOC-TEST-TESTS-TEST-PATCH-MANAGER-057
 import pytest
-import tempfile
-import shutil
-import subprocess
-from pathlib import Path
+
 from core.engine.patch_manager import (
-    PatchManager,
-    PatchArtifact,
-    PatchParseResult,
     ApplyResult,
+    PatchArtifact,
+    PatchManager,
+    PatchParseResult,
 )
 
 

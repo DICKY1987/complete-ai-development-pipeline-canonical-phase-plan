@@ -1,12 +1,13 @@
 """Tests for WorkstreamService."""
 
-import pytest
 import tempfile
 from pathlib import Path
 
+import pytest
+
+from core.state.sqlite_store import SQLiteStateStore
 from core.workstream_service import WorkstreamService
 from core.workstreams.workstream_service_impl import WorkstreamServiceImpl
-from core.state.sqlite_store import SQLiteStateStore
 
 
 class TestWorkstreamServiceProtocol:

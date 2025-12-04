@@ -1,11 +1,11 @@
 # DOC_LINK: DOC-SCRIPT-MIGRATION-ANALYZE-DEPENDENCIES-336
 import ast
+import json
 import re
+from collections import defaultdict
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, List, Set
-from collections import defaultdict
-import json
-from datetime import datetime, timezone
 
 
 class DependencyMapper:

@@ -7,8 +7,9 @@ Validates YAML templates for schema compliance and correctness
 
 import sys
 from pathlib import Path
+from typing import Any, Dict, List
+
 import yaml
-from typing import List, Dict, Any
 
 
 def validate_template_file(filepath: Path) -> List[str]:

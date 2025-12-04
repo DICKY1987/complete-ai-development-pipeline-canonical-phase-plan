@@ -11,14 +11,14 @@ _repo_root = _test_file.parents[2]
 if str(_repo_root) not in sys.path:
     sys.path.insert(0, str(_repo_root))
 
-import pytest
 import tempfile
 
+import pytest
 from error.patterns.error_path import (
+    EXTERNAL_CALL_PATTERNS,
     analyze_error_paths,
     generate_error_path_checklist,
     scan_file_for_error_path_issues,
-    EXTERNAL_CALL_PATTERNS,
 )
 from error.patterns.types import PatternCategory, PatternSeverity
 

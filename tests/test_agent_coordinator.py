@@ -1,10 +1,10 @@
 # DOC_LINK: DOC-TEST-TESTS-TEST-AGENT-COORDINATOR-074
 # DOC_LINK: DOC-TEST-TESTS-TEST-AGENT-COORDINATOR-035
 from core.agent_coordinator import (
+    PluginResult,
     partition_units,
     run_parallel,
     summarize,
-    PluginResult,
 )
 
 

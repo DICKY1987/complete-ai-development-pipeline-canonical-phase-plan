@@ -1,11 +1,12 @@
 # DOC_LINK: DOC-TEST-TESTS-TEST-OPENSPEC-CONVERT-090
 # DOC_LINK: DOC-TEST-TESTS-TEST-OPENSPEC-CONVERT-051
-from pathlib import Path
 import json
+from pathlib import Path
 
-from core.openspec_parser import load_bundle_from_change
-from core.openspec_convert import bundle_to_workstream
 from modules.core_state import m010003_bundles as ws_bundles
+
+from core.openspec_convert import bundle_to_workstream
+from core.openspec_parser import load_bundle_from_change
 
 
 def _write_change(tmp: Path, change_id: str) -> Path:

@@ -6,11 +6,11 @@ Provides isolated git worktrees for parallel agent execution
 # DOC_ID: DOC-SCRIPT-SCRIPTS-WORKTREE-MANAGER-245
 # DOC_ID: DOC-SCRIPT-SCRIPTS-WORKTREE-MANAGER-182
 
-import subprocess
 import logging
+import subprocess
 import threading
 from pathlib import Path
-from typing import List, Dict, Optional
+from typing import Dict, List, Optional
 
 logger = logging.getLogger("worktree_manager")
 

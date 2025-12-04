@@ -5,8 +5,9 @@ Tests for Python-specific AST extractor.
 # DOC_ID: DOC-TEST-SYNTAX-ANALYSIS-TEST-PYTHON-153
 
 import pytest
-from core.ast.parser import ASTParser
+
 from core.ast.languages.python import PythonExtractor
+from core.ast.parser import ASTParser
 
 
 class TestPythonExtractorFunctions:

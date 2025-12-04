@@ -17,7 +17,6 @@ from pathlib import Path
 from typing import Dict, List, Optional, Set
 
 import networkx as nx
-
 from worktree_manager import WorktreeManager
 
 logging.basicConfig(

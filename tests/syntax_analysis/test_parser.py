@@ -4,8 +4,10 @@ Tests for AST parser core functionality.
 
 # DOC_ID: DOC-TEST-SYNTAX-ANALYSIS-TEST-PARSER-152
 
-import pytest
 from pathlib import Path
+
+import pytest
+
 from core.ast.parser import ASTParser
 
 

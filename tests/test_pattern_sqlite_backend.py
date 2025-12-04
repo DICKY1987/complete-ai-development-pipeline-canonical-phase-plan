@@ -1,9 +1,9 @@
 """Tests for SQLite-backed pattern store."""
 
-from datetime import datetime
 import sqlite3
+from datetime import datetime
 
-from gui.tui_app.core.pattern_client import SQLitePatternStateStore, PatternStatus
+from gui.tui_app.core.pattern_client import PatternStatus, SQLitePatternStateStore
 
 
 def test_sqlite_pattern_store_reads_runs_and_events(tmp_path):

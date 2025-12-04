@@ -11,12 +11,13 @@ WS: WS-NEXT-002-001 (Testing)
 
 # DOC_ID: DOC-TEST-ENGINE-TEST-WORKER-LIFECYCLE-179
 
-import pytest
-import sys
-import sqlite3
-from datetime import datetime, UTC, timedelta
-from pathlib import Path
 import json
+import sqlite3
+import sys
+from datetime import UTC, datetime, timedelta
+from pathlib import Path
+
+import pytest
 
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 

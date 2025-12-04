@@ -16,12 +16,12 @@ Usage:
 # DOC_ID: DOC-SCRIPT-SCRIPTS-DEEP-SEARCH-271
 
 import argparse
+import fnmatch
 import json
 import sys
-from pathlib import Path
 from datetime import datetime, timedelta
-from typing import List, Optional, Callable
-import fnmatch
+from pathlib import Path
+from typing import Callable, List, Optional
 
 
 class DeepSearch:

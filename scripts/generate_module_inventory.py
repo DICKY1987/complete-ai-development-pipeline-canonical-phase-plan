@@ -12,11 +12,12 @@ Output:
 # DOC_ID: DOC-SCRIPT-SCRIPTS-GENERATE-MODULE-INVENTORY-210
 # DOC_ID: DOC-SCRIPT-SCRIPTS-GENERATE-MODULE-INVENTORY-147
 
-import yaml
-from pathlib import Path
-from typing import List, Dict, Any
-from collections import defaultdict
 import re
+from collections import defaultdict
+from pathlib import Path
+from typing import Any, Dict, List
+
+import yaml
 
 
 def discover_core_modules() -> List[Dict[str, Any]]:

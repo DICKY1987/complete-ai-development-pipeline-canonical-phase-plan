@@ -7,7 +7,6 @@ Tests are skipped if AIM registry is unavailable.
 # DOC_ID: DOC-TEST-INTEGRATION-TEST-AIM-END-TO-END-118
 
 import pytest
-
 from aim.bridge import (
     detect_tool,
     get_aim_registry_path,

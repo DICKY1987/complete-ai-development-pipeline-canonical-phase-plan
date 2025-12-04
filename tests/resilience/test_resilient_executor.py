@@ -1,14 +1,15 @@
 """Tests for resilient executor - WS-03-03A"""
 
-import pytest
 import sys
-from pathlib import Path
 import time
+from pathlib import Path
+
+import pytest
 
 # Add framework root to path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from core.engine.resilience import ResilientExecutor, CircuitBreakerOpen, RetryExhausted
+from core.engine.resilience import CircuitBreakerOpen, ResilientExecutor, RetryExhausted
 
 
 class TestResilientExecutor:

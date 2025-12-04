@@ -6,9 +6,9 @@ Validates prerequisites before execution
 # DOC_ID: DOC-SCRIPT-SCRIPTS-PREFLIGHT-VALIDATOR-221
 # DOC_ID: DOC-SCRIPT-SCRIPTS-PREFLIGHT-VALIDATOR-158
 
+import shutil
 import subprocess
 import sys
-import shutil
 from pathlib import Path
 
 

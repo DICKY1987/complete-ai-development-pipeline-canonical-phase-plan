@@ -10,7 +10,7 @@ _repo_root = Path(__file__).resolve().parents[3]
 if str(_repo_root) not in sys.path:
     sys.path.insert(0, str(_repo_root))
 
-from typing import Dict, Any
+from typing import Any, Dict
 from unittest.mock import MagicMock, patch
 
 import pytest
@@ -22,10 +22,10 @@ try:
         AgentInvocation,
         AgentResult,
         AiderAdapter,
-        CodexAdapter,
         ClaudeAdapter,
-        get_agent_adapter,
+        CodexAdapter,
         check_agent_availability,
+        get_agent_adapter,
     )
 
     ERROR_ENGINE_AVAILABLE = True

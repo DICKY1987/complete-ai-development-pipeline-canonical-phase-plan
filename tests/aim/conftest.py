@@ -1,7 +1,8 @@
 """Test configuration for AIM+ tests."""
 
-import pytest
 from pathlib import Path
+
+import pytest
 
 # Skip all AIM tests - Phase 4 functionality not yet implemented
 # AIM module will be integrated in Phase 4

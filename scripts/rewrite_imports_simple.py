@@ -12,13 +12,14 @@ Usage:
 # DOC_ID: DOC-SCRIPT-SCRIPTS-REWRITE-IMPORTS-SIMPLE-227
 # DOC_ID: DOC-SCRIPT-SCRIPTS-REWRITE-IMPORTS-SIMPLE-164
 
+import argparse
 import re
+import shutil
 import sys
 from pathlib import Path
 from typing import Dict, List, Tuple
+
 import yaml
-import argparse
-import shutil
 
 
 def load_inventory() -> dict:
