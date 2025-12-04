@@ -141,6 +141,11 @@ try {
             $applyArgs += "--validate"
         }
 
+        # Fix: Wire up updateChangelog parameter
+        if (-not $updateChangelog) {
+            $applyArgs += "--no-changelog"
+        }
+
         $output = python $applyArgs 2>&1
         $exitCode = $LASTEXITCODE
 

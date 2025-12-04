@@ -221,7 +221,12 @@ print(json.dumps({
     if ($checkImplementationPaths) {
         foreach ($termId in $metadata.terms.PSObject.Properties.Name) {
             $termData = $metadata.terms.$termId
-            $implFiles = $termData.implementation
+            # Fix: Access implementation.files array, not the implementation dict itself
+            $implFiles = if ($termData.implementation -is [hashtable] -or $termData.implementation.files) {
+                $termData.implementation.files
+            } else {
+                $termData.implementation
+            }
 
             if ($implFiles -and $implFiles.Count -gt 0) {
                 $allMissing = $true

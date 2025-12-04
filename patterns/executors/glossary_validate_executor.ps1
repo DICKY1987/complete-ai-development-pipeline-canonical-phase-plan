@@ -164,8 +164,12 @@ try {
             }
         }
 
-        # Determine status
-        if ($result.errors.Count -gt 0) {
+        # Determine status - check exit code first
+        if ($exitCode -ne 0) {
+            $result.status = "failure"
+            Write-Failure "Validation failed with exit code $exitCode"
+        }
+        elseif ($result.errors.Count -gt 0) {
             $result.status = "failure"
             Write-Failure "$($result.errors.Count) errors found"
         }
