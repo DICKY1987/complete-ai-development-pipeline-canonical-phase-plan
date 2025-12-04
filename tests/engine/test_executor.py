@@ -6,10 +6,13 @@ from __future__ import annotations
 import time
 from pathlib import Path
 
+import pytest
+
 from core.engine.executor import AdapterResult, Executor
 from core.engine.orchestrator import Orchestrator
 from core.engine.process_spawner import ProcessSpawner
 from core.engine.scheduler import ExecutionScheduler, Task
+from core.engine.test_gate import GateCriteria, TestGate, TestResults
 from core.state.db import Database
 
 
@@ -105,6 +108,75 @@ def test_executor_handles_missing_route(tmp_path):
 
     assert summary["state"] == "failed"
     assert scheduler.has_failures() is True
+
+
+def _write_gate_migration(root: Path) -> None:
+    """Create a minimal migration file for TestGate to load."""
+    schema_dir = root / "schema" / "migrations"
+    schema_dir.mkdir(parents=True, exist_ok=True)
+    migration = schema_dir / "004_add_test_gates_table.sql"
+    migration.write_text(
+        """
+        CREATE TABLE IF NOT EXISTS test_gates (
+            gate_id TEXT PRIMARY KEY,
+            name TEXT,
+            gate_type TEXT,
+            state TEXT,
+            project_id TEXT,
+            execution_request_id TEXT,
+            criteria TEXT,
+            execution TEXT,
+            results TEXT,
+            decision TEXT,
+            created_at TEXT,
+            updated_at TEXT,
+            metadata TEXT
+        );
+        """
+    )
+
+
+def test_executor_with_test_gate_integration(tmp_path, monkeypatch):
+    """Executor can drive a real TestGate pass decision."""
+    _write_gate_migration(tmp_path)
+    monkeypatch.chdir(tmp_path)
+
+    db = _make_db(tmp_path)
+    gate_manager = TestGate(db)
+    gate_id = "01HQGATEEXEC00000000000001"
+    gate_manager.create_gate(
+        gate_id,
+        name="Unit Tests",
+        gate_type="unit_tests",
+        criteria=GateCriteria(min_coverage=80.0),
+    )
+
+    orch = Orchestrator(db)
+    router = StubRouter()
+    scheduler = ExecutionScheduler()
+    scheduler.add_task(Task("T1", "code_edit"))
+    run_id = orch.create_run("PRJ-1", "PH-05")
+
+    def adapter(_: Task, __: str) -> AdapterResult:
+        return AdapterResult(exit_code=0, metadata={"coverage": 90.0})
+
+    def gate_callback(run_id: str, task: Task, result: AdapterResult) -> bool:
+        gate_manager.start_gate(gate_id, command="pytest")
+        results = TestResults(
+            total_tests=1,
+            passed_tests=1,
+            failed_tests=0,
+            coverage_percent=result.metadata.get("coverage"),
+        )
+        gate_manager.complete_gate(gate_id, results, exit_code=result.exit_code)
+        return gate_manager.get_gate(gate_id)["decision"]["passed"]
+
+    executor = Executor(orch, router, scheduler, adapter, gate_callback=gate_callback)
+    summary = executor.run(run_id)
+
+    gate = gate_manager.get_gate(gate_id)
+    assert summary["state"] == "succeeded"
+    assert gate["state"] == "passed"
 
 
 def test_executor_gate_callback_can_fail_task(tmp_path):
