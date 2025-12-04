@@ -1,7 +1,7 @@
-"""Artifact Generator - WS-02-02A"""
-DOC_ID: DOC-CORE-BOOTSTRAP-GENERATOR-743
+"""Artifact Generator - WS-02-02A
 
-DOC_ID: DOC - CORE - BOOTSTRAP - GENERATOR - 743
+DOC_ID: DOC-CORE-BOOTSTRAP-GENERATOR-743
+"""
 
 import json
 from pathlib import Path
