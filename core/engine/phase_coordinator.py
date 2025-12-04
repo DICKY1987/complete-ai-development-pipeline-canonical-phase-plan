@@ -221,14 +221,22 @@ class PhaseCoordinator:
             EventType.ROUTING_COMPLETE,
             run_id=run_id,
             payload={
-                "decisions_count": len(routing_decisions),
+                "decisions_count": (
+                    len(self.router.decision_log)
+                    if hasattr(self.router, "decision_log")
+                    else len(routing_decisions)
+                ),
                 "decisions_file": str(decisions_file),
                 "assignments_file": str(assignments_file),
             },
         )
 
         return {
-            "decisions_count": len(routing_decisions),
+            "decisions_count": (
+                len(self.router.decision_log)
+                if hasattr(self.router, "decision_log")
+                else len(routing_decisions)
+            ),
             "decisions_file": str(decisions_file),
             "assignments_file": str(assignments_file),
         }
@@ -246,17 +254,41 @@ class PhaseCoordinator:
         for task in tasks:
             self.scheduler.add_task(task)
 
-        # Execute tasks using shared Executor
-        exec_result = self.executor.run(run_id)
+        exec_result = None
+        manual_counted = False
+        if hasattr(self.executor, "execute_task"):
+            while True:
+                ready_tasks = self.scheduler.get_ready_tasks()
+                if not ready_tasks:
+                    break
 
-        # Summarize outcomes
-        for task in tasks:
-            if task.status in ("completed", "succeeded"):
-                execution_summary["succeeded"] += 1
-            elif task.status == "failed":
-                execution_summary["failed"] += 1
-            else:
-                execution_summary["skipped"] += 1
+                for task in ready_tasks[: self.config.max_parallel_tasks]:
+                    try:
+                        result = self.executor.execute_task(run_id, task)
+                        exec_result = result
+                        if result and result.exit_code == 0:
+                            task.status = "completed"
+                            execution_summary["succeeded"] += 1
+                        else:
+                            task.status = "failed"
+                            execution_summary["failed"] += 1
+                    except Exception as e:
+                        logger.error(f"Task {task.task_id} failed: {e}")
+                        task.status = "failed"
+                        task.error = str(e)
+                        execution_summary["failed"] += 1
+            manual_counted = True
+        else:
+            exec_result = self.executor.run(run_id)
+
+        if not manual_counted:
+            for task in tasks:
+                if task.status in ("completed", "succeeded"):
+                    execution_summary["succeeded"] += 1
+                elif task.status == "failed":
+                    execution_summary["failed"] += 1
+                else:
+                    execution_summary["skipped"] += 1
 
         # Export execution results
         results_file = self.state_manager.export_execution_results(
@@ -267,7 +299,7 @@ class PhaseCoordinator:
         return {
             **execution_summary,
             "results_file": str(results_file),
-            "executor_state": exec_result,
+            "executor_state": self._serialize_obj(exec_result),
         }
 
     def _run_error_recovery_phase(
@@ -279,7 +311,11 @@ class PhaseCoordinator:
             "auto_fixed": 0,
             "manual_required": 0,
             "quarantined": 0,
+            "retried": 0,
+            "retry_succeeded": 0,
+            "retry_failed": 0,
         }
+        retry_candidates: List[Task] = []
 
         for task in failed_tasks:
             try:
@@ -288,6 +324,9 @@ class PhaseCoordinator:
 
                 if fix_result.get("success"):
                     recovery_summary["auto_fixed"] += 1
+                    task.status = "pending"
+                    task.error = None
+                    retry_candidates.append(task)
 
                     # Emit fix applied event
                     self.event_bus.emit(
@@ -309,13 +348,27 @@ class PhaseCoordinator:
                 logger.error(f"Error recovery failed for task {task.task_id}: {e}")
                 recovery_summary["manual_required"] += 1
 
+        # Retry recovered tasks
+        if retry_candidates:
+            for task in retry_candidates:
+                task.status = "pending"
+            self.executor.run(run_id)
+            recovery_summary["retried"] = len(retry_candidates)
+            for task in retry_candidates:
+                if task.status in ("completed", "succeeded"):
+                    recovery_summary["retry_succeeded"] += 1
+                elif task.status == "failed":
+                    recovery_summary["retry_failed"] += 1
+
         return recovery_summary
 
     def _invoke_error_pipeline(self, run_id: str, task: Task) -> Dict[str, Any]:
         """Invoke Phase 6 error pipeline for a failed task."""
         try:
             from phase6_error_recovery.modules.error_engine.src.engine.agent_adapters import (
-                AgentInvocation, get_agent_adapter)
+                AgentInvocation,
+                get_agent_adapter,
+            )
 
             # Build error report
             error_report = {
@@ -373,8 +426,10 @@ class PhaseCoordinator:
 
         import json
 
+        serializable = self._serialize_obj(results)
+
         with open(final_state_file, "w") as f:
-            json.dump(results, f, indent=2)
+            json.dump(serializable, f, indent=2)
 
         logger.info(f"Final state exported to {final_state_file}")
 
@@ -389,6 +444,20 @@ class PhaseCoordinator:
     def _on_fix_applied(self, event):
         """Handle FIX_APPLIED event."""
         logger.debug(f"Fix applied: {event}")
+
+    def _serialize_obj(self, obj: Any):
+        """Best-effort serialization for JSON export."""
+        if obj is None:
+            return None
+        if isinstance(obj, dict):
+            return {k: self._serialize_obj(v) for k, v in obj.items()}
+        if isinstance(obj, (list, tuple)):
+            return [self._serialize_obj(v) for v in obj]
+        if hasattr(obj, "__dict__"):
+            return {k: self._serialize_obj(v) for k, v in obj.__dict__.items()}
+        if hasattr(obj, "_asdict"):
+            return self._serialize_obj(obj._asdict())
+        return obj
 
 
 def create_phase_coordinator(

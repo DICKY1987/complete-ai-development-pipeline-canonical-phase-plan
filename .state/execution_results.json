@@ -1,16 +1,20 @@
 {
-  "run_id": "F806A64C415141519C46E42C66",
+  "run_id": "782F7C6284D54D4299305CD76E",
   "results": [
     {
-      "run_id": "F806A64C415141519C46E42C66",
+      "run_id": "782F7C6284D54D4299305CD76E",
       "task_id": "T1",
       "task_kind": "code_edit",
-      "status": "failed",
-      "tool_id": null,
-      "exit_code": 1,
+      "status": "completed",
+      "tool_id": "echoer",
+      "exit_code": 0,
       "output_patch_id": null,
-      "error": "No capable tool found",
-      "metadata": {}
+      "error": null,
+      "metadata": {
+        "stdout": "ok\n",
+        "stderr": "",
+        "command": "python -c \"print('ok')\""
+      }
     }
   ]
 }

@@ -1,0 +1,23 @@
+{
+  "run_id": "221CCABFB3C048E28FEFC07450",
+  "total_tasks": 1,
+  "routing_results": {
+    "decisions_count": 1,
+    "decisions_file": "C:\\Users\\richg\\AppData\\Local\\Temp\\pytest-of-richg\\pytest-261\\test_full_pipeline_with_failur0\\.state\\routing_decisions.json",
+    "assignments_file": "C:\\Users\\richg\\AppData\\Local\\Temp\\pytest-of-richg\\pytest-261\\test_full_pipeline_with_failur0\\.state\\adapter_assignments.json"
+  },
+  "execution_results": {
+    "total": 1,
+    "succeeded": 1,
+    "failed": 0,
+    "skipped": 0,
+    "results_file": "C:\\Users\\richg\\AppData\\Local\\Temp\\pytest-of-richg\\pytest-261\\test_full_pipeline_with_failur0\\.state\\execution_results.json",
+    "executor_state": {
+      "run_id": "221CCABFB3C048E28FEFC07450",
+      "state": "succeeded"
+    }
+  },
+  "recovery_results": {},
+  "success": true,
+  "duration_seconds": 14.891343832015991
+}

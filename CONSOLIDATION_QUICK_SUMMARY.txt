@@ -1,47 +1,72 @@
-# Autonomous Workflow Consolidation Summary
+# Folder Overlap Analysis - CORRECTED Summary
 
-Date: 2025-12-04
-Status: Complete
+Generated: 2025-12-04
+Status: ANALYSIS COMPLETE - ROOT IS AUTHORITATIVE
 
-## What Was Done
+## CRITICAL FINDING: Initial Analysis Was WRONG
 
-1. Analyzed autonomous-workflow/ prototype
-   - Found: Not implemented, not running
-   - Found: Significant overlap with Phase 6
-   - Found: Useful patterns worth preserving
+### Original (Incorrect) Assumption:
+- Assumed phase*/modules/ had more complete implementations
+- Planned to archive core/planning/ and core/adapters/
+- ❌ This was BACKWARDS
 
-2. Extracted patterns to documentation
-   - Created: CERTIFICATION_ENHANCEMENT_PROPOSAL.md
-   - Documented: 5 patterns (certification, layers, thresholds)
+### Actual Truth (Verified):
+✅ **ROOT-LEVEL is AUTHORITATIVE**
+✅ **PHASE-LEVEL are SHIMS/REDIRECTS** (import from root)
 
-3. Implemented high-priority enhancements
-   - Enhanced: PipelineSummary with auto_repairable tracking
-   - Enhanced: PluginIssue with layer classification
-   - Created: layer_classifier.py utility
-   - Created: thresholds.py for quality gates
-   - Updated: pipeline_engine.py with new metrics
+## Evidence
 
-4. Archived prototype
-   - Moved: autonomous-workflow/ → _ARCHIVE/autonomous-workflow_prototype_20251204/
-   - Preserved: All content for reference
+### Planning Module:
+- core/planning/ccpm_integration.py: 8,004 bytes → FULL IMPLEMENTATION
+- phase1/.../ccpm_integration.py: 508 bytes → REDIRECT (imports from core)
 
-## Files Modified
-- types.py (enhanced data types)
-- pipeline_engine.py (enhanced reporting)
+### Adapter Module:
+- core/adapters/base.py: 3,570 bytes → FULL IMPLEMENTATION
+- phase4/.../adapters/__init__.py: 775 bytes → RE-EXPORTS core.adapters
 
-## Files Created
-- CERTIFICATION_ENHANCEMENT_PROPOSAL.md
-- layer_classifier.py
-- thresholds.py
-- AUTONOMOUS_WORKFLOW_CONSOLIDATION_SUMMARY.md
-- CONSOLIDATION_COMPLETE.md
+### Import Patterns:
+All production code imports from ROOT:
+  from core.planning.planner import *
+  from core.adapters.base import ToolAdapter
 
-## Breaking Changes
-None - all changes are backward compatible
+## Corrected Understanding
 
-## Testing Needed
-- Unit tests for layer_classifier.py
-- Unit tests for thresholds.py
-- Integration test: verify new metrics in reports
+### Authoritative Implementations (ROOT):
+✅ core/planning/ - Keep (authoritative)
+✅ core/adapters/ - Keep (authoritative)
+✅ core/state/ - Keep (authoritative)
+✅ core/engine/ - Keep (authoritative)
+✅ error/ - Keep (authoritative)
+✅ schema/ - Keep (global schemas)
 
-Status: ✅ Complete
+### Phase Directory Purpose:
+Phase directories are CONTAINERS for:
+1. Documentation (READMEs explaining phase responsibilities)
+2. Configuration (Phase-specific overrides)
+3. Schemas (Phase-specific extensions)
+4. Tests (Phase integration tests)
+5. Shims (Import convenience layers - optional)
+
+They are NOT separate implementations!
+
+## Real Issues Found
+
+1. Schema Duplication - Need audit for duplicate schema IDs
+2. Configuration Hierarchy - Need to document loading precedence
+3. Test Duplication - Consolidate to root tests/
+
+## Actions Taken
+
+✅ Restored core/planning/ (was temporarily archived)
+✅ Restored core/adapters/ (was temporarily archived)
+✅ Archived phase shim layers to _ARCHIVE/phase1_planning_redirects_2025-12-04/
+✅ Created corrected analysis documents
+
+## Conclusion
+
+**Repository structure is CORRECT as-is:**
+- Root = Authoritative implementations
+- Phases = Documentation containers
+- No consolidation needed, just better documentation
+
+See FOLDER_OVERLAP_ANALYSIS.md for full details.

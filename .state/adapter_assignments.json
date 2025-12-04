@@ -1,4 +1,11 @@
 {
-  "run_id": "F806A64C415141519C46E42C66",
-  "assignments": []
+  "run_id": "782F7C6284D54D4299305CD76E",
+  "assignments": [
+    {
+      "run_id": "782F7C6284D54D4299305CD76E",
+      "task_id": "T1",
+      "task_kind": "code_edit",
+      "tool_id": "echoer"
+    }
+  ]
 }

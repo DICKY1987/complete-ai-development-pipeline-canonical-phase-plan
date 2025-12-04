@@ -1,0 +1,25 @@
+{
+  "run_id": "2E6FD06E493F46719A22E280E7",
+  "total_tasks": 1,
+  "routing_results": {
+    "decisions_count": 0,
+    "decisions_file": "C:\\Users\\richg\\AppData\\Local\\Temp\\pytest-of-richg\\pytest-263\\test_state_file_export0\\.state\\routing_decisions.json",
+    "assignments_file": "C:\\Users\\richg\\AppData\\Local\\Temp\\pytest-of-richg\\pytest-263\\test_state_file_export0\\.state\\adapter_assignments.json"
+  },
+  "execution_results": {
+    "total": 1,
+    "succeeded": 1,
+    "failed": 0,
+    "skipped": 0,
+    "results_file": "C:\\Users\\richg\\AppData\\Local\\Temp\\pytest-of-richg\\pytest-263\\test_state_file_export0\\.state\\execution_results.json",
+    "executor_state": {
+      "exit_code": 0,
+      "output_patch_id": null,
+      "error_log": null,
+      "metadata": null
+    }
+  },
+  "recovery_results": {},
+  "success": true,
+  "duration_seconds": 0.09731340408325195
+}

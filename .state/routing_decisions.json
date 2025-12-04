@@ -1,4 +1,20 @@
 {
-  "run_id": "F806A64C415141519C46E42C66",
-  "decisions": []
+  "run_id": "782F7C6284D54D4299305CD76E",
+  "decisions": [
+    {
+      "timestamp": "2025-12-04T21:51:34.593699+00:00",
+      "task_kind": "code_edit",
+      "selected_tool": "echoer",
+      "strategy": "fallback",
+      "candidates": [
+        "echoer"
+      ],
+      "rule_id": null,
+      "metadata": {
+        "reason": "no_matching_rule"
+      },
+      "task_id": "T1",
+      "run_id": "782F7C6284D54D4299305CD76E"
+    }
+  ]
 }

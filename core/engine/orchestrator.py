@@ -59,6 +59,8 @@ class Orchestrator:
         Returns:
             run_id: Created run identifier
         """
+        if getattr(self.db, "conn", None) is None and hasattr(self.db, "connect"):
+            self.db.connect()
         run_id = generate_ulid()
 
         run_data = {
@@ -96,6 +98,8 @@ class Orchestrator:
         Returns:
             True if transition succeeded, False otherwise
         """
+        if getattr(self.db, "conn", None) is None and hasattr(self.db, "connect"):
+            self.db.connect()
         run = self.db.get_run(run_id)
         if not run:
             raise ValueError(f"Run not found: {run_id}")
@@ -132,6 +136,8 @@ class Orchestrator:
         Returns:
             True if transition succeeded, False otherwise
         """
+        if getattr(self.db, "conn", None) is None and hasattr(self.db, "connect"):
+            self.db.connect()
         run = self.db.get_run(run_id)
         if not run:
             raise ValueError(f"Run not found: {run_id}")

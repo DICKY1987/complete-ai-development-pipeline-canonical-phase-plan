@@ -97,6 +97,7 @@ coverage/
 
 # Worktrees and execution state
 .worktrees/
+.execution/
 .ledger/*.json
 .tasks/queued/*
 .tasks/running/*
@@ -170,4 +171,3 @@ __pycache__/
 .pytest_cache/
 *.log
 # <<< SAFE_CLEAN_V1
-
