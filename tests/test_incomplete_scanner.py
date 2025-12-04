@@ -15,6 +15,7 @@ import pytest
 sys.path.insert(0, str(Path(__file__).parent.parent / "scripts"))
 
 from scan_incomplete_implementation import (
+    AllowlistConfig,
     Finding,
     calculate_severity,
     check_class_stub,
@@ -242,7 +243,8 @@ class TestWhitelistMechanism:
             reason="function_body_is_pass",
         )
 
-        is_allowed = is_allowed_stub("tests/fixtures/dummy.py", finding)
+        allowlist = AllowlistConfig(path_patterns=["tests/fixtures/**/*.py"])
+        is_allowed = is_allowed_stub("tests/fixtures/dummy.py", finding, allowlist, {})
 
         assert is_allowed is True
 
@@ -255,7 +257,8 @@ class TestWhitelistMechanism:
             reason="function_body_is_pass",
         )
 
-        is_allowed = is_allowed_stub("_ARCHIVE/old_code.py", finding)
+        allowlist = AllowlistConfig(path_patterns=["_ARCHIVE/**/*"])
+        is_allowed = is_allowed_stub("_ARCHIVE/old_code.py", finding, allowlist, {})
 
         assert is_allowed is True
 
@@ -269,9 +272,30 @@ class TestWhitelistMechanism:
             body_preview="# INCOMPLETE_OK: Abstract interface",
         )
 
-        is_allowed = is_allowed_stub("core/interface.py", finding)
+        allowlist = AllowlistConfig()
+        is_allowed = is_allowed_stub(
+            "core/interface.py",
+            finding,
+            allowlist,
+            {"core/interface.py": finding.body_preview},
+        )
 
         assert is_allowed is True
+
+    def test_allowed_severity_downgrade(self):
+        """calculate_severity should downgrade to allowed_stub when allowlisted."""
+        finding = Finding(
+            kind="stub_function",
+            path="docs/examples/demo.py",
+            symbol="demo",
+            reason="function_body_is_pass",
+            body_preview="# STUB_ALLOWED",
+        )
+        allowlist = AllowlistConfig(path_patterns=["docs/examples/**/*"])
+
+        severity, _ = calculate_severity(finding, Path("."), allowlist, {"docs/examples/demo.py": finding.body_preview})
+
+        assert severity == "allowed_stub"
 
 
 class TestEndToEnd:
