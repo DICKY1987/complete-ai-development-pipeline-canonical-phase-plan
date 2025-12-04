@@ -3,14 +3,17 @@ from __future__ import annotations
 """Executor integration smoke tests for Phase 5 execution."""
 # DOC_ID: DOC-TEST-ENGINE-EXECUTOR-FLOW-300
 
+import json
 import time
 from pathlib import Path
+from typing import Dict
 
 import pytest
 
 from core.engine.executor import AdapterResult, Executor
 from core.engine.orchestrator import Orchestrator
 from core.engine.process_spawner import ProcessSpawner
+from core.engine.router import TaskRouter
 from core.engine.scheduler import ExecutionScheduler, Task
 from core.engine.test_gate import GateCriteria, TestGate, TestResults
 from core.state.db import Database
@@ -44,7 +47,7 @@ def test_executor_runs_task_and_updates_state(tmp_path):
 
     run_id = orch.create_run("PRJ-1", "PH-05")
 
-    def adapter(task_obj: Task, tool_id: str) -> AdapterResult:
+    def adapter(task_obj: Task, tool_id: str, _: Dict[str, Any]) -> AdapterResult:
         assert tool_id == "aider"
         return AdapterResult(exit_code=0, output_patch_id=f"{task_obj.task_id}-patch")
 
@@ -78,7 +81,7 @@ def test_executor_marks_failure_when_adapter_fails(tmp_path):
 
     run_id = orch.create_run("PRJ-1", "PH-05")
 
-    def adapter(_: Task, __: str) -> AdapterResult:
+    def adapter(_: Task, __: str, ___: Dict[str, Any]) -> AdapterResult:
         return AdapterResult(exit_code=9, error_log="boom")
 
     executor = Executor(orch, router, scheduler, adapter)
@@ -102,7 +105,7 @@ def test_executor_handles_missing_route(tmp_path):
     run_id = orch.create_run("PRJ-1", "PH-05")
 
     executor = Executor(
-        orch, router, scheduler, adapter_runner=lambda *_: AdapterResult()
+        orch, router, scheduler, adapter_runner=lambda *args: AdapterResult()
     )
     summary = executor.run(run_id)
 
@@ -157,7 +160,7 @@ def test_executor_with_test_gate_integration(tmp_path, monkeypatch):
     scheduler.add_task(Task("T1", "code_edit"))
     run_id = orch.create_run("PRJ-1", "PH-05")
 
-    def adapter(_: Task, __: str) -> AdapterResult:
+    def adapter(_: Task, __: str, ___: Dict[str, Any]) -> AdapterResult:
         return AdapterResult(exit_code=0, metadata={"coverage": 90.0})
 
     def gate_callback(run_id: str, task: Task, result: AdapterResult) -> bool:
@@ -189,7 +192,7 @@ def test_executor_gate_callback_can_fail_task(tmp_path):
 
     run_id = orch.create_run("PRJ-1", "PH-05")
 
-    def adapter(_: Task, __: str) -> AdapterResult:
+    def adapter(_: Task, __: str, ___: Dict[str, Any]) -> AdapterResult:
         return AdapterResult(exit_code=0)
 
     def gate_callback(_: str, __: Task, ___: AdapterResult) -> bool:
@@ -215,7 +218,7 @@ def test_executor_handles_adapter_exception(tmp_path):
     run_id = orch.create_run("PRJ-1", "PH-05")
 
     def adapter(
-        _: Task, __: str
+        _: Task, __: str, ___: Dict[str, Any]
     ) -> AdapterResult:  # pragma: no cover - exercised via exception path
         raise RuntimeError("adapter boom")
 
@@ -227,6 +230,39 @@ def test_executor_handles_adapter_exception(tmp_path):
     assert step["state"] == "failed"
     assert step["exit_code"] == 1
     assert "adapter boom" in step["error_log"]
+
+
+def test_executor_runs_with_subprocess_adapter(tmp_path, monkeypatch):
+    """Executor uses SubprocessAdapter when no adapter_runner is provided."""
+    router_config = {
+        "version": "1.0.0",
+        "apps": {
+            "echoer": {
+                "kind": "tool",
+                "command": "python -c \"print('ok')\"",
+                "capabilities": {"task_kinds": ["code_edit"]},
+                "limits": {"timeout_seconds": 10},
+            }
+        },
+        "routing": {"rules": []},
+    }
+    config_path = tmp_path / "router.json"
+    config_path.write_text(json.dumps(router_config))
+    router = TaskRouter(str(config_path))
+
+    db = _make_db(tmp_path)
+    orch = Orchestrator(db)
+    scheduler = ExecutionScheduler()
+    scheduler.add_task(Task("T1", "code_edit", metadata={"description": "echo"}))
+    run_id = orch.create_run("PRJ-1", "PH-05")
+
+    executor = Executor(orch, router, scheduler)
+    summary = executor.run(run_id)
+
+    step = db.list_step_attempts(run_id)[0]
+    assert summary["state"] == "succeeded"
+    assert step["state"] == "succeeded"
+    assert step["exit_code"] == 0
 
 
 def test_process_spawner_lifecycle(tmp_path):

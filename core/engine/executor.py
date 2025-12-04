@@ -8,8 +8,11 @@ Runs scheduled workstream tasks with isolation and telemetry capture.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Callable, Dict, List, Optional
+from typing import Any, Callable, Dict, Optional
 
+from core.adapters.base import ToolConfig
+from core.adapters.subprocess_adapter import SubprocessAdapter
+from core.engine.execution_request_builder import ExecutionRequestBuilder
 from core.engine.orchestrator import Orchestrator
 from core.engine.router import TaskRouter
 from core.engine.scheduler import ExecutionScheduler, Task
@@ -35,7 +38,9 @@ class Executor:
         orchestrator: Orchestrator,
         router: TaskRouter,
         scheduler: ExecutionScheduler,
-        adapter_runner: Callable[[Task, str], AdapterResult],
+        adapter_runner: Optional[
+            Callable[[Task, str, Dict[str, Any]], AdapterResult]
+        ] = None,
         gate_callback: Optional[Callable[[str, Task, AdapterResult], bool]] = None,
     ):
         """
@@ -44,12 +49,14 @@ class Executor:
             router: Task router for selecting tool_id
             scheduler: Scheduler holding tasks to execute
             adapter_runner: Callable that executes a task with a tool and returns AdapterResult
+                (run metadata is provided as third arg). If omitted, a default subprocess
+                adapter is used based on router config.
             gate_callback: Optional quality gate callable (run_id, task, result) -> bool
         """
         self.orchestrator = orchestrator
         self.router = router
         self.scheduler = scheduler
-        self.adapter_runner = adapter_runner
+        self.adapter_runner = adapter_runner or self._run_with_adapter
         self.gate_callback = gate_callback
 
     def run(self, run_id: str) -> Dict[str, Any]:
@@ -89,7 +96,7 @@ class Executor:
                 )
 
                 try:
-                    result = self.adapter_runner(task, tool_id)
+                    result = self.adapter_runner(task, tool_id, run)
                 except Exception as exc:  # pragma: no cover - defensive
                     # Ensure we capture execution failure cleanly
                     self.orchestrator.complete_step_attempt(
@@ -136,3 +143,47 @@ class Executor:
         self.orchestrator.complete_run(run_id, final_state, exit_code=exit_code)
 
         return {"run_id": run_id, "state": final_state}
+
+    def _run_with_adapter(
+        self, task: Task, tool_id: str, run: Dict[str, Any]
+    ) -> AdapterResult:
+        """Default adapter runner that shells out using SubprocessAdapter."""
+        tool_config = self.router.get_tool_config(tool_id)
+        if not tool_config:
+            raise ValueError(f"Tool config not found for {tool_id}")
+
+        config = ToolConfig(
+            tool_id=tool_id,
+            kind=tool_config.get("kind", "tool"),
+            command=tool_config["command"],
+            capabilities=tool_config.get("capabilities", {}),
+            limits=tool_config.get("limits", {}),
+            safety_tier=tool_config.get("safety_tier", "medium"),
+        )
+        adapter = SubprocessAdapter(config)
+
+        builder = (
+            ExecutionRequestBuilder()
+            .with_task(task.task_kind, task.metadata.get("description", ""))
+            .with_tool(tool_id, config.command)
+        )
+
+        if constraints := task.metadata.get("constraints"):
+            builder.with_constraints(constraints)
+
+        request = builder.build()
+        request["project_id"] = run.get("project_id")
+        request["phase_id"] = run.get("phase_id")
+        request["workstream_id"] = run.get("workstream_id")
+
+        result = adapter.execute(request, timeout=config.get_timeout())
+
+        return AdapterResult(
+            exit_code=result.exit_code,
+            error_log=result.error_message or result.stderr,
+            metadata={
+                "stdout": result.stdout,
+                "stderr": result.stderr,
+                "command": result.metadata.get("command") if result.metadata else None,
+            },
+        )
