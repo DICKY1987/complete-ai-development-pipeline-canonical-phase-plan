@@ -136,15 +136,18 @@ class ComplexityMetrics:
 
 @dataclass
 class OperationalMetrics:
-    """Layer 4 metrics - Operational Validation."""
+    """Layer 4 metrics - Operational Validation (Load Testing & Performance)."""
 
-    e2e_scenarios_passed: int
-    e2e_scenarios_failed: int
-    e2e_duration_seconds: float
-    performance_metrics: Dict[str, float] = field(default_factory=dict)
-    performance_baseline: Dict[str, float] = field(default_factory=dict)
-    performance_regression_detected: bool = False
-    security_test_results: Dict[str, bool] = field(default_factory=dict)
+    total_requests: int
+    failed_requests: int
+    success_rate: float  # Percentage
+    avg_response_time_ms: float
+    max_response_time_ms: float
+    requests_per_second: float
+    concurrent_users: int
+    test_duration: str  # e.g., "30s", "1m"
+    performance_score: float  # 0-100
+    passed_validation: bool
     tool_name: str = ""
     timestamp: Optional[datetime] = None
 
@@ -214,15 +217,10 @@ class CoverageReport:
             scores["complexity"] = min(100, complexity_score)
 
         if self.operational_validation:
-            total = (
-                self.operational_validation.e2e_scenarios_passed
-                + self.operational_validation.e2e_scenarios_failed
+            # Use performance score directly (already 0-100)
+            scores["operational_validation"] = (
+                self.operational_validation.performance_score
             )
-            if total > 0:
-                pass_rate = (
-                    self.operational_validation.e2e_scenarios_passed / total
-                ) * 100
-                scores["operational_validation"] = pass_rate
 
         if not scores:
             return 0.0

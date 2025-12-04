@@ -1,0 +1,408 @@
+# Autonomous Workflow Configuration
+# This file defines the behavior of the self-healing automation system
+
+version: "1.0.0"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# DISCOVERY SETTINGS
+# ═══════════════════════════════════════════════════════════════════════════════
+discovery:
+  # Patterns to include
+  include_patterns:
+    - "**/*.ps1"
+    - "**/*.py"
+    - "**/*.yml"
+    - "**/*.yaml"
+
+  # Patterns to exclude
+  exclude_patterns:
+    - "**/node_modules/**"
+    - "**/.git/**"
+    - "**/vendor/**"
+    - "**/__pycache__/**"
+    - "**/.venv/**"
+    - "**/venv/**"
+    - "**/.pytest_cache/**"
+
+  # Type detection rules
+  type_detection:
+    github_workflow:
+      path_pattern: ".github/workflows/*.yml"
+      required_content: ["name:", "jobs:"]
+
+    pattern_executor:
+      path_pattern: "patterns/executors/**/*.ps1"
+      required_content: ["param(", "[CmdletBinding"]
+
+    test_suite:
+      path_patterns:
+        - "tests/**/*.py"
+        - "**/test_*.py"
+      required_content: ["def test_", "@pytest"]
+
+    core_module:
+      path_pattern: "core/**/*.py"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# HEALTH CHECK SETTINGS
+# ═══════════════════════════════════════════════════════════════════════════════
+health_checks:
+  # Default timeout for all checks
+  default_timeout_seconds: 300
+
+  # Type-specific timeouts
+  timeouts:
+    github_workflow: 10        # Just validate YAML
+    powershell: 30             # Syntax check
+    python: 30                 # Syntax check
+    test_suite: 600            # Full test run
+    pattern_executor: 30
+    core_module: 30
+
+  # Validation methods by type
+  validators:
+    github_workflow:
+      method: yaml_structure
+      required_keys: ["name", "on", "jobs"]
+
+    powershell:
+      method: syntax_parse
+      check_cmdlet_binding: true
+
+    python:
+      method: py_compile
+      check_imports: false     # Fast mode
+
+    test_suite:
+      method: pytest_collect
+      collect_only: true       # Don't run, just collect
+
+    pattern_executor:
+      method: syntax_parse
+      require_param_block: true
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# FAILURE CLASSIFICATION
+# ═══════════════════════════════════════════════════════════════════════════════
+classification:
+  # Error pattern matching (regex -> root cause)
+  patterns:
+    ENV_MISSING:
+      - "environment variable.*not set"
+      - "env.*missing"
+      - "ModuleNotFoundError"
+      - "command not found"
+      - "ImportError.*No module"
+      - "which:.*not found"
+
+    SCHEMA_INVALID:
+      - "schema.*invalid"
+      - "validation.*failed"
+      - "invalid.*yaml"
+      - "invalid.*json"
+      - "ParseException"
+      - "yaml.scanner.ScannerError"
+
+    TIMEOUT:
+      - "timeout"
+      - "timed out"
+      - "deadline exceeded"
+      - "operation.*timeout"
+
+    PERMISSION_DENIED:
+      - "permission denied"
+      - "access denied"
+      - "401.*unauthorized"
+      - "403.*forbidden"
+      - "EACCES"
+
+    NETWORK_FAIL:
+      - "network.*error"
+      - "connection.*refused"
+      - "dns.*failed"
+      - "ECONNREFUSED"
+      - "ETIMEDOUT"
+      - "getaddrinfo"
+
+    RESOURCE_EXHAUSTED:
+      - "out of memory"
+      - "disk.*full"
+      - "no space left"
+      - "MemoryError"
+      - "ENOSPC"
+
+    FILE_NOT_FOUND:
+      - "file not found"
+      - "no such file"
+      - "FileNotFoundError"
+      - "ENOENT"
+
+    SYNTAX_ERROR:
+      - "syntax.*error"
+      - "SyntaxError"
+      - "IndentationError"
+      - "unexpected token"
+      - "parse error"
+
+    DEPENDENCY_FAIL:
+      - "upstream.*failed"
+      - "dependency.*failed"
+      - "prerequisite.*not met"
+
+  # Layer mapping
+  layers:
+    "Layer 1 - Infrastructure":
+      - FILE_NOT_FOUND
+      - RESOURCE_EXHAUSTED
+
+    "Layer 2 - Dependencies":
+      - ENV_MISSING
+      - VERSION_MISMATCH
+      - NETWORK_FAIL
+
+    "Layer 3 - Configuration":
+      - SCHEMA_INVALID
+      - CONFIG_INVALID
+
+    "Layer 4 - Operational":
+      - PERMISSION_DENIED
+      - TIMEOUT
+      - DEPENDENCY_FAIL
+
+    "Layer 5 - Business Logic":
+      - SYNTAX_ERROR
+      - LOGIC_ERROR
+      - UNKNOWN
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# FIX STRATEGIES
+# ═══════════════════════════════════════════════════════════════════════════════
+fix_strategies:
+  # Root cause -> fix strategy mapping
+  mappings:
+    ENV_MISSING: INJECT_ENV_DEFAULT
+    SCHEMA_INVALID: REGENERATE_SCHEMA
+    DEPENDENCY_FAIL: RERUN_UPSTREAM
+    TIMEOUT: INCREASE_TIMEOUT
+    PERMISSION_DENIED: REGENERATE_TOKEN
+    NETWORK_FAIL: RETRY_WITH_BACKOFF
+    RESOURCE_EXHAUSTED: CLEAR_CACHE
+    CONFIG_INVALID: FIX_CONFIG
+    VERSION_MISMATCH: INSTALL_DEPENDENCY
+    FILE_NOT_FOUND: SYNC_FILES
+    SYNTAX_ERROR: ESCALATE_AI
+    LOGIC_ERROR: ESCALATE_AI
+    UNKNOWN: ESCALATE_HUMAN
+
+  # Auto-repairable root causes
+  auto_repairable:
+    - ENV_MISSING
+    - SCHEMA_INVALID
+    - DEPENDENCY_FAIL
+    - TIMEOUT
+    - NETWORK_FAIL
+    - RESOURCE_EXHAUSTED
+    - CONFIG_INVALID
+    - FILE_NOT_FOUND
+
+  # Strategy implementations
+  implementations:
+    INJECT_ENV_DEFAULT:
+      description: "Inject default environment variables"
+      steps:
+        - action: check_env_file
+          command: "test -f .env.defaults && echo 'found' || echo 'missing'"
+        - action: source_defaults
+          command: "source .env.defaults 2>/dev/null || true"
+      risk_level: low
+      reversible: true
+
+    REGENERATE_SCHEMA:
+      description: "Regenerate schema from registry"
+      steps:
+        - action: backup
+          command: "cp -f {target} {target}.bak 2>/dev/null || true"
+        - action: regenerate
+          command: "python -m schema_generator --target {target} --refresh"
+      risk_level: medium
+      reversible: true
+
+    RERUN_UPSTREAM:
+      description: "Re-run upstream dependency"
+      steps:
+        - action: identify_upstream
+          command: "echo 'Identifying upstream: {dependency}'"
+        - action: trigger_upstream
+          command: "invoke-automation --id {dependency} --force"
+      risk_level: medium
+      reversible: false
+
+    INCREASE_TIMEOUT:
+      description: "Increase execution timeout"
+      steps:
+        - action: set_timeout
+          command: "export AUTOMATION_TIMEOUT=600"
+      risk_level: low
+      reversible: true
+
+    RETRY_WITH_BACKOFF:
+      description: "Retry with exponential backoff"
+      steps:
+        - action: wait
+          command: "sleep {backoff_seconds}"
+        - action: retry
+          command: "echo 'Retry initiated'"
+      risk_level: low
+      reversible: true
+      parameters:
+        initial_backoff: 5
+        multiplier: 2
+        max_backoff: 300
+
+    CLEAR_CACHE:
+      description: "Clear caches and temporary files"
+      steps:
+        - action: clear_python_cache
+          command: "find . -type d -name '__pycache__' -exec rm -rf {} + 2>/dev/null || true"
+        - action: clear_pytest_cache
+          command: "rm -rf .pytest_cache .cache 2>/dev/null || true"
+        - action: clear_temp
+          command: "rm -rf /tmp/automation_* 2>/dev/null || true"
+      risk_level: low
+      reversible: false
+
+    SYNC_FILES:
+      description: "Sync files from source control"
+      steps:
+        - action: fetch
+          command: "git fetch origin"
+        - action: checkout_file
+          command: "git checkout origin/main -- {file_path}"
+      risk_level: medium
+      reversible: true
+
+    INSTALL_DEPENDENCY:
+      description: "Install missing dependency"
+      steps:
+        - action: detect_manager
+          command: "test -f requirements.txt && echo 'pip' || (test -f package.json && echo 'npm' || echo 'unknown')"
+        - action: install
+          command: "pip install -r requirements.txt || npm install"
+      risk_level: medium
+      reversible: true
+
+    FIX_CONFIG:
+      description: "Attempt to fix configuration"
+      steps:
+        - action: validate
+          command: "python -m config_validator --fix {config_path}"
+      risk_level: medium
+      reversible: true
+
+    REGENERATE_TOKEN:
+      description: "Regenerate authentication token"
+      steps:
+        - action: notify
+          command: "echo 'Token regeneration required - check credentials'"
+      risk_level: high
+      reversible: false
+      requires_human: true
+
+    ESCALATE_AI:
+      description: "Escalate to AI for code fix"
+      steps:
+        - action: log
+          command: "echo 'Escalating to AI: {unit_id} - {error_summary}'"
+        - action: create_issue
+          command: "echo 'AI_FIX_REQUIRED: {unit_id}' >> .automation-health/ai_escalations.log"
+      risk_level: high
+      requires_human: false  # AI can handle
+
+    ESCALATE_HUMAN:
+      description: "Escalate to human operator"
+      steps:
+        - action: log
+          command: "echo 'HUMAN REVIEW REQUIRED: {unit_id}'"
+        - action: notify
+          command: "echo '{unit_id}: {error_summary}' >> .automation-health/human_escalations.log"
+      risk_level: critical
+      requires_human: true
+
+    SKIP_AND_LOG:
+      description: "Skip and log for later review"
+      steps:
+        - action: log
+          command: "echo 'SKIPPED: {unit_id} - {reason}' >> .automation-health/skipped.log"
+      risk_level: low
+      reversible: false
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# CERTIFICATION SETTINGS
+# ═══════════════════════════════════════════════════════════════════════════════
+certification:
+  # Minimum success rate for certification
+  minimum_success_rate: 100.0
+
+  # Maximum allowed failures by priority
+  max_failures:
+    critical: 0
+    high: 0
+    medium: 5
+    low: 10
+
+  # Certification validity period (hours)
+  validity_hours: 24
+
+  # Auto-tagging on certification
+  git_tag_pattern: "automation-certified-{date}"
+
+  # Required for release gate
+  block_release_on_failure: true
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# RETRY SETTINGS
+# ═══════════════════════════════════════════════════════════════════════════════
+retry:
+  # Maximum retry cycles
+  max_cycles: 5
+
+  # Maximum retries per unit
+  max_per_unit: 3
+
+  # Initial delay between retries (seconds)
+  initial_delay: 5
+
+  # Backoff multiplier
+  backoff_multiplier: 2.0
+
+  # Maximum delay (seconds)
+  max_delay: 300
+
+  # Stop on non-repairable
+  stop_on_escalation: false
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# OUTPUT SETTINGS
+# ═══════════════════════════════════════════════════════════════════════════════
+output:
+  # Output directory
+  directory: ".automation-health"
+
+  # Output files
+  files:
+    index: "automation_index.json"
+    status: "automation_runtime_status.json"
+    failures: "automation_failure_report.json"
+    fix_plan: "automation_fix_plan.json"
+    certification: "automation_certification.json"
+
+  # JSONL logging
+  jsonl_log: true
+  log_pattern: "orchestrator_{sweep_id}.jsonl"
+
+  # Audit trail
+  audit_trail: true
+  max_audit_entries: 1000
+
+  # Artifact retention (days)
+  retention_days: 30

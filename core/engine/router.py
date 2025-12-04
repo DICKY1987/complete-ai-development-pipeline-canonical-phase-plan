@@ -13,6 +13,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Protocol
 
+from core.events.event_bus import EventBus, EventType
+
 logger = logging.getLogger(__name__)
 
 
@@ -91,7 +93,10 @@ class TaskRouter:
     """Routes tasks to tools based on configuration and capabilities"""
 
     def __init__(
-        self, router_config_path: str, state_store: Optional[RoutingStateStore] = None
+        self,
+        router_config_path: str,
+        state_store: Optional[RoutingStateStore] = None,
+        event_bus: Optional[EventBus] = None,
     ):
         """
         Initialize router with configuration.
@@ -107,6 +112,7 @@ class TaskRouter:
         self.defaults = self.config.get("defaults", {})
         self.state_store = state_store or InMemoryStateStore()
         self.decision_log: List[RoutingDecision] = []
+        self.event_bus = event_bus
 
     def _load_config(self) -> Dict[str, Any]:
         """Load and parse router configuration"""
@@ -174,6 +180,12 @@ class TaskRouter:
                         logger.info(
                             f"Routed {task_kind} to {selected} via rule {rule_id} (strategy: {strategy})"
                         )
+                        self._emit_routing_event(
+                            EventType.ROUTING_COMPLETE,
+                            run_id,
+                            task_id,
+                            decision.to_dict(),
+                        )
                         return selected
 
         # Fallback: find any tool that can handle this task_kind
@@ -182,6 +194,20 @@ class TaskRouter:
         if capable_tools:
             # Default to first capable tool
             selected = capable_tools[0]
+            if hasattr(self, "event_bus") and self.event_bus:
+                try:
+                    self.event_bus.emit(
+                        "ROUTING_FALLBACK",
+                        run_id=run_id,
+                        task_id=task_id,
+                        payload={
+                            "task_kind": task_kind,
+                            "candidates": capable_tools,
+                            "reason": "no_matching_rule",
+                        },
+                    )
+                except Exception:
+                    pass
             decision = RoutingDecision(
                 task_kind=task_kind,
                 selected_tool=selected,
@@ -193,10 +219,33 @@ class TaskRouter:
             )
             self.decision_log.append(decision)
             logger.info(f"Routed {task_kind} to {selected} via fallback")
+            self._emit_routing_event(
+                "ROUTING_FALLBACK", run_id, task_id, decision.to_dict()
+            )
             return selected
 
         logger.warning(f"No capable tools found for {task_kind}")
         return None
+
+    def _emit_routing_event(
+        self,
+        event_type: Any,
+        run_id: Optional[str],
+        task_id: Optional[str],
+        payload: Dict[str, Any],
+    ) -> None:
+        """Publish routing decisions if an event bus is attached."""
+        if not self.event_bus:
+            return
+        try:
+            self.event_bus.emit(
+                event_type,
+                run_id=run_id,
+                task_id=task_id,
+                payload=payload,
+            )
+        except Exception:
+            return
 
     def _matches_rule(
         self,
@@ -428,7 +477,9 @@ class TaskRouter:
 
 
 def create_router(
-    router_config_path: str, state_store: Optional[RoutingStateStore] = None
+    router_config_path: str,
+    state_store: Optional[RoutingStateStore] = None,
+    event_bus: Optional[EventBus] = None,
 ) -> TaskRouter:
     """
     Factory function to create a router.
@@ -436,8 +487,11 @@ def create_router(
     Args:
         router_config_path: Path to router configuration file
         state_store: Optional state store for routing persistence
+        event_bus: Optional event bus for telemetry
 
     Returns:
         Configured TaskRouter instance
     """
-    return TaskRouter(router_config_path, state_store=state_store)
+    return TaskRouter(
+        router_config_path, state_store=state_store, event_bus=event_bus
+    )

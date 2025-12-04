@@ -14,6 +14,7 @@ from typing import Any, Dict, List, Optional
 
 from core.engine.plan_schema import Plan, StepDef
 from core.engine.state_machine import RunStateMachine, StepStateMachine
+from core.events.event_bus import Event, EventBus, EventSeverity
 from core.state.db import Database, get_db
 
 
@@ -31,8 +32,11 @@ def now_iso() -> str:
 class Orchestrator:
     """Main orchestration engine for running workstreams"""
 
-    def __init__(self, db: Optional[Database] = None):
+    def __init__(
+        self, db: Optional[Database] = None, event_bus: Optional[EventBus] = None
+    ):
         self.db = db or get_db()
+        self.event_bus = event_bus or EventBus(db_path=str(self.db.db_path))
 
     # Run lifecycle management
 
@@ -353,18 +357,15 @@ class Orchestrator:
     # Event emission
 
     def _emit_event(self, run_id: str, event_type: str, data: Dict[str, Any]):
-        """Emit a run event"""
-        event_id = generate_ulid()
-
-        event_data = {
-            "event_id": event_id,
-            "run_id": run_id,
-            "timestamp": now_iso(),
-            "event_type": event_type,
-            "data": data,
-        }
-
-        self.db.create_event(event_data)
+        """Emit a run event to the shared event bus."""
+        event = Event(
+            event_type=event_type,
+            timestamp=datetime.now(UTC),
+            run_id=run_id,
+            payload=data,
+            severity=EventSeverity.INFO,
+        )
+        self.event_bus.emit(event)
 
     # Plan execution engine
 

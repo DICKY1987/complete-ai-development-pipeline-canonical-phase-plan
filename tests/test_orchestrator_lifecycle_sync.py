@@ -5,7 +5,7 @@ from __future__ import annotations
 import importlib
 import os
 
-from modules.core_state import m010003_bundles
+from core.state import bundles as m010003_bundles
 
 from core import orchestrator
 

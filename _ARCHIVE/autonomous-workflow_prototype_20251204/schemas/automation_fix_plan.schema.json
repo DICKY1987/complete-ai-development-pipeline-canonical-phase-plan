@@ -1,0 +1,157 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://automation.local/schemas/automation_fix_plan.schema.json",
+  "title": "Automation Fix Plan",
+  "description": "Deterministic repair plan for failed automation units",
+  "type": "object",
+  "required": ["version", "sweep_id", "generated_at", "fixes"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "sweep_id": {
+      "type": "string",
+      "pattern": "^[0-9A-Z]{26}$"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "execution_mode": {
+      "type": "string",
+      "enum": ["dry_run", "auto_apply", "interactive"],
+      "default": "dry_run"
+    },
+    "summary": {
+      "type": "object",
+      "properties": {
+        "total_fixes": { "type": "integer", "minimum": 0 },
+        "auto_executable": { "type": "integer", "minimum": 0 },
+        "requires_human": { "type": "integer", "minimum": 0 },
+        "estimated_time_seconds": { "type": "integer" },
+        "by_strategy": {
+          "type": "object",
+          "additionalProperties": { "type": "integer" }
+        }
+      }
+    },
+    "execution_order": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Ordered list of unit IDs to fix (respects dependencies)"
+    },
+    "fixes": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/FixPlan"
+      }
+    }
+  },
+  "definitions": {
+    "FixPlan": {
+      "type": "object",
+      "required": ["strategy", "requires_human"],
+      "properties": {
+        "strategy": {
+          "type": "string",
+          "enum": [
+            "INJECT_ENV_DEFAULT",
+            "REGENERATE_SCHEMA",
+            "RERUN_UPSTREAM",
+            "INCREASE_TIMEOUT",
+            "REGENERATE_TOKEN",
+            "REFRESH_CREDENTIALS",
+            "RETRY_WITH_BACKOFF",
+            "INSTALL_DEPENDENCY",
+            "FIX_CONFIG",
+            "CLEAR_CACHE",
+            "RESTART_SERVICE",
+            "SYNC_FILES",
+            "PATCH_CODE",
+            "ESCALATE_AI",
+            "ESCALATE_HUMAN",
+            "SKIP_AND_LOG"
+          ]
+        },
+        "requires_human": {
+          "type": "boolean"
+        },
+        "description": {
+          "type": "string"
+        },
+        "pre_conditions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "check": { "type": "string" },
+              "command": { "type": "string" },
+              "expected": { "type": "string" }
+            }
+          }
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["action", "command"],
+            "properties": {
+              "order": { "type": "integer" },
+              "action": { "type": "string" },
+              "command": { "type": "string" },
+              "working_directory": { "type": "string" },
+              "timeout_seconds": { "type": "integer", "default": 60 },
+              "continue_on_error": { "type": "boolean", "default": false },
+              "rollback_command": { "type": "string" }
+            }
+          }
+        },
+        "patch_target": {
+          "type": "string",
+          "description": "File path to patch (if applicable)"
+        },
+        "patch_content": {
+          "type": "string",
+          "description": "Patch content or diff (if applicable)"
+        },
+        "environment_changes": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        },
+        "post_conditions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "check": { "type": "string" },
+              "command": { "type": "string" },
+              "expected": { "type": "string" }
+            }
+          }
+        },
+        "estimated_time_seconds": {
+          "type": "integer"
+        },
+        "risk_assessment": {
+          "type": "object",
+          "properties": {
+            "level": { "type": "string", "enum": ["low", "medium", "high", "critical"] },
+            "reversible": { "type": "boolean" },
+            "side_effects": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "execution_result": {
+          "type": "object",
+          "properties": {
+            "executed_at": { "type": "string", "format": "date-time" },
+            "success": { "type": "boolean" },
+            "steps_completed": { "type": "integer" },
+            "error": { "type": "string" },
+            "rollback_performed": { "type": "boolean" }
+          }
+        }
+      }
+    }
+  }
+}

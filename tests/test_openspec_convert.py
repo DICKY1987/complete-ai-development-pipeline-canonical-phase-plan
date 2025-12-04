@@ -3,7 +3,7 @@
 import json
 from pathlib import Path
 
-from modules.core_state import m010003_bundles as ws_bundles
+from core.state import bundles as ws_bundles
 
 from core.openspec_convert import bundle_to_workstream
 from core.openspec_parser import load_bundle_from_change

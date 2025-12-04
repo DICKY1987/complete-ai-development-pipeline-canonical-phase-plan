@@ -6,9 +6,9 @@ Validates DAG-IMPL-001, DAG-IMPL-002, DAG-IMPL-003 requirements.
 # DOC_ID: DOC-CORE-STATE-TEST-DAG-UTILS-126
 
 import pytest
-from modules.core_state import m010003_dag_utils as dag_utils
-from modules.core_state.m010003_bundles import WorkstreamBundle
-from modules.core_state.m010003_dag_utils import (
+from core.state import dag_utils
+from core.state.bundles import WorkstreamBundle
+from core.state.dag_utils import (
     DagAnalysis,
     analyze_bundles,
     build_dependency_graph,
@@ -435,7 +435,7 @@ class TestDagRequirements:
     def test_dag_impl_001_single_source_of_truth(self):
         """DAG-IMPL-001: All operations in dag_utils.py"""
         # This is validated by module structure - all functions defined here
-        from modules.core_state import m010003_dag_utils
+        from core.state import dag_utils as m010003_dag_utils
 
         required_functions = [
             "build_dependency_graph",

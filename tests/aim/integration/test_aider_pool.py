@@ -17,7 +17,7 @@ import time
 from pathlib import Path
 
 import pytest
-from aim.bridge import ToolProcessPool, load_aim_registry
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.bridge import ToolProcessPool, load_aim_registry
 
 # Skip all tests in this module - AIM not yet implemented (Phase 4)
 pytestmark = pytest.mark.skip(

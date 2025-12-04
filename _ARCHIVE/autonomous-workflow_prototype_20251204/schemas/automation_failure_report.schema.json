@@ -1,0 +1,131 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://automation.local/schemas/automation_failure_report.schema.json",
+  "title": "Automation Failure Report",
+  "description": "Classified failures with root cause analysis",
+  "type": "object",
+  "required": ["version", "sweep_id", "generated_at", "failures"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "sweep_id": {
+      "type": "string",
+      "pattern": "^[0-9A-Z]{26}$"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "classification_engine": {
+      "type": "string",
+      "default": "pattern_matcher_v1"
+    },
+    "summary": {
+      "type": "object",
+      "properties": {
+        "total_failures": { "type": "integer", "minimum": 0 },
+        "auto_repairable": { "type": "integer", "minimum": 0 },
+        "requires_human": { "type": "integer", "minimum": 0 },
+        "by_root_cause": {
+          "type": "object",
+          "additionalProperties": { "type": "integer" }
+        },
+        "by_layer": {
+          "type": "object",
+          "additionalProperties": { "type": "integer" }
+        }
+      }
+    },
+    "failures": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/FailureClassification"
+      }
+    }
+  },
+  "definitions": {
+    "FailureClassification": {
+      "type": "object",
+      "required": ["root_cause", "layer", "auto_repairable"],
+      "properties": {
+        "root_cause": {
+          "type": "string",
+          "enum": [
+            "ENV_MISSING",
+            "SCHEMA_INVALID",
+            "DEPENDENCY_FAIL",
+            "TIMEOUT",
+            "LOGIC_ERROR",
+            "PERMISSION_DENIED",
+            "NETWORK_FAIL",
+            "RESOURCE_EXHAUSTED",
+            "CONFIG_INVALID",
+            "VERSION_MISMATCH",
+            "FILE_NOT_FOUND",
+            "SYNTAX_ERROR",
+            "UNKNOWN"
+          ]
+        },
+        "layer": {
+          "type": "string",
+          "enum": [
+            "Layer 1 - Infrastructure",
+            "Layer 2 - Dependencies",
+            "Layer 3 - Configuration",
+            "Layer 4 - Operational",
+            "Layer 5 - Business Logic"
+          ]
+        },
+        "auto_repairable": {
+          "type": "boolean"
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Confidence in classification (0.0-1.0)"
+        },
+        "evidence": {
+          "type": "object",
+          "properties": {
+            "error_message": { "type": "string" },
+            "matched_pattern": { "type": "string" },
+            "source_file": { "type": "string" },
+            "line_number": { "type": "integer" },
+            "stack_trace": { "type": "string" },
+            "context": { "type": "string" }
+          }
+        },
+        "suggested_fixes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "strategy": { "type": "string" },
+              "description": { "type": "string" },
+              "command": { "type": "string" },
+              "risk_level": { "type": "string", "enum": ["low", "medium", "high"] },
+              "estimated_time_seconds": { "type": "integer" }
+            }
+          }
+        },
+        "related_failures": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "IDs of potentially related failures"
+        },
+        "history": {
+          "type": "object",
+          "properties": {
+            "occurrences_24h": { "type": "integer" },
+            "occurrences_7d": { "type": "integer" },
+            "first_seen": { "type": "string", "format": "date-time" },
+            "last_seen": { "type": "string", "format": "date-time" }
+          }
+        }
+      }
+    }
+  }
+}

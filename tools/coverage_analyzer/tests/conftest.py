@@ -253,14 +253,17 @@ def sample_complexity_metrics() -> ComplexityMetrics:
 def sample_operational_metrics() -> OperationalMetrics:
     """Create sample operational validation metrics."""
     return OperationalMetrics(
-        e2e_scenarios_passed=18,
-        e2e_scenarios_failed=2,
-        e2e_duration_seconds=125.5,
-        performance_metrics={"response_time_ms": 150, "throughput": 1000},
-        performance_baseline={"response_time_ms": 140, "throughput": 1100},
-        performance_regression_detected=True,
-        security_test_results={"auth_test": True, "injection_test": True},
-        tool_name="pytest",
+        total_requests=100,
+        failed_requests=5,
+        success_rate=95.0,
+        avg_response_time_ms=150.5,
+        max_response_time_ms=500.0,
+        requests_per_second=10.5,
+        concurrent_users=10,
+        test_duration="30s",
+        performance_score=85.0,
+        passed_validation=True,
+        tool_name="locust",
     )
 
 

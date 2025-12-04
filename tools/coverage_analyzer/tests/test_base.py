@@ -131,15 +131,23 @@ class TestOperationalMetrics:
 
     def test_initialization(self):
         metrics = OperationalMetrics(
-            e2e_scenarios_passed=18,
-            e2e_scenarios_failed=2,
-            e2e_duration_seconds=125.5,
-            tool_name="pytest",
+            total_requests=100,
+            failed_requests=5,
+            success_rate=95.0,
+            avg_response_time_ms=150.5,
+            max_response_time_ms=500.0,
+            requests_per_second=10.5,
+            concurrent_users=10,
+            test_duration="30s",
+            performance_score=85.0,
+            passed_validation=True,
+            tool_name="locust",
         )
 
-        assert metrics.e2e_scenarios_passed == 18
-        assert metrics.e2e_scenarios_failed == 2
-        assert metrics.performance_regression_detected is False
+        assert metrics.total_requests == 100
+        assert metrics.failed_requests == 5
+        assert metrics.success_rate == 95.0
+        assert metrics.passed_validation is True
         assert isinstance(metrics.timestamp, datetime)
 
 

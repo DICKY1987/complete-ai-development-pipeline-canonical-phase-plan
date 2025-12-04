@@ -2,6 +2,7 @@
 
 Coordinates hashing, plugin execution, temp-dir isolation, and reporting.
 """
+
 # DOC_ID: DOC-ERROR-ENGINE-PIPELINE-ENGINE-118
 from __future__ import annotations
 
@@ -11,13 +12,18 @@ import tempfile
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional
 
-from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.shared.utils.time import new_run_id, utc_now_iso
-from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.shared.utils.jsonl_manager import append as jsonl_append
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.shared.utils.jsonl_manager import (
+    append as jsonl_append,
+)
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.shared.utils.time import (
+    new_run_id,
+    utc_now_iso,
+)
 from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.shared.utils.types import (
     PipelineReport,
-    PluginResult,
     PipelineSummary,
     PluginIssue,
+    PluginResult,
 )
 
 
@@ -28,14 +34,16 @@ def _report_to_dict(rep: PipelineReport) -> Dict[str, object]:
         "file_out": rep.file_out,
         "timestamp_utc": rep.timestamp_utc,
         "toolchain": rep.toolchain,
-        "summary": {
-            "plugins_run": rep.summary.plugins_run if rep.summary else 0,
-            "total_errors": rep.summary.total_errors if rep.summary else 0,
-            "total_warnings": rep.summary.total_warnings if rep.summary else 0,
-            "auto_fixed": rep.summary.auto_fixed if rep.summary else 0,
-        }
-        if rep.summary
-        else None,
+        "summary": (
+            {
+                "plugins_run": rep.summary.plugins_run if rep.summary else 0,
+                "total_errors": rep.summary.total_errors if rep.summary else 0,
+                "total_warnings": rep.summary.total_warnings if rep.summary else 0,
+                "auto_fixed": rep.summary.auto_fixed if rep.summary else 0,
+            }
+            if rep.summary
+            else None
+        ),
         "issues": [
             {
                 "tool": i.tool,
@@ -92,7 +100,15 @@ class PipelineEngine:
                 status="skipped",
             )
             # Append event to JSONL
-            jsonl_append(Path("pipeline_errors.jsonl"), {"event": "skipped", "file": str(file_path), "run_id": run_id, "ts": ts})
+            jsonl_append(
+                Path("pipeline_errors.jsonl"),
+                {
+                    "event": "skipped",
+                    "file": str(file_path),
+                    "run_id": run_id,
+                    "ts": ts,
+                },
+            )
             return report
 
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -114,20 +130,26 @@ class PipelineEngine:
         report.file_out = str(out_file)
         # Write per-file JSON next to output
         report_json_path = out_file.with_suffix(out_file.suffix + ".json")
-        report_json_path.write_text(json.dumps(_report_to_dict(report), ensure_ascii=False, indent=2), encoding="utf-8")
+        report_json_path.write_text(
+            json.dumps(_report_to_dict(report), ensure_ascii=False, indent=2),
+            encoding="utf-8",
+        )
 
         # Append aggregated JSONL
-        jsonl_append(Path("pipeline_errors.jsonl"), {
-            "event": "validated",
-            "file": str(file_path),
-            "out": str(out_file),
-            "run_id": run_id,
-            "ts": ts,
-            "summary": {
-                "errors": report.summary.total_errors if report.summary else 0,
-                "warnings": report.summary.total_warnings if report.summary else 0,
+        jsonl_append(
+            Path("pipeline_errors.jsonl"),
+            {
+                "event": "validated",
+                "file": str(file_path),
+                "out": str(out_file),
+                "run_id": run_id,
+                "ts": ts,
+                "summary": {
+                    "errors": report.summary.total_errors if report.summary else 0,
+                    "warnings": report.summary.total_warnings if report.summary else 0,
+                },
             },
-        })
+        )
 
         # Update cache
         had_errors = (report.summary.total_errors > 0) if report.summary else False
@@ -148,6 +170,66 @@ class PipelineEngine:
         plugin_results: List[PluginResult],
         run_id: Optional[str] = None,
     ) -> PipelineReport:
+        """Generate pipeline report with enhanced metrics"""
+        from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.shared.utils.layer_classifier import (
+            classify_error_layer,
+            is_auto_repairable,
+        )
+
+        if run_id is None:
+            run_id = new_run_id()
+
+        issues: List[PluginIssue] = []
+        toolchain: Dict[str, str] = {}
+        total_errors = 0
+        total_warnings = 0
+        auto_fixed_count = 0
+        auto_repairable_count = 0
+        requires_human_count = 0
+
+        for result in plugin_results:
+            toolchain[result.plugin_id] = "executed"
+
+            for issue in result.issues:
+                # Classify layer
+                if issue.category:
+                    issue.layer = classify_error_layer(issue.category)
+
+                issues.append(issue)
+
+                if issue.severity == "error":
+                    total_errors += 1
+                    # Check if auto-repairable
+                    has_fix = result.metadata.get("has_fix_method", False)
+                    if is_auto_repairable(issue.category or "", has_fix):
+                        auto_repairable_count += 1
+                    else:
+                        requires_human_count += 1
+                elif issue.severity == "warning":
+                    total_warnings += 1
+
+            # Count auto-fixes from metadata
+            auto_fixed_count += result.metadata.get("auto_fixed", 0)
+
+        summary = PipelineSummary(
+            plugins_run=len(plugin_results),
+            total_errors=total_errors,
+            total_warnings=total_warnings,
+            auto_fixed=auto_fixed_count,
+            auto_repairable=auto_repairable_count,
+            requires_human=requires_human_count,
+        )
+
+        return PipelineReport(
+            run_id=run_id,
+            file_in=str(file_path),
+            file_out=None,
+            timestamp_utc=utc_now_iso(),
+            toolchain=toolchain,
+            summary=summary,
+            issues=issues,
+            status="completed" if total_errors == 0 else "failed",
+        )
         """Create the final report structure returned to the GUI layer."""
         ts = utc_now_iso()
         issues: List[PluginIssue] = []
@@ -183,4 +265,3 @@ class PipelineEngine:
             issues=issues,
             status="ok" if errors == 0 else "failed",
         )
-

@@ -1,0 +1,56 @@
+---
+# Phase Coordinator Configuration
+# Central automation for Phase 4 (Routing) → Phase 5 (Execution) → Phase 6 (Error Recovery)
+
+coordinator:
+  name: "phase_coordinator"
+  version: "1.0.0"
+
+phases:
+  routing:
+    enabled: true
+    timeout_seconds: 300
+
+  execution:
+    enabled: true
+    timeout_seconds: 1800
+    max_parallel_tasks: 5
+    max_retries: 2
+
+  error_recovery:
+    enabled: true
+    timeout_seconds: 900
+    auto_fix_enabled: true
+    agents:
+      - aider
+      - codex
+      - claude
+    fallback_agent: aider
+
+state:
+  output_dir: ".state"
+  archive_on_completion: true
+  retention_days: 30
+
+events:
+  enabled: true
+  export_to_jsonl: true
+  jsonl_path: "logs/phase_events.jsonl"
+
+recovery:
+  max_retries: 2
+  backoff_strategy: "exponential"  # linear, exponential
+  backoff_base_seconds: 1
+  backoff_multiplier: 2
+
+circuit_breaker:
+  enabled: true
+  failure_threshold: 3
+  timeout_seconds: 60
+  half_open_attempts: 1
+
+observability:
+  metrics_enabled: true
+  metrics_port: 9090
+  structured_logging: true
+  log_level: "INFO"

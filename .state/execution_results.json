@@ -1,0 +1,16 @@
+{
+  "run_id": "F806A64C415141519C46E42C66",
+  "results": [
+    {
+      "run_id": "F806A64C415141519C46E42C66",
+      "task_id": "T1",
+      "task_kind": "code_edit",
+      "status": "failed",
+      "tool_id": null,
+      "exit_code": 1,
+      "output_patch_id": null,
+      "error": "No capable tool found",
+      "metadata": {}
+    }
+  ]
+}

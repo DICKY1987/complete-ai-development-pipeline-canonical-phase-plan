@@ -11,7 +11,7 @@ import time
 from unittest.mock import MagicMock, Mock, call, patch
 
 import pytest
-from aim.bridge import ToolProcessPool
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.bridge import ToolProcessPool
 from aim.pool_interface import ProcessInstance
 
 # Skip all tests in this module - AIM not yet implemented (Phase 4)

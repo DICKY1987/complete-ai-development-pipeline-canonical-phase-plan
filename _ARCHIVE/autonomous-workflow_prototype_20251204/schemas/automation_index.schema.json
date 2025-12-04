@@ -1,0 +1,144 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://automation.local/schemas/automation_index.schema.json",
+  "title": "Automation Index",
+  "description": "Canonical inventory of all automation units in the repository",
+  "type": "object",
+  "required": ["version", "generated_at", "repository", "automation_units"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Schema version (semver)"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of index generation"
+    },
+    "repository": {
+      "type": "object",
+      "required": ["name", "root_path"],
+      "properties": {
+        "name": { "type": "string" },
+        "root_path": { "type": "string" },
+        "git_sha": { "type": "string", "pattern": "^[a-f0-9]{40}$" },
+        "branch": { "type": "string" }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "properties": {
+        "total_units": { "type": "integer", "minimum": 0 },
+        "by_type": {
+          "type": "object",
+          "additionalProperties": { "type": "integer" }
+        },
+        "by_phase": {
+          "type": "object",
+          "additionalProperties": { "type": "integer" }
+        }
+      }
+    },
+    "automation_units": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/AutomationUnit"
+      }
+    }
+  },
+  "definitions": {
+    "AutomationUnit": {
+      "type": "object",
+      "required": ["id", "type", "path", "validator"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^AUTO-[A-Z]{2,4}-\\d{3,4}$",
+          "description": "Unique identifier (e.g., AUTO-GH-001, AUTO-PS-014)"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "github_workflow",
+            "powershell",
+            "python",
+            "pattern_executor",
+            "core_module",
+            "test_suite",
+            "glossary_script"
+          ]
+        },
+        "path": {
+          "type": "string",
+          "description": "Relative path from repository root"
+        },
+        "name": {
+          "type": "string",
+          "description": "Human-readable name"
+        },
+        "description": {
+          "type": "string"
+        },
+        "trigger": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["push", "pr", "schedule", "manual", "cli", "api", "workflow_call", "pipeline"]
+          }
+        },
+        "phase": {
+          "type": "string",
+          "description": "Associated execution phase"
+        },
+        "validator": {
+          "type": "string",
+          "enum": [
+            "github_actions",
+            "process_exit_code",
+            "pytest",
+            "pester",
+            "schema_validation",
+            "output_assertion",
+            "custom"
+          ]
+        },
+        "dependencies": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "List of automation unit IDs this depends on"
+        },
+        "timeout_seconds": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 300
+        },
+        "retry_policy": {
+          "type": "object",
+          "properties": {
+            "max_attempts": { "type": "integer", "minimum": 1, "default": 3 },
+            "backoff_multiplier": { "type": "number", "minimum": 1, "default": 2 },
+            "initial_delay_seconds": { "type": "integer", "minimum": 1, "default": 5 }
+          }
+        },
+        "health_check": {
+          "type": "object",
+          "properties": {
+            "command": { "type": "string" },
+            "expected_exit_code": { "type": "integer", "default": 0 },
+            "expected_output_pattern": { "type": "string" }
+          }
+        },
+        "metadata": {
+          "type": "object",
+          "properties": {
+            "owner": { "type": "string" },
+            "tags": { "type": "array", "items": { "type": "string" } },
+            "priority": { "type": "string", "enum": ["critical", "high", "medium", "low"] },
+            "last_modified": { "type": "string", "format": "date-time" }
+          }
+        }
+      }
+    }
+  }
+}

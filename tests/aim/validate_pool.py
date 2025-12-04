@@ -7,7 +7,7 @@ DOC_ID: DOC - AIM - AIM - VALIDATE - POOL - 149
 
 DOC_ID: DOC - AIM - AIM - VALIDATE - POOL - 149
 
-from aim.bridge import ToolProcessPool
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.bridge import ToolProcessPool
 
 
 def test_pool_basic():

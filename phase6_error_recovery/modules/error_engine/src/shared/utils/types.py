@@ -13,9 +13,14 @@ class PluginIssue:
     line: Optional[int] = None
     column: Optional[int] = None
     code: Optional[str] = None
-    category: Optional[str] = None  # e.g., "syntax", "type", "style", "formatting", "security", "test_failure"
+    category: Optional[str] = (
+        None  # e.g., "syntax", "type", "style", "formatting", "security", "test_failure"
+    )
     severity: Optional[str] = None  # e.g., "error", "warning", "info"
     message: Optional[str] = None
+    layer: Optional[str] = (
+        None  # e.g., "Layer 1 - Infrastructure", "Layer 5 - Business Logic"
+    )
 
 
 @dataclass
@@ -48,6 +53,8 @@ class PipelineSummary:
     issues_by_category: Dict[str, int] = field(default_factory=dict)
     has_hard_fail: Optional[bool] = None
     style_only: Optional[bool] = None
+    auto_repairable: int = 0  # Errors with available auto-fix
+    requires_human: int = 0  # Errors needing manual intervention
 
 
 @dataclass

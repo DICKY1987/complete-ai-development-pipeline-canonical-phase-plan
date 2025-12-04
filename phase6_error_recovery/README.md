@@ -4,6 +4,16 @@
 
 Detect errors, classify, auto-fix, and escalate as needed.
 
+## Recent Enhancements (2025-12-04)
+
+**Certification & Quality Gates**: Enhanced error pipeline with:
+- 5-layer error classification (Infrastructure → Business Logic)
+- Auto-repairable vs requires-human tracking
+- Success rate thresholds for quality gates
+- Foundation for certification artifacts
+
+See: `CERTIFICATION_ENHANCEMENT_PROPOSAL.md` for details.
+
 ## System Position
 
 upstream_phases:

@@ -1,0 +1,10 @@
+{
+  "run_id": "test-run-001",
+  "total_tasks": 1,
+  "routing_results": {},
+  "execution_results": {},
+  "recovery_results": {},
+  "success": false,
+  "duration_seconds": 0.00820016860961914,
+  "error": "no such table: runs"
+}

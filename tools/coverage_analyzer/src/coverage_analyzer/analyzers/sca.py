@@ -87,15 +87,19 @@ class SCAAnalyzer:
             result = adapter.execute(target_path=self.config.target_path)
 
             # Convert to metrics object
+            vulnerabilities_by_severity = {
+                "critical": result.get("critical_vulnerabilities", 0),
+                "high": result.get("high_vulnerabilities", 0),
+                "medium": result.get("medium_vulnerabilities", 0),
+                "low": result.get("low_vulnerabilities", 0),
+            }
+
             metrics = SCAMetrics(
                 total_dependencies=result["total_dependencies"],
                 vulnerable_dependencies=result["vulnerable_dependencies"],
-                vulnerabilities=result.get("vulnerabilities", []),
+                vulnerabilities_by_severity=vulnerabilities_by_severity,
+                cve_details=result.get("vulnerabilities", []),
                 security_score=result["security_score"],
-                critical_vulnerabilities=result.get("critical_vulnerabilities", 0),
-                high_vulnerabilities=result.get("high_vulnerabilities", 0),
-                medium_vulnerabilities=result.get("medium_vulnerabilities", 0),
-                low_vulnerabilities=result.get("low_vulnerabilities", 0),
                 tool_name=result["tool_name"],
             )
 
@@ -125,14 +129,14 @@ class SCAAnalyzer:
         )
 
         # Log warnings for vulnerabilities
-        if metrics.critical_vulnerabilities > 0:
+        if metrics.vulnerabilities_by_severity.get("critical", 0) > 0:
             logger.error(
-                f"Found {metrics.critical_vulnerabilities} CRITICAL vulnerabilities!"
+                f"Found {metrics.vulnerabilities_by_severity.get("critical", 0)} CRITICAL vulnerabilities!"
             )
 
-        if metrics.high_vulnerabilities > 0:
+        if metrics.vulnerabilities_by_severity.get("high", 0) > 0:
             logger.warning(
-                f"Found {metrics.high_vulnerabilities} HIGH severity vulnerabilities"
+                f"Found {metrics.vulnerabilities_by_severity.get("high", 0)} HIGH severity vulnerabilities"
             )
 
         if metrics.vulnerable_dependencies > 0:
@@ -142,9 +146,9 @@ class SCAAnalyzer:
 
         # Check fail_on_critical_security
         if self.config.fail_on_critical_security:
-            total_critical = (
-                metrics.critical_vulnerabilities + metrics.high_vulnerabilities
-            )
+            total_critical = metrics.vulnerabilities_by_severity.get(
+                "critical", 0
+            ) + metrics.vulnerabilities_by_severity.get("high", 0)
             if total_critical > 0:
                 logger.error(
                     f"Failing due to {total_critical} critical/high vulnerabilities "

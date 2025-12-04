@@ -18,7 +18,7 @@ from pathlib import Path
 from unittest.mock import MagicMock, call, mock_open, patch
 
 import pytest
-from aim.bridge import (
+from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.bridge import (
     detect_tool,
     get_aim_registry_path,
     get_tool_version,

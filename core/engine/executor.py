@@ -17,6 +17,7 @@ from core.engine.orchestrator import Orchestrator
 from core.engine.router import TaskRouter
 from core.engine.scheduler import ExecutionScheduler, Task
 from core.engine.state_file_manager import StateFileManager
+from core.events.event_bus import EventBus, EventSeverity, EventType
 
 __all__ = ["AdapterResult", "Executor"]
 
@@ -44,6 +45,8 @@ class Executor:
         ] = None,
         gate_callback: Optional[Callable[[str, Task, AdapterResult], bool]] = None,
         state_manager: Optional[StateFileManager] = None,
+        event_bus: Optional[EventBus] = None,
+        enable_recovery: bool = False,
     ):
         """
         Args:
@@ -61,6 +64,63 @@ class Executor:
         self.adapter_runner = adapter_runner or self._run_with_adapter
         self.gate_callback = gate_callback
         self.state_manager = state_manager or StateFileManager()
+        self.event_bus = (
+            event_bus or getattr(orchestrator, "event_bus", None) or EventBus()
+        )
+        self.recovery_enabled = enable_recovery
+        self.recovery_coordinator = None
+        if self.recovery_enabled:
+            try:
+                from core.engine.recovery import RecoveryCoordinator
+
+                self.recovery_coordinator = RecoveryCoordinator(
+                    scheduler=self.scheduler, event_bus=self.event_bus
+                )
+            except Exception:
+                self.recovery_coordinator = None
+
+    def execute_task(self, run_id: str, task: Task) -> Optional[AdapterResult]:
+        """Execute a single task and return its result.
+
+        Args:
+            run_id: Run identifier
+            task: Task to execute
+
+        Returns:
+            AdapterResult or None if execution failed
+        """
+        run = self.orchestrator.get_run_status(run_id)
+        if not run:
+            raise ValueError(f"Run not found: {run_id}")
+
+        tool_id = task.selected_tool or task.metadata.get("selected_tool")
+        if not tool_id:
+            task.exit_code = 1
+            task.error_log = "No tool assigned to task"
+            task.status = "failed"
+            return None
+
+        try:
+            result = self.adapter_runner(task, tool_id, run)
+            task.exit_code = result.exit_code
+            task.output_patch_id = result.output_patch_id
+            task.error_log = result.error_log
+            task.result_metadata = result.metadata or {}
+
+            if result.exit_code == 0:
+                task.status = "completed"
+            else:
+                task.status = "failed"
+                task.error = result.error_log
+
+            return result
+
+        except Exception as e:
+            task.exit_code = 1
+            task.error_log = str(e)
+            task.status = "failed"
+            task.error = str(e)
+            return None
 
     def run(self, run_id: str) -> Dict[str, Any]:
         """Execute all ready tasks in the scheduler for the given run.
@@ -100,6 +160,13 @@ class Executor:
                     task.exit_code = 1
                     task.error_log = "No capable tool found"
                     self.scheduler.mark_failed(task.task_id, "No capable tool found")
+                    self._emit_event(
+                        EventType.TASK_FAILED,
+                        run_id,
+                        task,
+                        tool_id=None,
+                        payload={"reason": "No capable tool found"},
+                    )
                     continue
 
                 step_id = self.orchestrator.create_step_attempt(
@@ -108,6 +175,15 @@ class Executor:
                     sequence=sequence,
                     prompt=task.metadata.get("description"),
                 )
+
+                self._emit_event(
+                    EventType.TASK_ASSIGNED,
+                    run_id,
+                    task,
+                    tool_id=tool_id,
+                    payload={"description": task.metadata.get("description")},
+                )
+                self._emit_event(EventType.TASK_STARTED, run_id, task, tool_id=tool_id)
 
                 try:
                     result = self.adapter_runner(task, tool_id, run)
@@ -122,6 +198,13 @@ class Executor:
                     task.exit_code = 1
                     task.error_log = str(exc)
                     self.scheduler.mark_failed(task.task_id, str(exc))
+                    self._emit_event(
+                        EventType.TASK_FAILED,
+                        run_id,
+                        task,
+                        tool_id=tool_id,
+                        payload={"error": str(exc)},
+                    )
                     continue
 
                 exit_code = result.exit_code
@@ -149,12 +232,34 @@ class Executor:
 
                 if status == "succeeded":
                     self.scheduler.mark_completed(task.task_id, result)
+                    self._emit_event(
+                        EventType.TASK_COMPLETED,
+                        run_id,
+                        task,
+                        tool_id=tool_id,
+                        payload={
+                            "exit_code": exit_code,
+                            "output_patch_id": result.output_patch_id,
+                            "metadata": task.result_metadata,
+                        },
+                    )
                 else:
                     task.error_log = (
                         task.error_log or result.error_log or "Execution failed"
                     )
                     self.scheduler.mark_failed(
                         task.task_id, result.error_log or "Execution failed"
+                    )
+                    self._emit_event(
+                        EventType.TASK_FAILED,
+                        run_id,
+                        task,
+                        tool_id=tool_id,
+                        payload={
+                            "exit_code": exit_code,
+                            "error": task.error_log,
+                            "metadata": task.result_metadata,
+                        },
                     )
 
         final_state = (
@@ -168,16 +273,59 @@ class Executor:
 
         if self.state_manager:
             tasks = list(self.scheduler.tasks.values())
-            decisions = [
-                decision
-                for decision in self.router.decision_log
-                if getattr(decision, "run_id", None) in (None, run_id)
-            ]
+            decisions = []
+            if hasattr(self.router, "decision_log"):
+                decisions = [
+                    decision
+                    for decision in getattr(self.router, "decision_log", [])
+                    if getattr(decision, "run_id", None) in (None, run_id)
+                ]
             self.state_manager.export_routing_decisions(run_id, decisions)
             self.state_manager.export_adapter_assignments(run_id, tasks)
             self.state_manager.export_execution_results(run_id, tasks)
+            if self.event_bus:
+                self.event_bus.emit(
+                    EventType.ROUTING_COMPLETE,
+                    run_id=run_id,
+                    payload={
+                        "decision_count": len(decisions),
+                        "adapter_assignments": len(tasks),
+                        "state_files": {
+                            "routing": ".state/routing_decisions.json",
+                            "assignments": ".state/adapter_assignments.json",
+                            "execution": ".state/execution_results.json",
+                        },
+                    },
+                )
 
         return {"run_id": run_id, "state": final_state}
+
+    def _emit_event(
+        self,
+        event_type: EventType,
+        run_id: str,
+        task: Task,
+        tool_id: Optional[str],
+        payload: Optional[Dict[str, Any]] = None,
+    ) -> None:
+        """Publish task lifecycle events."""
+        if not self.event_bus:
+            return
+
+        base_payload = {
+            "task_id": task.task_id,
+            "task_kind": task.task_kind,
+            "tool_id": tool_id,
+        }
+        merged_payload = {**base_payload, **(payload or {})}
+        self.event_bus.emit(
+            event_type,
+            run_id=run_id,
+            task_id=task.task_id,
+            tool_id=tool_id,
+            payload=merged_payload,
+            severity=EventSeverity.INFO,
+        )
 
     def _run_with_adapter(
         self, task: Task, tool_id: str, run: Dict[str, Any]

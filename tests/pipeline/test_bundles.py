@@ -10,7 +10,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 import pytest
-from modules.core_state import m010003_bundles as ws
+from core.state import bundles as ws
 
 
 def write_bundle(path: Path, data):
