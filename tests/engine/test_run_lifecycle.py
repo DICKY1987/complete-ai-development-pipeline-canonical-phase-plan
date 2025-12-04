@@ -8,8 +8,8 @@ from datetime import datetime
 # Add framework root to path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from modules.core_state.m010003_db import Database
-from modules.core_engine.m010001_orchestrator import Orchestrator
+from core.state.db import Database
+from core.engine.orchestrator import Orchestrator
 from core.engine.state_machine import RunStateMachine, StepStateMachine
 
 

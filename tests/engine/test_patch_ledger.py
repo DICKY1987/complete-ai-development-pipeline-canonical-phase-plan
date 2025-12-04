@@ -37,9 +37,26 @@ class MockDB:
                 run_id TEXT PRIMARY KEY
             )
         """)
-        
+
         # Create patch_ledger table
-        schema_path = Path(__file__).parent.parent.parent / 'schema' / 'migrations' / '003_add_patch_ledger_table.sql'
+        # Try multiple possible paths for the migration file
+        repo_root = Path(__file__).parent.parent.parent
+        possible_paths = [
+            repo_root / 'schema' / 'migrations' / '003_add_patch_ledger_table.sql',
+            repo_root / 'phase0_bootstrap' / 'modules' / 'bootstrap_orchestrator' / 'schemas' / 'schema' / 'migrations' / '003_add_patch_ledger_table.sql',
+        ]
+
+        schema_path = None
+        for path in possible_paths:
+            if path.exists():
+                schema_path = path
+                break
+
+        if schema_path is None:
+            raise FileNotFoundError(
+                f"Could not find patch_ledger migration file in any of: {[str(p) for p in possible_paths]}"
+            )
+
         with open(schema_path, 'r') as f:
             self.conn.executescript(f.read())
         self.conn.commit()

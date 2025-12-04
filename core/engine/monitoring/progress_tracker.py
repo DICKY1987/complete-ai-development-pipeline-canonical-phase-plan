@@ -6,7 +6,7 @@ Tracks execution progress and calculates completion percentages.
 
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, UTC
 
 
 @dataclass
@@ -80,7 +80,7 @@ class ProgressTracker:
     
     def start(self):
         """Mark run as started"""
-        self.started_at = datetime.utcnow()
+        self.started_at = datetime.now(UTC)
     
     def start_task(self, task_id: str):
         """Mark a task as started
@@ -151,7 +151,7 @@ class ProgressTracker:
         if self.started_at is None:
             return None
         
-        return (datetime.utcnow() - self.started_at).total_seconds()
+        return (datetime.now(UTC) - self.started_at).total_seconds()
     
     def get_estimated_remaining_time(self) -> Optional[float]:
         """Estimate remaining time based on task durations
@@ -185,7 +185,7 @@ class ProgressTracker:
         if remaining is None:
             return None
         
-        return datetime.utcnow() + timedelta(seconds=remaining)
+        return datetime.now(UTC) + timedelta(seconds=remaining)
     
     def get_snapshot(self) -> ProgressSnapshot:
         """Get current progress snapshot
@@ -199,7 +199,7 @@ class ProgressTracker:
         
         return ProgressSnapshot(
             run_id=self.run_id,
-            timestamp=datetime.utcnow().isoformat() + "Z",
+            timestamp=datetime.now(UTC).isoformat() + "Z",
             total_tasks=self.total_tasks,
             completed_tasks=self.completed_tasks,
             failed_tasks=self.failed_tasks,

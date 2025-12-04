@@ -11,7 +11,7 @@ import json
 import subprocess
 import time
 from dataclasses import dataclass, asdict
-from datetime import datetime
+from datetime import datetime, UTC
 from pathlib import Path
 from typing import Dict, Any, List, Optional
 
@@ -230,7 +230,7 @@ def run_tool(
     timeout_sec = profile.get('timeout_sec', 60)
 
     # Execute
-    started_at = datetime.utcnow().isoformat() + "Z"
+    started_at = datetime.now(UTC).isoformat() + "Z"
     start_time = time.time()
 
     timed_out = False
@@ -270,7 +270,7 @@ def run_tool(
     # Calculate duration
     end_time = time.time()
     duration_sec = end_time - start_time
-    completed_at = datetime.utcnow().isoformat() + "Z"
+    completed_at = datetime.now(UTC).isoformat() + "Z"
 
     # Determine success
     success_exit_codes = profile.get('success_exit_codes', [0])

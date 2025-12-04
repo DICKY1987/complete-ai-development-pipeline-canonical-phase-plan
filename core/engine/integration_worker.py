@@ -221,8 +221,8 @@ class IntegrationWorker:
             conflicts: List of conflicts
             run_id: Execution run ID
         """
-        from modules.core_state import m010003_db
-        
+        from core.state import db
+
         db.init_db()
         
         for conflict in conflicts:

@@ -116,7 +116,24 @@ class PatchLedger:
             self.db.conn.execute("SELECT 1 FROM patch_ledger LIMIT 1")
         except Exception:
             # Table doesn't exist, create it
-            schema_path = 'schema/migrations/003_add_patch_ledger_table.sql'
+            # Try multiple possible paths for the migration file
+            possible_paths = [
+                'schema/migrations/003_add_patch_ledger_table.sql',
+                'phase0_bootstrap/modules/bootstrap_orchestrator/schemas/schema/migrations/003_add_patch_ledger_table.sql',
+            ]
+
+            schema_path = None
+            for path in possible_paths:
+                from pathlib import Path
+                if Path(path).exists():
+                    schema_path = path
+                    break
+
+            if schema_path is None:
+                raise FileNotFoundError(
+                    f"Could not find patch_ledger migration file in any of: {possible_paths}"
+                )
+
             with open(schema_path, 'r') as f:
                 self.db.conn.executescript(f.read())
             self.db.conn.commit()

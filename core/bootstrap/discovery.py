@@ -4,7 +4,7 @@ import os
 import json
 from pathlib import Path
 from collections import Counter
-from datetime import datetime
+from datetime import datetime, UTC
 
 class ProjectScanner:
     """Scans project and detects characteristics."""
@@ -39,7 +39,7 @@ class ProjectScanner:
             "vcs": "git" if (self.project_root / ".git").exists() else None,
             "inferred_constraints": {},
             "directory_structure": self._analyze_structure(),
-            "discovery_timestamp": datetime.utcnow().isoformat() + "Z"
+            "discovery_timestamp": datetime.now(UTC).isoformat() + "Z"
         }
     
     def _detect_languages(self):

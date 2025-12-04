@@ -53,7 +53,7 @@ def task_to_workstream(
         name=task.epic_name,
         title=f"Epic for {task.task_id}",
         prd_name=task.epic_name,
-        created=datetime.utcnow(),
+        created=datetime.now(UTC),
         tasks=[task],
     )
     

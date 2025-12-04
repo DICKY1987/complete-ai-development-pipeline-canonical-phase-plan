@@ -5,8 +5,8 @@ Integration Tests for UET Migration
 
 import pytest
 from pathlib import Path
-from modules.core_engine.m010001_dag_builder import DAGBuilder
-from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine.parallel_orchestrator import ParallelOrchestrator
+from core.engine.dag_builder import DAGBuilder
+from core.engine.parallel_orchestrator import ParallelOrchestrator
 
 
 def test_dag_to_parallel_execution():

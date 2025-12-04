@@ -6,11 +6,11 @@ Manages run lifecycle, state transitions, and event emission.
 # DOC_ID: DOC-CORE-ENGINE-ORCHESTRATOR-151
 
 import uuid
-from datetime import datetime
+from datetime import datetime, UTC
 from typing import Dict, Any, Optional, List
 from pathlib import Path
 
-from modules.core_state.m010003_db import Database, get_db
+from core.state.db import Database, get_db
 from core.engine.state_machine import RunStateMachine, StepStateMachine
 
 
@@ -22,7 +22,7 @@ def generate_ulid() -> str:
 
 def now_iso() -> str:
     """Get current timestamp in ISO format"""
-    return datetime.utcnow().isoformat() + "Z"
+    return datetime.now(UTC).isoformat() + "Z"
 
 
 class Orchestrator:

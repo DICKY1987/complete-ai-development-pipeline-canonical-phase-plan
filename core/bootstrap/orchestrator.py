@@ -2,7 +2,7 @@
 import json
 import sys
 from pathlib import Path
-from datetime import datetime
+from datetime import datetime, UTC
 from typing import Dict, Optional
 
 # Add framework root to path when run as script
@@ -190,7 +190,7 @@ class BootstrapOrchestrator:
                 "human_decisions_needed": len(self.validation_result.get("needs_human", []))
             },
             "next_steps": self._generate_next_steps(),
-            "initialization_time": datetime.utcnow().isoformat() + "Z",
+            "initialization_time": datetime.now(UTC).isoformat() + "Z",
             "ready_for_workstreams": status == "ready"
         }
         
@@ -260,7 +260,7 @@ class BootstrapOrchestrator:
                 "for_human": [f"Fix {stage} error: {error}"],
                 "for_ai_agent": []
             },
-            "initialization_time": datetime.utcnow().isoformat() + "Z",
+            "initialization_time": datetime.now(UTC).isoformat() + "Z",
             "ready_for_workstreams": False
         }
 

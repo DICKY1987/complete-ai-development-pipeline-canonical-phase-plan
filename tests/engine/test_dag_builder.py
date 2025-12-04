@@ -4,7 +4,7 @@ Tests for DAG Builder
 # DOC_ID: DOC-TEST-ENGINE-TEST-DAG-BUILDER-116
 
 import pytest
-from modules.core_engine.m010001_dag_builder import DAGBuilder
+from core.engine.dag_builder import DAGBuilder
 
 
 def test_simple_dag():

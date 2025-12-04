@@ -1,0 +1,852 @@
+============================= test session starts =============================
+platform win32 -- Python 3.12.10, pytest-8.4.2, pluggy-1.6.0 -- C:\Users\richg\AppData\Local\Programs\Python\Python312\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan
+configfile: pytest.ini
+plugins: anyio-4.10.0, asyncio-1.3.0, cov-7.0.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 381 items / 75 errors
+
+=================================== ERRORS ====================================
+__________ ERROR collecting tests/aim/integration/test_aider_pool.py __________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\aim\integration\test_aider_pool.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\aim\integration\test_aider_pool.py:19: in <module>
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.bridge import ToolProcessPool, load_aim_registry
+E   ModuleNotFoundError: No module named 'UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim'
+_______________ ERROR collecting tests/aim/test_process_pool.py _______________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\aim\test_process_pool.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\aim\test_process_pool.py:13: in <module>
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.bridge import ToolProcessPool
+E   ModuleNotFoundError: No module named 'UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim'
+_____________ ERROR collecting tests/core/state/test_dag_utils.py _____________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\core\state\test_dag_utils.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\core\state\test_dag_utils.py:8: in <module>
+    from modules.core_state import m010003_dag_utils as dag_utils
+E   ModuleNotFoundError: No module named 'modules'
+________________________ ERROR collecting tests/error _________________________
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\_pytest\assertion\rewrite.py:186: in exec_module
+    exec(co, module.__dict__)
+tests\error\conftest.py:21: in <module>
+    from phase6_error_recovery.modules.error_engine.src.engine.plugin_manager import PluginManager
+phase6_error_recovery\modules\error_engine\src\engine\plugin_manager.py:15: in <module>
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.shared.utils.types import PluginManifest, PluginResult
+E   ModuleNotFoundError: No module named 'UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error'
+____ ERROR collecting tests/gui/tui_panel_framework/test_layout_manager.py ____
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\gui\tui_panel_framework\test_layout_manager.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\gui\tui_panel_framework\test_layout_manager.py:4: in <module>
+    from gui.tui_app.core.layout_manager import BasicLayoutManager
+E   ModuleNotFoundError: No module named 'gui.tui_app'
+____ ERROR collecting tests/gui/tui_panel_framework/test_panel_registry.py ____
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\gui\tui_panel_framework\test_panel_registry.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\gui\tui_panel_framework\test_panel_registry.py:4: in <module>
+    from gui.tui_app.core.panel_registry import PanelRegistry, register_panel
+E   ModuleNotFoundError: No module named 'gui.tui_app'
+_____ ERROR collecting tests/gui/tui_panel_framework/test_panels_smoke.py _____
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\gui\tui_panel_framework\test_panels_smoke.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\gui\tui_panel_framework\test_panels_smoke.py:4: in <module>
+    from gui.tui_app.core.panel_registry import get_registry
+E   ModuleNotFoundError: No module named 'gui.tui_app'
+____ ERROR collecting tests/gui/tui_panel_framework/test_pattern_client.py ____
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\gui\tui_panel_framework\test_pattern_client.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\gui\tui_panel_framework\test_pattern_client.py:4: in <module>
+    from gui.tui_app.core.pattern_client import (
+E   ModuleNotFoundError: No module named 'gui.tui_app'
+_____ ERROR collecting tests/gui/tui_panel_framework/test_state_client.py _____
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\gui\tui_panel_framework\test_state_client.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\gui\tui_panel_framework\test_state_client.py:5: in <module>
+    from gui.tui_app.core.state_client import (
+E   ModuleNotFoundError: No module named 'gui.tui_app'
+__________ ERROR collecting tests/integration/test_aider_sandbox.py ___________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\integration\test_aider_sandbox.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\integration\test_aider_sandbox.py:15: in <module>
+    from core import prompts as aider_prompts
+E   ImportError: cannot import name 'prompts' from 'core' (C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\core\__init__.py)
+__________ ERROR collecting tests/integration/test_aim_end_to_end.py __________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\integration\test_aim_end_to_end.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\integration\test_aim_end_to_end.py:10: in <module>
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.bridge import (
+E   ModuleNotFoundError: No module named 'UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim'
+___ ERROR collecting tests/integration/test_aim_orchestrator_integration.py ___
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\integration\test_aim_orchestrator_integration.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\integration\test_aim_orchestrator_integration.py:14: in <module>
+    from core.engine.aim_integration import execute_with_aim, is_aim_available
+E   ModuleNotFoundError: No module named 'core.engine.aim_integration'
+__________ ERROR collecting tests/integration/test_uet_migration.py ___________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\integration\test_uet_migration.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\integration\test_uet_migration.py:9: in <module>
+    from core.engine.parallel_orchestrator import ParallelOrchestrator
+E   ModuleNotFoundError: No module named 'core.engine.parallel_orchestrator'
+__________ ERROR collecting tests/interfaces/test_config_manager.py ___________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\interfaces\test_config_manager.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\interfaces\test_config_manager.py:7: in <module>
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.interfaces.config_manager import (
+E   ModuleNotFoundError: No module named 'UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core'
+_________ ERROR collecting tests/interfaces/test_event_bus_logger.py __________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\interfaces\test_event_bus_logger.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\interfaces\test_event_bus_logger.py:4: in <module>
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.interfaces.event_bus import EventBus
+E   ModuleNotFoundError: No module named 'UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core'
+_________ ERROR collecting tests/interfaces/test_process_executor.py __________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\interfaces\test_process_executor.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\interfaces\test_process_executor.py:7: in <module>
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.interfaces.process_executor import (
+E   ModuleNotFoundError: No module named 'UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core'
+____________ ERROR collecting tests/interfaces/test_state_store.py ____________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\interfaces\test_state_store.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\interfaces\test_state_store.py:8: in <module>
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.interfaces.state_store import (
+E   ModuleNotFoundError: No module named 'UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core'
+___________ ERROR collecting tests/interfaces/test_tool_adapter.py ____________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\interfaces\test_tool_adapter.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\interfaces\test_tool_adapter.py:6: in <module>
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.interfaces.tool_adapter import (
+E   ModuleNotFoundError: No module named 'UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core'
+_____________ ERROR collecting tests/interfaces/test_waves_3_4.py _____________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\interfaces\test_waves_3_4.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\interfaces\test_waves_3_4.py:5: in <module>
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.interfaces.file_operations import FileOperations
+E   ModuleNotFoundError: No module named 'UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core'
+________ ERROR collecting tests/interfaces/test_workstream_service.py _________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\interfaces\test_workstream_service.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\interfaces\test_workstream_service.py:7: in <module>
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.interfaces.workstream_service import WorkstreamService
+E   ModuleNotFoundError: No module named 'UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core'
+_______ ERROR collecting tests/pattern_tests/test_boundary_patterns.py ________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\pattern_tests\test_boundary_patterns.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\pattern_tests\test_boundary_patterns.py:16: in <module>
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.patterns.boundary_patterns import (
+E   ModuleNotFoundError: No module named 'UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error'
+___________ ERROR collecting tests/pattern_tests/test_error_path.py ___________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\pattern_tests\test_error_path.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\pattern_tests\test_error_path.py:16: in <module>
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.patterns.error_path import (
+E   ModuleNotFoundError: No module named 'UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error'
+________ ERROR collecting tests/pattern_tests/test_pattern_analyzer.py ________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\pattern_tests\test_pattern_analyzer.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\pattern_tests\test_pattern_analyzer.py:16: in <module>
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.patterns import (
+E   ModuleNotFoundError: No module named 'UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error'
+________ ERROR collecting tests/pattern_tests/test_state_transition.py ________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\pattern_tests\test_state_transition.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\pattern_tests\test_state_transition.py:16: in <module>
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.patterns.state_transition import (
+E   ModuleNotFoundError: No module named 'UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error'
+_____________ ERROR collecting tests/pipeline/test_aim_bridge.py ______________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\pipeline\test_aim_bridge.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\pipeline\test_aim_bridge.py:21: in <module>
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.bridge import (
+E   ModuleNotFoundError: No module named 'UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim'
+_______________ ERROR collecting tests/pipeline/test_bundles.py _______________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\pipeline\test_bundles.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\pipeline\test_bundles.py:14: in <module>
+    from modules.core_state import m010003_bundles as ws
+E   ModuleNotFoundError: No module named 'modules'
+______________ ERROR collecting tests/pipeline/test_fix_loop.py _______________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\pipeline\test_fix_loop.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\pipeline\test_fix_loop.py:7: in <module>
+    from modules.core_state import m010003_db
+E   ModuleNotFoundError: No module named 'modules'
+_________ ERROR collecting tests/pipeline/test_openspec_parser_src.py _________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\pipeline\test_openspec_parser_src.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\pipeline\test_openspec_parser_src.py:9: in <module>
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.openspec_parser import (
+E   ModuleNotFoundError: No module named 'UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core'
+_________ ERROR collecting tests/pipeline/test_orchestrator_single.py _________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\pipeline\test_orchestrator_single.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\pipeline\test_orchestrator_single.py:8: in <module>
+    from modules.core_state import m010003_db
+E   ModuleNotFoundError: No module named 'modules'
+________ ERROR collecting tests/pipeline/test_workstream_authoring.py _________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\pipeline\test_workstream_authoring.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\pipeline\test_workstream_authoring.py:14: in <module>
+    from modules.core_state import m010003_bundles
+E   ModuleNotFoundError: No module named 'modules'
+____________ ERROR collecting tests/plugins/test_cross_cutting.py _____________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\plugins\test_cross_cutting.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\plugins\test_cross_cutting.py:13: in <module>
+    from modules.error_plugin_codespell.m010005_plugin import CodespellPlugin
+E   ModuleNotFoundError: No module named 'modules'
+_____________ ERROR collecting tests/plugins/test_markup_data.py ______________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\plugins\test_markup_data.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\plugins\test_markup_data.py:13: in <module>
+    from modules.error_plugin_yaml_yamllint.m010019_plugin import YamllintPlugin
+E   ModuleNotFoundError: No module named 'modules'
+____________ ERROR collecting tests/plugins/test_powershell_js.py _____________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\plugins\test_powershell_js.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\plugins\test_powershell_js.py:13: in <module>
+    from modules.error_plugin_powershell_pssa.m01000E_plugin import PSScriptAnalyzerPlugin
+E   ModuleNotFoundError: No module named 'modules'
+______________ ERROR collecting tests/plugins/test_python_fix.py ______________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\plugins\test_python_fix.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\plugins\test_python_fix.py:13: in <module>
+    from modules.error_plugin_python_isort_fix.m010011_plugin import IsortFixPlugin
+E   ModuleNotFoundError: No module named 'modules'
+_____________ ERROR collecting tests/plugins/test_python_lint.py ______________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\plugins\test_python_lint.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\plugins\test_python_lint.py:13: in <module>
+    from modules.error_plugin_python_ruff.m010015_plugin import RuffPlugin
+E   ModuleNotFoundError: No module named 'modules'
+___________ ERROR collecting tests/plugins/test_python_security.py ____________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\plugins\test_python_security.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\plugins\test_python_security.py:13: in <module>
+    from modules.error_plugin_python_bandit.m01000F_plugin import BanditPlugin
+E   ModuleNotFoundError: No module named 'modules'
+_____________ ERROR collecting tests/plugins/test_python_type.py ______________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\plugins\test_python_type.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\plugins\test_python_type.py:13: in <module>
+    from modules.error_plugin_python_mypy.m010012_plugin import MypyPlugin
+E   ModuleNotFoundError: No module named 'modules'
+_______________ ERROR collecting tests/schema/test_doc_meta.py ________________
+tests\schema\test_doc_meta.py:14: in <module>
+    with open(SCHEMA_PATH, "r") as f:
+         ^^^^^^^^^^^^^^^^^^^^^^
+E   FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline – Canonical Phase Plan\\schema\\doc-meta.v1.json'
+_______________ ERROR collecting tests/state/test_db_unified.py _______________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\state\test_db_unified.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\state\test_db_unified.py:5: in <module>
+    from modules.core_state.m010003_db_unified import UnifiedDBBridge
+E   ModuleNotFoundError: No module named 'modules'
+____________ ERROR collecting tests/syntax_analysis/test_parser.py ____________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\syntax_analysis\test_parser.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\syntax_analysis\test_parser.py:8: in <module>
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.ast.parser import ASTParser
+E   ModuleNotFoundError: No module named 'UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core'
+____________ ERROR collecting tests/syntax_analysis/test_python.py ____________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\syntax_analysis\test_python.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\syntax_analysis\test_python.py:7: in <module>
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.ast.parser import ASTParser
+E   ModuleNotFoundError: No module named 'UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core'
+___________________ ERROR collecting tests/test_adapters.py ___________________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\test_adapters.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_adapters.py:4: in <module>
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine.adapters import ToolAdapter, ExecutionResult, AiderAdapter, CodexAdapter, ClaudeAdapter
+E   ModuleNotFoundError: No module named 'UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core'
+______________ ERROR collecting tests/test_agent_coordinator.py _______________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\test_agent_coordinator.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_agent_coordinator.py:3: in <module>
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.agent_coordinator import partition_units, run_parallel, summarize, PluginResult
+E   ModuleNotFoundError: No module named 'UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core'
+_________________ ERROR collecting tests/test_audit_logger.py _________________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\test_audit_logger.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_audit_logger.py:10: in <module>
+    from modules.core_state.m010003_audit_logger import (
+E   ModuleNotFoundError: No module named 'modules'
+______________ ERROR collecting tests/test_ci_path_standards.py _______________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\test_ci_path_standards.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_ci_path_standards.py:9: in <module>
+    from modules.core_state.m010003_db import init_db
+E   ModuleNotFoundError: No module named 'modules'
+________________ ERROR collecting tests/test_cost_tracking.py _________________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\test_cost_tracking.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_cost_tracking.py:4: in <module>
+    from modules.core_engine.m010001_cost_tracker import CostTracker, PRICING_TABLE
+E   ModuleNotFoundError: No module named 'modules'
+______________ ERROR collecting tests/test_engine_determinism.py ______________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\test_engine_determinism.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_engine_determinism.py:7: in <module>
+    from modules.error_engine.m010004_pipeline_engine import PipelineEngine
+E   ModuleNotFoundError: No module named 'modules'
+__________________ ERROR collecting tests/test_escalation.py __________________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\test_escalation.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_escalation.py:8: in <module>
+    from engine.queue.escalation import (
+E   ModuleNotFoundError: No module named 'engine.queue'
+__________________ ERROR collecting tests/test_event_bus.py ___________________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\test_event_bus.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_event_bus.py:5: in <module>
+    from modules.core_engine.m010001_event_bus import Event, EventType, EventBus
+E   ModuleNotFoundError: No module named 'modules'
+______________ ERROR collecting tests/test_incremental_cache.py _______________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\test_incremental_cache.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_incremental_cache.py:7: in <module>
+    from modules.error_engine.m010004_file_hash_cache import FileHashCache
+E   ModuleNotFoundError: No module named 'modules'
+_________________ ERROR collecting tests/test_integration.py __________________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\test_integration.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_integration.py:4: in <module>
+    from modules.core_engine.m010001_pipeline_plus_orchestrator import PipelinePlusOrchestrator
+E   ModuleNotFoundError: No module named 'modules'
+________________ ERROR collecting tests/test_invoke_config.py _________________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\test_invoke_config.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_invoke_config.py:12: in <module>
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.config_loader import (
+E   ModuleNotFoundError: No module named 'UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core'
+_________________ ERROR collecting tests/test_invoke_utils.py _________________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\test_invoke_utils.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_invoke_utils.py:12: in <module>
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.invoke_utils import (
+E   ModuleNotFoundError: No module named 'UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core'
+__________________ ERROR collecting tests/test_job_queue.py ___________________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\test_job_queue.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_job_queue.py:13: in <module>
+    from engine.queue.job_queue import JobQueue
+E   ModuleNotFoundError: No module named 'engine.queue'
+_________________ ERROR collecting tests/test_job_wrapper.py __________________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\test_job_wrapper.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_job_wrapper.py:9: in <module>
+    from engine.queue.job_wrapper import (
+E   ModuleNotFoundError: No module named 'engine.queue'
+_______________ ERROR collecting tests/test_openspec_convert.py _______________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\test_openspec_convert.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_openspec_convert.py:6: in <module>
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.openspec_parser import load_bundle_from_change
+E   ModuleNotFoundError: No module named 'UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core'
+_______________ ERROR collecting tests/test_openspec_parser.py ________________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\test_openspec_parser.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_openspec_parser.py:4: in <module>
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.openspec_parser import load_bundle_from_yaml, write_bundle
+E   ModuleNotFoundError: No module named 'UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core'
+_________ ERROR collecting tests/test_orchestrator_lifecycle_sync.py __________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\test_orchestrator_lifecycle_sync.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_orchestrator_lifecycle_sync.py:8: in <module>
+    from core import orchestrator
+E   ImportError: cannot import name 'orchestrator' from 'core' (C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\core\__init__.py)
+____________ ERROR collecting tests/test_parallel_dependencies.py _____________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\test_parallel_dependencies.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_parallel_dependencies.py:5: in <module>
+    from src.orchestrator import parallel
+E   ModuleNotFoundError: No module named 'src'
+____________ ERROR collecting tests/test_parallel_orchestrator.py _____________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\test_parallel_orchestrator.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_parallel_orchestrator.py:5: in <module>
+    from src.orchestrator import parallel
+E   ModuleNotFoundError: No module named 'src'
+____________ ERROR collecting tests/test_parallelism_detection.py _____________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\test_parallelism_detection.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_parallelism_detection.py:4: in <module>
+    from modules.core_state.m010003_bundles import WorkstreamBundle
+E   ModuleNotFoundError: No module named 'modules'
+________________ ERROR collecting tests/test_patch_manager.py _________________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\test_patch_manager.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_patch_manager.py:11: in <module>
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine.patch_manager import (
+E   ModuleNotFoundError: No module named 'UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core'
+______________ ERROR collecting tests/test_path_standardizer.py _______________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\test_path_standardizer.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_path_standardizer.py:8: in <module>
+    from modules.error_plugin_path_standardizer.m01000D_plugin import validate_paths
+E   ModuleNotFoundError: No module named 'modules'
+____________ ERROR collecting tests/test_pattern_sqlite_backend.py ____________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\test_pattern_sqlite_backend.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_pattern_sqlite_backend.py:6: in <module>
+    from gui.tui_app.core.pattern_client import SQLitePatternStateStore, PatternStatus
+E   ModuleNotFoundError: No module named 'gui.tui_app'
+_____________ ERROR collecting tests/test_pipeline_integration.py _____________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\test_pipeline_integration.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_pipeline_integration.py:3: in <module>
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.error_pipeline_service import run_pipeline, S_SUCCESS, S_FAILED
+E   ModuleNotFoundError: No module named 'UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core'
+________________ ERROR collecting tests/test_prompt_engine.py _________________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\test_prompt_engine.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_prompt_engine.py:8: in <module>
+    from modules.core_engine.m010001_prompt_engine import (
+E   ModuleNotFoundError: No module named 'modules'
+________________ ERROR collecting tests/test_queue_manager.py _________________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\test_queue_manager.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_queue_manager.py:13: in <module>
+    from engine.queue.queue_manager import QueueManager
+E   ModuleNotFoundError: No module named 'engine.queue'
+_________________ ERROR collecting tests/test_retry_policy.py _________________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\test_retry_policy.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_retry_policy.py:8: in <module>
+    from engine.queue.retry_policy import (
+E   ModuleNotFoundError: No module named 'engine.queue'
+________________ ERROR collecting tests/test_spec_validator.py ________________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\test_spec_validator.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_spec_validator.py:3: in <module>
+    from src.plugins.spec_validator import parse_when_then, validate
+E   ModuleNotFoundError: No module named 'src'
+________________ ERROR collecting tests/test_sqlite_backend.py ________________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\test_sqlite_backend.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_sqlite_backend.py:6: in <module>
+    from gui.tui_app.core.sqlite_state_backend import SQLiteStateBackend
+E   ModuleNotFoundError: No module named 'gui.tui_app'
+__________________ ERROR collecting tests/test_task_queue.py __________________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\test_task_queue.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_task_queue.py:11: in <module>
+    from modules.core_state.m010003_task_queue import (
+E   ModuleNotFoundError: No module named 'modules'
+_______________ ERROR collecting tests/test_tui_integration.py ________________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\test_tui_integration.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_tui_integration.py:3: in <module>
+    from gui.tui_app.config.layout_config import LogConfig, PanelRefreshConfig, ThemeConfig, TUIConfig
+E   ModuleNotFoundError: No module named 'gui.tui_app'
+__________________ ERROR collecting tests/test_validators.py __________________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\test_validators.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_validators.py:11: in <module>
+    from modules.core_engine.m010001_validators import (
+E   ModuleNotFoundError: No module named 'modules'
+_______________ ERROR collecting tests/test_worker_lifecycle.py _______________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\test_worker_lifecycle.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_worker_lifecycle.py:5: in <module>
+    from modules.core_engine.m010001_worker import Worker, WorkerState, WorkerPool
+E   ModuleNotFoundError: No module named 'modules'
+_________________ ERROR collecting tests/test_worker_pool.py __________________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\test_worker_pool.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_worker_pool.py:11: in <module>
+    from engine.queue.worker_pool import WorkerPool
+E   ModuleNotFoundError: No module named 'engine.queue'
+============================== warnings summary ===============================
+core\engine\test_gate.py:65
+  C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\core\engine\test_gate.py:65: PytestCollectionWarning: cannot collect test class 'TestGate' because it has a __init__ constructor (from: tests/engine/test_test_gate.py)
+    class TestGate:
+
+core\engine\test_gate.py:43
+  C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\core\engine\test_gate.py:43: PytestCollectionWarning: cannot collect test class 'TestResults' because it has a __init__ constructor (from: tests/engine/test_test_gate.py)
+    @dataclass
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+ERROR tests/aim/integration/test_aider_pool.py
+ERROR tests/aim/test_process_pool.py
+ERROR tests/core/state/test_dag_utils.py
+ERROR tests/error - ModuleNotFoundError: No module named 'UNIVERSAL_EXECUTION...
+ERROR tests/gui/tui_panel_framework/test_layout_manager.py
+ERROR tests/gui/tui_panel_framework/test_panel_registry.py
+ERROR tests/gui/tui_panel_framework/test_panels_smoke.py
+ERROR tests/gui/tui_panel_framework/test_pattern_client.py
+ERROR tests/gui/tui_panel_framework/test_state_client.py
+ERROR tests/integration/test_aider_sandbox.py
+ERROR tests/integration/test_aim_end_to_end.py
+ERROR tests/integration/test_aim_orchestrator_integration.py
+ERROR tests/integration/test_uet_migration.py
+ERROR tests/interfaces/test_config_manager.py
+ERROR tests/interfaces/test_event_bus_logger.py
+ERROR tests/interfaces/test_process_executor.py
+ERROR tests/interfaces/test_state_store.py
+ERROR tests/interfaces/test_tool_adapter.py
+ERROR tests/interfaces/test_waves_3_4.py
+ERROR tests/interfaces/test_workstream_service.py
+ERROR tests/pattern_tests/test_boundary_patterns.py
+ERROR tests/pattern_tests/test_error_path.py
+ERROR tests/pattern_tests/test_pattern_analyzer.py
+ERROR tests/pattern_tests/test_state_transition.py
+ERROR tests/pipeline/test_aim_bridge.py
+ERROR tests/pipeline/test_bundles.py
+ERROR tests/pipeline/test_fix_loop.py
+ERROR tests/pipeline/test_openspec_parser_src.py
+ERROR tests/pipeline/test_orchestrator_single.py
+ERROR tests/pipeline/test_workstream_authoring.py
+ERROR tests/plugins/test_cross_cutting.py
+ERROR tests/plugins/test_markup_data.py
+ERROR tests/plugins/test_powershell_js.py
+ERROR tests/plugins/test_python_fix.py
+ERROR tests/plugins/test_python_lint.py
+ERROR tests/plugins/test_python_security.py
+ERROR tests/plugins/test_python_type.py
+ERROR tests/schema/test_doc_meta.py - FileNotFoundError: [Errno 2] No such fi...
+ERROR tests/state/test_db_unified.py
+ERROR tests/syntax_analysis/test_parser.py
+ERROR tests/syntax_analysis/test_python.py
+ERROR tests/test_adapters.py
+ERROR tests/test_agent_coordinator.py
+ERROR tests/test_audit_logger.py
+ERROR tests/test_ci_path_standards.py
+ERROR tests/test_cost_tracking.py
+ERROR tests/test_engine_determinism.py
+ERROR tests/test_escalation.py
+ERROR tests/test_event_bus.py
+ERROR tests/test_incremental_cache.py
+ERROR tests/test_integration.py
+ERROR tests/test_invoke_config.py
+ERROR tests/test_invoke_utils.py
+ERROR tests/test_job_queue.py
+ERROR tests/test_job_wrapper.py
+ERROR tests/test_openspec_convert.py
+ERROR tests/test_openspec_parser.py
+ERROR tests/test_orchestrator_lifecycle_sync.py
+ERROR tests/test_parallel_dependencies.py
+ERROR tests/test_parallel_orchestrator.py
+ERROR tests/test_parallelism_detection.py
+ERROR tests/test_patch_manager.py
+ERROR tests/test_path_standardizer.py
+ERROR tests/test_pattern_sqlite_backend.py
+ERROR tests/test_pipeline_integration.py
+ERROR tests/test_prompt_engine.py
+ERROR tests/test_queue_manager.py
+ERROR tests/test_retry_policy.py
+ERROR tests/test_spec_validator.py
+ERROR tests/test_sqlite_backend.py
+ERROR tests/test_task_queue.py
+ERROR tests/test_tui_integration.py
+ERROR tests/test_validators.py
+ERROR tests/test_worker_lifecycle.py
+ERROR tests/test_worker_pool.py
+!!!!!!!!!!!!!!!!!! Interrupted: 75 errors during collection !!!!!!!!!!!!!!!!!!!
+======================= 2 warnings, 75 errors in 1.58s ========================

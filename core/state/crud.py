@@ -11,7 +11,7 @@ from __future__ import annotations
 
 import json
 import sqlite3
-from datetime import datetime
+from datetime import datetime, UTC
 from typing import Optional, Dict, Any, List
 
 from .db import get_connection
@@ -46,7 +46,7 @@ def create_run(
     cur = conn.cursor()
 
     try:
-        now = datetime.utcnow().isoformat() + "Z"
+        now = datetime.now(UTC).isoformat() + "Z"
         metadata_json = json.dumps(metadata) if metadata else None
 
         cur.execute(
@@ -132,7 +132,7 @@ def update_run_status(
             raise ValueError(f"Run not found: {run_id}")
 
         # Update status
-        updated_at = datetime.utcnow().isoformat() + "Z"
+        updated_at = datetime.now(UTC).isoformat() + "Z"
         cur.execute(
             "UPDATE runs SET status = ?, updated_at = ? WHERE run_id = ?",
             (new_status, updated_at, run_id)
@@ -233,7 +233,7 @@ def create_workstream(
     cur = conn.cursor()
 
     try:
-        now = datetime.utcnow().isoformat() + "Z"
+        now = datetime.now(UTC).isoformat() + "Z"
         metadata_json = json.dumps(metadata) if metadata else None
 
         cur.execute(
@@ -370,7 +370,7 @@ def update_workstream_status(
             raise ValueError(f"Workstream not found: {ws_id}")
 
         # Update status
-        updated_at = datetime.utcnow().isoformat() + "Z"
+        updated_at = datetime.now(UTC).isoformat() + "Z"
         cur.execute(
             "UPDATE workstreams SET status = ?, updated_at = ? WHERE ws_id = ?",
             (new_status, updated_at, ws_id)
@@ -532,7 +532,7 @@ def record_error(
     cur = conn.cursor()
 
     try:
-        now = datetime.utcnow().isoformat() + "Z"
+        now = datetime.now(UTC).isoformat() + "Z"
         context_json = json.dumps(context) if context else None
 
         # Check if error already exists
@@ -659,7 +659,7 @@ def record_event(
     cur = conn.cursor()
 
     try:
-        timestamp = datetime.utcnow().isoformat() + "Z"
+        timestamp = datetime.now(UTC).isoformat() + "Z"
         payload_json = json.dumps(payload) if payload else None
 
         cur.execute(
@@ -777,7 +777,7 @@ def record_patch(
     cur = conn.cursor()
     
     try:
-        now = datetime.utcnow().isoformat() + "Z"
+        now = datetime.now(UTC).isoformat() + "Z"
         files_json = json.dumps(files_modified)
         
         cur.execute(

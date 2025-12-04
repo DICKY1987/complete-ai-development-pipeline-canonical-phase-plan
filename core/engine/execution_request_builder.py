@@ -5,7 +5,7 @@ Builds ExecutionRequest objects for tool invocation.
 # DOC_ID: DOC-CORE-ENGINE-EXECUTION-REQUEST-BUILDER-148
 
 from typing import Dict, Any, Optional, List
-from datetime import datetime
+from datetime import datetime, UTC
 import uuid
 
 
@@ -16,7 +16,7 @@ def generate_ulid() -> str:
 
 def now_iso() -> str:
     """Get current timestamp in ISO format"""
-    return datetime.utcnow().isoformat() + "Z"
+    return datetime.now(UTC).isoformat() + "Z"
 
 
 class ExecutionRequestBuilder:

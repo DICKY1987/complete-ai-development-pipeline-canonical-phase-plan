@@ -34,7 +34,7 @@ def example_file_processing_workflow():
     print("=" * 60)
     
     # Create run and workstream first
-    from modules.core_state.m010003_db import get_connection
+    from core.state.db import get_connection
     from datetime import datetime, timezone
     
     conn = get_connection()
@@ -309,7 +309,7 @@ def example_cli_usage():
 if __name__ == "__main__":
     # Initialize database schema first
     print("Initializing database schema...")
-    from modules.core_state.m010003_db import init_db
+    from core.state.db import init_db
     init_db()
     print("Schema initialized.\n")
     

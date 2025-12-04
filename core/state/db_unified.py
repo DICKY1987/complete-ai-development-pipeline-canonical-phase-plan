@@ -7,7 +7,7 @@ Implements dual-write pattern for migration safety
 import sqlite3
 from pathlib import Path
 from typing import Dict, Any, Optional
-from datetime import datetime
+from datetime import datetime, UTC
 
 
 class UnifiedDBBridge:
@@ -31,7 +31,7 @@ class UnifiedDBBridge:
             run_data.get('project_id'),
             run_data.get('phase_id'),
             run_data.get('state', 'pending'),
-            datetime.utcnow().isoformat(),
+            datetime.now(UTC).isoformat(),
             str(run_data.get('metadata', {}))
         ))
         
@@ -53,7 +53,7 @@ class UnifiedDBBridge:
             step_data.get('step_id'),
             step_data.get('workstream_id'),
             step_data.get('status', 'pending'),
-            datetime.utcnow().isoformat(),
+            datetime.now(UTC).isoformat(),
             str(step_data.get('metadata', {}))
         ))
         

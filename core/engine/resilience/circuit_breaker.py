@@ -6,7 +6,7 @@ Prevents cascading failures by stopping requests to failing services.
 
 from enum import Enum
 from typing import Optional, Callable, Any
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, UTC
 import time
 
 
@@ -110,7 +110,7 @@ class CircuitBreaker:
     def _on_failure(self):
         """Handle failed call"""
         self.failure_count += 1
-        self.last_failure_time = datetime.utcnow()
+        self.last_failure_time = datetime.now(UTC)
         
         if self.state == CircuitBreakerState.HALF_OPEN:
             # Recovery failed
@@ -125,19 +125,19 @@ class CircuitBreaker:
         if self.opened_at is None:
             return True
         
-        elapsed = (datetime.utcnow() - self.opened_at).total_seconds()
+        elapsed = (datetime.now(UTC) - self.opened_at).total_seconds()
         return elapsed >= self.recovery_timeout
     
     def _time_since_open(self) -> float:
         """Get seconds since circuit opened"""
         if self.opened_at is None:
             return 0.0
-        return (datetime.utcnow() - self.opened_at).total_seconds()
+        return (datetime.now(UTC) - self.opened_at).total_seconds()
     
     def _transition_to_open(self):
         """Transition to OPEN state"""
         self.state = CircuitBreakerState.OPEN
-        self.opened_at = datetime.utcnow()
+        self.opened_at = datetime.now(UTC)
         self.half_open_calls = 0
     
     def _transition_to_half_open(self):

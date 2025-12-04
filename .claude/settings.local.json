@@ -14,7 +14,10 @@
       "Bash(tree:*)",
       "Bash(find:*)",
       "Bash(xargs:*)",
-      "Bash(powershell -Command:*)"
+      "Bash(powershell -Command:*)",
+      "Bash(ls:*)",
+      "Bash(tee:*)",
+      "Bash(git add:*)"
     ],
     "deny": [],
     "ask": []

@@ -13,7 +13,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 import pytest
 
 from core import prompts as aider_prompts
-from modules.core_state import m010003_db as pipeline_db
+from core.state import db as pipeline_db
 
 
 def _have_aider() -> bool:
