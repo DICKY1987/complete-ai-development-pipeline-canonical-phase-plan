@@ -116,6 +116,19 @@ terms:
         date: "2025-11-20T10:00:00Z"
         description: "Initial term creation"
 
+  TERM-SPEC-TEST-DEMO:
+    name: "Test Demonstration Specification"
+    category: "Specifications"
+    status: "active"
+    added_date: "2025-12-04"
+    added_by: "automated-test"
+    implementation:
+      files:
+        - "specs/TEST_DEMO_SPEC.md"
+    related_terms:
+      - term_id: "TERM-GLOSS-SSOT-POLICY"
+        relationship: "demonstrates"
+
   TERM-ENGINE-002:
     name: "Executor"
     category: "Core Engine"
