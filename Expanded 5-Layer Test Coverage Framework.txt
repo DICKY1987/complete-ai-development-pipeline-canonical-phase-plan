@@ -1,0 +1,1153 @@
+## **Expanded 5-Layer Test Coverage Framework**
+
+### **Layer 0: Pre-Execution Static Analysis (Foundation
+Layer)**
+
+**Static Code Analysis - Code Structure & Quality**
+
+**Core Principle:**
+Analyze code structure, complexity, and quality *before* any
+test execution to identify high-risk areas requiring intensive
+testing coverage.
+
+**Python Implementation:**
+- **Radon** - Cyclomatic complexity, maintainability index
+- **Prospector** - Combines pylint, pyflakes, mccabe for
+comprehensive analysis
+- **Bandit** - Security-focused SAST for Python
+- **mypy** - Static type checking
+
+**PowerShell Implementation:**
+- **PSScriptAnalyzer** - Built-in static analysis with
+customizable rules
+- **Pester's ScriptAnalyzer integration** - Automated best
+practice validation
+
+**Unique Contribution:**
+Static Code Analysis systematically examines source code
+without executing it, identifying code smells, excessive
+complexity, security vulnerabilities, dead code, and
+control/data flow issues. This layer identifies *where to focus
+ testing efforts* by flagging complex functions (high
+cyclomatic complexity), security-sensitive code paths, and
+maintainability issues.
+
+**Integration with Other Layers:**
+- Functions with high cyclomatic complexity (>10) get
+prioritized for path coverage analysis (Layer 3)
+- Security vulnerabilities flagged by SAST require dedicated
+test cases in structural coverage (Layer 1)
+- Code smells guide mutation testing targets (Layer 2)
+
+---
+
+### **Layer 0.5: Dependency & Component Coverage**
+
+**Software Composition Analysis (SCA) - Third-Party Risk
+Assessment**
+
+**Core Principle:**
+SCA systematically analyzes external, third-party, and
+open-source components used within a codebase, creating a
+Software Bill of Materials (SBOM) and validating security,
+licensing, and maintenance status.
+
+**Python Implementation:**
+- **Safety** - Checks dependencies against known CVE databases
+- **pip-audit** - Scans Python dependencies for vulnerabilities
+- **Snyk** - Comprehensive SCA with license compliance
+- **OWASP Dependency-Check** - Cross-language dependency
+scanning
+
+**PowerShell Implementation:**
+- **PSDepend** - PowerShell module dependency management
+- Custom scripts to audit PowerShellGallery modules against
+known issues
+- Integration with Snyk or WhiteSource for PowerShell module
+scanning
+
+**Unique Contribution:**
+SCA generates an SBOM inventory, cross-references components
+against vulnerability databases like NVD, validates license
+compliance, and identifies outdated or unmaintained components.
+ This ensures your testing framework includes validation of
+*third-party risk* - a gap often missed by code-focused
+coverage tools.
+
+**Integration with Other Layers:**
+- Vulnerable dependencies require integration tests verifying
+mitigation (Layer 4)
+- High-risk external libraries need additional
+mocking/isolation in unit tests
+- Generates test cases for dependency upgrade scenarios
+
+---
+
+### **Layers 1-3: [Your Original Framework]**
+
+These remain as described:
+1. **Multi-Level Structural Coverage** (Statement + Branch)
+2. **Mutation Testing** (Test Quality Validation)
+3. **Cyclomatic Complexity & Path Coverage** (Logical Flow
+Validation)
+
+---
+
+### **Layer 4: Operational Validation Coverage**
+
+**System-Level & Production Environment Testing**
+
+**Core Principle:**
+Operational Validation confirms that software, when used in its
+ intended operational environment, meets the needs and
+expectations of end-users and stakeholders.
+
+**Python Implementation:**
+- **pytest with production fixtures** - E2E test scenarios
+- **Locust/k6** - Load and performance testing
+- **TestContainers** - Docker-based integration testing with
+real dependencies
+- **Schemathesis** - API contract testing
+
+**PowerShell Implementation:**
+- **Pester integration tests** - Test operational scenarios
+- **PSate** - Infrastructure state validation
+- **Operation Validation Framework (OVF)** - Microsoft's
+framework for operational testing
+
+**Unique Contribution:**
+Operational validation includes User Acceptance Testing,
+Operational Qualification verifying functional and
+non-functional requirements under specified operating
+conditions, system and end-to-end testing, and NFR validation
+for performance, reliability, scalability, security, and
+usability.
+
+**Coverage Categories:**
+
+1. **End-to-End Flow Coverage:**
+   - Validate complete business processes from start to finish
+   - Test interactions with external systems (databases, APIs,
+message queues)
+
+2. **Non-Functional Requirement Coverage:**
+   - Performance: Load testing scenarios (concurrent users,
+data volume)
+   - Reliability: Chaos engineering tests (network failures,
+service outages)
+   - Security: Penetration testing,
+authentication/authorization flows
+   - Usability: UI/UX validation in production-like
+environments
+
+3. **Environmental Coverage:**
+   - Test across different OS versions, hardware configurations
+   - Cloud platform variations (AWS vs Azure vs GCP)
+   - Network topology scenarios
+
+4. **Compliance & Regulatory Coverage:**
+   - Audit trail validation
+   - Data retention policy verification
+   - Regulatory requirement fulfillment tests
+
+**Integration with Other Layers:**
+- Operational failures discovered in production trigger new
+unit tests (Layer 1)
+- Performance bottlenecks guide complexity reduction efforts
+(Layer 3)
+- Security findings from pen-testing create new mutation
+operators (Layer 2)
+
+---
+
+## **Unified Execution Strategy**
+
+### **Single Test Cycle Workflow:**
+
+```
+┌─────────────────────────────────────────────────────────┐
+│ LAYER 0: Static Analysis (Pre-Execution)               │
+│ • PSScriptAnalyzer / Prospector                        │
+│ • Identify complexity hotspots & security issues       │
+│ • Generate complexity metrics for path coverage        │
+└────────────────┬────────────────────────────────────────┘
+                 │
+                 ▼
+┌─────────────────────────────────────────────────────────┐
+│ LAYER 0.5: Dependency Analysis (Pre-Execution)         │
+│ • Safety / pip-audit / Snyk                            │
+│ • Generate SBOM                                         │
+│ • Flag vulnerable dependencies requiring tests         │
+└────────────────┬────────────────────────────────────────┘
+                 │
+                 ▼
+┌─────────────────────────────────────────────────────────┐
+│ LAYER 1: Structural Coverage (Test Execution)          │
+│ • coverage.py / Pester CodeCoverage                    │
+│ • Baseline: What code was executed?                    │
+│ • Target: High-complexity functions from Layer 0       │
+└────────────────┬────────────────────────────────────────┘
+                 │
+                 ▼
+┌─────────────────────────────────────────────────────────┐
+│ LAYER 2: Mutation Testing (Test Quality)               │
+│ • mutmut (Python only)                                 │
+│ • Validate: Do tests catch behavior changes?          │
+│ • Focus: Security-critical code from Layer 0           │
+└────────────────┬────────────────────────────────────────┘
+                 │
+                 ▼
+┌─────────────────────────────────────────────────────────┐
+│ LAYER 3: Path Coverage Analysis (Logical Complexity)   │
+│ • Calculate cyclomatic complexity from Layer 0         │
+│ • Design test cases matching CC value                  │
+│ • Verify: All independent paths tested?                │
+└────────────────┬────────────────────────────────────────┘
+                 │
+                 ▼
+┌─────────────────────────────────────────────────────────┐
+│ LAYER 4: Operational Validation (System Testing)       │
+│ • E2E tests with TestContainers / Pester Integration   │
+│ • Performance testing with Locust                      │
+│ • Security testing for vulnerabilities from Layer 0.5  │
+│ • Validate: Works in production environment?           │
+└─────────────────────────────────────────────────────────┘
+```
+
+### **Feedback Loop:**
+- Layer 4 failures → New Layer 1 test cases
+- Layer 2 surviving mutants → Enhance Layer 1 assertions
+- Layer 0 complexity warnings → Additional Layer 3 path tests
+- Layer 0.5 CVEs → Layer 4 integration tests for mitigations
+
+---
+
+## **PowerShell-Specific Adaptations**
+
+Since PowerShell lacks mature mutation testing:
+
+**Alternative Layer 2 Approach:**
+1. **Assertion-Based Testing with Pester's Should Commands:**
+   - Use comprehensive assertions (-Be, -BeOfType, -Match,
+-Contain, -Throw)
+   - Implement negative testing (test what *shouldn't* happen)
+
+2. **Manual Mutation Testing for Critical Functions:**
+   - Create test variants with intentional bugs
+   - Verify tests catch them before removing mutations
+
+3. **Property-Based Testing:**
+   - Use **PSCheck** (if available) or custom property
+generators
+   - Generate random inputs to find edge cases tests miss
+
+---
+
+## **Comprehensive Coverage Metrics**
+
+This 5-layer framework provides:
+
+1. **Structural Metrics:** Line/branch/function coverage (Layer
+ 1)
+2. **Quality Metrics:** Mutation score, surviving mutants
+(Layer 2)
+3. **Complexity Metrics:** Cyclomatic complexity, path coverage
+ (Layers 0 & 3)
+4. **Security Metrics:** SAST findings, CVE count (Layers 0 &
+0.5)
+5. **Operational Metrics:** NFR compliance, E2E success rate
+(Layer 4)
+
+**Result:** A deterministic, audit-trailed test execution that
+identifies gaps at structural, behavioral, logical, security,
+dependency, and operational levels in a single comprehensive
+cycle. ultrathink and develop a way too interate the pasted
+text into this plan:"C:\Users\richg\ALL_AI\Complete AI
+Development Pipeline – Canonical Phase Plan\System
+_Analyze\Multi-Level Structural Coverage Analysis Plan.md"
+
+● I'll help you integrate the 5-layer test coverage framework
+  into your existing plan. Let me start by reading the current
+  plan file to understand its structure.
+
+● Read(System _Analyze\Multi-Level Structural Coverage Analysis
+      Plan.md)
+  ⎿  Read 1030 lines
+
+● Now let me explore the current repository structure to
+  understand how this coverage analyzer fits into the broader
+  system.
+
+● Bash(ls -la "System _Analyze")
+  ⎿  total 280
+     drwxr-xr-x 1 richg 197609     0 Dec  4 00:28 .
+     drwxr-xr-x 1 richg 197609     0 Dec  4 00:26 ..
+     … +30 lines (ctrl+o to expand)
+
+● Search(pattern: "tools/*/README.md")
+  ⎿  Found 0 files
+
+● I'll help you integrate the 5-layer test coverage framework
+  into the existing plan. Let me analyze both frameworks and
+  design the integration strategy.
+
+● Plan(Design 5-layer framework integration)
+  ⎿  Done (22 tool uses · 66.8k tokens · 7m 2s)
+
+● Excellent! The Plan agent has provided a comprehensive
+  integration strategy. Let me write the final plan for
+  integrating the 5-layer test coverage framework into your
+  existing document.
+
+● Updated plan
+  ⎿ /plan to preview · ~\.claude\plans\nested-conjuring-kay.md
+
+
+● Perfect! I've created a comprehensive integration plan that
+  details exactly how to merge the 5-layer test coverage
+  framework into your existing 3-layer plan document.
+
+  Plan Summary
+
+  The plan will transform your document from a 3-layer approach
+   to a complete 5-layer defense-in-depth testing strategy:
+
+  Key Changes:
+  - Add 2 pre-execution layers: Static Analysis (SAST) and
+  Software Composition Analysis (SCA)
+  - Keep 3 execution layers: Structural, Mutation, Complexity
+  (your original framework)
+  - Add 1 post-execution layer: Operational Validation
+  (system-level NFR testing)
+  - Expand from 7 to 10 phases (9-10 weeks vs 6-7 weeks)
+  - Increase from 32 to 48 critical files (~6,500 to ~10,500
+  LOC)
+  - Add 3 new execution patterns (EXEC-035, EXEC-036, EXEC-037)
+
+  Key Integration Features:
+  - Tool reuse strategy: Radon and PSScriptAnalyzer serve dual
+  purposes (avoiding duplication)
+  - Backward compatibility: Original 3-layer work remains
+  valid, new layers are additive
+  - Progressive quality gates: Each layer can fail
+  independently with configurable thresholds
+  - Tiered execution: Support running subsets of layers (e.g.,
+  only Layers 0-1 for fast CI)
+
+  The plan includes step-by-step execution instructions, a
+  validation checklist, and preserves all the detail and
+  specificity of your original plan.
+
+───────────────────────────────────────────────────────────────────
+ Ready to code?
+
+ Here is Claude's plan:
+╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
+ Integration Plan: 5-Layer Test Coverage Framework
+
+ Objective
+
+ Integrate the comprehensive 5-layer test coverage framework into
+ the existing 3-layer "Multi-Level Structural Coverage Analysis
+ Plan" document, expanding it from a 3-methodology approach to a
+ complete defense-in-depth testing strategy.
+
+ Target File
+
+ C:\Users\richg\ALL_AI\Complete AI Development Pipeline –
+ Canonical Phase Plan\System _Analyze\Multi-Level Structural
+ Coverage Analysis Plan.md
+
+ Summary of Changes
+
+ Before: 3-layer coverage (Structural → Mutation → Complexity)
+ After: 5-layer coverage (Static Analysis → SCA → Structural →
+ Mutation → Complexity → Operational Validation)
+
+ - Add: 2 pre-execution layers (Layer 0: SAST, Layer 0.5: SCA)
+ - Keep: 3 existing execution layers (Layers 1-3)
+ - Add: 1 post-execution layer (Layer 4: Operational Validation)
+ - Update: Implementation plan from 7 phases to 10 phases
+ - Update: Timeline from 6-7 weeks to 9-10 weeks
+ - Update: File count from 32 to 48 files (~6,500 to ~10,500 LOC)
+ - Add: 3 new workstreams (WS6-WS8), 3 new execution patterns
+ (EXEC-035/036/037)
+
+ ---
+ Phase 1: Document Restructuring
+
+ 1.1 Reorganize Methodology Section (Lines 1-139)
+
+ Current Structure:
+ - Individual methodology explanations (Structural, Mutation,
+ Complexity)
+ - "How They Work Together" section
+
+ New Structure:
+
+ ## Overview: 5-Layer Progressive Test Coverage Framework
+
+ ### Framework Philosophy
+ Progressive refinement from static analysis → dynamic testing →
+ operational validation
+
+ ### The 5 Layers
+
+ **Pre-Execution (Shift-Left Security)**
+ - Layer 0: Static Analysis (SAST) - Code quality & security
+ before execution
+ - Layer 0.5: Software Composition Analysis (SCA) - Dependency
+ vulnerabilities
+
+ **Execution (Dynamic Testing)**
+ - Layer 1: Structural Coverage - What code was executed
+ - Layer 2: Mutation Testing - Whether tests verify correctness
+ - Layer 3: Path Coverage - All logical paths exercised
+
+ **Post-Execution (Production Readiness)**
+ - Layer 4: Operational Validation - System-level NFR testing
+
+ Action Items:
+ 1. Replace lines 1-2 (current section header) with new "Overview"
+  section
+ 2. Insert Layer 0 section BEFORE existing Layer 1 (Multi-Level
+ Structural Coverage)
+ 3. Insert Layer 0.5 section AFTER Layer 0, BEFORE Layer 1
+ 4. Keep existing Layers 1-3 sections (lines 3-116) largely
+ unchanged
+ 5. Insert Layer 4 section AFTER Layer 3
+ 6. Replace "How They Work Together" (lines 119-139) with new
+ "Unified Execution Strategy" section showing 5-layer progressive
+ gates
+
+ 1.2 Add Layer 0: Static Analysis & Security Testing (SAST)
+
+ Content:
+ - Core Principle: Analyze code before execution to identify
+ quality, security, type safety issues
+ - Python Tools: Radon, Prospector, Bandit, mypy
+ - PowerShell Tools: PSScriptAnalyzer
+ - Unique Contribution: Catches issues without running code
+ (security vulnerabilities, type errors, complexity hotspots)
+ - Integration Note: Radon complexity metrics serve BOTH Layer 0
+ (static analysis) and Layer 3 (path coverage guidance) - avoiding
+  duplication
+
+ 1.3 Add Layer 0.5: Software Composition Analysis (SCA)
+
+ Content:
+ - Core Principle: Scan dependencies for known CVEs, license
+ compliance, outdated packages
+ - Python Tools: Safety, pip-audit, Snyk, OWASP Dependency-Check
+ - PowerShell Tools: OWASP Dependency-Check
+ - Unique Contribution: Identifies THIRD-PARTY code risks before
+ execution (supply chain security)
+ - Critical for CI/CD: Prevents deploying vulnerable dependencies
+
+ 1.4 Add Layer 4: Operational Validation (System-Level Testing)
+
+ Content:
+ - Core Principle: Test Non-Functional Requirements (NFRs) and
+ system behavior in realistic deployment scenarios
+ - Python Tools: TestContainers, Locust, pytest-benchmark,
+ Selenium/Playwright
+ - PowerShell Tools: Pester (E2E scenarios), PowerShell
+ performance counters
+ - Unique Contribution: Validates PRODUCTION READINESS (E2E
+ workflows, performance SLAs, security controls, error handling)
+ - Distinction from Layers 1-3: Code-level correctness vs.
+ COMPLETE SYSTEM validation
+
+ 1.5 Update "How They Work Together" Section
+
+ Replace with: "Unified Execution Strategy"
+
+ Show 3-phase execution workflow:
+ 1. Phase 1: Pre-Execution (Layers 0 & 0.5) - Fast Feedback (~90
+ seconds)
+   - Static analysis → Dependency scan → Gate: Block if critical
+ security issues
+ 2. Phase 2: Execution (Layers 1-3) - Comprehensive Testing (~8
+ minutes)
+   - Structural → Mutation → Path coverage → Gate: Block if
+ coverage < thresholds
+ 3. Phase 3: Post-Execution (Layer 4) - System Validation (~10
+ minutes)
+   - E2E → Performance → Security testing → Gate: Block if NFR
+ failures
+
+ Include progressive quality gates table and tool reuse strategy
+ (Radon/PSScriptAnalyzer dual-purpose).
+
+ ---
+ Phase 2: Implementation Plan Updates
+
+ 2.1 Add New Workstreams
+
+ Insert after existing WS5 (Reporting & CLI):
+
+ Workstream 6: Static Analysis & Security (Layer 0)
+
+ - Dependencies: WS1 (core infrastructure)
+ - Can run in parallel with: WS2-WS5
+ - Files (8 new):
+   - src/coverage_analyzer/analyzers/static_analysis.py (~180
+ lines)
+   - src/coverage_analyzer/adapters/prospector_adapter.py (~200
+ lines)
+   - src/coverage_analyzer/adapters/bandit_adapter.py (~180 lines)
+   - src/coverage_analyzer/adapters/mypy_adapter.py (~190 lines)
+   - Test files for all adapters (~700 lines total)
+ - Key Integration: Enhance existing pssa_adapter.py for dual use
+ (complexity + static analysis)
+ - Deliverable: Static analysis for Python (Prospector, Bandit,
+ mypy) and PowerShell (PSScriptAnalyzer)
+ - Test Coverage Target: 90%+
+
+ Workstream 7: Software Composition Analysis (Layer 0.5)
+
+ - Dependencies: WS1 (core infrastructure)
+ - Can run in parallel with: WS2-WS6
+ - Files (10 new):
+   - src/coverage_analyzer/analyzers/sca.py (~160 lines)
+   - src/coverage_analyzer/adapters/safety_adapter.py (~150 lines)
+   - src/coverage_analyzer/adapters/pip_audit_adapter.py (~160
+ lines)
+   - src/coverage_analyzer/adapters/snyk_adapter.py (~190 lines)
+   -
+ src/coverage_analyzer/adapters/owasp_dependency_check_adapter.py
+ (~200 lines)
+   - Test files for all adapters (~800 lines total)
+ - Deliverable: Dependency scanning for Python (Safety, pip-audit,
+  Snyk, OWASP) and PowerShell (OWASP)
+ - Test Coverage Target: 85%+ (some tools require API keys)
+
+ Workstream 8: Operational Validation (Layer 4)
+
+ - Dependencies: WS1, WS2-WS4 (requires working structural
+ coverage)
+ - Files (8 new):
+   - src/coverage_analyzer/analyzers/operational.py (~200 lines)
+   - src/coverage_analyzer/adapters/testcontainers_adapter.py
+ (~220 lines)
+   - src/coverage_analyzer/adapters/locust_adapter.py (~200 lines)
+   - src/coverage_analyzer/adapters/pytest_benchmark_adapter.py
+ (~170 lines)
+   - Test files for all adapters (~770 lines total)
+ - Key Integration: Enhance existing pester_adapter.py to support
+ E2E scenarios (in addition to structural coverage)
+ - Deliverable: Operational validation for Python (TestContainers,
+  Locust, pytest-benchmark) and PowerShell (Pester E2E)
+ - Test Coverage Target: 80%+ (E2E tests harder to mock)
+
+ 2.2 Add New Execution Patterns
+
+ Insert after existing EXEC-034:
+
+ Pattern: EXEC-035 - Static Analysis Scan
+
+ - Purpose: Execute SAST for code quality and security
+ - Location: patterns/specs/EXEC-035_static_analysis.pattern.yaml
+ - Executor:
+ patterns/executors/EXEC-035_static_analysis_executor.ps1
+ - Inputs: target_path, language, tools, severity_threshold,
+ output_format
+ - Outputs: Static analysis metrics, issues by severity, code
+ quality score (0-100)
+ - Success Criteria: Exit 0 if no issues >= severity_threshold,
+ Exit 1 if critical issues
+
+ Pattern: EXEC-036 - Dependency Security Scan (SCA)
+
+ - Purpose: Scan dependencies for known vulnerabilities
+ - Location: patterns/specs/EXEC-036_dependency_scan.pattern.yaml
+ - Executor:
+ patterns/executors/EXEC-036_dependency_scan_executor.ps1
+ - Inputs: target_path, language, tools, fail_on_severity,
+ output_format
+ - Outputs: Vulnerability metrics, CVE details, fix
+ recommendations, security score (0-100)
+ - Success Criteria: Exit 0 if no CVEs >= fail_on_severity, Exit 1
+  if critical vulnerabilities
+
+ Pattern: EXEC-037 - Operational Validation Suite
+
+ - Purpose: Execute system-level E2E, performance, security
+ validation
+ - Location:
+ patterns/specs/EXEC-037_operational_validation.pattern.yaml
+ - Executor:
+ patterns/executors/EXEC-037_operational_validation_executor.ps1
+ - Inputs: target_path, language, test_types,
+ performance_baseline, output_format
+ - Outputs: E2E results, performance metrics, baseline comparison,
+  system validation report
+ - Success Criteria: Exit 0 if all E2E pass and no performance
+ regressions, Exit 1 if failures
+
+ 2.3 Update Existing Pattern: EXEC-034
+
+ Enhance EXEC-034 (Combined Coverage Report) to include all 5
+ layers:
+ - Old behavior: Layers 1, 2, 3 only
+ - New behavior: Layers 0, 0.5, 1, 2, 3, 4 (default)
+ - Backward compatibility: Add optional layers parameter (defaults
+  to all 5)
+ - Updated outputs: Add static analysis metrics, SCA metrics,
+ operational metrics to combined report
+ - Overall quality score: Weighted average across all 5 layers
+ (0-100)
+
+ 2.4 Update Data Models (base.py)
+
+ Add three new dataclasses:
+
+ @dataclass
+ class StaticAnalysisMetrics:
+     """Layer 0 metrics"""
+     code_quality_score: float
+     total_issues: int
+     issues_by_severity: Dict[str, int]
+     security_vulnerabilities: int
+     type_errors: int
+     maintainability_index: float
+     high_complexity_functions: List[str]
+
+ @dataclass
+ class SCAMetrics:
+     """Layer 0.5 metrics"""
+     total_dependencies: int
+     vulnerable_dependencies: int
+     vulnerabilities_by_severity: Dict[str, int]
+     cve_details: List[Dict[str, Any]]
+     outdated_packages: int
+     license_issues: int
+
+ @dataclass
+ class OperationalMetrics:
+     """Layer 4 metrics"""
+     e2e_scenarios_passed: int
+     e2e_scenarios_failed: int
+     e2e_duration_seconds: float
+     performance_metrics: Dict[str, float]
+     performance_baseline: Dict[str, float]
+     performance_regression_detected: bool
+     security_test_results: Dict[str, bool]
+
+ Update CoverageReport dataclass:
+ - Add fields: static_analysis, sca, operational_validation
+ - Update: overall_quality_score calculation to include all 5
+ layers
+
+ ---
+ Phase 3: Timeline & Phasing Updates
+
+ 3.1 Reorganize Implementation Phases
+
+ Current: 7 phases, 6-7 weeks
+ Updated: 10 phases, 9-10 weeks
+
+ New phase ordering:
+ 1. Phase 1: Core Infrastructure (Week 1) - UPDATE to include new
+ metrics in base.py
+ 2. Phase 2: Structural Coverage - Python (Week 2) - UNCHANGED
+ 3. Phase 3: Structural Coverage - PowerShell (Week 2-3) -
+ UNCHANGED
+ 4. Phase 4: Static Analysis (Week 3-4) - NEW (WS6)
+ 5. Phase 5: Software Composition Analysis (Week 4-5) - NEW (WS7)
+ 6. Phase 6: Mutation Testing (Week 5) - RENUMBERED (was Phase 4)
+ 7. Phase 7: Complexity Analysis (Week 5-6) - RENUMBERED + UPDATED
+  (dual-use Radon/PSSA)
+ 8. Phase 8: Operational Validation (Week 6-7) - NEW (WS8)
+ 9. Phase 9: Reporting & CLI (Week 7-8) - RENUMBERED + UPDATED
+ (5-layer support)
+ 10. Phase 10: Patterns & Documentation (Week 8-9) - RENUMBERED +
+ UPDATED (7 patterns)
+ 11. Phase 11: Integration & Dogfooding (Week 9-10) - NEW
+
+ 3.2 Update Phase 1 (Core Infrastructure)
+
+ Add to tasks:
+ - Implement new data models: StaticAnalysisMetrics, SCAMetrics,
+ OperationalMetrics
+ - Update CoverageReport to include all 5 layers
+ - Add fixtures to conftest.py for new tool outputs (Prospector,
+ Bandit, Safety, Locust, etc.)
+
+ 3.3 Insert Phase 4: Static Analysis (NEW)
+
+ Workstream: WS6
+ Goal: Working static analysis for Python and PowerShell
+
+ Key tasks:
+ - Implement StaticAnalysisAnalyzer
+ - Create ProspectorAdapter, BanditAdapter, MypyAdapter
+ - Enhance existing PSSAAdapter for dual use (static analysis +
+ complexity)
+ - Write tests with mocked tool output
+
+ Success criteria:
+ - Returns StaticAnalysisMetrics
+ - PSSAAdapter supports both Layer 0 and Layer 3 modes
+ - 90%+ test coverage
+
+ 3.4 Insert Phase 5: Software Composition Analysis (NEW)
+
+ Workstream: WS7
+ Goal: Dependency vulnerability scanning
+
+ Key tasks:
+ - Implement SCAAnalyzer
+ - Create SafetyAdapter, PipAuditAdapter, SnykAdapter,
+ OWASPDependencyCheckAdapter
+ - Handle API key requirements gracefully (skip if missing)
+
+ Success criteria:
+ - Returns SCAMetrics with CVE details
+ - Gracefully handles missing Snyk API key
+ - 85%+ test coverage
+
+ 3.5 Update Phase 7: Complexity Analysis
+
+ Add to existing tasks:
+ - Enhance RadonAdapter for dual use (static analysis +
+ complexity)
+ - Validate no duplication: single tool execution serves both
+ Layer 0 and Layer 3
+ - Test mode parameter: radon_adapter.execute(mode="static") vs
+ mode="complexity")
+
+ 3.6 Insert Phase 8: Operational Validation (NEW)
+
+ Workstream: WS8
+ Goal: System-level E2E, performance, security testing
+
+ Key tasks:
+ - Implement OperationalAnalyzer
+ - Create TestContainersAdapter, LocustAdapter,
+ PytestBenchmarkAdapter
+ - Enhance PesterAdapter for E2E scenarios (in addition to
+ existing structural coverage mode)
+ - Handle Docker availability check
+
+ Success criteria:
+ - Returns OperationalMetrics
+ - Integration tests properly gated on Docker availability
+ - 80%+ test coverage
+
+ 3.7 Update Phase 9: Reporting & CLI
+
+ Add to existing tasks:
+ - Update reporters (JSON, HTML, terminal) for 5-layer support
+ - Add new CLI commands: static-analysis, dependency-scan,
+ operational
+ - Add --layers flag to analyze command (default: all 5)
+ - Update HTML reporter to include Layer 0, 0.5, and 4 sections
+ with visualizations
+
+ Updated CLI interface:
+ # Run all 5 layers (default)
+ python -m coverage_analyzer analyze --path=core/
+
+ # Run specific layers
+ python -m coverage_analyzer analyze --path=core/ --layers=0,0.5,1
+
+ # Run individual analyses
+ python -m coverage_analyzer static-analysis --path=core/
+ --tools=prospector,bandit
+ python -m coverage_analyzer dependency-scan --path=.
+ --tools=safety,pip-audit
+ python -m coverage_analyzer operational --path=.
+ --test-types=e2e,performance
+
+ 3.8 Update Phase 10: Patterns & Documentation
+
+ Add to existing tasks:
+ - Create 3 new pattern specs: EXEC-035, EXEC-036, EXEC-037
+ - Create 3 new pattern executors (PowerShell)
+ - Update EXEC-034 spec/executor for 5-layer support
+ - Rewrite docs/methodologies.md with 5-layer structure
+ - Create NEW docs/tool_integration_guide.md
+ (installing/configuring 15+ tools)
+
+ Success criteria:
+ - All 7 patterns execute standalone (EXEC-031 through EXEC-037)
+ - Tool integration guide covers all tools (Radon, Prospector,
+ Bandit, mypy, PSScriptAnalyzer, Safety, pip-audit, Snyk, OWASP,
+ TestContainers, Locust, pytest-benchmark, Pester)
+
+ 3.9 Insert Phase 11: Integration & Dogfooding (NEW)
+
+ Goal: Final integration, comprehensive testing, self-validation
+
+ Key tasks:
+ 1. Run all 7 patterns against sample projects
+ 2. Dogfooding: Analyze tools/coverage_analyzer itself with
+ 5-layer framework
+ 3. Performance optimization (validate benchmarks: total < 20
+ minutes for 10K LOC project)
+ 4. Documentation finalization (troubleshooting, examples)
+ 5. Quality gates: 196 existing tests pass, 88%+ coverage, 90%+
+ dogfooding score
+
+ Success criteria:
+ - All integration tests pass
+ - Dogfooding shows 90%+ quality score
+ - Performance: Layer 0 < 60s, Layer 0.5 < 90s, Layers 1-3 < 6min,
+  Layer 4 < 10min
+ - Module ready for production use
+
+ ---
+ Phase 4: File Structure Updates
+
+ 4.1 Critical Files Summary
+
+ Original: 32 files (~6,500 LOC)
+ Updated: 48 files (~10,500 LOC)
+
+ New files (16 production + 20 test):
+
+ Priority 6 - Static Analysis (WS6):
+ 1. src/coverage_analyzer/analyzers/static_analysis.py (~180
+ lines)
+ 2. src/coverage_analyzer/adapters/prospector_adapter.py (~200
+ lines)
+ 3. src/coverage_analyzer/adapters/bandit_adapter.py (~180 lines)
+ 4. src/coverage_analyzer/adapters/mypy_adapter.py (190 lines)
+ 5-8. Test files (700 lines total)
+
+ Priority 7 - SCA (WS7):
+ 9. src/coverage_analyzer/analyzers/sca.py (160 lines)
+ 10. src/coverage_analyzer/adapters/safety_adapter.py (150 lines)
+ 11. src/coverage_analyzer/adapters/pip_audit_adapter.py (160
+ lines)
+ 12. src/coverage_analyzer/adapters/snyk_adapter.py (190 lines)
+ 13.
+ src/coverage_analyzer/adapters/owasp_dependency_check_adapter.py
+ (200 lines)
+ 14-18. Test files (800 lines total)
+
+ Priority 8 - Operational Validation (WS8):
+ 19. src/coverage_analyzer/analyzers/operational.py (200 lines)
+ 20. src/coverage_analyzer/adapters/testcontainers_adapter.py (220
+  lines)
+ 21. src/coverage_analyzer/adapters/locust_adapter.py (200 lines)
+ 22. src/coverage_analyzer/adapters/pytest_benchmark_adapter.py
+ (170 lines)
+ 23-26. Test files (~770 lines total)
+
+ Priority 9 - New Patterns:
+ 27-32. EXEC-035, EXEC-036, EXEC-037 specs and executors (~745
+ lines total)
+
+ Updated files (6):
+ 33. src/coverage_analyzer/base.py (+100 lines for new metrics)
+ 34. src/coverage_analyzer/cli.py (+80 lines for new commands)
+ 35. src/coverage_analyzer/adapters/radon_adapter.py (+30 lines
+ for dual use)
+ 36. src/coverage_analyzer/adapters/pssa_adapter.py (+40 lines for
+  dual use)
+ 37. patterns/specs/EXEC-034_combined_coverage.pattern.yaml (+30
+ lines)
+ 38. patterns/executors/EXEC-034_combined_coverage_executor.ps1
+ (+60 lines)
+
+ New documentation:
+ 39. docs/tool_integration_guide.md (NEW - ~400 lines)
+ 40. docs/methodologies.md (REWRITE for 5 layers)
+
+ 4.2 Update Module Structure Diagram
+
+ Add to existing structure:
+ tools/coverage_analyzer/
+ ├── src/coverage_analyzer/
+ │   ├── analyzers/
+ │   │   ├── static_analysis.py      # NEW (WS6)
+ │   │   ├── sca.py                  # NEW (WS7)
+ │   │   └── operational.py          # NEW (WS8)
+ │   ├── adapters/
+ │   │   # Static Analysis (WS6) - NEW
+ │   │   ├── prospector_adapter.py
+ │   │   ├── bandit_adapter.py
+ │   │   ├── mypy_adapter.py
+ │   │   # SCA (WS7) - NEW
+ │   │   ├── safety_adapter.py
+ │   │   ├── pip_audit_adapter.py
+ │   │   ├── snyk_adapter.py
+ │   │   ├── owasp_dependency_check_adapter.py
+ │   │   # Operational (WS8) - NEW
+ │   │   ├── testcontainers_adapter.py
+ │   │   ├── locust_adapter.py
+ │   │   └── pytest_benchmark_adapter.py
+ ├── docs/
+ │   └── tool_integration_guide.md   # NEW
+
+ ---
+ Phase 5: Testing Strategy Updates
+
+ 5.1 Add New Test Fixtures (conftest.py)
+
+ Add to existing fixtures:
+ @pytest.fixture
+ def mock_prospector_output():
+     """Sample Prospector JSON output"""
+
+ @pytest.fixture
+ def mock_bandit_output():
+     """Sample Bandit security scan output"""
+
+ @pytest.fixture
+ def mock_safety_output():
+     """Sample Safety vulnerability scan output"""
+
+ @pytest.fixture
+ def mock_locust_output():
+     """Sample Locust performance test output"""
+
+ 5.2 Testing Approach for New Tools
+
+ Tiered testing strategy:
+
+ 1. Unit Tests (Always Run):
+   - Mock subprocess.run() with sample tool output
+   - Test adapter logic, parsing, error handling
+   - No external dependencies required
+ 2. Integration Tests (Conditional):
+   - @pytest.mark.skipif(not tool_available("prospector"))
+   - Run against real sample code in tests/fixtures/sample_code/
+   - Validate end-to-end tool execution
+ 3. Optional Tests (API Keys Required):
+   - @pytest.mark.skipif(not os.getenv("SNYK_TOKEN"))
+   - Document in tool integration guide how to enable
+
+ 5.3 Update Coverage Targets
+
+ Add to existing targets:
+ - Static Analysis (WS6): 90%+ coverage
+ - SCA (WS7): 85%+ coverage (some tools require API keys)
+ - Operational Validation (WS8): 80%+ coverage (E2E tests harder
+ to fully cover)
+ - Overall Module: 88%+ coverage (slightly lower than 90% due to
+ operational validation)
+
+ ---
+ Phase 6: Success Criteria Updates
+
+ 6.1 Overall Success Criteria (Updated)
+
+ Module Complete When:
+ - All 196 existing UET tests still pass (no regressions)
+ - Coverage_analyzer module has 88%+ test coverage (adjusted for
+ operational validation complexity)
+ - All 7 EXEC- patterns* execute successfully (EXEC-031 through
+ EXEC-037)
+ - CLI works for all 5 layers (Python + PowerShell)
+ - Documentation is comprehensive (methodologies, usage, tool
+ integration)
+ - Can analyze the coverage_analyzer module itself (dogfooding
+ shows 90%+ score)
+ - Integration with tools/__init__.py complete
+ - Performance benchmarks met:
+   - Layer 0 (Static): < 60 seconds for 10K LOC
+   - Layer 0.5 (SCA): < 90 seconds for 50 deps
+   - Layers 1-3 (Execution): < 6 minutes for 10K LOC
+   - Layer 4 (Operational): < 10 minutes for E2E suite
+   - Total: < 20 minutes for complete 5-layer analysis
+
+ 6.2 Quality Gates (Updated)
+
+ Add to existing quality gates:
+ # Coverage check (after Phase 9) - now includes 5 layers
+ python -m coverage_analyzer analyze
+ --path=tools/coverage_analyzer/ --language=python
+ --layers=0,0.5,1,2,3,4
+
+ # Pattern validation (after Phase 10) - now 7 patterns
+ python scripts/validate_patterns.py --pattern-dir=patterns/specs/
+ # Should validate EXEC-031 through EXEC-037
+
+ ---
+ Phase 7: Key Architectural Decisions
+
+ 7.1 Add New Decisions
+
+ Add to existing architectural decisions:
+
+ 7. 5-Layer Architecture: Pre-execution (0, 0.5) → Execution (1-3)
+  → Post-execution (4)
+   - Rationale: Shift-left security + production readiness
+ validation
+ 8. Tool Reuse Strategy: Radon and PSScriptAnalyzer serve dual
+ purposes
+   - Rationale: Avoid duplication, single tool execution with
+ multiple interpretations
+   - Implementation: Adapters support mode parameter (e.g.,
+ radon_adapter.execute(mode="static") vs mode="complexity"))
+ 9. Progressive Quality Gates: Each layer can fail independently
+ with configurable thresholds
+   - Rationale: Allow teams to tune strictness per layer
+   - Implementation: Per-layer thresholds and failure policies in
+ configuration
+ 10. Conditional Testing: Integration tests skip gracefully if
+ tools/infrastructure unavailable
+   - Rationale: Enable development without full tool suite
+   - Implementation: @pytest.mark.skipif(not tool_available())
+ decorators
+ 11. Tiered Execution: Support running subsets of layers (e.g.,
+ only pre-execution for fast CI)
+   - Rationale: Flexibility for different CI stages (PR: Layers
+ 0-1, nightly: all 5)
+   - Implementation: CLI --layers flag, pattern instance
+ configuration
+
+ ---
+ Phase 8: Risk Mitigation & Backward Compatibility
+
+ 8.1 Tool Availability Risk
+
+ Mitigation strategies:
+ 1. Graceful degradation: Skip layer with warning if tool
+ unavailable
+ 2. Installation guide: Comprehensive
+ docs/tool_integration_guide.md
+ 3. Docker option: Provide Dockerfile with all tools pre-installed
+ 4. Mock-heavy testing: Unit tests don't require real tools
+
+ 8.2 Backward Compatibility
+
+ For existing users of 3-layer plan:
+ 1. Complete existing work (original Phases 1-7)
+ 2. Add new layers incrementally (Weeks 8-11)
+ 3. Benefit: Core 3-layer functionality unchanged, new layers
+ additive
+
+ EXEC-034 compatibility:
+ - Old instances: Use layers: ["1", "2", "3"] parameter
+ - New instances: Default to all 5 layers
+ - Migration: Add layers parameter to pattern configurations
+
+ ---
+ Implementation Approach
+
+ Step-by-Step Execution
+
+ Step 1: Backup Original
+ - Create backup: Multi-Level Structural Coverage Analysis
+ Plan.md.backup
+
+ Step 2: Update Methodology Section (Lines 1-139)
+ - Insert new overview section with 5-layer framework philosophy
+ - Add Layer 0 section (before existing Layer 1)
+ - Add Layer 0.5 section (after Layer 0)
+ - Keep Layers 1-3 largely unchanged (minor integration notes)
+ - Add Layer 4 section (after Layer 3)
+ - Replace "How They Work Together" with "Unified Execution
+ Strategy"
+
+ Step 3: Update Implementation Plan Section (Lines 140+)
+ - Add WS6, WS7, WS8 to workstreams section
+ - Reorganize phases from 7 to 10 (renumber Phases 4-7, insert new
+  4, 5, 8, 11)
+ - Update Phase 1 to include new metrics
+ - Insert new phases: 4 (Static Analysis), 5 (SCA), 8
+ (Operational), 11 (Integration)
+ - Update Phase 7 (Complexity) with dual-use approach
+ - Update Phase 9 (CLI) with 5-layer support
+ - Update Phase 10 (Patterns) to include EXEC-035/036/037
+
+ Step 4: Add New Execution Patterns
+ - Insert EXEC-035 (Static Analysis) specification
+ - Insert EXEC-036 (Dependency Scan) specification
+ - Insert EXEC-037 (Operational Validation) specification
+ - Update EXEC-034 (Combined Report) for 5-layer support
+
+ Step 5: Update File Structure Section
+ - Update critical files list from 32 to 48 files
+ - Add new priority sections: Priority 6 (WS6), Priority 7 (WS7),
+ Priority 8 (WS8), Priority 9 (Patterns)
+ - Update module structure diagram with new adapters/analyzers
+ - Update LOC estimate from ~6,500 to ~10,500
+
+ Step 6: Update Testing Strategy
+ - Add new test fixtures to conftest.py section
+ - Insert tiered testing approach (unit, integration, optional)
+ - Update coverage targets (add WS6: 90%, WS7: 85%, WS8: 80%,
+ overall: 88%)
+
+ Step 7: Update Success Criteria
+ - Update overall success criteria (7 patterns, 5 layers, 88%
+ coverage, performance benchmarks)
+ - Update quality gates (5-layer analysis command, 7 pattern
+ validation)
+ - Add phase completion criteria for new phases 4, 5, 8, 11
+
+ Step 8: Update Timeline
+ - Change "6-7 weeks" to "9-10 weeks" throughout
+ - Update timeline summary table with 10 phases
+ - Add parallelization notes
+
+ Step 9: Add Architectural Decisions
+ - Insert decisions 7-11 (5-layer architecture, tool reuse,
+ progressive gates, conditional testing, tiered execution)
+
+ Step 10: Add Risk Mitigation Section
+ - Insert tool availability risk mitigation
+ - Insert backward compatibility guidance
+ - Insert API key dependency handling
+
+ Step 11: Validate & Format
+ - Ensure all markdown formatting is consistent
+ - Verify all cross-references are updated (e.g., "Phase 4"
+ references now point to correct renumbered phases)
+ - Check line numbers and section headings are accurate
+
+ ---
+ Validation Checklist
+
+ Before completing integration:
+
+ - All 5 layers explained with unique contributions
+ - Unified execution strategy shows 3-phase workflow
+ - Tool reuse strategy documented (Radon, PSScriptAnalyzer
+ dual-purpose)
+ - 3 new workstreams added (WS6, WS7, WS8) with file lists
+ - 3 new execution patterns specified (EXEC-035, EXEC-036,
+ EXEC-037)
+ - EXEC-034 updated for 5-layer support with backward
+ compatibility
+ - Phases reorganized from 7 to 10 (with new Phase 11)
+ - Timeline updated from 6-7 weeks to 9-10 weeks
+ - File count updated from 32 to 48 files (~6,500 to ~10,500 LOC)
+ - Testing strategy includes tiered approach for new tools
+ - Coverage targets updated (overall 88%+)
+ - Success criteria updated (7 patterns, 5 layers, performance
+ benchmarks)
+ - Architectural decisions include 5 new entries
+ - Risk mitigation section added
+ - Backward compatibility guidance provided
+ - All cross-references updated for renumbered phases
+ - Markdown formatting consistent throughout
+
+ ---
+ Timeline Estimate
+
+ Total Integration Effort: 2-3 hours
+
+ - Phase 1 (Methodology): 45 minutes
+ - Phase 2-3 (Implementation Plan): 60 minutes
+ - Phase 4-7 (Files, Testing, Success Criteria): 30 minutes
+ - Phase 8-11 (Validation, formatting): 15 minutes
+
+ ---
+ Critical Files
+
+ Primary Target:
+ - C:\Users\richg\ALL_AI\Complete AI Development Pipeline –
+ Canonical Phase Plan\System _Analyze\Multi-Level Structural
+ Coverage Analysis Plan.md
+
+ Related Files (for reference during integration):
+ - tools/coverage_analyzer/src/coverage_analyzer/base.py (data
+ models to reference)
+ - patterns/specs/EXEC-034_combined_coverage.pattern.yaml (pattern
+  to update)

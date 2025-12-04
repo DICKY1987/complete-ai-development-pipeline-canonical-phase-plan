@@ -1,0 +1,266 @@
+{
+  "$id": "https://example.com/schemas/GH_SYNC_PHASE_V1.schema.json",
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "title": "GH_SYNC_PHASE_V1 github_integration config",
+  "description": "Schema for the github_integration block used by the GH_SYNC_PHASE_V1 pattern.",
+  "type": "object",
+  "additionalProperties": false,
+
+  "required": [
+    "enabled",
+    "repo",
+    "issue",
+    "project",
+    "automation"
+  ],
+
+  "properties": {
+    "enabled": {
+      "type": "boolean",
+      "description": "Whether GitHub integration is active for this Phase Plan."
+    },
+
+    "repo": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "owner",
+        "name",
+        "default_branch"
+      ],
+      "properties": {
+        "owner": {
+          "type": "string",
+          "minLength": 1,
+          "description": "GitHub repository owner (user or org)."
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "GitHub repository name."
+        },
+        "default_branch": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Default branch name for the repo (e.g. 'main')."
+        }
+      }
+    },
+
+    "issue": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "title_template",
+        "labels",
+        "assignees"
+      ],
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": [
+            "one-per-phase",
+            "none",
+            "reuse"
+          ],
+          "description": "How Issues are used for this phase."
+        },
+        "number": {
+          "description": "GitHub Issue number, if already created.",
+          "anyOf": [
+            { "type": "integer", "minimum": 1 },
+            { "type": "null" }
+          ]
+        },
+        "title_template": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Template for Issue title, e.g. '[{phase_id}] {title}'."
+        },
+        "body_template_path": {
+          "description": "Optional path to a markdown file used as Issue body template.",
+          "anyOf": [
+            { "type": "string", "minLength": 1 },
+            { "type": "null" }
+          ]
+        },
+        "labels": {
+          "type": "array",
+          "description": "Base labels to apply to the Issue.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "assignees": {
+          "type": "array",
+          "description": "Default assignees for the Issue (usernames).",
+          "items": {
+            "anyOf": [
+              { "type": "string", "minLength": 1 },
+              { "type": "null" }
+            ]
+          }
+        }
+      }
+    },
+
+    "project": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "owner",
+        "field_mappings"
+      ],
+      "properties": {
+        "url": {
+          "description": "Optional full URL of the GitHub Project v2.",
+          "anyOf": [
+            { "type": "string", "minLength": 1 },
+            { "type": "null" }
+          ]
+        },
+        "owner": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Owner (user/org) of the Project v2."
+        },
+        "project_number": {
+          "description": "Project number for Projects v2 (e.g. 1).",
+          "anyOf": [
+            { "type": "integer", "minimum": 1 },
+            { "type": "null" }
+          ]
+        },
+        "item_id": {
+          "description": "Node ID of the ProjectV2 item, once known.",
+          "anyOf": [
+            { "type": "string", "minLength": 1 },
+            { "type": "null" }
+          ]
+        },
+
+        "field_mappings": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "phase_id_field",
+            "workstream_field",
+            "status_field",
+            "risk_field",
+            "target_date_field",
+            "doc_id_field"
+          ],
+          "properties": {
+            "phase_id_field": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Project field label for SPLINTER phase_id."
+            },
+            "workstream_field": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Project field label for SPLINTER workstream_id."
+            },
+            "status_field": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Project field label for SPLINTER phase status."
+            },
+            "risk_field": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Project field label for SPLINTER risk level."
+            },
+            "target_date_field": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Project field label for target/due date."
+            },
+            "doc_id_field": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Project field label for SPLINTER doc_id."
+            },
+            "story_points_field": {
+              "description": "Optional Project field label for story points.",
+              "anyOf": [
+                { "type": "string", "minLength": 1 },
+                { "type": "null" }
+              ]
+            },
+            "owner_field": {
+              "description": "Optional Project field label for owner/driver.",
+              "anyOf": [
+                { "type": "string", "minLength": 1 },
+                { "type": "null" }
+              ]
+            }
+          }
+        }
+      }
+    },
+
+    "automation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "allow_issue_create",
+        "allow_issue_update",
+        "allow_project_item_create",
+        "allow_project_item_update",
+        "sync_direction",
+        "on_phase_status_change_update_project",
+        "on_project_status_change_update_phase"
+      ],
+      "properties": {
+        "allow_issue_create": {
+          "type": "boolean",
+          "description": "Allow creation of new Issues for phases."
+        },
+        "allow_issue_update": {
+          "type": "boolean",
+          "description": "Allow updating existing Issues for phases."
+        },
+        "allow_project_item_create": {
+          "type": "boolean",
+          "description": "Allow creation of new Project items."
+        },
+        "allow_project_item_update": {
+          "type": "boolean",
+          "description": "Allow updating existing Project items."
+        },
+        "sync_direction": {
+          "type": "string",
+          "enum": [
+            "yaml->github",
+            "bidirectional"
+          ],
+          "description": "Direction of truth: SPLINTER only, or bidirectional."
+        },
+        "on_phase_status_change_update_project": {
+          "type": "boolean",
+          "description": "If true, phase status changes should update Project field."
+        },
+        "on_project_status_change_update_phase": {
+          "type": "boolean",
+          "description": "If true, Project status changes may update phase status (only valid when sync_direction is 'bidirectional')."
+        },
+        "last_synced_at": {
+          "description": "Timestamp of last successful sync, if known.",
+          "anyOf": [
+            { "type": "string", "minLength": 1 },
+            { "type": "null" }
+          ]
+        },
+        "last_synced_by": {
+          "description": "Actor (username/bot) that performed the last sync, if known.",
+          "anyOf": [
+            { "type": "string", "minLength": 1 },
+            { "type": "null" }
+          ]
+        }
+      }
+    }
+  }
+}

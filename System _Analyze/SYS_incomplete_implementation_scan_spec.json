@@ -1,0 +1,356 @@
+{
+  "spec_id": "INCOMPLETE_IMPLEMENTATION_SCAN_V1",
+  "generated_at": "2025-12-04T05:26:29.318413Z",
+  "description": "Systematic process for scanning a codebase for stubs, empty folders, and other signs of incomplete or missing implementation.",
+  "scope": {
+    "codebase_root": "<SET_AT_RUNTIME>",
+    "ignored_paths": [
+      ".git/",
+      ".hg/",
+      ".svn/",
+      ".venv/",
+      "venv/",
+      "node_modules/",
+      ".idea/",
+      ".vscode/",
+      ".DS_Store"
+    ]
+  },
+  "definitions": {
+    "incomplete_signals": {
+      "stub_code": {
+        "description": "Functions, methods, or classes that have no real implementation.",
+        "examples": [
+          "Function body is only 'pass', '...', or equivalent no-op.",
+          "Function immediately raises NotImplementedError / NotImplementedException.",
+          "Function body only contains TODO/FIXME comments.",
+          "Class methods declared but only raise NotImplementedError or are 'pass'."
+        ]
+      },
+      "empty_or_useless_structure": {
+        "description": "Empty or nearly-empty files and directories.",
+        "examples": [
+          "Empty directories (no files or only ignorable metadata).",
+          "Files with zero or near-zero lines.",
+          "Files that only contain comments or docstrings and no executable code."
+        ]
+      },
+      "broken_or_dangling_references": {
+        "description": "References to modules/symbols that do not exist.",
+        "examples": [
+          "Imports to modules that do not exist in the codebase.",
+          "Config entries pointing to non-existent modules/classes/functions.",
+          "Tests referencing missing functions/classes."
+        ]
+      },
+      "wip_or_dead_end_code": {
+        "description": "Code islands that are never imported or used.",
+        "examples": [
+          "Orphan modules with no inbound references and not marked as entrypoints.",
+          "Entry point scripts that parse args and do nothing except TODO/placeholder messages."
+        ]
+      }
+    },
+    "finding_record": {
+      "required_fields": [
+        "kind",
+        "path",
+        "severity"
+      ],
+      "schema": {
+        "kind": "string",
+        "path": "string",
+        "symbol": "string|null",
+        "line": "integer|null",
+        "reason": "string",
+        "language": "string|null",
+        "severity": "string",
+        "context": "object|null",
+        "metadata": "object|null"
+      },
+      "severity_levels": [
+        "info",
+        "minor",
+        "major",
+        "critical",
+        "allowed_stub"
+      ]
+    },
+    "summary_record": {
+      "schema": {
+        "scan_timestamp": "ISO8601 string",
+        "codebase_root": "string",
+        "stats": "object",
+        "findings": "array of finding_record"
+      }
+    }
+  },
+  "pipeline": [
+    {
+      "id": "step_0_define_rules",
+      "name": "Define Incomplete Implementation Rules",
+      "description": "Ensure the rules for what counts as a stub, empty structure, broken reference, or WIP island are explicitly defined and versioned in the repo.",
+      "inputs": [],
+      "outputs": [
+        "INCOMPLETE_IMPLEMENTATION_RULES.md",
+        "ruleset_object"
+      ],
+      "operations": [
+        "Create/maintain a versioned document describing incomplete signals and examples.",
+        "Expose these rules as a JSON/YAML ruleset for scanner configuration."
+      ]
+    },
+    {
+      "id": "step_1_inventory",
+      "name": "Inventory Codebase",
+      "description": "Walk the repo tree and collect basic file and directory metadata.",
+      "inputs": [
+        "codebase_root"
+      ],
+      "outputs": [
+        "file_inventory.jsonl",
+        "dir_inventory.jsonl"
+      ],
+      "operations": [
+        "Recursively walk the codebase_root excluding ignored paths.",
+        "For each file, record kind=file, path, extension, size_bytes, num_lines.",
+        "For each directory, record kind=dir, path, num_files, num_subdirs.",
+        "Immediately mark empty dirs and tiny files (num_lines <= configurable threshold)."
+      ],
+      "flags": {
+        "tiny_file_line_threshold": 3
+      }
+    },
+    {
+      "id": "step_2_language_stub_scan",
+      "name": "Language-Aware Stub Detection",
+      "description": "Detect potential stubs using simple pattern-based scanning and optional AST-based analysis.",
+      "inputs": [
+        "file_inventory.jsonl"
+      ],
+      "outputs": [
+        "stub_candidates.jsonl"
+      ],
+      "operations": [
+        "For each source file, scan for TODO/FIXME/TBD/WIP/XXX/STUB markers.",
+        "Detect no-op bodies such as 'pass', '...', or trivial 'return None/null/undefined' plus TODO.",
+        "Detect immediate NotImplementedError/NotImplementedException throws.",
+        "Optionally, parse files using AST to detect functions/classes with empty or trivial bodies."
+      ],
+      "language_rules": {
+        "python": {
+          "stub_bodies": [
+            "pass",
+            "...",
+            "raise NotImplementedError",
+            "raise NotImplemented"
+          ]
+        },
+        "javascript_typescript": {
+          "stub_patterns": [
+            "throw new Error(\"Not implemented\")",
+            "throw new Error('Not implemented')"
+          ]
+        },
+        "java_csharp": {
+          "stub_patterns": [
+            "throw new NotImplementedException()",
+            "throw new UnsupportedOperationException()"
+          ]
+        }
+      }
+    },
+    {
+      "id": "step_3_structure_without_implementation",
+      "name": "Detect Structure Without Implementation",
+      "description": "Identify declared structures such as abstract methods, config entries, or tests that reference missing or stub implementations.",
+      "inputs": [
+        "file_inventory.jsonl",
+        "stub_candidates.jsonl"
+      ],
+      "outputs": [
+        "missing_reference_findings.jsonl",
+        "abstract_vs_concrete_findings.jsonl"
+      ],
+      "operations": [
+        "Scan abstract/base classes (e.g., Python ABCs, Java/C# interfaces) and ensure non-abstract subclasses implement all required methods with non-stub bodies.",
+        "Parse configuration files (routes, plugins, DI containers, CLI entrypoints) to extract referenced modules/classes/functions.",
+        "Cross-check references from config and tests against actual implemented symbols in the codebase.",
+        "Emit missing_reference findings for unresolved symbols."
+      ]
+    },
+    {
+      "id": "step_4_dependency_and_usage_graph",
+      "name": "Dependency Graph and Orphan Detection",
+      "description": "Build a file-level dependency graph and detect orphaned or dead-end modules.",
+      "inputs": [
+        "file_inventory.jsonl"
+      ],
+      "outputs": [
+        "dependency_graph.json",
+        "orphan_module_findings.jsonl"
+      ],
+      "operations": [
+        "For each file, extract imports and inter-module references.",
+        "Build a graph where nodes are modules/files and edges represent imports/calls.",
+        "Identify orphan modules (no inbound edges and not marked as entrypoints, CLIs, or scripts).",
+        "Identify entrypoints that only contain placeholders or stubs."
+      ]
+    },
+    {
+      "id": "step_5_classify_and_score",
+      "name": "Classify, Score, and Prioritize Findings",
+      "description": "Assign severity and contextual information to each finding.",
+      "inputs": [
+        "stub_candidates.jsonl",
+        "missing_reference_findings.jsonl",
+        "abstract_vs_concrete_findings.jsonl",
+        "orphan_module_findings.jsonl"
+      ],
+      "outputs": [
+        "classified_findings.jsonl"
+      ],
+      "operations": [
+        "For each finding, assign a severity based on location and impact.",
+        "Upgrade severity for findings in critical paths (e.g., core modules, exported APIs).",
+        "Downgrade severity for findings under experimental or archive directories.",
+        "Attach contextual metadata such as module, package, and directory groupings."
+      ],
+      "severity_rules": {
+        "critical": [
+          "Missing implementation for referenced feature from config or tests.",
+          "Stub in core or public API module."
+        ],
+        "major": [
+          "Stub in non-core but used module.",
+          "Abstract methods not implemented in concrete classes."
+        ],
+        "minor": [
+          "Stubs in experimental or sandbox areas.",
+          "Empty directories with non-critical names."
+        ],
+        "info": [
+          "Tiny files that may be harmless placeholders."
+        ]
+      }
+    },
+    {
+      "id": "step_6_summary_report",
+      "name": "Generate Summary Report",
+      "description": "Produce a machine-usable JSON summary and optional human-readable report.",
+      "inputs": [
+        "classified_findings.jsonl"
+      ],
+      "outputs": [
+        "incomplete_scan_summary.json",
+        "incomplete_scan_summary.md"
+      ],
+      "operations": [
+        "Aggregate counts by finding kind and severity.",
+        "Group findings by module/directory (e.g., core/state, core/engine).",
+        "Generate a JSON summary using the definitions.summary_record schema.",
+        "Optionally generate a Markdown report with top critical items."
+      ]
+    },
+    {
+      "id": "step_7_ci_integration",
+      "name": "CI / Pre-Release Integration",
+      "description": "Run the scan automatically and enforce quality gates.",
+      "inputs": [
+        "incomplete_scan_summary.json"
+      ],
+      "outputs": [
+        "ci_status",
+        "ci_logs"
+      ],
+      "operations": [
+        "Invoke the scanner as a CI job with a fixed command, e.g. './tools/scan_incomplete_implementation.py --output .state/incomplete_scan_summary.json'.",
+        "Fail the CI job if new critical findings appear or if stub counts exceed configured thresholds.",
+        "Optionally comment on pull requests with a short summary of new or worsened findings."
+      ],
+      "quality_gates": {
+        "max_critical_findings": 0,
+        "max_major_findings": 10,
+        "prevent_regressions": true
+      }
+    },
+    {
+      "id": "step_8_allowlist_handling",
+      "name": "Allowlist and Intentional Stubs",
+      "description": "Support intentional stubs and allowed incomplete areas via comments or config.",
+      "inputs": [
+        "classified_findings.jsonl",
+        "allowlist_config"
+      ],
+      "outputs": [
+        "final_findings.jsonl"
+      ],
+      "operations": [
+        "Load allowlist configuration from a file such as 'incomplete_allowlist.yaml'.",
+        "Support inline annotations like '# INCOMPLETE_OK' or '// STUB_ALLOWED'.",
+        "Downgrade or relabel matching findings to 'allowed_stub'.",
+        "Ensure CI quality gates ignore 'allowed_stub' severity findings."
+      ],
+      "allowlist_config_schema": {
+        "paths": [
+          "globs for files/directories that may contain stubs"
+        ],
+        "symbols": [
+          "specific function or class names allowed to be stubs"
+        ],
+        "comments_markers": [
+          "# INCOMPLETE_OK",
+          "// INCOMPLETE_OK",
+          "# STUB_ALLOWED",
+          "// STUB_ALLOWED"
+        ]
+      }
+    }
+  ],
+  "example_outputs": {
+    "finding_example": {
+      "kind": "stub_function",
+      "path": "core/payment/processor.py",
+      "symbol": "process_payment",
+      "line": 87,
+      "reason": "function_body_is_raise_not_implemented_error",
+      "language": "python",
+      "severity": "critical",
+      "context": {
+        "module": "core.payment.processor",
+        "package": "core.payment",
+        "is_exported_api": true
+      },
+      "metadata": {
+        "detected_by_step": "step_2_language_stub_scan"
+      }
+    },
+    "summary_example": {
+      "scan_timestamp": "2025-12-03T20:15:00Z",
+      "codebase_root": ".",
+      "stats": {
+        "stub_functions": 14,
+        "stub_classes": 3,
+        "missing_references": 5,
+        "empty_dirs": 7
+      },
+      "findings": [
+        "<array_of_finding_records>"
+      ]
+    }
+  },
+  "cli_integration": {
+    "command": "./tools/scan_incomplete_implementation.py",
+    "default_args": [
+      "--root",
+      ".",
+      "--output",
+      ".state/incomplete_scan_summary.json"
+    ],
+    "exit_codes": {
+      "0": "Scan completed and passed quality gates.",
+      "1": "Scan failed or detected violations of quality gates.",
+      "2": "Configuration or environment error."
+    }
+  }
+}

@@ -1,0 +1,574 @@
+EXEC-017_TEMPLATE.md_copy_and_paste
+
+* `<PROJECT_ROOT>`
+* `<ANALYZER_SCRIPT>`
+* `<CRITICAL_FILES>`
+
+You can customize or extend everything else per-project.
+
+---
+
+````markdown
+╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
+EXEC-017_TEMPLATE – Comprehensive Code Cleanup & Dead-Code Archival
+
+Template Status: TEMPLATE – MUST BE INSTANTIATED PER PROJECT BEFORE EXECUTION
+Risk Level: LOW (analysis phase), MEDIUM (archival phase)
+Total Time: 60–90 minutes (typical)
+Expected Outcome: Dead / unused code archived with safety rails and full rollback
+
+---
+
+## 0. Template Parameters (MUST FILL BEFORE USE)
+
+**Replace these placeholders for each project:**
+
+- `<PROJECT_ROOT>`
+  - Absolute or project-relative path to the repository root.
+  - Example: `C:\dev\my-app` or `/home/user/projects/my-app`.
+
+- `<ANALYZER_SCRIPT>`
+  - Path (relative to `<PROJECT_ROOT>`) to the main orchestration script that:
+    - Scans the codebase.
+    - Computes “dead code” / cleanup candidates.
+    - Produces tiered archival recommendations (Tier 1/2/3).
+  - Example: `scripts/comprehensive_archival_analyzer.py`.
+
+- `<CRITICAL_FILES>`
+  - *Project-specific list* of files and/or globs that **must never be archived** by EXEC-017.
+  - These are your entry points, core configs, orchestrators, and foundation docs.
+  - Example (you will replace the placeholder below with a concrete list):
+
+    ```text
+    <CRITICAL_FILES>
+    # Replace this placeholder with your own list of "never archive" paths/globs.
+    # Examples:
+    # - "src/main.py"
+    # - "src/app/__init__.py"
+    # - "src/core/orchestrator.py"
+    # - "config/settings.yaml"
+    # - "docs/ARCHITECTURE_OVERVIEW.md"
+    # - "docs/EXECUTION_PIPELINE.md"
+    ```
+
+> ✅ **Rule:** Do not run EXEC-017 until `<PROJECT_ROOT>`, `<ANALYZER_SCRIPT>`, and `<CRITICAL_FILES>` are fully resolved and committed.
+
+---
+
+## 1. Executive Summary
+
+Use EXEC-017 to perform a **structured, safe code cleanup** that identifies and archives:
+- Dead code (unreachable / no imports).
+- Obsolete implementations.
+- Duplicate / parallel implementations.
+- Stale modules with no recent change and no tests.
+
+The framework uses a **multi-signal, weighted analysis** to score each file and group candidates into tiers:
+
+- **Tier 1 (Auto-Archive):** 90%+ confidence dead/unneeded.
+- **Tier 2 (Manual Review):** 75–89% confidence, human decision required.
+- **Tier 3 (Expert Review):** 60–74% confidence, often subtle or domain-heavy.
+
+Key principle:
+
+> **Analyze first, archive second.**
+> All archiving happens only after:
+> - Reports are reviewed,
+> - backups exist, and
+> - pre-archive validation passes.
+
+---
+
+## 2. Pre-Conditions & Safety Principles
+
+Before you run EXEC-017 on any project:
+
+1. **Version Control Required**
+   - Project must be under Git (or equivalent VCS).
+   - You must be on a clean working tree (no uncommitted changes).
+
+2. **Backups & Rollback Strategy**
+   - At least one of:
+     - New backup branch (e.g., `backup/exec017-<DATE>`), or
+     - `git stash` snapshot, or
+     - External backup of `<PROJECT_ROOT>`.
+
+3. **Automated Tests Available (If Any)**
+   - If the project has tests, they must be runnable from the root.
+   - EXEC-017 assumes you can run at least one “all tests” command (e.g., `pytest`, `npm test`, `dotnet test`).
+
+4. **Analyzer Script Implemented**
+   - `<ANALYZER_SCRIPT>` exists and:
+     - Recursively scans the codebase.
+     - Computes per-file scores using multiple signals (see §10).
+     - Emits a **machine-readable report** (e.g. JSON) with tier recommendations.
+     - Optionally generates helper scripts (e.g. archival PowerShell/Bash).
+
+5. **Critical Files Defined**
+   - `<CRITICAL_FILES>` is populated and reviewed by a human.
+   - Analyzer and archival logic **must never** classify these as candidates.
+
+---
+
+## 3. Phase 1 – Pre-Flight Validation (≈5 minutes)
+
+### 1.1 Environment Check
+
+From your shell:
+
+```bash
+# 1) Verify Python version (if your analyzer is Python-based)
+python --version
+
+# 2) Change to project root
+cd "<PROJECT_ROOT>"
+
+# 3) Inspect git status
+git status
+
+# 4) Verify analyzer script exists
+ls <ANALYZER_SCRIPT>
+````
+
+If you use additional helper scripts (optional):
+
+* Reachability analyzer (e.g. `scripts/entry_point_reachability.py`).
+* Test coverage analyzer (e.g. `scripts/test_coverage_archival.py`).
+* Parallel implementation detector (e.g. `scripts/detect_parallel_implementations.py`).
+
+### 1.2 Safety Pre-Checks
+
+Confirm:
+
+* ✅ `<PROJECT_ROOT>` is correct.
+* ✅ `<ANALYZER_SCRIPT>` path is valid.
+* ✅ `<CRITICAL_FILES>` is defined and includes:
+
+  * Main entry points.
+  * Top-level configs.
+  * Core orchestrators.
+  * Master docs/specs you absolutely don’t want moved or archived.
+
+If anything is uncertain → **STOP** and fix the configuration before proceeding.
+
+---
+
+## 4. Phase 2 – Comprehensive Analysis Execution (≈15–20 minutes)
+
+### 2.1 Run Master Analyzer
+
+From `<PROJECT_ROOT>`:
+
+```bash
+cd "<PROJECT_ROOT>"
+
+# Run the main analyzer / orchestrator
+python <ANALYZER_SCRIPT>
+```
+
+**The analyzer SHOULD:**
+
+1. Compute code reachability from known entry points.
+2. Map import relationships and internal module usage.
+3. Measure test coverage per file (when possible).
+4. Measure duplication / parallel implementations (e.g., by hashing code blocks).
+5. Compute staleness (e.g., last modified > N days).
+6. Aggregate all signals into a **per-file score** and tier classification:
+
+   * Tier 1: safe to auto-archive.
+   * Tier 2: needs manual review.
+   * Tier 3: needs expert review.
+
+**Expected Outputs (example, adjust to your project):**
+
+* `cleanup_reports/comprehensive_archival_report.json` – master JSON report.
+* `cleanup_reports/archival_plan_tier1_automated.ps1` / `.sh` – optional auto-archival script.
+* `cleanup_reports/archival_plan_tier2_review.json` – manual review list.
+* `cleanup_reports/archival_plan_tier3_review.json` – expert review list.
+* `cleanup_reports/parallel_implementations_checklist.md` – duplicate implementations.
+* `cleanup_reports/validation_checklist.md` – pre/post validation steps.
+
+> 🔁 **Tip:** These exact filenames are suggestions. You can choose your own, but keep them consistent and machine-readable.
+
+---
+
+## 5. Phase 3 – Results Review & Decision Making (≈15–20 minutes)
+
+### 3.1 Inspect the Master Report
+
+Example commands (adjust paths / tools as needed):
+
+```bash
+cd "<PROJECT_ROOT>"
+
+# Pretty-print JSON (Python)
+cat cleanup_reports/comprehensive_archival_report.json | python -m json.tool | less
+```
+
+### 3.2 Key Metrics to Review
+
+Look for:
+
+* Total files/modules analyzed.
+* Count and list of **Tier 1** candidates (auto-archive).
+* Count and list of **Tier 2** candidates (manual review).
+* Count and list of **Tier 3** candidates (expert review).
+* Any files near the thresholds (e.g. 88–92% confidence).
+
+### 3.3 Manual Sanity Check Against <CRITICAL_FILES>
+
+For each file in `<CRITICAL_FILES>`:
+
+* Confirm it is **NOT** marked as Tier 1 or Tier 2 candidate.
+* If it is, **fix your analyzer logic** or override classification before continuing.
+
+### 3.4 Decide Scope for This Run
+
+You can choose:
+
+* **Option A:** Tier 1 only (recommended for first run).
+* **Option B:** Tier 1 + selected Tier 2 groups.
+* **Option C:** Dry-run on Tier 1 + Tier 2, but no actual archival yet.
+
+Document your decision in a small note (e.g. `cleanup_reports/exec017_run_plan.md`).
+
+---
+
+## 6. Phase 4 – Pre-Archive Safety Validation (≈5 minutes)
+
+Before any file moves/deletions:
+
+### 4.1 Run Pre-Archive Validator
+
+Implement (or reuse) a validation script (name is up to you), then:
+
+```bash
+cd "<PROJECT_ROOT>"
+
+# Example: Python-based validator
+python scripts/validate_archival_safety.py --mode pre-archive
+```
+
+**Checks SHOULD include:**
+
+1. ✅ Git working tree clean (no uncommitted changes).
+2. ✅ All tests pass (`pytest` / `npm test` / etc.).
+3. ✅ No import errors (`python -m compileall .` or language equivalent).
+4. ✅ Enough disk space for backups.
+5. ✅ Backup branch or stash created.
+
+### 4.2 Confirm Validation Report PASS
+
+Your validator should emit a machine-readable report, e.g.:
+
+```json
+{
+  "status": "PASS",
+  "checks": {
+    "git_clean": true,
+    "tests_pass": true,
+    "imports_ok": true,
+    "backup_present": true
+  }
+}
+```
+
+If `status` ≠ `"PASS"` → fix issues before continuing.
+
+---
+
+## 7. Phase 5 – Tier 1 Archival Execution (Dry Run First; ≈10 minutes)
+
+### 5.1 Dry Run (REQUIRED)
+
+If you have generated an archival script (e.g. PowerShell/Bash):
+
+```bash
+cd "<PROJECT_ROOT>"
+
+# Example: PowerShell dry run (Windows)
+pwsh -File cleanup_reports/archival_plan_tier1_automated.ps1 -WhatIf
+
+# Or: Bash dry run that prints actions only
+bash cleanup_reports/archival_plan_tier1_automated.sh --dry-run
+```
+
+Verify:
+
+* The listed files match your expectations from the report.
+* None of `<CRITICAL_FILES>` appear in the candidate list.
+* No obviously wrong directories (e.g. config, migrations, core infrastructure).
+
+### 5.2 Live Archival
+
+When satisfied with the dry run:
+
+```bash
+cd "<PROJECT_ROOT>"
+
+# PowerShell example (actual run)
+pwsh -File cleanup_reports/archival_plan_tier1_automated.ps1
+
+# OR: Bash example (actual run)
+bash cleanup_reports/archival_plan_tier1_automated.sh
+```
+
+**Recommended behavior:**
+
+* Move files into an archival folder (e.g. `archive/exec017/<DATE>/...`) rather than deleting.
+* Preserve relative paths inside the archive folder.
+* Optionally, annotate an `ARCHIVED_BY_EXEC017.md` file with metadata.
+
+---
+
+## 8. Phase 6 – Post-Archive Validation (≈10 minutes)
+
+Immediately after archival:
+
+```bash
+cd "<PROJECT_ROOT>"
+
+# 1) Run full test suite
+pytest -q          # or equivalent
+
+# 2) Check import validity
+python -m compileall .  # or equivalent for your language / platform
+```
+
+If tests or imports fail:
+
+* Note failing tests/files.
+* Proceed to **Phase 7 – Recovery Plan**.
+
+If everything passes:
+
+* Proceed to **Phase 8 – Commit & Documentation**.
+
+---
+
+## 9. Phase 7 – Recovery Plan (IF THINGS GO WRONG)
+
+If anything breaks after archival:
+
+### 7.1 Rapid Triage
+
+1. Identify failing tests / import errors.
+2. Map failing modules back to archived files using:
+
+   * Git history.
+   * The archival folder.
+   * The comprehensive report.
+
+### 7.2 Restore From Backup
+
+Examples:
+
+```bash
+cd "<PROJECT_ROOT>"
+
+# If you used git branches:
+git checkout backup/exec017-<DATE> -- path/to/broken/file.py
+
+# Or restore entire tree if necessary:
+git reset --hard backup/exec017-<DATE>
+```
+
+### 7.3 Re-Validate
+
+After restoring, re-run:
+
+* Tests.
+* Import checks.
+* (Optional) Analyzer, to update its view.
+
+> ✅ **Goal:** System restored to pre-archival behavior within minutes.
+
+---
+
+## 10. Phase 8 – Commit & Documentation (≈10 minutes)
+
+### 8.1 Review Diff
+
+```bash
+cd "<PROJECT_ROOT>"
+
+git diff
+```
+
+Check:
+
+* Only expected files were moved/archived.
+* No unexpected edits to core logic or `<CRITICAL_FILES>`.
+
+### 8.2 Commit Change
+
+```bash
+cd "<PROJECT_ROOT>"
+
+git add .
+git commit -m "EXEC-017: archive Tier 1 dead code (auto-generated plan)"
+```
+
+### 8.3 Record Run Metadata
+
+Create/run log, e.g. `cleanup_reports/exec017_run_summary.md`:
+
+```markdown
+# EXEC-017 Run Summary
+
+Date: <DATE>
+Project Root: <PROJECT_ROOT>
+Analyzer Script: <ANALYZER_SCRIPT>
+
+Scope:
+- Tier 1 archival only (Y/N)
+- Tier 2 partially included (Y/N)
+- Tier 3 included (Y/N)
+
+Stats:
+- Total files analyzed: <N_TOTAL>
+- Tier 1 archived: <N_T1_ARCHIVED>
+- Tier 2 left for review: <N_T2_PENDING>
+- Tier 3 left for expert review: <N_T3_PENDING>
+
+Notes:
+- <Short description of decisions, surprises, and follow-ups.>
+```
+
+---
+
+## 11. Phase 9 – Tier 2 & Tier 3 Review (OPTIONAL; 30–60 minutes)
+
+Tier 2 and Tier 3 candidates typically require human judgment.
+
+### 9.1 Tier 2 (75–89% Confidence)
+
+* Group by:
+
+  * Feature area.
+  * Owner/team.
+  * Risk (e.g. near core pipeline vs leaf utility).
+
+* For each group:
+
+  * Decide: archive now, postpone, or reject.
+  * Update the relevant JSON/plan files so the analyzer correctly reflects these decisions.
+
+### 9.2 Tier 3 (60–74% Confidence)
+
+* Often:
+
+  * Old but still vaguely used utilities.
+  * Edge-case logic.
+  * Domain-specific or rarely executed paths.
+
+* Recommended:
+
+  * Attach these to feature owners or domain experts.
+  * Document decisions explicitly.
+
+---
+
+## 12. Phase 10 – Parallel Implementations Resolution (OPTIONAL; 60+ minutes)
+
+If your analyzer includes duplicate / parallel implementation detection:
+
+* Use generated checklists (e.g. `parallel_implementations_checklist.md`).
+* For each cluster:
+
+  * Choose one “canonical” implementation.
+  * Deprecate or archive the rest.
+  * Add TODOs to refactor callers into the canonical path.
+
+Document outcomes in the run summary so future analyzers can treat these as resolved.
+
+---
+
+## 13. Analysis Framework – Six-Signal Scoring Model (REFERENCE)
+
+A recommended starting point for your `<ANALYZER_SCRIPT>` scoring:
+
+* **Duplication (≈25%)**
+
+  * Exact or near-exact SHA-256 / AST matches.
+  * Penalize files that are clones of other implementations.
+
+* **Staleness (≈15%)**
+
+  * Last modified > N days (e.g. 90).
+  * Higher staleness → higher archival score (if other signals also agree).
+
+* **Obsolescence (≈20%)**
+
+  * Uses deprecated patterns, APIs, or comments marked “deprecated/legacy”.
+  * Superseded by a newer module.
+
+* **Isolation (≈15%)**
+
+  * Not imported or referenced by any other active module.
+  * No external callers (when you can detect them).
+
+* **Reachability (≈15%)**
+
+  * Not reachable from known entry points (e.g. CLI, web server, orchestration graph).
+  * Unused within the dependency graph.
+
+* **Test Coverage (≈10%)**
+
+  * No tests directly targeting this module.
+  * No coverage hits from your coverage tool (if used).
+
+> **Important:**
+> `<CRITICAL_FILES>` must always override this scoring. Even if a file looks stale and untested, if it’s tagged critical, it must **not** become an archival candidate.
+
+---
+
+## 14. “Never Archive” Guidance (Using <CRITICAL_FILES>)
+
+Examples of what SHOULD appear in `<CRITICAL_FILES>`:
+
+* Application entry points:
+
+  * `src/main.*`, `app.py`, `manage.py`, `index.js`, `Program.cs`, etc.
+* Core infrastructure and orchestrators.
+* Global configuration and environment bootstrap:
+
+  * `config/*`, `.env.example`, infra manifests.
+* Top-level architectural docs:
+
+  * `docs/ARCHITECTURE*`, `docs/EXECUTION_PIPELINE*`, `docs/ROADMAP*`.
+* Anything the team explicitly identifies as “must not be auto-archived”.
+
+You can maintain `<CRITICAL_FILES>` as:
+
+* A standalone JSON/YAML file consumed by `<ANALYZER_SCRIPT>`, or
+* An in-doc list that your scripts parse.
+
+Either way, keep it **stable and under version control**.
+
+---
+
+## 15. How to Instantiate This Template for a Specific Project
+
+1. Copy this file to the project as `EXEC-017_<PROJECT_NAME>.md` or similar.
+2. Replace all occurrences of:
+
+   * `<PROJECT_ROOT>`
+   * `<ANALYZER_SCRIPT>`
+   * `<CRITICAL_FILES>`
+3. Configure or implement `<ANALYZER_SCRIPT>` to:
+
+   * Use the six-signal model (or a variant).
+   * Emit tiered reports and optional archival scripts.
+4. Commit the instantiated plan to the repo.
+5. Run EXEC-017 exactly once as a dry run, then once as a real run.
+6. Update this document with:
+
+   * Actual run stats.
+   * Lessons learned.
+   * Adjusted weights or thresholds.
+
+╌╌╌ END OF EXEC-017_TEMPLATE ╌╌╌
+
+```
+```

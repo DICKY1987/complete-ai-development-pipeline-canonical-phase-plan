@@ -19,11 +19,11 @@ class FixGenerator:
         return self._fix_fn(errors, attempt)
 
     @staticmethod
-    def _default_fix(errors: List[ParsedError], attempt: int) -> Dict[str, str]:
-        summary = (
-            "; ".join(err.message for err in errors) if errors else "no error details"
-        )
-        return {
-            "summary": f"Attempt {attempt}: apply generic fix for {summary}",
-            "patch": "# TODO: implement fix",
+def _default_fix(errors: List[ParsedError], attempt: int) -> Dict[str, str]:
+    summary = (
+        "; ".join(err.message for err in errors) if errors else "no error details"
+    )
+    return {
+        "summary": f"Attempt {attempt}: generic fix suggestion for {summary}",
+        "patch": "",
         }

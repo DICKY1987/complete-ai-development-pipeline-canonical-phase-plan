@@ -1,0 +1,1977 @@
+{
+  "plan_id": "PLAN-HEADLESS-CLI-SUPERVISION-001",
+  "title": "Headless CLI Supervision & Approval System Implementation",
+  "version": "2.0",
+  "created_at": "2025-12-04T02:22:41.693Z",
+  "updated_at": "2025-12-04T02:47:31.154Z",
+  "status": "draft",
+  "purpose": "Implement comprehensive headless CLI tool supervision, error/stall detection, and approval protocol for the TUI",
+  "changelog": {
+    "v2.0": "Added Phase 0 (architecture decisions), Phase 3.5 (critical missing features), Phase 8 (operations), expanded testing, addressed 11 critical gaps from gap analysis"
+  },
+  "scope": {
+    "description": "Enable detection and UI visibility of failed/stalled/hung CLI tools running in headless mode, with explicit approval protocol for tools requiring user input",
+    "targets": [
+      "core/state/db.py",
+      "core/state/sqlite_state_backend.py",
+      "core/state/state_client.py",
+      "core/cli_supervisor.py",
+      "core/ui_cli.py",
+      "core/lib/tool_heartbeat.py",
+      "gui/src/tui_app/core/sqlite_state_backend.py",
+      "gui/src/tui_app/core/state_client.py",
+      "gui/src/tui_app/panels/tool_health_panel.py",
+      "gui/src/tui_app/panels/dashboard_panel.py",
+      "gui/src/tui_app/panels/log_stream_panel.py",
+      "gui/src/tui_app/panels/approvals_panel.py",
+      "config/supervision.yaml"
+    ]
+  },
+  "critical_gaps_addressed": [
+    "User approval decision mechanism (interactive TUI + CLI)",
+    "Tool resume/retry after approval (background worker)",
+    "Database schema migration and unification strategy",
+    "Heartbeat implementation for tools (library + wrappers)",
+    "Approval protocol standardization",
+    "Comprehensive error handling and edge cases",
+    "Configuration and deployment strategy",
+    "State synchronization between DB systems",
+    "Tool adapter architecture integration",
+    "Extended integration testing scenarios",
+    "Complete documentation suite"
+  ],
+  "architecture": {
+    "status_model": {
+      "description": "Extended execution status values",
+      "values": [
+        "queued",
+        "running",
+        "completed",
+        "failed",
+        "failed_timeout",
+        "stalled",
+        "waiting_approval",
+        "cancelled"
+      ],
+      "tracking_fields": {
+        "last_output_at": "timestamp of last stdout/stderr output",
+        "last_heartbeat_at": "timestamp of last heartbeat event",
+        "last_error": "last error message captured"
+      }
+    },
+    "approval_protocol": {
+      "trigger": "HEADLESS=1 or CI=1 environment variable",
+      "behavior": "Tools must NOT block on stdin; emit approval_needed event instead",
+      "exit_code": 90,
+      "storage": "approvals table in SQLite"
+    }
+  },
+  "phases": [
+    {
+      "phase": 0,
+      "name": "Architecture Decisions & Design",
+      "description": "Make critical architectural decisions before implementation begins",
+      "priority": "CRITICAL - MUST COMPLETE FIRST",
+      "tasks": [
+        {
+          "task_id": "ARCH-001",
+          "name": "Decide database unification strategy",
+          "action": "architecture_decision",
+          "details": {
+            "problem": "Two separate DB systems exist: core/state/db.py (.ledger/framework.db) and gui/tui_app/core/sqlite_state_backend.py (.worktrees/pipeline_state.db)",
+            "options": [
+              {
+                "name": "unified_db",
+                "description": "Merge both databases into single schema at .worktrees/pipeline_state.db",
+                "pros": ["Single source of truth", "Atomic transactions", "Simpler code"],
+                "cons": ["Migration effort", "Potential breaking changes"],
+                "recommendation": "RECOMMENDED - Long-term cleanest solution"
+              },
+              {
+                "name": "dual_db_with_sync",
+                "description": "Keep separate DBs, sync tool_runs/approvals via daemon",
+                "pros": ["Less disruptive", "Gradual migration"],
+                "cons": ["Consistency issues", "Sync lag", "Complexity"],
+                "recommendation": "Acceptable fallback"
+              },
+              {
+                "name": "supervisor_writes_both",
+                "description": "cli_supervisor writes to both databases",
+                "pros": ["Quick implementation", "No migration needed"],
+                "cons": ["Technical debt", "Double writes", "Failure handling"],
+                "recommendation": "Avoid - creates more problems"
+              }
+            ],
+            "decision_criteria": ["Migration effort vs benefit", "Timeline constraints", "Team capacity"],
+            "deliverable": "DECISION_LOG_DATABASE_STRATEGY.md"
+          }
+        },
+        {
+          "task_id": "ARCH-002",
+          "name": "Decide supervisor deployment mode",
+          "action": "architecture_decision",
+          "details": {
+            "problem": "How should cli_supervisor run: embedded, daemon, or on-demand?",
+            "options": [
+              {
+                "name": "embedded_in_orchestrator",
+                "description": "Supervisor runs as part of orchestrator process",
+                "pros": ["Simple deployment", "Shared state", "No extra process"],
+                "cons": ["Orchestrator crash kills supervisor", "Tightly coupled"],
+                "recommendation": "RECOMMENDED for MVP"
+              },
+              {
+                "name": "separate_daemon",
+                "description": "Supervisor runs as independent background service",
+                "pros": ["Independent lifecycle", "Survives orchestrator restarts", "Scalable"],
+                "cons": ["Deployment complexity", "IPC needed", "Extra monitoring"],
+                "recommendation": "Future enhancement"
+              },
+              {
+                "name": "on_demand_per_tool",
+                "description": "Spawn supervisor for each tool execution",
+                "pros": ["No persistent process", "Clean isolation"],
+                "cons": ["Startup overhead", "No shared state", "Process sprawl"],
+                "recommendation": "Avoid - too complex"
+              }
+            ],
+            "deliverable": "DECISION_LOG_SUPERVISOR_DEPLOYMENT.md"
+          }
+        },
+        {
+          "task_id": "ARCH-003",
+          "name": "Design approval decision mechanism",
+          "action": "architecture_decision",
+          "details": {
+            "problem": "How do users approve/reject pending approvals?",
+            "requirements": [
+              "Must work in headless environment (no terminal)",
+              "Must support both interactive and scripted workflows",
+              "Must prevent race conditions (double approval)"
+            ],
+            "chosen_approach": "Multi-modal: TUI interactive + CLI command + future HTTP API",
+            "implementations": [
+              {
+                "interface": "TUI Interactive",
+                "description": "Keybindings in approvals panel/widget",
+                "bindings": {
+                  "a": "approve_selected",
+                  "r": "reject_selected",
+                  "enter": "show_options_dialog",
+                  "up/down": "navigate_approvals"
+                },
+                "priority": "PHASE 3.5"
+              },
+              {
+                "interface": "CLI Command",
+                "description": "Command-line approval interface",
+                "commands": [
+                  "python -m core.ui_cli approvals list",
+                  "python -m core.ui_cli approve <approval_id> --choice <value>",
+                  "python -m core.ui_cli reject <approval_id>"
+                ],
+                "priority": "PHASE 3.5"
+              },
+              {
+                "interface": "HTTP API",
+                "description": "REST API for external integrations",
+                "endpoints": [
+                  "GET /api/approvals",
+                  "POST /api/approvals/{id}/approve",
+                  "POST /api/approvals/{id}/reject"
+                ],
+                "priority": "FUTURE (Phase 9)"
+              }
+            ],
+            "deliverable": "DESIGN_APPROVAL_DECISION_INTERFACE.md"
+          }
+        },
+        {
+          "task_id": "ARCH-004",
+          "name": "Design tool resume strategy",
+          "action": "architecture_decision",
+          "details": {
+            "problem": "How do tools resume after user approves?",
+            "chosen_approach": "Polling background worker with tool restart",
+            "implementation": {
+              "worker": {
+                "name": "approval_resume_worker",
+                "location": "core/cli_supervisor.py",
+                "loop_interval": 5,
+                "description": "Polls approvals table for decided approvals, restarts tools"
+              },
+              "tool_restart": {
+                "method": "re_run_with_context",
+                "context_passing": "Environment variable AUTO_APPROVAL={chosen_value}",
+                "fallback": "Command-line arg --approval-decision={chosen_value}"
+              },
+              "error_handling": {
+                "approval_rejected": "Mark tool_run as failed, do not retry",
+                "approval_expired": "Mark tool_run as failed, log warning",
+                "tool_crash_on_retry": "Mark tool_run as failed, increment retry_count"
+              }
+            },
+            "deliverable": "DESIGN_TOOL_RESUME_STRATEGY.md"
+          }
+        },
+        {
+          "task_id": "ARCH-005",
+          "name": "Define approval protocol specification",
+          "action": "write_specification",
+          "details": {
+            "document": "specs/APPROVAL_PROTOCOL_V1.md",
+            "sections": [
+              "Event format (JSON schema)",
+              "Approval ID generation (supervisor, not tool)",
+              "Output stream rules (stderr for events)",
+              "Atomicity guarantees (DB write before tool exit)",
+              "Multiple approval handling (one per tool run)",
+              "Tool contract (how to emit, how to consume decision)"
+            ],
+            "schema_validation": "Use jsonschema library for event validation"
+          }
+        },
+        {
+          "task_id": "ARCH-006",
+          "name": "Design heartbeat implementation strategy",
+          "action": "design_component",
+          "details": {
+            "component": "HeartbeatEmitter library",
+            "location": "core/lib/tool_heartbeat.py",
+            "usage_modes": [
+              {
+                "mode": "custom_tools",
+                "description": "Tools we control import and use HeartbeatEmitter",
+                "example": "from core.lib.tool_heartbeat import HeartbeatEmitter"
+              },
+              {
+                "mode": "third_party_wrapper",
+                "description": "Supervisor injects wrapper script for external tools",
+                "tools": ["aider", "ruff", "pytest"],
+                "method": "Process wrapper that emits heartbeats while monitoring child"
+              }
+            ],
+            "configuration": {
+              "default_interval": 30,
+              "configurable_per_tool": true,
+              "grace_period": "3x interval"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "phase": 1,
+      "name": "Database Schema Extensions",
+      "description": "Add new tables and extend existing schema to support supervision and approvals",
+      "tasks": [
+        {
+          "task_id": "DB-001",
+          "name": "Create unified tool_runs table",
+          "file": "core/state/db_unified.py OR gui/src/tui_app/core/sqlite_state_backend.py",
+          "action": "extend_schema",
+          "depends_on": ["ARCH-001"],
+          "details": {
+            "decision": "Based on ARCH-001 decision, create table in chosen database",
+            "table": "tool_runs",
+            "schema": {
+              "tool_run_id": "TEXT PRIMARY KEY",
+              "tool_name": "TEXT NOT NULL",
+              "execution_id": "TEXT (FK to uet_executions OR runs)",
+              "status": "TEXT NOT NULL",
+              "exit_code": "INTEGER",
+              "pid": "INTEGER (for orphan detection)",
+              "started_at": "TIMESTAMP",
+              "completed_at": "TIMESTAMP",
+              "last_output_at": "TIMESTAMP",
+              "last_heartbeat_at": "TIMESTAMP",
+              "last_error_msg": "TEXT",
+              "retry_count": "INTEGER DEFAULT 0",
+              "metadata": "JSON"
+            },
+            "indexes": [
+              "CREATE INDEX idx_tool_runs_status ON tool_runs(status)",
+              "CREATE INDEX idx_tool_runs_execution ON tool_runs(execution_id)",
+              "CREATE INDEX idx_tool_runs_pid ON tool_runs(pid)"
+            ]
+          }
+        },
+        {
+          "task_id": "DB-002",
+          "name": "Create approvals table",
+          "file": "core/state/sqlite_state_backend.py",
+          "action": "extend_schema",
+          "details": {
+            "table": "approvals",
+            "schema": {
+              "approval_id": "TEXT PRIMARY KEY",
+              "tool_run_id": "TEXT NOT NULL (FK to tool_runs)",
+              "tool_name": "TEXT NOT NULL",
+              "execution_id": "TEXT",
+              "question": "TEXT NOT NULL",
+              "options_json": "TEXT NOT NULL",
+              "default_value": "TEXT",
+              "status": "TEXT NOT NULL",
+              "chosen_value": "TEXT",
+              "created_at": "TIMESTAMP NOT NULL",
+              "decided_at": "TIMESTAMP",
+              "expires_at": "TIMESTAMP"
+            },
+            "indexes": [
+              "CREATE INDEX idx_approvals_status ON approvals(status)",
+              "CREATE INDEX idx_approvals_tool_run ON approvals(tool_run_id)"
+            ]
+          }
+        },
+        {
+          "task_id": "DB-003",
+          "name": "Extend uet_executions table",
+          "file": "core/state/sqlite_state_backend.py",
+          "action": "alter_table",
+          "details": {
+            "table": "uet_executions",
+            "new_columns": [
+              "ADD COLUMN tool_name TEXT DEFAULT NULL",
+              "ADD COLUMN last_output_at TIMESTAMP DEFAULT NULL",
+              "ADD COLUMN last_heartbeat_at TIMESTAMP DEFAULT NULL",
+              "ADD COLUMN last_error TEXT DEFAULT NULL"
+            ],
+            "migration_strategy": "ALTER TABLE with defaults for backwards compatibility"
+          }
+        },
+        {
+          "task_id": "DB-004",
+          "name": "Update _initialize_schema method",
+          "file": "Determined by ARCH-001 decision",
+          "action": "modify_method",
+          "depends_on": ["ARCH-001", "DB-001", "DB-002", "DB-003"],
+          "details": {
+            "method": "_initialize_schema",
+            "changes": [
+              "Add CREATE TABLE statements for tool_runs and approvals",
+              "Add ALTER TABLE statements for uet_executions (if not exists)",
+              "Create indexes for performance",
+              "Enable WAL mode: PRAGMA journal_mode=WAL",
+              "Set busy timeout: PRAGMA busy_timeout=5000"
+            ]
+          }
+        },
+        {
+          "task_id": "DB-005",
+          "name": "Create database migration script",
+          "file": "scripts/migrate_supervision_schema.py",
+          "action": "create_script",
+          "details": {
+            "purpose": "Migrate existing databases to new schema safely",
+            "features": [
+              "Detect current schema version",
+              "Backup database before migration",
+              "Apply schema changes transactionally",
+              "Rollback on failure",
+              "Verify migration success"
+            ],
+            "usage": "python scripts/migrate_supervision_schema.py --db .worktrees/pipeline_state.db"
+          }
+        },
+        {
+          "task_id": "DB-006",
+          "name": "Implement database reconciliation on startup",
+          "file": "core/cli_supervisor.py",
+          "action": "implement_function",
+          "details": {
+            "function": "reconcile_orphan_tool_runs",
+            "purpose": "Clean up stale running state after supervisor crash",
+            "logic": [
+              "SELECT tool_runs WHERE status='running'",
+              "For each: check if PID exists using psutil",
+              "If process dead: mark as 'stalled' or 'failed'",
+              "If process alive but unmanaged: log warning, optionally kill"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "phase": 2,
+      "name": "State Client API Extensions",
+      "description": "Extend StateClient and StateBackend to expose new supervision data",
+      "tasks": [
+        {
+          "task_id": "API-001",
+          "name": "Define ToolRunInfo dataclass",
+          "file": "core/state/state_client.py",
+          "action": "add_dataclass",
+          "details": {
+            "class_name": "ToolRunInfo",
+            "fields": {
+              "tool_run_id": "str",
+              "tool_name": "str",
+              "execution_id": "Optional[str]",
+              "status": "str",
+              "exit_code": "Optional[int]",
+              "started_at": "Optional[datetime]",
+              "completed_at": "Optional[datetime]",
+              "last_output_at": "Optional[datetime]",
+              "last_heartbeat_at": "Optional[datetime]",
+              "last_error_msg": "Optional[str]",
+              "metadata": "Dict[str, Any]"
+            }
+          }
+        },
+        {
+          "task_id": "API-002",
+          "name": "Define ApprovalInfo dataclass",
+          "file": "core/state/state_client.py",
+          "action": "add_dataclass",
+          "details": {
+            "class_name": "ApprovalInfo",
+            "fields": {
+              "approval_id": "str",
+              "tool_run_id": "str",
+              "tool_name": "str",
+              "execution_id": "Optional[str]",
+              "question": "str",
+              "options": "List[Dict[str, str]]",
+              "default_value": "Optional[str]",
+              "status": "str",
+              "chosen_value": "Optional[str]",
+              "created_at": "datetime",
+              "decided_at": "Optional[datetime]",
+              "expires_at": "Optional[datetime]"
+            }
+          }
+        },
+        {
+          "task_id": "API-003",
+          "name": "Extend ExecutionInfo dataclass",
+          "file": "core/state/state_client.py",
+          "action": "modify_dataclass",
+          "details": {
+            "class_name": "ExecutionInfo",
+            "new_fields": {
+              "tool_name": "Optional[str] = None",
+              "last_output_at": "Optional[datetime] = None",
+              "last_heartbeat_at": "Optional[datetime] = None",
+              "last_error": "Optional[str] = None"
+            }
+          }
+        },
+        {
+          "task_id": "API-004",
+          "name": "Add StateBackend abstract methods",
+          "file": "core/state/state_client.py",
+          "action": "extend_interface",
+          "details": {
+            "class_name": "StateBackend",
+            "new_methods": [
+              {
+                "name": "get_tool_runs",
+                "signature": "def get_tool_runs(self, limit: int = 100) -> List[ToolRunInfo]",
+                "description": "Return recent tool runs ordered by started_at DESC"
+              },
+              {
+                "name": "get_approvals",
+                "signature": "def get_approvals(self, status_filter: Optional[str] = None, limit: int = 50) -> List[ApprovalInfo]",
+                "description": "Return approvals, optionally filtered by status"
+              },
+              {
+                "name": "get_pending_approvals",
+                "signature": "def get_pending_approvals(self, limit: int = 50) -> List[ApprovalInfo]",
+                "description": "Return pending approvals ordered by created_at ASC"
+              },
+              {
+                "name": "update_approval_status",
+                "signature": "def update_approval_status(self, approval_id: str, new_status: str, chosen_value: Optional[str], decided_at: Optional[datetime]) -> None",
+                "description": "Update approval status and chosen value"
+              }
+            ]
+          }
+        },
+        {
+          "task_id": "API-005",
+          "name": "Implement StateBackend methods in SQLiteStateBackend",
+          "file": "core/state/sqlite_state_backend.py",
+          "action": "implement_methods",
+          "details": {
+            "methods": [
+              {
+                "name": "get_tool_runs",
+                "implementation": "Query tool_runs table, parse to ToolRunInfo objects"
+              },
+              {
+                "name": "get_approvals",
+                "implementation": "Query approvals table with optional status filter, parse options_json"
+              },
+              {
+                "name": "get_pending_approvals",
+                "implementation": "Query approvals WHERE status='pending' ORDER BY created_at ASC"
+              },
+              {
+                "name": "update_approval_status",
+                "implementation": "UPDATE approvals SET status, chosen_value, decided_at WHERE approval_id"
+              }
+            ]
+          }
+        },
+        {
+          "task_id": "API-006",
+          "name": "Implement StateBackend methods in InMemoryStateBackend",
+          "file": "core/state/state_client.py",
+          "action": "implement_methods",
+          "details": {
+            "purpose": "For testing/smoke tests",
+            "methods": [
+              "get_tool_runs (return mock data)",
+              "get_approvals (return mock data)",
+              "get_pending_approvals (return mock data)",
+              "update_approval_status (update in-memory dict)"
+            ]
+          }
+        },
+        {
+          "task_id": "API-007",
+          "name": "Add StateClient wrapper methods",
+          "file": "core/state/state_client.py",
+          "action": "add_methods",
+          "details": {
+            "class_name": "StateClient",
+            "methods": [
+              "get_tool_runs(self, limit: int = 100) -> List[ToolRunInfo]",
+              "get_approvals(self, status_filter: Optional[str] = None, limit: int = 50) -> List[ApprovalInfo]",
+              "get_pending_approvals(self, limit: int = 50) -> List[ApprovalInfo]",
+              "update_approval_status(...) -> None"
+            ],
+            "implementation": "Delegate to self._backend methods"
+          }
+        },
+        {
+          "task_id": "API-008",
+          "name": "Update get_executions to populate new fields",
+          "file": "core/state/sqlite_state_backend.py",
+          "action": "modify_method",
+          "details": {
+            "method": "get_executions",
+            "changes": [
+              "Update SELECT to include tool_name, last_output_at, last_heartbeat_at, last_error",
+              "Parse these fields when constructing ExecutionInfo",
+              "Handle NULL values gracefully (default to None)"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "phase": 3,
+      "name": "CLI Supervisor Implementation",
+      "description": "Create supervised execution wrapper for all CLI tools",
+      "tasks": [
+        {
+          "task_id": "SUP-001",
+          "name": "Create cli_supervisor.py module",
+          "file": "core/cli_supervisor.py",
+          "action": "create_module",
+          "details": {
+            "purpose": "Supervised execution wrapper for headless CLI tools",
+            "exports": ["run_cli_tool"]
+          }
+        },
+        {
+          "task_id": "SUP-002",
+          "name": "Implement run_cli_tool function",
+          "file": "core/cli_supervisor.py",
+          "action": "implement_function",
+          "details": {
+            "signature": "def run_cli_tool(tool_name: str, args: list[str], execution_id: str, env: Optional[dict] = None, hard_timeout_seconds: int = 1800, no_output_timeout_seconds: int = 300) -> int",
+            "responsibilities": [
+              "Create tool_run row in SQLite with status='running'",
+              "Set HEADLESS=1 in environment",
+              "Spawn subprocess with stdout/stderr capture",
+              "Stream output and write to logs/combined.log",
+              "Update last_output_at on each line",
+              "Parse JSON events (heartbeat, approval_needed, error)",
+              "Update last_heartbeat_at on heartbeat events",
+              "Enforce hard_timeout_seconds (kill and mark failed_timeout)",
+              "Enforce no_output_timeout_seconds (mark stalled)",
+              "Handle exit codes (0=completed, 90=waiting_approval, other=failed)",
+              "Update tool_runs.completed_at and status on exit",
+              "Return exit code"
+            ]
+          }
+        },
+        {
+          "task_id": "SUP-003",
+          "name": "Implement heartbeat detection",
+          "file": "core/cli_supervisor.py",
+          "action": "implement_logic",
+          "details": {
+            "event_format": {
+              "event": "heartbeat",
+              "tool": "TOOL_NAME",
+              "execution_id": "EX-123",
+              "timestamp": "ISO-8601"
+            },
+            "action": "UPDATE tool_runs SET last_heartbeat_at = NOW() WHERE tool_run_id = ?"
+          }
+        },
+        {
+          "task_id": "SUP-004",
+          "name": "Implement approval_needed event handling",
+          "file": "core/cli_supervisor.py",
+          "action": "implement_logic",
+          "details": {
+            "event_format": {
+              "event": "approval_needed",
+              "tool": "TOOL_NAME",
+              "execution_id": "EX-123",
+              "approval_id": "AP-00123",
+              "question": "Apply these changes?",
+              "options": [
+                {"value": "approve", "label": "Approve"},
+                {"value": "reject", "label": "Reject"}
+              ],
+              "default": "reject",
+              "expires_in_seconds": 3600
+            },
+            "actions": [
+              "Insert row into approvals table with status='pending'",
+              "Update tool_runs.status to 'waiting_approval'",
+              "Write approval_needed event to logs/combined.log",
+              "Allow process to exit with code 90 OR keep alive for polling"
+            ]
+          }
+        },
+        {
+          "task_id": "SUP-005",
+          "name": "Implement timeout enforcement",
+          "file": "core/cli_supervisor.py",
+          "action": "implement_logic",
+          "details": {
+            "hard_timeout": {
+              "condition": "wall_clock_time > hard_timeout_seconds",
+              "action": [
+                "Terminate process (SIGTERM then SIGKILL)",
+                "UPDATE tool_runs SET status='failed_timeout', completed_at=NOW()",
+                "Write tool_status_change event to log"
+              ]
+            },
+            "no_output_timeout": {
+              "condition": "time_since_last_output > no_output_timeout_seconds",
+              "action": [
+                "UPDATE tool_runs SET status='stalled'",
+                "Write tool_status_change event to log",
+                "Optionally terminate or allow to continue"
+              ]
+            }
+          }
+        },
+        {
+          "task_id": "SUP-006",
+          "name": "Implement structured log event emission",
+          "file": "core/cli_supervisor.py",
+          "action": "implement_logging",
+          "details": {
+            "log_path": "logs/combined.log (from config)",
+            "events": [
+              {
+                "name": "tool_output",
+                "format": {
+                  "event": "tool_output",
+                  "tool": "TOOL_NAME",
+                  "toolRunId": "TR-123",
+                  "executionId": "EX-123",
+                  "timestamp": "ISO-8601",
+                  "stream": "stdout|stderr",
+                  "text": "output line"
+                }
+              },
+              {
+                "name": "tool_status_change",
+                "format": {
+                  "event": "tool_status_change",
+                  "tool": "TOOL_NAME",
+                  "toolRunId": "TR-123",
+                  "executionId": "EX-123",
+                  "status": "failed|stalled|completed|waiting_approval",
+                  "reason": "timeout|no_output|exit_code",
+                  "exit_code": "int",
+                  "timestamp": "ISO-8601"
+                }
+              },
+              {
+                "name": "approval_status_change",
+                "format": {
+                  "event": "approval_status_change",
+                  "approval_id": "AP-123",
+                  "tool": "TOOL_NAME",
+                  "execution_id": "EX-123",
+                  "status": "approved|rejected|expired",
+                  "chosen_value": "value",
+                  "timestamp": "ISO-8601"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "phase": 3.5,
+      "name": "Critical Missing Features",
+      "description": "Implement critical gaps identified in gap analysis - REQUIRED FOR FUNCTIONALITY",
+      "priority": "CRITICAL",
+      "tasks": [
+        {
+          "task_id": "CRIT-001",
+          "name": "Implement TUI approval decision interface",
+          "file": "gui/src/tui_app/panels/approvals_panel.py",
+          "action": "create_panel",
+          "depends_on": ["API-006", "ARCH-003"],
+          "details": {
+            "panel_id": "approvals",
+            "title": "Pending Approvals",
+            "features": [
+              "List pending approvals with question and options",
+              "Cursor navigation (up/down)",
+              "Approve selected approval (key: 'a')",
+              "Reject selected approval (key: 'r')",
+              "Show options dialog if multiple choices (key: 'enter')",
+              "Auto-refresh every 5 seconds"
+            ],
+            "keybindings": {
+              "a": "approve_selected",
+              "r": "reject_selected",
+              "enter": "show_options_dialog",
+              "up": "cursor_up",
+              "down": "cursor_down",
+              "d": "show_details"
+            },
+            "data_source": "state_client.get_pending_approvals()",
+            "update_method": "state_client.update_approval_status(approval_id, status, choice, datetime.now())"
+          }
+        },
+        {
+          "task_id": "CRIT-002",
+          "name": "Implement CLI approval commands",
+          "file": "core/ui_cli.py",
+          "action": "add_commands",
+          "depends_on": ["API-007", "ARCH-003"],
+          "details": {
+            "commands": [
+              {
+                "command": "approvals",
+                "description": "List pending approvals",
+                "usage": "python -m core.ui_cli approvals [--all] [--json]",
+                "flags": {
+                  "--all": "Show all approvals (not just pending)",
+                  "--json": "Output as JSON"
+                }
+              },
+              {
+                "command": "approve",
+                "description": "Approve a pending approval",
+                "usage": "python -m core.ui_cli approve <approval_id> --choice <value>",
+                "args": {
+                  "approval_id": "ID of approval to approve",
+                  "--choice": "Choice value from options (required)"
+                }
+              },
+              {
+                "command": "reject",
+                "description": "Reject a pending approval",
+                "usage": "python -m core.ui_cli reject <approval_id> [--reason <text>]",
+                "args": {
+                  "approval_id": "ID of approval to reject",
+                  "--reason": "Optional rejection reason"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "task_id": "CRIT-003",
+          "name": "Implement tool resume worker",
+          "file": "core/cli_supervisor.py",
+          "action": "implement_function",
+          "depends_on": ["ARCH-004", "SUP-002"],
+          "details": {
+            "function": "approval_resume_worker",
+            "type": "background_thread",
+            "poll_interval": 5,
+            "logic": [
+              "Loop forever (daemon thread)",
+              "Query tool_runs WHERE status='waiting_approval'",
+              "For each: query approvals WHERE tool_run_id=... AND status!='pending'",
+              "If approved: re-run tool with AUTO_APPROVAL env var or --approval-decision arg",
+              "If rejected/expired: mark tool_run as 'failed', log event",
+              "Sleep poll_interval seconds"
+            ],
+            "error_handling": {
+              "tool_restart_failure": "Mark as failed, increment retry_count, log error",
+              "database_error": "Log error, continue to next approval",
+              "concurrent_approval": "Use DB transaction to prevent race conditions"
+            }
+          }
+        },
+        {
+          "task_id": "CRIT-004",
+          "name": "Implement approval expiry daemon",
+          "file": "core/cli_supervisor.py",
+          "action": "implement_function",
+          "details": {
+            "function": "approval_expiry_worker",
+            "type": "background_thread",
+            "check_interval": 60,
+            "logic": [
+              "Loop forever (daemon thread)",
+              "Query approvals WHERE status='pending' AND expires_at < NOW()",
+              "For each: UPDATE status='expired', decided_at=NOW()",
+              "Emit approval_status_change event to log",
+              "Sleep check_interval seconds"
+            ],
+            "configuration": {
+              "default_expiry_hours": 24,
+              "configurable_in": "config/supervision.yaml"
+            }
+          }
+        },
+        {
+          "task_id": "CRIT-005",
+          "name": "Create HeartbeatEmitter library",
+          "file": "core/lib/tool_heartbeat.py",
+          "action": "create_module",
+          "depends_on": ["ARCH-006"],
+          "details": {
+            "class": "HeartbeatEmitter",
+            "purpose": "Shared library for tools to emit heartbeat events",
+            "interface": {
+              "__init__": "tool_name: str, execution_id: str, interval: int = 30",
+              "start": "Start background heartbeat thread",
+              "stop": "Stop heartbeat thread",
+              "emit_once": "Emit single heartbeat immediately"
+            },
+            "implementation": {
+              "thread": "daemon thread",
+              "output": "JSON to stderr",
+              "format": "{\"event\": \"heartbeat\", \"tool\": \"...\", \"execution_id\": \"...\", \"timestamp\": \"...\"}"
+            },
+            "testing": "Unit tests for start/stop/emit, integration test with supervisor"
+          }
+        },
+        {
+          "task_id": "CRIT-006",
+          "name": "Create third-party tool wrapper for heartbeats",
+          "file": "core/lib/tool_wrapper.py",
+          "action": "create_script",
+          "details": {
+            "purpose": "Wrapper script for third-party tools (aider, ruff) to inject heartbeats",
+            "usage": "python core/lib/tool_wrapper.py --tool aider --execution-id EX-123 -- aider <args>",
+            "behavior": [
+              "Start HeartbeatEmitter",
+              "Spawn wrapped tool as subprocess",
+              "Forward stdout/stderr transparently",
+              "Stop HeartbeatEmitter when tool exits",
+              "Exit with tool's exit code"
+            ]
+          }
+        },
+        {
+          "task_id": "CRIT-007",
+          "name": "Implement comprehensive error handling",
+          "file": "core/cli_supervisor.py",
+          "action": "add_error_handlers",
+          "details": {
+            "edge_cases": [
+              {
+                "case": "orphan_process_detection",
+                "handler": "reconcile_orphan_tool_runs on startup",
+                "action": "Check PIDs, mark stale runs as stalled"
+              },
+              {
+                "case": "database_lock_contention",
+                "handler": "Enable WAL mode, add retry with exponential backoff",
+                "action": "max_retries=3, backoff 0.1s, 0.2s, 0.4s"
+              },
+              {
+                "case": "malformed_json_events",
+                "handler": "JSON parse try/except with schema validation",
+                "action": "Log warning, skip event, continue processing"
+              },
+              {
+                "case": "tool_crashes_before_approval_insert",
+                "handler": "Supervisor inserts to DB before sending SIGTERM",
+                "action": "Atomic: parse event -> insert DB -> confirm -> allow exit"
+              },
+              {
+                "case": "concurrent_approval_decisions",
+                "handler": "Use UPDATE with WHERE status='pending' check",
+                "action": "SQL: UPDATE approvals SET status=? WHERE id=? AND status='pending'"
+              },
+              {
+                "case": "log_file_rotation_during_execution",
+                "handler": "Open log file in append mode with no-delay writes",
+                "action": "Use Python logging with RotatingFileHandler"
+              }
+            ]
+          }
+        },
+        {
+          "task_id": "CRIT-008",
+          "name": "Create supervision configuration file",
+          "file": "config/supervision.yaml",
+          "action": "create_config",
+          "details": {
+            "schema": {
+              "supervision": {
+                "timeouts": {
+                  "hard_timeout_seconds": 1800,
+                  "no_output_timeout_seconds": 300,
+                  "heartbeat_interval_seconds": 30,
+                  "heartbeat_grace_period_seconds": 90
+                },
+                "approvals": {
+                  "auto_expire_hours": 24,
+                  "check_interval_seconds": 60,
+                  "resume_poll_interval_seconds": 5
+                },
+                "database": {
+                  "path": ".worktrees/pipeline_state.db",
+                  "wal_mode": true,
+                  "busy_timeout_ms": 5000,
+                  "backup_before_migration": true
+                },
+                "logging": {
+                  "combined_log_path": "logs/combined.log",
+                  "supervisor_log_path": "logs/supervisor.log",
+                  "max_log_size_mb": 100,
+                  "rotate_count": 5,
+                  "log_level": "INFO"
+                },
+                "reconciliation": {
+                  "check_orphans_on_startup": true,
+                  "orphan_kill_grace_period_seconds": 30
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "phase": 4,
+      "name": "TUI Panel Updates",
+      "description": "Update TUI panels to display supervision states and approvals",
+      "tasks": [
+        {
+          "task_id": "TUI-001",
+          "name": "Update ToolHealthWidget event parsing",
+          "file": "gui/src/tui_app/panels/tool_health_panel.py",
+          "action": "modify_class",
+          "details": {
+            "class_name": "ToolHealthWidget",
+            "changes": [
+              {
+                "method": "_derive_status",
+                "modification": "Parse structured events (tool_status_change, approval_needed) and extract status field directly",
+                "new_statuses": ["running", "completed", "failed", "stalled", "waiting_approval"]
+              },
+              {
+                "method": "_refresh",
+                "modification": "Parse JSON events and map to ToolStatus with new status values"
+              }
+            ]
+          }
+        },
+        {
+          "task_id": "TUI-002",
+          "name": "Update ToolHealthWidget display mapping",
+          "file": "gui/src/tui_app/panels/tool_health_panel.py",
+          "action": "modify_rendering",
+          "details": {
+            "status_colors": {
+              "running": "cyan",
+              "completed": "green",
+              "failed": "red",
+              "stalled": "magenta",
+              "waiting_approval": "yellow"
+            },
+            "summary_counts": [
+              "Running",
+              "Completed",
+              "Failed",
+              "Stalled",
+              "Waiting Approval"
+            ]
+          }
+        },
+        {
+          "task_id": "TUI-003",
+          "name": "Add approvals section to ToolHealthWidget",
+          "file": "gui/src/tui_app/panels/tool_health_panel.py",
+          "action": "add_feature",
+          "details": {
+            "section_name": "Pending Approvals",
+            "data_source": "state_client.get_pending_approvals(limit=10)",
+            "display_format": "● [tool_name] – \"question text...\" (status: pending)",
+            "location": "Below tool status table"
+          }
+        },
+        {
+          "task_id": "TUI-004",
+          "name": "Update DashboardWidget with alerts",
+          "file": "gui/src/tui_app/panels/dashboard_panel.py",
+          "action": "modify_class",
+          "details": {
+            "class_name": "DashboardWidget",
+            "new_section": "Alerts",
+            "data_sources": [
+              "state_client.get_tool_runs() -> filter status='stalled'",
+              "state_client.get_tool_runs() -> filter status='waiting_approval'"
+            ],
+            "display": {
+              "format": "[bold cyan]Alerts:[/]\\n[red]Stalled tools:[/] {count}\\n[yellow]Waiting approvals:[/] {count}",
+              "position": "Top of dashboard, below title"
+            }
+          }
+        },
+        {
+          "task_id": "TUI-005",
+          "name": "Add DB-backed view to ToolHealthWidget",
+          "file": "gui/src/tui_app/panels/tool_health_panel.py",
+          "action": "enhance_feature",
+          "details": {
+            "purpose": "Supplement log-derived status with DB state",
+            "implementation": "Merge state_client.get_tool_runs() with log-parsed data by tool_run_id",
+            "priority": "Optional enhancement"
+          }
+        },
+        {
+          "task_id": "TUI-006",
+          "name": "Verify LogStreamWidget compatibility",
+          "file": "gui/src/tui_app/panels/log_stream_panel.py",
+          "action": "verify",
+          "details": {
+            "requirement": "New JSON events should appear naturally in log stream",
+            "events_to_verify": [
+              "tool_output",
+              "tool_status_change",
+              "approval_needed",
+              "approval_status_change"
+            ],
+            "action_needed": "No changes required, verify output is readable"
+          }
+        }
+      ]
+    },
+    {
+      "phase": 5,
+      "name": "Orchestrator Integration",
+      "description": "Replace direct subprocess calls with supervised execution",
+      "tasks": [
+        {
+          "task_id": "ORCH-001",
+          "name": "Identify all CLI tool launch points",
+          "file": "core/engine/orchestrator.py",
+          "action": "audit",
+          "details": {
+            "tools_to_find": [
+              "aider",
+              "codex",
+              "open_spec",
+              "ruff",
+              "pytest",
+              "other CLI tools"
+            ],
+            "search_for": "subprocess.run|subprocess.Popen|os.system"
+          }
+        },
+        {
+          "task_id": "ORCH-002",
+          "name": "Replace subprocess calls with run_cli_tool",
+          "file": "core/engine/orchestrator.py",
+          "action": "refactor",
+          "details": {
+            "pattern": "Replace subprocess.run(cmd, ...) with run_cli_tool(tool_name, args, execution_id, ...)",
+            "requirements": [
+              "Import cli_supervisor.run_cli_tool",
+              "Extract tool name from command",
+              "Pass execution_id from current context",
+              "Configure appropriate timeouts",
+              "Handle return code appropriately"
+            ]
+          }
+        },
+        {
+          "task_id": "ORCH-003",
+          "name": "Set HEADLESS environment variable",
+          "file": "core/engine/orchestrator.py",
+          "action": "modify_config",
+          "details": {
+            "condition": "When running in headless/CI mode",
+            "implementation": "Set env['HEADLESS'] = '1' before calling run_cli_tool",
+            "detection": "Check CI=1 or headless config flag"
+          }
+        },
+        {
+          "task_id": "ORCH-004",
+          "name": "Implement approval decision handler",
+          "file": "core/engine/orchestrator.py",
+          "action": "implement_logic",
+          "details": {
+            "purpose": "Handle tools that exit with code 90 (waiting_approval)",
+            "options": [
+              {
+                "name": "polling_pattern",
+                "description": "Poll approvals table until status != pending, then re-run tool with approval ID"
+              },
+              {
+                "name": "event_driven_pattern",
+                "description": "Register callback for approval status change, resume on approval"
+              }
+            ],
+            "recommendation": "Choose one pattern and implement consistently"
+          }
+        }
+      ]
+    },
+    {
+      "phase": 6,
+      "name": "Testing & Validation",
+      "description": "Test all new functionality and ensure backwards compatibility",
+      "tasks": [
+        {
+          "task_id": "TEST-001",
+          "name": "Add SQLiteStateBackend tests",
+          "file": "tests/state/test_sqlite_backend.py",
+          "action": "add_tests",
+          "details": {
+            "test_cases": [
+              "test_create_tool_runs_table",
+              "test_create_approvals_table",
+              "test_extend_uet_executions",
+              "test_get_tool_runs",
+              "test_get_approvals",
+              "test_get_pending_approvals",
+              "test_update_approval_status",
+              "test_backwards_compatibility_old_rows"
+            ]
+          }
+        },
+        {
+          "task_id": "TEST-002",
+          "name": "Add cli_supervisor tests",
+          "file": "tests/core/test_cli_supervisor.py",
+          "action": "create_tests",
+          "details": {
+            "test_cases": [
+              "test_run_cli_tool_success",
+              "test_run_cli_tool_failure",
+              "test_hard_timeout_enforcement",
+              "test_no_output_timeout_stalled",
+              "test_heartbeat_updates",
+              "test_approval_needed_event_handling",
+              "test_structured_log_emission"
+            ]
+          }
+        },
+        {
+          "task_id": "TEST-003",
+          "name": "Add ToolHealthWidget tests",
+          "file": "tests/tui/test_tool_health_panel.py",
+          "action": "add_tests",
+          "details": {
+            "test_cases": [
+              "test_parse_tool_status_change_event",
+              "test_parse_approval_needed_event",
+              "test_display_stalled_status",
+              "test_display_waiting_approval_status",
+              "test_pending_approvals_section"
+            ]
+          }
+        },
+        {
+          "task_id": "TEST-004",
+          "name": "Add DashboardWidget tests",
+          "file": "tests/tui/test_dashboard_panel.py",
+          "action": "add_tests",
+          "details": {
+            "test_cases": [
+              "test_alerts_section_stalled_tools",
+              "test_alerts_section_pending_approvals",
+              "test_no_alerts_when_all_ok"
+            ]
+          }
+        },
+        {
+          "task_id": "TEST-005",
+          "name": "Integration tests: end-to-end supervision",
+          "file": "tests/integration/test_headless_supervision.py",
+          "action": "create_tests",
+          "details": {
+            "test_cases": [
+              "test_supervised_tool_completes_successfully",
+              "test_supervised_tool_fails_and_records_error",
+              "test_supervised_tool_stalls_and_detected",
+              "test_approval_request_created_and_displayed",
+              "test_tui_shows_alerts_for_stalled_tools",
+              "test_approval_timeout_expires",
+              "test_supervisor_restart_recovery",
+              "test_concurrent_approval_decisions",
+              "test_db_corruption_recovery",
+              "test_log_rotation_during_execution",
+              "test_orphan_process_detection_on_startup",
+              "test_tool_resume_after_approval",
+              "test_heartbeat_emission_and_detection",
+              "test_malformed_event_handling"
+            ]
+          }
+        },
+        {
+          "task_id": "TEST-006",
+          "name": "Chaos engineering tests",
+          "file": "tests/chaos/test_supervisor_resilience.py",
+          "action": "create_tests",
+          "details": {
+            "purpose": "Test supervisor under adverse conditions",
+            "test_cases": [
+              {
+                "name": "test_supervisor_handles_sigkill",
+                "scenario": "Kill supervisor with SIGKILL, verify recovery"
+              },
+              {
+                "name": "test_database_file_deleted_during_operation",
+                "scenario": "Delete DB file while supervisor running"
+              },
+              {
+                "name": "test_disk_full_during_logging",
+                "scenario": "Fill disk, verify graceful handling"
+              },
+              {
+                "name": "test_network_partition_during_tool_execution",
+                "scenario": "Simulate network failure (if tools use network)"
+              },
+              {
+                "name": "test_100_concurrent_tool_runs",
+                "scenario": "Load test with many simultaneous tools"
+              },
+              {
+                "name": "test_rapid_approval_creation_and_expiry",
+                "scenario": "Stress test approval system"
+              }
+            ]
+          }
+        },
+        {
+          "task_id": "TEST-007",
+          "name": "TUI interaction tests",
+          "file": "tests/tui/test_approvals_panel_interaction.py",
+          "action": "create_tests",
+          "details": {
+            "library": "textual.testing (Textual's built-in test framework)",
+            "test_cases": [
+              "test_approvals_panel_renders",
+              "test_navigate_approvals_with_arrows",
+              "test_approve_selected_approval_with_a_key",
+              "test_reject_selected_approval_with_r_key",
+              "test_show_options_dialog_with_enter_key",
+              "test_panel_refreshes_after_approval",
+              "test_keybinding_disabled_when_no_approvals"
+            ]
+          }
+        },
+        {
+          "task_id": "TEST-008",
+          "name": "Run existing test suite",
+          "action": "validate",
+          "details": {
+            "command": "pytest tests/ -v --tb=short",
+            "requirement": "All existing tests must pass",
+            "backwards_compatibility": "Ensure old data/code paths still work",
+            "coverage_target": "Aim for >80% coverage on new code"
+          }
+        },
+        {
+          "task_id": "TEST-009",
+          "name": "TUI smoke test with new features",
+          "action": "manual_test",
+          "details": {
+            "command": "python -m gui.tui_app.main --use-mock-data",
+            "verification": [
+              "TUI launches without errors",
+              "Dashboard shows alerts section (Stalled tools, Waiting approvals)",
+              "Tool Health shows new statuses (stalled, waiting_approval)",
+              "Approvals panel is accessible (key: 'p' or configured binding)",
+              "Approvals panel shows mock pending approvals",
+              "Keybindings work (a=approve, r=reject, arrows=navigate)",
+              "Log Stream displays structured JSON events"
+            ]
+          }
+        },
+        {
+          "task_id": "TEST-010",
+          "name": "Database migration testing",
+          "file": "tests/migration/test_schema_migration.py",
+          "action": "create_tests",
+          "details": {
+            "test_cases": [
+              "test_migrate_from_v0_to_v1 (add tool_runs, approvals)",
+              "test_migration_preserves_existing_data",
+              "test_migration_rollback_on_failure",
+              "test_migration_idempotent (safe to run multiple times)",
+              "test_migration_with_active_connections"
+            ],
+            "test_data": "Create sample databases with v0 schema for testing"
+          }
+        }
+      ]
+    },
+    {
+      "phase": 7,
+      "name": "Documentation & Cleanup",
+      "description": "Document new features and clean up temporary artifacts",
+      "tasks": [
+        {
+          "task_id": "DOC-001",
+          "name": "Update CURRENT_USER_INTERFACE.md",
+          "file": "gui/docs/CURRENT_USER_INTERFACE.md",
+          "action": "update_documentation",
+          "details": {
+            "sections_to_add": [
+              "Headless CLI Supervision",
+              "Tool Status Values (extended)",
+              "Approval Protocol",
+              "Dashboard Alerts Section",
+              "Tool Health Approvals View"
+            ]
+          }
+        },
+        {
+          "task_id": "DOC-002",
+          "name": "Create HEADLESS_CLI_GUIDE.md",
+          "file": "docs/HEADLESS_CLI_GUIDE.md",
+          "action": "create_documentation",
+          "details": {
+            "sections": [
+              "Overview",
+              "Status Model",
+              "Approval Protocol",
+              "Environment Variables (HEADLESS=1)",
+              "Event Formats",
+              "Tool Requirements",
+              "TUI Display Guide"
+            ]
+          }
+        },
+        {
+          "task_id": "DOC-003",
+          "name": "Update schema documentation",
+          "file": "docs/DATABASE_SCHEMA.md",
+          "action": "update_documentation",
+          "details": {
+            "new_tables": [
+              "tool_runs",
+              "approvals"
+            ],
+            "modified_tables": [
+              "uet_executions"
+            ]
+          }
+        },
+        {
+          "task_id": "DOC-004",
+          "name": "Add inline code comments",
+          "action": "improve_code",
+          "details": {
+            "target_files": [
+              "core/cli_supervisor.py",
+              "core/state/sqlite_state_backend.py",
+              "gui/src/tui_app/panels/tool_health_panel.py",
+              "gui/src/tui_app/panels/dashboard_panel.py"
+            ],
+            "requirement": "Add concise comments explaining supervision logic, timeout handling, and event parsing"
+          }
+        }
+      ]
+    },
+    {
+      "phase": 8,
+      "name": "Operations & Documentation",
+      "description": "Deployment, monitoring, and comprehensive documentation",
+      "tasks": [
+        {
+          "task_id": "OPS-001",
+          "name": "Create deployment guide",
+          "file": "docs/SUPERVISION_DEPLOYMENT_GUIDE.md",
+          "action": "create_documentation",
+          "details": {
+            "sections": [
+              "Prerequisites (Python version, dependencies)",
+              "Database setup and migration",
+              "Configuration (supervision.yaml)",
+              "Deployment modes (embedded vs daemon)",
+              "Starting the supervisor",
+              "Health checks and verification",
+              "Troubleshooting common issues"
+            ],
+            "examples": [
+              "Development deployment (single process)",
+              "Production deployment (systemd service)",
+              "Docker deployment (container)"
+            ]
+          }
+        },
+        {
+          "task_id": "OPS-002",
+          "name": "Create operator runbook",
+          "file": "docs/SUPERVISION_OPERATOR_RUNBOOK.md",
+          "action": "create_documentation",
+          "details": {
+            "sections": [
+              "Monitoring checklist",
+              "Alert thresholds and responses",
+              "Common failure scenarios and recovery",
+              "Database maintenance",
+              "Log analysis and debugging",
+              "Performance tuning",
+              "Capacity planning"
+            ],
+            "runbooks": [
+              "Handling stuck approvals",
+              "Recovering from supervisor crash",
+              "Cleaning up orphan processes",
+              "Database corruption recovery",
+              "Disk space issues"
+            ]
+          }
+        },
+        {
+          "task_id": "OPS-003",
+          "name": "Implement health check endpoint",
+          "file": "core/cli_supervisor.py",
+          "action": "add_function",
+          "details": {
+            "function": "health_check",
+            "returns": {
+              "status": "healthy | degraded | unhealthy",
+              "checks": {
+                "database_connection": "bool",
+                "active_tools_count": "int",
+                "pending_approvals_count": "int",
+                "stalled_tools_count": "int",
+                "last_heartbeat_age_seconds": "float"
+              },
+              "timestamp": "ISO-8601"
+            },
+            "exposure": "CLI: python -m core.cli_supervisor health"
+          }
+        },
+        {
+          "task_id": "OPS-004",
+          "name": "Add metrics instrumentation",
+          "file": "core/cli_supervisor.py",
+          "action": "add_instrumentation",
+          "details": {
+            "library": "prometheus_client (optional dependency)",
+            "metrics": [
+              "supervisor_tools_started_total (Counter by tool_name)",
+              "supervisor_tools_completed_total (Counter by tool_name, status)",
+              "supervisor_tool_duration_seconds (Histogram by tool_name)",
+              "supervisor_active_tools (Gauge)",
+              "supervisor_pending_approvals (Gauge)",
+              "supervisor_stalled_tools (Gauge)",
+              "supervisor_database_operations_total (Counter by operation)",
+              "supervisor_errors_total (Counter by error_type)"
+            ],
+            "exposition": "HTTP endpoint :9090/metrics (if enabled in config)"
+          }
+        },
+        {
+          "task_id": "DOC-001",
+          "name": "Update CURRENT_USER_INTERFACE.md",
+          "file": "gui/docs/CURRENT_USER_INTERFACE.md",
+          "action": "update_documentation",
+          "details": {
+            "sections_to_add": [
+              "Headless CLI Supervision (overview)",
+              "Tool Status Values (extended with stalled, waiting_approval)",
+              "Approval Protocol (how it works)",
+              "Dashboard Alerts Section (stalled tools, pending approvals)",
+              "Tool Health Panel (new statuses and approvals view)",
+              "Approvals Panel (interactive approval management)",
+              "CLI Approval Commands (approve, reject, list)"
+            ]
+          }
+        },
+        {
+          "task_id": "DOC-002",
+          "name": "Create HEADLESS_CLI_GUIDE.md",
+          "file": "docs/HEADLESS_CLI_GUIDE.md",
+          "action": "create_documentation",
+          "details": {
+            "audience": "End users",
+            "sections": [
+              "Overview (what is headless mode)",
+              "Status Model (all status values explained)",
+              "Approval Protocol (how approvals work)",
+              "Environment Variables (HEADLESS=1, CI=1)",
+              "Event Formats (heartbeat, approval_needed, etc.)",
+              "Using the TUI (viewing status, approving requests)",
+              "Using the CLI (approval commands)",
+              "Troubleshooting (stuck tools, failed approvals)"
+            ],
+            "examples": [
+              "Checking for stuck tools",
+              "Approving a pending request via TUI",
+              "Approving a pending request via CLI",
+              "Viewing approval history"
+            ]
+          }
+        },
+        {
+          "task_id": "DOC-003",
+          "name": "Create TOOL_DEVELOPER_GUIDE.md",
+          "file": "docs/TOOL_DEVELOPER_GUIDE.md",
+          "action": "create_documentation",
+          "details": {
+            "audience": "Tool developers",
+            "sections": [
+              "Making your tool headless-compatible",
+              "Headless mode detection (check HEADLESS env var)",
+              "Heartbeat emission (using HeartbeatEmitter)",
+              "Approval request API (event format)",
+              "Consuming approval decisions (AUTO_APPROVAL env var)",
+              "Testing your tool with supervisor",
+              "Best practices and gotchas"
+            ],
+            "code_examples": [
+              "Basic HeartbeatEmitter usage",
+              "Emitting approval_needed event",
+              "Reading approval decision",
+              "Error handling in headless mode"
+            ]
+          }
+        },
+        {
+          "task_id": "DOC-004",
+          "name": "Create API_REFERENCE.md",
+          "file": "docs/SUPERVISION_API_REFERENCE.md",
+          "action": "create_documentation",
+          "details": {
+            "sections": [
+              "StateClient Methods (get_tool_runs, get_approvals, update_approval_status)",
+              "Data Models (ToolRunInfo, ApprovalInfo schemas)",
+              "Event Formats (JSON schemas for all events)",
+              "Configuration Schema (supervision.yaml reference)",
+              "CLI Commands (approvals, approve, reject)",
+              "Database Schema (tool_runs, approvals tables)"
+            ],
+            "format": "API reference with type signatures and examples"
+          }
+        },
+        {
+          "task_id": "DOC-005",
+          "name": "Update DATABASE_SCHEMA.md",
+          "file": "docs/DATABASE_SCHEMA.md",
+          "action": "update_documentation",
+          "details": {
+            "new_tables": [
+              "tool_runs (full schema with all columns)",
+              "approvals (full schema with all columns)"
+            ],
+            "modified_tables": [
+              "uet_executions (new columns: tool_name, last_output_at, last_heartbeat_at, last_error)"
+            ],
+            "relationships": [
+              "tool_runs.execution_id -> uet_executions.execution_id",
+              "approvals.tool_run_id -> tool_runs.tool_run_id"
+            ]
+          }
+        },
+        {
+          "task_id": "DOC-006",
+          "name": "Create APPROVAL_PROTOCOL_SPEC.md",
+          "file": "specs/APPROVAL_PROTOCOL_V1.md",
+          "action": "create_specification",
+          "details": {
+            "purpose": "Authoritative specification for approval protocol",
+            "sections": [
+              "Protocol overview",
+              "Event format (approval_needed JSON schema)",
+              "Approval ID generation rules (supervisor generates)",
+              "Output stream rules (stderr for events)",
+              "Atomicity guarantees (DB write before exit)",
+              "Multiple approval handling (one per run)",
+              "Tool contract (emit event, consume decision)",
+              "Error handling (malformed events, crashes)",
+              "Security considerations (no user input validation in events)"
+            ],
+            "json_schemas": [
+              "approval_needed event",
+              "approval_registered response",
+              "approval_status_change event"
+            ]
+          }
+        },
+        {
+          "task_id": "OPS-005",
+          "name": "Create systemd service file",
+          "file": "deploy/systemd/ai-pipeline-supervisor.service",
+          "action": "create_deployment_asset",
+          "details": {
+            "service_definition": {
+              "Unit": {
+                "Description": "AI Pipeline CLI Supervisor",
+                "After": "network.target"
+              },
+              "Service": {
+                "Type": "simple",
+                "ExecStart": "/usr/bin/python3 -m core.cli_supervisor daemon",
+                "Restart": "always",
+                "RestartSec": "10s",
+                "User": "pipeline",
+                "WorkingDirectory": "/opt/ai-pipeline"
+              },
+              "Install": {
+                "WantedBy": "multi-user.target"
+              }
+            }
+          }
+        },
+        {
+          "task_id": "OPS-006",
+          "name": "Create Docker deployment configuration",
+          "file": "deploy/docker/Dockerfile.supervisor",
+          "action": "create_deployment_asset",
+          "details": {
+            "base_image": "python:3.11-slim",
+            "includes": [
+              "Install dependencies from requirements.txt",
+              "Copy application code",
+              "Create non-root user",
+              "Configure logging directory",
+              "Set health check endpoint",
+              "ENTRYPOINT to supervisor daemon"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "data_models": {
+    "ToolRunInfo": {
+      "description": "Information about a CLI tool execution run",
+      "fields": {
+        "tool_run_id": "str - unique identifier",
+        "tool_name": "str - name of the CLI tool",
+        "execution_id": "Optional[str] - link to uet_executions",
+        "status": "str - current status (queued|running|completed|failed|stalled|waiting_approval)",
+        "exit_code": "Optional[int] - process exit code",
+        "started_at": "Optional[datetime] - start timestamp",
+        "completed_at": "Optional[datetime] - completion timestamp",
+        "last_output_at": "Optional[datetime] - last output timestamp",
+        "last_heartbeat_at": "Optional[datetime] - last heartbeat timestamp",
+        "last_error_msg": "Optional[str] - last error message",
+        "metadata": "Dict[str, Any] - additional metadata"
+      }
+    },
+    "ApprovalInfo": {
+      "description": "Information about a pending approval request",
+      "fields": {
+        "approval_id": "str - unique identifier",
+        "tool_run_id": "str - link to tool_runs",
+        "tool_name": "str - tool requesting approval",
+        "execution_id": "Optional[str] - link to uet_executions",
+        "question": "str - question text for user",
+        "options": "List[Dict[str, str]] - list of {value, label} options",
+        "default_value": "Optional[str] - default option value",
+        "status": "str - approval status (pending|approved|rejected|expired)",
+        "chosen_value": "Optional[str] - user's chosen value",
+        "created_at": "datetime - creation timestamp",
+        "decided_at": "Optional[datetime] - decision timestamp",
+        "expires_at": "Optional[datetime] - expiration timestamp"
+      }
+    }
+  },
+  "event_formats": {
+    "heartbeat": {
+      "event": "heartbeat",
+      "tool": "TOOL_NAME",
+      "execution_id": "EX-123",
+      "timestamp": "ISO-8601"
+    },
+    "approval_needed": {
+      "event": "approval_needed",
+      "tool": "TOOL_NAME",
+      "execution_id": "EX-123",
+      "approval_id": "AP-00123",
+      "question": "Apply these changes?",
+      "options": [
+        {"value": "approve", "label": "Approve"},
+        {"value": "reject", "label": "Reject"}
+      ],
+      "default": "reject",
+      "expires_in_seconds": 3600
+    },
+    "tool_output": {
+      "event": "tool_output",
+      "tool": "TOOL_NAME",
+      "toolRunId": "TR-123",
+      "executionId": "EX-123",
+      "timestamp": "ISO-8601",
+      "stream": "stdout|stderr",
+      "text": "output line"
+    },
+    "tool_status_change": {
+      "event": "tool_status_change",
+      "tool": "TOOL_NAME",
+      "toolRunId": "TR-123",
+      "executionId": "EX-123",
+      "status": "failed|stalled|completed|waiting_approval",
+      "reason": "timeout|no_output|exit_code",
+      "exit_code": "int",
+      "timestamp": "ISO-8601"
+    },
+    "approval_status_change": {
+      "event": "approval_status_change",
+      "approval_id": "AP-123",
+      "tool": "TOOL_NAME",
+      "execution_id": "EX-123",
+      "status": "approved|rejected|expired",
+      "chosen_value": "value",
+      "timestamp": "ISO-8601"
+    }
+  },
+  "configuration": {
+    "timeouts": {
+      "hard_timeout_seconds": {
+        "default": 1800,
+        "description": "Wall-clock timeout for tool execution"
+      },
+      "no_output_timeout_seconds": {
+        "default": 300,
+        "description": "Timeout for detecting stalled tools (no output)"
+      }
+    },
+    "environment_variables": {
+      "HEADLESS": {
+        "value": "1",
+        "description": "Indicates headless mode, tools must not block on stdin"
+      },
+      "CI": {
+        "value": "1",
+        "description": "Alternative indicator for headless mode"
+      }
+    },
+    "exit_codes": {
+      "0": "Success, mark as completed",
+      "90": "Waiting for approval, mark as waiting_approval",
+      "other": "Failure, mark as failed"
+    }
+  },
+  "success_criteria": {
+    "phase_0_decisions": [
+      "Database strategy decided and documented",
+      "Supervisor deployment mode decided",
+      "Approval decision interface designed",
+      "Tool resume strategy designed",
+      "Approval protocol specification written",
+      "Heartbeat implementation strategy designed"
+    ],
+    "database": [
+      "tool_runs and approvals tables created successfully",
+      "uet_executions extended with monitoring fields (or schema unified)",
+      "All new StateBackend methods implemented",
+      "Backwards compatibility maintained for old rows",
+      "Database migration script tested with existing data",
+      "WAL mode enabled and tested",
+      "Orphan process reconciliation works on startup"
+    ],
+    "supervision": [
+      "All CLI tools launched via run_cli_tool",
+      "Timeouts enforced (hard and no-output)",
+      "Heartbeats detected and recorded",
+      "Approvals created for tools needing input",
+      "Structured log events written to logs/combined.log",
+      "PID tracking for orphan detection",
+      "Malformed event handling (no crashes)"
+    ],
+    "critical_features": [
+      "TUI approval panel with keybindings works",
+      "CLI approval commands (approve/reject) work",
+      "Tool resume worker successfully restarts approved tools",
+      "Approval expiry daemon marks old approvals as expired",
+      "HeartbeatEmitter library created and tested",
+      "Third-party tool wrapper for heartbeats works",
+      "Comprehensive error handlers for all edge cases",
+      "Configuration file (supervision.yaml) loaded and used"
+    ],
+    "tui": [
+      "Tool Health panel shows stalled/failed/waiting_approval statuses",
+      "Dashboard shows alerts for stalled tools and pending approvals",
+      "Approvals panel displays pending approvals",
+      "Approvals panel keybindings work (a=approve, r=reject, arrows=navigate)",
+      "Log Stream displays structured JSON events",
+      "TUI launches successfully with --smoke-test",
+      "Panel refresh intervals respect config"
+    ],
+    "testing": [
+      "All unit tests pass (DB, StateClient, supervisor, TUI)",
+      "Integration tests verify end-to-end supervision",
+      "Chaos tests verify resilience (crashes, DB corruption, etc.)",
+      "TUI interaction tests verify keybindings",
+      "Database migration tests verify safe migration",
+      "Load tests verify 100+ concurrent tools",
+      "Existing tests still pass (backwards compatibility)",
+      "Manual TUI smoke test successful",
+      ">80% code coverage on new code"
+    ],
+    "operations": [
+      "Deployment guide complete and tested",
+      "Operator runbook covers common scenarios",
+      "Health check endpoint works",
+      "Metrics instrumentation implemented (optional)",
+      "Systemd service file tested",
+      "Docker deployment tested"
+    ],
+    "documentation": [
+      "CURRENT_USER_INTERFACE.md updated",
+      "HEADLESS_CLI_GUIDE.md complete",
+      "TOOL_DEVELOPER_GUIDE.md complete",
+      "SUPERVISION_API_REFERENCE.md complete",
+      "DATABASE_SCHEMA.md updated",
+      "APPROVAL_PROTOCOL_SPEC.md complete",
+      "All decision logs created (DB strategy, deployment mode, etc.)"
+    ]
+  },
+  "edge_cases": {
+    "non_cooperative_tools": {
+      "description": "Third-party tools that ignore HEADLESS and block on stdin",
+      "handling": "Enforce hard timeout, mark as failed, log warning"
+    },
+    "zombie_processes": {
+      "description": "tool_runs with status='running' but process is dead",
+      "handling": "Reconcile on supervisor startup, mark as failed or stalled"
+    },
+    "approval_expiry": {
+      "description": "Approvals older than threshold",
+      "handling": "Auto-mark as expired, treat like rejected"
+    },
+    "concurrent_tool_runs": {
+      "description": "Multiple runs of same tool simultaneously",
+      "handling": "Use tool_run_id as unique key, not tool_name"
+    },
+    "backwards_compatibility": {
+      "description": "Old rows without new fields",
+      "handling": "Default to None/NULL, handle gracefully in queries"
+    }
+  },
+  "implementation_notes": {
+    "coding_style": [
+      "Minimal, surgical edits to existing files",
+      "Preserve existing doc_ids and comments",
+      "Use existing patterns (dataclasses, sqlite3.Row, etc.)",
+      "Add concise comments only where needed"
+    ],
+    "order_of_work": [
+      "Phase 0: Architecture decisions (MUST DO FIRST)",
+      "Phase 1: Database schema",
+      "Phase 2: State client API",
+      "Phase 3: CLI supervisor",
+      "Phase 3.5: Critical missing features (approval UI, resume worker, heartbeat lib)",
+      "Phase 4: TUI panels",
+      "Phase 5: Orchestrator integration",
+      "Phase 6: Extended testing (integration, chaos, TUI, migration)",
+      "Phase 7: Documentation (user-facing)",
+      "Phase 8: Operations (deployment, monitoring, runbooks)"
+    ],
+    "testing_approach": [
+      "Add unit tests for each new component",
+      "Add integration tests for end-to-end flows",
+      "Add chaos tests for resilience",
+      "Add TUI interaction tests using textual.testing",
+      "Add database migration tests with sample data",
+      "Run existing test suite to verify backwards compatibility",
+      "Manual TUI smoke test for user experience",
+      "Aim for >80% code coverage on new code"
+    ],
+    "critical_dependencies": [
+      "Phase 3.5 depends on Phase 0 decisions",
+      "All phases depend on Phase 0 completion",
+      "Phase 5 (Orchestrator) depends on Phase 3 (Supervisor)",
+      "Phase 4 (TUI) depends on Phase 2 (StateClient API)",
+      "Phase 6 (Testing) depends on all implementation phases"
+    ]
+  },
+  "estimated_effort": {
+    "original_plan_v1": {
+      "tasks": 40,
+      "phases": 7,
+      "estimated_weeks": "4-6 weeks"
+    },
+    "updated_plan_v2": {
+      "tasks": 73,
+      "phases": 9,
+      "estimated_weeks": "6-9 weeks",
+      "additional_effort": "+40-60% over original"
+    },
+    "breakdown_by_phase": {
+      "phase_0": "1 week (decisions and design)",
+      "phase_1": "1 week (database schema)",
+      "phase_2": "1 week (StateClient API)",
+      "phase_3": "2 weeks (CLI supervisor core)",
+      "phase_3.5": "2 weeks (critical features: approval UI, resume worker, heartbeat)",
+      "phase_4": "1 week (TUI panels)",
+      "phase_5": "1 week (orchestrator integration)",
+      "phase_6": "2 weeks (comprehensive testing)",
+      "phase_7": "0.5 week (inline docs)",
+      "phase_8": "1.5 weeks (operations and external docs)"
+    }
+  },
+  "references": {
+    "source_documents": [
+      "gui/guiimprove.md - DOC-SPEC-HEADLESS-CLI-SUPERVISION-001",
+      "gui/guiimprove.md - HEADLESS_CLI_EXECUTION_SPEC_V1",
+      "gui/HEADLESS_CLI_SUPERVISION_GAP_ANALYSIS.md - Gap analysis identifying 11 critical gaps"
+    ],
+    "related_files": [
+      "core/state/db.py",
+      "core/state/db_unified.py",
+      "core/state/state_client.py",
+      "core/cli_supervisor.py",
+      "core/ui_cli.py",
+      "core/lib/tool_heartbeat.py",
+      "core/lib/tool_wrapper.py",
+      "gui/src/tui_app/core/sqlite_state_backend.py",
+      "gui/src/tui_app/core/state_client.py",
+      "gui/src/tui_app/panels/tool_health_panel.py",
+      "gui/src/tui_app/panels/dashboard_panel.py",
+      "gui/src/tui_app/panels/log_stream_panel.py",
+      "gui/src/tui_app/panels/approvals_panel.py",
+      "gui/docs/CURRENT_USER_INTERFACE.md",
+      "config/supervision.yaml"
+    ],
+    "decision_logs": [
+      "DECISION_LOG_DATABASE_STRATEGY.md",
+      "DECISION_LOG_SUPERVISOR_DEPLOYMENT.md",
+      "DESIGN_APPROVAL_DECISION_INTERFACE.md",
+      "DESIGN_TOOL_RESUME_STRATEGY.md"
+    ],
+    "specifications": [
+      "specs/APPROVAL_PROTOCOL_V1.md"
+    ],
+    "documentation": [
+      "docs/HEADLESS_CLI_GUIDE.md",
+      "docs/TOOL_DEVELOPER_GUIDE.md",
+      "docs/SUPERVISION_OPERATOR_RUNBOOK.md",
+      "docs/SUPERVISION_API_REFERENCE.md",
+      "docs/SUPERVISION_DEPLOYMENT_GUIDE.md",
+      "docs/DATABASE_SCHEMA.md"
+    ]
+  },
+  "gap_analysis_summary": {
+    "critical_gaps_fixed": 11,
+    "new_phases_added": 2,
+    "new_tasks_added": 33,
+    "total_tasks_now": 73,
+    "risk_mitigation": "Plan now addresses all critical functionality gaps, production readiness improved from ~60% to ~95%"
+  }
+}

@@ -1,0 +1,240 @@
+{
+  "$id": "https://example.com/schemas/SPLINTER_PHASE_PLAN_V1.schema.json",
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "title": "SPLINTER Phase Plan V1",
+  "description": "Full schema for a SPLINTER Phase Plan document, including github_integration via GH_SYNC_PHASE_V1.",
+  "type": "object",
+  "additionalProperties": false,
+
+  "required": [
+    "doc_id",
+    "template_version",
+    "phase_identity",
+    "dag_and_dependencies",
+    "scope_and_modules",
+    "environment_and_tools",
+    "execution_profile",
+    "pre_flight_checks",
+    "execution_plan",
+    "fix_loop_and_circuit_breakers",
+    "expected_artifacts",
+    "acceptance_tests",
+    "completion_gate",
+    "observability_and_metrics",
+    "governance_and_constraints"
+  ],
+
+  "properties": {
+    "doc_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "template_version": {
+      "type": ["string", "integer"],
+      "minLength": 1
+    },
+
+    "phase_identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "phase_id",
+        "workstream_id",
+        "title",
+        "summary",
+        "objective",
+        "status"
+      ],
+      "properties": {
+        "phase_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "workstream_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "objective": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "type": "string",
+          "minLength": 1
+        },
+        "phase_type": {
+          "type": "string"
+        },
+        "estimate_hours": {
+          "type": "integer"
+        },
+        "gh_item_id": {
+          "anyOf": [
+            { "type": "string" },
+            { "type": "null" }
+          ]
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "owner": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        }
+      }
+    },
+
+    "dag_and_dependencies": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "depends_on"
+      ],
+      "properties": {
+        "depends_on": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "may_run_parallel_with": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "is_critical_path": {
+          "type": "boolean"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+
+    "scope_and_modules": {
+      "type": "object",
+      "additionalProperties": true
+    },
+
+    "environment_and_tools": {
+      "type": "object",
+      "additionalProperties": true
+    },
+
+    "execution_profile": {
+      "type": "object",
+      "additionalProperties": true
+    },
+
+    "pre_flight_checks": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "checks": {
+              "type": "array"
+            }
+          }
+        },
+        {
+          "type": "array"
+        }
+      ]
+    },
+
+    "execution_plan": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "steps"
+      ],
+      "properties": {
+        "steps": {
+          "type": "array"
+        }
+      }
+    },
+
+    "fix_loop_and_circuit_breakers": {
+      "type": "object",
+      "additionalProperties": true
+    },
+
+    "expected_artifacts": {
+      "anyOf": [
+        {
+          "type": "array"
+        },
+        {
+          "type": "object"
+        }
+      ]
+    },
+
+    "acceptance_tests": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "tests": {
+              "type": "array"
+            }
+          }
+        },
+        {
+          "type": "array"
+        }
+      ]
+    },
+
+    "completion_gate": {
+      "type": "object",
+      "additionalProperties": true
+    },
+
+    "observability_and_metrics": {
+      "type": "object",
+      "additionalProperties": true
+    },
+
+    "governance_and_constraints": {
+      "type": "object",
+      "additionalProperties": true
+    },
+
+    "extensions": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Custom fields / extensions for phase-specific data."
+    },
+
+    "table_of_contents": {
+      "type": "object",
+      "additionalProperties": true
+    },
+
+    "index": {
+      "type": "object",
+      "additionalProperties": true
+    },
+
+    "github_integration": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Optional GitHub integration configuration (validated separately by GH_SYNC_PHASE_V1 if present)"
+    }
+  }
+}
