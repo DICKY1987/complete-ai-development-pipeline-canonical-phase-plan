@@ -1,6 +1,7 @@
 """
 Relationship types for knowledge graph edges.
 """
+
 # DOC_ID: DOC-CORE-KNOWLEDGE-RELATIONSHIPS-402
 
 from enum import Enum

@@ -15,7 +15,10 @@ def _sanitize_env(env: Dict[str, str]) -> Dict[str, str]:
     """Drop likely-secret env keys."""
     filtered = {}
     for key, value in env.items():
-        if any(term in key.upper() for term in ["SECRET", "TOKEN", "KEY", "PASSWORD", "PWD"]):
+        if any(
+            term in key.upper()
+            for term in ["SECRET", "TOKEN", "KEY", "PASSWORD", "PWD"]
+        ):
             continue
         filtered[key] = value
     return filtered

@@ -53,11 +53,15 @@ class InMemoryVectorStore:
         self.embedder = embedder or _default_embedder
         self._store: Dict[str, Tuple[List[float], Dict[str, object]]] = {}
 
-    def add_documents(self, documents: Iterable[Tuple[str, str, Dict[str, object]]]) -> None:
+    def add_documents(
+        self, documents: Iterable[Tuple[str, str, Dict[str, object]]]
+    ) -> None:
         for doc_id, text, metadata in documents:
             self._store[doc_id] = (self.embedder(text), metadata)
 
-    def search(self, query_embedding: Sequence[float], top_k: int = 5) -> List[SearchResult]:
+    def search(
+        self, query_embedding: Sequence[float], top_k: int = 5
+    ) -> List[SearchResult]:
         results: List[SearchResult] = []
         for doc_id, (embedding, metadata) in self._store.items():
             score = _cosine_similarity(query_embedding, embedding)

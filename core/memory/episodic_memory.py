@@ -173,7 +173,8 @@ class EpisodicMemory:
         self.connect()
         cursor = self._conn.cursor()
         cursor.execute(
-            "SELECT * FROM episodes ORDER BY datetime(created_at) DESC LIMIT ?", (limit,)
+            "SELECT * FROM episodes ORDER BY datetime(created_at) DESC LIMIT ?",
+            (limit,),
         )
         rows = cursor.fetchall()
         return [self._row_to_episode(row) for row in rows]

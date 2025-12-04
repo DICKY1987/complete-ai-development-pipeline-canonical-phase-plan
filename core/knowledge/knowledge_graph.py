@@ -3,13 +3,14 @@ SQLite-backed knowledge graph storage.
 
 Stores nodes (modules, classes, functions) and relationships (imports, calls, inheritance).
 """
+
 # DOC_ID: DOC-CORE-KNOWLEDGE-GRAPH-403
 
 import json
 import sqlite3
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Dict, List, Optional, Any
+from typing import Any, Dict, List, Optional
 
 from .relationships import RelationshipType
 

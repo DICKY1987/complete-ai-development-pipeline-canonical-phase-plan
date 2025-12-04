@@ -1,5 +1,11 @@
-"""Search utilities including HyDE-enhanced semantic search."""
+"""
+Semantic search components.
+"""
 
-from .hyde import HyDESearch, InMemoryVectorStore
+# DOC_ID: DOC-CORE-SEARCH-INIT-601
 
-__all__ = ["HyDESearch", "InMemoryVectorStore"]
+from .embeddings import Embeddings
+from .semantic_search import SemanticSearch
+from .vector_store import VectorStore
+
+__all__ = ["Embeddings", "VectorStore", "SemanticSearch"]

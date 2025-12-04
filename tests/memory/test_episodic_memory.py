@@ -59,7 +59,9 @@ def test_recall_similar_tasks_ranks_by_similarity(temp_memory: EpisodicMemory):
         project_conventions=[],
     )
 
-    results = temp_memory.recall_similar_tasks("Improve login flow", top_k=2, min_score=0.05)
+    results = temp_memory.recall_similar_tasks(
+        "Improve login flow", top_k=2, min_score=0.05
+    )
     task_ids = [item["episode"].task_id for item in results]
 
     assert "t1" in task_ids and "t2" in task_ids

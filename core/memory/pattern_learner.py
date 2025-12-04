@@ -5,7 +5,7 @@ from __future__ import annotations
 from collections import Counter
 from typing import Dict, List, Optional
 
-from .episodic_memory import EpisodicMemory, Episode
+from .episodic_memory import Episode, EpisodicMemory
 
 
 class PatternLearner:

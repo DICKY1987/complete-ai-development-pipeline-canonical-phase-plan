@@ -1,13 +1,14 @@
 """
 Build a knowledge graph from repository maps and import graphs.
 """
+
 # DOC_ID: DOC-CORE-KNOWLEDGE-GRAPH-BUILDER-404
 
 from pathlib import Path
 from typing import Dict, Optional
 
 from core.ast.repository_mapper import RepositoryMapper
-from core.knowledge.knowledge_graph import KnowledgeGraph, NodeRecord, EdgeRecord
+from core.knowledge.knowledge_graph import EdgeRecord, KnowledgeGraph, NodeRecord
 from core.knowledge.relationships import RelationshipType
 
 
