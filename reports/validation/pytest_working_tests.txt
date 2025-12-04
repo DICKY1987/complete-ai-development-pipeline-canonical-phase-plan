@@ -1,0 +1,154 @@
+============================= test session starts =============================
+platform win32 -- Python 3.12.10, pytest-9.0.0, pluggy-1.6.0 -- C:\Tools\pipx\home\venvs\pytest\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\richg\ALL_AI\Complete AI Development Pipeline ΓÇô Canonical Phase Plan
+configfile: pytest.ini (WARNING: ignoring pytest config in pyproject.toml!)
+collecting ... collected 428 items / 10 errors / 1 skipped
+
+=================================== ERRORS ====================================
+__________ ERROR collecting tests/integration/test_aider_sandbox.py ___________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline ΓÇô Canonical Phase Plan\tests\integration\test_aider_sandbox.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\integration\test_aider_sandbox.py:15: in <module>
+    from core import prompts as aider_prompts
+E   ImportError: cannot import name 'prompts' from 'core' (C:\Users\richg\ALL_AI\Complete AI Development Pipeline ΓÇô Canonical Phase Plan\core\__init__.py)
+__________ ERROR collecting tests/integration/test_aim_end_to_end.py __________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline ΓÇô Canonical Phase Plan\tests\integration\test_aim_end_to_end.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\integration\test_aim_end_to_end.py:10: in <module>
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.bridge import (
+E   ImportError: cannot import name 'detect_tool' from 'UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.bridge' (C:\Users\richg\ALL_AI\Complete AI Development Pipeline ΓÇô Canonical Phase Plan\UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\aim\bridge.py)
+___ ERROR collecting tests/integration/test_aim_orchestrator_integration.py ___
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline ΓÇô Canonical Phase Plan\tests\integration\test_aim_orchestrator_integration.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\integration\test_aim_orchestrator_integration.py:14: in <module>
+    from core.engine.aim_integration import execute_with_aim, is_aim_available
+E   ModuleNotFoundError: No module named 'core.engine.aim_integration'
+____________ ERROR collecting tests/integration/test_phase4_e2e.py ____________
+C:\Tools\pipx\home\venvs\pytest\Lib\site-packages\_pytest\python.py:507: in importtestmodule
+    mod = import_path(
+C:\Tools\pipx\home\venvs\pytest\Lib\site-packages\_pytest\pathlib.py:587: in import_path
+    importlib.import_module(module_name)
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+C:\Tools\pipx\home\venvs\pytest\Lib\site-packages\_pytest\assertion\rewrite.py:197: in exec_module
+    exec(co, module.__dict__)
+tests\integration\test_phase4_e2e.py:1: in <module>
+    from core.autonomous import ReflexionLoop
+core\autonomous\__init__.py:4: in <module>
+    from .fix_generator import FixGenerator
+E     File "C:\Users\richg\ALL_AI\Complete AI Development Pipeline ΓÇô Canonical Phase Plan\core\autonomous\fix_generator.py", line 22
+E       def _default_fix(errors: List[ParsedError], attempt: int) -> Dict[str, str]:
+E   IndentationError: unexpected unindent
+__________ ERROR collecting tests/integration/test_uet_migration.py ___________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline ΓÇô Canonical Phase Plan\tests\integration\test_uet_migration.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\integration\test_uet_migration.py:9: in <module>
+    from core.engine.parallel_orchestrator import ParallelOrchestrator
+E   ModuleNotFoundError: No module named 'core.engine.parallel_orchestrator'
+__________ ERROR collecting tests/interfaces/test_config_manager.py ___________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline ΓÇô Canonical Phase Plan\tests\interfaces\test_config_manager.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\interfaces\test_config_manager.py:7: in <module>
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.interfaces.config_manager import (
+E   ModuleNotFoundError: No module named 'UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core'
+_________ ERROR collecting tests/interfaces/test_event_bus_logger.py __________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline ΓÇô Canonical Phase Plan\tests\interfaces\test_event_bus_logger.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\interfaces\test_event_bus_logger.py:4: in <module>
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.interfaces.event_bus import EventBus
+E   ModuleNotFoundError: No module named 'UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core'
+_________ ERROR collecting tests/interfaces/test_process_executor.py __________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline ΓÇô Canonical Phase Plan\tests\interfaces\test_process_executor.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\interfaces\test_process_executor.py:7: in <module>
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.interfaces.process_executor import (
+E   ModuleNotFoundError: No module named 'UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core'
+____________ ERROR collecting tests/interfaces/test_state_store.py ____________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline ΓÇô Canonical Phase Plan\tests\interfaces\test_state_store.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\interfaces\test_state_store.py:8: in <module>
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.interfaces.state_store import (
+E   ModuleNotFoundError: No module named 'UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core'
+___________ ERROR collecting tests/interfaces/test_tool_adapter.py ____________
+ImportError while importing test module 'C:\Users\richg\ALL_AI\Complete AI Development Pipeline ΓÇô Canonical Phase Plan\tests\interfaces\test_tool_adapter.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\interfaces\test_tool_adapter.py:6: in <module>
+    from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.interfaces.tool_adapter import (
+E   ModuleNotFoundError: No module named 'UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core'
+============================== warnings summary ===============================
+core\engine\test_gate.py:65
+  C:\Users\richg\ALL_AI\Complete AI Development Pipeline ΓÇô Canonical Phase Plan\core\engine\test_gate.py:65: PytestCollectionWarning: cannot collect test class 'TestGate' because it has a __init__ constructor (from: tests/engine/test_executor.py)
+    class TestGate:
+
+core\engine\test_gate.py:43
+  C:\Users\richg\ALL_AI\Complete AI Development Pipeline ΓÇô Canonical Phase Plan\core\engine\test_gate.py:43: PytestCollectionWarning: cannot collect test class 'TestResults' because it has a __init__ constructor (from: tests/engine/test_executor.py)
+    @dataclass
+
+core\engine\test_gate.py:65
+  C:\Users\richg\ALL_AI\Complete AI Development Pipeline ΓÇô Canonical Phase Plan\core\engine\test_gate.py:65: PytestCollectionWarning: cannot collect test class 'TestGate' because it has a __init__ constructor (from: tests/engine/test_test_gate.py)
+    class TestGate:
+
+core\engine\test_gate.py:43
+  C:\Users\richg\ALL_AI\Complete AI Development Pipeline ΓÇô Canonical Phase Plan\core\engine\test_gate.py:43: PytestCollectionWarning: cannot collect test class 'TestResults' because it has a __init__ constructor (from: tests/engine/test_test_gate.py)
+    @dataclass
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+ERROR tests/integration/test_aider_sandbox.py
+ERROR tests/integration/test_aim_end_to_end.py
+ERROR tests/integration/test_aim_orchestrator_integration.py
+ERROR tests/integration/test_phase4_e2e.py
+ERROR tests/integration/test_uet_migration.py
+ERROR tests/interfaces/test_config_manager.py
+ERROR tests/interfaces/test_event_bus_logger.py
+ERROR tests/interfaces/test_process_executor.py
+ERROR tests/interfaces/test_state_store.py
+ERROR tests/interfaces/test_tool_adapter.py
+!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 10 failures !!!!!!!!!!!!!!!!!!!!!!!!!!
+================== 1 skipped, 4 warnings, 10 errors in 1.05s ==================

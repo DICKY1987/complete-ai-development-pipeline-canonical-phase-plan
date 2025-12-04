@@ -1,0 +1,28 @@
+881c1027e44970d9607be206b8195a2fcb658f5d|DICKY1987|2025-12-04 04:00:28 -0600|Add file watcher script for organizing docs by keywords
+52847d55af6ef0acda45fdbe837ae2efc28872c7|DICKY1987|2025-12-04 02:05:55 -0600|feat: Complete GitHub Projects v2 integration (PAT-GH-SYNC-PHASE-001)
+2532f593484760432c8c66f385fe512f9fd50eb2|DICKY1987|2025-12-04 02:03:49 -0600|feat(orchestrator): implement JSON plan execution engine
+1aaf1e01c6ec6285ada30ad3f27a00249f8ee18a|DICKY1987|2025-12-03 23:55:13 -0600|Add safe merge orchestrator and guard scripts
+9e8861fd8f19c0396e31b7c46c993cd1018ac357|DICKY1987|2025-12-03 23:50:30 -0600|Enhance incomplete implementation scanner
+e29fc2fc024b94d6b102990a5d583dfc9647a762|DICKY1987|2025-12-03 23:44:53 -0600|Add GitHub project tracking workflows
+c759131b84e7ff85f0c564950a0a44a5fb8a6a2b|DICKY1987|2025-12-03 23:06:41 -0600|feat(doc_id): Complete registry migration - 98.6% accuracy
+f1907b09d61173a6a044b99ba8c77c0e49a915f9|DICKY1987|2025-12-03 23:03:05 -0600|feat: Add systematic incomplete implementation scanner
+09954ca088351c7f4b9edf1950f77c3e5136bca4|DICKY1987|2025-12-03 20:51:14 -0600|fix(glossary): Fix automation executor bugs
+fefa12c9f876c085e45e624156ed33929ec0c1ba|DICKY1987|2025-12-03 20:09:36 -0600|feat(gui): Complete GUI architecture implementation
+90ff9364e548ff4a7c044c5cfffa46000808c9a5|DICKY1987|2025-12-03 20:07:03 -0600|feat: Implement three high-priority pattern executor stubs
+2fc9de441fcaef3db32017948245a54f168e69a3|DICKY1987|2025-12-03 19:50:20 -0600|Add comprehensive E2E CLI communication testing plan
+50b372c978b571ee7a1301deb52580218d98eb3b|DICKY1987|2025-12-03 19:44:10 -0600|docs: Add comprehensive Phase Plans completion summary
+0e95dd628b7b32fb7a154d5b79477d34b3d6a79e|DICKY1987|2025-12-03 19:42:47 -0600|docs(agent-c): Phase C analysis and implementation roadmap
+b0cb9f795a0ee00035c38fdfcda5ba25907dff08|DICKY1987|2025-12-03 19:34:58 -0600|feat: wire executor to subprocess adapter
+3731f04457f2e369135b2b19da09742bd852e354|DICKY1987|2025-12-03 19:34:43 -0600|feat(agent-b): Complete Phase B - Router Strategies (PHASE_PLANS_AUTOMATION_FIX)
+f9296bd02255690e6187f694532044eeebc5e274|DICKY1987|2025-12-03 19:31:57 -0600|Consolidate GUI module to root level
+fb1bfe9ab10671778e8c1a26d2bb0804caffd3cf|DICKY1987|2025-12-03 19:28:34 -0600|test: extend executor coverage
+ae52707a5acfb2e7aa1bebd90f05d5ef1447fe46|DICKY1987|2025-12-03 19:18:17 -0600|test: Add comprehensive executor tests and enhance retry logic
+4e828764a29faec81e109bb12500e022abd000af|DICKY1987|2025-12-03 19:16:29 -0600|chore: update ccpm submodule reference
+09fa9105d688540e48bc074ec86219872b6bfbef|DICKY1987|2025-12-03 19:15:46 -0600|test: Add test SSOT spec with glossary term
+61d15bf78d4c25f0c7af26432cddbe5b78417a96|DICKY1987|2025-12-03 19:05:22 -0600|feat(agent3): complete episodic memory, reflexion loop, HyDE search, and terminal capture
+a9ecf2da341ea20c89789a6a1b6ffc07d49448c0|DICKY1987|2025-12-03 18:56:21 -0600|feat: AST & Repository Intelligence (WS-04-01A/B/C)
+22320a36ab4c9b257bfb0f77c306b6291c3417bc|DICKY1987|2025-12-03 18:54:22 -0600|feat: Add autonomous SSOT policy enforcement system
+8b0dbb7fa50e53d0da632dfc1fec2b1db6754c56|DICKY1987|2025-12-03 18:30:32 -0600|fix: Complete Phase 1 import path migration and critical fixes
+9df7ccc147ba771f0d9bbf0e96ae1509c37a1c56|DICKY1987|2025-12-03 15:11:18 -0600|feat: Extract module tests and generate documentation (EXEC-HYBRID-002/003)
+3a0f4f0b3ddb799632e6f219c2b77b7171041b0d|DICKY1987|2025-12-03 14:14:05 -0600|docs: Add hybrid phase-module restructuring completion summary
+ff94cc7dd58f2c46d803dbb4329b5ce8f2f00930|DICKY1987|2025-12-03 14:13:19 -0600|refactor: Restructure to hybrid phase-module architecture (EXEC-HYBRID-001)

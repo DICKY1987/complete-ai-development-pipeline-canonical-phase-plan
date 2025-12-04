@@ -1,0 +1,10 @@
+86	F401	[ ] unused-import
+11	F541	[*] f-string-missing-placeholders
+10	E722	[ ] bare-except
+ 8	F841	[*] unused-variable
+ 2	F821	[ ] undefined-name
+ 1	    	[ ] invalid-syntax
+ 1	E401	[*] multiple-imports-on-one-line
+ 1	F402	[ ] import-shadowed-by-loop-var
+Found 120 errors.
+[*] 93 fixable with the `--fix` option (6 hidden fixes can be enabled with the `--unsafe-fixes` option).

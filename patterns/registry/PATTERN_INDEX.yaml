@@ -3,7 +3,7 @@ version: 1.0.0
 metadata:
   created: '2025-11-24'
   last_updated: '2025-12-04'
-  total_patterns: 29
+  total_patterns: 34
   total_categories: 10
   migrated_patterns: 17
   core_patterns: 11
@@ -1657,3 +1657,90 @@ patterns:
   - issues
   - integration
   - splinter
+
+# Code Quality & Validation Patterns (Added 2025-12-04)
+- pattern_id: EXEC-005
+  name: syntax_error_fix
+  version: 1.0.0
+  status: active
+  category: code_quality
+  priority: critical
+  spec_path: patterns/execution/EXEC-005-SYNTAX-ERROR-FIX.md
+  time_savings_vs_manual: 50%
+  proven_uses: 1
+  created: '2025-12-04'
+  summary: "Locate, analyze, and fix syntax errors (IndentationError, SyntaxError) with verification"
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  - cursor
+  est_time_minutes: 15
+
+- pattern_id: EXEC-006
+  name: auto_fix_linting
+  version: 1.0.0
+  status: active
+  category: code_quality
+  priority: high
+  spec_path: patterns/execution/EXEC-006-AUTO-FIX-LINTING.md
+  time_savings_vs_manual: 80%
+  proven_uses: 1
+  created: '2025-12-04'
+  summary: "Systematic auto-fix of linting violations with verification (ruff, unused imports, formatting)"
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  - cursor
+  - aider
+  est_time_minutes: 10
+
+- pattern_id: EXEC-007
+  name: dependency_installation
+  version: 1.0.0
+  status: active
+  category: environment
+  priority: high
+  spec_path: patterns/execution/EXEC-007-DEPENDENCY-INSTALL.md
+  time_savings_vs_manual: 70%
+  proven_uses: 1
+  created: '2025-12-04'
+  summary: "Detect, install, and verify dependencies systematically with requirements.txt update"
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  - cursor
+  est_time_minutes: 15
+
+- pattern_id: EXEC-008
+  name: import_structure_fix
+  version: 1.0.0
+  status: active
+  category: code_quality
+  priority: high
+  spec_path: patterns/execution/EXEC-008-IMPORT-STRUCTURE-FIX.md
+  time_savings_vs_manual: 75%
+  proven_uses: 1
+  created: '2025-12-04'
+  summary: "Systematic discovery and repair of module import structure issues (missing __init__.py, wrong paths)"
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  - cursor
+  est_time_minutes: 60
+
+- pattern_id: EXEC-009
+  name: full_validation_run
+  version: 1.0.0
+  status: active
+  category: testing
+  priority: high
+  spec_path: patterns/execution/EXEC-009-VALIDATION-RUN.md
+  time_savings_vs_manual: 85%
+  proven_uses: 1
+  created: '2025-12-04'
+  summary: "Comprehensive validation execution (syntax, linting, tests, coverage, quality gates) with reporting"
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  - cursor
+  est_time_minutes: 30

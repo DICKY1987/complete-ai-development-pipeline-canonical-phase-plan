@@ -1,0 +1,830 @@
+# PHASE_PLAN_TEMPLATE_V3
+# Systematic validation of all Dec 3-4, 2025 commits for production readiness
+# Source: "Detailed Commit Summary (Dec 3–4, 2025) – __DICKY1987__ Repository Changes.pdf"
+
+doc_id: "DOC-PHASE-VALIDATE-001-COMMIT-INTEGRATION"
+template_version: 3
+
+table_of_contents:
+  sections:
+    - id: "phase_identity"
+      title: "Phase identity"
+      key_path: "phase_identity"
+    - id: "dag_and_dependencies"
+      title: "DAG and dependencies"
+      key_path: "dag_and_dependencies"
+    - id: "scope_and_modules"
+      title: "Scope and modules"
+      key_path: "scope_and_modules"
+    - id: "environment_and_tools"
+      title: "Environment and tools"
+      key_path: "environment_and_tools"
+    - id: "execution_profile"
+      title: "Execution profile"
+      key_path: "execution_profile"
+    - id: "pre_flight_checks"
+      title: "Pre-flight checks"
+      key_path: "pre_flight_checks"
+    - id: "execution_plan"
+      title: "Execution plan"
+      key_path: "execution_plan"
+    - id: "fix_loop_and_circuit_breakers"
+      title: "Fix loop and circuit breakers"
+      key_path: "fix_loop_and_circuit_breakers"
+    - id: "expected_artifacts"
+      title: "Expected artifacts"
+      key_path: "expected_artifacts"
+    - id: "acceptance_tests"
+      title: "Acceptance tests"
+      key_path: "acceptance_tests"
+    - id: "completion_gate"
+      title: "Completion gate"
+      key_path: "completion_gate"
+    - id: "observability_and_metrics"
+      title: "Observability and metrics"
+      key_path: "observability_and_metrics"
+    - id: "governance_and_constraints"
+      title: "Governance and constraints"
+      key_path: "governance_and_constraints"
+    - id: "extensions"
+      title: "Extensions"
+      key_path: "extensions"
+
+index:
+  key_paths:
+    doc_id: "doc_id"
+    phase_id: "phase_identity.phase_id"
+    workstream_id: "phase_identity.workstream_id"
+    phase_title: "phase_identity.title"
+    objective: "phase_identity.objective"
+    phase_status: "phase_identity.status"
+    estimate_hours: "phase_identity.estimate_hours"
+    gh_item_id: "phase_identity.gh_item_id"
+    tags: "phase_identity.tags"
+    dependencies: "dag_and_dependencies.depends_on"
+    parallelizable_with: "dag_and_dependencies.may_run_parallel_with"
+    parallel_group: "dag_and_dependencies.parallel_group"
+    critical_path: "dag_and_dependencies.is_critical_path"
+    repo_root: "scope_and_modules.repo_root"
+    module_list: "scope_and_modules.modules"
+    scope_read_only: "scope_and_modules.file_scope.read_only"
+    scope_modify: "scope_and_modules.file_scope.modify"
+    scope_create: "scope_and_modules.file_scope.create"
+    scope_forbidden: "scope_and_modules.file_scope.forbidden_paths"
+    worktree_strategy: "scope_and_modules.worktree_strategy"
+    target_os: "environment_and_tools.target_os"
+    default_shell: "environment_and_tools.default_shell"
+    primary_language: "environment_and_tools.primary_language"
+    python: "environment_and_tools.python"
+    required_services: "environment_and_tools.required_services"
+    config_files: "environment_and_tools.config_files"
+    ai_operators: "environment_and_tools.ai_operators"
+    tool_profiles: "environment_and_tools.tool_profiles"
+    execution_profile: "execution_profile"
+    preflight_checks: "pre_flight_checks.checks"
+    execution_steps: "execution_plan.steps"
+    fix_loop: "fix_loop_and_circuit_breakers"
+    artifacts: "expected_artifacts"
+    acceptance_tests: "acceptance_tests.tests"
+    completion_rules: "completion_gate.rules"
+    completion_overrides: "completion_gate.manual_override"
+    observability: "observability_and_metrics"
+    governance: "governance_and_constraints"
+    extensions: "extensions.custom_fields"
+
+phase_identity:
+  phase_id: "PH-VALIDATE-001"
+  workstream_id: "ws-quality-assurance"
+  title: "Commit Integration & Production Readiness Validation"
+  summary: "Systematically verify all 32 commits from Dec 3-4 2025 are fully integrated, production-ready, and meet all quality gates. Validate ~14,000 lines of new code across 8 major features, 3 bug fixes, and infrastructure improvements."
+  objective: "All commits verified as production-ready with passing tests, no broken imports, complete documentation, and full integration across TUI, GitHub sync, AST intelligence, router, memory systems, quality automation, and phase restructuring."
+  phase_type: "validation_only"
+  status: "complete"
+  estimate_hours: 16
+  gh_item_id: null
+  tags:
+    - "validation"
+    - "production_readiness"
+    - "integration_testing"
+    - "quality_gate"
+    - "commit_verification"
+
+dag_and_dependencies:
+  workstream_bundle_id: "ws-bundle-qa-01"
+  depends_on: []
+  may_run_parallel_with: []
+  parallel_group: "quality-assurance-validation"
+  is_critical_path: true
+
+scope_and_modules:
+  repo_root: "."
+  modules:
+    # All modules affected by the 32 commits
+    - module_id: "mod.gui.tui"
+      description: "Terminal UI framework and panels"
+    - module_id: "mod.core.github_integration"
+      description: "GitHub Projects v2 sync automation"
+    - module_id: "mod.core.ast_intelligence"
+      description: "AST parsing and workstream tracking"
+    - module_id: "mod.core.engine.router"
+      description: "Intelligent task routing with circuit breakers"
+    - module_id: "mod.core.memory"
+      description: "Episodic memory and reflexion systems"
+    - module_id: "mod.error.scanner"
+      description: "Incomplete implementation scanner"
+    - module_id: "mod.doc_id"
+      description: "Documentation ID system"
+    - module_id: "mod.glossary"
+      description: "Glossary management and sync"
+    - module_id: "mod.phase_modules"
+      description: "Phase-based module restructuring"
+    - module_id: "mod.tests"
+      description: "All test suites (+900 lines)"
+  file_scope:
+    read_only:
+      - "**/*.md"
+      - "config/**/*.yaml"
+      - "schema/**/*.sql"
+      - "*.yml"
+      - "pyproject.toml"
+      - "pytest.ini"
+    modify: []  # Validation only - no modifications
+    create:
+      - "reports/validation/**/*.md"
+      - "reports/validation/**/*.json"
+      - ".runs/validation/**/*.log"
+    forbidden_paths:
+      - ".git/**"
+      - ".venv/**"
+      - "__pycache__/**"
+      - ".worktrees/**"
+      - "legacy/**"
+
+  worktree_strategy:
+    mode: "none"  # Validation runs in main workspace
+    name_pattern: null
+    base_branch: "main"
+    multi_worktree_enabled: false
+    worktrees: []
+
+environment_and_tools:
+  target_os: "windows"
+  default_shell: "powershell"
+  primary_language: "python"
+  python:
+    version_constraint: ">=3.11,<3.13"
+    venv_path: ".venv"
+  required_services:
+    - name: "sqlite_db"
+      type: "file"
+      path: ".state/pipeline.db"
+      must_exist_before_phase: false
+    - name: "refactor_paths_db"
+      type: "file"
+      path: "refactor_paths.db"
+      must_exist_before_phase: true
+  config_files:
+    - "pyproject.toml"
+    - "pytest.ini"
+    - "ai_policies.yaml"
+    - "QUALITY_GATE.yaml"
+  ai_operators:
+    primary_agent: "codex"
+    secondary_agents:
+      - "claude-code"
+  tool_profiles:
+    preferred_ids:
+      - "pytest"
+      - "ruff"
+      - "mypy"
+      - "powershell-script"
+      - "python-script"
+
+execution_profile:
+  prompt_template_id: "VALIDATION_COMPREHENSIVE_V1"
+  run_mode: "execute"
+  max_runtime_minutes: 120
+  concurrency:
+    allowed_for_phase: false
+    max_parallel_steps: 1
+  retry_policy:
+    default_max_attempts: 2
+
+pre_flight_checks:
+  checks:
+    - id: "pf-git-on-main"
+      description: "Verify we're on main branch with all commits pulled"
+      when: "always"
+      command:
+        tool_id: "powershell-script"
+        args:
+          - "git branch --show-current"
+      success_pattern: "^main$"
+      on_fail: "abort"
+
+    - id: "pf-venv-active"
+      description: "Python virtual environment is activated"
+      when: "always"
+      command:
+        tool_id: "powershell-script"
+        args:
+          - "python -c 'import sys; print(sys.prefix)'"
+      success_pattern: "\\.venv"
+      on_fail: "abort"
+
+    - id: "pf-dependencies-installed"
+      description: "All Python dependencies are installed"
+      when: "always"
+      command:
+        tool_id: "powershell-script"
+        args:
+          - "pip list | Select-String -Pattern 'pytest|ruff|rich|textual|PyPDF2|PyYAML'"
+      success_pattern: "pytest.*ruff.*rich.*textual"
+      on_fail: "attempt_repair_phase"
+
+    - id: "pf-refactor-db-exists"
+      description: "Refactor paths database exists for import validation"
+      when: "always"
+      command:
+        tool_id: "powershell-script"
+        args:
+          - "Test-Path refactor_paths.db"
+      success_pattern: "True"
+      on_fail: "abort"
+
+    - id: "pf-validation-dir-ready"
+      description: "Validation output directory structure exists"
+      when: "always"
+      command:
+        tool_id: "powershell-script"
+        args:
+          - "New-Item -ItemType Directory -Force -Path reports/validation | Out-Null; Test-Path reports/validation"
+      success_pattern: "True"
+      on_fail: "attempt_repair_phase"
+
+execution_plan:
+  steps:
+    # ============================================================================
+    # STEP 1: COMMIT CATALOG & TRACEABILITY
+    # ============================================================================
+    - id: "step-01-catalog-commits"
+      name: "Catalog all 32 commits and build traceability matrix"
+      operation_kind: "OP-ANALYZE-CONTEXT"
+      pattern_ids:
+        - "PAT-GIT-HISTORY-ANALYSIS-001"
+      description: "Extract commit SHAs, messages, file changes, and map to features from PDF summary. Build comprehensive traceability matrix."
+      tool_id: "python-script"
+      inputs:
+        repo_paths:
+          - "."
+        constraints:
+          respect_file_scope: true
+          date_range: "2025-12-03..2025-12-04"
+        execution_templates: []
+        commands:
+          - "git log --since='2025-12-03' --until='2025-12-05' --oneline --stat > reports/validation/commit_catalog.txt"
+          - "git log --since='2025-12-03' --until='2025-12-05' --pretty=format:'%H|%an|%ad|%s' --date=iso > reports/validation/commit_details.csv"
+      expected_outputs:
+        - "reports/validation/commit_catalog.txt"
+        - "reports/validation/commit_details.csv"
+        - "reports/validation/traceability_matrix.json"
+      requires_human_confirmation: false
+
+    # ============================================================================
+    # STEP 2: IMPORT PATH VALIDATION (CRITICAL - CI ENFORCED)
+    # ============================================================================
+    - id: "step-02-validate-import-paths"
+      name: "Validate all imports use correct section-based paths"
+      operation_kind: "OP-VALIDATE-STATIC"
+      pattern_ids:
+        - "PAT-IMPORT-PATH-VALIDATION-001"
+      description: "Run paths_index_cli.py gate to ensure no deprecated import paths exist (src.pipeline.*, MOD_ERROR_PIPELINE.*, legacy.*). This is CI-enforced."
+      tool_id: "python-script"
+      inputs:
+        commands:
+          - "python scripts/paths_index_cli.py gate --db refactor_paths.db"
+        execution_templates: []
+      expected_outputs:
+        - "Zero violations of deprecated import paths"
+        - "reports/validation/import_path_validation.log"
+      requires_human_confirmation: false
+
+    # ============================================================================
+    # STEP 3: STATIC ANALYSIS (LINTING & TYPE CHECKING)
+    # ============================================================================
+    - id: "step-03-static-analysis"
+      name: "Run comprehensive static analysis suite"
+      operation_kind: "OP-VALIDATE-STATIC"
+      pattern_ids:
+        - "PAT-LINT-001"
+        - "PAT-TYPECHECK-001"
+      description: "Run ruff for linting, mypy for type checking across all modified modules. Focus on new code from commits."
+      tool_id: "pytest"
+      inputs:
+        commands:
+          - "ruff check core/ error/ engine/ aim/ pm/ gui/ specifications/ --output-format=json > reports/validation/ruff_results.json"
+          - "ruff check core/ error/ engine/ aim/ pm/ gui/ specifications/ --statistics"
+          - "mypy core/ error/ engine/ --ignore-missing-imports --no-error-summary 2>&1 | Tee-Object -FilePath reports/validation/mypy_results.txt"
+        execution_templates: []
+      expected_outputs:
+        - "reports/validation/ruff_results.json (0 errors)"
+        - "reports/validation/mypy_results.txt"
+        - "reports/validation/static_analysis_summary.md"
+      requires_human_confirmation: false
+
+    # ============================================================================
+    # STEP 4: UNIT TEST SUITE VALIDATION
+    # ============================================================================
+    - id: "step-04-unit-tests"
+      name: "Run all unit tests including new +900 lines of tests"
+      operation_kind: "OP-VALIDATE-RUNTIME"
+      pattern_ids:
+        - "PAT-PYTEST-CORE-001"
+      description: "Execute full pytest suite with coverage reporting. Verify all new tests pass and coverage meets thresholds."
+      tool_id: "pytest"
+      inputs:
+        commands:
+          - "pytest tests/ -v --tb=short --junit-xml=reports/validation/pytest_results.xml --html=reports/validation/pytest_report.html --self-contained-html"
+          - "pytest tests/ --cov=core --cov=error --cov=engine --cov=aim --cov=pm --cov=gui --cov-report=html:reports/validation/coverage --cov-report=json:reports/validation/coverage.json"
+        execution_templates: []
+      expected_outputs:
+        - "reports/validation/pytest_results.xml (all tests passed)"
+        - "reports/validation/pytest_report.html"
+        - "reports/validation/coverage.json (>80% coverage target)"
+      requires_human_confirmation: false
+
+    # ============================================================================
+    # STEP 5: FEATURE-SPECIFIC INTEGRATION TESTS
+    # ============================================================================
+    - id: "step-05-feature-integration"
+      name: "Validate 8 major features individually"
+      operation_kind: "OP-VALIDATE-INTEGRATION"
+      pattern_ids:
+        - "PAT-INTEGRATION-TEST-001"
+      description: "Test each of the 8 major features: TUI, GitHub sync, AST intelligence, router, memory, quality automation, doc-id, phase restructuring."
+      tool_id: "pytest"
+      inputs:
+        execution_templates:
+          - "EXEC-TEST-001-FEATURE-VALIDATION"
+        feature_tests:
+          - name: "TUI Framework"
+            test_path: "tests/gui/"
+            smoke_test: "python -m gui.main --help"
+          - name: "GitHub Integration"
+            test_path: "tests/core/test_github_integration.py"
+            smoke_test: "python -m core.github.sync --dry-run"
+          - name: "AST Intelligence"
+            test_path: "tests/core/test_ast_parser.py"
+            smoke_test: "python -m core.ast.parser --test-mode"
+          - name: "Router System"
+            test_path: "tests/core/engine/test_router.py"
+            smoke_test: "python -c 'from core.engine.router import Router; r=Router(); print(r.health_check())'"
+          - name: "Memory Systems"
+            test_path: "tests/core/memory/"
+            smoke_test: "python -c 'from core.memory.episodic_memory import EpisodicMemory; print(\"OK\")'"
+          - name: "Quality Automation"
+            test_path: "tests/error/"
+            smoke_test: "python scripts/validate_workstreams.py --help"
+          - name: "Doc-ID System"
+            test_path: "tests/doc_id/"
+            smoke_test: "python -m doc_id.scanner --dry-run"
+          - name: "Phase Restructuring"
+            test_path: "tests/phase*/"
+            smoke_test: "python -c 'import phase1_planning, phase2_request_building, phase3_scheduling; print(\"OK\")'"
+      expected_outputs:
+        - "reports/validation/feature_integration_matrix.json"
+        - "All 8 features pass smoke tests"
+      requires_human_confirmation: false
+
+    # ============================================================================
+    # STEP 6: END-TO-END WORKFLOW TESTS
+    # ============================================================================
+    - id: "step-06-e2e-workflows"
+      name: "Execute end-to-end workflow scenarios"
+      operation_kind: "OP-VALIDATE-E2E"
+      pattern_ids:
+        - "PAT-E2E-WORKFLOW-001"
+      description: "Run complete workflows that exercise multiple integrated systems together."
+      tool_id: "pytest"
+      inputs:
+        execution_templates:
+          - "EXEC-E2E-001-FULL-PIPELINE"
+        workflows:
+          - name: "Phase Plan Creation to GitHub Sync"
+            steps:
+              - "Create phase plan YAML"
+              - "Validate with schema"
+              - "Sync to GitHub Projects"
+              - "Verify issue/item created"
+          - name: "AST Analysis to Workstream Routing"
+            steps:
+              - "Parse codebase with AST"
+              - "Generate workstream recommendations"
+              - "Route to appropriate executor"
+              - "Verify routing decisions"
+          - name: "TUI Monitoring of Active Execution"
+            steps:
+              - "Start background job"
+              - "Launch TUI"
+              - "Verify real-time updates"
+              - "Shutdown cleanly"
+      expected_outputs:
+        - "reports/validation/e2e_workflow_results.json"
+        - "All workflows complete successfully"
+      requires_human_confirmation: false
+
+    # ============================================================================
+    # STEP 7: DOCUMENTATION COMPLETENESS CHECK
+    # ============================================================================
+    - id: "step-07-documentation-audit"
+      name: "Verify all features have complete documentation"
+      operation_kind: "OP-VALIDATE-DOCS"
+      pattern_ids:
+        - "PAT-DOC-COMPLETENESS-001"
+      description: "Check that all 8 major features have README, architecture docs, and inline documentation. Validate DOC-ID coverage."
+      tool_id: "python-script"
+      inputs:
+        commands:
+          - "python scripts/validate_acs_conformance.py"
+          - "python doc_id/scanner.py --report > reports/validation/doc_id_coverage.txt"
+        execution_templates: []
+        required_docs:
+          - "gui/README.md"
+          - "gui/docs/TUI_PANEL_FRAMEWORK_GUIDE.md"
+          - "GITHUB_INTEGRATION_FILES.md"
+          - "AST_WORKSTREAM_COMPLETION_SUMMARY.md"
+          - "core/engine/router.py (inline docs)"
+          - "core/memory/episodic_memory.py (inline docs)"
+          - "error/scanner/README.md"
+          - "doc_id/NEXT_STEPS_COMPLETE_SUMMARY.md"
+      expected_outputs:
+        - "reports/validation/documentation_audit.json"
+        - "All required documentation present and complete"
+      requires_human_confirmation: false
+
+    # ============================================================================
+    # STEP 8: QUALITY GATE VALIDATION
+    # ============================================================================
+    - id: "step-08-quality-gates"
+      name: "Execute all QUALITY_GATE.yaml checks"
+      operation_kind: "OP-VALIDATE-QUALITY"
+      pattern_ids:
+        - "PAT-QUALITY-GATE-001"
+      description: "Run all quality gate validations defined in QUALITY_GATE.yaml to ensure commits meet production standards."
+      tool_id: "python-script"
+      inputs:
+        commands:
+          - "python scripts/validate_workstreams.py"
+          - "python scripts/incomplete_scanner.py --strict"
+          - "python scripts/paths_index_cli.py gate --db refactor_paths.db"
+        execution_templates: []
+      expected_outputs:
+        - "reports/validation/quality_gate_results.json"
+        - "Zero quality gate violations"
+      requires_human_confirmation: false
+
+    # ============================================================================
+    # STEP 9: INCOMPLETE IMPLEMENTATION SCAN
+    # ============================================================================
+    - id: "step-09-incomplete-scan"
+      name: "Scan for incomplete implementations (TODO, pass, NotImplementedError)"
+      operation_kind: "OP-VALIDATE-COMPLETENESS"
+      pattern_ids:
+        - "PAT-INCOMPLETE-SCAN-001"
+      description: "Use incomplete implementation scanner to detect any placeholder code, unfinished functions, or stub implementations."
+      tool_id: "python-script"
+      inputs:
+        commands:
+          - "python error/scanner/incomplete_scanner.py --paths core/ error/ engine/ aim/ pm/ gui/ --report-json reports/validation/incomplete_scan.json"
+        execution_templates: []
+      expected_outputs:
+        - "reports/validation/incomplete_scan.json"
+        - "Zero incomplete implementations found"
+      requires_human_confirmation: false
+
+    # ============================================================================
+    # STEP 10: SAFE MERGE VALIDATION
+    # ============================================================================
+    - id: "step-10-safe-merge-check"
+      name: "Validate safe merge criteria for all commits"
+      operation_kind: "OP-VALIDATE-MERGE-SAFETY"
+      pattern_ids:
+        - "PAT-SAFE-MERGE-001"
+      description: "Check that all commits follow safe merge guidelines: no conflicts, tests pass, documentation updated, imports correct."
+      tool_id: "python-script"
+      inputs:
+        commands:
+          - "git log --since='2025-12-03' --until='2025-12-05' --merges"
+          - "python scripts/validate_safe_merge.py --commits-since 2025-12-03"
+        execution_templates: []
+      expected_outputs:
+        - "reports/validation/safe_merge_report.json"
+        - "All commits safe to merge"
+      requires_human_confirmation: false
+
+    # ============================================================================
+    # STEP 11: PERFORMANCE & RESOURCE CHECKS
+    # ============================================================================
+    - id: "step-11-performance-validation"
+      name: "Validate performance and resource usage"
+      operation_kind: "OP-VALIDATE-PERFORMANCE"
+      pattern_ids:
+        - "PAT-PERFORMANCE-001"
+      description: "Check that new code doesn't introduce performance regressions or excessive resource usage."
+      tool_id: "pytest"
+      inputs:
+        commands:
+          - "pytest tests/ -v --durations=20 > reports/validation/test_durations.txt"
+          - "python -m cProfile -o reports/validation/profile.stats scripts/validate_workstreams.py"
+        execution_templates: []
+      expected_outputs:
+        - "reports/validation/test_durations.txt"
+        - "reports/validation/profile.stats"
+        - "No tests exceeding 10s duration"
+      requires_human_confirmation: false
+
+    # ============================================================================
+    # STEP 12: DEPENDENCY & SECURITY AUDIT
+    # ============================================================================
+    - id: "step-12-security-audit"
+      name: "Audit dependencies and security vulnerabilities"
+      operation_kind: "OP-VALIDATE-SECURITY"
+      pattern_ids:
+        - "PAT-SECURITY-AUDIT-001"
+      description: "Check for known vulnerabilities in dependencies and scan for security anti-patterns."
+      tool_id: "python-script"
+      inputs:
+        commands:
+          - "pip list --format=json > reports/validation/dependencies.json"
+          - "pip-audit --format json --output reports/validation/security_audit.json || echo 'pip-audit not installed'"
+          - "python scripts/check_secrets.py core/ error/ engine/ > reports/validation/secrets_scan.txt"
+        execution_templates: []
+      expected_outputs:
+        - "reports/validation/dependencies.json"
+        - "reports/validation/security_audit.json"
+        - "reports/validation/secrets_scan.txt (no secrets found)"
+      requires_human_confirmation: false
+
+    # ============================================================================
+    # STEP 13: GENERATE VALIDATION REPORT
+    # ============================================================================
+    - id: "step-13-generate-report"
+      name: "Generate comprehensive validation report"
+      operation_kind: "OP-REPORT-GENERATION"
+      pattern_ids:
+        - "PAT-REPORT-GEN-001"
+      description: "Aggregate all validation results into comprehensive human-readable and machine-readable reports."
+      tool_id: "python-script"
+      inputs:
+        report_sources:
+          - "reports/validation/*.json"
+          - "reports/validation/*.txt"
+          - "reports/validation/*.xml"
+        execution_templates: []
+      expected_outputs:
+        - "reports/validation/VALIDATION_SUMMARY.md"
+        - "reports/validation/validation_results.json"
+        - "reports/validation/production_readiness_checklist.md"
+      requires_human_confirmation: false
+
+fix_loop_and_circuit_breakers:
+  enabled: true
+  applies_to_steps:
+    - "step-04-unit-tests"
+    - "step-05-feature-integration"
+    - "step-06-e2e-workflows"
+  circuit_breaker_config_ref: "config/circuit_breakers.yaml"
+  defaults:
+    max_attempts: 2
+    oscillation_window: 2
+    oscillation_threshold: 1
+  behavior:
+    on_first_failure: "collect_diagnostics_and_retry"
+    on_subsequent_failure: "mark_test_failed_with_details"
+    on_breaker_trip: "abort_with_detailed_report"
+
+expected_artifacts:
+  patches: []  # Validation phase produces no patches
+  logs:
+    - path: "reports/validation/commit_catalog.txt"
+      must_exist: true
+    - path: "reports/validation/commit_details.csv"
+      must_exist: true
+    - path: "reports/validation/import_path_validation.log"
+      must_exist: true
+    - path: "reports/validation/ruff_results.json"
+      must_exist: true
+    - path: "reports/validation/mypy_results.txt"
+      must_exist: true
+    - path: "reports/validation/pytest_results.xml"
+      must_exist: true
+    - path: "reports/validation/coverage.json"
+      must_exist: true
+    - path: "reports/validation/feature_integration_matrix.json"
+      must_exist: true
+    - path: "reports/validation/e2e_workflow_results.json"
+      must_exist: true
+    - path: "reports/validation/documentation_audit.json"
+      must_exist: true
+    - path: "reports/validation/quality_gate_results.json"
+      must_exist: true
+    - path: "reports/validation/incomplete_scan.json"
+      must_exist: true
+    - path: "reports/validation/safe_merge_report.json"
+      must_exist: true
+  docs:
+    - path: "reports/validation/VALIDATION_SUMMARY.md"
+      must_exist: true
+    - path: "reports/validation/production_readiness_checklist.md"
+      must_exist: true
+  db: {}
+
+acceptance_tests:
+  tests:
+    - id: "acc-01-all-tests-pass"
+      description: "Full pytest suite passes with 0 failures"
+      command:
+        tool_id: "pytest"
+        args:
+          - "pytest tests/ -q --tb=no"
+      success_pattern: "\\d+ passed"
+      must_pass: true
+
+    - id: "acc-02-no-import-violations"
+      description: "Import path gate check passes"
+      command:
+        tool_id: "python-script"
+        args:
+          - "python scripts/paths_index_cli.py gate --db refactor_paths.db"
+      success_pattern: "PASS|SUCCESS|0 violations"
+      must_pass: true
+
+    - id: "acc-03-ruff-clean"
+      description: "Ruff linting shows 0 errors"
+      command:
+        tool_id: "powershell-script"
+        args:
+          - "ruff check core/ error/ engine/ aim/ pm/ gui/ specifications/ --quiet"
+      success_pattern: "^$"
+      must_pass: true
+
+    - id: "acc-04-incomplete-scan-clean"
+      description: "Incomplete implementation scanner finds 0 issues"
+      command:
+        tool_id: "python-script"
+        args:
+          - "python error/scanner/incomplete_scanner.py --paths core/ error/ engine/ --json"
+      success_pattern: "\"count\": 0"
+      must_pass: true
+
+    - id: "acc-05-coverage-threshold"
+      description: "Code coverage meets 80% threshold"
+      command:
+        tool_id: "python-script"
+        args:
+          - "python -c \"import json; data=json.load(open('reports/validation/coverage.json')); print('OK' if data['totals']['percent_covered'] >= 80 else 'FAIL')\""
+      success_pattern: "OK"
+      must_pass: true
+
+    - id: "acc-06-documentation-complete"
+      description: "All 8 major features have documentation"
+      command:
+        tool_id: "powershell-script"
+        args:
+          - "python scripts/validate_acs_conformance.py"
+      success_pattern: "PASS|OK|SUCCESS"
+      must_pass: true
+
+    - id: "acc-07-quality-gates-pass"
+      description: "All QUALITY_GATE.yaml checks pass"
+      command:
+        tool_id: "python-script"
+        args:
+          - "python scripts/validate_workstreams.py"
+      success_pattern: "SUCCESS|PASS|0 violations"
+      must_pass: true
+
+    - id: "acc-08-feature-smoke-tests"
+      description: "All 8 feature smoke tests pass"
+      command:
+        tool_id: "powershell-script"
+        args:
+          - "python -m gui.main --help; python -c 'from core.engine.router import Router; print(\"OK\")'"
+      success_pattern: "OK"
+      must_pass: true
+
+completion_gate:
+  rules:
+    dependencies_done: true
+    pre_flight_passed: true
+    acceptance_tests_all_passed: true
+    required_artifacts_present: true
+    no_scope_violations_detected: true
+    circuit_breakers_not_tripped: true
+  manual_override:
+    allowed: true
+    justification_required: true
+
+observability_and_metrics:
+  event_tags:
+    - "phase:PH-VALIDATE-001"
+    - "workstream:ws-quality-assurance"
+    - "phase_type:validation_only"
+    - "commit_range:2025-12-03_to_2025-12-04"
+    - "commit_count:32"
+    - "lines_added:14000"
+    - "features_validated:8"
+  metrics:
+    record_durations: true
+    record_attempt_counts: true
+    record_fix_loop_stats: true
+    record_test_counts: true
+    record_coverage_percentage: true
+
+governance_and_constraints:
+  anti_patterns_blocked:
+    - "ANTI-SKIP-TESTS-001"
+    - "ANTI-INCOMPLETE-IMPL-001"
+    - "ANTI-DEPRECATED-IMPORTS-001"
+    - "ANTI-MISSING-DOCS-001"
+  notes_for_operators:
+    - "This is validation-only: no code modifications permitted"
+    - "All validation results must be deterministic and reproducible"
+    - "Trust test results and filesystem state over subjective assessment"
+    - "If any acceptance test fails, phase cannot complete"
+    - "Document any discovered issues in reports/validation/"
+    - "Validation report must include remediation recommendations for any failures"
+
+extensions:
+  custom_fields:
+    commit_summary_source: "Detailed Commit Summary (Dec 3–4, 2025) – __DICKY1987__ Repository Changes.pdf"
+    commit_date_range: "2025-12-03 to 2025-12-04"
+    total_commits: 32
+    total_files_changed: 150
+    total_lines_added: 14000
+    total_lines_removed: 350
+    features_delivered:
+      - "Terminal UI (TUI) Framework"
+      - "GitHub Projects v2 Integration"
+      - "AST Intelligence System"
+      - "Router System with Circuit Breakers"
+      - "Episodic Memory & Reflexion"
+      - "Quality Automation (Scanner/Validator)"
+      - "DOC-ID Documentation System"
+      - "Phase Module Restructuring"
+    bug_fixes_count: 3
+    test_lines_added: 900
+    validation_focus_areas:
+      - "Import path compliance (CI enforced)"
+      - "Test coverage and pass rate"
+      - "Documentation completeness"
+      - "Integration between features"
+      - "Performance and resource usage"
+      - "Security and dependency audit"
+      - "Production readiness criteria"
+
+github_integration:
+  enabled: true
+
+  repo:
+    owner: "DICKY1987"
+    name: "complete-ai-development-pipeline-canonical-phase-plan"
+    default_branch: "main"
+
+  issue:
+    mode: "one-per-phase"
+    number: null
+    title_template: "[{phase_id}] {title}"
+    body_template_path: null
+    labels:
+      - "validation"
+      - "quality-gate"
+      - "production-readiness"
+    assignees: []
+
+  project:
+    url: null
+    owner: "DICKY1987"
+    project_number: 1
+    item_id: null
+
+    field_mappings:
+      phase_id_field: "Phase ID"
+      workstream_field: "Workstream"
+      status_field: "Status"
+      risk_field: "Risk"
+      target_date_field: "Target date"
+      doc_id_field: "doc_id"
+      story_points_field: null
+      owner_field: null
+
+  automation:
+    allow_issue_create: true
+    allow_issue_update: true
+    allow_project_item_create: true
+    allow_project_item_update: true
+    sync_direction: "yaml->github"
+    on_phase_status_change_update_project: true
+    on_project_status_change_update_phase: false
+    last_synced_at: null
+    last_synced_by: null
