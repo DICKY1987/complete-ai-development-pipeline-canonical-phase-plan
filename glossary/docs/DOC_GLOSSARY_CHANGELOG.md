@@ -3,7 +3,7 @@ status: draft
 doc_type: guide
 module_refs: []
 script_refs: []
-doc_id: DOC-GUIDE-GLOSSARY_CHANGELOG-123
+doc_id: DOC-GUIDE-DOC-GLOSSARY-CHANGELOG-871
 ---
 
 # Glossary Changelog

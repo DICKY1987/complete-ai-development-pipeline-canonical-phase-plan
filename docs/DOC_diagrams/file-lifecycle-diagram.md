@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-FILE-LIFECYCLE-DIAGRAM-1328
+doc_id: DOC-GUIDE-FILE-LIFECYCLE-DIAGRAM-777
 ---
 
 # File lifecycle diagram

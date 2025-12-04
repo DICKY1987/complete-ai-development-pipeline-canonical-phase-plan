@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-PAT-EXEC-006-AUTO-FIX-LINTING
+doc_id: DOC-PAT-EXEC-006-AUTO-FIX-LINTING-297
 pattern_id: EXEC-006
 version: 1.0.0
 status: active

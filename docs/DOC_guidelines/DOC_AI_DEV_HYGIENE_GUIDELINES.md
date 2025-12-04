@@ -3,7 +3,7 @@ status: draft
 doc_type: guide
 module_refs: []
 script_refs: []
-doc_id: DOC-GUIDE-AI_DEV_HYGIENE_GUIDELINES-069
+doc_id: DOC-GUIDE-DOC-AI-DEV-HYGIENE-GUIDELINES-801
 ---
 
 # AI Development Hygiene - Quick Reference Guidelines

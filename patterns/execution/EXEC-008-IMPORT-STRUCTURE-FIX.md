@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-PAT-EXEC-008-IMPORT-STRUCTURE-FIX
+doc_id: DOC-PAT-EXEC-008-IMPORT-STRUCTURE-FIX-299
 pattern_id: EXEC-008
 version: 1.0.0
 status: active

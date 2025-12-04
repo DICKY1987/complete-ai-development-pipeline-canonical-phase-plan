@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-PAT-EXEC-005-FIX-SYNTAX
+doc_id: DOC-PAT-EXEC-005-SYNTAX-ERROR-FIX-296
 pattern_id: EXEC-005
 version: 1.0.0
 status: active

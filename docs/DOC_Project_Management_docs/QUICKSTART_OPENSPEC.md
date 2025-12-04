@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-QUICKSTART-OPENSPEC-1357
+doc_id: DOC-GUIDE-QUICKSTART-OPENSPEC-832
 ---
 
 # OpenSpec Integration Quick Start

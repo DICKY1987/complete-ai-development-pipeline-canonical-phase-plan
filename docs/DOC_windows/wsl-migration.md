@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-WSL-MIGRATION-1367
+doc_id: DOC-GUIDE-WSL-MIGRATION-862
 ---
 
 # WSL migration: Codex CLI and Aider on Windows

@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-ATOMIC-WORKFLOW-EXTRACTION-PROMPT-1655
+doc_id: DOC-GUIDE-ATOMIC-WORKFLOW-EXTRACTION-PROMPT-745
 ---
 
 # AI Agent: Extract Patterns from atomic-workflow-system

@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-OPENSPEC-BRIDGE-1356
+doc_id: DOC-GUIDE-OPENSPEC-BRIDGE-831
 ---
 
 # OpenSpec Bridge Documentation

@@ -3,7 +3,7 @@ status: draft
 doc_type: guide
 module_refs: []
 script_refs: []
-doc_id: DOC-GUIDE-ZERO_TOUCH_SYNC_DESIGN-099
+doc_id: DOC-GUIDE-DOC-ZERO-TOUCH-SYNC-DESIGN-828
 ---
 
 # Zero-Touch Sync Solution - Universal Design

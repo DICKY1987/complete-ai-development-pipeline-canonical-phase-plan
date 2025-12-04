@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-PHASE-4-AI-ENHANCEMENT-PLAN-1649
+doc_id: DOC-GUIDE-PHASE-4-AI-ENHANCEMENT-PLAN-883
 ---
 
 # Phase 4: AI Enhancement - Advanced Codebase Intelligence

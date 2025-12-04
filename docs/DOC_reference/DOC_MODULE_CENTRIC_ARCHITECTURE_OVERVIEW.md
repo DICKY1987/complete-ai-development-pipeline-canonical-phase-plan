@@ -3,7 +3,7 @@ status: draft
 doc_type: guide
 module_refs: []
 script_refs: []
-doc_id: DOC-GUIDE-MODULE_CENTRIC_ARCHITECTURE_OVERVIEW-119
+doc_id: DOC-GUIDE-DOC-MODULE-CENTRIC-ARCHITECTURE-OVERVIEW-850
 ---
 
 # Module-Centric Architecture Overview

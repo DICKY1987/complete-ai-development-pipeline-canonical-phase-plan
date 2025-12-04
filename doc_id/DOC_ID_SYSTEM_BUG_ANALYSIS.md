@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-DOC-ID-SYSTEM-BUG-ANALYSIS
+doc_id: DOC-GUIDE-DOC-ID-SYSTEM-BUG-ANALYSIS-743
 created: 2025-12-01
 status: critical
 ---

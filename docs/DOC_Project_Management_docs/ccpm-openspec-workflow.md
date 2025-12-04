@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-CCPM-OPENSPEC-WORKFLOW-1355
+doc_id: DOC-GUIDE-CCPM-OPENSPEC-WORKFLOW-830
 ---
 
 # CCPM + OpenSpec + Pipeline Unified Workflow

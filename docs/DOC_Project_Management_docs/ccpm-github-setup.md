@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-CCPM-GITHUB-SETUP-1354
+doc_id: DOC-GUIDE-CCPM-GITHUB-SETUP-829
 ---
 
 # CCPM GitHub setup

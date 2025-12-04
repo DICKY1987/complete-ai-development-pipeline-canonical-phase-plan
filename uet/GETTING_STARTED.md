@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-GETTING-STARTED-1622
+doc_id: DOC-GUIDE-GETTING-STARTED-749
 ---
 
 # Getting Started with UET

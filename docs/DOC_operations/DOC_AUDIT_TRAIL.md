@@ -3,7 +3,7 @@ status: draft
 doc_type: guide
 module_refs: []
 script_refs: []
-doc_id: DOC-GUIDE-AUDIT_TRAIL-101
+doc_id: DOC-GUIDE-DOC-AUDIT-TRAIL-812
 ---
 
 # Audit Trail

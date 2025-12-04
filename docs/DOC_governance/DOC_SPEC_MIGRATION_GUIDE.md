@@ -3,7 +3,7 @@ status: draft
 doc_type: guide
 module_refs: []
 script_refs: []
-doc_id: DOC-GUIDE-SPEC_MIGRATION_GUIDE-094
+doc_id: DOC-GUIDE-DOC-SPEC-MIGRATION-GUIDE-791
 ---
 
 # Specification Folder Migration Guide

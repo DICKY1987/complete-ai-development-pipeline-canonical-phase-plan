@@ -3,7 +3,7 @@ status: draft
 doc_type: guide
 module_refs: []
 script_refs: []
-doc_id: DOC-GUIDE-CI_PATH_STANDARDS-077
+doc_id: DOC-GUIDE-DOC-CI-PATH-STANDARDS-788
 ---
 
 # CI Path Standards Enforcement

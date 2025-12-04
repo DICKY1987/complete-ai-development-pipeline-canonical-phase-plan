@@ -3,7 +3,7 @@ status: draft
 doc_type: guide
 module_refs: []
 script_refs: []
-doc_id: DOC-GUIDE-AUDIT_RETENTION-100
+doc_id: DOC-GUIDE-DOC-AUDIT-RETENTION-811
 ---
 
 # Audit Retention Policy

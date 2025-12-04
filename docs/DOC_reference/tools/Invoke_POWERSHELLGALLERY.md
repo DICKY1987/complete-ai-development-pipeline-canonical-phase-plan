@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-INVOKE-POWERSHELLGALLERY-1374
+doc_id: DOC-GUIDE-INVOKE-POWERSHELLGALLERY-869
 ---
 
 Here’s a combined, AI-friendly document that:

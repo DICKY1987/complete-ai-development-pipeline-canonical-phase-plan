@@ -4,10 +4,9 @@ This stub allows tests to import without errors while AIM functionality
 is being developed in phase4_routing/modules/aim_tools/.
 
 The conftest.py in tests/aim/ will skip all AIM tests during collection.
-"""
-DOC_ID: DOC-AIM-AIM-BRIDGE-152
 
-DOC_ID: DOC - AIM - AIM - BRIDGE - 152
+DOC_ID: DOC-AIM-AIM-BRIDGE-152
+"""
 
 
 def load_aim_registry():

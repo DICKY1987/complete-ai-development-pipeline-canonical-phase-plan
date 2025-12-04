@@ -7,7 +7,7 @@ module_refs:
   - phase6_error_recovery/modules/error_engine
 script_refs:
   - scripts/test-aider-comprehensive.ps1
-doc_id: DOC-GUIDE-E2E_CLI_COMMUNICATION_TEST_PLAN-NEW
+doc_id: DOC-GUIDE-E2E-CLI-COMMUNICATION-TEST-PLAN-855
 ---
 
 # End-to-End CLI Communication Testing Plan

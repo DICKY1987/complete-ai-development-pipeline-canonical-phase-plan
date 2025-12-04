@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-DEPENDENCY-INDEX-1361
+doc_id: DOC-GUIDE-DEPENDENCY-INDEX-836
 ---
 
 # Dependency Index – Module Relationships

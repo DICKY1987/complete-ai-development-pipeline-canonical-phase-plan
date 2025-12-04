@@ -3,7 +3,7 @@ status: draft
 doc_type: guide
 module_refs: []
 script_refs: []
-doc_id: DOC-GUIDE-FOLDER_VERSION_SCORING_SPEC-117
+doc_id: DOC-GUIDE-DOC-FOLDER-VERSION-SCORING-SPEC-789
 ---
 
 # Folder Version Scoring Specification

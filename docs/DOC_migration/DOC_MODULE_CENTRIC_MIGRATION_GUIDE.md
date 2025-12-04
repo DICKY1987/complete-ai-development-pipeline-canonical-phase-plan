@@ -3,7 +3,7 @@ status: draft
 doc_type: guide
 module_refs: []
 script_refs: []
-doc_id: DOC-GUIDE-MODULE_CENTRIC_MIGRATION_GUIDE-121
+doc_id: DOC-GUIDE-DOC-MODULE-CENTRIC-MIGRATION-GUIDE-806
 ---
 
 # Module-Centric Architecture Migration Guide

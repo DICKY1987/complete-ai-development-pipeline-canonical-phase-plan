@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-PATH-STANDARDIZER-1369
+doc_id: DOC-GUIDE-PATH-STANDARDIZER-864
 ---
 
 # Path Standardizer Plugin

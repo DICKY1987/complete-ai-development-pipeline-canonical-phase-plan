@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-PAT-EXEC-007-DEPENDENCY-INSTALL
+doc_id: DOC-PAT-EXEC-007-DEPENDENCY-INSTALL-298
 pattern_id: EXEC-007
 version: 1.0.0
 status: active

@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-API-INDEX-1359
+doc_id: DOC-GUIDE-API-INDEX-834
 ---
 
 # API Index – Public Interfaces & Entry Points

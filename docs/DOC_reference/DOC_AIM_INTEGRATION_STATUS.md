@@ -3,7 +3,7 @@ status: draft
 doc_type: guide
 module_refs: []
 script_refs: []
-doc_id: DOC-GUIDE-AIM_INTEGRATION_STATUS-075
+doc_id: DOC-GUIDE-DOC-AIM-INTEGRATION-STATUS-842
 ---
 
 # AIM Integration Status Report

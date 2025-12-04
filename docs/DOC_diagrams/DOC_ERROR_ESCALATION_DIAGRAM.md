@@ -3,7 +3,7 @@ status: draft
 doc_type: guide
 module_refs: []
 script_refs: []
-doc_id: DOC-GUIDE-ERROR_ESCALATION_DIAGRAM-058
+doc_id: DOC-GUIDE-DOC-ERROR-ESCALATION-DIAGRAM-771
 ---
 
 # Error Escalation

@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-COMPONENT-CONTRACTS-1662
+doc_id: DOC-GUIDE-COMPONENT-CONTRACTS-746
 ---
 
 # UET V2 Component Contracts

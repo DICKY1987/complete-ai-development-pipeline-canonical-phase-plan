@@ -30,6 +30,7 @@ from typing import Dict, List, Optional, Tuple
 # Assuming this file lives in scripts/ at repo root
 REPO_ROOT = Path(__file__).parent.parent
 INVENTORY_PATH = REPO_ROOT / "docs_inventory.jsonl"
+DOC_ID_REGEX = re.compile(r"^DOC-[A-Z0-9]+-[A-Z0-9]+(-[A-Z0-9]+)*-[0-9]{3}$")
 
 
 # --- Registry module loader -------------------------------------------------
@@ -235,7 +236,12 @@ def infer_name_and_title(path: str, file_type: str) -> Tuple[str, str]:
     """
     rel = Path(path)
     stem = rel.stem
-    parent = rel.parent.name
+    parent = rel.parent.name or "root"
+
+    def _sanitize(segment: str) -> str:
+        cleaned = re.sub(r"[^a-zA-Z0-9_-]", "-", segment)
+        cleaned = re.sub(r"-+", "-", cleaned).strip("-")
+        return cleaned or "ROOT"
 
     # Special case: __*__ files (dunder files)
     if stem.startswith("__") and stem.endswith("__"):
@@ -247,16 +253,18 @@ def infer_name_and_title(path: str, file_type: str) -> Tuple[str, str]:
         stem_clean = re.sub(r"[^a-zA-Z0-9_-]", "-", stem)
         stem_clean = re.sub(r"-+", "-", stem_clean).strip("-")
 
+    parent_clean = _sanitize(parent)
+
     # Limit to reasonable length (max 50 chars for stem)
     if len(stem_clean) > 50:
         stem_clean = stem_clean[:50].rsplit("-", 1)[0]  # Cut at word boundary
 
     if file_type == "py":
         if stem.startswith("test_"):
-            name = f"{parent}-{stem_clean}".replace("_", "-")
+            name = f"{parent_clean}-{stem_clean}".replace("_", "-")
             title = f"Tests for {parent}.{stem.replace('test_', '')}"
         else:
-            name = f"{parent}-{stem_clean}".replace("_", "-")
+            name = f"{parent_clean}-{stem_clean}".replace("_", "-")
             title = f"{parent} module: {stem}"
     elif file_type in ("ps1", "sh"):
         name = stem_clean.replace("_", "-")
@@ -283,7 +291,7 @@ def infer_name_and_title(path: str, file_type: str) -> Tuple[str, str]:
     name = re.sub(r"-+", "-", name).strip("-")
     # If name is empty or invalid, use fallback
     if not name or not re.match(r"^[A-Z0-9]", name):
-        name = f"FILE-{parent.upper()}-{stem_clean[:20].upper()}"
+        name = f"FILE-{parent_clean.upper()}-{stem_clean[:20].upper()}"
         name = re.sub(r"-+", "-", name).strip("-")
     # Limit total name length to avoid overly long IDs
     if len(name) > 40:
@@ -307,6 +315,9 @@ def inject_doc_id_into_content(content: str, file_type: str, doc_id: str) -> str
     Simple and idempotent: if the doc_id is already present, content is
     returned unchanged.
     """
+    def is_valid(existing: str) -> bool:
+        return bool(DOC_ID_REGEX.match(existing))
+
     # Python: module docstring or header comment
     if file_type == "py":
         lines = content.splitlines()
@@ -314,7 +325,8 @@ def inject_doc_id_into_content(content: str, file_type: str, doc_id: str) -> str
 
         # If a doc_id is already near the top, leave unchanged
         for line in lines[:50]:
-            if re.search(r"DOC_(ID|LINK):\s*DOC-[A-Z0-9-]+", line):
+            found = re.search(r"DOC_(ID|LINK):\s*(DOC-[A-Z0-9-]+)", line)
+            if found and is_valid(found.group(2)):
                 return content
 
         idx = 0
@@ -367,8 +379,17 @@ def inject_doc_id_into_content(content: str, file_type: str, doc_id: str) -> str
                     break
             if end_idx is not None:
                 fm = lines[1:end_idx]
-                if any(l.strip().startswith("doc_id:") for l in fm):
-                    return content
+                for idx, l in enumerate(fm):
+                    m = re.match(r"doc_id:\s*[\"']?(DOC-[A-Z0-9-]+)", l.strip())
+                    if m:
+                        if is_valid(m.group(1)):
+                            return content
+                        fm[idx] = f"doc_id: {doc_id}"
+                        new_lines = ["---", *fm, "---", *lines[end_idx + 1 :]]
+                        result = "\n".join(new_lines)
+                        if content.endswith("\n"):
+                            result += "\n"
+                        return result
                 new_fm = ["doc_id: " + doc_id] + fm
                 new_lines = ["---", *new_fm, "---", *lines[end_idx + 1 :]]
                 result = "\n".join(new_lines)
@@ -382,10 +403,17 @@ def inject_doc_id_into_content(content: str, file_type: str, doc_id: str) -> str
     # YAML
     if file_type in ("yaml", "yml"):
         lines = content.splitlines()
-        if any(l.strip().startswith("doc_id:") for l in lines[:20]):
-            return content
-        result = "doc_id: " + doc_id + "\n" + content
-        return result
+        for idx, l in enumerate(lines[:20]):
+            m = re.match(r"doc_id:\s*[\"']?(DOC-[A-Z0-9-]+)", l.strip())
+            if m:
+                if is_valid(m.group(1)):
+                    return content
+                lines[idx] = f"doc_id: {doc_id}"
+                result = "\n".join(lines)
+                if content.endswith("\n"):
+                    result += "\n"
+                return result
+        return "doc_id: " + doc_id + "\n" + content
 
     # JSON
     if file_type == "json":
@@ -393,7 +421,9 @@ def inject_doc_id_into_content(content: str, file_type: str, doc_id: str) -> str
             data = json.loads(content)
             if isinstance(data, dict):
                 if "doc_id" in data:
-                    return content
+                    if is_valid(str(data["doc_id"])):
+                        return content
+                data["doc_id"] = doc_id
                 data["doc_id"] = doc_id
                 return json.dumps(data, indent=2) + "\n"
         except json.JSONDecodeError:
@@ -469,7 +499,7 @@ def auto_assign(
     registry = DocIDRegistry()
     available_categories = list(registry.data["categories"].keys())
 
-    missing = [e for e in inventory if e.status == "missing"]
+    missing = [e for e in inventory if e.status in ("missing", "invalid")]
     total_missing = len(missing)
 
     if include_types:

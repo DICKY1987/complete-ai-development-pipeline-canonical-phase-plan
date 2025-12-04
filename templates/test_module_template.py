@@ -3,6 +3,7 @@
 DOC_ID: DOC-TEST-{{module_id}}-001
 Created: {{created_date}}
 """
+DOC_ID: DOC-TEST-TEMPLATES-TEST-MODULE-TEMPLATE-345
 
 from datetime import datetime
 from typing import Any, Dict, List

@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-TESTS-OPENSPEC-CHECKLIST-1358
+doc_id: DOC-GUIDE-TESTS-OPENSPEC-CHECKLIST-833
 ---
 
 # OpenSpec test checklist

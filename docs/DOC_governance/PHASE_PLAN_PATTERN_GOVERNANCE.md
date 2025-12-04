@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-PHASE-PLAN-PATTERN-GOVERNANCE-1631
+doc_id: DOC-GUIDE-PHASE-PLAN-PATTERN-GOVERNANCE-793
 ---
 
 # PHASE PLAN: Pattern System Governance Implementation

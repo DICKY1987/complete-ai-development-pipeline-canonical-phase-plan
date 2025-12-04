@@ -3,7 +3,7 @@ status: draft
 doc_type: guide
 module_refs: []
 script_refs: []
-doc_id: DOC-GUIDE-AUTO_REMEDIATION-102
+doc_id: DOC-GUIDE-DOC-AUTO-REMEDIATION-813
 ---
 
 # Auto-Remediation System

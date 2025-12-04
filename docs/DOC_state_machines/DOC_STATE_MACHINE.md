@@ -3,7 +3,7 @@ status: draft
 doc_type: guide
 module_refs: []
 script_refs: []
-doc_id: DOC-GUIDE-STATE_MACHINE-096
+doc_id: DOC-GUIDE-DOC-STATE-MACHINE-861
 ---
 
 # State machine

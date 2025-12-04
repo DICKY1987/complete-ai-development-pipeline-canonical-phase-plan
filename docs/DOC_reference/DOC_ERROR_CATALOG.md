@@ -3,7 +3,7 @@ status: draft
 doc_type: guide
 module_refs: []
 script_refs: []
-doc_id: DOC-GUIDE-ERROR_CATALOG-114
+doc_id: DOC-GUIDE-DOC-ERROR-CATALOG-846
 ---
 
 # Error Catalog

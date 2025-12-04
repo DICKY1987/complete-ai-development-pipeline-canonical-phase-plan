@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-DATETIME-1099
+doc_id: DOC-GUIDE-DATETIME-766
 ---
 
 # DateTime Rule

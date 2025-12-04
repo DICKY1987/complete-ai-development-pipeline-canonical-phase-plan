@@ -3,7 +3,7 @@ status: draft
 doc_type: guide
 module_refs: []
 script_refs: []
-doc_id: DOC-GUIDE-FILE_ORGANIZATION_QUICK_REF-084
+doc_id: DOC-GUIDE-DOC-FILE-ORGANIZATION-QUICK-REF-847
 ---
 
 # File Organization Quick Reference

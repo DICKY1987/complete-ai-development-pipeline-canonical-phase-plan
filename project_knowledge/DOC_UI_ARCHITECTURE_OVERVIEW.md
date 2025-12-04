@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-UI-ARCHITECTURE-OVERVIEW-1340
+doc_id: DOC-GUIDE-DOC-UI-ARCHITECTURE-OVERVIEW-744
 status: draft
 doc_type: guide
 module_refs:

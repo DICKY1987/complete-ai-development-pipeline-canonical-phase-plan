@@ -3,7 +3,7 @@ status: draft
 doc_type: guide
 module_refs: []
 script_refs: []
-doc_id: DOC-GUIDE-TASK_LIFECYCLE_DIAGRAM-061
+doc_id: DOC-GUIDE-DOC-TASK-LIFECYCLE-DIAGRAM-774
 ---
 
 # Task Lifecycle

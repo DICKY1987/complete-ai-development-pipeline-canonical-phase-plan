@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-TUI-PANEL-FRAMEWORK-GUIDE-1338
+doc_id: DOC-GUIDE-TUI-PANEL-FRAMEWORK-GUIDE-877
 ---
 
 # TUI Panel Framework Guide

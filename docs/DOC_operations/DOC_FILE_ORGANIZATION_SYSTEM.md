@@ -3,7 +3,7 @@ status: draft
 doc_type: guide
 module_refs: []
 script_refs: []
-doc_id: DOC-GUIDE-FILE_ORGANIZATION_SYSTEM-085
+doc_id: DOC-GUIDE-DOC-FILE-ORGANIZATION-SYSTEM-822
 ---
 
 # File Organization System – Development vs System Files

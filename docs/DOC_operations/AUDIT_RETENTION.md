@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-AUDIT-RETENTION-1347
+doc_id: DOC-GUIDE-AUDIT-RETENTION-810
 ---
 
 # Audit Retention Policy

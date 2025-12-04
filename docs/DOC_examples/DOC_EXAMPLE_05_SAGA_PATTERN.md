@@ -3,7 +3,7 @@ status: draft
 doc_type: guide
 module_refs: []
 script_refs: []
-doc_id: DOC-GUIDE-EXAMPLE_SAGA_PATTERN-068
+doc_id: DOC-GUIDE-DOC-EXAMPLE-05-SAGA-PATTERN-782
 ---
 
 # Example 05: SAGA Pattern - Distributed Transactions

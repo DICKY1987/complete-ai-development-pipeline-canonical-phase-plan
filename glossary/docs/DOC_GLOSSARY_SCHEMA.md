@@ -3,7 +3,7 @@ status: draft
 doc_type: guide
 module_refs: []
 script_refs: []
-doc_id: DOC-GUIDE-GLOSSARY_SCHEMA-125
+doc_id: DOC-GUIDE-DOC-GLOSSARY-SCHEMA-873
 ---
 
 # Glossary Term Schema

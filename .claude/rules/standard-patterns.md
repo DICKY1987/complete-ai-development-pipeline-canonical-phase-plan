@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-STANDARD-PATTERNS-1102
+doc_id: DOC-GUIDE-STANDARD-PATTERNS-769
 ---
 
 # Standard Patterns for Commands

@@ -3,7 +3,7 @@ status: draft
 doc_type: guide
 module_refs: []
 script_refs: []
-doc_id: DOC-GUIDE-HARDCODED_PATH_INDEXER-086
+doc_id: DOC-GUIDE-DOC-HARDCODED-PATH-INDEXER-848
 ---
 
 # Hardcoded Path Indexer

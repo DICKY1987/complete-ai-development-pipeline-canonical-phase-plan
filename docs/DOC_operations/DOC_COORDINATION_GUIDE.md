@@ -3,7 +3,7 @@ status: draft
 doc_type: guide
 module_refs: []
 script_refs: []
-doc_id: DOC-GUIDE-COORDINATION_GUIDE-080
+doc_id: DOC-GUIDE-DOC-COORDINATION-GUIDE-817
 ---
 
 # Workstream Coordination Guide

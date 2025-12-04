@@ -3,7 +3,7 @@ status: draft
 doc_type: guide
 module_refs: []
 script_refs: []
-doc_id: DOC-GUIDE-SYSTEM_ARCHITECTURE_DIAGRAM-060
+doc_id: DOC-GUIDE-DOC-SYSTEM-ARCHITECTURE-DIAGRAM-773
 ---
 
 # System Architecture

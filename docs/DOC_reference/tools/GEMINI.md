@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-GEMINI-1373
+doc_id: DOC-GUIDE-GEMINI-868
 ---
 
 # GEMINI.md

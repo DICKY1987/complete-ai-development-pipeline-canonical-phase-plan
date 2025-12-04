@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-AGENT-COORDINATION-1098
+doc_id: DOC-GUIDE-AGENT-COORDINATION-765
 ---
 
 # Agent Coordination

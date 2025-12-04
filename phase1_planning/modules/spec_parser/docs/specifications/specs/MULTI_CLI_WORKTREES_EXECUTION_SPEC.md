@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-MULTI-CLI-WORKTREES-EXECUTION-SPEC-1617
+doc_id: DOC-GUIDE-MULTI-CLI-WORKTREES-EXECUTION-SPEC-882
 ---
 
 Nice, that evaluation is actually perfect fuel for what you want: **multiple CLI instances + git worktrees, but with decision elimination and safety built in**.

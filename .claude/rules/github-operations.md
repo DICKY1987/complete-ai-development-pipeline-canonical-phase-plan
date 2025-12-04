@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-GITHUB-OPERATIONS-1100
+doc_id: DOC-GUIDE-GITHUB-OPERATIONS-767
 ---
 
 # GitHub Operations Rule

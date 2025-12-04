@@ -6,6 +6,7 @@ Usage:
     python scripts/generate_incomplete_report.py
     python scripts/generate_incomplete_report.py --input .state/incomplete_scan.json --output reports/incomplete_report.md
 """
+DOC_ID: DOC-CORE-SYSTEM-ANALYZE-SYS-GENERATE-INCOMPLETE-749
 # DOC_ID: DOC-SCRIPT-GENERATE-INCOMPLETE-REPORT
 
 import json

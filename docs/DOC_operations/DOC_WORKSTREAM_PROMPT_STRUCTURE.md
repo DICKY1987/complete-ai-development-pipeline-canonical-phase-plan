@@ -3,7 +3,7 @@ status: draft
 doc_type: guide
 module_refs: []
 script_refs: []
-doc_id: DOC-GUIDE-WORKSTREAM_PROMPT_STRUCTURE-098
+doc_id: DOC-GUIDE-DOC-WORKSTREAM-PROMPT-STRUCTURE-827
 ---
 
 workstream-style” prompt structure_Aider_Ollama Code_OpenAI Codex_Claude Code

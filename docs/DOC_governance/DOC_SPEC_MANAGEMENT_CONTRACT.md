@@ -3,7 +3,7 @@ status: draft
 doc_type: guide
 module_refs: []
 script_refs: []
-doc_id: DOC-GUIDE-SPEC_MANAGEMENT_CONTRACT-093
+doc_id: DOC-GUIDE-DOC-SPEC-MANAGEMENT-CONTRACT-790
 ---
 
 # Specification Management Contract (SPEC_MGMT_V1)

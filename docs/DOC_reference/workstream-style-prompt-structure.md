@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-WORKSTREAM-STYLE-PROMPT-STRUCTURE-1365
+doc_id: DOC-GUIDE-WORKSTREAM-STYLE-PROMPT-STRUCTURE-859
 ---
 
 Yes — you *can* use one “workstream-style” prompt structure that plays nicely with:

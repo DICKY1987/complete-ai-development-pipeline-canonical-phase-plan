@@ -3,7 +3,7 @@ status: draft
 doc_type: guide
 module_refs: []
 script_refs: []
-doc_id: DOC-GUIDE-EXAMPLE_PARALLEL_EXECUTION-065
+doc_id: DOC-GUIDE-DOC-EXAMPLE-02-PARALLEL-EXECUTION-779
 ---
 
 # Example 02: Parallel Execution - Multi-Step Utilities

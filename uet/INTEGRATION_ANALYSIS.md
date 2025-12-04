@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-INTEGRATION-ANALYSIS-1656
+doc_id: DOC-GUIDE-INTEGRATION-ANALYSIS-750
 ---
 
 # Integration Analysis: Zero-Touch Git Sync → UET Framework
