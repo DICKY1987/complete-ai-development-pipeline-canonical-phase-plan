@@ -3,8 +3,18 @@ from __future__ import annotations
 
 import argparse
 import re
+import sys
 from pathlib import Path
 from typing import Dict, List, Tuple
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+try:
+    from path_registry import resolve_path  # type: ignore
+except Exception:
+
+    def resolve_path(key: str) -> str:
+        raise RuntimeError("path_registry unavailable")
+
 
 try:
     import yaml  # type: ignore
@@ -12,14 +22,23 @@ except Exception:  # pragma: no cover
     yaml = None  # type: ignore
 
 
-PATH_REGEX = re.compile(r"(?P<path>(?:[A-Za-z]:\\\\|\\\\\\\\|\.|~)?(?:[\\/][^\\/\n\r\t\f\v\)\]\s]+){1,})")
+PATH_REGEX = re.compile(
+    r"(?P<path>(?:[A-Za-z]:\\\\|\\\\\\\\|\.|~)?(?:[\\/][^\\/\n\r\t\f\v\)\]\s]+){1,})"
+)
 MD_LINK_REGEX = re.compile(r"(\[([^\]]+)\])\(([^)]+)\)")
 
 
+def _resolve_or_default(key: str, default: str) -> str:
+    try:
+        return resolve_path(key)
+    except Exception:
+        return default
+
+
 DEFAULT_INCLUDE = [
-    "PHASE_DEV_DOCS",
-    "plans",
-    "Coordination Mechanisms",
+    _resolve_or_default("docs.phase_dev_root", "PHASE_DEV_DOCS"),
+    _resolve_or_default("docs.plans_root", "plans"),
+    _resolve_or_default("docs.coord_mech_root", "Coordination Mechanisms"),
 ]
 DOC_EXTS = {".md", ".txt"}
 
@@ -46,7 +65,7 @@ def normalize_one(path: str, canonical_table: Dict[str, str]) -> str:
         for key, target in canonical_table.items():
             if head == key.lower():
                 # Replace with canonical head (strip trailing / from target)
-                canon_head = target[:-1] if target.endswith('/') else target
+                canon_head = target[:-1] if target.endswith("/") else target
                 parts[0] = canon_head
                 break
     return "/".join(parts)
@@ -81,7 +100,7 @@ def normalize_content(text: str, canonical_table: Dict[str, str]) -> Tuple[str, 
 def iter_target_files(root: Path, includes: List[str]) -> List[Path]:
     files: List[Path] = []
     for inc in includes:
-        base = (root / inc)
+        base = root / inc
         if not base.exists():
             continue
         for fp in base.rglob("*"):
@@ -108,12 +127,20 @@ def build_canonical_table(cfg: Dict) -> Dict[str, str]:
 
 
 def main() -> None:
-    ap = argparse.ArgumentParser(description="Normalize path references in docs for WS-03")
+    ap = argparse.ArgumentParser(
+        description="Normalize path references in docs for WS-03"
+    )
     ap.add_argument("--root", default=".")
     ap.add_argument("--config", default="config/section_map.yaml")
-    ap.add_argument("--sections", nargs="*", default=DEFAULT_INCLUDE,
-                    help="Top-level folders to include (default: PHASE_DEV_DOCS, plans, Coordination Mechanisms)")
-    ap.add_argument("--apply", action="store_true", help="Write changes (default is dry-run)")
+    ap.add_argument(
+        "--sections",
+        nargs="*",
+        default=DEFAULT_INCLUDE,
+        help="Top-level folders to include (default: PHASE_DEV_DOCS, plans, Coordination Mechanisms)",
+    )
+    ap.add_argument(
+        "--apply", action="store_true", help="Write changes (default is dry-run)"
+    )
     args = ap.parse_args()
 
     root = Path(args.root).resolve()
@@ -145,4 +172,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

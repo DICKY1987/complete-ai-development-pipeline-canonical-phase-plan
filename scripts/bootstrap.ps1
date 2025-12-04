@@ -27,7 +27,18 @@ if (Get-Command node -ErrorAction SilentlyContinue) {
   Write-Host "  - Node.js not found (skip)"
 }
 
-Write-Host "[bootstrap] Done. See AGENTS.md for workflow details."
+# Resolve AGENTS.md via registry (fallback to literal)
+$agentsPath = "AGENTS.md"
+$pathsResolveCli = Join-Path $PSScriptRoot "dev/paths_resolve_cli.py"
+if (Test-Path -LiteralPath $pathsResolveCli) {
+  try {
+    $resolved = python $pathsResolveCli resolve governance.agents_rules | Select-Object -Last 1
+    if ($resolved) { $agentsPath = $resolved.Trim() }
+  } catch {
+    # fallback
+  }
+}
+Write-Host "[bootstrap] Done. See $agentsPath for workflow details."
 
 # CCPM presence check and optional auto-install
 try {
@@ -51,4 +62,3 @@ if (-not (Test-Path -LiteralPath $ccpmPmDir)) {
 } else {
   Write-Host "[bootstrap] CCPM found: $ccpmPmDir"
 }
-

@@ -54,13 +54,23 @@ catch {
 
 # Hardcoded path gate (code+config only). Enable with LEGACY_PATH_GATE=1
 if ($env:LEGACY_PATH_GATE -and ($env:LEGACY_PATH_GATE -in @('1','true','True'))) {
+  # Resolve registry-backed paths for the CLI and database
+  $pathsResolveCli = "scripts/dev/paths_resolve_cli.py"
+  $pathsIndexCliKey = "scripts.dev__paths_index_cli_py"
+  $pathsIndexCli = python $pathsResolveCli resolve $pathsIndexCliKey | Select-Object -Last 1
+  $pathsIndexCli = $pathsIndexCli.Trim()
+
+  $pathDbKey = "root.refactor_paths_db"
+  $pathDb = python $pathsResolveCli resolve $pathDbKey | Select-Object -Last 1
+  $pathDb = $pathDb.Trim()
+
   try {
     Write-Host "[test] Path index scan"
-    python scripts/paths_index_cli.py scan --root . --db refactor_paths.db --reset | Out-Null
+    python $pathsIndexCli scan --root . --db $pathDb --reset | Out-Null
 
     Write-Host "[test] Gate: fail on legacy paths (code+config)"
     $legacyRegex = ('src' + '/pipeline') + '|MOD_' + 'ERROR_PIPELINE|PHASE_DEV_DOCS'
-    python scripts/paths_index_cli.py gate --db refactor_paths.db --regex $legacyRegex
+    python $pathsIndexCli gate --db $pathDb --regex $legacyRegex
     if ($LASTEXITCODE -ne 0) { $exit = $LASTEXITCODE }
   }
   catch {

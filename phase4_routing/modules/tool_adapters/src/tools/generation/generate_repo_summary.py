@@ -24,11 +24,30 @@ from typing import Any, Dict, List
 
 import yaml
 
+# Enable optional path registry resolution
+repo_root = Path(__file__).resolve().parents[3]
+sys.path.append(str(repo_root))
+sys.path.append(str(repo_root / "src"))
+try:
+    from path_registry import resolve_path  # type: ignore
+except Exception:
+
+    def resolve_path(key: str) -> str:
+        raise RuntimeError("path_registry unavailable")
+
+
+def resolve_or(key: str, default: str) -> str:
+    """Resolve a registry key with a safe fallback."""
+    try:
+        return resolve_path(key)
+    except Exception:
+        return default
+
 
 def load_yaml(path: Path) -> Dict[str, Any]:
     """Load YAML file with error handling."""
     try:
-        with open(path, 'r', encoding='utf-8') as f:
+        with open(path, "r", encoding="utf-8") as f:
             return yaml.safe_load(f) or {}
     except FileNotFoundError:
         print(f"Warning: {path} not found, skipping")
@@ -41,7 +60,7 @@ def load_yaml(path: Path) -> Dict[str, Any]:
 def load_markdown(path: Path) -> str:
     """Load markdown file content."""
     try:
-        with open(path, 'r', encoding='utf-8') as f:
+        with open(path, "r", encoding="utf-8") as f:
             return f.read()
     except FileNotFoundError:
         print(f"Warning: {path} not found, skipping")
@@ -50,123 +69,144 @@ def load_markdown(path: Path) -> str:
 
 def extract_architecture_summary(arch_md: str) -> str:
     """Extract key points from ARCHITECTURE.md."""
-    lines = arch_md.split('\n')
+    lines = arch_md.split("\n")
     summary_lines = []
 
     # Extract first paragraph after header
     in_summary = False
     for line in lines:
-        if line.startswith('## High-Level Architecture'):
+        if line.startswith("## High-Level Architecture"):
             in_summary = True
             continue
         if in_summary:
-            if line.startswith('##'):
+            if line.startswith("##"):
                 break
             if line.strip():
                 summary_lines.append(line.strip())
 
-    return ' '.join(summary_lines[:3]) if summary_lines else "Multi-phase AI development pipeline with section-based organization."
+    return (
+        " ".join(summary_lines[:3])
+        if summary_lines
+        else "Multi-phase AI development pipeline with section-based organization."
+    )
 
 
 def generate_summary(
     codebase_index: Dict[str, Any],
     project_profile: Dict[str, Any],
     arch_md: str,
-    directory_guide: str
+    directory_guide: str,
 ) -> Dict[str, Any]:
     """Generate repository summary data structure."""
 
-    metadata = codebase_index.get('metadata', {})
-    modules = codebase_index.get('modules', [])
-    layers = codebase_index.get('layers', [])
+    metadata = codebase_index.get("metadata", {})
+    modules = codebase_index.get("modules", [])
+    layers = codebase_index.get("layers", [])
 
     # Build module statistics
     module_count = len(modules)
     layer_distribution = {}
     for layer in layers:
-        layer_id = layer['id']
-        layer_distribution[layer_id] = len([m for m in modules if m.get('layer') == layer_id])
+        layer_id = layer["id"]
+        layer_distribution[layer_id] = len(
+            [m for m in modules if m.get("layer") == layer_id]
+        )
 
     # Extract key modules (HIGH priority)
     key_modules = [
         {
-            'id': m['id'],
-            'name': m['name'],
-            'path': m['path'],
-            'purpose': m.get('purpose', ''),
-            'layer': m.get('layer', '')
+            "id": m["id"],
+            "name": m["name"],
+            "path": m["path"],
+            "purpose": m.get("purpose", ""),
+            "layer": m.get("layer", ""),
         }
         for m in modules
-        if m.get('ai_priority') == 'HIGH'
+        if m.get("ai_priority") == "HIGH"
     ]
 
     # Build dependency graph stats
-    total_dependencies = sum(len(m.get('depends_on', [])) for m in modules)
+    total_dependencies = sum(len(m.get("depends_on", [])) for m in modules)
 
     # Extract architecture summary
     arch_summary = extract_architecture_summary(arch_md)
 
     return {
-        'repository': {
-            'name': metadata.get('repository', project_profile.get('project_name', 'Unknown')),
-            'version': metadata.get('version', project_profile.get('profile_version', '1.0.0')),
-            'root': project_profile.get('project_root', '.'),
-            'description': arch_summary
+        "repository": {
+            "name": metadata.get(
+                "repository", project_profile.get("project_name", "Unknown")
+            ),
+            "version": metadata.get(
+                "version", project_profile.get("profile_version", "1.0.0")
+            ),
+            "root": project_profile.get("project_root", "."),
+            "description": arch_summary,
         },
-        'architecture': {
-            'style': 'section-based',
-            'layers': [
+        "architecture": {
+            "style": "section-based",
+            "layers": [
                 {
-                    'id': layer['id'],
-                    'name': layer['name'],
-                    'description': layer.get('description', ''),
-                    'module_count': layer_distribution.get(layer['id'], 0)
+                    "id": layer["id"],
+                    "name": layer["name"],
+                    "description": layer.get("description", ""),
+                    "module_count": layer_distribution.get(layer["id"], 0),
                 }
                 for layer in layers
-            ]
+            ],
         },
-        'modules': {
-            'total': module_count,
-            'by_layer': layer_distribution,
-            'key_modules': key_modules
+        "modules": {
+            "total": module_count,
+            "by_layer": layer_distribution,
+            "key_modules": key_modules,
         },
-        'dependencies': {
-            'total_edges': total_dependencies,
-            'average_per_module': round(total_dependencies / module_count, 2) if module_count > 0 else 0
+        "dependencies": {
+            "total_edges": total_dependencies,
+            "average_per_module": (
+                round(total_dependencies / module_count, 2) if module_count > 0 else 0
+            ),
         },
-        'quality': {
-            'test_framework': 'pytest',
-            'ci_enforced': True,
-            'path_standards': 'section-based imports',
-            'validation_scripts': [
-                'scripts/validate_workstreams.py',
-                'scripts/validate_workstreams_authoring.py',
-                'scripts/test.ps1'
-            ]
+        "quality": {
+            "test_framework": "pytest",
+            "ci_enforced": True,
+            "path_standards": "section-based imports",
+            "validation_scripts": [
+                "scripts/validate_workstreams.py",
+                "scripts/validate_workstreams_authoring.py",
+                "scripts/test.ps1",
+            ],
         },
-        'documentation': {
-            'architecture': 'docs/ARCHITECTURE.md',
-            'directory_guide': 'DIRECTORY_GUIDE.md',
-            'codebase_index': 'CODEBASE_INDEX.yaml',
-            'agents_guide': 'AGENTS.md',
-            'documentation_index': 'docs/DOCUMENTATION_INDEX.md'
+        "documentation": {
+            "architecture": str(arch_md_path.relative_to(repo_root)),
+            "directory_guide": str(directory_guide_path.relative_to(repo_root)),
+            "codebase_index": "CODEBASE_INDEX.yaml",
+            "agents_guide": resolve_or("governance.agents_rules", "AGENTS.md"),
+            "documentation_index": resolve_or(
+                "docs.documentation_index", "docs/DOCUMENTATION_INDEX.md"
+            ),
+            "path_abstraction_layer": resolve_or(
+                "docs.path_abstraction_layer",
+                "docs/PATH ABSTRACTION & INDIRECTION LAYER.md",
+            ),
+            "uet_abstraction": resolve_or(
+                "docs.uet_abstraction_guidelines", "docs/UET_ABSTRACTION_GUIDELINES.md"
+            ),
         },
-        'generated': {
-            'timestamp': '2025-11-22T20:54:48Z',
-            'generator': 'scripts/generate_repo_summary.py',
-            'version': '1.0.0'
-        }
+        "generated": {
+            "timestamp": "2025-11-22T20:54:48Z",
+            "generator": "scripts/generate_repo_summary.py",
+            "version": "1.0.0",
+        },
     }
 
 
 def generate_markdown(summary: Dict[str, Any]) -> str:
     """Generate human-readable markdown summary."""
-    repo = summary['repository']
-    arch = summary['architecture']
-    modules = summary['modules']
-    deps = summary['dependencies']
-    quality = summary['quality']
-    docs = summary['documentation']
+    repo = summary["repository"]
+    arch = summary["architecture"]
+    modules = summary["modules"]
+    deps = summary["dependencies"]
+    quality = summary["quality"]
+    docs = summary["documentation"]
 
     md = f"""# Repository Summary
 
@@ -185,7 +225,7 @@ def generate_markdown(summary: Dict[str, Any]) -> str:
 
 """
 
-    for layer in arch['layers']:
+    for layer in arch["layers"]:
         md += f"- **{layer['name']}** (`{layer['id']}`): {layer['description']} ({layer['module_count']} modules)\n"
 
     md += f"""
@@ -197,12 +237,12 @@ def generate_markdown(summary: Dict[str, Any]) -> str:
 
 """
 
-    for layer_id, count in modules['by_layer'].items():
+    for layer_id, count in modules["by_layer"].items():
         md += f"- {layer_id}: {count} modules\n"
 
     md += "\n### Key Modules (HIGH Priority)\n\n"
 
-    for mod in modules['key_modules']:
+    for mod in modules["key_modules"]:
         md += f"- **{mod['name']}** (`{mod['id']}`)\n"
         md += f"  - Path: `{mod['path']}`\n"
         md += f"  - Layer: `{mod['layer']}`\n"
@@ -222,7 +262,7 @@ def generate_markdown(summary: Dict[str, Any]) -> str:
 **Validation Scripts**:
 """
 
-    for script in quality['validation_scripts']:
+    for script in quality["validation_scripts"]:
         md += f"- `{script}`\n"
 
     md += "\n## Documentation\n\n"
@@ -247,40 +287,50 @@ def main():
     print("Loading repository data...")
 
     # Load source files
-    codebase_index = load_yaml(repo_root / 'CODEBASE_INDEX.yaml')
-    project_profile = load_yaml(repo_root / 'PROJECT_PROFILE.yaml')
-    arch_md = load_markdown(repo_root / 'docs' / 'ARCHITECTURE.md')
-    directory_guide = load_markdown(repo_root / 'DIRECTORY_GUIDE.md')
+    codebase_index = load_yaml(repo_root / "CODEBASE_INDEX.yaml")
+    project_profile = load_yaml(repo_root / "PROJECT_PROFILE.yaml")
+    arch_md_path = repo_root / resolve_or(
+        "docs.architecture_main", "docs/ARCHITECTURE.md"
+    )
+    directory_guide_path = repo_root / resolve_or(
+        "docs.directory_guide", "DIRECTORY_GUIDE.md"
+    )
+    arch_md = load_markdown(arch_md_path)
+    directory_guide = load_markdown(directory_guide_path)
 
     if not codebase_index:
         print("Error: CODEBASE_INDEX.yaml is required")
         sys.exit(1)
 
     print("Generating summary data...")
-    summary = generate_summary(codebase_index, project_profile, arch_md, directory_guide)
+    summary = generate_summary(
+        codebase_index, project_profile, arch_md, directory_guide
+    )
 
     # Ensure output directory exists
-    output_dir = repo_root / '.meta' / 'ai_context'
+    output_dir = repo_root / ".meta" / "ai_context"
     output_dir.mkdir(parents=True, exist_ok=True)
 
     # Write JSON
-    json_path = output_dir / 'repo_summary.json'
+    json_path = output_dir / "repo_summary.json"
     print(f"Writing {json_path}...")
-    with open(json_path, 'w', encoding='utf-8') as f:
+    with open(json_path, "w", encoding="utf-8") as f:
         json.dump(summary, f, indent=2, ensure_ascii=False)
 
     # Write Markdown
-    md_path = output_dir / 'repo_summary.md'
+    md_path = output_dir / "repo_summary.md"
     print(f"Writing {md_path}...")
     markdown = generate_markdown(summary)
-    with open(md_path, 'w', encoding='utf-8') as f:
+    with open(md_path, "w", encoding="utf-8") as f:
         f.write(markdown)
 
     print(f"\n✓ Repository summary generated successfully")
     print(f"  - JSON: {json_path}")
     print(f"  - Markdown: {md_path}")
-    print(f"\nSummary: {summary['modules']['total']} modules, {summary['dependencies']['total_edges']} dependencies")
+    print(
+        f"\nSummary: {summary['modules']['total']} modules, {summary['dependencies']['total_edges']} dependencies"
+    )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

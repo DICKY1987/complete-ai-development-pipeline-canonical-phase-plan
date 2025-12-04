@@ -2,6 +2,7 @@
 
 This file is loaded before any tests and sets up the Python path.
 """
+
 # DOC_ID: DOC-CORE-CONFTEST-317
 # DOC_ID: DOC-CORE-CONFTEST-240
 # DOC_ID: DOC-CORE-CONFTEST-201
@@ -28,4 +29,3 @@ def pytest_configure(config):
     project_root = Path(__file__).parent
     if str(project_root) not in sys.path:
         sys.path.insert(0, str(project_root))
-

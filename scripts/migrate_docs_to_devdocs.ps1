@@ -148,7 +148,6 @@ $migrations = @(
 # Files to delete (stale auto-generated)
 $filesToDelete = @(
     "DOCUMENTATION_INDEX_AUTO.md",
-    "DOCUMENTATION_INDEX_GENERATED.md",
     "IMPLEMENTATION_LOCATIONS_AUTO.md"
 )
 

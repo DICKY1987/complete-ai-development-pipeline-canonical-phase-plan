@@ -5,12 +5,19 @@ import argparse
 import csv
 import json
 import sqlite3
+import sys
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Tuple
 
-import sys
-sys.path.append(str(Path(__file__).resolve().parents[2]))
+repo_root = Path(__file__).resolve().parents[2]
+sys.path.append(str(repo_root))
+sys.path.append(str(repo_root / "src"))
 from tools.hardcoded_path_indexer import scan_repository
+
+try:
+    from path_registry import resolve_path  # type: ignore
+except Exception:
+    resolve_path = None  # type: ignore
 
 
 def _open_db(db_path: Path) -> sqlite3.Connection:
@@ -21,12 +28,16 @@ def _open_db(db_path: Path) -> sqlite3.Connection:
 def cmd_scan(args: argparse.Namespace) -> None:
     root = Path(args.root).resolve()
     db = Path(args.db).resolve()
-    files, occ = scan_repository(root, db, reset=args.reset, include_hidden=args.include_hidden)
+    files, occ = scan_repository(
+        root, db, reset=args.reset, include_hidden=args.include_hidden
+    )
     print(f"Scanned files: {files}")
     print(f"Occurrences inserted: {occ}")
 
 
-def _query(conn: sqlite3.Connection, sql: str, params: Tuple[Any, ...] = ()) -> List[Tuple[Any, ...]]:
+def _query(
+    conn: sqlite3.Connection, sql: str, params: Tuple[Any, ...] = ()
+) -> List[Tuple[Any, ...]]:
     cur = conn.cursor()
     cur.execute(sql, params)
     return list(cur.fetchall())
@@ -92,7 +103,9 @@ def cmd_gate(args: argparse.Namespace) -> None:
             matches.append((str(f), int(ln), str(val)))
 
     if matches:
-        print(f"Gate failed: {len(matches)} legacy occurrences matched regex: {args.regex}")
+        print(
+            f"Gate failed: {len(matches)} legacy occurrences matched regex: {args.regex}"
+        )
         for f, ln, v in matches[: args.limit]:
             print(f"  {f}:{ln} -> {v[:160]}")
         raise SystemExit(2)
@@ -129,7 +142,9 @@ def cmd_gate(args: argparse.Namespace) -> None:
             matches.append((str(f), int(ln), str(val)))
 
     if matches:
-        print(f"Gate failed: {len(matches)} legacy occurrences matched regex: {args.regex}")
+        print(
+            f"Gate failed: {len(matches)} legacy occurrences matched regex: {args.regex}"
+        )
         for f, ln, v in matches[: args.limit]:
             print(f"  {f}:{ln} -> {v[:160]}")
         raise SystemExit(2)
@@ -141,8 +156,14 @@ def cmd_summary(args: argparse.Namespace) -> None:
     db = Path(args.db).resolve()
     conn = _open_db(db)
     try:
-        by_kind = _query(conn, "SELECT kind, COUNT(*) FROM occurrences GROUP BY kind ORDER BY COUNT(*) DESC")
-        by_pattern = _query(conn, "SELECT COALESCE(pattern,'-') as pat, COUNT(*) FROM occurrences GROUP BY pat ORDER BY COUNT(*) DESC LIMIT 50")
+        by_kind = _query(
+            conn,
+            "SELECT kind, COUNT(*) FROM occurrences GROUP BY kind ORDER BY COUNT(*) DESC",
+        )
+        by_pattern = _query(
+            conn,
+            "SELECT COALESCE(pattern,'-') as pat, COUNT(*) FROM occurrences GROUP BY pat ORDER BY COUNT(*) DESC LIMIT 50",
+        )
         files = _query(conn, "SELECT COUNT(*) FROM files")
     finally:
         conn.close()
@@ -186,7 +207,9 @@ def cmd_export(args: argparse.Namespace) -> None:
     elif args.format == "csv":
         with out.open("w", newline="", encoding="utf-8") as f:
             w = csv.writer(f)
-            w.writerow(["file_path", "line_no", "kind", "pattern", "value", "context", "ext"])
+            w.writerow(
+                ["file_path", "line_no", "kind", "pattern", "value", "context", "ext"]
+            )
             for r in rows:
                 w.writerow(r)
         print(f"Exported {len(rows)} rows to {out}")
@@ -195,18 +218,33 @@ def cmd_export(args: argparse.Namespace) -> None:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    p = argparse.ArgumentParser(prog="paths_index_cli", description="Hardcoded path indexer CLI")
+    p = argparse.ArgumentParser(
+        prog="paths_index_cli", description="Hardcoded path indexer CLI"
+    )
     sub = p.add_subparsers(dest="cmd", required=True)
+
+    default_db = "refactor_paths.db"
+    if resolve_path:
+        try:
+            default_db = resolve_path("root.refactor_paths_db")
+        except Exception:
+            default_db = "refactor_paths.db"
 
     s_scan = sub.add_parser("scan", help="Scan repository and persist to SQLite")
     s_scan.add_argument("--root", default=".", help="Repository root (default: .)")
-    s_scan.add_argument("--db", default="refactor_paths.db", help="SQLite db path (default: refactor_paths.db)")
-    s_scan.add_argument("--reset", action="store_true", help="Reset database before scanning")
-    s_scan.add_argument("--include-hidden", action="store_true", help="Include hidden files and folders")
+    s_scan.add_argument(
+        "--db", default=default_db, help=f"SQLite db path (default: {default_db})"
+    )
+    s_scan.add_argument(
+        "--reset", action="store_true", help="Reset database before scanning"
+    )
+    s_scan.add_argument(
+        "--include-hidden", action="store_true", help="Include hidden files and folders"
+    )
     s_scan.set_defaults(func=cmd_scan)
 
     s_rep = sub.add_parser("report", help="Print occurrences filtered by criteria")
-    s_rep.add_argument("--db", default="refactor_paths.db")
+    s_rep.add_argument("--db", default=default_db)
     s_rep.add_argument("--kind")
     s_rep.add_argument("--pattern")
     s_rep.add_argument("--file")
@@ -214,20 +252,26 @@ def build_parser() -> argparse.ArgumentParser:
     s_rep.set_defaults(func=cmd_report)
 
     s_sum = sub.add_parser("summary", help="Show aggregate counts by kind and pattern")
-    s_sum.add_argument("--db", default="refactor_paths.db")
+    s_sum.add_argument("--db", default=default_db)
     s_sum.set_defaults(func=cmd_summary)
 
     s_exp = sub.add_parser("export", help="Export all occurrences to JSON/CSV")
-    s_exp.add_argument("--db", default="refactor_paths.db")
+    s_exp.add_argument("--db", default=default_db)
     s_exp.add_argument("--format", choices=["json", "csv"], default="json")
     s_exp.add_argument("--out", required=True)
     s_exp.set_defaults(func=cmd_export)
 
     s_gate = sub.add_parser("gate", help="Fail if regex matches occurrences (CI gate)")
-    s_gate.add_argument("--db", default="refactor_paths.db")
-    s_gate.add_argument("--regex", required=True, help="Regex to match against occurrence values")
-    s_gate.add_argument("--limit", type=int, default=50, help="Print up to N matches (default 50)")
-    s_gate.add_argument("--all-exts", action="store_true", help="Include docs (.md/.txt) in gate checks")
+    s_gate.add_argument("--db", default=default_db)
+    s_gate.add_argument(
+        "--regex", required=True, help="Regex to match against occurrence values"
+    )
+    s_gate.add_argument(
+        "--limit", type=int, default=50, help="Print up to N matches (default 50)"
+    )
+    s_gate.add_argument(
+        "--all-exts", action="store_true", help="Include docs (.md/.txt) in gate checks"
+    )
     s_gate.set_defaults(func=cmd_gate)
 
     return p

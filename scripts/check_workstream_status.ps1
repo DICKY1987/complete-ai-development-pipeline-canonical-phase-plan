@@ -90,7 +90,10 @@ Check-File "tests/pipeline/test_spec_index.py" | Out-Null
 Write-Host
 Write-Host "  ws-ph01-docs (Codex):"
 Write-Host "    docs/ARCHITECTURE.md (updated):"
-Check-File "docs/ARCHITECTURE.md" | Out-Null
+$archPath = (& python scripts/paths_resolve_cli.py resolve docs.architecture_main) 2>$null
+if (-not $archPath) { $archPath = "docs/ARCHITECTURE.md" }
+$archPath = $archPath.Trim()
+Check-File $archPath | Out-Null
 Write-Host
 
 # PH-02
@@ -154,7 +157,10 @@ Check-File "tests/pipeline/test_tools.py" | Out-Null
 Write-Host
 Write-Host "  ws-ph03-docs (Codex):"
 Write-Host "    docs/PHASE_PLAN.md (updated):"
-Check-File "docs/PHASE_PLAN.md" | Out-Null
+$phasePlan = (& python scripts/paths_resolve_cli.py resolve docs.phase_plan) 2>$null
+if (-not $phasePlan) { $phasePlan = "docs/PHASE_PLAN.md" }
+$phasePlan = $phasePlan.Trim()
+Check-File $phasePlan | Out-Null
 Write-Host
 
 Write-Section "SUMMARY"

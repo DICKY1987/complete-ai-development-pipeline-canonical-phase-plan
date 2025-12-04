@@ -2,16 +2,16 @@
   "job_id": "job-2025-11-20-001",
   "run_id": "run-20251120-001",
   "workstream_id": "ws-PH07-refactor-path-resolver",
-  "tool": "aider",
-  "command": {
-    "exe": "aider",
-    "args": [
-      "--message-file",
-      "PHASE_DEV_DOCS/AIDER_INSTRUCTIONS_PH07.txt",
-      "--yes-always",
-      "--no-suggest-shell-commands"
-    ]
-  },
+      "tool": "aider",
+      "command": {
+        "exe": "aider",
+        "args": [
+          "--message-file",
+          "{{ paths.resolve('docs.aider_instructions_ph07') }}",
+          "--yes-always",
+          "--no-suggest-shell-commands"
+        ]
+      },
   "env": {
     "OLLAMA_API_BASE": "http://127.0.0.1:11434",
     "OPENAI_API_KEY": "",
@@ -27,7 +27,7 @@
     "retry_policy": "escalate_to_codex",
     "timeout_seconds": 600,
     "max_retries": 3,
-    "message_file": "PHASE_DEV_DOCS/AIDER_INSTRUCTIONS_PH07.txt",
+    "message_file": "{{ paths.resolve('docs.aider_instructions_ph07') }}",
     "files_scope": [
       "core/planning/planner.py",
       "core/planning/archive.py"

@@ -519,6 +519,27 @@ paths:
     patterns__legacy_atoms__converted__templates__module_readme_md:
       path: _ARCHIVE/patterns/legacy_atoms/converted/templates/module-readme.md
       section: ARCHIVE
+    patterns_old_github_sync_20251204__gh_epic_sync_py:
+      path: _ARCHIVE/patterns_old_github_sync_20251204/gh_epic_sync.py
+      section: ARCHIVE
+    patterns_old_github_sync_20251204__gh_issue_update_py:
+      path: _ARCHIVE/patterns_old_github_sync_20251204/gh_issue_update.py
+      section: ARCHIVE
+    patterns_old_github_sync_20251204__github_sync_executors__EXAMPLE_md:
+      path: _ARCHIVE/patterns_old_github_sync_20251204/github_sync_executors/EXAMPLE.md
+      section: ARCHIVE
+    patterns_old_github_sync_20251204__github_sync_executors__README_md:
+      path: _ARCHIVE/patterns_old_github_sync_20251204/github_sync_executors/README.md
+      section: ARCHIVE
+    patterns_old_github_sync_20251204__github_sync_executors__phase_sync_py:
+      path: _ARCHIVE/patterns_old_github_sync_20251204/github_sync_executors/phase_sync.py
+      section: ARCHIVE
+    patterns_old_github_sync_20251204__splinter_sync_phase_to_github_py:
+      path: _ARCHIVE/patterns_old_github_sync_20251204/splinter_sync_phase_to_github.py
+      section: ARCHIVE
+    patterns_old_github_sync_20251204__tests__GH_SYNC_PHASE_V1_test_py:
+      path: _ARCHIVE/patterns_old_github_sync_20251204/tests/GH_SYNC_PHASE_V1_test.py
+      section: ARCHIVE
   File_Watcher_LOCAL_DIR:
     Watch_PhaseDocs_ps1:
       path: File_Watcher_LOCAL_DIR/Watch-PhaseDocs.ps1
@@ -707,6 +728,10 @@ paths:
       section: core
     bootstrap__validator_py:
       path: core/bootstrap/validator.py
+      section: core
+    db:
+      description: Core state database module.
+      path: core/state/db.py
       section: core
     engine__README_md:
       path: core/engine/README.md
@@ -954,12 +979,6 @@ paths:
       section: doc_id
     DOC_ID_SYSTEM_STATUS_md:
       path: doc_id/DOC_ID_SYSTEM_STATUS.md
-      section: doc_id
-    DOC_ID_reports__import_errors_log:
-      path: doc_id/DOC_ID_reports/import_errors.log
-      section: doc_id
-    DOC_ID_reports__import_errors_retry_log:
-      path: doc_id/DOC_ID_reports/import_errors_retry.log
       section: doc_id
     MODFILEID_PLAN_ANALYSIS_md:
       path: doc_id/MODFILEID_PLAN_ANALYSIS.md
@@ -1538,11 +1557,83 @@ paths:
     aicontext:
       path: docs/.aicontext
       section: docs
+    aider_instructions_ph07:
+      description: Aider instructions for PH07 (historical reference).
+      path: meta/PHASE_DEV_DOCS/AIDER_INSTRUCTIONS_PH07.txt
+      section: docs
+    architecture_main:
+      description: Primary architecture overview document.
+      path: docs/ARCHITECTURE.md
+      section: docs
+    check_workstream_status_ps1:
+      description: Workstream status checker (PowerShell).
+      path: scripts/check_workstream_status.ps1
+      section: scripts
+    check_workstream_status_sh:
+      description: Workstream status checker (shell).
+      path: scripts/check_workstream_status.sh
+      section: scripts
+    coord_mech_root:
+      description: Coordination mechanisms docs root.
+      path: meta/Coordination Mechanisms
+      section: docs
+    directory_guide:
+      description: Guide to repository directory structure.
+      path: DIRECTORY_GUIDE.md
+      section: docs
+    documentation_index:
+      description: Documentation index entry point.
+      path: docs/DOCUMENTATION_INDEX.md
+      section: docs
+    folder_structure_phase_mapping:
+      description: Folder structure mapped to phases reference.
+      path: Folder Structure to Phase Mapping.md
+      section: docs
     gitkeep:
       path: docs/.gitkeep
       section: docs
     guides:
       path: docs/guides
+      section: docs
+    master_plan:
+      description: Master plan overview document.
+      path: master_plan.md
+      section: docs
+    path_abstraction_layer:
+      description: Path indirection layer specification.
+      path: docs/PATH ABSTRACTION & INDIRECTION LAYER.md
+      section: docs
+    phase_dev_root:
+      description: Canonical root for phase development documents.
+      path: meta/PHASE_DEV_DOCS
+      section: docs
+    phase_directory_map:
+      description: Mapping of phases to directories.
+      path: PHASE_DIRECTORY_MAP.md
+      section: docs
+    phase_plan:
+      description: Phase plan overview document.
+      path: docs/PHASE_PLAN.md
+      section: docs
+    plans_root:
+      description: Canonical root for plan documents.
+      path: plans
+      section: docs
+    readme:
+      description: Repository overview README.
+      path: README.md
+      section: docs
+    safe_merge_phase_plan:
+      description: Safe merge phase plan guidance.
+      path: SAFE_MERGE_PHASE_PLAN.md
+      section: docs
+    ssot_policy:
+      description: Glossary SSOT policy completion summary.
+      path: SSOT_POLICY_MISSION_COMPLETE.md
+      section: docs
+    uet_abstraction_guidelines:
+      description: Abstraction guidance for UET stack.
+      path: docs/UET_ABSTRACTION_GUIDELINES.md
       section: docs
   github:
     GITHUB_INTEGRATION_V2_COMPLETE_md:
@@ -1557,11 +1648,17 @@ paths:
     copilot_instructions_md:
       path: .github/copilot-instructions.md
       section: github
+    github_integration_v2__CONSOLIDATION_SUMMARY_md:
+      path: .github/github_integration_v2/CONSOLIDATION_SUMMARY.md
+      section: github
     github_integration_v2__FILE_INVENTORY_md:
       path: .github/github_integration_v2/FILE_INVENTORY.md
       section: github
     github_integration_v2__GITHUB_INTEGRATION_V2_COMPLETE_md:
       path: .github/github_integration_v2/GITHUB_INTEGRATION_V2_COMPLETE.md
+      section: github
+    github_integration_v2__MIGRATION_COMPLETE_md:
+      path: .github/github_integration_v2/MIGRATION_COMPLETE.md
       section: github
     github_integration_v2__README_md:
       path: .github/github_integration_v2/README.md
@@ -1577,6 +1674,9 @@ paths:
       section: github
     github_integration_v2__executors__README_md:
       path: .github/github_integration_v2/executors/README.md
+      section: github
+    github_integration_v2__executors__init_py:
+      path: .github/github_integration_v2/executors/__init__.py
       section: github
     github_integration_v2__executors__phase_sync_py:
       path: .github/github_integration_v2/executors/phase_sync.py
@@ -1810,6 +1910,11 @@ paths:
     updates__example_add_uet_schemas_yaml:
       path: glossary/updates/example-add-uet-schemas.yaml
       section: glossary
+  governance:
+    agents_rules:
+      description: Global repository rules for AI agents.
+      path: AGENTS.md
+      section: governance
   gui:
     DECISION_LOG_APPROVAL_DECISION_INTERFACE_md:
       path: gui/DECISION_LOG_APPROVAL_DECISION_INTERFACE.md
@@ -2796,15 +2901,6 @@ paths:
     executors__file_list_executor_ps1:
       path: patterns/executors/file_list_executor.ps1
       section: patterns
-    executors__github_sync__EXAMPLE_md:
-      path: .github/github_integration_v2/docs/EXAMPLE.md
-      section: github
-    executors__github_sync__README_md:
-      path: .github/github_integration_v2/executors/README.md
-      section: github
-    executors__github_sync__phase_sync_py:
-      path: .github/github_integration_v2/executors/phase_sync.py
-      section: github
     executors__glossary_export_executor_ps1:
       path: patterns/executors/glossary_export_executor.ps1
       section: patterns
@@ -3926,9 +4022,6 @@ paths:
       section: patterns
     templates__gui_doc_assembly_pattern_yaml:
       path: patterns/templates/gui-doc-assembly-pattern.yaml
-      section: patterns
-    tests__GH_SYNC_PHASE_V1_test_py:
-      path: patterns/tests/GH_SYNC_PHASE_V1_test.py
       section: patterns
     tests__README_md:
       path: patterns/tests/README.md
@@ -6373,9 +6466,6 @@ paths:
     INTEGRATION_PLAN_md:
       path: plans/INTEGRATION_PLAN.md
       section: plans
-    PH_TEST_INFRA_001_fix_test_imports_yml:
-      path: plans/PH-TEST-INFRA-001-fix-test-imports.yml
-      section: plans
     PH_VALIDATE_001_commit_integration_verification_yml:
       path: plans/PH-VALIDATE-001-commit-integration-verification.yml
       section: plans
@@ -6416,9 +6506,6 @@ paths:
       section: reports
     validation__commit_details_csv:
       path: reports/validation/commit_details.csv
-      section: reports
-    validation__import_path_validation_log:
-      path: reports/validation/import_path_validation.log
       section: reports
     validation__production_readiness_checklist_md:
       path: reports/validation/production_readiness_checklist.md
@@ -6549,9 +6636,6 @@ paths:
       section: root
     snappy_strolling_lightning_md:
       path: snappy-strolling-lightning.md
-      section: root
-    test_results_full_txt:
-      path: test_results_full.txt
       section: root
   schema:
     episodic_memory_schema_sql:

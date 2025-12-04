@@ -9,9 +9,9 @@ from pathlib import Path
 from typing import Any
 
 # Ensure 'src' is importable when running from repo root
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "src"))
 
-from path_registry import resolve_path, list_paths  # type: ignore
+from path_registry import list_paths, resolve_path  # type: ignore
 
 
 def cmd_resolve(args: argparse.Namespace) -> int:
@@ -36,7 +36,7 @@ def cmd_list(args: argparse.Namespace) -> int:
 
 def cmd_debug(args: argparse.Namespace) -> int:
     # Print full metadata for the key
-    from src.path_registry import _load_registry_raw, _flatten_paths  # type: ignore
+    from src.path_registry import _flatten_paths, _load_registry_raw  # type: ignore
 
     tree = _load_registry_raw()
     flat = _flatten_paths(tree)

@@ -22,6 +22,14 @@ The outcome: scripts, tools, and other automation **no longer depend directly** 
 
 ---
 
+## Current Implementation Anchors
+
+- Registry source: `config/path_index.yaml`
+- Resolver library: `src/path_registry.py`
+- CLI wrapper: `scripts/dev/paths_resolve_cli.py` (`paths-resolve`)
+
+---
+
 ## 2. Scope & Non-Goals
 
 ### In Scope

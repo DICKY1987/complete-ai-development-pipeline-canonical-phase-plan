@@ -13,9 +13,21 @@ Usage:
 import argparse
 import json
 import re
+import sys
+from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Set, Tuple
-from datetime import datetime
+
+# Optional path registry resolver
+repo_root = Path(__file__).resolve().parents[3]
+sys.path.append(str(repo_root))
+sys.path.append(str(repo_root / "src"))
+try:
+    from path_registry import resolve_path  # type: ignore
+except Exception:
+
+    def resolve_path(key: str) -> str:
+        raise RuntimeError("path_registry unavailable")
 
 
 class DocIndexGenerator:
@@ -27,12 +39,41 @@ class DocIndexGenerator:
         self.all_docs: List[Path] = []
         self.categories: Dict[str, List[Path]] = {}
         self.broken_links: List[Tuple[Path, str]] = []
+        self.quick_links = self._build_quick_links()
 
     def scan_docs(self) -> None:
         """Scan docs/ directory for all markdown files."""
         print(f"Scanning {self.docs_dir}...")
         self.all_docs = sorted(self.docs_dir.rglob("*.md"))
         print(f"Found {len(self.all_docs)} markdown files")
+
+    def _rel_to_docs(self, path_str: str) -> str:
+        """Convert a repo-relative path to docs-relative link string."""
+        try:
+            target = (self.repo_root / path_str).resolve()
+            rel = target.relative_to(self.docs_dir)
+            return str(rel).replace("\\", "/")
+        except Exception:
+            return path_str
+
+    def _build_quick_links(self) -> Dict[str, str]:
+        """Build quick links using registry keys with fallbacks."""
+        links = {
+            "readme": ("docs.readme", "../README.md"),
+            "agents": ("governance.agents_rules", "../AGENTS.md"),
+            "documentation_index": (
+                "docs.documentation_index",
+                "DOCUMENTATION_INDEX.md",
+            ),
+            "directory_guide": ("docs.directory_guide", "../DIRECTORY_GUIDE.md"),
+        }
+        resolved: Dict[str, str] = {}
+        for name, (key, default) in links.items():
+            try:
+                resolved[name] = self._rel_to_docs(resolve_path(key))
+            except Exception:
+                resolved[name] = default
+        return resolved
 
     def categorize_docs(self) -> None:
         """Categorize documentation files by topic."""
@@ -45,44 +86,74 @@ class DocIndexGenerator:
             "Reference Documentation": [],
             "Planning & Roadmap": [],
             "Migration & Refactoring": [],
-            "Miscellaneous": []
+            "Miscellaneous": [],
         }
 
         # Define patterns for categorization
         patterns = {
             "Architecture & Design": [
-                r"ARCHITECTURE", r"DIAGRAM", r"VISUAL", r"state_machine",
-                r"HYBRID_WORKFLOW", r"file-lifecycle"
+                r"ARCHITECTURE",
+                r"DIAGRAM",
+                r"VISUAL",
+                r"state_machine",
+                r"HYBRID_WORKFLOW",
+                r"file-lifecycle",
             ],
             "Implementation Summaries": [
-                r"IMPLEMENTATION_SUMMARY", r"_COMPLETE\.md$", r"PROGRESS",
-                r"STATUS\.md$", r"FINAL_REPORT", r"FINAL_SUMMARY"
+                r"IMPLEMENTATION_SUMMARY",
+                r"_COMPLETE\.md$",
+                r"PROGRESS",
+                r"STATUS\.md$",
+                r"FINAL_REPORT",
+                r"FINAL_SUMMARY",
             ],
             "Configuration Guides": [
-                r"CONFIGURATION_GUIDE", r"COORDINATION_GUIDE",
-                r"workstream_authoring", r"CONTRACT\.md$"
+                r"CONFIGURATION_GUIDE",
+                r"COORDINATION_GUIDE",
+                r"workstream_authoring",
+                r"CONTRACT\.md$",
             ],
             "Integrations": [
-                r"AIM_", r"UET_", r"CCPM", r"openspec", r"aider_contract",
-                r"Project_Management_docs"
+                r"AIM_",
+                r"UET_",
+                r"CCPM",
+                r"openspec",
+                r"aider_contract",
+                r"Project_Management_docs",
             ],
             "Development Guides": [
-                r"QUICK_REFERENCE", r"DEVELOPMENT_GUIDE", r"GUI_DEVELOPMENT",
-                r"plugin-quick-reference", r"plugin-ecosystem"
+                r"QUICK_REFERENCE",
+                r"DEVELOPMENT_GUIDE",
+                r"GUI_DEVELOPMENT",
+                r"plugin-quick-reference",
+                r"plugin-ecosystem",
             ],
             "Reference Documentation": [
-                r"reference/", r"HARDCODED_PATH", r"CLI_TOOL",
-                r"prompting/", r"guidelines/", r"forensics/"
+                r"reference/",
+                r"HARDCODED_PATH",
+                r"CLI_TOOL",
+                r"prompting/",
+                r"guidelines/",
+                r"forensics/",
             ],
             "Planning & Roadmap": [
-                r"PHASE_PLAN", r"PHASE_ROADMAP", r"PHASE_K_",
-                r"planning/", r"phase-github"
+                r"PHASE_PLAN",
+                r"PHASE_ROADMAP",
+                r"PHASE_K_",
+                r"planning/",
+                r"phase-github",
             ],
             "Migration & Refactoring": [
-                r"CI_PATH_STANDARDS", r"DEPRECATION", r"MIGRATION",
-                r"ARCHIVE_", r"LEGACY", r"REFACTOR", r"CONSOLIDATION",
-                r"PATH_ABSTRACTION", r"ZERO_TOUCH"
-            ]
+                r"CI_PATH_STANDARDS",
+                r"DEPRECATION",
+                r"MIGRATION",
+                r"ARCHIVE_",
+                r"LEGACY",
+                r"REFACTOR",
+                r"CONSOLIDATION",
+                r"PATH_ABSTRACTION",
+                r"ZERO_TOUCH",
+            ],
         }
 
         for doc in self.all_docs:
@@ -91,7 +162,10 @@ class DocIndexGenerator:
             categorized = False
 
             for category, pattern_list in patterns.items():
-                if any(re.search(pattern, doc_name, re.IGNORECASE) for pattern in pattern_list):
+                if any(
+                    re.search(pattern, doc_name, re.IGNORECASE)
+                    for pattern in pattern_list
+                ):
                     categories[category].append(doc)
                     categorized = True
                     break
@@ -104,21 +178,21 @@ class DocIndexGenerator:
     def validate_links(self) -> None:
         """Validate internal markdown links."""
         print("Validating internal links...")
-        link_pattern = re.compile(r'\[([^\]]+)\]\(([^\)]+\.md[^\)]*)\)')
+        link_pattern = re.compile(r"\[([^\]]+)\]\(([^\)]+\.md[^\)]*)\)")
 
         for doc in self.all_docs:
             try:
-                content = doc.read_text(encoding='utf-8')
+                content = doc.read_text(encoding="utf-8")
                 for match in link_pattern.finditer(content):
                     link_text = match.group(1)
                     link_path = match.group(2)
 
                     # Skip external links
-                    if link_path.startswith(('http://', 'https://', 'mailto:')):
+                    if link_path.startswith(("http://", "https://", "mailto:")):
                         continue
 
                     # Remove anchors
-                    link_path = link_path.split('#')[0]
+                    link_path = link_path.split("#")[0]
                     if not link_path:
                         continue
 
@@ -161,9 +235,10 @@ class DocIndexGenerator:
             "",
             "| Task | Documentation | Quick Command |",
             "|------|--------------|---------------|",
-            "| **Get Started** | [README.md](../README.md) | `pwsh ./scripts/bootstrap.ps1` |",
-            "| **Navigate Repository** | [DIRECTORY_GUIDE.md](../DIRECTORY_GUIDE.md) | - |",
-            "| **Coding Guidelines** | [AGENTS.md](../AGENTS.md) | - |",
+            f"| **Get Started** | [README.md]({self.quick_links['readme']}) | `pwsh ./scripts/bootstrap.ps1` |",
+            f"| **Navigate Repository** | [DIRECTORY_GUIDE.md]({self.quick_links['directory_guide']}) | - |",
+            f"| **Coding Guidelines** | [AGENTS.md]({self.quick_links['agents']}) | - |",
+            f"| **Docs Index** | [DOCUMENTATION_INDEX.md]({self.quick_links['documentation_index']}) | - |",
             "| **Run Tests** | [scripts/test.ps1](../scripts/test.ps1) | `pwsh ./scripts/test.ps1` |",
             "| **Validate Workstreams** | [scripts/validate_workstreams.py](../scripts/validate_workstreams.py) | `python scripts/validate_workstreams.py` |",
             "| **Find Implementation** | [IMPLEMENTATION_LOCATIONS.md](IMPLEMENTATION_LOCATIONS.md) | - |",
@@ -175,7 +250,7 @@ class DocIndexGenerator:
             "- **[TERM_RELATIONSHIPS.md](TERM_RELATIONSHIPS.md)** (planned K-4) - Term hierarchy and dependencies",
             "",
             "---",
-            ""
+            "",
         ]
 
         # Add categories
@@ -194,7 +269,7 @@ class DocIndexGenerator:
 
             for doc in sorted_docs:
                 relative_path = doc.relative_to(self.docs_dir)
-                doc_link = str(relative_path).replace('\\', '/')
+                doc_link = str(relative_path).replace("\\", "/")
 
                 # Try to extract purpose from first paragraph
                 purpose = self._extract_purpose(doc)
@@ -236,7 +311,9 @@ class DocIndexGenerator:
         lines.append("")
         lines.append("## 🔄 Maintenance")
         lines.append("")
-        lines.append("**Auto-Generated**: This file is automatically generated. Do not edit manually.")
+        lines.append(
+            "**Auto-Generated**: This file is automatically generated. Do not edit manually."
+        )
         lines.append("")
         lines.append("**Update Commands**:")
         lines.append("```bash")
@@ -244,7 +321,9 @@ class DocIndexGenerator:
         lines.append("python scripts/generate_doc_index.py")
         lines.append("")
         lines.append("# Regenerate with custom output")
-        lines.append("python scripts/generate_doc_index.py --output docs/DOCUMENTATION_INDEX.md")
+        lines.append(
+            "python scripts/generate_doc_index.py --output docs/DOCUMENTATION_INDEX.md"
+        )
         lines.append("```")
         lines.append("")
         lines.append("**Update Schedule**:")
@@ -253,36 +332,44 @@ class DocIndexGenerator:
         lines.append("")
         lines.append("---")
         lines.append("")
-        lines.append(f"**Last Generated**: {datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC')}  ")
+        lines.append(
+            f"**Last Generated**: {datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC')}  "
+        )
         lines.append("**Generator**: `scripts/generate_doc_index.py`  ")
         lines.append("")
 
         # Write output
-        output_path.write_text('\n'.join(lines), encoding='utf-8')
+        output_path.write_text("\n".join(lines), encoding="utf-8")
         print(f"Index generated successfully: {output_path}")
 
     def _extract_purpose(self, doc: Path) -> str:
         """Extract purpose from document header or first paragraph."""
         try:
-            content = doc.read_text(encoding='utf-8')
+            content = doc.read_text(encoding="utf-8")
 
             # Look for Purpose: metadata
-            purpose_match = re.search(r'[*_]*Purpose[*_]*:\s*(.+)', content, re.IGNORECASE)
+            purpose_match = re.search(
+                r"[*_]*Purpose[*_]*:\s*(.+)", content, re.IGNORECASE
+            )
             if purpose_match:
                 return purpose_match.group(1).strip()
 
             # Look for first paragraph after H1
-            h1_pattern = re.compile(r'^# .+$', re.MULTILINE)
+            h1_pattern = re.compile(r"^# .+$", re.MULTILINE)
             h1_match = h1_pattern.search(content)
             if h1_match:
-                after_h1 = content[h1_match.end():].strip()
+                after_h1 = content[h1_match.end() :].strip()
                 # Get first non-empty paragraph
-                paragraphs = [p.strip() for p in after_h1.split('\n\n') if p.strip() and not p.strip().startswith('#')]
+                paragraphs = [
+                    p.strip()
+                    for p in after_h1.split("\n\n")
+                    if p.strip() and not p.strip().startswith("#")
+                ]
                 if paragraphs:
-                    first_para = paragraphs[0].replace('\n', ' ')
+                    first_para = paragraphs[0].replace("\n", " ")
                     # Truncate if too long
                     if len(first_para) > 100:
-                        first_para = first_para[:97] + '...'
+                        first_para = first_para[:97] + "..."
                     return first_para
 
             return "-"
@@ -306,21 +393,21 @@ def main():
         description="Generate documentation index from docs/ directory"
     )
     parser.add_argument(
-        '--output',
+        "--output",
         type=Path,
-        default=Path('docs/DOCUMENTATION_INDEX_GENERATED.md'),
-        help='Output file path (default: docs/DOCUMENTATION_INDEX_GENERATED.md)'
+        default=Path("docs/DOCUMENTATION_INDEX_GENERATED.md"),
+        help="Output file path (default: docs/DOCUMENTATION_INDEX_GENERATED.md)",
     )
     parser.add_argument(
-        '--docs-dir',
+        "--docs-dir",
         type=Path,
-        default=Path('docs'),
-        help='Documentation directory to scan (default: docs/)'
+        default=Path("docs"),
+        help="Documentation directory to scan (default: docs/)",
     )
     parser.add_argument(
-        '--fail-on-broken-links',
-        action='store_true',
-        help='Exit with error code if broken links are found'
+        "--fail-on-broken-links",
+        action="store_true",
+        help="Exit with error code if broken links are found",
     )
 
     args = parser.parse_args()
@@ -349,5 +436,5 @@ def main():
     return 0
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     exit(main())
