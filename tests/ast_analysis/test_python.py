@@ -1,11 +1,13 @@
 """
 Test Python AST extractor functionality.
 """
+
 # DOC_ID: DOC-TESTS-AST-TEST-PYTHON-212
 
 import pytest
-from core.ast.parser import ASTParser
+
 from core.ast.languages.python import PythonExtractor
+from core.ast.parser import ASTParser
 
 
 def test_extract_simple_function():
@@ -15,14 +17,14 @@ def test_extract_simple_function():
 def greet(name):
     return f"Hello, {name}!"
 """
-    
-    tree = parser.parse_string(code, 'python')
-    extractor = PythonExtractor(tree, code.encode('utf-8'))
-    
+
+    tree = parser.parse_string(code, "python")
+    extractor = PythonExtractor(tree, code.encode("utf-8"))
+
     functions = extractor.extract_functions()
     assert len(functions) == 1
-    assert functions[0].name == 'greet'
-    assert functions[0].params == ['name']
+    assert functions[0].name == "greet"
+    assert functions[0].params == ["name"]
     assert not functions[0].is_async
 
 
@@ -33,13 +35,13 @@ def test_extract_async_function():
 async def fetch_data(url):
     return await get(url)
 """
-    
-    tree = parser.parse_string(code, 'python')
-    extractor = PythonExtractor(tree, code.encode('utf-8'))
-    
+
+    tree = parser.parse_string(code, "python")
+    extractor = PythonExtractor(tree, code.encode("utf-8"))
+
     functions = extractor.extract_functions()
     assert len(functions) == 1
-    assert functions[0].name == 'fetch_data'
+    assert functions[0].name == "fetch_data"
     assert functions[0].is_async
 
 
@@ -51,13 +53,13 @@ def calculate(x, y):
     """Calculate sum of x and y."""
     return x + y
 '''
-    
-    tree = parser.parse_string(code, 'python')
-    extractor = PythonExtractor(tree, code.encode('utf-8'))
-    
+
+    tree = parser.parse_string(code, "python")
+    extractor = PythonExtractor(tree, code.encode("utf-8"))
+
     functions = extractor.extract_functions()
     assert len(functions) == 1
-    assert functions[0].name == 'calculate'
+    assert functions[0].name == "calculate"
     assert functions[0].docstring == "Calculate sum of x and y."
 
 
@@ -74,13 +76,13 @@ def subtract(a, b):
 def multiply(a, b):
     return a * b
 """
-    
-    tree = parser.parse_string(code, 'python')
-    extractor = PythonExtractor(tree, code.encode('utf-8'))
-    
+
+    tree = parser.parse_string(code, "python")
+    extractor = PythonExtractor(tree, code.encode("utf-8"))
+
     functions = extractor.extract_functions()
     assert len(functions) == 3
-    assert [f.name for f in functions] == ['add', 'subtract', 'multiply']
+    assert [f.name for f in functions] == ["add", "subtract", "multiply"]
 
 
 def test_extract_simple_class():
@@ -90,19 +92,19 @@ def test_extract_simple_class():
 class Person:
     def __init__(self, name):
         self.name = name
-    
+
     def greet(self):
         return f"Hello, I'm {self.name}"
 """
-    
-    tree = parser.parse_string(code, 'python')
-    extractor = PythonExtractor(tree, code.encode('utf-8'))
-    
+
+    tree = parser.parse_string(code, "python")
+    extractor = PythonExtractor(tree, code.encode("utf-8"))
+
     classes = extractor.extract_classes()
     assert len(classes) == 1
-    assert classes[0].name == 'Person'
-    assert '__init__' in classes[0].methods
-    assert 'greet' in classes[0].methods
+    assert classes[0].name == "Person"
+    assert "__init__" in classes[0].methods
+    assert "greet" in classes[0].methods
 
 
 def test_extract_class_with_inheritance():
@@ -113,14 +115,14 @@ class Child(Parent, Mixin):
     def method(self):
         pass
 """
-    
-    tree = parser.parse_string(code, 'python')
-    extractor = PythonExtractor(tree, code.encode('utf-8'))
-    
+
+    tree = parser.parse_string(code, "python")
+    extractor = PythonExtractor(tree, code.encode("utf-8"))
+
     classes = extractor.extract_classes()
     assert len(classes) == 1
-    assert classes[0].name == 'Child'
-    assert 'Parent' in classes[0].bases or 'Mixin' in classes[0].bases
+    assert classes[0].name == "Child"
+    assert "Parent" in classes[0].bases or "Mixin" in classes[0].bases
 
 
 def test_extract_class_with_docstring():
@@ -132,13 +134,13 @@ class Calculator:
     def add(self, a, b):
         return a + b
 '''
-    
-    tree = parser.parse_string(code, 'python')
-    extractor = PythonExtractor(tree, code.encode('utf-8'))
-    
+
+    tree = parser.parse_string(code, "python")
+    extractor = PythonExtractor(tree, code.encode("utf-8"))
+
     classes = extractor.extract_classes()
     assert len(classes) == 1
-    assert classes[0].name == 'Calculator'
+    assert classes[0].name == "Calculator"
     assert classes[0].docstring == "A simple calculator class."
 
 
@@ -149,15 +151,15 @@ def test_extract_import_statement():
 import os
 import sys
 """
-    
-    tree = parser.parse_string(code, 'python')
-    extractor = PythonExtractor(tree, code.encode('utf-8'))
-    
+
+    tree = parser.parse_string(code, "python")
+    extractor = PythonExtractor(tree, code.encode("utf-8"))
+
     imports = extractor.extract_imports()
     assert len(imports) >= 2
     module_names = [imp.module for imp in imports]
-    assert 'os' in module_names
-    assert 'sys' in module_names
+    assert "os" in module_names
+    assert "sys" in module_names
 
 
 def test_extract_from_import():
@@ -167,14 +169,14 @@ def test_extract_from_import():
 from pathlib import Path
 from typing import Dict, List
 """
-    
-    tree = parser.parse_string(code, 'python')
-    extractor = PythonExtractor(tree, code.encode('utf-8'))
-    
+
+    tree = parser.parse_string(code, "python")
+    extractor = PythonExtractor(tree, code.encode("utf-8"))
+
     imports = extractor.extract_imports()
     assert len(imports) >= 2
-    
-    pathlib_import = [imp for imp in imports if imp.module == 'pathlib']
+
+    pathlib_import = [imp for imp in imports if imp.module == "pathlib"]
     assert len(pathlib_import) > 0
     assert pathlib_import[0].is_from_import
 
@@ -188,15 +190,15 @@ def outer():
         pass
     return inner
 """
-    
-    tree = parser.parse_string(code, 'python')
-    extractor = PythonExtractor(tree, code.encode('utf-8'))
-    
+
+    tree = parser.parse_string(code, "python")
+    extractor = PythonExtractor(tree, code.encode("utf-8"))
+
     functions = extractor.extract_functions()
     assert len(functions) == 2
     func_names = [f.name for f in functions]
-    assert 'outer' in func_names
-    assert 'inner' in func_names
+    assert "outer" in func_names
+    assert "inner" in func_names
 
 
 def test_extract_class_methods():
@@ -206,19 +208,19 @@ def test_extract_class_methods():
 class MyClass:
     def method1(self):
         pass
-    
+
     @staticmethod
     def method2():
         pass
-    
+
     @classmethod
     def method3(cls):
         pass
 """
-    
-    tree = parser.parse_string(code, 'python')
-    extractor = PythonExtractor(tree, code.encode('utf-8'))
-    
+
+    tree = parser.parse_string(code, "python")
+    extractor = PythonExtractor(tree, code.encode("utf-8"))
+
     classes = extractor.extract_classes()
     assert len(classes) == 1
     assert len(classes[0].methods) >= 1  # At least method1 is extracted
@@ -228,14 +230,14 @@ def test_extract_empty_file():
     """Test extracting from empty file."""
     parser = ASTParser()
     code = ""
-    
-    tree = parser.parse_string(code, 'python')
-    extractor = PythonExtractor(tree, code.encode('utf-8'))
-    
+
+    tree = parser.parse_string(code, "python")
+    extractor = PythonExtractor(tree, code.encode("utf-8"))
+
     functions = extractor.extract_functions()
     classes = extractor.extract_classes()
     imports = extractor.extract_imports()
-    
+
     assert len(functions) == 0
     assert len(classes) == 0
     assert len(imports) == 0
@@ -255,14 +257,14 @@ class Base:
 
 class Derived(Base):
     """Derived class."""
-    
+
     def __init__(self):
         super().__init__()
-    
+
     @property
     def value(self):
         return 42
-    
+
     async def async_method(self):
         """Async method."""
         pass
@@ -271,14 +273,14 @@ def standalone_function(x, y):
     """Standalone function."""
     return x + y
 '''
-    
-    tree = parser.parse_string(code, 'python')
-    extractor = PythonExtractor(tree, code.encode('utf-8'))
-    
+
+    tree = parser.parse_string(code, "python")
+    extractor = PythonExtractor(tree, code.encode("utf-8"))
+
     functions = extractor.extract_functions()
     classes = extractor.extract_classes()
     imports = extractor.extract_imports()
-    
+
     assert len(functions) >= 1  # At least standalone_function
     assert len(classes) == 2  # Base and Derived
     assert len(imports) >= 2  # os and pathlib

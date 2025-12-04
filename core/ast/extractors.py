@@ -3,17 +3,20 @@ Base extractor classes for language-specific AST analysis.
 
 Provides abstract interfaces that language-specific extractors must implement.
 """
+
 # DOC_ID: DOC-CORE-AST-EXTRACTORS-137
 
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import List, Optional
+
 from tree_sitter import Node, Tree
 
 
 @dataclass
 class FunctionInfo:
     """Information extracted from a function definition."""
+
     name: str
     start_line: int
     end_line: int
@@ -31,6 +34,7 @@ class FunctionInfo:
 @dataclass
 class ClassInfo:
     """Information extracted from a class definition."""
+
     name: str
     start_line: int
     end_line: int
@@ -49,6 +53,7 @@ class ClassInfo:
 @dataclass
 class ImportInfo:
     """Information extracted from an import statement."""
+
     module: str
     names: List[str]
     alias: Optional[str] = None
@@ -121,7 +126,7 @@ class BaseExtractor(ABC):
         """
         if node is None:
             return ""
-        return self.source[node.start_byte:node.end_byte].decode('utf-8')
+        return self.source[node.start_byte : node.end_byte].decode("utf-8")
 
     def get_docstring(self, node: Node) -> Optional[str]:
         """
@@ -167,8 +172,8 @@ class BaseExtractor(ABC):
 
 
 __all__ = [
-    'BaseExtractor',
-    'FunctionInfo',
-    'ClassInfo',
-    'ImportInfo',
+    "BaseExtractor",
+    "FunctionInfo",
+    "ClassInfo",
+    "ImportInfo",
 ]
