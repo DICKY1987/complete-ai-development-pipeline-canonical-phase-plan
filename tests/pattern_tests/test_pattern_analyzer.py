@@ -13,14 +13,14 @@ if str(_repo_root) not in sys.path:
 import pytest
 import tempfile
 
-from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.patterns import (
+from error.patterns import (
     PatternAnalyzer,
     PatternCategory,
     PatternSeverity,
     PatternFinding,
     PatternResult,
 )
-from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.patterns.pattern_analyzer import (
+from error.patterns.pattern_analyzer import (
     analyze_module,
     generate_gap_report,
     DEFAULT_CHECKLIST,

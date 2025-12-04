@@ -2,19 +2,19 @@
 import pytest
 import tempfile
 from pathlib import Path
-from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.interfaces.file_operations import FileOperations
-from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.interfaces.data_provider import DataProvider
-from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.interfaces.validation_service import ValidationService
-from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.interfaces.cache_manager import CacheManager
-from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.interfaces.metrics_collector import MetricsCollector
-from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.interfaces.health_checker import HealthChecker
-from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.file_ops.local_file_operations import LocalFileOperations
-from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.data.state_data_provider import StateDataProvider
-from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.validation.basic_validation_service import BasicValidationService
-from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.cache.memory_cache_manager import MemoryCacheManager
-from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.metrics.simple_metrics_collector import SimpleMetricsCollector
-from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.health.system_health_checker import SystemHealthChecker
-from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.state.sqlite_store import SQLiteStateStore
+from core.file_operations import FileOperations
+from core.data_provider import DataProvider
+from core.validation_service import ValidationService
+from core.cache_manager import CacheManager
+from core.metrics_collector import MetricsCollector
+from core.health_checker import HealthChecker
+from core.file_ops.local_file_operations import LocalFileOperations
+from core.data.state_data_provider import StateDataProvider
+from core.validation.basic_validation_service import BasicValidationService
+from core.cache.memory_cache_manager import MemoryCacheManager
+from core.metrics.simple_metrics_collector import SimpleMetricsCollector
+from core.health.system_health_checker import SystemHealthChecker
+from core.state.sqlite_store import SQLiteStateStore
 
 class TestFileOperations:
     def test_implements_protocol(self):

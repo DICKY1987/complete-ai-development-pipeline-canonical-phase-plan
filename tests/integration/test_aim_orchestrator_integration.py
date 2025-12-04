@@ -124,7 +124,7 @@ class TestAIMIntegration:
     @patch("core.engine.aim_integration.route_capability")
     def test_execute_with_aim_capability_not_found(self, mock_route):
         """Should handle AIMCapabilityNotFoundError gracefully."""
-        from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.exceptions import AIMCapabilityNotFoundError
+        from aim.exceptions import AIMCapabilityNotFoundError
 
         # Mock capability not found
         mock_route.side_effect = AIMCapabilityNotFoundError(

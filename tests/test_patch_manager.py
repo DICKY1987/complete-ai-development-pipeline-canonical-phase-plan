@@ -8,7 +8,7 @@ import tempfile
 import shutil
 import subprocess
 from pathlib import Path
-from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine.patch_manager import (
+from core.engine.patch_manager import (
     PatchManager, PatchArtifact, PatchParseResult, ApplyResult
 )
 

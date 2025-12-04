@@ -48,7 +48,7 @@ jobs:
             [ -z "$file" ] && continue
             echo "Syncing $file"
 
-            python scripts/splinter_sync_phase_to_github.py \
+            python .github/github_integration_v2/scripts/splinter_sync_phase_to_github.py \
               --phase-file "$file" \
               --github-repo "${{ github.repository }}" \
               --github-token "$GITHUB_TOKEN"

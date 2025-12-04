@@ -13,13 +13,13 @@ if str(_repo_root) not in sys.path:
 import pytest
 import tempfile
 
-from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.patterns.boundary_patterns import (
+from error.patterns.boundary_patterns import (
     BOUNDARY_PATTERNS,
     generate_boundary_tests,
     scan_file_for_boundary_issues,
     analyze_function_boundaries,
 )
-from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.patterns.types import PatternCategory, PatternSeverity
+from error.patterns.types import PatternCategory, PatternSeverity
 
 
 class TestBoundaryPatterns:

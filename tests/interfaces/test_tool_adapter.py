@@ -3,15 +3,15 @@
 import pytest
 from typing import Any
 
-from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.interfaces.tool_adapter import (
+from core.tool_adapter import (
     ToolAdapter,
     CapabilityNotSupportedError,
     JobPreparationError,
 )
-from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.adapters.base import BaseToolAdapter
-from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.adapters.registry import ToolRegistry, MockAdapter
-from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.execution.subprocess_executor import SubprocessExecutor
-from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.interfaces.process_executor import ProcessResult
+from core.adapters.base import BaseToolAdapter
+from core.adapters.registry import ToolRegistry, MockAdapter
+from core.execution.subprocess_executor import SubprocessExecutor
+from core.process_executor import ProcessResult
 
 
 class TestToolAdapterProtocol:

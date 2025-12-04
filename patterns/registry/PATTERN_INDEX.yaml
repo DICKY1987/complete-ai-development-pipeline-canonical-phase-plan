@@ -1641,7 +1641,7 @@ patterns:
   doc_id: DOC-PAT-GH-SYNC-PHASE-001
   spec_path: patterns/specs/GH_SYNC_PHASE_V1.pattern.yaml
   schema_path: patterns/schemas/GH_SYNC_PHASE_V1.schema.json
-  executor_path: patterns/executors/github_sync/phase_sync.py
+  executor_path: .github/github_integration_v2/executors/phase_sync.py
   test_path: patterns/tests/GH_SYNC_PHASE_V1_test.py
   example_dir: patterns/examples/github_sync/
   tool_targets:

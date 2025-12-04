@@ -1,0 +1,303 @@
+pattern_id: "PAT-GH-SYNC-PHASE-001"
+doc_id: "DOC-PAT-GH-SYNC-PHASE-001"
+name: "GH_SYNC_PHASE_V1"
+version: "1.0.0"
+role: "spec"
+status: "active"
+
+schema_ref: "../schemas/GH_SYNC_PHASE_V1.schema.json"
+executor_ref: "../executors/github_sync/phase_sync.py"
+
+description: >
+  Synchronize SPLINTER Phase Plan specs with GitHub Issues and GitHub Projects v2.
+  Ensures each phase has a corresponding Issue and Project item, and that project
+  custom fields (Phase ID, Workstream, Status, Risk, Target date, doc_id) remain
+  consistent with the ground-truth YAML.
+
+tags:
+  - "integration"
+  - "github"
+  - "projects-v2"
+  - "issues"
+  - "splinter"
+  - "orchestration"
+
+ownership:
+  owner_team: "devx-orchestration"
+  owner_contact: "github-sync@local"
+
+applicability:
+  context:
+    - "SPLINTER Phase Plans with a github_integration block"
+    - "Repos using GitHub Issues and Projects v2 for planning"
+  preconditions:
+    - "GitHub repository exists and is accessible via GITHUB_TOKEN."
+    - "GitHub Project v2 exists and defines the custom fields referenced in field_mappings."
+    - "Phase Plan YAML passes structural validation against GH_SYNC_PHASE_V1.schema.json."
+  non_goals:
+    - "Does not create or manage GitHub Projects themselves."
+    - "Does not modify SPLINTER phase semantics or acceptance criteria."
+    - "Does not resolve merge conflicts or orchestrate PR lifecycles."
+
+interfaces:
+  inputs:
+    phase_yaml_path:
+      type: "string"
+      description: "Path to the SPLINTER Phase Plan YAML file."
+    phase_yaml:
+      type: "object"
+      description: "Parsed Phase Plan YAML document."
+    github_token:
+      type: "string"
+      description: "GitHub API token with repo and project write permissions."
+    github_integration:
+      type: "object"
+      description: "github_integration block from the Phase Plan."
+  outputs:
+    issue_number:
+      type: "integer"
+      description: "GitHub Issue number associated with this phase."
+    project_item_id:
+      type: "string"
+      description: "GitHub ProjectV2 item node ID associated with this phase."
+    sync_report:
+      type: "object"
+      description: "Summary of operations performed (created/updated issue, created/updated project item, field updates)."
+
+config_contracts:
+  github_integration:
+    description: "Configuration block that drives GitHub sync behavior."
+    required: true
+    fields:
+      enabled:
+        type: "boolean"
+        required: true
+      repo:
+        type: "object"
+        required: true
+        fields:
+          owner:
+            type: "string"
+            required: true
+          name:
+            type: "string"
+            required: true
+          default_branch:
+            type: "string"
+            required: true
+      issue:
+        type: "object"
+        required: true
+        fields:
+          mode:
+            type: "string"
+            enum: ["one-per-phase", "none", "reuse"]
+            required: true
+          number:
+            type: ["integer", "null"]
+            required: false
+          title_template:
+            type: "string"
+            required: true
+          body_template_path:
+            type: ["string", "null"]
+            required: false
+          labels:
+            type: "array"
+            items_type: "string"
+            required: true
+          assignees:
+            type: "array"
+            items_type: ["string", "null"]
+            required: true
+      project:
+        type: "object"
+        required: true
+        fields:
+          url:
+            type: ["string", "null"]
+            required: false
+          owner:
+            type: "string"
+            required: true
+          project_number:
+            type: ["integer", "null"]
+            required: false
+          item_id:
+            type: ["string", "null"]
+            required: false
+          field_mappings:
+            type: "object"
+            required: true
+            fields:
+              phase_id_field:
+                type: "string"
+                required: true
+              workstream_field:
+                type: "string"
+                required: true
+              status_field:
+                type: "string"
+                required: true
+              risk_field:
+                type: "string"
+                required: true
+              target_date_field:
+                type: "string"
+                required: true
+              doc_id_field:
+                type: "string"
+                required: true
+              story_points_field:
+                type: ["string", "null"]
+                required: false
+              owner_field:
+                type: ["string", "null"]
+                required: false
+      automation:
+        type: "object"
+        required: true
+        fields:
+          allow_issue_create:
+            type: "boolean"
+            required: true
+          allow_issue_update:
+            type: "boolean"
+            required: true
+          allow_project_item_create:
+            type: "boolean"
+            required: true
+          allow_project_item_update:
+            type: "boolean"
+            required: true
+          sync_direction:
+            type: "string"
+            enum: ["yaml->github", "bidirectional"]
+            required: true
+          on_phase_status_change_update_project:
+            type: "boolean"
+            required: true
+          on_project_status_change_update_phase:
+            type: "boolean"
+            required: true
+          last_synced_at:
+            type: ["string", "null"]
+            required: false
+          last_synced_by:
+            type: ["string", "null"]
+            required: false
+
+behavior:
+  overview:
+    - "Treat SPLINTER Phase Plan as single source of truth for phase metadata."
+    - "Create or update an Issue representing the phase (if issue.mode != 'none')."
+    - "Create or update a Project item representing the phase in Projects v2."
+    - "Map SPLINTER fields (phase_id, workstream_id, status, risk, target_date, doc_id) to Project custom fields using field_mappings."
+  operations:
+    ensure_issue:
+      description: "Ensure a GitHub Issue exists for the phase; update if already present."
+      preconditions:
+        - "github_integration.enabled == true"
+        - "issue.mode in ['one-per-phase', 'reuse']"
+      postconditions:
+        - "Issue exists with title/body/labels consistent with Phase Plan."
+      failure_modes:
+        - code: "GH_ISSUE_API_ERROR"
+          description: "GitHub /issues API returned non-2xx or error payload."
+        - code: "GH_ISSUE_DISABLED"
+          description: "issue.mode == 'none' but ensure_issue was invoked."
+    ensure_project_item:
+      description: "Ensure a GitHub Project item exists and has correct field values."
+      preconditions:
+        - "github_integration.enabled == true"
+        - "Project owner + project_number or url is resolvable."
+        - "Issue exists and issue_number is known."
+      postconditions:
+        - "Project item exists linked to the issue."
+        - "Fields listed in field_mappings have values consistent with Phase Plan."
+      failure_modes:
+        - code: "GH_PROJECT_RESOLVE_FAILED"
+          description: "ProjectV2 node could not be resolved from owner/project_number or url."
+        - code: "GH_PROJECT_ITEM_CREATE_FAILED"
+          description: "ProjectV2 item creation mutation failed."
+        - code: "GH_PROJECT_FIELD_UPDATE_FAILED"
+          description: "One or more field updates failed."
+
+constraints:
+  must:
+    - "MUST NOT run if github_integration.enabled is false."
+    - "MUST validate github_integration structure against schema before execution."
+    - "MUST use field_mappings values as exact GitHub Project field labels (no guessing)."
+    - "MUST treat the Phase Plan YAML as authoritative for phase_id, workstream_id, status, risk, target_date, doc_id."
+    - "MUST fail fast with a clear error if GitHub API calls return non-2xx or GraphQL errors."
+  should:
+    - "SHOULD avoid modifying Project fields that are not listed in field_mappings."
+    - "SHOULD log sync operations (created/updated issue, created/updated project item, field updates)."
+    - "SHOULD be idempotent when re-run with identical Phase Plan data."
+  must_not:
+    - "MUST NOT modify SPLINTER Phase Plan content in-place (no writing back to YAML) unless explicitly enabled by a higher-level pattern."
+    - "MUST NOT create GitHub Projects; only use existing Project v2 instances."
+
+telemetry:
+  events:
+    - name: "gh_sync_phase_started"
+      payload_fields:
+        - "pattern_id"
+        - "phase_id"
+        - "repo"
+    - name: "gh_sync_phase_completed"
+      payload_fields:
+        - "pattern_id"
+        - "phase_id"
+        - "issue_number"
+        - "project_item_id"
+        - "duration_ms"
+    - name: "gh_sync_phase_failed"
+      payload_fields:
+        - "pattern_id"
+        - "phase_id"
+        - "error_code"
+        - "error_message"
+
+examples:
+  minimal_config_snippet:
+    github_integration:
+      enabled: true
+      repo:
+        owner: "DICKY1987"
+        name: "complete-ai-development-pipeline-canonical-phase-plan"
+        default_branch: "main"
+      issue:
+        mode: "one-per-phase"
+        number: null
+        title_template: "[{phase_id}] {title}"
+        body_template_path: null
+        labels:
+          - "phase-plan"
+          - "splinter-phase"
+        assignees:
+          - null
+      project:
+        url: "https://github.com/orgs/ORG_NAME/projects/1"
+        owner: "ORG_NAME"
+        project_number: 1
+        item_id: null
+        field_mappings:
+          phase_id_field: "Phase ID"
+          workstream_field: "Workstream"
+          status_field: "Status"
+          risk_field: "Risk"
+          target_date_field: "Target date"
+          doc_id_field: "doc_id"
+          story_points_field: "Story points"
+          owner_field: "Owner"
+      automation:
+        allow_issue_create: true
+        allow_issue_update: true
+        allow_project_item_create: true
+        allow_project_item_update: true
+        sync_direction: "yaml->github"
+        on_phase_status_change_update_project: true
+        on_project_status_change_update_phase: false
+        last_synced_at: null
+        last_synced_by: null

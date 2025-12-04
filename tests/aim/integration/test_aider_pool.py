@@ -16,7 +16,7 @@ import shutil
 import time
 from pathlib import Path
 
-from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.bridge import ToolProcessPool, load_aim_registry
+from aim.bridge import ToolProcessPool, load_aim_registry
 
 # Skip all tests in this module - AIM not yet implemented (Phase 4)
 pytestmark = pytest.mark.skip(reason="AIM module not yet implemented - Phase 4 roadmap item")

@@ -5,12 +5,12 @@ from pathlib import Path
 from datetime import datetime
 import tempfile
 
-from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.interfaces.state_store import (
+from core.state_store import (
     StateStore,
     WorkstreamNotFoundError,
     ExecutionNotFoundError,
 )
-from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.state.sqlite_store import SQLiteStateStore
+from core.state.sqlite_store import SQLiteStateStore
 
 
 class TestStateStoreProtocol:

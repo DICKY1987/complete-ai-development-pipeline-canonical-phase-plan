@@ -9,7 +9,7 @@ Validates CommandResult, run_command(), and MockContext integration.
 import pytest
 from pathlib import Path
 from invoke import MockContext, Result
-from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.invoke_utils import (
+from core.invoke_utils import (
     CommandResult,
     run_command,
     run_tool_command,

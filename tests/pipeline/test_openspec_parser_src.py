@@ -6,7 +6,7 @@ import sys
 
 import pytest
 
-from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.openspec_parser import (
+from core.openspec_parser import (
     OpenSpecBundle,
     SpecItem,
     WhenThen,

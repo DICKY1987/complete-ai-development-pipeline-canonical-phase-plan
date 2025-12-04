@@ -1,10 +1,10 @@
 """Tests for EventBus and Logger protocols."""
 
 import pytest
-from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.interfaces.event_bus import EventBus
-from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.interfaces.logger import Logger
-from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.events.simple_event_bus import SimpleEventBus
-from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.logging.structured_logger import StructuredLogger
+from core.event_bus import EventBus
+from core.logger import Logger
+from core.events.simple_event_bus import SimpleEventBus
+from core.logging.structured_logger import StructuredLogger
 
 
 class TestEventBusProtocol:

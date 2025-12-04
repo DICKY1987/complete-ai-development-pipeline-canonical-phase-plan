@@ -1,0 +1,110 @@
+# Phase Plan: PH-TEST-INFRA-001
+# Fix Test Infrastructure Import Issues
+
+phase_id: PH-TEST-INFRA-001
+title: Fix Test Infrastructure Import Issues
+status: in_progress
+priority: critical
+created: 2025-12-04 07:16:00
+estimated_duration: 2-4 hours
+
+## Objectives
+
+1. Update deprecated UET imports in test files
+2. Fix GUI test module structure mismatches
+3. Install missing dependencies (tree_sitter modules)
+4. Verify all test files can be collected
+5. Re-run full test suite with >70% coverage
+
+## Success Criteria
+
+- [ ] 0 test collection errors
+- [ ] All test files importable
+- [ ] Test suite coverage >70%
+- [ ] Core tests passing >90%
+- [ ] No deprecated import patterns
+
+## Workstreams
+
+### WS-001: Fix Deprecated UET Imports
+**Priority**: Critical
+**Files**: 17 test files in integration/ and interfaces/
+**Pattern**: Replace UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK imports with core.* imports
+
+Tasks:
+- [ ] Scan all test files for deprecated imports
+- [ ] Create mapping of old -> new import paths
+- [ ] Apply automated replacements
+- [ ] Verify imports work
+
+**Execution Pattern**: EXEC-008 (Import Structure Fix)
+
+### WS-002: Fix GUI Test Module Structure
+**Priority**: High
+**Files**: 5 test files in gui/tui_panel_framework/
+**Pattern**: Update gui.tui_app imports to match actual structure
+
+Tasks:
+- [ ] Analyze current GUI module structure
+- [ ] Update test imports to match
+- [ ] Verify GUI tests can be collected
+
+**Execution Pattern**: EXEC-008 (Import Structure Fix)
+
+### WS-003: Install Missing Dependencies
+**Priority**: High
+**Dependencies**: tree_sitter modules for AST analysis
+
+Tasks:
+- [ ] Install tree-sitter-languages package
+- [ ] Verify AST analysis tests can import
+- [ ] Run AST analysis tests
+
+**Execution Pattern**: EXEC-007 (Dependency Installation)
+
+### WS-004: Full Test Suite Validation
+**Priority**: Medium
+**Pattern**: Run complete test suite after fixes
+
+Tasks:
+- [ ] Run full pytest collection
+- [ ] Verify 0 collection errors
+- [ ] Run all tests
+- [ ] Generate coverage report
+
+**Execution Pattern**: EXEC-009 (Validation Run)
+
+## Risk Assessment
+
+**Risk Level**: LOW
+- Only modifying test files (not production code)
+- Import fixes are straightforward mappings
+- Can be rolled back easily
+
+## Rollback Plan
+
+If issues arise:
+1. Revert to commit: ea8bf17b (current main)
+2. All changes are in test files only
+3. No production code affected
+
+## Dependencies
+
+- Current main branch (ea8bf17b)
+- Python 3.12
+- pytest framework
+- tree-sitter packages
+
+## Timeline
+
+- WS-001: 60-90 minutes
+- WS-002: 30-45 minutes
+- WS-003: 15-30 minutes
+- WS-004: 30-45 minutes
+- **Total**: 2.25-3.5 hours
+
+## Notes
+
+This phase addresses the critical gap in test infrastructure that prevents
+running ~40% of the test suite. Success will enable comprehensive validation
+of all future changes.

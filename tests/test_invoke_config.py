@@ -9,7 +9,7 @@ Validates config loading hierarchy, tool profiles, and legacy fallback.
 import os
 import pytest
 from pathlib import Path
-from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.config_loader import (
+from core.config_loader import (
     load_project_config,
     get_tool_config,
     get_orchestrator_config,
