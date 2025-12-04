@@ -1,7 +1,3 @@
----
-doc_id: DOC-GUIDE-REQUIREMENTS-739
----
-
 # Core dependencies
 PyYAML>=6.0,<7
 requests>=2.31,<3
