@@ -3,49 +3,128 @@
 Routes tasks to appropriate tools based on router_config.json.
 Supports multiple routing strategies and capability matching.
 """
+
 # DOC_ID: DOC-CORE-ENGINE-ROUTER-157
 
 import json
+import logging
+from collections import defaultdict
+from datetime import datetime, timezone
 from pathlib import Path
-from typing import Dict, Any, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Protocol, Tuple
+
+logger = logging.getLogger(__name__)
+
+
+class RoutingStateStore(Protocol):
+    """Protocol for routing state persistence"""
+
+    def get_round_robin_index(self, rule_id: str) -> int: ...
+    def set_round_robin_index(self, rule_id: str, index: int) -> None: ...
+    def get_tool_metrics(self, tool_id: str) -> Dict[str, Any]: ...
+
+
+class InMemoryStateStore:
+    """In-memory implementation of routing state store"""
+
+    def __init__(self):
+        self._round_robin_indices: Dict[str, int] = defaultdict(int)
+        self._tool_metrics: Dict[str, Dict[str, Any]] = defaultdict(
+            lambda: {
+                "success_count": 0,
+                "failure_count": 0,
+                "total_latency_ms": 0.0,
+                "call_count": 0,
+            }
+        )
+
+    def get_round_robin_index(self, rule_id: str) -> int:
+        return self._round_robin_indices[rule_id]
+
+    def set_round_robin_index(self, rule_id: str, index: int) -> None:
+        self._round_robin_indices[rule_id] = index
+
+    def get_tool_metrics(self, tool_id: str) -> Dict[str, Any]:
+        # Return reference to allow updates
+        return self._tool_metrics[tool_id]
+
+
+class RoutingDecision:
+    """Records a routing decision for observability"""
+
+    def __init__(
+        self,
+        task_kind: str,
+        selected_tool: str,
+        strategy: str,
+        candidates: List[str],
+        rule_id: Optional[str] = None,
+        metadata: Optional[Dict[str, Any]] = None,
+    ):
+        self.task_kind = task_kind
+        self.selected_tool = selected_tool
+        self.strategy = strategy
+        self.candidates = candidates
+        self.rule_id = rule_id
+        self.metadata = metadata or {}
+        self.timestamp = datetime.now(timezone.utc).isoformat()
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "timestamp": self.timestamp,
+            "task_kind": self.task_kind,
+            "selected_tool": self.selected_tool,
+            "strategy": self.strategy,
+            "candidates": self.candidates,
+            "rule_id": self.rule_id,
+            "metadata": self.metadata,
+        }
 
 
 class TaskRouter:
     """Routes tasks to tools based on configuration and capabilities"""
 
-    def __init__(self, router_config_path: str):
+    def __init__(
+        self, router_config_path: str, state_store: Optional[RoutingStateStore] = None
+    ):
         """
         Initialize router with configuration.
 
         Args:
             router_config_path: Path to router_config.json
+            state_store: Optional state store for strategy persistence (defaults to in-memory)
         """
         self.config_path = Path(router_config_path)
         self.config = self._load_config()
-        self.apps = self.config.get('apps', {})
-        self.routing_rules = self.config.get('routing', {}).get('rules', [])
-        self.defaults = self.config.get('defaults', {})
+        self.apps = self.config.get("apps", {})
+        self.routing_rules = self.config.get("routing", {}).get("rules", [])
+        self.defaults = self.config.get("defaults", {})
+        self.state_store = state_store or InMemoryStateStore()
+        self.decision_log: List[RoutingDecision] = []
 
     def _load_config(self) -> Dict[str, Any]:
         """Load and parse router configuration"""
         if not self.config_path.exists():
             raise FileNotFoundError(f"Router config not found: {self.config_path}")
 
-        with open(self.config_path, 'r', encoding='utf-8') as f:
+        with open(self.config_path, "r", encoding="utf-8") as f:
             config = json.load(f)
 
         # Validate required fields
-        if 'apps' not in config:
+        if "apps" not in config:
             raise ValueError("Router config missing 'apps' field")
-        if 'routing' not in config:
+        if "routing" not in config:
             raise ValueError("Router config missing 'routing' field")
 
         return config
 
-    def route_task(self, task_kind: str,
-                   risk_tier: Optional[str] = None,
-                   complexity: Optional[str] = None,
-                   domain: Optional[str] = None) -> Optional[str]:
+    def route_task(
+        self,
+        task_kind: str,
+        risk_tier: Optional[str] = None,
+        complexity: Optional[str] = None,
+        domain: Optional[str] = None,
+    ) -> Optional[str]:
         """
         Route a task to the best tool.
 
@@ -61,59 +140,94 @@ class TaskRouter:
         # Try to match routing rules first
         for rule in self.routing_rules:
             if self._matches_rule(rule, task_kind, risk_tier, complexity):
-                candidates = rule.get('select_from', [])
-                strategy = rule.get('strategy', 'fixed')
+                candidates = rule.get("select_from", [])
+                strategy = rule.get("strategy", "fixed")
+                rule_id = rule.get("id")
 
                 if candidates:
-                    return self._apply_strategy(candidates, strategy)
+                    selected = self._apply_strategy(candidates, strategy, rule_id)
+                    if selected:
+                        # Log decision
+                        decision = RoutingDecision(
+                            task_kind=task_kind,
+                            selected_tool=selected,
+                            strategy=strategy,
+                            candidates=candidates,
+                            rule_id=rule_id,
+                            metadata={
+                                "risk_tier": risk_tier,
+                                "complexity": complexity,
+                                "domain": domain,
+                            },
+                        )
+                        self.decision_log.append(decision)
+                        logger.info(
+                            f"Routed {task_kind} to {selected} via rule {rule_id} (strategy: {strategy})"
+                        )
+                        return selected
 
         # Fallback: find any tool that can handle this task_kind
         capable_tools = self._find_capable_tools(task_kind, domain)
 
         if capable_tools:
             # Default to first capable tool
-            return capable_tools[0]
+            selected = capable_tools[0]
+            decision = RoutingDecision(
+                task_kind=task_kind,
+                selected_tool=selected,
+                strategy="fallback",
+                candidates=capable_tools,
+                metadata={"reason": "no_matching_rule"},
+            )
+            self.decision_log.append(decision)
+            logger.info(f"Routed {task_kind} to {selected} via fallback")
+            return selected
 
+        logger.warning(f"No capable tools found for {task_kind}")
         return None
 
-    def _matches_rule(self, rule: Dict[str, Any],
-                     task_kind: str,
-                     risk_tier: Optional[str],
-                     complexity: Optional[str]) -> bool:
+    def _matches_rule(
+        self,
+        rule: Dict[str, Any],
+        task_kind: str,
+        risk_tier: Optional[str],
+        complexity: Optional[str],
+    ) -> bool:
         """Check if task matches routing rule"""
-        match = rule.get('match', {})
+        match = rule.get("match", {})
 
         # Check task_kind
-        if 'task_kind' in match:
-            if task_kind not in match['task_kind']:
+        if "task_kind" in match:
+            if task_kind not in match["task_kind"]:
                 return False
 
         # Check risk_tier
-        if risk_tier and 'risk_tier' in match:
-            if risk_tier not in match['risk_tier']:
+        if risk_tier and "risk_tier" in match:
+            if risk_tier not in match["risk_tier"]:
                 return False
 
         # Check complexity
-        if complexity and 'complexity' in match:
-            if complexity != match['complexity']:
+        if complexity and "complexity" in match:
+            if complexity != match["complexity"]:
                 return False
 
         return True
 
-    def _find_capable_tools(self, task_kind: str,
-                           domain: Optional[str] = None) -> List[str]:
+    def _find_capable_tools(
+        self, task_kind: str, domain: Optional[str] = None
+    ) -> List[str]:
         """Find all tools capable of handling task_kind"""
         capable = []
 
         for tool_id, app_config in self.apps.items():
-            capabilities = app_config.get('capabilities', {})
+            capabilities = app_config.get("capabilities", {})
 
             # Check if tool supports this task_kind
-            supported_tasks = capabilities.get('task_kinds', [])
+            supported_tasks = capabilities.get("task_kinds", [])
             if task_kind in supported_tasks:
                 # If domain specified, check domain match
                 if domain:
-                    supported_domains = capabilities.get('domains', [])
+                    supported_domains = capabilities.get("domains", [])
                     if domain in supported_domains or not supported_domains:
                         capable.append(tool_id)
                 else:
@@ -121,13 +235,16 @@ class TaskRouter:
 
         return capable
 
-    def _apply_strategy(self, candidates: List[str], strategy: str) -> Optional[str]:
+    def _apply_strategy(
+        self, candidates: List[str], strategy: str, rule_id: Optional[str] = None
+    ) -> Optional[str]:
         """
         Apply routing strategy to select from candidates.
 
         Args:
             candidates: List of candidate tool IDs
-            strategy: Routing strategy ('fixed', 'round_robin', 'auto')
+            strategy: Routing strategy ('fixed', 'round_robin', 'metrics', 'auto')
+            rule_id: Optional rule ID for state tracking
 
         Returns:
             Selected tool ID
@@ -135,23 +252,83 @@ class TaskRouter:
         if not candidates:
             return None
 
-        if strategy == 'fixed':
+        if strategy == "fixed":
             # Always return first candidate
             return candidates[0]
 
-        elif strategy == 'round_robin':
-            # TODO: Implement round-robin state tracking
-            # For now, return first
-            return candidates[0]
+        elif strategy == "round_robin":
+            # Round-robin with persistent state
+            if rule_id:
+                index = self.state_store.get_round_robin_index(rule_id)
+                selected = candidates[index % len(candidates)]
+                # Update index for next call
+                self.state_store.set_round_robin_index(rule_id, index + 1)
+                logger.debug(f"Round-robin selected {selected} (index {index})")
+                return selected
+            else:
+                # No rule_id, fall back to first
+                logger.warning(
+                    "Round-robin strategy without rule_id, using first candidate"
+                )
+                return candidates[0]
 
-        elif strategy == 'auto':
-            # TODO: Implement auto-selection based on metrics
-            # For now, return first
-            return candidates[0]
+        elif strategy == "metrics" or strategy == "auto":
+            # Metrics-based selection
+            return self._select_by_metrics(candidates)
 
         else:
             # Unknown strategy, default to first
+            logger.warning(f"Unknown strategy '{strategy}', using first candidate")
             return candidates[0]
+
+    def _select_by_metrics(self, candidates: List[str]) -> str:
+        """
+        Select tool based on historical metrics.
+
+        Prioritizes:
+        1. Success rate (success_count / total calls)
+        2. Average latency (lower is better)
+
+        Args:
+            candidates: List of candidate tool IDs
+
+        Returns:
+            Selected tool ID
+        """
+        best_tool = None
+        best_score = -1.0
+
+        for tool_id in candidates:
+            metrics = self.state_store.get_tool_metrics(tool_id)
+            call_count = metrics.get("call_count", 0)
+
+            if call_count == 0:
+                # No history, give it a neutral score
+                score = 0.5
+            else:
+                success_count = metrics.get("success_count", 0)
+                total_latency = metrics.get("total_latency_ms", 0.0)
+
+                # Success rate (0-1)
+                success_rate = success_count / call_count
+
+                # Normalized latency (invert so lower latency = higher score)
+                avg_latency = total_latency / call_count if call_count > 0 else 1000.0
+                latency_score = 1.0 / (
+                    1.0 + (avg_latency / 1000.0)
+                )  # Normalize around 1000ms
+
+                # Combined score (weighted: 70% success rate, 30% latency)
+                score = (0.7 * success_rate) + (0.3 * latency_score)
+
+            logger.debug(f"Tool {tool_id} score: {score:.3f}")
+
+            if score > best_score:
+                best_score = score
+                best_tool = tool_id
+
+        logger.info(f"Metrics-based selection: {best_tool} (score: {best_score:.3f})")
+        return best_tool or candidates[0]
 
     def get_tool_config(self, tool_id: str) -> Optional[Dict[str, Any]]:
         """Get configuration for a specific tool"""
@@ -161,22 +338,24 @@ class TaskRouter:
         """Get command for a tool"""
         tool_config = self.get_tool_config(tool_id)
         if tool_config:
-            return tool_config.get('command')
+            return tool_config.get("command")
         return None
 
     def get_tool_limits(self, tool_id: str) -> Dict[str, Any]:
         """Get limits for a tool (timeout, max_parallel, etc.)"""
         tool_config = self.get_tool_config(tool_id)
         if tool_config:
-            limits = tool_config.get('limits', {})
+            limits = tool_config.get("limits", {})
             # Merge with defaults
             return {
-                'max_parallel': limits.get('max_parallel', 1),
-                'timeout_seconds': limits.get('timeout_seconds', self.defaults.get('timeout_seconds', 600))
+                "max_parallel": limits.get("max_parallel", 1),
+                "timeout_seconds": limits.get(
+                    "timeout_seconds", self.defaults.get("timeout_seconds", 600)
+                ),
             }
         return {
-            'max_parallel': 1,
-            'timeout_seconds': self.defaults.get('timeout_seconds', 600)
+            "max_parallel": 1,
+            "timeout_seconds": self.defaults.get("timeout_seconds", 600),
         }
 
     def list_tools(self) -> List[str]:
@@ -187,10 +366,66 @@ class TaskRouter:
         """Get capabilities for a tool"""
         tool_config = self.get_tool_config(tool_id)
         if tool_config:
-            return tool_config.get('capabilities', {})
+            return tool_config.get("capabilities", {})
         return {}
 
+    def get_decision_log(self, last_n: Optional[int] = None) -> List[Dict[str, Any]]:
+        """
+        Get routing decision log.
 
-def create_router(router_config_path: str) -> TaskRouter:
-    """Factory function to create a router"""
-    return TaskRouter(router_config_path)
+        Args:
+            last_n: Optional limit to last N decisions
+
+        Returns:
+            List of decision records
+        """
+        decisions = self.decision_log
+        if last_n:
+            decisions = decisions[-last_n:]
+        return [d.to_dict() for d in decisions]
+
+    def clear_decision_log(self) -> None:
+        """Clear the decision log"""
+        self.decision_log.clear()
+        logger.debug("Decision log cleared")
+
+    def record_execution_result(
+        self, tool_id: str, success: bool, latency_ms: float
+    ) -> None:
+        """
+        Record execution result for metrics-based routing.
+
+        Args:
+            tool_id: Tool that executed the task
+            success: Whether execution succeeded
+            latency_ms: Execution latency in milliseconds
+        """
+        metrics = self.state_store.get_tool_metrics(tool_id)
+        metrics["call_count"] = metrics.get("call_count", 0) + 1
+        metrics["total_latency_ms"] = metrics.get("total_latency_ms", 0.0) + latency_ms
+
+        if success:
+            metrics["success_count"] = metrics.get("success_count", 0) + 1
+        else:
+            metrics["failure_count"] = metrics.get("failure_count", 0) + 1
+
+        # Update store (for in-memory this is a no-op, but important for persistent stores)
+        logger.debug(
+            f"Recorded {tool_id} result: success={success}, latency={latency_ms}ms"
+        )
+
+
+def create_router(
+    router_config_path: str, state_store: Optional[RoutingStateStore] = None
+) -> TaskRouter:
+    """
+    Factory function to create a router.
+
+    Args:
+        router_config_path: Path to router configuration file
+        state_store: Optional state store for routing persistence
+
+    Returns:
+        Configured TaskRouter instance
+    """
+    return TaskRouter(router_config_path, state_store=state_store)
