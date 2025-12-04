@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-641
+---
+
 # validation-pipeline
 
 **Module Path**: `openspec/specs/validation-pipeline`

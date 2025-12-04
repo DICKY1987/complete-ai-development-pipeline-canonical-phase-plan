@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-504
+---
+
 # Phase 4 – Tool Routing & Adapter Selection
 
 **Purpose**: Match tasks to tool profiles and select adapters (Aider/Codex/Custom).

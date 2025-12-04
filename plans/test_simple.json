@@ -5,7 +5,9 @@
   "metadata": {
     "project": "complete-ai-dev-pipeline",
     "created_by": "test",
-    "tags": ["test"]
+    "tags": [
+      "test"
+    ]
   },
   "globals": {
     "max_concurrency": 2,
@@ -21,7 +23,10 @@
       "name": "First step",
       "description": "Print message 1",
       "command": "python",
-      "args": ["-c", "print('Step 1 complete')"],
+      "args": [
+        "-c",
+        "print('Step 1 complete')"
+      ],
       "cwd": ".",
       "shell": false,
       "env": {},
@@ -32,9 +37,13 @@
       "critical": true,
       "condition": null,
       "on_failure": "abort",
-      "provides": ["msg1"],
+      "provides": [
+        "msg1"
+      ],
       "consumes": [],
-      "tags": ["phase:1"],
+      "tags": [
+        "phase:1"
+      ],
       "ui_hints": {
         "group": "Test",
         "weight": 10
@@ -45,20 +54,31 @@
       "name": "Second step (parallel)",
       "description": "Print message 2 (can run with step3)",
       "command": "python",
-      "args": ["-c", "print('Step 2 complete')"],
+      "args": [
+        "-c",
+        "print('Step 2 complete')"
+      ],
       "cwd": ".",
       "shell": false,
       "env": {},
-      "depends_on": ["step1"],
+      "depends_on": [
+        "step1"
+      ],
       "timeout_sec": 10,
       "retries": 0,
       "retry_delay_sec": 0,
       "critical": true,
       "condition": null,
       "on_failure": "abort",
-      "provides": ["msg2"],
-      "consumes": ["msg1"],
-      "tags": ["phase:2"],
+      "provides": [
+        "msg2"
+      ],
+      "consumes": [
+        "msg1"
+      ],
+      "tags": [
+        "phase:2"
+      ],
       "ui_hints": {
         "group": "Test",
         "weight": 20
@@ -69,20 +89,31 @@
       "name": "Third step (parallel)",
       "description": "Print message 3 (can run with step2)",
       "command": "python",
-      "args": ["-c", "import time; time.sleep(1); print('Step 3 complete')"],
+      "args": [
+        "-c",
+        "import time; time.sleep(1); print('Step 3 complete')"
+      ],
       "cwd": ".",
       "shell": false,
       "env": {},
-      "depends_on": ["step1"],
+      "depends_on": [
+        "step1"
+      ],
       "timeout_sec": 10,
       "retries": 0,
       "retry_delay_sec": 0,
       "critical": true,
       "condition": null,
       "on_failure": "abort",
-      "provides": ["msg3"],
-      "consumes": ["msg1"],
-      "tags": ["phase:2"],
+      "provides": [
+        "msg3"
+      ],
+      "consumes": [
+        "msg1"
+      ],
+      "tags": [
+        "phase:2"
+      ],
       "ui_hints": {
         "group": "Test",
         "weight": 21
@@ -93,24 +124,38 @@
       "name": "Final step",
       "description": "Print completion message",
       "command": "python",
-      "args": ["-c", "print('All steps complete!')"],
+      "args": [
+        "-c",
+        "print('All steps complete!')"
+      ],
       "cwd": ".",
       "shell": false,
       "env": {},
-      "depends_on": ["step2", "step3"],
+      "depends_on": [
+        "step2",
+        "step3"
+      ],
       "timeout_sec": 10,
       "retries": 0,
       "retry_delay_sec": 0,
       "critical": false,
       "condition": null,
       "on_failure": "continue",
-      "provides": ["complete"],
-      "consumes": ["msg2", "msg3"],
-      "tags": ["phase:3"],
+      "provides": [
+        "complete"
+      ],
+      "consumes": [
+        "msg2",
+        "msg3"
+      ],
+      "tags": [
+        "phase:3"
+      ],
       "ui_hints": {
         "group": "Test",
         "weight": 30
       }
     }
-  ]
+  ],
+  "doc_id": "DOC-TEST-TEST-SIMPLE-336"
 }

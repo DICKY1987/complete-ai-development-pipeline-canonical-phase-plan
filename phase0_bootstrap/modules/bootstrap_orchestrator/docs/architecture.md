@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-ARCHITECTURE-566
+---
+
 # bootstrap_orchestrator Architecture
 
 **Module**: bootstrap_orchestrator

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-648
+---
+
 # migration
 
 **Module Path**: `templates/migration`

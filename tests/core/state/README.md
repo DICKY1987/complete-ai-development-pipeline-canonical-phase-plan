@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-736
+---
+
 # state
 
 **Module Path**: `tests/core/state`

@@ -3,7 +3,10 @@
   "$id": "DOC-PAT-README-IMPLEMENTATION-813",
   "title": "PAT-README-IMPLEMENTATION-813 Pattern Instance",
   "type": "object",
-  "required": ["pattern_id", "version"],
+  "required": [
+    "pattern_id",
+    "version"
+  ],
   "properties": {
     "pattern_id": {
       "type": "string",
@@ -23,5 +26,6 @@
       "properties": {},
       "additionalProperties": true
     }
-  }
+  },
+  "doc_id": "DOC-PAT-README-IMPLEMENTATION-SCHEMA-163"
 }

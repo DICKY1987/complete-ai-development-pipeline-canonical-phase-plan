@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-646
+---
+
 # contracts
 
 **Module Path**: `templates/contracts`

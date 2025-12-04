@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-E2E-PROCESS-VISUAL-DIAGRAM-472
+---
+
 # 🎯 Complete AI Pipeline - End-to-End Visual Process Flow
 
 **Document ID**: DOC-VISUAL-E2E-PROCESS-FLOW-001

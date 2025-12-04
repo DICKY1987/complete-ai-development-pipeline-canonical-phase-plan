@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-SAFE-PULL-AND-PUSH-749
 # Safe pull-and-push wrapper with retry support.
 param(
     [Parameter(Mandatory = $true)]

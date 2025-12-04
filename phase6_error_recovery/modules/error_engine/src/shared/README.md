@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-681
+---
+
 # shared
 
 **Module Path**: `error/shared`

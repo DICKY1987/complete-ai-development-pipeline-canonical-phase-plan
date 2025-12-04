@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-USAGE-666
+---
+
 # gui_components Usage Guide
 
 **Module**: gui_components

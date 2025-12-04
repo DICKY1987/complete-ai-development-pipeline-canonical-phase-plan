@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-573
+---
+
 # governance
 
 **Module Path**: `specifications/content/governance`

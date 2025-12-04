@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-732
+---
+
 # jobs
 
 **Module Path**: `state/events/jobs`

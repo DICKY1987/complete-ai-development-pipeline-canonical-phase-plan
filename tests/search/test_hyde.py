@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-TEST-SEARCH-TEST-HYDE-313
 from core.search import HyDESearch, InMemoryVectorStore
 
 

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-676
+---
+
 # detectors
 
 **Module Path**: `tools/pattern-extraction/detectors`

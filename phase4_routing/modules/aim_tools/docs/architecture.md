@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-ARCHITECTURE-661
+---
+
 # aim_tools Architecture
 
 **Module**: aim_tools

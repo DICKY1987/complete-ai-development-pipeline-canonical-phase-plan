@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-652
+---
+
 # Module: aider_integration
 
 **Phase**: 4

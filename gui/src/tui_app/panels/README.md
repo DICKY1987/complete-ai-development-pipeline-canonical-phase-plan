@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-564
+---
+
 # panels
 
 **Module Path**: `gui/tui_app/panels`

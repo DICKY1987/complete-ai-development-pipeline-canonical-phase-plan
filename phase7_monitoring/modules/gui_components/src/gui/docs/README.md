@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-667
+---
+
 # docs
 
 **Module Path**: `gui/docs`

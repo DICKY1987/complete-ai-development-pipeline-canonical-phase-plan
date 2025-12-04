@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-700
+---
+
 # Plugin: semgrep
 
 **Phase**: 6 (Error Recovery)

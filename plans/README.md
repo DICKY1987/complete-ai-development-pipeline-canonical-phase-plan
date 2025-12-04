@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-511
+---
+
 # Orchestration Plans Directory
 
 This directory contains **JSON plan files** for the unified orchestration engine.

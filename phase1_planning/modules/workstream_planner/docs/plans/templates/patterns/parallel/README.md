@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-008
+---
+
 # parallel
 
 **Module Path**: `templates/patterns/parallel`

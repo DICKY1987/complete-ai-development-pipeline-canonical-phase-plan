@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-638
+---
+
 # uet-001-phase-e-resilience
 
 **Module Path**: `openspec/changes/uet-001-phase-e-resilience`

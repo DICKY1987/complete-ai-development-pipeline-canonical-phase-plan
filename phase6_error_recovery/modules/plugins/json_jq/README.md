@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-686
+---
+
 # Plugin: json_jq
 
 **Phase**: 6 (Error Recovery)

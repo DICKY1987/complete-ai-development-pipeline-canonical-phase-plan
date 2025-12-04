@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-MULTI-INSTANCE-CLI-CONTROL-PHASE-PLAN-629
+---
+
 # Multi-Instance CLI Control - 3-Week Phase Plan
 
 **Goal**: Enable Copilot CLI to control 3-5 aider instances simultaneously and send interactive prompts

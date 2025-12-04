@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-663
+---
+
 # generation
 
 **Module Path**: `tools/generation`

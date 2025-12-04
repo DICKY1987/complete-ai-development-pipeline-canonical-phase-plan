@@ -1,3 +1,7 @@
+---
+doc_id: DOC-TEST-README-330
+---
+
 # plugins
 
 **Module Path**: `tests/plugins`

@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-ARCHIVE-MODULES-FOLDER-742
 # Archive modules/ Directory - EXEC-017
 # Reason: 98% of modules are orphaned (failed module-centric refactor)
 # Safe to archive: Preserves git history, reversible

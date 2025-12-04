@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-677
+---
+
 # generators
 
 **Module Path**: `tools/pattern-extraction/generators`

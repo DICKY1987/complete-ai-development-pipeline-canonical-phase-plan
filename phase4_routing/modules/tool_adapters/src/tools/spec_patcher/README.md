@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-672
+---
+
 # spec_patcher
 
 **Module Path**: `tools/spec_patcher`

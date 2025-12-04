@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-635
+---
+
 # uet-001-phase-b-patch-system
 
 **Module Path**: `openspec/changes/uet-001-phase-b-patch-system`

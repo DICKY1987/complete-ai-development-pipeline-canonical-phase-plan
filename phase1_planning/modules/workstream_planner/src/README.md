@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-651
+---
+
 # planning
 
 **Module Path**: `core/planning`

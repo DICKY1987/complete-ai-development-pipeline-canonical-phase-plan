@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-DOC-ID-SYSTEM-STATUS-484
+---
+
 # doc_id System - Status Report
 
 **Date**: December 2, 2025

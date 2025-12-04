@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-714
+---
+
 # python_isort_fix
 
 **Module Path**: `error/plugins/python_isort_fix`

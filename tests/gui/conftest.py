@@ -7,3 +7,4 @@ from pathlib import Path
 gui_src = Path(__file__).parent.parent.parent / 'gui' / 'src'
 if str(gui_src) not in sys.path:
     sys.path.insert(0, str(gui_src))
+# DOC_LINK: DOC-TEST-GUI-CONFTEST-305

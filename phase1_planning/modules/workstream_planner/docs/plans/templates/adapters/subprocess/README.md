@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-652
+---
+
 # subprocess
 
 **Module Path**: `templates/adapters/subprocess`

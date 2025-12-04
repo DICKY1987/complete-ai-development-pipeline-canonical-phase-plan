@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-MULTI-AGENT-CONSOLIDATION-GUIDE-542
+---
+
 # Multi-Agent Workstream Coordination & Consolidation
 
 **Complete automation for multi-agent workstream execution with result consolidation and persistence.**

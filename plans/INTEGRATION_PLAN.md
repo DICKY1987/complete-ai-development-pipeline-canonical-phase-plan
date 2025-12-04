@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-INTEGRATION-PLAN-510
+---
+
 # Orchestrator Integration Plan
 **Created**: 2025-12-04
 **Status**: Ready for Implementation

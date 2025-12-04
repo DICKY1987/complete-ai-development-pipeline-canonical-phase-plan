@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-EXEC-009-DOCID-REGISTRATION-990
+---
+
 # EXEC-009: DOC_ID Registration Pattern
 # Pattern for systematically registering modules with doc_ids
 

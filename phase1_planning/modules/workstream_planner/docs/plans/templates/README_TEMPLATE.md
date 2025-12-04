@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-TEMPLATE-587
+---
+
 # {FOLDER_NAME}
 
 **Module Path**: `{MODULE_PATH}`

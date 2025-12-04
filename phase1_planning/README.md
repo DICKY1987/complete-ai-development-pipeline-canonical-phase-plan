@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-501
+---
+
 # Phase 1 – Planning & Spec Alignment
 
 **Purpose**: Take OpenSpec + PM epics + plan docs → workstreams + phase plans.

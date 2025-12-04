@@ -13,7 +13,12 @@
     "tool_id": {
       "type": "string",
       "description": "Tool identifier from AIM registry",
-      "examples": ["aider", "jules", "codex", "claude-cli"]
+      "examples": [
+        "aider",
+        "jules",
+        "codex",
+        "claude-cli"
+      ]
     },
     "pid": {
       "type": "integer",
@@ -25,7 +30,10 @@
       "description": "Whether instance is responsive"
     },
     "return_code": {
-      "type": ["integer", "null"],
+      "type": [
+        "integer",
+        "null"
+      ],
       "description": "Exit code if terminated, null if still running"
     },
     "spawn_time": {
@@ -68,6 +76,11 @@
       }
     }
   },
-  "required": ["index", "tool_id", "alive"],
-  "additionalProperties": false
+  "required": [
+    "index",
+    "tool_id",
+    "alive"
+  ],
+  "additionalProperties": false,
+  "doc_id": "DOC-CORE-POOL-INSTANCE-SCHEMA-737"
 }

@@ -2,6 +2,7 @@
 
 Simple smoke test to verify core functionality.
 """
+DOC_ID: DOC-AIM-AIM-VALIDATE-POOL-149
 
 from aim.bridge import ToolProcessPool
 

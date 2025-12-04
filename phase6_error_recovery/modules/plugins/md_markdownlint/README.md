@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-689
+---
+
 # Plugin: md_markdownlint
 
 **Phase**: 6 (Error Recovery)

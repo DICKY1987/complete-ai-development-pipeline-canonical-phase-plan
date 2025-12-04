@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-695
+---
+
 # Plugin: python_isort_fix
 
 **Phase**: 6 (Error Recovery)

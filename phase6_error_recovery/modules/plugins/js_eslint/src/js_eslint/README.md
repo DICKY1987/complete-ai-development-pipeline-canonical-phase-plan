@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-706
+---
+
 # js_eslint
 
 **Module Path**: `error/plugins/js_eslint`

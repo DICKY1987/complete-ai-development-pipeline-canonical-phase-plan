@@ -5,7 +5,6 @@
   "description": "Full schema for a SPLINTER Phase Plan document, including github_integration via GH_SYNC_PHASE_V1.",
   "type": "object",
   "additionalProperties": false,
-
   "required": [
     "doc_id",
     "template_version",
@@ -23,17 +22,18 @@
     "observability_and_metrics",
     "governance_and_constraints"
   ],
-
   "properties": {
     "doc_id": {
       "type": "string",
       "minLength": 1
     },
     "template_version": {
-      "type": ["string", "integer"],
+      "type": [
+        "string",
+        "integer"
+      ],
       "minLength": 1
     },
-
     "phase_identity": {
       "type": "object",
       "additionalProperties": false,
@@ -78,8 +78,12 @@
         },
         "gh_item_id": {
           "anyOf": [
-            { "type": "string" },
-            { "type": "null" }
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
           ]
         },
         "tags": {
@@ -99,7 +103,6 @@
         }
       }
     },
-
     "dag_and_dependencies": {
       "type": "object",
       "additionalProperties": true,
@@ -109,11 +112,15 @@
       "properties": {
         "depends_on": {
           "type": "array",
-          "items": { "type": "string" }
+          "items": {
+            "type": "string"
+          }
         },
         "may_run_parallel_with": {
           "type": "array",
-          "items": { "type": "string" }
+          "items": {
+            "type": "string"
+          }
         },
         "is_critical_path": {
           "type": "boolean"
@@ -123,22 +130,18 @@
         }
       }
     },
-
     "scope_and_modules": {
       "type": "object",
       "additionalProperties": true
     },
-
     "environment_and_tools": {
       "type": "object",
       "additionalProperties": true
     },
-
     "execution_profile": {
       "type": "object",
       "additionalProperties": true
     },
-
     "pre_flight_checks": {
       "anyOf": [
         {
@@ -154,7 +157,6 @@
         }
       ]
     },
-
     "execution_plan": {
       "type": "object",
       "additionalProperties": true,
@@ -167,12 +169,10 @@
         }
       }
     },
-
     "fix_loop_and_circuit_breakers": {
       "type": "object",
       "additionalProperties": true
     },
-
     "expected_artifacts": {
       "anyOf": [
         {
@@ -183,7 +183,6 @@
         }
       ]
     },
-
     "acceptance_tests": {
       "anyOf": [
         {
@@ -199,42 +198,36 @@
         }
       ]
     },
-
     "completion_gate": {
       "type": "object",
       "additionalProperties": true
     },
-
     "observability_and_metrics": {
       "type": "object",
       "additionalProperties": true
     },
-
     "governance_and_constraints": {
       "type": "object",
       "additionalProperties": true
     },
-
     "extensions": {
       "type": "object",
       "additionalProperties": true,
       "description": "Custom fields / extensions for phase-specific data."
     },
-
     "table_of_contents": {
       "type": "object",
       "additionalProperties": true
     },
-
     "index": {
       "type": "object",
       "additionalProperties": true
     },
-
     "github_integration": {
       "type": "object",
       "additionalProperties": true,
       "description": "Optional GitHub integration configuration (validated separately by GH_SYNC_PHASE_V1 if present)"
     }
-  }
+  },
+  "doc_id": "DOC-PAT-SPLINTER-PHASE-PLAN-V1-SCHEMA-183"
 }

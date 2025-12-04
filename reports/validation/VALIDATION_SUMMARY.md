@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-VALIDATION-SUMMARY-671
+---
+
 # Commit Integration & Production Readiness Validation Report
 
 **Phase ID:** PH-VALIDATE-001

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-552
+---
+
 # ai-agents
 
 **Module Path**: `docs/reference/ai-agents`

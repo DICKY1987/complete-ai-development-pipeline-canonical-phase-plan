@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-PHASE-PLAN-FULL-IMPLEMENTATION-987
+---
+
 # Pattern Automation System - Full Implementation Phase Plan
 # EXEC-002: Multi-Phase Development with Pre-Made Execution Patterns
 

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-659
+---
+
 # examples
 
 **Module Path**: `workstreams/examples`

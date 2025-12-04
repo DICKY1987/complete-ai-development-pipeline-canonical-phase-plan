@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-SAFE-MERGE-ORCHESTRATOR-748
 # Safe Merge Orchestrator
 # Entry: pwsh ./scripts/safe_merge_orchestrator.ps1 --branch <branch> [--mode ci] [--dryrun] [--from-phase N]
 

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-634
+---
+
 # bootstrap
 
 **Module Path**: `core/bootstrap`

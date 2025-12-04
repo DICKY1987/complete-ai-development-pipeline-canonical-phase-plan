@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-688
+---
+
 # Plugin: js_prettier_fix
 
 **Phase**: 6 (Error Recovery)

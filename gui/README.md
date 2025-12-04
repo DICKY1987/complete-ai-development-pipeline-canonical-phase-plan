@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-498
+---
+
 # Module: gui_components
 
 **Phase**: 7

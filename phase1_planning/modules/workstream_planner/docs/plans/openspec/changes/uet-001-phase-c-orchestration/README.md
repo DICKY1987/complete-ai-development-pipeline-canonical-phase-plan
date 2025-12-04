@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-636
+---
+
 # uet-001-phase-c-orchestration
 
 **Module Path**: `openspec/changes/uet-001-phase-c-orchestration`

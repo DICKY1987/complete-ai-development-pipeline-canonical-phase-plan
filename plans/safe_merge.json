@@ -6,7 +6,11 @@
     "project": "complete-ai-dev-pipeline",
     "created_by": "orchestrator-migration",
     "created_at": "2025-12-04T07:52:00Z",
-    "tags": ["safe-merge", "git", "ci"]
+    "tags": [
+      "safe-merge",
+      "git",
+      "ci"
+    ]
   },
   "globals": {
     "max_concurrency": 1,
@@ -23,10 +27,14 @@
       "description": "Validate clean working tree and repository state",
       "command": "pwsh",
       "args": [
-        "-ExecutionPolicy", "Bypass",
-        "-File", "scripts/merge_env_scan.ps1",
-        "-Branch", "${BRANCH}",
-        "-OutputPath", ".state/safe_merge/env_scan_${BRANCH}.json"
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "scripts/merge_env_scan.ps1",
+        "-Branch",
+        "${BRANCH}",
+        "-OutputPath",
+        ".state/safe_merge/env_scan_${BRANCH}.json"
       ],
       "cwd": ".",
       "shell": false,
@@ -38,9 +46,14 @@
       "critical": true,
       "condition": null,
       "on_failure": "abort",
-      "provides": ["env_scan_report"],
+      "provides": [
+        "env_scan_report"
+      ],
       "consumes": [],
-      "tags": ["phase:0", "gate:env"],
+      "tags": [
+        "phase:0",
+        "gate:env"
+      ],
       "ui_hints": {
         "group": "Validation",
         "weight": 10
@@ -53,24 +66,37 @@
       "command": "python",
       "args": [
         "scripts/sync_log_summary.py",
-        "--output", ".state/safe_merge/sync_summary_${BRANCH}.json",
-        "--lookback-minutes", "30",
-        "--max-errors", "5",
-        "--max-high-activity", "0"
+        "--output",
+        ".state/safe_merge/sync_summary_${BRANCH}.json",
+        "--lookback-minutes",
+        "30",
+        "--max-errors",
+        "5",
+        "--max-high-activity",
+        "0"
       ],
       "cwd": ".",
       "shell": false,
       "env": {},
-      "depends_on": ["env_scan"],
+      "depends_on": [
+        "env_scan"
+      ],
       "timeout_sec": 300,
       "retries": 0,
       "retry_delay_sec": 0,
       "critical": true,
       "condition": null,
       "on_failure": "abort",
-      "provides": ["sync_health_report"],
-      "consumes": ["env_scan_report"],
-      "tags": ["phase:1", "gate:sync"],
+      "provides": [
+        "sync_health_report"
+      ],
+      "consumes": [
+        "env_scan_report"
+      ],
+      "tags": [
+        "phase:1",
+        "gate:sync"
+      ],
       "ui_hints": {
         "group": "Validation",
         "weight": 20
@@ -83,22 +109,31 @@
       "command": "python",
       "args": [
         "scripts/nested_repo_detector.py",
-        "--output", ".state/safe_merge/nested_repos_${BRANCH}.json",
-        "--max-stray", "0"
+        "--output",
+        ".state/safe_merge/nested_repos_${BRANCH}.json",
+        "--max-stray",
+        "0"
       ],
       "cwd": ".",
       "shell": false,
       "env": {},
-      "depends_on": ["sync_health_check"],
+      "depends_on": [
+        "sync_health_check"
+      ],
       "timeout_sec": 600,
       "retries": 0,
       "retry_delay_sec": 0,
       "critical": true,
       "condition": null,
       "on_failure": "abort",
-      "provides": ["nested_repos_scan"],
+      "provides": [
+        "nested_repos_scan"
+      ],
       "consumes": [],
-      "tags": ["phase:2", "gate:nested"],
+      "tags": [
+        "phase:2",
+        "gate:nested"
+      ],
       "ui_hints": {
         "group": "Repository Safety",
         "weight": 30
@@ -111,22 +146,33 @@
       "command": "python",
       "args": [
         "scripts/nested_repo_normalizer.py",
-        "--input", ".state/safe_merge/nested_repos_${BRANCH}.json",
-        "--output", ".state/safe_merge/nested_repo_normalization_${BRANCH}.json"
+        "--input",
+        ".state/safe_merge/nested_repos_${BRANCH}.json",
+        "--output",
+        ".state/safe_merge/nested_repo_normalization_${BRANCH}.json"
       ],
       "cwd": ".",
       "shell": false,
       "env": {},
-      "depends_on": ["nested_repos_detect"],
+      "depends_on": [
+        "nested_repos_detect"
+      ],
       "timeout_sec": 600,
       "retries": 0,
       "retry_delay_sec": 0,
       "critical": true,
       "condition": null,
       "on_failure": "abort",
-      "provides": ["nested_repos_normalized"],
-      "consumes": ["nested_repos_scan"],
-      "tags": ["phase:2", "gate:nested"],
+      "provides": [
+        "nested_repos_normalized"
+      ],
+      "consumes": [
+        "nested_repos_scan"
+      ],
+      "tags": [
+        "phase:2",
+        "gate:nested"
+      ],
       "ui_hints": {
         "group": "Repository Safety",
         "weight": 31
@@ -139,22 +185,31 @@
       "command": "python",
       "args": [
         "scripts/merge_file_classifier.py",
-        "--policy", "config/merge_policy.yaml",
-        "--output", ".state/safe_merge/merge_file_classes_${BRANCH}.json"
+        "--policy",
+        "config/merge_policy.yaml",
+        "--output",
+        ".state/safe_merge/merge_file_classes_${BRANCH}.json"
       ],
       "cwd": ".",
       "shell": false,
       "env": {},
-      "depends_on": ["nested_repos_normalize"],
+      "depends_on": [
+        "nested_repos_normalize"
+      ],
       "timeout_sec": 600,
       "retries": 0,
       "retry_delay_sec": 0,
       "critical": true,
       "condition": null,
       "on_failure": "abort",
-      "provides": ["file_classes"],
+      "provides": [
+        "file_classes"
+      ],
       "consumes": [],
-      "tags": ["phase:3", "gate:classification"],
+      "tags": [
+        "phase:3",
+        "gate:classification"
+      ],
       "ui_hints": {
         "group": "Merge Preparation",
         "weight": 40
@@ -166,21 +221,30 @@
       "description": "Fetch latest changes from remote",
       "command": "git",
       "args": [
-        "fetch", "origin", "${BRANCH}"
+        "fetch",
+        "origin",
+        "${BRANCH}"
       ],
       "cwd": ".",
       "shell": false,
       "env": {},
-      "depends_on": ["file_classification"],
+      "depends_on": [
+        "file_classification"
+      ],
       "timeout_sec": 300,
       "retries": 2,
       "retry_delay_sec": 5,
       "critical": true,
       "condition": null,
       "on_failure": "abort",
-      "provides": ["fetched_branch"],
+      "provides": [
+        "fetched_branch"
+      ],
       "consumes": [],
-      "tags": ["phase:4", "git:fetch"],
+      "tags": [
+        "phase:4",
+        "git:fetch"
+      ],
       "ui_hints": {
         "group": "Merge Execution",
         "weight": 50
@@ -192,21 +256,32 @@
       "description": "Merge remote branch with --no-ff",
       "command": "git",
       "args": [
-        "merge", "--no-ff", "origin/${BRANCH}"
+        "merge",
+        "--no-ff",
+        "origin/${BRANCH}"
       ],
       "cwd": ".",
       "shell": false,
       "env": {},
-      "depends_on": ["git_fetch"],
+      "depends_on": [
+        "git_fetch"
+      ],
       "timeout_sec": 600,
       "retries": 0,
       "retry_delay_sec": 0,
       "critical": false,
       "condition": null,
       "on_failure": "continue",
-      "provides": ["merge_result"],
-      "consumes": ["fetched_branch"],
-      "tags": ["phase:4", "git:merge"],
+      "provides": [
+        "merge_result"
+      ],
+      "consumes": [
+        "fetched_branch"
+      ],
+      "tags": [
+        "phase:4",
+        "git:merge"
+      ],
       "ui_hints": {
         "group": "Merge Execution",
         "weight": 51
@@ -219,23 +294,35 @@
       "command": "python",
       "args": [
         "scripts/merge_timestamp_resolver.py",
-        "--input", ".state/safe_merge/merge_file_classes_${BRANCH}.json",
-        "--branch", "${BRANCH}",
+        "--input",
+        ".state/safe_merge/merge_file_classes_${BRANCH}.json",
+        "--branch",
+        "${BRANCH}",
         "--restrict-classes"
       ],
       "cwd": ".",
       "shell": false,
       "env": {},
-      "depends_on": ["git_merge"],
+      "depends_on": [
+        "git_merge"
+      ],
       "timeout_sec": 600,
       "retries": 0,
       "retry_delay_sec": 0,
       "critical": true,
       "condition": null,
       "on_failure": "abort",
-      "provides": ["timestamp_resolved"],
-      "consumes": ["file_classes", "merge_result"],
-      "tags": ["phase:4", "conflict:timestamp"],
+      "provides": [
+        "timestamp_resolved"
+      ],
+      "consumes": [
+        "file_classes",
+        "merge_result"
+      ],
+      "tags": [
+        "phase:4",
+        "conflict:timestamp"
+      ],
       "ui_hints": {
         "group": "Conflict Resolution",
         "weight": 52
@@ -248,23 +335,35 @@
       "command": "python",
       "args": [
         "scripts/ai_conflict_resolver.py",
-        "--branch", "${BRANCH}",
-        "--file-classes", ".state/safe_merge/merge_file_classes_${BRANCH}.json",
-        "--max-files", "20"
+        "--branch",
+        "${BRANCH}",
+        "--file-classes",
+        ".state/safe_merge/merge_file_classes_${BRANCH}.json",
+        "--max-files",
+        "20"
       ],
       "cwd": ".",
       "shell": false,
       "env": {},
-      "depends_on": ["timestamp_resolver"],
+      "depends_on": [
+        "timestamp_resolver"
+      ],
       "timeout_sec": 1200,
       "retries": 0,
       "retry_delay_sec": 0,
       "critical": true,
       "condition": null,
       "on_failure": "abort",
-      "provides": ["conflicts_resolved"],
-      "consumes": ["timestamp_resolved"],
-      "tags": ["phase:4", "conflict:ai"],
+      "provides": [
+        "conflicts_resolved"
+      ],
+      "consumes": [
+        "timestamp_resolved"
+      ],
+      "tags": [
+        "phase:4",
+        "conflict:ai"
+      ],
       "ui_hints": {
         "group": "Conflict Resolution",
         "weight": 53
@@ -277,24 +376,37 @@
       "command": "python",
       "args": [
         "scripts/multi_clone_guard.py",
-        "--branch", "${BRANCH}",
-        "--lock-type", "push_only",
-        "--command", "pwsh -ExecutionPolicy Bypass -File scripts/safe_pull_and_push.ps1 -Branch ${BRANCH}",
-        "--timeout", "900"
+        "--branch",
+        "${BRANCH}",
+        "--lock-type",
+        "push_only",
+        "--command",
+        "pwsh -ExecutionPolicy Bypass -File scripts/safe_pull_and_push.ps1 -Branch ${BRANCH}",
+        "--timeout",
+        "900"
       ],
       "cwd": ".",
       "shell": false,
       "env": {},
-      "depends_on": ["ai_conflict_resolver"],
+      "depends_on": [
+        "ai_conflict_resolver"
+      ],
       "timeout_sec": 1200,
       "retries": 1,
       "retry_delay_sec": 10,
       "critical": true,
       "condition": null,
       "on_failure": "abort",
-      "provides": ["pushed"],
-      "consumes": ["conflicts_resolved"],
-      "tags": ["phase:5", "git:push"],
+      "provides": [
+        "pushed"
+      ],
+      "consumes": [
+        "conflicts_resolved"
+      ],
+      "tags": [
+        "phase:5",
+        "git:push"
+      ],
       "ui_hints": {
         "group": "Publication",
         "weight": 60
@@ -307,27 +419,40 @@
       "command": "python",
       "args": [
         "scripts/safe_merge_emit_event.py",
-        "--branch", "${BRANCH}",
-        "--status", "success",
-        "--events-file", ".state/safe_merge/merge_events.jsonl"
+        "--branch",
+        "${BRANCH}",
+        "--status",
+        "success",
+        "--events-file",
+        ".state/safe_merge/merge_events.jsonl"
       ],
       "cwd": ".",
       "shell": false,
       "env": {},
-      "depends_on": ["guarded_push"],
+      "depends_on": [
+        "guarded_push"
+      ],
       "timeout_sec": 60,
       "retries": 0,
       "retry_delay_sec": 0,
       "critical": false,
       "condition": null,
       "on_failure": "continue",
-      "provides": ["event_logged"],
-      "consumes": ["pushed"],
-      "tags": ["phase:6", "logging"],
+      "provides": [
+        "event_logged"
+      ],
+      "consumes": [
+        "pushed"
+      ],
+      "tags": [
+        "phase:6",
+        "logging"
+      ],
       "ui_hints": {
         "group": "Finalization",
         "weight": 70
       }
     }
-  ]
+  ],
+  "doc_id": "DOC-CONFIG-SAFE-MERGE-270"
 }

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-654
+---
+
 # Module: tool_adapters
 
 **Phase**: 4

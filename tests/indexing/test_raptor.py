@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-TEST-INDEXING-TEST-RAPTOR-306
 from pathlib import Path
 
 from core.indexing.raptor import RaptorIndexer

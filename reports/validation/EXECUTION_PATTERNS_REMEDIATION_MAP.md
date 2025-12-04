@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-EXECUTION-PATTERNS-REMEDIATION-MAP-668
+---
+
 # Execution Patterns for Validation Remediation
 
 **Generated**: 2025-12-04

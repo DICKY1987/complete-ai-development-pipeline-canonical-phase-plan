@@ -1,3 +1,7 @@
+---
+doc_id: DOC-AIM-README-159
+---
+
 # aim-cli
 
 **Module Path**: `modules/aim-cli`

@@ -1,4 +1,5 @@
 """Artifact Generator - WS-02-02A"""
+DOC_ID: DOC-CORE-BOOTSTRAP-GENERATOR-743
 
 import json
 from pathlib import Path
@@ -75,3 +76,6 @@ if __name__ == "__main__":
     result = gen.generate_all()
     print(json.dumps({"status": "success", "artifacts": result}, indent=2))
 # DOC_LINK: DOC-CORE-BOOTSTRAP-GENERATOR-139
+# DOC_LINK: DOC-CORE-BOOTSTRAP-GENERATOR-614
+# DOC_LINK: DOC-CORE-BOOTSTRAP-GENERATOR-639
+# DOC_LINK: DOC-CORE-BOOTSTRAP-GENERATOR-738

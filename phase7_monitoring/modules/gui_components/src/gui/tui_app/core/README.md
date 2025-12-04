@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-728
+---
+
 # core
 
 **Module Path**: `gui/tui_app/core`

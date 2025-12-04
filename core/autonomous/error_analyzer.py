@@ -16,6 +16,7 @@ class ParsedError:
 
 class ErrorAnalyzer:
     """Parses stderr/test output into structured errors."""
+DOC_ID: DOC-CORE-AUTONOMOUS-ERROR-ANALYZER-609
 
     FILE_LINE_RE = re.compile(r"(?P<file>[\w./\\-]+):(?P<line>\d+)")
 

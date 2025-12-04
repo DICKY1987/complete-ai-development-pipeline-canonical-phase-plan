@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-733
+---
+
 # JOB-01JH9F8P2ZJ1A8E5R6C792Q2EQ
 
 **Module Path**: `state/events/jobs/JOB-01JH9F8P2ZJ1A8E5R6C792Q2EQ`

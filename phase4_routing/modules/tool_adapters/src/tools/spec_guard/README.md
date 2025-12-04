@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-670
+---
+
 # spec_guard
 
 **Module Path**: `tools/spec_guard`

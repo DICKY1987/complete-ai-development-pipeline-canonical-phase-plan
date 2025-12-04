@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-633
+---
+
 # ast
 
 **Module Path**: `core/ast`

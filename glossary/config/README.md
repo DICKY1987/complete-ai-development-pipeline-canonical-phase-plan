@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CONFIG-README-261
+---
+
 # config
 
 **Module Path**: `glossary/config`

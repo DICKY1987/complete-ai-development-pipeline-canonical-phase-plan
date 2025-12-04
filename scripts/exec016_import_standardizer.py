@@ -2,6 +2,7 @@
 EXEC-016: Import Path Standardizer - Simplified Executor
 Based on: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/specs/EXEC-016-import-path-standardizer.md
 """
+DOC_ID: DOC-SCRIPT-SCRIPTS-EXEC016-IMPORT-STANDARDIZER-712
 
 import re
 from pathlib import Path

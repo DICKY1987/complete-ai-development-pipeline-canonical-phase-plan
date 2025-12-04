@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-503
+---
+
 # Phase 3 – Scheduling & Task Graph
 
 **Purpose**: Load workstreams, build DAG, resolve dependencies, fill task queue.

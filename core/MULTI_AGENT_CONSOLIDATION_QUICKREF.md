@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-MULTI-AGENT-CONSOLIDATION-QUICKREF-628
+---
+
 # Multi-Agent Workstream Coordination - Quick Reference
 
 ## ONE-LINE EXECUTION

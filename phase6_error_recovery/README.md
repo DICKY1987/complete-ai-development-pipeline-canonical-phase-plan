@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-507
+---
+
 # Phase 6 – Error Analysis, Auto-Fix & Escalation
 
 **Purpose**: Detect errors, classify, auto-fix, and escalate as needed.

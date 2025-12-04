@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-GET-GITHUBPROJECTFIELDIDS-744
 <#
 .SYNOPSIS
     Helper script to discover GitHub Project field and option IDs.

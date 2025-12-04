@@ -19,6 +19,7 @@ Validation order:
 
 Outputs a machine-readable JSON report to stdout.
 """
+DOC_ID: DOC-SCRIPT-SCRIPTS-VALIDATE-PHASE-PLAN-731
 
 import argparse
 import json

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-710
+---
+
 # path_standardizer
 
 **Module Path**: `error/plugins/path_standardizer`

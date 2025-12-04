@@ -18,6 +18,7 @@ Author: GitHub Copilot CLI
 Version: 1.0.0
 Date: 2025-12-02
 """
+DOC_ID: DOC-SCRIPT-SCRIPTS-DETECT-PARALLEL-IMPLEMENTATIONS-710
 
 import argparse
 import json

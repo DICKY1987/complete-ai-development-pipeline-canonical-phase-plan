@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-SSOT-POLICY-README-489
+---
+
 # Glossary SSOT Policy System
 
 **Status**: ✅ Active  

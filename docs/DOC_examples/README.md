@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-534
+---
+
 # examples
 
 **Module Path**: `docs/examples`

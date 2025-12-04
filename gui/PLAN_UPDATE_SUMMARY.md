@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PLAN-UPDATE-SUMMARY-497
+---
+
 # Headless CLI Supervision Plan - Update Summary
 
 **Date**: 2025-12-04

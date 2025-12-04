@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-AGENTS-453
+---
+
 # Repository Guidelines
 
 ## Project Structure & Module Organization

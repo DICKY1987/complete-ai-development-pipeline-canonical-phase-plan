@@ -1,3 +1,7 @@
+---
+doc_id: DOC-AIM-README-169
+---
+
 # scripts
 
 **Module Path**: `ai-logs-analyzer/scripts`

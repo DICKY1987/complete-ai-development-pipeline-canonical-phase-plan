@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-669
+---
+
 # resolver
 
 **Module Path**: `specifications/tools/resolver`

@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-LAUNCH-GUI-741
 # GUI Launcher Script (Windows PowerShell)
 # Sets up Python path and launches GUI application
 

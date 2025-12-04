@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-646
+---
+
 # migrations
 
 **Module Path**: `schema/migrations`

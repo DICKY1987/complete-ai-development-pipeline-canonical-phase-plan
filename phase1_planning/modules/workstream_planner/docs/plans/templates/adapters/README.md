@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-644
+---
+
 # adapters
 
 **Module Path**: `templates/adapters`

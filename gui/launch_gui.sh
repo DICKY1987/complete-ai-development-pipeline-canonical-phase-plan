@@ -1,4 +1,5 @@
 #!/bin/bash
+# DOC_LINK: DOC-SCRIPT-LAUNCH-GUI-752
 # GUI Launcher Script (Linux/macOS)
 # Sets up Python path and launches GUI application
 

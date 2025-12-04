@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-712
+---
+
 # python_bandit
 
 **Module Path**: `error/plugins/python_bandit`

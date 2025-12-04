@@ -10,6 +10,7 @@ Usage:
     python scripts/validate_doc_id_coverage.py --baseline 0.92
     python scripts/validate_doc_id_coverage.py --report coverage_report.json
 """
+DOC_ID: DOC-GUIDE-DOC-ID-VALIDATE-DOC-ID-COVERAGE-452
 
 import json
 import re

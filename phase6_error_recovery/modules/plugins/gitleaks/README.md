@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-685
+---
+
 # Plugin: gitleaks
 
 **Phase**: 6 (Error Recovery)

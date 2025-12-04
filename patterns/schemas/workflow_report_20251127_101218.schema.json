@@ -3,7 +3,10 @@
   "$id": "DOC-PAT-WORKFLOW-REPORT-20251127-101218-961",
   "title": "PAT-WORKFLOW-REPORT-20251127-101218-961 Pattern Instance",
   "type": "object",
-  "required": ["pattern_id", "version"],
+  "required": [
+    "pattern_id",
+    "version"
+  ],
   "properties": {
     "pattern_id": {
       "type": "string",
@@ -23,5 +26,6 @@
       "properties": {},
       "additionalProperties": true
     }
-  }
+  },
+  "doc_id": "DOC-PAT-WORKFLOW-REPORT-20251127-101218-SCHEMA-194"
 }

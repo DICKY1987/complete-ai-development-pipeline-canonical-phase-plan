@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-GUIIMPROVE-493
+---
+
 Here’s a spec-style document you can drop into the repo and point AI tools at to implement the behavior you described.
 
 ---

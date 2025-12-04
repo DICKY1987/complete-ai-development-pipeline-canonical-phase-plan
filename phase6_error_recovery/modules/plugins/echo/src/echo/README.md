@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-703
+---
+
 # echo
 
 **Module Path**: `error/plugins/echo`

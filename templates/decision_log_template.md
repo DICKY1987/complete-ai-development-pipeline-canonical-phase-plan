@@ -1,4 +1,5 @@
 ---
+doc_id: DOC-GUIDE-DECISION-LOG-TEMPLATE-524
 decision_id: DECISION-{{topic}}-001
 date: {{date}}
 status: {{status}}

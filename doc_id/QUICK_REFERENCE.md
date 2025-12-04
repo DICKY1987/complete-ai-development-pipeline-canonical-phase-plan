@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-QUICK-REFERENCE-487
+---
+
 # Doc ID System - Quick Reference Card
 
 **Status**: ✅ FULLY OPERATIONAL

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-719
+---
+
 # semgrep
 
 **Module Path**: `error/plugins/semgrep`

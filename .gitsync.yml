@@ -1,0 +1,22 @@
+# Git Auto-Sync Configuration
+enabled: true
+commit_interval: 30  # seconds
+sync_interval: 60    # seconds
+
+auto_commit:
+  enabled: true
+  message_template: "Auto-commit: {timestamp}"
+
+auto_push:
+  enabled: true
+  branch: main
+
+auto_pull:
+  enabled: true
+  strategy: rebase
+
+exclude_patterns:
+  - "*.pyc"
+  - "__pycache__/"
+  - ".pytest_cache/"
+  - "*.db"

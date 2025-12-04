@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-AUTOMATION-COMPONENTS-REPORT-455
+---
+
 # Automation Components Report
 **Generated:** 2025-12-04 12:14:16
 **Repository:** Complete AI Development Pipeline – Canonical Phase Plan

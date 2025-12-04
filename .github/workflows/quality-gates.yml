@@ -1,5 +1,9 @@
 name: Quality Gates
 
+permissions:
+  contents: read
+  security-events: write
+
 on:
   push:
     branches: [ main, develop, feature/** ]
@@ -15,13 +19,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Configure Git
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install pyyaml
+        run: pip install -r requirements.txt
 
       - name: Validate SSOT Policy
         run: python scripts/glossary_ssot_policy.py --verbose
@@ -40,7 +49,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install black isort ruff
+          pip install -r requirements.txt
 
       - name: Black format check
         run: black --check core/ engine/ error/ aim/ pm/ scripts/ tests/
@@ -134,6 +143,6 @@ jobs:
           severity: 'CRITICAL,HIGH'
 
       - name: Upload Trivy results to GitHub Security
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: 'trivy-results.sarif'

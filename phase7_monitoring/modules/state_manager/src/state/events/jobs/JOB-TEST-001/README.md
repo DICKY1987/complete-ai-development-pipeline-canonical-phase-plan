@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-734
+---
+
 # JOB-TEST-001
 
 **Module Path**: `state/events/jobs/JOB-TEST-001`

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-ARCHITECTURE-665
+---
+
 # gui_components Architecture
 
 **Module**: gui_components

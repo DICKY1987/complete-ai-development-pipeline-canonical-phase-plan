@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-EXEC-010-INDEX-BUILDER-991
+---
+
 # EXEC-010: Category Index Builder Pattern
 # Pattern for creating comprehensive category index files
 

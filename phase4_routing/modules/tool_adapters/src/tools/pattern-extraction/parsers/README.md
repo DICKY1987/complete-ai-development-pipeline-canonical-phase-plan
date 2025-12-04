@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-678
+---
+
 # parsers
 
 **Module Path**: `tools/pattern-extraction/parsers`

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-EXEC-HYBRID-002-MODULE-TEST-EXTRACTION-977
+---
+
 # Execution Pattern: EXEC-HYBRID-002 - Module Test Extraction
 
 **Pattern ID**: EXEC-HYBRID-002

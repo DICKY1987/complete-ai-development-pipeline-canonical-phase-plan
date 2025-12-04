@@ -89,6 +89,27 @@ class DocIDRegistry:
         cat_data = self.data["categories"][category_lower]
         prefix = cat_data["prefix"]
         next_num = cat_data["next_id"]
+        existing = [d["doc_id"] for d in self.data["docs"]]
+        used_numbers = {
+            int(match.group(1))
+            for doc in self.data["docs"]
+            if doc["category"] == category_lower
+            for match in [re.search(r"-(\d{3})$", doc["doc_id"])]
+            if match
+        }
+
+        def find_available(start: int) -> int:
+            """Find the next unused 3-digit slot within the category."""
+            for candidate in range(start, 1000):
+                if candidate not in used_numbers:
+                    return candidate
+            for candidate in range(1, 1000):
+                if candidate not in used_numbers:
+                    return candidate
+            print(f"[ERROR] No available doc_id slots for category: {category_lower}")
+            sys.exit(1)
+
+        next_num = find_available(next_num)
 
         # Convert name to uppercase with dashes
         name_upper = name.upper().replace("_", "-").replace(" ", "-")
@@ -101,11 +122,15 @@ class DocIDRegistry:
             print(f"[ERROR] Generated doc_id failed validation: {doc_id}")
             sys.exit(1)
 
-        # Check for duplicates
-        existing = [d["doc_id"] for d in self.data["docs"]]
+        # Check for duplicates (should be prevented by find_available but guard anyway)
         if doc_id in existing:
-            print(f"[ERROR] doc_id already exists: {doc_id}")
-            sys.exit(1)
+            next_num = find_available(next_num + 1)
+            doc_id = f"DOC-{prefix}-{name_upper}-{next_num:03d}"
+            if doc_id in existing:
+                print(f"[ERROR] doc_id already exists: {doc_id}")
+                sys.exit(1)
+
+        used_numbers.add(next_num)
 
         # Create doc entry
         doc_entry = {
@@ -122,7 +147,7 @@ class DocIDRegistry:
 
         # Add to registry
         self.data["docs"].append(doc_entry)
-        cat_data["next_id"] = next_num + 1
+        cat_data["next_id"] = find_available(next_num + 1)
         cat_data["count"] = cat_data["count"] + 1
         self.data["metadata"]["total_docs"] = len(self.data["docs"])
 

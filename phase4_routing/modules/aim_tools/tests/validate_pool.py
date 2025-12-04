@@ -2,6 +2,7 @@
 
 Simple smoke test to verify core functionality.
 """
+DOC_ID: DOC-CORE-TESTS-VALIDATE-POOL-625
 
 from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.bridge import ToolProcessPool
 

@@ -25,6 +25,7 @@ Author: GitHub Copilot CLI
 Version: 1.0.0
 Date: 2025-12-02
 """
+DOC_ID: DOC-SCRIPT-SCRIPTS-COMPREHENSIVE-ARCHIVAL-ANALYZER-708
 
 import argparse
 import json

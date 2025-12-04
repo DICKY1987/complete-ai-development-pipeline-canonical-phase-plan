@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-735
+---
+
 # core
 
 **Module Path**: `tests/core`

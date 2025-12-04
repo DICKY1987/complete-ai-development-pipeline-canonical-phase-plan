@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-ARCHITECTURE-663
+---
+
 # error_engine Architecture
 
 **Module**: error_engine

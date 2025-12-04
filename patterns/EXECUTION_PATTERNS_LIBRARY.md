@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-EXECUTION-PATTERNS-LIBRARY-980
+---
+
 # Execution Patterns Library - Speed Up AI-Assisted Development
 
 **DOC_ID:** DOC-PAT-EXECUTION-LIBRARY-001

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-715
+---
+
 # python_mypy
 
 **Module Path**: `error/plugins/python_mypy`

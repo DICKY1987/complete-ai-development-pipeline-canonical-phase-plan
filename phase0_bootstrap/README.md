@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-500
+---
+
 # Phase 0 – Bootstrap & Initialization
 
 **Purpose**: Detect repo, pick profile, validate baseline, generate project profile/router config.

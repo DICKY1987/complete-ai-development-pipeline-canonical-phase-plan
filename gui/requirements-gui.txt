@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-REQUIREMENTS-GUI-712
+---
+
 # GUI Application Dependencies
 # PySide6 for windowed GUI
 PySide6>=6.6.0

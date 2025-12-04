@@ -11,3 +11,4 @@ __all__ = [
     "ErrorAnalyzer",
     "FixGenerator",
 ]
+# DOC_LINK: DOC-CORE-AUTONOMOUS-INIT-613

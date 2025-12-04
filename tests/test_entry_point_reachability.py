@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-TEST-TESTS-TEST-ENTRY-POINT-REACHABILITY-302
 from scripts.entry_point_reachability import EntryPointReachabilityAnalyzer
 
 

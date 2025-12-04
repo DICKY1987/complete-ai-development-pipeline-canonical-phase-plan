@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-711
+---
+
 # powershell_pssa
 
 **Module Path**: `error/plugins/powershell_pssa`

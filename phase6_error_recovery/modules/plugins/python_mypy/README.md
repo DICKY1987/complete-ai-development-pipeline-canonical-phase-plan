@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-696
+---
+
 # Plugin: python_mypy
 
 **Phase**: 6 (Error Recovery)

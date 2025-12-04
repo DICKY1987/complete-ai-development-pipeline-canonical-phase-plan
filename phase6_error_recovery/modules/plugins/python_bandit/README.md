@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-693
+---
+
 # Plugin: python_bandit
 
 **Phase**: 6 (Error Recovery)

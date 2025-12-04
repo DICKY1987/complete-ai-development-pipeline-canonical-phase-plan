@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-536
+---
+
 # failure_modes
 
 **Module Path**: `docs/failure_modes`

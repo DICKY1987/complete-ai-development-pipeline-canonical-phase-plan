@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-E2E-CLI-TEST-PLAN-SUMMARY-547
+---
+
 # E2E CLI Communication Testing Plan - Executive Summary
 
 **Full Plan:** [E2E_CLI_COMMUNICATION_TEST_PLAN.md](E2E_CLI_COMMUNICATION_TEST_PLAN.md)

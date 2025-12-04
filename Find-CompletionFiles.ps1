@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-FIND-COMPLETIONFILES-739
 <#
 .SYNOPSIS
   Find all completion/tracking files across the entire repository.

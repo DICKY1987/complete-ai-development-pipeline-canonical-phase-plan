@@ -1,4 +1,5 @@
 """Artifact Generator - WS-02-02A"""
+DOC_ID: DOC-CORE-SRC-GENERATOR-745
 import json, yaml
 from pathlib import Path
 
@@ -59,3 +60,6 @@ if __name__ == "__main__":
     result = gen.generate_all()
     print(json.dumps({"status": "success", "artifacts": result}, indent=2))
 # DOC_LINK: DOC-CORE-BOOTSTRAP-GENERATOR-139
+# DOC_LINK: DOC-CORE-SRC-GENERATOR-623
+# DOC_LINK: DOC-CORE-SRC-GENERATOR-641
+# DOC_LINK: DOC-CORE-SRC-GENERATOR-740

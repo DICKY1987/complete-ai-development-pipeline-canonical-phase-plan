@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-684
+---
+
 # Plugin: echo
 
 **Phase**: 6 (Error Recovery)

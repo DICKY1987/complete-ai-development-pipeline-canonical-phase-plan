@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-DOCS-RENAMING-COMPLETE-471
+---
+
 # Docs Directory Renaming - Completion Report
 
 **Date**: December 2, 2025

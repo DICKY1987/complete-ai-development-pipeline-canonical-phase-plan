@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-660
+---
+
 # integration
 
 **Module Path**: `tests/aim/integration`

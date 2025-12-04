@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-694
+---
+
 # Plugin: python_black_fix
 
 **Phase**: 6 (Error Recovery)

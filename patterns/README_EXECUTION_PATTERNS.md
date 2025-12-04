@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-EXECUTION-PATTERNS-984
+---
+
 # Execution Patterns Suite - README
 
 **Version**: 1.0.0

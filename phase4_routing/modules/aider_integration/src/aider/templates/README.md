@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-656
+---
+
 # templates
 
 **Module Path**: `aider/templates`

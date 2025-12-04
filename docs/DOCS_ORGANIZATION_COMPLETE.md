@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-DOCS-ORGANIZATION-COMPLETE-470
+---
+
 # Docs Files Organization - Completion Report
 
 **Date**: December 2, 2025

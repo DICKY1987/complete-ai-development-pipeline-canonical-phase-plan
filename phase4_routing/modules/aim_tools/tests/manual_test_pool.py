@@ -2,6 +2,7 @@
 
 Tests the core functionality of ToolProcessPool using the mock aider fixture.
 """
+DOC_ID: DOC-CORE-TESTS-MANUAL-TEST-POOL-624
 
 import sys
 import time

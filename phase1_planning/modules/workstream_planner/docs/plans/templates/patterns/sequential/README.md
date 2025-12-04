@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-009
+---
+
 # sequential
 
 **Module Path**: `templates/patterns/sequential`

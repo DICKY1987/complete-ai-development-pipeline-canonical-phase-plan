@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-EXECUTION-ACCELERATION-ANALYSIS-979
+---
+
 # Execution Acceleration Analysis - UET Migration Case Study
 
 **Document ID**: DOC-ANALYSIS-EXECUTION-ACCELERATION-001

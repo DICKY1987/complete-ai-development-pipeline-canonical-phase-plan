@@ -10,6 +10,7 @@ from .episodic_memory import Episode, EpisodicMemory
 
 class PatternLearner:
     """Derives lightweight patterns from stored episodes."""
+DOC_ID: DOC-CORE-MEMORY-PATTERN-LEARNER-616
 
     def __init__(self, memory: EpisodicMemory):
         self.memory = memory

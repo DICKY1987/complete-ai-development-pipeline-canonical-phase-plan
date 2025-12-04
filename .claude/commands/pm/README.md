@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PM-README-073
+---
+
 # pm
 
 **Module Path**: `.claude/commands/pm`

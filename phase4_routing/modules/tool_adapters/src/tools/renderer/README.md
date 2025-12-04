@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-668
+---
+
 # renderer
 
 **Module Path**: `specifications/tools/renderer`

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-INCOMPLETE-REPORT-514
+---
+
 # Incomplete Implementation Scan Report
 
 **Generated**: 2025-12-03 22:50:20

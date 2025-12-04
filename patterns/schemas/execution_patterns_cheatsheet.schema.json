@@ -3,7 +3,10 @@
   "$id": "DOC-PAT-EXECUTION-PATTERNS-CHEATSHEET-748",
   "title": "PAT-EXECUTION-PATTERNS-CHEATSHEET-748 Pattern Instance",
   "type": "object",
-  "required": ["pattern_id", "version"],
+  "required": [
+    "pattern_id",
+    "version"
+  ],
   "properties": {
     "pattern_id": {
       "type": "string",
@@ -23,5 +26,6 @@
       "properties": {},
       "additionalProperties": true
     }
-  }
+  },
+  "doc_id": "DOC-PAT-EXECUTION-PATTERNS-CHEATSHEET-SCHEMA-041"
 }

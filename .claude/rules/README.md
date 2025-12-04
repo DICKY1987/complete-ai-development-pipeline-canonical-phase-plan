@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-531
+---
+
 # rules
 
 **Module Path**: `.claude/rules`

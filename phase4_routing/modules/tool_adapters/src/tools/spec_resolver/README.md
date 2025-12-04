@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-674
+---
+
 # spec_resolver
 
 **Module Path**: `tools/spec_resolver`

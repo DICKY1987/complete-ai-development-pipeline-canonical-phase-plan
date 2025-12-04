@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-DOC-ID-COVERAGE-ACCURACY-REPORT-480
+---
+
 # Doc ID Coverage & Registry Accuracy Report
 
 **Generated**: 2025-12-04 04:26:00 UTC

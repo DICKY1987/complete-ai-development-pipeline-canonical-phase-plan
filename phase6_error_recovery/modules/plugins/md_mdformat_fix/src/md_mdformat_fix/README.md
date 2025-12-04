@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-709
+---
+
 # md_mdformat_fix
 
 **Module Path**: `error/plugins/md_mdformat_fix`

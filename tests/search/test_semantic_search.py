@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-TEST-SEARCH-TEST-SEMANTIC-SEARCH-314
 from core.search.semantic_search import SemanticSearch
 
 

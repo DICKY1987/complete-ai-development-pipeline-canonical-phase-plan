@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-988
+---
+
 # profiles
 
 **Module Path**: `profiles`

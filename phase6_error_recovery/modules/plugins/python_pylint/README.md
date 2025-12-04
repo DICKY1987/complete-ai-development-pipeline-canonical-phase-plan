@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-697
+---
+
 # Plugin: python_pylint
 
 **Phase**: 6 (Error Recovery)

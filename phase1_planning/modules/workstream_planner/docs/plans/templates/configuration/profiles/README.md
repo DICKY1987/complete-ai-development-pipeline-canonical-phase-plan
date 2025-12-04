@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-653
+---
+
 # profiles
 
 **Module Path**: `templates/configuration/profiles`

@@ -62,13 +62,19 @@
         },
         "status": {
           "type": "string",
-          "enum": ["proposed", "draft", "active"],
+          "enum": [
+            "proposed",
+            "draft",
+            "active"
+          ],
           "default": "draft",
           "description": "Initial status of the term"
         },
         "implementation_files": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "description": "Optional implementation file paths"
         },
         "related_terms": {
@@ -76,10 +82,22 @@
           "items": {
             "type": "object",
             "properties": {
-              "term_id": { "type": "string" },
+              "term_id": {
+                "type": "string"
+              },
               "relationship": {
                 "type": "string",
-                "enum": ["uses", "used_by", "depends_on", "required_by", "implements", "implemented_by", "extends", "extended_by", "related"]
+                "enum": [
+                  "uses",
+                  "used_by",
+                  "depends_on",
+                  "required_by",
+                  "implements",
+                  "implemented_by",
+                  "extends",
+                  "extended_by",
+                  "related"
+                ]
               }
             }
           },
@@ -92,7 +110,10 @@
       "properties": {
         "status": {
           "type": "string",
-          "enum": ["success", "failure"],
+          "enum": [
+            "success",
+            "failure"
+          ],
           "description": "Execution status"
         },
         "term_id": {
@@ -102,7 +123,9 @@
         },
         "files_updated": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "description": "List of files modified"
         },
         "validation_passed": {
@@ -115,10 +138,13 @@
         },
         "errors": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "description": "List of errors encountered"
         }
       }
     }
-  }
+  },
+  "doc_id": "DOC-PAT-GLOSSARY-TERM-ADD-SCHEMA-076"
 }

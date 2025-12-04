@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-PATTERN-AUTOMATION-ACTIVATION-PLAN-982
+---
+
 # Pattern Automation Activation - Phase Plan
 
 **DOC_ID:** DOC-PAT-AUTO-ACTIVATION-001

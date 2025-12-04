@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-DOC-ID-COVERAGE-REPORT-481
+---
+
 # Doc ID Coverage Report
 **Generated**: 2025-12-03 22:15:21
 **Inventory**: docs_inventory.jsonl

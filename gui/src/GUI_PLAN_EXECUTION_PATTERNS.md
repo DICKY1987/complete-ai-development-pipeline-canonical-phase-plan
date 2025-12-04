@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-GUI-PLAN-EXECUTION-PATTERNS-562
+---
+
 # GUI Plan Execution Patterns
 ## Pre-Made Decision Templates for Hybrid GUI Development
 

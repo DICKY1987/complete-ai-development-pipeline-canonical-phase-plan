@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-PATTERN-CONVERSION-SUMMARY-983
+---
+
 # Pattern Doc Suite Conversion Summary
 
 **Date**: 2025-12-02

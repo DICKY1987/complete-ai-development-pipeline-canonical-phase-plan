@@ -1,3 +1,7 @@
+---
+doc_id: DOC-TEST-README-322
+---
+
 # bootstrap
 
 **Module Path**: `tests/bootstrap`

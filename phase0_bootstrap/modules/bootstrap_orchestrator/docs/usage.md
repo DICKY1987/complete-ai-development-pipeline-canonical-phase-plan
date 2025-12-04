@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-USAGE-567
+---
+
 # bootstrap_orchestrator Usage Guide
 
 **Module**: bootstrap_orchestrator

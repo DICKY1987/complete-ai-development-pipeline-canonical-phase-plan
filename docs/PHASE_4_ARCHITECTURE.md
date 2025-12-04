@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PHASE-4-ARCHITECTURE-475
+---
+
 # Phase 4 Architecture (Autonomous Intelligence)
 
 ## Components

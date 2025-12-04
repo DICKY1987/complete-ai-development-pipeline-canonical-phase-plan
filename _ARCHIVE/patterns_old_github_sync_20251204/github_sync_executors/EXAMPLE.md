@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-EXAMPLE-018
+---
+
 # Example: Syncing a Phase Plan to GitHub
 
 This example demonstrates the complete GitHub sync workflow.

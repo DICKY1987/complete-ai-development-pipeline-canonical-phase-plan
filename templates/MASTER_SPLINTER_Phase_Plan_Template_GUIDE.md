@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-MASTER-SPLINTER-PHASE-PLAN-TEMPLATE-527
+---
+
 # Phase Plan Template – AI Fill Guide (Decision-Elimination Ready)
 
 Authoritative rules: follow `AI_SANDBOX\_template_sandbox\docs\DEV_RULES_CORE.md`. Use this guide when populating `MASTER_SPLINTER_Phase_Plan_Template.yml`. Ground truth over vibes: success = observable facts (files exist, commands pass, tests green), scope respected, no forbidden paths touched.

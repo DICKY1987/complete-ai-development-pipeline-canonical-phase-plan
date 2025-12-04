@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-633
+---
+
 # uet-001-complete-implementation
 
 **Module Path**: `openspec/changes/uet-001-complete-implementation`

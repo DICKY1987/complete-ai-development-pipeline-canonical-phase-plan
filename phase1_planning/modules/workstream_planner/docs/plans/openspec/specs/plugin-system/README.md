@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-640
+---
+
 # plugin-system
 
 **Module Path**: `openspec/specs/plugin-system`

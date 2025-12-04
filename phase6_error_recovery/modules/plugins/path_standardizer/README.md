@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-691
+---
+
 # Plugin: path_standardizer
 
 **Phase**: 6 (Error Recovery)

@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-PAT-CONVERT-PATTERNS-TO-DOC-SUITE-292
 <#
 .SYNOPSIS
 Convert pattern files (.md/.txt) into complete pattern doc suites and update registry

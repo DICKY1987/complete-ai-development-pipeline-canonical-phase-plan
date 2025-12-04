@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-642
+---
+
 # Module: bootstrap_orchestrator
 
 **Phase**: 0

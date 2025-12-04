@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-645
+---
+
 # configuration
 
 **Module Path**: `templates/configuration`

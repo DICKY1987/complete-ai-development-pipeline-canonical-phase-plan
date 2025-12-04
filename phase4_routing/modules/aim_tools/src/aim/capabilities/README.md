@@ -1,3 +1,7 @@
+---
+doc_id: DOC-AIM-README-164
+---
+
 # capabilities
 
 **Module Path**: `capabilities`

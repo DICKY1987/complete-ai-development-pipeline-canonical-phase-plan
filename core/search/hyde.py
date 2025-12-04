@@ -1,4 +1,5 @@
 """HyDE (Hypothetical Document Embeddings) search implementation (WS-04-03C)."""
+DOC_ID: DOC-CORE-SEARCH-HYDE-744
 
 from __future__ import annotations
 
@@ -48,6 +49,9 @@ class SearchResult:
 
 class InMemoryVectorStore:
     """Minimal vector store for HyDE tests and local use."""
+DOC_ID: DOC-CORE-SEARCH-HYDE-739
+DOC_ID: DOC-CORE-SEARCH-HYDE-640
+DOC_ID: DOC-CORE-SEARCH-HYDE-618
 
     def __init__(self, embedder: Embedder | None = None):
         self.embedder = embedder or _default_embedder

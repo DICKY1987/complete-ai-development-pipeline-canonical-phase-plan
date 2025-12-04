@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-650
+---
+
 # Module: workstream_planner
 
 **Phase**: 1

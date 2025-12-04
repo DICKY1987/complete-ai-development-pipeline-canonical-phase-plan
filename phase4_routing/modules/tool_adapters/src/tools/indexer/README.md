@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-665
+---
+
 # indexer
 
 **Module Path**: `specifications/tools/indexer`

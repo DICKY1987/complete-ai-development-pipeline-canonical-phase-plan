@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-717
+---
+
 # python_pyright
 
 **Module Path**: `error/plugins/python_pyright`

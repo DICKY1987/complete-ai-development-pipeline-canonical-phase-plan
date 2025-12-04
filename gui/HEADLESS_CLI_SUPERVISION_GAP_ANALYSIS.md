@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-HEADLESS-CLI-SUPERVISION-GAP-ANALYSIS-494
+---
+
 # Headless CLI Supervision - Gap Analysis
 
 **Date**: 2025-12-04

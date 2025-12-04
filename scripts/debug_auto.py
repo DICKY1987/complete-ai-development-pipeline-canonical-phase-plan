@@ -38,3 +38,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+# DOC_LINK: DOC-SCRIPT-SCRIPTS-DEBUG-AUTO-709

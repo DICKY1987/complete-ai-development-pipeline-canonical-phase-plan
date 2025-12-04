@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-CORE-SRC-PATH-REGISTRY-606
 from __future__ import annotations
 
 import os

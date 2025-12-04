@@ -352,5 +352,6 @@
       "1": "Scan failed or detected violations of quality gates.",
       "2": "Configuration or environment error."
     }
-  }
+  },
+  "doc_id": "DOC-CONFIG-SYS-INCOMPLETE-IMPLEMENTATION-SCAN-SPEC-271"
 }

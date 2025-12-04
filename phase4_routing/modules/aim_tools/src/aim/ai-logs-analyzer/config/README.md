@@ -1,3 +1,7 @@
+---
+doc_id: DOC-AIM-README-168
+---
+
 # config
 
 **Module Path**: `ai-logs-analyzer/config`

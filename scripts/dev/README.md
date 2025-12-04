@@ -1,3 +1,7 @@
+---
+doc_id: DOC-SCRIPT-README-735
+---
+
 # dev
 
 **Module Path**: `scripts/dev`

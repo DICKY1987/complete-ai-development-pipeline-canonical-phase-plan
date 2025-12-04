@@ -12,14 +12,17 @@ Usage:
 Exit codes:
     0 - All validations passed
     1 - Validation errors found
+
+DOC_ID: DOC-SCRIPT-SCRIPTS-GLOSSARY-SSOT-POLICY-717
 """
 
+import fnmatch
 import sys
-import yaml
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, List, Set, Tuple
-from dataclasses import dataclass
-import fnmatch
+
+import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -27,6 +30,7 @@ ROOT = Path(__file__).resolve().parents[1]
 @dataclass
 class SSOTDoc:
     """Represents a discovered SSOT document."""
+
     path: str
     doc_id: str | None
     scope: List[str]
@@ -97,7 +101,7 @@ class GlossarySSOTPolicy:
                     doc = SSOTDoc(
                         path=str(path.relative_to(ROOT)).replace("\\", "/"),
                         doc_id=fm.get(doc_id_field),
-                        scope=fm.get(scope_field, [])
+                        scope=fm.get(scope_field, []),
                     )
                     ssot_docs.append(doc)
 
@@ -143,18 +147,13 @@ class GlossarySSOTPolicy:
         return file_to_terms
 
     def validate_ssot_docs_have_terms(
-        self,
-        ssot_docs: List[SSOTDoc],
-        file_to_terms: Dict[str, List[str]]
+        self, ssot_docs: List[SSOTDoc], file_to_terms: Dict[str, List[str]]
     ):
         """Validate each SSOT doc has at least one glossary term."""
         for doc in ssot_docs:
             if doc.path not in file_to_terms:
                 msg_template = self.config["messages"]["ssot_doc_no_term"]
-                msg = msg_template.format(
-                    path=doc.path,
-                    doc_id=doc.doc_id or "MISSING"
-                )
+                msg = msg_template.format(path=doc.path, doc_id=doc.doc_id or "MISSING")
                 self.errors.append(msg)
 
     def validate_ssot_docs_have_doc_ids(self, ssot_docs: List[SSOTDoc]):
@@ -188,10 +187,7 @@ class GlossarySSOTPolicy:
 
                 if not file_path.exists():
                     msg_template = self.config["messages"]["term_missing_file"]
-                    msg = msg_template.format(
-                        term_id=term_id,
-                        file_path=f
-                    )
+                    msg = msg_template.format(term_id=term_id, file_path=f)
                     self.errors.append(msg)
 
     def validate(self) -> bool:
@@ -251,14 +247,12 @@ def main():
         description="Validate glossary SSOT policy compliance"
     )
     parser.add_argument(
-        "--verbose", "-v",
-        action="store_true",
-        help="Show detailed output"
+        "--verbose", "-v", action="store_true", help="Show detailed output"
     )
     parser.add_argument(
         "--autofix",
         action="store_true",
-        help="Auto-generate missing glossary terms (not yet implemented)"
+        help="Auto-generate missing glossary terms (not yet implemented)",
     )
 
     args = parser.parse_args()

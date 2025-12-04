@@ -25,6 +25,7 @@ def _normalize_vector(vector: Sequence[float]) -> List[float]:
 
 def _default_embedder(text: str, dimensions: int = 12) -> List[float]:
     """Deterministic bag-of-words style embedding to avoid external deps."""
+DOC_ID: DOC-CORE-MEMORY-EPISODIC-MEMORY-615
     tokens = re.findall(r"[a-z0-9]+", text.lower())
     vector = [0.0] * dimensions
     if not tokens:

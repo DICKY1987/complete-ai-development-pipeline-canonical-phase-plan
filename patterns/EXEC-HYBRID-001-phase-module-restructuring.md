@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-EXEC-HYBRID-001-PHASE-MODULE-976
+---
+
 # Execution Pattern: EXEC-HYBRID-001 - Phase-Module Restructuring
 
 **Pattern ID**: EXEC-HYBRID-001

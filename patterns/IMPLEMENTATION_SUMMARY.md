@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-IMPLEMENTATION-SUMMARY-981
+---
+
 # Execution Patterns Suite - Implementation Summary
 
 **Date**: 2025-12-04

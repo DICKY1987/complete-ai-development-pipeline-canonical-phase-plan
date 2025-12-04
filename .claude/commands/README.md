@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-530
+---
+
 # commands
 
 **Module Path**: `.claude/commands`

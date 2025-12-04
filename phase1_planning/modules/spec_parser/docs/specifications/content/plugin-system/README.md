@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-575
+---
+
 # plugin-system
 
 **Module Path**: `specifications/content/plugin-system`

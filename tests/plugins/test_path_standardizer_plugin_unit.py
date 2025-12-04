@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-TEST-PLUGINS-TEST-PATH-STANDARDIZER-PLUGIN-312
 # START <TestKey>
 # TestType: Unit
 # TargetModule: phase6_error_recovery/modules/plugins/path_standardizer/src/path_standardizer/plugin.py

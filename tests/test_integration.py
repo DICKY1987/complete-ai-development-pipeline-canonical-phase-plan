@@ -1,4 +1,5 @@
 """Integration tests for Pipeline Plus"""
+DOC_ID: DOC-TEST-TESTS-TEST-INTEGRATION-344
 import pytest
 from pathlib import Path
 from modules.core_engine.m010001_pipeline_plus_orchestrator import PipelinePlusOrchestrator
@@ -82,3 +83,6 @@ def test_all_pipeline_components_present(orchestrator):
     assert hasattr(orchestrator, 'adapters')
 # DOC_LINK: DOC-TEST-TESTS-TEST-INTEGRATION-046
 # DOC_LINK: DOC-TEST-TESTS-TEST-INTEGRATION-085
+# DOC_LINK: DOC-TEST-TESTS-TEST-INTEGRATION-303
+# DOC_LINK: DOC-TEST-TESTS-TEST-INTEGRATION-320
+# DOC_LINK: DOC-TEST-TESTS-TEST-INTEGRATION-338

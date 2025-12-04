@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-MERGE-ENV-SCAN-747
 # Safe Merge Environment Scan (wrapper for MERGE-001)
 # Collects repo hygiene signals and emits .state/safe_merge/env_scan_<branch>.json
 

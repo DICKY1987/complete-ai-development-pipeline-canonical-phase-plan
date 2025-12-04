@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-WATCH-PHASEDOCS-740
 <#
 .SYNOPSIS
   Watch a directory tree for .md/.txt files whose names contain certain

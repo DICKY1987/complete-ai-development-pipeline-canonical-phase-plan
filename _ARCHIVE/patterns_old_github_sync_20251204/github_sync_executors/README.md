@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-019
+---
+
 # GitHub Integration for SPLINTER Phase Plans
 
 This directory contains the pattern implementation for synchronizing SPLINTER Phase Plans with GitHub Issues and Projects v2.

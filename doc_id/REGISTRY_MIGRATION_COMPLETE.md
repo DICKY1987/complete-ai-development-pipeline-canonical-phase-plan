@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-REGISTRY-MIGRATION-COMPLETE-488
+---
+
 # Registry Migration Complete - Summary Report
 
 **Date**: 2025-12-04

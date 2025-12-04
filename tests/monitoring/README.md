@@ -1,3 +1,7 @@
+---
+doc_id: DOC-TEST-README-326
+---
+
 # monitoring
 
 **Module Path**: `tests/monitoring`

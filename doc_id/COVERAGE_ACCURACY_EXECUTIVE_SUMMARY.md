@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-COVERAGE-ACCURACY-EXECUTIVE-SUMMARY-479
+---
+
 # Doc ID Coverage & Registry Accuracy - Executive Summary
 
 **Generated**: 2025-12-04

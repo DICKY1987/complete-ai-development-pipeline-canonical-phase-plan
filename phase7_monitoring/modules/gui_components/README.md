@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-721
+---
+
 # Module: gui_components
 
 **Phase**: 7

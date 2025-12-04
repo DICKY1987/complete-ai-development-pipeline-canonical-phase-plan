@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-DELIVERY-MANIFEST-975
+---
+
 # Execution Patterns Suite - Delivery Manifest
 
 **Delivered**: 2025-12-04

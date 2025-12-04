@@ -8,6 +8,7 @@ if reorganized around PIPE-01 to PIPE-26 pipeline structure.
 Usage:
     python scripts/pipe_tree.py --output PIPELINE_VIRTUAL_TREE.txt
 """
+DOC_ID: DOC-SCRIPT-SCRIPTS-PIPE-TREE-724
 
 import argparse
 import sys

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-SAFE-MERGE-PHASE-PLAN-464
+---
+
 # Safe Merge Orchestrator Phase Plan (jsonplan.json)
 
 Anchors the safe-merge workflow to `jsonplan.json` and adds practical execution patterns plus gap-closure tasks.

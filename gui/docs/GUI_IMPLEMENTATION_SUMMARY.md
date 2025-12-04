@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-GUI-IMPLEMENTATION-SUMMARY-557
+---
+
 # GUI Implementation Summary
 
 ## ✅ Completed Work

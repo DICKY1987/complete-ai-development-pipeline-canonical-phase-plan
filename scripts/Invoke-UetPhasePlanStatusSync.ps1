@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-INVOKE-UETPHASEPLANSTATUSSYNC-745
 <#
 .SYNOPSIS
     Sync phase plan status updates to GitHub Project items.

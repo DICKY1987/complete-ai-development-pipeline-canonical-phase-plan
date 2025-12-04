@@ -23,5 +23,6 @@
     "status": "completed",
     "message": "Analyzer updated with new entry points + cross-validation; tests added (tests/test_entry_point_reachability.py).",
     "timestamp": "2025-12-02T12:55:22.056967"
-  }
+  },
+  "doc_id": "DOC-CORE-WORKSTREAM-STATUS-742"
 }

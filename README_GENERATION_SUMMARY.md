@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-GENERATION-SUMMARY-463
+---
+
 # README Generation - Execution Summary
 
 **Pattern Used**: EXEC-004 Doc Standardizer

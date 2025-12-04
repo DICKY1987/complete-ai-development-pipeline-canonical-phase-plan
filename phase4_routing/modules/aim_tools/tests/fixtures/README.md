@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-659
+---
+
 # fixtures
 
 **Module Path**: `tests/aim/fixtures`

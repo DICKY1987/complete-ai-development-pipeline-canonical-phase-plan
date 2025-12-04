@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-705
+---
+
 # json_jq
 
 **Module Path**: `error/plugins/json_jq`

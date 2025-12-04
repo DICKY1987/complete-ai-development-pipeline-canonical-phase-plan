@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-690
+---
+
 # Plugin: md_mdformat_fix
 
 **Phase**: 6 (Error Recovery)

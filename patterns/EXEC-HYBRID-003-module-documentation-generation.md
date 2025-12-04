@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-EXEC-HYBRID-003-MODULE-DOCUMENTATION-978
+---
+
 # Execution Pattern: EXEC-HYBRID-003 - Module Documentation Generation
 
 **Pattern ID**: EXEC-HYBRID-003

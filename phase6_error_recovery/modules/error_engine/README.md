@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-680
+---
+
 # Module: error_engine
 
 **Phase**: 6

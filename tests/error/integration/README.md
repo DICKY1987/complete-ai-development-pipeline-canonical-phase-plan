@@ -1,3 +1,7 @@
+---
+doc_id: DOC-ERROR-README-159
+---
+
 # integration
 
 **Module Path**: `tests/error/integration`

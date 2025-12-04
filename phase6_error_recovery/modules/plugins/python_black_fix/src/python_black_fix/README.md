@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-713
+---
+
 # python_black_fix
 
 **Module Path**: `error/plugins/python_black_fix`

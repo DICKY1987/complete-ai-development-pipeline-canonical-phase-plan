@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PHASE-DIRECTORY-MAP-462
+---
+
 # Phase Directory Mapping
 
 This document maps the repository structure to the Phase-Based AI Dev Pipeline (0-7).

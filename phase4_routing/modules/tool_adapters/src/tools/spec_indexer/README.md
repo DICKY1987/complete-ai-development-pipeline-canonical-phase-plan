@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-671
+---
+
 # spec_indexer
 
 **Module Path**: `tools/spec_indexer`

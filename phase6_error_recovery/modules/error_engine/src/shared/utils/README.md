@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-682
+---
+
 # utils
 
 **Module Path**: `error/shared/utils`

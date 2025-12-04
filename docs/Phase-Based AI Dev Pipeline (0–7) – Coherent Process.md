@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PHASE-BASED-AI-DEV-PIPELINE-0-7-474
+---
+
 Here’s one coherent process that pulls your “random thoughts” + all the current diagrams + the Phase 0–7 pipeline into a single map you (and your CLIs) can actually use.
 
 ---

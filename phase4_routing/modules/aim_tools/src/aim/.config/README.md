@@ -1,3 +1,7 @@
+---
+doc_id: DOC-AIM-README-157
+---
+
 # .config
 
 **Module Path**: `.config`

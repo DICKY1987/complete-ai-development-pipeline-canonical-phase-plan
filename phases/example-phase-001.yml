@@ -1,0 +1,28 @@
+---
+phase_id: EXAMPLE-001
+phase_name: "Example Phase Plan"
+created: 2025-12-04T14:52:50Z
+status: active
+
+metadata:
+  estimated_duration: 1 hour
+  complexity: low
+
+objectives:
+  primary: "Demonstrate phase plan structure"
+
+workstreams:
+  - id: WS-EXAMPLE-001
+    name: "Example Workstream"
+    tasks:
+      - id: TASK-001
+        name: "Example Task"
+        status: completed
+
+github_sync:
+  enabled: true
+  repository: "DICKY1987/complete-ai-development-pipeline-canonical-phase-plan"
+  project_number: 1
+  sync_config:
+    create_issues: true
+    update_status: true

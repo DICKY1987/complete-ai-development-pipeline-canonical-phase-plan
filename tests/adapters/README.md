@@ -1,3 +1,7 @@
+---
+doc_id: DOC-TEST-README-321
+---
+
 # adapters
 
 **Module Path**: `tests/adapters`

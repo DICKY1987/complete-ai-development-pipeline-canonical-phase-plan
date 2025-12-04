@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-005
+---
+
 # phase_templates
 
 **Module Path**: `profiles/software-dev-python/phase_templates`

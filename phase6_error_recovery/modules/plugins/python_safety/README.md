@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-699
+---
+
 # Plugin: python_safety
 
 **Phase**: 6 (Error Recovery)

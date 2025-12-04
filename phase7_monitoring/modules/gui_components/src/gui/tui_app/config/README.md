@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-727
+---
+
 # config
 
 **Module Path**: `gui/tui_app/config`

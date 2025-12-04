@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-720
+---
+
 # yaml_yamllint
 
 **Module Path**: `error/plugins/yaml_yamllint`

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-666
+---
+
 # patcher
 
 **Module Path**: `specifications/tools/patcher`

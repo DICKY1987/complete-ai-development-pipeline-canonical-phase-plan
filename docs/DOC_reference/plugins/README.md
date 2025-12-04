@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-553
+---
+
 # plugins
 
 **Module Path**: `docs/reference/plugins`

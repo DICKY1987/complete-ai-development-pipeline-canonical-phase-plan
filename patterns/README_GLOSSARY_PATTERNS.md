@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-GLOSSARY-PATTERNS-985
+---
+
 # Glossary UET Execution Patterns
 
 **Purpose**: Universal Execution Templates (UET) for glossary operations

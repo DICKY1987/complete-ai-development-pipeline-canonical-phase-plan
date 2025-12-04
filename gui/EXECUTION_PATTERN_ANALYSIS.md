@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-EXECUTION-PATTERN-ANALYSIS-492
+---
+
 # Execution Pattern Analysis - Headless CLI Supervision Plan
 
 **Plan**: `HEADLESS_CLI_SUPERVISION_PLAN.json` v2.0

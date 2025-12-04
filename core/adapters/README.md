@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-632
+---
+
 # adapters
 
 **Module Path**: `core/adapters`

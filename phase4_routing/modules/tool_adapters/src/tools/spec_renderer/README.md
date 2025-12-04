@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-673
+---
+
 # spec_renderer
 
 **Module Path**: `tools/spec_renderer`

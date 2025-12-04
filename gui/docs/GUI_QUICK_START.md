@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-GUI-QUICK-START-559
+---
+
 # GUI Quick Start Guide
 
 ## Installation

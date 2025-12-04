@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-SNAPPY-STROLLING-LIGHTNING-465
+---
+
 # Plan Evaluation: Reusable Orchestrator Design
 
 ## Executive Summary

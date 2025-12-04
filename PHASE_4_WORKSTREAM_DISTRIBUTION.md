@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PHASE-4-WORKSTREAM-DISTRIBUTION-461
+---
+
 # Phase 4 AI Enhancement - 3-Agent Workstream Distribution
 
 **Goal**: Complete 12 Phase 4 workstreams in parallel across 3 independent agents

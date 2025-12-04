@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-724
+---
+
 # config
 
 **Module Path**: `gui/config`

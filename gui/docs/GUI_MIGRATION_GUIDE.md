@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-GUI-MIGRATION-GUIDE-558
+---
+
 # GUI Architecture Migration Guide
 
 ## Overview

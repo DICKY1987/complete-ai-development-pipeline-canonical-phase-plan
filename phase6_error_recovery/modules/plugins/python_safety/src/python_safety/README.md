@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-718
+---
+
 # python_safety
 
 **Module Path**: `error/plugins/python_safety`

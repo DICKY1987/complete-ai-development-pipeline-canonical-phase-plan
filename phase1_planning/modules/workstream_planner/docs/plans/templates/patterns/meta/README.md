@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-007
+---
+
 # meta
 
 **Module Path**: `templates/patterns/meta`

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-INDEX-496
+---
+
 # GUI Architecture - Complete Index
 
 ## 📋 Quick Navigation

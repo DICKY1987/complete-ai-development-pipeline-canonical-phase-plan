@@ -1,3 +1,7 @@
+---
+doc_id: DOC-TEST-README-328
+---
+
 # pattern_tests
 
 **Module Path**: `tests/pattern_tests`

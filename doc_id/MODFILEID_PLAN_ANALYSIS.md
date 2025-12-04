@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-MODFILEID-PLAN-ANALYSIS-485
+---
+
 # Analysis: modfileid.json Restoration Plan
 
 **File**: `modfileid.json`

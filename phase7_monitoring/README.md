@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-508
+---
+
 # Phase 7 – Monitoring, Completion & Archival
 
 **Purpose**: Live monitoring, dashboards, run completion, artifact archival, reporting.

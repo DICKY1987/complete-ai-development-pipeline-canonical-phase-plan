@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-998
+---
+
 # generic
 
 **Module Path**: `profiles/generic`

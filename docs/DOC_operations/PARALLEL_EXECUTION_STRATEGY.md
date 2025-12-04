@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PARALLEL-EXECUTION-STRATEGY-543
+---
+
 # Parallel Execution Strategy - Git Worktrees for DOC_ID Project
 
 **Created**: 2025-11-24

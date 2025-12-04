@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-675
+---
+
 # speed_demon
 
 **Module Path**: `tools/speed_demon`

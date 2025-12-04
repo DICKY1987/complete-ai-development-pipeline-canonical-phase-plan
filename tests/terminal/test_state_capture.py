@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-TEST-TERMINAL-TEST-STATE-CAPTURE-315
 from core.terminal import TerminalContext, capture_state
 
 

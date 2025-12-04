@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-FOLDER-STRUCTURE-TO-PHASE-MAPPING-457
+---
+
  Folder Structure to Phase Mapping
 
  Task

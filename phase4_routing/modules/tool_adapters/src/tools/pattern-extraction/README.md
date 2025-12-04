@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-667
+---
+
 # pattern-extraction
 
 **Module Path**: `tools/pattern-extraction`

@@ -10,6 +10,7 @@ Usage:
         --github-repo owner/repo \
         --github-token $GITHUB_TOKEN
 """
+DOC_ID: DOC-SCRIPT-SCRIPTS-SPLINTER-SYNC-PHASE-TO-GITHUB-726
 
 import argparse
 import os

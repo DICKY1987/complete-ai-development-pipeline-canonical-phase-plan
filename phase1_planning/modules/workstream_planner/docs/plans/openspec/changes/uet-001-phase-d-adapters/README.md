@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-637
+---
+
 # uet-001-phase-d-adapters
 
 **Module Path**: `openspec/changes/uet-001-phase-d-adapters`

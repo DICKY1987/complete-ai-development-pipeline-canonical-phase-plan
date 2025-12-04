@@ -3,7 +3,10 @@
   "$id": "DOC-PAT-FILE-LIST-800",
   "title": "PAT-FILE-LIST-800 Pattern Instance",
   "type": "object",
-  "required": ["pattern_id", "version"],
+  "required": [
+    "pattern_id",
+    "version"
+  ],
   "properties": {
     "pattern_id": {
       "type": "string",
@@ -23,5 +26,6 @@
       "properties": {},
       "additionalProperties": true
     }
-  }
+  },
+  "doc_id": "DOC-PAT-FILE-LIST-SCHEMA-054"
 }

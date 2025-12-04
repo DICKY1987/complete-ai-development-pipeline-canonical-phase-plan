@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-NEXT-WORKSTREAMS-QUICKSTART-630
+---
+
 # Next Workstreams - Quick Start Guide
 # DOC_LINK: DOC-GUIDE-NEXT-WORKSTREAMS-2025-12-02
 

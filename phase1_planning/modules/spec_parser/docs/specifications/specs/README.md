@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-571
+---
+
 # core
 
 **Module Path**: `specs/core`

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-SCRIPT-README-736
+---
+
 # wsl
 
 **Module Path**: `scripts/wsl`

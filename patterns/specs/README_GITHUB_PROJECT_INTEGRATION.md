@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-GITHUB-PROJECT-INTEGRATION-995
+---
+
 # GitHub Project Integration Patterns
 
 **Pattern Family**: Project Management Integration

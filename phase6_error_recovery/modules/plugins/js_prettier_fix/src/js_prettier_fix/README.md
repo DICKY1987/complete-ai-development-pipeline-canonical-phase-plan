@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-707
+---
+
 # js_prettier_fix
 
 **Module Path**: `error/plugins/js_prettier_fix`

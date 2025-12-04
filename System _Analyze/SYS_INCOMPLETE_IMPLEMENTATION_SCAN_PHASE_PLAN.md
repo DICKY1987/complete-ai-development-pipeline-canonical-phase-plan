@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-SYS-INCOMPLETE-IMPLEMENTATION-SCAN-518
+---
+
 # Phase 5X - Incomplete Implementation Scanner Execution Plan
 
 **Objective**: Implement and operationalize the incomplete implementation scanner described in `incomplete_implementation_scan_spec.json` and `INCOMPLETE_IMPLEMENTATION_RULES.md`, closing identified gaps and shipping a repeatable execution pattern with CI gates.

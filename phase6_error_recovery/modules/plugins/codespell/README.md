@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-683
+---
+
 # Plugin: codespell
 
 **Phase**: 6 (Error Recovery)

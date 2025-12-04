@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-722
+---
+
 # Module: state_manager
 
 **Phase**: 7

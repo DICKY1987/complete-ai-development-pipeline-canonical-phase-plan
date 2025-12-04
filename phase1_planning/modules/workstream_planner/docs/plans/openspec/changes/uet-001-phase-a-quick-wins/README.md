@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-634
+---
+
 # uet-001-phase-a-quick-wins
 
 **Module Path**: `openspec/changes/uet-001-phase-a-quick-wins`

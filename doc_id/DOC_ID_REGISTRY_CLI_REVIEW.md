@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-DOC-ID-REGISTRY-CLI-REVIEW-482
+---
+
 # doc_id Registry CLI Implementation Review
 
 **File**: `doc_id/tools/doc_id_registry_cli.py`

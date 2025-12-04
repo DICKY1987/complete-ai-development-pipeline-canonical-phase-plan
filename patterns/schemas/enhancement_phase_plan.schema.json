@@ -3,7 +3,10 @@
   "$id": "DOC-PAT-ENHANCEMENT-PHASE-PLAN-819",
   "title": "PAT-ENHANCEMENT-PHASE-PLAN-819 Pattern Instance",
   "type": "object",
-  "required": ["pattern_id", "version"],
+  "required": [
+    "pattern_id",
+    "version"
+  ],
   "properties": {
     "pattern_id": {
       "type": "string",
@@ -23,5 +26,6 @@
       "properties": {},
       "additionalProperties": true
     }
-  }
+  },
+  "doc_id": "DOC-PAT-ENHANCEMENT-PHASE-PLAN-SCHEMA-037"
 }

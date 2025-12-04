@@ -1,4 +1,5 @@
 """Unit tests for Tool Adapters"""
+DOC_ID: DOC-TEST-TESTS-TEST-ADAPTERS-343
 import pytest
 from pathlib import Path
 from core.engine.adapters import ToolAdapter, ExecutionResult, AiderAdapter, CodexAdapter, ClaudeAdapter
@@ -102,3 +103,6 @@ def test_adapter_name_inference():
     assert ClaudeAdapter().name == 'claude'
 # DOC_LINK: DOC-TEST-TESTS-TEST-ADAPTERS-034
 # DOC_LINK: DOC-TEST-TESTS-TEST-ADAPTERS-073
+# DOC_LINK: DOC-TEST-TESTS-TEST-ADAPTERS-301
+# DOC_LINK: DOC-TEST-TESTS-TEST-ADAPTERS-319
+# DOC_LINK: DOC-TEST-TESTS-TEST-ADAPTERS-337

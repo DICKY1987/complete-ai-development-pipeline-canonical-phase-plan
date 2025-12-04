@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PROMPT-BLOCK-IDEAS-1-642
+---
+
 In industry terms, what you’re describing is basically:
 
 > **Schema-driven prompt templates for pattern-based execution**

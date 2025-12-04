@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-716
+---
+
 # python_pylint
 
 **Module Path**: `error/plugins/python_pylint`

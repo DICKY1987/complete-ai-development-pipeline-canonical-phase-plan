@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-730
+---
+
 # state
 
 **Module Path**: `state`

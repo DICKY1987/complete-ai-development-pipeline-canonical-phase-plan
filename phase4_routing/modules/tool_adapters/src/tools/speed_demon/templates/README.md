@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-679
+---
+
 # templates
 
 **Module Path**: `tools/speed_demon/templates`

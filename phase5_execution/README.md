@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-506
+---
+
 # Phase 5 – Execution & Validation
 
 **Purpose**: Invoke adapter, run tool, capture output, run acceptance tests, update state.

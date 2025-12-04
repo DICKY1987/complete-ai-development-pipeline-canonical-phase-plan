@@ -83,26 +83,51 @@
               {
                 "name": "unified_db",
                 "description": "Merge both databases into single schema at .worktrees/pipeline_state.db",
-                "pros": ["Single source of truth", "Atomic transactions", "Simpler code"],
-                "cons": ["Migration effort", "Potential breaking changes"],
+                "pros": [
+                  "Single source of truth",
+                  "Atomic transactions",
+                  "Simpler code"
+                ],
+                "cons": [
+                  "Migration effort",
+                  "Potential breaking changes"
+                ],
                 "recommendation": "RECOMMENDED - Long-term cleanest solution"
               },
               {
                 "name": "dual_db_with_sync",
                 "description": "Keep separate DBs, sync tool_runs/approvals via daemon",
-                "pros": ["Less disruptive", "Gradual migration"],
-                "cons": ["Consistency issues", "Sync lag", "Complexity"],
+                "pros": [
+                  "Less disruptive",
+                  "Gradual migration"
+                ],
+                "cons": [
+                  "Consistency issues",
+                  "Sync lag",
+                  "Complexity"
+                ],
                 "recommendation": "Acceptable fallback"
               },
               {
                 "name": "supervisor_writes_both",
                 "description": "cli_supervisor writes to both databases",
-                "pros": ["Quick implementation", "No migration needed"],
-                "cons": ["Technical debt", "Double writes", "Failure handling"],
+                "pros": [
+                  "Quick implementation",
+                  "No migration needed"
+                ],
+                "cons": [
+                  "Technical debt",
+                  "Double writes",
+                  "Failure handling"
+                ],
                 "recommendation": "Avoid - creates more problems"
               }
             ],
-            "decision_criteria": ["Migration effort vs benefit", "Timeline constraints", "Team capacity"],
+            "decision_criteria": [
+              "Migration effort vs benefit",
+              "Timeline constraints",
+              "Team capacity"
+            ],
             "deliverable": "DECISION_LOG_DATABASE_STRATEGY.md"
           }
         },
@@ -116,22 +141,44 @@
               {
                 "name": "embedded_in_orchestrator",
                 "description": "Supervisor runs as part of orchestrator process",
-                "pros": ["Simple deployment", "Shared state", "No extra process"],
-                "cons": ["Orchestrator crash kills supervisor", "Tightly coupled"],
+                "pros": [
+                  "Simple deployment",
+                  "Shared state",
+                  "No extra process"
+                ],
+                "cons": [
+                  "Orchestrator crash kills supervisor",
+                  "Tightly coupled"
+                ],
                 "recommendation": "RECOMMENDED for MVP"
               },
               {
                 "name": "separate_daemon",
                 "description": "Supervisor runs as independent background service",
-                "pros": ["Independent lifecycle", "Survives orchestrator restarts", "Scalable"],
-                "cons": ["Deployment complexity", "IPC needed", "Extra monitoring"],
+                "pros": [
+                  "Independent lifecycle",
+                  "Survives orchestrator restarts",
+                  "Scalable"
+                ],
+                "cons": [
+                  "Deployment complexity",
+                  "IPC needed",
+                  "Extra monitoring"
+                ],
                 "recommendation": "Future enhancement"
               },
               {
                 "name": "on_demand_per_tool",
                 "description": "Spawn supervisor for each tool execution",
-                "pros": ["No persistent process", "Clean isolation"],
-                "cons": ["Startup overhead", "No shared state", "Process sprawl"],
+                "pros": [
+                  "No persistent process",
+                  "Clean isolation"
+                ],
+                "cons": [
+                  "Startup overhead",
+                  "No shared state",
+                  "Process sprawl"
+                ],
                 "recommendation": "Avoid - too complex"
               }
             ],
@@ -247,7 +294,11 @@
               {
                 "mode": "third_party_wrapper",
                 "description": "Supervisor injects wrapper script for external tools",
-                "tools": ["aider", "ruff", "pytest"],
+                "tools": [
+                  "aider",
+                  "ruff",
+                  "pytest"
+                ],
                 "method": "Process wrapper that emits heartbeats while monitoring child"
               }
             ],
@@ -270,7 +321,9 @@
           "name": "Create unified tool_runs table",
           "file": "core/state/db_unified.py OR gui/src/tui_app/core/sqlite_state_backend.py",
           "action": "extend_schema",
-          "depends_on": ["ARCH-001"],
+          "depends_on": [
+            "ARCH-001"
+          ],
           "details": {
             "decision": "Based on ARCH-001 decision, create table in chosen database",
             "table": "tool_runs",
@@ -344,7 +397,12 @@
           "name": "Update _initialize_schema method",
           "file": "Determined by ARCH-001 decision",
           "action": "modify_method",
-          "depends_on": ["ARCH-001", "DB-001", "DB-002", "DB-003"],
+          "depends_on": [
+            "ARCH-001",
+            "DB-001",
+            "DB-002",
+            "DB-003"
+          ],
           "details": {
             "method": "_initialize_schema",
             "changes": [
@@ -572,7 +630,9 @@
           "action": "create_module",
           "details": {
             "purpose": "Supervised execution wrapper for headless CLI tools",
-            "exports": ["run_cli_tool"]
+            "exports": [
+              "run_cli_tool"
+            ]
           }
         },
         {
@@ -626,8 +686,14 @@
               "approval_id": "AP-00123",
               "question": "Apply these changes?",
               "options": [
-                {"value": "approve", "label": "Approve"},
-                {"value": "reject", "label": "Reject"}
+                {
+                  "value": "approve",
+                  "label": "Approve"
+                },
+                {
+                  "value": "reject",
+                  "label": "Reject"
+                }
               ],
               "default": "reject",
               "expires_in_seconds": 3600
@@ -725,7 +791,10 @@
           "name": "Implement TUI approval decision interface",
           "file": "gui/src/tui_app/panels/approvals_panel.py",
           "action": "create_panel",
-          "depends_on": ["API-006", "ARCH-003"],
+          "depends_on": [
+            "API-006",
+            "ARCH-003"
+          ],
           "details": {
             "panel_id": "approvals",
             "title": "Pending Approvals",
@@ -754,7 +823,10 @@
           "name": "Implement CLI approval commands",
           "file": "core/ui_cli.py",
           "action": "add_commands",
-          "depends_on": ["API-007", "ARCH-003"],
+          "depends_on": [
+            "API-007",
+            "ARCH-003"
+          ],
           "details": {
             "commands": [
               {
@@ -792,7 +864,10 @@
           "name": "Implement tool resume worker",
           "file": "core/cli_supervisor.py",
           "action": "implement_function",
-          "depends_on": ["ARCH-004", "SUP-002"],
+          "depends_on": [
+            "ARCH-004",
+            "SUP-002"
+          ],
           "details": {
             "function": "approval_resume_worker",
             "type": "background_thread",
@@ -839,7 +914,9 @@
           "name": "Create HeartbeatEmitter library",
           "file": "core/lib/tool_heartbeat.py",
           "action": "create_module",
-          "depends_on": ["ARCH-006"],
+          "depends_on": [
+            "ARCH-006"
+          ],
           "details": {
             "class": "HeartbeatEmitter",
             "purpose": "Shared library for tools to emit heartbeat events",
@@ -972,7 +1049,13 @@
               {
                 "method": "_derive_status",
                 "modification": "Parse structured events (tool_status_change, approval_needed) and extract status field directly",
-                "new_statuses": ["running", "completed", "failed", "stalled", "waiting_approval"]
+                "new_statuses": [
+                  "running",
+                  "completed",
+                  "failed",
+                  "stalled",
+                  "waiting_approval"
+                ]
               },
               {
                 "method": "_refresh",
@@ -1011,7 +1094,7 @@
           "details": {
             "section_name": "Pending Approvals",
             "data_source": "state_client.get_pending_approvals(limit=10)",
-            "display_format": "● [tool_name] – \"question text...\" (status: pending)",
+            "display_format": "\u25cf [tool_name] \u2013 \"question text...\" (status: pending)",
             "location": "Below tool status table"
           }
         },
@@ -1705,8 +1788,14 @@
       "approval_id": "AP-00123",
       "question": "Apply these changes?",
       "options": [
-        {"value": "approve", "label": "Approve"},
-        {"value": "reject", "label": "Reject"}
+        {
+          "value": "approve",
+          "label": "Approve"
+        },
+        {
+          "value": "reject",
+          "label": "Reject"
+        }
       ],
       "default": "reject",
       "expires_in_seconds": 3600
@@ -1973,5 +2062,6 @@
     "new_tasks_added": 33,
     "total_tasks_now": 73,
     "risk_mitigation": "Plan now addresses all critical functionality gaps, production readiness improved from ~60% to ~95%"
-  }
+  },
+  "doc_id": "DOC-CONFIG-HEADLESS-CLI-SUPERVISION-PLAN-269"
 }

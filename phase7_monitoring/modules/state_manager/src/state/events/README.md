@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-731
+---
+
 # events
 
 **Module Path**: `state/events`

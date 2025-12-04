@@ -3,7 +3,10 @@
   "$id": "DOC-PAT-CODEX-EXECUTION-INSTRUCTIONS-744",
   "title": "PAT-CODEX-EXECUTION-INSTRUCTIONS-744 Pattern Instance",
   "type": "object",
-  "required": ["pattern_id", "version"],
+  "required": [
+    "pattern_id",
+    "version"
+  ],
   "properties": {
     "pattern_id": {
       "type": "string",
@@ -23,5 +26,6 @@
       "properties": {},
       "additionalProperties": true
     }
-  }
+  },
+  "doc_id": "DOC-PAT-CODEX-EXECUTION-INSTRUCTIONS-SCHEMA-034"
 }

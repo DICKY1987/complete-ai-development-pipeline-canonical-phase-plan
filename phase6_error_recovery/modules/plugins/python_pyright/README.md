@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-698
+---
+
 # Plugin: python_pyright
 
 **Phase**: 6 (Error Recovery)

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-647
+---
+
 # examples
 
 **Module Path**: `schema/jobs/examples`

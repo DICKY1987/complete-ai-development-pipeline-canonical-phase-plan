@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-657
+---
+
 # prompts
 
 **Module Path**: `aider/templates/prompts`

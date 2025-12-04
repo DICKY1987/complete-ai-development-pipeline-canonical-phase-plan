@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-631
+---
+
 # core
 
 **Module Path**: `core`

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-IMPLEMENTATION-KICKOFF-COMPLETE-495
+---
+
 # Headless CLI Supervision - Implementation Kickoff Complete
 
 **Date**: 2025-12-04T03:15:37Z

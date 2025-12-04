@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-687
+---
+
 # Plugin: js_eslint
 
 **Phase**: 6 (Error Recovery)

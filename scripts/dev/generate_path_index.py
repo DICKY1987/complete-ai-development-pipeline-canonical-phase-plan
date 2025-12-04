@@ -1,4 +1,5 @@
 """Generate a canonical path registry covering every file in the repo."""
+DOC_ID: DOC-SCRIPT-DEV-GENERATE-PATH-INDEX-753
 
 from __future__ import annotations
 
@@ -150,6 +151,9 @@ MANUAL_ENTRIES: Dict[str, Dict[str, str]] = {
 
 def sanitize(token: str) -> str:
     """Convert a path token into a safe identifier fragment."""
+DOC_ID: DOC-SCRIPT-DEV-GENERATE-PATH-INDEX-738
+DOC_ID: DOC-SCRIPT-DEV-GENERATE-PATH-INDEX-734
+DOC_ID: DOC-SCRIPT-DEV-GENERATE-PATH-INDEX-733
     cleaned = re.sub(r"[^A-Za-z0-9]+", "_", token).strip("_")
     if not cleaned:
         cleaned = "item"

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-467
+---
+
 # .claude
 
 **Module Path**: `.claude`

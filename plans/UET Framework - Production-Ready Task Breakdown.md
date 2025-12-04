@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-UET-FRAMEWORK-PRODUCTION-READY-TASK-512
+---
+
      UET Framework - Production-Ready Task Breakdown
 
      Goal: Complete the existing UET Framework pipeline and make it production-ready (78% → 100%)

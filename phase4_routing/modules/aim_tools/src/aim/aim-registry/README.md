@@ -1,3 +1,7 @@
+---
+doc_id: DOC-AIM-README-161
+---
+
 # aim-registry
 
 **Module Path**: `modules/aim-registry`

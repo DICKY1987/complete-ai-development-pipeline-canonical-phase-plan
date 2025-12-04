@@ -1,3 +1,7 @@
+---
+doc_id: DOC-TEST-README-334
+---
+
 # tui_panel_framework
 
 **Module Path**: `tests/gui/tui_panel_framework`

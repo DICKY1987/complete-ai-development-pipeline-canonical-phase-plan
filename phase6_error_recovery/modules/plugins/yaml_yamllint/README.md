@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-701
+---
+
 # Plugin: yaml_yamllint
 
 **Phase**: 6 (Error Recovery)

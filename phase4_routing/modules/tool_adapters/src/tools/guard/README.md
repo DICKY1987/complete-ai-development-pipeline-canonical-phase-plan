@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-664
+---
+
 # guard
 
 **Module Path**: `specifications/tools/guard`

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-AIM-README-156
+---
+
 # .ai
 
 **Module Path**: `.ai`

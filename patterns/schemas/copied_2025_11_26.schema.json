@@ -3,7 +3,10 @@
   "$id": "DOC-PAT-COPIED-2025-11-26-799",
   "title": "PAT-COPIED-2025-11-26-799 Pattern Instance",
   "type": "object",
-  "required": ["pattern_id", "version"],
+  "required": [
+    "pattern_id",
+    "version"
+  ],
   "properties": {
     "pattern_id": {
       "type": "string",
@@ -23,5 +26,6 @@
       "properties": {},
       "additionalProperties": true
     }
-  }
+  },
+  "doc_id": "DOC-PAT-COPIED-2025-11-26-SCHEMA-036"
 }

@@ -3,7 +3,10 @@
   "$id": "DOC-PAT-UET-2025-ANTI-PATTERN-FORENSICS-769",
   "title": "PAT-UET-2025-ANTI-PATTERN-FORENSICS-769 Pattern Instance",
   "type": "object",
-  "required": ["pattern_id", "version"],
+  "required": [
+    "pattern_id",
+    "version"
+  ],
   "properties": {
     "pattern_id": {
       "type": "string",
@@ -23,5 +26,6 @@
       "properties": {},
       "additionalProperties": true
     }
-  }
+  },
+  "doc_id": "DOC-PAT-UET-2025-ANTI-PATTERN-FORENSICS-SCHEMA-189"
 }

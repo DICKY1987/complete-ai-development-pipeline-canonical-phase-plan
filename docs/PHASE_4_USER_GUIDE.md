@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PHASE-4-USER-GUIDE-476
+---
+
 # Phase 4 User Guide (AI Features)
 
 This guide covers the Agent 3 features shipped in Phase 4:

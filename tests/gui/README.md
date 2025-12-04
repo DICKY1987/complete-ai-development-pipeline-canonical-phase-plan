@@ -1,3 +1,7 @@
+---
+doc_id: DOC-TEST-README-323
+---
+
 # gui
 
 **Module Path**: `tests/gui`

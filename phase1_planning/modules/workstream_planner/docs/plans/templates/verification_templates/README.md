@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-650
+---
+
 # verification_templates
 
 **Module Path**: `templates/verification_templates`

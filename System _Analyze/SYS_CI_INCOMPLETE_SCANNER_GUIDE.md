@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-SYS-CI-INCOMPLETE-SCANNER-GUIDE-516
+---
+
 # Incomplete Implementation Scanner - CI Integration Guide
 
 **DOC_ID**: `DOC-GUIDE-INCOMPLETE-SCANNER-CI`

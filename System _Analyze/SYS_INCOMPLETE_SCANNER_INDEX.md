@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-SYS-INCOMPLETE-SCANNER-INDEX-522
+---
+
 # Incomplete Implementation Scanner - Index
 
 **Central navigation for the scanner system**

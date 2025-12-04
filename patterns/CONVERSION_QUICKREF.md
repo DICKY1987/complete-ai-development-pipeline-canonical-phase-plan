@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-CONVERSION-QUICKREF-974
+---
+
 # Pattern Conversion - Quick Reference
 
 ## ✅ Completed

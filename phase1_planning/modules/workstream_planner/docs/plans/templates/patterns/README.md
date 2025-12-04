@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-006
+---
+
 # patterns
 
 **Module Path**: `templates/patterns`

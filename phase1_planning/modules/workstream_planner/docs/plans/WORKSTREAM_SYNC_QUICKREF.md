@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-WORKSTREAM-SYNC-QUICKREF-580
+---
+
 # Workstream Sync - Quick Reference Card
 
 ## ONE-LINE COMMANDS

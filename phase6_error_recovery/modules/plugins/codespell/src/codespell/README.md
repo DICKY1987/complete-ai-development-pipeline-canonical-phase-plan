@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-702
+---
+
 # codespell
 
 **Module Path**: `error/plugins/codespell`

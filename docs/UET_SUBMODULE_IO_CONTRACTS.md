@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-UET-SUBMODULE-IO-CONTRACTS-478
+---
+
 # UET Submodule I/O Contracts v1.0
 
 **Status**: Active

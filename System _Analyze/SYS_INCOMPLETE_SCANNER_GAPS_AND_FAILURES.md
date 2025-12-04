@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-SYS-INCOMPLETE-SCANNER-GAPS-AND-FAILURES-521
+---
+
 # Incomplete Implementation Scanner - Gaps & Automation Failures
 
 **DOC_ID**: `DOC-ANALYSIS-INCOMPLETE-SCANNER-GAPS`

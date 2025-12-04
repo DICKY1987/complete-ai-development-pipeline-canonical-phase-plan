@@ -3,7 +3,10 @@
   "$id": "DOC-PAT-EVERY_REUSABLE_PATTERN-005",
   "title": "PAT-EVERY_REUSABLE_PATTERN-005 Pattern Instance",
   "type": "object",
-  "required": ["pattern_id", "version"],
+  "required": [
+    "pattern_id",
+    "version"
+  ],
   "properties": {
     "pattern_id": {
       "type": "string",
@@ -23,5 +26,6 @@
       "properties": {},
       "additionalProperties": true
     }
-  }
+  },
+  "doc_id": "DOC-PAT-EVERY-REUSABLE-PATTERN-SCHEMA-039"
 }

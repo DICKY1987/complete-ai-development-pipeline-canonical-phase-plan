@@ -307,21 +307,21 @@ def inject_doc_id_into_content(content: str, file_type: str, doc_id: str) -> str
     Simple and idempotent: if the doc_id is already present, content is
     returned unchanged.
     """
-    if doc_id in content:
-        return content
-
     # Python: module docstring or header comment
     if file_type == "py":
         lines = content.splitlines()
         new_lines: List[str] = []
+
+        # If a doc_id is already near the top, leave unchanged
+        for line in lines[:50]:
+            if re.search(r"DOC_(ID|LINK):\s*DOC-[A-Z0-9-]+", line):
+                return content
 
         idx = 0
         # Preserve shebang
         if lines and lines[0].startswith("#!"):
             new_lines.append(lines[0])
             idx = 1
-
-        inserted = False
 
         # Look for a top-level docstring
         if idx < len(lines) and (
@@ -330,27 +330,26 @@ def inject_doc_id_into_content(content: str, file_type: str, doc_id: str) -> str
         ):
             quote = lines[idx].lstrip()[:3]
             new_lines.append(lines[idx])
-            i = idx + 1
-            while i < len(lines):
-                new_lines.append(lines[i])
-                if lines[i].rstrip().endswith(quote):
-                    new_lines.append(f"DOC_ID: {doc_id}")
-                    inserted = True
+
+            # Single-line docstring
+            if lines[idx].rstrip().endswith(quote) and len(lines[idx].strip()) > 3:
+                remainder = lines[idx + 1 :]
+            else:
+                i = idx + 1
+                while i < len(lines):
+                    new_lines.append(lines[i])
+                    if lines[i].rstrip().endswith(quote):
+                        i += 1
+                        break
                     i += 1
-                    break
-                i += 1
-            new_lines.extend(lines[i:])
+                remainder = lines[i:]
+
+            new_lines.append(f"DOC_ID: {doc_id}")
+            new_lines.extend(remainder)
         else:
-            # No obvious docstring – insert comment near top
+            # No obvious docstring - insert comment near top
             new_lines.append(f"# DOC_LINK: {doc_id}")
             new_lines.extend(lines[idx:])
-            inserted = True
-            if idx > 0:
-                # We already added shebang above if it existed
-                pass
-
-        if not inserted:
-            new_lines.append(f"# DOC_LINK: {doc_id}")
 
         result = "\n".join(new_lines)
         if content.endswith("\n"):

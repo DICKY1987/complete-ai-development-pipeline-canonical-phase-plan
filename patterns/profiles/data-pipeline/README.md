@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-996
+---
+
 # data-pipeline
 
 **Module Path**: `profiles/data-pipeline`

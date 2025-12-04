@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-VALIDATION-PHASE-COMPLETION-REPORT-670
+---
+
 # Validation Phase Completion Report
 
 **Generated**: 2025-12-04 06:17:53

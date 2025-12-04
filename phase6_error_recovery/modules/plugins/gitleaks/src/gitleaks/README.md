@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-704
+---
+
 # gitleaks
 
 **Module Path**: `error/plugins/gitleaks`

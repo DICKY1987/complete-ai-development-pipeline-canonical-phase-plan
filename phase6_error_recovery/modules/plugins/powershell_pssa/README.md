@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-README-692
+---
+
 # Plugin: powershell_pssa
 
 **Phase**: 6 (Error Recovery)

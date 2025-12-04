@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-EXEC-011-WORKTREE-WORKFLOW-992
+---
+
 # EXEC-011: Git Worktree Workflow Pattern
 # Pattern for commit and merge workflows in parallel worktrees
 

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-ARCHITECTURE-577
+---
+
 # workstream_planner Architecture
 
 **Module**: workstream_planner

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PRODUCTION-READINESS-CHECKLIST-669
+---
+
 # Production Readiness Checklist
 ## PH-VALIDATE-001: Commit Integration Verification
 

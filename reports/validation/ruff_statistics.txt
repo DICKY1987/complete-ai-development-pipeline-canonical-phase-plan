@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-RUFF-STATISTICS-722
+---
+
 86	F401	[ ] unused-import
 11	F541	[*] f-string-missing-placeholders
 10	E722	[ ] bare-except

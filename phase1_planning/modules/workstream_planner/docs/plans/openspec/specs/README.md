@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-632
+---
+
 # specs
 
 **Module Path**: `openspec/specs`
