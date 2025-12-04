@@ -2,8 +2,6 @@
 # DOC_LINK: DOC-PAT-TEXTUAL-CONTAINERS-320
 from __future__ import annotations
 
-from typing import Iterable
-
 from textual.widget import Widget
 
 

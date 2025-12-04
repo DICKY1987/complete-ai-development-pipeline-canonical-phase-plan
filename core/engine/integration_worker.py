@@ -2,20 +2,22 @@
 
 Phase I WS-I4: Handles merging of parallel workstream results.
 """
+
 # DOC_ID: DOC-CORE-ENGINE-INTEGRATION-WORKER-150
 
 from __future__ import annotations
 
 import subprocess
 from dataclasses import dataclass
-from pathlib import Path
-from typing import List, Dict, Any, Optional
 from datetime import datetime, timezone
+from pathlib import Path
+from typing import List, Optional
 
 
 @dataclass
 class MergeConflict:
     """Represents a merge conflict."""
+
     workstream_id: str
     file_path: str
     conflict_type: str  # 'content', 'delete', 'rename'
@@ -27,6 +29,7 @@ class MergeConflict:
 @dataclass
 class MergeResult:
     """Result of merge operation."""
+
     success: bool
     conflicts: List[MergeConflict]
     merged_files: List[str]
@@ -45,10 +48,7 @@ class IntegrationWorker:
         self.repo_root = repo_root
 
     def merge_workstream_results(
-        self,
-        base_branch: str,
-        feature_branches: List[str],
-        run_id: str
+        self, base_branch: str, feature_branches: List[str], run_id: str
     ) -> MergeResult:
         """Merge results from multiple parallel workstreams.
 
@@ -69,21 +69,21 @@ class IntegrationWorker:
         try:
             # Create integration branch from base
             subprocess.run(
-                ['git', 'checkout', '-b', integration_branch, base_branch],
+                ["git", "checkout", "-b", integration_branch, base_branch],
                 cwd=str(self.repo_root),
                 check=True,
                 capture_output=True,
-                text=True
+                text=True,
             )
 
             # Merge each feature branch
             for branch in feature_branches:
                 try:
                     result = subprocess.run(
-                        ['git', 'merge', '--no-ff', '--no-commit', branch],
+                        ["git", "merge", "--no-ff", "--no-commit", branch],
                         cwd=str(self.repo_root),
                         capture_output=True,
-                        text=True
+                        text=True,
                     )
 
                     if result.returncode != 0:
@@ -93,9 +93,9 @@ class IntegrationWorker:
 
                         # Abort merge
                         subprocess.run(
-                            ['git', 'merge', '--abort'],
+                            ["git", "merge", "--abort"],
                             cwd=str(self.repo_root),
-                            check=False
+                            check=False,
                         )
                     else:
                         # Get merged files
@@ -104,9 +104,9 @@ class IntegrationWorker:
 
                         # Commit merge
                         subprocess.run(
-                            ['git', 'commit', '-m', f'Merge {branch}'],
+                            ["git", "commit", "-m", f"Merge {branch}"],
                             cwd=str(self.repo_root),
-                            check=True
+                            check=True,
                         )
 
                 except subprocess.CalledProcessError as e:
@@ -114,21 +114,17 @@ class IntegrationWorker:
                         success=False,
                         conflicts=[],
                         merged_files=[],
-                        error_message=f"Merge failed for {branch}: {e}"
+                        error_message=f"Merge failed for {branch}: {e}",
                     )
 
             # Success if no conflicts
             if not conflicts:
                 return MergeResult(
-                    success=True,
-                    conflicts=[],
-                    merged_files=merged_files
+                    success=True, conflicts=[], merged_files=merged_files
                 )
             else:
                 return MergeResult(
-                    success=False,
-                    conflicts=conflicts,
-                    merged_files=merged_files
+                    success=False, conflicts=conflicts, merged_files=merged_files
                 )
 
         except Exception as e:
@@ -136,16 +132,16 @@ class IntegrationWorker:
                 success=False,
                 conflicts=conflicts,
                 merged_files=merged_files,
-                error_message=str(e)
+                error_message=str(e),
             )
 
         finally:
             # Cleanup: return to base branch
             try:
                 subprocess.run(
-                    ['git', 'checkout', base_branch],
+                    ["git", "checkout", base_branch],
                     cwd=str(self.repo_root),
-                    check=False
+                    check=False,
                 )
             except:
                 pass
@@ -165,25 +161,27 @@ class IntegrationWorker:
         try:
             # Get conflicted files
             result = subprocess.run(
-                ['git', 'diff', '--name-only', '--diff-filter=U'],
+                ["git", "diff", "--name-only", "--diff-filter=U"],
                 cwd=str(self.repo_root),
                 capture_output=True,
                 text=True,
-                check=True
+                check=True,
             )
 
-            conflicted_files = result.stdout.strip().split('\n')
+            conflicted_files = result.stdout.strip().split("\n")
 
             for file_path in conflicted_files:
                 if file_path:
-                    conflicts.append(MergeConflict(
-                        workstream_id=branch,
-                        file_path=file_path,
-                        conflict_type='content',
-                        base_branch=base_branch,
-                        feature_branch=branch,
-                        detected_at=datetime.now(timezone.utc)
-                    ))
+                    conflicts.append(
+                        MergeConflict(
+                            workstream_id=branch,
+                            file_path=file_path,
+                            conflict_type="content",
+                            base_branch=base_branch,
+                            feature_branch=branch,
+                            detected_at=datetime.now(timezone.utc),
+                        )
+                    )
 
         except:
             pass
@@ -201,14 +199,14 @@ class IntegrationWorker:
         """
         try:
             result = subprocess.run(
-                ['git', 'diff', '--name-only', 'HEAD', branch],
+                ["git", "diff", "--name-only", "HEAD", branch],
                 cwd=str(self.repo_root),
                 capture_output=True,
                 text=True,
-                check=True
+                check=True,
             )
 
-            files = result.stdout.strip().split('\n')
+            files = result.stdout.strip().split("\n")
             return [f for f in files if f]
 
         except:
@@ -228,22 +226,20 @@ class IntegrationWorker:
         for conflict in conflicts:
             # Record as merge_conflict in DB
             db.record_event(
-                event_type='merge_conflict_detected',
+                event_type="merge_conflict_detected",
                 run_id=run_id,
                 ws_id=conflict.workstream_id,
                 payload={
-                    'file_path': conflict.file_path,
-                    'conflict_type': conflict.conflict_type,
-                    'base_branch': conflict.base_branch,
-                    'feature_branch': conflict.feature_branch
-                }
+                    "file_path": conflict.file_path,
+                    "conflict_type": conflict.conflict_type,
+                    "base_branch": conflict.base_branch,
+                    "feature_branch": conflict.feature_branch,
+                },
             )
 
 
 def detect_and_merge(
-    workstream_ids: List[str],
-    run_id: str,
-    repo_root: Optional[Path] = None
+    workstream_ids: List[str], run_id: str, repo_root: Optional[Path] = None
 ) -> MergeResult:
     """Detect and merge workstream results.
 
@@ -264,9 +260,7 @@ def detect_and_merge(
     feature_branches = [f"ws-{ws_id}" for ws_id in workstream_ids]
 
     result = worker.merge_workstream_results(
-        base_branch='main',
-        feature_branches=feature_branches,
-        run_id=run_id
+        base_branch="main", feature_branches=feature_branches, run_id=run_id
     )
 
     # Persist conflicts

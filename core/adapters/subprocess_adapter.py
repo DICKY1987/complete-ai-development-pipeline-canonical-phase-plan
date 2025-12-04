@@ -2,12 +2,14 @@
 
 Executes tools via subprocess with timeout and error handling.
 """
+
 # DOC_ID: DOC-CORE-ADAPTERS-SUBPROCESS-ADAPTER-135
 
 import subprocess
 import time
-from typing import Dict, Any, Optional, List
-from .base import ToolAdapter, ExecutionResult, ToolConfig
+from typing import Any, Dict, Optional
+
+from .base import ExecutionResult, ToolAdapter, ToolConfig
 
 
 class SubprocessAdapter(ToolAdapter):
@@ -25,13 +27,11 @@ class SubprocessAdapter(ToolAdapter):
 
     def validate_request(self, request: Dict[str, Any]) -> bool:
         """Validate request has required fields"""
-        required = ['request_id', 'task_kind', 'project_id']
+        required = ["request_id", "task_kind", "project_id"]
         return all(field in request for field in required)
 
     def execute(
-        self,
-        request: Dict[str, Any],
-        timeout: Optional[int] = None
+        self, request: Dict[str, Any], timeout: Optional[int] = None
     ) -> ExecutionResult:
         """Execute the tool via subprocess
 
@@ -44,8 +44,7 @@ class SubprocessAdapter(ToolAdapter):
         """
         if not self.validate_request(request):
             return ExecutionResult(
-                success=False,
-                error_message="Invalid request: missing required fields"
+                success=False, error_message="Invalid request: missing required fields"
             )
 
         # Determine timeout
@@ -62,7 +61,7 @@ class SubprocessAdapter(ToolAdapter):
                 capture_output=True,
                 text=True,
                 timeout=timeout_secs,
-                shell=True  # Allow complex commands
+                shell=True,  # Allow complex commands
             )
 
             duration = time.time() - start_time
@@ -74,9 +73,9 @@ class SubprocessAdapter(ToolAdapter):
                 exit_code=result.returncode,
                 duration_seconds=duration,
                 metadata={
-                    'command': ' '.join(cmd) if isinstance(cmd, list) else cmd,
-                    'timeout': timeout_secs,
-                }
+                    "command": " ".join(cmd) if isinstance(cmd, list) else cmd,
+                    "timeout": timeout_secs,
+                },
             )
 
         except subprocess.TimeoutExpired as e:
@@ -89,10 +88,10 @@ class SubprocessAdapter(ToolAdapter):
                 duration_seconds=duration,
                 error_message=f"Command timed out after {timeout_secs}s",
                 metadata={
-                    'command': ' '.join(cmd) if isinstance(cmd, list) else cmd,
-                    'timeout': timeout_secs,
-                    'timeout_exceeded': True,
-                }
+                    "command": " ".join(cmd) if isinstance(cmd, list) else cmd,
+                    "timeout": timeout_secs,
+                    "timeout_exceeded": True,
+                },
             )
 
         except Exception as e:
@@ -103,9 +102,9 @@ class SubprocessAdapter(ToolAdapter):
                 duration_seconds=duration,
                 error_message=f"Execution failed: {str(e)}",
                 metadata={
-                    'command': ' '.join(cmd) if isinstance(cmd, list) else cmd,
-                    'exception_type': type(e).__name__,
-                }
+                    "command": " ".join(cmd) if isinstance(cmd, list) else cmd,
+                    "exception_type": type(e).__name__,
+                },
             )
 
     def _build_command(self, request: Dict[str, Any]) -> str:

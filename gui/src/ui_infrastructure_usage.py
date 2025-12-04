@@ -6,7 +6,6 @@ error records, and tool instrumentation to create a fully observable pipeline.
 
 # DOC_ID: DOC-PAT-GUI-UI-INFRASTRUCTURE-USAGE-653
 
-from pathlib import Path
 
 from core.error_records import create_error_record
 from core.file_lifecycle import (

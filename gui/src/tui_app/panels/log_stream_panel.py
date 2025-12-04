@@ -5,7 +5,7 @@ from pathlib import Path
 from textual.app import ComposeResult
 from textual.containers import Vertical
 from textual.widgets import Static
-from tui_app.core.panel_plugin import PanelContext, PanelPlugin
+from tui_app.core.panel_plugin import PanelContext
 from tui_app.core.panel_registry import register_panel
 
 

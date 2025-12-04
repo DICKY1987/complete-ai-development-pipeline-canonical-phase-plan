@@ -61,7 +61,7 @@ Examples:
         orch = Orchestrator()
         run_id = orch.execute_plan(args.plan_path, variables)
 
-        print(f"✅ Plan execution completed")
+        print("✅ Plan execution completed")
         print(f"Run ID: {run_id}")
         print(f"Database: {args.db}")
 

@@ -10,7 +10,6 @@ from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Dict, List, Optional
 
-from .extractors import ClassInfo, FunctionInfo
 from .languages.python import PythonExtractor
 from .parser import ASTParser
 

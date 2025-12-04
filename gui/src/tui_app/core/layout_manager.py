@@ -7,8 +7,6 @@ Manages panel mounting and layout configuration.
 
 from typing import Optional
 
-from textual.app import ComposeResult
-from textual.containers import Container
 from textual.widget import Widget
 
 from .panel_plugin import PanelContext, PanelPlugin

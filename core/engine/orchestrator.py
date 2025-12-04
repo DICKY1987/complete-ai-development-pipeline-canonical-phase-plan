@@ -10,7 +10,6 @@ import subprocess
 import time
 import uuid
 from datetime import UTC, datetime
-from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from core.engine.plan_schema import Plan, StepDef

@@ -5,15 +5,15 @@ Provides config-driven external tool execution with subprocess handling,
 timeouts, error capture, and result tracking. Supports template-based
 command rendering and standardized result reporting.
 """
+
 # DOC_ID: DOC-CORE-ENGINE-TOOLS-161
 
-import json
 import subprocess
 import time
-from dataclasses import dataclass, asdict
-from datetime import datetime, UTC
+from dataclasses import asdict, dataclass
+from datetime import UTC, datetime
 from pathlib import Path
-from typing import Dict, Any, List, Optional
+from typing import Any, Dict, List, Optional
 
 
 @dataclass
@@ -33,6 +33,7 @@ class ToolResult:
         duration_sec: Execution duration in seconds
         success: Whether execution was successful (based on exit codes)
     """
+
     tool_id: str
     command_line: str
     exit_code: int
@@ -71,18 +72,20 @@ def load_tool_profiles(profile_path: Optional[str] = None) -> Dict[str, Any]:
     # Show deprecation warning if old path is used
     if profile_path:
         import warnings
+
         warnings.warn(
             f"Loading from {profile_path} is deprecated. "
             "Tool profiles are now loaded from invoke.yaml. "
             "This parameter will be removed in Phase G+1.",
             DeprecationWarning,
-            stacklevel=2
+            stacklevel=2,
         )
 
     # Load from invoke.yaml via config_loader
     from core.config_loader import load_project_config
+
     cfg = load_project_config()
-    tools_config = cfg.get('tools', {})
+    tools_config = cfg.get("tools", {})
 
     if not tools_config:
         raise FileNotFoundError(
@@ -94,7 +97,9 @@ def load_tool_profiles(profile_path: Optional[str] = None) -> Dict[str, Any]:
     return tools_config
 
 
-def get_tool_profile(tool_id: str, profiles: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+def get_tool_profile(
+    tool_id: str, profiles: Optional[Dict[str, Any]] = None
+) -> Dict[str, Any]:
     """
     Retrieve a specific tool profile by ID.
 
@@ -123,9 +128,7 @@ def get_tool_profile(tool_id: str, profiles: Optional[Dict[str, Any]] = None) ->
 
 
 def render_command(
-    tool_id: str,
-    context: Dict[str, Any],
-    profile: Optional[Dict[str, Any]] = None
+    tool_id: str, context: Dict[str, Any], profile: Optional[Dict[str, Any]] = None
 ) -> List[str]:
     """
     Render command from tool profile with template substitution.
@@ -153,16 +156,16 @@ def render_command(
 
     # Build template context with defaults
     template_context = {
-        'cwd': str(Path.cwd()),
-        'repo_root': str(_get_repo_root()),
+        "cwd": str(Path.cwd()),
+        "repo_root": str(_get_repo_root()),
     }
     template_context.update(context)
 
     # Render command
-    command = [profile['command']]
+    command = [profile["command"]]
 
     # Render args with template substitution
-    for arg in profile.get('args', []):
+    for arg in profile.get("args", []):
         rendered_arg = arg
         # Simple template substitution
         for key, value in template_context.items():
@@ -177,7 +180,7 @@ def run_tool(
     context: Dict[str, Any],
     *,
     run_id: Optional[str] = None,
-    ws_id: Optional[str] = None
+    ws_id: Optional[str] = None,
 ) -> ToolResult:
     """
     Execute a tool with the given context.
@@ -204,22 +207,23 @@ def run_tool(
 
     # Render command
     command = render_command(tool_id, context, profile)
-    command_line = ' '.join(command)
+    command_line = " ".join(command)
 
     # Prepare execution environment
     env = None
-    if profile.get('env'):
+    if profile.get("env"):
         import os
+
         env = os.environ.copy()
-        env.update(profile['env'])
+        env.update(profile["env"])
 
     # Determine working directory
-    working_dir = profile.get('working_dir')
+    working_dir = profile.get("working_dir")
     if working_dir:
         # Render working_dir template
         working_dir_context = {
-            'cwd': str(Path.cwd()),
-            'repo_root': str(_get_repo_root()),
+            "cwd": str(Path.cwd()),
+            "repo_root": str(_get_repo_root()),
         }
         working_dir_context.update(context)
 
@@ -227,7 +231,7 @@ def run_tool(
             working_dir = working_dir.replace(f"{{{key}}}", str(value))
 
     # Get timeout
-    timeout_sec = profile.get('timeout_sec', 60)
+    timeout_sec = profile.get("timeout_sec", 60)
 
     # Execute
     started_at = datetime.now(UTC).isoformat() + "Z"
@@ -241,11 +245,11 @@ def run_tool(
     try:
         result = subprocess.run(
             command,
-            capture_output=profile.get('capture_output', True),
+            capture_output=profile.get("capture_output", True),
             timeout=timeout_sec,
             env=env,
             cwd=working_dir,
-            text=True
+            text=True,
         )
         exit_code = result.returncode
         stdout = result.stdout or ""
@@ -254,8 +258,8 @@ def run_tool(
     except subprocess.TimeoutExpired as e:
         timed_out = True
         exit_code = -1
-        stdout = e.stdout.decode('utf-8') if e.stdout else ""
-        stderr = e.stderr.decode('utf-8') if e.stderr else ""
+        stdout = e.stdout.decode("utf-8") if e.stdout else ""
+        stderr = e.stderr.decode("utf-8") if e.stderr else ""
 
     except FileNotFoundError as e:
         # Tool binary not found
@@ -273,7 +277,7 @@ def run_tool(
     completed_at = datetime.now(UTC).isoformat() + "Z"
 
     # Determine success
-    success_exit_codes = profile.get('success_exit_codes', [0])
+    success_exit_codes = profile.get("success_exit_codes", [0])
     success = exit_code in success_exit_codes and not timed_out
 
     return ToolResult(
@@ -286,7 +290,7 @@ def run_tool(
         started_at=started_at,
         completed_at=completed_at,
         duration_sec=duration_sec,
-        success=success
+        success=success,
     )
 
 
@@ -305,7 +309,7 @@ def _get_repo_root() -> Path:
     current = Path.cwd().resolve()
 
     while current != current.parent:
-        if (current / '.git').exists():
+        if (current / ".git").exists():
             return current
         current = current.parent
 

@@ -8,7 +8,6 @@ Central window that hosts panels and manages navigation.
 from typing import Optional
 
 from gui_app.core.gui_panel_registry import get_registry
-from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QMainWindow, QTabWidget, QVBoxLayout, QWidget
 from ui_core.layout_config import UIConfig
 from ui_core.panel_context import PanelContext

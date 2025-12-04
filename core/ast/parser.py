@@ -7,7 +7,7 @@ Provides unified parsing interface for Python, JavaScript, and TypeScript.
 # DOC_ID: DOC-CORE-AST-PARSER-200
 
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Dict, Optional
 
 import tree_sitter_javascript as tsjavascript
 import tree_sitter_python as tspython

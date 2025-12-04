@@ -2,11 +2,13 @@
 
 Combines circuit breakers and retry logic for robust task execution.
 """
+
 # DOC_ID: DOC-CORE-RESILIENCE-RESILIENT-EXECUTOR-188
 
-from typing import Optional, Callable, Any, Dict
-from .circuit_breaker import CircuitBreaker, CircuitBreakerOpen
-from .retry import RetryStrategy, ExponentialBackoff
+from typing import Any, Callable, Dict, Optional
+
+from .circuit_breaker import CircuitBreaker
+from .retry import ExponentialBackoff, RetryStrategy
 
 
 class ResilientExecutor:
@@ -29,7 +31,7 @@ class ResilientExecutor:
         failure_threshold: int = 5,
         recovery_timeout: int = 60,
         max_retries: int = 3,
-        base_delay: float = 1.0
+        base_delay: float = 1.0,
     ):
         """Register a tool with circuit breaker and retry strategy
 
@@ -44,22 +46,15 @@ class ResilientExecutor:
         self.circuit_breakers[tool_id] = CircuitBreaker(
             name=tool_id,
             failure_threshold=failure_threshold,
-            recovery_timeout=recovery_timeout
+            recovery_timeout=recovery_timeout,
         )
 
         # Create retry strategy
         self.retry_strategies[tool_id] = ExponentialBackoff(
-            max_attempts=max_retries,
-            base_delay=base_delay
+            max_attempts=max_retries, base_delay=base_delay
         )
 
-    def execute(
-        self,
-        tool_id: str,
-        func: Callable,
-        *args,
-        **kwargs
-    ) -> Any:
+    def execute(self, tool_id: str, func: Callable, *args, **kwargs) -> Any:
         """Execute function with resilience patterns
 
         Args:
@@ -117,6 +112,5 @@ class ResilientExecutor:
             Dict mapping tool_id to state dict
         """
         return {
-            tool_id: cb.get_state()
-            for tool_id, cb in self.circuit_breakers.items()
+            tool_id: cb.get_state() for tool_id, cb in self.circuit_breakers.items()
         }

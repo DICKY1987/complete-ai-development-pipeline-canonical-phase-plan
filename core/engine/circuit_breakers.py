@@ -8,6 +8,7 @@ Design goals:
 - Deterministic defaults when config missing.
 - Easy to monkeypatch in tests.
 """
+
 # DOC_ID: DOC-CORE-ENGINE-CIRCUIT-BREAKERS-144
 
 from __future__ import annotations
@@ -16,7 +17,7 @@ import hashlib
 import json
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Dict, List, Mapping, Optional
+from typing import Any, Dict, List, Mapping
 
 __all__ = [
     "load_config",
@@ -60,17 +61,24 @@ def load_config() -> Dict[str, Any]:
     # Try loading from invoke.yaml first (Phase G)
     try:
         from core.config_loader import get_circuit_breaker_config
+
         cfg = get_circuit_breaker_config()
         if cfg:
             # Map new structure to expected format
             result = {
                 "defaults": {
                     "max_attempts_per_step": cfg.get("max_attempts_per_step", 3),
-                    "max_fix_attempts_per_step": cfg.get("max_fix_attempts_per_step", 2),
-                    "max_attempts_per_error_signature": cfg.get("max_attempts_per_error_signature", 3),
+                    "max_fix_attempts_per_step": cfg.get(
+                        "max_fix_attempts_per_step", 2
+                    ),
+                    "max_attempts_per_error_signature": cfg.get(
+                        "max_attempts_per_error_signature", 3
+                    ),
                     "oscillation_window": cfg.get("oscillation_window", 4),
                     "oscillation_threshold": cfg.get("oscillation_threshold", 2),
-                    "enable_fix_for_steps": cfg.get("enable_fix_for_steps", ["static", "runtime"]),
+                    "enable_fix_for_steps": cfg.get(
+                        "enable_fix_for_steps", ["static", "runtime"]
+                    ),
                 },
                 "per_step": cfg.get("per_step", {}),
             }
@@ -85,12 +93,13 @@ def load_config() -> Dict[str, Any]:
 
     if ypath.exists() or jpath.exists():
         import warnings
+
         warnings.warn(
             "Loading circuit breakers from config/ is deprecated. "
             "Configuration is now in invoke.yaml. "
             "Legacy files will be removed in Phase G+1.",
             DeprecationWarning,
-            stacklevel=2
+            stacklevel=2,
         )
 
     if ypath.exists():
@@ -179,4 +188,3 @@ def detect_oscillation(state: FixLoopState, cfg: BreakerConfig) -> bool:
     for h in recent:
         counts[h] = counts.get(h, 0) + 1
     return max(counts.values()) >= threshold
-

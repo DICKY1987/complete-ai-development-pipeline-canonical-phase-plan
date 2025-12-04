@@ -8,7 +8,7 @@ Extracts functions, classes, imports, and docstrings from Python source code.
 
 from typing import List, Optional
 
-from tree_sitter import Node, Tree
+from tree_sitter import Node
 
 from ..extractors import BaseExtractor, ClassInfo, FunctionInfo, ImportInfo
 

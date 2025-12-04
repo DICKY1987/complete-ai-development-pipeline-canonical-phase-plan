@@ -3,20 +3,22 @@
 This module defines the data structures used by TUI/GUI panels to display
 pipeline state, health, and observability data.
 """
+
 # DOC_ID: DOC-CORE-CORE-UI-MODELS-128
 
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import Any, Dict, List, Optional, Tuple
-
+from typing import Dict, List, Optional, Tuple
 
 # ============================================================================
 # File Lifecycle Models
 # ============================================================================
 
+
 class FileState(Enum):
     """File lifecycle states."""
+
     DISCOVERED = "discovered"
     CLASSIFIED = "classified"
     INTAKE = "intake"
@@ -31,6 +33,7 @@ class FileState(Enum):
 
 class FileRole(Enum):
     """File type/role classification."""
+
     CODE = "code"
     SPEC = "spec"
     PLAN = "plan"
@@ -44,6 +47,7 @@ class FileRole(Enum):
 @dataclass
 class FileToolTouch:
     """Record of a tool touching a file."""
+
     timestamp: datetime
     tool_id: str
     tool_name: str
@@ -55,6 +59,7 @@ class FileToolTouch:
 @dataclass
 class FileLifecycleRecord:
     """Complete file lifecycle tracking record."""
+
     file_id: str
     current_path: str
     origin_path: Optional[str] = None
@@ -95,8 +100,10 @@ class FileLifecycleRecord:
 # Tool Health Models
 # ============================================================================
 
+
 class ToolStatus(Enum):
     """Tool health status."""
+
     HEALTHY = "healthy"
     DEGRADED = "degraded"
     UNREACHABLE = "unreachable"
@@ -106,6 +113,7 @@ class ToolStatus(Enum):
 
 class ToolCategory(Enum):
     """Tool categories."""
+
     AI_EDITOR = "ai_editor"
     TEST_RUNNER = "test_runner"
     SCM = "scm"
@@ -118,6 +126,7 @@ class ToolCategory(Enum):
 @dataclass
 class ToolHealthMetrics:
     """Performance and reliability metrics for a tool."""
+
     # Request counts
     requests_5min: int = 0
     requests_15min: int = 0
@@ -149,6 +158,7 @@ class ToolHealthMetrics:
 @dataclass
 class ToolHealthStatus:
     """Complete health status for a tool/adapter."""
+
     tool_id: str
     display_name: str
     category: ToolCategory
@@ -167,8 +177,10 @@ class ToolHealthStatus:
 # Workstream Status Models
 # ============================================================================
 
+
 class WorkstreamStatus(Enum):
     """Workstream execution status."""
+
     PENDING = "pending"
     QUEUED = "queued"
     RUNNING = "running"
@@ -181,6 +193,7 @@ class WorkstreamStatus(Enum):
 @dataclass
 class WorkstreamProgress:
     """Progress tracking for a workstream."""
+
     current_phase: Optional[str] = None
     total_phases: int = 0
     completed_phases: int = 0
@@ -195,6 +208,7 @@ class WorkstreamProgress:
 @dataclass
 class WorkstreamRecord:
     """Complete workstream tracking record."""
+
     ws_id: str
     run_id: str
 
@@ -227,8 +241,10 @@ class WorkstreamRecord:
 # Error Record Models
 # ============================================================================
 
+
 class ErrorSeverity(Enum):
     """Error severity levels."""
+
     WARNING = "warning"
     ERROR = "error"
     CRITICAL = "critical"
@@ -236,6 +252,7 @@ class ErrorSeverity(Enum):
 
 class ErrorCategory(Enum):
     """Error classification categories."""
+
     SYNTAX = "syntax"
     CONFIG = "config"
     NETWORK = "network"
@@ -252,6 +269,7 @@ class ErrorCategory(Enum):
 @dataclass
 class ErrorRecord:
     """Structured error record for quarantine center."""
+
     error_id: str
 
     # Entity tracking
@@ -287,9 +305,11 @@ class ErrorRecord:
 # Dashboard Summary Models
 # ============================================================================
 
+
 @dataclass
 class PipelineSummary:
     """High-level pipeline health summary for dashboard."""
+
     # Workstream/job counts
     workstreams_running: int = 0
     workstreams_queued: int = 0
@@ -322,6 +342,7 @@ class PipelineSummary:
 @dataclass
 class ToolSummary:
     """One-line tool summary for dashboard."""
+
     tool_id: str
     tool_name: str
     status: ToolStatus
@@ -333,9 +354,11 @@ class ToolSummary:
 # Run/Job Models
 # ============================================================================
 
+
 @dataclass
 class JobRecord:
     """Job execution record."""
+
     job_id: str
     parent_ws_id: Optional[str] = None
     run_id: Optional[str] = None
@@ -358,8 +381,10 @@ class JobRecord:
 # Control Panel Models
 # ============================================================================
 
+
 class RunMode(Enum):
     """Pipeline run mode."""
+
     RUNNING = "running"
     DRAINING = "draining"
     PAUSED = "paused"
@@ -367,6 +392,7 @@ class RunMode(Enum):
 
 class HeadlessPolicy(Enum):
     """Headless execution policy."""
+
     ALLOW_ALL = "allow_all"
     REQUIRE_REVIEW_IF_RISKY = "require_review_if_risky"
     DRY_RUN_ONLY = "dry_run_only"
@@ -375,6 +401,7 @@ class HeadlessPolicy(Enum):
 @dataclass
 class PipelineControlState:
     """Current pipeline control settings."""
+
     run_mode: RunMode = RunMode.RUNNING
 
     # Concurrency

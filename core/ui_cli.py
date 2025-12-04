@@ -17,17 +17,10 @@ import argparse
 import json
 import sys
 from datetime import datetime
-from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, List
 
-from core.ui_clients import LogsClient, StateClient, ToolsClient
-from core.ui_models import (
-    ErrorCategory,
-    ErrorSeverity,
-    FileState,
-    ToolStatus,
-    WorkstreamStatus,
-)
+from core.ui_clients import StateClient, ToolsClient
+from core.ui_models import ErrorCategory, ErrorSeverity, FileState, WorkstreamStatus
 
 
 def serialize_model(obj: Any) -> Any:
@@ -86,7 +79,7 @@ def cmd_files(args: argparse.Namespace) -> None:
         workstream_id=args.workstream_id,
         run_id=args.run_id,
         tool_id=args.tool_id,
-        limit=args.limit
+        limit=args.limit,
     )
 
     if args.json:
@@ -99,7 +92,11 @@ def cmd_files(args: argparse.Namespace) -> None:
                 f.current_path[:40],
                 f.current_state.value,
                 f.workstream_id[:12] if f.workstream_id else "-",
-                f.last_processed.strftime("%Y-%m-%d %H:%M") if f.last_processed else "-"
+                (
+                    f.last_processed.strftime("%Y-%m-%d %H:%M")
+                    if f.last_processed
+                    else "-"
+                ),
             ]
             for f in files
         ]
@@ -126,9 +123,7 @@ def cmd_workstreams(args: argparse.Namespace) -> None:
 
     status = WorkstreamStatus(args.status) if args.status else None
     workstreams = client.list_workstreams(
-        run_id=args.run_id,
-        status=status,
-        limit=args.limit
+        run_id=args.run_id, status=status, limit=args.limit
     )
 
     if args.json:
@@ -141,7 +136,7 @@ def cmd_workstreams(args: argparse.Namespace) -> None:
                 ws.status.value,
                 f"{ws.files_succeeded}/{ws.files_processed}",
                 f"{ws.total_duration_sec:.1f}s" if ws.total_duration_sec else "-",
-                ws.start_time.strftime("%Y-%m-%d %H:%M") if ws.start_time else "-"
+                ws.start_time.strftime("%Y-%m-%d %H:%M") if ws.start_time else "-",
             ]
             for ws in workstreams
         ]
@@ -174,7 +169,7 @@ def cmd_errors(args: argparse.Namespace) -> None:
         severity=severity,
         category=category,
         tool_id=args.tool_id,
-        limit=args.limit
+        limit=args.limit,
     )
 
     if args.json:
@@ -187,7 +182,7 @@ def cmd_errors(args: argparse.Namespace) -> None:
                 e.severity.value,
                 e.category.value,
                 e.human_message[:50],
-                str(e.occurrence_count)
+                str(e.occurrence_count),
             ]
             for e in errors
         ]
@@ -209,7 +204,9 @@ def cmd_tools(args: argparse.Namespace) -> None:
                 print(f"Status: {tool.status.value}")
                 print(f"Success Rate: {tool.metrics.success_rate:.1%}")
                 print(f"P95 Latency: {tool.metrics.p95_latency:.2f}s")
-                print(f"Requests (5m/15m/60m): {tool.metrics.requests_5min}/{tool.metrics.requests_15min}/{tool.metrics.requests_60min}")
+                print(
+                    f"Requests (5m/15m/60m): {tool.metrics.requests_5min}/{tool.metrics.requests_15min}/{tool.metrics.requests_60min}"
+                )
             else:
                 print(f"Tool not found: {args.tool_id}")
     else:
@@ -224,7 +221,7 @@ def cmd_tools(args: argparse.Namespace) -> None:
                         t.tool_name,
                         t.status.value,
                         f"{t.success_rate:.1%}",
-                        f"{t.p95_latency:.2f}s"
+                        f"{t.p95_latency:.2f}s",
                     ]
                     for t in tools
                 ]
@@ -241,7 +238,7 @@ def cmd_tools(args: argparse.Namespace) -> None:
                         t.display_name,
                         t.status.value,
                         f"{t.metrics.success_rate:.1%}",
-                        str(t.metrics.requests_5min)
+                        str(t.metrics.requests_5min),
                     ]
                     for t in tools
                 ]
@@ -288,14 +285,16 @@ def main():
     )
     parser.add_argument(
         "--db-path",
-        help="Path to SQLite database (default: from env or .worktrees/pipeline_state.db)"
+        help="Path to SQLite database (default: from env or .worktrees/pipeline_state.db)",
     )
 
     subparsers = parser.add_subparsers(dest="command", help="Command to run")
 
     # Files command
     files_parser = subparsers.add_parser("files", help="Query file lifecycle records")
-    files_parser.add_argument("--state", choices=[s.value for s in FileState], help="Filter by state")
+    files_parser.add_argument(
+        "--state", choices=[s.value for s in FileState], help="Filter by state"
+    )
     files_parser.add_argument("--workstream-id", help="Filter by workstream ID")
     files_parser.add_argument("--run-id", help="Filter by run ID")
     files_parser.add_argument("--tool-id", help="Filter by tool ID")
@@ -304,21 +303,29 @@ def main():
     files_parser.set_defaults(func=cmd_files)
 
     # File counts command
-    file_counts_parser = subparsers.add_parser("file-counts", help="Get file counts by state")
+    file_counts_parser = subparsers.add_parser(
+        "file-counts", help="Get file counts by state"
+    )
     file_counts_parser.add_argument("--run-id", help="Filter by run ID")
-    file_counts_parser.add_argument("--json", action="store_true", help="Output as JSON")
+    file_counts_parser.add_argument(
+        "--json", action="store_true", help="Output as JSON"
+    )
     file_counts_parser.set_defaults(func=cmd_file_counts)
 
     # Workstreams command
     ws_parser = subparsers.add_parser("workstreams", help="Query workstream records")
     ws_parser.add_argument("--run-id", help="Filter by run ID")
-    ws_parser.add_argument("--status", choices=[s.value for s in WorkstreamStatus], help="Filter by status")
+    ws_parser.add_argument(
+        "--status", choices=[s.value for s in WorkstreamStatus], help="Filter by status"
+    )
     ws_parser.add_argument("--limit", type=int, default=100, help="Max results")
     ws_parser.add_argument("--json", action="store_true", help="Output as JSON")
     ws_parser.set_defaults(func=cmd_workstreams)
 
     # Workstream counts command
-    ws_counts_parser = subparsers.add_parser("workstream-counts", help="Get workstream counts by status")
+    ws_counts_parser = subparsers.add_parser(
+        "workstream-counts", help="Get workstream counts by status"
+    )
     ws_counts_parser.add_argument("--run-id", help="Filter by run ID")
     ws_counts_parser.add_argument("--json", action="store_true", help="Output as JSON")
     ws_counts_parser.set_defaults(func=cmd_workstream_counts)
@@ -327,8 +334,16 @@ def main():
     errors_parser = subparsers.add_parser("errors", help="Query error records")
     errors_parser.add_argument("--run-id", help="Filter by run ID")
     errors_parser.add_argument("--workstream-id", help="Filter by workstream ID")
-    errors_parser.add_argument("--severity", choices=[s.value for s in ErrorSeverity], help="Filter by severity")
-    errors_parser.add_argument("--category", choices=[c.value for c in ErrorCategory], help="Filter by category")
+    errors_parser.add_argument(
+        "--severity",
+        choices=[s.value for s in ErrorSeverity],
+        help="Filter by severity",
+    )
+    errors_parser.add_argument(
+        "--category",
+        choices=[c.value for c in ErrorCategory],
+        help="Filter by category",
+    )
     errors_parser.add_argument("--tool-id", help="Filter by tool ID")
     errors_parser.add_argument("--limit", type=int, default=100, help="Max results")
     errors_parser.add_argument("--json", action="store_true", help="Output as JSON")
@@ -337,12 +352,16 @@ def main():
     # Tools command
     tools_parser = subparsers.add_parser("tools", help="Query tool health status")
     tools_parser.add_argument("--tool-id", help="Get specific tool by ID")
-    tools_parser.add_argument("--summary", action="store_true", help="Get one-line summary per tool")
+    tools_parser.add_argument(
+        "--summary", action="store_true", help="Get one-line summary per tool"
+    )
     tools_parser.add_argument("--json", action="store_true", help="Output as JSON")
     tools_parser.set_defaults(func=cmd_tools)
 
     # Dashboard command
-    dashboard_parser = subparsers.add_parser("dashboard", help="Get pipeline dashboard summary")
+    dashboard_parser = subparsers.add_parser(
+        "dashboard", help="Get pipeline dashboard summary"
+    )
     dashboard_parser.add_argument("--run-id", help="Filter by run ID")
     dashboard_parser.add_argument("--json", action="store_true", help="Output as JSON")
     dashboard_parser.set_defaults(func=cmd_dashboard)

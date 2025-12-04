@@ -2,7 +2,7 @@
 # DOC_LINK: DOC-PAT-TEXTUAL-APP-319
 from __future__ import annotations
 
-from typing import Iterable, List, Optional
+from typing import List, Optional
 
 from textual.containers import Container
 from textual.widget import Widget
