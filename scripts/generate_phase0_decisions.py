@@ -11,6 +11,7 @@ Generates:
     - DESIGN_TOOL_RESUME_STRATEGY.md
 """
 DOC_ID: DOC-SCRIPT-SCRIPTS-GENERATE-PHASE0-DECISIONS-715
+DOC_ID: DOC - SCRIPT - SCRIPTS - GENERATE - PHASE0 - DECISIONS - 715
 
 from datetime import datetime
 from pathlib import Path

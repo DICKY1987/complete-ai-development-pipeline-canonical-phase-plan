@@ -9,13 +9,15 @@ Usage:
     python scripts/pipe_tree.py --output PIPELINE_VIRTUAL_TREE.txt
 """
 DOC_ID: DOC-SCRIPT-SCRIPTS-PIPE-TREE-724
+DOC_ID: DOC - SCRIPT - SCRIPTS - PIPE - TREE - 724
 
 import argparse
+import fnmatch
 import sys
 from pathlib import Path
-from typing import Dict, List, Set, Optional
+from typing import Dict, List, Optional, Set
+
 import yaml
-import fnmatch
 
 
 class PipeTreeGenerator:
@@ -118,8 +120,7 @@ class PipeTreeGenerator:
 
         # No match - use default
         return self.mapping_config.get(
-            "default_pipe_id",
-            "PIPE-26_LEARN_AND_UPDATE_PATTERNS_PROMPTS_CONFIG"
+            "default_pipe_id", "PIPE-26_LEARN_AND_UPDATE_PATTERNS_PROMPTS_CONFIG"
         )
 
     def scan_repository(self):
@@ -211,9 +212,7 @@ def load_ignore_patterns(ignore_file: Optional[Path]) -> List[str]:
     if ignore_file and ignore_file.exists():
         with open(ignore_file, "r", encoding="utf-8") as f:
             custom_patterns = [
-                line.strip()
-                for line in f
-                if line.strip() and not line.startswith("#")
+                line.strip() for line in f if line.strip() and not line.startswith("#")
             ]
             return default_patterns + custom_patterns
 
@@ -262,7 +261,9 @@ def main():
         sys.exit(1)
 
     if not args.mapping_config.exists():
-        print(f"Error: Mapping config not found: {args.mapping_config}", file=sys.stderr)
+        print(
+            f"Error: Mapping config not found: {args.mapping_config}", file=sys.stderr
+        )
         sys.exit(1)
 
     # Load mapping configuration
@@ -298,14 +299,12 @@ def main():
         print(f"\nStatistics:")
         print(f"  Total files mapped: {stats['total_files']}")
         print(f"\n  By phase:")
-        for phase, count in sorted(stats['by_phase'].items()):
+        for phase, count in sorted(stats["by_phase"].items()):
             print(f"    {phase}: {count} files")
         print(f"\n  Top 5 PIPE modules by file count:")
-        top_pipes = sorted(
-            stats['by_pipe'].items(),
-            key=lambda x: x[1],
-            reverse=True
-        )[:5]
+        top_pipes = sorted(stats["by_pipe"].items(), key=lambda x: x[1], reverse=True)[
+            :5
+        ]
         for pipe_id, count in top_pipes:
             print(f"    {pipe_id}: {count} files")
 

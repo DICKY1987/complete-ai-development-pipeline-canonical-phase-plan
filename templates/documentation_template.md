@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-{{category}}-{{topic}}-001
+doc_id: DOC-GUIDE-DOCUMENTATION-TEMPLATE-723
 title: {{title}}
 audience: {{audience}}
 status: {{status}}

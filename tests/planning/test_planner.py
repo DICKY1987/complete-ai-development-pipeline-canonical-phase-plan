@@ -1,5 +1,6 @@
 # DOC_LINK: DOC-TEST-PLANNING-TEST-PLANNER-311
 import json
+
 import pytest
 
 from core.planning.planner import plan_workstreams_from_spec
@@ -12,7 +13,9 @@ def test_plan_from_mapping_applies_defaults():
             {"id": "ws-a", "files_scope": ["core/bar.py"], "tasks": ["add tests"]},
         ]
     }
-    result = plan_workstreams_from_spec(spec, {"default_gate": 2, "default_tool": "aider"})
+    result = plan_workstreams_from_spec(
+        spec, {"default_gate": 2, "default_tool": "aider"}
+    )
 
     assert [ws["id"] for ws in result] == ["ws-a", "ws-b"]  # sorted by id
     assert all(ws["gate"] == 2 for ws in result)

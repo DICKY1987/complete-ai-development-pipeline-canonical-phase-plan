@@ -12,10 +12,15 @@ def test_find_entry_points_includes_additional_roots(tmp_path):
     _write_file(tmp_path / "tools" / "tool_runner.py", "def run():\n    return True\n")
     _write_file(tmp_path / "templates" / "template_script.py", "# template helper\n")
     _write_file(
-        tmp_path / "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK" / "patterns" / "example.py",
+        tmp_path
+        / "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK"
+        / "patterns"
+        / "example.py",
         "# uet example\n",
     )
-    _write_file(tmp_path / "scripts" / "nested" / "helper.py", "def helper():\n    return 1\n")
+    _write_file(
+        tmp_path / "scripts" / "nested" / "helper.py", "def helper():\n    return 1\n"
+    )
 
     analyzer = EntryPointReachabilityAnalyzer(tmp_path)
     entry_points = analyzer.find_entry_points()

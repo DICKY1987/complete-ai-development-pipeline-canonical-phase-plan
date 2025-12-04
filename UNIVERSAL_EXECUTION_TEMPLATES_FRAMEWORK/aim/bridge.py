@@ -7,6 +7,8 @@ The conftest.py in tests/aim/ will skip all AIM tests during collection.
 """
 DOC_ID: DOC-AIM-AIM-BRIDGE-152
 
+DOC_ID: DOC - AIM - AIM - BRIDGE - 152
+
 
 def load_aim_registry():
     """Load AIM registry - stub implementation."""
@@ -17,4 +19,6 @@ class ToolProcessPool:
     """Tool process pool - stub implementation."""
 
     def __init__(self, *args, **kwargs):
-        raise NotImplementedError("AIM module not yet implemented - Phase 4 roadmap item")
+        raise NotImplementedError(
+            "AIM module not yet implemented - Phase 4 roadmap item"
+        )

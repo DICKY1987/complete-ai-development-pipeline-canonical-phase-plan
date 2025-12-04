@@ -14,14 +14,16 @@ Usage:
     python scripts/validate_registry.py --report validation_report.json
 """
 DOC_ID: DOC-SCRIPT-SCRIPTS-VALIDATE-REGISTRY-732
+DOC_ID: DOC - SCRIPT - SCRIPTS - VALIDATE - REGISTRY - 732
 
-import sys
-import yaml
 import json
+import sys
+from collections import defaultdict
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, List, Set, Tuple
-from datetime import datetime, timezone
-from collections import defaultdict
+
+import yaml
 
 # Repository root
 REPO_ROOT = Path(__file__).parent.parent
@@ -41,7 +43,7 @@ class RegistryValidator:
     def load_registry(self) -> bool:
         """Load and parse registry YAML"""
         try:
-            with open(REGISTRY_PATH, 'r', encoding='utf-8') as f:
+            with open(REGISTRY_PATH, "r", encoding="utf-8") as f:
                 self.registry = yaml.safe_load(f)
             return True
         except FileNotFoundError:
@@ -61,7 +63,7 @@ class RegistryValidator:
             return False
 
         try:
-            with open(TAXONOMY_PATH, 'r', encoding='utf-8') as f:
+            with open(TAXONOMY_PATH, "r", encoding="utf-8") as f:
                 self.taxonomy = yaml.safe_load(f)
             return True
         except Exception as e:
@@ -70,13 +72,13 @@ class RegistryValidator:
 
     def validate_structure(self) -> bool:
         """Validate registry has required top-level keys"""
-        required_keys = ['metadata', 'categories', 'docs']
+        required_keys = ["metadata", "categories", "docs"]
 
         for key in required_keys:
             if key not in self.registry:
                 self.errors.append(f"Missing required top-level key: {key}")
 
-        return len([e for e in self.errors if 'Missing required' in e]) == 0
+        return len([e for e in self.errors if "Missing required" in e]) == 0
 
     def validate_docs(self) -> Tuple[int, int]:
         """
@@ -85,38 +87,42 @@ class RegistryValidator:
         Returns:
             (total_docs, valid_docs)
         """
-        if 'docs' not in self.registry:
+        if "docs" not in self.registry:
             return 0, 0
 
-        docs = self.registry['docs']
+        docs = self.registry["docs"]
         total = len(docs)
         valid = 0
 
-        required_fields = ['doc_id', 'category', 'name', 'status']
+        required_fields = ["doc_id", "category", "name", "status"]
 
         for i, doc in enumerate(docs, 1):
             doc_valid = True
-            doc_id = doc.get('doc_id', f'UNKNOWN-{i}')
+            doc_id = doc.get("doc_id", f"UNKNOWN-{i}")
 
             # Check required fields
             for field in required_fields:
                 if field not in doc:
-                    self.errors.append(f"Doc {doc_id}: Missing required field '{field}'")
+                    self.errors.append(
+                        f"Doc {doc_id}: Missing required field '{field}'"
+                    )
                     doc_valid = False
 
             # Check doc_id format
-            if 'doc_id' in doc:
-                doc_id_value = doc['doc_id']
-                if not isinstance(doc_id_value, str) or not doc_id_value.startswith('DOC-'):
+            if "doc_id" in doc:
+                doc_id_value = doc["doc_id"]
+                if not isinstance(doc_id_value, str) or not doc_id_value.startswith(
+                    "DOC-"
+                ):
                     self.errors.append(f"Doc {doc_id}: Invalid doc_id format")
                     doc_valid = False
 
             # Check module_id if present
-            if 'module_id' in doc:
-                module_id = doc['module_id']
-                if self.taxonomy and 'module_taxonomy' in self.taxonomy:
-                    valid_modules = set(self.taxonomy['module_taxonomy'].keys())
-                    if module_id not in valid_modules and module_id != 'unassigned':
+            if "module_id" in doc:
+                module_id = doc["module_id"]
+                if self.taxonomy and "module_taxonomy" in self.taxonomy:
+                    valid_modules = set(self.taxonomy["module_taxonomy"].keys())
+                    if module_id not in valid_modules and module_id != "unassigned":
                         self.warnings.append(
                             f"Doc {doc_id}: module_id '{module_id}' not in taxonomy"
                         )
@@ -128,10 +134,10 @@ class RegistryValidator:
 
     def check_duplicates(self) -> List[str]:
         """Check for duplicate doc_ids"""
-        if 'docs' not in self.registry:
+        if "docs" not in self.registry:
             return []
 
-        doc_ids = [doc.get('doc_id', '') for doc in self.registry['docs']]
+        doc_ids = [doc.get("doc_id", "") for doc in self.registry["docs"]]
         id_counts = defaultdict(int)
 
         for doc_id in doc_ids:
@@ -141,7 +147,9 @@ class RegistryValidator:
         duplicates = [doc_id for doc_id, count in id_counts.items() if count > 1]
 
         for doc_id in duplicates:
-            self.errors.append(f"Duplicate doc_id: {doc_id} (appears {id_counts[doc_id]} times)")
+            self.errors.append(
+                f"Duplicate doc_id: {doc_id} (appears {id_counts[doc_id]} times)"
+            )
 
         return duplicates
 
@@ -152,12 +160,12 @@ class RegistryValidator:
         Returns:
             (total_with_module_id, total_docs)
         """
-        if 'docs' not in self.registry:
+        if "docs" not in self.registry:
             return 0, 0
 
-        docs = self.registry['docs']
+        docs = self.registry["docs"]
         total = len(docs)
-        with_module_id = sum(1 for doc in docs if 'module_id' in doc)
+        with_module_id = sum(1 for doc in docs if "module_id" in doc)
 
         if with_module_id < total:
             missing = total - with_module_id
@@ -170,11 +178,11 @@ class RegistryValidator:
     def generate_report(self) -> Dict:
         """Generate validation report"""
         return {
-            'validated_at': datetime.now(timezone.utc).isoformat(),
-            'registry_path': str(REGISTRY_PATH),
-            'errors': self.errors,
-            'warnings': self.warnings,
-            'passed': len(self.errors) == 0
+            "validated_at": datetime.now(timezone.utc).isoformat(),
+            "registry_path": str(REGISTRY_PATH),
+            "errors": self.errors,
+            "warnings": self.warnings,
+            "passed": len(self.errors) == 0,
         }
 
     def validate(self) -> bool:
@@ -203,7 +211,9 @@ class RegistryValidator:
         print("   - Validating module_id assignments...")
         with_module, total = self.validate_module_ids()
         if total > 0:
-            print(f"     Module IDs: {with_module}/{total} ({with_module/total*100:.1f}%)")
+            print(
+                f"     Module IDs: {with_module}/{total} ({with_module/total*100:.1f}%)"
+            )
 
         # Summary
         print(f"\n==> Validation Summary:")
@@ -229,7 +239,9 @@ class RegistryValidator:
         if passed:
             print(f"\n✓ PASS: Registry validation successful")
         else:
-            print(f"\n✗ FAIL: Registry validation failed with {len(self.errors)} errors")
+            print(
+                f"\n✗ FAIL: Registry validation failed with {len(self.errors)} errors"
+            )
 
         return passed
 
@@ -238,9 +250,8 @@ def main():
     """Main entry point"""
     import argparse
 
-    parser = argparse.ArgumentParser(description='Validate DOC_ID_REGISTRY.yaml')
-    parser.add_argument('--report', type=str,
-                        help='Output JSON report to file')
+    parser = argparse.ArgumentParser(description="Validate DOC_ID_REGISTRY.yaml")
+    parser.add_argument("--report", type=str, help="Output JSON report to file")
 
     args = parser.parse_args()
 
@@ -253,7 +264,7 @@ def main():
         report_path.parent.mkdir(parents=True, exist_ok=True)
 
         report = validator.generate_report()
-        with open(report_path, 'w') as f:
+        with open(report_path, "w") as f:
             json.dump(report, f, indent=2)
 
         print(f"\n==> Report written to: {report_path}")
@@ -262,5 +273,5 @@ def main():
     sys.exit(0 if passed else 1)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

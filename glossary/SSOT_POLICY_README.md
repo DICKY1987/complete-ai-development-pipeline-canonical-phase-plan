@@ -4,8 +4,8 @@ doc_id: DOC-GUIDE-SSOT-POLICY-README-489
 
 # Glossary SSOT Policy System
 
-**Status**: ✅ Active  
-**Spec**: `glossary/specs/GLOSSARY_SSOT_POLICY_SPEC.md`  
+**Status**: ✅ Active
+**Spec**: `glossary/specs/GLOSSARY_SSOT_POLICY_SPEC.md`
 **Validator**: `scripts/glossary_ssot_policy.py`
 
 ## What This Does
@@ -179,7 +179,7 @@ Output:
    ssot: true
    ssot_scope: [new_system]
    ---
-   
+
    # My New Spec
    ...
    ```

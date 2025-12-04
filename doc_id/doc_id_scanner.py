@@ -133,6 +133,12 @@ class DocIDScanner:
 
     def extract_doc_id_json(self, content: str) -> Optional[str]:
         """Extract doc_id from JSON file."""
+        # Support header comments for non-object JSON payloads
+        for line in content.split("\n")[:10]:
+            match = re.search(r"DOC_ID:\s*(DOC-[A-Z0-9-]+)", line)
+            if match:
+                return match.group(1)
+
         try:
             data = json.loads(content)
             if isinstance(data, dict) and "doc_id" in data:

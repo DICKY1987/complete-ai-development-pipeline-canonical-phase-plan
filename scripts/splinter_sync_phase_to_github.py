@@ -11,6 +11,7 @@ Usage:
         --github-token $GITHUB_TOKEN
 """
 DOC_ID: DOC-SCRIPT-SCRIPTS-SPLINTER-SYNC-PHASE-TO-GITHUB-726
+DOC_ID: DOC - SCRIPT - SCRIPTS - SPLINTER - SYNC - PHASE - TO - GITHUB - 726
 
 import argparse
 import os

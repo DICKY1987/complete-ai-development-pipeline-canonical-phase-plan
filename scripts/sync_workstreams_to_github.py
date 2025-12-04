@@ -8,13 +8,14 @@ Sync workstreams to GitHub Project Manager
 - NO STOPPING - Continues through all tasks even if errors occur
 """
 DOC_ID: DOC-SCRIPT-SCRIPTS-SYNC-WORKSTREAMS-TO-GITHUB-728
+DOC_ID: DOC - SCRIPT - SCRIPTS - SYNC - WORKSTREAMS - TO - GITHUB - 728
 import json
 import subprocess
 import sys
-from pathlib import Path
-from datetime import datetime
-from typing import List, Dict, Any, Optional
 import traceback
+from datetime import datetime
+from pathlib import Path
+from typing import Any, Dict, List, Optional
 
 REPO_ROOT = Path(__file__).parent.parent
 WORKSTREAMS_DIR = REPO_ROOT / "workstreams"
@@ -26,7 +27,10 @@ class WorkstreamSyncEngine:
     """Syncs workstreams to GitHub with no-stop execution"""
 
     def __init__(self, feature_branch: str = None):
-        self.feature_branch = feature_branch or f"feature/ws-sync-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
+        self.feature_branch = (
+            feature_branch
+            or f"feature/ws-sync-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
+        )
         self.errors: List[Dict[str, Any]] = []
         self.successes: List[Dict[str, Any]] = []
         self.summary: Dict[str, Any] = {
@@ -35,18 +39,14 @@ class WorkstreamSyncEngine:
             "workstreams_processed": 0,
             "commits_created": 0,
             "errors_count": 0,
-            "success_count": 0
+            "success_count": 0,
         }
 
     def run_git_command(self, args: List[str], cwd: Path = REPO_ROOT) -> Optional[str]:
         """Run git command and capture output"""
         try:
             result = subprocess.run(
-                ["git"] + args,
-                cwd=cwd,
-                capture_output=True,
-                text=True,
-                check=False
+                ["git"] + args, cwd=cwd, capture_output=True, text=True, check=False
             )
             if result.returncode != 0:
                 return None
@@ -60,7 +60,7 @@ class WorkstreamSyncEngine:
         error_entry = {
             "timestamp": datetime.now().isoformat(),
             "context": context,
-            "error": error
+            "error": error,
         }
         self.errors.append(error_entry)
         print(f"❌ ERROR [{context}]: {error}", file=sys.stderr)
@@ -70,7 +70,7 @@ class WorkstreamSyncEngine:
         success_entry = {
             "timestamp": datetime.now().isoformat(),
             "context": context,
-            "details": details
+            "details": details,
         }
         self.successes.append(success_entry)
         print(f"✅ SUCCESS [{context}]: {details}")
@@ -91,7 +91,10 @@ class WorkstreamSyncEngine:
         if not self.run_git_command(["checkout", "-b", self.feature_branch]):
             # Branch might exist, try to checkout
             if not self.run_git_command(["checkout", self.feature_branch]):
-                self.log_error("Branch creation", f"Failed to create/checkout {self.feature_branch}")
+                self.log_error(
+                    "Branch creation",
+                    f"Failed to create/checkout {self.feature_branch}",
+                )
                 return False
 
         self.log_success("Branch ready", self.feature_branch)
@@ -100,7 +103,7 @@ class WorkstreamSyncEngine:
     def load_workstream(self, ws_path: Path) -> Optional[Dict[str, Any]]:
         """Load workstream JSON file"""
         try:
-            with open(ws_path, 'r', encoding='utf-8') as f:
+            with open(ws_path, "r", encoding="utf-8") as f:
                 data = json.load(f)
             return data
         except Exception as e:
@@ -179,7 +182,10 @@ class WorkstreamSyncEngine:
         """Generate summary report from template"""
         REPORTS_DIR.mkdir(exist_ok=True)
 
-        report_path = REPORTS_DIR / f"workstream_sync_{datetime.now().strftime('%Y%m%d_%H%M%S')}.md"
+        report_path = (
+            REPORTS_DIR
+            / f"workstream_sync_{datetime.now().strftime('%Y%m%d_%H%M%S')}.md"
+        )
 
         # Build report content
         content = f"""# Workstream Sync Summary Report
@@ -215,7 +221,7 @@ class WorkstreamSyncEngine:
 
         # Write report
         try:
-            with open(report_path, 'w', encoding='utf-8') as f:
+            with open(report_path, "w", encoding="utf-8") as f:
                 f.write(content)
             self.log_success("Report generated", str(report_path))
         except Exception as e:
@@ -265,8 +271,14 @@ def main():
     import argparse
 
     parser = argparse.ArgumentParser(description="Sync workstreams to GitHub PM")
-    parser.add_argument("--branch", help="Feature branch name (auto-generated if not provided)")
-    parser.add_argument("--dry-run", action="store_true", help="Show what would be done without executing")
+    parser.add_argument(
+        "--branch", help="Feature branch name (auto-generated if not provided)"
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Show what would be done without executing",
+    )
 
     args = parser.parse_args()
 

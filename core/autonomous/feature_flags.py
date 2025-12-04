@@ -11,4 +11,6 @@ class FeatureFlags:
     enable_hyde_search: bool = True
     enable_terminal_capture: bool = True
     enable_episodic_memory: bool = True
+
+
 # DOC_LINK: DOC-CORE-AUTONOMOUS-FEATURE-FLAGS-610

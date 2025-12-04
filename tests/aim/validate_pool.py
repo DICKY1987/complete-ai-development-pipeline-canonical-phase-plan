@@ -4,6 +4,8 @@ Simple smoke test to verify core functionality.
 """
 DOC_ID: DOC-AIM-AIM-VALIDATE-POOL-149
 
+DOC_ID: DOC - AIM - AIM - VALIDATE - POOL - 149
+
 from aim.bridge import ToolProcessPool
 
 
@@ -19,7 +21,7 @@ def test_pool_basic():
         "tools": {
             "mock_aider": {
                 "detectCommands": [["python", mock_path]],
-                "capabilities": ["code_generation"]
+                "capabilities": ["code_generation"],
             }
         }
     }

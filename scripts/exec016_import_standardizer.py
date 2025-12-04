@@ -4,9 +4,11 @@ Based on: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/specs/EXEC-016-import
 """
 DOC_ID: DOC-SCRIPT-SCRIPTS-EXEC016-IMPORT-STANDARDIZER-712
 
+DOC_ID: DOC - SCRIPT - SCRIPTS - EXEC016 - IMPORT - STANDARDIZER - 712
+
 import re
 from pathlib import Path
-from typing import List, Dict, Tuple
+from typing import Dict, List, Tuple
 
 # Import mapping (old → new patterns)
 IMPORT_MAP = {
@@ -29,10 +31,12 @@ SKIP_PATTERNS = [
     "node_modules",  # JS deps
 ]
 
+
 def should_skip(file_path: Path) -> bool:
     """Check if file should be skipped."""
     path_str = str(file_path)
     return any(pattern in path_str for pattern in SKIP_PATTERNS)
+
 
 def analyze_file(file_path: Path) -> Tuple[List[str], int]:
     """Analyze file for old import patterns."""
@@ -47,6 +51,7 @@ def analyze_file(file_path: Path) -> Tuple[List[str], int]:
         old_imports.extend(matches)
 
     return old_imports, len(old_imports)
+
 
 def rewrite_imports(file_path: Path, dry_run: bool = True) -> Tuple[bool, int]:
     """Rewrite old imports to UET paths."""
@@ -70,6 +75,7 @@ def rewrite_imports(file_path: Path, dry_run: bool = True) -> Tuple[bool, int]:
         print(f"ERROR processing {file_path}: {e}")
         return False, 0
 
+
 def main():
     """Execute EXEC-016: Import Path Standardizer."""
     import sys
@@ -77,10 +83,10 @@ def main():
     # Check for --execute flag
     execute = "--execute" in sys.argv
 
-    print("="*70)
+    print("=" * 70)
     print("EXEC-016: Import Path Standardizer")
     print(f"Mode: {'EXECUTE' if execute else 'DISCOVERY'}")
-    print("="*70)
+    print("=" * 70)
     print()
 
     # Phase 1: Discovery
@@ -150,7 +156,10 @@ def main():
 
     # Batch files (25 per batch per EXEC-016 spec)
     batch_size = 25
-    batches = [sorted_files[i:i+batch_size] for i in range(0, len(sorted_files), batch_size)]
+    batches = [
+        sorted_files[i : i + batch_size]
+        for i in range(0, len(sorted_files), batch_size)
+    ]
 
     print(f"Total batches: {len(batches)}")
     print()
@@ -175,7 +184,9 @@ def main():
         files_updated += batch_files_updated
         imports_changed += batch_imports_changed
 
-        print(f"  Batch {batch_num} complete: {batch_files_updated} files, {batch_imports_changed} imports")
+        print(
+            f"  Batch {batch_num} complete: {batch_files_updated} files, {batch_imports_changed} imports"
+        )
         print()
 
     print("=" * 70)
@@ -187,8 +198,11 @@ def main():
     print("Next steps:")
     print("1. Git status: git status")
     print("2. Review changes: git diff")
-    print("3. Commit: git add . && git commit -m 'refactor(exec-016): Update imports to UET paths'")
+    print(
+        "3. Commit: git add . && git commit -m 'refactor(exec-016): Update imports to UET paths'"
+    )
     print("4. Test: pytest tests/ -v")
+
 
 if __name__ == "__main__":
     main()

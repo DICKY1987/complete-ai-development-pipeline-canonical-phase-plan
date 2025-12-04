@@ -4,6 +4,8 @@ Tests the core functionality of ToolProcessPool using the mock aider fixture.
 """
 DOC_ID: DOC-AIM-AIM-MANUAL-TEST-POOL-148
 
+DOC_ID: DOC - AIM - AIM - MANUAL - TEST - POOL - 148
+
 import sys
 import time
 from pathlib import Path
@@ -26,9 +28,18 @@ def test_pool_with_mock_aider():
         "tools": {
             "mock_aider": {
                 "detectCommands": [
-                    ["python", str(project_root / "tests" / "aim" / "fixtures" / "mock_aider.py")]
+                    [
+                        "python",
+                        str(
+                            project_root
+                            / "tests"
+                            / "aim"
+                            / "fixtures"
+                            / "mock_aider.py"
+                        ),
+                    ]
                 ],
-                "capabilities": ["code_generation"]
+                "capabilities": ["code_generation"],
             }
         }
     }

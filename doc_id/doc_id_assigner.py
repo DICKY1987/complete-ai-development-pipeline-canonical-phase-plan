@@ -501,6 +501,12 @@ def auto_assign(
 
         category = infer_category(rel_path, available_categories)
         name, title = infer_name_and_title(rel_path, entry.file_type)
+        existing_doc_ids = [
+            doc["doc_id"]
+            for doc in registry.data["docs"]
+            if any(a.get("path") == rel_path for a in doc.get("artifacts", []))
+        ]
+        existing_doc_id = existing_doc_ids[-1] if existing_doc_ids else None
 
         if dry_run:
             # We just preview what *would* happen
@@ -516,7 +522,7 @@ def auto_assign(
             )
         else:
             artifacts = [{"type": "source", "path": rel_path}]
-            new_doc_id = registry.mint_doc_id(
+            new_doc_id = existing_doc_id or registry.mint_doc_id(
                 category=category,
                 name=name,
                 title=title,

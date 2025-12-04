@@ -3,7 +3,7 @@ pattern_family: SAFE_MERGE
 version: 1.0.0
 status: active
 owner: richg
-doc_id: PATTERN_SAFE_MERGE_V1
+doc_id: DOC-PAT-README-293
 tags: [git, merge, automation, multi-tool, safety]
 depends_on: [EXEC-001, EXEC-002]
 ---

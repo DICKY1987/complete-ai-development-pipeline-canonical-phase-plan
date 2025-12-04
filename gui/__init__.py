@@ -5,9 +5,11 @@ even though the actual modules are in gui/src/
 """
 DOC_ID: DOC-CORE-GUI-INIT-605
 
+DOC_ID: DOC - CORE - GUI - INIT - 605
+
 # Re-export src modules for backward compatibility
 try:
-    from .src import tui_app, gui_app, ui_core, textual
+    from .src import gui_app, textual, tui_app, ui_core
 except ImportError:
     # If src modules aren't available, that's okay
     pass

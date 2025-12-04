@@ -347,4 +347,3 @@ cd .worktrees/wt-docid-modules
 ---
 
 **DOC_LINK**: DOC-PAT-EXECUTION-DOCID-REGISTRATION-001
-

@@ -1,15 +1,16 @@
+doc_id: DOC-GUIDE-DOC-ID-REGISTRY-724
 metadata:
   version: 1.0.0
   created: '2025-12-04'
   last_updated: '2025-12-04'
-  total_docs: 1937
+  total_docs: 1940
   description: Central registry for all doc_id assignments across the repository
 categories:
   core:
     prefix: CORE
     description: Core system components (orchestrator, scheduler, executor)
-    next_id: 747
-    count: 249
+    next_id: 748
+    count: 250
   error:
     prefix: ERROR
     description: Error detection and recovery components
@@ -23,8 +24,8 @@ categories:
   guide:
     prefix: GUIDE
     description: Documentation and guides
-    next_id: 739
-    count: 345
+    next_id: 740
+    count: 346
   spec:
     prefix: SPEC
     description: Specifications and schemas
@@ -43,8 +44,8 @@ categories:
   config:
     prefix: CONFIG
     description: Configuration files
-    next_id: 276
-    count: 103
+    next_id: 277
+    count: 104
   legacy:
     prefix: LEGACY
     description: Archived legacy code
@@ -23341,3 +23342,39 @@ docs:
   last_modified: '2025-12-04'
   tags:
   - json
+- doc_id: DOC-CORE-TESTS-INIT-747
+  category: core
+  name: tests_init
+  title: 'tests module: __init__'
+  status: active
+  artifacts:
+  - type: source
+    path: phase7_monitoring/modules/gui_components/src/gui/tests/__init__.py
+  created: '2025-12-04'
+  last_modified: '2025-12-04'
+  tags:
+  - py
+- doc_id: DOC-CONFIG-EXAMPLE-PHASE-001-276
+  category: config
+  name: example_phase_001
+  title: 'Config: example-phase-001'
+  status: active
+  artifacts:
+  - type: source
+    path: phases/example-phase-001.yml
+  created: '2025-12-04'
+  last_modified: '2025-12-04'
+  tags:
+  - yml
+- doc_id: DOC-GUIDE-REQUIREMENTS-739
+  category: guide
+  name: requirements
+  title: requirements
+  status: active
+  artifacts:
+  - type: source
+    path: requirements.txt
+  created: '2025-12-04'
+  last_modified: '2025-12-04'
+  tags:
+  - txt

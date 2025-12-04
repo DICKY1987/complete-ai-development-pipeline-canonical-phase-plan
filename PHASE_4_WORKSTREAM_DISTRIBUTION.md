@@ -14,8 +14,8 @@ doc_id: DOC-GUIDE-PHASE-4-WORKSTREAM-DISTRIBUTION-461
 
 ## Agent 1: AST & Repository Intelligence Workstream
 
-**Focus**: Code parsing, analysis, and module ranking  
-**Estimated Time**: 18-23 hours  
+**Focus**: Code parsing, analysis, and module ranking
+**Estimated Time**: 18-23 hours
 **Dependencies**: None (fully independent)
 
 ### Workstreams Assigned (3 workstreams)
@@ -25,7 +25,7 @@ doc_id: DOC-GUIDE-PHASE-4-WORKSTREAM-DISTRIBUTION-461
 
 **Deliverables**:
 - `core/ast/parser.py` (165 lines) - Main tree-sitter wrapper
-- `core/ast/languages/python.py` (380 lines) - Python AST extraction  
+- `core/ast/languages/python.py` (380 lines) - Python AST extraction
 - `core/ast/languages/javascript.py` (~300 lines) - JavaScript support
 - `core/ast/languages/typescript.py` (~300 lines) - TypeScript support
 - `tests/ast/test_parser.py` (200 lines, 20 tests)
@@ -107,8 +107,8 @@ python scripts/rank_modules.py --output MODULE_IMPORTANCE_RANKING.yaml
 
 ## Agent 2: Knowledge Graph & Semantic Search Workstream
 
-**Focus**: Semantic understanding, vector embeddings, and RAG infrastructure  
-**Estimated Time**: 36-45 hours  
+**Focus**: Semantic understanding, vector embeddings, and RAG infrastructure
+**Estimated Time**: 36-45 hours
 **Dependencies**: WS-04-01B (needs repository map), but can stub it for development
 
 ### Workstreams Assigned (4 workstreams)
@@ -124,9 +124,9 @@ python scripts/rank_modules.py --output MODULE_IMPORTANCE_RANKING.yaml
 - Storage: `.worktrees/knowledge_graph.db`
 
 **Graph Schema**:
-- **Nodes**: functions, classes, modules  
+- **Nodes**: functions, classes, modules
   Properties: `name`, `type`, `file`, `line_number`
-- **Edges**: calls, imports, inherits, modifies, uses  
+- **Edges**: calls, imports, inherits, modifies, uses
   Properties: `weight`, `frequency`, `edge_type`
 
 **Success Criteria**:
@@ -233,8 +233,8 @@ python scripts/semantic_search.py "validate workstream spec"
 
 ## Agent 3: Autonomous Intelligence & Self-Correction Workstream
 
-**Focus**: AI agents, reflexion loops, episodic memory, and terminal integration  
-**Estimated Time**: 39-52 hours  
+**Focus**: AI agents, reflexion loops, episodic memory, and terminal integration
+**Estimated Time**: 39-52 hours
 **Dependencies**: WS-04-02B (knowledge graph queries), but can mock for development
 
 ### Workstreams Assigned (5 workstreams)

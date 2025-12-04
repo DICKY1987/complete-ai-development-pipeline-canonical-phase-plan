@@ -4,6 +4,7 @@ AI conflict resolver guard.
 Currently validates conflict count and emits a report for manual review.
 """
 DOC_ID: DOC-SCRIPT-SCRIPTS-AI-CONFLICT-RESOLVER-705
+DOC_ID: DOC - SCRIPT - SCRIPTS - AI - CONFLICT - RESOLVER - 705
 
 from __future__ import annotations
 

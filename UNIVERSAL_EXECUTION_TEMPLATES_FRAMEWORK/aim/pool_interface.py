@@ -7,9 +7,13 @@ The conftest.py in tests/aim/ will skip all AIM tests during collection.
 """
 DOC_ID: DOC-AIM-AIM-POOL-INTERFACE-153
 
+DOC_ID: DOC - AIM - AIM - POOL - INTERFACE - 153
+
 
 class ProcessInstance:
     """Process instance - stub implementation."""
 
     def __init__(self, *args, **kwargs):
-        raise NotImplementedError("AIM module not yet implemented - Phase 4 roadmap item")
+        raise NotImplementedError(
+            "AIM module not yet implemented - Phase 4 roadmap item"
+        )

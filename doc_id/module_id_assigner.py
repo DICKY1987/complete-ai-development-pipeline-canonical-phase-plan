@@ -8,6 +8,7 @@ Usage:
     python scripts/module_id_assigner.py --report-only  # Generate reports only
 """
 DOC_ID: DOC-GUIDE-DOC-ID-MODULE-ID-ASSIGNER-451
+DOC_ID: DOC - GUIDE - DOC - ID - MODULE - ID - ASSIGNER - 451
 
 import json
 import sys

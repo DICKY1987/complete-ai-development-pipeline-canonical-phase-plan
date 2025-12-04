@@ -9,12 +9,14 @@ Usage:
     python scripts/pipe_classify.py --multiple file1.py file2.py file3.py
 """
 DOC_ID: DOC-SCRIPT-SCRIPTS-PIPE-CLASSIFY-723
+DOC_ID: DOC - SCRIPT - SCRIPTS - PIPE - CLASSIFY - 723
 
 import argparse
+import fnmatch
 import sys
 from pathlib import Path
+
 import yaml
-import fnmatch
 
 
 def load_mapping_config(config_path: Path) -> dict:
@@ -55,8 +57,7 @@ def classify_file(rel_path: str, mapping_config: dict) -> tuple[str, str]:
 
     # No match - use default
     default = mapping_config.get(
-        "default_pipe_id",
-        "PIPE-26_LEARN_AND_UPDATE_PATTERNS_PROMPTS_CONFIG"
+        "default_pipe_id", "PIPE-26_LEARN_AND_UPDATE_PATTERNS_PROMPTS_CONFIG"
     )
     return (default, "default")
 
@@ -97,9 +98,7 @@ def get_phase_for_pipe(pipe_id: str) -> str:
 
 
 def main():
-    parser = argparse.ArgumentParser(
-        description="Classify files to PIPE modules"
-    )
+    parser = argparse.ArgumentParser(description="Classify files to PIPE modules")
     parser.add_argument(
         "files",
         nargs="+",
@@ -121,7 +120,9 @@ def main():
 
     # Load mapping configuration
     if not args.mapping_config.exists():
-        print(f"Error: Mapping config not found: {args.mapping_config}", file=sys.stderr)
+        print(
+            f"Error: Mapping config not found: {args.mapping_config}", file=sys.stderr
+        )
         sys.exit(1)
 
     try:
