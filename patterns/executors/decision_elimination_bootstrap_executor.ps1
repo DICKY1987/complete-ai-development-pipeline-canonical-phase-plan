@@ -38,16 +38,16 @@ $recommendations = @()
 
 foreach ($point in $decisionPoints) {
     Write-PatternLog "Decision: $($point.name)" "INFO"
-    
+
     # Simple elimination logic - mark options with constraints
-    $viableOptions = $point.options | Where-Object { 
+    $viableOptions = $point.options | Where-Object {
         -not ($_.constraints -and $_.constraints.Count -gt 0)
     }
-    
+
     $eliminated = $point.options | Where-Object {
         $_.constraints -and $_.constraints.Count -gt 0
     }
-    
+
     foreach ($opt in $eliminated) {
         $eliminatedOptions += @{
             decision = $point.name
@@ -55,7 +55,7 @@ foreach ($point in $decisionPoints) {
             reason = "Has constraints: $($opt.constraints -join ', ')"
         }
     }
-    
+
     if ($viableOptions.Count -gt 0) {
         $recommended = $viableOptions | Select-Object -First 1
         $recommendations += @{

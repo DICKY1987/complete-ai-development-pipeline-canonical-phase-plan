@@ -82,27 +82,27 @@ ALL_RENAMES = {
 
 def main():
     print("=== Batch Rename Phase 2: docs/ subdirectories ===\n")
-    
+
     renamed_count = 0
     moved_count = 0
-    
+
     print("Renaming canonical docs:")
     for old_path_str, new_path_str in ALL_RENAMES.items():
         old_path = REPO_ROOT / old_path_str
         new_path = REPO_ROOT / new_path_str
-        
+
         if old_path.exists():
             print(f"  {old_path.relative_to(REPO_ROOT / 'docs')} -> {new_path.name}")
             old_path.rename(new_path)
             renamed_count += 1
         else:
             print(f"  [SKIP] Not found: {old_path.relative_to(REPO_ROOT / 'docs')}")
-    
+
     print("\nMoving dev docs to developer/:")
     for old_path_str, new_path_str in DEV_MOVES.items():
         old_path = REPO_ROOT / old_path_str
         new_path = REPO_ROOT / new_path_str
-        
+
         if old_path.exists():
             new_path.parent.mkdir(parents=True, exist_ok=True)
             print(f"  {old_path.relative_to(REPO_ROOT / 'docs')} -> {new_path.name}")
@@ -110,7 +110,7 @@ def main():
             moved_count += 1
         else:
             print(f"  [SKIP] Not found: {old_path.relative_to(REPO_ROOT / 'docs')}")
-    
+
     print(f"\n=== Summary ===")
     print(f"Renamed: {renamed_count}")
     print(f"Moved to developer/: {moved_count}")

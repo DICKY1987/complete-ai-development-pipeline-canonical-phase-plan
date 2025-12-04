@@ -20,9 +20,9 @@ function Test-Pattern {
         [string]$Path,
         [string]$Type
     )
-    
+
     Write-Host "Testing $Name..." -ForegroundColor Cyan
-    
+
     if (Test-Path $Path) {
         Write-Host "  ✅ $Type exists: $Path" -ForegroundColor Green
         return $true

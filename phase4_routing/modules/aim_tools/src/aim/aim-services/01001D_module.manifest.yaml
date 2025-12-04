@@ -16,7 +16,7 @@ state:
 artifacts:
   code:
     []
-  
+
   tests: []
   schemas: []
   docs:

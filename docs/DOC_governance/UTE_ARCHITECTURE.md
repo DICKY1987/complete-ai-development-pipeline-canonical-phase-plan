@@ -26,22 +26,22 @@ The Universal Execution Templates Framework enables AI agents to autonomously ma
    └─> Selects matching profile
    └─> Generates PROJECT_PROFILE.yaml + router_config.json
    └─> Validates all artifacts
-   
+
 2. ROUTING
    └─> Receives task specification
    └─> Finds capable tools from registry
    └─> Creates execution request
-   
+
 3. SCHEDULING
    └─> Resolves task dependencies
    └─> Creates execution DAG (topological sort)
    └─> Generates parallel batches
-   
+
 4. EXECUTION
    └─> Runs tasks via tool adapters
    └─> Applies resilience patterns (retry, circuit breaker)
    └─> Updates run state in real-time
-   
+
 5. MONITORING
    └─> Tracks progress per task and run
    └─> Calculates completion percentage and ETA

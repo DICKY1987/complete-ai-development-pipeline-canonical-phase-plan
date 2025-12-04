@@ -47,7 +47,7 @@ class MarkdownlintPlugin:
             )
 
         issues: List[PluginIssue] = []
-        
+
         # Try JSON parsing
         try:
             if proc.stdout.strip():
@@ -58,7 +58,7 @@ class MarkdownlintPlugin:
                         rule_names = violation.get("ruleNames", [])
                         rule_code = rule_names[0] if rule_names else None
                         message = violation.get("ruleDescription")
-                        
+
                         issues.append(
                             PluginIssue(
                                 tool="markdownlint",

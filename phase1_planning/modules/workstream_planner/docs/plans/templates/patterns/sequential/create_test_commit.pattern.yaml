@@ -28,14 +28,14 @@ execution_steps:
       - implementation: "${impl_file}"
       - test: "${test_file}"
     validation: "syntax_check"
-  
+
   2_test:
     tool: "powershell"
     command: "python -m pytest ${test_file} -v"
     purpose: "Verify all tests pass"
     expect_pattern: ".*passed.*0 failed.*"
     on_fail: "enter_fix_loop"
-  
+
   3_commit:
     tool: "powershell"
     command: "git add ${files} && git commit -m '${commit_msg}'"
@@ -56,19 +56,19 @@ workflow:
   avg_duration: 60.0
   atomic_unit: true
   rollback_on_failure: true
-  
+
 # Example usage
 example:
   context:
     impl_file: "src/validator.py"
     test_file: "tests/test_validator.py"
     commit_msg: "feat: Add input validator"
-  
+
   steps_executed:
     - "create src/validator.py + tests/test_validator.py"
     - "pytest tests/test_validator.py"
     - "git commit -m 'feat: Add input validator'"
-  
+
   expected_duration: "60 seconds"
   expected_outcome:
     - "Validator created"

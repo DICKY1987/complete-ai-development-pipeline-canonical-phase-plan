@@ -18,23 +18,23 @@ from core.bootstrap.validator import BootstrapValidator
 class BootstrapOrchestrator:
     """Orchestrates the complete bootstrap process"""
 # DOC_ID: DOC-CORE-BOOTSTRAP-ORCHESTRATOR-140
-    
+
     def __init__(self, project_path: str, output_dir: Optional[str] = None):
         self.project_path = Path(project_path).resolve()
         self.output_dir = Path(output_dir) if output_dir else self.project_path
         self.framework_root = Path(__file__).parent.parent.parent
-        
+
         # State tracking
         self.discovery_data = None
         self.selected_profile_id = None
         self.selected_profile = None
         self.generation_result = None
         self.validation_result = None
-        
+
     def run(self) -> Dict:
         """Execute the complete bootstrap pipeline"""
         print("==> Starting UET Framework Bootstrap...\n")
-        
+
         # Step 1: Discovery
         print("[1/4] Discovering project structure...")
         try:
@@ -45,7 +45,7 @@ class BootstrapOrchestrator:
                 print(f"   OK - Primary language: {self.discovery_data['primary_language']}")
         except Exception as e:
             return self._failure_report("discovery", str(e))
-        
+
         # Step 2: Profile Selection
         print("\n[2/4] Selecting appropriate profile...")
         try:
@@ -56,7 +56,7 @@ class BootstrapOrchestrator:
             import traceback
             traceback.print_exc()
             return self._failure_report("selection", str(e))
-        
+
         # Step 3: Artifact Generation
         print("\n[3/4] Generating bootstrap artifacts...")
         try:
@@ -71,7 +71,7 @@ class BootstrapOrchestrator:
             print(f"   OK - Created framework directories")
         except Exception as e:
             return self._failure_report("generation", str(e))
-        
+
         # Step 4: Validation
         print("\n[4/4] Validating generated artifacts...")
         try:
@@ -81,7 +81,7 @@ class BootstrapOrchestrator:
                 self.selected_profile_id
             )
             self.validation_result = validator.validate_all()
-            
+
             if self.validation_result["valid"]:
                 print(f"   OK - All validations passed")
             else:
@@ -90,26 +90,26 @@ class BootstrapOrchestrator:
                     print(f"      ERROR: {error['message']}")
                 for needs_human in self.validation_result["needs_human"]:
                     print(f"      HUMAN: {needs_human['message']}")
-            
+
             if self.validation_result["auto_fixed"]:
                 print(f"   INFO - Auto-fixed {len(self.validation_result['auto_fixed'])} issues")
-            
+
             if self.validation_result["warnings"]:
                 print(f"   INFO - {len(self.validation_result['warnings'])} warnings (non-blocking)")
-                
+
         except Exception as e:
             return self._failure_report("validation", str(e))
-        
+
         # Generate final report
         report = self._generate_report()
-        
+
         # Save report
         report_path = self.output_dir / "bootstrap_report.json"
         with open(report_path, 'w', encoding='utf-8') as f:
             json.dump(report, f, indent=2)
-        
+
         print(f"\n==> Bootstrap report saved to: {report_path}")
-        
+
         # Final status
         if report["status"] == "ready":
             print("\nSUCCESS: Bootstrap complete! Framework is ready for workstreams.")
@@ -121,10 +121,10 @@ class BootstrapOrchestrator:
         else:
             print(f"\nERROR: Bootstrap failed with status: {report['status']}")
             return report
-    
+
     def _generate_report(self) -> Dict:
         """Generate bootstrap_report.v1.json"""
-        
+
         # Determine overall status
         if not self.validation_result:
             status = "failed"
@@ -145,7 +145,7 @@ class BootstrapOrchestrator:
                 status = "ready"  # Only directory warnings, which is fine
         else:
             status = "ready"
-        
+
         # Build report
         report = {
             "project_name": self.discovery_data.get("project_name", "Unknown"),
@@ -193,15 +193,15 @@ class BootstrapOrchestrator:
             "initialization_time": datetime.utcnow().isoformat() + "Z",
             "ready_for_workstreams": status == "ready"
         }
-        
+
         return report
-    
+
     def _format_languages(self) -> str:
         """Format language distribution as human-readable string"""
         langs = self.discovery_data.get("languages", [])
         if not langs:
             return "Unknown"
-        
+
         # languages is a list of {"language": "python", "percentage": 87}
         if isinstance(langs, list):
             sorted_langs = sorted(langs, key=lambda x: x.get("percentage", 0), reverse=True)
@@ -210,35 +210,35 @@ class BootstrapOrchestrator:
             # Fallback for dict format
             sorted_langs = sorted(langs.items(), key=lambda x: x[1], reverse=True)
             return ", ".join([f"{lang} ({pct}%)" for lang, pct in sorted_langs[:3]])
-    
+
     def _generate_next_steps(self) -> Dict:
         """Generate recommended next steps"""
         for_human = []
         for_ai = []
-        
+
         if self.validation_result:
             if self.validation_result.get("needs_human"):
                 for item in self.validation_result["needs_human"]:
                     for_human.append(item.get("suggestion", item.get("message")))
-            
+
             if self.validation_result.get("warnings"):
                 for warning in self.validation_result["warnings"]:
                     if "missing_path" in warning.get("type", ""):
                         # These will be created on first run
                         continue
                     for_human.append(f"Review: {warning.get('message')}")
-        
+
         if self.validation_result and self.validation_result["valid"]:
             for_ai.append("Framework is ready to accept workstreams")
             for_ai.append("Run: uet workstream create <workstream.json>")
         else:
             for_human.append("Resolve validation errors before proceeding")
-        
+
         return {
             "for_human": for_human if for_human else ["Review bootstrap_report.json"],
             "for_ai_agent": for_ai if for_ai else ["Waiting for human validation"]
         }
-    
+
     def _failure_report(self, stage: str, error: str) -> Dict:
         """Generate failure report"""
         return {
@@ -273,13 +273,13 @@ def main():
         print("  python orchestrator.py /path/to/project")
         print("  python orchestrator.py /path/to/project /custom/output")
         sys.exit(1)
-    
+
     project_path = sys.argv[1]
     output_dir = sys.argv[2] if len(sys.argv) > 2 else None
-    
+
     orchestrator = BootstrapOrchestrator(project_path, output_dir)
     report = orchestrator.run()
-    
+
     # Exit with appropriate code
     if report["status"] in ["ready", "partial"]:
         sys.exit(0)

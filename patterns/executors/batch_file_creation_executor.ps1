@@ -40,18 +40,18 @@ foreach ($file in $files) {
     try {
         $filePath = $file.path
         $fileContent = $file.content
-        
+
         # Create directory if needed
         $fileDir = Split-Path $filePath -Parent
         if ($fileDir -and -not (Test-Path $fileDir)) {
             New-Item -ItemType Directory -Path $fileDir -Force | Out-Null
         }
-        
+
         # Create file
         Set-Content -Path $filePath -Value $fileContent -Encoding UTF8
         $filesCreated++
         Write-PatternLog "  ✓ Created: $filePath" "SUCCESS"
-        
+
     } catch {
         $failures += @{
             path = $file.path

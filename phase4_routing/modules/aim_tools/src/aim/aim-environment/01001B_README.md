@@ -4,9 +4,9 @@ doc_id: DOC-GUIDE-01001B-README-1472
 
 # AIM Environment
 
-**Module ID**: aim-environment  
-**ULID Prefix**: 01001B  
-**Layer**: api  
+**Module ID**: aim-environment
+**ULID Prefix**: 01001B
+**Layer**: api
 **Source**: aim\environment
 
 ## Purpose
@@ -37,5 +37,5 @@ None (independent module)
 
 ---
 
-**Created**: 1764168248.458027  
+**Created**: 1764168248.458027
 **Status**: Proof-of-concept module

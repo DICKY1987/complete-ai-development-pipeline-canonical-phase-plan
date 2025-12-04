@@ -14,7 +14,7 @@ parameters:
     type: string
     required: true
     example: "uet_migration_001"
-  
+
   tables_to_add:
     type: list
     required: true
@@ -23,17 +23,17 @@ parameters:
         schema: "(run_id TEXT PRIMARY KEY, project_id TEXT, phase_id TEXT, state TEXT CHECK(state IN ('pending','running','completed','failed')))"
       - name: step_attempts
         schema: "(step_attempt_id TEXT PRIMARY KEY, run_id TEXT REFERENCES uet_runs(run_id), step_id TEXT, status TEXT)"
-  
+
   rollback_sql_path:
     type: path
     required: true
     example: "schema/migrations/{migration_id}_rollback.sql"
-  
+
   validation_query:
     type: string
     required: true
     example: "SELECT COUNT(*) FROM sqlite_master WHERE type='table'"
-  
+
   success_criteria:
     type: dict
     required: true
@@ -46,17 +46,17 @@ ground_truth_gates:
     command: "python -c \"from core.state.db_unified import dual_write_run\""
     expect_exit_code: 0
     failure_action: halt_and_report
-  
+
   gate_2_migration_syntax_valid:
     command: "sqlite3 :memory: < schema/migrations/{migration_id}.sql"
     expect_exit_code: 0
     failure_action: halt_and_report
-  
+
   gate_3_rollback_syntax_valid:
     command: "sqlite3 :memory: < {rollback_sql_path}"
     expect_exit_code: 0
     failure_action: halt_and_report
-  
+
   gate_4_forward_migration_applies:
     command: |
       cp .worktrees/pipeline_state.db .worktrees/pipeline_state.db.backup
@@ -64,7 +64,7 @@ ground_truth_gates:
       sqlite3 .worktrees/pipeline_state.db "{validation_query}"
     expect_table_count_increase: "{success_criteria.table_count_increased}"
     failure_action: restore_backup_and_halt
-  
+
   gate_5_rollback_works:
     command: |
       sqlite3 .worktrees/pipeline_state.db < {rollback_sql_path}
@@ -75,16 +75,16 @@ ground_truth_gates:
 execution_sequence:
   - step: create_migration_sql
     template: schema/migrations/{migration_id}.sql
-    
+
   - step: create_rollback_sql
     template: {rollback_sql_path}
-    
+
   - step: create_unified_db_bridge
     template: core/state/db_unified.py
-    
+
   - step: run_ground_truth_gates
     gates: [gate_1, gate_2, gate_3, gate_4, gate_5]
-    
+
   - step: create_tests
     template: tests/state/test_db_unified.py
 
@@ -92,7 +92,7 @@ anti_pattern_guards:
   hallucination_of_success:
     enabled: true
     rule: "Never mark migration complete without gate_4_forward_migration_applies passing"
-  
+
   partial_success_amnesia:
     enabled: true
     rule: "Checkpoint after each gate passes; record in .execution/checkpoints.jsonl"

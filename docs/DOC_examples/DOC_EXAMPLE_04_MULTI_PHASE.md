@@ -8,9 +8,9 @@ doc_id: DOC-GUIDE-EXAMPLE_MULTI_PHASE-067
 
 # Example 04: Multi-Phase Workflow - Data Pipeline
 
-**Pattern**: Multi-phase with checkpointing and state transitions  
-**Complexity**: Advanced  
-**Estimated Duration**: 10-15 minutes  
+**Pattern**: Multi-phase with checkpointing and state transitions
+**Complexity**: Advanced
+**Estimated Duration**: 10-15 minutes
 **Tool**: Aider with state management
 
 ---
@@ -116,7 +116,7 @@ This example demonstrates **complex multi-phase workflows** with checkpointing a
    ┌──────────┐
    │Completed │
    └──────────┘
-   
+
    error (any state)
          │
          ▼
@@ -140,12 +140,12 @@ Each checkpoint includes:
   "phase": "phase-02-processing",
   "step": "step-02-create-validator",
   "state": "phase_02_running",
-  
+
   "completed_phases": ["phase-01-setup"],
   "completed_steps": [
     "step-01-create-processor"
   ],
-  
+
   "file_changes": [
     {
       "file": "examples/data_processor.py",
@@ -153,13 +153,13 @@ Each checkpoint includes:
       "status": "created"
     }
   ],
-  
+
   "metrics": {
     "duration_so_far": 342,
     "steps_completed": 1,
     "steps_total": 3
   },
-  
+
   "metadata": {
     "retry_count": 0,
     "last_error": null
@@ -263,9 +263,9 @@ $ python scripts/run_workstream.py \
       "id": "phase-01-setup",
       "name": "Setup and Validation",
       "description": "Prepare environment",
-      
+
       "steps": [...],
-      
+
       "checkpoint": {
         "enabled": true,
         "strategy": "automatic",
@@ -291,13 +291,13 @@ $ python scripts/run_workstream.py \
   "resume": {
     "enabled": true,
     "strategy": "from_last_checkpoint",
-    
+
     "on_resume": {
       "validate_state": true,
       "check_file_changes": true,
       "verify_dependencies": true
     },
-    
+
     "cleanup_on_complete": false
   }
 }
@@ -371,7 +371,7 @@ Checkpoints for ws-example-04-multi-phase:
    Duration: 3m 42s
 
 2. phase-02.json (2023-11-22 14:30:15)
-   Phase: Data Processing  
+   Phase: Data Processing
    State: phase_02_complete
    Duration: 5m 05s
 
@@ -421,7 +421,7 @@ Can resume from: step-03-create-reporter
 
 ### Issue: "Checkpoint validation failed"
 
-**Cause**: Files changed externally since checkpoint  
+**Cause**: Files changed externally since checkpoint
 **Fix**: Review changes and either:
 ```bash
 # Accept changes and continue
@@ -435,7 +435,7 @@ python scripts/reset_to_checkpoint.py <id> phase-02.json
 
 ### Issue: "Cannot resume - state mismatch"
 
-**Cause**: State machine in unexpected state  
+**Cause**: State machine in unexpected state
 **Fix**:
 ```bash
 # Check current state
@@ -449,7 +449,7 @@ python scripts/reset_state.py ws-example-04-multi-phase --to phase_02_complete
 
 ### Issue: "Checkpoint not found"
 
-**Cause**: Checkpoints expired or manually deleted  
+**Cause**: Checkpoints expired or manually deleted
 **Fix**: Start from beginning
 ```bash
 python scripts/run_workstream.py --ws-id <id> --fresh-start
@@ -518,7 +518,7 @@ python scripts/run_workstream.py --ws-id <id> --fresh-start
 
 ---
 
-**Last Updated**: 2025-11-22  
-**Difficulty**: ⭐⭐⭐ Advanced  
-**Execution Time**: 10-15 minutes  
+**Last Updated**: 2025-11-22
+**Difficulty**: ⭐⭐⭐ Advanced
+**Execution Time**: 10-15 minutes
 **Success Rate**: ~80% (complexity increases failure chance, but resume helps)

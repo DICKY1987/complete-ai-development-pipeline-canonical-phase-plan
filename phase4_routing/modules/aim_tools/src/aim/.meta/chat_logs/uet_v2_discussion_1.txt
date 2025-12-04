@@ -131,11 +131,11 @@ yamlresources:
   git_repo:
     access_mode: exclusive  # only one task can modify at a time
     current_holder: task_x
-  
+
   file_system:
     access_mode: shared_read  # multiple readers OK
     exclusive_writers: []
-    
+
   api_quota:
     access_mode: rate_limited
     rate: 100_per_minute
@@ -372,13 +372,13 @@ powershell# restructure-config.psd1
             To = 'src\string-utils\'
         }
     )
-    
+
     PostMoveActions = @(
         'Update-ModuleManifests'
         'Create-ReadmeStubs'
         'Update-ImportStatements'
     )
-    
+
     ValidationSteps = @(
         'Test-AllModulesLoad'
         'Invoke-Pester -Path tests\'
@@ -393,14 +393,14 @@ powershellfunction Invoke-CodebaseRestructure {
         [switch]$WhatIf,
         [switch]$CreateCheckpoint
     )
-    
+
     $config = Import-PowerShellDataFile $ConfigPath
-    
+
     # Create Git checkpoint (your existing safety system)
     if ($CreateCheckpoint) {
         $checkpoint = New-GitCheckpoint -Type 'PreRestructure'
     }
-    
+
     # Execute moves with full audit trail
     foreach ($move in $config.Moves) {
         $operation = @{
@@ -410,12 +410,12 @@ powershellfunction Invoke-CodebaseRestructure {
             To = $move.To
             Status = 'Pending'
         } | ConvertTo-Json -Compress
-        
+
         Add-Content -Path '.restructure-log.jsonl' -Value $operation
-        
+
         if (-not $WhatIf) {
             Move-CodeFiles @move
-            
+
             # Update status in log
             $operation = $operation | ConvertFrom-Json
             $operation.Status = 'Complete'
@@ -423,12 +423,12 @@ powershellfunction Invoke-CodebaseRestructure {
             Add-Content -Path '.restructure-log.jsonl' -Value ($operation | ConvertTo-Json -Compress)
         }
     }
-    
+
     # Post-move actions
     foreach ($action in $config.PostMoveActions) {
         & $action
     }
-    
+
     # Validation
     $allValid = $true
     foreach ($validation in $config.ValidationSteps) {
@@ -438,7 +438,7 @@ powershellfunction Invoke-CodebaseRestructure {
             Write-Error "Validation failed: $validation"
         }
     }
-    
+
     if (-not $allValid -and $CreateCheckpoint) {
         Restore-GitCheckpoint -CheckpointId $checkpoint.Id
     }
@@ -461,48 +461,48 @@ powershell# Add to your capability catalog
     CapabilityId = New-Ulid
     Name = 'CodebaseRestructure'
     Type = 'Autonomous'
-    
+
     Input = @{
         ConfigPath = 'string'
         TargetRepository = 'string'
         ValidationLevel = 'enum[Basic,Full,Paranoid]'
     }
-    
+
     Output = @{
         MovedFiles = 'array[string]'
         UpdatedReferences = 'int'
         ValidationResults = 'object'
         AuditLog = 'path'
     }
-    
+
     Preconditions = @(
         'Repository-CleanWorkingDirectory'
         'Repository-OnFeatureBranch'
         'Tests-AllPassing'
     )
-    
+
     Postconditions = @(
         'Structure-MeetsSpec'
         'References-AllValid'
         'Tests-StillPassing'
     )
-    
+
     ExecutorScript = 'Invoke-CodebaseRestructure.ps1'
 }
 Integration with Your AI Pipeline
 For Aider integration, PowerShell can generate the instruction sets:
 powershellfunction New-AiderWorkstreamForRestructure {
     param($RestructureConfig)
-    
+
     $workstream = @{
         BundleId = New-Ulid
         Name = "Restructure-$(Get-Date -Format 'yyyyMMdd')"
         Tasks = @()
     }
-    
+
     foreach ($move in $RestructureConfig.Moves) {
         $files = Get-ChildItem $move.From
-        
+
         foreach ($file in $files) {
             $workstream.Tasks += @{
                 TaskId = New-Ulid
@@ -517,8 +517,8 @@ Ensure all tests still pass after the move.
             }
         }
     }
-    
-    $workstream | ConvertTo-Json -Depth 10 | 
+
+    $workstream | ConvertTo-Json -Depth 10 |
         Out-File "workstreams/restructure-$(New-Ulid).json"
 }
 For Analyzing Other Languages
@@ -526,7 +526,7 @@ PowerShell can orchestrate language-specific tools:
 powershell# For Python codebases
 function Move-PythonModules {
     param($From, $To)
-    
+
     # Use rope for Python refactoring
     $pythonScript = @"
 from rope.base.project import Project
@@ -537,9 +537,9 @@ resource = project.root.get_file('$From')
 changes = MoveModule(project, resource).get_changes('$To')
 project.do(changes)
 "@
-    
+
     $pythonScript | python -
-    
+
     # Update your JSONL audit log
     @{
         Timestamp = Get-Date -Format 'o'
@@ -547,14 +547,14 @@ project.do(changes)
         From = $From
         To = $To
         Tool = 'rope'
-    } | ConvertTo-Json -Compress | 
+    } | ConvertTo-Json -Compress |
         Add-Content -Path '.restructure-audit.jsonl'
 }
 
 # For TypeScript/JavaScript
 function Move-TSModules {
     param($From, $To)
-    
+
     # Use ts-morph
     $nodeScript = @"
 const { Project } = require('ts-morph');
@@ -564,7 +564,7 @@ const sourceFile = project.getSourceFile('$From');
 sourceFile.move('$To');
 project.save();
 "@
-    
+
     $nodeScript | node -
 }
 My Recommendation for Your Stack
@@ -730,24 +730,24 @@ powershell# capabilities/catalog.psd1
             Name = 'WorkstreamOrchestration'
             Type = 'Autonomous'
             Executor = 'scripts/orchestrate_workstream.ps1'
-            
+
             Input = @{
                 WorkstreamId = 'string'
                 MaxParallelism = 'int'
                 ValidationLevel = 'enum[Basic,Full,Paranoid]'
             }
-            
+
             Output = @{
                 CompletedTasks = 'array[string]'
                 FailedTasks = 'array[string]'
                 ExecutionLog = 'path'
             }
-            
+
             Preconditions = @(
                 'Repository-CleanWorkingDirectory'
                 'All-WorkerCapabilities-Available'
             )
-            
+
             Postconditions = @(
                 'All-Tasks-Completed-Or-Failed'
                 'State-Persisted-To-Disk'
@@ -773,7 +773,7 @@ markdown# docs/failure_modes/CATALOG.md
 
 ## Worker Crash
 **Detection:** Worker heartbeat missing for >30 seconds
-**Manifestation:** `{"event":"worker_unresponsive","worker_id":"..."}` 
+**Manifestation:** `{"event":"worker_unresponsive","worker_id":"..."}`
 **Automatic Recovery:** Reassign in-flight tasks to healthy workers
 **Manual Intervention:** Restart worker service, check system resources
 
@@ -818,7 +818,7 @@ Core orchestration engine.
 
 Public API:
 - Orchestrator: Main orchestration coordinator
-- Scheduler: DAG-based task scheduler  
+- Scheduler: DAG-based task scheduler
 - Executor: Task execution manager
 - CircuitBreaker: Failure isolation
 
@@ -843,21 +843,21 @@ initial_state: PENDING
 states:
   - name: PENDING
     description: Task created, waiting for dependencies
-    
+
   - name: READY
     description: Dependencies satisfied, ready for worker assignment
-    
+
   - name: RUNNING
     description: Assigned to worker, execution in progress
-    
+
   - name: COMPLETED
     description: Successfully completed
     terminal: true
-    
+
   - name: FAILED
     description: Execution failed
     terminal: false  # Can transition to RETRY_PENDING
-    
+
   - name: RETRY_PENDING
     description: Waiting for retry backoff period
 
@@ -865,25 +865,25 @@ transitions:
   - from: PENDING
     to: READY
     trigger: all_dependencies_complete
-    
+
   - from: READY
     to: RUNNING
     trigger: worker_assigned
-    
+
   - from: RUNNING
     to: COMPLETED
     trigger: execution_success
-    
+
   - from: RUNNING
     to: FAILED
     trigger: execution_failure
     guard: retry_count >= max_retries
-    
+
   - from: RUNNING
     to: RETRY_PENDING
     trigger: execution_failure
     guard: retry_count < max_retries
-    
+
   - from: RETRY_PENDING
     to: READY
     trigger: backoff_period_elapsed
@@ -914,7 +914,7 @@ function New-StateObservabilityStructure {
         'schema/tasks/definitions',
         'capabilities'
     )
-    
+
     foreach ($dir in $dirs) {
         if (-not (Test-Path $dir)) {
             New-Item -ItemType Directory -Path $dir -Force | Out-Null
@@ -927,7 +927,7 @@ function New-StateSnapshot {
     $timestamp = Get-Date -Format 'yyyy-MM-ddTHH-mm-ss'
     $snapshot = @{
         timestamp = Get-Date -Format 'o'
-        active_workstreams = @(Get-ChildItem workstreams -Directory | 
+        active_workstreams = @(Get-ChildItem workstreams -Directory |
             Select-Object -ExpandProperty Name)
         worker_status = @{
             aider = 'available'
@@ -936,12 +936,12 @@ function New-StateSnapshot {
             git = 'available'
         }
     }
-    
-    $snapshot | ConvertTo-Json -Depth 10 | 
+
+    $snapshot | ConvertTo-Json -Depth 10 |
         Out-File ".state/snapshots/$timestamp.json"
-    
+
     # Also update current.json
-    $snapshot | ConvertTo-Json -Depth 10 | 
+    $snapshot | ConvertTo-Json -Depth 10 |
         Out-File ".state/current.json"
 }
 
@@ -995,12 +995,12 @@ function New-CapabilityCatalog {
             Type = 'Autonomous'
             Description = 'Execute complete workstream bundle with parallel tasks'
             Executor = 'scripts/run_workstream.py'
-            
+
             Input = @{
                 WorkstreamId = 'string'
                 MaxParallelism = 'int'
             }
-            
+
             Output = @{
                 CompletedTasks = 'array'
                 ExecutionLog = 'path'
@@ -1211,9 +1211,9 @@ docs/failure_modes/CATALOG.md
     •    How it manifests in logs/events
     •    Automatic recovery behavior
     •    Required manual intervention (if any)Non-normative example:## Task Timeout
-**Detection:** Task exceeds max_runtime_seconds  
-**Manifestation:** {"event":"task_timeout","task_id":"..."} in execution log  
-**Automatic Recovery:** Retry with exponential backoff (if retry_count < max_retries)  
+**Detection:** Task exceeds max_runtime_seconds
+**Manifestation:** {"event":"task_timeout","task_id":"..."} in execution log
+**Automatic Recovery:** Retry with exponential backoff (if retry_count < max_retries)
 **Manual Intervention:** Investigate worker logs, check for deadlockERR-FM-002: Error Events
     •    Error-related events MUST be logged in the same JSONL event streams covered by STATE-OBS-004.
     •    Error policies and recovery behaviors SHOULD be additionally defined in a machine-readable policy file (e.g. registry/error_policies.yaml), but that file is out of scope for this spec.⸻Aider Integration ContractAIDER-INT-001: Aider as WorkerAider MUST be treated as a worker under orchestration, not as a standalone tool.The Aider integration spec MUST define:
@@ -1415,11 +1415,11 @@ Failure Modes (Section 7)
 Critical section, well done.
 ERR-FM-001 Enhancement:
 markdown## Task Timeout
-**Detection:** Task exceeds max_runtime_seconds  
+**Detection:** Task exceeds max_runtime_seconds
 **Probability:** Medium (5-10% of tasks under load)  # NEW
 **Impact:** Low (automatic retry available)          # NEW
-**Manifestation:** `{"event":"task_timeout",...}`  
-**Automatic Recovery:** Retry with exponential backoff  
+**Manifestation:** `{"event":"task_timeout",...}`
+**Automatic Recovery:** Retry with exponential backoff
 **Manual Intervention:** Investigate if retry_count == max_retries
 **Related Failures:** Worker-Unresponsive, Resource-Exhaustion  # NEW
 ```
@@ -1429,7 +1429,7 @@ This creates a failure mode knowledge graph AI can traverse.
 **ERR-FM-003: Add Recovery Decision Trees**
 ```
 ERR-FM-003: Recovery Decision Trees
-- For each failure mode, docs/failure_modes/ SHOULD contain a 
+- For each failure mode, docs/failure_modes/ SHOULD contain a
   decision tree showing:
   - Detection conditions
   - Automatic recovery attempts
@@ -1441,7 +1441,7 @@ AIDER-INT-001 Enhancement:
 markdownAIDER-INT-002: Aider Context Boundaries
 - Aider MUST receive only files listed in task.context_requirements.required_files
 - Aider MUST NOT request additional files during execution
-- If Aider indicates insufficient context, task MUST fail with 
+- If Aider indicates insufficient context, task MUST fail with
   error_type: "insufficient_context" for human review
 
 AIDER-INT-003: Aider Output Contract

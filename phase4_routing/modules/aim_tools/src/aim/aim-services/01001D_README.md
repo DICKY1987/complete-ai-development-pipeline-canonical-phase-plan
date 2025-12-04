@@ -4,9 +4,9 @@ doc_id: DOC-GUIDE-01001D-README-1474
 
 # AIM Services
 
-**Module ID**: aim-services  
-**ULID Prefix**: 01001D  
-**Layer**: api  
+**Module ID**: aim-services
+**ULID Prefix**: 01001D
+**Layer**: api
 **Source**: aim\services
 
 ## Purpose
@@ -31,5 +31,5 @@ None (independent module)
 
 ---
 
-**Created**: 1764168248.458027  
+**Created**: 1764168248.458027
 **Status**: Proof-of-concept module

@@ -8,9 +8,9 @@ doc_id: DOC-GUIDE-EXAMPLE_SIMPLE_TASK-064
 
 # Example 01: Simple Task - Hello World
 
-**Pattern**: Single-step workstream  
-**Complexity**: Beginner  
-**Estimated Duration**: 2-5 minutes  
+**Pattern**: Single-step workstream
+**Complexity**: Beginner
+**Estimated Duration**: 2-5 minutes
 **Tool**: Aider (AI coding assistant)
 
 ---
@@ -76,7 +76,7 @@ workstreams/examples/01_simple_task.json
 }
 ```
 
-**Why**: 
+**Why**:
 - `files_scope` claims ownership to prevent conflicts with other workstreams
 - `files_create` explicitly allows file creation
 - Both must match for new files
@@ -111,7 +111,7 @@ workstreams/examples/01_simple_task.json
 }
 ```
 
-**Why**: 
+**Why**:
 - First test: Validates module can be imported (no syntax errors)
 - Second test: Validates module can be executed directly
 - Both must pass for workstream to succeed
@@ -220,16 +220,16 @@ import sys
 def hello(name: str = "World") -> str:
     """
     Return a greeting message.
-    
+
     Args:
         name: Name to greet (default: "World")
-        
+
     Returns:
         Greeting string
     """
     if not isinstance(name, str):
         raise TypeError("name must be a string")
-    
+
     return f"Hello, {name}!"
 
 
@@ -270,8 +270,8 @@ Hello, World!
 
 ### Issue: "Workstream ID already exists"
 
-**Cause**: Another workstream with same ID in database  
-**Fix**: 
+**Cause**: Another workstream with same ID in database
+**Fix**:
 ```bash
 # Check existing workstreams
 python scripts/list_workstreams.py
@@ -283,7 +283,7 @@ python scripts/list_workstreams.py
 
 ### Issue: "File scope conflict"
 
-**Cause**: Another workstream claims ownership of `examples/hello_world.py`  
+**Cause**: Another workstream claims ownership of `examples/hello_world.py`
 **Fix**:
 ```bash
 # Check file ownership
@@ -296,7 +296,7 @@ python scripts/check_file_scope.py examples/hello_world.py
 
 ### Issue: "Aider not found"
 
-**Cause**: Aider tool not installed  
+**Cause**: Aider tool not installed
 **Fix**:
 ```bash
 pip install aider-chat
@@ -309,7 +309,7 @@ aider --version
 
 ### Issue: "Acceptance tests failed"
 
-**Cause**: Generated code doesn't meet requirements  
+**Cause**: Generated code doesn't meet requirements
 **Fix**:
 1. Check circuit breaker logs for errors
 2. Review generated file manually
@@ -427,7 +427,7 @@ Before using this pattern in production:
 
 ---
 
-**Last Updated**: 2025-11-22  
-**Difficulty**: ⭐ Beginner  
-**Execution Time**: 2-5 minutes  
+**Last Updated**: 2025-11-22
+**Difficulty**: ⭐ Beginner
+**Execution Time**: 2-5 minutes
 **Success Rate**: ~95% (simple tasks rarely fail)

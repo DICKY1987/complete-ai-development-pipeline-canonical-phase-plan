@@ -16,7 +16,7 @@ if (Test-Path $lockFile) {
     try {
         $lockData = Get-Content $lockFile -Raw | ConvertFrom-Json
         $existingJob = Get-Job -Id $lockData.JobId -ErrorAction SilentlyContinue
-        
+
         if ($existingJob -and $existingJob.State -eq "Running") {
             # Sync already running in another window
             Write-Host "✓ Git Auto-Sync already running in another PowerShell window" -ForegroundColor Yellow
@@ -42,14 +42,14 @@ if ($shouldStart) {
     Write-Host "╔══════════════════════════════════════════╗" -ForegroundColor Cyan
     Write-Host "║  Starting Git Auto-Sync (First Window)  ║" -ForegroundColor Cyan
     Write-Host "╚══════════════════════════════════════════╝" -ForegroundColor Cyan
-    
+
     # Start sync job
     $global:GitSyncJob = Start-Job -Name "GitAutoSync-$PID" -ScriptBlock {
         param($RepoPath)
         Import-Module powershell-yaml -ErrorAction SilentlyContinue
         & "C:\Program Files\GitAutoSync\GitAutoSync.ps1" -RepoPath $RepoPath -CommitInterval 30 -SyncInterval 60
     } -ArgumentList $RepoPath
-    
+
     # Create lock file
     $lockData = @{
         JobId = $global:GitSyncJob.Id
@@ -57,16 +57,16 @@ if ($shouldStart) {
         Started = Get-Date -Format "o"
         RepoPath = $RepoPath
     } | ConvertTo-Json
-    
+
     $lockData | Out-File -FilePath $lockFile -Force
-    
+
     # Wait a moment for startup
     Start-Sleep -Seconds 2
-    
+
     Write-Host "`n✓ Sync active (Job ID: $($global:GitSyncJob.Id))" -ForegroundColor Green
     Write-Host "✓ Lock file created - other windows will not start duplicate sync" -ForegroundColor Green
     Write-Host "`n📝 Logs: Get-Content .sync-log.txt -Tail 20 -Wait" -ForegroundColor Gray
-    
+
     # Clean up lock file when PowerShell window closes
     Register-EngineEvent -SourceIdentifier PowerShell.Exiting -Action {
         param($sender, $e)

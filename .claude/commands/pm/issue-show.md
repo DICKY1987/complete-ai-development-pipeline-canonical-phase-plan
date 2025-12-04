@@ -31,7 +31,7 @@ Display issue header:
    Assignee: {assignee}
    Created: {creation_date}
    Updated: {last_update}
-   
+
 📝 Description:
 {issue_description}
 ```
@@ -61,7 +61,7 @@ Display recent comments and updates:
 💬 Recent Activity:
    {timestamp} - {author}: {comment_preview}
    {timestamp} - {author}: {comment_preview}
-   
+
    View full thread: gh issue view #$ARGUMENTS --comments
 ```
 

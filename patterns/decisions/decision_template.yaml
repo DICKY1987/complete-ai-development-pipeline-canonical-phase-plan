@@ -21,14 +21,14 @@ metadata:
 context:
   problem: |
     What problem or question does this decision address?
-    
+
   background: |
     What is the context around this decision?
     What led to needing this decision?
-    
+
   goals: []
     # List of goals this decision helps achieve
-    
+
   constraints: []
     # List of constraints that influence this decision
 
@@ -40,7 +40,7 @@ options:
     cons: []
     estimated_effort: ""
     risk_level: ""  # low, medium, high
-    
+
   - option_id: "OPTION-2"
     description: ""
     pros: []
@@ -53,13 +53,13 @@ decision:
   chosen_option: ""  # option_id from above
   rationale: |
     Why was this option chosen over the alternatives?
-    
+
   trade_offs: |
     What trade-offs are we accepting with this decision?
-    
+
   assumptions: []
     # List of assumptions this decision is based on
-    
+
   risks: []
     # List of risks associated with this decision
 
@@ -67,17 +67,17 @@ decision:
 implementation:
   approach: |
     How will this decision be implemented?
-    
+
   affected_patterns: []
     # List of pattern IDs affected
-    
+
   affected_files: []
     # List of file paths affected
-    
+
   breaking_changes: false
   breaking_change_details: |
     If breaking_changes=true, describe the breaking changes
-    
+
   migration_required: false
   migration_steps: []
     # If migration_required=true, list migration steps
@@ -86,10 +86,10 @@ implementation:
 validation:
   success_criteria: []
     # How will we know this decision was successful?
-    
+
   validation_method: |
     How will we validate this decision?
-    
+
   validation_timeline: ""
     # When should validation occur?
 
@@ -97,10 +97,10 @@ validation:
 consequences:
   positive: []
     # Expected positive outcomes
-    
+
   negative: []
     # Expected negative outcomes or challenges
-    
+
   neutral: []
     # Other notable consequences
 

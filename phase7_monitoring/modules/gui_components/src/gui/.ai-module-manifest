@@ -19,12 +19,12 @@ planned_features:
     - "Real-time task status"
     - "Error visualization"
     - "Buffer consumption charts (CCPM)"
-    
+
   controls:
     - "Start/stop workstreams"
     - "Manual task approval"
     - "Error resolution interface"
-    
+
   visualization:
     - "DAG visualization"
     - "Gantt charts"
@@ -35,11 +35,11 @@ tech_stack:
   frontend:
     - "React or Vue.js"
     - "D3.js for visualizations"
-    
+
   backend:
     - "FastAPI for REST API"
     - "WebSocket for real-time updates"
-    
+
   data:
     - "Reads from .worktrees/<run_id>/pipeline.db"
     - "Subscribes to execution events"
@@ -48,7 +48,7 @@ tech_stack:
 planned_entry_points:
   - command: "python -m gui.main"
     description: "Start GUI server"
-    
+
   - api: "http://localhost:8000/api/workstreams"
     description: "REST API for workstream data"
 
@@ -66,7 +66,7 @@ dependencies:
     - uvicorn
     - websockets
     - "react or vue.js"
-    
+
   internal:
     - core.state.crud  # Read execution state
     - core.orchestrator  # Control workstream execution

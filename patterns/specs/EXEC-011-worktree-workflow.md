@@ -1,11 +1,11 @@
 # EXEC-011: Git Worktree Workflow Pattern
 # Pattern for commit and merge workflows in parallel worktrees
 
-**Pattern ID**: EXEC-011  
-**Name**: Git Worktree Workflow  
-**Category**: Version Control  
-**Time Savings**: 60-70% vs sequential branching  
-**Difficulty**: Medium  
+**Pattern ID**: EXEC-011
+**Name**: Git Worktree Workflow
+**Category**: Version Control
+**Time Savings**: 60-70% vs sequential branching
+**Difficulty**: Medium
 **Prerequisites**: Git worktrees created, changes ready
 
 ---
@@ -343,10 +343,10 @@ Write-Host "   Time saved: 73% vs sequential" -ForegroundColor Cyan
 
 ## Anti-Patterns to Avoid
 
-❌ **Merge all branches at once** → Merge sequentially  
-❌ **Skip validation after merge** → Always validate  
-❌ **Auto-resolve conflicts** → Review each conflict  
-❌ **Delete branches immediately** → Keep until verified  
+❌ **Merge all branches at once** → Merge sequentially
+❌ **Skip validation after merge** → Always validate
+❌ **Auto-resolve conflicts** → Review each conflict
+❌ **Delete branches immediately** → Keep until verified
 ❌ **Work on main directly** → Always use branches
 
 ---
@@ -385,7 +385,7 @@ EXEC-009 (Register) → EXEC-010 (Index) → EXEC-011 (Commit & Merge)
      ↓                     ↓                      ↓
 Register doc_ids     Create index         Merge to main
      (30 min)           (15 min)             (5 min)
-     
+
 Total per category: 50 minutes
 4 categories in parallel: 1.5 hours + 20 min merge = 1 hr 50 min
 ```

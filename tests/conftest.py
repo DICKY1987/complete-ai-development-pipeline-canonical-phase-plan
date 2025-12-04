@@ -19,16 +19,16 @@ def temp_db():
 # DOC_ID: DOC-TEST-TESTS-CONFTEST-033
     with tempfile.NamedTemporaryFile(mode='w', suffix='.db', delete=False) as f:
         db_path = f.name
-    
+
     # Set environment variable
     os.environ['PIPELINE_DB_PATH'] = db_path
-    
+
     # Initialize database
     from core.state.db import init_db
     init_db(db_path)
-    
+
     yield db_path
-    
+
     # Cleanup
     try:
         os.unlink(db_path)

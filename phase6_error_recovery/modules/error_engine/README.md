@@ -1,6 +1,6 @@
 # Module: error_engine
 
-**Phase**: 6  
+**Phase**: 6
 **Purpose**: Error detection, classification, and orchestration
 
 ## Structure

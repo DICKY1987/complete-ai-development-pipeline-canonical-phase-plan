@@ -13,21 +13,21 @@ This directory contains tools for maintaining path format standards in project d
 ```bash
 ./.claude/scripts/check-path-standards.sh
 ```
-**Purpose**: Scans project documentation to detect path format violations  
+**Purpose**: Scans project documentation to detect path format violations
 **Output**: Colored validation report showing pass/fail status
 
-### 2. Fix Script  
+### 2. Fix Script
 ```bash
 ./.claude/scripts/fix-path-standards.sh
 ```
-**Purpose**: Automatically fixes absolute path issues in documentation  
+**Purpose**: Automatically fixes absolute path issues in documentation
 **Safety**: Creates backup files automatically, supports rollback
 
 ## Usage Workflow
 
 ### Regular Maintenance
 1. **Periodic Check**: Run `./check-path-standards.sh`
-2. **When Issues Found**: Run `./fix-path-standards.sh`  
+2. **When Issues Found**: Run `./fix-path-standards.sh`
 3. **Verify Fixes**: Run the validation script again
 
 ### CI/CD Integration

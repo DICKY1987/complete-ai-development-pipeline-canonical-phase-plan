@@ -8,9 +8,9 @@ doc_id: DOC-GUIDE-CI_PATH_STANDARDS-077
 
 # CI Path Standards Enforcement
 
-**Created**: 2025-11-19  
-**Workflow**: `.github/workflows/path_standards.yml`  
-**Status**: Active  
+**Created**: 2025-11-19
+**Workflow**: `.github/workflows/path_standards.yml`
+**Status**: Active
 
 ---
 
@@ -230,6 +230,6 @@ If you encounter issues with the path standards check:
 
 ---
 
-**Last Updated**: 2025-11-19  
-**Status**: Active  
+**Last Updated**: 2025-11-19
+**Status**: Active
 **Contact**: See repository maintainers

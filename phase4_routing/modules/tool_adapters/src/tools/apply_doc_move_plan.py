@@ -14,7 +14,7 @@ from pathlib import Path
 def is_git_repo() -> bool:
     """Check if current directory is a git repository."""
     try:
-        subprocess.run(["git", "rev-parse", "--git-dir"], 
+        subprocess.run(["git", "rev-parse", "--git-dir"],
                       capture_output=True, check=True)
         return True
     except subprocess.CalledProcessError:
@@ -44,7 +44,7 @@ def apply_move_plan(plan_path: Path, dry_run: bool = True) -> dict:
     """Apply document move plan."""
     moves = []
     conflicts = []
-    
+
     # Read and parse plan
     with plan_path.open("r", encoding="utf-8") as f:
         for line in f:
@@ -53,16 +53,16 @@ def apply_move_plan(plan_path: Path, dry_run: bool = True) -> dict:
             record = json.loads(line)
             if record.get("target_dir"):
                 moves.append(record)
-    
+
     repo_root = Path.cwd()
     use_git = is_git_repo()
     successful = 0
-    
+
     for record in moves:
         src_path = repo_root / record["path"]
         target_dir = repo_root / record["target_dir"]
         dst_path = target_dir / Path(record["path"]).name
-        
+
         # Check for conflicts
         if dst_path.exists() and dst_path != src_path:
             git_status = get_git_status(dst_path) if use_git else None
@@ -75,7 +75,7 @@ def apply_move_plan(plan_path: Path, dry_run: bool = True) -> dict:
                 })
                 print(f"[CONFLICT] {dst_path} is modified, skipping")
                 continue
-        
+
         if dry_run:
             print(f"[DRY-RUN] {record['path']} -> {record['target_dir']}")
             successful += 1
@@ -83,7 +83,7 @@ def apply_move_plan(plan_path: Path, dry_run: bool = True) -> dict:
             try:
                 # Create target directory
                 target_dir.mkdir(parents=True, exist_ok=True)
-                
+
                 # Move file
                 if use_git and src_path.exists():
                     subprocess.run(
@@ -92,12 +92,12 @@ def apply_move_plan(plan_path: Path, dry_run: bool = True) -> dict:
                     )
                 else:
                     src_path.rename(dst_path)
-                
+
                 print(f"[MOVED] {record['path']} -> {record['target_dir']}")
                 successful += 1
             except Exception as e:
                 print(f"[ERROR] {record['path']}: {e}", file=sys.stderr)
-    
+
     # Log conflicts
     if conflicts and not dry_run:
         conflict_log = repo_root / ".state/docs/move_conflicts.jsonl"
@@ -105,7 +105,7 @@ def apply_move_plan(plan_path: Path, dry_run: bool = True) -> dict:
         with conflict_log.open("a", encoding="utf-8") as f:
             for conflict in conflicts:
                 f.write(json.dumps(conflict) + "\n")
-    
+
     return {
         "total": len(moves),
         "successful": successful,
@@ -122,31 +122,31 @@ def main():
                        help="Print planned moves without executing (default)")
     parser.add_argument("--apply", action="store_true",
                        help="Actually execute file moves")
-    
+
     args = parser.parse_args()
-    
+
     plan_path = Path(args.plan)
     if not plan_path.exists():
         print(f"[ERROR] Plan file not found: {plan_path}", file=sys.stderr)
         return 1
-    
+
     dry_run = not args.apply
-    
+
     print(f"{'DRY RUN' if dry_run else 'APPLYING'} move plan: {plan_path}")
     print("=" * 60)
-    
+
     result = apply_move_plan(plan_path, dry_run=dry_run)
-    
+
     print("=" * 60)
     print(f"Total moves: {result['total']}")
     print(f"Successful: {result['successful']}")
     print(f"Conflicts: {result['conflicts']}")
-    
+
     if result['conflicts'] > 0:
         print(f"\n[WARNING] {result['conflicts']} conflicts detected")
         if not dry_run:
             print("See .state/docs/move_conflicts.jsonl for details")
-    
+
     return 0
 
 

@@ -8,9 +8,9 @@ doc_id: DOC-GUIDE-ANTI_PATTERN_11_FRAMEWORK_OVER_ENGINEERING-111
 
 # Anti-Pattern 11: Framework Over-Engineering & Worktree Contamination
 
-**Pattern ID**: ANTI_PATTERN_11_FRAMEWORK_OVER_ENGINEERING  
-**Date Discovered**: 2025-11-25  
-**Source**: UET Migration Execution Analysis  
+**Pattern ID**: ANTI_PATTERN_11_FRAMEWORK_OVER_ENGINEERING
+**Date Discovered**: 2025-11-25
+**Source**: UET Migration Execution Analysis
 **Severity**: HIGH - Silent contamination with delayed discovery
 
 ---
@@ -78,7 +78,7 @@ Results: 4 matches
   - .worktrees/wt-phase3-patches/core/engine/dag_builder.py:15   ❌ DUPLICATE
 ```
 
-**Impact**: 
+**Impact**:
 - Edit goes to wrong copy → changes lost
 - Replace All affects 4× locations → broken duplicates
 - Debugging shows wrong file → confusion
@@ -182,7 +182,7 @@ worktree_contamination_detector:
     - worktree_branches_have_no_unique_commits
     - worktree_age_gt_24_hours_without_activity
     - disk_space_wasted_gt_10_GB
-  
+
   check:
     script: |
       worktrees=$(git worktree list | tail -n +2)
@@ -196,7 +196,7 @@ worktree_contamination_detector:
           fi
         done
       fi
-  
+
   prevention:
     - require_cleanup_script_at_end_of_execution
     - auto_remove_unused_worktrees_after_24h
@@ -212,18 +212,18 @@ worktree_contamination_detector:
 ```yaml
 unused_framework_detector:
   description: "Detect infrastructure created but never used"
-  
+
   detection:
     - worktrees_created_but_no_commits: check_git_log
     - config_files_created_but_not_loaded: check_imports
     - classes_defined_but_never_instantiated: check_usage
     - tools_installed_but_never_called: check_bash_history
-  
+
   prevention:
     - require_usage_before_marked_complete
     - delete_infrastructure_if_not_used_within_1h
     - fail_checkpoint_if_framework_unused
-  
+
   time_saved: 4h (avoiding confusion + cleanup)
 ```
 
@@ -232,25 +232,25 @@ unused_framework_detector:
 ```yaml
 worktree_cleanup_enforcer:
   description: "Ensure worktrees are cleaned up or actively used"
-  
+
   detection:
     - worktree_age_gt_1h_no_commits: stale
     - worktree_branch_no_unique_commits: unused
     - search_results_4x_expected: contaminated
-  
+
   enforcement:
     pre_execution:
       - list_existing_worktrees_warn_if_found
-    
+
     during_execution:
       - track_worktree_commit_activity
       - warn_if_no_activity_30min
-    
+
     post_execution:
       - require_merge_or_remove_decision
       - auto_remove_if_branch_empty
       - verify_no_worktrees_left_behind
-  
+
   cleanup_script: |
     #!/bin/bash
     # Auto-cleanup unused worktrees
@@ -265,7 +265,7 @@ worktree_cleanup_enforcer:
         fi
       fi
     done
-  
+
   time_saved: 6h (avoiding contamination damage)
 ```
 
@@ -363,7 +363,7 @@ foreach ($wt in $worktrees) {
     if ($wt -ne $main) {
         $branch = git -C $wt branch --show-current
         $unique = (git log "main..$branch" --oneline | Measure-Object).Count
-        
+
         if ($unique -eq 0) {
             Write-Host "Removing unused worktree: $wt (branch: $branch)" -ForegroundColor Yellow
             git worktree remove $wt
@@ -412,8 +412,8 @@ phase_completion_gate:
     - Unused framework creation: 4h saved
     - Worktree cleanup enforcement: 6h saved
 
-**Total Impact**: 85h waste prevented per project  
-**Setup Time**: 20 minutes (15min + 5min for guard 11)  
+**Total Impact**: 85h waste prevented per project
+**Setup Time**: 20 minutes (15min + 5min for guard 11)
 **ROI**: 255:1
 
 ---
@@ -424,7 +424,7 @@ phase_completion_gate:
 
 Creating the framework (worktrees, config, tooling) is NOT the same as using it.
 
-**Guard principle**: 
+**Guard principle**:
 - If infrastructure created → verify usage OR delete before completion
 - If worktrees created → verify commits OR remove
 - If framework unused → consider it waste, not progress
@@ -433,8 +433,8 @@ Creating the framework (worktrees, config, tooling) is NOT the same as using it.
 
 ---
 
-**Document Created**: 2025-11-25 19:05:37 UTC  
-**Pattern ID**: ANTI_PATTERN_11  
-**Severity**: HIGH  
-**Detection**: Post-execution analysis  
+**Document Created**: 2025-11-25 19:05:37 UTC
+**Pattern ID**: ANTI_PATTERN_11
+**Severity**: HIGH
+**Detection**: Post-execution analysis
 **Prevention**: Cleanup enforcement + usage verification

@@ -1,6 +1,6 @@
 # Module: aim_tools
 
-**Phase**: 4  
+**Phase**: 4
 **Purpose**: AI tool capability matching and selection
 
 ## Structure

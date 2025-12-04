@@ -1,6 +1,6 @@
 # Module: bootstrap_orchestrator
 
-**Phase**: 0  
+**Phase**: 0
 **Purpose**: Detect repo, pick profile, validate baseline
 
 ## Structure

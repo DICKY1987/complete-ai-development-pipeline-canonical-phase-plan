@@ -6,15 +6,15 @@ entry_points:
   - file: "orchestrator.py"
     function: "Orchestrator"
     description: "Main orchestration engine - manages runs, coordinates scheduler/router/state machine"
-  
+
   - file: "scheduler.py"
     function: "Scheduler"
     description: "Dependency resolution and task scheduling from workstream DAGs"
-  
+
   - file: "router.py"
     function: "Router"
     description: "Task-to-tool routing based on capability matching"
-  
+
   - file: "state_machine.py"
     function: "StateMachine"
     description: "Run state transitions (pending → running → complete/failed)"
@@ -34,13 +34,13 @@ common_tasks:
       orch = Orchestrator(db_path=".worktrees/pipeline_state.db")
       run_id = orch.start_run(workstreams, router_config)
     approach: "Create Orchestrator, call start_run() with workstream specs"
-  
+
   - task: "Check run status"
     code: |
       status = orch.get_run_status(run_id)
       # Returns: pending, running, complete, failed
     approach: "Query state machine via get_run_status()"
-  
+
   - task: "Resume paused run"
     code: |
       orch.resume_run(run_id)

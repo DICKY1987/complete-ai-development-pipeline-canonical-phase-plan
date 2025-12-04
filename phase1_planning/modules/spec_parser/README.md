@@ -1,6 +1,6 @@
 # Module: spec_parser
 
-**Phase**: 1  
+**Phase**: 1
 **Purpose**: Parse OpenSpec files into structured format
 
 ## Structure

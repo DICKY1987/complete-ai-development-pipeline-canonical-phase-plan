@@ -21,89 +21,89 @@ graph TB
         GUI[GUI Dashboard]
         API[REST API]
     end
-    
+
     subgraph "Core Engine"
         Orchestrator[Workstream Orchestrator]
         Scheduler[Step Scheduler]
         Executor[Step Executor]
         StateManager[State Manager]
     end
-    
+
     subgraph "State & Persistence"
         DB[(SQLite Database)]
         Checkpoints[Checkpoint Manager]
         Worktrees[Git Worktrees]
     end
-    
+
     subgraph "Error Detection & Recovery"
         ErrorEngine[Error Engine]
         PluginManager[Plugin Manager]
         CircuitBreaker[Circuit Breaker]
         RetryLogic[Retry Manager]
     end
-    
+
     subgraph "Specification Management"
         SpecIndex[Spec Index]
         SpecResolver[Spec Resolver]
         OpenSpecParser[OpenSpec Parser]
         ChangeProposals[Change Proposals]
     end
-    
+
     subgraph "Tool Adapters"
         AiderAdapter[Aider Adapter]
         CodexAdapter[Codex Adapter]
         CustomAdapter[Custom Tool Adapter]
         ToolRegistry[Tool Registry]
     end
-    
+
     subgraph "External Services"
         Git[Git]
         Aider[Aider CLI]
         OpenAI[OpenAI API]
         CCPM[CCPM/PM Tools]
     end
-    
+
     %% User Layer Connections
     CLI --> Orchestrator
     GUI --> Orchestrator
     API --> Orchestrator
-    
+
     %% Core Engine Flow
     Orchestrator --> Scheduler
     Scheduler --> Executor
     Executor --> StateManager
     StateManager --> DB
-    
+
     %% Checkpoint Integration
     Orchestrator --> Checkpoints
     Checkpoints --> Worktrees
     Checkpoints --> DB
-    
+
     %% Error Detection Flow
     Executor --> ErrorEngine
     ErrorEngine --> PluginManager
     ErrorEngine --> CircuitBreaker
     CircuitBreaker --> RetryLogic
     RetryLogic --> Executor
-    
+
     %% Specification Integration
     Orchestrator --> OpenSpecParser
     OpenSpecParser --> SpecIndex
     SpecIndex --> SpecResolver
     SpecResolver --> ChangeProposals
-    
+
     %% Tool Adapter Flow
     Executor --> ToolRegistry
     ToolRegistry --> AiderAdapter
     ToolRegistry --> CodexAdapter
     ToolRegistry --> CustomAdapter
-    
+
     %% External Service Connections
     AiderAdapter --> Aider
     CodexAdapter --> OpenAI
     Worktrees --> Git
     ChangeProposals --> CCPM
-    
+
     %% Styling
     classDef userLayer fill:#e1f5ff,stroke:#01579b,stroke-width:2px
     classDef coreEngine fill:#fff3e0,stroke:#e65100,stroke-width:2px
@@ -112,7 +112,7 @@ graph TB
     classDef specifications fill:#e8f5e9,stroke:#1b5e20,stroke-width:2px
     classDef toolAdapters fill:#fff9c4,stroke:#f57f17,stroke-width:2px
     classDef external fill:#eeeeee,stroke:#424242,stroke-width:2px
-    
+
     class CLI,GUI,API userLayer
     class Orchestrator,Scheduler,Executor,StateManager coreEngine
     class DB,Checkpoints,Worktrees persistence
@@ -316,24 +316,24 @@ sequenceDiagram
     participant Executor
     participant ToolAdapter
     participant DB
-    
+
     User->>Orchestrator: Run workstream
     Orchestrator->>DB: Load workstream definition
     DB-->>Orchestrator: Workstream JSON
-    
+
     Orchestrator->>Scheduler: Build execution plan
     Scheduler->>Scheduler: Resolve dependencies (DAG)
     Scheduler-->>Orchestrator: Execution order
-    
+
     loop For each step
         Orchestrator->>Executor: Execute step
         Executor->>ToolAdapter: Invoke tool
         ToolAdapter->>ToolAdapter: Run Aider/Codex/etc
         ToolAdapter-->>Executor: Tool output
-        
+
         Executor->>Executor: Validate output
         Executor->>DB: Save step result
-        
+
         alt Success
             Executor-->>Orchestrator: Step complete
         else Failure
@@ -346,7 +346,7 @@ sequenceDiagram
             end
         end
     end
-    
+
     Orchestrator->>DB: Mark workstream complete
     Orchestrator-->>User: Execution summary
 ```
@@ -360,26 +360,26 @@ graph LR
     StepExecution[Step Execution] --> CheckError{Error?}
     CheckError -->|No| Success[Mark Success]
     CheckError -->|Yes| ErrorEngine[Error Engine]
-    
+
     ErrorEngine --> PluginAnalysis[Plugin Analysis]
     PluginAnalysis --> ErrorType{Error Type}
-    
+
     ErrorType -->|Transient| CheckCircuit{Circuit Breaker}
     ErrorType -->|Permanent| Fail[Mark Failed]
-    
+
     CheckCircuit -->|Closed| Retry[Retry with Backoff]
     CheckCircuit -->|Open| FastFail[Fast Fail]
     CheckCircuit -->|Half-Open| TestRetry[Test Retry]
-    
+
     Retry --> StepExecution
     TestRetry --> StepExecution
-    
+
     FastFail --> WaitCooldown[Wait Cooldown]
     WaitCooldown --> CheckCircuit
-    
+
     Success --> NextStep[Next Step]
     Fail --> Compensation[Run Compensations]
-    
+
     style Success fill:#4caf50,stroke:#2e7d32,color:#fff
     style Fail fill:#f44336,stroke:#c62828,color:#fff
     style Retry fill:#ff9800,stroke:#e65100,color:#fff
@@ -396,34 +396,34 @@ graph TB
         DevWorktrees[Local Worktrees]
         DevDB[(Local SQLite)]
     end
-    
+
     subgraph "CI/CD Environment"
         CICD[CI/CD Pipeline]
         TestWorktrees[Test Worktrees]
         TestDB[(Test Database)]
     end
-    
+
     subgraph "Production Environment"
         ProdAPI[Production API]
         ProdGUI[Production GUI]
         ProdDB[(Production DB)]
         ProdWorktrees[Production Worktrees]
     end
-    
+
     DevCLI --> DevWorktrees
     DevCLI --> DevDB
-    
+
     CICD --> TestWorktrees
     CICD --> TestDB
-    
+
     ProdAPI --> ProdDB
     ProdAPI --> ProdWorktrees
     ProdGUI --> ProdDB
     ProdGUI --> ProdWorktrees
-    
+
     DevCLI -.->|Push| CICD
     CICD -.->|Deploy| ProdAPI
-    
+
     style DevCLI fill:#e3f2fd
     style CICD fill:#fff3e0
     style ProdAPI fill:#e8f5e9
@@ -518,6 +518,6 @@ Repository Root
 
 ---
 
-**Last Updated**: 2025-11-22  
-**Maintainer**: Architecture Team  
+**Last Updated**: 2025-11-22
+**Maintainer**: Architecture Team
 **Auto-Validation**: `python scripts/validate_diagrams.py`

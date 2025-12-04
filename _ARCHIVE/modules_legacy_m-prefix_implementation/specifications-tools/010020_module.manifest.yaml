@@ -30,7 +30,7 @@ artifacts:
     - path: "010020_resolver.py"
       ulid: "01002000000000000000000004"
       entry_point: false
-  
+
   tests: []
   schemas: []
   docs:

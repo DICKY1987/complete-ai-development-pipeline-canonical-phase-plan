@@ -31,11 +31,11 @@ class PromptEngine:
     """
     Enhanced prompt generation with WORKSTREAM_V1.1 templates
     """
-    
+
     def __init__(self, template_dir: str = "aider/templates/prompts"):
         self.template_dir = Path(template_dir)
         self.template_dir.mkdir(parents=True, exist_ok=True)
-        
+
         # Initialize Jinja2 environment
         self.env = Environment(
             loader=FileSystemLoader(str(self.template_dir)),
@@ -43,7 +43,7 @@ class PromptEngine:
             trim_blocks=True,
             lstrip_blocks=True
         )
-    
+
     def render_v11(
         self,
         bundle: Dict[str, Any],
@@ -51,23 +51,23 @@ class PromptEngine:
     ) -> str:
         """
         Render WORKSTREAM_V1.1 prompt from bundle
-        
+
         Args:
             bundle: Workstream bundle dictionary
             context: Prompt rendering context
-            
+
         Returns:
             Rendered prompt as ASCII-only string
         """
         # 1. Infer classification if not explicit
         classification = self._infer_classification(bundle)
-        
+
         # 2. Infer role/persona
         role = self._infer_role(classification)
-        
+
         # 3. Select template variant
         template_name = self._select_template(context.target_app)
-        
+
         # 4. Prepare template variables
         template_vars = {
             'bundle': bundle,
@@ -85,25 +85,25 @@ class PromptEngine:
             'tool': bundle.get('tool', 'aider'),
             'metadata': bundle.get('metadata', {})
         }
-        
+
         # 5. Render template
         try:
             template = self.env.get_template(template_name)
             rendered = template.render(**template_vars)
-            
+
             # Ensure ASCII-only
             return rendered.encode('ascii', errors='replace').decode('ascii')
         except Exception as e:
             # Fallback to basic rendering if template not found
             return self._render_fallback(bundle, context, classification, role)
-    
+
     def _infer_classification(self, bundle: Dict[str, Any]) -> Classification:
         """
         Infer classification from bundle metadata
-        
+
         Args:
             bundle: Workstream bundle
-            
+
         Returns:
             Classification object
         """
@@ -117,11 +117,11 @@ class PromptEngine:
                 domain=c.get('domain', 'code'),
                 operation=c.get('operation', 'refactor')
             )
-        
+
         # Infer from bundle properties
         file_count = len(bundle.get('files_scope', []))
         task_count = len(bundle.get('tasks', []))
-        
+
         # Infer complexity
         if file_count <= 2 and task_count <= 3:
             complexity = 'simple'
@@ -131,10 +131,10 @@ class PromptEngine:
             complexity = 'complex'
         else:
             complexity = 'enterprise'
-        
+
         # Infer quality
         quality = 'production' if bundle.get('gate', 1) >= 2 else 'standard'
-        
+
         # Infer domain from file extensions
         files = bundle.get('files_scope', [])
         if any('.md' in f for f in files):
@@ -143,7 +143,7 @@ class PromptEngine:
             domain = 'tests'
         else:
             domain = 'code'
-        
+
         # Infer operation from tasks
         tasks_text = ' '.join(bundle.get('tasks', [])).lower()
         if 'refactor' in tasks_text:
@@ -154,21 +154,21 @@ class PromptEngine:
             operation = 'analysis_only'
         else:
             operation = 'feature'
-        
+
         return Classification(
             complexity=complexity,
             quality=quality,
             domain=domain,
             operation=operation
         )
-    
+
     def _infer_role(self, classification: Classification) -> str:
         """
         Infer role/persona from classification
-        
+
         Args:
             classification: Classification object
-            
+
         Returns:
             Role/persona string
         """
@@ -178,32 +178,32 @@ class PromptEngine:
             'tests': 'QA Engineer',
             'analysis': 'Code Reviewer'
         }.get(classification.domain, 'Software Engineer')
-        
+
         experience = {
             'simple': '',
             'moderate': 'experienced',
             'complex': 'Senior',
             'enterprise': 'Principal'
         }.get(classification.complexity, '')
-        
+
         specialization = {
             'refactor': 'specializing in code refactoring',
             'bugfix': 'specializing in debugging',
             'feature': 'specializing in feature development',
             'analysis_only': 'focused on code analysis'
         }.get(classification.operation, '')
-        
+
         # Combine parts
         parts = [p for p in [experience, base_role, specialization] if p]
         return ' '.join(parts)
-    
+
     def _select_template(self, target_app: str) -> str:
         """
         Select template variant based on target app
-        
+
         Args:
             target_app: Target application (aider|codex|claude|universal)
-            
+
         Returns:
             Template filename
         """
@@ -213,9 +213,9 @@ class PromptEngine:
             'claude': 'workstream_v1.1_universal.txt.j2',  # Use universal for claude
             'universal': 'workstream_v1.1_universal.txt.j2'
         }
-        
+
         return template_map.get(target_app.lower(), 'workstream_v1.1_universal.txt.j2')
-    
+
     def _render_fallback(
         self,
         bundle: Dict[str, Any],
@@ -225,13 +225,13 @@ class PromptEngine:
     ) -> str:
         """
         Fallback rendering when templates are not available
-        
+
         Args:
             bundle: Workstream bundle
             context: Prompt context
             classification: Inferred classification
             role: Inferred role
-            
+
         Returns:
             Basic rendered prompt
         """
@@ -249,36 +249,36 @@ class PromptEngine:
             "",
             "FILE SCOPE:",
         ]
-        
+
         for f in bundle.get('files_scope', []):
             lines.append(f"  - {f}")
-        
+
         if bundle.get('files_create'):
             lines.append("")
             lines.append("FILES TO CREATE:")
             for f in bundle.get('files_create', []):
                 lines.append(f"  - {f}")
-        
+
         lines.append("")
         lines.append("TASKS:")
         for i, task in enumerate(bundle.get('tasks', []), 1):
             lines.append(f"{i}. {task}")
-        
+
         if bundle.get('acceptance_tests'):
             lines.append("")
             lines.append("ACCEPTANCE TESTS:")
             for test in bundle.get('acceptance_tests', []):
                 lines.append(f"  - {test}")
-        
+
         lines.append("")
         lines.append("CONSTRAINTS:")
         lines.append("- Modify only files within the declared scope")
         lines.append("- Keep changes minimal and focused")
         lines.append("- Ensure all tests pass")
-        
+
         lines.append("")
         lines.append("=" * 80)
-        
+
         result = '\n'.join(lines)
         # Ensure ASCII-only
         return result.encode('ascii', errors='replace').decode('ascii')

@@ -49,7 +49,7 @@ $varsUsed = @()
 foreach ($varName in $variables.PSObject.Properties.Name) {
     $varValue = $variables.$varName
     $placeholder = "{$varName}"
-    
+
     if ($content -match [regex]::Escape($placeholder)) {
         $content = $content -replace [regex]::Escape($placeholder), $varValue
         $varsUsed += $varName
@@ -68,22 +68,22 @@ try {
     if ($outputDir -and -not (Test-Path $outputDir)) {
         New-Item -ItemType Directory -Path $outputDir -Force | Out-Null
     }
-    
+
     Set-Content -Path $tempPath -Value $content -Encoding UTF8
-    
+
     # Atomic move
     if (Test-Path $outputPath) {
         Remove-Item $outputPath -Force
     }
     Move-Item $tempPath $outputPath -Force
-    
+
     Write-PatternLog "File created atomically: $outputPath" "SUCCESS"
-    
+
     $result = New-PatternResult -Success $true -Message "Template file created successfully" -Data @{
         file_created = $outputPath
         template_vars_used = $varsUsed
     }
-    
+
 } catch {
     # Cleanup temp file on error
     if (Test-Path $tempPath) {

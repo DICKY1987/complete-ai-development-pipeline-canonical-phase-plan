@@ -57,10 +57,10 @@ class ESLintPlugin:
                         rule_id = msg.get("ruleId")
                         message_text = msg.get("message")
                         severity_num = msg.get("severity", 1)
-                        
+
                         # Map severity: 2→error, 1→warning
                         severity = "error" if severity_num == 2 else "warning"
-                        
+
                         issues.append(
                             PluginIssue(
                                 tool="eslint",

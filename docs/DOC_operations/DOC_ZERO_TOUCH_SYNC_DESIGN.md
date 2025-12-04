@@ -177,7 +177,7 @@ $watcher = New-Object System.IO.FileSystemWatcher
 $watcher.Path = $RepoPath
 $watcher.Filter = "*.*"
 $watcher.IncludeSubdirectories = $true
-$watcher.NotifyFilter = [System.IO.NotifyFilters]::LastWrite -bor 
+$watcher.NotifyFilter = [System.IO.NotifyFilters]::LastWrite -bor
                         [System.IO.NotifyFilters]::FileName
 
 $watcher.Changed += {
@@ -186,9 +186,9 @@ $watcher.Changed += {
 
 # Commit loop (every 30s if changes exist)
 while ($true) {
-    if ($pendingChanges.Count -gt 0 -and 
+    if ($pendingChanges.Count -gt 0 -and
         ((Get-Date) - $lastCommit).TotalSeconds -ge $CommitInterval) {
-        
+
         Push-Location $RepoPath
         git add -A
         git commit -m "Auto-sync: $($pendingChanges.Count) files updated"
@@ -196,26 +196,26 @@ while ($true) {
         $script:pendingChanges = @()
         Pop-Location
     }
-    
+
     # Sync loop (every 60s)
     if (((Get-Date) - $lastSync).TotalSeconds -ge $SyncInterval) {
         Push-Location $RepoPath
-        
+
         # Push local commits
         git push origin main 2>$null
-        
+
         # Pull remote changes
         $pullResult = git pull origin main --no-edit 2>&1
-        
+
         if ($pullResult -match "CONFLICT") {
             # Show notification
             Show-BalloonTip -Title "Git Conflict" -Message "Manual merge required"
         }
-        
+
         $script:lastSync = Get-Date
         Pop-Location
     }
-    
+
     Start-Sleep -Seconds 5
 }
 ```
@@ -265,7 +265,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      
+
       - name: Check for long-running branches
         run: |
           # Find branches not merged in 24 hours
@@ -274,7 +274,7 @@ jobs:
           while read branch; do
             echo "::warning::Branch $branch has not been merged in over 24h"
           done
-      
+
       - name: Auto-merge safe branches
         run: |
           # Only auto-merge branches with "auto-sync:" prefix

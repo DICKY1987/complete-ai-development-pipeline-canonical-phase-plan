@@ -4,9 +4,9 @@ doc_id: DOC-GUIDE-README-220
 
 # Aider Integration Module
 
-> **Module**: `aider`  
-> **Purpose**: Aider AI coding tool integration and prompt management  
-> **Layer**: Adapter/Integration  
+> **Module**: `aider`
+> **Purpose**: Aider AI coding tool integration and prompt management
+> **Layer**: Adapter/Integration
 > **Status**: Production
 
 ---

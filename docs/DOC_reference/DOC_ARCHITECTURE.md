@@ -8,8 +8,8 @@ doc_id: DOC-GUIDE-ARCHITECTURE-076
 
 # Architecture Overview
 
-**Last Updated**: 2025-11-19  
-**Phase**: Post-Phase E Refactor  
+**Last Updated**: 2025-11-19
+**Phase**: Post-Phase E Refactor
 
 This repository implements a multi-phase AI development pipeline with section-based organization. The codebase was refactored in Phase E to organize functionality by domain (core, error, aim, pm, spec) rather than a flat structure.
 
@@ -302,8 +302,8 @@ from core.state.db import *  # noqa: F401, F403
 
 ---
 
-**Architecture Version**: 2.0 (Post-Phase E Refactor)  
-**Last Major Change**: Phase E - Section-based reorganization  
+**Architecture Version**: 2.0 (Post-Phase E Refactor)
+**Last Major Change**: Phase E - Section-based reorganization
 **Migration Status**: Shims active, CI enforcement enabled
   - Profiles live in `config/tool_profiles.json` and include core tools:
     `pytest`, `psscriptanalyzer`, and recommended linters/formatters

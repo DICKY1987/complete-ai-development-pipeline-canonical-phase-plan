@@ -136,7 +136,7 @@ terms:
     action: update
     field: definition
     value: "Universally Unique Lexicographically Sortable Identifier. 26-character ID with 6-char prefix used for module identity. All artifacts in a module share the same 6-char prefix (e.g., 010003 for core-state)."
-  
+
   - term_id: TERM-FRAME-002
     action: add
     field: module_usage
@@ -301,7 +301,7 @@ terms:
               010021_jsonl_manager.py
               010021_security.py
               010021_module.manifest.yaml
-            
+
             # Used by error plugins
             dependencies:
               modules: ["error-shared"]

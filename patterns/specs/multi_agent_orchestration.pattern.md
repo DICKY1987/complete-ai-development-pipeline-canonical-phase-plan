@@ -4,17 +4,17 @@ doc_id: DOC-PAT-MULTI-AGENT-ORCHESTRATION-PATTERN-863
 
 # Multi-Agent Orchestration Pattern for Workstream Execution
 
-**Pattern ID**: PAT-MULTI-AGENT-ORCHESTRATE-001  
-**Purpose**: Automate parallel execution of workstreams across multiple AI agents  
-**Supports**: 1-6 agents with intelligent work distribution  
+**Pattern ID**: PAT-MULTI-AGENT-ORCHESTRATE-001
+**Purpose**: Automate parallel execution of workstreams across multiple AI agents
+**Supports**: 1-6 agents with intelligent work distribution
 
 ---
 
 ## Problem Statement
 
-**Current state**: 39 workstreams with complex dependencies  
-**Manual approach**: Sequential execution by 1 agent = 3-4 weeks  
-**Goal**: Automate parallel execution with 3 agents = 1-2 weeks  
+**Current state**: 39 workstreams with complex dependencies
+**Manual approach**: Sequential execution by 1 agent = 3-4 weeks
+**Goal**: Automate parallel execution with 3 agents = 1-2 weeks
 
 **Challenges**:
 1. Dependency management (can't start WS-06 before WS-03 completes)
@@ -70,53 +70,53 @@ import networkx as nx
 
 class WorkstreamGraph:
     """Build and analyze workstream dependency graph"""
-    
+
     def __init__(self, workstreams_dir: Path):
         self.workstreams_dir = workstreams_dir
         self.graph = nx.DiGraph()
         self._load_workstreams()
-    
+
     def _load_workstreams(self):
         """Load all workstream JSON files and build graph"""
         for ws_file in self.workstreams_dir.glob("ws-*.json"):
             with open(ws_file) as f:
                 ws = json.load(f)
-                
+
             ws_id = ws["id"]
             depends_on = ws.get("depends_on", [])
-            
+
             # Add node
             self.graph.add_node(ws_id, **ws)
-            
+
             # Add edges (dependency → workstream)
             for dep in depends_on:
                 self.graph.add_edge(dep, ws_id)
-    
+
     def get_ready_workstreams(self, completed: Set[str]) -> List[str]:
         """Get workstreams ready to execute (all dependencies met)"""
         ready = []
         for ws_id in self.graph.nodes():
             if ws_id in completed:
                 continue
-            
+
             # Check if all dependencies are completed
             deps = list(self.graph.predecessors(ws_id))
             if all(dep in completed for dep in deps):
                 ready.append(ws_id)
-        
+
         return ready
-    
+
     def get_independent_workstreams(self) -> List[str]:
         """Get workstreams with no dependencies"""
         return [
             ws_id for ws_id in self.graph.nodes()
             if self.graph.in_degree(ws_id) == 0
         ]
-    
+
     def get_workstream_data(self, ws_id: str) -> Dict:
         """Get workstream metadata"""
         return self.graph.nodes[ws_id]
-    
+
     def topological_sort(self) -> List[str]:
         """Get topologically sorted workstream order"""
         return list(nx.topological_sort(self.graph))
@@ -151,7 +151,7 @@ class Agent:
 
 class AgentPool:
     """Manage pool of AI agents"""
-    
+
     def __init__(self, agent_configs: List[Dict]):
         self.agents = [
             Agent(
@@ -161,7 +161,7 @@ class AgentPool:
             )
             for cfg in agent_configs
         ]
-    
+
     def get_available_agent(self, track: Optional[str] = None) -> Optional[Agent]:
         """Get first available agent, optionally for specific track"""
         for agent in self.agents:
@@ -169,45 +169,45 @@ class AgentPool:
                 if track is None or agent.assigned_track == track:
                     return agent
         return None
-    
+
     def assign_workstream(self, agent: Agent, workstream_id: str, track: str):
         """Assign workstream to agent"""
         agent.status = "busy"
         agent.current_workstream = workstream_id
         agent.assigned_track = track
-    
+
     def release_agent(self, agent: Agent):
         """Mark agent as available"""
         agent.status = "idle"
         agent.current_workstream = None
-    
+
     async def execute_workstream(
-        self, 
-        agent: Agent, 
+        self,
+        agent: Agent,
         workstream_id: str,
         workstream_data: Dict
     ) -> Dict:
         """Execute workstream using specified agent"""
-        
+
         # Build command based on agent type and workstream tool
         tool = workstream_data.get("tool", "aider")
-        
+
         if tool == "aider":
             cmd = self._build_aider_command(workstream_id, workstream_data)
         elif tool == "codex":
             cmd = self._build_codex_command(workstream_id, workstream_data)
         else:
             cmd = self._build_generic_command(workstream_id, workstream_data)
-        
+
         # Execute asynchronously
         proc = await asyncio.create_subprocess_shell(
             cmd,
             stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.PIPE
         )
-        
+
         stdout, stderr = await proc.communicate()
-        
+
         return {
             "workstream_id": workstream_id,
             "agent_id": agent.id,
@@ -216,12 +216,12 @@ class AgentPool:
             "stderr": stderr.decode(),
             "success": proc.returncode == 0
         }
-    
+
     def _build_aider_command(self, ws_id: str, ws_data: Dict) -> str:
         """Build aider command for workstream"""
         files = " ".join(ws_data.get("files_scope", []))
         tasks = "\n".join(ws_data.get("tasks", []))
-        
+
         return f"""
         aider {files} \\
           --message "{tasks}" \\
@@ -229,12 +229,12 @@ class AgentPool:
           --auto-commits \\
           --edit-format whole
         """
-    
+
     def _build_codex_command(self, ws_id: str, ws_data: Dict) -> str:
         """Build codex command for workstream"""
         # Assuming codex CLI similar to aider
         return f"codex execute --workstream {ws_id}"
-    
+
     def _build_generic_command(self, ws_id: str, ws_data: Dict) -> str:
         """Build generic execution command"""
         return f"python scripts/execute_workstream.py {ws_id}"
@@ -253,11 +253,11 @@ from pathlib import Path
 
 class StateManager:
     """Manage workstream execution state in SQLite"""
-    
+
     def __init__(self, db_path: Path):
         self.db_path = db_path
         self._init_db()
-    
+
     def _init_db(self):
         """Initialize database schema"""
         conn = sqlite3.connect(self.db_path)
@@ -286,24 +286,24 @@ class StateManager:
         """)
         conn.commit()
         conn.close()
-    
+
     def mark_started(self, ws_id: str, agent_id: str, track: str):
         """Mark workstream as started"""
         conn = sqlite3.connect(self.db_path)
         conn.execute("""
-            INSERT OR REPLACE INTO workstream_status 
+            INSERT OR REPLACE INTO workstream_status
             (workstream_id, status, agent_id, track, started_at)
             VALUES (?, 'running', ?, ?, ?)
         """, (ws_id, agent_id, track, datetime.now().isoformat()))
-        
+
         conn.execute("""
             INSERT INTO execution_log (timestamp, workstream_id, agent_id, event_type)
             VALUES (?, ?, ?, 'started')
         """, (datetime.now().isoformat(), ws_id, agent_id))
-        
+
         conn.commit()
         conn.close()
-    
+
     def mark_completed(self, ws_id: str, exit_code: int):
         """Mark workstream as completed"""
         status = "completed" if exit_code == 0 else "failed"
@@ -313,37 +313,37 @@ class StateManager:
             SET status = ?, completed_at = ?, exit_code = ?
             WHERE workstream_id = ?
         """, (status, datetime.now().isoformat(), exit_code, ws_id))
-        
+
         conn.execute("""
             INSERT INTO execution_log (timestamp, workstream_id, event_type)
             VALUES (?, ?, ?)
         """, (datetime.now().isoformat(), ws_id, status))
-        
+
         conn.commit()
         conn.close()
-    
+
     def get_completed_workstreams(self) -> Set[str]:
         """Get set of completed workstream IDs"""
         conn = sqlite3.connect(self.db_path)
         cur = conn.execute("""
-            SELECT workstream_id FROM workstream_status 
+            SELECT workstream_id FROM workstream_status
             WHERE status = 'completed'
         """)
         completed = {row[0] for row in cur.fetchall()}
         conn.close()
         return completed
-    
+
     def get_failed_workstreams(self) -> List[str]:
         """Get list of failed workstream IDs"""
         conn = sqlite3.connect(self.db_path)
         cur = conn.execute("""
-            SELECT workstream_id FROM workstream_status 
+            SELECT workstream_id FROM workstream_status
             WHERE status = 'failed' AND attempt < 3
         """)
         failed = [row[0] for row in cur.fetchall()]
         conn.close()
         return failed
-    
+
     def increment_attempt(self, ws_id: str):
         """Increment retry attempt counter"""
         conn = sqlite3.connect(self.db_path)
@@ -379,7 +379,7 @@ logging.basicConfig(
 
 class MultiAgentOrchestrator:
     """Main orchestrator for multi-agent workstream execution"""
-    
+
     def __init__(
         self,
         workstreams_dir: Path,
@@ -391,102 +391,102 @@ class MultiAgentOrchestrator:
         self.state = StateManager(state_db)
         self.agents = AgentPool(agent_configs)
         self.track_assignments = track_assignments
-    
+
     async def execute_all(self):
         """Execute all workstreams with dependency management"""
-        
+
         logging.info("Starting multi-agent orchestration")
         logging.info(f"Total workstreams: {len(self.graph.graph.nodes())}")
         logging.info(f"Available agents: {len(self.agents.agents)}")
-        
+
         # Main execution loop
         while True:
             completed = self.state.get_completed_workstreams()
             ready = self.graph.get_ready_workstreams(completed)
-            
+
             if not ready:
                 # Check if all done
                 total = len(self.graph.graph.nodes())
                 if len(completed) >= total:
                     logging.info("All workstreams completed!")
                     break
-                
+
                 # Wait for running workstreams to complete
                 logging.info("Waiting for dependencies to complete...")
                 await asyncio.sleep(10)
                 continue
-            
+
             # Assign ready workstreams to available agents
             tasks = []
             for ws_id in ready:
                 # Determine track for this workstream
                 track = self._get_track_for_workstream(ws_id)
-                
+
                 # Get available agent for this track
                 agent = self.agents.get_available_agent(track)
                 if not agent:
                     continue  # No agents available for this track
-                
+
                 # Assign and execute
                 ws_data = self.graph.get_workstream_data(ws_id)
                 self.agents.assign_workstream(agent, ws_id, track)
                 self.state.mark_started(ws_id, agent.id, track)
-                
+
                 # Create async task
                 task = self._execute_workstream_async(agent, ws_id, ws_data)
                 tasks.append(task)
-            
+
             if not tasks:
                 # No agents available, wait
                 await asyncio.sleep(5)
                 continue
-            
+
             # Execute tasks in parallel
             results = await asyncio.gather(*tasks, return_exceptions=True)
-            
+
             # Process results
             for result in results:
                 if isinstance(result, Exception):
                     logging.error(f"Execution error: {result}")
                     continue
-                
+
                 ws_id = result["workstream_id"]
                 agent_id = result["agent_id"]
                 success = result["success"]
-                
+
                 # Update state
                 self.state.mark_completed(ws_id, result["exit_code"])
-                
+
                 # Release agent
                 agent = next(a for a in self.agents.agents if a.id == agent_id)
                 self.agents.release_agent(agent)
-                
+
                 if success:
                     logging.info(f"✅ {ws_id} completed by {agent_id}")
                 else:
                     logging.error(f"❌ {ws_id} failed by {agent_id}")
-        
+
         # Generate final report
         self._generate_report()
-    
+
     async def _execute_workstream_async(self, agent, ws_id, ws_data):
         """Execute workstream asynchronously"""
         logging.info(f"🚀 Starting {ws_id} on {agent.id}")
         result = await self.agents.execute_workstream(agent, ws_id, ws_data)
         return result
-    
+
     def _get_track_for_workstream(self, ws_id: str) -> str:
         """Determine which track this workstream belongs to"""
         for track, ws_list in self.track_assignments.items():
             if ws_id in ws_list:
                 return track
         return "default"
-    
+
     def _generate_report(self):
         """Generate execution report"""
         completed = self.state.get_completed_workstreams()
         failed = self.state.get_failed_workstreams()
-        
+
         report = f"""
 # Multi-Agent Execution Report
 
@@ -502,7 +502,7 @@ class MultiAgentOrchestrator:
 ## Failed Workstreams
 {chr(10).join(f"- ❌ {ws}" for ws in sorted(failed))}
 """
-        
+
         Path("reports/multi_agent_execution_report.md").write_text(report)
         logging.info(f"\n{report}")
 
@@ -515,29 +515,29 @@ async def main():
         {"id": "agent-2", "type": "aider"},
         {"id": "agent-3", "type": "aider"},
     ]
-    
+
     track_assignments = {
         "pipeline_plus": [
-            "ws-22", "ws-23", "ws-24", "ws-25", 
+            "ws-22", "ws-23", "ws-24", "ws-25",
             "ws-26", "ws-27", "ws-28", "ws-29", "ws-30"
         ],
         "core_refactor": [
-            "ws-03", "ws-04", "ws-05", "ws-06", 
+            "ws-03", "ws-04", "ws-05", "ws-06",
             "ws-07", "ws-08", "ws-09"
         ],
         "error_engine": [
-            "ws-12", "ws-13", "ws-14", "ws-15", 
+            "ws-12", "ws-13", "ws-14", "ws-15",
             "ws-16", "ws-17"
         ]
     }
-    
+
     orchestrator = MultiAgentOrchestrator(
         workstreams_dir=Path("workstreams"),
         state_db=Path(".state/orchestration.db"),
         agent_configs=agent_configs,
         track_assignments=track_assignments
     )
-    
+
     await orchestrator.execute_all()
 
 
@@ -559,12 +559,12 @@ agents:
     type: aider
     track: pipeline_plus
     priority: critical
-    
+
   - id: agent-2
     type: aider
     track: core_refactor
     priority: high
-    
+
   - id: agent-3
     type: aider
     track: error_engine
@@ -611,10 +611,10 @@ python scripts/generate_orchestration_report.py
 # Enhanced orchestrator using existing patterns
 
 class PatternBasedOrchestrator(MultiAgentOrchestrator):
-    
+
     async def _execute_workstream_async(self, agent, ws_id, ws_data):
         """Execute using registered patterns instead of raw commands"""
-        
+
         # Determine pattern based on workstream type
         if ws_id.startswith("ws-22"):  # Schema creation
             pattern_id = "PAT-ATOMIC-CREATE-001"
@@ -622,18 +622,18 @@ class PatternBasedOrchestrator(MultiAgentOrchestrator):
             pattern_id = "PAT-MODULE-REFACTOR-MIGRATE-003"
         else:
             pattern_id = "PAT-GENERIC-WORKSTREAM-001"
-        
+
         # Execute pattern
         cmd = f"execute-pattern {pattern_id} --workstream {ws_id}"
-        
+
         proc = await asyncio.create_subprocess_shell(
             cmd,
             stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.PIPE
         )
-        
+
         stdout, stderr = await proc.communicate()
-        
+
         return {
             "workstream_id": ws_id,
             "agent_id": agent.id,
@@ -684,21 +684,21 @@ if not success:
 ```python
 def assign_tracks_optimally(graph: WorkstreamGraph, num_agents: int):
     """Assign tracks to agents to minimize total time"""
-    
+
     # Calculate critical path for each track
     tracks = {
         "pipeline_plus": calculate_critical_path(graph, track_workstreams),
         "core_refactor": calculate_critical_path(graph, track_workstreams),
         "error_engine": calculate_critical_path(graph, track_workstreams)
     }
-    
+
     # Assign longest critical path to dedicated agent
     sorted_tracks = sorted(tracks.items(), key=lambda x: x[1], reverse=True)
-    
+
     assignments = {}
     for i, (track, _) in enumerate(sorted_tracks[:num_agents]):
         assignments[f"agent-{i+1}"] = track
-    
+
     return assignments
 ```
 
@@ -739,6 +739,6 @@ def assign_tracks_optimally(graph: WorkstreamGraph, num_agents: int):
 
 ---
 
-**Pattern Status**: Ready for implementation  
-**Estimated Implementation Time**: 4-6 hours  
+**Pattern Status**: Ready for implementation
+**Estimated Implementation Time**: 4-6 hours
 **Expected ROI**: 2-3x faster execution with 3 agents

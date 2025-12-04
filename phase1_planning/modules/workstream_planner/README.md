@@ -1,6 +1,6 @@
 # Module: workstream_planner
 
-**Phase**: 1  
+**Phase**: 1
 **Purpose**: Convert specifications into executable workstreams
 
 ## Structure

@@ -25,7 +25,7 @@ intent: |
   Run comprehensive validation suite to verify system works end-to-end
   after making changes. Tests integration points, validates data, and
   confirms functionality.
-  
+
   This pattern enforces:
   - Systematic validation checklist
   - Automated test execution
@@ -42,7 +42,7 @@ applicability:
     - Unit testing individual functions (use test pattern)
     - Performance benchmarking (use perf pattern)
     - Security auditing (use security pattern)
-  
+
   constraints:
     must_have_rollback: true
     clear_success_criteria: true
@@ -54,19 +54,19 @@ inputs:
     required: true
     description: "Name of validation suite"
     example: "pattern_automation_activation"
-  
+
   validation_type:
     type: "string"
     required: true
     enum: ["integration", "smoke", "regression", "activation"]
     default: "integration"
-  
+
   test_script_path:
     type: "string"
     required: true
     description: "Path where validation script will be created"
     example: "automation/tests/test_activation.ps1"
-  
+
   checks:
     type: "array"
     required: true
@@ -97,13 +97,13 @@ inputs:
         cleanup:
           type: "string"
           description: "Optional cleanup after check"
-  
+
   demo_script_path:
     type: "string"
     required: false
     description: "Optional demo script to create"
     example: "automation/tests/demo_pattern_detection.ps1"
-  
+
   demo_scenario:
     type: "object"
     required: false
@@ -117,7 +117,7 @@ inputs:
           type: "string"
       expected_outcome:
         type: "string"
-  
+
   report_path:
     type: "string"
     required: true
@@ -128,7 +128,7 @@ steps:
   - id: "create_test_script"
     description: "Generate validation test script"
     operation_kind: "CREATE_TESTS"
-    
+
     actions:
       - tool: "create"
         path: "{{test_script_path}}"
@@ -136,31 +136,31 @@ steps:
           # {{validation_name | titleCase}} Validation
           # Type: {{validation_type}}
           # Created: {{timestamp}}
-          
+
           $ErrorActionPreference = "Stop"
-          
+
           Write-Host "🧪 {{validation_name | titleCase}}" -ForegroundColor Cyan
           Write-Host "Type: {{validation_type}}" -ForegroundColor Gray
           Write-Host ""
-          
+
           $results = @()
           $passCount = 0
           $failCount = 0
           $checkCount = {{checks.length}}
-          
+
           {{#each checks}}
           # Check {{@index | add 1}}: {{name}}
           Write-Host "[{{@index | add 1}}/{{../checks.length}}] {{name}}..." -NoNewline
-          
+
           try {
               {{#if setup}}
               # Setup
               {{setup}}
               {{/if}}
-              
+
               # Execute check
               $output = {{command}}
-              
+
               {{#if expect}}
               # Validate output
               if ($output -match "{{expect}}") {
@@ -207,7 +207,7 @@ steps:
                   {{/if}}
               }
               {{/if}}
-              
+
               {{#if cleanup}}
               # Cleanup
               {{cleanup}}
@@ -226,9 +226,9 @@ steps:
               throw
               {{/if}}
           }
-          
+
           {{/each}}
-          
+
           # Summary
           Write-Host ""
           Write-Host "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" -ForegroundColor Gray
@@ -237,7 +237,7 @@ steps:
           Write-Host "  Passed: $passCount" -ForegroundColor Green
           Write-Host "  Failed: $failCount" -ForegroundColor $(if ($failCount -eq 0) { "Green" } else { "Red" })
           Write-Host "  Success rate: $([math]::Round($passCount / $checkCount * 100, 1))%" -ForegroundColor White
-          
+
           if ($failCount -eq 0) {
               Write-Host ""
               Write-Host "✅ All validation checks passed!" -ForegroundColor Green
@@ -247,17 +247,17 @@ steps:
               Write-Host "❌ Validation failed with $failCount error(s)" -ForegroundColor Red
               exit 1
           }
-    
+
     outputs:
       - name: "test_script_created"
         type: "boolean"
-  
+
   - id: "create_demo_script"
     description: "Create demo script for manual validation"
     operation_kind: "CREATE_DEMO"
-    
+
     condition: "demo_script_path is defined"
-    
+
     actions:
       - tool: "create"
         path: "{{demo_script_path}}"
@@ -265,66 +265,66 @@ steps:
           # Demo: {{validation_name}}
           # {{demo_scenario.description}}
           # Created: {{timestamp}}
-          
+
           Write-Host "🎯 Demo: {{validation_name | titleCase}}" -ForegroundColor Cyan
           Write-Host "{{demo_scenario.description}}" -ForegroundColor Yellow
           Write-Host ""
-          
+
           {{#each demo_scenario.steps}}
           Write-Host "Step {{@index | add 1}}: {{this}}" -ForegroundColor White
           {{this}}
-          
+
           {{/each}}
-          
+
           Write-Host ""
           Write-Host "Expected Outcome:" -ForegroundColor Cyan
           Write-Host "{{demo_scenario.expected_outcome}}" -ForegroundColor Green
-    
+
     outputs:
       - name: "demo_script_created"
         type: "boolean"
-  
+
   - id: "run_validation"
     description: "Execute validation script"
     operation_kind: "RUN_TESTS"
-    
+
     actions:
       - tool: "powershell"
         command: "& {{test_script_path}}"
         capture_output: true
-    
+
     outputs:
       - name: "validation_results"
         type: "object"
         description: "Test execution results"
-  
+
   - id: "generate_report"
     description: "Create validation report"
     operation_kind: "CREATE_REPORT"
-    
+
     actions:
       - tool: "create"
         path: "{{report_path}}"
         content: |
           # Validation Report: {{validation_name}}
-          
-          **Date:** {{timestamp}}  
-          **Type:** {{validation_type}}  
+
+          **Date:** {{timestamp}}
+          **Type:** {{validation_type}}
           **Status:** {{#if all_passed}}✅ PASSED{{else}}❌ FAILED{{/if}}
-          
+
           ## Summary
-          
+
           - **Total Checks:** {{checks.length}}
           - **Passed:** {{pass_count}}
           - **Failed:** {{fail_count}}
           - **Success Rate:** {{success_rate}}%
-          
+
           ## Validation Checks
-          
+
           {{#each checks}}
           ### {{@index | add 1}}. {{name}}
-          
-          **Status:** {{#if passed}}✅ PASS{{else}}❌ FAIL{{/if}}  
+
+          **Status:** {{#if passed}}✅ PASS{{else}}❌ FAIL{{/if}}
           **Command:** `{{command}}`
           {{#if expect}}
           **Expected:** `{{expect}}`
@@ -332,59 +332,59 @@ steps:
           {{#if critical}}
           **Critical:** Yes
           {{/if}}
-          
+
           {{#if output}}
           **Output:**
           ```
           {{output}}
           ```
           {{/if}}
-          
+
           {{#if error}}
           **Error:**
           ```
           {{error}}
           ```
           {{/if}}
-          
+
           ---
-          
+
           {{/each}}
-          
+
           ## Next Steps
-          
+
           {{#if all_passed}}
           ✅ All validation checks passed. System is ready.
-          
+
           {{#if demo_script_path}}
           ### Optional Demo
-          
+
           Run the demo script to see the system in action:
-          
+
           ```powershell
           & {{demo_script_path}}
           ```
           {{/if}}
           {{else}}
           ❌ Validation failed. Review errors above and:
-          
+
           1. Fix failing checks
           2. Re-run validation
           3. Check rollback plan if needed
-          
+
           ### Failed Checks
-          
+
           {{#each checks}}
           {{#unless passed}}
           - {{name}}: {{error}}
           {{/unless}}
           {{/each}}
           {{/if}}
-          
+
           ## Validation Script
-          
+
           **Location:** `{{test_script_path}}`
-          
+
           Re-run validation:
           ```powershell
           & {{test_script_path}}
@@ -395,22 +395,22 @@ outputs:
     type: "file"
     path: "{{test_script_path}}"
     description: "Automated validation script"
-  
+
   demo_script:
     type: "file"
     path: "{{demo_script_path}}"
     condition: "demo_script_path is defined"
     description: "Demo script for manual validation"
-  
+
   validation_report:
     type: "file"
     path: "{{report_path}}"
     description: "Detailed validation report"
-  
+
   all_passed:
     type: "boolean"
     description: "Whether all checks passed"
-  
+
   success_rate:
     type: "number"
     description: "Percentage of checks that passed"
@@ -423,16 +423,16 @@ verification:
       description: "Report generated"
     - condition: "all_passed == true OR failures documented"
       description: "Validation completed"
-  
+
   validation_commands:
     - name: "check_test_script"
       command: "Test-Path {{test_script_path}}"
       expect: "True"
-    
+
     - name: "check_report"
       command: "Test-Path {{report_path}}"
       expect: "True"
-    
+
     - name: "run_validation"
       command: "& {{test_script_path}}"
       expect: "exit code 0 (if all passed)"
@@ -450,7 +450,7 @@ anti_patterns:
 
 example_usage: |
   # Validate pattern automation activation
-  
+
   Input:
     validation_name: "pattern_automation_activation"
     validation_type: "activation"
@@ -460,22 +460,22 @@ example_usage: |
         command: "sqlite3 patterns/metrics/pattern_automation.db \".tables\""
         expect: "execution_logs.*pattern_candidates.*anti_patterns"
         critical: true
-      
+
       - name: "Configuration loads"
         command: "Test-Path automation/config/detection_config.yaml"
         expect: "True"
         critical: true
-      
+
       - name: "Integration module imports"
         command: "python -c 'from automation.integration.orchestrator_hooks import get_hooks; print(\"OK\")'"
         expect: "OK"
         critical: true
-      
+
       - name: "Execution logging works"
         command: "python -c '...' "
         expect: "OK"
         critical: false
-    
+
     demo_script_path: "automation/tests/demo_pattern_detection.ps1"
     demo_scenario:
       description: "Trigger pattern auto-detection with 3 similar tasks"
@@ -485,9 +485,9 @@ example_usage: |
         - "Run file creation task 3"
         - "Check for auto-generated pattern"
       expected_outcome: "AUTO-*.yaml file created in patterns/drafts/"
-    
+
     report_path: "ACTIVATION_VALIDATION_REPORT.md"
-  
+
   Output:
     - automation/tests/test_activation.ps1 created
     - automation/tests/demo_pattern_detection.ps1 created
@@ -499,7 +499,7 @@ related_patterns:
   - pattern_id: "PAT-DATABASE-SETUP-001"
     relationship: "validates"
     description: "Validates database setup completed correctly"
-  
+
   - pattern_id: "PAT-INTEGRATION-HOOK-001"
     relationship: "validates"
     description: "Validates integration hooks working"

@@ -18,7 +18,7 @@ artifacts:
     - path: "01001C_config_loader.py"
       ulid: "01001C00000000000000000000"
       entry_point: true
-  
+
   tests: []
   schemas: []
   docs:

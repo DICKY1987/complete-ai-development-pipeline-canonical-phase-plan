@@ -195,6 +195,6 @@ cat nested_repos_report.json
 
 ---
 
-**Version**: 1.0.0  
-**Status**: Production Ready ✅  
+**Version**: 1.0.0
+**Status**: Production Ready ✅
 **Last Updated**: 2025-11-27

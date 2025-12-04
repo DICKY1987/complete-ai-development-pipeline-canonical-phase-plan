@@ -20,14 +20,14 @@ pytestmark = pytest.mark.skip(reason="AIM module not yet implemented - Phase 4 r
 
 class TestAIMIntegration:
     """Tests for AIM integration with orchestrator."""
-    
+
     def test_is_aim_available_when_registry_exists(self):
         """Should return True when AIM registry is available."""
         # This test relies on actual registry existing
         result = is_aim_available()
         assert isinstance(result, bool)
         # Don't assert True since registry may not be available in CI
-    
+
     @patch("core.engine.aim_integration.route_capability")
     @patch("core.engine.aim_integration.is_aim_available", return_value=True)
     def test_execute_with_aim_success(self, mock_available, mock_route):
@@ -46,20 +46,20 @@ class TestAIMIntegration:
                 "duration_sec": 30.0
             }
         }
-        
+
         result = execute_with_aim(
             capability="code_generation",
             payload={"files": ["test.py"], "prompt": "Add tests"},
             run_id="test-run",
             ws_id="ws-test"
         )
-        
+
         assert isinstance(result, ToolResult)
         assert result.success is True
         assert result.tool_id == "aider"
         assert result.exit_code == 0
         assert "modified successfully" in result.stdout
-    
+
     @patch("core.engine.aim_integration.route_capability")
     @patch("core.engine.aim_integration.run_tool")
     def test_execute_with_aim_fallback_on_failure(self, mock_run_tool, mock_route):
@@ -70,7 +70,7 @@ class TestAIMIntegration:
             "message": "All tools failed",
             "content": None
         }
-        
+
         # Mock successful fallback tool
         mock_run_tool.return_value = ToolResult(
             tool_id="aider",
@@ -84,7 +84,7 @@ class TestAIMIntegration:
             duration_sec=10.0,
             success=True
         )
-        
+
         result = execute_with_aim(
             capability="code_generation",
             payload={"files": ["test.py"]},
@@ -92,14 +92,14 @@ class TestAIMIntegration:
             run_id="test-run",
             ws_id="ws-test"
         )
-        
+
         assert result.success is True
         assert result.tool_id == "aider"
         assert "Fallback success" in result.stdout
-        
+
         # Verify fallback was called
         mock_run_tool.assert_called_once()
-    
+
     @patch("core.engine.aim_integration.route_capability")
     def test_execute_with_aim_no_fallback(self, mock_route):
         """Should return failed ToolResult when no fallback specified."""
@@ -109,39 +109,39 @@ class TestAIMIntegration:
             "message": "Tool not found",
             "content": None
         }
-        
+
         result = execute_with_aim(
             capability="code_generation",
             payload={"files": ["test.py"]},
             fallback_tool=None  # No fallback
         )
-        
+
         assert isinstance(result, ToolResult)
         assert result.success is False
         assert result.exit_code == 1
         assert "Tool not found" in result.stderr
-    
+
     @patch("core.engine.aim_integration.route_capability")
     def test_execute_with_aim_capability_not_found(self, mock_route):
         """Should handle AIMCapabilityNotFoundError gracefully."""
         from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.exceptions import AIMCapabilityNotFoundError
-        
+
         # Mock capability not found
         mock_route.side_effect = AIMCapabilityNotFoundError(
             "invalid_capability",
             available_capabilities=["code_generation", "linting"]
         )
-        
+
         result = execute_with_aim(
             capability="invalid_capability",
             payload={},
             run_id="test-run"
         )
-        
+
         assert isinstance(result, ToolResult)
         assert result.success is False
         assert "not defined" in result.stderr.lower()
-    
+
     @patch("core.engine.aim_integration.route_capability")
     @patch("core.engine.aim_integration.run_tool")
     def test_execute_with_aim_both_fail(self, mock_run_tool, mock_route):
@@ -152,20 +152,20 @@ class TestAIMIntegration:
             "message": "AIM routing failed",
             "content": None
         }
-        
+
         # Mock fallback failure
         mock_run_tool.side_effect = Exception("Fallback tool error")
-        
+
         result = execute_with_aim(
             capability="code_generation",
             payload={},
             fallback_tool="aider"
         )
-        
+
         assert result.success is False
         assert "AIM: AIM routing failed" in result.stderr
         assert "Fallback: Fallback tool error" in result.stderr
-    
+
     @patch("core.engine.aim_integration.route_capability")
     def test_execute_with_aim_timeout_payload(self, mock_route):
         """Should pass timeout from payload to route_capability."""
@@ -178,12 +178,12 @@ class TestAIMIntegration:
                 "stderr": ""
             }
         }
-        
+
         execute_with_aim(
             capability="code_generation",
             payload={"timeout_ms": 120000}  # 2 minutes
         )
-        
+
         # Verify timeout was converted to seconds
         mock_route.assert_called_once()
         call_kwargs = mock_route.call_args.kwargs
@@ -192,14 +192,14 @@ class TestAIMIntegration:
 
 class TestOrchestratorAIMIntegration:
     """Tests for orchestrator using AIM integration."""
-    
+
     @patch("core.engine.aim_integration.route_capability")
     @patch("core.engine.aim_integration.is_aim_available", return_value=True)
     def test_orchestrator_uses_capability(self, mock_available, mock_route):
         """Should use AIM when capability is specified in workstream."""
         # This is a placeholder for actual orchestrator integration test
         # Would require full orchestrator setup with DB, bundles, etc.
-        
+
         # Mock successful routing
         mock_route.return_value = {
             "success": True,
@@ -210,7 +210,7 @@ class TestOrchestratorAIMIntegration:
                 "stderr": ""
             }
         }
-        
+
         # Example workstream with capability
         bundle_obj = {
             "id": "ws-test",
@@ -222,7 +222,7 @@ class TestOrchestratorAIMIntegration:
             "files_scope": ["src/test.py"],
             "tasks": ["Add unit tests"]
         }
-        
+
         # Verify capability is present
         assert "capability" in bundle_obj
         assert bundle_obj["capability"] == "code_generation"
@@ -231,16 +231,16 @@ class TestOrchestratorAIMIntegration:
 @pytest.mark.integration
 class TestAIMEndToEndWithOrchestrator:
     """End-to-end integration tests with real AIM registry."""
-    
+
     def test_workstream_schema_allows_capability(self):
         """Should validate workstream with capability field."""
         import jsonschema
-        
+
         # Load schema
         schema_path = Path(__file__).parent.parent.parent / "schema" / "workstream.schema.json"
         with open(schema_path) as f:
             schema = json.load(f)
-        
+
         # Valid workstream with capability
         workstream = {
             "id": "ws-test-001",
@@ -257,10 +257,10 @@ class TestAIMEndToEndWithOrchestrator:
                 "max_retries": 1
             }
         }
-        
+
         # Should validate without errors
         jsonschema.validate(instance=workstream, schema=schema)
-        
+
         # Verify capability field is present
         assert workstream["capability"] == "code_generation"
         assert workstream["capability_payload"]["timeout_ms"] == 60000

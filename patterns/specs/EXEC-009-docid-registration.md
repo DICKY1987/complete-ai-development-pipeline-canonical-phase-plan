@@ -1,11 +1,11 @@
 # EXEC-009: DOC_ID Registration Pattern
 # Pattern for systematically registering modules with doc_ids
 
-**Pattern ID**: EXEC-009  
-**Name**: DOC_ID Registration Pattern  
-**Category**: Documentation  
-**Time Savings**: 75-80% vs manual  
-**Difficulty**: Low  
+**Pattern ID**: EXEC-009
+**Name**: DOC_ID Registration Pattern
+**Category**: Documentation
+**Time Savings**: 75-80% vs manual
+**Difficulty**: Low
 **Prerequisites**: doc_id_registry_cli.py installed
 
 ---
@@ -33,13 +33,13 @@ Register multiple modules with unique doc_ids in a consistent, repeatable way.
 **Example**:
 ```powershell
 # Discover Python modules in core/
-$coreFiles = Get-ChildItem core -Filter "*.py" -Recurse | 
+$coreFiles = Get-ChildItem core -Filter "*.py" -Recurse |
              Where-Object { $_.Name -ne "__init__.py" }
 
 # Group by subdirectory
 $bySubdir = $coreFiles | Group-Object { $_.Directory.Name }
 
-# Output: 
+# Output:
 # state: 7 files
 # engine: 18 files
 # planning: 4 files
@@ -102,7 +102,7 @@ foreach ($mod in $stateModules) {
         --name $mod.name `
         --title $mod.title `
         --tags "core,state,high-priority"
-    
+
     Write-Host "✓ Registered: $($mod.name)" -ForegroundColor Green
 }
 ```
@@ -171,7 +171,7 @@ python scripts/doc_id_registry_cli.py list --category core
 cd .worktrees/wt-docid-specs
 
 # Find all schema files
-$schemas = Get-ChildItem ../../schema -Filter "*.json" | 
+$schemas = Get-ChildItem ../../schema -Filter "*.json" |
            Select-Object BaseName, Name
 
 # Output: Found 8 schema files
@@ -201,7 +201,7 @@ $schemaFiles = @(
 
 foreach ($schema in $schemaFiles) {
     $title = "$((Get-Culture).TextInfo.ToTitleCase($schema)) JSON Schema Definition"
-    
+
     python ../../scripts/doc_id_registry_cli.py mint `
         --category spec `
         --name "$schema-schema" `
@@ -222,10 +222,10 @@ git commit -m "feat: register schema file doc_ids (8 files)"
 
 ## Anti-Patterns to Avoid
 
-❌ **Register one at a time** → Use batch loops  
-❌ **Manually type each title** → Derive from filename  
-❌ **Verify each registration** → Batch verify at end  
-❌ **Perfectionist titles** → Good enough on first pass  
+❌ **Register one at a time** → Use batch loops
+❌ **Manually type each title** → Derive from filename
+❌ **Verify each registration** → Batch verify at end
+❌ **Perfectionist titles** → Good enough on first pass
 ❌ **Skip discovery phase** → You'll miss files
 
 ---
@@ -251,7 +251,7 @@ foreach ($test in $testFiles) {
     $name = $test.BaseName -replace "^test_", ""
     $module = $test.Directory.Name
     $title = "Tests for $module.$name"
-    
+
     python scripts/doc_id_registry_cli.py mint `
         --category test `
         --name "$module-$name" `
@@ -266,13 +266,13 @@ $scripts = Get-ChildItem scripts -Filter "*.py"
 
 foreach ($script in $scripts) {
     $name = $script.BaseName
-    $title = (Get-Content $script.FullName -First 5 | 
+    $title = (Get-Content $script.FullName -First 5 |
               Where-Object { $_ -match "^#.*Purpose:" }) -replace "^#.*Purpose:\s*", ""
-    
+
     if (!$title) {
         $title = "$name Script"
     }
-    
+
     python scripts/doc_id_registry_cli.py mint `
         --category script `
         --name $name `
@@ -288,7 +288,7 @@ $guides = Get-ChildItem docs -Filter "*.md"
 foreach ($guide in $guides) {
     $name = $guide.BaseName
     $title = (Get-Content $guide.FullName -First 1) -replace "^#\s*", ""
-    
+
     python scripts/doc_id_registry_cli.py mint `
         --category guide `
         --name $name `
@@ -309,7 +309,7 @@ When using git worktrees for parallel execution:
 cd .worktrees/wt-docid-specs
 # Run EXEC-009 for schema files
 
-# Worktree 2: Scripts  
+# Worktree 2: Scripts
 cd .worktrees/wt-docid-scripts
 # Run EXEC-009 for script files
 

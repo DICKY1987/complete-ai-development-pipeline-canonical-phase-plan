@@ -5,10 +5,10 @@
 .DESCRIPTION
     Reads a UET-style phase plan YAML and updates the Status field in GitHub
     Project items based on the phase.status value in the YAML.
-    
+
     This is the companion to Invoke-UetPhasePlanToGitHubProjectSync.ps1.
     That script creates the initial items, this script keeps them in sync.
-    
+
     Status mapping:
       not_started → Todo
       in_progress → In Progress
@@ -82,7 +82,7 @@ param(
     [string]$StatusFieldName = "Status",
 
     [switch]$DryRun,
-    
+
     [switch]$Force
 )
 
@@ -141,7 +141,7 @@ function Get-GitHubProjectFields {
     Assert-CommandAvailable -Name "gh"
 
     Write-Verbose "Fetching project field metadata..."
-    
+
     # Get project fields using GraphQL
     $query = @"
 {
@@ -187,7 +187,7 @@ function Get-StatusFieldInfo {
     )
 
     $statusField = $Fields | Where-Object { $_.name -eq $FieldName }
-    
+
     if (-not $statusField) {
         throw "Status field '$FieldName' not found in project. Available fields: $($Fields.name -join ', ')"
     }
@@ -297,7 +297,7 @@ function Get-LastSyncState {
     param([Parameter(Mandatory)][string]$PlanPath)
 
     $stateFile = "$PlanPath.sync_state.json"
-    
+
     if (-not (Test-Path $stateFile)) {
         Write-Verbose "No previous sync state found. Will update all phases."
         return @{}
@@ -323,7 +323,7 @@ function Save-SyncState {
     )
 
     $stateFile = "$PlanPath.sync_state.json"
-    
+
     $state = @{}
     foreach ($phase in $Phases) {
         $state[$phase.phase_id] = @{
@@ -353,7 +353,7 @@ try {
     Write-Verbose "Running pre-flight checks..."
     Assert-CommandAvailable -Name "gh"
     Assert-CmdletAvailable -Name "ConvertFrom-Yaml"
-    
+
     # Verify GitHub CLI authentication
     $authStatus = gh auth status 2>&1
     if ($LASTEXITCODE -ne 0) {
@@ -382,7 +382,7 @@ try {
 
     # Determine which phases need updates
     $phasesToUpdate = @()
-    
+
     foreach ($phase in $phases) {
         if (-not $phase.gh_item_id) {
             Write-Warning "Phase '$($phase.phase_id)' has no gh_item_id. Skipping."
@@ -391,7 +391,7 @@ try {
 
         # Check if status changed since last sync
         $needsUpdate = $Force
-        
+
         if (-not $Force) {
             $lastStatus = $lastState[$phase.phase_id]?.status
             if ($lastStatus -ne $phase.status) {
@@ -433,7 +433,7 @@ try {
     foreach ($phase in $phasesToUpdate) {
         try {
             $optionId = Get-GitHubStatusOption -PhaseStatus $phase.status -OptionIds $statusField.OptionIds
-            
+
             $success = Update-GitHubProjectItemStatus `
                 -Phase $phase `
                 -ProjectNumber $ProjectNumber `
@@ -463,7 +463,7 @@ try {
     Write-Host "  Status Sync Complete!" -ForegroundColor Green
     Write-Host "═══════════════════════════════════════════════════════════" -ForegroundColor Green
     Write-Host ""
-    
+
     if ($DryRun) {
         Write-Host "Dry-run complete. No changes were made." -ForegroundColor Cyan
     } else {
@@ -474,7 +474,7 @@ try {
         Write-Host ""
         Write-Host "Sync state saved to: $PlanPath.sync_state.json" -ForegroundColor Gray
     }
-    
+
     Write-Host ""
     Write-Host "Next steps:" -ForegroundColor Cyan
     Write-Host "  1. View your project: gh project view $ProjectNumber --owner $ProjectOwner --web" -ForegroundColor Gray

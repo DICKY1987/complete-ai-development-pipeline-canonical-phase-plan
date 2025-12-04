@@ -4,14 +4,14 @@ doc_id: DOC-GUIDE-REQUIREMENTS-LIST-1364
 
 # Repository Validation Requirements - Complete List
 
-**Checklist ID**: AI-ORCH-REPO-V1.0  
-**Total Requirements**: 19  
-**Last Updated**: 2025-11-23  
+**Checklist ID**: AI-ORCH-REPO-V1.0
+**Total Requirements**: 19
+**Last Updated**: 2025-11-23
 
 ## Priority Legend
 
 - 🔴 **CRITICAL** - Must pass before commit
-- 🟠 **HIGH** - Should pass before merge  
+- 🟠 **HIGH** - Should pass before merge
 - 🟡 **MEDIUM** - Aim to pass, warn if not
 - 🟢 **LOW** - Aspirational, info only
 
@@ -20,9 +20,9 @@ doc_id: DOC-GUIDE-REQUIREMENTS-LIST-1364
 ## AI CODEBASE STRUCTURE (ACS) - 7 Requirements
 
 ### 🟠 ACS-ARTIFACTS-001
-**Description**: Core ACS artifacts must exist  
-**Type**: required_files  
-**Scope**: repo  
+**Description**: Core ACS artifacts must exist
+**Type**: required_files
+**Scope**: repo
 **Files Required**:
 - CODEBASE_INDEX.yaml
 - QUALITY_GATE.yaml
@@ -33,39 +33,39 @@ doc_id: DOC-GUIDE-REQUIREMENTS-LIST-1364
 - .meta/ai_context/code_graph.json
 
 ### 🟠 ACS-MODULE-PATHS-001
-**Description**: All modules in CODEBASE_INDEX.yaml must exist on disk  
-**Type**: module_path_validation  
-**Scope**: repo  
+**Description**: All modules in CODEBASE_INDEX.yaml must exist on disk
+**Type**: module_path_validation
+**Scope**: repo
 **Status**: Implementation pending
 
 ### 🟠 ACS-MODULE-DEPS-001
-**Description**: All dependency references in CODEBASE_INDEX must be valid module IDs  
-**Type**: dependency_validation  
-**Scope**: repo  
+**Description**: All dependency references in CODEBASE_INDEX must be valid module IDs
+**Type**: dependency_validation
+**Scope**: repo
 **Status**: Implementation pending
 
 ### 🟡 ACS-MODULE-DOCS-001
-**Description**: HIGH priority modules must have MODULE.md or README.md  
-**Type**: module_documentation  
-**Scope**: repo  
+**Description**: HIGH priority modules must have MODULE.md or README.md
+**Type**: module_documentation
+**Scope**: repo
 **Status**: Implementation pending
 
 ### 🟡 ACS-CODE-GRAPH-001
-**Description**: Code graph must be consistent with CODEBASE_INDEX  
-**Type**: code_graph_consistency  
-**Scope**: repo  
+**Description**: Code graph must be consistent with CODEBASE_INDEX
+**Type**: code_graph_consistency
+**Scope**: repo
 **Status**: Implementation pending
 
 ### 🟡 ACS-POLICY-PATHS-001
-**Description**: Paths in ai_policies.yaml must be valid relative patterns  
-**Type**: policy_path_validation  
-**Scope**: repo  
+**Description**: Paths in ai_policies.yaml must be valid relative patterns
+**Type**: policy_path_validation
+**Scope**: repo
 **Status**: Implementation pending
 
 ### 🟡 ACS-INVARIANTS-001
-**Description**: All invariants in ai_policies.yaml must be well-defined  
-**Type**: invariant_validation  
-**Scope**: repo  
+**Description**: All invariants in ai_policies.yaml must be well-defined
+**Type**: invariant_validation
+**Scope**: repo
 **Status**: Implementation pending
 
 ---
@@ -73,10 +73,10 @@ doc_id: DOC-GUIDE-REQUIREMENTS-LIST-1364
 ## STATE OBSERVABILITY (STATE-OBS) - 5 Requirements
 
 ### 🟠 STATE-OBS-001
-**Description**: .state directory must have required structure  
-**Type**: directory_layout  
-**Scope**: repo  
-**Status**: ✅ IMPLEMENTED  
+**Description**: .state directory must have required structure
+**Type**: directory_layout
+**Scope**: repo
+**Status**: ✅ IMPLEMENTED
 **Required Structure**:
 - .state/snapshots/ (directory)
 - .state/indices/ (directory)
@@ -85,10 +85,10 @@ doc_id: DOC-GUIDE-REQUIREMENTS-LIST-1364
 - .state/health.json (file)
 
 ### 🟠 STATE-OBS-002
-**Description**: .state/current.json must be valid with required fields  
-**Type**: json_file  
-**Scope**: repo  
-**Status**: ✅ IMPLEMENTED  
+**Description**: .state/current.json must be valid with required fields
+**Type**: json_file
+**Scope**: repo
+**Status**: ✅ IMPLEMENTED
 **Required Fields**:
 - schema_version
 - state_id
@@ -97,10 +97,10 @@ doc_id: DOC-GUIDE-REQUIREMENTS-LIST-1364
 - status
 
 ### 🟠 STATE-OBS-003
-**Description**: .state/transitions.jsonl must be valid JSONL with required fields per line  
-**Type**: json_lines_file  
-**Scope**: repo  
-**Status**: ✅ IMPLEMENTED  
+**Description**: .state/transitions.jsonl must be valid JSONL with required fields per line
+**Type**: json_lines_file
+**Scope**: repo
+**Status**: ✅ IMPLEMENTED
 **Required Fields Per Line**:
 - transition_id
 - from_state
@@ -109,19 +109,19 @@ doc_id: DOC-GUIDE-REQUIREMENTS-LIST-1364
 - trigger
 
 ### 🟡 STATE-OBS-004
-**Description**: Required index files must exist under .state/indices  
-**Type**: json_index_files  
-**Scope**: repo  
-**Status**: ✅ IMPLEMENTED  
+**Description**: Required index files must exist under .state/indices
+**Type**: json_index_files
+**Scope**: repo
+**Status**: ✅ IMPLEMENTED
 **Required Indices**:
 - task_index.json
 - workstream_index.json
 - capability_index.json
 
 ### 🟡 STATE-OBS-005
-**Description**: Indices must be derivable from current.json with overlap checks  
-**Type**: derived_index_sanity  
-**Scope**: repo  
+**Description**: Indices must be derivable from current.json with overlap checks
+**Type**: derived_index_sanity
+**Scope**: repo
 **Status**: Implementation pending
 
 ---
@@ -129,17 +129,17 @@ doc_id: DOC-GUIDE-REQUIREMENTS-LIST-1364
 ## AUDIT TRAIL (AUDIT) - 2 Requirements
 
 ### 🟡 AUDIT-001
-**Description**: Audit trail documentation must exist  
-**Type**: file_exists  
-**Scope**: repo  
-**Status**: ✅ IMPLEMENTED  
+**Description**: Audit trail documentation must exist
+**Type**: file_exists
+**Scope**: repo
+**Status**: ✅ IMPLEMENTED
 **Required File**: docs/operations/AUDIT_TRAIL.md
 
 ### 🟡 AUDIT-002
-**Description**: Audit retention policy must exist  
-**Type**: file_exists  
-**Scope**: repo  
-**Status**: ✅ IMPLEMENTED  
+**Description**: Audit retention policy must exist
+**Type**: file_exists
+**Scope**: repo
+**Status**: ✅ IMPLEMENTED
 **Required File**: docs/operations/AUDIT_RETENTION.md
 
 ---
@@ -147,10 +147,10 @@ doc_id: DOC-GUIDE-REQUIREMENTS-LIST-1364
 ## WORKSTREAM VALIDATION (WS) - 1 Requirement
 
 ### 🟠 WS-BUNDLE-001
-**Description**: All workstream bundles must be valid and have no overlapping file scopes  
-**Type**: workstream_validation  
-**Scope**: repo  
-**Status**: ✅ IMPLEMENTED (with auto-fix partially)  
+**Description**: All workstream bundles must be valid and have no overlapping file scopes
+**Type**: workstream_validation
+**Scope**: repo
+**Status**: ✅ IMPLEMENTED (with auto-fix partially)
 **Auto-Fix**: Available via `auto_remediate.ps1`
 
 ---
@@ -158,10 +158,10 @@ doc_id: DOC-GUIDE-REQUIREMENTS-LIST-1364
 ## PATH STANDARDS (PATH-STD) - 1 Requirement
 
 ### 🔴 PATH-STD-001
-**Description**: No deprecated import paths allowed (CI enforced)  
-**Type**: import_path_standards  
-**Scope**: repo  
-**Status**: Implementation pending  
+**Description**: No deprecated import paths allowed (CI enforced)
+**Type**: import_path_standards
+**Scope**: repo
+**Status**: Implementation pending
 **Forbidden Patterns**:
 - `from src.pipeline` → use `from core.*`
 - `from MOD_ERROR_PIPELINE` → use `from error.*`
@@ -172,11 +172,11 @@ doc_id: DOC-GUIDE-REQUIREMENTS-LIST-1364
 ## TEST SUITE (TEST) - 1 Requirement
 
 ### 🔴 TEST-PYTEST-001
-**Description**: All pytest tests must pass  
-**Type**: test_suite  
-**Scope**: repo  
-**Status**: ✅ IMPLEMENTED  
-**Auto-Fix**: Available - fixes import conflicts  
+**Description**: All pytest tests must pass
+**Type**: test_suite
+**Scope**: repo
+**Status**: ✅ IMPLEMENTED
+**Auto-Fix**: Available - fixes import conflicts
 **Command**: `python -m pytest -q tests`
 
 ---
@@ -184,10 +184,10 @@ doc_id: DOC-GUIDE-REQUIREMENTS-LIST-1364
 ## ENGINE VALIDATION (ENGINE) - 1 Requirement
 
 ### 🟠 ENGINE-VALIDATE-001
-**Description**: Engine components must be valid and importable  
-**Type**: engine_validation  
-**Scope**: repo  
-**Status**: Implementation pending  
+**Description**: Engine components must be valid and importable
+**Type**: engine_validation
+**Scope**: repo
+**Status**: Implementation pending
 **Validates**:
 - schema/jobs/job.schema.json
 - schema/jobs/examples/aider_job.json
@@ -198,10 +198,10 @@ doc_id: DOC-GUIDE-REQUIREMENTS-LIST-1364
 ## ERROR MODULE (ERROR) - 1 Requirement
 
 ### 🟠 ERROR-IMPORTS-001
-**Description**: Error module imports must follow section standards  
-**Type**: error_module_imports  
-**Scope**: repo  
-**Status**: Implementation pending  
+**Description**: Error module imports must follow section standards
+**Type**: error_module_imports
+**Scope**: repo
+**Status**: Implementation pending
 **Expected Pattern**: `from error.`
 
 ---
@@ -209,14 +209,14 @@ doc_id: DOC-GUIDE-REQUIREMENTS-LIST-1364
 ## FOLDER TEMPLATES - 3 Templates
 
 ### 📁 FOLDER-DOCS-001
-**Description**: Code folders must have basic documentation  
-**Applies To**: core/**, engine/**, error/**, aim/**, pm/**, scripts/**, tools/**  
+**Description**: Code folders must have basic documentation
+**Applies To**: core/**, engine/**, error/**, aim/**, pm/**, scripts/**, tools/**
 **Rules**:
 - README.md should exist (can be in parent)
 
 ### 📁 FOLDER-STATE-001
-**Description**: Code folders must not mix dev and system files  
-**Applies To**: core/**, engine/**, error/**, aim/**, pm/**  
+**Description**: Code folders must not mix dev and system files
+**Applies To**: core/**, engine/**, error/**, aim/**, pm/**
 **Forbidden Patterns**:
 - phase_plan*.md
 - execution_summary*.md
@@ -224,8 +224,8 @@ doc_id: DOC-GUIDE-REQUIREMENTS-LIST-1364
 - scratch_*.py
 
 ### 📁 FOLDER-TESTS-001
-**Description**: Module folders should have corresponding tests  
-**Applies To**: core/**, engine/**, error/**, aim/**, pm/**  
+**Description**: Module folders should have corresponding tests
+**Applies To**: core/**, engine/**, error/**, aim/**, pm/**
 **Rules**:
 - Require 50% test coverage ratio
 - Test patterns: test_*.py, *_test.py
@@ -300,5 +300,5 @@ cat .ai-orch\checklists\repo_checklist.json | ConvertFrom-Json | Select-Object -
 
 ---
 
-**Version**: 1.0.0  
+**Version**: 1.0.0
 **Generated**: 2025-11-23

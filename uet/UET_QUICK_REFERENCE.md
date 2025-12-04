@@ -4,9 +4,9 @@ doc_id: DOC-GUIDE-UET-QUICK-REFERENCE-1654
 
 # UET Integration Quick Reference
 
-**Last Updated**: 2025-11-22  
-**Integration Status**: Phase 1 - Foundation (Week 1)  
-**Risk Level**: Low (Additive changes only)  
+**Last Updated**: 2025-11-22
+**Integration Status**: Phase 1 - Foundation (Week 1)
+**Risk Level**: Low (Additive changes only)
 
 ---
 
@@ -255,7 +255,7 @@ available_tools:
   - tool_id: "aider"
     command: "aider"
     capabilities: ["code_edit", "refactor"]
-  
+
   - tool_id: "pytest"
     command: "pytest"
     capabilities: ["testing"]
@@ -444,6 +444,6 @@ python scripts/bootstrap_uet.py . && echo "✅ Success"
 
 ---
 
-**Current Status**: Week 1 Foundation - Ready to implement  
-**Next Milestone**: Week 2 Resilience Integration  
+**Current Status**: Week 1 Foundation - Ready to implement
+**Next Milestone**: Week 2 Resilience Integration
 **Integration Risk**: ✅ Low (additive changes only)

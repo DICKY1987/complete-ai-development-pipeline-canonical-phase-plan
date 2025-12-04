@@ -21,7 +21,7 @@ metadata:
 # ============================================================================
 
 orchestration:
-  
+
   # Phase Templates
   phase-core-template:
     path: "orchestration/phases/phase-core-template.yaml"
@@ -44,7 +44,7 @@ orchestration:
     used_by:
       - "Phase-based workflows"
       - "Bootstrap system"
-  
+
   phase-analysis-template:
     path: "orchestration/phases/phase-analysis-template.yaml"
     requires:
@@ -58,7 +58,7 @@ orchestration:
     used_by:
       - "Discovery workflows"
       - "Requirements gathering"
-  
+
   phase-implementation-template:
     path: "orchestration/phases/phase-implementation-template.yaml"
     requires:
@@ -73,7 +73,7 @@ orchestration:
     used_by:
       - "Development workflows"
       - "Code generation"
-  
+
   phase-validation-template:
     path: "orchestration/phases/phase-validation-template.yaml"
     requires:
@@ -87,7 +87,7 @@ orchestration:
     used_by:
       - "Testing workflows"
       - "Quality gates"
-  
+
   # Workstream Templates
   workstream-single-template:
     path: "orchestration/workstreams/workstream-single-template.json"
@@ -103,7 +103,7 @@ orchestration:
     used_by:
       - "Single-threaded workflows"
       - "Simple pipelines"
-  
+
   workstream-parallel-template:
     path: "orchestration/workstreams/workstream-parallel-template.json"
     requires:
@@ -119,7 +119,7 @@ orchestration:
     used_by:
       - "Multi-threaded workflows"
       - "Complex pipelines"
-  
+
   workstream-sequential-template:
     path: "orchestration/workstreams/workstream-sequential-template.json"
     requires:
@@ -132,7 +132,7 @@ orchestration:
       - "sequential_workstream"
     used_by:
       - "Step-by-step workflows"
-  
+
   # DAG Templates
   dag-simple-template:
     path: "orchestration/dags/dag-simple-template.yaml"
@@ -143,7 +143,7 @@ orchestration:
       - "simple_dependency_graph"
     used_by:
       - "Sequential workstreams"
-  
+
   dag-parallel-template:
     path: "orchestration/dags/dag-parallel-template.yaml"
     requires:
@@ -155,7 +155,7 @@ orchestration:
       - "parallel_dependency_graph"
     used_by:
       - "Parallel workstreams"
-  
+
   dag-complex-template:
     path: "orchestration/dags/dag-complex-template.yaml"
     requires:
@@ -167,7 +167,7 @@ orchestration:
       - "complex_dependency_graph"
     used_by:
       - "Advanced workflows"
-  
+
   # Task Templates
   task-analysis-template:
     path: "orchestration/tasks/task-analysis-template.yaml"
@@ -182,7 +182,7 @@ orchestration:
     used_by:
       - "Analysis phases"
       - "Discovery workstreams"
-  
+
   task-code-edit-template:
     path: "orchestration/tasks/task-code-edit-template.yaml"
     requires:
@@ -195,7 +195,7 @@ orchestration:
     used_by:
       - "Implementation phases"
       - "Refactoring workstreams"
-  
+
   task-testing-template:
     path: "orchestration/tasks/task-testing-template.yaml"
     requires:
@@ -214,7 +214,7 @@ orchestration:
 # ============================================================================
 
 adapters:
-  
+
   # Subprocess Adapters
   tool-adapter-template:
     path: "adapters/subprocess/tool-adapter-template.py"
@@ -228,7 +228,7 @@ adapters:
       - "subprocess_tool_adapter"
     used_by:
       - "CLI tool integrations"
-  
+
   aider-adapter-example:
     path: "adapters/subprocess/aider-adapter-example.py"
     requires:
@@ -240,7 +240,7 @@ adapters:
       - "aider_integration"
     used_by:
       - "Code editing tasks"
-  
+
   pytest-adapter-example:
     path: "adapters/subprocess/pytest-adapter-example.py"
     requires:
@@ -252,7 +252,7 @@ adapters:
       - "pytest_integration"
     used_by:
       - "Testing tasks"
-  
+
   # API Adapters
   rest-adapter-template:
     path: "adapters/api/rest-adapter-template.py"
@@ -265,7 +265,7 @@ adapters:
       - "rest_api_adapter"
     used_by:
       - "REST API integrations"
-  
+
   graphql-adapter-template:
     path: "adapters/api/graphql-adapter-template.py"
     requires:
@@ -277,7 +277,7 @@ adapters:
       - "graphql_api_adapter"
     used_by:
       - "GraphQL API integrations"
-  
+
   # Custom Adapters
   custom-adapter-template:
     path: "adapters/custom/custom-adapter-template.py"
@@ -288,7 +288,7 @@ adapters:
       - "custom_integration"
     used_by:
       - "Special-purpose integrations"
-  
+
   batch-processor-template:
     path: "adapters/custom/batch-processor-template.py"
     requires:
@@ -305,7 +305,7 @@ adapters:
 # ============================================================================
 
 configuration:
-  
+
   # Profile Templates
   profile-python-template:
     path: "configuration/profiles/profile-python-template.yaml"
@@ -316,7 +316,7 @@ configuration:
       - "python_project_profile"
     used_by:
       - "Python project bootstrapping"
-  
+
   profile-data-template:
     path: "configuration/profiles/profile-data-template.yaml"
     requires:
@@ -326,7 +326,7 @@ configuration:
       - "data_pipeline_profile"
     used_by:
       - "Data pipeline bootstrapping"
-  
+
   profile-docs-template:
     path: "configuration/profiles/profile-docs-template.yaml"
     requires:
@@ -336,7 +336,7 @@ configuration:
       - "documentation_profile"
     used_by:
       - "Documentation project bootstrapping"
-  
+
   profile-generic-template:
     path: "configuration/profiles/profile-generic-template.yaml"
     requires:
@@ -346,7 +346,7 @@ configuration:
       - "generic_project_profile"
     used_by:
       - "Unknown project type bootstrapping"
-  
+
   # Router Templates
   router-basic-template:
     path: "configuration/routers/router-basic-template.json"
@@ -357,7 +357,7 @@ configuration:
       - "basic_tool_routing"
     used_by:
       - "Simple tool selection"
-  
+
   router-multi-tool-template:
     path: "configuration/routers/router-multi-tool-template.json"
     requires:
@@ -367,7 +367,7 @@ configuration:
       - "multi_tool_routing"
     used_by:
       - "Complex tool selection"
-  
+
   router-fallback-template:
     path: "configuration/routers/router-fallback-template.json"
     requires:
@@ -377,7 +377,7 @@ configuration:
       - "fallback_routing"
     used_by:
       - "Resilient tool selection"
-  
+
   # Constraint Templates
   constraints-time-template:
     path: "configuration/constraints/constraints-time-template.yaml"
@@ -388,7 +388,7 @@ configuration:
       - "time_constraints"
     used_by:
       - "Time-limited execution"
-  
+
   constraints-resource-template:
     path: "configuration/constraints/constraints-resource-template.yaml"
     requires:
@@ -398,7 +398,7 @@ configuration:
       - "resource_constraints"
     used_by:
       - "Resource-limited execution"
-  
+
   constraints-quality-template:
     path: "configuration/constraints/constraints-quality-template.yaml"
     requires:
@@ -414,7 +414,7 @@ configuration:
 # ============================================================================
 
 ui:
-  
+
   # Dashboard Templates
   dashboard-progress-template:
     path: "ui/dashboards/dashboard-progress-template.html"
@@ -425,7 +425,7 @@ ui:
       - "progress_dashboard"
     used_by:
       - "Real-time monitoring"
-  
+
   dashboard-metrics-template:
     path: "ui/dashboards/dashboard-metrics-template.html"
     requires:
@@ -435,7 +435,7 @@ ui:
       - "metrics_dashboard"
     used_by:
       - "Performance monitoring"
-  
+
   dashboard-errors-template:
     path: "ui/dashboards/dashboard-errors-template.html"
     requires:
@@ -446,7 +446,7 @@ ui:
       - "error_dashboard"
     used_by:
       - "Error tracking"
-  
+
   # Report Templates
   report-execution-template:
     path: "ui/reports/report-execution-template.md"
@@ -457,7 +457,7 @@ ui:
       - "execution_report"
     used_by:
       - "Post-execution reporting"
-  
+
   report-summary-template:
     path: "ui/reports/report-summary-template.md"
     requires:
@@ -467,7 +467,7 @@ ui:
       - "summary_report"
     used_by:
       - "High-level summaries"
-  
+
   report-detailed-template:
     path: "ui/reports/report-detailed-template.html"
     requires:
@@ -477,7 +477,7 @@ ui:
       - "detailed_report"
     used_by:
       - "Deep-dive analysis"
-  
+
   # Monitoring Templates
   monitoring-realtime-template:
     path: "ui/monitoring/monitoring-realtime-template.json"
@@ -488,7 +488,7 @@ ui:
       - "realtime_monitoring_config"
     used_by:
       - "Live monitoring"
-  
+
   monitoring-historical-template:
     path: "ui/monitoring/monitoring-historical-template.json"
     requires:
@@ -504,7 +504,7 @@ ui:
 # ============================================================================
 
 examples:
-  
+
   simple-pipeline:
     path: "examples/simple-pipeline/"
     requires:
@@ -516,7 +516,7 @@ examples:
       - "minimal_working_example"
     used_by:
       - "Learning UET basics"
-  
+
   multi-phase:
     path: "examples/multi-phase/"
     requires:
@@ -530,7 +530,7 @@ examples:
       - "complete_workflow_example"
     used_by:
       - "Understanding multi-phase execution"
-  
+
   advanced:
     path: "examples/advanced/"
     requires:
@@ -549,7 +549,7 @@ examples:
 # ============================================================================
 
 external_dependencies:
-  
+
   # Framework Components
   framework:
     core.state.db:
@@ -573,7 +573,7 @@ external_dependencies:
     error.engine:
       module: "error.engine"
       description: "Error detection and handling"
-  
+
   # JSON Schemas
   schemas:
     phase_spec.v1:
@@ -594,7 +594,7 @@ external_dependencies:
     execution_request.v1:
       path: "../schema/execution_request.v1.json"
       description: "Execution request schema"
-  
+
   # External Tools
   tools:
     aider:
@@ -619,22 +619,22 @@ external_dependencies:
 # ============================================================================
 
 validation_rules:
-  
+
   # Circular dependency detection
   circular_dependencies:
     enabled: true
     action: "error"
-  
+
   # Missing dependency detection
   missing_dependencies:
     enabled: true
     action: "error"
-  
+
   # Version compatibility
   version_check:
     enabled: true
     action: "warn"
-  
+
   # External tool availability
   external_tools:
     enabled: true

@@ -8,9 +8,9 @@ doc_id: DOC-GUIDE-EXAMPLE_SAGA_PATTERN-068
 
 # Example 05: SAGA Pattern - Distributed Transactions
 
-**Pattern**: SAGA with compensation and rollback  
-**Complexity**: Advanced  
-**Estimated Duration**: 8-12 minutes (success), +3-5 min (rollback)  
+**Pattern**: SAGA with compensation and rollback
+**Complexity**: Advanced
+**Estimated Duration**: 8-12 minutes (success), +3-5 min (rollback)
 **Tool**: Aider with SAGA orchestration
 
 ---
@@ -77,9 +77,9 @@ Step 1: Create User Account    [UserService.create_account()]
   ↓ SUCCESS (user_id=123)
 Step 2: Process Payment         [PaymentService.charge()]
   ✗ FAILED (insufficient funds)
-  
+
 SAGA ROLLBACK TRIGGERED:
-  
+
 Compensation 1: Refund (skip - payment never succeeded)
   ↓
 Compensation 2: Delete Account  [UserService.delete_account(user_id=123)]
@@ -161,21 +161,21 @@ Compensation 2: Delete Account  [UserService.delete_account(user_id=123)]
 {
   "id": "step-02-payment-service",
   "description": "Process payment",
-  
+
   "tasks": [
     "Add PaymentService.charge() method",
     "Add PaymentService.refund() compensation"
   ],
-  
+
   "compensation": {
     "enabled": true,
     "action": "refund",  // Method to call for rollback
-    
+
     "parameters": {
       "transaction_id": "${step_output.transaction_id}",
       "amount": "${step_output.amount}"
     },
-    
+
     "timeout": 60,  // Compensation timeout
     "retries": 5    // Retry failed compensations
   }
@@ -206,7 +206,7 @@ $ python scripts/run_workstream.py --ws-id ws-example-05-saga-pattern
 ✓ UserService created
   Output: {user_id: 123}
 
-[INFO] Step 2/4: Create payment service  
+[INFO] Step 2/4: Create payment service
 ✓ PaymentService created
   Output: {transaction_id: 456, amount: 99.99}
 
@@ -250,7 +250,7 @@ $ python scripts/run_workstream.py --ws-id ws-example-05-saga-pattern
 [INFO] Step 3/4: Create notification service
 ✗ NotificationService FAILED
   Error: SMTP connection timeout
-  
+
 === SAGA Rollback Initiated ===
 
 [WARN] Rolling back 2 completed steps...
@@ -310,7 +310,7 @@ Compensations: 2/2 successful (with retries)
 [INFO] Compensation 2/2: Refund payment
 ✗ Refund FAILED (all 5 attempts exhausted)
   Error: Payment gateway permanently down
-  
+
 [ERROR] Compensation failed permanently!
 [ERROR] Partial rollback - manual intervention required
 
@@ -352,45 +352,45 @@ class User:
 
 class UserService:
     """User account management service."""
-    
+
     def __init__(self):
         self.users: Dict[int, User] = {}
         self.next_id = 1
-    
+
     def create_account(self, email: str) -> Dict:
         """
         Create user account.
-        
+
         Returns:
             Dict with user_id for compensation
         """
         user_id = self.next_id
         self.next_id += 1
-        
+
         user = User(
             user_id=user_id,
             email=email,
             created_at=datetime.now()
         )
-        
+
         self.users[user_id] = user
-        
+
         print(f"✓ User account created: {user_id}")
         return {"user_id": user_id}
-    
+
     def delete_account(self, user_id: int, reason: str = "user_request") -> None:
         """
         COMPENSATION: Delete user account.
-        
+
         This is idempotent - safe to call multiple times.
         """
         if user_id not in self.users:
             print(f"⚠ User {user_id} not found (already deleted?)")
             return  # Idempotent - not an error
-        
+
         user = self.users[user_id]
         user.deleted = True
-        
+
         print(f"✓ User account deleted: {user_id} (reason: {reason})")
 ```
 
@@ -417,21 +417,21 @@ class Transaction:
 
 class PaymentService:
     """Payment processing service."""
-    
+
     def __init__(self):
         self.transactions: Dict[int, Transaction] = {}
         self.next_txn_id = 1
-    
+
     def charge(self, user_id: int, amount: float) -> Dict:
         """
         Charge user account.
-        
+
         Returns:
             Dict with transaction_id and amount for compensation
         """
         txn_id = self.next_txn_id
         self.next_txn_id += 1
-        
+
         # Simulate payment processing
         txn = Transaction(
             transaction_id=txn_id,
@@ -440,15 +440,15 @@ class PaymentService:
             status="charged",
             timestamp=datetime.now()
         )
-        
+
         self.transactions[txn_id] = txn
-        
+
         print(f"✓ Payment charged: ${amount} (txn: {txn_id})")
         return {
             "transaction_id": txn_id,
             "amount": amount
         }
-    
+
     def refund(
         self,
         transaction_id: int,
@@ -457,21 +457,21 @@ class PaymentService:
     ) -> None:
         """
         COMPENSATION: Refund payment.
-        
+
         This is idempotent - safe to call multiple times.
         """
         if transaction_id not in self.transactions:
             print(f"⚠ Transaction {transaction_id} not found")
             return  # Idempotent
-        
+
         txn = self.transactions[transaction_id]
-        
+
         if txn.status == "refunded":
             print(f"⚠ Transaction {transaction_id} already refunded")
             return  # Idempotent
-        
+
         txn.status = "refunded"
-        
+
         print(f"✓ Payment refunded: ${amount} (txn: {transaction_id}, reason: {reason})")
 ```
 
@@ -494,11 +494,11 @@ class CompensationAction:
 
 class SagaCoordinator:
     """Orchestrates SAGA transactions."""
-    
+
     def __init__(self):
         self.compensations: List[CompensationAction] = []
         self.executed_steps: List[str] = []
-    
+
     def execute_saga(
         self,
         steps: List[Callable],
@@ -506,7 +506,7 @@ class SagaCoordinator:
     ) -> bool:
         """
         Execute SAGA with automatic rollback on failure.
-        
+
         Returns:
             True if SAGA succeeded, False if rolled back
         """
@@ -514,45 +514,45 @@ class SagaCoordinator:
             # Forward transaction
             for i, step in enumerate(steps):
                 print(f"\n[Step {i+1}/{len(steps)}]")
-                
+
                 # Execute step
                 result = step()
                 self.executed_steps.append(f"step-{i+1}")
-                
+
                 # Register compensation if provided
                 if compensations[i]:
                     self.compensations.append(compensations[i])
                     print(f"  Compensation registered: {compensations[i].action.__name__}")
-            
+
             print("\n✓ SAGA Complete - All steps succeeded")
             return True
-            
+
         except Exception as e:
             print(f"\n✗ SAGA Failed: {e}")
             print("Initiating rollback...")
-            
+
             self.rollback()
             return False
-    
+
     def rollback(self) -> None:
         """Execute compensations in reverse order."""
         if not self.compensations:
             print("No compensations to execute")
             return
-        
+
         print(f"\nRolling back {len(self.compensations)} step(s)...")
-        
+
         # Execute in reverse order
         for comp in reversed(self.compensations):
             try:
                 print(f"  Compensating: {comp.action.__name__}")
                 comp.action(**comp.parameters)
                 print(f"  ✓ Compensation succeeded")
-                
+
             except Exception as e:
                 print(f"  ✗ Compensation failed: {e}")
                 # In production, this would trigger alerts
-        
+
         print("\n✓ Rollback complete")
 ```
 
@@ -604,7 +604,7 @@ You've now completed all 5 examples! Review:
 
 ---
 
-**Last Updated**: 2025-11-22  
-**Difficulty**: ⭐⭐⭐ Advanced  
-**Execution Time**: 8-12 minutes (success), +3-5 min (rollback)  
+**Last Updated**: 2025-11-22
+**Difficulty**: ⭐⭐⭐ Advanced
+**Execution Time**: 8-12 minutes (success), +3-5 min (rollback)
 **Success Rate**: ~75% (intentionally demonstrates rollback scenarios)

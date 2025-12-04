@@ -162,5 +162,5 @@ data = Path("file.yaml").read_text()  # ❌ Can crash
 
 ---
 
-**Last Updated**: 2025-11-25  
+**Last Updated**: 2025-11-25
 **Status**: Active monitoring

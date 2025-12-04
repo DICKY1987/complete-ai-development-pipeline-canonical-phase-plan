@@ -8,7 +8,7 @@ Here’s a combined, AI-friendly document that:
 * Adds **PowerShell Gallery** as the third resource
 * Collects **GitHub + high-quality reference URLs**
 * Frames everything so an AI can **compare these options against an existing codebase**
- 
+
 You can drop this straight into your “resource index” or framework repo.
 
 ---

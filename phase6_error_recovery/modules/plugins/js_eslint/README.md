@@ -1,7 +1,7 @@
 # Plugin: js_eslint
 
-**Phase**: 6 (Error Recovery)  
-**Type**: Error Detection/Fix Plugin  
+**Phase**: 6 (Error Recovery)
+**Type**: Error Detection/Fix Plugin
 **Purpose**: js_eslint error detection and auto-fix
 
 ## Structure

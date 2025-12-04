@@ -4,8 +4,8 @@ doc_id: DOC-GUIDE-REPOSITORY-OPTIMIZATION-ROADMAP-394
 
 # Repository Optimization Roadmap
 
-**Date**: 2025-11-25  
-**Status**: RECOMMENDATION  
+**Date**: 2025-11-25
+**Status**: RECOMMENDATION
 **Priority**: Medium
 
 ---
@@ -69,8 +69,8 @@ python doc_id/doc_id_triage.py --missing-ids
 - Generated files
 - README files (use directory context)
 
-**Effort**: 30 mins  
-**Value**: Complete governance coverage  
+**Effort**: 30 mins
+**Value**: Complete governance coverage
 **Maintenance**: Low (only new strategic docs)
 
 ---
@@ -105,8 +105,8 @@ mv refactor_paths.db infra/data/
 - .gitattributes
 - Key launchers (ccpm.bat)
 
-**Effort**: 15 mins  
-**Value**: Cleaner root, better organization  
+**Effort**: 15 mins
+**Value**: Cleaner root, better organization
 **Risk**: Low (test that tools still find configs)
 
 ---
@@ -133,8 +133,8 @@ open htmlcov/index.html
 - Don't aim for 100% (diminishing returns)
 - Focus on business logic, not boilerplate
 
-**Effort**: 10 mins setup + ongoing  
-**Value**: Higher confidence in changes  
+**Effort**: 10 mins setup + ongoing
+**Value**: Higher confidence in changes
 **Maintenance**: Part of development workflow
 
 ---
@@ -175,7 +175,7 @@ modules:
     purpose: "Workstream orchestration"
     entry: "core/engine/orchestrator.py"
     depends_on: ["infra"]
-  
+
   error:
     purpose: "Error detection and auto-fix"
     entry: "error/engine/error_engine.py"
@@ -195,8 +195,8 @@ Follow AAA pattern:
 [code example]
 ```
 
-**Effort**: 30 mins  
-**Value**: AI tools understand repo 10x faster  
+**Effort**: 30 mins
+**Value**: AI tools understand repo 10x faster
 **Maintenance**: Update when architecture changes
 
 #### 4.2 Add Module README Files (1 hour)
@@ -224,8 +224,8 @@ Add `README.md` to each top-level module:
 [What it needs]
 ```
 
-**Effort**: 15 mins × 4 modules = 1 hour  
-**Value**: AI navigates modules independently  
+**Effort**: 15 mins × 4 modules = 1 hour
+**Value**: AI navigates modules independently
 
 ---
 
@@ -261,8 +261,8 @@ python scripts/update_codebase_index.py --verify
 # Reviews changes, asks for confirmation
 ```
 
-**Effort**: 1 hour to build  
-**Value**: Index stays current automatically  
+**Effort**: 1 hour to build
+**Value**: Index stays current automatically
 **Maintenance**: Runs monthly (5 mins)
 
 ---
@@ -286,8 +286,8 @@ python scripts/analyze_cleanup_candidates.py --type markdown
 
 **Expected reduction**: 750 → 200 files
 
-**Effort**: 2 hours  
-**Value**: Less clutter, faster searches  
+**Effort**: 2 hours
+**Value**: Less clutter, faster searches
 **Risk**: Medium (review before deleting)
 
 ---
@@ -314,8 +314,8 @@ depcheck
 - Test that everything still works
 - Commit cleaner deps
 
-**Effort**: 30 mins  
-**Value**: Faster installs, fewer vulnerabilities  
+**Effort**: 30 mins
+**Value**: Faster installs, fewer vulnerabilities
 
 ---
 
@@ -374,16 +374,16 @@ depcheck
 
 ## Anti-Patterns to Avoid
 
-❌ **Don't**: Add DOC_IDs to code files  
+❌ **Don't**: Add DOC_IDs to code files
 ✅ **Do**: Use import paths as natural IDs
 
-❌ **Don't**: Aim for 100% test coverage  
+❌ **Don't**: Aim for 100% test coverage
 ✅ **Do**: Focus on critical paths (70% is great)
 
-❌ **Don't**: Delete all old docs immediately  
+❌ **Don't**: Delete all old docs immediately
 ✅ **Do**: Archive first, delete after 6 months if unused
 
-❌ **Don't**: Over-engineer the index  
+❌ **Don't**: Over-engineer the index
 ✅ **Do**: Keep CODEBASE_INDEX simple and scannable
 
 ---
@@ -430,7 +430,7 @@ python doc_id/doc_id_triage.py --generate-missing
 # Review and commit
 ```
 
-**Total time**: 1.5 hours  
+**Total time**: 1.5 hours
 **Impact**: Repository becomes 10x more AI-friendly
 
 ---
@@ -448,5 +448,5 @@ Your repo is **already 90% optimized**. The remaining 10% is:
 
 **Questions? Start with Week 1 and see the difference.**
 
-_Last Updated: 2025-11-25_  
+_Last Updated: 2025-11-25_
 _Status: Ready for Implementation_

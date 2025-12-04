@@ -1,6 +1,6 @@
 # Module: state_manager
 
-**Phase**: 7  
+**Phase**: 7
 **Purpose**: State persistence and management
 
 ## Structure

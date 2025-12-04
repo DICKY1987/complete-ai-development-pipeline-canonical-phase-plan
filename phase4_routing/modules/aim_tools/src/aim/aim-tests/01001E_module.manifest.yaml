@@ -18,7 +18,7 @@ artifacts:
     - path: "01001E_conftest.py"
       ulid: "01001E00000000000000000000"
       entry_point: true
-  
+
   tests: []
   schemas: []
   docs:

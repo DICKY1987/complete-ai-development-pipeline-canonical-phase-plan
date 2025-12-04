@@ -10,7 +10,7 @@ entry_points:
   - file: "spec_to_workstream.py"
     function: "convert_openspec(proposal_path)"
     description: "Convert OpenSpec proposal to workstream JSON"
-    
+
   - command: "python scripts/spec_to_workstream.py --proposal <path>"
     description: "CLI for OpenSpec conversion"
 

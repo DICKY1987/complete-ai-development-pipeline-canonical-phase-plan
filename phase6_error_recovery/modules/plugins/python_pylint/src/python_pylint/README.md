@@ -1,7 +1,7 @@
 # python_pylint
 
-**Module Path**: `error/plugins/python_pylint`  
-**Layer**: Not specified  
+**Module Path**: `error/plugins/python_pylint`
+**Layer**: Not specified
 **Status**: Active
 
 ## Purpose
@@ -34,5 +34,5 @@ None specified
 
 ---
 
-**Generated**: 2025-12-02 22:40:27 UTC  
+**Generated**: 2025-12-02 22:40:27 UTC
 **Framework**: Universal Execution Templates (UET)

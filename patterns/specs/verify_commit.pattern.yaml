@@ -22,7 +22,7 @@ metadata:
 intent: |
   Validate changes against ground truth criteria then commit atomically.
   Ensures quality gates pass before committing to repository.
-  
+
   Ground truth checks:
   - All tests pass
   - Syntax valid
@@ -40,7 +40,7 @@ applicability:
     - Work in progress (use manual commits)
     - Experimental changes
     - Draft/WIP commits needed
-  
+
   constraints:
     all_checks_must_pass: true
     no_force_commit: true
@@ -50,24 +50,24 @@ inputs:
   project_root:
     type: "string"
     required: true
-    
+
   verification_checks:
     type: "array"
     required: true
     items:
       type: "string"
       enum: ["tests_pass", "syntax_valid", "no_todos", "git_clean", "lint_pass", "coverage_threshold"]
-  
+
   commit_message:
     type: "string"
     required: true
     min_length: 10
-    
+
   expected_files:
     type: "array"
     required: false
     description: "Files expected to be modified/created"
-  
+
   coverage_threshold:
     type: "integer"
     required: false
@@ -95,27 +95,27 @@ execution_steps:
   - step_id: "S1_run_tests"
     description: "Execute test suite"
     required: true
-    
+
   - step_id: "S2_check_syntax"
     description: "Validate all files compile"
     required: true
-    
+
   - step_id: "S3_scan_todos"
     description: "Check for TODO/placeholder comments"
     required: if_specified
-    
+
   - step_id: "S4_verify_git_status"
     description: "Verify only expected files changed"
     required: true
-    
+
   - step_id: "S5_run_linter"
     description: "Run code linter"
     required: if_specified
-    
+
   - step_id: "S6_check_coverage"
     description: "Verify test coverage threshold"
     required: if_specified
-    
+
   - step_id: "S7_commit"
     description: "Commit changes if all checks pass"
     required: true
@@ -124,20 +124,20 @@ ground_truth_criteria:
   required:
     - criterion: "tests_pass"
       description: "All tests pass (0 failures)"
-      
+
     - criterion: "syntax_valid"
       description: "All files have valid syntax"
-      
+
     - criterion: "git_status_expected"
       description: "Only expected files modified"
-  
+
   optional:
     - criterion: "no_todos"
       description: "No TODO or placeholder comments"
-      
+
     - criterion: "lint_clean"
       description: "No lint errors"
-      
+
     - criterion: "coverage_met"
       description: "Test coverage >= threshold"
 

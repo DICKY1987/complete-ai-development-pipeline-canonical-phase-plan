@@ -29,10 +29,10 @@ python scripts/sync_workstreams_to_github.py --branch feature/my-sync
 
 **CRITICAL FEATURE**: Never stops on errors
 
-✅ Processes ALL workstreams  
-✅ Collects ALL errors  
-✅ Tracks ALL successes  
-✅ Always generates final report  
+✅ Processes ALL workstreams
+✅ Collects ALL errors
+✅ Tracks ALL successes
+✅ Always generates final report
 
 **Result**: Complete execution picture, not just first failure
 
@@ -69,7 +69,7 @@ gh pr create --base main --head feature/ws-sync-* --title "Sync workstreams"
 When using `templates/workstream_summary_report.md`:
 
 - `${TIMESTAMP}` → Report time
-- `${FEATURE_BRANCH}` → Branch name  
+- `${FEATURE_BRANCH}` → Branch name
 - `${TOTAL_WORKSTREAMS}` → Total count
 - `${SUCCESS_COUNT}` → Successes
 - `${FAILED_COUNT}` → Failures
@@ -96,8 +96,8 @@ extensions:
 
 ## DOCUMENTATION
 
-📖 **Full Guide**: `docs/WORKSTREAM_SYNC_GUIDE.md`  
-📋 **Completion Summary**: `WORKSTREAM_SYNC_COMPLETION.md`  
+📖 **Full Guide**: `docs/WORKSTREAM_SYNC_GUIDE.md`
+📋 **Completion Summary**: `WORKSTREAM_SYNC_COMPLETION.md`
 🎯 **MASTER_SPLINTER Docs**: `C:\Users\richg\Downloads\PRMNT DOCS\`
 
 ---

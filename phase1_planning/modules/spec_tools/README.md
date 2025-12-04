@@ -1,6 +1,6 @@
 # Module: spec_tools
 
-**Phase**: 1  
+**Phase**: 1
 **Purpose**: Spec processing and validation utilities
 
 ## Structure

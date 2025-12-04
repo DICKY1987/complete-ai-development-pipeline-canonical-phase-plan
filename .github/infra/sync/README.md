@@ -26,7 +26,7 @@ Save file → (30s later) → Auto-commit → (60s later) → Auto-push to GitHu
                                                     Remote changes auto-pull
 ```
 
-**You do:** Edit and save files  
+**You do:** Edit and save files
 **System does:** Everything else
 
 ## User Experience

@@ -25,13 +25,13 @@ execution_steps:
     tool: "view"
     purpose: "Understand current state before modification"
     capture_context: true
-  
+
   2_edit:
     tool: "edit"
     purpose: "Apply surgical changes"
     validation: "syntax_check"
     on_fail: "enter_fix_loop"
-  
+
   3_verify:
     tool: "verify"
     purpose: "Confirm changes work as expected"
@@ -53,18 +53,18 @@ workflow:
   sequence_length: 3
   avg_duration: 45.0
   steps_must_complete_in_order: true
-  
+
 # Example usage
 example:
   context:
     target_file: "src/calculator.py"
     change: "Add new multiply method"
-  
+
   steps_executed:
     - "view src/calculator.py"
     - "edit src/calculator.py (add multiply)"
     - "pytest tests/test_calculator.py"
-  
+
   expected_duration: "45 seconds"
   expected_outcome:
     - "New method added"

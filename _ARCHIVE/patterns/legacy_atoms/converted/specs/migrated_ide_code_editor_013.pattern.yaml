@@ -24,7 +24,7 @@ metadata:
 intent: |
   Migrated from: Validate Syntax Correctness
   Original atom role: ide_code_editor
-  
+
   This pattern was automatically migrated from the atomic-workflow-system.
   Review and enhance before production use.
 

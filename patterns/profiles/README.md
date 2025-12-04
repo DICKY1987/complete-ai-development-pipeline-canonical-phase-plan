@@ -1,7 +1,7 @@
 # profiles
 
-**Module Path**: `profiles`  
-**Layer**: Foundation  
+**Module Path**: `profiles`
+**Layer**: Foundation
 **Status**: Active
 
 ## Purpose
@@ -38,5 +38,5 @@ core/bootstrap/README.md
 
 ---
 
-**Generated**: 2025-12-02 22:40:27 UTC  
+**Generated**: 2025-12-02 22:40:27 UTC
 **Framework**: Universal Execution Templates (UET)

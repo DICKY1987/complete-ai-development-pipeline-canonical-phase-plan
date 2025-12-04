@@ -23,20 +23,20 @@ from core.tool_instrumentation import (
 
 def example_file_processing_workflow():
     """Example: Process a file through the pipeline with full tracking."""
-    
+
     # Setup
     run_id = "run-example-001"
     ws_id = "ws-refactor-001"
     file_path = "src/example.py"
-    
+
     print("=" * 60)
     print("EXAMPLE: File Processing Workflow")
     print("=" * 60)
-    
+
     # Create run and workstream first
     from core.state.db import get_connection
     from datetime import datetime, timezone
-    
+
     conn = get_connection()
     try:
         now = datetime.now(timezone.utc).isoformat()
@@ -44,16 +44,16 @@ def example_file_processing_workflow():
             INSERT OR IGNORE INTO runs (run_id, status, created_at, updated_at)
             VALUES (?, 'running', ?, ?)
         """, (run_id, now, now))
-        
+
         conn.execute("""
             INSERT OR IGNORE INTO workstreams (ws_id, run_id, status, created_at, updated_at)
             VALUES (?, ?, 'running', ?, ?)
         """, (ws_id, run_id, now, now))
-        
+
         conn.commit()
     finally:
         conn.close()
-    
+
     # 1. Register file when discovered
     print("\n1. Discovering file...")
     file_id = register_file(
@@ -64,7 +64,7 @@ def example_file_processing_workflow():
         run_id=run_id
     )
     print(f"   Registered: {file_id}")
-    
+
     # 2. Classify the file
     print("\n2. Classifying file...")
     update_file_state(
@@ -74,7 +74,7 @@ def example_file_processing_workflow():
         workstream_id=ws_id
     )
     print("   State: discovered → classified")
-    
+
     # 3. Move to processing with Aider
     print("\n3. Processing with Aider...")
     update_file_state(
@@ -84,7 +84,7 @@ def example_file_processing_workflow():
         run_id=run_id,
         workstream_id=ws_id
     )
-    
+
     # Use context manager to track tool invocation
     try:
         with track_tool_invocation(
@@ -97,12 +97,12 @@ def example_file_processing_workflow():
         ) as tracker:
             # Simulate tool work
             print("   Aider running...")
-            
+
             # Simulate some output
             tracker.set_output_size(1024)
-            
+
             print("   Aider completed successfully")
-        
+
         # Record the touch
         record_tool_touch(
             file_id=file_id,
@@ -111,7 +111,7 @@ def example_file_processing_workflow():
             action="refactor",
             status="success"
         )
-        
+
     except Exception as e:
         # Record failure
         record_tool_touch(
@@ -122,7 +122,7 @@ def example_file_processing_workflow():
             status="failure",
             error_message=str(e)
         )
-        
+
         # Create error record
         error_id = create_error_record(
             entity_type="file",
@@ -137,7 +137,7 @@ def example_file_processing_workflow():
             technical_details=str(e),
             recommendation="Retry with increased timeout or different model"
         )
-        
+
         # Quarantine the file
         mark_file_quarantined(
             file_id=file_id,
@@ -147,10 +147,10 @@ def example_file_processing_workflow():
             workstream_id=ws_id,
             tool_id="aider"
         )
-        
+
         print(f"   ERROR: {error_id}")
         return
-    
+
     # 4. Run tests
     print("\n4. Running tests...")
     update_file_state(
@@ -160,7 +160,7 @@ def example_file_processing_workflow():
         run_id=run_id,
         workstream_id=ws_id
     )
-    
+
     with track_tool_invocation(
         tool_id="pytest",
         tool_name="PyTest",
@@ -172,7 +172,7 @@ def example_file_processing_workflow():
         print("   Tests running...")
         # Simulate test execution
         print("   Tests passed")
-    
+
     record_tool_touch(
         file_id=file_id,
         tool_id="pytest",
@@ -180,7 +180,7 @@ def example_file_processing_workflow():
         action="test",
         status="success"
     )
-    
+
     # 5. Await review
     print("\n5. Awaiting review...")
     update_file_state(
@@ -189,7 +189,7 @@ def example_file_processing_workflow():
         run_id=run_id,
         workstream_id=ws_id
     )
-    
+
     # 6. Commit to repository
     print("\n6. Committing to repository...")
     mark_file_committed(
@@ -200,7 +200,7 @@ def example_file_processing_workflow():
         workstream_id=ws_id
     )
     print("   Committed: abc123def456")
-    
+
     print("\n" + "=" * 60)
     print("WORKFLOW COMPLETED SUCCESSFULLY")
     print("=" * 60)
@@ -208,14 +208,14 @@ def example_file_processing_workflow():
 
 def example_tool_health_monitoring():
     """Example: Monitor tool health status."""
-    
+
     print("\n" + "=" * 60)
     print("EXAMPLE: Tool Health Monitoring")
     print("=" * 60)
-    
+
     # Update tool health status
     print("\n1. Updating tool health status...")
-    
+
     update_tool_health_status(
         tool_id="aider",
         status="healthy",
@@ -223,7 +223,7 @@ def example_tool_health_monitoring():
         category="ai_editor"
     )
     print("   Aider: healthy")
-    
+
     update_tool_health_status(
         tool_id="codex",
         status="degraded",
@@ -232,7 +232,7 @@ def example_tool_health_monitoring():
         category="ai_editor"
     )
     print("   Codex: degraded (API rate limit)")
-    
+
     update_tool_health_status(
         tool_id="pytest",
         status="healthy",
@@ -240,14 +240,14 @@ def example_tool_health_monitoring():
         category="test_runner"
     )
     print("   PyTest: healthy")
-    
+
     # Query tool health
     print("\n2. Querying tool health...")
     from core.ui_clients import ToolsClient
-    
+
     client = ToolsClient()
     tools = client.list_tools()
-    
+
     for tool in tools:
         print(f"   {tool.display_name}: {tool.status.value}")
         if tool.status_reason:
@@ -258,27 +258,27 @@ def example_tool_health_monitoring():
 
 def example_dashboard_query():
     """Example: Query dashboard summary."""
-    
+
     print("\n" + "=" * 60)
     print("EXAMPLE: Dashboard Query")
     print("=" * 60)
-    
+
     from core.ui_clients import StateClient
-    
+
     client = StateClient()
     summary = client.get_pipeline_summary()
-    
+
     print("\nWorkstreams:")
     print(f"  Running:    {summary.workstreams_running}")
     print(f"  Queued:     {summary.workstreams_queued}")
     print(f"  Completed:  {summary.workstreams_completed}")
     print(f"  Failed:     {summary.workstreams_failed}")
-    
+
     print("\nFiles:")
     print(f"  In Flight:   {summary.files_in_flight}")
     print(f"  Committed:   {summary.files_committed}")
     print(f"  Quarantined: {summary.files_quarantined}")
-    
+
     print("\nThroughput:")
     print(f"  Files/hour: {summary.files_per_hour:.1f}")
     print(f"  Errors/hour: {summary.errors_per_hour:.1f}")
@@ -286,18 +286,18 @@ def example_dashboard_query():
 
 def example_cli_usage():
     """Example: Using the CLI interface."""
-    
+
     print("\n" + "=" * 60)
     print("EXAMPLE: CLI Usage")
     print("=" * 60)
-    
+
     print("\nQuery commands:")
     print("  python -m core.ui_cli dashboard --json")
     print("  python -m core.ui_cli files --state in_flight --json")
     print("  python -m core.ui_cli workstreams --run-id run-123 --json")
     print("  python -m core.ui_cli tools --json")
     print("  python -m core.ui_cli errors --severity error --json")
-    
+
     print("\nExample output:")
     print('  {')
     print('    "workstreams_running": 3,')
@@ -312,7 +312,7 @@ if __name__ == "__main__":
     from core.state.db import init_db
     init_db()
     print("Schema initialized.\n")
-    
+
     # Run examples
     try:
         example_file_processing_workflow()

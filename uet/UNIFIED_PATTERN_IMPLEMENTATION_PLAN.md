@@ -5,7 +5,7 @@ doc_id: DOC-GUIDE-UNIFIED-PATTERN-IMPLEMENTATION-PLAN-1660
 # Unified Pattern Implementation Plan
 ## Decision Elimination via Pattern System Architecture
 
-**Created**: 2025-11-24  
+**Created**: 2025-11-24
 **Unified From**:
 - `TEMPLATE_IMPLEMENTATION_PLAN.md` (Template-driven execution)
 - `complete pattern solution.txt` (4-component pattern architecture)
@@ -49,8 +49,8 @@ Token consumption: ~5k tokens (94% reduction)
 Human interventions: 0 (pre-authorized)
 ```
 
-**Speedup**: 2.96x faster (133 min → 45 min)  
-**Token Savings**: 94% reduction  
+**Speedup**: 2.96x faster (133 min → 45 min)
+**Token Savings**: 94% reduction
 **Automation**: 100% (zero human intervention)
 
 ---
@@ -270,7 +270,7 @@ patterns:
       - github_copilot_cli
     time_savings_vs_manual: "60%"
     proven_uses: 12
-    
+
   - pattern_id: PAT-BATCH-CREATE-001
     name: batch_create
     version: "1.0.0"
@@ -406,23 +406,23 @@ execution_steps:
       - "Parent directories exist"
       - "No conflicting files"
     on_fail: "create_parents_auto"
-  
+
   - id: "create_files"
     strategy: "sequential"
     order: ["implementation_files", "test_files"]
-  
+
   - id: "verify_creation"
     checks:
       - cmd: "Test-Path ${file_path}"
         for_each: "created_files"
       - cmd: "python -m py_compile ${file_path}"
         for_each: "python_files"
-  
+
   - id: "run_tests"
     cmd: "python -m pytest ${test_file} -v"
     expect: ".*passed.*0 failed.*"
     on_fail: "enter_fix_loop"
-  
+
   - id: "git_status"
     cmd: "git status --porcelain"
     expect_count: "${created_files.length}"
@@ -488,7 +488,7 @@ if (-not (Test-JsonSchema -Instance $instance -SchemaPath $schemaPath)) {
 # Execute steps
 foreach ($step in $spec.execution_steps) {
     Write-StructuredLog -Event "step_start" -StepId $step.id
-    
+
     switch ($step.id) {
         "verify_parent_dirs" {
             # Implementation
@@ -506,7 +506,7 @@ foreach ($step in $spec.execution_steps) {
             # Implementation
         }
     }
-    
+
     Write-StructuredLog -Event "step_complete" -StepId $step.id
 }
 
@@ -529,22 +529,22 @@ Describe "Atomic Create Executor" {
     It "Should create files from minimal instance" {
         $result = & patterns/executors/atomic_create_executor.ps1 `
             -InstancePath patterns/examples/atomic_create/instance_minimal.json
-        
+
         $result.status | Should -Be "success"
         $result.created_files | Should -HaveCount 2
     }
-    
+
     It "Should enforce determinism (same input = same output)" {
         # Run twice with same input
         $result1 = & patterns/executors/atomic_create_executor.ps1 `
             -InstancePath patterns/examples/atomic_create/instance_minimal.json
-        
+
         $result2 = & patterns/executors/atomic_create_executor.ps1 `
             -InstancePath patterns/examples/atomic_create/instance_minimal.json
-        
+
         $result1.created_files | Should -Be $result2.created_files
     }
-    
+
     It "Should fail on invalid instance" {
         { & patterns/executors/atomic_create_executor.ps1 `
             -InstancePath patterns/examples/atomic_create/invalid.json
@@ -697,7 +697,7 @@ For each pattern:
    # Create migration workspace
    mkdir -p patterns/legacy_atoms/source
    cd patterns/legacy_atoms/source
-   
+
    # Clone repo
    git clone https://github.com/DICKY1987/atomic-workflow-system.git
    ```
@@ -709,11 +709,11 @@ For each pattern:
 3. **Convert atoms to patterns** using `scripts/migrate_atoms_to_patterns.py`:
    ```python
    # scripts/migrate_atoms_to_patterns.py
-   
+
    def convert_atom_to_pattern(atom_jsonl_entry):
        """Convert old atom format to new pattern format"""
        atom = json.loads(atom_jsonl_entry)
-       
+
        pattern = {
            'pattern_id': f"PAT-MIGRATED-{atom['atom_uid'][:8]}",
            'name': atom.get('atom_key', 'unknown').split('/')[-1],
@@ -726,7 +726,7 @@ For each pattern:
            'migrated_from': 'atomic-workflow-system',
            'original_atom_uid': atom['atom_uid']
        }
-       
+
        return pattern
    ```
 
@@ -768,20 +768,20 @@ For each pattern:
    ```python
    class PatternLoader:
        """Load patterns from PATTERN_INDEX.yaml"""
-       
+
        def __init__(self, registry_path: str):
            self.registry_path = registry_path
            self.patterns = self._load_registry()
-       
+
        def load_pattern(self, pattern_id: str) -> Pattern:
            """Load pattern by ID"""
            entry = self.patterns.get(pattern_id)
            if not entry:
                raise PatternNotFoundError(pattern_id)
-           
+
            spec = self._load_yaml(entry['spec_path'])
            schema = self._load_json(entry['schema_path'])
-           
+
            return Pattern(
                id=pattern_id,
                spec=spec,
@@ -794,23 +794,23 @@ For each pattern:
    ```python
    class PatternExecutor:
        """Execute pattern instances"""
-       
+
        def execute(self, pattern: Pattern, instance: dict) -> ExecutionResult:
            """Execute pattern with instance variables"""
-           
+
            # Validate instance against schema
            self.validator.validate(instance, pattern.schema)
-           
+
            # Execute pattern steps
            for step in pattern.spec['execution_steps']:
                result = self._execute_step(step, instance)
-               
+
                if not result.success:
                    if self._can_auto_heal(result, pattern):
                        self._heal_and_retry(step, instance, pattern)
                    else:
                        raise ExecutionError(step, result)
-           
+
            return ExecutionResult(status='success')
    ```
 
@@ -818,7 +818,7 @@ For each pattern:
    ```python
    class PatternValidator:
        """Validate instances against schemas"""
-       
+
        def validate(self, instance: dict, schema: dict) -> ValidationResult:
            """Validate using jsonschema"""
            try:
@@ -835,24 +835,24 @@ For each pattern:
    ```python
    class VerificationEngine:
        """Execute programmatic verifications"""
-       
+
        def verify(self, verification_id: str, context: dict) -> VerificationResult:
            """Run ground truth verification"""
            template = self.load_verification(verification_id)
-           
+
            result = subprocess.run(
                template['command'].format(**context),
                capture_output=True,
                text=True
            )
-           
+
            for criterion in template['ground_truth_criteria']:
                if not self.evaluate_criterion(criterion, result):
                    return VerificationResult(
                        success=False,
                        message=template['reporting']['on_failure']
                    )
-           
+
            return VerificationResult(success=True)
    ```
 
@@ -883,17 +883,17 @@ For each pattern:
    ```python
    class TemplateExtractor:
        """Extract reusable pattern from executed workstream"""
-       
+
        def extract_from_workstream(self, ws_id: str, run_id: str):
            """Generate pattern from completed execution"""
-           
+
            # Load execution history
            run_data = self.load_run_data(run_id)
            workstream = self.load_workstream(ws_id)
-           
+
            # Extract decisions made
            decisions = self.extract_decisions(run_data)
-           
+
            # Generate pattern spec
            pattern = {
                'pattern_id': f"PAT-EXTRACTED-{uuid4().hex[:8].upper()}",
@@ -910,7 +910,7 @@ For each pattern:
                    'time_savings_vs_manual': self.calculate_savings(run_data)
                }
            }
-           
+
            # Save pattern
            self.save_pattern(pattern)
            return pattern
@@ -919,26 +919,26 @@ For each pattern:
 2. **Pattern Management CLI**: `tools/pattern_tools.py`
    ```python
    import typer
-   
+
    app = typer.Typer()
-   
+
    @app.command()
    def create(name: str, category: str):
        """Create new pattern scaffolding"""
        # Generate spec, schema, executor, test templates
-       
+
    @app.command()
    def validate(pattern_id: str):
        """Validate pattern compliance"""
        # Check PAT-* requirements
-       
+
    @app.command()
    def extract(ws_id: str, run_id: str):
        """Extract pattern from workstream execution"""
        extractor = TemplateExtractor()
        pattern = extractor.extract_from_workstream(ws_id, run_id)
        typer.echo(f"Pattern created: {pattern['pattern_id']}")
-   
+
    @app.command()
    def migrate_atom(atom_uid: str):
        """Migrate atom from legacy registry"""
@@ -1274,9 +1274,9 @@ Patterns migrated from atomic-workflow-system:
 
 ---
 
-**Document Status**: Unified Plan v1.0  
-**Last Updated**: 2025-11-24  
-**Owner**: UET Framework Team  
+**Document Status**: Unified Plan v1.0
+**Last Updated**: 2025-11-24
+**Owner**: UET Framework Team
 **Next Review**: After Phase 2B completion (first working pattern)
 
 ---

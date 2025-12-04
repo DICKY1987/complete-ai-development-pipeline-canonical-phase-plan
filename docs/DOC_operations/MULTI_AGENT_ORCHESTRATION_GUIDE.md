@@ -69,15 +69,15 @@ agent_configs = [
 ```python
 track_assignments = {
     "pipeline_plus": [
-        "ws-22", "ws-23", "ws-24", "ws-25", 
+        "ws-22", "ws-23", "ws-24", "ws-25",
         "ws-26", "ws-27", "ws-28", "ws-29", "ws-30"
     ],
     "core_refactor": [
-        "ws-03", "ws-04", "ws-05", "ws-06", 
+        "ws-03", "ws-04", "ws-05", "ws-06",
         "ws-07", "ws-08", "ws-09"
     ],
     "error_engine": [
-        "ws-12", "ws-13", "ws-14", "ws-15", 
+        "ws-12", "ws-13", "ws-14", "ws-15",
         "ws-16", "ws-17"
     ],
     # Add custom tracks
@@ -171,20 +171,20 @@ If a workstream fails:
 
 ### **"No agents available"**
 
-**Problem**: All agents are busy  
+**Problem**: All agents are busy
 **Solution**: Wait for current workstreams to complete, or add more agents
 
 ### **"Workstream failed"**
 
-**Problem**: Workstream execution returned non-zero exit code  
-**Solution**: 
+**Problem**: Workstream execution returned non-zero exit code
+**Solution**:
 1. Check logs: `cat logs/orchestrator.log | grep ws-XX`
 2. Check database: `sqlite3 .state/orchestration.db "SELECT * FROM workstream_status WHERE workstream_id='ws-XX'"`
 3. Manually fix and retry
 
 ### **"Waiting for dependencies"**
 
-**Problem**: All ready workstreams have unmet dependencies  
+**Problem**: All ready workstreams have unmet dependencies
 **Solution**: This is normal - orchestrator waits for running workstreams to complete
 
 ---
@@ -226,11 +226,11 @@ def _build_aider_command(self, ws_id: str, ws_data: Dict) -> str:
     if ws_id in ["ws-03", "ws-04", "ws-05", "ws-06", "ws-07", "ws-08"]:
         module_id = extract_module_id(ws_data)
         return f"execute-pattern PAT-MODULE-REFACTOR-MIGRATE-003 --module-id {module_id}"
-    
+
     # For schema creation
     if ws_id == "ws-22":
         return f"execute-pattern PAT-ATOMIC-CREATE-001 --workstream {ws_id}"
-    
+
     # Default: use aider
     return default_aider_command(ws_id, ws_data)
 ```
@@ -340,24 +340,24 @@ message          TEXT
 
 ## FAQ
 
-**Q: Can I pause and resume?**  
+**Q: Can I pause and resume?**
 A: Yes! State is persisted in SQLite. Just stop the script and restart it.
 
-**Q: What if an agent crashes?**  
+**Q: What if an agent crashes?**
 A: Orchestrator will mark workstream as failed. You can manually restart it or the entire orchestration.
 
-**Q: Can I add agents mid-execution?**  
+**Q: Can I add agents mid-execution?**
 A: Not currently. Stop orchestrator, update config, restart.
 
-**Q: How do I prioritize certain workstreams?**  
+**Q: How do I prioritize certain workstreams?**
 A: Assign them to dedicated agent tracks. Critical path (Pipeline Plus) gets agent-1.
 
-**Q: Can I run more than 3 agents?**  
+**Q: Can I run more than 3 agents?**
 A: Yes! Just add more entries to agent_configs. Optimal is 3-6 agents for this workload.
 
 ---
 
-**Created**: 2025-11-28  
-**Status**: Ready for use  
-**Estimated setup time**: 10 minutes  
+**Created**: 2025-11-28
+**Status**: Ready for use
+**Estimated setup time**: 10 minutes
 **Estimated execution time**: 1-2 weeks with 3 agents

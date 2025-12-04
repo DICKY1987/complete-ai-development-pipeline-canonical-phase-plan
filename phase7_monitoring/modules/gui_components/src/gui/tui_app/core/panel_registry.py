@@ -10,44 +10,44 @@ from .panel_plugin import PanelPlugin
 
 class PanelRegistry:
     """Registry for managing panel plugins."""
-    
+
     def __init__(self):
         self._panels: Dict[str, Type[PanelPlugin]] = {}
-    
+
     def register(self, panel_id: str, panel_class: Type[PanelPlugin]) -> None:
         """Register a panel plugin.
-        
+
         Args:
             panel_id: Unique identifier for the panel
             panel_class: Panel class implementing PanelPlugin protocol
         """
         self._panels[panel_id] = panel_class
-    
+
     def get(self, panel_id: str) -> Optional[Type[PanelPlugin]]:
         """Get panel class by ID.
-        
+
         Args:
             panel_id: Panel identifier
-            
+
         Returns:
             Panel class if found, None otherwise
         """
         return self._panels.get(panel_id)
-    
+
     def list_panels(self) -> list[str]:
         """List all registered panel IDs.
-        
+
         Returns:
             List of panel identifiers
         """
         return list(self._panels.keys())
-    
+
     def create_panel(self, panel_id: str) -> Optional[PanelPlugin]:
         """Create a panel instance by ID.
-        
+
         Args:
             panel_id: Panel identifier
-            
+
         Returns:
             Panel instance if panel_id is registered, None otherwise
         """
@@ -63,13 +63,13 @@ _registry = PanelRegistry()
 
 def register_panel(panel_id: str) -> Callable:
     """Decorator for registering panel classes.
-    
+
     Args:
         panel_id: Unique identifier for the panel
-        
+
     Returns:
         Decorator function
-        
+
     Example:
         @register_panel("dashboard")
         class DashboardPanel:
@@ -83,7 +83,7 @@ def register_panel(panel_id: str) -> Callable:
 
 def get_registry() -> PanelRegistry:
     """Get the global panel registry.
-    
+
     Returns:
         Global PanelRegistry instance
     """

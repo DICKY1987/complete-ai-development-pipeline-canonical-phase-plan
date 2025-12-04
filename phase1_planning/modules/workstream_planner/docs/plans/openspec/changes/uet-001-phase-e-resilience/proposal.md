@@ -4,12 +4,12 @@ doc_id: DOC-GUIDE-PROPOSAL-1515
 
 # Phase E: Resilience - UET Implementation
 
-**Change ID**: uet-001-phase-e-resilience  
-**Parent**: uet-001-complete-implementation  
-**Depends On**: uet-001-phase-c-orchestration  
-**Type**: Resilience Enhancement  
-**Priority**: MEDIUM  
-**Estimated Duration**: 1-2 weeks  
+**Change ID**: uet-001-phase-e-resilience
+**Parent**: uet-001-complete-implementation
+**Depends On**: uet-001-phase-c-orchestration
+**Type**: Resilience Enhancement
+**Priority**: MEDIUM
+**Estimated Duration**: 1-2 weeks
 **Effort**: 40 hours
 
 ---
@@ -57,7 +57,7 @@ class CompensationEngine:
         """Rollback single patch via git revert."""
         patch = db.get_patch(patch_id)
         subprocess.run(['git', 'revert', patch.commit_sha])
-    
+
     def rollback_phase(self, phase_id: str):
         """Rollback entire phase via compensation cascade."""
         patches = db.get_patches_for_phase(phase_id)
@@ -82,7 +82,7 @@ class CompensationEngine:
 
 ## Dependencies
 
-**Requires**: Phase C (orchestration needed)  
+**Requires**: Phase C (orchestration needed)
 **Blocks**: None (final phase)
 
 ---

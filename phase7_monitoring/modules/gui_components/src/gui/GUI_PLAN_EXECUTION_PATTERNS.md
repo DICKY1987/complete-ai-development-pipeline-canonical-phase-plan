@@ -1,9 +1,9 @@
 # GUI Plan Execution Patterns
 ## Pre-Made Decision Templates for Hybrid GUI Development
 
-**DOC_ID:** DOC-GUI-EXEC-PATTERNS-001  
-**Created:** 2025-11-26  
-**Based on:** Decision Elimination Playbook + Execution Patterns Library  
+**DOC_ID:** DOC-GUI-EXEC-PATTERNS-001
+**Created:** 2025-11-26
+**Based on:** Decision Elimination Playbook + Execution Patterns Library
 **Purpose:** Eliminate 85% of decisions when building Hybrid GUI Plan Document
 
 ---
@@ -79,7 +79,7 @@ structural_decisions:
     5: "Data Access Layer & Tile Manifests"
     6: "Implementation Phasing & Roadmap"
     7: "Open Questions, Risks & Design Decisions"
-  
+
   # DECIDED ONCE: File priority for each section
   section_sources:
     system_ux_overview:
@@ -92,7 +92,7 @@ structural_decisions:
       extract_from_secondary:
         - "High-Level Summary (11 modules)"
         - "Cross-Module/Global Visuals concepts"
-    
+
     engine_data_architecture:
       primary: "module_outputs_and_visuals.md"
       secondary: "AI Development Pipeline_Hybrid GUI Analysis.txt"
@@ -107,7 +107,7 @@ structural_decisions:
       extract_from_tertiary:
         - "Modules Discovered tables"
         - "Database Locations section"
-    
+
     output_inventory_data_sources:
       primary: "module_outputs_and_visuals.md"
       secondary: "AI Development Pipeline_Hybrid GUI Analysis.txt"
@@ -120,7 +120,7 @@ structural_decisions:
       extract_from_tertiary:
         - "Job JSON examples"
         - "Job schema references"
-    
+
     tile_catalog_ux_layout:
       primary: "module_outputs_and_visuals.md"
       secondary: "AI Development Pipeline_Hybrid GUI Analysis.txt"
@@ -134,7 +134,7 @@ structural_decisions:
         - "Top 10 Recommended Tiles with phasing"
         - "Visual Types Used table"
         - "Tile Manifest Pattern JSON example"
-    
+
     data_access_layer_tile_manifests:
       primary: "GUI_MODULE_ANALYSIS_SUMMARY.md"
       secondary: "module_outputs_and_visuals.md"
@@ -149,7 +149,7 @@ structural_decisions:
         - "Source paths from output tables"
       extract_from_tertiary:
         - "Job path structure (log_file, error_report)"
-    
+
     implementation_phasing_roadmap:
       primary: "AI Development Pipeline_Hybrid GUI Analysis.txt"
       secondary: "GUI_MODULE_ANALYSIS_SUMMARY.md"
@@ -160,7 +160,7 @@ structural_decisions:
         - "Top 10 Recommended Tiles (Phase 1/2/3)"
         - "Implementation Strategy section"
         - "Next Steps for GUI Development"
-    
+
     open_questions_risks_design_decisions:
       primary: "GUI_MODULE_ANALYSIS_SUMMARY.md"
       secondary: "AI Development Pipeline_Hybrid GUI Analysis.txt"
@@ -223,7 +223,7 @@ deduplication_rules:
     1: "module_outputs_and_visuals.md (for data sources and technical detail)"
     2: "AI Development Pipeline_Hybrid GUI Analysis.txt (for complexity ratings)"
     3: "GUI_MODULE_ANALYSIS_SUMMARY.md (for phasing and priority)"
-  
+
   merge_strategy:
     tile_name: "Use exact name from module_outputs_and_visuals.md"
     uses_output_ids: "module_outputs_and_visuals.md (authoritative)"
@@ -232,18 +232,18 @@ deduplication_rules:
     complexity: "AI Development Pipeline_Hybrid GUI Analysis.txt (Summary Table)"
     priority: "GUI_MODULE_ANALYSIS_SUMMARY.md (Top 10 list)"
     phase: "GUI_MODULE_ANALYSIS_SUMMARY.md (Phase 1/2/3)"
-  
+
   example:
     input:
       - file: "module_outputs_and_visuals.md"
         content: "JobQueueTile | Q-1, Q-2 | Table + counters | Priority/status grid with counts"
-      
+
       - file: "AI Development Pipeline_Hybrid GUI Analysis.txt"
         content: "QueueDashboardTile | OUT-QUEUE-1, OUT-QUEUE-3 | Multi-panel dashboard | Show queue depth gauge, priority distribution..."
-      
+
       - file: "GUI_MODULE_ANALYSIS_SUMMARY.md"
         content: "JobQueueTile - Phase 1 Essential"
-    
+
     output:
       tile_name: "JobQueueTile"  # From module_outputs_and_visuals.md
       uses_output_ids: ["Q-1", "Q-2"]  # From module_outputs_and_visuals.md
@@ -252,14 +252,14 @@ deduplication_rules:
       complexity: "Medium"  # From Summary Table in AI Development Pipeline
       priority: "High"  # From Summary Table
       phase: "Phase 1 Essential"  # From GUI_MODULE_ANALYSIS_SUMMARY.md
-  
+
   # RULE 2: Overlapping module descriptions
   when: "Same module appears in multiple files"
   priority:
     1: "module_outputs_and_visuals.md (for Role and technical detail)"
     2: "AI Development Pipeline_Hybrid GUI Analysis.txt (for comprehensive coverage)"
     3: "GUI_MODULE_ANALYSIS_SUMMARY.md (for categorization)"
-  
+
   # RULE 3: Overlapping output ID naming
   when: "Same output has different IDs in different files"
   normalization_map:
@@ -275,7 +275,7 @@ deduplication_rules:
     1: "GUICODEX.txt (for job examples)"
     2: "module_outputs_and_visuals.md (for generic output examples)"
     3: "GUI_MODULE_ANALYSIS_SUMMARY.md (for query examples)"
-  
+
   merge_strategy:
     - "Use GUICODEX.txt for job JSON structure"
     - "Use module_outputs_and_visuals.md for per-module output examples"
@@ -333,88 +333,88 @@ table_templates:
         width: "12%"
         alignment: "left"
         example: "ORC-1"
-      
+
       - name: "Type"
         width: "15%"
         alignment: "left"
         example: "log_text"
-      
+
       - name: "Source (file/DB/API)"
         width: "35%"
         alignment: "left"
         example: "stdout/stderr from `python -m engine.orchestrator`"
-      
+
       - name: "Key Fields / Schema (approx)"
         width: "38%"
         alignment: "left"
         example: "job_id, tool, workstream_id, status, exit_code, duration"
-    
+
     markdown_template: |
       | Output ID | Type | Source (file/DB/API) | Key Fields / Schema (approx) |
       |-----------|------|----------------------|------------------------------|
       | {output_id} | {type} | {source} | {key_fields} |
-  
+
   # TILE TABLE (for Section 4: Tile Catalog)
   tile_table:
     columns:
       - name: "Tile Name"
         width: "20%"
         alignment: "left"
-      
+
       - name: "Uses Output IDs"
         width: "15%"
         alignment: "left"
-      
+
       - name: "Visual Type"
         width: "18%"
         alignment: "left"
-      
+
       - name: "Description"
         width: "35%"
         alignment: "left"
-      
+
       - name: "Complexity"
         width: "12%"
         alignment: "center"
         source: "AI Development Pipeline_Hybrid GUI Analysis.txt Summary Table"
-    
+
     markdown_template: |
       | Tile Name | Uses Output IDs | Visual Type | Description | Complexity |
       |-----------|-----------------|-------------|-------------|------------|
       | {tile_name} | {output_ids} | {visual_type} | {description} | {complexity} |
-  
+
   # MODULE TABLE (for Section 2: Engine & Data Architecture)
   module_table:
     columns:
       - name: "Module"
         width: "25%"
-      
+
       - name: "Role"
         width: "35%"
-      
+
       - name: "Key Outputs"
         width: "40%"
-    
+
     markdown_template: |
       | Module | Role | Key Outputs |
       |--------|------|-------------|
       | {module_name} | {role} | {key_outputs} |
-  
+
   # PHASE ROADMAP TABLE (for Section 6: Implementation Phasing)
   phase_table:
     columns:
       - name: "Phase"
         width: "15%"
-      
+
       - name: "Goals"
         width: "30%"
-      
+
       - name: "Tiles"
         width: "35%"
-      
+
       - name: "Estimated Time"
         width: "20%"
-    
+
     markdown_template: |
       | Phase | Goals | Tiles | Estimated Time |
       |-------|-------|-------|----------------|
@@ -450,20 +450,20 @@ extraction_rules:
     - "Include full code block"
     - "Preserve language tag (text, json, python, bash)"
     - "Include module context (which module this is from)"
-  
+
   placement:
     section: "Output Inventory & Data Sources"
     per_module: true
     format: |
       ## Module: {module_name}
-      
+
       [... output tables ...]
-      
+
       ### Example Output
       ```{language}
       {example_content}
       ```
-  
+
   # RULE 2: Job JSON Examples
   source: "GUICODEX.txt"
   pattern: "job JSON examples"
@@ -471,7 +471,7 @@ extraction_rules:
     - "Include complete job structure"
     - "Preserve JSON formatting"
     - "Add comment annotations if present"
-  
+
   placement:
     section: "Output Inventory & Data Sources"
     subsection: "Module: schema/jobs"
@@ -480,7 +480,7 @@ extraction_rules:
       ```json
       {job_example}
       ```
-  
+
   # RULE 3: Query Examples
   source: "GUI_MODULE_ANALYSIS_SUMMARY.md"
   pattern: "Example: Wiring Up a Tile"
@@ -488,29 +488,29 @@ extraction_rules:
     - "Include Python code snippets"
     - "Include SQL queries"
     - "Include visual layout ASCII art"
-  
+
   placement:
     section: "Data Access Layer & Tile Manifests"
     format: |
       ### Example: {tile_name}
-      
+
       **Data Sources:**
       ```python
       {query_code}
       ```
-      
+
       **Visual Layout:**
       ```
       {ascii_layout}
       ```
-  
+
   # RULE 4: Tile Manifest Example
   source: "GUI_MODULE_ANALYSIS_SUMMARY.md"
   pattern: "Tile Manifest Pattern"
   extract_format:
     - "Include full JSON structure"
     - "Preserve field comments"
-  
+
   placement:
     section: "Data Access Layer & Tile Manifests"
     format: |
@@ -548,93 +548,93 @@ cross_link_rules:
       - section: "Engine & Data Architecture"
         context: "for technical module details"
         format: "See **Section 2: Engine & Data Architecture** for..."
-      
+
       - section: "Tile Catalog & UX Layout"
         context: "for visual design details"
         format: "See **Section 4: Tile Catalog & UX Layout** for..."
-  
+
   # Section 2 → Other Sections
   engine_data_architecture:
     links_to:
       - section: "Output Inventory & Data Sources"
         context: "for detailed per-output schema"
         format: "Detailed schemas in **Section 3: Output Inventory & Data Sources**"
-      
+
       - section: "Data Access Layer & Tile Manifests"
         context: "for how to query these sources"
         format: "Query patterns in **Section 5: Data Access Layer & Tile Manifests**"
-  
+
   # Section 3 → Other Sections
   output_inventory_data_sources:
     links_to:
       - section: "Engine & Data Architecture"
         context: "for module roles and responsibilities"
         format: "See **Section 2** for module roles"
-      
+
       - section: "Tile Catalog & UX Layout"
         context: "for which tiles consume which outputs"
         format: "Tile mappings in **Section 4**"
-      
+
       - section: "Data Access Layer & Tile Manifests"
         context: "for access patterns"
         format: "Access examples in **Section 5**"
-  
+
   # Section 4 → Other Sections
   tile_catalog_ux_layout:
     links_to:
       - section: "Output Inventory & Data Sources"
         context: "for data source details"
         format: "Data sources detailed in **Section 3**"
-      
+
       - section: "Data Access Layer & Tile Manifests"
         context: "for how tiles query data"
         format: "Query implementation in **Section 5**"
-      
+
       - section: "Implementation Phasing & Roadmap"
         context: "for build order"
         format: "Build schedule in **Section 6**"
-  
+
   # Section 5 → Other Sections
   data_access_layer_tile_manifests:
     links_to:
       - section: "Output Inventory & Data Sources"
         context: "for specific table schemas and file paths"
         format: "Schema details in **Section 3**"
-      
+
       - section: "Tile Catalog & UX Layout"
         context: "for which tiles use which access patterns"
         format: "Tile requirements in **Section 4**"
-      
+
       - section: "Implementation Phasing & Roadmap"
         context: "for build order of data access helpers"
         format: "Build phases in **Section 6**"
-  
+
   # Section 6 → Other Sections
   implementation_phasing_roadmap:
     links_to:
       - section: "Tile Catalog & UX Layout"
         context: "for full tile descriptions"
         format: "Tile details in **Section 4**"
-      
+
       - section: "Data Access Layer & Tile Manifests"
         context: "for access layer build tasks"
         format: "Data access in **Section 5**"
-      
+
       - section: "Open Questions, Risks & Design Decisions"
         context: "for risks and tradeoffs per phase"
         format: "Risks addressed in **Section 7**"
-  
+
   # Section 7 → Other Sections
   open_questions_risks_design_decisions:
     links_to:
       - section: "Data Access Layer & Tile Manifests"
         context: "for Database Choice question"
         format: "See **Section 5** for access patterns context"
-      
+
       - section: "Tile Catalog & UX Layout"
         context: "for Tile Swapping question"
         format: "See **Section 4** for tile architecture"
-      
+
       - section: "Engine & Data Architecture"
         context: "for State Sync question"
         format: "See **Section 2** for engine architecture"
@@ -664,20 +664,20 @@ schema_template:
   # For each DB table in Section 3
   table_entry_format: |
     #### Table: `{table_name}`
-    
-    **Source:** {database_file}:{table_name}  
+
+    **Source:** {database_file}:{table_name}
     **Purpose:** {one_line_purpose}
-    
+
     **Key Fields:**
     | Field | Type | Description |
     |-------|------|-------------|
     {field_rows}
-    
+
     **Example Query:**
     ```sql
     {example_query}
     ```
-    
+
     **Example Row:**
     ```json
     {example_row_json}
@@ -691,13 +691,13 @@ extraction_rules:
         table_name: "runs"
         database_file: ".worktrees/pipeline_state.db"
         key_fields: "run_id, status, created_at, updated_at, metadata_json"
-    
+
     - pattern: "ST-2 | db_table | `workstreams`"
       extract:
         table_name: "workstreams"
         database_file: ".worktrees/pipeline_state.db"
         key_fields: "ws_id, run_id, status, depends_on, metadata_json"
-  
+
   # From GUI_MODULE_ANALYSIS_SUMMARY.md
   schema_details:
     source: "Database Schema Quick Reference"
@@ -732,7 +732,7 @@ plan_assembly_workflow:
     - "Load gui_plan_blueprint.xml (from original task)"
     - "Load all 4 input files into memory"
     - "Load execution patterns (this document)"
-  
+
   # Phase 2: Section Assembly (30 minutes)
   2_assemble_sections:
     for_each_section:
@@ -743,22 +743,22 @@ plan_assembly_workflow:
       - "Apply GUI-EXEC-004 (Example Extraction) for code"
       - "Format according to blueprint delivery hints"
       - "Move to next section"
-    
+
     estimated_time: "30 minutes (7 sections × 4-5 min each)"
-  
+
   # Phase 3: Schema Documentation (15 minutes)
   3_document_schemas:
     - "Apply GUI-EXEC-006 (Schema Documentation)"
     - "Extract all DB table references from Section 3"
     - "Format using schema template"
     - "Add to Output Inventory section"
-  
+
   # Phase 4: Cross-Linking (5 minutes)
   4_add_cross_links:
     - "Apply GUI-EXEC-005 (Cross-Reference Linking)"
     - "Add forward/backward links between sections"
     - "Verify all references point to existing sections"
-  
+
   # Phase 5: Quality Check (2 minutes)
   5_verify_completeness:
     checks:
@@ -767,7 +767,7 @@ plan_assembly_workflow:
       - "All tables formatted consistently"
       - "All code examples have language tags"
       - "All cross-references valid"
-    
+
     ground_truth:
       - "Document length: 15,000-25,000 words"
       - "Section count: 7"
@@ -916,7 +916,7 @@ This execution patterns document **augments** the `gui_plan_blueprint.xml`:
 
 Creating a comprehensive GUI Plan Document from 4 source files is a **pattern recognition** task, not a creative writing task.
 
-**The insight:** 
+**The insight:**
 - 145 decisions × 2 min each = 4.8 hours of decision overhead
 - Pre-make those decisions ONCE in patterns
 - Apply patterns N times with ZERO thinking
@@ -941,6 +941,6 @@ That's the entire system.
 
 **END OF GUI PLAN EXECUTION PATTERNS**
 
-**Status:** ✅ Complete and ready for use  
-**Time to value:** Load patterns (2 min) → Assemble plan (55 min) → 8+ hours saved  
+**Status:** ✅ Complete and ready for use
+**Time to value:** Load patterns (2 min) → Assemble plan (55 min) → 8+ hours saved
 **Reusable:** Yes, for any multi-file documentation assembly task

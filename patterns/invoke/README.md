@@ -1,7 +1,7 @@
 # invoke
 
-**Module Path**: `invoke`  
-**Layer**: Utility  
+**Module Path**: `invoke`
+**Layer**: Utility
 **Status**: Active
 
 ## Purpose
@@ -34,5 +34,5 @@ tasks.py
 
 ---
 
-**Generated**: 2025-12-02 22:40:27 UTC  
+**Generated**: 2025-12-02 22:40:27 UTC
 **Framework**: Universal Execution Templates (UET)

@@ -156,7 +156,7 @@ This Mermaid diagram is the “single picture” that all your other diagrams zo
 **Main components**
 
 * `core/bootstrap/orchestrator.py`, `discovery.py`, `selector.py`, `generator.py`
-* `schema/` – validation for profiles, project config, routing. 
+* `schema/` – validation for profiles, project config, routing.
 
 **Random-thought consolidation**
 
@@ -174,13 +174,13 @@ This Mermaid diagram is the “single picture” that all your other diagrams zo
 **What happens**
 
 * Ingest **OpenSpec**, PM epics, phase docs, and workstream authoring guides.
-* Validate specs & build **spec index** + dependency graph. 
+* Validate specs & build **spec index** + dependency graph.
 * Convert accepted specs into **workstream JSON** (tasks + dependencies + metadata).
 * Link specs and workstreams back to CCPM/PM issues.
 
 **Main components**
 
-* `core/openspec_parser.py`, `openspec_convert.py`, `spec_index.py` 
+* `core/openspec_parser.py`, `openspec_convert.py`, `spec_index.py`
 * `spec/` + `specifications/` content
 * `specs_index.json`, `specs_mapping.json`, workstreams in `workstreams/`
 
@@ -235,7 +235,7 @@ This Mermaid diagram is the “single picture” that all your other diagrams zo
 
 * `core/engine/scheduler.py` – DAG resolution & queue building.
 * Workstream definitions (`workstreams/*.json`) with `depends_on`.
-* Task lifecycle states: `PENDING → IN_PROGRESS → VALIDATING → COMPLETED/FAILED/...`. 
+* Task lifecycle states: `PENDING → IN_PROGRESS → VALIDATING → COMPLETED/FAILED/...`.
 
 **Random-thought consolidation**
 
@@ -252,21 +252,21 @@ This Mermaid diagram is the “single picture” that all your other diagrams zo
 
   * Match by language, task type, environment, etc.
 * Select the best tool adapter (aider / Codex / custom / manual) with fallbacks.
-* Validate adapter configuration (commands, paths, env, timeouts). 
+* Validate adapter configuration (commands, paths, env, timeouts).
 
 **Main components**
 
 * `Tool Registry`, `config/tool_profiles.json`
 * `core/engine/tools.py`, adapter implementations.
-* Multi-instance pool / cluster control for Aider/Codex (ToolProcessPool + ClusterManager). 
+* Multi-instance pool / cluster control for Aider/Codex (ToolProcessPool + ClusterManager).
 
 **Random-thought consolidation**
 
 * Your “Copilot CLI controlling 3–5 Aider instances” is not separate; it’s **one routing mode**:
 
-  * ToolProcessPool manages N aider processes. 
+  * ToolProcessPool manages N aider processes.
   * ClusterManager / launch_cluster(`"aider"`) adds routing strategies (RR, least-busy, sticky).
-* Your “tool selection based on pattern + environment” is exactly the **Tool Selection Decision Tree + Profile Matching Algorithm**. 
+* Your “tool selection based on pattern + environment” is exactly the **Tool Selection Decision Tree + Profile Matching Algorithm**.
 
 ---
 
@@ -278,13 +278,13 @@ This Mermaid diagram is the “single picture” that all your other diagrams zo
 * Invokes correct adapter: spawn process / call API / manual instructions.
 * Streams output, tracks duration, captures files changed.
 * Runs **acceptance tests** (linting, unit tests, import checks, etc.).
-* Updates task state (`IN_PROGRESS → VALIDATING → COMPLETED/FAILED/TIMEOUT/...`). 
+* Updates task state (`IN_PROGRESS → VALIDATING → COMPLETED/FAILED/TIMEOUT/...`).
 
 **Main components**
 
 * `core/engine/executor.py`, `circuit_breakers.py`, `recovery.py`.
 * Error plugins invoked as part of validation (ruff/mypy/pytest/etc).
-* Task Lifecycle state machine diagram. 
+* Task Lifecycle state machine diagram.
 
 **Random-thought consolidation**
 
@@ -319,7 +319,7 @@ This Mermaid diagram is the “single picture” that all your other diagrams zo
 **Main components**
 
 * `error/engine/error_engine.py`, `plugin_manager.py`, `error_state_machine.py`.
-* `error/plugins/*` – per-language and cross-cutting plugins. 
+* `error/plugins/*` – per-language and cross-cutting plugins.
 * Error Escalation diagrams.
 
 **Random-thought consolidation**
@@ -385,7 +385,7 @@ Your long .docx is essentially a **pattern bible**; this doc gives it a **spine*
 
 You already have focused diagrams that zoom into specific “axes”:
 
-* **Task Lifecycle** – full state machine for a *task* (PENDING → IN_PROGRESS → VALIDATING → COMPLETED/FAILED/etc). 
+* **Task Lifecycle** – full state machine for a *task* (PENDING → IN_PROGRESS → VALIDATING → COMPLETED/FAILED/etc).
 * **File Lifecycle** – how an individual *file* moves through DISCOVERED → CLASSIFIED → PROCESSING → IN_FLIGHT → QUARANTINED/REVIEW → COMMITTED.
 * **UI Flow** – how the user interacts with CLI dashboard and how it queries the DB.
 * **Data & Module Diagrams** – end-to-end flows + module dependency hierarchy.

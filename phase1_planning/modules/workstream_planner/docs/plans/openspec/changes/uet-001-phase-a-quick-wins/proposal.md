@@ -4,12 +4,12 @@ doc_id: DOC-GUIDE-PROPOSAL-1507
 
 # Phase A: Quick Wins - UET Implementation
 
-**Change ID**: uet-001-phase-a-quick-wins  
-**Parent**: uet-001-complete-implementation  
-**Type**: Infrastructure Enhancement  
-**Priority**: HIGH (Critical Path)  
-**Status**: Ready for Implementation  
-**Estimated Duration**: 1-2 weeks  
+**Change ID**: uet-001-phase-a-quick-wins
+**Parent**: uet-001-complete-implementation
+**Type**: Infrastructure Enhancement
+**Priority**: HIGH (Critical Path)
+**Status**: Ready for Implementation
+**Estimated Duration**: 1-2 weeks
 **Effort**: 18 hours
 
 ---
@@ -139,23 +139,23 @@ class HealthCheck:
 class WorkerHealthMonitor:
     HEARTBEAT_INTERVAL = 30  # seconds
     MAX_FAILURES = 3
-    
+
     def check_health(self, worker_id: str) -> HealthCheck:
         """Check worker health via heartbeat."""
         last_heartbeat = self._get_last_heartbeat(worker_id)
         age = (datetime.utcnow() - last_heartbeat).total_seconds()
-        
+
         if age < self.HEARTBEAT_INTERVAL:
-            return HealthCheck(worker_id, datetime.utcnow(), 
+            return HealthCheck(worker_id, datetime.utcnow(),
                              HealthStatus.HEALTHY, last_heartbeat, 0)
         elif age < self.HEARTBEAT_INTERVAL * 2:
-            return HealthCheck(worker_id, datetime.utcnow(), 
+            return HealthCheck(worker_id, datetime.utcnow(),
                              HealthStatus.DEGRADED, last_heartbeat, 1)
         else:
             failures = self._increment_failures(worker_id)
             if failures >= self.MAX_FAILURES:
                 self._quarantine_worker(worker_id)
-            return HealthCheck(worker_id, datetime.utcnow(), 
+            return HealthCheck(worker_id, datetime.utcnow(),
                              HealthStatus.UNHEALTHY, last_heartbeat, failures)
 ```
 
@@ -193,7 +193,7 @@ def emit(self, event: Event):
     # Existing in-memory notification
     for subscriber in self._subscribers[event.event_type]:
         subscriber(event)
-    
+
     # NEW: Persist to database
     self._persist_event(event)
 
@@ -236,7 +236,7 @@ class FeedbackLoop:
         """Create fix task when test fails."""
         priority = self._calculate_priority(event)
         blocked = self._find_dependent_tasks(event)
-        
+
         fix_task = FeedbackTask(
             task_id=f"fix-{event.source}",
             trigger_event=event.event_type.value,
@@ -244,7 +244,7 @@ class FeedbackLoop:
             description=f"Fix test failure: {event.payload.get('error')}",
             blocked_tasks=blocked
         )
-        
+
         self._create_task(fix_task)
         self.event_bus.emit(Event(
             EventType.FEEDBACK_TASK_CREATED,
@@ -270,40 +270,40 @@ class ContextManager:
         'claude-2': 100000,
         'claude-3': 200000
     }
-    
+
     def estimate_tokens(self, text: str, model: str) -> int:
         """Estimate token count for given model."""
         # Rough estimate: 1 token ≈ 4 chars
         return len(text) // 4
-    
+
     def prune_context(self, context: str, max_tokens: int) -> str:
         """Remove low-value sections to fit token limit."""
         sections = self._split_sections(context)
         scores = [self._calculate_importance(s) for s in sections]
-        
+
         # Sort by importance, keep highest-scoring
         kept = []
         tokens = 0
-        for section, score in sorted(zip(sections, scores), 
+        for section, score in sorted(zip(sections, scores),
                                     key=lambda x: x[1], reverse=True):
             section_tokens = self.estimate_tokens(section, 'gpt-4')
             if tokens + section_tokens <= max_tokens:
                 kept.append(section)
                 tokens += section_tokens
-        
+
         return '\n'.join(kept)
-    
+
     def summarize(self, text: str, max_lines: int = 50) -> str:
         """Summarize large text to N lines."""
         lines = text.splitlines()
         if len(lines) <= max_lines:
             return text
-        
+
         # Keep first and last sections
         first_n = max_lines // 2
         last_n = max_lines - first_n
-        return '\n'.join(lines[:first_n] + 
-                        [f'... ({len(lines) - max_lines} lines omitted) ...'] + 
+        return '\n'.join(lines[:first_n] +
+                        [f'... ({len(lines) - max_lines} lines omitted) ...'] +
                         lines[-last_n:])
 ```
 
@@ -370,13 +370,13 @@ pytest tests/engine/test_context_manager.py -v
 
 ## Risks
 
-**Risk 1: Schema copy conflicts with existing files**  
+**Risk 1: Schema copy conflicts with existing files**
 **Mitigation**: Check for conflicts before copy, use `schema/uet/` subdirectory
 
-**Risk 2: Event persistence slows down execution**  
+**Risk 2: Event persistence slows down execution**
 **Mitigation**: Async writes, batch inserts, performance tests
 
-**Risk 3: Health checks create noise (false positives)**  
+**Risk 3: Health checks create noise (false positives)**
 **Mitigation**: Tunable thresholds, grace period before quarantine
 
 ---

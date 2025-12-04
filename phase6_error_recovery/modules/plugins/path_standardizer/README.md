@@ -1,7 +1,7 @@
 # Plugin: path_standardizer
 
-**Phase**: 6 (Error Recovery)  
-**Type**: Error Detection/Fix Plugin  
+**Phase**: 6 (Error Recovery)
+**Type**: Error Detection/Fix Plugin
 **Purpose**: path_standardizer error detection and auto-fix
 
 ## Structure

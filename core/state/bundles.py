@@ -306,7 +306,7 @@ def load_and_validate_bundles(workstream_dir: Optional[Path] = None) -> List[Wor
         ws_dir = get_workstream_dir()
     else:
         ws_dir = workstream_dir
-    
+
     repo_root = _detect_repo_root()
     schema = _load_schema(repo_root)
 

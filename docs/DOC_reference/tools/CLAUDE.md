@@ -8,7 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 0. MANDATORY: Execution Patterns First
 
-**CRITICAL**: Before beginning ANY task, read and follow:  
+**CRITICAL**: Before beginning ANY task, read and follow:
 📋 **`docs/reference/ai-agents/EXECUTION_PATTERNS_MANDATORY.md`**
 
 ### Pattern-First Workflow (ENFORCED)
@@ -29,7 +29,7 @@ Step 4: Ground truth verification → Exit code, not "looks good"
 - ❌ Incomplete implementations (TODO/pass placeholders)
 - ❌ Framework over-engineering (create infrastructure, never use it)
 
-**Time Savings**: Tasks complete in 3.4h instead of 8.5h (2.5x speedup)  
+**Time Savings**: Tasks complete in 3.4h instead of 8.5h (2.5x speedup)
 **ROI**: 255:1 (20 min setup saves 85h waste per project)
 
 ---

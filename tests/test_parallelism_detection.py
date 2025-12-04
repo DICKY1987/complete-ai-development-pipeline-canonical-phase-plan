@@ -34,9 +34,9 @@ def test_simple_parallel_detection():
             parallel_ok=True,
         ),
     ]
-    
+
     profile = detect_parallel_opportunities(bundles, max_workers=4)
-    
+
     assert len(profile.waves) == 1  # Both can run in same wave
     assert len(profile.waves[0]) == 2  # Both workstreams in wave
     assert profile.max_parallelism == 2
@@ -65,9 +65,9 @@ def test_file_scope_conflict():
             tool="aider",
         ),
     ]
-    
+
     profile = detect_parallel_opportunities(bundles, max_workers=4)
-    
+
     assert len(profile.waves) == 2  # Must run in separate waves
     assert len(profile.conflicts) > 0  # Conflict detected
 
@@ -96,11 +96,11 @@ def test_conflict_group_serialization():
             conflict_group="database",  # Same group
         ),
     ]
-    
+
     profile = detect_parallel_opportunities(bundles, max_workers=4)
-    
+
     assert len(profile.waves) == 2  # Must run in separate waves
-    
+
 
 def test_dependency_levels():
     """Test that dependencies create proper execution levels."""
@@ -125,9 +125,9 @@ def test_dependency_levels():
             depends_on=("ws-a",),  # Depends on A
         ),
     ]
-    
+
     profile = detect_parallel_opportunities(bundles, max_workers=4)
-    
+
     assert len(profile.waves) >= 2  # At least 2 waves (A, then B)
     # ws-a must come before ws-b
     a_wave = next(i for i, w in enumerate(profile.waves) if "ws-a" in w)
@@ -158,9 +158,9 @@ def test_parallel_ok_false():
             tool="aider",
         ),
     ]
-    
+
     profile = detect_parallel_opportunities(bundles, max_workers=4)
-    
+
     # ws-a should run alone in its wave
     a_wave = next(w for w in profile.waves if "ws-a" in w)
     assert len(a_wave) == 1
@@ -200,9 +200,9 @@ def test_detect_conflict_groups():
             conflict_group="api",
         ),
     ]
-    
+
     groups = detect_conflict_groups(bundles)
-    
+
     assert "database" in groups
     assert len(groups["database"]) == 2
     assert "api" in groups

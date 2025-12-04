@@ -4,8 +4,8 @@ doc_id: DOC-GUIDE-PATCH-ANALYSIS-1658
 
 # Patch Analysis - Configuration Files Impact on UET V2 Master Plan
 
-**Generated**: 2025-11-23T11:01:12.785Z  
-**Purpose**: Analyze configuration files for required patches to `copiolt plan_uv2.json`  
+**Generated**: 2025-11-23T11:01:12.785Z
+**Purpose**: Analyze configuration files for required patches to `copiolt plan_uv2.json`
 **Status**: CRITICAL - Multiple high-priority patches identified
 
 ---
@@ -34,7 +34,7 @@ doc_id: DOC-GUIDE-PATCH-ANALYSIS-1658
 ```yaml
 layers:
   - infra: "Database, state, schemas, config"
-  - domain: "Core business logic and orchestration"  
+  - domain: "Core business logic and orchestration"
   - api: "External tool integrations"
   - ui: "CLI, GUI, user-facing tools"
 ```
@@ -52,12 +52,12 @@ modules:
   - id: "core.engine"
     path: "core/engine/"
     model: "Workstream → EDIT → STATIC → RUNTIME"
-  
+
   - id: "engine"  # SEPARATE!
     path: "engine/"
     model: "Job JSON → Adapter → Subprocess"
     notes: "Separate from core/engine/ - uses job JSON pattern"
-  
+
   - id: "uet_framework"  # IMPLICIT
     path: "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/"
     model: "Bootstrap → Profile → Task Routing"
@@ -167,12 +167,12 @@ zones:
     - "tests/**/*.py"
     conditions:
       - "All tests must pass after changes"
-  
+
   review_required:
     - "schema/**"
     - "config/**"
     - "CODEBASE_INDEX.yaml"
-  
+
   read_only:
     - "legacy/**"
     - "src/pipeline/**"  # DEPRECATED
@@ -555,9 +555,9 @@ acceptance_tests:
 
 ### Timeline Impact
 
-**Original Estimate**: 280 hours (7 weeks)  
-**With Existing Components**: 168 hours (40% already done)  
-**With Engine Unification**: 192 hours (7.5 weeks)  
+**Original Estimate**: 280 hours (7 weeks)
+**With Existing Components**: 168 hours (40% already done)
+**With Engine Unification**: 192 hours (7.5 weeks)
 **With Compliance Overhead**: 200 hours (8 weeks realistic)
 
 ---

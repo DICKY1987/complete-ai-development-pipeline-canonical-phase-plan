@@ -155,7 +155,7 @@ Tools are run automatically in CI pipelines:
 # .github/workflows/ci.yml
 - name: Index hardcoded paths
   run: python tools/hardcoded_path_indexer.py
-  
+
 - name: Validate paths
   run: python scripts/validate_hardcoded_paths.py
 ```

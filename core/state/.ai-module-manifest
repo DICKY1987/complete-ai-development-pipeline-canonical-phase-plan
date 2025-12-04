@@ -6,7 +6,7 @@ entry_points:
   - file: "db.py"
     function: "init_db()"
     description: "Initialize database schema, create tables if not exist"
-  
+
   - file: "db.py"
     function: "get_db_path()"
     description: "Resolve database path: ENV > arg > default (.worktrees/pipeline_state.db)"
@@ -23,7 +23,7 @@ common_tasks:
       from core.state.db import init_db
       init_db(db_path=".worktrees/pipeline_state.db")
     approach: "Call init_db() with optional custom path"
-  
+
   - task: "Query run records"
     code: |
       from core.state.db import get_session
@@ -31,7 +31,7 @@ common_tasks:
           # Query database using SQLAlchemy
           results = session.execute("SELECT * FROM runs")
     approach: "Use SQLAlchemy session for database queries"
-  
+
   - task: "Custom database path"
     code: |
       export UET_DB_PATH=/custom/path/state.db

@@ -38,7 +38,7 @@ workstreams:
     workstream_ref: "file://workstreams/{{WORKSTREAM_IDS[0]}}.json"
     priority: 1
     depends_on: []  # No dependencies for first workstream
-  
+
   # Example: Additional workstream
   # - workstream_id: "{{WORKSTREAM_IDS[1]}}"
   #   workstream_ref: "file://workstreams/{{WORKSTREAM_IDS[1]}}.json"
@@ -52,16 +52,16 @@ workstreams:
 execution:
   # Maximum time for entire phase (seconds)
   timeout: "{{TIMEOUT}}"  # Default: 3600 (1 hour)
-  
+
   # Maximum parallel workstreams
   max_parallel: "{{MAX_PARALLEL}}"  # Default: 3
-  
+
   # Retry policy for failed workstreams
   retry_policy:
     max_retries: 2
     backoff_multiplier: 2.0
     initial_delay: 5
-  
+
   # Failure handling
   on_failure: "abort"  # Options: abort, continue, skip_phase
 
@@ -75,7 +75,7 @@ validation:
     - type: "file_exists"
       description: "Project profile exists"
       path: "PROJECT_PROFILE.yaml"
-  
+
   # Post-conditions (checked after phase completes)
   post_conditions:
     - type: "all_tasks_completed"
@@ -102,7 +102,7 @@ meta:
 # =============================================================================
 
 # Example: Analysis Phase
-# 
+#
 # phase_id: "PH-ANALYSIS-01"
 # description: "Project analysis and discovery phase"
 # workstreams:

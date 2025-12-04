@@ -1,17 +1,17 @@
 # Pattern Automation Activation - Phase Plan
 
-**DOC_ID:** DOC-PAT-AUTO-ACTIVATION-001  
-**Created:** 2025-11-27  
-**Status:** READY_TO_EXECUTE  
+**DOC_ID:** DOC-PAT-AUTO-ACTIVATION-001
+**Created:** 2025-11-27
+**Status:** READY_TO_EXECUTE
 **Purpose:** Activate the 70% complete pattern automation system
 
 ---
 
 ## Executive Summary
 
-**Current State:** Pattern automation code is 70% complete (4 detectors built, analyzers ready)  
-**Gap:** Missing database tables + orchestrator hooks  
-**Goal:** Activate auto-learning in 30-45 minutes  
+**Current State:** Pattern automation code is 70% complete (4 detectors built, analyzers ready)
+**Gap:** Missing database tables + orchestrator hooks
+**Goal:** Activate auto-learning in 30-45 minutes
 **Outcome:** System automatically generates patterns from repetitive work
 
 ---
@@ -229,13 +229,13 @@ import sqlite3
 
 class PatternAutomationHooks:
     """Hooks for pattern detection in orchestrator."""
-    
+
     def __init__(self, db_path: str, enabled: bool = True):
         self.db_path = db_path
         self.enabled = enabled
         self.patterns_dir = Path(__file__).parent.parent.parent
         self._detector = None
-    
+
     def get_detector(self):
         """Lazy load execution detector."""
         if self._detector is None:
@@ -243,34 +243,34 @@ class PatternAutomationHooks:
             db = sqlite3.connect(self.db_path)
             self._detector = ExecutionPatternDetector(db)
         return self._detector
-    
+
     def on_task_start(self, task_spec: Dict[str, Any]) -> Dict[str, Any]:
         """Called before task execution."""
         return {
             'start_time': datetime.now().isoformat(),
             'task_spec': task_spec
         }
-    
-    def on_task_complete(self, task_spec: Dict[str, Any], result: Dict[str, Any], 
+
+    def on_task_complete(self, task_spec: Dict[str, Any], result: Dict[str, Any],
                         context: Optional[Dict[str, Any]] = None):
         """Called after task execution (success or failure)."""
         if not self.enabled:
             return
-        
+
         try:
             # Calculate duration
             start_time = datetime.fromisoformat(context.get('start_time')) if context else datetime.now()
             duration = (datetime.now() - start_time).total_seconds()
-            
+
             # Extract execution signature
             operation_kind = task_spec.get('operation_kind', 'unknown')
             file_types = self._extract_file_types(task_spec, result)
             tools_used = self._extract_tools_used(task_spec)
-            
+
             # Hash structures for similarity detection
             input_sig = self._hash_structure(task_spec.get('inputs', {}))
             output_sig = self._hash_structure(result.get('outputs', {}))
-            
+
             # Store in database
             db = sqlite3.connect(self.db_path)
             cursor = db.cursor()
@@ -298,52 +298,52 @@ class PatternAutomationHooks:
             )
             db.commit()
             db.close()
-            
+
             # Check for pattern (async, non-blocking)
             if result.get('success'):
                 self._check_for_patterns_async(operation_kind, input_sig, output_sig)
-        
+
         except Exception as e:
             # Never fail the actual task due to logging errors
             print(f"⚠️  Pattern logging error (non-fatal): {e}")
-    
+
     def _extract_file_types(self, task_spec: Dict, result: Dict) -> list:
         """Extract file extensions from task."""
         file_types = set()
-        
+
         # Scan inputs
         for value in self._flatten_dict(task_spec.get('inputs', {})):
             if isinstance(value, str) and '.' in value:
                 ext = Path(value).suffix.lstrip('.')
                 if ext and len(ext) <= 10:  # Reasonable extension length
                     file_types.add(ext)
-        
+
         # Scan outputs
         for value in self._flatten_dict(result.get('outputs', {})):
             if isinstance(value, str) and '.' in value:
                 ext = Path(value).suffix.lstrip('.')
                 if ext and len(ext) <= 10:
                     file_types.add(ext)
-        
+
         return sorted(list(file_types))
-    
+
     def _extract_tools_used(self, task_spec: Dict) -> list:
         """Heuristic: extract tool names from task spec."""
         tools = set()
         task_str = json.dumps(task_spec).lower()
-        
+
         # Common tools to detect
         tool_keywords = [
             'grep', 'glob', 'view', 'edit', 'create', 'powershell',
             'git', 'pytest', 'bash', 'python', 'npm', 'docker'
         ]
-        
+
         for tool in tool_keywords:
             if tool in task_str:
                 tools.add(tool)
-        
+
         return sorted(list(tools))
-    
+
     def _hash_structure(self, obj: Any) -> str:
         """Create hash of object structure (not values)."""
         if isinstance(obj, dict):
@@ -353,9 +353,9 @@ class PatternAutomationHooks:
             structure = [self._hash_structure(item) for item in obj]
         else:
             structure = type(obj).__name__
-        
+
         return hashlib.md5(json.dumps(structure, sort_keys=True).encode()).hexdigest()
-    
+
     def _flatten_dict(self, d: Dict, parent_key: str = '') -> list:
         """Flatten nested dict to list of values."""
         items = []
@@ -365,14 +365,14 @@ class PatternAutomationHooks:
             else:
                 items.append(v)
         return items
-    
+
     def _summarize(self, obj: Any, max_len: int = 100) -> Any:
         """Create summary version of object for storage."""
         s = json.dumps(obj)
         if len(s) > max_len:
             return s[:max_len] + "..."
         return obj
-    
+
     def _check_for_patterns_async(self, operation_kind: str, input_sig: str, output_sig: str):
         """Check if we've seen this pattern 3+ times (non-blocking)."""
         try:
@@ -417,7 +417,7 @@ hooks = get_hooks(db_path="path/to/database.db")
 # Wrap task execution
 def execute_task(self, task_spec):
     context = hooks.on_task_start(task_spec)
-    
+
     try:
         result = self._do_actual_execution(task_spec)
         hooks.on_task_complete(task_spec, result, context)
@@ -477,17 +477,17 @@ detection:
 # Database
 database:
   path: "patterns/metrics/pattern_automation.db"  # Default if not using central DB
-  
+
 # Output
 output:
   drafts_dir: "patterns/drafts"
   reports_dir: "patterns/reports"
-  
+
 # Anti-pattern detection
 anti_patterns:
   enabled: true
   min_occurrences: 3               # Flag as anti-pattern after N failures
-  
+
 # File pattern mining
 file_patterns:
   enabled: true
@@ -507,10 +507,10 @@ class PatternAutomationHooks:
         # Load config
         if config_path is None:
             config_path = Path(__file__).parent.parent / "config" / "detection_config.yaml"
-        
+
         with open(config_path) as f:
             self.config = yaml.safe_load(f)
-        
+
         self.enabled = self.config.get('automation_enabled', True)
         self.db_path = db_path or self.config['database']['path']
         # ... rest of init
@@ -632,7 +632,7 @@ Write-Host "This will run 3 similar file creation tasks..." -ForegroundColor Yel
 
 for ($i = 1; $i -le 3; $i++) {
     Write-Host "`n[$i/3] Creating test file $i..."
-    
+
     python -c @"
 from automation.integration.orchestrator_hooks import PatternAutomationHooks
 hooks = PatternAutomationHooks('patterns/metrics/pattern_automation.db')
@@ -665,7 +665,7 @@ $candidates = sqlite3 patterns/metrics/pattern_automation.db "SELECT COUNT(*) FR
 
 if ([int]$candidates -gt 0) {
     Write-Host "  ✅ Found $candidates pattern candidate(s)!" -ForegroundColor Green
-    
+
     # Show generated patterns
     Get-ChildItem patterns/drafts/AUTO-*.yaml -ErrorAction SilentlyContinue | ForEach-Object {
         Write-Host "  📄 Generated: $($_.Name)" -ForegroundColor Cyan
@@ -782,7 +782,7 @@ python automation/analyzers/weekly_report.py
 ```powershell
 # Pattern detection status
 sqlite3 patterns/metrics/pattern_automation.db "
-SELECT 
+SELECT
     status,
     COUNT(*) as count,
     AVG(confidence) as avg_confidence
@@ -850,8 +850,8 @@ GROUP BY status;
 
 ---
 
-**Status:** READY TO EXECUTE  
-**Risk Level:** LOW (non-invasive, additive only)  
+**Status:** READY TO EXECUTE
+**Risk Level:** LOW (non-invasive, additive only)
 **Expected ROI:** 255:1 (55 min investment, 85+ hours saved)
 
 **Next Action:** Execute Phase 0 - Repository Discovery

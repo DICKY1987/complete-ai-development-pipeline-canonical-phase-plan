@@ -35,12 +35,12 @@ print_error() {
 normalize_paths() {
     local file="$1"
     local backup_file="${file}.backup"
-    
+
     print_info "Processing file: $file"
-    
+
     # Create backup
     cp "$file" "$backup_file"
-    
+
     # Apply path transformation rules - fixed patterns for proper Windows path handling
     sed -i.tmp \
         -e 's|/Users/[^/]*/[^/]*/|../|g' \
@@ -48,10 +48,10 @@ normalize_paths() {
         -e 's|C:\\\\Users\\\\[^\\\\]*\\\\[^\\\\]*\\\\|..\\\\|g' \
         -e 's|\\./\\([^./]\\)|\\1|g' \
         "$file"
-    
+
     # Clean up temporary files
     rm -f "${file}.tmp"
-    
+
     # Check for changes
     if ! diff -q "$file" "$backup_file" >/dev/null 2>&1; then
         print_success "File fixed: $(basename "$file")"
@@ -74,11 +74,11 @@ while IFS= read -r -d '' file; do
     # Skip backup files and rule documentation (which contains examples)
     [[ "$file" == *.backup ]] && continue
     [[ "$file" == *"/rules/"* ]] && continue
-    
+
     # Check if file contains paths that need fixing - use extended regex
     if grep -Eq "/Users/|/home/|C:\\\\\\\\" "$file" 2>/dev/null; then
         files_processed=$((files_processed + 1))
-        
+
         if normalize_paths "$file"; then
             files_modified=$((files_modified + 1))
         fi
@@ -92,14 +92,14 @@ echo "Files modified: $files_modified"
 
 if [ $files_modified -gt 0 ]; then
     print_success "Successfully fixed $files_modified files"
-    
+
     echo -e "\n💾 Backup Information:"
     echo "Original files backed up with .backup suffix"
     echo "To restore if needed: mv file.backup file"
-    
+
     print_warning "Recommended: Run validation script to verify fixes:"
     echo "./.claude/scripts/check-path-standards.sh"
-    
+
 elif [ $files_processed -eq 0 ]; then
     print_success "No files found requiring fixes 🎉"
 else

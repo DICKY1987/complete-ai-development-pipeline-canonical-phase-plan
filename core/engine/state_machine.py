@@ -29,7 +29,7 @@ class StepState(Enum):
 
 class RunStateMachine:
     """State machine for run lifecycle"""
-    
+
     # Define valid state transitions
     TRANSITIONS: Dict[RunState, Set[RunState]] = {
         RunState.PENDING: {
@@ -49,14 +49,14 @@ class RunStateMachine:
         RunState.QUARANTINED: set(),  # Terminal state
         RunState.CANCELED: set(),  # Terminal state
     }
-    
+
     # Terminal states (cannot transition out)
     TERMINAL_STATES = {
         RunState.SUCCEEDED,
         RunState.QUARANTINED,
         RunState.CANCELED
     }
-    
+
     @classmethod
     def can_transition(cls, from_state: str, to_state: str) -> bool:
         """Check if a state transition is valid"""
@@ -65,9 +65,9 @@ class RunStateMachine:
             to_enum = RunState(to_state)
         except ValueError:
             return False
-        
+
         return to_enum in cls.TRANSITIONS.get(from_enum, set())
-    
+
     @classmethod
     def is_terminal(cls, state: str) -> bool:
         """Check if a state is terminal"""
@@ -76,12 +76,12 @@ class RunStateMachine:
             return state_enum in cls.TERMINAL_STATES
         except ValueError:
             return False
-    
+
     @classmethod
     def validate_transition(cls, from_state: str, to_state: str) -> Optional[str]:
         """
         Validate a transition and return error message if invalid.
-        
+
         Returns:
             None if valid, error message string if invalid
         """
@@ -91,21 +91,21 @@ class RunStateMachine:
             to_enum = RunState(to_state)
         except ValueError as e:
             return f"Invalid state: {e}"
-        
+
         # Check if already in terminal state
         if cls.is_terminal(from_state):
             return f"Cannot transition from terminal state '{from_state}'"
-        
+
         # Check if transition is allowed
         if not cls.can_transition(from_state, to_state):
             return f"Invalid transition: '{from_state}' -> '{to_state}'"
-        
+
         return None
 
 
 class StepStateMachine:
     """State machine for step attempt lifecycle"""
-    
+
     TRANSITIONS: Dict[StepState, Set[StepState]] = {
         StepState.RUNNING: {
             StepState.SUCCEEDED,
@@ -116,13 +116,13 @@ class StepStateMachine:
         StepState.FAILED: set(),  # Terminal
         StepState.CANCELED: set(),  # Terminal
     }
-    
+
     TERMINAL_STATES = {
         StepState.SUCCEEDED,
         StepState.FAILED,
         StepState.CANCELED
     }
-    
+
     @classmethod
     def can_transition(cls, from_state: str, to_state: str) -> bool:
         """Check if a state transition is valid"""
@@ -131,9 +131,9 @@ class StepStateMachine:
             to_enum = StepState(to_state)
         except ValueError:
             return False
-        
+
         return to_enum in cls.TRANSITIONS.get(from_enum, set())
-    
+
     @classmethod
     def is_terminal(cls, state: str) -> bool:
         """Check if a state is terminal"""
@@ -142,7 +142,7 @@ class StepStateMachine:
             return state_enum in cls.TERMINAL_STATES
         except ValueError:
             return False
-    
+
     @classmethod
     def validate_transition(cls, from_state: str, to_state: str) -> Optional[str]:
         """Validate a transition and return error message if invalid"""
@@ -151,13 +151,13 @@ class StepStateMachine:
             to_enum = StepState(to_state)
         except ValueError as e:
             return f"Invalid state: {e}"
-        
+
         if cls.is_terminal(from_state):
             return f"Cannot transition from terminal state '{from_state}'"
-        
+
         if not cls.can_transition(from_state, to_state):
             return f"Invalid transition: '{from_state}' -> '{to_state}'"
-        
+
         return None
 
 
@@ -193,11 +193,11 @@ def generate_state_diagram():
 if __name__ == "__main__":
     # Generate diagrams for documentation
     generate_state_diagram()
-    
+
     # Test some transitions
     print("\n\nTransition Tests:")
     print("=================")
-    
+
     tests = [
         ("pending", "running", True),
         ("running", "succeeded", True),
@@ -206,7 +206,7 @@ if __name__ == "__main__":
         ("pending", "succeeded", False),
         ("failed", "quarantined", True),
     ]
-    
+
     for from_state, to_state, expected in tests:
         result = RunStateMachine.can_transition(from_state, to_state)
         status = "✓" if result == expected else "✗"

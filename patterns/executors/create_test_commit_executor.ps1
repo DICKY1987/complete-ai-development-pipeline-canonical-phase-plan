@@ -45,23 +45,23 @@ try {
     # Create file
     Set-Content -Path $filePath -Value $fileContent -Encoding UTF8
     Write-PatternLog "File created successfully" "SUCCESS"
-    
+
     # Step 2: Run tests
     Write-PatternLog "Running tests: $testCommand" "INFO"
     $testOutput = Invoke-Expression $testCommand 2>&1
     $testPassed = ($LASTEXITCODE -eq 0)
-    
+
     if ($testPassed) {
         Write-PatternLog "Tests passed" "SUCCESS"
-        
+
         # Step 3: Commit
         Write-PatternLog "Committing changes..." "INFO"
         git add $filePath 2>&1 | Out-Null
         git commit -m $commitMessage 2>&1 | Out-Null
         $commitSha = git rev-parse HEAD
-        
+
         Write-PatternLog "Committed: $commitSha" "SUCCESS"
-        
+
         # Return success result
         $result = New-PatternResult -Success $true -Message "File created and committed" -Data @{
             file_path = $filePath
@@ -70,26 +70,26 @@ try {
         }
     } else {
         Write-PatternLog "Tests failed - rolling back" "WARNING"
-        
+
         # Rollback: delete file
         Remove-Item $filePath -Force
         Write-PatternLog "File removed (rollback)" "INFO"
-        
+
         $result = New-PatternResult -Success $false -Message "Tests failed - file creation rolled back" -Data @{
             test_results = "FAIL"
             test_output = ($testOutput -join "`n")
         }
     }
-    
+
 } catch {
     Write-PatternLog "Error: $_" "ERROR"
-    
+
     # Cleanup on error
     if (Test-Path $filePath) {
         Remove-Item $filePath -Force
         Write-PatternLog "Cleaned up file after error" "INFO"
     }
-    
+
     throw
 }
 

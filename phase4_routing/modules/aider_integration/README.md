@@ -1,6 +1,6 @@
 # Module: aider_integration
 
-**Phase**: 4  
+**Phase**: 4
 **Purpose**: Aider CLI integration and management
 
 ## Structure

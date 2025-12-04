@@ -46,27 +46,27 @@ try {
     # Step 1: View file (log first 10 lines)
     $lines = Get-Content $filePath
     Write-PatternLog "File has $($lines.Count) lines" "INFO"
-    
+
     # Step 2: Apply edit
     $content = Get-Content $filePath -Raw
-    
+
     if ($content -notmatch [regex]::Escape($oldStr)) {
         throw "old_str not found in file: $oldStr"
     }
-    
+
     $newContent = $content -replace [regex]::Escape($oldStr), $newStr
     Set-Content -Path $filePath -Value $newContent -Encoding UTF8 -NoNewline
-    
+
     Write-PatternLog "Edit applied successfully" "SUCCESS"
-    
+
     # Step 3: Run verification
     Write-PatternLog "Running verification: $verificationCommand" "INFO"
     $verifyOutput = Invoke-Expression $verificationCommand 2>&1
     $verifyPassed = ($LASTEXITCODE -eq 0)
-    
+
     if ($verifyPassed) {
         Write-PatternLog "Verification passed" "SUCCESS"
-        
+
         $result = New-PatternResult -Success $true -Message "Edit applied and verified" -Data @{
             file_path = $filePath
             edit_applied = $true
@@ -74,11 +74,11 @@ try {
         }
     } else {
         Write-PatternLog "Verification failed - rolling back" "WARNING"
-        
+
         # Rollback: restore original content
         Set-Content -Path $filePath -Value $originalContent -Encoding UTF8 -NoNewline
         Write-PatternLog "File restored to original state" "INFO"
-        
+
         $result = New-PatternResult -Success $false -Message "Verification failed - edit rolled back" -Data @{
             file_path = $filePath
             edit_applied = $false
@@ -86,14 +86,14 @@ try {
             verification_output = ($verifyOutput -join "`n")
         }
     }
-    
+
 } catch {
     Write-PatternLog "Error: $_" "ERROR"
-    
+
     # Rollback on error
     Set-Content -Path $filePath -Value $originalContent -Encoding UTF8 -NoNewline
     Write-PatternLog "File restored after error" "INFO"
-    
+
     throw
 }
 

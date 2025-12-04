@@ -47,21 +47,21 @@ $excludePatterns = @(
     '*COMPLETE.md',
     '*COMPLETED.md',
     '*COMPLETION*.md',
-    
+
     # Implementation/execution tracking
     '*IMPLEMENTATION*.md',
     '*EXECUTION*.md',
-    
+
     # Session reports and summaries
     '*SESSION*.md',
     '*SUMMARY*.md',
     '*REPORT.md',
     '*FINAL*.md',
-    
+
     # Progress tracking
     '*PROGRESS*.md',
     '*STATUS*.md',
-    
+
     # Specific development folders
     '*\developer\*',
     '*\doc_id\session_reports\*',
@@ -73,70 +73,70 @@ $excludePatterns = @(
     '*\infra\sync\*INSTALLATION*.md',
     '*\infra\sync\*SETUP*.md',
     '*\infra\sync\*TEST*.md',
-    
+
     # Day/Week tracking
     '*DAY*.md',
     '*WEEK*.md',
-    
+
     # Migration tracking
     '*MIGRATION*COMPLETE*.md',
     '*MIGRATION*SUCCESS*.md',
     '*MIGRATION*EXECUTION*.md',
-    
+
     # Cleanup reports
     '*CLEANUP*COMPLETE*.md',
     '*CLEANUP*REPORT*.md',
-    
+
     # Specific historical docs
     '*COMMITS_LAST*.md',
     '*REFACTOR*STATUS*.md',
     '*OVERLAP*REPORT*.md',
-    
+
     # OpenSpec changes (completed proposals)
     '*\openspec\changes\uet-001-complete-implementation\*',
-    
+
     # Example/template reports
     '*EXAMPLE_GOOD_SESSION*.md',
-    
+
     # Module READMEs (auto-generated stubs)
     '*\modules\*\*_README.md',
-    
+
     # Sync logs
     '*.sync-log.txt',
-    
+
     # Analysis text dumps
     '*import_migration_analysis.txt',
     '*module_refactor_attempt*.txt',
     '*just need to create*.txt',
     '*repo_tree.txt',
-    
+
     # Response files
     'response_*.md',
-    
+
     # Glossary completion tracking
     '*\glossary\*COMPLETE*.md',
     '*\glossary\updates\*COMPLETE*.md',
-    
+
     # GUI implementation tracking
     '*\gui\docs\*IMPLEMENTATION*.md',
     '*\gui\docs\*COMPLETION*.md',
     '*\gui\docs\*SUMMARY*.md',
-    
+
     # Template examples (not templates themselves)
     '*TEMPLATE_EXPANSION_PHASE_PLAN.md',
-    
+
     # Speed demon implementation
     '*\tools\speed_demon\IMPLEMENTATION_COMPLETE.md',
-    
+
     # Test cache
     '*.pytest_cache\*',
-    
+
     # AIDER tracking
     '*AIDER*FIXES*.md',
     '*AIDER*ANALYSIS*.md',
     '*AIDER*TEST*.md',
     '*AIDER*SETUP*.md',
-    
+
     # Specific one-off files
     '*5_Phase Completion Plan*.md',
     '*AGENT_SUMMARY.txt',
@@ -151,23 +151,23 @@ $keepPatterns = @(
     # Core planning
     '*PHASE_PLAN.md',
     '*\plans\PLAN_*.md',
-    
+
     # Quick starts and guides
     '*QUICKSTART*.md',
     '*QUICK_REF*.md',
     '*GUIDE.md',
     '*ROADMAP.md',
-    
+
     # Specifications
     '*\specs\*.md',
     '*\specifications\content\*\spec.md',
-    
+
     # README files (documentation hubs)
     'README.md',
-    
+
     # Reference documentation
     '*\docs\reference\*',
-    
+
     # Active OpenSpec proposals (not complete)
     '*\openspec\changes\uet-001-phase-*.md',
     '*\openspec\specs\*.md'
@@ -176,7 +176,7 @@ $keepPatterns = @(
 # Filter logic
 $filteredFiles = $allFiles | Where-Object {
     $filePath = $_.FullPath
-    
+
     # Check if explicitly kept
     $isKept = $false
     foreach ($keepPattern in $keepPatterns) {
@@ -185,12 +185,12 @@ $filteredFiles = $allFiles | Where-Object {
             break
         }
     }
-    
+
     # If explicitly kept, include it
     if ($isKept) {
         return $true
     }
-    
+
     # Check if excluded
     $isExcluded = $false
     foreach ($excludePattern in $excludePatterns) {
@@ -199,7 +199,7 @@ $filteredFiles = $allFiles | Where-Object {
             break
         }
     }
-    
+
     # Keep if NOT excluded
     return -not $isExcluded
 }

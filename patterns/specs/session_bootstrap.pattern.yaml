@@ -8,7 +8,7 @@ metadata:
   created: 2025-12-02
   status: draft
   source: Converted from ready to paste doc suite 7 patterns.md
-  
+
 intent: |
   Yes. Using your two specs as the ground truth, I can build a full **pattern doc suite skeleton** ...
 
@@ -18,19 +18,19 @@ inputs:
 
 outputs:
   artifacts: []
-  
+
 steps:
   - name: pattern_execution
     description: Execute pattern logic
-    
+
 ground_truth:
   criteria:
     - description: Pattern executes without errors
-      
+
 validation:
   pre_conditions: []
   post_conditions: []
-  
+
 tool_bindings:
   - tool: claude_code
     priority: 1

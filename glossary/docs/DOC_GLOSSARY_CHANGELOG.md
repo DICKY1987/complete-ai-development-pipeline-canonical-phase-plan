@@ -8,9 +8,9 @@ doc_id: DOC-GUIDE-GLOSSARY_CHANGELOG-123
 
 # Glossary Changelog
 
-**Doc ID**: `DOC-GLOSSARY-CHANGELOG-001`  
-**Version**: 1.0.0  
-**Last Updated**: 2025-11-25  
+**Doc ID**: `DOC-GLOSSARY-CHANGELOG-001`
+**Version**: 1.0.0
+**Last Updated**: 2025-11-25
 **Status**: ACTIVE
 
 ---
@@ -365,6 +365,6 @@ rationale: "This concept appears frequently in codebase but lacks definition"
 
 ---
 
-**Document Status**: ACTIVE  
-**Maintained By**: Architecture Team  
+**Document Status**: ACTIVE
+**Maintained By**: Architecture Team
 **Auto-Updated**: On each glossary change via CI

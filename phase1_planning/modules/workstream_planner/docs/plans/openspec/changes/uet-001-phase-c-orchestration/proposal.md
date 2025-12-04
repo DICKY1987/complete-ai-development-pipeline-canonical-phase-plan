@@ -4,12 +4,12 @@ doc_id: DOC-GUIDE-PROPOSAL-1511
 
 # Phase C: Orchestration - UET Implementation
 
-**Change ID**: uet-001-phase-c-orchestration  
-**Parent**: uet-001-complete-implementation  
-**Depends On**: uet-001-phase-b-patch-system  
-**Type**: Execution Enhancement  
-**Priority**: MEDIUM  
-**Estimated Duration**: 2-3 weeks  
+**Change ID**: uet-001-phase-c-orchestration
+**Parent**: uet-001-complete-implementation
+**Depends On**: uet-001-phase-b-patch-system
+**Type**: Execution Enhancement
+**Priority**: MEDIUM
+**Estimated Duration**: 2-3 weeks
 **Effort**: 30 hours
 
 ---
@@ -61,19 +61,19 @@ class DAGScheduler:
             graph.add_node(task['id'])
             for dep in task.get('depends_on', []):
                 graph.add_edge(dep, task['id'])
-        
+
         # Cycle detection
         if not nx.is_directed_acyclic_graph(graph):
             raise CyclicDependencyError("Tasks have circular dependencies")
-        
+
         return graph
-    
+
     def execute(self, graph: nx.DiGraph):
         """Execute tasks in topological order with parallelism."""
         for layer in nx.topological_generations(graph):
             # Execute all tasks in this layer in parallel
             with ThreadPoolExecutor() as executor:
-                futures = [executor.submit(self._run_task, task) 
+                futures = [executor.submit(self._run_task, task)
                           for task in layer]
                 wait(futures)
 ```
@@ -95,7 +95,7 @@ class DAGScheduler:
 
 ## Dependencies
 
-**Requires**: Phase B complete (patch system needed)  
+**Requires**: Phase B complete (patch system needed)
 **Blocks**: Phase E (compensation needs orchestration)
 
 ---

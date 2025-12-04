@@ -151,13 +151,13 @@ Every module contains `module.manifest.json`:
   "purpose": "Database operations, CRUD, and state management",
   "layer": "infra",
   "version": "2.0.0",
-  
+
   "state": {
     "enabled": true,
     "state_file": ".state/current.json",
     "snapshots_enabled": true
   },
-  
+
   "artifacts": {
     "code": [
       {
@@ -196,7 +196,7 @@ Every module contains `module.manifest.json`:
       }
     ]
   },
-  
+
   "dependencies": {
     "modules": [],
     "external": [
@@ -206,7 +206,7 @@ Every module contains `module.manifest.json`:
       }
     ]
   },
-  
+
   "import_patterns": [
     {
       "pattern": "from core.state.db import init_db",
@@ -214,7 +214,7 @@ Every module contains `module.manifest.json`:
       "deprecated": false
     }
   ],
-  
+
   "contracts": {
     "invariants": [
       {
@@ -223,7 +223,7 @@ Every module contains `module.manifest.json`:
       }
     ]
   },
-  
+
   "ai_metadata": {
     "priority": "HIGH",
     "edit_policy": "safe",
@@ -240,7 +240,7 @@ Every module contains `module.manifest.json`:
       }
     ]
   },
-  
+
   "metadata": {
     "created": "2025-11-25T21:00:00Z",
     "last_updated": "2025-11-25T21:00:00Z",
@@ -412,19 +412,19 @@ from jsonschema import validate
 def validate_module(module_path: Path):
     manifest_path = module_path / "module.manifest.json"
     schema_path = Path("schema/module.schema.json")
-    
+
     manifest = json.loads(manifest_path.read_text())
     schema = json.loads(schema_path.read_text())
-    
+
     validate(instance=manifest, schema=schema)
-    
+
     # Check ULID consistency
     ulid_prefix = manifest["ulid_prefix"]
     for artifact_type in manifest["artifacts"].values():
         for artifact in artifact_type:
             assert artifact["path"].startswith(ulid_prefix), \
                 f"Artifact {artifact['path']} does not match prefix {ulid_prefix}"
-    
+
     print(f"✅ {module_path} valid")
 
 # Run for all modules
@@ -525,6 +525,6 @@ A: Phase 1: 2 hours, Phase 2: 1 week, Phase 3: 2-4 weeks, Phase 4: 1 week. Total
 
 ---
 
-**Status**: Schema created ✅  
-**Next**: Create proof-of-concept manifest  
+**Status**: Schema created ✅
+**Next**: Create proof-of-concept manifest
 **Date**: 2025-11-25

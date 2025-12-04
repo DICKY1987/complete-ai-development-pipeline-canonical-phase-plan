@@ -22,7 +22,7 @@ checks:
       skipped_tests: 0
       duration_seconds: 0
       failures: []  # List of failure messages
-  
+
   syntax_valid:
     checked: false
     passed: false
@@ -31,7 +31,7 @@ checks:
       files_valid: 0
       files_invalid: 0
       errors: []  # List of syntax errors
-  
+
   no_todos:
     checked: false
     passed: false
@@ -39,7 +39,7 @@ checks:
       files_scanned: 0
       todos_found: 0
       locations: []  # List of file:line
-  
+
   git_clean:
     checked: false
     passed: false
@@ -47,7 +47,7 @@ checks:
       expected_files: []
       actual_files: []
       unexpected_files: []
-  
+
   lint_pass:
     checked: false
     passed: false
@@ -56,7 +56,7 @@ checks:
       errors: 0
       warnings: 0
       messages: []
-  
+
   coverage_threshold:
     checked: false
     passed: false
@@ -71,7 +71,7 @@ result:
   total_checks: 0
   passed_checks: 0
   failed_checks: 0
-  
+
   # Commit information (if verification passed)
   committed: false
   commit_sha: ""

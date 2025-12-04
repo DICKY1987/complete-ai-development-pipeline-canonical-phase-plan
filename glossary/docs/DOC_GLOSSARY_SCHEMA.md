@@ -8,10 +8,10 @@ doc_id: DOC-GUIDE-GLOSSARY_SCHEMA-125
 
 # Glossary Term Schema
 
-**Doc ID**: `DOC-GLOSSARY-SCHEMA-001`  
-**Version**: 1.0.0  
-**Last Updated**: 2025-11-25  
-**Status**: ACTIVE  
+**Doc ID**: `DOC-GLOSSARY-SCHEMA-001`
+**Version**: 1.0.0
+**Last Updated**: 2025-11-25
+**Status**: ACTIVE
 **Owner**: Architecture Team
 
 ---
@@ -253,11 +253,11 @@ terms:
     added_by: "architecture-team"
     last_modified: "2025-11-23T14:30:00Z"
     modified_by: "automation"
-    
+
     aliases:
       - "Workstream Orchestrator"
       - "Job Orchestrator"
-    
+
     implementation:
       files:
         - "core/engine/orchestrator.py"
@@ -265,14 +265,14 @@ terms:
       entry_points:
         - "Orchestrator.run_workstream()"
         - "Orchestrator.execute_bundle()"
-    
+
     schema_refs:
       - "schema/workstream.schema.json"
       - "schema/uet/execution_request.v1.json"
-    
+
     config_refs:
       - "config/orchestrator.yaml"
-    
+
     related_terms:
       - term_id: "TERM-ENGINE-002"
         relationship: "uses"
@@ -280,7 +280,7 @@ terms:
         relationship: "uses"
       - term_id: "TERM-STATE-003"
         relationship: "depends_on"
-    
+
     patch_history:
       - patch_id: "01J2ZB1B3Y5D0C8QK7F3HA2XYZ"
         action: "added"
@@ -362,20 +362,20 @@ validation:
       - "^It is"  # Avoid weak starts
       - "^This is"
       - "\\bTODO\\b"  # No incomplete definitions
-  
+
   related_terms:
     min_count: 1
     max_count: 10
     require_bidirectional: true  # If A links to B, B should link to A
-  
+
   implementation:
     verify_files_exist: true
     verify_entry_points_exist: true
-  
+
   cross_references:
     max_orphaned_terms: 0
     max_dead_links: 0
-  
+
   naming:
     max_length: 100
     forbidden_chars: ["#", "$", "%"]
@@ -575,73 +575,73 @@ patch_history:
 ## Field Definitions
 
 ### term_id
-**Type**: String  
-**Pattern**: `TERM-<CATEGORY>-<SEQUENCE>`  
-**Required**: Yes  
+**Type**: String
+**Pattern**: `TERM-<CATEGORY>-<SEQUENCE>`
+**Required**: Yes
 **Purpose**: Unique, stable identifier for tracking and automation
 
 ### name
-**Type**: String (2-100 chars)  
-**Required**: Yes  
-**Purpose**: Human-readable display name  
+**Type**: String (2-100 chars)
+**Required**: Yes
+**Purpose**: Human-readable display name
 **Style**: Title Case
 
 ### category
-**Type**: Enum  
-**Required**: Yes  
-**Values**: Core Engine, Patch Management, Error Detection, Specifications, State Management, Integrations, Framework, Project Management  
+**Type**: Enum
+**Required**: Yes
+**Values**: Core Engine, Patch Management, Error Detection, Specifications, State Management, Integrations, Framework, Project Management
 **Purpose**: Primary organization and indexing
 
 ### definition
-**Type**: String (20-1000 chars)  
-**Required**: Yes  
-**Purpose**: Clear, concise explanation  
+**Type**: String (20-1000 chars)
+**Required**: Yes
+**Purpose**: Clear, concise explanation
 **Style**: Start with type (Component/Process/Pattern), present tense, technical precision
 
 ### status
-**Type**: Enum  
-**Required**: Yes  
-**Values**: proposed, draft, active, deprecated, archived  
+**Type**: Enum
+**Required**: Yes
+**Values**: proposed, draft, active, deprecated, archived
 **Purpose**: Lifecycle tracking
 
 ### aliases
-**Type**: Array of strings  
-**Required**: No  
+**Type**: Array of strings
+**Required**: No
 **Purpose**: Alternative names, synonyms, common misspellings
 
 ### types
-**Type**: Array of {name, description}  
-**Required**: No  
+**Type**: Array of {name, description}
+**Required**: No
 **Purpose**: Document variants or subtypes
 
 ### implementation
-**Type**: Object {files, line_ranges, entry_points}  
-**Required**: No (but recommended for code concepts)  
+**Type**: Object {files, line_ranges, entry_points}
+**Required**: No (but recommended for code concepts)
 **Purpose**: Link to actual code
 
 ### schema_refs
-**Type**: Array of file paths  
-**Required**: No  
+**Type**: Array of file paths
+**Required**: No
 **Purpose**: Link to JSON Schema definitions
 
 ### usage_examples
-**Type**: Array of {language, code, description}  
-**Required**: No (but recommended for complex concepts)  
+**Type**: Array of {language, code, description}
+**Required**: No (but recommended for complex concepts)
 **Purpose**: Show practical usage
 
 ### related_terms
-**Type**: Array of {term_id, relationship}  
-**Required**: At least 1 recommended  
+**Type**: Array of {term_id, relationship}
+**Required**: At least 1 recommended
 **Purpose**: Cross-referencing and navigation
 
 ### metadata
-**Type**: Object {added_date, added_by, last_modified, ...}  
-**Required**: Yes  
+**Type**: Object {added_date, added_by, last_modified, ...}
+**Required**: Yes
 **Purpose**: Tracking provenance and history
 
 ### patch_history
-**Type**: Array of {patch_id, action, date, description}  
-**Required**: No  
+**Type**: Array of {patch_id, action, date, description}
+**Required**: No
 **Purpose**: Audit trail of changes
 
 ---
@@ -726,7 +726,7 @@ metadata:
 
 ---
 
-**Document Status**: ACTIVE  
-**Next Review**: 2025-12-25  
-**Maintained By**: Architecture Team  
+**Document Status**: ACTIVE
+**Next Review**: 2025-12-25
+**Maintained By**: Architecture Team
 **Version**: 1.0.0

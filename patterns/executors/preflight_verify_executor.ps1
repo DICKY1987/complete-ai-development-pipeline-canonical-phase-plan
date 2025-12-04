@@ -38,41 +38,41 @@ $checksFailed = 0
 
 foreach ($check in $checks) {
     Write-PatternLog "Check: $($check.name)" "INFO"
-    
+
     try {
         # Execute check command
         $checkResult = Invoke-Expression $check.command
         $passed = $LASTEXITCODE -eq 0
-        
+
         if ($passed) {
             $checksPassed++
             Write-PatternLog "  ✓ Passed" "SUCCESS"
         } else {
             $checksFailed++
             Write-PatternLog "  ✗ Failed" "ERROR"
-            
+
             if ($failFast) {
                 Write-PatternLog "Fail-fast enabled, aborting remaining checks" "WARNING"
                 break
             }
         }
-        
+
         $results += @{
             name = $check.name
             passed = $passed
             output = $checkResult
         }
-        
+
     } catch {
         $checksFailed++
         Write-PatternLog "  ✗ Error: $_" "ERROR"
-        
+
         $results += @{
             name = $check.name
             passed = $false
             error = $_.ToString()
         }
-        
+
         if ($failFast) {
             break
         }

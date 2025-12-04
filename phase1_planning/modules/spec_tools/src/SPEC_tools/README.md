@@ -4,8 +4,8 @@ doc_id: DOC-GUIDE-README-1550
 
 # Specifications Tools
 
-**Module ID**: `specifications.tools`  
-**Priority**: HIGH  
+**Module ID**: `specifications.tools`
+**Priority**: HIGH
 **Purpose**: Tools for processing, validating, and enforcing UET specifications
 
 ## Overview

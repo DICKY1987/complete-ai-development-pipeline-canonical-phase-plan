@@ -39,16 +39,16 @@ parsing:
   extract_metrics:
     - pattern: "(\\d+) passed"
       capture: "passed_count"
-    
+
     - pattern: "(\\d+) failed"
       capture: "failed_count"
-    
+
     - pattern: "(\\d+) errors?"
       capture: "error_count"
-    
+
     - pattern: "(\\d+) skipped"
       capture: "skipped_count"
-    
+
     - pattern: "in ([0-9.]+)s"
       capture: "duration_seconds"
 
@@ -63,16 +63,16 @@ reporting:
   on_success: |
     ✅ Tests passed: ${passed_count}/${passed_count}
     ⏱️  Duration: ${duration_seconds}s
-  
+
   on_failure: |
     ❌ Tests failed: ${passed_count}/${passed_count + failed_count}
-    
+
     Failed tests:
     ${failed_test_list}
-    
+
     Error summary:
     ${error_summary}
-    
+
     Full output available in test logs
 
 # Inputs required
@@ -81,12 +81,12 @@ inputs:
     description: "Path to test file or directory"
     required: true
     example: "tests/error/test_detector.py"
-  
+
   fail_fast:
     description: "Stop on first failure (-x flag)"
     required: false
     default: false
-  
+
   verbose:
     description: "Verbose output (-v flag)"
     required: false
@@ -98,17 +98,17 @@ common_failures:
     detection: "collected 0 items"
     message: "No tests found in ${test_path}"
     hint: "Check test file path or test naming (test_*.py, *_test.py)"
-  
+
   import_errors:
     detection: "ImportError|ModuleNotFoundError"
     message: "Import error in test file"
     hint: "Check that all dependencies are installed and importable"
-  
+
   assertion_failures:
     detection: "AssertionError"
     message: "Test assertion failed"
     hint: "Review test expectations and actual behavior"
-  
+
   fixture_errors:
     detection: "fixture .* not found"
     message: "Pytest fixture not available"
@@ -125,26 +125,26 @@ anti_patterns:
 example:
   context:
     test_path: "tests/error/test_detector.py"
-  
+
   expected_output: |
     ============================= test session starts =============================
     collected 5 items
-    
+
     tests/error/test_detector.py::test_detect_syntax_error PASSED         [ 20%]
     tests/error/test_detector.py::test_detect_import_error PASSED         [ 40%]
     tests/error/test_detector.py::test_detect_assertion_error PASSED      [ 60%]
     tests/error/test_detector.py::test_no_error_on_success PASSED         [ 80%]
     tests/error/test_detector.py::test_error_message_parsing PASSED       [100%]
-    
+
     ============================== 5 passed in 0.34s ===============================
-  
+
   parsed_metrics:
     passed_count: 5
     failed_count: 0
     error_count: 0
     skipped_count: 0
     duration_seconds: 0.34
-  
+
   result: "SUCCESS"
 
 # Integration with self-healing

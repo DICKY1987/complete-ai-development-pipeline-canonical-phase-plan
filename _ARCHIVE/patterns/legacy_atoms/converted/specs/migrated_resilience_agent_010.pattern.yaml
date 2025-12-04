@@ -24,7 +24,7 @@ metadata:
 intent: |
   Migrated from: Evaluate Rollback Scenarios
   Original atom role: resilience_agent
-  
+
   This pattern was automatically migrated from the atomic-workflow-system.
   Review and enhance before production use.
 

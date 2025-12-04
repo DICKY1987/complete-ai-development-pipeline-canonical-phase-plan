@@ -25,17 +25,17 @@ from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.patterns.types import Pattern
 class TestExternalCallPatterns:
     """Test external call pattern detection."""
 # DOC_ID: DOC-TEST-PATTERN-TESTS-TEST-ERROR-PATH-131
-    
+
     def test_http_patterns_defined(self):
         """HTTP call patterns should be defined."""
         assert "requests.get" in EXTERNAL_CALL_PATTERNS
         assert "requests.post" in EXTERNAL_CALL_PATTERNS
-    
+
     def test_database_patterns_defined(self):
         """Database call patterns should be defined."""
         assert "cursor.execute" in EXTERNAL_CALL_PATTERNS
         assert ".fetchone" in EXTERNAL_CALL_PATTERNS
-    
+
     def test_file_patterns_defined(self):
         """File operation patterns should be defined."""
         assert "open" in EXTERNAL_CALL_PATTERNS
@@ -44,7 +44,7 @@ class TestExternalCallPatterns:
 
 class TestAnalyzeErrorPaths:
     """Test error path analysis."""
-    
+
     def test_detect_unhandled_http_call(self):
         """Detect HTTP call without error handling."""
         code = '''
@@ -57,16 +57,16 @@ def fetch_data(url):
         with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
             f.write(code)
             f.flush()
-            
+
             findings = analyze_error_paths(Path(f.name))
-            
+
             # Should find unhandled HTTP call
             http_findings = [
                 f for f in findings
                 if PatternCategory.ERROR_PATH == f.pattern_category
             ]
             assert len(http_findings) > 0
-    
+
     def test_handled_http_call_no_finding(self):
         """No finding for properly handled HTTP call."""
         code = '''
@@ -82,12 +82,12 @@ def fetch_data(url):
         with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
             f.write(code)
             f.flush()
-            
+
             findings = analyze_error_paths(Path(f.name))
-            
+
             # Should not find issues (call is in try block)
             assert all(f.code != "EPC-004" for f in findings)  # No exception handling issue
-    
+
     def test_detect_bare_except(self):
         """Detect bare except clause."""
         code = '''
@@ -100,16 +100,16 @@ def risky_operation():
         with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
             f.write(code)
             f.flush()
-            
+
             findings = analyze_error_paths(Path(f.name))
-            
+
             # Should find bare except
             bare_except_findings = [
                 f for f in findings
                 if "EPC-006" in f.code or "bare" in f.message.lower()
             ]
             assert len(bare_except_findings) > 0
-    
+
     def test_detect_unhandled_json_parse(self):
         """Detect JSON parsing without error handling."""
         code = '''
@@ -122,9 +122,9 @@ def parse_config(data):
         with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
             f.write(code)
             f.flush()
-            
+
             findings = analyze_error_paths(Path(f.name))
-            
+
             # Should find unhandled json.loads
             json_findings = [
                 f for f in findings
@@ -135,7 +135,7 @@ def parse_config(data):
 
 class TestErrorPathChecklist:
     """Test error path checklist generation."""
-    
+
     def test_generate_checklist_for_file(self):
         """Generate checklist for file with external calls."""
         code = '''
@@ -150,15 +150,15 @@ def process():
         with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
             f.write(code)
             f.flush()
-            
+
             checklist = generate_error_path_checklist(Path(f.name))
-            
+
             # Should have checks for HTTP and JSON calls
             assert len(checklist) > 0
-            
+
             check_types = [c.check_type for c in checklist]
             assert "exception" in check_types or "timeout" in check_types
-    
+
     def test_checklist_marks_uncovered(self):
         """Checklist marks uncovered error paths."""
         code = '''
@@ -170,9 +170,9 @@ def fetch():
         with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
             f.write(code)
             f.flush()
-            
+
             checklist = generate_error_path_checklist(Path(f.name))
-            
+
             # Should have uncovered checks
             uncovered = [c for c in checklist if not c.is_covered]
             assert len(uncovered) > 0
@@ -180,7 +180,7 @@ def fetch():
 
 class TestScanFileForErrorPathIssues:
     """Test file scanning convenience function."""
-    
+
     def test_scan_returns_findings(self):
         """Scan file returns findings list."""
         code = '''
@@ -190,19 +190,19 @@ def simple_func():
         with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
             f.write(code)
             f.flush()
-            
+
             findings = scan_file_for_error_path_issues(Path(f.name))
-            
+
             assert isinstance(findings, list)
-    
+
     def test_scan_empty_file(self):
         """Scan empty file returns empty list."""
         code = '# Empty file\n'
-        
+
         with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
             f.write(code)
             f.flush()
-            
+
             findings = scan_file_for_error_path_issues(Path(f.name))
-            
+
             assert findings == []

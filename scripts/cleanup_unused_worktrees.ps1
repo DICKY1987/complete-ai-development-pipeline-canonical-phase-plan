@@ -38,23 +38,23 @@ $cleaned = 0
 foreach ($wt in $wtList) {
     if ($wt.Path -match "\.worktrees") {
         Write-Host "`nChecking: $($wt.Path)"
-        
+
         # Check if directory exists
         if (Test-Path $wt.Path) {
             # Check last modified time
             $lastModified = (Get-Item $wt.Path).LastWriteTime
             $age = (Get-Date) - $lastModified
-            
+
             Write-Host "  Age: $([Math]::Round($age.TotalHours, 1)) hours"
-            
+
             if ($age.TotalHours -gt 24) {
                 Write-Host "  ⚠️  Worktree older than 24 hours" -ForegroundColor Yellow
-                
+
                 # Check if it has uncommitted changes
                 Push-Location $wt.Path
                 $status = git status --short
                 Pop-Location
-                
+
                 if ($status) {
                     Write-Host "  ⚠️  Has uncommitted changes - skipping" -ForegroundColor Yellow
                 } else {

@@ -53,7 +53,7 @@ doc_id: DOC-PAT-START-HERE-815
 
    2. INSTALL (2 min):
       cd C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\ToDo_Task\pattern_event_system
-      
+
       Copy-Item pattern_events.py -Destination ..\..\core\engine\
       Copy-Item pattern_inspect.py -Destination ..\..\core\engine\
       Copy-Item pattern_events_example.py -Destination ..\..\examples\
@@ -124,7 +124,7 @@ doc_id: DOC-PAT-START-HERE-815
 ✅ VALIDATION STATUS
 
    ✓ All files created
-   ✓ Example runs successfully  
+   ✓ Example runs successfully
    ✓ CLI inspector works
    ✓ Events validate against schemas
    ✓ No breaking changes

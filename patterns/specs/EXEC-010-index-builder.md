@@ -1,11 +1,11 @@
 # EXEC-010: Category Index Builder Pattern
 # Pattern for creating comprehensive category index files
 
-**Pattern ID**: EXEC-010  
-**Name**: Category Index Builder  
-**Category**: Documentation  
-**Time Savings**: 85-90% vs manual  
-**Difficulty**: Low  
+**Pattern ID**: EXEC-010
+**Name**: Category Index Builder
+**Category**: Documentation
+**Time Savings**: 85-90% vs manual
+**Difficulty**: Low
 **Prerequisites**: Completed EXEC-009 (doc_ids registered)
 
 ---
@@ -115,7 +115,7 @@ $index = @{
 foreach ($doc in $docIds) {
     $basename = Split-Path $doc.file -Leaf
     $name = $basename -replace "\.schema\.json$", ""
-    
+
     $entry = @{
         doc_id = $doc.id
         name = $name
@@ -126,7 +126,7 @@ foreach ($doc in $docIds) {
         priority = "high"
         status = "active"
     }
-    
+
     $index.schemas += $entry
 }
 
@@ -293,7 +293,7 @@ $indexEntries = foreach ($spec in $specs) {
 validation:
   tool: ajv
   command: "ajv validate -s {schema} -d {data}"
-  
+
 schema_registry:
   - DOC-SPEC-WORKSTREAM-SCHEMA-001
   - DOC-SPEC-STEP-SCHEMA-002
@@ -446,10 +446,10 @@ test_execution:
 
 ## Anti-Patterns to Avoid
 
-❌ **Build index before registering doc_ids** → Register first  
-❌ **Create new structure for each category** → Reuse template  
-❌ **Manual YAML construction** → Use scripts/helpers  
-❌ **Include every possible field** → Core fields only  
+❌ **Build index before registering doc_ids** → Register first
+❌ **Create new structure for each category** → Reuse template
+❌ **Manual YAML construction** → Use scripts/helpers
+❌ **Include every possible field** → Core fields only
 ❌ **Skip verification** → Always validate
 
 ---

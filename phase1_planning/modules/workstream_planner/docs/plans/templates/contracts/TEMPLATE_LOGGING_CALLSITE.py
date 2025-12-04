@@ -36,9 +36,9 @@ def log_phase_completed(run_id: str, ws_id: str, phase_id: str, details: dict = 
 # ============================================================================
 
 def log_task_failed(
-    run_id: str, 
-    ws_id: str, 
-    phase_id: str, 
+    run_id: str,
+    ws_id: str,
+    phase_id: str,
     error_msg: str,
     details: dict = None
 ) -> None:
@@ -193,7 +193,7 @@ def log_custom_event(
 ) -> None:
     """
     Log custom event following LogEventV1 contract.
-    
+
     Use this when none of the specific templates above fit.
     """
     event: LogEventV1 = {
@@ -221,7 +221,7 @@ if __name__ == "__main__":
         phase_id="PH-01A",
         details={"files_created": 3, "tests_passed": 12}
     )
-    
+
     # Example 2: Log task failure
     log_task_failed(
         run_id="RUN-001",
@@ -230,7 +230,7 @@ if __name__ == "__main__":
         error_msg="Import error: module not found",
         details={"module": "missing_module", "file": "core/state/db.py"}
     )
-    
+
     # Example 3: Log error detection
     log_error_detected(
         run_id="RUN-001",
@@ -239,7 +239,7 @@ if __name__ == "__main__":
         message="Pytest failed with 2 failures",
         details={"failed_tests": ["test_a", "test_b"]}
     )
-    
+
     # Example 4: Log pattern execution
     log_pattern_execution(
         run_id="RUN-001",

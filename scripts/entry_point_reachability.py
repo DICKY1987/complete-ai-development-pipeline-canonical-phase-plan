@@ -48,10 +48,10 @@ class ReachabilityScore:
     reachable_from: List[str]  # List of entry points that can reach this
     score: int  # 0-100 (100=completely orphaned)
     reasons: List[str]
-    
+
 class EntryPointReachabilityAnalyzer:
     """Analyze reachability from entry points."""
-    
+
     def __init__(self, root: Path):
         self.root = root
         self.entry_points: Set[str] = set()
@@ -59,17 +59,17 @@ class EntryPointReachabilityAnalyzer:
         self.all_modules: Set[str] = set()
         self.reachability: Dict[str, ReachabilityScore] = {}
         self.cross_validation_warnings: List[str] = []
-        
+
     def find_entry_points(self) -> Set[str]:
         """Identify all entry points in the repository."""
         logger.info("Finding entry points...")
         entry_points = set()
-        
+
         # 1. Files with if __name__ == "__main__":
         for py_file in self.root.rglob('*.py'):
             if self._should_skip(py_file):
                 continue
-            
+
             try:
                 content = py_file.read_text(encoding='utf-8')
                 if 'if __name__ == "__main__":' in content or "if __name__ == '__main__':" in content:
@@ -78,7 +78,7 @@ class EntryPointReachabilityAnalyzer:
                     logger.debug(f"Entry point (__main__): {module}")
             except Exception as e:
                 logger.debug(f"Cannot read {py_file}: {e}")
-        
+
         # 2. Test files in ./tests/
         tests_dir = self.root / 'tests'
         if tests_dir.exists():
@@ -86,7 +86,7 @@ class EntryPointReachabilityAnalyzer:
                 module = self._get_module_name(test_file)
                 entry_points.add(module)
                 logger.debug(f"Entry point (test): {module}")
-        
+
         # 3. CLI entry points (modules/*/m*_main.py pattern)
         modules_dir = self.root / 'modules'
         if modules_dir.exists():
@@ -94,7 +94,7 @@ class EntryPointReachabilityAnalyzer:
                 module = self._get_module_name(main_file)
                 entry_points.add(module)
                 logger.debug(f"Entry point (CLI): {module}")
-        
+
         # 4. Scripts in ./scripts/
         scripts_dir = self.root / 'scripts'
         if scripts_dir.exists():
@@ -140,59 +140,59 @@ class EntryPointReachabilityAnalyzer:
             module = self._get_module_name(conftest)
             entry_points.add(module)
             logger.debug(f"Entry point (conftest): {module}")
-        
+
         logger.info(f"Found {len(entry_points)} entry points")
         return entry_points
-    
+
     def build_import_graph(self) -> Dict[str, Set[str]]:
         """Build import dependency graph."""
         logger.info("Building import graph...")
-        
+
         for py_file in self.root.rglob('*.py'):
             if self._should_skip(py_file):
                 continue
-            
+
             module_name = self._get_module_name(py_file)
             self.all_modules.add(module_name)
-            
+
             imports = self._extract_imports(py_file)
             self.import_graph[module_name].update(imports)
-        
+
         logger.info(f"Import graph built: {len(self.all_modules)} modules, {sum(len(v) for v in self.import_graph.values())} edges")
         return self.import_graph
-    
+
     def compute_reachability(self) -> Dict[str, ReachabilityScore]:
         """Compute reachability scores using BFS from entry points."""
         logger.info("Computing reachability...")
-        
+
         reachable: Dict[str, int] = {}  # module -> distance
         reachable_from: Dict[str, Set[str]] = defaultdict(set)  # module -> entry points
-        
+
         # BFS from each entry point
         for entry_point in self.entry_points:
             queue = deque([(entry_point, 0)])
             visited = {entry_point}
-            
+
             while queue:
                 current, distance = queue.popleft()
-                
+
                 # Mark as reachable
                 if current not in reachable or distance < reachable[current]:
                     reachable[current] = distance
                 reachable_from[current].add(entry_point)
-                
+
                 # Explore imports
                 for imported_module in self.import_graph.get(current, set()):
                     if imported_module not in visited:
                         visited.add(imported_module)
                         queue.append((imported_module, distance + 1))
-        
+
         # Score all modules
         for module in self.all_modules:
             is_reachable = module in reachable
             distance = reachable.get(module, -1)
             from_entries = list(reachable_from.get(module, set()))
-            
+
             # Scoring (0-100, where 100 = completely orphaned)
             if not is_reachable:
                 score = 100
@@ -206,7 +206,7 @@ class EntryPointReachabilityAnalyzer:
             else:
                 score = max(0, (distance / 5) * 50)  # Linear scale based on distance
                 reasons = [f"Reachable at distance {distance}"]
-            
+
             self.reachability[module] = ReachabilityScore(
                 module_path=module,
                 is_reachable=is_reachable,
@@ -215,10 +215,10 @@ class EntryPointReachabilityAnalyzer:
                 score=score,
                 reasons=reasons
             )
-        
+
         unreachable_count = sum(1 for r in self.reachability.values() if not r.is_reachable)
         logger.info(f"Reachability computed: {unreachable_count} unreachable modules")
-        
+
         return self.reachability
 
     def cross_validate_orphans(self, search_roots: Optional[List[Path]] = None) -> List[str]:
@@ -248,31 +248,31 @@ class EntryPointReachabilityAnalyzer:
             logger.info("Cross-validation warnings detected for orphaned modules")
 
         return self.cross_validation_warnings
-    
+
     def _should_skip(self, path: Path) -> bool:
         """Skip __pycache__, .git, etc."""
         parts = path.parts
         skip_dirs = {'__pycache__', '.git', '.venv', '.worktrees', 'node_modules'}
         return any(part in skip_dirs for part in parts)
-    
+
     def _get_module_name(self, path: Path) -> str:
         """Convert file path to module name."""
         try:
             relative = path.relative_to(self.root)
         except ValueError:
             relative = path
-        
+
         module_path = str(relative.with_suffix(''))
         return module_path.replace('\\', '.').replace('/', '.')
-    
+
     def _extract_imports(self, file_path: Path) -> Set[str]:
         """Extract import statements using AST parsing."""
         imports = set()
-        
+
         try:
             content = file_path.read_text(encoding='utf-8')
             tree = ast.parse(content)
-            
+
             for node in ast.walk(tree):
                 if isinstance(node, ast.Import):
                     for alias in node.names:
@@ -282,7 +282,7 @@ class EntryPointReachabilityAnalyzer:
                         imports.add(node.module)
         except Exception as e:
             logger.debug(f"Cannot parse {file_path}: {e}")
-        
+
         return imports
 
     def _find_references(self, module: str, roots: List[Path]) -> List[str]:
@@ -365,11 +365,11 @@ class EntryPointReachabilityAnalyzer:
                         references.append(str(resolved_path))
 
         return references
-    
+
     def generate_report(self, output_path: Path):
         """Generate JSON report."""
         logger.info(f"Generating report: {output_path}")
-        
+
         report = {
             "metadata": {
                 "timestamp": str(Path(__file__).stat().st_mtime),
@@ -380,7 +380,7 @@ class EntryPointReachabilityAnalyzer:
             },
             "entry_points": sorted(list(self.entry_points)),
             "reachability_scores": {
-                module: asdict(score) 
+                module: asdict(score)
                 for module, score in sorted(self.reachability.items(), key=lambda x: x[1].score, reverse=True)
             },
             "statistics": {
@@ -394,13 +394,13 @@ class EntryPointReachabilityAnalyzer:
 
         if self.cross_validation_warnings:
             report["cross_validation_warnings"] = self.cross_validation_warnings
-        
+
         output_path.parent.mkdir(exist_ok=True)
         with open(output_path, 'w', encoding='utf-8') as f:
             json.dump(report, f, indent=2)
-        
+
         logger.info(f"Report written: {output_path}")
-        
+
         # Print summary
         print("\n" + "="*70)
         print("ENTRY POINT REACHABILITY ANALYSIS")
@@ -426,32 +426,32 @@ def main():
         description="Entry Point Reachability Analyzer",
         formatter_class=argparse.RawDescriptionHelpFormatter
     )
-    
+
     parser.add_argument(
         '--root', '-r',
         type=Path,
         default=Path.cwd(),
         help='Repository root path (default: current directory)'
     )
-    
+
     parser.add_argument(
         '--output', '-o',
         type=Path,
         default=Path('cleanup_reports/entry_point_reachability_report.json'),
         help='Output report path'
     )
-    
+
     parser.add_argument(
         '--verbose', '-v',
         action='store_true',
         help='Enable verbose logging'
     )
-    
+
     args = parser.parse_args()
-    
+
     if args.verbose:
         logging.getLogger().setLevel(logging.DEBUG)
-    
+
     analyzer = EntryPointReachabilityAnalyzer(args.root)
     analyzer.entry_points = analyzer.find_entry_points()
     analyzer.build_import_graph()

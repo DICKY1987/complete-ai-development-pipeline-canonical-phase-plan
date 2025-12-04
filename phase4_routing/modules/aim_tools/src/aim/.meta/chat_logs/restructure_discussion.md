@@ -680,24 +680,24 @@ Each capability entry in `catalog.psd1` **MUST** declare:
             Name         = 'WorkstreamOrchestration'
             Type         = 'Autonomous'
             Executor     = 'scripts/orchestrate_workstream.ps1'
-            
+
             Input = @{
                 WorkstreamId    = 'string'
                 MaxParallelism  = 'int'
                 ValidationLevel = 'enum[Basic,Full,Paranoid]'
             }
-            
+
             Output = @{
                 CompletedTasks = 'array[string]'
                 FailedTasks    = 'array[string]'
                 ExecutionLog   = 'path'
             }
-            
+
             Preconditions = @(
                 'Repository-CleanWorkingDirectory'
                 'All-WorkerCapabilities-Available'
             )
-            
+
             Postconditions = @(
                 'All-Tasks-Completed-Or-Failed'
                 'State-Persisted-To-Disk'
@@ -728,9 +728,9 @@ Each capability entry in `catalog.psd1` **MUST** declare:
 
 ```markdown
 ## Task Timeout
-**Detection:** Task exceeds max_runtime_seconds  
-**Manifestation:** `{"event":"task_timeout","task_id":"..."}` in execution log  
-**Automatic Recovery:** Retry with exponential backoff (if retry_count < max_retries)  
+**Detection:** Task exceeds max_runtime_seconds
+**Manifestation:** `{"event":"task_timeout","task_id":"..."}` in execution log
+**Automatic Recovery:** Retry with exponential backoff (if retry_count < max_retries)
 **Manual Intervention:** Investigate worker logs, check for deadlock
 ```
 
@@ -792,21 +792,21 @@ initial_state: PENDING
 states:
   - name: PENDING
     description: Task created, waiting for dependencies
-    
+
   - name: READY
     description: Dependencies satisfied, ready for worker assignment
-    
+
   - name: RUNNING
     description: Assigned to worker, execution in progress
-    
+
   - name: COMPLETED
     description: Successfully completed
     terminal: true
-    
+
   - name: FAILED
     description: Execution failed
     terminal: false
-    
+
   - name: RETRY_PENDING
     description: Waiting for retry backoff period
 
@@ -814,25 +814,25 @@ transitions:
   - from: PENDING
     to: READY
     trigger: all_dependencies_complete
-    
+
   - from: READY
     to: RUNNING
     trigger: worker_assigned
-    
+
   - from: RUNNING
     to: COMPLETED
     trigger: execution_success
-    
+
   - from: RUNNING
     to: FAILED
     trigger: execution_failure
     guard: retry_count >= max_retries
-    
+
   - from: RUNNING
     to: RETRY_PENDING
     trigger: execution_failure
     guard: retry_count < max_retries
-    
+
   - from: RETRY_PENDING
     to: READY
     trigger: backoff_period_elapsed

@@ -4,9 +4,9 @@ doc_id: DOC-GUIDE-01001A-README-1471
 
 # AIM Cli
 
-**Module ID**: aim-cli  
-**ULID Prefix**: 01001A  
-**Layer**: api  
+**Module ID**: aim-cli
+**ULID Prefix**: 01001A
+**Layer**: api
 **Source**: aim\cli
 
 ## Purpose
@@ -31,5 +31,5 @@ None (independent module)
 
 ---
 
-**Created**: 1764168248.458027  
+**Created**: 1764168248.458027
 **Status**: Proof-of-concept module

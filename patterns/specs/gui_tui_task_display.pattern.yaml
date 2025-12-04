@@ -8,7 +8,7 @@ metadata:
   created: 2025-12-02
   status: draft
   source: Converted from GUI_TUI_TASK_DISPLAY.md
-  
+
 intent: |
   You are helping me design and document how the UET pattern module works internally, and how to su...
 
@@ -18,19 +18,19 @@ inputs:
 
 outputs:
   artifacts: []
-  
+
 steps:
   - name: pattern_execution
     description: Execute pattern logic
-    
+
 ground_truth:
   criteria:
     - description: Pattern executes without errors
-      
+
 validation:
   pre_conditions: []
   post_conditions: []
-  
+
 tool_bindings:
   - tool: claude_code
     priority: 1

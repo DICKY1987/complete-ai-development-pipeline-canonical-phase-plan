@@ -228,7 +228,7 @@ class CostTracker:
             conn.execute(
                 """
                 INSERT INTO cost_tracking
-                (run_id, workstream_id, step_id, worker_id, input_tokens, output_tokens, 
+                (run_id, workstream_id, step_id, worker_id, input_tokens, output_tokens,
                  estimated_cost_usd, model_name, timestamp)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
             """,

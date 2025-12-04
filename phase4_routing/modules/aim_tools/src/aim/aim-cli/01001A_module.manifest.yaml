@@ -18,7 +18,7 @@ artifacts:
     - path: "01001A_main.py"
       ulid: "01001A00000000000000000000"
       entry_point: true
-  
+
   tests: []
   schemas: []
   docs:

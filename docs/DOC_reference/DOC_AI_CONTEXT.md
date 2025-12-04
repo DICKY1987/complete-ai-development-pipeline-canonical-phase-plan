@@ -77,7 +77,7 @@ from error.engine.error_engine import ErrorEngine
 ---
 
 ### Q: What's the difference between engine/ and core/engine/?
-**A**: 
+**A**:
 - `engine/` = **Standalone job-based execution** (can run independently)
 - `core/engine/` = **Orchestration layer** (scheduler, executor, orchestrator)
 
@@ -282,9 +282,9 @@ from legacy.* import anything                          # ❌ Never
 
 ## Status & Maturity
 
-**Project Phase**: Active Development  
-**Primary Branch**: main  
-**Python Version**: 3.9+  
+**Project Phase**: Active Development
+**Primary Branch**: main
+**Python Version**: 3.9+
 **Test Coverage**: ~70% (target: 85%)
 
 **Production-Ready Components**:
@@ -366,5 +366,5 @@ python scripts/bootstrap_uet.py .
 
 ---
 
-**Last Updated**: 2025-11-23  
+**Last Updated**: 2025-11-23
 **Version**: 2.0 (AI Navigation Enhancement v2)

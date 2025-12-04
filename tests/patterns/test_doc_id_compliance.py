@@ -13,7 +13,7 @@ def test_doc_id_format():
     index_path = Path("patterns/registry/PATTERN_INDEX.yaml")
     with open(index_path) as f:
         data = yaml.safe_load(f)
-    
+
     for pattern in data['patterns']:
         doc_id = pattern.get('doc_id')
         assert doc_id, f"Pattern {pattern['pattern_id']} missing doc_id"
@@ -24,6 +24,6 @@ def test_doc_id_uniqueness():
     index_path = Path("patterns/registry/PATTERN_INDEX.yaml")
     with open(index_path) as f:
         data = yaml.safe_load(f)
-    
+
     doc_ids = [p['doc_id'] for p in data['patterns'] if 'doc_id' in p]
     assert len(doc_ids) == len(set(doc_ids)), "Duplicate doc_id values found"

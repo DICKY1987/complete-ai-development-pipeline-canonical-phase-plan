@@ -171,7 +171,7 @@ Failed: auth.test.js (syntax error - line 42)
 
 **Simple is not simplistic** - We still handle errors properly, we just don't try to prevent every possible edge case. We trust that:
 - The file system usually works
-- GitHub CLI is usually authenticated  
+- GitHub CLI is usually authenticated
 - Git repositories are usually valid
 - Users know what they're doing
 

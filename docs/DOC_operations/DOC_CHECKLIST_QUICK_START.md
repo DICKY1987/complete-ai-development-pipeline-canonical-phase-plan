@@ -206,5 +206,5 @@ pwsh scripts/validate/validate_repo_checklist.ps1 -RequirementFilter "PATH-STD-0
 
 ## Version
 
-**Quick Start Version**: 1.0.0  
+**Quick Start Version**: 1.0.0
 **Last Updated**: 2025-11-23

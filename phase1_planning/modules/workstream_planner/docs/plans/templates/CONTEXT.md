@@ -4,8 +4,8 @@ doc_id: DOC-GUIDE-CONTEXT-1619
 
 # Templates Context & Execution Model
 
-> **Context Management and Execution Patterns for UET Framework Templates**  
-> **Purpose**: Explain how templates fit into the execution model and provide context for AI tools  
+> **Context Management and Execution Patterns for UET Framework Templates**
+> **Purpose**: Explain how templates fit into the execution model and provide context for AI tools
 > **Last Updated**: 2025-11-23
 
 ---
@@ -55,9 +55,9 @@ Each stage uses specific template types to define its behavior.
 
 ### 1. Template Discovery
 
-**When**: Bootstrap or initialization phase  
-**How**: Framework scans template directories  
-**Templates Used**: 
+**When**: Bootstrap or initialization phase
+**How**: Framework scans template directories
+**Templates Used**:
 - Configuration templates (profiles, routers)
 - Orchestration templates (phases, workstreams)
 
@@ -75,8 +75,8 @@ template = load_profile_template(profile)
 
 ### 2. Template Instantiation
 
-**When**: Creating project-specific configuration  
-**How**: Replace placeholders with actual values  
+**When**: Creating project-specific configuration
+**How**: Replace placeholders with actual values
 **Templates Used**: All template types
 
 ```python
@@ -103,8 +103,8 @@ description: "Core implementation phase"
 
 ### 3. Template Validation
 
-**When**: After instantiation, before execution  
-**How**: Validate against JSON schemas  
+**When**: After instantiation, before execution
+**How**: Validate against JSON schemas
 **Templates Used**: All templates
 
 ```python
@@ -124,8 +124,8 @@ if not result.valid:
 
 ### 4. Template Execution
 
-**When**: Runtime execution  
-**How**: Framework interprets template and executes defined behavior  
+**When**: Runtime execution
+**How**: Framework interprets template and executes defined behavior
 **Templates Used**: Orchestration and adapter templates
 
 ```python
@@ -140,8 +140,8 @@ result = orchestrator.execute_phase(phase_spec)
 
 ### 5. Template Monitoring
 
-**When**: During and after execution  
-**How**: UI templates render progress and results  
+**When**: During and after execution
+**How**: UI templates render progress and results
 **Templates Used**: UI templates (dashboards, reports)
 
 ```python
@@ -166,7 +166,7 @@ Templates can be **composed** to build complex workflows:
 # High-level workflow (composed from templates)
 workflow:
   name: "Complete Development Pipeline"
-  
+
   # Phase 1: Uses orchestration/phases/phase-analysis-template.yaml
   phases:
     - phase_id: "PH-ANALYSIS-01"
@@ -180,7 +180,7 @@ workflow:
             - task_id: "task-001"
               template: "task-analysis-template"
               tool: "aider"  # Uses adapters/subprocess/aider-adapter.py
-    
+
     # Phase 2: Uses orchestration/phases/phase-implementation-template.yaml
     - phase_id: "PH-IMPL-01"
       template: "phase-implementation-template"
@@ -583,13 +583,13 @@ def test_phase_core_template_valid():
     """Phase core template should pass schema validation"""
     with open('templates/orchestration/phases/phase-core-template.yaml') as f:
         template = yaml.safe_load(f)
-    
+
     # Replace placeholders with test values
     instantiated = instantiate_template(template, {
         'PHASE_ID': 'TEST-01',
         'DESCRIPTION': 'Test phase'
     })
-    
+
     result = validate_against_schema(instantiated, 'schema/phase_spec.v1.json')
     assert result.valid, f"Validation errors: {result.errors}"
 ```
@@ -602,14 +602,14 @@ def test_full_pipeline_from_templates():
     """Complete pipeline can be built from templates"""
     # 1. Bootstrap from profile template
     profile = instantiate_profile_template('profile-python-template.yaml')
-    
+
     # 2. Create phase from template
     phase = instantiate_phase_template('phase-core-template.yaml')
-    
+
     # 3. Execute
     orchestrator = Orchestrator(profile)
     result = orchestrator.execute_phase(phase)
-    
+
     assert result.status == 'success'
 ```
 
@@ -653,7 +653,7 @@ templates:
     usage_count: 47
     last_used: "2025-11-23T10:30:00Z"
     success_rate: 0.96
-  
+
   - id: "adapter-subprocess-template"
     path: "adapters/subprocess/tool-adapter-template.py"
     usage_count: 12
@@ -688,16 +688,16 @@ if usage.failure_rate > 0.5:
 
 ### Common Template Questions
 
-**Q: How do I know which template to use?**  
+**Q: How do I know which template to use?**
 A: See [Templates README.md](README.md#-finding-the-right-template)
 
-**Q: How do I customize a template?**  
+**Q: How do I customize a template?**
 A: Copy template, replace `{{PLACEHOLDERS}}`, validate with schema
 
-**Q: Can templates be composed?**  
+**Q: Can templates be composed?**
 A: Yes! See [Template Composition](#-template-composition)
 
-**Q: How are templates validated?**  
+**Q: How are templates validated?**
 A: Against JSON schemas in `../schema/` directory
 
 ---
@@ -731,7 +731,7 @@ migrations:
 
 ---
 
-**Last Updated**: 2025-11-23  
+**Last Updated**: 2025-11-23
 **Related Documentation**:
 - [Templates README](README.md) - Overview and quick start
 - [STRUCTURE.md](STRUCTURE.md) - Structural organization

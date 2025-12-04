@@ -155,7 +155,7 @@ python scripts/process_patches.py
 - name: Validate Patches
   run: |
     python scripts/process_patches.py --validate
-    
+
 - name: Find Unprocessed Patches
   run: |
     python scripts/deep_search.py --ext .patch --json > patch-report.json

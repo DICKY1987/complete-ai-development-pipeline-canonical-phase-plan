@@ -1,10 +1,10 @@
 # Execution Pattern: EXEC-HYBRID-002 - Module Test Extraction
 
-**Pattern ID**: EXEC-HYBRID-002  
-**Date**: 2025-12-03  
-**Purpose**: Extract module-specific tests from global tests/ directory  
-**Scope**: 196 test files → 31 module test directories  
-**Estimated Time**: 1 hour  
+**Pattern ID**: EXEC-HYBRID-002
+**Date**: 2025-12-03
+**Purpose**: Extract module-specific tests from global tests/ directory
+**Scope**: 196 test files → 31 module test directories
+**Estimated Time**: 1 hour
 **Speedup**: 4x faster than manual (4h → 1h)
 
 ---
@@ -21,9 +21,9 @@
 
 ## Pre-Execution Decisions
 
-**Test Organization**: Module-specific in module/tests/, integration in tests/integration/  
-**Naming**: Keep original test file names  
-**Verification**: pytest must still discover all tests  
+**Test Organization**: Module-specific in module/tests/, integration in tests/integration/
+**Naming**: Keep original test file names
+**Verification**: pytest must still discover all tests
 **Success**: Each module has its tests, pytest finds them all
 
 **NOT Deciding**:
@@ -63,19 +63,19 @@ test_mappings:
   bootstrap:
     source: tests/bootstrap/
     dest: phase0_bootstrap/modules/bootstrap_orchestrator/tests/
-    
+
   adapters:
     source: tests/adapters/
     dest: phase4_routing/modules/tool_adapters/tests/
-    
+
   aim:
     source: tests/aim/
     dest: phase4_routing/modules/aim_tools/tests/
-    
+
   error_engine:
     source: tests/error/engine/
     dest: phase6_error_recovery/modules/error_engine/tests/
-    
+
   plugins:
     # Each plugin separately
     python_ruff:
@@ -172,7 +172,7 @@ $modules = Get-ChildItem "phase*/modules/*/tests" -Directory -Recurse
 foreach ($module in $modules) {
     $moduleName = $module.Parent.Name
     $testCount = (Get-ChildItem $module.FullName -Filter "test_*.py" -Recurse).Count
-    
+
     if ($testCount -gt 0) {
         Write-Host "Testing $moduleName ($testCount tests)..."
         pytest $module.FullName -q
@@ -209,7 +209,7 @@ foreach ($module in $modulesWithCode) {
 # Update pytest.ini to discover tests in modules
 $pytestConfig = @'
 [pytest]
-testpaths = 
+testpaths =
     phase0_bootstrap/modules
     phase1_planning/modules
     phase4_routing/modules

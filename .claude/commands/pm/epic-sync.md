@@ -228,7 +228,7 @@ Task:
        - If gh-sub-issue available:
          gh sub-issue create --parent $epic_number --title "$task_name" \
            --body-file "$TMPDIR/task-body.md" --label "task,epic:$ARGUMENTS"
-       - Otherwise: 
+       - Otherwise:
          gh issue create --repo "$REPO" --title "$task_name" --body-file "$TMPDIR/task-body.md" \
            --label "task,epic:$ARGUMENTS"
     4. Record: task_file:issue_number

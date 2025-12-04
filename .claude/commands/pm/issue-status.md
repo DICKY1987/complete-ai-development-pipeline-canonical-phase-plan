@@ -26,11 +26,11 @@ gh issue view #$ARGUMENTS --json state,title,labels,assignees,updatedAt
 Show concise status information:
 ```
 🎫 Issue #$ARGUMENTS: {Title}
-   
+
 📊 Status: {OPEN/CLOSED}
    Last update: {timestamp}
    Assignee: {assignee or "Unassigned"}
-   
+
 🏷️ Labels: {label1}, {label2}, {label3}
 ```
 
@@ -55,7 +55,7 @@ Check if local files are in sync:
 ### 5. Quick Status Indicators
 Use clear visual indicators:
 - 🟢 Open and ready
-- 🟡 Open with blockers  
+- 🟡 Open with blockers
 - 🔴 Open and overdue
 - ✅ Closed and complete
 - ❌ Closed without completion

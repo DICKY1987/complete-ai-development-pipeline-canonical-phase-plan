@@ -4,8 +4,8 @@ doc_id: DOC-PAT-INDEX-801
 
 # Pattern Event System - Implementation Package
 
-**Package Created**: 2025-11-26  
-**Status**: ✅ Ready for Implementation  
+**Package Created**: 2025-11-26
+**Status**: ✅ Ready for Implementation
 **Location**: `ToDo_Task/pattern_event_system/`
 
 ---
@@ -193,7 +193,7 @@ python -m core.engine.pattern_inspect run PRUN-...
 ## 📅 Implementation Timeline
 
 ### Phase 1: Core Events (Week 1, Day 1)
-**Time**: 1 day  
+**Time**: 1 day
 **Effort**: Low
 
 - [ ] Install files
@@ -204,7 +204,7 @@ python -m core.engine.pattern_inspect run PRUN-...
 **Success**: Events visible in `python -m core.engine.pattern_inspect events`
 
 ### Phase 2: State Store Integration (Week 1, Day 2-3)
-**Time**: 2-3 hours  
+**Time**: 2-3 hours
 **Effort**: Low
 
 - [ ] Extend `JobStateStore` with pattern event methods
@@ -214,7 +214,7 @@ python -m core.engine.pattern_inspect run PRUN-...
 **Success**: Pattern runs queryable via `JobStateStore.get_pattern_runs(job_id)`
 
 ### Phase 3: GUI Integration (Week 2)
-**Time**: 3-4 days  
+**Time**: 3-4 days
 **Effort**: Medium
 
 - [ ] Add API endpoints
@@ -224,7 +224,7 @@ python -m core.engine.pattern_inspect run PRUN-...
 **Success**: GUI displays pattern activity for jobs
 
 ### Phase 4: Real-time (Optional)
-**Time**: 1 day  
+**Time**: 1 day
 **Effort**: Low
 
 - [ ] Add WebSocket events
@@ -298,7 +298,7 @@ Pattern Executor          Pattern Event System         Storage
 ────────────────          ────────────────────         ───────
 engine/orchestrator  ──→  emit_pattern_event()   ──→  state/events/*.jsonl
 UET patterns/            PatternRunAggregator   ──→  engine/state_store (DB)
-                                                       
+
 GUI Panel            ←──  GET /api/pattern-events ←──  JSONL + DB
 ```
 
@@ -320,8 +320,8 @@ GUI Panel            ←──  GET /api/pattern-events ←──  JSONL + DB
 
 ## 💾 Storage
 
-**Events**: `state/events/pattern_events.jsonl` (global)  
-**Events (job-scoped)**: `state/events/jobs/{job_id}/pattern_events.jsonl`  
+**Events**: `state/events/pattern_events.jsonl` (global)
+**Events (job-scoped)**: `state/events/jobs/{job_id}/pattern_events.jsonl`
 **Pattern Runs**: In-memory (Phase 1) → State DB (Phase 2)
 
 **Size**: ~500 bytes per event, ~2KB per pattern run
@@ -409,9 +409,9 @@ GUI Panel            ←──  GET /api/pattern-events ←──  JSONL + DB
 
 ---
 
-**Package Status**: ✅ Ready for Implementation  
-**Total Size**: ~91KB (10 files)  
-**Next Action**: Copy files and begin Phase 1  
-**Created**: 2025-11-26  
+**Package Status**: ✅ Ready for Implementation
+**Total Size**: ~91KB (10 files)
+**Next Action**: Copy files and begin Phase 1
+**Created**: 2025-11-26
 
 **🚀 When ready to implement, start with `PATTERN_EVENTS_QUICK_REFERENCE.md`**

@@ -21,7 +21,7 @@ $indexPath = Join-Path $patternsDir "registry\PATTERN_INDEX.yaml"
 if (Test-Path $indexPath) {
     $content = Get-Content $indexPath -Raw
     $docIds = [regex]::Matches($content, 'doc_id:\s+([A-Z0-9-]+)')
-    
+
     foreach ($match in $docIds) {
         $docId = $match.Groups[1].Value
         if ($docId -match '^[A-Z0-9]+(-[A-Z0-9]+)*$') {

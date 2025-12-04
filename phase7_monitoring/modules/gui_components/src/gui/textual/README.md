@@ -1,7 +1,7 @@
 # textual
 
-**Module Path**: `textual`  
-**Layer**: UI  
+**Module Path**: `textual`
+**Layer**: UI
 **Status**: Active
 
 ## Purpose
@@ -38,5 +38,5 @@ HYBRID_GUI_PLAN.md, MERGE_PLAN_TUI_GUI.md
 
 ---
 
-**Generated**: 2025-12-02 22:40:27 UTC  
+**Generated**: 2025-12-02 22:40:27 UTC
 **Framework**: Universal Execution Templates (UET)

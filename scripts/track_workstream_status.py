@@ -20,20 +20,20 @@ class WorkstreamStatusTracker:
     def __init__(self, status_file="state/workstream_status.json"):
         self.status_file = Path(status_file)
         self.status = self.load_status()
-    
+
     def load_status(self) -> Dict:
         """Load current status from file."""
         if self.status_file.exists():
             with open(self.status_file) as f:
                 return json.load(f)
         return {}
-    
+
     def save_status(self):
         """Save status to file."""
         self.status_file.parent.mkdir(exist_ok=True)
         with open(self.status_file, 'w') as f:
             json.dump(self.status, f, indent=2)
-    
+
     def update_status(self, ws_id: str, status: str, message: str = ""):
         """Update status for a workstream."""
         self.status[ws_id] = {
@@ -42,15 +42,15 @@ class WorkstreamStatusTracker:
             "timestamp": datetime.now().isoformat()
         }
         self.save_status()
-    
+
     def get_status(self, ws_id: str) -> Dict:
         """Get status for a workstream."""
         return self.status.get(ws_id, {"status": "not_started"})
-    
+
     def get_all_status(self) -> Dict:
         """Get status for all workstreams."""
         return self.status
-    
+
     def generate_report(self, workstreams: List[Dict]) -> str:
         """Generate status report."""
         report = []
@@ -59,7 +59,7 @@ class WorkstreamStatusTracker:
         report.append("=" * 80)
         report.append(f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         report.append("")
-        
+
         status_counts = {
             "not_started": 0,
             "in_progress": 0,
@@ -68,12 +68,12 @@ class WorkstreamStatusTracker:
             "failed": 0,
             "manual": 0
         }
-        
+
         for ws in workstreams:
             ws_status = self.get_status(ws["id"])
             status = ws_status.get("status", "not_started")
             status_counts[status] = status_counts.get(status, 0) + 1
-            
+
             emoji = {
                 "not_started": "⚪",
                 "in_progress": "🔵",
@@ -82,7 +82,7 @@ class WorkstreamStatusTracker:
                 "failed": "❌",
                 "manual": "⚠️"
             }.get(status, "❓")
-            
+
             report.append(f"{emoji} {ws['name']}")
             report.append(f"   ID: {ws['id']}")
             report.append(f"   Status: {status}")
@@ -91,7 +91,7 @@ class WorkstreamStatusTracker:
             if ws_status.get("timestamp"):
                 report.append(f"   Last updated: {ws_status['timestamp']}")
             report.append("")
-        
+
         report.append("=" * 80)
         report.append("📈 SUMMARY")
         report.append("=" * 80)
@@ -99,7 +99,7 @@ class WorkstreamStatusTracker:
             if count > 0:
                 report.append(f"  {status.replace('_', ' ').title()}: {count}")
         report.append("=" * 80)
-        
+
         return "\n".join(report)
 
 def main():
@@ -110,19 +110,19 @@ def main():
     parser.add_argument("--report", action="store_true", help="Generate status report")
     parser.add_argument("--output", help="Output file for report")
     args = parser.parse_args()
-    
+
     tracker = WorkstreamStatusTracker()
-    
+
     if args.update:
         ws_id, status, message = args.update
         tracker.update_status(ws_id, status, message)
         print(f"✅ Updated {ws_id} to {status}")
-    
+
     if args.report or args.output:
         # Load workstreams
         from scripts.execute_next_workstreams import WORKSTREAMS
         report = tracker.generate_report(WORKSTREAMS)
-        
+
         if args.output:
             with open(args.output, 'w') as f:
                 f.write(report)

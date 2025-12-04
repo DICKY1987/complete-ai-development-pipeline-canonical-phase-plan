@@ -8,7 +8,7 @@ doc_id: DOC-GUIDE-FILE_ORGANIZATION_QUICK_REF-084
 
 # File Organization Quick Reference
 
-> **Purpose**: Quick lookup guide for where files should go  
+> **Purpose**: Quick lookup guide for where files should go
 > **See Also**: [FILE_ORGANIZATION_SYSTEM.md](FILE_ORGANIZATION_SYSTEM.md) for complete specification
 
 ---

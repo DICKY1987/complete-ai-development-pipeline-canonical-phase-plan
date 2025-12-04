@@ -9,7 +9,7 @@ layer: "infra"  # Infrastructure - data contracts
 entry_points:
   - file: "workstream_schema.json"
     description: "JSON Schema v4 for workstream bundles"
-    
+
   - file: "phase_schema.json"
     description: "JSON Schema v4 for phase specifications"
 
@@ -25,11 +25,11 @@ schema_files:
   workstream_schema.json:
     purpose: "Workstream bundle structure"
     required_fields: ["id", "name", "steps"]
-    
+
   phase_schema.json:
     purpose: "Phase specification structure"
     required_fields: ["id", "name", "workstreams"]
-    
+
   plugin_schema.json:
     purpose: "Error detection plugin metadata"
 

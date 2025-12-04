@@ -78,16 +78,16 @@ def execute_workstream(ws, dry_run=False):
     print(f"ID: {ws['id']}")
     print(f"Estimated: {ws['estimated_hours']} hours")
     print(f"{'='*80}\n")
-    
+
     if ws["script"] is None:
         print(f"⚠️  Manual execution required for {ws['id']}")
         print(f"📋 See workstreams/{ws['id']}.json for instructions")
         return "manual"
-    
+
     if dry_run:
         print(f"[DRY RUN] Would execute: python {ws['script']}")
         return "dry_run"
-    
+
     try:
         result = subprocess.run(
             ["python", ws["script"]],
@@ -95,7 +95,7 @@ def execute_workstream(ws, dry_run=False):
             text=True,
             timeout=ws["estimated_hours"] * 3600  # Timeout = estimated hours
         )
-        
+
         if result.returncode == 0:
             print(f"✅ {ws['name']} completed successfully")
             print(result.stdout)
@@ -118,9 +118,9 @@ def main():
     parser.add_argument("--workstream", help="Execute specific workstream by ID")
     parser.add_argument("--force", action="store_true", help="Ignore dependency checks")
     args = parser.parse_args()
-    
+
     status = load_workstream_status()
-    
+
     # Filter workstreams if specific one requested
     workstreams = WORKSTREAMS
     if args.workstream:
@@ -128,21 +128,21 @@ def main():
         if not workstreams:
             print(f"❌ Workstream {args.workstream} not found")
             sys.exit(1)
-    
+
     print(f"\n🚀 Next Workstreams Execution")
     print(f"{'='*80}")
     print(f"Total workstreams: {len(workstreams)}")
     print(f"Mode: {'DRY RUN' if args.dry_run else 'EXECUTE'}")
     print(f"{'='*80}\n")
-    
+
     results = {}
-    
+
     for ws in workstreams:
         # Check if already completed
         if status.get(ws["id"], {}).get("status") == "completed" and not args.force:
             print(f"⏭️  Skipping {ws['name']} (already completed)")
             continue
-        
+
         # Check dependencies
         deps_ok, dep_msg = check_dependencies(ws, status)
         if not deps_ok and not args.force:
@@ -153,30 +153,30 @@ def main():
                 "timestamp": datetime.now().isoformat()
             }
             continue
-        
+
         # Execute
         result_status = execute_workstream(ws, dry_run=args.dry_run)
-        
+
         results[ws["id"]] = {
             "status": result_status,
             "timestamp": datetime.now().isoformat()
         }
-        
+
         # Update persistent status
         if not args.dry_run:
             status[ws["id"]] = results[ws["id"]]
             save_workstream_status(status)
-        
+
         # Stop on failure unless force
         if result_status == "failed" and not args.force:
             print(f"\n❌ Stopping execution due to failure in {ws['name']}")
             break
-    
+
     # Summary
     print(f"\n{'='*80}")
     print(f"📊 EXECUTION SUMMARY")
     print(f"{'='*80}\n")
-    
+
     for ws_id, result in results.items():
         ws_name = next(w["name"] for w in WORKSTREAMS if w["id"] == ws_id)
         status_emoji = {
@@ -188,11 +188,11 @@ def main():
             "timeout": "⏱️ ",
             "error": "💥"
         }.get(result["status"], "❓")
-        
+
         print(f"{status_emoji} {ws_name}: {result['status']}")
-    
+
     print(f"\n{'='*80}\n")
-    
+
     # Exit code
     failed = any(r["status"] == "failed" for r in results.values())
     sys.exit(1 if failed else 0)

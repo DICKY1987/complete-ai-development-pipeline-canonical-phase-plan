@@ -8,9 +8,9 @@ doc_id: DOC-GUIDE-EXAMPLE_PARALLEL_EXECUTION-065
 
 # Example 02: Parallel Execution - Multi-Step Utilities
 
-**Pattern**: Multi-step workstream with parallel execution  
-**Complexity**: Intermediate  
-**Estimated Duration**: 3-6 minutes (parallel) vs 9-18 min (sequential)  
+**Pattern**: Multi-step workstream with parallel execution
+**Complexity**: Intermediate
+**Estimated Duration**: 3-6 minutes (parallel) vs 9-18 min (sequential)
 **Tool**: Aider (3 concurrent instances)
 
 ---
@@ -50,7 +50,7 @@ This example demonstrates **parallel step execution** for independent tasks. Use
 ### Sequential Execution (Traditional)
 ```
 Step 1: Math Utils  [====] 3min
-Step 2: String Utils      [====] 3min  
+Step 2: String Utils      [====] 3min
 Step 3: File Utils              [====] 3min
 ----------------------------------------
 Total: 9 minutes
@@ -94,7 +94,7 @@ Each step is an independent unit of work:
 // All three steps have empty depends_on
 "steps": [
   { "id": "step-01", "depends_on": [] },  // Runs immediately
-  { "id": "step-02", "depends_on": [] },  // Runs immediately  
+  { "id": "step-02", "depends_on": [] },  // Runs immediately
   { "id": "step-03", "depends_on": [] }   // Runs immediately
 ]
 ```
@@ -310,7 +310,7 @@ def ensure_dir(path: Path) -> None:
 
 ### Issue: "Worker pool exhausted"
 
-**Cause**: More steps than `max_workers`  
+**Cause**: More steps than `max_workers`
 **Fix**:
 ```json
 {
@@ -324,7 +324,7 @@ def ensure_dir(path: Path) -> None:
 
 ### Issue: "Step deadlock detected"
 
-**Cause**: Circular dependencies (A depends on B, B depends on A)  
+**Cause**: Circular dependencies (A depends on B, B depends on A)
 **Fix**: Review and fix dependency graph:
 ```bash
 python scripts/visualize_dependencies.py ws-example-02-parallel-execution
@@ -335,7 +335,7 @@ python scripts/visualize_dependencies.py ws-example-02-parallel-execution
 
 ### Issue: "One step blocks all others"
 
-**Cause**: One step taking much longer than others  
+**Cause**: One step taking much longer than others
 **Solution**: Adjust timeouts or split into smaller steps:
 ```json
 {
@@ -349,7 +349,7 @@ python scripts/visualize_dependencies.py ws-example-02-parallel-execution
 
 ### Issue: "API rate limits exceeded"
 
-**Cause**: Too many concurrent API calls (e.g., OpenAI)  
+**Cause**: Too many concurrent API calls (e.g., OpenAI)
 **Fix**:
 ```json
 {
@@ -521,7 +521,7 @@ Before using parallel execution in production:
 
 ---
 
-**Last Updated**: 2025-11-22  
-**Difficulty**: ⭐⭐ Intermediate  
-**Execution Time**: 3-6 minutes (parallel) vs 9-18 min (sequential)  
+**Last Updated**: 2025-11-22
+**Difficulty**: ⭐⭐ Intermediate
+**Execution Time**: 3-6 minutes (parallel) vs 9-18 min (sequential)
 **Success Rate**: ~90% (failures usually in dependency specification)

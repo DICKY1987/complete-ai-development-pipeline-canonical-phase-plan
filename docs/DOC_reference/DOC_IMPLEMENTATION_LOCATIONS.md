@@ -8,12 +8,12 @@ doc_id: DOC-GUIDE-IMPLEMENTATION_LOCATIONS-087
 
 # Implementation Locations - AI Development Pipeline
 
-**Last Updated**: 2025-11-22  
-**Purpose**: Map every specialized term to exact code locations (file:line)  
-**Auto-Generated**: By `scripts/generate_implementation_map.py` (manual for Phase K-1)  
+**Last Updated**: 2025-11-22
+**Purpose**: Map every specialized term to exact code locations (file:line)
+**Auto-Generated**: By `scripts/generate_implementation_map.py` (manual for Phase K-1)
 **Status**: Initial manual mapping, will be automated
 
-> **Usage**: AI agents can use this to quickly locate implementations of any specialized term.  
+> **Usage**: AI agents can use this to quickly locate implementations of any specialized term.
 > **Format**: `Term → File:Line → Description`
 
 ---
@@ -736,11 +736,11 @@ AIM Bridge (39)
 
 ## Statistics
 
-**Total Terms**: 47  
-**Categories**: 5  
-**Code Locations**: 150+  
-**Documentation References**: 30+  
-**Configuration Files**: 10+  
+**Total Terms**: 47
+**Categories**: 5
+**Code Locations**: 150+
+**Documentation References**: 30+
+**Configuration Files**: 10+
 
 **Coverage by Category**:
 - Core Engine: 12 terms (100% mapped)
@@ -766,6 +766,6 @@ AIM Bridge (39)
 
 ---
 
-**Last Updated**: 2025-11-22  
-**Next Update**: After implementing `scripts/generate_implementation_map.py` (K-1)  
+**Last Updated**: 2025-11-22
+**Next Update**: After implementing `scripts/generate_implementation_map.py` (K-1)
 **Status**: ✅ Phase K-1 Initial Manual Mapping Complete

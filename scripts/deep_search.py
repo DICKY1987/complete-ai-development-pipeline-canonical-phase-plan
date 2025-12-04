@@ -26,16 +26,16 @@ import fnmatch
 
 class DeepSearch:
     """Recursive directory search with multiple filter options."""
-    
+
     SKIP_DIRS = {
         '.git', '.venv', '__pycache__', 'node_modules',
         '.pytest_cache', '.mypy_cache', 'build', 'dist',
         '.worktrees', '.state', '.tox'
     }
-    
+
     def __init__(self, root_dir: str = "."):
         self.root_dir = Path(root_dir).resolve()
-    
+
     def search(
         self,
         pattern: str = "*",
@@ -46,67 +46,67 @@ class DeepSearch:
     ) -> List[Path]:
         """
         Recursively search directory tree for matching files.
-        
+
         Args:
             pattern: Glob pattern (e.g., "*.patch", "*test*")
             max_depth: Maximum recursion depth (None = unlimited)
             filter_func: Optional custom filter function
             follow_symlinks: Whether to follow symbolic links
             skip_hidden: Skip hidden files/directories
-        
+
         Returns:
             List of Path objects matching criteria
         """
         results = []
-        
+
         def search_recursive(current_path: Path, depth: int = 0):
             if max_depth is not None and depth > max_depth:
                 return
-            
+
             try:
                 for item in current_path.iterdir():
                     # Skip hidden files if requested
                     if skip_hidden and item.name.startswith('.'):
                         continue
-                    
+
                     # Skip common directories
                     if item.name in self.SKIP_DIRS:
                         continue
-                    
+
                     # Skip symlinks unless explicitly requested
                     if item.is_symlink() and not follow_symlinks:
                         continue
-                    
+
                     # If it's a directory, recurse
                     if item.is_dir():
                         search_recursive(item, depth + 1)
-                    
+
                     # If it's a file, check if it matches
                     elif item.is_file():
                         if fnmatch.fnmatch(item.name, pattern):
                             if filter_func is None or filter_func(item):
                                 results.append(item)
-            
+
             except PermissionError:
                 pass  # Skip directories we can't access
             except Exception as e:
                 print(f"Warning: Error accessing {current_path}: {e}", file=sys.stderr)
-        
+
         search_recursive(self.root_dir)
         return sorted(results)
-    
+
     def find_by_extension(self, extension: str, **kwargs) -> List[Path]:
         """Find all files with specific extension."""
         pattern = f"*.{extension.lstrip('.')}"
         return self.search(pattern, **kwargs)
-    
+
     def find_by_extensions(self, extensions: List[str], **kwargs) -> List[Path]:
         """Find files matching any of the given extensions."""
         results = []
         for ext in extensions:
             results.extend(self.find_by_extension(ext, **kwargs))
         return sorted(set(results))  # Remove duplicates
-    
+
     def find_by_content(
         self,
         search_text: str,
@@ -116,27 +116,27 @@ class DeepSearch:
     ) -> List[tuple]:
         """
         Find files containing specific text.
-        
+
         Returns:
             List of (file_path, line_number, line_text) tuples
         """
         matches = []
         files = self.search(file_pattern, **kwargs)
-        
+
         for file_path in files:
             try:
                 with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
                     for line_num, line in enumerate(f, 1):
                         line_to_check = line if case_sensitive else line.lower()
                         text_to_find = search_text if case_sensitive else search_text.lower()
-                        
+
                         if text_to_find in line_to_check:
                             matches.append((file_path, line_num, line.rstrip()))
             except Exception:
                 pass  # Skip files we can't read
-        
+
         return matches
-    
+
     def find_by_size(
         self,
         pattern: str = "*",
@@ -146,7 +146,7 @@ class DeepSearch:
     ) -> List[tuple]:
         """
         Find files within size range.
-        
+
         Returns:
             List of (file_path, size_bytes) tuples
         """
@@ -156,10 +156,10 @@ class DeepSearch:
                 return min_size <= size <= max_size
             except Exception:
                 return False
-        
+
         files = self.search(pattern, filter_func=size_filter, **kwargs)
         return [(f, f.stat().st_size) for f in files]
-    
+
     def find_modified_since(
         self,
         days_ago: int,
@@ -168,14 +168,14 @@ class DeepSearch:
     ) -> List[tuple]:
         """Find files modified within last N days."""
         cutoff_time = datetime.now() - timedelta(days=days_ago)
-        
+
         def date_filter(path: Path) -> bool:
             try:
                 mtime = datetime.fromtimestamp(path.stat().st_mtime)
                 return mtime >= cutoff_time
             except Exception:
                 return False
-        
+
         files = self.search(pattern, filter_func=date_filter, **kwargs)
         return [(f, datetime.fromtimestamp(f.stat().st_mtime)) for f in files]
 
@@ -194,7 +194,7 @@ def main():
         description="Deep Directory Search (PAT-SEARCH-001)",
         formatter_class=argparse.RawDescriptionHelpFormatter
     )
-    
+
     # Search criteria
     parser.add_argument(
         "--ext",
@@ -217,7 +217,7 @@ def main():
         action="store_true",
         help="Case-sensitive content search"
     )
-    
+
     # Filters
     parser.add_argument(
         "--min-size",
@@ -243,7 +243,7 @@ def main():
         metavar="N",
         help="Maximum directory depth to search"
     )
-    
+
     # Options
     parser.add_argument(
         "--root",
@@ -270,15 +270,15 @@ def main():
         action="store_true",
         help="Show detailed file information"
     )
-    
+
     args = parser.parse_args()
-    
+
     # Validate arguments
     if not any([args.ext, args.pattern, args.content, args.min_size, args.modified_days]):
         parser.error("Must specify at least one search criterion")
-    
+
     searcher = DeepSearch(args.root)
-    
+
     # Determine search pattern
     if args.ext:
         results = searcher.find_by_extensions(
@@ -287,20 +287,20 @@ def main():
             follow_symlinks=args.follow_symlinks,
             skip_hidden=not args.include_hidden
         )
-        
+
         # Apply additional filters
         if args.min_size or args.max_size:
             min_s = args.min_size or 0
             max_s = args.max_size or float('inf')
             results = [r for r in results if min_s <= r.stat().st_size <= max_s]
-        
+
         if args.modified_days:
             cutoff = datetime.now() - timedelta(days=args.modified_days)
             results = [
                 r for r in results
                 if datetime.fromtimestamp(r.stat().st_mtime) >= cutoff
             ]
-    
+
     elif args.pattern:
         results = searcher.search(
             args.pattern,
@@ -308,7 +308,7 @@ def main():
             follow_symlinks=args.follow_symlinks,
             skip_hidden=not args.include_hidden
         )
-    
+
     elif args.content:
         pattern = f"*.{args.ext[0].lstrip('.')}" if args.ext else "*"
         content_results = searcher.find_by_content(
@@ -319,7 +319,7 @@ def main():
             follow_symlinks=args.follow_symlinks,
             skip_hidden=not args.include_hidden
         )
-        
+
         # Output content search results
         if args.json:
             output = {
@@ -341,9 +341,9 @@ def main():
             for path, line_num, text in content_results:
                 rel_path = path.relative_to(searcher.root_dir)
                 print(f"{rel_path}:{line_num}  {text}")
-        
+
         return
-    
+
     elif args.min_size or args.max_size:
         results = searcher.find_by_size(
             min_size=args.min_size or 0,
@@ -353,7 +353,7 @@ def main():
             skip_hidden=not args.include_hidden
         )
         results = [r[0] for r in results]  # Extract just paths
-    
+
     elif args.modified_days:
         results = searcher.find_modified_since(
             args.modified_days,
@@ -362,7 +362,7 @@ def main():
             skip_hidden=not args.include_hidden
         )
         results = [r[0] for r in results]  # Extract just paths
-    
+
     # Output results
     if args.json:
         output = {
@@ -384,7 +384,7 @@ def main():
             "total_found": len(results)
         }
         print(json.dumps(output, indent=2))
-    
+
     elif args.detailed:
         print(f"\nFound {len(results)} files:\n")
         for path in results:
@@ -392,11 +392,11 @@ def main():
             stat = path.stat()
             size = format_size(stat.st_size)
             mtime = datetime.fromtimestamp(stat.st_mtime).strftime("%Y-%m-%d %H:%M:%S")
-            
+
             print(f"📄 {rel_path}")
             print(f"   Size: {size}")
             print(f"   Modified: {mtime}\n")
-    
+
     else:
         # Simple list output
         if not results:

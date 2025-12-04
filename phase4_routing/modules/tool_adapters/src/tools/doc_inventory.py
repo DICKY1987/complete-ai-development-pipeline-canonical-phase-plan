@@ -16,7 +16,7 @@ def load_ignore_patterns(repo_root: Path) -> list[str]:
     ignore_file = repo_root / ".docs_ignore"
     if not ignore_file.exists():
         return []
-    
+
     patterns = []
     for line in ignore_file.read_text(encoding="utf-8", errors="ignore").splitlines():
         line = line.strip()
@@ -28,7 +28,7 @@ def load_ignore_patterns(repo_root: Path) -> list[str]:
 def should_ignore(path: Path, repo_root: Path, patterns: list[str]) -> bool:
     """Check if path matches any ignore pattern."""
     rel_path = path.relative_to(repo_root).as_posix()
-    
+
     for pattern in patterns:
         # Simple glob matching (supports **/ and *)
         if pattern.endswith("/**"):
@@ -42,7 +42,7 @@ def should_ignore(path: Path, repo_root: Path, patterns: list[str]) -> bool:
                 return True
         elif rel_path.startswith(pattern):
             return True
-    
+
     return False
 
 
@@ -58,13 +58,13 @@ def generate_inventory(repo_root: Path, output_path: Path, preview_chars: int = 
     """Generate doc inventory JSONL file."""
     ignore_patterns = load_ignore_patterns(repo_root)
     count = 0
-    
+
     with output_path.open("w", encoding="utf-8") as f:
         for doc_path in find_docs(repo_root, ignore_patterns):
             try:
                 content = doc_path.read_text(encoding="utf-8", errors="ignore")
                 preview = content[:preview_chars]
-                
+
                 record = {
                     "path": doc_path.relative_to(repo_root).as_posix(),
                     "name": doc_path.name,
@@ -74,7 +74,7 @@ def generate_inventory(repo_root: Path, output_path: Path, preview_chars: int = 
                 count += 1
             except Exception as e:
                 print(f"Warning: Could not read {doc_path}: {e}", file=sys.stderr)
-    
+
     return count
 
 
@@ -85,20 +85,20 @@ def main():
     parser.add_argument("--preview-chars", type=int, default=600,
                        help="Number of preview characters (default: 600)")
     parser.add_argument("--config", help="Optional config file (not yet implemented)")
-    
+
     args = parser.parse_args()
-    
+
     repo_root = Path.cwd()
     output_path = repo_root / args.output
-    
+
     # Ensure output directory exists
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    
+
     print(f"Scanning repository: {repo_root}")
     print(f"Output file: {output_path}")
-    
+
     count = generate_inventory(repo_root, output_path, args.preview_chars)
-    
+
     print(f"✅ Generated inventory: {count} files")
     return 0
 

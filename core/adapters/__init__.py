@@ -10,7 +10,7 @@ from .registry import AdapterRegistry
 
 __all__ = [
     'ToolAdapter',
-    'ExecutionResult', 
+    'ExecutionResult',
     'ToolConfig',
     'SubprocessAdapter',
     'AdapterRegistry',

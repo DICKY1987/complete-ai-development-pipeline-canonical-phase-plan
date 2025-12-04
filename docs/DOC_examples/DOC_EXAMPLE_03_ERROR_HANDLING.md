@@ -8,9 +8,9 @@ doc_id: DOC-GUIDE-EXAMPLE_ERROR_HANDLING-066
 
 # Example 03: Error Handling - Resilient Network Client
 
-**Pattern**: Circuit breaker, retry, and recovery  
-**Complexity**: Intermediate  
-**Estimated Duration**: 3-8 minutes (with retries)  
+**Pattern**: Circuit breaker, retry, and recovery
+**Complexity**: Intermediate
+**Estimated Duration**: 3-8 minutes (with retries)
 **Tool**: Aider with enhanced error handling
 
 ---
@@ -203,7 +203,7 @@ delay = (2 ** attempt_number) * random.uniform(0.5, 1.5)
 [INFO] Executing step...
 [ERROR] Attempt 1 failed: TimeoutError
 [WARN] Retrying in 1.2s (jitter applied)...
-[ERROR] Attempt 2 failed: TimeoutError  
+[ERROR] Attempt 2 failed: TimeoutError
 [WARN] Retrying in 2.8s (jitter applied)...
 [ERROR] Attempt 3 failed: TimeoutError
 [WARN] Circuit breaker: 3 identical errors detected
@@ -291,14 +291,14 @@ class CircuitState(Enum):
 @dataclass
 class CircuitBreaker:
     """Circuit breaker implementation."""
-    
+
     failure_threshold: int = 3
     cooldown_seconds: int = 30
     state: CircuitState = CircuitState.CLOSED
     failure_count: int = 0
     last_failure_time: Optional[float] = None
     consecutive_errors: list = field(default_factory=list)
-    
+
     def record_success(self) -> None:
         """Record successful request."""
         self.failure_count = 0
@@ -306,13 +306,13 @@ class CircuitBreaker:
         if self.state == CircuitState.HALF_OPEN:
             logger.info("Circuit breaker: Test succeeded, closing circuit")
             self.state = CircuitState.CLOSED
-    
+
     def record_failure(self, error: Exception) -> None:
         """Record failed request."""
         self.failure_count += 1
         self.last_failure_time = time.time()
         self.consecutive_errors.append(str(error))
-        
+
         # Check for identical consecutive errors
         if len(self.consecutive_errors) >= self.failure_threshold:
             recent_errors = self.consecutive_errors[-self.failure_threshold:]
@@ -322,17 +322,17 @@ class CircuitBreaker:
                     f"errors detected, opening circuit"
                 )
                 self.state = CircuitState.OPEN
-    
+
     def can_attempt(self) -> bool:
         """Check if request should be attempted."""
         if self.state == CircuitState.CLOSED:
             return True
-        
+
         if self.state == CircuitState.OPEN:
             # Check if cooldown period elapsed
             if self.last_failure_time is None:
                 return False
-            
+
             elapsed = time.time() - self.last_failure_time
             if elapsed >= self.cooldown_seconds:
                 logger.info("Circuit breaker: Cooldown elapsed, entering half-open state")
@@ -341,17 +341,17 @@ class CircuitBreaker:
             else:
                 logger.debug(f"Circuit breaker: Still in cooldown ({elapsed:.1f}s / {self.cooldown_seconds}s)")
                 return False
-        
+
         if self.state == CircuitState.HALF_OPEN:
             # Only allow one test request
             return True
-        
+
         return False
 
 
 class NetworkClient:
     """Network client with retry logic and circuit breaker."""
-    
+
     def __init__(
         self,
         max_attempts: int = 5,
@@ -364,22 +364,22 @@ class NetworkClient:
         self.max_delay = max_delay
         self.jitter = jitter
         self.circuit_breaker = CircuitBreaker()
-    
+
     def _calculate_delay(self, attempt: int) -> float:
         """Calculate retry delay with exponential backoff and jitter."""
         # Exponential backoff: 2^(attempt-1)
         delay = self.initial_delay * (2 ** (attempt - 1))
-        
+
         # Cap at max_delay
         delay = min(delay, self.max_delay)
-        
+
         # Add jitter (±50%)
         if self.jitter:
             jitter_range = delay * 0.5
             delay += random.uniform(-jitter_range, jitter_range)
-        
+
         return max(0, delay)
-    
+
     def request_with_retry(
         self,
         operation: Callable[[], Any],
@@ -387,54 +387,54 @@ class NetworkClient:
     ) -> Any:
         """
         Execute operation with retry logic and circuit breaker.
-        
+
         Args:
             operation: Function to execute
             operation_name: Human-readable operation name for logging
-            
+
         Returns:
             Operation result
-            
+
         Raises:
             Exception: If all retry attempts fail
         """
         last_exception = None
-        
+
         for attempt in range(1, self.max_attempts + 1):
             # Check circuit breaker
             if not self.circuit_breaker.can_attempt():
                 logger.warning(f"Circuit breaker OPEN - fast failing {operation_name}")
                 raise RuntimeError("Circuit breaker open")
-            
+
             try:
                 logger.info(f"Attempting {operation_name} (attempt {attempt}/{self.max_attempts})")
                 result = operation()
-                
+
                 # Success!
                 self.circuit_breaker.record_success()
                 if attempt > 1:
                     logger.info(f"{operation_name} recovered after {attempt} attempts")
                 return result
-                
+
             except Exception as e:
                 last_exception = e
                 self.circuit_breaker.record_failure(e)
-                
+
                 logger.error(f"{operation_name} failed (attempt {attempt}): {e}")
-                
+
                 # Don't retry on final attempt
                 if attempt == self.max_attempts:
                     logger.error(f"Max attempts ({self.max_attempts}) exceeded for {operation_name}")
                     break
-                
+
                 # Calculate and apply backoff delay
                 delay = self._calculate_delay(attempt)
                 logger.warning(f"Retrying {operation_name} in {delay:.1f}s...")
                 time.sleep(delay)
-        
+
         # All attempts failed
         raise last_exception
-    
+
     def get(self, url: str) -> str:
         """HTTP GET with retry logic."""
         def _get():
@@ -442,25 +442,25 @@ class NetworkClient:
             import urllib.request
             response = urllib.request.urlopen(url, timeout=10)
             return response.read().decode('utf-8')
-        
+
         return self.request_with_retry(_get, f"GET {url}")
 
 
 def main():
     """Example usage."""
     client = NetworkClient(max_attempts=5, jitter=True)
-    
+
     try:
         # This would normally make a real HTTP request
         # For demo, it's just a placeholder
         print("Network client initialized with retry logic")
         print(f"Max attempts: {client.max_attempts}")
         print(f"Circuit breaker enabled: threshold={client.circuit_breaker.failure_threshold}")
-        
+
     except Exception as e:
         logger.error(f"Operation failed: {e}")
         return 1
-    
+
     return 0
 
 
@@ -496,7 +496,7 @@ python scripts/check_circuit_breaker.py ws-example-03-error-handling
 
 ### Issue: Too many retries
 
-**Cause**: `max_attempts` set too high  
+**Cause**: `max_attempts` set too high
 **Fix**: Reduce to 3-5 attempts
 ```json
 {
@@ -510,7 +510,7 @@ python scripts/check_circuit_breaker.py ws-example-03-error-handling
 
 ### Issue: Circuit breaker opens too quickly
 
-**Cause**: `failure_threshold` too low  
+**Cause**: `failure_threshold` too low
 **Fix**: Increase threshold or max_error_repeats
 ```json
 {
@@ -524,7 +524,7 @@ python scripts/check_circuit_breaker.py ws-example-03-error-handling
 
 ### Issue: Retries happen too slowly
 
-**Cause**: Delays are too long  
+**Cause**: Delays are too long
 **Fix**: Reduce initial_delay or use linear backoff
 ```json
 {
@@ -567,7 +567,7 @@ python scripts/check_circuit_breaker.py ws-example-03-error-handling
 
 **Circuit Breaker prevents**:
 - Cascading failures
-- Resource exhaustion  
+- Resource exhaustion
 - Degraded performance
 
 **Exponential Backoff provides**:
@@ -589,7 +589,7 @@ python scripts/check_circuit_breaker.py ws-example-03-error-handling
 
 ---
 
-**Last Updated**: 2025-11-22  
-**Difficulty**: ⭐⭐ Intermediate  
-**Execution Time**: 3-8 minutes (varies with retries)  
+**Last Updated**: 2025-11-22
+**Difficulty**: ⭐⭐ Intermediate
+**Execution Time**: 3-8 minutes (varies with retries)
 **Success Rate**: ~85% (designed to demonstrate both success and failure paths)

@@ -4,8 +4,8 @@ doc_id: DOC-GUIDE-README-1363
 
 # Reference Documentation
 
-> **Purpose**: Reference material, patterns, and external resources  
-> **Last Updated**: 2025-11-22  
+> **Purpose**: Reference material, patterns, and external resources
+> **Last Updated**: 2025-11-22
 > **AI Context**: LOW-MEDIUM - Reference as needed
 
 ---

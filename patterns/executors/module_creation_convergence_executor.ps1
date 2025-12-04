@@ -42,7 +42,7 @@ try {
         New-Item -ItemType Directory -Path $modulePath -Force | Out-Null
         Write-PatternLog "Created module directory: $modulePath" "SUCCESS"
     }
-    
+
     # Step 2: Create __init__.py
     $initPath = Join-Path $modulePath "__init__.py"
     $initContent = @"
@@ -57,7 +57,7 @@ __all__ = []
     Set-Content $initPath $initContent -Encoding UTF8
     $filesCreated += $initPath
     Write-PatternLog "Created __init__.py" "SUCCESS"
-    
+
     # Step 3: Create base files based on module type
     switch ($moduleType) {
         "package" {
@@ -77,7 +77,7 @@ if __name__ == "__main__":
             Set-Content $mainPath $mainContent -Encoding UTF8
             $filesCreated += $mainPath
         }
-        
+
         "library" {
             # Create core.py
             $corePath = Join-Path $modulePath "core.py"
@@ -92,12 +92,12 @@ class Core:
             Set-Content $corePath $coreContent -Encoding UTF8
             $filesCreated += $corePath
         }
-        
+
         default {
             Write-PatternLog "Unknown module type: $moduleType" "WARNING"
         }
     }
-    
+
     # Step 4: Create requirements.txt if dependencies specified
     if ($dependencies.Count -gt 0) {
         $reqPath = Join-Path $modulePath "requirements.txt"
@@ -106,14 +106,14 @@ class Core:
         $filesCreated += $reqPath
         Write-PatternLog "Created requirements.txt with $($dependencies.Count) dependencies" "SUCCESS"
     }
-    
+
     Write-PatternLog "Module creation complete: $($filesCreated.Count) files created" "SUCCESS"
-    
+
     $result = New-PatternResult -Success $true -Message "Module created successfully" -Data @{
         module_path = $modulePath
         files_created = $filesCreated
     }
-    
+
 } catch {
     Write-PatternLog "Error creating module: $_" "ERROR"
     throw

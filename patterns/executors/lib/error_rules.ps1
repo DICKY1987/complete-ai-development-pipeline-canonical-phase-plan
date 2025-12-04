@@ -131,43 +131,43 @@ function Get-FixRule {
     <#
     .SYNOPSIS
         Finds matching fix rule for an error message
-    
+
     .PARAMETER ErrorMessage
         Error message from test/compiler output
-    
+
     .PARAMETER Language
         Programming language (python, javascript, etc.)
-    
+
     .PARAMETER FilePath
         Path to file that generated the error
-    
+
     .OUTPUTS
         Hashtable with matched rule and fix details, or $null if no match
     #>
     param(
         [Parameter(Mandatory=$true)]
         [string]$ErrorMessage,
-        
+
         [Parameter(Mandatory=$false)]
         [string]$Language = "python",
-        
+
         [Parameter(Mandatory=$false)]
         [string]$FilePath = ""
     )
-    
+
     foreach ($rule in $script:FixRules) {
         # Skip rules for other languages
         if ($rule.language -ne $Language) {
             continue
         }
-        
+
         # Try to match pattern
         $match = [regex]::Match($ErrorMessage, $rule.pattern)
-        
+
         if ($match.Success) {
             # Execute fix function to get fix details
             $fixDetails = & $rule.fix $match $FilePath
-            
+
             return @{
                 rule_id = $rule.id
                 error_type = $rule.error_type
@@ -177,7 +177,7 @@ function Get-FixRule {
             }
         }
     }
-    
+
     # No matching rule found
     return $null
 }
@@ -186,34 +186,34 @@ function Get-AllFixRules {
     <#
     .SYNOPSIS
         Returns all registered fix rules
-    
+
     .PARAMETER Language
         Filter by programming language (optional)
-    
+
     .PARAMETER ErrorType
         Filter by error type (optional)
-    
+
     .OUTPUTS
         Array of fix rule definitions
     #>
     param(
         [Parameter(Mandatory=$false)]
         [string]$Language = $null,
-        
+
         [Parameter(Mandatory=$false)]
         [string]$ErrorType = $null
     )
-    
+
     $filtered = $script:FixRules
-    
+
     if ($Language) {
         $filtered = $filtered | Where-Object { $_.language -eq $Language }
     }
-    
+
     if ($ErrorType) {
         $filtered = $filtered | Where-Object { $_.error_type -eq $ErrorType }
     }
-    
+
     return $filtered
 }
 
@@ -225,77 +225,77 @@ function Invoke-AutoFix {
     <#
     .SYNOPSIS
         Attempts to automatically fix an error based on matched rule
-    
+
     .PARAMETER FilePath
         Path to file to fix
-    
+
     .PARAMETER FixRule
         Fix rule object from Get-FixRule
-    
+
     .OUTPUTS
         Hashtable with fix results: @{ success=$bool; changes_made=$bool; message=$string }
     #>
     param(
         [Parameter(Mandatory=$true)]
         [string]$FilePath,
-        
+
         [Parameter(Mandatory=$true)]
         [hashtable]$FixRule
     )
-    
+
     $result = @{
         success = $false
         changes_made = $false
         message = ""
     }
-    
+
     # Check if fix is auto-fixable
     if ($FixRule.fix.auto_fixable -eq $false) {
         $result.message = "Fix requires manual intervention: $($FixRule.fix.suggestion)"
         return $result
     }
-    
+
     # Apply auto-fix based on action type
     try {
         switch ($FixRule.fix.action) {
             "fix_indentation" {
                 $content = Get-Content $FilePath -Raw
-                
+
                 # Normalize indentation to 4 spaces
                 $lines = $content -split "`n"
                 $fixedLines = @()
-                
+
                 foreach ($line in $lines) {
                     # Replace tabs with 4 spaces
                     $fixedLine = $line -replace "`t", "    "
                     $fixedLines += $fixedLine
                 }
-                
+
                 $fixedContent = $fixedLines -join "`n"
                 Set-Content -Path $FilePath -Value $fixedContent -NoNewline
-                
+
                 $result.success = $true
                 $result.changes_made = $true
                 $result.message = "Fixed indentation errors"
             }
-            
+
             "add_import" {
                 $module = $FixRule.fix.module
                 $content = Get-Content $FilePath -Raw
-                
+
                 # Add import at top of file (after any existing imports)
                 $importLine = "import $module`n"
-                
+
                 # Find last import line
                 $lines = $content -split "`n"
                 $lastImportIndex = -1
-                
+
                 for ($i = 0; $i -lt $lines.Count; $i++) {
                     if ($lines[$i] -match "^(import |from .* import )") {
                         $lastImportIndex = $i
                     }
                 }
-                
+
                 if ($lastImportIndex -ge 0) {
                     # Insert after last import
                     $lines = @($lines[0..$lastImportIndex]) + $importLine + @($lines[($lastImportIndex + 1)..($lines.Count - 1)])
@@ -304,15 +304,15 @@ function Invoke-AutoFix {
                     # No imports found, add at top
                     $lines = @($importLine) + $lines
                 }
-                
+
                 $fixedContent = $lines -join "`n"
                 Set-Content -Path $FilePath -Value $fixedContent -NoNewline
-                
+
                 $result.success = $true
                 $result.changes_made = $true
                 $result.message = "Added import: $module"
             }
-            
+
             default {
                 $result.message = "Auto-fix not implemented for action: $($FixRule.fix.action)"
             }
@@ -322,7 +322,7 @@ function Invoke-AutoFix {
         $result.success = $false
         $result.message = "Auto-fix failed: $($_.Exception.Message)"
     }
-    
+
     return $result
 }
 
@@ -334,7 +334,7 @@ function Add-FixRule {
     <#
     .SYNOPSIS
         Adds a custom fix rule to the registry
-    
+
     .PARAMETER Rule
         Rule definition hashtable
     #>
@@ -342,7 +342,7 @@ function Add-FixRule {
         [Parameter(Mandatory=$true)]
         [hashtable]$Rule
     )
-    
+
     # Validate rule structure
     $required = @('id', 'pattern', 'error_type', 'language', 'description', 'fix')
     foreach ($field in $required) {
@@ -350,7 +350,7 @@ function Add-FixRule {
             throw "Rule missing required field: $field"
         }
     }
-    
+
     $script:FixRules += $Rule
 }
 
@@ -358,7 +358,7 @@ function Import-FixRulesFromJson {
     <#
     .SYNOPSIS
         Imports fix rules from JSON file
-    
+
     .PARAMETER JsonPath
         Path to JSON file with rule definitions
     #>
@@ -366,13 +366,13 @@ function Import-FixRulesFromJson {
         [Parameter(Mandatory=$true)]
         [string]$JsonPath
     )
-    
+
     if (-not (Test-Path $JsonPath)) {
         throw "Rules file not found: $JsonPath"
     }
-    
+
     $rules = Get-Content $JsonPath -Raw | ConvertFrom-Json
-    
+
     foreach ($rule in $rules) {
         # Convert JSON rule to hashtable with script block fix
         $ruleHash = @{
@@ -383,7 +383,7 @@ function Import-FixRulesFromJson {
             description = $rule.description
             fix = [scriptblock]::Create($rule.fix_script)
         }
-        
+
         Add-FixRule -Rule $ruleHash
     }
 }

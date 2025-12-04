@@ -4,9 +4,9 @@ doc_id: DOC-PAT-README-IMPLEMENTATION-813
 
 # Pattern Event System - Implementation Task
 
-**Created**: 2025-11-26  
-**Status**: Ready for Implementation  
-**Priority**: Medium  
+**Created**: 2025-11-26
+**Status**: Ready for Implementation
+**Priority**: Medium
 **Estimated Time**: 1-2 weeks
 
 ## 📋 Overview
@@ -148,7 +148,7 @@ python -m core.engine.pattern_inspect run PRUN-...
 ## 🗺️ Implementation Roadmap
 
 ### Phase 1: Core Event Emission (Week 1)
-**Time**: 1 day  
+**Time**: 1 day
 **Priority**: High
 
 - [x] Files created and validated
@@ -160,7 +160,7 @@ python -m core.engine.pattern_inspect run PRUN-...
 **Success Criteria**: Events appear in CLI inspector
 
 ### Phase 2: State Store Integration (Week 1)
-**Time**: 2-3 hours  
+**Time**: 2-3 hours
 **Priority**: Medium
 
 - [ ] Extend `engine/state_store/job_state_store.py` with pattern event methods:
@@ -173,7 +173,7 @@ python -m core.engine.pattern_inspect run PRUN-...
 **Success Criteria**: Pattern runs queryable via JobStateStore API
 
 ### Phase 3: GUI Integration (Week 2)
-**Time**: 3-4 days  
+**Time**: 3-4 days
 **Priority**: Medium
 
 - [ ] Add API endpoints (see `PATTERN_EVENT_INTEGRATION.md` § GUI Integration):
@@ -190,7 +190,7 @@ python -m core.engine.pattern_inspect run PRUN-...
 **Success Criteria**: GUI displays pattern activity for any job
 
 ### Phase 4: Real-time Updates (Optional)
-**Time**: 1 day  
+**Time**: 1 day
 **Priority**: Low
 
 - [ ] Add WebSocket event stream
@@ -223,10 +223,10 @@ Pattern Executor          Pattern Event System         Storage
 ────────────────          ────────────────────         ───────
 engine/orchestrator  ──→  emit_pattern_event()   ──→  state/events/*.jsonl
 engine/pattern_executor   PatternRunAggregator   ──→  engine/state_store (DB)
-UNIVERSAL_EXECUTION_                                   
-  TEMPLATES_FRAMEWORK/                                 
-  patterns/                                            
-                                                       
+UNIVERSAL_EXECUTION_
+  TEMPLATES_FRAMEWORK/
+  patterns/
+
 GUI (Phase 3)        ←──  GET /api/pattern-events ←──  JSONL + DB
 ```
 
@@ -393,6 +393,6 @@ python -m core.engine.pattern_inspect run <PRUN-from-example>
 
 ---
 
-**Status**: Ready for implementation  
-**Next Action**: Copy files and begin Phase 1  
+**Status**: Ready for implementation
+**Next Action**: Copy files and begin Phase 1
 **Contact**: See delivery summary for architecture questions

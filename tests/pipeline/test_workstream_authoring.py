@@ -67,7 +67,7 @@ def test_template_validity(workstream_template_raw, workstream_schema):
     # Remove comment fields if they exist in the template for validation
     if "comment" in valid_bundle_data:
         del valid_bundle_data["comment"]
-    
+
     # Ensure optional fields that are lists are empty if not specified
     if "files_create" not in valid_bundle_data:
         valid_bundle_data["files_create"] = []
@@ -204,7 +204,7 @@ def test_validator_json_mode(temp_workstream_dir):
         env=_env
     )
     assert result.returncode != 0
-    
+
     try:
         output_json = json.loads(result.stdout) # Changed to stdout
     except json.JSONDecodeError:
@@ -239,7 +239,7 @@ def test_validator_json_mode_success(temp_workstream_dir):
         env=_env
     )
     assert result.returncode == 0
-    
+
     try:
         output_json = json.loads(result.stdout)
     except json.JSONDecodeError:

@@ -4,12 +4,12 @@ doc_id: DOC-GUIDE-PROPOSAL-1513
 
 # Phase D: Adapters - Patch-First Refactoring
 
-**Change ID**: uet-001-phase-d-adapters  
-**Parent**: uet-001-complete-implementation  
-**Depends On**: uet-001-phase-b-patch-system  
-**Type**: BREAKING CHANGE  
-**Priority**: HIGH  
-**Estimated Duration**: 3-4 weeks  
+**Change ID**: uet-001-phase-d-adapters
+**Parent**: uet-001-complete-implementation
+**Depends On**: uet-001-phase-b-patch-system
+**Type**: BREAKING CHANGE
+**Priority**: HIGH
+**Estimated Duration**: 3-4 weeks
 **Effort**: 42 hours
 
 ---
@@ -88,7 +88,7 @@ def execute(self, task):
 
 ## Dependencies
 
-**Requires**: Phase B (patch system)  
+**Requires**: Phase B (patch system)
 **Blocks**: Phase E (resilience needs adapters)
 
 ---

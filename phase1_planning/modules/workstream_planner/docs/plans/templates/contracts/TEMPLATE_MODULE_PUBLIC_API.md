@@ -4,8 +4,8 @@ doc_id: DOC-GUIDE-TEMPLATE-MODULE-PUBLIC-API-1835
 
 # {Module Name} – Public API (V1)
 
-**Module ID**: `{module_id}`  
-**Status**: Active  
+**Module ID**: `{module_id}`
+**Status**: Active
 **Last Updated**: {YYYY-MM-DD}
 
 ---

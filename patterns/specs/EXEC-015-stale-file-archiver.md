@@ -4,11 +4,11 @@ doc_id: DOC-PAT-EXEC-015-STALE-FILE-ARCHIVER-861
 
 # EXEC-015: Stale File Archiver Pattern Specification
 
-**Pattern ID:** EXEC-015  
-**Version:** 1.0.0  
-**Date:** 2025-11-29  
-**Status:** Ready for Implementation  
-**Confidence:** 85% (Auto-approved with review)  
+**Pattern ID:** EXEC-015
+**Version:** 1.0.0
+**Date:** 2025-11-29
+**Status:** Ready for Implementation
+**Confidence:** 85% (Auto-approved with review)
 **Priority:** P1
 
 ---
@@ -102,10 +102,10 @@ Total: 83 points → ARCHIVE ✓
 class StalenessScorer:
     def score_file(file_path: str) -> Dict:
         """Calculate staleness score for a file."""
-        
+
     def scan_directory(directory: str) -> List[Dict]:
         """Scan directory and score all files."""
-        
+
     def identify_stale_files(threshold: int = 70) -> List[str]:
         """Return list of files exceeding threshold."""
 ```
@@ -147,10 +147,10 @@ EXEC-015:
   confidence: 85
   auto_approve: true  # Single review required
   priority: 1
-  
+
   staleness_threshold_score: 70
   grace_period_days: 30
-  
+
   # Scoring weights
   scoring:
     last_modified_days: 30  # ≥180 days = max
@@ -159,7 +159,7 @@ EXEC-015:
     location_tier: 10       # archive/ = max (inverted)
     file_size: 10           # Smaller = max (inverted)
     test_coverage: 10       # No tests = max (inverted)
-  
+
   # Whitelist (never archive)
   whitelist_files:
     - "doc_id/**/*"
@@ -167,7 +167,7 @@ EXEC-015:
     - "*.schema.json"
     - "README.md"
     - "LICENSE"
-  
+
   # Scan paths
   scan_paths:
     - "modules/"
@@ -175,7 +175,7 @@ EXEC-015:
     - "archive/"  # Re-evaluate existing archive
     - "REFACTOR_2/"
     - "ToDo_Task/"
-  
+
   # Exclusions
   exclude_patterns:
     - "__pycache__"
@@ -229,12 +229,12 @@ python UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/automation/detectors/sta
 # 🔍 EXEC-015: Stale File Analysis
 # Threshold: 70 points (≥70 = stale)
 # Scan paths: modules/, scripts/, archive/
-# 
+#
 # 📊 Analysis Results:
 #   Total files scanned: 1,234
 #   Stale files found: 87 (≥70 points)
 #   Active files: 1,147
-# 
+#
 # 🔝 Top 50 Stale Files:
 # 1. archive/legacy/old_module.py (Score: 100)
 # 2. modules/deprecated/helper.py (Score: 83)
@@ -464,9 +464,9 @@ python scripts/paths_index_cli.py gate
 
 ---
 
-**Status:** ✅ Specification Complete, Implementation Ready  
-**Next:** Run discovery phase, review results, execute archival  
-**Dependency:** None (EXEC-014 complete)  
+**Status:** ✅ Specification Complete, Implementation Ready
+**Next:** Run discovery phase, review results, execute archival
+**Dependency:** None (EXEC-014 complete)
 **Estimated Time:** 4-5 hours total (discovery + execution)
 
 🗂️ **Ready to organize the codebase by archiving ~100-150 stale files!**

@@ -1,7 +1,7 @@
 # uet-001-phase-c-orchestration
 
-**Module Path**: `openspec/changes/uet-001-phase-c-orchestration`  
-**Layer**: Not specified  
+**Module Path**: `openspec/changes/uet-001-phase-c-orchestration`
+**Layer**: Not specified
 **Status**: Active
 
 ## Purpose
@@ -35,5 +35,5 @@ None specified
 
 ---
 
-**Generated**: 2025-12-02 22:40:27 UTC  
+**Generated**: 2025-12-02 22:40:27 UTC
 **Framework**: Universal Execution Templates (UET)

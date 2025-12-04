@@ -114,6 +114,6 @@ See: `../UET_CONSOLIDATION_MASTER_PLAN.md` for full details.
 
 ---
 
-**Created**: 2025-11-29  
-**Status**: Ready for execution  
+**Created**: 2025-11-29
+**Status**: Ready for execution
 **Pattern**: EXEC-012 + EXEC-013

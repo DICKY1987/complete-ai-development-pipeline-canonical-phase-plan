@@ -4,8 +4,8 @@ doc_id: DOC-GUIDE-README-1549
 
 # Specifications Content
 
-**Module ID**: `specifications.content`  
-**Priority**: HIGH  
+**Module ID**: `specifications.content`
+**Priority**: HIGH
 **Purpose**: Formal UET specification documents (governance, orchestration, plugin system, validation)
 
 ## Overview

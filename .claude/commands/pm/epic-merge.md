@@ -141,10 +141,10 @@ Options:
    - Edit conflicted files
    - git add {files}
    - git commit
-   
+
 2. Abort merge:
    git merge --abort
-   
+
 3. Get help:
    /pm:epic-resolve $ARGUMENTS
 
@@ -216,13 +216,13 @@ Summary:
   Commits merged: {count}
   Files changed: {count}
   Issues closed: {count}
-  
+
 Cleanup completed:
   ✓ Worktree removed
   ✓ Branch deleted
   ✓ Epic archived
   ✓ GitHub issues closed
-  
+
 Next steps:
   - Deploy changes if needed
   - Start new epic: /pm:prd-new {feature}

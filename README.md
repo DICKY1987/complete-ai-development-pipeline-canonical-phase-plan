@@ -4,9 +4,9 @@ doc_id: DOC-GUIDE-README-1096
 
 # Universal Execution Templates Framework - Documentation Index
 
-**Status**: Framework 78% Complete (Phase 3 Done, Phase 4 Planned)  
-**Last Updated**: 2025-11-25  
-**Organization**: 4-Tier Quality System  
+**Status**: Framework 78% Complete (Phase 3 Done, Phase 4 Planned)
+**Last Updated**: 2025-11-25
+**Organization**: 4-Tier Quality System
 **Duplication**: 0% (eliminated in cleanup)
 
 ---
@@ -41,36 +41,36 @@ doc_id: DOC-GUIDE-README-1096
 *High-quality, schema-driven specifications - Authoritative source of truth*
 
 ### Framework Foundation
-1. **[UET_BOOTSTRAP_SPEC.md](specs/core/UET_BOOTSTRAP_SPEC.md)**  
+1. **[UET_BOOTSTRAP_SPEC.md](specs/core/UET_BOOTSTRAP_SPEC.md)**
    Autonomous framework installation protocol for AI agents
 
-2. **[UET_COOPERATION_SPEC.md](specs/core/UET_COOPERATION_SPEC.md)**  
+2. **[UET_COOPERATION_SPEC.md](specs/core/UET_COOPERATION_SPEC.md)**
    Multi-tool cooperation protocol (Run/Step/Event model)
 
-3. **[UET_EXECUTION_KERNEL_PARALLELISM_STRATEGY_SPEC_V2.md](specs/core/UET_EXECUTION_KERNEL_PARALLELISM_STRATEGY_SPEC_V2.md)**  
+3. **[UET_EXECUTION_KERNEL_PARALLELISM_STRATEGY_SPEC_V2.md](specs/core/UET_EXECUTION_KERNEL_PARALLELISM_STRATEGY_SPEC_V2.md)**
    DAG-based parallel execution with worker pools
 
 ### Core Components
-4. **[UET_PHASE_SPEC_MASTER.md](specs/core/UET_PHASE_SPEC_MASTER.md)**  
+4. **[UET_PHASE_SPEC_MASTER.md](specs/core/UET_PHASE_SPEC_MASTER.md)**
    Phase template/schema definition (files_scope, constraints, acceptance)
 
-5. **[UET_WORKSTREAM_SPEC.md](specs/core/UET_WORKSTREAM_SPEC.md)**  
+5. **[UET_WORKSTREAM_SPEC.md](specs/core/UET_WORKSTREAM_SPEC.md)**
    Workstream bundle specifications with task dependencies
 
-6. **[UET_TASK_ROUTING_SPEC.md](specs/core/UET_TASK_ROUTING_SPEC.md)**  
+6. **[UET_TASK_ROUTING_SPEC.md](specs/core/UET_TASK_ROUTING_SPEC.md)**
    ExecutionRequest routing and validation
 
-7. **[UET_PROMPT_RENDERING_SPEC.md](specs/core/UET_PROMPT_RENDERING_SPEC.md)**  
+7. **[UET_PROMPT_RENDERING_SPEC.md](specs/core/UET_PROMPT_RENDERING_SPEC.md)**
    Universal prompt object and rendering rules
 
-8. **[UET_PATCH_MANAGEMENT_SPEC.md](specs/core/UET_PATCH_MANAGEMENT_SPEC.md)**  
+8. **[UET_PATCH_MANAGEMENT_SPEC.md](specs/core/UET_PATCH_MANAGEMENT_SPEC.md)**
    Patch artifact, ledger, and policy management
 
 ### Tool Integration
-9. **[UET_CLI_TOOL_EXECUTION_SPEC.md](specs/core/UET_CLI_TOOL_EXECUTION_SPEC.md)**  
+9. **[UET_CLI_TOOL_EXECUTION_SPEC.md](specs/core/UET_CLI_TOOL_EXECUTION_SPEC.md)**
    Single CLI instance execution with queue management
 
-10. **[UTE_ID_SYSTEM_SPEC.md](specs/core/UTE_ID_SYSTEM_SPEC.md)**  
+10. **[UTE_ID_SYSTEM_SPEC.md](specs/core/UTE_ID_SYSTEM_SPEC.md)**
     Cross-artifact linking ID system (doc_id)
 
 ---
@@ -241,8 +241,8 @@ UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/
 
 ---
 
-**Last Updated**: 2025-11-25 05:54  
-**Cleanup Phase**: Completed (5 waves in ~2 hours)  
-**Pattern Applied**: Decision Elimination + Parallel Execution  
-**Duplication**: 0% (was 88% before cleanup)  
+**Last Updated**: 2025-11-25 05:54
+**Cleanup Phase**: Completed (5 waves in ~2 hours)
+**Pattern Applied**: Decision Elimination + Parallel Execution
+**Duplication**: 0% (was 88% before cleanup)
 **Organization**: 4-tier quality system (core/instances/planning/archive)

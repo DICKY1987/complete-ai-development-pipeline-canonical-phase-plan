@@ -24,7 +24,7 @@ metadata:
 intent: |
   Migrated from: Parse Technical Keywords
   Original atom role: orchestrator
-  
+
   This pattern was automatically migrated from the atomic-workflow-system.
   Review and enhance before production use.
 

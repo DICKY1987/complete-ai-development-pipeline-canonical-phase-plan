@@ -56,18 +56,18 @@ _tool_profiles_cache: Optional[Dict[str, Any]] = None
 def load_tool_profiles(profile_path: Optional[str] = None) -> Dict[str, Any]:
     """
     Load tool profiles from Invoke config hierarchy.
-    
+
     Args:
         profile_path: DEPRECATED - Use invoke.yaml instead. If provided, shows warning.
-    
+
     Returns:
         Dictionary of tool profiles keyed by tool_id
-    
+
     Raises:
         FileNotFoundError: If invoke.yaml doesn't exist
     """
     global _tool_profiles_cache
-    
+
     # Show deprecation warning if old path is used
     if profile_path:
         import warnings
@@ -78,18 +78,18 @@ def load_tool_profiles(profile_path: Optional[str] = None) -> Dict[str, Any]:
             DeprecationWarning,
             stacklevel=2
         )
-    
+
     # Load from invoke.yaml via config_loader
     from core.config_loader import load_project_config
     cfg = load_project_config()
     tools_config = cfg.get('tools', {})
-    
+
     if not tools_config:
         raise FileNotFoundError(
             "No tools configuration found in invoke.yaml. "
             "Run 'invoke bootstrap' to initialize configuration."
         )
-    
+
     _tool_profiles_cache = tools_config
     return tools_config
 

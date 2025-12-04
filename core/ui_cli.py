@@ -65,12 +65,12 @@ def output_table(headers: List[str], rows: List[List[str]]) -> None:
     for row in rows:
         for i, cell in enumerate(row):
             widths[i] = max(widths[i], len(str(cell)))
-    
+
     # Print header
     header_line = "  ".join(h.ljust(widths[i]) for i, h in enumerate(headers))
     print(header_line)
     print("-" * len(header_line))
-    
+
     # Print rows
     for row in rows:
         print("  ".join(str(cell).ljust(widths[i]) for i, cell in enumerate(row)))
@@ -79,7 +79,7 @@ def output_table(headers: List[str], rows: List[List[str]]) -> None:
 def cmd_files(args: argparse.Namespace) -> None:
     """Query file lifecycle records."""
     client = StateClient(args.db_path)
-    
+
     state = FileState(args.state) if args.state else None
     files = client.list_files(
         state=state,
@@ -88,7 +88,7 @@ def cmd_files(args: argparse.Namespace) -> None:
         tool_id=args.tool_id,
         limit=args.limit
     )
-    
+
     if args.json:
         output_json(files)
     else:
@@ -111,7 +111,7 @@ def cmd_file_counts(args: argparse.Namespace) -> None:
     """Get file counts by state."""
     client = StateClient(args.db_path)
     counts = client.get_file_counts_by_state(args.run_id)
-    
+
     if args.json:
         output_json(counts)
     else:
@@ -123,14 +123,14 @@ def cmd_file_counts(args: argparse.Namespace) -> None:
 def cmd_workstreams(args: argparse.Namespace) -> None:
     """Query workstream records."""
     client = StateClient(args.db_path)
-    
+
     status = WorkstreamStatus(args.status) if args.status else None
     workstreams = client.list_workstreams(
         run_id=args.run_id,
         status=status,
         limit=args.limit
     )
-    
+
     if args.json:
         output_json(workstreams)
     else:
@@ -153,7 +153,7 @@ def cmd_workstream_counts(args: argparse.Namespace) -> None:
     """Get workstream counts by status."""
     client = StateClient(args.db_path)
     counts = client.get_workstream_counts_by_status(args.run_id)
-    
+
     if args.json:
         output_json(counts)
     else:
@@ -165,7 +165,7 @@ def cmd_workstream_counts(args: argparse.Namespace) -> None:
 def cmd_errors(args: argparse.Namespace) -> None:
     """Query error records."""
     client = StateClient(args.db_path)
-    
+
     severity = ErrorSeverity(args.severity) if args.severity else None
     category = ErrorCategory(args.category) if args.category else None
     errors = client.list_errors(
@@ -176,7 +176,7 @@ def cmd_errors(args: argparse.Namespace) -> None:
         tool_id=args.tool_id,
         limit=args.limit
     )
-    
+
     if args.json:
         output_json(errors)
     else:
@@ -198,7 +198,7 @@ def cmd_errors(args: argparse.Namespace) -> None:
 def cmd_tools(args: argparse.Namespace) -> None:
     """Query tool health status."""
     client = ToolsClient(args.db_path)
-    
+
     if args.tool_id:
         tool = client.get_tool_health(args.tool_id)
         if args.json:
@@ -253,7 +253,7 @@ def cmd_dashboard(args: argparse.Namespace) -> None:
     """Get pipeline dashboard summary."""
     client = StateClient(args.db_path)
     summary = client.get_pipeline_summary(args.run_id)
-    
+
     if args.json:
         output_json(summary)
     else:
@@ -290,9 +290,9 @@ def main():
         "--db-path",
         help="Path to SQLite database (default: from env or .worktrees/pipeline_state.db)"
     )
-    
+
     subparsers = parser.add_subparsers(dest="command", help="Command to run")
-    
+
     # Files command
     files_parser = subparsers.add_parser("files", help="Query file lifecycle records")
     files_parser.add_argument("--state", choices=[s.value for s in FileState], help="Filter by state")
@@ -302,13 +302,13 @@ def main():
     files_parser.add_argument("--limit", type=int, default=100, help="Max results")
     files_parser.add_argument("--json", action="store_true", help="Output as JSON")
     files_parser.set_defaults(func=cmd_files)
-    
+
     # File counts command
     file_counts_parser = subparsers.add_parser("file-counts", help="Get file counts by state")
     file_counts_parser.add_argument("--run-id", help="Filter by run ID")
     file_counts_parser.add_argument("--json", action="store_true", help="Output as JSON")
     file_counts_parser.set_defaults(func=cmd_file_counts)
-    
+
     # Workstreams command
     ws_parser = subparsers.add_parser("workstreams", help="Query workstream records")
     ws_parser.add_argument("--run-id", help="Filter by run ID")
@@ -316,13 +316,13 @@ def main():
     ws_parser.add_argument("--limit", type=int, default=100, help="Max results")
     ws_parser.add_argument("--json", action="store_true", help="Output as JSON")
     ws_parser.set_defaults(func=cmd_workstreams)
-    
+
     # Workstream counts command
     ws_counts_parser = subparsers.add_parser("workstream-counts", help="Get workstream counts by status")
     ws_counts_parser.add_argument("--run-id", help="Filter by run ID")
     ws_counts_parser.add_argument("--json", action="store_true", help="Output as JSON")
     ws_counts_parser.set_defaults(func=cmd_workstream_counts)
-    
+
     # Errors command
     errors_parser = subparsers.add_parser("errors", help="Query error records")
     errors_parser.add_argument("--run-id", help="Filter by run ID")
@@ -333,26 +333,26 @@ def main():
     errors_parser.add_argument("--limit", type=int, default=100, help="Max results")
     errors_parser.add_argument("--json", action="store_true", help="Output as JSON")
     errors_parser.set_defaults(func=cmd_errors)
-    
+
     # Tools command
     tools_parser = subparsers.add_parser("tools", help="Query tool health status")
     tools_parser.add_argument("--tool-id", help="Get specific tool by ID")
     tools_parser.add_argument("--summary", action="store_true", help="Get one-line summary per tool")
     tools_parser.add_argument("--json", action="store_true", help="Output as JSON")
     tools_parser.set_defaults(func=cmd_tools)
-    
+
     # Dashboard command
     dashboard_parser = subparsers.add_parser("dashboard", help="Get pipeline dashboard summary")
     dashboard_parser.add_argument("--run-id", help="Filter by run ID")
     dashboard_parser.add_argument("--json", action="store_true", help="Output as JSON")
     dashboard_parser.set_defaults(func=cmd_dashboard)
-    
+
     args = parser.parse_args()
-    
+
     if not args.command:
         parser.print_help()
         sys.exit(1)
-    
+
     try:
         args.func(args)
     except Exception as e:

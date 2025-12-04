@@ -10,8 +10,8 @@ doc_id: DOC-GUIDE-ACS_USAGE_GUIDE-073
 
 **AI Codebase Structure (ACS) Specification - Usage Documentation**
 
-**Version:** 1.0.0  
-**Last Updated:** 2025-11-22  
+**Version:** 1.0.0
+**Last Updated:** 2025-11-22
 **Target Audience:** Developers, AI tool users, Repository maintainers
 
 ---
@@ -516,22 +516,22 @@ python scripts/validate_acs_conformance.py
 
 ## FAQ
 
-**Q: Do I need to commit .meta/ai_context/ files?**  
+**Q: Do I need to commit .meta/ai_context/ files?**
 A: Yes (current decision). They're useful for CI/deployment. If regeneration in CI is preferred, add to `.gitignore`.
 
-**Q: How often should I regenerate AI context?**  
+**Q: How often should I regenerate AI context?**
 A: After every structural change (new module, dependency change, refactor).
 
-**Q: Can I modify ai_policies.yaml zones?**  
+**Q: Can I modify ai_policies.yaml zones?**
 A: Yes! Update as repository evolves. Document rationale in the `rationale` field.
 
-**Q: What if a module has multiple dependencies?**  
+**Q: What if a module has multiple dependencies?**
 A: List all in `depends_on` array. Validator ensures they're all valid.
 
-**Q: How do I add a new invariant?**  
+**Q: How do I add a new invariant?**
 A: Add to `ai_policies.yaml` → `invariants` with id, name, description, enforcement, and validation info.
 
-**Q: Do I need MODULE.md for every subdirectory?**  
+**Q: Do I need MODULE.md for every subdirectory?**
 A: No. Parent-level README.md is sufficient. Validator only flags HIGH priority modules without docs.
 
 ---
@@ -555,6 +555,6 @@ A: No. Parent-level README.md is sufficient. Validator only flags HIGH priority 
 
 ---
 
-**Document Version:** 1.0.0  
-**Maintained By:** System Architecture Team  
+**Document Version:** 1.0.0
+**Maintained By:** System Architecture Team
 **Last Updated:** 2025-11-22

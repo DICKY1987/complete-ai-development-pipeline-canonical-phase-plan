@@ -17,7 +17,7 @@ user@machine:~/pipeline$ python -m core.ui_cli --help
 ### Step 2: System Shows Help Menu
 
 ```
-usage: ui_cli.py [-h] [--db-path DB_PATH] 
+usage: ui_cli.py [-h] [--db-path DB_PATH]
                  {files,file-counts,workstreams,workstream-counts,errors,tools,dashboard} ...
 
 Query pipeline state for UI components
@@ -35,7 +35,7 @@ positional arguments:
 
 options:
   -h, --help            show this help message and exit
-  --db-path DB_PATH     Path to SQLite database (default: from env or 
+  --db-path DB_PATH     Path to SQLite database (default: from env or
                         .worktrees/pipeline_state.db)
 ```
 
@@ -62,10 +62,10 @@ usage: ui_cli.py files [-h]
                        [--state {discovered,classified,intake,routed,processing,
                                 in_flight,awaiting_review,awaiting_commit,committed,
                                 quarantined}]
-                       [--workstream-id WORKSTREAM_ID] 
-                       [--run-id RUN_ID] 
-                       [--tool-id TOOL_ID] 
-                       [--limit LIMIT] 
+                       [--workstream-id WORKSTREAM_ID]
+                       [--run-id RUN_ID]
+                       [--tool-id TOOL_ID]
+                       [--limit LIMIT]
                        [--json]
 
 options:
@@ -301,7 +301,7 @@ Aider         healthy    96.8%         8.45s
 Codex         healthy    98.2%         12.32s
 Tests         degraded   78.5%         45.67s
 
-user@machine:~/complete-ai-development-pipeline$ 
+user@machine:~/complete-ai-development-pipeline$
 ```
 
 **What the user experiences:**

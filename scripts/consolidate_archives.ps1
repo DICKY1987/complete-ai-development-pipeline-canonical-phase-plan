@@ -58,7 +58,7 @@ foreach ($mapping in $archiveMappings) {
     Write-Host "  $($mapping.Description)" -ForegroundColor Cyan
     Write-Host "    FROM: $($mapping.Source)"
     Write-Host "    TO:   $($mapping.Target)"
-    
+
     if (Test-Path $mapping.Source) {
         $fileCount = (Get-ChildItem -Path $mapping.Source -Recurse -File -ErrorAction SilentlyContinue | Measure-Object).Count
         Write-Host "    Files: $fileCount" -ForegroundColor Green
@@ -84,51 +84,51 @@ $skippedCount = 0
 
 foreach ($mapping in $archiveMappings) {
     Write-Host "`nProcessing: $($mapping.Description)" -ForegroundColor Yellow
-    
+
     if (-not (Test-Path $mapping.Source)) {
         Write-Host "  ⚠️  Source not found, skipping" -ForegroundColor Yellow
         $skippedCount++
         continue
     }
-    
+
     $fileCount = (Get-ChildItem -Path $mapping.Source -Recurse -File -ErrorAction SilentlyContinue | Measure-Object).Count
-    
+
     if ($fileCount -eq 0) {
         Write-Host "  ⚠️  Empty folder, skipping" -ForegroundColor Yellow
         $skippedCount++
         continue
     }
-    
+
     # For root archive, we need special handling
     if ($mapping.Source -eq "archive") {
         $tempTarget = "$tempArchive\${timestamp}_root_archive"
         New-Item -ItemType Directory -Path $tempTarget -Force | Out-Null
-        
+
         # Move contents (not the folder itself)
         Get-ChildItem -Path $mapping.Source -Recurse | ForEach-Object {
             $targetPath = $_.FullName.Replace((Resolve-Path $mapping.Source).Path, (Resolve-Path $tempTarget).Path)
             $targetDir = Split-Path $targetPath -Parent
-            
+
             if (-not (Test-Path $targetDir)) {
                 New-Item -ItemType Directory -Path $targetDir -Force | Out-Null
             }
-            
+
             if ($_.PSIsContainer -eq $false) {
                 Copy-Item -Path $_.FullName -Destination $targetPath -Force
             }
         }
-        
+
         Write-Host "  ✅ Copied $fileCount files to temporary location" -ForegroundColor Green
     } else {
         # For other archives, just move to temp
         $targetInTemp = "$tempArchive\$(Split-Path $mapping.Target -Leaf)"
-        
+
         if (Test-Path $mapping.Source) {
             Copy-Item -Path $mapping.Source -Destination $targetInTemp -Recurse -Force
             Write-Host "  ✅ Copied $fileCount files to temporary location" -ForegroundColor Green
         }
     }
-    
+
     $processedCount++
 }
 

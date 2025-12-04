@@ -173,14 +173,14 @@ def get_events_since(last_event_id: int, db_path: Optional[str] = None) -> list[
 
     conn = get_connection(db_path)
     cur = conn.cursor()
-    
+
     try:
         cur.execute(
             "SELECT * FROM events WHERE id > ? ORDER BY id ASC",
             (last_event_id,)
         )
         rows = cur.fetchall()
-        
+
         results = []
         for row in rows:
             result = dict(row)
@@ -191,9 +191,9 @@ def get_events_since(last_event_id: int, db_path: Optional[str] = None) -> list[
             else:
                 result["payload"] = None
             results.append(result)
-        
+
         return results
-    
+
     finally:
         cur.close()
         conn.close()

@@ -1,7 +1,7 @@
 # capabilities
 
-**Module Path**: `capabilities`  
-**Layer**: Foundation  
+**Module Path**: `capabilities`
+**Layer**: Foundation
 **Status**: Active
 
 ## Purpose
@@ -35,5 +35,5 @@ docs/capabilities_spec.md
 
 ---
 
-**Generated**: 2025-12-02 22:40:27 UTC  
+**Generated**: 2025-12-02 22:40:27 UTC
 **Framework**: Universal Execution Templates (UET)

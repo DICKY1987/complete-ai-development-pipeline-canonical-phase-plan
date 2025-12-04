@@ -26,10 +26,10 @@ function Begin-FileTransaction {
     <#
     .SYNOPSIS
         Begins a new file transaction for atomic operations
-    
+
     .PARAMETER TransactionId
         Unique identifier for this transaction (auto-generated if not provided)
-    
+
     .OUTPUTS
         Hashtable transaction object: @{ id=$string; temp_dir=$string; operations=@(); started_at=$datetime }
     #>
@@ -37,15 +37,15 @@ function Begin-FileTransaction {
         [Parameter(Mandatory=$false)]
         [string]$TransactionId = $null
     )
-    
+
     if (-not $TransactionId) {
         $TransactionId = "TXN_" + (Get-Date -Format "yyyyMMdd_HHmmss") + "_" + (Get-Random -Maximum 9999)
     }
-    
+
     # Create temporary directory for transaction
     $tempDir = Join-Path $env:TEMP "file_transactions" $TransactionId
     New-Item -ItemType Directory -Path $tempDir -Force | Out-Null
-    
+
     $transaction = @{
         id = $TransactionId
         temp_dir = $tempDir
@@ -53,7 +53,7 @@ function Begin-FileTransaction {
         started_at = Get-Date
         status = "active"
     }
-    
+
     return $transaction
 }
 
@@ -61,37 +61,37 @@ function Add-FileOperation {
     <#
     .SYNOPSIS
         Adds a file operation to the transaction
-    
+
     .PARAMETER Transaction
         Transaction object from Begin-FileTransaction
-    
+
     .PARAMETER Operation
         Operation type: 'create', 'update', 'delete'
-    
+
     .PARAMETER Path
         Target file path
-    
+
     .PARAMETER Content
         File content (for create/update operations)
-    
+
     .OUTPUTS
         Updated transaction object
     #>
     param(
         [Parameter(Mandatory=$true)]
         [hashtable]$Transaction,
-        
+
         [Parameter(Mandatory=$true)]
         [ValidateSet('create', 'update', 'delete')]
         [string]$Operation,
-        
+
         [Parameter(Mandatory=$true)]
         [string]$Path,
-        
+
         [Parameter(Mandatory=$false)]
         [string]$Content = $null
     )
-    
+
     $operation = @{
         type = $Operation
         target_path = $Path
@@ -100,23 +100,23 @@ function Add-FileOperation {
         temp_path = $null
         executed = $false
     }
-    
+
     # For update/delete operations, backup existing file
     if ($Operation -in @('update', 'delete') -and (Test-Path $Path)) {
         $backupFileName = [System.IO.Path]::GetFileName($Path) + ".backup"
         $operation.backup_path = Join-Path $Transaction.temp_dir $backupFileName
         Copy-Item -Path $Path -Destination $operation.backup_path -Force
     }
-    
+
     # For create/update operations, write to temp file first
     if ($Operation -in @('create', 'update') -and $Content) {
         $tempFileName = [System.IO.Path]::GetFileName($Path) + ".temp"
         $operation.temp_path = Join-Path $Transaction.temp_dir $tempFileName
         Set-Content -Path $operation.temp_path -Value $Content -NoNewline
     }
-    
+
     $Transaction.operations += $operation
-    
+
     return $Transaction
 }
 
@@ -124,30 +124,30 @@ function Commit-FileTransaction {
     <#
     .SYNOPSIS
         Commits the transaction, applying all operations atomically
-    
+
     .PARAMETER Transaction
         Transaction object with operations to commit
-    
+
     .PARAMETER KeepBackups
         If true, preserves backup files after commit
-    
+
     .OUTPUTS
         Hashtable with commit results: @{ success=$bool; operations_applied=$int; errors=@() }
     #>
     param(
         [Parameter(Mandatory=$true)]
         [hashtable]$Transaction,
-        
+
         [Parameter(Mandatory=$false)]
         [switch]$KeepBackups
     )
-    
+
     $result = @{
         success = $true
         operations_applied = 0
         errors = @()
     }
-    
+
     try {
         # Apply all operations
         foreach ($op in $Transaction.operations) {
@@ -159,20 +159,20 @@ function Commit-FileTransaction {
                         if ($parentDir -and (-not (Test-Path $parentDir))) {
                             New-Item -ItemType Directory -Path $parentDir -Force | Out-Null
                         }
-                        
+
                         # Copy from temp to target
                         if ($op.temp_path) {
                             Copy-Item -Path $op.temp_path -Destination $op.target_path -Force
                         }
                     }
-                    
+
                     'update' {
                         # Copy from temp to target
                         if ($op.temp_path) {
                             Copy-Item -Path $op.temp_path -Destination $op.target_path -Force
                         }
                     }
-                    
+
                     'delete' {
                         # Delete target file
                         if (Test-Path $op.target_path) {
@@ -180,7 +180,7 @@ function Commit-FileTransaction {
                         }
                     }
                 }
-                
+
                 $op.executed = $true
                 $result.operations_applied++
             }
@@ -190,7 +190,7 @@ function Commit-FileTransaction {
                 throw  # Abort transaction on first error
             }
         }
-        
+
         $Transaction.status = "committed"
     }
     catch {
@@ -206,7 +206,7 @@ function Commit-FileTransaction {
             Remove-Item -Path $Transaction.temp_dir -Recurse -Force -ErrorAction SilentlyContinue
         }
     }
-    
+
     return $result
 }
 
@@ -214,10 +214,10 @@ function Rollback-FileTransaction {
     <#
     .SYNOPSIS
         Rolls back the transaction, restoring original state
-    
+
     .PARAMETER Transaction
         Transaction object to rollback
-    
+
     .OUTPUTS
         Hashtable with rollback results: @{ success=$bool; operations_reverted=$int; errors=@() }
     #>
@@ -225,17 +225,17 @@ function Rollback-FileTransaction {
         [Parameter(Mandatory=$true)]
         [hashtable]$Transaction
     )
-    
+
     $result = @{
         success = $true
         operations_reverted = 0
         errors = @()
     }
-    
+
     # Rollback operations in reverse order
     $opsToRollback = $Transaction.operations | Where-Object { $_.executed }
     [array]::Reverse($opsToRollback)
-    
+
     foreach ($op in $opsToRollback) {
         try {
             switch ($op.type) {
@@ -245,14 +245,14 @@ function Rollback-FileTransaction {
                         Remove-Item -Path $op.target_path -Force
                     }
                 }
-                
+
                 'update' {
                     # Restore from backup
                     if ($op.backup_path -and (Test-Path $op.backup_path)) {
                         Copy-Item -Path $op.backup_path -Destination $op.target_path -Force
                     }
                 }
-                
+
                 'delete' {
                     # Restore from backup
                     if ($op.backup_path -and (Test-Path $op.backup_path)) {
@@ -260,7 +260,7 @@ function Rollback-FileTransaction {
                     }
                 }
             }
-            
+
             $result.operations_reverted++
         }
         catch {
@@ -268,12 +268,12 @@ function Rollback-FileTransaction {
             $result.errors += "Failed to rollback operation on $($op.target_path): $($_.Exception.Message)"
         }
     }
-    
+
     $Transaction.status = "rolled_back"
-    
+
     # Clean up temp directory
     Remove-Item -Path $Transaction.temp_dir -Recurse -Force -ErrorAction SilentlyContinue
-    
+
     return $result
 }
 
@@ -285,36 +285,36 @@ function Write-FileAtomic {
     <#
     .SYNOPSIS
         Writes file content atomically (all-or-nothing)
-    
+
     .PARAMETER Path
         Target file path
-    
+
     .PARAMETER Content
         File content to write
-    
+
     .PARAMETER Encoding
         File encoding (default: UTF8)
-    
+
     .OUTPUTS
         Boolean indicating success
     #>
     param(
         [Parameter(Mandatory=$true)]
         [string]$Path,
-        
+
         [Parameter(Mandatory=$true)]
         [string]$Content,
-        
+
         [Parameter(Mandatory=$false)]
         [string]$Encoding = "UTF8"
     )
-    
+
     $txn = Begin-FileTransaction
-    
+
     try {
         $operation = if (Test-Path $Path) { 'update' } else { 'create' }
         Add-FileOperation -Transaction $txn -Operation $operation -Path $Path -Content $Content | Out-Null
-        
+
         $commitResult = Commit-FileTransaction -Transaction $txn
         return $commitResult.success
     }
@@ -328,10 +328,10 @@ function Write-FilesAtomic {
     <#
     .SYNOPSIS
         Writes multiple files atomically (all succeed or all rollback)
-    
+
     .PARAMETER Files
         Array of file definitions: @{ path=$string; content=$string }
-    
+
     .OUTPUTS
         Hashtable with results: @{ success=$bool; files_written=$int; errors=@() }
     #>
@@ -339,17 +339,17 @@ function Write-FilesAtomic {
         [Parameter(Mandatory=$true)]
         [array]$Files
     )
-    
+
     $txn = Begin-FileTransaction
-    
+
     try {
         foreach ($file in $Files) {
             $operation = if (Test-Path $file.path) { 'update' } else { 'create' }
             Add-FileOperation -Transaction $txn -Operation $operation -Path $file.path -Content $file.content | Out-Null
         }
-        
+
         $commitResult = Commit-FileTransaction -Transaction $txn
-        
+
         return @{
             success = $commitResult.success
             files_written = $commitResult.operations_applied
@@ -358,7 +358,7 @@ function Write-FilesAtomic {
     }
     catch {
         $rollbackResult = Rollback-FileTransaction -Transaction $txn
-        
+
         return @{
             success = $false
             files_written = 0

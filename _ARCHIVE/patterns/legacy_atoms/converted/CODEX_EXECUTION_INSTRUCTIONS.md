@@ -111,7 +111,7 @@ Contains the 30-45 minute quick activation guide (alternative to full plan).
    ```bash
    # Create this file with your findings
    File: UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/PATTERN_AUTOMATION_PATHS.md
-   
+
    Include:
    - Location of orchestrator module (if found)
    - Location of database system
@@ -146,7 +146,7 @@ Contains the 30-45 minute quick activation guide (alternative to full plan).
 2. **Create SQL schema file:**
    ```sql
    -- File: patterns/metrics/004_pattern_automation.sql (or temp_schema.sql)
-   
+
    CREATE TABLE IF NOT EXISTS execution_logs (
        id INTEGER PRIMARY KEY AUTOINCREMENT,
        timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -159,7 +159,7 @@ Contains the 30-45 minute quick activation guide (alternative to full plan).
        time_taken_seconds REAL,
        context TEXT
    );
-   
+
    CREATE TABLE IF NOT EXISTS pattern_candidates (
        id INTEGER PRIMARY KEY AUTOINCREMENT,
        pattern_id TEXT UNIQUE,
@@ -171,7 +171,7 @@ Contains the 30-45 minute quick activation guide (alternative to full plan).
        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
    );
-   
+
    CREATE TABLE IF NOT EXISTS anti_patterns (
        id TEXT PRIMARY KEY,
        name TEXT NOT NULL,
@@ -184,7 +184,7 @@ Contains the 30-45 minute quick activation guide (alternative to full plan).
        first_seen DATETIME DEFAULT CURRENT_TIMESTAMP,
        last_seen DATETIME DEFAULT CURRENT_TIMESTAMP
    );
-   
+
    -- Indexes
    CREATE INDEX IF NOT EXISTS idx_execution_timestamp ON execution_logs(timestamp);
    CREATE INDEX IF NOT EXISTS idx_execution_operation ON execution_logs(operation_kind);
@@ -197,7 +197,7 @@ Contains the 30-45 minute quick activation guide (alternative to full plan).
 3. **Create rollback script:**
    ```sql
    -- File: patterns/metrics/rollback_pattern_automation.sql
-   
+
    DROP TABLE IF EXISTS execution_logs;
    DROP TABLE IF EXISTS pattern_candidates;
    DROP TABLE IF EXISTS anti_patterns;
@@ -212,10 +212,10 @@ Contains the 30-45 minute quick activation guide (alternative to full plan).
    ```powershell
    # For standalone SQLite database (Option C - most likely)
    $dbPath = "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/metrics/pattern_automation.db"
-   
+
    # Create database
    sqlite3 $dbPath "SELECT 1;"
-   
+
    # Execute schema
    Get-Content "patterns/metrics/004_pattern_automation.sql" | sqlite3 $dbPath
    ```
@@ -224,9 +224,9 @@ Contains the 30-45 minute quick activation guide (alternative to full plan).
    ```powershell
    # Check tables exist
    sqlite3 $dbPath ".tables"
-   
+
    # Should show: anti_patterns  execution_logs  pattern_candidates
-   
+
    # Check schema
    sqlite3 $dbPath ".schema execution_logs"
    ```
@@ -324,37 +324,37 @@ Contains the 30-45 minute quick activation guide (alternative to full plan).
 2. **Create configuration file:**
    ```yaml
    # File: automation/config/detection_config.yaml
-   
+
    # Pattern Automation Configuration
    # Created: 2025-11-27
-   
+
    version: "1.0.0"
-   
+
    # Feature flags
    automation_enabled: true
    auto_approve_high_confidence: true
-   
+
    # Detection thresholds
    detection:
      min_similar_executions: 3
      similarity_threshold: 0.75
      lookback_days: 30
      auto_approval_confidence: 0.75
-   
+
    # Database
    database:
      path: "patterns/metrics/pattern_automation.db"
-   
+
    # Output
    output:
      drafts_dir: "patterns/drafts"
      reports_dir: "patterns/reports"
-   
+
    # Anti-pattern detection
    anti_patterns:
      enabled: true
      min_occurrences: 3
-   
+
    # File pattern mining
    file_patterns:
      enabled: true
@@ -428,10 +428,10 @@ Contains the 30-45 minute quick activation guide (alternative to full plan).
    ```powershell
    # Verify execution logs
    sqlite3 patterns/metrics/pattern_automation.db "SELECT COUNT(*) FROM execution_logs;"
-   
+
    # Check for pattern candidates
    sqlite3 patterns/metrics/pattern_automation.db "SELECT pattern_id, confidence, status FROM pattern_candidates;"
-   
+
    # Look for auto-generated patterns
    Get-ChildItem patterns/drafts/AUTO-*.yaml
    ```
@@ -475,7 +475,7 @@ python -c "from automation.integration.orchestrator_hooks import get_hooks; h = 
 python -c "import yaml; c = yaml.safe_load(open('automation/config/detection_config.yaml')); print('✓ Config valid')"
 
 # 5. List all created files
-Get-ChildItem -Recurse -Include "*.py","*.yaml","*.sql","*.db","*.ps1" | 
+Get-ChildItem -Recurse -Include "*.py","*.yaml","*.sql","*.db","*.ps1" |
     Where-Object {$_.LastWriteTime -gt (Get-Date).AddHours(-2)} |
     Select-Object FullName, Length
 ```
@@ -616,7 +616,7 @@ Get-ChildItem .. -Recurse -Include "*orchestrator*.py" -Depth 3
 New-Item -ItemType Directory -Path "metrics" -Force
 sqlite3 metrics/pattern_automation.db < 004_pattern_automation.sql
 
-# Phase 2: Integration  
+# Phase 2: Integration
 python -c "from automation.integration.orchestrator_hooks import get_hooks"
 
 # Phase 3: Configuration

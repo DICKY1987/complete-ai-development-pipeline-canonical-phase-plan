@@ -26,12 +26,12 @@ proposed_date: "2025-11-25"
 status: "proposed"
 
 definition: |
-  Resilience pattern that prevents cascading failures by "opening" 
+  Resilience pattern that prevents cascading failures by "opening"
   (stopping) execution when error thresholds are exceeded.
 
 rationale: |
-  This concept appears frequently in core/engine/circuit_breakers.py 
-  but lacks a glossary entry. It's referenced in multiple documents 
+  This concept appears frequently in core/engine/circuit_breakers.py
+  but lacks a glossary entry. It's referenced in multiple documents
   and would benefit from a canonical definition.
 
 implementation:
@@ -280,5 +280,5 @@ A: Yes, but approval is needed before adding to main glossary.
 
 ---
 
-**Status**: Ready for proposals  
+**Status**: Ready for proposals
 **Contact**: Architecture team for questions

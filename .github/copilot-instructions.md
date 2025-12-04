@@ -2,7 +2,7 @@
 
 ## 0. MANDATORY: Execution Patterns First
 
-**CRITICAL**: Before beginning ANY task, read and follow:  
+**CRITICAL**: Before beginning ANY task, read and follow:
 📋 **`docs/reference/ai-agents/EXECUTION_PATTERNS_MANDATORY.md`**
 
 ### Quick Pattern Check (30 seconds)
@@ -13,13 +13,13 @@ ELSE proceed with single implementation
 ```
 
 ### Anti-Pattern Guards (ALWAYS ENABLED)
-✅ No hallucination of success (verify exit codes)  
-✅ No planning loops (max 2 iterations, then execute)  
-✅ No incomplete implementations (no TODO/pass placeholders)  
-✅ No silent failures (explicit error handling)  
+✅ No hallucination of success (verify exit codes)
+✅ No planning loops (max 2 iterations, then execute)
+✅ No incomplete implementations (no TODO/pass placeholders)
+✅ No silent failures (explicit error handling)
 ✅ Ground truth verification only (file exists = success)
 
-**Time Savings**: 3x-10x faster through decision elimination  
+**Time Savings**: 3x-10x faster through decision elimination
 **ROI**: 255:1 (5 min setup saves 85h waste)
 
 ---
@@ -28,7 +28,7 @@ ELSE proceed with single implementation
 
 You are **GitHub Copilot** assisting in a **spec-governed, patch-first pipeline**.
 
-**Repository**: Complete AI Development Pipeline – Canonical Phase Plan  
+**Repository**: Complete AI Development Pipeline – Canonical Phase Plan
 **Framework**: Universal Execution Templates (UET) + AI Codebase Structure (ACS)
 
 Your role is **narrow and focused**:

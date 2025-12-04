@@ -4,10 +4,10 @@ doc_id: DOC-GUIDE-PHASE-4-AI-ENHANCEMENT-PLAN-1649
 
 # Phase 4: AI Enhancement - Advanced Codebase Intelligence
 
-**Created:** 2025-11-22  
-**Phase ID:** PH-04-AI-ENH  
-**Estimated Duration:** 6-8 weeks  
-**Prerequisites:** Phase 3 Complete (Orchestration Engine)  
+**Created:** 2025-11-22
+**Phase ID:** PH-04-AI-ENH
+**Estimated Duration:** 6-8 weeks
+**Prerequisites:** Phase 3 Complete (Orchestration Engine)
 **Status:** Planning
 
 ---
@@ -75,8 +75,8 @@ functions = tree.extract_functions()
 assert "init_db" in [f.name for f in functions]
 ```
 
-**Estimated Effort:** 1 week  
-**Tool:** Codex (implementation) + pytest (validation)  
+**Estimated Effort:** 1 week
+**Tool:** Codex (implementation) + pytest (validation)
 **Cost:** ~$8
 
 ---
@@ -114,8 +114,8 @@ modules:
 - Token count < 5,000 for entire architecture (10x compression)
 - Includes all public APIs, excludes private implementation
 
-**Estimated Effort:** 1 week  
-**Tool:** Codex + Aider (implementation) + pytest  
+**Estimated Effort:** 1 week
+**Tool:** Codex + Aider (implementation) + pytest
 **Cost:** ~$10
 
 ---
@@ -148,8 +148,8 @@ top_modules:
 - Ranks modules by architectural importance
 - Updates when codebase changes
 
-**Estimated Effort:** 3 days  
-**Tool:** Codex (algorithm) + pytest  
+**Estimated Effort:** 3 days
+**Tool:** Codex (algorithm) + pytest
 **Cost:** ~$5
 
 ---
@@ -183,8 +183,8 @@ top_modules:
 - Can traverse from any node to its dependencies
 - Persists across runs (SQLite storage)
 
-**Estimated Effort:** 1 week  
-**Tool:** Codex + Aider  
+**Estimated Effort:** 1 week
+**Tool:** Codex + Aider
 **Cost:** ~$12
 
 ---
@@ -220,8 +220,8 @@ graphrag.query("path_between('user_request', 'database_write')")
 - Traces dependency chains up to 10 levels deep
 - Performance: Query response < 100ms
 
-**Estimated Effort:** 1 week  
-**Tool:** Codex (implementation) + pytest  
+**Estimated Effort:** 1 week
+**Tool:** Codex (implementation) + pytest
 **Cost:** ~$10
 
 ---
@@ -261,8 +261,8 @@ Level 0: Source Code
 - High-level queries answered from level 3/4 (no need to read code)
 - Detailed queries drill down to level 0/1
 
-**Estimated Effort:** 1 week  
-**Tool:** Codex (implementation) + Claude (summarization) + pytest  
+**Estimated Effort:** 1 week
+**Tool:** Codex (implementation) + Claude (summarization) + pytest
 **Cost:** ~$15 (includes AI summarization)
 
 ---
@@ -290,8 +290,8 @@ search("database initialization logic")
 → ['core/state/db.py:init_db()', 'core/state/schema.py:create_tables()']
 ```
 
-**Estimated Effort:** 4 days  
-**Tool:** Codex + OpenAI embeddings  
+**Estimated Effort:** 4 days
+**Tool:** Codex + OpenAI embeddings
 **Cost:** ~$8
 
 ---
@@ -327,8 +327,8 @@ search("database initialization logic")
 - Max 3 retry iterations before human escalation
 - Logs all reflexion loops for audit trail
 
-**Estimated Effort:** 1 week  
-**Tool:** Codex (implementation) + Claude (critique) + pytest  
+**Estimated Effort:** 1 week
+**Tool:** Codex (implementation) + Claude (critique) + pytest
 **Cost:** ~$12
 
 ---
@@ -368,8 +368,8 @@ memory.recall("Add new API endpoint")
 → AI automatically follows project conventions without being told
 ```
 
-**Estimated Effort:** 1 week  
-**Tool:** Codex + OpenAI embeddings  
+**Estimated Effort:** 1 week
+**Tool:** Codex + OpenAI embeddings
 **Cost:** ~$10
 
 ---
@@ -404,8 +404,8 @@ User: "Where do we handle PDF export?"
 - Improves search recall by at least 30% vs keyword search
 - Handles natural language queries better than direct embedding
 
-**Estimated Effort:** 3 days  
-**Tool:** Codex + OpenAI  
+**Estimated Effort:** 3 days
+**Tool:** Codex + OpenAI
 **Cost:** ~$7
 
 ---
@@ -445,8 +445,8 @@ python scripts/debug_auto.py  # No arguments needed!
 - Extracts exit codes and environment variables
 - Generates fix suggestions without manual error copy-paste
 
-**Estimated Effort:** 4 days  
-**Tool:** Codex (implementation) + Claude (analysis)  
+**Estimated Effort:** 4 days
+**Tool:** Codex (implementation) + Claude (analysis)
 **Cost:** ~$8
 
 ---
@@ -487,8 +487,8 @@ results = hyde_search.find("authentication logic")
 - Feature flags allow gradual rollout
 - Performance: < 5% overhead on existing workflows
 
-**Estimated Effort:** 1 week  
-**Tool:** Codex + Aider + pytest  
+**Estimated Effort:** 1 week
+**Tool:** Codex + Aider + pytest
 **Cost:** ~$10
 
 ---
@@ -548,24 +548,24 @@ results = hyde_search.find("authentication logic")
 
 ### Technical Risks
 
-**Risk:** Tree-sitter may not support all languages  
+**Risk:** Tree-sitter may not support all languages
 **Mitigation:** Start with Python/JS/TS (covers 95% of codebase), add others later
 
-**Risk:** Vector embeddings cost too much  
+**Risk:** Vector embeddings cost too much
 **Mitigation:** Use local embedding models (sentence-transformers) instead of OpenAI
 
-**Risk:** Reflexion loops may infinite loop  
+**Risk:** Reflexion loops may infinite loop
 **Mitigation:** Hard cap at 3 iterations, human escalation beyond that
 
-**Risk:** Graph traversal may be slow on large codebases  
+**Risk:** Graph traversal may be slow on large codebases
 **Mitigation:** Index graphs in SQLite with proper indexes, cache traversal results
 
 ### Integration Risks
 
-**Risk:** New features slow down existing workflows  
+**Risk:** New features slow down existing workflows
 **Mitigation:** Feature flags for gradual rollout, performance benchmarks
 
-**Risk:** Breaking changes to APIs  
+**Risk:** Breaking changes to APIs
 **Mitigation:** All new features are additive, zero changes to existing code paths
 
 ---
@@ -606,6 +606,6 @@ results = hyde_search.find("authentication logic")
 
 ---
 
-**Document Status:** Draft  
-**Next Review:** 2025-11-25  
+**Document Status:** Draft
+**Next Review:** 2025-11-25
 **Approved By:** [Pending]

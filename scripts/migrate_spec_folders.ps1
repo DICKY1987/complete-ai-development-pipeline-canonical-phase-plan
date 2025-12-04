@@ -67,9 +67,9 @@ try {
     } else {
         & python $PythonScript
     }
-    
+
     $exitCode = $LASTEXITCODE
-    
+
     if ($exitCode -eq 0) {
         Write-Host ""
         Write-Host "✓ Script completed successfully" -ForegroundColor Green

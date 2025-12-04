@@ -21,7 +21,7 @@ Write-Host "====================================`n" -ForegroundColor Cyan
 # Step 1: Create devdocs structure
 function New-DevDocsStructure {
     Write-Host "[1/7] Creating devdocs/ directory structure..." -ForegroundColor Yellow
-    
+
     $directories = @(
         "devdocs",
         "devdocs\phases",
@@ -33,7 +33,7 @@ function New-DevDocsStructure {
         "devdocs\archive",
         "devdocs\meta"
     )
-    
+
     foreach ($dir in $directories) {
         $path = Join-Path $root $dir
         if (-not (Test-Path $path)) {
@@ -45,27 +45,27 @@ function New-DevDocsStructure {
             Write-Host "  ℹ️  Exists: $dir" -ForegroundColor Gray
         }
     }
-    
+
     Write-Host ""
 }
 
 # Step 2: Migrate phase documentation
 function Move-PhaseDocumentation {
     if ($Category -ne 'All' -and $Category -ne 'Phases') { return }
-    
+
     Write-Host "[2/7] Migrating phase documentation..." -ForegroundColor Yellow
-    
+
     # Find all PHASE_*.md files in docs/
     $phaseFiles = Get-ChildItem -Path (Join-Path $root "docs") -Filter "PHASE_*.md" -ErrorAction SilentlyContinue
-    
+
     $phaseMap = @{}
-    
+
     foreach ($file in $phaseFiles) {
         # Extract phase ID (e.g., PHASE_I_PLAN.md -> I)
         if ($file.Name -match "PHASE_([A-Z0-9]+)_(.+)\.md") {
             $phaseId = $matches[1].ToLower()
             $docType = $matches[2]
-            
+
             # Determine new filename
             $newName = switch ($docType) {
                 "PLAN" { "PLAN.md" }
@@ -75,7 +75,7 @@ function Move-PhaseDocumentation {
                 { $_ -like "*CHECKLIST*" } { "CHECKLIST.md" }
                 default { "$docType.md" }
             }
-            
+
             # Create phase directory
             $phaseDir = Join-Path (Join-Path $root "devdocs\phases") "phase-$phaseId"
             if (-not (Test-Path $phaseDir)) {
@@ -83,7 +83,7 @@ function Move-PhaseDocumentation {
                     New-Item -ItemType Directory -Path $phaseDir -Force | Out-Null
                 }
             }
-            
+
             # Move file
             $destination = Join-Path $phaseDir $newName
             if ($PSCmdlet.ShouldProcess($file.FullName, "Move to $destination")) {
@@ -92,16 +92,16 @@ function Move-PhaseDocumentation {
             }
         }
     }
-    
+
     Write-Host ""
 }
 
 # Step 3: Migrate session logs
 function Move-SessionLogs {
     if ($Category -ne 'All' -and $Category -ne 'Sessions') { return }
-    
+
     Write-Host "[3/7] Migrating session logs..." -ForegroundColor Yellow
-    
+
     # Define source directories and their target subdirs
     $sessionSources = @(
         @{ Path = "docs\sessions"; Target = "" },
@@ -109,11 +109,11 @@ function Move-SessionLogs {
         @{ Path = "PROCESS_DEEP_DIVE_OPTOMIZE\session_reports"; Target = "process-deep-dive" },
         @{ Path = "AGENTIC_DEV_PROTOTYPE"; Target = "agentic-proto"; Filter = "SESSION_*.md" }
     )
-    
+
     foreach ($source in $sessionSources) {
         $sourcePath = Join-Path $root $source.Path
         if (-not (Test-Path $sourcePath)) { continue }
-        
+
         # Determine target directory
         $targetBase = Join-Path $root "devdocs\sessions"
         $targetPath = if ($source.Target) {
@@ -127,11 +127,11 @@ function Move-SessionLogs {
         } else {
             $targetBase
         }
-        
+
         # Get files
         $filter = if ($source.Filter) { $source.Filter } else { "SESSION_*.md" }
         $files = Get-ChildItem -Path $sourcePath -Filter $filter -File -ErrorAction SilentlyContinue
-        
+
         foreach ($file in $files) {
             $destination = Join-Path $targetPath $file.Name
             if ($PSCmdlet.ShouldProcess($file.FullName, "Move to $destination")) {
@@ -140,40 +140,40 @@ function Move-SessionLogs {
             }
         }
     }
-    
+
     Write-Host ""
 }
 
 # Step 4: Migrate execution summaries and progress reports
 function Move-ExecutionDocuments {
     if ($Category -ne 'All' -and $Category -ne 'Execution') { return }
-    
+
     Write-Host "[4/7] Migrating execution summaries and progress reports..." -ForegroundColor Yellow
-    
+
     $patterns = @(
         "*_EXECUTION_SUMMARY.md",
         "*_PROGRESS.md",
         "*_PROGRESS_REPORT.md",
         "*_COMPLETION*.md"
     )
-    
+
     $sourceDirs = @(
         "docs",
         "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK",
         "error"
     )
-    
+
     foreach ($sourceDir in $sourceDirs) {
         $sourcePath = Join-Path $root $sourceDir
         if (-not (Test-Path $sourcePath)) { continue }
-        
+
         foreach ($pattern in $patterns) {
             $files = Get-ChildItem -Path $sourcePath -Filter $pattern -File -ErrorAction SilentlyContinue
-            
+
             foreach ($file in $files) {
                 # Skip if already handled by phase migration
                 if ($file.Name -match "^PHASE_[A-Z0-9]+_") { continue }
-                
+
                 $destination = Join-Path (Join-Path $root "devdocs\execution") $file.Name
                 if ($PSCmdlet.ShouldProcess($file.FullName, "Move to $destination")) {
                     Move-Item -Path $file.FullName -Destination $destination -Force
@@ -182,16 +182,16 @@ function Move-ExecutionDocuments {
             }
         }
     }
-    
+
     Write-Host ""
 }
 
 # Step 5: Migrate analysis reports
 function Move-AnalysisReports {
     if ($Category -ne 'All' -and $Category -ne 'Analysis') { return }
-    
+
     Write-Host "[5/7] Migrating analysis reports..." -ForegroundColor Yellow
-    
+
     # Create subdirectories
     $analysisSubdirs = @("process-deep-dive", "agentic-proto")
     foreach ($subdir in $analysisSubdirs) {
@@ -202,7 +202,7 @@ function Move-AnalysisReports {
             }
         }
     }
-    
+
     # Migrate from docs/analysis/
     $docsAnalysisPath = Join-Path $root "docs\analysis"
     if (Test-Path $docsAnalysisPath) {
@@ -215,20 +215,20 @@ function Move-AnalysisReports {
             }
         }
     }
-    
+
     # Migrate METRICS_SUMMARY_*.md from various locations
     $metricsSources = @(
         "PROCESS_DEEP_DIVE_OPTOMIZE\reports",
         "AGENTIC_DEV_PROTOTYPE\analytics\reports"
     )
-    
+
     foreach ($source in $metricsSources) {
         $sourcePath = Join-Path $root $source
         if (-not (Test-Path $sourcePath)) { continue }
-        
+
         $files = Get-ChildItem -Path $sourcePath -Filter "METRICS_SUMMARY_*.md" -File -ErrorAction SilentlyContinue
         $targetDir = if ($source -like "*PROCESS_DEEP_DIVE*") { "process-deep-dive" } else { "agentic-proto" }
-        
+
         foreach ($file in $files) {
             $destination = Join-Path (Join-Path (Join-Path $root "devdocs\analysis") $targetDir) $file.Name
             if ($PSCmdlet.ShouldProcess($file.FullName, "Move to $destination")) {
@@ -237,27 +237,27 @@ function Move-AnalysisReports {
             }
         }
     }
-    
+
     Write-Host ""
 }
 
 # Step 6: Migrate handoff documents
 function Move-HandoffDocuments {
     if ($Category -ne 'All' -and $Category -ne 'Handoffs') { return }
-    
+
     Write-Host "[6/7] Migrating handoff documents..." -ForegroundColor Yellow
-    
+
     $sourceDirs = @(
         "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK",
         "docs"
     )
-    
+
     foreach ($sourceDir in $sourceDirs) {
         $sourcePath = Join-Path $root $sourceDir
         if (-not (Test-Path $sourcePath)) { continue }
-        
+
         $files = Get-ChildItem -Path $sourcePath -Filter "HANDOFF*.md" -File -ErrorAction SilentlyContinue
-        
+
         foreach ($file in $files) {
             $destination = Join-Path (Join-Path $root "devdocs\handoffs") $file.Name
             if ($PSCmdlet.ShouldProcess($file.FullName, "Move to $destination")) {
@@ -266,16 +266,16 @@ function Move-HandoffDocuments {
             }
         }
     }
-    
+
     Write-Host ""
 }
 
 # Step 7: Move completed work to archive
 function Move-ToArchive {
     if ($Category -ne 'All' -and $Category -ne 'Archive') { return }
-    
+
     Write-Host "[7/7] Moving completed work to archive..." -ForegroundColor Yellow
-    
+
     # Create 2025-11 archive directory
     $archiveDir = Join-Path (Join-Path $root "devdocs\archive") "2025-11"
     if (-not (Test-Path $archiveDir)) {
@@ -283,7 +283,7 @@ function Move-ToArchive {
             New-Item -ItemType Directory -Path $archiveDir -Force | Out-Null
         }
     }
-    
+
     # Move docs/archive/ contents
     $docsArchivePath = Join-Path $root "docs\archive"
     if (Test-Path $docsArchivePath) {
@@ -296,33 +296,33 @@ function Move-ToArchive {
             }
         }
     }
-    
+
     Write-Host ""
 }
 
 # Main execution
 try {
     New-DevDocsStructure
-    
+
     if ($CreateStructureOnly) {
         Write-Host "✅ Directory structure created. Run without -CreateStructureOnly to migrate files.`n" -ForegroundColor Green
         exit 0
     }
-    
+
     Move-PhaseDocumentation
     Move-SessionLogs
     Move-ExecutionDocuments
     Move-AnalysisReports
     Move-HandoffDocuments
     Move-ToArchive
-    
+
     Write-Host "✅ Migration complete!`n" -ForegroundColor Green
     Write-Host "Next steps:" -ForegroundColor Cyan
     Write-Host "  1. Review migrated files in devdocs/" -ForegroundColor White
     Write-Host "  2. Update any cross-references in documentation" -ForegroundColor White
     Write-Host "  3. Consider archiving temporary directories like PROCESS_DEEP_DIVE_OPTOMIZE/" -ForegroundColor White
     Write-Host "  4. Update build scripts to exclude devdocs/ from releases" -ForegroundColor White
-    
+
 } catch {
     Write-Host "❌ Error during migration: $_" -ForegroundColor Red
     Write-Host $_.ScriptStackTrace -ForegroundColor Red

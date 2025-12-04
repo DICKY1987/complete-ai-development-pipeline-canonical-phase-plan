@@ -4,8 +4,8 @@ doc_id: DOC-GUIDE-INTEGRATION-POINTS-1665
 
 # UET V2 Integration Points
 
-**Purpose**: Document how components call each other to prevent circular dependencies  
-**Status**: DRAFT  
+**Purpose**: Document how components call each other to prevent circular dependencies
+**Status**: DRAFT
 **Last Updated**: 2025-11-23
 
 ---
@@ -472,7 +472,7 @@ class PatchLedger:
 class HumanReview:
     def __init__(self, event_bus):
         event_bus.subscribe(EventType.PATCH_QUARANTINED, self.handle_quarantined_patch)
-    
+
     def handle_quarantined_patch(self, event_data):
         # Create review task
         pass
@@ -558,11 +558,11 @@ class PatchPolicyEngine:
     def get_effective_policy(self, scope: str) -> PatchPolicy:
         # Global policy (base)
         policy = self.policies['global']
-        
+
         # Override with project policy
         if scope in self.policies:
             policy = self._merge_policies(policy, self.policies[scope])
-        
+
         return policy
 ```
 
@@ -577,9 +577,9 @@ class PatchPolicyEngine:
 def test_full_workflow_happy_path():
     orchestrator = Orchestrator(db, event_bus)
     workstream = load_workstream("tests/fixtures/simple_workstream.json")
-    
+
     result = orchestrator.run(workstream)
-    
+
     assert result.status == "SUCCESS"
     # Verify events
     events = event_bus.get_events(result.run_id)
@@ -593,10 +593,10 @@ def test_full_workflow_happy_path():
 def test_merge_conflict_triggers_rollback():
     merge_orch = MergeOrchestrator(db, event_bus)
     patch = create_conflicting_patch()  # Modifies same lines as previous patch
-    
+
     with pytest.raises(MergeConflictError):
         merge_orch.merge(patch)
-    
+
     # Verify rollback
     ledger_entry = patch_ledger.get_entry_by_patch_id(patch.patch_id)
     assert ledger_entry.state == PatchState.ROLLED_BACK
@@ -638,5 +638,5 @@ python scripts/validate_integration_points.py
 
 ---
 
-**Last Updated**: 2025-11-23  
+**Last Updated**: 2025-11-23
 **Next Review**: Before Phase A starts

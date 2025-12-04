@@ -26,13 +26,13 @@ execution_steps:
     purpose: "Find target code locations"
     capture: "matching_files"
     pattern: "${search_pattern}"
-  
+
   2_view:
     tool: "view"
     purpose: "Inspect context around matches"
     for_each: "matching_files"
     context_lines: 10
-  
+
   3_edit:
     tool: "edit"
     purpose: "Apply targeted changes"
@@ -53,18 +53,18 @@ workflow:
   sequence_length: 3
   avg_duration: 35.0
   search_reduces_scope: true
-  
+
 # Example usage
 example:
   context:
     search_pattern: "def process_data"
     modification: "Add error handling"
-  
+
   steps_executed:
     - "grep 'def process_data' src/**/*.py"
     - "view src/processor.py (context)"
     - "edit src/processor.py (add try/except)"
-  
+
   expected_duration: "35 seconds"
   expected_outcome:
     - "Found 3 matching files"

@@ -4,8 +4,8 @@ doc_id: DOC-PAT-PATTERN-EVENT-SPEC-809
 
 # Pattern Event Specification
 
-**Version**: 1.0.0  
-**Status**: Draft  
+**Version**: 1.0.0
+**Status**: Draft
 **Last Updated**: 2025-11-26
 
 ## Overview
@@ -326,11 +326,11 @@ class JobStateStore:
     def record_pattern_event(self, event: PatternEvent):
         """Write event to JSONL and update pattern_run in memory."""
         pass
-    
+
     def get_pattern_events(self, job_id: str) -> List[PatternEvent]:
         """Retrieve all pattern events for a job."""
         pass
-    
+
     def get_pattern_run(self, pattern_run_id: str) -> PatternRun:
         """Retrieve full pattern run object."""
         pass

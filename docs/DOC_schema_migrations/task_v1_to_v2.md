@@ -8,9 +8,9 @@ doc_id: DOC-GUIDE-TASK-V1-TO-V2-1366
 
 This document describes the migration path from Task Definition Schema v1.0.0 to v2.0.0.
 
-**Version 1.0.0**: Initial task definition schema  
-**Version 2.0.0**: Enhanced with context requirements and validation rules  
-**Migration Status**: Backward compatible with automatic upgrade  
+**Version 1.0.0**: Initial task definition schema
+**Version 2.0.0**: Enhanced with context requirements and validation rules
+**Migration Status**: Backward compatible with automatic upgrade
 **Compatibility Window**: v1.0.0 supported until 2025-12-31
 
 ## Changes in v2.0.0
@@ -25,7 +25,7 @@ This document describes the migration path from Task Definition Schema v1.0.0 to
     "optional_files": ["src/auth/utils.py"],
     "exclude_patterns": ["tests/**", "*.pyc"]
   },
-  
+
   "validation_rules": {
     "pre_execution": ["git_clean", "tests_passing"],
     "post_execution": ["no_lint_errors", "tests_still_passing"]
@@ -125,15 +125,15 @@ python scripts/validate/validate_task_defs.py --schema-version 2.0.0
   "description": "Add JWT authentication",
   "type": "aider",
   "status": "pending",
-  
+
   "dependencies": [],
   "blocks": [],
-  
+
   "worker_requirements": {
     "capabilities": ["aider"],
     "min_version": "1.0.0"
   },
-  
+
   "execution": {
     "command": "aider --yes --message '{prompt}'",
     "working_directory": "src/auth",
@@ -141,7 +141,7 @@ python scripts/validate/validate_task_defs.py --schema-version 2.0.0
     "max_retries": 3,
     "retry_delay_seconds": 10
   },
-  
+
   "state": {
     "created_at": "2024-01-15T10:00:00.000Z",
     "started_at": null,
@@ -165,15 +165,15 @@ python scripts/validate/validate_task_defs.py --schema-version 2.0.0
   "description": "Add JWT authentication",
   "type": "aider",
   "status": "pending",
-  
+
   "dependencies": [],
   "blocks": [],
-  
+
   "worker_requirements": {
     "capabilities": ["aider"],
     "min_version": "1.0.0"
   },
-  
+
   "execution": {
     "command": "aider --yes --message '{prompt}'",
     "working_directory": "src/auth",
@@ -181,19 +181,19 @@ python scripts/validate/validate_task_defs.py --schema-version 2.0.0
     "max_retries": 3,
     "retry_delay_seconds": 10
   },
-  
+
   "context_requirements": {
     "max_context_tokens": 8000,
     "required_files": ["src/auth/handler.py", "src/auth/models.py"],
     "optional_files": ["src/auth/utils.py"],
     "exclude_patterns": ["tests/**", "*.pyc", "**/__pycache__/**"]
   },
-  
+
   "validation_rules": {
     "pre_execution": ["git_clean"],
     "post_execution": ["no_lint_errors", "tests_still_passing"]
   },
-  
+
   "state": {
     "created_at": "2024-01-15T10:00:00.000Z",
     "started_at": null,
@@ -256,19 +256,19 @@ cp tasks/.backups/20240115-120000/task-ulid-002.json tasks/ws-ulid-001/task-ulid
 
 ## FAQ
 
-**Q: Do I need to migrate manually?**  
+**Q: Do I need to migrate manually?**
 A: No. The system auto-migrates v1.0.0 tasks on load. Manual migration is optional for permanent upgrade.
 
-**Q: Will v1.0.0 tasks still work?**  
+**Q: Will v1.0.0 tasks still work?**
 A: Yes. v1.0.0 tasks are supported until 2025-12-31 and auto-migrate at runtime.
 
-**Q: Can I use v2.0.0 features in v1.0.0 tasks?**  
+**Q: Can I use v2.0.0 features in v1.0.0 tasks?**
 A: No. You must set `schema_version: "2.0.0"` to use new fields.
 
-**Q: What happens if I downgrade from v2.0.0 to v1.0.0?**  
+**Q: What happens if I downgrade from v2.0.0 to v1.0.0?**
 A: New fields (context_requirements, validation_rules) are removed. Data is lost unless backed up.
 
-**Q: Are there breaking changes?**  
+**Q: Are there breaking changes?**
 A: No. v2.0.0 is backward compatible with v1.0.0.
 
 ## See Also

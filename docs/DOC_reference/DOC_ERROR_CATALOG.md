@@ -10,7 +10,7 @@ doc_id: DOC-GUIDE-ERROR_CATALOG-114
 
 **Purpose:** Document common errors with recovery procedures to help AI agents and developers diagnose and fix issues quickly.
 
-**Last Updated:** 2025-11-22  
+**Last Updated:** 2025-11-22
 **Maintainer:** System Architecture Team
 
 ---
@@ -135,7 +135,7 @@ ws = get_workstream(conn, "WS-001")
 print(f"Current state: {ws['state']}")
 
 # 2. If state is wrong, fix manually (last resort)
-conn.execute("UPDATE workstreams SET state = ? WHERE ws_id = ?", 
+conn.execute("UPDATE workstreams SET state = ? WHERE ws_id = ?",
              ("S_PENDING", "WS-001"))
 conn.commit()
 
@@ -283,7 +283,7 @@ DependencyError: Step s2 depends on s1, but s1 is in state S_FAILED
 **Recovery:**
 ```bash
 # 1. Check dependency status
-python -c "from core.state.steps import get_step; 
+python -c "from core.state.steps import get_step;
            print(get_step(conn, 's1')['state'])"
 
 # 2. Re-run failed dependency
@@ -349,7 +349,7 @@ ToolProfileNotFound: No profile found for 'unknown-tool'
 **Recovery:**
 ```bash
 # 1. List available profiles
-python -c "from core.engine.tools import list_profiles; 
+python -c "from core.engine.tools import list_profiles;
            print(list_profiles())"
 
 # 2. Check config file exists
@@ -450,7 +450,7 @@ ManifestValidationError: manifest.json missing required field 'plugin_id'
 **Recovery:**
 ```bash
 # 1. Validate manifest against schema
-python -c "import json; 
+python -c "import json;
            manifest = json.load(open('error/plugins/my_plugin/manifest.json'));
            print(manifest)"
 
@@ -491,7 +491,7 @@ pip install ruff  # For python_ruff plugin
 ruff check --version
 
 # 3. Check plugin code for errors
-python -c "from error.plugins.python_ruff.plugin import parse; 
+python -c "from error.plugins.python_ruff.plugin import parse;
            parse('test.py', '')"
 ```
 
@@ -920,7 +920,7 @@ Document if New Error
 
 ---
 
-**Total Errors Documented:** 25  
-**Categories:** 6  
-**Last Updated:** 2025-11-22  
+**Total Errors Documented:** 25
+**Categories:** 6
+**Last Updated:** 2025-11-22
 **Next Review:** After major incidents or pattern changes

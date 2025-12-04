@@ -52,29 +52,29 @@ from tui_app.core.panel_registry import register_panel
 @register_panel("my_panel")
 class MyPanel:
     """Description of your panel."""
-    
+
     @property
     def panel_id(self) -> str:
         return "my_panel"
-    
+
     @property
     def title(self) -> str:
         return "My Panel Title"
-    
+
     def create_widget(self, context: PanelContext) -> Static:
         """Create the Textual widget for this panel."""
         # Access state/pattern data via context
         if context.state_client:
             summary = context.state_client.get_pipeline_summary()
-        
+
         # Build widget content
         content = "My panel content"
         return Static(content)
-    
+
     def on_mount(self, context: PanelContext) -> None:
         """Called when panel is mounted."""
         pass
-    
+
     def on_unmount(self, context: PanelContext) -> None:
         """Called when panel is unmounted."""
         pass
@@ -118,10 +118,10 @@ def create_widget(self, context: PanelContext) -> Static:
         # Get pipeline summary
         summary = context.state_client.get_pipeline_summary()
         # summary.total_tasks, .running_tasks, .status, etc.
-        
+
         # Get recent tasks
         tasks = context.state_client.get_tasks(limit=10)
-        
+
         # Get specific task
         task = context.state_client.get_task("task-001")
 ```
@@ -135,10 +135,10 @@ def create_widget(self, context: PanelContext) -> Static:
     if context.pattern_client:
         # Get recent pattern runs
         runs = context.pattern_client.get_recent_runs(limit=10)
-        
+
         # Get events for a specific run
         events = context.pattern_client.get_run_events("run-001")
-        
+
         # Get currently active patterns
         active = context.pattern_client.get_active_patterns()
 ```

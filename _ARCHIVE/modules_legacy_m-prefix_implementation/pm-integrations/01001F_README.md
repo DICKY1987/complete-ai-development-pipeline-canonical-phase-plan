@@ -4,9 +4,9 @@ doc_id: DOC-GUIDE-01001F-README-1502
 
 # PM Integrations
 
-**Module ID**: pm-integrations  
-**ULID Prefix**: 01001F  
-**Layer**: api  
+**Module ID**: pm-integrations
+**ULID Prefix**: 01001F
+**Layer**: api
 **Source**: pm\integrations
 
 ## Purpose
@@ -31,5 +31,5 @@ None (independent module)
 
 ---
 
-**Created**: 1764168248.458027  
+**Created**: 1764168248.458027
 **Status**: Proof-of-concept module

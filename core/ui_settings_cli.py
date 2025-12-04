@@ -23,7 +23,7 @@ def cmd_show(args: argparse.Namespace) -> int:
     """Show current UI settings."""
     settings = UISettingsManager()
     summary = settings.get_settings_summary()
-    
+
     if args.json:
         print(json.dumps(summary, indent=2))
     else:
@@ -32,15 +32,15 @@ def cmd_show(args: argparse.Namespace) -> int:
         print(f"Mode:                    {summary['interactive_mode']}")
         print(f"Layout:                  {summary['interactive_layout']}")
         print(f"Auto-launch Interactive: {summary['auto_launch_interactive']}")
-        
+
         if summary['auto_launch_headless']:
             print(f"Auto-launch Headless:    {', '.join(summary['auto_launch_headless'])}")
-        
+
         print(f"\nAvailable Interactive Tools:")
         for tool in summary['available_interactive_tools']:
             marker = " (current)" if tool == summary['interactive_tool'] else ""
             print(f"  - {tool}{marker}")
-    
+
     return 0
 
 
@@ -48,28 +48,28 @@ def cmd_set_interactive(args: argparse.Namespace) -> int:
     """Set the interactive tool."""
     settings = UISettingsManager()
     tool_name = args.tool_name
-    
+
     if not tool_name:
         print("Error: tool_name is required", file=sys.stderr)
         return 1
-    
+
     # Check if tool is available
     available = settings.get_available_interactive_tools()
     if tool_name not in available:
         print(f"Error: '{tool_name}' is not available as an interactive tool", file=sys.stderr)
         print(f"Available tools: {', '.join(available)}", file=sys.stderr)
         return 1
-    
+
     # Get current tool
     current_tool = settings.get_interactive_tool()
-    
+
     if current_tool == tool_name:
         print(f"'{tool_name}' is already the interactive tool")
         return 0
-    
+
     # Set new interactive tool
     success = settings.set_interactive_tool(tool_name)
-    
+
     if success:
         print(f"Interactive tool changed: {current_tool} → {tool_name}")
         print(f"Settings saved to: {settings.config_path}")
@@ -84,7 +84,7 @@ def cmd_list_tools(args: argparse.Namespace) -> int:
     settings = UISettingsManager()
     all_tools = settings.list_all_tools()
     interactive_tool = settings.get_interactive_tool()
-    
+
     if args.json:
         output = {}
         for tool_name, config in all_tools.items():
@@ -100,16 +100,16 @@ def cmd_list_tools(args: argparse.Namespace) -> int:
         print("\n=== Tool Configurations ===\n")
         print(f"{'Tool':<20} {'Mode':<15} {'Description':<50}")
         print("-" * 85)
-        
+
         for tool_name, config in all_tools.items():
             mode = settings.get_tool_mode(tool_name)
             desc = config.get('description', '')[:47] + "..." if len(config.get('description', '')) > 50 else config.get('description', '')
-            
+
             marker = " *" if tool_name == interactive_tool else ""
             print(f"{tool_name:<20} {mode:<15} {desc:<50}{marker}")
-        
+
         print("\n* = Current interactive tool")
-    
+
     return 0
 
 
@@ -117,14 +117,14 @@ def cmd_get_mode(args: argparse.Namespace) -> int:
     """Get execution mode for a specific tool."""
     settings = UISettingsManager()
     tool_name = args.tool_name
-    
+
     if not tool_name:
         print("Error: tool_name is required", file=sys.stderr)
         return 1
-    
+
     mode = settings.get_tool_mode(tool_name)
     is_headless = settings.is_headless(tool_name)
-    
+
     if args.json:
         output = {
             'tool': tool_name,
@@ -137,7 +137,7 @@ def cmd_get_mode(args: argparse.Namespace) -> int:
         print(f"Tool: {tool_name}")
         print(f"Mode: {mode}")
         print(f"Headless: {is_headless}")
-    
+
     return 0
 
 
@@ -145,9 +145,9 @@ def main():
     parser = argparse.ArgumentParser(
         description="Manage UI settings for the AI Development Pipeline"
     )
-    
+
     subparsers = parser.add_subparsers(dest="command", help="Command to run")
-    
+
     # Show command
     show_parser = subparsers.add_parser(
         "show",
@@ -159,7 +159,7 @@ def main():
         help="Output as JSON"
     )
     show_parser.set_defaults(func=cmd_show)
-    
+
     # Set-interactive command
     set_parser = subparsers.add_parser(
         "set-interactive",
@@ -170,7 +170,7 @@ def main():
         help="Name of the tool to make interactive (e.g., aim, aider, codex)"
     )
     set_parser.set_defaults(func=cmd_set_interactive)
-    
+
     # List-tools command
     list_parser = subparsers.add_parser(
         "list-tools",
@@ -182,7 +182,7 @@ def main():
         help="Output as JSON"
     )
     list_parser.set_defaults(func=cmd_list_tools)
-    
+
     # Get-mode command
     mode_parser = subparsers.add_parser(
         "get-mode",
@@ -198,13 +198,13 @@ def main():
         help="Output as JSON"
     )
     mode_parser.set_defaults(func=cmd_get_mode)
-    
+
     args = parser.parse_args()
-    
+
     if not args.command:
         parser.print_help()
         return 1
-    
+
     try:
         return args.func(args)
     except Exception as e:

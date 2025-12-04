@@ -3,7 +3,7 @@ doc_id: DOC-PAT-OPERATION-KIND-REGISTRY-028
 # Version: 1.0.0
 # Created: 2025-11-24
 # Purpose: Canonical registry of operation kinds for pattern execution system
-# 
+#
 # This registry defines the finite set of operation kinds that can be used in:
 # - Phase plan steps (operation_kind field)
 # - Pattern specifications (operation_kinds array)
@@ -29,7 +29,7 @@ metadata:
 
 operation_kinds:
   # === FILESYSTEM OPERATIONS ===
-  
+
   - id: OPK-0001
     name: CREATE_FILE
     category: filesystem
@@ -48,7 +48,7 @@ operation_kinds:
     notes:
       - "Use SAVE_FILE for writing content to existing or newly created files"
       - "For creating multiple files, consider using batch operations"
-  
+
   - id: OPK-0002
     name: SAVE_FILE
     category: filesystem
@@ -68,7 +68,7 @@ operation_kinds:
     notes:
       - "All persistent file writes MUST use this operation_kind"
       - "Automatically adds DOC_LINK headers where applicable"
-  
+
   - id: OPK-0003
     name: DELETE_FILE
     category: filesystem
@@ -84,7 +84,7 @@ operation_kinds:
       - backup_path
     notes:
       - "Use with caution - consider archiving instead of deleting"
-  
+
   - id: OPK-0004
     name: MOVE_FILE
     category: filesystem
@@ -104,7 +104,7 @@ operation_kinds:
       - "Should update cross-references automatically where possible"
 
   # === CODE EDITING OPERATIONS ===
-  
+
   - id: OPK-0005
     name: APPLY_PATCH
     category: code_edit
@@ -123,7 +123,7 @@ operation_kinds:
     notes:
       - "Supports git patch format (unified diff)"
       - "Integrates with patch ledger for audit trail"
-  
+
   - id: OPK-0006
     name: REFACTOR_MODULE
     category: code_edit
@@ -142,7 +142,7 @@ operation_kinds:
     notes:
       - "Always run tests after refactoring"
       - "Create snapshot before major refactors"
-  
+
   - id: OPK-0007
     name: ADD_FUNCTION
     category: code_edit
@@ -163,7 +163,7 @@ operation_kinds:
       - "Should include proper documentation and type hints"
 
   # === TESTING OPERATIONS ===
-  
+
   - id: OPK-0008
     name: RUN_TESTS
     category: testing
@@ -181,7 +181,7 @@ operation_kinds:
     notes:
       - "Default runs entire test suite"
       - "Supports pytest, unittest, and other frameworks"
-  
+
   - id: OPK-0009
     name: RUN_LINTER
     category: testing
@@ -198,7 +198,7 @@ operation_kinds:
       - paths
     notes:
       - "Can auto-fix issues if supported by linter"
-  
+
   - id: OPK-0010
     name: RUN_FORMATTER
     category: testing
@@ -217,7 +217,7 @@ operation_kinds:
       - "Always run before committing code"
 
   # === DOCUMENTATION OPERATIONS ===
-  
+
   - id: OPK-0011
     name: CREATE_DOC
     category: docs
@@ -235,7 +235,7 @@ operation_kinds:
       - doc_id
     notes:
       - "Should include proper frontmatter and metadata"
-  
+
   - id: OPK-0012
     name: UPDATE_DOC
     category: docs
@@ -252,7 +252,7 @@ operation_kinds:
       - content
     notes:
       - "Preserves doc_id and other metadata"
-  
+
   - id: OPK-0013
     name: UPDATE_INDEX
     category: docs
@@ -271,7 +271,7 @@ operation_kinds:
       - "Validates index structure after update"
 
   # === GIT OPERATIONS ===
-  
+
   - id: OPK-0014
     name: CREATE_WORKTREE
     category: git
@@ -288,7 +288,7 @@ operation_kinds:
       - base_branch
     notes:
       - "Enables parallel workstreams without branch switching"
-  
+
   - id: OPK-0015
     name: MERGE_WORKTREE
     category: git
@@ -304,7 +304,7 @@ operation_kinds:
       - squash
     notes:
       - "Should run tests before merging"
-  
+
   - id: OPK-0016
     name: CREATE_COMMIT
     category: git
@@ -321,7 +321,7 @@ operation_kinds:
       - amend
     notes:
       - "Commit message should follow conventional commits format"
-  
+
   - id: OPK-0017
     name: OPEN_PULL_REQUEST
     category: git
@@ -340,7 +340,7 @@ operation_kinds:
       - "Should include link to related issues or workstreams"
 
   # === ORCHESTRATION OPERATIONS ===
-  
+
   - id: OPK-0018
     name: PROCESS_PATCHES
     category: orchestration
@@ -358,7 +358,7 @@ operation_kinds:
     notes:
       - "Implements PAT-PATCH-001 pattern"
       - "Maintains patch ledger for audit trail"
-  
+
   - id: OPK-0019
     name: SEARCH_FILES
     category: orchestration
@@ -377,7 +377,7 @@ operation_kinds:
     notes:
       - "Implements PAT-SEARCH-001 pattern"
       - "Supports multiple filter criteria"
-  
+
   - id: OPK-0020
     name: VALIDATE_COMPLIANCE
     category: orchestration
@@ -397,7 +397,7 @@ operation_kinds:
       - "Sets exit code based on pass/fail"
 
   # === ANALYSIS OPERATIONS ===
-  
+
   - id: OPK-0021
     name: ANALYZE_CODEBASE
     category: analysis
@@ -413,7 +413,7 @@ operation_kinds:
       - output_format
     notes:
       - "Useful for codebase understanding and documentation"
-  
+
   - id: OPK-0022
     name: EXTRACT_PATTERNS
     category: analysis
@@ -430,7 +430,7 @@ operation_kinds:
       - output_path
     notes:
       - "Used to discover new operation kinds or patterns"
-  
+
   - id: OPK-0023
     name: GENERATE_REPORT
     category: analysis
@@ -449,7 +449,7 @@ operation_kinds:
       - "Supports multiple output formats"
 
   # === REGISTRY OPERATIONS ===
-  
+
   - id: OPK-0024
     name: CREATE_REGISTRY_FILE
     category: orchestration
@@ -466,7 +466,7 @@ operation_kinds:
       - initial_entries
     notes:
       - "Used for bootstrapping new registry infrastructure"
-  
+
   - id: OPK-0025
     name: UPDATE_PATTERN_INDEX
     category: orchestration

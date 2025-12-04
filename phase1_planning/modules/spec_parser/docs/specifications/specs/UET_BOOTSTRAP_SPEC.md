@@ -138,28 +138,28 @@ domain_classification:
       - has_tests: true
       - has_build_system: true
     resource_types: ["files", "modules", "packages"]
-    
+
   data-pipeline:
     indicators:
       - has_sql_files: true
       - has_etl_configs: true
       - has_schema_definitions: true
     resource_types: ["tables", "schemas", "queries", "datasets"]
-    
+
   operations:
     indicators:
       - has_dockerfiles: true
       - has_k8s_manifests: true
       - has_terraform: true
     resource_types: ["services", "deployments", "configs", "infrastructure"]
-    
+
   documentation:
     indicators:
       - has_markdown_files: true
       - no_source_code: true
       - has_doc_structure: true
     resource_types: ["documents", "assets", "templates"]
-    
+
   mixed:
     indicators:
       - multiple_domains: true
@@ -172,21 +172,21 @@ tool_detection:
   code_editors:
     - aider: check_command("aider --version")
     - cursor: check_command("cursor --version")
-    
+
   ai_tools:
     - codex_cli: check_command("codex --version")
     - claude_cli: check_in_path("claude")
-    
+
   testing:
     - pytest: check_file("pytest.ini") or check_file("pyproject.toml")
     - jest: check_file("jest.config.js")
     - go_test: check_language("go")
-    
+
   linting:
     - ruff: check_file("ruff.toml")
     - eslint: check_file(".eslintrc")
     - pylint: check_file(".pylintrc")
-    
+
   vcs:
     - git: check_dir(".git/")
 ```
@@ -198,11 +198,11 @@ constraint_inference:
     - tests_required: has_ci_test_step
     - lint_required: has_ci_lint_step
     - coverage_threshold: extract_from_ci_config
-    
+
   from_project_structure:
     - isolated_tests: tests_dir_separate_from_src
     - monorepo: multiple_package_json_files
-    
+
   from_existing_docs:
     - patch_only: check_for_contributing_md_patch_rules
     - approval_required: check_for_codeowners_file
@@ -242,16 +242,16 @@ profile_selection:
       profile: "software-dev-js"
     else:
       profile: "software-dev-generic"
-      
+
   elif domain == "data-pipeline":
     profile: "data-pipeline"
-    
+
   elif domain == "operations":
     profile: "operations"
-    
+
   elif domain == "documentation":
     profile: "documentation"
-    
+
   elif domain == "mixed":
     profile: "mixed"
     compose_from:
@@ -277,26 +277,26 @@ adds_resource_types:
   - type: "files"
     scope_format: "glob_patterns"
     operations: ["read", "write", "create", "delete"]
-    
+
 adds_change_types:
   - kind: "file_patch"
     format: "unified_diff"
     validation: ["syntax_check", "tests"]
-    
+
 adds_task_kinds:
   - "code_edit"
   - "code_review"
   - "refactor"
   - "analysis"
   - "documentation"
-  
+
 adds_constraints:
   - patch_only: true
   - max_lines_changed: 300
   - max_files_changed: 10
   - tests_must_pass: true
   - ascii_only: true
-  
+
 adds_validation_types:
   - type: "pytest"
     command: "pytest -q"
@@ -312,7 +312,7 @@ composed_profile:
   base_profiles:
     - "software-dev-python"  # For src/
     - "documentation"        # For docs/
-    
+
   resource_scope_mapping:
     "src/**/*":
       profile: "software-dev-python"
@@ -384,11 +384,11 @@ available_tools:
     command: "aider"
     capabilities: ["code_edit", "refactor"]
     max_parallel: 2
-    
+
   - tool_id: "pytest"
     command: "pytest"
     capabilities: ["test_execution"]
-    
+
   - tool_id: "ruff"
     command: "ruff check"
     capabilities: ["linting"]
@@ -492,7 +492,7 @@ apps:
       max_parallel: 2
       timeout_seconds: 1200
     safety_tier: "high"
-    
+
   pytest:
     kind: "validator"
     command: "pytest -q"
@@ -509,7 +509,7 @@ routing:
         risk_tier: ["R1", "R2"]
       select_from: ["aider"]
       strategy: "fixed"
-      
+
     - id: "validate_with_tests"
       match:
         task_kind: ["code_edit", "refactor"]
@@ -582,20 +582,20 @@ EOF
 # Conceptual validation process
 def validate_generated_specs():
     errors = []
-    
+
     # Validate PROJECT_PROFILE
     if not validate_schema("PROJECT_PROFILE.yaml", "schema/project_profile.v1.json"):
         errors.append("PROJECT_PROFILE.yaml failed schema validation")
-    
+
     # Validate each phase
     for phase_file in glob("phases/*.yaml"):
         if not validate_schema(phase_file, "schema/phase_spec.v1.json"):
             errors.append(f"{phase_file} failed schema validation")
-    
+
     # Validate router config
     if not validate_schema("config/router.config.yaml", "schema/router_config.v1.json"):
         errors.append("router.config.yaml failed schema validation")
-    
+
     return errors
 ```
 
@@ -605,15 +605,15 @@ consistency_checks:
   - name: "Profile constraints not relaxed"
     check: |
       PROJECT_PROFILE.constraints should be >= selected_profile.constraints
-    
+
   - name: "Phase scopes within project scope"
     check: |
       All phase.resource_scope must be subset of PROJECT_PROFILE.resource_types
-    
+
   - name: "Tools are available"
     check: |
       All router.config.apps must be in available_tools
-    
+
   - name: "No circular phase dependencies"
     check: |
       Phase dependency graph is acyclic
@@ -624,13 +624,13 @@ consistency_checks:
 auto_fix_rules:
   - error: "Schema validation failed"
     fix: "Regenerate artifact with corrected structure"
-    
+
   - error: "Constraint relaxation detected"
     fix: "Restore stricter constraint from profile"
-    
+
   - error: "Tool not available"
     fix: "Remove tool from router config or mark as optional"
-    
+
   - error: "Invalid resource scope"
     fix: "Narrow scope to valid patterns"
 ```
@@ -640,13 +640,13 @@ auto_fix_rules:
 cannot_auto_fix:
   - "Multiple equally valid profile choices"
     → Ask human to select profile
-    
+
   - "Critical tools missing (no editors detected)"
     → Report blockage, request tool installation
-    
+
   - "Project structure doesn't match any known pattern"
     → Request human guidance on domain classification
-    
+
   - "Security tier ambiguous (contains secrets/)"
     → Ask human to define security policy
 ```
@@ -1054,16 +1054,16 @@ enhancement_sequence:
     - PROJECT_PROFILE
     - router.config
     - directory structure
-    
+
   2_basic_phases:
     - Add 1-2 core phases
     - Enable task routing
-    
+
   3_full_governance:
     - Add all domain phases
     - Enable patch management
     - Enable error pipeline
-    
+
   4_advanced:
     - Add custom phases
     - Configure approval workflows
@@ -1095,7 +1095,7 @@ When framework versions change, AI should:
 def check_framework_version():
     current = read_framework_version("PROJECT_PROFILE.yaml")
     latest = read_framework_version("FRAMEWORK_VERSION")
-    
+
     if current < latest:
         return {
             "upgrade_available": True,
@@ -1177,7 +1177,7 @@ required_schemas:
   - schema/phase_spec.v1.json             # Phase instances
   - schema/router_config.v1.json          # Router config
   - schema/doc-meta.v1.json               # Doc metadata
-  
+
 profile_schemas:
   - profiles/software-dev/extensions.json
   - profiles/data-pipeline/extensions.json

@@ -1,7 +1,7 @@
 # Plugin: echo
 
-**Phase**: 6 (Error Recovery)  
-**Type**: Error Detection/Fix Plugin  
+**Phase**: 6 (Error Recovery)
+**Type**: Error Detection/Fix Plugin
 **Purpose**: echo error detection and auto-fix
 
 ## Structure

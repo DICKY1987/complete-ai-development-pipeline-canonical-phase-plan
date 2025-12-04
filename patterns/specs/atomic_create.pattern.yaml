@@ -24,7 +24,7 @@ metadata:
 intent: |
   Create 1-3 implementation files with corresponding tests.
   Used when adding small, isolated functionality to a codebase.
-  
+
   This pattern enforces:
   - Complete files in one turn (no placeholders)
   - Test-driven approach (1 test file per implementation file)
@@ -40,7 +40,7 @@ applicability:
     - Creating more than 3 files (use batch_create instead)
     - Modifying existing files (use refactor_patch instead)
     - Complex multi-module features (break into multiple atomic creates)
-  
+
   constraints:
     max_files: 3
     always_include_tests: true
@@ -54,7 +54,7 @@ inputs:
     required: true
     description: "Absolute path to project root directory"
     example: "C:\\Projects\\MyApp"
-    
+
   files_to_create:
     type: "array"
     required: true
@@ -81,14 +81,14 @@ inputs:
           type: "string"
           description: "Optional template name to use"
           example: "python_module"
-  
+
   language:
     type: "string"
     required: false
     default: "python"
     enum: ["python", "javascript", "typescript", "powershell"]
     description: "Programming language for files"
-  
+
   test_framework:
     type: "string"
     required: false
@@ -99,13 +99,13 @@ inputs:
       javascript: "jest"
       typescript: "jest"
       powershell: "pester"
-  
+
   include_type_hints:
     type: "boolean"
     required: false
     default: true
     description: "Include type hints (Python/TypeScript)"
-  
+
   include_docstrings:
     type: "boolean"
     required: false
@@ -118,7 +118,7 @@ outputs:
     description: "List of successfully created file paths"
     items:
       type: "string"
-  
+
   test_results:
     type: "object"
     description: "Results of running tests"
@@ -132,7 +132,7 @@ outputs:
       duration_seconds:
         type: "number"
         description: "Test execution time"
-  
+
   validation_results:
     type: "object"
     description: "Syntax and static analysis results"
@@ -143,7 +143,7 @@ outputs:
         type: "integer"
       linter_warnings:
         type: "integer"
-  
+
   execution_duration_seconds:
     type: "number"
     description: "Total pattern execution time"
@@ -176,37 +176,37 @@ execution_steps:
       - action: "verify_project_root_exists"
         check: "project_root directory exists"
         on_fail: "abort_with_error"
-      
+
       - action: "verify_parent_directories"
         check: "all parent directories exist or can be created"
         on_fail: "auto_create_parents"
-      
+
       - action: "verify_no_conflicts"
         check: "no files exist at target paths"
         on_fail: "abort_with_error"
-      
+
       - action: "check_language_tools"
         check: "required tools available (python, pytest, etc.)"
         on_fail: "warn_and_continue"
-    
+
     ground_truth_verification:
       - type: "command"
         command: "Test-Path {project_root}"
         expect: "True"
-      
+
       - type: "command"
         command: "python --version"
         expect_pattern: "Python 3\\."
-    
+
     reporting:
       on_success: "Pre-flight checks passed"
       on_failure: "Pre-flight checks failed: {error_details}"
-  
+
   - step_id: "S2_create_implementation_files"
     description: "Create implementation files with complete code"
     strategy: "sequential"
     order: ["implementation_files_first", "test_files_second"]
-    
+
     actions:
       - action: "generate_file_content"
         for_each: "implementation_files"
@@ -216,29 +216,29 @@ execution_steps:
           - "Include function/class docstrings"
           - "No TODOs or placeholders"
           - "Complete, working implementation"
-      
+
       - action: "write_file"
         for_each: "implementation_files"
         mode: "create_new"
         encoding: "utf-8"
-    
+
     ground_truth_verification:
       - type: "file_exists"
         for_each: "created_files"
         path: "{project_root}/{file_path}"
-      
+
       - type: "syntax_check"
         for_each: "created_files"
         command: "python -m py_compile {file_path}"
         expect_exit_code: 0
-    
+
     reporting:
       on_success: "Created {count} implementation files"
       on_failure: "Failed to create implementation file: {file_path}"
-  
+
   - step_id: "S3_create_test_files"
     description: "Create test files with comprehensive test coverage"
-    
+
     actions:
       - action: "generate_test_content"
         for_each: "test_files"
@@ -249,59 +249,59 @@ execution_steps:
           - "Test edge cases"
           - "Test error conditions"
           - "Use proper assertions"
-      
+
       - action: "write_file"
         for_each: "test_files"
         mode: "create_new"
         encoding: "utf-8"
-    
+
     ground_truth_verification:
       - type: "file_exists"
         for_each: "test_files"
         path: "{project_root}/{file_path}"
-      
+
       - type: "syntax_check"
         for_each: "test_files"
         command: "python -m py_compile {file_path}"
         expect_exit_code: 0
-    
+
     reporting:
       on_success: "Created {count} test files"
       on_failure: "Failed to create test file: {file_path}"
-  
+
   - step_id: "S4_validate_syntax"
     description: "Validate all files have correct syntax"
-    
+
     actions:
       - action: "check_syntax"
         for_each: "all_created_files"
         command: "python -m py_compile {file_path}"
         expect_exit_code: 0
-    
+
     ground_truth_verification:
       - type: "all_files_compile"
         command: "python -m compileall {project_root}/src {project_root}/tests"
         expect_exit_code: 0
-    
+
     reporting:
       on_success: "All files have valid syntax"
       on_failure: "Syntax errors found in: {failed_files}"
-  
+
   - step_id: "S5_run_tests"
     description: "Execute tests and verify they pass"
-    
+
     actions:
       - action: "run_test_suite"
         command: "python -m pytest {test_files} -v"
         expect_pattern: ".*passed.*0 failed.*"
         timeout_seconds: 60
-      
+
       - action: "parse_test_results"
         extract:
           - passed_count
           - failed_count
           - duration
-    
+
     on_test_failure:
       max_auto_fix_attempts: 3
       actions:
@@ -309,38 +309,38 @@ execution_steps:
         - "attempt_fix"
         - "rerun_tests"
       abort_if_still_failing: true
-    
+
     ground_truth_verification:
       - type: "test_results"
         check: "failed_count == 0"
         require: true
-      
+
       - type: "test_results"
         check: "passed_count > 0"
         require: true
-    
+
     reporting:
       on_success: "All tests passed ({passed_count} passed in {duration}s)"
       on_failure: "Tests failed ({failed_count} failed, {passed_count} passed)"
-  
+
   - step_id: "S6_git_status_verification"
     description: "Verify git status shows only expected new files"
-    
+
     actions:
       - action: "check_git_status"
         command: "git status --porcelain"
         expect_pattern: "^\\?\\? .*"
         expect_count: "{created_files.length}"
-      
+
       - action: "verify_no_modifications"
         check: "no existing files were modified"
-    
+
     ground_truth_verification:
       - type: "git_clean_except_new"
         command: "git status --porcelain"
         expect_only_untracked: true
         expect_count: "{created_files.length}"
-    
+
     reporting:
       on_success: "Git status clean (only {count} new files)"
       on_failure: "Unexpected git changes detected"
@@ -351,28 +351,28 @@ ground_truth_criteria:
     - criterion: "all_files_exist"
       description: "All specified files were created"
       verification: "file_system_check"
-    
+
     - criterion: "all_files_compile"
       description: "All files have valid syntax"
       verification: "syntax_check"
-    
+
     - criterion: "all_tests_pass"
       description: "All tests pass without errors"
       verification: "test_execution"
-    
+
     - criterion: "no_placeholders"
       description: "No TODO or placeholder comments"
       verification: "content_scan"
-    
+
     - criterion: "git_status_clean"
       description: "Only expected new files in git status"
       verification: "git_status"
-  
+
   optional:
     - criterion: "type_hints_present"
       description: "Type hints included (if enabled)"
       verification: "static_analysis"
-    
+
     - criterion: "docstrings_present"
       description: "Docstrings included (if enabled)"
       verification: "content_scan"
@@ -381,20 +381,20 @@ error_handling:
   - error_type: "file_already_exists"
     response: "abort"
     message: "File already exists at {path}. Use refactor_patch pattern instead."
-  
+
   - error_type: "parent_directory_missing"
     response: "auto_create"
     message: "Creating parent directory: {directory}"
-  
+
   - error_type: "syntax_error"
     response: "abort"
     message: "Generated code has syntax errors. Pattern failed."
-  
+
   - error_type: "test_failure"
     response: "retry"
     max_attempts: 3
     message: "Tests failed. Attempting fix (attempt {attempt}/{max_attempts})"
-  
+
   - error_type: "test_failure_after_retries"
     response: "abort"
     message: "Tests still failing after {max_attempts} attempts. Manual intervention required."
@@ -402,18 +402,18 @@ error_handling:
 self_healing:
   enabled: true
   max_attempts: 3
-  
+
   rules:
     - trigger: "test_failure"
       condition: "import_error"
       fix: "add_missing_import"
       auto_apply: true
-    
+
     - trigger: "test_failure"
       condition: "assertion_error"
       fix: "analyze_and_fix_logic"
       auto_apply: true
-    
+
     - trigger: "syntax_error"
       condition: "indentation_error"
       fix: "fix_indentation"
@@ -425,12 +425,12 @@ tool_bindings:
     context_required:
       - project_root
       - codebase_structure
-    
+
   github_copilot_cli:
     invoke: "gh copilot pattern atomic_create {instance_path}"
     context_required:
       - current_directory
-  
+
   cursor:
     invoke: "@pattern atomic_create"
     context_required:
@@ -441,12 +441,12 @@ performance_profile:
   estimated_time_pattern: 720  # 12 minutes
   time_savings_seconds: 1080
   time_savings_percentage: "60%"
-  
+
   token_usage_manual: 15000
   token_usage_pattern: 3000
   token_savings: 12000
   token_savings_percentage: "80%"
-  
+
   decision_points_eliminated: 8
   permission_prompts_eliminated: 2
 
@@ -454,11 +454,11 @@ compliance:
   requirements:
     - "PAT-NAME-001"  # Naming convention
     - "PAT-CHECK-001"  # Pattern compliance
-  
+
   governance:
     - "DEV_RULES_CORE"  # No placeholders
     - "UET_PRINCIPLES"  # Complete implementation
-  
+
   quality_gates:
     - "syntax_valid"
     - "tests_pass"

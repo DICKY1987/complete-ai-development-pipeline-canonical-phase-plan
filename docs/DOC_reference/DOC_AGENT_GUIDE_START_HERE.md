@@ -15,22 +15,22 @@ doc_id: DOC-GUIDE-AGENT_GUIDE_START_HERE-109
 ## 🎯 What Do You Need?
 
 ### "I want to know which agent to use for my task"
-➜ **Read**: [Agent Quick Reference](AGENT_QUICK_REFERENCE.md)  
-📊 **What you'll find**: Decision tree, task-to-agent mapping, common scenarios  
+➜ **Read**: [Agent Quick Reference](AGENT_QUICK_REFERENCE.md)
+📊 **What you'll find**: Decision tree, task-to-agent mapping, common scenarios
 ⏱️ **Reading time**: 5 minutes
 
 ---
 
 ### "I want to understand all available agents"
-➜ **Read**: [Agent Analysis & Recommendations](AGENT_ANALYSIS_AND_RECOMMENDATIONS.md)  
-📊 **What you'll find**: Complete analysis of 6 existing agents + 7 recommended new ones  
+➜ **Read**: [Agent Analysis & Recommendations](AGENT_ANALYSIS_AND_RECOMMENDATIONS.md)
+📊 **What you'll find**: Complete analysis of 6 existing agents + 7 recommended new ones
 ⏱️ **Reading time**: 15-20 minutes
 
 ---
 
 ### "I want to develop a custom agent"
-➜ **Read**: [Custom Agents Directory](../scripts/agents/README.md)  
-📊 **What you'll find**: Development guidelines, templates, standards  
+➜ **Read**: [Custom Agents Directory](../scripts/agents/README.md)
+📊 **What you'll find**: Development guidelines, templates, standards
 ⏱️ **Reading time**: 10 minutes + implementation time
 
 ---
@@ -75,22 +75,22 @@ python scripts/agents/workstream_generator.py --interactive
 ## 🚀 Quick Start Examples
 
 ### Example 1: Small Code Edit
-**Use**: GitHub Copilot (in your IDE)  
+**Use**: GitHub Copilot (in your IDE)
 **Time**: Instant suggestions as you type
 
 ### Example 2: Feature Across 3 Files
-**Use**: Claude Code with task specification  
-**Time**: 30-60 minutes  
+**Use**: Claude Code with task specification
+**Time**: 30-60 minutes
 **See**: [CLAUDE.md](../CLAUDE.md) for task spec format
 
 ### Example 3: Code Quality Check
-**Use**: Error Engine  
-**Command**: `python scripts/run_error_engine.py <files>`  
+**Use**: Error Engine
+**Command**: `python scripts/run_error_engine.py <files>`
 **Time**: 2-5 minutes
 
 ### Example 4: Create New Workstream
-**Current**: Manual (20-30 minutes)  
-**Future**: Workstream Generator Agent (5 minutes)  
+**Current**: Manual (20-30 minutes)
+**Future**: Workstream Generator Agent (5 minutes)
 **Status**: Template ready, needs implementation
 
 ---
@@ -120,5 +120,5 @@ python scripts/agents/workstream_generator.py --interactive
 
 ---
 
-**Last Updated**: 2025-11-23  
+**Last Updated**: 2025-11-23
 **Maintained By**: AI Development Pipeline Team

@@ -1,8 +1,8 @@
 doc_id: DOC-CONFIG-CODEBASE-MAP-013
 # Codebase Map
 
-**Purpose**: Structured module map for AI navigation  
-**Format**: YAML  
+**Purpose**: Structured module map for AI navigation
+**Format**: YAML
 **Last Updated**: 2025-11-25
 
 ---
@@ -41,7 +41,7 @@ modules:
     test_location: "tests/core/"
     documentation: "core/README.md"
     complexity: "high"
-    
+
   engine:
     purpose: "Distributed job execution with retry and circuit breaker"
     location: "engine/"
@@ -59,7 +59,7 @@ modules:
     test_location: "tests/engine/"
     documentation: "engine/README.md"
     complexity: "medium"
-    
+
   error:
     purpose: "Error detection pipeline with plugin architecture"
     location: "error/"
@@ -81,7 +81,7 @@ modules:
     documentation: "error/README.md"
     complexity: "medium"
     extensibility: "high"
-    
+
   pm:
     purpose: "Project management (CCPM, workstreams, governance)"
     location: "pm/"
@@ -98,7 +98,7 @@ modules:
     test_location: "tests/pm/"
     documentation: "pm/README.md"
     complexity: "medium"
-    
+
   specifications:
     purpose: "OpenSpec specification management and validation"
     location: "specifications/"
@@ -114,7 +114,7 @@ modules:
     test_location: "tests/specifications/"
     documentation: "specifications/README.md"
     complexity: "low"
-    
+
   aim:
     purpose: "AI tools registry and management"
     location: "aim/"
@@ -129,7 +129,7 @@ modules:
       - "aim.registry:ToolRegistry"
     test_location: "tests/aim/"
     complexity: "low"
-    
+
   scripts:
     purpose: "Automation and utility scripts"
     location: "scripts/"
@@ -144,7 +144,7 @@ modules:
       - "pm"
     test_location: "tests/scripts/"
     complexity: "low"
-    
+
   infra:
     purpose: "Infrastructure and shared utilities"
     location: "infra/"
@@ -165,13 +165,13 @@ dependency_flow:
   tier_0_foundation:
     - "infra"
     description: "No dependencies, provides foundation"
-    
+
   tier_1_core:
     - "core"
     - "engine"
     depends_on: ["infra"]
     description: "Core orchestration and execution"
-    
+
   tier_2_services:
     - "error"
     - "pm"
@@ -179,12 +179,12 @@ dependency_flow:
     - "aim"
     depends_on: ["core", "infra"]
     description: "Service layer (detection, management, validation)"
-    
+
   tier_3_utilities:
     - "scripts"
     depends_on: ["core", "error", "pm"]
     description: "Utility layer (automation, analysis)"
-    
+
   tier_4_interface:
     - "gui"
     depends_on: ["core", "error", "pm", "specifications"]
@@ -209,27 +209,27 @@ use_cases:
     dependencies:
       - "core.state.db"
       - "core.planning.workstream_manager"
-    
+
   scan_for_errors:
     entry: "error/engine/error_engine.py:ErrorEngine.scan()"
     command: "python -m error.engine.error_engine --scan"
     dependencies:
       - "error.plugins.*"
-    
+
   cleanup_repository:
     entry: "scripts/analyze_cleanup_candidates.py"
     command: "python scripts/analyze_cleanup_candidates.py"
     dependencies:
       - "pathlib"
       - "json"
-    
+
   run_tests:
     entry: "pytest"
     command: "pytest tests/"
     dependencies:
       - "pytest"
       - "pytest-cov"
-    
+
   validate_workstreams:
     entry: "scripts/validate_workstreams.py"
     command: "python scripts/validate_workstreams.py"
@@ -264,7 +264,7 @@ plugins:
         location: "error/plugins/yaml_validator/"
         languages: ["yaml"]
         auto_fix: false
-    
+
     adding_new_plugin:
       steps:
         - "Create error/plugins/<plugin_name>/"
@@ -283,23 +283,23 @@ configuration:
     - path: "CODEBASE_INDEX.yaml"
       purpose: "Module structure and relationships"
       format: "yaml"
-      
+
     - path: "config/settings.yaml"
       purpose: "Application settings"
       format: "yaml"
-      
+
     - path: "pyproject.toml"
       purpose: "Python project metadata"
       format: "toml"
       location: "config/python/"
-      
+
   governance:
     - path: "docs/FOLDER_VERSION_SCORING_SPEC.md"
       purpose: "Folder version detection rules"
-      
+
     - path: "docs/DOC_DOCUMENTATION_CLEANUP_PATTERN.md"
       purpose: "Documentation cleanup process"
-      
+
     - path: "pm/rules/*.yaml"
       purpose: "Project management rules"
 ```
@@ -313,21 +313,21 @@ testing:
   framework: "pytest"
   root: "tests/"
   structure_mirrors_source: true
-  
+
   test_types:
     unit:
       location: "tests/<module>/"
       naming: "test_<component>.py"
       coverage_target: 70
-      
+
     integration:
       location: "tests/integration/"
       naming: "test_integration_<feature>.py"
-      
+
     fixtures:
       location: "tests/conftest.py"
       shared: true
-  
+
   commands:
     run_all: "pytest"
     run_module: "pytest tests/core/"
@@ -345,16 +345,16 @@ documentation:
     location: "docs/"
     naming: "DOC_*.md"
     governance: "DOC_ID system"
-    
+
   module:
     location: "<module>/README.md"
     purpose: "Module-specific documentation"
-    
+
   api:
     location: "schema/"
     format: "yaml"
     purpose: "API contracts and data schemas"
-    
+
   architecture:
     - "CODEBASE_INDEX.yaml"
     - "docs/FOLDER_VERSION_SCORING_SPEC.md"
@@ -369,25 +369,25 @@ documentation:
 common_queries:
   "Where is the orchestrator?":
     answer: "core/engine/orchestrator.py"
-    
+
   "How do I add an error plugin?":
     answer: "See: error/plugins/python_ruff/ as template"
-    
+
   "Where are the tests?":
     answer: "tests/ - mirrors source structure"
-    
+
   "How do I run cleanup?":
     answer: "python scripts/analyze_cleanup_candidates.py"
-    
+
   "What's the module structure?":
     answer: "See: CODEBASE_INDEX.yaml or this file"
-    
+
   "Where are workstream definitions?":
     answer: "pm/workstreams/*.yaml"
 ```
 
 ---
 
-**Last Updated**: 2025-11-25  
-**Auto-Generated**: No (manual maintenance)  
+**Last Updated**: 2025-11-25
+**Auto-Generated**: No (manual maintenance)
 **Validation**: Run `python scripts/validate_codebase_map.py`

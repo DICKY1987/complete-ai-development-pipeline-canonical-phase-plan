@@ -10,7 +10,7 @@ def test_pricing_table():
 # DOC_ID: DOC-TEST-TESTS-TEST-COST-TRACKING-039
     assert 'gpt-4' in PRICING_TABLE
     assert 'claude-3-sonnet' in PRICING_TABLE
-    
+
     gpt4 = PRICING_TABLE['gpt-4']
     assert gpt4.input_cost_per_1k == 0.03
     assert gpt4.output_cost_per_1k == 0.06
@@ -19,7 +19,7 @@ def test_pricing_table():
 def test_record_usage(temp_db):
     """Test recording token usage."""
     tracker = CostTracker()
-    
+
     cost = tracker.record_usage(
         run_id="run-test",
         workstream_id="ws-test",
@@ -29,7 +29,7 @@ def test_record_usage(temp_db):
         input_tokens=1000,
         output_tokens=500
     )
-    
+
     # GPT-4: $0.03 per 1k input + $0.06 per 1k output
     # 1000 input = $0.03, 500 output = $0.03
     expected_cost = 0.03 + 0.03
@@ -39,7 +39,7 @@ def test_record_usage(temp_db):
 def test_get_total_cost(temp_db):
     """Test getting total cost for a run."""
     tracker = CostTracker()
-    
+
     # Record some usage
     tracker.record_usage(
         run_id="run-cost-test",
@@ -50,7 +50,7 @@ def test_get_total_cost(temp_db):
         input_tokens=2000,
         output_tokens=1000
     )
-    
+
     tracker.record_usage(
         run_id="run-cost-test",
         workstream_id="ws-2",
@@ -60,6 +60,6 @@ def test_get_total_cost(temp_db):
         input_tokens=3000,
         output_tokens=1500
     )
-    
+
     total = tracker.get_total_cost("run-cost-test")
     assert total > 0

@@ -2,89 +2,89 @@
 graph TD
     %% Source Code
     CODE["💻 Source Code<br/><small>Python, JS, YAML, etc.</small>"]
-    
+
     %% Detection Trigger
     TRIGGER["🔔 Detection Trigger<br/><small>Manual or Automated</small>"]
-    
+
     %% Error Engine
     ERROR_ENGINE["🔍 Error Engine<br/><small>error.engine.error_engine</small>"]
     LOAD_PLUGINS["🔌 Load Plugins<br/><small>error.plugin_manager</small>"]
-    
+
     %% State Machine
     STATE_MACHINE["⚡ State Machine<br/><small>error.engine.error_state_machine</small>"]
-    
+
     %% Plugin Execution
     SELECT_PLUGINS["🎯 Select Relevant Plugins<br/><small>Based on file types</small>"]
-    
+
     PYTHON_PLUGINS["🐍 Python Plugins<br/><small>ruff, mypy, black, pylint</small>"]
     JS_PLUGINS["📜 JavaScript Plugins<br/><small>eslint, prettier</small>"]
     YAML_PLUGINS["📝 YAML Plugins<br/><small>yamllint</small>"]
     MD_PLUGINS["📄 Markdown Plugins<br/><small>markdownlint, mdformat</small>"]
     SECURITY_PLUGINS["🔒 Security Plugins<br/><small>bandit, semgrep, gitleaks</small>"]
-    
+
     %% Result Processing
     COLLECT_RESULTS["📊 Collect Results<br/><small>Aggregate findings</small>"]
     CLASSIFY["🏷️ Classify Errors<br/><small>Severity, type, category</small>"]
-    
+
     %% State Transitions
     STATE_NEW["🆕 NEW"]
     STATE_DETECTED["🔍 DETECTED"]
     STATE_FIXED["✅ FIXED"]
     STATE_IGNORED["⏭️ IGNORED"]
-    
+
     %% Database Storage
     STORE_DB["💾 Store in Database<br/><small>core.state.crud</small>"]
     STORE_JSONL["📝 Append to JSONL<br/><small>pipeline_errors.jsonl</small>"]
-    
+
     %% Auto-Fix
     AUTO_FIX["🔧 Auto-Fix<br/><small>black, prettier, isort</small>"]
     VERIFY_FIX["✅ Verify Fix<br/><small>Re-run detection</small>"]
-    
+
     %% Reporting
     GENERATE_REPORT["📋 Generate Report<br/><small>CLI or Service</small>"]
-    
+
     %% Output
     RESULTS["📊 Error Report<br/><small>Console, File, or API</small>"]
-    
+
     %% Flow
     CODE --> TRIGGER
     TRIGGER --> ERROR_ENGINE
     ERROR_ENGINE --> LOAD_PLUGINS
     LOAD_PLUGINS --> STATE_MACHINE
-    
+
     STATE_MACHINE --> SELECT_PLUGINS
-    
+
     SELECT_PLUGINS --> PYTHON_PLUGINS
     SELECT_PLUGINS --> JS_PLUGINS
     SELECT_PLUGINS --> YAML_PLUGINS
     SELECT_PLUGINS --> MD_PLUGINS
     SELECT_PLUGINS --> SECURITY_PLUGINS
-    
+
     PYTHON_PLUGINS --> COLLECT_RESULTS
     JS_PLUGINS --> COLLECT_RESULTS
     YAML_PLUGINS --> COLLECT_RESULTS
     MD_PLUGINS --> COLLECT_RESULTS
     SECURITY_PLUGINS --> COLLECT_RESULTS
-    
+
     COLLECT_RESULTS --> CLASSIFY
     CLASSIFY --> STATE_NEW
-    
+
     STATE_NEW -->|"Error Detected"| STATE_DETECTED
     STATE_DETECTED -->|"Auto-Fix Available"| AUTO_FIX
     STATE_DETECTED -->|"Manual Fix"| STORE_DB
     STATE_DETECTED -->|"False Positive"| STATE_IGNORED
-    
+
     AUTO_FIX --> VERIFY_FIX
     VERIFY_FIX -->|"Fixed"| STATE_FIXED
     VERIFY_FIX -->|"Still Failing"| STATE_DETECTED
-    
+
     STATE_FIXED --> STORE_DB
     STATE_IGNORED --> STORE_DB
-    
+
     STORE_DB --> STORE_JSONL
     STORE_JSONL --> GENERATE_REPORT
     GENERATE_REPORT --> RESULTS
-    
+
     %% Styling
     classDef sourceStyle fill:#9B59B6,stroke:#6C3483,stroke-width:2px,color:#fff
     classDef engineStyle fill:#E24A4A,stroke:#8A2E2E,stroke-width:2px,color:#fff
@@ -92,7 +92,7 @@ graph TD
     classDef stateStyle fill:#F39C12,stroke:#D68910,stroke-width:2px,color:#fff
     classDef fixStyle fill:#27AE60,stroke:#1E8449,stroke-width:2px,color:#fff
     classDef outputStyle fill:#95A5A6,stroke:#7F8C8D,stroke-width:2px,color:#fff
-    
+
     class CODE,TRIGGER sourceStyle
     class ERROR_ENGINE,LOAD_PLUGINS,STATE_MACHINE,SELECT_PLUGINS,COLLECT_RESULTS,CLASSIFY engineStyle
     class PYTHON_PLUGINS,JS_PLUGINS,YAML_PLUGINS,MD_PLUGINS,SECURITY_PLUGINS pluginStyle

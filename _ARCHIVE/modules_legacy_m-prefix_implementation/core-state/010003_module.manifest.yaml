@@ -51,7 +51,7 @@ artifacts:
     - path: "010003_worktree.py"
       ulid: "0100030000000000000000000B"
       entry_point: false
-  
+
   tests: []
   schemas: []
   docs:

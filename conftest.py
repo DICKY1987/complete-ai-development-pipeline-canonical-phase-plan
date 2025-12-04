@@ -22,7 +22,7 @@ if str(_root) not in sys.path:
 
 def pytest_configure(config):
     """Called after pytest configuration is set up.
-    
+
     Ensures project root is always in sys.path for imports.
     """
     project_root = Path(__file__).parent

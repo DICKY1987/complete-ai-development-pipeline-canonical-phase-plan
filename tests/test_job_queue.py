@@ -41,7 +41,7 @@ def sample_job():
 async def test_queue_initialization(temp_db):
     """Test queue initialization creates database"""
     queue = JobQueue(db_path=temp_db)
-    
+
     assert Path(temp_db).exists()
     assert queue.db_path == temp_db
 
@@ -50,7 +50,7 @@ async def test_queue_initialization(temp_db):
 async def test_submit_job(queue, sample_job):
     """Test submitting job to queue"""
     await queue.submit(sample_job)
-    
+
     stats = queue.get_stats()
     assert stats['queued'] >= 1
 
@@ -59,9 +59,9 @@ async def test_submit_job(queue, sample_job):
 async def test_get_next_job(queue, sample_job):
     """Test getting next job from queue"""
     await queue.submit(sample_job)
-    
+
     job = await queue.get_next()
-    
+
     assert job is not None
     assert job.job_id == sample_job.job_id
     assert job.status == JobStatus.RUNNING
@@ -86,20 +86,20 @@ async def test_priority_ordering(queue):
         job_data={},
         priority=JobPriority.NORMAL
     )
-    
+
     # Submit in non-priority order
     await queue.submit(job_low)
     await queue.submit(job_normal)
     await queue.submit(job_high)
-    
+
     # Should get high priority first
     job1 = await queue.get_next()
     assert job1.job_id == "high"
-    
+
     # Then normal
     job2 = await queue.get_next()
     assert job2.job_id == "normal"
-    
+
     # Then low
     job3 = await queue.get_next()
     assert job3.job_id == "low"
@@ -110,12 +110,12 @@ async def test_mark_complete(queue, sample_job):
     """Test marking job as complete"""
     await queue.submit(sample_job)
     job = await queue.get_next()
-    
+
     queue.mark_complete(job.job_id)
-    
+
     assert job.job_id in queue.completed_jobs
     assert job.job_id not in queue.active_jobs
-    
+
     stats = queue.get_stats()
     assert stats['completed'] >= 1
 
@@ -125,12 +125,12 @@ async def test_mark_failed(queue, sample_job):
     """Test marking job as failed"""
     await queue.submit(sample_job)
     job = await queue.get_next()
-    
+
     queue.mark_failed(job.job_id)
-    
+
     assert job.status == JobStatus.FAILED
     assert job.job_id not in queue.active_jobs
-    
+
     stats = queue.get_stats()
     assert stats['failed'] >= 1
 
@@ -143,18 +143,18 @@ async def test_requeue_for_retry(queue):
         job_data={},
         max_retries=3
     )
-    
+
     await queue.submit(job)
     retrieved_job = await queue.get_next()
-    
+
     initial_retry_count = retrieved_job.retry_count
-    
+
     # Retry job
     await queue.requeue_for_retry(retrieved_job.job_id)
-    
+
     # Job should be requeued with incremented retry count
     await asyncio.sleep(0.1)  # Give time for requeue
-    
+
     # Check that job is back in queue or active
     next_job = await queue.get_next()
     if next_job and next_job.job_id == "retry-test":
@@ -174,15 +174,15 @@ async def test_max_retries_exceeded(queue):
         max_retries=2,
         retry_count=2  # Already at max
     )
-    
+
     await queue.submit(job)
     retrieved_job = await queue.get_next()
-    
+
     # Try to retry - should fail instead
     await queue.requeue_for_retry(retrieved_job.job_id)
-    
+
     assert retrieved_job.status == JobStatus.FAILED
-    
+
     stats = queue.get_stats()
     assert stats['failed'] >= 1
 
@@ -196,9 +196,9 @@ async def test_dependency_tracking(queue):
         job_data={},
         depends_on=["job1", "job2"]
     )
-    
+
     await queue.submit(dep_job)
-    
+
     # Should be in waiting jobs
     assert dep_job.job_id in queue.waiting_jobs
     assert dep_job.status == JobStatus.WAITING
@@ -215,26 +215,26 @@ async def test_dependency_resolution(queue):
         job_data={},
         depends_on=["job1", "job2"]
     )
-    
+
     # Submit and complete dependencies
     await queue.submit(job1)
     await queue.submit(job2)
     await queue.submit(dep_job)
-    
+
     # dep_job should be waiting
     assert dep_job.job_id in queue.waiting_jobs
-    
+
     # Complete job1
     j1 = await queue.get_next()
     queue.mark_complete(j1.job_id)
-    
+
     # dep_job still waiting
     assert dep_job.job_id in queue.waiting_jobs
-    
+
     # Complete job2
     j2 = await queue.get_next()
     queue.mark_complete(j2.job_id)
-    
+
     # Now dep_job should be ready
     assert dep_job.job_id not in queue.waiting_jobs
 
@@ -247,13 +247,13 @@ async def test_cancel_queued_job(queue):
         job_data={},
         depends_on=["dep1"]  # Will be in waiting
     )
-    
+
     await queue.submit(job)
     assert job.job_id in queue.waiting_jobs
-    
+
     # Cancel job
     result = await queue.cancel(job.job_id)
-    
+
     assert result is True
     assert job.job_id not in queue.waiting_jobs
     assert job.status == JobStatus.CANCELLED
@@ -264,10 +264,10 @@ async def test_cancel_running_job_fails(queue, sample_job):
     """Test cannot cancel running job"""
     await queue.submit(sample_job)
     job = await queue.get_next()
-    
+
     # Try to cancel running job
     result = await queue.cancel(job.job_id)
-    
+
     assert result is False
 
 
@@ -282,10 +282,10 @@ async def test_queue_persistence(temp_db):
         priority=JobPriority.HIGH
     )
     await queue1.submit(job)
-    
+
     # Create new queue instance
     queue2 = JobQueue(db_path=temp_db)
-    
+
     # Job should be loaded from database
     retrieved_job = await queue2.get_next()
     assert retrieved_job is not None
@@ -300,16 +300,16 @@ async def test_get_stats(queue):
     job1 = JobWrapper(job_id="queued1", job_data={})
     job2 = JobWrapper(job_id="queued2", job_data={})
     job3 = JobWrapper(job_id="waiting", job_data={}, depends_on=["dep"])
-    
+
     await queue.submit(job1)
     await queue.submit(job2)
     await queue.submit(job3)
-    
+
     # Get one job (will be running)
     running_job = await queue.get_next()
-    
+
     stats = queue.get_stats()
-    
+
     assert stats['running'] >= 1
     assert stats['waiting'] >= 1
     assert stats['queued'] >= 1
@@ -319,7 +319,7 @@ async def test_get_stats(queue):
 async def test_empty_queue_timeout(queue):
     """Test get_next returns None on empty queue"""
     job = await queue.get_next()
-    
+
     assert job is None
 
 
@@ -338,14 +338,14 @@ async def test_fifo_within_priority(queue):
         job_data={},
         priority=JobPriority.NORMAL
     )
-    
+
     await queue.submit(job1)
     await queue.submit(job2)
-    
+
     # Should get job1 first (earlier timestamp)
     retrieved1 = await queue.get_next()
     assert retrieved1.job_id == "first"
-    
+
     retrieved2 = await queue.get_next()
     assert retrieved2.job_id == "second"
 
@@ -357,9 +357,9 @@ async def test_concurrent_operations(queue):
         JobWrapper(job_id=f"concurrent-{i}", job_data={})
         for i in range(10)
     ]
-    
+
     # Submit all jobs concurrently
     await asyncio.gather(*[queue.submit(job) for job in jobs])
-    
+
     stats = queue.get_stats()
     assert stats['queued'] >= 10

@@ -23,11 +23,11 @@ I’ll split this into two things:
 
 ### A. Spec / workflow patterns for AI coding
 
-**1. OpenSpec (Fission-AI/OpenSpec)**  
+**1. OpenSpec (Fission-AI/OpenSpec)**
 This is basically “patterns for AI coding assistants” baked into a framework:
 
-- Ships with example specs, task flows, and “spec-driven development” workflows designed for AI tools.citeturn0search0turn0search26  
-- Focus is: *define the spec & pattern first, then let the AI write code.*  
+- Ships with example specs, task flows, and “spec-driven development” workflows designed for AI tools.citeturn0search0turn0search26
+- Focus is: *define the spec & pattern first, then let the AI write code.*
 This maps **directly** to what you’re trying to do (pattern-first execution instead of ad-hoc prompts).
 
 Use it as:
@@ -37,17 +37,17 @@ Use it as:
 
 ---
 
-**2. Claude Code Project Management (CCPM)**  
+**2. Claude Code Project Management (CCPM)**
 
-CCPM is a project-management system specifically for Claude Code, built around GitHub Issues + Git worktrees + slash commands.citeturn0search1turn0search6  
+CCPM is a project-management system specifically for Claude Code, built around GitHub Issues + Git worktrees + slash commands.citeturn0search1turn0search6
 
 What you get from CCPM (and its enhanced forks):
 
 - **Standardized workflows** for:
-  - Spinning up worktrees per task/workstream  
-  - Moving tasks through states (TODO → DOING → DONE)  
+  - Spinning up worktrees per task/workstream
+  - Moving tasks through states (TODO → DOING → DONE)
   - Handling parallel execution
-- The enhanced fork `johnproblems/formaltask` adds more structured task patterns & label flows you can study.citeturn0search14  
+- The enhanced fork `johnproblems/formaltask` adds more structured task patterns & label flows you can study.citeturn0search14
 
 Even though CCPM isn’t packaged as “pattern YAML,” each **slash command + issue template + label flow** is essentially a **reusable pattern** you can port into your own pattern files.
 
@@ -55,8 +55,8 @@ Even though CCPM isn’t packaged as “pattern YAML,” each **slash command + 
 
 **3. Claude Code docs & best-practice guides**
 
-- **Claude Code official docs** (code.claude.com). These describe typical workflows (read codebase → plan → edit → test → refactor) that you can freeze into patterns.citeturn0search2  
-- **Anthropic’s “Claude Code: Best practices for agentic coding”** blog post: it outlines recurring workflows like “scoped refactor,” “incremental change & test,” “multi-file edits with safety,” etc.citeturn0search15  
+- **Claude Code official docs** (code.claude.com). These describe typical workflows (read codebase → plan → edit → test → refactor) that you can freeze into patterns.citeturn0search2
+- **Anthropic’s “Claude Code: Best practices for agentic coding”** blog post: it outlines recurring workflows like “scoped refactor,” “incremental change & test,” “multi-file edits with safety,” etc.citeturn0search15
 
 Those are ready-made **execution patterns** you can formalize as:
 
@@ -71,12 +71,12 @@ Those are ready-made **execution patterns** you can formalize as:
 
 These aren’t Claude-specific, but they give **names and shapes** to the workflows you’re already doing:
 
-1. **Workflow Patterns (van der Aalst et al.)** – the classic catalog of workflow patterns (sequence, parallel split, synchronization, choice, loops, etc.).citeturn0search9  
-2. **Cloud / workflow docs with common patterns**  
-   - AWS “What are common workflow patterns?” (microservice chaining, fan-out/fan-in, human approval steps, error handling).citeturn0search19  
-   - New Relic / other workflow-automation docs explaining switches, loops, approvals, etc.citeturn0search25  
-3. **AI workflow pattern posts**  
-   - Articles summarizing “planning → tool-use → reflection” loops as reusable AI patterns.citeturn0search3turn0search11  
+1. **Workflow Patterns (van der Aalst et al.)** – the classic catalog of workflow patterns (sequence, parallel split, synchronization, choice, loops, etc.).citeturn0search9
+2. **Cloud / workflow docs with common patterns**
+   - AWS “What are common workflow patterns?” (microservice chaining, fan-out/fan-in, human approval steps, error handling).citeturn0search19
+   - New Relic / other workflow-automation docs explaining switches, loops, approvals, etc.citeturn0search25
+3. **AI workflow pattern posts**
+   - Articles summarizing “planning → tool-use → reflection” loops as reusable AI patterns.citeturn0search3turn0search11
 
 You don’t need their exact tools; you just need the **pattern shapes** and names, so you can standardize:
 
@@ -131,13 +131,13 @@ That way:
 
 The fastest wins for you (based on all our previous chats) are:
 
-- **Create / extend module** (module skeleton, tests, CLI, docs)  
+- **Create / extend module** (module skeleton, tests, CLI, docs)
   → Source shapes from OpenSpec specs + Claude Code best-practice flow.
-- **Scoped refactor with tests**  
+- **Scoped refactor with tests**
   → Steal the change-plan + “small batch with tests” shape from Claude docs & CCPM task flows.
-- **Parallel workstreams with Git worktrees**  
+- **Parallel workstreams with Git worktrees**
   → Directly formalize CCPM’s “one worktree per issue” approach as a `GIT_WORKTREE_WORKSTREAM` pattern.
-- **Docs & ID synchronization**  
+- **Docs & ID synchronization**
   → A pattern that reads `DOC_LINK` and IDs and ensures docs/spec/tests stay in sync when files move.
 
 ---
@@ -148,7 +148,7 @@ Once you have that small core library:
 
 - Your prompts / slash commands should *always* look like:
 
-  > “Use pattern `PAT-REF-001 (scoped refactor)` with these parameters: …  
+  > “Use pattern `PAT-REF-001 (scoped refactor)` with these parameters: …
   > Do **not** invent a new workflow unless no existing pattern fits; if so, emit `PATTERN_SUGGESTION` instead of acting ad-hoc.”
 
 - For Claude Code & Copilot CLI you can even bake this into:
@@ -161,10 +161,10 @@ Once you have that small core library:
 
 **Where to look:**
 
-- **OpenSpec** – spec-driven AI dev patterns you can lift directly.citeturn0search0turn0search26  
-- **CCPM + forks** – proven task + worktree patterns for Claude Code.citeturn0search1turn0search6turn0search14  
-- **Claude Code docs & best-practice posts** – de-facto execution patterns: refactor, add tests, multi-file changes.citeturn0search2turn0search15  
-- **General workflow catalogs** – formal names and shapes for sequences, fan-out/fan-in, approvals, loops, etc.citeturn0search9turn0search19turn0search25  
+- **OpenSpec** – spec-driven AI dev patterns you can lift directly.citeturn0search0turn0search26
+- **CCPM + forks** – proven task + worktree patterns for Claude Code.citeturn0search1turn0search6turn0search14
+- **Claude Code docs & best-practice posts** – de-facto execution patterns: refactor, add tests, multi-file changes.citeturn0search2turn0search15
+- **General workflow catalogs** – formal names and shapes for sequences, fan-out/fan-in, approvals, loops, etc.citeturn0search9turn0search19turn0search25
 
 If you want, next step I can do is: **list 10 concrete pattern IDs** you should create first (name + short intent + where to steal the structure from), so you have a starting library without staring at logs.
 
@@ -172,11 +172,11 @@ If you want, next step I can do is: **list 10 concrete pattern IDs** you should 
 
 ## Response 2 – Operation kinds and routing
 
-Think of it like this:  
+Think of it like this:
 
-> **The *user* asks for the *goal*.  
-> The *planner* chooses *operations*.  
-> The *router* chooses *patterns*.  
+> **The *user* asks for the *goal*.
+> The *planner* chooses *operations*.
+> The *router* chooses *patterns*.
 > The *executor* runs the pattern.**
 
 The user never has to know the pattern names. The system does.
@@ -187,10 +187,10 @@ Let me break it down in concrete, repo-ready terms.
 
 ## 1. Key idea: “Operation kinds” between plan and patterns
 
-Right now you’re thinking:  
+Right now you’re thinking:
 > “In a 20-step plan, step 11 is ‘save a file’. How does AI know there *is* a save-file pattern?”
 
-The answer: you **never let the AI talk about step 11 as raw English**.  
+The answer: you **never let the AI talk about step 11 as raw English**.
 You force it to talk in terms of a small, fixed vocabulary of **operation kinds**, like:
 
 - `CREATE_FILE`
@@ -216,7 +216,7 @@ schema_ref: patterns/schemas/save_file.schema.json
 executor_ref: patterns/executors/save_file_executor.*
 ```
 
-Now, **anything** in the system that says:  
+Now, **anything** in the system that says:
 
 ```json
 { "operation_kind": "SAVE_FILE", ... }
@@ -224,7 +224,7 @@ Now, **anything** in the system that says:
 
 is automatically eligible to be handled by `PAT-SAVE-FILE-001`.
 
-That’s how the AI “knows”:  
+That’s how the AI “knows”:
 it doesn’t reason from scratch; it picks an `operation_kind`, and the **router** maps that to a pattern.
 
 ---
@@ -303,7 +303,7 @@ def execute_step(step):
     return run_pattern_executor(pattern, step)
 ```
 
-So **step 11 (“SAVE_FILE”) never calls raw “save file” logic**.  
+So **step 11 (“SAVE_FILE”) never calls raw “save file” logic**.
 It *always* goes through `route_to_pattern`.
 
 ---
@@ -316,11 +316,11 @@ There are three “trigger points” where you enforce pattern-first use:
 
 You hard-wire rules into the planner’s system prompt:
 
-> - You MUST express every step as a JSON object with  
->   `"operation_kind"` ∈ [list of allowed operation kinds].  
-> - You MUST NOT describe how to do the operation in prose.  
->   Only describe the *intent* (“what”), not the implementation (“how”).  
-> - If you think a needed action does not fit any existing `operation_kind`,  
+> - You MUST express every step as a JSON object with
+>   `"operation_kind"` ∈ [list of allowed operation kinds].
+> - You MUST NOT describe how to do the operation in prose.
+>   Only describe the *intent* (“what”), not the implementation (“how”).
+> - If you think a needed action does not fit any existing `operation_kind`,
 >   emit a step with `"operation_kind": "UNKNOWN"` and a `"needs_pattern": true` flag.
 
 This prevents the “20-step process” from having steps like:
@@ -375,8 +375,8 @@ This means:
 
 In your “executor mode” prompt for Claude Code / Copilot CLI, you add rules like:
 
-> - You MUST NOT directly perform file writes or refactors outside of pattern execution.  
-> - All file creation, saving, and edits MUST go through the specified pattern(s) injected into this prompt.  
+> - You MUST NOT directly perform file writes or refactors outside of pattern execution.
+> - All file creation, saving, and edits MUST go through the specified pattern(s) injected into this prompt.
 > - If you think an action is needed that is not covered by any provided pattern, STOP and emit a `PATTERN_GAP_REPORT` instead of improvising.
 
 In other words:
@@ -390,7 +390,7 @@ In other words:
 
 Let’s walk your exact scenario:
 
-> AI has a 20-step process.  
+> AI has a 20-step process.
 > Midway, it needs to save a file, which has a pattern.
 
 **How it flows in a pattern-first world:**
@@ -470,18 +470,18 @@ You can catch that too:
 
 **A: Three things working together:**
 
-1. **Planner constraints**  
+1. **Planner constraints**
    - The AI planner is *forced* to express steps as `operation_kind` values (not free-text instructions).
    - That is the “intent classification” step.
 
-2. **Pattern router**  
+2. **Pattern router**
    - A deterministic router maps `operation_kind` → `pattern_id`.
    - This happens in your code, using `PATTERN_ROUTING.yaml`, not in the LLM’s head.
 
-3. **Executor guardrails**  
+3. **Executor guardrails**
    - The execution agent is told: *“You may only perform file edits, refactors, tests, etc. via the pattern(s) injected into this prompt. No ad hoc actions allowed.”*
 
-So in your 20-step example, step 11 doesn’t say “save the file however you like.”  
+So in your 20-step example, step 11 doesn’t say “save the file however you like.”
 It says `"operation_kind": "SAVE_FILE"`, which *forces* a jump into `PAT-SAVE-FILE-001` behind the scenes.
 
 ---
@@ -508,10 +508,10 @@ Let me answer your 3 questions directly and then show a small concrete example.
 
 You can think of each phase plan step as having *two* views:
 
-- **Human text**:  
+- **Human text**:
   `"description": "Create execution kernel spec file and wire it into index"`
 
-- **Machine control field** (the important part):  
+- **Machine control field** (the important part):
   `"operation_kind": "CREATE_SPEC_FILE"`
 
 So a step in your phase plan (JSON/YAML) should look like:
@@ -686,8 +686,8 @@ Your executor/orchestrator then:
 
 So the linkage chain is:
 
-> **phase plan step** → `operation_kind`  
-> → **routing** → `pattern_id`  
+> **phase plan step** → `operation_kind`
+> → **routing** → `pattern_id`
 > → **pattern index** → spec + schema + executor + tests + examples
 
 ---
@@ -752,9 +752,9 @@ If you’d like, next I can:
 
 ## Response 4 – Where OPERATION_KINDS come from & sub-agent role
 
-Short answer:  
-- You **won’t** find a ready-made “OPERATION_KIND library” already linked to patterns. You have to define that vocabulary yourself.  
-- But you *can* steal the *ideas and names* from places like OpenSpec, CCPM, Claude Code docs, and workflow pattern catalogs.citeturn0search0turn0search1turn0search2turn0search3  
+Short answer:
+- You **won’t** find a ready-made “OPERATION_KIND library” already linked to patterns. You have to define that vocabulary yourself.
+- But you *can* steal the *ideas and names* from places like OpenSpec, CCPM, Claude Code docs, and workflow pattern catalogs.citeturn0search0turn0search1turn0search2turn0search3
 - Yes, scraping/normalizing this is **exactly** the kind of job a sub-agent (or dedicated script) can do for you.
 
 Let’s hit your two questions directly.
@@ -765,21 +765,21 @@ Let’s hit your two questions directly.
 
 In the wild, you basically see **three ingredients**, but not pre-wired the way you want:
 
-1. **Action types / workflows (operation-ish concepts)**  
-   - OpenSpec gives you *spec shapes* and feature workflows: “add feature,” “refactor,” “add tests,” etc.citeturn0search0turn0search25  
-   - CCPM describes repeatable flows like: “create issue → spin worktree → run Claude Code flow → open PR.”citeturn0search1turn0search11  
-   - Claude Code docs and best-practice posts show recurring actions: “read code,” “plan change,” “apply patch,” “run tests,” “update docs.”citeturn0search2turn0search6turn0search19  
-   - Workflow patterns research gives you generic control-flow and resource patterns: sequence, parallel split, sync, loop, approval, etc.citeturn0search3turn0search10turn0search12turn0search14  
+1. **Action types / workflows (operation-ish concepts)**
+   - OpenSpec gives you *spec shapes* and feature workflows: “add feature,” “refactor,” “add tests,” etc.citeturn0search0turn0search25
+   - CCPM describes repeatable flows like: “create issue → spin worktree → run Claude Code flow → open PR.”citeturn0search1turn0search11
+   - Claude Code docs and best-practice posts show recurring actions: “read code,” “plan change,” “apply patch,” “run tests,” “update docs.”citeturn0search2turn0search6turn0search19
+   - Workflow patterns research gives you generic control-flow and resource patterns: sequence, parallel split, sync, loop, approval, etc.citeturn0search3turn0search10turn0search12turn0search14
 
    These are your **raw candidates** for `operation_kind` names like:
    - `READ_CODEBASE`, `PLAN_CHANGE`, `APPLY_PATCH`, `RUN_TESTS`, `UPDATE_DOCS`
    - `PARALLEL_BRANCH`, `AWAIT_APPROVAL`, etc.
 
-2. **Task / step templates**  
-   - In CCPM and similar projects, each “task archetype” (like “refactor feature X,” “add logging,” “fix bug,” “add tests”) is essentially a **pattern** of steps, even if it isn’t labeled that way yet.citeturn0search1turn0search8turn0search18  
+2. **Task / step templates**
+   - In CCPM and similar projects, each “task archetype” (like “refactor feature X,” “add logging,” “fix bug,” “add tests”) is essentially a **pattern** of steps, even if it isn’t labeled that way yet.citeturn0search1turn0search8turn0search18
 
-3. **Pattern-like docs & checklists**  
-   - Guides like “Claude Code for power users”, “Cooking with Claude Code”, etc., have checklists and step lists which you can mine into patterns and operation kinds.citeturn0search8turn0search9  
+3. **Pattern-like docs & checklists**
+   - Guides like “Claude Code for power users”, “Cooking with Claude Code”, etc., have checklists and step lists which you can mine into patterns and operation kinds.citeturn0search8turn0search9
 
 **But:** nobody ships “OPERATION_KIND_REGISTRY.yaml + PATTERN_ROUTING.yaml” off-the-shelf. That linking layer is something you’ll define in your repo.
 
@@ -964,7 +964,7 @@ You review these, bump status to `stable`, and merge them into `PATTERN_INDEX.ya
 
 - There’s no public library that already maps `operation_kind` → patterns.
 - You:
-  1. **Borrow** operation names from OpenSpec, CCPM, Claude Code docs, workflow pattern catalogs.citeturn0search0turn0search1turn0search2turn0search3turn0search11  
+  1. **Borrow** operation names from OpenSpec, CCPM, Claude Code docs, workflow pattern catalogs.citeturn0search0turn0search1turn0search2turn0search3turn0search11
   2. Normalize them into your own `OPERATION_KIND_REGISTRY.yaml`.
   3. Attach them to patterns via `operation_kinds:` in your pattern specs/index.
   4. Define routing in `PATTERN_ROUTING.yaml`.
@@ -1019,7 +1019,7 @@ Let me hit the two parts:
   - Possibly wire tools, context, etc.
 - You likely only need it **once** for this task.
 
-Realistically:  
+Realistically:
 Spinning up a *proper*, reusable custom agent is **more work** than you need for a one-off OPK registry. A **single well-designed “OPK_MINER” prompt session** with Claude Code would do 80–90% of the agent’s job, without all the agent infrastructure.
 
 ---
@@ -1043,7 +1043,7 @@ Spinning up a *proper*, reusable custom agent is **more work** than you need for
   - Pick canonical names,
   - Define descriptions/required params.
 
-Realistically:  
+Realistically:
 Spinning up a **small script** that outputs a list of candidate verbs / phrases is **faster** than building a full custom agent, and gives you the **free path** you want. You can then optionally use Claude for the “smart” part on a small distilled input.
 
 ---
@@ -1152,11 +1152,11 @@ Now you have a **limited, distilled list** of phrases instead of raw logs.
 
 You can feed that to Claude Code (or me) with a very strict prompt:
 
-> - Group these phrases into canonical operation kinds.  
+> - Group these phrases into canonical operation kinds.
 > - For each operation kind:
 >   - Give `name` (SCREAMING_SNAKE_CASE),
 >   - `summary`,
->   - `required_params` and `optional_params`.  
+>   - `required_params` and `optional_params`.
 > - Output in a single YAML file compatible with `OPERATION_KIND_REGISTRY.yaml`.
 
 Because the input is now just a few hundred lines of text, the **token cost is small**, and you get:

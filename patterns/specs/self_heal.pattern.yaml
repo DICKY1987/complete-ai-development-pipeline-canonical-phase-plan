@@ -23,7 +23,7 @@ metadata:
 intent: |
   Automatically detect and fix common errors without human intervention.
   Eliminates permission prompts and decision-making delays.
-  
+
   Supported error types:
   - Import errors (missing imports)
   - Indentation errors
@@ -41,7 +41,7 @@ applicability:
     - Logic errors requiring understanding
     - Complex architectural issues
     - Ambiguous error messages
-  
+
   constraints:
     max_fix_attempts: 3
     only_safe_fixes: true
@@ -53,7 +53,7 @@ inputs:
     type: "string"
     required: true
     enum: ["test_failure", "syntax_error", "import_error", "lint_error"]
-    
+
   error_details:
     type: "object"
     required: true
@@ -62,11 +62,11 @@ inputs:
       file_path: string
       line_number: integer
       error_type: string
-  
+
   project_root:
     type: "string"
     required: true
-  
+
   max_attempts:
     type: "integer"
     default: 3
@@ -95,16 +95,16 @@ structural_decisions:
 execution_steps:
   - step_id: "S1_analyze_error"
     description: "Parse error and determine fix type"
-    
+
   - step_id: "S2_select_fix_rule"
     description: "Match error to fix rule"
-    
+
   - step_id: "S3_apply_fix"
     description: "Apply automated fix"
-    
+
   - step_id: "S4_validate_fix"
     description: "Rerun test/compile to verify fix"
-    
+
   - step_id: "S5_report_result"
     description: "Report success or escalate to human"
 
@@ -112,15 +112,15 @@ self_healing_rules:
   - trigger: "ImportError: No module named"
     fix: "add_missing_import"
     confidence: "high"
-    
+
   - trigger: "IndentationError"
     fix: "fix_indentation"
     confidence: "medium"
-    
+
   - trigger: "FileNotFoundError"
     fix: "create_missing_directory"
     confidence: "high"
-    
+
   - trigger: "AssertionError"
     fix: "analyze_and_adjust_assertion"
     confidence: "low"

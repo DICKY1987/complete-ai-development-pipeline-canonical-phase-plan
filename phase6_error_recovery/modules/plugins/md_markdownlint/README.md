@@ -1,7 +1,7 @@
 # Plugin: md_markdownlint
 
-**Phase**: 6 (Error Recovery)  
-**Type**: Error Detection/Fix Plugin  
+**Phase**: 6 (Error Recovery)
+**Type**: Error Detection/Fix Plugin
 **Purpose**: md_markdownlint error detection and auto-fix
 
 ## Structure

@@ -96,28 +96,28 @@ class PatternActivityWidget(Static):
 @register_panel("pattern_activity")
 class PatternActivityPanel:
     """Panel showing pattern execution timeline and event details.
-    
+
     Displays:
     - Timeline view (left): List of pattern runs
     - Detail view (right): Events for selected run
     """
-    
+
     @property
     def panel_id(self) -> str:
         return "pattern_activity"
-    
+
     @property
     def title(self) -> str:
         return "Pattern Activity"
-    
+
     def create_widget(self, context: PanelContext) -> PatternActivityWidget:
         """Create pattern activity widget with auto-refresh."""
         return PatternActivityWidget(context)
-    
+
     def on_mount(self, context: PanelContext) -> None:
         """Called when panel is mounted."""
         pass
-    
+
     def on_unmount(self, context: PanelContext) -> None:
         """Called when panel is unmounted."""
         pass

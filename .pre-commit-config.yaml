@@ -1,0 +1,62 @@
+# Pre-commit Configuration
+# Install: pre-commit install
+# Run manually: pre-commit run --all-files
+
+repos:
+  # Python code formatting
+  - repo: https://github.com/psf/black
+    rev: 24.10.0
+    hooks:
+      - id: black
+        language_version: python3.12
+
+  # Python import sorting
+  - repo: https://github.com/PyCQA/isort
+    rev: 5.13.2
+    hooks:
+      - id: isort
+        args: ["--profile", "black"]
+
+  # Basic file checks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+        args: ['--unsafe']  # Allow custom YAML tags
+      - id: check-json
+      - id: check-added-large-files
+        args: ['--maxkb=1000']
+      - id: check-merge-conflict
+      - id: check-case-conflict
+
+  # Repository-specific validations
+  - repo: local
+    hooks:
+      # SSOT Policy Enforcement
+      - id: glossary-ssot-policy
+        name: Glossary SSOT Policy
+        entry: python scripts/glossary_ssot_policy.py
+        language: system
+        pass_filenames: false
+        always_run: true
+        description: "Enforce SSOT docs have glossary terms"
+
+      # Python type checking (if mypy is available)
+      - id: mypy
+        name: MyPy Type Check
+        entry: bash -c 'command -v mypy >/dev/null 2>&1 && mypy core/ engine/ error/ aim/ pm/ || true'
+        language: system
+        types: [python]
+        pass_filenames: false
+        always_run: false
+
+      # Pytest (fast tests only on pre-commit)
+      - id: pytest-fast
+        name: Pytest (Fast Tests)
+        entry: bash -c 'pytest -x -q -m "not slow" --tb=short || true'
+        language: system
+        types: [python]
+        pass_filenames: false
+        always_run: false

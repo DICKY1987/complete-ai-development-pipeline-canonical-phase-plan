@@ -287,35 +287,35 @@ For each template in the workstream:
   # Version: 1.0.0
   # Category: <category>
   # Purpose: Execute <pattern_name> pattern instances
-  
+
   param(
       [Parameter(Mandatory=$true)]
       [string]$InstancePath
   )
-  
+
   $ErrorActionPreference = "Stop"
-  
+
   Write-Host "Executing <pattern_name> pattern..." -ForegroundColor Cyan
-  
+
   # Load instance
   if (-not (Test-Path $InstancePath)) {
       throw "Instance file not found: $InstancePath"
   }
-  
+
   $instance = Get-Content $InstancePath -Raw | ConvertFrom-Json
-  
+
   # Validate doc_id and pattern_id
   if ($instance.doc_id -ne "DOC-PAT-<NAME>-001") {
       throw "Invalid doc_id. Expected: DOC-PAT-<NAME>-001, Got: $($instance.doc_id)"
   }
-  
+
   if ($instance.pattern_id -ne "PAT-<NAME>-001") {
       throw "Invalid pattern_id. Expected: PAT-<NAME>-001, Got: $($instance.pattern_id)"
   }
-  
+
   # TODO: Implement <pattern_name> execution logic
   # See patterns/specs/<pattern_name>.pattern.yaml for details
-  
+
   Write-Host "✓ <pattern_name> pattern execution complete" -ForegroundColor Green
   ```
 
@@ -325,37 +325,37 @@ For each template in the workstream:
   ```powershell
   # DOC_LINK: DOC-PAT-<NAME>-001
   # Tests for <pattern_name> pattern executor
-  
+
   Describe "<pattern_name> pattern executor" {
-      
+
       BeforeAll {
           $ExecutorPath = "$PSScriptRoot\..\executors\<pattern_name>_executor.ps1"
           $ExamplePath = "$PSScriptRoot\..\examples\<pattern_name>\instance_minimal.json"
           $SchemaPath = "$PSScriptRoot\..\schemas\<pattern_name>.schema.json"
       }
-      
+
       It "Executor file should exist" {
           Test-Path $ExecutorPath | Should -Be $true
       }
-      
+
       It "Example instance should exist" {
           Test-Path $ExamplePath | Should -Be $true
       }
-      
+
       It "Schema file should exist" {
           Test-Path $SchemaPath | Should -Be $true
       }
-      
+
       It "Executor should have DOC_LINK header" {
           $content = Get-Content $ExecutorPath -Raw
           $content | Should -Match "# DOC_LINK: DOC-PAT-<NAME>-001"
       }
-      
+
       It "Should accept InstancePath parameter" {
           $params = (Get-Command $ExecutorPath).Parameters
           $params.Keys -contains 'InstancePath' | Should -Be $true
       }
-      
+
       It "Should validate instance doc_id" {
           # Test with invalid doc_id
           $testInstance = @{
@@ -363,13 +363,13 @@ For each template in the workstream:
               pattern_id = "PAT-<NAME>-001"
               inputs = @{}
           } | ConvertTo-Json
-          
+
           $testPath = "$TestDrive\test_invalid.json"
           Set-Content $testPath $testInstance
-          
+
           { & $ExecutorPath -InstancePath $testPath } | Should -Throw
       }
-      
+
       It "Should execute minimal instance successfully" {
           # TODO: Implement execution test
           $true | Should -Be $true

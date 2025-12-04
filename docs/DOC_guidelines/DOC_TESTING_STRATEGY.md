@@ -10,7 +10,7 @@ doc_id: DOC-GUIDE-TESTING_STRATEGY-071
 
 **Purpose:** Define testing patterns for each component to ensure quality and prevent regressions.
 
-**Last Updated:** 2025-11-22  
+**Last Updated:** 2025-11-22
 **Maintainer:** System Architecture Team
 
 ---
@@ -48,11 +48,11 @@ def in_memory_db():
 def test_create_workstream(in_memory_db):
     # Arrange
     ws_data = {"ws_id": "WS-001", "name": "Test", "state": "S_PENDING"}
-    
+
     # Act
     create_workstream(in_memory_db, ws_data)
     result = get_workstream(in_memory_db, "WS-001")
-    
+
     # Assert
     assert result["ws_id"] == "WS-001"
     assert result["state"] == "S_PENDING"
@@ -84,7 +84,7 @@ def test_execute_workstream_success(in_memory_db):
     # Mock tool adapter to avoid subprocess calls
     with patch('core.engine.tools.execute_tool') as mock_tool:
         mock_tool.return_value = {"status": "success", "exit_code": 0}
-        
+
         orchestrator = Orchestrator(in_memory_db)
         workstream = {
             "ws_id": "WS-TEST",
@@ -92,9 +92,9 @@ def test_execute_workstream_success(in_memory_db):
                 {"step_id": "s1", "tool_profile_id": "echo"}
             ]
         }
-        
+
         result = orchestrator.execute_workstream(workstream)
-        
+
         assert result.status == "success"
         assert mock_tool.call_count == 1
 ```
@@ -124,10 +124,10 @@ def test_parse_errors():
     # Arrange
     file_path = "test.py"
     content = "import os\nimport sys  # unused import"
-    
+
     # Act
     errors = parse(file_path, content)
-    
+
     # Assert
     assert len(errors) > 0
     assert any("unused" in e.message.lower() for e in errors)
@@ -185,9 +185,9 @@ Details here.
 
 def test_resolve_spec_uri(mock_spec_content, monkeypatch):
     monkeypatch.chdir(mock_spec_content)
-    
+
     resolved = resolve_uri("spec://core/state/db#initialization")
-    
+
     assert resolved.uri == "spec://core/state/db#initialization"
     assert "Initialization" in resolved.content
     assert resolved.line_number > 0
@@ -450,5 +450,5 @@ jobs:
 
 ---
 
-**Last Updated:** 2025-11-22  
+**Last Updated:** 2025-11-22
 **Next Review:** When new sections are added or testing patterns change

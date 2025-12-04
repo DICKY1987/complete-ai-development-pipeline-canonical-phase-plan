@@ -24,7 +24,7 @@ The UET framework follows a strict layered architecture where dependencies flow 
 
 **`core/adapters/`** - Tool integration layer
 - Purpose: Execute external tools (CLI, API)
-- Dependencies: 
+- Dependencies:
   - `schema/` (execution_request.v1.json)
   - `core/state/` (for logging)
 - Used by: `core/engine/`

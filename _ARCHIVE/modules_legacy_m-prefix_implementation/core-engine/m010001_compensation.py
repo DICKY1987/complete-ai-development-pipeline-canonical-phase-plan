@@ -7,13 +7,13 @@ from modules.core_state import WorkstreamBundle
 class CompensationEngine:
     """Logical rollback via Saga pattern."""
 # DOC_ID: DOC-PAT-CORE-ENGINE-M010001-COMPENSATION-491
-    
+
     def rollback_workstream(self, workstream_id: str) -> bool:
         """Execute compensation actions for a workstream."""
         # Stub implementation
         print(f"Rolling back workstream: {workstream_id}")
         return True
-    
+
     def rollback_phase(self, phase_workstreams: List[str]) -> bool:
         """Rollback multiple workstreams (phase-level)."""
         for ws_id in reversed(phase_workstreams):

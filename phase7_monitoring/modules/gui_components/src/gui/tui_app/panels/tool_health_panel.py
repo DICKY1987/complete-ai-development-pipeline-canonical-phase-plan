@@ -151,23 +151,23 @@ class ToolHealthWidget(Vertical):
 @register_panel("tool_health")
 class ToolHealthPanel:
     """Panel showing health and status of error detection tools."""
-    
+
     @property
     def panel_id(self) -> str:
         return "tool_health"
-    
+
     @property
     def title(self) -> str:
         return "Tool Health"
-    
+
     def create_widget(self, context: PanelContext) -> ToolHealthWidget:
         """Create tool health widget."""
         return ToolHealthWidget(context)
-    
+
     def on_mount(self, context: PanelContext) -> None:
         """Called when panel is mounted."""
         pass
-    
+
     def on_unmount(self, context: PanelContext) -> None:
         """Called when panel is unmounted."""
         pass

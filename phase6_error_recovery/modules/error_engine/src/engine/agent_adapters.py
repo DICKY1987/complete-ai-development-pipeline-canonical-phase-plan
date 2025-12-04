@@ -17,7 +17,7 @@ from typing import Any, Dict, List, Optional
 @dataclass
 class AgentInvocation:
     """Request to invoke an AI agent for error fixing."""
-    
+
     agent_name: str
     files: List[str]
     error_report: Dict[str, Any]
@@ -30,7 +30,7 @@ class AgentInvocation:
 @dataclass
 class AgentResult:
     """Result from AI agent invocation."""
-    
+
     success: bool
     files_modified: List[str]
     stdout: str
@@ -42,33 +42,33 @@ class AgentResult:
 
 class AgentAdapter:
     """Base class for AI agent adapters."""
-    
+
     def __init__(self, name: str, config: Optional[Dict[str, Any]] = None):
         self.name = name
         self.config = config or {}
-    
+
     def check_available(self) -> bool:
         """Check if the agent tool is available."""
         raise NotImplementedError
-    
+
     def invoke(self, invocation: AgentInvocation) -> AgentResult:
         """Invoke the agent to fix errors."""
         raise NotImplementedError
-    
+
     def _format_error_prompt(self, error_report: Dict[str, Any]) -> str:
         """Format error report into a prompt for the agent."""
         issues = error_report.get("issues", [])
         if not issues:
             return "No issues found."
-        
+
         prompt_parts = ["Please fix the following issues:\n"]
-        
+
         # Group by file
         by_file: Dict[str, List[Dict[str, Any]]] = {}
         for issue in issues:
             path = issue.get("path", "unknown")
             by_file.setdefault(path, []).append(issue)
-        
+
         for file_path, file_issues in by_file.items():
             prompt_parts.append(f"\n## {file_path}")
             for issue in file_issues:
@@ -77,24 +77,24 @@ class AgentAdapter:
                 msg = issue.get("message", "")
                 category = issue.get("category", "")
                 prompt_parts.append(f"- Line {line} [{category}] {code}: {msg}")
-        
+
         return "\n".join(prompt_parts)
 
 
 class AiderAdapter(AgentAdapter):
     """Adapter for Aider CLI."""
-    
+
     def __init__(self, config: Optional[Dict[str, Any]] = None):
         super().__init__("aider", config)
-    
+
     def check_available(self) -> bool:
         """Check if aider is installed."""
         return shutil.which("aider") is not None
-    
+
     def invoke(self, invocation: AgentInvocation) -> AgentResult:
         """Invoke Aider to fix errors."""
         start_time = time.time()
-        
+
         if not self.check_available():
             return AgentResult(
                 success=False,
@@ -104,30 +104,30 @@ class AiderAdapter(AgentAdapter):
                 duration_ms=0,
                 error_message="Aider CLI not installed"
             )
-        
+
         # Format error report into prompt
         prompt = invocation.prompt_template or self._format_error_prompt(invocation.error_report)
-        
+
         # Build aider command
         cmd = ["aider"]
-        
+
         # Add files to edit
         for file_path in invocation.files:
             cmd.extend(["--file", str(file_path)])
-        
+
         # Add prompt
         cmd.extend(["--message", prompt])
-        
+
         # Auto-commit changes
         cmd.append("--yes")
-        
+
         # Use environment model if specified
         model = self.config.get("model", "gpt-4")
         cmd.extend(["--model", model])
-        
+
         # Execute aider
         working_dir = invocation.working_dir or Path.cwd()
-        
+
         try:
             proc = subprocess.run(
                 cmd,
@@ -137,13 +137,13 @@ class AiderAdapter(AgentAdapter):
                 timeout=invocation.timeout_seconds,
                 env={**subprocess.os.environ, **invocation.env_vars}
             )
-            
+
             duration_ms = int((time.time() - start_time) * 1000)
-            
+
             # Parse output to determine success and modified files
             success = proc.returncode == 0
             files_modified = self._extract_modified_files(proc.stdout, invocation.files)
-            
+
             return AgentResult(
                 success=success,
                 files_modified=files_modified,
@@ -156,7 +156,7 @@ class AiderAdapter(AgentAdapter):
                     "prompt_length": len(prompt)
                 }
             )
-            
+
         except subprocess.TimeoutExpired:
             duration_ms = int((time.time() - start_time) * 1000)
             return AgentResult(
@@ -177,7 +177,7 @@ class AiderAdapter(AgentAdapter):
                 duration_ms=duration_ms,
                 error_message=f"Agent invocation failed: {e}"
             )
-    
+
     def _extract_modified_files(self, stdout: str, candidate_files: List[str]) -> List[str]:
         """Extract list of files that were modified from aider output."""
         # Simple heuristic: check for "Applied edit to" or similar patterns
@@ -191,10 +191,10 @@ class AiderAdapter(AgentAdapter):
 
 class CodexAdapter(AgentAdapter):
     """Adapter for GitHub Copilot CLI."""
-    
+
     def __init__(self, config: Optional[Dict[str, Any]] = None):
         super().__init__("codex", config)
-    
+
     def check_available(self) -> bool:
         """Check if GitHub Copilot CLI is installed."""
         # Check for 'gh copilot' command
@@ -208,11 +208,11 @@ class CodexAdapter(AgentAdapter):
             return result.returncode == 0
         except Exception:
             return False
-    
+
     def invoke(self, invocation: AgentInvocation) -> AgentResult:
         """Invoke GitHub Copilot CLI to fix errors."""
         start_time = time.time()
-        
+
         if not self.check_available():
             return AgentResult(
                 success=False,
@@ -222,14 +222,14 @@ class CodexAdapter(AgentAdapter):
                 duration_ms=0,
                 error_message="GitHub Copilot CLI not installed or not configured"
             )
-        
+
         # Format error report
         prompt = invocation.prompt_template or self._format_error_prompt(invocation.error_report)
-        
+
         # For now, return a stub indicating this needs implementation
         # Full implementation would use 'gh copilot suggest' or similar
         duration_ms = int((time.time() - start_time) * 1000)
-        
+
         return AgentResult(
             success=False,
             files_modified=[],
@@ -243,19 +243,19 @@ class CodexAdapter(AgentAdapter):
 
 class ClaudeAdapter(AgentAdapter):
     """Adapter for Claude API."""
-    
+
     def __init__(self, config: Optional[Dict[str, Any]] = None):
         super().__init__("claude", config)
-    
+
     def check_available(self) -> bool:
         """Check if Claude API key is configured."""
         import os
         return bool(os.getenv("ANTHROPIC_API_KEY"))
-    
+
     def invoke(self, invocation: AgentInvocation) -> AgentResult:
         """Invoke Claude API to fix errors."""
         start_time = time.time()
-        
+
         if not self.check_available():
             return AgentResult(
                 success=False,
@@ -266,14 +266,14 @@ class ClaudeAdapter(AgentAdapter):
                 metadata={"status": "stub"},
                 error_message="Claude API key not configured"
             )
-        
+
         # Format error report
         prompt = invocation.prompt_template or self._format_error_prompt(invocation.error_report)
-        
+
         # For now, return a stub indicating this needs implementation
         # Full implementation would use Anthropic Python SDK
         duration_ms = int((time.time() - start_time) * 1000)
-        
+
         return AgentResult(
             success=False,
             files_modified=[],
@@ -287,14 +287,14 @@ class ClaudeAdapter(AgentAdapter):
 
 def get_agent_adapter(agent_name: str, config: Optional[Dict[str, Any]] = None) -> AgentAdapter:
     """Factory function to get an agent adapter by name.
-    
+
     Args:
         agent_name: Name of the agent ("aider", "codex", "claude")
         config: Optional configuration dictionary
-        
+
     Returns:
         AgentAdapter instance
-        
+
     Raises:
         ValueError: If agent_name is not recognized
     """
@@ -303,20 +303,20 @@ def get_agent_adapter(agent_name: str, config: Optional[Dict[str, Any]] = None) 
         "codex": CodexAdapter,
         "claude": ClaudeAdapter,
     }
-    
+
     adapter_class = adapters.get(agent_name.lower())
     if not adapter_class:
         raise ValueError(
             f"Unknown agent: {agent_name}. "
             f"Available agents: {', '.join(adapters.keys())}"
         )
-    
+
     return adapter_class(config)
 
 
 def check_agent_availability() -> Dict[str, bool]:
     """Check which agents are available on this system.
-    
+
     Returns:
         Dictionary mapping agent name to availability status
     """

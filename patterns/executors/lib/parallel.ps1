@@ -26,45 +26,45 @@ function Invoke-ParallelActions {
     <#
     .SYNOPSIS
         Executes actions in parallel with progress tracking
-    
+
     .PARAMETER Actions
         Array of script blocks or hashtables with: @{ name=$string; action=$scriptblock; params=@{} }
-    
+
     .PARAMETER ThrottleLimit
         Maximum number of parallel threads (default: 5)
-    
+
     .PARAMETER ShowProgress
         Display progress bar during execution
-    
+
     .OUTPUTS
         Array of results: @{ name=$string; success=$bool; result=$object; error=$string; duration_ms=$int }
     #>
     param(
         [Parameter(Mandatory=$true)]
         [array]$Actions,
-        
+
         [Parameter(Mandatory=$false)]
         [int]$ThrottleLimit = 5,
-        
+
         [Parameter(Mandatory=$false)]
         [switch]$ShowProgress
     )
-    
+
     $results = @()
     $completed = 0
     $total = $Actions.Count
-    
+
     if ($ShowProgress) {
         Write-Progress -Activity "Executing parallel actions" -Status "Starting..." -PercentComplete 0
     }
-    
+
     # Execute actions in parallel using ForEach-Object -Parallel
     $results = $Actions | ForEach-Object -ThrottleLimit $ThrottleLimit -Parallel {
         $action = $_
         $actionName = if ($action -is [hashtable]) { $action.name } else { "Action_$($_.ToString().GetHashCode())" }
         $scriptBlock = if ($action -is [hashtable]) { $action.action } else { $action }
         $parameters = if ($action -is [hashtable] -and $action.params) { $action.params } else { @{} }
-        
+
         $result = @{
             name = $actionName
             success = $false
@@ -72,9 +72,9 @@ function Invoke-ParallelActions {
             error = $null
             duration_ms = 0
         }
-        
+
         $startTime = Get-Date
-        
+
         try {
             # Execute the script block
             if ($parameters.Count -gt 0) {
@@ -92,14 +92,14 @@ function Invoke-ParallelActions {
         finally {
             $result.duration_ms = [int]((Get-Date) - $startTime).TotalMilliseconds
         }
-        
+
         return $result
     }
-    
+
     if ($ShowProgress) {
         Write-Progress -Activity "Executing parallel actions" -Completed
     }
-    
+
     return $results
 }
 
@@ -111,30 +111,30 @@ function Invoke-ParallelChecks {
     <#
     .SYNOPSIS
         Runs validation checks in parallel and aggregates results
-    
+
     .PARAMETER Checks
         Array of check definitions: @{ id=$string; name=$string; check=$scriptblock; severity=$string }
-    
+
     .PARAMETER ThrottleLimit
         Maximum number of parallel threads (default: 5)
-    
+
     .PARAMETER FailFast
         Stop on first critical failure
-    
+
     .OUTPUTS
         Hashtable with aggregated results: @{ passed=$int; failed=$int; checks=@(); all_passed=$bool }
     #>
     param(
         [Parameter(Mandatory=$true)]
         [array]$Checks,
-        
+
         [Parameter(Mandatory=$false)]
         [int]$ThrottleLimit = 5,
-        
+
         [Parameter(Mandatory=$false)]
         [switch]$FailFast
     )
-    
+
     $aggregated = @{
         passed = 0
         failed = 0
@@ -143,11 +143,11 @@ function Invoke-ParallelChecks {
         all_passed = $true
         critical_failed = $false
     }
-    
+
     # Execute checks in parallel
     $checkResults = $Checks | ForEach-Object -ThrottleLimit $ThrottleLimit -Parallel {
         $check = $_
-        
+
         $result = @{
             id = $check.id
             name = $check.name
@@ -156,13 +156,13 @@ function Invoke-ParallelChecks {
             message = ""
             duration_ms = 0
         }
-        
+
         $startTime = Get-Date
-        
+
         try {
             # Execute the check
             $checkResult = & $check.check
-            
+
             # Interpret result (can be boolean, hashtable, or string)
             if ($checkResult -is [bool]) {
                 $result.passed = $checkResult
@@ -189,14 +189,14 @@ function Invoke-ParallelChecks {
         finally {
             $result.duration_ms = [int]((Get-Date) - $startTime).TotalMilliseconds
         }
-        
+
         return $result
     }
-    
+
     # Aggregate results
     foreach ($checkResult in $checkResults) {
         $aggregated.checks += $checkResult
-        
+
         if ($checkResult.passed) {
             $aggregated.passed++
         }
@@ -207,10 +207,10 @@ function Invoke-ParallelChecks {
             else {
                 $aggregated.failed++
                 $aggregated.all_passed = $false
-                
+
                 if ($checkResult.severity -eq "critical") {
                     $aggregated.critical_failed = $true
-                    
+
                     if ($FailFast) {
                         break
                     }
@@ -218,7 +218,7 @@ function Invoke-ParallelChecks {
             }
         }
     }
-    
+
     return $aggregated
 }
 
@@ -230,24 +230,24 @@ function Start-ProgressTracker {
     <#
     .SYNOPSIS
         Creates a progress tracker for long-running operations
-    
+
     .PARAMETER Activity
         Activity name for progress display
-    
+
     .PARAMETER TotalSteps
         Total number of steps
-    
+
     .OUTPUTS
         Hashtable progress tracker object
     #>
     param(
         [Parameter(Mandatory=$true)]
         [string]$Activity,
-        
+
         [Parameter(Mandatory=$true)]
         [int]$TotalSteps
     )
-    
+
     return @{
         activity = $Activity
         total_steps = $TotalSteps
@@ -261,41 +261,41 @@ function Update-ProgressTracker {
     <#
     .SYNOPSIS
         Updates progress tracker and displays progress bar
-    
+
     .PARAMETER Tracker
         Progress tracker object from Start-ProgressTracker
-    
+
     .PARAMETER StepName
         Name of completed step
-    
+
     .PARAMETER Status
         Current status message
     #>
     param(
         [Parameter(Mandatory=$true)]
         [hashtable]$Tracker,
-        
+
         [Parameter(Mandatory=$true)]
         [string]$StepName,
-        
+
         [Parameter(Mandatory=$false)]
         [string]$Status = ""
     )
-    
+
     $Tracker.current_step++
     $Tracker.steps_completed += @{
         name = $StepName
         completed_at = Get-Date
     }
-    
+
     $percentComplete = [int](($Tracker.current_step / $Tracker.total_steps) * 100)
     $elapsed = (Get-Date) - $Tracker.start_time
     $avgTimePerStep = $elapsed.TotalSeconds / $Tracker.current_step
     $remainingSteps = $Tracker.total_steps - $Tracker.current_step
     $estimatedRemaining = [timespan]::FromSeconds($avgTimePerStep * $remainingSteps)
-    
+
     $statusMessage = if ($Status) { $Status } else { "Step $($Tracker.current_step) of $($Tracker.total_steps): $StepName" }
-    
+
     Write-Progress `
         -Activity $Tracker.activity `
         -Status $statusMessage `
@@ -307,7 +307,7 @@ function Complete-ProgressTracker {
     <#
     .SYNOPSIS
         Completes progress tracker and hides progress bar
-    
+
     .PARAMETER Tracker
         Progress tracker object
     #>
@@ -315,11 +315,11 @@ function Complete-ProgressTracker {
         [Parameter(Mandatory=$true)]
         [hashtable]$Tracker
     )
-    
+
     Write-Progress -Activity $Tracker.activity -Completed
-    
+
     $duration = (Get-Date) - $Tracker.start_time
-    
+
     return @{
         total_steps = $Tracker.total_steps
         duration_seconds = $duration.TotalSeconds

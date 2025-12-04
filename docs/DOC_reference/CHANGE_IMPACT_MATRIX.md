@@ -6,7 +6,7 @@ doc_id: DOC-GUIDE-CHANGE-IMPACT-MATRIX-1360
 
 **Purpose:** Document critical dependencies in the codebase so that AI agents and developers can predict ripple effects before making changes.
 
-**Last Updated:** 2025-11-22  
+**Last Updated:** 2025-11-22
 **Maintainer:** System Architecture Team
 
 ---
@@ -423,5 +423,5 @@ This matrix should be updated when:
 - Validation procedures change
 - Breaking changes occur
 
-**Owner:** System Architecture Team  
+**Owner:** System Architecture Team
 **Review Frequency:** Monthly or after major refactorings

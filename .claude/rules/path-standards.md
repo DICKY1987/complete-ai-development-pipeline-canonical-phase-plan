@@ -11,7 +11,7 @@ This specification defines file path usage standards within the Claude Code PM s
 
 ### 1. Privacy Protection
 - **Prohibit** absolute paths containing usernames
-- **Prohibit** exposing local directory structure in public documentation  
+- **Prohibit** exposing local directory structure in public documentation
 - **Prohibit** including complete local paths in GitHub Issue comments
 
 ### 2. Portability Principles
@@ -24,7 +24,7 @@ This specification defines file path usage standards within the Claude Code PM s
 ### Project File References ✅
 ```markdown
 # Correct Examples
-- `internal/auth/server.go` 
+- `internal/auth/server.go`
 - `cmd/server/main.go`
 - `.claude/commands/pm/sync.md`
 
@@ -50,7 +50,7 @@ This specification defines file path usage standards within the Claude Code PM s
 // See internal/processor/converter.go for data transformation
 // Configuration loaded from configs/production.yml
 
-// Incorrect Examples ❌  
+// Incorrect Examples ❌
 // See /Users/username/parent-dir/project-name/internal/processor/converter.go
 ```
 
@@ -65,7 +65,7 @@ This specification defines file path usage standards within the Claude Code PM s
 ```yaml
 # Template variable definitions
 project_root: "."              # Current project root directory
-worktree_path: "../{name}"     # Worktree relative path  
+worktree_path: "../{name}"     # Worktree relative path
 internal_path: "internal/"     # Internal modules directory
 config_path: "configs/"        # Configuration files directory
 ```
@@ -77,7 +77,7 @@ normalize_paths() {
   local content="$1"
   # Remove user-specific paths (generic patterns)
   content=$(echo "$content" | sed "s|/Users/[^/]*/[^/]*/|../|g")
-  content=$(echo "$content" | sed "s|/home/[^/]*/[^/]*/|../|g")  
+  content=$(echo "$content" | sed "s|/home/[^/]*/[^/]*/|../|g")
   content=$(echo "$content" | sed "s|C:\\\\Users\\\\[^\\\\]*\\\\[^\\\\]*\\\\|..\\\\|g")
   echo "$content"
 }
@@ -139,7 +139,7 @@ If privacy information has been leaked:
 # Before ❌
 - ✅ Implemented `/Users/username/parent-dir/project-name/internal/auth/server.go` core logic
 
-# After ✅  
+# After ✅
 - ✅ Implemented `../project-name/internal/auth/server.go` core logic
 ```
 
@@ -148,11 +148,11 @@ If privacy information has been leaked:
 # Correct Format ✅
 ## 📦 Deliverables
 - `internal/formatter/batch.go` - Batch formatter
-- `internal/processor/sorter.go` - Sorting algorithm  
+- `internal/processor/sorter.go` - Sorting algorithm
 - `cmd/server/main.go` - Server entry point
 
 # Incorrect Format ❌
-## 📦 Deliverables  
+## 📦 Deliverables
 - `/Users/username/parent-dir/project-name/internal/formatter/batch.go`
 ```
 

@@ -56,47 +56,47 @@ def deep_search(
 ) -> List[Path]:
     """
     Recursively search directory tree for matching files.
-    
+
     Args:
         root_dir: Starting directory for search
         pattern: Glob pattern (e.g., "*.patch", "*test*")
         max_depth: Maximum recursion depth (None = unlimited)
         filter_func: Optional custom filter function
         follow_symlinks: Whether to follow symbolic links
-    
+
     Returns:
         List of Path objects matching criteria
     """
     results = []
     root = Path(root_dir)
-    
+
     def search_recursive(current_path: Path, depth: int = 0):
         if max_depth is not None and depth > max_depth:
             return
-        
+
         try:
             for item in current_path.iterdir():
                 # Skip symlinks unless explicitly requested
                 if item.is_symlink() and not follow_symlinks:
                     continue
-                
+
                 # If it's a directory, recurse
                 if item.is_dir():
                     search_recursive(item, depth + 1)
-                
+
                 # If it's a file, check if it matches
                 elif item.is_file():
                     if fnmatch.fnmatch(item.name, pattern):
                         if filter_func is None or filter_func(item):
                             results.append(item)
-        
+
         except PermissionError:
             # Skip directories we can't access
             pass
         except Exception as e:
             # Log other errors but continue
             print(f"Warning: Error accessing {current_path}: {e}")
-    
+
     search_recursive(root)
     return sorted(results)
 ```
@@ -129,26 +129,26 @@ def find_by_content(
 ) -> List[tuple[Path, int]]:
     """
     Find files containing specific text.
-    
+
     Returns:
         List of (file_path, line_number) tuples
     """
     matches = []
     files = deep_search(root_dir, file_pattern)
-    
+
     for file_path in files:
         try:
             with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
                 for line_num, line in enumerate(f, 1):
                     line_to_check = line if case_sensitive else line.lower()
                     text_to_find = search_text if case_sensitive else search_text.lower()
-                    
+
                     if text_to_find in line_to_check:
                         matches.append((file_path, line_num))
         except Exception:
             # Skip files we can't read
             pass
-    
+
     return matches
 ```
 
@@ -162,18 +162,18 @@ def find_by_size(
 ) -> List[tuple[Path, int]]:
     """
     Find files within size range.
-    
+
     Args:
         min_size: Minimum size in bytes
         max_size: Maximum size in bytes
-    
+
     Returns:
         List of (file_path, size_bytes) tuples
     """
     def size_filter(path: Path) -> bool:
         size = path.stat().st_size
         return min_size <= size <= max_size
-    
+
     files = deep_search(root_dir, pattern, filter_func=size_filter)
     return [(f, f.stat().st_size) for f in files]
 ```
@@ -189,11 +189,11 @@ def find_modified_since(
 ) -> List[tuple[Path, datetime]]:
     """Find files modified within last N days."""
     cutoff_time = datetime.now() - timedelta(days=days_ago)
-    
+
     def date_filter(path: Path) -> bool:
         mtime = datetime.fromtimestamp(path.stat().st_mtime)
         return mtime >= cutoff_time
-    
+
     files = deep_search(root_dir, pattern, filter_func=date_filter)
     return [(f, datetime.fromtimestamp(f.stat().st_mtime)) for f in files]
 ```
@@ -333,14 +333,14 @@ class PatchManager:
     def discover_all_patches(self) -> List[Path]:
         """Find patches anywhere in directory tree."""
         return deep_search(self.repo_path, "*.patch")
-    
+
     def process_discovered_patches(self):
         """Process all patches found recursively."""
         all_patches = self.discover_all_patches()
-        
+
         for patch in all_patches:
             print(f"\nFound patch: {patch.relative_to(self.repo_path)}")
-            
+
             if self.is_patch_applied(patch):
                 print("  Already applied - archiving")
                 self.archive_patch(patch)
@@ -364,13 +364,13 @@ def optimized_search(root_dir: str, pattern: str) -> List[Path]:
     """Search with common exclusions."""
     def should_skip(path: Path) -> bool:
         return path.name in SKIP_DIRS
-    
+
     results = []
     for path in Path(root_dir).rglob(pattern):
         # Check if any parent is in skip list
         if not any(p.name in SKIP_DIRS for p in path.parents):
             results.append(path)
-    
+
     return results
 ```
 
@@ -382,7 +382,7 @@ def parallel_search(root_dir: str, pattern: str, workers: int = 4) -> List[Path]
     """Search using multiple threads."""
     root = Path(root_dir)
     subdirs = [d for d in root.iterdir() if d.is_dir()]
-    
+
     with ThreadPoolExecutor(max_workers=workers) as executor:
         futures = [
             executor.submit(deep_search, str(subdir), pattern)
@@ -391,7 +391,7 @@ def parallel_search(root_dir: str, pattern: str, workers: int = 4) -> List[Path]
         results = []
         for future in futures:
             results.extend(future.result())
-    
+
     return sorted(results)
 ```
 
@@ -403,10 +403,10 @@ def parallel_search(root_dir: str, pattern: str, workers: int = 4) -> List[Path]
 - ✅ Provides flexible output formats
 
 ## Anti-Patterns
-❌ Searching entire filesystem without constraints  
-❌ Not handling permission errors  
-❌ Following circular symlinks  
-❌ Loading all file contents into memory  
+❌ Searching entire filesystem without constraints
+❌ Not handling permission errors
+❌ Following circular symlinks
+❌ Loading all file contents into memory
 ❌ Not skipping irrelevant directories (.git, etc.)
 
 ## Related Patterns

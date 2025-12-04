@@ -17,7 +17,7 @@ framework_guides:
     audience: developers
     priority: critical
     status: active
-    
+
   - doc_id: DOC-GUIDE-AGENTS-GUIDE-002
     name: agents_guide
     file: AGENTS.md
@@ -55,7 +55,7 @@ execution:
     audience: developers
     priority: high
     status: active
-    
+
   - doc_id: DOC-GUIDE-DOC-CLEANUP-007
     name: doc_cleanup_pattern
     file: DOC_DOCUMENTATION_CLEANUP_PATTERN.md
@@ -63,7 +63,7 @@ execution:
     audience: developers
     priority: medium
     status: active
-    
+
   - doc_id: DOC-GUIDE-PARALLEL-EXECUTION-006
     name: parallel_execution
     file: PARALLEL_EXECUTION_STRATEGY.md

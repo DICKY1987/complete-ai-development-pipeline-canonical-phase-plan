@@ -34,15 +34,15 @@ class GateResult:
 
 class TestGateEnforcer:
     """Enforces quality gates during parallel execution."""
-    
+
     def __init__(self, gates: List[TestGate]):
         """Initialize gate enforcer.
-        
+
         Args:
             gates: List of gates to enforce
         """
         self.gates = gates
-    
+
     def enforce_gates(
         self,
         workstream_id: str,
@@ -50,27 +50,27 @@ class TestGateEnforcer:
         context: Dict[str, Any]
     ) -> List[GateResult]:
         """Enforce all gates for a workstream.
-        
+
         Args:
             workstream_id: Workstream ID
             run_id: Execution run ID
             context: Execution context
-            
+
         Returns:
             List of GateResult objects
         """
         results = []
-        
+
         for gate in self.gates:
             result = self._execute_gate(gate, workstream_id, run_id, context)
             results.append(result)
-            
+
             # Stop if blocking gate fails
             if gate.blocking and not result.passed:
                 break
-        
+
         return results
-    
+
     def _execute_gate(
         self,
         gate: TestGate,
@@ -79,21 +79,21 @@ class TestGateEnforcer:
         context: Dict[str, Any]
     ) -> GateResult:
         """Execute single gate.
-        
+
         Args:
             gate: Gate configuration
             workstream_id: Workstream ID
             run_id: Run ID
             context: Execution context
-            
+
         Returns:
             GateResult
         """
         from modules.core_engine import m010001_tools
         from modules.core_state import m010003_db
-        
+
         executed_at = datetime.now(timezone.utc)
-        
+
         try:
             # Execute gate tool
             tool_result = tools.run_tool(
@@ -102,10 +102,10 @@ class TestGateEnforcer:
                 run_id=run_id,
                 ws_id=workstream_id
             )
-            
+
             passed = bool(tool_result.success)
             error_msg = None if passed else str(tool_result.error)
-            
+
             # Record gate result
             db.record_event(
                 event_type='test_gate_executed',
@@ -118,7 +118,7 @@ class TestGateEnforcer:
                     'blocking': gate.blocking
                 }
             )
-            
+
             return GateResult(
                 gate_id=gate.gate_id,
                 passed=passed,
@@ -126,7 +126,7 @@ class TestGateEnforcer:
                 error_message=error_msg,
                 executed_at=executed_at
             )
-        
+
         except Exception as e:
             # Gate execution failed
             db.record_event(
@@ -138,7 +138,7 @@ class TestGateEnforcer:
                     'error': str(e)
                 }
             )
-            
+
             return GateResult(
                 gate_id=gate.gate_id,
                 passed=False,
@@ -146,7 +146,7 @@ class TestGateEnforcer:
                 error_message=str(e),
                 executed_at=executed_at
             )
-    
+
     def enforce_wave_gates(
         self,
         wave_workstreams: List[str],
@@ -154,17 +154,17 @@ class TestGateEnforcer:
         context: Dict[str, Any]
     ) -> Dict[str, List[GateResult]]:
         """Enforce wave-boundary gates across multiple workstreams.
-        
+
         Args:
             wave_workstreams: List of workstream IDs in wave
             run_id: Run ID
             context: Execution context
-            
+
         Returns:
             Dict mapping workstream_id to gate results
         """
         wave_gates = [g for g in self.gates if g.wave_boundary]
-        
+
         results = {}
         for ws_id in wave_workstreams:
             ws_results = []
@@ -172,15 +172,15 @@ class TestGateEnforcer:
                 result = self._execute_gate(gate, ws_id, run_id, context)
                 ws_results.append(result)
             results[ws_id] = ws_results
-        
+
         return results
-    
+
     def get_blocking_failures(self, results: List[GateResult]) -> List[GateResult]:
         """Get list of blocking gate failures.
-        
+
         Args:
             results: List of gate results
-            
+
         Returns:
             List of failed blocking gates
         """
@@ -189,7 +189,7 @@ class TestGateEnforcer:
 
 def create_default_gates() -> List[TestGate]:
     """Create default test gates for parallel execution.
-    
+
     Returns:
         List of default TestGate configurations
     """

@@ -178,53 +178,53 @@ def load_atom_registry(registry_path: str) -> List[Dict]:
 def calculate_priority(atom: Dict) -> int:
     """Calculate migration priority (1=highest, 5=lowest)"""
     priority = 3  # Default medium
-    
+
     # High priority: Has dependencies (proves reuse)
     if atom.get('depends_on'):
         priority -= 1
-    
+
     # High priority: Well-documented
     if len(atom.get('description', '')) > 100:
         priority -= 1
-    
+
     # High priority: Has explicit inputs/outputs
     if atom.get('inputs') and atom.get('outputs'):
         priority -= 1
-    
+
     # Low priority: Missing critical metadata
     if not atom.get('role'):
         priority += 1
-    
+
     return max(1, min(5, priority))
 
 def convert_atom_to_pattern(atom: Dict, sequence: int) -> Dict:
     """Convert atom format to pattern spec format
-    
+
     Args:
         atom: Atom dict from registry
         sequence: Sequential number for this migration batch (001, 002, etc.)
-    
+
     Returns:
         Pattern dict following PAT-MIGRATED-<CATEGORY>-<SEQ> convention
     """
-    
+
     # Extract category from atom role
     category = atom.get('role', 'general').upper()
-    
+
     # Extract atom_key components for pattern name
     atom_key = atom.get('atom_key', 'unknown/unknown/v1/ph0/ln0/000')
     name_part = atom_key.split('/')[-1].split('-')[0]  # Get seq part, remove variants
     pattern_name = f"migrated_{category.lower()}_{name_part}"
-    
+
     # Build pattern ID following PAT-MIGRATED-<CATEGORY>-<SEQ> (PAT-NAME-002)
     pattern_id = f"PAT-MIGRATED-{category}-{sequence:03d}"
-    
+
     pattern = {
         'pattern_id': pattern_id,
         'name': pattern_name,
         'version': '1.0.0',
         'category': category.lower(),
-        
+
         'meta': {
             'migrated_from': 'atomic-workflow-system',
             'original_atom_uid': atom['atom_uid'],
@@ -233,24 +233,24 @@ def convert_atom_to_pattern(atom: Dict, sequence: int) -> Dict:
             'status': 'draft',  # Until tested
             'migration_sequence': sequence
         },
-        
+
         'intent': atom.get('description', 'Migrated from atomic-workflow-system'),
-        
+
         'inputs': {
             inp: {'type': 'string', 'description': f'Input: {inp}'}
             for inp in atom.get('inputs', [])
         },
-        
+
         'outputs': {
             out: {'type': 'string', 'description': f'Output: {out}'}
             for out in atom.get('outputs', [])
         },
-        
+
         'dependencies': [
             {'pattern_id': f"PAT-MIGRATED-{atom.get('role', 'GENERAL').upper()}-{i:03d}"}
             for i, dep in enumerate(atom.get('depends_on', []), start=1)
         ],
-        
+
         'execution_steps': [
             {
                 'id': 'execute_atom_logic',
@@ -259,22 +259,22 @@ def convert_atom_to_pattern(atom: Dict, sequence: int) -> Dict:
             }
         ]
     }
-    
+
     # Add tool_bindings after pattern dict is complete (fixes NameError)
     pattern['tool_bindings'] = {
         'claude_code': {
             'invoke': f"pattern {pattern_name} --instance ${{instance_path}}"
         }
     }
-    
+
     return pattern
 
 def generate_pattern_schema(pattern: Dict) -> Dict:
     """Generate JSON schema for pattern
-    
+
     Follows PAT-MIGRATED-<CATEGORY>-<SEQ> naming convention (PAT-NAME-002)
     """
-    
+
     input_properties = {
         name: {
             'type': meta.get('type', 'string'),
@@ -282,7 +282,7 @@ def generate_pattern_schema(pattern: Dict) -> Dict:
         }
         for name, meta in pattern.get('inputs', {}).items()
     }
-    
+
     # Updated regex to match PAT-MIGRATED-<CATEGORY>-<SEQ> format
     schema = {
         '$schema': 'http://json-schema.org/draft-07/schema#',
@@ -308,12 +308,12 @@ def generate_pattern_schema(pattern: Dict) -> Dict:
             }
         }
     }
-    
+
     return schema
 
 def generate_executor_stub(pattern: Dict) -> str:
     """Generate Python executor stub"""
-    
+
     executor = f'''#!/usr/bin/env python3
 """
 Executor for {pattern['name']}
@@ -333,22 +333,22 @@ from typing import Dict, Any
 def execute(instance: Dict[str, Any]) -> Dict[str, Any]:
     """
     Execute pattern instance.
-    
+
     TODO: Implement execution logic based on original atom behavior.
     Review original atom at:
     https://github.com/DICKY1987/atomic-workflow-system
     """
-    
+
     # Validate inputs (fixed: use list() not set())
     required_inputs = list(pattern.get('inputs', {}).keys())
     for inp in required_inputs:
         if inp not in instance.get('inputs', {}):
             raise ValueError(f"Missing required input: {inp}")
-    
+
     # TODO: Implement atom logic here
     print(f"Executing {pattern['name']}...")
     print(f"Inputs: {json.dumps(instance.get('inputs', {}), indent=2)}")
-    
+
     # Placeholder result
     result = {
         'status': 'success',
@@ -360,47 +360,47 @@ def execute(instance: Dict[str, Any]) -> Dict[str, Any]:
             # TODO: Generate actual outputs based on pattern spec
         }
     }
-    
+
     return result
 
 def main():
     if len(sys.argv) < 2:
         print("Usage: {pattern['name']}_executor.py <instance.json>")
         sys.exit(1)
-    
+
     instance_path = sys.argv[1]
-    
+
     with open(instance_path) as f:
         instance = json.load(f)
-    
+
     result = execute(instance)
-    
+
     print(json.dumps(result, indent=2))
 
 if __name__ == '__main__':
     main()
 '''
-    
+
     return executor
 
 def save_pattern(pattern: Dict, output_dir: Path):
     """Save pattern spec, schema, and executor"""
-    
+
     name = pattern['name']
-    
+
     # Save spec
     spec_path = output_dir / 'specs' / f'{name}.pattern.yaml'
     spec_path.parent.mkdir(parents=True, exist_ok=True)
     with open(spec_path, 'w') as f:
         yaml.dump(pattern, f, default_flow_style=False, sort_keys=False)
-    
+
     # Save schema
     schema = generate_pattern_schema(pattern)
     schema_path = output_dir / 'schemas' / f'{name}.schema.json'
     schema_path.parent.mkdir(parents=True, exist_ok=True)
     with open(schema_path, 'w') as f:
         json.dump(schema, f, indent=2)
-    
+
     # Save executor
     executor = generate_executor_stub(pattern)
     executor_path = output_dir / 'executors' / f'{name}_executor.py'
@@ -408,11 +408,11 @@ def save_pattern(pattern: Dict, output_dir: Path):
     with open(executor_path, 'w') as f:
         f.write(executor)
     executor_path.chmod(0o755)  # Make executable
-    
+
     # Create examples directory
     examples_dir = output_dir / 'examples' / name
     examples_dir.mkdir(parents=True, exist_ok=True)
-    
+
     # Create minimal instance example
     minimal_instance = {
         'pattern_id': pattern['pattern_id'],
@@ -423,7 +423,7 @@ def save_pattern(pattern: Dict, output_dir: Path):
     }
     with open(examples_dir / 'instance_minimal.json', 'w') as f:
         json.dump(minimal_instance, f, indent=2)
-    
+
     return {
         'spec': str(spec_path),
         'schema': str(schema_path),
@@ -437,14 +437,14 @@ def main():
     parser.add_argument('--output', default='patterns/legacy_atoms/converted', help='Output directory')
     parser.add_argument('--limit', type=int, default=20, help='Max patterns to migrate')
     parser.add_argument('--min-priority', type=int, default=3, help='Minimum priority (1-5)')
-    
+
     args = parser.parse_args()
-    
+
     # Load atoms
     print(f"Loading atoms from {args.registry}...")
     atoms = load_atom_registry(args.registry)
     print(f"Found {len(atoms)} atoms")
-    
+
     # Calculate priorities
     print("Calculating migration priorities...")
     prioritized = [
@@ -452,24 +452,24 @@ def main():
         for atom in atoms
     ]
     prioritized.sort()  # Sort by priority (1=highest)
-    
+
     # Filter by priority threshold
     to_migrate = [
         atom for priority, atom in prioritized
         if priority <= args.min_priority
     ][:args.limit]
-    
+
     print(f"Migrating {len(to_migrate)} high-priority atoms...")
-    
+
     # Convert and save
     output_dir = Path(args.output)
     migrated = []
-    
+
     for sequence, atom in enumerate(to_migrate, start=1):
         try:
             pattern = convert_atom_to_pattern(atom, sequence)
             paths = save_pattern(pattern, output_dir)
-            
+
             migrated.append({
                 'pattern_id': pattern['pattern_id'],
                 'pattern_name': pattern['name'],
@@ -478,21 +478,21 @@ def main():
                 'category': pattern['category'],
                 'files': paths
             })
-            
+
             print(f"  ✓ {pattern['name']} ({pattern['pattern_id']})")
-        
+
         except Exception as e:
             print(f"  ✗ Failed to migrate {atom.get('atom_uid', 'unknown')}: {e}")
-    
+
     # Save mapping
     mapping_path = output_dir / 'mapping.json'
     with open(mapping_path, 'w') as f:
         json.dump(migrated, f, indent=2)
-    
+
     print(f"\nMigration complete!")
     print(f"  Patterns migrated: {len(migrated)}")
     print(f"  Mapping saved to: {mapping_path}")
-    
+
     # Generate registry entries
     registry_entries = []
     for m in migrated:
@@ -509,7 +509,7 @@ def main():
             'migrated_from': 'atomic-workflow-system',
             'original_atom_uid': m['original_atom_uid']
         })
-    
+
     # Generate bare list for easy merging (fixes YAML concatenation issue)
     registry_path = output_dir / 'registry_entries.yaml'
     with open(registry_path, 'w') as f:
@@ -519,7 +519,7 @@ def main():
         for entry in registry_entries:
             f.write(yaml.dump([entry], default_flow_style=False))
             f.write('\n')
-    
+
     print(f"  Registry entries saved to: {registry_path}")
     print(f"\nNext steps:")
     print(f"  1. Review generated patterns in {output_dir}")
@@ -596,19 +596,19 @@ category: "github_integration"
 
 description: |
   Complete GitHub PR workflow: create branch, make changes, run tests, create PR.
-  
+
 migrated_from: "atomic-workflow-system/WORKFLOWS/github/"
 
 patterns_used:
   - pattern_id: "PAT-MIGRATED-<UID1>"
     step: "create_branch"
-    
+
   - pattern_id: "PAT-MIGRATED-<UID2>"
     step: "apply_changes"
-    
+
   - pattern_id: "PAT-MIGRATED-<UID3>"
     step: "run_tests"
-    
+
   - pattern_id: "PAT-MIGRATED-<UID4>"
     step: "create_pr"
 
@@ -618,19 +618,19 @@ execution_flow:
     inputs:
       base_branch: "${BASE_BRANCH}"
       new_branch: "${FEATURE_BRANCH}"
-  
+
   2_apply_changes:
     pattern: "apply_changes"
     depends_on: "1_create_branch"
     inputs:
       files: "${FILES_TO_CHANGE}"
-  
+
   3_run_tests:
     pattern: "run_tests"
     depends_on: "2_apply_changes"
     inputs:
       test_suite: "all"
-  
+
   4_create_pr:
     pattern: "create_pr"
     depends_on: "3_run_tests"
@@ -658,27 +658,27 @@ from pathlib import Path
 
 def merge_registry_entries():
     """Merge migrated pattern entries into main registry"""
-    
+
     # Load main registry
     main_registry_path = Path('patterns/registry/PATTERN_INDEX.yaml')
     with open(main_registry_path) as f:
         main_registry = yaml.safe_load(f)
-    
+
     # Load migrated entries (bare list)
     migrated_path = Path('patterns/legacy_atoms/converted/registry_entries.yaml')
     with open(migrated_path) as f:
         migrated_entries = yaml.safe_load(f)
-    
+
     # Append entries
     if 'patterns' not in main_registry:
         main_registry['patterns'] = []
-    
+
     main_registry['patterns'].extend(migrated_entries)
-    
+
     # Save merged registry
     with open(main_registry_path, 'w') as f:
         yaml.dump(main_registry, f, default_flow_style=False, sort_keys=False)
-    
+
     print(f"✓ Merged {len(migrated_entries)} patterns into registry")
 
 if __name__ == '__main__':
@@ -700,8 +700,8 @@ Create `patterns/legacy_atoms/EXTRACTION_REPORT.md`:
 ```markdown
 # atomic-workflow-system Extraction Report
 
-**Date**: 2025-11-24  
-**Source**: https://github.com/DICKY1987/atomic-workflow-system  
+**Date**: 2025-11-24
+**Source**: https://github.com/DICKY1987/atomic-workflow-system
 **Commit**: [SHA]
 
 ## Summary
@@ -794,7 +794,7 @@ Add section to `patterns/README_PATTERNS.md`:
 ```markdown
 ## Migrated Patterns from atomic-workflow-system
 
-20+ proven patterns have been migrated from the atomic-workflow-system 
+20+ proven patterns have been migrated from the atomic-workflow-system
 repository. These patterns are marked with `migrated_from: atomic-workflow-system`
 in their metadata.
 

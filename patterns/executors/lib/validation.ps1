@@ -27,43 +27,43 @@ function Validate-PatternInstance {
     <#
     .SYNOPSIS
         Validates pattern instance JSON structure and required fields
-    
+
     .PARAMETER InstancePath
         Path to pattern instance JSON file
-    
+
     .PARAMETER RequiredFields
         Array of required field names
-    
+
     .PARAMETER PatternId
         Expected pattern_id value (optional)
-    
+
     .OUTPUTS
         Hashtable with validation results: @{ valid=$true; instance=$obj; errors=@() }
     #>
     param(
         [Parameter(Mandatory=$true)]
         [string]$InstancePath,
-        
+
         [Parameter(Mandatory=$false)]
         [string[]]$RequiredFields = @("pattern_id", "project_root"),
-        
+
         [Parameter(Mandatory=$false)]
         [string]$PatternId
     )
-    
+
     $validation = @{
         valid = $true
         instance = $null
         errors = @()
     }
-    
+
     # Check file exists
     if (-not (Test-Path $InstancePath)) {
         $validation.valid = $false
         $validation.errors += "Instance file not found: $InstancePath"
         return $validation
     }
-    
+
     # Load and parse JSON
     try {
         $instance = Get-Content $InstancePath -Raw | ConvertFrom-Json
@@ -74,7 +74,7 @@ function Validate-PatternInstance {
         $validation.errors += "Failed to parse JSON: $_"
         return $validation
     }
-    
+
     # Check required fields
     foreach ($field in $RequiredFields) {
         if (-not ($instance.PSObject.Properties.Name -contains $field)) {
@@ -82,13 +82,13 @@ function Validate-PatternInstance {
             $validation.errors += "Missing required field: $field"
         }
     }
-    
+
     # Validate pattern_id if specified
     if ($PatternId -and $instance.pattern_id -ne $PatternId) {
         $validation.valid = $false
         $validation.errors += "Invalid pattern_id: Expected $PatternId, got $($instance.pattern_id)"
     }
-    
+
     return $validation
 }
 
@@ -100,51 +100,51 @@ function Validate-ProjectStructure {
     <#
     .SYNOPSIS
         Validates project directory structure and required paths
-    
+
     .PARAMETER ProjectRoot
         Root directory of the project
-    
+
     .PARAMETER RequiredPaths
         Array of required relative paths (directories or files)
-    
+
     .PARAMETER CreateMissing
         If true, creates missing directories
-    
+
     .OUTPUTS
         Hashtable with validation results: @{ valid=$true; missing=@(); created=@(); errors=@() }
     #>
     param(
         [Parameter(Mandatory=$true)]
         [string]$ProjectRoot,
-        
+
         [Parameter(Mandatory=$false)]
         [string[]]$RequiredPaths = @(),
-        
+
         [Parameter(Mandatory=$false)]
         [switch]$CreateMissing
     )
-    
+
     $validation = @{
         valid = $true
         missing = @()
         created = @()
         errors = @()
     }
-    
+
     # Check project root exists
     if (-not (Test-Path $ProjectRoot)) {
         $validation.valid = $false
         $validation.errors += "Project root not found: $ProjectRoot"
         return $validation
     }
-    
+
     # Check required paths
     foreach ($relPath in $RequiredPaths) {
         $fullPath = Join-Path $ProjectRoot $relPath
-        
+
         if (-not (Test-Path $fullPath)) {
             $validation.missing += $relPath
-            
+
             if ($CreateMissing) {
                 try {
                     # Determine if path is directory or file
@@ -172,7 +172,7 @@ function Validate-ProjectStructure {
             }
         }
     }
-    
+
     return $validation
 }
 
@@ -184,37 +184,37 @@ function Validate-FileSyntax {
     <#
     .SYNOPSIS
         Validates file syntax for supported languages
-    
+
     .PARAMETER FilePath
         Path to file to validate
-    
+
     .PARAMETER Language
         Programming language (python, javascript, powershell, etc.)
-    
+
     .OUTPUTS
         Hashtable with validation results: @{ valid=$true; errors=@(); warnings=@() }
     #>
     param(
         [Parameter(Mandatory=$true)]
         [string]$FilePath,
-        
+
         [Parameter(Mandatory=$false)]
         [string]$Language = "auto"
     )
-    
+
     $validation = @{
         valid = $true
         errors = @()
         warnings = @()
     }
-    
+
     # Check file exists
     if (-not (Test-Path $FilePath)) {
         $validation.valid = $false
         $validation.errors += "File not found: $FilePath"
         return $validation
     }
-    
+
     # Auto-detect language from extension
     if ($Language -eq "auto") {
         $ext = [System.IO.Path]::GetExtension($FilePath).ToLower()
@@ -229,7 +229,7 @@ function Validate-FileSyntax {
             default { "unknown" }
         }
     }
-    
+
     # Validate syntax based on language
     switch ($Language) {
         "python" {
@@ -246,7 +246,7 @@ function Validate-FileSyntax {
                 $validation.errors += "Python syntax validation failed: $_"
             }
         }
-        
+
         "powershell" {
             # PowerShell syntax check
             try {
@@ -264,7 +264,7 @@ function Validate-FileSyntax {
                 $validation.errors += "PowerShell syntax validation failed: $_"
             }
         }
-        
+
         "javascript" {
             # JavaScript/Node syntax check
             try {
@@ -278,12 +278,12 @@ function Validate-FileSyntax {
                 $validation.warnings += "JavaScript syntax validation skipped (node not available)"
             }
         }
-        
+
         default {
             $validation.warnings += "Syntax validation not implemented for language: $Language"
         }
     }
-    
+
     return $validation
 }
 
@@ -295,10 +295,10 @@ function Validate-Dependencies {
     <#
     .SYNOPSIS
         Validates required dependencies are installed
-    
+
     .PARAMETER Dependencies
         Hashtable of dependencies: @{ python=@("pytest", "black"); npm=@("jest") }
-    
+
     .OUTPUTS
         Hashtable with validation results: @{ valid=$true; missing=@(); errors=@() }
     #>
@@ -306,13 +306,13 @@ function Validate-Dependencies {
         [Parameter(Mandatory=$true)]
         [hashtable]$Dependencies
     )
-    
+
     $validation = @{
         valid = $true
         missing = @()
         errors = @()
     }
-    
+
     # Check Python packages
     if ($Dependencies.ContainsKey("python")) {
         foreach ($pkg in $Dependencies["python"]) {
@@ -329,7 +329,7 @@ function Validate-Dependencies {
             }
         }
     }
-    
+
     # Check npm packages
     if ($Dependencies.ContainsKey("npm")) {
         foreach ($pkg in $Dependencies["npm"]) {
@@ -346,7 +346,7 @@ function Validate-Dependencies {
             }
         }
     }
-    
+
     # Check executables
     if ($Dependencies.ContainsKey("executables")) {
         foreach ($exe in $Dependencies["executables"]) {
@@ -356,7 +356,7 @@ function Validate-Dependencies {
             }
         }
     }
-    
+
     return $validation
 }
 

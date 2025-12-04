@@ -167,7 +167,7 @@ Identified {count} parallel work streams:
   Stream A: {name} ({hours}h)
   Stream B: {name} ({hours}h)
   Stream C: {name} ({hours}h)
-  
+
 Parallelization potential: {factor}x speedup
   Sequential time: {total}h
   Parallel time: {reduced}h

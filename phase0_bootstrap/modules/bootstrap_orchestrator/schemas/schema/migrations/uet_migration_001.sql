@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS patch_ledger (
 
 -- Compatibility view for legacy workstreams table
 CREATE VIEW IF NOT EXISTS workstreams_compat AS
-SELECT 
+SELECT
     run_id as id,
     phase_id as phase,
     state as status,

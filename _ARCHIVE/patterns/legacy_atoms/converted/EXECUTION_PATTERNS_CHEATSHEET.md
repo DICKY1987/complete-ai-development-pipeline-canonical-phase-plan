@@ -228,19 +228,19 @@ Time per item: 5 min (vs 30 min manual)
 
 ## 🚫 Anti-Patterns to Avoid
 
-❌ **Create template before 3 examples**  
+❌ **Create template before 3 examples**
 ✅ Do 3 naturally, then extract pattern
 
-❌ **Template with 15 variables**  
+❌ **Template with 15 variables**
 ✅ Template with ≤5 variables
 
-❌ **Verify every detail per file**  
+❌ **Verify every detail per file**
 ✅ Ground truth + spot check only
 
-❌ **Do one at a time**  
+❌ **Do one at a time**
 ✅ Batch create 4-6 at once
 
-❌ **Abandon template on edge case**  
+❌ **Abandon template on edge case**
 ✅ Evolve template, don't abandon
 
 ---

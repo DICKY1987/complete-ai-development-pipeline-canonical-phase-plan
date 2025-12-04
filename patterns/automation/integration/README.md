@@ -25,5 +25,5 @@ def execute_task(task_spec):
         raise
 ```
 
-Features: non-blocking, fault-tolerant logging, zero dependencies beyond stdlib, minimal overhead.  
+Features: non-blocking, fault-tolerant logging, zero dependencies beyond stdlib, minimal overhead.
 Disable by setting `enabled=False` on `PatternAutomationHooks`.

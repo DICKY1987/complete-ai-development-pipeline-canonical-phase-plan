@@ -8,10 +8,10 @@
 <!DOCTYPE html>
 <html
   lang="en"
-  
+
   data-color-mode="auto" data-light-theme="light" data-dark-theme="dark"
   data-a11y-animated-images="system" data-a11y-link-underlines="true"
-  
+
   >
 
 
@@ -26,7 +26,7 @@
   <link rel="preconnect" href="https://github.githubassets.com" crossorigin>
   <link rel="preconnect" href="https://avatars.githubusercontent.com">
 
-  
+
 
   <link crossorigin="anonymous" media="all" rel="stylesheet" href="https://github.githubassets.com/assets/light-8e973f836952.css" /><link crossorigin="anonymous" media="all" rel="stylesheet" href="https://github.githubassets.com/assets/light_high_contrast-34b642d57214.css" /><link crossorigin="anonymous" media="all" rel="stylesheet" href="https://github.githubassets.com/assets/dark-4bce7af39e21.css" /><link crossorigin="anonymous" media="all" rel="stylesheet" href="https://github.githubassets.com/assets/dark_high_contrast-ad512d3e2f3b.css" /><link data-color-theme="light" crossorigin="anonymous" media="all" rel="stylesheet" data-href="https://github.githubassets.com/assets/light-8e973f836952.css" /><link data-color-theme="light_high_contrast" crossorigin="anonymous" media="all" rel="stylesheet" data-href="https://github.githubassets.com/assets/light_high_contrast-34b642d57214.css" /><link data-color-theme="light_colorblind" crossorigin="anonymous" media="all" rel="stylesheet" data-href="https://github.githubassets.com/assets/light_colorblind-54be93e666a7.css" /><link data-color-theme="light_colorblind_high_contrast" crossorigin="anonymous" media="all" rel="stylesheet" data-href="https://github.githubassets.com/assets/light_colorblind_high_contrast-8ae7edf5489c.css" /><link data-color-theme="light_tritanopia" crossorigin="anonymous" media="all" rel="stylesheet" data-href="https://github.githubassets.com/assets/light_tritanopia-84d50df427c0.css" /><link data-color-theme="light_tritanopia_high_contrast" crossorigin="anonymous" media="all" rel="stylesheet" data-href="https://github.githubassets.com/assets/light_tritanopia_high_contrast-a80873375146.css" /><link data-color-theme="dark" crossorigin="anonymous" media="all" rel="stylesheet" data-href="https://github.githubassets.com/assets/dark-4bce7af39e21.css" /><link data-color-theme="dark_high_contrast" crossorigin="anonymous" media="all" rel="stylesheet" data-href="https://github.githubassets.com/assets/dark_high_contrast-ad512d3e2f3b.css" /><link data-color-theme="dark_colorblind" crossorigin="anonymous" media="all" rel="stylesheet" data-href="https://github.githubassets.com/assets/dark_colorblind-d152d6cd6879.css" /><link data-color-theme="dark_colorblind_high_contrast" crossorigin="anonymous" media="all" rel="stylesheet" data-href="https://github.githubassets.com/assets/dark_colorblind_high_contrast-fa4060c1a9da.css" /><link data-color-theme="dark_tritanopia" crossorigin="anonymous" media="all" rel="stylesheet" data-href="https://github.githubassets.com/assets/dark_tritanopia-d7bad0fb00bb.css" /><link data-color-theme="dark_tritanopia_high_contrast" crossorigin="anonymous" media="all" rel="stylesheet" data-href="https://github.githubassets.com/assets/dark_tritanopia_high_contrast-4a0107c0f60c.css" /><link data-color-theme="dark_dimmed" crossorigin="anonymous" media="all" rel="stylesheet" data-href="https://github.githubassets.com/assets/dark_dimmed-045e6b6ac094.css" /><link data-color-theme="dark_dimmed_high_contrast" crossorigin="anonymous" media="all" rel="stylesheet" data-href="https://github.githubassets.com/assets/dark_dimmed_high_contrast-5de537db5e79.css" />
 
@@ -47,7 +47,7 @@
   <link crossorigin="anonymous" media="all" rel="stylesheet" href="https://github.githubassets.com/assets/repository-5d735668c600.css" />
 <link crossorigin="anonymous" media="all" rel="stylesheet" href="https://github.githubassets.com/assets/code-9c9b8dc61e74.css" />
 
-  
+
 
   <script type="application/json" id="client-env">{"locale":"en","featureFlags":["actions_custom_images_public_preview_visibility","actions_custom_images_storage_billing_ui_visibility","actions_enable_snapshot_keyword","actions_image_version_event","alternate_user_config_repo","api_insights_show_missing_data_banner","attestations_filtering","attestations_sorting","billing_split_pru_skus","billing_split_pru_skus","client_version_header","codespaces_prebuild_region_target_update","contentful_lp_footnotes","copilot_agent_cli_public_preview","copilot_agent_task_list_v2","copilot_agent_tasks_btn_code_nav","copilot_agent_tasks_btn_code_view","copilot_agent_tasks_btn_code_view_lines","copilot_agent_tasks_btn_repo","copilot_api_agentic_issue_marshal_yaml","copilot_api_draft_issues_with_dependencies","copilot_api_github_draft_update_issue_skill","copilot_chat_agents_empty_state","copilot_chat_attach_multiple_images","copilot_chat_file_redirect","copilot_chat_input_commands","copilot_chat_opening_thread_switch","copilot_chat_reduce_quota_checks","copilot_chat_search_bar_redirect","copilot_chat_selection_attachments","copilot_chat_vision_in_claude","copilot_chat_vision_preview_gate","copilot_coding_agent_task_response","copilot_custom_copilots","copilot_custom_copilots_feature_preview","copilot_duplicate_thread","copilot_extensions_hide_in_dotcom_chat","copilot_extensions_removal_on_marketplace","copilot_features_raycast_logo","copilot_file_block_ref_matching","copilot_free_to_paid_telem","copilot_ftp_hyperspace_upgrade_prompt","copilot_ftp_settings_upgrade","copilot_ftp_upgrade_to_pro_from_models","copilot_ftp_your_copilot_settings","copilot_immersive_structured_model_picker","copilot_immersive_task_hyperlinking","copilot_immersive_task_within_chat_thread","copilot_insights_column_chart_axis_legibility_fix","copilot_insights_public_preview","copilot_insights_usage_export_ndjson","copilot_no_floating_button","copilot_org_policy_page_focus_mode","copilot_read_shared_conversation","copilot_security_alert_assignee_options","copilot_share_active_subthread","copilot_spaces_as_attachments","copilot_spaces_ga","copilot_spark_empty_state","copilot_spark_loading_webgl","copilot_spark_progressive_error_handling","copilot_spark_use_billing_headers","copilot_stable_conversation_view","copilot_swe_agent_progress_commands","copilot_swe_agent_use_subagents","copilot_workbench_agent_seed_tool","copilot_workbench_agent_user_edit_awareness","copilot_workbench_cache","copilot_workbench_preview_analytics","copilot_workbench_use_single_prompt","deployment_record_api","direct_to_salesforce","disable_dashboard_universe_2025_private_preview","dotcom_chat_client_side_skills","failbot_report_error_react_apps_on_page","fetch_graphql_improved_error_serialization","ghost_pilot_confidence_truncation_25","ghost_pilot_confidence_truncation_40","global_search_multi_orgs","hpc_improve_dom_insertion_observer","hyperspace_2025_logged_out_batch_1","hyperspace_nudges_universe25","hyperspace_nudges_universe25_post_event","initial_per_page_pagination_updates","inp_reduced_threshold","insert_before_patch","issue_fields_report_usage","issues_expanded_file_types","issues_react_blur_item_picker_on_close","issues_react_bots_timeline_pagination","issues_react_prohibit_title_fallback","issues_react_remove_placeholders","issues_report_sidebar_interactions","issues_sticky_sidebar","item_picker_issue_type_tsq_migration","item_picker_search_cancellation","kb_convert_to_space","lifecycle_label_name_updates","link_contact_sales_swp_marketo","marketing_pages_search_explore_provider","mcp_registry_install","memex_default_issue_create_repository","memex_grouped_by_edit_route","memex_mwl_filter_field_delimiter","mission_control_use_body_html","new_traffic_page_banner","open_agent_session_in_vscode_stable","pinned_issue_fields","primer_react_segmented_control_tooltip","primer_react_unified_portal_root","projects_assignee_max_limit","react_fetch_graphql_ignore_expected_errors","record_sso_banner_metrics","remove_child_patch","repos_insights_remove_new_url","ruleset_deletion_confirmation","sample_network_conn_type","scheduled_reminders_updated_limits","site_features_copilot_universe","site_homepage_collaborate_video","site_homepage_contentful","site_homepage_eyebrow_banner","site_homepage_universe_animations","site_msbuild_webgl_hero","spark_fix_rename","spark_force_push_after_checkout","spark_improve_image_upload","spark_kv_encocoded_keys","spark_show_data_access_on_publish","spark_sync_repository_after_iteration","viewscreen_sandbox","webp_support","workbench_store_readonly"],"copilotApiOverrideUrl":"https://api.githubcopilot.com"}</script>
 <script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/high-contrast-cookie-1a011967750c.js"></script>
@@ -90,7 +90,7 @@
 <script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/repositories-d0d4fc51ced6.js" defer="defer"></script>
 <script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/vendors-node_modules_github_mini-throttle_dist_index_js-node_modules_github_catalyst_lib_inde-96937f-55dff362c2cc.js" defer="defer"></script>
 <script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/code-menu-79e3f1125b29.js" defer="defer"></script>
-  
+
   <script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/primer-react-dcabe9866f25.js" defer="defer"></script>
 <script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/react-lib-15cc174d9050.js" defer="defer"></script>
 <script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/react-core-6e95c9f14659.js" defer="defer"></script>
@@ -117,7 +117,7 @@
   <meta name="route-action" content="disambiguate" data-turbo-transient>
   <meta name="fetch-nonce" content="v2:8790603b-a3df-b2eb-c74b-2b1d608f94c6">
 
-    
+
   <meta name="current-catalog-service-hash" content="f3abb0cc802f3d7b95fc8762b94bdcb13bf39634c40c357301c4aa1d67a256fb">
 
 
@@ -128,7 +128,7 @@
 
 
   <meta name="github-keyboard-shortcuts" content="repository,copilot" data-turbo-transient="true" />
-  
+
 
   <meta name="selected-link" value="repo_source" data-turbo-transient>
   <link rel="assets" href="https://github.githubassets.com/">
@@ -139,18 +139,18 @@
 
   <meta name="analytics-location" content="/&lt;user-name&gt;/&lt;repo-name&gt;" data-turbo-transient="true" />
 
-  
+
 
 
 
 
     <meta name="user-login" content="">
 
-  
+
 
     <meta name="viewport" content="width=device-width">
 
-    
+
 
       <meta name="description" content="Project management system for Claude Code using GitHub Issues and Git worktrees for parallel agent execution. - automazeio/ccpm">
 
@@ -162,7 +162,7 @@
 
       <meta name="twitter:image" content="https://opengraph.githubassets.com/3e18b38ecbcbef2fe465f8795c9988a51e65105972121966d64d2570ca63c3f6/automazeio/ccpm" /><meta name="twitter:site" content="@github" /><meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content="GitHub - automazeio/ccpm: Project management system for Claude Code using GitHub Issues and Git worktrees for parallel agent execution." /><meta name="twitter:description" content="Project management system for Claude Code using GitHub Issues and Git worktrees for parallel agent execution. - automazeio/ccpm" />
   <meta property="og:image" content="https://opengraph.githubassets.com/3e18b38ecbcbef2fe465f8795c9988a51e65105972121966d64d2570ca63c3f6/automazeio/ccpm" /><meta property="og:image:alt" content="Project management system for Claude Code using GitHub Issues and Git worktrees for parallel agent execution. - automazeio/ccpm" /><meta property="og:image:width" content="1200" /><meta property="og:image:height" content="600" /><meta property="og:site_name" content="GitHub" /><meta property="og:type" content="object" /><meta property="og:title" content="GitHub - automazeio/ccpm: Project management system for Claude Code using GitHub Issues and Git worktrees for parallel agent execution." /><meta property="og:url" content="https://github.com/automazeio/ccpm" /><meta property="og:description" content="Project management system for Claude Code using GitHub Issues and Git worktrees for parallel agent execution. - automazeio/ccpm" />
-  
+
 
 
 
@@ -215,7 +215,7 @@
 
   <body class="logged-out env-production page-responsive" style="word-wrap: break-word;" >
     <div data-turbo-body class="logged-out env-production page-responsive" style="word-wrap: break-word;">
-      
+
 
 
 
@@ -224,8 +224,8 @@
 
       <span data-view-component="true" class="progress-pjax-loader Progress position-fixed width-full">
     <span style="width: 0%;" data-view-component="true" class="Progress-item progress-pjax-loader-bar left-0 top-0 color-bg-accent-emphasis"></span>
-</span>      
-      
+</span>
+
       <link crossorigin="anonymous" media="all" rel="stylesheet" href="https://github.githubassets.com/assets/primer-react.2ed7297523f7a189873b.module.css" />
 <link crossorigin="anonymous" media="all" rel="stylesheet" href="https://github.githubassets.com/assets/keyboard-shortcuts-dialog.2de9c7d6456a311fce49.module.css" />
 
@@ -235,7 +235,7 @@
   data-attempted-ssr="false"
   data-react-profiling="false"
 >
-  
+
   <script type="application/json" data-target="react-partial.embeddedData">{"props":{"docsUrl":"https://docs.github.com/get-started/accessibility/keyboard-shortcuts"}}</script>
   <div data-target="react-partial.reactRoot"></div>
 </react-partial>
@@ -244,11 +244,11 @@
 
 
 
-      
 
-          
 
-              
+
+
+
 <script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/vendors-node_modules_gsap_index_js-1399719d10c8.js" defer="defer"></script>
 <script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/vendors-node_modules_github_remote-form_dist_index_js-node_modules_delegated-events_dist_inde-94fd67-0b6bd345de5a.js" defer="defer"></script>
 <script crossorigin="anonymous" type="application/javascript" src="https://github.githubassets.com/assets/sessions-f691799f782d.js" defer="defer"></script>
@@ -306,7 +306,7 @@
   data-attempted-ssr="false"
   data-react-profiling="false"
 >
-  
+
   <script type="application/json" data-target="react-partial.embeddedData">{"props":{}}</script>
   <div data-target="react-partial.reactRoot"></div>
 </react-partial>
@@ -352,7 +352,7 @@
         Write better code with AI
       </div>
 
-    
+
 </a></li>
 
                       <li>
@@ -372,7 +372,7 @@
         Build and deploy intelligent apps
       </div>
 
-    
+
 </a></li>
 
                       <li>
@@ -392,7 +392,7 @@
         Manage and compare prompts
       </div>
 
-    
+
 </a></li>
 
                       <li>
@@ -409,7 +409,7 @@
         Find and fix vulnerabilities
       </div>
 
-    
+
 </a></li>
 
                       <li>
@@ -426,7 +426,7 @@
         Automate any workflow
       </div>
 
-    
+
 </a></li>
 
                   </ul>
@@ -450,7 +450,7 @@
         Instant dev environments
       </div>
 
-    
+
 </a></li>
 
                       <li>
@@ -467,7 +467,7 @@
         Plan and track work
       </div>
 
-    
+
 </a></li>
 
                       <li>
@@ -484,7 +484,7 @@
         Manage code changes
       </div>
 
-    
+
 </a></li>
 
                       <li>
@@ -501,7 +501,7 @@
         Collaborate outside of code
       </div>
 
-    
+
 </a></li>
 
                       <li>
@@ -518,7 +518,7 @@
         Find more, search less
       </div>
 
-    
+
 </a></li>
 
                   </ul>
@@ -534,7 +534,7 @@
   <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;why_github&quot;,&quot;context&quot;:&quot;platform&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;why_github_link_platform_navbar&quot;}" href="https://github.com/why-github">
       Why GitHub
 
-    
+
 </a></li>
 
                       <li>
@@ -575,14 +575,14 @@
   <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;github_marketplace&quot;,&quot;context&quot;:&quot;platform&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;github_marketplace_link_platform_navbar&quot;}" href="https://github.com/marketplace">
       GitHub Marketplace
 
-    
+
 </a></li>
 
                       <li>
   <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;mcp_registry&quot;,&quot;context&quot;:&quot;platform&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;mcp_registry_link_platform_navbar&quot;}" href="https://github.com/mcp">
       MCP Registry
 
-    
+
 </a></li>
 
                   </ul>
@@ -621,28 +621,28 @@
   <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;enterprises&quot;,&quot;context&quot;:&quot;solutions&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;enterprises_link_solutions_navbar&quot;}" href="https://github.com/enterprise">
       Enterprises
 
-    
+
 </a></li>
 
                       <li>
   <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;small_and_medium_teams&quot;,&quot;context&quot;:&quot;solutions&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;small_and_medium_teams_link_solutions_navbar&quot;}" href="https://github.com/team">
       Small and medium teams
 
-    
+
 </a></li>
 
                       <li>
   <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;startups&quot;,&quot;context&quot;:&quot;solutions&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;startups_link_solutions_navbar&quot;}" href="https://github.com/enterprise/startups">
       Startups
 
-    
+
 </a></li>
 
                       <li>
   <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;nonprofits&quot;,&quot;context&quot;:&quot;solutions&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;nonprofits_link_solutions_navbar&quot;}" href="/solutions/industry/nonprofits">
       Nonprofits
 
-    
+
 </a></li>
 
                   </ul>
@@ -658,35 +658,35 @@
   <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;app_modernization&quot;,&quot;context&quot;:&quot;solutions&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;app_modernization_link_solutions_navbar&quot;}" href="/solutions/use-case/app-modernization">
       App Modernization
 
-    
+
 </a></li>
 
                       <li>
   <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;devsecops&quot;,&quot;context&quot;:&quot;solutions&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;devsecops_link_solutions_navbar&quot;}" href="/solutions/use-case/devsecops">
       DevSecOps
 
-    
+
 </a></li>
 
                       <li>
   <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;devops&quot;,&quot;context&quot;:&quot;solutions&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;devops_link_solutions_navbar&quot;}" href="/solutions/use-case/devops">
       DevOps
 
-    
+
 </a></li>
 
                       <li>
   <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;ci_cd&quot;,&quot;context&quot;:&quot;solutions&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;ci_cd_link_solutions_navbar&quot;}" href="/solutions/use-case/ci-cd">
       CI/CD
 
-    
+
 </a></li>
 
                       <li>
   <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;view_all_use_cases&quot;,&quot;context&quot;:&quot;solutions&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;view_all_use_cases_link_solutions_navbar&quot;}" href="/solutions/use-case">
       View all use cases
 
-    
+
 </a></li>
 
                   </ul>
@@ -702,35 +702,35 @@
   <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;healthcare&quot;,&quot;context&quot;:&quot;solutions&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;healthcare_link_solutions_navbar&quot;}" href="/solutions/industry/healthcare">
       Healthcare
 
-    
+
 </a></li>
 
                       <li>
   <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;financial_services&quot;,&quot;context&quot;:&quot;solutions&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;financial_services_link_solutions_navbar&quot;}" href="/solutions/industry/financial-services">
       Financial services
 
-    
+
 </a></li>
 
                       <li>
   <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;manufacturing&quot;,&quot;context&quot;:&quot;solutions&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;manufacturing_link_solutions_navbar&quot;}" href="/solutions/industry/manufacturing">
       Manufacturing
 
-    
+
 </a></li>
 
                       <li>
   <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;government&quot;,&quot;context&quot;:&quot;solutions&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;government_link_solutions_navbar&quot;}" href="/solutions/industry/government">
       Government
 
-    
+
 </a></li>
 
                       <li>
   <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;view_all_industries&quot;,&quot;context&quot;:&quot;solutions&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;view_all_industries_link_solutions_navbar&quot;}" href="/solutions/industry">
       View all industries
 
-    
+
 </a></li>
 
                   </ul>
@@ -769,35 +769,35 @@
   <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;ai&quot;,&quot;context&quot;:&quot;resources&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;ai_link_resources_navbar&quot;}" href="/resources/articles?topic=ai">
       AI
 
-    
+
 </a></li>
 
                       <li>
   <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;devops&quot;,&quot;context&quot;:&quot;resources&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;devops_link_resources_navbar&quot;}" href="/resources/articles?topic=devops">
       DevOps
 
-    
+
 </a></li>
 
                       <li>
   <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;security&quot;,&quot;context&quot;:&quot;resources&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;security_link_resources_navbar&quot;}" href="/resources/articles?topic=security">
       Security
 
-    
+
 </a></li>
 
                       <li>
   <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;software_development&quot;,&quot;context&quot;:&quot;resources&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;software_development_link_resources_navbar&quot;}" href="/resources/articles?topic=software-development">
       Software Development
 
-    
+
 </a></li>
 
                       <li>
   <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;view_all&quot;,&quot;context&quot;:&quot;resources&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;view_all_link_resources_navbar&quot;}" href="/resources/articles">
       View all
 
-    
+
 </a></li>
 
                   </ul>
@@ -822,35 +822,35 @@
   <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;events_amp_webinars&quot;,&quot;context&quot;:&quot;resources&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;events_amp_webinars_link_resources_navbar&quot;}" href="https://github.com/resources/events">
       Events &amp; Webinars
 
-    
+
 </a></li>
 
                       <li>
   <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;ebooks_amp_whitepapers&quot;,&quot;context&quot;:&quot;resources&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;ebooks_amp_whitepapers_link_resources_navbar&quot;}" href="https://github.com/resources/whitepapers">
       Ebooks &amp; Whitepapers
 
-    
+
 </a></li>
 
                       <li>
   <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;customer_stories&quot;,&quot;context&quot;:&quot;resources&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;customer_stories_link_resources_navbar&quot;}" href="https://github.com/customer-stories">
       Customer Stories
 
-    
+
 </a></li>
 
                       <li>
   <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;partners&quot;,&quot;context&quot;:&quot;resources&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;partners_link_resources_navbar&quot;}" href="https://github.com/partners">
       Partners
 
-    
+
 </a></li>
 
                       <li>
   <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;executive_insights&quot;,&quot;context&quot;:&quot;resources&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;executive_insights_link_resources_navbar&quot;}" href="https://github.com/solutions/executive-insights">
       Executive Insights
 
-    
+
 </a></li>
 
                   </ul>
@@ -878,7 +878,7 @@
                   <ul class="list-style-none f5" >
                       <li>
   <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary d-flex flex-items-center Link--has-description" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;github_sponsors&quot;,&quot;context&quot;:&quot;open_source&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;github_sponsors_link_open_source_navbar&quot;}" href="/sponsors">
-      
+
       <div>
         <div class="color-fg-default h4">
           GitHub Sponsors
@@ -888,7 +888,7 @@
         Fund open source developers
       </div>
 
-    
+
 </a></li>
 
                   </ul>
@@ -898,7 +898,7 @@
                   <ul class="list-style-none f5" >
                       <li>
   <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary d-flex flex-items-center Link--has-description" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;the_readme_project&quot;,&quot;context&quot;:&quot;open_source&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;the_readme_project_link_open_source_navbar&quot;}" href="https://github.com/readme">
-      
+
       <div>
         <div class="color-fg-default h4">
           The ReadME Project
@@ -908,7 +908,7 @@
         GitHub community articles
       </div>
 
-    
+
 </a></li>
 
                   </ul>
@@ -922,21 +922,21 @@
   <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;topics&quot;,&quot;context&quot;:&quot;open_source&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;topics_link_open_source_navbar&quot;}" href="https://github.com/topics">
       Topics
 
-    
+
 </a></li>
 
                       <li>
   <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;trending&quot;,&quot;context&quot;:&quot;open_source&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;trending_link_open_source_navbar&quot;}" href="https://github.com/trending">
       Trending
 
-    
+
 </a></li>
 
                       <li>
   <a class="HeaderMenu-dropdown-link d-block no-underline position-relative py-2 Link--secondary" data-analytics-event="{&quot;location&quot;:&quot;navbar&quot;,&quot;action&quot;:&quot;collections&quot;,&quot;context&quot;:&quot;open_source&quot;,&quot;tag&quot;:&quot;link&quot;,&quot;label&quot;:&quot;collections_link_open_source_navbar&quot;}" href="https://github.com/collections">
       Collections
 
-    
+
 </a></li>
 
                   </ul>
@@ -976,7 +976,7 @@
         AI-powered developer platform
       </div>
 
-    
+
 </a></li>
 
                   </ul>
@@ -1000,7 +1000,7 @@
         Enterprise-grade security features
       </div>
 
-    
+
 </a></li>
 
                       <li>
@@ -1017,7 +1017,7 @@
         Enterprise-grade AI features
       </div>
 
-    
+
 </a></li>
 
                       <li>
@@ -1034,7 +1034,7 @@
         Enterprise-grade 24/7 support
       </div>
 
-    
+
 </a></li>
 
                   </ul>
@@ -1054,7 +1054,7 @@
             </nav>
 
         <div class="d-flex flex-column flex-lg-row width-full flex-justify-end flex-lg-items-center text-center mt-3 mt-lg-0 text-lg-left ml-lg-3">
-                
+
 
 
 <qbsearch-input class="search-input" data-scope="repo:automazeio/ccpm" data-custom-scopes-path="/search/custom_scopes" data-delete-custom-scopes-csrf="hVGn2Pv9Fb9CIFe9rh3P_F_vqBHVBUQeVTrh6ifLPKTogMIgz-PkxMiulgrRhPDCZeGPo2tt-Zbn428esO0hxQ" data-max-custom-scopes="10" data-header-redesign-enabled="false" data-initial-value="" data-blackbird-suggestions-path="/search/suggestions" data-jump-to-suggestions-path="/_graphql/GetSuggestedNavigationDestinations" data-current-repository="automazeio/ccpm" data-current-org="automazeio" data-current-owner="" data-logged-in="false" data-copilot-chat-enabled="false" data-nl-search-enabled="false" data-retain-scroll-position="true">
@@ -1087,12 +1087,12 @@
 
     <input type="hidden" name="type" class="js-site-search-type-field">
 
-    
+
 <div class="Overlay--hidden " data-modal-dialog-overlay>
   <modal-dialog data-action="close:qbsearch-input#handleClose cancel:qbsearch-input#handleClose" data-target="qbsearch-input.searchSuggestionsDialog" role="dialog" id="search-suggestions-dialog" aria-modal="true" aria-labelledby="search-suggestions-dialog-header" data-view-component="true" class="Overlay Overlay--width-large Overlay--height-auto">
       <h1 id="search-suggestions-dialog-header" class="sr-only">Search code, repositories, users, issues, pull requests...</h1>
     <div class="Overlay-body Overlay-body--paddingNone">
-      
+
           <div data-view-component="true">        <div class="search-suggestions position-fixed width-full color-shadow-large border color-fg-default color-bg-default overflow-hidden d-flex flex-column query-builder-container"
           style="border-radius: 12px;"
           data-target="qbsearch-input.queryBuilderContainer"
@@ -1380,7 +1380,7 @@
   </div>
   <div data-action="click:qbsearch-input#retract" class="dark-backdrop position-fixed" hidden data-target="qbsearch-input.darkBackdrop"></div>
   <div class="color-fg-default">
-    
+
 <dialog-helper>
   <dialog data-target="qbsearch-input.feedbackDialog" data-action="close:qbsearch-input#handleDialogClose cancel:qbsearch-input#handleDialogClose" id="feedback-dialog" aria-modal="true" aria-labelledby="feedback-dialog-title" aria-describedby="feedback-dialog-description" data-view-component="true" class="Overlay Overlay-whenNarrow Overlay--size-medium Overlay--motion-scaleFade Overlay--disableScroll">
     <div data-view-component="true" class="Overlay-header">
@@ -1389,7 +1389,7 @@
       <h1 class="Overlay-title " id="feedback-dialog-title">
         Provide feedback
       </h1>
-        
+
     </div>
     <div class="Overlay-actionWrap">
       <button data-close-dialog-id="feedback-dialog" aria-label="Close" aria-label="Close" type="button" data-view-component="true" class="close-button Overlay-closeButton"><svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-x">
@@ -1397,7 +1397,7 @@
 </svg></button>
     </div>
   </div>
-  
+
 </div>
       <scrollable-region data-labelled-by="feedback-dialog-title">
         <div data-view-component="true" class="Overlay-body">        <!-- '"` --><!-- </textarea></xmp> --></option></form><form id="code-search-feedback-form" data-turbo="false" action="/search/feedback" accept-charset="UTF-8" method="post"><input type="hidden" data-csrf="true" name="authenticity_token" value="tJzcwreEjUux/m7gevxTFkNXqrM4KEUISqBDkG/ItD/Z0EvwEGK8sSEjYK7KkfEMq0aZGCB66IBkMcU3zXsc/w==" />
@@ -1415,7 +1415,7 @@
 </dialog></dialog-helper>
 
     <custom-scopes data-target="qbsearch-input.customScopesManager">
-    
+
 <dialog-helper>
   <dialog data-target="custom-scopes.customScopesModalDialog" data-action="close:qbsearch-input#handleDialogClose cancel:qbsearch-input#handleDialogClose" id="custom-scopes-dialog" aria-modal="true" aria-labelledby="custom-scopes-dialog-title" aria-describedby="custom-scopes-dialog-description" data-view-component="true" class="Overlay Overlay-whenNarrow Overlay--size-medium Overlay--motion-scaleFade Overlay--disableScroll">
     <div data-view-component="true" class="Overlay-header Overlay-header--divided">
@@ -1432,7 +1432,7 @@
 </svg></button>
     </div>
   </div>
-  
+
 </div>
       <scrollable-region data-labelled-by="custom-scopes-dialog-title">
         <div data-view-component="true" class="Overlay-body">        <div data-target="custom-scopes.customScopesModalDialogFlash"></div>
@@ -1533,7 +1533,7 @@
   data-attempted-ssr="false"
   data-react-profiling="false"
 >
-  
+
   <script type="application/json" data-target="react-partial.embeddedData">{"props":{}}</script>
   <div data-target="react-partial.reactRoot"></div>
 </react-partial>
@@ -1551,7 +1551,7 @@
 </header>
 
       <div hidden="hidden" data-view-component="true" class="js-stale-session-flash stale-session-flash flash flash-warn flash-full">
-  
+
         <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-alert">
     <path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path>
 </svg>
@@ -1565,7 +1565,7 @@
 </button><tool-tip id="tooltip-9f16b2b5-9eba-4000-abec-366dcb2689b0" for="icon-button-2fa82ed0-e23d-40d6-8bfa-f129e7017f2c" popover="manual" data-direction="s" data-type="label" data-view-component="true" class="sr-only position-absolute">Dismiss alert</tool-tip>
 
 
-  
+
 </div>
     </div>
 
@@ -1584,7 +1584,7 @@
 
 
   <template class="js-flash-template">
-    
+
 <div class="flash flash-full   {{ className }}">
   <div >
     <button autofocus class="flash-close js-flash-close" type="button" aria-label="Dismiss this message">
@@ -1593,7 +1593,7 @@
 </svg>
     </button>
     <div aria-atomic="true" role="alert" class="js-flash-alert">
-      
+
       <div>{{ message }}</div>
 
     </div>
@@ -1603,7 +1603,7 @@
 </div>
 
 
-    
+
 
 
 
@@ -1619,35 +1619,35 @@
   >
         <div itemscope itemtype="http://schema.org/SoftwareSourceCode" class="">
     <main id="js-repo-pjax-container" >
-      
-  
-
-
-
-
-
-    
-    
-
-    
 
 
 
 
 
 
-  
+
+
+
+
+
+
+
+
+
+
+
+
   <div id="repository-container-header"  class="pt-3 hide-full-screen" style="background-color: var(--page-header-bgColor, var(--color-page-header-bg));" data-turbo-replace>
 
       <div class="d-flex flex-nowrap flex-justify-end mb-3  px-3 px-lg-5" style="gap: 1rem;">
 
         <div class="flex-auto min-width-0 width-fit">
-            
+
   <div class=" d-flex flex-wrap flex-items-center wb-break-word f3 text-normal">
       <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-repo color-fg-muted mr-2">
     <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.714 1.7.75.75 0 1 1-1.072 1.05A2.495 2.495 0 0 1 2 11.5Zm10.5-1h-8a1 1 0 0 0-1 1v6.708A2.486 2.486 0 0 1 4.5 9h8ZM5 12.25a.25.25 0 0 1 .25-.25h3.5a.25.25 0 0 1 .25.25v3.25a.25.25 0 0 1-.4.2l-1.45-1.087a.249.249 0 0 0-.3 0L5.4 15.7a.25.25 0 0 1-.4-.2Z"></path>
 </svg>
-    
+
     <span class="author flex-self-stretch" itemprop="author">
       <a class="url fn" rel="author" data-hovercard-type="organization" data-hovercard-url="/orgs/automazeio/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="/automazeio">
         automazeio
@@ -1665,8 +1665,8 @@
 
         <div id="repository-details-container" class="flex-shrink-0" data-turbo-replace style="max-width: 70%;">
             <ul class="pagehead-actions flex-shrink-0 d-none d-md-inline" style="padding: 2px 0;">
-    
-      
+
+
 
   <li>
             <a href="/login?return_to=%2Fautomazeio%2Fccpm" rel="nofollow" id="repository-details-watch-button" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;notification subscription menu watch&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;originating_url&quot;:&quot;https://github.com/automazeio/ccpm&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="682b98d20372314630908e81d75f182b38da0f1e58890cca132332c3f6ece1dc" aria-label="You must be signed in to change notification settings" data-view-component="true" class="btn-sm btn">    <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-bell mr-2">
@@ -1713,12 +1713,12 @@
         </span>
       </div>
 
-    
+
       <h3 class="sr-only">License</h3>
   <div class="mb-2">
     <a href="/automazeio/ccpm/blob/main/LICENSE"
       class="Link--muted"
-      
+
       data-analytics-event="{&quot;category&quot;:&quot;Repository Overview&quot;,&quot;action&quot;:&quot;click&quot;,&quot;label&quot;:&quot;location:sidebar;file:license&quot;}"
     >
       <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-law mr-1 mr-sm-1 mr-md-2 mr-lg-2">
@@ -1776,7 +1776,7 @@
 
         </div>
         <span>
-          
+
 
         </span>
       </div>
@@ -1790,7 +1790,7 @@
   <ul data-view-component="true" class="UnderlineNav-body list-style-none">
       <li data-view-component="true" class="d-inline-flex">
   <a id="code-tab" href="/automazeio/ccpm" data-tab-item="i0code-tab" data-selected-links="repo_source repo_downloads repo_commits repo_releases repo_tags repo_branches repo_packages repo_deployments repo_attestations /automazeio/ccpm" data-pjax="#repo-content-pjax-container" data-turbo-frame="repo-content-turbo-frame" data-hotkey="g c" data-analytics-event="{&quot;category&quot;:&quot;Underline navbar&quot;,&quot;action&quot;:&quot;Click tab&quot;,&quot;label&quot;:&quot;Code&quot;,&quot;target&quot;:&quot;UNDERLINE_NAV.TAB&quot;}" aria-current="page" data-view-component="true" class="UnderlineNav-item no-wrap js-responsive-underlinenav-item js-selected-navigation-item selected">
-    
+
               <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-code UnderlineNav-octicon d-none d-sm-inline">
     <path d="m11.28 3.22 4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734L13.94 8l-3.72-3.72a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215Zm-6.56 0a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042L2.06 8l3.72 3.72a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L.47 8.53a.75.75 0 0 1 0-1.06Z"></path>
 </svg>
@@ -1798,11 +1798,11 @@
           <span id="code-repo-tab-count" data-pjax-replace="" data-turbo-replace="" title="Not available" data-view-component="true" class="Counter"></span>
 
 
-    
+
 </a></li>
       <li data-view-component="true" class="d-inline-flex">
   <a id="issues-tab" href="/automazeio/ccpm/issues" data-tab-item="i1issues-tab" data-selected-links="repo_issues repo_labels repo_milestones /automazeio/ccpm/issues" data-pjax="#repo-content-pjax-container" data-turbo-frame="repo-content-turbo-frame" data-hotkey="g i" data-analytics-event="{&quot;category&quot;:&quot;Underline navbar&quot;,&quot;action&quot;:&quot;Click tab&quot;,&quot;label&quot;:&quot;Issues&quot;,&quot;target&quot;:&quot;UNDERLINE_NAV.TAB&quot;}" data-view-component="true" class="UnderlineNav-item no-wrap js-responsive-underlinenav-item js-selected-navigation-item">
-    
+
               <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-issue-opened UnderlineNav-octicon d-none d-sm-inline">
     <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path><path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Z"></path>
 </svg>
@@ -1810,11 +1810,11 @@
           <span id="issues-repo-tab-count" data-pjax-replace="" data-turbo-replace="" title="33" data-view-component="true" class="Counter">33</span>
 
 
-    
+
 </a></li>
       <li data-view-component="true" class="d-inline-flex">
   <a id="pull-requests-tab" href="/automazeio/ccpm/pulls" data-tab-item="i2pull-requests-tab" data-selected-links="repo_pulls checks /automazeio/ccpm/pulls" data-pjax="#repo-content-pjax-container" data-turbo-frame="repo-content-turbo-frame" data-hotkey="g p" data-analytics-event="{&quot;category&quot;:&quot;Underline navbar&quot;,&quot;action&quot;:&quot;Click tab&quot;,&quot;label&quot;:&quot;Pull requests&quot;,&quot;target&quot;:&quot;UNDERLINE_NAV.TAB&quot;}" data-view-component="true" class="UnderlineNav-item no-wrap js-responsive-underlinenav-item js-selected-navigation-item">
-    
+
               <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-git-pull-request UnderlineNav-octicon d-none d-sm-inline">
     <path d="M1.5 3.25a2.25 2.25 0 1 1 3 2.122v5.256a2.251 2.251 0 1 1-1.5 0V5.372A2.25 2.25 0 0 1 1.5 3.25Zm5.677-.177L9.573.677A.25.25 0 0 1 10 .854V2.5h1A2.5 2.5 0 0 1 13.5 5v5.628a2.251 2.251 0 1 1-1.5 0V5a1 1 0 0 0-1-1h-1v1.646a.25.25 0 0 1-.427.177L7.177 3.427a.25.25 0 0 1 0-.354ZM3.75 2.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm0 9.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm8.25.75a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0Z"></path>
 </svg>
@@ -1822,11 +1822,11 @@
           <span id="pull-requests-repo-tab-count" data-pjax-replace="" data-turbo-replace="" title="4" data-view-component="true" class="Counter">4</span>
 
 
-    
+
 </a></li>
       <li data-view-component="true" class="d-inline-flex">
   <a id="actions-tab" href="/automazeio/ccpm/actions" data-tab-item="i3actions-tab" data-selected-links="repo_actions /automazeio/ccpm/actions" data-pjax="#repo-content-pjax-container" data-turbo-frame="repo-content-turbo-frame" data-hotkey="g a" data-analytics-event="{&quot;category&quot;:&quot;Underline navbar&quot;,&quot;action&quot;:&quot;Click tab&quot;,&quot;label&quot;:&quot;Actions&quot;,&quot;target&quot;:&quot;UNDERLINE_NAV.TAB&quot;}" data-view-component="true" class="UnderlineNav-item no-wrap js-responsive-underlinenav-item js-selected-navigation-item">
-    
+
               <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-play UnderlineNav-octicon d-none d-sm-inline">
     <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Zm4.879-2.773 4.264 2.559a.25.25 0 0 1 0 .428l-4.264 2.559A.25.25 0 0 1 6 10.559V5.442a.25.25 0 0 1 .379-.215Z"></path>
 </svg>
@@ -1834,11 +1834,11 @@
           <span id="actions-repo-tab-count" data-pjax-replace="" data-turbo-replace="" title="Not available" data-view-component="true" class="Counter"></span>
 
 
-    
+
 </a></li>
       <li data-view-component="true" class="d-inline-flex">
   <a id="projects-tab" href="/automazeio/ccpm/projects" data-tab-item="i4projects-tab" data-selected-links="repo_projects new_repo_project repo_project /automazeio/ccpm/projects" data-pjax="#repo-content-pjax-container" data-turbo-frame="repo-content-turbo-frame" data-hotkey="g b" data-analytics-event="{&quot;category&quot;:&quot;Underline navbar&quot;,&quot;action&quot;:&quot;Click tab&quot;,&quot;label&quot;:&quot;Projects&quot;,&quot;target&quot;:&quot;UNDERLINE_NAV.TAB&quot;}" data-view-component="true" class="UnderlineNav-item no-wrap js-responsive-underlinenav-item js-selected-navigation-item">
-    
+
               <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-table UnderlineNav-octicon d-none d-sm-inline">
     <path d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v12.5A1.75 1.75 0 0 1 14.25 16H1.75A1.75 1.75 0 0 1 0 14.25ZM6.5 6.5v8h7.75a.25.25 0 0 0 .25-.25V6.5Zm8-1.5V1.75a.25.25 0 0 0-.25-.25H6.5V5Zm-13 1.5v7.75c0 .138.112.25.25.25H5v-8ZM5 5V1.5H1.75a.25.25 0 0 0-.25.25V5Z"></path>
 </svg>
@@ -1846,22 +1846,22 @@
           <span id="projects-repo-tab-count" data-pjax-replace="" data-turbo-replace="" title="0" hidden="hidden" data-view-component="true" class="Counter">0</span>
 
 
-    
+
 </a></li>
       <li data-view-component="true" class="d-inline-flex">
   <a id="security-tab" href="/automazeio/ccpm/security" data-tab-item="i5security-tab" data-selected-links="security overview alerts policy token_scanning code_scanning /automazeio/ccpm/security" data-pjax="#repo-content-pjax-container" data-turbo-frame="repo-content-turbo-frame" data-hotkey="g s" data-analytics-event="{&quot;category&quot;:&quot;Underline navbar&quot;,&quot;action&quot;:&quot;Click tab&quot;,&quot;label&quot;:&quot;Security&quot;,&quot;target&quot;:&quot;UNDERLINE_NAV.TAB&quot;}" data-view-component="true" class="UnderlineNav-item no-wrap js-responsive-underlinenav-item js-selected-navigation-item">
-    
+
               <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-shield UnderlineNav-octicon d-none d-sm-inline">
     <path d="M7.467.133a1.748 1.748 0 0 1 1.066 0l5.25 1.68A1.75 1.75 0 0 1 15 3.48V7c0 1.566-.32 3.182-1.303 4.682-.983 1.498-2.585 2.813-5.032 3.855a1.697 1.697 0 0 1-1.33 0c-2.447-1.042-4.049-2.357-5.032-3.855C1.32 10.182 1 8.566 1 7V3.48a1.75 1.75 0 0 1 1.217-1.667Zm.61 1.429a.25.25 0 0 0-.153 0l-5.25 1.68a.25.25 0 0 0-.174.238V7c0 1.358.275 2.666 1.057 3.86.784 1.194 2.121 2.34 4.366 3.297a.196.196 0 0 0 .154 0c2.245-.956 3.582-2.104 4.366-3.298C13.225 9.666 13.5 8.36 13.5 7V3.48a.251.251 0 0 0-.174-.237l-5.25-1.68ZM8.75 4.75v3a.75.75 0 0 1-1.5 0v-3a.75.75 0 0 1 1.5 0ZM9 10.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path>
 </svg>
         <span data-content="Security">Security</span>
           <include-fragment src="/automazeio/ccpm/security/overall-count" accept="text/fragment+html" data-nonce="v2:8790603b-a3df-b2eb-c74b-2b1d608f94c6" data-view-component="true">
-  
+
   <div data-show-on-forbidden-error hidden>
     <div class="Box">
   <div class="blankslate-container">
     <div data-view-component="true" class="blankslate blankslate-spacious color-bg-default rounded-2">
-      
+
 
       <h3 data-view-component="true" class="blankslate-heading">        Uh oh!
 </h3>
@@ -1872,11 +1872,11 @@
 </div>  </div>
 </include-fragment>
 
-    
+
 </a></li>
       <li data-view-component="true" class="d-inline-flex">
   <a id="insights-tab" href="/automazeio/ccpm/pulse" data-tab-item="i6insights-tab" data-selected-links="repo_graphs repo_contributors dependency_graph dependabot_updates pulse people community /automazeio/ccpm/pulse" data-pjax="#repo-content-pjax-container" data-turbo-frame="repo-content-turbo-frame" data-analytics-event="{&quot;category&quot;:&quot;Underline navbar&quot;,&quot;action&quot;:&quot;Click tab&quot;,&quot;label&quot;:&quot;Insights&quot;,&quot;target&quot;:&quot;UNDERLINE_NAV.TAB&quot;}" data-view-component="true" class="UnderlineNav-item no-wrap js-responsive-underlinenav-item js-selected-navigation-item">
-    
+
               <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-graph UnderlineNav-octicon d-none d-sm-inline">
     <path d="M1.5 1.75V13.5h13.75a.75.75 0 0 1 0 1.5H.75a.75.75 0 0 1-.75-.75V1.75a.75.75 0 0 1 1.5 0Zm14.28 2.53-5.25 5.25a.75.75 0 0 1-1.06 0L7 7.06 4.28 9.78a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042l3.25-3.25a.75.75 0 0 1 1.06 0L10 7.94l4.72-4.72a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042Z"></path>
 </svg>
@@ -1884,7 +1884,7 @@
           <span id="insights-repo-tab-count" data-pjax-replace="" data-turbo-replace="" title="Not available" data-view-component="true" class="Counter"></span>
 
 
-    
+
 </a></li>
 </ul>
     <div style="visibility:hidden;" data-view-component="true" class="UnderlineNav-actions js-responsive-underlinenav-overflow position-absolute pr-3 pr-md-4 pr-lg-5 right-0">      <action-menu data-select-variant="none" data-view-component="true">
@@ -1897,146 +1897,146 @@
 
 <anchored-position data-target="action-menu.overlay" id="action-menu-6cc02337-3518-41eb-9eb3-2041c3c20dd5-overlay" anchor="action-menu-6cc02337-3518-41eb-9eb3-2041c3c20dd5-button" align="start" side="outside-bottom" anchor-offset="normal" popover="auto" data-view-component="true">
   <div data-view-component="true" class="Overlay Overlay--size-auto">
-    
+
       <div data-view-component="true" class="Overlay-body Overlay-body--paddingNone">          <action-list>
   <div data-view-component="true">
     <ul aria-labelledby="action-menu-6cc02337-3518-41eb-9eb3-2041c3c20dd5-button" id="action-menu-6cc02337-3518-41eb-9eb3-2041c3c20dd5-list" role="menu" data-view-component="true" class="ActionListWrap--inset ActionListWrap">
         <li hidden="hidden" data-menu-item="i0code-tab" data-targets="action-list.items" role="none" data-view-component="true" class="ActionListItem">
-    
-    
+
+
     <a tabindex="-1" id="item-6ecf4c5d-22cf-4cd8-9de3-aff58069bd62" href="/automazeio/ccpm" role="menuitem" data-view-component="true" class="ActionListContent ActionListContent--visual16">
         <span class="ActionListItem-visual ActionListItem-visual--leading">
           <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-code">
     <path d="m11.28 3.22 4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734L13.94 8l-3.72-3.72a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215Zm-6.56 0a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042L2.06 8l3.72 3.72a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L.47 8.53a.75.75 0 0 1 0-1.06Z"></path>
 </svg>
         </span>
-      
+
         <span data-view-component="true" class="ActionListItem-label">
           Code
-</span>      
+</span>
 </a>
-  
+
 </li>
         <li hidden="hidden" data-menu-item="i1issues-tab" data-targets="action-list.items" role="none" data-view-component="true" class="ActionListItem">
-    
-    
+
+
     <a tabindex="-1" id="item-581ac3d6-ad0b-4132-9d44-14ca661c3d41" href="/automazeio/ccpm/issues" role="menuitem" data-view-component="true" class="ActionListContent ActionListContent--visual16">
         <span class="ActionListItem-visual ActionListItem-visual--leading">
           <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-issue-opened">
     <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path><path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Z"></path>
 </svg>
         </span>
-      
+
         <span data-view-component="true" class="ActionListItem-label">
           Issues
-</span>      
+</span>
 </a>
-  
+
 </li>
         <li hidden="hidden" data-menu-item="i2pull-requests-tab" data-targets="action-list.items" role="none" data-view-component="true" class="ActionListItem">
-    
-    
+
+
     <a tabindex="-1" id="item-679b0d33-3e40-4d85-9b4b-a885498a2670" href="/automazeio/ccpm/pulls" role="menuitem" data-view-component="true" class="ActionListContent ActionListContent--visual16">
         <span class="ActionListItem-visual ActionListItem-visual--leading">
           <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-git-pull-request">
     <path d="M1.5 3.25a2.25 2.25 0 1 1 3 2.122v5.256a2.251 2.251 0 1 1-1.5 0V5.372A2.25 2.25 0 0 1 1.5 3.25Zm5.677-.177L9.573.677A.25.25 0 0 1 10 .854V2.5h1A2.5 2.5 0 0 1 13.5 5v5.628a2.251 2.251 0 1 1-1.5 0V5a1 1 0 0 0-1-1h-1v1.646a.25.25 0 0 1-.427.177L7.177 3.427a.25.25 0 0 1 0-.354ZM3.75 2.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm0 9.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm8.25.75a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0Z"></path>
 </svg>
         </span>
-      
+
         <span data-view-component="true" class="ActionListItem-label">
           Pull requests
-</span>      
+</span>
 </a>
-  
+
 </li>
         <li hidden="hidden" data-menu-item="i3actions-tab" data-targets="action-list.items" role="none" data-view-component="true" class="ActionListItem">
-    
-    
+
+
     <a tabindex="-1" id="item-a1eceb94-3732-40a8-b141-2e5f665dc405" href="/automazeio/ccpm/actions" role="menuitem" data-view-component="true" class="ActionListContent ActionListContent--visual16">
         <span class="ActionListItem-visual ActionListItem-visual--leading">
           <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-play">
     <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Zm4.879-2.773 4.264 2.559a.25.25 0 0 1 0 .428l-4.264 2.559A.25.25 0 0 1 6 10.559V5.442a.25.25 0 0 1 .379-.215Z"></path>
 </svg>
         </span>
-      
+
         <span data-view-component="true" class="ActionListItem-label">
           Actions
-</span>      
+</span>
 </a>
-  
+
 </li>
         <li hidden="hidden" data-menu-item="i4projects-tab" data-targets="action-list.items" role="none" data-view-component="true" class="ActionListItem">
-    
-    
+
+
     <a tabindex="-1" id="item-8b67e86d-a6ab-46b6-9fad-28367eb2ec98" href="/automazeio/ccpm/projects" role="menuitem" data-view-component="true" class="ActionListContent ActionListContent--visual16">
         <span class="ActionListItem-visual ActionListItem-visual--leading">
           <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-table">
     <path d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v12.5A1.75 1.75 0 0 1 14.25 16H1.75A1.75 1.75 0 0 1 0 14.25ZM6.5 6.5v8h7.75a.25.25 0 0 0 .25-.25V6.5Zm8-1.5V1.75a.25.25 0 0 0-.25-.25H6.5V5Zm-13 1.5v7.75c0 .138.112.25.25.25H5v-8ZM5 5V1.5H1.75a.25.25 0 0 0-.25.25V5Z"></path>
 </svg>
         </span>
-      
+
         <span data-view-component="true" class="ActionListItem-label">
           Projects
-</span>      
+</span>
 </a>
-  
+
 </li>
         <li hidden="hidden" data-menu-item="i5security-tab" data-targets="action-list.items" role="none" data-view-component="true" class="ActionListItem">
-    
-    
+
+
     <a tabindex="-1" id="item-ee2bd19f-53a9-4650-8f9b-8bc53a0e656a" href="/automazeio/ccpm/security" role="menuitem" data-view-component="true" class="ActionListContent ActionListContent--visual16">
         <span class="ActionListItem-visual ActionListItem-visual--leading">
           <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-shield">
     <path d="M7.467.133a1.748 1.748 0 0 1 1.066 0l5.25 1.68A1.75 1.75 0 0 1 15 3.48V7c0 1.566-.32 3.182-1.303 4.682-.983 1.498-2.585 2.813-5.032 3.855a1.697 1.697 0 0 1-1.33 0c-2.447-1.042-4.049-2.357-5.032-3.855C1.32 10.182 1 8.566 1 7V3.48a1.75 1.75 0 0 1 1.217-1.667Zm.61 1.429a.25.25 0 0 0-.153 0l-5.25 1.68a.25.25 0 0 0-.174.238V7c0 1.358.275 2.666 1.057 3.86.784 1.194 2.121 2.34 4.366 3.297a.196.196 0 0 0 .154 0c2.245-.956 3.582-2.104 4.366-3.298C13.225 9.666 13.5 8.36 13.5 7V3.48a.251.251 0 0 0-.174-.237l-5.25-1.68ZM8.75 4.75v3a.75.75 0 0 1-1.5 0v-3a.75.75 0 0 1 1.5 0ZM9 10.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path>
 </svg>
         </span>
-      
+
         <span data-view-component="true" class="ActionListItem-label">
           Security
-</span>      
+</span>
 </a>
-  
+
 </li>
         <li hidden="hidden" data-menu-item="i6insights-tab" data-targets="action-list.items" role="none" data-view-component="true" class="ActionListItem">
-    
-    
+
+
     <a tabindex="-1" id="item-431a92c9-db8f-4789-bd74-c4d1e3b228b6" href="/automazeio/ccpm/pulse" role="menuitem" data-view-component="true" class="ActionListContent ActionListContent--visual16">
         <span class="ActionListItem-visual ActionListItem-visual--leading">
           <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-graph">
     <path d="M1.5 1.75V13.5h13.75a.75.75 0 0 1 0 1.5H.75a.75.75 0 0 1-.75-.75V1.75a.75.75 0 0 1 1.5 0Zm14.28 2.53-5.25 5.25a.75.75 0 0 1-1.06 0L7 7.06 4.28 9.78a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042l3.25-3.25a.75.75 0 0 1 1.06 0L10 7.94l4.72-4.72a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042Z"></path>
 </svg>
         </span>
-      
+
         <span data-view-component="true" class="ActionListItem-label">
           Insights
-</span>      
+</span>
 </a>
-  
+
 </li>
-</ul>    
+</ul>
 </div></action-list>
 
 
 </div>
-      
+
 </div></anchored-position>  </focus-group>
 </action-menu></div>
 </nav>
 
   </div>
 
-  
+
 
 
 
 <turbo-frame id="repo-content-turbo-frame" target="_top" data-turbo-action="advance" class="">
     <div id="repo-content-pjax-container" class="repository-content " >
-    
 
 
 
-    
-      
+
+
+
   <h1 class='sr-only'>automazeio/ccpm</h1>
   <div class="clearfix container-xl px-md-4 px-lg-5 px-3">
     <div>
@@ -2051,7 +2051,7 @@
   data-attempted-ssr="true"
   data-react-profiling="false"
 >
-  
+
   <script type="application/json" data-target="react-partial.embeddedData">{"props":{"initialPayload":{"allShortcutsEnabled":false,"path":"/","repo":{"id":1040397982,"defaultBranch":"main","name":"ccpm","ownerLogin":"automazeio","currentUserCanPush":false,"isFork":false,"isEmpty":false,"createdAt":"2025-08-18T23:20:08.000Z","ownerAvatar":"https://avatars.githubusercontent.com/u/125381035?v=4","public":true,"private":false,"isOrgOwned":true},"currentUser":null,"refInfo":{"name":"main","listCacheKey":"v0:1758748813.0","canEdit":false,"refType":"branch","currentOid":"3c8e0e7f673c62ac162bb1ce81c19207c440b7f2"},"tree":{"items":[{"name":"ccpm","path":"ccpm","contentType":"directory"},{"name":"doc","path":"doc","contentType":"directory"},{"name":"install","path":"install","contentType":"directory"},{"name":"zh-docs","path":"zh-docs","contentType":"directory"},{"name":".gitignore","path":".gitignore","contentType":"file"},{"name":"AGENTS.md","path":"AGENTS.md","contentType":"file"},{"name":"CHANGELOG.md","path":"CHANGELOG.md","contentType":"file"},{"name":"COMMANDS.md","path":"COMMANDS.md","contentType":"file"},{"name":"CONTEXT_ACCURACY.md","path":"CONTEXT_ACCURACY.md","contentType":"file"},{"name":"LICENSE","path":"LICENSE","contentType":"file"},{"name":"LOCAL_MODE.md","path":"LOCAL_MODE.md","contentType":"file"},{"name":"README.md","path":"README.md","contentType":"file"},{"name":"screenshot.webp","path":"screenshot.webp","contentType":"file"}],"templateDirectorySuggestionUrl":null,"readme":null,"totalCount":13,"showBranchInfobar":false},"fileTree":null,"fileTreeProcessingTime":null,"foldersToFetch":[],"treeExpanded":false,"symbolsExpanded":false,"copilotSWEAgentEnabled":false,"isOverview":true,"overview":{"banners":{"shouldRecommendReadme":false,"isPersonalRepo":false,"showUseActionBanner":false,"actionSlug":null,"actionId":null,"showProtectBranchBanner":false,"publishBannersInfo":{"dismissActionNoticePath":"/settings/dismiss-notice/publish_action_from_repo","releasePath":"/automazeio/ccpm/releases/new?marketplace=true","showPublishActionBanner":false},"interactionLimitBanner":null,"showInvitationBanner":false,"inviterName":null,"actionsMigrationBannerInfo":{"releaseTags":[],"showImmutableActionsMigrationBanner":false,"initialMigrationStatus":null},"showDeployBanner":false,"detectedStack":{"framework":null,"packageManager":null}},"codeButton":{"contactPath":"/contact","isEnterprise":false,"local":{"protocolInfo":{"httpAvailable":true,"sshAvailable":null,"httpUrl":"https://github.com/automazeio/ccpm.git","showCloneWarning":null,"sshUrl":null,"sshCertificatesRequired":null,"sshCertificatesAvailable":null,"ghCliUrl":"gh repo clone automazeio/ccpm","defaultProtocol":"http","newSshKeyUrl":"/settings/ssh/new","setProtocolPath":"/users/set_protocol"},"platformInfo":{"cloneUrl":"https://desktop.github.com","showVisualStudioCloneButton":false,"visualStudioCloneUrl":"https://windows.github.com","showXcodeCloneButton":false,"xcodeCloneUrl":"xcode://clone?repo=https%3A%2F%2Fgithub.com%2Fautomazeio%2Fccpm","zipballUrl":"/automazeio/ccpm/archive/refs/heads/main.zip"}},"newCodespacePath":"/codespaces/new?hide_repo_select=true\u0026repo=1040397982"},"popovers":{"rename":null,"renamedParentRepo":null},"commitCount":"80","overviewFiles":[{"displayName":"README.md","repoName":"ccpm","refName":"main","path":"README.md","preferredFileType":"readme","tabName":"README","richText":"\u003carticle class=\"markdown-body entry-content container-lg\" itemprop=\"text\"\u003e\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch1 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003eClaude Code PM\u003c/h1\u003e\u003ca id=\"user-content-claude-code-pm\" class=\"anchor\" aria-label=\"Permalink: Claude Code PM\" href=\"#claude-code-pm\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cp dir=\"auto\"\u003e\u003ca href=\"https://automaze.io\" rel=\"nofollow\"\u003e\u003cimg src=\"https://camo.githubusercontent.com/5aee4c5871f8ada664ef783ce6f8a402bf8dc7ea476255ab47014c21461a519e/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f42792d6175746f6d617a652e696f2d346233626166\" alt=\"Automaze\" data-canonical-src=\"https://img.shields.io/badge/By-automaze.io-4b3baf\" style=\"max-width: 100%;\"\u003e\u003c/a\u003e\n \n\u003ca href=\"https://github.com/automazeio/ccpm/blob/main/README.md\"\u003e\u003cimg src=\"https://camo.githubusercontent.com/060adf2d52fb0095d4c5215db215d72a3ecabf0a26191d17e25328024477d5b1/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f2b2d436c61756465253230436f64652d643937373537\" alt=\"Claude Code\" data-canonical-src=\"https://img.shields.io/badge/+-Claude%20Code-d97757\" style=\"max-width: 100%;\"\u003e\u003c/a\u003e\n\u003ca href=\"https://github.com/automazeio/ccpm\"\u003e\u003cimg src=\"https://camo.githubusercontent.com/141f62a6b95415610484f394fe0eb50ce586d4301dd70267fb43443f2de53e3a/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f2b2d4769744875622532304973737565732d316632333238\" alt=\"GitHub Issues\" data-canonical-src=\"https://img.shields.io/badge/+-GitHub%20Issues-1f2328\" style=\"max-width: 100%;\"\u003e\u003c/a\u003e\n \n\u003ca href=\"https://github.com/hesreallyhim/awesome-claude-code?tab=readme-ov-file#general-\"\u003e\u003cimg src=\"https://camo.githubusercontent.com/1667baa3145a7b9b2a0ae17d8c7b09b4d471f79aa02b0615ab07d64d9988a198/68747470733a2f2f617765736f6d652e72652f6d656e74696f6e65642d62616467652e737667\" alt=\"Mentioned in Awesome Claude Code\" data-canonical-src=\"https://awesome.re/mentioned-badge.svg\" style=\"max-width: 100%;\"\u003e\u003c/a\u003e\n \n\u003ca href=\"https://github.com/automazeio/ccpm/blob/main/LICENSE\"\u003e\u003cimg src=\"https://camo.githubusercontent.com/f96a9a43f7cedb880f07d3ddf99dbe6b0380014f40254b44792fa3de93b0efed/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c6963656e73652d4d49542d323861373435\" alt=\"MIT License\" data-canonical-src=\"https://img.shields.io/badge/License-MIT-28a745\" style=\"max-width: 100%;\"\u003e\u003c/a\u003e\n \n\u003ca href=\"http://x.com/intent/follow?screen_name=aroussi\" rel=\"nofollow\"\u003e\u003cimg src=\"https://camo.githubusercontent.com/a529ade56dd547b57c60041e197e43ee25ac96e1e38bf02cc27a78cfc85eee93/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f2546302539442539352538462d4061726f757373692d316339626630\" alt=\"Follow on 𝕏\" data-canonical-src=\"https://img.shields.io/badge/%F0%9D%95%8F-@aroussi-1c9bf0\" style=\"max-width: 100%;\"\u003e\u003c/a\u003e\n \n\u003ca href=\"https://github.com/automazeio/ccpm\"\u003e\u003cimg src=\"https://camo.githubusercontent.com/1ede4105e107bb791be6c2c313079d87c2f666d92e99af8db78ef8c7cdd751b7/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f73746172732f6175746f6d617a65696f2f6363706d2e7376673f7374796c653d736f6369616c266c6162656c3d53746172253230746869732532307265706f266d61784167653d3630\" alt=\"Star this repo\" data-canonical-src=\"https://img.shields.io/github/stars/automazeio/ccpm.svg?style=social\u0026amp;label=Star%20this%20repo\u0026amp;maxAge=60\" style=\"max-width: 100%;\"\u003e\u003c/a\u003e\u003c/p\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch3 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003eClaude Code workflow to ship \u003cdel\u003efaster\u003c/del\u003e \u003cem\u003ebetter\u003c/em\u003e using spec-driven development, GitHub issues, Git worktrees, and multiple AI agents running in parallel.\u003c/h3\u003e\u003ca id=\"user-content-claude-code-workflow-to-ship-faster-better-using-spec-driven-development-github-issues-git-worktrees-and-multiple-ai-agents-running-in-parallel\" class=\"anchor\" aria-label=\"Permalink: Claude Code workflow to ship fasterbetter using spec-driven development, GitHub issues, Git worktrees, and multiple AI agents running in parallel.\" href=\"#claude-code-workflow-to-ship-faster-better-using-spec-driven-development-github-issues-git-worktrees-and-multiple-ai-agents-running-in-parallel\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cp dir=\"auto\"\u003e\u003cstrong\u003e\u003ca href=\"/automazeio/ccpm/blob/main/zh-docs/README_ZH.md\"\u003e中文文档 (Chinese Documentation)\u003c/a\u003e\u003c/strong\u003e\u003c/p\u003e\n\u003cp dir=\"auto\"\u003eStop losing context. Stop blocking on tasks. Stop shipping bugs. This battle-tested system turns PRDs into epics, epics into GitHub issues, and issues into production code – with full traceability at every step.\u003c/p\u003e\n\u003cp dir=\"auto\"\u003e\u003ca target=\"_blank\" rel=\"noopener noreferrer\" href=\"/automazeio/ccpm/blob/main/screenshot.webp\"\u003e\u003cimg src=\"/automazeio/ccpm/raw/main/screenshot.webp\" alt=\"Claude Code PM\" style=\"max-width: 100%;\"\u003e\u003c/a\u003e\u003c/p\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch2 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003eTable of Contents\u003c/h2\u003e\u003ca id=\"user-content-table-of-contents\" class=\"anchor\" aria-label=\"Permalink: Table of Contents\" href=\"#table-of-contents\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cul dir=\"auto\"\u003e\n\u003cli\u003e\u003ca href=\"#background\"\u003eBackground\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"#the-workflow\"\u003eThe Workflow\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"#what-makes-this-different\"\u003eWhat Makes This Different?\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"#why-github-issues\"\u003eWhy GitHub Issues?\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"#core-principle-no-vibe-coding\"\u003eCore Principle: No Vibe Coding\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"#system-architecture\"\u003eSystem Architecture\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"#workflow-phases\"\u003eWorkflow Phases\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"#command-reference\"\u003eCommand Reference\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"#the-parallel-execution-system\"\u003eThe Parallel Execution System\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"#key-features--benefits\"\u003eKey Features \u0026amp; Benefits\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"#proven-results\"\u003eProven Results\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"#example-flow\"\u003eExample Flow\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"#get-started-now\"\u003eGet Started Now\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"#local-vs-remote\"\u003eLocal vs Remote\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"#technical-notes\"\u003eTechnical Notes\u003c/a\u003e\u003c/li\u003e\n\u003cli\u003e\u003ca href=\"#support-this-project\"\u003eSupport This Project\u003c/a\u003e\u003c/li\u003e\n\u003c/ul\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch2 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003eBackground\u003c/h2\u003e\u003ca id=\"user-content-background\" class=\"anchor\" aria-label=\"Permalink: Background\" href=\"#background\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cp dir=\"auto\"\u003eEvery team struggles with the same problems:\u003c/p\u003e\n\u003cul dir=\"auto\"\u003e\n\u003cli\u003e\u003cstrong\u003eContext evaporates\u003c/strong\u003e between sessions, forcing constant re-discovery\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003eParallel work creates conflicts\u003c/strong\u003e when multiple developers touch the same code\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003eRequirements drift\u003c/strong\u003e as verbal decisions override written specs\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003eProgress becomes invisible\u003c/strong\u003e until the very end\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp dir=\"auto\"\u003eThis system solves all of that.\u003c/p\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch2 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003eThe Workflow\u003c/h2\u003e\u003ca id=\"user-content-the-workflow\" class=\"anchor\" aria-label=\"Permalink: The Workflow\" href=\"#the-workflow\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003csection class=\"js-render-needs-enrichment render-needs-enrichment position-relative\" data-identity=\"f92e11b4-d863-45b3-928a-4d3d2ea81f2b\" data-host=\"https://viewscreen.githubusercontent.com\" data-src=\"https://viewscreen.githubusercontent.com/markdown/mermaid?docs_host=https%3A%2F%2Fdocs.github.com\" data-type=\"mermaid\" aria-label=\"mermaid rendered output container\"\u003e\n  \u003cdiv class=\"js-render-enrichment-target\" data-json=\"{\u0026quot;data\u0026quot;:\u0026quot;graph LR\\n    A[PRD Creation] --\u0026amp;gt; B[Epic Planning]\\n    B --\u0026amp;gt; C[Task Decomposition]\\n    C --\u0026amp;gt; D[GitHub Sync]\\n    D --\u0026amp;gt; E[Parallel Execution]\\n\u0026quot;}\" data-plain=\"graph LR\n    A[PRD Creation] --\u0026gt; B[Epic Planning]\n    B --\u0026gt; C[Task Decomposition]\n    C --\u0026gt; D[GitHub Sync]\n    D --\u0026gt; E[Parallel Execution]\n\" dir=\"auto\"\u003e\n    \u003cdiv class=\"render-plaintext-hidden\" dir=\"auto\"\u003e\n      \u003cpre lang=\"mermaid\" aria-label=\"Raw mermaid code\"\u003egraph LR\n    A[PRD Creation] --\u0026gt; B[Epic Planning]\n    B --\u0026gt; C[Task Decomposition]\n    C --\u0026gt; D[GitHub Sync]\n    D --\u0026gt; E[Parallel Execution]\n\u003c/pre\u003e\n    \u003c/div\u003e\n  \u003c/div\u003e\n  \u003cspan class=\"js-render-enrichment-loader d-flex flex-justify-center flex-items-center width-full\" style=\"min-height:100px\" role=\"presentation\"\u003e\n    \u003cspan data-view-component=\"true\"\u003e\n  \u003csvg style=\"box-sizing: content-box; color: var(--color-icon-primary);\" width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\" aria-hidden=\"true\" data-view-component=\"true\" class=\"octospinner mx-auto anim-rotate\"\u003e\n    \u003ccircle cx=\"8\" cy=\"8\" r=\"7\" stroke=\"currentColor\" stroke-opacity=\"0.25\" stroke-width=\"2\" vector-effect=\"non-scaling-stroke\" fill=\"none\"\u003e\u003c/circle\u003e\n    \u003cpath d=\"M15 8a7.002 7.002 0 00-7-7\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" vector-effect=\"non-scaling-stroke\"\u003e\u003c/path\u003e\n\u003c/svg\u003e    \u003cspan class=\"sr-only\"\u003eLoading\u003c/span\u003e\n\u003c/span\u003e\n  \u003c/span\u003e\n\u003c/section\u003e\n\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch3 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003eSee It In Action (60 seconds)\u003c/h3\u003e\u003ca id=\"user-content-see-it-in-action-60-seconds\" class=\"anchor\" aria-label=\"Permalink: See It In Action (60 seconds)\" href=\"#see-it-in-action-60-seconds\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cdiv class=\"highlight highlight-source-shell notranslate position-relative overflow-auto\" dir=\"auto\" data-snippet-clipboard-copy-content=\"# Create a comprehensive PRD through guided brainstorming\n/pm:prd-new memory-system\n\n# Transform PRD into a technical epic with task breakdown\n/pm:prd-parse memory-system\n\n# Push to GitHub and start parallel execution\n/pm:epic-oneshot memory-system\n/pm:issue-start 1235\"\u003e\u003cpre\u003e\u003cspan class=\"pl-c\"\u003e\u003cspan class=\"pl-c\"\u003e#\u003c/span\u003e Create a comprehensive PRD through guided brainstorming\u003c/span\u003e\n/pm:prd-new memory-system\n\n\u003cspan class=\"pl-c\"\u003e\u003cspan class=\"pl-c\"\u003e#\u003c/span\u003e Transform PRD into a technical epic with task breakdown\u003c/span\u003e\n/pm:prd-parse memory-system\n\n\u003cspan class=\"pl-c\"\u003e\u003cspan class=\"pl-c\"\u003e#\u003c/span\u003e Push to GitHub and start parallel execution\u003c/span\u003e\n/pm:epic-oneshot memory-system\n/pm:issue-start 1235\u003c/pre\u003e\u003c/div\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch2 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003eWhat Makes This Different?\u003c/h2\u003e\u003ca id=\"user-content-what-makes-this-different\" class=\"anchor\" aria-label=\"Permalink: What Makes This Different?\" href=\"#what-makes-this-different\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cmarkdown-accessiblity-table\u003e\u003ctable\u003e\n\u003cthead\u003e\n\u003ctr\u003e\n\u003cth\u003eTraditional Development\u003c/th\u003e\n\u003cth\u003eClaude Code PM System\u003c/th\u003e\n\u003c/tr\u003e\n\u003c/thead\u003e\n\u003ctbody\u003e\n\u003ctr\u003e\n\u003ctd\u003eContext lost between sessions\u003c/td\u003e\n\u003ctd\u003e\u003cstrong\u003ePersistent context\u003c/strong\u003e across all work\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eSerial task execution\u003c/td\u003e\n\u003ctd\u003e\u003cstrong\u003eParallel agents\u003c/strong\u003e on independent tasks\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003e\"Vibe coding\" from memory\u003c/td\u003e\n\u003ctd\u003e\u003cstrong\u003eSpec-driven\u003c/strong\u003e with full traceability\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eProgress hidden in branches\u003c/td\u003e\n\u003ctd\u003e\u003cstrong\u003eTransparent audit trail\u003c/strong\u003e in GitHub\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eManual task coordination\u003c/td\u003e\n\u003ctd\u003e\u003cstrong\u003eIntelligent prioritization\u003c/strong\u003e with \u003ccode\u003e/pm:next\u003c/code\u003e\u003c/td\u003e\n\u003c/tr\u003e\n\u003c/tbody\u003e\n\u003c/table\u003e\u003c/markdown-accessiblity-table\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch2 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003eWhy GitHub Issues?\u003c/h2\u003e\u003ca id=\"user-content-why-github-issues\" class=\"anchor\" aria-label=\"Permalink: Why GitHub Issues?\" href=\"#why-github-issues\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cp dir=\"auto\"\u003eMost Claude Code workflows operate in isolation – a single developer working with AI in their local environment. This creates a fundamental problem: \u003cstrong\u003eAI-assisted development becomes a silo\u003c/strong\u003e.\u003c/p\u003e\n\u003cp dir=\"auto\"\u003eBy using GitHub Issues as our database, we unlock something powerful:\u003c/p\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch3 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003e🤝 \u003cstrong\u003eTrue Team Collaboration\u003c/strong\u003e\u003c/h3\u003e\u003ca id=\"user-content--true-team-collaboration\" class=\"anchor\" aria-label=\"Permalink: 🤝 True Team Collaboration\" href=\"#-true-team-collaboration\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cul dir=\"auto\"\u003e\n\u003cli\u003eMultiple Claude instances can work on the same project simultaneously\u003c/li\u003e\n\u003cli\u003eHuman developers see AI progress in real-time through issue comments\u003c/li\u003e\n\u003cli\u003eTeam members can jump in anywhere – the context is always visible\u003c/li\u003e\n\u003cli\u003eManagers get transparency without interrupting flow\u003c/li\u003e\n\u003c/ul\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch3 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003e🔄 \u003cstrong\u003eSeamless Human-AI Handoffs\u003c/strong\u003e\u003c/h3\u003e\u003ca id=\"user-content--seamless-human-ai-handoffs\" class=\"anchor\" aria-label=\"Permalink: 🔄 Seamless Human-AI Handoffs\" href=\"#-seamless-human-ai-handoffs\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cul dir=\"auto\"\u003e\n\u003cli\u003eAI can start a task, human can finish it (or vice versa)\u003c/li\u003e\n\u003cli\u003eProgress updates are visible to everyone, not trapped in chat logs\u003c/li\u003e\n\u003cli\u003eCode reviews happen naturally through PR comments\u003c/li\u003e\n\u003cli\u003eNo \"what did the AI do?\" meetings\u003c/li\u003e\n\u003c/ul\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch3 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003e📈 \u003cstrong\u003eScalable Beyond Solo Work\u003c/strong\u003e\u003c/h3\u003e\u003ca id=\"user-content--scalable-beyond-solo-work\" class=\"anchor\" aria-label=\"Permalink: 📈 Scalable Beyond Solo Work\" href=\"#-scalable-beyond-solo-work\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cul dir=\"auto\"\u003e\n\u003cli\u003eAdd team members without onboarding friction\u003c/li\u003e\n\u003cli\u003eMultiple AI agents working in parallel on different issues\u003c/li\u003e\n\u003cli\u003eDistributed teams stay synchronized automatically\u003c/li\u003e\n\u003cli\u003eWorks with existing GitHub workflows and tools\u003c/li\u003e\n\u003c/ul\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch3 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003e🎯 \u003cstrong\u003eSingle Source of Truth\u003c/strong\u003e\u003c/h3\u003e\u003ca id=\"user-content--single-source-of-truth\" class=\"anchor\" aria-label=\"Permalink: 🎯 Single Source of Truth\" href=\"#-single-source-of-truth\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cul dir=\"auto\"\u003e\n\u003cli\u003eNo separate databases or project management tools\u003c/li\u003e\n\u003cli\u003eIssue state is the project state\u003c/li\u003e\n\u003cli\u003eComments are the audit trail\u003c/li\u003e\n\u003cli\u003eLabels provide organization\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp dir=\"auto\"\u003eThis isn't just a project management system – it's a \u003cstrong\u003ecollaboration protocol\u003c/strong\u003e that lets humans and AI agents work together at scale, using infrastructure your team already trusts.\u003c/p\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch2 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003eCore Principle: No Vibe Coding\u003c/h2\u003e\u003ca id=\"user-content-core-principle-no-vibe-coding\" class=\"anchor\" aria-label=\"Permalink: Core Principle: No Vibe Coding\" href=\"#core-principle-no-vibe-coding\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cblockquote\u003e\n\u003cp dir=\"auto\"\u003e\u003cstrong\u003eEvery line of code must trace back to a specification.\u003c/strong\u003e\u003c/p\u003e\n\u003c/blockquote\u003e\n\u003cp dir=\"auto\"\u003eWe follow a strict 5-phase discipline:\u003c/p\u003e\n\u003col dir=\"auto\"\u003e\n\u003cli\u003e\u003cstrong\u003e🧠 Brainstorm\u003c/strong\u003e - Think deeper than comfortable\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003e📝 Document\u003c/strong\u003e - Write specs that leave nothing to interpretation\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003e📐 Plan\u003c/strong\u003e - Architect with explicit technical decisions\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003e⚡ Execute\u003c/strong\u003e - Build exactly what was specified\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003e📊 Track\u003c/strong\u003e - Maintain transparent progress at every step\u003c/li\u003e\n\u003c/ol\u003e\n\u003cp dir=\"auto\"\u003eNo shortcuts. No assumptions. No regrets.\u003c/p\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch2 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003eSystem Architecture\u003c/h2\u003e\u003ca id=\"user-content-system-architecture\" class=\"anchor\" aria-label=\"Permalink: System Architecture\" href=\"#system-architecture\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cdiv class=\"snippet-clipboard-content notranslate position-relative overflow-auto\" data-snippet-clipboard-copy-content=\".claude/\n├── CLAUDE.md          # Always-on instructions (copy content to your project's CLAUDE.md file)\n├── agents/            # Task-oriented agents (for context preservation)\n├── commands/          # Command definitions\n│   ├── context/       # Create, update, and prime context\n│   ├── pm/            # ← Project management commands (this system)\n│   └── testing/       # Prime and execute tests (edit this)\n├── context/           # Project-wide context files\n├── epics/             # ← PM's local workspace (place in .gitignore)\n│   └── [epic-name]/   # Epic and related tasks\n│       ├── epic.md    # Implementation plan\n│       ├── [#].md     # Individual task files\n│       └── updates/   # Work-in-progress updates\n├── prds/              # ← PM's PRD files\n├── rules/             # Place any rule files you'd like to reference here\n└── scripts/           # Place any script files you'd like to use here\"\u003e\u003cpre class=\"notranslate\"\u003e\u003ccode\u003e.claude/\n├── CLAUDE.md          # Always-on instructions (copy content to your project's CLAUDE.md file)\n├── agents/            # Task-oriented agents (for context preservation)\n├── commands/          # Command definitions\n│   ├── context/       # Create, update, and prime context\n│   ├── pm/            # ← Project management commands (this system)\n│   └── testing/       # Prime and execute tests (edit this)\n├── context/           # Project-wide context files\n├── epics/             # ← PM's local workspace (place in .gitignore)\n│   └── [epic-name]/   # Epic and related tasks\n│       ├── epic.md    # Implementation plan\n│       ├── [#].md     # Individual task files\n│       └── updates/   # Work-in-progress updates\n├── prds/              # ← PM's PRD files\n├── rules/             # Place any rule files you'd like to reference here\n└── scripts/           # Place any script files you'd like to use here\n\u003c/code\u003e\u003c/pre\u003e\u003c/div\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch2 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003eWorkflow Phases\u003c/h2\u003e\u003ca id=\"user-content-workflow-phases\" class=\"anchor\" aria-label=\"Permalink: Workflow Phases\" href=\"#workflow-phases\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch3 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003e1. Product Planning Phase\u003c/h3\u003e\u003ca id=\"user-content-1-product-planning-phase\" class=\"anchor\" aria-label=\"Permalink: 1. Product Planning Phase\" href=\"#1-product-planning-phase\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cdiv class=\"highlight highlight-source-shell notranslate position-relative overflow-auto\" dir=\"auto\" data-snippet-clipboard-copy-content=\"/pm:prd-new feature-name\"\u003e\u003cpre\u003e/pm:prd-new feature-name\u003c/pre\u003e\u003c/div\u003e\n\u003cp dir=\"auto\"\u003eLaunches comprehensive brainstorming to create a Product Requirements Document capturing vision, user stories, success criteria, and constraints.\u003c/p\u003e\n\u003cp dir=\"auto\"\u003e\u003cstrong\u003eOutput:\u003c/strong\u003e \u003ccode\u003e.claude/prds/feature-name.md\u003c/code\u003e\u003c/p\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch3 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003e2. Implementation Planning Phase\u003c/h3\u003e\u003ca id=\"user-content-2-implementation-planning-phase\" class=\"anchor\" aria-label=\"Permalink: 2. Implementation Planning Phase\" href=\"#2-implementation-planning-phase\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cdiv class=\"highlight highlight-source-shell notranslate position-relative overflow-auto\" dir=\"auto\" data-snippet-clipboard-copy-content=\"/pm:prd-parse feature-name\"\u003e\u003cpre\u003e/pm:prd-parse feature-name\u003c/pre\u003e\u003c/div\u003e\n\u003cp dir=\"auto\"\u003eTransforms PRD into a technical implementation plan with architectural decisions, technical approach, and dependency mapping.\u003c/p\u003e\n\u003cp dir=\"auto\"\u003e\u003cstrong\u003eOutput:\u003c/strong\u003e \u003ccode\u003e.claude/epics/feature-name/epic.md\u003c/code\u003e\u003c/p\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch3 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003e3. Task Decomposition Phase\u003c/h3\u003e\u003ca id=\"user-content-3-task-decomposition-phase\" class=\"anchor\" aria-label=\"Permalink: 3. Task Decomposition Phase\" href=\"#3-task-decomposition-phase\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cdiv class=\"highlight highlight-source-shell notranslate position-relative overflow-auto\" dir=\"auto\" data-snippet-clipboard-copy-content=\"/pm:epic-decompose feature-name\"\u003e\u003cpre\u003e/pm:epic-decompose feature-name\u003c/pre\u003e\u003c/div\u003e\n\u003cp dir=\"auto\"\u003eBreaks epic into concrete, actionable tasks with acceptance criteria, effort estimates, and parallelization flags.\u003c/p\u003e\n\u003cp dir=\"auto\"\u003e\u003cstrong\u003eOutput:\u003c/strong\u003e \u003ccode\u003e.claude/epics/feature-name/[task].md\u003c/code\u003e\u003c/p\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch3 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003e4. GitHub Synchronization\u003c/h3\u003e\u003ca id=\"user-content-4-github-synchronization\" class=\"anchor\" aria-label=\"Permalink: 4. GitHub Synchronization\" href=\"#4-github-synchronization\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cdiv class=\"highlight highlight-source-shell notranslate position-relative overflow-auto\" dir=\"auto\" data-snippet-clipboard-copy-content=\"/pm:epic-sync feature-name\n# Or for confident workflows:\n/pm:epic-oneshot feature-name\"\u003e\u003cpre\u003e/pm:epic-sync feature-name\n\u003cspan class=\"pl-c\"\u003e\u003cspan class=\"pl-c\"\u003e#\u003c/span\u003e Or for confident workflows:\u003c/span\u003e\n/pm:epic-oneshot feature-name\u003c/pre\u003e\u003c/div\u003e\n\u003cp dir=\"auto\"\u003ePushes epic and tasks to GitHub as issues with appropriate labels and relationships.\u003c/p\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch3 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003e5. Execution Phase\u003c/h3\u003e\u003ca id=\"user-content-5-execution-phase\" class=\"anchor\" aria-label=\"Permalink: 5. Execution Phase\" href=\"#5-execution-phase\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cdiv class=\"highlight highlight-source-shell notranslate position-relative overflow-auto\" dir=\"auto\" data-snippet-clipboard-copy-content=\"/pm:issue-start 1234  # Launch specialized agent\n/pm:issue-sync 1234   # Push progress updates\n/pm:next             # Get next priority task\"\u003e\u003cpre\u003e/pm:issue-start 1234  \u003cspan class=\"pl-c\"\u003e\u003cspan class=\"pl-c\"\u003e#\u003c/span\u003e Launch specialized agent\u003c/span\u003e\n/pm:issue-sync 1234   \u003cspan class=\"pl-c\"\u003e\u003cspan class=\"pl-c\"\u003e#\u003c/span\u003e Push progress updates\u003c/span\u003e\n/pm:next             \u003cspan class=\"pl-c\"\u003e\u003cspan class=\"pl-c\"\u003e#\u003c/span\u003e Get next priority task\u003c/span\u003e\u003c/pre\u003e\u003c/div\u003e\n\u003cp dir=\"auto\"\u003eSpecialized agents implement tasks while maintaining progress updates and an audit trail.\u003c/p\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch2 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003eCommand Reference\u003c/h2\u003e\u003ca id=\"user-content-command-reference\" class=\"anchor\" aria-label=\"Permalink: Command Reference\" href=\"#command-reference\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cdiv class=\"markdown-alert markdown-alert-tip\" dir=\"auto\"\u003e\u003cp class=\"markdown-alert-title\" dir=\"auto\"\u003e\u003csvg class=\"octicon octicon-light-bulb mr-2\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z\"\u003e\u003c/path\u003e\u003c/svg\u003eTip\u003c/p\u003e\u003cp dir=\"auto\"\u003eType \u003ccode\u003e/pm:help\u003c/code\u003e for a concise command summary\u003c/p\u003e\n\u003c/div\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch3 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003eInitial Setup\u003c/h3\u003e\u003ca id=\"user-content-initial-setup\" class=\"anchor\" aria-label=\"Permalink: Initial Setup\" href=\"#initial-setup\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cul dir=\"auto\"\u003e\n\u003cli\u003e\u003ccode\u003e/pm:init\u003c/code\u003e - Install dependencies and configure GitHub\u003c/li\u003e\n\u003c/ul\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch3 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003ePRD Commands\u003c/h3\u003e\u003ca id=\"user-content-prd-commands\" class=\"anchor\" aria-label=\"Permalink: PRD Commands\" href=\"#prd-commands\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cul dir=\"auto\"\u003e\n\u003cli\u003e\u003ccode\u003e/pm:prd-new\u003c/code\u003e - Launch brainstorming for new product requirement\u003c/li\u003e\n\u003cli\u003e\u003ccode\u003e/pm:prd-parse\u003c/code\u003e - Convert PRD to implementation epic\u003c/li\u003e\n\u003cli\u003e\u003ccode\u003e/pm:prd-list\u003c/code\u003e - List all PRDs\u003c/li\u003e\n\u003cli\u003e\u003ccode\u003e/pm:prd-edit\u003c/code\u003e - Edit existing PRD\u003c/li\u003e\n\u003cli\u003e\u003ccode\u003e/pm:prd-status\u003c/code\u003e - Show PRD implementation status\u003c/li\u003e\n\u003c/ul\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch3 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003eEpic Commands\u003c/h3\u003e\u003ca id=\"user-content-epic-commands\" class=\"anchor\" aria-label=\"Permalink: Epic Commands\" href=\"#epic-commands\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cul dir=\"auto\"\u003e\n\u003cli\u003e\u003ccode\u003e/pm:epic-decompose\u003c/code\u003e - Break epic into task files\u003c/li\u003e\n\u003cli\u003e\u003ccode\u003e/pm:epic-sync\u003c/code\u003e - Push epic and tasks to GitHub\u003c/li\u003e\n\u003cli\u003e\u003ccode\u003e/pm:epic-oneshot\u003c/code\u003e - Decompose and sync in one command\u003c/li\u003e\n\u003cli\u003e\u003ccode\u003e/pm:epic-list\u003c/code\u003e - List all epics\u003c/li\u003e\n\u003cli\u003e\u003ccode\u003e/pm:epic-show\u003c/code\u003e - Display epic and its tasks\u003c/li\u003e\n\u003cli\u003e\u003ccode\u003e/pm:epic-close\u003c/code\u003e - Mark epic as complete\u003c/li\u003e\n\u003cli\u003e\u003ccode\u003e/pm:epic-edit\u003c/code\u003e - Edit epic details\u003c/li\u003e\n\u003cli\u003e\u003ccode\u003e/pm:epic-refresh\u003c/code\u003e - Update epic progress from tasks\u003c/li\u003e\n\u003c/ul\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch3 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003eIssue Commands\u003c/h3\u003e\u003ca id=\"user-content-issue-commands\" class=\"anchor\" aria-label=\"Permalink: Issue Commands\" href=\"#issue-commands\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cul dir=\"auto\"\u003e\n\u003cli\u003e\u003ccode\u003e/pm:issue-show\u003c/code\u003e - Display issue and sub-issues\u003c/li\u003e\n\u003cli\u003e\u003ccode\u003e/pm:issue-status\u003c/code\u003e - Check issue status\u003c/li\u003e\n\u003cli\u003e\u003ccode\u003e/pm:issue-start\u003c/code\u003e - Begin work with specialized agent\u003c/li\u003e\n\u003cli\u003e\u003ccode\u003e/pm:issue-sync\u003c/code\u003e - Push updates to GitHub\u003c/li\u003e\n\u003cli\u003e\u003ccode\u003e/pm:issue-close\u003c/code\u003e - Mark issue as complete\u003c/li\u003e\n\u003cli\u003e\u003ccode\u003e/pm:issue-reopen\u003c/code\u003e - Reopen closed issue\u003c/li\u003e\n\u003cli\u003e\u003ccode\u003e/pm:issue-edit\u003c/code\u003e - Edit issue details\u003c/li\u003e\n\u003c/ul\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch3 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003eWorkflow Commands\u003c/h3\u003e\u003ca id=\"user-content-workflow-commands\" class=\"anchor\" aria-label=\"Permalink: Workflow Commands\" href=\"#workflow-commands\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cul dir=\"auto\"\u003e\n\u003cli\u003e\u003ccode\u003e/pm:next\u003c/code\u003e - Show next priority issue with epic context\u003c/li\u003e\n\u003cli\u003e\u003ccode\u003e/pm:status\u003c/code\u003e - Overall project dashboard\u003c/li\u003e\n\u003cli\u003e\u003ccode\u003e/pm:standup\u003c/code\u003e - Daily standup report\u003c/li\u003e\n\u003cli\u003e\u003ccode\u003e/pm:blocked\u003c/code\u003e - Show blocked tasks\u003c/li\u003e\n\u003cli\u003e\u003ccode\u003e/pm:in-progress\u003c/code\u003e - List work in progress\u003c/li\u003e\n\u003c/ul\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch3 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003eSync Commands\u003c/h3\u003e\u003ca id=\"user-content-sync-commands\" class=\"anchor\" aria-label=\"Permalink: Sync Commands\" href=\"#sync-commands\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cul dir=\"auto\"\u003e\n\u003cli\u003e\u003ccode\u003e/pm:sync\u003c/code\u003e - Full bidirectional sync with GitHub\u003c/li\u003e\n\u003cli\u003e\u003ccode\u003e/pm:import\u003c/code\u003e - Import existing GitHub issues\u003c/li\u003e\n\u003c/ul\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch3 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003eMaintenance Commands\u003c/h3\u003e\u003ca id=\"user-content-maintenance-commands\" class=\"anchor\" aria-label=\"Permalink: Maintenance Commands\" href=\"#maintenance-commands\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cul dir=\"auto\"\u003e\n\u003cli\u003e\u003ccode\u003e/pm:validate\u003c/code\u003e - Check system integrity\u003c/li\u003e\n\u003cli\u003e\u003ccode\u003e/pm:clean\u003c/code\u003e - Archive completed work\u003c/li\u003e\n\u003cli\u003e\u003ccode\u003e/pm:search\u003c/code\u003e - Search across all content\u003c/li\u003e\n\u003c/ul\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch2 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003eThe Parallel Execution System\u003c/h2\u003e\u003ca id=\"user-content-the-parallel-execution-system\" class=\"anchor\" aria-label=\"Permalink: The Parallel Execution System\" href=\"#the-parallel-execution-system\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch3 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003eIssues Aren't Atomic\u003c/h3\u003e\u003ca id=\"user-content-issues-arent-atomic\" class=\"anchor\" aria-label=\"Permalink: Issues Aren't Atomic\" href=\"#issues-arent-atomic\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cp dir=\"auto\"\u003eTraditional thinking: One issue = One developer = One task\u003c/p\u003e\n\u003cp dir=\"auto\"\u003e\u003cstrong\u003eReality: One issue = Multiple parallel work streams\u003c/strong\u003e\u003c/p\u003e\n\u003cp dir=\"auto\"\u003eA single \"Implement user authentication\" issue isn't one task. It's...\u003c/p\u003e\n\u003cul dir=\"auto\"\u003e\n\u003cli\u003e\u003cstrong\u003eAgent 1\u003c/strong\u003e: Database tables and migrations\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003eAgent 2\u003c/strong\u003e: Service layer and business logic\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003eAgent 3\u003c/strong\u003e: API endpoints and middleware\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003eAgent 4\u003c/strong\u003e: UI components and forms\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003eAgent 5\u003c/strong\u003e: Test suites and documentation\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp dir=\"auto\"\u003eAll running \u003cstrong\u003esimultaneously\u003c/strong\u003e in the same worktree.\u003c/p\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch3 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003eThe Math of Velocity\u003c/h3\u003e\u003ca id=\"user-content-the-math-of-velocity\" class=\"anchor\" aria-label=\"Permalink: The Math of Velocity\" href=\"#the-math-of-velocity\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cp dir=\"auto\"\u003e\u003cstrong\u003eTraditional Approach:\u003c/strong\u003e\u003c/p\u003e\n\u003cul dir=\"auto\"\u003e\n\u003cli\u003eEpic with 3 issues\u003c/li\u003e\n\u003cli\u003eSequential execution\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp dir=\"auto\"\u003e\u003cstrong\u003eThis System:\u003c/strong\u003e\u003c/p\u003e\n\u003cul dir=\"auto\"\u003e\n\u003cli\u003eSame epic with 3 issues\u003c/li\u003e\n\u003cli\u003eEach issue splits into ~4 parallel streams\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003e12 agents working simultaneously\u003c/strong\u003e\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp dir=\"auto\"\u003eWe're not assigning agents to issues. We're \u003cstrong\u003eleveraging multiple agents\u003c/strong\u003e to ship faster.\u003c/p\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch3 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003eContext Optimization\u003c/h3\u003e\u003ca id=\"user-content-context-optimization\" class=\"anchor\" aria-label=\"Permalink: Context Optimization\" href=\"#context-optimization\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cp dir=\"auto\"\u003e\u003cstrong\u003eTraditional single-thread approach:\u003c/strong\u003e\u003c/p\u003e\n\u003cul dir=\"auto\"\u003e\n\u003cli\u003eMain conversation carries ALL the implementation details\u003c/li\u003e\n\u003cli\u003eContext window fills with database schemas, API code, UI components\u003c/li\u003e\n\u003cli\u003eEventually hits context limits and loses coherence\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp dir=\"auto\"\u003e\u003cstrong\u003eParallel agent approach:\u003c/strong\u003e\u003c/p\u003e\n\u003cul dir=\"auto\"\u003e\n\u003cli\u003eMain thread stays clean and strategic\u003c/li\u003e\n\u003cli\u003eEach agent handles its own context in isolation\u003c/li\u003e\n\u003cli\u003eImplementation details never pollute the main conversation\u003c/li\u003e\n\u003cli\u003eMain thread maintains oversight without drowning in code\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp dir=\"auto\"\u003eYour main conversation becomes the conductor, not the orchestra.\u003c/p\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch3 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003eGitHub vs Local: Perfect Separation\u003c/h3\u003e\u003ca id=\"user-content-github-vs-local-perfect-separation\" class=\"anchor\" aria-label=\"Permalink: GitHub vs Local: Perfect Separation\" href=\"#github-vs-local-perfect-separation\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cp dir=\"auto\"\u003e\u003cstrong\u003eWhat GitHub Sees:\u003c/strong\u003e\u003c/p\u003e\n\u003cul dir=\"auto\"\u003e\n\u003cli\u003eClean, simple issues\u003c/li\u003e\n\u003cli\u003eProgress updates\u003c/li\u003e\n\u003cli\u003eCompletion status\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp dir=\"auto\"\u003e\u003cstrong\u003eWhat Actually Happens Locally:\u003c/strong\u003e\u003c/p\u003e\n\u003cul dir=\"auto\"\u003e\n\u003cli\u003eIssue #1234 explodes into 5 parallel agents\u003c/li\u003e\n\u003cli\u003eAgents coordinate through Git commits\u003c/li\u003e\n\u003cli\u003eComplex orchestration hidden from view\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp dir=\"auto\"\u003eGitHub doesn't need to know HOW the work got done – just that it IS done.\u003c/p\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch3 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003eThe Command Flow\u003c/h3\u003e\u003ca id=\"user-content-the-command-flow\" class=\"anchor\" aria-label=\"Permalink: The Command Flow\" href=\"#the-command-flow\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cdiv class=\"highlight highlight-source-shell notranslate position-relative overflow-auto\" dir=\"auto\" data-snippet-clipboard-copy-content=\"# Analyze what can be parallelized\n/pm:issue-analyze 1234\n\n# Launch the swarm\n/pm:epic-start memory-system\n\n# Watch the magic\n# 12 agents working across 3 issues\n# All in: ../epic-memory-system/\n\n# One clean merge when done\n/pm:epic-merge memory-system\"\u003e\u003cpre\u003e\u003cspan class=\"pl-c\"\u003e\u003cspan class=\"pl-c\"\u003e#\u003c/span\u003e Analyze what can be parallelized\u003c/span\u003e\n/pm:issue-analyze 1234\n\n\u003cspan class=\"pl-c\"\u003e\u003cspan class=\"pl-c\"\u003e#\u003c/span\u003e Launch the swarm\u003c/span\u003e\n/pm:epic-start memory-system\n\n\u003cspan class=\"pl-c\"\u003e\u003cspan class=\"pl-c\"\u003e#\u003c/span\u003e Watch the magic\u003c/span\u003e\n\u003cspan class=\"pl-c\"\u003e\u003cspan class=\"pl-c\"\u003e#\u003c/span\u003e 12 agents working across 3 issues\u003c/span\u003e\n\u003cspan class=\"pl-c\"\u003e\u003cspan class=\"pl-c\"\u003e#\u003c/span\u003e All in: ../epic-memory-system/\u003c/span\u003e\n\n\u003cspan class=\"pl-c\"\u003e\u003cspan class=\"pl-c\"\u003e#\u003c/span\u003e One clean merge when done\u003c/span\u003e\n/pm:epic-merge memory-system\u003c/pre\u003e\u003c/div\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch2 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003eKey Features \u0026amp; Benefits\u003c/h2\u003e\u003ca id=\"user-content-key-features--benefits\" class=\"anchor\" aria-label=\"Permalink: Key Features \u0026amp; Benefits\" href=\"#key-features--benefits\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch3 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003e🧠 \u003cstrong\u003eContext Preservation\u003c/strong\u003e\u003c/h3\u003e\u003ca id=\"user-content--context-preservation\" class=\"anchor\" aria-label=\"Permalink: 🧠 Context Preservation\" href=\"#-context-preservation\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cp dir=\"auto\"\u003eNever lose project state again. Each epic maintains its own context, agents read from \u003ccode\u003e.claude/context/\u003c/code\u003e, and updates locally before syncing.\u003c/p\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch3 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003e⚡ \u003cstrong\u003eParallel Execution\u003c/strong\u003e\u003c/h3\u003e\u003ca id=\"user-content--parallel-execution\" class=\"anchor\" aria-label=\"Permalink: ⚡ Parallel Execution\" href=\"#-parallel-execution\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cp dir=\"auto\"\u003eShip faster with multiple agents working simultaneously. Tasks marked \u003ccode\u003eparallel: true\u003c/code\u003e enable conflict-free concurrent development.\u003c/p\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch3 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003e🔗 \u003cstrong\u003eGitHub Native\u003c/strong\u003e\u003c/h3\u003e\u003ca id=\"user-content--github-native\" class=\"anchor\" aria-label=\"Permalink: 🔗 GitHub Native\" href=\"#-github-native\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cp dir=\"auto\"\u003eWorks with tools your team already uses. Issues are the source of truth, comments provide history, and there is no dependency on the Projects API.\u003c/p\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch3 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003e🤖 \u003cstrong\u003eAgent Specialization\u003c/strong\u003e\u003c/h3\u003e\u003ca id=\"user-content--agent-specialization\" class=\"anchor\" aria-label=\"Permalink: 🤖 Agent Specialization\" href=\"#-agent-specialization\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cp dir=\"auto\"\u003eRight tool for every job. Different agents for UI, API, and database work. Each reads requirements and posts updates automatically.\u003c/p\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch3 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003e📊 \u003cstrong\u003eFull Traceability\u003c/strong\u003e\u003c/h3\u003e\u003ca id=\"user-content--full-traceability\" class=\"anchor\" aria-label=\"Permalink: 📊 Full Traceability\" href=\"#-full-traceability\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cp dir=\"auto\"\u003eEvery decision is documented. PRD → Epic → Task → Issue → Code → Commit. Complete audit trail from idea to production.\u003c/p\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch3 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003e🚀 \u003cstrong\u003eDeveloper Productivity\u003c/strong\u003e\u003c/h3\u003e\u003ca id=\"user-content--developer-productivity\" class=\"anchor\" aria-label=\"Permalink: 🚀 Developer Productivity\" href=\"#-developer-productivity\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cp dir=\"auto\"\u003eFocus on building, not managing. Intelligent prioritization, automatic context loading, and incremental sync when ready.\u003c/p\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch2 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003eProven Results\u003c/h2\u003e\u003ca id=\"user-content-proven-results\" class=\"anchor\" aria-label=\"Permalink: Proven Results\" href=\"#proven-results\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cp dir=\"auto\"\u003eTeams using this system report:\u003c/p\u003e\n\u003cul dir=\"auto\"\u003e\n\u003cli\u003e\u003cstrong\u003e89% less time\u003c/strong\u003e lost to context switching – you'll use \u003ccode\u003e/compact\u003c/code\u003e and \u003ccode\u003e/clear\u003c/code\u003e a LOT less\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003e5-8 parallel tasks\u003c/strong\u003e vs 1 previously – editing/testing multiple files at the same time\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003e75% reduction\u003c/strong\u003e in bug rates – due to the breaking down features into detailed tasks\u003c/li\u003e\n\u003cli\u003e\u003cstrong\u003eUp to 3x faster\u003c/strong\u003e feature delivery – based on feature size and complexity\u003c/li\u003e\n\u003c/ul\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch2 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003eExample Flow\u003c/h2\u003e\u003ca id=\"user-content-example-flow\" class=\"anchor\" aria-label=\"Permalink: Example Flow\" href=\"#example-flow\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cdiv class=\"highlight highlight-source-shell notranslate position-relative overflow-auto\" dir=\"auto\" data-snippet-clipboard-copy-content=\"# Start a new feature\n/pm:prd-new memory-system\n\n# Review and refine the PRD...\n\n# Create implementation plan\n/pm:prd-parse memory-system\n\n# Review the epic...\n\n# Break into tasks and push to GitHub\n/pm:epic-oneshot memory-system\n# Creates issues: #1234 (epic), #1235, #1236 (tasks)\n\n# Start development on a task\n/pm:issue-start 1235\n# Agent begins work, maintains local progress\n\n# Sync progress to GitHub\n/pm:issue-sync 1235\n# Updates posted as issue comments\n\n# Check overall status\n/pm:epic-show memory-system\"\u003e\u003cpre\u003e\u003cspan class=\"pl-c\"\u003e\u003cspan class=\"pl-c\"\u003e#\u003c/span\u003e Start a new feature\u003c/span\u003e\n/pm:prd-new memory-system\n\n\u003cspan class=\"pl-c\"\u003e\u003cspan class=\"pl-c\"\u003e#\u003c/span\u003e Review and refine the PRD...\u003c/span\u003e\n\n\u003cspan class=\"pl-c\"\u003e\u003cspan class=\"pl-c\"\u003e#\u003c/span\u003e Create implementation plan\u003c/span\u003e\n/pm:prd-parse memory-system\n\n\u003cspan class=\"pl-c\"\u003e\u003cspan class=\"pl-c\"\u003e#\u003c/span\u003e Review the epic...\u003c/span\u003e\n\n\u003cspan class=\"pl-c\"\u003e\u003cspan class=\"pl-c\"\u003e#\u003c/span\u003e Break into tasks and push to GitHub\u003c/span\u003e\n/pm:epic-oneshot memory-system\n\u003cspan class=\"pl-c\"\u003e\u003cspan class=\"pl-c\"\u003e#\u003c/span\u003e Creates issues: #1234 (epic), #1235, #1236 (tasks)\u003c/span\u003e\n\n\u003cspan class=\"pl-c\"\u003e\u003cspan class=\"pl-c\"\u003e#\u003c/span\u003e Start development on a task\u003c/span\u003e\n/pm:issue-start 1235\n\u003cspan class=\"pl-c\"\u003e\u003cspan class=\"pl-c\"\u003e#\u003c/span\u003e Agent begins work, maintains local progress\u003c/span\u003e\n\n\u003cspan class=\"pl-c\"\u003e\u003cspan class=\"pl-c\"\u003e#\u003c/span\u003e Sync progress to GitHub\u003c/span\u003e\n/pm:issue-sync 1235\n\u003cspan class=\"pl-c\"\u003e\u003cspan class=\"pl-c\"\u003e#\u003c/span\u003e Updates posted as issue comments\u003c/span\u003e\n\n\u003cspan class=\"pl-c\"\u003e\u003cspan class=\"pl-c\"\u003e#\u003c/span\u003e Check overall status\u003c/span\u003e\n/pm:epic-show memory-system\u003c/pre\u003e\u003c/div\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch2 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003eGet Started Now\u003c/h2\u003e\u003ca id=\"user-content-get-started-now\" class=\"anchor\" aria-label=\"Permalink: Get Started Now\" href=\"#get-started-now\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch3 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003eQuick Setup (2 minutes)\u003c/h3\u003e\u003ca id=\"user-content-quick-setup-2-minutes\" class=\"anchor\" aria-label=\"Permalink: Quick Setup (2 minutes)\" href=\"#quick-setup-2-minutes\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003col dir=\"auto\"\u003e\n\u003cli\u003e\n\u003cp dir=\"auto\"\u003e\u003cstrong\u003eInstall this repository into your project\u003c/strong\u003e:\u003c/p\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch4 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003eUnix/Linux/macOS\u003c/h4\u003e\u003ca id=\"user-content-unixlinuxmacos\" class=\"anchor\" aria-label=\"Permalink: Unix/Linux/macOS\" href=\"#unixlinuxmacos\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cdiv class=\"highlight highlight-source-shell notranslate position-relative overflow-auto\" dir=\"auto\" data-snippet-clipboard-copy-content=\"cd path/to/your/project/\ncurl -sSL https://automaze.io/ccpm/install | bash\n# or: wget -qO- https://automaze.io/ccpm/install | bash\"\u003e\u003cpre\u003e\u003cspan class=\"pl-c1\"\u003ecd\u003c/span\u003e path/to/your/project/\ncurl -sSL https://automaze.io/ccpm/install \u003cspan class=\"pl-k\"\u003e|\u003c/span\u003e bash\n\u003cspan class=\"pl-c\"\u003e\u003cspan class=\"pl-c\"\u003e#\u003c/span\u003e or: wget -qO- https://automaze.io/ccpm/install | bash\u003c/span\u003e\u003c/pre\u003e\u003c/div\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch4 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003eWindows (PowerShell)\u003c/h4\u003e\u003ca id=\"user-content-windows-powershell\" class=\"anchor\" aria-label=\"Permalink: Windows (PowerShell)\" href=\"#windows-powershell\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cdiv class=\"highlight highlight-source-shell notranslate position-relative overflow-auto\" dir=\"auto\" data-snippet-clipboard-copy-content=\"cd path/to/your/project/\niwr -useb https://automaze.io/ccpm/install | iex\"\u003e\u003cpre\u003e\u003cspan class=\"pl-c1\"\u003ecd\u003c/span\u003e path/to/your/project/\niwr -useb https://automaze.io/ccpm/install \u003cspan class=\"pl-k\"\u003e|\u003c/span\u003e iex\u003c/pre\u003e\u003c/div\u003e\n\u003cblockquote\u003e\n\u003cp dir=\"auto\"\u003e\u003cg-emoji class=\"g-emoji\" alias=\"warning\"\u003e⚠️\u003c/g-emoji\u003e \u003cstrong\u003eIMPORTANT\u003c/strong\u003e: If you already have a \u003ccode\u003e.claude\u003c/code\u003e directory, clone this repository to a different directory and copy the contents of the cloned \u003ccode\u003e.claude\u003c/code\u003e directory to your project's \u003ccode\u003e.claude\u003c/code\u003e directory.\u003c/p\u003e\n\u003c/blockquote\u003e\n\u003cp dir=\"auto\"\u003eSee full/other installation options in the \u003ca href=\"https://github.com/automazeio/ccpm/tree/main/install\"\u003einstallation guide ›\u003c/a\u003e\u003c/p\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003cp dir=\"auto\"\u003e\u003cstrong\u003eInitialize the PM system\u003c/strong\u003e:\u003c/p\u003e\n\u003cdiv class=\"highlight highlight-source-shell notranslate position-relative overflow-auto\" dir=\"auto\" data-snippet-clipboard-copy-content=\"/pm:init\"\u003e\u003cpre\u003e/pm:init\u003c/pre\u003e\u003c/div\u003e\n\u003cp dir=\"auto\"\u003eThis command will:\u003c/p\u003e\n\u003cul dir=\"auto\"\u003e\n\u003cli\u003eInstall GitHub CLI (if needed)\u003c/li\u003e\n\u003cli\u003eAuthenticate with GitHub\u003c/li\u003e\n\u003cli\u003eInstall \u003ca href=\"https://github.com/yahsan2/gh-sub-issue\"\u003egh-sub-issue extension\u003c/a\u003e for proper parent-child relationships\u003c/li\u003e\n\u003cli\u003eCreate required directories\u003c/li\u003e\n\u003cli\u003eUpdate .gitignore\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003cp dir=\"auto\"\u003e\u003cstrong\u003eCreate \u003ccode\u003eCLAUDE.md\u003c/code\u003e\u003c/strong\u003e with your repository information\u003c/p\u003e\n\u003cdiv class=\"highlight highlight-source-shell notranslate position-relative overflow-auto\" dir=\"auto\" data-snippet-clipboard-copy-content=\"/init include rules from .claude/CLAUDE.md\"\u003e\u003cpre\u003e/init include rules from .claude/CLAUDE.md\u003c/pre\u003e\u003c/div\u003e\n\u003cblockquote\u003e\n\u003cp dir=\"auto\"\u003eIf you already have a \u003ccode\u003eCLAUDE.md\u003c/code\u003e file, run: \u003ccode\u003e/re-init\u003c/code\u003e to update it with important rules from \u003ccode\u003e.claude/CLAUDE.md\u003c/code\u003e.\u003c/p\u003e\n\u003c/blockquote\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003cp dir=\"auto\"\u003e\u003cstrong\u003ePrime the system\u003c/strong\u003e:\u003c/p\u003e\n\u003cdiv class=\"highlight highlight-source-shell notranslate position-relative overflow-auto\" dir=\"auto\" data-snippet-clipboard-copy-content=\"/context:create\"\u003e\u003cpre\u003e/context:create\u003c/pre\u003e\u003c/div\u003e\n\u003c/li\u003e\n\u003c/ol\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch3 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003eStart Your First Feature\u003c/h3\u003e\u003ca id=\"user-content-start-your-first-feature\" class=\"anchor\" aria-label=\"Permalink: Start Your First Feature\" href=\"#start-your-first-feature\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cdiv class=\"highlight highlight-source-shell notranslate position-relative overflow-auto\" dir=\"auto\" data-snippet-clipboard-copy-content=\"/pm:prd-new your-feature-name\"\u003e\u003cpre\u003e/pm:prd-new your-feature-name\u003c/pre\u003e\u003c/div\u003e\n\u003cp dir=\"auto\"\u003eWatch as structured planning transforms into shipped code.\u003c/p\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch2 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003eLocal vs Remote\u003c/h2\u003e\u003ca id=\"user-content-local-vs-remote\" class=\"anchor\" aria-label=\"Permalink: Local vs Remote\" href=\"#local-vs-remote\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cmarkdown-accessiblity-table\u003e\u003ctable\u003e\n\u003cthead\u003e\n\u003ctr\u003e\n\u003cth\u003eOperation\u003c/th\u003e\n\u003cth\u003eLocal\u003c/th\u003e\n\u003cth\u003eGitHub\u003c/th\u003e\n\u003c/tr\u003e\n\u003c/thead\u003e\n\u003ctbody\u003e\n\u003ctr\u003e\n\u003ctd\u003ePRD Creation\u003c/td\u003e\n\u003ctd\u003e✅\u003c/td\u003e\n\u003ctd\u003e—\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eImplementation Planning\u003c/td\u003e\n\u003ctd\u003e✅\u003c/td\u003e\n\u003ctd\u003e—\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eTask Breakdown\u003c/td\u003e\n\u003ctd\u003e✅\u003c/td\u003e\n\u003ctd\u003e✅ (sync)\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eExecution\u003c/td\u003e\n\u003ctd\u003e✅\u003c/td\u003e\n\u003ctd\u003e—\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eStatus Updates\u003c/td\u003e\n\u003ctd\u003e✅\u003c/td\u003e\n\u003ctd\u003e✅ (sync)\u003c/td\u003e\n\u003c/tr\u003e\n\u003ctr\u003e\n\u003ctd\u003eFinal Deliverables\u003c/td\u003e\n\u003ctd\u003e—\u003c/td\u003e\n\u003ctd\u003e✅\u003c/td\u003e\n\u003c/tr\u003e\n\u003c/tbody\u003e\n\u003c/table\u003e\u003c/markdown-accessiblity-table\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch2 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003eTechnical Notes\u003c/h2\u003e\u003ca id=\"user-content-technical-notes\" class=\"anchor\" aria-label=\"Permalink: Technical Notes\" href=\"#technical-notes\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch3 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003eGitHub Integration\u003c/h3\u003e\u003ca id=\"user-content-github-integration\" class=\"anchor\" aria-label=\"Permalink: GitHub Integration\" href=\"#github-integration\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cul dir=\"auto\"\u003e\n\u003cli\u003eUses \u003cstrong\u003egh-sub-issue extension\u003c/strong\u003e for proper parent-child relationships\u003c/li\u003e\n\u003cli\u003eFalls back to task lists if extension not installed\u003c/li\u003e\n\u003cli\u003eEpic issues track sub-task completion automatically\u003c/li\u003e\n\u003cli\u003eLabels provide additional organization (\u003ccode\u003eepic:feature\u003c/code\u003e, \u003ccode\u003etask:feature\u003c/code\u003e)\u003c/li\u003e\n\u003c/ul\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch3 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003eFile Naming Convention\u003c/h3\u003e\u003ca id=\"user-content-file-naming-convention\" class=\"anchor\" aria-label=\"Permalink: File Naming Convention\" href=\"#file-naming-convention\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cul dir=\"auto\"\u003e\n\u003cli\u003eTasks start as \u003ccode\u003e001.md\u003c/code\u003e, \u003ccode\u003e002.md\u003c/code\u003e during decomposition\u003c/li\u003e\n\u003cli\u003eAfter GitHub sync, renamed to \u003ccode\u003e{issue-id}.md\u003c/code\u003e (e.g., \u003ccode\u003e1234.md\u003c/code\u003e)\u003c/li\u003e\n\u003cli\u003eMakes it easy to navigate: issue #1234 = file \u003ccode\u003e1234.md\u003c/code\u003e\u003c/li\u003e\n\u003c/ul\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch3 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003eDesign Decisions\u003c/h3\u003e\u003ca id=\"user-content-design-decisions\" class=\"anchor\" aria-label=\"Permalink: Design Decisions\" href=\"#design-decisions\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cul dir=\"auto\"\u003e\n\u003cli\u003eIntentionally avoids GitHub Projects API complexity\u003c/li\u003e\n\u003cli\u003eAll commands operate on local files first for speed\u003c/li\u003e\n\u003cli\u003eSynchronization with GitHub is explicit and controlled\u003c/li\u003e\n\u003cli\u003eWorktrees provide clean git isolation for parallel work\u003c/li\u003e\n\u003cli\u003eGitHub Projects can be added separately for visualization\u003c/li\u003e\n\u003c/ul\u003e\n\u003chr\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch2 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003eSupport This Project\u003c/h2\u003e\u003ca id=\"user-content-support-this-project\" class=\"anchor\" aria-label=\"Permalink: Support This Project\" href=\"#support-this-project\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cp dir=\"auto\"\u003eClaude Code PM was developed at \u003ca href=\"https://automaze.io\" rel=\"nofollow\"\u003eAutomaze\u003c/a\u003e \u003cstrong\u003efor developers who ship, by developers who ship\u003c/strong\u003e.\u003c/p\u003e\n\u003cp dir=\"auto\"\u003eIf Claude Code PM helps your team ship better software:\u003c/p\u003e\n\u003cul dir=\"auto\"\u003e\n\u003cli\u003e⭐ \u003cstrong\u003e\u003ca href=\"https://github.com/automazeio/ccpm\"\u003eStar this repository\u003c/a\u003e\u003c/strong\u003e to show your support\u003c/li\u003e\n\u003cli\u003e🐦 \u003cstrong\u003e\u003ca href=\"https://x.com/aroussi\" rel=\"nofollow\"\u003eFollow @aroussi on X\u003c/a\u003e\u003c/strong\u003e for updates and tips\u003c/li\u003e\n\u003c/ul\u003e\n\u003chr\u003e\n\u003cdiv class=\"markdown-alert markdown-alert-tip\" dir=\"auto\"\u003e\u003cp class=\"markdown-alert-title\" dir=\"auto\"\u003e\u003csvg class=\"octicon octicon-light-bulb mr-2\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z\"\u003e\u003c/path\u003e\u003c/svg\u003eTip\u003c/p\u003e\u003cp dir=\"auto\"\u003e\u003cstrong\u003eShip faster with Automaze.\u003c/strong\u003e We partner with founders to bring their vision to life, scale their business, and optimize for success.\n\u003cstrong\u003e\u003ca href=\"https://automaze.io\" rel=\"nofollow\"\u003eVisit Automaze to book a call with me ›\u003c/a\u003e\u003c/strong\u003e\u003c/p\u003e\n\u003c/div\u003e\n\u003chr\u003e\n\u003cdiv class=\"markdown-heading\" dir=\"auto\"\u003e\u003ch2 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"\u003eStar History\u003c/h2\u003e\u003ca id=\"user-content-star-history\" class=\"anchor\" aria-label=\"Permalink: Star History\" href=\"#star-history\"\u003e\u003csvg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" version=\"1.1\" width=\"16\" height=\"16\" aria-hidden=\"true\"\u003e\u003cpath d=\"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z\"\u003e\u003c/path\u003e\u003c/svg\u003e\u003c/a\u003e\u003c/div\u003e\n\u003cp dir=\"auto\"\u003e\u003ca target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"https://camo.githubusercontent.com/b0642650eb920e34a14790ec0f7973ba178edcdec97dfb852ee1871211034802/68747470733a2f2f6170692e737461722d686973746f72792e636f6d2f7376673f7265706f733d6175746f6d617a65696f2f6363706d\"\u003e\u003cimg src=\"https://camo.githubusercontent.com/b0642650eb920e34a14790ec0f7973ba178edcdec97dfb852ee1871211034802/68747470733a2f2f6170692e737461722d686973746f72792e636f6d2f7376673f7265706f733d6175746f6d617a65696f2f6363706d\" alt=\"Star History Chart\" data-canonical-src=\"https://api.star-history.com/svg?repos=automazeio/ccpm\" style=\"max-width: 100%;\"\u003e\u003c/a\u003e\u003c/p\u003e\n\u003c/article\u003e","loaded":true,"timedOut":false,"errorMessage":null,"headerInfo":{"toc":[{"level":1,"text":"Claude Code PM","anchor":"claude-code-pm","htmlText":"Claude Code PM"},{"level":3,"text":"Claude Code workflow to ship fasterbetter using spec-driven development, GitHub issues, Git worktrees, and multiple AI agents running in parallel.","anchor":"claude-code-workflow-to-ship-faster-better-using-spec-driven-development-github-issues-git-worktrees-and-multiple-ai-agents-running-in-parallel","htmlText":"Claude Code workflow to ship fasterbetter using spec-driven development, GitHub issues, Git worktrees, and multiple AI agents running in parallel."},{"level":2,"text":"Table of Contents","anchor":"table-of-contents","htmlText":"Table of Contents"},{"level":2,"text":"Background","anchor":"background","htmlText":"Background"},{"level":2,"text":"The Workflow","anchor":"the-workflow","htmlText":"The Workflow"},{"level":3,"text":"See It In Action (60 seconds)","anchor":"see-it-in-action-60-seconds","htmlText":"See It In Action (60 seconds)"},{"level":2,"text":"What Makes This Different?","anchor":"what-makes-this-different","htmlText":"What Makes This Different?"},{"level":2,"text":"Why GitHub Issues?","anchor":"why-github-issues","htmlText":"Why GitHub Issues?"},{"level":3,"text":"🤝 True Team Collaboration","anchor":"-true-team-collaboration","htmlText":"🤝 True Team Collaboration"},{"level":3,"text":"🔄 Seamless Human-AI Handoffs","anchor":"-seamless-human-ai-handoffs","htmlText":"🔄 Seamless Human-AI Handoffs"},{"level":3,"text":"📈 Scalable Beyond Solo Work","anchor":"-scalable-beyond-solo-work","htmlText":"📈 Scalable Beyond Solo Work"},{"level":3,"text":"🎯 Single Source of Truth","anchor":"-single-source-of-truth","htmlText":"🎯 Single Source of Truth"},{"level":2,"text":"Core Principle: No Vibe Coding","anchor":"core-principle-no-vibe-coding","htmlText":"Core Principle: No Vibe Coding"},{"level":2,"text":"System Architecture","anchor":"system-architecture","htmlText":"System Architecture"},{"level":2,"text":"Workflow Phases","anchor":"workflow-phases","htmlText":"Workflow Phases"},{"level":3,"text":"1. Product Planning Phase","anchor":"1-product-planning-phase","htmlText":"1. Product Planning Phase"},{"level":3,"text":"2. Implementation Planning Phase","anchor":"2-implementation-planning-phase","htmlText":"2. Implementation Planning Phase"},{"level":3,"text":"3. Task Decomposition Phase","anchor":"3-task-decomposition-phase","htmlText":"3. Task Decomposition Phase"},{"level":3,"text":"4. GitHub Synchronization","anchor":"4-github-synchronization","htmlText":"4. GitHub Synchronization"},{"level":3,"text":"5. Execution Phase","anchor":"5-execution-phase","htmlText":"5. Execution Phase"},{"level":2,"text":"Command Reference","anchor":"command-reference","htmlText":"Command Reference"},{"level":3,"text":"Initial Setup","anchor":"initial-setup","htmlText":"Initial Setup"},{"level":3,"text":"PRD Commands","anchor":"prd-commands","htmlText":"PRD Commands"},{"level":3,"text":"Epic Commands","anchor":"epic-commands","htmlText":"Epic Commands"},{"level":3,"text":"Issue Commands","anchor":"issue-commands","htmlText":"Issue Commands"},{"level":3,"text":"Workflow Commands","anchor":"workflow-commands","htmlText":"Workflow Commands"},{"level":3,"text":"Sync Commands","anchor":"sync-commands","htmlText":"Sync Commands"},{"level":3,"text":"Maintenance Commands","anchor":"maintenance-commands","htmlText":"Maintenance Commands"},{"level":2,"text":"The Parallel Execution System","anchor":"the-parallel-execution-system","htmlText":"The Parallel Execution System"},{"level":3,"text":"Issues Aren't Atomic","anchor":"issues-arent-atomic","htmlText":"Issues Aren't Atomic"},{"level":3,"text":"The Math of Velocity","anchor":"the-math-of-velocity","htmlText":"The Math of Velocity"},{"level":3,"text":"Context Optimization","anchor":"context-optimization","htmlText":"Context Optimization"},{"level":3,"text":"GitHub vs Local: Perfect Separation","anchor":"github-vs-local-perfect-separation","htmlText":"GitHub vs Local: Perfect Separation"},{"level":3,"text":"The Command Flow","anchor":"the-command-flow","htmlText":"The Command Flow"},{"level":2,"text":"Key Features \u0026 Benefits","anchor":"key-features--benefits","htmlText":"Key Features \u0026amp; Benefits"},{"level":3,"text":"🧠 Context Preservation","anchor":"-context-preservation","htmlText":"🧠 Context Preservation"},{"level":3,"text":"⚡ Parallel Execution","anchor":"-parallel-execution","htmlText":"⚡ Parallel Execution"},{"level":3,"text":"🔗 GitHub Native","anchor":"-github-native","htmlText":"🔗 GitHub Native"},{"level":3,"text":"🤖 Agent Specialization","anchor":"-agent-specialization","htmlText":"🤖 Agent Specialization"},{"level":3,"text":"📊 Full Traceability","anchor":"-full-traceability","htmlText":"📊 Full Traceability"},{"level":3,"text":"🚀 Developer Productivity","anchor":"-developer-productivity","htmlText":"🚀 Developer Productivity"},{"level":2,"text":"Proven Results","anchor":"proven-results","htmlText":"Proven Results"},{"level":2,"text":"Example Flow","anchor":"example-flow","htmlText":"Example Flow"},{"level":2,"text":"Get Started Now","anchor":"get-started-now","htmlText":"Get Started Now"},{"level":3,"text":"Quick Setup (2 minutes)","anchor":"quick-setup-2-minutes","htmlText":"Quick Setup (2 minutes)"},{"level":4,"text":"Unix/Linux/macOS","anchor":"unixlinuxmacos","htmlText":"Unix/Linux/macOS"},{"level":4,"text":"Windows (PowerShell)","anchor":"windows-powershell","htmlText":"Windows (PowerShell)"},{"level":3,"text":"Start Your First Feature","anchor":"start-your-first-feature","htmlText":"Start Your First Feature"},{"level":2,"text":"Local vs Remote","anchor":"local-vs-remote","htmlText":"Local vs Remote"},{"level":2,"text":"Technical Notes","anchor":"technical-notes","htmlText":"Technical Notes"},{"level":3,"text":"GitHub Integration","anchor":"github-integration","htmlText":"GitHub Integration"},{"level":3,"text":"File Naming Convention","anchor":"file-naming-convention","htmlText":"File Naming Convention"},{"level":3,"text":"Design Decisions","anchor":"design-decisions","htmlText":"Design Decisions"},{"level":2,"text":"Support This Project","anchor":"support-this-project","htmlText":"Support This Project"},{"level":2,"text":"Star History","anchor":"star-history","htmlText":"Star History"}],"siteNavLoginPath":"/login?return_to=https%3A%2F%2Fgithub.com%2Fautomazeio%2Fccpm"}},{"displayName":"LICENSE","repoName":"ccpm","refName":"main","path":"LICENSE","preferredFileType":"license","tabName":"MIT","richText":null,"loaded":false,"timedOut":false,"errorMessage":null,"headerInfo":{"toc":null,"siteNavLoginPath":"/login?return_to=https%3A%2F%2Fgithub.com%2Fautomazeio%2Fccpm"}}],"overviewFilesProcessingTime":0,"copilotSWEAgentEnabled":false}},"appPayload":{"helpUrl":"https://docs.github.com","findFileWorkerPath":"/assets-cdn/worker/find-file-worker-0cea8c6113ab.js","findInFileWorkerPath":"/assets-cdn/worker/find-in-file-worker-105a4a160ddd.js","githubDevUrl":null,"enabled_features":{"copilot_workspace":null,"code_nav_ui_events":false,"react_blob_overlay":false,"accessible_code_button":true}}}}</script>
   <div data-target="react-partial.reactRoot"> <!-- --> <!-- --> <div class="OverviewContent-module__Box--uNd1J"><div class="OverviewHeader-module__Box--fFKf5"></div><div class="OverviewContent-module__Box_1--RhaEy"><div class="OverviewContent-module__Box_2--uHewD"><div class="OverviewContent-module__Box_3--NEYWl"><button type="button" aria-haspopup="true" aria-expanded="false" tabindex="0" style="min-width:0" aria-label="main branch" data-testid="anchor-button" class="prc-Button-ButtonBase-c50BI overview-ref-selector width-full RefSelectorAnchoredOverlay-module__RefSelectorOverlayBtn--D34zl" data-loading="false" data-size="medium" data-variant="default" aria-describedby="ref-picker-repos-header-ref-selector-loading-announcement" id="ref-picker-repos-header-ref-selector"><span data-component="buttonContent" data-align="center" class="prc-Button-ButtonContent-HKbr-"><span data-component="text" class="prc-Button-Label-pTQ3x"><div class="RefSelectorAnchoredOverlay-module__RefSelectorOverlayContainer--mCbv8"><div class="RefSelectorAnchoredOverlay-module__RefSelectorOverlayHeader--D4cnZ"><svg aria-hidden="true" focusable="false" class="octicon octicon-git-branch" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" display="inline-block" overflow="visible" style="vertical-align:text-bottom"><path d="M9.5 3.25a2.25 2.25 0 1 1 3 2.122V6A2.5 2.5 0 0 1 10 8.5H6a1 1 0 0 0-1 1v1.128a2.251 2.251 0 1 1-1.5 0V5.372a2.25 2.25 0 1 1 1.5 0v1.836A2.493 2.493 0 0 1 6 7h4a1 1 0 0 0 1-1v-.628A2.25 2.25 0 0 1 9.5 3.25Zm-6 0a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0Zm8.25-.75a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5ZM4.25 12a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Z"></path></svg></div><div class="ref-selector-button-text-container RefSelectorAnchoredOverlay-module__RefSelectorBtnTextContainer--yO402"><span class="RefSelectorAnchoredOverlay-module__RefSelectorText--bxVhQ"> <!-- -->main</span></div></div></span><span data-component="trailingVisual" class="prc-Button-Visual-2epfX prc-Button-VisualWrap-Db-eB"><svg aria-hidden="true" focusable="false" class="octicon octicon-triangle-down" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" display="inline-block" overflow="visible" style="vertical-align:text-bottom"><path d="m4.427 7.427 3.396 3.396a.25.25 0 0 0 .354 0l3.396-3.396A.25.25 0 0 0 11.396 7H4.604a.25.25 0 0 0-.177.427Z"></path></svg></span></span></button><button hidden="" data-testid="ref-selector-hotkey-button" data-hotkey-scope="read-only-cursor-text-area"></button></div><div class="OverviewContent-module__Box_4--rOz8J"><a type="button" href="/automazeio/ccpm/branches" class="prc-Button-ButtonBase-c50BI OverviewContent-module__Button--MDoYP" data-loading="false" data-size="medium" data-variant="invisible" aria-describedby=":Rclab:-loading-announcement"><span data-component="buttonContent" data-align="center" class="prc-Button-ButtonContent-HKbr-"><span data-component="leadingVisual" class="prc-Button-Visual-2epfX prc-Button-VisualWrap-Db-eB"><svg aria-hidden="true" focusable="false" class="octicon octicon-git-branch" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" display="inline-block" overflow="visible" style="vertical-align:text-bottom"><path d="M9.5 3.25a2.25 2.25 0 1 1 3 2.122V6A2.5 2.5 0 0 1 10 8.5H6a1 1 0 0 0-1 1v1.128a2.251 2.251 0 1 1-1.5 0V5.372a2.25 2.25 0 1 1 1.5 0v1.836A2.493 2.493 0 0 1 6 7h4a1 1 0 0 0 1-1v-.628A2.25 2.25 0 0 1 9.5 3.25Zm-6 0a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0Zm8.25-.75a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5ZM4.25 12a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Z"></path></svg></span><span data-component="text" class="prc-Button-Label-pTQ3x">Branches</span></span></a><a type="button" href="/automazeio/ccpm/tags" class="prc-Button-ButtonBase-c50BI OverviewContent-module__Button--MDoYP" data-loading="false" data-size="medium" data-variant="invisible" aria-describedby=":Rklab:-loading-announcement"><span data-component="buttonContent" data-align="center" class="prc-Button-ButtonContent-HKbr-"><span data-component="leadingVisual" class="prc-Button-Visual-2epfX prc-Button-VisualWrap-Db-eB"><svg aria-hidden="true" focusable="false" class="octicon octicon-tag" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" display="inline-block" overflow="visible" style="vertical-align:text-bottom"><path d="M1 7.775V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 0 1 0 2.474l-5.026 5.026a1.75 1.75 0 0 1-2.474 0l-6.25-6.25A1.752 1.752 0 0 1 1 7.775Zm1.5 0c0 .066.026.13.073.177l6.25 6.25a.25.25 0 0 0 .354 0l5.025-5.025a.25.25 0 0 0 0-.354l-6.25-6.25a.25.25 0 0 0-.177-.073H2.75a.25.25 0 0 0-.25.25ZM6 5a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"></path></svg></span><span data-component="text" class="prc-Button-Label-pTQ3x">Tags</span></span></a></div><div class="OverviewContent-module__Box_5--PPbL1"><a type="button" aria-label="Go to Branches page" href="/automazeio/ccpm/branches" class="prc-Button-ButtonBase-c50BI OverviewContent-module__Button_1--_1Ng2" data-loading="false" data-no-visuals="true" data-size="medium" data-variant="invisible" aria-describedby=":Relab:-loading-announcement"><svg aria-hidden="true" focusable="false" class="octicon octicon-git-branch" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" display="inline-block" overflow="visible" style="vertical-align:text-bottom"><path d="M9.5 3.25a2.25 2.25 0 1 1 3 2.122V6A2.5 2.5 0 0 1 10 8.5H6a1 1 0 0 0-1 1v1.128a2.251 2.251 0 1 1-1.5 0V5.372a2.25 2.25 0 1 1 1.5 0v1.836A2.493 2.493 0 0 1 6 7h4a1 1 0 0 0 1-1v-.628A2.25 2.25 0 0 1 9.5 3.25Zm-6 0a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0Zm8.25-.75a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5ZM4.25 12a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Z"></path></svg></a><a type="button" aria-label="Go to Tags page" href="/automazeio/ccpm/tags" class="prc-Button-ButtonBase-c50BI OverviewContent-module__Button_1--_1Ng2" data-loading="false" data-no-visuals="true" data-size="medium" data-variant="invisible" aria-describedby=":Rmlab:-loading-announcement"><svg aria-hidden="true" focusable="false" class="octicon octicon-tag" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" display="inline-block" overflow="visible" style="vertical-align:text-bottom"><path d="M1 7.775V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 0 1 0 2.474l-5.026 5.026a1.75 1.75 0 0 1-2.474 0l-6.25-6.25A1.752 1.752 0 0 1 1 7.775Zm1.5 0c0 .066.026.13.073.177l6.25 6.25a.25.25 0 0 0 .354 0l5.025-5.025a.25.25 0 0 0 0-.354l-6.25-6.25a.25.25 0 0 0-.177-.073H2.75a.25.25 0 0 0-.25.25ZM6 5a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"></path></svg></a></div></div><div class="OverviewContent-module__Box_6--wV7Tw"><div class="OverviewContent-module__Box_7--SbxdI"><div class="OverviewContent-module__Box_8--oumpR"><!--$--><div class="Box-sc-62in7e-0 OverviewContent-module__FileResultsList--irMg6"><span class="TextInput__StyledTextInput-sc-ttxlvl-0 d-flex FileResultsList-module__FilesSearchBox--fSAh3 TextInput-wrapper prc-components-TextInputWrapper-i1ofR prc-components-TextInputBaseWrapper-ueK9q" data-leading-visual="true" data-trailing-visual="true" aria-busy="false"><span class="TextInput-icon" id=":R535ab:" aria-hidden="true"><svg aria-hidden="true" focusable="false" class="octicon octicon-search" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" display="inline-block" overflow="visible" style="vertical-align:text-bottom"><path d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"></path></svg></span><input type="text" aria-label="Go to file" role="combobox" aria-controls="file-results-list" aria-expanded="false" aria-haspopup="dialog" autoCorrect="off" spellcheck="false" placeholder="Go to file" aria-describedby=":R535ab: :R535abH1:" data-component="input" class="prc-components-Input-Ic-y8" value=""/><span class="TextInput-icon" id=":R535abH1:" aria-hidden="true"></span></span></div><!--/$--></div><div class="OverviewContent-module__Box_9--mQYON"><button type="button" class="prc-Button-ButtonBase-c50BI" data-loading="false" data-no-visuals="true" data-size="medium" data-variant="default" aria-describedby=":R1j5ab:-loading-announcement"><span data-component="buttonContent" data-align="center" class="prc-Button-ButtonContent-HKbr-"><span data-component="text" class="prc-Button-Label-pTQ3x">Go to file</span></span></button></div></div><button type="button" aria-haspopup="true" aria-expanded="false" tabindex="0" class="prc-Button-ButtonBase-c50BI" data-loading="false" data-size="medium" data-variant="primary" aria-describedby=":R75ab:-loading-announcement" id=":R75ab:"><span data-component="buttonContent" data-align="center" class="prc-Button-ButtonContent-HKbr-"><span data-component="leadingVisual" class="prc-Button-Visual-2epfX prc-Button-VisualWrap-Db-eB"><svg aria-hidden="true" focusable="false" class="octicon octicon-code hide-sm" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" display="inline-block" overflow="visible" style="vertical-align:text-bottom"><path d="m11.28 3.22 4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734L13.94 8l-3.72-3.72a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215Zm-6.56 0a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042L2.06 8l3.72 3.72a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L.47 8.53a.75.75 0 0 1 0-1.06Z"></path></svg></span><span data-component="text" class="prc-Button-Label-pTQ3x">Code</span><span data-component="trailingVisual" class="prc-Button-Visual-2epfX prc-Button-VisualWrap-Db-eB"><svg aria-hidden="true" focusable="false" class="octicon octicon-triangle-down" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" display="inline-block" overflow="visible" style="vertical-align:text-bottom"><path d="m4.427 7.427 3.396 3.396a.25.25 0 0 0 .354 0l3.396-3.396A.25.25 0 0 0 11.396 7H4.604a.25.25 0 0 0-.177.427Z"></path></svg></span></span></button><div class="OverviewContent-module__Box_10--ULKAG"><button data-component="IconButton" type="button" aria-haspopup="true" aria-expanded="false" tabindex="0" class="prc-Button-ButtonBase-c50BI prc-Button-IconButton-szpyj" data-loading="false" data-no-visuals="true" data-size="medium" data-variant="default" aria-describedby=":R95ab:-loading-announcement" aria-labelledby=":R7p5ab:" id=":R95ab:"><svg aria-hidden="true" focusable="false" class="octicon octicon-kebab-horizontal" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" display="inline-block" overflow="visible" style="vertical-align:text-bottom"><path d="M8 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3ZM1.5 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm13 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path></svg></button><span class="prc-TooltipV2-Tooltip-cYMVY" data-direction="n" aria-hidden="true" id=":R7p5ab:">Open more actions menu</span></div></div></div><div class="OverviewContent-module__Box_11--Tqhu2"><div data-hpc="true"><button hidden="" data-testid="focus-next-element-button" data-hotkey="j"></button><button hidden="" data-testid="focus-previous-element-button" data-hotkey="k"></button><h2 class="sr-only ScreenReaderHeading-module__userSelectNone--vlUbc prc-Heading-Heading-6CmGO" data-testid="screen-reader-heading" id="folders-and-files">Folders and files</h2><table class="Table-module__Box--KyMHK" aria-labelledby="folders-and-files"><thead class="DirectoryContent-module__OverviewHeaderRow--FlrUZ Table-module__Box_1--DkRqs"><tr class="Table-module__Box_2--l1wjV"><th colSpan="2" class="DirectoryContent-module__Box--y3Nvf"><span class="text-bold">Name</span></th><th colSpan="1" class="DirectoryContent-module__Box_1--xeAhp"><span class="text-bold">Name</span></th><th class="hide-sm"><div class="width-fit prc-Truncate-Truncate-A9Wn6" data-inline="true" title="Last commit message" style="--truncate-max-width:125px"><span class="text-bold">Last commit message</span></div></th><th colSpan="1" class="DirectoryContent-module__Box_2--h912w"><div class="width-fit prc-Truncate-Truncate-A9Wn6" data-inline="true" title="Last commit date" style="--truncate-max-width:125px"><span class="text-bold">Last commit date</span></div></th></tr></thead><tbody><tr class="DirectoryContent-module__Box_3--zI0N1"><td colSpan="3" class="bgColor-muted p-1 rounded-top-2"><div class="LatestCommit-module__Box--Fimpo"><h2 class="sr-only ScreenReaderHeading-module__userSelectNone--vlUbc prc-Heading-Heading-6CmGO" data-testid="screen-reader-heading">Latest commit</h2><div style="width:120px" class="Skeleton Skeleton--text" data-testid="loading"> </div><div class="d-flex flex-shrink-0 gap-2"><div data-testid="latest-commit-details" class="d-none d-sm-flex flex-items-center"></div><div class="d-flex gap-2"><h2 class="sr-only ScreenReaderHeading-module__userSelectNone--vlUbc prc-Heading-Heading-6CmGO" data-testid="screen-reader-heading">History</h2><a href="/automazeio/ccpm/commits/main/" class="prc-Button-ButtonBase-c50BI d-none d-lg-flex LinkButton-module__code-view-link-button--thtqc flex-items-center fgColor-default" data-loading="false" data-size="small" data-variant="invisible" aria-describedby=":Raqj8pab:-loading-announcement"><span data-component="buttonContent" data-align="center" class="prc-Button-ButtonContent-HKbr-"><span data-component="leadingVisual" class="prc-Button-Visual-2epfX prc-Button-VisualWrap-Db-eB"><svg aria-hidden="true" focusable="false" class="octicon octicon-history" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" display="inline-block" overflow="visible" style="vertical-align:text-bottom"><path d="m.427 1.927 1.215 1.215a8.002 8.002 0 1 1-1.6 5.685.75.75 0 1 1 1.493-.154 6.5 6.5 0 1 0 1.18-4.458l1.358 1.358A.25.25 0 0 1 3.896 6H.25A.25.25 0 0 1 0 5.75V2.104a.25.25 0 0 1 .427-.177ZM7.75 4a.75.75 0 0 1 .75.75v2.992l2.028.812a.75.75 0 0 1-.557 1.392l-2.5-1A.751.751 0 0 1 7 8.25v-3.5A.75.75 0 0 1 7.75 4Z"></path></svg></span><span data-component="text" class="prc-Button-Label-pTQ3x"><span class="fgColor-default">80 Commits</span></span></span></a><div class="d-sm-none"></div><div class="d-flex d-lg-none"><span role="tooltip" aria-label="80 Commits" id="history-icon-button-tooltip" class="prc-Tooltip-Tooltip--1XZX prc-Tooltip-Tooltip--n-BOOzB tooltipped-n"><a aria-label="View commit history for this file." href="/automazeio/ccpm/commits/main/" class="prc-Button-ButtonBase-c50BI LinkButton-module__code-view-link-button--thtqc flex-items-center fgColor-default" data-loading="false" data-size="small" data-variant="invisible" aria-describedby=":R1iqj8pab:-loading-announcement history-icon-button-tooltip"><span data-component="buttonContent" data-align="center" class="prc-Button-ButtonContent-HKbr-"><span data-component="leadingVisual" class="prc-Button-Visual-2epfX prc-Button-VisualWrap-Db-eB"><svg aria-hidden="true" focusable="false" class="octicon octicon-history" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" display="inline-block" overflow="visible" style="vertical-align:text-bottom"><path d="m.427 1.927 1.215 1.215a8.002 8.002 0 1 1-1.6 5.685.75.75 0 1 1 1.493-.154 6.5 6.5 0 1 0 1.18-4.458l1.358 1.358A.25.25 0 0 1 3.896 6H.25A.25.25 0 0 1 0 5.75V2.104a.25.25 0 0 1 .427-.177ZM7.75 4a.75.75 0 0 1 .75.75v2.992l2.028.812a.75.75 0 0 1-.557 1.392l-2.5-1A.751.751 0 0 1 7 8.25v-3.5A.75.75 0 0 1 7.75 4Z"></path></svg></span></span></a></span></div></div></div></div></td></tr><tr class="react-directory-row undefined" id="folder-row-0"><td class="react-directory-row-name-cell-small-screen" colSpan="2"><div class="react-directory-filename-column"><svg aria-hidden="true" focusable="false" class="octicon octicon-file-directory-fill icon-directory" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" display="inline-block" overflow="visible" style="vertical-align:text-bottom"><path d="M1.75 1A1.75 1.75 0 0 0 0 2.75v10.5C0 14.216.784 15 1.75 15h12.5A1.75 1.75 0 0 0 16 13.25v-8.5A1.75 1.75 0 0 0 14.25 3H7.5a.25.25 0 0 1-.2-.1l-.9-1.2C6.07 1.26 5.55 1 5 1H1.75Z"></path></svg><div class="overflow-hidden"><div class="react-directory-filename-cell"><div class="react-directory-truncate"><a title="ccpm" aria-label="ccpm, (Directory)" class="Link--primary" href="/automazeio/ccpm/tree/main/ccpm" data-discover="true">ccpm</a></div></div></div></div></td><td class="react-directory-row-name-cell-large-screen" colSpan="1"><div class="react-directory-filename-column"><svg aria-hidden="true" focusable="false" class="octicon octicon-file-directory-fill icon-directory" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" display="inline-block" overflow="visible" style="vertical-align:text-bottom"><path d="M1.75 1A1.75 1.75 0 0 0 0 2.75v10.5C0 14.216.784 15 1.75 15h12.5A1.75 1.75 0 0 0 16 13.25v-8.5A1.75 1.75 0 0 0 14.25 3H7.5a.25.25 0 0 1-.2-.1l-.9-1.2C6.07 1.26 5.55 1 5 1H1.75Z"></path></svg><div class="overflow-hidden"><div class="react-directory-filename-cell"><div class="react-directory-truncate"><a title="ccpm" aria-label="ccpm, (Directory)" class="Link--primary" href="/automazeio/ccpm/tree/main/ccpm" data-discover="true">ccpm</a></div></div></div></div></td><td class="react-directory-row-commit-cell"><div class="Skeleton Skeleton--text"> </div></td><td><div class="Skeleton Skeleton--text"> </div></td></tr><tr class="react-directory-row undefined" id="folder-row-1"><td class="react-directory-row-name-cell-small-screen" colSpan="2"><div class="react-directory-filename-column"><svg aria-hidden="true" focusable="false" class="octicon octicon-file-directory-fill icon-directory" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" display="inline-block" overflow="visible" style="vertical-align:text-bottom"><path d="M1.75 1A1.75 1.75 0 0 0 0 2.75v10.5C0 14.216.784 15 1.75 15h12.5A1.75 1.75 0 0 0 16 13.25v-8.5A1.75 1.75 0 0 0 14.25 3H7.5a.25.25 0 0 1-.2-.1l-.9-1.2C6.07 1.26 5.55 1 5 1H1.75Z"></path></svg><div class="overflow-hidden"><div class="react-directory-filename-cell"><div class="react-directory-truncate"><a title="doc" aria-label="doc, (Directory)" class="Link--primary" href="/automazeio/ccpm/tree/main/doc" data-discover="true">doc</a></div></div></div></div></td><td class="react-directory-row-name-cell-large-screen" colSpan="1"><div class="react-directory-filename-column"><svg aria-hidden="true" focusable="false" class="octicon octicon-file-directory-fill icon-directory" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" display="inline-block" overflow="visible" style="vertical-align:text-bottom"><path d="M1.75 1A1.75 1.75 0 0 0 0 2.75v10.5C0 14.216.784 15 1.75 15h12.5A1.75 1.75 0 0 0 16 13.25v-8.5A1.75 1.75 0 0 0 14.25 3H7.5a.25.25 0 0 1-.2-.1l-.9-1.2C6.07 1.26 5.55 1 5 1H1.75Z"></path></svg><div class="overflow-hidden"><div class="react-directory-filename-cell"><div class="react-directory-truncate"><a title="doc" aria-label="doc, (Directory)" class="Link--primary" href="/automazeio/ccpm/tree/main/doc" data-discover="true">doc</a></div></div></div></div></td><td class="react-directory-row-commit-cell"><div class="Skeleton Skeleton--text"> </div></td><td><div class="Skeleton Skeleton--text"> </div></td></tr><tr class="react-directory-row undefined" id="folder-row-2"><td class="react-directory-row-name-cell-small-screen" colSpan="2"><div class="react-directory-filename-column"><svg aria-hidden="true" focusable="false" class="octicon octicon-file-directory-fill icon-directory" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" display="inline-block" overflow="visible" style="vertical-align:text-bottom"><path d="M1.75 1A1.75 1.75 0 0 0 0 2.75v10.5C0 14.216.784 15 1.75 15h12.5A1.75 1.75 0 0 0 16 13.25v-8.5A1.75 1.75 0 0 0 14.25 3H7.5a.25.25 0 0 1-.2-.1l-.9-1.2C6.07 1.26 5.55 1 5 1H1.75Z"></path></svg><div class="overflow-hidden"><div class="react-directory-filename-cell"><div class="react-directory-truncate"><a title="install" aria-label="install, (Directory)" class="Link--primary" href="/automazeio/ccpm/tree/main/install" data-discover="true">install</a></div></div></div></div></td><td class="react-directory-row-name-cell-large-screen" colSpan="1"><div class="react-directory-filename-column"><svg aria-hidden="true" focusable="false" class="octicon octicon-file-directory-fill icon-directory" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" display="inline-block" overflow="visible" style="vertical-align:text-bottom"><path d="M1.75 1A1.75 1.75 0 0 0 0 2.75v10.5C0 14.216.784 15 1.75 15h12.5A1.75 1.75 0 0 0 16 13.25v-8.5A1.75 1.75 0 0 0 14.25 3H7.5a.25.25 0 0 1-.2-.1l-.9-1.2C6.07 1.26 5.55 1 5 1H1.75Z"></path></svg><div class="overflow-hidden"><div class="react-directory-filename-cell"><div class="react-directory-truncate"><a title="install" aria-label="install, (Directory)" class="Link--primary" href="/automazeio/ccpm/tree/main/install" data-discover="true">install</a></div></div></div></div></td><td class="react-directory-row-commit-cell"><div class="Skeleton Skeleton--text"> </div></td><td><div class="Skeleton Skeleton--text"> </div></td></tr><tr class="react-directory-row undefined" id="folder-row-3"><td class="react-directory-row-name-cell-small-screen" colSpan="2"><div class="react-directory-filename-column"><svg aria-hidden="true" focusable="false" class="octicon octicon-file-directory-fill icon-directory" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" display="inline-block" overflow="visible" style="vertical-align:text-bottom"><path d="M1.75 1A1.75 1.75 0 0 0 0 2.75v10.5C0 14.216.784 15 1.75 15h12.5A1.75 1.75 0 0 0 16 13.25v-8.5A1.75 1.75 0 0 0 14.25 3H7.5a.25.25 0 0 1-.2-.1l-.9-1.2C6.07 1.26 5.55 1 5 1H1.75Z"></path></svg><div class="overflow-hidden"><div class="react-directory-filename-cell"><div class="react-directory-truncate"><a title="zh-docs" aria-label="zh-docs, (Directory)" class="Link--primary" href="/automazeio/ccpm/tree/main/zh-docs" data-discover="true">zh-docs</a></div></div></div></div></td><td class="react-directory-row-name-cell-large-screen" colSpan="1"><div class="react-directory-filename-column"><svg aria-hidden="true" focusable="false" class="octicon octicon-file-directory-fill icon-directory" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" display="inline-block" overflow="visible" style="vertical-align:text-bottom"><path d="M1.75 1A1.75 1.75 0 0 0 0 2.75v10.5C0 14.216.784 15 1.75 15h12.5A1.75 1.75 0 0 0 16 13.25v-8.5A1.75 1.75 0 0 0 14.25 3H7.5a.25.25 0 0 1-.2-.1l-.9-1.2C6.07 1.26 5.55 1 5 1H1.75Z"></path></svg><div class="overflow-hidden"><div class="react-directory-filename-cell"><div class="react-directory-truncate"><a title="zh-docs" aria-label="zh-docs, (Directory)" class="Link--primary" href="/automazeio/ccpm/tree/main/zh-docs" data-discover="true">zh-docs</a></div></div></div></div></td><td class="react-directory-row-commit-cell"><div class="Skeleton Skeleton--text"> </div></td><td><div class="Skeleton Skeleton--text"> </div></td></tr><tr class="react-directory-row undefined" id="folder-row-4"><td class="react-directory-row-name-cell-small-screen" colSpan="2"><div class="react-directory-filename-column"><svg aria-hidden="true" focusable="false" class="octicon octicon-file color-fg-muted" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" display="inline-block" overflow="visible" style="vertical-align:text-bottom"><path d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V6h-2.75A1.75 1.75 0 0 1 9 4.25V1.5Zm6.75.062V4.25c0 .138.112.25.25.25h2.688l-.011-.013-2.914-2.914-.013-.011Z"></path></svg><div class="overflow-hidden"><div class="react-directory-filename-cell"><div class="react-directory-truncate"><a title=".gitignore" aria-label=".gitignore, (File)" class="Link--primary" href="/automazeio/ccpm/blob/main/.gitignore" data-discover="true">.gitignore</a></div></div></div></div></td><td class="react-directory-row-name-cell-large-screen" colSpan="1"><div class="react-directory-filename-column"><svg aria-hidden="true" focusable="false" class="octicon octicon-file color-fg-muted" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" display="inline-block" overflow="visible" style="vertical-align:text-bottom"><path d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V6h-2.75A1.75 1.75 0 0 1 9 4.25V1.5Zm6.75.062V4.25c0 .138.112.25.25.25h2.688l-.011-.013-2.914-2.914-.013-.011Z"></path></svg><div class="overflow-hidden"><div class="react-directory-filename-cell"><div class="react-directory-truncate"><a title=".gitignore" aria-label=".gitignore, (File)" class="Link--primary" href="/automazeio/ccpm/blob/main/.gitignore" data-discover="true">.gitignore</a></div></div></div></div></td><td class="react-directory-row-commit-cell"><div class="Skeleton Skeleton--text"> </div></td><td><div class="Skeleton Skeleton--text"> </div></td></tr><tr class="react-directory-row undefined" id="folder-row-5"><td class="react-directory-row-name-cell-small-screen" colSpan="2"><div class="react-directory-filename-column"><svg aria-hidden="true" focusable="false" class="octicon octicon-file color-fg-muted" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" display="inline-block" overflow="visible" style="vertical-align:text-bottom"><path d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V6h-2.75A1.75 1.75 0 0 1 9 4.25V1.5Zm6.75.062V4.25c0 .138.112.25.25.25h2.688l-.011-.013-2.914-2.914-.013-.011Z"></path></svg><div class="overflow-hidden"><div class="react-directory-filename-cell"><div class="react-directory-truncate"><a title="AGENTS.md" aria-label="AGENTS.md, (File)" class="Link--primary" href="/automazeio/ccpm/blob/main/AGENTS.md" data-discover="true">AGENTS.md</a></div></div></div></div></td><td class="react-directory-row-name-cell-large-screen" colSpan="1"><div class="react-directory-filename-column"><svg aria-hidden="true" focusable="false" class="octicon octicon-file color-fg-muted" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" display="inline-block" overflow="visible" style="vertical-align:text-bottom"><path d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V6h-2.75A1.75 1.75 0 0 1 9 4.25V1.5Zm6.75.062V4.25c0 .138.112.25.25.25h2.688l-.011-.013-2.914-2.914-.013-.011Z"></path></svg><div class="overflow-hidden"><div class="react-directory-filename-cell"><div class="react-directory-truncate"><a title="AGENTS.md" aria-label="AGENTS.md, (File)" class="Link--primary" href="/automazeio/ccpm/blob/main/AGENTS.md" data-discover="true">AGENTS.md</a></div></div></div></div></td><td class="react-directory-row-commit-cell"><div class="Skeleton Skeleton--text"> </div></td><td><div class="Skeleton Skeleton--text"> </div></td></tr><tr class="react-directory-row undefined" id="folder-row-6"><td class="react-directory-row-name-cell-small-screen" colSpan="2"><div class="react-directory-filename-column"><svg aria-hidden="true" focusable="false" class="octicon octicon-file color-fg-muted" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" display="inline-block" overflow="visible" style="vertical-align:text-bottom"><path d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V6h-2.75A1.75 1.75 0 0 1 9 4.25V1.5Zm6.75.062V4.25c0 .138.112.25.25.25h2.688l-.011-.013-2.914-2.914-.013-.011Z"></path></svg><div class="overflow-hidden"><div class="react-directory-filename-cell"><div class="react-directory-truncate"><a title="CHANGELOG.md" aria-label="CHANGELOG.md, (File)" class="Link--primary" href="/automazeio/ccpm/blob/main/CHANGELOG.md" data-discover="true">CHANGELOG.md</a></div></div></div></div></td><td class="react-directory-row-name-cell-large-screen" colSpan="1"><div class="react-directory-filename-column"><svg aria-hidden="true" focusable="false" class="octicon octicon-file color-fg-muted" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" display="inline-block" overflow="visible" style="vertical-align:text-bottom"><path d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V6h-2.75A1.75 1.75 0 0 1 9 4.25V1.5Zm6.75.062V4.25c0 .138.112.25.25.25h2.688l-.011-.013-2.914-2.914-.013-.011Z"></path></svg><div class="overflow-hidden"><div class="react-directory-filename-cell"><div class="react-directory-truncate"><a title="CHANGELOG.md" aria-label="CHANGELOG.md, (File)" class="Link--primary" href="/automazeio/ccpm/blob/main/CHANGELOG.md" data-discover="true">CHANGELOG.md</a></div></div></div></div></td><td class="react-directory-row-commit-cell"><div class="Skeleton Skeleton--text"> </div></td><td><div class="Skeleton Skeleton--text"> </div></td></tr><tr class="react-directory-row undefined" id="folder-row-7"><td class="react-directory-row-name-cell-small-screen" colSpan="2"><div class="react-directory-filename-column"><svg aria-hidden="true" focusable="false" class="octicon octicon-file color-fg-muted" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" display="inline-block" overflow="visible" style="vertical-align:text-bottom"><path d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V6h-2.75A1.75 1.75 0 0 1 9 4.25V1.5Zm6.75.062V4.25c0 .138.112.25.25.25h2.688l-.011-.013-2.914-2.914-.013-.011Z"></path></svg><div class="overflow-hidden"><div class="react-directory-filename-cell"><div class="react-directory-truncate"><a title="COMMANDS.md" aria-label="COMMANDS.md, (File)" class="Link--primary" href="/automazeio/ccpm/blob/main/COMMANDS.md" data-discover="true">COMMANDS.md</a></div></div></div></div></td><td class="react-directory-row-name-cell-large-screen" colSpan="1"><div class="react-directory-filename-column"><svg aria-hidden="true" focusable="false" class="octicon octicon-file color-fg-muted" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" display="inline-block" overflow="visible" style="vertical-align:text-bottom"><path d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V6h-2.75A1.75 1.75 0 0 1 9 4.25V1.5Zm6.75.062V4.25c0 .138.112.25.25.25h2.688l-.011-.013-2.914-2.914-.013-.011Z"></path></svg><div class="overflow-hidden"><div class="react-directory-filename-cell"><div class="react-directory-truncate"><a title="COMMANDS.md" aria-label="COMMANDS.md, (File)" class="Link--primary" href="/automazeio/ccpm/blob/main/COMMANDS.md" data-discover="true">COMMANDS.md</a></div></div></div></div></td><td class="react-directory-row-commit-cell"><div class="Skeleton Skeleton--text"> </div></td><td><div class="Skeleton Skeleton--text"> </div></td></tr><tr class="react-directory-row undefined" id="folder-row-8"><td class="react-directory-row-name-cell-small-screen" colSpan="2"><div class="react-directory-filename-column"><svg aria-hidden="true" focusable="false" class="octicon octicon-file color-fg-muted" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" display="inline-block" overflow="visible" style="vertical-align:text-bottom"><path d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V6h-2.75A1.75 1.75 0 0 1 9 4.25V1.5Zm6.75.062V4.25c0 .138.112.25.25.25h2.688l-.011-.013-2.914-2.914-.013-.011Z"></path></svg><div class="overflow-hidden"><div class="react-directory-filename-cell"><div class="react-directory-truncate"><a title="CONTEXT_ACCURACY.md" aria-label="CONTEXT_ACCURACY.md, (File)" class="Link--primary" href="/automazeio/ccpm/blob/main/CONTEXT_ACCURACY.md" data-discover="true">CONTEXT_ACCURACY.md</a></div></div></div></div></td><td class="react-directory-row-name-cell-large-screen" colSpan="1"><div class="react-directory-filename-column"><svg aria-hidden="true" focusable="false" class="octicon octicon-file color-fg-muted" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" display="inline-block" overflow="visible" style="vertical-align:text-bottom"><path d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V6h-2.75A1.75 1.75 0 0 1 9 4.25V1.5Zm6.75.062V4.25c0 .138.112.25.25.25h2.688l-.011-.013-2.914-2.914-.013-.011Z"></path></svg><div class="overflow-hidden"><div class="react-directory-filename-cell"><div class="react-directory-truncate"><a title="CONTEXT_ACCURACY.md" aria-label="CONTEXT_ACCURACY.md, (File)" class="Link--primary" href="/automazeio/ccpm/blob/main/CONTEXT_ACCURACY.md" data-discover="true">CONTEXT_ACCURACY.md</a></div></div></div></div></td><td class="react-directory-row-commit-cell"><div class="Skeleton Skeleton--text"> </div></td><td><div class="Skeleton Skeleton--text"> </div></td></tr><tr class="react-directory-row undefined" id="folder-row-9"><td class="react-directory-row-name-cell-small-screen" colSpan="2"><div class="react-directory-filename-column"><svg aria-hidden="true" focusable="false" class="octicon octicon-file color-fg-muted" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" display="inline-block" overflow="visible" style="vertical-align:text-bottom"><path d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V6h-2.75A1.75 1.75 0 0 1 9 4.25V1.5Zm6.75.062V4.25c0 .138.112.25.25.25h2.688l-.011-.013-2.914-2.914-.013-.011Z"></path></svg><div class="overflow-hidden"><div class="react-directory-filename-cell"><div class="react-directory-truncate"><a title="LICENSE" aria-label="LICENSE, (File)" class="Link--primary" href="/automazeio/ccpm/blob/main/LICENSE" data-discover="true">LICENSE</a></div></div></div></div></td><td class="react-directory-row-name-cell-large-screen" colSpan="1"><div class="react-directory-filename-column"><svg aria-hidden="true" focusable="false" class="octicon octicon-file color-fg-muted" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" display="inline-block" overflow="visible" style="vertical-align:text-bottom"><path d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V6h-2.75A1.75 1.75 0 0 1 9 4.25V1.5Zm6.75.062V4.25c0 .138.112.25.25.25h2.688l-.011-.013-2.914-2.914-.013-.011Z"></path></svg><div class="overflow-hidden"><div class="react-directory-filename-cell"><div class="react-directory-truncate"><a title="LICENSE" aria-label="LICENSE, (File)" class="Link--primary" href="/automazeio/ccpm/blob/main/LICENSE" data-discover="true">LICENSE</a></div></div></div></div></td><td class="react-directory-row-commit-cell"><div class="Skeleton Skeleton--text"> </div></td><td><div class="Skeleton Skeleton--text"> </div></td></tr><tr class="react-directory-row truncate-for-mobile" id="folder-row-10"><td class="react-directory-row-name-cell-small-screen" colSpan="2"><div class="react-directory-filename-column"><svg aria-hidden="true" focusable="false" class="octicon octicon-file color-fg-muted" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" display="inline-block" overflow="visible" style="vertical-align:text-bottom"><path d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V6h-2.75A1.75 1.75 0 0 1 9 4.25V1.5Zm6.75.062V4.25c0 .138.112.25.25.25h2.688l-.011-.013-2.914-2.914-.013-.011Z"></path></svg><div class="overflow-hidden"><div class="react-directory-filename-cell"><div class="react-directory-truncate"><a title="LOCAL_MODE.md" aria-label="LOCAL_MODE.md, (File)" class="Link--primary" href="/automazeio/ccpm/blob/main/LOCAL_MODE.md" data-discover="true">LOCAL_MODE.md</a></div></div></div></div></td><td class="react-directory-row-name-cell-large-screen" colSpan="1"><div class="react-directory-filename-column"><svg aria-hidden="true" focusable="false" class="octicon octicon-file color-fg-muted" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" display="inline-block" overflow="visible" style="vertical-align:text-bottom"><path d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V6h-2.75A1.75 1.75 0 0 1 9 4.25V1.5Zm6.75.062V4.25c0 .138.112.25.25.25h2.688l-.011-.013-2.914-2.914-.013-.011Z"></path></svg><div class="overflow-hidden"><div class="react-directory-filename-cell"><div class="react-directory-truncate"><a title="LOCAL_MODE.md" aria-label="LOCAL_MODE.md, (File)" class="Link--primary" href="/automazeio/ccpm/blob/main/LOCAL_MODE.md" data-discover="true">LOCAL_MODE.md</a></div></div></div></div></td><td class="react-directory-row-commit-cell"><div class="Skeleton Skeleton--text"> </div></td><td><div class="Skeleton Skeleton--text"> </div></td></tr><tr class="react-directory-row truncate-for-mobile" id="folder-row-11"><td class="react-directory-row-name-cell-small-screen" colSpan="2"><div class="react-directory-filename-column"><svg aria-hidden="true" focusable="false" class="octicon octicon-file color-fg-muted" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" display="inline-block" overflow="visible" style="vertical-align:text-bottom"><path d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V6h-2.75A1.75 1.75 0 0 1 9 4.25V1.5Zm6.75.062V4.25c0 .138.112.25.25.25h2.688l-.011-.013-2.914-2.914-.013-.011Z"></path></svg><div class="overflow-hidden"><div class="react-directory-filename-cell"><div class="react-directory-truncate"><a title="README.md" aria-label="README.md, (File)" class="Link--primary" href="/automazeio/ccpm/blob/main/README.md" data-discover="true">README.md</a></div></div></div></div></td><td class="react-directory-row-name-cell-large-screen" colSpan="1"><div class="react-directory-filename-column"><svg aria-hidden="true" focusable="false" class="octicon octicon-file color-fg-muted" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" display="inline-block" overflow="visible" style="vertical-align:text-bottom"><path d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V6h-2.75A1.75 1.75 0 0 1 9 4.25V1.5Zm6.75.062V4.25c0 .138.112.25.25.25h2.688l-.011-.013-2.914-2.914-.013-.011Z"></path></svg><div class="overflow-hidden"><div class="react-directory-filename-cell"><div class="react-directory-truncate"><a title="README.md" aria-label="README.md, (File)" class="Link--primary" href="/automazeio/ccpm/blob/main/README.md" data-discover="true">README.md</a></div></div></div></div></td><td class="react-directory-row-commit-cell"><div class="Skeleton Skeleton--text"> </div></td><td><div class="Skeleton Skeleton--text"> </div></td></tr><tr class="react-directory-row truncate-for-mobile" id="folder-row-12"><td class="react-directory-row-name-cell-small-screen" colSpan="2"><div class="react-directory-filename-column"><svg aria-hidden="true" focusable="false" class="octicon octicon-file color-fg-muted" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" display="inline-block" overflow="visible" style="vertical-align:text-bottom"><path d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V6h-2.75A1.75 1.75 0 0 1 9 4.25V1.5Zm6.75.062V4.25c0 .138.112.25.25.25h2.688l-.011-.013-2.914-2.914-.013-.011Z"></path></svg><div class="overflow-hidden"><div class="react-directory-filename-cell"><div class="react-directory-truncate"><a title="screenshot.webp" aria-label="screenshot.webp, (File)" class="Link--primary" href="/automazeio/ccpm/blob/main/screenshot.webp" data-discover="true">screenshot.webp</a></div></div></div></div></td><td class="react-directory-row-name-cell-large-screen" colSpan="1"><div class="react-directory-filename-column"><svg aria-hidden="true" focusable="false" class="octicon octicon-file color-fg-muted" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" display="inline-block" overflow="visible" style="vertical-align:text-bottom"><path d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V6h-2.75A1.75 1.75 0 0 1 9 4.25V1.5Zm6.75.062V4.25c0 .138.112.25.25.25h2.688l-.011-.013-2.914-2.914-.013-.011Z"></path></svg><div class="overflow-hidden"><div class="react-directory-filename-cell"><div class="react-directory-truncate"><a title="screenshot.webp" aria-label="screenshot.webp, (File)" class="Link--primary" href="/automazeio/ccpm/blob/main/screenshot.webp" data-discover="true">screenshot.webp</a></div></div></div></div></td><td class="react-directory-row-commit-cell"><div class="Skeleton Skeleton--text"> </div></td><td><div class="Skeleton Skeleton--text"> </div></td></tr><tr class="show-for-mobile DirectoryContent-module__Box_4--QyUbd" data-testid="view-all-files-row"><td colSpan="3" class="DirectoryContent-module__Box_5--OJZQU"><div><button class="prc-Link-Link-85e08">View all files</button></div></td></tr></tbody></table></div><div class="OverviewRepoFiles-module__Box_1--xSt0T"><div class="OverviewRepoFiles-module__Box_2--yIjMp"><div itemscope="" itemType="https://schema.org/abstract" class="OverviewRepoFiles-module__Box_3--Bi2jM"><h2 class="prc-src-InternalVisuallyHidden-nlR9R">Repository files navigation</h2><nav class="prc-components-UnderlineWrapper-oOh5J OverviewRepoFiles-module__UnderlineNav--BHfFi" aria-label="Repository files" data-variant="inset"><ul class="prc-components-UnderlineItemList-b23Hf" role="list"><li class="prc-UnderlineNav-UnderlineNavItem--xDk1"><a href="#" aria-current="page" class="prc-components-UnderlineItem-lJsg-"><span data-component="icon"><svg aria-hidden="true" focusable="false" class="octicon octicon-book" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" display="inline-block" overflow="visible" style="vertical-align:text-bottom"><path d="M0 1.75A.75.75 0 0 1 .75 1h4.253c1.227 0 2.317.59 3 1.501A3.743 3.743 0 0 1 11.006 1h4.245a.75.75 0 0 1 .75.75v10.5a.75.75 0 0 1-.75.75h-4.507a2.25 2.25 0 0 0-1.591.659l-.622.621a.75.75 0 0 1-1.06 0l-.622-.621A2.25 2.25 0 0 0 5.258 13H.75a.75.75 0 0 1-.75-.75Zm7.251 10.324.004-5.073-.002-2.253A2.25 2.25 0 0 0 5.003 2.5H1.5v9h3.757a3.75 3.75 0 0 1 1.994.574ZM8.755 4.75l-.004 7.322a3.752 3.752 0 0 1 1.992-.572H14.5v-9h-3.495a2.25 2.25 0 0 0-2.25 2.25Z"></path></svg></span><span data-component="text" data-content="README">README</span></a></li><li class="prc-UnderlineNav-UnderlineNavItem--xDk1"><a href="#" class="prc-components-UnderlineItem-lJsg-"><span data-component="icon"><svg aria-hidden="true" focusable="false" class="octicon octicon-law" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" display="inline-block" overflow="visible" style="vertical-align:text-bottom"><path d="M8.75.75V2h.985c.304 0 .603.08.867.231l1.29.736c.038.022.08.033.124.033h2.234a.75.75 0 0 1 0 1.5h-.427l2.111 4.692a.75.75 0 0 1-.154.838l-.53-.53.529.531-.001.002-.002.002-.006.006-.006.005-.01.01-.045.04c-.21.176-.441.327-.686.45C14.556 10.78 13.88 11 13 11a4.498 4.498 0 0 1-2.023-.454 3.544 3.544 0 0 1-.686-.45l-.045-.04-.016-.015-.006-.006-.004-.004v-.001a.75.75 0 0 1-.154-.838L12.178 4.5h-.162c-.305 0-.604-.079-.868-.231l-1.29-.736a.245.245 0 0 0-.124-.033H8.75V13h2.5a.75.75 0 0 1 0 1.5h-6.5a.75.75 0 0 1 0-1.5h2.5V3.5h-.984a.245.245 0 0 0-.124.033l-1.289.737c-.265.15-.564.23-.869.23h-.162l2.112 4.692a.75.75 0 0 1-.154.838l-.53-.53.529.531-.001.002-.002.002-.006.006-.016.015-.045.04c-.21.176-.441.327-.686.45C4.556 10.78 3.88 11 3 11a4.498 4.498 0 0 1-2.023-.454 3.544 3.544 0 0 1-.686-.45l-.045-.04-.016-.015-.006-.006-.004-.004v-.001a.75.75 0 0 1-.154-.838L2.178 4.5H1.75a.75.75 0 0 1 0-1.5h2.234a.249.249 0 0 0 .125-.033l1.288-.737c.265-.15.564-.23.869-.23h.984V.75a.75.75 0 0 1 1.5 0Zm2.945 8.477c.285.135.718.273 1.305.273s1.02-.138 1.305-.273L13 6.327Zm-10 0c.285.135.718.273 1.305.273s1.02-.138 1.305-.273L3 6.327Z"></path></svg></span><span data-component="text" data-content="MIT license">MIT license</span></a></li></ul></nav><button type="button" aria-label="Outline" aria-haspopup="true" aria-expanded="false" tabindex="0" class="prc-Button-ButtonBase-c50BI OverviewRepoFiles-module__ActionMenu_Button--xB9DS" data-loading="false" data-size="medium" data-variant="invisible" aria-describedby=":Rr9ab:-loading-announcement" id=":Rr9ab:"><svg aria-hidden="true" focusable="false" class="octicon octicon-list-unordered" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" display="inline-block" overflow="visible" style="vertical-align:text-bottom"><path d="M5.75 2.5h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1 0-1.5Zm0 5h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1 0-1.5Zm0 5h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1 0-1.5ZM2 14a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm1-6a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM2 4a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg></button></div><div class="Box-sc-62in7e-0 js-snippet-clipboard-copy-unpositioned DirectoryRichtextContent-module__SharedMarkdownContent--BTKsc" data-hpc="true"><article class="markdown-body entry-content container-lg" itemprop="text"><div class="markdown-heading" dir="auto"><h1 tabindex="-1" class="heading-element" dir="auto">Claude Code PM</h1><a id="user-content-claude-code-pm" class="anchor" aria-label="Permalink: Claude Code PM" href="#claude-code-pm"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
 <p dir="auto"><a href="https://automaze.io" rel="nofollow"><img src="https://camo.githubusercontent.com/5aee4c5871f8ada664ef783ce6f8a402bf8dc7ea476255ab47014c21461a519e/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f42792d6175746f6d617a652e696f2d346233626166" alt="Automaze" data-canonical-src="https://img.shields.io/badge/By-automaze.io-4b3baf" style="max-width: 100%;"></a>
@@ -2614,7 +2614,7 @@ iwr -useb https://automaze.io/ccpm/install <span class="pl-k">|</span> iex</pre>
 
       <input type="hidden" data-csrf="true" value="mKSuRTbZ/duCNMjkFVrSIZ4hFL16B9h7p9eccISmLWGNp/JJ0DM1RJO9OWMRlyquE8f3+pZNjHx4/t1LIQi0Jg==" />
 </div>
-  <div data-view-component="true" class="Layout-sidebar">      
+  <div data-view-component="true" class="Layout-sidebar">
 
       <div class="BorderGrid about-margin" data-pjax>
         <div class="BorderGrid-row">
@@ -2668,12 +2668,12 @@ iwr -useb https://automaze.io/ccpm/install <span class="pl-k">|</span> iex</pre>
         Readme
 </a>    </div>
 
-  
+
     <h3 class="sr-only">License</h3>
   <div class="mt-2">
     <a href="#MIT-1-ov-file"
       class="Link--muted"
-      
+
       data-analytics-event="{&quot;category&quot;:&quot;Repository Overview&quot;,&quot;action&quot;:&quot;click&quot;,&quot;label&quot;:&quot;location:sidebar;file:license&quot;}"
     >
       <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-law mr-1 mr-sm-1 mr-md-2 mr-lg-2">
@@ -2689,13 +2689,13 @@ iwr -useb https://automaze.io/ccpm/install <span class="pl-k">|</span> iex</pre>
 
 
   <include-fragment src="/automazeio/ccpm/hovercards/citation/sidebar_partial?tree_name=main" data-nonce="v2:8790603b-a3df-b2eb-c74b-2b1d608f94c6" data-view-component="true">
-  
+
 
   <div data-show-on-forbidden-error hidden>
     <div class="Box">
   <div class="blankslate-container">
     <div data-view-component="true" class="blankslate blankslate-spacious color-bg-default rounded-2">
-      
+
 
       <h3 data-view-component="true" class="blankslate-heading">        Uh oh!
 </h3>
@@ -2751,11 +2751,11 @@ iwr -useb https://automaze.io/ccpm/install <span class="pl-k">|</span> iex</pre>
           </div>
         </div>
 
-        
-        
-        
-        
-        
+
+
+
+
+
             <div class="BorderGrid-row">
               <div class="BorderGrid-cell">
                 <h2 class="h4 mb-3">
@@ -2763,14 +2763,14 @@ iwr -useb https://automaze.io/ccpm/install <span class="pl-k">|</span> iex</pre>
       <span title="11" data-view-component="true" class="Counter ml-1">11</span></a></h2>
 
 
-    
+
   <ul class="list-style-none d-flex flex-wrap mb-n2">
     <li class="mb-2 mr-2"
         >
       <a href="https://github.com/ranaroussi"
           class=""
             data-hovercard-type="user" data-hovercard-url="/users/ranaroussi/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self"
-          
+
         >
         <img src="https://avatars.githubusercontent.com/u/1185458?s=64&amp;v=4" alt="@ranaroussi" size="32" height="32" width="32" data-view-component="true" class="avatar circle" />
       </a>
@@ -2780,7 +2780,7 @@ iwr -useb https://automaze.io/ccpm/install <span class="pl-k">|</span> iex</pre>
       <a href="https://github.com/flyingrobots"
           class=""
             data-hovercard-type="user" data-hovercard-url="/users/flyingrobots/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self"
-          
+
         >
         <img src="https://avatars.githubusercontent.com/u/1207477?s=64&amp;v=4" alt="@flyingrobots" size="32" height="32" width="32" data-view-component="true" class="avatar circle" />
       </a>
@@ -2790,7 +2790,7 @@ iwr -useb https://automaze.io/ccpm/install <span class="pl-k">|</span> iex</pre>
       <a href="https://github.com/claude"
           class=""
             data-hovercard-type="user" data-hovercard-url="/users/claude/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self"
-          
+
         >
         <img src="https://avatars.githubusercontent.com/u/81847?s=64&amp;v=4" alt="@claude" size="32" height="32" width="32" data-view-component="true" class="avatar circle" />
       </a>
@@ -2800,7 +2800,7 @@ iwr -useb https://automaze.io/ccpm/install <span class="pl-k">|</span> iex</pre>
       <a href="https://github.com/tseven"
           class=""
             data-hovercard-type="user" data-hovercard-url="/users/tseven/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self"
-          
+
         >
         <img src="https://avatars.githubusercontent.com/u/311287?s=64&amp;v=4" alt="@tseven" size="32" height="32" width="32" data-view-component="true" class="avatar circle" />
       </a>
@@ -2810,7 +2810,7 @@ iwr -useb https://automaze.io/ccpm/install <span class="pl-k">|</span> iex</pre>
       <a href="https://github.com/stefanlegg"
           class=""
             data-hovercard-type="user" data-hovercard-url="/users/stefanlegg/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self"
-          
+
         >
         <img src="https://avatars.githubusercontent.com/u/510085?s=64&amp;v=4" alt="@stefanlegg" size="32" height="32" width="32" data-view-component="true" class="avatar circle" />
       </a>
@@ -2820,7 +2820,7 @@ iwr -useb https://automaze.io/ccpm/install <span class="pl-k">|</span> iex</pre>
       <a href="https://github.com/connorads"
           class=""
             data-hovercard-type="user" data-hovercard-url="/users/connorads/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self"
-          
+
         >
         <img src="https://avatars.githubusercontent.com/u/10026538?s=64&amp;v=4" alt="@connorads" size="32" height="32" width="32" data-view-component="true" class="avatar circle" />
       </a>
@@ -2830,7 +2830,7 @@ iwr -useb https://automaze.io/ccpm/install <span class="pl-k">|</span> iex</pre>
       <a href="https://github.com/cyxer000"
           class=""
             data-hovercard-type="user" data-hovercard-url="/users/cyxer000/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self"
-          
+
         >
         <img src="https://avatars.githubusercontent.com/u/48980829?s=64&amp;v=4" alt="@cyxer000" size="32" height="32" width="32" data-view-component="true" class="avatar circle" />
       </a>
@@ -2840,7 +2840,7 @@ iwr -useb https://automaze.io/ccpm/install <span class="pl-k">|</span> iex</pre>
       <a href="https://github.com/ZephyrDeng"
           class=""
             data-hovercard-type="user" data-hovercard-url="/users/ZephyrDeng/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self"
-          
+
         >
         <img src="https://avatars.githubusercontent.com/u/56784262?s=64&amp;v=4" alt="@ZephyrDeng" size="32" height="32" width="32" data-view-component="true" class="avatar circle" />
       </a>
@@ -2850,7 +2850,7 @@ iwr -useb https://automaze.io/ccpm/install <span class="pl-k">|</span> iex</pre>
       <a href="https://github.com/jodagreyhame"
           class=""
             data-hovercard-type="user" data-hovercard-url="/users/jodagreyhame/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self"
-          
+
         >
         <img src="https://avatars.githubusercontent.com/u/66655312?s=64&amp;v=4" alt="@jodagreyhame" size="32" height="32" width="32" data-view-component="true" class="avatar circle" />
       </a>
@@ -2859,7 +2859,7 @@ iwr -useb https://automaze.io/ccpm/install <span class="pl-k">|</span> iex</pre>
         >
       <a href="https://github.com/apps/coderabbitai"
           class=""
-          
+
         >
         <img src="https://avatars.githubusercontent.com/in/347564?s=64&amp;v=4" alt="@coderabbitai[bot]" size="32" height="32" width="32" data-view-component="true" class="avatar" />
       </a>
@@ -2869,7 +2869,7 @@ iwr -useb https://automaze.io/ccpm/install <span class="pl-k">|</span> iex</pre>
       <a href="https://github.com/trentschnee"
           class=""
             data-hovercard-type="user" data-hovercard-url="/users/trentschnee/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self"
-          
+
         >
         <img src="https://avatars.githubusercontent.com/u/10525549?s=64&amp;v=4" alt="@trentschnee" size="32" height="32" width="32" data-view-component="true" class="avatar circle" />
       </a>
@@ -2883,8 +2883,8 @@ iwr -useb https://automaze.io/ccpm/install <span class="pl-k">|</span> iex</pre>
               </div>
             </div>
 
-        
-        
+
+
             <div class="BorderGrid-row">
               <div class="BorderGrid-cell">
                 <h2 class="h4 mb-3">Languages</h2>
@@ -2919,7 +2919,7 @@ iwr -useb https://automaze.io/ccpm/install <span class="pl-k">|</span> iex</pre>
 
               </div>
 </div>
-  
+
 </div></div>
 
   </div>
@@ -2938,7 +2938,7 @@ iwr -useb https://automaze.io/ccpm/install <span class="pl-k">|</span> iex</pre>
           <footer class="footer pt-8 pb-6 f6 color-fg-muted p-responsive" role="contentinfo" >
   <h2 class='sr-only'>Footer</h2>
 
-  
+
 
 
   <div class="d-flex flex-justify-center flex-items-center flex-column-reverse flex-lg-row flex-wrap flex-lg-nowrap">

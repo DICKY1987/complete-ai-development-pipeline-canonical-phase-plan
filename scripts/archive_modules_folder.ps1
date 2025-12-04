@@ -19,7 +19,7 @@ $DryRun = $true  # Change to $false to execute
 if (Test-Path "modules") {
     $files = Get-ChildItem -Path "modules" -Recurse -File
     $totalSize = ($files | Measure-Object -Property Length -Sum).Sum
-    
+
     Write-Host "modules/ statistics:" -ForegroundColor Yellow
     Write-Host "  Files: $($files.Count)" -ForegroundColor Gray
     Write-Host "  Size: $([math]::Round($totalSize / 1MB, 2)) MB" -ForegroundColor Gray
@@ -72,8 +72,8 @@ Write-Host "Creating archival documentation..." -ForegroundColor Green
 $readmeContent = @"
 # Archived: modules/ Directory
 
-**Archived**: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')  
-**Reason**: Failed module-centric refactor - 98% orphaned code  
+**Archived**: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')
+**Reason**: Failed module-centric refactor - 98% orphaned code
 **Pattern**: EXEC-017 Comprehensive Code Cleanup
 
 ---
@@ -158,13 +158,13 @@ git checkout <commit-hash> -- archive/${timestamp}_exec017_modules_folder_cleanu
 ## Related Documentation
 
 - \`cleanup_reports/entry_point_reachability_report.json\` - Reachability analysis
-- \`cleanup_reports/comprehensive_archival_report.json\` - Full cleanup analysis  
+- \`cleanup_reports/comprehensive_archival_report.json\` - Full cleanup analysis
 - \`EXEC017_SESSION_COMPLETE.md\` - Cleanup session summary
 
 ---
 
-**Archive Status**: ✅ Preserved for historical reference  
-**Production Impact**: None (code was unused)  
+**Archive Status**: ✅ Preserved for historical reference
+**Production Impact**: None (code was unused)
 **Reversible**: Yes (via git)
 "@
 

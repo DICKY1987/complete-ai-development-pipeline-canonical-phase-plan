@@ -23,11 +23,11 @@ def list_recoverable_runs() -> None:
     """List runs that can be recovered."""
     manager = RecoveryManager()
     runs = manager.get_recoverable_runs()
-    
+
     if not runs:
         print("No recoverable runs found.")
         return
-    
+
     print("=== Recoverable Runs ===")
     print()
     for run in runs:
@@ -43,10 +43,10 @@ def recover_crash() -> None:
     """Recover from orchestrator crash."""
     manager = RecoveryManager()
     result = manager.recover_from_crash()
-    
+
     print("=== Crash Recovery ===")
     print(json.dumps(result, indent=2))
-    
+
     if result['orphaned_tasks']:
         print(f"\n⚠️  Recovered {result['orphaned_tasks']} orphaned tasks")
         print("   These tasks have been marked as failed.")
@@ -57,13 +57,13 @@ def recover_crash() -> None:
 def resume_run(run_id: str, max_workers: int = 4) -> None:
     """Resume execution of incomplete run."""
     manager = RecoveryManager()
-    
+
     print(f"=== Resuming Run: {run_id} ===")
     print(f"Max workers: {max_workers}")
     print()
-    
+
     result = manager.resume_execution(run_id, max_workers)
-    
+
     if result['resumed']:
         print(f"✓ Resumed {result['incomplete_count']} incomplete workstreams")
         print()
@@ -74,26 +74,26 @@ def resume_run(run_id: str, max_workers: int = 4) -> None:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Recovery utilities for parallel execution")
-    
+
     subparsers = parser.add_subparsers(dest='command', help='Recovery command')
-    
+
     # List recoverable runs
     subparsers.add_parser('list', help='List recoverable runs')
-    
+
     # Recover from crash
     subparsers.add_parser('recover', help='Recover from orchestrator crash')
-    
+
     # Resume run
     resume_parser = subparsers.add_parser('resume', help='Resume incomplete run')
     resume_parser.add_argument('--run-id', required=True, help='Run ID to resume')
     resume_parser.add_argument('--max-workers', type=int, default=4, help='Max parallel workers')
-    
+
     args = parser.parse_args(argv)
-    
+
     if not args.command:
         parser.print_help()
         return 1
-    
+
     try:
         if args.command == 'list':
             list_recoverable_runs()
@@ -101,9 +101,9 @@ def main(argv: list[str] | None = None) -> int:
             recover_crash()
         elif args.command == 'resume':
             resume_run(args.run_id, args.max_workers)
-        
+
         return 0
-    
+
     except Exception as e:
         print(f"Error: {e}", file=sys.stderr)
         import traceback

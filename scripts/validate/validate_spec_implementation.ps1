@@ -36,13 +36,13 @@
 param(
     [Parameter()]
     [string]$SpecSource = "specifications\content",
-    
+
     [Parameter()]
     [string]$CodeRoot = ".",
-    
+
     [Parameter()]
     [switch]$DryRun,
-    
+
     [Parameter()]
     [switch]$VerboseOutput
 )
@@ -63,14 +63,14 @@ function Test-SpecIndexExists {
         [Parameter(Mandatory)]
         [string]$SpecSource
     )
-    
+
     # Check multiple possible locations
     $possiblePaths = @(
         "specifications\.index\suite-index.yaml",
         "specifications\content\.index\suite-index.yaml",
         ".index\suite-index.yaml"
     )
-    
+
     $indexPath = $null
     foreach ($path in $possiblePaths) {
         if (Test-Path $path) {
@@ -78,7 +78,7 @@ function Test-SpecIndexExists {
             break
         }
     }
-    
+
     if (-not $indexPath) {
         return @{
             Status = "WARN"
@@ -90,7 +90,7 @@ function Test-SpecIndexExists {
             }
         }
     }
-    
+
     try {
         # Try to parse the index
         $indexContent = Get-Content $indexPath -Raw
@@ -102,7 +102,7 @@ function Test-SpecIndexExists {
                 Details = @{ IndexPath = $indexPath }
             }
         }
-        
+
         return @{
             Status = "PASS"
             Message = "Spec index exists and appears valid"
@@ -127,22 +127,22 @@ function Find-SpecReferences {
         [Parameter(Mandatory)]
         [string]$CodeRoot
     )
-    
+
     Write-Verbose "  Scanning code for spec references..."
-    
+
     $patterns = @(
         'spec://[A-Z0-9_/-]+(?:#p-\d+)?',
         'specid://[A-Z0-9_-]+'
     )
-    
+
     $references = @()
-    
+
     # Search Python files
     $pythonFiles = Get-ChildItem -Path $CodeRoot -Filter "*.py" -Recurse -File -ErrorAction SilentlyContinue
     foreach ($file in $pythonFiles) {
         $content = Get-Content $file.FullName -Raw -ErrorAction SilentlyContinue
         if (-not $content) { continue }
-        
+
         foreach ($pattern in $patterns) {
             $matches = [regex]::Matches($content, $pattern)
             foreach ($match in $matches) {
@@ -154,7 +154,7 @@ function Find-SpecReferences {
             }
         }
     }
-    
+
     # Search Markdown files
     $mdFiles = Get-ChildItem -Path $CodeRoot -Filter "*.md" -Recurse -File -ErrorAction SilentlyContinue
     foreach ($file in $mdFiles) {
@@ -162,10 +162,10 @@ function Find-SpecReferences {
         if ($file.FullName -like "*specifications\content*") {
             continue
         }
-        
+
         $content = Get-Content $file.FullName -Raw -ErrorAction SilentlyContinue
         if (-not $content) { continue }
-        
+
         foreach ($pattern in $patterns) {
             $matches = [regex]::Matches($content, $pattern)
             foreach ($match in $matches) {
@@ -177,7 +177,7 @@ function Find-SpecReferences {
             }
         }
     }
-    
+
     return $references
 }
 
@@ -189,15 +189,15 @@ function Test-SpecURIsResolvable {
     param(
         [Parameter(Mandatory)]
         [string]$SpecSource,
-        
+
         [Parameter(Mandatory)]
         [string]$CodeRoot
     )
-    
+
     Write-Verbose "  Finding spec references in code..."
-    
+
     $references = Find-SpecReferences -CodeRoot $CodeRoot
-    
+
     if ($references.Count -eq 0) {
         return @{
             Status = "PASS"
@@ -207,20 +207,20 @@ function Test-SpecURIsResolvable {
             }
         }
     }
-    
+
     Write-Verbose "  Found $($references.Count) spec references"
     Write-Verbose "  Checking if references are resolvable..."
-    
+
     # For now, just check that referenced specs exist
     # TODO: Use resolver.py to actually resolve URIs
     $unresolvable = @()
-    
+
     foreach ($ref in $references) {
         # Basic check: extract volume/section from spec://VOLUME/SECTION
         if ($ref.Type -eq "spec_uri" -and $ref.URI -match 'spec://([^/]+)/([^#]+)') {
             $volume = $matches[1].ToLower()
             $section = $matches[2].ToLower()
-            
+
             # Check if volume directory exists
             $volumePath = Join-Path $SpecSource $volume
             if (-not (Test-Path $volumePath)) {
@@ -232,7 +232,7 @@ function Test-SpecURIsResolvable {
             }
         }
     }
-    
+
     if ($unresolvable.Count -gt 0) {
         return @{
             Status = "FAIL"
@@ -244,7 +244,7 @@ function Test-SpecURIsResolvable {
             }
         }
     }
-    
+
     return @{
         Status = "PASS"
         Message = "All $($references.Count) spec references appear valid"
@@ -267,17 +267,17 @@ function Test-RequiredSpecsImplemented {
         [Parameter(Mandatory)]
         [string]$SpecSource
     )
-    
+
     Write-Verbose "  Checking for required spec implementations..."
-    
+
     # Find all spec markdown files
     $specFiles = Get-ChildItem -Path $SpecSource -Filter "*.md" -Recurse -File
-    
+
     $missingImplementations = @()
-    
+
     foreach ($file in $specFiles) {
         $content = Get-Content $file.FullName -Raw
-        
+
         # Look for MUST/REQUIRED markers
         if ($content -match '\b(MUST|REQUIRED|SHALL)\b') {
             # Extract requirement
@@ -287,14 +287,14 @@ function Test-RequiredSpecsImplemented {
                     # This is a required spec
                     # Check if there's a corresponding implementation reference
                     # (This is a simplified check - real implementation would be more sophisticated)
-                    
+
                     # For now, just track that required specs exist
                     # TODO: Cross-reference with implementation tracker
                 }
             }
         }
     }
-    
+
     return @{
         Status = "PASS"
         Message = "Found $($specFiles.Count) specification files"
@@ -313,32 +313,32 @@ function Get-SpecCoverage {
     param(
         [Parameter(Mandatory)]
         [string]$SpecSource,
-        
+
         [Parameter(Mandatory)]
         [string]$CodeRoot
     )
-    
+
     Write-Verbose "  Calculating spec coverage..."
-    
+
     # Count spec files
     $specFiles = Get-ChildItem -Path $SpecSource -Filter "*.md" -Recurse -File
-    
+
     # Count code files referencing specs
     $references = Find-SpecReferences -CodeRoot $CodeRoot
     $filesWithRefs = ($references | Select-Object -Unique File).Count
-    
+
     # Count total implementation files
-    $pyFiles = (Get-ChildItem -Path $CodeRoot -Filter "*.py" -Recurse -File | 
-                Where-Object { $_.FullName -notlike "*\tests\*" -and 
+    $pyFiles = (Get-ChildItem -Path $CodeRoot -Filter "*.py" -Recurse -File |
+                Where-Object { $_.FullName -notlike "*\tests\*" -and
                                $_.FullName -notlike "*\venv\*" -and
                                $_.FullName -notlike "*\__pycache__\*" }).Count
-    
-    $coveragePercent = if ($pyFiles -gt 0) { 
-        [math]::Round(($filesWithRefs / $pyFiles) * 100, 1) 
-    } else { 
-        0 
+
+    $coveragePercent = if ($pyFiles -gt 0) {
+        [math]::Round(($filesWithRefs / $pyFiles) * 100, 1)
+    } else {
+        0
     }
-    
+
     return @{
         Status = "PASS"
         Message = "Spec coverage: $coveragePercent% of implementation files"
@@ -362,7 +362,7 @@ try {
     Write-Host "║         SPECIFICATION-IMPLEMENTATION VALIDATOR               ║" -ForegroundColor Cyan
     Write-Host "╚══════════════════════════════════════════════════════════════════╝" -ForegroundColor Cyan
     Write-Host ""
-    
+
     if ($DryRun) {
         Write-Host "🔍 DRY RUN MODE - No validation performed`n" -ForegroundColor Yellow
         Write-Host "Would validate:" -ForegroundColor Gray
@@ -372,9 +372,9 @@ try {
         Write-Host "  - Spec coverage metrics" -ForegroundColor Gray
         exit 0
     }
-    
+
     $results = @()
-    
+
     # Check 1: Spec index exists
     Write-Host "📋 Checking spec index..." -ForegroundColor Cyan
     $result = Test-SpecIndexExists -SpecSource $SpecSource
@@ -385,11 +385,11 @@ try {
         Message = $result.Message
         Details = $result.Details
     }
-    
+
     if ($VerboseOutput) {
         Write-Host "  [$($result.Status)] $($result.Message)" -ForegroundColor $(if ($result.Status -eq "PASS") { "Green" } else { "Red" })
     }
-    
+
     # Check 2: Spec URIs resolvable
     Write-Host "🔗 Checking spec URI references..." -ForegroundColor Cyan
     $result = Test-SpecURIsResolvable -SpecSource $SpecSource -CodeRoot $CodeRoot
@@ -400,7 +400,7 @@ try {
         Message = $result.Message
         Details = $result.Details
     }
-    
+
     if ($VerboseOutput) {
         Write-Host "  [$($result.Status)] $($result.Message)" -ForegroundColor $(if ($result.Status -eq "PASS") { "Green" } else { "Red" })
         if ($result.Details.Examples) {
@@ -410,7 +410,7 @@ try {
             }
         }
     }
-    
+
     # Check 3: Required specs implemented
     Write-Host "✅ Checking required implementations..." -ForegroundColor Cyan
     $result = Test-RequiredSpecsImplemented -SpecSource $SpecSource
@@ -421,11 +421,11 @@ try {
         Message = $result.Message
         Details = $result.Details
     }
-    
+
     if ($VerboseOutput) {
         Write-Host "  [$($result.Status)] $($result.Message)" -ForegroundColor $(if ($result.Status -eq "PASS") { "Green" } else { "Red" })
     }
-    
+
     # Check 4: Coverage analysis
     Write-Host "📊 Analyzing spec coverage..." -ForegroundColor Cyan
     $result = Get-SpecCoverage -SpecSource $SpecSource -CodeRoot $CodeRoot
@@ -436,7 +436,7 @@ try {
         Message = $result.Message
         Details = $result.Details
     }
-    
+
     if ($VerboseOutput) {
         Write-Host "  [$($result.Status)] $($result.Message)" -ForegroundColor $(if ($result.Status -eq "PASS") { "Green" } else { "Red" })
         Write-Host "    Spec files: $($result.Details.SpecFiles)" -ForegroundColor Gray
@@ -444,22 +444,22 @@ try {
         Write-Host "    Files with refs: $($result.Details.FilesWithSpecRefs)" -ForegroundColor Gray
         Write-Host "    Total refs: $($result.Details.TotalSpecReferences)" -ForegroundColor Gray
     }
-    
+
     # Summary
     Write-Host ""
     Write-Host ("=" * 70) -ForegroundColor Cyan
     Write-Host "VALIDATION SUMMARY" -ForegroundColor Cyan
     Write-Host ("=" * 70) -ForegroundColor Cyan
-    
+
     $passed = @($results | Where-Object { $_.Status -eq "PASS" })
     $failed = @($results | Where-Object { $_.Status -eq "FAIL" })
     $warnings = @($results | Where-Object { $_.Status -eq "WARN" })
-    
+
     Write-Host "Total Checks: $($results.Count)" -ForegroundColor White
     Write-Host "✓ Passed: $($passed.Count)" -ForegroundColor Green
     Write-Host "✗ Failed: $($failed.Count)" -ForegroundColor $(if ($failed.Count -gt 0) { "Red" } else { "Green" })
     Write-Host "⚠ Warnings: $($warnings.Count)" -ForegroundColor Yellow
-    
+
     if ($failed.Count -gt 0) {
         Write-Host "`nFailed Checks:" -ForegroundColor Red
         foreach ($check in $failed) {
@@ -467,9 +467,9 @@ try {
             Write-Host "    $($check.Message)" -ForegroundColor Gray
         }
     }
-    
+
     Write-Host ""
-    
+
     # Exit code
     if ($failed.Count -gt 0) {
         exit 1

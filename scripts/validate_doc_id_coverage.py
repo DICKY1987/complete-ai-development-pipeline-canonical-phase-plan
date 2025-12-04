@@ -41,12 +41,12 @@ def should_scan_file(file_path: Path) -> bool:
     # Check extension
     if file_path.suffix not in ELIGIBLE_EXTENSIONS:
         return False
-    
+
     # Check if in excluded directory
     for part in file_path.parts:
         if part in EXCLUDED_DIRS:
             return False
-    
+
     return True
 
 
@@ -63,22 +63,22 @@ def scan_repository() -> Dict:
     """Scan repository and return coverage statistics"""
     eligible_files = []
     files_with_doc_id = []
-    
+
     for file_path in REPO_ROOT.rglob('*'):
         if not file_path.is_file():
             continue
-        
+
         if should_scan_file(file_path):
             rel_path = file_path.relative_to(REPO_ROOT)
             eligible_files.append(str(rel_path))
-            
+
             if has_doc_id(file_path):
                 files_with_doc_id.append(str(rel_path))
-    
+
     total = len(eligible_files)
     with_id = len(files_with_doc_id)
     coverage = (with_id / total * 100) if total > 0 else 0
-    
+
     return {
         'total_eligible': total,
         'with_doc_id': with_id,
@@ -92,70 +92,70 @@ def scan_repository() -> Dict:
 def validate_coverage(baseline: float = 0.90) -> bool:
     """
     Validate coverage meets baseline.
-    
+
     Args:
         baseline: Minimum acceptable coverage (0.0-1.0)
-    
+
     Returns:
         True if coverage meets baseline, False otherwise
     """
     print("==> Scanning repository for doc_id coverage...")
-    
+
     results = scan_repository()
-    
+
     coverage = results['coverage_percent'] / 100
     total = results['total_eligible']
     with_id = results['with_doc_id']
     without_id = results['without_doc_id']
-    
+
     print(f"\n==> Coverage Results:")
     print(f"   Total eligible files: {total}")
     print(f"   Files with doc_id:    {with_id} ({results['coverage_percent']}%)")
     print(f"   Files without doc_id: {without_id}")
     print(f"   Baseline required:    {baseline * 100}%")
-    
+
     passed = coverage >= baseline
-    
+
     if passed:
         print(f"\n✓ PASS: Coverage {results['coverage_percent']}% meets baseline {baseline * 100}%")
     else:
         print(f"\n✗ FAIL: Coverage {results['coverage_percent']}% below baseline {baseline * 100}%")
-        
+
         if results['files_without_doc_id']:
             print(f"\n==> Files missing doc_id (first 10):")
             for file_path in results['files_without_doc_id'][:10]:
                 print(f"   - {file_path}")
-            
+
             if without_id > 10:
                 print(f"   ... and {without_id - 10} more")
-    
+
     return passed, results
 
 
 def main():
     """Main entry point"""
     import argparse
-    
+
     parser = argparse.ArgumentParser(description='Validate doc_id coverage')
     parser.add_argument('--baseline', type=float, default=0.90,
                         help='Minimum coverage required (default: 0.90)')
     parser.add_argument('--report', type=str,
                         help='Output JSON report to file')
-    
+
     args = parser.parse_args()
-    
+
     passed, results = validate_coverage(baseline=args.baseline)
-    
+
     # Write report if requested
     if args.report:
         report_path = Path(args.report)
         report_path.parent.mkdir(parents=True, exist_ok=True)
-        
+
         with open(report_path, 'w') as f:
             json.dump(results, f, indent=2)
-        
+
         print(f"\n==> Report written to: {report_path}")
-    
+
     # Exit with appropriate code
     sys.exit(0 if passed else 1)
 

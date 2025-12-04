@@ -170,15 +170,15 @@ Task definition files MUST follow this schema:
   "description": "Add JWT-based authentication to API",
   "type": "aider|pytest|lint|custom",
   "status": "pending|running|completed|failed",
-  
+
   "dependencies": ["task-ulid-001"],
   "blocks": ["task-ulid-003"],
-  
+
   "worker_requirements": {
     "capabilities": ["python_editing", "git_operations"],
     "min_version": "1.0.0"
   },
-  
+
   "execution": {
     "command": "aider --yes --message '{prompt}'",
     "working_directory": "src/auth",
@@ -186,19 +186,19 @@ Task definition files MUST follow this schema:
     "max_retries": 3,
     "retry_delay_seconds": 10
   },
-  
+
   "context_requirements": {
     "max_context_tokens": 8000,
     "required_files": ["src/auth/handler.py", "src/auth/models.py"],
     "optional_files": ["src/auth/utils.py"],
     "exclude_patterns": ["tests/**", "docs/**", "*.pyc"]
   },
-  
+
   "validation_rules": {
     "pre_execution": ["git_clean", "tests_passing"],
     "post_execution": ["no_lint_errors", "tests_still_passing", "no_security_issues"]
   },
-  
+
   "state": {
     "created_at": "2024-01-15T10:00:00.000Z",
     "started_at": null,
@@ -308,12 +308,12 @@ Worker capabilities MUST be registered in `capabilities/registry.psd1`:
         DeprecatedBy = $null
         Stability    = 'stable'
         SinceVersion = '1.0.0'
-        
+
         Requirements = @{
             MinPythonVersion = '3.10'
             Dependencies     = @('git', 'pytest')
         }
-        
+
         Operations = @(
             @{
                 Name   = 'StartWorkstream'
@@ -439,22 +439,22 @@ transitions:
   - from: pending
     to: queued
     trigger: scheduler_assigned
-    
+
   - from: queued
     to: running
     trigger: worker_started
     guard: worker_available
-    
+
   - from: running
     to: validating
     trigger: execution_completed
     guard: exit_code_zero
-    
+
   - from: running
     to: retrying
     trigger: execution_failed
     guard: retry_count < max_retries
-    
+
   - from: running
     to: failed
     trigger: execution_failed
@@ -483,16 +483,16 @@ transitions:
   - from: planned
     to: ready
     trigger: all_tasks_created
-    
+
   - from: ready
     to: executing
     trigger: first_task_started
-    
+
   - from: executing
     to: validating
     trigger: all_tasks_completed
     guard: no_failed_tasks
-    
+
   - from: validating
     to: completed
     trigger: validation_passed
@@ -518,15 +518,15 @@ transitions:
   - from: initializing
     to: idle
     trigger: registration_complete
-    
+
   - from: idle
     to: busy
     trigger: task_assigned
-    
+
   - from: busy
     to: idle
     trigger: task_completed
-    
+
   - from: busy
     to: unresponsive
     trigger: health_check_timeout

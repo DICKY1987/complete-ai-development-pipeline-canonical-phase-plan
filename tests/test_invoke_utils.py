@@ -30,11 +30,11 @@ def test_command_result_creation():
         duration_sec=1.0,
         timed_out=False,
     )
-    
+
     assert result.success
     assert result.exit_code == 0
     assert 'test' in result.stdout
-    
+
     # Can convert to dict
     data = result.to_dict()
     assert data['command'] == 'echo test'
@@ -46,9 +46,9 @@ def test_run_command_success():
     mock_ctx = MockContext(run={
         'echo "hello"': Result(stdout='hello\n', exited=0),
     })
-    
+
     result = run_command('echo "hello"', context=mock_ctx)
-    
+
     assert result.success
     assert result.exit_code == 0
     assert 'hello' in result.stdout
@@ -60,9 +60,9 @@ def test_run_command_failure():
     mock_ctx = MockContext(run={
         'exit 1': Result(stderr='error', exited=1),
     })
-    
+
     result = run_command('exit 1', context=mock_ctx)
-    
+
     assert not result.success
     assert result.exit_code == 1
 
@@ -74,7 +74,7 @@ def test_run_command_with_timeout():
     mock_ctx = MockContext(run={
         'sleep 10': Result(stdout='', exited=0),
     })
-    
+
     result = run_command('sleep 10', context=mock_ctx, timeout=1)
     # With real Context, this would timeout
     # With MockContext, it completes immediately
@@ -86,13 +86,13 @@ def test_run_command_with_env():
     mock_ctx = MockContext(run={
         'printenv TEST_VAR': Result(stdout='test_value\n', exited=0),
     })
-    
+
     result = run_command(
         'printenv TEST_VAR',
         context=mock_ctx,
         env={'TEST_VAR': 'test_value'}
     )
-    
+
     assert result.success
 
 
@@ -101,7 +101,7 @@ def test_run_command_with_cwd():
     mock_ctx = MockContext(run={
         'pwd': Result(stdout='/tmp\n', exited=0),
     })
-    
+
     result = run_command('pwd', context=mock_ctx, cwd=Path('/tmp'))
     assert result.success
 
@@ -111,9 +111,9 @@ def test_run_tool_command_loads_config():
     mock_ctx = MockContext(run={
         'pytest -q': Result(stdout='10 passed\n', exited=0),
     })
-    
+
     result = run_tool_command('pytest', 'pytest -q', context=mock_ctx)
-    
+
     assert result.success
     assert 'passed' in result.stdout
 
@@ -123,9 +123,9 @@ def test_create_test_context():
     test_ctx = create_test_context({
         'echo test': Result(stdout='test\n', exited=0),
     })
-    
+
     assert isinstance(test_ctx, MockContext)
-    
+
     # Can use context
     result = run_command('echo test', context=test_ctx)
     assert result.success
@@ -136,7 +136,7 @@ def test_command_result_timestamps():
     result = run_command('echo test', context=create_test_context({
         'echo test': Result(stdout='test\n', exited=0),
     }))
-    
+
     # Should have ISO 8601 UTC timestamps
     assert result.started_at.endswith('Z')
     assert result.completed_at.endswith('Z')
@@ -162,9 +162,9 @@ def test_command_result_captures_stderr():
             exited=2
         ),
     })
-    
+
     result = run_command('ls /nonexistent', context=mock_ctx)
-    
+
     assert not result.success
     assert result.exit_code == 2
     assert len(result.stderr) > 0
@@ -176,10 +176,10 @@ def test_multiple_commands_in_sequence():
         'echo first': Result(stdout='first\n', exited=0),
         'echo second': Result(stdout='second\n', exited=0),
     })
-    
+
     result1 = run_command('echo first', context=mock_ctx)
     result2 = run_command('echo second', context=mock_ctx)
-    
+
     assert result1.success
     assert result2.success
     assert 'first' in result1.stdout

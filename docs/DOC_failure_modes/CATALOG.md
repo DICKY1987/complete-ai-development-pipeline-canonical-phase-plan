@@ -36,7 +36,7 @@ Each failure mode is documented with:
 
 **Impact**: Low (automatic retry available)
 
-**Manifestation**: 
+**Manifestation**:
 ```json
 {"event":"task_timeout","severity":"warning","task_id":"..."}
 ```

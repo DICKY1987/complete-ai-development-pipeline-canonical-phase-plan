@@ -10,19 +10,19 @@ entry_points:
   - file: "validate_workstreams.py"
     description: "Validate workstream JSON files"
     command: "python scripts/validate_workstreams.py"
-    
+
   - file: "spec_generate.py"
     description: "Generate specs from templates"
     command: "python scripts/spec_generate.py --template <type>"
-    
+
   - file: "bootstrap_uet.py"
     description: "Bootstrap UET project configuration"
     command: "python scripts/bootstrap_uet.py ."
-    
+
   - file: "paths_index_cli.py"
     description: "Import path validation (CI gate)"
     command: "python scripts/paths_index_cli.py gate"
-    
+
   - file: "spec_to_workstream.py"
     description: "Convert OpenSpec proposal to workstream"
     command: "python scripts/spec_to_workstream.py --proposal <path>"
@@ -42,16 +42,16 @@ common_scripts:
     - "validate_workstreams.py - Validate workstream JSON"
     - "validate_acs_conformance.py - Check ACS compliance"
     - "paths_index_cli.py - Validate import paths (CI)"
-    
+
   generation:
     - "spec_generate.py - Generate specs from templates"
     - "generate_codebase_index.py - Generate CODEBASE_INDEX.yaml"
     - "generate_spec_index.py - Generate spec navigation"
-    
+
   conversion:
     - "spec_to_workstream.py - OpenSpec → workstream"
     - "bootstrap_uet.py - Generate UET config"
-    
+
   utilities:
     - "test.ps1 - Run test suite (PowerShell)"
     - "bootstrap.ps1 - Bootstrap project (PowerShell)"
@@ -60,16 +60,16 @@ common_scripts:
 common_tasks:
   - task: "Validate all workstreams"
     command: "python scripts/validate_workstreams.py"
-    
+
   - task: "Generate workstream spec"
     command: "python scripts/spec_generate.py --template workstream --output my_ws.json"
-    
+
   - task: "Bootstrap new project"
     command: "python scripts/bootstrap_uet.py ."
-    
+
   - task: "Validate import paths (CI)"
     command: "python scripts/paths_index_cli.py gate --db refactor_paths.db"
-    
+
   - task: "Convert OpenSpec proposal"
     command: "python scripts/spec_to_workstream.py --proposal openspec/changes/PROP-001/"
 
@@ -79,18 +79,18 @@ script_conventions:
     - "Prefix with action: validate_, generate_, run_"
     - "Use snake_case"
     - "Extension: .py for Python, .ps1 for PowerShell"
-    
+
   arguments:
     - "Use argparse for Python scripts"
     - "Always provide --help"
     - "Use --verbose for debug output"
-    
+
   exit_codes:
     0: "Success"
     1: "Validation/input error"
     2: "Execution error"
     3: "Configuration error"
-    
+
   output:
     - "Print to stdout for data"
     - "Print to stderr for errors/warnings"
@@ -101,7 +101,7 @@ powershell_scripts:
   "bootstrap.ps1":
     description: "Bootstrap project directories and dependencies"
     usage: "pwsh ./scripts/bootstrap.ps1"
-    
+
   "test.ps1":
     description: "Run test suite"
     usage: "pwsh ./scripts/test.ps1"
@@ -111,7 +111,7 @@ python_vs_powershell:
   python:
     use_when: "Cross-platform, complex logic, integrates with Python modules"
     examples: ["validate_workstreams.py", "spec_generate.py"]
-    
+
   powershell:
     use_when: "Windows-specific, system admin, quick automation"
     examples: ["bootstrap.ps1", "test.ps1"]
@@ -139,13 +139,13 @@ dependencies:
     - json
     - pyyaml
     - typing
-    
+
   internal:
     - specifications.tools.generator
     - specifications.tools.validator
     - specifications.bridge.spec_to_workstream
     - core.state.bundle_loader
-    
+
   optional:
     - pytest  # For test.ps1
 
@@ -178,7 +178,7 @@ ci_integration:
   ".github/workflows/path_standards.yml":
     uses: "paths_index_cli.py gate"
     purpose: "Block deprecated import paths"
-    
+
   ".github/workflows/validate.yml":
     uses: "validate_workstreams.py"
     purpose: "Validate workstream schemas"
@@ -192,7 +192,7 @@ adding_new_script:
     4: "Add to scripts/README.md"
     5: "Add tests in tests/scripts/"
     6: "Document in this manifest"
-    
+
   template: |
     #!/usr/bin/env python3
     \"\"\"
@@ -200,14 +200,14 @@ adding_new_script:
     \"\"\"
     import argparse
     from pathlib import Path
-    
+
     def main():
         parser = argparse.ArgumentParser(description="...")
         parser.add_argument("--option", help="...")
         args = parser.parse_args()
-        
+
         # Script logic
-        
+
     if __name__ == "__main__":
         main()
 
@@ -223,11 +223,11 @@ recent_changes:
   - date: "2025-11-20"
     change: "Consolidated spec generation scripts"
     impact: "Single spec_generate.py for all templates"
-    
+
   - date: "2025-11-19"
     change: "Added paths_index_cli.py for CI"
     impact: "Import path validation in CI"
-    
+
   - date: "2025-11-15"
     change: "Added bootstrap_uet.py"
     impact: "Auto-generate UET configuration"
@@ -236,7 +236,7 @@ recent_changes:
 related_modules:
   - module: "specifications"
     relationship: "Scripts wrap specifications.tools functionality"
-    
+
   - module: "core"
     relationship: "Scripts validate/generate for core.orchestrator"
 
@@ -248,14 +248,14 @@ for_ai_tools:
     - Generate something: Suggest spec_generate.py
     - Check compliance: Suggest validate_acs_conformance.py
     - CI validation: Suggest paths_index_cli.py
-    
+
   common_questions:
     - q: "How do I validate workstream?"
       a: "python scripts/validate_workstreams.py"
-      
+
     - q: "How do I generate spec?"
       a: "python scripts/spec_generate.py --template <type> --output <file>"
-      
+
     - q: "How do I bootstrap project?"
       a: "python scripts/bootstrap_uet.py ."
 
@@ -264,12 +264,12 @@ automation_patterns:
   pre_commit:
     - "validate_workstreams.py"
     - "paths_index_cli.py gate"
-    
+
   ci_cd:
     - "validate_workstreams.py"
     - "validate_acs_conformance.py"
     - "pytest tests/"
-    
+
   project_setup:
     - "bootstrap.ps1"
     - "bootstrap_uet.py"

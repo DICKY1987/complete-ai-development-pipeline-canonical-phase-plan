@@ -134,46 +134,46 @@ def infer_category(path: str, available_categories: List[str]) -> str:
         ("pm", "/pm/"),
         ("engine", "/engine/"),
         ("infra", "/infra/"),
-        
+
         # Patterns and UET
         ("patterns", "/UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/"),
         ("patterns", "/patterns/"),
         ("guide", "/UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/guides/"),
         ("spec", "/UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/specs/"),
-        
+
         # Documentation
         ("guide", "/docs/"),
         ("guide", "/documentation/"),
         ("guide", "/developer/"),
         ("arch", "/adr/"),
-        
+
         # Modules and components
         ("core", "/modules/"),
         ("spec", "/specifications/"),
         ("spec", "/schema/"),
         ("spec", "/openspec/"),
-        
+
         # Testing
         ("test", "/tests/"),
-        
+
         # Scripts and tools
         ("script", "/scripts/"),
         ("script", "/tools/"),
-        
+
         # Configuration
         ("config", "/config/"),
         ("config", "/.github/"),
-        
+
         # Special directories
         ("legacy", "/archive/"),
         ("legacy", "/legacy/"),
         ("task", "/ToDo_Task/"),
         ("task", "/workstreams/"),
         ("task", "/workstreams_uet/"),
-        
+
         # Doc_id system
         ("guide", "/doc_id/"),
-        
+
         # Build and package artifacts
         ("infra", "/build/"),
         ("infra", "/__pycache__/"),
@@ -243,7 +243,7 @@ def infer_name_and_title(path: str, file_type: str) -> Tuple[str, str]:
     rel = Path(path)
     stem = rel.stem
     parent = rel.parent.name
-    
+
     # Special case: __*__ files (dunder files)
     if stem.startswith("__") and stem.endswith("__"):
         stem_clean = stem[2:-2].upper()  # Remove __ from both ends
@@ -253,7 +253,7 @@ def infer_name_and_title(path: str, file_type: str) -> Tuple[str, str]:
         # Sanitize stem: remove special chars, limit length
         stem_clean = re.sub(r'[^a-zA-Z0-9_-]', '-', stem)
         stem_clean = re.sub(r'-+', '-', stem_clean).strip('-')
-    
+
     # Limit to reasonable length (max 50 chars for stem)
     if len(stem_clean) > 50:
         stem_clean = stem_clean[:50].rsplit('-', 1)[0]  # Cut at word boundary
@@ -300,7 +300,7 @@ def infer_name_and_title(path: str, file_type: str) -> Tuple[str, str]:
     # Final validation: must not be empty and not end with dash
     if not name or name.endswith('-'):
         name = "UNNAMED"
-    
+
     return name, title
 
 

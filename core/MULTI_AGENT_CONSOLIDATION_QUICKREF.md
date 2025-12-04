@@ -39,7 +39,7 @@ Run-level aggregated data:
 - Execution summary JSON
 - Recommendations
 
-### agent_results  
+### agent_results
 Per-agent execution results:
 - Agent ID, workstream ID, status
 - Timing, files, commits
@@ -61,14 +61,14 @@ All errors from all agents:
 SELECT * FROM consolidated_runs ORDER BY created_at DESC LIMIT 1;
 
 -- Agent performance
-SELECT agent_id, COUNT(*) as total, 
+SELECT agent_id, COUNT(*) as total,
        SUM(CASE WHEN status='completed' THEN 1 ELSE 0 END) as completed
 FROM agent_results
 WHERE run_id = 'ma-run-20241202-190000'
 GROUP BY agent_id;
 
 -- All errors
-SELECT workstream_id, error_message 
+SELECT workstream_id, error_message
 FROM consolidated_errors
 WHERE run_id = 'ma-run-20241202-190000';
 ```
@@ -114,10 +114,10 @@ python scripts/multi_agent_workstream_coordinator.py --dry-run
 
 **CRITICAL**: Never stops on individual failures
 
-✅ Processes ALL workstreams  
-✅ Collects ALL results  
-✅ Consolidates ALL data  
-✅ Generates complete report  
+✅ Processes ALL workstreams
+✅ Collects ALL results
+✅ Consolidates ALL data
+✅ Generates complete report
 
 **Result**: Full execution picture, not just first failure
 

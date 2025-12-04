@@ -28,7 +28,7 @@ Begin work on a GitHub issue with parallel agents based on work stream analysis.
 3. **Check for analysis:**
    ```bash
    test -f .claude/epics/*/$ARGUMENTS-analysis.md || echo "❌ No analysis found for issue #$ARGUMENTS
-   
+
    Run: /pm:issue-analyze $ARGUMENTS first
    Or: /pm:issue-start $ARGUMENTS --analyze to do both"
    ```
@@ -101,26 +101,26 @@ Task:
   subagent_type: "{agent_type}"
   prompt: |
     You are working on Issue #$ARGUMENTS in the epic worktree.
-    
+
     Worktree location: ../epic-{epic_name}/
     Your stream: {stream_name}
-    
+
     Your scope:
     - Files to modify: {file_patterns}
     - Work to complete: {stream_description}
-    
+
     Requirements:
     1. Read full task from: .claude/epics/{epic_name}/{task_file}
     2. Work ONLY in your assigned files
     3. Commit frequently with format: "Issue #$ARGUMENTS: {specific change}"
     4. Update progress in: .claude/epics/{epic_name}/updates/$ARGUMENTS/stream-{X}.md
     5. Follow coordination rules in /rules/agent-coordination.md
-    
+
     If you need to modify files outside your scope:
     - Check if another stream owns them
     - Wait if necessary
     - Update your progress file with coordination notes
-    
+
     Complete your stream's work and mark as completed when done.
 ```
 

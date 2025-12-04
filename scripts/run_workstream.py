@@ -52,26 +52,26 @@ def main(argv: list[str] | None = None) -> int:
         try:
             # Load all bundles
             bundle_objs = bundles.load_and_validate_bundles()
-            
+
             result = orchestrator.execute_workstreams_parallel(
                 bundle_objs,
                 max_workers=args.max_workers,
                 dry_run=args.dry_run,
                 context=context
             )
-            
+
             print(json.dumps(result, indent=2))
-            
+
             # Return 0 if all completed successfully
             failed = result.get('failed', [])
             return 0 if len(failed) == 0 else 1
-            
+
         except Exception as e:
             print(f"Error: {e}", file=sys.stderr)
             import traceback
             traceback.print_exc()
             return 2
-    
+
     # Single workstream mode (original behavior)
     if not args.ws_id:
         print("Error: --ws-id required for single workstream mode", file=sys.stderr)

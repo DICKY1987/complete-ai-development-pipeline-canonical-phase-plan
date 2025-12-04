@@ -28,7 +28,7 @@ class GateCriteria:
     required_tests: List[str] = field(default_factory=list)
     timeout_seconds: Optional[int] = None
     custom_rules: Optional[Dict] = None
-    
+
     def to_dict(self) -> Dict:
         """Convert to dictionary"""
         return {
@@ -49,7 +49,7 @@ class TestResults:
     skipped_tests: int = 0
     coverage_percent: Optional[float] = None
     failures: List[Dict] = field(default_factory=list)
-    
+
     def to_dict(self) -> Dict:
         """Convert to dictionary"""
         return {
@@ -65,7 +65,7 @@ class TestResults:
 class TestGate:
     """
     Manages test gate execution and evaluation.
-    
+
     States:
         - pending: Gate created, not yet started
         - running: Gate execution in progress
@@ -73,17 +73,17 @@ class TestGate:
         - failed: Gate failed one or more criteria
         - skipped: Gate was skipped
         - error: Gate encountered an error during execution
-    
+
     Transitions:
         - start: pending -> running
         - complete: running -> passed/failed/error
         - skip: any -> skipped
     """
-    
+
     VALID_STATES = {'pending', 'running', 'passed', 'failed', 'skipped', 'error'}
     VALID_TYPES = {'unit_tests', 'integration_tests', 'e2e_tests', 'security_scan', 'lint', 'custom'}
     TERMINAL_STATES = {'passed', 'failed', 'skipped', 'error'}
-    
+
     STATE_TRANSITIONS = {
         'pending': ['running', 'skipped'],
         'running': ['passed', 'failed', 'error', 'skipped'],
@@ -92,17 +92,17 @@ class TestGate:
         'skipped': [],
         'error': []
     }
-    
+
     def __init__(self, db):
         """
         Initialize TestGate manager.
-        
+
         Args:
             db: Database instance for persistence
         """
         self.db = db
         self._ensure_table()
-    
+
     def _ensure_table(self):
         """Ensure test_gates table exists"""
         try:
@@ -112,7 +112,7 @@ class TestGate:
             with open(schema_path, 'r') as f:
                 self.db.conn.executescript(f.read())
             self.db.conn.commit()
-    
+
     def create_gate(
         self,
         gate_id: str,
@@ -125,7 +125,7 @@ class TestGate:
     ) -> str:
         """
         Create a new test gate.
-        
+
         Args:
             gate_id: Unique gate identifier (ULID)
             name: Human-readable gate name
@@ -134,18 +134,18 @@ class TestGate:
             project_id: Optional project identifier
             execution_request_id: Optional execution request ID
             metadata: Additional metadata
-        
+
         Returns:
             gate_id
-        
+
         Raises:
             ValueError: If gate_type invalid
         """
         if gate_type not in self.VALID_TYPES:
             raise ValueError(f"Invalid gate_type: {gate_type}")
-        
+
         now = datetime.now(UTC).isoformat()
-        
+
         self.db.conn.execute(
             """
             INSERT INTO test_gates (
@@ -171,16 +171,16 @@ class TestGate:
             )
         )
         self.db.conn.commit()
-        
+
         return gate_id
-    
+
     def get_gate(self, gate_id: str) -> Optional[Dict]:
         """
         Get gate by ID.
-        
+
         Args:
             gate_id: Gate identifier
-        
+
         Returns:
             Gate data dict or None if not found
         """
@@ -188,51 +188,51 @@ class TestGate:
             "SELECT * FROM test_gates WHERE gate_id = ?",
             (gate_id,)
         ).fetchone()
-        
+
         if not row:
             return None
-        
+
         return self._row_to_dict(row)
-    
+
     def _row_to_dict(self, row) -> Dict:
         """Convert database row to dict"""
         data = dict(row)
-        
+
         # Deserialize JSON fields
         for field in ['criteria', 'execution', 'results', 'decision', 'metadata']:
             if data.get(field):
                 data[field] = json.loads(data[field])
-        
+
         return data
-    
+
     def start_gate(self, gate_id: str, command: Optional[str] = None) -> bool:
         """
         Start gate execution (pending -> running).
-        
+
         Args:
             gate_id: Gate identifier
             command: Command to execute
-        
+
         Returns:
             True if successful
         """
         gate = self.get_gate(gate_id)
         if not gate:
             raise ValueError(f"Gate not found: {gate_id}")
-        
+
         if not self._can_transition(gate['state'], 'running'):
             raise ValueError(
                 f"Cannot start gate: gate in {gate['state']} state"
             )
-        
+
         execution_data = {
             'started_at': datetime.now(UTC).isoformat(),
             'command': command
         }
-        
+
         self.db.conn.execute(
             """
-            UPDATE test_gates 
+            UPDATE test_gates
             SET state = 'running', execution = ?, updated_at = ?
             WHERE gate_id = ?
             """,
@@ -243,9 +243,9 @@ class TestGate:
             )
         )
         self.db.conn.commit()
-        
+
         return True
-    
+
     def complete_gate(
         self,
         gate_id: str,
@@ -254,24 +254,24 @@ class TestGate:
     ) -> bool:
         """
         Complete gate execution with results (running -> passed/failed/error).
-        
+
         Args:
             gate_id: Gate identifier
             results: Test execution results
             exit_code: Process exit code
-        
+
         Returns:
             True if successful
         """
         gate = self.get_gate(gate_id)
         if not gate:
             raise ValueError(f"Gate not found: {gate_id}")
-        
+
         if gate['state'] != 'running':
             raise ValueError(
                 f"Cannot complete gate: gate not running (state: {gate['state']})"
             )
-        
+
         # Determine new state based on exit code
         if exit_code != 0:
             new_state = 'error'
@@ -279,24 +279,24 @@ class TestGate:
             # Evaluate criteria
             decision = self._evaluate_criteria(gate['criteria'], results)
             new_state = 'passed' if decision['passed'] else 'failed'
-        
+
         # Update execution data
         execution_data = gate.get('execution') or {}
         execution_data['completed_at'] = datetime.now(UTC).isoformat()
         execution_data['exit_code'] = exit_code
-        
+
         # Calculate duration
         if execution_data.get('started_at'):
             started = datetime.fromisoformat(execution_data['started_at'].replace('Z', '+00:00'))
             completed = datetime.now(UTC)
             execution_data['duration_seconds'] = (completed - started).total_seconds()
-        
+
         # Store decision if not error
         decision_data = None if exit_code != 0 else json.dumps(decision)
-        
+
         self.db.conn.execute(
             """
-            UPDATE test_gates 
+            UPDATE test_gates
             SET state = ?, execution = ?, results = ?, decision = ?, updated_at = ?
             WHERE gate_id = ?
             """,
@@ -310,78 +310,78 @@ class TestGate:
             )
         )
         self.db.conn.commit()
-        
+
         return True
-    
+
     def _evaluate_criteria(self, criteria: Dict, results: TestResults) -> Dict:
         """
         Evaluate if results meet criteria.
-        
+
         Args:
             criteria: Gate criteria
             results: Test results
-        
+
         Returns:
             Decision dict with passed flag and criteria_met details
         """
         criteria_met = {}
-        
+
         # Check coverage
         if criteria.get('min_coverage') is not None:
             if results.coverage_percent is not None:
                 criteria_met['coverage'] = results.coverage_percent >= criteria['min_coverage']
             else:
                 criteria_met['coverage'] = False
-        
+
         # Check failures
         if criteria.get('max_failures') is not None:
             criteria_met['failures'] = results.failed_tests <= criteria['max_failures']
-        
+
         # Check required tests
         if criteria.get('required_tests'):
             # Simplified - assumes all tests passed
             criteria_met['required_tests'] = results.failed_tests == 0
-        
+
         # Overall decision
         passed = all(criteria_met.values()) if criteria_met else True
-        
+
         reason = "All criteria met" if passed else f"Failed criteria: {[k for k, v in criteria_met.items() if not v]}"
-        
+
         return {
             'passed': passed,
             'reason': reason,
             'criteria_met': criteria_met
         }
-    
+
     def skip_gate(self, gate_id: str, reason: str) -> bool:
         """
         Skip gate execution (any -> skipped).
-        
+
         Args:
             gate_id: Gate identifier
             reason: Reason for skipping
-        
+
         Returns:
             True if successful
         """
         gate = self.get_gate(gate_id)
         if not gate:
             raise ValueError(f"Gate not found: {gate_id}")
-        
+
         if not self._can_transition(gate['state'], 'skipped'):
             raise ValueError(
                 f"Cannot skip gate: gate in {gate['state']} state"
             )
-        
+
         decision_data = {
             'passed': False,
             'reason': f"Skipped: {reason}",
             'criteria_met': {}
         }
-        
+
         self.db.conn.execute(
             """
-            UPDATE test_gates 
+            UPDATE test_gates
             SET state = 'skipped', decision = ?, updated_at = ?
             WHERE gate_id = ?
             """,
@@ -392,9 +392,9 @@ class TestGate:
             )
         )
         self.db.conn.commit()
-        
+
         return True
-    
+
     def list_gates(
         self,
         project_id: Optional[str] = None,
@@ -403,51 +403,51 @@ class TestGate:
     ) -> List[Dict]:
         """
         List gates with optional filters.
-        
+
         Args:
             project_id: Filter by project
             state: Filter by state
             gate_type: Filter by type
-        
+
         Returns:
             List of gate dicts
         """
         query = "SELECT * FROM test_gates WHERE 1=1"
         params = []
-        
+
         if project_id:
             query += " AND project_id = ?"
             params.append(project_id)
-        
+
         if state:
             query += " AND state = ?"
             params.append(state)
-        
+
         if gate_type:
             query += " AND gate_type = ?"
             params.append(gate_type)
-        
+
         query += " ORDER BY created_at DESC"
-        
+
         rows = self.db.conn.execute(query, params).fetchall()
         return [self._row_to_dict(row) for row in rows]
-    
+
     def _can_transition(self, from_state: str, to_state: str) -> bool:
         """
         Check if state transition is valid.
-        
+
         Args:
             from_state: Current state
             to_state: Target state
-        
+
         Returns:
             True if transition is valid
         """
         if from_state in self.TERMINAL_STATES:
             return False
-        
+
         return to_state in self.STATE_TRANSITIONS.get(from_state, [])
-    
+
     @staticmethod
     def is_terminal(state: str) -> bool:
         """Check if state is terminal"""

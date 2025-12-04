@@ -8,7 +8,7 @@ doc_id: DOC-GUIDE-UI-DOCUMENTATION-INDEX-1425
 
 The user sees a **terminal/command-line interface only**. There are:
 - ✗ **NO clickable buttons**
-- ✗ **NO text entry fields** 
+- ✗ **NO text entry fields**
 - ✗ **NO graphical interface**
 
 The user sees **text-based output** from CLI commands.

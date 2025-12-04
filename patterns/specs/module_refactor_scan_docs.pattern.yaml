@@ -34,31 +34,31 @@ inputs:
     required: true
     description: "Absolute path to repository root"
     default: "."
-    
+
   - name: output_path
     type: path
     required: false
     description: "Path for output inventory file"
     default: ".state/docs_inventory.jsonl"
-    
+
   - name: max_preview_chars
     type: integer
     required: false
     description: "Maximum characters to read per file for classification"
     default: 4000
-    
+
   - name: include_extensions
     type: array
     required: false
     description: "File extensions to include in scan"
     default: [".md", ".txt", ".markdown"]
-    
+
   - name: exclude_dirs
     type: array
     required: false
     description: "Directories to exclude from scan"
     default: [".git", ".venv", "node_modules", "__pycache__", ".pytest_cache"]
-    
+
   - name: compute_hash
     type: boolean
     required: false
@@ -69,11 +69,11 @@ outputs:
   - name: inventory_file
     type: path
     description: "Generated JSONL inventory file"
-    
+
   - name: total_files
     type: integer
     description: "Total number of files scanned"
-    
+
   - name: classification_summary
     type: object
     description: "Summary of files by module_kind and zone"
@@ -86,7 +86,7 @@ execution_steps:
     success_criteria:
       - type: exit_code
         value: 0
-        
+
   - step: 2
     operation_kind: CREATE_OUTPUT_DIR
     description: "Ensure output directory exists"
@@ -94,7 +94,7 @@ execution_steps:
       import pathlib
       output = pathlib.Path("{{output_path}}")
       output.parent.mkdir(parents=True, exist_ok=True)
-      
+
   - step: 3
     operation_kind: RUN_SCAN_SCRIPT
     description: "Execute document inventory scan"
@@ -106,7 +106,7 @@ execution_steps:
         --max-preview-chars {{max_preview_chars}} \
         {{#compute_hash}}{{/compute_hash}}{{^compute_hash}}--no-hash{{/compute_hash}}
     timeout: 300
-    
+
   - step: 4
     operation_kind: VALIDATE_OUTPUT
     description: "Verify inventory file was created and is valid JSONL"
@@ -119,18 +119,18 @@ execution_steps:
       - check: jsonl_valid
         path: "{{output_path}}"
         max_test_lines: 10
-        
+
   - step: 5
     operation_kind: GENERATE_SUMMARY
     description: "Create classification summary report"
     script: |
       import json
       from collections import Counter
-      
+
       module_kinds = Counter()
       zones = Counter()
       total = 0
-      
+
       with open("{{output_path}}", "r", encoding="utf-8") as f:
           for line in f:
               if line.strip():
@@ -138,15 +138,15 @@ execution_steps:
                   module_kinds[record.get("module_kind", "unknown")] += 1
                   zones[record.get("zone", "unknown")] += 1
                   total += 1
-      
+
       summary = {
           "total_files": total,
           "by_module_kind": dict(module_kinds),
           "by_zone": dict(zones)
       }
-      
+
       print(json.dumps(summary, indent=2))
-      
+
       with open("{{output_path}}.summary.json", "w", encoding="utf-8") as out:
           json.dump(summary, out, indent=2)
 
@@ -155,13 +155,13 @@ validation_gates:
     description: "Inventory file was created"
     check_type: file_exists
     path: "{{output_path}}"
-    
+
   - gate: minimum_records
     description: "At least 10 documents found"
     check_type: file_line_count
     path: "{{output_path}}"
     min_lines: 10
-    
+
   - gate: valid_json
     description: "All records are valid JSON"
     check_type: jsonl_format
@@ -190,7 +190,7 @@ tags:
   - inventory
   - scanning
   - classification
-  
+
 dependencies:
   patterns: []
   scripts:
@@ -202,19 +202,19 @@ notes: |
   This pattern must run BEFORE any module migration patterns.
   The inventory it produces is the source of truth for determining what files
   belong to which modules.
-  
+
   For large repositories (>1000 docs), consider using --no-hash flag to speed up scanning.
   Hash computation can be added later if needed for change detection.
-  
+
 examples:
   - name: "Basic scan"
     command: "Execute PAT-MODULE-REFACTOR-SCAN-001 with default parameters"
-    
+
   - name: "Fast scan without hashing"
     inputs:
       compute_hash: false
       max_preview_chars: 2000
-    
+
   - name: "Full scan with hashing"
     inputs:
       compute_hash: true

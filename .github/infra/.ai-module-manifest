@@ -9,10 +9,10 @@ layer: "infra"  # Infrastructure - deployment and automation
 entry_points:
   - file: ".github/workflows/path_standards.yml"
     description: "CI workflow - validate import paths"
-    
+
   - file: ".github/workflows/validate.yml"
     description: "CI workflow - validate workstreams"
-    
+
   - file: ".github/workflows/tests.yml"
     description: "CI workflow - run test suite"
 
@@ -30,12 +30,12 @@ workflows:
     trigger: "push, pull_request"
     purpose: "Block deprecated import paths"
     command: "python scripts/paths_index_cli.py gate"
-    
+
   validate:
     trigger: "push, pull_request"
     purpose: "Validate workstream JSON"
     command: "python scripts/validate_workstreams.py"
-    
+
   tests:
     trigger: "push, pull_request"
     purpose: "Run test suite"

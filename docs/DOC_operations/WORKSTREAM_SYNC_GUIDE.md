@@ -103,7 +103,7 @@ extensions:
       no_stop_mode: true
       summary_report_template: "templates/workstream_summary_report.md"
       sync_script: "scripts/sync_workstreams_to_github.py"
-    
+
     execution_resilience:
       continue_on_error: true          # Never stop on errors
       error_collection_mode: true      # Collect all errors
@@ -258,6 +258,6 @@ After running sync:
 
 ---
 
-**Script**: `scripts/sync_workstreams_to_github.py`  
-**Template**: `templates/workstream_summary_report.md`  
+**Script**: `scripts/sync_workstreams_to_github.py`
+**Template**: `templates/workstream_summary_report.md`
 **Mode**: NO STOP - Continues through all tasks

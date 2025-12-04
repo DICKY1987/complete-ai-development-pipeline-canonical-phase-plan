@@ -60,7 +60,7 @@ def test_scope_result_creation():
         allowed_files=['file1.py', 'file2.py'],
         violating_files=[]
     )
-    
+
     assert result.valid is True
     assert len(result.violations) == 0
 
@@ -72,7 +72,7 @@ def test_timeout_result_creation():
         wall_time_sec=10.5,
         idle_time_sec=2.0
     )
-    
+
     assert result.timed_out is False
     assert result.wall_time_sec == 10.5
 
@@ -84,7 +84,7 @@ def test_circuit_breaker_trip_creation():
         ws_id="ws-1",
         attempt=4
     )
-    
+
     assert trip.reason == "Max attempts exceeded"
     assert trip.ws_id == "ws-1"
     assert trip.attempt == 4
@@ -94,9 +94,9 @@ def test_circuit_breaker_trip_creation():
 def test_validate_patch_scope_valid(scope_validator, sample_bundle):
     """Test scope validation with valid patch"""
     patch_files = ['src/module.py', 'src/utils.py']
-    
+
     result = scope_validator.validate_patch_scope(patch_files, sample_bundle)
-    
+
     assert result.valid is True
     assert len(result.violations) == 0
     assert len(result.violating_files) == 0
@@ -105,9 +105,9 @@ def test_validate_patch_scope_valid(scope_validator, sample_bundle):
 def test_validate_patch_scope_create_file(scope_validator, sample_bundle):
     """Test scope validation with creatable file"""
     patch_files = ['docs/new_doc.md']
-    
+
     result = scope_validator.validate_patch_scope(patch_files, sample_bundle)
-    
+
     assert result.valid is True
     assert len(result.violations) == 0
 
@@ -115,9 +115,9 @@ def test_validate_patch_scope_create_file(scope_validator, sample_bundle):
 def test_validate_patch_scope_violation(scope_validator, sample_bundle):
     """Test scope validation with violation"""
     patch_files = ['src/module.py', 'src/unauthorized.py']
-    
+
     result = scope_validator.validate_patch_scope(patch_files, sample_bundle)
-    
+
     assert result.valid is False
     assert len(result.violations) == 1
     assert 'unauthorized.py' in result.violations[0]
@@ -127,9 +127,9 @@ def test_validate_patch_scope_violation(scope_validator, sample_bundle):
 def test_validate_patch_scope_multiple_violations(scope_validator, sample_bundle):
     """Test scope validation with multiple violations"""
     patch_files = ['src/module.py', 'config/settings.py', 'lib/external.py']
-    
+
     result = scope_validator.validate_patch_scope(patch_files, sample_bundle)
-    
+
     assert result.valid is False
     assert len(result.violations) == 2
     assert len(result.violating_files) == 2
@@ -138,9 +138,9 @@ def test_validate_patch_scope_multiple_violations(scope_validator, sample_bundle
 def test_validate_patch_scope_empty_patch(scope_validator, sample_bundle):
     """Test scope validation with empty patch"""
     patch_files = []
-    
+
     result = scope_validator.validate_patch_scope(patch_files, sample_bundle)
-    
+
     assert result.valid is True
 
 
@@ -150,28 +150,28 @@ def test_validate_patch_scope_path_normalization(scope_validator):
         'files_scope': ['src/module.py', 'tests\\test.py'],
         'files_create': []
     }
-    
+
     # Test with different slash styles
     patch_files = ['src\\module.py', 'tests/test.py']
-    
+
     result = scope_validator.validate_patch_scope(patch_files, bundle)
-    
+
     assert result.valid is True
 
 
 def test_timeout_monitor_no_timeout():
     """Test timeout monitor with process that completes quickly"""
     monitor = TimeoutMonitor()
-    
+
     # Create a quick process
     process = subprocess.Popen(
         [sys.executable, '-c', 'print("hello")'],
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE
     )
-    
+
     result = monitor.watch_process(process, wall_clock_sec=10, idle_output_sec=5)
-    
+
     assert result.timed_out is False
     assert result.wall_time_sec < 10
     assert result.killed is False
@@ -181,12 +181,12 @@ def test_timeout_monitor_record_output(timeout_monitor):
     """Test recording output updates idle timer"""
     timeout_monitor.start_time = time.time()
     timeout_monitor.last_output_time = time.time()
-    
+
     initial_time = timeout_monitor.last_output_time
     time.sleep(0.1)
-    
+
     timeout_monitor.record_output()
-    
+
     assert timeout_monitor.last_output_time > initial_time
 
 
@@ -198,7 +198,7 @@ def test_circuit_breaker_max_attempts(circuit_breaker):
         step='edit',
         attempt=4  # Exceeds max_attempts=3
     )
-    
+
     assert trip is not None
     assert 'Max attempts' in trip.reason
     assert trip.attempt == 4
@@ -212,7 +212,7 @@ def test_circuit_breaker_within_attempts(circuit_breaker):
         step='edit',
         attempt=2  # Within max_attempts=3
     )
-    
+
     assert trip is None
 
 
@@ -223,9 +223,9 @@ def test_circuit_breaker_from_config():
         'max_error_repeats': 3,
         'oscillation_threshold': 4
     }
-    
+
     breaker = CircuitBreaker().from_config(config)
-    
+
     assert breaker.max_attempts == 5
     assert breaker.max_error_repeats == 3
     assert breaker.oscillation_threshold == 4
@@ -234,9 +234,9 @@ def test_circuit_breaker_from_config():
 def test_circuit_breaker_from_config_defaults():
     """Test creating circuit breaker from empty config uses defaults"""
     config = {}
-    
+
     breaker = CircuitBreaker().from_config(config)
-    
+
     assert breaker.max_attempts == 3
     assert breaker.max_error_repeats == 2
     assert breaker.oscillation_threshold == 2
@@ -245,7 +245,7 @@ def test_circuit_breaker_from_config_defaults():
 def test_scope_validator_normalize_path():
     """Test path normalization helper"""
     validator = ScopeValidator()
-    
+
     # Test different path formats
     assert validator._normalize_path('src/module.py') == 'src/module.py'
     assert validator._normalize_path('src\\module.py') == 'src/module.py'
@@ -258,11 +258,11 @@ def test_validate_patch_scope_with_subdirectories(scope_validator):
         'files_scope': ['src/core/engine.py', 'src/utils/helpers.py'],
         'files_create': []
     }
-    
+
     patch_files = ['src/core/engine.py']
-    
+
     result = scope_validator.validate_patch_scope(patch_files, bundle)
-    
+
     assert result.valid is True
 
 
@@ -273,7 +273,7 @@ def test_circuit_breaker_initialization():
         max_error_repeats=5,
         oscillation_threshold=3
     )
-    
+
     assert breaker.max_attempts == 10
     assert breaker.max_error_repeats == 5
     assert breaker.oscillation_threshold == 3
@@ -294,7 +294,7 @@ def test_scope_result_with_violations():
         allowed_files=['allowed1.py', 'allowed2.py'],
         violating_files=['bad1.py', 'bad2.py']
     )
-    
+
     assert result.valid is False
     assert len(result.violations) == 2
     assert len(result.violating_files) == 2
@@ -308,7 +308,7 @@ def test_circuit_breaker_trip_with_error_signature():
         attempt=3,
         error_signature="ValueError: invalid input"
     )
-    
+
     assert trip.error_signature == "ValueError: invalid input"
 
 
@@ -320,7 +320,7 @@ def test_circuit_breaker_trip_with_diff_hash():
         attempt=3,
         diff_hash="abc123def456"
     )
-    
+
     assert trip.diff_hash == "abc123def456"
 
 
@@ -330,12 +330,12 @@ def test_validate_patch_scope_case_sensitivity(scope_validator):
         'files_scope': ['src/Module.py'],
         'files_create': []
     }
-    
+
     # Different case should be treated as different file
     patch_files = ['src/module.py']
-    
+
     result = scope_validator.validate_patch_scope(patch_files, bundle)
-    
+
     # On case-sensitive filesystems, this should fail
     # On Windows (case-insensitive), paths might normalize the same
     # So we just verify the validator handles it without error
@@ -345,7 +345,7 @@ def test_validate_patch_scope_case_sensitivity(scope_validator):
 def test_timeout_result_defaults():
     """Test TimeoutResult default values"""
     result = TimeoutResult(timed_out=False)
-    
+
     assert result.timed_out is False
     assert result.reason is None
     assert result.wall_time_sec == 0.0
@@ -356,9 +356,9 @@ def test_timeout_result_defaults():
 def test_scope_validator_allowed_files_list(scope_validator, sample_bundle):
     """Test that allowed files list is populated correctly"""
     patch_files = ['src/module.py']
-    
+
     result = scope_validator.validate_patch_scope(patch_files, sample_bundle)
-    
+
     assert len(result.allowed_files) > 0
     assert 'src/module.py' in result.allowed_files
     assert 'docs/new_doc.md' in result.allowed_files

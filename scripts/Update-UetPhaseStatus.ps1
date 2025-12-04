@@ -12,7 +12,7 @@
         -PlanPath 'plans/WEEK2.yaml' `
         -PhaseId 'PH-W2D1' `
         -Status 'in_progress'
-    
+
 .EXAMPLE
     # Update and immediately sync to GitHub
     pwsh scripts/Update-UetPhaseStatus.ps1 `
@@ -27,19 +27,19 @@ param(
     # Path to phase plan YAML
     [Parameter(Mandatory = $true)]
     [string]$PlanPath,
-    
+
     # Phase ID to update
     [Parameter(Mandatory = $true)]
     [string]$PhaseId,
-    
+
     # New status value
     [Parameter(Mandatory = $true)]
     [ValidateSet('not_started', 'in_progress', 'done', 'blocked')]
     [string]$Status,
-    
+
     # If set, automatically sync to GitHub after updating
     [switch]$SyncToGitHub,
-    
+
     # Git commit message (if not set, no commit)
     [Parameter(Mandatory = $false)]
     [string]$CommitMessage
@@ -116,7 +116,7 @@ if ($CommitMessage) {
 # Optional: Sync to GitHub
 if ($SyncToGitHub) {
     Write-Host "`nSyncing status to GitHub Project..."
-    
+
     $syncScript = Join-Path $PSScriptRoot "Sync-UetPhaseStatusToGitHub.ps1"
     if (-not (Test-Path $syncScript)) {
         Write-Warning "Sync script not found at '$syncScript', skipping GitHub sync"

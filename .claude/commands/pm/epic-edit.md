@@ -54,7 +54,7 @@ gh issue edit {issue_number} --body-file .claude/epics/$ARGUMENTS/epic.md
 ```
 ✅ Updated epic: $ARGUMENTS
   Changes made to: {sections_edited}
-  
+
 {If GitHub updated}: GitHub issue updated ✅
 
 View epic: /pm:epic-show $ARGUMENTS

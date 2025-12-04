@@ -4,8 +4,8 @@ doc_id: DOC-SPEC-README-038
 
 # Schema Definitions
 
-> **Purpose**: JSON/YAML/SQL schemas defining workstream and sidecar metadata contracts  
-> **Last Updated**: 2025-11-22  
+> **Purpose**: JSON/YAML/SQL schemas defining workstream and sidecar metadata contracts
+> **Last Updated**: 2025-11-22
 > **Status**: Production
 
 ---

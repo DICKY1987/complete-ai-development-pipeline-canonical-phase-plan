@@ -9,10 +9,10 @@ layer: "infra"  # Infrastructure - foundational testing
 entry_points:
   - command: "pytest tests/"
     description: "Run all tests"
-    
+
   - command: "pytest tests/core/"
     description: "Run core module tests"
-    
+
   - command: "pytest --cov=core --cov=error --cov-report=html"
     description: "Run tests with coverage"
 
@@ -30,18 +30,18 @@ test_structure:
   unit_tests: "tests/<module>/test_<file>.py"
   integration_tests: "tests/integration/test_<workflow>.py"
   fixtures: "tests/fixtures/ and tests/conftest.py"
-  
+
 # Common tasks
 common_tasks:
   - task: "Run all tests"
     command: "pytest tests/"
-    
+
   - task: "Run specific module tests"
     command: "pytest tests/core/"
-    
+
   - task: "Run with coverage"
     command: "pytest --cov=core --cov=error --cov-report=html"
-    
+
   - task: "Run specific test"
     command: "pytest tests/core/test_orchestrator.py::test_run_plan"
 
@@ -77,7 +77,7 @@ dependencies:
     - pytest
     - pytest-cov
     - pytest-mock
-    
+
 # Status
 status:
   maturity: "stable"

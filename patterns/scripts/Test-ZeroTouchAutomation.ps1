@@ -63,7 +63,7 @@ if ($totalFiles -eq 0) {
 # Quick test: Just parse logs
 if ($QuickTest) {
     Write-Host "`n[4/5] Quick Test: Parsing Logs..." -ForegroundColor Yellow
-    
+
     $testScript = @"
 import sys
 import os
@@ -90,16 +90,16 @@ if requests:
     for i, r in enumerate(requests[:3], 1):
         print(f'  {i}. [{r.source}] {r.user_message[:60]}...')
 "@
-    
+
     $testScript | python
-    
+
     if ($LASTEXITCODE -eq 0) {
         Write-Host "`n✅ Quick Test PASSED" -ForegroundColor Green
     } else {
         Write-Host "`n❌ Quick Test FAILED" -ForegroundColor Red
         exit 1
     }
-    
+
     exit 0
 }
 
@@ -119,12 +119,12 @@ Write-Host "`n[5/5] Checking Results..." -ForegroundColor Yellow
 
 if ($exitCode -eq 0) {
     Write-Host "  ✓ Workflow completed successfully" -ForegroundColor Green
-    
+
     # Check generated files
     $reportsDir = Join-Path $PatternsDir "reports\zero_touch"
     $draftsDir = Join-Path $PatternsDir "drafts"
     $specsDir = Join-Path $PatternsDir "specs"
-    
+
     if (Test-Path $reportsDir) {
         $reports = Get-ChildItem $reportsDir -Filter "*.md" -ErrorAction SilentlyContinue
         if ($reports) {
@@ -132,13 +132,13 @@ if ($exitCode -eq 0) {
             Write-Host "`n  📊 Report Generated:" -ForegroundColor Cyan
             Write-Host "     $($latest.Name)" -ForegroundColor White
             Write-Host "     Size: $([math]::Round($latest.Length/1KB, 1)) KB" -ForegroundColor Gray
-            
+
             # Open report
             Write-Host "`n  Opening report..." -ForegroundColor Gray
             code $latest.FullName
         }
     }
-    
+
     if (Test-Path "$draftsDir\AUTO-*.pattern.yaml") {
         $drafts = Get-ChildItem "$draftsDir\AUTO-*.pattern.yaml" -ErrorAction SilentlyContinue
         Write-Host "`n  📝 Pattern Drafts: $($drafts.Count)" -ForegroundColor Cyan
@@ -146,7 +146,7 @@ if ($exitCode -eq 0) {
             Write-Host "     - $($_.Name)" -ForegroundColor White
         }
     }
-    
+
     if (Test-Path "$specsDir\AUTO-*.pattern.yaml") {
         $specs = Get-ChildItem "$specsDir\AUTO-*.pattern.yaml" -ErrorAction SilentlyContinue
         Write-Host "`n  ✅ Auto-Approved Patterns: $($specs.Count)" -ForegroundColor Green
@@ -154,18 +154,18 @@ if ($exitCode -eq 0) {
             Write-Host "     - $($_.Name)" -ForegroundColor White
         }
     }
-    
+
     Write-Host "`n╔════════════════════════════════════════════════════════════════╗" -ForegroundColor Green
     Write-Host "║  ✅ TEST SUCCESSFUL - System Working!                          ║" -ForegroundColor Green
     Write-Host "╚════════════════════════════════════════════════════════════════╝`n" -ForegroundColor Green
-    
+
     Write-Host "Next Steps:" -ForegroundColor Cyan
     Write-Host "  1. Review report (opened in editor)" -ForegroundColor White
     Write-Host "  2. Install nightly task:" -ForegroundColor White
     Write-Host "     .\scripts\Schedule-ZeroTouchAutomation.ps1 -Action install" -ForegroundColor Gray
     Write-Host "  3. Check status tomorrow:" -ForegroundColor White
     Write-Host "     .\scripts\Schedule-ZeroTouchAutomation.ps1 -Action status" -ForegroundColor Gray
-    
+
 } else {
     Write-Host "  ❌ Workflow failed (exit code: $exitCode)" -ForegroundColor Red
     Write-Host "`n  Check error messages above for details." -ForegroundColor Yellow

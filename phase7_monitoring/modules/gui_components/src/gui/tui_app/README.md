@@ -80,17 +80,17 @@ class MyPanel:
     @property
     def panel_id(self) -> str:
         return "my_panel"
-    
+
     @property
     def title(self) -> str:
         return "My Panel"
-    
+
     def create_widget(self, context: PanelContext) -> Static:
         return Static("Panel content")
-    
+
     def on_mount(self, context: PanelContext) -> None:
         pass
-    
+
     def on_unmount(self, context: PanelContext) -> None:
         pass
 ```

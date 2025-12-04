@@ -53,7 +53,7 @@ def _repo_root() -> Path:
 
 def load_config() -> Dict[str, Any]:
     """Load circuit breaker config from invoke.yaml, else return defaults.
-    
+
     Migrated from config/circuit_breakers.yaml to invoke.yaml in Phase G.
     Falls back to legacy files for backward compatibility with deprecation warning.
     """
@@ -77,7 +77,7 @@ def load_config() -> Dict[str, Any]:
             return result
     except Exception:
         pass
-    
+
     # Fall back to legacy config files with deprecation warning
     root = _repo_root()
     ypath = root / "config" / "circuit_breakers.yaml"

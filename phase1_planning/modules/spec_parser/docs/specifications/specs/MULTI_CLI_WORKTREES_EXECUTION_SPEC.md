@@ -17,10 +17,10 @@ You can save this as:
 ````markdown
 # MULTI_CLI_WORKTREES_EXECUTION_SPEC
 
-**Status**: DRAFT  
-**Version**: 0.1.0  
-**Scope**: Running multiple instances of CLI tools across git worktrees  
-**Audience**: AI agents (Copilot CLI, Claude Code, etc.) and humans  
+**Status**: DRAFT
+**Version**: 0.1.0
+**Scope**: Running multiple instances of CLI tools across git worktrees
+**Audience**: AI agents (Copilot CLI, Claude Code, etc.) and humans
 
 ---
 

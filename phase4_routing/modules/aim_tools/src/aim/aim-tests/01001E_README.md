@@ -4,9 +4,9 @@ doc_id: DOC-GUIDE-01001E-README-1475
 
 # AIM Tests
 
-**Module ID**: aim-tests  
-**ULID Prefix**: 01001E  
-**Layer**: api  
+**Module ID**: aim-tests
+**ULID Prefix**: 01001E
+**Layer**: api
 **Source**: aim\tests
 
 ## Purpose
@@ -31,5 +31,5 @@ None (independent module)
 
 ---
 
-**Created**: 1764168248.458027  
+**Created**: 1764168248.458027
 **Status**: Proof-of-concept module

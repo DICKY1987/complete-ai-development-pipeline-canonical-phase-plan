@@ -1,10 +1,10 @@
 # Execution Pattern: EXEC-HYBRID-003 - Module Documentation Generation
 
-**Pattern ID**: EXEC-HYBRID-003  
-**Date**: 2025-12-03  
-**Purpose**: Generate module-specific documentation from existing docs  
-**Scope**: 31 modules × 3-5 doc files each  
-**Estimated Time**: 45 minutes  
+**Pattern ID**: EXEC-HYBRID-003
+**Date**: 2025-12-03
+**Purpose**: Generate module-specific documentation from existing docs
+**Scope**: 31 modules × 3-5 doc files each
+**Estimated Time**: 45 minutes
 **Speedup**: 6x faster than manual (4.5h → 45min)
 
 ---
@@ -27,7 +27,7 @@
 - api.md - Public API reference (auto-generated from code)
 - README.md - Module overview (already created in EXEC-HYBRID-001)
 
-**Generation Strategy**: Template-based with code introspection  
+**Generation Strategy**: Template-based with code introspection
 **Success**: Each module has architecture.md + usage.md
 
 **NOT Deciding**:
@@ -45,8 +45,8 @@
 ```markdown
 # {module_name} Architecture
 
-**Module**: {module_name}  
-**Phase**: {phase_number}  
+**Module**: {module_name}
+**Phase**: {phase_number}
 **Layer**: {layer}
 
 ## Overview
@@ -140,8 +140,8 @@ foreach ($module in $modules) {
     $doc = @"
 # $($module.Name) Architecture
 
-**Module**: $($module.Name)  
-**Phase**: $($module.Phase)  
+**Module**: $($module.Name)
+**Phase**: $($module.Phase)
 
 ## Overview
 
@@ -165,7 +165,7 @@ See module imports in source code.
 
 See ADR (Architecture Decision Records) if available.
 "@
-    
+
     $docsPath = "$($module.Path)/docs"
     New-Item -ItemType Directory -Path $docsPath -Force | Out-Null
     $doc | Out-File "$docsPath/architecture.md" -Encoding UTF8
@@ -186,10 +186,10 @@ $modules = Get-ChildItem "phase*/modules/*" -Directory -Recurse -Depth 1
 foreach ($module in $modules) {
     $moduleName = $module.Name
     $srcPath = Join-Path $module.FullName "src"
-    
+
     # Check if module has Python code
     $hasPython = (Get-ChildItem $srcPath -Filter "*.py" -Recurse -ErrorAction SilentlyContinue).Count -gt 0
-    
+
     if ($hasPython) {
         $doc = @"
 # $moduleName Usage Guide
@@ -231,7 +231,7 @@ See ``config/`` directory for configuration options.
 
 See ``api.md`` for full API documentation.
 "@
-        
+
         $docsPath = Join-Path $module.FullName "docs"
         New-Item -ItemType Directory -Path $docsPath -Force | Out-Null
         $doc | Out-File "$docsPath/usage.md" -Encoding UTF8
@@ -258,29 +258,29 @@ def generate_api_docs(module_path):
     """Generate API documentation from Python source code."""
     module_name = os.path.basename(module_path)
     src_path = os.path.join(module_path, "src")
-    
+
     if not os.path.exists(src_path):
         return
-    
+
     # Find all Python files
     py_files = list(Path(src_path).rglob("*.py"))
-    
+
     doc = f"# {module_name} API Reference\n\n"
     doc += "**Auto-generated from source code**\n\n"
-    
+
     for py_file in py_files:
         if "__init__.py" in str(py_file) or "__pycache__" in str(py_file):
             continue
-            
+
         doc += f"## {py_file.stem}\n\n"
-        
+
         # Read file content
         with open(py_file, 'r', encoding='utf-8') as f:
             content = f.read()
-        
+
         # Extract functions and classes (simple regex approach)
         import re
-        
+
         # Find functions
         functions = re.findall(r'^def (\w+)\((.*?)\):', content, re.MULTILINE)
         if functions:
@@ -289,7 +289,7 @@ def generate_api_docs(module_path):
                 if not func_name.startswith('_'):  # Only public functions
                     doc += f"- `{func_name}({params})`\n"
             doc += "\n"
-        
+
         # Find classes
         classes = re.findall(r'^class (\w+).*?:', content, re.MULTILINE)
         if classes:
@@ -298,14 +298,14 @@ def generate_api_docs(module_path):
                 if not class_name.startswith('_'):  # Only public classes
                     doc += f"- `{class_name}`\n"
             doc += "\n"
-    
+
     # Write API doc
     docs_path = os.path.join(module_path, "docs")
     os.makedirs(docs_path, exist_ok=True)
-    
+
     with open(os.path.join(docs_path, "api.md"), 'w', encoding='utf-8') as f:
         f.write(doc)
-    
+
     print(f"✅ Generated api.md for {module_name}")
 
 # Find all modules
@@ -335,7 +335,7 @@ foreach ($module in $modules) {
     $docsPath = Join-Path $module.FullName "docs"
     $hasArchitecture = Test-Path "$docsPath/architecture.md"
     $hasUsage = Test-Path "$docsPath/usage.md"
-    
+
     if (-not $hasArchitecture -or -not $hasUsage) {
         Write-Host "❌ Missing docs: $($module.Name)" -ForegroundColor Red
     } else {

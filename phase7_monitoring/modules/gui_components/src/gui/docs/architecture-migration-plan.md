@@ -89,11 +89,11 @@ doc_id: DOC-GUIDE-ARCHITECTURE-MIGRATION-PLAN-1411
                |
   |----------|-------------------------------------|------------------------
   -------------|
-  | State    | core/state/ → engine/state_store/   | ADAPTER_ROLE: 
+  | State    | core/state/ → engine/state_store/   | ADAPTER_ROLE:
   state_store           |
-  | Engine   | core/engine/ → engine/orchestrator/ | ADAPTER_ROLE: 
+  | Engine   | core/engine/ → engine/orchestrator/ | ADAPTER_ROLE:
   job_orchestrator      |
-  | Adapters | NEW engine/adapters/                | ADAPTER_ROLE: 
+  | Adapters | NEW engine/adapters/                | ADAPTER_ROLE:
   terminal_tool_adapter |
   | Planning | core/planning/                      | Workstream/job
   generation           |
@@ -127,7 +127,7 @@ doc_id: DOC-GUIDE-ARCHITECTURE-MIGRATION-PLAN-1411
            State Store ← All sections read/write
 
   Key Rule from doc:
-  "GUI code never directly calls tools like Aider/Codex. It only talks to 
+  "GUI code never directly calls tools like Aider/Codex. It only talks to
   /engine/orchestrator.py and reads state from /engine/job_state_store.py"
 
   ---
@@ -153,7 +153,7 @@ doc_id: DOC-GUIDE-ARCHITECTURE-MIGRATION-PLAN-1411
       duration_s: float
 
   ---
-  
+
      ╭─────────────────────────────────────────────────────────────────────────╮
      │ Plan: Map core/ Structure to engine/ Hybrid Architecture                │
      │                                                                         │

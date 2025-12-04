@@ -27,7 +27,7 @@ artifacts:
     - path: "010002_planner.py"
       ulid: "01000200000000000000000003"
       entry_point: false
-  
+
   tests: []
   schemas: []
   docs:

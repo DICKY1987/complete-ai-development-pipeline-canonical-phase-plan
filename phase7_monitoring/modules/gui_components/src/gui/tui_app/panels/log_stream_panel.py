@@ -58,23 +58,23 @@ class LogStreamWidget(Vertical):
 @register_panel("log_stream")
 class LogStreamPanel:
     """Panel showing real-time log stream from pipeline."""
-    
+
     @property
     def panel_id(self) -> str:
         return "log_stream"
-    
+
     @property
     def title(self) -> str:
         return "Log Stream"
-    
+
     def create_widget(self, context: PanelContext) -> LogStreamWidget:
         """Create log stream widget."""
         return LogStreamWidget(context)
-    
+
     def on_mount(self, context: PanelContext) -> None:
         """Called when panel is mounted."""
         pass
-    
+
     def on_unmount(self, context: PanelContext) -> None:
         """Called when panel is unmounted."""
         pass

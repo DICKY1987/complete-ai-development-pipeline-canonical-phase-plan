@@ -31,28 +31,28 @@ all_deltas = []
 for batch_file in batch_files:
     print(f'\nProcessing: {batch_file.name}')
     batch = yaml.safe_load(batch_file.read_text(encoding='utf-8'))
-    
+
     category = batch['category']
-    
+
     # Get category data
     if category not in registry_data['categories']:
         print(f'  ERROR: Unknown category {category}')
         continue
-        
+
     cat_data = registry_data['categories'][category]
     prefix = cat_data['prefix']
     next_id = cat_data['next_id']
-    
+
     batch_deltas = []
-    
+
     for item in batch['items']:
         logical_name = item['logical_name']
         title = item['title']
         artifacts = item['artifacts']
-        
+
         # Generate doc_id
         doc_id = f"DOC-{prefix}-{logical_name}-{next_id:03d}"
-        
+
         # Create delta entry
         delta = {
             'doc_id': doc_id,
@@ -64,14 +64,14 @@ for batch_file in batch_files:
             'created': datetime.now().strftime('%Y-%m-%d'),
             'batch_id': batch['batch_id']
         }
-        
+
         batch_deltas.append(delta)
         all_deltas.append(delta)
-        
+
         print(f'  ✓ {doc_id}: {title}')
-        
+
         next_id += 1
-    
+
     # Update category counter (in-memory only)
     cat_data['next_id'] = next_id
     cat_data['count'] = cat_data.get('count', 0) + len(batch_deltas)

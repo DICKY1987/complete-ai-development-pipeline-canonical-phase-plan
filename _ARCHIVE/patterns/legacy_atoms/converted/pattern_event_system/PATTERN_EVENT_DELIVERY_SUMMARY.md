@@ -4,7 +4,7 @@ doc_id: DOC-PAT-PATTERN-EVENT-DELIVERY-SUMMARY-807
 
 # Pattern Event System - Delivery Summary
 
-**Status**: ✅ **Complete and Validated**  
+**Status**: ✅ **Complete and Validated**
 **Date**: 2025-11-26
 
 ## What Was Delivered
@@ -124,8 +124,8 @@ Existing Engine           Pattern Event System         Storage
 ───────────────           ────────────────────         ───────
 engine/orchestrator  ──→  emit_pattern_event()   ──→  state/events/*.jsonl
 engine/pattern_executor   PatternRunAggregator   ──→  engine/state_store (DB)
-core/engine/*                                          
-                                                       
+core/engine/*
+
 GUI (Phase 3)        ←──  GET /api/pattern-events ←──  JSONL + DB
 ```
 

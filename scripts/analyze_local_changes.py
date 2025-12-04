@@ -47,7 +47,7 @@ def get_untracked_files() -> List[str]:
 def categorize_file(filepath: str) -> str:
     """Categorize file based on path and type."""
     path = Path(filepath)
-    
+
     # Generated/cache files - discard
     discard_patterns = [
         "__pycache__",
@@ -62,38 +62,38 @@ def categorize_file(filepath: str) -> str:
         "venv",
         ".git",
     ]
-    
+
     for pattern in discard_patterns:
         if pattern in str(path):
             return "discard"
-    
+
     # Temporary/backup files - discard
     if path.suffix in [".tmp", ".bak", ".swp", ".log"]:
         return "discard"
-    
+
     # Documentation - merge
     doc_patterns = ["docs/", "README", ".md", "CHANGELOG"]
     for pattern in doc_patterns:
         if pattern in str(path):
             return "merge"
-    
+
     # Configuration - review carefully
     config_patterns = [".yaml", ".yml", ".json", ".toml", "config/", ".env"]
     for pattern in config_patterns:
         if pattern in str(path):
             return "review"
-    
+
     # Source code - keep local
     if path.suffix in [".py", ".js", ".ts", ".go", ".rs"]:
         # But scripts might be generated
         if "scripts/" in str(path):
             return "review"
         return "keep_local"
-    
+
     # Tests - keep local
     if "test" in str(path).lower():
         return "keep_local"
-    
+
     # Default: review
     return "review"
 
@@ -104,10 +104,10 @@ def analyze_file_content(filepath: str) -> Dict[str, any]:
         path = Path(filepath)
         if not path.exists():
             return {"exists": False}
-        
+
         stat = path.stat()
         content_sample = ""
-        
+
         # Read first 5 lines for text files
         if path.suffix in [".py", ".md", ".txt", ".yaml", ".json"]:
             try:
@@ -116,7 +116,7 @@ def analyze_file_content(filepath: str) -> Dict[str, any]:
                     content_sample = "".join(lines)
             except Exception:
                 content_sample = "<binary or unreadable>"
-        
+
         return {
             "exists": True,
             "size_bytes": stat.st_size,
@@ -131,12 +131,12 @@ def main():
     parser = argparse.ArgumentParser(description="Analyze local changes")
     parser.add_argument("--output", required=True, help="Output YAML file path")
     args = parser.parse_args()
-    
+
     # Collect all changes
     modified = get_modified_files()
     staged = get_staged_files()
     untracked = get_untracked_files()
-    
+
     # Categorize changes
     analysis = {
         "summary": {
@@ -153,7 +153,7 @@ def main():
         },
         "files": {},
     }
-    
+
     # Process all files
     all_files = set(modified + staged + untracked)
     for filepath in all_files:
@@ -163,17 +163,17 @@ def main():
             "status": [],
             "analysis": analyze_file_content(filepath),
         }
-        
+
         if filepath in modified:
             file_info["status"].append("modified")
         if filepath in staged:
             file_info["status"].append("staged")
         if filepath in untracked:
             file_info["status"].append("untracked")
-        
+
         analysis["files"][filepath] = file_info
         analysis["categories"][category].append(filepath)
-    
+
     # Add recommendations
     analysis["recommendations"] = {
         "keep_local": {
@@ -193,14 +193,14 @@ def main():
             "action": "Safe to discard - generated or temporary files",
         },
     }
-    
+
     # Write output
     output_path = Path(args.output)
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    
+
     with open(output_path, "w") as f:
         yaml.dump(analysis, f, sort_keys=False, default_flow_style=False)
-    
+
     print(f"✅ Analysis complete: {output_path}")
     print(f"\nSummary:")
     print(f"  Total files: {analysis['summary']['total_files']}")

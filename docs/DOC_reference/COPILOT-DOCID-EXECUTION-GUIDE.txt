@@ -8,9 +8,9 @@ doc_id: DOC-GUIDE-COPILOT-DOCID-EXECUTION-GUIDE-1027
 ````markdown
 # COPILOT-DOCID-EXECUTION-GUIDE
 
-**Status**: DRAFT  
-**Audience**: GitHub Copilot CLI / AI coding assistants  
-**Scope**: `complete-ai-development-pipeline-canonical-phase-plan` repository  
+**Status**: DRAFT
+**Audience**: GitHub Copilot CLI / AI coding assistants
+**Scope**: `complete-ai-development-pipeline-canonical-phase-plan` repository
 **Purpose**: Explain how to work with the DOC_ID system in a deterministic, safe way, correcting the inefficiencies from the first DOC_ID rollout.
 
 ---
@@ -43,9 +43,9 @@ You must treat Markdown docs as belonging to one of these classes:
 
 **File locations:**
 
-- `docs/**/DOC_*.md` – Global canonical docs  
-- `workstreams/plans/**/PLAN_*.md` – Plan docs  
-- `modules/**/DOC_*.md` – Module-local canonical docs  
+- `docs/**/DOC_*.md` – Global canonical docs
+- `workstreams/plans/**/PLAN_*.md` – Plan docs
+- `modules/**/DOC_*.md` – Module-local canonical docs
 - `developer/**/_DEV_*.md|.txt` – Scratch / temp dev docs
 
 ### 2.2 ID Eligibility
@@ -59,7 +59,7 @@ A Markdown file is **ID-eligible** *only if*:
 2. Its name does **not** start with `_DEV_` or `_`
 3. Its extension is `.md`
 4. Its front matter either:
-   - already has a `doc_id`, or  
+   - already has a `doc_id`, or
    - has `status` in `{canonical, draft}`
 
 All other files (especially `_DEV_*` and `.txt`) are **not** ID-eligible and must never be given `doc_id`s.

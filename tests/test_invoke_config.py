@@ -84,14 +84,14 @@ def test_get_error_engine_config():
 def test_config_hierarchy_defaults():
     """Config provides sensible defaults."""
     config = load_project_config()
-    
+
     # Tools section should exist
     assert 'tools' in config
-    
+
     # Core tools should be defined
     assert 'aider' in config['tools']
     assert 'pytest' in config['tools']
-    
+
     # Paths should have defaults
     paths = get_paths_config(config)
     assert paths.get('repo_root') == '.'
@@ -117,7 +117,7 @@ def test_environment_variable_support():
     # (Invoke doesn't natively support INVOKE_* vars for custom sections)
     config = load_project_config()
     assert config is not None
-    
+
     # Document expected pattern
     # os.environ['INVOKE_TOOLS_PYTEST_TIMEOUT'] = '900'
     # Would require custom env var loader in config_loader.py
@@ -128,12 +128,12 @@ def test_legacy_config_fallback():
     # Import tools module which has legacy fallback
     import warnings
     from modules.core_engine import m010001_tools
-    
+
     # Loading should work (falls back to invoke.yaml)
     with warnings.catch_warnings(record=True) as w:
         warnings.simplefilter("always")
         profiles = tools.load_tool_profiles()
-        
+
         # Should load successfully from invoke.yaml
         assert profiles is not None
         assert 'pytest' in profiles
@@ -142,7 +142,7 @@ def test_legacy_config_fallback():
 def test_circuit_breaker_config_migration():
     """Circuit breaker config migrates from legacy structure."""
     from modules.core_engine import m010001_circuit_breakers
-    
+
     config = circuit_breakers.load_config()
     assert 'defaults' in config
     assert 'max_attempts_per_step' in config['defaults']
@@ -151,7 +151,7 @@ def test_circuit_breaker_config_migration():
 def test_config_validation():
     """Config contains required sections."""
     config = load_project_config()
-    
+
     required_sections = ['tools', 'orchestrator', 'paths', 'circuit_breakers']
     for section in required_sections:
         assert section in config, f"Missing required section: {section}"
@@ -161,7 +161,7 @@ def test_tool_timeout_consistency():
     """Tool timeouts are reasonable values."""
     config = load_project_config()
     tools = config.get('tools', {})
-    
+
     for tool_id, tool_cfg in tools.items():
         if 'timeout' in tool_cfg:
             timeout = tool_cfg['timeout']

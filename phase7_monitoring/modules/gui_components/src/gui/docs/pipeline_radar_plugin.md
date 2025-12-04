@@ -14,9 +14,9 @@ Below is a modular design that fits your existing architecture (runs/workstreams
 
 Under the hood you already have multiple state systems:
 
-* **Runs / workstreams** in SQLite (`runs.status`, `workstreams.status`) 
-* **Orchestrator steps:** EDIT → STATIC → RUNTIME 
-* **Error pipeline states:** S0…S4, S_SUCCESS, S4_QUARANTINE, S_ERROR_INFRA 
+* **Runs / workstreams** in SQLite (`runs.status`, `workstreams.status`)
+* **Orchestrator steps:** EDIT → STATIC → RUNTIME
+* **Error pipeline states:** S0…S4, S_SUCCESS, S4_QUARANTINE, S_ERROR_INFRA
 
 For the GUI, collapse that into a small set of **display statuses**:
 
@@ -29,7 +29,7 @@ For the GUI, collapse that into a small set of **display statuses**:
   (derived from error pipeline state + `current_agent`)
 * `Completed` (db: `status = 'done'`)
 * `Failed` (db: `status = 'failed'`, error state not quarantine)
-* `Quarantined` (error state `S4_QUARANTINE`) 
+* `Quarantined` (error state `S4_QUARANTINE`)
 
 **Per file**
 
@@ -41,16 +41,16 @@ For the GUI, collapse that into a small set of **display statuses**:
 
 The GUI panel will **compute these derived statuses** using only read-queries on:
 
-* `workstreams.files_scope` (from metadata_json) 
+* `workstreams.files_scope` (from metadata_json)
 * `workstreams.status`
-* `errors` + error pipeline context (for quarantine vs success) 
+* `errors` + error pipeline context (for quarantine vs success)
 * error pipeline DB if you wire it in later.
 
 ---
 
 ## 2. Top-level layout: the “Pipeline Radar” panel
 
-Make it a **plugin panel** in PH-07, e.g. `file_pipeline_panel.py`, with its own manifest in `config/plugins/file_pipeline.plugin.json` (fits your planned GUI plugin system). 
+Make it a **plugin panel** in PH-07, e.g. `file_pipeline_panel.py`, with its own manifest in `config/plugins/file_pipeline.plugin.json` (fits your planned GUI plugin system).
 
 ### Layout idea (3 bands)
 
@@ -89,17 +89,17 @@ Make it a **plugin panel** in PH-07, e.g. `file_pipeline_panel.py`, with its own
 
 * **Waiting** – `workstreams.status = 'pending'`
 * **Running** – `status in ('started', 'editing', 'static_check', 'runtime_tests')`
-* **Fixing** – derived from error state in `S0_MECHANICAL_AUTOFIX` / `S1_AIDER_FIX` / etc. 
+* **Fixing** – derived from error state in `S0_MECHANICAL_AUTOFIX` / `S1_AIDER_FIX` / etc.
 * **Quarantine** – final error state `S4_QUARANTINE`
 * **Completed** – `workstreams.status = 'done'`
 
 Each **card = one workstream**:
 
-* **Header:** `ws-id` (e.g., `ws-hello-world`) 
-* **Badges:** `openspec_change`, `ccpm_issue`, `gate` 
+* **Header:** `ws-id` (e.g., `ws-hello-world`)
+* **Badges:** `openspec_change`, `ccpm_issue`, `gate`
 * **Files:** `files_scope` count, hover → quick list
 * **Tool:** `tool` (e.g. aider / codex)
-* **Current step:** EDIT / STATIC / RUNTIME / FIX(Aider) / etc. (derived from last `step_attempt.step_name`) 
+* **Current step:** EDIT / STATIC / RUNTIME / FIX(Aider) / etc. (derived from last `step_attempt.step_name`)
 
 **Interactions:**
 
@@ -118,7 +118,7 @@ You explicitly want **“where a file is in the pipeline”**, so this view is k
 
 Build a read-API or query in `state_client.py` (PH-07) that:
 
-1. Reads **all workstreams** and their `metadata_json.files_scope`. 
+1. Reads **all workstreams** and their `metadata_json.files_scope`.
 2. Builds a map: `file_path -> [workstream_ids]`.
 3. For the selected run, fetches `workstreams.status`, recent `step_attempts`, and last known error state.
 
@@ -171,7 +171,7 @@ Because quarantine is a big deal for your error pipeline, give it a dedicated vi
 
   * `Quarantined files: N`
   * `Quarantined workstreams: M`
-  * `Top error signatures` (from `errors.signature` with counts) 
+  * `Top error signatures` (from `errors.signature` with counts)
 
 * **Main list/table**
 
@@ -197,7 +197,7 @@ Design the panel as **one plugin** in the PH-07 plugin ecosystem so it composes 
   * `state_client` for DB queries (runs, workstreams, step_attempts, errors).
   * `logs_client` for event log drill-downs.
   * `config_client` for session filters (e.g., default run, default view).
-* **Emits no direct DB writes** (respecting GUI permissions matrix). 
+* **Emits no direct DB writes** (respecting GUI permissions matrix).
 * **Subscribes to an event bus** / polling tick:
 
   * e.g. `engine_client` emits “run_updated”, “workstream_updated”.

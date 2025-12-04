@@ -17,7 +17,7 @@ This repository uses a **machine-readable, patch-friendly checklist system** to 
 ### Core Components
 
 1. **`.ai-orch/checklists/repo_checklist.json`** - Main checklist specification
-2. **`.folder_checklist.json` files** (optional) - Folder-specific rules  
+2. **`.folder_checklist.json` files** (optional) - Folder-specific rules
 3. **`scripts/validate/validate_repo_checklist.ps1`** - Generic validator
 4. **`.state/` directory** - Repository state tracking
 

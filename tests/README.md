@@ -58,10 +58,10 @@ Core workstream execution and orchestration.
 ```python
 def test_load_workstream_bundle(temp_db):
     from core.state.bundles import load_workstream_bundle
-    
+
     bundle_path = "workstreams/example_single.json"
     bundle = load_workstream_bundle(bundle_path)
-    
+
     assert bundle["workstream_id"] == "example-single"
     assert len(bundle["steps"]) > 0
 ```
@@ -80,10 +80,10 @@ Error detection state machine and plugin execution.
 def test_state_machine_transitions():
     from error.engine.error_state_machine import advance_state
     from error.engine.error_context import ErrorPipelineContext
-    
+
     ctx = ErrorPipelineContext()
     ctx.current_state = "S_INIT"
-    
+
     advance_state(ctx)
     assert ctx.current_state == "S0_BASELINE_CHECK"
 ```
@@ -101,13 +101,13 @@ Individual plugin behavior and output parsing.
 ```python
 def test_ruff_plugin_execute(tmp_path):
     from error.plugins.python_ruff.plugin import register
-    
+
     test_file = tmp_path / "test.py"
     test_file.write_text("import os\nimport sys\n")  # Unused imports
-    
+
     plugin = register()
     result = plugin.execute(test_file)
-    
+
     assert result.plugin_id == "python_ruff"
     assert len(result.issues) > 0
 ```
@@ -124,12 +124,12 @@ Cross-system tests validating full workflows.
 ```python
 def test_full_workstream_execution(temp_db):
     from scripts.run_workstream import run_workstream
-    
+
     result = run_workstream(
         workstream_id="test-workstream",
         dry_run=True
     )
-    
+
     assert result["status"] == "success"
 ```
 
@@ -156,7 +156,7 @@ def test_no_deprecated_imports():
     """Ensure no code uses deprecated import paths."""
     from pathlib import Path
     import ast
-    
+
     for py_file in Path("core").rglob("*.py"):
         tree = ast.parse(py_file.read_text())
         for node in ast.walk(tree):
@@ -257,14 +257,14 @@ def temp_db():
     """Create a temporary test database."""
     with tempfile.NamedTemporaryFile(mode='w', suffix='.db', delete=False) as f:
         db_path = f.name
-    
+
     os.environ['PIPELINE_DB_PATH'] = db_path
-    
+
     from core.state.db import init_db
     init_db(db_path)
-    
+
     yield db_path
-    
+
     try:
         os.unlink(db_path)
     except Exception:
@@ -313,7 +313,7 @@ Tests run automatically on every commit via GitHub Actions.
 ```yaml
 - name: Run tests
   run: pytest -v --cov=core --cov=error --cov=specifications
-  
+
 - name: Check CI path standards
   run: pytest tests/test_ci_path_standards.py -v
 ```
@@ -403,10 +403,10 @@ def test_my_feature(temp_db, tmp_path):
     # Arrange
     test_file = tmp_path / "test.txt"
     test_file.write_text("content")
-    
+
     # Act
     result = my_function(test_file)
-    
+
     # Assert
     assert result == expected_value, "Result should match expected value"
 ```

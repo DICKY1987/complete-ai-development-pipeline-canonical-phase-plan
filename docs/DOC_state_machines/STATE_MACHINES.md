@@ -6,7 +6,7 @@ doc_id: DOC-GUIDE-STATE-MACHINES-397
 
 **Purpose:** Document state machines with visual diagrams, transition rules, and recovery procedures.
 
-**Last Updated:** 2025-11-22  
+**Last Updated:** 2025-11-22
 **Maintainer:** System Architecture Team
 
 ---
@@ -137,30 +137,30 @@ def transition_workstream(conn, ws_id, to_state, metadata=None):
     row = cur.fetchone()
     if not row:
         raise ValueError(f"Workstream {ws_id} not found")
-    
+
     from_state = WorkstreamState(row[0])
     to_state_enum = WorkstreamState(to_state)
-    
+
     # Validate transition
     if to_state_enum not in VALID_TRANSITIONS[from_state]:
         raise InvalidTransitionError(
             f"Cannot transition from {from_state.value} to {to_state_enum.value}"
         )
-    
+
     # Perform transition
     conn.execute(
         "UPDATE workstreams SET state = ?, updated_at = CURRENT_TIMESTAMP WHERE ws_id = ?",
         (to_state, ws_id)
     )
-    
+
     # Log transition
     conn.execute(
-        """INSERT INTO state_transitions 
+        """INSERT INTO state_transitions
            (ws_id, from_state, to_state, transitioned_at, metadata)
            VALUES (?, ?, ?, CURRENT_TIMESTAMP, ?)""",
         (ws_id, from_state.value, to_state_enum.value, json.dumps(metadata or {}))
     )
-    
+
     conn.commit()
 ```
 
@@ -230,16 +230,16 @@ def can_execute_step(conn, step_id):
     # Get step dependencies
     step = get_step(conn, step_id)
     depends_on = step.get('depends_on', [])
-    
+
     if not depends_on:
         return True  # No dependencies
-    
+
     # Check each dependency is successful
     for dep_step_id in depends_on:
         dep_step = get_step(conn, dep_step_id)
         if dep_step['state'] != 'S_SUCCESS':
             return False  # Dependency not met
-    
+
     return True  # All dependencies met
 ```
 
@@ -316,16 +316,16 @@ SELECT * FROM workstreams WHERE state = 'S_RUNNING' AND updated_at < datetime('n
 ```bash
 # 1. Check step states
 sqlite3 .worktrees/pipeline_state.db "
-  SELECT step_id, state, updated_at 
-  FROM steps 
+  SELECT step_id, state, updated_at
+  FROM steps
   WHERE ws_id = 'WS-001'
   ORDER BY step_id;
 "
 
 # 2. If all steps succeeded, manually mark workstream success
 sqlite3 .worktrees/pipeline_state.db "
-  UPDATE workstreams 
-  SET state = 'S_SUCCESS', updated_at = CURRENT_TIMESTAMP 
+  UPDATE workstreams
+  SET state = 'S_SUCCESS', updated_at = CURRENT_TIMESTAMP
   WHERE ws_id = 'WS-001';
 "
 
@@ -354,7 +354,7 @@ cat config/tool_profiles.json | jq '.[] | select(.tool_id=="aider")'
 
 # 2. If retry count exceeded, manually reset
 sqlite3 .worktrees/pipeline_state.db "
-  UPDATE steps 
+  UPDATE steps
   SET retry_count = 0, state = 'S_PENDING'
   WHERE step_id = 's1';
 "
@@ -414,7 +414,7 @@ sqlite3 .worktrees/pipeline_state.db "
   SELECT w.ws_id, w.state AS ws_state, s.step_id, s.state AS step_state
   FROM workstreams w
   JOIN steps s ON w.ws_id = s.ws_id
-  WHERE w.state = 'S_SUCCESS' 
+  WHERE w.state = 'S_SUCCESS'
     AND s.state != 'S_SUCCESS';
 "
 
@@ -455,7 +455,7 @@ CREATE TABLE state_transitions (
 
 ```sql
 -- Get all transitions for a workstream
-SELECT 
+SELECT
     from_state,
     to_state,
     transitioned_at,
@@ -503,8 +503,8 @@ ORDER BY transitioned_at;
 
 ---
 
-**State Machines Documented:** 3 (Workstream, Step, Circuit Breaker)  
-**Total States:** 12  
-**Valid Transitions:** 15  
-**Recovery Procedures:** 4  
+**State Machines Documented:** 3 (Workstream, Step, Circuit Breaker)
+**Total States:** 12
+**Valid Transitions:** 15
+**Recovery Procedures:** 4
 **Last Updated:** 2025-11-22

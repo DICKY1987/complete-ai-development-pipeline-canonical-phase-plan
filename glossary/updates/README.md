@@ -35,13 +35,13 @@ terms:
     field: schema_refs
     value:
       - "schema/uet/execution_request.v1.json"
-  
+
   - term_id: TERM-PATCH-001
     action: update
     field: schema_refs
     value:
       - "schema/uet/patch_artifact.v1.json"
-  
+
   - term_id: TERM-PATCH-003
     action: update
     field: schema_refs

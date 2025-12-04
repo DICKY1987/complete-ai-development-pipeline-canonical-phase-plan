@@ -24,7 +24,7 @@ metadata:
 intent: |
   Migrated from: Generate Workstream Report
   Original atom role: docs_summarizer
-  
+
   This pattern was automatically migrated from the atomic-workflow-system.
   Review and enhance before production use.
 

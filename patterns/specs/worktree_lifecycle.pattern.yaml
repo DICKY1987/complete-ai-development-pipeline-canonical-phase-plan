@@ -22,7 +22,7 @@ metadata:
 intent: |
   Manage git worktree lifecycle: create, configure, and teardown.
   Enforces consistent worktree structure and naming conventions.
-  
+
   Operations:
   - Create new worktree from branch
   - Configure worktree environment
@@ -39,7 +39,7 @@ applicability:
     - Simple branch switching
     - Long-lived workspaces (use main worktree)
     - Nested worktrees (not supported)
-  
+
   constraints:
     worktree_parent_dir: ".worktrees/"
     naming_convention: "wt-{branch-name}"
@@ -49,29 +49,29 @@ inputs:
   repository_root:
     type: "string"
     required: true
-    
+
   operation:
     type: "string"
     required: true
     enum: ["create", "execute", "cleanup", "full_lifecycle"]
-    
+
   branch_name:
     type: "string"
     required: true
     description: "Branch to create worktree from"
-    
+
   worktree_name:
     type: "string"
     required: false
     description: "Custom worktree name (default: wt-{branch})"
-    
+
   commands_to_execute:
     type: "array"
     required: false
     description: "Commands to run in worktree context"
     items:
       type: "string"
-  
+
   cleanup_after_execution:
     type: "boolean"
     default: true
@@ -99,21 +99,21 @@ execution_steps:
       - "verify_branch_exists_or_create"
       - "create_worktree_directory"
       - "git worktree add"
-    
+
   - step_id: "S2_configure_worktree"
     description: "Configure worktree environment"
     actions:
       - "copy_environment_config"
       - "set_git_config"
       - "initialize_dependencies"
-    
+
   - step_id: "S3_execute_commands"
     description: "Run commands in worktree"
     optional: true
-    
+
   - step_id: "S4_verify_clean"
     description: "Verify worktree has no uncommitted changes"
-    
+
   - step_id: "S5_cleanup"
     description: "Remove worktree"
     actions:

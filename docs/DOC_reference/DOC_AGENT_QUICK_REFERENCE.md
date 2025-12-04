@@ -8,8 +8,8 @@ doc_id: DOC-GUIDE-AGENT_QUICK_REFERENCE-110
 
 # Agent Quick Reference Guide
 
-> **Purpose**: Fast decision guide for which agent to use for your task  
-> **Last Updated**: 2025-11-23  
+> **Purpose**: Fast decision guide for which agent to use for your task
+> **Last Updated**: 2025-11-23
 > **Related**: [AGENT_ANALYSIS_AND_RECOMMENDATIONS.md](AGENT_ANALYSIS_AND_RECOMMENDATIONS.md)
 
 ---
@@ -325,6 +325,6 @@ Decisions          (Claude Code)      (Error Engine)
 
 ---
 
-**Last Updated**: 2025-11-23  
-**Questions?** Open an issue or ask in team chat  
+**Last Updated**: 2025-11-23
+**Questions?** Open an issue or ask in team chat
 **Feedback?** Update this document with your learnings

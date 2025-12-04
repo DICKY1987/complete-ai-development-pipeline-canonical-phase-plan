@@ -22,21 +22,21 @@ execution:
     purpose: "Execute workstreams from JSON definitions"
     usage: "python scripts/run_workstream.py [workstream_id]"
     priority: high
-    
+
   - doc_id: DOC-SCRIPT-RUN-WS-WRAPPER-023
     name: run_ws_wrapper
     file: scripts/run_ws_wrapper.py
     language: python
     purpose: "Wrapper for workstream execution with error handling"
     priority: high
-    
+
   - doc_id: DOC-SCRIPT-RUN-ERROR-ENGINE-021
     name: run_error_engine
     file: scripts/run_error_engine.py
     language: python
     purpose: "Run error detection and analysis engine"
     priority: high
-    
+
   - doc_id: DOC-SCRIPT-MONITOR-PARALLEL-018
     name: monitor_parallel
     file: scripts/monitor_parallel.py
@@ -44,7 +44,7 @@ execution:
     purpose: "Monitor parallel execution processes"
     priority: medium
 
-## Database & State Management  
+## Database & State Management
 database:
   - doc_id: DOC-SCRIPT-INIT-DB-014
     name: init_db
@@ -53,7 +53,7 @@ database:
     purpose: "Initialize SQLite database schema"
     usage: "python scripts/init_db.py"
     priority: high
-    
+
   - doc_id: DOC-SCRIPT-DB-INSPECT-010
     name: db_inspect
     file: scripts/db_inspect.py
@@ -61,14 +61,14 @@ database:
     purpose: "Inspect database contents and structure"
     usage: "python scripts/db_inspect.py"
     priority: medium
-    
+
   - doc_id: DOC-SCRIPT-TEST-STATE-STORE-026
     name: test_state_store
     file: scripts/test_state_store.py
     language: python
     purpose: "Test state storage and retrieval"
     priority: medium
-    
+
   - doc_id: DOC-SCRIPT-VIEW-EVENTS-027
     name: view_events
     file: scripts/view_events.py
@@ -85,49 +85,49 @@ migration:
     language: python
     purpose: "Migrate import paths to new structure"
     priority: medium
-    
+
   - doc_id: DOC-SCRIPT-AUTO-MIGRATE-IMPORTS-007
     name: auto_migrate_imports
     file: scripts/auto_migrate_imports.py
     language: python
     purpose: "Automatically migrate imports across repository"
     priority: medium
-    
+
   - doc_id: DOC-SCRIPT-MIGRATE-SPEC-FOLDERS-017
     name: migrate_spec_folders
     file: scripts/migrate_spec_folders.py
     language: python
     purpose: "Migrate specification folders to new structure"
     priority: low
-    
+
   - doc_id: DOC-SCRIPT-MIGRATE-SPEC-FOLDERS-PS-038
     name: migrate_spec_folders
     file: scripts/migrate_spec_folders.ps1
     language: powershell
     purpose: "Migrate specification folders (PowerShell version)"
     priority: low
-    
+
   - doc_id: DOC-SCRIPT-MIGRATE-PLUGINS-TO-INVOKE-016
     name: migrate_plugins_to_invoke
     file: scripts/migrate_plugins_to_invoke.py
     language: python
     purpose: "Migrate plugins to invoke-based system"
     priority: low
-    
+
   - doc_id: DOC-SCRIPT-MIGRATE-DOCS-TO-DEVDOCS-036
     name: migrate_docs_to_devdocs
     file: scripts/migrate_docs_to_devdocs.ps1
     language: powershell
     purpose: "Migrate documentation to devdocs structure"
     priority: low
-    
+
   - doc_id: DOC-SCRIPT-MIGRATE-FILE-ORGANIZATION-037
     name: migrate_file_organization
     file: scripts/migrate_file_organization.ps1
     language: powershell
     purpose: "Reorganize file structure"
     priority: low
-    
+
   - doc_id: DOC-SCRIPT-CONSOLIDATE-LEGACY-CODE-034
     name: consolidate_legacy_code
     file: scripts/consolidate_legacy_code.ps1
@@ -144,7 +144,7 @@ validation:
     purpose: "Validate workstream JSON files against schema"
     usage: "python scripts/validate_workstreams.py [path]"
     priority: high
-    
+
   - doc_id: DOC-SCRIPT-CHECK-DEPRECATED-USAGE-008
     name: check_deprecated_usage
     file: scripts/check_deprecated_usage.py
@@ -153,7 +153,7 @@ validation:
     usage: "python scripts/check_deprecated_usage.py"
     priority: medium
     ci_gate: true
-    
+
   - doc_id: DOC-SCRIPT-TEST-ADAPTERS-025
     name: test_adapters
     file: scripts/test_adapters.py
@@ -176,21 +176,21 @@ documentation:
       - search
       - stats
       - list
-    
+
   - doc_id: DOC-SCRIPT-CLEAN-REGISTRY-DUPLICATES-009
     name: clean_registry_duplicates
     file: scripts/clean_registry_duplicates.py
     language: python
     purpose: "Remove duplicate entries from DOC_ID registry"
     priority: medium
-    
+
   - doc_id: DOC-SCRIPT-SPEC-TO-WORKSTREAM-024
     name: spec_to_workstream
     file: scripts/spec_to_workstream.py
     language: python
     purpose: "Convert specification to workstream format"
     priority: medium
-    
+
   - doc_id: DOC-SCRIPT-SPEC-TO-WORKSTREAM-PS-040
     name: spec_to_workstream
     file: scripts/spec_to_workstream.ps1
@@ -206,14 +206,14 @@ generation:
     language: python
     purpose: "Create batch files from templates"
     priority: medium
-    
+
   - doc_id: DOC-SCRIPT-PATTERN-DISCOVERY-003
     name: pattern_discovery
     file: scripts/pattern_discovery.py
     language: python
     purpose: "Discover and extract reusable patterns"
     priority: medium
-    
+
   - doc_id: DOC-SCRIPT-IMPLEMENT-UET-PHASES-013
     name: implement_uet_phases
     file: scripts/implement_uet_phases.py
@@ -230,7 +230,7 @@ aim:
     purpose: "Report AIM environment status"
     usage: "python scripts/aim_status.py"
     priority: high
-    
+
   - doc_id: DOC-SCRIPT-AIM-AUDIT-QUERY-005
     name: aim_audit_query
     file: scripts/aim_audit_query.py
@@ -246,7 +246,7 @@ github:
     language: python
     purpose: "Synchronize epics with GitHub"
     priority: medium
-    
+
   - doc_id: DOC-SCRIPT-GH-ISSUE-UPDATE-012
     name: gh_issue_update
     file: scripts/gh_issue_update.py
@@ -262,7 +262,7 @@ reporting:
     language: python
     purpose: "Generate and report metrics"
     priority: medium
-    
+
   - doc_id: DOC-SCRIPT-CHECK-WORKSTREAM-STATUS-033
     name: check_workstream_status
     file: scripts/check_workstream_status.ps1
@@ -287,14 +287,14 @@ ccpm:
     language: powershell
     purpose: "Install CCPM pipeline"
     priority: high
-    
+
   - doc_id: DOC-SCRIPT-CCPM-UPDATE-032
     name: ccpm_update
     file: scripts/ccpm_update.ps1
     language: powershell
     purpose: "Update CCPM installation"
     priority: medium
-    
+
   - doc_id: DOC-SCRIPT-BOOTSTRAP-030
     name: bootstrap
     file: scripts/bootstrap.ps1
@@ -311,28 +311,28 @@ aider:
     language: powershell
     purpose: "Run Aider with Ollama backend"
     priority: medium
-    
+
   - doc_id: DOC-SCRIPT-ADD-AIDER-TO-PROFILE-028
     name: add_aider_to_profile
     file: scripts/add-aider-to-profile.ps1
     language: powershell
     purpose: "Add Aider to PowerShell profile"
     priority: low
-    
+
   - doc_id: DOC-SCRIPT-SET-AIDER-ENV-039
     name: set_aider_env
     file: scripts/set-aider-env.ps1
     language: powershell
     purpose: "Configure Aider environment variables"
     priority: low
-    
+
   - doc_id: DOC-SCRIPT-TEST-AIDER-COMPREHENSIVE-041
     name: test_aider_comprehensive
     file: scripts/test-aider-comprehensive.ps1
     language: powershell
     purpose: "Comprehensive Aider functionality tests"
     priority: low
-    
+
   - doc_id: DOC-SCRIPT-TEST-AIDER-DEEPSEEK-042
     name: test_aider_deepseek
     file: scripts/test-aider-deepseek.ps1
@@ -349,14 +349,14 @@ worktree:
     purpose: "Create git worktrees for doc_id project"
     usage: ".\\scripts\\create_docid_worktrees.ps1 [-Cleanup]"
     priority: high
-    
+
   - doc_id: DOC-SCRIPT-WORKTREE-START-045
     name: worktree_start
     file: scripts/worktree_start.ps1
     language: powershell
     purpose: "Start new worktree for feature development"
     priority: medium
-    
+
   - doc_id: DOC-SCRIPT-WORKTREE-MERGE-044
     name: worktree_merge
     file: scripts/worktree_merge.ps1

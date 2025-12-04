@@ -4,9 +4,9 @@ doc_id: DOC-GUIDE-CONTEXT-191
 
 # Repository Context for AI
 
-**Repository**: Complete AI Development Pipeline – Canonical Phase Plan  
-**Type**: Automation Framework + Development Tools  
-**Language**: Python (primary), PowerShell, YAML  
+**Repository**: Complete AI Development Pipeline – Canonical Phase Plan
+**Type**: Automation Framework + Development Tools
+**Language**: Python (primary), PowerShell, YAML
 **Last Updated**: 2025-11-25
 
 ---
@@ -304,6 +304,6 @@ Bad prompts:
 
 ---
 
-**Last Updated**: 2025-11-25  
-**Maintained By**: Repository automation  
+**Last Updated**: 2025-11-25
+**Maintained By**: Repository automation
 **Next Review**: Monthly or after major refactor

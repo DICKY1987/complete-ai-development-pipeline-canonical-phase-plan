@@ -8,10 +8,10 @@ doc_id: DOC-GUIDE-GLOSSARY_GOVERNANCE-124
 
 # Glossary Governance Framework
 
-**Doc ID**: `DOC-GLOSSARY-GOV-001`  
-**Version**: 1.0.0  
-**Last Updated**: 2025-11-25  
-**Status**: ACTIVE  
+**Doc ID**: `DOC-GLOSSARY-GOV-001`
+**Version**: 1.0.0
+**Last Updated**: 2025-11-25
+**Status**: ACTIVE
 **Owner**: Architecture Team
 
 ---
@@ -426,26 +426,26 @@ metrics:
 def validate_glossary():
     """Validate glossary structure and content."""
     errors = []
-    
+
     # Structure checks
     errors += check_alphabetical_order()
     errors += check_heading_levels()
     errors += check_required_sections()
-    
+
     # Content checks
     errors += check_term_definitions()
     errors += check_category_assignments()
     errors += check_implementation_paths()
-    
+
     # Cross-reference checks
     errors += check_related_terms_exist()
     errors += check_orphaned_terms()
     errors += check_broken_links()
-    
+
     # Metadata checks
     errors += validate_term_ids()
     errors += check_metadata_sync()
-    
+
     return errors
 ```
 
@@ -595,7 +595,7 @@ config/glossary_policy.yaml        # Validation rules
 
 ---
 
-**Document Status**: ACTIVE  
-**Next Review**: 2025-12-25  
-**Maintained By**: Architecture Team  
+**Document Status**: ACTIVE
+**Next Review**: 2025-12-25
+**Maintained By**: Architecture Team
 **Version**: 1.0.0

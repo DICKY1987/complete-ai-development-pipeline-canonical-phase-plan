@@ -59,18 +59,18 @@ List all functions that external modules can call.
 def {function_name}(param1: Type1, param2: Type2) -> ReturnType:
     """
     {One-line description}
-    
+
     REQUIRED CONTRACT:
     - {Contract requirement 1}
     - {Contract requirement 2}
-    
+
     Args:
         param1: {description}
         param2: {description}
-        
+
     Returns:
         {description of return value}
-        
+
     Raises:
         {ExceptionType}: When {condition}
     """

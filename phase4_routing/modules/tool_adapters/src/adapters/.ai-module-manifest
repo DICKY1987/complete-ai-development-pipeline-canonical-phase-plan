@@ -6,11 +6,11 @@ entry_points:
   - file: "base.py"
     function: "ToolAdapter"
     description: "Abstract base class for all tool adapters"
-  
+
   - file: "subprocess_adapter.py"
     function: "SubprocessAdapter"
     description: "Adapter for CLI tools via subprocess execution"
-  
+
   - file: "registry.py"
     function: "AdapterRegistry"
     description: "Registry for discovering and instantiating adapters based on capabilities"
@@ -26,23 +26,23 @@ common_tasks:
   - task: "Create custom adapter"
     code: |
       from core.adapters.base import ToolAdapter
-      
+
       class MyAdapter(ToolAdapter):
           def get_capabilities(self):
               return {"task_kind": "my_task", "tool": "my_tool"}
-          
+
           def execute(self, request):
               # Implementation
               return ExecutionResult(...)
     approach: "Inherit from ToolAdapter, implement get_capabilities() and execute()"
-  
+
   - task: "Register adapter"
     code: |
       from core.adapters.registry import AdapterRegistry
       registry = AdapterRegistry()
       registry.register(MyAdapter())
     approach: "Create registry, call register() with adapter instance"
-  
+
   - task: "Execute via subprocess adapter"
     code: |
       from core.adapters.subprocess_adapter import SubprocessAdapter

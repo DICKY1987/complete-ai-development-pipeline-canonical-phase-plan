@@ -24,20 +24,20 @@ metadata:
 intent: |
   Execute Phase 0 of doc_id system to achieve 100% coverage across all eligible files.
   Uses automated scanning and assignment to process ~2,170 remaining files in batches.
-  
+
   This pattern orchestrates the complete Phase 0 workflow from current state (25% coverage)
   to final state (100% coverage) through systematic batch processing.
 
 preconditions:
   - name: "Scanner and Assigner tools exist"
     check: "Test-Path scripts/doc_id_scanner.py -and (Test-Path scripts/doc_id_assigner.py)"
-    
+
   - name: "On feature branch"
     check: "git branch --show-current | Select-String 'feature/phase0-docid-assignment'"
-    
+
   - name: "Registry is valid"
     check: "python doc_id/tools/doc_id_registry_cli.py validate"
-    
+
   - name: "Current coverage < 100%"
     check: "python scripts/doc_id_scanner.py stats | Select-String 'Files missing doc_id:.*[1-9]'"
 
@@ -46,12 +46,12 @@ inputs:
     type: "integer"
     default: 200
     description: "Number of files to process per batch"
-    
+
   file_types:
     type: "array"
     default: ["py", "md", "sh", "txt"]
     description: "File types to process in order"
-    
+
   dry_run:
     type: "boolean"
     default: false
@@ -82,7 +82,7 @@ steps:
                   return name[:40].upper()
     validation:
       command: "python -m py_compile scripts/doc_id_assigner.py"
-      
+
   - id: "step_2_python_batch1"
     name: "Assign Python Files - Batch 1"
     action: "execute"
@@ -93,7 +93,7 @@ steps:
     post_action:
       - "git add ."
       - "git commit -m 'chore: Phase 0 - Python batch 1 (200 files)'"
-      
+
   - id: "step_3_python_batch2"
     name: "Assign Python Files - Batch 2"
     action: "execute"
@@ -104,7 +104,7 @@ steps:
     post_action:
       - "git add ."
       - "git commit -m 'chore: Phase 0 - Python batch 2 (200 files)'"
-      
+
   - id: "step_4_python_batch3"
     name: "Assign Python Files - Batch 3"
     action: "execute"
@@ -115,7 +115,7 @@ steps:
     post_action:
       - "git add ."
       - "git commit -m 'chore: Phase 0 - Python batch 3 (200 files)'"
-      
+
   - id: "step_5_python_batch4"
     name: "Assign Python Files - Batch 4"
     action: "execute"
@@ -126,7 +126,7 @@ steps:
     post_action:
       - "git add ."
       - "git commit -m 'chore: Phase 0 - Python batch 4 (200 files)'"
-      
+
   - id: "step_6_python_final"
     name: "Assign Python Files - Final"
     action: "execute"
@@ -137,7 +137,7 @@ steps:
     post_action:
       - "git add ."
       - "git commit -m 'chore: Phase 0 - Python final batch'"
-      
+
   - id: "step_7_markdown_batch1"
     name: "Assign Markdown Files - Batch 1"
     action: "execute"
@@ -148,7 +148,7 @@ steps:
     post_action:
       - "git add ."
       - "git commit -m 'chore: Phase 0 - Markdown batch 1 (250 files)'"
-      
+
   - id: "step_8_markdown_batch2"
     name: "Assign Markdown Files - Batch 2"
     action: "execute"
@@ -159,7 +159,7 @@ steps:
     post_action:
       - "git add ."
       - "git commit -m 'chore: Phase 0 - Markdown batch 2 (250 files)'"
-      
+
   - id: "step_9_markdown_batch3"
     name: "Assign Markdown Files - Batch 3"
     action: "execute"
@@ -170,7 +170,7 @@ steps:
     post_action:
       - "git add ."
       - "git commit -m 'chore: Phase 0 - Markdown batch 3 (250 files)'"
-      
+
   - id: "step_10_markdown_batch4"
     name: "Assign Markdown Files - Batch 4"
     action: "execute"
@@ -181,7 +181,7 @@ steps:
     post_action:
       - "git add ."
       - "git commit -m 'chore: Phase 0 - Markdown batch 4 (250 files)'"
-      
+
   - id: "step_11_markdown_final"
     name: "Assign Markdown Files - Final"
     action: "execute"
@@ -192,7 +192,7 @@ steps:
     post_action:
       - "git add ."
       - "git commit -m 'chore: Phase 0 - Markdown final batch'"
-      
+
   - id: "step_12_shell_text"
     name: "Assign Shell and Text Files"
     action: "execute"
@@ -203,7 +203,7 @@ steps:
     post_action:
       - "git add ."
       - "git commit -m 'chore: Phase 0 - Shell and Text files'"
-      
+
   - id: "step_13_final_validation"
     name: "Final Validation"
     action: "validate"
@@ -220,7 +220,7 @@ steps:
     post_action:
       - "python scripts/doc_id_scanner.py scan > reports/final_coverage_report.txt"
       - "python doc_id/tools/doc_id_registry_cli.py stats > reports/final_registry_stats.txt"
-      
+
   - id: "step_14_merge_to_main"
     name: "Merge to Main"
     action: "git_merge"
@@ -244,13 +244,13 @@ steps:
 postconditions:
   - name: "100% coverage achieved"
     check: "python scripts/doc_id_scanner.py stats | Select-String 'Files with doc_id:.*2894.*100\\.0%'"
-    
+
   - name: "Registry validates"
     check: "python doc_id/tools/doc_id_registry_cli.py validate"
-    
+
   - name: "On main branch"
     check: "git branch --show-current | Select-String '^main$'"
-    
+
   - name: "Release tagged"
     check: "git tag -l | Select-String 'v1.0.0-docid-phase0'"
 
@@ -258,11 +258,11 @@ outputs:
   coverage_report:
     path: "reports/final_coverage_report.txt"
     description: "Final coverage statistics"
-    
+
   registry_stats:
     path: "reports/final_registry_stats.txt"
     description: "Final registry statistics"
-    
+
   batch_reports:
     path: "reports/batch_*.json"
     description: "Individual batch execution reports"

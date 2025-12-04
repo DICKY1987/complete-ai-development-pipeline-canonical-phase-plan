@@ -74,7 +74,7 @@ ESLINT_SAMPLE_OUTPUT = json.dumps([
 
 class TestPSScriptAnalyzerPlugin:
     """Tests for PSScriptAnalyzer plugin."""
-    
+
     def test_plugin_has_required_attributes(self):
         """Test plugin has required class attributes."""
         plugin = PSScriptAnalyzerPlugin()
@@ -83,60 +83,60 @@ class TestPSScriptAnalyzerPlugin:
         assert hasattr(plugin, "check_tool_available")
         assert hasattr(plugin, "build_command")
         assert hasattr(plugin, "execute")
-    
+
     def test_check_tool_available(self):
         """Test tool availability check."""
         plugin = PSScriptAnalyzerPlugin()
         result = plugin.check_tool_available()
         assert result == tool_available("pwsh")
-    
+
     def test_build_command(self, tmp_path: Path):
         """Test command building."""
         plugin = PSScriptAnalyzerPlugin()
         test_file = tmp_path / "test.ps1"
         test_file.write_text("Write-Host 'hello'", encoding="utf-8")
-        
+
         cmd = plugin.build_command(test_file)
         assert isinstance(cmd, list)
         assert "pwsh" in cmd
         assert "-NoProfile" in cmd
         assert "-Command" in cmd
-    
+
     def test_parse_pssa_json_with_severity_mapping(self, tmp_path: Path):
         """Test parsing PSScriptAnalyzer JSON with severity mapping."""
         plugin = PSScriptAnalyzerPlugin()
         test_file = create_sample_file(tmp_path, "test.ps1", "Write-Host 'test'\n")
-        
+
         with patch("subprocess.run") as mock_run:
             mock_proc = MagicMock()
             mock_proc.returncode = 0
             mock_proc.stdout = PSSA_SAMPLE_OUTPUT
             mock_proc.stderr = ""
             mock_run.return_value = mock_proc
-            
+
             result = plugin.execute(test_file)
-            
+
             assert_plugin_result_valid(result, expected_success=True)
             assert len(result.issues) == 2
-            
+
             # First issue: Warning → warning
             warning_issue = result.issues[0]
             assert_issue_valid(warning_issue, expected_tool="PSScriptAnalyzer")
             assert warning_issue.category == "style"
             assert warning_issue.severity == "warning"
             assert warning_issue.code == "PSAvoidUsingCmdletAliases"
-            
+
             # Second issue: ParseError → syntax/error
             error_issue = result.issues[1]
             assert error_issue.category == "syntax"
             assert error_issue.severity == "error"
             assert "ParseError" in error_issue.code
-    
+
     def test_handles_single_object_json(self, tmp_path: Path):
         """Test handling of single JSON object (not array)."""
         plugin = PSScriptAnalyzerPlugin()
         test_file = create_sample_file(tmp_path, "test.ps1", "Write-Host 'test'")
-        
+
         single_object = json.dumps({
             "RuleName": "PSAvoidUsingCmdletAliases",
             "Severity": "Warning",
@@ -145,23 +145,23 @@ class TestPSScriptAnalyzerPlugin:
             "Column": 1,
             "ScriptPath": "test.ps1"
         })
-        
+
         with patch("subprocess.run") as mock_run:
             mock_proc = MagicMock()
             mock_proc.returncode = 0
             mock_proc.stdout = single_object
             mock_proc.stderr = ""
             mock_run.return_value = mock_proc
-            
+
             result = plugin.execute(test_file)
-            
+
             assert result.success is True
             assert len(result.issues) == 1
 
 
 class TestPrettierFixPlugin:
     """Tests for Prettier fix plugin."""
-    
+
     def test_plugin_has_required_attributes(self):
         """Test plugin has required class attributes."""
         plugin = PrettierFixPlugin()
@@ -170,46 +170,46 @@ class TestPrettierFixPlugin:
         assert hasattr(plugin, "check_tool_available")
         assert hasattr(plugin, "build_command")
         assert hasattr(plugin, "execute")
-    
+
     def test_check_tool_available(self):
         """Test tool availability check."""
         plugin = PrettierFixPlugin()
         result = plugin.check_tool_available()
         assert result == tool_available("prettier")
-    
+
     def test_build_command(self, tmp_path: Path):
         """Test command building."""
         plugin = PrettierFixPlugin()
         test_file = tmp_path / "test.js"
         test_file.write_text("const x=1", encoding="utf-8")
-        
+
         cmd = plugin.build_command(test_file)
         assert isinstance(cmd, list)
         assert "prettier" in cmd
         assert "--write" in cmd
         assert str(test_file) in cmd
-    
+
     def test_execute_no_issues_emitted(self, tmp_path: Path):
         """Test that fix plugin does not emit issues."""
         plugin = PrettierFixPlugin()
         test_file = create_sample_file(tmp_path, "test.js", "const x=1;")
-        
+
         with patch("subprocess.run") as mock_run:
             mock_proc = MagicMock()
             mock_proc.returncode = 0
             mock_proc.stdout = ""
             mock_proc.stderr = ""
             mock_run.return_value = mock_proc
-            
+
             result = plugin.execute(test_file)
-            
+
             assert_plugin_result_valid(result, expected_success=True)
             assert len(result.issues) == 0  # Fix plugins don't emit issues
 
 
 class TestESLintPlugin:
     """Tests for ESLint linter plugin."""
-    
+
     def test_plugin_has_required_attributes(self):
         """Test plugin has required class attributes."""
         plugin = ESLintPlugin()
@@ -218,43 +218,43 @@ class TestESLintPlugin:
         assert hasattr(plugin, "check_tool_available")
         assert hasattr(plugin, "build_command")
         assert hasattr(plugin, "execute")
-    
+
     def test_check_tool_available(self):
         """Test tool availability check."""
         plugin = ESLintPlugin()
         result = plugin.check_tool_available()
         assert result == tool_available("eslint")
-    
+
     def test_build_command(self, tmp_path: Path):
         """Test command building."""
         plugin = ESLintPlugin()
         test_file = tmp_path / "test.js"
         test_file.write_text("const x = 1", encoding="utf-8")
-        
+
         cmd = plugin.build_command(test_file)
         assert isinstance(cmd, list)
         assert "eslint" in cmd
         assert "-f" in cmd or "--format" in cmd
         assert "json" in cmd
         assert str(test_file) in cmd
-    
+
     def test_parse_eslint_json_with_severity_mapping(self, tmp_path: Path):
         """Test parsing ESLint JSON with severity mapping (2→error, 1→warning)."""
         plugin = ESLintPlugin()
         test_file = create_sample_file(tmp_path, "test.js", "const x = 1\n")
-        
+
         with patch("subprocess.run") as mock_run:
             mock_proc = MagicMock()
             mock_proc.returncode = 1
             mock_proc.stdout = ESLINT_SAMPLE_OUTPUT
             mock_proc.stderr = ""
             mock_run.return_value = mock_proc
-            
+
             result = plugin.execute(test_file)
-            
+
             assert_plugin_result_valid(result, expected_success=True)
             assert len(result.issues) == 2
-            
+
             # First issue: severity 2 → error
             error_issue = result.issues[0]
             assert_issue_valid(error_issue, expected_tool="eslint")
@@ -263,29 +263,29 @@ class TestESLintPlugin:
             assert error_issue.code == "no-unused-vars"
             assert error_issue.line == 1
             assert error_issue.column == 7
-            
+
             # Second issue: severity 1 → warning
             warning_issue = result.issues[1]
             assert warning_issue.category == "style"
             assert warning_issue.severity == "warning"
             assert warning_issue.code == "semi"
-    
+
     def test_success_codes(self, tmp_path: Path):
         """Test that return codes 0 and 1 are both successful."""
         plugin = ESLintPlugin()
         test_file = create_sample_file(tmp_path, "test.js", "const x = 1;")
-        
+
         with patch("subprocess.run") as mock_run:
             mock_proc = MagicMock()
             mock_proc.stdout = "[]"
             mock_proc.stderr = ""
             mock_run.return_value = mock_proc
-            
+
             # Return code 0 (no issues)
             mock_proc.returncode = 0
             result = plugin.execute(test_file)
             assert result.success is True
-            
+
             # Return code 1 (issues found)
             mock_proc.returncode = 1
             result = plugin.execute(test_file)

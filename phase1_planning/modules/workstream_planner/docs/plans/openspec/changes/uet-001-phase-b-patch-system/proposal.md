@@ -4,12 +4,12 @@ doc_id: DOC-GUIDE-PROPOSAL-1509
 
 # Phase B: Patch System - UET Implementation
 
-**Change ID**: uet-001-phase-b-patch-system  
-**Parent**: uet-001-complete-implementation  
-**Depends On**: uet-001-phase-a-quick-wins  
-**Type**: Core Infrastructure  
-**Priority**: HIGH (Critical Path)  
-**Estimated Duration**: 2-3 weeks  
+**Change ID**: uet-001-phase-b-patch-system
+**Parent**: uet-001-complete-implementation
+**Depends On**: uet-001-phase-a-quick-wins
+**Type**: Core Infrastructure
+**Priority**: HIGH (Critical Path)
+**Estimated Duration**: 2-3 weeks
 **Effort**: 42 hours
 
 ---
@@ -135,7 +135,7 @@ CREATE TABLE patch_ledger_entries (
 
 ## Dependencies
 
-**Requires**: Phase A complete (schemas needed)  
+**Requires**: Phase A complete (schemas needed)
 **Blocks**: Phase C, Phase D (need patch system)
 
 ---

@@ -66,7 +66,7 @@ gh issue edit $ARGUMENTS --remove-label "{removed_labels}"
 ✅ Updated issue #$ARGUMENTS
   Changes:
     {list_of_changes_made}
-  
+
 Synced to GitHub: ✅
 ```
 

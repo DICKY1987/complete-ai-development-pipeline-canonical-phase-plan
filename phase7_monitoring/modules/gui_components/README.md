@@ -1,6 +1,6 @@
 # Module: gui_components
 
-**Phase**: 7  
+**Phase**: 7
 **Purpose**: UI components and dashboards
 
 ## Structure

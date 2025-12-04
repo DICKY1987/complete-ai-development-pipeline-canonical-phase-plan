@@ -6,7 +6,7 @@ doc_id: DOC-GUIDE-CLAUDE-1630
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-> **⚡ CRITICAL: Read [.meta/AI_GUIDANCE.md](.meta/AI_GUIDANCE.md) FIRST**  
+> **⚡ CRITICAL: Read [.meta/AI_GUIDANCE.md](.meta/AI_GUIDANCE.md) FIRST**
 > That 2-minute guide eliminates 25 min of onboarding per session.
 
 ## Section 0.1: Foundation - Global Principles

@@ -320,16 +320,16 @@ ci_integration:
   github_actions:
     path_standards: ".github/workflows/path_standards.yml"
     pytest: ".github/workflows/pytest.yml"
-  
+
   pre_commit_hooks:
     - "test.pytest"
     - "ci.path_standards"
     - "test.workstream_validation"
-  
+
   pre_push_hooks:
     - "test.workstream_authoring"
     - "error.import_validation"
-  
+
   pull_request_checks:
     - "test.pytest"
     - "ci.path_standards"
@@ -346,7 +346,7 @@ failure_policies:
       - "test.pytest"
       - "ci.path_standards"
       - "error.import_validation"
-  
+
   warn:
     description: "Should pass but not blocking"
     action: "Display warning, allow merge"
@@ -354,7 +354,7 @@ failure_policies:
       - "test.workstream_authoring"
       - "lint.markdown"
       - "error.engine_run"
-  
+
   info:
     description: "Informational only"
     action: "Display info, no blocking"
@@ -372,16 +372,16 @@ environment:
       - "pyyaml"
       - "click"
     install_command: "pip install -r requirements.txt"
-  
+
   powershell:
     version: ">=7.0"
     note: "Required for .ps1 scripts on Windows"
-  
+
   optional_tools:
     - name: "markdownlint-cli"
       install: "npm install -g markdownlint-cli"
       gates: ["lint.markdown"]
-    
+
     - name: "ruff"
       install: "pip install ruff"
       gates: ["lint.python_ruff"]
@@ -396,15 +396,15 @@ quick_commands:
       LEGACY_PATH_GATE=1 python scripts/paths_index_cli.py scan --root . --db refactor_paths.db --reset &&
       LEGACY_PATH_GATE=1 python scripts/paths_index_cli.py gate --db refactor_paths.db --regex "src/pipeline|MOD_ERROR_PIPELINE" &&
       python scripts/validate_error_imports.py
-  
+
   run_fast_checks:
     description: "Run fast pre-commit checks"
     command: "python -m pytest -q tests && python scripts/validate_workstreams.py"
-  
+
   run_full_suite:
     description: "Run comprehensive quality suite"
     command: "pwsh scripts/test.ps1"
-  
+
   bootstrap:
     description: "Initial repository setup"
     command: "pwsh scripts/bootstrap.ps1"

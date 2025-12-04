@@ -5,8 +5,8 @@ doc_id: DOC-PAT-REGISTRY-833
 # Safe Merge Pattern Registry
 
 ## Pattern Family: SAFE_MERGE
-**Version**: 1.0.0  
-**Status**: Active  
+**Version**: 1.0.0
+**Status**: Active
 **Owner**: richg
 
 ---
@@ -57,13 +57,13 @@ doc_id: DOC-PAT-REGISTRY-833
 pattern_relationships:
   EXEC-001:  # Batch File Operations
     used_by: [MERGE-005]
-  
+
   EXEC-002:  # Conditional Workflow
     used_by: [MERGE-004]
-  
+
   EXEC-004:  # Validation + Retry
     used_by: [MERGE-006, MERGE-007]
-  
+
   EXEC-005:  # Parallel Execution
     used_by: [MERGE-008]
 ```
@@ -104,5 +104,5 @@ Legend: ✅ Complete | 🔄 In Progress | ❌ Blocked
 
 ---
 
-**Last Updated**: 2025-11-27  
+**Last Updated**: 2025-11-27
 **Next Review**: 2025-12-04

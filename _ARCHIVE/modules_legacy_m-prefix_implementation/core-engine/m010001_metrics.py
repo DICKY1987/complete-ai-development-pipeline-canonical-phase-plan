@@ -22,7 +22,7 @@ class ExecutionMetrics:
     parallelism_efficiency: float = 0.0
     bottlenecks: List[str] = field(default_factory=list)
     error_frequency: Dict[str, int] = field(default_factory=dict)
-    
+
     # Phase I additions
     wave_count: int = 0
     avg_wave_duration: float = 0.0
@@ -47,56 +47,56 @@ class WorkstreamMetrics:
 
 class MetricsAggregator:
     """Metrics and observability."""
-    
+
     def compute_metrics(self, run_id: str) -> ExecutionMetrics:
         """Aggregate all metrics for a run.
-        
+
         Args:
             run_id: Run ID
-            
+
         Returns:
             ExecutionMetrics with complete run statistics
         """
         from modules.core_engine import CostTracker
         from modules.core_state import get_connection, get_events
-        
+
         tracker = CostTracker()
         total_cost = tracker.get_total_cost(run_id)
-        
+
         # Get workstream statistics
         conn = get_connection()
-        
+
         try:
             # Workstream counts
             cursor = conn.execute("""
-                SELECT status, COUNT(*) 
-                FROM workstreams 
+                SELECT status, COUNT(*)
+                FROM workstreams
                 WHERE run_id = ?
                 GROUP BY status
             """, (run_id,))
-            
+
             status_counts = dict(cursor.fetchall())
             completed = status_counts.get('done', 0)
             failed = status_counts.get('failed', 0)
-            
+
             # Token usage
             cursor = conn.execute("""
                 SELECT SUM(input_tokens + output_tokens)
                 FROM cost_tracking
                 WHERE run_id = ?
             """, (run_id,))
-            
+
             total_tokens = cursor.fetchone()[0] or 0
-            
+
             # Merge conflicts
             cursor = conn.execute("""
                 SELECT COUNT(*)
                 FROM events
                 WHERE run_id = ? AND event_type = 'merge_conflict_detected'
             """, (run_id,))
-            
+
             merge_conflicts = cursor.fetchone()[0] or 0
-            
+
             # Test gate failures
             cursor = conn.execute("""
                 SELECT COUNT(*)
@@ -104,32 +104,32 @@ class MetricsAggregator:
                 WHERE run_id = ? AND event_type = 'test_gate_executed'
                   AND json_extract(payload_json, '$.passed') = 0
             """, (run_id,))
-            
+
             test_gate_failures = cursor.fetchone()[0] or 0
-        
+
         finally:
             conn.close()
-        
+
         # Get execution events
         events = get_events(run_id=run_id, limit=10000)
-        
+
         # Calculate duration
         start_event = next((e for e in reversed(events) if e['event_type'] == 'parallel_execution_start'), None)
         end_event = next((e for e in events if e['event_type'] == 'parallel_execution_end'), None)
-        
+
         duration = 0.0
         if start_event and end_event:
             start_time = datetime.fromisoformat(start_event['timestamp'].replace('Z', '+00:00'))
             end_time = datetime.fromisoformat(end_event['timestamp'].replace('Z', '+00:00'))
             duration = (end_time - start_time).total_seconds()
-        
+
         # Wave statistics
         wave_count = 0
         if end_event and end_event.get('payload'):
             wave_count = end_event['payload'].get('wave_count', 0)
-        
+
         avg_wave_duration = duration / wave_count if wave_count > 0 else 0.0
-        
+
         # Error frequency
         error_frequency = {}
         for event in events:
@@ -138,14 +138,14 @@ class MetricsAggregator:
                 if not payload.get('passed') and not payload.get('success'):
                     error_type = event['event_type']
                     error_frequency[error_type] = error_frequency.get(error_type, 0) + 1
-        
+
         # Budget status
         budget_status = None
         for event in reversed(events):
             if event['event_type'] in ('budget_warning', 'budget_exceeded'):
                 budget_status = event['event_type']
                 break
-        
+
         return ExecutionMetrics(
             run_id=run_id,
             total_duration_sec=duration,
@@ -160,23 +160,23 @@ class MetricsAggregator:
             error_frequency=error_frequency,
             budget_status=budget_status
         )
-    
+
     def compute_workstream_metrics(self, run_id: str) -> List[WorkstreamMetrics]:
         """Compute metrics for each workstream in a run.
-        
+
         Args:
             run_id: Run ID
-            
+
         Returns:
             List of WorkstreamMetrics
         """
         from modules.core_state import get_connection
-        
+
         conn = get_connection()
-        
+
         try:
             cursor = conn.execute("""
-                SELECT 
+                SELECT
                     w.id,
                     w.status,
                     COALESCE(SUM(c.estimated_cost_usd), 0) as cost,
@@ -186,7 +186,7 @@ class MetricsAggregator:
                 WHERE w.run_id = ?
                 GROUP BY w.id
             """, (run_id,))
-            
+
             metrics = []
             for row in cursor.fetchall():
                 metrics.append(WorkstreamMetrics(
@@ -196,31 +196,31 @@ class MetricsAggregator:
                     tokens=int(row[3]),
                     duration_sec=0.0  # TODO: Calculate from events
                 ))
-            
+
             return metrics
-        
+
         finally:
             conn.close()
-    
+
     def generate_report(self, run_id: str, output_file: Optional[str] = None) -> str:
         """Generate execution report.
-        
+
         Args:
             run_id: Run ID
             output_file: Optional output file path
-            
+
         Returns:
             Report as formatted string
         """
         metrics = self.compute_metrics(run_id)
         ws_metrics = self.compute_workstream_metrics(run_id)
-        
+
         report = []
         report.append("=" * 80)
         report.append(f"PARALLEL EXECUTION REPORT: {run_id}")
         report.append("=" * 80)
         report.append("")
-        
+
         # Summary
         report.append("SUMMARY")
         report.append("-" * 40)
@@ -232,7 +232,7 @@ class MetricsAggregator:
         report.append(f"  Waves:               {metrics.wave_count}")
         report.append(f"  Avg Wave Duration:   {metrics.avg_wave_duration:.1f}s")
         report.append("")
-        
+
         # Quality metrics
         report.append("QUALITY")
         report.append("-" * 40)
@@ -241,7 +241,7 @@ class MetricsAggregator:
         if metrics.budget_status:
             report.append(f"  Budget Status:       {metrics.budget_status}")
         report.append("")
-        
+
         # Top workstreams by cost
         ws_by_cost = sorted(ws_metrics, key=lambda x: x.cost_usd, reverse=True)[:5]
         report.append("TOP 5 WORKSTREAMS BY COST")
@@ -249,7 +249,7 @@ class MetricsAggregator:
         for ws in ws_by_cost:
             report.append(f"  {ws.workstream_id:30s} ${ws.cost_usd:.4f}")
         report.append("")
-        
+
         # Error frequency
         if metrics.error_frequency:
             report.append("ERROR FREQUENCY")
@@ -257,27 +257,27 @@ class MetricsAggregator:
             for error_type, count in sorted(metrics.error_frequency.items(), key=lambda x: x[1], reverse=True):
                 report.append(f"  {error_type:30s} {count:4d}")
             report.append("")
-        
+
         report.append("=" * 80)
-        
+
         report_str = "\n".join(report)
-        
+
         if output_file:
             with open(output_file, 'w') as f:
                 f.write(report_str)
-        
+
         return report_str
-    
+
     def export_metrics_json(self, run_id: str, output_file: str) -> None:
         """Export metrics to JSON file.
-        
+
         Args:
             run_id: Run ID
             output_file: Output JSON file path
         """
         metrics = self.compute_metrics(run_id)
         ws_metrics = self.compute_workstream_metrics(run_id)
-        
+
         data = {
             'run_id': run_id,
             'metrics': {
@@ -303,6 +303,6 @@ class MetricsAggregator:
                 for ws in ws_metrics
             ]
         }
-        
+
         with open(output_file, 'w') as f:
             json.dump(data, f, indent=2)

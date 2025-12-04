@@ -36,30 +36,30 @@ logger = logging.getLogger(__name__)
 class {{TOOL_NAME}}Adapter:  # Implement ToolAdapter interface
     """
     Adapter for {{TOOL_NAME}} CLI tool.
-    
+
     This adapter wraps the {{TOOL_NAME}} command-line tool and provides
     integration with the UET Framework execution engine.
-    
+
     Capabilities:
         - {{CAPABILITIES[0]}}
         - {{CAPABILITIES[1]}}
         # Add more capabilities as needed
-    
+
     Example:
         adapter = {{TOOL_NAME}}Adapter()
         capabilities = adapter.detect_capabilities()
-        
+
         request = ExecutionRequest(
             task_id="task-001",
             work_dir="/path/to/project"
         )
         result = adapter.execute(request)
     """
-    
+
     def __init__(self, config: Optional[Dict[str, Any]] = None):
         """
         Initialize the adapter.
-        
+
         Args:
             config: Optional configuration dictionary
                    - tool_path: Path to tool executable
@@ -71,20 +71,20 @@ class {{TOOL_NAME}}Adapter:  # Implement ToolAdapter interface
         self.tool_path = self.config.get('tool_path', self.tool_name)
         self.default_args = self.config.get('default_args', [])
         self.default_timeout = self.config.get('timeout', 300)
-        
+
         logger.info(f"Initialized {self.tool_name} adapter")
-    
+
     def detect_capabilities(self) -> Dict[str, Any]:
         """
         Detect if tool is available and what capabilities it provides.
-        
+
         Returns:
             Dict containing:
                 - available: bool - Is tool installed/accessible
                 - version: str - Tool version
                 - capabilities: List[str] - What the tool can do
                 - path: str - Path to tool executable
-        
+
         Example:
             {
                 "available": True,
@@ -101,7 +101,7 @@ class {{TOOL_NAME}}Adapter:  # Implement ToolAdapter interface
                 text=True,
                 timeout=5
             )
-            
+
             if result.returncode == 0:
                 version = result.stdout.strip()
                 return {
@@ -118,7 +118,7 @@ class {{TOOL_NAME}}Adapter:  # Implement ToolAdapter interface
                     "capabilities": [],
                     "path": None
                 }
-                
+
         except FileNotFoundError:
             logger.error(f"{self.tool_name} not found in PATH")
             return {
@@ -135,19 +135,19 @@ class {{TOOL_NAME}}Adapter:  # Implement ToolAdapter interface
                 "capabilities": [],
                 "path": None
             }
-    
+
     # @retry_with_backoff(max_retries=3, base_delay=1.0)
     def execute(self, request) -> Dict[str, Any]:  # ExecutionRequest -> ExecutionResult
         """
         Execute the tool with given request.
-        
+
         Args:
             request: ExecutionRequest with:
                 - task_id: str - Task identifier
                 - work_dir: str - Working directory
                 - parameters: Dict - Tool-specific parameters
                 - timeout: Optional[int] - Timeout override
-        
+
         Returns:
             ExecutionResult with:
                 - status: str - "success", "failed", or "timeout"
@@ -155,21 +155,21 @@ class {{TOOL_NAME}}Adapter:  # Implement ToolAdapter interface
                 - errors: str - Tool stderr
                 - exit_code: int - Process exit code
                 - duration: float - Execution time in seconds
-        
+
         Raises:
             Exception: If execution fails unexpectedly
         """
         logger.info(f"Executing {self.tool_name} for task {request.task_id}")
-        
+
         # Build command
         cmd = self._build_command(request)
         timeout = request.timeout or self.default_timeout
         work_dir = Path(request.work_dir) if request.work_dir else None
-        
+
         try:
             import time
             start_time = time.time()
-            
+
             # Execute tool
             result = subprocess.run(
                 cmd,
@@ -178,14 +178,14 @@ class {{TOOL_NAME}}Adapter:  # Implement ToolAdapter interface
                 timeout=timeout,
                 cwd=work_dir
             )
-            
+
             duration = time.time() - start_time
-            
+
             # Determine status
             status = "success" if result.returncode == 0 else "failed"
-            
+
             logger.info(f"{self.tool_name} completed with status: {status} (took {duration:.2f}s)")
-            
+
             return {
                 "status": status,
                 "output": result.stdout,
@@ -193,7 +193,7 @@ class {{TOOL_NAME}}Adapter:  # Implement ToolAdapter interface
                 "exit_code": result.returncode,
                 "duration": duration
             }
-            
+
         except subprocess.TimeoutExpired:
             logger.error(f"{self.tool_name} execution timed out after {timeout}s")
             return {
@@ -212,20 +212,20 @@ class {{TOOL_NAME}}Adapter:  # Implement ToolAdapter interface
                 "exit_code": -1,
                 "duration": 0
             }
-    
+
     def validate_result(self, result: Dict[str, Any]) -> Dict[str, Any]:
         """
         Validate tool execution result.
-        
+
         Args:
             result: ExecutionResult from execute()
-        
+
         Returns:
             ValidationResult with:
                 - valid: bool - Is result valid
                 - errors: List[str] - Validation errors if any
                 - warnings: List[str] - Validation warnings
-        
+
         Example:
             {
                 "valid": True,
@@ -235,11 +235,11 @@ class {{TOOL_NAME}}Adapter:  # Implement ToolAdapter interface
         """
         errors = []
         warnings = []
-        
+
         # Check if execution succeeded
         if result['status'] != 'success':
             errors.append(f"Execution status: {result['status']}")
-        
+
         # Check for error patterns in output
         if result['errors']:
             # Parse stderr for known error patterns
@@ -248,38 +248,38 @@ class {{TOOL_NAME}}Adapter:  # Implement ToolAdapter interface
                 errors.append("Tool reported errors in stderr")
             elif 'warning' in error_output:
                 warnings.append("Tool reported warnings")
-        
+
         # Validate output format (customize based on tool)
         if result['output']:
             # Example: Check if output is non-empty
             pass
         else:
             warnings.append("No output generated")
-        
+
         return {
             "valid": len(errors) == 0,
             "errors": errors,
             "warnings": warnings
         }
-    
+
     def _build_command(self, request) -> List[str]:
         """
         Build command line from request.
-        
+
         Args:
             request: ExecutionRequest
-        
+
         Returns:
             List of command parts
-        
+
         Example:
             ["mytool", "check", "--fix", "src/"]
         """
         cmd = [self.tool_path]
-        
+
         # Add default arguments
         cmd.extend(self.default_args)
-        
+
         # Add request-specific arguments
         if hasattr(request, 'parameters') and request.parameters:
             # Parse parameters into CLI arguments
@@ -288,7 +288,7 @@ class {{TOOL_NAME}}Adapter:  # Implement ToolAdapter interface
                     cmd.append(f"--{key}")
                 elif value is not None:
                     cmd.extend([f"--{key}", str(value)])
-        
+
         return cmd
 
 
@@ -296,11 +296,11 @@ class {{TOOL_NAME}}Adapter:  # Implement ToolAdapter interface
 if __name__ == "__main__":
     # Test adapter
     adapter = {{TOOL_NAME}}Adapter()
-    
+
     # Check capabilities
     caps = adapter.detect_capabilities()
     print(f"Capabilities: {caps}")
-    
+
     # Example execution (would need real ExecutionRequest)
     # request = ExecutionRequest(
     #     task_id="test-001",

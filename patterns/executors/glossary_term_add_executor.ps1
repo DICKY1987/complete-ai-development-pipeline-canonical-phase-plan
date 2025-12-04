@@ -3,7 +3,7 @@
 <#
 .SYNOPSIS
     Executor for glossary_term_add pattern (PAT-GLOSSARY-TERM-ADD-001)
-    
+
 .DESCRIPTION
     Adds new term to glossary with:
     - Auto-generated unique term ID
@@ -11,16 +11,16 @@
     - Validation of inputs
     - Duplicate detection
     - Changelog update
-    
+
 .PARAMETER InstancePath
     Path to pattern instance JSON file
-    
+
 .PARAMETER Verbose
     Enable verbose output
-    
+
 .EXAMPLE
     .\glossary_term_add_executor.ps1 -InstancePath instance.json
-    
+
 .NOTES
     Pattern: PAT-GLOSSARY-TERM-ADD-001
     Version: 1.0.0
@@ -30,7 +30,7 @@
 param(
     [Parameter(Mandatory=$true)]
     [string]$InstancePath,
-    
+
     [switch]$VerboseOutput
 )
 
@@ -49,7 +49,7 @@ function Get-TermId {
         [string]$Category,
         [hashtable]$ExistingTerms
     )
-    
+
     $categoryMap = @{
         "Core Engine" = "ENGINE"
         "Patch Management" = "PATCH"
@@ -60,12 +60,12 @@ function Get-TermId {
         "Framework" = "FRAMEWORK"
         "Project Management" = "PM"
     }
-    
+
     $prefix = $categoryMap[$Category]
     if (-not $prefix) {
         throw "Unknown category: $Category"
     }
-    
+
     # Find highest number for this prefix
     $maxNum = 0
     foreach ($termId in $ExistingTerms.Keys) {
@@ -76,7 +76,7 @@ function Get-TermId {
             }
         }
     }
-    
+
     $nextNum = $maxNum + 1
     return "TERM-$prefix-{0:D3}" -f $nextNum
 }
@@ -95,22 +95,22 @@ $result = @{
 try {
     Write-Host "Glossary Term Add Pattern Executor" -ForegroundColor Cyan
     Write-Host "===================================" -ForegroundColor Cyan
-    
+
     # STEP 1: Load instance
     Write-Step "S1: Loading pattern instance..."
     if (-not (Test-Path $InstancePath)) {
         throw "Instance file not found: $InstancePath"
     }
-    
+
     $instance = Get-Content $InstancePath -Raw | ConvertFrom-Json
     Write-Success "Loaded instance from $InstancePath"
-    
+
     # Validate pattern ID
     if ($instance.pattern_id -ne "PAT-GLOSSARY-TERM-ADD-001") {
         throw "Invalid pattern_id: Expected PAT-GLOSSARY-TERM-ADD-001, got $($instance.pattern_id)"
     }
     Write-Success "Pattern ID validated"
-    
+
     # Extract parameters
     $projectRoot = $instance.inputs.project_root
     $termName = $instance.inputs.term_name
@@ -119,28 +119,28 @@ try {
     $status = if ($instance.inputs.status) { $instance.inputs.status } else { "draft" }
     $implementationFiles = if ($instance.inputs.implementation_files) { $instance.inputs.implementation_files } else { @() }
     $relatedTerms = if ($instance.inputs.related_terms) { $instance.inputs.related_terms } else { @() }
-    
+
     Write-Info "Term name: $termName"
     Write-Info "Category: $category"
     Write-Info "Status: $status"
-    
+
     # STEP 2: Validate prerequisites
     Write-Step "S2: Validating prerequisites..."
-    
+
     # Check glossary directory
     $glossaryRoot = Join-Path $projectRoot "glossary"
     if (-not (Test-Path $glossaryRoot)) {
         throw "Glossary directory not found: $glossaryRoot"
     }
     Write-Success "Glossary directory found"
-    
+
     # Check metadata file
     $metadataPath = Join-Path $glossaryRoot ".glossary-metadata.yaml"
     if (-not (Test-Path $metadataPath)) {
         throw "Metadata file not found: $metadataPath"
     }
     Write-Success "Metadata file found"
-    
+
     # Validate inputs
     if ($termName.Length -lt 2 -or $termName.Length -gt 100) {
         throw "Term name must be 2-100 characters"
@@ -149,15 +149,15 @@ try {
         throw "Definition must be 20-1000 characters"
     }
     Write-Success "Input validation passed"
-    
+
     # STEP 3: Load existing metadata
     Write-Step "S3: Loading existing metadata..."
-    
+
     Push-Location $glossaryRoot
     try {
         # Load YAML metadata
         $metadataContent = Get-Content ".glossary-metadata.yaml" -Raw
-        
+
         # Parse with Python (more reliable than PowerShell YAML parsing)
         $parseScript = @"
 import yaml
@@ -166,7 +166,7 @@ import sys
 
 with open('.glossary-metadata.yaml', 'r', encoding='utf-8') as f:
     data = yaml.safe_load(f)
-    
+
 # Extract terms
 terms = {}
 if 'terms' in data:
@@ -175,14 +175,14 @@ if 'terms' in data:
 
 print(json.dumps(terms))
 "@
-        
+
         $parseScript | Set-Content -Path ".tmp-parse-metadata.py" -Encoding UTF8
         $existingTermsJson = python ".tmp-parse-metadata.py"
         Remove-Item ".tmp-parse-metadata.py" -ErrorAction SilentlyContinue
-        
+
         $existingTerms = $existingTermsJson | ConvertFrom-Json -AsHashtable
         Write-Success "Loaded $($existingTerms.Count) existing terms"
-        
+
         # Check for duplicate names
         foreach ($termId in $existingTerms.Keys) {
             if ($existingTerms[$termId] -eq $termName) {
@@ -194,17 +194,17 @@ print(json.dumps(terms))
     finally {
         Pop-Location
     }
-    
+
     # STEP 4: Generate term ID
     Write-Step "S4: Generating term ID..."
-    
+
     $termId = Get-TermId -Category $category -ExistingTerms $existingTerms
     $result.term_id = $termId
     Write-Success "Generated term ID: $termId"
-    
+
     # STEP 5: Add term to metadata
     Write-Step "S5: Adding term to metadata..."
-    
+
     Push-Location $glossaryRoot
     try {
         # Create Python script to add term
@@ -246,47 +246,47 @@ with open('.glossary-metadata.yaml', 'w', encoding='utf-8') as f:
 
 print('Term added successfully')
 "@
-        
+
         $addScript | Set-Content -Path ".tmp-add-term.py" -Encoding UTF8
         $output = python ".tmp-add-term.py" 2>&1
         Remove-Item ".tmp-add-term.py" -ErrorAction SilentlyContinue
-        
+
         if ($LASTEXITCODE -ne 0) {
             throw "Failed to add term to metadata: $output"
         }
-        
+
         Write-Success "Term added to metadata"
         $result.files_updated += ".glossary-metadata.yaml"
     }
     finally {
         Pop-Location
     }
-    
+
     # STEP 6: Add term to glossary.md
     Write-Step "S6: Adding term to glossary.md..."
-    
+
     $glossaryMdPath = Join-Path $glossaryRoot "glossary.md"
     if (Test-Path $glossaryMdPath) {
         $glossaryContent = Get-Content $glossaryMdPath -Raw
-        
+
         # Find the category section
         $categoryPattern = "## $category"
-        
+
         if ($glossaryContent -match $categoryPattern) {
             # Add term to category
             $termEntry = @"
 
 ### $termName
-**ID**: ``$termId``  
+**ID**: ``$termId``
 **Status**: $status
 
 $definition
 
 "@
-            
+
             # Insert after category header
             $glossaryContent = $glossaryContent -replace "($categoryPattern)", "`$1$termEntry"
-            
+
             Set-Content -Path $glossaryMdPath -Value $glossaryContent -Encoding UTF8
             Write-Success "Term added to glossary.md"
             $result.files_updated += "glossary.md"
@@ -298,19 +298,19 @@ $definition
     else {
         Write-Info "glossary.md not found - metadata updated only"
     }
-    
+
     # STEP 7: Validate
     Write-Step "S7: Running validation..."
-    
+
     Push-Location $glossaryRoot
     try {
         $validateOutput = python scripts/validate_glossary.py --quick 2>&1
         $validateExitCode = $LASTEXITCODE
-        
+
         if ($VerboseOutput) {
             Write-Host $validateOutput
         }
-        
+
         if ($validateExitCode -eq 0) {
             $result.validation_passed = $true
             Write-Success "Validation passed"
@@ -324,18 +324,18 @@ $definition
     finally {
         Pop-Location
     }
-    
+
     # STEP 8: Generate output
     Write-Step "S8: Generating execution output..."
-    
+
     $result.execution_duration_seconds = ((Get-Date) - $startTime).TotalSeconds
-    
+
     # Save output
     $outputPath = Join-Path (Split-Path $InstancePath -Parent) "output.json"
     $instance.outputs = $result
     $instance | ConvertTo-Json -Depth 10 | Set-Content $outputPath -Encoding UTF8
     Write-Success "Output saved to $outputPath"
-    
+
     # Summary
     Write-Host "`n===================================" -ForegroundColor Cyan
     Write-Host "Execution Summary" -ForegroundColor Cyan
@@ -351,21 +351,21 @@ $definition
     Write-Host "Validation:   $(if ($result.validation_passed) { 'PASSED' } else { 'FAILED' })" -ForegroundColor $(if ($result.validation_passed) { "Green" } else { "Red" })
     Write-Host "Duration:     $([math]::Round($result.execution_duration_seconds, 2))s"
     Write-Host "===================================" -ForegroundColor Cyan
-    
+
     exit 0
 }
 catch {
     $result.status = "failure"
     $result.errors += $_.Exception.Message
     $result.execution_duration_seconds = ((Get-Date) - $startTime).TotalSeconds
-    
+
     Write-Failure "Execution failed: $($_.Exception.Message)"
-    
+
     # Save error output
     $outputPath = Join-Path (Split-Path $InstancePath -Parent) "output.json"
     $instance.outputs = $result
     $instance | ConvertTo-Json -Depth 10 | Set-Content $outputPath -Encoding UTF8
-    
+
     Write-Host "`nError details saved to $outputPath" -ForegroundColor Red
     exit 1
 }

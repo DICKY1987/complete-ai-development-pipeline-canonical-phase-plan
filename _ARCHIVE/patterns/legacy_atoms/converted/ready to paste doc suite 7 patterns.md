@@ -2,8 +2,8 @@ Yes. Using your two specs as the ground truth, I can build a full **pattern doc 
 
 I’ll follow:
 
-* **PATTERN_DOC_SUITE_SPEC-V1** for structure, `doc_id`, and file layout 
-* **Every_reusable_pattern.md** for the “spec + schema + executor + tests + index” roles per pattern 
+* **PATTERN_DOC_SUITE_SPEC-V1** for structure, `doc_id`, and file layout
+* **Every_reusable_pattern.md** for the “spec + schema + executor + tests + index” roles per pattern
 
 Below is a **ready-to-paste doc suite** (index + per-pattern files) for these 7 patterns:
 ready to paste doc suite 7 patterns
@@ -19,7 +19,7 @@ ready to paste doc suite 7 patterns
 
 ## 0. IDs & Names (canonical)
 
-These are the IDs I’ll use consistently across all artifacts (per PATTERN_DOC_SUITE_SPEC rules). 
+These are the IDs I’ll use consistently across all artifacts (per PATTERN_DOC_SUITE_SPEC rules).
 
 ```yaml
 # Canonical pattern IDs for this doc suite
@@ -65,7 +65,7 @@ patterns:
 
 ## 1. `patterns/registry/PATTERN_INDEX.yaml`
 
-Single canonical index listing all patterns and their artifacts, per your spec.  
+Single canonical index listing all patterns and their artifacts, per your spec.
 
 ```yaml
 # patterns/registry/PATTERN_INDEX.yaml
@@ -173,7 +173,7 @@ From here, for each pattern I’ll give you:
 * `patterns/tests/test_<name>_executor.ps1` (skeleton)
 * `patterns/examples/<name>/instance_minimal.json` (minimal example)
 
-All wired to the same `doc_id` as required by your spec. 
+All wired to the same `doc_id` as required by your spec.
 
 ---
 
@@ -1057,8 +1057,8 @@ outputs:
 
 * Each pattern has:
 
-  * **Index entry**, **spec**, **schema**, **executor skeleton**, **test skeleton**, and **example** wired by a single `doc_id`, as required. 
-* The overall structure matches the “per-pattern spec/schema/executor/tests + shared PATTERN_INDEX.yaml” model from *Every_reusable_pattern.md*. 
+  * **Index entry**, **spec**, **schema**, **executor skeleton**, **test skeleton**, and **example** wired by a single `doc_id`, as required.
+* The overall structure matches the “per-pattern spec/schema/executor/tests + shared PATTERN_INDEX.yaml” model from *Every_reusable_pattern.md*.
 
 If you want, your next step can be:
 

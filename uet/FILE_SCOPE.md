@@ -4,8 +4,8 @@ doc_id: DOC-GUIDE-FILE-SCOPE-1664
 
 # UET V2 File Scope & Isolation
 
-**Purpose**: Define file access rules and isolation boundaries to prevent conflicts  
-**Status**: DRAFT  
+**Purpose**: Define file access rules and isolation boundaries to prevent conflicts
+**Status**: DRAFT
 **Last Updated**: 2025-11-23
 
 ---
@@ -109,33 +109,33 @@ class WorktreeManager:
     def __init__(self, base_repo: str, worktree_dir: str = ".worktrees"):
         self.base_repo = Path(base_repo)
         self.worktree_dir = Path(worktree_dir)
-    
+
     def create_worktree(self, worker_id: str, branch_name: str) -> Path:
         """
         Create isolated worktree for worker.
-        
+
         Args:
             worker_id: Unique worker identifier
             branch_name: Branch to checkout in worktree
-        
+
         Returns:
             Path to worktree directory
         """
         worktree_path = self.worktree_dir / worker_id
-        
+
         # Create worktree
         subprocess.run([
             "git", "worktree", "add",
             str(worktree_path),
             branch_name
         ], check=True, cwd=self.base_repo)
-        
+
         return worktree_path
-    
+
     def remove_worktree(self, worker_id: str) -> None:
         """Remove worker's worktree."""
         worktree_path = self.worktree_dir / worker_id
-        
+
         subprocess.run([
             "git", "worktree", "remove", str(worktree_path)
         ], check=True, cwd=self.base_repo)
@@ -185,22 +185,22 @@ from contextlib import contextmanager
 class FileLockManager:
     def __init__(self):
         self.locks = {}  # file_path -> lock file descriptor
-    
+
     @contextmanager
     def acquire_lock(self, file_path: str, mode: str):
         """
         Acquire lock on file.
-        
+
         Args:
             file_path: File to lock
             mode: 'read' (shared) or 'edit' (exclusive)
-        
+
         Raises:
             FileLockError: If lock cannot be acquired
         """
         lock_path = f"{file_path}.lock"
         lock_fd = open(lock_path, 'w')
-        
+
         try:
             if mode == 'read':
                 # Shared lock (multiple readers)
@@ -208,9 +208,9 @@ class FileLockManager:
             elif mode in ['edit', 'create', 'delete']:
                 # Exclusive lock (single writer)
                 fcntl.flock(lock_fd, fcntl.LOCK_EX)
-            
+
             yield
-        
+
         finally:
             # Release lock
             fcntl.flock(lock_fd, fcntl.LOCK_UN)
@@ -253,7 +253,7 @@ class CoWManager:
             "btrfs", "subvolume", "snapshot",
             source, dest
         ], check=True)
-    
+
     def delete_snapshot(self, snapshot: str) -> None:
         """Delete snapshot."""
         subprocess.run([
@@ -281,31 +281,31 @@ class ConflictDetector:
     def detect_file_conflicts(self, task_a: dict, task_b: dict) -> bool:
         """
         Check if two tasks conflict at file level.
-        
+
         Returns:
             True if conflict exists
         """
         files_a = set(task_a.get('files', []))
         files_b = set(task_b.get('files', []))
-        
+
         # Check for file overlap
         overlap = files_a & files_b
         if not overlap:
             return False  # No conflict
-        
+
         # Check access modes
         for file in overlap:
             mode_a = task_a['file_access'][file]['mode']
             mode_b = task_b['file_access'][file]['mode']
-            
+
             # Read-read: OK (shared)
             if mode_a == 'read' and mode_b == 'read':
                 continue
-            
+
             # Any write mode: CONFLICT
             if mode_a in ['edit', 'create', 'delete'] or mode_b in ['edit', 'create', 'delete']:
                 return True  # Conflict
-        
+
         return False  # No conflict
 ```
 
@@ -316,42 +316,42 @@ class LineRangeConflictDetector:
     def detect_line_conflicts(self, task_a: dict, task_b: dict) -> bool:
         """
         Check if two tasks conflict at line level.
-        
+
         Returns:
             True if line ranges overlap
         """
         files_a = set(task_a.get('files', []))
         files_b = set(task_b.get('files', []))
-        
+
         overlap = files_a & files_b
         if not overlap:
             return False
-        
+
         for file in overlap:
             range_a = self._parse_line_range(task_a['file_access'][file].get('scope', ''))
             range_b = self._parse_line_range(task_b['file_access'][file].get('scope', ''))
-            
+
             if self._ranges_overlap(range_a, range_b):
                 return True  # Conflict
-        
+
         return False
-    
+
     def _parse_line_range(self, scope: str) -> tuple:
         """Parse 'lines:45-55' into (45, 55)."""
         if not scope or not scope.startswith('lines:'):
             return (None, None)  # Full file
-        
+
         parts = scope.split(':')[1].split('-')
         return (int(parts[0]), int(parts[1]))
-    
+
     def _ranges_overlap(self, range_a: tuple, range_b: tuple) -> bool:
         """Check if line ranges overlap."""
         if range_a == (None, None) or range_b == (None, None):
             return True  # Full file edit
-        
+
         start_a, end_a = range_a
         start_b, end_b = range_b
-        
+
         return not (end_a < start_b or end_b < start_a)
 ```
 
@@ -364,27 +364,27 @@ class FunctionConflictDetector:
     def detect_function_conflicts(self, file_path: str, task_a: dict, task_b: dict) -> bool:
         """
         Check if two tasks modify same function.
-        
+
         Returns:
             True if same function targeted
         """
         func_a = task_a['file_access'][file_path].get('scope', '').replace('function:', '')
         func_b = task_b['file_access'][file_path].get('scope', '').replace('function:', '')
-        
+
         if not func_a or not func_b:
             return True  # No scope = full file
-        
+
         return func_a == func_b  # Same function = conflict
-    
+
     def get_function_line_range(self, file_path: str, function_name: str) -> tuple:
         """Get line range for function using AST."""
         with open(file_path) as f:
             tree = ast.parse(f.read())
-        
+
         for node in ast.walk(tree):
             if isinstance(node, ast.FunctionDef) and node.name == function_name:
                 return (node.lineno, node.end_lineno)
-        
+
         raise ValueError(f"Function {function_name} not found")
 ```
 
@@ -399,48 +399,48 @@ class AutoMerger:
     def merge_patches(self, patch_a: PatchArtifact, patch_b: PatchArtifact) -> PatchArtifact:
         """
         Merge two non-conflicting patches.
-        
+
         Args:
             patch_a: First patch (unified diff)
             patch_b: Second patch (unified diff)
-        
+
         Returns:
             Combined patch
-        
+
         Raises:
             MergeConflictError: If patches conflict
         """
         # Check for conflicts
         if self._has_conflicts(patch_a, patch_b):
             raise MergeConflictError("Patches modify overlapping lines")
-        
+
         # Combine diffs
         combined_diff = self._combine_diffs(patch_a.diff_text, patch_b.diff_text)
-        
+
         return PatchArtifact(
             patch_id=generate_ulid(),
             format="unified_diff",
             diff_text=combined_diff,
             files_touched=list(set(patch_a.files_touched + patch_b.files_touched))
         )
-    
+
     def _has_conflicts(self, patch_a: PatchArtifact, patch_b: PatchArtifact) -> bool:
         """Check if patches touch same lines."""
         # Parse diffs
         hunks_a = self._parse_hunks(patch_a.diff_text)
         hunks_b = self._parse_hunks(patch_b.diff_text)
-        
+
         # Check for overlapping hunks
         for file, hunks_a_file in hunks_a.items():
             if file not in hunks_b:
                 continue
-            
+
             hunks_b_file = hunks_b[file]
             for hunk_a in hunks_a_file:
                 for hunk_b in hunks_b_file:
                     if self._hunks_overlap(hunk_a, hunk_b):
                         return True  # Conflict
-        
+
         return False  # No conflict
 ```
 
@@ -451,7 +451,7 @@ class ManualMergeOrchestrator:
     def handle_conflict(self, patch_a: PatchArtifact, patch_b: PatchArtifact) -> None:
         """
         Escalate conflict to human review.
-        
+
         Creates a merge conflict task with:
         - Both patches
         - Conflict details (files, lines)
@@ -469,7 +469,7 @@ class ManualMergeOrchestrator:
                 "Reject Both"
             ]
         )
-        
+
         # Create human review task
         self.human_review.create_task(
             task_type="MERGE_CONFLICT",
@@ -489,28 +489,28 @@ class WorktreeLifecycleManager:
     def __init__(self, base_repo: str):
         self.base_repo = Path(base_repo)
         self.worktree_manager = WorktreeManager(base_repo)
-    
+
     def spawn_worker_worktree(self, worker_id: str) -> str:
         """Create worktree for new worker."""
         branch_name = f"worker/{worker_id}"
-        
+
         # Create branch
         subprocess.run([
             "git", "branch", branch_name, "main"
         ], check=True, cwd=self.base_repo)
-        
+
         # Create worktree
         worktree_path = self.worktree_manager.create_worktree(worker_id, branch_name)
-        
+
         return str(worktree_path)
-    
+
     def commit_worker_changes(self, worker_id: str, message: str) -> str:
         """Commit changes from worker's worktree."""
         worktree_path = self.worktree_manager.worktree_dir / worker_id
-        
+
         # Stage all changes
         subprocess.run(["git", "add", "-A"], check=True, cwd=worktree_path)
-        
+
         # Commit
         result = subprocess.run(
             ["git", "commit", "-m", message],
@@ -519,7 +519,7 @@ class WorktreeLifecycleManager:
             capture_output=True,
             text=True
         )
-        
+
         # Get commit SHA
         sha = subprocess.run(
             ["git", "rev-parse", "HEAD"],
@@ -528,16 +528,16 @@ class WorktreeLifecycleManager:
             capture_output=True,
             text=True
         ).stdout.strip()
-        
+
         return sha
-    
+
     def cleanup_worker_worktree(self, worker_id: str) -> None:
         """Remove worktree after worker terminates."""
         # Delete branch
         subprocess.run([
             "git", "branch", "-D", f"worker/{worker_id}"
         ], check=True, cwd=self.base_repo)
-        
+
         # Remove worktree
         self.worktree_manager.remove_worktree(worker_id)
 ```
@@ -549,15 +549,15 @@ class IntegrationWorker:
     def merge_worker_branches(self, worker_ids: List[str]) -> MergeResult:
         """
         Merge branches from multiple workers.
-        
+
         Returns:
             MergeResult with success status and conflicts
         """
         conflicts = []
-        
+
         for worker_id in worker_ids:
             branch_name = f"worker/{worker_id}"
-            
+
             # Try merge
             result = subprocess.run(
                 ["git", "merge", "--no-ff", branch_name, "-m", f"Merge worker {worker_id}"],
@@ -565,7 +565,7 @@ class IntegrationWorker:
                 capture_output=True,
                 text=True
             )
-            
+
             if result.returncode != 0:
                 # Merge conflict
                 conflicts.append({
@@ -573,13 +573,13 @@ class IntegrationWorker:
                     'branch': branch_name,
                     'error': result.stderr
                 })
-                
+
                 # Abort merge
                 subprocess.run(["git", "merge", "--abort"], cwd=self.base_repo)
-        
+
         if conflicts:
             return MergeResult(success=False, conflicts=conflicts)
-        
+
         return MergeResult(success=True, conflicts=[])
 ```
 
@@ -661,5 +661,5 @@ class IntegrationWorker:
 
 ---
 
-**Last Updated**: 2025-11-23  
+**Last Updated**: 2025-11-23
 **Next Review**: Before Phase A starts

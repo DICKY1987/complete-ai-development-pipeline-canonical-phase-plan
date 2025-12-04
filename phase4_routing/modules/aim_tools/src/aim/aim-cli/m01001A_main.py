@@ -32,9 +32,9 @@ console = Console()
 @click.version_option(version="1.0.0", prog_name="AIM+")
 def cli():
     """AIM+ - Unified AI Development Environment Manager
-    
+
     Manage AI tools, secrets, environment configuration, and system health.
-    
+
     Examples:
         aim secrets list
         aim health check
@@ -58,43 +58,43 @@ cli.add_command(audit)
 @cli.command(name="status")
 def status():
     """Quick status overview.
-    
+
     Shows system health and configuration summary.
     """
     from modules.aim_environment import HealthMonitor
     from modules.aim_registry import load_config
-    
+
     console.print("\n[bold cyan]AIM+ System Status[/bold cyan]\n")
-    
+
     # Load config
     try:
         config = load_config(validate=False)
         console.print(f"[green]✓[/green] Config: v{config.get('version', 'unknown')}")
-        
+
         # Show tool count
         tools = config.get("registry", {}).get("tools", {})
         console.print(f"[green]✓[/green] AI Tools: {len(tools)} configured")
     except Exception as e:
         console.print(f"[red]✗[/red] Config: {e}")
-    
+
     # Run quick health check
     try:
         monitor = HealthMonitor()
         report = monitor.generate_report()
-        
+
         status_color = {
             "healthy": "green",
             "degraded": "yellow",
             "unhealthy": "red"
         }.get(report["overall_status"], "white")
-        
+
         console.print(f"[{status_color}]●[/{status_color}] Health: {report['overall_status']}")
-        
+
         summary = report["summary"]
         console.print(f"  Pass: {summary['pass']}, Warn: {summary['warn']}, Fail: {summary['fail']}")
     except Exception as e:
         console.print(f"[red]✗[/red] Health check failed: {e}")
-    
+
     console.print()
 
 
@@ -128,12 +128,12 @@ def status():
 )
 def setup(all: bool, tools: bool, sync: bool, manager: str, dry_run: bool):
     """Bootstrap AIM+ development environment.
-    
+
     This command sets up your development environment by:
     - Installing all configured tools
     - Syncing to pinned versions
     - Running health checks
-    
+
     Examples:
         aim setup --all          # Complete setup
         aim setup --tools        # Install tools only
@@ -145,85 +145,85 @@ def setup(all: bool, tools: bool, sync: bool, manager: str, dry_run: bool):
     from modules.aim_environment import ToolInstaller
     from modules.aim_environment import VersionControl
     from modules.aim_environment import HealthMonitor
-    
+
     try:
         console.print("\n[bold cyan]AIM+ Environment Setup[/bold cyan]\n")
-        
+
         if dry_run:
             console.print("[yellow]DRY RUN MODE - No changes will be made[/yellow]\n")
-        
+
         # Load config
         with console.status("[bold blue]Loading configuration..."):
             config = ConfigLoader().load()
             installer = ToolInstaller(config)
             vc = VersionControl(config, installer)
-        
+
         # Determine what to do
         do_tools = all or tools
         do_sync = all or sync
-        
+
         if not (do_tools or do_sync):
             # Default: do everything
             do_tools = True
             do_sync = True
-        
+
         results = []
-        
+
         # Install tools
         if do_tools:
             console.print("[bold blue]Installing tools...[/bold blue]")
-            
+
             if dry_run:
                 console.print("[dim]Would install tools from config[/dim]")
             else:
                 managers = ["pipx", "npm"] if manager == "all" else [manager]
                 for mgr in managers:
                     console.print(f"\n[cyan]Installing {mgr} tools...[/cyan]")
-                    
+
                     install_results = asyncio.run(
                         installer.install_from_config(mgr, rollback_on_failure=False)
                     )
-                    
+
                     success_count = sum(1 for r in install_results if r.success)
                     total_count = len(install_results)
-                    
+
                     if success_count == total_count:
                         console.print(f"[green]✓[/green] {mgr}: {success_count}/{total_count} installed")
                     else:
                         console.print(f"[yellow]⚠[/yellow] {mgr}: {success_count}/{total_count} installed")
-                    
+
                     results.extend(install_results)
-        
+
         # Sync versions
         if do_sync:
             console.print("\n[bold blue]Syncing versions...[/bold blue]")
-            
+
             sync_results = asyncio.run(vc.sync(dry_run=dry_run))
-            
+
             success_count = sum(1 for _, success, _ in sync_results if success)
             total_count = len(sync_results)
-            
+
             if success_count == total_count:
                 console.print(f"[green]✓[/green] Versions: {success_count}/{total_count} synced")
             else:
                 console.print(f"[yellow]⚠[/yellow] Versions: {success_count}/{total_count} synced")
-        
+
         # Run health check
         if all and not dry_run:
             console.print("\n[bold blue]Running health check...[/bold blue]")
-            
+
             monitor = HealthMonitor()
             report = monitor.generate_report()
-            
+
             status = report["overall_status"]
             if status == "healthy":
                 console.print(f"[green]✓[/green] Health: {status}")
             else:
                 console.print(f"[yellow]⚠[/yellow] Health: {status}")
-        
+
         # Summary
         console.print("\n[bold green]Setup complete![/bold green]")
-        
+
         if dry_run:
             console.print("\n[yellow]This was a dry run. Run without --dry-run to apply changes.[/yellow]")
         else:
@@ -231,7 +231,7 @@ def setup(all: bool, tools: bool, sync: bool, manager: str, dry_run: bool):
             console.print("  - Run [cyan]aim health check[/cyan] for detailed system status")
             console.print("  - Run [cyan]aim version check[/cyan] to verify tool versions")
             console.print("  - Run [cyan]aim --help[/cyan] for more commands")
-    
+
     except Exception as e:
         console.print(f"\n[red]Setup failed:[/red] {str(e)}")
         import traceback
@@ -243,43 +243,43 @@ def setup(all: bool, tools: bool, sync: bool, manager: str, dry_run: bool):
 @cli.command(name="status")
 def status():
     """Quick status overview.
-    
+
     Shows system health and configuration summary.
     """
     from modules.aim_environment import HealthMonitor
     from modules.aim_registry import load_config
-    
+
     console.print("\n[bold cyan]AIM+ System Status[/bold cyan]\n")
-    
+
     # Load config
     try:
         config = load_config(validate=False)
         console.print(f"[green]✓[/green] Config: v{config.get('version', 'unknown')}")
-        
+
         # Show tool count
         tools = config.get("registry", {}).get("tools", {})
         console.print(f"[green]✓[/green] AI Tools: {len(tools)} configured")
     except Exception as e:
         console.print(f"[red]✗[/red] Config: {e}")
-    
+
     # Run quick health check
     try:
         monitor = HealthMonitor()
         report = monitor.generate_report()
-        
+
         status_color = {
             "healthy": "green",
             "degraded": "yellow",
             "unhealthy": "red"
         }.get(report["overall_status"], "white")
-        
+
         console.print(f"[{status_color}]●[/{status_color}] Health: {report['overall_status']}")
-        
+
         summary = report["summary"]
         console.print(f"  Pass: {summary['pass']}, Warn: {summary['warn']}, Fail: {summary['fail']}")
     except Exception as e:
         console.print(f"[red]✗[/red] Health check failed: {e}")
-    
+
     console.print()
 
 

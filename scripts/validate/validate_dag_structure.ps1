@@ -19,7 +19,7 @@
 param(
     [Parameter()]
     [string]$StateDir = ".state",
-    
+
     [Parameter()]
     [switch]$VerboseOutput
 )
@@ -34,13 +34,13 @@ function Write-Result {
         [string]$Status,
         [string]$Message
     )
-    
+
     $statusSymbol = if ($Status -eq "PASS") { "✓" } else { "✗" }
     $color = if ($Status -eq "PASS") { "Green" } else { "Red" }
-    
+
     Write-Host "[$statusSymbol] $RequirementId : " -NoNewline
     Write-Host $Message -ForegroundColor $color
-    
+
     if ($Status -eq "PASS") {
         $script:PassCount++
     } else {
@@ -50,12 +50,12 @@ function Write-Result {
 
 function Test-DAGFile {
     param([string]$DagPath)
-    
+
     $errors = @()
-    
+
     try {
         $dag = Get-Content $DagPath -Raw | ConvertFrom-Json
-        
+
         # Required fields
         $requiredFields = @("workstream_id", "generated_at", "nodes", "edges")
         foreach ($field in $requiredFields) {
@@ -63,7 +63,7 @@ function Test-DAGFile {
                 $errors += "Missing required field: $field"
             }
         }
-        
+
         # Validate nodes structure
         if ($dag.nodes) {
             foreach ($node in $dag.nodes) {
@@ -76,7 +76,7 @@ function Test-DAGFile {
                 }
             }
         }
-        
+
         # Validate edges structure
         if ($dag.edges) {
             foreach ($edge in $dag.edges) {
@@ -89,7 +89,7 @@ function Test-DAGFile {
                 }
             }
         }
-        
+
         # Check for cycles (basic check)
         if ($dag.nodes -and $dag.edges) {
             # Build adjacency list
@@ -102,17 +102,17 @@ function Test-DAGFile {
                     $adjList[$edge.from] += $edge.to
                 }
             }
-            
+
             # Simple cycle detection via DFS
             $visited = @{}
             $recStack = @{}
-            
+
             function Test-Cycle {
                 param([string]$nodeId)
-                
+
                 $visited[$nodeId] = $true
                 $recStack[$nodeId] = $true
-                
+
                 foreach ($neighbor in $adjList[$nodeId]) {
                     if (-not $visited.ContainsKey($neighbor)) {
                         if (Test-Cycle $neighbor) {
@@ -122,11 +122,11 @@ function Test-DAGFile {
                         return $true
                     }
                 }
-                
+
                 $recStack.Remove($nodeId)
                 return $false
             }
-            
+
             foreach ($nodeId in $adjList.Keys) {
                 if (-not $visited.ContainsKey($nodeId)) {
                     if (Test-Cycle $nodeId) {
@@ -136,9 +136,9 @@ function Test-DAGFile {
                 }
             }
         }
-        
+
         return $errors
-        
+
     } catch {
         return @("Invalid JSON: $($_.Exception.Message)")
     }
@@ -146,12 +146,12 @@ function Test-DAGFile {
 
 function Test-ExecutionPlanFile {
     param([string]$PlanPath)
-    
+
     $errors = @()
-    
+
     try {
         $plan = Get-Content $PlanPath -Raw | ConvertFrom-Json
-        
+
         # Required fields
         $requiredFields = @("workstream_id", "generated_at", "stages")
         foreach ($field in $requiredFields) {
@@ -159,7 +159,7 @@ function Test-ExecutionPlanFile {
                 $errors += "Missing required field: $field"
             }
         }
-        
+
         # Validate stages structure
         if ($plan.stages) {
             foreach ($stage in $plan.stages) {
@@ -170,25 +170,25 @@ function Test-ExecutionPlanFile {
                         break
                     }
                 }
-                
+
                 # Check for v2.0.0 enhancements (optional but recommended)
                 if (-not $stage.PSObject.Properties.Name.Contains("max_parallelism")) {
                     $errors += "Warning: Stage missing max_parallelism (v2.0.0 enhancement)"
                 }
-                
+
                 if (-not $stage.PSObject.Properties.Name.Contains("estimated_duration_seconds")) {
                     $errors += "Warning: Stage missing estimated_duration_seconds (v2.0.0 enhancement)"
                 }
             }
         }
-        
+
         # Check for critical path information (v2.0.0)
         if (-not $plan.PSObject.Properties.Name.Contains("critical_path_duration")) {
             $errors += "Warning: Plan missing critical_path_duration (v2.0.0 enhancement)"
         }
-        
+
         return $errors
-        
+
     } catch {
         return @("Invalid JSON: $($_.Exception.Message)")
     }
@@ -204,21 +204,21 @@ if (-not (Test-Path $StateDir)) {
     Write-Result "DAG-VIEW-001" "FAIL" "State directory not found: $StateDir"
 } else {
     $dagFiles = Get-ChildItem -Path $StateDir -Filter "dag_*.json"
-    
+
     if ($dagFiles.Count -eq 0) {
         Write-Host "  No DAG files found - this may be valid for new installation" -ForegroundColor Yellow
         Write-Result "DAG-VIEW-001" "PASS" "DAG directory structure exists (0 DAG files found)"
     } else {
         $allDagsValid = $true
         $dagsWithErrors = 0
-        
+
         foreach ($dagFile in $dagFiles) {
             $errors = Test-DAGFile $dagFile.FullName
-            
+
             if ($errors.Count -gt 0) {
                 $allDagsValid = $false
                 $dagsWithErrors++
-                
+
                 Write-Host "  Errors in $($dagFile.Name):" -ForegroundColor Red
                 foreach ($error in $errors) {
                     Write-Host "    - $error" -ForegroundColor Red
@@ -227,7 +227,7 @@ if (-not (Test-Path $StateDir)) {
                 Write-Host "  ✓ $($dagFile.Name)" -ForegroundColor Gray
             }
         }
-        
+
         $validCount = $dagFiles.Count - $dagsWithErrors
         Write-Result "DAG-VIEW-001" $(if ($allDagsValid) { "PASS" } else { "FAIL" }) `
             "DAG structure validation: $validCount/$($dagFiles.Count) DAG files valid"
@@ -245,7 +245,7 @@ Write-Host "`nDAG-VIEW-003: Execution Plan Schema" -ForegroundColor Yellow
 
 if (Test-Path $StateDir) {
     $planFiles = Get-ChildItem -Path $StateDir -Filter "execution_plan_*.json"
-    
+
     if ($planFiles.Count -eq 0) {
         Write-Host "  No execution plan files found" -ForegroundColor Yellow
         Write-Result "DAG-VIEW-003" "PASS" "Execution plan directory exists (0 plans found)"
@@ -253,25 +253,25 @@ if (Test-Path $StateDir) {
         $allPlansValid = $true
         $plansWithErrors = 0
         $warningCount = 0
-        
+
         foreach ($planFile in $planFiles) {
             $errors = Test-ExecutionPlanFile $planFile.FullName
-            
+
             # Count warnings vs errors
             $actualErrors = $errors | Where-Object { $_ -notlike "Warning:*" }
             $warnings = $errors | Where-Object { $_ -like "Warning:*" }
             $warningCount += $warnings.Count
-            
+
             if ($actualErrors.Count -gt 0) {
                 $allPlansValid = $false
                 $plansWithErrors++
-                
+
                 Write-Host "  Errors in $($planFile.Name):" -ForegroundColor Red
                 foreach ($error in $actualErrors) {
                     Write-Host "    - $error" -ForegroundColor Red
                 }
             }
-            
+
             if ($warnings.Count -gt 0 -and $VerboseOutput) {
                 foreach ($warning in $warnings) {
                     Write-Host "  $warning" -ForegroundColor Yellow
@@ -280,13 +280,13 @@ if (Test-Path $StateDir) {
                 Write-Host "  ✓ $($planFile.Name)" -ForegroundColor Gray
             }
         }
-        
+
         $validCount = $planFiles.Count - $plansWithErrors
         $message = "Execution plan validation: $validCount/$($planFiles.Count) plans valid"
         if ($warningCount -gt 0) {
             $message += " ($warningCount warnings about v2.0.0 enhancements)"
         }
-        
+
         Write-Result "DAG-VIEW-003" $(if ($allPlansValid) { "PASS" } else { "FAIL" }) $message
     }
 } else {

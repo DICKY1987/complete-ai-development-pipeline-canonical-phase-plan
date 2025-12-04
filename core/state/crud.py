@@ -756,7 +756,7 @@ def record_patch(
 ) -> int:
     """
     Record a patch in the database.
-    
+
     Args:
         run_id: Run identifier
         ws_id: Workstream identifier
@@ -769,19 +769,19 @@ def record_patch(
         validated: Whether patch passed validation
         applied: Whether patch was applied
         db_path: Optional database path
-        
+
     Returns:
         Patch record ID
     """
     conn = get_connection(db_path)
     cur = conn.cursor()
-    
+
     try:
         now = datetime.now(UTC).isoformat() + "Z"
         files_json = json.dumps(files_modified)
-        
+
         cur.execute(
-            """INSERT INTO patches 
+            """INSERT INTO patches
                (run_id, ws_id, step_name, attempt, patch_file, diff_hash,
                 line_count, files_modified, created_at, validated, applied)
                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
@@ -789,9 +789,9 @@ def record_patch(
              line_count, files_json, now, int(validated), int(applied))
         )
         conn.commit()
-        
+
         return cur.lastrowid
-        
+
     finally:
         cur.close()
         conn.close()
@@ -804,28 +804,28 @@ def get_patches_by_ws(
 ) -> List[Dict[str, Any]]:
     """
     Get all patches for a workstream.
-    
+
     Args:
         ws_id: Workstream identifier
         limit: Maximum results
         db_path: Optional database path
-        
+
     Returns:
         List of patch records
     """
     conn = get_connection(db_path)
     cur = conn.cursor()
-    
+
     try:
         cur.execute(
-            """SELECT * FROM patches 
-               WHERE ws_id = ? 
-               ORDER BY created_at DESC 
+            """SELECT * FROM patches
+               WHERE ws_id = ?
+               ORDER BY created_at DESC
                LIMIT ?""",
             (ws_id, limit)
         )
         rows = cur.fetchall()
-        
+
         results = []
         for row in rows:
             result = dict(row)
@@ -836,9 +836,9 @@ def get_patches_by_ws(
             result["validated"] = bool(result.get("validated", 0))
             result["applied"] = bool(result.get("applied", 0))
             results.append(result)
-        
+
         return results
-        
+
     finally:
         cur.close()
         conn.close()
@@ -851,27 +851,27 @@ def get_patches_by_hash(
 ) -> List[Dict[str, Any]]:
     """
     Get patches by diff hash (for oscillation detection).
-    
+
     Args:
         ws_id: Workstream identifier
         diff_hash: SHA256 hash of diff content
         db_path: Optional database path
-        
+
     Returns:
         List of matching patch records
     """
     conn = get_connection(db_path)
     cur = conn.cursor()
-    
+
     try:
         cur.execute(
-            """SELECT * FROM patches 
-               WHERE ws_id = ? AND diff_hash = ? 
+            """SELECT * FROM patches
+               WHERE ws_id = ? AND diff_hash = ?
                ORDER BY created_at DESC""",
             (ws_id, diff_hash)
         )
         rows = cur.fetchall()
-        
+
         results = []
         for row in rows:
             result = dict(row)
@@ -880,9 +880,9 @@ def get_patches_by_hash(
             result["validated"] = bool(result.get("validated", 0))
             result["applied"] = bool(result.get("applied", 0))
             results.append(result)
-        
+
         return results
-        
+
     finally:
         cur.close()
         conn.close()
@@ -896,7 +896,7 @@ def update_patch_status(
 ) -> None:
     """
     Update patch validation/application status.
-    
+
     Args:
         patch_id: Patch record ID
         validated: New validation status
@@ -905,28 +905,28 @@ def update_patch_status(
     """
     conn = get_connection(db_path)
     cur = conn.cursor()
-    
+
     try:
         updates = []
         params = []
-        
+
         if validated is not None:
             updates.append("validated = ?")
             params.append(int(validated))
-        
+
         if applied is not None:
             updates.append("applied = ?")
             params.append(int(applied))
-        
+
         if not updates:
             return
-        
+
         params.append(patch_id)
         query = f"UPDATE patches SET {', '.join(updates)} WHERE id = ?"
-        
+
         cur.execute(query, tuple(params))
         conn.commit()
-        
+
     finally:
         cur.close()
         conn.close()

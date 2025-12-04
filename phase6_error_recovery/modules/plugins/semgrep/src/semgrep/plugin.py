@@ -65,7 +65,7 @@ class SemgrepPlugin:
                     check_id = result.get("check_id")
                     message = result.get("extra", {}).get("message")
                     severity_str = result.get("extra", {}).get("severity", "WARNING").upper()
-                    
+
                     # Map severity: ERROR→error, WARNING→warning, INFO→info
                     severity_map = {
                         "ERROR": "error",
@@ -73,7 +73,7 @@ class SemgrepPlugin:
                         "INFO": "info",
                     }
                     severity = severity_map.get(severity_str, "warning")
-                    
+
                     issues.append(
                         PluginIssue(
                             tool="semgrep",

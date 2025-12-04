@@ -93,7 +93,7 @@ $migrations = @(
             @{ From = "PHASE_ROADMAP.md"; To = "planning\PHASE_ROADMAP.md" }
         )
     },
-    
+
     # ========================================
     # EXECUTION SUMMARIES & STATUS
     # ========================================
@@ -106,7 +106,7 @@ $migrations = @(
             @{ From = "phase-github-issues-resolution.md"; To = "execution\GITHUB_ISSUES_RESOLUTION.md" }
         )
     },
-    
+
     # ========================================
     # ANALYSIS REPORTS
     # ========================================
@@ -120,7 +120,7 @@ $migrations = @(
             @{ From = "AI_CODEBASE_STRUCTURE_FEASIBILITY.md"; To = "analysis\AI_CODEBASE_STRUCTURE_FEASIBILITY.md" }
         )
     },
-    
+
     # ========================================
     # PLANNING ARTIFACTS
     # ========================================
@@ -132,7 +132,7 @@ $migrations = @(
             @{ From = "file-lifecycle-diagram.md"; To = "planning\file-lifecycle-diagram.md" }
         )
     },
-    
+
     # ========================================
     # ARCHIVE
     # ========================================
@@ -160,7 +160,7 @@ $errors = @()
 # Function to ensure target directory exists
 function Ensure-Directory {
     param([string]$Path)
-    
+
     if (-not (Test-Path $Path)) {
         if ($DryRun) {
             Write-Host "  [DRY RUN] Would create directory: $Path" -ForegroundColor DarkGray
@@ -179,29 +179,29 @@ function Move-FileWithGit {
         [string]$FromPath,
         [string]$ToPath
     )
-    
+
     $fromRel = $FromPath.Replace($repoRoot + "\", "")
     $toRel = $ToPath.Replace($repoRoot + "\", "")
-    
+
     if (-not (Test-Path $FromPath)) {
         $script:errors += "Source not found: $fromRel"
         Write-Host "  ✗ Source not found: $fromRel" -ForegroundColor Red
         return $false
     }
-    
+
     if ($DryRun) {
         Write-Host "  [DRY RUN] Would move: $fromRel → $toRel" -ForegroundColor DarkGray
         return $true
     }
-    
+
     try {
         # Ensure target directory exists
         $targetDir = Split-Path $ToPath -Parent
         Ensure-Directory $targetDir
-        
+
         # Use git mv for proper history tracking
         $gitOutput = git mv $FromPath $ToPath 2>&1
-        
+
         if ($LASTEXITCODE -eq 0) {
             Write-Host "  ✓ Moved: $fromRel" -ForegroundColor Green
             if ($ShowDetails) {
@@ -223,22 +223,22 @@ function Move-FileWithGit {
 # Function to delete file with Git
 function Remove-FileWithGit {
     param([string]$Path)
-    
+
     $relPath = $Path.Replace($repoRoot + "\", "")
-    
+
     if (-not (Test-Path $Path)) {
         Write-Host "  ⊘ Already removed: $relPath" -ForegroundColor DarkGray
         return $true
     }
-    
+
     if ($DryRun) {
         Write-Host "  [DRY RUN] Would delete: $relPath" -ForegroundColor DarkGray
         return $true
     }
-    
+
     try {
         $gitOutput = git rm $Path 2>&1
-        
+
         if ($LASTEXITCODE -eq 0) {
             Write-Host "  ✓ Deleted: $relPath" -ForegroundColor Yellow
             return $true
@@ -263,16 +263,16 @@ Write-Host ""
 
 foreach ($migration in $migrations) {
     Write-Host "▶ $($migration.Category)" -ForegroundColor Blue
-    
+
     foreach ($move in $migration.Moves) {
         $sourcePath = Join-Path $docsDir $move.From
         $targetPath = Join-Path $devdocsDir $move.To
-        
+
         if (Move-FileWithGit -FromPath $sourcePath -ToPath $targetPath) {
             $totalMoves++
         }
     }
-    
+
     Write-Host ""
 }
 
@@ -285,7 +285,7 @@ Write-Host ""
 
 foreach ($file in $filesToDelete) {
     $filePath = Join-Path $docsDir $file
-    
+
     if (Remove-FileWithGit -Path $filePath) {
         $totalDeletes++
     }

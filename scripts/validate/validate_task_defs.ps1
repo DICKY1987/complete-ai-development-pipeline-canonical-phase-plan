@@ -22,10 +22,10 @@
 param(
     [Parameter()]
     [string]$TasksDir = "tasks",
-    
+
     [Parameter()]
     [string]$SchemaVersion = "2.0.0",
-    
+
     [Parameter()]
     [switch]$VerboseOutput
 )
@@ -41,13 +41,13 @@ function Write-Result {
         [string]$Status,
         [string]$Message
     )
-    
+
     $statusSymbol = if ($Status -eq "PASS") { "✓" } else { "✗" }
     $color = if ($Status -eq "PASS") { "Green" } else { "Red" }
-    
+
     Write-Host "[$statusSymbol] $RequirementId : " -NoNewline
     Write-Host $Message -ForegroundColor $color
-    
+
     if ($Status -eq "PASS") {
         $script:PassCount++
     } else {
@@ -57,12 +57,12 @@ function Write-Result {
 
 function Test-TaskDefinition {
     param([string]$TaskPath)
-    
+
     $errors = @()
-    
+
     try {
         $taskJson = Get-Content $TaskPath -Raw | ConvertFrom-Json
-        
+
         # Required top-level fields
         $requiredFields = @(
             "task_id",
@@ -76,13 +76,13 @@ function Test-TaskDefinition {
             "execution",
             "state"
         )
-        
+
         foreach ($field in $requiredFields) {
             if (-not $taskJson.PSObject.Properties.Name.Contains($field)) {
                 $errors += "Missing required field: $field"
             }
         }
-        
+
         # Validate execution block
         if ($taskJson.execution) {
             $execFields = @("command", "timeout_seconds", "max_retries")
@@ -92,7 +92,7 @@ function Test-TaskDefinition {
                 }
             }
         }
-        
+
         # Validate state block
         if ($taskJson.state) {
             $stateFields = @("created_at", "retry_count")
@@ -102,7 +102,7 @@ function Test-TaskDefinition {
                 }
             }
         }
-        
+
         # Check schema version if v2.0.0+
         if ($SchemaVersion -eq "2.0.0") {
             # v2.0.0 fields (optional but recommended)
@@ -111,14 +111,14 @@ function Test-TaskDefinition {
                     $errors += "Warning: context_requirements recommended for Aider tasks in v2.0.0"
                 }
             }
-            
+
             if (-not $taskJson.PSObject.Properties.Name.Contains("validation_rules")) {
                 $errors += "Warning: validation_rules recommended in v2.0.0"
             }
         }
-        
+
         return $errors
-        
+
     } catch {
         return @("Invalid JSON: $($_.Exception.Message)")
     }
@@ -136,31 +136,31 @@ if (-not (Test-Path $TasksDir)) {
 } else {
     $taskFiles = Get-ChildItem -Path $TasksDir -Recurse -Filter "*.json"
     $taskCount = $taskFiles.Count
-    
+
     if ($taskCount -eq 0) {
         Write-Host "  No task files found - this may be valid for new installation" -ForegroundColor Yellow
         Write-Result "TASK-DEF-001" "PASS" "Task directory structure exists (0 tasks found)"
     } else {
         $validStructure = $true
-        
+
         foreach ($taskFile in $taskFiles) {
             # Verify filename matches task_id pattern
             if ($taskFile.Name -notmatch '^task-.*\.json$') {
                 Write-Host "  Invalid filename: $($taskFile.Name)" -ForegroundColor Red
                 $validStructure = $false
             }
-            
+
             # Verify in workstream subdirectory
             if ($taskFile.DirectoryName -eq $TasksDir) {
                 Write-Host "  Task not in workstream subdirectory: $($taskFile.Name)" -ForegroundColor Red
                 $validStructure = $false
             }
         }
-        
+
         if ($VerboseOutput) {
             Write-Host "  Found $taskCount task files" -ForegroundColor Gray
         }
-        
+
         Write-Result "TASK-DEF-001" $(if ($validStructure) { "PASS" } else { "FAIL" }) `
             "Task files follow naming convention and directory structure ($taskCount tasks)"
     }
@@ -173,15 +173,15 @@ if (Test-Path $TasksDir) {
     $taskFiles = Get-ChildItem -Path $TasksDir -Recurse -Filter "*.json"
     $allTasksValid = $true
     $tasksWithErrors = 0
-    
+
     foreach ($taskFile in $taskFiles) {
         $script:TasksValidated++
         $errors = Test-TaskDefinition $taskFile.FullName
-        
+
         if ($errors.Count -gt 0) {
             $allTasksValid = $false
             $tasksWithErrors++
-            
+
             Write-Host "  Errors in $($taskFile.Name):" -ForegroundColor Red
             foreach ($error in $errors) {
                 Write-Host "    - $error" -ForegroundColor Red
@@ -190,7 +190,7 @@ if (Test-Path $TasksDir) {
             Write-Host "  ✓ $($taskFile.Name)" -ForegroundColor Gray
         }
     }
-    
+
     if ($taskFiles.Count -gt 0) {
         $validCount = $taskFiles.Count - $tasksWithErrors
         Write-Result "TASK-DEF-002" $(if ($allTasksValid) { "PASS" } else { "FAIL" }) `
@@ -210,11 +210,11 @@ Write-Host "`nAdditional Checks" -ForegroundColor Yellow
 if (Test-Path $TasksDir) {
     $taskFiles = Get-ChildItem -Path $TasksDir -Recurse -Filter "*.json"
     $orphanedTasks = @()
-    
+
     foreach ($taskFile in $taskFiles) {
         try {
             $taskJson = Get-Content $taskFile.FullName -Raw | ConvertFrom-Json
-            
+
             # Check if task is in correct workstream directory
             $expectedDir = Join-Path $TasksDir $taskJson.workstream_id
             if ($taskFile.DirectoryName -ne $expectedDir) {
@@ -223,12 +223,12 @@ if (Test-Path $TasksDir) {
                 Write-Host "    Expected: $expectedDir" -ForegroundColor Gray
                 Write-Host "    Actual: $($taskFile.DirectoryName)" -ForegroundColor Gray
             }
-            
+
         } catch {
             # Already reported in schema validation
         }
     }
-    
+
     if ($orphanedTasks.Count -eq 0) {
         Write-Host "  ✓ All tasks in correct workstream directories" -ForegroundColor Green
     } else {

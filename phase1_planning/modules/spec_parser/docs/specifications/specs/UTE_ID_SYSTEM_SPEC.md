@@ -3,8 +3,8 @@ doc_id: DOC-CORE-UTE-ID-SYSTEM-SPEC-200
 ---
 
 # ID_SYSTEM_SPEC.md
-Version: 1.0.0  
-Status: DRAFT  
+Version: 1.0.0
+Status: DRAFT
 Spec ID: ID-SYSTEM-SPEC-V1
 
 ## 0. Purpose & Scope

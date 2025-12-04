@@ -10,11 +10,11 @@ entry_points:
   - file: "generator.py"
     function: "generate_spec(template, output, params)"
     description: "Generate spec from template"
-    
+
   - file: "validator.py"
     function: "validate_spec(spec_path, schema_path)"
     description: "Validate spec against JSON schema"
-    
+
   - file: "indexer/indexer.py"
     function: "generate_index(root_path)"
     description: "Generate spec index for navigation"
@@ -31,7 +31,7 @@ common_tasks:
   - task: "Generate spec"
     command: "python scripts/spec_generate.py --template workstream"
     code: "from specifications.tools.generator import generate_spec; generate_spec('workstream', 'out.json')"
-    
+
   - task: "Validate spec"
     code: "from specifications.tools.validator import validate_spec; validate_spec('file.json', 'schema.json')"
 

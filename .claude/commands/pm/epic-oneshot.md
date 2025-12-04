@@ -68,7 +68,7 @@ This will:
 
 Step 1: Decomposition ✓
   - Tasks created: {count}
-  
+
 Step 2: GitHub Sync ✓
   - Epic: #{number}
   - Sub-issues created: {count}
@@ -82,7 +82,7 @@ Ready for development!
 ## Important Notes
 
 This is simply a convenience wrapper that runs:
-1. `/pm:epic-decompose` 
+1. `/pm:epic-decompose`
 2. `/pm:epic-sync`
 
 Both commands handle their own error checking, parallel execution, and validation. This command just orchestrates them in sequence.

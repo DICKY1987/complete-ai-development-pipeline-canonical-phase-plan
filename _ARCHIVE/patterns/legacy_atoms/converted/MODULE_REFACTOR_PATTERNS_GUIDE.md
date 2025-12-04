@@ -25,7 +25,7 @@ Four reusable execution patterns for safely refactoring your repository into a m
 # Dry run first - ALWAYS!
 Execute pattern PAT-MODULE-REFACTOR-ORCHESTRATE-004 with:
   dry_run: true
-  
+
 # Review reports, then run live
 Execute pattern PAT-MODULE-REFACTOR-ORCHESTRATE-004 with:
   dry_run: false
@@ -397,7 +397,7 @@ Each pattern includes built-in validation:
 **Solution**: Check `.state/current_recovery_point.txt` exists. If migration failed early, no recovery point was created.
 
 ### "Tests failed after migration"
-**Solution**: 
+**Solution**:
 1. Review test output
 2. Check import paths (run `python scripts/paths_index_cli.py gate`)
 3. Rollback if needed: `Restore-RecoveryPoint -RecoveryId <id>`
@@ -461,6 +461,6 @@ For issues or questions:
 
 ---
 
-**Last Updated**: 2025-11-28  
-**Pattern Version**: 1.0.0  
+**Last Updated**: 2025-11-28
+**Pattern Version**: 1.0.0
 **Status**: Active

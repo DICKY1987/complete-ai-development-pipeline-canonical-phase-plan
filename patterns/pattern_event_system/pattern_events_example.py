@@ -16,16 +16,16 @@ from core.engine.pattern_events import (
 
 def example_pattern_execution():
     """Simulate a pattern execution with event emission."""
-    
+
     # Initialize emitter
     emitter = PatternEventEmitter()
     aggregator = PatternRunAggregator(emitter)
-    
+
     # Job context
     job_id = "JOB-01JH9F8P2ZJ1A8E5R6C792Q2EQ"
     step_id = "STEP-003"
     pattern_id = "PAT-SEMGRP-001"
-    
+
     # Create pattern run
     pattern_run = PatternRun.create(
         pattern_id=pattern_id,
@@ -34,11 +34,11 @@ def example_pattern_execution():
         step_id=step_id,
         pattern_version="1.2.0",
     )
-    
+
     print(f"Pattern Run: {pattern_run.pattern_run_id}\n")
-    
+
     # === STEP 1: Pattern Selection ===
-    
+
     event = PatternEvent.create(
         event_type="pattern.selection.started",
         job_id=job_id,
@@ -58,7 +58,7 @@ def example_pattern_execution():
     emitter.emit(event, job_scoped=True)
     aggregator.handle_event(event)
     print(f"✓ Emitted: {event.event_type}")
-    
+
     event = PatternEvent.create(
         event_type="pattern.selection.resolved",
         job_id=job_id,
@@ -79,9 +79,9 @@ def example_pattern_execution():
     emitter.emit(event, job_scoped=True)
     aggregator.handle_event(event)
     print(f"✓ Emitted: {event.event_type}")
-    
+
     # === STEP 2: Template Expansion ===
-    
+
     event = PatternEvent.create(
         event_type="pattern.template.expanded",
         job_id=job_id,
@@ -102,9 +102,9 @@ def example_pattern_execution():
     emitter.emit(event, job_scoped=True)
     aggregator.handle_event(event)
     print(f"✓ Emitted: {event.event_type}")
-    
+
     # === STEP 3: Validation ===
-    
+
     event = PatternEvent.create(
         event_type="pattern.validation.started",
         job_id=job_id,
@@ -124,7 +124,7 @@ def example_pattern_execution():
     emitter.emit(event, job_scoped=True)
     aggregator.handle_event(event)
     print(f"✓ Emitted: {event.event_type}")
-    
+
     event = PatternEvent.create(
         event_type="pattern.validation.completed",
         job_id=job_id,
@@ -142,9 +142,9 @@ def example_pattern_execution():
     emitter.emit(event, job_scoped=True)
     aggregator.handle_event(event)
     print(f"✓ Emitted: {event.event_type}")
-    
+
     # === STEP 4: Execution ===
-    
+
     event = PatternEvent.create(
         event_type="pattern.execution.started",
         job_id=job_id,
@@ -162,11 +162,11 @@ def example_pattern_execution():
     emitter.emit(event, job_scoped=True)
     aggregator.handle_event(event)
     print(f"✓ Emitted: {event.event_type}")
-    
+
     # Simulate execution...
     import time
     time.sleep(0.5)
-    
+
     event = PatternEvent.create(
         event_type="pattern.execution.completed",
         job_id=job_id,
@@ -193,30 +193,30 @@ def example_pattern_execution():
     emitter.emit(event, job_scoped=True)
     aggregator.handle_event(event)
     print(f"✓ Emitted: {event.event_type}")
-    
+
     # === Display Results ===
-    
+
     print("\n" + "=" * 60)
     print("Pattern Run Summary")
     print("=" * 60)
-    
+
     final_run = aggregator.get_run(pattern_run.pattern_run_id)
     print(f"Status:          {final_run.status}")
     print(f"Duration:        {final_run.duration_seconds:.2f}s")
     print(f"Events:          {len(final_run.events)}")
     print(f"Artifacts:       {len(final_run.artifacts)}")
     print(f"Finding Count:   {final_run.outputs.get('finding_count', 0)}")
-    
+
     print("\nTo inspect via CLI:")
     print(f"  python -m core.engine.pattern_inspect run {pattern_run.pattern_run_id}")
 
 
 def example_simple_emission():
     """Simpler example using convenience function."""
-    
+
     job_id = "JOB-TEST-001"
     pattern_run_id = "PRUN-TEST-001"
-    
+
     # Emit event with one function call
     event = emit_pattern_event(
         event_type="pattern.execution.completed",
@@ -233,7 +233,7 @@ def example_simple_emission():
             }
         },
     )
-    
+
     print(f"✓ Emitted event: {event.event_id}")
     print(f"  Type: {event.event_type}")
     print(f"  Status: {event.status}")
@@ -243,7 +243,7 @@ if __name__ == "__main__":
     print("Example 1: Full Pattern Execution Lifecycle")
     print("=" * 60 + "\n")
     example_pattern_execution()
-    
+
     print("\n\n")
     print("Example 2: Simple Event Emission")
     print("=" * 60 + "\n")

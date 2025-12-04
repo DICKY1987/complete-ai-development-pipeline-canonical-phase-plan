@@ -1,7 +1,7 @@
 # {FOLDER_NAME}
 
-**Module Path**: `{MODULE_PATH}`  
-**Layer**: {LAYER_NAME}  
+**Module Path**: `{MODULE_PATH}`
+**Layer**: {LAYER_NAME}
 **Status**: {STATUS}
 
 ## Purpose
@@ -34,5 +34,5 @@
 
 ---
 
-**Generated**: {TIMESTAMP}  
+**Generated**: {TIMESTAMP}
 **Framework**: Universal Execution Templates (UET)

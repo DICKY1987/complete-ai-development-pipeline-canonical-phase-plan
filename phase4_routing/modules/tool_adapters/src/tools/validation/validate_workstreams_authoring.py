@@ -35,14 +35,14 @@ def main():
         "bundles_checked": 0,
         "errors": []
     }
-    
+
     try:
         # Determine workstream directory
         if args.dir:
             workstream_dir = Path(args.dir).resolve()
         else:
             workstream_dir = bundles.get_workstream_dir()
-        
+
         if not args.json:
             print(f"Resolved workstream_dir: {workstream_dir}", file=sys.stderr)
 
@@ -97,7 +97,7 @@ def main():
                 for error_detail in output_json["errors"]:
                     if error_detail["type"] == "overlap":
                         print(f"  - {error_detail['details']}", file=sys.stderr)
-        
+
         # Populate error details for JSON output
         if isinstance(e, bundles.BundleValidationError):
             # Attempt to parse jsonschema errors for better reporting

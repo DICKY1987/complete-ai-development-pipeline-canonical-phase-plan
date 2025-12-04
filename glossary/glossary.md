@@ -4,8 +4,8 @@ doc_id: DOC-GUIDE-GLOSSARY-422
 
 # Glossary – AI Development Pipeline
 
-**Last Updated**: 2025-11-27  
-**Purpose**: Comprehensive alphabetical reference of all specialized terms  
+**Last Updated**: 2025-11-27
+**Purpose**: Comprehensive alphabetical reference of all specialized terms
 **Audience**: Developers, AI agents, and documentation readers
 
 > **Quick Navigation**: Jump to [A](#a) [B](#b) [C](#c) [D](#d) [E](#e) [F](#f) [G](#g) [H](#h) [I](#i) [J](#j) [L](#l) [M](#m) [O](#o) [P](#p) [R](#r) [S](#s) [T](#t) [U](#u) [W](#w)
@@ -20,7 +20,7 @@ doc_id: DOC-GUIDE-GLOSSARY-422
 ## A
 
 ### Adapter
-**Category**: Integrations  
+**Category**: Integrations
 **Definition**: Abstraction layer that wraps external tools (Aider, Codex, Claude) to provide a uniform interface for the orchestrator.
 
 **Types**:
@@ -30,7 +30,7 @@ doc_id: DOC-GUIDE-GLOSSARY-422
 - **Git Adapter** - Wraps Git operations
 - **Test Adapter** - Wraps test runners (pytest, Pester)
 
-**Implementation**: `core/engine/adapters/`  
+**Implementation**: `core/engine/adapters/`
 **Schema**: `schema/uet/execution_request.v1.json`
 
 **Usage**:
@@ -45,7 +45,7 @@ result = adapter.execute_task(task, worktree_path)
 ---
 
 ### AIM (AI Environment Manager)
-**Category**: Integrations  
+**Category**: Integrations
 **Definition**: AI Metadata Integration Manager - a system for discovering, registering, and routing tasks to AI CLI tools.
 
 **Purpose**:
@@ -54,7 +54,7 @@ result = adapter.execute_task(task, worktree_path)
 - Match tasks to appropriate tools
 - Manage tool profiles and preferences
 
-**Implementation**: `aim/`  
+**Implementation**: `aim/`
 **CLI**: `python -m aim`
 
 **Commands**:
@@ -69,7 +69,7 @@ python -m aim register <tool>  # Register a tool manually
 ---
 
 ### AIM Bridge
-**Category**: Integrations  
+**Category**: Integrations
 **Definition**: Integration layer between AIM and the execution engine that translates tool metadata into executable configurations.
 
 **Implementation**: `aim/bridge.py`
@@ -79,7 +79,7 @@ python -m aim register <tool>  # Register a tool manually
 ---
 
 ### Archive
-**Category**: State Management  
+**Category**: State Management
 **Definition**: Process of moving completed workstreams and their artifacts to long-term storage.
 
 **Purpose**:
@@ -94,7 +94,7 @@ python -m aim register <tool>  # Register a tool manually
 ---
 
 ### Artifact-Type Organization
-**Category**: Architecture  
+**Category**: Architecture
 **Definition**: Legacy code organization pattern where artifacts are grouped by type (code/, tests/, docs/, schema/) rather than by module. Being migrated to module-centric architecture.
 
 **Status**: DEPRECATED - replaced by [Module-Centric Architecture](#module-centric-architecture)
@@ -124,7 +124,7 @@ schema/state.schema.json
 ## B
 
 ### Bundle
-**Category**: Core Engine  
+**Category**: Core Engine
 **Definition**: A collection of one or more workstreams packaged together as a single unit for execution.
 
 **Structure**:
@@ -142,8 +142,8 @@ schema/state.schema.json
 - **Multi-Workstream Bundle** - Contains multiple related workstreams
 - **Phase Bundle** - All workstreams for a development phase
 
-**Implementation**: `core/state/bundles.py`  
-**Schema**: `schema/bundle.schema.json`  
+**Implementation**: `core/state/bundles.py`
+**Schema**: `schema/bundle.schema.json`
 **Examples**: `workstreams/phase-k-plus-bundle.json`
 
 **Related Terms**: [Workstream](#workstream), [Bundle Loading](#bundle-loading)
@@ -151,7 +151,7 @@ schema/state.schema.json
 ---
 
 ### Bundle Loading
-**Category**: State Management  
+**Category**: State Management
 **Definition**: Process of reading, validating, and preparing a bundle for execution.
 
 **Steps**:
@@ -176,7 +176,7 @@ bundle = load_bundle("workstreams/phase-k-plus-bundle.json")
 ## C
 
 ### CCPM (Critical Chain Project Management)
-**Category**: Integrations  
+**Category**: Integrations
 **Definition**: Project management methodology integrated with the pipeline for task scheduling, buffer management, and critical path analysis.
 
 **Features**:
@@ -185,7 +185,7 @@ bundle = load_bundle("workstreams/phase-k-plus-bundle.json")
 - Resource leveling
 - Progress tracking
 
-**Implementation**: `pm/`  
+**Implementation**: `pm/`
 **Documentation**: `docs/Project_Management_docs/`
 
 **Related Terms**: [OpenSpec](#openspec), [Phase](#phase)
@@ -193,7 +193,7 @@ bundle = load_bundle("workstreams/phase-k-plus-bundle.json")
 ---
 
 ### Change Proposal
-**Category**: Specifications  
+**Category**: Specifications
 **Definition**: Structured document proposing changes to specifications, tracked through the OpenSpec workflow.
 
 **Location**: `specifications/changes/`
@@ -203,7 +203,7 @@ bundle = load_bundle("workstreams/phase-k-plus-bundle.json")
 ---
 
 ### Checkpoint
-**Category**: State Management  
+**Category**: State Management
 **Definition**: Snapshot of execution state that enables rollback or recovery.
 
 **Types**:
@@ -218,7 +218,7 @@ bundle = load_bundle("workstreams/phase-k-plus-bundle.json")
 ---
 
 ### Circuit Breaker
-**Category**: Core Engine  
+**Category**: Core Engine
 **Definition**: Resilience pattern that prevents cascading failures by "opening" (stopping) execution when error thresholds are exceeded.
 
 **States**:
@@ -235,7 +235,7 @@ circuit_breaker:
   reset_timeout_sec: 600
 ```
 
-**Implementation**: `core/engine/circuit_breakers.py`  
+**Implementation**: `core/engine/circuit_breakers.py`
 **Config**: `config/circuit_breaker.yaml`
 
 **Related Terms**: [Retry Logic](#retry-logic), [Recovery Strategy](#recovery-strategy)
@@ -243,7 +243,7 @@ circuit_breaker:
 ---
 
 ### Compensation Action (Saga)
-**Category**: Integrations  
+**Category**: Integrations
 **Definition**: Undo operation that reverses the effects of a completed action, part of the Saga pattern for distributed transactions.
 
 **Purpose**:
@@ -264,7 +264,7 @@ compensation_action: "DROP TABLE users"
 ---
 
 ### CRUD Operations
-**Category**: State Management  
+**Category**: State Management
 **Definition**: Create, Read, Update, Delete operations for database entities (workstreams, steps, runs).
 
 **Implementation**: `core/state/crud.py`
@@ -282,7 +282,7 @@ compensation_action: "DROP TABLE users"
 ## D
 
 ### DAG (Directed Acyclic Graph)
-**Category**: Core Engine  
+**Category**: Core Engine
 **Definition**: Graph structure representing task dependencies where edges point from prerequisite to dependent tasks, with no cycles.
 
 **Purpose**:
@@ -298,7 +298,7 @@ compensation_action: "DROP TABLE users"
 ---
 
 ### Dependency Resolution
-**Category**: Core Engine  
+**Category**: Core Engine
 **Definition**: Process of analyzing task dependencies to determine valid execution order.
 
 **Algorithm**:
@@ -314,7 +314,7 @@ compensation_action: "DROP TABLE users"
 ---
 
 ### Detection Rule
-**Category**: Error Detection  
+**Category**: Error Detection
 **Definition**: Pattern or logic that identifies a specific type of error in code, logs, or execution output.
 
 **Format**:
@@ -336,7 +336,7 @@ compensation_action: "DROP TABLE users"
 ## E
 
 ### Error Context
-**Category**: Error Detection  
+**Category**: Error Detection
 **Definition**: Contextual information about an error including stack trace, file location, surrounding code, and execution state.
 
 **Structure**:
@@ -359,7 +359,7 @@ compensation_action: "DROP TABLE users"
 ---
 
 ### Error Engine
-**Category**: Error Detection  
+**Category**: Error Detection
 **Definition**: Core system that orchestrates error detection across multiple plugins and manages the error lifecycle.
 
 **Responsibilities**:
@@ -368,7 +368,7 @@ compensation_action: "DROP TABLE users"
 - Track error state (detected → fixed → verified)
 - Escalate unresolved errors
 
-**Implementation**: `error/engine/error_engine.py`  
+**Implementation**: `error/engine/error_engine.py`
 **CLI**: `python scripts/run_error_engine.py`
 
 **Related Terms**: [Error Plugin](#error-plugin), [Error State Machine](#error-state-machine)
@@ -376,7 +376,7 @@ compensation_action: "DROP TABLE users"
 ---
 
 ### Error Escalation
-**Category**: Error Detection  
+**Category**: Error Detection
 **Definition**: Process of promoting errors through escalation levels when automatic fixes fail.
 
 **Levels**:
@@ -393,7 +393,7 @@ compensation_action: "DROP TABLE users"
 ---
 
 ### Error Plugin
-**Category**: Error Detection  
+**Category**: Error Detection
 **Definition**: Modular component that detects and optionally fixes specific types of errors (linting, type checking, security scans).
 
 **Structure**:
@@ -413,7 +413,7 @@ error/plugins/python_ruff/
 - `error/plugins/javascript_eslint/` - JavaScript linting
 - `error/plugins/security_bandit/` - Security scanning
 
-**Implementation**: `error/plugins/`  
+**Implementation**: `error/plugins/`
 **Documentation**: `docs/plugin-quick-reference.md`
 
 **Related Terms**: [Plugin Manifest](#plugin-manifest), [Detection Rule](#detection-rule)
@@ -421,7 +421,7 @@ error/plugins/python_ruff/
 ---
 
 ### Error State Machine
-**Category**: Error Detection  
+**Category**: Error Detection
 **Definition**: State machine managing error lifecycle from detection to resolution.
 
 **States**:
@@ -440,7 +440,7 @@ error/plugins/python_ruff/
 ---
 
 ### Event Bus
-**Category**: Core Engine  
+**Category**: Core Engine
 **Definition**: Pub/sub messaging system for coordinating workers, tracking execution events, and enabling event sourcing.
 
 **Event Types**:
@@ -449,7 +449,7 @@ error/plugins/python_ruff/
 - **Patch Events**: `PATCH_CREATED`, `PATCH_APPLIED`, `PATCH_QUARANTINED`
 - **Gate Events**: `GATE_PASSED`, `GATE_FAILED`
 
-**Implementation**: `core/engine/event_bus.py`  
+**Implementation**: `core/engine/event_bus.py`
 **Storage**: `run_events` table (UET alignment)
 
 **Usage**:
@@ -463,7 +463,7 @@ events = event_bus.get_events(run_id, EventType.TASK_FAILED)
 ---
 
 ### Event Sourcing
-**Category**: State Management  
+**Category**: State Management
 **Definition**: Architectural pattern where all state changes are stored as a sequence of events, enabling replay and audit.
 
 **Benefits**:
@@ -479,7 +479,7 @@ events = event_bus.get_events(run_id, EventType.TASK_FAILED)
 ---
 
 ### Executor
-**Category**: Core Engine  
+**Category**: Core Engine
 **Definition**: Component responsible for executing individual steps by invoking tools and handling results.
 
 **Responsibilities**:
@@ -497,7 +497,7 @@ events = event_bus.get_events(run_id, EventType.TASK_FAILED)
 ## F
 
 ### Feedback Loop
-**Category**: Core Engine  
+**Category**: Core Engine
 **Definition**: Test-driven execution pattern where test results automatically create fix tasks.
 
 **Workflow**:
@@ -514,7 +514,7 @@ events = event_bus.get_events(run_id, EventType.TASK_FAILED)
 ---
 
 ### File Hash Cache
-**Category**: Error Detection  
+**Category**: Error Detection
 **Definition**: Cache of file content hashes used for incremental detection (only check changed files).
 
 **Purpose**:
@@ -529,7 +529,7 @@ events = event_bus.get_events(run_id, EventType.TASK_FAILED)
 ---
 
 ### Fix Strategy
-**Category**: Error Detection  
+**Category**: Error Detection
 **Definition**: Plugin-specific logic for automatically fixing detected errors.
 
 **Implementation**: `fix()` method in error plugins
@@ -557,7 +557,7 @@ See [Test Gates](#test-gates)
 ## H
 
 ### Human Review
-**Category**: Core Engine  
+**Category**: Core Engine
 **Definition**: Structured escalation workflow where complex issues are presented to humans for decision.
 
 **Trigger Conditions**:
@@ -586,7 +586,7 @@ proposed_options:
 ## I
 
 ### Incremental Detection
-**Category**: Error Detection  
+**Category**: Error Detection
 **Definition**: Optimization where error detection only runs on files that have changed since last check.
 
 **Mechanism**:
@@ -602,7 +602,7 @@ proposed_options:
 ---
 
 ### Integration Worker
-**Category**: Core Engine  
+**Category**: Core Engine
 **Definition**: Dedicated worker responsible for merging parallel workstream results in deterministic order.
 
 **Responsibilities**:
@@ -626,7 +626,7 @@ See [Patch Ledger](#patch-ledger)
 ---
 
 ### Layer
-**Category**: Architecture  
+**Category**: Architecture
 **Definition**: Architectural layer assignment (infra, domain, api, ui) that enforces dependency rules. Modules can only depend on same or lower layers.
 
 **Layers** (low to high):
@@ -666,7 +666,7 @@ See [Patch Ledger](#patch-ledger)
 ## M
 
 ### Merge Strategy
-**Category**: Core Engine  
+**Category**: Core Engine
 **Definition**: Algorithm for deterministically merging parallel workstream results.
 
 **Decision Tree**:
@@ -683,7 +683,7 @@ See [Patch Ledger](#patch-ledger)
 ---
 
 ### Module
-**Category**: Architecture  
+**Category**: Architecture
 **Definition**: Self-contained functional unit with ULID-prefixed artifacts, clear boundaries, and layer assignment. All related code, tests, schemas, and docs colocated in one directory.
 
 **Structure**:
@@ -711,11 +711,11 @@ modules/core-state/
 ---
 
 ### Module-Centric Architecture
-**Category**: Architecture  
+**Category**: Architecture
 **Definition**: Code organization pattern where all module artifacts (code, tests, schemas, docs) are colocated in a single directory, enabling deterministic AI context loading and atomic SafePatch operations.
 
 **Benefits**:
-- **Deterministic context loading**: `load_module("modules/core-state/")`  
+- **Deterministic context loading**: `load_module("modules/core-state/")`
 - **Atomic SafePatch**: Clone just one directory
 - **ULID-based identity**: Machine-verifiable relationships
 - **Parallel AI execution**: No shared bottlenecks
@@ -738,7 +738,7 @@ modules/core-state/
 ---
 
 ### Module Dependencies
-**Category**: Architecture  
+**Category**: Architecture
 **Definition**: Explicit dependencies between modules, tracked in module manifests and enforced by layer rules.
 
 **Dependency Types**:
@@ -765,7 +765,7 @@ dependencies:
 ---
 
 ### Module Manifest
-**Category**: Architecture  
+**Category**: Architecture
 **Definition**: YAML file (`module.manifest.yaml`) defining module identity, dependencies, artifacts, contracts, and AI metadata. Machine-readable module specification.
 
 **Required Fields**:
@@ -793,7 +793,7 @@ dependencies:
     - name: "sqlite3"
 ```
 
-**Schema**: `schema/module.schema.json`  
+**Schema**: `schema/module.schema.json`
 **Template**: `templates/module.manifest.template.yaml`
 
 **Related Terms**: [Module](#module), [ULID Prefix](#ulid-universally-unique-lexicographically-sortable-identifier), [Layer](#layer)
@@ -803,7 +803,7 @@ dependencies:
 ## O
 
 ### OpenSpec
-**Category**: Specifications  
+**Category**: Specifications
 **Definition**: System for managing specification changes through a structured proposal, review, and integration workflow.
 
 **Workflow**:
@@ -813,7 +813,7 @@ dependencies:
 4. Execute changes
 5. Update specification index
 
-**Implementation**: `specifications/bridge/`  
+**Implementation**: `specifications/bridge/`
 **Documentation**: `docs/Project_Management_docs/openspec_bridge.md`
 
 **Related Terms**: [Spec Bridge](#spec-bridge), [Change Proposal](#change-proposal)
@@ -821,7 +821,7 @@ dependencies:
 ---
 
 ### Orchestrator
-**Category**: Core Engine  
+**Category**: Core Engine
 **Definition**: Central coordinator that manages workstream execution, dependency resolution, and worker assignment.
 
 **Responsibilities**:
@@ -842,7 +842,7 @@ dependencies:
 ## P
 
 ### Patch
-**Category**: Patch Management  
+**Category**: Patch Management
 **Definition**: Unified diff representing code changes, used as the primary artifact for code modifications.
 
 **Format**: Unified diff (GNU diff format)
@@ -861,7 +861,7 @@ diff --git a/file.py b/file.py
 ---
 
 ### Patch Artifact
-**Category**: Patch Management  
+**Category**: Patch Management
 **Definition**: Canonical representation of a patch with metadata (UET-aligned).
 
 **Structure**:
@@ -885,7 +885,7 @@ diff --git a/file.py b/file.py
 }
 ```
 
-**Implementation**: `core/patches/patch_artifact.py` (UET alignment)  
+**Implementation**: `core/patches/patch_artifact.py` (UET alignment)
 **Schema**: `schema/uet/patch_artifact.v1.json`
 
 **Related Terms**: [Patch Ledger](#patch-ledger), [UET Integration](#uet-universal-execution-templates)
@@ -893,7 +893,7 @@ diff --git a/file.py b/file.py
 ---
 
 ### Patch-First Workflow
-**Category**: Patch Management  
+**Category**: Patch Management
 **Definition**: Development workflow where all code changes are represented as patches (unified diffs) before application.
 
 **Workflow**:
@@ -916,7 +916,7 @@ diff --git a/file.py b/file.py
 ---
 
 ### Patch Ledger
-**Category**: Patch Management  
+**Category**: Patch Management
 **Definition**: Audit trail tracking the complete lifecycle of a patch from creation to commit.
 
 **State Machine**:
@@ -932,7 +932,7 @@ apply_failed, rolled_back, quarantined, dropped
 - Application attempts and errors
 - Quarantine status
 
-**Implementation**: `core/patches/patch_ledger.py` (UET alignment)  
+**Implementation**: `core/patches/patch_ledger.py` (UET alignment)
 **Schema**: `schema/uet/patch_ledger_entry.v1.json`
 
 **Related Terms**: [Patch Artifact](#patch-artifact), [Patch Policy](#patch-policy), [UET Integration](#uet-universal-execution-templates)
@@ -940,7 +940,7 @@ apply_failed, rolled_back, quarantined, dropped
 ---
 
 ### Patch Policy
-**Category**: Patch Management  
+**Category**: Patch Management
 **Definition**: Constraints and rules governing what patches are allowed, enforced at validation time.
 
 **Scope Levels**:
@@ -962,8 +962,8 @@ apply_failed, rolled_back, quarantined, dropped
 }
 ```
 
-**Implementation**: `core/patches/patch_policy.py` (UET alignment)  
-**Schema**: `schema/uet/patch_policy.v1.json`  
+**Implementation**: `core/patches/patch_policy.py` (UET alignment)
+**Schema**: `schema/uet/patch_policy.v1.json`
 **Config**: `config/patch_policies/*.json`
 
 **Related Terms**: [Patch Ledger](#patch-ledger), [Patch Validator](#patch-validator)
@@ -971,7 +971,7 @@ apply_failed, rolled_back, quarantined, dropped
 ---
 
 ### Patch Validator
-**Category**: Patch Management  
+**Category**: Patch Management
 **Definition**: Component that validates patches against format, scope, and policy constraints.
 
 **Validation Checks**:
@@ -987,7 +987,7 @@ apply_failed, rolled_back, quarantined, dropped
 ---
 
 ### Pattern Automation Hooks
-**Category**: Framework  
+**Category**: Framework
 **Definition**: Self-learning automation layer that attaches to the UET orchestrator to capture execution telemetry, persist it to the pattern automation database, and generate pattern drafts/approvals.
 
 **Features**:
@@ -1002,7 +1002,7 @@ apply_failed, rolled_back, quarantined, dropped
 ---
 
 ### Phase
-**Category**: Project Management  
+**Category**: Project Management
 **Definition**: Major development milestone containing multiple related workstreams.
 
 **Structure**:
@@ -1028,7 +1028,7 @@ workstreams:
 ---
 
 ### Pipeline Database
-**Category**: State Management  
+**Category**: State Management
 **Definition**: SQLite database storing execution state (runs, workstreams, steps, attempts).
 
 **Location**: `.worktrees/pipeline_state.db` (configurable via `PIPELINE_DB_PATH`)
@@ -1050,7 +1050,7 @@ workstreams:
 ---
 
 ### Plugin Manifest
-**Category**: Error Detection  
+**Category**: Error Detection
 **Definition**: JSON file describing an error plugin's capabilities, rules, and metadata.
 
 **Structure**:
@@ -1073,7 +1073,7 @@ workstreams:
 ---
 
 ### Profile Matching
-**Category**: Integrations  
+**Category**: Integrations
 **Definition**: Algorithm for matching a task/step to the most appropriate tool profile.
 
 **Matching Criteria**:
@@ -1091,7 +1091,7 @@ workstreams:
 ## R
 
 ### Recovery Strategy
-**Category**: Core Engine  
+**Category**: Core Engine
 **Definition**: Logic for recovering from step failures through retry, context repair, or alternative approaches.
 
 **Strategies**:
@@ -1108,7 +1108,7 @@ workstreams:
 ---
 
 ### Retry Logic
-**Category**: Core Engine  
+**Category**: Core Engine
 **Definition**: Mechanism for retrying failed operations with exponential backoff.
 
 **Configuration**:
@@ -1126,7 +1126,7 @@ max_delay_sec: 60
 ---
 
 ### Rollback Strategy
-**Category**: Integrations  
+**Category**: Integrations
 **Definition**: Method for undoing changes when failures occur (Saga pattern).
 
 **Scopes**:
@@ -1144,7 +1144,7 @@ max_delay_sec: 60
 ## S
 
 ### Saga Pattern
-**Category**: Integrations  
+**Category**: Integrations
 **Definition**: Design pattern for managing distributed transactions through compensating actions.
 
 **Components**:
@@ -1167,7 +1167,7 @@ saga_steps:
 ---
 
 ### Scheduler
-**Category**: Core Engine  
+**Category**: Core Engine
 **Definition**: Component that determines execution order of tasks based on dependencies and parallelism.
 
 **Types**:
@@ -1181,7 +1181,7 @@ saga_steps:
 ---
 
 ### Schema Validation
-**Category**: Specifications  
+**Category**: Specifications
 **Definition**: Process of validating JSON/YAML artifacts against JSON Schema definitions.
 
 **Schemas**:
@@ -1200,7 +1200,7 @@ python scripts/validate_workstreams_authoring.py
 ---
 
 ### Sidecar Metadata
-**Category**: State Management  
+**Category**: State Management
 **Definition**: Metadata file (`.sidecar.yaml`) accompanying a specification or workstream with execution history and context.
 
 **Structure**:
@@ -1220,7 +1220,7 @@ execution_history:
 ---
 
 ### Shared Module
-**Category**: Architecture  
+**Category**: Architecture
 **Definition**: Standalone module providing common utilities/types to other modules. Listed explicitly in `dependencies.modules` of consuming modules. Has independent lifecycle.
 
 **Example** (`error-shared` module):
@@ -1258,7 +1258,7 @@ dependencies:
 ---
 
 ### Spec Bridge
-**Category**: Specifications  
+**Category**: Specifications
 **Definition**: Integration layer between OpenSpec change proposals and workstream generation.
 
 **Workflow**:
@@ -1274,7 +1274,7 @@ dependencies:
 ---
 
 ### Submodule
-**Category**: Architecture  
+**Category**: Architecture
 **Definition**: Hierarchical organization within a complex module. Each submodule has its own manifest and is controlled by parent module. Used for internal structure, not external dependencies.
 
 **Example Structure**:
@@ -1306,7 +1306,7 @@ modules/error-engine/
 ---
 
 ### Spec Guard
-**Category**: Specifications  
+**Category**: Specifications
 **Definition**: Validation layer that prevents invalid changes to specifications.
 
 **Checks**:
@@ -1321,7 +1321,7 @@ modules/error-engine/
 ---
 
 ### Spec Patcher
-**Category**: Specifications  
+**Category**: Specifications
 **Definition**: Tool for applying patches to specification documents.
 
 **Implementation**: `specifications/tools/patcher/`
@@ -1331,7 +1331,7 @@ modules/error-engine/
 ---
 
 ### Spec Resolver
-**Category**: Specifications  
+**Category**: Specifications
 **Definition**: Tool that resolves URI references between specifications.
 
 **Purpose**:
@@ -1346,7 +1346,7 @@ modules/error-engine/
 ---
 
 ### Specification Index
-**Category**: Specifications  
+**Category**: Specifications
 **Definition**: Auto-generated index of all specifications with metadata and cross-references.
 
 **Generated By**: `scripts/generate_spec_index.py`
@@ -1358,7 +1358,7 @@ modules/error-engine/
 ---
 
 ### State Transition
-**Category**: State Management  
+**Category**: State Management
 **Definition**: Change of execution state for a workstream, step, or patch.
 
 **Workstream States**:
@@ -1374,7 +1374,7 @@ modules/error-engine/
 ---
 
 ### Step
-**Category**: Core Engine  
+**Category**: Core Engine
 **Definition**: Atomic unit of work within a workstream, executed by a single tool invocation.
 
 **Structure**:
@@ -1403,7 +1403,7 @@ modules/error-engine/
 ## T
 
 ### Test Adapter
-**Category**: Integrations  
+**Category**: Integrations
 **Definition**: Adapter that wraps test runners (pytest, Pester, etc.) for consistent test execution.
 
 **Implementation**: `engine/adapters/test_adapter.py`
@@ -1413,7 +1413,7 @@ modules/error-engine/
 ---
 
 ### Test Gates
-**Category**: Core Engine  
+**Category**: Core Engine
 **Definition**: Synchronization points where tests must pass before execution can proceed (UET pattern).
 
 **Gate Types**:
@@ -1434,7 +1434,7 @@ modules/error-engine/
 ---
 
 ### Timeout Handling
-**Category**: Core Engine  
+**Category**: Core Engine
 **Definition**: Mechanism for enforcing time limits on tool execution.
 
 **Configuration**:
@@ -1451,7 +1451,7 @@ timeouts:
 ---
 
 ### Tool Profile
-**Category**: Core Engine  
+**Category**: Core Engine
 **Definition**: Configuration defining how to invoke a specific tool (Aider, Codex, pytest, etc.).
 
 **Structure**:
@@ -1475,7 +1475,7 @@ aider:
 ---
 
 ### Tool Registry
-**Category**: Integrations  
+**Category**: Integrations
 **Definition**: Central registry of available AI tools and their capabilities.
 
 **Managed By**: AIM (AI Environment Manager)
@@ -1489,7 +1489,7 @@ aider:
 ## U
 
 ### UET (Universal Execution Templates)
-**Category**: Framework  
+**Category**: Framework
 **Definition**: Reference implementation framework providing canonical schemas and patterns for AI orchestration.
 
 **Key Concepts**:
@@ -1512,7 +1512,7 @@ aider:
 ---
 
 ### UET Compatibility Shim
-**Category**: Framework  
+**Category**: Framework
 **Definition**: Backward-compatibility adapters that re-export UET implementations under legacy import paths so existing tools continue working after the module-centric migration.
 
 **Behavior**:
@@ -1527,7 +1527,7 @@ aider:
 ---
 
 ### ULID (Universally Unique Lexicographically Sortable Identifier)
-**Category**: Framework  
+**Category**: Framework
 **Definition**: 26-character globally unique identifier with lexicographic sorting (timestamp-based). Used for run IDs and module identity. First 6 characters serve as module prefix.
 
 **Format**: 26 uppercase alphanumeric characters (base32, Base32-Crockford)
@@ -1571,7 +1571,7 @@ aider:
 ---
 
 ### ULID Prefix
-**Category**: Architecture  
+**Category**: Architecture
 **Definition**: First 6 characters of a ULID used to identify a module. All artifacts within a module share the same prefix.
 
 **Examples**:
@@ -1600,7 +1600,7 @@ modules/core-state/
 ---
 
 ### URI Resolution
-**Category**: Specifications  
+**Category**: Specifications
 **Definition**: Process of resolving `spec://` URIs to actual specification documents.
 
 **Format**: `spec://core/engine/orchestrator#section-name`
@@ -1614,7 +1614,7 @@ modules/core-state/
 ## W
 
 ### Worker
-**Category**: Core Engine  
+**Category**: Core Engine
 **Definition**: Process or thread that executes tasks assigned by the orchestrator.
 
 **Types**:
@@ -1626,7 +1626,7 @@ modules/core-state/
 ---
 
 ### Worker Health
-**Category**: Core Engine  
+**Category**: Core Engine
 **Definition**: Monitoring system tracking worker availability and performance via heartbeat.
 
 **Health Checks**:
@@ -1646,7 +1646,7 @@ modules/core-state/
 ---
 
 ### Worker Lifecycle
-**Category**: Core Engine  
+**Category**: Core Engine
 **Definition**: State machine managing worker lifetime from spawn to termination (UET pattern).
 
 **States**:
@@ -1663,7 +1663,7 @@ modules/core-state/
 ---
 
 ### Worker Pool
-**Category**: Core Engine  
+**Category**: Core Engine
 **Definition**: Manager for a collection of workers, handling spawning, assignment, and termination.
 
 **Responsibilities**:
@@ -1679,7 +1679,7 @@ modules/core-state/
 ---
 
 ### Workstream
-**Category**: Core Engine  
+**Category**: Core Engine
 **Definition**: Sequence of steps (tasks) executed to achieve a specific goal, the fundamental unit of work execution.
 
 **Structure**:
@@ -1697,7 +1697,7 @@ modules/core-state/
 
 **States**: `PENDING`, `RUNNING`, `SUCCEEDED`, `FAILED`, `CANCELLED`
 
-**Schema**: `schema/workstream.schema.json`  
+**Schema**: `schema/workstream.schema.json`
 **Examples**: `workstreams/*.json`
 
 **Related Terms**: [Step](#step), [Bundle](#bundle), [Orchestrator](#orchestrator)
@@ -1705,7 +1705,7 @@ modules/core-state/
 ---
 
 ### Worktree Management
-**Category**: State Management  
+**Category**: State Management
 **Definition**: Management of Git worktrees for isolated execution environments.
 
 **Purpose**:
@@ -1844,6 +1844,6 @@ python -m aim status
 
 ---
 
-**Last Updated**: 2025-11-27  
-**Maintained By**: Architecture Team  
+**Last Updated**: 2025-11-27
+**Maintained By**: Architecture Team
 **Glossary Version**: 1.0.0

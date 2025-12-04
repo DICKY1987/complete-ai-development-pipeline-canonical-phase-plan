@@ -4,11 +4,11 @@ doc_id: DOC-GUIDE-UET-INTEGRATION-DESIGN-1653
 
 # UET Framework Selective Integration - Design Document
 
-**Status**: Active Implementation  
-**Decision**: Option A - Selective Integration  
-**Timeline**: 3-4 weeks  
-**Risk Level**: Low  
-**Created**: 2025-11-22  
+**Status**: Active Implementation
+**Decision**: Option A - Selective Integration
+**Timeline**: 3-4 weeks
+**Risk Level**: Low
+**Created**: 2025-11-22
 
 ---
 
@@ -175,23 +175,23 @@ def bootstrap_project(
 ) -> Dict[str, Any]:
     """
     Bootstrap the current project with UET framework.
-    
+
     Args:
         project_path: Path to project root (default: current directory)
         output_dir: Output directory for artifacts (default: project_path)
         quiet: Suppress output (default: False)
-    
+
     Returns:
         Bootstrap result with status and generated files
     """
     from .orchestrator import BootstrapOrchestrator
-    
+
     orchestrator = BootstrapOrchestrator(project_path, output_dir)
     result = orchestrator.run()
-    
+
     if not quiet:
         _print_bootstrap_summary(result)
-    
+
     return result
 
 def _print_bootstrap_summary(result: Dict[str, Any]) -> None:
@@ -250,18 +250,18 @@ def main():
         action='store_true',
         help='Validate existing artifacts without regeneration'
     )
-    
+
     args = parser.parse_args()
-    
+
     try:
         result = bootstrap_project(
             args.project_path,
             args.output_dir,
             args.quiet
         )
-        
+
         sys.exit(0 if result.get('success') else 1)
-    
+
     except Exception as e:
         print(f"ERROR: {e}", file=sys.stderr)
         sys.exit(1)
@@ -325,21 +325,21 @@ def invoke_tool(
 ) -> Any:
     """
     Invoke tool with resilience patterns (circuit breaker + retry).
-    
+
     Args:
         tool_name: Tool identifier (aider, codex, pytest, etc.)
         operation: Callable that performs the tool operation
         timeout: Optional timeout in seconds
-    
+
     Returns:
         Result from operation
-    
+
     Raises:
         CircuitBreakerOpen: If circuit is open
         RetryExhausted: If all retries failed
     """
     executor = _get_executor()
-    
+
     try:
         return executor.execute(tool_name, operation)
     except CircuitBreakerOpen:
@@ -386,14 +386,14 @@ from core.engine.tools import invoke_tool
 class AiderAdapter:
     def execute(self, request: Dict[str, Any]) -> Dict[str, Any]:
         """Execute Aider with resilience wrapper."""
-        
+
         def operation():
             # Existing Aider execution logic
             return self._execute_aider(request)
-        
+
         # Wrap with resilience
         return invoke_tool("aider", operation)
-    
+
     def _execute_aider(self, request: Dict[str, Any]) -> Dict[str, Any]:
         """Original Aider execution logic (unchanged)."""
         # ... existing implementation ...
@@ -422,10 +422,10 @@ from core.engine.tools import _get_executor
 
 def main():
     executor = _get_executor()
-    
+
     # Get all registered tools
     tools = ['aider', 'codex', 'pytest']
-    
+
     rows = []
     for tool in tools:
         state = executor.get_tool_state(tool)
@@ -437,7 +437,7 @@ def main():
                 state.get('success_count', 0),
                 f"{state.get('error_rate', 0):.1%}"
             ])
-    
+
     headers = ['Tool', 'Circuit', 'Failures', 'Successes', 'Error Rate']
     print(tabulate(rows, headers=headers, tablefmt='grid'))
 
@@ -461,40 +461,40 @@ class Orchestrator:
         self.db = db or get_db()
         self.progress_tracker: Optional[ProgressTracker] = None
         self.run_monitor = RunMonitor(str(self.db.db_path))
-    
+
     def execute_workstream(self, workstream_id: str, run_id: str) -> Dict[str, Any]:
         """Execute workstream with progress tracking."""
-        
+
         # Load workstream
         ws = self._load_workstream(workstream_id)
         total_steps = len(ws.get('steps', []))
-        
+
         # Initialize progress tracker
         self.progress_tracker = ProgressTracker(run_id, total_steps)
         self.progress_tracker.start()
-        
+
         try:
             for step in ws['steps']:
                 # Start step
                 self.progress_tracker.start_task(step['id'])
-                
+
                 # Execute step (existing logic)
                 start_time = time.time()
                 result = self._execute_step(step)
                 duration = time.time() - start_time
-                
+
                 # Complete step
                 if result.get('success'):
                     self.progress_tracker.complete_task(step['id'], duration)
                 else:
                     self.progress_tracker.fail_task(step['id'], result.get('error'))
-                
+
                 # Periodic snapshot
                 if step['id'] % 5 == 0:
                     snapshot = self.progress_tracker.get_snapshot()
                     print(f"Progress: {snapshot.completion_percent:.1f}% "
                           f"(ETA: {snapshot.estimated_completion})")
-        
+
         finally:
             # Final snapshot
             snapshot = self.progress_tracker.get_snapshot()
@@ -533,26 +533,26 @@ def main():
     parser.add_argument('--run-id', required=True)
     parser.add_argument('--refresh', type=int, default=5)
     args = parser.parse_args()
-    
+
     monitor = RunMonitor()
-    
+
     try:
         while True:
             metrics = monitor.get_run_metrics(args.run_id)
-            
+
             print(f"\033[2J\033[H")  # Clear screen
             print(f"Run: {args.run_id}")
             print(f"Status: {metrics.status}")
             print(f"Progress: {metrics.completed_steps}/{metrics.total_steps}")
             print(f"Events: {metrics.total_events}")
             print(f"\nRefreshing every {args.refresh}s... (Ctrl+C to stop)")
-            
+
             if metrics.status in ['completed', 'failed']:
                 print("\n✅ Run finished!")
                 break
-            
+
             time.sleep(args.refresh)
-    
+
     except KeyboardInterrupt:
         print("\n\nMonitoring stopped.")
 
@@ -578,7 +578,7 @@ from core.bootstrap_uet import bootstrap_project
 def test_bootstrap_current_project():
     """Test bootstrapping the pipeline itself."""
     result = bootstrap_project(".", quiet=True)
-    
+
     assert result['success']
     assert result['domain'] in ['software-dev', 'mixed']
     assert result['profile_id'] in ['software-dev-python', 'generic']
@@ -589,13 +589,13 @@ def test_generated_profile_valid():
     """Test generated profile validates against schema."""
     import yaml
     import jsonschema
-    
+
     with open('PROJECT_PROFILE.yaml') as f:
         profile = yaml.safe_load(f)
-    
+
     with open('schema/project_profile.v1.json') as f:
         schema = json.load(f)
-    
+
     jsonschema.validate(profile, schema)
 ```
 
@@ -610,27 +610,27 @@ from core.engine.resilience import CircuitBreakerOpen, RetryExhausted
 
 def test_circuit_breaker_opens_on_failures():
     """Test circuit breaker opens after threshold."""
-    
+
     def failing_operation():
         raise Exception("Simulated failure")
-    
+
     # Should retry and eventually exhaust
     with pytest.raises(RetryExhausted):
         invoke_tool("test_tool", failing_operation)
-    
+
     # Check circuit state
     health = get_tool_health("test_tool")
     assert health['failure_count'] >= 3
 
 def test_successful_execution_resets_circuit():
     """Test successful execution resets failure count."""
-    
+
     def successful_operation():
         return {"status": "ok"}
-    
+
     result = invoke_tool("test_tool", successful_operation)
     assert result['status'] == 'ok'
-    
+
     health = get_tool_health("test_tool")
     assert health['success_count'] > 0
 ```
@@ -648,16 +648,16 @@ from core.engine.monitoring import ProgressTracker
 
 def test_progress_tracker_overhead():
     """Ensure progress tracking adds < 50ms overhead per task."""
-    
+
     tracker = ProgressTracker("test-run", total_tasks=100)
     tracker.start()
-    
+
     start = time.perf_counter()
     for i in range(100):
         tracker.start_task(f"task-{i}")
         tracker.complete_task(f"task-{i}", duration=0.001)
     elapsed = time.perf_counter() - start
-    
+
     # Total overhead should be < 5 seconds for 100 tasks (50ms/task)
     assert elapsed < 5.0
 ```

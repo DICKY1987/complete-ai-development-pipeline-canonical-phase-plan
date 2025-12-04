@@ -1,7 +1,7 @@
 # Plugin: python_isort_fix
 
-**Phase**: 6 (Error Recovery)  
-**Type**: Error Detection/Fix Plugin  
+**Phase**: 6 (Error Recovery)
+**Type**: Error Detection/Fix Plugin
 **Purpose**: python_isort_fix error detection and auto-fix
 
 ## Structure

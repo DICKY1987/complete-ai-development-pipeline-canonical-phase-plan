@@ -32,9 +32,9 @@ def setup_logging(config: dict):
     """Setup logging based on config."""
     log_dir = Path(config.get('execution', {}).get('log_dir', 'logs/uet'))
     log_dir.mkdir(parents=True, exist_ok=True)
-    
+
     log_level = config.get('execution', {}).get('log_level', 'INFO')
-    
+
     logging.basicConfig(
         level=getattr(logging, log_level),
         format='%(asctime)s [%(levelname)s] %(message)s',
@@ -50,7 +50,7 @@ def main():
     print("="*70)
     print("🚀 UET Workstream Executor")
     print("="*70)
-    
+
     # Load configuration
     print("\n📋 Loading configuration...")
     try:
@@ -59,12 +59,12 @@ def main():
     except Exception as e:
         print(f"❌ Failed to load configuration: {e}")
         return 1
-    
+
     # Setup logging
     setup_logging(config)
     logger = logging.getLogger(__name__)
     logger.info("=== UET Execution Started ===")
-    
+
     # Initialize orchestrator
     print("\n🎯 Initializing orchestrator...")
     try:
@@ -84,7 +84,7 @@ def main():
         print(f"❌ Failed to initialize orchestrator: {e}")
         logger.error(f"Orchestrator init failed: {e}")
         return 1
-    
+
     # Load workstreams
     print("\n📂 Loading workstreams...")
     try:
@@ -103,22 +103,22 @@ def main():
         logger.error(f"Workstream loading failed: {e}")
         orchestrator.complete_run(run_id, status='failed', error_message=str(e))
         return 1
-    
+
     if not workstreams:
         print("❌ No workstreams to execute")
         orchestrator.complete_run(run_id, status='succeeded')
         return 0
-    
+
     # Build DAG
     print("\n🔗 Building execution DAG...")
     try:
         dag_builder = DAGBuilder()
         dag_plan = dag_builder.build_from_workstreams(workstreams)
-        
+
         print(f"✅ DAG built successfully")
         print(f"   Total waves: {dag_plan['total_waves']}")
         print(f"   Total workstreams: {dag_plan['total_workstreams']}")
-        
+
         # Show wave structure
         for wave_idx, wave in enumerate(dag_plan['waves'], 1):
             print(f"\n   Wave {wave_idx}: {len(wave)} workstreams")
@@ -126,15 +126,15 @@ def main():
                 print(f"      - {ws_id}")
             if len(wave) > 3:
                 print(f"      ... and {len(wave) - 3} more")
-        
+
         logger.info(f"DAG: {dag_plan['total_waves']} waves, {dag_plan['total_workstreams']} workstreams")
-    
+
     except Exception as e:
         print(f"❌ Failed to build DAG: {e}")
         logger.error(f"DAG build failed: {e}")
         orchestrator.complete_run(run_id, status='failed', error_message=str(e))
         return 1
-    
+
     # Initialize tool adapter
     print("\n🔧 Initializing tool adapter...")
     try:
@@ -145,13 +145,13 @@ def main():
         logger.error(f"Tool adapter init failed: {e}")
         orchestrator.complete_run(run_id, status='failed', error_message=str(e))
         return 1
-    
+
     # Create scheduler and add tasks
     print("\n📅 Creating execution scheduler...")
     try:
         scheduler = ExecutionScheduler()
         task_objects = []
-        
+
         for ws in workstreams:
             task = Task(
                 task_id=ws.get('id'),
@@ -166,44 +166,44 @@ def main():
             )
             task_objects.append(task)
             scheduler.add_task(task)
-        
+
         print(f"✅ Scheduler created with {len(task_objects)} tasks")
         logger.info(f"Scheduler ready: {len(task_objects)} tasks")
-    
+
     except Exception as e:
         print(f"❌ Failed to create scheduler: {e}")
         logger.error(f"Scheduler creation failed: {e}")
         orchestrator.complete_run(run_id, status='failed', error_message=str(e))
         return 1
-    
+
     # Execute waves
     print("\n" + "="*70)
     print("🎬 Starting Execution")
     print("="*70)
-    
+
     completed_count = 0
     failed_count = 0
     total_tasks = len(workstreams)
-    
+
     wave_num = 0
     while True:
         # Get ready tasks
         ready_tasks = scheduler.get_ready_tasks()
-        
+
         if not ready_tasks:
             break
-        
+
         wave_num += 1
         print(f"\n{'='*70}")
         print(f"🌊 Wave {wave_num}: {len(ready_tasks)} tasks")
         print(f"{'='*70}")
-        
+
         # Execute tasks in wave (sequential for now)
         for task in ready_tasks:
             task_id = task.task_id
             print(f"\n▶️  Executing: {task_id}")
             logger.info(f"Starting task: {task_id}")
-            
+
             # Create step
             step_id = orchestrator.create_step_attempt(
                 run_id=run_id,
@@ -211,17 +211,17 @@ def main():
                 sequence=completed_count + failed_count + 1,
                 metadata=task.metadata
             )
-            
+
             # Execute task
             try:
                 task.status = 'running'
                 result = tool_adapter.execute_task(task.__dict__)
-                
+
                 if result['success']:
                     task.status = 'completed'
                     completed_count += 1
                     print(f"   ✅ Completed ({result.get('duration', 0):.1f}s)")
-                    
+
                     orchestrator.complete_step_attempt(
                         step_attempt_id=step_id,
                         status='succeeded',
@@ -232,31 +232,31 @@ def main():
                     task.status = 'failed'
                     failed_count += 1
                     print(f"   ❌ Failed: {result.get('error', 'Unknown error')}")
-                    
+
                     orchestrator.complete_step_attempt(
                         step_attempt_id=step_id,
                         status='failed',
                         exit_code=result.get('exit_code', -1),
                         error_log=result.get('error')
                     )
-            
+
             except Exception as e:
                 task.status = 'failed'
                 failed_count += 1
                 print(f"   ❌ Exception: {e}")
                 logger.error(f"Task {task_id} exception: {e}")
-                
+
                 orchestrator.complete_step_attempt(
                     step_attempt_id=step_id,
                     status='failed',
                     exit_code=-1,
                     error_log=str(e)
                 )
-            
+
             # Show progress
             progress = ((completed_count + failed_count) / total_tasks) * 100
             print(f"   Progress: {completed_count + failed_count}/{total_tasks} ({progress:.1f}%)")
-    
+
     # Complete run
     print("\n" + "="*70)
     print("📊 Execution Complete")
@@ -264,13 +264,13 @@ def main():
     print(f"\n✅ Completed: {completed_count}/{total_tasks}")
     print(f"❌ Failed: {failed_count}/{total_tasks}")
     print(f"📈 Success Rate: {(completed_count/total_tasks*100):.1f}%")
-    
+
     if failed_count == 0:
         orchestrator.complete_run(run_id, status='succeeded')
         logger.info("Run completed successfully")
         return 0
     else:
-        orchestrator.complete_run(run_id, status='failed', 
+        orchestrator.complete_run(run_id, status='failed',
                                  error_message=f"{failed_count} tasks failed")
         logger.warning(f"Run completed with {failed_count} failures")
         return 1

@@ -23,24 +23,24 @@ zones:
       - "aim/**/*.py"
       - "pm/**/*.py"
       - "specifications/tools/**/*.py"
-      
+
       # Tests - always safe to extend
       - "tests/**/*.py"
-      
+
       # Scripts - automation and tooling
       - "scripts/**/*.py"
       - "scripts/**/*.ps1"
-      
+
       # Documentation (non-canonical)
       - "docs/*.md"
       - "meta/plans/*.md"
       - "*.md"
-    
+
     conditions:
       - "All tests must pass after changes"
       - "Follow section-based import patterns"
       - "Update related tests when changing behavior"
-    
+
     validation:
       - command: "pytest -q"
         required: true
@@ -54,15 +54,15 @@ zones:
       - "schema/**/*.yaml"
       - "schema/**/*.json"
       - "schema/**/*.sql"
-      
+
       # Configuration
       - "config/**/*.yaml"
       - "config/**/*.json"
-      
+
       # Database operations
       - "core/state/db.py"
       - "core/state/db_sqlite.py"
-      
+
       # Canonical documentation
       - "docs/DOCUMENTATION_INDEX.md"
       - "docs/SECTION_REFACTOR_MAPPING.md"
@@ -70,15 +70,15 @@ zones:
       - "CODEBASE_INDEX.yaml"
       - "QUALITY_GATE.yaml"
       - "PROJECT_PROFILE.yaml"
-      
+
       # Specifications content
       - "specifications/content/**"
       - "openspec/**/*.yaml"
-      
+
       # Infrastructure
       - "infra/**"
       - ".github/**"
-    
+
     rationale:
       schema: "Breaking changes affect all consumers"
       config: "Impacts runtime behavior across modules"
@@ -94,10 +94,10 @@ zones:
       - "legacy/**"
       - "src/pipeline/**"
       - "MOD_ERROR_PIPELINE/**"
-      
+
       # ADRs - historical record
       - "docs/adr/**"
-      
+
       # Runtime directories
       - ".worktrees/**"
       - ".ledger/**"
@@ -106,16 +106,16 @@ zones:
       - ".venv/**"
       - "__pycache__/**"
       - "*.pyc"
-      
+
       # Build artifacts
       - "node_modules/**"
       - "dist/**"
       - "build/**"
-      
+
       # Generated AI context (regenerate instead)
       - ".meta/ai_context/*.json"
       - ".meta/ai_context/*.md"
-    
+
     rationale:
       legacy: "Deprecated code, use modern sections instead"
       adr: "Historical decisions, create new ADR if needed"
@@ -254,15 +254,15 @@ ai_guidance:
       - pattern: "Add new plugin to error/plugins/"
         safety: "safe"
         template: "Copy existing plugin structure, implement parse() method"
-      
+
       - pattern: "Add new script to scripts/"
         safety: "safe"
         requirements: ["Add to QUALITY_GATE.yaml if validation script"]
-      
+
       - pattern: "Extend existing tests in tests/"
         safety: "safe"
         requirements: ["Follow existing test structure"]
-      
+
       - pattern: "Update module documentation (MODULE.md)"
         safety: "safe"
         requirements: ["Cross-reference CODEBASE_INDEX.yaml module IDs"]
@@ -273,11 +273,11 @@ ai_guidance:
       - pattern: "Modify legacy/ directory"
         reason: "Archived code, use modern sections instead"
         alternative: "Update core/*, engine/*, error/* instead"
-      
+
       - pattern: "Change database schema without migration"
         reason: "Breaking change, requires careful coordination"
         alternative: "Create migration script first"
-      
+
       - pattern: "Use deprecated import paths"
         reason: "CI will reject, use section-based imports"
         examples:
@@ -292,14 +292,14 @@ regeneration:
     - "New module added to repository"
     - "Module dependencies changed"
     - "Major refactoring completed"
-  
+
   commands:
     - script: "python scripts/generate_repo_summary.py"
       generates: [".meta/ai_context/repo_summary.json", ".meta/ai_context/repo_summary.md"]
-    
+
     - script: "python scripts/generate_code_graph.py"
       generates: [".meta/ai_context/code_graph.json"]
-  
+
   frequency: "After every module structure change"
   automation: "Consider adding to pre-commit hook"
 

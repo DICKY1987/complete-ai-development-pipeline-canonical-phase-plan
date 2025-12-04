@@ -63,17 +63,17 @@ class PatternEvent:
 
 class PatternStateStore(ABC):
     """Abstract interface for pattern state storage."""
-    
+
     @abstractmethod
     def get_recent_runs(self, limit: int = 50) -> List[PatternRun]:
         """Get recent pattern runs."""
         pass
-    
+
     @abstractmethod
     def get_run_events(self, run_id: str) -> List[PatternEvent]:
         """Get all events for a specific run."""
         pass
-    
+
     @abstractmethod
     def get_active_patterns(self) -> List[PatternRun]:
         """Get currently active pattern runs."""
@@ -82,10 +82,10 @@ class PatternStateStore(ABC):
 
 class InMemoryPatternStateStore(PatternStateStore):
     """In-memory pattern state store with seeded test data."""
-    
+
     def __init__(self):
         now = datetime.now()
-        
+
         # Seed some pattern runs
         self._runs = [
             PatternRun(
@@ -120,7 +120,7 @@ class InMemoryPatternStateStore(PatternStateStore):
                 error_message="Test suite failed: 2 tests"
             ),
         ]
-        
+
         # Seed events for runs
         self._events = {
             "run-001": [
@@ -145,48 +145,48 @@ class InMemoryPatternStateStore(PatternStateStore):
                 PatternEvent("evt-204", "run-003", PatternEventType.FAILED, now, None, "Pattern execution failed"),
             ],
         }
-    
+
     def get_recent_runs(self, limit: int = 50) -> List[PatternRun]:
         return self._runs[:limit]
-    
+
     def get_run_events(self, run_id: str) -> List[PatternEvent]:
         return self._events.get(run_id, [])
-    
+
     def get_active_patterns(self) -> List[PatternRun]:
         return [run for run in self._runs if run.status == PatternStatus.RUNNING]
 
 
 class PatternClient:
     """Client for accessing pattern execution state from panels."""
-    
+
     def __init__(self, store: PatternStateStore):
         self._store = store
-    
+
     def get_recent_runs(self, limit: int = 50) -> List[PatternRun]:
         """Get recent pattern runs.
-        
+
         Args:
             limit: Maximum number of runs to return
-            
+
         Returns:
             List of PatternRun objects
         """
         return self._store.get_recent_runs(limit)
-    
+
     def get_run_events(self, run_id: str) -> List[PatternEvent]:
         """Get all events for a specific run.
-        
+
         Args:
             run_id: Pattern run identifier
-            
+
         Returns:
             List of PatternEvent objects
         """
         return self._store.get_run_events(run_id)
-    
+
     def get_active_patterns(self) -> List[PatternRun]:
         """Get currently active pattern runs.
-        
+
         Returns:
             List of active PatternRun objects
         """

@@ -4,8 +4,8 @@ doc_id: DOC-GUIDE-TASKS-1506
 
 # UET Implementation Tasks - Master Checklist
 
-**Change ID**: uet-001-complete-implementation  
-**Last Updated**: 2025-11-23  
+**Change ID**: uet-001-complete-implementation
+**Last Updated**: 2025-11-23
 **Status**: Planning
 
 ---
@@ -248,6 +248,6 @@ doc_id: DOC-GUIDE-TASKS-1506
 
 ---
 
-**Total Effort**: 172 hours  
-**Timeline**: 9-12 weeks  
+**Total Effort**: 172 hours
+**Timeline**: 9-12 weeks
 **MVP**: 130 hours, 7-8 weeks (skip security)

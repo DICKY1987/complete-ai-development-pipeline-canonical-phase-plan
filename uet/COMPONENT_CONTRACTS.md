@@ -4,8 +4,8 @@ doc_id: DOC-GUIDE-COMPONENT-CONTRACTS-1662
 
 # UET V2 Component Contracts
 
-**Purpose**: Define API contracts for all UET V2 components to enable parallel development  
-**Status**: DRAFT  
+**Purpose**: Define API contracts for all UET V2 components to enable parallel development
+**Status**: DRAFT
 **Last Updated**: 2025-11-23
 
 > **Critical**: These contracts are stable interfaces. Changes require team approval and migration plan.
@@ -29,8 +29,8 @@ doc_id: DOC-GUIDE-COMPONENT-CONTRACTS-1662
 
 ## Worker Lifecycle
 
-**Module**: `core/engine/worker_lifecycle.py`  
-**Status**: Not Implemented  
+**Module**: `core/engine/worker_lifecycle.py`
+**Status**: Not Implemented
 **Owner**: TBD
 
 ### Interface
@@ -60,73 +60,73 @@ class WorkerRecord:
 
 class WorkerLifecycle:
     """Manages worker lifecycle from spawn to termination."""
-    
+
     def spawn_worker(self, worker_id: str, worker_type: str, affinity: Dict[str, str]) -> WorkerRecord:
         """
         Spawn a new worker.
-        
+
         Args:
             worker_id: Unique identifier for worker
             worker_type: Type of worker (code_edit, testing, linting)
             affinity: Worker capabilities/preferences
-        
+
         Returns:
             WorkerRecord with state=SPAWNING
-        
+
         Raises:
             ValueError: If worker_id already exists
         """
         pass
-    
+
     def transition_state(self, worker_id: str, new_state: WorkerState) -> bool:
         """
         Transition worker to new state.
-        
+
         Args:
             worker_id: Worker to transition
             new_state: Target state
-        
+
         Returns:
             True if transition successful
-        
+
         Raises:
             ValueError: If transition is invalid
         """
         pass
-    
+
     def heartbeat(self, worker_id: str) -> None:
         """
         Record worker heartbeat.
-        
+
         Args:
             worker_id: Worker reporting heartbeat
-        
+
         Raises:
             ValueError: If worker doesn't exist
         """
         pass
-    
+
     def terminate_worker(self, worker_id: str) -> None:
         """
         Terminate worker (graceful shutdown).
-        
+
         Args:
             worker_id: Worker to terminate
-        
+
         Side Effects:
             - Transitions to DRAINING, then TERMINATED
             - Records termination timestamp
         """
         pass
-    
+
     def get_worker(self, worker_id: str) -> WorkerRecord:
         """Retrieve worker record."""
         pass
-    
+
     def get_workers_by_state(self, state: WorkerState) -> List[WorkerRecord]:
         """Get all workers in given state."""
         pass
-    
+
     def get_idle_workers(self, worker_type: Optional[str] = None) -> List[WorkerRecord]:
         """Get workers available for work."""
         pass
@@ -188,8 +188,8 @@ CREATE INDEX idx_workers_type ON workers(worker_type);
 
 ## Integration Worker
 
-**Module**: `core/engine/integration_worker.py`  
-**Status**: Not Implemented  
+**Module**: `core/engine/integration_worker.py`
+**Status**: Not Implemented
 **Owner**: TBD
 
 ### Interface
@@ -215,29 +215,29 @@ class MergeConflict:
 
 class IntegrationWorker:
     """Dedicated worker for merging parallel workstream results."""
-    
+
     def collect_patches(self, worker_ids: List[str]) -> List[PatchArtifact]:
         """
         Collect validated patches from multiple workers.
-        
+
         Args:
             worker_ids: Workers that produced patches
-        
+
         Returns:
             List of patches in validated state
         """
         pass
-    
+
     def orchestrate_merge(self, patches: List[PatchArtifact]) -> MergeResult:
         """
         Merge patches in deterministic order.
-        
+
         Args:
             patches: Validated patches to merge
-        
+
         Returns:
             MergeResult with success status and conflicts
-        
+
         Process:
             1. Order patches (priority, dependencies, age)
             2. Apply patches sequentially
@@ -245,14 +245,14 @@ class IntegrationWorker:
             4. Rollback on failure
         """
         pass
-    
+
     def handle_conflict(self, conflict: MergeConflict) -> ConflictResolution:
         """
         Handle merge conflict.
-        
+
         Args:
             conflict: Detected conflict
-        
+
         Returns:
             Resolution strategy (auto-resolve, escalate, rollback)
         """
@@ -283,8 +283,8 @@ class IntegrationWorker:
 
 ## Patch Ledger
 
-**Module**: `core/patches/ledger.py`  
-**Status**: Not Implemented  
+**Module**: `core/patches/ledger.py`
+**Status**: Not Implemented
 **Owner**: TBD
 
 ### Interface
@@ -322,46 +322,46 @@ class PatchLedgerEntry:
 
 class PatchLedger:
     """Tracks complete lifecycle of patches from creation to commit."""
-    
+
     def create_entry(self, patch: PatchArtifact, phase_id: str, workstream_id: str) -> PatchLedgerEntry:
         """
         Create new ledger entry.
-        
+
         Args:
             patch: Patch artifact to track
             phase_id: Phase context
             workstream_id: Workstream context
-        
+
         Returns:
             PatchLedgerEntry with state=CREATED
         """
         pass
-    
+
     def transition_state(self, ledger_id: str, new_state: PatchState, reason: str = "") -> bool:
         """
         Transition patch to new state.
-        
+
         Args:
             ledger_id: Ledger entry to update
             new_state: Target state
             reason: Reason for transition
-        
+
         Returns:
             True if transition successful
-        
+
         Raises:
             ValueError: If transition invalid per state machine
         """
         pass
-    
+
     def validate(self, ledger_id: str) -> ValidationResult:
         """Run validation pipeline and update entry."""
         pass
-    
+
     def quarantine(self, ledger_id: str, reason: str) -> None:
         """Quarantine patch with reason."""
         pass
-    
+
     def get_patches_by_state(self, state: PatchState, phase_id: Optional[str] = None) -> List[PatchLedgerEntry]:
         """Query patches by state, optionally filtered by phase."""
         pass
@@ -460,5 +460,5 @@ CREATE TABLE IF NOT EXISTS patch_ledger_entries (
 
 ---
 
-**Last Updated**: 2025-11-23  
+**Last Updated**: 2025-11-23
 **Next Review**: Before Phase A starts

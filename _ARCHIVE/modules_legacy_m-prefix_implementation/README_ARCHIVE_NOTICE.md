@@ -1,16 +1,16 @@
 # Archive Notice: Legacy Module Implementation
 
-**Date Archived**: 2025-12-03  
-**Original Location**: `modules/`  
+**Date Archived**: 2025-12-03
+**Original Location**: `modules/`
 **New Location**: `_ARCHIVE/modules_legacy_m-prefix_implementation/`
 
 ## Why Archived
 
-This directory contained a **duplicate/legacy implementation** of the pipeline using a module-based naming system (m010001_, m010002_, etc. prefixes). 
+This directory contained a **duplicate/legacy implementation** of the pipeline using a module-based naming system (m010001_, m010002_, etc. prefixes).
 
 The authoritative implementation is now in:
 - `core/` - Core engine, state, planning
-- `error/` - Error engine and plugins  
+- `error/` - Error engine and plugins
 - `aim/` - AIM tool matching
 - `tools/` - Tool implementations
 
@@ -39,8 +39,8 @@ The authoritative implementation is now in:
 
 ## Migration Status
 
-✅ **Complete** - All functionality consolidated into `core/`, `error/`, `aim/` structure  
-✅ **Archived** - Legacy code preserved in `_ARCHIVE/` for historical reference  
+✅ **Complete** - All functionality consolidated into `core/`, `error/`, `aim/` structure
+✅ **Archived** - Legacy code preserved in `_ARCHIVE/` for historical reference
 ✅ **Directory Removed** - `modules/` removed from active codebase
 
 ## References

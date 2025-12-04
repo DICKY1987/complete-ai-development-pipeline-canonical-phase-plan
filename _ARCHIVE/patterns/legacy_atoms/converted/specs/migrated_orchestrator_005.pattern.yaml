@@ -24,7 +24,7 @@ metadata:
 intent: |
   Migrated from: Route To Planning Pipeline
   Original atom role: orchestrator
-  
+
   This pattern was automatically migrated from the atomic-workflow-system.
   Review and enhance before production use.
 

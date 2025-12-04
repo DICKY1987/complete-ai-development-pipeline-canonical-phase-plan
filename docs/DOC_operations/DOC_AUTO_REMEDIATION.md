@@ -146,10 +146,10 @@ pwsh scripts/validate/validate_repo_checklist.ps1
 # If failures, try auto-fix
 if ($LASTEXITCODE -ne 0) {
     pwsh scripts/validate/auto_remediate.ps1
-    
+
     # Re-validate
     pwsh scripts/validate/validate_repo_checklist.ps1
-    
+
     if ($LASTEXITCODE -eq 0) {
         Write-Host "Auto-fixes applied - please review changes" -ForegroundColor Yellow
         exit 0
@@ -170,21 +170,21 @@ function Fix-YourRequirement {
     param(
         [Parameter(Mandatory)]
         [string]$RepoRoot,
-        
+
         [Parameter()]
         [switch]$DryRun
     )
-    
+
     Write-Host "  🔧 Analyzing your issue..." -ForegroundColor Yellow
-    
+
     # Your fix logic here
-    
+
     if (-not $DryRun) {
         # Apply actual fix
         # Create backups
         # Modify files
     }
-    
+
     return @{
         Success = $true
         Message = "Description of what was fixed"
@@ -371,5 +371,5 @@ Total Requirements: 2
 
 ## Version
 
-**Auto-Remediation Version**: 1.0.0  
+**Auto-Remediation Version**: 1.0.0
 **Last Updated**: 2025-11-23

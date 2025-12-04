@@ -1,7 +1,7 @@
 # uet
 
-**Module Path**: `uet`  
-**Layer**: Foundation  
+**Module Path**: `uet`
+**Layer**: Foundation
 **Status**: Active
 
 ## Purpose
@@ -43,5 +43,5 @@ UET_CONSOLIDATION_MASTER_PLAN.md
 
 ---
 
-**Generated**: 2025-12-02 22:40:27 UTC  
+**Generated**: 2025-12-02 22:40:27 UTC
 **Framework**: Universal Execution Templates (UET)

@@ -8,8 +8,8 @@ doc_id: DOC-GUIDE-FILE_ORGANIZATION_SYSTEM-085
 
 # File Organization System – Development vs System Files
 
-> **Purpose**: Define a clear separation strategy between development artifacts and production system files to prevent mixing and facilitate clean handover.  
-> **Created**: 2025-11-22  
+> **Purpose**: Define a clear separation strategy between development artifacts and production system files to prevent mixing and facilitate clean handover.
+> **Created**: 2025-11-22
 > **Status**: Active Standard
 
 ---

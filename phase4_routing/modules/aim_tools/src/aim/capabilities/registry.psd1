@@ -11,14 +11,14 @@
         DeprecatedBy = $null
         Stability    = 'stable'
         SinceVersion = '1.0.0'
-        
+
         Requirements = @{
             MinPythonVersion = '3.10'
             Dependencies     = @('git', 'pytest', 'ruff')
             MinMemoryMB      = 512
             MinDiskSpaceMB   = 1024
         }
-        
+
         Operations = @(
             @{
                 Name        = 'StartWorkstream'
@@ -40,7 +40,7 @@
             }
         )
     },
-    
+
     @{
         CapabilityId = 'cap-aider-001'
         Version      = '1.0.0'
@@ -50,7 +50,7 @@
         DeprecatedBy = $null
         Stability    = 'stable'
         SinceVersion = '1.0.0'
-        
+
         Requirements = @{
             MinPythonVersion = '3.10'
             Dependencies     = @('aider-chat>=0.50.0', 'git')
@@ -58,7 +58,7 @@
             MinDiskSpaceMB   = 512
             NetworkRequired  = $true  # Aider may need OpenAI API
         }
-        
+
         Operations = @(
             @{
                 Name        = 'EditCode'
@@ -74,7 +74,7 @@
             }
         )
     },
-    
+
     @{
         CapabilityId = 'cap-pytest-001'
         Version      = '1.0.0'
@@ -84,14 +84,14 @@
         DeprecatedBy = $null
         Stability    = 'stable'
         SinceVersion = '1.0.0'
-        
+
         Requirements = @{
             MinPythonVersion = '3.10'
             Dependencies     = @('pytest>=7.0')
             MinMemoryMB      = 512
             MinDiskSpaceMB   = 256
         }
-        
+
         Operations = @(
             @{
                 Name        = 'RunTests'
@@ -107,7 +107,7 @@
             }
         )
     },
-    
+
     @{
         CapabilityId = 'cap-ruff-001'
         Version      = '1.0.0'
@@ -117,14 +117,14 @@
         DeprecatedBy = $null
         Stability    = 'stable'
         SinceVersion = '1.0.0'
-        
+
         Requirements = @{
             MinPythonVersion = '3.10'
             Dependencies     = @('ruff>=0.1.0')
             MinMemoryMB      = 256
             MinDiskSpaceMB   = 128
         }
-        
+
         Operations = @(
             @{
                 Name        = 'CheckCode'
@@ -146,7 +146,7 @@
             }
         )
     },
-    
+
     @{
         CapabilityId = 'cap-git-001'
         Version      = '1.0.0'
@@ -156,13 +156,13 @@
         DeprecatedBy = $null
         Stability    = 'stable'
         SinceVersion = '1.0.0'
-        
+
         Requirements = @{
             Dependencies     = @('git>=2.30')
             MinMemoryMB      = 256
             MinDiskSpaceMB   = 512
         }
-        
+
         Operations = @(
             @{
                 Name        = 'CreateWorktree'
@@ -184,7 +184,7 @@
             }
         )
     },
-    
+
     @{
         CapabilityId = 'cap-dag-001'
         Version      = '1.0.0'
@@ -194,14 +194,14 @@
         DeprecatedBy = $null
         Stability    = 'stable'
         SinceVersion = '1.0.0'
-        
+
         Requirements = @{
             MinPythonVersion = '3.10'
             Dependencies     = @()
             MinMemoryMB      = 256
             MinDiskSpaceMB   = 128
         }
-        
+
         Operations = @(
             @{
                 Name        = 'BuildDAG'
@@ -223,7 +223,7 @@
             }
         )
     },
-    
+
     @{
         CapabilityId = 'cap-validation-001'
         Version      = '1.0.0'
@@ -233,14 +233,14 @@
         DeprecatedBy = $null
         Stability    = 'experimental'
         SinceVersion = '1.0.0'
-        
+
         Requirements = @{
             MinPythonVersion = '3.10'
             Dependencies     = @('git', 'pytest', 'ruff')
             MinMemoryMB      = 512
             MinDiskSpaceMB   = 256
         }
-        
+
         Operations = @(
             @{
                 Name        = 'ValidatePreExecution'

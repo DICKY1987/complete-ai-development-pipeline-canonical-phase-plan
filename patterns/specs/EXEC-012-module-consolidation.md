@@ -5,15 +5,15 @@ doc_id: DOC-PAT-EXEC-012-MODULE-CONSOLIDATION-858
 # EXEC-012: Module Consolidation Pattern
 # Pattern for migrating duplicate code into canonical UET structure
 
-**Pattern ID**: EXEC-012  
-**Name**: Module Consolidation & Migration  
-**Category**: Refactoring  
-**Time Savings**: 70-80% vs manual migration  
-**Difficulty**: Medium  
+**Pattern ID**: EXEC-012
+**Name**: Module Consolidation & Migration
+**Category**: Refactoring
+**Time Savings**: 70-80% vs manual migration
+**Difficulty**: Medium
 **Prerequisites**: Git, Python, migration registry system
 
-**DOC_ID**: DOC-PAT-EXEC-012-MODULE-CONSOLIDATION  
-**Created**: 2025-11-29  
+**DOC_ID**: DOC-PAT-EXEC-012-MODULE-CONSOLIDATION
+**Created**: 2025-11-29
 **Status**: ACTIVE
 
 ---
@@ -63,22 +63,22 @@ class DuplicateFinder:
     def __init__(self, root: Path):
         self.root = root
         self.file_hashes: Dict[str, List[Path]] = {}
-        
+
     def scan_duplicates(self, exclude_patterns: List[str]) -> Dict:
         """Find duplicate files by content hash."""
         duplicates = {}
-        
+
         for py_file in self.root.rglob("*.py"):
             # Skip excluded patterns
             if any(pattern in str(py_file) for pattern in exclude_patterns):
                 continue
-                
+
             file_hash = self._hash_file(py_file)
-            
+
             if file_hash not in self.file_hashes:
                 self.file_hashes[file_hash] = []
             self.file_hashes[file_hash].append(py_file)
-        
+
         # Keep only duplicates (hash appears > 1 time)
         for file_hash, paths in self.file_hashes.items():
             if len(paths) > 1:
@@ -87,13 +87,13 @@ class DuplicateFinder:
                     'locations': [str(p.relative_to(self.root)) for p in paths],
                     'canonical': self._select_canonical(paths)
                 }
-        
+
         return duplicates
-    
+
     def _hash_file(self, path: Path) -> str:
         """Calculate SHA256 hash of file content."""
         return hashlib.sha256(path.read_bytes()).hexdigest()[:16]
-    
+
     def _select_canonical(self, paths: List[Path]) -> str:
         """Select canonical version (prefer UET, then modules, then active)."""
         # Priority order
@@ -105,12 +105,12 @@ class DuplicateFinder:
             'aim',
             'pm'
         ]
-        
+
         for priority in priorities:
             for path in paths:
                 if priority in str(path):
                     return str(path)
-        
+
         # Default: newest file
         newest = max(paths, key=lambda p: p.stat().st_mtime)
         return str(newest)
@@ -172,70 +172,70 @@ class MigrationPlanner:
     def __init__(self, duplicate_registry: Dict):
         self.registry = duplicate_registry
         self.graph = nx.DiGraph()
-        
+
     def create_plan(self) -> Dict:
         """Create ordered migration plan."""
         # Build dependency graph
         self._build_dependency_graph()
-        
+
         # Topological sort for correct order
         migration_order = list(nx.topological_sort(self.graph))
-        
+
         # Group into batches
         batches = self._create_batches(migration_order, batch_size=6)
-        
+
         return {
             'total_files': len(migration_order),
             'total_batches': len(batches),
             'batches': batches,
             'execution_estimate_hours': len(batches) * 0.5  # 30 min per batch
         }
-    
+
     def _build_dependency_graph(self):
         """Build import dependency graph."""
         for file_hash, info in self.registry['duplicates'].items():
             canonical = info['canonical']
-            
+
             # Add node
             self.graph.add_node(canonical)
-            
+
             # Parse imports to find dependencies
             imports = self._extract_imports(Path(canonical))
             for imp in imports:
                 if imp in self.graph:
                     self.graph.add_edge(imp, canonical)  # imp -> canonical
-    
+
     def _extract_imports(self, file_path: Path) -> Set[str]:
         """Extract import statements from Python file."""
         imports = set()
-        
+
         if not file_path.exists():
             return imports
-            
+
         content = file_path.read_text(encoding='utf-8')
-        
+
         # Simple regex for "from X import Y"
         import re
         pattern = r'from\s+([\w\.]+)\s+import'
         matches = re.findall(pattern, content)
-        
+
         imports.update(matches)
         return imports
-    
+
     def _create_batches(self, files: List[str], batch_size: int = 6) -> List[Dict]:
         """Group files into migration batches."""
         batches = []
-        
+
         for i in range(0, len(files), batch_size):
             batch_files = files[i:i+batch_size]
-            
+
             batches.append({
                 'batch_id': f"batch_{i//batch_size + 1:03d}",
                 'files': batch_files,
                 'file_count': len(batch_files),
                 'status': 'pending'
             })
-        
+
         return batches
 
 # USAGE:
@@ -283,13 +283,13 @@ class MigrationExecutor:
         self.plan = migration_plan
         self.uet_root = uet_root
         self.migration_log = []
-        
+
     def execute_batch(self, batch_id: str) -> bool:
         """Execute a single migration batch."""
         batch = self._get_batch(batch_id)
-        
+
         print(f"\n📦 Executing {batch_id} ({batch['file_count']} files)")
-        
+
         for source_file in batch['files']:
             try:
                 self._migrate_file(source_file)
@@ -297,27 +297,27 @@ class MigrationExecutor:
             except Exception as e:
                 print(f"  ✗ {Path(source_file).name}: {e}")
                 return False
-        
+
         # Verify batch
         return self._verify_batch(batch)
-    
+
     def _migrate_file(self, source_path: str):
         """Migrate single file to UET structure."""
         source = Path(source_path)
-        
+
         # Determine UET destination
         dest = self._map_to_uet_path(source)
         dest.parent.mkdir(parents=True, exist_ok=True)
-        
+
         # Copy file
         shutil.copy2(source, dest)
-        
+
         # Update imports in destination file
         self._update_imports(dest)
-        
+
         # Create compatibility shim at source
         self._create_shim(source, dest)
-        
+
         # Log migration
         self.migration_log.append({
             'source': str(source),
@@ -325,27 +325,27 @@ class MigrationExecutor:
             'timestamp': '2025-11-29T16:30:00Z',
             'status': 'success'
         })
-    
+
     def _map_to_uet_path(self, source: Path) -> Path:
         """Map source path to UET destination."""
         # Remove module prefix (m010001_) if present
         filename = source.name
         if re.match(r'm\d{6}_', filename):
             filename = filename[8:]  # Remove "m010001_"
-        
+
         # Map directory structure
         parts = source.parts
-        
+
         if 'modules' in parts:
             # modules/core-engine/file.py -> UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/core/engine/file.py
             idx = parts.index('modules')
             module_name = parts[idx + 1]  # e.g., "core-engine"
-            
+
             # Split module name: "core-engine" -> "core/engine"
             subpath = module_name.replace('-', '/')
-            
+
             return self.uet_root / subpath / filename
-        
+
         elif any(x in parts for x in ['core', 'error', 'aim', 'pm']):
             # core/engine/file.py -> UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/core/engine/file.py
             # Find first occurrence
@@ -354,14 +354,14 @@ class MigrationExecutor:
                     idx = parts.index(component)
                     subpath = Path(*parts[idx:])
                     return self.uet_root / subpath.parent / filename
-        
+
         # Default: preserve relative path
         return self.uet_root / source.relative_to(Path.cwd())
-    
+
     def _update_imports(self, file_path: Path):
         """Update imports to use UET structure."""
         content = file_path.read_text(encoding='utf-8')
-        
+
         # Pattern: from core.engine.X -> from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine.X
         replacements = [
             (r'from core\.', 'from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.'),
@@ -371,18 +371,18 @@ class MigrationExecutor:
             (r'from modules\.core-', 'from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.'),
             (r'from modules\.error-', 'from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.'),
         ]
-        
+
         for pattern, replacement in replacements:
             content = re.sub(pattern, replacement, content)
-        
+
         file_path.write_text(content, encoding='utf-8')
-    
+
     def _create_shim(self, old_path: Path, new_path: Path):
         """Create compatibility shim at old location."""
         # Calculate relative import path
         uet_rel = new_path.relative_to(self.uet_root)
         import_path = str(uet_rel.with_suffix('')).replace('/', '.')
-        
+
         shim_content = f'''"""
 Compatibility shim - imports from new UET location.
 
@@ -401,41 +401,41 @@ warnings.warn(
 # Re-export everything from new location
 from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.{import_path} import *
 '''
-        
+
         # Overwrite old file with shim (after backing up to archive)
         archive_path = Path('.migration_backups') / '2025-11-29' / old_path
         archive_path.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(old_path, archive_path)
-        
+
         old_path.write_text(shim_content, encoding='utf-8')
-    
+
     def _verify_batch(self, batch: Dict) -> bool:
         """Verify all files in batch can be imported."""
         print(f"\n  🔍 Verifying batch...")
-        
+
         for source_file in batch['files']:
             dest = self._map_to_uet_path(Path(source_file))
-            
+
             # Calculate import path
             rel_path = dest.relative_to(self.uet_root)
             import_path = str(rel_path.with_suffix('')).replace('/', '.')
             module_name = f"UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.{import_path}"
-            
+
             # Try to import
             result = subprocess.run(
                 ['python', '-c', f'import {module_name}'],
                 capture_output=True,
                 text=True
             )
-            
+
             if result.returncode != 0:
                 print(f"  ✗ Import failed: {module_name}")
                 print(f"    {result.stderr}")
                 return False
-        
+
         print(f"  ✅ All imports verified")
         return True
-    
+
     def _get_batch(self, batch_id: str) -> Dict:
         """Get batch by ID."""
         for batch in self.plan['batches']:
@@ -453,11 +453,11 @@ executor = MigrationExecutor(plan, Path('UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK
 # Execute all batches
 for batch in plan['batches']:
     success = executor.execute_batch(batch['batch_id'])
-    
+
     if not success:
         print(f"❌ Batch {batch['batch_id']} failed. Stopping.")
         break
-    
+
     print(f"✅ {batch['batch_id']} complete")
 
 # Save migration log
@@ -510,10 +510,10 @@ echo "✅ Migration complete - verify and commit"
 
 ## Ground Truth Success Criteria
 
-✅ **All tests pass**: `pytest UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/tests/ -q`  
-✅ **All imports work**: No ImportError for any UET module  
-✅ **No old imports**: grep shows 0 matches for old import patterns  
-✅ **File reduction**: ≥60% reduction in duplicate files  
+✅ **All tests pass**: `pytest UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/tests/ -q`
+✅ **All imports work**: No ImportError for any UET module
+✅ **No old imports**: grep shows 0 matches for old import patterns
+✅ **File reduction**: ≥60% reduction in duplicate files
 ✅ **Compatibility maintained**: Shims allow old imports to work temporarily
 
 ---
@@ -523,7 +523,7 @@ echo "✅ Migration complete - verify and commit"
 ```
 Traditional Manual Migration:
   - Review 300 files: 15 hours
-  - Copy & update each: 20 hours  
+  - Copy & update each: 20 hours
   - Fix import errors: 10 hours
   - Verify functionality: 8 hours
   Total: 53 hours
@@ -543,16 +543,16 @@ Speedup: 3.5x faster
 
 ## Anti-Pattern Guards
 
-🚫 **Don't** manually copy files one by one  
-🚫 **Don't** edit imports manually  
-🚫 **Don't** delete old files immediately (use shims first)  
-🚫 **Don't** skip verification between batches  
+🚫 **Don't** manually copy files one by one
+🚫 **Don't** edit imports manually
+🚫 **Don't** delete old files immediately (use shims first)
+🚫 **Don't** skip verification between batches
 🚫 **Don't** migrate without dependency graph
 
-✅ **Do** use automated discovery and mapping  
-✅ **Do** migrate in dependency order  
-✅ **Do** create compatibility shims  
-✅ **Do** verify after each batch  
+✅ **Do** use automated discovery and mapping
+✅ **Do** migrate in dependency order
+✅ **Do** create compatibility shims
+✅ **Do** verify after each batch
 ✅ **Do** keep archives for 90 days
 
 ---
@@ -566,7 +566,7 @@ Speedup: 3.5x faster
 
 ---
 
-**Created**: 2025-11-29  
-**Author**: AI Pattern Extraction  
-**Tested**: Pending execution  
+**Created**: 2025-11-29
+**Author**: AI Pattern Extraction
+**Tested**: Pending execution
 **Status**: Ready for use

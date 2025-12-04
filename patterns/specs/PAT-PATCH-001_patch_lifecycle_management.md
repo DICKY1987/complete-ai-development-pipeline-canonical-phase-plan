@@ -55,7 +55,7 @@ Examples:
 def is_patch_applied(patch_file: str, repo_path: str = ".") -> bool:
     """
     Check if a patch has been applied by attempting a dry-run.
-    
+
     Returns:
         True if patch is already applied
         False if patch can be applied
@@ -68,7 +68,7 @@ def is_patch_applied(patch_file: str, repo_path: str = ".") -> bool:
         capture_output=True,
         text=True
     )
-    
+
     # Exit code 0 means patch IS applied (reverse succeeds)
     # Exit code 1 means patch is NOT applied (reverse fails)
     return result.returncode == 0
@@ -79,7 +79,7 @@ def is_patch_applied(patch_file: str, repo_path: str = ".") -> bool:
 def apply_patch(patch_file: str, repo_path: str = ".") -> dict:
     """
     Apply a patch file with validation.
-    
+
     Returns:
         {
             "success": bool,
@@ -96,7 +96,7 @@ def apply_patch(patch_file: str, repo_path: str = ".") -> dict:
             "message": "Already applied",
             "output": ""
         }
-    
+
     # Attempt to apply
     result = subprocess.run(
         ["git", "apply", "--3way", patch_file],
@@ -104,7 +104,7 @@ def apply_patch(patch_file: str, repo_path: str = ".") -> dict:
         capture_output=True,
         text=True
     )
-    
+
     return {
         "success": result.returncode == 0,
         "patch": patch_file,
@@ -122,7 +122,7 @@ import shutil
 def archive_patch(patch_file: str, archive_base: str = "patches/archive") -> str:
     """
     Move applied patch to dated archive folder.
-    
+
     Returns:
         Path to archived file
     """
@@ -130,10 +130,10 @@ def archive_patch(patch_file: str, archive_base: str = "patches/archive") -> str
     date_folder = datetime.now().strftime("%Y-%m-%d")
     archive_dir = Path(archive_base) / date_folder
     archive_dir.mkdir(parents=True, exist_ok=True)
-    
+
     archive_path = archive_dir / patch_path.name
     shutil.move(str(patch_path), str(archive_path))
-    
+
     return str(archive_path)
 ```
 
@@ -142,7 +142,7 @@ def archive_patch(patch_file: str, archive_base: str = "patches/archive") -> str
 def process_patches(patch_dir: str = "patches/active", repo_path: str = ".") -> dict:
     """
     Process all patches: check, apply, archive.
-    
+
     Returns:
         {
             "applied": [],
@@ -157,25 +157,25 @@ def process_patches(patch_dir: str = "patches/active", repo_path: str = ".") -> 
         "failed": [],
         "archived": []
     }
-    
+
     patch_files = sorted(Path(patch_dir).glob("*.patch"))
-    
+
     for patch_file in patch_files:
         patch_str = str(patch_file)
-        
+
         # Check status
         already_applied = is_patch_applied(patch_str, repo_path)
-        
+
         if already_applied:
             results["already_applied"].append(patch_str)
             # Archive already-applied patches
             archived = archive_patch(patch_str)
             results["archived"].append(archived)
             continue
-        
+
         # Apply patch
         apply_result = apply_patch(patch_str, repo_path)
-        
+
         if apply_result["success"]:
             results["applied"].append(patch_str)
             # Archive successfully applied
@@ -190,7 +190,7 @@ def process_patches(patch_dir: str = "patches/active", repo_path: str = ".") -> 
             failed_dir = Path("patches/failed")
             failed_dir.mkdir(exist_ok=True)
             shutil.move(patch_str, str(failed_dir / Path(patch_str).name))
-    
+
     return results
 ```
 
@@ -264,10 +264,10 @@ patch_management:
 - ✅ Zero manual intervention required
 
 ## Anti-Patterns
-❌ Deleting patches without archiving  
-❌ Applying patches without checking status first  
-❌ Mixed applied/unapplied patches in same directory  
-❌ No timestamping in archive  
+❌ Deleting patches without archiving
+❌ Applying patches without checking status first
+❌ Mixed applied/unapplied patches in same directory
+❌ No timestamping in archive
 ❌ Manual patch management
 
 ## Related Patterns

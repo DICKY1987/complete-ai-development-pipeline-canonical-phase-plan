@@ -71,14 +71,14 @@ def assert_issue_valid(issue, expected_tool: str = None):
     assert hasattr(issue, "category")
     assert hasattr(issue, "severity")
     assert hasattr(issue, "message")
-    
+
     if expected_tool:
         assert issue.tool == expected_tool
-    
+
     # Category should be one of the allowed values
     if issue.category:
         assert issue.category in ["syntax", "style", "type", "security", "test_failure"]
-    
+
     # Severity should be one of the allowed values
     if issue.severity:
         assert issue.severity in ["error", "warning", "info"]

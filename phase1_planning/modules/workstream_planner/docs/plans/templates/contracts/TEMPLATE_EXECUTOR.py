@@ -17,16 +17,16 @@ from modules.error_shared import build_error
 def run(request: ExecutionRequestV1) -> ExecutionResultV1:
     """
     Execute operation according to ExecutionRequestV1 contract.
-    
+
     REQUIRED CONTRACT:
     - Accepts ExecutionRequestV1
     - Returns ExecutionResultV1
     - Never raises unhandled exceptions
     - All errors captured in result.error
-    
+
     Args:
         request: ExecutionRequestV1 containing operation details
-        
+
     Returns:
         ExecutionResultV1 with success status and outputs
     """
@@ -37,7 +37,7 @@ def run(request: ExecutionRequestV1) -> ExecutionResultV1:
         file_scope = request["file_scope"]
         inputs = request["inputs"]
         context = request["context"]
-        
+
         # 2. Perform the actual work
         # TODO: Implement executor-specific logic here
         # Example:
@@ -45,10 +45,10 @@ def run(request: ExecutionRequestV1) -> ExecutionResultV1:
         # - File edits
         # - AST transformations
         # - API calls
-        
+
         files_touched = []  # Track all modified files
         patch_path = None   # Optional: path to generated patch
-        
+
         # 3. Build successful result
         result: ExecutionResultV1 = {
             "success": True,
@@ -58,7 +58,7 @@ def run(request: ExecutionRequestV1) -> ExecutionResultV1:
             "patch_path": patch_path,
             "error": None,
         }
-        
+
         # 4. Log successful execution
         log_event({
             "event_type": "execution.completed",
@@ -70,9 +70,9 @@ def run(request: ExecutionRequestV1) -> ExecutionResultV1:
                 "workspace": workspace,
             }
         })
-        
+
         return result
-        
+
     except Exception as exc:
         # 5. Handle errors without propagating exceptions
         error = build_error(
@@ -87,7 +87,7 @@ def run(request: ExecutionRequestV1) -> ExecutionResultV1:
                 "workspace": request.get("workspace"),
             },
         )
-        
+
         # 6. Log error event
         log_event({
             "event_type": "execution.failed",
@@ -95,7 +95,7 @@ def run(request: ExecutionRequestV1) -> ExecutionResultV1:
             "summary": f"Execution failed: {str(exc)}",
             "details": error,
         })
-        
+
         # 7. Return error result (never raise)
         return {
             "success": False,
@@ -110,12 +110,12 @@ def run(request: ExecutionRequestV1) -> ExecutionResultV1:
 def validate_request(request: ExecutionRequestV1) -> bool:
     """
     Validate that request conforms to contract.
-    
+
     Optional helper - implement if you need pre-execution validation.
-    
+
     Args:
         request: Request to validate
-        
+
     Returns:
         True if valid, False otherwise
     """
@@ -128,7 +128,7 @@ def validate_request(request: ExecutionRequestV1) -> bool:
 def _perform_operation(inputs: Dict[str, Any]) -> Dict[str, Any]:
     """
     Internal operation implementation.
-    
+
     This is private - external callers must use run().
     """
     # TODO: Implement specific operation logic

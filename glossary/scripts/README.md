@@ -254,7 +254,7 @@ glossary.md                      # Main glossary (user-facing)
        field: schema_refs
        value: ["schema/workstream.schema.json"]
    EOF
-   
+
    # Generate and apply patch
    python scripts/glossary/update_term.py --spec glossary-updates/update-001.yaml
    ```
@@ -326,15 +326,15 @@ validation:
       - "^It is"
       - "^This is"
       - "\\bTODO\\b"
-  
+
   related_terms:
     min_count: 1
     max_count: 10
     require_bidirectional: true
-  
+
   implementation:
     verify_files_exist: true
-  
+
   cross_references:
     max_orphaned_terms: 0
     max_dead_links: 0

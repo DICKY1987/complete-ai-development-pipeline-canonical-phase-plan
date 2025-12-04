@@ -36,7 +36,7 @@ param(
     [Parameter(Mandatory=$true)]
     [ValidateSet("scan", "normalize", "merge", "push", "full")]
     [string]$Action,
-    
+
     [string]$BaseBranch = "main",
     [string]$FeatureBranch = "",
     [string]$RemoteName = "origin",
@@ -60,16 +60,16 @@ function Invoke-Pattern {
         [string]$Script,
         [hashtable]$Params
     )
-    
+
     Write-Host "▶️  Running $PatternName..." -ForegroundColor Yellow
-    
+
     # Handle both direct scripts and scripts/ subdirectory
     if ($Script.Contains('\') -or $Script.Contains('/')) {
         $scriptPath = Join-Path $ScriptDir $Script
     } else {
         $scriptPath = Join-Path $ScriptDir "scripts\$Script"
     }
-    
+
     if ($Script.EndsWith('.ps1')) {
         & $scriptPath @Params
     } else {
@@ -85,15 +85,15 @@ function Invoke-Pattern {
         }
         python @pythonArgs
     }
-    
+
     $exitCode = $LASTEXITCODE
-    
+
     if ($exitCode -eq 0) {
         Write-Host "   ✅ $PatternName completed successfully" -ForegroundColor Green
     } else {
         Write-Host "   ⚠️ $PatternName exited with code $exitCode" -ForegroundColor Yellow
     }
-    
+
     Write-Host ""
     return $exitCode
 }
@@ -103,13 +103,13 @@ try {
         "scan" {
             Write-Host "📋 SCAN MODE: Environment + Nested Repos + File Classification" -ForegroundColor Cyan
             Write-Host ""
-            
+
             if (-not $FeatureBranch) {
                 $FeatureBranch = git branch --show-current
                 Write-Host "Using current branch as feature: $FeatureBranch" -ForegroundColor Gray
                 Write-Host ""
             }
-            
+
             # MERGE-001: Environment Scan
             Invoke-Pattern -PatternName "MERGE-001 (Environment Scan)" `
                           -Script "merge_env_scan.ps1" `
@@ -118,31 +118,31 @@ try {
                               FeatureBranch = $FeatureBranch
                               RemoteName = $RemoteName
                           }
-            
+
             # MERGE-003: Nested Repo Detector
             Invoke-Pattern -PatternName "MERGE-003 (Nested Repo Detector)" `
                           -Script "nested_repo_detector.py" `
                           -Params @{
                               work_dir = "."
                           }
-            
+
             # MERGE-008: File Classifier
             Invoke-Pattern -PatternName "MERGE-008 (File Classifier)" `
                           -Script "merge_file_classifier.py" `
                           -Params @{
                               work_dir = "."
                           }
-            
+
             Write-Host "📊 Scan complete! Review the following files:" -ForegroundColor Green
             Write-Host "   - env_scan.safe_merge.json" -ForegroundColor Gray
             Write-Host "   - nested_repos_report.json" -ForegroundColor Gray
             Write-Host "   - merge_file_classes.json" -ForegroundColor Gray
         }
-        
+
         "normalize" {
             Write-Host "🔧 NORMALIZE MODE: Fix Nested Repos" -ForegroundColor Cyan
             Write-Host ""
-            
+
             # MERGE-005: Nested Repo Normalizer
             Invoke-Pattern -PatternName "MERGE-005 (Nested Repo Normalizer)" `
                           -Script "nested_repo_normalizer.py" `
@@ -150,42 +150,42 @@ try {
                               work_dir = "."
                               policy = $NormalizePolicy
                           }
-            
+
             Write-Host "✅ Normalization complete!" -ForegroundColor Green
         }
-        
+
         "merge" {
             Write-Host "🔀 MERGE MODE: Full Safe Merge Workflow" -ForegroundColor Cyan
             Write-Host ""
-            
+
             if (-not $FeatureBranch) {
                 throw "FeatureBranch parameter required for merge action"
             }
-            
+
             # MERGE-004: Safe Merge Automation
             $params = @{
                 BaseBranch = $BaseBranch
                 FeatureBranch = $FeatureBranch
                 RemoteName = $RemoteName
             }
-            
+
             if ($AllowAutoPush) {
                 $params.AllowAutoPush = $true
             }
-            
+
             Invoke-Pattern -PatternName "MERGE-004 (Safe Merge Automation)" `
                           -Script "safe_merge_auto.ps1" `
                           -Params $params
-            
+
             Write-Host "✅ Merge workflow complete!" -ForegroundColor Green
         }
-        
+
         "push" {
             Write-Host "📤 PUSH MODE: Safe Push with Multi-Clone Guard" -ForegroundColor Cyan
             Write-Host ""
-            
+
             $currentBranch = git branch --show-current
-            
+
             # MERGE-007: Multi-Clone Guard
             Invoke-Pattern -PatternName "MERGE-007 (Multi-Clone Guard)" `
                           -Script "multi_clone_guard.py" `
@@ -194,24 +194,24 @@ try {
                               branch = $currentBranch
                               remote = $RemoteName
                           }
-            
+
             Write-Host "✅ Push complete!" -ForegroundColor Green
         }
-        
+
         "full" {
             Write-Host "🚀 FULL MODE: Complete Safe Merge Pipeline" -ForegroundColor Cyan
             Write-Host ""
-            
+
             if (-not $FeatureBranch) {
                 throw "FeatureBranch parameter required for full workflow"
             }
-            
+
             Write-Host "Step 1/4: Scan" -ForegroundColor Yellow
             & $PSCommandPath -Action scan -BaseBranch $BaseBranch -FeatureBranch $FeatureBranch -RemoteName $RemoteName
-            
+
             Write-Host "Step 2/4: Normalize" -ForegroundColor Yellow
             & $PSCommandPath -Action normalize -NormalizePolicy $NormalizePolicy
-            
+
             Write-Host "Step 3/4: Merge" -ForegroundColor Yellow
             $mergeParams = @{
                 Action = "merge"
@@ -223,15 +223,15 @@ try {
                 $mergeParams.AllowAutoPush = $true
             }
             & $PSCommandPath @mergeParams
-            
+
             Write-Host "✅ Full workflow complete!" -ForegroundColor Green
         }
     }
-    
+
     Write-Host ""
     Write-Host "✅ Action '$Action' completed successfully" -ForegroundColor Green
     exit 0
-    
+
 } catch {
     Write-Host ""
     Write-Host "❌ Error: $($_.Exception.Message)" -ForegroundColor Red

@@ -1,6 +1,6 @@
 In industry terms, what you’re describing is basically:
 
-> **Schema-driven prompt templates for pattern-based execution**  
+> **Schema-driven prompt templates for pattern-based execution**
 
 …or more loosely:
 
@@ -8,11 +8,11 @@ In industry terms, what you’re describing is basically:
 - **“Spec-driven prompting”**
 - **“Composable prompt blocks”** tied to patterns
 
-There isn’t *one* universal name everyone uses, but if you say *“schema-driven prompt templates for tool / pattern invocation”* you’re speaking the same language as OpenSpec / LangChain / LangGraph / CCPM, etc.  
+There isn’t *one* universal name everyone uses, but if you say *“schema-driven prompt templates for tool / pattern invocation”* you’re speaking the same language as OpenSpec / LangChain / LangGraph / CCPM, etc.
 
 In **your** ecosystem, they slot perfectly as:
 
-> **Pattern-bound Prompt Blocks**  
+> **Pattern-bound Prompt Blocks**
 > (one block per `pattern_id` + template, indexed by `doc_id` + operation_kind)
 
 ---
@@ -25,15 +25,15 @@ I’ll keep this opinionated and aligned with your existing pattern/template arc
 
 Each block = one reusable unit that can be slotted into a flow:
 
-- 1 **execution pattern** (`pattern_id` in `PATTERN_INDEX.yaml`)  
-- 1 **template** (phase template / execution template)  
+- 1 **execution pattern** (`pattern_id` in `PATTERN_INDEX.yaml`)
+- 1 **template** (phase template / execution template)
 - 1 **Prompt Block** = how you talk to the AI for this combo
 
 **Give the block its own ID:**
 
-- `doc_id` – your global join key across all docs (spec, schema, executor, prompt block)  
-- `pattern_id` – which execution pattern it belongs to  
-- `template_id` – which template it renders from (e.g., `module_creation_v1`)  
+- `doc_id` – your global join key across all docs (spec, schema, executor, prompt block)
+- `pattern_id` – which execution pattern it belongs to
+- `template_id` – which template it renders from (e.g., `module_creation_v1`)
 
 That lets you do precision editing and cross-file updates by ID, not by free text.
 
@@ -99,7 +99,7 @@ Then your CLI / orchestrator:
 - Fills in variables (`files_to_create`, `project_root`, etc.),
 - Renders the actual text prompt for the tool.
 
-This is exactly the **template + execution pattern + registry** architecture you already have for patterns and templates, just applied to prompts.  
+This is exactly the **template + execution pattern + registry** architecture you already have for patterns and templates, just applied to prompts.
 
 ---
 
@@ -109,12 +109,12 @@ You want blocks you can *compose*, so design sections around **what the machine 
 
 Suggested core sections for **every** Prompt Block:
 
-1. `meta` – goal, when to use, pattern/template references  
-2. `context` – which files/configs to feed (e.g. CODEBASE_INDEX, ai_policies, quality gates)  
-3. `inputs_schema` – what variables the orchestrator must provide  
-4. `outputs_schema` – what structure the AI must return (JSON, patch, report ID)  
-5. `execution_pattern_ref` – links into `PATTERN_INDEX.yaml` + executor/script path  
-6. `guardrails` – MUST / MUST NOT rules specific to this block  
+1. `meta` – goal, when to use, pattern/template references
+2. `context` – which files/configs to feed (e.g. CODEBASE_INDEX, ai_policies, quality gates)
+3. `inputs_schema` – what variables the orchestrator must provide
+4. `outputs_schema` – what structure the AI must return (JSON, patch, report ID)
+5. `execution_pattern_ref` – links into `PATTERN_INDEX.yaml` + executor/script path
+6. `guardrails` – MUST / MUST NOT rules specific to this block
 7. `prompt_template` – the *minimal* text template(s) for each tool (Claude, Copilot, etc.)
 
 Anything that feels like “storytelling” goes in one field (e.g. `prompt_template.claude_user`). Everything else is structured.
@@ -125,7 +125,7 @@ Anything that feels like “storytelling” goes in one field (e.g. `prompt_temp
 
 Treat them like first-class citizens in the registry:
 
-- Add a `prompt_blocks` section or a dedicated `PROMPT_BLOCK_INDEX.yaml` under `patterns/registry/` that points from `pattern_id` → one or more prompt blocks, just like you already do for specs/schemas/executors.  
+- Add a `prompt_blocks` section or a dedicated `PROMPT_BLOCK_INDEX.yaml` under `patterns/registry/` that points from `pattern_id` → one or more prompt blocks, just like you already do for specs/schemas/executors.
 
 Example:
 
@@ -155,13 +155,13 @@ Now your orchestrator can:
 
 You already think in terms of:
 
-- **Templates** for phases / patterns  
-- **Patterns** implementing `operation_kind`s (e.g. CREATE_FILE, RUN_TESTS)  
+- **Templates** for phases / patterns
+- **Patterns** implementing `operation_kind`s (e.g. CREATE_FILE, RUN_TESTS)
 
 So for composition:
 
 - Each Prompt Block should declare its **operation_kind(s)**:
-  - e.g. `["CREATE_FILE", "SAVE_FILE"]` for atomic_create  
+  - e.g. `["CREATE_FILE", "SAVE_FILE"]` for atomic_create
 - And its **inputs/outputs** in a way that a planner can wire together:
   - Block A outputs `created_files`
   - Block B (RUN_TESTS) consumes `created_files` as context
@@ -183,12 +183,12 @@ Then the orchestrator just walks this list, loading each block and executing it�
 
 Best practice in this style:
 
-- **Version them** (`version: "1.1.0"`) and keep old versions for reproducibility.  
-- **Test them**: for each block, keep 1–2 sample “input → output” test cases that you can rerun against a model to check it still behaves.  
-- **Review them via diffs**: because they’re JSON, small edits are easy to diff/review.  
+- **Version them** (`version: "1.1.0"`) and keep old versions for reproducibility.
+- **Test them**: for each block, keep 1–2 sample “input → output” test cases that you can rerun against a model to check it still behaves.
+- **Review them via diffs**: because they’re JSON, small edits are easy to diff/review.
 - **Keep one source of truth**: don’t hand-edit raw prompts; edit the JSON block and re-render.
 
-This matches how your pattern system already works (spec + schema + executor + tests + index).  
+This matches how your pattern system already works (spec + schema + executor + tests + index).
 
 ---
 
@@ -196,8 +196,8 @@ This matches how your pattern system already works (spec + schema + executor + t
 
 You’re basically converging on the same ideas that:
 
-- **OpenSpec** uses for “spec-driven AI coding” (spec as structured contract + templates that tools fill).  
-- **Agent frameworks** (LangChain, LangGraph, etc.) call “prompt templates,” “chains,” or “nodes” – reusable blocks that get assembled into a DAG.  
+- **OpenSpec** uses for “spec-driven AI coding” (spec as structured contract + templates that tools fill).
+- **Agent frameworks** (LangChain, LangGraph, etc.) call “prompt templates,” “chains,” or “nodes” – reusable blocks that get assembled into a DAG.
 - **OpenAI / tool-calling style**: JSON schemas + structured tool definitions, with minimal free text around them.
 
 Your twist (which is good): you’re pairing them with **proven execution patterns** and your **registry layer** (doc_id + pattern_id + operation_kind + routing). That’s more rigorous than most people do.
@@ -206,5 +206,5 @@ Your twist (which is good): you’re pairing them with **proven execution patter
 
 If you’d like, I can next:
 
-- Sketch a **canonical JSON schema** for `PromptBlock` (so you can drop `prompt_block.schema.json` under `patterns/schemas/` and validate every block),  
+- Sketch a **canonical JSON schema** for `PromptBlock` (so you can drop `prompt_block.schema.json` under `patterns/schemas/` and validate every block),
 - Or take one existing pattern (like `atomic_create` or `worktree_lifecycle`) and draft the *actual* Prompt Block file you could save as `prompts/blocks/<name>.json`.

@@ -14,27 +14,27 @@ techniques:
   infrastructure_first:
     principle: "Build reusable systems, not one-time outputs"
     result: "Unlimited future value"
-    
+
   parallel_task_groups:
     principle: "Independent tasks run simultaneously"
     result: "67% time reduction per group"
-    
+
   ground_truth_only:
     principle: "Observable CLI outputs only"
     result: "Zero subjective validation time"
-    
+
   no_approval_loops:
     principle: "Batch execution with upfront trust"
     result: "30 min saved"
-    
+
   defer_low_roi:
     principle: "Focus on high-value work (80/20)"
     result: "15 min saved, 100%+ goals"
-    
+
   pragmatic_pivots:
     principle: "Adapt when blocked"
     result: "Immediate value vs debugging"
-    
+
   document_concurrent:
     principle: "Capture context while fresh"
     result: "30 min saved"

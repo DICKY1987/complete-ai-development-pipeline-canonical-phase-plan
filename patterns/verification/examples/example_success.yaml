@@ -16,7 +16,7 @@ checks:
       skipped_tests: 0
       duration_seconds: 1.2
       failures: []
-  
+
   syntax_valid:
     checked: true
     passed: true
@@ -31,7 +31,7 @@ result:
   total_checks: 2
   passed_checks: 2
   failed_checks: 0
-  
+
   committed: true
   commit_sha: "abc123def456"
   commit_message: "Add helper utilities with tests"

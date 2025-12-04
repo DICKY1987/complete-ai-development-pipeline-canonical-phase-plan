@@ -3,23 +3,23 @@
 <#
 .SYNOPSIS
     Executor for glossary_validate pattern (PAT-GLOSSARY-VALIDATE-001)
-    
+
 .DESCRIPTION
     Validates glossary structure, content, and quality with:
     - Multiple validation modes (full, quick, orphans, paths)
     - Comprehensive error and warning reporting
     - Quality score calculation
     - Configurable failure thresholds
-    
+
 .PARAMETER InstancePath
     Path to pattern instance JSON file
-    
+
 .PARAMETER Verbose
     Enable verbose output
-    
+
 .EXAMPLE
     .\glossary_validate_executor.ps1 -InstancePath instance.json
-    
+
 .NOTES
     Pattern: PAT-GLOSSARY-VALIDATE-001
     Version: 1.0.0
@@ -29,7 +29,7 @@
 param(
     [Parameter(Mandatory=$true)]
     [string]$InstancePath,
-    
+
     [switch]$VerboseOutput
 )
 
@@ -57,48 +57,48 @@ $result = @{
 try {
     Write-Host "Glossary Validate Pattern Executor" -ForegroundColor Cyan
     Write-Host "===================================" -ForegroundColor Cyan
-    
+
     # STEP 1: Load instance
     Write-Step "S1: Loading pattern instance..."
     if (-not (Test-Path $InstancePath)) {
         throw "Instance file not found: $InstancePath"
     }
-    
+
     $instance = Get-Content $InstancePath -Raw | ConvertFrom-Json
     Write-Success "Loaded instance from $InstancePath"
-    
+
     # Validate pattern ID
     if ($instance.pattern_id -ne "PAT-GLOSSARY-VALIDATE-001") {
         throw "Invalid pattern_id: Expected PAT-GLOSSARY-VALIDATE-001, got $($instance.pattern_id)"
     }
     Write-Success "Pattern ID validated"
-    
+
     # Extract parameters
     $projectRoot = $instance.inputs.project_root
     $validationMode = if ($instance.inputs.validation_mode) { $instance.inputs.validation_mode } else { "full" }
     $failOnWarnings = if ($null -ne $instance.inputs.fail_on_warnings) { $instance.inputs.fail_on_warnings } else { $false }
-    
+
     Write-Info "Project root: $projectRoot"
     Write-Info "Validation mode: $validationMode"
     Write-Info "Fail on warnings: $failOnWarnings"
-    
+
     # STEP 2: Validate prerequisites
     Write-Step "S2: Validating prerequisites..."
-    
+
     # Check glossary directory
     $glossaryRoot = Join-Path $projectRoot "glossary"
     if (-not (Test-Path $glossaryRoot)) {
         throw "Glossary directory not found: $glossaryRoot"
     }
     Write-Success "Glossary directory found"
-    
+
     # Check validation script
     $validatorScript = Join-Path $glossaryRoot "scripts" "validate_glossary.py"
     if (-not (Test-Path $validatorScript)) {
         throw "Validation script not found: $validatorScript"
     }
     Write-Success "Validation script found"
-    
+
     # Check Python
     try {
         $pythonVersion = python --version 2>&1
@@ -107,49 +107,49 @@ try {
     catch {
         throw "Python not found. Please install Python 3+"
     }
-    
+
     # STEP 3: Run validation
     Write-Step "S3: Running validation (mode: $validationMode)..."
-    
+
     Push-Location $glossaryRoot
     try {
         $validateArgs = @("scripts/validate_glossary.py")
-        
+
         switch ($validationMode) {
             "quick" { $validateArgs += "--quick" }
             "orphans" { $validateArgs += "--check-orphans" }
             "paths" { $validateArgs += "--check-paths" }
             "full" { <# default, no extra args #> }
         }
-        
+
         $output = python $validateArgs 2>&1
         $exitCode = $LASTEXITCODE
-        
+
         $outputText = $output | Out-String
-        
+
         if ($VerboseOutput) {
             Write-Host $outputText
         }
-        
+
         # Parse output
         # Extract term count
         if ($outputText -match 'Found (\d+) terms') {
             $result.total_terms = [int]$matches[1]
             Write-Info "Total terms: $($result.total_terms)"
         }
-        
+
         # Extract errors
         $errorMatches = [regex]::Matches($outputText, '❌.+')
         foreach ($match in $errorMatches) {
             $result.errors += $match.Value -replace '❌\s*', ''
         }
-        
+
         # Extract warnings
         $warningMatches = [regex]::Matches($outputText, '⚠️.+')
         foreach ($match in $warningMatches) {
             $result.warnings += $match.Value -replace '⚠️\s*', ''
         }
-        
+
         # Extract orphaned terms (if checking orphans)
         if ($validationMode -eq "orphans" -or $validationMode -eq "full") {
             if ($outputText -match 'Found (\d+) orphaned terms:') {
@@ -163,7 +163,7 @@ try {
                 }
             }
         }
-        
+
         # Determine status
         if ($result.errors.Count -gt 0) {
             $result.status = "failure"
@@ -183,7 +183,7 @@ try {
             $result.status = "success"
             Write-Success "No errors or warnings found"
         }
-        
+
         # Calculate quality score
         $result.quality_score = 100
         if ($result.errors.Count -gt 0) {
@@ -196,24 +196,24 @@ try {
             $result.quality_score -= ($result.orphaned_terms.Count * 1)
         }
         $result.quality_score = [Math]::Max(0, $result.quality_score)
-        
+
         Write-Info "Quality score: $($result.quality_score)/100"
     }
     finally {
         Pop-Location
     }
-    
+
     # STEP 4: Generate output
     Write-Step "S4: Generating execution output..."
-    
+
     $result.execution_duration_seconds = ((Get-Date) - $startTime).TotalSeconds
-    
+
     # Save output
     $outputPath = Join-Path (Split-Path $InstancePath -Parent) "output.json"
     $instance.outputs = $result
     $instance | ConvertTo-Json -Depth 10 | Set-Content $outputPath -Encoding UTF8
     Write-Success "Output saved to $outputPath"
-    
+
     # Summary
     Write-Host "`n===================================" -ForegroundColor Cyan
     Write-Host "Validation Summary" -ForegroundColor Cyan
@@ -232,7 +232,7 @@ try {
     Write-Host "Quality Score:  $($result.quality_score)/100"
     Write-Host "Duration:       $([math]::Round($result.execution_duration_seconds, 2))s"
     Write-Host "===================================" -ForegroundColor Cyan
-    
+
     if ($result.status -eq "failure") {
         exit 1
     }
@@ -244,14 +244,14 @@ catch {
     $result.status = "failure"
     $result.errors += $_.Exception.Message
     $result.execution_duration_seconds = ((Get-Date) - $startTime).TotalSeconds
-    
+
     Write-Failure "Execution failed: $($_.Exception.Message)"
-    
+
     # Save error output
     $outputPath = Join-Path (Split-Path $InstancePath -Parent) "output.json"
     $instance.outputs = $result
     $instance | ConvertTo-Json -Depth 10 | Set-Content $outputPath -Encoding UTF8
-    
+
     Write-Host "`nError details saved to $outputPath" -ForegroundColor Red
     exit 1
 }

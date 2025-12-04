@@ -18,10 +18,10 @@ def rewrite_file(path: Path) -> int:
     """Rewrite imports in a single file."""
     content = path.read_text(encoding='utf-8')
     original = content
-    
+
     for old, new in REWRITES.items():
         content = content.replace(old, new)
-    
+
     if content != original:
         path.write_text(content, encoding='utf-8')
         return 1
@@ -31,10 +31,10 @@ def rewrite_all(target_dir: Path = Path(".")):
     """Rewrite imports in all Python files."""
     python_files = list(target_dir.rglob("*.py"))
     changed = 0
-    
+
     for py_file in python_files:
         changed += rewrite_file(py_file)
-    
+
     print(f"✅ Rewrote {changed} files")
     return changed
 

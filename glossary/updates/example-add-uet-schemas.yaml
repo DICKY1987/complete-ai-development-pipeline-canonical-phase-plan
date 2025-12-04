@@ -16,26 +16,26 @@ terms:
     value:
       - "schema/uet/execution_request.v1.json"
       - "schema/workstream.schema.json"
-  
+
   # Patch Management
   - term_id: TERM-PATCH-001
     action: add
     field: schema_refs
     value:
       - "schema/uet/patch_artifact.v1.json"
-  
+
   - term_id: TERM-PATCH-003
     action: add
     field: schema_refs
     value:
       - "schema/uet/patch_ledger_entry.v1.json"
-  
+
   - term_id: TERM-PATCH-004
     action: add
     field: schema_refs
     value:
       - "schema/uet/patch_policy.v1.json"
-  
+
   # State Management
   - term_id: TERM-STATE-003
     action: add

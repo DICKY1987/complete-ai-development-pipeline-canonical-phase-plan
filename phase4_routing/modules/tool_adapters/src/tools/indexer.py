@@ -193,7 +193,7 @@ def build_indices(source: Path, sidecars: List[dict], output_json: Path, suite_o
         })
     # sort sections by natural order of key (prefix numbers)
     for vol in volumes.values():
-        vol["sections"].sort(key=lambda s: s["key"]) 
+        vol["sections"].sort(key=lambda s: s["key"])
 
     suite = {
         "suite": {

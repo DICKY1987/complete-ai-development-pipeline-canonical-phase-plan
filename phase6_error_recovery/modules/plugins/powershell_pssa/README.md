@@ -1,7 +1,7 @@
 # Plugin: powershell_pssa
 
-**Phase**: 6 (Error Recovery)  
-**Type**: Error Detection/Fix Plugin  
+**Phase**: 6 (Error Recovery)
+**Type**: Error Detection/Fix Plugin
 **Purpose**: powershell_pssa error detection and auto-fix
 
 ## Structure

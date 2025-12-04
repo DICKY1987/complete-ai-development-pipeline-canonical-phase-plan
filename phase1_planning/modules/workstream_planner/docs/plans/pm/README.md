@@ -1,7 +1,7 @@
 # pm
 
-**Module Path**: `pm`  
-**Layer**: Orchestration  
+**Module Path**: `pm`
+**Layer**: Orchestration
 **Status**: Active
 
 ## Purpose
@@ -38,5 +38,5 @@ docs/pm_guide.md, MASTER_SPLINTER_Phase_Plan_Template_GUIDE.md
 
 ---
 
-**Generated**: 2025-12-02 22:40:27 UTC  
+**Generated**: 2025-12-02 22:40:27 UTC
 **Framework**: Universal Execution Templates (UET)

@@ -1,7 +1,7 @@
 # JOB-01JH9F8P2ZJ1A8E5R6C792Q2EQ
 
-**Module Path**: `state/events/jobs/JOB-01JH9F8P2ZJ1A8E5R6C792Q2EQ`  
-**Layer**: Not specified  
+**Module Path**: `state/events/jobs/JOB-01JH9F8P2ZJ1A8E5R6C792Q2EQ`
+**Layer**: Not specified
 **Status**: Active
 
 ## Purpose
@@ -34,5 +34,5 @@ None specified
 
 ---
 
-**Generated**: 2025-12-02 22:40:27 UTC  
+**Generated**: 2025-12-02 22:40:27 UTC
 **Framework**: Universal Execution Templates (UET)

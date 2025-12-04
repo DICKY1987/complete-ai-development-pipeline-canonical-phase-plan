@@ -18,7 +18,7 @@ function Write-Banner {
     $width = 70
     $padding = [Math]::Max(0, ($width - $Text.Length - 2) / 2)
     $paddingStr = "=" * [Math]::Floor($padding)
-    
+
     Write-Host ""
     Write-Host ("=" * $width) -ForegroundColor Cyan
     Write-Host ($paddingStr + " $Text " + $paddingStr) -ForegroundColor Cyan
@@ -75,7 +75,7 @@ $exitCode = $LASTEXITCODE
 Write-Host ""
 if ($exitCode -eq 0) {
     Write-Host "✅ Executor completed" -ForegroundColor Green
-    
+
     if (Test-Path "reports\simple_executor_results.json") {
         Write-Host ""
         Write-Host "📊 Results saved to: reports\simple_executor_results.json" -ForegroundColor Cyan

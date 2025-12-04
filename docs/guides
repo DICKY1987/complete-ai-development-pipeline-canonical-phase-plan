@@ -11,11 +11,11 @@ Let me break it down in your context.
 
 Key strengths:
 
-* Gives you a **Python-native task runner**: `@task` functions in `tasks.py` that you can call with `inv ...`. 
-* Designed to **orchestrate shell commands and subprocesses** cleanly via `c.run()`, with structured results and good error handling. 
-* Strong **config system** (multi-layer config hierarchy; env vars override project config; good for CI/secrets).  
-* Excellent **testability** via `MockContext` (you can unit-test tasks without actually running Aider/Codex/Gemini). 
-* Intended as a **high-level orchestration / deployment / testing glue**, not as a DAG build tool. It’s procedural, not dependency-graph-based.  
+* Gives you a **Python-native task runner**: `@task` functions in `tasks.py` that you can call with `inv ...`.
+* Designed to **orchestrate shell commands and subprocesses** cleanly via `c.run()`, with structured results and good error handling.
+* Strong **config system** (multi-layer config hierarchy; env vars override project config; good for CI/secrets).
+* Excellent **testability** via `MockContext` (you can unit-test tasks without actually running Aider/Codex/Gemini).
+* Intended as a **high-level orchestration / deployment / testing glue**, not as a DAG build tool. It’s procedural, not dependency-graph-based.
 
 So Invoke is very good at: “When I type `inv refactor-section --section=core`, run these Python orchestration steps and shell commands in order.”
 
@@ -23,11 +23,11 @@ So Invoke is very good at: “When I type `inv refactor-section --section=core`,
 
 Key strengths:
 
-* A **PowerShell-native build / task engine** with tasks, dependencies and a DAG. 
-* Built-in **incremental tasks** using `-Inputs` / `-Outputs` (skip work if nothing changed). 
-* **Parallel execution** via `Build-Parallel.ps1` and runspaces. 
-* Good **error handling**: forces `$ErrorActionPreference = 'Stop'` so CI fails on any real error. 
-* A whole ecosystem of helpers: graph visualization, checkpoint/resume, VS Code tasks.json generator, etc. 
+* A **PowerShell-native build / task engine** with tasks, dependencies and a DAG.
+* Built-in **incremental tasks** using `-Inputs` / `-Outputs` (skip work if nothing changed).
+* **Parallel execution** via `Build-Parallel.ps1` and runspaces.
+* Good **error handling**: forces `$ErrorActionPreference = 'Stop'` so CI fails on any real error.
+* A whole ecosystem of helpers: graph visualization, checkpoint/resume, VS Code tasks.json generator, etc.
 
 So Invoke-Build is very good at: “On Windows/CI, run a DAG of PowerShell tasks to build, test, analyze, and package modules.”
 
@@ -96,9 +96,9 @@ Now you have:
 
 Benefits for you:
 
-* **Simpler CI jobs**: CI just runs `inv full-refactor` instead of a pile of explicit steps. 
+* **Simpler CI jobs**: CI just runs `inv full-refactor` instead of a pile of explicit steps.
 * **Single entrypoint** for local runs: open a terminal in the repo and type `inv ...` to run pipelines.
-* **Testable orchestrator**: use `MockContext` to test your “run a bunch of workstreams in this order” logic without actually burning AI tokens. 
+* **Testable orchestrator**: use `MockContext` to test your “run a bunch of workstreams in this order” logic without actually burning AI tokens.
 
 So: **Invoke is a better way to wrap your existing Python orchestrator and AI CLIs into a clean, testable CLI.** It’s not replacing the orchestrator; it’s exposing it.
 
@@ -115,7 +115,7 @@ Those are **pure shell/Python tasks**. Implementing them as Invoke tasks makes t
 * Version.
 * Test.
 * Document.
-* Run in CI/CD.  
+* Run in CI/CD.
 
 For these kinds of tasks, Invoke really *is* a better approach than a random pile of `.ps1` and `.bat` files.
 
@@ -123,9 +123,9 @@ For these kinds of tasks, Invoke really *is* a better approach than a random pil
 
 Given you’re a PowerShell-heavy Windows user, Invoke-Build is fantastic for:
 
-* **PowerShell-centric tasks**: Pester tests, script analyzers, packaging, copying artifacts, etc. 
-* **Incremental tasks** that truly benefit from `-Inputs`/`-Outputs` (e.g., generating big reports only if sources changed). 
-* Leveraging **parallelism** to run many test suites or checks concurrently. 
+* **PowerShell-centric tasks**: Pester tests, script analyzers, packaging, copying artifacts, etc.
+* **Incremental tasks** that truly benefit from `-Inputs`/`-Outputs` (e.g., generating big reports only if sources changed).
+* Leveraging **parallelism** to run many test suites or checks concurrently.
 
 You could use Invoke-Build to drive:
 

@@ -137,9 +137,9 @@ ssot_policy:
 
   ssot_frontmatter_field: "ssot"
   ssot_scope_field: "ssot_scope"
-  
+
   glossary_metadata_file: "glossary/.glossary-metadata.yaml"
-  
+
   ci:
     fail_on_missing_term_for_ssot_doc: true
     fail_on_missing_doc_for_ssot_term: true

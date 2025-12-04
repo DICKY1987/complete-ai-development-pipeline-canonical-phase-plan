@@ -29,7 +29,7 @@ See `config/` directory for configuration options.
 1. **Issue**: Import errors
    **Solution**: Ensure module is in Python path
 
-2. **Issue**: Configuration errors  
+2. **Issue**: Configuration errors
    **Solution**: Check config/ for valid configuration
 
 ## API Reference

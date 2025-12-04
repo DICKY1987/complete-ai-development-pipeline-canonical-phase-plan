@@ -4,8 +4,8 @@ doc_id: DOC-SCRIPT-README-325
 
 # Custom Agents Directory
 
-> **Purpose**: House custom automation agents that enhance development workflows  
-> **Status**: Initial setup - First agent template created  
+> **Purpose**: House custom automation agents that enhance development workflows
+> **Status**: Initial setup - First agent template created
 > **Documentation**: [docs/AGENT_ANALYSIS_AND_RECOMMENDATIONS.md](../../docs/AGENT_ANALYSIS_AND_RECOMMENDATIONS.md)
 
 ---
@@ -26,8 +26,8 @@ This directory contains custom automation agents designed to reduce manual overh
 
 ### 1. Workstream Generator (Template)
 
-**File**: `workstream_generator.py`  
-**Status**: 🔧 Template created - Ready for implementation  
+**File**: `workstream_generator.py`
+**Status**: 🔧 Template created - Ready for implementation
 **Priority**: HIGH
 
 **Purpose**: Automatically generate workstream JSON files from natural language descriptions.
@@ -163,19 +163,19 @@ python scripts/agents/workstream_generator.py \
        def __init__(self, config):
            """Initialize with configuration"""
            pass
-       
+
        def analyze(self, input_data):
            """Analyze input and determine actions"""
            pass
-       
+
        def execute(self, actions):
            """Execute determined actions"""
            pass
-       
+
        def validate(self, results):
            """Validate results meet criteria"""
            pass
-       
+
        def report(self, results):
            """Generate human-readable report"""
            pass
@@ -322,6 +322,6 @@ Track these metrics for each agent:
 
 ---
 
-**Last Updated**: 2025-11-23  
-**Next Review**: After first agent implementation complete  
+**Last Updated**: 2025-11-23
+**Next Review**: After first agent implementation complete
 **Feedback**: Open issue or update this README

@@ -46,14 +46,14 @@ foreach ($wt in $worktrees) {
     Write-Host "`nSetting up: $($wt.Name)" -ForegroundColor Yellow
     Write-Host "  Description: $($wt.Description)"
     Write-Host "  Branch: $($wt.Branch)"
-    
+
     # Create branch if it doesn't exist
     $branchExists = git branch --list $wt.Branch
     if (-not $branchExists) {
         Write-Host "  Creating branch..."
         git branch $wt.Branch
     }
-    
+
     # Create worktree
     $wtPath = "$worktreesDir\$($wt.Name)"
     if (Test-Path $wtPath) {

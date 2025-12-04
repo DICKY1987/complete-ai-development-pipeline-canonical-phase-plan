@@ -79,9 +79,9 @@ $stepNum = 2
 foreach ($batchNum in $pythonBatches) {
     $reportName = if ($batchNum -eq "final") { "batch_py_final.json" } else { "batch_py_$batchNum.json" }
     $limitParam = if ($batchNum -eq "final") { "" } else { "--limit $BatchSize" }
-    
+
     Write-Host "[$("STEP $stepNum")/14] Assign Python Files - Batch $batchNum..." -ForegroundColor Cyan
-    
+
     if ($DryRun) {
         Write-Host "  [DRY-RUN] Would execute: python scripts/doc_id_assigner.py auto-assign --types py $limitParam --report reports/$reportName" -ForegroundColor Gray
     } else {
@@ -89,7 +89,7 @@ foreach ($batchNum in $pythonBatches) {
         if ($LASTEXITCODE -ne 0) {
             Write-Error "Python batch $batchNum failed"
         }
-        
+
         git add .
         git commit -m "chore: Phase 0 - Python batch $batchNum"
         Write-Host "  ✓ Python batch $batchNum complete" -ForegroundColor Green
@@ -102,9 +102,9 @@ $markdownBatches = @("1", "2", "3", "4", "final")
 foreach ($batchNum in $markdownBatches) {
     $reportName = if ($batchNum -eq "final") { "batch_md_final.json" } else { "batch_md_$batchNum.json" }
     $limitParam = if ($batchNum -eq "final") { "" } else { "--limit 250" }
-    
+
     Write-Host "[$("STEP $stepNum")/14] Assign Markdown Files - Batch $batchNum..." -ForegroundColor Cyan
-    
+
     if ($DryRun) {
         Write-Host "  [DRY-RUN] Would execute: python scripts/doc_id_assigner.py auto-assign --types md $limitParam --report reports/$reportName" -ForegroundColor Gray
     } else {
@@ -112,7 +112,7 @@ foreach ($batchNum in $markdownBatches) {
         if ($LASTEXITCODE -ne 0) {
             Write-Error "Markdown batch $batchNum failed"
         }
-        
+
         git add .
         git commit -m "chore: Phase 0 - Markdown batch $batchNum"
         Write-Host "  ✓ Markdown batch $batchNum complete" -ForegroundColor Green
@@ -129,7 +129,7 @@ if ($DryRun) {
     if ($LASTEXITCODE -ne 0) {
         Write-Error "Shell/Text batch failed"
     }
-    
+
     git add .
     git commit -m "chore: Phase 0 - Shell and Text files"
     Write-Host "  ✓ Shell and Text files complete" -ForegroundColor Green
@@ -140,17 +140,17 @@ Write-Host "[STEP 13/14] Final validation..." -ForegroundColor Cyan
 if (!$SkipValidation) {
     Write-Host "  Running full scan..." -ForegroundColor Gray
     python scripts/doc_id_scanner.py scan
-    
+
     Write-Host "  Checking coverage..." -ForegroundColor Gray
     $finalStats = python scripts/doc_id_scanner.py stats 2>&1 | Out-String
     Write-Host $finalStats
-    
+
     if ($finalStats -match "Files with doc_id:.*100\.0%") {
         Write-Host "  ✓ 100% coverage achieved!" -ForegroundColor Green
     } else {
         Write-Warning "Coverage not at 100%"
     }
-    
+
     Write-Host "  Validating registry..." -ForegroundColor Gray
     python doc_id/tools/doc_id_registry_cli.py validate
     if ($LASTEXITCODE -eq 0) {
@@ -158,7 +158,7 @@ if (!$SkipValidation) {
     } else {
         Write-Error "Registry validation failed"
     }
-    
+
     # Save final reports
     python scripts/doc_id_scanner.py scan > reports/final_coverage_report.txt
     python doc_id/tools/doc_id_registry_cli.py stats > reports/final_registry_stats.txt
@@ -181,14 +181,14 @@ if ($DryRun) {
 - All eligible file types covered
 - Tools: scanner + auto-assigner operational
 - Ready for production use"
-        
+
         git checkout main
         git merge feature/phase0-docid-assignment --no-ff
         git push origin main
-        
+
         git tag -a v1.0.0-docid-phase0 -m "Phase 0: Universal doc_id coverage achieved"
         git push origin v1.0.0-docid-phase0
-        
+
         Write-Host "  ✓ Merged to main and tagged" -ForegroundColor Green
     } else {
         Write-Host "  ⊘ Merge skipped" -ForegroundColor Yellow

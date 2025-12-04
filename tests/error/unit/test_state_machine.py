@@ -31,7 +31,7 @@ except (ImportError, ModuleNotFoundError):
 class TestStateTransitions:
     """Test state machine transitions."""
 # DOC_ID: DOC-ERROR-UNIT-TEST-STATE-MACHINE-083
-    
+
     def test_init_to_baseline(self):
         """Test S_INIT → S0_BASELINE_CHECK."""
         ctx = ErrorPipelineContext(
@@ -39,13 +39,13 @@ class TestStateTransitions:
             workstream_id="ws-001",
             current_state=S_INIT,
         )
-        
+
         advance_state(ctx)
-        
+
         assert ctx.current_state == S0_BASELINE_CHECK
         assert ctx.attempt_number == 0
         assert ctx.current_agent == "none"
-    
+
     def test_baseline_no_issues_to_success(self):
         """Test S0_BASELINE_CHECK → S_SUCCESS (no issues)."""
         ctx = ErrorPipelineContext(
@@ -54,12 +54,12 @@ class TestStateTransitions:
             current_state=S0_BASELINE_CHECK,
             last_error_report={"summary": {"total_issues": 0}},
         )
-        
+
         advance_state(ctx)
-        
+
         assert ctx.current_state == S_SUCCESS
         assert ctx.final_status == "success"
-    
+
     def test_baseline_with_issues_to_mechanical(self):
         """Test S0_BASELINE_CHECK → S0_MECHANICAL_AUTOFIX (issues found)."""
         ctx = ErrorPipelineContext(
@@ -69,11 +69,11 @@ class TestStateTransitions:
             enable_mechanical_autofix=True,
             last_error_report={"summary": {"total_issues": 5, "has_hard_fail": False}},
         )
-        
+
         advance_state(ctx)
-        
+
         assert ctx.current_state == S0_MECHANICAL_AUTOFIX
-    
+
     def test_mechanical_fix_to_recheck(self):
         """Test S0_MECHANICAL_AUTOFIX → S0_MECHANICAL_RECHECK."""
         ctx = ErrorPipelineContext(
@@ -81,8 +81,8 @@ class TestStateTransitions:
             workstream_id="ws-001",
             current_state=S0_MECHANICAL_AUTOFIX,
         )
-        
+
         advance_state(ctx)
-        
+
         assert ctx.current_state == S0_MECHANICAL_RECHECK
         assert ctx.mechanical_fix_applied is True

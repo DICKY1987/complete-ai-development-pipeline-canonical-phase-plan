@@ -40,7 +40,7 @@ trap {
     Write-Host ""
     Write-Host "🛑 Orchestrator interrupted or crashed!" -ForegroundColor Red
     Write-Host "🧹 Cleaning up worktrees..." -ForegroundColor Yellow
-    
+
     try {
         # Force remove all agent worktrees
         $worktrees = git worktree list --porcelain | Select-String "^worktree.*\.worktrees"
@@ -54,7 +54,7 @@ trap {
     catch {
         Write-Host "⚠️  Manual cleanup may be required: git worktree prune" -ForegroundColor Yellow
     }
-    
+
     Write-Host ""
     throw  # Re-throw to show original error
 }
@@ -64,7 +64,7 @@ function Write-Banner {
     $width = 70
     $padding = [Math]::Max(0, ($width - $Text.Length - 2) / 2)
     $paddingStr = "═" * [Math]::Floor($padding)
-    
+
     Write-Host ""
     Write-Host ("╔" + ("═" * ($width - 2)) + "╗") -ForegroundColor Cyan
     Write-Host ("║" + $paddingStr + " $Text " + $paddingStr + ("═" * ($padding % 1)) + "║") -ForegroundColor Cyan
@@ -125,11 +125,11 @@ try {
     $worktreeList = git worktree list --porcelain 2>$null
     if ($LASTEXITCODE -eq 0) {
         $baseRepo = git rev-parse --show-toplevel 2>$null
-        
+
         $existingWorktrees = $worktreeList | Select-String "^worktree" | ForEach-Object {
             $_.ToString().Split()[1]
         }
-        
+
         $cleanedCount = 0
         foreach ($wt in $existingWorktrees) {
             if ($wt -ne $baseRepo -and (Test-Path $wt)) {
@@ -140,7 +140,7 @@ try {
                 }
             }
         }
-        
+
         if ($cleanedCount -gt 0) {
             Write-Host "✅ Cleaned $cleanedCount old worktree(s)" -ForegroundColor Green
         } else {
@@ -173,7 +173,7 @@ Write-Step -Number 5 -Total 5 -Title "Post-Execution Summary"
 
 if ($orchestratorExit -eq 0) {
     Write-Host "✅ Multi-agent execution completed successfully!" -ForegroundColor Green
-    
+
     # Check for report
     if (Test-Path "reports\multi_agent_execution_report.md") {
         Write-Host ""
@@ -182,17 +182,17 @@ if ($orchestratorExit -eq 0) {
         Write-Host ""
         Write-Host "Full report: reports\multi_agent_execution_report.md" -ForegroundColor Gray
     }
-    
+
     # Check database stats
     if (Get-Command sqlite3 -ErrorAction SilentlyContinue) {
         try {
             $completedCount = sqlite3 .state\orchestration.db "SELECT COUNT(*) FROM workstream_status WHERE status='completed'" 2>$null
             $totalCount = sqlite3 .state\orchestration.db "SELECT COUNT(*) FROM workstream_status" 2>$null
-            
+
             if ($completedCount -and $totalCount) {
                 Write-Host ""
                 Write-Host "📈 Progress: $completedCount / $totalCount workstreams completed" -ForegroundColor Cyan
-                
+
                 $percentage = [Math]::Round(($completedCount / $totalCount) * 100, 1)
                 Write-Host "   Success rate: $percentage%" -ForegroundColor Cyan
             }
@@ -200,7 +200,7 @@ if ($orchestratorExit -eq 0) {
             Write-Host "⚠️  Could not read database stats" -ForegroundColor Yellow
         }
     }
-    
+
 } else {
     Write-Host "❌ Orchestrator exited with errors (code: $orchestratorExit)" -ForegroundColor Red
     Write-Host "   Check logs\orchestrator.log for details" -ForegroundColor Yellow

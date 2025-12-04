@@ -4,8 +4,8 @@ doc_id: DOC-GUIDE-STRUCTURE-1621
 
 # Templates Directory Structure
 
-> **Detailed Organization Guide for UET Framework Templates**  
-> **Purpose**: Explain the structural organization, navigation patterns, and design decisions  
+> **Detailed Organization Guide for UET Framework Templates**
+> **Purpose**: Explain the structural organization, navigation patterns, and design decisions
 > **Last Updated**: 2025-11-23
 
 ---
@@ -395,7 +395,7 @@ description: "{{DESCRIPTION}}"
 # Validation Section
 # (Reference validation rules)
 
-# Example Section  
+# Example Section
 # Example usage:
 # {Realistic example with actual values}
 ```
@@ -525,38 +525,38 @@ meta:
 
 ### Why Layer-Based Organization?
 
-**Decision**: Organize by architectural layer (orchestration, adapters, config, ui)  
-**Rationale**: 
+**Decision**: Organize by architectural layer (orchestration, adapters, config, ui)
+**Rationale**:
 - Mirrors execution architecture
 - Clear dependency flow
 - Predictable navigation
 - Separation of concerns
 
-**Alternative Considered**: Organize by use case (new-project, add-tool, create-phase)  
+**Alternative Considered**: Organize by use case (new-project, add-tool, create-phase)
 **Why Not**: Less clear boundaries, harder to maintain, duplicate templates
 
 ### Why Manifest Files Everywhere?
 
-**Decision**: Every directory has README.md explaining contents  
+**Decision**: Every directory has README.md explaining contents
 **Rationale**:
 - Self-documenting structure
 - Context for AI tools
 - Onboarding for new users
 - Single source of truth per directory
 
-**Alternative Considered**: Single top-level documentation  
+**Alternative Considered**: Single top-level documentation
 **Why Not**: Harder to navigate, context lost, harder to maintain
 
 ### Why Examples Separate from Templates?
 
-**Decision**: `examples/` separate from template categories  
+**Decision**: `examples/` separate from template categories
 **Rationale**:
 - Examples combine multiple templates
 - Different purpose (learning vs. reuse)
 - Complete working implementations
 - Easier to run and test
 
-**Alternative Considered**: Examples inline with templates  
+**Alternative Considered**: Examples inline with templates
 **Why Not**: Mixes learning materials with components, clutters template dirs
 
 ---
@@ -571,6 +571,6 @@ meta:
 
 ---
 
-**Last Updated**: 2025-11-23  
-**Maintained By**: UET Framework Team  
+**Last Updated**: 2025-11-23
+**Maintained By**: UET Framework Team
 **Feedback**: Submit issues or PRs with suggested improvements

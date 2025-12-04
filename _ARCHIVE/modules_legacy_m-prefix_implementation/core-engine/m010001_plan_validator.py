@@ -31,30 +31,30 @@ class ValidationReport:
     estimated_duration_seq: float = 0.0
     estimated_duration_par: float = 0.0
     bottlenecks: List[str] = field(default_factory=list)
-    
+
     def to_text(self) -> str:
         """Generate human-readable text report."""
         lines = []
-        
+
         # Status (use ASCII-safe markers)
         status = "[VALID]" if self.valid else "[INVALID]"
         lines.append(f"Validation Status: {status}")
         lines.append("")
-        
+
         # Errors
         if self.errors:
             lines.append("Errors:")
             for err in self.errors:
                 lines.append(f"  * {err}")
             lines.append("")
-        
+
         # Warnings
         if self.warnings:
             lines.append("Warnings:")
             for warn in self.warnings:
                 lines.append(f"  * {warn}")
             lines.append("")
-        
+
         # Parallelism analysis
         if self.parallelism_profile:
             prof = self.parallelism_profile
@@ -64,37 +64,37 @@ class ValidationReport:
             lines.append(f"  - Estimated Speedup: {prof.estimated_speedup:.1f}x")
             lines.append(f"  - Sequential Duration: {self.estimated_duration_seq:.0f} time units")
             lines.append(f"  - Parallel Duration: {self.estimated_duration_par:.0f} time units")
-            
+
             if prof.bottlenecks:
                 lines.append(f"  - Bottlenecks: {', '.join(prof.bottlenecks)}")
-            
+
             if prof.conflicts:
                 lines.append(f"  - Conflicts Detected: {len(prof.conflicts)}")
                 for ws_a, ws_b, reason in prof.conflicts[:5]:  # Show first 5
                     lines.append(f"    > {ws_a} <-> {ws_b}: {reason}")
-            
+
             lines.append("")
-            
+
             # Wave breakdown
             if prof.waves:
                 lines.append("Execution Waves:")
                 for i, wave in enumerate(prof.waves, 1):
                     lines.append(f"  Wave {i}: {', '.join(sorted(wave))}")
                 lines.append("")
-        
+
         # Bottlenecks summary
         if self.bottlenecks:
             lines.append("Bottlenecks (non-parallelizable):")
             for bn in self.bottlenecks:
                 lines.append(f"  - {bn}")
             lines.append("")
-        
+
         return "\n".join(lines)
-    
+
     def to_json(self) -> str:
         """Generate JSON report."""
         import json
-        
+
         data = {
             "valid": self.valid,
             "errors": self.errors,
@@ -103,7 +103,7 @@ class ValidationReport:
             "estimated_duration_par": self.estimated_duration_par,
             "bottlenecks": self.bottlenecks,
         }
-        
+
         if self.parallelism_profile:
             prof = self.parallelism_profile
             data["parallelism"] = {
@@ -116,7 +116,7 @@ class ValidationReport:
                     for a, b, r in prof.conflicts
                 ],
             }
-        
+
         return json.dumps(data, indent=2)
 
 
@@ -126,9 +126,9 @@ def validate_phase_plan(
     max_workers: int = 4
 ) -> ValidationReport:
     """Validate phase plan with parallelism analysis.
-    
+
     UET Section 6: Plan validation and simulation.
-    
+
     Performs:
     - Schema validation (bundles already validated on load)
     - DAG validation (cycle detection)
@@ -136,21 +136,21 @@ def validate_phase_plan(
     - Parallelism analysis
     - Cost estimation (if metadata present)
     - Resource simulation
-    
+
     Args:
         bundles: List of workstream bundles to validate
         mode: Validation mode (validate_only or execute)
         max_workers: Maximum parallel workers for simulation
-        
+
     Returns:
         ValidationReport with analysis results
     """
     report = ValidationReport()
-    
+
     if not bundles:
         report.warnings.append("No workstreams to validate")
         return report
-    
+
     # DAG validation (cycle detection)
     try:
         children, parents = build_dependency_graph(bundles)
@@ -162,7 +162,7 @@ def validate_phase_plan(
     except Exception as e:
         report.valid = False
         report.errors.append(f"Dependency graph error: {e}")
-    
+
     # File scope validation
     try:
         from modules.core_state import detect_filescope_overlaps
@@ -176,7 +176,7 @@ def validate_phase_plan(
                         for ws_b in ws_ids[i+1:]:
                             bundle_a = next(b for b in bundles if b.id == ws_a)
                             bundle_b = next(b for b in bundles if b.id == ws_b)
-                            
+
                             # Check if they're dependent (then overlap is expected)
                             if ws_b not in bundle_a.depends_on and ws_a not in bundle_b.depends_on:
                                 # Not dependent and overlap - will serialize
@@ -186,7 +186,7 @@ def validate_phase_plan(
                                 )
     except Exception as e:
         report.warnings.append(f"File scope check error: {e}")
-    
+
     # Parallelism analysis
     try:
         profile = detect_parallel_opportunities(bundles, max_workers)
@@ -194,7 +194,7 @@ def validate_phase_plan(
         report.estimated_duration_seq = len(bundles)
         report.estimated_duration_par = len(profile.waves) if profile.waves else len(bundles)
         report.bottlenecks = profile.bottlenecks
-        
+
         # Check for UET metadata
         missing_metadata = []
         for bundle in bundles:
@@ -202,14 +202,14 @@ def validate_phase_plan(
                 missing_metadata.append(f"{bundle.id}: missing estimated_context_tokens")
             if bundle.max_cost_usd is None:
                 missing_metadata.append(f"{bundle.id}: missing max_cost_usd")
-        
+
         if missing_metadata:
             report.warnings.append("Missing UET metadata (cost/context estimation unavailable):")
             report.warnings.extend(f"  • {msg}" for msg in missing_metadata[:10])
-    
+
     except Exception as e:
         report.warnings.append(f"Parallelism analysis error: {e}")
-    
+
     # Check for test gates
     for bundle in bundles:
         if bundle.test_gates:
@@ -218,5 +218,5 @@ def validate_phase_plan(
                 report.warnings.append(
                     f"{bundle.id}: has {len(required_gates)} required test gates"
                 )
-    
+
     return report

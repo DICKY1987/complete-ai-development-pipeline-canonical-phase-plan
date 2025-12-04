@@ -21,22 +21,22 @@ foreach ($line in $worktrees) {
     }
     elseif ($line -match "^branch refs/heads/(.+)$") {
         $currentBranch = $matches[1]
-        
+
         # Skip main branch
         if ($currentBranch -eq "main" -or $currentBranch -eq "master") {
             continue
         }
-        
+
         # Check if branch has unique commits
         $uniqueCommits = (git log "main..$currentBranch" --oneline 2>$null | Measure-Object).Count
-        
+
         if ($uniqueCommits -eq 0) {
             Write-Host "❌ Removing unused worktree: $currentWorktree (branch: $currentBranch)" -ForegroundColor Red
             Write-Host "   No unique commits found" -ForegroundColor Gray
-            
+
             git worktree remove $currentWorktree 2>&1 | Out-Null
             git branch -d $currentBranch 2>&1 | Out-Null
-            
+
             $removed++
         }
         else {

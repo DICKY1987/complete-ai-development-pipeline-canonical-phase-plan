@@ -61,15 +61,15 @@ class Event:
 
 class EventBus:
     \"\"\"Centralized event logging and routing.\"\"\"
-    
+
     def emit(self, event: Event) -> None:
         \"\"\"Persist event to database and notify listeners.\"\"\"
         from modules.core_state.m010003_db import get_connection
-        
+
         conn = get_connection()
         try:
             conn.execute(\"\"\"
-                INSERT INTO uet_events 
+                INSERT INTO uet_events
                 (event_type, worker_id, task_id, run_id, workstream_id, timestamp, payload_json)
                 VALUES (?, ?, ?, ?, ?, ?, ?)
             \"\"\", (
@@ -84,7 +84,7 @@ class EventBus:
             conn.commit()
         finally:
             conn.close()
-    
+
     def query(
         self,
         event_type: Optional[EventType] = None,
@@ -94,30 +94,30 @@ class EventBus:
     ) -> List[Event]:
         \"\"\"Query events from database.\"\"\"
         from modules.core_state.m010003_db import get_connection
-        
+
         conn = get_connection()
         try:
             sql = "SELECT * FROM uet_events WHERE 1=1"
             params = []
-            
+
             if event_type:
                 sql += " AND event_type = ?"
                 params.append(event_type.value)
-            
+
             if run_id:
                 sql += " AND run_id = ?"
                 params.append(run_id)
-            
+
             if since:
                 sql += " AND timestamp >= ?"
                 params.append(since.isoformat())
-            
+
             sql += " ORDER BY timestamp DESC LIMIT ?"
             params.append(limit)
-            
+
             cursor = conn.execute(sql, params)
             rows = cursor.fetchall()
-            
+
             events = []
             for row in rows:
                 payload = json.loads(row[7]) if row[7] else None
@@ -130,12 +130,12 @@ class EventBus:
                     timestamp=datetime.fromisoformat(row[6]),
                     payload=payload
                 ))
-            
+
             return events
         finally:
             conn.close()
 """,
-    
+
     "core/engine/scheduler.py": """\"\"\"DAG-based task scheduler for parallel execution.\"\"\"
 
 from typing import Dict, List, Set, Optional
@@ -166,55 +166,55 @@ def build_execution_plan(
 ) -> ExecutionPlan:
     \"\"\"Generate multi-wave execution plan using parallelism detector.\"\"\"
     from modules.core_planning.m010002_parallelism_detector import detect_parallel_opportunities
-    
+
     profile = detect_parallel_opportunities(bundles, max_workers)
-    
+
     plan = ExecutionPlan()
     for wave_set in profile.waves:
         wave = SchedulingWave(workstream_ids=wave_set)
         plan.waves.append(wave)
-    
+
     plan.total_duration_seq = len(bundles)
     plan.total_duration_par = len(profile.waves)
-    
+
     return plan
 
 
 class TaskScheduler:
     \"\"\"Assigns tasks to workers from execution plan.\"\"\"
-    
+
     def __init__(self, worker_pool: WorkerPool):
         self.worker_pool = worker_pool
         self.ready_queue: List[str] = []
         self.running: Dict[str, str] = {}  # workstream_id -> worker_id
-    
+
     def get_next_tasks(self, plan: ExecutionPlan, completed: Set[str]) -> List[str]:
         \"\"\"Get workstream_ids ready for execution.\"\"\"
         ready = []
-        
+
         for wave in plan.waves:
             for ws_id in wave.workstream_ids:
                 if ws_id not in completed and ws_id not in self.running:
                     ready.append(ws_id)
-            
+
             if ready:
                 break  # Process one wave at a time
-        
+
         return ready
-    
+
     def assign_task(self, workstream_id: str, adapter_type: str = "aider") -> Optional[str]:
         \"\"\"Assign workstream to idle worker, return worker_id.\"\"\"
         worker = self.worker_pool.get_idle_worker(adapter_type)
-        
+
         if not worker:
             return None
-        
+
         self.worker_pool.assign_task(worker.worker_id, workstream_id)
         self.running[workstream_id] = worker.worker_id
-        
+
         return worker.worker_id
 """,
-    
+
     "scripts/view_events.py": """#!/usr/bin/env python3
 \"\"\"View execution events from database.\"\"\"
 
@@ -233,20 +233,20 @@ def main():
     parser.add_argument('--run-id', help='Filter by run ID')
     parser.add_argument('--event-type', help='Filter by event type')
     parser.add_argument('--tail', type=int, default=50, help='Number of events to show')
-    
+
     args = parser.parse_args()
-    
+
     bus = EventBus()
     event_type = EventType[args.event_type] if args.event_type else None
-    
+
     events = bus.query(
         event_type=event_type,
         run_id=args.run_id,
         limit=args.tail
     )
-    
+
     print(f"Showing {len(events)} events:\\n")
-    
+
     for e in reversed(events):
         print(f"[{e.timestamp}] {e.event_type.value}")
         if e.worker_id:
@@ -285,10 +285,10 @@ from typing import Dict, List, Any
 
 class RecoveryManager:
     \"\"\"Handles orchestrator restart and crash recovery.\"\"\"
-    
+
     def recover_from_crash(self) -> Dict[str, Any]:
         \"\"\"Recover from orchestrator crash.
-        
+
         Steps:
         1. Load last known states from persistence
         2. Identify orphaned tasks (RUNNING with no alive worker)
@@ -297,39 +297,39 @@ class RecoveryManager:
         5. Restore workers and resume scheduling
         \"\"\"
         from modules.core_state.m010003_db import get_connection
-        
+
         conn = get_connection()
         orphaned = []
-        
+
         try:
             # Find workers in BUSY state (potential orphans)
             cursor = conn.execute(\"\"\"
-                SELECT worker_id, current_task_id 
-                FROM workers 
+                SELECT worker_id, current_task_id
+                FROM workers
                 WHERE state = 'BUSY'
             \"\"\")
-            
+
             for row in cursor.fetchall():
                 worker_id, task_id = row
                 if task_id:
                     orphaned.append(task_id)
-                
+
                 # Terminate the worker
                 conn.execute(
                     "UPDATE workers SET state = 'TERMINATED' WHERE worker_id = ?",
                     (worker_id,)
                 )
-            
+
             conn.commit()
         finally:
             conn.close()
-        
+
         return {
             'orphaned_tasks': len(orphaned),
             'recovered': True
         }
 """,
-    
+
     "core/engine/compensation.py": """\"\"\"Rollback and compensation (Saga pattern).\"\"\"
 
 from typing import List
@@ -338,13 +338,13 @@ from modules.core_state.m010003_bundles import WorkstreamBundle
 
 class CompensationEngine:
     \"\"\"Logical rollback via Saga pattern.\"\"\"
-    
+
     def rollback_workstream(self, workstream_id: str) -> bool:
         \"\"\"Execute compensation actions for a workstream.\"\"\"
         # Stub implementation
         print(f"Rolling back workstream: {workstream_id}")
         return True
-    
+
     def rollback_phase(self, phase_workstreams: List[str]) -> bool:
         \"\"\"Rollback multiple workstreams (phase-level).\"\"\"
         for ws_id in reversed(phase_workstreams):
@@ -391,7 +391,7 @@ PRICING_TABLE: Dict[str, ModelPricing] = {
 
 class CostTracker:
     \"\"\"Cost and API usage tracking.\"\"\"
-    
+
     def record_usage(
         self,
         run_id: str,
@@ -404,32 +404,32 @@ class CostTracker:
     ) -> float:
         \"\"\"Record token usage and calculate cost.\"\"\"
         from modules.core_state.m010003_db import get_connection
-        
+
         pricing = PRICING_TABLE.get(model_name, PRICING_TABLE['gpt-4'])
-        
+
         cost = (
             (input_tokens / 1000.0) * pricing.input_cost_per_1k +
             (output_tokens / 1000.0) * pricing.output_cost_per_1k
         )
-        
+
         conn = get_connection()
         try:
             conn.execute(\"\"\"
                 INSERT INTO cost_tracking
-                (run_id, workstream_id, step_id, worker_id, input_tokens, output_tokens, 
+                (run_id, workstream_id, step_id, worker_id, input_tokens, output_tokens,
                  estimated_cost_usd, model_name, timestamp)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
             \"\"\", (run_id, workstream_id, step_id, worker_id, input_tokens, output_tokens, cost, model_name))
             conn.commit()
         finally:
             conn.close()
-        
+
         return cost
-    
+
     def get_total_cost(self, run_id: str) -> float:
         \"\"\"Get total cost for a run.\"\"\"
         from modules.core_state.m010003_db import get_connection
-        
+
         conn = get_connection()
         try:
             cursor = conn.execute(
@@ -441,7 +441,7 @@ class CostTracker:
         finally:
             conn.close()
 """,
-    
+
     "core/engine/context_estimator.py": """\"\"\"Context window management and estimation.\"\"\"
 
 from typing import List
@@ -450,24 +450,24 @@ from pathlib import Path
 
 class ContextEstimator:
     \"\"\"Context window management.\"\"\"
-    
+
     TOKEN_PER_CHAR = 0.25  # Rough estimate: 4 chars per token
-    
+
     def estimate_tokens(self, files: List[str], additional_context: str = "") -> int:
         \"\"\"Estimate total token count for context.\"\"\"
         total_chars = 0
-        
+
         for f in files:
             try:
                 total_chars += len(Path(f).read_text(encoding='utf-8'))
             except Exception:
                 pass
-        
+
         total_chars += len(additional_context)
-        
+
         return int(total_chars * self.TOKEN_PER_CHAR)
 """,
-    
+
     "core/engine/metrics.py": """\"\"\"Metrics aggregation and reporting.\"\"\"
 
 from dataclasses import dataclass
@@ -489,14 +489,14 @@ class ExecutionMetrics:
 
 class MetricsAggregator:
     \"\"\"Metrics and observability.\"\"\"
-    
+
     def compute_metrics(self, run_id: str) -> ExecutionMetrics:
         \"\"\"Aggregate all metrics for a run.\"\"\"
         from modules.core_engine.m010001_cost_tracker import CostTracker
-        
+
         tracker = CostTracker()
         total_cost = tracker.get_total_cost(run_id)
-        
+
         return ExecutionMetrics(
             run_id=run_id,
             total_cost_usd=total_cost

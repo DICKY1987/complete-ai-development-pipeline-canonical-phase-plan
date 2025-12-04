@@ -52,7 +52,7 @@ def main():
                 # Ensure the ID is unique for the generated stub
                 if bundle_data.get("id") == "ws-generated-placeholder":
                     bundle_data["id"] = f"ws-generated-placeholder-{args.spec_id}-{i}"
-                
+
                 output_file = output_dir / f"{bundle_data['id']}.json"
                 with open(output_file, "w", encoding="utf-8") as f:
                     json.dump(bundle_data, f, indent=2)

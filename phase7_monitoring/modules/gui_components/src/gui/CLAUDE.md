@@ -32,7 +32,7 @@ The GUI follows a **hybrid shell** architecture:
               ▼
 ┌─────────────────────────────┐
 │   UI Infrastructure         │  ← Data layer (THIS DIRECTORY)
-│   - TUI implementation      │    
+│   - TUI implementation      │
 │   - Configuration           │     Tool configs
 └─────────────┬───────────────┘
               │

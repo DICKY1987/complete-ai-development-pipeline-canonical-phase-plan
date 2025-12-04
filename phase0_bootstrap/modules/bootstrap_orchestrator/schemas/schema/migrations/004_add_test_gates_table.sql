@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS test_gates (
     gate_id TEXT PRIMARY KEY,
     name TEXT NOT NULL,
     gate_type TEXT NOT NULL CHECK(gate_type IN (
-        'unit_tests', 'integration_tests', 'e2e_tests', 
+        'unit_tests', 'integration_tests', 'e2e_tests',
         'security_scan', 'lint', 'custom'
     )),
     state TEXT NOT NULL CHECK(state IN (

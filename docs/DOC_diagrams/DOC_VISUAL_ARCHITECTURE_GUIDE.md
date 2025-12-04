@@ -21,7 +21,7 @@ This repository uses **Mermaid** diagrams embedded in Markdown files to visualiz
 ## Available Diagrams
 
 ### 1. System Architecture
-**File**: [SYSTEM_ARCHITECTURE.md](./SYSTEM_ARCHITECTURE.md)  
+**File**: [SYSTEM_ARCHITECTURE.md](./SYSTEM_ARCHITECTURE.md)
 **Purpose**: High-level overview of the entire system
 
 **Diagrams Included**:
@@ -41,7 +41,7 @@ This repository uses **Mermaid** diagrams embedded in Markdown files to visualiz
 ---
 
 ### 2. Task Lifecycle
-**File**: [TASK_LIFECYCLE.md](./TASK_LIFECYCLE.md)  
+**File**: [TASK_LIFECYCLE.md](./TASK_LIFECYCLE.md)
 **Purpose**: Detailed state machine for workstream task execution
 
 **Diagrams Included**:
@@ -62,7 +62,7 @@ This repository uses **Mermaid** diagrams embedded in Markdown files to visualiz
 ---
 
 ### 3. Error Escalation
-**File**: [ERROR_ESCALATION.md](./ERROR_ESCALATION.md)  
+**File**: [ERROR_ESCALATION.md](./ERROR_ESCALATION.md)
 **Purpose**: Error detection, analysis, and escalation flow
 
 **Diagrams Included**:
@@ -84,7 +84,7 @@ This repository uses **Mermaid** diagrams embedded in Markdown files to visualiz
 ---
 
 ### 4. Tool Selection
-**File**: [TOOL_SELECTION.md](./TOOL_SELECTION.md)  
+**File**: [TOOL_SELECTION.md](./TOOL_SELECTION.md)
 **Purpose**: Tool adapter selection and configuration
 
 **Diagrams Included**:
@@ -106,7 +106,7 @@ This repository uses **Mermaid** diagrams embedded in Markdown files to visualiz
 ---
 
 ### 5. Spec Integration
-**File**: [SPEC_INTEGRATION.md](./SPEC_INTEGRATION.md)  
+**File**: [SPEC_INTEGRATION.md](./SPEC_INTEGRATION.md)
 **Purpose**: OpenSpec to Workstream conversion
 
 **Diagrams Included**:
@@ -142,12 +142,12 @@ graph LR
     Specifications[Specifications<br/>Green]
     ToolAdapters[Tool Adapters<br/>Yellow]
     External[External Services<br/>Gray]
-    
+
     Success[Success State<br/>Dark Green]
     Failed[Failed State<br/>Dark Red]
     Warning[Warning/Retry<br/>Orange]
     Info[Info/Pending<br/>Light Blue]
-    
+
     style UserLayer fill:#e1f5ff,stroke:#01579b,stroke-width:2px
     style CoreEngine fill:#fff3e0,stroke:#e65100,stroke-width:2px
     style Persistence fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
@@ -155,7 +155,7 @@ graph LR
     style Specifications fill:#e8f5e9,stroke:#1b5e20,stroke-width:2px
     style ToolAdapters fill:#fff9c4,stroke:#f57f17,stroke-width:2px
     style External fill:#eeeeee,stroke:#424242,stroke-width:2px
-    
+
     style Success fill:#4caf50,stroke:#2e7d32,color:#fff
     style Failed fill:#f44336,stroke:#c62828,color:#fff
     style Warning fill:#ff9800,stroke:#e65100,color:#fff
@@ -307,16 +307,16 @@ docs/diagrams/SYSTEM_ARCHITECTURE.md:
   ✓ Mermaid syntax valid
   ✓ All components found in codebase
   ⚠ Warning: Diagram not updated in 95 days
-  
+
 docs/diagrams/TASK_LIFECYCLE.md:
   ✓ Mermaid syntax valid
   ✓ State transitions match state_manager.py
   ✓ Recently updated (5 days ago)
-  
+
 docs/diagrams/ERROR_ESCALATION.md:
   ✓ Mermaid syntax valid
   ✗ Error: Referenced component "OldPlugin" not found
-  
+
 Summary: 2 passed, 1 failed, 1 warning
 ```
 
@@ -337,16 +337,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
-      
+
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
-      
+
       - name: Validate diagrams
         run: |
           python scripts/validate_diagrams.py
@@ -403,7 +403,7 @@ graph TB
     B --> C{Decision}
     C -->|Yes| D[Success]
     C -->|No| E[Failure]
-    
+
     style D fill:#4caf50,color:#fff
     style E fill:#f44336,color:#fff
 ```
@@ -491,7 +491,7 @@ flowchart LR
 graph TB
     Component[Main Component] --> Sub1[Subcomponent 1]
     Component --> Sub2[Subcomponent 2]
-    
+
     style Component fill:#ff9800,stroke:#e65100,stroke-width:3px
 \`\`\`
 
@@ -504,8 +504,8 @@ graph TB
 
 ---
 
-**Last Updated**: YYYY-MM-DD  
-**Maintainer**: Team Name  
+**Last Updated**: YYYY-MM-DD
+**Maintainer**: Team Name
 **Implementation**: `path/to/code.py`
 ```
 
@@ -545,19 +545,19 @@ Track diagram health:
 
 ## FAQ
 
-**Q: Can I use other diagram tools like draw.io?**  
+**Q: Can I use other diagram tools like draw.io?**
 A: No, use Mermaid for version control and GitHub integration. Binary formats like .drawio are harder to review and merge.
 
-**Q: How do I add a new diagram?**  
+**Q: How do I add a new diagram?**
 A: Create a new .md file in `docs/diagrams/`, follow the template above, and update this index.
 
-**Q: What if my diagram is too complex for Mermaid?**  
+**Q: What if my diagram is too complex for Mermaid?**
 A: Split it into multiple focused diagrams or use hierarchical diagrams (overview + detailed views).
 
-**Q: How often should diagrams be updated?**  
+**Q: How often should diagrams be updated?**
 A: Update whenever architecture changes. Aim for diagrams <30 days old for actively developed areas.
 
-**Q: Can I export diagrams for presentations?**  
+**Q: Can I export diagrams for presentations?**
 A: Yes, use `mmdc` (Mermaid CLI) to export to PNG/SVG. See "Exporting to Images" section.
 
 ---
@@ -570,7 +570,7 @@ A: Yes, use `mmdc` (Mermaid CLI) to export to PNG/SVG. See "Exporting to Images"
 
 ---
 
-**Last Updated**: 2025-11-22  
-**Maintainer**: Architecture Team  
-**Total Diagrams**: 5  
+**Last Updated**: 2025-11-22
+**Maintainer**: Architecture Team
+**Total Diagrams**: 5
 **Validation Script**: `scripts/validate_diagrams.py`

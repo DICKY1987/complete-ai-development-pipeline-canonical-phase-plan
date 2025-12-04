@@ -17,25 +17,25 @@ import sys
 
 class FileLockBackend:
     """Simple file-based distributed lock."""
-    
+
     def __init__(self, lock_dir='.git/locks'):
         self.lock_dir = Path(lock_dir)
         self.lock_dir.mkdir(exist_ok=True, parents=True)
-    
+
     @contextmanager
     def acquire(self, resource_name, instance_id, timeout=30):
         """Acquire lock with timeout."""
         lock_file = self.lock_dir / f"{resource_name}.lock"
         start_time = time.time()
         acquired = False
-        
+
         print(f"🔒 Acquiring lock on '{resource_name}' for {instance_id}...")
-        
+
         while True:
             try:
                 # Try to create lock file exclusively
                 fd = os.open(str(lock_file), os.O_CREAT | os.O_EXCL | os.O_WRONLY)
-                
+
                 # Write lock metadata
                 lock_data = {
                     'instance_id': instance_id,
@@ -45,10 +45,10 @@ class FileLockBackend:
                 }
                 os.write(fd, json.dumps(lock_data).encode())
                 os.close(fd)
-                
+
                 acquired = True
                 print(f"✅ Lock acquired for {instance_id}")
-                
+
                 try:
                     yield True
                 finally:
@@ -56,12 +56,12 @@ class FileLockBackend:
                     if lock_file.exists():
                         lock_file.unlink()
                         print(f"🔓 Lock released for {instance_id}")
-                    
+
                     # Emit event
                     self._emit_event('lock_released', resource_name, instance_id)
-                
+
                 return
-                
+
             except FileExistsError:
                 # Lock already held - check if stale
                 if lock_file.exists():
@@ -71,24 +71,24 @@ class FileLockBackend:
                             print(f"⚠️ Removing stale lock (age: {age:.1f}s)")
                             lock_file.unlink()
                             continue
-                        
+
                         # Read lock holder info
                         with open(lock_file) as f:
                             lock_info = json.load(f)
-                        
+
                         print(f"⏳ Lock held by {lock_info.get('instance_id', 'unknown')}, waiting...")
                     except:
                         pass
-                
+
                 # Wait and retry
                 elapsed = time.time() - start_time
                 if elapsed > timeout:
                     raise TimeoutError(
                         f"Could not acquire lock on '{resource_name}' after {timeout}s"
                     )
-                
+
                 time.sleep(0.5)
-    
+
     def _emit_event(self, event_type, resource, instance_id):
         """Emit lock event to log."""
         event = {
@@ -98,7 +98,7 @@ class FileLockBackend:
             'resource': resource,
             'instance_id': instance_id
         }
-        
+
         event_log = Path('multi_clone_guard_events.jsonl')
         with open(event_log, 'a') as f:
             f.write(json.dumps(event) + '\n')
@@ -106,19 +106,19 @@ class FileLockBackend:
 
 def safe_push_with_guard(instance_id, branch, remote='origin', rebase_mode='rebase'):
     """Push with multi-clone guard."""
-    
+
     lock_backend = FileLockBackend()
     resource_name = f"branch_{branch.replace('/', '_')}"
-    
+
     try:
         with lock_backend.acquire(resource_name, instance_id, timeout=30):
             # Inside lock - safe to push
             print(f"\n📤 Executing safe push for branch: {branch}")
-            
+
             # Determine script path
             script_dir = Path(__file__).parent
             safe_push_script = script_dir / 'safe_pull_and_push.ps1'
-            
+
             if safe_push_script.exists():
                 # Use PowerShell script
                 import subprocess
@@ -133,37 +133,37 @@ def safe_push_with_guard(instance_id, branch, remote='origin', rebase_mode='reba
             else:
                 print("⚠️ safe_pull_and_push.ps1 not found - falling back to manual push")
                 print("   This is less safe than using the pattern!")
-                
+
                 import subprocess
-                
+
                 # Fetch
                 subprocess.run(['git', 'fetch', remote])
-                
+
                 # Check divergence
                 ahead = subprocess.check_output([
                     'git', 'rev-list', '--count', f'{remote}/{branch}..{branch}'
                 ]).decode().strip()
-                
+
                 behind = subprocess.check_output([
                     'git', 'rev-list', '--count', f'{branch}..{remote}/{branch}'
                 ]).decode().strip()
-                
+
                 print(f"   Ahead: {ahead}, Behind: {behind}")
-                
+
                 # Pull if behind
                 if int(behind) > 0:
                     if rebase_mode == 'rebase':
                         result = subprocess.run(['git', 'pull', '--rebase', remote, branch])
                     else:
                         result = subprocess.run(['git', 'pull', '--ff-only', remote, branch])
-                    
+
                     if result.returncode != 0:
                         return False
-                
+
                 # Push
                 result = subprocess.run(['git', 'push', remote, branch])
                 return result.returncode == 0
-                
+
     except TimeoutError as e:
         print(f"\n❌ {e}")
         print(f"   Another instance is holding the lock on {branch}")
@@ -177,23 +177,23 @@ def main():
     parser.add_argument('--remote', default='origin', help='Remote name')
     parser.add_argument('--rebase-mode', choices=['rebase', 'ff-only'], default='rebase')
     parser.add_argument('--timeout', type=int, default=30, help='Lock timeout in seconds')
-    
+
     args = parser.parse_args()
-    
+
     print("🔒 MERGE-007: Multi-Clone Guard")
     print("=" * 50)
     print(f"   Instance: {args.instance_id}")
     print(f"   Branch: {args.branch}")
     print(f"   Remote: {args.remote}")
     print()
-    
+
     success = safe_push_with_guard(
         args.instance_id,
         args.branch,
         args.remote,
         args.rebase_mode
     )
-    
+
     if success:
         print("\n✅ Safe push with guard completed successfully")
         return 0

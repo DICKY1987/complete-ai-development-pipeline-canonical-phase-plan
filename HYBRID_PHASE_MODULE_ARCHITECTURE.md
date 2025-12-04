@@ -1,6 +1,6 @@
 # Hybrid Phase-Module Architecture Plan
 
-**Date**: 2025-12-03  
+**Date**: 2025-12-03
 **Goal**: Restructure to hybrid architecture where each phase contains self-contained modules
 
 ## Architecture Concept
@@ -44,7 +44,7 @@ phase0_bootstrap/
   README.md
 ```
 
-**Migration**: 
+**Migration**:
 - `core/bootstrap/` → `phase0_bootstrap/modules/bootstrap_orchestrator/src/`
 - `schema/` → `phase0_bootstrap/modules/bootstrap_orchestrator/schemas/`
 - `config/` → `phase0_bootstrap/modules/bootstrap_orchestrator/config/`
@@ -67,7 +67,7 @@ phase1_planning/
         spec_format.md
       schemas/
         openspec.schema.json
-    
+
     workstream_planner/
       src/
         planner.py
@@ -76,13 +76,13 @@ phase1_planning/
         test_planner.py
       docs/
         planning_guide.md
-    
+
     spec_tools/
       src/
         (from SPEC_tools/)
       tests/
       docs/
-  
+
   README.md
 ```
 
@@ -114,7 +114,7 @@ phase4_routing/
         capability.schema.json
       config/
         default_capabilities.yaml
-    
+
     tool_adapters/
       src/
         guard/
@@ -127,7 +127,7 @@ phase4_routing/
         test_indexer.py
       docs/
         adapter_guide.md
-    
+
     aider_integration/
       src/
         (from aider/)
@@ -135,7 +135,7 @@ phase4_routing/
       docs/
       config/
         aider_config.yaml
-  
+
   README.md
 ```
 
@@ -163,7 +163,7 @@ phase6_error_recovery/
         error_pipeline.md
       schemas/
         error_record.schema.json
-    
+
     plugins/
       python_ruff/
         src/
@@ -174,15 +174,15 @@ phase6_error_recovery/
           README.md
         config/
           ruff_config.toml
-      
+
       python_mypy/
         src/
         tests/
         docs/
         config/
-      
+
       # ... (21 plugins total)
-  
+
   README.md
 ```
 
@@ -208,7 +208,7 @@ phase7_monitoring/
         ui_architecture.md
       config/
         tui_config.yaml
-    
+
     state_manager/
       src/
         (from state/)
@@ -216,7 +216,7 @@ phase7_monitoring/
       docs/
       schemas/
         state.schema.json
-  
+
   README.md
 ```
 
@@ -278,7 +278,7 @@ From the global `tests/` directory, move module-specific tests:
 # Extract AIM tests
 mv tests/aim/* phase4_routing/modules/aim_tools/tests/
 
-# Extract tool adapter tests  
+# Extract tool adapter tests
 mv tests/adapters/* phase4_routing/modules/tool_adapters/tests/
 ```
 
@@ -289,8 +289,8 @@ Each module gets a README.md:
 ```markdown
 # Module: aim_tools
 
-**Phase**: 4 (Tool Routing & Adapter Selection)  
-**Layer**: API  
+**Phase**: 4 (Tool Routing & Adapter Selection)
+**Layer**: API
 **Purpose**: AI tool capability matching and selection
 
 ## Structure

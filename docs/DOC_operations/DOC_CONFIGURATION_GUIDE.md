@@ -8,9 +8,9 @@ doc_id: DOC-GUIDE-CONFIGURATION_GUIDE-079
 
 # Configuration Guide - AI Development Pipeline
 
-**Last Updated**: 2025-11-21  
-**Phase**: G (Invoke Adoption)  
-**Status**: Active  
+**Last Updated**: 2025-11-21
+**Phase**: G (Invoke Adoption)
+**Status**: Active
 
 ---
 
@@ -32,9 +32,9 @@ Configuration is loaded in the following precedence order (highest to lowest):
 
 ### `invoke.yaml` (Project Config - Versioned)
 
-**Location**: Repository root  
-**Purpose**: Project-wide defaults shared by all developers  
-**Version Control**: ✅ Committed to Git  
+**Location**: Repository root
+**Purpose**: Project-wide defaults shared by all developers
+**Version Control**: ✅ Committed to Git
 
 Contains:
 - Tool configurations (timeouts, arguments, environment)
@@ -52,7 +52,7 @@ tools:
     flags:
       - "--yes-always"
       - "--no-auto-commits"
-  
+
 orchestrator:
   dry_run: false
   max_retries: 3
@@ -60,9 +60,9 @@ orchestrator:
 
 ### `.invoke.yaml` (User Config - Local Override)
 
-**Location**: Repository root (gitignored) or `~/.invoke.yaml` (global)  
-**Purpose**: User-specific overrides for local development  
-**Version Control**: ❌ NOT committed (in `.gitignore`)  
+**Location**: Repository root (gitignored) or `~/.invoke.yaml` (global)
+**Purpose**: User-specific overrides for local development
+**Version Control**: ❌ NOT committed (in `.gitignore`)
 
 Use cases:
 - Override model choice (GPT-4 vs Ollama)
@@ -75,16 +75,16 @@ Use cases:
 tools:
   aider:
     model: "gpt-4"  # Override to use GPT-4 locally
-  
+
 orchestrator:
   dry_run: true  # Default to dry-run for testing
 ```
 
 ### Environment Variable Overrides
 
-**Prefix**: `INVOKE_`  
-**Format**: `INVOKE_<SECTION>_<KEY>`  
-**Purpose**: CI/CD overrides and temporary changes  
+**Prefix**: `INVOKE_`
+**Format**: `INVOKE_<SECTION>_<KEY>`
+**Purpose**: CI/CD overrides and temporary changes
 
 **Examples**:
 ```bash
@@ -282,11 +282,11 @@ def example(c):
     """Access config via Context."""
     # Invoke native config (limited to run/sudo/tasks sections)
     # Use config_loader for custom sections
-    
+
     from core.config_loader import get_tool_config
     pytest_cfg = get_tool_config('pytest')
     timeout = pytest_cfg.get('timeout', 600)
-    
+
     c.run(f"pytest --timeout={timeout}")
 ```
 
@@ -418,7 +418,7 @@ tools:
   aider:
     model: "gpt-4"
     timeout: 600
-  
+
 orchestrator:
   dry_run: true  # Always dry-run locally
   max_retries: 1  # Fail fast

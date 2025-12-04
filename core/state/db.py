@@ -215,7 +215,7 @@ class Database:
             """
             INSERT INTO step_attempts (
                 step_attempt_id, run_id, sequence, tool_id, tool_run_id,
-                execution_request_id, prompt_id, started_at, state, 
+                execution_request_id, prompt_id, started_at, state,
                 input_prompt, metadata
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """,
@@ -275,8 +275,8 @@ class Database:
         cursor = self.conn.cursor()
         cursor.execute(
             """
-            SELECT * FROM step_attempts 
-            WHERE run_id = ? 
+            SELECT * FROM step_attempts
+            WHERE run_id = ?
             ORDER BY sequence ASC
             """,
             (run_id,),
@@ -319,8 +319,8 @@ class Database:
         cursor = self.conn.cursor()
         cursor.execute(
             """
-            SELECT * FROM run_events 
-            WHERE run_id = ? 
+            SELECT * FROM run_events
+            WHERE run_id = ?
             ORDER BY timestamp ASC
             """,
             (run_id,),

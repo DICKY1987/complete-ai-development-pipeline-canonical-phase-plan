@@ -56,7 +56,7 @@ def render_spec(index: dict) -> str:
             skey = sec.get("key")
             stitle = sec.get("title")
             lines.append(f"\n### {vkey}/{skey} {stitle}\n")
-            content = read_file(sec["file"]) 
+            content = read_file(sec["file"])
             lines.append(content.rstrip() + "\n")
     return "\n".join(lines)
 

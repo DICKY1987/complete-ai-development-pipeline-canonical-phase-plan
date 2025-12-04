@@ -49,12 +49,12 @@ foreach ($pattern in $corePatterns.Keys) {
     $patternId = $corePatterns[$pattern]
     $docId = $mapping.$patternId
     $schemaPath = Join-Path $patternsDir "schemas\$pattern.schema.json"
-    
+
     if (Test-Path $schemaPath) {
         Write-Host "    ⚠ $pattern.schema.json already exists" -ForegroundColor Yellow
         continue
     }
-    
+
     $schema = @{
         '$schema' = 'http://json-schema.org/draft-07/schema#'
         '$id' = "$pattern.schema.json"
@@ -82,7 +82,7 @@ foreach ($pattern in $corePatterns.Keys) {
             }
         }
     }
-    
+
     if (-not $DryRun) {
         $schema | ConvertTo-Json -Depth 10 | Set-Content $schemaPath -Encoding UTF8
         $stats.FilesGenerated++
@@ -97,14 +97,14 @@ foreach ($pattern in $corePatterns.Keys) {
     $patternId = $corePatterns[$pattern]
     $docId = $mapping.$patternId
     $exampleDir = Join-Path $patternsDir "examples\$pattern"
-    
+
     if (-not (Test-Path $exampleDir)) {
         if (-not $DryRun) {
             New-Item -ItemType Directory -Path $exampleDir -Force | Out-Null
         }
         Write-Host "    ✓ Created directory: examples/$pattern/" -ForegroundColor Green
     }
-    
+
     # Generate instance_minimal.json
     $minimalPath = Join-Path $exampleDir "instance_minimal.json"
     if (-not (Test-Path $minimalPath)) {
@@ -115,14 +115,14 @@ foreach ($pattern in $corePatterns.Keys) {
                 project_root = 'C:\Projects\Example'
             }
         }
-        
+
         if (-not $DryRun) {
             $minimal | ConvertTo-Json -Depth 10 | Set-Content $minimalPath -Encoding UTF8
             $stats.FilesGenerated++
         }
         Write-Host "    ✓ Generated $pattern/instance_minimal.json" -ForegroundColor Green
     }
-    
+
     # Generate instance_full.json
     $fullPath = Join-Path $exampleDir "instance_full.json"
     if (-not (Test-Path $fullPath)) {
@@ -137,14 +137,14 @@ foreach ($pattern in $corePatterns.Keys) {
                 description = "Full example for $pattern pattern"
             }
         }
-        
+
         if (-not $DryRun) {
             $full | ConvertTo-Json -Depth 10 | Set-Content $fullPath -Encoding UTF8
             $stats.FilesGenerated++
         }
         Write-Host "    ✓ Generated $pattern/instance_full.json" -ForegroundColor Green
     }
-    
+
     # Generate instance_test.json
     $testPath = Join-Path $exampleDir "instance_test.json"
     if (-not (Test-Path $testPath)) {
@@ -155,7 +155,7 @@ foreach ($pattern in $corePatterns.Keys) {
                 project_root = 'C:\Temp\Test'
             }
         }
-        
+
         if (-not $DryRun) {
             $test | ConvertTo-Json -Depth 10 | Set-Content $testPath -Encoding UTF8
             $stats.FilesGenerated++
@@ -171,12 +171,12 @@ foreach ($pattern in $corePatterns.Keys) {
     $patternId = $corePatterns[$pattern]
     $docId = $mapping.$patternId
     $execPath = Join-Path $patternsDir "executors\${pattern}_executor.ps1"
-    
+
     if (Test-Path $execPath) {
         Write-Host "    ⚠ ${pattern}_executor.ps1 already exists" -ForegroundColor Yellow
         continue
     }
-    
+
     $executor = @"
 # DOC_LINK: $docId
 # Pattern: $pattern ($patternId)
@@ -209,7 +209,7 @@ if (`$instance.pattern_id -ne "$patternId") {
 
 Write-Host "✓ $pattern pattern execution complete" -ForegroundColor Green
 "@
-    
+
     if (-not $DryRun) {
         Set-Content $execPath $executor -Encoding UTF8
         $stats.FilesGenerated++
@@ -231,46 +231,46 @@ if (-not (Test-Path $testsDir)) {
 
 foreach ($pattern in (@('atomic_create') + $corePatterns.Keys)) {
     $testPath = Join-Path $testsDir "test_${pattern}_executor.ps1"
-    
+
     if (Test-Path $testPath) {
         Write-Host "    ⚠ test_${pattern}_executor.ps1 already exists" -ForegroundColor Yellow
         continue
     }
-    
+
     $patternId = if ($pattern -eq 'atomic_create') { 'PAT-ATOMIC-CREATE-001' } else { $corePatterns[$pattern] }
     $docId = $mapping.$patternId
-    
+
     $test = @"
 # DOC_LINK: $docId
 # Tests for $pattern pattern executor
 
 Describe "$pattern pattern executor" {
-    
+
     BeforeAll {
         `$ExecutorPath = "`$PSScriptRoot\..\executors\${pattern}_executor.ps1"
         `$ExamplePath = "`$PSScriptRoot\..\examples\$pattern\instance_minimal.json"
     }
-    
+
     It "Executor file should exist" {
         Test-Path `$ExecutorPath | Should -Be `$true
     }
-    
+
     It "Example instance should exist" {
         Test-Path `$ExamplePath | Should -Be `$true
     }
-    
+
     It "Should accept InstancePath parameter" {
         `$params = (Get-Command `$ExecutorPath).Parameters
         `$params.Keys -contains 'InstancePath' | Should -Be `$true
     }
-    
+
     It "Should validate instance schema" {
         # TODO: Add schema validation test
         `$true | Should -Be `$true
     }
 }
 "@
-    
+
     if (-not $DryRun) {
         Set-Content $testPath $test -Encoding UTF8
         $stats.FilesGenerated++
@@ -283,15 +283,15 @@ Write-Host "`n  [2.5] Generating schema sidecar files..." -ForegroundColor Cyan
 
 foreach ($pattern in (@('atomic_create') + $corePatterns.Keys)) {
     $sidecarPath = Join-Path $patternsDir "schemas\$pattern.schema.id.yaml"
-    
+
     if (Test-Path $sidecarPath) {
         Write-Host "    ⚠ $pattern.schema.id.yaml already exists" -ForegroundColor Yellow
         continue
     }
-    
+
     $patternId = if ($pattern -eq 'atomic_create') { 'PAT-ATOMIC-CREATE-001' } else { $corePatterns[$pattern] }
     $docId = $mapping.$patternId
-    
+
     $sidecar = @"
 # Schema Sidecar ID File
 # Links schema to doc_id for cross-artifact joins
@@ -305,7 +305,7 @@ linked_executor: patterns/executors/${pattern}_executor.ps1
 linked_tests: patterns/tests/test_${pattern}_executor.ps1
 linked_examples: patterns/examples/$pattern/
 "@
-    
+
     if (-not $DryRun) {
         Set-Content $sidecarPath $sidecar -Encoding UTF8
         $stats.FilesGenerated++

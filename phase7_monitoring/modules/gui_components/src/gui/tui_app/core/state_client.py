@@ -60,17 +60,17 @@ class PatchLedgerEntry:
 
 class StateBackend(ABC):
     """Abstract backend for state storage."""
-    
+
     @abstractmethod
     def get_pipeline_summary(self) -> PipelineSummary:
         """Get current pipeline summary."""
         pass
-    
+
     @abstractmethod
     def get_tasks(self, limit: int = 100) -> List[TaskInfo]:
         """Get recent tasks."""
         pass
-    
+
     @abstractmethod
     def get_task(self, task_id: str) -> Optional[TaskInfo]:
         """Get specific task by ID."""
@@ -89,7 +89,7 @@ class StateBackend(ABC):
 
 class InMemoryStateBackend(StateBackend):
     """In-memory state backend for testing and development."""
-    
+
     def __init__(self):
         self._summary = PipelineSummary(
             total_tasks=12,
@@ -169,13 +169,13 @@ class InMemoryStateBackend(StateBackend):
                 files=["placeholder.py"]
             ),
         ]
-    
+
     def get_pipeline_summary(self) -> PipelineSummary:
         return self._summary
-    
+
     def get_tasks(self, limit: int = 100) -> List[TaskInfo]:
         return self._tasks[:limit]
-    
+
     def get_task(self, task_id: str) -> Optional[TaskInfo]:
         for task in self._tasks:
             if task.task_id == task_id:
@@ -191,35 +191,35 @@ class InMemoryStateBackend(StateBackend):
 
 class StateClient:
     """Client for accessing pipeline state from panels."""
-    
+
     def __init__(self, backend: StateBackend):
         self._backend = backend
-    
+
     def get_pipeline_summary(self) -> PipelineSummary:
         """Get current pipeline summary.
-        
+
         Returns:
             PipelineSummary with current pipeline state
         """
         return self._backend.get_pipeline_summary()
-    
+
     def get_tasks(self, limit: int = 100) -> List[TaskInfo]:
         """Get recent tasks.
-        
+
         Args:
             limit: Maximum number of tasks to return
-            
+
         Returns:
             List of TaskInfo objects
         """
         return self._backend.get_tasks(limit)
-    
+
     def get_task(self, task_id: str) -> Optional[TaskInfo]:
         """Get specific task by ID.
-        
+
         Args:
             task_id: Task identifier
-            
+
         Returns:
             TaskInfo if found, None otherwise
         """
@@ -227,10 +227,10 @@ class StateClient:
 
     def get_executions(self, limit: int = 50) -> List[ExecutionInfo]:
         """Get recent executions.
-        
+
         Args:
             limit: Maximum number of executions to return
-            
+
         Returns:
             List of ExecutionInfo objects
         """
@@ -238,10 +238,10 @@ class StateClient:
 
     def get_patch_ledger(self, limit: int = 50) -> List[PatchLedgerEntry]:
         """Get recent patch ledger entries.
-        
+
         Args:
             limit: Maximum number of patch records
-            
+
         Returns:
             List of PatchLedgerEntry objects
         """

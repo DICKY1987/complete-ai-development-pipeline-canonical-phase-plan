@@ -1,7 +1,7 @@
 # Workstream Summary Report
 
-**Generated**: ${TIMESTAMP}  
-**Feature Branch**: `${FEATURE_BRANCH}`  
+**Generated**: ${TIMESTAMP}
+**Feature Branch**: `${FEATURE_BRANCH}`
 **Report ID**: ${REPORT_ID}
 
 ---

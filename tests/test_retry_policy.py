@@ -22,7 +22,7 @@ def test_backoff_strategy_enum():
 def test_retry_policy_defaults():
     """Test default retry policy values"""
     policy = RetryPolicy()
-    
+
     assert policy.max_retries == 3
     assert policy.strategy == BackoffStrategy.EXPONENTIAL
     assert policy.base_delay == 1.0
@@ -32,7 +32,7 @@ def test_retry_policy_defaults():
 def test_should_retry():
     """Test retry limit checking"""
     policy = RetryPolicy(max_retries=3)
-    
+
     assert policy.should_retry(0) is True
     assert policy.should_retry(1) is True
     assert policy.should_retry(2) is True
@@ -43,7 +43,7 @@ def test_should_retry():
 def test_immediate_backoff():
     """Test immediate backoff (no delay)"""
     policy = RetryPolicy(strategy=BackoffStrategy.IMMEDIATE, base_delay=5.0)
-    
+
     assert policy.get_delay(0) == 0
     assert policy.get_delay(1) == 0
     assert policy.get_delay(5) == 0
@@ -52,7 +52,7 @@ def test_immediate_backoff():
 def test_linear_backoff():
     """Test linear backoff strategy"""
     policy = RetryPolicy(strategy=BackoffStrategy.LINEAR, base_delay=2.0)
-    
+
     assert policy.get_delay(0) == 2.0  # 2.0 * (0 + 1)
     assert policy.get_delay(1) == 4.0  # 2.0 * (1 + 1)
     assert policy.get_delay(2) == 6.0  # 2.0 * (2 + 1)
@@ -62,7 +62,7 @@ def test_linear_backoff():
 def test_exponential_backoff():
     """Test exponential backoff strategy"""
     policy = RetryPolicy(strategy=BackoffStrategy.EXPONENTIAL, base_delay=1.0)
-    
+
     assert policy.get_delay(0) == 1.0   # 1.0 * 2^0
     assert policy.get_delay(1) == 2.0   # 1.0 * 2^1
     assert policy.get_delay(2) == 4.0   # 1.0 * 2^2
@@ -73,7 +73,7 @@ def test_exponential_backoff():
 def test_fibonacci_backoff():
     """Test Fibonacci backoff strategy"""
     policy = RetryPolicy(strategy=BackoffStrategy.FIBONACCI, base_delay=1.0)
-    
+
     # Fibonacci sequence: fib(0)=0, fib(1)=1, fib(2)=1, fib(3)=2, fib(4)=3, fib(5)=5, fib(6)=8, fib(7)=13
     assert policy.get_delay(0) == 1.0   # 1.0 * fib(1) = 1.0
     assert policy.get_delay(1) == 1.0   # 1.0 * fib(2) = 1.0
@@ -90,7 +90,7 @@ def test_max_delay_cap():
         base_delay=1.0,
         max_delay=10.0
     )
-    
+
     assert policy.get_delay(0) == 1.0   # 1.0 * 2^0 = 1.0
     assert policy.get_delay(1) == 2.0   # 1.0 * 2^1 = 2.0
     assert policy.get_delay(2) == 4.0   # 1.0 * 2^2 = 4.0
@@ -107,9 +107,9 @@ def test_from_config():
         'base_delay': 2.5,
         'max_delay': 100.0
     }
-    
+
     policy = RetryPolicy.from_config(config)
-    
+
     assert policy.max_retries == 5
     assert policy.strategy == BackoffStrategy.LINEAR
     assert policy.base_delay == 2.5
@@ -119,9 +119,9 @@ def test_from_config():
 def test_from_config_defaults():
     """Test from_config with missing values uses defaults"""
     config = {}
-    
+
     policy = RetryPolicy.from_config(config)
-    
+
     assert policy.max_retries == 3  # default
     assert policy.strategy == BackoffStrategy.EXPONENTIAL  # default
     assert policy.base_delay == 1.0  # default
@@ -136,9 +136,9 @@ def test_to_dict():
         base_delay=2.0,
         max_delay=120.0
     )
-    
+
     policy_dict = policy.to_dict()
-    
+
     assert policy_dict['max_retries'] == 5
     assert policy_dict['strategy'] == 'linear'
     assert policy_dict['base_delay'] == 2.0
@@ -177,7 +177,7 @@ def test_no_retry_policy():
 def test_fibonacci_helper():
     """Test internal Fibonacci calculation"""
     policy = RetryPolicy(strategy=BackoffStrategy.FIBONACCI)
-    
+
     assert policy._fibonacci(0) == 0
     assert policy._fibonacci(1) == 1
     assert policy._fibonacci(2) == 1

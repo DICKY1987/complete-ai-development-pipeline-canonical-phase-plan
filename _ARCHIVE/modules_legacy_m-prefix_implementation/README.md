@@ -1,7 +1,7 @@
 # modules
 
-**Module Path**: `modules`  
-**Layer**: Domain  
+**Module Path**: `modules`
+**Layer**: Domain
 **Status**: Active
 
 ## Purpose
@@ -70,5 +70,5 @@ MODULES_COMPLETE_ANALYSIS.md, MODULE-CENTRIC REFACTOR PLAN.md
 
 ---
 
-**Generated**: 2025-12-02 22:40:27 UTC  
+**Generated**: 2025-12-02 22:40:27 UTC
 **Framework**: Universal Execution Templates (UET)

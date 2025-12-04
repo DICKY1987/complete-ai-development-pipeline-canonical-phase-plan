@@ -99,7 +99,7 @@ tests/plugins/
       mock_proc.returncode = 0
       mock_proc.stdout = sample_json
       mock_run.return_value = mock_proc
-      
+
       result = plugin.execute(test_file)
       assert result.success is True
   ```
@@ -197,15 +197,15 @@ def test_check_tool_available(self):
 def test_parse_output(self, tmp_path: Path):
     plugin = PluginClass()
     test_file = create_sample_file(tmp_path, "test.ext", "content")
-    
+
     with patch("subprocess.run") as mock_run:
         mock_proc = MagicMock()
         mock_proc.returncode = 1
         mock_proc.stdout = SAMPLE_OUTPUT
         mock_run.return_value = mock_proc
-        
+
         result = plugin.execute(test_file)
-        
+
         assert len(result.issues) > 0
         assert result.issues[0].category == "expected"
 ```
@@ -215,12 +215,12 @@ def test_parse_output(self, tmp_path: Path):
 def test_success_codes(self, tmp_path: Path):
     plugin = PluginClass()
     test_file = create_sample_file(tmp_path, "test.ext", "content")
-    
+
     with patch("subprocess.run") as mock_run:
         mock_proc = MagicMock()
         mock_proc.stdout = "[]"
         mock_run.return_value = mock_proc
-        
+
         # Test valid codes
         for code in [0, 1]:
             mock_proc.returncode = code

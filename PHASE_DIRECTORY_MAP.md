@@ -11,7 +11,7 @@ This document maps the repository structure to the Phase-Based AI Dev Pipeline (
   - `README.md` - Phase documentation
 - Related in `core/`: `core/bootstrap/` - Bootstrap orchestrator ✅ Complete (100%)
 
-### Phase 1 – Planning & Spec Alignment  
+### Phase 1 – Planning & Spec Alignment
 - `phase1_planning/` - **Phase container**
   - `specifications/` - Spec content and files
   - `SPEC_tools/` - Spec processing tools
@@ -22,7 +22,7 @@ This document maps the repository structure to the Phase-Based AI Dev Pipeline (
 ### Phase 2 – Request Building & Run Creation
 - `phase2_request_building/` - **Phase container**
   - `README.md` - Phase documentation
-- Related in `core/`: 
+- Related in `core/`:
   - `core/state/` - State management ✅ Complete (100%)
   - `core/engine/execution_request_builder.py` - Request builder ✅
 

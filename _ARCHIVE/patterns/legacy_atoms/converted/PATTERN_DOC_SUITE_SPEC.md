@@ -5,13 +5,13 @@
 * **Spec ID:** PATTERN_DOC_SUITE_SPEC-V1
 * **Status:** DRAFT (but internally self-contained and normative)
 * **Applies to:** All patterns under `patterns/`
-* **Depends on:** PAT-CHECK-001-v2 (validation spec) 
+* **Depends on:** PAT-CHECK-001-v2 (validation spec)
 
 This document is the **authoritative and complete** description of:
 
 * What files make up a **pattern doc suite**
 * How to **create** each file
-* How to **assign, store, and use** `doc_id` as the **canonical join key** across all artifacts 
+* How to **assign, store, and use** `doc_id` as the **canonical join key** across all artifacts
 
 If an AI tool knows only this spec, it has enough information to **create, upgrade, and validate** pattern documentation with no additional context.
 
@@ -41,7 +41,7 @@ For one pattern, the doc suite includes:
 6. **Example instances** in `patterns/examples/` (+ optional sidecars)
 7. **Narrative docs** (Markdown/txt) with front matter (where applicable)
 
-All of these artifacts are tied together by a **single `doc_id`**, which is the primary join key across them. 
+All of these artifacts are tied together by a **single `doc_id`**, which is the primary join key across them.
 
 ### 1.2 Relationship between `doc_id`, `pattern_id`, and `version`
 
@@ -49,7 +49,7 @@ All of these artifacts are tied together by a **single `doc_id`**, which is the 
 
   * Identifies the **entire doc suite** for one logical pattern.
   * Stable across small edits and non-breaking changes.
-  * Primary key for cross-artifact joins and automation. 
+  * Primary key for cross-artifact joins and automation.
 
 * **`pattern_id`**
 
@@ -74,7 +74,7 @@ All of these artifacts are tied together by a **single `doc_id`**, which is the 
 `doc_id` is a **repository-wide, stable identifier** for a **logical documentation unit**: everything that belongs to one pattern’s doc suite. It is:
 
 * Used in **indexes**, **specs**, **schemas**, **executors**, **tests**, **examples**, and **docs**.
-* The **only key** automation uses to say “these files belong to the same pattern.” 
+* The **only key** automation uses to say “these files belong to the same pattern.”
 
 ### 2.2 Format
 
@@ -100,7 +100,7 @@ Structure:
 3. `<NAME_SEGMENTS>` – 1+ dash-separated uppercase alphanumeric segments describing the pattern
 4. `<NNN>` – 3-digit numeric suffix for uniqueness
 
-This is compatible with the more generic “uppercase with dashes” pattern enforced by PAT-CHECK-001. 
+This is compatible with the more generic “uppercase with dashes” pattern enforced by PAT-CHECK-001.
 
 ### 2.3 Minting new `doc_id` values
 
@@ -135,7 +135,7 @@ If `doc_id` changes:
 
 ### 2.5 Cross-artifact consistency rule
 
-For a given pattern entry in `PATTERN_INDEX.yaml`, the following artifacts **MUST** all share the **same** `doc_id`: 
+For a given pattern entry in `PATTERN_INDEX.yaml`, the following artifacts **MUST** all share the **same** `doc_id`:
 
 * Index entry
 * Spec file
@@ -145,7 +145,7 @@ For a given pattern entry in `PATTERN_INDEX.yaml`, the following artifacts **MUS
 * All example JSONs (or their sidecars)
 * All narrative docs in the suite
 
-Automation **MUST** treat `doc_id` as the **canonical join key** across these. 
+Automation **MUST** treat `doc_id` as the **canonical join key** across these.
 
 ---
 
@@ -170,10 +170,10 @@ We will use a running example pattern:
 
 **Location & role**
 
-* File: `patterns/registry/PATTERN_INDEX.yaml` 
+* File: `patterns/registry/PATTERN_INDEX.yaml`
 * Contains a list under `patterns:` where each entry describes **one pattern doc suite**.
 
-**MUST fields per entry** 
+**MUST fields per entry**
 
 Each pattern entry **MUST** contain at least:
 
@@ -187,7 +187,7 @@ Each pattern entry **MUST** contain at least:
 * `executor_path`
 * `test_path`
 * `example_dir`
-* `operation_kinds` (list of operation kind names implemented) 
+* `operation_kinds` (list of operation kind names implemented)
 
 **Example entry**
 
@@ -216,7 +216,7 @@ patterns:
 4. Set `version` to `1.0.0` for new patterns.
 5. Set `status` to `draft` or `stable` as appropriate.
 6. Fill paths with **repository-relative** paths under the correct directories.
-7. Add `operation_kinds` using names from `OPERATION_KIND_REGISTRY.yaml` (e.g., `SAVE_FILE`). 
+7. Add `operation_kinds` using names from `OPERATION_KIND_REGISTRY.yaml` (e.g., `SAVE_FILE`).
 8. Append the entry to the `patterns:` list.
 
 ---
@@ -226,11 +226,11 @@ patterns:
 **Location & naming**
 
 * Directory: `patterns/specs/`
-* Filename **MUST** match: `<pattern_name>.pattern.yaml` 
+* Filename **MUST** match: `<pattern_name>.pattern.yaml`
 
   * Example: `patterns/specs/save_file.pattern.yaml`
 
-**Required top-level fields** 
+**Required top-level fields**
 
 Each spec file **MUST** include:
 
@@ -290,9 +290,9 @@ behavioral_contract:
 **Location & naming**
 
 * Directory: `patterns/schemas/`
-* Filename **MUST** match: `<pattern_name>.schema.json` 
+* Filename **MUST** match: `<pattern_name>.schema.json`
 
-**doc_id embedding or sidecar** 
+**doc_id embedding or sidecar**
 
 For each schema:
 
@@ -332,7 +332,7 @@ If you cannot embed `doc_id` (legacy constraints), **also**:
 
 ### 3.4 Schema Sidecar (optional but sometimes required)
 
-**Location & naming** 
+**Location & naming**
 
 * Recommended: `patterns/schemas/<pattern_name>.schema.id.yaml`
 
@@ -354,14 +354,14 @@ Sidecars **MUST**:
 
 ### 3.5 Executor File (`patterns/executors/<pattern_name>_executor.*`)
 
-**Location & naming** 
+**Location & naming**
 
 * Directory: `patterns/executors/`
 * Filename **MUST** match: `<pattern_name>_executor.*`
 
   * Example: `patterns/executors/save_file_executor.ps1`
 
-**DOC_LINK header with `doc_id`** 
+**DOC_LINK header with `doc_id`**
 
 Each executor file **MUST**:
 
@@ -400,13 +400,13 @@ import sys
 3. Add `DOC_LINK: <DOC_ID>` header at the top using language-appropriate comment syntax.
 4. Implement behavior consistent with the spec and schema.
 
-Executors **SHOULD NOT** hard-code absolute paths; automation should resolve paths via `doc_id` and index entries. 
+Executors **SHOULD NOT** hard-code absolute paths; automation should resolve paths via `doc_id` and index entries.
 
 ---
 
 ### 3.6 Test Files (`patterns/tests/`)
 
-**Location & naming** 
+**Location & naming**
 
 * Directory: `patterns/tests/`
 * File(s) **MUST** be named starting with: `test_<pattern_name>_`
@@ -414,7 +414,7 @@ Executors **SHOULD NOT** hard-code absolute paths; automation should resolve pat
   * Example: `patterns/tests/test_save_file_main.ps1`
   * Multiple tests allowed; all belong to the same `doc_id` if they test that pattern.
 
-**DOC_LINK header** 
+**DOC_LINK header**
 
 Each test file **MUST**:
 
@@ -442,7 +442,7 @@ Example (PowerShell):
 
 ### 3.7 Examples (`patterns/examples/<pattern_name>/`)
 
-**Location & structure** 
+**Location & structure**
 
 * Directory: `patterns/examples/<pattern_name>/`
 
@@ -451,7 +451,7 @@ Example (PowerShell):
 
   * Recommended name: `instance_minimal.json`
 
-**doc_id placement** 
+**doc_id placement**
 
 Each example **SHOULD**:
 
@@ -691,7 +691,7 @@ For each pattern entry in `PATTERN_INDEX.yaml`:
 
 ### Step 6 – Update test files
 
-1. Find all files in `patterns/tests/` that start with `test_<pattern_name>_`. 
+1. Find all files in `patterns/tests/` that start with `test_<pattern_name>_`.
 2. Insert or update `DOC_LINK` header to use the new `doc_id`.
 
 ### Step 7 – Update schemas
@@ -720,7 +720,7 @@ For each pattern entry in `PATTERN_INDEX.yaml`:
 
 Run or emulate PAT-CHECK-001 checks for:
 
-* `doc_id` presence in index/spec/executors/tests/schemas/examples. 
+* `doc_id` presence in index/spec/executors/tests/schemas/examples.
 * `doc_id` consistency across all artifacts.
 * Valid `doc_id` format.
 
@@ -728,7 +728,7 @@ Run or emulate PAT-CHECK-001 checks for:
 
 ## 7. Validation Expectations (for future tooling)
 
-A future `PATTERN_DIR_CHECK` script (PowerShell or similar) **SHOULD** validate at least: 
+A future `PATTERN_DIR_CHECK` script (PowerShell or similar) **SHOULD** validate at least:
 
 1. **Directory layout**
 

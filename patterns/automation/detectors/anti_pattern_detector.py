@@ -12,38 +12,38 @@ from typing import Dict, List
 
 class AntiPatternDetector:
     """Learn from pattern failures and execution mistakes."""
-    
+
     def __init__(self, db_connection):
         self.db = db_connection
         self.registry_file = Path(__file__).parent.parent.parent / "anti_patterns" / "registry.yaml"
         self.registry_file.parent.mkdir(parents=True, exist_ok=True)
-    
+
     def detect_anti_patterns(self) -> List[Dict]:
         """Run after execution failures to detect patterns."""
         failures = self._get_failed_executions(last_days=7)
-        
+
         anti_patterns = []
         for failure_group in self._group_by_similarity(failures):
             if len(failure_group) >= 3:  # Recurring issue
                 anti_pattern = self._create_anti_pattern(failure_group)
                 anti_patterns.append(anti_pattern)
                 self._record_anti_pattern(anti_pattern)
-        
+
         return anti_patterns
-    
+
     def _get_failed_executions(self, last_days: int) -> List[Dict]:
         """Get failed executions from database."""
         cursor = self.db.execute(
             """
             SELECT pattern_id, operation_kind, context, timestamp
             FROM execution_logs
-            WHERE success = 0 
+            WHERE success = 0
               AND timestamp >= datetime('now', ? || ' days')
             ORDER BY timestamp DESC
             """,
             (f'-{last_days}',)
         )
-        
+
         failures = []
         for row in cursor.fetchall():
             failures.append({
@@ -52,33 +52,33 @@ class AntiPatternDetector:
                 'context': json.loads(row[2]) if row[2] else {},
                 'timestamp': row[3]
             })
-        
+
         return failures
-    
+
     def _group_by_similarity(self, failures: List[Dict]) -> List[List[Dict]]:
         """Group similar failures together."""
         groups = {}
-        
+
         for failure in failures:
             # Simple grouping by pattern_id + operation_kind
             key = f"{failure['pattern_id']}:{failure['operation_kind']}"
-            
+
             if key not in groups:
                 groups[key] = []
             groups[key].append(failure)
-        
+
         return [group for group in groups.values() if len(group) >= 3]
-    
+
     def _create_anti_pattern(self, failures: List[Dict]) -> Dict:
         """Create anti-pattern from failure group."""
         pattern_id = failures[0]['pattern_id']
         operation = failures[0]['operation_kind']
-        
+
         # Infer root cause
         root_cause = self._infer_cause(failures)
-        
+
         anti_pattern_id = f"ANTI-PAT-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
-        
+
         return {
             'id': anti_pattern_id,
             'name': f"{operation.replace('_', ' ').title()} Failure Pattern",
@@ -90,7 +90,7 @@ class AntiPatternDetector:
             'recommendation': root_cause['fix'],
             'status': 'active'
         }
-    
+
     def _infer_cause(self, failures: List[Dict]) -> Dict:
         """Infer root cause from failures."""
         # Analyze context to determine cause
@@ -101,7 +101,7 @@ class AntiPatternDetector:
                 if key not in common_context:
                     common_context[key] = []
                 common_context[key].append(value)
-        
+
         # Common failure signatures
         causes = {
             'template_too_rigid': {
@@ -121,13 +121,13 @@ class AntiPatternDetector:
                 'fix': 'Relax verification to existence + basic structure'
             }
         }
-        
+
         # Simple heuristic: return first match
         return causes.get('verification_failed', {
             'signature': 'Unknown failure pattern',
             'fix': 'Manual investigation required'
         })
-    
+
     def _record_anti_pattern(self, anti_pattern: Dict):
         """Record anti-pattern in database and registry."""
         # Database
@@ -148,13 +148,13 @@ class AntiPatternDetector:
             )
         )
         self.db.commit()
-        
+
         # Update registry file
         self._update_registry(anti_pattern)
-        
+
         # Create individual anti-pattern document
         self._create_anti_pattern_doc(anti_pattern)
-    
+
     def _update_registry(self, anti_pattern: Dict):
         """Update anti-patterns registry YAML."""
         registry_content = f"""# Anti-Patterns Registry
@@ -172,7 +172,7 @@ anti_patterns:
     fix: "{anti_pattern['recommendation']}"
     status: "{anti_pattern['status']}"
 """
-        
+
         # Append to registry
         if self.registry_file.exists():
             existing = self.registry_file.read_text(encoding='utf-8')
@@ -187,16 +187,16 @@ anti_patterns:
                 self.registry_file.write_text(registry_content, encoding='utf-8')
         else:
             self.registry_file.write_text(registry_content, encoding='utf-8')
-    
+
     def _create_anti_pattern_doc(self, anti_pattern: Dict):
         """Create individual anti-pattern markdown document."""
         doc_file = self.registry_file.parent / f"{anti_pattern['id']}.md"
-        
+
         doc_content = f"""# {anti_pattern['name']}
 
-**ID**: {anti_pattern['id']}  
-**Detected**: {anti_pattern['detected_at']}  
-**Status**: {anti_pattern['status']}  
+**ID**: {anti_pattern['id']}
+**Detected**: {anti_pattern['detected_at']}
+**Status**: {anti_pattern['status']}
 **Occurrences**: {anti_pattern['occurrences']}
 
 ## Description
@@ -225,5 +225,5 @@ anti_patterns:
 
 <!-- Manual: Describe fix once applied -->
 """
-        
+
         doc_file.write_text(doc_content, encoding='utf-8')

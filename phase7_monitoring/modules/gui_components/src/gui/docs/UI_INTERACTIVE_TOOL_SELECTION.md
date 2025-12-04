@@ -65,7 +65,7 @@ tool_modes:
     default_mode: "interactive"
     supports_headless: true
     description: "AIM+ Unified CLI - AI Development Environment Manager"
-  
+
   aider:
     default_mode: "headless"
     supports_headless: true
@@ -140,7 +140,7 @@ settings = get_settings_manager()
 def build_tool_command(tool_name, base_args):
     """Build command with appropriate flags based on execution mode."""
     command = [tool_name] + base_args
-    
+
     if settings.is_headless(tool_name):
         # Add headless flags for background execution
         if tool_name == "aider":
@@ -149,7 +149,7 @@ def build_tool_command(tool_name, base_args):
     else:
         # Interactive mode - allow user input
         command.append("--interactive")
-    
+
     return command
 ```
 

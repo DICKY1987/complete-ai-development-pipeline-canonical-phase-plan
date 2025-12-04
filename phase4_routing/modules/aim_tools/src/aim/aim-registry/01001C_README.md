@@ -4,9 +4,9 @@ doc_id: DOC-GUIDE-01001C-README-1473
 
 # AIM Registry
 
-**Module ID**: aim-registry  
-**ULID Prefix**: 01001C  
-**Layer**: api  
+**Module ID**: aim-registry
+**ULID Prefix**: 01001C
+**Layer**: api
 **Source**: aim\registry
 
 ## Purpose
@@ -31,5 +31,5 @@ aim-environment
 
 ---
 
-**Created**: 1764168248.458027  
+**Created**: 1764168248.458027
 **Status**: Proof-of-concept module

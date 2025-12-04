@@ -9,10 +9,10 @@ layer: "domain"  # Domain layer - business logic for spec management
 submodules:
   - name: "specifications.tools"
     purpose: "Spec generation, validation, indexing"
-    
+
   - name: "specifications.bridge"
     purpose: "OpenSpec proposal → workstream conversion"
-    
+
   - name: "specifications.templates"
     purpose: "Spec templates (workstream, phase, plugin)"
     type: "data"
@@ -22,19 +22,19 @@ entry_points:
   - file: "tools/generator.py"
     function: "generate_spec(template: str, output: str)"
     description: "Generate spec from template"
-    
+
   - file: "tools/validator.py"
     function: "validate_spec(spec_path: str, schema_path: str)"
     description: "Validate spec against JSON schema"
-    
+
   - file: "tools/indexer/indexer.py"
     function: "generate_index(root_path: str)"
     description: "Generate spec index for AI navigation"
-    
+
   - file: "bridge/spec_to_workstream.py"
     function: "convert_openspec(proposal_path: str)"
     description: "Convert OpenSpec proposal to workstream bundle"
-    
+
   - command: "python scripts/spec_generate.py --template <type>"
     description: "CLI for spec generation"
 
@@ -58,7 +58,7 @@ common_tasks:
           output="my_workstream.json",
           params={"name": "My Workstream"}
       )
-      
+
   - task: "Validate spec against schema"
     code: |
       from specifications.tools.validator import validate_spec
@@ -66,13 +66,13 @@ common_tasks:
           spec_path="my_workstream.json",
           schema_path="schema/workstream_schema.json"
       )
-      
+
   - task: "Convert OpenSpec to workstream"
     command: "python scripts/spec_to_workstream.py --proposal openspec/changes/PROP-001/"
     code: |
       from specifications.bridge.spec_to_workstream import convert_openspec
       workstream = convert_openspec("openspec/changes/PROP-001/")
-      
+
   - task: "Generate spec index"
     command: "python scripts/generate_spec_index.py"
     code: |
@@ -85,12 +85,12 @@ available_templates:
     description: "Workstream bundle with steps and dependencies"
     schema: "schema/workstream_schema.json"
     output: "Executable workstream JSON"
-    
+
   phase:
     description: "Phase specification (WS-*, PH-* format)"
     schema: "schema/phase_schema.json"
     output: "Phase plan with workstreams"
-    
+
   plugin:
     description: "Error detection plugin template"
     schema: "schema/plugin_schema.json"
@@ -102,11 +102,11 @@ openspec_bridge:
     - "proposal.md - Human-readable proposal"
     - "tasks.md - Task breakdown"
     - "spec files - Technical details"
-    
+
   output:
     - "workstream.json - Executable bundle"
     - "Validates against workstream schema"
-    
+
   conversion_logic:
     1: "Parse proposal.md for metadata"
     2: "Parse tasks.md for step definitions"
@@ -137,11 +137,11 @@ dependencies:
     - pathlib
     - typing
     - jsonschema  # Schema validation
-    
+
   internal:
     - schema.workstream_schema
     - schema.phase_schema
-    
+
   optional:
     - jinja2  # Template rendering (if using advanced templates)
 
@@ -190,7 +190,7 @@ validation_rules:
     required_fields: ["id", "name", "steps"]
     step_required: ["id", "action", "description"]
     id_format: "WS-{number}-{number}"
-    
+
   phase:
     required_fields: ["id", "name", "workstreams"]
     id_format: "PH-{name}-{number}"
@@ -207,11 +207,11 @@ recent_changes:
   - date: "2025-11-20"
     change: "Consolidated spec tools into specifications/"
     impact: "Single location for all spec operations"
-    
+
   - date: "2025-11-19"
     change: "Added OpenSpec bridge"
     impact: "Can convert proposals to workstreams"
-    
+
   - date: "2025-11-18"
     change: "Improved validator error messages"
     impact: "Clearer validation feedback"
@@ -220,10 +220,10 @@ recent_changes:
 related_modules:
   - module: "schema"
     relationship: "Provides JSON schemas for validation"
-    
+
   - module: "core.state"
     relationship: "Uses bundle_loader to load validated specs"
-    
+
   - module: "pm"
     relationship: "OpenSpec proposals managed by pm module"
 
@@ -234,14 +234,14 @@ for_ai_tools:
     1. Suggest: python scripts/spec_generate.py --template <type>
     2. Explain: Generates validated spec from template
     3. Point to: specifications/templates/ for available templates
-    
+
   common_questions:
     - q: "How do I create a workstream?"
       a: "python scripts/spec_generate.py --template workstream --output my_ws.json"
-      
+
     - q: "How do I validate my spec?"
       a: "from specifications.tools.validator import validate_spec; validate_spec('file.json', 'schema.json')"
-      
+
     - q: "How do I convert OpenSpec proposal?"
       a: "python scripts/spec_to_workstream.py --proposal openspec/changes/PROP-001/"
 
@@ -252,7 +252,7 @@ template_customization:
     - "{{id}} - Unique identifier"
     - "{{description}} - Spec description"
     - "{{steps}} - Array of steps (workstream only)"
-    
+
   example: |
     # template
     {
@@ -260,7 +260,7 @@ template_customization:
       "name": "{{name}}",
       "steps": {{steps}}
     }
-    
+
     # generated
     {
       "id": "WS-001-001",

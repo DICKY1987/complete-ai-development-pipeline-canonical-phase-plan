@@ -24,7 +24,7 @@ metadata:
 intent: |
   Systematically discover the location of key modules, files, and directories
   in a repository to understand the codebase structure before making changes.
-  
+
   This pattern enforces:
   - Systematic search with glob/grep patterns
   - Document findings in structured format
@@ -41,7 +41,7 @@ applicability:
     - Repository structure is well-known
     - Working on isolated pattern system
     - Only modifying single known file
-  
+
   constraints:
     max_search_depth: 4
     document_findings: true
@@ -53,7 +53,7 @@ inputs:
     required: true
     description: "Absolute path to repository root"
     example: "C:\\Projects\\MyApp"
-  
+
   search_targets:
     type: "array"
     required: true
@@ -80,13 +80,13 @@ inputs:
           type: "string"
           description: "Optional validation command to run"
           example: "python -c 'from core.orchestrator import Orchestrator'"
-  
+
   output_doc_path:
     type: "string"
     required: true
     description: "Path for documentation of findings"
     example: "PATTERN_AUTOMATION_PATHS.md"
-  
+
   max_depth:
     type: "integer"
     default: 3
@@ -97,7 +97,7 @@ steps:
     description: "Search for each target using glob patterns"
     tools: ["glob", "grep"]
     operation_kind: "SEARCH_FILES"
-    
+
     for_each: "search_targets"
     actions:
       - tool: "glob"
@@ -108,80 +108,80 @@ steps:
           Get-ChildItem "{{repository_root}}" -Recurse `
             -Include {{search_patterns}} -Depth {{max_depth}} `
             | Select-Object Name, Directory, FullName
-    
+
     outputs:
       - name: "found_files"
         type: "array"
         description: "List of matching files for each target"
-  
+
   - id: "validate_imports"
     description: "Validate that found modules can be imported"
     operation_kind: "VALIDATE_IMPORTS"
-    
+
     for_each: "found_files"
     condition: "validation_command exists"
     actions:
       - tool: "powershell"
         command: "{{validation_command}}"
         expect_exit_code: 0
-    
+
     outputs:
       - name: "validation_results"
         type: "object"
         description: "Import validation results per target"
-  
+
   - id: "analyze_structure"
     description: "Analyze directory structure around found files"
     operation_kind: "ANALYZE_STRUCTURE"
-    
+
     actions:
       - tool: "powershell"
         command: |
           Get-ChildItem "{{repository_root}}" -Directory -Depth 1 `
             | Where-Object {$_.Name -notlike ".*"} `
             | Select-Object Name, FullName
-  
+
   - id: "document_findings"
     description: "Create structured documentation of discoveries"
     operation_kind: "CREATE_DOCUMENTATION"
-    
+
     actions:
       - tool: "create"
         path: "{{output_doc_path}}"
         content: |
           # Repository Structure Discovery
-          
+
           **Generated:** {{timestamp}}
           **Repository:** {{repository_root}}
-          
+
           ## Discovered Modules
-          
+
           {{#each search_targets}}
           ### {{name}}
-          
+
           **Status:** {{#if found}}✅ Found{{else}}❌ Not Found{{/if}}
-          
+
           {{#if found}}
           **Location:** `{{found_path}}`
           **Import Path:** `{{import_path}}`
-          
+
           {{#if validation_passed}}
           **Validation:** ✅ Import successful
           {{else}}
           **Validation:** ⚠️ Import failed
           {{/if}}
           {{/if}}
-          
+
           {{/each}}
-          
+
           ## Directory Structure
-          
+
           ```
           {{directory_tree}}
           ```
-          
+
           ## Import Examples
-          
+
           ```python
           {{#each search_targets}}
           {{#if import_path}}
@@ -190,9 +190,9 @@ steps:
           {{/if}}
           {{/each}}
           ```
-          
+
           ## Next Steps
-          
+
           {{#if all_required_found}}
           ✅ All required modules found - proceed with integration
           {{else}}
@@ -207,7 +207,7 @@ outputs:
     type: "file"
     path: "{{output_doc_path}}"
     description: "Markdown documentation of discovered structure"
-  
+
   module_paths:
     type: "object"
     description: "Mapping of module names to file paths"
@@ -222,7 +222,7 @@ outputs:
             type: "string"
           validation_passed:
             type: "boolean"
-  
+
   all_required_found:
     type: "boolean"
     description: "Whether all required targets were found"
@@ -233,12 +233,12 @@ verification:
       description: "Discovery documentation created"
     - condition: "all required targets found OR documented as missing"
       description: "All search targets processed"
-  
+
   validation_commands:
     - name: "check_doc_exists"
       command: "Test-Path {{output_doc_path}}"
       expect: "True"
-    
+
     - name: "validate_doc_content"
       command: "Get-Content {{output_doc_path}} | Select-String 'Repository Structure Discovery'"
       expect: "match found"
@@ -254,7 +254,7 @@ anti_patterns:
 
 example_usage: |
   # Discover orchestrator and database modules
-  
+
   Input:
     repository_root: "C:\\Projects\\AI-Pipeline"
     search_targets:
@@ -269,7 +269,7 @@ example_usage: |
         required: false
     output_doc_path: "PATTERN_AUTOMATION_PATHS.md"
     max_depth: 3
-  
+
   Output:
     - PATTERN_AUTOMATION_PATHS.md created
     - module_paths: {
@@ -290,7 +290,7 @@ related_patterns:
   - pattern_id: "PAT-ATOMIC-CREATE-001"
     relationship: "often_precedes"
     description: "Discovery precedes file creation"
-  
+
   - pattern_id: "PAT-REFACTOR-PATCH-001"
     relationship: "often_precedes"
     description: "Must discover before refactoring"

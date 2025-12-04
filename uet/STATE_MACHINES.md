@@ -4,8 +4,8 @@ doc_id: DOC-GUIDE-STATE-MACHINES-1666
 
 # UET V2 State Machines
 
-**Purpose**: Define all state machines for UET V2 components with transition rules and invariants  
-**Status**: DRAFT  
+**Purpose**: Define all state machines for UET V2 components with transition rules and invariants
+**Status**: DRAFT
 **Last Updated**: 2025-11-23
 
 ---
@@ -383,13 +383,13 @@ def transition_state(self, ledger_id: str, new_state: PatchState, reason: str = 
         "SELECT state, updated_at FROM patch_ledger_entries WHERE ledger_id = ?",
         (ledger_id,)
     ).fetchone()
-    
+
     original_updated_at = entry['updated_at']
-    
+
     # Validate transition
     if not self._is_valid_transition(entry['state'], new_state):
         raise ValueError(f"Invalid transition: {entry['state']} → {new_state}")
-    
+
     # Update with optimistic locking
     result = self.db.execute(
         """
@@ -399,11 +399,11 @@ def transition_state(self, ledger_id: str, new_state: PatchState, reason: str = 
         """,
         (new_state.value, datetime.now().isoformat(), ledger_id, original_updated_at)
     )
-    
+
     if result.rowcount == 0:
         # Someone else modified this patch - retry
         return self.transition_state(ledger_id, new_state, reason)
-    
+
     return True
 ```
 
@@ -420,7 +420,7 @@ CHECK(state IN ('SPAWNING', 'IDLE', 'BUSY', 'DRAINING', 'TERMINATED'))
 
 **Patch State**:
 ```sql
-CHECK(state IN ('created', 'validated', 'queued', 'applied', 'apply_failed', 
+CHECK(state IN ('created', 'validated', 'queued', 'applied', 'apply_failed',
                 'verified', 'committed', 'rolled_back', 'quarantined', 'dropped'))
 ```
 
@@ -434,7 +434,7 @@ CHECK(state IN ('PENDING', 'RUNNING', 'PASSED', 'FAILED', 'BLOCKED'))
 **Worker Termination Timestamp**:
 ```sql
 CHECK (
-    (state = 'TERMINATED' AND terminated_at IS NOT NULL) OR 
+    (state = 'TERMINATED' AND terminated_at IS NOT NULL) OR
     (state != 'TERMINATED' AND terminated_at IS NULL)
 )
 ```
@@ -442,7 +442,7 @@ CHECK (
 **Patch Quarantine Reason**:
 ```sql
 CHECK (
-    (state = 'quarantined' AND quarantine_reason IS NOT NULL) OR 
+    (state = 'quarantined' AND quarantine_reason IS NOT NULL) OR
     state != 'quarantined'
 )
 ```
@@ -450,7 +450,7 @@ CHECK (
 **Gate Exit Code**:
 ```sql
 CHECK (
-    (state IN ('PASSED', 'FAILED') AND exit_code IS NOT NULL) OR 
+    (state IN ('PASSED', 'FAILED') AND exit_code IS NOT NULL) OR
     state NOT IN ('PASSED', 'FAILED')
 )
 ```
@@ -475,10 +475,10 @@ Every state machine must have tests for:
 def test_patch_ledger_valid_transition_created_to_validated():
     ledger = PatchLedger(db)
     entry = ledger.create_entry(patch, "PH-007", "WS-007-001")
-    
+
     # Transition to validated
     result = ledger.transition_state(entry.ledger_id, PatchState.VALIDATED, "All checks passed")
-    
+
     assert result is True
     updated_entry = ledger.get_entry(entry.ledger_id)
     assert updated_entry.state == PatchState.VALIDATED
@@ -487,14 +487,14 @@ def test_patch_ledger_valid_transition_created_to_validated():
 def test_patch_ledger_invalid_transition_committed_to_queued():
     ledger = PatchLedger(db)
     entry = ledger.create_entry(patch, "PH-007", "WS-007-001")
-    
+
     # Fast-forward to committed
     ledger.transition_state(entry.ledger_id, PatchState.VALIDATED)
     ledger.transition_state(entry.ledger_id, PatchState.QUEUED)
     ledger.transition_state(entry.ledger_id, PatchState.APPLIED)
     ledger.transition_state(entry.ledger_id, PatchState.VERIFIED)
     ledger.transition_state(entry.ledger_id, PatchState.COMMITTED)
-    
+
     # Try invalid transition
     with pytest.raises(ValueError, match="Invalid transition"):
         ledger.transition_state(entry.ledger_id, PatchState.QUEUED)
@@ -561,5 +561,5 @@ committed → rolled_back (regression)
 
 ---
 
-**Last Updated**: 2025-11-23  
+**Last Updated**: 2025-11-23
 **Next Review**: Before Phase A starts

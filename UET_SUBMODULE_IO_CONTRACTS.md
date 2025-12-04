@@ -1,7 +1,7 @@
 # UET Submodule I/O Contracts v1.0
 
-**Status**: Active  
-**Last Updated**: 2025-11-30  
+**Status**: Active
+**Last Updated**: 2025-11-30
 **Purpose**: Defines stable data contracts for all cross-module communication
 
 ---

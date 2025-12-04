@@ -30,14 +30,14 @@ function Checkpoint {
         [scriptblock]$Validate,
         [bool]$Required = $true
     )
-    
+
     Write-Info "Checkpoint: $Name"
-    
+
     if ($DryRun) {
         Write-Warning "[DRY RUN] Would execute: $Name"
         return $true
     }
-    
+
     try {
         & $Action
         $valid = & $Validate
@@ -60,9 +60,9 @@ function Checkpoint {
 # Confirmation function
 function Confirm-Action {
     param([string]$Message)
-    
+
     if ($AutoYes) { return $true }
-    
+
     $response = Read-Host "$Message (y/N)"
     return $response -eq "y" -or $response -eq "Y"
 }
@@ -130,11 +130,11 @@ Write-Phase "PHASE 1: Submodule Resolution"
 Checkpoint -Name "1.1 Check Submodule Status" -Action {
     $status = git status --short
     Write-Info "Current status:`n$status"
-    
+
     # Check if ccpm and AI_MANGER are submodules
     $ccpmIsSubmodule = Test-Path "ccpm\.git"
     $aimangerIsSubmodule = Test-Path "archive\legacy\AI_MANGER_archived_2025-11-22\.git"
-    
+
     Write-Info "ccpm is git repo: $ccpmIsSubmodule"
     Write-Info "AI_MANGER is git repo: $aimangerIsSubmodule"
 } -Validate {
@@ -280,7 +280,7 @@ if (Confirm-Action "Push merged main to remote?") {
         $remoteCommit = git rev-parse origin/main
         return $localCommit -eq $remoteCommit
     }
-    
+
     Write-Success "Main branch pushed to remote"
 } else {
     Write-Warning "Skipped push to remote - remember to push manually"

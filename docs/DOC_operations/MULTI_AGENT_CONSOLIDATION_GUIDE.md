@@ -159,7 +159,7 @@ FROM consolidated_errors
 WHERE run_id = 'ma-run-20241202-190000';
 
 -- Agent performance comparison
-SELECT 
+SELECT
     agent_id,
     COUNT(*) as total_workstreams,
     SUM(CASE WHEN status = 'completed' THEN 1 ELSE 0 END) as completed,

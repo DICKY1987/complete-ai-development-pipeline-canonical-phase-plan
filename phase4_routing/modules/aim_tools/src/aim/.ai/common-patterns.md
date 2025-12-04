@@ -4,8 +4,8 @@ doc_id: DOC-GUIDE-COMMON-PATTERNS-190
 
 # Common Patterns
 
-**Purpose**: Standard coding patterns and best practices for this repository  
-**Audience**: Developers and AI code assistants  
+**Purpose**: Standard coding patterns and best practices for this repository
+**Audience**: Developers and AI code assistants
 **Last Updated**: 2025-11-25
 
 ---
@@ -30,20 +30,20 @@ def process_workstream(
 ) -> List[str]:
     """
     Process a workstream and return task IDs.
-    
+
     Args:
         workstream_id: Unique workstream identifier
         options: Optional processing options
-        
+
     Returns:
         List of task IDs created
-        
+
     Raises:
         ValueError: If workstream_id is invalid
     """
     if not workstream_id:
         raise ValueError("workstream_id cannot be empty")
-    
+
     # Implementation...
     return ["task-001", "task-002"]
 ```
@@ -71,13 +71,13 @@ class CircuitState(Enum):
 class CircuitBreaker:
     """
     Circuit breaker pattern for fault tolerance.
-    
+
     States:
     - CLOSED: Normal operation, requests pass through
     - OPEN: Failure threshold exceeded, reject requests
     - HALF_OPEN: Testing recovery, allow limited requests
     """
-    
+
     def __init__(
         self,
         failure_threshold: int = 5,
@@ -87,12 +87,12 @@ class CircuitBreaker:
         self.failure_threshold = failure_threshold
         self.recovery_timeout = recovery_timeout
         self.success_threshold = success_threshold
-        
+
         self.state = CircuitState.CLOSED
         self.failure_count = 0
         self.success_count = 0
         self.last_failure_time = None
-    
+
     def call(self, func, *args, **kwargs):
         """Execute function with circuit breaker protection."""
         if self.state == CircuitState.OPEN:
@@ -100,7 +100,7 @@ class CircuitBreaker:
                 self.state = CircuitState.HALF_OPEN
             else:
                 raise Exception("Circuit breaker is OPEN")
-        
+
         try:
             result = func(*args, **kwargs)
             self._on_success()
@@ -108,7 +108,7 @@ class CircuitBreaker:
         except Exception as e:
             self._on_failure()
             raise
-    
+
     def _on_success(self):
         self.failure_count = 0
         if self.state == CircuitState.HALF_OPEN:
@@ -116,13 +116,13 @@ class CircuitBreaker:
             if self.success_count >= self.success_threshold:
                 self.state = CircuitState.CLOSED
                 self.success_count = 0
-    
+
     def _on_failure(self):
         self.failure_count += 1
         self.last_failure_time = datetime.now()
         if self.failure_count >= self.failure_threshold:
             self.state = CircuitState.OPEN
-    
+
     def _should_attempt_reset(self) -> bool:
         return (
             self.last_failure_time and
@@ -164,10 +164,10 @@ def test_workstream_creation():
         "name": "Test Workstream",
         "status": "pending"
     }
-    
+
     # Act - Execute the operation
     result = manager.create_workstream(workstream_data)
-    
+
     # Assert - Verify expectations
     assert result.id == "WS-001"
     assert result.status == "pending"
@@ -234,46 +234,46 @@ class Error:
 class Plugin(ABC):
     """
     Base class for error detection plugins.
-    
+
     All plugins must implement parse() method.
     Plugins that can auto-fix should implement fix().
     """
-    
+
     @property
     @abstractmethod
     def name(self) -> str:
         """Plugin name."""
         pass
-    
+
     @property
     @abstractmethod
     def supported_languages(self) -> List[str]:
         """Languages this plugin supports."""
         pass
-    
+
     @abstractmethod
     def parse(self, log_content: str) -> List[Error]:
         """
         Parse error output and return structured errors.
-        
+
         Args:
             log_content: Raw output from linter/checker
-            
+
         Returns:
             List of detected errors
         """
         pass
-    
+
     def fix(self, error: Error) -> bool:
         """
         Attempt to automatically fix an error.
-        
+
         Args:
             error: Error to fix
-            
+
         Returns:
             True if fixed, False otherwise
-            
+
         Note:
             Override this method if plugin supports auto-fix.
         """
@@ -287,20 +287,20 @@ import re
 
 class PythonRuffPlugin(Plugin):
     """Ruff linter plugin for Python."""
-    
+
     @property
     def name(self) -> str:
         return "python_ruff"
-    
+
     @property
     def supported_languages(self) -> List[str]:
         return ["python"]
-    
+
     def parse(self, log_content: str) -> List[Error]:
         """Parse Ruff output."""
         errors = []
         pattern = r"(.+):(\d+):(\d+): (.+) \[(.+)\]"
-        
+
         for line in log_content.split('\n'):
             match = re.match(pattern, line)
             if match:
@@ -312,9 +312,9 @@ class PythonRuffPlugin(Plugin):
                     severity=self._get_severity(code),
                     fixable=code.startswith("F")  # F-codes are auto-fixable
                 ))
-        
+
         return errors
-    
+
     def fix(self, error: Error) -> bool:
         """Auto-fix using ruff --fix."""
         if not error.fixable:
@@ -337,12 +337,12 @@ import sqlite3
 
 class WorkstreamRepository:
     """Repository for workstream persistence."""
-    
+
     def __init__(self, db_path: str):
         self.db_path = db_path
         self.conn = sqlite3.connect(db_path)
         self.conn.row_factory = sqlite3.Row
-    
+
     def save(self, workstream: dict) -> None:
         """Save or update workstream."""
         self.conn.execute(
@@ -358,7 +358,7 @@ class WorkstreamRepository:
             )
         )
         self.conn.commit()
-    
+
     def find_by_id(self, workstream_id: str) -> Optional[dict]:
         """Find workstream by ID."""
         cursor = self.conn.execute(
@@ -367,7 +367,7 @@ class WorkstreamRepository:
         )
         row = cursor.fetchone()
         return json.loads(row["data"]) if row else None
-    
+
     def find_by_status(self, status: str) -> List[dict]:
         """Find all workstreams with given status."""
         cursor = self.conn.execute(
@@ -375,7 +375,7 @@ class WorkstreamRepository:
             (status,)
         )
         return [json.loads(row["data"]) for row in cursor.fetchall()]
-    
+
     def close(self):
         """Close database connection."""
         self.conn.close()
@@ -467,7 +467,7 @@ class ExecutorConfig:
     retry_attempts: int = 3
     timeout_seconds: int = 300
     circuit_breaker_threshold: int = 5
-    
+
     @classmethod
     def from_yaml(cls, path: str) -> "ExecutorConfig":
         """Load config from YAML file."""
@@ -576,6 +576,6 @@ from error.plugins.base import Plugin
 
 ---
 
-**Last Updated**: 2025-11-25  
-**Maintained By**: Development team  
+**Last Updated**: 2025-11-25
+**Maintained By**: Development team
 **Next Review**: After major architectural changes

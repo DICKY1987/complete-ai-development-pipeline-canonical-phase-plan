@@ -29,7 +29,7 @@ error_tests:
     test_type: fixtures
     priority: high
     status: active
-    
+
   - doc_id: DOC-TEST-TEST-AGENT-ADAPTERS-003
     name: test_agent_adapters
     file: tests/error/test_agent_adapters.py
@@ -37,7 +37,7 @@ error_tests:
     purpose: "Test agent adapter implementations"
     priority: high
     status: active
-    
+
   - doc_id: DOC-TEST-TEST-SECURITY-004
     name: test_security
     file: tests/error/test_security.py
@@ -45,7 +45,7 @@ error_tests:
     purpose: "Security validation and vulnerability tests"
     priority: critical
     status: active
-    
+
   - doc_id: DOC-TEST-TEST-STATE-MACHINE-005
     name: test_state_machine
     file: tests/error/test_state_machine.py
@@ -53,7 +53,7 @@ error_tests:
     purpose: "State machine behavior and transitions"
     priority: high
     status: active
-    
+
   - doc_id: DOC-TEST-TEST-RUNNER-PARSING-006
     name: test_test_runner_parsing
     file: tests/error/test_test_runner_parsing.py

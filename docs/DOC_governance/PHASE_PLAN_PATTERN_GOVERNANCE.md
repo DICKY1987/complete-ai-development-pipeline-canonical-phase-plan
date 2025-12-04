@@ -4,12 +4,12 @@ doc_id: DOC-GUIDE-PHASE-PLAN-PATTERN-GOVERNANCE-1631
 
 # PHASE PLAN: Pattern System Governance Implementation
 
-**Phase ID**: PH-PAT-GOV-001  
-**Phase Name**: Pattern System Governance & Compliance Framework  
-**Created**: 2025-11-24  
-**Status**: READY  
-**Estimated Duration**: 2.5 hours  
-**Owner**: DICK  
+**Phase ID**: PH-PAT-GOV-001
+**Phase Name**: Pattern System Governance & Compliance Framework
+**Created**: 2025-11-24
+**Status**: READY
+**Estimated Duration**: 2.5 hours
+**Owner**: DICK
 
 ---
 
@@ -22,15 +22,15 @@ Implement a complete pattern governance system including operation kind registry
 ## Phase Structure
 
 ### Phase 1: Foundation (Registry Infrastructure)
-**Duration**: 35 minutes  
+**Duration**: 35 minutes
 **Goal**: Build core registry infrastructure
 
 ### Phase 2: Compliance (Pattern Conformance)
-**Duration**: 55 minutes  
+**Duration**: 55 minutes
 **Goal**: Make existing patterns fully compliant
 
 ### Phase 3: Automation (Governance Enforcement)
-**Duration**: 65 minutes  
+**Duration**: 65 minutes
 **Goal**: Build validation and expansion tools
 
 ---
@@ -44,10 +44,10 @@ Implement a complete pattern governance system including operation kind registry
 - **Operation Kind**: CREATE_REGISTRY_FILE
 - **Duration**: 15 minutes
 - **Description**: Create canonical registry of 20-25 core operation kinds
-- **Inputs**: 
+- **Inputs**:
   - `assistant_responses_operation_kinds.md` (reference)
   - OpenSpec/CCPM patterns (reference)
-- **Outputs**: 
+- **Outputs**:
   - `patterns/registry/OPERATION_KIND_REGISTRY.yaml`
 - **Success Criteria**:
   - ✅ Valid YAML structure
@@ -76,10 +76,10 @@ Implement a complete pattern governance system including operation kind registry
 - **Operation Kind**: CREATE_REGISTRY_FILE
 - **Duration**: 10 minutes
 - **Description**: Create master pattern index registry structure
-- **Inputs**: 
+- **Inputs**:
   - PAT-CHECK-001 spec requirements
   - Existing pattern files (PAT-PATCH-001, PAT-SEARCH-001)
-- **Outputs**: 
+- **Outputs**:
   - `patterns/registry/PATTERN_INDEX.yaml`
 - **Success Criteria**:
   - ✅ Valid YAML structure
@@ -112,10 +112,10 @@ Implement a complete pattern governance system including operation kind registry
 - **Operation Kind**: CREATE_ROUTING_FILE
 - **Duration**: 10 minutes
 - **Description**: Create operation kind to pattern routing map
-- **Inputs**: 
+- **Inputs**:
   - OPERATION_KIND_REGISTRY.yaml
   - Expected patterns (PAT-PATCH-001, PAT-SEARCH-001)
-- **Outputs**: 
+- **Outputs**:
   - `patterns/registry/PATTERN_ROUTING.yaml`
 - **Success Criteria**:
   - ✅ Valid YAML structure
@@ -142,11 +142,11 @@ Implement a complete pattern governance system including operation kind registry
 - **Operation Kind**: REFACTOR_PATTERN_COMPLIANCE
 - **Duration**: 25 minutes
 - **Description**: Update PAT-PATCH-001 to meet PAT-CHECK-001 requirements
-- **Inputs**: 
+- **Inputs**:
   - `patterns/specs/PAT-PATCH-001_patch_lifecycle_management.md`
   - `scripts/process_patches.py`
   - PAT-CHECK-001 compliance spec
-- **Outputs**: 
+- **Outputs**:
   - `patterns/specs/patch_lifecycle.pattern.yaml` (renamed/restructured)
   - `patterns/schemas/patch_lifecycle.schema.json`
   - `patterns/executors/patch_lifecycle_executor.py` (moved from scripts/)
@@ -176,11 +176,11 @@ Implement a complete pattern governance system including operation kind registry
 - **Operation Kind**: REFACTOR_PATTERN_COMPLIANCE
 - **Duration**: 20 minutes
 - **Description**: Update PAT-SEARCH-001 to meet PAT-CHECK-001 requirements
-- **Inputs**: 
+- **Inputs**:
   - `patterns/specs/PAT-SEARCH-001_deep_directory_search.md`
   - `scripts/deep_search.py`
   - PAT-CHECK-001 compliance spec
-- **Outputs**: 
+- **Outputs**:
   - `patterns/specs/deep_search.pattern.yaml` (renamed/restructured)
   - `patterns/schemas/deep_search.schema.json`
   - `patterns/executors/deep_search_executor.py` (moved from scripts/)
@@ -210,10 +210,10 @@ Implement a complete pattern governance system including operation kind registry
 - **Operation Kind**: UPDATE_PATTERN_INDEX
 - **Duration**: 10 minutes
 - **Description**: Add both patterns to the master index
-- **Inputs**: 
+- **Inputs**:
   - PATTERN_INDEX.yaml (from S02)
   - Compliant pattern specs (from S04, S05)
-- **Outputs**: 
+- **Outputs**:
   - Updated `patterns/registry/PATTERN_INDEX.yaml`
 - **Success Criteria**:
   - ✅ Both patterns registered with all required fields
@@ -236,11 +236,11 @@ Implement a complete pattern governance system including operation kind registry
 - **Operation Kind**: CREATE_VALIDATION_SCRIPT
 - **Duration**: 30 minutes
 - **Description**: Build automated compliance validation script
-- **Inputs**: 
+- **Inputs**:
   - PAT-CHECK-001 compliance spec
   - PATTERN_INDEX.yaml
   - OPERATION_KIND_REGISTRY.yaml
-- **Outputs**: 
+- **Outputs**:
   - `scripts/PATTERN_DIR_CHECK.ps1`
   - Validation report format specification
 - **Success Criteria**:
@@ -274,10 +274,10 @@ Implement a complete pattern governance system including operation kind registry
 - **Operation Kind**: CREATE_ANALYSIS_SCRIPT
 - **Duration**: 20 minutes
 - **Description**: Build operation kind discovery/mining script
-- **Inputs**: 
+- **Inputs**:
   - Logs, phase plans, specs (scan targets)
   - OPERATION_KIND_REGISTRY.yaml (existing registry)
-- **Outputs**: 
+- **Outputs**:
   - `scripts/opk_miner.py`
   - `opk_candidates.json` (output format spec)
 - **Success Criteria**:
@@ -306,10 +306,10 @@ Implement a complete pattern governance system including operation kind registry
 - **Operation Kind**: CREATE_PATTERN_SPEC
 - **Duration**: 15 minutes
 - **Description**: Formalize OPK normalization as a reusable pattern
-- **Inputs**: 
+- **Inputs**:
   - Strict normalization prompt from `assistant_responses_operation_kinds.md`
   - OPERATION_KIND_REGISTRY.yaml schema
-- **Outputs**: 
+- **Outputs**:
   - `patterns/specs/opk_normalization.pattern.yaml`
   - `patterns/schemas/opk_normalization.schema.json`
   - `patterns/executors/opk_normalization_executor.py`
@@ -336,10 +336,10 @@ Implement a complete pattern governance system including operation kind registry
 - **Operation Kind**: UPDATE_PATTERN_INDEX
 - **Duration**: 5 minutes
 - **Description**: Register OPK normalization pattern in index
-- **Inputs**: 
+- **Inputs**:
   - PATTERN_INDEX.yaml
   - OPK normalization pattern (from S09)
-- **Outputs**: 
+- **Outputs**:
   - Updated `patterns/registry/PATTERN_INDEX.yaml`
 - **Success Criteria**:
   - ✅ Pattern registered with all required fields
@@ -356,12 +356,12 @@ Implement a complete pattern governance system including operation kind registry
 - **Operation Kind**: RUN_VALIDATION
 - **Duration**: 5 minutes
 - **Description**: Execute validation script against all patterns
-- **Inputs**: 
+- **Inputs**:
   - All pattern files
   - PATTERN_INDEX.yaml
   - OPERATION_KIND_REGISTRY.yaml
   - PATTERN_ROUTING.yaml
-- **Outputs**: 
+- **Outputs**:
   - Validation report
   - Pass/fail status
 - **Success Criteria**:
@@ -527,5 +527,5 @@ Total: 2.5 hours (155 minutes)
 
 ---
 
-**Phase Plan Status**: ✅ READY FOR EXECUTION  
+**Phase Plan Status**: ✅ READY FOR EXECUTION
 **Next Action**: Begin Step S01 (Create OPERATION_KIND_REGISTRY.yaml)

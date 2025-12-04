@@ -1,7 +1,7 @@
 # plans
 
-**Module Path**: `plans`  
-**Layer**: Orchestration  
+**Module Path**: `plans`
+**Layer**: Orchestration
 **Status**: Active
 
 ## Purpose
@@ -36,5 +36,5 @@ MASTER_SPLINTER_Phase_Plan_Template_GUIDE.md
 
 ---
 
-**Generated**: 2025-12-02 22:40:27 UTC  
+**Generated**: 2025-12-02 22:40:27 UTC
 **Framework**: Universal Execution Templates (UET)

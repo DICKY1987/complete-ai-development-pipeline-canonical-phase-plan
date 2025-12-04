@@ -8,8 +8,8 @@ doc_id: DOC-GUIDE-AI_DEV_HYGIENE_GUIDELINES-069
 
 # AI Development Hygiene - Quick Reference Guidelines
 
-**Purpose:** Maintain context clarity for AI-assisted development  
-**Audience:** Developers working with AI coding assistants (Aider, Codex, Claude)  
+**Purpose:** Maintain context clarity for AI-assisted development
+**Audience:** Developers working with AI coding assistants (Aider, Codex, Claude)
 **Version:** 1.0 | **Date:** 2025-11-20
 
 ---
@@ -247,8 +247,8 @@ ai_context_priority: P3
 
 # Anthropic Prompt Engineering Guide (External Reference)
 
-> **Source:** [Anthropic Documentation](https://docs.anthropic.com/...)  
-> **Retrieved:** 2025-01-15  
+> **Source:** [Anthropic Documentation](https://docs.anthropic.com/...)
+> **Retrieved:** 2025-01-15
 > **License:** [Check source]
 
 [Content...]
@@ -418,16 +418,16 @@ priority_paths:
 
 ### Immediate Action Required
 
-🚨 **Multiple files with same name** (e.g., `spec (1).md`, `spec (2).md`)  
+🚨 **Multiple files with same name** (e.g., `spec (1).md`, `spec (2).md`)
 → **Action:** Deduplicate immediately
 
-🚨 **Active code referencing archived files**  
+🚨 **Active code referencing archived files**
 → **Action:** Update imports or restore file from archive
 
-🚨 **AI suggesting outdated patterns**  
+🚨 **AI suggesting outdated patterns**
 → **Action:** Check if legacy files are improperly indexed
 
-🚨 **New files without frontmatter**  
+🚨 **New files without frontmatter**
 → **Action:** Add tags before merging PR
 
 ---
@@ -478,9 +478,9 @@ priority_paths:
 
 ---
 
-**Last Updated:** 2025-11-20  
-**Version:** 1.0  
-**Maintainer:** AI Systems Architect  
+**Last Updated:** 2025-11-20
+**Version:** 1.0
+**Maintainer:** AI Systems Architect
 **Review Frequency:** Quarterly
 
 ---

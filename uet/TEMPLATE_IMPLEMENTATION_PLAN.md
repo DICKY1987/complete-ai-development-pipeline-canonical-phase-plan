@@ -5,7 +5,7 @@ doc_id: DOC-GUIDE-TEMPLATE-IMPLEMENTATION-PLAN-1659
 # Template Implementation Plan
 ## Decision Elimination via Pre-Compiled Execution Templates
 
-**Created**: 2025-11-23  
+**Created**: 2025-11-23
 **Based on**:
 - `uet-execution-acceleration-guide.md` (Decision Elimination Theory)
 - `Decision Elimination Through Pattern Recognition6.md` (17 Manifests in 12 Hours Case Study)
@@ -48,8 +48,8 @@ Token consumption: ~5k tokens (94% reduction)
 Human interventions: 0 (pre-authorized)
 ```
 
-**Speedup**: 2.96x faster (133 min → 45 min)  
-**Token Savings**: 94% reduction  
+**Speedup**: 2.96x faster (133 min → 45 min)
+**Token Savings**: 94% reduction
 **Automation**: 100% (zero human intervention)
 
 ---
@@ -120,7 +120,7 @@ Build the 4 highest-impact templates that provide **80% of speedup**.
 ### Deliverables
 
 #### 1. `atomic_create.pattern.yaml` (Day 1-2)
-**Impact**: Used in 80% of phases  
+**Impact**: Used in 80% of phases
 **Time Savings**: 60% coordination reduction
 
 ```yaml
@@ -135,26 +135,26 @@ structural_decisions:
   max_files_per_phase: 3
   always_include_tests: true
   test_ratio: "1 test file per implementation file"
-  
+
 execution_steps:
   1_verify_parent_dirs:
     checks:
       - "Parent directories exist"
       - "No conflicting files"
     on_fail: "create_parents_auto"
-  
+
   2_create_files:
     strategy: "sequential"
     order:
       - "implementation_files"
       - "test_files"
-    
+
     implementation_files:
       approach: "complete_file_in_one_turn"
       no_placeholders: true
       include_docstrings: true
       include_type_hints: true
-    
+
     test_files:
       approach: "complete_test_suite"
       min_test_count: 3
@@ -162,19 +162,19 @@ execution_steps:
         - "happy_path"
         - "error_cases"
         - "edge_cases"
-  
+
   3_verify_creation:
     checks:
       - cmd: "Test-Path ${file_path}"
         for_each: "created_files"
       - cmd: "python -m py_compile ${file_path}"
         for_each: "python_files"
-  
+
   4_run_tests:
     cmd: "python -m pytest ${test_file} -v"
     expect: ".*passed.*0 failed.*"
     on_fail: "enter_fix_loop"
-  
+
   5_git_status:
     cmd: "git status --porcelain"
     expect_count: "${created_files.length}"
@@ -195,7 +195,7 @@ class PatternExecutor:
     def execute_pattern(self, pattern_id: str, context: dict):
         """Execute pre-compiled pattern with context variables"""
         pattern = self.load_pattern(pattern_id)
-        
+
         for step in pattern['execution_steps']:
             result = self.execute_step(step, context)
             if not self.verify_step(step, result):
@@ -203,12 +203,12 @@ class PatternExecutor:
                     self.self_heal(result, pattern)
                 else:
                     raise ExecutionError(f"Step {step['id']} failed")
-        
+
         return self.verify_ground_truth(pattern['ground_truth'], context)
 ```
 
 #### 2. `pytest_green.verify.yaml` (Day 2)
-**Impact**: Eliminates manual verification  
+**Impact**: Eliminates manual verification
 **Time Savings**: 30 sec → 2 sec per verification
 
 ```yaml
@@ -249,10 +249,10 @@ parsing:
 reporting:
   on_success: |
     ✅ Tests passed: ${passed_count}/${passed_count}
-  
+
   on_failure: |
     ❌ Tests failed: ${passed_count}/${passed_count + failed_count}
-    
+
     Failed tests:
     ${failed_test_list}
 ```
@@ -264,14 +264,14 @@ class VerificationEngine:
     def verify(self, verification_id: str, context: dict) -> VerificationResult:
         """Run programmatic verification"""
         template = self.load_verification(verification_id)
-        
+
         # Execute command
         result = subprocess.run(
             template['command'].format(**context),
             capture_output=True,
             text=True
         )
-        
+
         # Check ground truth
         for criterion in template['ground_truth_criteria']:
             if not self.evaluate_criterion(criterion, result):
@@ -279,7 +279,7 @@ class VerificationEngine:
                     success=False,
                     message=template['reporting']['on_failure'].format(**context)
                 )
-        
+
         return VerificationResult(
             success=True,
             message=template['reporting']['on_success'].format(**context)
@@ -287,7 +287,7 @@ class VerificationEngine:
 ```
 
 #### 3. `preflight.verify.yaml` (Day 3)
-**Impact**: Catches environment issues before execution  
+**Impact**: Catches environment issues before execution
 **Time Savings**: Prevents 15-30 min debugging sessions
 
 ```yaml
@@ -304,31 +304,31 @@ checks:
     expect: "True"
     criticality: "blocker"
     fix_hint: "Create project with PH-00 first"
-  
+
   git_repo_initialized:
     cmd: "Test-Path ${PROJECT_ROOT}/.git"
     expect: "True"
     criticality: "blocker"
     fix_hint: "Run 'git init' in project root"
-  
+
   base_repo_clean:
     cmd: "git status --porcelain"
     expect: ""
     criticality: "blocker"
     fix_hint: "Commit or stash changes before creating worktree"
-  
+
   python_available:
     cmd: "python --version"
     expect_pattern: "Python 3\\.(1[2-9]|[2-9][0-9]).*"
     criticality: "blocker"
     fix_hint: "Install Python 3.12+"
-  
+
   pytest_available:
     cmd: "python -m pytest --version"
     expect_pattern: "pytest.*"
     criticality: "blocker"
     fix_hint: "pip install pytest"
-  
+
   required_directories:
     cmd: "Test-Path ${dir}"
     for_each:
@@ -347,7 +347,7 @@ execution:
 ```
 
 #### 4. `self_heal.pattern.yaml` (Day 4-5)
-**Impact**: Removes permission bottlenecks  
+**Impact**: Removes permission bottlenecks
 **Time Savings**: 90 sec → 0 sec (automated fixes)
 
 ```yaml
@@ -360,28 +360,28 @@ category: "error_recovery"
 
 pre_authorized_fixes:
   # These can execute without asking
-  
+
   missing_directory:
     detection: "FileNotFoundError.*No such file or directory"
     action: |
       New-Item -ItemType Directory -Path ${missing_path} -Force
     verify: "Test-Path ${missing_path}"
     max_auto_attempts: 1
-  
+
   missing_import:
     detection: "ModuleNotFoundError: No module named '(.*)'"
     action: |
       pip install ${module_name} --quiet
     verify: "python -c 'import ${module_name}'"
     max_auto_attempts: 1
-  
+
   syntax_error:
     detection: "SyntaxError|IndentationError"
     action: "fix_code_with_linter"
     tool: "black"
     verify: "python -m py_compile ${file_path}"
     max_auto_attempts: 2
-  
+
   test_failure_assertion:
     detection: "AssertionError|assert .* == .*"
     action: "analyze_and_fix_test"
@@ -390,17 +390,17 @@ pre_authorized_fixes:
 
 requires_human_intervention:
   # These STOP and ask
-  
+
   git_conflict:
     detection: "CONFLICT.*Merge conflict"
     action: "stop_and_report"
     reason: "Manual merge required"
-  
+
   base_repo_dirty:
     detection: "git status --porcelain.*[AM] .*"
     action: "stop_and_report"
     reason: "Base must be clean before worktree creation"
-  
+
   out_of_scope_changes:
     detection: "out_of_scope_files.*length > 0"
     action: "stop_and_report"
@@ -408,30 +408,30 @@ requires_human_intervention:
 
 execution_loop:
   max_iterations: 5
-  
+
   flow:
     1_execute:
       action: "run_command_or_tool"
       capture: ["stdout", "stderr", "exit_code"]
-    
+
     2_inspect:
       checks:
         - "exit_code == 0"
         - "expected_artifacts_exist"
         - "no_error_patterns_in_output"
-    
+
     3_classify_failure:
       if_any_check_failed:
         - "Match against pre_authorized_fixes patterns"
         - "If match → apply fix"
         - "If no match → check requires_human_intervention"
         - "If human needed → stop and report"
-    
+
     4_apply_fix:
       if: "fix_authorized"
       action: "${fix.action}"
       log: "Applied auto-fix: ${fix.action}"
-    
+
     5_re_verify:
       action: "Re-run original command"
       if_success: "break_loop"
@@ -456,7 +456,7 @@ Create 3 high-value phase templates based on real UET phases.
 ### Deliverables
 
 #### 5. `worktree_lifecycle.template.yaml` (Day 6-7)
-**Impact**: PH-04.5 from 3 hours → 45 minutes  
+**Impact**: PH-04.5 from 3 hours → 45 minutes
 **Time Savings**: 75% reduction
 
 Based on actual Git worktree lifecycle requirements from UET framework.
@@ -472,13 +472,13 @@ meta:
   category: "infrastructure"
   estimated_time_minutes: 45
   time_savings_vs_manual: "75%"
-  
+
 structural_decisions:
   file_format: "python"
   module_location: "src/pipeline/worktree.py"
   test_location: "tests/pipeline/test_worktree.py"
   cli_location: "scripts/worktrees.py"
-  
+
   directory_structure:
     - ".worktrees/"
     - ".ledger/patches/"
@@ -486,7 +486,7 @@ structural_decisions:
     - ".tasks/running/"
     - ".tasks/done/"
     - ".tasks/failed/"
-  
+
   required_functions:
     - "get_repo_root() -> Path"
     - "get_worktree_root() -> Path"
@@ -506,18 +506,18 @@ ground_truth_verification:
     - cmd: "Test-Path ${PROJECT_ROOT}"
       expect: "True"
       fail_msg: "Project root does not exist"
-    
+
     - cmd: "git status --porcelain"
       expect: ""
       fail_msg: "Base repo not clean"
-  
+
   post_execution:
     - cmd: "Test-Path src/pipeline/worktree.py"
       expect: "True"
-      
+
     - cmd: "python -m pytest tests/pipeline/test_worktree.py -q"
       expect: ".*passed.*"
-      
+
     - cmd: "git status --porcelain"
       expect_pattern: "^[AM]\\s+(src/pipeline/worktree\\.py|scripts/worktrees\\.py|tests/.*)"
 
@@ -527,21 +527,21 @@ execution_sequence:
       pattern: "verification"
       template: "verification_templates/preflight.verify.yaml"
       on_fail: "stop"
-    
+
     - id: "implement_module"
       pattern: "atomic_create"
       files:
         - path: "src/pipeline/worktree.py"
           type: "implementation"
           lines: 400-500
-    
+
     - id: "implement_tests"
       pattern: "atomic_create"
       files:
         - path: "tests/pipeline/test_worktree.py"
           type: "test_suite"
           test_count: 9
-    
+
     - id: "verify_and_commit"
       pattern: "verification_commit"
 
@@ -550,14 +550,14 @@ self_healing:
     - condition: "Parent directory does not exist"
       action: "create_directory"
       requires_permission: false
-    
+
     - condition: "Import error - module not found"
       action: "install_from_requirements"
       requires_permission: false
 ```
 
 #### 6. `module_creation.template.yaml` (Day 8-9)
-**Impact**: Used 17+ times in manifest creation case study  
+**Impact**: Used 17+ times in manifest creation case study
 **Time Savings**: 88% (42 min → 5 min per manifest)
 
 Based on the "Decision Elimination Through Pattern Recognition" case study.
@@ -579,7 +579,7 @@ structural_decisions:
     - "${module_path}/__init__.py"
     - "${module_path}/.ai-module-manifest"
     - "tests/${module_name}/test_${module_name}.py"
-  
+
   manifest_template:
     sections:
       - "module"
@@ -592,9 +592,9 @@ structural_decisions:
       - "dependencies"
       - "status"
       - "ai_quick_reference"
-  
+
   manifest_size_target: "50-100 lines"
-  
+
   test_structure:
     min_tests: 3
     test_categories:
@@ -615,17 +615,17 @@ execution_sequence:
       files:
         - path: "${module_path}/__init__.py"
           content: "module_init_template"
-        
+
         - path: "${module_path}/.ai-module-manifest"
           content: "manifest_template"
           fill_sections: true
-    
+
     - id: "create_tests"
       pattern: "atomic_create"
       files:
         - path: "tests/${module_name}/test_${module_name}.py"
           content: "test_template"
-    
+
     - id: "verify_manifest"
       checks:
         - "Manifest is 50-100 lines"
@@ -641,7 +641,7 @@ ground_truth:
 ```
 
 #### 7. `scope_valid.verify.yaml` (Day 10)
-**Impact**: Prevents scope violations (security)  
+**Impact**: Prevents scope violations (security)
 **Time Savings**: Catches errors before execution
 
 ```yaml
@@ -658,7 +658,7 @@ inputs:
     write: []
     create: []
     forbidden: []
-  
+
   actual_files_touched: []
 
 validation_logic:
@@ -666,12 +666,12 @@ validation_logic:
     for_each: "actual_files_touched"
     check: "file not in files_scope.forbidden"
     on_fail: "SCOPE_VIOLATION_CRITICAL"
-  
+
   2_check_write:
     for_each: "files_modified"
     check: "file matches glob in files_scope.write"
     on_fail: "SCOPE_VIOLATION_WRITE"
-  
+
   3_check_create:
     for_each: "files_created"
     check: "file matches glob in files_scope.create"
@@ -682,16 +682,16 @@ reporting:
     ✅ Scope validation passed
     Files touched: ${actual_files_touched.length}
     All within scope: ${files_scope}
-  
+
   on_failure: |
     ❌ SCOPE VIOLATION DETECTED
-    
+
     Out of scope files:
     ${out_of_scope_files}
-    
+
     Declared scope:
     ${files_scope}
-    
+
     ACTION REQUIRED: Manual review before proceeding
 ```
 
@@ -760,15 +760,15 @@ tasks:
 
 class TemplateExecutor:
     """Execute workstreams using pre-compiled templates"""
-    
+
     def __init__(self, template_loader, pattern_executor, verification_engine):
         self.template_loader = template_loader
         self.pattern_executor = pattern_executor
         self.verification_engine = verification_engine
-    
+
     def execute_workstream(self, workstream: WorkstreamSpec) -> ExecutionResult:
         """Execute workstream with template-driven approach"""
-        
+
         # Load template if specified
         if workstream.template_ref:
             template = self.template_loader.load(workstream.template_ref.template_id)
@@ -776,34 +776,34 @@ class TemplateExecutor:
         else:
             # Fallback to traditional execution
             return self.execute_traditional(workstream)
-        
+
         # Pre-flight verification (< 5 sec)
         self.verification_engine.verify(
-            template.ground_truth.pre_flight, 
+            template.ground_truth.pre_flight,
             context
         )
-        
+
         # Execute steps (decisions already made)
         for step in template.execution_sequence.steps:
             pattern = self.pattern_executor.load_pattern(step.pattern)
-            
+
             try:
                 step_result = self.pattern_executor.execute_step(pattern, context)
                 self.verification_engine.verify_step(step.ground_truth, step_result)
-            
+
             except ExecutionError as e:
                 # Template-driven self-healing
                 if self.can_auto_heal(e, template.self_healing):
                     self.heal_and_retry(step, e, template.self_healing)
                 else:
                     raise
-        
+
         # Post-execution verification
         self.verification_engine.verify(
             template.ground_truth.post_execution,
             context
         )
-        
+
         return ExecutionResult(
             status="complete",
             time_seconds=time.time() - start_time,
@@ -832,11 +832,11 @@ Automate the creation of new templates from executed workstreams.
 
 class TemplateExtractor:
     """Extract reusable template from executed workstream"""
-    
+
     def extract_from_workstream(self, workstream_id: str, run_id: str):
         """
         Analyze completed workstream execution and generate template
-        
+
         Process:
         1. Load execution history from run database
         2. Extract decisions made during execution
@@ -844,14 +844,14 @@ class TemplateExtractor:
         4. Generate template YAML
         5. Calculate time savings
         """
-        
+
         # Load execution data
         run_data = self.load_run_data(run_id)
         workstream = self.load_workstream(workstream_id)
-        
+
         # Extract decisions
         decisions = self.extract_decisions(run_data)
-        
+
         # Generate template
         template = {
             'meta': {
@@ -868,11 +868,11 @@ class TemplateExtractor:
             'ground_truth_verification': self.extract_verifications(run_data),
             'self_healing': self.extract_fixes(run_data)
         }
-        
+
         # Save template
         output_path = f"templates/phase_templates/{template['meta']['template_id']}.yaml"
         self.save_template(template, output_path)
-        
+
         return template
 ```
 
@@ -883,11 +883,11 @@ class TemplateExtractor:
 
 class TemplateValidator:
     """Validate template structure and completeness"""
-    
+
     def validate(self, template_path: str) -> ValidationReport:
         """
         Validate template against schema and best practices
-        
+
         Checks:
         - Schema compliance
         - All required sections present
@@ -896,28 +896,28 @@ class TemplateValidator:
         - Variable substitution valid
         - Estimated time reasonable
         """
-        
+
         template = self.load_template(template_path)
         issues = []
-        
+
         # Schema validation
         schema = self.load_schema('schema/phase_template.v1.json')
         schema_issues = jsonschema.validate(template, schema)
         issues.extend(schema_issues)
-        
+
         # Best practices
         if not template.get('ground_truth_verification'):
             issues.append(ValidationIssue(
                 severity='error',
                 message='Missing ground_truth_verification section'
             ))
-        
+
         if template['meta']['estimated_time_minutes'] > 120:
             issues.append(ValidationIssue(
                 severity='warning',
                 message='Phase > 2 hours, consider splitting'
             ))
-        
+
         return ValidationReport(
             valid=len([i for i in issues if i.severity == 'error']) == 0,
             issues=issues
@@ -1085,7 +1085,7 @@ Each template MUST have:
 
 ---
 
-**Document Status**: Draft v1.0  
-**Last Updated**: 2025-11-23  
-**Owner**: UET Framework Team  
+**Document Status**: Draft v1.0
+**Last Updated**: 2025-11-23
+**Owner**: UET Framework Team
 **Next Review**: After Week 1 completion

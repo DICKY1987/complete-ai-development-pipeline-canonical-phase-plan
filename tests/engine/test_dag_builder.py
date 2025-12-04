@@ -14,10 +14,10 @@ def test_simple_dag():
         {'workstream_id': 'b', 'dependencies': ['a']},
         {'workstream_id': 'c', 'dependencies': ['b']}
     ]
-    
+
     builder = DAGBuilder()
     plan = builder.build_from_workstreams(workstreams)
-    
+
     assert plan['validated'] is True
     assert plan['total_workstreams'] == 3
     assert plan['total_waves'] == 3
@@ -32,10 +32,10 @@ def test_parallel_dag():
         {'workstream_id': 'c', 'dependencies': ['a']},
         {'workstream_id': 'd', 'dependencies': ['b', 'c']}
     ]
-    
+
     builder = DAGBuilder()
     plan = builder.build_from_workstreams(workstreams)
-    
+
     assert plan['validated'] is True
     assert plan['total_waves'] == 3
     assert 'a' in plan['waves'][0]
@@ -49,9 +49,9 @@ def test_cycle_detection():
         {'workstream_id': 'a', 'dependencies': ['b']},
         {'workstream_id': 'b', 'dependencies': ['a']}
     ]
-    
+
     builder = DAGBuilder()
-    
+
     with pytest.raises(ValueError, match="Dependency cycles"):
         builder.build_from_workstreams(workstreams)
 
@@ -63,9 +63,9 @@ def test_no_dependencies():
         {'workstream_id': 'b'},
         {'workstream_id': 'c'}
     ]
-    
+
     builder = DAGBuilder()
     plan = builder.build_from_workstreams(workstreams)
-    
+
     assert plan['total_waves'] == 1
     assert set(plan['waves'][0]) == {'a', 'b', 'c'}

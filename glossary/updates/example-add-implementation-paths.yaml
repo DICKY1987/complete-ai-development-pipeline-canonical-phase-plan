@@ -14,33 +14,33 @@ terms:
     value:
       - "core/engine/orchestrator.py"
       - "engine/orchestrator/orchestrator.py"
-  
+
   - term_id: TERM-ENGINE-001
     action: add
     field: implementation.entry_points
     value:
       - "Orchestrator.run_workstream()"
       - "Orchestrator.execute_bundle()"
-  
+
   - term_id: TERM-ENGINE-002
     action: update
     field: implementation.files
     value:
       - "core/engine/executor.py"
-  
+
   - term_id: TERM-ENGINE-002
     action: add
     field: implementation.entry_points
     value:
       - "Executor.execute_step()"
       - "Executor.handle_timeout()"
-  
+
   - term_id: TERM-ENGINE-015
     action: update
     field: implementation.files
     value:
       - "core/engine/scheduler.py"
-  
+
   - term_id: TERM-ENGINE-015
     action: add
     field: implementation.entry_points

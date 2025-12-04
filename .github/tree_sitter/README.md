@@ -1,7 +1,7 @@
 # tree_sitter
 
-**Module Path**: `tree_sitter`  
-**Layer**: Utility  
+**Module Path**: `tree_sitter`
+**Layer**: Utility
 **Status**: Active
 
 ## Purpose
@@ -34,5 +34,5 @@ docs/code_analysis.md
 
 ---
 
-**Generated**: 2025-12-02 22:40:27 UTC  
+**Generated**: 2025-12-02 22:40:27 UTC
 **Framework**: Universal Execution Templates (UET)

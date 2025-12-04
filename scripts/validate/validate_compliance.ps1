@@ -22,7 +22,7 @@
 
 .EXAMPLE
     ./validate_compliance.ps1
-    
+
 .EXAMPLE
     ./validate_compliance.ps1 -StateDir .state -TasksDir tasks -Verbose
 #>
@@ -31,13 +31,13 @@
 param(
     [Parameter()]
     [string]$StateDir = ".state",
-    
+
     [Parameter()]
     [string]$TasksDir = "tasks",
-    
+
     [Parameter()]
     [string]$DocsDir = "docs",
-    
+
     [Parameter()]
     [switch]$VerboseOutput
 )
@@ -60,27 +60,27 @@ function Run-Validator {
         [string]$ScriptPath,
         [hashtable]$Parameters
     )
-    
+
     Write-Section "Running: $Name"
-    
+
     if (-not (Test-Path $ScriptPath)) {
         Write-Host "ERROR: Validator not found: $ScriptPath" -ForegroundColor Red
         $script:FailedChecks++
         return $false
     }
-    
+
     try {
         $params = @{}
         foreach ($key in $Parameters.Keys) {
             $params[$key] = $Parameters[$key]
         }
-        
+
         if ($VerboseOutput) {
             $params['VerboseOutput'] = $true
         }
-        
+
         & $ScriptPath @params
-        
+
         if ($LASTEXITCODE -eq 0) {
             $script:PassedChecks++
             return $true
@@ -219,7 +219,7 @@ foreach ($result in $results.GetEnumerator()) {
     $status = if ($result.Value) { "PASS" } else { "FAIL" }
     $color = if ($result.Value) { "Green" } else { "Red" }
     $symbol = if ($result.Value) { "✓" } else { "✗" }
-    
+
     Write-Host "  [$symbol] $($result.Key): " -NoNewline
     Write-Host $status -ForegroundColor $color
 }
@@ -229,10 +229,10 @@ Write-Host "  Total Checks: $script:TotalChecks" -ForegroundColor Gray
 Write-Host "  Passed: $script:PassedChecks" -ForegroundColor Green
 Write-Host "  Failed: $script:FailedChecks" -ForegroundColor $(if ($script:FailedChecks -gt 0) { "Red" } else { "Green" })
 
-$successRate = if ($script:TotalChecks -gt 0) { 
-    [Math]::Round(($script:PassedChecks / $script:TotalChecks) * 100, 1) 
-} else { 
-    0 
+$successRate = if ($script:TotalChecks -gt 0) {
+    [Math]::Round(($script:PassedChecks / $script:TotalChecks) * 100, 1)
+} else {
+    0
 }
 Write-Host "  Success Rate: $successRate%" -ForegroundColor $(if ($successRate -eq 100) { "Green" } elseif ($successRate -gt 75) { "Yellow" } else { "Red" })
 

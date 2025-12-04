@@ -12,27 +12,27 @@ jobs:
     name: Detect New Patterns
     runs-on: ubuntu-latest
     if: github.event.schedule == '0 */6 * * *' || github.event_name == 'workflow_dispatch'
-    
+
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
-      
+
       - name: Install dependencies
         run: |
           pip install pyyaml
-      
+
       - name: Analyze executions
         run: |
           python scripts/auto_pattern_detector.py --analyze
-      
+
       - name: Generate suggestions
         run: |
           python scripts/auto_pattern_detector.py --suggest > pattern_suggestions.txt
-      
+
       - name: Create PR if patterns found
         run: |
           if [ -d "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/drafts" ]; then
@@ -48,24 +48,24 @@ jobs:
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  
+
   performance_report:
     name: Weekly Performance Report
     runs-on: ubuntu-latest
     if: github.event.schedule == '0 0 * * 0' || github.event_name == 'workflow_dispatch'
-    
+
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
-      
+
       - name: Generate report
         run: |
           python scripts/auto_pattern_detector.py --report
-      
+
       - name: Commit report
         run: |
           git config user.name "Pattern Automation Bot"
@@ -76,26 +76,26 @@ jobs:
           git push || echo "No changes to push"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  
+
   cleanup_patterns:
     name: Monthly Pattern Cleanup
     runs-on: ubuntu-latest
     if: github.event.schedule == '0 0 1 * *' || github.event_name == 'workflow_dispatch'
-    
+
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Archive unused patterns
         run: |
           # Archive patterns not used in 90 days
           python scripts/cleanup_patterns.py --archive-unused --days 90
         continue-on-error: true
-      
+
       - name: Update registry
         run: |
           python scripts/update_pattern_metrics.py
         continue-on-error: true
-      
+
       - name: Commit cleanup
         run: |
           git config user.name "Pattern Automation Bot"

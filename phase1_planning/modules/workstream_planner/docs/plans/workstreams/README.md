@@ -4,8 +4,8 @@ doc_id: DOC-GUIDE-README-1097
 
 # Workstream Examples
 
-> **Purpose**: Example workstream JSON bundles for reference and testing  
-> **Last Updated**: 2025-11-22  
+> **Purpose**: Example workstream JSON bundles for reference and testing
+> **Last Updated**: 2025-11-22
 > **Status**: Production
 
 ---

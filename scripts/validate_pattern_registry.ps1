@@ -3,7 +3,7 @@
 <#
 .SYNOPSIS
     Validate PATTERN_INDEX.yaml against schema and check compliance
-    
+
 .DESCRIPTION
     Validates the pattern registry for:
     - YAML syntax correctness
@@ -11,22 +11,22 @@
     - File path existence
     - Naming convention adherence
     - PAT-CHECK-001 and PAT-CHECK-002 compliance
-    
+
 .PARAMETER RegistryPath
     Path to PATTERN_INDEX.yaml (default: patterns/registry/PATTERN_INDEX.yaml)
-    
+
 .PARAMETER SchemaPath
     Path to schema file (default: patterns/registry/PATTERN_INDEX.schema.json)
-    
+
 .PARAMETER Strict
     Enable strict mode (fail on warnings)
-    
+
 .EXAMPLE
     .\validate_pattern_registry.ps1
-    
+
 .EXAMPLE
     .\validate_pattern_registry.ps1 -Strict
-    
+
 .NOTES
     Requirement: PAT-CHECK-001, PAT-CHECK-002
     Version: 1.0.0
@@ -73,9 +73,9 @@ function Test-Check {
         [string]$FailureMessage,
         [switch]$Warning
     )
-    
+
     $script:Checks++
-    
+
     try {
         $result = & $Test
         if ($result) {
@@ -147,13 +147,13 @@ import yaml
 import sys
 try:
     from jsonschema import validate, ValidationError
-    
+
     with open('$RegistryPath') as f:
         registry = yaml.safe_load(f)
-    
+
     with open('$SchemaPath') as f:
         schema = json.load(f)
-    
+
     validate(instance=registry, schema=schema)
     print("VALID")
     sys.exit(0)
@@ -164,10 +164,10 @@ except Exception as e:
     print(f"ERROR: {e}")
     sys.exit(2)
 "@
-        
+
         $tempScript = [System.IO.Path]::GetTempFileName() + ".py"
         $validatorScript | Out-File $tempScript -Encoding UTF8
-        
+
         try {
             $result = python $tempScript 2>&1
             $result -match "VALID"
@@ -187,10 +187,10 @@ Write-Section "Validating pattern entries..."
 if ($registryContent -and $registryContent.patterns) {
     $patternCount = $registryContent.patterns.Count
     Write-Success "Found $patternCount registered patterns"
-    
+
     foreach ($pattern in $registryContent.patterns) {
         $patternId = $pattern.pattern_id
-        
+
         # Check naming convention
         if ($patternId -match '^PAT-MIGRATED-') {
             # Migrated pattern (PAT-CHECK-002)
@@ -198,14 +198,14 @@ if ($registryContent -and $registryContent.patterns) {
                 $patternId -match '^PAT-MIGRATED-[A-Z]+-\d{3}$'
             } -SuccessMessage "$patternId follows migrated naming (PAT-MIGRATED-<CATEGORY>-<SEQ>)" `
               -FailureMessage "$patternId violates migrated naming convention"
-            
+
             # Check required migrated fields
             Test-Check -Name "$patternId metadata" -Test {
                 $pattern.migrated_from -eq 'atomic-workflow-system' -and
                 $pattern.original_atom_uid
             } -SuccessMessage "$patternId has required migration metadata" `
               -FailureMessage "$patternId missing required migration metadata"
-              
+
         } else {
             # Core pattern (PAT-CHECK-001)
             Test-Check -Name "$patternId naming" -Test {
@@ -213,14 +213,14 @@ if ($registryContent -and $registryContent.patterns) {
             } -SuccessMessage "$patternId follows core naming (PAT-<CATEGORY>-<NAME>-<SEQ>)" `
               -FailureMessage "$patternId violates core naming convention"
         }
-        
+
         # Check file paths exist
         $pathsToCheck = @(
             @{Name = "spec"; Path = $pattern.spec_path},
             @{Name = "schema"; Path = $pattern.schema_path},
             @{Name = "executor"; Path = $pattern.executor_path}
         )
-        
+
         foreach ($pathCheck in $pathsToCheck) {
             if ($pathCheck.Path) {
                 Test-Check -Name "$patternId $($pathCheck.Name) file" -Test {

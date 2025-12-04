@@ -4,8 +4,8 @@ doc_id: DOC-GUIDE-AUTOMATED-UPDATE-PROCESS-419
 
 # Automated Glossary Update Process
 
-**Purpose**: Structured, automated process for updating glossary terms using patches  
-**Tool**: `glossary/scripts/update_term.py`  
+**Purpose**: Structured, automated process for updating glossary terms using patches
+**Tool**: `glossary/scripts/update_term.py`
 **Status**: ✅ Ready to use
 
 ---
@@ -55,13 +55,13 @@ python scripts/validate_glossary.py
    description: "Add UET schema references"
    date: "2025-11-25"
    author: "architecture-team"
-   
+
    terms:
      - term_id: TERM-ENGINE-001
        action: add
        field: schema_refs
        value: ["schema/uet/execution_request.v1.json"]
-     
+
      - term_id: TERM-PATCH-001
        action: add
        field: schema_refs
@@ -72,23 +72,23 @@ python scripts/validate_glossary.py
    ```bash
    python scripts/update_term.py --spec updates/add-schemas.yaml --dry-run
    ```
-   
+
    **Output**:
    ```
    📖 Loading glossary files...
       ✓ Loaded glossary.md
       ✓ Loaded .glossary-metadata.yaml
-   
+
    🔧 Applying patch: 01J5XY...
       Description: Add UET schema references
       Terms to update: 2
       🔍 DRY RUN MODE - No changes will be saved
-   
+
    📝 TERM-ENGINE-001: add schema_refs
       ✅ Updated
    📝 TERM-PATCH-001: add schema_refs
       ✅ Updated
-   
+
    🔍 DRY RUN - Changes preview:
    [shows YAML preview of changes]
       Total changes: 2
@@ -104,7 +104,7 @@ python scripts/validate_glossary.py
    ```bash
    python scripts/update_term.py --spec updates/add-schemas.yaml --apply
    ```
-   
+
    **Output**:
    ```
    📖 Loading glossary files...
@@ -179,21 +179,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      
+
       - uses: actions/setup-python@v4
         with:
           python-version: '3.11'
-      
+
       - name: Install dependencies
         run: pip install pyyaml
-      
+
       - name: Find new patches
         id: find_patches
         run: |
           cd glossary
           NEW_PATCHES=$(git diff --name-only HEAD~1 HEAD -- updates/*.yaml)
           echo "patches=$NEW_PATCHES" >> $GITHUB_OUTPUT
-      
+
       - name: Apply patches
         if: steps.find_patches.outputs.patches
         run: |
@@ -202,7 +202,7 @@ jobs:
             echo "Applying $patch"
             python scripts/update_term.py --spec "$patch" --apply --validate
           done
-      
+
       - name: Commit changes
         if: steps.find_patches.outputs.patches
         run: |
@@ -379,7 +379,7 @@ cd glossary/updates
 for patch in pending-*.yaml; do
   echo "Applying $patch..."
   python ../scripts/update_term.py --spec "$patch" --apply
-  
+
   if [ $? -eq 0 ]; then
     # Move to applied folder
     mv "$patch" applied/
@@ -585,11 +585,11 @@ See `/glossary/updates/` for examples:
 
 The automated patch system provides:
 
-✅ **Structured updates** via YAML specs  
-✅ **Safe application** with dry-run mode  
-✅ **Automatic tracking** in changelog  
-✅ **Quality validation** built-in  
-✅ **Git-friendly** workflow  
-✅ **CI/CD ready** for automation  
+✅ **Structured updates** via YAML specs
+✅ **Safe application** with dry-run mode
+✅ **Automatic tracking** in changelog
+✅ **Quality validation** built-in
+✅ **Git-friendly** workflow
+✅ **CI/CD ready** for automation
 
 **Status**: Production ready, tested, documented

@@ -30,7 +30,7 @@ from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.patterns.types import (
 class TestStateDiagram:
     """Test StateDiagram class functionality."""
 # DOC_ID: DOC-TEST-PATTERN-TESTS-TEST-STATE-TRANSITION-133
-    
+
     def test_get_missing_transitions_basic(self):
         """Find missing transitions in a simple state machine."""
         diagram = StateDiagram(
@@ -42,18 +42,18 @@ class TestStateDiagram:
             initial_state="A",
             terminal_states={"C"},
         )
-        
+
         missing = diagram.get_missing_transitions()
-        
+
         # Should find all other transitions as missing
         assert len(missing) > 0
-        
+
         # A->C should be missing
         missing_pairs = [(t.from_state, t.to_state) for t in missing]
         assert ("A", "C") in missing_pairs
         assert ("B", "A") in missing_pairs
         assert ("B", "C") in missing_pairs
-    
+
     def test_get_missing_transitions_complete(self):
         """No missing transitions when all are implemented."""
         diagram = StateDiagram(
@@ -65,9 +65,9 @@ class TestStateDiagram:
             ],
             initial_state="A",
         )
-        
+
         missing = diagram.get_missing_transitions()
-        
+
         # Should find no missing (excluding self-transitions)
         missing_non_self = [
             t for t in missing
@@ -78,7 +78,7 @@ class TestStateDiagram:
 
 class TestExtractStateMachine:
     """Test state machine extraction from code."""
-    
+
     def test_extract_state_constants(self):
         """Extract state constants from code."""
         code = '''
@@ -94,14 +94,14 @@ def process(ctx):
         with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
             f.write(code)
             f.flush()
-            
+
             diagram = extract_state_machine(Path(f.name))
-            
+
             assert diagram is not None
             assert "S_INIT" in diagram.states
             assert "S_RUNNING" in diagram.states
             assert "S_SUCCESS" in diagram.states
-    
+
     def test_detect_initial_state(self):
         """Detect initial state from constant name."""
         code = '''
@@ -111,12 +111,12 @@ S_DONE = "done"
         with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
             f.write(code)
             f.flush()
-            
+
             diagram = extract_state_machine(Path(f.name))
-            
+
             assert diagram is not None
             assert diagram.initial_state == "initial"
-    
+
     def test_detect_terminal_states(self):
         """Detect terminal states from constant names."""
         code = '''
@@ -128,9 +128,9 @@ S_QUARANTINE = "quarantine"
         with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
             f.write(code)
             f.flush()
-            
+
             diagram = extract_state_machine(Path(f.name))
-            
+
             assert diagram is not None
             assert "success" in diagram.terminal_states
             assert "quarantine" in diagram.terminal_states
@@ -138,7 +138,7 @@ S_QUARANTINE = "quarantine"
 
 class TestAnalyzeStateGaps:
     """Test state gap analysis."""
-    
+
     def test_find_unreachable_states(self):
         """Identify unreachable states."""
         diagram = StateDiagram(
@@ -151,16 +151,16 @@ class TestAnalyzeStateGaps:
             initial_state="A",
             terminal_states={"C"},
         )
-        
+
         findings = analyze_state_gaps(diagram)
-        
+
         # Should find D as unreachable
         unreachable_findings = [
             f for f in findings
             if "Unreachable state" in f.message and "D" in f.message
         ]
         assert len(unreachable_findings) > 0
-    
+
     def test_find_dead_end_states(self):
         """Identify dead-end non-terminal states."""
         diagram = StateDiagram(
@@ -173,9 +173,9 @@ class TestAnalyzeStateGaps:
             initial_state="A",
             terminal_states={"C"},
         )
-        
+
         findings = analyze_state_gaps(diagram)
-        
+
         # Should find B as dead-end
         dead_end_findings = [
             f for f in findings
@@ -187,7 +187,7 @@ class TestAnalyzeStateGaps:
 
 class TestTransitionMatrix:
     """Test transition matrix generation."""
-    
+
     def test_generate_matrix(self):
         """Generate transition matrix."""
         diagram = StateDiagram(
@@ -198,13 +198,13 @@ class TestTransitionMatrix:
                 StateTransition("B", "C", "t2", is_implemented=True),
             ],
         )
-        
+
         matrix = generate_transition_matrix(diagram)
-        
+
         assert "A" in matrix
         assert "B" in matrix
         assert "C" in matrix
-        
+
         assert matrix["A"]["B"] is True
         assert matrix["A"]["C"] is False
         assert matrix["B"]["C"] is True
@@ -212,7 +212,7 @@ class TestTransitionMatrix:
 
 class TestScanFileForStateIssues:
     """Test file scanning for state issues."""
-    
+
     def test_scan_file_with_state_machine(self):
         """Scan file containing state machine."""
         code = '''
@@ -229,13 +229,13 @@ def advance(ctx):
         with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
             f.write(code)
             f.flush()
-            
+
             findings = scan_file_for_state_issues(Path(f.name))
-            
+
             # May or may not have findings depending on analysis
             # The main test is that it doesn't crash
             assert isinstance(findings, list)
-    
+
     def test_scan_file_without_state_machine(self):
         """Scan file without state machine returns empty."""
         code = '''
@@ -245,8 +245,8 @@ def simple_function(x):
         with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
             f.write(code)
             f.flush()
-            
+
             findings = scan_file_for_state_issues(Path(f.name))
-            
+
             # No state machine, no findings
             assert len(findings) == 0

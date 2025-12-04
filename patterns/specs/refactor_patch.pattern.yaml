@@ -22,7 +22,7 @@ metadata:
 intent: |
   Apply surgical modifications to existing files using exact string replacement.
   Enforces precise, reversible changes with validation.
-  
+
   Key principles:
   - Exact match required (no fuzzy matching)
   - Single responsibility per patch
@@ -40,7 +40,7 @@ applicability:
     - Creating new files (use atomic_create)
     - Changes require context understanding
     - Fuzzy/approximate matching needed
-  
+
   constraints:
     max_patches: 10
     exact_match_required: true
@@ -51,7 +51,7 @@ inputs:
   project_root:
     type: "string"
     required: true
-    
+
   patches:
     type: "array"
     required: true
@@ -73,11 +73,11 @@ inputs:
         validate_unique:
           type: "boolean"
           default: true
-  
+
   create_backup:
     type: "boolean"
     default: true
-  
+
   validate_syntax:
     type: "boolean"
     default: true
@@ -102,21 +102,21 @@ structural_decisions:
 execution_steps:
   - step_id: "S1_validate_targets"
     description: "Validate all target files exist"
-    
+
   - step_id: "S2_check_uniqueness"
     description: "Verify old_str is unique in each file"
-    
+
   - step_id: "S3_create_backups"
     description: "Backup all files to be modified"
-    
+
   - step_id: "S4_apply_patches"
     description: "Apply each patch sequentially"
     strategy: "sequential"
     rollback_on_failure: true
-    
+
   - step_id: "S5_validate_syntax"
     description: "Validate modified files compile"
-    
+
   - step_id: "S6_verify_changes"
     description: "Verify expected changes applied"
 

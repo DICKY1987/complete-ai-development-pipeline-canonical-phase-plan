@@ -8,16 +8,16 @@ doc_id: DOC-PAT-PATTERN_AUTOMATION_MASTER_PLAN-008
 
 # Pattern Automation Master Plan
 
-**DOC_ID:** DOC-PAT-AUTO-MASTER-001  
-**Created:** 2025-11-25  
-**Status:** PROPOSAL  
+**DOC_ID:** DOC-PAT-AUTO-MASTER-001
+**Created:** 2025-11-25
+**Status:** PROPOSAL
 **Purpose:** Remove user from pattern capture loop and automate execution learning
 
 ---
 
 ## Vision
 
-**Current State:** Manual pattern discovery → Manual template creation → Manual execution  
+**Current State:** Manual pattern discovery → Manual template creation → Manual execution
 **Target State:** Automatic pattern detection → Auto-generated templates → Self-improving execution system
 
 ---
@@ -38,26 +38,26 @@ from core.state.db import get_db
 
 class ExecutionPatternDetector:
     """Automatically detect repetitive execution patterns."""
-    
+
     def __init__(self):
         self.db = get_db()
         self.similarity_threshold = 0.75
-    
+
     def on_execution_complete(self, execution_record):
         """Called by orchestrator after each execution."""
         # Log execution signature
         signature = self._extract_signature(execution_record)
         self._store_execution(signature)
-        
+
         # Check for pattern (3+ similar executions)
         similar = self._find_similar_executions(signature)
-        
+
         if len(similar) >= 3:
             # AUTO-GENERATE pattern template
             pattern = self._synthesize_pattern(similar)
             self._create_pattern_draft(pattern)
             self._notify_user(pattern)
-    
+
     def _extract_signature(self, record):
         """Extract execution fingerprint."""
         return {
@@ -68,7 +68,7 @@ class ExecutionPatternDetector:
             'output_structure': self._extract_output_shape(record),
             'verification_method': record.get('verification')
         }
-    
+
     def _synthesize_pattern(self, executions):
         """Generate pattern YAML from execution history."""
         # Extract invariants (same across all)
@@ -105,7 +105,7 @@ class ExecutionPatternDetector:
 
 class FilePatternMiner:
     """Watch file operations for repetitive patterns."""
-    
+
     def on_file_created(self, filepath, content):
         """Hook into file creation."""
         # Extract file metadata
@@ -115,10 +115,10 @@ class FilePatternMiner:
             'sections': self._extract_sections(content),
             'directory': filepath.parent
         }
-        
+
         # Store in time window (last 24 hours)
         recent = self._get_recent_similar(signature, hours=24)
-        
+
         if len(recent) >= 2:  # After 3rd similar file
             template = self._extract_template(recent + [content])
             self._propose_batch_pattern(template, filepath.parent)
@@ -143,7 +143,7 @@ class FilePatternMiner:
 
 class ErrorRecoveryPatternLearner:
     """Extract patterns from successful error recoveries."""
-    
+
     def on_error_resolved(self, error_record, resolution):
         """Called when error fixed successfully."""
         # Store error signature + resolution
@@ -153,10 +153,10 @@ class ErrorRecoveryPatternLearner:
             'resolution_steps': resolution['steps'],
             'success_rate': 1.0
         }
-        
+
         # Find similar past errors
         similar = self._find_similar_errors(error_record)
-        
+
         if len(similar) >= 3 and self._all_same_fix(similar):
             # Auto-create self-healing pattern
             healing_pattern = self._create_healing_pattern(similar)
@@ -184,12 +184,12 @@ class ErrorRecoveryPatternLearner:
 
 class PatternPerformanceAnalyzer:
     """Generate insights from pattern execution data."""
-    
+
     def generate_weekly_report(self):
         """Run as scheduled job (cron/Task Scheduler)."""
         patterns = self._load_all_patterns()
         executions = self._get_executions_last_week()
-        
+
         report = {
             'top_patterns': self._rank_by_usage(executions),
             'time_saved': self._calculate_total_savings(executions),
@@ -197,7 +197,7 @@ class PatternPerformanceAnalyzer:
             'new_pattern_candidates': self._detect_manual_work(executions),
             'anti_patterns': self._detect_failures(executions)
         }
-        
+
         self._write_report(report, 'patterns/reports/weekly/')
         self._update_pattern_index(report)
 ```
@@ -247,11 +247,11 @@ class PatternPerformanceAnalyzer:
 
 class AntiPatternDetector:
     """Learn from pattern failures and execution mistakes."""
-    
+
     def detect_anti_patterns(self):
         """Run after execution failures."""
         failures = self._get_failed_executions(last_days=7)
-        
+
         anti_patterns = []
         for failure in failures:
             if self._is_recurring(failure):
@@ -264,9 +264,9 @@ class AntiPatternDetector:
                     'recommendation': self._generate_fix(failure)
                 }
                 anti_patterns.append(anti_pattern)
-        
+
         self._update_anti_pattern_registry(anti_patterns)
-    
+
     def _infer_cause(self, failure):
         """Use error detection to categorize failure."""
         # Integration with error/engine
@@ -296,7 +296,7 @@ anti_patterns:
       - PAT-BATCH-CREATE-001
     fix: "Use flexible regex for variable substitution"
     status: "fixed_in_v1.1"
-  
+
   - id: ANTI-PAT-002
     name: "Over-Verification"
     description: "Ground truth checks too strict, rejects valid output"
@@ -317,7 +317,7 @@ anti_patterns:
 
 class PatternSuggester:
     """Real-time pattern suggestions based on context."""
-    
+
     def on_user_action(self, action, context):
         """Hook into UI/CLI before execution."""
         # User about to create file
@@ -325,12 +325,12 @@ class PatternSuggester:
             similar = self._find_similar_files(context['directory'])
             if len(similar) >= 2:
                 self._suggest_batch_pattern(similar, context)
-        
+
         # User about to refactor
         if action == 'refactor':
             if self._matches_known_pattern(context):
                 self._suggest_existing_pattern(context)
-        
+
         # User repeating same operation
         recent = self._get_recent_operations(minutes=30)
         if self._is_repetitive(recent):
@@ -348,10 +348,10 @@ $ # User types: "create file core/plugins/new_module.py"
 
 💡 Pattern Suggestion:
    You've created 3 similar plugin files in the last hour.
-   
+
    Use pattern: PAT-MODULE-CREATE-002
    Estimated time savings: 15 minutes per file
-   
+
    Continue manually? (y/n) or Apply pattern? (p)
 ```
 
@@ -367,7 +367,7 @@ $ # User types: "create file core/plugins/new_module.py"
 
 class PatternEvolutionTracker:
     """Monitor pattern performance over time."""
-    
+
     def track_pattern_metrics(self, pattern_id):
         """Continuous monitoring."""
         metrics = {
@@ -377,10 +377,10 @@ class PatternEvolutionTracker:
             'edge_cases': self._collect_edge_cases(pattern_id),
             'workarounds_needed': self._count_workarounds(pattern_id)
         }
-        
+
         if metrics['success_rate'] < 0.8:
             self._flag_for_improvement(pattern_id, metrics)
-        
+
         if metrics['edge_cases'] >= 5:
             self._propose_pattern_variants(pattern_id, metrics)
 ```
@@ -394,7 +394,7 @@ performance:
   success_rate: 0.73  # Below threshold
   avg_time_saved: 42min
   total_uses: 127
-  
+
 issues_detected:
   - "Fails on nested variable substitution (8 occurrences)"
   - "Can't handle multi-line template values (5 occurrences)"
@@ -404,7 +404,7 @@ recommended_improvements:
   - priority: high
     change: "Add recursive variable substitution"
     estimated_impact: "+15% success rate"
-  
+
   - priority: medium
     change: "Support YAML/JSON multi-line values"
     estimated_impact: "+8% success rate"
@@ -423,21 +423,21 @@ auto_generated_spec: "patterns/drafts/batch_create_v1.1.yaml"
 
 class TemplateAutoGenerator:
     """Generate templates from example files automatically."""
-    
+
     def generate_from_examples(self, example_files):
         """Input: 2-3 example files, Output: Template."""
         # Structural diff analysis
         structures = [self._parse_structure(f) for f in example_files]
-        
+
         # Find invariants (same in all)
         invariants = self._extract_common_elements(structures)
-        
+
         # Find variables (different in each)
         variables = self._extract_varying_elements(structures)
-        
+
         # Generate template with placeholders
         template = self._synthesize_template(invariants, variables)
-        
+
         return {
             'template': template,
             'variables': self._generate_variable_schema(variables),
@@ -455,7 +455,7 @@ $ git add module1.yaml module2.yaml module3.yaml
 🤖 Pattern detected in staged files.
    Generated template: templates/auto-module-manifest.yaml
    Variables detected: {module_name}, {purpose}, {layer}
-   
+
    Apply to remaining 14 modules? (y/n)
 ```
 
@@ -490,7 +490,7 @@ jobs:
             gh pr create --title "Auto-detected patterns" \
                          --body "$(cat patterns/reports/pattern_candidates.md)"
           fi
-  
+
   performance_report:
     runs-on: ubuntu-latest
     steps:
@@ -498,7 +498,7 @@ jobs:
         run: python scripts/analyze_pattern_usage.py --report
       - name: Update docs
         run: python scripts/update_pattern_metrics.py
-  
+
   cleanup_patterns:
     runs-on: ubuntu-latest
     steps:
@@ -706,7 +706,7 @@ python scripts/approve_pattern.py --id AUTO-2025-11-25-001
 
 ---
 
-**Status:** READY FOR IMPLEMENTATION  
-**Estimated Effort:** 8 weeks (1 developer)  
-**Expected ROI:** 70% reduction in pattern management overhead  
+**Status:** READY FOR IMPLEMENTATION
+**Estimated Effort:** 8 weeks (1 developer)
+**Expected ROI:** 70% reduction in pattern management overhead
 **Risk:** Low (non-invasive instrumentation, opt-in features)

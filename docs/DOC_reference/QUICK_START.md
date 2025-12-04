@@ -4,8 +4,8 @@ doc_id: DOC-GUIDE-QUICK-START-393
 
 # Quick Start Guide
 
-> **Purpose**: Fast entry points for common tasks  
-> **Last Updated**: 2025-11-22  
+> **Purpose**: Fast entry points for common tasks
+> **Last Updated**: 2025-11-22
 > **Audience**: New contributors and AI tools
 
 ---
@@ -315,5 +315,5 @@ chmod +x ./scripts/script_name.sh
 
 ---
 
-**Last Updated**: 2025-11-22  
+**Last Updated**: 2025-11-22
 **For Questions**: See [AGENTS.md](AGENTS.md) for contribution guidelines

@@ -77,7 +77,7 @@ class PipelineTUI(App):
 
         # Get panel registry
         self.registry = get_registry()
-    
+
     def compose(self) -> ComposeResult:
         """Compose the UI layout."""
         yield Header(show_clock=True)
@@ -149,7 +149,7 @@ class PipelineTUI(App):
         # If smoke test, exit immediately
         if self.smoke_test:
             self.exit(0)
-    
+
     def _mount_panel(self, panel_id: str) -> None:
         """Mount a panel by ID."""
         self.panel_id = panel_id
@@ -160,7 +160,7 @@ class PipelineTUI(App):
             if not panel:
                 self.exit(1, f"Failed to create panel: {panel_id}")
                 return
-        
+
         # Create context
         context = PanelContext(
             panel_id=panel_id,
@@ -168,7 +168,7 @@ class PipelineTUI(App):
             pattern_client=self.pattern_client,
             config=self.tui_config
         )
-        
+
         # Mount panel
         widget = self.layout_manager.mount_panel(panel, context)
 
@@ -192,23 +192,23 @@ class PipelineTUI(App):
 
         # Update subtitle
         self.sub_title = panel.title
-    
+
     def action_switch_dashboard(self) -> None:
         """Switch to dashboard panel."""
         self._mount_panel("dashboard")
-    
+
     def action_switch_file_lifecycle(self) -> None:
         """Switch to file lifecycle panel."""
         self._mount_panel("file_lifecycle")
-    
+
     def action_switch_tool_health(self) -> None:
         """Switch to tool health panel."""
         self._mount_panel("tool_health")
-    
+
     def action_switch_log_stream(self) -> None:
         """Switch to log stream panel."""
         self._mount_panel("log_stream")
-    
+
     def action_switch_pattern_activity(self) -> None:
         """Switch to pattern activity panel."""
         self._mount_panel("pattern_activity")
@@ -260,7 +260,7 @@ def main():
         layout=args.layout,
         secondary_panel=args.secondary_panel,
     )
-    
+
     try:
         app.run()
     except Exception as e:

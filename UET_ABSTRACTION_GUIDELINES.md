@@ -4,8 +4,8 @@ doc_id: DOC-GUIDE-UET-ABSTRACTION-GUIDELINES-1002
 
 # UET Abstraction Guidelines
 
-**Status**: Active  
-**Last Updated**: 2025-11-30  
+**Status**: Active
+**Last Updated**: 2025-11-30
 **Purpose**: Defines when and how to use abstraction in the AI Development Pipeline
 
 ---
@@ -263,7 +263,7 @@ status = get_workspace_status(workspace)
 class PathNormalizer:
     def __init__(self):
         self.strategy = PathNormalizationStrategy()
-    
+
     def normalize(self, path):
         return self.strategy.execute(path)
 

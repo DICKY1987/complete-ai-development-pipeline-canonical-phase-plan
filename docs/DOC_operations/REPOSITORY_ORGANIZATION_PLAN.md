@@ -3,8 +3,8 @@ doc_id: DOC-GUIDE-REPOSITORY-ORGANIZATION-PLAN-395
 ---
 
 # Repository Organization Plan: Separation of Concerns
-**Date**: 2025-11-23  
-**Current State**: Mixed concerns, 49 root files, duplicated directories  
+**Date**: 2025-11-23
+**Current State**: Mixed concerns, 49 root files, duplicated directories
 **Goal**: Clean separation aligned with domain boundaries
 
 ---
@@ -31,7 +31,7 @@ doc_id: DOC-GUIDE-REPOSITORY-ORGANIZATION-PLAN-395
 - `meta/` - 50 files (meta documentation?)
 - `UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/docs/` - 15 files
 
-**Issue**: 
+**Issue**:
 - No clear distinction between user docs vs developer docs vs reference
 - Duplicated concerns across directories
 - UET framework isolated from main docs
@@ -214,8 +214,8 @@ specifications/ (specs and tools)
 ## Separation of Concerns Principles
 
 ### 1. Source Code (`src/`)
-**Purpose**: Production code only  
-**Concerns**: Core logic, domain modules, adapters, CLI, GUI  
+**Purpose**: Production code only
+**Concerns**: Core logic, domain modules, adapters, CLI, GUI
 **Rules**:
 - All importable Python code lives here
 - Organized by layer (core → domain → adapters → ui)
@@ -224,8 +224,8 @@ specifications/ (specs and tools)
 ---
 
 ### 2. Documentation (`docs/` + `developer/`)
-**Purpose**: Reference and guides  
-**Concerns**: User docs vs developer docs vs architecture  
+**Purpose**: Reference and guides
+**Concerns**: User docs vs developer docs vs architecture
 **Rules**:
 - `docs/` = User-facing (guides, API reference, architecture)
 - `developer/` = Developer-specific (contributing, setup, phases)
@@ -235,8 +235,8 @@ specifications/ (specs and tools)
 ---
 
 ### 3. Specifications (`specs/`)
-**Purpose**: Contracts and schemas  
-**Concerns**: Workstream specs, task specs, phase specs, UET specs  
+**Purpose**: Contracts and schemas
+**Concerns**: Workstream specs, task specs, phase specs, UET specs
 **Rules**:
 - Only declarative specification files
 - No tooling or implementation
@@ -245,8 +245,8 @@ specifications/ (specs and tools)
 ---
 
 ### 4. Tooling (`tools/` + `scripts/`)
-**Purpose**: Automation and utilities  
-**Concerns**: User-facing tools vs developer scripts  
+**Purpose**: Automation and utilities
+**Concerns**: User-facing tools vs developer scripts
 **Rules**:
 - `tools/` = User-facing utilities (pattern extraction, validation)
 - `scripts/` = Developer automation (CI, maintenance, dev helpers)
@@ -255,8 +255,8 @@ specifications/ (specs and tools)
 ---
 
 ### 5. Configuration (`config/` + `.config/`)
-**Purpose**: Settings and environment  
-**Concerns**: Runtime config vs dev environment  
+**Purpose**: Settings and environment
+**Concerns**: Runtime config vs dev environment
 **Rules**:
 - `config/` = Application runtime (profiles, tool configs)
 - `.config/` = Development environment (.env, pyproject.toml, pytest.ini)
@@ -265,8 +265,8 @@ specifications/ (specs and tools)
 ---
 
 ### 6. Templates (`templates/`)
-**Purpose**: Reusable execution patterns  
-**Concerns**: Pattern templates vs examples  
+**Purpose**: Reusable execution patterns
+**Concerns**: Pattern templates vs examples
 **Rules**:
 - All UET templates consolidated here
 - Organized by category (parallel, sequential, meta)
@@ -277,7 +277,7 @@ specifications/ (specs and tools)
 ## Migration Plan (3 Phases)
 
 ### Phase 1: Quick Wins (Root Cleanup)
-**Time**: 30 minutes  
+**Time**: 30 minutes
 **Impact**: Immediate clarity
 
 **Actions**:
@@ -313,7 +313,7 @@ specifications/ (specs and tools)
 ---
 
 ### Phase 2: Documentation Consolidation
-**Time**: 1 hour  
+**Time**: 1 hour
 **Impact**: Clear doc hierarchy
 
 **Actions**:
@@ -341,7 +341,7 @@ specifications/ (specs and tools)
    MIGRATION_*.md → archive/migration-logs/
    ```
 
-**Result**: 
+**Result**:
 - `docs/` = User-facing reference
 - `developer/` = Developer guides
 - `archive/` = Historical context
@@ -349,7 +349,7 @@ specifications/ (specs and tools)
 ---
 
 ### Phase 3: Code & Tooling Reorganization
-**Time**: 2 hours  
+**Time**: 2 hours
 **Impact**: Clean module boundaries
 
 **Actions**:
@@ -387,21 +387,21 @@ specifications/ (specs and tools)
 ## Benefits of This Structure
 
 ### For Developers
-✅ **Clear ownership**: Each directory has one purpose  
-✅ **Easy navigation**: Predictable locations  
-✅ **Less cognitive load**: No hunting for files  
+✅ **Clear ownership**: Each directory has one purpose
+✅ **Easy navigation**: Predictable locations
+✅ **Less cognitive load**: No hunting for files
 ✅ **Better onboarding**: New devs understand structure immediately
 
 ### For AI Agents
-✅ **Clearer context**: Separation guides tool selection  
-✅ **Better scoping**: file_scope can target specific concerns  
-✅ **Faster searches**: Know where to look for what  
+✅ **Clearer context**: Separation guides tool selection
+✅ **Better scoping**: file_scope can target specific concerns
+✅ **Faster searches**: Know where to look for what
 ✅ **Reduced errors**: Less chance of editing wrong file
 
 ### For Maintenance
-✅ **Easier cleanup**: Archive old stuff without fear  
-✅ **Clear deprecation**: `legacy/` and `archive/` are obvious  
-✅ **Better git history**: Changes grouped by concern  
+✅ **Easier cleanup**: Archive old stuff without fear
+✅ **Clear deprecation**: `legacy/` and `archive/` are obvious
+✅ **Better git history**: Changes grouped by concern
 ✅ **Simpler CI/CD**: Target specific directories
 
 ---
@@ -509,6 +509,6 @@ ls -d docs devdocs meta 2>/dev/null | wc -l  # Should be 1 (docs only)
 
 ---
 
-_Generated: 2025-11-23_  
-_Pattern: separation_of_concerns_v1_  
+_Generated: 2025-11-23_
+_Pattern: separation_of_concerns_v1_
 _Next Step: Execute Phase 1 cleanup_

@@ -58,33 +58,33 @@ class FileLifecycleRecord:
     file_id: str
     current_path: str
     origin_path: Optional[str] = None
-    
+
     # Classification
     file_role: FileRole = FileRole.OTHER
-    
+
     # State tracking
     current_state: FileState = FileState.DISCOVERED
     state_timestamps: Dict[str, datetime] = field(default_factory=dict)
-    
+
     # Correlation
     workstream_id: Optional[str] = None
     job_id: Optional[str] = None
     run_id: Optional[str] = None
-    
+
     # History
     tools_touched: List[FileToolTouch] = field(default_factory=list)
-    
+
     # Error tracking
     last_error_code: Optional[str] = None
     last_error_message: Optional[str] = None
     last_error_plugin: Optional[str] = None
-    
+
     # Final disposition
     committed_sha: Optional[str] = None
     committed_repo_path: Optional[str] = None
     quarantine_reason: Optional[str] = None
     quarantine_folder: Optional[str] = None
-    
+
     # Timestamps
     first_seen: Optional[datetime] = None
     last_processed: Optional[datetime] = None
@@ -122,26 +122,26 @@ class ToolHealthMetrics:
     requests_5min: int = 0
     requests_15min: int = 0
     requests_60min: int = 0
-    
+
     # Success/failure
     success_count: int = 0
     failure_count: int = 0
     success_rate: float = 0.0
-    
+
     # Latency (seconds)
     mean_latency: float = 0.0
     p95_latency: float = 0.0
     p99_latency: float = 0.0
-    
+
     # Capacity
     max_concurrency: int = 1
     current_in_flight: int = 0
     queue_length: int = 0
-    
+
     # Reliability
     retry_count: int = 0
     time_since_last_failure: Optional[float] = None
-    
+
     # Output metrics
     avg_output_size_bytes: Optional[float] = None
 
@@ -153,12 +153,12 @@ class ToolHealthStatus:
     display_name: str
     category: ToolCategory
     version: Optional[str] = None
-    
+
     # Status
     status: ToolStatus = ToolStatus.UNKNOWN
     status_reason: Optional[str] = None
     last_successful_invocation: Optional[datetime] = None
-    
+
     # Metrics
     metrics: ToolHealthMetrics = field(default_factory=ToolHealthMetrics)
 
@@ -184,11 +184,11 @@ class WorkstreamProgress:
     current_phase: Optional[str] = None
     total_phases: int = 0
     completed_phases: int = 0
-    
+
     current_step: Optional[str] = None
     total_steps: int = 0
     completed_steps: int = 0
-    
+
     progress_percentage: float = 0.0
 
 
@@ -197,26 +197,26 @@ class WorkstreamRecord:
     """Complete workstream tracking record."""
     ws_id: str
     run_id: str
-    
+
     # Identification
     label: Optional[str] = None
     description: Optional[str] = None
-    
+
     # Status
     status: WorkstreamStatus = WorkstreamStatus.PENDING
     progress: WorkstreamProgress = field(default_factory=WorkstreamProgress)
-    
+
     # Timing
     start_time: Optional[datetime] = None
     last_update: Optional[datetime] = None
     total_duration_sec: Optional[float] = None
-    
+
     # Counters
     files_processed: int = 0
     files_succeeded: int = 0
     files_quarantined: int = 0
     total_tool_invocations: int = 0
-    
+
     # Artifacts
     worktree_path: Optional[str] = None
     spec_path: Optional[str] = None
@@ -253,7 +253,7 @@ class ErrorCategory(Enum):
 class ErrorRecord:
     """Structured error record for quarantine center."""
     error_id: str
-    
+
     # Entity tracking
     entity_type: str  # "file", "job", "tool_instance", "workstream"
     file_id: Optional[str] = None
@@ -261,22 +261,22 @@ class ErrorRecord:
     ws_id: Optional[str] = None
     tool_id: Optional[str] = None
     run_id: Optional[str] = None
-    
+
     # Classification
     plugin: Optional[str] = None
     severity: ErrorSeverity = ErrorSeverity.ERROR
     category: ErrorCategory = ErrorCategory.UNKNOWN
-    
+
     # Messages
     human_message: str = ""
     technical_details: str = ""
     recommendation: Optional[str] = None
-    
+
     # Timing
     first_seen: datetime = field(default_factory=lambda: datetime.now())
     last_seen: datetime = field(default_factory=lambda: datetime.now())
     occurrence_count: int = 1
-    
+
     # Quarantine
     quarantine_path: Optional[str] = None
     can_retry: bool = True
@@ -295,7 +295,7 @@ class PipelineSummary:
     workstreams_queued: int = 0
     workstreams_completed: int = 0
     workstreams_failed: int = 0
-    
+
     # File counts by state
     files_intake: int = 0
     files_classified: int = 0
@@ -303,16 +303,16 @@ class PipelineSummary:
     files_awaiting_review: int = 0
     files_committed: int = 0
     files_quarantined: int = 0
-    
+
     # Throughput
     files_per_hour: float = 0.0
     jobs_per_hour: float = 0.0
     avg_file_latency_sec: float = 0.0
-    
+
     # Error surface
     errors_per_hour: float = 0.0
     top_error_types: List[Tuple[str, int]] = field(default_factory=list)
-    
+
     # Tool health
     tools_healthy: int = 0
     tools_degraded: int = 0
@@ -339,16 +339,16 @@ class JobRecord:
     job_id: str
     parent_ws_id: Optional[str] = None
     run_id: Optional[str] = None
-    
+
     # Tool invocations
     tools_invoked: List[str] = field(default_factory=list)
-    
+
     # Status
     latest_step_status: Optional[str] = None
     latest_step_description: Optional[str] = None
     exit_code: Optional[int] = None
     completed: bool = False
-    
+
     # Timing
     start_time: Optional[datetime] = None
     end_time: Optional[datetime] = None
@@ -376,17 +376,17 @@ class HeadlessPolicy(Enum):
 class PipelineControlState:
     """Current pipeline control settings."""
     run_mode: RunMode = RunMode.RUNNING
-    
+
     # Concurrency
     global_max_workers: int = 4
     per_tool_concurrency: Dict[str, int] = field(default_factory=dict)
-    
+
     # Headless policy
     headless_policy: HeadlessPolicy = HeadlessPolicy.REQUIRE_REVIEW_IF_RISKY
-    
+
     # Sandbox
     active_worktree: Optional[str] = None
     worktree_to_branch_mapping: Dict[str, str] = field(default_factory=dict)
-    
+
     # Logging
     log_level: str = "info"

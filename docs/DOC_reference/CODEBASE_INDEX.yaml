@@ -18,17 +18,17 @@ layers:
     name: "Infrastructure"
     description: "Database, state, schemas, configuration"
     modules: ["core.state", "schema", "config"]
-  
+
   - id: "domain"
     name: "Domain Logic"
     description: "Core business logic and orchestration"
     modules: ["core.engine", "core.planning", "error.engine", "specifications.tools"]
-  
+
   - id: "api"
     name: "API & Integrations"
     description: "External tool integrations and bridges"
     modules: ["aim", "pm", "aider", "specifications.bridge"]
-  
+
   - id: "ui"
     name: "User Interface"
     description: "CLI, GUI, and user-facing tools"

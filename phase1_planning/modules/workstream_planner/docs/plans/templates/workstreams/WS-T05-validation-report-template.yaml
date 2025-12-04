@@ -21,7 +21,7 @@ description: |
   - Verification results
   - Action items and next steps
   - Troubleshooting guidance
-  
+
   Based on existing reports (240-339 lines).
 
 execution_request:
@@ -37,30 +37,30 @@ execution_request:
         - core/**
         - error/**
         - .git/**
-  
+
   prompt: |
     Create a validation report Markdown template following EXEC-001 pattern.
-    
+
     INPUTS:
     1. Analyze existing reports:
        - C:\Users\richg\.claude\file-history\8b7dc525-52d5-4614-84a5-6077f14ab2b5\214669e611dd24f9@v2
        - C:\Users\richg\.claude\file-history\8b7dc525-52d5-4614-84a5-6077f14ab2b5\88a587f347b39429@v2
     2. Extract common structure and sections
-    
+
     OUTPUTS:
     1. templates/_schema/validation_report.schema.json
        - Define variables: {title}, {status}, {phases}, {tools}, {metrics}
        - JSON Schema format
-    
+
     2. templates/validation_report.template.md
        - Jinja2 template with placeholders
        - Include: Executive summary, phase breakdown, verification, next steps
        - Support: Tables, checkmarks, status emojis
-    
+
     3. templates/_examples/validation_report.example.json
        - Sample variables for installation report
        - Test data with multiple phases
-    
+
     GROUND TRUTH GATES:
     - Schema validates against JSON Schema meta-schema
     - Template syntax is valid Jinja2
@@ -72,17 +72,17 @@ validation_gates:
     command: python -c "import json, jsonschema; schema=json.load(open('templates/_schema/validation_report.schema.json')); jsonschema.Draft7Validator.check_schema(schema)"
     expect_exit_code: 0
     failure_action: halt_and_report
-  
+
   gate_2_template_syntax:
     command: python -c "from jinja2 import Template; Template(open('templates/validation_report.template.md').read())"
     expect_exit_code: 0
     failure_action: halt_and_report
-  
+
   gate_3_renders_successfully:
     command: python tools/render_template.py templates/validation_report.template.md templates/_examples/validation_report.example.json --output test_report.md
     expect_exit_code: 0
     failure_action: halt_and_report
-  
+
   gate_4_markdown_valid:
     command: python -c "import markdown; markdown.markdown(open('test_report.md').read())"
     expect_exit_code: 0

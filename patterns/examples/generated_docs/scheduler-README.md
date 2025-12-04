@@ -98,6 +98,6 @@ pytest tests/engine/test_scheduler.py
 
 ---
 
-**Status**: stable  
-**Owner**: @core-team  
+**Status**: stable
+**Owner**: @core-team
 **Last Updated**: 2025-11-24

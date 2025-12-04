@@ -15,7 +15,7 @@ Your Code                Pattern Event System           Storage
 ──────────               ────────────────────           ───────
 execute_pattern() ──→    emit_pattern_event()    ──→    state/events/pattern_events.jsonl
                          PatternRunAggregator    ──→    engine/state_store (DB)
-                                                        
+
 GUI Panel         ←──    GET /api/pattern-events ←──    Read from JSONL/DB
 ```
 
@@ -45,7 +45,7 @@ def execute_pattern(pattern_id, job_id, step_id, inputs):
         operation_kind=inputs.get("operation_kind", "unknown"),
         step_id=step_id,
     )
-    
+
     # Emit: selection resolved
     emit_pattern_event(
         event_type="pattern.selection.resolved",
@@ -60,9 +60,9 @@ def execute_pattern(pattern_id, job_id, step_id, inputs):
         },
         step_id=step_id,
     )
-    
+
     # ... expand template ...
-    
+
     emit_pattern_event(
         event_type="pattern.template.expanded",
         job_id=job_id,
@@ -75,9 +75,9 @@ def execute_pattern(pattern_id, job_id, step_id, inputs):
         },
         step_id=step_id,
     )
-    
+
     # ... run tool ...
-    
+
     emit_pattern_event(
         event_type="pattern.execution.started",
         job_id=job_id,
@@ -90,9 +90,9 @@ def execute_pattern(pattern_id, job_id, step_id, inputs):
         },
         step_id=step_id,
     )
-    
+
     result = run_tool(command_str)
-    
+
     # Emit: completed or failed
     if result.exit_code == 0:
         emit_pattern_event(
@@ -123,7 +123,7 @@ def execute_pattern(pattern_id, job_id, step_id, inputs):
             },
             step_id=step_id,
         )
-    
+
     return result
 ```
 
@@ -158,21 +158,21 @@ class JobStateStore:
     def __init__(self, db_path: Optional[str] = None):
         self.db_path = db_path
         db.init_db(self.db_path)
-        
+
         # Add pattern event support
         self.pattern_emitter = PatternEventEmitter()
         self.pattern_aggregator = PatternRunAggregator(self.pattern_emitter)
-    
+
     def get_pattern_events(self, job_id: str) -> List[Dict]:
         """Get pattern events for a job."""
         events = self.pattern_emitter.get_events(job_id=job_id)
         return [e.to_dict() for e in events]
-    
+
     def get_pattern_runs(self, job_id: str) -> List[Dict]:
         """Get pattern runs for a job."""
         runs = self.pattern_aggregator.rebuild_from_events(job_id)
         return [r.to_dict() for r in runs]
-    
+
     def get_pattern_run(self, pattern_run_id: str) -> Optional[Dict]:
         """Get specific pattern run."""
         run = self.pattern_aggregator.get_run(pattern_run_id)
@@ -231,23 +231,23 @@ import React, { useEffect, useState } from 'react';
 export function PatternActivityPanel({ jobId }) {
   const [events, setEvents] = useState([]);
   const [runs, setRuns] = useState([]);
-  
+
   useEffect(() => {
     // Fetch pattern events
     fetch(`/api/jobs/${jobId}/pattern-events`)
       .then(r => r.json())
       .then(setEvents);
-    
+
     // Fetch pattern runs summary
     fetch(`/api/jobs/${jobId}/pattern-runs`)
       .then(r => r.json())
       .then(setRuns);
   }, [jobId]);
-  
+
   return (
     <div className="pattern-activity-panel">
       <h3>Pattern Activity</h3>
-      
+
       {/* Summary Table */}
       <table>
         <thead>
@@ -272,7 +272,7 @@ export function PatternActivityPanel({ jobId }) {
           ))}
         </tbody>
       </table>
-      
+
       {/* Timeline */}
       <div className="pattern-timeline">
         {events.map(event => (

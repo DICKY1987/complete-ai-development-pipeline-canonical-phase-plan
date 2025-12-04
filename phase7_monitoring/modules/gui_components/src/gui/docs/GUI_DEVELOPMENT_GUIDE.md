@@ -61,25 +61,25 @@ The GUI follows the **hybrid shell pattern** from `gui/Hybrid UI_GUI shell_termi
    from typing import Dict, Any, List
    from engine.interfaces import StateInterface
    from core.state import db, crud
-   
+
    class JobStateStore:
        """Implements StateInterface using existing DB."""
-       
+
        def __init__(self, db_path: str = None):
            self.db_path = db_path or "state/pipeline.db"
            db.init_db(self.db_path)
-       
+
        def mark_job_running(self, job_id: str) -> None:
            # Update status in DB
            ...
-       
+
        # Implement remaining StateInterface methods
    ```
 
 2. **Update `engine/orchestrator/orchestrator.py`**
    ```python
    from engine.state_store.job_state_store import JobStateStore
-   
+
    class Orchestrator:
        def __init__(self, state_store: StateInterface = None):
            self.state_store = state_store or JobStateStore()
@@ -111,10 +111,10 @@ class CodexAdapter:
     def run_job(self, job: dict) -> JobResult:
         # Similar to AiderAdapter but for Codex CLI
         ...
-    
+
     def validate_job(self, job: dict) -> bool:
         return job.get("tool") == "codex"
-    
+
     def get_tool_info(self) -> dict:
         return {
             "tool": "codex",
@@ -187,27 +187,27 @@ class DashboardPanel(PanelPluginBase):
     @classmethod
     def plugin_id(cls) -> str:
         return "dashboard"
-    
+
     @classmethod
     def plugin_title(cls) -> str:
         return "Dashboard"
-    
+
     def create_widget(self, parent=None) -> QWidget:
         widget = QWidget(parent)
         layout = QVBoxLayout()
-        
+
         # Read state via service
         state = self.services.get("state_client")
         runs = state.list_recent_runs()
-        
+
         layout.addWidget(QLabel(f"Recent Runs: {len(runs)}"))
         widget.setLayout(layout)
         return widget
-    
+
     def on_activate(self):
         # Start timer for updates
         pass
-    
+
     def on_deactivate(self):
         # Stop timer
         pass
@@ -243,7 +243,7 @@ class EngineClient:
     def run_job(self, job_file: str) -> dict:
         """Submit job to orchestrator."""
         result = subprocess.run(
-            ["python", "-m", "engine.orchestrator", "run-job", 
+            ["python", "-m", "engine.orchestrator", "run-job",
              "--job-file", job_file],
             capture_output=True,
             text=True
@@ -253,7 +253,7 @@ class EngineClient:
             "stdout": result.stdout,
             "stderr": result.stderr
         }
-    
+
     def get_job_status(self, job_id: str) -> str:
         # Query via state_client
         pass
@@ -297,7 +297,7 @@ class PermissionLevel:
 
 class PermissionsManager:
     """Enforces GUI permission matrix."""
-    
+
     PERMISSIONS = {
         "runs": {
             "list": PermissionLevel.READ,
@@ -308,11 +308,11 @@ class PermissionsManager:
         },
         # ... more capabilities
     }
-    
+
     def can_perform(self, resource: str, action: str) -> bool:
         level = self.PERMISSIONS.get(resource, {}).get(action, PermissionLevel.NONE)
         return level > PermissionLevel.NONE
-    
+
     def requires_confirmation(self, resource: str, action: str) -> bool:
         # Check if write action needs user confirmation
         level = self.PERMISSIONS.get(resource, {}).get(action)

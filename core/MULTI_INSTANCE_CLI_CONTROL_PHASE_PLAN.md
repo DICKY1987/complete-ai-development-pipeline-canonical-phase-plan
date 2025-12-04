@@ -81,17 +81,17 @@ class ProcessInstance:
 
 class ToolProcessPool:
     """Manage multiple long-lived tool CLI instances.
-    
+
     Example:
         pool = ToolProcessPool("aider", count=3)
         pool.send_prompt(0, "/add core/state.py")
         response = pool.read_response(0, timeout=10)
         pool.shutdown()
     """
-    
+
     def __init__(self, tool_id: str, count: int, registry: Optional[Dict] = None):
         """Initialize process pool.
-        
+
         Args:
             tool_id: Tool from AIM registry (e.g., "aider")
             count: Number of instances to spawn (1-10)
@@ -101,27 +101,27 @@ class ToolProcessPool:
         self.count = count
         self.instances: List[ProcessInstance] = []
         self.registry = registry or load_aim_registry()
-        
+
         # Validate tool exists
         if tool_id not in self.registry.get("tools", {}):
             raise ValueError(f"Tool '{tool_id}' not in AIM registry")
-        
+
         # Spawn instances
         for i in range(count):
             self._spawn_instance(i)
-    
+
     def _spawn_instance(self, index: int) -> ProcessInstance:
         """Spawn a single tool instance with I/O threads."""
         tool_config = self.registry["tools"][self.tool_id]
-        
+
         # Build command from registry
         detect_cmds = tool_config["detectCommands"]
         cmd = detect_cmds[0] if isinstance(detect_cmds[0], list) else [detect_cmds[0]]
-        
+
         # Add flags for interactive mode
         if self.tool_id == "aider":
             cmd.extend(["--yes-always"])  # Non-blocking mode
-        
+
         # Spawn process
         proc = subprocess.Popen(
             cmd,
@@ -131,24 +131,24 @@ class ToolProcessPool:
             text=True,
             bufsize=1  # Line-buffered
         )
-        
+
         # Create output queues
         stdout_q = queue.Queue()
         stderr_q = queue.Queue()
-        
+
         # Start reader threads
         threading.Thread(
             target=self._read_stream,
             args=(proc.stdout, stdout_q),
             daemon=True
         ).start()
-        
+
         threading.Thread(
             target=self._read_stream,
             args=(proc.stderr, stderr_q),
             daemon=True
         ).start()
-        
+
         instance = ProcessInstance(
             index=index,
             tool_id=self.tool_id,
@@ -156,33 +156,33 @@ class ToolProcessPool:
             stdout_queue=stdout_q,
             stderr_queue=stderr_q
         )
-        
+
         self.instances.append(instance)
         return instance
-    
+
     def _read_stream(self, stream, q: queue.Queue):
         """Background thread to read stream into queue."""
         for line in stream:
             q.put(line.rstrip('\n'))
         stream.close()
-    
+
     def send_prompt(self, instance_idx: int, prompt: str) -> bool:
         """Send prompt to specific instance.
-        
+
         Args:
             instance_idx: Instance index (0 to count-1)
             prompt: Command/prompt to send
-            
+
         Returns:
             bool: True if sent successfully
         """
         if instance_idx >= len(self.instances):
             return False
-        
+
         instance = self.instances[instance_idx]
         if not instance.alive:
             return False
-        
+
         try:
             instance.process.stdin.write(prompt + "\n")
             instance.process.stdin.flush()
@@ -190,31 +190,31 @@ class ToolProcessPool:
         except (BrokenPipeError, OSError):
             instance.alive = False
             return False
-    
+
     def read_response(self, instance_idx: int, timeout: float = 5.0) -> Optional[str]:
         """Read response from instance stdout.
-        
+
         Args:
             instance_idx: Instance index
             timeout: Max seconds to wait for response
-            
+
         Returns:
             str: Response line, or None if timeout/error
         """
         if instance_idx >= len(self.instances):
             return None
-        
+
         instance = self.instances[instance_idx]
-        
+
         try:
             line = instance.stdout_queue.get(timeout=timeout)
             return line
         except queue.Empty:
             return None
-    
+
     def get_status(self) -> List[Dict[str, Any]]:
         """Get status of all instances.
-        
+
         Returns:
             List of status dicts with index, alive, return_code
         """
@@ -226,10 +226,10 @@ class ToolProcessPool:
                 "return_code": inst.process.poll()
             })
         return statuses
-    
+
     def shutdown(self, timeout: float = 5.0):
         """Gracefully shutdown all instances.
-        
+
         Args:
             timeout: Seconds to wait for graceful exit
         """
@@ -239,14 +239,14 @@ class ToolProcessPool:
                     inst.process.terminate()
                 except OSError:
                     pass
-        
+
         # Wait for all to exit
         start = time.time()
         while time.time() - start < timeout:
             if all(inst.process.poll() is not None for inst in self.instances):
                 break
             time.sleep(0.1)
-        
+
         # Force kill stragglers
         for inst in self.instances:
             if inst.process.poll() is None:
@@ -309,9 +309,9 @@ def test_pool_initialization(mock_registry):
     with patch("aim.bridge.subprocess.Popen") as mock_popen:
         mock_proc = MagicMock()
         mock_popen.return_value = mock_proc
-        
+
         pool = ToolProcessPool("aider", count=3, registry=mock_registry)
-        
+
         assert len(pool.instances) == 3
         assert mock_popen.call_count == 3
 
@@ -322,10 +322,10 @@ def test_send_prompt_success(mock_registry):
         mock_proc = MagicMock()
         mock_proc.stdin = MagicMock()
         mock_popen.return_value = mock_proc
-        
+
         pool = ToolProcessPool("aider", count=1, registry=mock_registry)
         result = pool.send_prompt(0, "/add test.py")
-        
+
         assert result == True
         mock_proc.stdin.write.assert_called_once_with("/add test.py\n")
         mock_proc.stdin.flush.assert_called_once()
@@ -336,7 +336,7 @@ def test_send_prompt_dead_process(mock_registry):
     with patch("aim.bridge.subprocess.Popen"):
         pool = ToolProcessPool("aider", count=1, registry=mock_registry)
         pool.instances[0].alive = False
-        
+
         result = pool.send_prompt(0, "/add test.py")
         assert result == False
 
@@ -345,7 +345,7 @@ def test_read_response_timeout(mock_registry):
     """Test read_response returns None on timeout."""
     with patch("aim.bridge.subprocess.Popen"):
         pool = ToolProcessPool("aider", count=1, registry=mock_registry)
-        
+
         response = pool.read_response(0, timeout=0.1)
         assert response is None
 
@@ -356,10 +356,10 @@ def test_shutdown_graceful(mock_registry):
         mock_proc = MagicMock()
         mock_proc.poll.return_value = 0  # Already exited
         mock_popen.return_value = mock_proc
-        
+
         pool = ToolProcessPool("aider", count=2, registry=mock_registry)
         pool.shutdown(timeout=1.0)
-        
+
         # Verify terminate was called
         assert mock_proc.terminate.call_count == 2
 
@@ -370,10 +370,10 @@ def test_get_status(mock_registry):
         mock_proc = MagicMock()
         mock_proc.poll.return_value = None  # Still running
         mock_popen.return_value = mock_proc
-        
+
         pool = ToolProcessPool("aider", count=2, registry=mock_registry)
         statuses = pool.get_status()
-        
+
         assert len(statuses) == 2
         assert statuses[0]["alive"] == True
         assert statuses[0]["index"] == 0
@@ -417,28 +417,28 @@ from aim.bridge import ToolProcessPool, load_aim_registry
 def test_aider_pool_real():
     """Integration test with real aider instances."""
     pool = ToolProcessPool("aider", count=3)
-    
+
     try:
         # Verify all spawned
         statuses = pool.get_status()
         assert len(statuses) == 3
         assert all(s["alive"] for s in statuses)
-        
+
         # Send commands to each instance
         pool.send_prompt(0, "/add core/state.py")
         pool.send_prompt(1, "/add error/engine.py")
         pool.send_prompt(2, "/help")
-        
+
         # Read responses (aider outputs prompt confirmation)
         resp0 = pool.read_response(0, timeout=10)
         resp1 = pool.read_response(1, timeout=10)
         resp2 = pool.read_response(2, timeout=10)
-        
+
         # Verify responses received
         assert resp0 is not None
         assert resp1 is not None
         assert resp2 is not None
-        
+
     finally:
         pool.shutdown()
 
@@ -477,42 +477,42 @@ pytest tests/aim/integration/test_aider_pool.py -v -m integration
 
 class ToolProcessPool:
     # ... existing code ...
-    
+
     def check_health(self) -> Dict[str, Any]:
         """Check health of all instances.
-        
+
         Returns:
             Health report with alive count, dead count, details
         """
         statuses = self.get_status()
         alive_count = sum(1 for s in statuses if s["alive"])
-        
+
         return {
             "total": len(self.instances),
             "alive": alive_count,
             "dead": len(self.instances) - alive_count,
             "instances": statuses
         }
-    
+
     def restart_instance(self, instance_idx: int) -> bool:
         """Restart a dead instance.
-        
+
         Args:
             instance_idx: Instance to restart
-            
+
         Returns:
             bool: True if restarted successfully
         """
         if instance_idx >= len(self.instances):
             return False
-        
+
         old_instance = self.instances[instance_idx]
-        
+
         # Kill old process if still running
         if old_instance.process.poll() is None:
             old_instance.process.kill()
             old_instance.process.wait()
-        
+
         # Spawn new instance
         try:
             new_instance = self._spawn_instance(instance_idx)
@@ -587,24 +587,24 @@ class RoutingStrategy(Enum):
 
 class ClusterManager:
     """High-level cluster management with routing.
-    
+
     Example:
         cluster = launch_cluster("aider", count=3)
         cluster.send("/add file.py")  # Routes automatically
         cluster.send_to(0, "/ask 'fix'")  # Target specific instance
     """
-    
-    def __init__(self, tool_id: str, count: int, 
+
+    def __init__(self, tool_id: str, count: int,
                  routing: RoutingStrategy = RoutingStrategy.ROUND_ROBIN):
         self.tool_id = tool_id
         self.pool = ToolProcessPool(tool_id, count)
         self.routing = routing
         self._current_index = 0
         self._pending_requests = [0] * count
-    
+
     def send(self, prompt: str) -> int:
         """Send prompt using routing strategy.
-        
+
         Returns:
             int: Instance index that received the prompt
         """
@@ -612,11 +612,11 @@ class ClusterManager:
         self.pool.send_prompt(idx, prompt)
         self._pending_requests[idx] += 1
         return idx
-    
+
     def send_to(self, instance_idx: int, prompt: str) -> bool:
         """Send prompt to specific instance."""
         return self.pool.send_prompt(instance_idx, prompt)
-    
+
     def _select_instance(self) -> int:
         """Select instance based on routing strategy."""
         if self.routing == RoutingStrategy.ROUND_ROBIN:
@@ -629,18 +629,18 @@ class ClusterManager:
             return 0
 
 
-def launch_cluster(tool_id: str, count: int = 3, 
+def launch_cluster(tool_id: str, count: int = 3,
                    routing: str = "round_robin") -> ClusterManager:
     """Launch a managed cluster of tool instances.
-    
+
     Args:
         tool_id: Tool from AIM registry
         count: Number of instances (default: 3)
         routing: Routing strategy (round_robin, least_busy, sticky)
-        
+
     Returns:
         ClusterManager: Managed cluster
-        
+
     Example:
         cluster = launch_cluster("aider", count=3)
         cluster.send("/add core/state.py")
@@ -721,19 +721,19 @@ try:
     # Distribute refactoring tasks
     files_to_refactor = [
         "core/state.py",
-        "error/engine.py", 
+        "error/engine.py",
         "aim/bridge.py"
     ]
-    
+
     for i, filepath in enumerate(files_to_refactor):
         cluster.send_to(i, f"/add {filepath}")
         cluster.send_to(i, "/ask 'Add type hints to all functions'")
-    
+
     # Monitor completion
     for i in range(len(files_to_refactor)):
         response = cluster.pool.read_response(i, timeout=60)
         print(f"Instance {i} completed: {response}")
-        
+
 finally:
     cluster.shutdown()
 ```
@@ -781,23 +781,23 @@ finally:
 
 class AdapterInterface(Protocol):
     # ... existing methods ...
-    
+
     def supports_pool_mode(self) -> bool:
         """Check if adapter supports pool mode for parallel jobs.
-        
+
         Returns:
             bool: True if adapter can use ToolProcessPool
         """
         ...
-    
-    def run_job_pooled(self, job: Dict[str, Any], 
+
+    def run_job_pooled(self, job: Dict[str, Any],
                        pool: 'ToolProcessPool') -> JobResult:
         """Execute job using an existing process pool.
-        
+
         Args:
             job: Job dictionary
             pool: Active ToolProcessPool instance
-            
+
         Returns:
             JobResult: Execution outcome
         """
@@ -836,39 +836,39 @@ from engine.interfaces.adapter_interface import AdapterInterface
 
 class AiderPooledAdapter:
     """Aider adapter using process pool for parallel jobs."""
-    
+
     def __init__(self, pool: ClusterManager):
         self.pool = pool
         self.tool_name = "aider"
-    
+
     def run_job(self, job: Dict[str, Any]) -> JobResult:
         """Execute aider job via pool."""
         # Translate job to aider commands
         commands = self._build_aider_commands(job)
-        
+
         # Send to cluster (routes automatically)
         instance_idx = None
         for cmd in commands:
             instance_idx = self.pool.send(cmd)
-        
+
         # Collect response
         response_lines = []
         timeout = job.get("metadata", {}).get("timeout_seconds", 60)
-        
+
         while True:
             line = self.pool.pool.read_response(instance_idx, timeout=timeout)
             if line is None:
                 break
             response_lines.append(line)
-            
+
             # Check for completion marker
             if "Commit" in line or "error" in line.lower():
                 break
-        
+
         # Parse result
         success = any("Commit" in line for line in response_lines)
         exit_code = 0 if success else 1
-        
+
         return JobResult(
             exit_code=exit_code,
             error_report_path=job["paths"]["error_report"],
@@ -877,36 +877,36 @@ class AiderPooledAdapter:
             stderr="",
             success=success
         )
-    
+
     def _build_aider_commands(self, job: Dict[str, Any]) -> list:
         """Translate job spec to aider commands.
-        
+
         Example job:
             {
                 "action": "refactor",
                 "files": ["core/state.py"],
                 "prompt": "Add type hints"
             }
-        
+
         Returns:
             ["/add core/state.py", "/ask 'Add type hints'"]
         """
         commands = []
-        
+
         # Add files
         for filepath in job.get("files", []):
             commands.append(f"/add {filepath}")
-        
+
         # Add prompt
         prompt = job.get("prompt", "")
         if prompt:
             commands.append(f"/ask '{prompt}'")
-        
+
         return commands
-    
+
     def supports_pool_mode(self) -> bool:
         return True
-    
+
     def get_tool_info(self) -> Dict[str, Any]:
         return {
             "tool": "aider",
@@ -944,14 +944,14 @@ class Orchestrator:
     def __init__(self):
         # ... existing init ...
         self._tool_pools: Dict[str, ClusterManager] = {}
-    
+
     def _get_or_create_pool(self, tool: str) -> ClusterManager:
         """Get existing pool or create new one."""
         if tool not in self._tool_pools:
             from aim.bridge import launch_cluster
             self._tool_pools[tool] = launch_cluster(tool, count=3)
         return self._tool_pools[tool]
-    
+
     def execute_jobs(self, jobs: List[Dict]) -> List[JobResult]:
         """Execute jobs with pool optimization."""
         # Group jobs by tool
@@ -959,12 +959,12 @@ class Orchestrator:
         for job in jobs:
             tool = job["tool"]
             jobs_by_tool.setdefault(tool, []).append(job)
-        
+
         results = []
-        
+
         for tool, tool_jobs in jobs_by_tool.items():
             adapter = self._get_adapter(tool)
-            
+
             # Use pool if adapter supports it and multiple jobs
             if adapter.supports_pool_mode() and len(tool_jobs) > 1:
                 pool = self._get_or_create_pool(tool)
@@ -976,9 +976,9 @@ class Orchestrator:
                 for job in tool_jobs:
                     result = adapter.run_job(job)
                     results.append(result)
-        
+
         return results
-    
+
     def shutdown(self):
         """Cleanup pools on shutdown."""
         for pool in self._tool_pools.values():
@@ -1135,9 +1135,9 @@ pytest tests/ -v --cov=aim --cov=engine
 
 ---
 
-**Status**: Ready for execution  
-**Estimated Total Effort**: 72 hours (3 weeks × 24h)  
-**Team Size**: 1-2 developers  
+**Status**: Ready for execution
+**Estimated Total Effort**: 72 hours (3 weeks × 24h)
+**Team Size**: 1-2 developers
 **Dependencies**: None (all internal)
 
 **Next Step**: Create feature branch `feature/multi-instance-cli-control` and begin Day 1 tasks

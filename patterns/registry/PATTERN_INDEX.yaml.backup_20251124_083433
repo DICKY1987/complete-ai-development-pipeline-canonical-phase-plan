@@ -32,7 +32,7 @@ patterns:
     proven_uses: 0
     created: "2025-11-24"
     last_updated: "2025-11-24"
-  
+
   # Core pattern: batch_create (SPEC ONLY)
   - pattern_id: PAT-BATCH-CREATE-001
     name: batch_create
@@ -46,7 +46,7 @@ patterns:
     proven_uses: 0
     created: "2025-11-24"
     notes: "Spec-only pattern. AI tools can execute using spec interpretation."
-  
+
   # Core pattern: refactor_patch (SPEC ONLY)
   - pattern_id: PAT-REFACTOR-PATCH-001
     name: refactor_patch
@@ -60,7 +60,7 @@ patterns:
     proven_uses: 0
     created: "2025-11-24"
     notes: "Spec-only pattern. AI tools can execute using spec interpretation."
-  
+
   # Core pattern: self_heal (SPEC ONLY)
   - pattern_id: PAT-SELF-HEAL-001
     name: self_heal
@@ -74,7 +74,7 @@ patterns:
     proven_uses: 0
     created: "2025-11-24"
     notes: "Spec-only pattern. AI tools can execute using spec interpretation."
-  
+
   # Core pattern: verify_commit (SPEC ONLY)
   - pattern_id: PAT-VERIFY-COMMIT-001
     name: verify_commit
@@ -88,7 +88,7 @@ patterns:
     proven_uses: 0
     created: "2025-11-24"
     notes: "Spec-only pattern. AI tools can execute using spec interpretation."
-  
+
   # Core pattern: worktree_lifecycle (SPEC ONLY)
   - pattern_id: PAT-WORKTREE-LIFECYCLE-001
     name: worktree_lifecycle
@@ -102,7 +102,7 @@ patterns:
     proven_uses: 0
     created: "2025-11-24"
     notes: "Spec-only pattern. AI tools can execute using spec interpretation."
-  
+
   # Core pattern: module_creation (SPEC ONLY)
   - pattern_id: PAT-MODULE-CREATION-001
     name: module_creation

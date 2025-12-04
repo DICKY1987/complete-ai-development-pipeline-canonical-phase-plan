@@ -36,31 +36,19 @@ ssot_policy:
     ssot_doc_no_term: |
       SSOT document without glossary term: {path}
       doc_id: {doc_id}
-      
-      Fix: Add a glossary term in glossary/.glossary-metadata.yaml:
-      
-      TERM-{CATEGORY}-{NAME}:
-        name: "{Description}"
-        category: "Specifications"  # or Framework/Contract/etc
-        implementation:
-          files:
-            - "{path}"
-    
+
+      Fix: Add a glossary term in glossary/.glossary-metadata.yaml under 'terms:' section
+
     term_missing_file: |
       Glossary term references missing file: {term_id}
       File: {file_path}
-      
+
       Fix: Either:
       1. Restore the file, OR
       2. Remove the file from term's implementation.files, OR
       3. Update the path if file was moved
-    
+
     ssot_no_doc_id: |
       SSOT document missing required doc_id: {path}
-      
-      Fix: Add doc_id to front-matter:
-      
-      ---
-      doc_id: DOC-{CATEGORY}-{NAME}-NNN
-      ssot: true
-      ---
+
+      Fix: Add doc_id to front-matter (format: DOC-CATEGORY-NAME-NNN)

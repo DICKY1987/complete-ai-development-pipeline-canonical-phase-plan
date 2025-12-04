@@ -4,14 +4,14 @@ doc_id: DOC-PAT-EXEC-017-COMPREHENSIVE-CODE-CLEANUP-862
 
 # EXEC-017: Comprehensive Code Cleanup & Archival Pattern
 
-**Pattern ID:** EXEC-017  
-**Pattern Name:** Comprehensive Code Cleanup & Archival  
-**Version:** 1.0.0  
-**Category:** cleanup  
-**Confidence:** 90%+ (Conservative)  
-**Auto-Approval:** Tier 1 only (90%+ confidence)  
-**Estimated Time:** 2-3 hours (implementation) + 1-2 hours (execution)  
-**Priority:** P0  
+**Pattern ID:** EXEC-017
+**Pattern Name:** Comprehensive Code Cleanup & Archival
+**Version:** 1.0.0
+**Category:** cleanup
+**Confidence:** 90%+ (Conservative)
+**Auto-Approval:** Tier 1 only (90%+ confidence)
+**Estimated Time:** 2-3 hours (implementation) + 1-2 hours (execution)
+**Priority:** P0
 **Depends On:** EXEC-013, EXEC-014, EXEC-015
 
 ---
@@ -88,7 +88,7 @@ def analyze_entry_point_reachability():
     2. Build import graph (reuse EXEC-013 logic)
     3. BFS traversal marking reachable modules
     4. Score by reachability distance
-    
+
     Scoring:
     - 100: Not reachable + no test references
     - 85: Only reachable from other orphans
@@ -99,7 +99,7 @@ def analyze_entry_point_reachability():
 
 **Output:** `entry_point_reachability_report.json`
 
-**Ground Truth:** 
+**Ground Truth:**
 ```bash
 python scripts/entry_point_reachability.py && \
 test -f cleanup_reports/entry_point_reachability_report.json && \
@@ -120,7 +120,7 @@ def analyze_test_coverage_for_archival():
     2. Extract imports and test targets (AST)
     3. Build mapping: module -> [test_files]
     4. Cross-reference with staleness + isolation
-    
+
     Scoring:
     - 95: No tests + 90+ days stale + not imported
     - 80: No tests + deprecated naming
@@ -265,15 +265,15 @@ def run_comprehensive_analysis():
     - test_coverage_archival.py
     - detect_parallel_implementations.py
     - analyze_imports.py (deprecated tracking)
-    
+
     Step 2: Aggregate results with 6-signal scoring
-    
+
     Step 3: Generate tiered reports
     - TIER_1 (90-100%): Auto-archival safe
     - TIER_2 (75-89%): Review recommended
     - TIER_3 (60-74%): Manual expert review
     - TIER_4 (<60%): Keep
-    
+
     Step 4: Generate execution artifacts
     - archival_plan_tier1_automated.ps1
     - archival_plan_tier2_review.json
@@ -506,11 +506,11 @@ Pattern: EXEC-017
 
 ### Success Criteria
 
-✅ All files in `scripts/` created  
-✅ `cleanup_reports/` contains 6 output files  
-✅ Pre-archive validation passes  
-✅ Post-archive validation passes  
-✅ All 458 valid tests passing  
+✅ All files in `scripts/` created
+✅ `cleanup_reports/` contains 6 output files
+✅ Pre-archive validation passes
+✅ Post-archive validation passes
+✅ All 458 valid tests passing
 ✅ Git history fully preserved
 
 ### Verification Commands
@@ -626,7 +626,7 @@ python scripts/restore_from_archive.py \
 
 ---
 
-**Pattern Status**: Ready for Implementation  
-**Confidence**: 90% (Conservative - Safe for execution)  
-**Pattern Authors**: Based on Code Cleanup Analysis + Existing EXEC-013/014/015  
+**Pattern Status**: Ready for Implementation
+**Confidence**: 90% (Conservative - Safe for execution)
+**Pattern Authors**: Based on Code Cleanup Analysis + Existing EXEC-013/014/015
 **Last Updated**: 2025-12-02

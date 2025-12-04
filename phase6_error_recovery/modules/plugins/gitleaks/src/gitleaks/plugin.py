@@ -67,7 +67,7 @@ class GitleaksPlugin:
                             line = finding.get("StartLine")
                             rule_id = finding.get("RuleID")
                             message = finding.get("Description") or "Secret detected"
-                            
+
                             issues.append(
                                 PluginIssue(
                                     tool="gitleaks",

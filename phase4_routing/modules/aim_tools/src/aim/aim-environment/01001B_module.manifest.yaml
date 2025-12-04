@@ -36,7 +36,7 @@ artifacts:
     - path: "01001B_version_control.py"
       ulid: "01001B00000000000000000006"
       entry_point: false
-  
+
   tests: []
   schemas: []
   docs:

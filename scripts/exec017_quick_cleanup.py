@@ -39,7 +39,7 @@ print(f"\n=== Top 20 High-Confidence Archival Candidates ===")
 for i, (module, data) in enumerate(high_conf_coverage[:20], 1):
     score = data['score']
     reasons = data.get('reasons', [])
-    
+
     print(f"{i:2}. {module[:80]:80} | Score: {score:3}")
     print(f"    Reasons: {', '.join(reasons)}")
 
@@ -57,7 +57,7 @@ response = input().strip().lower()
 if response == 'y':
     archive_base.mkdir(parents=True, exist_ok=True)
     archived_count = 0
-    
+
     # Create manifest
     manifest = {
         "date": datetime.now().isoformat(),
@@ -66,18 +66,18 @@ if response == 'y':
         "criteria": "test_coverage_score >= 95",
         "files": []
     }
-    
+
     for module, data in high_conf_coverage:
         file_path = Path(module_to_file(module))
         if file_path.exists():
             # Create archive subdirectory structure
             archive_path = archive_base / file_path
             archive_path.parent.mkdir(parents=True, exist_ok=True)
-            
+
             # Move file to archive
             shutil.move(str(file_path), str(archive_path))
             archived_count += 1
-            
+
             manifest['files'].append({
                 "module": module,
                 "original": str(file_path),
@@ -85,14 +85,14 @@ if response == 'y':
                 "score": data['score'],
                 "reasons": data.get('reasons', [])
             })
-            
+
             print(f"✓ Archived: {file_path}")
-    
+
     # Save manifest
     manifest_path = archive_base / "MANIFEST.json"
     with open(manifest_path, 'w') as f:
         json.dump(manifest, f, indent=2)
-    
+
     print(f"\n=== Archival Complete ===")
     print(f"Archived: {archived_count} files")
     print(f"Manifest: {manifest_path}")

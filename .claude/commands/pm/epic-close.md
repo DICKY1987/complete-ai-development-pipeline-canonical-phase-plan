@@ -57,7 +57,7 @@ If yes:
 ✅ Epic closed: $ARGUMENTS
   Tasks completed: {count}
   Duration: {days_from_created_to_completed}
-  
+
 {If archived}: Archived to .claude/epics/.archived/
 
 Next epic: Run /pm:next to see priority work

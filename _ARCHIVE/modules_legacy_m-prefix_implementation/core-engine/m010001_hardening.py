@@ -23,7 +23,7 @@ def retry_with_backoff(
     exceptions: tuple = (Exception,)
 ):
     """Decorator for retry with exponential backoff.
-    
+
     Args:
         max_retries: Maximum number of retries
         initial_delay: Initial delay in seconds
@@ -35,13 +35,13 @@ def retry_with_backoff(
         def wrapper(*args, **kwargs) -> Any:
             delay = initial_delay
             last_exception = None
-            
+
             for attempt in range(max_retries + 1):
                 try:
                     return func(*args, **kwargs)
                 except exceptions as e:
                     last_exception = e
-                    
+
                     if attempt < max_retries:
                         logger.warning(
                             f"Attempt {attempt + 1}/{max_retries} failed for {func.__name__}: {e}. "
@@ -51,16 +51,16 @@ def retry_with_backoff(
                         delay *= backoff_factor
                     else:
                         logger.error(f"All {max_retries} retries failed for {func.__name__}")
-            
+
             raise last_exception
-        
+
         return wrapper
     return decorator
 
 
 class CircuitBreaker:
     """Circuit breaker pattern for resilience."""
-    
+
     def __init__(
         self,
         failure_threshold: int = 5,
@@ -68,7 +68,7 @@ class CircuitBreaker:
         expected_exception: type = Exception
     ):
         """Initialize circuit breaker.
-        
+
         Args:
             failure_threshold: Number of failures before opening circuit
             recovery_timeout: Time to wait before trying again
@@ -77,22 +77,22 @@ class CircuitBreaker:
         self.failure_threshold = failure_threshold
         self.recovery_timeout = recovery_timeout
         self.expected_exception = expected_exception
-        
+
         self.failure_count = 0
         self.last_failure_time = None
         self.state = 'CLOSED'  # CLOSED, OPEN, HALF_OPEN
-    
+
     def call(self, func: Callable, *args, **kwargs) -> Any:
         """Call function with circuit breaker protection.
-        
+
         Args:
             func: Function to call
             *args: Function arguments
             **kwargs: Function keyword arguments
-            
+
         Returns:
             Function result
-            
+
         Raises:
             CircuitBreakerError: If circuit is open
         """
@@ -103,28 +103,28 @@ class CircuitBreaker:
                 logger.info(f"Circuit breaker entering HALF_OPEN state")
             else:
                 raise CircuitBreakerError("Circuit breaker is OPEN")
-        
+
         try:
             result = func(*args, **kwargs)
-            
+
             # Success - reset failure count
             if self.state == 'HALF_OPEN':
                 self.state = 'CLOSED'
                 self.failure_count = 0
                 logger.info(f"Circuit breaker reset to CLOSED state")
-            
+
             return result
-        
+
         except self.expected_exception as e:
             self.failure_count += 1
             self.last_failure_time = time.time()
-            
+
             if self.failure_count >= self.failure_threshold:
                 self.state = 'OPEN'
                 logger.error(
                     f"Circuit breaker OPENED after {self.failure_count} failures"
                 )
-            
+
             raise
 
 
@@ -135,22 +135,22 @@ class CircuitBreakerError(Exception):
 
 class HealthCheck:
     """Health check utilities for production monitoring."""
-    
+
     @staticmethod
     def check_database() -> dict:
         """Check database connectivity.
-        
+
         Returns:
             Health check result
         """
         try:
             from modules.core_state import get_connection
-            
+
             conn = get_connection()
             cursor = conn.cursor()
             cursor.execute("SELECT 1")
             conn.close()
-            
+
             return {
                 'status': 'healthy',
                 'component': 'database'
@@ -161,17 +161,17 @@ class HealthCheck:
                 'component': 'database',
                 'error': str(e)
             }
-    
+
     @staticmethod
     def check_worker_pool() -> dict:
         """Check worker pool health.
-        
+
         Returns:
             Health check result
         """
         try:
             from modules.core_state import get_connection
-            
+
             conn = get_connection()
             cursor = conn.execute("""
                 SELECT COUNT(*) as total,
@@ -180,10 +180,10 @@ class HealthCheck:
                 FROM workers
                 WHERE state NOT IN ('TERMINATED')
             """)
-            
+
             row = cursor.fetchone()
             conn.close()
-            
+
             if row:
                 total, idle, busy = row
                 return {
@@ -205,11 +205,11 @@ class HealthCheck:
                 'component': 'worker_pool',
                 'error': str(e)
             }
-    
+
     @staticmethod
     def check_all() -> dict:
         """Run all health checks.
-        
+
         Returns:
             Combined health check results
         """
@@ -217,9 +217,9 @@ class HealthCheck:
             HealthCheck.check_database(),
             HealthCheck.check_worker_pool()
         ]
-        
+
         unhealthy = [c for c in checks if c['status'] == 'unhealthy']
-        
+
         return {
             'overall_status': 'healthy' if not unhealthy else 'unhealthy',
             'checks': checks,
@@ -229,33 +229,33 @@ class HealthCheck:
 
 class RateLimiter:
     """Rate limiter for API calls."""
-    
+
     def __init__(self, calls_per_minute: int = 60):
         """Initialize rate limiter.
-        
+
         Args:
             calls_per_minute: Maximum calls per minute
         """
         self.calls_per_minute = calls_per_minute
         self.call_times = []
-    
+
     def acquire(self) -> bool:
         """Acquire permission to make a call.
-        
+
         Returns:
             True if call is allowed, False otherwise
         """
         now = time.time()
-        
+
         # Remove calls older than 1 minute
         self.call_times = [t for t in self.call_times if now - t < 60]
-        
+
         if len(self.call_times) < self.calls_per_minute:
             self.call_times.append(now)
             return True
-        
+
         return False
-    
+
     def wait_if_needed(self) -> None:
         """Wait until a call slot is available."""
         while not self.acquire():
@@ -264,19 +264,19 @@ class RateLimiter:
 
 def validate_input(schema: dict, data: dict) -> tuple[bool, Optional[str]]:
     """Validate input data against schema.
-    
+
     Args:
         schema: Schema definition
         data: Data to validate
-        
+
     Returns:
         Tuple of (valid, error_message)
     """
     for field, field_type in schema.items():
         if field not in data:
             return False, f"Missing required field: {field}"
-        
+
         if not isinstance(data[field], field_type):
             return False, f"Field {field} must be of type {field_type.__name__}"
-    
+
     return True, None

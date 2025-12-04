@@ -1,7 +1,7 @@
 # aim
 
-**Module Path**: `aim`  
-**Layer**: Domain  
+**Module Path**: `aim`
+**Layer**: Domain
 **Status**: Active
 
 ## Purpose
@@ -43,5 +43,5 @@ docs/aim_architecture.md
 
 ---
 
-**Generated**: 2025-12-02 22:40:27 UTC  
+**Generated**: 2025-12-02 22:40:27 UTC
 **Framework**: Universal Execution Templates (UET)

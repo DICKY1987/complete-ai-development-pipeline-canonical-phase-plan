@@ -8,12 +8,12 @@ class ArtifactGenerator:
         self.profile = profile
         self.output_dir = Path(output_dir)
         self.project_id = f"PRJ-{discovery['project_name'].upper().replace(' ', '_')}"
-    
+
     def generate_all(self):
         # Create directories
         for d in [".tasks", ".ledger/patches", ".ledger/runs", ".worktrees", ".quarantine", "registry"]:
             (self.output_dir / d).mkdir(parents=True, exist_ok=True)
-        
+
         # Generate PROJECT_PROFILE.yaml
         profile_data = {
             "project_id": self.project_id,
@@ -33,10 +33,10 @@ class ArtifactGenerator:
             },
             "constraints": {"patch_only": True, "max_lines_changed": 500}
         }
-        
+
         with open(self.output_dir / "PROJECT_PROFILE.yaml", 'w') as f:
             yaml.dump(profile_data, f)
-        
+
         # Generate router_config.json
         router = {
             "version": "1.0.0",
@@ -44,10 +44,10 @@ class ArtifactGenerator:
             "routing": {"rules": []},
             "defaults": {"max_attempts": 3, "timeout_seconds": 600}
         }
-        
+
         with open(self.output_dir / "router_config.json", 'w') as f:
             json.dump(router, f, indent=2)
-        
+
         return {"project_profile": "PROJECT_PROFILE.yaml", "router_config": "router_config.json"}
 
 if __name__ == "__main__":

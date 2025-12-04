@@ -168,7 +168,7 @@ A **graphical user interface (GUI)** is planned for future implementation:
   - Start/stop/retry buttons
   - Tool health dashboard with charts
   - Configuration editors
-  
+
 **Status:** Infrastructure is ready (event system, data models, APIs), but GUI is not yet implemented.
 
 ## Documentation Files

@@ -4,11 +4,11 @@ doc_id: DOC-GUIDE-PROPOSAL-1505
 
 # UET Framework Complete Implementation
 
-**Change ID**: uet-001-complete-implementation  
-**Type**: Architecture Migration  
-**Status**: Planning  
-**Owner**: Pipeline Team  
-**Estimated Duration**: 9-10 weeks  
+**Change ID**: uet-001-complete-implementation
+**Type**: Architecture Migration
+**Status**: Planning
+**Owner**: Pipeline Team
+**Estimated Duration**: 9-10 weeks
 **Effort**: 75-90 hours
 
 ---
@@ -171,8 +171,8 @@ The production pipeline is currently **~40% aligned** with the Universal Executi
 
 ### Critical Risks
 
-**Risk 1: Adapter Refactoring Breaks Existing Workstreams**  
-**Impact**: HIGH  
+**Risk 1: Adapter Refactoring Breaks Existing Workstreams**
+**Impact**: HIGH
 **Mitigation**:
 - Feature flag: `patch_mode: true/false` in `PROJECT_PROFILE.yaml`
 - Dual-mode support for 3 months
@@ -180,8 +180,8 @@ The production pipeline is currently **~40% aligned** with the Universal Executi
 - Comprehensive regression testing
 - Rollback plan: Keep old adapters in `core/engine/adapters/legacy/`
 
-**Risk 2: DAG Scheduler Changes Execution Order**  
-**Impact**: HIGH  
+**Risk 2: DAG Scheduler Changes Execution Order**
+**Impact**: HIGH
 **Mitigation**:
 - Analyze existing workstreams for implicit dependencies
 - Default to sequential if no dependencies specified
@@ -189,8 +189,8 @@ The production pipeline is currently **~40% aligned** with the Universal Executi
 - Shadow mode: Run both schedulers, compare results
 - Gradual rollout by workstream complexity
 
-**Risk 3: Database Migration Causes Data Loss**  
-**Impact**: CRITICAL  
+**Risk 3: Database Migration Causes Data Loss**
+**Impact**: CRITICAL
 **Mitigation**:
 - **MANDATORY backup**: `cp .worktrees/pipeline_state.db .worktrees/pipeline_state.db.backup`
 - Idempotent migration script (can re-run safely)
@@ -198,8 +198,8 @@ The production pipeline is currently **~40% aligned** with the Universal Executi
 - Validation queries after migration
 - Rollback script: `scripts/rollback_db_migration.py`
 
-**Risk 4: ULID Migration Breaks ID References**  
-**Impact**: MEDIUM  
+**Risk 4: ULID Migration Breaks ID References**
+**Impact**: MEDIUM
 **Mitigation**:
 - Add ULID columns, keep existing ID columns
 - Update code to accept both ID types

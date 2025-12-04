@@ -1,7 +1,7 @@
 # core
 
-**Module Path**: `core`  
-**Layer**: Domain  
+**Module Path**: `core`
+**Layer**: Domain
 **Status**: Active
 
 ## Purpose
@@ -51,5 +51,5 @@ CODEBASE_INDEX.yaml, ENGINE_ORCHESTRATOR_GUIDE.md
 
 ---
 
-**Generated**: 2025-12-02 22:40:27 UTC  
+**Generated**: 2025-12-02 22:40:27 UTC
 **Framework**: Universal Execution Templates (UET)

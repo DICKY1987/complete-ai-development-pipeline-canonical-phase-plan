@@ -50,25 +50,25 @@ tools_in_scope:
 
 ## 2. Terminology (Normative)
 
-- [FGS-TERM-001] **PROJECTS_ROOT**  
+- [FGS-TERM-001] **PROJECTS_ROOT**
   The canonical parent folder under which all **real** project repositories MUST live.
 
-- [FGS-TERM-002] **PROJECT_ROOT**  
+- [FGS-TERM-002] **PROJECT_ROOT**
   A single folder that contains one logical project, typically a git repository root.
 
-- [FGS-TERM-003] **SANDBOX_ROOT**  
+- [FGS-TERM-003] **SANDBOX_ROOT**
   A parent folder that contains non-canonical clones/worktrees of projects for experimentation, AI editing, or temporary work.
 
-- [FGS-TERM-004] **TOOL_ARTIFACT_FOLDER**  
+- [FGS-TERM-004] **TOOL_ARTIFACT_FOLDER**
   Any folder created by an AI CLI tool to store per-project or per-session state (e.g. `.claude/`, `.copilot/`, `.aider/`).
 
-- [FGS-TERM-005] **GLOBAL_TOOL_CONFIG_ROOT**  
+- [FGS-TERM-005] **GLOBAL_TOOL_CONFIG_ROOT**
   A tool’s per-user, per-machine configuration directory (e.g. `AppData\Roaming\tool`, `~/.config/tool`).
 
-- [FGS-TERM-006] **CANONICAL_REPO**  
+- [FGS-TERM-006] **CANONICAL_REPO**
   The git repository located at a `PROJECT_ROOT` that represents the authoritative source for project code and specifications.
 
-- [FGS-TERM-007] **NON_PROJECT_LOCATION**  
+- [FGS-TERM-007] **NON_PROJECT_LOCATION**
   Any folder that is not under `PROJECTS_ROOT` or `SANDBOX_ROOT`, including but not limited to `Downloads`, `Desktop`, `Documents`, and the user’s home directory.
 
 ---

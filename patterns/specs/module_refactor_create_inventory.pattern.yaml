@@ -24,7 +24,7 @@ description: |
   - Module descriptions and responsibilities
   - Dependency relationships (critical for migration ordering)
   - Legacy path hints (where current content lives)
-  
+
   The inventory ensures all tooling and AI agents have a consistent understanding
   of the target architecture.
 
@@ -34,13 +34,13 @@ inputs:
     required: false
     description: "Path for module inventory file"
     default: "modules/MODULES_INVENTORY.yaml"
-    
+
   - name: include_dependencies
     type: boolean
     required: false
     description: "Include dependency graph in inventory"
     default: true
-    
+
   - name: validate_against_dataflows
     type: boolean
     required: false
@@ -51,7 +51,7 @@ outputs:
   - name: inventory_file
     type: path
     description: "Generated module inventory"
-    
+
   - name: dependency_graph_file
     type: path
     description: "Separate dependency graph if requested"
@@ -72,7 +72,7 @@ module_definitions:
         - "specifications/"
         - "workstreams/"
       depends_on: []
-      
+
     - module_id: planning
       module_kind: PIPELINE_STAGE_MODULE
       description: "Decompose workstreams into tasks and build DAG"
@@ -86,7 +86,7 @@ module_definitions:
       depends_on:
         - intake_spec
         - patterns_engine
-        
+
     - module_id: scheduling
       module_kind: PIPELINE_STAGE_MODULE
       description: "Resolve dependencies, manage concurrency and task queues"
@@ -100,7 +100,7 @@ module_definitions:
       depends_on:
         - planning
         - state_lifecycle
-        
+
     - module_id: execution
       module_kind: PIPELINE_STAGE_MODULE
       description: "Execute tasks via tool adapters with monitoring"
@@ -117,7 +117,7 @@ module_definitions:
         - scheduling
         - aim_tools
         - state_lifecycle
-        
+
     - module_id: error_recovery
       module_kind: PIPELINE_STAGE_MODULE
       description: "Capture, classify, and auto-fix errors with escalation"
@@ -133,7 +133,7 @@ module_definitions:
         - execution
         - patterns_engine
         - state_lifecycle
-        
+
     - module_id: state_lifecycle
       module_kind: PIPELINE_STAGE_MODULE
       description: "Track runs, tasks, and file lifecycles in SQLite"
@@ -146,7 +146,7 @@ module_definitions:
         - "state/"
         - "core/state/"
       depends_on: []
-      
+
     - module_id: reporting
       module_kind: PIPELINE_STAGE_MODULE
       description: "Generate execution reports, summaries, and dashboards"
@@ -161,7 +161,7 @@ module_definitions:
       depends_on:
         - state_lifecycle
         - error_recovery
-        
+
   feature_service_modules:
     - module_id: aim_tools
       module_kind: FEATURE_SERVICE_MODULE
@@ -176,7 +176,7 @@ module_definitions:
         - "config/tool_profiles.*"
       depends_on:
         - registry_core
-        
+
     - module_id: patterns_engine
       module_kind: FEATURE_SERVICE_MODULE
       description: "UET patterns, pattern doc suites, and execution templates"
@@ -190,7 +190,7 @@ module_definitions:
         - "templates/"
       depends_on:
         - registry_core
-        
+
     - module_id: spec_bridge
       module_kind: FEATURE_SERVICE_MODULE
       description: "Bridge OpenSpec, CCPM, and phase plans to internal formats"
@@ -205,7 +205,7 @@ module_definitions:
         - "pm/"
       depends_on:
         - registry_core
-        
+
     - module_id: registry_core
       module_kind: REGISTRY_METADATA_MODULE
       description: "Central ID registry and artifact tracking"
@@ -218,7 +218,7 @@ module_definitions:
         - "registry/"
         - "doc_id/"
       depends_on: []
-      
+
   interface_modules:
     - module_id: gui_shell
       module_kind: INTERFACE_MODULE
@@ -235,7 +235,7 @@ module_definitions:
         - state_lifecycle
         - reporting
         - patterns_engine
-        
+
 execution_steps:
   - step: 1
     operation_kind: CREATE_OUTPUT_DIR
@@ -243,7 +243,7 @@ execution_steps:
     script: |
       import pathlib
       pathlib.Path("modules").mkdir(exist_ok=True)
-      
+
   - step: 2
     operation_kind: SAVE_FILE
     description: "Write MODULES_INVENTORY.yaml"
@@ -253,11 +253,11 @@ execution_steps:
       # Version: 1.0.0
       # Created: {{timestamp}}
       # Purpose: Canonical registry of all modules in the system
-      
+
       version: 1.0.0
       created: "{{timestamp}}"
       total_modules: {{total_module_count}}
-      
+
       pipeline_stage_modules:
       {{#pipeline_stage_modules}}
         - module_id: {{module_id}}
@@ -267,7 +267,7 @@ execution_steps:
           legacy_paths: {{legacy_paths}}
           depends_on: {{depends_on}}
       {{/pipeline_stage_modules}}
-      
+
       feature_service_modules:
       {{#feature_service_modules}}
         - module_id: {{module_id}}
@@ -277,7 +277,7 @@ execution_steps:
           legacy_paths: {{legacy_paths}}
           depends_on: {{depends_on}}
       {{/feature_service_modules}}
-      
+
       interface_modules:
       {{#interface_modules}}
         - module_id: {{module_id}}
@@ -287,7 +287,7 @@ execution_steps:
           legacy_paths: {{legacy_paths}}
           depends_on: {{depends_on}}
       {{/interface_modules}}
-      
+
   - step: 3
     operation_kind: SAVE_FILE
     description: "Write MODULE_DEPENDENCIES.yaml"
@@ -296,16 +296,16 @@ execution_steps:
     content_template: |
       # MODULE_DEPENDENCIES.yaml
       # Dependency graph for module migration ordering
-      
+
       version: 1.0.0
       created: "{{timestamp}}"
-      
+
       # Modules with NO dependencies (migrate first)
       independent_modules:
         - registry_core
         - state_lifecycle
         - spec_bridge
-      
+
       # Modules with dependencies (migrate in order)
       dependent_modules:
         intake_spec:
@@ -326,7 +326,7 @@ execution_steps:
           depends_on: [state_lifecycle, error_recovery]
         gui_shell:
           depends_on: [state_lifecycle, reporting, patterns_engine]
-      
+
       # Recommended migration order (topological sort)
       migration_order:
         phase_1:
@@ -353,12 +353,12 @@ validation_gates:
     description: "Inventory file exists"
     check_type: file_exists
     path: "{{output_path}}"
-    
+
   - gate: valid_yaml
     description: "Inventory is valid YAML"
     check_type: yaml_valid
     path: "{{output_path}}"
-    
+
   - gate: all_modules_defined
     description: "All expected module_ids present"
     check_type: yaml_contains_keys
@@ -384,7 +384,7 @@ tags:
   - governance
   - inventory
   - architecture
-  
+
 dependencies:
   patterns: []
   scripts: []
@@ -395,5 +395,5 @@ notes: |
   - Migration ordering (via dependency graph)
   - Legacy path → module mapping
   - Module kind classification
-  
+
   Update this file BEFORE starting any physical file migrations.

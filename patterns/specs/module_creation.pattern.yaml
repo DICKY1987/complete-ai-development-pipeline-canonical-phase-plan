@@ -21,7 +21,7 @@ metadata:
 
 intent: |
   Create a complete, production-ready module with all supporting files.
-  
+
   Includes:
   - Module implementation
   - Comprehensive test suite
@@ -40,7 +40,7 @@ applicability:
     - Simple utility files (use atomic_create)
     - Adding to existing module
     - Prototype/experimental code
-  
+
   constraints:
     include_tests: true
     include_docs: true
@@ -51,30 +51,30 @@ inputs:
   project_root:
     type: "string"
     required: true
-    
+
   module_name:
     type: "string"
     required: true
     pattern: "^[a-z][a-z0-9_]*$"
-    
+
   language:
     type: "string"
     required: true
     enum: ["python", "javascript", "typescript"]
-    
+
   module_type:
     type: "string"
     required: true
     enum: ["library", "cli", "api", "utility"]
-    
+
   include_cli:
     type: "boolean"
     default: false
-    
+
   include_examples:
     type: "boolean"
     default: true
-    
+
   license:
     type: "string"
     required: false
@@ -100,26 +100,26 @@ structural_decisions:
 execution_steps:
   - step_id: "S1_create_structure"
     description: "Create module directory structure"
-    
+
   - step_id: "S2_generate_manifest"
     description: "Create package manifest (setup.py, package.json)"
-    
+
   - step_id: "S3_create_module_code"
     description: "Create main module implementation"
-    
+
   - step_id: "S4_create_tests"
     description: "Create comprehensive test suite"
-    
+
   - step_id: "S5_create_docs"
     description: "Create README and documentation"
-    
+
   - step_id: "S6_create_examples"
     description: "Create usage examples"
     optional: true
-    
+
   - step_id: "S7_initialize_package"
     description: "Run package initialization (npm install, pip install -e .)"
-    
+
   - step_id: "S8_validate_package"
     description: "Validate package can be imported and tested"
 
@@ -134,7 +134,7 @@ module_structure:
     - "requirements-dev.txt"
     - ".gitignore"
     - "LICENSE"
-    
+
   javascript:
     - "src/index.js"
     - "src/{module_name}.js"

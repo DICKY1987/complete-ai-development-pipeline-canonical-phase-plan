@@ -8,8 +8,8 @@ doc_id: DOC-GUIDE-SAFE_RENAME_STRATEGY-091
 
 # Safe Rename Strategy for AI-Friendly Codebase
 
-**Date**: 2025-11-23  
-**Purpose**: Safely rename folders and files to improve AI comprehension without breaking the codebase  
+**Date**: 2025-11-23
+**Purpose**: Safely rename folders and files to improve AI comprehension without breaking the codebase
 **Status**: Active Guide
 
 ---
@@ -88,7 +88,7 @@ renames:
     new: "error/shared/utilities/"
     reason: "More explicit, avoids 'utils' ambiguity"
     impact: "15 import statements"
-    
+
   - old: "bad excution/"
     new: "quarantine/failed_runs/"
     reason: "Fix typo, clarify purpose"
@@ -147,11 +147,11 @@ NEW_PATH = "error/shared/utilities"
 def migrate_file(file_path: Path) -> bool:
     content = file_path.read_text(encoding='utf-8')
     original = content
-    
+
     # Update imports
     content = content.replace(OLD_IMPORT, NEW_IMPORT)
     content = content.replace(OLD_PATH, NEW_PATH)
-    
+
     if content != original:
         file_path.write_text(content, encoding='utf-8')
         return True
@@ -160,7 +160,7 @@ def migrate_file(file_path: Path) -> bool:
 if __name__ == "__main__":
     root = Path(__file__).parent.parent
     changed = 0
-    
+
     # Update Python files
     for py_file in root.rglob("*.py"):
         if "legacy" in py_file.parts or ".venv" in py_file.parts:
@@ -168,7 +168,7 @@ if __name__ == "__main__":
         if migrate_file(py_file):
             changed += 1
             print(f"Updated: {py_file}")
-    
+
     print(f"\nTotal files updated: {changed}")
 ```
 
@@ -404,15 +404,15 @@ def safe_rename(old_path: str, new_path: str, dry_run: bool = True) -> bool:
     """Safely rename path with validation."""
     old = Path(old_path)
     new = Path(new_path)
-    
+
     if not old.exists():
         print(f"❌ Source does not exist: {old}")
         return False
-    
+
     if new.exists():
         print(f"❌ Target already exists: {new}")
         return False
-    
+
     # Check git status
     result = subprocess.run(
         ["git", "status", "--porcelain", str(old)],
@@ -423,11 +423,11 @@ def safe_rename(old_path: str, new_path: str, dry_run: bool = True) -> bool:
         print(f"⚠️ Uncommitted changes in: {old}")
         print(result.stdout)
         return False
-    
+
     if dry_run:
         print(f"🔍 DRY RUN: Would rename {old} → {new}")
         return True
-    
+
     # Execute rename
     new.parent.mkdir(parents=True, exist_ok=True)
     subprocess.run(["git", "mv", str(old), str(new)], check=True)
@@ -441,7 +441,7 @@ if __name__ == "__main__":
     parser.add_argument("new", help="New path")
     parser.add_argument("--execute", action="store_true", help="Execute rename (default: dry run)")
     args = parser.parse_args()
-    
+
     safe_rename(args.old, args.new, dry_run=not args.execute)
 ```
 

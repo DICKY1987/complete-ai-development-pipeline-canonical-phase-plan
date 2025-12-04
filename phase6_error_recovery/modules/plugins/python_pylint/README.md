@@ -1,7 +1,7 @@
 # Plugin: python_pylint
 
-**Phase**: 6 (Error Recovery)  
-**Type**: Error Detection/Fix Plugin  
+**Phase**: 6 (Error Recovery)
+**Type**: Error Detection/Fix Plugin
 **Purpose**: python_pylint error detection and auto-fix
 
 ## Structure

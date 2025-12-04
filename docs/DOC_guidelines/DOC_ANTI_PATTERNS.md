@@ -10,7 +10,7 @@ doc_id: DOC-GUIDE-ANTI_PATTERNS-070
 
 **Purpose:** Document common mistakes and discouraged practices to help AI agents and developers avoid repeating historical errors.
 
-**Last Updated:** 2025-11-22  
+**Last Updated:** 2025-11-22
 **Maintainer:** System Architecture Team
 
 ---
@@ -30,7 +30,7 @@ Each anti-pattern entry includes:
 
 ### AP-CS-01: Direct File Database Access
 
-**Category:** Core State  
+**Category:** Core State
 **Severity:** High
 
 **Problem:**
@@ -72,7 +72,7 @@ workstreams = get_workstreams(conn)
 
 ### AP-CS-02: Missing Database Migrations
 
-**Category:** Core State  
+**Category:** Core State
 **Severity:** Critical
 
 **Problem:**
@@ -116,7 +116,7 @@ conn = init_db()  # Runs all pending migrations
 
 ### AP-CS-03: State Machine State Pollution
 
-**Category:** Core State  
+**Category:** Core State
 **Severity:** Medium
 
 **Problem:**
@@ -148,7 +148,7 @@ transition_workstream(conn, ws_id, 'S_SUCCESS', metadata={'reason': 'all steps c
 
 ### AP-EE-01: Skipping Plugin Manifest
 
-**Category:** Error Engine  
+**Category:** Error Engine
 **Severity:** High
 
 **Problem:**
@@ -191,7 +191,7 @@ error/plugins/my_linter/
 
 ### AP-EE-02: Non-Incremental Scanning
 
-**Category:** Error Engine  
+**Category:** Error Engine
 **Severity:** Medium
 
 **Problem:**
@@ -229,7 +229,7 @@ def scan_project():
 
 ### AP-EE-03: Swallowing Plugin Errors
 
-**Category:** Error Engine  
+**Category:** Error Engine
 **Severity:** Medium
 
 **Problem:**
@@ -270,7 +270,7 @@ except Exception as e:
 
 ### AP-SP-01: Circular Spec Dependencies
 
-**Category:** Specifications  
+**Category:** Specifications
 **Severity:** High
 
 **Problem:**
@@ -307,7 +307,7 @@ Create hierarchy: core concepts → implementation → examples
 
 ### AP-SP-02: Missing URI Resolution
 
-**Category:** Specifications  
+**Category:** Specifications
 **Severity:** Medium
 
 **Problem:**
@@ -336,7 +336,7 @@ Spec resolver handles location changes automatically.
 
 ### AP-SC-01: Hardcoded Absolute Paths
 
-**Category:** Scripts  
+**Category:** Scripts
 **Severity:** Critical
 
 **Problem:**
@@ -369,7 +369,7 @@ CONFIG_FILE = REPO_ROOT / "config" / "tool_profiles.json"
 
 ### AP-SC-02: Missing Error Handling
 
-**Category:** Scripts  
+**Category:** Scripts
 **Severity:** High
 
 **Problem:**
@@ -412,7 +412,7 @@ if result.returncode != 0:
 
 ### AP-SC-03: Printing Sensitive Information
 
-**Category:** Scripts  
+**Category:** Scripts
 **Severity:** High
 
 **Problem:**
@@ -447,7 +447,7 @@ else:
 
 ### AP-TS-01: Network Calls in Unit Tests
 
-**Category:** Testing  
+**Category:** Testing
 **Severity:** High
 
 **Problem:**
@@ -478,7 +478,7 @@ def test_fetch_data():
         mock_response.status_code = 200
         mock_response.json.return_value = {"key": "value"}
         mock_get.return_value = mock_response
-        
+
         result = fetch_data()
         assert result == {"key": "value"}
 ```
@@ -487,7 +487,7 @@ def test_fetch_data():
 
 ### AP-TS-02: Non-Deterministic Assertions
 
-**Category:** Testing  
+**Category:** Testing
 **Severity:** Medium
 
 **Problem:**
@@ -538,7 +538,7 @@ def test_random_selection():
 
 ### AP-TS-03: Testing Implementation Instead of Behavior
 
-**Category:** Testing  
+**Category:** Testing
 **Severity:** Low
 
 **Problem:**
@@ -564,7 +564,7 @@ def test_workstream_processing():
     # Test public API behavior
     orchestrator = Orchestrator()
     result = orchestrator.execute_workstream(valid_workstream)
-    
+
     assert result.status == 'success'
     assert result.steps_completed == 3
     # Tests what users care about, not how it's implemented
@@ -576,7 +576,7 @@ def test_workstream_processing():
 
 ### AP-CF-01: Environment-Specific Config in Code
 
-**Category:** Configuration  
+**Category:** Configuration
 **Severity:** High
 
 **Problem:**
@@ -617,7 +617,7 @@ if config_file.exists():
 
 ### AP-GN-01: Copy-Paste Code Duplication
 
-**Category:** General  
+**Category:** General
 **Severity:** Medium
 
 **Problem:**
@@ -647,7 +647,7 @@ for thing in things:
 ```python
 # shared/filters.py
 def filter_active_high_priority(items):
-    return [item for item in items 
+    return [item for item in items
             if item.status == 'active' and item.priority > 5]
 
 # File 1
@@ -661,7 +661,7 @@ filtered = filter_active_high_priority(things)
 
 ### AP-GN-02: God Objects
 
-**Category:** General  
+**Category:** General
 **Severity:** Medium
 
 **Problem:**
@@ -702,7 +702,7 @@ class Pipeline:
     def __init__(self, config):
         self.config = config
         self.db = init_database(config.db_path)
-    
+
     def run(self):
         files = scan_files(self.config.scan_paths)
         errors = run_linters(files)
@@ -762,7 +762,7 @@ Found a new anti-pattern? Add it following this template:
 ```markdown
 ### AP-XX-NN: Pattern Name
 
-**Category:** [Core State | Error Engine | etc.]  
+**Category:** [Core State | Error Engine | etc.]
 **Severity:** [Critical | High | Medium | Low]
 
 **Problem:** [What the anti-pattern is]
@@ -784,6 +784,6 @@ Found a new anti-pattern? Add it following this template:
 
 ---
 
-**Maintainer:** System Architecture Team  
-**Last Reviewed:** 2025-11-22  
+**Maintainer:** System Architecture Team
+**Last Reviewed:** 2025-11-22
 **Next Review:** 2025-12-22 or after major incidents

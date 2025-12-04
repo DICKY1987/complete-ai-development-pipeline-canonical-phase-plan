@@ -65,7 +65,7 @@ Errors:
 
 #### 2. **Files** - File Lifecycle Tracking
 ```bash
-python -m core.ui_cli files [--state STATE] [--workstream-id ID] [--run-id ID] 
+python -m core.ui_cli files [--state STATE] [--workstream-id ID] [--run-id ID]
                              [--tool-id ID] [--limit N] [--json]
 ```
 
@@ -118,7 +118,7 @@ quarantined   1
 
 #### 4. **Workstreams** - Workstream Status
 ```bash
-python -m core.ui_cli workstreams [--run-id RUN_ID] [--status STATUS] 
+python -m core.ui_cli workstreams [--run-id RUN_ID] [--status STATUS]
                                    [--limit N] [--json]
 ```
 
@@ -169,8 +169,8 @@ failed      1
 
 #### 6. **Errors** - Error Tracking
 ```bash
-python -m core.ui_cli errors [--run-id RUN_ID] [--workstream-id ID] 
-                              [--severity LEVEL] [--category CAT] 
+python -m core.ui_cli errors [--run-id RUN_ID] [--workstream-id ID]
+                              [--severity LEVEL] [--category CAT]
                               [--tool-id ID] [--limit N] [--json]
 ```
 
@@ -313,10 +313,10 @@ Users can use shell features:
    ```bash
    # See what files are being processed
    python -m core.ui_cli files --state processing
-   
+
    # Check for errors
    python -m core.ui_cli errors --severity error
-   
+
    # Monitor tool health
    python -m core.ui_cli tools --summary
    ```
@@ -325,7 +325,7 @@ Users can use shell features:
    ```bash
    # All files in a specific workstream
    python -m core.ui_cli files --workstream-id ws-refact01
-   
+
    # All errors in a specific run
    python -m core.ui_cli errors --run-id run-2025-11-22-001
    ```
@@ -334,7 +334,7 @@ Users can use shell features:
    ```bash
    # Save to JSON file
    python -m core.ui_cli dashboard --json > dashboard-$(date +%Y%m%d).json
-   
+
    # Pipe to jq for filtering
    python -m core.ui_cli files --json | jq '.[] | select(.current_state == "quarantined")'
    ```

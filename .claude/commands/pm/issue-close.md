@@ -67,13 +67,13 @@ epic_issue=$(grep 'github:' .claude/epics/$epic_name/epic.md | grep -oE '[0-9]+$
 if [ ! -z "$epic_issue" ]; then
   # Get current epic body
   gh issue view $epic_issue --json body -q .body > /tmp/epic-body.md
-  
+
   # Check off this task
   sed -i "s/- \[ \] #$ARGUMENTS/- [x] #$ARGUMENTS/" /tmp/epic-body.md
-  
+
   # Update epic issue
   gh issue edit $epic_issue --body-file /tmp/epic-body.md
-  
+
   echo "✓ Updated epic progress on GitHub"
 fi
 ```
@@ -92,7 +92,7 @@ fi
   Local: Task marked complete
   GitHub: Issue closed & epic updated
   Epic progress: {new_progress}% ({closed}/{total} tasks complete)
-  
+
 Next: Run /pm:next for next priority task
 ```
 

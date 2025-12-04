@@ -155,18 +155,18 @@ Workstream state is derived from task states:
 def derive_workstream_state(tasks: List[Task]) -> WorkstreamState:
     if any(t.state == 'running' for t in tasks):
         return 'executing'
-    
+
     if all(t.state == 'completed' for t in tasks):
         return 'validating'  # Proceed to final validation
-    
+
     if any(t.state == 'failed' for t in tasks):
         if task_is_critical(t):
             return 'failed'
         # Non-critical task failure, continue execution
-    
+
     if all(t.state in ['pending', 'queued'] for t in tasks):
         return 'ready'
-    
+
     return 'executing'  # Mixed states
 ```
 

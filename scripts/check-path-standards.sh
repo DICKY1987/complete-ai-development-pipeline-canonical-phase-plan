@@ -35,7 +35,7 @@ failed_checks=0
 check_absolute_paths() {
     echo -e "\n📋 Check 1: Scanning for absolute path violations..."
     total_checks=$((total_checks + 1))
-    
+
     # Check for absolute paths in .claude directory, excluding rules and backups
     if rg -q "/Users/|/home/|C:\\\\\\\\" .claude/ -g '!rules/**' -g '!**/*.backup' 2>/dev/null; then
         print_error "Found absolute path violations:"
@@ -52,7 +52,7 @@ check_absolute_paths() {
 check_user_specific_paths() {
     echo -e "\n📋 Check 2: Scanning for user-specific paths..."
     total_checks=$((total_checks + 1))
-    
+
     # Check for paths containing usernames, excluding documentation examples
     if rg -q "/[Uu]sers/[^/]*/|/home/[^/]*/" .claude/ -g '!rules/**' -g '!**/*.backup' 2>/dev/null; then
         print_error "Found user-specific paths:"
@@ -69,17 +69,17 @@ check_user_specific_paths() {
 check_path_format_consistency() {
     echo -e "\n📋 Check 3: Checking path format consistency..."
     total_checks=$((total_checks + 1))
-    
+
     # Check for consistent relative path formats, excluding documentation
     inconsistent_found=false
-    
+
     # Check for mixed usage of ./ and direct paths
     if rg -q "\\.\/" .claude/ -g '!rules/**' -g '!**/*.backup' 2>/dev/null && \
        rg -q "src/|lib/|internal/|cmd/|configs/" .claude/ -g '!rules/**' -g '!**/*.backup' 2>/dev/null; then
         print_warning "Found inconsistent path formats (mixed ./ and direct paths)"
         inconsistent_found=true
     fi
-    
+
     if [ "$inconsistent_found" = false ]; then
         print_success "Path formats are consistent"
         passed_checks=$((passed_checks + 1))
@@ -92,16 +92,16 @@ check_path_format_consistency() {
 check_sync_content() {
     echo -e "\n📋 Check 4: Validating sync content path formats..."
     total_checks=$((total_checks + 1))
-    
+
     # Check update files for proper path formats
     update_files=$(find .claude/epics/*/updates/ -name "*.md" 2>/dev/null | head -10)
-    
+
     if [ -z "$update_files" ]; then
         print_warning "No update files found, skipping this check"
         passed_checks=$((passed_checks + 1))
         return 0
     fi
-    
+
     violations_found=false
     for file in $update_files; do
         if rg -q "/Users/|/home/|C:\\\\\\\\" "$file" 2>/dev/null; then
@@ -109,7 +109,7 @@ check_sync_content() {
             violations_found=true
         fi
     done
-    
+
     if [ "$violations_found" = false ]; then
         print_success "Update file path formats are correct"
         passed_checks=$((passed_checks + 1))
@@ -122,7 +122,7 @@ check_sync_content() {
 check_standards_file() {
     echo -e "\n📋 Check 5: Verifying standards file exists..."
     total_checks=$((total_checks + 1))
-    
+
     if [ -f ".claude/rules/path-standards.md" ]; then
         print_success "Path standards documentation exists"
         passed_checks=$((passed_checks + 1))
@@ -135,7 +135,7 @@ check_standards_file() {
 
 # Run all checks
 check_absolute_paths
-check_user_specific_paths  
+check_user_specific_paths
 check_path_format_consistency
 check_sync_content
 check_standards_file
@@ -153,7 +153,7 @@ else
     print_error "Found $failed_checks issues that need fixing"
     echo -e "\n💡 Remediation suggestions:"
     echo "1. Run path cleanup script to fix absolute paths"
-    echo "2. Review and update relevant documentation formats"  
+    echo "2. Review and update relevant documentation formats"
     echo "3. Follow guidelines in .claude/rules/path-standards.md"
     exit 1
 fi

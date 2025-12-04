@@ -41,7 +41,7 @@ input:
 output:
   format: "markdown"
   destination: "reports/{{TASK_ID}}_analysis.md"
-  
+
 # Execution configuration
 execution:
   timeout: 300  # 5 minutes
@@ -68,7 +68,7 @@ meta:
   tags: ["analysis", "discovery"]
 
 # Example
-# 
+#
 # task_id: "task-001"
 # description: "Analyze Python codebase structure"
 # input:

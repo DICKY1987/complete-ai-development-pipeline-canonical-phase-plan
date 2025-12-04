@@ -50,7 +50,36 @@ categories:
 # NOTE: This is a starter template. Full population requires running:
 #   python scripts/glossary/extract_terms.py --from-markdown glossary.md
 terms:
-  
+
+  TERM-GLOSS-SSOT-POLICY:
+    name: "Glossary SSOT Policy"
+    category: "Framework"
+    status: "active"
+    added_date: "2025-12-04"
+    added_by: "system-automation"
+    last_modified: "2025-12-04T00:24:00Z"
+    modified_by: "automation"
+    aliases:
+      - "SSOT Policy Spec"
+      - "Single Source of Truth Enforcement"
+    implementation:
+      files:
+        - "glossary/specs/GLOSSARY_SSOT_POLICY_SPEC.md"
+        - "scripts/glossary_ssot_policy.py"
+        - "glossary/config/glossary_ssot_policy.yaml"
+      entry_points:
+        - "python scripts/glossary_ssot_policy.py"
+    config_refs:
+      - "glossary/config/glossary_ssot_policy.yaml"
+    related_terms:
+      - term_id: "TERM-FRAME-001"
+        relationship: "extends"
+    patch_history:
+      - patch_id: "ssot-policy-001"
+        action: "added"
+        date: "2025-12-04T00:24:00Z"
+        description: "Initial SSOT policy system creation"
+
   TERM-ENGINE-001:
     name: "Orchestrator"
     category: "Core Engine"

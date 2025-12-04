@@ -8,8 +8,8 @@ doc_id: DOC-GUIDE-FOLDER_VERSION_SCORING_SPEC-117
 
 # Folder Version Scoring Specification
 
-**Version**: 2.0  
-**Date**: 2025-11-25  
+**Version**: 2.0
+**Date**: 2025-11-25
 **Status**: CANONICAL
 
 ---
@@ -25,10 +25,10 @@ Define explicit, deterministic rules for scoring folder versions to identify:
 
 ## Core Principle
 
-**Score is necessary but NOT sufficient for deletion.**  
+**Score is necessary but NOT sufficient for deletion.**
 A folder can only be deleted if:
 - Low score AND
-- Zero active usage AND  
+- Zero active usage AND
 - Not in governance system
 
 ---

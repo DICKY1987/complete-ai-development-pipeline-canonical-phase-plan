@@ -149,7 +149,7 @@ from MOD_ERROR_PIPELINE.error_engine import ErrorEngine  # ❌ Use error.engine
 from legacy.* import anything                          # ❌ Never import legacy
 ```
 
-**Reference**: `docs/CI_PATH_STANDARDS.md`  
+**Reference**: `docs/CI_PATH_STANDARDS.md`
 **Validation**: `python scripts/paths_index_cli.py gate --db refactor_paths.db --regex "src/pipeline|MOD_ERROR_PIPELINE"`
 
 ---
@@ -430,7 +430,7 @@ python scripts/generate_repo_summary.py
 python scripts/generate_code_graph.py
 ```
 
-**Frequency**: After every module structure change  
+**Frequency**: After every module structure change
 **Consider**: Adding to pre-commit hook
 
 ---

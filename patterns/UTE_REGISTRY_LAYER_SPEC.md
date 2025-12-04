@@ -6,11 +6,11 @@ status: draft
 role: spec
 ---
 
-# REGISTRY_LAYER_SPEC v1.0.0  
+# REGISTRY_LAYER_SPEC v1.0.0
 **Scope:** Define how the registry layer ties together:
-- Operation kinds  
-- Patterns  
-- Routing  
+- Operation kinds
+- Patterns
+- Routing
 - `doc_id`-based pattern doc suites
 
 This spec **cross-walks**:
@@ -36,13 +36,13 @@ This spec **cross-walks**:
 
 The following files **MUST** exist:
 
-1. `patterns/registry/OPERATION_KIND_REGISTRY.yaml`  
-2. `patterns/registry/PATTERN_INDEX.yaml`  
-3. `patterns/registry/PATTERN_ROUTING.yaml`  
+1. `patterns/registry/OPERATION_KIND_REGISTRY.yaml`
+2. `patterns/registry/PATTERN_INDEX.yaml`
+3. `patterns/registry/PATTERN_ROUTING.yaml`
 
 The following files **SHOULD** exist:
 
-4. `patterns/registry/PATTERN_INDEX.schema.json`  
+4. `patterns/registry/PATTERN_INDEX.schema.json`
 5. `doc_id_mapping.json` at repo root (or under `.state/`)
 
 ---
@@ -52,19 +52,19 @@ The following files **SHOULD** exist:
 ### REG-010: `doc_id` as canonical join key
 
 - `doc_id` **MUST** be the **primary** join key between:
-  - `PATTERN_INDEX.yaml` entries  
-  - `patterns/specs/*.pattern.yaml`  
-  - `patterns/schemas/*.schema.json` (and/or sidecars)  
-  - `patterns/executors/*_executor.*`  
-  - `patterns/tests/test_*`  
-  - `patterns/examples/<pattern_name>/*`  
+  - `PATTERN_INDEX.yaml` entries
+  - `patterns/specs/*.pattern.yaml`
+  - `patterns/schemas/*.schema.json` (and/or sidecars)
+  - `patterns/executors/*_executor.*`
+  - `patterns/tests/test_*`
+  - `patterns/examples/<pattern_name>/*`
 
 - All artifacts for a given pattern **MUST** share the same `doc_id`.
 
 ### REG-011: `pattern_id` as secondary key
 
-- `pattern_id` **MUST** be stable and unique within the registry layer.  
-- `pattern_id` **MUST NOT** be used as the primary join key where `doc_id` is available.  
+- `pattern_id` **MUST** be stable and unique within the registry layer.
+- `pattern_id` **MUST NOT** be used as the primary join key where `doc_id` is available.
 - Tools **MAY** use `pattern_id` as a human-friendly label or routing alias.
 
 ---
@@ -96,8 +96,8 @@ Each element in `operation_kinds` **MUST** include at least:
 
 ### REG-021: Global constraints
 
-- `name` values **MUST** be unique across registry.  
-- `name` values **MUST** be stable once in use by patterns or phase plans.  
+- `name` values **MUST** be unique across registry.
+- `name` values **MUST** be stable once in use by patterns or phase plans.
 - Planners **MUST** choose `operation_kind` only from this registry.
 
 ---
@@ -130,17 +130,17 @@ Each pattern entry **MUST** include:
 
 - All paths **MUST** point inside the appropriate subdirectories:
 
-  - `spec_path` → `patterns/specs/`  
-  - `schema_path` → `patterns/schemas/`  
-  - `executor_path` → `patterns/executors/`  
-  - `test_path` → `patterns/tests/`  
+  - `spec_path` → `patterns/specs/`
+  - `schema_path` → `patterns/schemas/`
+  - `executor_path` → `patterns/executors/`
+  - `test_path` → `patterns/tests/`
   - `example_dir` → `patterns/examples/`
 
 - Every referenced file/directory **MUST** exist for patterns with `status: active`.
 
 ### REG-032: Operation-kind links
 
-- `operation_kinds` list **MUST** contain only names present in `OPERATION_KIND_REGISTRY.yaml`.  
+- `operation_kinds` list **MUST** contain only names present in `OPERATION_KIND_REGISTRY.yaml`.
 - For each pattern entry, the `operation_kinds` list **SHOULD** be minimal but complete: every major action the pattern performs should be represented.
 
 ---
@@ -167,8 +167,8 @@ routes:
 
 ### REG-041: Consistency constraints
 
-- Every `operation_kind` used here **MUST** exist in `OPERATION_KIND_REGISTRY.yaml`.  
-- Every `default_pattern_id` and `alternatives[*].pattern_id` **MUST** exist in `PATTERN_INDEX.yaml`.  
+- Every `operation_kind` used here **MUST** exist in `OPERATION_KIND_REGISTRY.yaml`.
+- Every `default_pattern_id` and `alternatives[*].pattern_id` **MUST** exist in `PATTERN_INDEX.yaml`.
 - For each `pattern_id` used here, the `operation_kinds` list in `PATTERN_INDEX.yaml` **MUST** include the corresponding `operation_kind`.
 
 ---
@@ -189,13 +189,13 @@ routes:
 For any pattern with `status: active` in `PATTERN_INDEX.yaml`:
 
 - `spec_path` **MUST** point to a `.pattern.yaml` containing:
-  - `doc_id`, `pattern_id`, `name`, `version`, `role: spec`, `schema_ref`, `executor_ref`.  
+  - `doc_id`, `pattern_id`, `name`, `version`, `role: spec`, `schema_ref`, `executor_ref`.
 - `schema_path` target:
-  - **MUST** either embed `doc_id` or be mapped via a sidecar/index to the same `doc_id`.  
+  - **MUST** either embed `doc_id` or be mapped via a sidecar/index to the same `doc_id`.
 - `executor_path` target:
-  - **MUST** contain a `DOC_LINK: <DOC_ID>` style header matching the index `doc_id`.  
+  - **MUST** contain a `DOC_LINK: <DOC_ID>` style header matching the index `doc_id`.
 - `test_path` target:
-  - **SHOULD** contain a `DOC_LINK` header with the same `doc_id`.  
+  - **SHOULD** contain a `DOC_LINK` header with the same `doc_id`.
 - Files in `example_dir`:
   - **SHOULD** embed `doc_id` or be mapped via a sidecar; that `doc_id` **MUST** match the index.
 
@@ -208,21 +208,21 @@ These requirements **extend** and specialize `PAT-CHECK-001 v2` at the registry 
 ### REG-060: Planner behavior
 
 - Phase plans **MUST** annotate each step with:
-  - `operation_kind` (string, from OPERATION_KIND_REGISTRY)  
+  - `operation_kind` (string, from OPERATION_KIND_REGISTRY)
   - Tool-specific arguments/params
 
-- Planners **MUST NOT** directly choose `pattern_id`; they choose only `operation_kind`.  
+- Planners **MUST NOT** directly choose `pattern_id`; they choose only `operation_kind`.
 - A router component uses `PATTERN_ROUTING.yaml` to resolve `operation_kind` → `pattern_id` at execution time.
 
 ### REG-061: Executor behavior
 
 - Executors **MUST** locate patterns using:
-  - `pattern_id` and/or `doc_id` from `PATTERN_INDEX.yaml`,  
+  - `pattern_id` and/or `doc_id` from `PATTERN_INDEX.yaml`,
   - Not hard-coded paths.
 
 - When applying pattern logic, executors **MUST** follow:
-  - Schema specified by `schema_path`.  
-  - The spec in `spec_path`.  
+  - Schema specified by `schema_path`.
+  - The spec in `spec_path`.
 
 ---
 
@@ -232,16 +232,16 @@ These requirements **extend** and specialize `PAT-CHECK-001 v2` at the registry 
 
 At minimum, the registry layer **SHOULD** be validated by:
 
-1. `PATTERN_DIR_CHECK` (implements PAT-CHECK-001 v2 + REGISTRY_LAYER_SPEC checks)  
-2. `validate_doc_id_consistency` (ensures 1:1 `doc_id` joins)  
+1. `PATTERN_DIR_CHECK` (implements PAT-CHECK-001 v2 + REGISTRY_LAYER_SPEC checks)
+2. `validate_doc_id_consistency` (ensures 1:1 `doc_id` joins)
 3. A small registry validator that verifies:
 
-   - OPERATION_KIND_REGISTRY name uniqueness.  
+   - OPERATION_KIND_REGISTRY name uniqueness.
    - PATTERN_INDEX ↔ OPERATION_KIND_REGISTRY ↔ PATTERN_ROUTING references are all valid, with no orphans.
 
 Validation tools **MAY** emit per-requirement PASS/FAIL keyed by:
 
-- `PAT-CHECK-001-*` (directory + doc suite)  
+- `PAT-CHECK-001-*` (directory + doc suite)
 - `REG-*` (registry layer rules defined in this spec)
 
 ---

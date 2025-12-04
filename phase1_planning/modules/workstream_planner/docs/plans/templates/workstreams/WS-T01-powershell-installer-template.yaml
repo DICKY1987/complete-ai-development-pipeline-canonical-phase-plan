@@ -21,7 +21,7 @@ description: |
   - Validation gates between phases
   - Dry-run mode support
   - JSONL audit logging
-  
+
   Based on existing Install-AutonomousDevStack.ps1 (527 lines).
 
 execution_request:
@@ -37,28 +37,28 @@ execution_request:
         - core/**
         - error/**
         - .git/**
-  
+
   prompt: |
     Create a PowerShell installation script template following EXEC-001 pattern.
-    
+
     INPUTS:
     1. Analyze existing script: C:\Users\richg\.claude\file-history\692acdde-afe9-46e5-9e9e-340ab1040cd3\f43d684d853c34be@v2
     2. Extract reusable structure and patterns
-    
+
     OUTPUTS:
     1. templates/_schema/powershell_installer.schema.json
        - Define variables: {phases}, {tools_per_phase}, {validation_gates}
        - JSON Schema format
-    
+
     2. templates/install_tool.template.ps1
        - Jinja2 template with placeholders
        - Include: ULID generation, audit logging, validation gates
        - Support: -Phase, -SkipValidation, -DryRun parameters
-    
+
     3. templates/_examples/install_tool.example.json
        - Sample variables for rendering
        - Test data for validation
-    
+
     GROUND TRUTH GATES:
     - Schema validates against JSON Schema meta-schema
     - Template syntax is valid Jinja2
@@ -70,17 +70,17 @@ validation_gates:
     command: python -c "import json, jsonschema; schema=json.load(open('templates/_schema/powershell_installer.schema.json')); jsonschema.Draft7Validator.check_schema(schema)"
     expect_exit_code: 0
     failure_action: halt_and_report
-  
+
   gate_2_template_syntax:
     command: python -c "from jinja2 import Template; Template(open('templates/install_tool.template.ps1').read())"
     expect_exit_code: 0
     failure_action: halt_and_report
-  
+
   gate_3_renders_successfully:
     command: python tools/render_template.py templates/install_tool.template.ps1 templates/_examples/install_tool.example.json --output test_install.ps1
     expect_exit_code: 0
     failure_action: halt_and_report
-  
+
   gate_4_powershell_syntax:
     command: pwsh -NoProfile -File test_install.ps1 -DryRun
     expect_exit_code: 0

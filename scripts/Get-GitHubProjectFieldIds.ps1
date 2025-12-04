@@ -7,13 +7,13 @@
     - Project node ID (PROJECT_ID)
     - Status field ID (STATUS_FIELD_ID)
     - Status option IDs (for each status value)
-    
+
     Outputs environment variable assignments ready to copy-paste.
 
 .EXAMPLE
     # Find IDs for project #1 owned by current user
     pwsh scripts/Get-GitHubProjectFieldIds.ps1 -ProjectNumber 1 -Owner '@me'
-    
+
 .EXAMPLE
     # For an organization project
     pwsh scripts/Get-GitHubProjectFieldIds.ps1 -ProjectNumber 5 -Owner 'myorg'
@@ -24,7 +24,7 @@ param(
     # GitHub Project number
     [Parameter(Mandatory = $true)]
     [int]$ProjectNumber,
-    
+
     # Project owner (@me or org name)
     [Parameter(Mandatory = $false)]
     [string]$Owner = '@me'
@@ -89,8 +89,8 @@ $response = $fieldsJson | ConvertFrom-Json
 $fields = $response.data.node.fields.nodes
 
 # Find Status field
-$statusField = $fields | Where-Object { 
-    $_.name -match '^Status$' -and $_.dataType -eq 'SINGLE_SELECT' 
+$statusField = $fields | Where-Object {
+    $_.name -match '^Status$' -and $_.dataType -eq 'SINGLE_SELECT'
 }
 
 if (-not $statusField) {
@@ -108,7 +108,7 @@ Write-Host "  Options:"
 $optionMap = @{}
 foreach ($option in $statusField.options) {
     Write-Host "    - $($option.name): $($option.id)"
-    
+
     # Try to map common names
     $normalizedName = $option.name.ToLower() -replace '\s+', '_'
     switch -Regex ($normalizedName) {

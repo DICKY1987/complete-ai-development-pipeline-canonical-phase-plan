@@ -8,7 +8,7 @@ metadata:
   created: 2025-12-02
   status: draft
   source: Converted from ZERO_TOUCH_AUTOMATION_GUIDE.md
-  
+
 intent: |
   Zero-Touch Pattern Automation - Complete Guide
 
@@ -18,19 +18,19 @@ inputs:
 
 outputs:
   artifacts: []
-  
+
 steps:
   - name: pattern_execution
     description: Execute pattern logic
-    
+
 ground_truth:
   criteria:
     - description: Pattern executes without errors
-      
+
 validation:
   pre_conditions: []
   post_conditions: []
-  
+
 tool_bindings:
   - tool: claude_code
     priority: 1

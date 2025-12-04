@@ -205,13 +205,13 @@ python scripts/spec_to_workstream.py --change-id test-001 --dry-run
 2. **Write proposal.md**:
    ```markdown
    # Change Proposal: Title
-   
+
    ## Problem
    Description of problem.
-   
+
    ## Solution
    Proposed solution.
-   
+
    ## Requirements
    - SHALL requirement 1
    - MUST requirement 2
@@ -220,7 +220,7 @@ python scripts/spec_to_workstream.py --change-id test-001 --dry-run
 3. **Write tasks.md**:
    ```markdown
    # Implementation Tasks
-   
+
    1. Task 1 description
    2. Task 2 description
    ```
@@ -228,7 +228,7 @@ python scripts/spec_to_workstream.py --change-id test-001 --dry-run
 4. **Optional: Write spec.md**:
    ```markdown
    # Technical Specification
-   
+
    Detailed technical design.
    ```
 

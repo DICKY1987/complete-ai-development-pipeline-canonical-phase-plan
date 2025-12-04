@@ -35,15 +35,15 @@ class MergeResult:
 
 class IntegrationWorker:
     """Handles integration of parallel workstream results."""
-    
+
     def __init__(self, repo_root: Path):
         """Initialize integration worker.
-        
+
         Args:
             repo_root: Repository root directory
         """
         self.repo_root = repo_root
-    
+
     def merge_workstream_results(
         self,
         base_branch: str,
@@ -51,21 +51,21 @@ class IntegrationWorker:
         run_id: str
     ) -> MergeResult:
         """Merge results from multiple parallel workstreams.
-        
+
         Args:
             base_branch: Base branch (usually 'main')
             feature_branches: List of feature branches to merge
             run_id: Execution run ID
-            
+
         Returns:
             MergeResult with conflicts detected
         """
         conflicts = []
         merged_files = []
-        
+
         # Create integration branch
         integration_branch = f"uet-integration-{run_id}"
-        
+
         try:
             # Create integration branch from base
             subprocess.run(
@@ -75,7 +75,7 @@ class IntegrationWorker:
                 capture_output=True,
                 text=True
             )
-            
+
             # Merge each feature branch
             for branch in feature_branches:
                 try:
@@ -85,12 +85,12 @@ class IntegrationWorker:
                         capture_output=True,
                         text=True
                     )
-                    
+
                     if result.returncode != 0:
                         # Detect conflicts
                         branch_conflicts = self._detect_conflicts(branch, base_branch)
                         conflicts.extend(branch_conflicts)
-                        
+
                         # Abort merge
                         subprocess.run(
                             ['git', 'merge', '--abort'],
@@ -101,14 +101,14 @@ class IntegrationWorker:
                         # Get merged files
                         files = self._get_changed_files(branch)
                         merged_files.extend(files)
-                        
+
                         # Commit merge
                         subprocess.run(
                             ['git', 'commit', '-m', f'Merge {branch}'],
                             cwd=str(self.repo_root),
                             check=True
                         )
-                
+
                 except subprocess.CalledProcessError as e:
                     return MergeResult(
                         success=False,
@@ -116,7 +116,7 @@ class IntegrationWorker:
                         merged_files=[],
                         error_message=f"Merge failed for {branch}: {e}"
                     )
-            
+
             # Success if no conflicts
             if not conflicts:
                 return MergeResult(
@@ -130,7 +130,7 @@ class IntegrationWorker:
                     conflicts=conflicts,
                     merged_files=merged_files
                 )
-        
+
         except Exception as e:
             return MergeResult(
                 success=False,
@@ -138,7 +138,7 @@ class IntegrationWorker:
                 merged_files=merged_files,
                 error_message=str(e)
             )
-        
+
         finally:
             # Cleanup: return to base branch
             try:
@@ -149,19 +149,19 @@ class IntegrationWorker:
                 )
             except:
                 pass
-    
+
     def _detect_conflicts(self, branch: str, base_branch: str) -> List[MergeConflict]:
         """Detect merge conflicts between branches.
-        
+
         Args:
             branch: Feature branch
             base_branch: Base branch
-            
+
         Returns:
             List of MergeConflict objects
         """
         conflicts = []
-        
+
         try:
             # Get conflicted files
             result = subprocess.run(
@@ -171,9 +171,9 @@ class IntegrationWorker:
                 text=True,
                 check=True
             )
-            
+
             conflicted_files = result.stdout.strip().split('\n')
-            
+
             for file_path in conflicted_files:
                 if file_path:
                     conflicts.append(MergeConflict(
@@ -184,18 +184,18 @@ class IntegrationWorker:
                         feature_branch=branch,
                         detected_at=datetime.now(timezone.utc)
                     ))
-        
+
         except:
             pass
-        
+
         return conflicts
-    
+
     def _get_changed_files(self, branch: str) -> List[str]:
         """Get files changed in branch.
-        
+
         Args:
             branch: Branch name
-            
+
         Returns:
             List of changed file paths
         """
@@ -207,16 +207,16 @@ class IntegrationWorker:
                 text=True,
                 check=True
             )
-            
+
             files = result.stdout.strip().split('\n')
             return [f for f in files if f]
-        
+
         except:
             return []
-    
+
     def persist_conflicts(self, conflicts: List[MergeConflict], run_id: str) -> None:
         """Persist merge conflicts to database.
-        
+
         Args:
             conflicts: List of conflicts
             run_id: Execution run ID
@@ -224,7 +224,7 @@ class IntegrationWorker:
         from core.state import db
 
         db.init_db()
-        
+
         for conflict in conflicts:
             # Record as merge_conflict in DB
             db.record_event(
@@ -246,31 +246,31 @@ def detect_and_merge(
     repo_root: Optional[Path] = None
 ) -> MergeResult:
     """Detect and merge workstream results.
-    
+
     Args:
         workstream_ids: List of workstream IDs
         run_id: Execution run ID
         repo_root: Repository root (default: current directory)
-        
+
     Returns:
         MergeResult
     """
     if repo_root is None:
         repo_root = Path.cwd()
-    
+
     worker = IntegrationWorker(repo_root)
-    
+
     # Assume each workstream creates a branch named ws-{id}
     feature_branches = [f"ws-{ws_id}" for ws_id in workstream_ids]
-    
+
     result = worker.merge_workstream_results(
         base_branch='main',
         feature_branches=feature_branches,
         run_id=run_id
     )
-    
+
     # Persist conflicts
     if result.conflicts:
         worker.persist_conflicts(result.conflicts, run_id)
-    
+
     return result

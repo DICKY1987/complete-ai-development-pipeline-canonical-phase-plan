@@ -12,14 +12,14 @@ states:
     entry_actions:
       - set_created_at_timestamp
       - initialize_retry_count_to_zero
-    
+
   queued:
     description: "Task scheduled, waiting for worker assignment"
     terminal: false
     entry_actions:
       - assign_to_execution_stage
       - update_execution_plan
-    
+
   running:
     description: "Task executing on worker"
     terminal: false
@@ -30,13 +30,13 @@ states:
     exit_actions:
       - stop_timeout_timer
       - release_worker
-    
+
   validating:
     description: "Task execution completed, validation in progress"
     terminal: false
     entry_actions:
       - run_post_execution_validation_rules
-    
+
   completed:
     description: "Task and validation successful"
     terminal: true
@@ -44,21 +44,21 @@ states:
       - set_completed_at_timestamp
       - unblock_dependent_tasks
       - release_resources
-    
+
   failed:
     description: "Task or validation failed after all retries"
     terminal: true
     entry_actions:
       - set_last_error
       - mark_dependent_tasks_as_blocked
-    
+
   retrying:
     description: "Task failed, retry scheduled"
     terminal: false
     entry_actions:
       - increment_retry_count
       - schedule_retry_with_backoff
-    
+
   cancelled:
     description: "Task cancelled by user"
     terminal: true
@@ -76,7 +76,7 @@ transitions:
       description: "All task dependencies in 'completed' state"
     actions:
       - emit_state_transition_event
-    
+
   - name: "Start task execution"
     from: queued
     to: running
@@ -86,7 +86,7 @@ transitions:
       description: "Worker with required capabilities is available"
     actions:
       - emit_state_transition_event
-    
+
   - name: "Task execution completed successfully"
     from: running
     to: validating
@@ -96,7 +96,7 @@ transitions:
       description: "Worker reported exit code 0"
     actions:
       - emit_state_transition_event
-    
+
   - name: "Task failed with retries available"
     from: running
     to: retrying
@@ -106,7 +106,7 @@ transitions:
       description: "retry_count < max_retries"
     actions:
       - emit_state_transition_event_severity_warning
-    
+
   - name: "Task failed, no retries remaining"
     from: running
     to: failed
@@ -116,7 +116,7 @@ transitions:
       description: "retry_count >= max_retries"
     actions:
       - emit_state_transition_event_severity_error
-    
+
   - name: "Task timed out with retries available"
     from: running
     to: retrying
@@ -127,7 +127,7 @@ transitions:
     actions:
       - kill_task_process
       - emit_state_transition_event_severity_warning
-    
+
   - name: "Task timed out, no retries remaining"
     from: running
     to: failed
@@ -138,7 +138,7 @@ transitions:
     actions:
       - kill_task_process
       - emit_state_transition_event_severity_error
-    
+
   - name: "Task cancelled during execution"
     from: running
     to: cancelled
@@ -147,7 +147,7 @@ transitions:
     actions:
       - kill_task_process
       - emit_state_transition_event
-    
+
   - name: "Retry delay elapsed"
     from: retrying
     to: queued
@@ -155,7 +155,7 @@ transitions:
     guard: null
     actions:
       - emit_state_transition_event
-    
+
   - name: "Validation passed"
     from: validating
     to: completed
@@ -165,7 +165,7 @@ transitions:
       description: "All validation rules in post_execution passed"
     actions:
       - emit_state_transition_event
-    
+
   - name: "Validation failed"
     from: validating
     to: failed
@@ -175,7 +175,7 @@ transitions:
       description: "At least one validation rule in post_execution failed"
     actions:
       - emit_state_transition_event_severity_error
-    
+
   - name: "Cancel pending task"
     from: pending
     to: cancelled
@@ -183,7 +183,7 @@ transitions:
     guard: null
     actions:
       - emit_state_transition_event
-    
+
   - name: "Cancel queued task"
     from: queued
     to: cancelled
@@ -196,23 +196,23 @@ invariants:
   - name: "Single active state"
     description: "A task is in exactly one state at any time"
     validation: "count(task.state) == 1"
-  
+
   - name: "Monotonic progress"
     description: "Terminal states cannot transition to non-terminal states"
     validation: "if task.state in [completed, failed, cancelled] then no transitions allowed"
-  
+
   - name: "Worker assignment"
     description: "Only running tasks have assigned workers"
     validation: "task.state == running ↔ task.assigned_worker != null"
-  
+
   - name: "Retry limit"
     description: "Retry count never exceeds max retries"
     validation: "task.retry_count <= task.max_retries"
-  
+
   - name: "Timestamp ordering"
     description: "Timestamps maintain logical ordering"
     validation: "task.created_at <= task.started_at <= task.completed_at"
-  
+
   - name: "Dependency satisfaction"
     description: "Queued tasks have all dependencies satisfied"
     validation: "if task.state == queued then all(dep.state == completed for dep in task.dependencies)"
@@ -222,37 +222,37 @@ event_schema:
     type: string
     format: iso8601
     required: true
-  
+
   event_type:
     type: string
     enum: [task_state_transition]
     required: true
-  
+
   severity:
     type: string
     enum: [info, warning, error, critical]
     required: true
-  
+
   entity_id:
     type: string
     description: "task_id"
     required: true
-  
+
   from_state:
     type: string
     enum: [pending, queued, running, validating, completed, failed, retrying, cancelled]
     required: true
-  
+
   to_state:
     type: string
     enum: [pending, queued, running, validating, completed, failed, retrying, cancelled]
     required: true
-  
+
   trigger:
     type: string
     description: "Event that triggered this transition"
     required: true
-  
+
   metadata:
     type: object
     required: false

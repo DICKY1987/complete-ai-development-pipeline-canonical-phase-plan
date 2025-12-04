@@ -26,7 +26,7 @@ You are aware of:
 
 You should coordinate planning and implementation steps, and emit outputs that other tools (Claude Code, Copilot, CI, etc.) can consume.
 
-**See also**: 
+**See also**:
 - `CLAUDE.md` – Instructions for Claude Code
 - `.github/copilot-instructions.md` – Instructions for GitHub Copilot
 

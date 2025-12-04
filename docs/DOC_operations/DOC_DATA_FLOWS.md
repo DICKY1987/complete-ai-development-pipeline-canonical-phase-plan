@@ -10,7 +10,7 @@ doc_id: DOC-GUIDE-DATA_FLOWS-112
 
 **Purpose:** Visualize how data moves through the system to help AI agents understand request/response patterns and state propagation.
 
-**Last Updated:** 2025-11-22  
+**Last Updated:** 2025-11-22
 **Maintainer:** System Architecture Team
 
 ---
@@ -302,7 +302,7 @@ Deduplicated: 2 unique errors (no duplicates in this case)
 ↓ [Store in Database]
 
 INSERT INTO errors (file_path, line, severity, message, detected_at)
-VALUES 
+VALUES
   ('file1.py', 2, 'WARNING', 'sys imported but unused', NOW()),
   ('file1.py', 3, 'ERROR', 'Name x not defined', NOW())
 
@@ -538,6 +538,6 @@ Monitor          Triggered
 
 ---
 
-**Flows Documented:** 3 major flows  
-**Patterns Identified:** 3 patterns  
+**Flows Documented:** 3 major flows
+**Patterns Identified:** 3 patterns
 **Last Updated:** 2025-11-22

@@ -10,7 +10,7 @@ doc_id: DOC-GUIDE-DEPENDENCIES-113
 
 **Purpose:** Document code dependencies and conceptual relationships to help AI agents understand module coupling and change impact.
 
-**Last Updated:** 2025-11-22  
+**Last Updated:** 2025-11-22
 **Maintainer:** System Architecture Team
 
 ---
@@ -451,7 +451,7 @@ class AiderAdapter(ToolAdapter):
 class Orchestrator:
     def __init__(self, adapter: ToolAdapter):
         self.adapter = adapter  # Injected dependency
-    
+
     def execute_step(self, step):
         result = self.adapter.execute(step)
         return result
@@ -555,7 +555,7 @@ scripts/run_workstream.py       | 2           | 10              | 12
 
 ---
 
-**Modules Analyzed:** 25+  
-**Circular Dependencies:** 0  
-**Last Updated:** 2025-11-22  
+**Modules Analyzed:** 25+
+**Circular Dependencies:** 0
+**Last Updated:** 2025-11-22
 **Next Review:** After major refactorings

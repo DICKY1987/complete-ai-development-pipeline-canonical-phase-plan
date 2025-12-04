@@ -26,14 +26,14 @@ template_structure:
     - "src/${module_name}/__init__.py"
     - "src/${module_name}/${module_name}.py"
     - "tests/test_${module_name}.py"
-  
+
   standard_sections:
     - "Module docstring"
     - "Imports"
     - "Public API (3-5 functions)"
     - "Helper functions (private)"
     - "Test suite (7-10 tests)"
-  
+
   naming_conventions:
     - "snake_case for functions"
     - "PascalCase for classes"
@@ -45,7 +45,7 @@ convergence_data:
   iteration_3_time: 18  # minutes (pattern emerging)
   iteration_6_time: 12  # minutes (template solidified)
   iteration_10_time: 5  # minutes (pure application)
-  
+
   speedup_curve:
     - uses: 1, time: 25
     - uses: 3, time: 18
@@ -59,13 +59,13 @@ execution_steps:
     file: "src/${module_name}/${module_name}.py"
     template: "module_implementation.template"
     fill_sections: true
-  
+
   2_create_tests:
     tool: "create"
     file: "tests/test_${module_name}.py"
     template: "module_test_suite.template"
     test_count: 7
-  
+
   3_verify:
     tool: "powershell"
     command: "python -m pytest tests/test_${module_name}.py"
@@ -85,19 +85,19 @@ convergence:
   improvement: 0.80  # 80% time reduction
   early_avg: 25.0
   recent_avg: 5.0
-  
+
 # Example usage
 example:
   context:
     module_name: "error_detector"
     module_purpose: "Detect errors in patches"
-  
+
   steps_executed:
     - "Apply module template"
     - "Fill module_name = error_detector"
     - "Generate 7 standard tests"
     - "Verify pytest"
-  
+
   expected_duration: "5 minutes"
   expected_outcome:
     - "Module created"

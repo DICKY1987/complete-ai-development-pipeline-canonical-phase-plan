@@ -6,15 +6,15 @@ entry_points:
   - file: "orchestrator.py"
     function: "BootstrapOrchestrator"
     description: "Main bootstrap coordinator - runs discovery → selection → generation → validation"
-  
+
   - file: "discovery.py"
     function: "discover_project()"
     description: "Scan project directory, detect languages, frameworks, structure"
-  
+
   - file: "selector.py"
     function: "select_profile()"
     description: "Choose profile type (python, data, docs, ops, generic) based on discovery"
-  
+
   - file: "generator.py"
     function: "generate_artifacts()"
     description: "Create PROJECT_PROFILE.yaml and router_config.json from template"
@@ -34,7 +34,7 @@ common_tasks:
       result = bo.bootstrap()
       # Generates PROJECT_PROFILE.yaml + router_config.json
     approach: "Create BootstrapOrchestrator, call bootstrap()"
-  
+
   - task: "Manual discovery only"
     code: |
       from core.bootstrap.discovery import discover_project

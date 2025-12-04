@@ -14,20 +14,20 @@ parameters:
     type: string
     required: true
     example: "uet_migration_integration"
-  
+
   test_files:
     type: list
     required: true
     example:
       - "tests/state/test_db_unified.py"
       - "tests/engine/test_uet_orchestrator.py"
-  
+
   required_pass_rate:
     type: float
     required: true
     default: 1.0
     example: 1.0
-  
+
   timeout_per_test:
     type: int
     required: false
@@ -39,13 +39,13 @@ ground_truth_gates:
     command: "pytest {test_files} --collect-only -q"
     expect_stdout_contains: "test collected"
     failure_action: halt_and_report
-  
+
   gate_2_all_tests_pass:
     command: "pytest {test_files} -q --tb=short -x"
     expect_exit_code: 0
     expect_stdout_contains: "passed"
     failure_action: report_and_continue
-  
+
   gate_3_coverage_maintained:
     command: "pytest {test_files} --cov=core --cov-report=term-missing --cov-fail-under=70"
     expect_exit_code: 0
@@ -54,11 +54,11 @@ ground_truth_gates:
 execution_sequence:
   - step: collect_tests
     gate: gate_1_tests_collected
-  
+
   - step: run_tests
     gate: gate_2_all_tests_pass
     retry_on_failure: false
-  
+
   - step: check_coverage
     gate: gate_3_coverage_maintained
     optional: true
@@ -67,7 +67,7 @@ anti_pattern_guards:
   hallucination_of_success:
     enabled: true
     rule: "Never mark tests complete without gate_2_all_tests_pass exit_code == 0"
-  
+
   planning_loop_trap:
     enabled: true
     rule: "If tests fail, report failure immediately; do not re-plan"

@@ -186,7 +186,7 @@ sequenceDiagram
     participant Pipeline
     participant ErrorEngine
     participant Plugin
-    
+
     User->>Pipeline: Run workstream
     Pipeline->>ErrorEngine: Validate files
     ErrorEngine->>Plugin: Execute plugin
@@ -222,17 +222,17 @@ classDiagram
         +execute_step(step)
         -validate_quality_gate()
     }
-    
+
     class ErrorEngine {
         +run_pipeline(files)
         +advance_state(context)
     }
-    
+
     class PluginManager {
         +discover()
         +get_plugins_for_file(path)
     }
-    
+
     Orchestrator --> ErrorEngine : uses
     ErrorEngine --> PluginManager : uses
 ```

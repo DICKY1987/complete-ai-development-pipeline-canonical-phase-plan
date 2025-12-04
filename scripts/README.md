@@ -4,8 +4,8 @@ doc_id: DOC-SCRIPT-README-251
 
 # Scripts - Automation and Utilities
 
-> **Purpose**: Automation scripts for common operational tasks  
-> **Last Updated**: 2025-11-22  
+> **Purpose**: Automation scripts for common operational tasks
+> **Last Updated**: 2025-11-22
 > **Status**: Production
 
 ---

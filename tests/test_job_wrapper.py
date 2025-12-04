@@ -24,7 +24,7 @@ def test_job_wrapper_defaults():
         job_id="test-123",
         job_data={"tool": "aider", "command": {"exe": "aider", "args": []}}
     )
-    
+
     assert job.priority == JobPriority.NORMAL
     assert job.status == JobStatus.QUEUED
     assert job.depends_on == []
@@ -39,28 +39,28 @@ def test_job_wrapper_defaults():
 def test_job_wrapper_priority_comparison():
     """Test priority-based job comparison for queue ordering"""
     now = datetime.now()
-    
+
     job_critical = JobWrapper(
         job_id="critical",
         job_data={},
         priority=JobPriority.CRITICAL,
         queued_at=now
     )
-    
+
     job_high = JobWrapper(
         job_id="high",
         job_data={},
         priority=JobPriority.HIGH,
         queued_at=now
     )
-    
+
     job_normal = JobWrapper(
         job_id="normal",
         job_data={},
         priority=JobPriority.NORMAL,
         queued_at=now
     )
-    
+
     # Critical < High < Normal (lower value = higher priority)
     assert job_critical < job_high
     assert job_high < job_normal
@@ -71,21 +71,21 @@ def test_job_wrapper_time_ordering():
     """Test that jobs with same priority are ordered by queued_at"""
     earlier = datetime.now()
     later = earlier + timedelta(seconds=10)
-    
+
     job_earlier = JobWrapper(
         job_id="earlier",
         job_data={},
         priority=JobPriority.NORMAL,
         queued_at=earlier
     )
-    
+
     job_later = JobWrapper(
         job_id="later",
         job_data={},
         priority=JobPriority.NORMAL,
         queued_at=later
     )
-    
+
     # Earlier queued job has higher priority
     assert job_earlier < job_later
 
@@ -94,9 +94,9 @@ def test_mark_running():
     """Test marking job as running"""
     job = JobWrapper(job_id="test", job_data={})
     assert job.started_at is None
-    
+
     job.mark_running()
-    
+
     assert job.status == JobStatus.RUNNING
     assert job.started_at is not None
 
@@ -105,9 +105,9 @@ def test_mark_completed():
     """Test marking job as completed"""
     job = JobWrapper(job_id="test", job_data={})
     job.mark_running()
-    
+
     job.mark_completed()
-    
+
     assert job.status == JobStatus.COMPLETED
     assert job.completed_at is not None
 
@@ -116,9 +116,9 @@ def test_mark_failed():
     """Test marking job as failed"""
     job = JobWrapper(job_id="test", job_data={})
     job.mark_running()
-    
+
     job.mark_failed()
-    
+
     assert job.status == JobStatus.FAILED
     assert job.completed_at is not None
 
@@ -127,9 +127,9 @@ def test_mark_retry():
     """Test marking job for retry"""
     job = JobWrapper(job_id="test", job_data={})
     initial_count = job.retry_count
-    
+
     job.mark_retry()
-    
+
     assert job.status == JobStatus.RETRY
     assert job.retry_count == initial_count + 1
 
@@ -137,9 +137,9 @@ def test_mark_retry():
 def test_mark_escalated():
     """Test marking job as escalated"""
     job = JobWrapper(job_id="test", job_data={})
-    
+
     job.mark_escalated("codex")
-    
+
     assert job.status == JobStatus.ESCALATED
     assert job.metadata['escalated_to'] == "codex"
     assert 'escalated_at' in job.metadata
@@ -148,15 +148,15 @@ def test_mark_escalated():
 def test_can_retry():
     """Test retry limit checking"""
     job = JobWrapper(job_id="test", job_data={}, max_retries=3)
-    
+
     assert job.can_retry() is True
-    
+
     job.retry_count = 2
     assert job.can_retry() is True
-    
+
     job.retry_count = 3
     assert job.can_retry() is False
-    
+
     job.retry_count = 4
     assert job.can_retry() is False
 
@@ -165,7 +165,7 @@ def test_is_ready_no_dependencies():
     """Test job is ready when no dependencies"""
     job = JobWrapper(job_id="test", job_data={}, depends_on=[])
     completed_jobs = set()
-    
+
     assert job.is_ready(completed_jobs) is True
 
 
@@ -176,15 +176,15 @@ def test_is_ready_with_dependencies():
         job_data={},
         depends_on=["job1", "job2"]
     )
-    
+
     # Not ready if dependencies incomplete
     completed_jobs = {"job1"}
     assert job.is_ready(completed_jobs) is False
-    
+
     # Ready when all dependencies complete
     completed_jobs = {"job1", "job2"}
     assert job.is_ready(completed_jobs) is True
-    
+
     # Extra completed jobs don't affect readiness
     completed_jobs = {"job1", "job2", "job3"}
     assert job.is_ready(completed_jobs) is True
@@ -202,9 +202,9 @@ def test_to_dict():
         max_retries=5,
         metadata={"custom": "value"}
     )
-    
+
     job_dict = job.to_dict()
-    
+
     assert job_dict['job_id'] == "test-123"
     assert job_dict['job_data'] == {"tool": "aider"}
     assert job_dict['priority'] == JobPriority.HIGH.value
@@ -232,9 +232,9 @@ def test_from_dict():
         'completed_at': None,
         'metadata': {"custom": "value"}
     }
-    
+
     job = JobWrapper.from_dict(job_dict)
-    
+
     assert job.job_id == "test-123"
     assert job.job_data == {"tool": "aider"}
     assert job.priority == JobPriority.HIGH
@@ -254,10 +254,10 @@ def test_json_round_trip():
         depends_on=["dep1", "dep2"],
         metadata={"key": "value"}
     )
-    
+
     json_str = job.to_json()
     restored_job = JobWrapper.from_json(json_str)
-    
+
     assert restored_job.job_id == job.job_id
     assert restored_job.job_data == job.job_data
     assert restored_job.priority == job.priority

@@ -39,12 +39,12 @@ $files = Get-ChildItem -Path $fileGlob -File -ErrorAction SilentlyContinue
 
 if (-not $files) {
     Write-PatternLog "No files match glob pattern" "WARNING"
-    
+
     $result = New-PatternResult -Success $false -Message "No files found" -Data @{
         files_matched = @()
         edits_applied = 0
     }
-    
+
     Write-Output $result
     return
 }
@@ -54,27 +54,27 @@ $editsApplied = 0
 
 foreach ($file in $files) {
     $content = Get-Content $file.FullName -Raw
-    
+
     if ($content -match $pattern) {
         $matchedFiles += $file.FullName
         Write-PatternLog "Match found in: $($file.Name)" "INFO"
-        
+
         # Step 2: View context (show line with match)
         $lines = Get-Content $file.FullName
         $matchingLines = $lines | Select-String -Pattern $pattern
-        
+
         foreach ($match in $matchingLines) {
             Write-PatternLog "  Line $($match.LineNumber): $($match.Line.Trim())" "INFO"
         }
-        
+
         # Step 3: Apply edit if specified
         if ($editAction) {
             $oldStr = $editAction.old_str
             $newStr = $editAction.new_str
-            
+
             $newContent = $content -replace [regex]::Escape($oldStr), $newStr
             Set-Content -Path $file.FullName -Value $newContent -Encoding UTF8 -NoNewline
-            
+
             $editsApplied++
             Write-PatternLog "  Edit applied to: $($file.Name)" "SUCCESS"
         }

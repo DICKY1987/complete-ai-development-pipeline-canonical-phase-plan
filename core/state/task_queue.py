@@ -60,16 +60,16 @@ class Task:
     timeouts: TaskTimeouts = field(default_factory=TaskTimeouts)
     routing_state: RoutingState = field(default_factory=RoutingState)
     created_at: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z'))
-    
+
     @staticmethod
     def generate_id() -> str:
         """Generate a ULID for task ID"""
         return str(ulid.new())
-    
+
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary for JSON serialization"""
         return asdict(self)
-    
+
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> 'Task':
         """Create Task from dictionary"""
@@ -109,27 +109,27 @@ class TaskQueue:
     """
     File-based task queue manager with concurrent access safety
     """
-    
+
     def __init__(self, base_path: str = ".tasks"):
         self.base_path = Path(base_path)
         self.inbox = self.base_path / "inbox"
         self.running = self.base_path / "running"
         self.done = self.base_path / "done"
         self.failed = self.base_path / "failed"
-        
+
         # Ensure directories exist
         for dir_path in [self.inbox, self.running, self.done, self.failed]:
             dir_path.mkdir(parents=True, exist_ok=True)
-    
+
     def _get_task_file(self, task_id: str, state: str) -> Path:
         """Get path to task file in given state directory"""
         state_dir = getattr(self, state)
         return state_dir / f"{task_id}.json"
-    
+
     def _get_lock_file(self, task_file: Path) -> Path:
         """Get lock file path for a task file"""
         return task_file.with_suffix('.lock')
-    
+
     def enqueue(self, task: Task) -> str:
         """
         Add task to inbox queue
@@ -137,13 +137,13 @@ class TaskQueue:
         """
         task_file = self._get_task_file(task.task_id, "inbox")
         lock_file = self._get_lock_file(task_file)
-        
+
         with FileLock(str(lock_file), timeout=10):
             with open(task_file, 'w', encoding='utf-8') as f:
                 json.dump(task.to_dict(), f, indent=2)
-        
+
         return task.task_id
-    
+
     def dequeue(self) -> Optional[Task]:
         """
         Get next task from inbox (FIFO)
@@ -152,10 +152,10 @@ class TaskQueue:
         tasks = sorted(self.inbox.glob("*.json"))
         if not tasks:
             return None
-        
+
         task_file = tasks[0]
         lock_file = self._get_lock_file(task_file)
-        
+
         try:
             with FileLock(str(lock_file), timeout=10):
                 with open(task_file, 'r', encoding='utf-8') as f:
@@ -164,7 +164,7 @@ class TaskQueue:
                 return task
         except Exception:
             return None
-    
+
     def peek(self, limit: int = 10) -> List[Task]:
         """
         View tasks in inbox without removing them
@@ -179,7 +179,7 @@ class TaskQueue:
             except Exception:
                 continue
         return tasks
-    
+
     def move_to_running(self, task_id: str) -> bool:
         """
         Move task from inbox to running
@@ -188,7 +188,7 @@ class TaskQueue:
         src_file = self._get_task_file(task_id, "inbox")
         dst_file = self._get_task_file(task_id, "running")
         lock_file = self._get_lock_file(src_file)
-        
+
         try:
             with FileLock(str(lock_file), timeout=10):
                 if src_file.exists():
@@ -204,7 +204,7 @@ class TaskQueue:
                 except:
                     pass
         return False
-    
+
     def complete(self, task_id: str, result: TaskResult) -> bool:
         """
         Move task from running to done with result
@@ -213,7 +213,7 @@ class TaskQueue:
         src_file = self._get_task_file(task_id, "running")
         dst_file = self._get_task_file(task_id, "done")
         lock_file = self._get_lock_file(src_file)
-        
+
         success = False
         try:
             with FileLock(str(lock_file), timeout=10):
@@ -221,15 +221,15 @@ class TaskQueue:
                     # Read original task
                     with open(src_file, 'r', encoding='utf-8') as f:
                         task_data = json.load(f)
-                    
+
                     # Add result data
                     task_data['result'] = asdict(result)
                     task_data['completed_at'] = datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z')
-                    
+
                     # Write to done directory
                     with open(dst_file, 'w', encoding='utf-8') as f:
                         json.dump(task_data, f, indent=2)
-                    
+
                     # Remove from running
                     src_file.unlink()
                     success = True
@@ -243,7 +243,7 @@ class TaskQueue:
                 except:
                     pass
         return success
-    
+
     def fail(self, task_id: str, error: str) -> bool:
         """
         Move task from running to failed with error message
@@ -252,7 +252,7 @@ class TaskQueue:
         src_file = self._get_task_file(task_id, "running")
         dst_file = self._get_task_file(task_id, "failed")
         lock_file = self._get_lock_file(src_file)
-        
+
         success = False
         try:
             with FileLock(str(lock_file), timeout=10):
@@ -260,15 +260,15 @@ class TaskQueue:
                     # Read original task
                     with open(src_file, 'r', encoding='utf-8') as f:
                         task_data = json.load(f)
-                    
+
                     # Add error data
                     task_data['error'] = error
                     task_data['failed_at'] = datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z')
-                    
+
                     # Write to failed directory
                     with open(dst_file, 'w', encoding='utf-8') as f:
                         json.dump(task_data, f, indent=2)
-                    
+
                     # Remove from running
                     src_file.unlink()
                     success = True
@@ -282,7 +282,7 @@ class TaskQueue:
                 except:
                     pass
         return success
-    
+
     def get_status(self, task_id: str) -> Optional[TaskStatus]:
         """
         Get current status of a task
@@ -294,7 +294,7 @@ class TaskQueue:
                 try:
                     with open(task_file, 'r', encoding='utf-8') as f:
                         task_data = json.load(f)
-                    
+
                     return TaskStatus(
                         task_id=task_id,
                         state=state,

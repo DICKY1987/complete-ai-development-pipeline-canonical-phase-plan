@@ -362,6 +362,6 @@ git diff --staged
 
 ---
 
-**Version**: 1.0  
-**Last Updated**: 2025-11-23  
-**Maintenance**: Update when onboarding pain points discovered  
+**Version**: 1.0
+**Last Updated**: 2025-11-23
+**Maintenance**: Update when onboarding pain points discovered

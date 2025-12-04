@@ -19,7 +19,7 @@ import fnmatch
 
 class PipeTreeGenerator:
     """Generates virtual pipeline tree from current repo structure."""
-    
+
     # Fixed macro phases and their PIPE modules
     PIPELINE_STRUCTURE = {
         "A_INTAKE_AND_SPECS": [
@@ -63,109 +63,109 @@ class PipeTreeGenerator:
             "PIPE-26_LEARN_AND_UPDATE_PATTERNS_PROMPTS_CONFIG",
         ],
     }
-    
+
     def __init__(self, root: Path, mapping_config: Dict, ignore_patterns: List[str]):
         self.root = root
         self.mapping_config = mapping_config
         self.ignore_patterns = ignore_patterns
         self.tree: Dict[str, List[str]] = {}
         self._init_tree()
-    
+
     def _init_tree(self):
         """Initialize empty tree structure."""
         for phase, pipe_modules in self.PIPELINE_STRUCTURE.items():
             for pipe_module in pipe_modules:
                 self.tree[pipe_module] = []
-    
+
     def _should_ignore(self, path: Path) -> bool:
         """Check if path should be ignored."""
         path_str = str(path.relative_to(self.root))
-        
+
         for pattern in self.ignore_patterns:
             if fnmatch.fnmatch(path_str, pattern):
                 return True
             # Also check directory names
             if any(fnmatch.fnmatch(part, pattern) for part in path.parts):
                 return True
-        
+
         return False
-    
+
     def _match_rule(self, rel_path: str, rule: Dict) -> bool:
         """Check if relative path matches a rule."""
         match = rule.get("match", {})
-        
+
         # Check path_prefix matches
         for prefix in match.get("path_prefix", []):
             if rel_path.startswith(prefix):
                 return True
-        
+
         # Check file_glob matches
         for glob_pattern in match.get("file_glob", []):
             if fnmatch.fnmatch(rel_path, glob_pattern):
                 return True
-        
+
         return False
-    
+
     def _classify_file(self, rel_path: str) -> str:
         """Classify file to a PIPE module based on mapping rules."""
         rules = self.mapping_config.get("rules", [])
-        
+
         # First match wins
         for rule in rules:
             if self._match_rule(rel_path, rule):
                 return rule["pipe_id"]
-        
+
         # No match - use default
         return self.mapping_config.get(
             "default_pipe_id",
             "PIPE-26_LEARN_AND_UPDATE_PATTERNS_PROMPTS_CONFIG"
         )
-    
+
     def scan_repository(self):
         """Scan repository and classify all files."""
         for path in self.root.rglob("*"):
             # Skip directories, only process files
             if path.is_dir():
                 continue
-            
+
             # Skip ignored paths
             if self._should_ignore(path):
                 continue
-            
+
             # Get relative path
             try:
                 rel_path = str(path.relative_to(self.root)).replace("\\", "/")
             except ValueError:
                 continue
-            
+
             # Classify to PIPE module
             pipe_id = self._classify_file(rel_path)
-            
+
             # Add to tree
             if pipe_id in self.tree:
                 self.tree[pipe_id].append(rel_path)
-    
+
     def render_tree(self) -> str:
         """Render the virtual tree as ASCII."""
         lines = ["pipeline/"]
-        
+
         for phase, pipe_modules in self.PIPELINE_STRUCTURE.items():
             lines.append(f"  {phase}/")
-            
+
             for pipe_module in pipe_modules:
                 lines.append(f"    {pipe_module}/")
-                
+
                 # Get and sort files for this module
                 files = sorted(self.tree.get(pipe_module, []))
-                
+
                 if not files:
                     lines.append(f"      (empty)")
                 else:
                     for file in files:
                         lines.append(f"      {file}")
-        
+
         return "\n".join(lines)
-    
+
     def generate_stats(self) -> Dict:
         """Generate statistics about the mapping."""
         stats = {
@@ -173,7 +173,7 @@ class PipeTreeGenerator:
             "by_pipe": {},
             "by_phase": {},
         }
-        
+
         for phase, pipe_modules in self.PIPELINE_STRUCTURE.items():
             phase_count = 0
             for pipe_module in pipe_modules:
@@ -181,7 +181,7 @@ class PipeTreeGenerator:
                 stats["by_pipe"][pipe_module] = count
                 phase_count += count
             stats["by_phase"][phase] = phase_count
-        
+
         return stats
 
 
@@ -206,7 +206,7 @@ def load_ignore_patterns(ignore_file: Optional[Path]) -> List[str]:
         "*.db",
         "*.db-journal",
     ]
-    
+
     if ignore_file and ignore_file.exists():
         with open(ignore_file, "r", encoding="utf-8") as f:
             custom_patterns = [
@@ -215,7 +215,7 @@ def load_ignore_patterns(ignore_file: Optional[Path]) -> List[str]:
                 if line.strip() and not line.startswith("#")
             ]
             return default_patterns + custom_patterns
-    
+
     return default_patterns
 
 
@@ -252,18 +252,18 @@ def main():
         action="store_true",
         help="Print statistics about the mapping",
     )
-    
+
     args = parser.parse_args()
-    
+
     # Validate inputs
     if not args.root.exists():
         print(f"Error: Root directory does not exist: {args.root}", file=sys.stderr)
         sys.exit(1)
-    
+
     if not args.mapping_config.exists():
         print(f"Error: Mapping config not found: {args.mapping_config}", file=sys.stderr)
         sys.exit(1)
-    
+
     # Load mapping configuration
     try:
         with open(args.mapping_config, "r", encoding="utf-8") as f:
@@ -271,26 +271,26 @@ def main():
     except Exception as e:
         print(f"Error loading mapping config: {e}", file=sys.stderr)
         sys.exit(1)
-    
+
     # Load ignore patterns
     ignore_patterns = load_ignore_patterns(
         args.ignore_file if args.ignore_file.exists() else None
     )
-    
+
     # Generate tree
     print(f"Scanning repository: {args.root}")
     generator = PipeTreeGenerator(args.root, mapping_config, ignore_patterns)
     generator.scan_repository()
-    
+
     # Render and save
     print(f"Rendering virtual tree...")
     tree_output = generator.render_tree()
-    
+
     with open(args.output, "w", encoding="utf-8") as f:
         f.write(tree_output)
-    
+
     print(f"✓ Virtual tree written to: {args.output}")
-    
+
     # Print statistics if requested
     if args.stats:
         stats = generator.generate_stats()

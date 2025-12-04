@@ -22,7 +22,7 @@
 param(
     [Parameter()]
     [string]$StateDir = ".state",
-    
+
     [Parameter()]
     [switch]$VerboseOutput
 )
@@ -37,13 +37,13 @@ function Write-Result {
         [string]$Status,
         [string]$Message
     )
-    
+
     $statusSymbol = if ($Status -eq "PASS") { "✓" } else { "✗" }
     $color = if ($Status -eq "PASS") { "Green" } else { "Red" }
-    
+
     Write-Host "[$statusSymbol] $RequirementId : " -NoNewline
     Write-Host $Message -ForegroundColor $color
-    
+
     if ($Status -eq "PASS") {
         $script:PassCount++
     } else {
@@ -53,7 +53,7 @@ function Write-Result {
 
 function Test-FileExists {
     param([string]$Path, [string]$Description)
-    
+
     if (Test-Path $Path) {
         if ($VerboseOutput) {
             Write-Host "  Found: $Path" -ForegroundColor Gray
@@ -67,7 +67,7 @@ function Test-FileExists {
 
 function Test-JsonValid {
     param([string]$Path)
-    
+
     try {
         $content = Get-Content $Path -Raw
         $null = ConvertFrom-Json $content
@@ -80,7 +80,7 @@ function Test-JsonValid {
 
 function Test-JsonlValid {
     param([string]$Path)
-    
+
     try {
         $lineNum = 0
         Get-Content $Path | ForEach-Object {
@@ -111,14 +111,14 @@ if ($obs001_pass) {
     # Check for required fields
     $stateData = Get-Content $currentJsonPath -Raw | ConvertFrom-Json
     $hasRequiredFields = $true
-    
+
     foreach ($field in @("workstreams", "tasks", "timestamp")) {
         if (-not $stateData.PSObject.Properties.Name.Contains($field)) {
             Write-Host "  Missing required field: $field" -ForegroundColor Red
             $hasRequiredFields = $false
         }
     }
-    
+
     $obs001_pass = $hasRequiredFields
 }
 
@@ -158,12 +158,12 @@ if ($obs002_exists) {
     try {
         $validEvents = $true
         $eventCount = 0
-        
+
         Get-Content $transitionsPath | ForEach-Object {
             if ($_ -and $_.Trim()) {
                 $event = ConvertFrom-Json $_
                 $eventCount++
-                
+
                 # Check required fields
                 $requiredFields = @("timestamp", "event", "severity")
                 foreach ($field in $requiredFields) {
@@ -172,7 +172,7 @@ if ($obs002_exists) {
                         $validEvents = $false
                     }
                 }
-                
+
                 # Check severity is valid
                 if ($event.severity -and $event.severity -notin @("info", "warning", "error", "critical")) {
                     Write-Host "  Invalid severity '$($event.severity)' at line $eventCount" -ForegroundColor Red
@@ -180,11 +180,11 @@ if ($obs002_exists) {
                 }
             }
         }
-        
+
         if ($VerboseOutput -and $validEvents) {
             Write-Host "  Validated $eventCount events" -ForegroundColor Gray
         }
-        
+
         $obs004_pass = $validEvents
     } catch {
         Write-Host "  Error validating event schema: $($_.Exception.Message)" -ForegroundColor Red
@@ -234,13 +234,13 @@ $obs006_pass = $true
 if ($foundIndices -gt 0) {
     # Check if indices are newer than or same age as current.json
     $currentMtime = (Get-Item $currentJsonPath).LastWriteTime
-    
+
     foreach ($indexFile in $indexFiles) {
         $indexPath = Join-Path $StateDir $indexFile
         if (Test-Path $indexPath) {
             $indexMtime = (Get-Item $indexPath).LastWriteTime
             $staleness = ($currentMtime - $indexMtime).TotalSeconds
-            
+
             if ($staleness -gt 60) {
                 Write-Host "  Index $indexFile is stale by $([int]$staleness) seconds" -ForegroundColor Yellow
                 # Don't fail, just warn (indices can be regenerated)

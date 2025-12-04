@@ -14,7 +14,7 @@ function Write-PatternLog {
         [ValidateSet("INFO", "SUCCESS", "WARNING", "ERROR")]
         [string]$Level = "INFO"
     )
-    
+
     $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
     $color = switch ($Level) {
         "INFO" { "Cyan" }
@@ -22,7 +22,7 @@ function Write-PatternLog {
         "WARNING" { "Yellow" }
         "ERROR" { "Red" }
     }
-    
+
     Write-Host "[$timestamp] [$Level] $Message" -ForegroundColor $color
 }
 
@@ -39,15 +39,15 @@ function Test-PatternInstance {
         [Parameter(Mandatory=$true)]
         [string]$ExpectedPatternId
     )
-    
+
     if ($Instance.doc_id -ne $ExpectedDocId) {
         throw "Invalid doc_id. Expected: $ExpectedDocId, Got: $($Instance.doc_id)"
     }
-    
+
     if ($Instance.pattern_id -ne $ExpectedPatternId) {
         throw "Invalid pattern_id. Expected: $ExpectedPatternId, Got: $($Instance.pattern_id)"
     }
-    
+
     Write-PatternLog "Instance validation passed" "SUCCESS"
 }
 
@@ -63,14 +63,14 @@ function New-PatternResult {
         [string]$Message,
         [object]$Data = @{}
     )
-    
+
     $result = @{
         success = $Success
         message = $Message
         timestamp = Get-Date -Format "o"
         data = $Data
     }
-    
+
     return ($result | ConvertTo-Json -Depth 10)
 }
 
@@ -85,7 +85,7 @@ function Invoke-WithRollback {
         [Parameter(Mandatory=$true)]
         [scriptblock]$Rollback
     )
-    
+
     try {
         & $Action
     } catch {
@@ -104,7 +104,7 @@ function ConvertFrom-Yaml {
         [Parameter(Mandatory=$true)]
         [string]$YamlContent
     )
-    
+
     # For now, return raw content - full YAML parsing requires external module
     # Pattern executors will use JSON instances
     return $YamlContent

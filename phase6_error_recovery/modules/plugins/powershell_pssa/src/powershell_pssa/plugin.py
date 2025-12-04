@@ -62,7 +62,7 @@ class PSScriptAnalyzerPlugin:
                     line = item.get("Line")
                     col = item.get("Column")
                     script_path = item.get("ScriptPath") or str(file_path)
-                    
+
                     # Map severity: Error→error, Warning→warning, Information→info
                     severity_map = {
                         "error": "error",
@@ -70,10 +70,10 @@ class PSScriptAnalyzerPlugin:
                         "information": "info",
                     }
                     severity = severity_map.get(severity_str, "warning")
-                    
+
                     # Category: parse errors→syntax, otherwise style
                     category = "syntax" if "ParseError" in (rule_name or "") else "style"
-                    
+
                     issues.append(
                         PluginIssue(
                             tool="PSScriptAnalyzer",

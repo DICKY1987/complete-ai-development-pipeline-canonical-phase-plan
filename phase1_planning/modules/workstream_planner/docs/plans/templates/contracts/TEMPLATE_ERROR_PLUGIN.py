@@ -18,12 +18,12 @@ from modules.shared_types import ExecutionRequestV1, ExecutionResultV1
 def handle_error(error: ErrorEventV1) -> None:
     """
     Handle error event according to ErrorEventV1 contract.
-    
+
     REQUIRED CONTRACT:
     - Pure function from ErrorEventV1 → side effects (logs, suggestions)
     - MUST NOT modify code directly; only suggest or log
     - MUST NOT raise exceptions
-    
+
     Args:
         error: ErrorEventV1 containing error details
     """
@@ -33,14 +33,14 @@ def handle_error(error: ErrorEventV1) -> None:
         kind = error["kind"]
         message = error["message"]
         details = error["details"]
-        
+
         # 2. Check if this plugin handles this error kind
         if not _should_handle(kind):
             return
-        
+
         # 3. Analyze error and generate suggestions
         suggestions = _analyze_error(error)
-        
+
         # 4. Log plugin processing
         log_event({
             "event_type": "error.plugin.processed",
@@ -52,11 +52,11 @@ def handle_error(error: ErrorEventV1) -> None:
                 "suggestions_count": len(suggestions),
             }
         })
-        
+
         # 5. Record suggestions for later review
         if suggestions:
             _record_suggestions(error_id, suggestions)
-            
+
     except Exception as exc:
         # Plugin failures MUST NOT break error handling pipeline
         log_event({
@@ -71,41 +71,41 @@ def handle_error(error: ErrorEventV1) -> None:
 
 
 def detect_errors(
-    request: ExecutionRequestV1, 
+    request: ExecutionRequestV1,
     result: ExecutionResultV1
 ) -> List[ErrorEventV1]:
     """
     Detect errors from execution result.
-    
+
     Optional: Implement if plugin does proactive error detection.
-    
+
     Args:
         request: Original execution request
         result: Execution result to analyze
-        
+
     Returns:
         List of detected ErrorEventV1 events
     """
     errors = []
-    
+
     # TODO: Implement error detection logic
     # Example:
     # - Parse stdout/stderr for error patterns
     # - Check exit codes
     # - Validate outputs against schema
-    
+
     return errors
 
 
 def suggest_fix(error: ErrorEventV1) -> Optional[Dict[str, Any]]:
     """
     Suggest automated fix for error.
-    
+
     Optional: Implement if plugin can suggest fixes.
-    
+
     Args:
         error: Error to analyze
-        
+
     Returns:
         Fix suggestion dict or None if no fix available
     """
@@ -125,10 +125,10 @@ def suggest_fix(error: ErrorEventV1) -> Optional[Dict[str, Any]]:
 def _should_handle(error_kind: str) -> bool:
     """
     Check if this plugin handles the given error kind.
-    
+
     Args:
         error_kind: Error kind from ErrorEventV1
-        
+
     Returns:
         True if this plugin handles this error type
     """
@@ -144,28 +144,28 @@ def _should_handle(error_kind: str) -> bool:
 def _analyze_error(error: ErrorEventV1) -> List[Dict[str, Any]]:
     """
     Analyze error and generate suggestions.
-    
+
     Args:
         error: Error to analyze
-        
+
     Returns:
         List of suggestion dicts
     """
     suggestions = []
-    
+
     # TODO: Implement analysis logic
     # Example:
     # - Pattern matching on error message
     # - Lookup in knowledge base
     # - Query similar errors from history
-    
+
     return suggestions
 
 
 def _record_suggestions(error_id: str, suggestions: List[Dict[str, Any]]) -> None:
     """
     Record suggestions for later review.
-    
+
     Args:
         error_id: Error identifier
         suggestions: List of suggestions to record

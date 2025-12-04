@@ -4,8 +4,8 @@ doc_id: DOC-GUIDE-UNIFIED-ACCELERATION-GUIDE-1611
 
 # Speed Demon + UET Integration: Complete Acceleration System
 
-**Date**: 2025-11-23  
-**Purpose**: Unified speed optimization methodology  
+**Date**: 2025-11-23
+**Purpose**: Unified speed optimization methodology
 **Result**: 75-90% execution time reduction
 
 ---
@@ -38,7 +38,7 @@ doc_id: DOC-GUIDE-UNIFIED-ACCELERATION-GUIDE-1611
 3. Extract template structure
 4. Validate template on example #4
 
-**Time Budget**: 20% of total estimated time  
+**Time Budget**: 20% of total estimated time
 **Output**: Production-ready template file
 
 **Success Criteria**:
@@ -58,7 +58,7 @@ doc_id: DOC-GUIDE-UNIFIED-ACCELERATION-GUIDE-1611
 3. Refine template structure
 4. Standardize variable names
 
-**Time Budget**: 10% of total time  
+**Time Budget**: 10% of total time
 **Output**: Battle-tested template ready for batch production
 
 ---
@@ -76,7 +76,7 @@ doc_id: DOC-GUIDE-UNIFIED-ACCELERATION-GUIDE-1611
    - Verify ground truth (automated checks)
 4. Move to next batch
 
-**Time Budget**: 60-70% of total time  
+**Time Budget**: 60-70% of total time
 **Output**: All items created, verified, ready to ship
 
 ---
@@ -90,20 +90,20 @@ doc_id: DOC-GUIDE-UNIFIED-ACCELERATION-GUIDE-1611
 def execute_task(spec):
     # Analyze (5 min, 20k tokens)
     structure = analyze_requirements(spec)
-    
+
     # Design (8 min, 40k tokens)
     plan = create_execution_plan(structure)
-    
+
     # Ask permission (2 min, human bottleneck)
     if not get_user_approval(plan):
         return
-    
+
     # Execute (15 min)
     result = execute(plan)
-    
+
     # Manual verify (3 min)
     success = manually_verify(result)
-    
+
     return success  # 33 min per task
 ```
 
@@ -151,11 +151,11 @@ structural_decisions:
   file_paths:
     - "path/to/${VAR_NAME}.py"
     - "tests/test_${VAR_NAME}.py"
-  
+
   file_sizes:
     implementation: 200-400 lines
     tests: 100-200 lines
-  
+
   verification:
     - type: "file_exists"
       paths: ["${file_paths}"]
@@ -195,7 +195,7 @@ verification:
   - type: "file_exists"
     command: "Test-Path ${path}"
     expect: "True"
-    
+
 success: "File exists = done"
 time: "2 seconds"
 ```
@@ -205,11 +205,11 @@ time: "2 seconds"
 verification:
   - type: "file_exists"
     command: "Test-Path ${path}"
-  
+
   - type: "pytest_green"
     command: "pytest ${test_path} -v"
     expect: ".*passed.*0 failed.*"
-    
+
 success: "File exists + tests pass = done"
 time: "10-30 seconds"
 ```
@@ -222,7 +222,7 @@ verification:
   - type: "integration_tests"
   - type: "git_clean"
   - type: "scope_valid"
-    
+
 success: "All checks green = done"
 time: "1-5 minutes"
 ```
@@ -241,14 +241,14 @@ self_healing:
   auto_fix_enabled:
     - condition: "Parent directory does not exist"
       action: "mkdir -p ${parent_dir}"
-      
+
     - condition: "ModuleNotFoundError: No module named 'X'"
       action: "pip install X"
-      
+
     - condition: "SyntaxError|IndentationError"
       action: "black ${file}"
       max_attempts: 2
-      
+
     - condition: "Test failed - assertion error"
       action: "analyze_and_fix"
       max_attempts: 3
@@ -258,7 +258,7 @@ self_healing:
     - condition: "Worktree already exists"
       action: "remove_and_recreate"
       reason: "Potentially destructive"
-      
+
     - condition: "Out of scope file changes"
       action: "stop_and_report"
       reason: "Scope violation"
@@ -290,7 +290,7 @@ Savings: 69% faster
 
 **Task**: Execute PH-04.5 (Git Worktree Lifecycle)
 
-**Traditional Approach**: 
+**Traditional Approach**:
 - Load spec (30 sec)
 - Analyze dependencies (60 sec)
 - Plan structure (120 sec)
@@ -398,25 +398,25 @@ def execute_phase(template_id, context):
 
 ## Anti-Patterns (Avoid These)
 
-❌ **"Let me think about the perfect structure for 30 minutes"**  
+❌ **"Let me think about the perfect structure for 30 minutes"**
 ✅ Copy proven pattern, adapt minimally (5 min)
 
-❌ **"Let me manually create each of these 15 similar files"**  
+❌ **"Let me manually create each of these 15 similar files"**
 ✅ Create 3 manually, extract template, batch the rest
 
-❌ **"Let me read each file back to verify it's correct"**  
+❌ **"Let me read each file back to verify it's correct"**
 ✅ Trust tool output (`create file mode 100644` = success)
 
-❌ **"Let me cross-reference all dependencies before starting"**  
+❌ **"Let me cross-reference all dependencies before starting"**
 ✅ Living docs, users will fix errors
 
-❌ **"Let me make this 100% perfect before moving on"**  
+❌ **"Let me make this 100% perfect before moving on"**
 ✅ Good enough (90%) ships, perfect (100%) never finishes
 
-❌ **"Let me ask permission for this safe operation"**  
+❌ **"Let me ask permission for this safe operation"**
 ✅ Pre-authorize in template, execute autonomously
 
-❌ **"Let me load the full 300-line spec to understand context"**  
+❌ **"Let me load the full 300-line spec to understand context"**
 ✅ Load template ID, fill 5 variables, execute
 
 ---

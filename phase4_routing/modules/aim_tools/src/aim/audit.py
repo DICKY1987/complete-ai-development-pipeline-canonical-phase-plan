@@ -56,11 +56,11 @@ class AuditEvent:
     details: Dict[str, Any] = field(default_factory=dict)
     user: Optional[str] = None
     session_id: Optional[str] = None
-    
+
     def to_dict(self) -> Dict:
         """Convert to dictionary for JSON serialization."""
         return asdict(self)
-    
+
     def to_jsonl(self) -> str:
         """Convert to JSON Lines format."""
         return json.dumps(self.to_dict())
@@ -68,10 +68,10 @@ class AuditEvent:
 
 class AuditLogger:
     """Unified audit logging system."""
-    
+
     def __init__(self, log_path: Optional[Path] = None):
         """Initialize audit logger.
-        
+
         Args:
             log_path: Path to audit log file. Defaults to AIM registry audit path.
         """
@@ -84,15 +84,15 @@ class AuditLogger:
         else:
             self.log_path = Path(log_path)
             self.log_path.parent.mkdir(parents=True, exist_ok=True)
-        
+
         self.session_id = self._generate_session_id()
         self.user = os.getenv("USERNAME") or os.getenv("USER") or "unknown"
-    
+
     def _generate_session_id(self) -> str:
         """Generate unique session ID."""
         import uuid
         return str(uuid.uuid4())[:8]
-    
+
     def log_event(
         self,
         event_type: EventType,
@@ -101,7 +101,7 @@ class AuditLogger:
         details: Optional[Dict[str, Any]] = None
     ):
         """Log an audit event.
-        
+
         Args:
             event_type: Type of event
             message: Human-readable message
@@ -117,9 +117,9 @@ class AuditLogger:
             user=self.user,
             session_id=self.session_id
         )
-        
+
         self._write_event(event)
-    
+
     def _write_event(self, event: AuditEvent):
         """Write event to log file."""
         try:
@@ -129,7 +129,7 @@ class AuditLogger:
             # Fail silently to not interrupt operations
             # Could optionally log to stderr
             pass
-    
+
     def log_tool_install(self, tool: str, version: str, package_manager: str, success: bool):
         """Log a tool installation event."""
         self.log_event(
@@ -143,7 +143,7 @@ class AuditLogger:
                 "success": success
             }
         )
-    
+
     def log_tool_uninstall(self, tool: str, package_manager: str, success: bool):
         """Log a tool uninstall event."""
         self.log_event(
@@ -156,10 +156,10 @@ class AuditLogger:
                 "success": success
             }
         )
-    
+
     def log_secret_access(self, action: str, key: str, success: bool):
         """Log secret access event.
-        
+
         Args:
             action: "set", "get", or "delete"
             key: Secret key (value is NOT logged)
@@ -170,7 +170,7 @@ class AuditLogger:
             "get": EventType.SECRET_GET,
             "delete": EventType.SECRET_DELETE
         }
-        
+
         self.log_event(
             event_type=event_type_map.get(action, EventType.SECRET_SET),
             message=f"Secret {action}: {key}",
@@ -181,7 +181,7 @@ class AuditLogger:
                 "success": success
             }
         )
-    
+
     def log_health_check(self, status: str, checks_passed: int, checks_failed: int):
         """Log health check event."""
         self.log_event(
@@ -194,7 +194,7 @@ class AuditLogger:
                 "failed": checks_failed
             }
         )
-    
+
     def log_version_sync(self, tools_synced: int, tools_failed: int):
         """Log version sync event."""
         self.log_event(
@@ -206,7 +206,7 @@ class AuditLogger:
                 "failed": tools_failed
             }
         )
-    
+
     def log_scan(self, scan_type: str, duplicates: int, conflicts: int):
         """Log environment scan event."""
         self.log_event(
@@ -219,7 +219,7 @@ class AuditLogger:
                 "conflicts": conflicts
             }
         )
-    
+
     def log_error(self, operation: str, error_message: str, details: Optional[Dict] = None):
         """Log an error event."""
         self.log_event(
@@ -232,7 +232,7 @@ class AuditLogger:
                 **(details or {})
             }
         )
-    
+
     def query_events(
         self,
         event_type: Optional[EventType] = None,
@@ -241,31 +241,31 @@ class AuditLogger:
         limit: int = 100
     ) -> List[AuditEvent]:
         """Query audit log for events.
-        
+
         Args:
             event_type: Filter by event type
             severity: Filter by severity
             since: ISO timestamp to filter events after
             limit: Maximum number of events to return
-        
+
         Returns:
             List of matching audit events
         """
         events = []
-        
+
         if not self.log_path.exists():
             return events
-        
+
         try:
             with open(self.log_path, 'r', encoding='utf-8') as f:
                 for line in f:
                     if not line.strip():
                         continue
-                    
+
                     try:
                         event_dict = json.loads(line)
                         event = AuditEvent(**event_dict)
-                        
+
                         # Apply filters
                         if event_type and event.event_type != event_type.value:
                             continue
@@ -273,36 +273,36 @@ class AuditLogger:
                             continue
                         if since and event.timestamp < since:
                             continue
-                        
+
                         events.append(event)
-                        
+
                         if len(events) >= limit:
                             break
                     except (json.JSONDecodeError, TypeError):
                         continue
         except (IOError, OSError):
             pass
-        
+
         return events
-    
+
     def get_recent_events(self, count: int = 50) -> List[AuditEvent]:
         """Get most recent audit events.
-        
+
         Args:
             count: Number of recent events to return
-        
+
         Returns:
             List of recent audit events
         """
         events = []
-        
+
         if not self.log_path.exists():
             return events
-        
+
         try:
             with open(self.log_path, 'r', encoding='utf-8') as f:
                 lines = f.readlines()
-            
+
             # Get last N lines
             for line in reversed(lines[-count:]):
                 if not line.strip():
@@ -314,12 +314,12 @@ class AuditLogger:
                     continue
         except (IOError, OSError):
             pass
-        
+
         return events
-    
+
     def get_stats(self) -> Dict[str, Any]:
         """Get audit log statistics.
-        
+
         Returns:
             Dictionary with log statistics
         """
@@ -331,30 +331,30 @@ class AuditLogger:
             "oldest_event": None,
             "newest_event": None
         }
-        
+
         if not self.log_path.exists():
             return stats
-        
+
         try:
             stats["log_size_bytes"] = self.log_path.stat().st_size
-            
+
             with open(self.log_path, 'r', encoding='utf-8') as f:
                 for line in f:
                     if not line.strip():
                         continue
-                    
+
                     try:
                         event_dict = json.loads(line)
                         stats["total_events"] += 1
-                        
+
                         # Count by type
                         event_type = event_dict.get("event_type", "unknown")
                         stats["by_type"][event_type] = stats["by_type"].get(event_type, 0) + 1
-                        
+
                         # Count by severity
                         severity = event_dict.get("severity", "unknown")
                         stats["by_severity"][severity] = stats["by_severity"].get(severity, 0) + 1
-                        
+
                         # Track timestamps
                         timestamp = event_dict.get("timestamp")
                         if timestamp:
@@ -366,7 +366,7 @@ class AuditLogger:
                         continue
         except (IOError, OSError):
             pass
-        
+
         return stats
 
 
@@ -376,7 +376,7 @@ _audit_logger: Optional[AuditLogger] = None
 
 def get_audit_logger(log_path: Optional[Path] = None) -> AuditLogger:
     """Get global audit logger instance.
-    
+
     Note: If log_path is provided and differs from existing instance,
     creates a new instance (updates singleton).
     """

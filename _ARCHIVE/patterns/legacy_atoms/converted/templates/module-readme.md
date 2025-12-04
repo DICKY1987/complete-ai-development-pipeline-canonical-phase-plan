@@ -83,6 +83,6 @@ status: active
 
 ---
 
-**Status**: {status}  
-**Owner**: {owner}  
+**Status**: {status}
+**Owner**: {owner}
 **Last Updated**: {last_updated}

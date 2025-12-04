@@ -27,24 +27,24 @@ def main():
     parser.add_argument('--suggest', action='store_true', help='Generate pattern suggestions')
     parser.add_argument('--report', action='store_true', help='Generate weekly performance report')
     parser.add_argument('--db', default='core/state/pattern_metrics.db', help='Database path')
-    
+
     args = parser.parse_args()
-    
+
     # Get database path
     db_path = Path(args.db)
     if not db_path.exists():
         # Default to project root
         project_root = Path(__file__).parent.parent.parent.parent
         db_path = project_root / 'core' / 'state' / 'pipeline.db'
-    
+
     if not db_path.exists():
         print(f"❌ Database not found: {db_path}")
         print("   Run database migration first: sqlite3 {db} < core/state/migrations/add_pattern_telemetry.sql")
         return 1
-    
+
     # Connect to database
     conn = sqlite3.connect(db_path)
-    
+
     try:
         if args.analyze:
             print("🔍 Analyzing executions for patterns...")
@@ -53,12 +53,12 @@ def main():
             print(f"✅ Processed {result['executions_processed']} executions")
             print(f"   Found {result['patterns_detected']} patterns")
             print(f"   Output: {result['output_dir']}")
-        
+
         if args.suggest:
             print("💡 Generating pattern suggestions...")
             analyzer = PatternPerformanceAnalyzer(conn)
             candidates = analyzer._detect_manual_work()
-            
+
             if candidates:
                 print(f"\n📋 Found {len(candidates)} pattern candidates:\n")
                 for c in candidates:
@@ -66,31 +66,31 @@ def main():
                     print(f"    → {c['suggestion']}\n")
             else:
                 print("   No new pattern candidates detected.")
-        
+
         if args.report:
             print("📊 Generating weekly performance report...")
             analyzer = PatternPerformanceAnalyzer(conn)
             report_file = analyzer.generate_weekly_report()
             print(f"✅ Report generated: {report_file}")
-            
+
             # Also run anti-pattern detection
             print("\n⚠️  Checking for anti-patterns...")
             detector = AntiPatternDetector(conn)
             anti_patterns = detector.detect_anti_patterns()
-            
+
             if anti_patterns:
                 print(f"   Found {len(anti_patterns)} anti-patterns")
                 for ap in anti_patterns:
                     print(f"   • {ap['name']}: {ap['occurrences']} occurrences")
             else:
                 print("   No anti-patterns detected.")
-        
+
         if not (args.analyze or args.suggest or args.report):
             parser.print_help()
             return 1
-        
+
         return 0
-    
+
     finally:
         conn.close()
 

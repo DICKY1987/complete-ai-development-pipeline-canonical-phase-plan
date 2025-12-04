@@ -26,67 +26,67 @@ function New-ExecutionReport {
     <#
     .SYNOPSIS
         Creates a structured execution report for pattern execution
-    
+
     .PARAMETER PatternId
         Pattern identifier
-    
+
     .PARAMETER Status
         Execution status (success, failed, partial)
-    
+
     .PARAMETER StartTime
         Execution start time
-    
+
     .PARAMETER EndTime
         Execution end time (default: now)
-    
+
     .PARAMETER Operations
         Array of operations performed
-    
+
     .PARAMETER Errors
         Array of errors encountered
-    
+
     .PARAMETER OutputPath
         Optional file path to save report
-    
+
     .PARAMETER Format
         Output format (json, yaml, hashtable)
-    
+
     .OUTPUTS
         Hashtable execution report
     #>
     param(
         [Parameter(Mandatory=$true)]
         [string]$PatternId,
-        
+
         [Parameter(Mandatory=$true)]
         [ValidateSet('success', 'failed', 'partial')]
         [string]$Status,
-        
+
         [Parameter(Mandatory=$true)]
         [datetime]$StartTime,
-        
+
         [Parameter(Mandatory=$false)]
         [datetime]$EndTime = (Get-Date),
-        
+
         [Parameter(Mandatory=$false)]
         [array]$Operations = @(),
-        
+
         [Parameter(Mandatory=$false)]
         [array]$Errors = @(),
-        
+
         [Parameter(Mandatory=$false)]
         [hashtable]$Metadata = @{},
-        
+
         [Parameter(Mandatory=$false)]
         [string]$OutputPath = $null,
-        
+
         [Parameter(Mandatory=$false)]
         [ValidateSet('json', 'yaml', 'hashtable')]
         [string]$Format = 'hashtable'
     )
-    
+
     $duration = $EndTime - $StartTime
-    
+
     $report = @{
         report_type = "execution"
         pattern_id = $PatternId
@@ -109,7 +109,7 @@ function New-ExecutionReport {
         }
         metadata = $Metadata
     }
-    
+
     # Format output
     $output = switch ($Format) {
         'json' {
@@ -122,7 +122,7 @@ function New-ExecutionReport {
             $report
         }
     }
-    
+
     # Save to file if path provided
     if ($OutputPath) {
         if ($Format -eq 'hashtable') {
@@ -133,7 +133,7 @@ function New-ExecutionReport {
             $output | Set-Content -Path $OutputPath
         }
     }
-    
+
     return $output
 }
 
@@ -145,66 +145,66 @@ function New-VerificationRecord {
     <#
     .SYNOPSIS
         Creates a verification record documenting pattern execution results
-    
+
     .PARAMETER PatternId
         Pattern identifier
-    
+
     .PARAMETER InstanceId
         Instance identifier (optional)
-    
+
     .PARAMETER Checks
         Array of check results
-    
+
     .PARAMETER FilesCreated
         Array of created files
-    
+
     .PARAMETER FilesModified
         Array of modified files
-    
+
     .PARAMETER TestResults
         Test execution results
-    
+
     .PARAMETER OutputPath
         File path to save verification record
-    
+
     .PARAMETER Format
         Output format (json, yaml)
-    
+
     .OUTPUTS
         Hashtable verification record
     #>
     param(
         [Parameter(Mandatory=$true)]
         [string]$PatternId,
-        
+
         [Parameter(Mandatory=$false)]
         [string]$InstanceId = $null,
-        
+
         [Parameter(Mandatory=$false)]
         [array]$Checks = @(),
-        
+
         [Parameter(Mandatory=$false)]
         [array]$FilesCreated = @(),
-        
+
         [Parameter(Mandatory=$false)]
         [array]$FilesModified = @(),
-        
+
         [Parameter(Mandatory=$false)]
         [hashtable]$TestResults = @{},
-        
+
         [Parameter(Mandatory=$false)]
         [hashtable]$ValidationResults = @{},
-        
+
         [Parameter(Mandatory=$false)]
         [string]$OutputPath = $null,
-        
+
         [Parameter(Mandatory=$false)]
         [ValidateSet('json', 'yaml', 'hashtable')]
         [string]$Format = 'json'
     )
-    
+
     $timestamp = Get-Date -Format "yyyy-MM-ddTHH:mm:ss.fffZ"
-    
+
     $record = @{
         doc_type = "verification_record"
         pattern_id = $PatternId
@@ -226,7 +226,7 @@ function New-VerificationRecord {
         verified_by = "pattern_executor"
         verification_timestamp = $timestamp
     }
-    
+
     # Format output
     $output = switch ($Format) {
         'json' {
@@ -239,7 +239,7 @@ function New-VerificationRecord {
             $record
         }
     }
-    
+
     # Save to file if path provided
     if ($OutputPath) {
         if ($Format -eq 'hashtable') {
@@ -249,7 +249,7 @@ function New-VerificationRecord {
             $output | Set-Content -Path $OutputPath
         }
     }
-    
+
     return $output
 }
 
@@ -261,33 +261,33 @@ function Format-ExecutionResult {
     <#
     .SYNOPSIS
         Formats execution result for display
-    
+
     .PARAMETER Result
         Result hashtable from pattern execution
-    
+
     .PARAMETER Style
         Display style (detailed, summary, minimal)
-    
+
     .OUTPUTS
         Formatted string for display
     #>
     param(
         [Parameter(Mandatory=$true)]
         [hashtable]$Result,
-        
+
         [Parameter(Mandatory=$false)]
         [ValidateSet('detailed', 'summary', 'minimal')]
         [string]$Style = 'summary'
     )
-    
+
     $output = ""
-    
+
     switch ($Style) {
         'minimal' {
             $statusSymbol = if ($Result.status -eq 'success') { '✓' } else { '✗' }
             $output = "$statusSymbol $($Result.pattern_id): $($Result.status)"
         }
-        
+
         'summary' {
             $output = @"
 Pattern Execution Result
@@ -300,7 +300,7 @@ Operations: $($Result.operations.total) total, $($Result.operations.successful) 
 Errors: $($Result.errors.count)
 "@
         }
-        
+
         'detailed' {
             $output = @"
 ========================================
@@ -336,7 +336,7 @@ Count: $($Result.errors.count)
             }
         }
     }
-    
+
     return $output
 }
 
@@ -348,31 +348,31 @@ function ConvertTo-Yaml {
     <#
     .SYNOPSIS
         Converts hashtable to YAML format (basic implementation)
-    
+
     .PARAMETER Data
         Hashtable to convert
-    
+
     .PARAMETER IndentLevel
         Current indentation level
-    
+
     .OUTPUTS
         YAML formatted string
     #>
     param(
         [Parameter(Mandatory=$true)]
         $Data,
-        
+
         [Parameter(Mandatory=$false)]
         [int]$IndentLevel = 0
     )
-    
+
     $indent = "  " * $IndentLevel
     $yaml = ""
-    
+
     if ($Data -is [hashtable]) {
         foreach ($key in $Data.Keys) {
             $value = $Data[$key]
-            
+
             if ($value -is [hashtable] -or $value -is [array]) {
                 $yaml += "$indent$key:`n"
                 $yaml += ConvertTo-Yaml -Data $value -IndentLevel ($IndentLevel + 1)
@@ -393,7 +393,7 @@ function ConvertTo-Yaml {
             }
         }
     }
-    
+
     return $yaml
 }
 

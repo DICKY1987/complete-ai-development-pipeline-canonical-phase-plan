@@ -7,11 +7,11 @@
   "owner": "Code Quality Engineer",
   "status": "not_started",
   "created_date": "2025-12-02",
-  
+
   "objective": "Fix critical bug in reachability analyzer by adding missing entry points (tests/, tools/, templates/) and implementing cross-validation with grep",
-  
+
   "problem_statement": "Current analyzer only checks main scripts as entry points, causing false positives for orphaned files that are actually imported by tests, tools, or templates.",
-  
+
   "scope": {
     "modules": [
       "cleanup_reports/",
@@ -26,19 +26,19 @@
       "archived/"
     ]
   },
-  
+
   "effort_estimate": {
     "hours": 2,
     "complexity": "medium",
     "risk": "medium"
   },
-  
+
   "dependencies": {
     "depends_on": [],
     "blocks": ["ws-next-004-refactor-2-execution"],
     "prerequisite_tools": ["Python 3.10+", "grep/ripgrep"]
   },
-  
+
   "execution_steps": [
     {
       "step": 1,
@@ -79,7 +79,7 @@
       "expected_output": "Fewer orphaned files, more accurate results"
     }
   ],
-  
+
   "code_changes": [
     {
       "file": "prepare_cleanup.py",
@@ -94,7 +94,7 @@
       "snippet": "def cross_validate_with_grep(orphaned_files):\n    for file in orphaned_files:\n        module = path_to_module(file)\n        result = subprocess.run(['grep', '-r', f'from {module}'], capture_output=True)\n        if result.returncode == 0:\n            print(f'WARNING: {file} claimed orphaned but has imports!')\n            print(f'  Found in: {result.stdout.decode()}')"
     }
   ],
-  
+
   "acceptance_criteria": [
     {
       "criterion": "All entry point directories included",
@@ -117,7 +117,7 @@
       "pass_condition": "All tests green"
     }
   ],
-  
+
   "deliverables": [
     {
       "name": "Updated reachability analyzer",
@@ -138,7 +138,7 @@
       "format": "Python tests"
     }
   ],
-  
+
   "risks": [
     {
       "risk": "Breaking existing cleanup automation",
@@ -151,7 +151,7 @@
       "severity": "low"
     }
   ],
-  
+
   "success_metrics": {
     "must_have": [
       "All entry points included",

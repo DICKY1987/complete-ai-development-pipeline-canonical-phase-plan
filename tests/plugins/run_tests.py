@@ -18,7 +18,7 @@ sys.path.insert(0, str(project_root))
 
 if __name__ == "__main__":
     import pytest
-    
+
     # Run tests with common options
     sys.exit(pytest.main([
         "tests/plugins/",

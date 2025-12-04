@@ -1,7 +1,7 @@
 # Plugin: python_bandit
 
-**Phase**: 6 (Error Recovery)  
-**Type**: Error Detection/Fix Plugin  
+**Phase**: 6 (Error Recovery)
+**Type**: Error Detection/Fix Plugin
 **Purpose**: python_bandit error detection and auto-fix
 
 ## Structure

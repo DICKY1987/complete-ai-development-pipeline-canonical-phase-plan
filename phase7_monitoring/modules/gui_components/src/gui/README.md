@@ -247,8 +247,8 @@ Performance:
 **Example Interactions**:
 ```
 User: "Why did the last run fail?"
-AI Steward: "Run ci-validation-001 failed at step 3 due to Ruff linting 
-            errors. 5 files have line-length violations. Run 
+AI Steward: "Run ci-validation-001 failed at step 3 due to Ruff linting
+            errors. 5 files have line-length violations. Run
             'ruff check --fix' to auto-fix."
 
 User: "Create a workstream to validate all Python files"
@@ -492,17 +492,17 @@ class MyPanel:
     @property
     def panel_id(self) -> str:
         return "my_panel"
-    
+
     @property
     def title(self) -> str:
         return "My Panel"
-    
+
     def create_widget(self, context: PanelContext) -> Static:
         return Static("Panel content")
-    
+
     def on_mount(self, context: PanelContext) -> None:
         pass
-    
+
     def on_unmount(self, context: PanelContext) -> None:
         pass
 ```

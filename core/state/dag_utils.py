@@ -35,7 +35,7 @@ DepGraph = Dict[str, Set[str]]  # node_id -> set of node_ids it depends on
 @dataclass(frozen=True)
 class DagAnalysis:
     """Complete DAG analysis result.
-    
+
     This is the standard struct passed between modules that need DAG info.
     """
     dep_graph: DepGraph              # Forward graph (node -> dependencies)
@@ -50,10 +50,10 @@ def build_dependency_graph(
     bundles: Sequence[WorkstreamBundle],
 ) -> DepGraph:
     """Build canonical dependency graph from WorkstreamBundle.depends_on.
-    
+
     Returns:
         DepGraph where dep_graph[ws_id] = set of workstream_ids that ws_id depends on
-        
+
     Note:
         This is the FORWARD graph: node -> its prerequisites.
         Use build_reverse_graph() to get node -> its dependents.
@@ -77,10 +77,10 @@ def build_dependency_graph(
 
 def build_reverse_graph(dep_graph: DepGraph) -> DepGraph:
     """Compute reverse adjacency (who depends on this node).
-    
+
     Args:
         dep_graph: Forward dependency graph
-        
+
     Returns:
         Reverse graph where reverse_graph[ws_id] = set of workstream_ids that depend on ws_id
     """
@@ -97,11 +97,11 @@ def build_reverse_graph(dep_graph: DepGraph) -> DepGraph:
 
 def detect_cycles(dep_graph: DepGraph) -> List[List[str]]:
     """Detect cycles in dependency graph using DFS.
-    
+
     Returns:
         List of cycles, where each cycle is a list of node_ids.
         Empty list if DAG is valid (no cycles).
-        
+
     Algorithm:
         DFS with three states (unvisited=0, in_stack=1, visited=2).
         When we encounter a node in_stack, we've found a cycle.
@@ -131,15 +131,15 @@ def detect_cycles(dep_graph: DepGraph) -> List[List[str]]:
     # Normalize cycles: rotate to smallest, deduplicate
     norm_cycles: List[List[str]] = []
     seen: Set[Tuple[str, ...]] = set()
-    
+
     for cycle in cycles:
         if not cycle:
             continue
-            
+
         # Rotate to start at lexicographically smallest node
         min_idx = min(range(len(cycle)), key=lambda i: cycle[i])
         ordered = cycle[min_idx:] + cycle[:min_idx]
-        
+
         cycle_tuple = tuple(ordered)
         if cycle_tuple not in seen:
             seen.add(cycle_tuple)
@@ -152,19 +152,19 @@ def compute_topological_levels(
     dep_graph: DepGraph,
 ) -> List[Set[str]]:
     """Compute topological sort as parallel execution waves.
-    
+
     Uses Kahn's algorithm to emit "waves" of nodes that can execute in parallel.
-    
+
     Args:
         dep_graph: Forward dependency graph
-        
+
     Returns:
         List of sets, where each set is a "wave" of nodes with no dependencies
         between them (can run in parallel).
-        
+
     Raises:
         ValueError: If cycles are detected (cannot compute topological sort)
-        
+
     Note:
         Callers SHOULD call detect_cycles() first and handle cycles explicitly.
         This function raises as a safety check.
@@ -183,7 +183,7 @@ def compute_topological_levels(
         level = set(ready)
         levels.append(level)
         processed.update(ready)
-        
+
         next_ready: List[str] = []
 
         # For each node in this wave, decrement in_degree of its dependents
@@ -213,14 +213,14 @@ def compute_critical_path(
     weights: Optional[Dict[str, float]] = None,
 ) -> Tuple[List[str], float]:
     """Compute critical path (longest path) through the DAG.
-    
+
     Args:
         dep_graph: Forward dependency graph
         weights: Optional node weights (cost/duration). Defaults to 1.0 per node.
-        
+
     Returns:
         (path_node_ids, total_weight) where path_node_ids is ordered from start to end
-        
+
     Algorithm:
         Dynamic programming over topologically sorted nodes.
         For each node, compute longest path TO that node, then trace back.
@@ -230,53 +230,53 @@ def compute_critical_path(
 
     # Default weight = 1.0 per node
     node_weights = weights or {node: 1.0 for node in dep_graph}
-    
+
     # Get topological levels (raises if cycle exists)
     try:
         levels = compute_topological_levels(dep_graph)
     except ValueError:
         # Can't compute critical path in a cyclic graph
         return ([], 0.0)
-    
+
     # Flatten levels to get topological order
     topo_order = [node for level in levels for node in sorted(level)]
-    
+
     # DP: longest_path[node] = (weight, predecessor)
     longest_path: Dict[str, Tuple[float, Optional[str]]] = {}
-    
+
     for node in dep_graph:
         longest_path[node] = (node_weights.get(node, 1.0), None)
-    
+
     # Process nodes in topological order
     for node in topo_order:
         node_weight = node_weights.get(node, 1.0)
         current_weight, _ = longest_path[node]
-        
+
         # Update all dependents
         reverse_graph = build_reverse_graph(dep_graph)
         for dependent in reverse_graph.get(node, set()):
             dependent_weight = node_weights.get(dependent, 1.0)
             new_weight = current_weight + dependent_weight
-            
+
             if new_weight > longest_path[dependent][0]:
                 longest_path[dependent] = (new_weight, node)
-    
+
     # Find node with maximum weight
     if not longest_path:
         return ([], 0.0)
-    
+
     end_node = max(longest_path.keys(), key=lambda n: longest_path[n][0])
     max_weight, _ = longest_path[end_node]
-    
+
     # Trace back to build path
     path: List[str] = []
     current: Optional[str] = end_node
-    
+
     while current is not None:
         path.append(current)
         _, pred = longest_path[current]
         current = pred
-    
+
     path.reverse()
     return (path, max_weight)
 
@@ -286,16 +286,16 @@ def analyze_bundles(
     weights: Optional[Dict[str, float]] = None,
 ) -> DagAnalysis:
     """One-shot DAG analysis used by most callers.
-    
+
     This is the primary entry point for modules that need complete DAG analysis.
-    
+
     Args:
         bundles: List of workstream bundles to analyze
         weights: Optional node weights for critical path calculation
-        
+
     Returns:
         DagAnalysis with complete graph analysis
-        
+
     Note:
         If cycles are detected, topo_levels will be empty and critical_path
         will be empty. Callers MUST check analysis.cycles before using
@@ -304,7 +304,7 @@ def analyze_bundles(
     dep_graph = build_dependency_graph(bundles)
     reverse_graph = build_reverse_graph(dep_graph)
     cycles = detect_cycles(dep_graph)
-    
+
     # Only compute topo_levels and critical_path if DAG is valid
     if cycles:
         topo_levels: List[Set[str]] = []
@@ -313,7 +313,7 @@ def analyze_bundles(
     else:
         topo_levels = compute_topological_levels(dep_graph)
         critical_path, critical_path_weight = compute_critical_path(dep_graph, weights)
-    
+
     return DagAnalysis(
         dep_graph=dep_graph,
         reverse_graph=reverse_graph,

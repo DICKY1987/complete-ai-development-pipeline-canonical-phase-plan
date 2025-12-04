@@ -23,7 +23,7 @@ def test_all_patterns_have_doc_id():
     index_path = Path("patterns/registry/PATTERN_INDEX.yaml")
     with open(index_path) as f:
         data = yaml.safe_load(f)
-    
+
     for pattern in data['patterns']:
         assert 'doc_id' in pattern, f"Pattern {pattern.get('pattern_id')} missing doc_id"
         assert pattern['doc_id'].startswith('DOC-'), f"Invalid doc_id format: {pattern['doc_id']}"

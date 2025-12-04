@@ -167,10 +167,10 @@ class MyToolAdapter:
         """Execute job and return result."""
         # 1. Build command from job spec
         command = self._build_command(job)
-        
+
         # 2. Execute in subprocess
         result = subprocess.run(...)
-        
+
         # 3. Return JobResult
         return JobResult(
             exit_code=result.returncode,
@@ -178,11 +178,11 @@ class MyToolAdapter:
             duration_s=duration,
             success=(result.returncode == 0)
         )
-    
+
     def validate_job(self, job: dict) -> bool:
         """Validate job has required fields."""
         return job.get("tool") == "mytool"
-    
+
     def get_tool_info(self) -> dict:
         """Return tool metadata."""
         return {
@@ -224,11 +224,11 @@ Jobs are stored as `step_attempts`:
 ### Querying Jobs
 ```sql
 -- Find job by job_id
-SELECT * FROM step_attempts 
+SELECT * FROM step_attempts
 WHERE json_extract(result_json, '$.job_id') = 'job-001';
 
 -- List all jobs for run
-SELECT * FROM step_attempts 
+SELECT * FROM step_attempts
 WHERE run_id = 'run-2025-11-21'
 ORDER BY started_at DESC;
 ```

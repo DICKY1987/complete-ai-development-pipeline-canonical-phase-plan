@@ -3,11 +3,11 @@
 <#
 .SYNOPSIS
     Extract patterns from atomic-workflow-system atoms registry
-    
+
 .DESCRIPTION
     Phase 5: Migration script
     Converts atoms to UET patterns with proper naming and structure
-    
+
 .NOTES
     Source: patterns/legacy_atoms/source/atoms.registry.jsonl
     Target: patterns/legacy_atoms/converted/
@@ -42,8 +42,8 @@ $roleGroups = $atoms | Group-Object -Property role | Sort-Object Count -Descendi
 $report = @"
 # Atomic Workflow System - Extraction Report
 
-**Generated**: $(Get-Date -Format "yyyy-MM-dd HH:mm:ss")  
-**Source**: atomic-workflow-system repository  
+**Generated**: $(Get-Date -Format "yyyy-MM-dd HH:mm:ss")
+**Source**: atomic-workflow-system repository
 **Total Atoms**: $($atoms.Count)
 
 ## Atom Distribution by Role
@@ -96,12 +96,12 @@ foreach ($atom in $selectedAtoms) {
         "analyzer" { "ANALYZE" }
         default { "CORE" }
     }
-    
+
     $patternId = "PAT-MIGRATED-$category-$('{0:D3}' -f $migrationSeq)"
     $patternName = "migrated_$($atom.role)_$('{0:D3}' -f $migrationSeq)"
-    
+
     $report += "| $migrationSeq | $($atom.atom_uid) | $($atom.title) | $($atom.role) | $category |`n"
-    
+
     # Create minimal pattern spec
     $specContent = @"
 # Migrated Pattern: $($atom.title)
@@ -129,7 +129,7 @@ metadata:
 intent: |
   Migrated from: $($atom.title)
   Original atom role: $($atom.role)
-  
+
   This pattern was automatically migrated from the atomic-workflow-system.
   Review and enhance before production use.
 
@@ -155,11 +155,11 @@ compliance:
   requirements:
     - "PAT-CHECK-002"  # Migrated pattern compliance
 "@
-    
+
     # Write spec file
     $specFile = Join-Path $specsDir "$patternName.pattern.yaml"
     $specContent | Out-File -FilePath $specFile -Encoding UTF8
-    
+
     $migratedPatterns += @{
         pattern_id = $patternId
         name = $patternName
@@ -169,7 +169,7 @@ compliance:
         title = $atom.title
         spec_path = "patterns/legacy_atoms/converted/specs/$patternName.pattern.yaml"
     }
-    
+
     $migrationSeq++
 }
 

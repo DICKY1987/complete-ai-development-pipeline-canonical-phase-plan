@@ -66,7 +66,7 @@ def test_classification_creation():
         domain='code',
         operation='refactor'
     )
-    
+
     assert c.complexity == 'moderate'
     assert c.quality == 'standard'
     assert c.domain == 'code'
@@ -81,7 +81,7 @@ def test_prompt_context_creation(tmp_path):
         worktree_path=str(tmp_path / 'worktree'),
         additional_context={'key': 'value'}
     )
-    
+
     assert ctx.target_app == 'aider'
     assert ctx.additional_context == {'key': 'value'}
 
@@ -93,9 +93,9 @@ def test_infer_classification_simple(prompt_engine):
         'tasks': ['Make small change'],
         'gate': 1
     }
-    
+
     classification = prompt_engine._infer_classification(bundle)
-    
+
     assert classification.complexity == 'simple'
     assert classification.quality == 'standard'
 
@@ -107,9 +107,9 @@ def test_infer_classification_moderate(prompt_engine):
         'tasks': ['Task 1', 'Task 2', 'Task 3'],
         'gate': 1
     }
-    
+
     classification = prompt_engine._infer_classification(bundle)
-    
+
     assert classification.complexity == 'moderate'
 
 
@@ -120,9 +120,9 @@ def test_infer_classification_complex(prompt_engine):
         'tasks': ['Task 1', 'Task 2', 'Task 3', 'Task 4'],
         'gate': 2
     }
-    
+
     classification = prompt_engine._infer_classification(bundle)
-    
+
     assert classification.complexity == 'complex'
     assert classification.quality == 'production'  # gate >= 2
 
@@ -134,9 +134,9 @@ def test_infer_classification_domain_docs(prompt_engine):
         'tasks': ['Update documentation'],
         'gate': 1
     }
-    
+
     classification = prompt_engine._infer_classification(bundle)
-    
+
     assert classification.domain == 'docs'
 
 
@@ -147,9 +147,9 @@ def test_infer_classification_domain_tests(prompt_engine):
         'tasks': ['Add tests'],
         'gate': 1
     }
-    
+
     classification = prompt_engine._infer_classification(bundle)
-    
+
     assert classification.domain == 'tests'
 
 
@@ -160,9 +160,9 @@ def test_infer_classification_operation_refactor(prompt_engine):
         'tasks': ['Refactor for clarity', 'Improve structure'],
         'gate': 1
     }
-    
+
     classification = prompt_engine._infer_classification(bundle)
-    
+
     assert classification.operation == 'refactor'
 
 
@@ -173,9 +173,9 @@ def test_infer_classification_operation_bugfix(prompt_engine):
         'tasks': ['Fix bug in calculation', 'Address edge case'],
         'gate': 1
     }
-    
+
     classification = prompt_engine._infer_classification(bundle)
-    
+
     assert classification.operation == 'bugfix'
 
 
@@ -194,9 +194,9 @@ def test_infer_classification_explicit(prompt_engine):
             }
         }
     }
-    
+
     classification = prompt_engine._infer_classification(bundle)
-    
+
     assert classification.complexity == 'enterprise'
     assert classification.quality == 'production'
     assert classification.domain == 'analysis'
@@ -211,9 +211,9 @@ def test_infer_role_simple_code(prompt_engine):
         domain='code',
         operation='refactor'
     )
-    
+
     role = prompt_engine._infer_role(classification)
-    
+
     assert 'Software Engineer' in role
     assert 'refactoring' in role
 
@@ -226,9 +226,9 @@ def test_infer_role_senior_docs(prompt_engine):
         domain='docs',
         operation='feature'
     )
-    
+
     role = prompt_engine._infer_role(classification)
-    
+
     assert 'Senior' in role
     assert 'Technical Writer' in role
 
@@ -241,9 +241,9 @@ def test_infer_role_principal_code(prompt_engine):
         domain='code',
         operation='bugfix'
     )
-    
+
     role = prompt_engine._infer_role(classification)
-    
+
     assert 'Principal' in role
     assert 'Software Engineer' in role
     assert 'debugging' in role
@@ -282,14 +282,14 @@ def test_render_fallback(prompt_engine, sample_bundle, prompt_context):
         operation='refactor'
     )
     role = 'experienced Software Engineer specializing in code refactoring'
-    
+
     rendered = prompt_engine._render_fallback(
         sample_bundle,
         prompt_context,
         classification,
         role
     )
-    
+
     assert 'WORKSTREAM: ws-test-001' in rendered
     assert 'moderate' in rendered
     assert 'OS-123' in rendered
@@ -301,7 +301,7 @@ def test_render_fallback(prompt_engine, sample_bundle, prompt_context):
 def test_render_v11_fallback(prompt_engine, sample_bundle, prompt_context):
     """Test render_v11 uses fallback when templates don't exist"""
     rendered = prompt_engine.render_v11(sample_bundle, prompt_context)
-    
+
     # Should use fallback
     assert 'WORKSTREAM: ws-test-001' in rendered
     assert 'OS-123' in rendered
@@ -312,9 +312,9 @@ def test_render_v11_ascii_only(prompt_engine, sample_bundle, prompt_context):
     """Test that rendered output is ASCII-only"""
     # Add non-ASCII characters to bundle
     sample_bundle['tasks'] = ['Fix issue with café ☕ and naïve']
-    
+
     rendered = prompt_engine.render_v11(sample_bundle, prompt_context)
-    
+
     # Should be ASCII (non-ASCII replaced with ?)
     assert rendered.isascii()
 
@@ -332,9 +332,9 @@ def test_render_v11_empty_lists(prompt_engine, prompt_context):
         'acceptance_tests': [],
         'tool': 'aider'
     }
-    
+
     rendered = prompt_engine.render_v11(bundle, prompt_context)
-    
+
     assert 'ws-empty' in rendered
 
 
@@ -348,16 +348,16 @@ def test_classification_all_combinations(prompt_engine):
         (6, 5, 1, 'complex', 'standard'),
         (12, 10, 3, 'enterprise', 'production'),
     ]
-    
+
     for file_count, task_count, gate, exp_complexity, exp_quality in test_cases:
         bundle = {
             'files_scope': [f'file{i}.py' for i in range(file_count)],
             'tasks': [f'Task {i}' for i in range(task_count)],
             'gate': gate
         }
-        
+
         classification = prompt_engine._infer_classification(bundle)
-        
+
         assert classification.complexity == exp_complexity, \
             f"Failed for {file_count} files, {task_count} tasks"
         assert classification.quality == exp_quality, \
@@ -368,8 +368,8 @@ def test_prompt_engine_init_creates_directory(tmp_path):
     """Test that PromptEngine creates template directory if not exists"""
     template_dir = tmp_path / "nonexistent" / "templates"
     assert not template_dir.exists()
-    
+
     engine = PromptEngine(template_dir=str(template_dir))
-    
+
     assert engine.template_dir.exists()
     assert engine.template_dir.is_dir()

@@ -59,7 +59,7 @@ if ($results["PAT-CHECK-001-010"]) {
     $hasDocId = $content -match "doc_id:"
     $hasPatternId = $content -match "pattern_id:"
     $hasName = $content -match "name:"
-    
+
     $results[$check] = $hasDocId -and $hasPatternId -and $hasName
     if ($results[$check]) {
         Write-Host "✓ $check`: Pattern entries have required fields" -ForegroundColor Green

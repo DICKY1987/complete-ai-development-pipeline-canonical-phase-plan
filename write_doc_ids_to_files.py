@@ -30,19 +30,19 @@ error_count = 0
 for doc in registry_data['docs']:
     doc_id = doc['doc_id']
     artifacts = doc.get('artifacts', [])
-    
+
     for artifact in artifacts:
         if artifact.get('type') in ['doc', None]:  # None means default to doc
             file_path = Path(artifact['path'])
-            
+
             if not file_path.exists():
                 print(f'  SKIP (not found): {file_path}')
                 error_count += 1
                 continue
-            
+
             # Read file
             content = file_path.read_text(encoding='utf-8')
-            
+
             # Check if already has doc_id in front matter
             if content.startswith('---'):
                 # Extract front matter
@@ -50,22 +50,22 @@ for doc in registry_data['docs']:
                 if len(parts) >= 3:
                     front_matter_str = parts[1]
                     body = parts[2]
-                    
+
                     # Parse YAML
                     try:
                         front_matter = yaml.safe_load(front_matter_str)
                         if front_matter is None:
                             front_matter = {}
-                        
+
                         # Add or update doc_id
                         if front_matter.get('doc_id') != doc_id:
                             front_matter['doc_id'] = doc_id
-                            
+
                             # Write back
                             new_front_matter = yaml.dump(front_matter, default_flow_style=False, sort_keys=False)
                             new_content = f'---\n{new_front_matter}---{body}'
                             file_path.write_text(new_content, encoding='utf-8')
-                            
+
                             print(f'  OK {file_path}: {doc_id}')
                             updated_count += 1
                         else:

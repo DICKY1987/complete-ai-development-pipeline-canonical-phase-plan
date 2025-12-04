@@ -538,7 +538,7 @@ applies_to:
   - component: pattern_system
 ---
 
-# PATTERN_DIR_STRUCTURE_SPEC.md  
+# PATTERN_DIR_STRUCTURE_SPEC.md
 Pattern Directory Structure & Naming Specification
 
 ## 0. Purpose & Scope
@@ -566,12 +566,12 @@ A **Pattern** is a reusable, machine-readable execution recipe that defines:
 
 ### 1.2 TERM: Pattern Spec
 
-A **Pattern Spec** is the YAML file that defines the contract of a pattern  
+A **Pattern Spec** is the YAML file that defines the contract of a pattern
 (IDs, steps, inputs, outputs, bindings).
 
 ### 1.3 TERM: Pattern Schema
 
-A **Pattern Schema** is a JSON Schema that validates pattern instances  
+A **Pattern Schema** is a JSON Schema that validates pattern instances
 (invocations / configs) for a given pattern.
 
 ### 1.4 TERM: Pattern Executor
@@ -592,7 +592,7 @@ A **Pattern Index** is a single registry file listing all patterns and mapping t
 
 ### 2.1 Root Pattern Directory
 
-**PAT-DIR-001**  
+**PAT-DIR-001**
 The repository **MUST** have a single canonical root directory for all patterns:
 
 ```text

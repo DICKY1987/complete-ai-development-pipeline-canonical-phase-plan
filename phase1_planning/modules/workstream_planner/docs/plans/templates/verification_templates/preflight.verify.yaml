@@ -18,43 +18,43 @@ checks:
     expect: "True"
     criticality: "blocker"
     fix_hint: "Set PROJECT_ROOT environment variable or create project directory"
-  
+
   git_repo_initialized:
     cmd: "Test-Path ${PROJECT_ROOT}/.git"
     expect: "True"
     criticality: "blocker"
     fix_hint: "Run 'git init' in project root: cd ${PROJECT_ROOT} && git init"
-  
+
   base_repo_clean:
     cmd: "cd ${PROJECT_ROOT} ; git status --porcelain"
     expect: ""
     criticality: "blocker"
     fix_hint: "Commit or stash changes before creating worktree: git stash or git commit -am 'WIP'"
-  
+
   python_available:
     cmd: "python --version"
     expect_pattern: "Python 3\\.(1[2-9]|[2-9][0-9]).*"
     criticality: "blocker"
     fix_hint: "Install Python 3.12+ from python.org or use pyenv"
-  
+
   pytest_available:
     cmd: "python -m pytest --version"
     expect_pattern: "pytest.*"
     criticality: "blocker"
     fix_hint: "Install pytest: pip install pytest"
-  
+
   git_available:
     cmd: "git --version"
     expect_pattern: "git version.*"
     criticality: "blocker"
     fix_hint: "Install git from git-scm.com"
-  
+
   working_directory_writable:
     cmd: "New-Item -ItemType File -Path ${PROJECT_ROOT}/.write_test -Force ; Test-Path ${PROJECT_ROOT}/.write_test ; Remove-Item ${PROJECT_ROOT}/.write_test -Force"
     expect: "True"
     criticality: "blocker"
     fix_hint: "Check directory permissions on ${PROJECT_ROOT}"
-  
+
   required_directories_core:
     cmd: "Test-Path ${PROJECT_ROOT}/${dir}"
     for_each:
@@ -65,7 +65,7 @@ checks:
     criticality: "warning"
     fix_hint: "Create directory: New-Item -ItemType Directory -Path ${PROJECT_ROOT}/${dir} -Force"
     auto_fix: "create_directory"
-  
+
   required_directories_optional:
     cmd: "Test-Path ${PROJECT_ROOT}/${dir}"
     for_each:
@@ -75,7 +75,7 @@ checks:
     expect: "True"
     criticality: "info"
     fix_hint: "Consider creating directory: New-Item -ItemType Directory -Path ${PROJECT_ROOT}/${dir} -Force"
-  
+
   python_path_includes_project:
     cmd: "python -c \"import sys; print('${PROJECT_ROOT}' in sys.path or '.' in sys.path)\""
     expect: "True"
@@ -95,7 +95,7 @@ inputs:
     description: "Root directory of the project"
     required: true
     example: "C:\\Users\\user\\project"
-  
+
   STRICT_MODE:
     description: "Treat warnings as blockers"
     required: false
@@ -106,16 +106,16 @@ reporting:
   on_success: |
     ✅ Pre-flight checks passed (${passed_count}/${total_count})
     Environment ready for execution
-  
+
   on_failure: |
     ❌ Pre-flight checks failed (${failed_count}/${total_count})
-    
+
     Blockers (must fix before proceeding):
     ${blocker_list}
-    
+
     Warnings (recommended to fix):
     ${warning_list}
-    
+
     Quick fixes:
     ${fix_hints}
 
@@ -133,17 +133,17 @@ common_failures:
     detection: "Python 3\\.[0-9]\\."  # 3.0-3.9
     message: "Python version too old (found ${version}, need 3.12+)"
     hint: "Upgrade Python or use pyenv to install 3.12+"
-  
+
   git_not_in_path:
     detection: "git.*not recognized|git.*not found"
     message: "Git not found in PATH"
     hint: "Install git and add to PATH"
-  
+
   permission_denied:
     detection: "Access is denied|Permission denied"
     message: "Insufficient permissions"
     hint: "Run as administrator or check directory permissions"
-  
+
   project_root_not_set:
     detection: "PROJECT_ROOT.*not set"
     message: "PROJECT_ROOT environment variable not set"
@@ -163,27 +163,27 @@ meta:
   based_on: "UET bootstrap and environment validation patterns"
   proven_uses: 0
   time_savings: "Prevents 15-30 min debugging sessions"
-  
+
 # Example usage
 example:
   context:
     PROJECT_ROOT: "C:\\Users\\richg\\ALL_AI\\UET"
     STRICT_MODE: false
-  
+
   expected_checks: 10
   expected_duration: "3-5 seconds"
-  
+
   sample_success_output: |
     ✅ Pre-flight checks passed (10/10)
     Environment ready for execution
-  
+
   sample_failure_output: |
     ❌ Pre-flight checks failed (2/10)
-    
+
     Blockers:
     - base_repo_clean: Git working directory has uncommitted changes
     - pytest_available: pytest not installed
-    
+
     Quick fixes:
     - git stash
     - pip install pytest

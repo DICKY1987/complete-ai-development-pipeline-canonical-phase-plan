@@ -61,7 +61,7 @@ Recalculate epic progress with this task now open again.
 🔄 Reopened issue #$ARGUMENTS
   Reason: {reason_if_provided}
   Epic progress: {updated_progress}%
-  
+
 Start work with: /pm:issue-start $ARGUMENTS
 ```
 

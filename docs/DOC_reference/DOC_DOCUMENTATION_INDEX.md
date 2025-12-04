@@ -10,7 +10,7 @@ doc_id: DOC-GUIDE-DOCUMENTATION_INDEX-082
 
 **Purpose:** Comprehensive navigation guide to all Phase K and Phase K+ documentation.
 
-**Last Updated:** 2025-11-23  
+**Last Updated:** 2025-11-23
 **Maintainer:** System Architecture Team
 
 ---
@@ -222,8 +222,8 @@ python workstream_generator.py --interactive
 
 ### Anti-Patterns (17 documented)
 
-**Critical:** Missing migrations, hardcoded paths, network calls in tests  
-**High:** Direct DB access, missing plugin manifest, printing secrets  
+**Critical:** Missing migrations, hardcoded paths, network calls in tests
+**High:** Direct DB access, missing plugin manifest, printing secrets
 **Medium:** Non-incremental scanning, god objects, copy-paste duplication
 
 ### Testing Strategy
@@ -260,40 +260,40 @@ python workstream_generator.py --interactive
 
 ### "I want to..."
 
-**...understand a design decision**  
+**...understand a design decision**
 → Check [ADRs](#architecture-decisions-adrs)
 
-**...fix an error**  
+**...fix an error**
 → Search [Error Catalog](reference/ERROR_CATALOG.md)
 
-**...avoid common mistakes**  
+**...avoid common mistakes**
 → Review [Anti-Patterns](guidelines/ANTI_PATTERNS.md)
 
-**...know what breaks if I change X**  
+**...know what breaks if I change X**
 → Consult [Change Impact Matrix](reference/CHANGE_IMPACT_MATRIX.md)
 
-**...understand how data flows**  
+**...understand how data flows**
 → Read [Data Flows](reference/DATA_FLOWS.md)
 
-**...implement ACS (AI Codebase Structure)**  
+**...implement ACS (AI Codebase Structure)**
 → See [Feasibility Analysis](AI_CODEBASE_STRUCTURE_FEASIBILITY.md) and [Phase Plan](../meta/plans/PH-ACS-AI-CODEBASE-STRUCTURE.md)
 
-**...write tests for component X**  
+**...write tests for component X**
 → Follow [Testing Strategy](guidelines/TESTING_STRATEGY.md)
 
-**...understand state transitions**  
+**...understand state transitions**
 → See [State Machines](reference/STATE_MACHINES.md)
 
-**...know what depends on what**  
+**...know what depends on what**
 → Check [Dependencies](reference/DEPENDENCIES.md)
 
-**...optimize performance**  
+**...optimize performance**
 → Review [Execution Traces](EXECUTION_TRACES_SUMMARY.md)
 
-**...automate repetitive tasks**  
+**...automate repetitive tasks**
 → Check [Agent Quick Reference](AGENT_QUICK_REFERENCE.md) or develop custom agent (see [Agent Analysis](AGENT_ANALYSIS_AND_RECOMMENDATIONS.md))
 
-**...understand which agent to use**  
+**...understand which agent to use**
 → Review [Agent Quick Reference](AGENT_QUICK_REFERENCE.md) decision tree
 
 ---
@@ -397,6 +397,6 @@ docs/
 
 ---
 
-**Last Updated:** 2025-11-22  
-**Status:** ✅ Phase K+ Complete  
+**Last Updated:** 2025-11-22
+**Status:** ✅ Phase K+ Complete
 **Next Review:** 2025-12-22

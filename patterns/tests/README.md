@@ -70,7 +70,7 @@ Describe "Pattern Executor Tests" {
             # Test implementation
         }
     }
-    
+
     Context "Invalid Input" {
         It "Should handle errors gracefully" {
             # Test implementation

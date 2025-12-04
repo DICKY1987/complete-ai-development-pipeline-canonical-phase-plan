@@ -1,6 +1,6 @@
 # Module: tool_adapters
 
-**Phase**: 4  
+**Phase**: 4
 **Purpose**: Tool adapter implementations
 
 ## Structure

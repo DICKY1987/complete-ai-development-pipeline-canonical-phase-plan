@@ -93,7 +93,7 @@ acceptance:             # optional, extra gates beyond phase.acceptance
       required: true
       severity: "error"
   post_actions: []
-  
+
 tasks:
   - ... TaskSpec ...
 ```

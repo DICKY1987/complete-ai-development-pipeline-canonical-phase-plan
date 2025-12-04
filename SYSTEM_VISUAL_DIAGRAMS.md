@@ -748,7 +748,7 @@ ROUTING DECISION:
 
     workstreams → schema → core → engine → state → logs
          ▓▓▓       ▓▓▓     ▓▓▓     ▓▓▓      ▓▓▓     ▓▓▓
-    
+
     (All nodes on critical path are high-frequency)
 ```
 

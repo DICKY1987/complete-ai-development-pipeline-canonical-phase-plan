@@ -14,7 +14,7 @@ class PatchArtifact:
     patch_file: Path
     source_file: Optional[Path] = None
     patch_format: str = "unified"
-    
+
 
 @dataclass
 class PatchParseResult:
@@ -39,11 +39,11 @@ class PatchManager:
         self.ledger_path = Path(ledger_path) if ledger_path else Path(".patches")
         # Create the ledger directory if it doesn't exist
         self.ledger_path.mkdir(parents=True, exist_ok=True)
-    
+
     def parse_patch(self, patch_file: Path) -> PatchParseResult:
         """Parse a patch file."""
         return PatchParseResult(success=True, hunks=[], errors=[])
-    
+
     def apply_patch(self, patch_file: Path, target_dir: Path) -> ApplyResult:
         """Apply a patch to a target directory."""
         return ApplyResult(success=True, files_modified=[], errors=[])

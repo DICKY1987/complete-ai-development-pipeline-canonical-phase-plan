@@ -11,7 +11,7 @@ Phase 0 – Bootstrap & Initialization
   ✅ bootstrap_orchestrator
      └─ src/, tests/, docs/, schemas/, config/
 
-Phase 1 – Planning & Spec Alignment  
+Phase 1 – Planning & Spec Alignment
   ✅ spec_parser
   ✅ workstream_planner
   ✅ spec_tools

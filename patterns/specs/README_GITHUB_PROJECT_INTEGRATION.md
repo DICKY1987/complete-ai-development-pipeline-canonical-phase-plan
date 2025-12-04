@@ -1,8 +1,8 @@
 # GitHub Project Integration Patterns
 
-**Pattern Family**: Project Management Integration  
-**Status**: Production Ready  
-**Created**: 2025-12-02  
+**Pattern Family**: Project Management Integration
+**Status**: Production Ready
+**Created**: 2025-12-02
 **Version**: 1.0.0
 
 ---
@@ -164,7 +164,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Initial sync (new phases)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -172,7 +172,7 @@ jobs:
           .\scripts\Invoke-UetPhasePlanToGitHubProjectSync.ps1 `
             -ProjectNumber 1 `
             -ProjectOwner ${{ github.repository_owner }}
-      
+
       - name: Status sync (changed phases)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -323,19 +323,19 @@ git commit -m "chore: Update sync state"
 
 ### Common Issues
 
-**Issue**: `Phase 'PH-00' has no gh_item_id`  
+**Issue**: `Phase 'PH-00' has no gh_item_id`
 **Fix**: Run initial sync script first
 
-**Issue**: `Status field 'Status' not found`  
+**Issue**: `Status field 'Status' not found`
 **Fix**: Create Status field in GitHub Project settings
 
-**Issue**: `GitHub CLI not authenticated`  
+**Issue**: `GitHub CLI not authenticated`
 **Fix**: `gh auth login` and `gh auth refresh -s project`
 
-**Issue**: `Duplicate phase_id detected`  
+**Issue**: `Duplicate phase_id detected`
 **Fix**: Ensure all phase_id values are unique in YAML
 
-**Issue**: `Working tree is not clean`  
+**Issue**: `Working tree is not clean`
 **Fix**: Commit changes or remove `-RequireCleanGitStatus` flag
 
 ---
@@ -402,10 +402,10 @@ git commit -m "chore: Update sync state"
 
 ---
 
-**Pattern Family Status**: ✅ Production Ready  
-**Total Time Investment**: 2 hours (pattern creation)  
-**Total Time Saved**: 28+ hours (across 39 workstreams)  
-**ROI**: 14:1  
+**Pattern Family Status**: ✅ Production Ready
+**Total Time Investment**: 2 hours (pattern creation)
+**Total Time Saved**: 28+ hours (across 39 workstreams)
+**ROI**: 14:1
 
-**Last Updated**: 2025-12-02  
+**Last Updated**: 2025-12-02
 **Maintainer**: UET / Canonical Pipeline tooling

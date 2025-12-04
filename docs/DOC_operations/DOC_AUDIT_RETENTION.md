@@ -20,7 +20,7 @@ This policy defines retention periods, archival procedures, and compliance requi
 
 **Retention**: Indefinite (all transitions retained)
 
-**Rationale**: 
+**Rationale**:
 - Transition history is append-only and compact
 - Full history needed for state reconstruction
 - Critical for compliance and forensics
@@ -44,7 +44,7 @@ This policy defines retention periods, archival procedures, and compliance requi
 
 **Retention**: Current indices only
 
-**Archival**: 
+**Archival**:
 - Previous index versions moved to snapshots
 - Indices regeneratable from current.json
 

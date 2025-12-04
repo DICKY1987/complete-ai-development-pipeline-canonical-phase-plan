@@ -54,12 +54,12 @@ def validate_manifest(
 ) -> List[str]:
     """Validate manifest against schema, return list of errors."""
     errors = []
-    
+
     # Schema validation
     validator = Draft7Validator(schema)
     for error in validator.iter_errors(manifest_data):
         errors.append(f"  Schema: {error.message} at {'.'.join(str(p) for p in error.path)}")
-    
+
     # Custom validations
     if "entry_points" in manifest_data:
         for i, ep in enumerate(manifest_data["entry_points"]):
@@ -68,7 +68,7 @@ def validate_manifest(
                 file_path = manifest_path.parent / ep["file"]
                 if not file_path.exists():
                     errors.append(f"  Entry point file not found: {ep['file']}")
-    
+
     return errors
 
 
@@ -78,43 +78,43 @@ def main():
     parser.add_argument("--fix", action="store_true", help="Auto-fix common issues")
     parser.add_argument("--report-only", action="store_true", help="Report only (default)")
     args = parser.parse_args()
-    
+
     # Find project root
     script_dir = Path(__file__).parent
     project_root = script_dir.parent
     schema_path = project_root / "schema" / "ai_module_manifest.schema.json"
-    
+
     if not schema_path.exists():
         print(f"❌ Schema not found: {schema_path}")
         sys.exit(1)
-    
+
     # Load schema
     schema = load_schema(schema_path)
     print(f"✅ Loaded schema: {schema_path.name}")
-    
+
     # Find manifests
     manifests = find_manifests(project_root)
     if not manifests:
         print("⚠️  No .ai-module-manifest files found")
         print(f"   Searched in: {project_root}")
         sys.exit(0)
-    
+
     print(f"📋 Found {len(manifests)} manifest(s)")
     print()
-    
+
     # Validate each
     total_errors = 0
     for manifest_path in sorted(manifests):
         rel_path = manifest_path.relative_to(project_root)
         print(f"Checking: {rel_path}")
-        
+
         # Load
         data, load_error = load_manifest(manifest_path)
         if load_error:
             print(f"  ❌ {load_error}")
             total_errors += 1
             continue
-        
+
         # Validate
         errors = validate_manifest(data, schema, manifest_path)
         if errors:
@@ -125,7 +125,7 @@ def main():
         else:
             print(f"  ✅ Valid")
         print()
-    
+
     # Summary
     print("=" * 60)
     if total_errors == 0:

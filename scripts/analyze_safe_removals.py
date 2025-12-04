@@ -43,7 +43,7 @@ def extract_imports(file_path: Path) -> Set[str]:
 def analyze_folder_usage(root: Path, target_folder: str) -> Dict[str, any]:
     """
     Analyze if a folder is safe to remove.
-    
+
     Returns dict with:
     - imported_by: list of files importing from target
     - file_count: number of files in target
@@ -55,25 +55,25 @@ def analyze_folder_usage(root: Path, target_folder: str) -> Dict[str, any]:
         'is_safe': False,
         'recommendation': ''
     }
-    
+
     target_path = root / target_folder
     if not target_path.exists():
         result['recommendation'] = f"Folder '{target_folder}' does not exist"
         result['is_safe'] = True
         return result
-    
+
     # Count files in target
     result['file_count'] = len(list(target_path.rglob("*.py")))
-    
+
     # Find all Python files outside target
     all_files = find_python_files(root)
-    
+
     # Check which files import from target
     for file_path in all_files:
         # Skip files in target folder itself
         if str(file_path).startswith(str(target_path)):
             continue
-        
+
         imports = extract_imports(file_path)
         for imp in imports:
             # Check if import references target folder
@@ -81,23 +81,23 @@ def analyze_folder_usage(root: Path, target_folder: str) -> Dict[str, any]:
                 rel_path = str(file_path.relative_to(root))
                 result['imported_by'].append(rel_path)
                 break
-    
+
     # Determine if safe to remove
     result['is_safe'] = len(result['imported_by']) == 0
-    
+
     if result['is_safe']:
         result['recommendation'] = f"✅ SAFE TO REMOVE - No imports found"
     elif len(result['imported_by']) < 10:
         result['recommendation'] = f"⚠️ NEEDS MIGRATION - {len(result['imported_by'])} files to update"
     else:
         result['recommendation'] = f"❌ HEAVILY USED - {len(result['imported_by'])} imports, keep or major refactor"
-    
+
     return result
 
 
 def main():
     root = Path(".")
-    
+
     # Folders to analyze
     candidates = [
         "engine",
@@ -106,42 +106,42 @@ def main():
         "src/pipeline",
         "MOD_ERROR_PIPELINE",
     ]
-    
+
     print("=" * 80)
     print("SAFE REMOVAL ANALYSIS")
     print("=" * 80)
     print()
-    
+
     for folder in candidates:
         print(f"📁 Analyzing: {folder}/")
         print("-" * 80)
-        
+
         result = analyze_folder_usage(root, folder)
-        
+
         print(f"  Files in folder: {result['file_count']}")
         print(f"  Imported by: {len(result['imported_by'])} files")
         print(f"  {result['recommendation']}")
-        
+
         if result['imported_by'] and len(result['imported_by']) <= 20:
             print(f"\n  Importers:")
             for imp in sorted(result['imported_by'])[:20]:
                 print(f"    - {imp}")
             if len(result['imported_by']) > 20:
                 print(f"    ... and {len(result['imported_by']) - 20} more")
-        
+
         print()
-    
+
     print("=" * 80)
     print("SUMMARY")
     print("=" * 80)
     print()
-    
+
     for folder in candidates:
         result = analyze_folder_usage(root, folder)
         status_icon = "✅" if result['is_safe'] else ("⚠️" if len(result['imported_by']) < 10 else "❌")
         print(f"{status_icon} {folder}/ - {result['file_count']} files, "
               f"{len(result['imported_by'])} imports")
-    
+
     print()
     print("Legend:")
     print("  ✅ = Safe to remove immediately")

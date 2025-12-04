@@ -4,8 +4,8 @@ doc_id: DOC-GUIDE-PROJECT-UET-FRAMEWORK-README-1421
 
 # UI Templates
 
-> **User Interface Component Templates - Dashboards, Reports, and Monitoring**  
-> **Purpose**: Visualize execution progress and results  
+> **User Interface Component Templates - Dashboards, Reports, and Monitoring**
+> **Purpose**: Visualize execution progress and results
 > **Layer**: UI (User Interface)
 
 ---
@@ -86,9 +86,9 @@ ui/
 <!-- report-execution-template.md -->
 # Execution Report: {{RUN_ID}}
 
-**Project**: {{PROJECT_NAME}}  
-**Started**: {{START_TIME}}  
-**Completed**: {{END_TIME}}  
+**Project**: {{PROJECT_NAME}}
+**Started**: {{START_TIME}}
+**Completed**: {{END_TIME}}
 **Duration**: {{DURATION}}
 
 ## Summary
@@ -198,7 +198,7 @@ from core.state.db import get_run_progress
 def get_dashboard_data(run_id):
     """Fetch data for progress dashboard"""
     progress = get_run_progress(run_id)
-    
+
     return {
         'run_id': run_id,
         'progress_percent': progress.completion_percent,
@@ -216,9 +216,9 @@ function updateProgress(runId) {
     fetch(`/api/runs/${runId}/progress`)
         .then(response => response.json())
         .then(data => {
-            document.getElementById('progress-bar').style.width = 
+            document.getElementById('progress-bar').style.width =
                 `${data.progress_percent}%`;
-            document.getElementById('tasks-completed').textContent = 
+            document.getElementById('tasks-completed').textContent =
                 `${data.tasks_completed} / ${data.tasks_total}`;
         });
 }
@@ -247,11 +247,11 @@ setInterval(() => updateProgress('{{RUN_ID}}'), 5000);
     --warning: #ffc107;
     --error: #dc3545;
     --info: #17a2b8;
-    
+
     /* Progress colors */
     --progress-bg: #e9ecef;
     --progress-fill: #007bff;
-    
+
     /* Text colors */
     --text-primary: #212529;
     --text-secondary: #6c757d;
@@ -354,7 +354,7 @@ const ws = new WebSocket('ws://localhost:8000/ws');
 
 ws.onmessage = function(event) {
     const update = JSON.parse(event.data);
-    
+
     if (update.type === 'progress') {
         updateProgressBar(update.data);
     } else if (update.type === 'task_complete') {
@@ -373,13 +373,13 @@ async function pollForUpdates(runId) {
     while (true) {
         const response = await fetch(`/api/runs/${runId}/status`);
         const status = await response.json();
-        
+
         updateUI(status);
-        
+
         if (status.completed) {
             break;
         }
-        
+
         await new Promise(resolve => setTimeout(resolve, 5000));
     }
 }
@@ -455,16 +455,16 @@ async function fetchData(url) {
 
 ## 📞 Support
 
-**Q: How do I add real-time updates?**  
+**Q: How do I add real-time updates?**
 A: Use WebSocket or polling. See [Dynamic Updates](#-dynamic-updates).
 
-**Q: Can I use React/Vue/Angular?**  
+**Q: Can I use React/Vue/Angular?**
 A: Yes! Templates are starting points. Use any framework you prefer.
 
-**Q: How do I export reports to PDF?**  
+**Q: How do I export reports to PDF?**
 A: Use tools like `pandoc` (Markdown → PDF) or `wkhtmltopdf` (HTML → PDF).
 
 ---
 
-**Last Updated**: 2025-11-23  
+**Last Updated**: 2025-11-23
 **Related**: [Configuration](../../configuration/README.md), [Examples](../../examples/README.md)
