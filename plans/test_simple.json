@@ -1,0 +1,116 @@
+{
+  "plan_id": "PLAN-TEST-SIMPLE-001",
+  "version": "1.0",
+  "description": "Simple test plan to validate orchestrator",
+  "metadata": {
+    "project": "complete-ai-dev-pipeline",
+    "created_by": "test",
+    "tags": ["test"]
+  },
+  "globals": {
+    "max_concurrency": 2,
+    "default_timeout_sec": 60,
+    "default_retries": 0,
+    "env": {
+      "PYTHONUNBUFFERED": "1"
+    }
+  },
+  "steps": [
+    {
+      "id": "step1",
+      "name": "First step",
+      "description": "Print message 1",
+      "command": "python",
+      "args": ["-c", "print('Step 1 complete')"],
+      "cwd": ".",
+      "shell": false,
+      "env": {},
+      "depends_on": [],
+      "timeout_sec": 10,
+      "retries": 0,
+      "retry_delay_sec": 0,
+      "critical": true,
+      "condition": null,
+      "on_failure": "abort",
+      "provides": ["msg1"],
+      "consumes": [],
+      "tags": ["phase:1"],
+      "ui_hints": {
+        "group": "Test",
+        "weight": 10
+      }
+    },
+    {
+      "id": "step2",
+      "name": "Second step (parallel)",
+      "description": "Print message 2 (can run with step3)",
+      "command": "python",
+      "args": ["-c", "print('Step 2 complete')"],
+      "cwd": ".",
+      "shell": false,
+      "env": {},
+      "depends_on": ["step1"],
+      "timeout_sec": 10,
+      "retries": 0,
+      "retry_delay_sec": 0,
+      "critical": true,
+      "condition": null,
+      "on_failure": "abort",
+      "provides": ["msg2"],
+      "consumes": ["msg1"],
+      "tags": ["phase:2"],
+      "ui_hints": {
+        "group": "Test",
+        "weight": 20
+      }
+    },
+    {
+      "id": "step3",
+      "name": "Third step (parallel)",
+      "description": "Print message 3 (can run with step2)",
+      "command": "python",
+      "args": ["-c", "import time; time.sleep(1); print('Step 3 complete')"],
+      "cwd": ".",
+      "shell": false,
+      "env": {},
+      "depends_on": ["step1"],
+      "timeout_sec": 10,
+      "retries": 0,
+      "retry_delay_sec": 0,
+      "critical": true,
+      "condition": null,
+      "on_failure": "abort",
+      "provides": ["msg3"],
+      "consumes": ["msg1"],
+      "tags": ["phase:2"],
+      "ui_hints": {
+        "group": "Test",
+        "weight": 21
+      }
+    },
+    {
+      "id": "step4",
+      "name": "Final step",
+      "description": "Print completion message",
+      "command": "python",
+      "args": ["-c", "print('All steps complete!')"],
+      "cwd": ".",
+      "shell": false,
+      "env": {},
+      "depends_on": ["step2", "step3"],
+      "timeout_sec": 10,
+      "retries": 0,
+      "retry_delay_sec": 0,
+      "critical": false,
+      "condition": null,
+      "on_failure": "continue",
+      "provides": ["complete"],
+      "consumes": ["msg2", "msg3"],
+      "tags": ["phase:3"],
+      "ui_hints": {
+        "group": "Test",
+        "weight": 30
+      }
+    }
+  ]
+}

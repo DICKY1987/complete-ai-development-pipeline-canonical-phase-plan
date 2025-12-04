@@ -1,24 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Bash(pwsh -File:*)",
-      "Bash(curl:*)",
-      "Bash(python:*)",
-      "Bash(dir:*)",
-      "Bash(findstr:*)",
-      "Bash(Get-ChildItem -Directory)",
-      "Bash(Select-Object -First 15 Name)",
-      "Bash(cat:*)",
-      "Bash(sqlite3:*)",
-      "Bash(wmic os get caption:*)",
-      "Bash(tree:*)",
       "Bash(find:*)",
-      "Bash(xargs:*)",
-      "Bash(powershell -Command:*)",
-      "Bash(ls:*)",
-      "Bash(tee:*)",
-      "Bash(git add:*)",
-      "Bash(git commit -m \"$(cat <<''EOF''\nfix: Complete Phase 1 import path migration and critical fixes\n\n## Summary\nFixed critical import path issues blocking test execution. Migrated from\ndeprecated `modules.*` paths to new architecture (`core.*`, phase-specific\npaths). Fixed database schema path resolution and datetime deprecations.\n\n## Changes\n\n### Import Path Migration (Task 1.1)\n- **Core modules**: `modules.core_state` → `core.state`\n- **Engine modules**: `modules.core_engine` → `core.engine`\n- **Error modules**: `modules.error_engine` → `phase6_error_recovery.modules.error_engine.src.engine`\n\n**Files Updated (25+)**:\n- tests/engine/: test_run_lifecycle.py, test_dag_builder.py, test_cost_tracker.py, test_scheduling.py\n- tests/error/: conftest.py, unit/test_state_machine.py, unit/test_agent_adapters.py\n- tests/plugins/: All 8 plugin test files with graceful skip patterns\n- tests/integration/: test_uet_migration.py, test_aider_sandbox.py, test_aim_orchestrator_integration.py\n- core/: __init__.py, engine/orchestrator.py, engine/monitoring/run_monitor.py, engine/integration_worker.py\n- phase7_monitoring/modules/gui_components/src/gui/ui_infrastructure_usage.py\n\n### Database Schema Path Resolution (Task 1.2)\n- **core/engine/patch_ledger.py**: Added fallback path search for migration files\n- **tests/engine/test_patch_ledger.py**: Updated to search multiple paths\n- Paths checked: `schema/migrations/`, `phase0_bootstrap/modules/bootstrap_orchestrator/schemas/schema/migrations/`\n\n### Datetime Deprecation Fixes (Task 1.3)\nReplaced all `datetime.utcnow()` → `datetime.now(UTC)` in core files:\n- core/engine/: orchestrator.py, execution_request_builder.py, resilience/circuit_breaker.py, monitoring/progress_tracker.py, patch_converter.py, tools.py\n- core/state/: crud.py, db_unified.py\n- core/bootstrap/: orchestrator.py, discovery.py\n- core/planning/: ccpm_integration.py\n\n### AIM Module Stub (Task 1.4)\nCreated minimal AIM module stubs to resolve import errors:\n- UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/aim/bridge.py\n- UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/aim/pool_interface.py\n- tests/aim/conftest.py: Added skip markers for incomplete implementation\n\n## Test Results\n\n### Before\n- 67/102 tests passing\n- 35+ collection errors due to import issues\n- 100+ deprecation warnings\n\n### After (Verified)\n- tests/engine/test_dag_builder.py: 4/4 passed ✅\n- tests/engine/test_run_lifecycle.py: 22/22 passed ✅ (0 warnings)\n- tests/engine/test_patch_ledger.py: 40/40 passed ✅\n- tests/monitoring/: 15 passed ✅\n- tests/error/: 48 passed, 4 skipped (6 functional failures unrelated to imports)\n- tests/plugins/: 114 skipped (expected - phase6 migration incomplete)\n\n### Import Errors Resolved\n- All test collection errors from deprecated imports: FIXED ✅\n- Database migration path errors: FIXED ✅\n- Datetime deprecation warnings: FIXED ✅\n- AIM module import errors: FIXED ✅\n\n## Migration Patterns Applied\n\n### Graceful Skip Pattern (for incomplete migrations)\n```python\ntry:\n    from phase6_error_recovery.modules.error_engine.src.engine import PluginManager\n    MODULE_AVAILABLE = True\nexcept (ImportError, ModuleNotFoundError):\n    MODULE_AVAILABLE = False\n    pytestmark = pytest.mark.skip(reason=\"Module not fully migrated yet\")\n```\n\n### Path Fallback Pattern (for schema migrations)\n```python\npossible_paths = [\n    ''schema/migrations/003_add_patch_ledger_table.sql'',\n    ''phase0_bootstrap/modules/.../003_add_patch_ledger_table.sql'',\n]\nfor path in possible_paths:\n    if Path(path).exists():\n        schema_path = path\n        break\n```\n\n## Next Steps\n\nRemaining work to reach 100% production-ready (see plan at .claude/plans/typed-fluttering-lighthouse.md):\n\n1. **Phase 2 (Week 1-2)**: Complete Phase 3 stub implementations\n   - Implement worker pool executor (core/engine/executor.py)\n   - Implement crash recovery (core/engine/recovery.py)\n   - Finish error plugin integration\n   - Fix remaining monitoring integration\n\n2. **Phase 3 (Weeks 3-8)**: Implement Phase 4 AI Enhancement\n   - Tree-sitter integration\n   - Repository mapping\n   - Knowledge graph\n   - Reflexion loops\n   - Episodic memory\n\n3. **Phase 4 (Weeks 9-12)**: Production hardening\n   - Security documentation\n   - Deployment automation\n   - Observability (metrics, logging)\n   - CI/CD enhancements\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")"
+      "Bash(tree:*)",
+      "Bash(grep:*)"
     ],
     "deny": [],
     "ask": []

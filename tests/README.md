@@ -424,3 +424,9 @@ def test_my_feature(temp_db, tmp_path):
 - [conftest.py](./conftest.py)
 - [CI Path Standards](../docs/CI_PATH_STANDARDS.md)
 - [Testing Guide](../docs/testing_guide.md)
+
+## Targeted Templates and Coverage Gates
+
+- **Adapter/engine templates**: Use `tests/error/unit/test_agent_adapters_additional.py` and `tests/error/unit/test_pipeline_engine_additional.py` as starter patterns for future adapter or engine regression cases (mock-heavy, deterministic).
+- **Namespace aliasing**: When tests need `UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK` without changing production imports, alias modules in `sys.modules` (see plugin manager/file hash cache tests) before importing the target.
+- **Coverage gate**: Add a CI check enforcing >=70% line coverage for `phase6_error_recovery/modules/error_engine` and `phase6_error_recovery/modules/plugins` before merges; plan a follow-up run to collect branch coverage once line gate is stable.

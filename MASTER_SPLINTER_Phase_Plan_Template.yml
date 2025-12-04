@@ -383,3 +383,54 @@ governance_and_constraints:
 extensions:
   # Free-form structured fields that future patches can extend.
   custom_fields: {}
+
+github_integration:
+  enabled: false                     # Set to true to enable GitHub sync
+
+  repo:
+    owner: "OWNER_NAME"              # e.g. "DICKY1987"
+    name: "REPO_NAME"                # e.g. "complete-ai-development-pipeline-canonical-phase-plan"
+    default_branch: "main"
+
+  issue:
+    mode: "one-per-phase"            # "one-per-phase" | "none" | "reuse"
+    number: null                     # filled once created
+    title_template: "[{phase_id}] {title}"
+    body_template_path: null         # optional: path to a .md template
+    labels:
+      - "phase-plan"
+      - "splinter-phase"
+    assignees:
+      - null                         # optionally set default assignee
+
+  project:
+    # Either use a URL OR owner + project_number (Projects v2)
+    url: null                        # e.g. "https://github.com/orgs/ORG_NAME/projects/1"
+    owner: "ORG_OR_USER"             # e.g. "DICKY1987" or your org
+    project_number: null             # e.g. 1
+    item_id: null                    # filled by automation once created
+
+    field_mappings:
+      phase_id_field: "Phase ID"     # text field in the project
+      workstream_field: "Workstream"
+      status_field: "Status"         # single-select mapping your SPLINTER status
+      risk_field: "Risk"
+      target_date_field: "Target date"
+      doc_id_field: "doc_id"         # optional, if you want it visible in Projects
+
+      # optional extra fields you might define in your project
+      story_points_field: null
+      owner_field: null
+
+  automation:
+    allow_issue_create: true
+    allow_issue_update: true
+    allow_project_item_create: true
+    allow_project_item_update: true
+
+    sync_direction: "yaml->github"   # "yaml->github" | "bidirectional"
+    on_phase_status_change_update_project: true
+    on_project_status_change_update_phase: false  # flip to true if you want bidirectional
+
+    last_synced_at: null             # filled by automation
+    last_synced_by: null             # e.g. "github-actions[bot]" or a username

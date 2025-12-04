@@ -2,8 +2,8 @@ doc_id: DOC-PAT-PATTERN-INDEX-029
 version: 1.0.0
 metadata:
   created: '2025-11-24'
-  last_updated: '2025-11-28'
-  total_patterns: 28
+  last_updated: '2025-12-04'
+  total_patterns: 29
   total_categories: 10
   migrated_patterns: 17
   core_patterns: 11
@@ -1632,3 +1632,28 @@ patterns:
   created: '2025-12-02'
   summary: "╔══════════════════════════════════════════════════════════════════════════════╗"
   notes: "Converted from START_HERE.txt"
+
+- pattern_id: PAT-GH-SYNC-PHASE-001
+  name: GH_SYNC_PHASE_V1
+  version: 1.0.0
+  status: active
+  category: integration
+  doc_id: DOC-PAT-GH-SYNC-PHASE-001
+  spec_path: patterns/specs/GH_SYNC_PHASE_V1.pattern.yaml
+  schema_path: patterns/schemas/GH_SYNC_PHASE_V1.schema.json
+  executor_path: patterns/executors/github_sync/phase_sync.py
+  test_path: patterns/tests/GH_SYNC_PHASE_V1_test.py
+  example_dir: patterns/examples/github_sync/
+  tool_targets:
+  - python_script
+  - github_actions
+  time_savings_vs_manual: 98%
+  proven_uses: 0
+  created: '2025-12-04'
+  summary: "Synchronize SPLINTER Phase Plans with GitHub Issues and Projects v2"
+  tags:
+  - github
+  - projects-v2
+  - issues
+  - integration
+  - splinter

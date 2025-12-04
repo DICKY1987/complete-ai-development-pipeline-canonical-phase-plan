@@ -3,6 +3,7 @@
 Manages subprocess creation, sandboxing, and lifecycle for tool adapters.
 Phase I-1 WS-I2 implementation.
 """
+
 # DOC_ID: DOC-CORE-ENGINE-PROCESS-SPAWNER-154
 
 from __future__ import annotations
@@ -11,14 +12,15 @@ import os
 import subprocess
 import tempfile
 from dataclasses import dataclass
-from pathlib import Path
-from typing import Optional, Dict, Any
 from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any, Dict, Optional
 
 
 @dataclass
 class WorkerProcess:
     """Represents a spawned worker process."""
+
     worker_id: str
     pid: int
     adapter_type: str
@@ -37,7 +39,9 @@ class ProcessSpawner:
         Args:
             base_sandbox_dir: Base directory for worker sandboxes
         """
-        self.base_sandbox_dir = base_sandbox_dir or Path(tempfile.gettempdir()) / "uet_workers"
+        self.base_sandbox_dir = (
+            base_sandbox_dir or Path(tempfile.gettempdir()) / "uet_workers"
+        )
         self.processes: Dict[str, WorkerProcess] = {}
 
     def spawn_worker_process(
@@ -45,7 +49,7 @@ class ProcessSpawner:
         worker_id: str,
         adapter_type: str,
         repo_root: Path,
-        env_overrides: Optional[Dict[str, str]] = None
+        env_overrides: Optional[Dict[str, str]] = None,
     ) -> WorkerProcess:
         """Spawn a new worker process.
 
@@ -64,25 +68,27 @@ class ProcessSpawner:
 
         # Prepare environment
         worker_env = os.environ.copy()
-        worker_env.update({
-            'UET_WORKER_ID': worker_id,
-            'UET_ADAPTER_TYPE': adapter_type,
-            'UET_SANDBOX_PATH': str(sandbox_path),
-            'REPO_ROOT': str(repo_root),
-        })
+        worker_env.update(
+            {
+                "UET_WORKER_ID": worker_id,
+                "UET_ADAPTER_TYPE": adapter_type,
+                "UET_SANDBOX_PATH": str(sandbox_path),
+                "REPO_ROOT": str(repo_root),
+            }
+        )
 
         if env_overrides:
             worker_env.update(env_overrides)
 
-        # Spawn process (placeholder - will be enhanced in WS-I2)
-        # For now, we use a simple Python process that stays alive
+        # Resolve command: allow adapter-specific override via env, otherwise use a safe idle loop.
+        cmd = self._resolve_command(adapter_type, worker_env)
         process = subprocess.Popen(
-            ['python', '-c', 'import time; time.sleep(3600)'],  # Dummy process
+            cmd,
             env=worker_env,
             cwd=str(repo_root),
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
-            text=True
+            text=True,
         )
 
         worker_process = WorkerProcess(
@@ -92,7 +98,7 @@ class ProcessSpawner:
             sandbox_path=sandbox_path,
             process=process,
             spawned_at=datetime.now(timezone.utc),
-            env=worker_env
+            env=worker_env,
         )
 
         self.processes[worker_id] = worker_process
@@ -143,3 +149,15 @@ class ProcessSpawner:
         """Terminate all worker processes."""
         for worker_id in list(self.processes.keys()):
             self.terminate_worker_process(worker_id)
+
+    def _resolve_command(self, adapter_type: str, env: Dict[str, str]) -> list[str]:
+        """
+        Choose the worker command. Prefer adapter-specific override (UET_ADAPTER_CMD_*),
+        otherwise fall back to a harmless long-running Python loop.
+        """
+        override_key = f"UET_ADAPTER_CMD_{adapter_type.upper()}"
+        if override_key in env and env[override_key]:
+            return env[override_key].split()
+
+        # Default: long-lived Python process to keep worker alive until reused.
+        return ["python", "-c", "import time; time.sleep(3600)"]
