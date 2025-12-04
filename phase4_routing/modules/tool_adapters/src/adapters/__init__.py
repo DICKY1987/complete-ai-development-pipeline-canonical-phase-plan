@@ -1,17 +1,24 @@
-"""Tool Adapters - WS-03-02A
-
-Adapters for executing tasks via external tools.
 """
-# DOC_ID: DOC-CORE-ADAPTERS-INIT-136
+DEPRECATED: This module has been consolidated into core.adapters
 
-from .base import ToolAdapter, ExecutionResult, ToolConfig
-from .subprocess_adapter import SubprocessAdapter
-from .registry import AdapterRegistry
+All adapter classes have been moved to core/adapters/:
+- base.py -> core.adapters.base
+- registry.py -> core.adapters.registry
+- subprocess_adapter.py -> core.adapters.subprocess_adapter
+
+This file redirects imports for backward compatibility.
+Original files archived: _ARCHIVE/phase4_tool_adapters_duplicate_20251204_143544/
+"""
+
+# Redirect imports to canonical location
+from core.adapters.base import ExecutionResult, ToolAdapter, ToolConfig
+from core.adapters.registry import AdapterRegistry
+from core.adapters.subprocess_adapter import SubprocessAdapter
 
 __all__ = [
-    'ToolAdapter',
-    'ExecutionResult',
-    'ToolConfig',
-    'SubprocessAdapter',
-    'AdapterRegistry',
+    "ToolAdapter",
+    "ToolConfig",
+    "ExecutionResult",
+    "AdapterRegistry",
+    "SubprocessAdapter",
 ]

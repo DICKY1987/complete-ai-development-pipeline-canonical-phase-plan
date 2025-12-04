@@ -1,0 +1,14 @@
+{
+  "report_type": "daily",
+  "generated_at": "2025-12-04T14:35:05.871669",
+  "scanner": {
+    "success": true,
+    "output": "[INFO] Loaded 2322 entries from C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u00e2\u20ac\u201c Canonical Phase Plan\\docs_inventory.jsonl\n\n============================================================\nDOC_ID COVERAGE STATISTICS\n============================================================\nTotal eligible files:    2322\nFiles with doc_id:       2322 (100.0%)\nFiles without doc_id:    0\nFiles with invalid ID:   0\n\nCoverage: 100.0%\n\nBy file type:\n------------------------------------------------------------\n  json        328 / 328  (100.0%)\n  md          848 / 848  (100.0%)\n  ps1         214 / 214  (100.0%)\n  py          640 / 640  (100.0%)\n  sh           30 /  30  (100.0%)\n  txt          41 /  41  (100.0%)\n  yaml        213 / 213  (100.0%)\n  yml           8 /   8  (100.0%)\n============================================================\n\n"
+  },
+  "coverage": {
+    "success": false,
+    "output": "",
+    "exit_code": 1
+  },
+  "status": "\u274c FAIL"
+}

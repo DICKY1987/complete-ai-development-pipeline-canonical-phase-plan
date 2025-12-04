@@ -1,0 +1,719 @@
+{
+  "check_id": "PAT-CHECK-README-001",
+  "root": "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical Phase Plan",
+  "results": [
+    {
+      "path": "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical Phase Plan\\patterns\\examples\\phase_discovery_001\\README.md",
+      "title": "[TODO: Phase Title]",
+      "status": "FAIL",
+      "issue_count": 15,
+      "issues": [
+        {
+          "kind": "todo_placeholder",
+          "section": "Purpose",
+          "message": "Section 'Purpose' still contains TODO placeholders."
+        },
+        {
+          "kind": "todo_placeholder",
+          "section": "System Position",
+          "message": "Section 'System Position' still contains TODO placeholders."
+        },
+        {
+          "kind": "todo_placeholder",
+          "section": "Phase Contracts",
+          "message": "Section 'Phase Contracts' still contains TODO placeholders."
+        },
+        {
+          "kind": "todo_placeholder",
+          "section": "Phase Contents",
+          "message": "Section 'Phase Contents' still contains TODO placeholders."
+        },
+        {
+          "kind": "todo_placeholder",
+          "section": "Current Components",
+          "message": "Section 'Current Components' still contains TODO placeholders."
+        },
+        {
+          "kind": "todo_placeholder",
+          "section": "Main Operations",
+          "message": "Section 'Main Operations' still contains TODO placeholders."
+        },
+        {
+          "kind": "todo_placeholder",
+          "section": "Source of Truth",
+          "message": "Section 'Source of Truth' still contains TODO placeholders."
+        },
+        {
+          "kind": "todo_placeholder",
+          "section": "Explicit Non-Responsibilities",
+          "message": "Section 'Explicit Non-Responsibilities' still contains TODO placeholders."
+        },
+        {
+          "kind": "todo_placeholder",
+          "section": "Invocation & Control",
+          "message": "Section 'Invocation & Control' still contains TODO placeholders."
+        },
+        {
+          "kind": "todo_placeholder",
+          "section": "Observability",
+          "message": "Section 'Observability' still contains TODO placeholders."
+        },
+        {
+          "kind": "todo_placeholder",
+          "section": "AI Operational Rules",
+          "message": "Section 'AI Operational Rules' still contains TODO placeholders."
+        },
+        {
+          "kind": "todo_placeholder",
+          "section": "Test Coverage",
+          "message": "Section 'Test Coverage' still contains TODO placeholders."
+        },
+        {
+          "kind": "todo_placeholder",
+          "section": "Known Failure Modes",
+          "message": "Section 'Known Failure Modes' still contains TODO placeholders."
+        },
+        {
+          "kind": "todo_placeholder",
+          "section": "Readiness Model",
+          "message": "Section 'Readiness Model' still contains TODO placeholders."
+        },
+        {
+          "kind": "todo_placeholder",
+          "section": "Status",
+          "message": "Section 'Status' still contains TODO placeholders."
+        }
+      ],
+      "view": {
+        "path": "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical Phase Plan\\patterns\\examples\\phase_discovery_001\\README.md",
+        "title": "[TODO: Phase Title]",
+        "sections": {
+          "Purpose": "[TODO: describe the purpose of this phase]\n",
+          "System Position": "upstream_phases:\n  - [TODO: fill with upstream phase IDs, e.g. phase2_request_building]\ndownstream_phases:\n  - [TODO: fill with downstream phase IDs, e.g. phase4_routing]\nhard_blockers:\n  - [TODO: list conditions that must be true before this phase can run]\nsoft_dependencies:\n  - [TODO: non-blocking dependencies or external syncs]\n",
+          "Phase Contracts": "entry_requirements:\n  required_files:\n    - [TODO: list required input files]\n  required_db_tables:\n    - [TODO: list required DB tables, if any]\n  required_state_flags:\n    - [TODO: list required state flags / readiness signals]\nexit_artifacts:\n  produced_files:\n    - [TODO: list files produced by this phase]\n  updated_db_tables:\n    - [TODO: list DB tables updated by this phase]\n  emitted_events:\n    - [TODO: list events emitted to the orchestration/event bus]\n",
+          "Phase Contents": "[TODO: describe folder layout and key subdirectories]\n",
+          "Current Components": "[TODO: fill this section]\n",
+          "Main Operations": "[TODO: fill this section]\n",
+          "Source of Truth": "authoritative_sources:\n  - [TODO: list authoritative specs/code for this phase]\nderived_artifacts:\n  - [TODO: list generated/derived files]\ndo_not_edit_directly:\n  - .state/**\n  - .ledger/**\n",
+          "Explicit Non-Responsibilities": "this_phase_does_not:\n  - [TODO: list responsibilities explicitly out of scope for this phase]\n",
+          "Invocation & Control": "invocation_mode:\n  - [TODO: e.g. automatic_on_previous_phase_success | manual]\nentrypoints:\n  cli:\n    - [TODO: CLI commands to invoke this phase]\n  python:\n    - [TODO: Python entrypoints to invoke this phase]\nresumable: [TODO: true|false]\nidempotent: [TODO: true|false]\nretry_safe: [TODO: true|false]\n",
+          "Observability": "log_streams:\n  - [TODO: list log files/streams for this phase]\nmetrics:\n  - [TODO: list metrics exposed by this phase]\nhealth_checks:\n  - [TODO: list health/diagnostic checks for this phase]\n",
+          "AI Operational Rules": "ai_may_modify:\n  - [TODO: list files/directories AI may modify in this phase]\nai_must_not_modify:\n  - schema/**\n  - .state/**\n  - .ledger/**\nai_escalation_triggers:\n  - [TODO: conditions that require human review or escalation]\nai_safe_mode_conditions:\n  - [TODO: conditions under which execution should be downgraded to safe mode]\n",
+          "Test Coverage": "[TODO: summarize test coverage numbers, files, and gaps]\n",
+          "Known Failure Modes": "[TODO: list typical failure modes and their impact]\n",
+          "Readiness Model": "maturity_level: [TODO: DESIGN_ONLY | OPERATIONAL_BETA | PRODUCTION_READY]\nrisk_profile:\n  execution_risk: [TODO: LOW|MEDIUM|HIGH]\n  data_loss_risk: [TODO: LOW|MEDIUM|HIGH]\n  deadlock_risk: [TODO: LOW|MEDIUM|HIGH]\n  external_dependency_risk: [TODO: LOW|MEDIUM|HIGH]\nproduction_gate: [TODO: DISALLOWED | ALLOWED_WITH_MONITORING | ALLOWED]\n",
+          "Status": "[TODO: e.g. \u2705 Complete (100%) or \u26a0\ufe0f Partial (60%)]\n"
+        },
+        "order": [
+          "Purpose",
+          "System Position",
+          "Phase Contracts",
+          "Phase Contents",
+          "Current Components",
+          "Main Operations",
+          "Source of Truth",
+          "Explicit Non-Responsibilities",
+          "Invocation & Control",
+          "Observability",
+          "AI Operational Rules",
+          "Test Coverage",
+          "Known Failure Modes",
+          "Readiness Model",
+          "Status"
+        ]
+      }
+    },
+    {
+      "path": "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical Phase Plan\\patterns\\profiles\\software-dev-python\\phase_templates\\README.md",
+      "title": "[TODO: Phase Title]",
+      "status": "FAIL",
+      "issue_count": 14,
+      "issues": [
+        {
+          "kind": "todo_placeholder",
+          "section": "System Position",
+          "message": "Section 'System Position' still contains TODO placeholders."
+        },
+        {
+          "kind": "todo_placeholder",
+          "section": "Phase Contracts",
+          "message": "Section 'Phase Contracts' still contains TODO placeholders."
+        },
+        {
+          "kind": "todo_placeholder",
+          "section": "Phase Contents",
+          "message": "Section 'Phase Contents' still contains TODO placeholders."
+        },
+        {
+          "kind": "todo_placeholder",
+          "section": "Current Components",
+          "message": "Section 'Current Components' still contains TODO placeholders."
+        },
+        {
+          "kind": "todo_placeholder",
+          "section": "Main Operations",
+          "message": "Section 'Main Operations' still contains TODO placeholders."
+        },
+        {
+          "kind": "todo_placeholder",
+          "section": "Source of Truth",
+          "message": "Section 'Source of Truth' still contains TODO placeholders."
+        },
+        {
+          "kind": "todo_placeholder",
+          "section": "Explicit Non-Responsibilities",
+          "message": "Section 'Explicit Non-Responsibilities' still contains TODO placeholders."
+        },
+        {
+          "kind": "todo_placeholder",
+          "section": "Invocation & Control",
+          "message": "Section 'Invocation & Control' still contains TODO placeholders."
+        },
+        {
+          "kind": "todo_placeholder",
+          "section": "Observability",
+          "message": "Section 'Observability' still contains TODO placeholders."
+        },
+        {
+          "kind": "todo_placeholder",
+          "section": "AI Operational Rules",
+          "message": "Section 'AI Operational Rules' still contains TODO placeholders."
+        },
+        {
+          "kind": "todo_placeholder",
+          "section": "Test Coverage",
+          "message": "Section 'Test Coverage' still contains TODO placeholders."
+        },
+        {
+          "kind": "todo_placeholder",
+          "section": "Known Failure Modes",
+          "message": "Section 'Known Failure Modes' still contains TODO placeholders."
+        },
+        {
+          "kind": "todo_placeholder",
+          "section": "Readiness Model",
+          "message": "Section 'Readiness Model' still contains TODO placeholders."
+        },
+        {
+          "kind": "todo_placeholder",
+          "section": "Status",
+          "message": "Section 'Status' still contains TODO placeholders."
+        }
+      ],
+      "view": {
+        "path": "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical Phase Plan\\patterns\\profiles\\software-dev-python\\phase_templates\\README.md",
+        "title": "[TODO: Phase Title]",
+        "sections": {
+          "Purpose": "Purpose to be documented\n",
+          "System Position": "upstream_phases:\n  - [TODO: fill with upstream phase IDs, e.g. phase2_request_building]\ndownstream_phases:\n  - [TODO: fill with downstream phase IDs, e.g. phase4_routing]\nhard_blockers:\n  - [TODO: list conditions that must be true before this phase can run]\nsoft_dependencies:\n  - [TODO: non-blocking dependencies or external syncs]\n",
+          "Phase Contracts": "entry_requirements:\n  required_files:\n    - [TODO: list required input files]\n  required_db_tables:\n    - [TODO: list required DB tables, if any]\n  required_state_flags:\n    - [TODO: list required state flags / readiness signals]\nexit_artifacts:\n  produced_files:\n    - [TODO: list files produced by this phase]\n  updated_db_tables:\n    - [TODO: list DB tables updated by this phase]\n  emitted_events:\n    - [TODO: list events emitted to the orchestration/event bus]\n",
+          "Phase Contents": "[TODO: describe folder layout and key subdirectories]\n",
+          "Current Components": "[TODO: fill this section]\n",
+          "Main Operations": "[TODO: fill this section]\n",
+          "Source of Truth": "authoritative_sources:\n  - [TODO: list authoritative specs/code for this phase]\nderived_artifacts:\n  - [TODO: list generated/derived files]\ndo_not_edit_directly:\n  - .state/**\n  - .ledger/**\n",
+          "Explicit Non-Responsibilities": "this_phase_does_not:\n  - [TODO: list responsibilities explicitly out of scope for this phase]\n",
+          "Invocation & Control": "invocation_mode:\n  - [TODO: e.g. automatic_on_previous_phase_success | manual]\nentrypoints:\n  cli:\n    - [TODO: CLI commands to invoke this phase]\n  python:\n    - [TODO: Python entrypoints to invoke this phase]\nresumable: [TODO: true|false]\nidempotent: [TODO: true|false]\nretry_safe: [TODO: true|false]\n",
+          "Observability": "log_streams:\n  - [TODO: list log files/streams for this phase]\nmetrics:\n  - [TODO: list metrics exposed by this phase]\nhealth_checks:\n  - [TODO: list health/diagnostic checks for this phase]\n",
+          "AI Operational Rules": "ai_may_modify:\n  - [TODO: list files/directories AI may modify in this phase]\nai_must_not_modify:\n  - schema/**\n  - .state/**\n  - .ledger/**\nai_escalation_triggers:\n  - [TODO: conditions that require human review or escalation]\nai_safe_mode_conditions:\n  - [TODO: conditions under which execution should be downgraded to safe mode]\n",
+          "Test Coverage": "[TODO: summarize test coverage numbers, files, and gaps]\n",
+          "Known Failure Modes": "[TODO: list typical failure modes and their impact]\n",
+          "Readiness Model": "maturity_level: [TODO: DESIGN_ONLY | OPERATIONAL_BETA | PRODUCTION_READY]\nrisk_profile:\n  execution_risk: [TODO: LOW|MEDIUM|HIGH]\n  data_loss_risk: [TODO: LOW|MEDIUM|HIGH]\n  deadlock_risk: [TODO: LOW|MEDIUM|HIGH]\n  external_dependency_risk: [TODO: LOW|MEDIUM|HIGH]\nproduction_gate: [TODO: DISALLOWED | ALLOWED_WITH_MONITORING | ALLOWED]\n",
+          "Status": "[TODO: e.g. \u2705 Complete (100%) or \u26a0\ufe0f Partial (60%)]\n"
+        },
+        "order": [
+          "Purpose",
+          "System Position",
+          "Phase Contracts",
+          "Phase Contents",
+          "Current Components",
+          "Main Operations",
+          "Source of Truth",
+          "Explicit Non-Responsibilities",
+          "Invocation & Control",
+          "Observability",
+          "AI Operational Rules",
+          "Test Coverage",
+          "Known Failure Modes",
+          "Readiness Model",
+          "Status"
+        ]
+      }
+    },
+    {
+      "path": "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical Phase Plan\\phase0_bootstrap\\README.md",
+      "title": "Phase 0 \u2013 Bootstrap & Initialization",
+      "status": "PASS",
+      "issue_count": 0,
+      "issues": [],
+      "view": {
+        "path": "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical Phase Plan\\phase0_bootstrap\\README.md",
+        "title": "Phase 0 \u2013 Bootstrap & Initialization",
+        "sections": {
+          "Purpose": "Detect repo, pick profile, validate baseline, generate project profile/router config.\n",
+          "System Position": "upstream_phases:\n  - None (entry point)\ndownstream_phases:\n  - phase1_planning\nhard_blockers:\n  - Valid git repository must exist\n  - At least one profile must match repo characteristics\nsoft_dependencies:\n  - None\n",
+          "Phase Contracts": "entry_requirements:\n  required_files:\n    - .git/ (git repository)\n  required_db_tables:\n    - None (initializes database)\n  required_state_flags:\n    - None (first phase)\nexit_artifacts:\n  produced_files:\n    - PROJECT_PROFILE.yaml\n    - router_config.json\n    - .state/orchestration.db\n  updated_db_tables:\n    - bootstrap_state (created)\n  emitted_events:\n    - BOOTSTRAP_COMPLETE\n",
+          "Phase Contents": "Located in: `phase0_bootstrap/`\n\n- `config/` - Configuration files and profiles\n- `schema/` - 17 JSON validation schemas\n- `README.md` - This file\n",
+          "Current Components": "### Configuration (`config/`)\n- Profile configurations\n- Tool profiles\n- Quality gates (UTE_QUALITY_GATE.yaml)\n- AI policies (UTE_ai_policies.yaml)\n\n### Validation Schemas (`schema/`)\n- 17 JSON schemas for data contracts\n- Zero dependencies foundation layer\n\n### Implementation (`core/bootstrap/`)\nLocated in cross-cutting `core/` directory:\n- `orchestrator.py` - 4-step bootstrap orchestrator \u2705\n- `discovery.py` - ProjectScanner (repo detection) \u2705\n- `selector.py` - Profile selection (5 profiles) \u2705\n- `generator.py` - Artifact generation \u2705\n- `validator.py` - Baseline validation \u2705\n",
+          "Main Operations": "- Detect repo + environment\n- Pick correct project profile (patterns, tools, configs)\n- Validate repo against schemas (IDs, patterns, layout)\n- Generate `PROJECT_PROFILE.yaml` and `router_config.json`\n",
+          "Source of Truth": "authoritative_sources:\n  - core/bootstrap/orchestrator.py\n  - schema/*.json (17 validation schemas)\n  - config/profiles/*.yaml\nderived_artifacts:\n  - PROJECT_PROFILE.yaml\n  - router_config.json\n  - .state/orchestration.db\ndo_not_edit_directly:\n  - .state/**\n  - .ledger/**\n  - PROJECT_PROFILE.yaml (generated)\n",
+          "Explicit Non-Responsibilities": "this_phase_does_not:\n  - Execute workstreams\n  - Plan task execution\n  - Modify source code\n  - Run validation tests\n  - Handle runtime errors\n",
+          "Invocation & Control": "invocation_mode:\n  - manual (entry point for pipeline)\nentrypoints:\n  cli:\n    - orchestrator bootstrap\n    - python -m core.bootstrap.orchestrator\n  python:\n    - core.bootstrap.orchestrator.run()\nresumable: true\nidempotent: true\nretry_safe: true\n",
+          "Observability": "log_streams:\n  - logs/bootstrap.jsonl\n  - logs/discovery.jsonl\nmetrics:\n  - bootstrap_duration_seconds\n  - profiles_scanned_total\n  - schemas_validated_total\nhealth_checks:\n  - profile_match_check\n  - schema_validation_check\n  - db_initialization_check\n",
+          "AI Operational Rules": "ai_may_modify:\n  - core/bootstrap/*.py (implementation)\n  - config/profiles/*.yaml (profile definitions)\nai_must_not_modify:\n  - schema/**\n  - .state/**\n  - .ledger/**\n  - PROJECT_PROFILE.yaml (generated artifact)\nai_escalation_triggers:\n  - Profile selection ambiguity (multiple matches)\n  - Schema validation failure\n  - Database initialization failure\nai_safe_mode_conditions:\n  - No matching profile found\n  - Invalid git repository\n  - Missing required schemas\n",
+          "Test Coverage": "8 passing tests in `tests/bootstrap/`\n- Discovery tests: repo detection, environment scanning\n- Selector tests: profile matching logic\n- Validator tests: schema validation\n- Generator tests: artifact creation\n- Orchestrator tests: end-to-end bootstrap flow\n",
+          "Known Failure Modes": "- No matching profile \u2192 System cannot proceed (CRITICAL)\n- Schema validation failure \u2192 Invalid repo structure (HIGH)\n- Database creation failure \u2192 State tracking unavailable (MEDIUM)\n- Profile ambiguity \u2192 Multiple profiles match (LOW - uses priority)\n",
+          "Readiness Model": "maturity_level: PRODUCTION_READY\nrisk_profile:\n  execution_risk: LOW\n  data_loss_risk: LOW\n  deadlock_risk: LOW\n  external_dependency_risk: LOW\nproduction_gate: ALLOWED\n",
+          "Status": "\u2705 Complete (100%)\n"
+        },
+        "order": [
+          "Purpose",
+          "System Position",
+          "Phase Contracts",
+          "Phase Contents",
+          "Current Components",
+          "Main Operations",
+          "Source of Truth",
+          "Explicit Non-Responsibilities",
+          "Invocation & Control",
+          "Observability",
+          "AI Operational Rules",
+          "Test Coverage",
+          "Known Failure Modes",
+          "Readiness Model",
+          "Status"
+        ]
+      }
+    },
+    {
+      "path": "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical Phase Plan\\phase1_planning\\modules\\workstream_planner\\docs\\plans\\templates\\orchestration\\phases\\README.md",
+      "title": "[TODO: Phase Title]",
+      "status": "FAIL",
+      "issue_count": 14,
+      "issues": [
+        {
+          "kind": "todo_placeholder",
+          "section": "System Position",
+          "message": "Section 'System Position' still contains TODO placeholders."
+        },
+        {
+          "kind": "todo_placeholder",
+          "section": "Phase Contracts",
+          "message": "Section 'Phase Contracts' still contains TODO placeholders."
+        },
+        {
+          "kind": "todo_placeholder",
+          "section": "Phase Contents",
+          "message": "Section 'Phase Contents' still contains TODO placeholders."
+        },
+        {
+          "kind": "todo_placeholder",
+          "section": "Current Components",
+          "message": "Section 'Current Components' still contains TODO placeholders."
+        },
+        {
+          "kind": "todo_placeholder",
+          "section": "Main Operations",
+          "message": "Section 'Main Operations' still contains TODO placeholders."
+        },
+        {
+          "kind": "todo_placeholder",
+          "section": "Source of Truth",
+          "message": "Section 'Source of Truth' still contains TODO placeholders."
+        },
+        {
+          "kind": "todo_placeholder",
+          "section": "Explicit Non-Responsibilities",
+          "message": "Section 'Explicit Non-Responsibilities' still contains TODO placeholders."
+        },
+        {
+          "kind": "todo_placeholder",
+          "section": "Invocation & Control",
+          "message": "Section 'Invocation & Control' still contains TODO placeholders."
+        },
+        {
+          "kind": "todo_placeholder",
+          "section": "Observability",
+          "message": "Section 'Observability' still contains TODO placeholders."
+        },
+        {
+          "kind": "todo_placeholder",
+          "section": "AI Operational Rules",
+          "message": "Section 'AI Operational Rules' still contains TODO placeholders."
+        },
+        {
+          "kind": "todo_placeholder",
+          "section": "Test Coverage",
+          "message": "Section 'Test Coverage' still contains TODO placeholders."
+        },
+        {
+          "kind": "todo_placeholder",
+          "section": "Known Failure Modes",
+          "message": "Section 'Known Failure Modes' still contains TODO placeholders."
+        },
+        {
+          "kind": "todo_placeholder",
+          "section": "Readiness Model",
+          "message": "Section 'Readiness Model' still contains TODO placeholders."
+        },
+        {
+          "kind": "todo_placeholder",
+          "section": "Status",
+          "message": "Section 'Status' still contains TODO placeholders."
+        }
+      ],
+      "view": {
+        "path": "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical Phase Plan\\phase1_planning\\modules\\workstream_planner\\docs\\plans\\templates\\orchestration\\phases\\README.md",
+        "title": "[TODO: Phase Title]",
+        "sections": {
+          "Purpose": "Purpose to be documented\n",
+          "System Position": "upstream_phases:\n  - [TODO: fill with upstream phase IDs, e.g. phase2_request_building]\ndownstream_phases:\n  - [TODO: fill with downstream phase IDs, e.g. phase4_routing]\nhard_blockers:\n  - [TODO: list conditions that must be true before this phase can run]\nsoft_dependencies:\n  - [TODO: non-blocking dependencies or external syncs]\n",
+          "Phase Contracts": "entry_requirements:\n  required_files:\n    - [TODO: list required input files]\n  required_db_tables:\n    - [TODO: list required DB tables, if any]\n  required_state_flags:\n    - [TODO: list required state flags / readiness signals]\nexit_artifacts:\n  produced_files:\n    - [TODO: list files produced by this phase]\n  updated_db_tables:\n    - [TODO: list DB tables updated by this phase]\n  emitted_events:\n    - [TODO: list events emitted to the orchestration/event bus]\n",
+          "Phase Contents": "[TODO: describe folder layout and key subdirectories]\n",
+          "Current Components": "[TODO: fill this section]\n",
+          "Main Operations": "[TODO: fill this section]\n",
+          "Source of Truth": "authoritative_sources:\n  - [TODO: list authoritative specs/code for this phase]\nderived_artifacts:\n  - [TODO: list generated/derived files]\ndo_not_edit_directly:\n  - .state/**\n  - .ledger/**\n",
+          "Explicit Non-Responsibilities": "this_phase_does_not:\n  - [TODO: list responsibilities explicitly out of scope for this phase]\n",
+          "Invocation & Control": "invocation_mode:\n  - [TODO: e.g. automatic_on_previous_phase_success | manual]\nentrypoints:\n  cli:\n    - [TODO: CLI commands to invoke this phase]\n  python:\n    - [TODO: Python entrypoints to invoke this phase]\nresumable: [TODO: true|false]\nidempotent: [TODO: true|false]\nretry_safe: [TODO: true|false]\n",
+          "Observability": "log_streams:\n  - [TODO: list log files/streams for this phase]\nmetrics:\n  - [TODO: list metrics exposed by this phase]\nhealth_checks:\n  - [TODO: list health/diagnostic checks for this phase]\n",
+          "AI Operational Rules": "ai_may_modify:\n  - [TODO: list files/directories AI may modify in this phase]\nai_must_not_modify:\n  - schema/**\n  - .state/**\n  - .ledger/**\nai_escalation_triggers:\n  - [TODO: conditions that require human review or escalation]\nai_safe_mode_conditions:\n  - [TODO: conditions under which execution should be downgraded to safe mode]\n",
+          "Test Coverage": "[TODO: summarize test coverage numbers, files, and gaps]\n",
+          "Known Failure Modes": "[TODO: list typical failure modes and their impact]\n",
+          "Readiness Model": "maturity_level: [TODO: DESIGN_ONLY | OPERATIONAL_BETA | PRODUCTION_READY]\nrisk_profile:\n  execution_risk: [TODO: LOW|MEDIUM|HIGH]\n  data_loss_risk: [TODO: LOW|MEDIUM|HIGH]\n  deadlock_risk: [TODO: LOW|MEDIUM|HIGH]\n  external_dependency_risk: [TODO: LOW|MEDIUM|HIGH]\nproduction_gate: [TODO: DISALLOWED | ALLOWED_WITH_MONITORING | ALLOWED]\n",
+          "Status": "[TODO: e.g. \u2705 Complete (100%) or \u26a0\ufe0f Partial (60%)]\n"
+        },
+        "order": [
+          "Purpose",
+          "System Position",
+          "Phase Contracts",
+          "Phase Contents",
+          "Current Components",
+          "Main Operations",
+          "Source of Truth",
+          "Explicit Non-Responsibilities",
+          "Invocation & Control",
+          "Observability",
+          "AI Operational Rules",
+          "Test Coverage",
+          "Known Failure Modes",
+          "Readiness Model",
+          "Status"
+        ]
+      }
+    },
+    {
+      "path": "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical Phase Plan\\phase1_planning\\README.md",
+      "title": "Phase 1 \u2013 Planning & Spec Alignment",
+      "status": "PASS",
+      "issue_count": 0,
+      "issues": [],
+      "view": {
+        "path": "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical Phase Plan\\phase1_planning\\README.md",
+        "title": "Phase 1 \u2013 Planning & Spec Alignment",
+        "sections": {
+          "Purpose": "Take OpenSpec + PM epics + plan docs \u2192 workstreams + phase plans.\n",
+          "System Position": "upstream_phases:\n  - phase0_bootstrap\ndownstream_phases:\n  - phase2_request_building\nhard_blockers:\n  - PROJECT_PROFILE.yaml must exist\n  - Valid specs must be available\n  - Spec index must be buildable\nsoft_dependencies:\n  - CCPM/PM system sync (optional)\n  - OpenSpec proposals (optional)\n",
+          "Phase Contracts": "entry_requirements:\n  required_files:\n    - PROJECT_PROFILE.yaml\n    - specifications/*.md (core specs)\n  required_db_tables:\n    - bootstrap_state (from phase0)\n  required_state_flags:\n    - BOOTSTRAP_COMPLETE\nexit_artifacts:\n  produced_files:\n    - workstreams/*.json\n    - .state/spec_index.json\n    - .state/workstream_registry.json\n  updated_db_tables:\n    - workstreams (created)\n    - spec_index (created)\n  emitted_events:\n    - PLANNING_COMPLETE\n    - WORKSTREAMS_GENERATED\n",
+          "Phase Contents": "Located in: `phase1_planning/`\n\n- `specifications/` - Spec content and OpenSpec files\n- `SPEC_tools/` - Spec processing tools\n- `plans/` - Phase plans and CCPM integration\n- `README.md` - This file\n",
+          "Current Components": "### Specifications (`specifications/`)\n- Core specs (10 production specs):\n  - UET_BOOTSTRAP_SPEC.md\n  - UET_COOPERATION_SPEC.md\n  - UET_PHASE_SPEC_MASTER.md\n  - UET_WORKSTREAM_SPEC.md\n  - UET_TASK_ROUTING_SPEC.md\n  - UET_PROMPT_RENDERING_SPEC.md\n  - UET_PATCH_MANAGEMENT_SPEC.md\n  - UET_CLI_TOOL_EXECUTION_SPEC.md\n  - UTE_ID_SYSTEM_SPEC.md\n  - UET_EXECUTION_KERNEL_PARALLELISM_STRATEGY_SPEC_V2.md\n\n### Spec Tools (`SPEC_tools/`)\n- Spec processing and validation utilities\n\n### Plans (`plans/`)\n- Phase plans\n- CCPM integration files\n\n### Implementation (`core/planning/`)\nLocated in cross-cutting `core/` directory:\n- `planner.py` - Workstream planner \u26a0\ufe0f (STUB - partial implementation)\n- `ccpm_integration.py` - CCPM/PM integration \u26a0\ufe0f (partial)\n- `archive.py` - Historical archival \u2705\n",
+          "Main Operations": "- Ingest OpenSpec, PM epics, phase docs\n- Validate specs & build spec index + dependency graph\n- Convert accepted specs into workstream JSON\n- Link specs and workstreams back to CCPM/PM issues\n",
+          "Source of Truth": "authoritative_sources:\n  - specifications/*.md (10 core specs)\n  - core/planning/planner.py\n  - schema/workstream_spec.v1.json\nderived_artifacts:\n  - workstreams/*.json\n  - .state/spec_index.json\n  - .state/workstream_registry.json\ndo_not_edit_directly:\n  - .state/**\n  - .ledger/**\n  - workstreams/*.json (generated from specs)\n",
+          "Explicit Non-Responsibilities": "this_phase_does_not:\n  - Execute workstreams\n  - Schedule tasks\n  - Route to tools\n  - Create execution requests\n  - Validate code changes\n",
+          "Invocation & Control": "invocation_mode:\n  - automatic_on_phase0_success\nentrypoints:\n  cli:\n    - orchestrator plan\n    - python -m core.planning.planner\n  python:\n    - core.planning.planner.run()\nresumable: true\nidempotent: true\nretry_safe: true\n",
+          "Observability": "log_streams:\n  - logs/planner.jsonl\n  - logs/spec_validation.jsonl\nmetrics:\n  - specs_processed_total\n  - workstreams_generated_total\n  - spec_validation_errors_total\nhealth_checks:\n  - spec_index_integrity_check\n  - workstream_schema_validation\n",
+          "AI Operational Rules": "ai_may_modify:\n  - core/planning/planner.py (STUB - needs implementation)\n  - core/planning/ccpm_integration.py\nai_must_not_modify:\n  - specifications/** (source specs)\n  - schema/**\n  - .state/**\n  - workstreams/*.json (generated)\nai_escalation_triggers:\n  - Spec validation failure\n  - Circular dependency in specs\n  - Missing required spec sections\n  - Workstream generation failure\nai_safe_mode_conditions:\n  - No valid specs found\n  - Spec index build failure\n  - CCPM sync failure (if required)\n",
+          "Test Coverage": "0 tests (implementation incomplete)\nCritical gap: planner.py is STUB\nNeeded:\n  - Spec parsing tests\n  - Workstream generation tests\n  - Dependency graph tests\n  - CCPM integration tests\n",
+          "Known Failure Modes": "- planner.py STUB \u2192 Cannot generate workstreams (CRITICAL)\n- Invalid spec format \u2192 Planning cannot proceed (HIGH)\n- Circular spec dependencies \u2192 DAG build failure (MEDIUM)\n- CCPM sync failure \u2192 Planning proceeds but no PM tracking (LOW)\n",
+          "Readiness Model": "maturity_level: OPERATIONAL_BETA\nrisk_profile:\n  execution_risk: HIGH\n  data_loss_risk: LOW\n  deadlock_risk: MEDIUM\n  external_dependency_risk: MEDIUM\nproduction_gate: DISALLOWED\n",
+          "Status": "\u26a0\ufe0f Partial (40%) - Planner needs implementation\n"
+        },
+        "order": [
+          "Purpose",
+          "System Position",
+          "Phase Contracts",
+          "Phase Contents",
+          "Current Components",
+          "Main Operations",
+          "Source of Truth",
+          "Explicit Non-Responsibilities",
+          "Invocation & Control",
+          "Observability",
+          "AI Operational Rules",
+          "Test Coverage",
+          "Known Failure Modes",
+          "Readiness Model",
+          "Status"
+        ]
+      }
+    },
+    {
+      "path": "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical Phase Plan\\phase2_request_building\\README.md",
+      "title": "Phase 2 \u2013 Request Building & Run Creation",
+      "status": "PASS",
+      "issue_count": 0,
+      "issues": [],
+      "view": {
+        "path": "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical Phase Plan\\phase2_request_building\\README.md",
+        "title": "Phase 2 \u2013 Request Building & Run Creation",
+        "sections": {
+          "Purpose": "Build ExecutionRequest, validate schema, create run records in DB.\n",
+          "System Position": "upstream_phases:\n  - phase1_planning\ndownstream_phases:\n  - phase3_scheduling\nhard_blockers:\n  - Valid workstream JSON must exist\n  - Database must be initialized\n  - Schemas must be available for validation\nsoft_dependencies:\n  - None\n",
+          "Phase Contracts": "entry_requirements:\n  required_files:\n    - workstreams/*.json (from phase1)\n    - schema/execution_request.v1.json\n    - schema/run_record.v1.json\n  required_db_tables:\n    - workstreams (from phase1)\n  required_state_flags:\n    - PLANNING_COMPLETE\nexit_artifacts:\n  produced_files:\n    - .state/orchestration.db (updated)\n    - .state/transitions.jsonl (appended)\n    - .ledger/framework.db (audit trail)\n  updated_db_tables:\n    - runs (created)\n    - workstreams (status updated)\n    - audit_log (created)\n  emitted_events:\n    - RUN_CREATED\n    - EXECUTION_REQUEST_VALIDATED\n",
+          "Phase Contents": "Located in: `phase2_request_building/`\n- Cross-cutting implementation in `core/engine/` and `core/state/`\n- Schema validation in `schema/`\n- State storage in `.state/`, `.ledger/`\n",
+          "Current Components": "- See `core/state/` for state management\n- See `core/engine/execution_request_builder.py` for request building\n- See `schema/` for validation schemas\n",
+          "Main Operations": "- User/CLI selects a plan/workstream and requests \"run this\"\n- Build normalized execution request (what, where, tools, patterns, IDs)\n- Validate against `request.schema.json`\n- Create run record and initial workstream rows in SQLite\n",
+          "Source of Truth": "authoritative_sources:\n  - core/engine/execution_request_builder.py\n  - schema/execution_request.v1.json\n  - schema/run_record.v1.json\n  - core/state/db.py, db_unified.py\nderived_artifacts:\n  - .state/orchestration.db\n  - .state/transitions.jsonl\n  - .ledger/framework.db\ndo_not_edit_directly:\n  - .state/**\n  - .ledger/**\n",
+          "Explicit Non-Responsibilities": "this_phase_does_not:\n  - Generate workstreams (phase1 responsibility)\n  - Schedule tasks (phase3 responsibility)\n  - Execute tasks (phase5 responsibility)\n  - Route to tools (phase4 responsibility)\n  - Handle errors (phase6 responsibility)\n",
+          "Invocation & Control": "invocation_mode:\n  - automatic_on_phase1_success\n  - manual (CLI: user requests run)\nentrypoints:\n  cli:\n    - orchestrator request --workstream <id>\n    - python -m core.engine.execution_request_builder\n  python:\n    - ExecutionRequestBuilder().build()\nresumable: true\nidempotent: true\nretry_safe: true\n",
+          "Observability": "log_streams:\n  - logs/request_builder.jsonl\n  - logs/db_operations.jsonl\n  - .state/transitions.jsonl\nmetrics:\n  - requests_created_total\n  - requests_validated_total\n  - db_write_duration_seconds\n  - validation_errors_total\nhealth_checks:\n  - db_connection_check\n  - schema_availability_check\n  - run_record_integrity_check\n",
+          "AI Operational Rules": "ai_may_modify:\n  - core/engine/execution_request_builder.py\n  - core/state/crud.py\n  - core/state/bundles.py\nai_must_not_modify:\n  - schema/**\n  - .state/**\n  - .ledger/**\n  - core/state/db.py (schema definitions)\nai_escalation_triggers:\n  - Schema validation failure\n  - Database write failure\n  - Duplicate run ID\n  - Invalid workstream reference\nai_safe_mode_conditions:\n  - Database unavailable\n  - Missing required schemas\n  - Workstream not found\n",
+          "Test Coverage": "Implied via state management tests\n- Database CRUD tests in tests/state/\n- Schema validation tests\n- Audit logging tests\n- Request builder fluent API tests\n",
+          "Known Failure Modes": "- Schema validation failure \u2192 Request rejected (MEDIUM)\n- Database write failure \u2192 Transaction rollback (MEDIUM)\n- Duplicate run ID \u2192 Request rejected with clear error (LOW)\n- Missing workstream \u2192 Request cannot be created (MEDIUM)\n",
+          "Readiness Model": "maturity_level: PRODUCTION_READY\nrisk_profile:\n  execution_risk: LOW\n  data_loss_risk: LOW\n  deadlock_risk: LOW\n  external_dependency_risk: LOW\nproduction_gate: ALLOWED\n",
+          "Status": "\u2705 Complete (100%)\n"
+        },
+        "order": [
+          "Purpose",
+          "System Position",
+          "Phase Contracts",
+          "Phase Contents",
+          "Current Components",
+          "Main Operations",
+          "Source of Truth",
+          "Explicit Non-Responsibilities",
+          "Invocation & Control",
+          "Observability",
+          "AI Operational Rules",
+          "Test Coverage",
+          "Known Failure Modes",
+          "Readiness Model",
+          "Status"
+        ]
+      }
+    },
+    {
+      "path": "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical Phase Plan\\phase3_scheduling\\README.md",
+      "title": "Phase 3 \u2013 Scheduling & Task Graph",
+      "status": "PASS",
+      "issue_count": 0,
+      "issues": [],
+      "view": {
+        "path": "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical Phase Plan\\phase3_scheduling\\README.md",
+        "title": "Phase 3 \u2013 Scheduling & Task Graph",
+        "sections": {
+          "Purpose": "Load workstreams, build DAG, resolve dependencies, fill task queue.\n",
+          "System Position": "upstream_phases:\n  - phase2_request_building\ndownstream_phases:\n  - phase4_routing\nhard_blockers:\n  - Valid run record must exist\n  - Workstreams must be loaded\n  - DAG must be acyclic\nsoft_dependencies:\n  - None\n",
+          "Phase Contracts": "entry_requirements:\n  required_files:\n    - .state/orchestration.db (with run record)\n    - workstreams/*.json\n  required_db_tables:\n    - runs (from phase2)\n    - workstreams\n  required_state_flags:\n    - RUN_CREATED\nexit_artifacts:\n  produced_files:\n    - .state/task_queue.json\n    - .state/dag_graph.json\n  updated_db_tables:\n    - tasks (created)\n    - task_dependencies (created)\n  emitted_events:\n    - DAG_BUILT\n    - TASKS_QUEUED\n    - SCHEDULING_COMPLETE\n",
+          "Phase Contents": "Located in: `phase3_scheduling/`\n- Cross-cutting implementation in `core/engine/` (scheduler, dag_builder, state_machine)\n- State management in `core/state/` (dag_utils, task_queue)\n- Specifications in `UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/uet/uet_v2/`\n",
+          "Current Components": "- See `core/engine/` for scheduling logic\n- See `core/state/` for DAG utilities and task queue\n",
+          "Main Operations": "- Load workstream + tasks\n- Build DAG based on dependencies (spec-driven + author-defined)\n- Determine parallel vs sequential execution\n- Populate task queue with PENDING tasks\n",
+          "Source of Truth": "authoritative_sources:\n  - core/engine/scheduler.py\n  - core/engine/dag_builder.py\n  - core/state/dag_utils.py\n  - UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/uet/uet_v2/DAG_SCHEDULER.md\nderived_artifacts:\n  - .state/task_queue.json\n  - .state/dag_graph.json\ndo_not_edit_directly:\n  - .state/**\n  - .ledger/**\n",
+          "Explicit Non-Responsibilities": "this_phase_does_not:\n  - Execute tasks (phase5 responsibility)\n  - Route to tools (phase4 responsibility)\n  - Create run records (phase2 responsibility)\n  - Generate workstreams (phase1 responsibility)\n  - Handle runtime errors (phase6 responsibility)\n",
+          "Invocation & Control": "invocation_mode:\n  - automatic_on_phase2_success\nentrypoints:\n  cli:\n    - orchestrator schedule --run <id>\n    - python -m core.engine.scheduler\n  python:\n    - core.engine.scheduler.run()\nresumable: true\nidempotent: true\nretry_safe: true\n",
+          "Observability": "log_streams:\n  - logs/scheduler.jsonl\n  - logs/dag_builder.jsonl\nmetrics:\n  - dag_nodes_total\n  - dag_edges_total\n  - dag_cycles_detected\n  - tasks_queued_total\n  - parallel_tasks_count\n  - sequential_tasks_count\nhealth_checks:\n  - dag_acyclic_check\n  - queue_integrity_check\n  - scheduler_heartbeat\n",
+          "AI Operational Rules": "ai_may_modify:\n  - core/engine/scheduler.py\n  - core/engine/dag_builder.py\n  - core/state/dag_utils.py\n  - core/state/task_queue.py\nai_must_not_modify:\n  - schema/**\n  - .state/**\n  - specifications/** (DAG specs)\nai_escalation_triggers:\n  - DAG cycle detected\n  - Task dependency resolution failure\n  - Queue write failure\n  - Invalid task state transition\nai_safe_mode_conditions:\n  - Circular dependency detected\n  - Missing required task\n  - Queue corruption detected\n",
+          "Test Coverage": "~92 tests for engine components\n- DAG construction tests\n- Cycle detection tests\n- Topological sort tests\n- Task queue operations tests\n- State machine transition tests\n- Parallel vs sequential resolution tests\n",
+          "Known Failure Modes": "- DAG cycle detected \u2192 Execution deadlock prevented (CRITICAL)\n- Missing task dependency \u2192 Task starvation (HIGH)\n- Queue file corruption \u2192 Run abort and recovery (MEDIUM)\n- Invalid state transition \u2192 Task marked as failed (MEDIUM)\n",
+          "Readiness Model": "maturity_level: PRODUCTION_READY\nrisk_profile:\n  execution_risk: LOW\n  data_loss_risk: LOW\n  deadlock_risk: MEDIUM\n  external_dependency_risk: LOW\nproduction_gate: ALLOWED\n",
+          "Status": "\u2705 Complete (100%)\n"
+        },
+        "order": [
+          "Purpose",
+          "System Position",
+          "Phase Contracts",
+          "Phase Contents",
+          "Current Components",
+          "Main Operations",
+          "Source of Truth",
+          "Explicit Non-Responsibilities",
+          "Invocation & Control",
+          "Observability",
+          "AI Operational Rules",
+          "Test Coverage",
+          "Known Failure Modes",
+          "Readiness Model",
+          "Status"
+        ]
+      }
+    },
+    {
+      "path": "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical Phase Plan\\phase4_routing\\README.md",
+      "title": "Phase 4 \u2013 Tool Routing & Adapter Selection",
+      "status": "PASS",
+      "issue_count": 0,
+      "issues": [],
+      "view": {
+        "path": "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical Phase Plan\\phase4_routing\\README.md",
+        "title": "Phase 4 \u2013 Tool Routing & Adapter Selection",
+        "sections": {
+          "Purpose": "Match tasks to tool profiles and select adapters (Aider/Codex/Custom).\n",
+          "System Position": "upstream_phases:\n  - phase3_scheduling\ndownstream_phases:\n  - phase5_execution\nhard_blockers:\n  - Task queue must exist\n  - Tool profiles must be configured\n  - Adapter registry must be initialized\nsoft_dependencies:\n  - AIM capability bridge (optional)\n  - Cluster manager (for parallel execution)\n",
+          "Phase Contracts": "entry_requirements:\n  required_files:\n    - .state/task_queue.json (from phase3)\n    - config/tool_profiles/*.yaml\n    - PROJECT_PROFILE.yaml\n  required_db_tables:\n    - tasks (from phase3)\n    - adapters (registry)\n  required_state_flags:\n    - TASKS_QUEUED\nexit_artifacts:\n  produced_files:\n    - .state/routing_decisions.json\n    - .state/adapter_assignments.json\n  updated_db_tables:\n    - tasks (adapter_id assigned)\n    - routing_log (created)\n  emitted_events:\n    - ROUTING_COMPLETE\n    - ADAPTERS_ASSIGNED\n",
+          "Phase Contents": "Located in: `phase4_routing/`\n\n- `tools/` - Tool implementations (guard, indexer, patcher, renderer, resolver)\n- `aider/` - Aider adapter configuration\n- `aim/` - AIM environment manager and tool capability matching\n- `README.md` - This file\n",
+          "Current Components": "### Tools (`tools/`)\n- `guard/` - Schema validation tools\n- `indexer/` - Index generation\n- `patcher/` - Patch application\n- `renderer/` - Template rendering\n- `resolver/` - Dependency resolution\n\n### Aider (`aider/`)\n- Aider CLI adapter configuration\n- Multi-instance support\n\n### AIM - AI Tool Matching (`aim/`)\n- `bridge/` - Capability matching algorithms\n- `capabilities/` - Tool capability definitions\n- Tool selection and routing logic\n\n### Implementation (`core/engine/`, `core/adapters/`)\nLocated in cross-cutting `core/` directory:\n- `core/engine/router.py` - Task routing logic \u26a0\ufe0f (partial)\n- `core/engine/tools.py` - Tool registry and selection \u26a0\ufe0f (partial)\n- `core/adapters/base.py` - ToolAdapter base class \u2705\n- `core/adapters/registry.py` - AdapterRegistry \u2705\n- `core/adapters/subprocess_adapter.py` - Basic subprocess adapter \u2705\n",
+          "Main Operations": "- Match tasks by language, task type, environment\n- Select best tool adapter with fallbacks\n- Validate adapter configuration (commands, paths, env, timeouts)\n- Manage multi-instance pools for Aider/Codex\n",
+          "Source of Truth": "authoritative_sources:\n  - core/engine/router.py\n  - core/engine/tools.py\n  - core/adapters/base.py\n  - core/adapters/registry.py\n  - aim/bridge/ (capability matching)\nderived_artifacts:\n  - .state/routing_decisions.json\n  - .state/adapter_assignments.json\ndo_not_edit_directly:\n  - .state/**\n  - .ledger/**\n",
+          "Explicit Non-Responsibilities": "this_phase_does_not:\n  - Execute tasks (phase5 responsibility)\n  - Schedule tasks (phase3 responsibility)\n  - Handle execution errors (phase6 responsibility)\n  - Monitor task progress (phase7 responsibility)\n  - Generate workstreams (phase1 responsibility)\n",
+          "Invocation & Control": "invocation_mode:\n  - automatic_on_phase3_success\nentrypoints:\n  cli:\n    - orchestrator route --run <id>\n    - python -m core.engine.router\n  python:\n    - core.engine.router.route_tasks()\nresumable: true\nidempotent: true\nretry_safe: true\n",
+          "Observability": "log_streams:\n  - logs/router.jsonl\n  - logs/adapter_selection.jsonl\nmetrics:\n  - tasks_routed_total\n  - adapter_assignments_total\n  - routing_fallbacks_total\n  - adapter_selection_duration_seconds\nhealth_checks:\n  - adapter_registry_check\n  - tool_profile_availability_check\n  - routing_decision_integrity_check\n",
+          "AI Operational Rules": "ai_may_modify:\n  - core/engine/router.py (partial implementation)\n  - core/engine/tools.py (partial implementation)\n  - core/adapters/*.py (adapter implementations)\n  - aim/bridge/*.py (capability matching)\nai_must_not_modify:\n  - schema/**\n  - .state/**\n  - config/tool_profiles/** (user configuration)\nai_escalation_triggers:\n  - No suitable adapter found for task\n  - Adapter validation failure\n  - Tool capability mismatch\n  - Routing decision conflict\nai_safe_mode_conditions:\n  - Adapter registry unavailable\n  - All adapters unhealthy\n  - Tool profile missing\n",
+          "Test Coverage": "~27 tests for adapters\n- Adapter base class tests\n- Registry tests\n- Subprocess adapter tests\n- Missing: Router tests, pool management tests, capability matching tests\n",
+          "Known Failure Modes": "- No adapter available \u2192 Task cannot execute (CRITICAL)\n- Adapter health check fails \u2192 Fallback to next adapter (MEDIUM)\n- Tool capability mismatch \u2192 Task routed to wrong tool (HIGH)\n- Pool exhaustion \u2192 Tasks queued waiting for instances (MEDIUM)\n",
+          "Readiness Model": "maturity_level: OPERATIONAL_BETA\nrisk_profile:\n  execution_risk: MEDIUM\n  data_loss_risk: LOW\n  deadlock_risk: MEDIUM\n  external_dependency_risk: HIGH\nproduction_gate: ALLOWED_WITH_MONITORING\n",
+          "Status": "\u26a0\ufe0f Partial (60%) - Router and pooling need implementation\n"
+        },
+        "order": [
+          "Purpose",
+          "System Position",
+          "Phase Contracts",
+          "Phase Contents",
+          "Current Components",
+          "Main Operations",
+          "Source of Truth",
+          "Explicit Non-Responsibilities",
+          "Invocation & Control",
+          "Observability",
+          "AI Operational Rules",
+          "Test Coverage",
+          "Known Failure Modes",
+          "Readiness Model",
+          "Status"
+        ]
+      }
+    },
+    {
+      "path": "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical Phase Plan\\phase5_execution\\README.md",
+      "title": "Phase 5 \u2013 Execution & Validation",
+      "status": "PASS",
+      "issue_count": 0,
+      "issues": [],
+      "view": {
+        "path": "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical Phase Plan\\phase5_execution\\README.md",
+        "title": "Phase 5 \u2013 Execution & Validation",
+        "sections": {
+          "Purpose": "Invoke adapter, run tool, capture output, run acceptance tests, update state.\n",
+          "System Position": "upstream_phases:\n  - phase4_routing\ndownstream_phases:\n  - phase6_error_recovery\n  - phase7_monitoring\nhard_blockers:\n  - Tasks must be routed with adapter assignments\n  - Adapters must be healthy and available\n  - Execution environment must be initialized\nsoft_dependencies:\n  - Error detection plugins (phase6)\n  - Monitoring hooks (phase7)\n",
+          "Phase Contracts": "entry_requirements:\n  required_files:\n    - .state/routing_decisions.json (from phase4)\n    - .state/task_queue.json\n  required_db_tables:\n    - tasks (with adapter_id)\n    - adapters\n  required_state_flags:\n    - ROUTING_COMPLETE\nexit_artifacts:\n  produced_files:\n    - .state/execution_results.json\n    - .state/patch_ledger.jsonl\n    - logs/execution/*.jsonl\n  updated_db_tables:\n    - tasks (status updated: COMPLETED/FAILED/TIMEOUT)\n    - execution_log (created)\n    - patch_history (created)\n  emitted_events:\n    - TASK_STARTED\n    - TASK_COMPLETED\n    - TASK_FAILED\n    - EXECUTION_FINISHED\n",
+          "Phase Contents": "Located in: `phase5_execution/`\n- Cross-cutting implementation in `core/engine/` (executor, process_spawner, test_gate)\n- Resilience patterns in `core/engine/resilience/` (circuit breaker, retry, recovery)\n- Monitoring in `core/engine/monitoring/` (progress tracker, run monitor)\n- Error detection hooks in `error/engine/`\n",
+          "Current Components": "- See `core/engine/` for execution logic\n- See `core/engine/resilience/` for fault tolerance\n- See `core/engine/monitoring/` for progress tracking\n",
+          "Main Operations": "- Executor pulls next task from queue\n- Invoke correct adapter (spawn process / call API / manual instructions)\n- Stream output, track duration, capture files changed\n- Run acceptance tests (linting, unit tests, import checks)\n- Update task state (IN_PROGRESS \u2192 VALIDATING \u2192 COMPLETED/FAILED/...)\n",
+          "Source of Truth": "authoritative_sources:\n  - core/engine/executor.py (STUB - needs implementation)\n  - core/engine/resilience/ (circuit breaker, retry logic)\n  - core/engine/test_gate.py (acceptance testing)\n  - core/engine/patch_ledger.py\nderived_artifacts:\n  - .state/execution_results.json\n  - .state/patch_ledger.jsonl\n  - logs/execution/*.jsonl\ndo_not_edit_directly:\n  - .state/**\n  - .ledger/**\n  - logs/execution/** (generated)\n",
+          "Explicit Non-Responsibilities": "this_phase_does_not:\n  - Route tasks to adapters (phase4 responsibility)\n  - Schedule task execution order (phase3 responsibility)\n  - Classify or fix errors (phase6 responsibility)\n  - Provide monitoring UI (phase7 responsibility)\n  - Generate workstreams (phase1 responsibility)\n",
+          "Invocation & Control": "invocation_mode:\n  - automatic_on_phase4_success\n  - continuous (executor loop)\nentrypoints:\n  cli:\n    - orchestrator execute --run <id>\n    - python -m core.engine.executor\n  python:\n    - core.engine.executor.run_executor_loop()\nresumable: true\nidempotent: false\nretry_safe: true\n",
+          "Observability": "log_streams:\n  - logs/executor.jsonl\n  - logs/execution/*.jsonl (per-task)\n  - logs/resilience.jsonl\nmetrics:\n  - tasks_executed_total\n  - task_success_rate\n  - task_duration_seconds\n  - circuit_breaker_state\n  - retry_attempts_total\n  - acceptance_test_pass_rate\nhealth_checks:\n  - executor_heartbeat\n  - adapter_health_check\n  - circuit_breaker_status\n",
+          "AI Operational Rules": "ai_may_modify:\n  - core/engine/executor.py (STUB - CRITICAL implementation needed)\n  - core/engine/process_spawner.py\n  - core/engine/integration_worker.py\n  - core/engine/test_gate.py\nai_must_not_modify:\n  - schema/**\n  - .state/**\n  - .ledger/**\n  - core/engine/resilience/** (production-proven patterns)\nai_escalation_triggers:\n  - Executor STUB called (CRITICAL)\n  - Circuit breaker opens\n  - Acceptance tests fail repeatedly\n  - Task timeout exceeded\n  - Adapter crash\nai_safe_mode_conditions:\n  - All adapters unhealthy\n  - Circuit breaker open for extended period\n  - Execution environment unavailable\n",
+          "Test Coverage": "~32 tests for resilience patterns\n- Circuit breaker tests (CLOSED/OPEN/HALF_OPEN states)\n- Retry logic tests\n- Resilient executor wrapper tests\n- Missing: executor.py tests (STUB), acceptance test framework tests\n",
+          "Known Failure Modes": "- executor.py STUB \u2192 Cannot execute tasks (CRITICAL)\n- Adapter process crash \u2192 Circuit breaker opens, retry with fallback (HIGH)\n- Acceptance tests fail \u2192 Task marked FAILED (MEDIUM)\n- Timeout exceeded \u2192 Task marked TIMEOUT (MEDIUM)\n- Circuit breaker open \u2192 Execution paused until recovery (HIGH)\n",
+          "Readiness Model": "maturity_level: DESIGN_ONLY\nrisk_profile:\n  execution_risk: VERY_HIGH\n  data_loss_risk: MEDIUM\n  deadlock_risk: LOW\n  external_dependency_risk: VERY_HIGH\nproduction_gate: DISALLOWED\n",
+          "Status": "\u26a0\ufe0f Partial (50%) - executor.py is a STUB; needs implementation\n"
+        },
+        "order": [
+          "Purpose",
+          "System Position",
+          "Phase Contracts",
+          "Phase Contents",
+          "Current Components",
+          "Main Operations",
+          "Source of Truth",
+          "Explicit Non-Responsibilities",
+          "Invocation & Control",
+          "Observability",
+          "AI Operational Rules",
+          "Test Coverage",
+          "Known Failure Modes",
+          "Readiness Model",
+          "Status"
+        ]
+      }
+    },
+    {
+      "path": "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical Phase Plan\\phase6_error_recovery\\README.md",
+      "title": "Phase 6 \u2013 Error Analysis, Auto-Fix & Escalation",
+      "status": "PASS",
+      "issue_count": 0,
+      "issues": [],
+      "view": {
+        "path": "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical Phase Plan\\phase6_error_recovery\\README.md",
+        "title": "Phase 6 \u2013 Error Analysis, Auto-Fix & Escalation",
+        "sections": {
+          "Purpose": "Detect errors, classify, auto-fix, and escalate as needed.\n",
+          "System Position": "upstream_phases:\n  - phase5_execution\ndownstream_phases:\n  - phase5_execution (retry loop)\n  - phase7_monitoring\nhard_blockers:\n  - Task must have failed or timed out\n  - Error plugins must be available\n  - Error detection must complete\nsoft_dependencies:\n  - Circuit breaker state (from resilience layer)\n  - Monitoring hooks (phase7)\n",
+          "Phase Contracts": "entry_requirements:\n  required_files:\n    - .state/execution_results.json (from phase5)\n    - error/plugins/**/plugin.py (21 plugins)\n  required_db_tables:\n    - tasks (status = FAILED/TIMEOUT)\n    - execution_log\n  required_state_flags:\n    - TASK_FAILED or TASK_TIMEOUT\nexit_artifacts:\n  produced_files:\n    - .state/error_analysis.json\n    - .state/fix_patches.json\n    - logs/error_recovery/*.jsonl\n  updated_db_tables:\n    - error_log (created)\n    - recovery_attempts (created)\n    - tasks (status updated after fix attempt)\n  emitted_events:\n    - ERROR_DETECTED\n    - ERROR_CLASSIFIED\n    - FIX_APPLIED\n    - ERROR_ESCALATED\n",
+          "Phase Contents": "Located in: `phase6_error_recovery/`\n\n- `error/` - Error engine and 21 error detection/fix plugins\n  - `error/engine/` - Error detection and orchestration\n  - `error/plugins/` - Language-specific and cross-cutting plugins\n  - `error/shared/` - Shared utilities\n- `README.md` - This file\n",
+          "Current Components": "### Error Engine (`error/engine/`)\n- `error_engine.py` - Main error engine \u26a0\ufe0f (SHIM - imports from UET framework)\n- `error_state_machine.py` - Error lifecycle states \u2705\n- `error_context.py` - Error context capture \u2705\n- `pipeline_engine.py` - Error pipeline orchestration \u2705\n- `plugin_manager.py` - Plugin discovery/loading \u2705\n- `file_hash_cache.py` - Change detection \u2705\n\n### Error Plugins (`error/plugins/`) - 21 Plugins \u2705\n**Python:**\n- python_ruff/, python_mypy/, python_pylint/, python_pyright/\n- python_bandit/, python_safety/\n- python_black_fix/, python_isort_fix/\n\n**JavaScript:**\n- js_eslint/, js_prettier_fix/\n\n**Markdown:**\n- md_markdownlint/, md_mdformat_fix/\n\n**Other:**\n- yaml_yamllint/, powershell_pssa/\n- semgrep/, gitleaks/\n- path_standardizer/, test_runner/\n- codespell/, json_jq/\n\n### Shared Utilities (`error/shared/`)\n- Common error handling functions\n- Plugin base classes and utilities\n\n### Supporting Components (`core/engine/resilience/`)\nLocated in cross-cutting `core/` directory:\n- `circuit_breaker.py` - Circuit breaker (CLOSED/OPEN/HALF_OPEN) \u2705\n- `retry.py` - Exponential backoff, retry logic \u2705\n- `recovery.py` - Recovery handlers \u2705\n",
+          "Main Operations": "- Collect outputs/logs on FAILED/TIMEOUT\n- Run error plugins (ruff, mypy, pytest, semgrep, etc.)\n- Classify errors (transient vs permanent vs unknown)\n- Generate patches for auto-fixable errors\n- Apply patches and re-validate\n- Circuit breaker protection\n- Escalation for manual intervention\n",
+          "Source of Truth": "authoritative_sources:\n  - error/engine/error_engine.py (SHIM - imports from UET)\n  - error/engine/pipeline_engine.py\n  - error/plugins/**/plugin.py (21 plugins)\n  - core/engine/resilience/ (circuit breaker, retry)\nderived_artifacts:\n  - .state/error_analysis.json\n  - .state/fix_patches.json\n  - logs/error_recovery/*.jsonl\ndo_not_edit_directly:\n  - .state/**\n  - .ledger/**\n  - logs/error_recovery/** (generated)\n",
+          "Explicit Non-Responsibilities": "this_phase_does_not:\n  - Execute tasks (phase5 responsibility)\n  - Route tasks (phase4 responsibility)\n  - Provide monitoring UI (phase7 responsibility)\n  - Make architectural decisions (escalates instead)\n  - Modify working code outside error scope\n",
+          "Invocation & Control": "invocation_mode:\n  - automatic_on_task_failure\n  - triggered_by_phase5\nentrypoints:\n  cli:\n    - orchestrator recover --task <id>\n    - python -m error.engine.pipeline_engine\n  python:\n    - error.engine.pipeline_engine.analyze_and_fix()\nresumable: true\nidempotent: true\nretry_safe: true\n",
+          "Observability": "log_streams:\n  - logs/error_engine.jsonl\n  - logs/error_recovery/*.jsonl (per-error)\n  - logs/plugin_execution.jsonl\nmetrics:\n  - errors_detected_total\n  - errors_classified_total\n  - fixes_applied_total\n  - fix_success_rate\n  - escalations_total\n  - plugin_execution_duration_seconds\nhealth_checks:\n  - error_engine_health\n  - plugin_availability_check\n  - circuit_breaker_status\n",
+          "AI Operational Rules": "ai_may_modify:\n  - error/plugins/**/plugin.py (add new plugins)\n  - error/engine/pipeline_engine.py\n  - error/engine/error_context.py\nai_must_not_modify:\n  - schema/**\n  - .state/**\n  - error/engine/error_engine.py (SHIM - UET dependency)\n  - core/engine/resilience/** (production-proven)\nai_escalation_triggers:\n  - Unknown error type (no plugin match)\n  - Auto-fix fails after max retries\n  - Circuit breaker opens\n  - Error classified as architectural\nai_safe_mode_conditions:\n  - All error plugins unavailable\n  - Error analysis loop detected\n  - Fix application causes new critical error\n",
+          "Test Coverage": "~50+ tests for plugins and pipeline\n- Python plugin tests (ruff, mypy, pylint, etc.)\n- JavaScript plugin tests (eslint, prettier)\n- Error classification tests\n- Pipeline orchestration tests\n- Circuit breaker integration tests\n",
+          "Known Failure Modes": "- error_engine.py SHIM \u2192 Depends on external UET framework (MEDIUM)\n- Unknown error type \u2192 Cannot auto-fix, escalates (MEDIUM)\n- Fix creates new error \u2192 Rollback and escalate (HIGH)\n- Plugin unavailable \u2192 Skips that detection, may miss errors (LOW)\n- Circuit breaker open \u2192 Recovery paused (MEDIUM)\n",
+          "Readiness Model": "maturity_level: OPERATIONAL_BETA\nrisk_profile:\n  execution_risk: MEDIUM\n  data_loss_risk: LOW\n  deadlock_risk: LOW\n  external_dependency_risk: HIGH\nproduction_gate: ALLOWED_WITH_MONITORING\n",
+          "Status": "\u26a0\ufe0f Partial (60%) - Engine is a shim; needs full implementation\n"
+        },
+        "order": [
+          "Purpose",
+          "System Position",
+          "Phase Contracts",
+          "Phase Contents",
+          "Current Components",
+          "Main Operations",
+          "Source of Truth",
+          "Explicit Non-Responsibilities",
+          "Invocation & Control",
+          "Observability",
+          "AI Operational Rules",
+          "Test Coverage",
+          "Known Failure Modes",
+          "Readiness Model",
+          "Status"
+        ]
+      }
+    },
+    {
+      "path": "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical Phase Plan\\phase7_monitoring\\README.md",
+      "title": "Phase 7 \u2013 Monitoring, Completion & Archival",
+      "status": "PASS",
+      "issue_count": 0,
+      "issues": [],
+      "view": {
+        "path": "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical Phase Plan\\phase7_monitoring\\README.md",
+        "title": "Phase 7 \u2013 Monitoring, Completion & Archival",
+        "sections": {
+          "Purpose": "Live monitoring, dashboards, run completion, artifact archival, reporting.\n",
+          "System Position": "upstream_phases:\n  - phase5_execution\n  - phase6_error_recovery\ndownstream_phases:\n  - None (terminal phase)\nhard_blockers:\n  - Run must exist\n  - State database must be accessible\nsoft_dependencies:\n  - GUI components (optional)\n  - Web UI (optional)\n",
+          "Phase Contracts": "entry_requirements:\n  required_files:\n    - .state/orchestration.db\n  required_db_tables:\n    - runs\n    - tasks\n    - workstreams\n  required_state_flags:\n    - RUN_CREATED\nexit_artifacts:\n  produced_files:\n    - .archive/<run_id>/ (archived artifacts)\n    - reports/<run_id>_summary.json\n    - reports/<run_id>_metrics.json\n  updated_db_tables:\n    - runs (status = COMPLETED/FAILED/PARTIAL)\n    - archival_log (created)\n  emitted_events:\n    - RUN_COMPLETED\n    - RUN_ARCHIVED\n    - REPORT_GENERATED\n",
+          "Phase Contents": "Located in: `phase7_monitoring/`\n\n- `gui/` - UI components and dashboards\n- `state/` - State persistence and databases\n- `README.md` - This file\n",
+          "Current Components": "### GUI Components (`gui/`)\n- `ui_infrastructure_usage.py` - Infrastructure dashboard \u26a0\ufe0f (partial)\n- `ui_tool_selection_demo.py` - Tool selection UI \u26a0\ufe0f (partial)\n\n### State Persistence (`state/`)\n- Working state directory\n- Alternative to `.state/` for state files\n\n### Implementation (`core/`)\nLocated in cross-cutting `core/` directory:\n- `core/ui_cli.py` - CLI dashboard interface \u26a0\ufe0f (minimal)\n- `core/ui_models.py` - UI data models \u2705\n- `core/ui_settings.py` - UI configuration \u2705\n- `core/ui_settings_cli.py` - CLI settings \u2705\n- `core/engine/monitoring/progress_tracker.py` - Progress visualization \u2705\n- `core/engine/monitoring/run_monitor.py` - Run status tracking \u2705\n- `core/planning/archive.py` - Artifact archival \u2705\n",
+          "Main Operations": "- Show runs/workstreams/tasks status in CLI dashboard, UI, or JSON\n- Surface tool health metrics and error counts\n- Mark runs as COMPLETED/FAILED/PARTIAL\n- Archive artifacts, logs, final DB snapshot\n",
+          "Source of Truth": "authoritative_sources:\n  - core/engine/monitoring/progress_tracker.py\n  - core/engine/monitoring/run_monitor.py\n  - core/planning/archive.py\n  - core/ui_models.py\nderived_artifacts:\n  - .archive/<run_id>/\n  - reports/*.json\n  - gui/dashboards (if generated)\ndo_not_edit_directly:\n  - .state/**\n  - .ledger/**\n  - .archive/** (archived immutable)\n",
+          "Explicit Non-Responsibilities": "this_phase_does_not:\n  - Execute tasks (phase5 responsibility)\n  - Classify errors (phase6 responsibility)\n  - Make execution decisions (observes only)\n  - Modify run state (read-only except completion marking)\n  - Retry failed tasks (phase6 responsibility)\n",
+          "Invocation & Control": "invocation_mode:\n  - continuous (background monitoring)\n  - manual (dashboard/report generation)\nentrypoints:\n  cli:\n    - orchestrator monitor --run <id>\n    - orchestrator archive --run <id>\n    - orchestrator report --run <id>\n  python:\n    - core.engine.monitoring.run_monitor.monitor()\n    - core.planning.archive.archive_run()\nresumable: true\nidempotent: true\nretry_safe: true\n",
+          "Observability": "log_streams:\n  - logs/monitor.jsonl\n  - logs/archival.jsonl\nmetrics:\n  - runs_completed_total\n  - runs_failed_total\n  - artifacts_archived_total\n  - archive_size_bytes\n  - dashboard_requests_total\nhealth_checks:\n  - monitor_heartbeat\n  - db_connection_check\n  - archival_storage_check\n",
+          "AI Operational Rules": "ai_may_modify:\n  - gui/*.py (dashboard implementations)\n  - core/ui_cli.py\n  - core/engine/monitoring/*.py\n  - reporting templates\nai_must_not_modify:\n  - schema/**\n  - .state/**\n  - .ledger/**\n  - .archive/** (immutable)\n  - core/planning/archive.py (archival logic)\nai_escalation_triggers:\n  - Database corruption detected\n  - Archival storage unavailable\n  - Report generation failure\nai_safe_mode_conditions:\n  - Database read-only mode\n  - Archive storage full\n  - Monitoring loop detected\n",
+          "Test Coverage": "~15 tests for monitoring components\n- Progress tracker tests\n- Run monitor tests\n- Archive utility tests\n- Missing: UI component tests, dashboard rendering tests, report generation tests\n",
+          "Known Failure Modes": "- Dashboard/TUI not implemented \u2192 CLI-only monitoring (MEDIUM)\n- Archive storage full \u2192 Cannot complete archival (HIGH)\n- Database connection lost \u2192 Cannot update run status (MEDIUM)\n- Report template missing \u2192 Generic report generated (LOW)\n",
+          "Readiness Model": "maturity_level: OPERATIONAL_BETA\nrisk_profile:\n  execution_risk: LOW\n  data_loss_risk: MEDIUM\n  deadlock_risk: LOW\n  external_dependency_risk: MEDIUM\nproduction_gate: ALLOWED_WITH_MONITORING\n",
+          "Status": "\u26a0\ufe0f Partial (30%) - UI components need implementation\n"
+        },
+        "order": [
+          "Purpose",
+          "System Position",
+          "Phase Contracts",
+          "Phase Contents",
+          "Current Components",
+          "Main Operations",
+          "Source of Truth",
+          "Explicit Non-Responsibilities",
+          "Invocation & Control",
+          "Observability",
+          "AI Operational Rules",
+          "Test Coverage",
+          "Known Failure Modes",
+          "Readiness Model",
+          "Status"
+        ]
+      }
+    }
+  ]
+}

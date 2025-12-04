@@ -27,6 +27,11 @@ class Task:
         self.status = "pending"  # pending, ready, running, completed, failed
         self.result = None
         self.error = None
+        self.selected_tool: Optional[str] = None
+        self.exit_code: Optional[int] = None
+        self.output_patch_id: Optional[str] = None
+        self.error_log: Optional[str] = None
+        self.result_metadata: Dict[str, Any] = {}
 
     def __repr__(self):
         return f"Task({self.task_id}, {self.task_kind}, status={self.status})"

@@ -16,6 +16,7 @@ from core.engine.execution_request_builder import ExecutionRequestBuilder
 from core.engine.orchestrator import Orchestrator
 from core.engine.router import TaskRouter
 from core.engine.scheduler import ExecutionScheduler, Task
+from core.engine.state_file_manager import StateFileManager
 
 __all__ = ["AdapterResult", "Executor"]
 
@@ -42,6 +43,7 @@ class Executor:
             Callable[[Task, str, Dict[str, Any]], AdapterResult]
         ] = None,
         gate_callback: Optional[Callable[[str, Task, AdapterResult], bool]] = None,
+        state_manager: Optional[StateFileManager] = None,
     ):
         """
         Args:
@@ -58,6 +60,7 @@ class Executor:
         self.scheduler = scheduler
         self.adapter_runner = adapter_runner or self._run_with_adapter
         self.gate_callback = gate_callback
+        self.state_manager = state_manager
 
     def run(self, run_id: str) -> Dict[str, Any]:
         """Execute all ready tasks in the scheduler for the given run.
@@ -71,6 +74,9 @@ class Executor:
 
         if run["state"] == "pending":
             self.orchestrator.start_run(run_id)
+            # Fresh decision log per run to avoid leaking prior assignments
+            if hasattr(self.router, "clear_decision_log"):
+                self.router.clear_decision_log()
 
         sequence = 0
 
@@ -83,8 +89,16 @@ class Executor:
                 sequence += 1
                 self.scheduler.mark_running(task.task_id)
 
-                tool_id = self.router.route_task(task.task_kind)
+                tool_id = self.router.route_task(
+                    task.task_kind,
+                    task_id=task.task_id,
+                    run_id=run_id,
+                )
+                task.selected_tool = tool_id
+
                 if not tool_id:
+                    task.exit_code = 1
+                    task.error_log = "No capable tool found"
                     self.scheduler.mark_failed(task.task_id, "No capable tool found")
                     continue
 
@@ -105,11 +119,17 @@ class Executor:
                         exit_code=1,
                         error_log=str(exc),
                     )
+                    task.exit_code = 1
+                    task.error_log = str(exc)
                     self.scheduler.mark_failed(task.task_id, str(exc))
                     continue
 
                 exit_code = result.exit_code
                 status = "succeeded" if exit_code == 0 else "failed"
+                task.exit_code = exit_code
+                task.output_patch_id = result.output_patch_id
+                task.error_log = result.error_log
+                task.result_metadata = result.metadata or {}
 
                 # Optional quality gate hook
                 if status == "succeeded" and self.gate_callback:
@@ -117,6 +137,7 @@ class Executor:
                     if not gate_passed:
                         status = "failed"
                         exit_code = exit_code or 1
+                        task.error_log = task.error_log or "Gate rejected result"
 
                 self.orchestrator.complete_step_attempt(
                     step_id,
@@ -129,6 +150,9 @@ class Executor:
                 if status == "succeeded":
                     self.scheduler.mark_completed(task.task_id, result)
                 else:
+                    task.error_log = (
+                        task.error_log or result.error_log or "Execution failed"
+                    )
                     self.scheduler.mark_failed(
                         task.task_id, result.error_log or "Execution failed"
                     )
@@ -141,6 +165,17 @@ class Executor:
         exit_code = 0 if final_state == "succeeded" else 1
 
         self.orchestrator.complete_run(run_id, final_state, exit_code=exit_code)
+
+        if self.state_manager:
+            tasks = list(self.scheduler.tasks.values())
+            decisions = [
+                decision
+                for decision in self.router.decision_log
+                if getattr(decision, "run_id", None) in (None, run_id)
+            ]
+            self.state_manager.export_routing_decisions(run_id, decisions)
+            self.state_manager.export_adapter_assignments(run_id, tasks)
+            self.state_manager.export_execution_results(run_id, tasks)
 
         return {"run_id": run_id, "state": final_state}
 

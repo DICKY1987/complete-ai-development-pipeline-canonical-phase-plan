@@ -2,158 +2,296 @@
 doc_id: DOC-GUIDE-MULTI-LEVEL-STRUCTURAL-COVERAGE-515
 ---
 
+## **Expanded 5-Layer Test Coverage Framework**
 
+### **Layer 0: Pre-Execution Static Analysis (Foundation
+Layer)**
 
-## **1. Multi-Level Structural Coverage Analysis (Statement +
-Branch Coverage)**
+**Static Code Analysis - Code Structure & Quality**
 
-### Core Principle
-Structural coverage measures which parts of the code are
-executed during testing, tracking statements, branches, and
-functions to detect bugs and ensure full validation. This
-methodology uses execution tracing to identify untested code
-sections at multiple granularity levels.
+**Core Principle:**
+Analyze code structure, complexity, and quality *before* any
+test execution to identify high-risk areas requiring intensive
+testing coverage.
 
-### Application to Python and PowerShell
+**Python Implementation:**
+- **Radon** - Cyclomatic complexity, maintainability index
+- **Prospector** - Combines pylint, pyflakes, mccabe for
+comprehensive analysis
+- **Bandit** - Security-focused SAST for Python
+- **mypy** - Static type checking
 
-**Python (coverage.py):**
-Coverage.py uses code analysis tools and tracing hooks in the
-Python standard library to determine which lines are executable
- and which have been executed. It provides:
-- Statement coverage (line-by-line execution tracking)
-- Branch coverage (tracking true/false paths in conditionals)
-- Function coverage (which functions were called)
+**PowerShell Implementation:**
+- **PSScriptAnalyzer** - Built-in static analysis with
+customizable rules
+- **Pester's ScriptAnalyzer integration** - Automated best
+practice validation
 
-**PowerShell (Pester):**
-Pester generates code coverage metrics during test execution,
-analyzing covered and missed lines to help identify untested
-branches and edge cases. Pester uses PowerShell's breakpoint
-features to track which commands are executed throughout tests,
- providing command-level coverage equivalent to statement
-coverage.
+**Unique Contribution:**
+Static Code Analysis systematically examines source code
+without executing it, identifying code smells, excessive
+complexity, security vulnerabilities, dead code, and
+control/data flow issues. This layer identifies *where to focus
+ testing efforts* by flagging complex functions (high
+cyclomatic complexity), security-sensitive code paths, and
+maintainability issues.
 
-### Unique Contribution
-This methodology establishes the baseline by identifying **what
- code was executed** during testing. It reveals the "coverage
-gaps" - entire functions, branches, or code blocks that were
-never touched by tests. This is essential as the first layer
-because you cannot have path coverage without statement
-coverage.
-
----
-
-## **2. Mutation Testing (Test Quality Validation)**
-
-### Core Principle
-Mutation testing introduces small modifications to source code
-that simulate potential bugs to verify whether tests can detect
- these changes. Mutation testing evaluates the quality of
-software tests by modifying a program's source code in small
-ways - mutations based on well-defined operators that mimic
-typical programming errors or force creation of valuable tests.
-
-### Application to Python and PowerShell
-
-**Python (mutmut):**
-Mutmut changes operators (like > to >=), modifies constants,
-and alters logic to create mutants, then runs tests to see if
-they detect these changes. Mutmut shows which mutations
-survived (tests still passed) versus which were killed (tests
-failed), indicating test suite effectiveness.
-
-**PowerShell:**
-**Limited availability** - No mature mutation testing
-frameworks exist for PowerShell as of 2025. However, the
-concept can be manually applied to critical code sections, or
-organizations can develop custom mutation scripts for specific
-scenarios.
-
-### Unique Contribution
-While structural coverage tells you **if code was executed**,
-mutation testing reveals **whether your tests actually validate
- correctness**. A test can execute code and have 100% coverage
-while still having weak or missing assertions - surviving
-mutants represent potential bugs that tests failed to catch.
-This methodology identifies the critical gap between "code that
- runs during tests" and "code whose behavior is properly
-validated."
+**Integration with Other Layers:**
+- Functions with high cyclomatic complexity (>10) get
+prioritized for path coverage analysis (Layer 3)
+- Security vulnerabilities flagged by SAST require dedicated
+test cases in structural coverage (Layer 1)
+- Code smells guide mutation testing targets (Layer 2)
 
 ---
 
-## **3. Cyclomatic Complexity and Path Coverage Analysis**
+### **Layer 0.5: Dependency & Component Coverage**
 
-### Core Principle
-Path coverage testing targets every possible execution path in
-a program's control flow graph using cyclomatic complexity as a
- measure to ensure all paths are covered. Cyclomatic complexity
- measures the number of linearly independent paths through
-source code, serving as both an upper bound for branch coverage
- and lower bound for path coverage.
+**Software Composition Analysis (SCA) - Third-Party Risk
+Assessment**
 
-### Application to Python and PowerShell
+**Core Principle:**
+SCA systematically analyzes external, third-party, and
+open-source components used within a codebase, creating a
+Software Bill of Materials (SBOM) and validating security,
+licensing, and maintenance status.
 
-**Python (coverage.py + radon/mccabe):**
-- Use coverage.py's branch coverage as foundation
-- Calculate cyclomatic complexity using tools like radon or
-mccabe
-- Design test cases to match the cyclomatic complexity value,
-ensuring all independent paths are tested
+**Python Implementation:**
+- **Safety** - Checks dependencies against known CVE databases
+- **pip-audit** - Scans Python dependencies for vulnerabilities
+- **Snyk** - Comprehensive SCA with license compliance
+- **OWASP Dependency-Check** - Cross-language dependency
+scanning
 
-**PowerShell (Pester + PSScriptAnalyzer):**
-- Pester's branch coverage tracks different paths through
-conditional statements and loops
-- PSScriptAnalyzer can identify complex functions requiring
-thorough testing
-- Manual path enumeration for critical functions to ensure all
-decision paths are exercised
+**PowerShell Implementation:**
+- **PSDepend** - PowerShell module dependency management
+- Custom scripts to audit PowerShellGallery modules against
+known issues
+- Integration with Snyk or WhiteSource for PowerShell module
+scanning
 
-### Unique Contribution
-This methodology addresses the gap between branch coverage and
-comprehensive path testing. Cyclomatic complexity serves as an
-upper bound for branch coverage but a lower bound for paths
-coverage - meaning you need at least CC number of tests to
-cover all independent paths. This ensures that **all logical
-combinations and execution flows** are tested, not just
-individual branches. It identifies complex code that requires
-more extensive testing and prevents the scenario where you've
-covered all statements but missed critical path interactions.
+**Unique Contribution:**
+SCA generates an SBOM inventory, cross-references components
+against vulnerability databases like NVD, validates license
+compliance, and identifies outdated or unmaintained components.
+ This ensures your testing framework includes validation of
+*third-party risk* - a gap often missed by code-focused
+coverage tools.
+
+**Integration with Other Layers:**
+- Vulnerable dependencies require integration tests verifying
+mitigation (Layer 4)
+- High-risk external libraries need additional
+mocking/isolation in unit tests
+- Generates test cases for dependency upgrade scenarios
 
 ---
 
-## **How They Work Together in a Single Test Execution Cycle**
+### **Layers 1-3: [Your Original Framework]**
 
-1. **Structural Coverage (First Pass):** Identifies untested
-code blocks and branches - the foundation showing where tests
-never reached
+These remain as described:
+1. **Multi-Level Structural Coverage** (Statement + Branch)
+2. **Mutation Testing** (Test Quality Validation)
+3. **Cyclomatic Complexity & Path Coverage** (Logical Flow
+Validation)
 
-2. **Mutation Testing (Second Pass):** Validates that covered
-code is properly tested with meaningful assertions - reveals
-weak tests even with high coverage
+---
 
-3. **Path Coverage Analysis (Third Pass):** Ensures all logical
- combinations through complex decision structures are tested -
-catches interaction bugs between multiple conditions
+### **Layer 4: Operational Validation Coverage**
 
-**Collective Strength:** Together, these three methodologies
-create a progressive refinement approach where each layer
-builds on and validates the previous one, moving from "was code
- executed?" to "did tests verify behavior?" to "were all
-logical paths through complex code exercised?" This
-comprehensive approach identifies coverage gaps at structural,
-behavioral, and logical complexity levels.
-  ⎿  Interrupted · What should Claude do instead?
+**System-Level & Production Environment Testing**
+
+**Core Principle:**
+Operational Validation confirms that software, when used in its
+ intended operational environment, meets the needs and
+expectations of end-users and stakeholders.
+
+**Python Implementation:**
+- **pytest with production fixtures** - E2E test scenarios
+- **Locust/k6** - Load and performance testing
+- **TestContainers** - Docker-based integration testing with
+real dependencies
+- **Schemathesis** - API contract testing
+
+**PowerShell Implementation:**
+- **Pester integration tests** - Test operational scenarios
+- **PSate** - Infrastructure state validation
+- **Operation Validation Framework (OVF)** - Microsoft's
+framework for operational testing
+
+**Unique Contribution:**
+Operational validation includes User Acceptance Testing,
+Operational Qualification verifying functional and
+non-functional requirements under specified operating
+conditions, system and end-to-end testing, and NFR validation
+for performance, reliability, scalability, security, and
+usability.
+
+**Coverage Categories:**
+
+1. **End-to-End Flow Coverage:**
+   - Validate complete business processes from start to finish
+   - Test interactions with external systems (databases, APIs,
+message queues)
+
+2. **Non-Functional Requirement Coverage:**
+   - Performance: Load testing scenarios (concurrent users,
+data volume)
+   - Reliability: Chaos engineering tests (network failures,
+service outages)
+   - Security: Penetration testing,
+authentication/authorization flows
+   - Usability: UI/UX validation in production-like
+environments
+
+3. **Environmental Coverage:**
+   - Test across different OS versions, hardware configurations
+   - Cloud platform variations (AWS vs Azure vs GCP)
+   - Network topology scenarios
+
+4. **Compliance & Regulatory Coverage:**
+   - Audit trail validation
+   - Data retention policy verification
+   - Regulatory requirement fulfillment tests
+
+**Integration with Other Layers:**
+- Operational failures discovered in production trigger new
+unit tests (Layer 1)
+- Performance bottlenecks guide complexity reduction efforts
+(Layer 3)
+- Security findings from pen-testing create new mutation
+operators (Layer 2)
+
+---
+
+## **Unified Execution Strategy**
+
+### **Single Test Cycle Workflow:**
+
+```
+┌─────────────────────────────────────────────────────────┐
+│ LAYER 0: Static Analysis (Pre-Execution)               │
+│ • PSScriptAnalyzer / Prospector                        │
+│ • Identify complexity hotspots & security issues       │
+│ • Generate complexity metrics for path coverage        │
+└────────────────┬────────────────────────────────────────┘
+                 │
+                 ▼
+┌─────────────────────────────────────────────────────────┐
+│ LAYER 0.5: Dependency Analysis (Pre-Execution)         │
+│ • Safety / pip-audit / Snyk                            │
+│ • Generate SBOM                                         │
+│ • Flag vulnerable dependencies requiring tests         │
+└────────────────┬────────────────────────────────────────┘
+                 │
+                 ▼
+┌─────────────────────────────────────────────────────────┐
+│ LAYER 1: Structural Coverage (Test Execution)          │
+│ • coverage.py / Pester CodeCoverage                    │
+│ • Baseline: What code was executed?                    │
+│ • Target: High-complexity functions from Layer 0       │
+└────────────────┬────────────────────────────────────────┘
+                 │
+                 ▼
+┌─────────────────────────────────────────────────────────┐
+│ LAYER 2: Mutation Testing (Test Quality)               │
+│ • mutmut (Python only)                                 │
+│ • Validate: Do tests catch behavior changes?          │
+│ • Focus: Security-critical code from Layer 0           │
+└────────────────┬────────────────────────────────────────┘
+                 │
+                 ▼
+┌─────────────────────────────────────────────────────────┐
+│ LAYER 3: Path Coverage Analysis (Logical Complexity)   │
+│ • Calculate cyclomatic complexity from Layer 0         │
+│ • Design test cases matching CC value                  │
+│ • Verify: All independent paths tested?                │
+└────────────────┬────────────────────────────────────────┘
+                 │
+                 ▼
+┌─────────────────────────────────────────────────────────┐
+│ LAYER 4: Operational Validation (System Testing)       │
+│ • E2E tests with TestContainers / Pester Integration   │
+│ • Performance testing with Locust                      │
+│ • Security testing for vulnerabilities from Layer 0.5  │
+│ • Validate: Works in production environment?           │
+└─────────────────────────────────────────────────────────┘
+```
+
+### **Feedback Loop:**
+- Layer 4 failures → New Layer 1 test cases
+- Layer 2 surviving mutants → Enhance Layer 1 assertions
+- Layer 0 complexity warnings → Additional Layer 3 path tests
+- Layer 0.5 CVEs → Layer 4 integration tests for mitigations
+
+---
+
+## **PowerShell-Specific Adaptations**
+
+Since PowerShell lacks mature mutation testing:
+
+**Alternative Layer 2 Approach:**
+1. **Assertion-Based Testing with Pester's Should Commands:**
+   - Use comprehensive assertions (-Be, -BeOfType, -Match,
+-Contain, -Throw)
+   - Implement negative testing (test what *shouldn't* happen)
+
+2. **Manual Mutation Testing for Critical Functions:**
+   - Create test variants with intentional bugs
+   - Verify tests catch them before removing mutations
+
+3. **Property-Based Testing:**
+   - Use **PSCheck** (if available) or custom property
+generators
+   - Generate random inputs to find edge cases tests miss
+
+---
+
+## **Comprehensive Coverage Metrics**
+
+This 5-layer framework provides:
+
+1. **Structural Metrics:** Line/branch/function coverage (Layer
+ 1)
+2. **Quality Metrics:** Mutation score, surviving mutants
+(Layer 2)
+3. **Complexity Metrics:** Cyclomatic complexity, path coverage
+ (Layers 0 & 3)
+4. **Security Metrics:** SAST findings, CVE count (Layers 0 &
+0.5)
+5. **Operational Metrics:** NFR compliance, E2E success rate
+(Layer 4)
+
+**Result:** A deterministic, audit-trailed test execution that
+identifies gaps at structural, behavioral, logical, security,
+dependency, and operational levels in a single comprehensive
 
 
+---
 
-  Key Decisions Incorporated:
-  - ✅ All three methodologies together (comprehensive scope)
-  - ✅ Python and PowerShell in parallel (validates
-  architecture early)
-  - ✅ CLI-first approach (defer CI integration)
-  - ✅ Location: tools/coverage_analyzer/ (development tool)
+# Implementation Plan
 
-  Plan Highlights:
-  - 5 Independent Workstreams: Core Infrastructure → then WS2
+## Executive Summary
+
+This plan implements a **5-layer progressive test coverage framework** for the AI Development Pipeline.
+
+**Pre-Execution Layers (Shift-Left Security):**
+- Layer 0: Static Analysis (SAST) - Code quality & security
+- Layer 0.5: Software Composition Analysis (SCA) - Dependency vulnerabilities
+
+**Execution Layers (Dynamic Testing):**
+- Layer 1: Structural Coverage - What code was executed
+- Layer 2: Mutation Testing - Whether tests verify correctness
+- Layer 3: Path Coverage - All logical paths exercised
+
+**Post-Execution Layer (Production Readiness):**
+- Layer 4: Operational Validation - System-level NFR testing
+
+**Delivery:** 8 independent workstreams, 7 reusable patterns (EXEC-031 through EXEC-037), 10 implementation phases over 9-10 weeks.
+
+---
+
+## Independent Workstreams: Core Infrastructure → then WS2
   (Structural), WS3 (Mutation), WS4 (Complexity) in parallel →
   WS5 (Reporting/CLI)
   - 4 Reusable Patterns: EXEC-031 (Structural), EXEC-032

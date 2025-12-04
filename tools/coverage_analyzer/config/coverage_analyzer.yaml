@@ -1,0 +1,131 @@
+# Configuration for Coverage Analyzer
+
+# Default configuration for 5-layer coverage analysis
+# Override these settings via CLI arguments or custom config files
+
+# Target settings
+default_language: python
+default_layers:
+  - "0"     # Static Analysis
+  - "0.5"   # SCA
+  - "1"     # Structural Coverage
+  - "2"     # Mutation Testing
+  - "3"     # Path Coverage
+  - "4"     # Operational Validation
+
+# Layer 0: Static Analysis Tools (by language)
+static_analysis_tools:
+  python:
+    - radon        # Complexity & maintainability
+    - prospector   # Multi-tool linting
+    - bandit       # Security scanning
+    - mypy         # Type checking
+  powershell:
+    - psscriptanalyzer
+
+# Layer 0.5: Software Composition Analysis Tools
+sca_tools:
+  python:
+    - safety       # Vulnerability database
+    - pip-audit    # Official Python security scanner
+  powershell:
+    - owasp-dependency-check
+
+# Layer 1: Structural Coverage Tools
+structural_tools:
+  python:
+    - coverage.py
+  powershell:
+    - pester
+
+# Layer 2: Mutation Testing Tools
+mutation_tools:
+  python:
+    - mutmut
+  powershell:
+    - manual  # No mature tools; use manual approach
+
+# Layer 3: Complexity & Path Coverage Tools
+complexity_tools:
+  python:
+    - radon       # Reused from Layer 0
+  powershell:
+    - psscriptanalyzer  # Reused from Layer 0
+
+# Layer 4: Operational Validation Tools
+operational_tools:
+  python:
+    - pytest           # E2E tests
+    - testcontainers   # Integration testing
+    - locust           # Load testing
+    - pytest-benchmark # Performance testing
+  powershell:
+    - pester           # E2E scenarios
+
+# Quality gate thresholds
+quality_gates:
+  # Layer 0: Static Analysis
+  static_analysis:
+    fail_on_critical_security: true
+    max_high_severity_issues: 0
+    min_code_quality_score: 70.0
+
+  # Layer 0.5: SCA
+  sca:
+    fail_on_critical_cve: true
+    max_high_cve: 0
+    min_security_score: 80.0
+
+  # Layer 1: Structural Coverage
+  structural:
+    min_line_coverage: 80.0
+    min_branch_coverage: 70.0
+    min_function_coverage: 80.0
+
+  # Layer 2: Mutation Testing
+  mutation:
+    min_mutation_score: 70.0
+    max_survived_mutants: 10
+
+  # Layer 3: Complexity
+  complexity:
+    max_average_complexity: 10
+    max_function_complexity: 15
+    max_high_complexity_functions: 5
+
+  # Layer 4: Operational
+  operational:
+    min_e2e_pass_rate: 95.0
+    allow_performance_regression: false
+
+# Output settings
+output:
+  default_format: json  # json, html, terminal
+  default_output_dir: ./coverage_reports
+  include_timestamps: true
+  verbose_logging: false
+
+# Performance settings
+performance:
+  command_timeout_seconds: 300
+  max_parallel_adapters: 4
+
+# Tool installation guidance
+tool_installation:
+  python:
+    radon: "pip install radon"
+    prospector: "pip install prospector"
+    bandit: "pip install bandit"
+    mypy: "pip install mypy"
+    safety: "pip install safety"
+    pip-audit: "pip install pip-audit"
+    coverage.py: "pip install coverage"
+    mutmut: "pip install mutmut"
+    testcontainers: "pip install testcontainers"
+    locust: "pip install locust"
+    pytest-benchmark: "pip install pytest-benchmark"
+
+  powershell:
+    psscriptanalyzer: "Install-Module -Name PSScriptAnalyzer"
+    pester: "Install-Module -Name Pester"
+    owasp-dependency-check: "Download from https://owasp.org/www-project-dependency-check/"

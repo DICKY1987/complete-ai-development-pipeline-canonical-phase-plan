@@ -60,6 +60,8 @@ class RoutingDecision:
         candidates: List[str],
         rule_id: Optional[str] = None,
         metadata: Optional[Dict[str, Any]] = None,
+        task_id: Optional[str] = None,
+        run_id: Optional[str] = None,
     ):
         self.task_kind = task_kind
         self.selected_tool = selected_tool
@@ -68,6 +70,8 @@ class RoutingDecision:
         self.rule_id = rule_id
         self.metadata = metadata or {}
         self.timestamp = datetime.now(timezone.utc).isoformat()
+        self.task_id = task_id
+        self.run_id = run_id
 
     def to_dict(self) -> Dict[str, Any]:
         return {
@@ -78,6 +82,8 @@ class RoutingDecision:
             "candidates": self.candidates,
             "rule_id": self.rule_id,
             "metadata": self.metadata,
+            "task_id": self.task_id,
+            "run_id": self.run_id,
         }
 
 
@@ -124,6 +130,8 @@ class TaskRouter:
         risk_tier: Optional[str] = None,
         complexity: Optional[str] = None,
         domain: Optional[str] = None,
+        task_id: Optional[str] = None,
+        run_id: Optional[str] = None,
     ) -> Optional[str]:
         """
         Route a task to the best tool.
@@ -159,6 +167,8 @@ class TaskRouter:
                                 "complexity": complexity,
                                 "domain": domain,
                             },
+                            task_id=task_id,
+                            run_id=run_id,
                         )
                         self.decision_log.append(decision)
                         logger.info(
@@ -178,6 +188,8 @@ class TaskRouter:
                 strategy="fallback",
                 candidates=capable_tools,
                 metadata={"reason": "no_matching_rule"},
+                task_id=task_id,
+                run_id=run_id,
             )
             self.decision_log.append(decision)
             logger.info(f"Routed {task_kind} to {selected} via fallback")

@@ -1,0 +1,74 @@
+name: DOC_ID Validation
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  schedule:
+    - cron: '0 2 * * *'  # Daily at 2 AM UTC
+
+jobs:
+  validate-doc-ids:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pyyaml
+
+    - name: Run doc_id scanner
+      id: scanner
+      run: |
+        python doc_id/doc_id_scanner.py scan
+        python doc_id/doc_id_scanner.py stats
+
+    - name: Validate doc_id coverage
+      id: coverage
+      run: |
+        python doc_id/validate_doc_id_coverage.py --baseline 0.55
+
+    - name: Check for invalid doc_ids
+      id: cleanup
+      run: |
+        python doc_id/cleanup_invalid_doc_ids.py scan --report doc_id/DOC_ID_reports/ci_cleanup_report.json
+
+    - name: Upload coverage report
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: doc-id-reports
+        path: |
+          doc_id/DOC_ID_reports/*.json
+          docs_inventory.jsonl
+
+    - name: Comment PR with results
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const fs = require('fs');
+          const report = JSON.parse(fs.readFileSync('doc_id/DOC_ID_reports/ci_cleanup_report.json', 'utf8'));
+          const body = `## 📋 DOC_ID Validation Report
+
+          - **Malformed**: ${report.summary.malformed}
+          - **Duplicates**: ${report.summary.duplicates}
+          - **Orphaned**: ${report.summary.orphaned}
+
+          ${report.summary.malformed + report.summary.duplicates > 0 ? '⚠️ Issues detected' : '✅ All clear'}`;
+
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: body
+          });
