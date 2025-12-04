@@ -45,7 +45,7 @@ class PreFlightValidator:
             ["git", "status", "--porcelain"],
             cwd=self.repo_root,
             capture_output=True,
-            text=True
+            text=True,
         )
 
         if result.stdout.strip():
@@ -59,9 +59,7 @@ class PreFlightValidator:
     def check_git_worktree_support(self):
         """Check git worktree support"""
         result = subprocess.run(
-            ["git", "worktree", "list"],
-            cwd=self.repo_root,
-            capture_output=True
+            ["git", "worktree", "list"], cwd=self.repo_root, capture_output=True
         )
 
         if result.returncode == 0:
@@ -90,7 +88,7 @@ class PreFlightValidator:
         """Check required command-line tools"""
         tools = {
             "aider": "AI code editor (optional - set tool='codex' in workstreams if missing)",
-            "sqlite3": "SQLite command-line tool"
+            "sqlite3": "SQLite command-line tool",
         }
 
         for tool, description in tools.items():
@@ -99,10 +97,7 @@ class PreFlightValidator:
             else:
                 cmd = ["which", tool]
 
-            result = subprocess.run(
-                cmd,
-                capture_output=True
-            )
+            result = subprocess.run(cmd, capture_output=True)
 
             if result.returncode == 0:
                 print(f"✅ {tool} found")
@@ -146,9 +141,9 @@ class PreFlightValidator:
         for ws_file in ws_files:
             try:
                 data = json.loads(ws_file.read_text())
-                ws_id = data.get('id', ws_file.stem)
+                ws_id = data.get("id", ws_file.stem)
                 all_ids.add(ws_id)
-                graph[ws_id] = data.get('depends_on', [])
+                graph[ws_id] = data.get("depends_on", [])
             except Exception as e:
                 self.warnings.append(f"Could not parse {ws_file.name}: {e}")
                 continue
@@ -196,7 +191,6 @@ class PreFlightValidator:
 
         print("✅ Dependency graph is valid (acyclic)")
 
-
     def check_disk_space(self):
         """Check available disk space"""
         try:
@@ -221,7 +215,7 @@ class PreFlightValidator:
 
     def print_results(self):
         """Print validation results"""
-        print("\n" + "="*70)
+        print("\n" + "=" * 70)
 
         if self.warnings:
             print("\n⚠️  WARNINGS:")
@@ -237,7 +231,7 @@ class PreFlightValidator:
             print("\n✅ All pre-flight checks passed!")
             print("   Ready for multi-agent execution.")
 
-        print("="*70 + "\n")
+        print("=" * 70 + "\n")
 
 
 def main():

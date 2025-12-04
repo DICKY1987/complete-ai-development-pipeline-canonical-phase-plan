@@ -8,6 +8,7 @@ Output:
 - reports/registry_backfill_plan.json containing inferred module ownership and
   artifact_kind per file to drive registry population before moving files.
 """
+
 # DOC_ID: DOC-SCRIPT-SCRIPTS-GENERATE-REGISTRY-BACKFILL-PLAN-211
 # DOC_ID: DOC-SCRIPT-SCRIPTS-GENERATE-REGISTRY-BACKFILL-PLAN-148
 
@@ -63,7 +64,9 @@ def load_inventory(inventory_path: Path) -> List[Dict]:
     return modules
 
 
-def best_module_for_path(path_str: str, modules: List[Dict]) -> Tuple[Optional[str], Optional[str]]:
+def best_module_for_path(
+    path_str: str, modules: List[Dict]
+) -> Tuple[Optional[str], Optional[str]]:
     normalized = normalize_path(path_str)
     best_len = -1
     best_module: Optional[Dict] = None
@@ -91,7 +94,11 @@ def infer_artifact_kind(path: Path) -> str:
 
     if "/tests/" in path_str or name.startswith("test_"):
         return "unit_test"
-    if "schema" in path_str or suffix in {".schema.json", ".json"} and "schema" in path_str:
+    if (
+        "schema" in path_str
+        or suffix in {".schema.json", ".json"}
+        and "schema" in path_str
+    ):
         return "schema"
     if "config" in path_str or suffix in {".yaml", ".yml", ".json"}:
         return "config"
@@ -155,8 +162,12 @@ def build_plan(root: Path, inventory: Path, limit: Optional[int]) -> Dict:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Generate registry backfill plan from inventory and file tree.")
-    parser.add_argument("--root", type=Path, default=Path("."), help="Repository root to scan.")
+    parser = argparse.ArgumentParser(
+        description="Generate registry backfill plan from inventory and file tree."
+    )
+    parser.add_argument(
+        "--root", type=Path, default=Path("."), help="Repository root to scan."
+    )
     parser.add_argument(
         "--inventory",
         type=Path,

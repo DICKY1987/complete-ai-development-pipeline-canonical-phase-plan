@@ -28,4 +28,3 @@ def test_file_hash_cache_roundtrip(tmp_path: Path) -> None:
     # Modify file -> changed
     f.write_text("hello world", encoding="utf-8")
     assert cache2.has_changed(f) is True
-

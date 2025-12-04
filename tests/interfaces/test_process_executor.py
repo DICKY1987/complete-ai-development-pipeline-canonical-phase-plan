@@ -15,7 +15,8 @@ from core.execution.subprocess_executor import SubprocessExecutor
 
 class TestProcessExecutorProtocol:
     """Test ProcessExecutor protocol compliance."""
-# DOC_ID: DOC-TEST-INTERFACES-TEST-PROCESS-EXECUTOR-123
+
+    # DOC_ID: DOC-TEST-INTERFACES-TEST-PROCESS-EXECUTOR-123
 
     def test_subprocess_executor_implements_protocol(self):
         """SubprocessExecutor implements ProcessExecutor protocol."""
@@ -48,11 +49,11 @@ class TestSubprocessExecutor:
         """Run simple command successfully."""
         executor = SubprocessExecutor()
         # Use python -c instead of echo (works on Windows)
-        result = executor.run(['python', '-c', 'print("test")'])
+        result = executor.run(["python", "-c", 'print("test")'])
 
         assert result.success
         assert result.exit_code == 0
-        assert 'test' in result.stdout
+        assert "test" in result.stdout
         assert result.duration_s > 0
         assert not result.timed_out
         assert not result.dry_run
@@ -63,7 +64,9 @@ class TestSubprocessExecutor:
         start = time.time()
 
         # Use a command that sleeps longer than timeout
-        result = executor.run(['python', '-c', 'import time; time.sleep(10)'], timeout=1)
+        result = executor.run(
+            ["python", "-c", "import time; time.sleep(10)"], timeout=1
+        )
 
         duration = time.time() - start
         assert duration < 3  # Should be killed quickly
@@ -73,30 +76,30 @@ class TestSubprocessExecutor:
     def test_dry_run_mode(self):
         """Dry-run mode doesn't execute commands."""
         executor = SubprocessExecutor(dry_run=True)
-        result = executor.run(['rm', '-rf', '/'])  # Dangerous command, safe in dry-run
+        result = executor.run(["rm", "-rf", "/"])  # Dangerous command, safe in dry-run
 
         assert result.dry_run is True
         assert result.success
-        assert '[DRY-RUN]' in result.stdout
-        assert 'rm -rf /' in result.stdout
+        assert "[DRY-RUN]" in result.stdout
+        assert "rm -rf /" in result.stdout
 
     def test_check_raises_on_failure(self):
         """check=True raises ProcessExecutionError on failure."""
         executor = SubprocessExecutor()
 
         with pytest.raises(ProcessExecutionError) as exc_info:
-            executor.run(['python', '-c', 'import sys; sys.exit(1)'], check=True)
+            executor.run(["python", "-c", "import sys; sys.exit(1)"], check=True)
 
         assert exc_info.value.result.exit_code == 1
 
     def test_run_async(self):
         """Async execution returns handle."""
         executor = SubprocessExecutor()
-        handle = executor.run_async(['python', '-c', 'print("async test")'])
+        handle = executor.run_async(["python", "-c", 'print("async test")'])
 
         assert isinstance(handle, ProcessHandle)
         assert handle.pid > 0
-        assert handle.command == ['python', '-c', 'print("async test")']
+        assert handle.command == ["python", "-c", 'print("async test")']
         assert handle.started_at > 0
 
         # Clean up
@@ -106,7 +109,7 @@ class TestSubprocessExecutor:
     def test_kill_async_process(self):
         """Kill terminates async process."""
         executor = SubprocessExecutor()
-        handle = executor.run_async(['python', '-c', 'import time; time.sleep(100)'])
+        handle = executor.run_async(["python", "-c", "import time; time.sleep(100)"])
 
         time.sleep(0.5)  # Let process start
         executor.kill(handle)
@@ -131,7 +134,7 @@ class TestProcessExecutorEdgeCases:
     def test_nonexistent_command(self):
         """Nonexistent command is handled gracefully."""
         executor = SubprocessExecutor()
-        result = executor.run(['nonexistent-command-xyz-123'])
+        result = executor.run(["nonexistent-command-xyz-123"])
 
         assert not result.success
         assert result.exit_code == -1
@@ -140,7 +143,9 @@ class TestProcessExecutorEdgeCases:
     def test_custom_cwd(self):
         """Custom working directory is respected."""
         executor = SubprocessExecutor()
-        result = executor.run(['python', '-c', 'import os; print(os.getcwd())'], cwd=Path.cwd())
+        result = executor.run(
+            ["python", "-c", "import os; print(os.getcwd())"], cwd=Path.cwd()
+        )
 
         assert result.success
         assert str(Path.cwd()) in result.stdout

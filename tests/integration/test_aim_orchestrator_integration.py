@@ -3,6 +3,7 @@
 Tests the full flow of capability-based routing through the orchestrator,
 including fallback behavior and backward compatibility.
 """
+
 # DOC_ID: DOC-TEST-INTEGRATION-TEST-AIM-ORCHESTRATOR-119
 
 import json
@@ -15,7 +16,9 @@ from core.engine.aim_integration import execute_with_aim, is_aim_available
 from core.engine.tools import ToolResult
 
 # Skip all tests in this module - AIM not yet implemented (Phase 4)
-pytestmark = pytest.mark.skip(reason="AIM module not yet implemented - Phase 4 roadmap item")
+pytestmark = pytest.mark.skip(
+    reason="AIM module not yet implemented - Phase 4 roadmap item"
+)
 
 
 class TestAIMIntegration:
@@ -43,15 +46,15 @@ class TestAIMIntegration:
                 "stderr": "",
                 "started_at": "2025-11-20T21:00:00Z",
                 "completed_at": "2025-11-20T21:00:30Z",
-                "duration_sec": 30.0
-            }
+                "duration_sec": 30.0,
+            },
         }
 
         result = execute_with_aim(
             capability="code_generation",
             payload={"files": ["test.py"], "prompt": "Add tests"},
             run_id="test-run",
-            ws_id="ws-test"
+            ws_id="ws-test",
         )
 
         assert isinstance(result, ToolResult)
@@ -68,7 +71,7 @@ class TestAIMIntegration:
         mock_route.return_value = {
             "success": False,
             "message": "All tools failed",
-            "content": None
+            "content": None,
         }
 
         # Mock successful fallback tool
@@ -82,7 +85,7 @@ class TestAIMIntegration:
             started_at="2025-11-20T21:00:00Z",
             completed_at="2025-11-20T21:00:10Z",
             duration_sec=10.0,
-            success=True
+            success=True,
         )
 
         result = execute_with_aim(
@@ -90,7 +93,7 @@ class TestAIMIntegration:
             payload={"files": ["test.py"]},
             fallback_tool="aider",
             run_id="test-run",
-            ws_id="ws-test"
+            ws_id="ws-test",
         )
 
         assert result.success is True
@@ -107,13 +110,13 @@ class TestAIMIntegration:
         mock_route.return_value = {
             "success": False,
             "message": "Tool not found",
-            "content": None
+            "content": None,
         }
 
         result = execute_with_aim(
             capability="code_generation",
             payload={"files": ["test.py"]},
-            fallback_tool=None  # No fallback
+            fallback_tool=None,  # No fallback
         )
 
         assert isinstance(result, ToolResult)
@@ -128,14 +131,11 @@ class TestAIMIntegration:
 
         # Mock capability not found
         mock_route.side_effect = AIMCapabilityNotFoundError(
-            "invalid_capability",
-            available_capabilities=["code_generation", "linting"]
+            "invalid_capability", available_capabilities=["code_generation", "linting"]
         )
 
         result = execute_with_aim(
-            capability="invalid_capability",
-            payload={},
-            run_id="test-run"
+            capability="invalid_capability", payload={}, run_id="test-run"
         )
 
         assert isinstance(result, ToolResult)
@@ -150,16 +150,14 @@ class TestAIMIntegration:
         mock_route.return_value = {
             "success": False,
             "message": "AIM routing failed",
-            "content": None
+            "content": None,
         }
 
         # Mock fallback failure
         mock_run_tool.side_effect = Exception("Fallback tool error")
 
         result = execute_with_aim(
-            capability="code_generation",
-            payload={},
-            fallback_tool="aider"
+            capability="code_generation", payload={}, fallback_tool="aider"
         )
 
         assert result.success is False
@@ -172,16 +170,11 @@ class TestAIMIntegration:
         mock_route.return_value = {
             "success": True,
             "message": "OK",
-            "content": {
-                "exit_code": 0,
-                "stdout": "",
-                "stderr": ""
-            }
+            "content": {"exit_code": 0, "stdout": "", "stderr": ""},
         }
 
         execute_with_aim(
-            capability="code_generation",
-            payload={"timeout_ms": 120000}  # 2 minutes
+            capability="code_generation", payload={"timeout_ms": 120000}  # 2 minutes
         )
 
         # Verify timeout was converted to seconds
@@ -204,23 +197,16 @@ class TestOrchestratorAIMIntegration:
         mock_route.return_value = {
             "success": True,
             "message": "OK",
-            "content": {
-                "exit_code": 0,
-                "stdout": "Success",
-                "stderr": ""
-            }
+            "content": {"exit_code": 0, "stdout": "Success", "stderr": ""},
         }
 
         # Example workstream with capability
         bundle_obj = {
             "id": "ws-test",
             "capability": "code_generation",
-            "capability_payload": {
-                "prompt": "Add tests",
-                "timeout_ms": 60000
-            },
+            "capability_payload": {"prompt": "Add tests", "timeout_ms": 60000},
             "files_scope": ["src/test.py"],
-            "tasks": ["Add unit tests"]
+            "tasks": ["Add unit tests"],
         }
 
         # Verify capability is present
@@ -237,7 +223,9 @@ class TestAIMEndToEndWithOrchestrator:
         import jsonschema
 
         # Load schema
-        schema_path = Path(__file__).parent.parent.parent / "schema" / "workstream.schema.json"
+        schema_path = (
+            Path(__file__).parent.parent.parent / "schema" / "workstream.schema.json"
+        )
         with open(schema_path) as f:
             schema = json.load(f)
 
@@ -254,8 +242,8 @@ class TestAIMEndToEndWithOrchestrator:
             "capability_payload": {
                 "prompt": "Add unit tests",
                 "timeout_ms": 60000,
-                "max_retries": 1
-            }
+                "max_retries": 1,
+            },
         }
 
         # Should validate without errors

@@ -20,12 +20,17 @@ def test_run_many_respects_dependencies(monkeypatch):
     def fake_load_and_validate_bundles():
         return bundles
 
-    def fake_run_workstream(run_id: str, ws_id: str, b: Any, context=None) -> Dict[str, Any]:
+    def fake_run_workstream(
+        run_id: str, ws_id: str, b: Any, context=None
+    ) -> Dict[str, Any]:
         called.append(ws_id)
         return {"final_status": "ok", "ws_id": ws_id, "run_id": run_id}
 
     import src.orchestrator.parallel as par
-    monkeypatch.setattr(par._bundles, "load_and_validate_bundles", fake_load_and_validate_bundles)
+
+    monkeypatch.setattr(
+        par._bundles, "load_and_validate_bundles", fake_load_and_validate_bundles
+    )
     monkeypatch.setattr(par._single, "run_workstream", fake_run_workstream)
 
     res = par.run_many(["A", "B", "C"], max_workers=2)
@@ -39,6 +44,7 @@ def test_run_many_respects_dependencies(monkeypatch):
 def test_run_many_missing_workstream(monkeypatch):
     bundles = [_make_bundle("A")]
     import src.orchestrator.parallel as par
+
     monkeypatch.setattr(par._bundles, "load_and_validate_bundles", lambda: bundles)
 
     with pytest.raises(ValueError):
@@ -49,6 +55,7 @@ def test_run_many_cycle_detection(monkeypatch):
     # Provided set has a cycle A<->B
     bundles = [_make_bundle("A", ["B"]), _make_bundle("B", ["A"])]
     import src.orchestrator.parallel as par
+
     monkeypatch.setattr(par._bundles, "load_and_validate_bundles", lambda: bundles)
     # run_workstream should never be called; still mock to be safe
     monkeypatch.setattr(par._single, "run_workstream", lambda *a, **k: {})

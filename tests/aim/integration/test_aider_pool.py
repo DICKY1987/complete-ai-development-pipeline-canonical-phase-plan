@@ -9,6 +9,7 @@ Tests process pool with actual aider subprocess to validate:
 Note: These tests require aider to be installed.
 Skip if aider is not available.
 """
+
 # DOC_ID: DOC-TEST-AIM-INTEGRATION-AIDER-001
 
 import pytest
@@ -19,7 +20,9 @@ from pathlib import Path
 from aim.bridge import ToolProcessPool, load_aim_registry
 
 # Skip all tests in this module - AIM not yet implemented (Phase 4)
-pytestmark = pytest.mark.skip(reason="AIM module not yet implemented - Phase 4 roadmap item")
+pytestmark = pytest.mark.skip(
+    reason="AIM module not yet implemented - Phase 4 roadmap item"
+)
 
 
 def _aider_installed() -> bool:
@@ -42,7 +45,7 @@ def _get_test_registry():
         "tools": {
             "aider": {
                 "detectCommands": [["aider", "--yes-always"]],
-                "capabilities": ["code_generation"]
+                "capabilities": ["code_generation"],
             }
         }
     }
@@ -156,7 +159,7 @@ class TestAiderPoolIntegration:
             commands = [
                 "/help",
                 "/tokens",
-                "/exit"  # Use /exit instead of /quit for safety
+                "/exit",  # Use /exit instead of /quit for safety
             ]
 
             for i, cmd in enumerate(commands):
@@ -171,7 +174,9 @@ class TestAiderPoolIntegration:
                 responses.append(resp)
 
             # Just verify pool is functional (responses may vary)
-            print(f"Concurrent responses: {[r[:30] if r else 'None' for r in responses]}")
+            print(
+                f"Concurrent responses: {[r[:30] if r else 'None' for r in responses]}"
+            )
             assert len(responses) == 3  # Got response slots (even if None)
 
         finally:

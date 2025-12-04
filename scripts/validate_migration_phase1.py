@@ -7,6 +7,7 @@ No hallucination - all checks use exit codes and file system verification.
 Usage:
     python scripts/validate_migration_phase1.py
 """
+
 # DOC_ID: DOC-SCRIPT-SCRIPTS-VALIDATE-MIGRATION-PHASE1-242
 # DOC_ID: DOC-SCRIPT-SCRIPTS-VALIDATE-MIGRATION-PHASE1-179
 
@@ -41,12 +42,12 @@ class InventoryExistsGate(ValidationGate):
             return False, "MODULES_INVENTORY.yaml not found"
 
         try:
-            data = yaml.safe_load(inventory_path.read_text(encoding='utf-8'))
+            data = yaml.safe_load(inventory_path.read_text(encoding="utf-8"))
 
-            if 'modules' not in data:
+            if "modules" not in data:
                 return False, "Inventory missing 'modules' key"
 
-            module_count = len(data['modules'])
+            module_count = len(data["modules"])
             return True, f"Inventory valid with {module_count} modules"
 
         except yaml.YAMLError as e:
@@ -67,10 +68,11 @@ class SchemaValidGate(ValidationGate):
 
         try:
             import json
-            schema = json.loads(schema_path.read_text(encoding='utf-8'))
+
+            schema = json.loads(schema_path.read_text(encoding="utf-8"))
 
             # Check required top-level keys
-            required_keys = ['$schema', 'type', 'properties']
+            required_keys = ["$schema", "type", "properties"]
             missing = [k for k in required_keys if k not in schema]
 
             if missing:
@@ -89,9 +91,7 @@ class TemplatesExistGate(ValidationGate):
         super().__init__("Templates Exist")
 
     def check(self) -> Tuple[bool, str]:
-        required_templates = [
-            "templates/module.manifest.template.yaml"
-        ]
+        required_templates = ["templates/module.manifest.template.yaml"]
 
         missing = []
         for template in required_templates:
@@ -114,7 +114,7 @@ class ScriptsExecutableGate(ValidationGate):
         required_scripts = [
             "scripts/generate_module_inventory.py",
             "scripts/template_renderer.py",
-            "scripts/validate_modules.py"
+            "scripts/validate_modules.py",
         ]
 
         missing = []
@@ -139,15 +139,15 @@ class NoTODOsGate(ValidationGate):
         critical_files = [
             "scripts/generate_module_inventory.py",
             "scripts/template_renderer.py",
-            "schema/module.schema.json"
+            "schema/module.schema.json",
         ]
 
         todos_found = []
         for file_path in critical_files:
             path = Path(file_path)
             if path.exists():
-                content = path.read_text(encoding='utf-8')
-                if '# TODO' in content or '// TODO' in content:
+                content = path.read_text(encoding="utf-8")
+                if "# TODO" in content or "// TODO" in content:
                     todos_found.append(file_path)
 
         if todos_found:
@@ -166,7 +166,7 @@ class PythonSyntaxGate(ValidationGate):
         python_files = [
             "scripts/generate_module_inventory.py",
             "scripts/template_renderer.py",
-            "scripts/validate_modules.py"
+            "scripts/validate_modules.py",
         ]
 
         errors = []
@@ -174,7 +174,7 @@ class PythonSyntaxGate(ValidationGate):
             result = subprocess.run(
                 [sys.executable, "-m", "py_compile", py_file],
                 capture_output=True,
-                text=True
+                text=True,
             )
 
             if result.returncode != 0:
@@ -217,7 +217,7 @@ def run_validation() -> int:
         ScriptsExecutableGate(),
         NoTODOsGate(),
         PythonSyntaxGate(),
-        ModulesDirectoryGate()
+        ModulesDirectoryGate(),
     ]
 
     print("🔍 Running Phase 1 Validation Gates...\n")
@@ -237,7 +237,7 @@ def run_validation() -> int:
             print(f"   Exception: {e}")
 
     # Summary
-    print("\n" + "="*60)
+    print("\n" + "=" * 60)
     passed_count = sum(1 for _, passed, _ in results if passed)
     total_count = len(results)
 

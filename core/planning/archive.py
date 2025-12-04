@@ -12,4 +12,3 @@ def auto_archive(path: Path, dest_dir: Path) -> Path:
         out.unlink()
     shutil.make_archive(str(out.with_suffix("")), "zip", path)
     return out
-

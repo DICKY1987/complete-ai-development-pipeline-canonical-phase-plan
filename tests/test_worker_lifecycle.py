@@ -7,12 +7,10 @@ from modules.core_engine.m010001_worker import Worker, WorkerState, WorkerPool
 
 def test_worker_creation():
     """Test worker instance creation."""
-# DOC_ID: DOC-TEST-TESTS-TEST-WORKER-LIFECYCLE-109
-# DOC_ID: DOC-TEST-TESTS-TEST-WORKER-LIFECYCLE-070
+    # DOC_ID: DOC-TEST-TESTS-TEST-WORKER-LIFECYCLE-109
+    # DOC_ID: DOC-TEST-TESTS-TEST-WORKER-LIFECYCLE-070
     worker = Worker(
-        worker_id="test-worker-1",
-        adapter_type="aider",
-        state=WorkerState.IDLE
+        worker_id="test-worker-1", adapter_type="aider", state=WorkerState.IDLE
     )
 
     assert worker.worker_id == "test-worker-1"
@@ -124,7 +122,9 @@ def test_heartbeat_check(worker_pool):
     assert len(stale) == 0
 
     # Manually set old heartbeat
-    pool.workers[worker.worker_id].heartbeat_at = datetime.now(timezone.utc) - timedelta(seconds=400)
+    pool.workers[worker.worker_id].heartbeat_at = datetime.now(
+        timezone.utc
+    ) - timedelta(seconds=400)
 
     # Now should be stale
     stale = pool.check_heartbeats(timeout_sec=300)

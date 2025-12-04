@@ -156,7 +156,7 @@ def test_filescope_overlap_raises_from_cli(tmp_path: Path):
             "gate": 1,
             "files_scope": ["src/shared.py"],
             "tasks": ["A"],
-            "tool": "aider"
+            "tool": "aider",
         },
     )
     write_bundle(
@@ -168,7 +168,7 @@ def test_filescope_overlap_raises_from_cli(tmp_path: Path):
             "gate": 1,
             "files_scope": ["src/shared.py"],
             "tasks": ["B"],
-            "tool": "aider"
+            "tool": "aider",
         },
     )
 
@@ -195,9 +195,8 @@ def test_schema_validation_errors(tmp_path: Path):
             "gate": 1,
             "files_scope": ["f"],
             "tasks": "should-be-array",
-            "tool": "aider"
+            "tool": "aider",
         },
     )
     with pytest.raises(ws.BundleValidationError):
         ws.load_and_validate_bundles()
-

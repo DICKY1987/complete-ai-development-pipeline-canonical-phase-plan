@@ -12,6 +12,7 @@ Usage:
 
     output = render_template('templates/module.manifest.template.yaml', context)
 """
+
 # DOC_ID: DOC-SCRIPT-SCRIPTS-TEMPLATE-RENDERER-234
 # DOC_ID: DOC-SCRIPT-SCRIPTS-TEMPLATE-RENDERER-171
 
@@ -40,7 +41,7 @@ def render_template(template_path: str, context: Dict[str, Any]) -> str:
     if not template_file.exists():
         raise FileNotFoundError(f"Template not found: {template_path}")
 
-    template = template_file.read_text(encoding='utf-8')
+    template = template_file.read_text(encoding="utf-8")
 
     # Render template
     result = template
@@ -52,9 +53,9 @@ def render_template(template_path: str, context: Dict[str, Any]) -> str:
             if all(isinstance(item, str) for item in value):
                 # List of strings - render as YAML list
                 if value:
-                    value_str = '\n'.join(f'  - "{item}"' for item in value)
+                    value_str = "\n".join(f'  - "{item}"' for item in value)
                 else:
-                    value_str = '[]'
+                    value_str = "[]"
             else:
                 value_str = str(value)
         elif isinstance(value, dict):
@@ -91,20 +92,24 @@ def generate_code_artifacts_yaml(files: List[str], ulid_prefix: str) -> str:
         new_name = f"{ulid_prefix}_{file_name}"
 
         artifact = {
-            'path': new_name,
-            'ulid': artifact_ulid,
-            'entry_point': i == 0  # First file is entry point
+            "path": new_name,
+            "ulid": artifact_ulid,
+            "entry_point": i == 0,  # First file is entry point
         }
 
         # Format as YAML
-        artifacts.append(f"""    - path: "{artifact['path']}"
+        artifacts.append(
+            f"""    - path: "{artifact['path']}"
       ulid: "{artifact['ulid']}"
-      entry_point: {str(artifact['entry_point']).lower()}""")
+      entry_point: {str(artifact['entry_point']).lower()}"""
+        )
 
-    return '\n'.join(artifacts) if artifacts else '    []'
+    return "\n".join(artifacts) if artifacts else "    []"
 
 
-def generate_import_patterns_yaml(module_id: str, files: List[str], ulid_prefix: str) -> str:
+def generate_import_patterns_yaml(
+    module_id: str, files: List[str], ulid_prefix: str
+) -> str:
     """
     Generate YAML import patterns section.
 
@@ -123,10 +128,10 @@ def generate_import_patterns_yaml(module_id: str, files: List[str], ulid_prefix:
         file_name = file_path_obj.stem  # Without extension
 
         # Old import pattern
-        old_import = file_path_obj.as_posix().replace('/', '.').replace('.py', '')
+        old_import = file_path_obj.as_posix().replace("/", ".").replace(".py", "")
 
         # New import pattern
-        new_module_path = module_id.replace('-', '_')
+        new_module_path = module_id.replace("-", "_")
         new_file = f"{ulid_prefix}_{file_name}"
 
         pattern = f"""  - pattern: "from {old_import} import"
@@ -135,7 +140,7 @@ def generate_import_patterns_yaml(module_id: str, files: List[str], ulid_prefix:
 
         patterns.append(pattern)
 
-    return '\n'.join(patterns) if patterns else '  []'
+    return "\n".join(patterns) if patterns else "  []"
 
 
 def render_module_manifest(module_data: Dict[str, Any]) -> str:
@@ -148,40 +153,38 @@ def render_module_manifest(module_data: Dict[str, Any]) -> str:
     Returns:
         Rendered manifest YAML
     """
-    ulid_prefix = module_data['ulid_prefix']
-    files = module_data.get('files', [])
+    ulid_prefix = module_data["ulid_prefix"]
+    files = module_data.get("files", [])
 
     # Build context
     context = {
-        'module_id': module_data['id'],
-        'ulid_prefix': ulid_prefix,
-        'purpose': module_data.get('name', 'Module purpose'),
-        'layer': module_data['layer'],
-        'dependencies': module_data.get('dependencies', []),
-        'created_date': datetime.now().isoformat() + 'Z',
-        'code_artifacts': generate_code_artifacts_yaml(files, ulid_prefix),
-        'import_patterns': generate_import_patterns_yaml(
-            module_data['id'],
-            files,
-            ulid_prefix
-        )
+        "module_id": module_data["id"],
+        "ulid_prefix": ulid_prefix,
+        "purpose": module_data.get("name", "Module purpose"),
+        "layer": module_data["layer"],
+        "dependencies": module_data.get("dependencies", []),
+        "created_date": datetime.now().isoformat() + "Z",
+        "code_artifacts": generate_code_artifacts_yaml(files, ulid_prefix),
+        "import_patterns": generate_import_patterns_yaml(
+            module_data["id"], files, ulid_prefix
+        ),
     }
 
-    return render_template('templates/module.manifest.template.yaml', context)
+    return render_template("templates/module.manifest.template.yaml", context)
 
 
 if __name__ == "__main__":
     # Test with sample data
     test_context = {
-        'module_id': 'test-module',
-        'ulid_prefix': '01TEST',
-        'purpose': 'Test module',
-        'layer': 'domain',
-        'dependencies': ['dep1', 'dep2'],
-        'created_date': '2025-11-25T22:00:00Z',
-        'code_artifacts': '    - path: "01TEST_test.py"\n      ulid: "01TEST00000000000000000001"',
-        'import_patterns': '  - pattern: "from test import"\n    description: "Test import"'
+        "module_id": "test-module",
+        "ulid_prefix": "01TEST",
+        "purpose": "Test module",
+        "layer": "domain",
+        "dependencies": ["dep1", "dep2"],
+        "created_date": "2025-11-25T22:00:00Z",
+        "code_artifacts": '    - path: "01TEST_test.py"\n      ulid: "01TEST00000000000000000001"',
+        "import_patterns": '  - pattern: "from test import"\n    description: "Test import"',
     }
 
-    result = render_template('templates/module.manifest.template.yaml', test_context)
+    result = render_template("templates/module.manifest.template.yaml", test_context)
     print(result)

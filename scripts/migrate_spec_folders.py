@@ -15,6 +15,7 @@ This script:
 Usage:
     python scripts/migrate_spec_folders.py [--dry-run] [--backup]
 """
+
 # DOC_ID: DOC-SCRIPT-SCRIPTS-MIGRATE-SPEC-FOLDERS-218
 # DOC_ID: DOC-SCRIPT-SCRIPTS-MIGRATE-SPEC-FOLDERS-155
 
@@ -31,14 +32,12 @@ MIGRATION_MAP = {
     "openspec/specs": "specifications/content",
     "openspec/changes": "specifications/changes",
     "openspec/archive": "specifications/archive",
-
     # spec tools
     "spec/tools/spec_indexer": "specifications/tools/indexer",
     "spec/tools/spec_resolver": "specifications/tools/resolver",
     "spec/tools/spec_guard": "specifications/tools/guard",
     "spec/tools/spec_patcher": "specifications/tools/patcher",
     "spec/tools/spec_renderer": "specifications/tools/renderer",
-
     # Bridge documentation
     "openspec/OPENSPEC_BRIDGE_SUMMARY.md": "specifications/bridge/BRIDGE_SUMMARY.md",
     "openspec/project.md": "specifications/bridge/project_conventions.md",
@@ -158,7 +157,9 @@ def update_imports(root: Path, dry_run: bool = False) -> List[Tuple[Path, int]]:
             for old_import, new_import in IMPORT_REPLACEMENTS:
                 if old_import in content:
                     content = content.replace(old_import, new_import)
-                    changes += content.count(new_import) - original_content.count(new_import)
+                    changes += content.count(new_import) - original_content.count(
+                        new_import
+                    )
 
             if changes > 0:
                 if not dry_run:
@@ -295,6 +296,7 @@ def create_gitignore(root: Path, dry_run: bool = False) -> None:
 def create_backup(root: Path) -> Path:
     """Create backup of old directories."""
     import datetime
+
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     backup_dir = root / f".migration_backup_{timestamp}"
     backup_dir.mkdir(exist_ok=True)
@@ -312,7 +314,9 @@ def create_backup(root: Path) -> Path:
     return backup_dir
 
 
-def generate_report(root: Path, migrated: Dict[str, str], updated_files: List[Tuple[Path, int]]) -> str:
+def generate_report(
+    root: Path, migrated: Dict[str, str], updated_files: List[Tuple[Path, int]]
+) -> str:
     """Generate migration report."""
     report = []
     report.append("=" * 70)
@@ -328,7 +332,9 @@ def generate_report(root: Path, migrated: Dict[str, str], updated_files: List[Tu
         report.append("MIGRATION DETAILS:")
         for src, dest in migrated.items():
             src_rel = Path(src).relative_to(root) if root in Path(src).parents else src
-            dest_rel = Path(dest).relative_to(root) if root in Path(dest).parents else dest
+            dest_rel = (
+                Path(dest).relative_to(root) if root in Path(dest).parents else dest
+            )
             report.append(f"  {src_rel} → {dest_rel}")
         report.append("")
 
@@ -355,9 +361,19 @@ def generate_report(root: Path, migrated: Dict[str, str], updated_files: List[Tu
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Migrate spec folders to unified structure")
-    parser.add_argument("--dry-run", action="store_true", help="Show what would be done without making changes")
-    parser.add_argument("--backup", action="store_true", help="Create backup of old directories before migration")
+    parser = argparse.ArgumentParser(
+        description="Migrate spec folders to unified structure"
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Show what would be done without making changes",
+    )
+    parser.add_argument(
+        "--backup",
+        action="store_true",
+        help="Create backup of old directories before migration",
+    )
     args = parser.parse_args()
 
     root = get_repo_root()

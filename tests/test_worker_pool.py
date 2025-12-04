@@ -2,6 +2,7 @@
 Integration tests for WorkerPool (Phase 4B)
 Tests worker pool operations, job execution, and concurrency.
 """
+
 # DOC_ID: DOC-TEST-TESTS-TEST-WORKER-POOL-110
 # DOC_ID: DOC-TEST-TESTS-TEST-WORKER-POOL-071
 import pytest
@@ -31,23 +32,16 @@ def queue(temp_db):
 def mock_orchestrator():
     """Create mock orchestrator"""
     orchestrator = Mock()
-    orchestrator.run_job_dict = Mock(return_value=JobResult(
-        success=True,
-        exit_code=0,
-        stdout="Success",
-        stderr=""
-    ))
+    orchestrator.run_job_dict = Mock(
+        return_value=JobResult(success=True, exit_code=0, stdout="Success", stderr="")
+    )
     return orchestrator
 
 
 @pytest.fixture
 def worker_pool(queue, mock_orchestrator):
     """Create WorkerPool instance"""
-    return WorkerPool(
-        queue=queue,
-        worker_count=2,
-        orchestrator=mock_orchestrator
-    )
+    return WorkerPool(queue=queue, worker_count=2, orchestrator=mock_orchestrator)
 
 
 @pytest.mark.asyncio
@@ -93,16 +87,11 @@ async def test_stop_workers_force(worker_pool):
 async def test_worker_executes_job(queue, mock_orchestrator):
     """Test worker picks up and executes job"""
     # Create worker pool
-    pool = WorkerPool(
-        queue=queue,
-        worker_count=1,
-        orchestrator=mock_orchestrator
-    )
+    pool = WorkerPool(queue=queue, worker_count=1, orchestrator=mock_orchestrator)
 
     # Submit job
     job = JobWrapper(
-        job_id="exec-test",
-        job_data={"tool": "aider", "command": {"exe": "aider"}}
+        job_id="exec-test", job_data={"tool": "aider", "command": {"exe": "aider"}}
     )
     await queue.submit(job)
 
@@ -117,7 +106,7 @@ async def test_worker_executes_job(queue, mock_orchestrator):
 
     # Job should be completed
     stats = queue.get_stats()
-    assert stats['completed'] >= 1 or stats['running'] >= 0
+    assert stats["completed"] >= 1 or stats["running"] >= 0
 
 
 @pytest.mark.asyncio
@@ -125,25 +114,14 @@ async def test_worker_handles_job_failure(queue):
     """Test worker handles job execution failure"""
     # Create orchestrator that fails
     failing_orchestrator = Mock()
-    failing_orchestrator.run_job_dict = Mock(return_value=JobResult(
-        success=False,
-        exit_code=1,
-        stdout="",
-        stderr="Error"
-    ))
-
-    pool = WorkerPool(
-        queue=queue,
-        worker_count=1,
-        orchestrator=failing_orchestrator
+    failing_orchestrator.run_job_dict = Mock(
+        return_value=JobResult(success=False, exit_code=1, stdout="", stderr="Error")
     )
+
+    pool = WorkerPool(queue=queue, worker_count=1, orchestrator=failing_orchestrator)
 
     # Submit job with limited retries
-    job = JobWrapper(
-        job_id="fail-test",
-        job_data={"tool": "aider"},
-        max_retries=1
-    )
+    job = JobWrapper(job_id="fail-test", job_data={"tool": "aider"}, max_retries=1)
     await queue.submit(job)
 
     # Start workers
@@ -157,24 +135,17 @@ async def test_worker_handles_job_failure(queue):
 
     # Job should be retried or failed
     stats = queue.get_stats()
-    assert stats['failed'] >= 0 or stats['retry'] >= 0
+    assert stats["failed"] >= 0 or stats["retry"] >= 0
 
 
 @pytest.mark.asyncio
 async def test_worker_concurrent_execution(queue, mock_orchestrator):
     """Test multiple workers execute jobs concurrently"""
-    pool = WorkerPool(
-        queue=queue,
-        worker_count=3,
-        orchestrator=mock_orchestrator
-    )
+    pool = WorkerPool(queue=queue, worker_count=3, orchestrator=mock_orchestrator)
 
     # Submit multiple jobs
     for i in range(5):
-        job = JobWrapper(
-            job_id=f"concurrent-{i}",
-            job_data={"tool": "aider"}
-        )
+        job = JobWrapper(job_id=f"concurrent-{i}", job_data={"tool": "aider"})
         await queue.submit(job)
 
     # Start workers
@@ -188,7 +159,7 @@ async def test_worker_concurrent_execution(queue, mock_orchestrator):
 
     # Multiple jobs should be processed
     stats = queue.get_stats()
-    assert stats['completed'] + stats['running'] > 0
+    assert stats["completed"] + stats["running"] > 0
 
 
 @pytest.mark.asyncio
@@ -200,18 +171,10 @@ async def test_worker_handles_exception(queue):
         side_effect=RuntimeError("Execution error")
     )
 
-    pool = WorkerPool(
-        queue=queue,
-        worker_count=1,
-        orchestrator=failing_orchestrator
-    )
+    pool = WorkerPool(queue=queue, worker_count=1, orchestrator=failing_orchestrator)
 
     # Submit job
-    job = JobWrapper(
-        job_id="exception-test",
-        job_data={"tool": "aider"},
-        max_retries=1
-    )
+    job = JobWrapper(job_id="exception-test", job_data={"tool": "aider"}, max_retries=1)
     await queue.submit(job)
 
     # Start workers
@@ -232,13 +195,13 @@ async def test_get_status(worker_pool):
     """Test getting worker pool status"""
     status = worker_pool.get_status()
 
-    assert 'running' in status
-    assert 'worker_count' in status
-    assert 'active_workers' in status
-    assert 'queue_stats' in status
+    assert "running" in status
+    assert "worker_count" in status
+    assert "active_workers" in status
+    assert "queue_stats" in status
 
-    assert status['running'] is False
-    assert status['worker_count'] == 2
+    assert status["running"] is False
+    assert status["worker_count"] == 2
 
 
 @pytest.mark.asyncio
@@ -248,8 +211,8 @@ async def test_get_status_running(worker_pool):
 
     status = worker_pool.get_status()
 
-    assert status['running'] is True
-    assert status['active_workers'] >= 0
+    assert status["running"] is True
+    assert status["active_workers"] >= 0
 
     await worker_pool.stop()
 
@@ -258,10 +221,7 @@ async def test_get_status_running(worker_pool):
 async def test_wait_all(worker_pool, queue):
     """Test waiting for all workers to complete"""
     # Submit job
-    job = JobWrapper(
-        job_id="wait-test",
-        job_data={"tool": "aider"}
-    )
+    job = JobWrapper(job_id="wait-test", job_data={"tool": "aider"})
     await queue.submit(job)
 
     # Start workers
@@ -280,11 +240,7 @@ async def test_wait_all(worker_pool, queue):
 @pytest.mark.asyncio
 async def test_worker_respects_shutdown_event(queue, mock_orchestrator):
     """Test worker stops when shutdown event is set"""
-    pool = WorkerPool(
-        queue=queue,
-        worker_count=1,
-        orchestrator=mock_orchestrator
-    )
+    pool = WorkerPool(queue=queue, worker_count=1, orchestrator=mock_orchestrator)
 
     # Start workers
     await pool.start()
@@ -303,23 +259,11 @@ async def test_worker_respects_shutdown_event(queue, mock_orchestrator):
 @pytest.mark.asyncio
 async def test_worker_pool_with_priority_jobs(queue, mock_orchestrator):
     """Test worker pool processes jobs in priority order"""
-    pool = WorkerPool(
-        queue=queue,
-        worker_count=1,
-        orchestrator=mock_orchestrator
-    )
+    pool = WorkerPool(queue=queue, worker_count=1, orchestrator=mock_orchestrator)
 
     # Submit jobs with different priorities
-    low = JobWrapper(
-        job_id="low",
-        job_data={},
-        priority=JobPriority.LOW
-    )
-    high = JobWrapper(
-        job_id="high",
-        job_data={},
-        priority=JobPriority.HIGH
-    )
+    low = JobWrapper(job_id="low", job_data={}, priority=JobPriority.LOW)
+    high = JobWrapper(job_id="high", job_data={}, priority=JobPriority.HIGH)
 
     # Submit in reverse priority order
     await queue.submit(low)
@@ -335,7 +279,7 @@ async def test_worker_pool_with_priority_jobs(queue, mock_orchestrator):
 
     # Both should be processed, high priority first
     stats = queue.get_stats()
-    assert stats['completed'] + stats['running'] > 0
+    assert stats["completed"] + stats["running"] > 0
 
 
 @pytest.mark.asyncio
@@ -353,11 +297,7 @@ async def test_worker_loop_continues_after_error(queue):
     orchestrator = Mock()
     orchestrator.run_job_dict = Mock(side_effect=run_job)
 
-    pool = WorkerPool(
-        queue=queue,
-        worker_count=1,
-        orchestrator=orchestrator
-    )
+    pool = WorkerPool(queue=queue, worker_count=1, orchestrator=orchestrator)
 
     # Submit two jobs
     job1 = JobWrapper(job_id="job1", job_data={}, max_retries=0)
@@ -381,11 +321,7 @@ async def test_worker_loop_continues_after_error(queue):
 @pytest.mark.asyncio
 async def test_empty_queue_handling(queue, mock_orchestrator):
     """Test worker handles empty queue gracefully"""
-    pool = WorkerPool(
-        queue=queue,
-        worker_count=1,
-        orchestrator=mock_orchestrator
-    )
+    pool = WorkerPool(queue=queue, worker_count=1, orchestrator=mock_orchestrator)
 
     # Start workers with empty queue
     await pool.start()

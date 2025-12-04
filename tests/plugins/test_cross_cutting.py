@@ -1,6 +1,7 @@
 """
 Tests for cross-cutting plugins (codespell, semgrep, gitleaks).
 """
+
 # DOC_ID: DOC-TEST-PLUGINS-TEST-CROSS-CUTTING-142
 from __future__ import annotations
 
@@ -12,13 +13,22 @@ import pytest
 
 # Try to import plugins - may fail if error shared modules not migrated
 try:
-    from phase6_error_recovery.modules.plugins.codespell.src.codespell.plugin import CodespellPlugin
-    from phase6_error_recovery.modules.plugins.semgrep.src.semgrep.plugin import SemgrepPlugin
-    from phase6_error_recovery.modules.plugins.gitleaks.src.gitleaks.plugin import GitleaksPlugin
+    from phase6_error_recovery.modules.plugins.codespell.src.codespell.plugin import (
+        CodespellPlugin,
+    )
+    from phase6_error_recovery.modules.plugins.semgrep.src.semgrep.plugin import (
+        SemgrepPlugin,
+    )
+    from phase6_error_recovery.modules.plugins.gitleaks.src.gitleaks.plugin import (
+        GitleaksPlugin,
+    )
+
     PLUGINS_AVAILABLE = True
 except (ImportError, ModuleNotFoundError):
     PLUGINS_AVAILABLE = False
-    pytestmark = pytest.mark.skip(reason="Plugin modules require error shared modules not yet migrated")
+    pytestmark = pytest.mark.skip(
+        reason="Plugin modules require error shared modules not yet migrated"
+    )
 from tests.plugins.conftest import (
     assert_issue_valid,
     assert_plugin_result_valid,
@@ -35,44 +45,45 @@ test.txt:5: recieve ==> receive
 """
 
 # Sample Semgrep JSON output
-SEMGREP_SAMPLE_OUTPUT = json.dumps({
-    "results": [
-        {
-            "path": "test.py",
-            "start": {"line": 10, "col": 5},
-            "check_id": "python.lang.security.audit.dangerous-exec",
-            "extra": {
-                "message": "Detected the use of exec()",
-                "severity": "ERROR"
-            }
-        },
-        {
-            "path": "test.py",
-            "start": {"line": 20, "col": 1},
-            "check_id": "python.lang.security.audit.weak-crypto",
-            "extra": {
-                "message": "Use of weak cryptographic hash",
-                "severity": "WARNING"
-            }
-        }
-    ]
-})
+SEMGREP_SAMPLE_OUTPUT = json.dumps(
+    {
+        "results": [
+            {
+                "path": "test.py",
+                "start": {"line": 10, "col": 5},
+                "check_id": "python.lang.security.audit.dangerous-exec",
+                "extra": {"message": "Detected the use of exec()", "severity": "ERROR"},
+            },
+            {
+                "path": "test.py",
+                "start": {"line": 20, "col": 1},
+                "check_id": "python.lang.security.audit.weak-crypto",
+                "extra": {
+                    "message": "Use of weak cryptographic hash",
+                    "severity": "WARNING",
+                },
+            },
+        ]
+    }
+)
 
 # Sample Gitleaks JSON output
-GITLEAKS_SAMPLE_OUTPUT = json.dumps([
-    {
-        "File": "test.py",
-        "StartLine": 15,
-        "RuleID": "generic-api-key",
-        "Description": "Detected a Generic API Key"
-    },
-    {
-        "File": "test.py",
-        "StartLine": 25,
-        "RuleID": "aws-access-token",
-        "Description": "AWS Access Token"
-    }
-])
+GITLEAKS_SAMPLE_OUTPUT = json.dumps(
+    [
+        {
+            "File": "test.py",
+            "StartLine": 15,
+            "RuleID": "generic-api-key",
+            "Description": "Detected a Generic API Key",
+        },
+        {
+            "File": "test.py",
+            "StartLine": 25,
+            "RuleID": "aws-access-token",
+            "Description": "AWS Access Token",
+        },
+    ]
+)
 
 
 class TestCodespellPlugin:
@@ -297,20 +308,22 @@ class TestGitleaksPlugin:
         test_file = create_sample_file(tmp_path, "test.py", "API_KEY = 'secret'\n")
 
         # Create Gitleaks output with multiple files
-        gitleaks_output = json.dumps([
-            {
-                "File": "test.py",
-                "StartLine": 15,
-                "RuleID": "generic-api-key",
-                "Description": "Detected a Generic API Key"
-            },
-            {
-                "File": "other.py",  # Should be filtered out
-                "StartLine": 10,
-                "RuleID": "aws-key",
-                "Description": "AWS Key"
-            }
-        ])
+        gitleaks_output = json.dumps(
+            [
+                {
+                    "File": "test.py",
+                    "StartLine": 15,
+                    "RuleID": "generic-api-key",
+                    "Description": "Detected a Generic API Key",
+                },
+                {
+                    "File": "other.py",  # Should be filtered out
+                    "StartLine": 10,
+                    "RuleID": "aws-key",
+                    "Description": "AWS Key",
+                },
+            ]
+        )
 
         with patch("subprocess.run") as mock_run:
             mock_proc = MagicMock()

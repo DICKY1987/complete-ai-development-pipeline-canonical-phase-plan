@@ -5,6 +5,7 @@ Usage:
     python scripts/validate_modules.py [module_path]
     python scripts/validate_modules.py --all
 """
+
 # DOC_ID: DOC-SCRIPT-SCRIPTS-VALIDATE-MODULES-243
 # DOC_ID: DOC-SCRIPT-SCRIPTS-VALIDATE-MODULES-180
 
@@ -80,7 +81,10 @@ def validate_manifest(manifest_path: Path, schema: dict) -> Tuple[bool, str]:
         for artifact in artifact_list:
             path = artifact.get("path", "")
             if not path.startswith(ulid_prefix):
-                return False, f"Artifact {path} does not start with ULID prefix {ulid_prefix}"
+                return (
+                    False,
+                    f"Artifact {path} does not start with ULID prefix {ulid_prefix}",
+                )
 
     # Check dependencies reference valid modules
     deps = manifest.get("dependencies", {}).get("modules", [])
@@ -139,7 +143,9 @@ def main():
         print(f"✅ All {total_count} manifest(s) valid")
         sys.exit(0)
     else:
-        print(f"❌ {total_count - valid_count}/{total_count} manifest(s) failed validation")
+        print(
+            f"❌ {total_count - valid_count}/{total_count} manifest(s) failed validation"
+        )
         sys.exit(1)
 
 

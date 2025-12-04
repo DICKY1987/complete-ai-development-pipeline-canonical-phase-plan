@@ -34,7 +34,9 @@ def scan_file(filepath: Path) -> List[Tuple[int, str, str]]:
     return results
 
 
-def scan_directory(path: Path, exclude_patterns: List[str] | None = None) -> Dict[str, List[Tuple[int, str, str]]]:
+def scan_directory(
+    path: Path, exclude_patterns: List[str] | None = None
+) -> Dict[str, List[Tuple[int, str, str]]]:
     """Recursively scan a directory for deprecated imports."""
     results: Dict[str, List[Tuple[int, str, str]]] = {}
     for py_file in path.rglob("*.py"):
@@ -44,7 +46,9 @@ def scan_directory(path: Path, exclude_patterns: List[str] | None = None) -> Dic
     return results
 
 
-def generate_report(results: Dict[str, List[Tuple[int, str, str]]], output_format: str = "text") -> str:
+def generate_report(
+    results: Dict[str, List[Tuple[int, str, str]]], output_format: str = "text"
+) -> str:
     """Generate a report of deprecated usage."""
     if output_format == "json":
         json_results = {

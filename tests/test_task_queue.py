@@ -1,6 +1,7 @@
 """
 Unit tests for Task Queue Management
 """
+
 # DOC_ID: DOC-TEST-TESTS-TEST-TASK-QUEUE-106
 # DOC_ID: DOC-TEST-TESTS-TEST-TASK-QUEUE-067
 import pytest
@@ -9,8 +10,14 @@ import tempfile
 import shutil
 from pathlib import Path
 from modules.core_state.m010003_task_queue import (
-    Task, TaskQueue, TaskPayload, TaskConstraints,
-    TaskTimeouts, RoutingState, TaskResult, TaskStatus
+    Task,
+    TaskQueue,
+    TaskPayload,
+    TaskConstraints,
+    TaskTimeouts,
+    RoutingState,
+    TaskResult,
+    TaskStatus,
 )
 
 
@@ -39,8 +46,8 @@ def sample_task():
         payload=TaskPayload(
             repo_path="/test/repo",
             files=["src/module.py"],
-            description="Refactor for clarity"
-        )
+            description="Refactor for clarity",
+        ),
     )
 
 
@@ -57,7 +64,7 @@ def test_task_serialization(sample_task):
     """Test task to/from dict"""
     task_dict = sample_task.to_dict()
     assert isinstance(task_dict, dict)
-    assert task_dict['task_id'] == sample_task.task_id
+    assert task_dict["task_id"] == sample_task.task_id
 
     restored_task = Task.from_dict(task_dict)
     assert restored_task.task_id == sample_task.task_id
@@ -87,7 +94,7 @@ def test_peek(task_queue):
             source_app="test",
             mode="prompt",
             capabilities=["test"],
-            payload=TaskPayload(repo_path="/test", files=[f"file{i}.py"])
+            payload=TaskPayload(repo_path="/test", files=[f"file{i}.py"]),
         )
         tasks.append(task)
         task_queue.enqueue(task)
@@ -119,9 +126,7 @@ def test_complete_task(task_queue, sample_task):
     task_queue.move_to_running(sample_task.task_id)
 
     result = TaskResult(
-        task_id=sample_task.task_id,
-        success=True,
-        output="Task completed successfully"
+        task_id=sample_task.task_id, success=True, output="Task completed successfully"
     )
 
     success = task_queue.complete(sample_task.task_id, result)
@@ -178,7 +183,7 @@ def test_concurrent_access(task_queue):
         source_app="app1",
         mode="prompt",
         capabilities=["test"],
-        payload=TaskPayload(repo_path="/test", files=["file1.py"])
+        payload=TaskPayload(repo_path="/test", files=["file1.py"]),
     )
 
     task2 = Task(
@@ -186,7 +191,7 @@ def test_concurrent_access(task_queue):
         source_app="app2",
         mode="prompt",
         capabilities=["test"],
-        payload=TaskPayload(repo_path="/test", files=["file2.py"])
+        payload=TaskPayload(repo_path="/test", files=["file2.py"]),
     )
 
     # Enqueue both - file locking should prevent corruption
@@ -213,6 +218,7 @@ def test_empty_queue(task_queue):
 def test_fifo_order(task_queue):
     """Test FIFO ordering of queue"""
     import time
+
     tasks = []
     for i in range(5):
         task = Task(
@@ -220,7 +226,7 @@ def test_fifo_order(task_queue):
             source_app=f"app{i}",
             mode="prompt",
             capabilities=["test"],
-            payload=TaskPayload(repo_path="/test", files=[f"file{i}.py"])
+            payload=TaskPayload(repo_path="/test", files=[f"file{i}.py"]),
         )
         tasks.append(task)
         task_queue.enqueue(task)

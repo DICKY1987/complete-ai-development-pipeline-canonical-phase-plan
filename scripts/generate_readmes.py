@@ -6,7 +6,7 @@ Ground Truth Verification: file_exists(README.md) per target directory
 Batch Size: 6 directories per batch
 Decision Elimination: All structural decisions made in folder_metadata.yaml
 """
-DOC_ID: DOC-SCRIPT-SCRIPTS-GENERATE-READMES-716
+DOC_ID: DOC - SCRIPT - SCRIPTS - GENERATE - READMES - 716
 DOC_ID: DOC - SCRIPT - SCRIPTS - GENERATE - READMES - 716
 
 import os

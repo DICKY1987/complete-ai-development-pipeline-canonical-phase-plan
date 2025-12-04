@@ -2,6 +2,7 @@
 Integration tests for JobQueue (Phase 4B)
 Tests priority queue operations, persistence, and dependency tracking.
 """
+
 # DOC_ID: DOC-TEST-TESTS-TEST-JOB-QUEUE-088
 # DOC_ID: DOC-TEST-TESTS-TEST-JOB-QUEUE-049
 import pytest
@@ -33,7 +34,7 @@ def sample_job():
     return JobWrapper(
         job_id="test-job-1",
         job_data={"tool": "aider", "command": {"exe": "aider", "args": []}},
-        priority=JobPriority.NORMAL
+        priority=JobPriority.NORMAL,
     )
 
 
@@ -52,7 +53,7 @@ async def test_submit_job(queue, sample_job):
     await queue.submit(sample_job)
 
     stats = queue.get_stats()
-    assert stats['queued'] >= 1
+    assert stats["queued"] >= 1
 
 
 @pytest.mark.asyncio
@@ -71,21 +72,9 @@ async def test_get_next_job(queue, sample_job):
 async def test_priority_ordering(queue):
     """Test jobs are retrieved in priority order"""
     # Submit jobs with different priorities
-    job_low = JobWrapper(
-        job_id="low",
-        job_data={},
-        priority=JobPriority.LOW
-    )
-    job_high = JobWrapper(
-        job_id="high",
-        job_data={},
-        priority=JobPriority.HIGH
-    )
-    job_normal = JobWrapper(
-        job_id="normal",
-        job_data={},
-        priority=JobPriority.NORMAL
-    )
+    job_low = JobWrapper(job_id="low", job_data={}, priority=JobPriority.LOW)
+    job_high = JobWrapper(job_id="high", job_data={}, priority=JobPriority.HIGH)
+    job_normal = JobWrapper(job_id="normal", job_data={}, priority=JobPriority.NORMAL)
 
     # Submit in non-priority order
     await queue.submit(job_low)
@@ -117,7 +106,7 @@ async def test_mark_complete(queue, sample_job):
     assert job.job_id not in queue.active_jobs
 
     stats = queue.get_stats()
-    assert stats['completed'] >= 1
+    assert stats["completed"] >= 1
 
 
 @pytest.mark.asyncio
@@ -132,17 +121,13 @@ async def test_mark_failed(queue, sample_job):
     assert job.job_id not in queue.active_jobs
 
     stats = queue.get_stats()
-    assert stats['failed'] >= 1
+    assert stats["failed"] >= 1
 
 
 @pytest.mark.asyncio
 async def test_requeue_for_retry(queue):
     """Test requeueing job for retry"""
-    job = JobWrapper(
-        job_id="retry-test",
-        job_data={},
-        max_retries=3
-    )
+    job = JobWrapper(job_id="retry-test", job_data={}, max_retries=3)
 
     await queue.submit(job)
     retrieved_job = await queue.get_next()
@@ -162,7 +147,7 @@ async def test_requeue_for_retry(queue):
     else:
         # Job might still be processing, check stats show activity
         stats = queue.get_stats()
-        assert stats.get('total', 0) >= 1
+        assert stats.get("total", 0) >= 1
 
 
 @pytest.mark.asyncio
@@ -172,7 +157,7 @@ async def test_max_retries_exceeded(queue):
         job_id="max-retry-test",
         job_data={},
         max_retries=2,
-        retry_count=2  # Already at max
+        retry_count=2,  # Already at max
     )
 
     await queue.submit(job)
@@ -184,18 +169,14 @@ async def test_max_retries_exceeded(queue):
     assert retrieved_job.status == JobStatus.FAILED
 
     stats = queue.get_stats()
-    assert stats['failed'] >= 1
+    assert stats["failed"] >= 1
 
 
 @pytest.mark.asyncio
 async def test_dependency_tracking(queue):
     """Test jobs wait for dependencies"""
     # Create dependent job
-    dep_job = JobWrapper(
-        job_id="dep-job",
-        job_data={},
-        depends_on=["job1", "job2"]
-    )
+    dep_job = JobWrapper(job_id="dep-job", job_data={}, depends_on=["job1", "job2"])
 
     await queue.submit(dep_job)
 
@@ -210,11 +191,7 @@ async def test_dependency_resolution(queue):
     # Create jobs
     job1 = JobWrapper(job_id="job1", job_data={})
     job2 = JobWrapper(job_id="job2", job_data={})
-    dep_job = JobWrapper(
-        job_id="dep-job",
-        job_data={},
-        depends_on=["job1", "job2"]
-    )
+    dep_job = JobWrapper(job_id="dep-job", job_data={}, depends_on=["job1", "job2"])
 
     # Submit and complete dependencies
     await queue.submit(job1)
@@ -243,9 +220,7 @@ async def test_dependency_resolution(queue):
 async def test_cancel_queued_job(queue):
     """Test cancelling a queued job"""
     job = JobWrapper(
-        job_id="cancel-test",
-        job_data={},
-        depends_on=["dep1"]  # Will be in waiting
+        job_id="cancel-test", job_data={}, depends_on=["dep1"]  # Will be in waiting
     )
 
     await queue.submit(job)
@@ -277,9 +252,7 @@ async def test_queue_persistence(temp_db):
     # Create queue and submit jobs
     queue1 = JobQueue(db_path=temp_db)
     job = JobWrapper(
-        job_id="persist-test",
-        job_data={"tool": "aider"},
-        priority=JobPriority.HIGH
+        job_id="persist-test", job_data={"tool": "aider"}, priority=JobPriority.HIGH
     )
     await queue1.submit(job)
 
@@ -310,9 +283,9 @@ async def test_get_stats(queue):
 
     stats = queue.get_stats()
 
-    assert stats['running'] >= 1
-    assert stats['waiting'] >= 1
-    assert stats['queued'] >= 1
+    assert stats["running"] >= 1
+    assert stats["waiting"] >= 1
+    assert stats["queued"] >= 1
 
 
 @pytest.mark.asyncio
@@ -327,17 +300,9 @@ async def test_empty_queue_timeout(queue):
 async def test_fifo_within_priority(queue):
     """Test FIFO ordering within same priority"""
     # Create jobs with same priority but different times
-    job1 = JobWrapper(
-        job_id="first",
-        job_data={},
-        priority=JobPriority.NORMAL
-    )
+    job1 = JobWrapper(job_id="first", job_data={}, priority=JobPriority.NORMAL)
     await asyncio.sleep(0.01)  # Ensure different timestamp
-    job2 = JobWrapper(
-        job_id="second",
-        job_data={},
-        priority=JobPriority.NORMAL
-    )
+    job2 = JobWrapper(job_id="second", job_data={}, priority=JobPriority.NORMAL)
 
     await queue.submit(job1)
     await queue.submit(job2)
@@ -353,13 +318,10 @@ async def test_fifo_within_priority(queue):
 @pytest.mark.asyncio
 async def test_concurrent_operations(queue):
     """Test concurrent job submissions"""
-    jobs = [
-        JobWrapper(job_id=f"concurrent-{i}", job_data={})
-        for i in range(10)
-    ]
+    jobs = [JobWrapper(job_id=f"concurrent-{i}", job_data={}) for i in range(10)]
 
     # Submit all jobs concurrently
     await asyncio.gather(*[queue.submit(job) for job in jobs])
 
     stats = queue.get_stats()
-    assert stats['queued'] >= 10
+    assert stats["queued"] >= 10

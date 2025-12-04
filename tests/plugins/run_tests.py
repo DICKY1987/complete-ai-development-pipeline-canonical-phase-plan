@@ -8,6 +8,7 @@ Usage:
     pytest tests/plugins/ --tb=short         # Short traceback
     pytest tests/plugins/ -x                 # Stop on first failure
 """
+
 # DOC_ID: DOC-TEST-PLUGINS-RUN-TESTS-141
 import sys
 from pathlib import Path
@@ -20,10 +21,14 @@ if __name__ == "__main__":
     import pytest
 
     # Run tests with common options
-    sys.exit(pytest.main([
-        "tests/plugins/",
-        "-v",
-        "--tb=short",
-        "--strict-markers",
-        "-ra",  # Show summary of all test results
-    ]))
+    sys.exit(
+        pytest.main(
+            [
+                "tests/plugins/",
+                "-v",
+                "--tb=short",
+                "--strict-markers",
+                "-ra",  # Show summary of all test results
+            ]
+        )
+    )

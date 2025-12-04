@@ -2,7 +2,8 @@
 
 Simple smoke test to verify core functionality.
 """
-DOC_ID: DOC-AIM-AIM-VALIDATE-POOL-149
+
+DOC_ID: DOC - AIM - AIM - VALIDATE - POOL - 149
 
 DOC_ID: DOC - AIM - AIM - VALIDATE - POOL - 149
 

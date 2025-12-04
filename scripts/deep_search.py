@@ -28,9 +28,17 @@ class DeepSearch:
     """Recursive directory search with multiple filter options."""
 
     SKIP_DIRS = {
-        '.git', '.venv', '__pycache__', 'node_modules',
-        '.pytest_cache', '.mypy_cache', 'build', 'dist',
-        '.worktrees', '.state', '.tox'
+        ".git",
+        ".venv",
+        "__pycache__",
+        "node_modules",
+        ".pytest_cache",
+        ".mypy_cache",
+        "build",
+        "dist",
+        ".worktrees",
+        ".state",
+        ".tox",
     }
 
     def __init__(self, root_dir: str = "."):
@@ -42,7 +50,7 @@ class DeepSearch:
         max_depth: Optional[int] = None,
         filter_func: Optional[Callable] = None,
         follow_symlinks: bool = False,
-        skip_hidden: bool = True
+        skip_hidden: bool = True,
     ) -> List[Path]:
         """
         Recursively search directory tree for matching files.
@@ -66,7 +74,7 @@ class DeepSearch:
             try:
                 for item in current_path.iterdir():
                     # Skip hidden files if requested
-                    if skip_hidden and item.name.startswith('.'):
+                    if skip_hidden and item.name.startswith("."):
                         continue
 
                     # Skip common directories
@@ -112,7 +120,7 @@ class DeepSearch:
         search_text: str,
         file_pattern: str = "*",
         case_sensitive: bool = False,
-        **kwargs
+        **kwargs,
     ) -> List[tuple]:
         """
         Find files containing specific text.
@@ -125,10 +133,12 @@ class DeepSearch:
 
         for file_path in files:
             try:
-                with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
+                with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
                     for line_num, line in enumerate(f, 1):
                         line_to_check = line if case_sensitive else line.lower()
-                        text_to_find = search_text if case_sensitive else search_text.lower()
+                        text_to_find = (
+                            search_text if case_sensitive else search_text.lower()
+                        )
 
                         if text_to_find in line_to_check:
                             matches.append((file_path, line_num, line.rstrip()))
@@ -141,8 +151,8 @@ class DeepSearch:
         self,
         pattern: str = "*",
         min_size: int = 0,
-        max_size: int = float('inf'),
-        **kwargs
+        max_size: int = float("inf"),
+        **kwargs,
     ) -> List[tuple]:
         """
         Find files within size range.
@@ -150,6 +160,7 @@ class DeepSearch:
         Returns:
             List of (file_path, size_bytes) tuples
         """
+
         def size_filter(path: Path) -> bool:
             try:
                 size = path.stat().st_size
@@ -161,10 +172,7 @@ class DeepSearch:
         return [(f, f.stat().st_size) for f in files]
 
     def find_modified_since(
-        self,
-        days_ago: int,
-        pattern: str = "*",
-        **kwargs
+        self, days_ago: int, pattern: str = "*", **kwargs
     ) -> List[tuple]:
         """Find files modified within last N days."""
         cutoff_time = datetime.now() - timedelta(days=days_ago)
@@ -182,7 +190,7 @@ class DeepSearch:
 
 def format_size(size_bytes: int) -> str:
     """Format bytes as human-readable size."""
-    for unit in ['B', 'KB', 'MB', 'GB']:
+    for unit in ["B", "KB", "MB", "GB"]:
         if size_bytes < 1024.0:
             return f"{size_bytes:.1f} {unit}"
         size_bytes /= 1024.0
@@ -192,7 +200,7 @@ def format_size(size_bytes: int) -> str:
 def main():
     parser = argparse.ArgumentParser(
         description="Deep Directory Search (PAT-SEARCH-001)",
-        formatter_class=argparse.RawDescriptionHelpFormatter
+        formatter_class=argparse.RawDescriptionHelpFormatter,
     )
 
     # Search criteria
@@ -200,81 +208,60 @@ def main():
         "--ext",
         nargs="+",
         metavar="EXT",
-        help="File extension(s) to search for (e.g., .patch .diff)"
+        help="File extension(s) to search for (e.g., .patch .diff)",
     )
     parser.add_argument(
-        "--pattern",
-        metavar="PATTERN",
-        help="Glob pattern to match (e.g., '*config*')"
+        "--pattern", metavar="PATTERN", help="Glob pattern to match (e.g., '*config*')"
     )
     parser.add_argument(
-        "--content",
-        metavar="TEXT",
-        help="Search for files containing specific text"
+        "--content", metavar="TEXT", help="Search for files containing specific text"
     )
     parser.add_argument(
-        "--case-sensitive",
-        action="store_true",
-        help="Case-sensitive content search"
+        "--case-sensitive", action="store_true", help="Case-sensitive content search"
     )
 
     # Filters
     parser.add_argument(
-        "--min-size",
-        type=int,
-        metavar="BYTES",
-        help="Minimum file size in bytes"
+        "--min-size", type=int, metavar="BYTES", help="Minimum file size in bytes"
     )
     parser.add_argument(
-        "--max-size",
-        type=int,
-        metavar="BYTES",
-        help="Maximum file size in bytes"
+        "--max-size", type=int, metavar="BYTES", help="Maximum file size in bytes"
     )
     parser.add_argument(
         "--modified-days",
         type=int,
         metavar="DAYS",
-        help="Files modified within last N days"
+        help="Files modified within last N days",
     )
     parser.add_argument(
-        "--max-depth",
-        type=int,
-        metavar="N",
-        help="Maximum directory depth to search"
+        "--max-depth", type=int, metavar="N", help="Maximum directory depth to search"
     )
 
     # Options
     parser.add_argument(
         "--root",
         default=".",
-        help="Root directory to search (default: current directory)"
+        help="Root directory to search (default: current directory)",
     )
     parser.add_argument(
-        "--follow-symlinks",
-        action="store_true",
-        help="Follow symbolic links"
+        "--follow-symlinks", action="store_true", help="Follow symbolic links"
     )
     parser.add_argument(
         "--include-hidden",
         action="store_true",
-        help="Include hidden files and directories"
+        help="Include hidden files and directories",
     )
+    parser.add_argument("--json", action="store_true", help="Output results as JSON")
     parser.add_argument(
-        "--json",
-        action="store_true",
-        help="Output results as JSON"
-    )
-    parser.add_argument(
-        "--detailed",
-        action="store_true",
-        help="Show detailed file information"
+        "--detailed", action="store_true", help="Show detailed file information"
     )
 
     args = parser.parse_args()
 
     # Validate arguments
-    if not any([args.ext, args.pattern, args.content, args.min_size, args.modified_days]):
+    if not any(
+        [args.ext, args.pattern, args.content, args.min_size, args.modified_days]
+    ):
         parser.error("Must specify at least one search criterion")
 
     searcher = DeepSearch(args.root)
@@ -285,19 +272,20 @@ def main():
             args.ext,
             max_depth=args.max_depth,
             follow_symlinks=args.follow_symlinks,
-            skip_hidden=not args.include_hidden
+            skip_hidden=not args.include_hidden,
         )
 
         # Apply additional filters
         if args.min_size or args.max_size:
             min_s = args.min_size or 0
-            max_s = args.max_size or float('inf')
+            max_s = args.max_size or float("inf")
             results = [r for r in results if min_s <= r.stat().st_size <= max_s]
 
         if args.modified_days:
             cutoff = datetime.now() - timedelta(days=args.modified_days)
             results = [
-                r for r in results
+                r
+                for r in results
                 if datetime.fromtimestamp(r.stat().st_mtime) >= cutoff
             ]
 
@@ -306,7 +294,7 @@ def main():
             args.pattern,
             max_depth=args.max_depth,
             follow_symlinks=args.follow_symlinks,
-            skip_hidden=not args.include_hidden
+            skip_hidden=not args.include_hidden,
         )
 
     elif args.content:
@@ -317,7 +305,7 @@ def main():
             case_sensitive=args.case_sensitive,
             max_depth=args.max_depth,
             follow_symlinks=args.follow_symlinks,
-            skip_hidden=not args.include_hidden
+            skip_hidden=not args.include_hidden,
         )
 
         # Output content search results
@@ -329,11 +317,11 @@ def main():
                     {
                         "file": str(path.relative_to(searcher.root_dir)),
                         "line_number": line_num,
-                        "line_text": text
+                        "line_text": text,
                     }
                     for path, line_num, text in content_results
                 ],
-                "total_matches": len(content_results)
+                "total_matches": len(content_results),
             }
             print(json.dumps(output, indent=2))
         else:
@@ -347,10 +335,10 @@ def main():
     elif args.min_size or args.max_size:
         results = searcher.find_by_size(
             min_size=args.min_size or 0,
-            max_size=args.max_size or float('inf'),
+            max_size=args.max_size or float("inf"),
             max_depth=args.max_depth,
             follow_symlinks=args.follow_symlinks,
-            skip_hidden=not args.include_hidden
+            skip_hidden=not args.include_hidden,
         )
         results = [r[0] for r in results]  # Extract just paths
 
@@ -359,7 +347,7 @@ def main():
             args.modified_days,
             max_depth=args.max_depth,
             follow_symlinks=args.follow_symlinks,
-            skip_hidden=not args.include_hidden
+            skip_hidden=not args.include_hidden,
         )
         results = [r[0] for r in results]  # Extract just paths
 
@@ -370,18 +358,20 @@ def main():
                 "root_dir": str(searcher.root_dir),
                 "extensions": args.ext,
                 "pattern": args.pattern,
-                "max_depth": args.max_depth
+                "max_depth": args.max_depth,
             },
             "results": [
                 {
                     "path": str(path.relative_to(searcher.root_dir)),
                     "absolute_path": str(path),
                     "size": path.stat().st_size,
-                    "modified": datetime.fromtimestamp(path.stat().st_mtime).isoformat()
+                    "modified": datetime.fromtimestamp(
+                        path.stat().st_mtime
+                    ).isoformat(),
                 }
                 for path in results
             ],
-            "total_found": len(results)
+            "total_found": len(results),
         }
         print(json.dumps(output, indent=2))
 

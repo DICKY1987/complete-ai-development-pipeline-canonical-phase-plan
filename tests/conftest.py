@@ -15,16 +15,17 @@ if str(project_root) not in sys.path:
 @pytest.fixture(scope="function")
 def temp_db():
     """Create a temporary test database."""
-# DOC_ID: DOC-TEST-TESTS-CONFTEST-072
-# DOC_ID: DOC-TEST-TESTS-CONFTEST-033
-    with tempfile.NamedTemporaryFile(mode='w', suffix='.db', delete=False) as f:
+    # DOC_ID: DOC-TEST-TESTS-CONFTEST-072
+    # DOC_ID: DOC-TEST-TESTS-CONFTEST-033
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".db", delete=False) as f:
         db_path = f.name
 
     # Set environment variable
-    os.environ['PIPELINE_DB_PATH'] = db_path
+    os.environ["PIPELINE_DB_PATH"] = db_path
 
     # Initialize database
     from core.state.db import init_db
+
     init_db(db_path)
 
     yield db_path
@@ -40,4 +41,5 @@ def temp_db():
 def worker_pool(temp_db):
     """Create a worker pool with temp database."""
     from core.engine.worker import WorkerPool
+
     return WorkerPool(max_workers=4)

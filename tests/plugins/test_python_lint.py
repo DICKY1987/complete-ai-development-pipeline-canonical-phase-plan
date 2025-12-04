@@ -1,6 +1,7 @@
 """
 Tests for Python lint plugins (ruff, pylint).
 """
+
 # DOC_ID: DOC-TEST-PLUGINS-TEST-PYTHON-LINT-147
 from __future__ import annotations
 
@@ -12,7 +13,10 @@ import pytest
 
 # Try to import plugins - may fail if error shared modules not migrated
 try:
-    from phase6_error_recovery.modules.plugins.python_pylint.src.python_pylint.plugin import PylintPlugin
+    from phase6_error_recovery.modules.plugins.python_pylint.src.python_pylint.plugin import (
+        PylintPlugin,
+    )
+
     PYLINT_AVAILABLE = True
 except (ImportError, ModuleNotFoundError):
     PYLINT_AVAILABLE = False
@@ -21,6 +25,7 @@ except (ImportError, ModuleNotFoundError):
 # Ruff plugin not yet migrated to phase6_error_recovery
 try:
     from modules.error_plugin_python_ruff.m010015_plugin import RuffPlugin
+
     RUFF_AVAILABLE = True
 except (ImportError, ModuleNotFoundError):
     RUFF_AVAILABLE = False
@@ -28,7 +33,9 @@ except (ImportError, ModuleNotFoundError):
 
 # Skip entire module if no plugins available
 if not PYLINT_AVAILABLE and not RUFF_AVAILABLE:
-    pytestmark = pytest.mark.skip(reason="Plugin modules require error shared modules not yet migrated")
+    pytestmark = pytest.mark.skip(
+        reason="Plugin modules require error shared modules not yet migrated"
+    )
 from tests.plugins.conftest import (
     assert_issue_valid,
     assert_plugin_result_valid,
@@ -39,51 +46,57 @@ from tests.plugins.conftest import (
 
 
 # Sample Ruff JSON output
-RUFF_SAMPLE_OUTPUT = json.dumps([
-    {
-        "code": "F401",
-        "message": "module imported but unused",
-        "filename": "test.py",
-        "location": {"row": 1, "column": 1}
-    },
-    {
-        "code": "E501",
-        "message": "line too long (120 > 88 characters)",
-        "filename": "test.py",
-        "location": {"row": 5, "column": 89}
-    }
-])
+RUFF_SAMPLE_OUTPUT = json.dumps(
+    [
+        {
+            "code": "F401",
+            "message": "module imported but unused",
+            "filename": "test.py",
+            "location": {"row": 1, "column": 1},
+        },
+        {
+            "code": "E501",
+            "message": "line too long (120 > 88 characters)",
+            "filename": "test.py",
+            "location": {"row": 5, "column": 89},
+        },
+    ]
+)
 
 # Sample Pylint JSON output
-PYLINT_SAMPLE_OUTPUT = json.dumps([
-    {
-        "type": "error",
-        "symbol": "syntax-error",
-        "message": "invalid syntax",
-        "path": "test.py",
-        "line": 1,
-        "column": 0
-    },
-    {
-        "type": "warning",
-        "symbol": "unused-import",
-        "message": "Unused import sys",
-        "path": "test.py",
-        "line": 2,
-        "column": 0
-    },
-    {
-        "type": "convention",
-        "symbol": "line-too-long",
-        "message": "Line too long (100/80)",
-        "path": "test.py",
-        "line": 10,
-        "column": 0
-    }
-])
+PYLINT_SAMPLE_OUTPUT = json.dumps(
+    [
+        {
+            "type": "error",
+            "symbol": "syntax-error",
+            "message": "invalid syntax",
+            "path": "test.py",
+            "line": 1,
+            "column": 0,
+        },
+        {
+            "type": "warning",
+            "symbol": "unused-import",
+            "message": "Unused import sys",
+            "path": "test.py",
+            "line": 2,
+            "column": 0,
+        },
+        {
+            "type": "convention",
+            "symbol": "line-too-long",
+            "message": "Line too long (100/80)",
+            "path": "test.py",
+            "line": 10,
+            "column": 0,
+        },
+    ]
+)
 
 
-@pytest.mark.skipif(not RUFF_AVAILABLE, reason="Ruff plugin not yet migrated to phase6_error_recovery")
+@pytest.mark.skipif(
+    not RUFF_AVAILABLE, reason="Ruff plugin not yet migrated to phase6_error_recovery"
+)
 class TestRuffPlugin:
     """Tests for Ruff linter plugin."""
 
@@ -191,7 +204,10 @@ class TestRuffPlugin:
             assert len(result.issues) == 0
 
 
-@pytest.mark.skipif(not PYLINT_AVAILABLE, reason="Pylint plugin requires error shared modules not yet migrated")
+@pytest.mark.skipif(
+    not PYLINT_AVAILABLE,
+    reason="Pylint plugin requires error shared modules not yet migrated",
+)
 class TestPylintPlugin:
     """Tests for Pylint linter plugin."""
 

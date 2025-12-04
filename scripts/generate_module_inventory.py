@@ -8,6 +8,7 @@ Usage:
 Output:
     MODULES_INVENTORY.yaml - Complete module catalog
 """
+
 # DOC_ID: DOC-SCRIPT-SCRIPTS-GENERATE-MODULE-INVENTORY-210
 # DOC_ID: DOC-SCRIPT-SCRIPTS-GENERATE-MODULE-INVENTORY-147
 
@@ -31,13 +32,15 @@ def discover_core_modules() -> List[Dict[str, Any]]:
         if subdir.is_dir() and not subdir.name.startswith("_"):
             py_files = list(subdir.glob("*.py"))
             if py_files:
-                modules.append({
-                    'id': f"core-{subdir.name}",
-                    'name': f"Core {subdir.name.title()}",
-                    'layer': 'infra' if subdir.name == 'state' else 'domain',
-                    'source_dir': str(subdir),
-                    'files': [str(f) for f in py_files if f.name != '__init__.py']
-                })
+                modules.append(
+                    {
+                        "id": f"core-{subdir.name}",
+                        "name": f"Core {subdir.name.title()}",
+                        "layer": "infra" if subdir.name == "state" else "domain",
+                        "source_dir": str(subdir),
+                        "files": [str(f) for f in py_files if f.name != "__init__.py"],
+                    }
+                )
 
     return modules
 
@@ -51,13 +54,15 @@ def discover_error_modules() -> List[Dict[str, Any]]:
     if error_engine.exists():
         py_files = list(error_engine.glob("*.py"))
         if py_files:
-            modules.append({
-                'id': 'error-engine',
-                'name': 'Error Detection Engine',
-                'layer': 'domain',
-                'source_dir': str(error_engine),
-                'files': [str(f) for f in py_files if f.name != '__init__.py']
-            })
+            modules.append(
+                {
+                    "id": "error-engine",
+                    "name": "Error Detection Engine",
+                    "layer": "domain",
+                    "source_dir": str(error_engine),
+                    "files": [str(f) for f in py_files if f.name != "__init__.py"],
+                }
+            )
 
     # error/plugins/*
     plugins_dir = Path("error/plugins")
@@ -66,13 +71,17 @@ def discover_error_modules() -> List[Dict[str, Any]]:
             if plugin.is_dir() and not plugin.name.startswith("_"):
                 py_files = list(plugin.glob("*.py"))
                 if py_files:
-                    modules.append({
-                        'id': f"error-plugin-{plugin.name.replace('_', '-')}",
-                        'name': f"Error Plugin: {plugin.name}",
-                        'layer': 'ui',
-                        'source_dir': str(plugin),
-                        'files': [str(f) for f in py_files if f.name != '__init__.py']
-                    })
+                    modules.append(
+                        {
+                            "id": f"error-plugin-{plugin.name.replace('_', '-')}",
+                            "name": f"Error Plugin: {plugin.name}",
+                            "layer": "ui",
+                            "source_dir": str(plugin),
+                            "files": [
+                                str(f) for f in py_files if f.name != "__init__.py"
+                            ],
+                        }
+                    )
 
     return modules
 
@@ -90,13 +99,15 @@ def discover_aim_modules() -> List[Dict[str, Any]]:
         if subdir.is_dir() and not subdir.name.startswith("_"):
             py_files = list(subdir.glob("*.py"))
             if py_files:
-                modules.append({
-                    'id': f"aim-{subdir.name}",
-                    'name': f"AIM {subdir.name.title()}",
-                    'layer': 'api',
-                    'source_dir': str(subdir),
-                    'files': [str(f) for f in py_files if f.name != '__init__.py']
-                })
+                modules.append(
+                    {
+                        "id": f"aim-{subdir.name}",
+                        "name": f"AIM {subdir.name.title()}",
+                        "layer": "api",
+                        "source_dir": str(subdir),
+                        "files": [str(f) for f in py_files if f.name != "__init__.py"],
+                    }
+                )
 
     return modules
 
@@ -114,13 +125,15 @@ def discover_pm_modules() -> List[Dict[str, Any]]:
         if subdir.is_dir() and not subdir.name.startswith("_"):
             py_files = list(subdir.glob("*.py"))
             if py_files:
-                modules.append({
-                    'id': f"pm-{subdir.name}",
-                    'name': f"PM {subdir.name.title()}",
-                    'layer': 'api',
-                    'source_dir': str(subdir),
-                    'files': [str(f) for f in py_files if f.name != '__init__.py']
-                })
+                modules.append(
+                    {
+                        "id": f"pm-{subdir.name}",
+                        "name": f"PM {subdir.name.title()}",
+                        "layer": "api",
+                        "source_dir": str(subdir),
+                        "files": [str(f) for f in py_files if f.name != "__init__.py"],
+                    }
+                )
 
     return modules
 
@@ -135,45 +148,55 @@ def discover_specifications_modules() -> List[Dict[str, Any]]:
 
     # specifications/tools/, specifications/bridge/
     for subdir in specs_path.iterdir():
-        if subdir.is_dir() and not subdir.name.startswith("_") and subdir.name != "content":
+        if (
+            subdir.is_dir()
+            and not subdir.name.startswith("_")
+            and subdir.name != "content"
+        ):
             py_files = []
             # Recursively find Python files
             for py_file in subdir.rglob("*.py"):
-                if py_file.name != '__init__.py':
+                if py_file.name != "__init__.py":
                     py_files.append(str(py_file))
 
             if py_files:
-                modules.append({
-                    'id': f"specifications-{subdir.name}",
-                    'name': f"Specifications {subdir.name.title()}",
-                    'layer': 'domain' if subdir.name == 'tools' else 'api',
-                    'source_dir': str(subdir),
-                    'files': py_files
-                })
+                modules.append(
+                    {
+                        "id": f"specifications-{subdir.name}",
+                        "name": f"Specifications {subdir.name.title()}",
+                        "layer": "domain" if subdir.name == "tools" else "api",
+                        "source_dir": str(subdir),
+                        "files": py_files,
+                    }
+                )
 
     return modules
 
 
-def detect_dependencies(module: Dict[str, Any], all_modules: List[Dict[str, Any]]) -> List[str]:
+def detect_dependencies(
+    module: Dict[str, Any], all_modules: List[Dict[str, Any]]
+) -> List[str]:
     """Detect module dependencies by analyzing imports."""
     dependencies = set()
 
-    for file_path in module['files']:
+    for file_path in module["files"]:
         try:
-            content = Path(file_path).read_text(encoding='utf-8')
+            content = Path(file_path).read_text(encoding="utf-8")
             # Find import statements
-            imports = re.findall(r'^(?:from|import)\s+([\w.]+)', content, re.MULTILINE)
+            imports = re.findall(r"^(?:from|import)\s+([\w.]+)", content, re.MULTILINE)
 
             for imp in imports:
                 # Check if import matches another module
                 for other_module in all_modules:
-                    if other_module['id'] == module['id']:
+                    if other_module["id"] == module["id"]:
                         continue
 
                     # Check if import starts with module's source directory
-                    source_pattern = other_module['source_dir'].replace('/', '.').replace('\\', '.')
+                    source_pattern = (
+                        other_module["source_dir"].replace("/", ".").replace("\\", ".")
+                    )
                     if imp.startswith(source_pattern):
-                        dependencies.add(other_module['id'])
+                        dependencies.add(other_module["id"])
         except Exception:
             # Skip files that can't be read
             pass
@@ -203,45 +226,49 @@ def generate_inventory():
     # Generate ULIDs and detect dependencies
     print("🔗 Analyzing dependencies...")
     for i, module in enumerate(all_modules):
-        module['ulid_prefix'] = generate_ulid_prefix(i)
-        module['dependencies'] = detect_dependencies(module, all_modules)
-        module['file_count'] = len(module['files'])
+        module["ulid_prefix"] = generate_ulid_prefix(i)
+        module["dependencies"] = detect_dependencies(module, all_modules)
+        module["file_count"] = len(module["files"])
 
-        print(f"   {module['id']}: {module['file_count']} files, {len(module['dependencies'])} dependencies")
+        print(
+            f"   {module['id']}: {module['file_count']} files, {len(module['dependencies'])} dependencies"
+        )
 
     # Build inventory structure
     inventory = {
-        'metadata': {
-            'generated': '2025-11-25T22:00:00Z',
-            'total_modules': len(all_modules),
-            'version': '1.0.0'
+        "metadata": {
+            "generated": "2025-11-25T22:00:00Z",
+            "total_modules": len(all_modules),
+            "version": "1.0.0",
         },
-        'layers': {
-            'infra': [m['id'] for m in all_modules if m['layer'] == 'infra'],
-            'domain': [m['id'] for m in all_modules if m['layer'] == 'domain'],
-            'api': [m['id'] for m in all_modules if m['layer'] == 'api'],
-            'ui': [m['id'] for m in all_modules if m['layer'] == 'ui']
+        "layers": {
+            "infra": [m["id"] for m in all_modules if m["layer"] == "infra"],
+            "domain": [m["id"] for m in all_modules if m["layer"] == "domain"],
+            "api": [m["id"] for m in all_modules if m["layer"] == "api"],
+            "ui": [m["id"] for m in all_modules if m["layer"] == "ui"],
         },
-        'modules': all_modules
+        "modules": all_modules,
     }
 
     # Write to YAML
     output_path = Path("MODULES_INVENTORY.yaml")
-    with output_path.open('w', encoding='utf-8') as f:
-        yaml.dump(inventory, f, default_flow_style=False, sort_keys=False, allow_unicode=True)
+    with output_path.open("w", encoding="utf-8") as f:
+        yaml.dump(
+            inventory, f, default_flow_style=False, sort_keys=False, allow_unicode=True
+        )
 
     print(f"\n✅ Generated {output_path}")
     print(f"   Total modules: {len(all_modules)}")
     print(f"   By layer:")
-    for layer, module_ids in inventory['layers'].items():
+    for layer, module_ids in inventory["layers"].items():
         print(f"     {layer}: {len(module_ids)}")
 
     # Generate summary statistics
-    total_files = sum(m['file_count'] for m in all_modules)
+    total_files = sum(m["file_count"] for m in all_modules)
     print(f"   Total files: {total_files}")
 
     # Identify dependency-free modules (good migration candidates)
-    independent = [m['id'] for m in all_modules if len(m['dependencies']) == 0]
+    independent = [m["id"] for m in all_modules if len(m["dependencies"]) == 0]
     print(f"   Independent modules (migrate first): {len(independent)}")
     for mod_id in independent[:5]:  # Show first 5
         print(f"     - {mod_id}")

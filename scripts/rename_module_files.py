@@ -3,12 +3,14 @@ Rename Module Files to Python-Safe Names
 Adds 'm' prefix to ULID-prefixed files so they can be imported in Python
 Pattern: EXEC-001 - Batch file renaming
 """
+
 # DOC_ID: DOC-SCRIPT-SCRIPTS-RENAME-MODULE-FILES-223
 # DOC_ID: DOC-SCRIPT-SCRIPTS-RENAME-MODULE-FILES-160
 
 import sys
 from pathlib import Path
 import shutil
+
 
 def rename_module_files(dry_run: bool = False) -> int:
     """Rename all ULID-prefixed files to have 'm' prefix."""
@@ -26,7 +28,7 @@ def rename_module_files(dry_run: bool = False) -> int:
     files_to_rename = []
     for py_file in modules_dir.rglob("*.py"):
         # Skip __init__.py and README files
-        if py_file.name.startswith('__') or py_file.name.startswith('README'):
+        if py_file.name.startswith("__") or py_file.name.startswith("README"):
             continue
 
         # Check if starts with digit (ULID)
@@ -65,7 +67,9 @@ def rename_module_files(dry_run: bool = False) -> int:
     # Summary
     print("\n" + "=" * 70)
     if errors:
-        print(f"⚠️  Renamed {renamed_count}/{len(files_to_rename)} files with {len(errors)} errors")
+        print(
+            f"⚠️  Renamed {renamed_count}/{len(files_to_rename)} files with {len(errors)} errors"
+        )
         for err in errors[:5]:
             print(f"  ❌ {err}")
         if len(errors) > 5:
@@ -75,15 +79,21 @@ def rename_module_files(dry_run: bool = False) -> int:
         print(f"✅ Successfully renamed {renamed_count} files")
         return 0
 
+
 def main():
     import argparse
 
-    parser = argparse.ArgumentParser(description='Rename module files to Python-safe names')
-    parser.add_argument('--dry-run', action='store_true', help='Show what would be renamed')
+    parser = argparse.ArgumentParser(
+        description="Rename module files to Python-safe names"
+    )
+    parser.add_argument(
+        "--dry-run", action="store_true", help="Show what would be renamed"
+    )
 
     args = parser.parse_args()
 
     return rename_module_files(args.dry_run)
+
 
 if __name__ == "__main__":
     sys.exit(main())

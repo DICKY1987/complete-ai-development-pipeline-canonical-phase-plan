@@ -8,6 +8,7 @@ import pytest
 
 try:
     import yaml  # type: ignore  # noqa: F401
+
     HAVE_YAML = True
 except Exception:
     HAVE_YAML = False

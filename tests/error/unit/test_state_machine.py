@@ -1,4 +1,5 @@
 """Unit tests for error state machine."""
+
 from __future__ import annotations
 
 import pytest
@@ -20,7 +21,10 @@ try:
         S4_QUARANTINE,
         S_SUCCESS,
     )
-    from phase6_error_recovery.modules.error_engine.src.engine.error_context import ErrorPipelineContext
+    from phase6_error_recovery.modules.error_engine.src.engine.error_context import (
+        ErrorPipelineContext,
+    )
+
     ERROR_ENGINE_AVAILABLE = True
 except (ImportError, ModuleNotFoundError):
     ERROR_ENGINE_AVAILABLE = False
@@ -30,7 +34,8 @@ except (ImportError, ModuleNotFoundError):
 
 class TestStateTransitions:
     """Test state machine transitions."""
-# DOC_ID: DOC-ERROR-UNIT-TEST-STATE-MACHINE-083
+
+    # DOC_ID: DOC-ERROR-UNIT-TEST-STATE-MACHINE-083
 
     def test_init_to_baseline(self):
         """Test S_INIT → S0_BASELINE_CHECK."""

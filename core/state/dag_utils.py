@@ -18,6 +18,7 @@ Requirement IDs:
 - DAG-IMPL-002: All DAG consumers MUST use shared DepGraph representation
 - DAG-IMPL-003: Cycle detection MUST be applied before computing topological levels
 """
+
 # DOC_ID: DOC-CORE-STATE-DAG-UTILS-170
 
 from __future__ import annotations
@@ -38,12 +39,13 @@ class DagAnalysis:
 
     This is the standard struct passed between modules that need DAG info.
     """
-    dep_graph: DepGraph              # Forward graph (node -> dependencies)
-    reverse_graph: DepGraph          # Reverse graph (node -> dependents)
-    topo_levels: List[Set[str]]      # Execution waves (empty if cycles exist)
-    cycles: List[List[str]]          # List of cycles (empty if valid DAG)
-    critical_path: List[str]         # Longest path through DAG
-    critical_path_weight: float      # Total weight of critical path
+
+    dep_graph: DepGraph  # Forward graph (node -> dependencies)
+    reverse_graph: DepGraph  # Reverse graph (node -> dependents)
+    topo_levels: List[Set[str]]  # Execution waves (empty if cycles exist)
+    cycles: List[List[str]]  # List of cycles (empty if valid DAG)
+    critical_path: List[str]  # Longest path through DAG
+    critical_path_weight: float  # Total weight of critical path
 
 
 def build_dependency_graph(

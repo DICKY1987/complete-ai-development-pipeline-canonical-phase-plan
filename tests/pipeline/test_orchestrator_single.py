@@ -73,10 +73,15 @@ def test_happy_path(monkeypatch, bundle_ws):
 
     monkeypatch.setattr("src.pipeline.tools.run_tool", fake_run_tool)
 
-    res = orchestrator.run_workstream("run-1", bundle_ws.id, bundle_ws, context={
-        "static_tools": ["pytest"],
-        "runtime_tool": "pytest",
-    })
+    res = orchestrator.run_workstream(
+        "run-1",
+        bundle_ws.id,
+        bundle_ws,
+        context={
+            "static_tools": ["pytest"],
+            "runtime_tool": "pytest",
+        },
+    )
 
     assert res["final_status"] == "done"
     ws = db.get_workstream(bundle_ws.id)
@@ -129,9 +134,14 @@ def test_static_failure(monkeypatch, bundle_ws):
 
     monkeypatch.setattr("src.pipeline.orchestrator.run_runtime_step", fake_runtime)
 
-    res = orchestrator.run_workstream("run-3", bundle_ws.id, bundle_ws, context={
-        "static_tools": ["pytest"],
-    })
+    res = orchestrator.run_workstream(
+        "run-3",
+        bundle_ws.id,
+        bundle_ws,
+        context={
+            "static_tools": ["pytest"],
+        },
+    )
     assert res["final_status"] == "failed"
     assert called["runtime"] is False
 
@@ -151,10 +161,15 @@ def test_runtime_failure(monkeypatch, bundle_ws):
         lambda tool_id, context, run_id=None, ws_id=None: _tool_result(tool_id, False),
     )
 
-    res = orchestrator.run_workstream("run-4", bundle_ws.id, bundle_ws, context={
-        "static_tools": ["pytest"],
-        "runtime_tool": "pytest",
-    })
+    res = orchestrator.run_workstream(
+        "run-4",
+        bundle_ws.id,
+        bundle_ws,
+        context={
+            "static_tools": ["pytest"],
+            "runtime_tool": "pytest",
+        },
+    )
     assert res["final_status"] == "failed"
 
 
@@ -173,10 +188,15 @@ def test_scope_violation(monkeypatch, bundle_ws):
         lambda wt, scope: (False, ["out/of/scope.txt"]),
     )
 
-    res = orchestrator.run_workstream("run-5", bundle_ws.id, bundle_ws, context={
-        "static_tools": ["pytest"],
-        "runtime_tool": "pytest",
-    })
+    res = orchestrator.run_workstream(
+        "run-5",
+        bundle_ws.id,
+        bundle_ws,
+        context={
+            "static_tools": ["pytest"],
+            "runtime_tool": "pytest",
+        },
+    )
     assert res["final_status"] == "failed"
 
 
@@ -184,11 +204,15 @@ def test_cli_dry_run(tmp_path):
     # Use built-in example bundle via ws id; request dry-run to avoid externals
     import subprocess, sys
 
-    cmd = [sys.executable, "scripts/run_workstream.py", "--ws-id", "ws-hello-world", "--dry-run"]
+    cmd = [
+        sys.executable,
+        "scripts/run_workstream.py",
+        "--ws-id",
+        "ws-hello-world",
+        "--dry-run",
+    ]
     proc = subprocess.run(cmd, capture_output=True, text=True)
     assert proc.returncode in (0, 1)  # Success preferred; allow 1 if ws missing
     if proc.returncode == 0:
         data = json.loads(proc.stdout)
         assert data.get("final_status") == "done"
-
-

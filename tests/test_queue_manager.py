@@ -2,6 +2,7 @@
 Integration tests for QueueManager (Phase 4B)
 Tests high-level queue operations, job submission, and status tracking.
 """
+
 # DOC_ID: DOC-TEST-TESTS-TEST-QUEUE-MANAGER-102
 # DOC_ID: DOC-TEST-TESTS-TEST-QUEUE-MANAGER-063
 import pytest
@@ -38,10 +39,7 @@ def sample_job_data():
     return {
         "job_id": "test-job-1",
         "tool": "aider",
-        "command": {
-            "exe": "aider",
-            "args": ["--yes", "Fix the bug"]
-        }
+        "command": {"exe": "aider", "args": ["--yes", "Fix the bug"]},
     }
 
 
@@ -74,7 +72,7 @@ async def test_submit_job_dict(manager, sample_job_data):
 
     status = manager.get_job_status(job_id)
     assert status is not None
-    assert status['job_id'] == job_id
+    assert status["job_id"] == job_id
 
 
 @pytest.mark.asyncio
@@ -83,7 +81,7 @@ async def test_submit_job_with_priority(manager, sample_job_data):
     job_id = await manager.submit_job_dict(sample_job_data, priority="high")
 
     status = manager.get_job_status(job_id)
-    assert status['priority'] == JobPriority.HIGH.value
+    assert status["priority"] == JobPriority.HIGH.value
 
 
 @pytest.mark.asyncio
@@ -92,32 +90,29 @@ async def test_submit_job_with_dependencies(manager):
     job1_data = {
         "job_id": "job1",
         "tool": "git",
-        "command": {"exe": "git", "args": ["status"]}
+        "command": {"exe": "git", "args": ["status"]},
     }
     job2_data = {
         "job_id": "job2",
         "tool": "aider",
-        "command": {"exe": "aider", "args": []}
+        "command": {"exe": "aider", "args": []},
     }
 
     await manager.submit_job_dict(job1_data)
-    job2_id = await manager.submit_job_dict(
-        job2_data,
-        depends_on=["job1"]
-    )
+    job2_id = await manager.submit_job_dict(job2_data, depends_on=["job1"])
 
     # job2 should be waiting for job1
     status = manager.get_job_status(job2_id)
     assert status is not None
-    if status.get('status') == 'waiting':
-        assert 'job1' in status.get('depends_on', [])
+    if status.get("status") == "waiting":
+        assert "job1" in status.get("depends_on", [])
 
 
 @pytest.mark.asyncio
 async def test_submit_job_file(manager, sample_job_data, tmp_path):
     """Test submitting job from file"""
     job_file = tmp_path / "job.json"
-    with open(job_file, 'w') as f:
+    with open(job_file, "w") as f:
         json.dump(sample_job_data, f)
 
     job_id = await manager.submit_job(str(job_file))
@@ -128,10 +123,7 @@ async def test_submit_job_file(manager, sample_job_data, tmp_path):
 @pytest.mark.asyncio
 async def test_submit_job_missing_id(manager):
     """Test submitting job without job_id raises error"""
-    job_data = {
-        "tool": "aider",
-        "command": {"exe": "aider"}
-    }
+    job_data = {"tool": "aider", "command": {"exe": "aider"}}
 
     with pytest.raises(ValueError, match="job_id"):
         await manager.submit_job_dict(job_data)
@@ -141,11 +133,8 @@ async def test_submit_job_missing_id(manager):
 async def test_cancel_job(manager, sample_job_data):
     """Test cancelling a queued job"""
     # Submit job with dependency so it waits
-    sample_job_data['job_id'] = "cancel-test"
-    job_id = await manager.submit_job_dict(
-        sample_job_data,
-        depends_on=["nonexistent"]
-    )
+    sample_job_data["job_id"] = "cancel-test"
+    job_id = await manager.submit_job_dict(sample_job_data, depends_on=["nonexistent"])
 
     # Cancel job
     result = await manager.cancel_job(job_id)
@@ -163,9 +152,9 @@ async def test_get_job_status_active(manager, sample_job_data):
     status = manager.get_job_status(job_id)
 
     assert status is not None
-    assert status['job_id'] == job_id
-    assert 'status' in status
-    assert 'priority' in status
+    assert status["job_id"] == job_id
+    assert "status" in status
+    assert "priority" in status
 
 
 @pytest.mark.asyncio
@@ -181,15 +170,15 @@ async def test_get_queue_stats(manager):
     """Test getting queue statistics"""
     stats = manager.get_queue_stats()
 
-    assert 'queue' in stats
-    assert 'workers' in stats
-    assert 'retry_policy' in stats
+    assert "queue" in stats
+    assert "workers" in stats
+    assert "retry_policy" in stats
 
     # Check queue stats
-    queue_stats = stats['queue']
-    assert 'queued' in queue_stats
-    assert 'running' in queue_stats
-    assert 'completed' in queue_stats
+    queue_stats = stats["queue"]
+    assert "queued" in queue_stats
+    assert "running" in queue_stats
+    assert "completed" in queue_stats
 
 
 @pytest.mark.asyncio
@@ -219,11 +208,7 @@ async def test_list_jobs_limit(manager):
     """Test listing jobs with limit"""
     # Submit multiple jobs
     for i in range(5):
-        job_data = {
-            "job_id": f"job-{i}",
-            "tool": "aider",
-            "command": {"exe": "aider"}
-        }
+        job_data = {"job_id": f"job-{i}", "tool": "aider", "command": {"exe": "aider"}}
         await manager.submit_job_dict(job_data)
 
     # List with limit
@@ -235,15 +220,9 @@ async def test_list_jobs_limit(manager):
 @pytest.mark.asyncio
 async def test_custom_retry_policy(temp_db):
     """Test manager with custom retry policy"""
-    custom_policy = RetryPolicy(
-        max_retries=5,
-        strategy=BackoffStrategy.LINEAR
-    )
+    custom_policy = RetryPolicy(max_retries=5, strategy=BackoffStrategy.LINEAR)
 
-    manager = QueueManager(
-        db_path=temp_db,
-        retry_policy=custom_policy
-    )
+    manager = QueueManager(db_path=temp_db, retry_policy=custom_policy)
 
     assert manager.retry_policy.max_retries == 5
     assert manager.retry_policy.strategy == BackoffStrategy.LINEAR
@@ -276,12 +255,12 @@ async def test_submit_multiple_priorities(manager):
         job_data = {
             "job_id": f"job-{priority}",
             "tool": "aider",
-            "command": {"exe": "aider"}
+            "command": {"exe": "aider"},
         }
         await manager.submit_job_dict(job_data, priority=priority)
 
     stats = manager.get_queue_stats()
-    total = stats['queue'].get('queued', 0) + stats['queue'].get('running', 0)
+    total = stats["queue"].get("queued", 0) + stats["queue"].get("running", 0)
     assert total >= 4
 
 
@@ -291,7 +270,7 @@ async def test_job_status_completed(manager):
     job_data = {
         "job_id": "completed-test",
         "tool": "aider",
-        "command": {"exe": "aider"}
+        "command": {"exe": "aider"},
     }
 
     job_id = await manager.submit_job_dict(job_data)
@@ -303,7 +282,7 @@ async def test_job_status_completed(manager):
     status = manager.get_job_status(job_id)
     if status:
         # Status could be completed or None (if not in active tracking)
-        assert status.get('status') in ['completed', None] or status is None
+        assert status.get("status") in ["completed", None] or status is None
 
 
 @pytest.mark.asyncio

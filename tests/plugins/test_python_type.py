@@ -1,6 +1,7 @@
 """
 Tests for Python type checker plugins (mypy, pyright).
 """
+
 # DOC_ID: DOC-TEST-PLUGINS-TEST-PYTHON-TYPE-149
 from __future__ import annotations
 
@@ -12,12 +13,19 @@ import pytest
 
 # Try to import plugins - may fail if error shared modules not migrated
 try:
-    from phase6_error_recovery.modules.plugins.python_mypy.src.python_mypy.plugin import MypyPlugin
-    from phase6_error_recovery.modules.plugins.python_pyright.src.python_pyright.plugin import PyrightPlugin
+    from phase6_error_recovery.modules.plugins.python_mypy.src.python_mypy.plugin import (
+        MypyPlugin,
+    )
+    from phase6_error_recovery.modules.plugins.python_pyright.src.python_pyright.plugin import (
+        PyrightPlugin,
+    )
+
     PLUGINS_AVAILABLE = True
 except (ImportError, ModuleNotFoundError):
     PLUGINS_AVAILABLE = False
-    pytestmark = pytest.mark.skip(reason="Plugin modules require error shared modules not yet migrated")
+    pytestmark = pytest.mark.skip(
+        reason="Plugin modules require error shared modules not yet migrated"
+    )
 from tests.plugins.conftest import (
     assert_issue_valid,
     assert_plugin_result_valid,
@@ -34,28 +42,33 @@ MYPY_SAMPLE_OUTPUT = """
 """
 
 # Sample Pyright JSON output
-PYRIGHT_SAMPLE_OUTPUT = json.dumps({
-    "generalDiagnostics": [
-        {
-            "file": "test.py",
-            "severity": "error",
-            "message": "Type 'int' is not assignable to type 'str'",
-            "range": {"start": {"line": 4, "character": 8}, "end": {"line": 4, "character": 10}},
-            "rule": "reportGeneralTypeIssues"
-        },
-        {
-            "file": "test.py",
-            "severity": "warning",
-            "message": "Import 'typing' is not accessed",
-            "range": {"start": {"line": 0, "character": 0}, "end": {"line": 0, "character": 13}},
-            "rule": "reportUnusedImport"
-        }
-    ],
-    "summary": {
-        "errorCount": 1,
-        "warningCount": 1
+PYRIGHT_SAMPLE_OUTPUT = json.dumps(
+    {
+        "generalDiagnostics": [
+            {
+                "file": "test.py",
+                "severity": "error",
+                "message": "Type 'int' is not assignable to type 'str'",
+                "range": {
+                    "start": {"line": 4, "character": 8},
+                    "end": {"line": 4, "character": 10},
+                },
+                "rule": "reportGeneralTypeIssues",
+            },
+            {
+                "file": "test.py",
+                "severity": "warning",
+                "message": "Import 'typing' is not accessed",
+                "range": {
+                    "start": {"line": 0, "character": 0},
+                    "end": {"line": 0, "character": 13},
+                },
+                "rule": "reportUnusedImport",
+            },
+        ],
+        "summary": {"errorCount": 1, "warningCount": 1},
     }
-})
+)
 
 
 class TestMypyPlugin:

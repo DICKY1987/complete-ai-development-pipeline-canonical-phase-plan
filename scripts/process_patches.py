@@ -40,7 +40,7 @@ class PatchManager:
             ["git", "apply", "--check", "--reverse", str(patch_file)],
             cwd=self.repo_path,
             capture_output=True,
-            text=True
+            text=True,
         )
         # Exit code 0 = patch IS applied (reverse succeeds)
         return result.returncode == 0
@@ -52,21 +52,23 @@ class PatchManager:
                 "success": True,
                 "patch": str(patch_file),
                 "message": "Already applied",
-                "output": ""
+                "output": "",
             }
 
         result = subprocess.run(
             ["git", "apply", "--3way", str(patch_file)],
             cwd=self.repo_path,
             capture_output=True,
-            text=True
+            text=True,
         )
 
         return {
             "success": result.returncode == 0,
             "patch": str(patch_file),
-            "message": "Applied successfully" if result.returncode == 0 else "Failed to apply",
-            "output": result.stdout + result.stderr
+            "message": (
+                "Applied successfully" if result.returncode == 0 else "Failed to apply"
+            ),
+            "output": result.stdout + result.stderr,
         }
 
     def archive_patch(self, patch_file: Path) -> Path:
@@ -93,13 +95,21 @@ class PatchManager:
             try:
                 for item in current_path.iterdir():
                     # Skip common directories
-                    if item.name in {'.git', '.venv', '__pycache__', 'node_modules',
-                                   '.pytest_cache', '.worktrees', 'archive', 'failed'}:
+                    if item.name in {
+                        ".git",
+                        ".venv",
+                        "__pycache__",
+                        "node_modules",
+                        ".pytest_cache",
+                        ".worktrees",
+                        "archive",
+                        "failed",
+                    }:
                         continue
 
                     if item.is_dir():
                         search_recursive(item)
-                    elif item.is_file() and item.suffix == '.patch':
+                    elif item.is_file() and item.suffix == ".patch":
                         patch_files.append(item)
             except PermissionError:
                 pass
@@ -109,12 +119,7 @@ class PatchManager:
 
     def process_all_patches(self, dry_run: bool = False) -> Dict[str, List]:
         """Process all patches found recursively in repository."""
-        results = {
-            "applied": [],
-            "already_applied": [],
-            "failed": [],
-            "archived": []
-        }
+        results = {"applied": [], "already_applied": [], "failed": [], "archived": []}
 
         # Recursively discover all .patch files
         patch_files = self.discover_all_patches()
@@ -140,7 +145,9 @@ class PatchManager:
                     results["archived"].append(str(archived))
                     print(f"  → Archived to {archived}")
                 else:
-                    print(f"  [DRY RUN] Would archive to archive/{datetime.now().strftime('%Y-%m-%d')}/")
+                    print(
+                        f"  [DRY RUN] Would archive to archive/{datetime.now().strftime('%Y-%m-%d')}/"
+                    )
                 continue
 
             # Apply patch
@@ -157,10 +164,9 @@ class PatchManager:
                 else:
                     print(f"  ✗ Failed to apply")
                     print(f"  Error: {apply_result['output']}")
-                    results["failed"].append({
-                        "patch": str(patch_file),
-                        "error": apply_result["output"]
-                    })
+                    results["failed"].append(
+                        {"patch": str(patch_file), "error": apply_result["output"]}
+                    )
 
                     failed_path = self.move_to_failed(patch_file)
                     print(f"  → Moved to {failed_path}")
@@ -171,9 +177,9 @@ class PatchManager:
 
     def print_summary(self, results: Dict[str, List]):
         """Print formatted summary of patch processing."""
-        print("\n" + "="*60)
+        print("\n" + "=" * 60)
         print("Patch Processing Summary")
-        print("="*60)
+        print("=" * 60)
 
         print(f"\n✓ Applied: {len(results['applied'])}")
         for patch in results["applied"]:
@@ -191,7 +197,7 @@ class PatchManager:
         for patch in results["archived"]:
             print(f"  • {patch}")
 
-        print("\n" + "="*60)
+        print("\n" + "=" * 60)
 
 
 def main():
@@ -199,29 +205,21 @@ def main():
         description="Patch Lifecycle Management (PAT-PATCH-001)"
     )
     parser.add_argument(
-        "--check",
-        metavar="FILE",
-        help="Check if specific patch is applied"
+        "--check", metavar="FILE", help="Check if specific patch is applied"
     )
-    parser.add_argument(
-        "--apply",
-        metavar="FILE",
-        help="Apply specific patch"
-    )
+    parser.add_argument("--apply", metavar="FILE", help="Apply specific patch")
     parser.add_argument(
         "--dry-run",
         action="store_true",
-        help="Show what would happen without making changes"
+        help="Show what would happen without making changes",
     )
     parser.add_argument(
         "--validate",
         action="store_true",
-        help="Validate no pending patches (for CI/CD)"
+        help="Validate no pending patches (for CI/CD)",
     )
     parser.add_argument(
-        "--repo",
-        default=".",
-        help="Repository path (default: current directory)"
+        "--repo", default=".", help="Repository path (default: current directory)"
     )
 
     args = parser.parse_args()

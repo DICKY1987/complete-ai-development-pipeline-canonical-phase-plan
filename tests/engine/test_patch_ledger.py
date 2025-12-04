@@ -8,6 +8,7 @@ Author: AI Development Pipeline
 Created: 2025-11-23
 WS: WS-NEXT-002-002 (Testing)
 """
+
 # DOC_ID: DOC-TEST-ENGINE-TEST-PATCH-LEDGER-174
 
 import pytest
@@ -24,26 +25,36 @@ from core.engine.patch_ledger import PatchLedger, ValidationResult
 
 class MockDB:
     """Mock database for testing"""
+
     def __init__(self):
-        self.conn = sqlite3.connect(':memory:')
+        self.conn = sqlite3.connect(":memory:")
         self.conn.row_factory = sqlite3.Row
         self._init_schema()
 
     def _init_schema(self):
         """Initialize test schema"""
         # Create runs table (for foreign key)
-        self.conn.execute("""
+        self.conn.execute(
+            """
             CREATE TABLE runs (
                 run_id TEXT PRIMARY KEY
             )
-        """)
+        """
+        )
 
         # Create patch_ledger table
         # Try multiple possible paths for the migration file
         repo_root = Path(__file__).parent.parent.parent
         possible_paths = [
-            repo_root / 'schema' / 'migrations' / '003_add_patch_ledger_table.sql',
-            repo_root / 'phase0_bootstrap' / 'modules' / 'bootstrap_orchestrator' / 'schemas' / 'schema' / 'migrations' / '003_add_patch_ledger_table.sql',
+            repo_root / "schema" / "migrations" / "003_add_patch_ledger_table.sql",
+            repo_root
+            / "phase0_bootstrap"
+            / "modules"
+            / "bootstrap_orchestrator"
+            / "schemas"
+            / "schema"
+            / "migrations"
+            / "003_add_patch_ledger_table.sql",
         ]
 
         schema_path = None
@@ -57,7 +68,7 @@ class MockDB:
                 f"Could not find patch_ledger migration file in any of: {[str(p) for p in possible_paths]}"
             )
 
-        with open(schema_path, 'r') as f:
+        with open(schema_path, "r") as f:
             self.conn.executescript(f.read())
         self.conn.commit()
 
@@ -107,20 +118,12 @@ class TestValidationResult:
 
     def test_is_valid_all_pass(self):
         """Test is_valid when all checks pass"""
-        result = ValidationResult(
-            format_ok=True,
-            scope_ok=True,
-            constraints_ok=True
-        )
+        result = ValidationResult(format_ok=True, scope_ok=True, constraints_ok=True)
         assert result.is_valid is True
 
     def test_is_valid_one_fail(self):
         """Test is_valid when one check fails"""
-        result = ValidationResult(
-            format_ok=True,
-            scope_ok=False,
-            constraints_ok=True
-        )
+        result = ValidationResult(format_ok=True, scope_ok=False, constraints_ok=True)
         assert result.is_valid is False
 
     def test_to_dict(self):
@@ -129,14 +132,14 @@ class TestValidationResult:
             format_ok=True,
             scope_ok=True,
             constraints_ok=False,
-            validation_errors=['Scope too large']
+            validation_errors=["Scope too large"],
         )
         data = result.to_dict()
 
-        assert data['format_ok'] is True
-        assert data['scope_ok'] is True
-        assert data['constraints_ok'] is False
-        assert data['validation_errors'] == ['Scope too large']
+        assert data["format_ok"] is True
+        assert data["scope_ok"] is True
+        assert data["constraints_ok"] is False
+        assert data["validation_errors"] == ["Scope too large"]
 
 
 class TestEntryCreation:
@@ -145,9 +148,7 @@ class TestEntryCreation:
     def test_create_entry(self, ledger, ledger_id, patch_id, project_id):
         """Test creating a new entry"""
         result = ledger.create_entry(
-            ledger_id=ledger_id,
-            patch_id=patch_id,
-            project_id=project_id
+            ledger_id=ledger_id, patch_id=patch_id, project_id=project_id
         )
 
         assert result == ledger_id
@@ -155,52 +156,54 @@ class TestEntryCreation:
         # Verify entry was created
         entry = ledger.get_entry(ledger_id)
         assert entry is not None
-        assert entry['ledger_id'] == ledger_id
-        assert entry['patch_id'] == patch_id
-        assert entry['project_id'] == project_id
-        assert entry['state'] == 'created'
+        assert entry["ledger_id"] == ledger_id
+        assert entry["patch_id"] == patch_id
+        assert entry["project_id"] == project_id
+        assert entry["state"] == "created"
 
-    def test_create_entry_with_validation(self, ledger, ledger_id, patch_id, project_id):
+    def test_create_entry_with_validation(
+        self, ledger, ledger_id, patch_id, project_id
+    ):
         """Test creating entry with validation result"""
         validation = ValidationResult(
-            format_ok=True,
-            scope_ok=True,
-            constraints_ok=True
+            format_ok=True, scope_ok=True, constraints_ok=True
         )
 
         ledger.create_entry(
             ledger_id=ledger_id,
             patch_id=patch_id,
             project_id=project_id,
-            validation=validation
+            validation=validation,
         )
 
         entry = ledger.get_entry(ledger_id)
-        assert entry['validation']['format_ok'] is True
-        assert entry['validation']['scope_ok'] is True
+        assert entry["validation"]["format_ok"] is True
+        assert entry["validation"]["scope_ok"] is True
 
-    def test_create_entry_with_workstream(self, ledger, ledger_id, patch_id, project_id):
+    def test_create_entry_with_workstream(
+        self, ledger, ledger_id, patch_id, project_id
+    ):
         """Test creating entry with workstream info"""
         ledger.create_entry(
             ledger_id=ledger_id,
             patch_id=patch_id,
             project_id=project_id,
             phase_id="PH-001",
-            workstream_id="WS-001-001"
+            workstream_id="WS-001-001",
         )
 
         entry = ledger.get_entry(ledger_id)
-        assert entry['phase_id'] == "PH-001"
-        assert entry['workstream_id'] == "WS-001-001"
+        assert entry["phase_id"] == "PH-001"
+        assert entry["workstream_id"] == "WS-001-001"
 
     def test_create_entry_state_history(self, ledger, ledger_id, patch_id, project_id):
         """Test entry has initial state history"""
         ledger.create_entry(ledger_id, patch_id, project_id)
 
         entry = ledger.get_entry(ledger_id)
-        assert len(entry['state_history']) == 1
-        assert entry['state_history'][0]['state'] == 'created'
-        assert entry['state_history'][0]['reason'] == 'Initial creation'
+        assert len(entry["state_history"]) == 1
+        assert entry["state_history"][0]["state"] == "created"
+        assert entry["state_history"][0]["reason"] == "Initial creation"
 
 
 class TestEntryRetrieval:
@@ -212,11 +215,11 @@ class TestEntryRetrieval:
         entry = ledger.get_entry(ledger_id)
 
         assert entry is not None
-        assert entry['ledger_id'] == ledger_id
+        assert entry["ledger_id"] == ledger_id
 
     def test_get_nonexistent_entry(self, ledger):
         """Test getting an entry that doesn't exist"""
-        entry = ledger.get_entry('nonexistent')
+        entry = ledger.get_entry("nonexistent")
         assert entry is None
 
 
@@ -228,17 +231,15 @@ class TestPatchValidation:
         ledger.create_entry(ledger_id, patch_id, project_id)
 
         validation = ValidationResult(
-            format_ok=True,
-            scope_ok=True,
-            constraints_ok=True
+            format_ok=True, scope_ok=True, constraints_ok=True
         )
 
         result = ledger.validate_patch(ledger_id, validation)
         assert result is True
 
         entry = ledger.get_entry(ledger_id)
-        assert entry['state'] == 'validated'
-        assert entry['validation']['format_ok'] is True
+        assert entry["state"] == "validated"
+        assert entry["validation"]["format_ok"] is True
 
     def test_validate_patch_failure(self, ledger, ledger_id, patch_id, project_id):
         """Test patch validation failure"""
@@ -248,31 +249,33 @@ class TestPatchValidation:
             format_ok=True,
             scope_ok=False,
             constraints_ok=True,
-            validation_errors=['Scope exceeds limits']
+            validation_errors=["Scope exceeds limits"],
         )
 
         ledger.validate_patch(ledger_id, validation)
 
         entry = ledger.get_entry(ledger_id)
-        assert entry['state'] == 'apply_failed'
-        assert entry['validation']['scope_ok'] is False
+        assert entry["state"] == "apply_failed"
+        assert entry["validation"]["scope_ok"] is False
 
     def test_validate_nonexistent_entry(self, ledger):
         """Test validating nonexistent entry"""
         validation = ValidationResult()
         with pytest.raises(ValueError, match="Ledger entry not found"):
-            ledger.validate_patch('nonexistent', validation)
+            ledger.validate_patch("nonexistent", validation)
 
     def test_validate_updates_history(self, ledger, ledger_id, patch_id, project_id):
         """Test validation updates state history"""
         ledger.create_entry(ledger_id, patch_id, project_id)
 
-        validation = ValidationResult(format_ok=True, scope_ok=True, constraints_ok=True)
+        validation = ValidationResult(
+            format_ok=True, scope_ok=True, constraints_ok=True
+        )
         ledger.validate_patch(ledger_id, validation)
 
         entry = ledger.get_entry(ledger_id)
-        assert len(entry['state_history']) == 2
-        assert entry['state_history'][1]['state'] == 'validated'
+        assert len(entry["state_history"]) == 2
+        assert entry["state_history"][1]["state"] == "validated"
 
 
 class TestPatchQueuing:
@@ -281,14 +284,16 @@ class TestPatchQueuing:
     def test_queue_patch(self, ledger, ledger_id, patch_id, project_id):
         """Test queuing a validated patch"""
         ledger.create_entry(ledger_id, patch_id, project_id)
-        validation = ValidationResult(format_ok=True, scope_ok=True, constraints_ok=True)
+        validation = ValidationResult(
+            format_ok=True, scope_ok=True, constraints_ok=True
+        )
         ledger.validate_patch(ledger_id, validation)
 
         result = ledger.queue_patch(ledger_id)
         assert result is True
 
         entry = ledger.get_entry(ledger_id)
-        assert entry['state'] == 'queued'
+        assert entry["state"] == "queued"
 
     def test_queue_nonvalidated_patch(self, ledger, ledger_id, patch_id, project_id):
         """Test cannot queue non-validated patch"""
@@ -304,7 +309,9 @@ class TestPatchApplication:
     def test_apply_patch_success(self, ledger, ledger_id, patch_id, project_id):
         """Test applying patch successfully"""
         ledger.create_entry(ledger_id, patch_id, project_id)
-        validation = ValidationResult(format_ok=True, scope_ok=True, constraints_ok=True)
+        validation = ValidationResult(
+            format_ok=True, scope_ok=True, constraints_ok=True
+        )
         ledger.validate_patch(ledger_id, validation)
         ledger.queue_patch(ledger_id)
 
@@ -312,19 +319,21 @@ class TestPatchApplication:
             ledger_id,
             success=True,
             workspace_path="/tmp/workspace",
-            applied_files=["file1.py", "file2.py"]
+            applied_files=["file1.py", "file2.py"],
         )
         assert result is True
 
         entry = ledger.get_entry(ledger_id)
-        assert entry['state'] == 'applied'
-        assert entry['apply']['workspace_path'] == "/tmp/workspace"
-        assert len(entry['apply']['applied_files']) == 2
+        assert entry["state"] == "applied"
+        assert entry["apply"]["workspace_path"] == "/tmp/workspace"
+        assert len(entry["apply"]["applied_files"]) == 2
 
     def test_apply_patch_failure(self, ledger, ledger_id, patch_id, project_id):
         """Test applying patch with failure"""
         ledger.create_entry(ledger_id, patch_id, project_id)
-        validation = ValidationResult(format_ok=True, scope_ok=True, constraints_ok=True)
+        validation = ValidationResult(
+            format_ok=True, scope_ok=True, constraints_ok=True
+        )
         ledger.validate_patch(ledger_id, validation)
         ledger.queue_patch(ledger_id)
 
@@ -332,31 +341,35 @@ class TestPatchApplication:
             ledger_id,
             success=False,
             error_code="PATCH_001",
-            error_message="Failed to apply patch"
+            error_message="Failed to apply patch",
         )
 
         entry = ledger.get_entry(ledger_id)
-        assert entry['state'] == 'apply_failed'
-        assert entry['apply']['last_error_code'] == "PATCH_001"
+        assert entry["state"] == "apply_failed"
+        assert entry["apply"]["last_error_code"] == "PATCH_001"
 
     def test_apply_increments_attempts(self, ledger, ledger_id, patch_id, project_id):
         """Test apply increments attempt counter"""
         ledger.create_entry(ledger_id, patch_id, project_id)
-        validation = ValidationResult(format_ok=True, scope_ok=True, constraints_ok=True)
+        validation = ValidationResult(
+            format_ok=True, scope_ok=True, constraints_ok=True
+        )
         ledger.validate_patch(ledger_id, validation)
         ledger.queue_patch(ledger_id)
 
-        ledger.apply_patch(ledger_id, success=False, error_message="First attempt failed")
+        ledger.apply_patch(
+            ledger_id, success=False, error_message="First attempt failed"
+        )
 
         entry = ledger.get_entry(ledger_id)
-        assert entry['apply']['attempts'] == 1
+        assert entry["apply"]["attempts"] == 1
 
         # Retry
         ledger.queue_patch(ledger_id)
         ledger.apply_patch(ledger_id, success=True, workspace_path="/tmp")
 
         entry = ledger.get_entry(ledger_id)
-        assert entry['apply']['attempts'] == 2
+        assert entry["apply"]["attempts"] == 2
 
 
 class TestPatchVerification:
@@ -365,7 +378,9 @@ class TestPatchVerification:
     def test_verify_patch_success(self, ledger, ledger_id, patch_id, project_id):
         """Test verifying patch with passing tests"""
         ledger.create_entry(ledger_id, patch_id, project_id)
-        validation = ValidationResult(format_ok=True, scope_ok=True, constraints_ok=True)
+        validation = ValidationResult(
+            format_ok=True, scope_ok=True, constraints_ok=True
+        )
         ledger.validate_patch(ledger_id, validation)
         ledger.queue_patch(ledger_id)
         ledger.apply_patch(ledger_id, success=True, workspace_path="/tmp")
@@ -374,12 +389,14 @@ class TestPatchVerification:
         assert result is True
 
         entry = ledger.get_entry(ledger_id)
-        assert entry['state'] == 'verified'
+        assert entry["state"] == "verified"
 
     def test_verify_patch_failure(self, ledger, ledger_id, patch_id, project_id):
         """Test verifying patch with failing tests"""
         ledger.create_entry(ledger_id, patch_id, project_id)
-        validation = ValidationResult(format_ok=True, scope_ok=True, constraints_ok=True)
+        validation = ValidationResult(
+            format_ok=True, scope_ok=True, constraints_ok=True
+        )
         ledger.validate_patch(ledger_id, validation)
         ledger.queue_patch(ledger_id)
         ledger.apply_patch(ledger_id, success=True, workspace_path="/tmp")
@@ -387,7 +404,7 @@ class TestPatchVerification:
         ledger.verify_patch(ledger_id, tests_passed=False)
 
         entry = ledger.get_entry(ledger_id)
-        assert entry['state'] == 'apply_failed'
+        assert entry["state"] == "apply_failed"
 
 
 class TestPatchCommit:
@@ -396,7 +413,9 @@ class TestPatchCommit:
     def test_commit_patch(self, ledger, ledger_id, patch_id, project_id):
         """Test committing verified patch"""
         ledger.create_entry(ledger_id, patch_id, project_id)
-        validation = ValidationResult(format_ok=True, scope_ok=True, constraints_ok=True)
+        validation = ValidationResult(
+            format_ok=True, scope_ok=True, constraints_ok=True
+        )
         ledger.validate_patch(ledger_id, validation)
         ledger.queue_patch(ledger_id)
         ledger.apply_patch(ledger_id, success=True, workspace_path="/tmp")
@@ -406,7 +425,7 @@ class TestPatchCommit:
         assert result is True
 
         entry = ledger.get_entry(ledger_id)
-        assert entry['state'] == 'committed'
+        assert entry["state"] == "committed"
 
     def test_commit_nonverified_patch(self, ledger, ledger_id, patch_id, project_id):
         """Test cannot commit non-verified patch"""
@@ -422,7 +441,9 @@ class TestPatchRollback:
     def test_rollback_applied_patch(self, ledger, ledger_id, patch_id, project_id):
         """Test rolling back applied patch"""
         ledger.create_entry(ledger_id, patch_id, project_id)
-        validation = ValidationResult(format_ok=True, scope_ok=True, constraints_ok=True)
+        validation = ValidationResult(
+            format_ok=True, scope_ok=True, constraints_ok=True
+        )
         ledger.validate_patch(ledger_id, validation)
         ledger.queue_patch(ledger_id)
         ledger.apply_patch(ledger_id, success=True, workspace_path="/tmp")
@@ -431,12 +452,14 @@ class TestPatchRollback:
         assert result is True
 
         entry = ledger.get_entry(ledger_id)
-        assert entry['state'] == 'rolled_back'
+        assert entry["state"] == "rolled_back"
 
     def test_rollback_verified_patch(self, ledger, ledger_id, patch_id, project_id):
         """Test rolling back verified patch"""
         ledger.create_entry(ledger_id, patch_id, project_id)
-        validation = ValidationResult(format_ok=True, scope_ok=True, constraints_ok=True)
+        validation = ValidationResult(
+            format_ok=True, scope_ok=True, constraints_ok=True
+        )
         ledger.validate_patch(ledger_id, validation)
         ledger.queue_patch(ledger_id)
         ledger.apply_patch(ledger_id, success=True, workspace_path="/tmp")
@@ -445,7 +468,7 @@ class TestPatchRollback:
         ledger.rollback_patch(ledger_id, "Critical bug found")
 
         entry = ledger.get_entry(ledger_id)
-        assert entry['state'] == 'rolled_back'
+        assert entry["state"] == "rolled_back"
 
 
 class TestPatchQuarantine:
@@ -456,21 +479,21 @@ class TestPatchQuarantine:
         ledger.create_entry(ledger_id, patch_id, project_id)
 
         result = ledger.quarantine_patch(
-            ledger_id,
-            reason="Security concern",
-            quarantine_path="/quarantine/patch001"
+            ledger_id, reason="Security concern", quarantine_path="/quarantine/patch001"
         )
         assert result is True
 
         entry = ledger.get_entry(ledger_id)
-        assert entry['state'] == 'quarantined'
-        assert entry['quarantine']['is_quarantined'] is True
-        assert entry['quarantine']['quarantine_reason'] == "Security concern"
+        assert entry["state"] == "quarantined"
+        assert entry["quarantine"]["is_quarantined"] is True
+        assert entry["quarantine"]["quarantine_reason"] == "Security concern"
 
     def test_quarantine_from_any_state(self, ledger, ledger_id, patch_id, project_id):
         """Test can quarantine from any non-terminal state"""
         ledger.create_entry(ledger_id, patch_id, project_id)
-        validation = ValidationResult(format_ok=True, scope_ok=True, constraints_ok=True)
+        validation = ValidationResult(
+            format_ok=True, scope_ok=True, constraints_ok=True
+        )
         ledger.validate_patch(ledger_id, validation)
         ledger.queue_patch(ledger_id)
 
@@ -478,7 +501,7 @@ class TestPatchQuarantine:
         ledger.quarantine_patch(ledger_id, "Malicious code detected")
 
         entry = ledger.get_entry(ledger_id)
-        assert entry['state'] == 'quarantined'
+        assert entry["state"] == "quarantined"
 
 
 class TestPatchDrop:
@@ -492,7 +515,7 @@ class TestPatchDrop:
         assert result is True
 
         entry = ledger.get_entry(ledger_id)
-        assert entry['state'] == 'dropped'
+        assert entry["state"] == "dropped"
 
     def test_drop_quarantined_patch(self, ledger, ledger_id, patch_id, project_id):
         """Test dropping quarantined patch"""
@@ -502,7 +525,7 @@ class TestPatchDrop:
         ledger.drop_patch(ledger_id, "Cannot be safely applied")
 
         entry = ledger.get_entry(ledger_id)
-        assert entry['state'] == 'dropped'
+        assert entry["state"] == "dropped"
 
 
 class TestEntryListing:
@@ -536,19 +559,25 @@ class TestEntryListing:
         ledger.create_entry("01HQLEDGER000000000000001", patch_id, project_id)
         ledger.create_entry("01HQLEDGER000000000000002", patch_id, project_id)
 
-        validation = ValidationResult(format_ok=True, scope_ok=True, constraints_ok=True)
+        validation = ValidationResult(
+            format_ok=True, scope_ok=True, constraints_ok=True
+        )
         ledger.validate_patch("01HQLEDGER000000000000001", validation)
 
-        validated = ledger.list_entries(state='validated')
-        created = ledger.list_entries(state='created')
+        validated = ledger.list_entries(state="validated")
+        created = ledger.list_entries(state="created")
 
         assert len(validated) == 1
         assert len(created) == 1
 
     def test_list_entries_by_workstream(self, ledger, patch_id, project_id):
         """Test filtering entries by workstream"""
-        ledger.create_entry("01HQLEDGER000000000000001", patch_id, project_id, workstream_id="WS-001")
-        ledger.create_entry("01HQLEDGER000000000000002", patch_id, project_id, workstream_id="WS-002")
+        ledger.create_entry(
+            "01HQLEDGER000000000000001", patch_id, project_id, workstream_id="WS-001"
+        )
+        ledger.create_entry(
+            "01HQLEDGER000000000000002", patch_id, project_id, workstream_id="WS-002"
+        )
 
         entries = ledger.list_entries(workstream_id="WS-001")
         assert len(entries) == 1
@@ -559,46 +588,46 @@ class TestStateTransitions:
 
     def test_terminal_states_immutable(self, ledger):
         """Test that terminal states cannot transition"""
-        assert not ledger._can_transition('committed', 'validated')
-        assert not ledger._can_transition('rolled_back', 'validated')
-        assert not ledger._can_transition('dropped', 'validated')
+        assert not ledger._can_transition("committed", "validated")
+        assert not ledger._can_transition("rolled_back", "validated")
+        assert not ledger._can_transition("dropped", "validated")
 
     def test_valid_transitions(self, ledger):
         """Test all valid state transitions"""
         # created -> validated
-        assert ledger._can_transition('created', 'validated') is True
+        assert ledger._can_transition("created", "validated") is True
 
         # validated -> queued
-        assert ledger._can_transition('validated', 'queued') is True
+        assert ledger._can_transition("validated", "queued") is True
 
         # queued -> applied
-        assert ledger._can_transition('queued', 'applied') is True
+        assert ledger._can_transition("queued", "applied") is True
 
         # applied -> verified
-        assert ledger._can_transition('applied', 'verified') is True
+        assert ledger._can_transition("applied", "verified") is True
 
         # verified -> committed
-        assert ledger._can_transition('verified', 'committed') is True
+        assert ledger._can_transition("verified", "committed") is True
 
         # any -> quarantined
-        assert ledger._can_transition('created', 'quarantined') is True
-        assert ledger._can_transition('applied', 'quarantined') is True
+        assert ledger._can_transition("created", "quarantined") is True
+        assert ledger._can_transition("applied", "quarantined") is True
 
     def test_invalid_transitions(self, ledger):
         """Test invalid state transitions"""
         # Cannot go directly from created to applied
-        assert ledger._can_transition('created', 'applied') is False
+        assert ledger._can_transition("created", "applied") is False
 
         # Cannot go from committed to anything
-        assert ledger._can_transition('committed', 'queued') is False
+        assert ledger._can_transition("committed", "queued") is False
 
     def test_is_terminal(self):
         """Test terminal state detection"""
-        assert PatchLedger.is_terminal('committed') is True
-        assert PatchLedger.is_terminal('rolled_back') is True
-        assert PatchLedger.is_terminal('dropped') is True
-        assert PatchLedger.is_terminal('created') is False
-        assert PatchLedger.is_terminal('applied') is False
+        assert PatchLedger.is_terminal("committed") is True
+        assert PatchLedger.is_terminal("rolled_back") is True
+        assert PatchLedger.is_terminal("dropped") is True
+        assert PatchLedger.is_terminal("created") is False
+        assert PatchLedger.is_terminal("applied") is False
 
 
 class TestCompleteWorkflow:
@@ -608,42 +637,46 @@ class TestCompleteWorkflow:
         """Test complete successful patch workflow"""
         # Create
         ledger.create_entry(ledger_id, patch_id, project_id)
-        assert ledger.get_entry(ledger_id)['state'] == 'created'
+        assert ledger.get_entry(ledger_id)["state"] == "created"
 
         # Validate
-        validation = ValidationResult(format_ok=True, scope_ok=True, constraints_ok=True)
+        validation = ValidationResult(
+            format_ok=True, scope_ok=True, constraints_ok=True
+        )
         ledger.validate_patch(ledger_id, validation)
-        assert ledger.get_entry(ledger_id)['state'] == 'validated'
+        assert ledger.get_entry(ledger_id)["state"] == "validated"
 
         # Queue
         ledger.queue_patch(ledger_id)
-        assert ledger.get_entry(ledger_id)['state'] == 'queued'
+        assert ledger.get_entry(ledger_id)["state"] == "queued"
 
         # Apply
         ledger.apply_patch(ledger_id, success=True, workspace_path="/tmp")
-        assert ledger.get_entry(ledger_id)['state'] == 'applied'
+        assert ledger.get_entry(ledger_id)["state"] == "applied"
 
         # Verify
         ledger.verify_patch(ledger_id, tests_passed=True)
-        assert ledger.get_entry(ledger_id)['state'] == 'verified'
+        assert ledger.get_entry(ledger_id)["state"] == "verified"
 
         # Commit
         ledger.commit_patch(ledger_id)
         entry = ledger.get_entry(ledger_id)
-        assert entry['state'] == 'committed'
+        assert entry["state"] == "committed"
 
         # Check state history
-        assert len(entry['state_history']) == 6  # created + 5 transitions
+        assert len(entry["state_history"]) == 6  # created + 5 transitions
 
     def test_failed_patch_workflow(self, ledger, ledger_id, patch_id, project_id):
         """Test patch workflow with failures"""
         ledger.create_entry(ledger_id, patch_id, project_id)
 
         # Validation fails
-        validation = ValidationResult(format_ok=False, scope_ok=True, constraints_ok=True)
+        validation = ValidationResult(
+            format_ok=False, scope_ok=True, constraints_ok=True
+        )
         ledger.validate_patch(ledger_id, validation)
-        assert ledger.get_entry(ledger_id)['state'] == 'apply_failed'
+        assert ledger.get_entry(ledger_id)["state"] == "apply_failed"
 
         # Drop the patch
         ledger.drop_patch(ledger_id, "Validation failed")
-        assert ledger.get_entry(ledger_id)['state'] == 'dropped'
+        assert ledger.get_entry(ledger_id)["state"] == "dropped"

@@ -1,6 +1,7 @@
 """
 Tests for PowerShell and JavaScript/TypeScript plugins.
 """
+
 # DOC_ID: DOC-TEST-PLUGINS-TEST-POWERSHELL-JS-145
 from __future__ import annotations
 
@@ -12,13 +13,22 @@ import pytest
 
 # Try to import plugins - may fail if error shared modules not migrated
 try:
-    from phase6_error_recovery.modules.plugins.powershell_pssa.src.powershell_pssa.plugin import PSScriptAnalyzerPlugin
-    from phase6_error_recovery.modules.plugins.js_prettier_fix.src.js_prettier_fix.plugin import PrettierFixPlugin
-    from phase6_error_recovery.modules.plugins.js_eslint.src.js_eslint.plugin import ESLintPlugin
+    from phase6_error_recovery.modules.plugins.powershell_pssa.src.powershell_pssa.plugin import (
+        PSScriptAnalyzerPlugin,
+    )
+    from phase6_error_recovery.modules.plugins.js_prettier_fix.src.js_prettier_fix.plugin import (
+        PrettierFixPlugin,
+    )
+    from phase6_error_recovery.modules.plugins.js_eslint.src.js_eslint.plugin import (
+        ESLintPlugin,
+    )
+
     PLUGINS_AVAILABLE = True
 except (ImportError, ModuleNotFoundError):
     PLUGINS_AVAILABLE = False
-    pytestmark = pytest.mark.skip(reason="Plugin modules require error shared modules not yet migrated")
+    pytestmark = pytest.mark.skip(
+        reason="Plugin modules require error shared modules not yet migrated"
+    )
 from tests.plugins.conftest import (
     assert_issue_valid,
     assert_plugin_result_valid,
@@ -29,47 +39,51 @@ from tests.plugins.conftest import (
 
 
 # Sample PSScriptAnalyzer JSON output
-PSSA_SAMPLE_OUTPUT = json.dumps([
-    {
-        "RuleName": "PSAvoidUsingCmdletAliases",
-        "Severity": "Warning",
-        "Message": "Avoid using cmdlet aliases",
-        "Line": 3,
-        "Column": 1,
-        "ScriptPath": "test.ps1"
-    },
-    {
-        "RuleName": "ParseError",
-        "Severity": "Error",
-        "Message": "Missing closing brace",
-        "Line": 10,
-        "Column": 5,
-        "ScriptPath": "test.ps1"
-    }
-])
+PSSA_SAMPLE_OUTPUT = json.dumps(
+    [
+        {
+            "RuleName": "PSAvoidUsingCmdletAliases",
+            "Severity": "Warning",
+            "Message": "Avoid using cmdlet aliases",
+            "Line": 3,
+            "Column": 1,
+            "ScriptPath": "test.ps1",
+        },
+        {
+            "RuleName": "ParseError",
+            "Severity": "Error",
+            "Message": "Missing closing brace",
+            "Line": 10,
+            "Column": 5,
+            "ScriptPath": "test.ps1",
+        },
+    ]
+)
 
 # Sample ESLint JSON output
-ESLINT_SAMPLE_OUTPUT = json.dumps([
-    {
-        "filePath": "test.js",
-        "messages": [
-            {
-                "ruleId": "no-unused-vars",
-                "severity": 2,
-                "message": "variable is defined but never used",
-                "line": 1,
-                "column": 7
-            },
-            {
-                "ruleId": "semi",
-                "severity": 1,
-                "message": "Missing semicolon",
-                "line": 5,
-                "column": 10
-            }
-        ]
-    }
-])
+ESLINT_SAMPLE_OUTPUT = json.dumps(
+    [
+        {
+            "filePath": "test.js",
+            "messages": [
+                {
+                    "ruleId": "no-unused-vars",
+                    "severity": 2,
+                    "message": "variable is defined but never used",
+                    "line": 1,
+                    "column": 7,
+                },
+                {
+                    "ruleId": "semi",
+                    "severity": 1,
+                    "message": "Missing semicolon",
+                    "line": 5,
+                    "column": 10,
+                },
+            ],
+        }
+    ]
+)
 
 
 class TestPSScriptAnalyzerPlugin:
@@ -137,14 +151,16 @@ class TestPSScriptAnalyzerPlugin:
         plugin = PSScriptAnalyzerPlugin()
         test_file = create_sample_file(tmp_path, "test.ps1", "Write-Host 'test'")
 
-        single_object = json.dumps({
-            "RuleName": "PSAvoidUsingCmdletAliases",
-            "Severity": "Warning",
-            "Message": "Test message",
-            "Line": 1,
-            "Column": 1,
-            "ScriptPath": "test.ps1"
-        })
+        single_object = json.dumps(
+            {
+                "RuleName": "PSAvoidUsingCmdletAliases",
+                "Severity": "Warning",
+                "Message": "Test message",
+                "Line": 1,
+                "Column": 1,
+                "ScriptPath": "test.ps1",
+            }
+        )
 
         with patch("subprocess.run") as mock_run:
             mock_proc = MagicMock()

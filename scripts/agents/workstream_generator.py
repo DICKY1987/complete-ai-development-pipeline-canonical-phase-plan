@@ -83,10 +83,12 @@ class WorkstreamGenerator:
             "action": "implement",
             "component": "unknown",
             "constraints": [],
-            "criteria": []
+            "criteria": [],
         }
 
-    def suggest_files_scope(self, description: str, files: Optional[List[str]] = None) -> List[str]:
+    def suggest_files_scope(
+        self, description: str, files: Optional[List[str]] = None
+    ) -> List[str]:
         """
         Suggest FILES_SCOPE based on description or use provided files.
 
@@ -126,10 +128,12 @@ class WorkstreamGenerator:
         return [
             "Use section-based import patterns",
             "Add corresponding tests",
-            "Follow existing code style"
+            "Follow existing code style",
         ]
 
-    def generate_acceptance_criteria(self, description: str, parsed_info: Dict) -> List[str]:
+    def generate_acceptance_criteria(
+        self, description: str, parsed_info: Dict
+    ) -> List[str]:
         """
         Generate acceptance criteria for the task.
 
@@ -148,7 +152,7 @@ class WorkstreamGenerator:
         return [
             "All tests pass",
             "No deprecated import patterns",
-            "Code follows repository conventions"
+            "Code follows repository conventions",
         ]
 
     def create_workstream_json(
@@ -156,7 +160,7 @@ class WorkstreamGenerator:
         description: str,
         phase: str,
         files: Optional[List[str]] = None,
-        ws_id: Optional[str] = None
+        ws_id: Optional[str] = None,
     ) -> Dict:
         """
         Create a complete workstream JSON structure.
@@ -184,25 +188,27 @@ class WorkstreamGenerator:
             "metadata": {
                 "priority": "normal",
                 "complexity": "medium",
-                "estimated_effort_hours": 4
+                "estimated_effort_hours": 4,
             },
             "files_scope": self.suggest_files_scope(description, files),
             "constraints": self.generate_constraints(description, parsed_info),
-            "acceptance_criteria": self.generate_acceptance_criteria(description, parsed_info),
+            "acceptance_criteria": self.generate_acceptance_criteria(
+                description, parsed_info
+            ),
             "steps": [
                 {
                     "step_id": f"{workstream_id}-001",
                     "description": f"Implement: {description}",
                     "tool": "claude-code",
-                    "parameters": {}
+                    "parameters": {},
                 },
                 {
                     "step_id": f"{workstream_id}-002",
                     "description": "Run tests and validation",
                     "tool": "pytest",
-                    "parameters": {}
-                }
-            ]
+                    "parameters": {},
+                },
+            ],
         }
 
         return workstream
@@ -235,7 +241,7 @@ class WorkstreamGenerator:
         """
         output_path.parent.mkdir(parents=True, exist_ok=True)
 
-        with open(output_path, 'w') as f:
+        with open(output_path, "w") as f:
             json.dump(workstream, f, indent=2)
 
         print(f"✅ Workstream saved to: {output_path}")
@@ -263,8 +269,8 @@ class WorkstreamGenerator:
 
         # Confirm save
         save = input("\nSave this workstream? (y/n): ").strip().lower()
-        if save == 'y':
-            ws_id = workstream['workstream_id']
+        if save == "y":
+            ws_id = workstream["workstream_id"]
             output_path = Path(f"workstreams/{ws_id.lower()}.json")
             self.save_workstream(workstream, output_path)
         else:
@@ -292,40 +298,30 @@ Examples:
   python scripts/agents/workstream_generator.py \\
     --description "Fix import paths in error plugins" \\
     --phase PH-008
-        """
+        """,
     )
 
     parser.add_argument(
-        "--interactive", "-i",
-        action="store_true",
-        help="Run in interactive mode"
+        "--interactive", "-i", action="store_true", help="Run in interactive mode"
     )
 
     parser.add_argument(
-        "--description", "-d",
-        help="Natural language description of the task"
+        "--description", "-d", help="Natural language description of the task"
     )
 
-    parser.add_argument(
-        "--phase", "-p",
-        help="Phase identifier (e.g., PH-007)"
-    )
+    parser.add_argument("--phase", "-p", help="Phase identifier (e.g., PH-007)")
+
+    parser.add_argument("--files", "-f", help="Comma-separated list of files in scope")
 
     parser.add_argument(
-        "--files", "-f",
-        help="Comma-separated list of files in scope"
-    )
-
-    parser.add_argument(
-        "--output", "-o",
+        "--output",
+        "-o",
         type=Path,
-        help="Output path for workstream JSON (auto-generated if not provided)"
+        help="Output path for workstream JSON (auto-generated if not provided)",
     )
 
     parser.add_argument(
-        "--schema",
-        type=Path,
-        help="Path to workstream schema for validation"
+        "--schema", type=Path, help="Path to workstream schema for validation"
     )
 
     args = parser.parse_args()
@@ -339,23 +335,23 @@ Examples:
     else:
         # Validate required arguments for non-interactive mode
         if not args.description or not args.phase:
-            parser.error("--description and --phase are required in non-interactive mode")
+            parser.error(
+                "--description and --phase are required in non-interactive mode"
+            )
 
         # Parse files if provided
         files = [f.strip() for f in args.files.split(",")] if args.files else None
 
         # Generate workstream
         workstream = generator.create_workstream_json(
-            description=args.description,
-            phase=args.phase,
-            files=files
+            description=args.description, phase=args.phase, files=files
         )
 
         # Determine output path
         if args.output:
             output_path = args.output
         else:
-            ws_id = workstream['workstream_id']
+            ws_id = workstream["workstream_id"]
             output_path = Path(f"workstreams/{ws_id.lower()}.json")
 
         # Validate

@@ -2,6 +2,7 @@
 
 Monitors run execution and aggregates metrics.
 """
+
 # DOC_ID: DOC-CORE-MONITORING-RUN-MONITOR-179
 
 from dataclasses import dataclass
@@ -18,6 +19,7 @@ from core.state.db import Database
 
 class RunStatus(Enum):
     """Run status for monitoring"""
+
     PENDING = "pending"
     RUNNING = "running"
     SUCCEEDED = "succeeded"
@@ -51,17 +53,17 @@ class RunMetrics:
     def to_dict(self) -> Dict:
         """Convert to dictionary"""
         return {
-            'run_id': self.run_id,
-            'status': self.status,
-            'total_steps': self.total_steps,
-            'completed_steps': self.completed_steps,
-            'failed_steps': self.failed_steps,
-            'total_events': self.total_events,
-            'error_events': self.error_events,
-            'created_at': self.created_at,
-            'started_at': self.started_at,
-            'ended_at': self.ended_at,
-            'duration_seconds': self.duration_seconds,
+            "run_id": self.run_id,
+            "status": self.status,
+            "total_steps": self.total_steps,
+            "completed_steps": self.completed_steps,
+            "failed_steps": self.failed_steps,
+            "total_events": self.total_events,
+            "error_events": self.error_events,
+            "created_at": self.created_at,
+            "started_at": self.started_at,
+            "ended_at": self.ended_at,
+            "duration_seconds": self.duration_seconds,
         }
 
 
@@ -96,14 +98,17 @@ class RunMonitor:
 
         # Count step attempts
         cursor = self.db.conn.cursor()
-        cursor.execute("""
+        cursor.execute(
+            """
             SELECT
                 COUNT(*) as total,
                 SUM(CASE WHEN state = 'succeeded' THEN 1 ELSE 0 END) as completed,
                 SUM(CASE WHEN state = 'failed' THEN 1 ELSE 0 END) as failed
             FROM step_attempts
             WHERE run_id = ?
-        """, (run_id,))
+        """,
+            (run_id,),
+        )
 
         steps = cursor.fetchone()
         total_steps = steps[0] if steps else 0
@@ -111,13 +116,16 @@ class RunMonitor:
         failed_steps = steps[2] if steps else 0
 
         # Count events
-        cursor.execute("""
+        cursor.execute(
+            """
             SELECT
                 COUNT(*) as total,
                 SUM(CASE WHEN event_type LIKE '%error%' OR event_type LIKE '%failed%' THEN 1 ELSE 0 END) as errors
             FROM run_events
             WHERE run_id = ?
-        """, (run_id,))
+        """,
+            (run_id,),
+        )
 
         events = cursor.fetchone()
         total_events = events[0] if events and events[0] else 0
@@ -125,23 +133,24 @@ class RunMonitor:
 
         # Calculate duration
         duration = None
-        if run.get('started_at') and run.get('ended_at'):
+        if run.get("started_at") and run.get("ended_at"):
             from datetime import datetime
-            started = datetime.fromisoformat(run['started_at'].replace('Z', '+00:00'))
-            ended = datetime.fromisoformat(run['ended_at'].replace('Z', '+00:00'))
+
+            started = datetime.fromisoformat(run["started_at"].replace("Z", "+00:00"))
+            ended = datetime.fromisoformat(run["ended_at"].replace("Z", "+00:00"))
             duration = (ended - started).total_seconds()
 
         return RunMetrics(
             run_id=run_id,
-            status=run['state'],
+            status=run["state"],
             total_steps=total_steps,
             completed_steps=completed_steps,
             failed_steps=failed_steps,
             total_events=total_events,
             error_events=error_events,
-            created_at=run['created_at'],
-            started_at=run.get('started_at'),
-            ended_at=run.get('ended_at'),
+            created_at=run["created_at"],
+            started_at=run.get("started_at"),
+            ended_at=run.get("ended_at"),
             duration_seconds=duration,
         )
 
@@ -152,12 +161,14 @@ class RunMonitor:
             List of run IDs
         """
         cursor = self.db.conn.cursor()
-        cursor.execute("""
+        cursor.execute(
+            """
             SELECT run_id
             FROM runs
             WHERE state IN ('pending', 'running')
             ORDER BY created_at DESC
-        """)
+        """
+        )
 
         return [row[0] for row in cursor.fetchall()]
 
@@ -170,30 +181,35 @@ class RunMonitor:
         cursor = self.db.conn.cursor()
 
         # Count runs by state
-        cursor.execute("""
+        cursor.execute(
+            """
             SELECT state, COUNT(*) as count
             FROM runs
             GROUP BY state
-        """)
+        """
+        )
 
         state_counts = {row[0]: row[1] for row in cursor.fetchall()}
 
         # Count total steps
-        cursor.execute("""
+        cursor.execute(
+            """
             SELECT
                 COUNT(*) as total,
                 SUM(CASE WHEN state = 'succeeded' THEN 1 ELSE 0 END) as succeeded,
                 SUM(CASE WHEN state = 'failed' THEN 1 ELSE 0 END) as failed
             FROM step_attempts
-        """)
+        """
+        )
 
         steps = cursor.fetchone()
 
         return {
-            'total_runs': sum(state_counts.values()),
-            'runs_by_state': state_counts,
-            'active_runs': state_counts.get('running', 0) + state_counts.get('pending', 0),
-            'total_steps': steps[0] if steps else 0,
-            'succeeded_steps': steps[1] if steps else 0,
-            'failed_steps': steps[2] if steps else 0,
+            "total_runs": sum(state_counts.values()),
+            "runs_by_state": state_counts,
+            "active_runs": state_counts.get("running", 0)
+            + state_counts.get("pending", 0),
+            "total_steps": steps[0] if steps else 0,
+            "succeeded_steps": steps[1] if steps else 0,
+            "failed_steps": steps[2] if steps else 0,
         }

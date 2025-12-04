@@ -12,7 +12,8 @@ from core.engine.monitoring import RunMonitor
 
 class TestRunMonitor:
     """Test RunMonitor functionality"""
-# DOC_ID: DOC-TEST-MONITORING-TEST-RUN-MONITOR-182
+
+    # DOC_ID: DOC-TEST-MONITORING-TEST-RUN-MONITOR-182
 
     def test_create_monitor(self):
         """Test creating a run monitor"""
@@ -26,8 +27,8 @@ class TestRunMonitor:
 
         summary = monitor.get_summary()
 
-        assert summary['total_runs'] == 0
-        assert summary['active_runs'] == 0
+        assert summary["total_runs"] == 0
+        assert summary["active_runs"] == 0
 
     def test_list_active_runs_empty(self):
         """Test listing active runs when none exist"""
@@ -46,14 +47,16 @@ class TestRunMonitor:
 
         # Create a run with simple test ID
         run_id = "01234567890123456789012345"
-        monitor.db.create_run({
-            'run_id': run_id,
-            'project_id': "test-project",
-            'phase_id': "PH-01",
-            'workstream_id': "WS-01",
-            'created_at': datetime.utcnow().isoformat() + "Z",
-            'state': 'running'
-        })
+        monitor.db.create_run(
+            {
+                "run_id": run_id,
+                "project_id": "test-project",
+                "phase_id": "PH-01",
+                "workstream_id": "WS-01",
+                "created_at": datetime.utcnow().isoformat() + "Z",
+                "state": "running",
+            }
+        )
 
         # Get metrics
         metrics = monitor.get_run_metrics(run_id)
@@ -71,16 +74,18 @@ class TestRunMonitor:
         monitor = RunMonitor(str(db_path))
 
         run_id = "01234567890123456789012346"
-        monitor.db.create_run({
-            'run_id': run_id,
-            'project_id': "test-project",
-            'phase_id': "PH-01",
-            'created_at': datetime.utcnow().isoformat() + "Z"
-        })
+        monitor.db.create_run(
+            {
+                "run_id": run_id,
+                "project_id": "test-project",
+                "phase_id": "PH-01",
+                "created_at": datetime.utcnow().isoformat() + "Z",
+            }
+        )
 
         metrics = monitor.get_run_metrics(run_id)
         d = metrics.to_dict()
 
-        assert d['run_id'] == run_id
-        assert d['status'] == "pending"
-        assert 'created_at' in d
+        assert d["run_id"] == run_id
+        assert d["status"] == "pending"
+        assert "created_at" in d

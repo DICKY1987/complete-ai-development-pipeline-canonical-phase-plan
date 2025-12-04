@@ -13,8 +13,12 @@ from pathlib import Path
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Migrate deprecated imports to new locations")
-    parser.add_argument("--path", type=Path, default=Path("."), help="Path to scan (unused)")
+    parser = argparse.ArgumentParser(
+        description="Migrate deprecated imports to new locations"
+    )
+    parser.add_argument(
+        "--path", type=Path, default=Path("."), help="Path to scan (unused)"
+    )
     parser.add_argument("--check", action="store_true", help="Dry-run (noop)")
     parser.add_argument("--fix", action="store_true", help="Apply fixes (noop)")
     parser.add_argument("--dry-run", action="store_true", help="Alias for --check")

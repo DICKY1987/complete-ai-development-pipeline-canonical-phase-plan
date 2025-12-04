@@ -8,20 +8,21 @@ import time
 # Add framework root to path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from core.engine.resilience import CircuitBreaker, CircuitBreakerState, CircuitBreakerOpen
+from core.engine.resilience import (
+    CircuitBreaker,
+    CircuitBreakerState,
+    CircuitBreakerOpen,
+)
 
 
 class TestCircuitBreaker:
     """Test CircuitBreaker functionality"""
-# DOC_ID: DOC-TEST-RESILIENCE-TEST-CIRCUIT-BREAKER-187
+
+    # DOC_ID: DOC-TEST-RESILIENCE-TEST-CIRCUIT-BREAKER-187
 
     def test_create_circuit_breaker(self):
         """Test creating a circuit breaker"""
-        cb = CircuitBreaker(
-            failure_threshold=3,
-            recovery_timeout=60,
-            name="test"
-        )
+        cb = CircuitBreaker(failure_threshold=3, recovery_timeout=60, name="test")
 
         assert cb.state == CircuitBreakerState.CLOSED
         assert cb.failure_count == 0
@@ -89,10 +90,7 @@ class TestCircuitBreaker:
 
     def test_circuit_transitions_to_half_open(self):
         """Test circuit transitions to half-open after timeout"""
-        cb = CircuitBreaker(
-            failure_threshold=2,
-            recovery_timeout=1  # 1 second
-        )
+        cb = CircuitBreaker(failure_threshold=2, recovery_timeout=1)  # 1 second
 
         def fail_func():
             raise ValueError("test error")
@@ -118,10 +116,7 @@ class TestCircuitBreaker:
 
     def test_half_open_failure_reopens_circuit(self):
         """Test failure in half-open state reopens circuit"""
-        cb = CircuitBreaker(
-            failure_threshold=2,
-            recovery_timeout=1
-        )
+        cb = CircuitBreaker(failure_threshold=2, recovery_timeout=1)
 
         def fail_func():
             raise ValueError("test error")
@@ -162,15 +157,11 @@ class TestCircuitBreaker:
 
     def test_get_state(self):
         """Test getting circuit state"""
-        cb = CircuitBreaker(
-            failure_threshold=3,
-            recovery_timeout=60,
-            name="test-cb"
-        )
+        cb = CircuitBreaker(failure_threshold=3, recovery_timeout=60, name="test-cb")
 
         state = cb.get_state()
 
-        assert state['name'] == "test-cb"
-        assert state['state'] == "closed"
-        assert state['failure_count'] == 0
-        assert state['failure_threshold'] == 3
+        assert state["name"] == "test-cb"
+        assert state["state"] == "closed"
+        assert state["failure_count"] == 0
+        assert state["failure_threshold"] == 3

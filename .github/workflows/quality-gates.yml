@@ -52,13 +52,13 @@ jobs:
           pip install -r requirements.txt
 
       - name: Black format check
-        run: black --check core/ aim/ pm/ scripts/ tests/
+        run: black --check core/ scripts/ tests/
 
       - name: isort import check
-        run: isort --check --profile black core/ aim/ pm/ scripts/ tests/
+        run: isort --check --profile black core/ scripts/ tests/
 
       - name: Ruff lint
-        run: ruff check core/ aim/ pm/ scripts/ tests/ || true
+        run: ruff check core/ scripts/ tests/ || true
 
   test:
     name: Run Tests
@@ -81,7 +81,7 @@ jobs:
           pip install pytest pytest-cov pytest-xdist
 
       - name: Run tests
-        run: pytest -v --tb=short --cov=core --cov=aim --cov=pm
+        run: pytest -v --tb=short --cov=core
 
       - name: Coverage gate (error_engine/plugins, line+branch)
         if: matrix.python-version == '3.12'

@@ -11,6 +11,7 @@ Usage:
     python scripts/create_init_files_v2.py --all --execute
     python scripts/create_init_files_v2.py --module core-state --execute
 """
+
 # DOC_ID: DOC-SCRIPT-SCRIPTS-CREATE-INIT-FILES-V2-200
 # DOC_ID: DOC-SCRIPT-SCRIPTS-CREATE-INIT-FILES-V2-137
 
@@ -19,7 +20,9 @@ import yaml
 import argparse
 
 
-def create_init_file_v2(module_dir: Path, module_id: str, ulid_prefix: str, layer: str) -> str:
+def create_init_file_v2(
+    module_dir: Path, module_id: str, ulid_prefix: str, layer: str
+) -> str:
     """
     Create __init__.py that imports from ULID-prefixed files.
 
@@ -30,8 +33,9 @@ def create_init_file_v2(module_dir: Path, module_id: str, ulid_prefix: str, laye
 
     # Filter out non-code files
     code_files = [
-        f for f in py_files
-        if not f.name.endswith(('_README.md', '.manifest.yaml', '.manifest.json'))
+        f
+        for f in py_files
+        if not f.name.endswith(("_README.md", ".manifest.yaml", ".manifest.json"))
     ]
 
     if not code_files:
@@ -58,13 +62,13 @@ Import from this module, not from ULID files directly:
         module_name = py_file.stem  # e.g., "010003_db"
         content += f"from .{module_name} import *\n"
 
-    content += f'''
+    content += f"""
 # Module metadata
 __module_id__ = "{module_id}"
 __ulid_prefix__ = "{ulid_prefix}"
 __layer__ = "{layer}"
 __all__ = []  # Populated by wildcard imports above
-'''
+"""
 
     return content
 
@@ -87,9 +91,9 @@ def main():
 
     # Select modules
     if args.all:
-        modules = inventory['modules']
+        modules = inventory["modules"]
     elif args.module:
-        modules = [m for m in inventory['modules'] if m['id'] == args.module]
+        modules = [m for m in inventory["modules"] if m["id"] == args.module]
         if not modules:
             print(f"Module '{args.module}' not found in inventory")
             return 1
@@ -101,9 +105,9 @@ def main():
     skipped = 0
 
     for module in modules:
-        module_id = module['id']
-        ulid_prefix = module['ulid_prefix']
-        layer = module.get('layer', 'unknown')
+        module_id = module["id"]
+        ulid_prefix = module["ulid_prefix"]
+        layer = module.get("layer", "unknown")
 
         module_dir = Path("modules") / module_id
 
@@ -123,9 +127,11 @@ def main():
         init_file = module_dir / "__init__.py"
 
         if dry_run:
-            print(f"[DRY-RUN] {module_id} - would create __init__.py ({len(content)} bytes)")
+            print(
+                f"[DRY-RUN] {module_id} - would create __init__.py ({len(content)} bytes)"
+            )
         else:
-            init_file.write_text(content, encoding='utf-8')
+            init_file.write_text(content, encoding="utf-8")
             print(f"[CREATED] {module_id} - __init__.py ({len(content)} bytes)")
             created += 1
 
@@ -143,4 +149,5 @@ def main():
 
 if __name__ == "__main__":
     import sys
+
     sys.exit(main() or 0)

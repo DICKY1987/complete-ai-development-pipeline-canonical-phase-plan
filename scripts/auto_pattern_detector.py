@@ -5,6 +5,7 @@ Usage:
     python auto_pattern_detector.py --suggest     # Generate suggestions
     python auto_pattern_detector.py --report      # Weekly report
 """
+
 # DOC_ID: DOC-SCRIPT-SCRIPTS-AUTO-PATTERN-DETECTOR-192
 # DOC_ID: DOC-SCRIPT-SCRIPTS-AUTO-PATTERN-DETECTOR-129
 
@@ -16,17 +17,30 @@ import sys
 # Add parent to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from patterns.automation.detectors.execution_detector import ExecutionPatternDetector, analyze_executions
-from patterns.automation.analyzers.performance_analyzer import PatternPerformanceAnalyzer
+from patterns.automation.detectors.execution_detector import (
+    ExecutionPatternDetector,
+    analyze_executions,
+)
+from patterns.automation.analyzers.performance_analyzer import (
+    PatternPerformanceAnalyzer,
+)
 from patterns.automation.detectors.anti_pattern_detector import AntiPatternDetector
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Pattern automation CLI')
-    parser.add_argument('--analyze', action='store_true', help='Analyze executions for patterns')
-    parser.add_argument('--suggest', action='store_true', help='Generate pattern suggestions')
-    parser.add_argument('--report', action='store_true', help='Generate weekly performance report')
-    parser.add_argument('--db', default='core/state/pattern_metrics.db', help='Database path')
+    parser = argparse.ArgumentParser(description="Pattern automation CLI")
+    parser.add_argument(
+        "--analyze", action="store_true", help="Analyze executions for patterns"
+    )
+    parser.add_argument(
+        "--suggest", action="store_true", help="Generate pattern suggestions"
+    )
+    parser.add_argument(
+        "--report", action="store_true", help="Generate weekly performance report"
+    )
+    parser.add_argument(
+        "--db", default="core/state/pattern_metrics.db", help="Database path"
+    )
 
     args = parser.parse_args()
 
@@ -35,11 +49,13 @@ def main():
     if not db_path.exists():
         # Default to project root
         project_root = Path(__file__).parent.parent.parent.parent
-        db_path = project_root / 'core' / 'state' / 'pipeline.db'
+        db_path = project_root / "core" / "state" / "pipeline.db"
 
     if not db_path.exists():
         print(f"❌ Database not found: {db_path}")
-        print("   Run database migration first: sqlite3 {db} < core/state/migrations/add_pattern_telemetry.sql")
+        print(
+            "   Run database migration first: sqlite3 {db} < core/state/migrations/add_pattern_telemetry.sql"
+        )
         return 1
 
     # Connect to database
@@ -48,7 +64,7 @@ def main():
     try:
         if args.analyze:
             print("🔍 Analyzing executions for patterns...")
-            output_dir = Path(__file__).parent.parent / 'patterns' / 'drafts'
+            output_dir = Path(__file__).parent.parent / "patterns" / "drafts"
             result = analyze_executions(db_path, output_dir)
             print(f"✅ Processed {result['executions_processed']} executions")
             print(f"   Found {result['patterns_detected']} patterns")
@@ -62,7 +78,9 @@ def main():
             if candidates:
                 print(f"\n📋 Found {len(candidates)} pattern candidates:\n")
                 for c in candidates:
-                    print(f"  • {c['operation_kind']}: {c['manual_count']} manual executions")
+                    print(
+                        f"  • {c['operation_kind']}: {c['manual_count']} manual executions"
+                    )
                     print(f"    → {c['suggestion']}\n")
             else:
                 print("   No new pattern candidates detected.")
@@ -95,5 +113,5 @@ def main():
         conn.close()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     sys.exit(main())

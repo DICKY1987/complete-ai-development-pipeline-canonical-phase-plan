@@ -20,6 +20,7 @@ from collections import defaultdict, Counter
 import difflib
 import json
 
+
 class PatternDiscoverer:
     """
     Discover repetitive patterns in code/docs automatically.
@@ -86,7 +87,7 @@ class PatternDiscoverer:
                 if not content1:
                     continue
 
-                for file2 in files[i+1:]:
+                for file2 in files[i + 1 :]:
                     if file2 in processed:
                         continue
 
@@ -111,7 +112,7 @@ class PatternDiscoverer:
     def _read_file_safe(self, path: Path) -> str:
         """Read file with error handling."""
         try:
-            return path.read_text(encoding='utf-8')
+            return path.read_text(encoding="utf-8")
         except Exception:
             return ""
 
@@ -122,8 +123,8 @@ class PatternDiscoverer:
         Uses sequence matching to find common structure.
         """
         # Normalize whitespace
-        lines1 = [line.strip() for line in content1.split('\n') if line.strip()]
-        lines2 = [line.strip() for line in content2.split('\n') if line.strip()]
+        lines1 = [line.strip() for line in content1.split("\n") if line.strip()]
+        lines2 = [line.strip() for line in content2.split("\n") if line.strip()]
 
         # Use SequenceMatcher for similarity ratio
         matcher = difflib.SequenceMatcher(None, lines1, lines2)
@@ -147,7 +148,7 @@ class PatternDiscoverer:
             return {}
 
         # Find common lines
-        all_lines = [set(c.split('\n')) for c in contents]
+        all_lines = [set(c.split("\n")) for c in contents]
         common_lines = set.intersection(*all_lines)
 
         # Find variable lines (appear in some but not all)
@@ -159,12 +160,13 @@ class PatternDiscoverer:
 
         # Estimate template structure
         template = {
-            'total_lines': len(contents[0].split('\n')),
-            'common_lines': len(common_lines),
-            'variable_lines': len(variable_lines),
-            'stability_ratio': len(common_lines) / (len(common_lines) + len(variable_lines)),
-            'sample_common': list(common_lines)[:5],
-            'sample_variable': list(variable_lines)[:5]
+            "total_lines": len(contents[0].split("\n")),
+            "common_lines": len(common_lines),
+            "variable_lines": len(variable_lines),
+            "stability_ratio": len(common_lines)
+            / (len(common_lines) + len(variable_lines)),
+            "sample_common": list(common_lines)[:5],
+            "sample_variable": list(variable_lines)[:5],
         }
 
         return template
@@ -195,19 +197,19 @@ class PatternDiscoverer:
                 savings_pct = (savings / manual_time) * 100
 
                 suggestion = {
-                    'pattern': f"{ext}_pattern_{len(suggestions)+1}",
-                    'file_type': ext,
-                    'num_files': len(files),
-                    'similarity': similarity,
-                    'files': [str(f) for f in files],
-                    'template_structure': template_struct,
-                    'time_savings': {
-                        'manual_minutes': manual_time,
-                        'with_template_minutes': template_time,
-                        'savings_minutes': savings,
-                        'savings_percent': savings_pct
+                    "pattern": f"{ext}_pattern_{len(suggestions)+1}",
+                    "file_type": ext,
+                    "num_files": len(files),
+                    "similarity": similarity,
+                    "files": [str(f) for f in files],
+                    "template_structure": template_struct,
+                    "time_savings": {
+                        "manual_minutes": manual_time,
+                        "with_template_minutes": template_time,
+                        "savings_minutes": savings,
+                        "savings_percent": savings_pct,
                     },
-                    'recommended_pattern': self._recommend_pattern(ext, len(files))
+                    "recommended_pattern": self._recommend_pattern(ext, len(files)),
                 }
 
                 suggestions.append(suggestion)
@@ -217,7 +219,9 @@ class PatternDiscoverer:
                 print(f"   File type: {ext}")
                 print(f"   Similar files: {len(files)}")
                 print(f"   Similarity: {similarity:.1%}")
-                print(f"   Stability: {template_struct.get('stability_ratio', 0):.1%} invariant")
+                print(
+                    f"   Stability: {template_struct.get('stability_ratio', 0):.1%} invariant"
+                )
                 print(f"   Time savings: {savings_pct:.0f}% ({savings} minutes)")
                 print(f"   Recommended: {suggestion['recommended_pattern']}")
                 print(f"   Files:")
@@ -233,18 +237,22 @@ class PatternDiscoverer:
     def _recommend_pattern(self, file_type: str, num_files: int) -> str:
         """Recommend which EXEC pattern to use."""
         ext_to_pattern = {
-            '.py': 'EXEC-002 (Code Module Generator)' if num_files <= 10 else 'EXEC-001 (Batch File Creator)',
-            '.md': 'EXEC-004 (Doc Standardizer)',
-            '.yaml': 'EXEC-005 (Config Multiplexer)',
-            '.yml': 'EXEC-005 (Config Multiplexer)',
-            '.json': 'EXEC-007 (Schema Generator)',
+            ".py": (
+                "EXEC-002 (Code Module Generator)"
+                if num_files <= 10
+                else "EXEC-001 (Batch File Creator)"
+            ),
+            ".md": "EXEC-004 (Doc Standardizer)",
+            ".yaml": "EXEC-005 (Config Multiplexer)",
+            ".yml": "EXEC-005 (Config Multiplexer)",
+            ".json": "EXEC-007 (Schema Generator)",
         }
 
-        return ext_to_pattern.get(file_type, 'EXEC-001 (Batch File Creator)')
+        return ext_to_pattern.get(file_type, "EXEC-001 (Batch File Creator)")
 
     def generate_template_starter(self, suggestion: Dict, output_path: Path):
         """Generate a starter template from suggestion."""
-        files = [Path(f) for f in suggestion['files']]
+        files = [Path(f) for f in suggestion["files"]]
 
         # Read first file as base
         if not files:
@@ -283,15 +291,15 @@ class PatternDiscoverer:
 # 3. Verify with ground truth (file exists + spot check)
 """
 
-        output_path.write_text(template_content, encoding='utf-8')
+        output_path.write_text(template_content, encoding="utf-8")
         print(f"\n✅ Template starter saved: {output_path}")
 
 
 def main():
     parser = argparse.ArgumentParser(
-        description='Pattern Discovery Tool - Find repetitive work patterns',
+        description="Pattern Discovery Tool - Find repetitive work patterns",
         formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog='''
+        epilog="""
 Examples:
   # Analyze directories for patterns
   python scripts/pattern_discovery.py --analyze core/ error/ aim/
@@ -311,52 +319,44 @@ Discovery Phase Automation:
   - Extracts common patterns
   - Suggests template opportunities
   - Estimates time savings
-        '''
+        """,
     )
 
     parser.add_argument(
-        '--analyze',
-        nargs='+',
+        "--analyze",
+        nargs="+",
         type=Path,
-        help='Paths to analyze (files or directories)'
+        help="Paths to analyze (files or directories)",
     )
 
     parser.add_argument(
-        '--pattern',
-        default='*',
-        help='File pattern to match (default: *)'
+        "--pattern", default="*", help="File pattern to match (default: *)"
     )
 
     parser.add_argument(
-        '--min-similarity',
+        "--min-similarity",
         type=float,
         default=0.7,
-        help='Minimum similarity ratio 0.0-1.0 (default: 0.7)'
+        help="Minimum similarity ratio 0.0-1.0 (default: 0.7)",
     )
 
     parser.add_argument(
-        '--min-files',
+        "--min-files",
         type=int,
         default=3,
-        help='Minimum files needed to suggest template (default: 3)'
+        help="Minimum files needed to suggest template (default: 3)",
     )
 
     parser.add_argument(
-        '--suggest',
-        action='store_true',
-        help='Generate template suggestions'
+        "--suggest", action="store_true", help="Generate template suggestions"
     )
 
     parser.add_argument(
-        '--generate-templates',
-        type=Path,
-        help='Output directory for template starters'
+        "--generate-templates", type=Path, help="Output directory for template starters"
     )
 
     parser.add_argument(
-        '--report',
-        type=Path,
-        help='Output path for analysis report (JSON)'
+        "--report", type=Path, help="Output path for analysis report (JSON)"
     )
 
     args = parser.parse_args()
@@ -387,14 +387,14 @@ Discovery Phase Automation:
     # Generate report
     if args.report:
         report = {
-            'analyzed_paths': [str(p) for p in args.analyze],
-            'file_pattern': args.pattern,
-            'total_files': len(discoverer.files),
-            'patterns_found': len(suggestions),
-            'suggestions': suggestions
+            "analyzed_paths": [str(p) for p in args.analyze],
+            "file_pattern": args.pattern,
+            "total_files": len(discoverer.files),
+            "patterns_found": len(suggestions),
+            "suggestions": suggestions,
         }
 
-        with open(args.report, 'w', encoding='utf-8') as f:
+        with open(args.report, "w", encoding="utf-8") as f:
             json.dump(report, f, indent=2)
 
         print(f"\n📊 Analysis report saved: {args.report}")
@@ -402,5 +402,5 @@ Discovery Phase Automation:
     return 0
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     sys.exit(main())

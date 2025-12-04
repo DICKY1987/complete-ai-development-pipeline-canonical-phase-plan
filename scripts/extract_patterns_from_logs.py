@@ -20,29 +20,29 @@ from pattern_extraction.generators.yaml_template_generator import YAMLTemplateGe
 
 def main():
     parser = argparse.ArgumentParser(
-        description='Extract execution patterns from CLI logs and generate YAML templates'
+        description="Extract execution patterns from CLI logs and generate YAML templates"
     )
     parser.add_argument(
-        '--copilot-logs',
-        default=str(Path.home() / '.copilot' / 'session-state'),
-        help='Path to Copilot session-state logs'
+        "--copilot-logs",
+        default=str(Path.home() / ".copilot" / "session-state"),
+        help="Path to Copilot session-state logs",
     )
     parser.add_argument(
-        '--output',
-        default='templates/patterns',
-        help='Output directory for generated templates'
+        "--output",
+        default="templates/patterns",
+        help="Output directory for generated templates",
     )
     parser.add_argument(
-        '--min-frequency',
+        "--min-frequency",
         type=int,
         default=3,
-        help='Minimum pattern frequency to include'
+        help="Minimum pattern frequency to include",
     )
     parser.add_argument(
-        '--max-patterns',
+        "--max-patterns",
         type=int,
         default=50,
-        help='Maximum number of patterns to extract'
+        help="Maximum number of patterns to extract",
     )
 
     args = parser.parse_args()
@@ -73,10 +73,14 @@ def main():
     parallel_patterns = parallel_detector.detect_patterns(sessions)
 
     # Filter by frequency
-    parallel_patterns = [p for p in parallel_patterns if p.frequency >= args.min_frequency]
-    parallel_patterns = parallel_patterns[:args.max_patterns]
+    parallel_patterns = [
+        p for p in parallel_patterns if p.frequency >= args.min_frequency
+    ]
+    parallel_patterns = parallel_patterns[: args.max_patterns]
 
-    print(f"  ✅ Found {len(parallel_patterns)} parallel patterns (min frequency: {args.min_frequency})")
+    print(
+        f"  ✅ Found {len(parallel_patterns)} parallel patterns (min frequency: {args.min_frequency})"
+    )
 
     # Step 3: Generate YAML templates
     print(f"\n[3/4] Generating YAML templates...")
@@ -88,7 +92,9 @@ def main():
         try:
             filepath = generator.save_template(pattern, output_dir)
             generated_files.append(filepath)
-            print(f"  ✅ {filepath.name} (freq={pattern.frequency}, savings={pattern.time_savings_percent:.0f}%)")
+            print(
+                f"  ✅ {filepath.name} (freq={pattern.frequency}, savings={pattern.time_savings_percent:.0f}%)"
+            )
         except Exception as e:
             print(f"  ❌ Error generating template for {pattern.pattern_id}: {e}")
 
@@ -103,7 +109,7 @@ def main():
     if parallel_patterns:
         print(f"\nTop 5 patterns by frequency:")
         for i, pattern in enumerate(parallel_patterns[:5], 1):
-            tools = ' + '.join(pattern.tool_sequence)
+            tools = " + ".join(pattern.tool_sequence)
             print(f"  {i}. {tools}")
             print(f"     Frequency: {pattern.frequency} uses")
             print(f"     Time savings: {pattern.time_savings_percent:.0f}%")
@@ -115,5 +121,5 @@ def main():
     return 0
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     sys.exit(main())

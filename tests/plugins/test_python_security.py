@@ -1,6 +1,7 @@
 """
 Tests for Python security plugins (bandit, safety).
 """
+
 # DOC_ID: DOC-TEST-PLUGINS-TEST-PYTHON-SECURITY-148
 from __future__ import annotations
 
@@ -12,12 +13,19 @@ import pytest
 
 # Try to import plugins - may fail if error shared modules not migrated
 try:
-    from phase6_error_recovery.modules.plugins.python_bandit.src.python_bandit.plugin import BanditPlugin
-    from phase6_error_recovery.modules.plugins.python_safety.src.python_safety.plugin import SafetyPlugin
+    from phase6_error_recovery.modules.plugins.python_bandit.src.python_bandit.plugin import (
+        BanditPlugin,
+    )
+    from phase6_error_recovery.modules.plugins.python_safety.src.python_safety.plugin import (
+        SafetyPlugin,
+    )
+
     PLUGINS_AVAILABLE = True
 except (ImportError, ModuleNotFoundError):
     PLUGINS_AVAILABLE = False
-    pytestmark = pytest.mark.skip(reason="Plugin modules require error shared modules not yet migrated")
+    pytestmark = pytest.mark.skip(
+        reason="Plugin modules require error shared modules not yet migrated"
+    )
 from tests.plugins.conftest import (
     assert_issue_valid,
     assert_plugin_result_valid,
@@ -28,54 +36,58 @@ from tests.plugins.conftest import (
 
 
 # Sample Bandit JSON output
-BANDIT_SAMPLE_OUTPUT = json.dumps({
-    "results": [
-        {
-            "code": "import pickle",
-            "filename": "test.py",
-            "issue_confidence": "HIGH",
-            "issue_severity": "MEDIUM",
-            "issue_text": "Consider possible security implications",
-            "line_number": 1,
-            "line_range": [1],
-            "test_id": "B301",
-            "test_name": "blacklist"
-        },
-        {
-            "code": "eval(user_input)",
-            "filename": "test.py",
-            "issue_confidence": "HIGH",
-            "issue_severity": "HIGH",
-            "issue_text": "Use of possibly insecure function - consider using safer ast.literal_eval",
-            "line_number": 5,
-            "line_range": [5],
-            "test_id": "B307",
-            "test_name": "eval"
-        }
-    ]
-})
+BANDIT_SAMPLE_OUTPUT = json.dumps(
+    {
+        "results": [
+            {
+                "code": "import pickle",
+                "filename": "test.py",
+                "issue_confidence": "HIGH",
+                "issue_severity": "MEDIUM",
+                "issue_text": "Consider possible security implications",
+                "line_number": 1,
+                "line_range": [1],
+                "test_id": "B301",
+                "test_name": "blacklist",
+            },
+            {
+                "code": "eval(user_input)",
+                "filename": "test.py",
+                "issue_confidence": "HIGH",
+                "issue_severity": "HIGH",
+                "issue_text": "Use of possibly insecure function - consider using safer ast.literal_eval",
+                "line_number": 5,
+                "line_range": [5],
+                "test_id": "B307",
+                "test_name": "eval",
+            },
+        ]
+    }
+)
 
 # Sample Safety JSON output
-SAFETY_SAMPLE_OUTPUT = json.dumps([
-    {
-        "vulnerability": "CVE-2023-12345",
-        "package_name": "requests",
-        "installed_version": "2.0.0",
-        "affected_versions": "< 2.31.0",
-        "analyzed_version": "2.0.0",
-        "advisory": "Security issue in requests library",
-        "severity": "high"
-    },
-    {
-        "vulnerability": "CVE-2023-67890",
-        "package_name": "urllib3",
-        "installed_version": "1.26.0",
-        "affected_versions": "< 1.26.18",
-        "analyzed_version": "1.26.0",
-        "advisory": "Vulnerability in urllib3",
-        "severity": "medium"
-    }
-])
+SAFETY_SAMPLE_OUTPUT = json.dumps(
+    [
+        {
+            "vulnerability": "CVE-2023-12345",
+            "package_name": "requests",
+            "installed_version": "2.0.0",
+            "affected_versions": "< 2.31.0",
+            "analyzed_version": "2.0.0",
+            "advisory": "Security issue in requests library",
+            "severity": "high",
+        },
+        {
+            "vulnerability": "CVE-2023-67890",
+            "package_name": "urllib3",
+            "installed_version": "1.26.0",
+            "affected_versions": "< 1.26.18",
+            "analyzed_version": "1.26.0",
+            "advisory": "Vulnerability in urllib3",
+            "severity": "medium",
+        },
+    ]
+)
 
 
 class TestBanditPlugin:
@@ -206,7 +218,9 @@ class TestSafetyPlugin:
     def test_parse_safety_json_with_severity_mapping(self, tmp_path: Path):
         """Test parsing Safety JSON with severity mapping."""
         plugin = SafetyPlugin()
-        test_file = create_sample_file(tmp_path, "requirements.txt", "requests==2.0.0\n")
+        test_file = create_sample_file(
+            tmp_path, "requirements.txt", "requests==2.0.0\n"
+        )
 
         with patch("subprocess.run") as mock_run:
             mock_proc = MagicMock()
@@ -266,12 +280,22 @@ class TestSafetyPlugin:
         plugin = SafetyPlugin()
         test_file = create_sample_file(tmp_path, "requirements.txt", "requests==2.0.0")
 
-        sample_output = json.dumps([
-            {"vulnerability": "CVE-1", "package_name": "pkg1", "severity": "critical"},
-            {"vulnerability": "CVE-2", "package_name": "pkg2", "severity": "high"},
-            {"vulnerability": "CVE-3", "package_name": "pkg3", "severity": "medium"},
-            {"vulnerability": "CVE-4", "package_name": "pkg4", "severity": "low"},
-        ])
+        sample_output = json.dumps(
+            [
+                {
+                    "vulnerability": "CVE-1",
+                    "package_name": "pkg1",
+                    "severity": "critical",
+                },
+                {"vulnerability": "CVE-2", "package_name": "pkg2", "severity": "high"},
+                {
+                    "vulnerability": "CVE-3",
+                    "package_name": "pkg3",
+                    "severity": "medium",
+                },
+                {"vulnerability": "CVE-4", "package_name": "pkg4", "severity": "low"},
+            ]
+        )
 
         with patch("subprocess.run") as mock_run:
             mock_proc = MagicMock()

@@ -17,6 +17,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
+
 class WorkstreamStatusTracker:
     def __init__(self, status_file="state/workstream_status.json"):
         self.status_file = Path(status_file)
@@ -32,7 +33,7 @@ class WorkstreamStatusTracker:
     def save_status(self):
         """Save status to file."""
         self.status_file.parent.mkdir(exist_ok=True)
-        with open(self.status_file, 'w') as f:
+        with open(self.status_file, "w") as f:
             json.dump(self.status, f, indent=2)
 
     def update_status(self, ws_id: str, status: str, message: str = ""):
@@ -40,7 +41,7 @@ class WorkstreamStatusTracker:
         self.status[ws_id] = {
             "status": status,
             "message": message,
-            "timestamp": datetime.now().isoformat()
+            "timestamp": datetime.now().isoformat(),
         }
         self.save_status()
 
@@ -67,7 +68,7 @@ class WorkstreamStatusTracker:
             "completed": 0,
             "blocked": 0,
             "failed": 0,
-            "manual": 0
+            "manual": 0,
         }
 
         for ws in workstreams:
@@ -81,7 +82,7 @@ class WorkstreamStatusTracker:
                 "completed": "✅",
                 "blocked": "🔒",
                 "failed": "❌",
-                "manual": "⚠️"
+                "manual": "⚠️",
             }.get(status, "❓")
 
             report.append(f"{emoji} {ws['name']}")
@@ -103,11 +104,17 @@ class WorkstreamStatusTracker:
 
         return "\n".join(report)
 
+
 def main():
     import argparse
+
     parser = argparse.ArgumentParser(description="Track workstream status")
-    parser.add_argument("--update", nargs=3, metavar=("WS_ID", "STATUS", "MESSAGE"),
-                       help="Update workstream status")
+    parser.add_argument(
+        "--update",
+        nargs=3,
+        metavar=("WS_ID", "STATUS", "MESSAGE"),
+        help="Update workstream status",
+    )
     parser.add_argument("--report", action="store_true", help="Generate status report")
     parser.add_argument("--output", help="Output file for report")
     args = parser.parse_args()
@@ -122,14 +129,16 @@ def main():
     if args.report or args.output:
         # Load workstreams
         from scripts.execute_next_workstreams import WORKSTREAMS
+
         report = tracker.generate_report(WORKSTREAMS)
 
         if args.output:
-            with open(args.output, 'w') as f:
+            with open(args.output, "w") as f:
                 f.write(report)
             print(f"✅ Report saved to {args.output}")
         else:
             print(report)
+
 
 if __name__ == "__main__":
     main()

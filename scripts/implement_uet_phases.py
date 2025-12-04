@@ -3,6 +3,7 @@
 Implements remaining UET integration phases programmatically.
 Continues from Phase 1 completion.
 """
+
 # DOC_ID: DOC-SCRIPT-SCRIPTS-IMPLEMENT-UET-PHASES-214
 # DOC_ID: DOC-SCRIPT-SCRIPTS-IMPLEMENT-UET-PHASES-151
 
@@ -135,7 +136,6 @@ class EventBus:
         finally:
             conn.close()
 """,
-
     "core/engine/scheduler.py": """\"\"\"DAG-based task scheduler for parallel execution.\"\"\"
 
 from typing import Dict, List, Set, Optional
@@ -214,7 +214,6 @@ class TaskScheduler:
 
         return worker.worker_id
 """,
-
     "scripts/view_events.py": """#!/usr/bin/env python3
 \"\"\"View execution events from database.\"\"\"
 
@@ -267,7 +266,7 @@ if __name__ == '__main__':
 for filepath, content in stub_files.items():
     full_path = project_root / filepath
     full_path.parent.mkdir(parents=True, exist_ok=True)
-    full_path.write_text(content, encoding='utf-8')
+    full_path.write_text(content, encoding="utf-8")
     print(f"  Created: {filepath}")
 
 print()
@@ -329,7 +328,6 @@ class RecoveryManager:
             'recovered': True
         }
 """,
-
     "core/engine/compensation.py": """\"\"\"Rollback and compensation (Saga pattern).\"\"\"
 
 from typing import List
@@ -357,7 +355,7 @@ class CompensationEngine:
 for filepath, content in phase3_files.items():
     full_path = project_root / filepath
     full_path.parent.mkdir(parents=True, exist_ok=True)
-    full_path.write_text(content, encoding='utf-8')
+    full_path.write_text(content, encoding="utf-8")
     print(f"  Created: {filepath}")
 
 print()
@@ -441,7 +439,6 @@ class CostTracker:
         finally:
             conn.close()
 """,
-
     "core/engine/context_estimator.py": """\"\"\"Context window management and estimation.\"\"\"
 
 from typing import List
@@ -467,7 +464,6 @@ class ContextEstimator:
 
         return int(total_chars * self.TOKEN_PER_CHAR)
 """,
-
     "core/engine/metrics.py": """\"\"\"Metrics aggregation and reporting.\"\"\"
 
 from dataclasses import dataclass
@@ -507,7 +503,7 @@ class MetricsAggregator:
 for filepath, content in phase4_files.items():
     full_path = project_root / filepath
     full_path.parent.mkdir(parents=True, exist_ok=True)
-    full_path.write_text(content, encoding='utf-8')
+    full_path.write_text(content, encoding="utf-8")
     print(f"  Created: {filepath}")
 
 print()

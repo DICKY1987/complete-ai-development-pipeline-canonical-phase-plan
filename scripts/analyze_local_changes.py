@@ -17,12 +17,7 @@ from typing import Dict, List, Set
 
 def run_git_command(args: List[str]) -> str:
     """Run git command and return output."""
-    result = subprocess.run(
-        ["git"] + args,
-        capture_output=True,
-        text=True,
-        check=False
-    )
+    result = subprocess.run(["git"] + args, capture_output=True, text=True, check=False)
     return result.stdout.strip()
 
 

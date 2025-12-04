@@ -12,6 +12,7 @@ Examples:
     python scripts/batch_migrate_modules.py error-plugin-*
     python scripts/batch_migrate_modules.py --layer ui --independent
 """
+
 # DOC_ID: DOC-SCRIPT-SCRIPTS-BATCH-MIGRATE-MODULES-193
 # DOC_ID: DOC-SCRIPT-SCRIPTS-BATCH-MIGRATE-MODULES-130
 
@@ -30,33 +31,34 @@ def load_inventory() -> dict:
     if not inventory_path.exists():
         raise FileNotFoundError("MODULES_INVENTORY.yaml not found")
 
-    return yaml.safe_load(inventory_path.read_text(encoding='utf-8'))
+    return yaml.safe_load(inventory_path.read_text(encoding="utf-8"))
 
 
 def filter_modules(inventory: dict, args) -> List[dict]:
     """Filter modules based on criteria."""
-    modules = inventory['modules']
+    modules = inventory["modules"]
 
     filtered = []
 
     for module in modules:
         # Filter by layer
-        if args.layer and module['layer'] != args.layer:
+        if args.layer and module["layer"] != args.layer:
             continue
 
         # Filter by independent (no dependencies)
-        if args.independent and len(module.get('dependencies', [])) > 0:
+        if args.independent and len(module.get("dependencies", [])) > 0:
             continue
 
         # Filter by pattern
         if args.pattern:
             import fnmatch
-            if not fnmatch.fnmatch(module['id'], args.pattern):
+
+            if not fnmatch.fnmatch(module["id"], args.pattern):
                 continue
 
         # Filter by module IDs
         if args.modules:
-            if module['id'] not in args.modules:
+            if module["id"] not in args.modules:
                 continue
 
         filtered.append(module)
@@ -76,11 +78,7 @@ def migrate_module(module_id: str, use_symlinks: bool = False) -> bool:
     if use_symlinks:
         cmd.append("--symlinks")
 
-    result = subprocess.run(
-        cmd,
-        capture_output=True,
-        text=True
-    )
+    result = subprocess.run(cmd, capture_output=True, text=True)
 
     if result.returncode != 0:
         print(f"Failed to migrate {module_id}")
@@ -92,16 +90,28 @@ def migrate_module(module_id: str, use_symlinks: bool = False) -> bool:
 
 def main():
     parser = argparse.ArgumentParser(description="Batch migrate modules")
-    parser.add_argument("--layer", choices=["infra", "domain", "api", "ui"],
-                       help="Filter by architectural layer")
-    parser.add_argument("--independent", action="store_true",
-                       help="Only migrate modules with no dependencies")
+    parser.add_argument(
+        "--layer",
+        choices=["infra", "domain", "api", "ui"],
+        help="Filter by architectural layer",
+    )
+    parser.add_argument(
+        "--independent",
+        action="store_true",
+        help="Only migrate modules with no dependencies",
+    )
     parser.add_argument("--pattern", help="Module ID pattern (e.g., 'error-plugin-*')")
     parser.add_argument("--modules", nargs="+", help="Specific module IDs to migrate")
-    parser.add_argument("--symlinks", action="store_true",
-                       help="Use symlinks instead of copying (Phase 2 mode)")
-    parser.add_argument("--dry-run", action="store_true",
-                       help="Show what would be migrated without doing it")
+    parser.add_argument(
+        "--symlinks",
+        action="store_true",
+        help="Use symlinks instead of copying (Phase 2 mode)",
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Show what would be migrated without doing it",
+    )
 
     args = parser.parse_args()
 
@@ -117,9 +127,11 @@ def main():
 
     print(f"Found {len(modules_to_migrate)} module(s) to migrate:\n")
     for module in modules_to_migrate:
-        deps = len(module.get('dependencies', []))
-        files = module.get('file_count', 0)
-        print(f"   - {module['id']}: {files} file(s), {deps} dep(s), layer={module['layer']}")
+        deps = len(module.get("dependencies", []))
+        files = module.get("file_count", 0)
+        print(
+            f"   - {module['id']}: {files} file(s), {deps} dep(s), layer={module['layer']}"
+        )
 
     if args.dry_run:
         print(f"\nDry run complete. Use without --dry-run to execute.")
@@ -135,7 +147,7 @@ def main():
     failed = []
 
     for module in modules_to_migrate:
-        module_id = module['id']
+        module_id = module["id"]
         print(f"Migrating {module_id}...", end=" ")
 
         if migrate_module(module_id, use_symlinks=args.symlinks):

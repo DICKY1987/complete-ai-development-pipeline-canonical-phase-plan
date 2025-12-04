@@ -2,13 +2,12 @@
 Unit tests for JobWrapper (Phase 4B)
 Tests job metadata, priorities, dependencies, and state transitions.
 """
+
 # DOC_ID: DOC-TEST-TESTS-TEST-JOB-WRAPPER-089
 # DOC_ID: DOC-TEST-TESTS-TEST-JOB-WRAPPER-050
 import pytest
 from datetime import datetime, timedelta
-from engine.queue.job_wrapper import (
-    JobWrapper, JobPriority, JobStatus
-)
+from engine.queue.job_wrapper import JobWrapper, JobPriority, JobStatus
 
 
 def test_job_priority_ordering():
@@ -22,7 +21,7 @@ def test_job_wrapper_defaults():
     """Test JobWrapper default values"""
     job = JobWrapper(
         job_id="test-123",
-        job_data={"tool": "aider", "command": {"exe": "aider", "args": []}}
+        job_data={"tool": "aider", "command": {"exe": "aider", "args": []}},
     )
 
     assert job.priority == JobPriority.NORMAL
@@ -41,24 +40,15 @@ def test_job_wrapper_priority_comparison():
     now = datetime.now()
 
     job_critical = JobWrapper(
-        job_id="critical",
-        job_data={},
-        priority=JobPriority.CRITICAL,
-        queued_at=now
+        job_id="critical", job_data={}, priority=JobPriority.CRITICAL, queued_at=now
     )
 
     job_high = JobWrapper(
-        job_id="high",
-        job_data={},
-        priority=JobPriority.HIGH,
-        queued_at=now
+        job_id="high", job_data={}, priority=JobPriority.HIGH, queued_at=now
     )
 
     job_normal = JobWrapper(
-        job_id="normal",
-        job_data={},
-        priority=JobPriority.NORMAL,
-        queued_at=now
+        job_id="normal", job_data={}, priority=JobPriority.NORMAL, queued_at=now
     )
 
     # Critical < High < Normal (lower value = higher priority)
@@ -73,17 +63,11 @@ def test_job_wrapper_time_ordering():
     later = earlier + timedelta(seconds=10)
 
     job_earlier = JobWrapper(
-        job_id="earlier",
-        job_data={},
-        priority=JobPriority.NORMAL,
-        queued_at=earlier
+        job_id="earlier", job_data={}, priority=JobPriority.NORMAL, queued_at=earlier
     )
 
     job_later = JobWrapper(
-        job_id="later",
-        job_data={},
-        priority=JobPriority.NORMAL,
-        queued_at=later
+        job_id="later", job_data={}, priority=JobPriority.NORMAL, queued_at=later
     )
 
     # Earlier queued job has higher priority
@@ -141,8 +125,8 @@ def test_mark_escalated():
     job.mark_escalated("codex")
 
     assert job.status == JobStatus.ESCALATED
-    assert job.metadata['escalated_to'] == "codex"
-    assert 'escalated_at' in job.metadata
+    assert job.metadata["escalated_to"] == "codex"
+    assert "escalated_at" in job.metadata
 
 
 def test_can_retry():
@@ -171,11 +155,7 @@ def test_is_ready_no_dependencies():
 
 def test_is_ready_with_dependencies():
     """Test job dependency resolution"""
-    job = JobWrapper(
-        job_id="test",
-        job_data={},
-        depends_on=["job1", "job2"]
-    )
+    job = JobWrapper(job_id="test", job_data={}, depends_on=["job1", "job2"])
 
     # Not ready if dependencies incomplete
     completed_jobs = {"job1"}
@@ -200,37 +180,37 @@ def test_to_dict():
         depends_on=["dep1"],
         retry_count=1,
         max_retries=5,
-        metadata={"custom": "value"}
+        metadata={"custom": "value"},
     )
 
     job_dict = job.to_dict()
 
-    assert job_dict['job_id'] == "test-123"
-    assert job_dict['job_data'] == {"tool": "aider"}
-    assert job_dict['priority'] == JobPriority.HIGH.value
-    assert job_dict['status'] == JobStatus.QUEUED.value
-    assert job_dict['depends_on'] == ["dep1"]
-    assert job_dict['retry_count'] == 1
-    assert job_dict['max_retries'] == 5
-    assert job_dict['metadata'] == {"custom": "value"}
-    assert 'queued_at' in job_dict
+    assert job_dict["job_id"] == "test-123"
+    assert job_dict["job_data"] == {"tool": "aider"}
+    assert job_dict["priority"] == JobPriority.HIGH.value
+    assert job_dict["status"] == JobStatus.QUEUED.value
+    assert job_dict["depends_on"] == ["dep1"]
+    assert job_dict["retry_count"] == 1
+    assert job_dict["max_retries"] == 5
+    assert job_dict["metadata"] == {"custom": "value"}
+    assert "queued_at" in job_dict
 
 
 def test_from_dict():
     """Test job deserialization from dict"""
     now = datetime.now()
     job_dict = {
-        'job_id': "test-123",
-        'job_data': {"tool": "aider"},
-        'priority': JobPriority.HIGH.value,
-        'status': JobStatus.RUNNING.value,
-        'depends_on': ["dep1"],
-        'retry_count': 2,
-        'max_retries': 5,
-        'queued_at': now.isoformat(),
-        'started_at': now.isoformat(),
-        'completed_at': None,
-        'metadata': {"custom": "value"}
+        "job_id": "test-123",
+        "job_data": {"tool": "aider"},
+        "priority": JobPriority.HIGH.value,
+        "status": JobStatus.RUNNING.value,
+        "depends_on": ["dep1"],
+        "retry_count": 2,
+        "max_retries": 5,
+        "queued_at": now.isoformat(),
+        "started_at": now.isoformat(),
+        "completed_at": None,
+        "metadata": {"custom": "value"},
     }
 
     job = JobWrapper.from_dict(job_dict)
@@ -252,7 +232,7 @@ def test_json_round_trip():
         job_data={"tool": "aider", "command": {"exe": "aider"}},
         priority=JobPriority.CRITICAL,
         depends_on=["dep1", "dep2"],
-        metadata={"key": "value"}
+        metadata={"key": "value"},
     )
 
     json_str = job.to_json()

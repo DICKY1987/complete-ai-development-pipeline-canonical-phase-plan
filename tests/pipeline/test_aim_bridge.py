@@ -8,6 +8,7 @@ Tests cover:
 - Tool detection
 - Audit logging
 """
+
 # DOC_ID: DOC-TEST-PIPELINE-TEST-AIM-BRIDGE-134
 
 import json
@@ -30,7 +31,9 @@ from aim.bridge import (
 )
 
 # Skip all tests in this module - AIM not yet implemented (Phase 4)
-pytestmark = pytest.mark.skip(reason="AIM module not yet implemented - Phase 4 roadmap item")
+pytestmark = pytest.mark.skip(
+    reason="AIM module not yet implemented - Phase 4 roadmap item"
+)
 
 
 class TestGetAimRegistryPath:
@@ -133,21 +136,15 @@ class TestInvokeAdapter:
         """Should parse and return adapter output on success."""
         # Mock registry
         mock_load_registry.return_value = {
-            "tools": {
-                "aider": {
-                    "adapterScript": "C:/fake/adapter.ps1"
-                }
-            }
+            "tools": {"aider": {"adapterScript": "C:/fake/adapter.ps1"}}
         }
 
         # Mock subprocess success
         mock_result = MagicMock()
         mock_result.returncode = 0
-        mock_result.stdout = json.dumps({
-            "success": True,
-            "message": "OK",
-            "content": {"result": "data"}
-        })
+        mock_result.stdout = json.dumps(
+            {"success": True, "message": "OK", "content": {"result": "data"}}
+        )
         mock_run.return_value = mock_result
 
         # Mock file existence
@@ -162,11 +159,7 @@ class TestInvokeAdapter:
     def test_timeout_handling(self, mock_load_registry, mock_run):
         """Should return timeout error if subprocess times out."""
         mock_load_registry.return_value = {
-            "tools": {
-                "aider": {
-                    "adapterScript": "C:/fake/adapter.ps1"
-                }
-            }
+            "tools": {"aider": {"adapterScript": "C:/fake/adapter.ps1"}}
         }
 
         mock_run.side_effect = subprocess.TimeoutExpired("cmd", 30)
@@ -194,24 +187,15 @@ class TestRouteCapability:
     @patch("aim.bridge.invoke_adapter")
     @patch("aim.bridge.load_coordination_rules")
     @patch("aim.bridge.record_audit_log")
-    def test_primary_tool_success(
-        self, mock_audit, mock_load_rules, mock_invoke
-    ):
+    def test_primary_tool_success(self, mock_audit, mock_load_rules, mock_invoke):
         """Should return result from primary tool if it succeeds."""
         mock_load_rules.return_value = {
             "capabilities": {
-                "code_generation": {
-                    "primary": "aider",
-                    "fallback": ["jules"]
-                }
+                "code_generation": {"primary": "aider", "fallback": ["jules"]}
             }
         }
 
-        mock_invoke.return_value = {
-            "success": True,
-            "message": "OK",
-            "content": {}
-        }
+        mock_invoke.return_value = {"success": True, "message": "OK", "content": {}}
 
         result = route_capability("code_generation", {"prompt": "test"})
 
@@ -228,17 +212,14 @@ class TestRouteCapability:
         """Should try fallback tool if primary fails."""
         mock_load_rules.return_value = {
             "capabilities": {
-                "code_generation": {
-                    "primary": "jules",
-                    "fallback": ["aider"]
-                }
+                "code_generation": {"primary": "jules", "fallback": ["aider"]}
             }
         }
 
         # Primary fails, fallback succeeds
         mock_invoke.side_effect = [
             {"success": False, "message": "Jules failed", "content": None},
-            {"success": True, "message": "Aider succeeded", "content": {}}
+            {"success": True, "message": "Aider succeeded", "content": {}},
         ]
 
         result = route_capability("code_generation", {"prompt": "test"})
@@ -255,10 +236,7 @@ class TestRouteCapability:
         """Should return aggregated error if all tools fail."""
         mock_load_rules.return_value = {
             "capabilities": {
-                "code_generation": {
-                    "primary": "jules",
-                    "fallback": ["aider"]
-                }
+                "code_generation": {"primary": "jules", "fallback": ["aider"]}
             }
         }
 
@@ -266,7 +244,7 @@ class TestRouteCapability:
         mock_invoke.return_value = {
             "success": False,
             "message": "Failed",
-            "content": None
+            "content": None,
         }
 
         result = route_capability("code_generation", {"prompt": "test"})
@@ -285,11 +263,7 @@ class TestDetectTool:
     ):
         """Should return True if any detect command exits with 0."""
         mock_load_registry.return_value = {
-            "tools": {
-                "aider": {
-                    "detectCommands": ["aider", "C:/path/aider.exe"]
-                }
-            }
+            "tools": {"aider": {"detectCommands": ["aider", "C:/path/aider.exe"]}}
         }
 
         mock_result = MagicMock()
@@ -306,11 +280,7 @@ class TestDetectTool:
     ):
         """Should return False if all detect commands fail."""
         mock_load_registry.return_value = {
-            "tools": {
-                "aider": {
-                    "detectCommands": ["aider"]
-                }
-            }
+            "tools": {"aider": {"detectCommands": ["aider"]}}
         }
 
         mock_result = MagicMock()
@@ -326,16 +296,10 @@ class TestGetToolVersion:
 
     @patch("aim.bridge.subprocess.run")
     @patch("aim.bridge.load_aim_registry")
-    def test_returns_version_string_on_success(
-        self, mock_load_registry, mock_run
-    ):
+    def test_returns_version_string_on_success(self, mock_load_registry, mock_run):
         """Should return version string if command succeeds."""
         mock_load_registry.return_value = {
-            "tools": {
-                "aider": {
-                    "versionCommand": ["aider", "--version"]
-                }
-            }
+            "tools": {"aider": {"versionCommand": ["aider", "--version"]}}
         }
 
         mock_result = MagicMock()
@@ -351,11 +315,7 @@ class TestGetToolVersion:
     def test_returns_none_on_failure(self, mock_load_registry, mock_run):
         """Should return None if version command fails."""
         mock_load_registry.return_value = {
-            "tools": {
-                "aider": {
-                    "versionCommand": ["aider", "--version"]
-                }
-            }
+            "tools": {"aider": {"versionCommand": ["aider", "--version"]}}
         }
 
         mock_result = MagicMock()

@@ -6,12 +6,12 @@ from modules.core_engine.m010001_cost_tracker import CostTracker, PRICING_TABLE
 
 def test_pricing_table():
     """Test pricing table has expected models."""
-# DOC_ID: DOC-TEST-TESTS-TEST-COST-TRACKING-078
-# DOC_ID: DOC-TEST-TESTS-TEST-COST-TRACKING-039
-    assert 'gpt-4' in PRICING_TABLE
-    assert 'claude-3-sonnet' in PRICING_TABLE
+    # DOC_ID: DOC-TEST-TESTS-TEST-COST-TRACKING-078
+    # DOC_ID: DOC-TEST-TESTS-TEST-COST-TRACKING-039
+    assert "gpt-4" in PRICING_TABLE
+    assert "claude-3-sonnet" in PRICING_TABLE
 
-    gpt4 = PRICING_TABLE['gpt-4']
+    gpt4 = PRICING_TABLE["gpt-4"]
     assert gpt4.input_cost_per_1k == 0.03
     assert gpt4.output_cost_per_1k == 0.06
 
@@ -27,7 +27,7 @@ def test_record_usage(temp_db):
         worker_id="worker-1",
         model_name="gpt-4",
         input_tokens=1000,
-        output_tokens=500
+        output_tokens=500,
     )
 
     # GPT-4: $0.03 per 1k input + $0.06 per 1k output
@@ -48,7 +48,7 @@ def test_get_total_cost(temp_db):
         worker_id="worker-1",
         model_name="gpt-3.5-turbo",
         input_tokens=2000,
-        output_tokens=1000
+        output_tokens=1000,
     )
 
     tracker.record_usage(
@@ -58,7 +58,7 @@ def test_get_total_cost(temp_db):
         worker_id="worker-2",
         model_name="gpt-3.5-turbo",
         input_tokens=3000,
-        output_tokens=1500
+        output_tokens=1500,
     )
 
     total = tracker.get_total_cost("run-cost-test")

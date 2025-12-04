@@ -16,6 +16,7 @@ from core.metrics.simple_metrics_collector import SimpleMetricsCollector
 from core.health.system_health_checker import SystemHealthChecker
 from core.state.sqlite_store import SQLiteStateStore
 
+
 class TestFileOperations:
     def test_implements_protocol(self):
         ops = LocalFileOperations()
@@ -44,6 +45,7 @@ class TestFileOperations:
             ops.write(path, "test")
             assert ops.exists(path)
 
+
 class TestDataProvider:
     def test_implements_protocol(self):
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -54,7 +56,7 @@ class TestDataProvider:
     def test_get_workstreams(self):
         with tempfile.TemporaryDirectory() as tmpdir:
             store = SQLiteStateStore(Path(tmpdir) / "test.db")
-            store.save_workstream({'id': 'ws1', 'status': 'pending'})
+            store.save_workstream({"id": "ws1", "status": "pending"})
             provider = StateDataProvider(store)
             ws_list = provider.get_workstreams()
             assert len(ws_list) == 1
@@ -62,10 +64,11 @@ class TestDataProvider:
     def test_get_metrics(self):
         with tempfile.TemporaryDirectory() as tmpdir:
             store = SQLiteStateStore(Path(tmpdir) / "test.db")
-            store.save_workstream({'id': 'ws1', 'status': 'pending'})
+            store.save_workstream({"id": "ws1", "status": "pending"})
             provider = StateDataProvider(store)
             metrics = provider.get_metrics()
-            assert metrics['total_workstreams'] == 1
+            assert metrics["total_workstreams"] == 1
+
 
 class TestValidationService:
     def test_implements_protocol(self):
@@ -74,7 +77,7 @@ class TestValidationService:
 
     def test_validate_workstream_valid(self):
         validator = BasicValidationService()
-        ws = {'id': 'ws1', 'status': 'pending'}
+        ws = {"id": "ws1", "status": "pending"}
         errors = validator.validate_workstream(ws)
         assert len(errors) == 0
 
@@ -84,6 +87,7 @@ class TestValidationService:
         errors = validator.validate_workstream(ws)
         assert len(errors) == 2
 
+
 class TestCacheManager:
     def test_implements_protocol(self):
         cache = MemoryCacheManager()
@@ -91,18 +95,19 @@ class TestCacheManager:
 
     def test_get_set(self):
         cache = MemoryCacheManager()
-        cache.set('key1', 'value1')
-        assert cache.get('key1') == 'value1'
+        cache.set("key1", "value1")
+        assert cache.get("key1") == "value1"
 
     def test_get_missing(self):
         cache = MemoryCacheManager()
-        assert cache.get('nonexistent') is None
+        assert cache.get("nonexistent") is None
 
     def test_invalidate(self):
         cache = MemoryCacheManager()
-        cache.set('key1', 'value1')
-        cache.invalidate('key1')
-        assert cache.get('key1') is None
+        cache.set("key1", "value1")
+        cache.invalidate("key1")
+        assert cache.get("key1") is None
+
 
 class TestMetricsCollector:
     def test_implements_protocol(self):
@@ -111,23 +116,24 @@ class TestMetricsCollector:
 
     def test_increment(self):
         metrics = SimpleMetricsCollector()
-        metrics.increment('jobs.completed')
-        metrics.increment('jobs.completed', 2)
+        metrics.increment("jobs.completed")
+        metrics.increment("jobs.completed", 2)
         stats = metrics.get_stats()
-        assert stats['counters']['jobs.completed'] == 3
+        assert stats["counters"]["jobs.completed"] == 3
 
     def test_gauge(self):
         metrics = SimpleMetricsCollector()
-        metrics.gauge('cpu.usage', 45.5)
+        metrics.gauge("cpu.usage", 45.5)
         stats = metrics.get_stats()
-        assert stats['gauges']['cpu.usage'] == 45.5
+        assert stats["gauges"]["cpu.usage"] == 45.5
 
     def test_timing(self):
         metrics = SimpleMetricsCollector()
-        metrics.timing('job.duration', 100.0)
-        metrics.timing('job.duration', 200.0)
+        metrics.timing("job.duration", 100.0)
+        metrics.timing("job.duration", 200.0)
         stats = metrics.get_stats()
-        assert stats['timings']['job.duration'] == 150.0
+        assert stats["timings"]["job.duration"] == 150.0
+
 
 class TestHealthChecker:
     def test_implements_protocol(self):
@@ -137,12 +143,13 @@ class TestHealthChecker:
     def test_check(self):
         health = SystemHealthChecker()
         results = health.check()
-        assert 'system' in results
-        assert results['system'] == 'healthy'
+        assert "system" in results
+        assert results["system"] == "healthy"
 
     def test_is_healthy(self):
         health = SystemHealthChecker()
         assert health.is_healthy() is True
+
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])

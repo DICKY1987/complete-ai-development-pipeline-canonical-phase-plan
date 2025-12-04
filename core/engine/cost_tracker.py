@@ -8,6 +8,7 @@ Author: AI Development Pipeline
 Created: 2025-11-23
 WS: WS-NEXT-002-004
 """
+
 # DOC_ID: DOC-CORE-ENGINE-COST-TRACKER-146
 
 from datetime import datetime, UTC
@@ -19,6 +20,7 @@ import json
 @dataclass
 class UsageInfo:
     """Resource usage information"""
+
     quantity: float
     unit: str
     rate: float
@@ -30,11 +32,7 @@ class UsageInfo:
 
     def to_dict(self) -> Dict:
         """Convert to dictionary"""
-        return {
-            'quantity': self.quantity,
-            'unit': self.unit,
-            'rate': self.rate
-        }
+        return {"quantity": self.quantity, "unit": self.unit, "rate": self.rate}
 
 
 class CostTracker:
@@ -51,7 +49,12 @@ class CostTracker:
     """
 
     VALID_RESOURCE_TYPES = {
-        'api_call', 'compute_time', 'storage', 'network', 'tool_usage', 'custom'
+        "api_call",
+        "compute_time",
+        "storage",
+        "network",
+        "tool_usage",
+        "custom",
     }
 
     def __init__(self, db):
@@ -69,8 +72,8 @@ class CostTracker:
         try:
             self.db.conn.execute("SELECT 1 FROM costs LIMIT 1")
         except Exception:
-            schema_path = 'schema/migrations/005_add_costs_table.sql'
-            with open(schema_path, 'r') as f:
+            schema_path = "schema/migrations/005_add_costs_table.sql"
+            with open(schema_path, "r") as f:
                 self.db.conn.executescript(f.read())
             self.db.conn.commit()
 
@@ -84,7 +87,7 @@ class CostTracker:
         project_id: Optional[str] = None,
         resource_name: Optional[str] = None,
         usage: Optional[UsageInfo] = None,
-        metadata: Optional[Dict] = None
+        metadata: Optional[Dict] = None,
     ) -> str:
         """
         Record a cost entry.
@@ -132,8 +135,8 @@ class CostTracker:
                 currency,
                 json.dumps(usage.to_dict()) if usage else None,
                 datetime.now(UTC).isoformat(),
-                json.dumps(metadata) if metadata else None
-            )
+                json.dumps(metadata) if metadata else None,
+            ),
         )
         self.db.conn.commit()
 
@@ -150,8 +153,7 @@ class CostTracker:
             Cost data dict or None if not found
         """
         row = self.db.conn.execute(
-            "SELECT * FROM costs WHERE cost_id = ?",
-            (cost_id,)
+            "SELECT * FROM costs WHERE cost_id = ?", (cost_id,)
         ).fetchone()
 
         if not row:
@@ -164,7 +166,7 @@ class CostTracker:
         data = dict(row)
 
         # Deserialize JSON fields
-        for field in ['usage', 'metadata']:
+        for field in ["usage", "metadata"]:
             if data.get(field):
                 data[field] = json.loads(data[field])
 
@@ -175,7 +177,7 @@ class CostTracker:
         execution_request_id: Optional[str] = None,
         project_id: Optional[str] = None,
         resource_type: Optional[str] = None,
-        currency: str = "USD"
+        currency: str = "USD",
     ) -> float:
         """
         Get total cost with optional filters.
@@ -209,7 +211,7 @@ class CostTracker:
             params.append(resource_type)
 
         row = self.db.conn.execute(query, params).fetchone()
-        total = row['total'] if row and row['total'] is not None else 0.0
+        total = row["total"] if row and row["total"] is not None else 0.0
 
         return total
 
@@ -217,7 +219,7 @@ class CostTracker:
         self,
         execution_request_id: Optional[str] = None,
         project_id: Optional[str] = None,
-        currency: str = "USD"
+        currency: str = "USD",
     ) -> Dict[str, float]:
         """
         Get cost breakdown by resource type.
@@ -251,7 +253,7 @@ class CostTracker:
 
         breakdown = {}
         for row in rows:
-            breakdown[row['resource_type']] = row['total']
+            breakdown[row["resource_type"]] = row["total"]
 
         return breakdown
 
@@ -260,7 +262,7 @@ class CostTracker:
         execution_request_id: Optional[str] = None,
         project_id: Optional[str] = None,
         resource_type: Optional[str] = None,
-        limit: Optional[int] = None
+        limit: Optional[int] = None,
     ) -> List[Dict]:
         """
         List cost records with optional filters.
@@ -308,10 +310,7 @@ class CostTracker:
         Returns:
             True if deleted, False if not found
         """
-        cursor = self.db.conn.execute(
-            "DELETE FROM costs WHERE cost_id = ?",
-            (cost_id,)
-        )
+        cursor = self.db.conn.execute("DELETE FROM costs WHERE cost_id = ?", (cost_id,))
         self.db.conn.commit()
 
         return cursor.rowcount > 0

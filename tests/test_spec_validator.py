@@ -11,4 +11,3 @@ def test_parse_when_then():
 def test_validate_flags_malformed():
     issues = validate("U1", ["WHEN only_when"])
     assert any(i.severity == "error" for i in issues)
-

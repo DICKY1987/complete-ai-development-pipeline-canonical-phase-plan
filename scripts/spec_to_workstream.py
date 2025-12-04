@@ -110,8 +110,7 @@ class OpenSpecParser:
 
         # Extract requirements with SHALL/MUST keywords
         req_pattern = re.compile(
-            r"###\s+Requirement:\s+(.+?)\n(.+?)(?=###|##|\Z)",
-            re.DOTALL
+            r"###\s+Requirement:\s+(.+?)\n(.+?)(?=###|##|\Z)", re.DOTALL
         )
 
         for match in req_pattern.finditer(content):
@@ -120,31 +119,25 @@ class OpenSpecParser:
 
             # Extract scenarios
             scenario_pattern = re.compile(
-                r"####\s+Scenario:\s+(.+?)\n(.+?)(?=####|###|##|\Z)",
-                re.DOTALL
+                r"####\s+Scenario:\s+(.+?)\n(.+?)(?=####|###|##|\Z)", re.DOTALL
             )
 
             scenarios = []
             for scenario_match in scenario_pattern.finditer(req_body):
                 scenario_name = scenario_match.group(1).strip()
                 scenario_body = scenario_match.group(2).strip()
-                scenarios.append({
-                    "name": scenario_name,
-                    "body": scenario_body
-                })
+                scenarios.append({"name": scenario_name, "body": scenario_body})
 
-            requirements.append({
-                "name": req_name,
-                "body": req_body,
-                "scenarios": scenarios
-            })
+            requirements.append(
+                {"name": req_name, "body": req_body, "scenarios": scenarios}
+            )
 
         if not requirements:
             return None
 
         return {
             "file": str(spec_path.relative_to(self.change_dir)),
-            "requirements": requirements
+            "requirements": requirements,
         }
 
     def _extract_frontmatter_title(self, content: str) -> Optional[str]:
@@ -208,14 +201,14 @@ class WorkstreamGenerator:
             "circuit_breaker": {
                 "max_attempts": 5,
                 "max_error_repeats": 3,
-                "oscillation_threshold": 2
+                "oscillation_threshold": 2,
             },
             "metadata": {
                 "owner": "generated-from-openspec",
                 "openspec_title": proposal["title"],
                 "generated_by": "spec_to_workstream.py",
-                "notes": f"Auto-generated from OpenSpec change {change_id}"
-            }
+                "notes": f"Auto-generated from OpenSpec change {change_id}",
+            },
         }
 
         return bundle
@@ -235,15 +228,16 @@ class WorkstreamGenerator:
         # Extract from task descriptions
         for task in self.spec_data["tasks"]:
             # Look for file patterns in task text
-            file_patterns = re.findall(r"[\w/.-]+\.(py|json|md|yaml|yml|txt|sh|ps1)", task)
+            file_patterns = re.findall(
+                r"[\w/.-]+\.(py|json|md|yaml|yml|txt|sh|ps1)", task
+            )
             files.update(file_patterns)
 
         # Extract from spec requirements
         for spec in self.spec_data.get("specs", []):
             for req in spec.get("requirements", []):
                 file_patterns = re.findall(
-                    r"[\w/.-]+\.(py|json|md|yaml|yml|txt|sh|ps1)",
-                    req["body"]
+                    r"[\w/.-]+\.(py|json|md|yaml|yml|txt|sh|ps1)", req["body"]
                 )
                 files.update(file_patterns)
 
@@ -254,7 +248,10 @@ class WorkstreamGenerator:
         files = set()
 
         # Look for "create" or "add" keywords in tasks
-        create_pattern = re.compile(r"(?:create|add)\s+[\w/.-]+\.(py|json|md|yaml|yml|txt|sh|ps1)", re.IGNORECASE)
+        create_pattern = re.compile(
+            r"(?:create|add)\s+[\w/.-]+\.(py|json|md|yaml|yml|txt|sh|ps1)",
+            re.IGNORECASE,
+        )
 
         for task in self.spec_data["tasks"]:
             matches = create_pattern.findall(task)
@@ -326,7 +323,7 @@ def interactive_mode():
     while True:
         try:
             selection = input("Select change number (or 'q' to quit): ").strip()
-            if selection.lower() == 'q':
+            if selection.lower() == "q":
                 return 0
 
             idx = int(selection) - 1
@@ -384,35 +381,28 @@ def main():
     parser = argparse.ArgumentParser(
         description="Convert OpenSpec proposals to workstream bundles",
         formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog=__doc__
+        epilog=__doc__,
     )
 
-    parser.add_argument(
-        "--change-id",
-        help="OpenSpec change ID to convert"
-    )
+    parser.add_argument("--change-id", help="OpenSpec change ID to convert")
     parser.add_argument(
         "--output",
-        help="Output workstream JSON path (default: workstreams/<ws-id>.json)"
+        help="Output workstream JSON path (default: workstreams/<ws-id>.json)",
     )
     parser.add_argument(
-        "--ws-id",
-        help="Override workstream ID (default: auto-generated from title)"
+        "--ws-id", help="Override workstream ID (default: auto-generated from title)"
     )
     parser.add_argument(
-        "--list",
+        "--list", action="store_true", help="List all available OpenSpec changes"
+    )
+    parser.add_argument(
+        "--interactive",
+        "-i",
         action="store_true",
-        help="List all available OpenSpec changes"
+        help="Interactive mode for selecting and converting changes",
     )
     parser.add_argument(
-        "--interactive", "-i",
-        action="store_true",
-        help="Interactive mode for selecting and converting changes"
-    )
-    parser.add_argument(
-        "--dry-run",
-        action="store_true",
-        help="Print bundle JSON without saving"
+        "--dry-run", action="store_true", help="Print bundle JSON without saving"
     )
 
     args = parser.parse_args()

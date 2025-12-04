@@ -1,4 +1,5 @@
 """Shared pytest fixtures for error pipeline tests."""
+
 from __future__ import annotations
 
 import sys
@@ -10,7 +11,7 @@ _conftest_path = Path(__file__).resolve()
 _repo_root = _conftest_path.parents[2]
 
 # Handle spaces in path by using forward slashes
-_repo_root_str = str(_repo_root).replace('\\', '/')
+_repo_root_str = str(_repo_root).replace("\\", "/")
 if _repo_root_str not in sys.path:
     sys.path.insert(0, str(_repo_root))
 
@@ -20,9 +21,16 @@ import pytest
 
 # Import error engine modules with fallback for incomplete migration
 try:
-    from phase6_error_recovery.modules.error_engine.src.engine.plugin_manager import PluginManager
-    from phase6_error_recovery.modules.error_engine.src.engine.file_hash_cache import FileHashCache
-    from phase6_error_recovery.modules.error_engine.src.engine.error_context import ErrorPipelineContext
+    from phase6_error_recovery.modules.error_engine.src.engine.plugin_manager import (
+        PluginManager,
+    )
+    from phase6_error_recovery.modules.error_engine.src.engine.file_hash_cache import (
+        FileHashCache,
+    )
+    from phase6_error_recovery.modules.error_engine.src.engine.error_context import (
+        ErrorPipelineContext,
+    )
+
     ERROR_ENGINE_AVAILABLE = True
 except (ImportError, ModuleNotFoundError):
     # Error engine modules not fully migrated yet
@@ -35,7 +43,7 @@ except (ImportError, ModuleNotFoundError):
 @pytest.fixture
 def temp_cache(tmp_path: Path):
     """Create a temporary file hash cache for testing."""
-# DOC_ID: DOC-ERROR-ERROR-CONFTEST-078
+    # DOC_ID: DOC-ERROR-ERROR-CONFTEST-078
     if not ERROR_ENGINE_AVAILABLE:
         pytest.skip("Error engine modules not fully migrated yet")
     cache_path = tmp_path / "test_cache.json"
@@ -88,7 +96,7 @@ def sample_error_report() -> Dict[str, Any]:
                 "code": "E501",
                 "category": "style",
                 "severity": "warning",
-                "message": "Line too long"
+                "message": "Line too long",
             }
         ],
         "summary": {
@@ -99,7 +107,7 @@ def sample_error_report() -> Dict[str, Any]:
             "style_only": True,
             "total_errors": 0,
             "total_warnings": 1,
-        }
+        },
     }
 
 
@@ -109,7 +117,7 @@ def valid_python_file(tmp_path: Path) -> Path:
     file_path = tmp_path / "valid.py"
     file_path.write_text(
         '"""Valid Python module."""\n\n\ndef hello() -> str:\n    """Say hello."""\n    return "Hello, World!"\n',
-        encoding="utf-8"
+        encoding="utf-8",
     )
     return file_path
 
@@ -119,7 +127,7 @@ def broken_python_file(tmp_path: Path) -> Path:
     """Create a Python file with errors for testing."""
     file_path = tmp_path / "broken.py"
     file_path.write_text(
-        '# Missing docstring\ndef bad_function(x,y,z):  # Too many args\n    return x+y+z\n',
-        encoding="utf-8"
+        "# Missing docstring\ndef bad_function(x,y,z):  # Too many args\n    return x+y+z\n",
+        encoding="utf-8",
     )
     return file_path

@@ -4,6 +4,7 @@ CCPM Integration for Core Planning
 This module provides integration between CCPM workflows and core pipeline execution.
 It converts CCPM epics/tasks into workstream bundles and validates parallel execution.
 """
+
 # DOC_ID: DOC-CORE-PLANNING-CCPM-INTEGRATION-165
 
 from pathlib import Path
@@ -13,13 +14,14 @@ from typing import List, Dict, Any, Optional
 try:
     from pm.models import Task, Epic, ConflictError
     from pm.bridge import BridgeAPI
+
     HAS_PM = True
 except ImportError:
     HAS_PM = False
 
 
 def task_to_workstream(
-    task: 'Task',
+    task: "Task",
     tool_profile: str = "aider",
     gate: int = 1,
 ) -> Dict[str, Any]:
@@ -40,7 +42,9 @@ def task_to_workstream(
         RuntimeError: If PM section not available
     """
     if not HAS_PM:
-        raise RuntimeError("PM section not installed. Cannot convert tasks to workstreams.")
+        raise RuntimeError(
+            "PM section not installed. Cannot convert tasks to workstreams."
+        )
 
     bridge = BridgeAPI()
 
@@ -67,7 +71,7 @@ def task_to_workstream(
     return {}
 
 
-def validate_parallel_tasks(tasks: List['Task']) -> List['ConflictError']:
+def validate_parallel_tasks(tasks: List["Task"]) -> List["ConflictError"]:
     """
     Check for file-scope conflicts between tasks marked as parallel.
 
@@ -100,6 +104,7 @@ def validate_parallel_tasks(tasks: List['Task']) -> List['ConflictError']:
             for i in range(len(task_ids)):
                 for j in range(i + 1, len(task_ids)):
                     from pm.models import ConflictError as ConflictErrorModel
+
                     conflicts.append(
                         ConflictErrorModel(
                             task1_id=task_ids[i],
@@ -112,7 +117,7 @@ def validate_parallel_tasks(tasks: List['Task']) -> List['ConflictError']:
 
 
 def epic_to_workstream_bundle(
-    epic: 'Epic',
+    epic: "Epic",
     tool_profile: str = "aider",
     output_dir: Optional[Path] = None,
 ) -> List[Path]:
@@ -137,7 +142,7 @@ def epic_to_workstream_bundle(
     # Validate parallel tasks
     conflicts = validate_parallel_tasks(epic.tasks)
     if conflicts:
-        conflict_details = '; '.join(str(c) for c in conflicts)
+        conflict_details = "; ".join(str(c) for c in conflicts)
         raise ValueError(f"Parallel task conflicts detected: {conflict_details}")
 
     # Convert epic to workstreams
@@ -165,10 +170,12 @@ def sync_workstream_result(ws_id: str, final_state: str) -> None:
         return  # Silent no-op if PM not available
 
     from pm.bridge import sync_workstream_status
+
     sync_workstream_status(ws_id, final_state)
 
 
 # Integration helpers for orchestrator
+
 
 class CCPMIntegration:
     """
@@ -184,13 +191,14 @@ class CCPMIntegration:
         return HAS_PM
 
     @staticmethod
-    def load_epic(epic_name: str) -> Optional['Epic']:
+    def load_epic(epic_name: str) -> Optional["Epic"]:
         """Load epic by name."""
         if not HAS_PM:
             return None
 
         try:
             from pm.epic import load_epic
+
             return load_epic(epic_name)
         except Exception:
             return None
@@ -241,10 +249,18 @@ class CCPMIntegration:
         return {
             "name": epic.name,
             "title": epic.title,
-            "status": epic.status.value if hasattr(epic.status, 'value') else str(epic.status),
-            "priority": epic.priority.value if hasattr(epic.priority, 'value') else str(epic.priority),
+            "status": (
+                epic.status.value if hasattr(epic.status, "value") else str(epic.status)
+            ),
+            "priority": (
+                epic.priority.value
+                if hasattr(epic.priority, "value")
+                else str(epic.priority)
+            ),
             "task_count": len(epic.tasks),
-            "completed_tasks": sum(1 for t in epic.tasks if str(t.status) == "completed"),
+            "completed_tasks": sum(
+                1 for t in epic.tasks if str(t.status) == "completed"
+            ),
             "progress_percent": epic.progress_percent(),
             "github_issue": epic.github_issue,
         }

@@ -2,6 +2,7 @@
 
 Validates DAG-IMPL-001, DAG-IMPL-002, DAG-IMPL-003 requirements.
 """
+
 # DOC_ID: DOC-CORE-STATE-TEST-DAG-UTILS-126
 
 import pytest
@@ -437,12 +438,12 @@ class TestDagRequirements:
         from modules.core_state import m010003_dag_utils
 
         required_functions = [
-            'build_dependency_graph',
-            'build_reverse_graph',
-            'detect_cycles',
-            'compute_topological_levels',
-            'compute_critical_path',
-            'analyze_bundles',
+            "build_dependency_graph",
+            "build_reverse_graph",
+            "detect_cycles",
+            "compute_topological_levels",
+            "compute_critical_path",
+            "analyze_bundles",
         ]
 
         for func_name in required_functions:

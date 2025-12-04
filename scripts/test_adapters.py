@@ -7,6 +7,7 @@ Tests:
 3. Test basic execution (without external tools)
 4. Validate error handling
 """
+
 # DOC_ID: DOC-SCRIPT-SCRIPTS-TEST-ADAPTERS-235
 # DOC_ID: DOC-SCRIPT-SCRIPTS-TEST-ADAPTERS-172
 
@@ -98,7 +99,9 @@ def test_tool_info():
             info = adapter.get_tool_info()
             assert "tool" in info
             assert "capabilities" in info
-            print(f"  ✅ {name}: {info['tool']} - {len(info['capabilities'])} capabilities")
+            print(
+                f"  ✅ {name}: {info['tool']} - {len(info['capabilities'])} capabilities"
+            )
             results.append(True)
         except Exception as e:
             print(f"  ❌ {name}: get_tool_info failed - {e}")
@@ -126,8 +129,8 @@ def test_job_validation():
             "repo_root": ".",
             "working_dir": ".",
             "log_file": "test.log",
-            "error_report": "test.error.json"
-        }
+            "error_report": "test.error.json",
+        },
     }
 
     if adapter.validate_job(valid_job):
@@ -196,20 +199,15 @@ def test_git_adapter_execution():
             "job_id": "job-test-git-001",
             "workstream_id": "ws-test",
             "tool": "git",
-            "command": {
-                "exe": "git",
-                "args": ["--version"]
-            },
+            "command": {"exe": "git", "args": ["--version"]},
             "env": {},
             "paths": {
                 "repo_root": ".",
                 "working_dir": ".",
                 "log_file": str(temp_dir / "git.log"),
-                "error_report": str(temp_dir / "git.error.json")
+                "error_report": str(temp_dir / "git.error.json"),
             },
-            "metadata": {
-                "timeout_seconds": 10
-            }
+            "metadata": {"timeout_seconds": 10},
         }
 
         adapter = GitAdapter()
@@ -217,6 +215,7 @@ def test_git_adapter_execution():
 
         # Cleanup
         import shutil
+
         shutil.rmtree(temp_dir, ignore_errors=True)
 
         if result.exit_code == 0:
@@ -229,6 +228,7 @@ def test_git_adapter_execution():
     except Exception as e:
         print(f"  ❌ Git adapter execution failed: {e}")
         import traceback
+
         traceback.print_exc()
         return False
 

@@ -13,20 +13,16 @@ from modules.core_engine.m010001_event_bus import EventBus, EventType
 
 def main():
     parser = argparse.ArgumentParser(description="View UET execution events")
-    parser.add_argument('--run-id', help='Filter by run ID')
-    parser.add_argument('--event-type', help='Filter by event type')
-    parser.add_argument('--tail', type=int, default=50, help='Number of events to show')
+    parser.add_argument("--run-id", help="Filter by run ID")
+    parser.add_argument("--event-type", help="Filter by event type")
+    parser.add_argument("--tail", type=int, default=50, help="Number of events to show")
 
     args = parser.parse_args()
 
     bus = EventBus()
     event_type = EventType[args.event_type] if args.event_type else None
 
-    events = bus.query(
-        event_type=event_type,
-        run_id=args.run_id,
-        limit=args.tail
-    )
+    events = bus.query(event_type=event_type, run_id=args.run_id, limit=args.tail)
 
     print(f"Showing {len(events)} events:\n")
 
@@ -41,7 +37,7 @@ def main():
         print()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
 # DOC_LINK: DOC-SCRIPT-SCRIPTS-VIEW-EVENTS-181
 # DOC_LINK: DOC-SCRIPT-SCRIPTS-VIEW-EVENTS-244

@@ -42,19 +42,27 @@ def test_static_fix_succeeds(monkeypatch, bundle_ws):
     # Make EDIT succeed
     monkeypatch.setattr(
         "src.pipeline.prompts.run_aider_edit",
-        lambda run, ws, b, ctx, run_id=None, ws_id=None: __import__("types").SimpleNamespace(to_dict=lambda: {"ok": True}, success=True),
+        lambda run, ws, b, ctx, run_id=None, ws_id=None: __import__(
+            "types"
+        ).SimpleNamespace(to_dict=lambda: {"ok": True}, success=True),
     )
 
     def fake_static(run_id, ws_id, b, ctx):
         calls["static"] += 1
         ok = calls["static"] >= 2
-        details = {"results": [{"tool_id": "pytest", "stdout": "", "stderr": "E", "success": ok}]}
+        details = {
+            "results": [
+                {"tool_id": "pytest", "stdout": "", "stderr": "E", "success": ok}
+            ]
+        }
         return orchestrator.StepResult(orchestrator.STEP_STATIC, ok, details)
 
     monkeypatch.setattr("src.pipeline.orchestrator.run_static_step", fake_static)
     monkeypatch.setattr(
         "src.pipeline.prompts.run_aider_fix",
-        lambda run, ws, b, errors, context, run_id=None, ws_id=None: __import__("types").SimpleNamespace(to_dict=lambda: {"ok": True}),
+        lambda run, ws, b, errors, context, run_id=None, ws_id=None: __import__(
+            "types"
+        ).SimpleNamespace(to_dict=lambda: {"ok": True}),
     )
 
     res = orchestrator.run_workstream("run-fix-1", bundle_ws.id, bundle_ws, context={})
@@ -73,13 +81,17 @@ def test_runtime_fix_exhausts(monkeypatch, bundle_ws):
     # Make edit/static succeed quickly
     monkeypatch.setattr(
         "src.pipeline.prompts.run_aider_edit",
-        lambda run, ws, b, ctx, run_id=None, ws_id=None: __import__("types").SimpleNamespace(to_dict=lambda: {"ok": True}, success=True),
+        lambda run, ws, b, ctx, run_id=None, ws_id=None: __import__(
+            "types"
+        ).SimpleNamespace(to_dict=lambda: {"ok": True}, success=True),
     )
-    monkeypatch.setattr("src.pipeline.orchestrator.run_static_step", lambda *a, **k: orchestrator.StepResult(orchestrator.STEP_STATIC, True, {}))
+    monkeypatch.setattr(
+        "src.pipeline.orchestrator.run_static_step",
+        lambda *a, **k: orchestrator.StepResult(orchestrator.STEP_STATIC, True, {}),
+    )
     monkeypatch.setattr("src.pipeline.orchestrator.run_runtime_step", fake_runtime)
 
     res = orchestrator.run_workstream("run-fix-2", bundle_ws.id, bundle_ws, context={})
     assert res["final_status"] == "failed"
     # Should not loop indefinitely; at most defaults allow 2 fix attempts after first
     assert calls["runtime"] <= 3
-

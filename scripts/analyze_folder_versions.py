@@ -35,9 +35,11 @@ from collections import defaultdict
 from dataclasses import dataclass, asdict, field
 from typing import Dict, List, Set, Tuple, Optional
 
+
 @dataclass
 class FolderVersionScore:
     """Comprehensive scoring for folder version detection (v2.0)."""
+
     path: str
 
     # Content analysis
@@ -88,54 +90,63 @@ class FolderVersionScore:
     verdict: str = "KEEP"  # KEEP, DELETE, ARCHIVE, REVIEW, DIFFERENT_PURPOSE
     can_delete: bool = False  # Guardrail check
 
+
 def compute_file_hash(filepath: Path) -> str:
     """Compute SHA-256 hash of a file."""
     try:
         hasher = hashlib.sha256()
-        with open(filepath, 'rb') as f:
+        with open(filepath, "rb") as f:
             hasher.update(f.read())
         return hasher.hexdigest()
     except:
         return ""
 
-def get_git_file_history(filepath: Path, repo_root: Path) -> Tuple[Optional[datetime], int]:
+
+def get_git_file_history(
+    filepath: Path, repo_root: Path
+) -> Tuple[Optional[datetime], int]:
     """Get git creation date and commit count for a file."""
     try:
         rel_path = filepath.relative_to(repo_root)
 
         # Get first commit (creation date)
         result = subprocess.run(
-            ['git', 'log', '--diff-filter=A', '--format=%cI', '--', str(rel_path)],
+            ["git", "log", "--diff-filter=A", "--format=%cI", "--", str(rel_path)],
             cwd=repo_root,
             capture_output=True,
             text=True,
-            timeout=5
+            timeout=5,
         )
         created = None
         if result.returncode == 0 and result.stdout.strip():
-            lines = result.stdout.strip().split('\n')
+            lines = result.stdout.strip().split("\n")
             if lines:
-                created = datetime.fromisoformat(lines[-1].replace('Z', '+00:00'))
+                created = datetime.fromisoformat(lines[-1].replace("Z", "+00:00"))
 
         # Get commit count
         result = subprocess.run(
-            ['git', 'log', '--oneline', '--', str(rel_path)],
+            ["git", "log", "--oneline", "--", str(rel_path)],
             cwd=repo_root,
             capture_output=True,
             text=True,
-            timeout=5
+            timeout=5,
         )
-        commit_count = len(result.stdout.strip().split('\n')) if result.stdout.strip() else 0
+        commit_count = (
+            len(result.stdout.strip().split("\n")) if result.stdout.strip() else 0
+        )
 
         return created, commit_count
     except:
         return None, 0
 
-def analyze_folder_version(folder: Path, repo_root: Path, all_python_files: List[Path]) -> FolderVersionScore:
+
+def analyze_folder_version(
+    folder: Path, repo_root: Path, all_python_files: List[Path]
+) -> FolderVersionScore:
     """Generate comprehensive version score for a folder."""
 
     # Gather files
-    files = list(folder.glob('*')) if folder.exists() else []
+    files = list(folder.glob("*")) if folder.exists() else []
     file_items = [f for f in files if f.is_file()]
 
     # Content analysis
@@ -160,7 +171,9 @@ def analyze_folder_version(folder: Path, repo_root: Path, all_python_files: List
     oldest = min(modification_dates) if modification_dates else None
     avg_date = None
     if modification_dates:
-        avg_timestamp = sum(d.timestamp() for d in modification_dates) / len(modification_dates)
+        avg_timestamp = sum(d.timestamp() for d in modification_dates) / len(
+            modification_dates
+        )
         avg_date = datetime.fromtimestamp(avg_timestamp, tz=timezone.utc)
 
     # Git history
@@ -184,7 +197,7 @@ def analyze_folder_version(folder: Path, repo_root: Path, all_python_files: List
 
     # Usage analysis (check if this folder is imported)
     rel_path = str(folder.relative_to(repo_root))
-    module_path = rel_path.replace('\\', '.').replace('/', '.')
+    module_path = rel_path.replace("\\", ".").replace("/", ".")
 
     is_imported = False
     import_count = 0
@@ -192,7 +205,7 @@ def analyze_folder_version(folder: Path, repo_root: Path, all_python_files: List
         if py_file.parent == folder:  # Skip files in this folder
             continue
         try:
-            content = py_file.read_text(encoding='utf-8', errors='ignore')
+            content = py_file.read_text(encoding="utf-8", errors="ignore")
             # Look for imports of this folder
             if f"from {module_path}" in content or f"import {module_path}" in content:
                 is_imported = True
@@ -202,8 +215,8 @@ def analyze_folder_version(folder: Path, repo_root: Path, all_python_files: List
 
     # Location analysis
     depth = len(Path(rel_path).parts) - 1
-    is_in_legacy = 'legacy' in rel_path.lower() or 'archive' in rel_path.lower()
-    is_in_archive = 'archive' in rel_path.lower()
+    is_in_legacy = "legacy" in rel_path.lower() or "archive" in rel_path.lower()
+    is_in_archive = "archive" in rel_path.lower()
 
     # Initial score object
     score = FolderVersionScore(
@@ -223,12 +236,15 @@ def analyze_folder_version(folder: Path, repo_root: Path, all_python_files: List
         import_count=import_count,
         depth=depth,
         is_in_legacy=is_in_legacy,
-        is_in_archive=is_in_archive
+        is_in_archive=is_in_archive,
     )
 
     return score
 
-def score_folder_versions(folder_scores: List[FolderVersionScore]) -> List[FolderVersionScore]:
+
+def score_folder_versions(
+    folder_scores: List[FolderVersionScore],
+) -> List[FolderVersionScore]:
     """Score multiple folder versions against each other."""
 
     if not folder_scores:
@@ -245,13 +261,18 @@ def score_folder_versions(folder_scores: List[FolderVersionScore]) -> List[Folde
             fs.content_score = int(coverage * 25)
 
     # Recency scoring (0-20 points) - newer is better
-    newest_overall = max((fs.newest_file_date for fs in folder_scores if fs.newest_file_date), default=None)
+    newest_overall = max(
+        (fs.newest_file_date for fs in folder_scores if fs.newest_file_date),
+        default=None,
+    )
     if newest_overall:
         for fs in folder_scores:
             if fs.newest_file_date:
                 age_diff = (newest_overall - fs.newest_file_date).days
                 # Newer = higher score
-                fs.recency_score = max(0, 20 - (age_diff // 30))  # Lose 1 point per month
+                fs.recency_score = max(
+                    0, 20 - (age_diff // 30)
+                )  # Lose 1 point per month
 
     # Completeness scoring (0-15 points)
     max_files = max(fs.file_count for fs in folder_scores)
@@ -264,7 +285,10 @@ def score_folder_versions(folder_scores: List[FolderVersionScore]) -> List[Folde
         fs.completeness_score = int(completeness)
 
     # Git history scoring (0-15 points) - created earlier = canonical
-    earliest_git = min((fs.git_created_date for fs in folder_scores if fs.git_created_date), default=None)
+    earliest_git = min(
+        (fs.git_created_date for fs in folder_scores if fs.git_created_date),
+        default=None,
+    )
     if earliest_git:
         for fs in folder_scores:
             if fs.git_created_date:
@@ -301,12 +325,12 @@ def score_folder_versions(folder_scores: List[FolderVersionScore]) -> List[Folde
     # Calculate totals and verdicts
     for fs in folder_scores:
         fs.total_score = (
-            fs.content_score +
-            fs.recency_score +
-            fs.completeness_score +
-            fs.history_score +
-            fs.usage_score +
-            fs.location_score
+            fs.content_score
+            + fs.recency_score
+            + fs.completeness_score
+            + fs.history_score
+            + fs.usage_score
+            + fs.location_score
         )
 
     # Determine verdicts (highest score = KEEP)
@@ -324,6 +348,7 @@ def score_folder_versions(folder_scores: List[FolderVersionScore]) -> List[Folde
 
     return folder_scores
 
+
 def main():
     repo_root = Path.cwd()
 
@@ -333,8 +358,10 @@ def main():
 
     # Find all Python files for import analysis
     print("1. Indexing Python files for import analysis...")
-    all_python_files = list(repo_root.rglob('*.py'))
-    all_python_files = [f for f in all_python_files if '.git' not in str(f) and '.venv' not in str(f)]
+    all_python_files = list(repo_root.rglob("*.py"))
+    all_python_files = [
+        f for f in all_python_files if ".git" not in str(f) and ".venv" not in str(f)
+    ]
     print(f"   Found {len(all_python_files)} Python files\n")
 
     # Example: Analyze specific duplicate folders
@@ -342,8 +369,15 @@ def main():
 
     # You can specify folders to compare
     test_pairs = [
-        (['engine', 'core/engine', 'error/engine'], 'engine'),
-        (['scripts', 'pm/scripts', 'UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/scripts'], 'scripts'),
+        (["engine", "core/engine", "error/engine"], "engine"),
+        (
+            [
+                "scripts",
+                "pm/scripts",
+                "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/scripts",
+            ],
+            "scripts",
+        ),
     ]
 
     results = []
@@ -370,20 +404,20 @@ def main():
         print(f"\n   Results for '{name}':")
         for score in scores:
             print(f"   [{score.total_score:3d} pts] {score.verdict:8s} - {score.path}")
-            print(f"            Content:{score.content_score:2d} | Recency:{score.recency_score:2d} | Complete:{score.completeness_score:2d} | History:{score.history_score:2d} | Usage:{score.usage_score:2d} | Location:{score.location_score:2d}")
+            print(
+                f"            Content:{score.content_score:2d} | Recency:{score.recency_score:2d} | Complete:{score.completeness_score:2d} | History:{score.history_score:2d} | Usage:{score.usage_score:2d} | Location:{score.location_score:2d}"
+            )
         print()
 
-        results.append({
-            'folder_name': name,
-            'scores': [asdict(s) for s in scores]
-        })
+        results.append({"folder_name": name, "scores": [asdict(s) for s in scores]})
 
     # Save report
     output_file = repo_root / "cleanup_reports" / "folder_version_analysis.json"
-    with open(output_file, 'w') as f:
+    with open(output_file, "w") as f:
         json.dump(results, f, indent=2, default=str)
 
     print(f"✅ Analysis saved: {output_file}")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()

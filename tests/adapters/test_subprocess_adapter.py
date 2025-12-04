@@ -13,7 +13,8 @@ from core.adapters.subprocess_adapter import SubprocessAdapter
 
 class TestSubprocessAdapter:
     """Test SubprocessAdapter functionality"""
-# DOC_ID: DOC-TEST-ADAPTERS-TEST-SUBPROCESS-ADAPTER-168
+
+    # DOC_ID: DOC-TEST-ADAPTERS-TEST-SUBPROCESS-ADAPTER-168
 
     def test_create_adapter(self):
         """Test creating a subprocess adapter"""
@@ -21,7 +22,7 @@ class TestSubprocessAdapter:
             tool_id="echo",
             kind="tool",
             command="echo test",
-            capabilities={"task_kinds": ["test"]}
+            capabilities={"task_kinds": ["test"]},
         )
 
         adapter = SubprocessAdapter(config)
@@ -30,17 +31,14 @@ class TestSubprocessAdapter:
     def test_validate_request_valid(self):
         """Test validating a valid request"""
         config = ToolConfig(
-            tool_id="test",
-            kind="tool",
-            command="echo",
-            capabilities={}
+            tool_id="test", kind="tool", command="echo", capabilities={}
         )
         adapter = SubprocessAdapter(config)
 
         request = {
-            'request_id': '01234567890123456789012345',
-            'task_kind': 'test',
-            'project_id': 'test-project'
+            "request_id": "01234567890123456789012345",
+            "task_kind": "test",
+            "project_id": "test-project",
         }
 
         assert adapter.validate_request(request)
@@ -48,15 +46,12 @@ class TestSubprocessAdapter:
     def test_validate_request_missing_fields(self):
         """Test validating request with missing fields"""
         config = ToolConfig(
-            tool_id="test",
-            kind="tool",
-            command="echo",
-            capabilities={}
+            tool_id="test", kind="tool", command="echo", capabilities={}
         )
         adapter = SubprocessAdapter(config)
 
         request = {
-            'request_id': '01234567890123456789012345',
+            "request_id": "01234567890123456789012345",
         }
 
         assert not adapter.validate_request(request)
@@ -68,14 +63,14 @@ class TestSubprocessAdapter:
             tool_id="python",
             kind="tool",
             command=f'{sys.executable} -c "print(\\"Hello World\\")"',
-            capabilities={"task_kinds": ["test"]}
+            capabilities={"task_kinds": ["test"]},
         )
         adapter = SubprocessAdapter(config)
 
         request = {
-            'request_id': '01234567890123456789012345',
-            'task_kind': 'test',
-            'project_id': 'test'
+            "request_id": "01234567890123456789012345",
+            "task_kind": "test",
+            "project_id": "test",
         }
 
         result = adapter.execute(request)
@@ -92,14 +87,14 @@ class TestSubprocessAdapter:
             tool_id="python",
             kind="tool",
             command=f'{sys.executable} -c "import sys; sys.exit(1)"',
-            capabilities={"task_kinds": ["test"]}
+            capabilities={"task_kinds": ["test"]},
         )
         adapter = SubprocessAdapter(config)
 
         request = {
-            'request_id': '01234567890123456789012345',
-            'task_kind': 'test',
-            'project_id': 'test'
+            "request_id": "01234567890123456789012345",
+            "task_kind": "test",
+            "project_id": "test",
         }
 
         result = adapter.execute(request)
@@ -115,29 +110,26 @@ class TestSubprocessAdapter:
             kind="tool",
             command=f'{sys.executable} -c "import time; time.sleep(10)"',
             capabilities={"task_kinds": ["test"]},
-            limits={"timeout_seconds": 1}
+            limits={"timeout_seconds": 1},
         )
         adapter = SubprocessAdapter(config)
 
         request = {
-            'request_id': '01234567890123456789012345',
-            'task_kind': 'test',
-            'project_id': 'test'
+            "request_id": "01234567890123456789012345",
+            "task_kind": "test",
+            "project_id": "test",
         }
 
         result = adapter.execute(request, timeout=1)
 
         assert not result.success
         assert "timed out" in result.error_message.lower()
-        assert result.metadata.get('timeout_exceeded') is True
+        assert result.metadata.get("timeout_exceeded") is True
 
     def test_execute_invalid_request(self):
         """Test executing with invalid request"""
         config = ToolConfig(
-            tool_id="test",
-            kind="tool",
-            command="echo",
-            capabilities={}
+            tool_id="test", kind="tool", command="echo", capabilities={}
         )
         adapter = SubprocessAdapter(config)
 
@@ -152,9 +144,7 @@ class TestSubprocessAdapter:
             tool_id="test",
             kind="tool",
             command="echo",
-            capabilities={
-                "task_kinds": ["code_edit", "refactor"]
-            }
+            capabilities={"task_kinds": ["code_edit", "refactor"]},
         )
         adapter = SubprocessAdapter(config)
 

@@ -14,6 +14,7 @@ Author: AI Development Pipeline
 Created: 2025-11-23
 WS: WS-NEXT-002-002
 """
+
 # DOC_ID: DOC-CORE-ENGINE-PATCH-LEDGER-153
 
 from datetime import datetime, UTC
@@ -25,6 +26,7 @@ import json
 @dataclass
 class ValidationResult:
     """Patch validation results"""
+
     format_ok: bool = False
     scope_ok: bool = False
     constraints_ok: bool = False
@@ -44,12 +46,12 @@ class ValidationResult:
     def to_dict(self) -> Dict:
         """Convert to dictionary"""
         return {
-            'format_ok': self.format_ok,
-            'scope_ok': self.scope_ok,
-            'constraints_ok': self.constraints_ok,
-            'tests_ran': self.tests_ran,
-            'tests_passed': self.tests_passed,
-            'validation_errors': self.validation_errors
+            "format_ok": self.format_ok,
+            "scope_ok": self.scope_ok,
+            "constraints_ok": self.constraints_ok,
+            "tests_ran": self.tests_ran,
+            "tests_passed": self.tests_passed,
+            "validation_errors": self.validation_errors,
         }
 
 
@@ -81,23 +83,37 @@ class PatchLedger:
     """
 
     VALID_STATES = {
-        'created', 'validated', 'queued', 'applied', 'apply_failed',
-        'verified', 'committed', 'rolled_back', 'quarantined', 'dropped'
+        "created",
+        "validated",
+        "queued",
+        "applied",
+        "apply_failed",
+        "verified",
+        "committed",
+        "rolled_back",
+        "quarantined",
+        "dropped",
     }
 
-    TERMINAL_STATES = {'committed', 'rolled_back', 'dropped'}
+    TERMINAL_STATES = {"committed", "rolled_back", "dropped"}
 
     STATE_TRANSITIONS = {
-        'created': ['validated', 'apply_failed', 'quarantined', 'dropped'],
-        'validated': ['queued', 'quarantined', 'dropped'],
-        'queued': ['applied', 'apply_failed', 'quarantined', 'dropped'],
-        'applied': ['verified', 'apply_failed', 'rolled_back', 'quarantined', 'dropped'],
-        'apply_failed': ['queued', 'quarantined', 'dropped'],
-        'verified': ['committed', 'rolled_back', 'quarantined', 'dropped'],
-        'committed': [],  # Terminal
-        'rolled_back': [],  # Terminal
-        'quarantined': ['dropped'],
-        'dropped': []  # Terminal
+        "created": ["validated", "apply_failed", "quarantined", "dropped"],
+        "validated": ["queued", "quarantined", "dropped"],
+        "queued": ["applied", "apply_failed", "quarantined", "dropped"],
+        "applied": [
+            "verified",
+            "apply_failed",
+            "rolled_back",
+            "quarantined",
+            "dropped",
+        ],
+        "apply_failed": ["queued", "quarantined", "dropped"],
+        "verified": ["committed", "rolled_back", "quarantined", "dropped"],
+        "committed": [],  # Terminal
+        "rolled_back": [],  # Terminal
+        "quarantined": ["dropped"],
+        "dropped": [],  # Terminal
     }
 
     def __init__(self, db):
@@ -118,13 +134,14 @@ class PatchLedger:
             # Table doesn't exist, create it
             # Try multiple possible paths for the migration file
             possible_paths = [
-                'schema/migrations/003_add_patch_ledger_table.sql',
-                'phase0_bootstrap/modules/bootstrap_orchestrator/schemas/schema/migrations/003_add_patch_ledger_table.sql',
+                "schema/migrations/003_add_patch_ledger_table.sql",
+                "phase0_bootstrap/modules/bootstrap_orchestrator/schemas/schema/migrations/003_add_patch_ledger_table.sql",
             ]
 
             schema_path = None
             for path in possible_paths:
                 from pathlib import Path
+
                 if Path(path).exists():
                     schema_path = path
                     break
@@ -134,7 +151,7 @@ class PatchLedger:
                     f"Could not find patch_ledger migration file in any of: {possible_paths}"
                 )
 
-            with open(schema_path, 'r') as f:
+            with open(schema_path, "r") as f:
                 self.db.conn.executescript(f.read())
             self.db.conn.commit()
 
@@ -146,7 +163,7 @@ class PatchLedger:
         validation: Optional[ValidationResult] = None,
         phase_id: Optional[str] = None,
         workstream_id: Optional[str] = None,
-        execution_request_id: Optional[str] = None
+        execution_request_id: Optional[str] = None,
     ) -> str:
         """
         Create a new patch ledger entry.
@@ -169,24 +186,22 @@ class PatchLedger:
         now = datetime.now(UTC).isoformat()
 
         entry_data = {
-            'ledger_id': ledger_id,
-            'patch_id': patch_id,
-            'project_id': project_id,
-            'phase_id': phase_id,
-            'workstream_id': workstream_id,
-            'execution_request_id': execution_request_id,
-            'state': 'created',
-            'state_history': json.dumps([{
-                'state': 'created',
-                'at': now,
-                'reason': 'Initial creation'
-            }]),
-            'validation': json.dumps(validation.to_dict()),
-            'apply': None,
-            'quarantine': None,
-            'relations': None,
-            'created_at': now,
-            'updated_at': now
+            "ledger_id": ledger_id,
+            "patch_id": patch_id,
+            "project_id": project_id,
+            "phase_id": phase_id,
+            "workstream_id": workstream_id,
+            "execution_request_id": execution_request_id,
+            "state": "created",
+            "state_history": json.dumps(
+                [{"state": "created", "at": now, "reason": "Initial creation"}]
+            ),
+            "validation": json.dumps(validation.to_dict()),
+            "apply": None,
+            "quarantine": None,
+            "relations": None,
+            "created_at": now,
+            "updated_at": now,
         }
 
         self.db.conn.execute(
@@ -198,21 +213,21 @@ class PatchLedger:
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """,
             (
-                entry_data['ledger_id'],
-                entry_data['patch_id'],
-                entry_data['project_id'],
-                entry_data['phase_id'],
-                entry_data['workstream_id'],
-                entry_data['execution_request_id'],
-                entry_data['state'],
-                entry_data['state_history'],
-                entry_data['validation'],
-                entry_data['apply'],
-                entry_data['quarantine'],
-                entry_data['relations'],
-                entry_data['created_at'],
-                entry_data['updated_at']
-            )
+                entry_data["ledger_id"],
+                entry_data["patch_id"],
+                entry_data["project_id"],
+                entry_data["phase_id"],
+                entry_data["workstream_id"],
+                entry_data["execution_request_id"],
+                entry_data["state"],
+                entry_data["state_history"],
+                entry_data["validation"],
+                entry_data["apply"],
+                entry_data["quarantine"],
+                entry_data["relations"],
+                entry_data["created_at"],
+                entry_data["updated_at"],
+            ),
         )
         self.db.conn.commit()
 
@@ -229,8 +244,7 @@ class PatchLedger:
             Entry data dict or None if not found
         """
         row = self.db.conn.execute(
-            "SELECT * FROM patch_ledger WHERE ledger_id = ?",
-            (ledger_id,)
+            "SELECT * FROM patch_ledger WHERE ledger_id = ?", (ledger_id,)
         ).fetchone()
 
         if not row:
@@ -243,7 +257,13 @@ class PatchLedger:
         data = dict(row)
 
         # Deserialize JSON fields
-        for field in ['state_history', 'validation', 'apply', 'quarantine', 'relations']:
+        for field in [
+            "state_history",
+            "validation",
+            "apply",
+            "quarantine",
+            "relations",
+        ]:
             if data.get(field):
                 data[field] = json.loads(data[field])
 
@@ -252,24 +272,18 @@ class PatchLedger:
     def _add_state_history(self, ledger_id: str, state: str, reason: str):
         """Add state transition to history"""
         entry = self.get_entry(ledger_id)
-        history = entry['state_history'] or []
+        history = entry["state_history"] or []
 
-        history.append({
-            'state': state,
-            'at': datetime.now(UTC).isoformat(),
-            'reason': reason
-        })
+        history.append(
+            {"state": state, "at": datetime.now(UTC).isoformat(), "reason": reason}
+        )
 
         self.db.conn.execute(
             "UPDATE patch_ledger SET state_history = ? WHERE ledger_id = ?",
-            (json.dumps(history), ledger_id)
+            (json.dumps(history), ledger_id),
         )
 
-    def validate_patch(
-        self,
-        ledger_id: str,
-        validation: ValidationResult
-    ) -> bool:
+    def validate_patch(self, ledger_id: str, validation: ValidationResult) -> bool:
         """
         Validate patch (created -> validated or apply_failed).
 
@@ -284,17 +298,15 @@ class PatchLedger:
         if not entry:
             raise ValueError(f"Ledger entry not found: {ledger_id}")
 
-        new_state = 'validated' if validation.is_valid else 'apply_failed'
+        new_state = "validated" if validation.is_valid else "apply_failed"
 
-        if not self._can_transition(entry['state'], new_state):
-            raise ValueError(
-                f"Cannot validate: entry in {entry['state']} state"
-            )
+        if not self._can_transition(entry["state"], new_state):
+            raise ValueError(f"Cannot validate: entry in {entry['state']} state")
 
         self._add_state_history(
             ledger_id,
             new_state,
-            'Validation completed' if validation.is_valid else 'Validation failed'
+            "Validation completed" if validation.is_valid else "Validation failed",
         )
 
         self.db.conn.execute(
@@ -307,8 +319,8 @@ class PatchLedger:
                 new_state,
                 json.dumps(validation.to_dict()),
                 datetime.now(UTC).isoformat(),
-                ledger_id
-            )
+                ledger_id,
+            ),
         )
         self.db.conn.commit()
 
@@ -328,16 +340,14 @@ class PatchLedger:
         if not entry:
             raise ValueError(f"Ledger entry not found: {ledger_id}")
 
-        if not self._can_transition(entry['state'], 'queued'):
-            raise ValueError(
-                f"Cannot queue: entry in {entry['state']} state"
-            )
+        if not self._can_transition(entry["state"], "queued"):
+            raise ValueError(f"Cannot queue: entry in {entry['state']} state")
 
-        self._add_state_history(ledger_id, 'queued', 'Queued for application')
+        self._add_state_history(ledger_id, "queued", "Queued for application")
 
         self.db.conn.execute(
             "UPDATE patch_ledger SET state = 'queued', updated_at = ? WHERE ledger_id = ?",
-            (datetime.now(UTC).isoformat(), ledger_id)
+            (datetime.now(UTC).isoformat(), ledger_id),
         )
         self.db.conn.commit()
 
@@ -350,7 +360,7 @@ class PatchLedger:
         workspace_path: Optional[str] = None,
         applied_files: Optional[List[str]] = None,
         error_code: Optional[str] = None,
-        error_message: Optional[str] = None
+        error_message: Optional[str] = None,
     ) -> bool:
         """
         Apply patch (queued -> applied or apply_failed).
@@ -370,29 +380,31 @@ class PatchLedger:
         if not entry:
             raise ValueError(f"Ledger entry not found: {ledger_id}")
 
-        new_state = 'applied' if success else 'apply_failed'
+        new_state = "applied" if success else "apply_failed"
 
-        if not self._can_transition(entry['state'], new_state):
-            raise ValueError(
-                f"Cannot apply: entry in {entry['state']} state"
-            )
+        if not self._can_transition(entry["state"], new_state):
+            raise ValueError(f"Cannot apply: entry in {entry['state']} state")
 
         # Update apply info
-        apply_data = entry.get('apply') or {}
-        apply_data['attempts'] = apply_data.get('attempts', 0) + 1
-        apply_data['last_attempt_at'] = datetime.now(UTC).isoformat()
+        apply_data = entry.get("apply") or {}
+        apply_data["attempts"] = apply_data.get("attempts", 0) + 1
+        apply_data["last_attempt_at"] = datetime.now(UTC).isoformat()
 
         if success:
-            apply_data['workspace_path'] = workspace_path
-            apply_data['applied_files'] = applied_files or []
+            apply_data["workspace_path"] = workspace_path
+            apply_data["applied_files"] = applied_files or []
         else:
-            apply_data['last_error_code'] = error_code
-            apply_data['last_error_message'] = error_message
+            apply_data["last_error_code"] = error_code
+            apply_data["last_error_message"] = error_message
 
         self._add_state_history(
             ledger_id,
             new_state,
-            'Application succeeded' if success else f'Application failed: {error_message}'
+            (
+                "Application succeeded"
+                if success
+                else f"Application failed: {error_message}"
+            ),
         )
 
         self.db.conn.execute(
@@ -405,8 +417,8 @@ class PatchLedger:
                 new_state,
                 json.dumps(apply_data),
                 datetime.now(UTC).isoformat(),
-                ledger_id
-            )
+                ledger_id,
+            ),
         )
         self.db.conn.commit()
 
@@ -427,22 +439,20 @@ class PatchLedger:
         if not entry:
             raise ValueError(f"Ledger entry not found: {ledger_id}")
 
-        new_state = 'verified' if tests_passed else 'apply_failed'
+        new_state = "verified" if tests_passed else "apply_failed"
 
-        if not self._can_transition(entry['state'], new_state):
-            raise ValueError(
-                f"Cannot verify: entry in {entry['state']} state"
-            )
+        if not self._can_transition(entry["state"], new_state):
+            raise ValueError(f"Cannot verify: entry in {entry['state']} state")
 
         self._add_state_history(
             ledger_id,
             new_state,
-            'Verification passed' if tests_passed else 'Verification failed'
+            "Verification passed" if tests_passed else "Verification failed",
         )
 
         self.db.conn.execute(
             "UPDATE patch_ledger SET state = ?, updated_at = ? WHERE ledger_id = ?",
-            (new_state, datetime.now(UTC).isoformat(), ledger_id)
+            (new_state, datetime.now(UTC).isoformat(), ledger_id),
         )
         self.db.conn.commit()
 
@@ -462,16 +472,14 @@ class PatchLedger:
         if not entry:
             raise ValueError(f"Ledger entry not found: {ledger_id}")
 
-        if not self._can_transition(entry['state'], 'committed'):
-            raise ValueError(
-                f"Cannot commit: entry in {entry['state']} state"
-            )
+        if not self._can_transition(entry["state"], "committed"):
+            raise ValueError(f"Cannot commit: entry in {entry['state']} state")
 
-        self._add_state_history(ledger_id, 'committed', 'Patch committed')
+        self._add_state_history(ledger_id, "committed", "Patch committed")
 
         self.db.conn.execute(
             "UPDATE patch_ledger SET state = 'committed', updated_at = ? WHERE ledger_id = ?",
-            (datetime.now(UTC).isoformat(), ledger_id)
+            (datetime.now(UTC).isoformat(), ledger_id),
         )
         self.db.conn.commit()
 
@@ -492,26 +500,21 @@ class PatchLedger:
         if not entry:
             raise ValueError(f"Ledger entry not found: {ledger_id}")
 
-        if not self._can_transition(entry['state'], 'rolled_back'):
-            raise ValueError(
-                f"Cannot rollback: entry in {entry['state']} state"
-            )
+        if not self._can_transition(entry["state"], "rolled_back"):
+            raise ValueError(f"Cannot rollback: entry in {entry['state']} state")
 
-        self._add_state_history(ledger_id, 'rolled_back', reason)
+        self._add_state_history(ledger_id, "rolled_back", reason)
 
         self.db.conn.execute(
             "UPDATE patch_ledger SET state = 'rolled_back', updated_at = ? WHERE ledger_id = ?",
-            (datetime.now(UTC).isoformat(), ledger_id)
+            (datetime.now(UTC).isoformat(), ledger_id),
         )
         self.db.conn.commit()
 
         return True
 
     def quarantine_patch(
-        self,
-        ledger_id: str,
-        reason: str,
-        quarantine_path: Optional[str] = None
+        self, ledger_id: str, reason: str, quarantine_path: Optional[str] = None
     ) -> bool:
         """
         Quarantine patch (any -> quarantined).
@@ -528,19 +531,17 @@ class PatchLedger:
         if not entry:
             raise ValueError(f"Ledger entry not found: {ledger_id}")
 
-        if not self._can_transition(entry['state'], 'quarantined'):
-            raise ValueError(
-                f"Cannot quarantine: entry in {entry['state']} state"
-            )
+        if not self._can_transition(entry["state"], "quarantined"):
+            raise ValueError(f"Cannot quarantine: entry in {entry['state']} state")
 
         quarantine_data = {
-            'is_quarantined': True,
-            'quarantine_reason': reason,
-            'quarantine_path': quarantine_path,
-            'quarantined_at': datetime.now(UTC).isoformat()
+            "is_quarantined": True,
+            "quarantine_reason": reason,
+            "quarantine_path": quarantine_path,
+            "quarantined_at": datetime.now(UTC).isoformat(),
         }
 
-        self._add_state_history(ledger_id, 'quarantined', reason)
+        self._add_state_history(ledger_id, "quarantined", reason)
 
         self.db.conn.execute(
             """
@@ -548,11 +549,7 @@ class PatchLedger:
             SET state = 'quarantined', quarantine = ?, updated_at = ?
             WHERE ledger_id = ?
             """,
-            (
-                json.dumps(quarantine_data),
-                datetime.now(UTC).isoformat(),
-                ledger_id
-            )
+            (json.dumps(quarantine_data), datetime.now(UTC).isoformat(), ledger_id),
         )
         self.db.conn.commit()
 
@@ -573,16 +570,14 @@ class PatchLedger:
         if not entry:
             raise ValueError(f"Ledger entry not found: {ledger_id}")
 
-        if not self._can_transition(entry['state'], 'dropped'):
-            raise ValueError(
-                f"Cannot drop: entry in {entry['state']} state"
-            )
+        if not self._can_transition(entry["state"], "dropped"):
+            raise ValueError(f"Cannot drop: entry in {entry['state']} state")
 
-        self._add_state_history(ledger_id, 'dropped', reason)
+        self._add_state_history(ledger_id, "dropped", reason)
 
         self.db.conn.execute(
             "UPDATE patch_ledger SET state = 'dropped', updated_at = ? WHERE ledger_id = ?",
-            (datetime.now(UTC).isoformat(), ledger_id)
+            (datetime.now(UTC).isoformat(), ledger_id),
         )
         self.db.conn.commit()
 
@@ -592,7 +587,7 @@ class PatchLedger:
         self,
         project_id: Optional[str] = None,
         state: Optional[str] = None,
-        workstream_id: Optional[str] = None
+        workstream_id: Optional[str] = None,
     ) -> List[Dict]:
         """
         List ledger entries with optional filters.

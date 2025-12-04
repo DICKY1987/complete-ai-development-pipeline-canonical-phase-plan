@@ -1,6 +1,7 @@
 """
 Tests for Python-specific AST extractor.
 """
+
 # DOC_ID: DOC-TEST-SYNTAX-ANALYSIS-TEST-PYTHON-153
 
 import pytest
@@ -75,10 +76,10 @@ class TestPythonExtractorFunctions:
 
     def test_extract_decorated_function(self):
         """Test extracting decorated function."""
-        source = b'''@staticmethod
+        source = b"""@staticmethod
 @property
 def decorated():
-    pass'''
+    pass"""
         parser = ASTParser("python")
         tree = parser.parse_string(source)
         extractor = PythonExtractor(tree, source)
@@ -89,14 +90,14 @@ def decorated():
 
     def test_extract_multiple_functions(self):
         """Test extracting multiple functions."""
-        source = b'''def func1():
+        source = b"""def func1():
     pass
 
 def func2():
     pass
 
 def func3():
-    pass'''
+    pass"""
         parser = ASTParser("python")
         tree = parser.parse_string(source)
         extractor = PythonExtractor(tree, source)
@@ -107,10 +108,10 @@ def func3():
 
     def test_extract_nested_functions(self):
         """Test extracting nested functions."""
-        source = b'''def outer():
+        source = b"""def outer():
     def inner():
         pass
-    return inner'''
+    return inner"""
         parser = ASTParser("python")
         tree = parser.parse_string(source)
         extractor = PythonExtractor(tree, source)
@@ -151,7 +152,7 @@ class TestPythonExtractorClasses:
 
     def test_extract_class_with_methods(self):
         """Test extracting class methods."""
-        source = b'''class MyClass:
+        source = b"""class MyClass:
     def __init__(self):
         pass
 
@@ -160,7 +161,7 @@ class TestPythonExtractorClasses:
 
     @property
     def method2(self):
-        pass'''
+        pass"""
         parser = ASTParser("python")
         tree = parser.parse_string(source)
         extractor = PythonExtractor(tree, source)
@@ -187,9 +188,9 @@ class TestPythonExtractorClasses:
 
     def test_extract_decorated_class(self):
         """Test extracting decorated class."""
-        source = b'''@dataclass
+        source = b"""@dataclass
 class Decorated:
-    pass'''
+    pass"""
         parser = ASTParser("python")
         tree = parser.parse_string(source)
         extractor = PythonExtractor(tree, source)
@@ -200,11 +201,11 @@ class Decorated:
 
     def test_extract_multiple_classes(self):
         """Test extracting multiple classes."""
-        source = b'''class Class1:
+        source = b"""class Class1:
     pass
 
 class Class2:
-    pass'''
+    pass"""
         parser = ASTParser("python")
         tree = parser.parse_string(source)
         extractor = PythonExtractor(tree, source)
@@ -262,13 +263,13 @@ class TestPythonExtractorImports:
         imports = extractor.extract_imports()
         assert len(imports) >= 1
         # Check that wildcard is captured
-        assert any('*' in imp.names for imp in imports)
+        assert any("*" in imp.names for imp in imports)
 
     def test_extract_multiple_imports(self):
         """Test extracting multiple imports."""
-        source = b'''import os
+        source = b"""import os
 import sys
-from pathlib import Path'''
+from pathlib import Path"""
         parser = ASTParser("python")
         tree = parser.parse_string(source)
         extractor = PythonExtractor(tree, source)

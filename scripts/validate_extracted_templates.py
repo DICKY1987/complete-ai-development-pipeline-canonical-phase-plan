@@ -10,6 +10,7 @@ from pathlib import Path
 import yaml
 from typing import List, Dict, Any
 
+
 def validate_template_file(filepath: Path) -> List[str]:
     """
     Validate a single template file
@@ -19,36 +20,38 @@ def validate_template_file(filepath: Path) -> List[str]:
     errors = []
 
     try:
-        with open(filepath, 'r', encoding='utf-8') as f:
+        with open(filepath, "r", encoding="utf-8") as f:
             template = yaml.safe_load(f)
 
         # Check required top-level fields
-        required_fields = ['pattern_id', 'category', 'meta']
+        required_fields = ["pattern_id", "category", "meta"]
         for field in required_fields:
             if field not in template:
                 errors.append(f"Missing required field: {field}")
 
         # Validate pattern_id format
-        if 'pattern_id' in template:
-            pattern_id = template['pattern_id']
-            if not pattern_id.endswith('_v1'):
+        if "pattern_id" in template:
+            pattern_id = template["pattern_id"]
+            if not pattern_id.endswith("_v1"):
                 errors.append(f"pattern_id must end with '_v1': {pattern_id}")
 
         # Validate meta section
-        if 'meta' in template:
-            meta = template['meta']
-            required_meta = ['created_at', 'version', 'proven_uses']
+        if "meta" in template:
+            meta = template["meta"]
+            required_meta = ["created_at", "version", "proven_uses"]
             for field in required_meta:
                 if field not in meta:
                     errors.append(f"Missing required meta field: {field}")
 
             # Check proven_uses is non-negative
-            if 'proven_uses' in meta and not isinstance(meta['proven_uses'], int):
-                errors.append(f"proven_uses must be integer: {type(meta['proven_uses'])}")
+            if "proven_uses" in meta and not isinstance(meta["proven_uses"], int):
+                errors.append(
+                    f"proven_uses must be integer: {type(meta['proven_uses'])}"
+                )
 
         # Validate durations are reasonable
-        if 'meta' in template and 'avg_duration_seconds' in template['meta']:
-            duration = template['meta']['avg_duration_seconds']
+        if "meta" in template and "avg_duration_seconds" in template["meta"]:
+            duration = template["meta"]["avg_duration_seconds"]
             if duration < 0 or duration > 86400:  # 0 to 24 hours
                 errors.append(f"Unreasonable duration: {duration}s")
 
@@ -99,14 +102,16 @@ def main():
 
             # Track pattern IDs for duplicate check
             try:
-                with open(filepath, 'r', encoding='utf-8') as f:
+                with open(filepath, "r", encoding="utf-8") as f:
                     template = yaml.safe_load(f)
-                    if 'pattern_id' in template:
-                        if template['pattern_id'] in pattern_ids:
+                    if "pattern_id" in template:
+                        if template["pattern_id"] in pattern_ids:
                             if filepath.name not in all_errors:
                                 all_errors[filepath.name] = []
-                            all_errors[filepath.name].append(f"Duplicate pattern_id: {template['pattern_id']}")
-                        pattern_ids.add(template['pattern_id'])
+                            all_errors[filepath.name].append(
+                                f"Duplicate pattern_id: {template['pattern_id']}"
+                            )
+                        pattern_ids.add(template["pattern_id"])
             except:
                 pass
 
@@ -127,5 +132,5 @@ def main():
         return 0
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     sys.exit(main())

@@ -38,6 +38,7 @@ for dir_path in [REPORTS_DIR, LOGS_DIR, STATE_DIR]:
 
 class ExecutionStatus(Enum):
     """Execution status codes"""
+
     PENDING = "pending"
     RUNNING = "running"
     COMPLETED = "completed"
@@ -49,6 +50,7 @@ class ExecutionStatus(Enum):
 @dataclass
 class AgentResult:
     """Result from single agent execution"""
+
     agent_id: str
     workstream_id: str
     status: ExecutionStatus
@@ -66,6 +68,7 @@ class AgentResult:
 @dataclass
 class ConsolidatedResult:
     """Consolidated results from all agents"""
+
     run_id: str
     timestamp: str
     total_workstreams: int
@@ -93,7 +96,8 @@ class ConsolidationDatabase:
     def _init_database(self):
         """Initialize database schema"""
         with sqlite3.connect(self.db_path) as conn:
-            conn.execute("""
+            conn.execute(
+                """
                 CREATE TABLE IF NOT EXISTS consolidated_runs (
                     run_id TEXT PRIMARY KEY,
                     timestamp TEXT NOT NULL,
@@ -109,9 +113,11 @@ class ConsolidationDatabase:
                     recommendations TEXT,
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 )
-            """)
+            """
+            )
 
-            conn.execute("""
+            conn.execute(
+                """
                 CREATE TABLE IF NOT EXISTS agent_results (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     run_id TEXT NOT NULL,
@@ -129,9 +135,11 @@ class ConsolidationDatabase:
                     metadata TEXT,
                     FOREIGN KEY (run_id) REFERENCES consolidated_runs(run_id)
                 )
-            """)
+            """
+            )
 
-            conn.execute("""
+            conn.execute(
+                """
                 CREATE TABLE IF NOT EXISTS consolidated_errors (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     run_id TEXT NOT NULL,
@@ -143,7 +151,8 @@ class ConsolidationDatabase:
                     stack_trace TEXT,
                     FOREIGN KEY (run_id) REFERENCES consolidated_runs(run_id)
                 )
-            """)
+            """
+            )
 
             conn.commit()
 
@@ -151,67 +160,76 @@ class ConsolidationDatabase:
         """Save consolidated run results"""
         with sqlite3.connect(self.db_path) as conn:
             # Save main run
-            conn.execute("""
+            conn.execute(
+                """
                 INSERT INTO consolidated_runs
                 (run_id, timestamp, total_workstreams, completed_count, failed_count,
                  skipped_count, total_files_modified, total_commits, total_errors,
                  total_warnings, execution_summary, recommendations)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            """, (
-                result.run_id,
-                result.timestamp,
-                result.total_workstreams,
-                result.completed_count,
-                result.failed_count,
-                result.skipped_count,
-                result.total_files_modified,
-                result.total_commits,
-                result.total_errors,
-                result.total_warnings,
-                json.dumps(result.execution_summary),
-                json.dumps(result.recommendations)
-            ))
+            """,
+                (
+                    result.run_id,
+                    result.timestamp,
+                    result.total_workstreams,
+                    result.completed_count,
+                    result.failed_count,
+                    result.skipped_count,
+                    result.total_files_modified,
+                    result.total_commits,
+                    result.total_errors,
+                    result.total_warnings,
+                    json.dumps(result.execution_summary),
+                    json.dumps(result.recommendations),
+                ),
+            )
 
             # Save agent results
             for agent_result in result.agent_results:
-                conn.execute("""
+                conn.execute(
+                    """
                     INSERT INTO agent_results
                     (run_id, agent_id, workstream_id, status, start_time, end_time,
                      duration_seconds, files_modified, commits_created, errors,
                      warnings, test_results, metadata)
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-                """, (
-                    result.run_id,
-                    agent_result.agent_id,
-                    agent_result.workstream_id,
-                    agent_result.status.value,
-                    agent_result.start_time,
-                    agent_result.end_time,
-                    agent_result.duration_seconds,
-                    json.dumps(agent_result.files_modified),
-                    json.dumps(agent_result.commits_created),
-                    json.dumps(agent_result.errors),
-                    json.dumps(agent_result.warnings),
-                    json.dumps(agent_result.test_results),
-                    json.dumps(agent_result.metadata)
-                ))
+                """,
+                    (
+                        result.run_id,
+                        agent_result.agent_id,
+                        agent_result.workstream_id,
+                        agent_result.status.value,
+                        agent_result.start_time,
+                        agent_result.end_time,
+                        agent_result.duration_seconds,
+                        json.dumps(agent_result.files_modified),
+                        json.dumps(agent_result.commits_created),
+                        json.dumps(agent_result.errors),
+                        json.dumps(agent_result.warnings),
+                        json.dumps(agent_result.test_results),
+                        json.dumps(agent_result.metadata),
+                    ),
+                )
 
             # Save consolidated errors
             for error in result.consolidated_errors:
-                conn.execute("""
+                conn.execute(
+                    """
                     INSERT INTO consolidated_errors
                     (run_id, error_type, error_message, workstream_id, agent_id,
                      timestamp, stack_trace)
                     VALUES (?, ?, ?, ?, ?, ?, ?)
-                """, (
-                    result.run_id,
-                    error.get("type", "unknown"),
-                    error.get("message", ""),
-                    error.get("workstream_id"),
-                    error.get("agent_id"),
-                    error.get("timestamp", datetime.now().isoformat()),
-                    error.get("stack_trace", "")
-                ))
+                """,
+                    (
+                        result.run_id,
+                        error.get("type", "unknown"),
+                        error.get("message", ""),
+                        error.get("workstream_id"),
+                        error.get("agent_id"),
+                        error.get("timestamp", datetime.now().isoformat()),
+                        error.get("stack_trace", ""),
+                    ),
+                )
 
             conn.commit()
 
@@ -220,8 +238,7 @@ class ConsolidationDatabase:
         with sqlite3.connect(self.db_path) as conn:
             conn.row_factory = sqlite3.Row
             row = conn.execute(
-                "SELECT * FROM consolidated_runs WHERE run_id = ?",
-                (run_id,)
+                "SELECT * FROM consolidated_runs WHERE run_id = ?", (run_id,)
             ).fetchone()
 
             if not row:
@@ -233,13 +250,16 @@ class ConsolidationDatabase:
         """Get list of all runs"""
         with sqlite3.connect(self.db_path) as conn:
             conn.row_factory = sqlite3.Row
-            rows = conn.execute("""
+            rows = conn.execute(
+                """
                 SELECT run_id, timestamp, total_workstreams, completed_count,
                        failed_count, total_errors, created_at
                 FROM consolidated_runs
                 ORDER BY created_at DESC
                 LIMIT ?
-            """, (limit,)).fetchall()
+            """,
+                (limit,),
+            ).fetchall()
 
             return [dict(row) for row in rows]
 
@@ -261,7 +281,7 @@ class MultiAgentWorkstreamCoordinator:
 
         for ws_file in sorted(WORKSTREAMS_DIR.glob("ws-*.json")):
             try:
-                with open(ws_file, 'r', encoding='utf-8') as f:
+                with open(ws_file, "r", encoding="utf-8") as f:
                     ws = json.load(f)
                 workstreams.append(ws)
             except Exception as e:
@@ -269,7 +289,9 @@ class MultiAgentWorkstreamCoordinator:
 
         return workstreams
 
-    def log_error(self, context: str, error: str, workstream_id: str = None, agent_id: str = None):
+    def log_error(
+        self, context: str, error: str, workstream_id: str = None, agent_id: str = None
+    ):
         """Log error (NO STOP MODE)"""
         error_entry = {
             "type": context,
@@ -277,15 +299,13 @@ class MultiAgentWorkstreamCoordinator:
             "workstream_id": workstream_id,
             "agent_id": agent_id,
             "timestamp": datetime.now().isoformat(),
-            "stack_trace": traceback.format_exc()
+            "stack_trace": traceback.format_exc(),
         }
         self.errors.append(error_entry)
         print(f"❌ ERROR [{context}]: {error}", file=sys.stderr)
 
     async def execute_workstream_with_agent(
-        self,
-        agent_id: str,
-        workstream: Dict
+        self, agent_id: str, workstream: Dict
     ) -> AgentResult:
         """Execute single workstream with specific agent"""
         ws_id = workstream.get("id", "unknown")
@@ -311,7 +331,7 @@ class MultiAgentWorkstreamCoordinator:
                 errors=[],
                 warnings=[],
                 test_results={},
-                metadata=workstream
+                metadata=workstream,
             )
 
             self.agent_results.append(result)
@@ -333,7 +353,7 @@ class MultiAgentWorkstreamCoordinator:
                 errors=[str(e)],
                 warnings=[],
                 test_results={},
-                metadata=workstream
+                metadata=workstream,
             )
 
             self.agent_results.append(result)
@@ -371,7 +391,9 @@ class MultiAgentWorkstreamCoordinator:
         """Consolidate all agent results"""
         print(f"\n📊 Consolidating results...")
 
-        completed = [r for r in self.agent_results if r.status == ExecutionStatus.COMPLETED]
+        completed = [
+            r for r in self.agent_results if r.status == ExecutionStatus.COMPLETED
+        ]
         failed = [r for r in self.agent_results if r.status == ExecutionStatus.FAILED]
 
         # Aggregate files modified
@@ -400,7 +422,7 @@ class MultiAgentWorkstreamCoordinator:
             "agents_used": self.agents_count,
             "parallel_execution": True,
             "completed_workstreams": [r.workstream_id for r in completed],
-            "failed_workstreams": [r.workstream_id for r in failed]
+            "failed_workstreams": [r.workstream_id for r in failed],
         }
 
         consolidated = ConsolidatedResult(
@@ -418,7 +440,7 @@ class MultiAgentWorkstreamCoordinator:
             execution_summary=execution_summary,
             agent_results=self.agent_results,
             consolidated_errors=self.errors,
-            recommendations=recommendations
+            recommendations=recommendations,
         )
 
         print(f"✅ Results consolidated")
@@ -498,7 +520,7 @@ class MultiAgentWorkstreamCoordinator:
                 content += f"- {rec}\n"
 
         # Write report
-        with open(report_path, 'w', encoding='utf-8') as f:
+        with open(report_path, "w", encoding="utf-8") as f:
             f.write(content)
 
         print(f"✅ Report generated: {report_path}")
@@ -524,7 +546,9 @@ class MultiAgentWorkstreamCoordinator:
             print(f"🏁 MULTI-AGENT EXECUTION COMPLETE")
             print(f"{'='*80}")
             print(f"Run ID: {consolidated.run_id}")
-            print(f"Completed: {consolidated.completed_count}/{consolidated.total_workstreams}")
+            print(
+                f"Completed: {consolidated.completed_count}/{consolidated.total_workstreams}"
+            )
             print(f"Failed: {consolidated.failed_count}")
             print(f"Errors: {consolidated.total_errors}")
             print(f"Database: {CONSOLIDATED_DB}")

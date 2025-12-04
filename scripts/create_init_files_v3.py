@@ -7,6 +7,7 @@ to dynamically import ULID-prefixed files and re-export their symbols.
 Usage:
     python scripts/create_init_files_v3.py --all --execute
 """
+
 # DOC_ID: DOC-SCRIPT-SCRIPTS-CREATE-INIT-FILES-V3-201
 # DOC_ID: DOC-SCRIPT-SCRIPTS-CREATE-INIT-FILES-V3-138
 
@@ -16,7 +17,9 @@ import textwrap
 import yaml
 
 
-def create_init_file_v3(module_dir: Path, module_id: str, ulid_prefix: str, layer: str) -> str:
+def create_init_file_v3(
+    module_dir: Path, module_id: str, ulid_prefix: str, layer: str
+) -> str:
     """Create __init__.py content using importlib for ULID files."""
     prefixes = [ulid_prefix]
     if ulid_prefix and not ulid_prefix.startswith("m"):
@@ -29,7 +32,11 @@ def create_init_file_v3(module_dir: Path, module_id: str, ulid_prefix: str, laye
     def sort_key(path: Path):
         stem = path.stem
         slug = stem.split("_", 1)[1] if "_" in stem else stem
-        if slug.startswith("db") or slug.startswith("pipeline_service") or slug.startswith("error_pipeline_service"):
+        if (
+            slug.startswith("db")
+            or slug.startswith("pipeline_service")
+            or slug.startswith("error_pipeline_service")
+        ):
             pri = 0
         elif slug.startswith("crud") or slug.startswith("error_pipeline_cli"):
             pri = 1
@@ -37,14 +44,18 @@ def create_init_file_v3(module_dir: Path, module_id: str, ulid_prefix: str, laye
             pri = 2
         return (pri, slug)
 
-    code_files = sorted([
-        f for f in py_files
-        if not f.name.endswith(('_README.md', '.manifest.yaml', '.manifest.json'))
-    ], key=sort_key)
+    code_files = sorted(
+        [
+            f
+            for f in py_files
+            if not f.name.endswith(("_README.md", ".manifest.yaml", ".manifest.json"))
+        ],
+        key=sort_key,
+    )
     if not code_files:
         return None
 
-    module_import_name = module_id.replace('-', '_')
+    module_import_name = module_id.replace("-", "_")
     ulid_lines = "\n".join(f'    "{py_file.stem}",' for py_file in code_files)
 
     template = """\
@@ -113,18 +124,22 @@ def create_init_file_v3(module_dir: Path, module_id: str, ulid_prefix: str, laye
             break
     """
 
-    return textwrap.dedent(template.format(
-        module_id=module_id,
-        ulid_prefix=ulid_prefix,
-        layer=layer,
-        file_count=len(code_files),
-        module_import_name=module_import_name,
-        ulid_lines=ulid_lines,
-    ))
+    return textwrap.dedent(
+        template.format(
+            module_id=module_id,
+            ulid_prefix=ulid_prefix,
+            layer=layer,
+            file_count=len(code_files),
+            module_import_name=module_import_name,
+            ulid_lines=ulid_lines,
+        )
+    )
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Create __init__.py files (v3 - importlib)")
+    parser = argparse.ArgumentParser(
+        description="Create __init__.py files (v3 - importlib)"
+    )
     parser.add_argument("--all", action="store_true")
     parser.add_argument("--module", help="Process specific module")
     parser.add_argument("--dry-run", action="store_true", default=True)

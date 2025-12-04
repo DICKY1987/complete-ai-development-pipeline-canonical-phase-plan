@@ -1,4 +1,5 @@
 """Tests for boundary value analysis patterns."""
+
 from __future__ import annotations
 
 import sys
@@ -24,7 +25,8 @@ from error.patterns.types import PatternCategory, PatternSeverity
 
 class TestBoundaryPatterns:
     """Test boundary pattern detection."""
-# DOC_ID: DOC-TEST-PATTERN-TESTS-TEST-BOUNDARY-PATTERNS-130
+
+    # DOC_ID: DOC-TEST-PATTERN-TESTS-TEST-BOUNDARY-PATTERNS-130
 
     def test_boundary_patterns_exist(self):
         """Verify boundary patterns are defined for common types."""
@@ -85,11 +87,7 @@ class TestGenerateBoundaryTests:
 
     def test_generate_with_constraints(self):
         """Generate boundaries with custom constraints."""
-        spec = generate_boundary_tests(
-            "age",
-            "int",
-            constraints={"min": 0, "max": 150}
-        )
+        spec = generate_boundary_tests("age", "int", constraints={"min": 0, "max": 150})
 
         # Should include constraint-specific boundaries
         categories = [b.test_category for b in spec.boundaries]
@@ -99,9 +97,7 @@ class TestGenerateBoundaryTests:
     def test_generate_with_max_length(self):
         """Generate boundaries for string with max_length."""
         spec = generate_boundary_tests(
-            "username",
-            "str",
-            constraints={"max_length": 50}
+            "username", "str", constraints={"max_length": 50}
         )
 
         categories = [b.test_category for b in spec.boundaries]
@@ -119,7 +115,7 @@ def process_data(value):
     """Process the value."""
     return value * 2
 '''
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".py", delete=False) as f:
             f.write(code)
             f.flush()
 
@@ -140,7 +136,7 @@ def process_data(value):
         raise ValueError("value must be non-negative")
     return value * 2
 '''
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".py", delete=False) as f:
             f.write(code)
             f.flush()
 
@@ -152,12 +148,12 @@ def process_data(value):
 
     def test_skip_self_parameter(self):
         """Don't report findings for 'self' parameter."""
-        code = '''
+        code = """
 class MyClass:
     def method(self, data):
         return data
-'''
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
+"""
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".py", delete=False) as f:
             f.write(code)
             f.flush()
 

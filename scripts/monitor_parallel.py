@@ -23,14 +23,14 @@ from modules.core_engine.m010001_event_bus import EventType
 
 def format_event(event: dict) -> str:
     """Format event for display."""
-    ts = event.get('timestamp', '')
+    ts = event.get("timestamp", "")
     if ts:
-        ts = datetime.fromisoformat(ts.replace('Z', '+00:00'))
-        ts = ts.strftime('%H:%M:%S')
+        ts = datetime.fromisoformat(ts.replace("Z", "+00:00"))
+        ts = ts.strftime("%H:%M:%S")
 
-    event_type = event.get('event_type', '')
-    worker_id = event.get('worker_id', '')
-    ws_id = event.get('workstream_id', '')
+    event_type = event.get("event_type", "")
+    worker_id = event.get("worker_id", "")
+    ws_id = event.get("workstream_id", "")
 
     parts = [f"[{ts}]", event_type]
     if worker_id:
@@ -59,13 +59,13 @@ def monitor_live(run_id: str = None, tail: int = 20) -> None:
     # Show recent events
     events = db.get_recent_events(limit=tail)
     if run_id:
-        events = [e for e in events if e.get('run_id') == run_id]
+        events = [e for e in events if e.get("run_id") == run_id]
 
     for event in events:
         print(format_event(event))
 
     # Watch for new events
-    last_event_id = events[-1]['id'] if events else 0
+    last_event_id = events[-1]["id"] if events else 0
 
     try:
         while True:
@@ -74,11 +74,11 @@ def monitor_live(run_id: str = None, tail: int = 20) -> None:
             # Get new events
             new_events = db.get_events_since(last_event_id)
             if run_id:
-                new_events = [e for e in new_events if e.get('run_id') == run_id]
+                new_events = [e for e in new_events if e.get("run_id") == run_id]
 
             for event in new_events:
                 print(format_event(event))
-                last_event_id = max(last_event_id, event['id'])
+                last_event_id = max(last_event_id, event["id"])
 
     except KeyboardInterrupt:
         print("\n\nMonitoring stopped.")
@@ -95,7 +95,7 @@ def show_summary(run_id: str = None) -> None:
     # Get all events
     events = db.get_all_events()
     if run_id:
-        events = [e for e in events if e.get('run_id') == run_id]
+        events = [e for e in events if e.get("run_id") == run_id]
 
     if not events:
         print("No events found.")
@@ -104,7 +104,7 @@ def show_summary(run_id: str = None) -> None:
     # Count event types
     event_counts = {}
     for event in events:
-        etype = event.get('event_type', 'unknown')
+        etype = event.get("event_type", "unknown")
         event_counts[etype] = event_counts.get(etype, 0) + 1
 
     print("=== Execution Summary ===")
@@ -119,8 +119,12 @@ def show_summary(run_id: str = None) -> None:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Monitor parallel execution")
     parser.add_argument("--run-id", help="Filter by run ID")
-    parser.add_argument("--tail", type=int, default=20, help="Number of initial events to show")
-    parser.add_argument("--summary", action="store_true", help="Show summary instead of live monitoring")
+    parser.add_argument(
+        "--tail", type=int, default=20, help="Number of initial events to show"
+    )
+    parser.add_argument(
+        "--summary", action="store_true", help="Show summary instead of live monitoring"
+    )
 
     args = parser.parse_args(argv)
 

@@ -3,6 +3,7 @@
 Implements the state machine for run lifecycle following COOPERATION_SPEC.
 Defines valid state transitions and transition logic.
 """
+
 # DOC_ID: DOC-CORE-ENGINE-STATE-MACHINE-159
 
 from typing import Set, Dict, Optional
@@ -11,6 +12,7 @@ from enum import Enum
 
 class RunState(Enum):
     """Valid states for a run"""
+
     PENDING = "pending"
     RUNNING = "running"
     SUCCEEDED = "succeeded"
@@ -21,6 +23,7 @@ class RunState(Enum):
 
 class StepState(Enum):
     """Valid states for a step attempt"""
+
     RUNNING = "running"
     SUCCEEDED = "succeeded"
     FAILED = "failed"
@@ -32,15 +35,12 @@ class RunStateMachine:
 
     # Define valid state transitions
     TRANSITIONS: Dict[RunState, Set[RunState]] = {
-        RunState.PENDING: {
-            RunState.RUNNING,
-            RunState.CANCELED
-        },
+        RunState.PENDING: {RunState.RUNNING, RunState.CANCELED},
         RunState.RUNNING: {
             RunState.SUCCEEDED,
             RunState.FAILED,
             RunState.QUARANTINED,
-            RunState.CANCELED
+            RunState.CANCELED,
         },
         RunState.SUCCEEDED: set(),  # Terminal state
         RunState.FAILED: {
@@ -51,11 +51,7 @@ class RunStateMachine:
     }
 
     # Terminal states (cannot transition out)
-    TERMINAL_STATES = {
-        RunState.SUCCEEDED,
-        RunState.QUARANTINED,
-        RunState.CANCELED
-    }
+    TERMINAL_STATES = {RunState.SUCCEEDED, RunState.QUARANTINED, RunState.CANCELED}
 
     @classmethod
     def can_transition(cls, from_state: str, to_state: str) -> bool:
@@ -107,21 +103,13 @@ class StepStateMachine:
     """State machine for step attempt lifecycle"""
 
     TRANSITIONS: Dict[StepState, Set[StepState]] = {
-        StepState.RUNNING: {
-            StepState.SUCCEEDED,
-            StepState.FAILED,
-            StepState.CANCELED
-        },
+        StepState.RUNNING: {StepState.SUCCEEDED, StepState.FAILED, StepState.CANCELED},
         StepState.SUCCEEDED: set(),  # Terminal
         StepState.FAILED: set(),  # Terminal
         StepState.CANCELED: set(),  # Terminal
     }
 
-    TERMINAL_STATES = {
-        StepState.SUCCEEDED,
-        StepState.FAILED,
-        StepState.CANCELED
-    }
+    TERMINAL_STATES = {StepState.SUCCEEDED, StepState.FAILED, StepState.CANCELED}
 
     @classmethod
     def can_transition(cls, from_state: str, to_state: str) -> bool:

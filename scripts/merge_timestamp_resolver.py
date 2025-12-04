@@ -3,7 +3,7 @@
 Restricted timestamp heuristics (policy guard).
 Validates timestamp usage against file classes and emits a summary.
 """
-DOC_ID: DOC-SCRIPT-SCRIPTS-MERGE-TIMESTAMP-RESOLVER-719
+DOC_ID: DOC - SCRIPT - SCRIPTS - MERGE - TIMESTAMP - RESOLVER - 719
 DOC_ID: DOC - SCRIPT - SCRIPTS - MERGE - TIMESTAMP - RESOLVER - 719
 
 from __future__ import annotations

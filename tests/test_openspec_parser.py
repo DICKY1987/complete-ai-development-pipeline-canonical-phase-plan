@@ -24,4 +24,4 @@ def test_load_and_roundtrip(tmp_path: Path):
     out = write_bundle(b, tmp_path)
     assert out.exists()
     text = out.read_text(encoding="utf-8")
-    assert "bundle-id: \"demo-001\"" in text or "bundle-id: demo-001" in text
+    assert 'bundle-id: "demo-001"' in text or "bundle-id: demo-001" in text

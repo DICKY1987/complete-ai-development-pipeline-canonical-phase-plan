@@ -1,6 +1,7 @@
 """
 Tests for doc-meta.v1.json schema validation.
 """
+
 # DOC_ID: DOC-TEST-SCHEMA-TEST-DOC-META-192
 
 import json
@@ -14,9 +15,11 @@ SCHEMA_PATH = Path(__file__).parent.parent.parent / "schema" / "doc-meta.v1.json
 with open(SCHEMA_PATH, "r") as f:
     DOC_META_SCHEMA = json.load(f)
 
+
 def test_schema_is_valid():
     """Verify the schema itself is valid."""
     Draft7Validator.check_schema(DOC_META_SCHEMA)
+
 
 def test_minimal_valid_doc_meta():
     """Test minimal valid document metadata."""
@@ -34,9 +37,10 @@ def test_minimal_valid_doc_meta():
         "updated_at": "2025-11-20T20:00:00Z",
         "author_type": "ai",
         "owner": "SYSTEM:TEST",
-        "security_tier": "internal"
+        "security_tier": "internal",
     }
     validate(instance=valid_meta, schema=DOC_META_SCHEMA)
+
 
 def test_invalid_ulid_format():
     """Test that invalid ULID is rejected."""
@@ -54,10 +58,11 @@ def test_invalid_ulid_format():
         "updated_at": "2025-11-20T20:00:00Z",
         "author_type": "ai",
         "owner": "SYSTEM:TEST",
-        "security_tier": "internal"
+        "security_tier": "internal",
     }
     with pytest.raises(ValidationError):
         validate(instance=invalid_meta, schema=DOC_META_SCHEMA)
+
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])

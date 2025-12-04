@@ -10,8 +10,8 @@ from modules.core_planning.m010002_parallelism_detector import (
 
 def test_simple_parallel_detection():
     """Test detection of simple parallel opportunities."""
-# DOC_ID: DOC-TEST-TESTS-TEST-PARALLELISM-DETECTION-093
-# DOC_ID: DOC-TEST-TESTS-TEST-PARALLELISM-DETECTION-054
+    # DOC_ID: DOC-TEST-TESTS-TEST-PARALLELISM-DETECTION-093
+    # DOC_ID: DOC-TEST-TESTS-TEST-PARALLELISM-DETECTION-054
     bundles = [
         WorkstreamBundle(
             id="ws-a",

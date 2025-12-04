@@ -22,19 +22,17 @@ from worktree_manager import WorktreeManager
 
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s [%(name)s] %(levelname)s: %(message)s',
-    handlers=[
-        logging.FileHandler('logs/orchestrator.log'),
-        logging.StreamHandler()
-    ]
+    format="%(asctime)s [%(name)s] %(levelname)s: %(message)s",
+    handlers=[logging.FileHandler("logs/orchestrator.log"), logging.StreamHandler()],
 )
 
-logger = logging.getLogger('orchestrator')
+logger = logging.getLogger("orchestrator")
 
 
 # ============================================================================
 # Workstream Dependency Graph
 # ============================================================================
+
 
 class WorkstreamGraph:
     """Build and analyze workstream dependency graph"""
@@ -82,8 +80,7 @@ class WorkstreamGraph:
     def get_independent_workstreams(self) -> List[str]:
         """Get workstreams with no dependencies"""
         return [
-            ws_id for ws_id in self.graph.nodes()
-            if self.graph.in_degree(ws_id) == 0
+            ws_id for ws_id in self.graph.nodes() if self.graph.in_degree(ws_id) == 0
         ]
 
     def get_workstream_data(self, ws_id: str) -> Dict:
@@ -98,6 +95,7 @@ class WorkstreamGraph:
 # ============================================================================
 # Agent Pool
 # ============================================================================
+
 
 class AgentType(Enum):
     AIDER = "aider"
@@ -123,7 +121,7 @@ class AgentPool:
                 id=cfg["id"],
                 type=AgentType(cfg["type"]),
                 status="idle",
-                assigned_track=cfg.get("track")
+                assigned_track=cfg.get("track"),
             )
             for cfg in agent_configs
         ]
@@ -153,10 +151,7 @@ class AgentPool:
         logger.debug(f"Released {agent.id}")
 
     async def execute_workstream(
-        self,
-        agent: Agent,
-        workstream_id: str,
-        workstream_data: Dict
+        self, agent: Agent, workstream_id: str, workstream_data: Dict
     ) -> Dict:
         """Execute workstream using specified agent (no worktree)"""
 
@@ -176,7 +171,7 @@ class AgentPool:
             cmd,
             stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.PIPE,
-            cwd=Path.cwd()
+            cwd=Path.cwd(),
         )
 
         stdout, stderr = await proc.communicate()
@@ -189,7 +184,7 @@ class AgentPool:
             "exit_code": proc.returncode,
             "stdout": stdout.decode()[:1000],  # Limit output
             "stderr": stderr.decode()[:1000],
-            "success": success
+            "success": success,
         }
 
     async def execute_workstream_in_worktree(
@@ -197,7 +192,7 @@ class AgentPool:
         agent: Agent,
         workstream_id: str,
         workstream_data: Dict,
-        worktree_path: Path
+        worktree_path: Path,
     ) -> Dict:
         """Execute workstream in isolated worktree"""
 
@@ -205,21 +200,15 @@ class AgentPool:
 
         if tool == "aider":
             cmd = self._build_aider_command_with_worktree(
-                workstream_id,
-                workstream_data,
-                worktree_path
+                workstream_id, workstream_data, worktree_path
             )
         elif tool == "codex":
             cmd = self._build_codex_command_with_worktree(
-                workstream_id,
-                workstream_data,
-                worktree_path
+                workstream_id, workstream_data, worktree_path
             )
         else:
             cmd = self._build_generic_command_with_worktree(
-                workstream_id,
-                workstream_data,
-                worktree_path
+                workstream_id, workstream_data, worktree_path
             )
 
         logger.info(f"Executing {workstream_id} with {tool} in {worktree_path}")
@@ -229,7 +218,7 @@ class AgentPool:
             cmd,
             stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.PIPE,
-            cwd=worktree_path
+            cwd=worktree_path,
         )
 
         stdout, stderr = await proc.communicate()
@@ -241,7 +230,7 @@ class AgentPool:
             "stdout": stdout.decode()[:1000],
             "stderr": stderr.decode()[:1000],
             "success": proc.returncode == 0,
-            "worktree": str(worktree_path)
+            "worktree": str(worktree_path),
         }
 
     def _build_aider_command(self, ws_id: str, ws_data: Dict) -> str:
@@ -268,10 +257,7 @@ class AgentPool:
         return f"python scripts/execute_workstream.py {ws_id}"
 
     def _build_aider_command_with_worktree(
-        self,
-        ws_id: str,
-        ws_data: Dict,
-        worktree_path: Path
+        self, ws_id: str, ws_data: Dict, worktree_path: Path
     ) -> str:
         """Build aider command to run in worktree"""
         files = " ".join(ws_data.get("files_scope", []))
@@ -288,19 +274,13 @@ class AgentPool:
         """
 
     def _build_codex_command_with_worktree(
-        self,
-        ws_id: str,
-        ws_data: Dict,
-        worktree_path: Path
+        self, ws_id: str, ws_data: Dict, worktree_path: Path
     ) -> str:
         """Build codex command to run in worktree"""
         return f"codex execute --workstream workstreams/{ws_id}.json"
 
     def _build_generic_command_with_worktree(
-        self,
-        ws_id: str,
-        ws_data: Dict,
-        worktree_path: Path
+        self, ws_id: str, ws_data: Dict, worktree_path: Path
     ) -> str:
         """Build generic command to run in worktree"""
         return f"python scripts/execute_workstream.py {ws_id}"
@@ -309,6 +289,7 @@ class AgentPool:
 # ============================================================================
 # State Manager
 # ============================================================================
+
 
 class StateManager:
     """Manage workstream execution state in SQLite"""
@@ -321,7 +302,8 @@ class StateManager:
     def _init_db(self):
         """Initialize database schema"""
         conn = sqlite3.connect(self.db_path)
-        conn.execute("""
+        conn.execute(
+            """
             CREATE TABLE IF NOT EXISTS workstream_status (
                 workstream_id TEXT PRIMARY KEY,
                 status TEXT NOT NULL,
@@ -333,8 +315,10 @@ class StateManager:
                 attempt INTEGER DEFAULT 1,
                 error_message TEXT
             )
-        """)
-        conn.execute("""
+        """
+        )
+        conn.execute(
+            """
             CREATE TABLE IF NOT EXISTS execution_log (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 timestamp TEXT NOT NULL,
@@ -343,7 +327,8 @@ class StateManager:
                 event_type TEXT NOT NULL,
                 message TEXT
             )
-        """)
+        """
+        )
         conn.commit()
         conn.close()
         logger.info(f"Initialized state database: {self.db_path}")
@@ -351,16 +336,22 @@ class StateManager:
     def mark_started(self, ws_id: str, agent_id: str, track: str):
         """Mark workstream as started"""
         conn = sqlite3.connect(self.db_path)
-        conn.execute("""
+        conn.execute(
+            """
             INSERT OR REPLACE INTO workstream_status
             (workstream_id, status, agent_id, track, started_at)
             VALUES (?, 'running', ?, ?, ?)
-        """, (ws_id, agent_id, track, datetime.now().isoformat()))
+        """,
+            (ws_id, agent_id, track, datetime.now().isoformat()),
+        )
 
-        conn.execute("""
+        conn.execute(
+            """
             INSERT INTO execution_log (timestamp, workstream_id, agent_id, event_type)
             VALUES (?, ?, ?, 'started')
-        """, (datetime.now().isoformat(), ws_id, agent_id))
+        """,
+            (datetime.now().isoformat(), ws_id, agent_id),
+        )
 
         conn.commit()
         conn.close()
@@ -369,16 +360,22 @@ class StateManager:
         """Mark workstream as completed or failed"""
         status = "completed" if exit_code == 0 else "failed"
         conn = sqlite3.connect(self.db_path)
-        conn.execute("""
+        conn.execute(
+            """
             UPDATE workstream_status
             SET status = ?, completed_at = ?, exit_code = ?, error_message = ?
             WHERE workstream_id = ?
-        """, (status, datetime.now().isoformat(), exit_code, error_msg, ws_id))
+        """,
+            (status, datetime.now().isoformat(), exit_code, error_msg, ws_id),
+        )
 
-        conn.execute("""
+        conn.execute(
+            """
             INSERT INTO execution_log (timestamp, workstream_id, event_type, message)
             VALUES (?, ?, ?, ?)
-        """, (datetime.now().isoformat(), ws_id, status, error_msg))
+        """,
+            (datetime.now().isoformat(), ws_id, status, error_msg),
+        )
 
         conn.commit()
         conn.close()
@@ -386,10 +383,12 @@ class StateManager:
     def get_completed_workstreams(self) -> Set[str]:
         """Get set of completed workstream IDs"""
         conn = sqlite3.connect(self.db_path)
-        cur = conn.execute("""
+        cur = conn.execute(
+            """
             SELECT workstream_id FROM workstream_status
             WHERE status = 'completed'
-        """)
+        """
+        )
         completed = {row[0] for row in cur.fetchall()}
         conn.close()
         return completed
@@ -397,10 +396,12 @@ class StateManager:
     def get_running_workstreams(self) -> List[str]:
         """Get list of currently running workstream IDs"""
         conn = sqlite3.connect(self.db_path)
-        cur = conn.execute("""
+        cur = conn.execute(
+            """
             SELECT workstream_id FROM workstream_status
             WHERE status = 'running'
-        """)
+        """
+        )
         running = [row[0] for row in cur.fetchall()]
         conn.close()
         return running
@@ -409,6 +410,7 @@ class StateManager:
 # ============================================================================
 # Main Orchestrator
 # ============================================================================
+
 
 class MultiAgentOrchestrator:
     """Main orchestrator for multi-agent workstream execution"""
@@ -419,7 +421,7 @@ class MultiAgentOrchestrator:
         state_db: Path,
         agent_configs: List[Dict],
         track_assignments: Dict[str, List[str]],
-        use_worktrees: bool = True
+        use_worktrees: bool = True,
     ):
         self.graph = WorkstreamGraph(workstreams_dir)
         self.state = StateManager(state_db)
@@ -430,8 +432,7 @@ class MultiAgentOrchestrator:
         # Initialize worktree manager if enabled
         if self.use_worktrees:
             self.worktree_manager = WorktreeManager(
-                base_repo=Path.cwd(),
-                worktree_root=Path(".worktrees")
+                base_repo=Path.cwd(), worktree_root=Path(".worktrees")
             )
             logger.info("Worktree isolation: ENABLED")
         else:
@@ -440,7 +441,9 @@ class MultiAgentOrchestrator:
 
         logger.info("=== Multi-Agent Orchestrator Initialized ===")
         logger.info(f"Total workstreams: {len(self.graph.graph.nodes())}")
-        logger.info(f"Independent workstreams: {len(self.graph.get_independent_workstreams())}")
+        logger.info(
+            f"Independent workstreams: {len(self.graph.get_independent_workstreams())}"
+        )
         logger.info(f"Agents: {len(self.agents.agents)}")
 
     async def execute_all(self):
@@ -454,7 +457,9 @@ class MultiAgentOrchestrator:
             running = self.state.get_running_workstreams()
             total = len(self.graph.graph.nodes())
 
-            logger.info(f"=== Iteration {iteration} === Completed: {len(completed)}/{total}, Running: {len(running)}")
+            logger.info(
+                f"=== Iteration {iteration} === Completed: {len(completed)}/{total}, Running: {len(running)}"
+            )
 
             # Check if all done
             if len(completed) >= total:
@@ -537,27 +542,26 @@ class MultiAgentOrchestrator:
             try:
                 # Create worktree
                 worktree_path = self.worktree_manager.create_agent_worktree(
-                    agent_id=agent.id,
-                    branch_name=branch_name,
-                    workstream_id=ws_id
+                    agent_id=agent.id, branch_name=branch_name, workstream_id=ws_id
                 )
 
-                logger.info(f"🚀 Starting {ws_id} on {agent.id} in worktree {worktree_path}")
+                logger.info(
+                    f"🚀 Starting {ws_id} on {agent.id} in worktree {worktree_path}"
+                )
 
                 # Execute in worktree
                 result = await self.agents.execute_workstream_in_worktree(
                     agent=agent,
                     workstream_id=ws_id,
                     workstream_data=ws_data,
-                    worktree_path=worktree_path
+                    worktree_path=worktree_path,
                 )
 
                 # Merge back to main on success
                 if result["success"]:
                     logger.info(f"Merging {branch_name} to main...")
                     merge_success = self.worktree_manager.merge_worktree_changes(
-                        branch_name=branch_name,
-                        target_branch="main"
+                        branch_name=branch_name, target_branch="main"
                     )
 
                     if not merge_success:
@@ -583,7 +587,7 @@ class MultiAgentOrchestrator:
                     "agent_id": agent.id,
                     "exit_code": 1,
                     "success": False,
-                    "error_message": str(e)
+                    "error_message": str(e),
                 }
         else:
             # Execute without worktree isolation
@@ -631,6 +635,7 @@ See .state/orchestration.db for detailed logs
 # Main Entry Point
 # ============================================================================
 
+
 async def main():
     """Main entry point"""
 
@@ -643,24 +648,36 @@ async def main():
 
     track_assignments = {
         "pipeline_plus": [
-            "ws-22", "ws-23", "ws-24", "ws-25",
-            "ws-26", "ws-27", "ws-28", "ws-29", "ws-30"
+            "ws-22",
+            "ws-23",
+            "ws-24",
+            "ws-25",
+            "ws-26",
+            "ws-27",
+            "ws-28",
+            "ws-29",
+            "ws-30",
         ],
         "core_refactor": [
-            "ws-03", "ws-04", "ws-05", "ws-06",
-            "ws-07", "ws-08", "ws-09", "ws-18", "ws-19", "ws-20"
+            "ws-03",
+            "ws-04",
+            "ws-05",
+            "ws-06",
+            "ws-07",
+            "ws-08",
+            "ws-09",
+            "ws-18",
+            "ws-19",
+            "ws-20",
         ],
-        "error_engine": [
-            "ws-12", "ws-13", "ws-14", "ws-15",
-            "ws-16", "ws-17"
-        ]
+        "error_engine": ["ws-12", "ws-13", "ws-14", "ws-15", "ws-16", "ws-17"],
     }
 
     orchestrator = MultiAgentOrchestrator(
         workstreams_dir=Path("workstreams"),
         state_db=Path(".state/orchestration.db"),
         agent_configs=agent_configs,
-        track_assignments=track_assignments
+        track_assignments=track_assignments,
     )
 
     await orchestrator.execute_all()

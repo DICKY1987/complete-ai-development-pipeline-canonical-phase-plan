@@ -2,6 +2,7 @@
 
 Phase I WS-I8: Enhanced context optimization for parallel execution.
 """
+
 # DOC_ID: DOC-CORE-ENGINE-CONTEXT-ESTIMATOR-145
 
 from typing import List, Dict, Any, Optional
@@ -12,6 +13,7 @@ from dataclasses import dataclass
 @dataclass
 class ContextProfile:
     """Context usage profile."""
+
     estimated_tokens: int
     file_count: int
     total_chars: int
@@ -43,7 +45,7 @@ class ContextEstimator:
 
         for f in files:
             try:
-                total_chars += len(Path(f).read_text(encoding='utf-8'))
+                total_chars += len(Path(f).read_text(encoding="utf-8"))
             except Exception:
                 pass
 
@@ -55,7 +57,7 @@ class ContextEstimator:
         self,
         files: List[str],
         additional_context: str = "",
-        priority_files: Optional[List[str]] = None
+        priority_files: Optional[List[str]] = None,
     ) -> ContextProfile:
         """Optimize context to fit within token limit.
 
@@ -73,7 +75,7 @@ class ContextEstimator:
         file_tokens = {}
         for f in files:
             try:
-                content = Path(f).read_text(encoding='utf-8')
+                content = Path(f).read_text(encoding="utf-8")
                 tokens = int(len(content) * self.TOKEN_PER_CHAR)
                 file_tokens[f] = tokens
             except:
@@ -89,7 +91,7 @@ class ContextEstimator:
                 estimated_tokens=total_tokens,
                 file_count=len(files),
                 total_chars=int(total_tokens / self.TOKEN_PER_CHAR),
-                optimization_applied=False
+                optimization_applied=False,
             )
 
         # Prioritize files
@@ -97,7 +99,9 @@ class ContextEstimator:
         remaining_budget = self.max_tokens - priority_tokens - additional_tokens
 
         # Select non-priority files by size (smallest first to include more files)
-        non_priority = [(f, tokens) for f, tokens in file_tokens.items() if f not in priority_files]
+        non_priority = [
+            (f, tokens) for f, tokens in file_tokens.items() if f not in priority_files
+        ]
         non_priority.sort(key=lambda x: x[1])  # Sort by tokens ascending
 
         selected_files = list(priority_files)
@@ -118,13 +122,11 @@ class ContextEstimator:
             file_count=len(selected_files),
             total_chars=int(final_tokens / self.TOKEN_PER_CHAR),
             optimization_applied=True,
-            pruned_files=pruned_files
+            pruned_files=pruned_files,
         )
 
     def split_context(
-        self,
-        files: List[str],
-        chunk_size: int = 64000
+        self, files: List[str], chunk_size: int = 64000
     ) -> List[List[str]]:
         """Split files into chunks that fit within token limit.
 
@@ -141,7 +143,7 @@ class ContextEstimator:
 
         for f in files:
             try:
-                content = Path(f).read_text(encoding='utf-8')
+                content = Path(f).read_text(encoding="utf-8")
                 tokens = int(len(content) * self.TOKEN_PER_CHAR)
 
                 if current_tokens + tokens > chunk_size and current_chunk:
@@ -174,23 +176,19 @@ class ContextEstimator:
 
         for f in files:
             try:
-                content = Path(f).read_text(encoding='utf-8')
+                content = Path(f).read_text(encoding="utf-8")
                 tokens = int(len(content) * self.TOKEN_PER_CHAR)
-                file_stats.append({
-                    'file': f,
-                    'tokens': tokens,
-                    'chars': len(content)
-                })
+                file_stats.append({"file": f, "tokens": tokens, "chars": len(content)})
                 total_tokens += tokens
             except:
                 pass
 
         # Sort by token count descending
-        file_stats.sort(key=lambda x: x['tokens'], reverse=True)
+        file_stats.sort(key=lambda x: x["tokens"], reverse=True)
 
         return {
-            'total_files': len(files),
-            'total_tokens': total_tokens,
-            'largest_files': file_stats[:5],  # Top 5 largest
-            'average_tokens': total_tokens // len(files) if files else 0
+            "total_files": len(files),
+            "total_tokens": total_tokens,
+            "largest_files": file_stats[:5],  # Top 5 largest
+            "average_tokens": total_tokens // len(files) if files else 0,
         }

@@ -14,6 +14,7 @@ Author: AI Development Pipeline
 Created: 2025-11-23
 WS: WS-NEXT-002-001
 """
+
 # DOC_ID: DOC-CORE-ENGINE-WORKER-LIFECYCLE-162
 
 from datetime import datetime, UTC
@@ -25,6 +26,7 @@ import json
 @dataclass
 class WorkerStatistics:
     """Worker execution statistics"""
+
     tasks_completed: int = 0
     tasks_failed: int = 0
     total_execution_time: float = 0.0
@@ -40,10 +42,10 @@ class WorkerStatistics:
     def to_dict(self) -> Dict:
         """Convert to dictionary"""
         return {
-            'tasks_completed': self.tasks_completed,
-            'tasks_failed': self.tasks_failed,
-            'total_execution_time': self.total_execution_time,
-            'avg_task_duration': self.avg_task_duration
+            "tasks_completed": self.tasks_completed,
+            "tasks_failed": self.tasks_failed,
+            "total_execution_time": self.total_execution_time,
+            "avg_task_duration": self.avg_task_duration,
         }
 
 
@@ -68,16 +70,16 @@ class WorkerLifecycle:
         - shutdown: any -> stopped
     """
 
-    VALID_STATES = {'idle', 'busy', 'paused', 'stopped', 'crashed'}
-    VALID_TYPES = {'executor', 'monitor', 'validator', 'scheduler', 'custom'}
-    TERMINAL_STATES = {'stopped', 'crashed'}
+    VALID_STATES = {"idle", "busy", "paused", "stopped", "crashed"}
+    VALID_TYPES = {"executor", "monitor", "validator", "scheduler", "custom"}
+    TERMINAL_STATES = {"stopped", "crashed"}
 
     STATE_TRANSITIONS = {
-        'idle': ['busy', 'paused', 'stopped', 'crashed'],
-        'busy': ['idle', 'paused', 'stopped', 'crashed'],
-        'paused': ['idle', 'stopped', 'crashed'],
-        'stopped': [],  # Terminal state
-        'crashed': []   # Terminal state
+        "idle": ["busy", "paused", "stopped", "crashed"],
+        "busy": ["idle", "paused", "stopped", "crashed"],
+        "paused": ["idle", "stopped", "crashed"],
+        "stopped": [],  # Terminal state
+        "crashed": [],  # Terminal state
     }
 
     def __init__(self, db):
@@ -97,7 +99,7 @@ class WorkerLifecycle:
             self.db.conn.execute("SELECT 1 FROM workers LIMIT 1")
         except Exception:
             # Table doesn't exist, create it
-            with open('schema/migrations/002_add_workers_table.sql', 'r') as f:
+            with open("schema/migrations/002_add_workers_table.sql", "r") as f:
                 self.db.conn.executescript(f.read())
             self.db.conn.commit()
 
@@ -106,7 +108,7 @@ class WorkerLifecycle:
         worker_id: str,
         worker_type: str,
         config: Optional[Dict] = None,
-        metadata: Optional[Dict] = None
+        metadata: Optional[Dict] = None,
     ) -> str:
         """
         Create a new worker.
@@ -127,17 +129,17 @@ class WorkerLifecycle:
             raise ValueError(f"Invalid worker_type: {worker_type}")
 
         worker_data = {
-            'worker_id': worker_id,
-            'worker_type': worker_type,
-            'state': 'idle',
-            'current_task_id': None,
-            'started_at': datetime.now(UTC).isoformat(),
-            'last_heartbeat': datetime.now(UTC).isoformat(),
-            'stopped_at': None,
-            'crash_info': None,
-            'statistics': json.dumps(WorkerStatistics().to_dict()),
-            'config': json.dumps(config) if config else None,
-            'metadata': json.dumps(metadata) if metadata else None
+            "worker_id": worker_id,
+            "worker_type": worker_type,
+            "state": "idle",
+            "current_task_id": None,
+            "started_at": datetime.now(UTC).isoformat(),
+            "last_heartbeat": datetime.now(UTC).isoformat(),
+            "stopped_at": None,
+            "crash_info": None,
+            "statistics": json.dumps(WorkerStatistics().to_dict()),
+            "config": json.dumps(config) if config else None,
+            "metadata": json.dumps(metadata) if metadata else None,
         }
 
         self.db.conn.execute(
@@ -149,18 +151,18 @@ class WorkerLifecycle:
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """,
             (
-                worker_data['worker_id'],
-                worker_data['worker_type'],
-                worker_data['state'],
-                worker_data['current_task_id'],
-                worker_data['started_at'],
-                worker_data['last_heartbeat'],
-                worker_data['stopped_at'],
-                worker_data['crash_info'],
-                worker_data['statistics'],
-                worker_data['config'],
-                worker_data['metadata']
-            )
+                worker_data["worker_id"],
+                worker_data["worker_type"],
+                worker_data["state"],
+                worker_data["current_task_id"],
+                worker_data["started_at"],
+                worker_data["last_heartbeat"],
+                worker_data["stopped_at"],
+                worker_data["crash_info"],
+                worker_data["statistics"],
+                worker_data["config"],
+                worker_data["metadata"],
+            ),
         )
         self.db.conn.commit()
 
@@ -177,8 +179,7 @@ class WorkerLifecycle:
             Worker data dict or None if not found
         """
         row = self.db.conn.execute(
-            "SELECT * FROM workers WHERE worker_id = ?",
-            (worker_id,)
+            "SELECT * FROM workers WHERE worker_id = ?", (worker_id,)
         ).fetchone()
 
         if not row:
@@ -191,14 +192,14 @@ class WorkerLifecycle:
         data = dict(row)
 
         # Deserialize JSON fields
-        if data.get('statistics'):
-            data['statistics'] = json.loads(data['statistics'])
-        if data.get('config'):
-            data['config'] = json.loads(data['config'])
-        if data.get('metadata'):
-            data['metadata'] = json.loads(data['metadata'])
-        if data.get('crash_info'):
-            data['crash_info'] = json.loads(data['crash_info'])
+        if data.get("statistics"):
+            data["statistics"] = json.loads(data["statistics"])
+        if data.get("config"):
+            data["config"] = json.loads(data["config"])
+        if data.get("metadata"):
+            data["metadata"] = json.loads(data["metadata"])
+        if data.get("crash_info"):
+            data["crash_info"] = json.loads(data["crash_info"])
 
         return data
 
@@ -220,10 +221,8 @@ class WorkerLifecycle:
         if not worker:
             raise ValueError(f"Worker not found: {worker_id}")
 
-        if not self._can_transition(worker['state'], 'busy'):
-            raise ValueError(
-                f"Cannot assign task: worker in {worker['state']} state"
-            )
+        if not self._can_transition(worker["state"], "busy"):
+            raise ValueError(f"Cannot assign task: worker in {worker['state']} state")
 
         self.db.conn.execute(
             """
@@ -233,17 +232,14 @@ class WorkerLifecycle:
                 last_heartbeat = ?
             WHERE worker_id = ?
             """,
-            (task_id, datetime.now(UTC).isoformat(), worker_id)
+            (task_id, datetime.now(UTC).isoformat(), worker_id),
         )
         self.db.conn.commit()
 
         return True
 
     def complete_task(
-        self,
-        worker_id: str,
-        success: bool = True,
-        execution_time: float = 0.0
+        self, worker_id: str, success: bool = True, execution_time: float = 0.0
     ) -> bool:
         """
         Mark task complete (busy -> idle transition).
@@ -260,17 +256,17 @@ class WorkerLifecycle:
         if not worker:
             raise ValueError(f"Worker not found: {worker_id}")
 
-        if worker['state'] != 'busy':
+        if worker["state"] != "busy":
             raise ValueError(
                 f"Cannot complete task: worker not busy (state: {worker['state']})"
             )
 
         # Update statistics
-        stats_data = worker['statistics']
+        stats_data = worker["statistics"]
         stats = WorkerStatistics(
-            tasks_completed=stats_data['tasks_completed'],
-            tasks_failed=stats_data['tasks_failed'],
-            total_execution_time=stats_data['total_execution_time']
+            tasks_completed=stats_data["tasks_completed"],
+            tasks_failed=stats_data["tasks_failed"],
+            total_execution_time=stats_data["total_execution_time"],
         )
         if success:
             stats.tasks_completed += 1
@@ -287,11 +283,7 @@ class WorkerLifecycle:
                 statistics = ?
             WHERE worker_id = ?
             """,
-            (
-                datetime.now(UTC).isoformat(),
-                json.dumps(stats.to_dict()),
-                worker_id
-            )
+            (datetime.now(UTC).isoformat(), json.dumps(stats.to_dict()), worker_id),
         )
         self.db.conn.commit()
 
@@ -309,7 +301,7 @@ class WorkerLifecycle:
         """
         self.db.conn.execute(
             "UPDATE workers SET last_heartbeat = ? WHERE worker_id = ?",
-            (datetime.now(UTC).isoformat(), worker_id)
+            (datetime.now(UTC).isoformat(), worker_id),
         )
         self.db.conn.commit()
         return True
@@ -328,14 +320,11 @@ class WorkerLifecycle:
         if not worker:
             raise ValueError(f"Worker not found: {worker_id}")
 
-        if not self._can_transition(worker['state'], 'paused'):
-            raise ValueError(
-                f"Cannot pause: worker in {worker['state']} state"
-            )
+        if not self._can_transition(worker["state"], "paused"):
+            raise ValueError(f"Cannot pause: worker in {worker['state']} state")
 
         self.db.conn.execute(
-            "UPDATE workers SET state = 'paused' WHERE worker_id = ?",
-            (worker_id,)
+            "UPDATE workers SET state = 'paused' WHERE worker_id = ?", (worker_id,)
         )
         self.db.conn.commit()
 
@@ -355,7 +344,7 @@ class WorkerLifecycle:
         if not worker:
             raise ValueError(f"Worker not found: {worker_id}")
 
-        if worker['state'] != 'paused':
+        if worker["state"] != "paused":
             raise ValueError(
                 f"Cannot resume: worker not paused (state: {worker['state']})"
             )
@@ -367,17 +356,14 @@ class WorkerLifecycle:
                 last_heartbeat = ?
             WHERE worker_id = ?
             """,
-            (datetime.now(UTC).isoformat(), worker_id)
+            (datetime.now(UTC).isoformat(), worker_id),
         )
         self.db.conn.commit()
 
         return True
 
     def crash_worker(
-        self,
-        worker_id: str,
-        error_message: str,
-        stack_trace: Optional[str] = None
+        self, worker_id: str, error_message: str, stack_trace: Optional[str] = None
     ) -> bool:
         """
         Mark worker as crashed (any -> crashed transition).
@@ -391,9 +377,9 @@ class WorkerLifecycle:
             True if successful
         """
         crash_info = {
-            'crashed_at': datetime.now(UTC).isoformat(),
-            'error_message': error_message,
-            'stack_trace': stack_trace
+            "crashed_at": datetime.now(UTC).isoformat(),
+            "error_message": error_message,
+            "stack_trace": stack_trace,
         }
 
         self.db.conn.execute(
@@ -404,7 +390,7 @@ class WorkerLifecycle:
                 current_task_id = NULL
             WHERE worker_id = ?
             """,
-            (json.dumps(crash_info), worker_id)
+            (json.dumps(crash_info), worker_id),
         )
         self.db.conn.commit()
 
@@ -428,16 +414,14 @@ class WorkerLifecycle:
                 current_task_id = NULL
             WHERE worker_id = ?
             """,
-            (datetime.now(UTC).isoformat(), worker_id)
+            (datetime.now(UTC).isoformat(), worker_id),
         )
         self.db.conn.commit()
 
         return True
 
     def list_workers(
-        self,
-        state: Optional[str] = None,
-        worker_type: Optional[str] = None
+        self, state: Optional[str] = None, worker_type: Optional[str] = None
     ) -> List[Dict]:
         """
         List workers with optional filters.
@@ -482,13 +466,13 @@ class WorkerLifecycle:
         stale = []
 
         for worker in workers:
-            if worker['state'] in self.TERMINAL_STATES:
+            if worker["state"] in self.TERMINAL_STATES:
                 continue
 
-            if worker['last_heartbeat']:
+            if worker["last_heartbeat"]:
                 try:
                     heartbeat_dt = datetime.fromisoformat(
-                        worker['last_heartbeat'].replace('Z', '+00:00')
+                        worker["last_heartbeat"].replace("Z", "+00:00")
                     )
                     if heartbeat_dt.timestamp() < cutoff:
                         stale.append(worker)

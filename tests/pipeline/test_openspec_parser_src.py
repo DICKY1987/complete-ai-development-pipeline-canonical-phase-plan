@@ -93,8 +93,12 @@ def test_discover_specs_on_dir_and_file(tmp_path: Path):
     # directory with two files
     d = tmp_path / "specs"
     d.mkdir()
-    (d / "a.yaml").write_text("bundle-id: a\nitems:\n  - id: i\n    title: t\n", encoding="utf-8")
-    (d / "b.yml").write_text("bundle-id: b\nitems:\n  - id: j\n    title: u\n", encoding="utf-8")
+    (d / "a.yaml").write_text(
+        "bundle-id: a\nitems:\n  - id: i\n    title: t\n", encoding="utf-8"
+    )
+    (d / "b.yml").write_text(
+        "bundle-id: b\nitems:\n  - id: j\n    title: u\n", encoding="utf-8"
+    )
 
     bs = discover_specs(d)
     assert sorted(b.bundle_id for b in bs) == ["a", "b"]

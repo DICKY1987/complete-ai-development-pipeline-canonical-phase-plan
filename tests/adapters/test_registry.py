@@ -16,7 +16,8 @@ from core.adapters.subprocess_adapter import SubprocessAdapter
 
 class TestAdapterRegistry:
     """Test AdapterRegistry functionality"""
-# DOC_ID: DOC-TEST-ADAPTERS-TEST-REGISTRY-167
+
+    # DOC_ID: DOC-TEST-ADAPTERS-TEST-REGISTRY-167
 
     def test_create_empty_registry(self):
         """Test creating an empty registry"""
@@ -28,10 +29,7 @@ class TestAdapterRegistry:
         registry = AdapterRegistry()
 
         config = ToolConfig(
-            tool_id="test",
-            kind="tool",
-            command="echo",
-            capabilities={}
+            tool_id="test", kind="tool", command="echo", capabilities={}
         )
         adapter = SubprocessAdapter(config)
 
@@ -51,10 +49,7 @@ class TestAdapterRegistry:
 
         for tool_id in ["tool1", "tool2", "tool3"]:
             config = ToolConfig(
-                tool_id=tool_id,
-                kind="tool",
-                command="echo",
-                capabilities={}
+                tool_id=tool_id, kind="tool", command="echo", capabilities={}
             )
             adapter = SubprocessAdapter(config)
             registry.register(tool_id, adapter)
@@ -73,7 +68,7 @@ class TestAdapterRegistry:
             tool_id="test",
             kind="validator",
             command="ruff",
-            capabilities={"task_kinds": ["lint"]}
+            capabilities={"task_kinds": ["lint"]},
         )
         adapter = SubprocessAdapter(config)
         registry.register("test", adapter)
@@ -92,7 +87,7 @@ class TestAdapterRegistry:
             tool_id="editor",
             kind="tool",
             command="echo",
-            capabilities={"task_kinds": ["code_edit"]}
+            capabilities={"task_kinds": ["code_edit"]},
         )
         registry.register("editor", SubprocessAdapter(config1))
 
@@ -101,7 +96,7 @@ class TestAdapterRegistry:
             tool_id="linter",
             kind="validator",
             command="lint",
-            capabilities={"task_kinds": ["lint"]}
+            capabilities={"task_kinds": ["lint"]},
         )
         registry.register("linter", SubprocessAdapter(config2))
 
@@ -119,10 +114,7 @@ class TestAdapterRegistry:
             tool_id="python-editor",
             kind="tool",
             command="echo",
-            capabilities={
-                "task_kinds": ["code_edit"],
-                "domains": ["python"]
-            }
+            capabilities={"task_kinds": ["code_edit"], "domains": ["python"]},
         )
         registry.register("python-editor", SubprocessAdapter(config1))
 
@@ -131,10 +123,7 @@ class TestAdapterRegistry:
             tool_id="js-editor",
             kind="tool",
             command="echo",
-            capabilities={
-                "task_kinds": ["code_edit"],
-                "domains": ["javascript"]
-            }
+            capabilities={"task_kinds": ["code_edit"], "domains": ["javascript"]},
         )
         registry.register("js-editor", SubprocessAdapter(config2))
 

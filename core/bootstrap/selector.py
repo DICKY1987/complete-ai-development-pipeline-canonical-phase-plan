@@ -3,6 +3,7 @@
 Selects the best profile for a project based on discovery results.
 Uses a decision tree approach with confidence scoring.
 """
+
 # DOC_ID: DOC-CORE-BOOTSTRAP-SELECTOR-141
 
 import json
@@ -83,10 +84,7 @@ def main():
     selector = ProfileSelector()
     profile_id, profile = selector.select(discovery)
 
-    print(json.dumps({
-        "selected_profile": profile_id,
-        "profile": profile
-    }, indent=2))
+    print(json.dumps({"selected_profile": profile_id, "profile": profile}, indent=2))
 
 
 if __name__ == "__main__":

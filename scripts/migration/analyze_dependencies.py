@@ -120,13 +120,17 @@ class DependencyMapper:
         """Generate dependency analysis report."""
         total_modules = len(self.all_modules)
         total_dependencies = sum(len(deps) for deps in self.dependencies.values())
-        avg_dependencies = total_dependencies / total_modules if total_modules > 0 else 0
+        avg_dependencies = (
+            total_dependencies / total_modules if total_modules > 0 else 0
+        )
 
         circular = self._find_circular_dependencies()
 
         migration_order = self._topological_sort()
 
-        leaf_modules = {mod for mod in self.all_modules if len(self.dependencies[mod]) == 0}
+        leaf_modules = {
+            mod for mod in self.all_modules if len(self.dependencies[mod]) == 0
+        }
 
         highly_coupled = sorted(
             [(mod, len(deps)) for mod, deps in self.dependencies.items()],

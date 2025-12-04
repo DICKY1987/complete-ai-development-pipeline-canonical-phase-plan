@@ -1,4 +1,5 @@
 """Tests for security utilities."""
+
 import sys
 from pathlib import Path
 
@@ -19,6 +20,7 @@ try:
         validate_command_safe,
         ResourceLimits,
     )
+
     ERROR_SHARED_AVAILABLE = True
 except (ImportError, ModuleNotFoundError):
     ERROR_SHARED_AVAILABLE = False
@@ -28,7 +30,8 @@ except (ImportError, ModuleNotFoundError):
 
 class TestValidateFilePath:
     """Test file path validation."""
-# DOC_ID: DOC-ERROR-UNIT-TEST-SECURITY-082
+
+    # DOC_ID: DOC-ERROR-UNIT-TEST-SECURITY-082
 
     def test_valid_path_in_cwd(self, tmp_path):
         """Test that valid paths within cwd are accepted."""
@@ -55,7 +58,9 @@ class TestValidateFilePath:
         with pytest.raises(SecurityError) as exc_info:
             validate_file_path(traversal_path, allowed_root=tmp_path)
 
-        assert "Suspicious pattern" in str(exc_info.value) or "outside allowed" in str(exc_info.value)
+        assert "Suspicious pattern" in str(exc_info.value) or "outside allowed" in str(
+            exc_info.value
+        )
 
 
 class TestValidateFileSize:
@@ -163,6 +168,7 @@ class TestSanitizePathForLog:
     def test_sanitize_home_directory(self):
         """Test that home directory is replaced with ~."""
         from pathlib import Path as PathLib
+
         home = PathLib.home()
         test_path = home / "projects" / "myfile.txt"
 

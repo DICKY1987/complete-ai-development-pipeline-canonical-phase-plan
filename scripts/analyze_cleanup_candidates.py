@@ -41,8 +41,8 @@ import yaml
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s | %(levelname)-8s | %(message)s',
-    datefmt='%Y-%m-%d %H:%M:%S'
+    format="%(asctime)s | %(levelname)-8s | %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
 )
 logger = logging.getLogger(__name__)
 
@@ -56,41 +56,57 @@ RECENT_DAYS = 30  # Last 30 days = recent
 
 # Patterns that indicate deprecation
 DEPRECATED_PATTERNS = [
-    'deprecated', 'archive', 'backup', 'old', 'legacy',
-    'tmp', 'temp', 'draft', '_bak', '.bak', '_old'
+    "deprecated",
+    "archive",
+    "backup",
+    "old",
+    "legacy",
+    "tmp",
+    "temp",
+    "draft",
+    "_bak",
+    ".bak",
+    "_old",
 ]
 
 # Directories to exclude from analysis
 EXCLUDE_DIRS = {
-    '.git', '.worktrees', '.venv', '__pycache__',
-    'node_modules', '.pytest_cache', '.state'
+    ".git",
+    ".worktrees",
+    ".venv",
+    "__pycache__",
+    "node_modules",
+    ".pytest_cache",
+    ".state",
 }
 
 # File extensions to analyze
-CODE_EXTENSIONS = {'.py', '.ps1', '.bat', '.sh'}
-DOC_EXTENSIONS = {'.md', '.txt', '.rst'}
-CONFIG_EXTENSIONS = {'.yaml', '.yml', '.json', '.toml', '.ini'}
+CODE_EXTENSIONS = {".py", ".ps1", ".bat", ".sh"}
+DOC_EXTENSIONS = {".md", ".txt", ".rst"}
+CONFIG_EXTENSIONS = {".yaml", ".yml", ".json", ".toml", ".ini"}
 
 # EXEC-017: Extensions to exclude from analysis
-EXCLUDE_EXTENSIONS = {'.md', '.txt'}  # Per user requirement
+EXCLUDE_EXTENSIONS = {".md", ".txt"}  # Per user requirement
 
 # =============================================================================
 # Data Classes
 # =============================================================================
 
+
 @dataclass
 class FileScore:
     """Scoring for a single file."""
+
     path: str
     duplication_score: int = 0  # 0-100
-    staleness_score: int = 0    # 0-100
+    staleness_score: int = 0  # 0-100
     obsolescence_score: int = 0  # 0-100
-    isolation_score: int = 0     # 0-100
+    isolation_score: int = 0  # 0-100
     reachability_score: int = 0  # 0-100 (EXEC-017: NEW)
     test_coverage_score: int = 0  # 0-100 (EXEC-017: NEW)
-    total_score: int = 0         # Weighted composite
-    confidence: int = 0          # Confidence in recommendation
-    action: str = "KEEP"         # KEEP, DELETE, ARCHIVE, CONSOLIDATE
+    total_score: int = 0  # Weighted composite
+    confidence: int = 0  # Confidence in recommendation
+    action: str = "KEEP"  # KEEP, DELETE, ARCHIVE, CONSOLIDATE
     reasons: List[str] = None
     duplicate_of: Optional[str] = None
     last_modified: Optional[str] = None
@@ -101,17 +117,19 @@ class FileScore:
             self.reasons = []
         # EXEC-017: Weighted composite (6 signals)
         self.total_score = int(
-            self.duplication_score * 0.25 +      # 25%
-            self.staleness_score * 0.15 +        # 15%
-            self.obsolescence_score * 0.20 +     # 20%
-            self.isolation_score * 0.15 +        # 15%
-            self.reachability_score * 0.15 +     # 15%
-            self.test_coverage_score * 0.10      # 10%
+            self.duplication_score * 0.25  # 25%
+            + self.staleness_score * 0.15  # 15%
+            + self.obsolescence_score * 0.20  # 20%
+            + self.isolation_score * 0.15  # 15%
+            + self.reachability_score * 0.15  # 15%
+            + self.test_coverage_score * 0.10  # 10%
         )
+
 
 @dataclass
 class CleanupRecommendation:
     """A cleanup action recommendation."""
+
     action: str  # DELETE, ARCHIVE, CONSOLIDATE, KEEP
     paths: List[str]
     reason: str
@@ -119,9 +137,11 @@ class CleanupRecommendation:
     estimated_space_saved: int = 0
     duplicate_group_id: Optional[str] = None
 
+
 # =============================================================================
 # File Analysis Functions
 # =============================================================================
+
 
 def compute_file_hash(filepath: Path) -> Optional[str]:
     """Compute SHA-256 hash of a file."""
@@ -130,7 +150,7 @@ def compute_file_hash(filepath: Path) -> Optional[str]:
 
     hasher = hashlib.sha256()
     try:
-        with open(filepath, 'rb') as f:
+        with open(filepath, "rb") as f:
             while chunk := f.read(CHUNK_SIZE):
                 hasher.update(chunk)
         return hasher.hexdigest()
@@ -138,19 +158,20 @@ def compute_file_hash(filepath: Path) -> Optional[str]:
         logger.debug(f"Cannot hash {filepath}: {e}")
         return None
 
+
 def get_git_last_modified(filepath: Path, repo_root: Path) -> Optional[datetime]:
     """Get last git commit date for a file."""
     try:
         rel_path = filepath.relative_to(repo_root)
         result = subprocess.run(
-            ['git', 'log', '-1', '--format=%cI', '--', str(rel_path)],
+            ["git", "log", "-1", "--format=%cI", "--", str(rel_path)],
             cwd=repo_root,
             capture_output=True,
             text=True,
-            timeout=5
+            timeout=5,
         )
         if result.returncode == 0 and result.stdout.strip():
-            return datetime.fromisoformat(result.stdout.strip().replace('Z', '+00:00'))
+            return datetime.fromisoformat(result.stdout.strip().replace("Z", "+00:00"))
     except Exception as e:
         logger.debug(f"Git log failed for {filepath}: {e}")
 
@@ -160,20 +181,21 @@ def get_git_last_modified(filepath: Path, repo_root: Path) -> Optional[datetime]
     except:
         return None
 
+
 def find_python_imports(filepath: Path) -> Set[str]:
     """Extract import statements from Python file."""
     imports = set()
     try:
-        with open(filepath, 'r', encoding='utf-8', errors='ignore') as f:
+        with open(filepath, "r", encoding="utf-8", errors="ignore") as f:
             for line in f:
                 line = line.strip()
                 # Match: from X import Y or import X
-                if line.startswith('from '):
-                    match = re.match(r'from\s+([\w.]+)', line)
+                if line.startswith("from "):
+                    match = re.match(r"from\s+([\w.]+)", line)
                     if match:
                         imports.add(match.group(1))
-                elif line.startswith('import '):
-                    match = re.match(r'import\s+([\w.]+)', line)
+                elif line.startswith("import "):
+                    match = re.match(r"import\s+([\w.]+)", line)
                     if match:
                         imports.add(match.group(1))
     except Exception as e:
@@ -181,9 +203,11 @@ def find_python_imports(filepath: Path) -> Set[str]:
 
     return imports
 
+
 # =============================================================================
 # Repository Scanner
 # =============================================================================
+
 
 class RepositoryScanner:
     """Scans repository and builds file index."""
@@ -199,13 +223,15 @@ class RepositoryScanner:
 
         # Import graph
         self.imports_from: Dict[Path, Set[str]] = {}  # file -> modules it imports
-        self.imported_by: Dict[str, Set[Path]] = defaultdict(set)  # module -> files that import it
+        self.imported_by: Dict[str, Set[Path]] = defaultdict(
+            set
+        )  # module -> files that import it
 
         # Statistics
         self.total_size = 0
         self.total_files = 0
 
-    def scan(self) -> 'RepositoryScanner':
+    def scan(self) -> "RepositoryScanner":
         """Scan the repository."""
         logger.info(f"Scanning repository: {self.root}")
 
@@ -235,7 +261,7 @@ class RepositoryScanner:
                     pass
 
                 # Extract imports from Python files
-                if ext == '.py':
+                if ext == ".py":
                     imports = find_python_imports(filepath)
                     self.imports_from[filepath] = imports
                     for imp in imports:
@@ -244,28 +270,32 @@ class RepositoryScanner:
                 if self.total_files % 500 == 0:
                     logger.info(f"  Scanned {self.total_files} files...")
 
-        logger.info(f"Scan complete: {self.total_files} files, {self.total_size:,} bytes")
+        logger.info(
+            f"Scan complete: {self.total_files} files, {self.total_size:,} bytes"
+        )
         return self
 
     def get_module_name(self, filepath: Path) -> Optional[str]:
         """Convert file path to Python module name."""
         try:
             rel_path = filepath.relative_to(self.root)
-            if rel_path.suffix != '.py':
+            if rel_path.suffix != ".py":
                 return None
 
             # Convert path to module: core/state/db.py -> core.state.db
             parts = list(rel_path.parts[:-1]) + [rel_path.stem]
-            if parts[-1] == '__init__':
+            if parts[-1] == "__init__":
                 parts = parts[:-1]
 
-            return '.'.join(parts)
+            return ".".join(parts)
         except:
             return None
+
 
 # =============================================================================
 # Scoring Engine
 # =============================================================================
+
 
 class CleanupScorer:
     """Scores files for cleanup recommendations."""
@@ -282,10 +312,10 @@ class CleanupScorer:
     def _extract_canonical_modules(self) -> Set[str]:
         """Extract canonical module paths from CODEBASE_INDEX.yaml."""
         canonical = set()
-        if 'modules' in self.codebase_index:
-            for module in self.codebase_index['modules']:
-                if module.get('path'):
-                    canonical.add(module['path'].rstrip('/'))
+        if "modules" in self.codebase_index:
+            for module in self.codebase_index["modules"]:
+                if module.get("path"):
+                    canonical.add(module["path"].rstrip("/"))
         return canonical
 
     def score_duplication(self, filepath: Path) -> Tuple[int, List[str]]:
@@ -298,7 +328,11 @@ class CleanupScorer:
             duplicates = self.scanner.files_by_hash[file_hash]
             if len(duplicates) > 1:
                 score = 100
-                other_paths = [str(p.relative_to(self.scanner.root)) for p in duplicates if p != filepath]
+                other_paths = [
+                    str(p.relative_to(self.scanner.root))
+                    for p in duplicates
+                    if p != filepath
+                ]
                 reasons.append(f"Exact duplicate of: {', '.join(other_paths[:3])}")
                 return score, reasons
 
@@ -346,7 +380,7 @@ class CleanupScorer:
         rel_path_str = str(filepath.relative_to(self.scanner.root))
 
         # Check if in legacy/archive directories
-        if rel_path_str.startswith('legacy/') or rel_path_str.startswith('archive/'):
+        if rel_path_str.startswith("legacy/") or rel_path_str.startswith("archive/"):
             score = 90
             reasons.append("In legacy/archive directory")
             return score, reasons
@@ -354,21 +388,25 @@ class CleanupScorer:
         # Check if superseded by canonical module
         for canonical_path in self.canonical_modules:
             # Check if this file is in a non-canonical version
-            if filepath.suffix == '.py':
+            if filepath.suffix == ".py":
                 # Extract module prefix (e.g., "core/engine" from "core/engine/orchestrator.py")
                 parts = Path(rel_path_str).parts
                 if len(parts) >= 2:
-                    module_prefix = '/'.join(parts[:2])
+                    module_prefix = "/".join(parts[:2])
 
                     # If same module name exists in canonical location
-                    if module_prefix not in self.canonical_modules and \
-                       any(canonical_path.endswith(parts[1]) for canonical_path in self.canonical_modules):
+                    if module_prefix not in self.canonical_modules and any(
+                        canonical_path.endswith(parts[1])
+                        for canonical_path in self.canonical_modules
+                    ):
                         score = 70
-                        reasons.append(f"Superseded by canonical module in {canonical_path}")
+                        reasons.append(
+                            f"Superseded by canonical module in {canonical_path}"
+                        )
                         break
 
         # Check for version suffixes (_v1, _v2, _old, etc.)
-        if re.search(r'(_v\d+|_old|_new|_backup|_copy|\d{8})', filepath.stem):
+        if re.search(r"(_v\d+|_old|_new|_backup|_copy|\d{8})", filepath.stem):
             score = max(score, 75)
             reasons.append("Filename indicates versioning/backup")
 
@@ -379,7 +417,7 @@ class CleanupScorer:
         score = 0
         reasons = []
 
-        if filepath.suffix != '.py':
+        if filepath.suffix != ".py":
             return 0, []
 
         module_name = self.scanner.get_module_name(filepath)
@@ -387,12 +425,15 @@ class CleanupScorer:
             return 0, []
 
         # Check if this module is imported by anyone
-        is_imported = module_name in self.scanner.imported_by or \
-                     any(module_name.startswith(imp) for imp in self.scanner.imported_by)
+        is_imported = module_name in self.scanner.imported_by or any(
+            module_name.startswith(imp) for imp in self.scanner.imported_by
+        )
 
         # Check if this file imports anything
-        has_imports = filepath in self.scanner.imports_from and \
-                     len(self.scanner.imports_from[filepath]) > 0
+        has_imports = (
+            filepath in self.scanner.imports_from
+            and len(self.scanner.imports_from[filepath]) > 0
+        )
 
         if not is_imported and not has_imports:
             score = 90
@@ -462,17 +503,21 @@ class CleanupScorer:
             reasons=all_reasons,
             duplicate_of=duplicate_of,
             last_modified=last_modified.isoformat() if last_modified else None,
-            file_size=file_size
+            file_size=file_size,
         )
 
-    def _find_canonical_duplicate(self, filepath: Path, duplicates: List[Path]) -> Optional[Path]:
+    def _find_canonical_duplicate(
+        self, filepath: Path, duplicates: List[Path]
+    ) -> Optional[Path]:
         """Find the canonical version among duplicates."""
         # Prefer files in canonical module paths
         for dup in duplicates:
             if dup == filepath:
                 continue
             rel_path = str(dup.relative_to(self.scanner.root))
-            if any(rel_path.startswith(canonical) for canonical in self.canonical_modules):
+            if any(
+                rel_path.startswith(canonical) for canonical in self.canonical_modules
+            ):
                 return dup
 
         # Prefer shorter paths (likely more canonical)
@@ -500,9 +545,11 @@ class CleanupScorer:
         logger.info(f"Scoring complete: {len(self.scores)} files scored")
         return self.scores
 
+
 # =============================================================================
 # Directory Structure Analyzer
 # =============================================================================
+
 
 class DirectoryDuplicateDetector:
     """Detects duplicate directory structures."""
@@ -517,12 +564,18 @@ class DirectoryDuplicateDetector:
 
         # Known duplicates from visual inspection
         known_duplicates = [
-            (['pm/', 'ccpm/ccpm/'], "CCPM commands duplicated", 95),
-            (['pm/commands/', 'ccpm/ccpm/commands/'], "PM commands duplicated", 95),
-            (['pm/rules/', 'ccpm/ccpm/rules/'], "PM rules duplicated", 95),
-            (['pm/agents/', 'ccpm/ccpm/agents/'], "PM agents duplicated", 95),
-            (['tools/pattern-extraction/', 'UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/scripts/pattern_extraction/'],
-             "Pattern extraction tools duplicated", 90),
+            (["pm/", "ccpm/ccpm/"], "CCPM commands duplicated", 95),
+            (["pm/commands/", "ccpm/ccpm/commands/"], "PM commands duplicated", 95),
+            (["pm/rules/", "ccpm/ccpm/rules/"], "PM rules duplicated", 95),
+            (["pm/agents/", "ccpm/ccpm/agents/"], "PM agents duplicated", 95),
+            (
+                [
+                    "tools/pattern-extraction/",
+                    "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/scripts/pattern_extraction/",
+                ],
+                "Pattern extraction tools duplicated",
+                90,
+            ),
         ]
 
         for paths, reason, confidence in known_duplicates:
@@ -533,28 +586,34 @@ class DirectoryDuplicateDetector:
                 total_size = 0
                 for p in existing[1:]:  # Keep first, delete rest
                     dir_path = self.scanner.root / p
-                    for f in dir_path.rglob('*'):
+                    for f in dir_path.rglob("*"):
                         if f.is_file():
                             try:
                                 total_size += f.stat().st_size
                             except:
                                 pass
 
-                self.duplicates.append(CleanupRecommendation(
-                    action="DELETE",
-                    paths=[p for p in existing[1:]],  # Keep first, suggest deleting rest
-                    reason=reason,
-                    confidence=confidence,
-                    estimated_space_saved=total_size,
-                    duplicate_group_id=f"dir_dup_{len(self.duplicates)}"
-                ))
+                self.duplicates.append(
+                    CleanupRecommendation(
+                        action="DELETE",
+                        paths=[
+                            p for p in existing[1:]
+                        ],  # Keep first, suggest deleting rest
+                        reason=reason,
+                        confidence=confidence,
+                        estimated_space_saved=total_size,
+                        duplicate_group_id=f"dir_dup_{len(self.duplicates)}",
+                    )
+                )
 
         logger.info(f"Found {len(self.duplicates)} duplicate directory groups")
         return self.duplicates
 
+
 # =============================================================================
 # Report Generator
 # =============================================================================
+
 
 class CleanupReportGenerator:
     """Generates cleanup reports and scripts."""
@@ -563,7 +622,7 @@ class CleanupReportGenerator:
         self,
         scores: Dict[Path, FileScore],
         dir_duplicates: List[CleanupRecommendation],
-        root: Path
+        root: Path,
     ):
         self.scores = scores
         self.dir_duplicates = dir_duplicates
@@ -580,27 +639,28 @@ class CleanupReportGenerator:
             "generated_at": datetime.now(timezone.utc).isoformat(),
             "repository_root": str(self.root),
             "total_files_analyzed": len(self.scores),
-            "summary": {
-                action: len(files) for action, files in by_action.items()
-            },
+            "summary": {action: len(files) for action, files in by_action.items()},
             "total_potential_space_saved": sum(
-                s.file_size for s in self.scores.values()
-                if s.action in ['DELETE', 'ARCHIVE']
+                s.file_size
+                for s in self.scores.values()
+                if s.action in ["DELETE", "ARCHIVE"]
             ),
             "directory_duplicates": [asdict(d) for d in self.dir_duplicates],
             "file_scores": {
-                action: sorted(files, key=lambda x: -x['total_score'])
+                action: sorted(files, key=lambda x: -x["total_score"])
                 for action, files in by_action.items()
-            }
+            },
         }
 
-        with open(output_path, 'w', encoding='utf-8') as f:
+        with open(output_path, "w", encoding="utf-8") as f:
             json.dump(report, f, indent=2)
 
         logger.info(f"Generated JSON report: {output_path}")
         return report
 
-    def generate_high_confidence_script(self, output_path: Path, confidence_threshold: int = 85):
+    def generate_high_confidence_script(
+        self, output_path: Path, confidence_threshold: int = 85
+    ):
         """Generate PowerShell script for high-confidence deletions."""
         lines = [
             "# Automated Cleanup Script (High Confidence)",
@@ -627,10 +687,16 @@ class CleanupReportGenerator:
                 lines.append(f"# {dup.reason} (Confidence: {dup.confidence}%)")
                 for path in dup.paths:
                     lines.append(f"if ($DryRun) {{")
-                    lines.append(f"    Write-Host '[DRY-RUN] Would delete: {path}' -ForegroundColor Yellow")
+                    lines.append(
+                        f"    Write-Host '[DRY-RUN] Would delete: {path}' -ForegroundColor Yellow"
+                    )
                     lines.append(f"}} else {{")
-                    lines.append(f"    Remove-Item -Path (Join-Path $RepoRoot '{path}') -Recurse -Force")
-                    lines.append(f"    Write-Host 'Deleted: {path}' -ForegroundColor Green")
+                    lines.append(
+                        f"    Remove-Item -Path (Join-Path $RepoRoot '{path}') -Recurse -Force"
+                    )
+                    lines.append(
+                        f"    Write-Host 'Deleted: {path}' -ForegroundColor Green"
+                    )
                     lines.append(f"}}")
                     delete_count += 1
                 lines.append("")
@@ -638,7 +704,8 @@ class CleanupReportGenerator:
 
         # Add high-confidence file deletions
         high_conf_deletes = [
-            (fp, score) for fp, score in self.scores.items()
+            (fp, score)
+            for fp, score in self.scores.items()
             if score.action == "DELETE" and score.confidence >= confidence_threshold
         ]
 
@@ -647,15 +714,23 @@ class CleanupReportGenerator:
 
         for filepath, score in high_conf_deletes:
             lines.append(f"# {score.path}")
-            lines.append(f"# Confidence: {score.confidence}% | Score: {score.total_score}")
+            lines.append(
+                f"# Confidence: {score.confidence}% | Score: {score.total_score}"
+            )
             lines.append(f"# Reasons: {'; '.join(score.reasons)}")
             if score.duplicate_of:
                 lines.append(f"# Duplicate of: {score.duplicate_of}")
             lines.append(f"if ($DryRun) {{")
-            lines.append(f"    Write-Host '[DRY-RUN] Would delete: {score.path}' -ForegroundColor Yellow")
+            lines.append(
+                f"    Write-Host '[DRY-RUN] Would delete: {score.path}' -ForegroundColor Yellow"
+            )
             lines.append(f"}} else {{")
-            lines.append(f"    Remove-Item -Path (Join-Path $RepoRoot '{score.path}') -Force")
-            lines.append(f"    Write-Host 'Deleted: {score.path}' -ForegroundColor Green")
+            lines.append(
+                f"    Remove-Item -Path (Join-Path $RepoRoot '{score.path}') -Force"
+            )
+            lines.append(
+                f"    Write-Host 'Deleted: {score.path}' -ForegroundColor Green"
+            )
             lines.append(f"}}")
             lines.append("")
             delete_count += 1
@@ -665,40 +740,52 @@ class CleanupReportGenerator:
         lines.append(f"Write-Host ''")
         lines.append(f"Write-Host 'Summary:' -ForegroundColor Cyan")
         lines.append(f"Write-Host '  Items to delete: {delete_count}'")
-        lines.append(f"Write-Host '  Space to save: {space_saved:,} bytes ({space_saved / 1024 / 1024:.2f} MB)'")
+        lines.append(
+            f"Write-Host '  Space to save: {space_saved:,} bytes ({space_saved / 1024 / 1024:.2f} MB)'"
+        )
 
-        with open(output_path, 'w', encoding='utf-8') as f:
-            f.write('\n'.join(lines))
+        with open(output_path, "w", encoding="utf-8") as f:
+            f.write("\n".join(lines))
 
-        logger.info(f"Generated high-confidence script: {output_path} ({delete_count} items)")
+        logger.info(
+            f"Generated high-confidence script: {output_path} ({delete_count} items)"
+        )
 
-    def generate_review_needed_report(self, output_path: Path, confidence_threshold: int = 85):
+    def generate_review_needed_report(
+        self, output_path: Path, confidence_threshold: int = 85
+    ):
         """Generate JSON report for items needing manual review."""
         review_items = []
 
         for filepath, score in self.scores.items():
-            if score.action in ['DELETE', 'ARCHIVE', 'CONSOLIDATE'] and \
-               score.confidence < confidence_threshold:
+            if (
+                score.action in ["DELETE", "ARCHIVE", "CONSOLIDATE"]
+                and score.confidence < confidence_threshold
+            ):
                 review_items.append(asdict(score))
 
         # Sort by total score (highest first)
-        review_items.sort(key=lambda x: -x['total_score'])
+        review_items.sort(key=lambda x: -x["total_score"])
 
         report = {
             "generated_at": datetime.now(timezone.utc).isoformat(),
             "confidence_threshold": confidence_threshold,
             "total_items": len(review_items),
-            "items": review_items
+            "items": review_items,
         }
 
-        with open(output_path, 'w', encoding='utf-8') as f:
+        with open(output_path, "w", encoding="utf-8") as f:
             json.dump(report, f, indent=2)
 
-        logger.info(f"Generated review-needed report: {output_path} ({len(review_items)} items)")
+        logger.info(
+            f"Generated review-needed report: {output_path} ({len(review_items)} items)"
+        )
+
 
 # =============================================================================
 # Main Execution
 # =============================================================================
+
 
 def load_codebase_index(root: Path) -> dict:
     """Load CODEBASE_INDEX.yaml."""
@@ -707,8 +794,9 @@ def load_codebase_index(root: Path) -> dict:
         logger.warning("CODEBASE_INDEX.yaml not found, using minimal index")
         return {"modules": []}
 
-    with open(index_path, 'r', encoding='utf-8') as f:
+    with open(index_path, "r", encoding="utf-8") as f:
         return yaml.safe_load(f)
+
 
 def main():
     parser = argparse.ArgumentParser(
@@ -724,41 +812,42 @@ Examples:
 
   # Analyze specific directory
   python analyze_cleanup_candidates.py --root /path/to/repo
-        """
+        """,
     )
 
     parser.add_argument(
-        '--root', '-r',
+        "--root",
+        "-r",
         type=Path,
         default=Path.cwd(),
-        help='Repository root path (default: current directory)'
+        help="Repository root path (default: current directory)",
     )
 
     parser.add_argument(
-        '--confidence-threshold', '-c',
+        "--confidence-threshold",
+        "-c",
         type=int,
         default=90,
-        help='Confidence threshold for automated cleanup (default: 90, EXEC-017)'
+        help="Confidence threshold for automated cleanup (default: 90, EXEC-017)",
     )
 
     parser.add_argument(
-        '--exclude-extensions',
+        "--exclude-extensions",
         type=str,
-        default='.md,.txt',
-        help='Comma-separated list of extensions to exclude (default: .md,.txt)'
+        default=".md,.txt",
+        help="Comma-separated list of extensions to exclude (default: .md,.txt)",
     )
 
     parser.add_argument(
-        '--output-dir', '-o',
+        "--output-dir",
+        "-o",
         type=Path,
-        default=Path('cleanup_reports'),
-        help='Output directory for reports (default: cleanup_reports/)'
+        default=Path("cleanup_reports"),
+        help="Output directory for reports (default: cleanup_reports/)",
     )
 
     parser.add_argument(
-        '--verbose', '-v',
-        action='store_true',
-        help='Enable verbose logging'
+        "--verbose", "-v", action="store_true", help="Enable verbose logging"
     )
 
     args = parser.parse_args()
@@ -778,7 +867,9 @@ Examples:
 
     # Load codebase index
     codebase_index = load_codebase_index(root)
-    logger.info(f"Loaded CODEBASE_INDEX with {len(codebase_index.get('modules', []))} modules")
+    logger.info(
+        f"Loaded CODEBASE_INDEX with {len(codebase_index.get('modules', []))} modules"
+    )
 
     # Step 1: Scan repository
     scanner = RepositoryScanner(root, EXCLUDE_DIRS)
@@ -793,7 +884,7 @@ Examples:
     scores = scorer.analyze_all()
 
     # Step 4: Generate reports
-    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 
     generator = CleanupReportGenerator(scores, dir_duplicates, root)
 
@@ -810,9 +901,9 @@ Examples:
     generator.generate_review_needed_report(review_path, args.confidence_threshold)
 
     # Print summary
-    print("\n" + "="*70)
+    print("\n" + "=" * 70)
     print("[REPORT] CLEANUP ANALYSIS SUMMARY")
-    print("="*70)
+    print("=" * 70)
     print(f"\nTotal files analyzed: {len(scores):,}")
     print(f"\nRecommendations:")
     print(f"  DELETE:      {report_data['summary'].get('DELETE', 0):,} files")
@@ -822,7 +913,7 @@ Examples:
 
     print(f"\nDirectory duplicates found: {len(dir_duplicates)}")
 
-    space_mb = report_data['total_potential_space_saved'] / 1024 / 1024
+    space_mb = report_data["total_potential_space_saved"] / 1024 / 1024
     print(f"\nPotential space savings: {space_mb:.2f} MB")
 
     print(f"\n📁 Output files:")
@@ -830,14 +921,15 @@ Examples:
     print(f"  High-confidence:     {script_path}")
     print(f"  Review needed:       {review_path}")
 
-    print("\n" + "="*70)
+    print("\n" + "=" * 70)
     print("🎯 NEXT STEPS:")
-    print("="*70)
+    print("=" * 70)
     print(f"1. Review: {json_report_path}")
     print(f"2. Edit script (set $DryRun=$false): {script_path}")
     print(f"3. Run script: .\\{script_path}")
     print(f"4. Review uncertain cases: {review_path}")
-    print("="*70 + "\n")
+    print("=" * 70 + "\n")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()

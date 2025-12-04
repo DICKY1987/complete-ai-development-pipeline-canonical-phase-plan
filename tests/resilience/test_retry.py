@@ -12,13 +12,14 @@ from core.engine.resilience import (
     RetryStrategy,
     SimpleRetry,
     ExponentialBackoff,
-    RetryExhausted
+    RetryExhausted,
 )
 
 
 class TestSimpleRetry:
     """Test SimpleRetry strategy"""
-# DOC_ID: DOC-TEST-RESILIENCE-TEST-RETRY-189
+
+    # DOC_ID: DOC-TEST-RESILIENCE-TEST-RETRY-189
 
     def test_create_simple_retry(self):
         """Test creating simple retry strategy"""
@@ -51,11 +52,11 @@ class TestSimpleRetry:
         """Test retrying after failure"""
         retry = SimpleRetry(max_attempts=3, delay=0.1)
 
-        call_count = {'count': 0}
+        call_count = {"count": 0}
 
         def fail_twice_func():
-            call_count['count'] += 1
-            if call_count['count'] < 3:
+            call_count["count"] += 1
+            if call_count["count"] < 3:
                 raise ValueError("fail")
             return "success"
 
@@ -64,7 +65,7 @@ class TestSimpleRetry:
         duration = time.time() - start_time
 
         assert result == "success"
-        assert call_count['count'] == 3
+        assert call_count["count"] == 3
         assert retry.attempt_count == 3
         # Should have waited for 2 retries
         assert duration >= 0.2  # 2 * 0.1
@@ -89,10 +90,7 @@ class TestExponentialBackoff:
     def test_create_exponential_backoff(self):
         """Test creating exponential backoff strategy"""
         retry = ExponentialBackoff(
-            max_attempts=5,
-            base_delay=1.0,
-            max_delay=60.0,
-            exponential_base=2.0
+            max_attempts=5, base_delay=1.0, max_delay=60.0, exponential_base=2.0
         )
 
         assert retry.max_attempts == 5
@@ -104,7 +102,7 @@ class TestExponentialBackoff:
         retry = ExponentialBackoff(
             base_delay=1.0,
             exponential_base=2.0,
-            jitter=False  # Disable jitter for predictable testing
+            jitter=False,  # Disable jitter for predictable testing
         )
 
         # Delays should be: 2, 4, 8, 16, ...
@@ -115,10 +113,7 @@ class TestExponentialBackoff:
     def test_max_delay_cap(self):
         """Test delay is capped at max_delay"""
         retry = ExponentialBackoff(
-            base_delay=1.0,
-            max_delay=10.0,
-            exponential_base=2.0,
-            jitter=False
+            base_delay=1.0, max_delay=10.0, exponential_base=2.0, jitter=False
         )
 
         # Delay would be 16, but capped at 10
@@ -127,11 +122,7 @@ class TestExponentialBackoff:
 
     def test_jitter_adds_randomness(self):
         """Test jitter adds randomness to delay"""
-        retry = ExponentialBackoff(
-            base_delay=1.0,
-            exponential_base=2.0,
-            jitter=True
-        )
+        retry = ExponentialBackoff(base_delay=1.0, exponential_base=2.0, jitter=True)
 
         # Get multiple delays for same attempt
         delays = [retry.get_delay(1) for _ in range(10)]
@@ -145,24 +136,20 @@ class TestExponentialBackoff:
 
     def test_successful_after_retries(self):
         """Test success after some retries"""
-        retry = ExponentialBackoff(
-            max_attempts=5,
-            base_delay=0.01,
-            jitter=False
-        )
+        retry = ExponentialBackoff(max_attempts=5, base_delay=0.01, jitter=False)
 
-        call_count = {'count': 0}
+        call_count = {"count": 0}
 
         def fail_three_times():
-            call_count['count'] += 1
-            if call_count['count'] < 4:
+            call_count["count"] += 1
+            if call_count["count"] < 4:
                 raise ValueError("fail")
             return "success"
 
         result = retry.execute(fail_three_times)
 
         assert result == "success"
-        assert call_count['count'] == 4
+        assert call_count["count"] == 4
 
 
 class TestRetryExhausted:

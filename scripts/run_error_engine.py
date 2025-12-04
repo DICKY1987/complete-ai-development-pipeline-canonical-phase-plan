@@ -18,9 +18,15 @@ from modules.error_engine.m010004_file_hash_cache import FileHashCache
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Run the deterministic error pipeline on files.")
+    parser = argparse.ArgumentParser(
+        description="Run the deterministic error pipeline on files."
+    )
     parser.add_argument("files", nargs="+", help="Files to validate")
-    parser.add_argument("--cache", default=str(Path(".state") / "validation_cache.json"), help="Path to hash cache JSON")
+    parser.add_argument(
+        "--cache",
+        default=str(Path(".state") / "validation_cache.json"),
+        help="Path to hash cache JSON",
+    )
     args = parser.parse_args()
 
     cache_path = Path(args.cache)
@@ -35,7 +41,9 @@ def main() -> int:
     for f in args.files:
         p = Path(f)
         report = engine.process_file(p)
-        print(f"{p}: {report.status} | errors={report.summary.total_errors if report.summary else 0} warnings={report.summary.total_warnings if report.summary else 0}")
+        print(
+            f"{p}: {report.status} | errors={report.summary.total_errors if report.summary else 0} warnings={report.summary.total_warnings if report.summary else 0}"
+        )
         if report.summary and report.summary.total_errors:
             exit_code = 1
 

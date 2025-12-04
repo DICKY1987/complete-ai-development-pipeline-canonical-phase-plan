@@ -7,15 +7,15 @@ from modules.core_engine.m010001_event_bus import Event, EventType, EventBus
 
 def test_event_creation():
     """Test event instance creation."""
-# DOC_ID: DOC-TEST-TESTS-TEST-EVENT-BUS-081
-# DOC_ID: DOC-TEST-TESTS-TEST-EVENT-BUS-042
+    # DOC_ID: DOC-TEST-TESTS-TEST-EVENT-BUS-081
+    # DOC_ID: DOC-TEST-TESTS-TEST-EVENT-BUS-042
     now = datetime.now(timezone.utc)
 
     event = Event(
         event_type=EventType.WORKER_SPAWNED,
         timestamp=now,
         worker_id="worker-1",
-        payload={"adapter_type": "aider"}
+        payload={"adapter_type": "aider"},
     )
 
     assert event.event_type == EventType.WORKER_SPAWNED
@@ -34,7 +34,7 @@ def test_event_bus_emit(temp_db):
         task_id="task-1",
         run_id="run-1",
         workstream_id="ws-test",
-        payload={"status": "starting"}
+        payload={"status": "starting"},
     )
 
     # Should not raise
@@ -51,7 +51,7 @@ def test_event_bus_query(temp_db):
             event_type=EventType.HEARTBEAT,
             timestamp=datetime.now(timezone.utc),
             worker_id=f"worker-{i}",
-            run_id="run-test"
+            run_id="run-test",
         )
         bus.emit(event)
 

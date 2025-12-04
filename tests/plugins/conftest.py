@@ -1,6 +1,7 @@
 """
 Common test fixtures and utilities for plugin testing.
 """
+
 # DOC_ID: DOC-TEST-PLUGINS-CONFTEST-140
 from __future__ import annotations
 
@@ -40,8 +41,7 @@ def tool_available(tool_name: str) -> bool:
 def skip_if_tool_missing(tool_name: str):
     """Pytest marker to skip test if tool is not installed."""
     return pytest.mark.skipif(
-        not tool_available(tool_name),
-        reason=f"{tool_name} not installed"
+        not tool_available(tool_name), reason=f"{tool_name} not installed"
     )
 
 

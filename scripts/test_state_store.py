@@ -3,6 +3,7 @@ Test JobStateStore implementation.
 
 Validates state store integration with existing database schema.
 """
+
 # DOC_ID: DOC-SCRIPT-SCRIPTS-TEST-STATE-STORE-237
 # DOC_ID: DOC-SCRIPT-SCRIPTS-TEST-STATE-STORE-174
 
@@ -17,6 +18,7 @@ def test_state_store_import():
     print("Testing state store import...")
     try:
         from engine.state_store.job_state_store import JobStateStore
+
         print("  ✅ JobStateStore imported successfully")
         return True
     except Exception as e:
@@ -70,6 +72,7 @@ def test_run_crud():
     except Exception as e:
         print(f"  ❌ Run CRUD failed: {e}")
         import traceback
+
         traceback.print_exc()
         return False
 
@@ -100,7 +103,7 @@ def test_job_result_update():
         cur.execute(
             """INSERT INTO workstreams (ws_id, run_id, status, created_at, updated_at)
                VALUES (?, ?, ?, ?, ?)""",
-            (ws_id, run_id, "pending", now, now)
+            (ws_id, run_id, "pending", now, now),
         )
         conn.commit()
         cur.close()
@@ -118,8 +121,8 @@ def test_job_result_update():
                 "repo_root": ".",
                 "working_dir": ".",
                 "log_file": "test.log",
-                "error_report": "test.error.json"
-            }
+                "error_report": "test.error.json",
+            },
         }
 
         # Create result
@@ -127,7 +130,7 @@ def test_job_result_update():
             exit_code=0,
             error_report_path="test.error.json",
             duration_s=1.5,
-            success=True
+            success=True,
         )
 
         # Update state
@@ -144,6 +147,7 @@ def test_job_result_update():
     except Exception as e:
         print(f"  ❌ Job result update failed: {e}")
         import traceback
+
         traceback.print_exc()
         return False
 
@@ -171,24 +175,23 @@ def test_event_logging():
         cur.execute(
             """INSERT INTO workstreams (ws_id, run_id, status, created_at, updated_at)
                VALUES (?, ?, ?, ?, ?)""",
-            (ws_id, run_id, "pending", now, now)
+            (ws_id, run_id, "pending", now, now),
         )
         conn.commit()
         cur.close()
         conn.close()
 
         # Record event
-        store.record_event("test.event", {
-            "run_id": run_id,
-            "ws_id": ws_id,
-            "message": "Test event"
-        })
+        store.record_event(
+            "test.event", {"run_id": run_id, "ws_id": ws_id, "message": "Test event"}
+        )
 
         print("  ✅ Event logged successfully")
         return True
     except Exception as e:
         print(f"  ❌ Event logging failed: {e}")
         import traceback
+
         traceback.print_exc()
         return False
 
@@ -215,6 +218,7 @@ def test_orchestrator_integration():
     except Exception as e:
         print(f"  ❌ Orchestrator integration failed: {e}")
         import traceback
+
         traceback.print_exc()
         return False
 

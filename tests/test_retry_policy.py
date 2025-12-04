@@ -2,12 +2,17 @@
 Unit tests for RetryPolicy (Phase 4B)
 Tests retry logic, backoff strategies, and delay calculations.
 """
+
 # DOC_ID: DOC-TEST-TESTS-TEST-RETRY-POLICY-103
 # DOC_ID: DOC-TEST-TESTS-TEST-RETRY-POLICY-064
 import pytest
 from engine.queue.retry_policy import (
-    RetryPolicy, BackoffStrategy,
-    DEFAULT_RETRY_POLICY, FAST_RETRY_POLICY, SLOW_RETRY_POLICY, NO_RETRY_POLICY
+    RetryPolicy,
+    BackoffStrategy,
+    DEFAULT_RETRY_POLICY,
+    FAST_RETRY_POLICY,
+    SLOW_RETRY_POLICY,
+    NO_RETRY_POLICY,
 )
 
 
@@ -63,10 +68,10 @@ def test_exponential_backoff():
     """Test exponential backoff strategy"""
     policy = RetryPolicy(strategy=BackoffStrategy.EXPONENTIAL, base_delay=1.0)
 
-    assert policy.get_delay(0) == 1.0   # 1.0 * 2^0
-    assert policy.get_delay(1) == 2.0   # 1.0 * 2^1
-    assert policy.get_delay(2) == 4.0   # 1.0 * 2^2
-    assert policy.get_delay(3) == 8.0   # 1.0 * 2^3
+    assert policy.get_delay(0) == 1.0  # 1.0 * 2^0
+    assert policy.get_delay(1) == 2.0  # 1.0 * 2^1
+    assert policy.get_delay(2) == 4.0  # 1.0 * 2^2
+    assert policy.get_delay(3) == 8.0  # 1.0 * 2^3
     assert policy.get_delay(4) == 16.0  # 1.0 * 2^4
 
 
@@ -75,26 +80,24 @@ def test_fibonacci_backoff():
     policy = RetryPolicy(strategy=BackoffStrategy.FIBONACCI, base_delay=1.0)
 
     # Fibonacci sequence: fib(0)=0, fib(1)=1, fib(2)=1, fib(3)=2, fib(4)=3, fib(5)=5, fib(6)=8, fib(7)=13
-    assert policy.get_delay(0) == 1.0   # 1.0 * fib(1) = 1.0
-    assert policy.get_delay(1) == 1.0   # 1.0 * fib(2) = 1.0
-    assert policy.get_delay(2) == 2.0   # 1.0 * fib(3) = 2.0
-    assert policy.get_delay(3) == 3.0   # 1.0 * fib(4) = 3.0
-    assert policy.get_delay(4) == 5.0   # 1.0 * fib(5) = 5.0
-    assert policy.get_delay(5) == 8.0   # 1.0 * fib(6) = 8.0
+    assert policy.get_delay(0) == 1.0  # 1.0 * fib(1) = 1.0
+    assert policy.get_delay(1) == 1.0  # 1.0 * fib(2) = 1.0
+    assert policy.get_delay(2) == 2.0  # 1.0 * fib(3) = 2.0
+    assert policy.get_delay(3) == 3.0  # 1.0 * fib(4) = 3.0
+    assert policy.get_delay(4) == 5.0  # 1.0 * fib(5) = 5.0
+    assert policy.get_delay(5) == 8.0  # 1.0 * fib(6) = 8.0
 
 
 def test_max_delay_cap():
     """Test that delays are capped at max_delay"""
     policy = RetryPolicy(
-        strategy=BackoffStrategy.EXPONENTIAL,
-        base_delay=1.0,
-        max_delay=10.0
+        strategy=BackoffStrategy.EXPONENTIAL, base_delay=1.0, max_delay=10.0
     )
 
-    assert policy.get_delay(0) == 1.0   # 1.0 * 2^0 = 1.0
-    assert policy.get_delay(1) == 2.0   # 1.0 * 2^1 = 2.0
-    assert policy.get_delay(2) == 4.0   # 1.0 * 2^2 = 4.0
-    assert policy.get_delay(3) == 8.0   # 1.0 * 2^3 = 8.0
+    assert policy.get_delay(0) == 1.0  # 1.0 * 2^0 = 1.0
+    assert policy.get_delay(1) == 2.0  # 1.0 * 2^1 = 2.0
+    assert policy.get_delay(2) == 4.0  # 1.0 * 2^2 = 4.0
+    assert policy.get_delay(3) == 8.0  # 1.0 * 2^3 = 8.0
     assert policy.get_delay(4) == 10.0  # 1.0 * 2^4 = 16.0 -> capped at 10.0
     assert policy.get_delay(5) == 10.0  # 1.0 * 2^5 = 32.0 -> capped at 10.0
 
@@ -102,10 +105,10 @@ def test_max_delay_cap():
 def test_from_config():
     """Test creating retry policy from config dict"""
     config = {
-        'max_attempts': 5,
-        'strategy': 'linear',
-        'base_delay': 2.5,
-        'max_delay': 100.0
+        "max_attempts": 5,
+        "strategy": "linear",
+        "base_delay": 2.5,
+        "max_delay": 100.0,
     }
 
     policy = RetryPolicy.from_config(config)
@@ -131,18 +134,15 @@ def test_from_config_defaults():
 def test_to_dict():
     """Test converting policy to dict"""
     policy = RetryPolicy(
-        max_retries=5,
-        strategy=BackoffStrategy.LINEAR,
-        base_delay=2.0,
-        max_delay=120.0
+        max_retries=5, strategy=BackoffStrategy.LINEAR, base_delay=2.0, max_delay=120.0
     )
 
     policy_dict = policy.to_dict()
 
-    assert policy_dict['max_retries'] == 5
-    assert policy_dict['strategy'] == 'linear'
-    assert policy_dict['base_delay'] == 2.0
-    assert policy_dict['max_delay'] == 120.0
+    assert policy_dict["max_retries"] == 5
+    assert policy_dict["strategy"] == "linear"
+    assert policy_dict["base_delay"] == 2.0
+    assert policy_dict["max_delay"] == 120.0
 
 
 def test_default_retry_policy():

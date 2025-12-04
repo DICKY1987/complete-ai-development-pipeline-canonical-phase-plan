@@ -22,6 +22,7 @@ from pathlib import Path
 from typing import List, Dict, Any
 from datetime import datetime
 
+
 class BatchFileCreator:
     """
     Create multiple similar files from a template.
@@ -48,7 +49,7 @@ class BatchFileCreator:
             print(f"❌ Template not found: {self.template_path}")
             sys.exit(1)
 
-        return self.template_path.read_text(encoding='utf-8')
+        return self.template_path.read_text(encoding="utf-8")
 
     def _ensure_output_dir(self):
         """Create output directory if needed."""
@@ -68,10 +69,10 @@ class BatchFileCreator:
         for key, value in variables.items():
             # Handle different placeholder syntaxes
             placeholders = [
-                f"{{{key}}}",           # {variable}
-                f"<{key.upper()}>",     # <VARIABLE>
-                f"${key.upper()}",      # $VARIABLE
-                f"{{{key.upper()}}}",   # {VARIABLE}
+                f"{{{key}}}",  # {variable}
+                f"<{key.upper()}>",  # <VARIABLE>
+                f"${key.upper()}",  # $VARIABLE
+                f"{{{key.upper()}}}",  # {VARIABLE}
             ]
 
             for placeholder in placeholders:
@@ -81,10 +82,10 @@ class BatchFileCreator:
 
     def create_file(self, item: Dict[str, Any]) -> Path:
         """Create a single file from template and variables."""
-        content = self.fill_template(item['variables'])
-        output_path = self.output_dir / item['filename']
+        content = self.fill_template(item["variables"])
+        output_path = self.output_dir / item["filename"]
 
-        output_path.write_text(content, encoding='utf-8')
+        output_path.write_text(content, encoding="utf-8")
         return output_path
 
     def create_batch(self, items: List[Dict[str, Any]]) -> Dict:
@@ -98,7 +99,10 @@ class BatchFileCreator:
         - Batch verify at end
         """
         total_items = len(items)
-        batches = [items[i:i+self.batch_size] for i in range(0, total_items, self.batch_size)]
+        batches = [
+            items[i : i + self.batch_size]
+            for i in range(0, total_items, self.batch_size)
+        ]
 
         print(f"\n📦 Creating {total_items} files in {len(batches)} batches")
         print(f"   Template: {self.template_path.name}")
@@ -114,7 +118,9 @@ class BatchFileCreator:
                     self.created_files.append(output_path)
                     print(f"  ✓ {output_path.name}")
                 except Exception as e:
-                    print(f"  ❌ Failed to create {item.get('filename', 'unknown')}: {e}")
+                    print(
+                        f"  ❌ Failed to create {item.get('filename', 'unknown')}: {e}"
+                    )
 
             print()
 
@@ -136,11 +142,11 @@ class BatchFileCreator:
         success = len(existing) == len(self.created_files)
 
         result = {
-            'total_expected': len(self.created_files),
-            'total_created': len(existing),
-            'success': success,
-            'files': [str(f.relative_to(self.output_dir)) for f in existing],
-            'missing': [str(f.relative_to(self.output_dir)) for f in missing]
+            "total_expected": len(self.created_files),
+            "total_created": len(existing),
+            "success": success,
+            "files": [str(f.relative_to(self.output_dir)) for f in existing],
+            "missing": [str(f.relative_to(self.output_dir)) for f in missing],
         }
 
         # Print summary
@@ -159,6 +165,7 @@ class BatchFileCreator:
             sample_size = min(2, len(existing))
             print(f"\n🔍 Spot check ({sample_size} random files):")
             import random
+
             samples = random.sample(existing, sample_size)
             for sample in samples:
                 size = sample.stat().st_size
@@ -175,14 +182,14 @@ def load_items_from_json(json_path: Path) -> List[Dict]:
         print(f"❌ Items file not found: {json_path}")
         sys.exit(1)
 
-    with open(json_path, 'r', encoding='utf-8') as f:
+    with open(json_path, "r", encoding="utf-8") as f:
         data = json.load(f)
 
     # Support both array of items and object with "items" key
     if isinstance(data, list):
         return data
-    elif isinstance(data, dict) and 'items' in data:
-        return data['items']
+    elif isinstance(data, dict) and "items" in data:
+        return data["items"]
     else:
         print("❌ Invalid JSON format. Expected array or object with 'items' key")
         sys.exit(1)
@@ -197,15 +204,12 @@ def load_items_from_csv(csv_path: Path) -> List[Dict]:
         sys.exit(1)
 
     items = []
-    with open(csv_path, 'r', encoding='utf-8') as f:
+    with open(csv_path, "r", encoding="utf-8") as f:
         reader = csv.DictReader(f)
         for row in reader:
             # Assume 'filename' is one column, rest are variables
-            filename = row.pop('filename')
-            items.append({
-                'filename': filename,
-                'variables': row
-            })
+            filename = row.pop("filename")
+            items.append({"filename": filename, "variables": row})
 
     return items
 
@@ -213,12 +217,12 @@ def load_items_from_csv(csv_path: Path) -> List[Dict]:
 def generate_report(result: Dict, output_path: Path):
     """Generate execution report."""
     report = {
-        'pattern': 'EXEC-001 - Batch File Creator',
-        'timestamp': datetime.now().isoformat(),
-        'result': result
+        "pattern": "EXEC-001 - Batch File Creator",
+        "timestamp": datetime.now().isoformat(),
+        "result": result,
     }
 
-    with open(output_path, 'w', encoding='utf-8') as f:
+    with open(output_path, "w", encoding="utf-8") as f:
         json.dump(report, f, indent=2)
 
     print(f"\n📊 Report saved: {output_path}")
@@ -226,9 +230,9 @@ def generate_report(result: Dict, output_path: Path):
 
 def main():
     parser = argparse.ArgumentParser(
-        description='Batch File Creator - Create multiple similar files from template',
+        description="Batch File Creator - Create multiple similar files from template",
         formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog='''
+        epilog="""
 Examples:
   # From JSON items file
   python scripts/batch_file_creator.py \\
@@ -245,49 +249,38 @@ Examples:
 
 Pattern: EXEC-001 - Batch File Creator
 Time Savings: 58-62% vs manual creation
-        '''
+        """,
     )
 
     parser.add_argument(
-        '--template',
-        type=Path,
-        required=True,
-        help='Path to template file'
+        "--template", type=Path, required=True, help="Path to template file"
     )
 
     parser.add_argument(
-        '--items',
-        type=Path,
-        required=True,
-        help='Path to items file (JSON or CSV)'
+        "--items", type=Path, required=True, help="Path to items file (JSON or CSV)"
     )
 
     parser.add_argument(
-        '--output',
-        type=Path,
-        required=True,
-        help='Output directory for created files'
+        "--output", type=Path, required=True, help="Output directory for created files"
     )
 
     parser.add_argument(
-        '--batch-size',
+        "--batch-size",
         type=int,
         default=6,
-        help='Number of files to create per batch (default: 6)'
+        help="Number of files to create per batch (default: 6)",
     )
 
     parser.add_argument(
-        '--report',
-        type=Path,
-        help='Output path for execution report (JSON)'
+        "--report", type=Path, help="Output path for execution report (JSON)"
     )
 
     args = parser.parse_args()
 
     # Load items
-    if args.items.suffix == '.json':
+    if args.items.suffix == ".json":
         items = load_items_from_json(args.items)
-    elif args.items.suffix == '.csv':
+    elif args.items.suffix == ".csv":
         items = load_items_from_csv(args.items)
     else:
         print(f"❌ Unsupported items file format: {args.items.suffix}")
@@ -305,8 +298,8 @@ Time Savings: 58-62% vs manual creation
         generate_report(result, args.report)
 
     # Exit with appropriate code
-    sys.exit(0 if result['success'] else 1)
+    sys.exit(0 if result["success"] else 1)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

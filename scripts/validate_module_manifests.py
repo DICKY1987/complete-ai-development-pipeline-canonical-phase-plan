@@ -58,7 +58,9 @@ def validate_manifest(
     # Schema validation
     validator = Draft7Validator(schema)
     for error in validator.iter_errors(manifest_data):
-        errors.append(f"  Schema: {error.message} at {'.'.join(str(p) for p in error.path)}")
+        errors.append(
+            f"  Schema: {error.message} at {'.'.join(str(p) for p in error.path)}"
+        )
 
     # Custom validations
     if "entry_points" in manifest_data:
@@ -76,7 +78,9 @@ def main():
     parser = argparse.ArgumentParser(description="Validate AI module manifests")
     parser.add_argument("--strict", action="store_true", help="Exit 1 on any errors")
     parser.add_argument("--fix", action="store_true", help="Auto-fix common issues")
-    parser.add_argument("--report-only", action="store_true", help="Report only (default)")
+    parser.add_argument(
+        "--report-only", action="store_true", help="Report only (default)"
+    )
     args = parser.parse_args()
 
     # Find project root

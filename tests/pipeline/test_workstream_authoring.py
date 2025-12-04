@@ -22,11 +22,13 @@ VALIDATOR_SCRIPT_PATH = project_root / "scripts" / "validate_workstreams_authori
 _env = os.environ.copy()
 _env["PYTHONPATH"] = str(project_root / "src") + os.pathsep + _env.get("PYTHONPATH", "")
 
+
 @pytest.fixture(scope="module")
 def workstream_schema():
     """Loads the workstream JSON schema."""
     with open(WORKSTREAM_SCHEMA_PATH, "r", encoding="utf-8") as f:
         return json.load(f)
+
 
 @pytest.fixture(scope="module")
 def workstream_template_raw():
@@ -36,6 +38,7 @@ def workstream_template_raw():
         content = "".join(line for line in f if not line.strip().startswith("//"))
         return json.loads(content)
 
+
 @pytest.fixture
 def temp_workstream_dir(tmp_path):
     """Creates a temporary directory for workstream bundles."""
@@ -43,12 +46,15 @@ def temp_workstream_dir(tmp_path):
     temp_dir.mkdir()
     return temp_dir
 
+
 def create_bundle_file(directory: Path, filename: str, content: dict):
     """Helper to create a workstream bundle JSON file."""
     with open(directory / filename, "w", encoding="utf-8") as f:
         json.dump(content, f, indent=2)
 
+
 # --- Test Cases ---
+
 
 def test_template_validity(workstream_template_raw, workstream_schema):
     """
@@ -82,6 +88,7 @@ def test_template_validity(workstream_template_raw, workstream_schema):
     except bundles.BundleValidationError as e:
         pytest.fail(f"Workstream template is not valid against schema: {e}")
 
+
 def test_validator_success(temp_workstream_dir):
     """
     Test validate_workstreams_authoring.py with valid bundles.
@@ -93,7 +100,7 @@ def test_validator_success(temp_workstream_dir):
         "gate": 1,
         "files_scope": ["src/unique_file_for_ws1.py"],
         "tasks": ["Task 1"],
-        "tool": "aider"
+        "tool": "aider",
     }
     bundle2 = {
         "id": "ws-valid-bundle-2",
@@ -103,7 +110,7 @@ def test_validator_success(temp_workstream_dir):
         "files_scope": ["src/unique_file_for_ws2.py"],
         "tasks": ["Task 2"],
         "depends_on": ["ws-valid-bundle-1"],
-        "tool": "aider"
+        "tool": "aider",
     }
     create_bundle_file(temp_workstream_dir, "bundle1.json", bundle1)
     create_bundle_file(temp_workstream_dir, "bundle2.json", bundle2)
@@ -113,10 +120,13 @@ def test_validator_success(temp_workstream_dir):
         capture_output=True,
         text=True,
         check=False,
-        env=_env
+        env=_env,
     )
-    assert result.returncode == 0, f"Validator failed with exit code {result.returncode}. Stderr: {result.stderr}"
+    assert (
+        result.returncode == 0
+    ), f"Validator failed with exit code {result.returncode}. Stderr: {result.stderr}"
     assert "2 workstream bundles validated successfully." in result.stdout
+
 
 def test_validator_schema_failure(temp_workstream_dir):
     """
@@ -129,7 +139,7 @@ def test_validator_schema_failure(temp_workstream_dir):
         "gate": 1,
         "files_scope": ["src/file3.py"],
         "tasks": ["Task 3"],
-        "tool": "aider"
+        "tool": "aider",
     }
     create_bundle_file(temp_workstream_dir, "invalid_bundle.json", invalid_bundle)
 
@@ -138,11 +148,12 @@ def test_validator_schema_failure(temp_workstream_dir):
         capture_output=True,
         text=True,
         check=False,
-        env=_env
+        env=_env,
     )
     assert result.returncode != 0
     assert "Validation failed" in result.stderr
     assert "ccpm_issue" in result.stderr
+
 
 def test_validator_overlap_failure(temp_workstream_dir):
     """
@@ -155,7 +166,7 @@ def test_validator_overlap_failure(temp_workstream_dir):
         "gate": 1,
         "files_scope": ["src/shared_file.py", "src/file_a.py"],
         "tasks": ["Task A"],
-        "tool": "aider"
+        "tool": "aider",
     }
     bundle_b = {
         "id": "ws-overlap-b",
@@ -164,7 +175,7 @@ def test_validator_overlap_failure(temp_workstream_dir):
         "gate": 1,
         "files_scope": ["src/shared_file.py", "src/file_b.py"],
         "tasks": ["Task B"],
-        "tool": "aider"
+        "tool": "aider",
     }
     create_bundle_file(temp_workstream_dir, "bundle_a.json", bundle_a)
     create_bundle_file(temp_workstream_dir, "bundle_b.json", bundle_b)
@@ -174,12 +185,13 @@ def test_validator_overlap_failure(temp_workstream_dir):
         capture_output=True,
         text=True,
         check=False,
-        env=_env
+        env=_env,
     )
     assert result.returncode != 0
     assert "Validation failed" in result.stderr
     assert "File scope overlaps detected" in result.stderr
     assert "src/shared_file.py" in result.stderr
+
 
 def test_validator_json_mode(temp_workstream_dir):
     """
@@ -192,29 +204,38 @@ def test_validator_json_mode(temp_workstream_dir):
         "gate": 1,
         "files_scope": ["src/json_file.py"],
         "tasks": ["Task JSON"],
-        "tool": "aider"
+        "tool": "aider",
     }
     create_bundle_file(temp_workstream_dir, "json_invalid.json", invalid_bundle)
 
     result = subprocess.run(
-        [sys.executable, str(VALIDATOR_SCRIPT_PATH), "--dir", str(temp_workstream_dir), "--json"],
+        [
+            sys.executable,
+            str(VALIDATOR_SCRIPT_PATH),
+            "--dir",
+            str(temp_workstream_dir),
+            "--json",
+        ],
         capture_output=True,
         text=True,
         check=False,
-        env=_env
+        env=_env,
     )
     assert result.returncode != 0
 
     try:
-        output_json = json.loads(result.stdout) # Changed to stdout
+        output_json = json.loads(result.stdout)  # Changed to stdout
     except json.JSONDecodeError:
-        pytest.fail(f"Validator --json output is not valid JSON. Stdout: {result.stdout}. Stderr: {result.stderr}")
+        pytest.fail(
+            f"Validator --json output is not valid JSON. Stdout: {result.stdout}. Stderr: {result.stderr}"
+        )
 
     assert output_json["ok"] is False
-    assert output_json["bundles_checked"] == 1 # Expect 1 bundle checked
+    assert output_json["bundles_checked"] == 1  # Expect 1 bundle checked
     assert len(output_json["errors"]) > 0
     assert output_json["errors"][0]["type"] == "schema"
     assert "ccpm_issue" in output_json["errors"][0]["details"]
+
 
 def test_validator_json_mode_success(temp_workstream_dir):
     """
@@ -227,27 +248,36 @@ def test_validator_json_mode_success(temp_workstream_dir):
         "gate": 1,
         "files_scope": ["src/json_valid_file1.py"],
         "tasks": ["Task JSON Valid 1"],
-        "tool": "aider"
+        "tool": "aider",
     }
     create_bundle_file(temp_workstream_dir, "json_valid1.json", bundle1)
 
     result = subprocess.run(
-        [sys.executable, str(VALIDATOR_SCRIPT_PATH), "--dir", str(temp_workstream_dir), "--json"],
+        [
+            sys.executable,
+            str(VALIDATOR_SCRIPT_PATH),
+            "--dir",
+            str(temp_workstream_dir),
+            "--json",
+        ],
         capture_output=True,
         text=True,
         check=False,
-        env=_env
+        env=_env,
     )
     assert result.returncode == 0
 
     try:
         output_json = json.loads(result.stdout)
     except json.JSONDecodeError:
-        pytest.fail(f"Validator --json output is not valid JSON. Stdout: {result.stdout}. Stderr: {result.stderr}")
+        pytest.fail(
+            f"Validator --json output is not valid JSON. Stdout: {result.stdout}. Stderr: {result.stderr}"
+        )
 
     assert output_json["ok"] is True
     assert output_json["bundles_checked"] == 1
     assert len(output_json["errors"]) == 0
+
 
 def test_validator_dependency_failure(temp_workstream_dir):
     """
@@ -260,8 +290,8 @@ def test_validator_dependency_failure(temp_workstream_dir):
         "gate": 1,
         "files_scope": ["src/dep_file.py"],
         "tasks": ["Task Dep Missing"],
-        "depends_on": ["ws-non-existent-bundle"], # Missing dependency
-        "tool": "aider"
+        "depends_on": ["ws-non-existent-bundle"],  # Missing dependency
+        "tool": "aider",
     }
     create_bundle_file(temp_workstream_dir, "dep_missing.json", bundle_dep_missing)
 
@@ -270,12 +300,13 @@ def test_validator_dependency_failure(temp_workstream_dir):
         capture_output=True,
         text=True,
         check=False,
-        env=_env
+        env=_env,
     )
     assert result.returncode != 0
     assert "Validation failed" in result.stderr
     assert "Missing dependency references" in result.stderr
     assert "ws-non-existent-bundle" in result.stderr
+
 
 def test_validator_cycle_failure(temp_workstream_dir):
     """
@@ -289,7 +320,7 @@ def test_validator_cycle_failure(temp_workstream_dir):
         "files_scope": ["src/cycle_a.py"],
         "tasks": ["Task Cycle A"],
         "depends_on": ["ws-cycle-b"],
-        "tool": "aider"
+        "tool": "aider",
     }
     bundle_cycle_b = {
         "id": "ws-cycle-b",
@@ -299,7 +330,7 @@ def test_validator_cycle_failure(temp_workstream_dir):
         "files_scope": ["src/cycle_b.py"],
         "tasks": ["Task Cycle B"],
         "depends_on": ["ws-cycle-a"],
-        "tool": "aider"
+        "tool": "aider",
     }
     create_bundle_file(temp_workstream_dir, "cycle_a.json", bundle_cycle_a)
     create_bundle_file(temp_workstream_dir, "cycle_b.json", bundle_cycle_b)
@@ -309,7 +340,7 @@ def test_validator_cycle_failure(temp_workstream_dir):
         capture_output=True,
         text=True,
         check=False,
-        env=_env
+        env=_env,
     )
     assert result.returncode != 0
     assert "Validation failed" in result.stderr

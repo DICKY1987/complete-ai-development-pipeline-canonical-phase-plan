@@ -13,7 +13,8 @@ from core.engine.resilience import ResilientExecutor, CircuitBreakerOpen, RetryE
 
 class TestResilientExecutor:
     """Test ResilientExecutor functionality"""
-# DOC_ID: DOC-TEST-RESILIENCE-TEST-RESILIENT-EXECUTOR-188
+
+    # DOC_ID: DOC-TEST-RESILIENCE-TEST-RESILIENT-EXECUTOR-188
 
     def test_create_executor(self):
         """Test creating resilient executor"""
@@ -27,10 +28,7 @@ class TestResilientExecutor:
         executor = ResilientExecutor()
 
         executor.register_tool(
-            "test-tool",
-            failure_threshold=3,
-            recovery_timeout=60,
-            max_retries=5
+            "test-tool", failure_threshold=3, recovery_timeout=60, max_retries=5
         )
 
         assert "test-tool" in executor.circuit_breakers
@@ -65,26 +63,24 @@ class TestResilientExecutor:
         executor = ResilientExecutor()
         executor.register_tool("test-tool", max_retries=3)
 
-        call_count = {'count': 0}
+        call_count = {"count": 0}
 
         def fail_twice():
-            call_count['count'] += 1
-            if call_count['count'] < 3:
+            call_count["count"] += 1
+            if call_count["count"] < 3:
                 raise ValueError("fail")
             return "success"
 
         result = executor.execute("test-tool", fail_twice)
 
         assert result == "success"
-        assert call_count['count'] == 3
+        assert call_count["count"] == 3
 
     def test_circuit_opens_after_threshold(self):
         """Test circuit opens after failure threshold"""
         executor = ResilientExecutor()
         executor.register_tool(
-            "test-tool",
-            failure_threshold=2,
-            max_retries=1  # Fail fast
+            "test-tool", failure_threshold=2, max_retries=1  # Fail fast
         )
 
         def always_fail():
@@ -100,16 +96,12 @@ class TestResilientExecutor:
 
         # Circuit should now be open
         state = executor.get_tool_state("test-tool")
-        assert state['state'] == 'open'
+        assert state["state"] == "open"
 
     def test_circuit_blocks_when_open(self):
         """Test circuit blocks calls when open"""
         executor = ResilientExecutor()
-        executor.register_tool(
-            "test-tool",
-            failure_threshold=2,
-            max_retries=1
-        )
+        executor.register_tool("test-tool", failure_threshold=2, max_retries=1)
 
         def always_fail():
             raise ValueError("fail")
@@ -134,8 +126,8 @@ class TestResilientExecutor:
         state = executor.get_tool_state("test-tool")
 
         assert state is not None
-        assert state['name'] == "test-tool"
-        assert state['state'] == 'closed'
+        assert state["name"] == "test-tool"
+        assert state["state"] == "closed"
 
     def test_get_nonexistent_tool_state(self):
         """Test getting state for nonexistent tool"""
@@ -148,11 +140,7 @@ class TestResilientExecutor:
     def test_reset_tool(self):
         """Test manually resetting a tool"""
         executor = ResilientExecutor()
-        executor.register_tool(
-            "test-tool",
-            failure_threshold=1,
-            max_retries=1
-        )
+        executor.register_tool("test-tool", failure_threshold=1, max_retries=1)
 
         def always_fail():
             raise ValueError("fail")
@@ -161,12 +149,12 @@ class TestResilientExecutor:
         with pytest.raises(RetryExhausted):
             executor.execute("test-tool", always_fail)
 
-        assert executor.get_tool_state("test-tool")['state'] == 'open'
+        assert executor.get_tool_state("test-tool")["state"] == "open"
 
         # Reset
         executor.reset_tool("test-tool")
 
-        assert executor.get_tool_state("test-tool")['state'] == 'closed'
+        assert executor.get_tool_state("test-tool")["state"] == "closed"
 
     def test_get_all_states(self):
         """Test getting all tool states"""
@@ -194,10 +182,10 @@ class TestResilientExecutor:
             executor.execute("tool1", always_fail)
 
         # tool1 should be open
-        assert executor.get_tool_state("tool1")['state'] == 'open'
+        assert executor.get_tool_state("tool1")["state"] == "open"
 
         # tool2 should still be closed
-        assert executor.get_tool_state("tool2")['state'] == 'closed'
+        assert executor.get_tool_state("tool2")["state"] == "closed"
 
         # tool2 should still work
         result = executor.execute("tool2", lambda: "success")

@@ -9,8 +9,9 @@ import shutil
 
 class TestCCPMComponents:
     """Test CCPM component installation"""
-# DOC_ID: DOC-TEST-TESTS-TEST-CCPM-OPENSPEC-INTEGRATION-076
-# DOC_ID: DOC-TEST-TESTS-TEST-CCPM-OPENSPEC-INTEGRATION-037
+
+    # DOC_ID: DOC-TEST-TESTS-TEST-CCPM-OPENSPEC-INTEGRATION-076
+    # DOC_ID: DOC-TEST-TESTS-TEST-CCPM-OPENSPEC-INTEGRATION-037
 
     def test_agents_installed(self):
         """Verify all 4 CCPM agents are installed"""
@@ -21,7 +22,7 @@ class TestCCPMComponents:
             "code-analyzer.md",
             "file-analyzer.md",
             "parallel-worker.md",
-            "test-runner.md"
+            "test-runner.md",
         ]
 
         for agent in expected_agents:
@@ -36,13 +37,15 @@ class TestCCPMComponents:
         expected_scripts = [
             "test-and-log.sh",
             "check-path-standards.sh",
-            "fix-path-standards.sh"
+            "fix-path-standards.sh",
         ]
 
         for script in expected_scripts:
             script_path = scripts_dir / script
             assert script_path.exists(), f"Script {script} should be installed"
-            assert script_path.stat().st_size > 0, f"Script {script} should not be empty"
+            assert (
+                script_path.stat().st_size > 0
+            ), f"Script {script} should not be empty"
 
     def test_rules_installed(self):
         """Verify CCPM rules are installed"""
@@ -56,7 +59,7 @@ class TestCCPMComponents:
             "standard-patterns.md",
             "test-execution.md",
             "worktree-operations.md",
-            "github-operations.md"
+            "github-operations.md",
         ]
 
         for rule in expected_rules:
@@ -94,11 +97,12 @@ class TestPathStandardizerPlugin:
         plugin_path = Path("src/plugins/path_standardizer/plugin.py")
 
         import subprocess
+
         result = subprocess.run(
             ["python", str(plugin_path), "--help"],
             capture_output=True,
             text=True,
-            timeout=5
+            timeout=5,
         )
 
         # Plugin should handle --help gracefully or execute without error
@@ -113,7 +117,7 @@ class TestWorkflowDocumentation:
         doc_path = Path("docs/ccpm-openspec-workflow.md")
         assert doc_path.exists(), "Workflow documentation should exist"
 
-        with open(doc_path, encoding='utf-8') as f:
+        with open(doc_path, encoding="utf-8") as f:
             content = f.read()
 
         # Check for key sections
@@ -127,7 +131,7 @@ class TestWorkflowDocumentation:
         """Verify documentation covers all integration points"""
         doc_path = Path("docs/ccpm-openspec-workflow.md")
 
-        with open(doc_path, encoding='utf-8') as f:
+        with open(doc_path, encoding="utf-8") as f:
             content = f.read()
 
         # Verify all agents documented
@@ -153,7 +157,7 @@ class TestIntegrationReadiness:
             ".claude/rules",
             "scripts/test-and-log.sh",
             "src/plugins/path_standardizer",
-            "docs/ccpm-openspec-workflow.md"
+            "docs/ccpm-openspec-workflow.md",
         ]
 
         for component in components:
@@ -170,7 +174,7 @@ class TestIntegrationReadiness:
             "src/plugins",
             "src/pipeline",
             "docs",
-            "tests"
+            "tests",
         ]
 
         for directory in directories:

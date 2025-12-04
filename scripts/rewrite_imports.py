@@ -14,6 +14,7 @@ Features:
 - Dry-run mode for safety
 - Syntax validation after rewriting
 """
+
 # DOC_ID: DOC-SCRIPT-SCRIPTS-REWRITE-IMPORTS-226
 # DOC_ID: DOC-SCRIPT-SCRIPTS-REWRITE-IMPORTS-163
 
@@ -70,7 +71,7 @@ def load_inventory() -> dict:
     if not inventory_path.exists():
         raise FileNotFoundError("MODULES_INVENTORY.yaml not found")
 
-    return yaml.safe_load(inventory_path.read_text(encoding='utf-8'))
+    return yaml.safe_load(inventory_path.read_text(encoding="utf-8"))
 
 
 def build_conversion_map(inventory: dict) -> Dict[str, str]:
@@ -83,14 +84,14 @@ def build_conversion_map(inventory: dict) -> Dict[str, str]:
     """
     conversion_map = {}
 
-    for module in inventory['modules']:
-        module_id = module['id']
-        ulid_prefix = module['ulid_prefix']
-        source_dir = module['source_dir']
-        files = module.get('files', [])
+    for module in inventory["modules"]:
+        module_id = module["id"]
+        ulid_prefix = module["ulid_prefix"]
+        source_dir = module["source_dir"]
+        files = module.get("files", [])
 
         # Convert module_id to Python import format (replace - with _)
-        module_import_name = module_id.replace('-', '_')
+        module_import_name = module_id.replace("-", "_")
 
         # Map each file in the module
         for file_path in files:
@@ -101,7 +102,7 @@ def build_conversion_map(inventory: dict) -> Dict[str, str]:
             # Derive from source_dir
             source_parts = Path(source_dir).parts
             old_path_parts = list(source_parts) + [file_name_no_ext]
-            old_import_path = '.'.join(old_path_parts)
+            old_import_path = ".".join(old_path_parts)
 
             # New import path (e.g., modules.core_state.010003_db)
             new_file_name = f"{ulid_prefix}_{file_name_no_ext}"
@@ -113,14 +114,16 @@ def build_conversion_map(inventory: dict) -> Dict[str, str]:
         # e.g., 'core.state' -> 'modules.core_state'
         source_parts = Path(source_dir).parts
         if len(source_parts) > 0:
-            old_dir_import = '.'.join(source_parts)
+            old_dir_import = ".".join(source_parts)
             new_dir_import = f"modules.{module_import_name}"
             conversion_map[old_dir_import] = new_dir_import
 
     return conversion_map
 
 
-def rewrite_file(filepath: Path, conversion_map: Dict[str, str], dry_run: bool = True) -> Tuple[bool, List[Tuple[str, str]]]:
+def rewrite_file(
+    filepath: Path, conversion_map: Dict[str, str], dry_run: bool = True
+) -> Tuple[bool, List[Tuple[str, str]]]:
     """
     Rewrite imports in a single file.
 
@@ -128,7 +131,7 @@ def rewrite_file(filepath: Path, conversion_map: Dict[str, str], dry_run: bool =
         (success, changes_made)
     """
     try:
-        content = filepath.read_text(encoding='utf-8')
+        content = filepath.read_text(encoding="utf-8")
         tree = ast.parse(content, filename=str(filepath))
 
         # Apply transformations
@@ -145,15 +148,15 @@ def rewrite_file(filepath: Path, conversion_map: Dict[str, str], dry_run: bool =
         new_code = ast.unparse(new_tree)
 
         # Backup original
-        backup_path = filepath.with_suffix('.py.bak')
+        backup_path = filepath.with_suffix(".py.bak")
         shutil.copy2(filepath, backup_path)
 
         # Write new code
-        filepath.write_text(new_code, encoding='utf-8')
+        filepath.write_text(new_code, encoding="utf-8")
 
         # Validate syntax
         try:
-            compile(new_code, str(filepath), 'exec')
+            compile(new_code, str(filepath), "exec")
         except SyntaxError as e:
             # Restore from backup
             shutil.copy2(backup_path, filepath)
@@ -170,7 +173,9 @@ def rewrite_file(filepath: Path, conversion_map: Dict[str, str], dry_run: bool =
         return False, []
 
 
-def rewrite_modules(module_pattern: str, conversion_map: Dict[str, str], dry_run: bool = True):
+def rewrite_modules(
+    module_pattern: str, conversion_map: Dict[str, str], dry_run: bool = True
+):
     """Rewrite imports in modules matching pattern."""
     modules_dir = Path("modules")
 
@@ -178,7 +183,10 @@ def rewrite_modules(module_pattern: str, conversion_map: Dict[str, str], dry_run
         module_dirs = list(modules_dir.iterdir())
     else:
         import fnmatch
-        module_dirs = [d for d in modules_dir.iterdir() if fnmatch.fnmatch(d.name, module_pattern)]
+
+        module_dirs = [
+            d for d in modules_dir.iterdir() if fnmatch.fnmatch(d.name, module_pattern)
+        ]
 
     total_files = 0
     total_changes = 0
@@ -223,12 +231,20 @@ def rewrite_modules(module_pattern: str, conversion_map: Dict[str, str], dry_run
 
 def main():
     parser = argparse.ArgumentParser(description="Rewrite import statements")
-    parser.add_argument("--dry-run", action="store_true", default=True,
-                       help="Show what would be changed without modifying files")
-    parser.add_argument("--execute", action="store_true",
-                       help="Actually modify files (overrides --dry-run)")
-    parser.add_argument("--module", default="all",
-                       help="Module pattern to rewrite (default: all)")
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        default=True,
+        help="Show what would be changed without modifying files",
+    )
+    parser.add_argument(
+        "--execute",
+        action="store_true",
+        help="Actually modify files (overrides --dry-run)",
+    )
+    parser.add_argument(
+        "--module", default="all", help="Module pattern to rewrite (default: all)"
+    )
 
     args = parser.parse_args()
 
@@ -248,9 +264,7 @@ def main():
 
     # Rewrite imports
     files_changed, imports_changed, failures = rewrite_modules(
-        args.module,
-        conversion_map,
-        dry_run
+        args.module, conversion_map, dry_run
     )
 
     if dry_run:

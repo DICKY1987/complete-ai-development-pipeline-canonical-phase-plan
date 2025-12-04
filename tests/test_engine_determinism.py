@@ -26,4 +26,3 @@ def test_engine_skip_on_unchanged(tmp_path: Path) -> None:
 
     r2 = engine.process_file(f)
     assert r2.status == "skipped"
-

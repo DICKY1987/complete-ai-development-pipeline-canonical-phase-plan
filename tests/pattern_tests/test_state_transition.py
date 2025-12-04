@@ -1,4 +1,5 @@
 """Tests for state transition gap analysis."""
+
 from __future__ import annotations
 
 import sys
@@ -29,7 +30,8 @@ from error.patterns.types import (
 
 class TestStateDiagram:
     """Test StateDiagram class functionality."""
-# DOC_ID: DOC-TEST-PATTERN-TESTS-TEST-STATE-TRANSITION-133
+
+    # DOC_ID: DOC-TEST-PATTERN-TESTS-TEST-STATE-TRANSITION-133
 
     def test_get_missing_transitions_basic(self):
         """Find missing transitions in a simple state machine."""
@@ -69,10 +71,7 @@ class TestStateDiagram:
         missing = diagram.get_missing_transitions()
 
         # Should find no missing (excluding self-transitions)
-        missing_non_self = [
-            t for t in missing
-            if t.from_state != t.to_state
-        ]
+        missing_non_self = [t for t in missing if t.from_state != t.to_state]
         assert len(missing_non_self) == 0
 
 
@@ -81,7 +80,7 @@ class TestExtractStateMachine:
 
     def test_extract_state_constants(self):
         """Extract state constants from code."""
-        code = '''
+        code = """
 S_INIT = "S_INIT"
 S_RUNNING = "S_RUNNING"
 S_SUCCESS = "S_SUCCESS"
@@ -90,8 +89,8 @@ S_ERROR = "S_ERROR"
 def process(ctx):
     if ctx.state == S_INIT:
         ctx.state = S_RUNNING
-'''
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
+"""
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".py", delete=False) as f:
             f.write(code)
             f.flush()
 
@@ -104,11 +103,11 @@ def process(ctx):
 
     def test_detect_initial_state(self):
         """Detect initial state from constant name."""
-        code = '''
+        code = """
 S_INIT = "initial"
 S_DONE = "done"
-'''
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
+"""
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".py", delete=False) as f:
             f.write(code)
             f.flush()
 
@@ -119,13 +118,13 @@ S_DONE = "done"
 
     def test_detect_terminal_states(self):
         """Detect terminal states from constant names."""
-        code = '''
+        code = """
 S_INIT = "init"
 S_SUCCESS = "success"
 S_ERROR_FATAL = "error_fatal"
 S_QUARANTINE = "quarantine"
-'''
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
+"""
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".py", delete=False) as f:
             f.write(code)
             f.flush()
 
@@ -156,8 +155,7 @@ class TestAnalyzeStateGaps:
 
         # Should find D as unreachable
         unreachable_findings = [
-            f for f in findings
-            if "Unreachable state" in f.message and "D" in f.message
+            f for f in findings if "Unreachable state" in f.message and "D" in f.message
         ]
         assert len(unreachable_findings) > 0
 
@@ -177,10 +175,7 @@ class TestAnalyzeStateGaps:
         findings = analyze_state_gaps(diagram)
 
         # Should find B as dead-end
-        dead_end_findings = [
-            f for f in findings
-            if "Dead-end" in f.message
-        ]
+        dead_end_findings = [f for f in findings if "Dead-end" in f.message]
         # Note: Due to ordering, this test may find B
         assert len(dead_end_findings) >= 0
 
@@ -215,7 +210,7 @@ class TestScanFileForStateIssues:
 
     def test_scan_file_with_state_machine(self):
         """Scan file containing state machine."""
-        code = '''
+        code = """
 S_INIT = "S_INIT"
 S_RUNNING = "S_RUNNING"
 S_SUCCESS = "S_SUCCESS"
@@ -225,8 +220,8 @@ def advance(ctx):
         ctx.current_state = S_RUNNING
     elif ctx.current_state == S_RUNNING:
         ctx.current_state = S_SUCCESS
-'''
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
+"""
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".py", delete=False) as f:
             f.write(code)
             f.flush()
 
@@ -238,11 +233,11 @@ def advance(ctx):
 
     def test_scan_file_without_state_machine(self):
         """Scan file without state machine returns empty."""
-        code = '''
+        code = """
 def simple_function(x):
     return x * 2
-'''
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
+"""
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".py", delete=False) as f:
             f.write(code)
             f.flush()
 

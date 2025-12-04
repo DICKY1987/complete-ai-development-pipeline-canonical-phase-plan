@@ -1,6 +1,7 @@
 """
 Tests for markup/data plugins (YAML, Markdown, JSON).
 """
+
 # DOC_ID: DOC-TEST-PLUGINS-TEST-MARKUP-DATA-144
 from __future__ import annotations
 
@@ -12,14 +13,25 @@ import pytest
 
 # Try to import plugins - may fail if error shared modules not migrated
 try:
-    from phase6_error_recovery.modules.plugins.yaml_yamllint.src.yaml_yamllint.plugin import YamllintPlugin
-    from phase6_error_recovery.modules.plugins.md_mdformat_fix.src.md_mdformat_fix.plugin import MdformatFixPlugin
-    from phase6_error_recovery.modules.plugins.md_markdownlint.src.md_markdownlint.plugin import MarkdownlintPlugin
-    from phase6_error_recovery.modules.plugins.json_jq.src.json_jq.plugin import JsonJqPlugin
+    from phase6_error_recovery.modules.plugins.yaml_yamllint.src.yaml_yamllint.plugin import (
+        YamllintPlugin,
+    )
+    from phase6_error_recovery.modules.plugins.md_mdformat_fix.src.md_mdformat_fix.plugin import (
+        MdformatFixPlugin,
+    )
+    from phase6_error_recovery.modules.plugins.md_markdownlint.src.md_markdownlint.plugin import (
+        MarkdownlintPlugin,
+    )
+    from phase6_error_recovery.modules.plugins.json_jq.src.json_jq.plugin import (
+        JsonJqPlugin,
+    )
+
     PLUGINS_AVAILABLE = True
 except (ImportError, ModuleNotFoundError):
     PLUGINS_AVAILABLE = False
-    pytestmark = pytest.mark.skip(reason="Plugin modules require error shared modules not yet migrated")
+    pytestmark = pytest.mark.skip(
+        reason="Plugin modules require error shared modules not yet migrated"
+    )
 from tests.plugins.conftest import (
     assert_issue_valid,
     assert_plugin_result_valid,
@@ -36,20 +48,22 @@ test.yml:5:10: [warning] line too long (120 > 80 characters) (line-length)
 """
 
 # Sample markdownlint JSON output
-MARKDOWNLINT_SAMPLE_JSON = json.dumps({
-    "test.md": [
-        {
-            "lineNumber": 1,
-            "ruleNames": ["MD041", "first-line-heading"],
-            "ruleDescription": "First line in file should be a top level heading"
-        },
-        {
-            "lineNumber": 10,
-            "ruleNames": ["MD009", "no-trailing-spaces"],
-            "ruleDescription": "Trailing spaces"
-        }
-    ]
-})
+MARKDOWNLINT_SAMPLE_JSON = json.dumps(
+    {
+        "test.md": [
+            {
+                "lineNumber": 1,
+                "ruleNames": ["MD041", "first-line-heading"],
+                "ruleDescription": "First line in file should be a top level heading",
+            },
+            {
+                "lineNumber": 10,
+                "ruleNames": ["MD009", "no-trailing-spaces"],
+                "ruleDescription": "Trailing spaces",
+            },
+        ]
+    }
+)
 
 
 class TestYamllintPlugin:

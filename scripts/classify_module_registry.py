@@ -8,6 +8,7 @@ Output:
 - reports/module_classification_report.json summarizing inferred module_kind and
   module_id per section to guide registry backfill before moves.
 """
+
 # DOC_ID: DOC-SCRIPT-SCRIPTS-CLASSIFY-MODULE-REGISTRY-197
 # DOC_ID: DOC-SCRIPT-SCRIPTS-CLASSIFY-MODULE-REGISTRY-134
 
@@ -85,9 +86,9 @@ def match_module(section: str, modules: List[Dict]) -> Optional[Dict]:
             normalized_legacy = normalize(legacy).strip("/")
             if not normalized_legacy:
                 continue
-            if normalized_section.startswith(normalized_legacy) or normalized_legacy.startswith(
-                normalized_section
-            ):
+            if normalized_section.startswith(
+                normalized_legacy
+            ) or normalized_legacy.startswith(normalized_section):
                 return module
     return None
 

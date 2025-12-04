@@ -12,7 +12,8 @@ from core.engine.monitoring import ProgressTracker
 
 class TestProgressTracker:
     """Test ProgressTracker functionality"""
-# DOC_ID: DOC-TEST-MONITORING-TEST-PROGRESS-TRACKER-181
+
+    # DOC_ID: DOC-TEST-MONITORING-TEST-PROGRESS-TRACKER-181
 
     def test_create_tracker(self):
         """Test creating a progress tracker"""
@@ -126,7 +127,7 @@ class TestProgressTracker:
         snapshot = tracker.get_snapshot()
         d = snapshot.to_dict()
 
-        assert d['run_id'] == "run-123"
-        assert d['total_tasks'] == 5
-        assert d['completed_tasks'] == 1
-        assert 'timestamp' in d
+        assert d["run_id"] == "run-123"
+        assert d["total_tasks"] == 5
+        assert d["completed_tasks"] == 1
+        assert "timestamp" in d

@@ -28,8 +28,9 @@ def test_dependency_ordering_within_target_set():
         if kind == "start" and ws not in first_start:
             first_start[ws] = len(first_start)
 
-    assert first_start["ws-core-lib"] < first_start["ws-api-layer"] < first_start["ws-cli"]
+    assert (
+        first_start["ws-core-lib"] < first_start["ws-api-layer"] < first_start["ws-cli"]
+    )
     # All should complete successfully
     status = {r.ws_id: r.final_status for r in res}
     assert status["ws-core-lib"] == status["ws-api-layer"] == status["ws-cli"] == "done"
-

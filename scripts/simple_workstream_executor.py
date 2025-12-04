@@ -15,14 +15,11 @@ from typing import Dict, List
 
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s [%(levelname)s] %(message)s',
-    handlers=[
-        logging.FileHandler('logs/simple_executor.log'),
-        logging.StreamHandler()
-    ]
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    handlers=[logging.FileHandler("logs/simple_executor.log"), logging.StreamHandler()],
 )
 
-logger = logging.getLogger('simple_executor')
+logger = logging.getLogger("simple_executor")
 
 
 class SimpleWorkstreamExecutor:
@@ -66,10 +63,10 @@ class SimpleWorkstreamExecutor:
         ws_id = workstream["id"]
         title = workstream.get("title", ws_id)
 
-        print("\n" + "="*70)
+        print("\n" + "=" * 70)
         print(f"📋 Workstream: {ws_id}")
         print(f"📝 Title: {title}")
-        print("="*70)
+        print("=" * 70)
 
         # Get execution details
         tool = workstream.get("tool", "manual")
@@ -95,14 +92,14 @@ class SimpleWorkstreamExecutor:
                 print(f"   ... and {len(files_scope) - 5} more")
 
         # Execution options
-        print("\n" + "-"*70)
+        print("\n" + "-" * 70)
         print("Choose execution method:")
         print("  1. Execute with Aider (automated)")
         print("  2. Open files in editor (manual)")
         print("  3. Skip this workstream")
         print("  4. Mark as completed (already done)")
         print("  q. Quit executor")
-        print("-"*70)
+        print("-" * 70)
 
         while True:
             choice = input("\nYour choice [1/2/3/4/q]: ").strip().lower()
@@ -139,7 +136,9 @@ class SimpleWorkstreamExecutor:
 
         # Add message with tasks
         if tasks:
-            message = f"Workstream {ws_id}:\n" + "\n".join(f"{i+1}. {t}" for i, t in enumerate(tasks))
+            message = f"Workstream {ws_id}:\n" + "\n".join(
+                f"{i+1}. {t}" for i, t in enumerate(tasks)
+            )
             cmd.extend(["--message", message])
             cmd.append("--yes")  # Auto-approve
 
@@ -148,9 +147,7 @@ class SimpleWorkstreamExecutor:
 
         try:
             result = subprocess.run(
-                cmd,
-                cwd=Path.cwd(),
-                timeout=1800  # 30 minute timeout
+                cmd, cwd=Path.cwd(), timeout=1800  # 30 minute timeout
             )
 
             success = result.returncode == 0
@@ -200,7 +197,7 @@ class SimpleWorkstreamExecutor:
         if len(files) > 5:
             print(f"\n⚠️ {len(files) - 5} more files not opened")
 
-        print("\n" + "-"*70)
+        print("\n" + "-" * 70)
         input("Press Enter when you've completed the manual edits...")
 
         # Ask if completed
@@ -223,9 +220,9 @@ class SimpleWorkstreamExecutor:
 
     def run(self):
         """Main execution loop"""
-        print("\n" + "="*70)
+        print("\n" + "=" * 70)
         print("🚀 Simple Workstream Executor")
-        print("="*70)
+        print("=" * 70)
 
         # Load workstreams
         print("\n📂 Loading workstreams...")
@@ -250,7 +247,9 @@ class SimpleWorkstreamExecutor:
             iteration += 1
 
             print(f"\n{'='*70}")
-            print(f"🔄 Iteration {iteration} | Completed: {len(completed)}/{total} | Skipped: {len(skipped)}")
+            print(
+                f"🔄 Iteration {iteration} | Completed: {len(completed)}/{total} | Skipped: {len(skipped)}"
+            )
             print(f"{'='*70}\n")
 
             # Find ready workstreams
@@ -273,24 +272,30 @@ class SimpleWorkstreamExecutor:
 
                 if success:
                     completed.add(ws_id)
-                    self.results.append({
-                        "workstream_id": ws_id,
-                        "status": "completed",
-                        "iteration": iteration
-                    })
+                    self.results.append(
+                        {
+                            "workstream_id": ws_id,
+                            "status": "completed",
+                            "iteration": iteration,
+                        }
+                    )
                 else:
                     skipped.add(ws_id)
-                    self.results.append({
-                        "workstream_id": ws_id,
-                        "status": "skipped",
-                        "iteration": iteration
-                    })
+                    self.results.append(
+                        {
+                            "workstream_id": ws_id,
+                            "status": "skipped",
+                            "iteration": iteration,
+                        }
+                    )
 
                 break  # One at a time
 
             if not executed_this_round:
                 print("\n⚠️ No workstreams ready to execute")
-                print("This might indicate circular dependencies or missing workstreams")
+                print(
+                    "This might indicate circular dependencies or missing workstreams"
+                )
                 break
 
         # Final report
@@ -298,9 +303,9 @@ class SimpleWorkstreamExecutor:
 
     def print_summary(self, completed: set, skipped: set, total: int):
         """Print execution summary"""
-        print("\n" + "="*70)
+        print("\n" + "=" * 70)
         print("📊 EXECUTION SUMMARY")
-        print("="*70)
+        print("=" * 70)
         print(f"\n✅ Completed: {len(completed)}/{total}")
         print(f"⏭️  Skipped: {len(skipped)}/{total}")
         print(f"⏸️  Remaining: {total - len(completed) - len(skipped)}/{total}")
@@ -320,15 +325,19 @@ class SimpleWorkstreamExecutor:
         results_file.parent.mkdir(parents=True, exist_ok=True)
 
         with open(results_file, "w") as f:
-            json.dump({
-                "completed": list(completed),
-                "skipped": list(skipped),
-                "total": total,
-                "results": self.results
-            }, f, indent=2)
+            json.dump(
+                {
+                    "completed": list(completed),
+                    "skipped": list(skipped),
+                    "total": total,
+                    "results": self.results,
+                },
+                f,
+                indent=2,
+            )
 
         print(f"\n💾 Results saved to: {results_file}")
-        print("\n" + "="*70)
+        print("\n" + "=" * 70)
 
 
 def main():

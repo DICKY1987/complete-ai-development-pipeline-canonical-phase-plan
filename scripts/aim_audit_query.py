@@ -32,7 +32,7 @@ def load_audit_logs(
     audit_dir: Path,
     tool_filter: str = None,
     capability_filter: str = None,
-    since_date: str = None
+    since_date: str = None,
 ):
     """Load and filter audit logs from AIM_audit directory.
 
@@ -124,10 +124,7 @@ def print_text_format(entries):
 
 def print_json_format(entries):
     """Print audit log entries in JSON format."""
-    output = {
-        "count": len(entries),
-        "entries": entries
-    }
+    output = {"count": len(entries), "entries": entries}
     print(json.dumps(output, indent=2))
 
 
@@ -148,7 +145,7 @@ def print_csv_format(entries):
             "tool_id": entry.get("tool_id", ""),
             "capability": entry.get("capability", ""),
             "success": entry.get("result", {}).get("success", False),
-            "message": entry.get("result", {}).get("message", "")
+            "message": entry.get("result", {}).get("message", ""),
         }
         writer.writerow(row)
 
@@ -157,30 +154,24 @@ def main():
     """Main entry point."""
     parser = argparse.ArgumentParser(
         description="Query AIM audit logs",
-        formatter_class=argparse.RawDescriptionHelpFormatter
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
+
+    parser.add_argument("--tool", help="Filter by tool ID (e.g., 'aider')")
+
+    parser.add_argument(
+        "--capability", help="Filter by capability (e.g., 'code_generation')"
     )
 
     parser.add_argument(
-        "--tool",
-        help="Filter by tool ID (e.g., 'aider')"
-    )
-
-    parser.add_argument(
-        "--capability",
-        help="Filter by capability (e.g., 'code_generation')"
-    )
-
-    parser.add_argument(
-        "--since",
-        metavar="YYYY-MM-DD",
-        help="Filter by date (inclusive)"
+        "--since", metavar="YYYY-MM-DD", help="Filter by date (inclusive)"
     )
 
     parser.add_argument(
         "--format",
         choices=["text", "json", "csv"],
         default="text",
-        help="Output format (default: text)"
+        help="Output format (default: text)",
     )
 
     args = parser.parse_args()
@@ -199,7 +190,7 @@ def main():
         audit_dir,
         tool_filter=args.tool,
         capability_filter=args.capability,
-        since_date=args.since
+        since_date=args.since,
     )
 
     # Print in requested format

@@ -10,6 +10,7 @@ Usage:
     python scripts/fix_ulid_imports.py --dry-run
     python scripts/fix_ulid_imports.py --execute
 """
+
 # DOC_ID: DOC-SCRIPT-SCRIPTS-FIX-ULID-IMPORTS-209
 # DOC_ID: DOC-SCRIPT-SCRIPTS-FIX-ULID-IMPORTS-146
 
@@ -30,13 +31,13 @@ def fix_ulid_imports_in_file(filepath: Path, dry_run: bool = True) -> int:
     Returns: Number of fixes made
     """
     try:
-        content = filepath.read_text(encoding='utf-8')
+        content = filepath.read_text(encoding="utf-8")
         original_content = content
 
         # Pattern: from modules.module_name.ULID_filename import
         # Match: from modules.(\w+)\.0[0-9A-F]{5}_\w+ import
         pattern = re.compile(
-            r'\bfrom\s+modules\.(\w+)\.0[0-9A-Fa-f]{5,6}_\w+\s+import\b'
+            r"\bfrom\s+modules\.(\w+)\.0[0-9A-Fa-f]{5,6}_\w+\s+import\b"
         )
 
         def replacement(match):
@@ -52,11 +53,11 @@ def fix_ulid_imports_in_file(filepath: Path, dry_run: bool = True) -> int:
             return count
 
         # Backup
-        backup_path = filepath.with_suffix('.py.bak2')
+        backup_path = filepath.with_suffix(".py.bak2")
         shutil.copy2(filepath, backup_path)
 
         # Write fixed content
-        filepath.write_text(new_content, encoding='utf-8')
+        filepath.write_text(new_content, encoding="utf-8")
 
         # Remove backup
         backup_path.unlink()
@@ -80,7 +81,7 @@ def fix_all_modules(dry_run: bool = True):
             continue
 
         # Process all Python files except __init__.py
-        py_files = [f for f in module_dir.glob("*.py") if f.name != '__init__.py']
+        py_files = [f for f in module_dir.glob("*.py") if f.name != "__init__.py"]
 
         module_had_fixes = False
 

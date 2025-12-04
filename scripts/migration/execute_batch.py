@@ -5,6 +5,7 @@ By default this runs in dry-run mode and only reports what would be staged.
 Use --apply to copy source files into the staging area under
 .migration/stage/<batch_id>/ without touching originals.
 """
+
 # DOC_ID: DOC-SCRIPT-MIGRATION-EXECUTE-BATCH-338
 
 import argparse
@@ -73,7 +74,9 @@ def main() -> None:
     parser = argparse.ArgumentParser(
         description="Execute a migration batch (staged copy only; originals untouched)."
     )
-    parser.add_argument("batch_id", help="Batch ID from migration_plan.yaml (e.g., WS-005)")
+    parser.add_argument(
+        "batch_id", help="Batch ID from migration_plan.yaml (e.g., WS-005)"
+    )
     parser.add_argument(
         "--apply",
         action="store_true",
@@ -93,7 +96,9 @@ def main() -> None:
 
     if result["staged"]:
         action_word = "Staged" if args.apply else "Would stage"
-        print(f"\n{action_word} {len(result['staged'])} file(s) to {STAGE_DIR / args.batch_id}")
+        print(
+            f"\n{action_word} {len(result['staged'])} file(s) to {STAGE_DIR / args.batch_id}"
+        )
         for item in result["staged"]:
             print(f" - {item['source']} -> {item['staged_to']}")
     else:

@@ -1,4 +1,5 @@
 """Tests for the main pattern analyzer."""
+
 from __future__ import annotations
 
 import sys
@@ -29,7 +30,8 @@ from error.patterns.pattern_analyzer import (
 
 class TestPatternAnalyzer:
     """Test the main PatternAnalyzer class."""
-# DOC_ID: DOC-TEST-PATTERN-TESTS-TEST-PATTERN-ANALYZER-132
+
+    # DOC_ID: DOC-TEST-PATTERN-TESTS-TEST-PATTERN-ANALYZER-132
 
     def test_init_default_categories(self):
         """Initialize with default categories."""
@@ -41,18 +43,14 @@ class TestPatternAnalyzer:
 
     def test_init_custom_categories(self):
         """Initialize with custom categories."""
-        analyzer = PatternAnalyzer(
-            categories=[PatternCategory.BOUNDARY_VALUE]
-        )
+        analyzer = PatternAnalyzer(categories=[PatternCategory.BOUNDARY_VALUE])
 
         assert len(analyzer._categories) == 1
         assert PatternCategory.BOUNDARY_VALUE in analyzer._categories
 
     def test_init_severity_threshold(self):
         """Initialize with severity threshold."""
-        analyzer = PatternAnalyzer(
-            severity_threshold=PatternSeverity.MAJOR
-        )
+        analyzer = PatternAnalyzer(severity_threshold=PatternSeverity.MAJOR)
 
         assert analyzer._severity_threshold == PatternSeverity.MAJOR
 
@@ -62,11 +60,11 @@ class TestAnalyzeFile:
 
     def test_analyze_file_returns_result(self):
         """Analyze file returns PatternResult."""
-        code = '''
+        code = """
 def process(x):
     return x * 2
-'''
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
+"""
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".py", delete=False) as f:
             f.write(code)
             f.flush()
 
@@ -79,18 +77,17 @@ def process(x):
 
     def test_analyze_file_with_specific_categories(self):
         """Analyze file with specific categories."""
-        code = '''
+        code = """
 def process(x):
     return x * 2
-'''
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
+"""
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".py", delete=False) as f:
             f.write(code)
             f.flush()
 
             analyzer = PatternAnalyzer()
             result = analyzer.analyze_file(
-                Path(f.name),
-                categories=[PatternCategory.BOUNDARY_VALUE]
+                Path(f.name), categories=[PatternCategory.BOUNDARY_VALUE]
             )
 
             assert PatternCategory.BOUNDARY_VALUE in result.patterns_checked
@@ -98,11 +95,11 @@ def process(x):
 
     def test_analyze_file_filters_by_severity(self):
         """Findings are filtered by severity threshold."""
-        code = '''
+        code = """
 def process(x):
     return x * 2
-'''
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
+"""
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".py", delete=False) as f:
             f.write(code)
             f.flush()
 
@@ -112,9 +109,7 @@ def process(x):
             )
             result_critical = analyzer_critical.analyze_file(Path(f.name))
 
-            analyzer_info = PatternAnalyzer(
-                severity_threshold=PatternSeverity.INFO
-            )
+            analyzer_info = PatternAnalyzer(severity_threshold=PatternSeverity.INFO)
             result_info = analyzer_info.analyze_file(Path(f.name))
 
             # Critical should have <= findings than INFO
@@ -228,11 +223,11 @@ class TestGenerateChecklist:
 
     def test_generate_checklist_has_items(self):
         """Generated checklist has items."""
-        code = '''
+        code = """
 def process(x):
     return x * 2
-'''
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
+"""
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".py", delete=False) as f:
             f.write(code)
             f.flush()
 
@@ -244,11 +239,11 @@ def process(x):
 
     def test_checklist_categories_match_default(self):
         """Checklist categories match default categories."""
-        code = '''
+        code = """
 def process(x):
     return x * 2
-'''
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
+"""
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".py", delete=False) as f:
             f.write(code)
             f.flush()
 
@@ -262,11 +257,11 @@ def process(x):
 
     def test_checklist_pass_rate(self):
         """Checklist computes pass rate."""
-        code = '''
+        code = """
 def process(x):
     return x * 2
-'''
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
+"""
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".py", delete=False) as f:
             f.write(code)
             f.flush()
 
@@ -282,11 +277,11 @@ class TestGenerateTestMatrix:
 
     def test_generate_matrix_structure(self):
         """Generated matrix has correct structure."""
-        code = '''
+        code = """
 def process(x):
     return x * 2
-'''
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
+"""
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".py", delete=False) as f:
             f.write(code)
             f.flush()
 
@@ -303,11 +298,11 @@ class TestConvenienceFunctions:
 
     def test_analyze_module_function(self):
         """analyze_module convenience function works."""
-        code = '''
+        code = """
 def process(x):
     return x * 2
-'''
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
+"""
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".py", delete=False) as f:
             f.write(code)
             f.flush()
 
@@ -317,11 +312,11 @@ def process(x):
 
     def test_generate_gap_report_function(self):
         """generate_gap_report convenience function works."""
-        code = '''
+        code = """
 def process(x):
     return x * 2
-'''
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
+"""
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".py", delete=False) as f:
             f.write(code)
             f.flush()
 

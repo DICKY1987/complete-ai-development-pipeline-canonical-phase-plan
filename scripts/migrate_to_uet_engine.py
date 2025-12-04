@@ -24,7 +24,9 @@ import subprocess
 import sys
 
 PROJECT_ROOT = Path(__file__).parent.parent
-UET_ENGINE = PROJECT_ROOT / "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK" / "core" / "engine"
+UET_ENGINE = (
+    PROJECT_ROOT / "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK" / "core" / "engine"
+)
 OLD_CORE_ENGINE = PROJECT_ROOT / "core" / "engine"
 ROOT_ENGINE = PROJECT_ROOT / "engine"
 NEW_CORE_ENGINE = PROJECT_ROOT / "core" / "engine"
@@ -36,7 +38,9 @@ class UETEngineMigration:
     def __init__(self, dry_run: bool = True):
         self.dry_run = dry_run
         self.timestamp = datetime.now().strftime("%Y-%m-%d_%H%M%S")
-        self.archive_dir = PROJECT_ROOT / "archive" / f"{self.timestamp}_engine-consolidation"
+        self.archive_dir = (
+            PROJECT_ROOT / "archive" / f"{self.timestamp}_engine-consolidation"
+        )
         self.changes: List[Tuple[str, str]] = []
         self.errors: List[str] = []
 
@@ -60,10 +64,17 @@ class UETEngineMigration:
         if not self.dry_run:
             try:
                 subprocess.run(
-                    ["git", "tag", "-a", tag, "-m", "Backup before UET engine migration"],
+                    [
+                        "git",
+                        "tag",
+                        "-a",
+                        tag,
+                        "-m",
+                        "Backup before UET engine migration",
+                    ],
                     cwd=PROJECT_ROOT,
                     check=True,
-                    capture_output=True
+                    capture_output=True,
                 )
                 self.log(f"✅ Git tag created: {tag}")
                 return True
@@ -125,15 +136,10 @@ class UETEngineMigration:
         """Define import mapping patterns"""
         return {
             # UET imports → core.engine
-            r'from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\.core\.engine\.([a-zA-Z0-9_\.]+) import':
-                r'from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine.\1 import',
-            r'from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\.core\.engine import':
-                r'from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine import',
-            r'import UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\.core\.engine\.([a-zA-Z0-9_\.]+)':
-                r'import UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine.\1',
-            r'import UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\.core\.engine':
-                r'import UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine',
-
+            r"from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\.core\.engine\.([a-zA-Z0-9_\.]+) import": r"from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine.\1 import",
+            r"from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\.core\.engine import": r"from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine import",
+            r"import UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\.core\.engine\.([a-zA-Z0-9_\.]+)": r"import UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine.\1",
+            r"import UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK\.core\.engine": r"import UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine",
             # Root engine imports → core.engine (for compatible features)
             # Note: Not all root engine features have UET equivalents
             # These will need manual review
@@ -142,7 +148,7 @@ class UETEngineMigration:
     def update_file_imports(self, file_path: Path) -> bool:
         """Update imports in a single file"""
         try:
-            content = file_path.read_text(encoding='utf-8')
+            content = file_path.read_text(encoding="utf-8")
             original_content = content
 
             mappings = self.get_import_mappings()
@@ -155,7 +161,7 @@ class UETEngineMigration:
                 self.log(f"  Updated imports: {file_path.relative_to(PROJECT_ROOT)}")
 
                 if not self.dry_run:
-                    file_path.write_text(content, encoding='utf-8')
+                    file_path.write_text(content, encoding="utf-8")
 
             return True
 
@@ -171,11 +177,14 @@ class UETEngineMigration:
 
         # Scan all Python files except archive, __pycache__, .venv
         for py_file in PROJECT_ROOT.rglob("*.py"):
-            if any(exclude in py_file.parts for exclude in ["archive", "__pycache__", ".venv", ".pytest_cache"]):
+            if any(
+                exclude in py_file.parts
+                for exclude in ["archive", "__pycache__", ".venv", ".pytest_cache"]
+            ):
                 continue
 
             try:
-                content = py_file.read_text(encoding='utf-8')
+                content = py_file.read_text(encoding="utf-8")
                 if "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine" in content:
                     files_to_update.append(py_file)
             except Exception:
@@ -202,13 +211,13 @@ class UETEngineMigration:
 
         for shim_file in modules_dir.glob("m010001_*.py"):
             try:
-                content = shim_file.read_text(encoding='utf-8')
+                content = shim_file.read_text(encoding="utf-8")
                 original = content
 
                 # Change UET imports to core.engine
                 content = content.replace(
                     "from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine.",
-                    "from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine."
+                    "from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine.",
                 )
 
                 if content != original:
@@ -216,7 +225,7 @@ class UETEngineMigration:
                     self.log(f"  Updated shim: {shim_file.name}")
 
                     if not self.dry_run:
-                        shim_file.write_text(content, encoding='utf-8')
+                        shim_file.write_text(content, encoding="utf-8")
 
             except Exception as e:
                 self.error(f"Failed to update shim {shim_file}: {e}")
@@ -265,14 +274,16 @@ __all__ = ['Orchestrator', 'Executor']
         if not self.dry_run:
             if ROOT_ENGINE.exists():
                 # Read existing __init__.py
-                existing = shim_path.read_text(encoding='utf-8') if shim_path.exists() else ""
+                existing = (
+                    shim_path.read_text(encoding="utf-8") if shim_path.exists() else ""
+                )
                 # Backup existing
                 backup_path = self.archive_dir / "root-engine-init-backup.py"
                 backup_path.parent.mkdir(parents=True, exist_ok=True)
-                backup_path.write_text(existing, encoding='utf-8')
+                backup_path.write_text(existing, encoding="utf-8")
 
                 # Write new shim
-                shim_path.write_text(shim_content, encoding='utf-8')
+                shim_path.write_text(shim_content, encoding="utf-8")
                 self.log(f"✅ Created compatibility shim (old __init__.py backed up)")
 
         return True
@@ -294,7 +305,7 @@ __all__ = ['Orchestrator', 'Executor']
                 "executor.py",
                 "scheduler.py",
                 "resilience",
-                "monitoring"
+                "monitoring",
             ]
 
             for expected in expected_files:
@@ -308,17 +319,22 @@ __all__ = ['Orchestrator', 'Executor']
         # Check for remaining UET imports
         remaining = []
         for py_file in PROJECT_ROOT.rglob("*.py"):
-            if any(exclude in py_file.parts for exclude in ["archive", "__pycache__", ".venv"]):
+            if any(
+                exclude in py_file.parts
+                for exclude in ["archive", "__pycache__", ".venv"]
+            ):
                 continue
             try:
-                content = py_file.read_text(encoding='utf-8')
+                content = py_file.read_text(encoding="utf-8")
                 if "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.engine" in content:
                     remaining.append(py_file)
             except Exception:
                 continue
 
         if remaining:
-            self.log(f"⚠️  {len(remaining)} files still have UET imports (may need manual review)")
+            self.log(
+                f"⚠️  {len(remaining)} files still have UET imports (may need manual review)"
+            )
             for f in remaining[:5]:  # Show first 5
                 self.log(f"    - {f.relative_to(PROJECT_ROOT)}")
         else:
@@ -343,7 +359,10 @@ __all__ = ['Orchestrator', 'Executor']
             ("Move UET engine to core/", self.move_uet_engine_to_core),
             ("Update imports to core.engine", self.update_all_imports),
             ("Update module shims", self.update_module_shims),
-            ("Create engine/ compatibility shim", self.create_engine_compatibility_shim),
+            (
+                "Create engine/ compatibility shim",
+                self.create_engine_compatibility_shim,
+            ),
             ("Verify migration", self.verify_migration),
         ]
 
@@ -390,7 +409,7 @@ def main():
     parser.add_argument(
         "--execute",
         action="store_true",
-        help="Execute the migration (default is dry-run)"
+        help="Execute the migration (default is dry-run)",
     )
 
     args = parser.parse_args()

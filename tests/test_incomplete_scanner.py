@@ -1,7 +1,8 @@
 """
 Test suite for incomplete implementation scanner.
 """
-DOC_ID: DOC-TEST-TESTS-TEST-INCOMPLETE-SCANNER-346
+
+DOC_ID: DOC - TEST - TESTS - TEST - INCOMPLETE - SCANNER - 346
 
 # DOC_ID: DOC-TEST-INCOMPLETE-SCANNER
 
@@ -294,7 +295,12 @@ class TestWhitelistMechanism:
         )
         allowlist = AllowlistConfig(path_patterns=["docs/examples/**/*"])
 
-        severity, _ = calculate_severity(finding, Path("."), allowlist, {"docs/examples/demo.py": finding.body_preview})
+        severity, _ = calculate_severity(
+            finding,
+            Path("."),
+            allowlist,
+            {"docs/examples/demo.py": finding.body_preview},
+        )
 
         assert severity == "allowed_stub"
 

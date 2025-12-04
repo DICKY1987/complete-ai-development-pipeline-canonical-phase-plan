@@ -1,6 +1,7 @@
 """
 Tests for AST parser core functionality.
 """
+
 # DOC_ID: DOC-TEST-SYNTAX-ANALYSIS-TEST-PARSER-152
 
 import pytest
@@ -142,9 +143,9 @@ class TestASTParserErrors:
 
         # Check error structure
         error = errors[0]
-        assert 'type' in error
-        assert 'start_point' in error
-        assert 'end_point' in error
+        assert "type" in error
+        assert "start_point" in error
+        assert "end_point" in error
 
     def test_get_error_nodes_empty(self):
         """Test get_error_nodes returns empty list for valid code."""

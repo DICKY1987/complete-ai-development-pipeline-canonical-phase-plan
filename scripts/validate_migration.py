@@ -3,6 +3,7 @@ Migration Validation Script
 Ground truth verification gates
 Pattern: Zero hallucination debugging
 """
+
 # DOC_ID: DOC-SCRIPT-SCRIPTS-VALIDATE-MIGRATION-241
 # DOC_ID: DOC-SCRIPT-SCRIPTS-VALIDATE-MIGRATION-178
 
@@ -10,6 +11,7 @@ import subprocess
 import sys
 from pathlib import Path
 import yaml
+
 
 def validate_modules_created() -> tuple:
     """Gate 1: All modules exist."""
@@ -19,10 +21,10 @@ def validate_modules_created() -> tuple:
     if not inventory_path.exists():
         return ("modules_created", False, "MODULES_INVENTORY.yaml not found")
 
-    with inventory_path.open('r', encoding='utf-8') as f:
+    with inventory_path.open("r", encoding="utf-8") as f:
         inventory = yaml.safe_load(f)
 
-    expected_count = inventory['metadata']['total_modules']
+    expected_count = inventory["metadata"]["total_modules"]
 
     modules_dir = Path("modules")
     if not modules_dir.exists():
@@ -35,6 +37,7 @@ def validate_modules_created() -> tuple:
     msg = f"{actual_count}/{expected_count} modules"
 
     return ("modules_created", passed, msg)
+
 
 def validate_imports_resolve() -> tuple:
     """Gate 2: All imports resolve."""
@@ -53,7 +56,7 @@ def validate_imports_resolve() -> tuple:
         result = subprocess.run(
             [sys.executable, "-m", "py_compile", str(py_file)],
             capture_output=True,
-            text=True
+            text=True,
         )
         if result.returncode != 0:
             errors.append(f"{py_file.name}: {result.stderr[:100]}")
@@ -65,6 +68,7 @@ def validate_imports_resolve() -> tuple:
         msg += f" (errors: {', '.join(errors)})"
 
     return ("imports_resolve", passed, msg)
+
 
 def validate_tests_exist() -> tuple:
     """Gate 3: Tests exist."""
@@ -79,6 +83,7 @@ def validate_tests_exist() -> tuple:
     msg = f"{len(test_files)} test files"
 
     return ("tests_exist", passed, msg)
+
 
 def validate_no_orphans() -> tuple:
     """Gate 4: No orphaned files."""
@@ -98,6 +103,7 @@ def validate_no_orphans() -> tuple:
     msg = f"{len(orphans)} orphaned files" if orphans else "No orphans"
 
     return ("no_orphans", passed, msg)
+
 
 def validate_migration():
     """Multi-gate validation."""
@@ -135,6 +141,7 @@ def validate_migration():
         print(f"\n{passed_count}/{total_count} gates passed")
         print("\nRecommendation: Fix failing gates before merging")
         return 1
+
 
 if __name__ == "__main__":
     sys.exit(validate_migration())

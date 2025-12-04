@@ -2,6 +2,7 @@
 Patch Converter - Convert Tool Outputs to Unified Diff Format
 Standardizes patches from different tools (aider, custom tools)
 """
+
 # DOC_ID: DOC-CORE-ENGINE-PATCH-CONVERTER-152
 
 from typing import Dict, Any
@@ -13,6 +14,7 @@ from datetime import datetime, UTC
 @dataclass
 class UnifiedPatch:
     """Unified patch format."""
+
     patch_id: str
     workstream_id: str
     content: str
@@ -33,22 +35,21 @@ class PatchConverter:
         patch_id = f"patch-{datetime.now(UTC).strftime('%Y%m%d-%H%M%S')}-{self.patch_count:04d}"
 
         # Extract git diff from aider output
-        content = tool_result.get('output', '')
+        content = tool_result.get("output", "")
         git_diff = self.extract_git_diff(content)
 
         return UnifiedPatch(
             patch_id=patch_id,
-            workstream_id=tool_result.get('workstream_id', 'unknown'),
+            workstream_id=tool_result.get("workstream_id", "unknown"),
             content=git_diff,
-            status='created',
+            status="created",
             created_at=datetime.now(UTC).isoformat(),
-            metadata={
-                'tool': 'aider',
-                'original_output_length': len(content)
-            }
+            metadata={"tool": "aider", "original_output_length": len(content)},
         )
 
-    def convert_tool_patch(self, tool_id: str, output: str, workstream_id: str = 'unknown') -> UnifiedPatch:
+    def convert_tool_patch(
+        self, tool_id: str, output: str, workstream_id: str = "unknown"
+    ) -> UnifiedPatch:
         """Convert generic tool output to unified patch."""
         self.patch_count += 1
         patch_id = f"patch-{datetime.now(UTC).strftime('%Y%m%d-%H%M%S')}-{self.patch_count:04d}"
@@ -59,29 +60,26 @@ class PatchConverter:
             patch_id=patch_id,
             workstream_id=workstream_id,
             content=git_diff if git_diff else output,
-            status='created',
+            status="created",
             created_at=datetime.now(UTC).isoformat(),
-            metadata={
-                'tool': tool_id,
-                'has_git_diff': bool(git_diff)
-            }
+            metadata={"tool": tool_id, "has_git_diff": bool(git_diff)},
         )
 
     def extract_git_diff(self, output: str) -> str:
         """Extract git diff from tool output."""
         # Look for git diff markers
-        diff_pattern = r'diff --git.*?(?=diff --git|\Z)'
+        diff_pattern = r"diff --git.*?(?=diff --git|\Z)"
         matches = re.findall(diff_pattern, output, re.DOTALL)
 
         if matches:
-            return '\n'.join(matches)
+            return "\n".join(matches)
 
         # Fallback: look for unified diff format
-        unified_pattern = r'---.*?\n\+\+\+.*?(?=---|\Z)'
+        unified_pattern = r"---.*?\n\+\+\+.*?(?=---|\Z)"
         matches = re.findall(unified_pattern, output, re.DOTALL)
 
         if matches:
-            return '\n'.join(matches)
+            return "\n".join(matches)
 
         return ""
 
@@ -91,7 +89,7 @@ class PatchConverter:
             return False
 
         # Check for diff markers
-        has_header = '---' in diff and '+++' in diff
-        has_hunks = '@@' in diff
+        has_header = "---" in diff and "+++" in diff
+        has_hunks = "@@" in diff
 
         return has_header or has_hunks

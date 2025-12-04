@@ -31,7 +31,9 @@ def main(argv: List[str] | None = None) -> int:
     p.add_argument("--issue", required=True, help="Issue number")
     p.add_argument("--comment", help="Comment body")
     p.add_argument("--state", choices=["open", "closed"], help="Set issue state")
-    p.add_argument("--add-label", dest="labels", action="append", help="Add a label (repeatable)")
+    p.add_argument(
+        "--add-label", dest="labels", action="append", help="Add a label (repeatable)"
+    )
     args = p.parse_args(argv)
 
     gh = _repo_import()
@@ -39,10 +41,14 @@ def main(argv: List[str] | None = None) -> int:
     if args.comment:
         ok = gh.comment(args.issue, args.comment)
     if args.state or args.labels:
-        ok = gh.set_status(args.issue, state=args.state or "", add_labels=args.labels or []) or ok
+        ok = (
+            gh.set_status(
+                args.issue, state=args.state or "", add_labels=args.labels or []
+            )
+            or ok
+        )
     return 0 if ok else 1
 
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

@@ -3,6 +3,7 @@
 Provides a mock subprocess that simulates aider's stdin/stdout protocol.
 Used for unit testing process pool without requiring real aider installation.
 """
+
 # DOC_ID: DOC-TEST-AIM-MOCK-AIDER-001
 
 import sys
@@ -84,6 +85,7 @@ class MockAiderProcess:
 if __name__ == "__main__":
     # Parse command line args for delay and fail_on
     import argparse
+
     parser = argparse.ArgumentParser()
     parser.add_argument("--delay-ms", type=int, default=100)
     parser.add_argument("--fail-on", type=str, default=None)

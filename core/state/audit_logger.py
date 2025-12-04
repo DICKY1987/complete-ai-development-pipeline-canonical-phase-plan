@@ -2,6 +2,7 @@
 Audit Logger and Patch Ledger for Pipeline Plus
 Structured logging infrastructure with JSONL format
 """
+
 # DOC_ID: DOC-CORE-STATE-AUDIT-LOGGER-167
 import json
 from dataclasses import dataclass, field, asdict
@@ -13,6 +14,7 @@ from typing import Optional, List, Dict, Any, Iterator
 @dataclass
 class AuditEvent:
     """Single audit event"""
+
     timestamp: str
     event_type: str
     task_id: str
@@ -23,7 +25,7 @@ class AuditEvent:
         return asdict(self)
 
     @classmethod
-    def from_dict(cls, data: Dict[str, Any]) -> 'AuditEvent':
+    def from_dict(cls, data: Dict[str, Any]) -> "AuditEvent":
         """Create from dictionary"""
         return cls(**data)
 
@@ -31,6 +33,7 @@ class AuditEvent:
 @dataclass
 class EventFilters:
     """Filters for querying audit events"""
+
     task_id: Optional[str] = None
     event_type: Optional[str] = None
     since: Optional[str] = None
@@ -70,7 +73,7 @@ class AuditLogger:
         "circuit_breaker_trip",
         "retry_scheduled",
         "completed",
-        "failed"
+        "failed",
     }
 
     def __init__(self, log_path: str = ".runs/audit.jsonl"):
@@ -78,10 +81,7 @@ class AuditLogger:
         self.log_path.parent.mkdir(parents=True, exist_ok=True)
 
     def log_event(
-        self,
-        event_type: str,
-        task_id: str,
-        data: Optional[Dict[str, Any]] = None
+        self, event_type: str, task_id: str, data: Optional[Dict[str, Any]] = None
     ) -> None:
         """
         Log an event to the audit log
@@ -95,18 +95,18 @@ class AuditLogger:
             # Log unknown event types but warn
             if data is None:
                 data = {}
-            data['_warning'] = f'Unknown event type: {event_type}'
+            data["_warning"] = f"Unknown event type: {event_type}"
 
         event = AuditEvent(
-            timestamp=datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z'),
+            timestamp=datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
             event_type=event_type,
             task_id=task_id,
-            data=data or {}
+            data=data or {},
         )
 
         # Append to JSONL file
-        with open(self.log_path, 'a', encoding='utf-8') as f:
-            f.write(json.dumps(event.to_dict()) + '\n')
+        with open(self.log_path, "a", encoding="utf-8") as f:
+            f.write(json.dumps(event.to_dict()) + "\n")
 
     def query_events(self, filters: Optional[EventFilters] = None) -> List[AuditEvent]:
         """
@@ -124,7 +124,7 @@ class AuditLogger:
         filters = filters or EventFilters()
         events = []
 
-        with open(self.log_path, 'r', encoding='utf-8') as f:
+        with open(self.log_path, "r", encoding="utf-8") as f:
             for line in f:
                 try:
                     event_data = json.loads(line.strip())
@@ -157,7 +157,7 @@ class AuditLogger:
         if not self.log_path.exists():
             return
 
-        with open(self.log_path, 'r', encoding='utf-8') as f:
+        with open(self.log_path, "r", encoding="utf-8") as f:
             for line in f:
                 try:
                     event_data = json.loads(line.strip())
@@ -169,6 +169,7 @@ class AuditLogger:
 @dataclass
 class PatchArtifact:
     """Patch artifact metadata"""
+
     patch_id: str
     patch_file: Path
     diff_hash: str
@@ -181,14 +182,14 @@ class PatchArtifact:
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary"""
         data = asdict(self)
-        data['patch_file'] = str(self.patch_file)
+        data["patch_file"] = str(self.patch_file)
         return data
 
     @classmethod
-    def from_dict(cls, data: Dict[str, Any]) -> 'PatchArtifact':
+    def from_dict(cls, data: Dict[str, Any]) -> "PatchArtifact":
         """Create from dictionary"""
-        if 'patch_file' in data and isinstance(data['patch_file'], str):
-            data['patch_file'] = Path(data['patch_file'])
+        if "patch_file" in data and isinstance(data["patch_file"], str):
+            data["patch_file"] = Path(data["patch_file"])
         return cls(**data)
 
 
@@ -219,8 +220,8 @@ class PatchLedger:
             target_file = patch.patch_file
 
         # Store metadata
-        with open(self.metadata_file, 'a', encoding='utf-8') as f:
-            f.write(json.dumps(patch.to_dict()) + '\n')
+        with open(self.metadata_file, "a", encoding="utf-8") as f:
+            f.write(json.dumps(patch.to_dict()) + "\n")
 
         return target_file
 
@@ -237,11 +238,11 @@ class PatchLedger:
         if not self.metadata_file.exists():
             return None
 
-        with open(self.metadata_file, 'r', encoding='utf-8') as f:
+        with open(self.metadata_file, "r", encoding="utf-8") as f:
             for line in f:
                 try:
                     patch_data = json.loads(line.strip())
-                    if patch_data.get('patch_id') == patch_id:
+                    if patch_data.get("patch_id") == patch_id:
                         return PatchArtifact.from_dict(patch_data)
                 except (json.JSONDecodeError, KeyError):
                     continue
@@ -262,11 +263,11 @@ class PatchLedger:
             return []
 
         patches = []
-        with open(self.metadata_file, 'r', encoding='utf-8') as f:
+        with open(self.metadata_file, "r", encoding="utf-8") as f:
             for line in f:
                 try:
                     patch_data = json.loads(line.strip())
-                    if patch_data.get('ws_id') == ws_id:
+                    if patch_data.get("ws_id") == ws_id:
                         patches.append(PatchArtifact.from_dict(patch_data))
                 except (json.JSONDecodeError, KeyError):
                     continue

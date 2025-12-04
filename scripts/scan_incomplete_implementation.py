@@ -11,7 +11,7 @@ Usage (summary):
     python scripts/scan_incomplete_implementation.py --output .state/incomplete_scan_summary.json
     python scripts/scan_incomplete_implementation.py --ci-check --max-critical 0 --max-major 10
 """
-DOC_ID: DOC-SCRIPT-SCRIPTS-SCAN-INCOMPLETE-IMPLEMENTATION-757
+DOC_ID: DOC - SCRIPT - SCRIPTS - SCAN - INCOMPLETE - IMPLEMENTATION - 757
 # DOC_ID: DOC-SCRIPT-SCAN-INCOMPLETE-IMPLEMENTATION
 
 from __future__ import annotations
@@ -81,7 +81,7 @@ PY_STUB_PATTERNS = (
     "raise NotImplemented",
 )
 JS_TS_STUB_PATTERNS = (
-    "throw new Error(\"Not implemented\")",
+    'throw new Error("Not implemented")',
     "throw new Error('Not implemented')",
     "throw new Error(`Not implemented`)",
 )
@@ -169,7 +169,9 @@ def should_ignore(path_parts: Tuple[str, ...], ignored_dirs: Set[str]) -> bool:
     return any(part in ignored_dirs for part in path_parts)
 
 
-def inventory_codebase(root: Path, ignored_dirs: Set[str]) -> Tuple[List[Dict], List[Dict]]:
+def inventory_codebase(
+    root: Path, ignored_dirs: Set[str]
+) -> Tuple[List[Dict], List[Dict]]:
     """Walk the tree and build inventory of all files and directories."""
     file_inventory: List[Dict] = []
     dir_inventory: List[Dict] = []
@@ -267,7 +269,11 @@ def check_function_stub(node: ast.FunctionDef, file_path: Path) -> Optional[Find
     """Check if a function is a stub."""
     body = list(node.body)
 
-    if body and isinstance(body[0], ast.Expr) and isinstance(body[0].value, ast.Constant):
+    if (
+        body
+        and isinstance(body[0], ast.Expr)
+        and isinstance(body[0].value, ast.Constant)
+    ):
         if isinstance(body[0].value.value, str):
             body = body[1:]
 
@@ -319,7 +325,11 @@ def check_function_stub(node: ast.FunctionDef, file_path: Path) -> Optional[Find
                 body_preview="...",
             )
 
-        if isinstance(stmt, ast.Return) and isinstance(stmt.value, ast.Constant) and stmt.value.value is None:
+        if (
+            isinstance(stmt, ast.Return)
+            and isinstance(stmt.value, ast.Constant)
+            and stmt.value.value is None
+        ):
             return Finding(
                 kind="stub_function",
                 path=str(file_path),
@@ -342,7 +352,10 @@ def check_function_stub(node: ast.FunctionDef, file_path: Path) -> Optional[Find
                         language="python",
                         body_preview="raise NotImplementedError",
                     )
-            elif isinstance(stmt.exc, ast.Name) and stmt.exc.id in ("NotImplementedError", "NotImplemented"):
+            elif isinstance(stmt.exc, ast.Name) and stmt.exc.id in (
+                "NotImplementedError",
+                "NotImplemented",
+            ):
                 return Finding(
                     kind="stub_function",
                     path=str(file_path),
@@ -362,7 +375,9 @@ def check_class_stub(node: ast.ClassDef, file_path: Path) -> Optional[Finding]:
     if not methods:
         return None
 
-    stub_methods = sum(1 for m in methods if check_function_stub(m, file_path) is not None)
+    stub_methods = sum(
+        1 for m in methods if check_function_stub(m, file_path) is not None
+    )
     if stub_methods == len(methods) and stub_methods > 0:
         return Finding(
             kind="stub_class",
@@ -465,7 +480,7 @@ def extract_python_imports(content: str, current_module: str) -> Set[str]:
         elif isinstance(node, ast.ImportFrom):
             module = node.module or ""
             if node.level and current_module:
-                base_parts = current_module.split(".")[:-node.level]
+                base_parts = current_module.split(".")[: -node.level]
                 if module:
                     base_parts.extend(module.split("."))
                 resolved = ".".join(part for part in base_parts if part)
@@ -579,14 +594,24 @@ def detect_orphans(
 # --- Severity and allowlist ---
 
 
-def is_allowed_stub(path: str, finding: Finding, allowlist: AllowlistConfig, content_cache: Dict[str, str]) -> bool:
+def is_allowed_stub(
+    path: str,
+    finding: Finding,
+    allowlist: AllowlistConfig,
+    content_cache: Dict[str, str],
+) -> bool:
     """Check allowlist markers and patterns."""
     normalized = path.replace("\\", "/")
     posix_obj = Path(normalized)
 
     def _matches(pattern: str) -> bool:
         simplified = pattern.replace("**/", "").replace("**", "*")
-        return posix_obj.match(pattern) or fnmatch(normalized, pattern) or fnmatch(normalized, simplified) or normalized.startswith(pattern.rstrip("*"))
+        return (
+            posix_obj.match(pattern)
+            or fnmatch(normalized, pattern)
+            or fnmatch(normalized, simplified)
+            or normalized.startswith(pattern.rstrip("*"))
+        )
 
     for pattern in allowlist.path_patterns:
         if _matches(pattern):
@@ -603,7 +628,12 @@ def is_allowed_stub(path: str, finding: Finding, allowlist: AllowlistConfig, con
     return False
 
 
-def calculate_severity(finding: Finding, root: Path, allowlist: Optional[AllowlistConfig] = None, content_cache: Optional[Dict[str, str]] = None) -> Tuple[str, float]:
+def calculate_severity(
+    finding: Finding,
+    root: Path,
+    allowlist: Optional[AllowlistConfig] = None,
+    content_cache: Optional[Dict[str, str]] = None,
+) -> Tuple[str, float]:
     """Determine severity level and context score."""
     allowlist = allowlist or AllowlistConfig()
     content_cache = content_cache or {}
@@ -683,7 +713,9 @@ def print_summary(result: ScanResult):
     print()
 
     print("Top 10 Modules:")
-    for module, count in sorted(result.summary_by_module.items(), key=lambda x: -x[1])[:10]:
+    for module, count in sorted(result.summary_by_module.items(), key=lambda x: -x[1])[
+        :10
+    ]:
         print(f"  {module:30s}: {count:3d}")
     print()
 
@@ -691,7 +723,9 @@ def print_summary(result: ScanResult):
     if critical:
         print("CRITICAL Findings (top 10):")
         for finding in critical[:10]:
-            print(f"  - {finding['path']}:{finding.get('line', '?')} [{finding['kind']}] {finding.get('symbol', '')}")
+            print(
+                f"  - {finding['path']}:{finding.get('line', '?')} [{finding['kind']}] {finding.get('symbol', '')}"
+            )
             print(f"    Reason: {finding['reason']}")
         print()
 
@@ -723,7 +757,9 @@ def save_markdown_summary(result: ScanResult, output_path: Path) -> None:
         lines.append("## Top Critical Findings")
         critical = [f for f in result.findings if f["severity"] == "critical"][:10]
         for finding in critical:
-            lines.append(f"- {finding['path']}:{finding.get('line','?')} [{finding['kind']}] {finding.get('reason','')}")
+            lines.append(
+                f"- {finding['path']}:{finding.get('line','?')} [{finding['kind']}] {finding.get('reason','')}"
+            )
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text("\n".join(lines), encoding="utf-8")
     print(f"[ok] Markdown summary saved to {output_path}")
@@ -735,7 +771,9 @@ def ci_check(result: ScanResult, max_critical: int = 0, max_major: int = 10) -> 
     major_count = result.summary_by_severity.get("major", 0)
 
     if critical_count > max_critical:
-        print(f"[fail] CI CHECK: {critical_count} critical findings (max: {max_critical})")
+        print(
+            f"[fail] CI CHECK: {critical_count} critical findings (max: {max_critical})"
+        )
         return False
 
     if major_count > max_major:
@@ -764,7 +802,9 @@ def scan_incomplete_implementations(
     print("  - Building codebase inventory...")
     file_inventory, dir_inventory = inventory_codebase(root, ignored_dirs)
 
-    empty_findings = detect_empty_structures(file_inventory, dir_inventory, tiny_file_threshold)
+    empty_findings = detect_empty_structures(
+        file_inventory, dir_inventory, tiny_file_threshold
+    )
     stub_findings: List[Finding] = []
 
     for item in file_inventory:
@@ -786,8 +826,12 @@ def scan_incomplete_implementations(
             stub_findings.extend(detect_pattern_stubs(content, file_path))
 
     module_index = build_module_index(file_inventory)
-    missing_reference_findings = detect_missing_references(file_inventory, root, module_index, content_cache)
-    dependency_graph = build_dependency_graph(file_inventory, root, module_index, content_cache)
+    missing_reference_findings = detect_missing_references(
+        file_inventory, root, module_index, content_cache
+    )
+    dependency_graph = build_dependency_graph(
+        file_inventory, root, module_index, content_cache
+    )
     orphan_findings = detect_orphans(
         dependency_graph,
         module_index,
@@ -880,7 +924,9 @@ def main():
         default=DEFAULT_ALLOWLIST_FILE,
         help="Allowlist YAML file",
     )
-    parser.add_argument("--ci-check", action="store_true", help="Run CI threshold check")
+    parser.add_argument(
+        "--ci-check", action="store_true", help="Run CI threshold check"
+    )
     parser.add_argument(
         "--max-critical", type=int, default=0, help="Max critical findings for CI"
     )
@@ -904,7 +950,11 @@ def main():
     write_jsonl(file_inventory, args.file_inventory_output)
     write_jsonl(dir_inventory, args.dir_inventory_output)
     write_jsonl(
-        [asdict(f) for f in findings if f.kind in ("stub_function", "stub_class", "todo_marker")],
+        [
+            asdict(f)
+            for f in findings
+            if f.kind in ("stub_function", "stub_class", "todo_marker")
+        ],
         args.stub_output,
     )
 

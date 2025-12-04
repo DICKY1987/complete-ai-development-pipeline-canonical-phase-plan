@@ -3,6 +3,7 @@
 These tests verify the full AIM workflow with real AIM registry and adapters.
 Tests are skipped if AIM registry is unavailable.
 """
+
 # DOC_ID: DOC-TEST-INTEGRATION-TEST-AIM-END-TO-END-118
 
 import pytest
@@ -17,7 +18,9 @@ from aim.bridge import (
 )
 
 # Skip all tests in this module - AIM not yet implemented (Phase 4)
-pytestmark = pytest.mark.skip(reason="AIM module not yet implemented - Phase 4 roadmap item")
+pytestmark = pytest.mark.skip(
+    reason="AIM module not yet implemented - Phase 4 roadmap item"
+)
 
 
 # Check if AIM registry is available
@@ -79,10 +82,7 @@ class TestAimEndToEnd:
     def test_version_checking_capability(self):
         """Should successfully route version_checking capability."""
         # This is a lightweight capability that should work without heavy tool invocation
-        result = route_capability(
-            capability="version_checking",
-            payload={"tools": []}
-        )
+        result = route_capability(capability="version_checking", payload={"tools": []})
 
         # Result structure should be valid regardless of success
         assert isinstance(result, dict)
@@ -96,8 +96,7 @@ class TestAimEndToEnd:
 
         # Invoke capability
         route_capability(
-            capability="version_checking",
-            payload={"check_updates": False}
+            capability="version_checking", payload={"check_updates": False}
         )
 
         # Verify audit directory exists
@@ -160,4 +159,3 @@ class TestAimUnavailable:
         """Should return None if registry unavailable."""
         result = get_tool_version("aider")
         assert result is None
-

@@ -8,6 +8,7 @@ Usage:
     python scripts/rewrite_imports_simple.py --dry-run
     python scripts/rewrite_imports_simple.py --execute
 """
+
 # DOC_ID: DOC-SCRIPT-SCRIPTS-REWRITE-IMPORTS-SIMPLE-227
 # DOC_ID: DOC-SCRIPT-SCRIPTS-REWRITE-IMPORTS-SIMPLE-164
 
@@ -26,7 +27,7 @@ def load_inventory() -> dict:
     if not inventory_path.exists():
         raise FileNotFoundError("MODULES_INVENTORY.yaml not found")
 
-    return yaml.safe_load(inventory_path.read_text(encoding='utf-8'))
+    return yaml.safe_load(inventory_path.read_text(encoding="utf-8"))
 
 
 def build_conversion_rules(inventory: dict) -> List[Tuple[str, str]]:
@@ -39,18 +40,18 @@ def build_conversion_rules(inventory: dict) -> List[Tuple[str, str]]:
     """
     rules = []
 
-    for module in inventory['modules']:
-        module_id = module['id']
-        source_dir = module['source_dir']
-        files = module.get('files', [])
+    for module in inventory["modules"]:
+        module_id = module["id"]
+        source_dir = module["source_dir"]
+        files = module.get("files", [])
 
         # Convert module_id to Python import format
-        module_import_name = module_id.replace('-', '_')
+        module_import_name = module_id.replace("-", "_")
 
         # Directory-level conversion (this is what we'll use)
         source_parts = Path(source_dir).parts
         if len(source_parts) > 0:
-            old_dir_import = '.'.join(source_parts)
+            old_dir_import = ".".join(source_parts)
             new_dir_import = f"modules.{module_import_name}"
             rules.append((old_dir_import, new_dir_import))
 
@@ -61,7 +62,7 @@ def build_conversion_rules(inventory: dict) -> List[Tuple[str, str]]:
 
             # Old import path
             old_path_parts = list(source_parts) + [file_name_no_ext]
-            old_import_path = '.'.join(old_path_parts)
+            old_import_path = ".".join(old_path_parts)
 
             # New import path (module level, not file level)
             new_import_path = f"modules.{module_import_name}"
@@ -82,7 +83,9 @@ def build_conversion_rules(inventory: dict) -> List[Tuple[str, str]]:
     return unique_rules
 
 
-def rewrite_file_simple(filepath: Path, conversion_rules: List[Tuple[str, str]], dry_run: bool = True) -> Tuple[bool, int]:
+def rewrite_file_simple(
+    filepath: Path, conversion_rules: List[Tuple[str, str]], dry_run: bool = True
+) -> Tuple[bool, int]:
     """
     Rewrite imports in file using string replacement.
 
@@ -90,7 +93,7 @@ def rewrite_file_simple(filepath: Path, conversion_rules: List[Tuple[str, str]],
         (success, changes_count)
     """
     try:
-        content = filepath.read_text(encoding='utf-8')
+        content = filepath.read_text(encoding="utf-8")
         original_content = content
         changes_count = 0
 
@@ -120,11 +123,11 @@ def rewrite_file_simple(filepath: Path, conversion_rules: List[Tuple[str, str]],
             return True, changes_count
 
         # Backup original
-        backup_path = filepath.with_suffix('.py.bak')
+        backup_path = filepath.with_suffix(".py.bak")
         shutil.copy2(filepath, backup_path)
 
         # Write new content
-        filepath.write_text(content, encoding='utf-8')
+        filepath.write_text(content, encoding="utf-8")
 
         # Remove backup (skip syntax validation - Python files were already valid)
         backup_path.unlink()

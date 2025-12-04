@@ -40,8 +40,10 @@ class MigrationPlanner:
         """Sort files according to dependency order."""
         file_order = {}
         for file_path in files:
-            module_name = str(Path(file_path).with_suffix("")).replace("/", ".").replace(
-                "\\", "."
+            module_name = (
+                str(Path(file_path).with_suffix(""))
+                .replace("/", ".")
+                .replace("\\", ".")
             )
             file_order[module_name] = file_path
 
@@ -136,7 +138,9 @@ class MigrationPlanner:
                         "files": batch_files,
                         "file_count": len(batch_files),
                         "status": "pending",
-                        "dependencies": self._get_batch_dependencies(batch_num, batches),
+                        "dependencies": self._get_batch_dependencies(
+                            batch_num, batches
+                        ),
                     }
                 )
 
@@ -144,7 +148,9 @@ class MigrationPlanner:
 
         return batches
 
-    def _get_batch_dependencies(self, current_batch: int, previous_batches: List[Dict]) -> List[str]:
+    def _get_batch_dependencies(
+        self, current_batch: int, previous_batches: List[Dict]
+    ) -> List[str]:
         """Determine which previous batches this batch depends on."""
         if current_batch <= 1:
             return []
@@ -154,11 +160,15 @@ class MigrationPlanner:
 
 if __name__ == "__main__":
     duplicates = yaml.safe_load(
-        Path("UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/.migration/duplicate_registry.yaml").read_text()
+        Path(
+            "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/.migration/duplicate_registry.yaml"
+        ).read_text()
     )
 
     dependencies = json.loads(
-        Path("UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/.migration/dependency_report.json").read_text()
+        Path(
+            "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/.migration/dependency_report.json"
+        ).read_text()
     )
 
     planner = MigrationPlanner(duplicates, dependencies)
@@ -171,13 +181,21 @@ if __name__ == "__main__":
 
     print("\n?? Batches:")
     for batch in plan["batches"][:5]:
-        deps = f" (depends on {', '.join(batch['dependencies'])})" if batch["dependencies"] else ""
-        print(f"   - {batch['batch_id']}: {batch['component']} ({batch['file_count']} files){deps}")
+        deps = (
+            f" (depends on {', '.join(batch['dependencies'])})"
+            if batch["dependencies"]
+            else ""
+        )
+        print(
+            f"   - {batch['batch_id']}: {batch['component']} ({batch['file_count']} files){deps}"
+        )
 
     if len(plan["batches"]) > 5:
         print(f"   ... and {len(plan['batches']) - 5} more batches")
 
-    output_path = Path("UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/.migration/migration_plan.yaml")
+    output_path = Path(
+        "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/.migration/migration_plan.yaml"
+    )
     output_path.write_text(yaml.dump(plan, default_flow_style=False))
 
     print(f"\n?? Plan saved: {output_path}")

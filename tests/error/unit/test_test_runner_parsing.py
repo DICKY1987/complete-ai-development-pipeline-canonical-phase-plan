@@ -1,4 +1,5 @@
 """Test the test_runner plugin parsing."""
+
 import sys
 from pathlib import Path
 
@@ -9,7 +10,9 @@ _repo_root = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(_repo_root))
 
 # Skip all tests in this file - test_runner plugin not yet migrated
-pytestmark = pytest.mark.skip(reason="test_runner plugin not yet migrated to phase6_error_recovery")
+pytestmark = pytest.mark.skip(
+    reason="test_runner plugin not yet migrated to phase6_error_recovery"
+)
 
 try:
     from modules.error_plugin_test_runner.m010018_plugin import (
@@ -22,17 +25,20 @@ except ImportError:
     # Provide stub functions for the test file to load
     def parse_test_output(*args, **kwargs):
         return []
+
     def parse_test_failure_line(*args, **kwargs):
         return {}
+
     def extract_file(*args, **kwargs):
         return ""
+
     def extract_line(*args, **kwargs):
         return 0
 
 
 def test_pytest_output_parsing():
     """Test parsing pytest output."""
-# DOC_ID: DOC-ERROR-UNIT-TEST-TEST-RUNNER-PARSING-084
+    # DOC_ID: DOC-ERROR-UNIT-TEST-TEST-RUNNER-PARSING-084
 
     sample_pytest_output = """
 ============================= test session starts ==============================
@@ -68,18 +74,20 @@ ERROR tests/test_advanced.py::test_division - ZeroDivisionError: division by zer
 
     print(f"Parsed {len(errors)} errors from pytest output:")
     for i, error in enumerate(errors, 1):
-        print(f"\n{i}. {error['category']} at {error.get('file', 'unknown')}:{error.get('line', 0)}")
+        print(
+            f"\n{i}. {error['category']} at {error.get('file', 'unknown')}:{error.get('line', 0)}"
+        )
         print(f"   {error['message']}")
 
     # Assertions
     assert len(errors) > 0, "Should parse at least one error"
 
     # Check that we found the FAILED test
-    failed_tests = [e for e in errors if 'subtraction' in e.get('message', '')]
+    failed_tests = [e for e in errors if "subtraction" in e.get("message", "")]
     assert len(failed_tests) > 0, "Should find test_subtraction failure"
 
     # Check that we found ERROR
-    error_tests = [e for e in errors if 'division' in e.get('message', '')]
+    error_tests = [e for e in errors if "division" in e.get("message", "")]
     assert len(error_tests) > 0, "Should find test_division error"
 
     print("\n✅ pytest parsing test passed!")

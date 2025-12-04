@@ -36,25 +36,45 @@ from typing import Dict, List, Set, Tuple, Optional
 
 LOCATION_TIERS = {
     # Tier 3: Canonical (10 points)
-    'tier3': {
-        'score': 10,
-        'roots': ['core', 'engine', 'error', 'scripts', 'pm', 'specifications', 'docs', '.claude']
+    "tier3": {
+        "score": 10,
+        "roots": [
+            "core",
+            "engine",
+            "error",
+            "scripts",
+            "pm",
+            "specifications",
+            "docs",
+            ".claude",
+        ],
     },
     # Tier 2: Libraries (7 points)
-    'tier2': {
-        'score': 7,
-        'roots': ['universal_execution_templates_framework', 'aim', 'tools', 'glossary']
+    "tier2": {
+        "score": 7,
+        "roots": [
+            "universal_execution_templates_framework",
+            "aim",
+            "tools",
+            "glossary",
+        ],
     },
     # Tier 1: Experimental (4 points)
-    'tier1': {
-        'score': 4,
-        'roots': ['examples', 'developer', 'infra']
-    },
+    "tier1": {"score": 4, "roots": ["examples", "developer", "infra"]},
     # Tier 0: Graveyard (0 points)
-    'tier0': {
-        'score': 0,
-        'markers': ['legacy', 'archive', 'old', 'tmp', 'backup', 'deprecated', '_old', '.bak']
-    }
+    "tier0": {
+        "score": 0,
+        "markers": [
+            "legacy",
+            "archive",
+            "old",
+            "tmp",
+            "backup",
+            "deprecated",
+            "_old",
+            ".bak",
+        ],
+    },
 }
 
 RECENCY_DECAY_MONTHS = 12  # Cap recency at 5 points after 12 months unmaintained
@@ -63,20 +83,24 @@ RECENCY_DECAY_MONTHS = 12  # Cap recency at 5 points after 12 months unmaintaine
 # Data Classes
 # ============================================================================
 
+
 @dataclass
 class FolderSimilarity:
     """Similarity metrics between two folders."""
+
     folder1: str
     folder2: str
     content_similarity: float  # 0-100%
-    strict_similarity: float   # 0-100%
+    strict_similarity: float  # 0-100%
     shared_hashes: int
     union_hashes: int
     matched_filenames: int
 
+
 @dataclass
 class FolderVersionScore:
     """Comprehensive folder version score (v2.0 - spec compliant)."""
+
     path: str
 
     # Content
@@ -121,19 +145,24 @@ class FolderVersionScore:
     can_delete: bool = False  # Guardrail result
     reasons: List[str] = field(default_factory=list)
 
+
 # ============================================================================
 # Core Functions
 # ============================================================================
 
+
 def compute_file_hash(filepath: Path) -> str:
     """Compute SHA-256 hash."""
     try:
-        with open(filepath, 'rb') as f:
+        with open(filepath, "rb") as f:
             return hashlib.sha256(f.read()).hexdigest()
     except:
         return ""
 
-def compute_similarity(folder1_score: FolderVersionScore, folder2_score: FolderVersionScore) -> FolderSimilarity:
+
+def compute_similarity(
+    folder1_score: FolderVersionScore, folder2_score: FolderVersionScore
+) -> FolderSimilarity:
     """
     Compute similarity per spec:
     - content_similarity = shared_hashes / union_hashes * 100
@@ -163,8 +192,9 @@ def compute_similarity(folder1_score: FolderVersionScore, folder2_score: FolderV
         strict_similarity=strict_sim,
         shared_hashes=shared,
         union_hashes=union,
-        matched_filenames=matched_names
+        matched_filenames=matched_names,
     )
+
 
 def determine_location_tier(folder_path: str) -> Tuple[int, int]:
     """
@@ -172,33 +202,34 @@ def determine_location_tier(folder_path: str) -> Tuple[int, int]:
     Returns: (tier_number, score)
     """
     path_lower = folder_path.lower()
-    path_parts = folder_path.replace('\\', '/').split('/')
+    path_parts = folder_path.replace("\\", "/").split("/")
 
     # Tier 0: Graveyard
-    for marker in LOCATION_TIERS['tier0']['markers']:
+    for marker in LOCATION_TIERS["tier0"]["markers"]:
         if marker in path_lower:
             return (0, 0)
 
     # Tier 3: Canonical
-    if path_parts[0].lower() in [r.lower() for r in LOCATION_TIERS['tier3']['roots']]:
+    if path_parts[0].lower() in [r.lower() for r in LOCATION_TIERS["tier3"]["roots"]]:
         return (3, 10)
 
     # Tier 2: Libraries
-    for root in LOCATION_TIERS['tier2']['roots']:
+    for root in LOCATION_TIERS["tier2"]["roots"]:
         if path_lower.startswith(root.lower()):
             return (2, 7)
 
     # Tier 1: Experimental
-    if path_parts[0].lower() in [r.lower() for r in LOCATION_TIERS['tier1']['roots']]:
+    if path_parts[0].lower() in [r.lower() for r in LOCATION_TIERS["tier1"]["roots"]]:
         return (1, 4)
 
     # Default
     return (1, 4)
 
+
 def analyze_folder(folder: Path, repo_root: Path) -> FolderVersionScore:
     """Analyze a single folder and gather metadata."""
 
-    files = list(folder.glob('*')) if folder.exists() else []
+    files = list(folder.glob("*")) if folder.exists() else []
     file_items = [f for f in files if f.is_file()]
 
     # Collect hashes and names
@@ -237,26 +268,30 @@ def analyze_folder(folder: Path, repo_root: Path) -> FolderVersionScore:
 
             # Creation date
             result = subprocess.run(
-                ['git', 'log', '--diff-filter=A', '--format=%cI', '--', str(rel_path)],
+                ["git", "log", "--diff-filter=A", "--format=%cI", "--", str(rel_path)],
                 cwd=repo_root,
                 capture_output=True,
                 text=True,
-                timeout=5
+                timeout=5,
             )
             if result.returncode == 0 and result.stdout.strip():
-                lines = result.stdout.strip().split('\n')
+                lines = result.stdout.strip().split("\n")
                 if lines:
-                    git_created = datetime.fromisoformat(lines[-1].replace('Z', '+00:00'))
+                    git_created = datetime.fromisoformat(
+                        lines[-1].replace("Z", "+00:00")
+                    )
 
             # Commit count
             result = subprocess.run(
-                ['git', 'log', '--oneline', '--', str(folder.relative_to(repo_root))],
+                ["git", "log", "--oneline", "--", str(folder.relative_to(repo_root))],
                 cwd=repo_root,
                 capture_output=True,
                 text=True,
-                timeout=5
+                timeout=5,
             )
-            commit_count = len(result.stdout.strip().split('\n')) if result.stdout.strip() else 0
+            commit_count = (
+                len(result.stdout.strip().split("\n")) if result.stdout.strip() else 0
+            )
         except:
             pass
 
@@ -278,10 +313,13 @@ def analyze_folder(folder: Path, repo_root: Path) -> FolderVersionScore:
         git_created_date=git_created,
         commit_count=commit_count,
         location_tier=location_tier,
-        location_score=location_score
+        location_score=location_score,
     )
 
-def score_folders(folder_scores: List[FolderVersionScore], repo_root: Path) -> List[FolderVersionScore]:
+
+def score_folders(
+    folder_scores: List[FolderVersionScore], repo_root: Path
+) -> List[FolderVersionScore]:
     """
     Score folders against each other per spec.
     Implements all 6 factors + guardrails.
@@ -296,7 +334,10 @@ def score_folders(folder_scores: List[FolderVersionScore], repo_root: Path) -> L
         fs.content_score = int((fs.file_count / max_files) * 25) if max_files > 0 else 0
 
     # 2. Recency scoring (0-20)
-    newest_overall = max((fs.newest_file_date for fs in folder_scores if fs.newest_file_date), default=None)
+    newest_overall = max(
+        (fs.newest_file_date for fs in folder_scores if fs.newest_file_date),
+        default=None,
+    )
     if newest_overall:
         for fs in folder_scores:
             if fs.newest_file_date:
@@ -310,14 +351,21 @@ def score_folders(folder_scores: List[FolderVersionScore], repo_root: Path) -> L
     # 3. Completeness scoring (0-15)
     for fs in folder_scores:
         score = 0
-        if fs.has_readme: score += 5
-        if fs.has_init: score += 5
-        if fs.has_pattern_spec: score += 3
-        if fs.has_tests: score += 2
+        if fs.has_readme:
+            score += 5
+        if fs.has_init:
+            score += 5
+        if fs.has_pattern_spec:
+            score += 3
+        if fs.has_tests:
+            score += 2
         fs.completeness_score = min(15, score)
 
     # 4. History scoring (0-15)
-    earliest_git = min((fs.git_created_date for fs in folder_scores if fs.git_created_date), default=None)
+    earliest_git = min(
+        (fs.git_created_date for fs in folder_scores if fs.git_created_date),
+        default=None,
+    )
     if earliest_git:
         for fs in folder_scores:
             if fs.git_created_date:
@@ -328,7 +376,9 @@ def score_folders(folder_scores: List[FolderVersionScore], repo_root: Path) -> L
                     fs.history_score = max(0, int(15 - months_after))
 
                 # Commit count bonus (max +3)
-                fs.history_score = min(15, fs.history_score + min(3, fs.commit_count // 10))
+                fs.history_score = min(
+                    15, fs.history_score + min(3, fs.commit_count // 10)
+                )
 
     # 5. Usage scoring (0-15) - TODO: Implement broader detection
     # For now, placeholder (needs Python/PowerShell/YAML/registry scanning)
@@ -340,12 +390,12 @@ def score_folders(folder_scores: List[FolderVersionScore], repo_root: Path) -> L
     # Calculate totals
     for fs in folder_scores:
         fs.total_score = (
-            fs.content_score +
-            fs.recency_score +
-            fs.completeness_score +
-            fs.history_score +
-            fs.usage_score +
-            fs.location_score
+            fs.content_score
+            + fs.recency_score
+            + fs.completeness_score
+            + fs.history_score
+            + fs.usage_score
+            + fs.location_score
         )
 
     # Assign verdicts with HARD guardrails
@@ -361,11 +411,11 @@ def score_folders(folder_scores: List[FolderVersionScore], repo_root: Path) -> L
         else:
             # Check deletion guardrails
             fs.can_delete = (
-                fs.total_score < 50 and
-                fs.usage_score == 0 and
-                not fs.in_pattern_registry and
-                not fs.has_doc_id and
-                fs.location_tier == 0  # In graveyard
+                fs.total_score < 50
+                and fs.usage_score == 0
+                and not fs.in_pattern_registry
+                and not fs.has_doc_id
+                and fs.location_tier == 0  # In graveyard
             )
             fs.verdict = "DELETE" if fs.can_delete else "REVIEW"
 
@@ -379,6 +429,7 @@ def score_folders(folder_scores: List[FolderVersionScore], repo_root: Path) -> L
 
     return folder_scores
 
+
 def main():
     repo_root = Path.cwd()
 
@@ -390,9 +441,23 @@ def main():
 
     # Test with known duplicate folder names
     test_cases = [
-        (['engine', 'core/engine', 'error/engine'], 'engine'),
-        (['scripts', 'pm/scripts', 'UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/scripts'], 'scripts'),
-        (['docs', 'glossary/docs', 'UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/docs'], 'docs'),
+        (["engine", "core/engine", "error/engine"], "engine"),
+        (
+            [
+                "scripts",
+                "pm/scripts",
+                "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/scripts",
+            ],
+            "scripts",
+        ),
+        (
+            [
+                "docs",
+                "glossary/docs",
+                "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/patterns/docs",
+            ],
+            "docs",
+        ),
     ]
 
     all_results = []
@@ -423,12 +488,16 @@ def main():
                 print(f"\n   ⚠️  Low similarity - likely DIFFERENT PURPOSES\n")
                 for score in scores:
                     score.verdict = "DIFFERENT_PURPOSE"
-                    score.reasons.append(f"Content similarity: {sim.content_similarity:.1f}% < 50%")
-                all_results.append({
-                    'folder_name': name,
-                    'similarity': asdict(sim),
-                    'scores': [asdict(s) for s in scores]
-                })
+                    score.reasons.append(
+                        f"Content similarity: {sim.content_similarity:.1f}% < 50%"
+                    )
+                all_results.append(
+                    {
+                        "folder_name": name,
+                        "similarity": asdict(sim),
+                        "scores": [asdict(s) for s in scores],
+                    }
+                )
                 continue
 
         # Step 3: Score folders
@@ -441,25 +510,25 @@ def main():
         print("-" * 70)
         for score in scores:
             print(f"{score.path:<40} {score.total_score:<8} {score.verdict:<12}")
-            print(f"{'':>8}Content:{score.content_score:2d} | Recency:{score.recency_score:2d} | Complete:{score.completeness_score:2d} | History:{score.history_score:2d} | Usage:{score.usage_score:2d} | Location:{score.location_score:2d}")
+            print(
+                f"{'':>8}Content:{score.content_score:2d} | Recency:{score.recency_score:2d} | Complete:{score.completeness_score:2d} | History:{score.history_score:2d} | Usage:{score.usage_score:2d} | Location:{score.location_score:2d}"
+            )
             if score.reasons:
                 print(f"{'':>8}Reasons: {'; '.join(score.reasons)}")
 
-        all_results.append({
-            'folder_name': name,
-            'scores': [asdict(s) for s in scores]
-        })
+        all_results.append({"folder_name": name, "scores": [asdict(s) for s in scores]})
 
     # Save report
     output_file = repo_root / "cleanup_reports" / "folder_version_analysis_v2.json"
     output_file.parent.mkdir(exist_ok=True)
 
-    with open(output_file, 'w') as f:
+    with open(output_file, "w") as f:
         json.dump(all_results, f, indent=2, default=str)
 
     print(f"\n{'='*70}")
     print(f"✅ Analysis complete: {output_file}")
     print(f"{'='*70}\n")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()

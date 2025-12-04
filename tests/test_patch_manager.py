@@ -1,6 +1,7 @@
 """
 Unit tests for Patch Management System
 """
+
 # DOC_ID: DOC-TEST-TESTS-TEST-PATCH-MANAGER-096
 # DOC_ID: DOC-TEST-TESTS-TEST-PATCH-MANAGER-057
 import pytest
@@ -9,7 +10,10 @@ import shutil
 import subprocess
 from pathlib import Path
 from core.engine.patch_manager import (
-    PatchManager, PatchArtifact, PatchParseResult, ApplyResult
+    PatchManager,
+    PatchArtifact,
+    PatchParseResult,
+    ApplyResult,
 )
 
 
@@ -26,16 +30,25 @@ def git_repo(temp_dir):
     repo_path.mkdir()
 
     # Initialize git repo
-    subprocess.run(['git', 'init'], cwd=repo_path, check=True, capture_output=True)
-    subprocess.run(['git', 'config', 'user.name', 'Test User'], cwd=repo_path, check=True)
-    subprocess.run(['git', 'config', 'user.email', 'test@example.com'], cwd=repo_path, check=True)
+    subprocess.run(["git", "init"], cwd=repo_path, check=True, capture_output=True)
+    subprocess.run(
+        ["git", "config", "user.name", "Test User"], cwd=repo_path, check=True
+    )
+    subprocess.run(
+        ["git", "config", "user.email", "test@example.com"], cwd=repo_path, check=True
+    )
 
     # Create initial file
     test_file = repo_path / "test.py"
     test_file.write_text("def hello():\n    print('hello')\n")
 
-    subprocess.run(['git', 'add', '.'], cwd=repo_path, check=True)
-    subprocess.run(['git', 'commit', '-m', 'Initial commit'], cwd=repo_path, check=True, capture_output=True)
+    subprocess.run(["git", "add", "."], cwd=repo_path, check=True)
+    subprocess.run(
+        ["git", "commit", "-m", "Initial commit"],
+        cwd=repo_path,
+        check=True,
+        capture_output=True,
+    )
 
     yield repo_path
 
@@ -116,7 +129,7 @@ def test_capture_patch(patch_manager, git_repo):
         ws_id="ws-1",
         worktree_path=str(git_repo),
         step_name="edit",
-        attempt=1
+        attempt=1,
     )
 
     assert isinstance(artifact, PatchArtifact)
@@ -135,9 +148,7 @@ def test_capture_patch_empty_diff(patch_manager, git_repo):
     """Test capturing when there's no diff"""
     # No modifications
     artifact = patch_manager.capture_patch(
-        run_id="run-123",
-        ws_id="ws-1",
-        worktree_path=str(git_repo)
+        run_id="run-123", ws_id="ws-1", worktree_path=str(git_repo)
     )
 
     assert artifact.line_count == 0
@@ -147,14 +158,16 @@ def test_capture_patch_empty_diff(patch_manager, git_repo):
 def test_parse_patch_file(patch_manager, temp_dir):
     """Test parsing a patch file"""
     patch_file = temp_dir / "test.patch"
-    patch_file.write_text("""diff --git a/test.py b/test.py
+    patch_file.write_text(
+        """diff --git a/test.py b/test.py
 index abc..def 100644
 --- a/test.py
 +++ b/test.py
 @@ -1,1 +1,2 @@
  line 1
 +line 2
-""")
+"""
+    )
 
     result = patch_manager.parse_patch(patch_file)
 
@@ -167,7 +180,8 @@ def test_apply_patch_success(patch_manager, git_repo, temp_dir):
     """Test successfully applying a patch"""
     # Create a patch file
     patch_file = temp_dir / "test.patch"
-    patch_file.write_text("""diff --git a/test.py b/test.py
+    patch_file.write_text(
+        """diff --git a/test.py b/test.py
 index abc..def 100644
 --- a/test.py
 +++ b/test.py
@@ -175,7 +189,8 @@ index abc..def 100644
  def hello():
      print('hello')
 +    return True
-""")
+"""
+    )
 
     # Apply patch
     result = patch_manager.apply_patch(patch_file, str(git_repo))
@@ -193,7 +208,8 @@ index abc..def 100644
 def test_apply_patch_dry_run(patch_manager, git_repo, temp_dir):
     """Test dry run patch application"""
     patch_file = temp_dir / "test.patch"
-    patch_file.write_text("""diff --git a/test.py b/test.py
+    patch_file.write_text(
+        """diff --git a/test.py b/test.py
 index abc..def 100644
 --- a/test.py
 +++ b/test.py
@@ -201,7 +217,8 @@ index abc..def 100644
  def hello():
      print('hello')
 +    return True
-""")
+"""
+    )
 
     # Dry run
     result = patch_manager.apply_patch(patch_file, str(git_repo), dry_run=True)
@@ -219,7 +236,8 @@ def test_apply_patch_conflict(patch_manager, git_repo, temp_dir):
     """Test applying a patch that conflicts"""
     # Create conflicting patch
     patch_file = temp_dir / "conflict.patch"
-    patch_file.write_text("""diff --git a/test.py b/test.py
+    patch_file.write_text(
+        """diff --git a/test.py b/test.py
 index abc..def 100644
 --- a/test.py
 +++ b/test.py
@@ -227,7 +245,8 @@ index abc..def 100644
 -def nonexistent():
 +def hello():
      print('world')
-""")
+"""
+    )
 
     result = patch_manager.apply_patch(patch_file, str(git_repo))
 
@@ -239,7 +258,8 @@ def test_reverse_patch(patch_manager, git_repo, temp_dir):
     """Test reversing a patch"""
     # Create and apply patch
     patch_file = temp_dir / "test.patch"
-    patch_file.write_text("""diff --git a/test.py b/test.py
+    patch_file.write_text(
+        """diff --git a/test.py b/test.py
 index abc..def 100644
 --- a/test.py
 +++ b/test.py
@@ -247,7 +267,8 @@ index abc..def 100644
  def hello():
      print('hello')
 +    return True
-""")
+"""
+    )
 
     # Apply
     apply_result = patch_manager.apply_patch(patch_file, str(git_repo))
@@ -286,15 +307,15 @@ index 111..222 100644
 
     stats = patch_manager.get_patch_stats(patch_file)
 
-    assert stats['file_count'] == 2
-    assert 'file1.py' in stats['files_modified']
-    assert 'file2.py' in stats['files_modified']
-    assert stats['hunks'] == 2
-    assert stats['additions'] == 2
-    assert stats['deletions'] == 1
-    assert stats['line_count'] == 3
-    assert len(stats['diff_hash']) == 64
-    assert stats['size_bytes'] > 0
+    assert stats["file_count"] == 2
+    assert "file1.py" in stats["files_modified"]
+    assert "file2.py" in stats["files_modified"]
+    assert stats["hunks"] == 2
+    assert stats["additions"] == 2
+    assert stats["deletions"] == 1
+    assert stats["line_count"] == 3
+    assert len(stats["diff_hash"]) == 64
+    assert stats["size_bytes"] > 0
 
 
 def test_patch_hash_consistency(patch_manager, git_repo):
@@ -307,7 +328,9 @@ def test_patch_hash_consistency(patch_manager, git_repo):
     artifact1 = patch_manager.capture_patch("run-1", "ws-1", str(git_repo))
 
     # Reset
-    subprocess.run(['git', 'checkout', 'test.py'], cwd=git_repo, check=True, capture_output=True)
+    subprocess.run(
+        ["git", "checkout", "test.py"], cwd=git_repo, check=True, capture_output=True
+    )
 
     # Make same change again
     test_file.write_text("def hello():\n    print('hello world')\n")

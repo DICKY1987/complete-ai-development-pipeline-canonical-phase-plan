@@ -3,6 +3,7 @@
 Tests process pool functionality with mocked subprocesses.
 Covers initialization, I/O operations, error handling, and cleanup.
 """
+
 # DOC_ID: DOC-TEST-AIM-PROCESS-POOL-001
 
 import pytest
@@ -14,7 +15,9 @@ from aim.bridge import ToolProcessPool
 from aim.pool_interface import ProcessInstance
 
 # Skip all tests in this module - AIM not yet implemented (Phase 4)
-pytestmark = pytest.mark.skip(reason="AIM module not yet implemented - Phase 4 roadmap item")
+pytestmark = pytest.mark.skip(
+    reason="AIM module not yet implemented - Phase 4 roadmap item"
+)
 
 
 @pytest.fixture
@@ -24,12 +27,12 @@ def mock_registry():
         "tools": {
             "aider": {
                 "detectCommands": [["aider", "--yes-always"]],
-                "capabilities": ["code_generation"]
+                "capabilities": ["code_generation"],
             },
             "jules": {
                 "detectCommands": [["jules"]],
-                "capabilities": ["code_generation"]
-            }
+                "capabilities": ["code_generation"],
+            },
         }
     }
 
@@ -67,7 +70,9 @@ class TestToolProcessPoolInitialization:
 
     def test_pool_spawns_correct_command(self, mock_registry, mock_process):
         """Test that correct command is spawned."""
-        with patch("aim.bridge.subprocess.Popen", return_value=mock_process) as mock_popen:
+        with patch(
+            "aim.bridge.subprocess.Popen", return_value=mock_process
+        ) as mock_popen:
             with patch("aim.bridge.threading.Thread"):
                 pool = ToolProcessPool("aider", count=1, registry=mock_registry)
 
@@ -263,10 +268,11 @@ class TestShutdown:
 
     def test_shutdown_graceful(self, mock_registry, mock_process):
         """Test graceful shutdown."""
+
         # Process exits gracefully after terminate
         def poll_side_effect():
             """Return None first time, then 0 (exited)."""
-            if not hasattr(poll_side_effect, 'called'):
+            if not hasattr(poll_side_effect, "called"):
                 poll_side_effect.called = 0
             poll_side_effect.called += 1
             return None if poll_side_effect.called <= 2 else 0
@@ -290,7 +296,9 @@ class TestShutdown:
 
         with patch("aim.bridge.subprocess.Popen", return_value=mock_process):
             with patch("aim.bridge.threading.Thread"):
-                with patch("aim.bridge.time.time", side_effect=[0, 0, 10]):  # Simulate timeout
+                with patch(
+                    "aim.bridge.time.time", side_effect=[0, 0, 10]
+                ):  # Simulate timeout
                     pool = ToolProcessPool("aider", count=1, registry=mock_registry)
 
                     pool.shutdown(timeout=1.0)
@@ -305,15 +313,15 @@ class TestShutdown:
         proc2 = MagicMock()
 
         # Start as running, then set to exited after terminate
-        calls = {'proc1': 0, 'proc2': 0}
+        calls = {"proc1": 0, "proc2": 0}
 
         def proc1_poll():
-            calls['proc1'] += 1
-            return 0 if calls['proc1'] > 1 else None
+            calls["proc1"] += 1
+            return 0 if calls["proc1"] > 1 else None
 
         def proc2_poll():
-            calls['proc2'] += 1
-            return 0 if calls['proc2'] > 1 else None
+            calls["proc2"] += 1
+            return 0 if calls["proc2"] > 1 else None
 
         proc1.poll = proc1_poll
         proc2.poll = proc2_poll

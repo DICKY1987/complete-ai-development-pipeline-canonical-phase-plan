@@ -1,6 +1,7 @@
 """
 Integration tests for plugin discovery, ordering, and execution flow.
 """
+
 # DOC_ID: DOC-TEST-PLUGINS-TEST-INTEGRATION-143
 from __future__ import annotations
 
@@ -15,24 +16,25 @@ class TestPluginDiscovery:
 
     @pytest.mark.skipif(
         True,  # Skip by default as it requires plugin_manager module
-        reason="Requires plugin_manager implementation"
+        reason="Requires plugin_manager implementation",
     )
     def test_plugin_discovery_finds_all_plugins(self):
         """Test that plugin manager discovers all installed plugins."""
-        from phase6_error_recovery.modules.error_engine.src.engine.plugin_manager import PluginManager
+        from phase6_error_recovery.modules.error_engine.src.engine.plugin_manager import (
+            PluginManager,
+        )
 
         pm = PluginManager()
         # Should discover plugins based on directory structure
         # This would need actual implementation to test
         pass
 
-    @pytest.mark.skipif(
-        True,
-        reason="Requires plugin_manager implementation"
-    )
+    @pytest.mark.skipif(True, reason="Requires plugin_manager implementation")
     def test_missing_tool_plugin_skipped(self):
         """Test that plugins with missing tools are gracefully skipped."""
-        from phase6_error_recovery.modules.error_engine.src.engine.plugin_manager import PluginManager
+        from phase6_error_recovery.modules.error_engine.src.engine.plugin_manager import (
+            PluginManager,
+        )
 
         pm = PluginManager()
         # Plugins should check tool availability and skip if not present
@@ -42,13 +44,12 @@ class TestPluginDiscovery:
 class TestPluginOrdering:
     """Tests for topological ordering based on 'requires' dependencies."""
 
-    @pytest.mark.skipif(
-        True,
-        reason="Requires plugin_manager implementation"
-    )
+    @pytest.mark.skipif(True, reason="Requires plugin_manager implementation")
     def test_python_chain_ordering(self):
         """Test that Python plugins execute in correct order: isort → black → linters."""
-        from phase6_error_recovery.modules.error_engine.src.engine.plugin_manager import PluginManager
+        from phase6_error_recovery.modules.error_engine.src.engine.plugin_manager import (
+            PluginManager,
+        )
 
         pm = PluginManager()
         # Expected order for Python:
@@ -57,13 +58,12 @@ class TestPluginOrdering:
         # 3. python_ruff, python_pylint, python_mypy, python_pyright, python_bandit, python_safety (any order)
         pass
 
-    @pytest.mark.skipif(
-        True,
-        reason="Requires plugin_manager implementation"
-    )
+    @pytest.mark.skipif(True, reason="Requires plugin_manager implementation")
     def test_js_chain_ordering(self):
         """Test that JS plugins execute in correct order: prettier → eslint."""
-        from phase6_error_recovery.modules.error_engine.src.engine.plugin_manager import PluginManager
+        from phase6_error_recovery.modules.error_engine.src.engine.plugin_manager import (
+            PluginManager,
+        )
 
         pm = PluginManager()
         # Expected order:
@@ -71,13 +71,12 @@ class TestPluginOrdering:
         # 2. js_eslint
         pass
 
-    @pytest.mark.skipif(
-        True,
-        reason="Requires plugin_manager implementation"
-    )
+    @pytest.mark.skipif(True, reason="Requires plugin_manager implementation")
     def test_markdown_chain_ordering(self):
         """Test that Markdown plugins execute in correct order: mdformat → markdownlint."""
-        from phase6_error_recovery.modules.error_engine.src.engine.plugin_manager import PluginManager
+        from phase6_error_recovery.modules.error_engine.src.engine.plugin_manager import (
+            PluginManager,
+        )
 
         pm = PluginManager()
         # Expected order:
@@ -85,13 +84,12 @@ class TestPluginOrdering:
         # 2. md_markdownlint
         pass
 
-    @pytest.mark.skipif(
-        True,
-        reason="Requires plugin_manager implementation"
-    )
+    @pytest.mark.skipif(True, reason="Requires plugin_manager implementation")
     def test_deterministic_ordering(self):
         """Test that plugin ordering is deterministic across multiple runs."""
-        from phase6_error_recovery.modules.error_engine.src.engine.plugin_manager import PluginManager
+        from phase6_error_recovery.modules.error_engine.src.engine.plugin_manager import (
+            PluginManager,
+        )
 
         pm1 = PluginManager()
         pm2 = PluginManager()
@@ -104,20 +102,21 @@ class TestPluginOrdering:
 class TestMechanicalAutofix:
     """Tests for mechanical autofix workflow."""
 
-    @pytest.mark.skipif(
-        True,
-        reason="Requires pipeline engine implementation"
-    )
+    @pytest.mark.skipif(True, reason="Requires pipeline engine implementation")
     def test_fix_then_recheck_workflow(self, tmp_path: Path):
         """Test fix → recheck workflow for Python files."""
-        from phase6_error_recovery.modules.error_engine.src.engine.pipeline_engine import PipelineEngine
-        from phase6_error_recovery.modules.error_engine.src.engine.plugin_manager import PluginManager
+        from phase6_error_recovery.modules.error_engine.src.engine.pipeline_engine import (
+            PipelineEngine,
+        )
+        from phase6_error_recovery.modules.error_engine.src.engine.plugin_manager import (
+            PluginManager,
+        )
 
         # Create a Python file with formatting issues only
         test_file = tmp_path / "test.py"
         test_file.write_text(
             "import sys\nimport os\n\ndef hello(  ):\n    x=1+2\n    return x\n",
-            encoding="utf-8"
+            encoding="utf-8",
         )
 
         pm = PluginManager()
@@ -132,14 +131,15 @@ class TestMechanicalAutofix:
         # - Final state should be S_SUCCESS
         pass
 
-    @pytest.mark.skipif(
-        True,
-        reason="Requires pipeline engine implementation"
-    )
+    @pytest.mark.skipif(True, reason="Requires pipeline engine implementation")
     def test_validated_outputs_replace_input_files(self, tmp_path: Path):
         """Test that ctx.python_files is updated with validated outputs after autofix."""
-        from phase6_error_recovery.modules.error_engine.src.engine.pipeline_engine import PipelineEngine
-        from phase6_error_recovery.modules.error_engine.src.engine.plugin_manager import PluginManager
+        from phase6_error_recovery.modules.error_engine.src.engine.pipeline_engine import (
+            PipelineEngine,
+        )
+        from phase6_error_recovery.modules.error_engine.src.engine.plugin_manager import (
+            PluginManager,
+        )
 
         test_file = tmp_path / "test.py"
         test_file.write_text("import os", encoding="utf-8")
@@ -155,18 +155,21 @@ class TestMechanicalAutofix:
 class TestIssueAggregation:
     """Tests for issue aggregation and reporting."""
 
-    @pytest.mark.skipif(
-        True,
-        reason="Requires pipeline engine implementation"
-    )
+    @pytest.mark.skipif(True, reason="Requires pipeline engine implementation")
     def test_aggregation_by_tool(self, tmp_path: Path):
         """Test that issues are correctly aggregated by tool."""
-        from phase6_error_recovery.modules.error_engine.src.engine.pipeline_engine import PipelineEngine
-        from phase6_error_recovery.modules.error_engine.src.engine.plugin_manager import PluginManager
+        from phase6_error_recovery.modules.error_engine.src.engine.pipeline_engine import (
+            PipelineEngine,
+        )
+        from phase6_error_recovery.modules.error_engine.src.engine.plugin_manager import (
+            PluginManager,
+        )
 
         # Create file with issues that multiple tools would detect
         test_file = tmp_path / "test.py"
-        test_file.write_text("x: int = 'hello'  # type error and trailing spaces", encoding="utf-8")
+        test_file.write_text(
+            "x: int = 'hello'  # type error and trailing spaces", encoding="utf-8"
+        )
 
         pm = PluginManager()
         engine = PipelineEngine(pm)
@@ -176,14 +179,15 @@ class TestIssueAggregation:
         # e.g., {"ruff": 2, "mypy": 1, "pyright": 1}
         pass
 
-    @pytest.mark.skipif(
-        True,
-        reason="Requires pipeline engine implementation"
-    )
+    @pytest.mark.skipif(True, reason="Requires pipeline engine implementation")
     def test_aggregation_by_category(self, tmp_path: Path):
         """Test that issues are correctly aggregated by category."""
-        from phase6_error_recovery.modules.error_engine.src.engine.pipeline_engine import PipelineEngine
-        from phase6_error_recovery.modules.error_engine.src.engine.plugin_manager import PluginManager
+        from phase6_error_recovery.modules.error_engine.src.engine.pipeline_engine import (
+            PipelineEngine,
+        )
+        from phase6_error_recovery.modules.error_engine.src.engine.plugin_manager import (
+            PluginManager,
+        )
 
         test_file = tmp_path / "test.py"
         test_file.write_text("x: int = 'hello'", encoding="utf-8")
@@ -200,14 +204,15 @@ class TestIssueAggregation:
 class TestNonDestructiveExecution:
     """Tests for non-destructive execution guarantees."""
 
-    @pytest.mark.skipif(
-        True,
-        reason="Requires pipeline engine implementation"
-    )
+    @pytest.mark.skipif(True, reason="Requires pipeline engine implementation")
     def test_original_file_never_modified(self, tmp_path: Path):
         """Test that original files are never modified during pipeline execution."""
-        from phase6_error_recovery.modules.error_engine.src.engine.pipeline_engine import PipelineEngine
-        from phase6_error_recovery.modules.error_engine.src.engine.plugin_manager import PluginManager
+        from phase6_error_recovery.modules.error_engine.src.engine.pipeline_engine import (
+            PipelineEngine,
+        )
+        from phase6_error_recovery.modules.error_engine.src.engine.plugin_manager import (
+            PluginManager,
+        )
 
         test_file = tmp_path / "test.py"
         original_content = "import sys\nimport os\n\ndef hello():\n    pass\n"
@@ -224,14 +229,15 @@ class TestNonDestructiveExecution:
         assert test_file.read_text(encoding="utf-8") == original_content
         assert test_file.stat().st_mtime == original_mtime
 
-    @pytest.mark.skipif(
-        True,
-        reason="Requires pipeline engine implementation"
-    )
+    @pytest.mark.skipif(True, reason="Requires pipeline engine implementation")
     def test_fixes_in_temp_directory(self, tmp_path: Path):
         """Test that all fix operations occur in temp directory."""
-        from phase6_error_recovery.modules.error_engine.src.engine.pipeline_engine import PipelineEngine
-        from phase6_error_recovery.modules.error_engine.src.engine.plugin_manager import PluginManager
+        from phase6_error_recovery.modules.error_engine.src.engine.pipeline_engine import (
+            PipelineEngine,
+        )
+        from phase6_error_recovery.modules.error_engine.src.engine.plugin_manager import (
+            PluginManager,
+        )
 
         test_file = tmp_path / "test.py"
         test_file.write_text("def  hello():pass", encoding="utf-8")
@@ -250,7 +256,9 @@ class TestEnvironmentSecurity:
     @pytest.mark.skip(reason="Ruff plugin not yet migrated to phase6_error_recovery")
     def test_subprocess_uses_scrubbed_env(self, tmp_path: Path):
         """Test that all plugins use scrub_env() for subprocess calls."""
-        from phase6_error_recovery.modules.plugins.python_ruff.src.python_ruff.plugin import RuffPlugin  # Note: Ruff plugin not yet migrated
+        from phase6_error_recovery.modules.plugins.python_ruff.src.python_ruff.plugin import (
+            RuffPlugin,
+        )  # Note: Ruff plugin not yet migrated
 
         plugin = RuffPlugin()
         test_file = tmp_path / "test.py"
@@ -273,7 +281,9 @@ class TestEnvironmentSecurity:
     @pytest.mark.skip(reason="Ruff plugin not yet migrated to phase6_error_recovery")
     def test_subprocess_uses_shell_false(self, tmp_path: Path):
         """Test that all plugins use shell=False for security."""
-        from phase6_error_recovery.modules.plugins.python_ruff.src.python_ruff.plugin import RuffPlugin  # Note: Ruff plugin not yet migrated
+        from phase6_error_recovery.modules.plugins.python_ruff.src.python_ruff.plugin import (
+            RuffPlugin,
+        )  # Note: Ruff plugin not yet migrated
 
         plugin = RuffPlugin()
         test_file = tmp_path / "test.py"
@@ -295,7 +305,9 @@ class TestEnvironmentSecurity:
     @pytest.mark.skip(reason="Ruff plugin not yet migrated to phase6_error_recovery")
     def test_subprocess_has_timeout(self, tmp_path: Path):
         """Test that all plugins enforce timeouts."""
-        from phase6_error_recovery.modules.plugins.python_ruff.src.python_ruff.plugin import RuffPlugin  # Note: Ruff plugin not yet migrated
+        from phase6_error_recovery.modules.plugins.python_ruff.src.python_ruff.plugin import (
+            RuffPlugin,
+        )  # Note: Ruff plugin not yet migrated
 
         plugin = RuffPlugin()
         test_file = tmp_path / "test.py"

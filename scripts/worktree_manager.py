@@ -12,7 +12,7 @@ import threading
 from pathlib import Path
 from typing import List, Dict, Optional
 
-logger = logging.getLogger('worktree_manager')
+logger = logging.getLogger("worktree_manager")
 
 
 class WorktreeManager:
@@ -22,14 +22,13 @@ class WorktreeManager:
         self.base_repo = base_repo
         self.worktree_root = worktree_root
         self.worktree_root.mkdir(parents=True, exist_ok=True)
-        self._lock = threading.Lock()  # CRITICAL: Prevent race conditions in git operations
+        self._lock = (
+            threading.Lock()
+        )  # CRITICAL: Prevent race conditions in git operations
         logger.info(f"WorktreeManager initialized: worktrees in {worktree_root}")
 
     def create_agent_worktree(
-        self,
-        agent_id: str,
-        branch_name: str,
-        workstream_id: str
+        self, agent_id: str, branch_name: str, workstream_id: str
     ) -> Path:
         """Create isolated worktree for agent
 
@@ -47,11 +46,14 @@ class WorktreeManager:
             worktree_path = self.worktree_root / f"{agent_id}-{workstream_id}"
 
             # Check if branch already exists
-            branch_exists = subprocess.run(
-                ["git", "rev-parse", "--verify", branch_name],
-                cwd=self.base_repo,
-                capture_output=True
-            ).returncode == 0
+            branch_exists = (
+                subprocess.run(
+                    ["git", "rev-parse", "--verify", branch_name],
+                    cwd=self.base_repo,
+                    capture_output=True,
+                ).returncode
+                == 0
+            )
 
             if not branch_exists:
                 # Create branch from main
@@ -59,14 +61,14 @@ class WorktreeManager:
                     ["git", "checkout", "-b", branch_name, "main"],
                     cwd=self.base_repo,
                     capture_output=True,
-                    check=True
+                    check=True,
                 )
                 # Switch back to main
                 subprocess.run(
                     ["git", "checkout", "main"],
                     cwd=self.base_repo,
                     capture_output=True,
-                    check=True
+                    check=True,
                 )
 
             # Create worktree
@@ -74,7 +76,7 @@ class WorktreeManager:
                 ["git", "worktree", "add", str(worktree_path), branch_name],
                 cwd=self.base_repo,
                 capture_output=True,
-                check=True
+                check=True,
             )
 
             logger.info(f"Created worktree: {worktree_path} (branch: {branch_name})")
@@ -97,7 +99,7 @@ class WorktreeManager:
         result = subprocess.run(
             ["git", "worktree", "remove", str(worktree_path), "--force"],
             cwd=self.base_repo,
-            capture_output=True
+            capture_output=True,
         )
 
         if result.returncode == 0:
@@ -106,9 +108,7 @@ class WorktreeManager:
             logger.error(f"Failed to remove worktree: {result.stderr.decode()}")
 
     def merge_worktree_changes(
-        self,
-        branch_name: str,
-        target_branch: str = "main"
+        self, branch_name: str, target_branch: str = "main"
     ) -> bool:
         """Merge worktree changes back to target branch
 
@@ -125,7 +125,7 @@ class WorktreeManager:
                 ["git", "checkout", target_branch],
                 cwd=self.base_repo,
                 capture_output=True,
-                check=True
+                check=True,
             )
 
             # Pull latest
@@ -133,14 +133,14 @@ class WorktreeManager:
                 ["git", "pull", "--rebase"],
                 cwd=self.base_repo,
                 capture_output=True,
-                check=True
+                check=True,
             )
 
             # Merge with --no-ff to preserve history
             result = subprocess.run(
                 ["git", "merge", "--no-ff", "-m", f"Merge {branch_name}", branch_name],
                 cwd=self.base_repo,
-                capture_output=True
+                capture_output=True,
             )
 
             if result.returncode == 0:
@@ -150,7 +150,7 @@ class WorktreeManager:
                 subprocess.run(
                     ["git", "branch", "-d", branch_name],
                     cwd=self.base_repo,
-                    capture_output=True
+                    capture_output=True,
                 )
 
                 return True
@@ -158,9 +158,7 @@ class WorktreeManager:
                 logger.error(f"Merge conflict: {result.stderr.decode()}")
                 # Abort merge
                 subprocess.run(
-                    ["git", "merge", "--abort"],
-                    cwd=self.base_repo,
-                    capture_output=True
+                    ["git", "merge", "--abort"], cwd=self.base_repo, capture_output=True
                 )
                 return False
 
@@ -179,7 +177,7 @@ class WorktreeManager:
             cwd=self.base_repo,
             capture_output=True,
             text=True,
-            check=True
+            check=True,
         )
 
         worktrees = []
@@ -221,7 +219,7 @@ class WorktreeManager:
             subprocess.run(
                 ["git", "worktree", "remove", str(path), "--force"],
                 cwd=self.base_repo,
-                capture_output=True
+                capture_output=True,
             )
 
     def get_worktree_status(self, worktree_path: Path) -> Optional[str]:
@@ -240,7 +238,7 @@ class WorktreeManager:
             ["git", "status", "--short"],
             cwd=worktree_path,
             capture_output=True,
-            text=True
+            text=True,
         )
 
         return result.stdout.strip() if result.returncode == 0 else None
@@ -250,10 +248,7 @@ if __name__ == "__main__":
     # Test/demo
     logging.basicConfig(level=logging.INFO)
 
-    manager = WorktreeManager(
-        base_repo=Path.cwd(),
-        worktree_root=Path(".worktrees")
-    )
+    manager = WorktreeManager(base_repo=Path.cwd(), worktree_root=Path(".worktrees"))
 
     print("Active worktrees:")
     for wt in manager.list_worktrees():

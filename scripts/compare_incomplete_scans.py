@@ -6,7 +6,7 @@ Usage:
     python scripts/compare_incomplete_scans.py scan1.json scan2.json
     python scripts/compare_incomplete_scans.py .state/incomplete_scan_20251203.json .state/incomplete_scan_20251204.json
 """
-DOC_ID: DOC-SCRIPT-SCRIPTS-COMPARE-INCOMPLETE-SCANS-754
+DOC_ID: DOC - SCRIPT - SCRIPTS - COMPARE - INCOMPLETE - SCANS - 754
 # DOC_ID: DOC-SCRIPT-COMPARE-INCOMPLETE-SCANS
 
 import json

@@ -9,7 +9,9 @@ from modules.error_plugin_path_standardizer.m01000D_plugin import validate_paths
 
 
 class FakeCP:
-    def __init__(self, returncode=1, stdout="C:/repo/file.txt:12: Found absolute path", stderr=""):
+    def __init__(
+        self, returncode=1, stdout="C:/repo/file.txt:12: Found absolute path", stderr=""
+    ):
         self.returncode = returncode
         self.stdout = stdout
         self.stderr = stderr
@@ -30,7 +32,7 @@ def test_validate_paths_attaches_file_and_line(monkeypatch, tmp_path: Path):
 
     import subprocess
 
-    monkeypatch.setattr(subprocess, 'run', fake_run)
+    monkeypatch.setattr(subprocess, "run", fake_run)
 
     res = validate_paths(["C\\\\repo\\\\file.txt"], str(root), autofix=False)
     assert res["tool"] == "path_standardizer"
@@ -38,4 +40,3 @@ def test_validate_paths_attaches_file_and_line(monkeypatch, tmp_path: Path):
     e = res["errors"][0]
     assert e["file"].endswith("repo/file.txt")
     assert e["line"] == 12
-

@@ -2,7 +2,8 @@
 
 Tests the core functionality of ToolProcessPool using the mock aider fixture.
 """
-DOC_ID: DOC-AIM-AIM-MANUAL-TEST-POOL-148
+
+DOC_ID: DOC - AIM - AIM - MANUAL - TEST - POOL - 148
 
 DOC_ID: DOC - AIM - AIM - MANUAL - TEST - POOL - 148
 

@@ -12,6 +12,7 @@ Author: AI Development Pipeline
 Created: 2025-11-23
 WS: WS-NEXT-002-003
 """
+
 # DOC_ID: DOC-CORE-ENGINE-TEST-GATE-160
 
 from datetime import datetime, UTC
@@ -23,6 +24,7 @@ import json
 @dataclass
 class GateCriteria:
     """Quality gate criteria"""
+
     min_coverage: Optional[float] = None
     max_failures: Optional[int] = None
     required_tests: List[str] = field(default_factory=list)
@@ -32,17 +34,18 @@ class GateCriteria:
     def to_dict(self) -> Dict:
         """Convert to dictionary"""
         return {
-            'min_coverage': self.min_coverage,
-            'max_failures': self.max_failures,
-            'required_tests': self.required_tests,
-            'timeout_seconds': self.timeout_seconds,
-            'custom_rules': self.custom_rules
+            "min_coverage": self.min_coverage,
+            "max_failures": self.max_failures,
+            "required_tests": self.required_tests,
+            "timeout_seconds": self.timeout_seconds,
+            "custom_rules": self.custom_rules,
         }
 
 
 @dataclass
 class TestResults:
     """Test execution results"""
+
     total_tests: int = 0
     passed_tests: int = 0
     failed_tests: int = 0
@@ -53,12 +56,12 @@ class TestResults:
     def to_dict(self) -> Dict:
         """Convert to dictionary"""
         return {
-            'total_tests': self.total_tests,
-            'passed_tests': self.passed_tests,
-            'failed_tests': self.failed_tests,
-            'skipped_tests': self.skipped_tests,
-            'coverage_percent': self.coverage_percent,
-            'failures': self.failures
+            "total_tests": self.total_tests,
+            "passed_tests": self.passed_tests,
+            "failed_tests": self.failed_tests,
+            "skipped_tests": self.skipped_tests,
+            "coverage_percent": self.coverage_percent,
+            "failures": self.failures,
         }
 
 
@@ -80,17 +83,24 @@ class TestGate:
         - skip: any -> skipped
     """
 
-    VALID_STATES = {'pending', 'running', 'passed', 'failed', 'skipped', 'error'}
-    VALID_TYPES = {'unit_tests', 'integration_tests', 'e2e_tests', 'security_scan', 'lint', 'custom'}
-    TERMINAL_STATES = {'passed', 'failed', 'skipped', 'error'}
+    VALID_STATES = {"pending", "running", "passed", "failed", "skipped", "error"}
+    VALID_TYPES = {
+        "unit_tests",
+        "integration_tests",
+        "e2e_tests",
+        "security_scan",
+        "lint",
+        "custom",
+    }
+    TERMINAL_STATES = {"passed", "failed", "skipped", "error"}
 
     STATE_TRANSITIONS = {
-        'pending': ['running', 'skipped'],
-        'running': ['passed', 'failed', 'error', 'skipped'],
-        'passed': [],
-        'failed': [],
-        'skipped': [],
-        'error': []
+        "pending": ["running", "skipped"],
+        "running": ["passed", "failed", "error", "skipped"],
+        "passed": [],
+        "failed": [],
+        "skipped": [],
+        "error": [],
     }
 
     def __init__(self, db):
@@ -108,8 +118,8 @@ class TestGate:
         try:
             self.db.conn.execute("SELECT 1 FROM test_gates LIMIT 1")
         except Exception:
-            schema_path = 'schema/migrations/004_add_test_gates_table.sql'
-            with open(schema_path, 'r') as f:
+            schema_path = "schema/migrations/004_add_test_gates_table.sql"
+            with open(schema_path, "r") as f:
                 self.db.conn.executescript(f.read())
             self.db.conn.commit()
 
@@ -121,7 +131,7 @@ class TestGate:
         criteria: GateCriteria,
         project_id: Optional[str] = None,
         execution_request_id: Optional[str] = None,
-        metadata: Optional[Dict] = None
+        metadata: Optional[Dict] = None,
     ) -> str:
         """
         Create a new test gate.
@@ -158,7 +168,7 @@ class TestGate:
                 gate_id,
                 name,
                 gate_type,
-                'pending',
+                "pending",
                 project_id,
                 execution_request_id,
                 json.dumps(criteria.to_dict()),
@@ -167,8 +177,8 @@ class TestGate:
                 None,
                 now,
                 now,
-                json.dumps(metadata) if metadata else None
-            )
+                json.dumps(metadata) if metadata else None,
+            ),
         )
         self.db.conn.commit()
 
@@ -185,8 +195,7 @@ class TestGate:
             Gate data dict or None if not found
         """
         row = self.db.conn.execute(
-            "SELECT * FROM test_gates WHERE gate_id = ?",
-            (gate_id,)
+            "SELECT * FROM test_gates WHERE gate_id = ?", (gate_id,)
         ).fetchone()
 
         if not row:
@@ -199,7 +208,7 @@ class TestGate:
         data = dict(row)
 
         # Deserialize JSON fields
-        for field in ['criteria', 'execution', 'results', 'decision', 'metadata']:
+        for field in ["criteria", "execution", "results", "decision", "metadata"]:
             if data.get(field):
                 data[field] = json.loads(data[field])
 
@@ -220,14 +229,12 @@ class TestGate:
         if not gate:
             raise ValueError(f"Gate not found: {gate_id}")
 
-        if not self._can_transition(gate['state'], 'running'):
-            raise ValueError(
-                f"Cannot start gate: gate in {gate['state']} state"
-            )
+        if not self._can_transition(gate["state"], "running"):
+            raise ValueError(f"Cannot start gate: gate in {gate['state']} state")
 
         execution_data = {
-            'started_at': datetime.now(UTC).isoformat(),
-            'command': command
+            "started_at": datetime.now(UTC).isoformat(),
+            "command": command,
         }
 
         self.db.conn.execute(
@@ -236,21 +243,14 @@ class TestGate:
             SET state = 'running', execution = ?, updated_at = ?
             WHERE gate_id = ?
             """,
-            (
-                json.dumps(execution_data),
-                datetime.now(UTC).isoformat(),
-                gate_id
-            )
+            (json.dumps(execution_data), datetime.now(UTC).isoformat(), gate_id),
         )
         self.db.conn.commit()
 
         return True
 
     def complete_gate(
-        self,
-        gate_id: str,
-        results: TestResults,
-        exit_code: int = 0
+        self, gate_id: str, results: TestResults, exit_code: int = 0
     ) -> bool:
         """
         Complete gate execution with results (running -> passed/failed/error).
@@ -267,29 +267,31 @@ class TestGate:
         if not gate:
             raise ValueError(f"Gate not found: {gate_id}")
 
-        if gate['state'] != 'running':
+        if gate["state"] != "running":
             raise ValueError(
                 f"Cannot complete gate: gate not running (state: {gate['state']})"
             )
 
         # Determine new state based on exit code
         if exit_code != 0:
-            new_state = 'error'
+            new_state = "error"
         else:
             # Evaluate criteria
-            decision = self._evaluate_criteria(gate['criteria'], results)
-            new_state = 'passed' if decision['passed'] else 'failed'
+            decision = self._evaluate_criteria(gate["criteria"], results)
+            new_state = "passed" if decision["passed"] else "failed"
 
         # Update execution data
-        execution_data = gate.get('execution') or {}
-        execution_data['completed_at'] = datetime.now(UTC).isoformat()
-        execution_data['exit_code'] = exit_code
+        execution_data = gate.get("execution") or {}
+        execution_data["completed_at"] = datetime.now(UTC).isoformat()
+        execution_data["exit_code"] = exit_code
 
         # Calculate duration
-        if execution_data.get('started_at'):
-            started = datetime.fromisoformat(execution_data['started_at'].replace('Z', '+00:00'))
+        if execution_data.get("started_at"):
+            started = datetime.fromisoformat(
+                execution_data["started_at"].replace("Z", "+00:00")
+            )
             completed = datetime.now(UTC)
-            execution_data['duration_seconds'] = (completed - started).total_seconds()
+            execution_data["duration_seconds"] = (completed - started).total_seconds()
 
         # Store decision if not error
         decision_data = None if exit_code != 0 else json.dumps(decision)
@@ -306,8 +308,8 @@ class TestGate:
                 json.dumps(results.to_dict()),
                 decision_data,
                 datetime.now(UTC).isoformat(),
-                gate_id
-            )
+                gate_id,
+            ),
         )
         self.db.conn.commit()
 
@@ -327,31 +329,33 @@ class TestGate:
         criteria_met = {}
 
         # Check coverage
-        if criteria.get('min_coverage') is not None:
+        if criteria.get("min_coverage") is not None:
             if results.coverage_percent is not None:
-                criteria_met['coverage'] = results.coverage_percent >= criteria['min_coverage']
+                criteria_met["coverage"] = (
+                    results.coverage_percent >= criteria["min_coverage"]
+                )
             else:
-                criteria_met['coverage'] = False
+                criteria_met["coverage"] = False
 
         # Check failures
-        if criteria.get('max_failures') is not None:
-            criteria_met['failures'] = results.failed_tests <= criteria['max_failures']
+        if criteria.get("max_failures") is not None:
+            criteria_met["failures"] = results.failed_tests <= criteria["max_failures"]
 
         # Check required tests
-        if criteria.get('required_tests'):
+        if criteria.get("required_tests"):
             # Simplified - assumes all tests passed
-            criteria_met['required_tests'] = results.failed_tests == 0
+            criteria_met["required_tests"] = results.failed_tests == 0
 
         # Overall decision
         passed = all(criteria_met.values()) if criteria_met else True
 
-        reason = "All criteria met" if passed else f"Failed criteria: {[k for k, v in criteria_met.items() if not v]}"
+        reason = (
+            "All criteria met"
+            if passed
+            else f"Failed criteria: {[k for k, v in criteria_met.items() if not v]}"
+        )
 
-        return {
-            'passed': passed,
-            'reason': reason,
-            'criteria_met': criteria_met
-        }
+        return {"passed": passed, "reason": reason, "criteria_met": criteria_met}
 
     def skip_gate(self, gate_id: str, reason: str) -> bool:
         """
@@ -368,15 +372,13 @@ class TestGate:
         if not gate:
             raise ValueError(f"Gate not found: {gate_id}")
 
-        if not self._can_transition(gate['state'], 'skipped'):
-            raise ValueError(
-                f"Cannot skip gate: gate in {gate['state']} state"
-            )
+        if not self._can_transition(gate["state"], "skipped"):
+            raise ValueError(f"Cannot skip gate: gate in {gate['state']} state")
 
         decision_data = {
-            'passed': False,
-            'reason': f"Skipped: {reason}",
-            'criteria_met': {}
+            "passed": False,
+            "reason": f"Skipped: {reason}",
+            "criteria_met": {},
         }
 
         self.db.conn.execute(
@@ -385,11 +387,7 @@ class TestGate:
             SET state = 'skipped', decision = ?, updated_at = ?
             WHERE gate_id = ?
             """,
-            (
-                json.dumps(decision_data),
-                datetime.now(UTC).isoformat(),
-                gate_id
-            )
+            (json.dumps(decision_data), datetime.now(UTC).isoformat(), gate_id),
         )
         self.db.conn.commit()
 
@@ -399,7 +397,7 @@ class TestGate:
         self,
         project_id: Optional[str] = None,
         state: Optional[str] = None,
-        gate_type: Optional[str] = None
+        gate_type: Optional[str] = None,
     ) -> List[Dict]:
         """
         List gates with optional filters.

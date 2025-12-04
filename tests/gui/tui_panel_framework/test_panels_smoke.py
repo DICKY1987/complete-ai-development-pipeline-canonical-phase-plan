@@ -13,14 +13,12 @@ import gui.tui_app.panels
 @pytest.fixture
 def panel_context():
     """Create a panel context for testing."""
-# DOC_ID: DOC-TEST-TUI-PANEL-FRAMEWORK-TEST-PANELS-SMOKE-156
+    # DOC_ID: DOC-TEST-TUI-PANEL-FRAMEWORK-TEST-PANELS-SMOKE-156
     state_client = StateClient(InMemoryStateBackend())
     pattern_client = PatternClient(InMemoryPatternStateStore())
 
     return PanelContext(
-        panel_id="test",
-        state_client=state_client,
-        pattern_client=pattern_client
+        panel_id="test", state_client=state_client, pattern_client=pattern_client
     )
 
 
@@ -94,7 +92,7 @@ def test_all_panels_registered():
         "file_lifecycle",
         "tool_health",
         "log_stream",
-        "pattern_activity"
+        "pattern_activity",
     ]
 
     for panel_id in expected_panels:

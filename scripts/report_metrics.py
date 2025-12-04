@@ -41,15 +41,19 @@ def compare_runs(run_ids: list[str]) -> None:
     print("=" * 80)
     print()
 
-    print(f"{'Run ID':<30} {'Duration(s)':<12} {'Cost($)':<12} {'Completed':<12} {'Failed':<12}")
+    print(
+        f"{'Run ID':<30} {'Duration(s)':<12} {'Cost($)':<12} {'Completed':<12} {'Failed':<12}"
+    )
     print("-" * 80)
 
     for run_id in run_ids:
         try:
             metrics = aggregator.compute_metrics(run_id)
-            print(f"{run_id:<30} {metrics.total_duration_sec:<12.1f} "
-                  f"${metrics.total_cost_usd:<11.4f} {metrics.workstreams_completed:<12} "
-                  f"{metrics.workstreams_failed:<12}")
+            print(
+                f"{run_id:<30} {metrics.total_duration_sec:<12.1f} "
+                f"${metrics.total_cost_usd:<11.4f} {metrics.workstreams_completed:<12} "
+                f"{metrics.workstreams_failed:<12}"
+            )
         except Exception as e:
             print(f"{run_id:<30} ERROR: {e}")
 
@@ -57,22 +61,26 @@ def compare_runs(run_ids: list[str]) -> None:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Metrics and reporting for parallel execution")
+    parser = argparse.ArgumentParser(
+        description="Metrics and reporting for parallel execution"
+    )
 
-    subparsers = parser.add_subparsers(dest='command', help='Metrics command')
+    subparsers = parser.add_subparsers(dest="command", help="Metrics command")
 
     # Show metrics
-    show_parser = subparsers.add_parser('show', help='Show execution metrics')
-    show_parser.add_argument('--run-id', required=True, help='Run ID')
+    show_parser = subparsers.add_parser("show", help="Show execution metrics")
+    show_parser.add_argument("--run-id", required=True, help="Run ID")
 
     # Export JSON
-    export_parser = subparsers.add_parser('export', help='Export metrics to JSON')
-    export_parser.add_argument('--run-id', required=True, help='Run ID')
-    export_parser.add_argument('--output', required=True, help='Output JSON file')
+    export_parser = subparsers.add_parser("export", help="Export metrics to JSON")
+    export_parser.add_argument("--run-id", required=True, help="Run ID")
+    export_parser.add_argument("--output", required=True, help="Output JSON file")
 
     # Compare runs
-    compare_parser = subparsers.add_parser('compare', help='Compare multiple runs')
-    compare_parser.add_argument('--run-ids', nargs='+', required=True, help='Run IDs to compare')
+    compare_parser = subparsers.add_parser("compare", help="Compare multiple runs")
+    compare_parser.add_argument(
+        "--run-ids", nargs="+", required=True, help="Run IDs to compare"
+    )
 
     args = parser.parse_args(argv)
 
@@ -81,11 +89,11 @@ def main(argv: list[str] | None = None) -> int:
         return 1
 
     try:
-        if args.command == 'show':
+        if args.command == "show":
             show_metrics(args.run_id)
-        elif args.command == 'export':
+        elif args.command == "export":
             export_json(args.run_id, args.output)
-        elif args.command == 'compare':
+        elif args.command == "compare":
             compare_runs(args.run_ids)
 
         return 0
@@ -93,6 +101,7 @@ def main(argv: list[str] | None = None) -> int:
     except Exception as e:
         print(f"Error: {e}", file=sys.stderr)
         import traceback
+
         traceback.print_exc()
         return 1
 

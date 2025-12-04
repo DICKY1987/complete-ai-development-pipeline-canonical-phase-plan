@@ -8,6 +8,7 @@ return its path. A later phase can wire real ``git worktree`` commands.
 
 Functions here are intentionally lightweight and easy to monkeypatch in tests.
 """
+
 # DOC_ID: DOC-CORE-STATE-WORKTREE-176
 
 from __future__ import annotations
@@ -52,7 +53,9 @@ def create_worktree_for_ws(run_id: str, ws_id: str) -> str:
     return str(wt_path.resolve())
 
 
-def validate_scope(worktree_path: str | Path, allowed_paths: Iterable[str]) -> Tuple[bool, List[str]]:
+def validate_scope(
+    worktree_path: str | Path, allowed_paths: Iterable[str]
+) -> Tuple[bool, List[str]]:
     """Validate that changes stay within the declared file scope.
 
     PH-05 provides a permissive stub that always returns OK. Tests can

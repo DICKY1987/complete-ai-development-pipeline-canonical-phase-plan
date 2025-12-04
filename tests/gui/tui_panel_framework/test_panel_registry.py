@@ -8,7 +8,8 @@ from textual.widgets import Static
 
 class MockPanel:
     """Mock panel for testing."""
-# DOC_ID: DOC-TEST-TUI-PANEL-FRAMEWORK-TEST-PANEL-REGISTRY-157
+
+    # DOC_ID: DOC-TEST-TUI-PANEL-FRAMEWORK-TEST-PANEL-REGISTRY-157
 
     @property
     def panel_id(self) -> str:

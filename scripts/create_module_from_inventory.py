@@ -9,6 +9,7 @@ Usage:
 Example:
     python scripts/create_module_from_inventory.py error-plugin-ruff
 """
+
 # DOC_ID: DOC-SCRIPT-SCRIPTS-CREATE-MODULE-FROM-INVENTORY-202
 # DOC_ID: DOC-SCRIPT-SCRIPTS-CREATE-MODULE-FROM-INVENTORY-139
 
@@ -24,12 +25,14 @@ def find_module_in_inventory(module_id: str) -> dict:
     inventory_path = Path("MODULES_INVENTORY.yaml")
 
     if not inventory_path.exists():
-        raise FileNotFoundError("MODULES_INVENTORY.yaml not found. Run generate_module_inventory.py first.")
+        raise FileNotFoundError(
+            "MODULES_INVENTORY.yaml not found. Run generate_module_inventory.py first."
+        )
 
-    inventory = yaml.safe_load(inventory_path.read_text(encoding='utf-8'))
+    inventory = yaml.safe_load(inventory_path.read_text(encoding="utf-8"))
 
-    for module in inventory['modules']:
-        if module['id'] == module_id:
+    for module in inventory["modules"]:
+        if module["id"] == module_id:
             return module
 
     raise ValueError(f"Module '{module_id}' not found in inventory")
@@ -44,9 +47,9 @@ def create_module_structure(module_data: dict, use_symlinks: bool = False):
         use_symlinks: If True, create symlinks to original files (Phase 2 approach)
                      If False, copy files (Phase 3 approach)
     """
-    module_id = module_data['id']
-    ulid_prefix = module_data['ulid_prefix']
-    source_dir = Path(module_data['source_dir'])
+    module_id = module_data["id"]
+    ulid_prefix = module_data["ulid_prefix"]
+    source_dir = Path(module_data["source_dir"])
     dest_dir = Path(f"modules/{module_id}")
 
     # Create module directory
@@ -56,12 +59,12 @@ def create_module_structure(module_data: dict, use_symlinks: bool = False):
     # Generate and write manifest
     manifest_yaml = render_module_manifest(module_data)
     manifest_path = dest_dir / f"{ulid_prefix}_module.manifest.yaml"
-    manifest_path.write_text(manifest_yaml, encoding='utf-8')
+    manifest_path.write_text(manifest_yaml, encoding="utf-8")
     print(f"[+] Generated {manifest_path}")
 
     # Copy or symlink source files
     files_migrated = 0
-    for i, file_path in enumerate(module_data['files']):
+    for i, file_path in enumerate(module_data["files"]):
         src = Path(file_path)
 
         if not src.exists():
@@ -118,7 +121,7 @@ def create_module_structure(module_data: dict, use_symlinks: bool = False):
 **Created**: {Path(__file__).stat().st_mtime if Path(__file__).exists() else 'auto-generated'}
 **Status**: Proof-of-concept module
 """
-    readme_path.write_text(readme_content, encoding='utf-8')
+    readme_path.write_text(readme_content, encoding="utf-8")
     print(f"[+] Created {readme_path}")
 
     # Create .state directory (for modules that need state)
@@ -126,7 +129,9 @@ def create_module_structure(module_data: dict, use_symlinks: bool = False):
     state_dir.mkdir(exist_ok=True)
 
     state_file = state_dir / "current.json"
-    state_file.write_text('{"status": "active", "last_updated": null}', encoding='utf-8')
+    state_file.write_text(
+        '{"status": "active", "last_updated": null}', encoding="utf-8"
+    )
     print(f"[+] Created {state_dir}")
 
     return files_migrated
@@ -151,7 +156,9 @@ def validate_module(module_id: str) -> bool:
 def main():
     if len(sys.argv) < 2:
         print("Usage: python scripts/create_module_from_inventory.py <module_id>")
-        print("\nExample: python scripts/create_module_from_inventory.py error-plugin-ruff")
+        print(
+            "\nExample: python scripts/create_module_from_inventory.py error-plugin-ruff"
+        )
         sys.exit(1)
 
     module_id = sys.argv[1]
@@ -176,8 +183,12 @@ def main():
         print(f"   ULID: {module_data['ulid_prefix']}")
 
         print(f"\nNext steps:")
-        print(f"   1. Review modules/{module_id}/{module_data['ulid_prefix']}_module.manifest.yaml")
-        print(f"   2. Validate: python scripts/validate_modules.py (after converting to JSON)")
+        print(
+            f"   1. Review modules/{module_id}/{module_data['ulid_prefix']}_module.manifest.yaml"
+        )
+        print(
+            f"   2. Validate: python scripts/validate_modules.py (after converting to JSON)"
+        )
         print(f"   3. Test: Import and verify functionality")
 
     except Exception as e:
@@ -187,4 +198,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
