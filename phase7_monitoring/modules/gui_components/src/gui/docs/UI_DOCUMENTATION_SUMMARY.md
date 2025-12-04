@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-UI-DOCUMENTATION-SUMMARY-1426
+doc_id: DOC-GUIDE-UI-DOCUMENTATION-SUMMARY-932
 ---
 
 # User Interface Documentation Summary

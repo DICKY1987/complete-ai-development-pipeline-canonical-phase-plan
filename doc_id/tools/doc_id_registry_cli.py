@@ -89,12 +89,12 @@ class DocIDRegistry:
         cat_data = self.data["categories"][category_lower]
         prefix = cat_data["prefix"]
         next_num = cat_data["next_id"]
-        existing = [d["doc_id"] for d in self.data["docs"]]
+        existing = [d.get("doc_id") for d in self.data["docs"] if "doc_id" in d]
         used_numbers = {
             int(match.group(1))
             for doc in self.data["docs"]
-            if doc["category"] == category_lower
-            for match in [re.search(r"-(\d{3})$", doc["doc_id"])]
+            if doc.get("category") == category_lower
+            for match in [re.search(r"-(\d{3})$", doc.get("doc_id", ""))]
             if match
         }
 

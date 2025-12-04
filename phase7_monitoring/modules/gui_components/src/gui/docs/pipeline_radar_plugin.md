@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-PIPELINE-RADAR-PLUGIN-1420
+doc_id: DOC-GUIDE-PIPELINE-RADAR-PLUGIN-928
 ---
 
 You can think of this as a **“Pipeline Radar” plugin** for your future GUI: one pluggable panel whose only job is to answer:

@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-CURRENT-USER-INTERFACE-1412
+doc_id: DOC-GUIDE-CURRENT-USER-INTERFACE-923
 ---
 
 # Current User Interface - Complete Description

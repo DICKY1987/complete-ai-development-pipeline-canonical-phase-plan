@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-UI-DATA-REQUIREMENTS-1424
+doc_id: DOC-GUIDE-UI-DATA-REQUIREMENTS-930
 ---
 
 # UI Component Data Requirements

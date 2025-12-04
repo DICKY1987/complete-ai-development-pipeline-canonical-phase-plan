@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-UI-FLOW-DIAGRAM-1427
+doc_id: DOC-GUIDE-UI-FLOW-DIAGRAM-933
 ---
 
 # User Interface Flow Diagram

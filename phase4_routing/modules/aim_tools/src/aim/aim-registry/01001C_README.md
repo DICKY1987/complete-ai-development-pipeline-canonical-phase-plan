@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-01001C-README-1473
+doc_id: DOC-AIM-01001C-README-177
 ---
 
 # AIM Registry

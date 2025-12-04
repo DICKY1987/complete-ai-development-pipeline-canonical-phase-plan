@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-UI-VISUAL-EXAMPLES-1432
+doc_id: DOC-GUIDE-UI-VISUAL-EXAMPLES-937
 ---
 
 # Visual Example: What the User Actually Sees

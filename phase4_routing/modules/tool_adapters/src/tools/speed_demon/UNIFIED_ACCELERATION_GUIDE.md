@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-UNIFIED-ACCELERATION-GUIDE-1611
+doc_id: DOC-CORE-UNIFIED-ACCELERATION-GUIDE-755
 ---
 
 # Speed Demon + UET Integration: Complete Acceleration System

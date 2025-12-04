@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-GUI-DEVELOPMENT-GUIDE-1414
+doc_id: DOC-GUIDE-GUI-DEVELOPMENT-GUIDE-924
 ---
 
 # GUI Development Guide - Next Steps
