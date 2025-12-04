@@ -33,7 +33,7 @@ def simulate_ui_startup():
     if summary["auto_launch_interactive"]:
         interactive_tool = summary["interactive_tool"]
         print(f"\n2. Launching Interactive Tool: {interactive_tool}")
-        print(f"   Mode: INTERACTIVE (normal execution with user interaction)")
+        print("   Mode: INTERACTIVE (normal execution with user interaction)")
         print(f"   Layout: {summary['interactive_layout']}")
 
         # In real UI, this would:
@@ -83,7 +83,7 @@ def simulate_tool_switching():
 
     # Show available tools
     available = settings.get_available_interactive_tools()
-    print(f"\nAvailable Interactive Tools:")
+    print("\nAvailable Interactive Tools:")
     for tool in available:
         is_current = tool == current_tool
         marker = " (current)" if is_current else ""
@@ -107,7 +107,7 @@ def simulate_tool_switching():
             print(f"✓ Interactive tool changed: {current_tool} → {new_tool}")
             print(f"  - {current_tool} will now run in HEADLESS mode")
             print(f"  - {new_tool} will now run in INTERACTIVE mode")
-            print(f"  - Configuration saved")
+            print("  - Configuration saved")
 
             # Show updated modes
             print("\nUpdated Tool Modes:")
@@ -115,7 +115,7 @@ def simulate_tool_switching():
                 mode = settings.get_tool_mode(tool)
                 print(f"  {tool:<15} {mode.upper()}")
         else:
-            print(f"✗ Failed to change interactive tool")
+            print("✗ Failed to change interactive tool")
 
     # Change back for consistency
     print(f"\nChanging back to: {current_tool}")

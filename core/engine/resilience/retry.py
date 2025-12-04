@@ -2,12 +2,13 @@
 
 Retry logic with exponential backoff and jitter.
 """
+
 # DOC_ID: DOC-CORE-RESILIENCE-RETRY-189
 
-from abc import ABC, abstractmethod
-from typing import Optional, Callable, Any
-import time
 import random
+import time
+from abc import ABC, abstractmethod
+from typing import Any, Callable
 
 
 class RetryStrategy(ABC):
@@ -29,12 +30,7 @@ class RetryStrategy(ABC):
         """
         pass
 
-    def execute(
-        self,
-        func: Callable,
-        *args,
-        **kwargs
-    ) -> Any:
+    def execute(self, func: Callable, *args, **kwargs) -> Any:
         """Execute function with retry logic
 
         Args:
@@ -66,7 +62,7 @@ class RetryStrategy(ABC):
                     raise RetryExhausted(
                         f"Failed after {self.max_attempts} attempts",
                         attempts=self.max_attempts,
-                        last_exception=last_exception
+                        last_exception=last_exception,
                     )
 
         # Should never reach here
@@ -99,7 +95,7 @@ class ExponentialBackoff(RetryStrategy):
         base_delay: float = 1.0,
         max_delay: float = 60.0,
         exponential_base: float = 2.0,
-        jitter: bool = True
+        jitter: bool = True,
     ):
         """
         Args:
@@ -122,7 +118,7 @@ class ExponentialBackoff(RetryStrategy):
         With optional jitter: delay * random(0.5, 1.5)
         """
         # Calculate exponential delay
-        delay = self.base_delay * (self.exponential_base ** attempt)
+        delay = self.base_delay * (self.exponential_base**attempt)
 
         # Cap at max_delay
         delay = min(delay, self.max_delay)

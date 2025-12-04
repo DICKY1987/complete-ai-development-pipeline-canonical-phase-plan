@@ -6,16 +6,13 @@ Textual-based terminal UI for AI Development Pipeline monitoring and control.
 # DOC_ID: DOC-PAT-TUI-APP-MAIN-462
 
 import argparse
-import os
 import sys
-import tempfile
 from typing import Optional
 
 # Import panels to trigger registration
-import tui_app.panels
 from textual.app import App, ComposeResult
 from textual.containers import Container, Horizontal
-from textual.widgets import Footer, Header, Static
+from textual.widgets import Footer, Header
 from tui_app.config.layout_config import TUIConfig, load_tui_config
 from tui_app.core.layout_manager import BasicLayoutManager
 from tui_app.core.panel_plugin import PanelContext

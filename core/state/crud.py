@@ -5,27 +5,27 @@ Provides create, read, update operations for runs, workstreams, step_attempts,
 errors, and events. All functions use ISO 8601 UTC timestamps and follow
 transactional patterns for data integrity.
 """
+
 # DOC_ID: DOC-CORE-STATE-CRUD-169
 
 from __future__ import annotations
 
 import json
-import sqlite3
-from datetime import datetime, UTC
-from typing import Optional, Dict, Any, List
+from datetime import UTC, datetime
+from typing import Any, Dict, List, Optional
 
 from .db import get_connection
-
 
 # ============================================================================
 # RUN CRUD OPERATIONS
 # ============================================================================
 
+
 def create_run(
     run_id: str,
     status: str = "pending",
     metadata: Optional[Dict[str, Any]] = None,
-    db_path: Optional[str] = None
+    db_path: Optional[str] = None,
 ) -> Dict[str, Any]:
     """
     Create a new run record.
@@ -52,7 +52,7 @@ def create_run(
         cur.execute(
             """INSERT INTO runs (run_id, status, created_at, updated_at, metadata_json)
                VALUES (?, ?, ?, ?, ?)""",
-            (run_id, status, now, now, metadata_json)
+            (run_id, status, now, now, metadata_json),
         )
         conn.commit()
 
@@ -104,9 +104,7 @@ def get_run(run_id: str, db_path: Optional[str] = None) -> Dict[str, Any]:
 
 
 def update_run_status(
-    run_id: str,
-    new_status: str,
-    db_path: Optional[str] = None
+    run_id: str, new_status: str, db_path: Optional[str] = None
 ) -> None:
     """
     Update run status.
@@ -135,7 +133,7 @@ def update_run_status(
         updated_at = datetime.now(UTC).isoformat() + "Z"
         cur.execute(
             "UPDATE runs SET status = ?, updated_at = ? WHERE run_id = ?",
-            (new_status, updated_at, run_id)
+            (new_status, updated_at, run_id),
         )
         conn.commit()
 
@@ -148,7 +146,7 @@ def list_runs(
     status: Optional[str] = None,
     limit: int = 100,
     offset: int = 0,
-    db_path: Optional[str] = None
+    db_path: Optional[str] = None,
 ) -> List[Dict[str, Any]]:
     """
     List runs with optional filtering.
@@ -172,14 +170,14 @@ def list_runs(
                    WHERE status = ?
                    ORDER BY created_at DESC
                    LIMIT ? OFFSET ?""",
-                (status, limit, offset)
+                (status, limit, offset),
             )
         else:
             cur.execute(
                 """SELECT * FROM runs
                    ORDER BY created_at DESC
                    LIMIT ? OFFSET ?""",
-                (limit, offset)
+                (limit, offset),
             )
 
         rows = cur.fetchall()
@@ -204,13 +202,14 @@ def list_runs(
 # WORKSTREAM CRUD OPERATIONS
 # ============================================================================
 
+
 def create_workstream(
     ws_id: str,
     run_id: Optional[str] = None,
     status: str = "pending",
     depends_on: Optional[str] = None,
     metadata: Optional[Dict[str, Any]] = None,
-    db_path: Optional[str] = None
+    db_path: Optional[str] = None,
 ) -> Dict[str, Any]:
     """
     Create a new workstream record.
@@ -239,7 +238,7 @@ def create_workstream(
         cur.execute(
             """INSERT INTO workstreams (ws_id, run_id, status, depends_on, created_at, updated_at, metadata_json)
                VALUES (?, ?, ?, ?, ?, ?, ?)""",
-            (ws_id, run_id, status, depends_on, now, now, metadata_json)
+            (ws_id, run_id, status, depends_on, now, now, metadata_json),
         )
         conn.commit()
 
@@ -289,9 +288,7 @@ def get_workstream(ws_id: str, db_path: Optional[str] = None) -> Dict[str, Any]:
 
 
 def get_workstreams_for_run(
-    run_id: str,
-    status: Optional[str] = None,
-    db_path: Optional[str] = None
+    run_id: str, status: Optional[str] = None, db_path: Optional[str] = None
 ) -> List[Dict[str, Any]]:
     """
     Get all workstreams for a specific run.
@@ -313,14 +310,14 @@ def get_workstreams_for_run(
                 """SELECT * FROM workstreams
                    WHERE run_id = ? AND status = ?
                    ORDER BY created_at ASC""",
-                (run_id, status)
+                (run_id, status),
             )
         else:
             cur.execute(
                 """SELECT * FROM workstreams
                    WHERE run_id = ?
                    ORDER BY created_at ASC""",
-                (run_id,)
+                (run_id,),
             )
 
         rows = cur.fetchall()
@@ -342,9 +339,7 @@ def get_workstreams_for_run(
 
 
 def update_workstream_status(
-    ws_id: str,
-    new_status: str,
-    db_path: Optional[str] = None
+    ws_id: str, new_status: str, db_path: Optional[str] = None
 ) -> None:
     """
     Update workstream status.
@@ -373,7 +368,7 @@ def update_workstream_status(
         updated_at = datetime.now(UTC).isoformat() + "Z"
         cur.execute(
             "UPDATE workstreams SET status = ?, updated_at = ? WHERE ws_id = ?",
-            (new_status, updated_at, ws_id)
+            (new_status, updated_at, ws_id),
         )
         conn.commit()
 
@@ -386,6 +381,7 @@ def update_workstream_status(
 # STEP ATTEMPT OPERATIONS
 # ============================================================================
 
+
 def record_step_attempt(
     run_id: str,
     ws_id: str,
@@ -394,7 +390,7 @@ def record_step_attempt(
     started_at: Optional[str] = None,
     completed_at: Optional[str] = None,
     result: Optional[Dict[str, Any]] = None,
-    db_path: Optional[str] = None
+    db_path: Optional[str] = None,
 ) -> int:
     """
     Record a step attempt.
@@ -424,7 +420,7 @@ def record_step_attempt(
         cur.execute(
             """INSERT INTO step_attempts (run_id, ws_id, step_name, status, started_at, completed_at, result_json)
                VALUES (?, ?, ?, ?, ?, ?, ?)""",
-            (run_id, ws_id, step_name, status, started_at, completed_at, result_json)
+            (run_id, ws_id, step_name, status, started_at, completed_at, result_json),
         )
         conn.commit()
 
@@ -440,7 +436,7 @@ def get_step_attempts(
     ws_id: Optional[str] = None,
     step_name: Optional[str] = None,
     limit: int = 100,
-    db_path: Optional[str] = None
+    db_path: Optional[str] = None,
 ) -> List[Dict[str, Any]]:
     """
     Get step attempts with optional filtering.
@@ -499,6 +495,7 @@ def get_step_attempts(
 # ERROR OPERATIONS (with deduplication)
 # ============================================================================
 
+
 def record_error(
     error_code: str,
     signature: str,
@@ -507,7 +504,7 @@ def record_error(
     ws_id: Optional[str] = None,
     step_name: Optional[str] = None,
     context: Optional[Dict[str, Any]] = None,
-    db_path: Optional[str] = None
+    db_path: Optional[str] = None,
 ) -> int:
     """
     Record an error with automatic deduplication.
@@ -539,7 +536,7 @@ def record_error(
         cur.execute(
             """SELECT id, count FROM errors
                WHERE run_id IS ? AND ws_id IS ? AND step_name IS ? AND signature = ?""",
-            (run_id, ws_id, step_name, signature)
+            (run_id, ws_id, step_name, signature),
         )
         existing = cur.fetchone()
 
@@ -552,14 +549,24 @@ def record_error(
                 """UPDATE errors
                    SET count = ?, last_seen_at = ?, message = ?, context_json = ?
                    WHERE id = ?""",
-                (new_count, now, message, context_json, error_id)
+                (new_count, now, message, context_json, error_id),
             )
         else:
             # Insert new error
             cur.execute(
                 """INSERT INTO errors (run_id, ws_id, step_name, error_code, signature, message, context_json, count, first_seen_at, last_seen_at)
                    VALUES (?, ?, ?, ?, ?, ?, ?, 1, ?, ?)""",
-                (run_id, ws_id, step_name, error_code, signature, message, context_json, now, now)
+                (
+                    run_id,
+                    ws_id,
+                    step_name,
+                    error_code,
+                    signature,
+                    message,
+                    context_json,
+                    now,
+                    now,
+                ),
             )
             error_id = cur.lastrowid
 
@@ -576,7 +583,7 @@ def get_errors(
     ws_id: Optional[str] = None,
     error_code: Optional[str] = None,
     limit: int = 100,
-    db_path: Optional[str] = None
+    db_path: Optional[str] = None,
 ) -> List[Dict[str, Any]]:
     """
     Get errors with optional filtering.
@@ -635,12 +642,13 @@ def get_errors(
 # EVENT OPERATIONS
 # ============================================================================
 
+
 def record_event(
     event_type: str,
     run_id: Optional[str] = None,
     ws_id: Optional[str] = None,
     payload: Optional[Dict[str, Any]] = None,
-    db_path: Optional[str] = None
+    db_path: Optional[str] = None,
 ) -> int:
     """
     Record an event.
@@ -665,7 +673,7 @@ def record_event(
         cur.execute(
             """INSERT INTO events (timestamp, run_id, ws_id, event_type, payload_json)
                VALUES (?, ?, ?, ?, ?)""",
-            (timestamp, run_id, ws_id, event_type, payload_json)
+            (timestamp, run_id, ws_id, event_type, payload_json),
         )
         conn.commit()
 
@@ -682,7 +690,7 @@ def get_events(
     event_type: Optional[str] = None,
     limit: int = 100,
     offset: int = 0,
-    db_path: Optional[str] = None
+    db_path: Optional[str] = None,
 ) -> List[Dict[str, Any]]:
     """
     Get events with optional filtering.
@@ -737,9 +745,11 @@ def get_events(
         cur.close()
         conn.close()
 
+
 # ============================================================================
 # PATCH CRUD OPERATIONS
 # ============================================================================
+
 
 def record_patch(
     run_id: str,
@@ -752,7 +762,7 @@ def record_patch(
     files_modified: List[str],
     validated: bool = False,
     applied: bool = False,
-    db_path: Optional[str] = None
+    db_path: Optional[str] = None,
 ) -> int:
     """
     Record a patch in the database.
@@ -785,8 +795,19 @@ def record_patch(
                (run_id, ws_id, step_name, attempt, patch_file, diff_hash,
                 line_count, files_modified, created_at, validated, applied)
                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
-            (run_id, ws_id, step_name, attempt, patch_file, diff_hash,
-             line_count, files_json, now, int(validated), int(applied))
+            (
+                run_id,
+                ws_id,
+                step_name,
+                attempt,
+                patch_file,
+                diff_hash,
+                line_count,
+                files_json,
+                now,
+                int(validated),
+                int(applied),
+            ),
         )
         conn.commit()
 
@@ -798,9 +819,7 @@ def record_patch(
 
 
 def get_patches_by_ws(
-    ws_id: str,
-    limit: int = 100,
-    db_path: Optional[str] = None
+    ws_id: str, limit: int = 100, db_path: Optional[str] = None
 ) -> List[Dict[str, Any]]:
     """
     Get all patches for a workstream.
@@ -822,7 +841,7 @@ def get_patches_by_ws(
                WHERE ws_id = ?
                ORDER BY created_at DESC
                LIMIT ?""",
-            (ws_id, limit)
+            (ws_id, limit),
         )
         rows = cur.fetchall()
 
@@ -845,9 +864,7 @@ def get_patches_by_ws(
 
 
 def get_patches_by_hash(
-    ws_id: str,
-    diff_hash: str,
-    db_path: Optional[str] = None
+    ws_id: str, diff_hash: str, db_path: Optional[str] = None
 ) -> List[Dict[str, Any]]:
     """
     Get patches by diff hash (for oscillation detection).
@@ -868,7 +885,7 @@ def get_patches_by_hash(
             """SELECT * FROM patches
                WHERE ws_id = ? AND diff_hash = ?
                ORDER BY created_at DESC""",
-            (ws_id, diff_hash)
+            (ws_id, diff_hash),
         )
         rows = cur.fetchall()
 
@@ -892,7 +909,7 @@ def update_patch_status(
     patch_id: int,
     validated: Optional[bool] = None,
     applied: Optional[bool] = None,
-    db_path: Optional[str] = None
+    db_path: Optional[str] = None,
 ) -> None:
     """
     Update patch validation/application status.

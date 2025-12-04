@@ -3,24 +3,28 @@
 Schedules and executes tasks with dependency resolution.
 Handles parallel and sequential execution.
 """
+
 # DOC_ID: DOC-CORE-ENGINE-SCHEDULER-158
 
-from typing import Dict, Any, List, Optional, Set
 from collections import defaultdict
-import time
+from typing import Any, Dict, List, Optional, Set
 
 
 class Task:
     """Represents a task to be executed"""
 
-    def __init__(self, task_id: str, task_kind: str,
-                 depends_on: Optional[List[str]] = None,
-                 metadata: Optional[Dict[str, Any]] = None):
+    def __init__(
+        self,
+        task_id: str,
+        task_kind: str,
+        depends_on: Optional[List[str]] = None,
+        metadata: Optional[Dict[str, Any]] = None,
+    ):
         self.task_id = task_id
         self.task_kind = task_kind
         self.depends_on = depends_on or []
         self.metadata = metadata or {}
-        self.status = 'pending'  # pending, ready, running, completed, failed
+        self.status = "pending"  # pending, ready, running, completed, failed
         self.result = None
         self.error = None
 
@@ -58,7 +62,7 @@ class ExecutionScheduler:
         ready = []
 
         for task_id, task in self.tasks.items():
-            if task.status != 'pending':
+            if task.status != "pending":
                 continue
 
             # Check if all dependencies are satisfied
@@ -67,12 +71,12 @@ class ExecutionScheduler:
             all_deps_met = True
             for dep_id in deps:
                 dep_task = self.tasks.get(dep_id)
-                if not dep_task or dep_task.status != 'completed':
+                if not dep_task or dep_task.status != "completed":
                     all_deps_met = False
                     break
 
             if all_deps_met:
-                task.status = 'ready'
+                task.status = "ready"
                 ready.append(task)
 
         return ready
@@ -167,7 +171,7 @@ class ExecutionScheduler:
         for level in levels:
             # Split large levels into smaller batches
             for i in range(0, len(level), max_parallel):
-                batch = level[i:i + max_parallel]
+                batch = level[i : i + max_parallel]
                 batches.append(batch)
 
         return batches
@@ -176,21 +180,21 @@ class ExecutionScheduler:
         """Mark a task as completed"""
         task = self.tasks.get(task_id)
         if task:
-            task.status = 'completed'
+            task.status = "completed"
             task.result = result
 
     def mark_failed(self, task_id: str, error: str):
         """Mark a task as failed"""
         task = self.tasks.get(task_id)
         if task:
-            task.status = 'failed'
+            task.status = "failed"
             task.error = error
 
     def mark_running(self, task_id: str):
         """Mark a task as running"""
         task = self.tasks.get(task_id)
         if task:
-            task.status = 'running'
+            task.status = "running"
 
     def get_task(self, task_id: str) -> Optional[Task]:
         """Get a task by ID"""
@@ -203,13 +207,13 @@ class ExecutionScheduler:
     def can_execute(self, task_id: str) -> bool:
         """Check if a task can be executed (all deps satisfied)"""
         task = self.tasks.get(task_id)
-        if not task or task.status != 'pending':
+        if not task or task.status != "pending":
             return False
 
         deps = self.dependency_graph.get(task_id, set())
         for dep_id in deps:
             dep_task = self.tasks.get(dep_id)
-            if not dep_task or dep_task.status != 'completed':
+            if not dep_task or dep_task.status != "completed":
                 return False
 
         return True
@@ -221,7 +225,7 @@ class ExecutionScheduler:
 
         for dep_id in deps:
             dep_task = self.tasks.get(dep_id)
-            if not dep_task or dep_task.status != 'completed':
+            if not dep_task or dep_task.status != "completed":
                 blocking.append(dep_id)
 
         return blocking
@@ -229,12 +233,12 @@ class ExecutionScheduler:
     def get_stats(self) -> Dict[str, int]:
         """Get statistics about tasks"""
         stats = {
-            'total': len(self.tasks),
-            'pending': 0,
-            'ready': 0,
-            'running': 0,
-            'completed': 0,
-            'failed': 0
+            "total": len(self.tasks),
+            "pending": 0,
+            "ready": 0,
+            "running": 0,
+            "completed": 0,
+            "failed": 0,
         }
 
         for task in self.tasks.values():
@@ -245,14 +249,14 @@ class ExecutionScheduler:
     def is_complete(self) -> bool:
         """Check if all tasks are completed or failed"""
         for task in self.tasks.values():
-            if task.status not in ['completed', 'failed']:
+            if task.status not in ["completed", "failed"]:
                 return False
         return True
 
     def has_failures(self) -> bool:
         """Check if any tasks have failed"""
         for task in self.tasks.values():
-            if task.status == 'failed':
+            if task.status == "failed":
                 return True
         return False
 
@@ -260,12 +264,12 @@ class ExecutionScheduler:
 def create_task_from_spec(spec: Dict[str, Any]) -> Task:
     """Create a Task from a workstream task specification"""
     return Task(
-        task_id=spec.get('id', ''),
-        task_kind=spec.get('kind', 'unknown'),
-        depends_on=spec.get('depends_on', []),
+        task_id=spec.get("id", ""),
+        task_kind=spec.get("kind", "unknown"),
+        depends_on=spec.get("depends_on", []),
         metadata={
-            'description': spec.get('name', ''),
-            'constraints': spec.get('constraints', {}),
-            'outputs': spec.get('outputs', [])
-        }
+            "description": spec.get("name", ""),
+            "constraints": spec.get("constraints", {}),
+            "outputs": spec.get("outputs", []),
+        },
     )

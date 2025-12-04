@@ -1,21 +1,22 @@
 """Bootstrap Discovery - WS-02-01A"""
 
-import os
 import json
-from pathlib import Path
 from collections import Counter
-from datetime import datetime, UTC
+from datetime import UTC, datetime
+from pathlib import Path
+
 
 class ProjectScanner:
     """Scans project and detects characteristics."""
-# DOC_ID: DOC-CORE-BOOTSTRAP-DISCOVERY-138
+
+    # DOC_ID: DOC-CORE-BOOTSTRAP-DISCOVERY-138
 
     LANGUAGE_EXTENSIONS = {
-        'python': ['.py'],
-        'javascript': ['.js'],
-        'markdown': ['.md'],
-        'yaml': ['.yaml', '.yml'],
-        'json': ['.json'],
+        "python": [".py"],
+        "javascript": [".js"],
+        "markdown": [".md"],
+        "yaml": [".yaml", ".yml"],
+        "json": [".json"],
     }
 
     def __init__(self, project_root: str):
@@ -39,7 +40,7 @@ class ProjectScanner:
             "vcs": "git" if (self.project_root / ".git").exists() else None,
             "inferred_constraints": {},
             "directory_structure": self._analyze_structure(),
-            "discovery_timestamp": datetime.now(UTC).isoformat() + "Z"
+            "discovery_timestamp": datetime.now(UTC).isoformat() + "Z",
         }
 
     def _detect_languages(self):
@@ -54,8 +55,13 @@ class ProjectScanner:
             return []
 
         return [
-            {"language": lang, "percentage": round((count/total)*100, 1), "file_count": count}
-            for lang, count in counts.most_common() if count > 0
+            {
+                "language": lang,
+                "percentage": round((count / total) * 100, 1),
+                "file_count": count,
+            }
+            for lang, count in counts.most_common()
+            if count > 0
         ]
 
     def _detect_ci(self):
@@ -67,9 +73,21 @@ class ProjectScanner:
     def _analyze_structure(self):
         """Analyze directory structure."""
         return {
-            "src_dirs": [d.name for d in self.project_root.iterdir() if d.is_dir() and "src" in d.name.lower()],
-            "test_dirs": [d.name for d in self.project_root.iterdir() if d.is_dir() and "test" in d.name.lower()],
-            "doc_dirs": [d.name for d in self.project_root.iterdir() if d.is_dir() and "doc" in d.name.lower()],
+            "src_dirs": [
+                d.name
+                for d in self.project_root.iterdir()
+                if d.is_dir() and "src" in d.name.lower()
+            ],
+            "test_dirs": [
+                d.name
+                for d in self.project_root.iterdir()
+                if d.is_dir() and "test" in d.name.lower()
+            ],
+            "doc_dirs": [
+                d.name
+                for d in self.project_root.iterdir()
+                if d.is_dir() and "doc" in d.name.lower()
+            ],
         }
 
     def _classify_domain(self, languages):
@@ -87,7 +105,9 @@ class ProjectScanner:
         else:
             return "mixed", 0.6
 
+
 if __name__ == "__main__":
     import sys
+
     scanner = ProjectScanner(sys.argv[1] if len(sys.argv) > 1 else ".")
     print(json.dumps(scanner.scan(), indent=2))

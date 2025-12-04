@@ -2,18 +2,19 @@
 
 Prevents cascading failures by stopping requests to failing services.
 """
+
 # DOC_ID: DOC-CORE-RESILIENCE-CIRCUIT-BREAKER-186
 
+from datetime import UTC, datetime
 from enum import Enum
-from typing import Optional, Callable, Any
-from datetime import datetime, timedelta, UTC
-import time
+from typing import Any, Callable, Optional
 
 
 class CircuitBreakerState(Enum):
     """Circuit breaker states"""
-    CLOSED = "closed"      # Normal operation
-    OPEN = "open"          # Blocking requests
+
+    CLOSED = "closed"  # Normal operation
+    OPEN = "open"  # Blocking requests
     HALF_OPEN = "half_open"  # Testing recovery
 
 
@@ -34,7 +35,7 @@ class CircuitBreaker:
         failure_threshold: int = 5,
         recovery_timeout: int = 60,
         half_open_max_calls: int = 1,
-        name: str = "circuit_breaker"
+        name: str = "circuit_breaker",
     ):
         """
         Args:
@@ -94,7 +95,7 @@ class CircuitBreaker:
             result = func(*args, **kwargs)
             self._on_success()
             return result
-        except Exception as e:
+        except Exception:
             self._on_failure()
             raise
 
@@ -161,17 +162,22 @@ class CircuitBreaker:
     def get_state(self) -> dict:
         """Get current state as dict"""
         return {
-            'name': self.name,
-            'state': self.state.value,
-            'failure_count': self.failure_count,
-            'success_count': self.success_count,
-            'failure_threshold': self.failure_threshold,
-            'recovery_timeout': self.recovery_timeout,
-            'opened_at': self.opened_at.isoformat() if self.opened_at else None,
-            'time_until_recovery': max(0, self.recovery_timeout - self._time_since_open()) if self.opened_at else 0,
+            "name": self.name,
+            "state": self.state.value,
+            "failure_count": self.failure_count,
+            "success_count": self.success_count,
+            "failure_threshold": self.failure_threshold,
+            "recovery_timeout": self.recovery_timeout,
+            "opened_at": self.opened_at.isoformat() if self.opened_at else None,
+            "time_until_recovery": (
+                max(0, self.recovery_timeout - self._time_since_open())
+                if self.opened_at
+                else 0
+            ),
         }
 
 
 class CircuitBreakerOpen(Exception):
     """Exception raised when circuit breaker is open"""
+
     pass

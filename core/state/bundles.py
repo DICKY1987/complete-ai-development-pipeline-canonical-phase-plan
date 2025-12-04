@@ -10,6 +10,7 @@ structures ready for orchestration. It provides:
 - File-scope overlap detection
 - Optional DB sync of validated bundles to the `workstreams` table
 """
+
 # DOC_ID: DOC-CORE-STATE-BUNDLES-168
 
 from __future__ import annotations
@@ -19,7 +20,7 @@ import os
 import re
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Dict, Iterable, List, Mapping, MutableMapping, Optional, Sequence, Tuple
+from typing import Any, Dict, List, Mapping, Optional, Sequence, Tuple
 
 try:
     import jsonschema  # type: ignore
@@ -122,7 +123,9 @@ def _load_schema(repo_root: Path) -> Dict[str, Any]:
         raise BundleValidationError(f"Failed reading schema {schema_path}: {e}")
 
 
-def _ensure_str_list(value: Any, field: str, *, allow_empty: bool = True) -> Tuple[str, ...]:
+def _ensure_str_list(
+    value: Any, field: str, *, allow_empty: bool = True
+) -> Tuple[str, ...]:
     if not isinstance(value, list) or any(not isinstance(x, str) for x in value):
         raise BundleValidationError(f"Field '{field}' must be an array of strings")
     if not allow_empty and len(value) == 0:
@@ -178,7 +181,12 @@ def load_bundle_file(path: Path) -> Dict[str, Any] | List[Dict[str, Any]]:
     raise BundleValidationError(f"Top-level JSON must be object or array in {path}")
 
 
-def validate_bundle_data(data: Dict[str, Any], *, schema: Optional[Dict[str, Any]] = None, source_file: Optional[Path] = None) -> WorkstreamBundle:
+def validate_bundle_data(
+    data: Dict[str, Any],
+    *,
+    schema: Optional[Dict[str, Any]] = None,
+    source_file: Optional[Path] = None,
+) -> WorkstreamBundle:
     """Validate a single bundle dict against the workstream schema.
 
     If `jsonschema` is installed, use it; otherwise, enforce equivalent checks
@@ -225,17 +233,23 @@ def validate_bundle_data(data: Dict[str, Any], *, schema: Optional[Dict[str, Any
         gate = data.get("gate")
         if not (isinstance(gate, int) and gate >= 1):
             raise BundleValidationError("Field 'gate' must be an integer >= 1")
-        files_scope = _ensure_str_list(data.get("files_scope"), "files_scope", allow_empty=False)
+        files_scope = _ensure_str_list(
+            data.get("files_scope"), "files_scope", allow_empty=False
+        )
         files_create = _ensure_str_list(data.get("files_create", []), "files_create")
         tasks = _ensure_str_list(data.get("tasks"), "tasks")
-        acceptance_tests = _ensure_str_list(data.get("acceptance_tests", []), "acceptance_tests")
+        acceptance_tests = _ensure_str_list(
+            data.get("acceptance_tests", []), "acceptance_tests"
+        )
         depends_on = _ensure_str_list(data.get("depends_on", []), "depends_on")
         tool = data.get("tool")
         if not isinstance(tool, str) or not tool:
             raise BundleValidationError("Field 'tool' must be a non-empty string")
         circuit_breaker = data.get("circuit_breaker")
         if circuit_breaker is not None and not isinstance(circuit_breaker, dict):
-            raise BundleValidationError("Field 'circuit_breaker' must be an object if present")
+            raise BundleValidationError(
+                "Field 'circuit_breaker' must be an object if present"
+            )
         metadata = data.get("metadata")
         if metadata is not None and not isinstance(metadata, dict):
             raise BundleValidationError("Field 'metadata' must be an object if present")
@@ -293,7 +307,9 @@ def validate_bundle_data(data: Dict[str, Any], *, schema: Optional[Dict[str, Any
     )
 
 
-def load_and_validate_bundles(workstream_dir: Optional[Path] = None) -> List[WorkstreamBundle]:
+def load_and_validate_bundles(
+    workstream_dir: Optional[Path] = None,
+) -> List[WorkstreamBundle]:
     """Load and validate all bundles from the specified or default workstream directory.
 
     - Supports per-file single object or list-of-objects format.
@@ -339,7 +355,9 @@ def load_and_validate_bundles(workstream_dir: Optional[Path] = None) -> List[Wor
         if missing:
             missing_refs[b.id] = missing
     if missing_refs:
-        details = "; ".join(f"{k} -> {', '.join(v)}" for k, v in sorted(missing_refs.items()))
+        details = "; ".join(
+            f"{k} -> {', '.join(v)}" for k, v in sorted(missing_refs.items())
+        )
         raise BundleDependencyError(f"Missing dependency references: {details}")
 
     # Cycles
@@ -352,7 +370,9 @@ def load_and_validate_bundles(workstream_dir: Optional[Path] = None) -> List[Wor
     return sorted(bundles, key=lambda b: b.id)
 
 
-def build_dependency_graph(bundles: Sequence[WorkstreamBundle]) -> Tuple[Dict[str, List[str]], Dict[str, List[str]]]:
+def build_dependency_graph(
+    bundles: Sequence[WorkstreamBundle],
+) -> Tuple[Dict[str, List[str]], Dict[str, List[str]]]:
     """Build adjacency (children) and reverse (parents) graphs.
 
     - children[id] = list of nodes that depend on id
@@ -428,7 +448,9 @@ def detect_cycles(graph: Mapping[str, List[str]]) -> List[List[str]]:
     return unique
 
 
-def detect_filescope_overlaps(bundles: Sequence[WorkstreamBundle]) -> Dict[str, List[str]]:
+def detect_filescope_overlaps(
+    bundles: Sequence[WorkstreamBundle],
+) -> Dict[str, List[str]]:
     """Return mapping file_path -> [workstream ids] for overlaps (>1 owner)."""
     owners: Dict[str, List[str]] = {}
     for b in bundles:
@@ -472,4 +494,3 @@ def sync_bundles_to_db(run_id: str, bundles: Sequence[WorkstreamBundle]) -> None
             )
         except Exception as e:  # pragma: no cover - DB errors exercised elsewhere
             raise BundleDependencyError(f"Failed to sync workstream {b.id} to DB: {e}")
-

@@ -2,7 +2,7 @@
 # DOC_LINK: DOC-PAT-TEXTUAL-WIDGET-321
 from __future__ import annotations
 
-from typing import Iterable, List, Optional, Sequence, Union
+from typing import List, Optional, Sequence
 
 
 class Widget:

@@ -3,7 +3,6 @@
 import pytest
 
 # Import panels to trigger registration
-import tui_app.panels
 from tui_app.core.panel_plugin import PanelContext
 from tui_app.core.panel_registry import get_registry
 from tui_app.core.pattern_client import InMemoryPatternStateStore, PatternClient

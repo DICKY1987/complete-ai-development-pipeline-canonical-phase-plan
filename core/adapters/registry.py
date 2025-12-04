@@ -2,11 +2,12 @@
 
 Manages tool adapters and loads them from router_config.
 """
+
 # DOC_ID: DOC-CORE-ADAPTERS-REGISTRY-134
 
 import json
-from pathlib import Path
-from typing import Dict, Any, Optional, List
+from typing import Dict, List, Optional
+
 from .base import ToolAdapter, ToolConfig
 from .subprocess_adapter import SubprocessAdapter
 
@@ -30,19 +31,19 @@ class AdapterRegistry:
         Args:
             config_path: Path to router_config.v1.json
         """
-        with open(config_path, 'r') as f:
+        with open(config_path, "r") as f:
             config = json.load(f)
 
         # Load apps as tool configs
-        apps = config.get('apps', {})
+        apps = config.get("apps", {})
         for tool_id, app_config in apps.items():
             tool_config = ToolConfig(
                 tool_id=tool_id,
-                kind=app_config.get('kind', 'tool'),
-                command=app_config.get('command', ''),
-                capabilities=app_config.get('capabilities', {}),
-                limits=app_config.get('limits'),
-                safety_tier=app_config.get('safety_tier', 'medium')
+                kind=app_config.get("kind", "tool"),
+                command=app_config.get("command", ""),
+                capabilities=app_config.get("capabilities", {}),
+                limits=app_config.get("limits"),
+                safety_tier=app_config.get("safety_tier", "medium"),
             )
 
             # Create appropriate adapter based on kind
@@ -71,9 +72,7 @@ class AdapterRegistry:
         return self.adapters.get(tool_id)
 
     def find_for_task(
-        self,
-        task_kind: str,
-        domain: Optional[str] = None
+        self, task_kind: str, domain: Optional[str] = None
     ) -> List[ToolAdapter]:
         """Find all adapters that support a task kind/domain
 

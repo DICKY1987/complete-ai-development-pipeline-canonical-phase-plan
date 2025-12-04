@@ -8,11 +8,10 @@ PySide6-based windowed GUI for AI Development Pipeline monitoring and control.
 import argparse
 import sys
 from pathlib import Path
-from typing import Optional
 
 from gui_app.core.gui_app import GuiApp
 from PySide6.QtWidgets import QApplication
-from ui_core.layout_config import UIConfig, load_ui_config
+from ui_core.layout_config import load_ui_config
 from ui_core.pattern_client import (
     InMemoryPatternStateStore,
     PatternClient,

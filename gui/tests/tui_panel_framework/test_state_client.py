@@ -1,8 +1,5 @@
 """Tests for state client."""
 
-from datetime import datetime
-
-import pytest
 from tui_app.core.state_client import (
     InMemoryStateBackend,
     PipelineSummary,

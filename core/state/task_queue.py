@@ -2,20 +2,22 @@
 Task Queue Management for Pipeline Plus
 File-based task lifecycle management with concurrent access safety
 """
+
 # DOC_ID: DOC-CORE-STATE-TASK-QUEUE-174
 import json
-import os
-from dataclasses import dataclass, field, asdict
+from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Optional, List, Dict, Any
-from filelock import FileLock
+from typing import Any, Dict, List, Optional
+
 import ulid
+from filelock import FileLock
 
 
 @dataclass
 class TaskPayload:
     """Payload data for a task"""
+
     repo_path: str
     files: List[str] = field(default_factory=list)
     description: str = ""
@@ -26,6 +28,7 @@ class TaskPayload:
 @dataclass
 class TaskConstraints:
     """Constraints on task execution"""
+
     allow_delegation: bool = True
     must_stay_local: bool = False
     allowed_tools: List[str] = field(default_factory=list)
@@ -34,6 +37,7 @@ class TaskConstraints:
 @dataclass
 class TaskTimeouts:
     """Timeout configuration for task execution"""
+
     wall_clock_sec: int = 600
     idle_output_sec: int = 120
 
@@ -41,6 +45,7 @@ class TaskTimeouts:
 @dataclass
 class RoutingState:
     """Current routing state for task"""
+
     current_target: Optional[str] = None
     route_history: List[Dict[str, Any]] = field(default_factory=list)
     attempts: int = 0
@@ -51,6 +56,7 @@ class Task:
     """
     Task representation for the queue system
     """
+
     task_id: str
     source_app: str
     mode: str
@@ -59,7 +65,11 @@ class Task:
     constraints: TaskConstraints = field(default_factory=TaskConstraints)
     timeouts: TaskTimeouts = field(default_factory=TaskTimeouts)
     routing_state: RoutingState = field(default_factory=RoutingState)
-    created_at: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z'))
+    created_at: str = field(
+        default_factory=lambda: datetime.now(timezone.utc)
+        .isoformat()
+        .replace("+00:00", "Z")
+    )
 
     @staticmethod
     def generate_id() -> str:
@@ -71,23 +81,24 @@ class Task:
         return asdict(self)
 
     @classmethod
-    def from_dict(cls, data: Dict[str, Any]) -> 'Task':
+    def from_dict(cls, data: Dict[str, Any]) -> "Task":
         """Create Task from dictionary"""
         # Convert nested dicts back to dataclasses
-        if 'payload' in data and isinstance(data['payload'], dict):
-            data['payload'] = TaskPayload(**data['payload'])
-        if 'constraints' in data and isinstance(data['constraints'], dict):
-            data['constraints'] = TaskConstraints(**data['constraints'])
-        if 'timeouts' in data and isinstance(data['timeouts'], dict):
-            data['timeouts'] = TaskTimeouts(**data['timeouts'])
-        if 'routing_state' in data and isinstance(data['routing_state'], dict):
-            data['routing_state'] = RoutingState(**data['routing_state'])
+        if "payload" in data and isinstance(data["payload"], dict):
+            data["payload"] = TaskPayload(**data["payload"])
+        if "constraints" in data and isinstance(data["constraints"], dict):
+            data["constraints"] = TaskConstraints(**data["constraints"])
+        if "timeouts" in data and isinstance(data["timeouts"], dict):
+            data["timeouts"] = TaskTimeouts(**data["timeouts"])
+        if "routing_state" in data and isinstance(data["routing_state"], dict):
+            data["routing_state"] = RoutingState(**data["routing_state"])
         return cls(**data)
 
 
 @dataclass
 class TaskStatus:
     """Status information for a task"""
+
     task_id: str
     state: str  # "inbox", "running", "done", "failed"
     created_at: str
@@ -98,6 +109,7 @@ class TaskStatus:
 @dataclass
 class TaskResult:
     """Result of task execution"""
+
     task_id: str
     success: bool
     output: str = ""
@@ -128,7 +140,7 @@ class TaskQueue:
 
     def _get_lock_file(self, task_file: Path) -> Path:
         """Get lock file path for a task file"""
-        return task_file.with_suffix('.lock')
+        return task_file.with_suffix(".lock")
 
     def enqueue(self, task: Task) -> str:
         """
@@ -139,7 +151,7 @@ class TaskQueue:
         lock_file = self._get_lock_file(task_file)
 
         with FileLock(str(lock_file), timeout=10):
-            with open(task_file, 'w', encoding='utf-8') as f:
+            with open(task_file, "w", encoding="utf-8") as f:
                 json.dump(task.to_dict(), f, indent=2)
 
         return task.task_id
@@ -158,7 +170,7 @@ class TaskQueue:
 
         try:
             with FileLock(str(lock_file), timeout=10):
-                with open(task_file, 'r', encoding='utf-8') as f:
+                with open(task_file, "r", encoding="utf-8") as f:
                     task_data = json.load(f)
                 task = Task.from_dict(task_data)
                 return task
@@ -173,7 +185,7 @@ class TaskQueue:
         tasks = []
         for task_file in sorted(self.inbox.glob("*.json"))[:limit]:
             try:
-                with open(task_file, 'r', encoding='utf-8') as f:
+                with open(task_file, "r", encoding="utf-8") as f:
                     task_data = json.load(f)
                 tasks.append(Task.from_dict(task_data))
             except Exception:
@@ -219,15 +231,17 @@ class TaskQueue:
             with FileLock(str(lock_file), timeout=10):
                 if src_file.exists():
                     # Read original task
-                    with open(src_file, 'r', encoding='utf-8') as f:
+                    with open(src_file, "r", encoding="utf-8") as f:
                         task_data = json.load(f)
 
                     # Add result data
-                    task_data['result'] = asdict(result)
-                    task_data['completed_at'] = datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z')
+                    task_data["result"] = asdict(result)
+                    task_data["completed_at"] = (
+                        datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+                    )
 
                     # Write to done directory
-                    with open(dst_file, 'w', encoding='utf-8') as f:
+                    with open(dst_file, "w", encoding="utf-8") as f:
                         json.dump(task_data, f, indent=2)
 
                     # Remove from running
@@ -258,15 +272,17 @@ class TaskQueue:
             with FileLock(str(lock_file), timeout=10):
                 if src_file.exists():
                     # Read original task
-                    with open(src_file, 'r', encoding='utf-8') as f:
+                    with open(src_file, "r", encoding="utf-8") as f:
                         task_data = json.load(f)
 
                     # Add error data
-                    task_data['error'] = error
-                    task_data['failed_at'] = datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z')
+                    task_data["error"] = error
+                    task_data["failed_at"] = (
+                        datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+                    )
 
                     # Write to failed directory
-                    with open(dst_file, 'w', encoding='utf-8') as f:
+                    with open(dst_file, "w", encoding="utf-8") as f:
                         json.dump(task_data, f, indent=2)
 
                     # Remove from running
@@ -292,15 +308,17 @@ class TaskQueue:
             task_file = self._get_task_file(task_id, state)
             if task_file.exists():
                 try:
-                    with open(task_file, 'r', encoding='utf-8') as f:
+                    with open(task_file, "r", encoding="utf-8") as f:
                         task_data = json.load(f)
 
                     return TaskStatus(
                         task_id=task_id,
                         state=state,
-                        created_at=task_data.get('created_at', ''),
-                        updated_at=task_data.get('completed_at') or task_data.get('failed_at') or task_data.get('created_at', ''),
-                        error=task_data.get('error')
+                        created_at=task_data.get("created_at", ""),
+                        updated_at=task_data.get("completed_at")
+                        or task_data.get("failed_at")
+                        or task_data.get("created_at", ""),
+                        error=task_data.get("error"),
                     )
                 except Exception:
                     continue

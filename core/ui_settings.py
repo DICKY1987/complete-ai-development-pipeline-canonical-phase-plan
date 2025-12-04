@@ -17,11 +17,12 @@ Usage:
     # Check if a tool should run in headless mode
     is_headless = settings.is_headless("codex")
 """
+
 # DOC_ID: DOC-CORE-CORE-UI-SETTINGS-129
 
-import os
 from pathlib import Path
-from typing import Dict, List, Optional, Any
+from typing import Any, Dict, List, Optional
+
 import yaml
 
 
@@ -61,26 +62,26 @@ class UISettingsManager:
             self._settings = self._get_default_settings()
             return
 
-        with open(self.config_path, 'r', encoding='utf-8') as f:
+        with open(self.config_path, "r", encoding="utf-8") as f:
             self._settings = yaml.safe_load(f)
 
     def _get_default_settings(self) -> Dict[str, Any]:
         """Get default settings if config file doesn't exist."""
         return {
-            'default_interactive_tool': 'aim',
-            'available_interactive_tools': ['aim', 'aider', 'codex', 'core.ui_cli'],
-            'tool_modes': {
-                'aim': {
-                    'default_mode': 'interactive',
-                    'supports_headless': True,
-                    'description': 'AIM+ Unified CLI'
+            "default_interactive_tool": "aim",
+            "available_interactive_tools": ["aim", "aider", "codex", "core.ui_cli"],
+            "tool_modes": {
+                "aim": {
+                    "default_mode": "interactive",
+                    "supports_headless": True,
+                    "description": "AIM+ Unified CLI",
                 }
             },
-            'startup': {
-                'auto_launch_interactive': True,
-                'auto_launch_headless': [],
-                'interactive_tool_layout': 'main_terminal'
-            }
+            "startup": {
+                "auto_launch_interactive": True,
+                "auto_launch_headless": [],
+                "interactive_tool_layout": "main_terminal",
+            },
         }
 
     def save_settings(self) -> None:
@@ -88,7 +89,7 @@ class UISettingsManager:
         config_dir = Path(self.config_path).parent
         config_dir.mkdir(parents=True, exist_ok=True)
 
-        with open(self.config_path, 'w', encoding='utf-8') as f:
+        with open(self.config_path, "w", encoding="utf-8") as f:
             yaml.dump(self._settings, f, default_flow_style=False, sort_keys=False)
 
     def get_interactive_tool(self) -> str:
@@ -98,7 +99,7 @@ class UISettingsManager:
         Returns:
             Name of the interactive tool (e.g., 'aim', 'aider')
         """
-        return self._settings.get('default_interactive_tool', 'aim')
+        return self._settings.get("default_interactive_tool", "aim")
 
     def set_interactive_tool(self, tool_name: str) -> bool:
         """
@@ -114,7 +115,7 @@ class UISettingsManager:
         if tool_name not in available:
             return False
 
-        self._settings['default_interactive_tool'] = tool_name
+        self._settings["default_interactive_tool"] = tool_name
         self.save_settings()
         return True
 
@@ -125,7 +126,7 @@ class UISettingsManager:
         Returns:
             List of tool names
         """
-        return self._settings.get('available_interactive_tools', ['aim'])
+        return self._settings.get("available_interactive_tools", ["aim"])
 
     def is_headless(self, tool_name: str) -> bool:
         """
@@ -148,11 +149,11 @@ class UISettingsManager:
             return False
 
         # Check if tool supports headless mode
-        tool_modes = self._settings.get('tool_modes', {})
+        tool_modes = self._settings.get("tool_modes", {})
         tool_config = tool_modes.get(tool_name, {})
 
         # Default to headless if not specified
-        return tool_config.get('supports_headless', True)
+        return tool_config.get("supports_headless", True)
 
     def get_tool_mode(self, tool_name: str) -> str:
         """
@@ -164,7 +165,7 @@ class UISettingsManager:
         Returns:
             'interactive' or 'headless'
         """
-        return 'interactive' if not self.is_headless(tool_name) else 'headless'
+        return "interactive" if not self.is_headless(tool_name) else "headless"
 
     def get_tool_config(self, tool_name: str) -> Dict[str, Any]:
         """
@@ -176,7 +177,7 @@ class UISettingsManager:
         Returns:
             Dictionary with tool configuration
         """
-        tool_modes = self._settings.get('tool_modes', {})
+        tool_modes = self._settings.get("tool_modes", {})
         return tool_modes.get(tool_name, {})
 
     def get_startup_config(self) -> Dict[str, Any]:
@@ -186,11 +187,14 @@ class UISettingsManager:
         Returns:
             Dictionary with startup settings
         """
-        return self._settings.get('startup', {
-            'auto_launch_interactive': True,
-            'auto_launch_headless': [],
-            'interactive_tool_layout': 'main_terminal'
-        })
+        return self._settings.get(
+            "startup",
+            {
+                "auto_launch_interactive": True,
+                "auto_launch_headless": [],
+                "interactive_tool_layout": "main_terminal",
+            },
+        )
 
     def should_auto_launch_interactive(self) -> bool:
         """
@@ -200,7 +204,7 @@ class UISettingsManager:
             True if should auto-launch
         """
         startup = self.get_startup_config()
-        return startup.get('auto_launch_interactive', True)
+        return startup.get("auto_launch_interactive", True)
 
     def get_auto_launch_headless_tools(self) -> List[str]:
         """
@@ -210,7 +214,7 @@ class UISettingsManager:
             List of tool names
         """
         startup = self.get_startup_config()
-        return startup.get('auto_launch_headless', [])
+        return startup.get("auto_launch_headless", [])
 
     def get_interactive_layout(self) -> str:
         """
@@ -220,7 +224,7 @@ class UISettingsManager:
             Layout name (e.g., 'main_terminal', 'side_panel', 'popup')
         """
         startup = self.get_startup_config()
-        return startup.get('interactive_tool_layout', 'main_terminal')
+        return startup.get("interactive_tool_layout", "main_terminal")
 
     def list_all_tools(self) -> Dict[str, Dict[str, Any]]:
         """
@@ -229,7 +233,7 @@ class UISettingsManager:
         Returns:
             Dictionary mapping tool names to their configurations
         """
-        return self._settings.get('tool_modes', {})
+        return self._settings.get("tool_modes", {})
 
     def get_settings_summary(self) -> Dict[str, Any]:
         """
@@ -239,12 +243,12 @@ class UISettingsManager:
             Dictionary with key settings
         """
         return {
-            'interactive_tool': self.get_interactive_tool(),
-            'interactive_mode': self.get_tool_mode(self.get_interactive_tool()),
-            'available_interactive_tools': self.get_available_interactive_tools(),
-            'auto_launch_interactive': self.should_auto_launch_interactive(),
-            'auto_launch_headless': self.get_auto_launch_headless_tools(),
-            'interactive_layout': self.get_interactive_layout(),
+            "interactive_tool": self.get_interactive_tool(),
+            "interactive_mode": self.get_tool_mode(self.get_interactive_tool()),
+            "available_interactive_tools": self.get_available_interactive_tools(),
+            "auto_launch_interactive": self.should_auto_launch_interactive(),
+            "auto_launch_headless": self.get_auto_launch_headless_tools(),
+            "interactive_layout": self.get_interactive_layout(),
         }
 
 

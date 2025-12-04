@@ -2,12 +2,12 @@
 
 Abstract interface for tool adapters.
 """
+
 # DOC_ID: DOC-CORE-ADAPTERS-BASE-133
 
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
-from typing import Dict, Any, List, Optional
-from datetime import datetime
+from typing import Any, Dict, Optional
 
 
 @dataclass
@@ -26,27 +26,27 @@ class ToolConfig:
         caps = self.capabilities
 
         # Check task_kinds
-        if 'task_kinds' in caps:
-            if task_kind not in caps['task_kinds']:
+        if "task_kinds" in caps:
+            if task_kind not in caps["task_kinds"]:
                 return False
 
         # Check domains (if specified)
-        if domain and 'domains' in caps:
-            if domain not in caps['domains']:
+        if domain and "domains" in caps:
+            if domain not in caps["domains"]:
                 return False
 
         return True
 
     def get_timeout(self) -> int:
         """Get timeout in seconds, or default"""
-        if self.limits and 'timeout_seconds' in self.limits:
-            return self.limits['timeout_seconds']
+        if self.limits and "timeout_seconds" in self.limits:
+            return self.limits["timeout_seconds"]
         return 300  # 5 minute default
 
     def get_max_parallel(self) -> int:
         """Get max parallel executions, or default"""
-        if self.limits and 'max_parallel' in self.limits:
-            return self.limits['max_parallel']
+        if self.limits and "max_parallel" in self.limits:
+            return self.limits["max_parallel"]
         return 1
 
 
@@ -65,13 +65,13 @@ class ExecutionResult:
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary for storage"""
         return {
-            'success': self.success,
-            'stdout': self.stdout,
-            'stderr': self.stderr,
-            'exit_code': self.exit_code,
-            'duration_seconds': self.duration_seconds,
-            'error_message': self.error_message,
-            'metadata': self.metadata,
+            "success": self.success,
+            "stdout": self.stdout,
+            "stderr": self.stderr,
+            "exit_code": self.exit_code,
+            "duration_seconds": self.duration_seconds,
+            "error_message": self.error_message,
+            "metadata": self.metadata,
         }
 
 
@@ -87,9 +87,7 @@ class ToolAdapter(ABC):
 
     @abstractmethod
     def execute(
-        self,
-        request: Dict[str, Any],
-        timeout: Optional[int] = None
+        self, request: Dict[str, Any], timeout: Optional[int] = None
     ) -> ExecutionResult:
         """Execute a task request
 

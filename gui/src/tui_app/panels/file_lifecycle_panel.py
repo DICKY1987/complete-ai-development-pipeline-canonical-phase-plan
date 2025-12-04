@@ -7,7 +7,7 @@ from rich.text import Text
 from textual.app import ComposeResult
 from textual.containers import Vertical
 from textual.widgets import DataTable, Static
-from tui_app.core.panel_plugin import PanelContext, PanelPlugin
+from tui_app.core.panel_plugin import PanelContext
 from tui_app.core.panel_registry import register_panel
 
 

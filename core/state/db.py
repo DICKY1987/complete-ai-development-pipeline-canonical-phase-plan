@@ -3,6 +3,7 @@
 Provides SQLite backend for persisting run state, step attempts, and events.
 Follows COOPERATION_SPEC state machine model.
 """
+
 # DOC_ID: DOC-CORE-STATE-DB-171
 
 from __future__ import annotations
@@ -10,7 +11,6 @@ from __future__ import annotations
 import json
 import os
 import sqlite3
-from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
@@ -100,10 +100,16 @@ class Database:
             """
         )
 
-        cursor.execute("CREATE INDEX IF NOT EXISTS idx_runs_project ON runs(project_id)")
+        cursor.execute(
+            "CREATE INDEX IF NOT EXISTS idx_runs_project ON runs(project_id)"
+        )
         cursor.execute("CREATE INDEX IF NOT EXISTS idx_runs_state ON runs(state)")
-        cursor.execute("CREATE INDEX IF NOT EXISTS idx_steps_run ON step_attempts(run_id)")
-        cursor.execute("CREATE INDEX IF NOT EXISTS idx_events_run ON run_events(run_id)")
+        cursor.execute(
+            "CREATE INDEX IF NOT EXISTS idx_steps_run ON step_attempts(run_id)"
+        )
+        cursor.execute(
+            "CREATE INDEX IF NOT EXISTS idx_events_run ON run_events(run_id)"
+        )
 
         self.conn.commit()
 
@@ -176,7 +182,9 @@ class Database:
         cursor.execute("DELETE FROM runs WHERE run_id = ?", (run_id,))
         self.conn.commit()
 
-    def list_runs(self, filters: Optional[Dict[str, Any]] = None, limit: int = 100) -> List[Dict[str, Any]]:
+    def list_runs(
+        self, filters: Optional[Dict[str, Any]] = None, limit: int = 100
+    ) -> List[Dict[str, Any]]:
         """List runs with optional filters."""
         cursor = self.conn.cursor()
         query = "SELECT * FROM runs"
@@ -239,7 +247,9 @@ class Database:
     def get_step_attempt(self, step_attempt_id: str) -> Optional[Dict[str, Any]]:
         """Retrieve a step attempt by ID."""
         cursor = self.conn.cursor()
-        cursor.execute("SELECT * FROM step_attempts WHERE step_attempt_id = ?", (step_attempt_id,))
+        cursor.execute(
+            "SELECT * FROM step_attempts WHERE step_attempt_id = ?", (step_attempt_id,)
+        )
         row = cursor.fetchone()
         if row is None:
             return None
@@ -364,7 +374,11 @@ def get_connection(db_path: Optional[str] = None) -> sqlite3.Connection:
         p = Path(db_path).expanduser().resolve()
     else:
         env_path = os.getenv("PIPELINE_DB_PATH") or os.getenv("ERROR_PIPELINE_DB")
-        p = Path(env_path).expanduser().resolve() if env_path else (Path(".worktrees") / "pipeline_state.db")
+        p = (
+            Path(env_path).expanduser().resolve()
+            if env_path
+            else (Path(".worktrees") / "pipeline_state.db")
+        )
     p.parent.mkdir(parents=True, exist_ok=True)
     conn = sqlite3.connect(str(p))
     conn.row_factory = sqlite3.Row

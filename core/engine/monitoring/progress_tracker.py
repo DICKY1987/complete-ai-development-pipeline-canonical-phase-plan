@@ -2,11 +2,12 @@
 
 Tracks execution progress and calculates completion percentages.
 """
+
 # DOC_ID: DOC-CORE-MONITORING-PROGRESS-TRACKER-178
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
+from datetime import UTC, datetime, timedelta
 from typing import Dict, List, Optional
-from datetime import datetime, timedelta, UTC
 
 
 @dataclass
@@ -38,19 +39,19 @@ class ProgressSnapshot:
     def to_dict(self) -> Dict:
         """Convert to dictionary"""
         return {
-            'run_id': self.run_id,
-            'timestamp': self.timestamp,
-            'total_tasks': self.total_tasks,
-            'completed_tasks': self.completed_tasks,
-            'failed_tasks': self.failed_tasks,
-            'pending_tasks': self.pending_tasks,
-            'completion_percent': self.completion_percent,
-            'started_at': self.started_at,
-            'estimated_completion': self.estimated_completion,
-            'elapsed_seconds': self.elapsed_seconds,
-            'estimated_remaining_seconds': self.estimated_remaining_seconds,
-            'current_task': self.current_task,
-            'current_task_progress': self.current_task_progress,
+            "run_id": self.run_id,
+            "timestamp": self.timestamp,
+            "total_tasks": self.total_tasks,
+            "completed_tasks": self.completed_tasks,
+            "failed_tasks": self.failed_tasks,
+            "pending_tasks": self.pending_tasks,
+            "completion_percent": self.completion_percent,
+            "started_at": self.started_at,
+            "estimated_completion": self.estimated_completion,
+            "elapsed_seconds": self.elapsed_seconds,
+            "estimated_remaining_seconds": self.estimated_remaining_seconds,
+            "current_task": self.current_task,
+            "current_task_progress": self.current_task_progress,
         }
 
 
@@ -206,7 +207,9 @@ class ProgressTracker:
             pending_tasks=pending,
             completion_percent=self.get_completion_percent(),
             started_at=self.started_at.isoformat() + "Z" if self.started_at else None,
-            estimated_completion=est_completion.isoformat() + "Z" if est_completion else None,
+            estimated_completion=(
+                est_completion.isoformat() + "Z" if est_completion else None
+            ),
             elapsed_seconds=self.get_elapsed_time(),
             estimated_remaining_seconds=self.get_estimated_remaining_time(),
             current_task=self.current_task,

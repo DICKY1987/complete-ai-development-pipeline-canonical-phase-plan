@@ -2,10 +2,11 @@
 DAG Builder - Constructs Execution DAG from Workstreams
 Performs topological sort for wave-based parallel execution
 """
+
 # DOC_ID: DOC-CORE-ENGINE-DAG-BUILDER-147
 
-from typing import List, Dict, Set, Optional, Tuple
 from collections import defaultdict, deque
+from typing import Dict, List, Optional
 
 
 class DAGBuilder:
@@ -20,10 +21,10 @@ class DAGBuilder:
         """Build execution plan from workstreams."""
         # Build graph
         for ws in workstreams:
-            ws_id = ws.get('workstream_id') or ws.get('id')
+            ws_id = ws.get("workstream_id") or ws.get("id")
             self.workstreams[ws_id] = ws
 
-            deps = ws.get('dependencies', []) or ws.get('depends_on', [])
+            deps = ws.get("dependencies", []) or ws.get("depends_on", [])
             if isinstance(deps, str):
                 deps = [deps] if deps else []
 
@@ -44,16 +45,16 @@ class DAGBuilder:
         waves = self.topological_sort()
 
         return {
-            'waves': waves,
-            'total_workstreams': len(workstreams),
-            'total_waves': len(waves),
-            'graph': dict(self.graph),
-            'validated': True
+            "waves": waves,
+            "total_workstreams": len(workstreams),
+            "total_waves": len(waves),
+            "graph": dict(self.graph),
+            "validated": True,
         }
 
     def extract_dependencies(self, workstream: Dict) -> List[str]:
         """Extract dependencies from workstream."""
-        deps = workstream.get('dependencies', []) or workstream.get('depends_on', [])
+        deps = workstream.get("dependencies", []) or workstream.get("depends_on", [])
         if isinstance(deps, str):
             return [deps] if deps else []
         return deps if deps else []
