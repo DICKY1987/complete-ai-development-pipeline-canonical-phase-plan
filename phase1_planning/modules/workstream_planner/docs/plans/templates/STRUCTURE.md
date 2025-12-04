@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-STRUCTURE-1621
+doc_id: DOC-GUIDE-STRUCTURE-074
 ---
 
 # Templates Directory Structure

@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-NEW-SHARED-MODULE-TEMPLATE-1834
+doc_id: DOC-GUIDE-NEW-SHARED-MODULE-TEMPLATE-098
 ---
 
 # Template: Creating a New Shared Module

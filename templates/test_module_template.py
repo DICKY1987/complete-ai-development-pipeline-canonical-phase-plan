@@ -1,9 +1,9 @@
 """Tests for {{module_name}}
 
-DOC_ID: DOC-TEST-{{module_id}}-001
+DOC_ID_TEMPLATE: DOC-TEST-{{module_id}}-001
 Created: {{created_date}}
 """
-DOC_ID: DOC-TEST-TEMPLATES-TEST-MODULE-TEMPLATE-345
+DOC_ID: DOC-TEST-TEMPLATES-TEST-MODULE-TEMPLATE-348
 
 from datetime import datetime
 from typing import Any, Dict, List

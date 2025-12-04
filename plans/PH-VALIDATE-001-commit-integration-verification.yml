@@ -2,7 +2,7 @@
 # Systematic validation of all Dec 3-4, 2025 commits for production readiness
 # Source: "Detailed Commit Summary (Dec 3–4, 2025) – __DICKY1987__ Repository Changes.pdf"
 
-doc_id: "DOC-PHASE-VALIDATE-001-COMMIT-INTEGRATION"
+doc_id: DOC-CONFIG-PH-VALIDATE-001-COMMIT-INTEGRATION-277
 template_version: 3
 
 table_of_contents:

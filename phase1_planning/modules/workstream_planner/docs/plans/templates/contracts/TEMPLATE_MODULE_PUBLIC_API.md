@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-TEMPLATE-MODULE-PUBLIC-API-1835
+doc_id: DOC-GUIDE-TEMPLATE-MODULE-PUBLIC-API-099
 ---
 
 # {Module Name} – Public API (V1)

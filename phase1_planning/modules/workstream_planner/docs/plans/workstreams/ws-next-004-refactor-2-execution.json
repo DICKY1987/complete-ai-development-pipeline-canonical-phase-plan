@@ -1,5 +1,5 @@
 {
-  "doc_id": "DOC-WS-NEXT-004-REFACTOR-2-2025-12-02",
+  "doc_id": "DOC-GUIDE-WS-NEXT-004-REFACTOR-2-EXECUTION-125",
   "id": "ws-next-004-refactor-2-execution",
   "title": "REFACTOR_2 Execution - 39 Workstreams Automated",
   "workstream_type": "major_initiative",
@@ -7,14 +7,11 @@
   "owner": "Lead Engineer + AI Assistant",
   "status": "completed",
   "created_date": "2025-12-02",
-
   "objective": "Execute REFACTOR_2 plan with 39 workstreams, multi-agent orchestration, and major architectural cleanup",
-
   "blocked_by": [
     "ws-next-001-github-project-integration (must validate patterns first)",
     "ws-next-002-fix-reachability-analyzer (must have reliable analyzer)"
   ],
-
   "scope": {
     "workstreams": 39,
     "modules": [
@@ -32,14 +29,12 @@
       "Legacy code archival"
     ]
   },
-
   "effort_estimate": {
     "hours": 120,
     "days": "3-5 dedicated days",
     "complexity": "very_high",
     "risk": "high"
   },
-
   "dependencies": {
     "depends_on": [
       "ws-next-001-github-project-integration",
@@ -54,7 +49,6 @@
       "All workstream validation scripts"
     ]
   },
-
   "prerequisites": [
     {
       "requirement": "GitHub Project patterns validated",
@@ -77,7 +71,6 @@
       "critical": true
     }
   ],
-
   "execution_phases": [
     {
       "phase": 1,
@@ -176,7 +169,6 @@
       ]
     }
   ],
-
   "acceptance_criteria": [
     {
       "criterion": "All 39 workstreams completed",
@@ -204,7 +196,6 @@
       "pass_condition": "All major changes documented"
     }
   ],
-
   "deliverables": [
     {
       "name": "REFACTOR_2_COMPLETION_REPORT.md",
@@ -225,7 +216,6 @@
       "format": "Git commits"
     }
   ],
-
   "risks": [
     {
       "risk": "Scope creep (trying to do too much)",
@@ -248,7 +238,6 @@
       "severity": "low"
     }
   ],
-
   "success_metrics": {
     "must_have": [
       "All 39 workstreams complete",
@@ -261,7 +250,6 @@
       "Performance improvements measured"
     ]
   },
-
   "circuit_breakers": [
     {
       "condition": "More than 5 tests failing",

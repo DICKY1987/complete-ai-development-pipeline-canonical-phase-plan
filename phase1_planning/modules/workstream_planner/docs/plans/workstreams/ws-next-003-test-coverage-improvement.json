@@ -1,5 +1,5 @@
 {
-  "doc_id": "DOC-WS-NEXT-003-TEST-COVERAGE-2025-12-02",
+  "doc_id": "DOC-GUIDE-WS-NEXT-003-TEST-COVERAGE-IMPROVEMENT-124",
   "id": "ws-next-003-test-coverage-improvement",
   "title": "Test Coverage Improvement - 2.6% to 10% Target",
   "workstream_type": "quality_improvement",
@@ -7,9 +7,7 @@
   "owner": "QA Engineer",
   "status": "completed",
   "created_date": "2025-12-02",
-
   "objective": "Incrementally improve test coverage from current 2.6% to 10% target, focusing on critical paths and high-risk areas",
-
   "scope": {
     "modules": [
       "core/engine/",
@@ -24,7 +22,6 @@
       "GitHub sync patterns"
     ]
   },
-
   "effort_estimate": {
     "hours_per_week": 3,
     "duration_weeks": 4,
@@ -32,15 +29,15 @@
     "complexity": "medium",
     "risk": "low"
   },
-
   "dependencies": {
     "depends_on": [],
     "blocks": [],
-    "prerequisite_tools": ["pytest", "pytest-cov"]
+    "prerequisite_tools": [
+      "pytest",
+      "pytest-cov"
+    ]
   },
-
   "execution_approach": "Incremental - Add tests weekly, focusing on one module at a time",
-
   "weekly_plan": [
     {
       "week": 1,
@@ -82,7 +79,6 @@
       "estimated_coverage_gain": "1.5%"
     }
   ],
-
   "test_patterns": [
     {
       "pattern": "Unit tests for pure functions",
@@ -105,7 +101,6 @@
       "priority": "medium"
     }
   ],
-
   "acceptance_criteria": [
     {
       "criterion": "Overall coverage reaches 10%",
@@ -133,7 +128,6 @@
       "pass_condition": "Total time < 30s"
     }
   ],
-
   "deliverables": [
     {
       "name": "Weekly coverage reports",
@@ -155,7 +149,6 @@
       "format": "markdown"
     }
   ],
-
   "risks": [
     {
       "risk": "Tests slow down CI pipeline",
@@ -168,7 +161,6 @@
       "severity": "low"
     }
   ],
-
   "success_metrics": {
     "must_have": [
       "Coverage >= 10%",
@@ -186,7 +178,6 @@
       "Edge cases documented and tested"
     ]
   },
-
   "tracking": {
     "baseline": {
       "date": "2025-12-02",

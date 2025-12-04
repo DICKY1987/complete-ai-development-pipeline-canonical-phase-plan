@@ -2,15 +2,16 @@
 
 DOC_ID: DOC-TEST-BOOTSTRAP-TEST-VALIDATOR-171
 """
-import json
-import yaml
 import pytest
-pytest.importorskip("jsonschema")
-import sys
-from pathlib import Path
 
 # Skip all tests - bootstrap orchestrator not yet fully implemented
 pytestmark = pytest.mark.skip(reason="Bootstrap orchestrator validation not fully implemented")
+
+import json
+import yaml
+pytest.importorskip("jsonschema")
+import sys
+from pathlib import Path
 
 # Add framework root to path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))

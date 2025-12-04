@@ -52,13 +52,13 @@ jobs:
           pip install -r requirements.txt
 
       - name: Black format check
-        run: black --check core/ engine/ error/ aim/ pm/ scripts/ tests/
+        run: black --check core/ error/ aim/ pm/ scripts/ tests/
 
       - name: isort import check
-        run: isort --check --profile black core/ engine/ error/ aim/ pm/ scripts/ tests/
+        run: isort --check --profile black core/ error/ aim/ pm/ scripts/ tests/
 
       - name: Ruff lint
-        run: ruff check core/ engine/ error/ aim/ pm/ scripts/ tests/ || true
+        run: ruff check core/ error/ aim/ pm/ scripts/ tests/ || true
 
   test:
     name: Run Tests

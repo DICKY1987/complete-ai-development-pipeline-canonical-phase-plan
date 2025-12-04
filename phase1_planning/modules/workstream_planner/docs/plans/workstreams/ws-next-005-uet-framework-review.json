@@ -1,5 +1,5 @@
 {
-  "doc_id": "DOC-WS-NEXT-005-UET-REVIEW-2025-12-02",
+  "doc_id": "DOC-GUIDE-WS-NEXT-005-UET-FRAMEWORK-REVIEW-126",
   "id": "ws-next-005-uet-framework-review",
   "title": "UNIVERSAL_EXECUTION_TEMPLATES Framework Review",
   "workstream_type": "documentation_review",
@@ -7,9 +7,7 @@
   "owner": "Architecture Reviewer",
   "status": "completed",
   "created_date": "2025-12-02",
-
   "objective": "Review UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/ for reusable patterns, orphaned templates, and usage validation",
-
   "scope": {
     "modules": [
       "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/"
@@ -21,19 +19,18 @@
       "Integration with current automation"
     ]
   },
-
   "effort_estimate": {
     "hours": 1,
     "complexity": "low",
     "risk": "low"
   },
-
   "dependencies": {
     "depends_on": [],
     "blocks": [],
-    "prerequisite_tools": ["ripgrep or grep"]
+    "prerequisite_tools": [
+      "ripgrep or grep"
+    ]
   },
-
   "execution_steps": [
     {
       "step": 1,
@@ -72,7 +69,6 @@
       "expected_output": "Integration assessment"
     }
   ],
-
   "acceptance_criteria": [
     {
       "criterion": "Complete template inventory",
@@ -95,7 +91,6 @@
       "pass_condition": "Clear recommendations provided"
     }
   ],
-
   "deliverables": [
     {
       "name": "UET_FRAMEWORK_REVIEW.md",
@@ -112,7 +107,6 @@
       ]
     }
   ],
-
   "review_template": {
     "template_inventory": {
       "description": "List all templates with metadata",
@@ -142,7 +136,6 @@
       ]
     }
   },
-
   "risks": [
     {
       "risk": "Accidentally marking active template as orphaned",
@@ -150,7 +143,6 @@
       "severity": "medium"
     }
   ],
-
   "success_metrics": {
     "must_have": [
       "Complete inventory",
