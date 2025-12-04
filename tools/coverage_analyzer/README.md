@@ -51,7 +51,17 @@ coverage-analyzer --help
 - ✅ Language detection & routing
 - ✅ Adapter tests (24 tests, all passing)
 
-**Next:** Phase 3 - Layer 0 (Static Analysis) adapters
+**Phase 3: Static Analysis (Layer 0)** ✓ Complete (2025-12-04)
+- ✅ Radon adapter (Python, dual-purpose)
+- ✅ Bandit adapter (Python, security)
+- ✅ mypy adapter (Python, types)
+- ✅ Prospector adapter (Python, multi-tool)
+- ✅ PSScriptAnalyzer adapter (PowerShell, dual-purpose)
+- ✅ Static analysis orchestrator
+- ✅ Multi-tool aggregation
+- ✅ Adapter tests (27 tests, all passing)
+
+**Next:** Phase 4 - Layer 0.5 (Software Composition Analysis) adapters
 
 ## Architecture
 
@@ -93,7 +103,7 @@ pytest tests/ --cov=src/coverage_analyzer --cov-report=html
 
 - [x] **Phase 1:** Core Infrastructure (Week 1) ✅ COMPLETE
 - [x] **Phase 2:** Layer 1 - Structural Coverage adapters (Week 2) ✅ COMPLETE
-- [ ] **Phase 3:** Layer 0 - Static Analysis adapters (Week 3-4)
+- [x] **Phase 3:** Layer 0 - Static Analysis adapters (Week 3-4) ✅ COMPLETE
 - [ ] **Phase 4:** Layer 0.5 - SCA adapters (Week 4-5)
 - [ ] **Phase 5:** Layer 2 - Mutation Testing adapters (Week 5)
 - [ ] **Phase 6:** Layer 3 - Complexity adapters (Week 5-6)

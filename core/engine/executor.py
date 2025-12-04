@@ -60,7 +60,7 @@ class Executor:
         self.scheduler = scheduler
         self.adapter_runner = adapter_runner or self._run_with_adapter
         self.gate_callback = gate_callback
-        self.state_manager = state_manager
+        self.state_manager = state_manager or StateFileManager()
 
     def run(self, run_id: str) -> Dict[str, Any]:
         """Execute all ready tasks in the scheduler for the given run.
