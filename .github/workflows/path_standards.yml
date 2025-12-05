@@ -48,7 +48,7 @@ jobs:
 
       - name: Upload scan database
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: path-standards-violations
           path: path_standards.db

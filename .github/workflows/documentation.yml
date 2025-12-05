@@ -102,7 +102,7 @@ jobs:
 
       - name: Upload generated documentation
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v5
         with:
           name: generated-documentation
           path: |
