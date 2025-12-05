@@ -1,0 +1,62 @@
+* 5f9106a2 (origin/feature/github-consolidation-ph-001, feature/github-consolidation-ph-001) docs: Update README with GitHub consolidation results
+* d53c8c3f feat: Consolidate GitHub integration scripts (PH-GITHUB-CONSOLIDATION-001)
+* 813def88 (HEAD -> main, backup/pre-consolidation-20251205_081943) docs(decision-elimination): Complete Phase 2 documentation
+*   ac38cd51 (origin/main, origin/HEAD) merge: Integrate phase6-testing-agent1-quality-gates
+|\
+| * 78011655 (origin/phase6-testing-agent1-quality-gates, phase6-testing-agent1-quality-gates) chore: update gitignore for scan files and ccpm subproject
+| * ab66fdeb feat(patterns): Add decision registry for deterministic execution
+| * 539252df WS-02 Task 2.4: Integrate DecisionRegistry
+| * 1cc0623e agent1: implement quality gates enhancement (workstream 1)
+* |   f970bb45 merge: Integrate phase6-testing-agent3-maintenance
+|\ \
+| * | d4b78b1c (phase6-testing-agent3-maintenance) WS-02: Decision Infrastructure - Templates and Registry
+| * | 995a8a5d agent3: Implement Workstream 3 - Maintenance Automation
+| * | 4fa79449 WS-01: Deterministic Execution - Fix nondeterministic decision points
+* | |   97a4b0ce merge: Integrate phase6-testing-agent2-doc-integrity
+|\ \ \
+| * | | b9ed470a (origin/phase6-testing-agent2-doc-integrity, phase6-testing-agent2-doc-integrity) agent2: implement documentation integrity workstream
+| |/ /
+* | / bfb2f70e merge: Integrate phase6-testing-complete-all-agents into main
+|\| |
+| |/
+|/|
+| * f467fa77 (origin/phase6-testing-complete-all-agents, phase6-testing-complete-all-agents, feature/decision-elimination) feat: Activate guardrails - contract validator + CI gate (ROI: 2,160:1)
+| * 4297c9ca docs(phase6): Complete integration summary for all 3 agents
+| *   ae02b09d Merge Agent 3: Security plugin tests
+| |\
+| | * 60df3998 (phase6-testing-agent3-security-plugins-complete) feat(phase6): Agent 3 completes security plugin testing (WS-6T-06, WS-6T-07)
+| * |   4ea00b58 Merge branch 'phase6-testing-remediation-agent2-ws-6t-03-04-05' into phase6-testing-complete-all-agents
+| |\ \
+| | * | ba5e8a90 (phase6-testing-remediation-agent2-ws-6t-03-04-05, feature/multi-cli-parallelism-complete) Phase 6 Testing - Agent 1 Complete (WS-6T-01, WS-6T-02)
+| | |/
+| * | 92ee50f9 (feature/multi-instance-cli-control) feat: EXEC-002 batch - 7 phase validators complete
+| * | bcc45187 feat: Enhanced bootstrap validator and contract CLI
+| * | 3eebfc3e feat: Complete contract enforcement framework (Priority 1)
+| |/
+| * 7426e624 (phase6-testing-remediation-agent1) feat: Implement core contract enforcement framework
+| * 31f83d30 feat(aim): Week 3 complete - usable integration examples
+| * fea16d03 docs: Add phase I/O contract enforcement task breakdown
+| * d091b4ea docs: Document phase I/O contracts and pipeline structure
+| * a8c19125 feat(aim): complete Week 1 - ToolProcessPool production-ready
+| * 0cf05faa feat(aim): implement ToolProcessPool for multi-instance CLI control
+|/
+* b851ad3a Archive legacy folders and organize documentation
+* e199a548 Archive legacy directories: uet/, phases/, modules/core_engine
+* 524ec579 docs: Add automation completion summary report
+* 0e061f9c feat: Phase 4→5→6 automation complete - PhaseCoordinator implementation
+* 4654dd8f refactor: Complete codebase deduplication (100% - zero breaking changes)
+* c42a281a Add DOC_ID automation system
+* a66485e9 feat: Implement GUI v2.0 with split terminal + panel grid layout
+* b5719ae2 docs: Complete Phase Plan PH-AUTOMATION-FIX-001 - Automation Infrastructure Repair
+* c82df2fd fix: Apply isort formatting to fix import order
+* 2a7dda90 fix: Exclude Python 3.10+ syntax files from Black/isort checks
+* 6d670196 fix: Remove non-existent aim/ and pm/ directories from CI checks and apply Black formatting
+* 950086a0 fix: Remove non-existent directories from linting and coverage
+* a514faaf fix: Correct DOC_ID syntax in generator.py to resolve NameError
+* ac881707 fix: Remove BOM from requirements.txt to fix pip install errors
+* 0bd1b87d fix: Remove YAML frontmatter from requirements.txt
+* 7a8ebc05 fix: Complete GitHub automation infrastructure restoration
+* 5ae29b9e fix: Resolve DOC_ID syntax errors and skip failing tests
+* e268bf69 style: Apply automated formatting and line ending fixes
+* bd6f709c fix: Restore GitHub Actions automation infrastructure
+* ee1fbd60 refactor: Reorganize documentation and scripts into proper directories

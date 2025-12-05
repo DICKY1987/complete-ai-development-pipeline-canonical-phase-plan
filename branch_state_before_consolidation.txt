@@ -1,0 +1,17 @@
+  backup/main-20251202_190704                      d7cb1934 chore: Complete UET migration cleanup - remove deprecated .state/UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/ and src/
+  backup/pre-consolidation-20251205_081943         813def88 docs(decision-elimination): Complete Phase 2 documentation
+  feat/update-ccpm-submodule                       76696b0f chore: Complete repository cleanup + automated prevention system
+  feature/decision-elimination                     f467fa77 feat: Activate guardrails - contract validator + CI gate (ROI: 2,160:1)
+  feature/github-consolidation-ph-001              5f9106a2 docs: Update README with GitHub consolidation results
+  feature/multi-cli-parallelism-complete           ba5e8a90 Phase 6 Testing - Agent 1 Complete (WS-6T-01, WS-6T-02)
+  feature/multi-instance-cli-control               92ee50f9 feat: EXEC-002 batch - 7 phase validators complete
+  feature/safe-linting-fixes-20251204              1e8f4dff refactor: Apply safe linting auto-fixes (no file reorganization)
+* main                                             813def88 [origin/main: ahead 1] docs(decision-elimination): Complete Phase 2 documentation
+  phase6-testing-agent1-quality-gates              78011655 [origin/phase6-testing-agent1-quality-gates] chore: update gitignore for scan files and ccpm subproject
+  phase6-testing-agent2-doc-integrity              b9ed470a [origin/phase6-testing-agent2-doc-integrity] agent2: implement documentation integrity workstream
+  phase6-testing-agent3-maintenance                d4b78b1c WS-02: Decision Infrastructure - Templates and Registry
+  phase6-testing-agent3-security-plugins-complete  60df3998 feat(phase6): Agent 3 completes security plugin testing (WS-6T-06, WS-6T-07)
+  phase6-testing-complete-all-agents               f467fa77 feat: Activate guardrails - contract validator + CI gate (ROI: 2,160:1)
+  phase6-testing-remediation-agent1                7426e624 feat: Implement core contract enforcement framework
+  phase6-testing-remediation-agent2-ws-6t-03-04-05 ba5e8a90 Phase 6 Testing - Agent 1 Complete (WS-6T-01, WS-6T-02)
+  rollback/pre-main-merge-20251127-030912          11cb2d2a docs: add comprehensive safe merge strategy and automation
