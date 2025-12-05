@@ -1,0 +1,76 @@
+---
+doc_id: DOC-PAT-TERMINAL-CHAT-BEST-PLAN-2-732
+---
+
+Yes, that makes *perfect* sense — and it’s exactly what “module-centric” really means in practice.
+
+You’re basically saying:
+
+> “A **module** is the unit of ownership.
+> Everything that belongs to that module lives *inside its folder* — code, docs, schemas, tests, configs — instead of having big, shared `docs/` or `tests/` at the root.”
+
+That’s a very strong, clean design.
+
+---
+
+### 1. What your module really looks like
+
+Using your idea, a single module might look like:
+
+```text
+modules/
+  aim_tools/
+    src/               # Python / TS / whatever for AIM
+    docs/              # AIM design docs, HOWTOs, ADRs
+    schemas/           # JSON/YAML schemas used only by AIM
+    tests/             # Unit/integration tests for AIM
+    config/            # Default config, profiles, examples
+    scripts/           # CLI helpers specific to AIM
+```
+
+Same pattern for others:
+
+```text
+modules/
+  pipeline_planning/
+    src/
+    docs/
+    schemas/
+    tests/
+
+  error_recovery/
+    src/
+    docs/
+    schemas/
+    tests/
+```
+
+So if you want to understand or refactor **AIM**, you open `modules/aim_tools/` and you have *everything* you need for that module in one place. No hunting around a global `tests/` or `docs/` tree.
+
+---
+
+### 2. What *doesn’t* go in the module
+
+The only things that usually stay at the root are:
+
+* Truly **global** stuff (e.g., repo-wide `README.md`, top-level `pyproject.toml`, `package.json`, CI config, maybe a global `shared/` library).
+* Cross-cutting utilities that *many* modules import:
+
+  * `modules/shared/` or `modules/core_lib/` (small, very focused).
+
+But 90% of “docs/tests/schemas” become **per-module** instead of “free-floating”.
+
+---
+
+### 3. Why this works well for your system
+
+For *your* architecture, it aligns perfectly with how you think about:
+
+* **Pattern doc suites** → each module can have its own pattern suites under `docs/patterns/` or `schemas/patterns/`.
+* **File & task lifecycle** → you can reason per module: “what are the states, tests, docs for this module?”
+* **Deterministic refactors** → an AI (or you) can safely say:
+  “I want to upgrade the AIM module” → only touch `modules/aim_tools/*`.
+
+So yes — treating each module folder as the **home for all artifacts of that module** (code + docs + schemas + tests + config) is not only valid, it’s *exactly* how I’d recommend you structure this system.
+
+If you’d like, next step I can propose a **concrete `modules/` layout** for your current big chunks: `intake_spec`, `planning`, `scheduling`, `execution`, `error_recovery`, `state_lifecycle`, `aim_tools`, `patterns_engine`, `gui`, etc., all in this style.

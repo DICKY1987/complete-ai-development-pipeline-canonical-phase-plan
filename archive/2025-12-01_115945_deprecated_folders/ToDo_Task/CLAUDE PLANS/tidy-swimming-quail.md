@@ -1,0 +1,889 @@
+---
+doc_id: DOC-GUIDE-TIDY-SWIMMING-QUAIL-1565
+---
+
+# Implementation Plan: Three-Tier DAG-as-Derived-State System
+
+## Executive Summary
+
+Implement a three-tier DAG storage system that treats DAGs as **derived state** generated from repository metadata (module manifests, pattern specs). DAGs will be automatically regenerated via git hooks and CI validation, ensuring they always reflect the current repo structure.
+
+## Design Overview
+
+### Architecture Decision
+
+User has chosen:
+- ✅ **Full three-tier DAG system** (Global Module + Per-Module Task + Pipeline DAGs)
+- ✅ **Automatic refresh** (git hooks + CI validation)
+- ✅ **Consolidate dag_builder.py into dag_utils.py** (eliminate duplication)
+
+### Three-Tier DAG Structure
+
+```
+.state/dag/
+├── repo_modules.dag.json           # Tier 1: Global module dependencies
+├── module_operations.schema.json   # Operation type definitions
+└── pipelines/                      # Tier 3: Pipeline workflows
+    ├── full_build.dag.json
+    ├── quick_check.dag.json
+    └── docs_refresh.dag.json
+
+modules/<module-name>/.state/
+└── module_tasks.dag.json           # Tier 2: Per-module task DAGs
+```
+
+## Key Design Decisions
+
+### 1. Separation of Concerns
+
+**Modules vs Operations**:
+- **Module manifests** define *structure*: artifacts, dependencies, metadata
+- **Pattern specs** define *operations*: atomic_create, refactor_patch, module_creation
+- **Per-module task DAGs** bridge the gap: operations that CAN be performed on a module
+
+**Resolution**: Per-module task DAGs will be derived from:
+1. Pattern registry (which operations exist)
+2. Module manifest (which artifacts the module has)
+3. Operation applicability rules (e.g., "lint" applies if Python files exist)
+
+### 2. Canonical DAG Implementation
+
+**Current state**: Two implementations
+- `modules/core-state/m010003_dag_utils.py` (324 lines, canonical, well-tested)
+- `modules/core-engine/m010001_dag_builder.py` (118 lines, duplicate logic)
+
+**Action**: Refactor `dag_builder.py` to delegate to `dag_utils.py`, establishing single source of truth.
+
+### 3. Automatic Refresh Strategy
+
+**Triggers**:
+1. **Git post-merge hook**: Regenerate DAGs after pulling changes
+2. **Git post-checkout hook**: Regenerate when switching branches
+3. **Pre-commit hook**: Validate DAG freshness before commit
+4. **CI validation**: Fail build if DAG is stale
+
+**Staleness detection**: Store manifest hashes in DAG files, compare on read.
+
+## Implementation Phases
+
+### Phase 1: Foundation (Priority 1)
+
+#### 1.1 Define JSON Schemas
+
+**File**: `schemas/dag_snapshot.schema.json`
+
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DAG Snapshot Schema",
+  "type": "object",
+  "required": ["schema_version", "generated_at", "dag_type", "nodes", "edges"],
+  "properties": {
+    "schema_version": {"type": "string", "const": "1.0.0"},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "dag_type": {"enum": ["module_dependency", "module_tasks", "pipeline"]},
+    "source_hash": {"type": "string", "description": "Hash of source manifests"},
+    "nodes": {"type": "array", "items": {"type": "string"}},
+    "edges": {
+      "type": "object",
+      "additionalProperties": {"type": "array", "items": {"type": "string"}}
+    },
+    "reverse_edges": {"type": "object"},
+    "topo_levels": {
+      "type": "array",
+      "items": {"type": "array", "items": {"type": "string"}}
+    },
+    "cycles": {"type": "array"},
+    "critical_path": {"type": "array", "items": {"type": "string"}},
+    "critical_path_weight": {"type": "number"},
+    "metadata": {"type": "object"}
+  }
+}
+```
+
+**File**: `schemas/module_tasks.schema.json`
+
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Module Task DAG Schema",
+  "type": "object",
+  "required": ["module_id", "operations", "dag"],
+  "properties": {
+    "module_id": {"type": "string"},
+    "ulid_prefix": {"type": "string", "pattern": "^[0-9A-F]{6}$"},
+    "operations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["operation_id", "pattern_id", "depends_on"],
+        "properties": {
+          "operation_id": {"type": "string"},
+          "pattern_id": {"type": "string"},
+          "operation_kind": {"type": "string"},
+          "depends_on": {"type": "array", "items": {"type": "string"}},
+          "estimated_duration_seconds": {"type": "number"}
+        }
+      }
+    },
+    "dag": {"$ref": "dag_snapshot.schema.json"}
+  }
+}
+```
+
+#### 1.2 Consolidate dag_builder.py
+
+**Target file**: `modules/core-engine/m010001_dag_builder.py`
+
+**Changes**:
+1. Import `dag_utils` functions:
+   ```python
+   from modules.core_state.m010003_dag_utils import (
+       build_dependency_graph,
+       detect_cycles,
+       compute_topological_levels,
+       build_reverse_graph,
+       DagAnalysis
+   )
+   ```
+
+2. Refactor `DAGBuilder` class to be a thin wrapper:
+   ```python
+   class DAGBuilder:
+       """Build directed acyclic graph from workstream dependencies."""
+
+       def build_from_workstreams(self, workstreams: List[Dict]) -> Dict:
+           """Build execution plan from workstreams."""
+           # Convert workstreams to bundles
+           bundles = [self._workstream_to_bundle(ws) for ws in workstreams]
+
+           # Delegate to dag_utils
+           from modules.core_state.m010003_dag_utils import analyze_bundles
+           analysis = analyze_bundles(bundles)
+
+           if analysis.cycles:
+               raise ValueError(f"Dependency cycles detected: {analysis.cycles}")
+
+           return {
+               'waves': [[n for n in level] for level in analysis.topo_levels],
+               'total_workstreams': len(workstreams),
+               'total_waves': len(analysis.topo_levels),
+               'graph': dict(analysis.dep_graph),
+               'validated': True
+           }
+
+       def _workstream_to_bundle(self, ws: Dict) -> WorkstreamBundle:
+           """Convert workstream dict to WorkstreamBundle."""
+           # Implementation here
+   ```
+
+3. Remove duplicate `detect_cycles()`, `topological_sort()` methods
+4. Add deprecation notice in docstring
+
+#### 1.3 Create Refresh Script
+
+**File**: `scripts/refresh_repo_dag.py`
+
+**Responsibilities**:
+1. Load all module manifests from `modules/*/0*_module.manifest.yaml`
+2. Generate Tier 1 (Global Module DAG) using `dag_utils.analyze_bundles()`
+3. Generate Tier 2 (Per-Module Task DAGs) for each module
+4. Validate existing Tier 3 (Pipeline DAGs) for staleness
+5. Write JSON files with schema validation
+6. Compute and store manifest hashes for staleness detection
+
+**Key functions**:
+```python
+def load_all_module_manifests() -> List[ModuleManifest]:
+    """Load all module manifests from modules/ directory."""
+
+def compute_manifest_hash(manifests: List[ModuleManifest]) -> str:
+    """Compute SHA256 hash of all manifest contents."""
+
+def generate_global_module_dag(manifests: List[ModuleManifest]) -> DagSnapshot:
+    """Generate Tier 1: Global module dependency DAG."""
+
+def generate_module_task_dag(module: ModuleManifest, patterns: List[Pattern]) -> ModuleTaskDag:
+    """Generate Tier 2: Per-module task DAG."""
+
+def validate_pipeline_dags() -> List[ValidationError]:
+    """Check if existing pipeline DAGs are stale."""
+
+def write_dag_with_validation(path: Path, dag: DagSnapshot):
+    """Write DAG JSON with schema validation."""
+```
+
+**Execution flow**:
+1. Parse arguments: `--force`, `--validate-only`, `--module <id>`
+2. Load manifests and patterns
+3. Compute source hash
+4. Check if DAGs exist and are fresh (skip if hash matches)
+5. Generate all three tiers
+6. Write to disk with atomic file operations
+7. Report: "Generated X DAGs in Y seconds"
+
+---
+
+### Phase 2: Tier 1 - Global Module DAG (Priority 2)
+
+#### 2.1 Implement Global DAG Generation
+
+**Function**: `generate_global_module_dag()` in `scripts/refresh_repo_dag.py`
+
+**Input**: 33 module manifests from `MODULES_INVENTORY.yaml` + individual manifests
+
+**Process**:
+1. Extract module dependencies from each manifest's `dependencies.modules` field
+2. Build bundles: `WorkstreamBundle(id=module_id, depends_on=dependencies)`
+3. Call `dag_utils.analyze_bundles(bundles)`
+4. Serialize `DagAnalysis` to JSON with additional metadata
+
+**Output format** (`.state/dag/repo_modules.dag.json`):
+```json
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2025-11-26T10:00:00Z",
+  "dag_type": "module_dependency",
+  "source_hash": "sha256:abc123...",
+  "nodes": ["core-state", "core-engine", "aim-cli", "..."],
+  "edges": {
+    "core-engine": ["core-state", "core-planning", "aim-environment", "aim-registry"],
+    "aim-cli": ["aim-environment", "core-engine"]
+  },
+  "reverse_edges": {
+    "core-state": ["core-engine", "error-engine"],
+    "core-planning": ["core-engine"]
+  },
+  "topo_levels": [
+    ["core-ast", "core-state"],
+    ["core-planning", "error-engine", "specifications-tools"],
+    ["core-engine"],
+    ["aim-cli", "aim-environment", "aim-registry", "aim-services", "aim-tests", "pm-integrations"],
+    ["error-plugin-*"]
+  ],
+  "cycles": [],
+  "critical_path": ["core-state", "core-engine", "aim-cli"],
+  "critical_path_weight": 3.0,
+  "metadata": {
+    "total_modules": 33,
+    "layers": {
+      "infra": 1,
+      "domain": 5,
+      "api": 6,
+      "ui": 21
+    },
+    "avg_dependencies": 2.1
+  }
+}
+```
+
+#### 2.2 Validate Global DAG
+
+**File**: `scripts/validate_dag_freshness.py`
+
+**Checks**:
+1. `.state/dag/repo_modules.dag.json` exists
+2. Schema validation passes
+3. `source_hash` matches current manifest hash
+4. All modules in inventory appear in DAG nodes
+5. No cycles detected
+6. Topological levels are non-empty (valid DAG)
+
+**Exit codes**:
+- 0: DAG is fresh
+- 1: DAG is stale (hash mismatch)
+- 2: DAG is invalid (schema/cycle errors)
+
+---
+
+### Phase 3: Tier 2 - Per-Module Task DAGs (Priority 3)
+
+#### 3.1 Define Operation Applicability Rules
+
+**File**: `.state/dag/module_operations.schema.json`
+
+**Purpose**: Define which operations can be performed on which module types.
+
+**Structure**:
+```json
+{
+  "operation_kinds": {
+    "build": {
+      "applicable_if": ["has_python_files", "has_entry_point"],
+      "depends_on": []
+    },
+    "lint": {
+      "applicable_if": ["has_python_files"],
+      "depends_on": ["build"]
+    },
+    "test": {
+      "applicable_if": ["has_test_files"],
+      "depends_on": ["lint"]
+    },
+    "type_check": {
+      "applicable_if": ["has_python_files"],
+      "depends_on": ["lint"]
+    },
+    "docs": {
+      "applicable_if": ["has_readme"],
+      "depends_on": []
+    },
+    "validate_schema": {
+      "applicable_if": ["has_yaml_files"],
+      "depends_on": []
+    }
+  }
+}
+```
+
+#### 3.2 Implement Module Task DAG Generation
+
+**Function**: `generate_module_task_dag()` in `scripts/refresh_repo_dag.py`
+
+**Process**:
+1. Load module manifest
+2. Determine applicable operations:
+   - Check `artifacts.code` for Python files → enable `build`, `lint`, `type_check`
+   - Check `artifacts.tests` for test files → enable `test`
+   - Check `artifacts.schemas` for YAML files → enable `validate_schema`
+3. Build dependency graph for operations using rules from `module_operations.schema.json`
+4. Call `dag_utils.analyze_bundles()` on operation bundles
+5. Write to `modules/<module>/.state/module_tasks.dag.json`
+
+**Output format** (`modules/core-engine/.state/module_tasks.dag.json`):
+```json
+{
+  "schema_version": "1.0.0",
+  "module_id": "core-engine",
+  "ulid_prefix": "010001",
+  "generated_at": "2025-11-26T10:00:00Z",
+  "operations": [
+    {
+      "operation_id": "core-engine.build",
+      "pattern_id": "PAT-ATOMIC-CREATE-001",
+      "operation_kind": "build",
+      "depends_on": [],
+      "estimated_duration_seconds": 30
+    },
+    {
+      "operation_id": "core-engine.lint",
+      "pattern_id": "PAT-GREP-VIEW-EDIT-001",
+      "operation_kind": "lint",
+      "depends_on": ["core-engine.build"],
+      "estimated_duration_seconds": 45
+    },
+    {
+      "operation_id": "core-engine.type_check",
+      "pattern_id": "PAT-PYTEST-GREEN-VERIFY-001",
+      "operation_kind": "type_check",
+      "depends_on": ["core-engine.lint"],
+      "estimated_duration_seconds": 60
+    },
+    {
+      "operation_id": "core-engine.test",
+      "pattern_id": "PAT-PYTEST-GREEN-VERIFY-001",
+      "operation_kind": "test",
+      "depends_on": ["core-engine.type_check"],
+      "estimated_duration_seconds": 120
+    }
+  ],
+  "dag": {
+    "nodes": ["build", "lint", "type_check", "test"],
+    "edges": {
+      "lint": ["build"],
+      "type_check": ["lint"],
+      "test": ["type_check"]
+    },
+    "topo_levels": [["build"], ["lint"], ["type_check"], ["test"]],
+    "cycles": []
+  }
+}
+```
+
+#### 3.3 Create `.state/` Directories
+
+**Action**: Ensure all 33 modules have `.state/` subdirectories
+
+**Script addition** in `refresh_repo_dag.py`:
+```python
+def ensure_module_state_dirs():
+    """Create .state/ directories for all modules if missing."""
+    for module_dir in Path("modules").iterdir():
+        if module_dir.is_dir():
+            state_dir = module_dir / ".state"
+            state_dir.mkdir(exist_ok=True)
+```
+
+---
+
+### Phase 4: Tier 3 - Pipeline DAGs (Priority 4)
+
+#### 4.1 Define Pipeline Specifications
+
+**File**: `pipelines/full_build.pipeline.yaml`
+
+**Structure**:
+```yaml
+pipeline_id: "full_build"
+name: "Full Repository Build"
+description: "Complete build, lint, test, and docs for all modules"
+version: "1.0.0"
+
+stages:
+  - stage_id: "infra_layer"
+    parallel: true
+    modules:
+      - module_id: "core-state"
+        operations: ["build", "lint", "type_check", "test"]
+
+  - stage_id: "domain_layer"
+    parallel: true
+    depends_on: ["infra_layer"]
+    modules:
+      - module_id: "core-engine"
+        operations: ["build", "lint", "type_check", "test"]
+      - module_id: "core-planning"
+        operations: ["build", "lint", "test"]
+      - module_id: "error-engine"
+        operations: ["build", "lint", "test"]
+
+  - stage_id: "api_layer"
+    parallel: true
+    depends_on: ["domain_layer"]
+    modules:
+      - module_id: "aim-cli"
+        operations: ["build", "lint", "test"]
+      - module_id: "aim-registry"
+        operations: ["build", "lint"]
+
+  - stage_id: "ui_layer"
+    parallel: true
+    depends_on: ["api_layer"]
+    modules:
+      - module_id: "error-plugin-ruff"
+        operations: ["build", "test"]
+      # ... 20 more error plugins
+
+constraints:
+  max_parallel_modules: 5
+  timeout_seconds: 3600
+```
+
+#### 4.2 Implement Pipeline DAG Generation
+
+**Function**: `generate_pipeline_dag()` in `scripts/refresh_repo_dag.py`
+
+**Process**:
+1. Load pipeline spec from `pipelines/*.pipeline.yaml`
+2. For each stage, expand module operations into task nodes
+3. Build dependency graph:
+   - Intra-stage: operations within a module (from per-module task DAG)
+   - Inter-stage: stage dependencies from pipeline spec
+4. Call `dag_utils.analyze_bundles()` on all tasks
+5. Write to `.state/dag/pipelines/<pipeline_id>.dag.json`
+
+**Output format** (`.state/dag/pipelines/full_build.dag.json`):
+```json
+{
+  "schema_version": "1.0.0",
+  "pipeline_id": "full_build",
+  "generated_at": "2025-11-26T10:00:00Z",
+  "dag_type": "pipeline",
+  "source_pipelines": ["pipelines/full_build.pipeline.yaml"],
+  "nodes": [
+    "core-state.build",
+    "core-state.lint",
+    "core-engine.build",
+    "aim-cli.test",
+    "..."
+  ],
+  "edges": {
+    "core-state.lint": ["core-state.build"],
+    "core-engine.build": ["core-state.test"],
+    "aim-cli.build": ["core-engine.test"]
+  },
+  "topo_levels": [
+    ["core-state.build"],
+    ["core-state.lint"],
+    ["core-state.test"],
+    ["core-engine.build", "core-planning.build"],
+    ["..."]
+  ],
+  "stages": [
+    {
+      "stage_id": "infra_layer",
+      "nodes": ["core-state.build", "core-state.lint", "core-state.test"]
+    },
+    {
+      "stage_id": "domain_layer",
+      "nodes": ["core-engine.build", "core-planning.build", "..."]
+    }
+  ],
+  "metadata": {
+    "total_tasks": 89,
+    "estimated_duration_seconds": 1800,
+    "max_parallelism": 5
+  }
+}
+```
+
+#### 4.3 Create Standard Pipelines
+
+**Pipelines to implement**:
+1. `full_build.pipeline.yaml` - Complete repo build (all modules, all operations)
+2. `quick_check.pipeline.yaml` - Fast smoke test (core modules, build + lint only)
+3. `docs_refresh.pipeline.yaml` - Documentation generation (docs operations only)
+4. `error_plugins_test.pipeline.yaml` - All error plugins test suite
+
+---
+
+### Phase 5: Automatic Refresh Infrastructure (Priority 5)
+
+#### 5.1 Install Git Hooks
+
+**File**: `scripts/install_git_hooks.py`
+
+**Hook locations**:
+- `.git/hooks/post-merge`
+- `.git/hooks/post-checkout`
+- `.git/hooks/pre-commit`
+
+**Hook content** (`.git/hooks/post-merge`):
+```bash
+#!/bin/bash
+# Auto-generated by scripts/install_git_hooks.py
+# Regenerates DAGs after git merge/pull
+
+echo "Refreshing repository DAGs..."
+python scripts/refresh_repo_dag.py --quiet
+
+if [ $? -ne 0 ]; then
+    echo "WARNING: DAG refresh failed. Run 'python scripts/refresh_repo_dag.py' manually."
+fi
+```
+
+**Pre-commit hook** (`.git/hooks/pre-commit`):
+```bash
+#!/bin/bash
+# Validates DAG freshness before commit
+
+python scripts/validate_dag_freshness.py
+
+if [ $? -eq 1 ]; then
+    echo "ERROR: DAGs are stale. Run 'python scripts/refresh_repo_dag.py' before committing."
+    exit 1
+elif [ $? -eq 2 ]; then
+    echo "ERROR: DAGs are invalid. Fix cycles/errors before committing."
+    exit 1
+fi
+```
+
+**Installation**:
+```python
+def install_git_hooks():
+    """Install git hooks for automatic DAG refresh."""
+    hooks = {
+        'post-merge': POST_MERGE_HOOK_CONTENT,
+        'post-checkout': POST_CHECKOUT_HOOK_CONTENT,
+        'pre-commit': PRE_COMMIT_HOOK_CONTENT
+    }
+
+    hooks_dir = Path('.git/hooks')
+    for hook_name, content in hooks.items():
+        hook_path = hooks_dir / hook_name
+        hook_path.write_text(content)
+        hook_path.chmod(0o755)  # Make executable
+        print(f"Installed {hook_name} hook")
+```
+
+#### 5.2 CI Pipeline Integration
+
+**File**: `.github/workflows/dag_validation.yml`
+
+```yaml
+name: DAG Validation
+
+on:
+  pull_request:
+    paths:
+      - 'modules/**/010*_module.manifest.yaml'
+      - 'MODULES_INVENTORY.yaml'
+      - 'pipelines/*.pipeline.yaml'
+      - '.state/dag/**'
+
+jobs:
+  validate_dags:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install pyyaml jsonschema
+
+      - name: Validate DAG freshness
+        run: |
+          python scripts/validate_dag_freshness.py
+
+      - name: Regenerate DAGs (if stale)
+        if: failure()
+        run: |
+          python scripts/refresh_repo_dag.py
+          git diff --exit-code .state/dag/
+
+      - name: Fail if DAGs were stale
+        if: failure()
+        run: |
+          echo "ERROR: DAGs were stale in this PR. Please run 'python scripts/refresh_repo_dag.py' and commit."
+          exit 1
+```
+
+---
+
+### Phase 6: Integration with Existing Systems (Priority 6)
+
+#### 6.1 Update uet_scheduler.py
+
+**File**: `modules/core-engine/m010001_uet_scheduler.py`
+
+**Changes**:
+1. Add method to load global module DAG:
+   ```python
+   def load_global_module_dag(self) -> Optional[DagAnalysis]:
+       """Load pre-computed global module DAG."""
+       dag_path = Path('.state/dag/repo_modules.dag.json')
+       if not dag_path.exists():
+           return None
+
+       with open(dag_path) as f:
+           dag_json = json.load(f)
+
+       # Reconstruct DagAnalysis from JSON
+       return DagAnalysis(
+           dep_graph=dag_json['edges'],
+           reverse_graph=dag_json['reverse_edges'],
+           topo_levels=[set(level) for level in dag_json['topo_levels']],
+           cycles=dag_json['cycles'],
+           critical_path=dag_json['critical_path'],
+           critical_path_weight=dag_json['critical_path_weight']
+       )
+   ```
+
+2. Modify `get_execution_order()` to use pre-computed DAG:
+   ```python
+   def get_execution_order(self) -> List[List[str]]:
+       """Get topological ordering using pre-computed DAG if available."""
+       global_dag = self.load_global_module_dag()
+
+       if global_dag:
+           # Use pre-computed topological levels
+           return [[n for n in level] for level in global_dag.topo_levels]
+       else:
+           # Fallback to on-demand computation
+           return self._compute_execution_order_legacy()
+   ```
+
+#### 6.2 Update Orchestrators
+
+**Files to modify**:
+- `modules/core-engine/m010001_orchestrator.py`
+- `modules/core-engine/m010001_uet_orchestrator.py`
+- `modules/core-engine/m010001_pipeline_plus_orchestrator.py`
+
+**Changes**:
+1. Load pipeline DAGs from `.state/dag/pipelines/` when executing pipelines
+2. Use per-module task DAGs to determine operation order
+3. Add fallback to on-demand computation if DAGs missing
+
+---
+
+## File Manifest
+
+### New Files to Create
+
+1. **Schemas**:
+   - `schemas/dag_snapshot.schema.json` (150 lines)
+   - `schemas/module_tasks.schema.json` (80 lines)
+   - `.state/dag/module_operations.schema.json` (100 lines)
+
+2. **Scripts**:
+   - `scripts/refresh_repo_dag.py` (400 lines)
+   - `scripts/validate_dag_freshness.py` (150 lines)
+   - `scripts/install_git_hooks.py` (100 lines)
+
+3. **Pipeline Specs**:
+   - `pipelines/full_build.pipeline.yaml` (150 lines)
+   - `pipelines/quick_check.pipeline.yaml` (80 lines)
+   - `pipelines/docs_refresh.pipeline.yaml` (60 lines)
+   - `pipelines/error_plugins_test.pipeline.yaml` (100 lines)
+
+4. **CI**:
+   - `.github/workflows/dag_validation.yml` (50 lines)
+
+5. **Git Hooks**:
+   - `.git/hooks/post-merge` (generated)
+   - `.git/hooks/post-checkout` (generated)
+   - `.git/hooks/pre-commit` (generated)
+
+6. **DAG Storage** (generated):
+   - `.state/dag/repo_modules.dag.json`
+   - `.state/dag/pipelines/*.dag.json`
+   - `modules/*/.state/module_tasks.dag.json` (33 files)
+
+### Files to Modify
+
+1. **Code Consolidation**:
+   - `modules/core-engine/m010001_dag_builder.py` - Refactor to delegate to dag_utils.py (reduce from 118 to ~50 lines)
+
+2. **Integration**:
+   - `modules/core-engine/m010001_uet_scheduler.py` - Add DAG loading (add ~50 lines)
+   - `modules/core-engine/m010001_orchestrator.py` - Add pipeline DAG usage (add ~30 lines)
+   - `modules/core-engine/m010001_uet_orchestrator.py` - Add pipeline DAG usage (add ~30 lines)
+
+3. **Git**:
+   - `.gitignore` - Add `.state/dag/*.dag.json` (generated files, tracked but auto-updated)
+
+---
+
+## Testing Strategy
+
+### Unit Tests
+
+**File**: `tests/test_dag_refresh.py`
+
+**Test cases**:
+1. `test_load_all_module_manifests()` - Verify 33 manifests loaded
+2. `test_compute_manifest_hash_deterministic()` - Same manifests → same hash
+3. `test_generate_global_module_dag()` - Verify cycles detected, topo levels correct
+4. `test_generate_module_task_dag()` - Verify operations determined correctly
+5. `test_dag_schema_validation()` - All generated DAGs pass schema validation
+6. `test_staleness_detection()` - Modified manifest → DAG marked stale
+
+### Integration Tests
+
+**File**: `tests/test_dag_integration.py`
+
+**Test cases**:
+1. `test_full_refresh_cycle()` - End-to-end refresh, verify all files created
+2. `test_scheduler_loads_global_dag()` - Scheduler uses pre-computed DAG
+3. `test_orchestrator_executes_pipeline()` - Pipeline DAG drives execution
+4. `test_git_hook_refresh()` - Mock git hook, verify refresh triggered
+
+### Validation Tests
+
+**File**: `tests/test_dag_validation.py`
+
+**Test cases**:
+1. `test_detect_stale_dag()` - Modify manifest, detect staleness
+2. `test_detect_invalid_dag()` - Introduce cycle, validation fails
+3. `test_ci_pipeline_fails_on_stale()` - Simulate CI, verify failure on stale DAG
+
+---
+
+## Execution Plan
+
+### Week 1: Foundation
+- Day 1: Create schemas, implement `dag_utils.py` consolidation
+- Day 2: Implement `refresh_repo_dag.py` (Tier 1 only)
+- Day 3: Implement `validate_dag_freshness.py`, write tests
+- Day 4: Test and refine, validate on real manifests
+
+### Week 2: Per-Module DAGs
+- Day 1: Define operation applicability rules
+- Day 2: Implement Tier 2 generation in `refresh_repo_dag.py`
+- Day 3: Generate task DAGs for all 33 modules
+- Day 4: Test task DAG generation, validate correctness
+
+### Week 3: Pipeline DAGs
+- Day 1: Create pipeline spec format, write 4 standard pipelines
+- Day 2: Implement Tier 3 generation in `refresh_repo_dag.py`
+- Day 3: Test pipeline DAG generation
+- Day 4: Validate pipeline DAGs drive orchestrator execution
+
+### Week 4: Automation
+- Day 1: Implement git hooks, install script
+- Day 2: Create CI workflow for DAG validation
+- Day 3: Integration with scheduler/orchestrator
+- Day 4: End-to-end testing, documentation
+
+---
+
+## Success Criteria
+
+1. ✅ All 33 modules have fresh, valid DAGs in `.state/`
+2. ✅ Global module DAG correctly reflects MODULES_INVENTORY.yaml dependencies
+3. ✅ Per-module task DAGs correctly derive operations from patterns + artifacts
+4. ✅ Pipeline DAGs successfully drive orchestrator execution
+5. ✅ Git hooks auto-refresh DAGs on merge/checkout
+6. ✅ CI fails on stale/invalid DAGs
+7. ✅ `dag_builder.py` consolidated into `dag_utils.py` (single source of truth)
+8. ✅ Zero manual intervention required for DAG freshness
+9. ✅ AI tools can query DAGs for "what depends on X?" in <100ms
+10. ✅ Scheduler uses pre-computed DAGs instead of on-demand computation
+
+---
+
+## Risks and Mitigations
+
+### Risk 1: Per-Module Task DAG Complexity
+**Issue**: Determining operation applicability may be non-trivial.
+**Mitigation**: Start with simple rules (has_python_files → enable lint), iterate based on real usage.
+
+### Risk 2: Git Hook Bypasses
+**Issue**: Developers may disable hooks, leading to stale DAGs.
+**Mitigation**: CI validation catches staleness, fails build. Hooks are convenience, not requirement.
+
+### Risk 3: Pipeline Spec Maintenance
+**Issue**: Pipeline YAML specs may drift from actual module structure.
+**Mitigation**: Validation script checks that all referenced modules exist, operations are valid.
+
+### Risk 4: Merge Conflicts in DAG Files
+**Issue**: Two branches modify modules → conflicting DAG JSON files.
+**Mitigation**: DAGs are deterministic, regenerating resolves conflicts. Document: "On merge conflict, run refresh script."
+
+### Risk 5: Performance at Scale
+**Issue**: 100+ modules may slow DAG generation.
+**Mitigation**: Profile refresh script, optimize hot paths. Consider parallelizing per-module DAG generation.
+
+---
+
+## Documentation Deliverables
+
+1. **README.md** in `.state/dag/` - Explains DAG structure, refresh process
+2. **ARCHITECTURE.md** - Three-tier DAG design rationale
+3. **CONTRIBUTING.md** update - Instructions for developers on DAG workflow
+4. **API.md** - How to query DAGs from Python (load JSON, parse structure)
+
+---
+
+## Open Questions (Post-Implementation)
+
+1. **Caching strategy**: Should DAGs be cached in memory for repeated queries?
+2. **Versioning**: How to handle schema evolution (v1.0.0 → v2.0.0)?
+3. **Visualization**: Generate Mermaid diagrams from DAGs for docs?
+4. **Historical DAGs**: Store snapshots of DAGs over time for analysis?
+5. **Cross-repo DAGs**: If multiple repos, how to represent inter-repo dependencies?
+
+---
+
+## Next Steps After Approval
+
+1. Create feature branch: `feature/dag-as-derived-state`
+2. Implement Phase 1 (Foundation) first, get PR reviewed
+3. Incrementally add Phases 2-4, one PR per tier
+4. Phase 5 (automation) in final PR
+5. Merge to main, monitor for issues
+6. Document lessons learned, iterate on design
+
+---
+
+**Total Estimated Effort**: 4 weeks (1 developer) or 2 weeks (2 developers in parallel)
+
+**Dependencies**: None (self-contained feature)
+
+**Compatibility**: Backward compatible - existing code works if DAGs missing (fallback to on-demand computation)
