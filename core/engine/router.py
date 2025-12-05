@@ -207,7 +207,11 @@ class TaskRouter:
                                 options=candidates,
                                 selected_option=selected,
                                 rationale=f"Strategy: {strategy}, Rule: {rule_id}",
-                                metadata={"run_id": run_id, "task_id": task_id, "rule_id": rule_id},
+                                metadata={
+                                    "run_id": run_id,
+                                    "task_id": task_id,
+                                    "rule_id": rule_id,
+                                },
                             )
                             self.decision_registry.log_decision(reg_decision)
 
@@ -517,6 +521,4 @@ def create_router(
     Returns:
         Configured TaskRouter instance
     """
-    return TaskRouter(
-        router_config_path, state_store=state_store, event_bus=event_bus
-    )
+    return TaskRouter(router_config_path, state_store=state_store, event_bus=event_bus)
