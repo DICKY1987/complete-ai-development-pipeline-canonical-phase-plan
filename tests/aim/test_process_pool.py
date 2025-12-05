@@ -11,13 +11,9 @@ import time
 from unittest.mock import MagicMock, Mock, call, patch
 
 import pytest
-from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.bridge import ToolProcessPool
-from aim.pool_interface import ProcessInstance
 
-# Skip all tests in this module - AIM not yet implemented (Phase 4)
-pytestmark = pytest.mark.skip(
-    reason="AIM module not yet implemented - Phase 4 roadmap item"
-)
+from phase4_routing.modules.aim_tools.src.aim.pool_interface import ProcessInstance
+from phase4_routing.modules.aim_tools.src.aim.process_pool import ToolProcessPool
 
 
 @pytest.fixture
@@ -54,8 +50,13 @@ class TestToolProcessPoolInitialization:
 
     def test_pool_initialization_success(self, mock_registry, mock_process):
         """Test successful pool initialization."""
-        with patch("aim.bridge.subprocess.Popen", return_value=mock_process):
-            with patch("aim.bridge.threading.Thread"):
+        with patch(
+            "phase4_routing.modules.aim_tools.src.aim.process_pool.subprocess.Popen",
+            return_value=mock_process,
+        ):
+            with patch(
+                "phase4_routing.modules.aim_tools.src.aim.process_pool.threading.Thread"
+            ):
                 pool = ToolProcessPool("aider", count=3, registry=mock_registry)
 
                 assert pool.tool_id == "aider"
@@ -71,9 +72,12 @@ class TestToolProcessPoolInitialization:
     def test_pool_spawns_correct_command(self, mock_registry, mock_process):
         """Test that correct command is spawned."""
         with patch(
-            "aim.bridge.subprocess.Popen", return_value=mock_process
+            "phase4_routing.modules.aim_tools.src.aim.process_pool.subprocess.Popen",
+            return_value=mock_process,
         ) as mock_popen:
-            with patch("aim.bridge.threading.Thread"):
+            with patch(
+                "phase4_routing.modules.aim_tools.src.aim.process_pool.threading.Thread"
+            ):
                 pool = ToolProcessPool("aider", count=1, registry=mock_registry)
 
                 # Verify Popen was called with correct command
@@ -92,8 +96,13 @@ class TestToolProcessPoolInitialization:
 
     def test_pool_creates_io_threads(self, mock_registry, mock_process):
         """Test that I/O reader threads are created."""
-        with patch("aim.bridge.subprocess.Popen", return_value=mock_process):
-            with patch("aim.bridge.threading.Thread") as mock_thread:
+        with patch(
+            "phase4_routing.modules.aim_tools.src.aim.process_pool.subprocess.Popen",
+            return_value=mock_process,
+        ):
+            with patch(
+                "phase4_routing.modules.aim_tools.src.aim.process_pool.threading.Thread"
+            ) as mock_thread:
                 pool = ToolProcessPool("aider", count=2, registry=mock_registry)
 
                 # Should create 2 threads per instance (stdout + stderr) * 2 instances = 4
@@ -105,8 +114,13 @@ class TestSendPrompt:
 
     def test_send_prompt_success(self, mock_registry, mock_process):
         """Test successful prompt sending."""
-        with patch("aim.bridge.subprocess.Popen", return_value=mock_process):
-            with patch("aim.bridge.threading.Thread"):
+        with patch(
+            "phase4_routing.modules.aim_tools.src.aim.process_pool.subprocess.Popen",
+            return_value=mock_process,
+        ):
+            with patch(
+                "phase4_routing.modules.aim_tools.src.aim.process_pool.threading.Thread"
+            ):
                 pool = ToolProcessPool("aider", count=1, registry=mock_registry)
 
                 result = pool.send_prompt(0, "/add test.py")
@@ -117,8 +131,13 @@ class TestSendPrompt:
 
     def test_send_prompt_invalid_index(self, mock_registry, mock_process):
         """Test sending to invalid instance index."""
-        with patch("aim.bridge.subprocess.Popen", return_value=mock_process):
-            with patch("aim.bridge.threading.Thread"):
+        with patch(
+            "phase4_routing.modules.aim_tools.src.aim.process_pool.subprocess.Popen",
+            return_value=mock_process,
+        ):
+            with patch(
+                "phase4_routing.modules.aim_tools.src.aim.process_pool.threading.Thread"
+            ):
                 pool = ToolProcessPool("aider", count=2, registry=mock_registry)
 
                 result = pool.send_prompt(5, "/add test.py")
@@ -126,8 +145,13 @@ class TestSendPrompt:
 
     def test_send_prompt_dead_process(self, mock_registry, mock_process):
         """Test sending to dead process."""
-        with patch("aim.bridge.subprocess.Popen", return_value=mock_process):
-            with patch("aim.bridge.threading.Thread"):
+        with patch(
+            "phase4_routing.modules.aim_tools.src.aim.process_pool.subprocess.Popen",
+            return_value=mock_process,
+        ):
+            with patch(
+                "phase4_routing.modules.aim_tools.src.aim.process_pool.threading.Thread"
+            ):
                 pool = ToolProcessPool("aider", count=1, registry=mock_registry)
 
                 # Mark instance as dead
@@ -140,8 +164,13 @@ class TestSendPrompt:
         """Test handling of BrokenPipeError."""
         mock_process.stdin.write.side_effect = BrokenPipeError()
 
-        with patch("aim.bridge.subprocess.Popen", return_value=mock_process):
-            with patch("aim.bridge.threading.Thread"):
+        with patch(
+            "phase4_routing.modules.aim_tools.src.aim.process_pool.subprocess.Popen",
+            return_value=mock_process,
+        ):
+            with patch(
+                "phase4_routing.modules.aim_tools.src.aim.process_pool.threading.Thread"
+            ):
                 pool = ToolProcessPool("aider", count=1, registry=mock_registry)
 
                 result = pool.send_prompt(0, "/add test.py")
@@ -155,8 +184,13 @@ class TestReadResponse:
 
     def test_read_response_success(self, mock_registry, mock_process):
         """Test successful response reading."""
-        with patch("aim.bridge.subprocess.Popen", return_value=mock_process):
-            with patch("aim.bridge.threading.Thread"):
+        with patch(
+            "phase4_routing.modules.aim_tools.src.aim.process_pool.subprocess.Popen",
+            return_value=mock_process,
+        ):
+            with patch(
+                "phase4_routing.modules.aim_tools.src.aim.process_pool.threading.Thread"
+            ):
                 pool = ToolProcessPool("aider", count=1, registry=mock_registry)
 
                 # Put test data in queue
@@ -167,8 +201,13 @@ class TestReadResponse:
 
     def test_read_response_timeout(self, mock_registry, mock_process):
         """Test read_response with timeout."""
-        with patch("aim.bridge.subprocess.Popen", return_value=mock_process):
-            with patch("aim.bridge.threading.Thread"):
+        with patch(
+            "phase4_routing.modules.aim_tools.src.aim.process_pool.subprocess.Popen",
+            return_value=mock_process,
+        ):
+            with patch(
+                "phase4_routing.modules.aim_tools.src.aim.process_pool.threading.Thread"
+            ):
                 pool = ToolProcessPool("aider", count=1, registry=mock_registry)
 
                 # Don't put anything in queue
@@ -177,8 +216,13 @@ class TestReadResponse:
 
     def test_read_response_invalid_index(self, mock_registry, mock_process):
         """Test reading from invalid instance."""
-        with patch("aim.bridge.subprocess.Popen", return_value=mock_process):
-            with patch("aim.bridge.threading.Thread"):
+        with patch(
+            "phase4_routing.modules.aim_tools.src.aim.process_pool.subprocess.Popen",
+            return_value=mock_process,
+        ):
+            with patch(
+                "phase4_routing.modules.aim_tools.src.aim.process_pool.threading.Thread"
+            ):
                 pool = ToolProcessPool("aider", count=1, registry=mock_registry)
 
                 response = pool.read_response(99, timeout=1.0)
@@ -192,8 +236,13 @@ class TestGetStatus:
         """Test status when all processes alive."""
         mock_process.poll.return_value = None  # Still running
 
-        with patch("aim.bridge.subprocess.Popen", return_value=mock_process):
-            with patch("aim.bridge.threading.Thread"):
+        with patch(
+            "phase4_routing.modules.aim_tools.src.aim.process_pool.subprocess.Popen",
+            return_value=mock_process,
+        ):
+            with patch(
+                "phase4_routing.modules.aim_tools.src.aim.process_pool.threading.Thread"
+            ):
                 pool = ToolProcessPool("aider", count=2, registry=mock_registry)
 
                 statuses = pool.get_status()
@@ -214,8 +263,13 @@ class TestGetStatus:
         proc2 = MagicMock()
         proc2.poll.return_value = 1  # Dead with exit code 1
 
-        with patch("aim.bridge.subprocess.Popen", side_effect=[proc1, proc2]):
-            with patch("aim.bridge.threading.Thread"):
+        with patch(
+            "phase4_routing.modules.aim_tools.src.aim.process_pool.subprocess.Popen",
+            side_effect=[proc1, proc2],
+        ):
+            with patch(
+                "phase4_routing.modules.aim_tools.src.aim.process_pool.threading.Thread"
+            ):
                 pool = ToolProcessPool("aider", count=2, registry=mock_registry)
 
                 statuses = pool.get_status()
@@ -233,8 +287,13 @@ class TestCheckHealth:
         """Test health check with all processes alive."""
         mock_process.poll.return_value = None
 
-        with patch("aim.bridge.subprocess.Popen", return_value=mock_process):
-            with patch("aim.bridge.threading.Thread"):
+        with patch(
+            "phase4_routing.modules.aim_tools.src.aim.process_pool.subprocess.Popen",
+            return_value=mock_process,
+        ):
+            with patch(
+                "phase4_routing.modules.aim_tools.src.aim.process_pool.threading.Thread"
+            ):
                 pool = ToolProcessPool("aider", count=3, registry=mock_registry)
 
                 health = pool.check_health()
@@ -252,8 +311,13 @@ class TestCheckHealth:
         proc2 = MagicMock()
         proc2.poll.return_value = 0
 
-        with patch("aim.bridge.subprocess.Popen", side_effect=[proc1, proc2]):
-            with patch("aim.bridge.threading.Thread"):
+        with patch(
+            "phase4_routing.modules.aim_tools.src.aim.process_pool.subprocess.Popen",
+            side_effect=[proc1, proc2],
+        ):
+            with patch(
+                "phase4_routing.modules.aim_tools.src.aim.process_pool.threading.Thread"
+            ):
                 pool = ToolProcessPool("aider", count=2, registry=mock_registry)
 
                 health = pool.check_health()
@@ -279,8 +343,13 @@ class TestShutdown:
 
         mock_process.poll.side_effect = poll_side_effect
 
-        with patch("aim.bridge.subprocess.Popen", return_value=mock_process):
-            with patch("aim.bridge.threading.Thread"):
+        with patch(
+            "phase4_routing.modules.aim_tools.src.aim.process_pool.subprocess.Popen",
+            return_value=mock_process,
+        ):
+            with patch(
+                "phase4_routing.modules.aim_tools.src.aim.process_pool.threading.Thread"
+            ):
                 pool = ToolProcessPool("aider", count=1, registry=mock_registry)
 
                 pool.shutdown(timeout=1.0)
@@ -294,10 +363,16 @@ class TestShutdown:
         # Process doesn't exit gracefully
         mock_process.poll.return_value = None  # Never exits
 
-        with patch("aim.bridge.subprocess.Popen", return_value=mock_process):
-            with patch("aim.bridge.threading.Thread"):
+        with patch(
+            "phase4_routing.modules.aim_tools.src.aim.process_pool.subprocess.Popen",
+            return_value=mock_process,
+        ):
+            with patch(
+                "phase4_routing.modules.aim_tools.src.aim.process_pool.threading.Thread"
+            ):
                 with patch(
-                    "aim.bridge.time.time", side_effect=[0, 0, 10]
+                    "phase4_routing.modules.aim_tools.src.aim.process_pool.time.time",
+                    side_effect=[0, 0, 10],
                 ):  # Simulate timeout
                     pool = ToolProcessPool("aider", count=1, registry=mock_registry)
 
@@ -326,8 +401,13 @@ class TestShutdown:
         proc1.poll = proc1_poll
         proc2.poll = proc2_poll
 
-        with patch("aim.bridge.subprocess.Popen", side_effect=[proc1, proc2]):
-            with patch("aim.bridge.threading.Thread"):
+        with patch(
+            "phase4_routing.modules.aim_tools.src.aim.process_pool.subprocess.Popen",
+            side_effect=[proc1, proc2],
+        ):
+            with patch(
+                "phase4_routing.modules.aim_tools.src.aim.process_pool.threading.Thread"
+            ):
                 pool = ToolProcessPool("aider", count=2, registry=mock_registry)
                 pool.shutdown(timeout=1.0)
 
@@ -347,8 +427,13 @@ class TestRestartInstance:
         new_proc = MagicMock()
         new_proc.poll.return_value = None  # Alive
 
-        with patch("aim.bridge.subprocess.Popen", side_effect=[old_proc, new_proc]):
-            with patch("aim.bridge.threading.Thread"):
+        with patch(
+            "phase4_routing.modules.aim_tools.src.aim.process_pool.subprocess.Popen",
+            side_effect=[old_proc, new_proc],
+        ):
+            with patch(
+                "phase4_routing.modules.aim_tools.src.aim.process_pool.threading.Thread"
+            ):
                 pool = ToolProcessPool("aider", count=1, registry=mock_registry)
 
                 # Restart the instance
@@ -361,8 +446,13 @@ class TestRestartInstance:
 
     def test_restart_instance_invalid_index(self, mock_registry, mock_process):
         """Test restart with invalid index."""
-        with patch("aim.bridge.subprocess.Popen", return_value=mock_process):
-            with patch("aim.bridge.threading.Thread"):
+        with patch(
+            "phase4_routing.modules.aim_tools.src.aim.process_pool.subprocess.Popen",
+            return_value=mock_process,
+        ):
+            with patch(
+                "phase4_routing.modules.aim_tools.src.aim.process_pool.threading.Thread"
+            ):
                 pool = ToolProcessPool("aider", count=1, registry=mock_registry)
 
                 result = pool.restart_instance(99)
@@ -378,18 +468,19 @@ class TestEdgeCases:
             ToolProcessPool("aider", count=1, registry={"tools": {}})
 
     def test_zero_count(self, mock_registry, mock_process):
-        """Test pool with zero instances."""
-        with patch("aim.bridge.subprocess.Popen", return_value=mock_process):
-            with patch("aim.bridge.threading.Thread"):
-                pool = ToolProcessPool("aider", count=0, registry=mock_registry)
-
-                assert len(pool.instances) == 0
-                assert pool.check_health()["total"] == 0
+        """Test pool with zero instances raises ValueError."""
+        with pytest.raises(ValueError, match="count must be 1-10"):
+            ToolProcessPool("aider", count=0, registry=mock_registry)
 
     def test_large_count(self, mock_registry, mock_process):
         """Test pool with many instances."""
-        with patch("aim.bridge.subprocess.Popen", return_value=mock_process):
-            with patch("aim.bridge.threading.Thread"):
+        with patch(
+            "phase4_routing.modules.aim_tools.src.aim.process_pool.subprocess.Popen",
+            return_value=mock_process,
+        ):
+            with patch(
+                "phase4_routing.modules.aim_tools.src.aim.process_pool.threading.Thread"
+            ):
                 pool = ToolProcessPool("aider", count=10, registry=mock_registry)
 
                 assert len(pool.instances) == 10

@@ -10,8 +10,11 @@ _repo_root = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(_repo_root))
 
 # Skip all tests in this file - test_runner plugin not yet migrated
+# The legacy test_runner plugin (modules.error_plugin_test_runner.m010018_plugin)
+# has not been migrated to the new phase6_error_recovery structure yet.
+# TODO: Migrate test_runner plugin to phase6_error_recovery/modules/plugins/test_runner/
 pytestmark = pytest.mark.skip(
-    reason="test_runner plugin not yet migrated to phase6_error_recovery"
+    reason="test_runner plugin migration pending - legacy module not available in phase6 structure"
 )
 
 try:

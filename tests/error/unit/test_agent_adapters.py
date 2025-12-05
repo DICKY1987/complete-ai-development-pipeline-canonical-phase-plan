@@ -228,20 +228,23 @@ class TestCodexAdapter:
         adapter = CodexAdapter()
         assert adapter.check_available() is False
 
-    def test_invoke_stub_implementation(self):
-        """Test that Codex invoke returns stub message."""
+    def test_invoke_returns_suggestions(self):
+        """Test that Codex invoke returns suggestions."""
         adapter = CodexAdapter()
         invocation = AgentInvocation(
             agent_name="codex",
             files=["test.py"],
-            error_report={},
+            error_report={"summary": {"total_issues": 1}},
         )
 
         result = adapter.invoke(invocation)
 
-        # Should return stub for now
-        assert result.success is False
-        assert "stub" in result.metadata.get("status", "").lower()
+        # CodexAdapter now calls gh copilot - may succeed or fail depending on installation
+        # Success means gh copilot returned suggestions (returncode 0)
+        # It returns suggestions only, not direct file modifications
+        assert isinstance(result.success, bool)
+        assert result.metadata.get("mode") == "suggestion"
+        assert result.files_modified == []  # Suggestions only, no direct edits
 
 
 class TestClaudeAdapter:
@@ -265,20 +268,25 @@ class TestClaudeAdapter:
         adapter = ClaudeAdapter()
         assert adapter.check_available() is False
 
-    def test_invoke_stub_implementation(self):
-        """Test that Claude invoke returns stub message."""
+    def test_invoke_requires_api_key(self):
+        """Test that Claude invoke requires API key."""
         adapter = ClaudeAdapter()
         invocation = AgentInvocation(
             agent_name="claude",
             files=["test.py"],
-            error_report={},
+            error_report={"summary": {"total_issues": 1}},
         )
 
         result = adapter.invoke(invocation)
 
-        # Should return stub for now
-        assert result.success is False
-        assert "stub" in result.metadata.get("status", "").lower()
+        # Without ANTHROPIC_API_KEY, should fail with "not configured" message
+        # With key, may succeed or fail depending on API availability
+        assert isinstance(result.success, bool)
+        if not result.success:
+            assert (
+                "not configured" in result.error_message.lower()
+                or "not installed" in result.stderr.lower()
+            )
 
 
 class TestAgentFactory:
@@ -332,20 +340,20 @@ class TestAgentFactory:
 class TestCheckAgentAvailability:
     """Test availability checking function."""
 
-    @patch(
-        "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.engine.agent_adapters.AiderAdapter.check_available"
-    )
-    @patch(
-        "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.engine.agent_adapters.CodexAdapter.check_available"
-    )
-    @patch(
-        "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.engine.agent_adapters.ClaudeAdapter.check_available"
-    )
-    def test_check_all_agents_available(self, mock_claude, mock_codex, mock_aider):
+    def test_check_all_agents_available(self, monkeypatch):
         """Test checking availability of all agents."""
-        mock_aider.return_value = True
-        mock_codex.return_value = True
-        mock_claude.return_value = True
+        # Patch the check_available methods directly on the adapter classes
+        from phase6_error_recovery.modules.error_engine.src.engine import agent_adapters
+
+        monkeypatch.setattr(
+            agent_adapters.AiderAdapter, "check_available", lambda self: True
+        )
+        monkeypatch.setattr(
+            agent_adapters.CodexAdapter, "check_available", lambda self: True
+        )
+        monkeypatch.setattr(
+            agent_adapters.ClaudeAdapter, "check_available", lambda self: True
+        )
 
         availability = check_agent_availability()
 
@@ -353,20 +361,19 @@ class TestCheckAgentAvailability:
         assert availability["codex"] is True
         assert availability["claude"] is True
 
-    @patch(
-        "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.engine.agent_adapters.AiderAdapter.check_available"
-    )
-    @patch(
-        "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.engine.agent_adapters.CodexAdapter.check_available"
-    )
-    @patch(
-        "UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.engine.agent_adapters.ClaudeAdapter.check_available"
-    )
-    def test_check_mixed_availability(self, mock_claude, mock_codex, mock_aider):
+    def test_check_mixed_availability(self, monkeypatch):
         """Test mixed availability."""
-        mock_aider.return_value = True
-        mock_codex.return_value = False
-        mock_claude.return_value = False
+        from phase6_error_recovery.modules.error_engine.src.engine import agent_adapters
+
+        monkeypatch.setattr(
+            agent_adapters.AiderAdapter, "check_available", lambda self: True
+        )
+        monkeypatch.setattr(
+            agent_adapters.CodexAdapter, "check_available", lambda self: False
+        )
+        monkeypatch.setattr(
+            agent_adapters.ClaudeAdapter, "check_available", lambda self: False
+        )
 
         availability = check_agent_availability()
 

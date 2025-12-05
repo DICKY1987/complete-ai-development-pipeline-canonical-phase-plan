@@ -139,7 +139,8 @@ class TestRedactSecrets:
 
     def test_redact_git_hashes(self):
         """Test that Git-like hashes are redacted."""
-        text = "Commit: a" * 40  # 40-char hex string
+        # Create a proper 40-character hexadecimal hash
+        text = "Commit: " + "a" * 40  # 40-char lowercase hex string
         result = redact_secrets(text)
 
         assert "[REDACTED_HASH]" in result
@@ -257,7 +258,8 @@ class TestResourceLimits:
 
     def test_validate_file(self, tmp_path):
         """Test file validation with resource limits."""
-        limits = ResourceLimits(max_file_size_mb=1)
+        # Pass tmp_path as allowed_root to allow test files
+        limits = ResourceLimits(max_file_size_mb=1, allowed_root=tmp_path)
 
         # Small file should pass
         small_file = tmp_path / "small.txt"

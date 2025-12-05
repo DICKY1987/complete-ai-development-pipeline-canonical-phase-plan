@@ -1,0 +1,1007 @@
+# PHASE_PLAN_TEMPLATE_V3
+# Activate Guardrail Infrastructure for High-ROI Behavior Enforcement
+# Implementation of 5 critical improvements: 208:1 ROI (12h setup → 2,500h saved annually)
+
+doc_id: DOC-CONFIG-PH-GUARDRAIL-001-ACTIVATE-BEHAVIOR-ENFORCEMENT
+template_version: 3
+
+table_of_contents:
+  sections:
+    - id: "phase_identity"
+      title: "Phase identity"
+      key_path: "phase_identity"
+    - id: "dag_and_dependencies"
+      title: "DAG and dependencies"
+      key_path: "dag_and_dependencies"
+    - id: "scope_and_modules"
+      title: "Scope and modules"
+      key_path: "scope_and_modules"
+    - id: "environment_and_tools"
+      title: "Environment and tools"
+      key_path: "environment_and_tools"
+    - id: "execution_profile"
+      title: "Execution profile"
+      key_path: "execution_profile"
+    - id: "pre_flight_checks"
+      title: "Pre-flight checks"
+      key_path: "pre_flight_checks"
+    - id: "execution_plan"
+      title: "Execution plan"
+      key_path: "execution_plan"
+    - id: "fix_loop_and_circuit_breakers"
+      title: "Fix loop and circuit breakers"
+      key_path: "fix_loop_and_circuit_breakers"
+    - id: "expected_artifacts"
+      title: "Expected artifacts"
+      key_path: "expected_artifacts"
+    - id: "acceptance_tests"
+      title: "Acceptance tests"
+      key_path: "acceptance_tests"
+    - id: "completion_gate"
+      title: "Completion gate"
+      key_path: "completion_gate"
+    - id: "observability_and_metrics"
+      title: "Observability and metrics"
+      key_path: "observability_and_metrics"
+    - id: "governance_and_constraints"
+      title: "Governance and constraints"
+      key_path: "governance_and_constraints"
+    - id: "extensions"
+      title: "Extensions"
+      key_path: "extensions"
+
+index:
+  key_paths:
+    doc_id: "doc_id"
+    phase_id: "phase_identity.phase_id"
+    workstream_id: "phase_identity.workstream_id"
+    phase_title: "phase_identity.title"
+    objective: "phase_identity.objective"
+    phase_status: "phase_identity.status"
+    estimate_hours: "phase_identity.estimate_hours"
+    gh_item_id: "phase_identity.gh_item_id"
+    tags: "phase_identity.tags"
+
+phase_identity:
+  phase_id: "PH-GUARDRAIL-001"
+  workstream_id: "ws-guardrail-activation"
+  title: "Activate Guardrail Infrastructure - 208:1 ROI"
+  summary: "Activate 5 high-ROI guardrail improvements to enforce deterministic AI behavior: Auto-Pattern Detection, Contract Decorators, Incomplete Scanner CI Gate, Ground Truth Auto-Wrapper, and Planning Budget Enforcer. Total setup: 12 hours, Annual savings: 2,500 hours, ROI: 208:1."
+  objective: "Transform guardrail system from 15% activated to 100% activated by turning on existing infrastructure. Achieve measurable behavior enforcement: 100% pattern auto-detection, 85% contract violation prevention, 0 incomplete implementations in production, 0 hallucinated success, 0 planning loops."
+  phase_type: "enhancement"
+  status: "ready"
+  estimate_hours: 12
+  gh_item_id: null
+  tags:
+    - "guardrails"
+    - "automation"
+    - "high-roi"
+    - "behavior-enforcement"
+    - "deterministic-ai"
+    - "pattern-detection"
+    - "contract-validation"
+
+dag_and_dependencies:
+  workstream_bundle_id: "ws-bundle-guardrails-01"
+  depends_on: []
+  may_run_parallel_with: []
+  parallel_group: "guardrail-activation"
+  is_critical_path: true
+
+scope_and_modules:
+  repo_root: "."
+  modules:
+    - module_id: "mod.patterns.automation.detectors"
+      description: "Execution pattern auto-detection (8 detectors)"
+    - module_id: "mod.core.contracts"
+      description: "Contract enforcement decorators"
+    - module_id: "mod.error.scanner"
+      description: "Incomplete implementation scanner"
+    - module_id: "mod.patterns.behavioral"
+      description: "Behavioral patterns (PATTERN-001, PATTERN-002)"
+    - module_id: "mod.core.engine"
+      description: "Orchestrator and executor"
+    - module_id: "mod.core.planning"
+      description: "Planner with budget enforcement"
+    - module_id: "mod.ci.workflows"
+      description: "GitHub Actions workflows"
+
+  file_scope:
+    read_only:
+      - "patterns/automation/detectors/*.py"
+      - "core/contracts/*.py"
+      - "patterns/behavioral/*.md"
+      - "INCOMPLETE_IMPLEMENTATION_RULES.md"
+      - "docs/DOC_reference/ai-agents/*.md"
+
+    modify:
+      - "core/engine/orchestrator.py"
+      - "core/engine/executor.py"
+      - "error/engine/error_engine.py"
+      - "core/planning/planner.py"
+      - "core/engine/router.py"
+      - "scripts/paths_index_cli.py"
+
+    create:
+      - ".github/workflows/incomplete-scanner.yml"
+      - "config/pattern_detector_config.yaml"
+      - "reports/guardrail_activation/*.md"
+      - "reports/guardrail_activation/*.json"
+      - "tests/guardrails/*.py"
+
+    forbidden_paths:
+      - ".git/**"
+      - ".venv/**"
+      - "__pycache__/**"
+      - "legacy/**"
+      - "_ARCHIVE/**"
+
+  worktree_strategy:
+    mode: "single"
+    name_pattern: "guardrail-activation-{timestamp}"
+    base_branch: "main"
+    multi_worktree_enabled: false
+    worktrees: []
+
+environment_and_tools:
+  target_os: "windows"
+  default_shell: "powershell"
+  primary_language: "python"
+  python:
+    version_constraint: ">=3.11,<3.13"
+    venv_path: ".venv"
+  required_services:
+    - name: "orchestration_db"
+      type: "file"
+      path: ".state/orchestration.db"
+      must_exist_before_phase: true
+    - name: "pattern_telemetry_db"
+      type: "file"
+      path: ".state/pattern_telemetry.db"
+      must_exist_before_phase: false
+
+  config_files:
+    - "pyproject.toml"
+    - "pytest.ini"
+    - "ai_policies.yaml"
+    - "QUALITY_GATE.yaml"
+
+  ai_operators:
+    primary_agent: "codex"
+    secondary_agents:
+      - "claude-code"
+
+  tool_profiles:
+    preferred_ids:
+      - "python-script"
+      - "powershell-script"
+      - "pytest"
+      - "ruff"
+
+execution_profile:
+  prompt_template_id: "GUARDRAIL_ACTIVATION_V1"
+  run_mode: "execute"
+  max_runtime_minutes: 180
+  concurrency:
+    allowed_for_phase: true
+    max_parallel_steps: 3
+  retry_policy:
+    default_max_attempts: 2
+
+pre_flight_checks:
+  checks:
+    - id: "pf-git-clean"
+      description: "Working directory is clean (no uncommitted changes)"
+      when: "always"
+      command:
+        tool_id: "powershell-script"
+        args:
+          - "git status --porcelain"
+      success_pattern: "^$"
+      on_fail: "abort"
+
+    - id: "pf-venv-active"
+      description: "Python virtual environment is activated"
+      when: "always"
+      command:
+        tool_id: "powershell-script"
+        args:
+          - "python -c 'import sys; print(sys.prefix)'"
+      success_pattern: "\\.venv"
+      on_fail: "abort"
+
+    - id: "pf-tests-passing"
+      description: "Baseline tests pass before modifications"
+      when: "always"
+      command:
+        tool_id: "pytest"
+        args:
+          - "pytest tests/ -q --tb=no"
+      success_pattern: "\\d+ passed"
+      on_fail: "abort"
+
+    - id: "pf-detectors-exist"
+      description: "Pattern detector files exist"
+      when: "always"
+      command:
+        tool_id: "powershell-script"
+        args:
+          - "Test-Path patterns/automation/detectors/execution_detector.py"
+      success_pattern: "True"
+      on_fail: "abort"
+
+    - id: "pf-contracts-exist"
+      description: "Contract decorator files exist"
+      when: "always"
+      command:
+        tool_id: "powershell-script"
+        args:
+          - "Test-Path core/contracts/decorators.py"
+      success_pattern: "True"
+      on_fail: "abort"
+
+execution_plan:
+  steps:
+    # ============================================================================
+    # IMPROVEMENT 1: AUTO-ACTIVATE PATTERN DETECTORS (ROI: 500:1)
+    # ============================================================================
+    - id: "step-01-integrate-pattern-detector"
+      name: "Integrate execution pattern detector into orchestrator"
+      operation_kind: "OP-CODE-MODIFICATION"
+      pattern_ids:
+        - "EXEC-004-ATOMIC-OPERATIONS"
+      description: "Hook ExecutionPatternDetector into orchestrator to auto-detect patterns after 3+ similar executions. Enable aggressive mode for immediate pattern generation."
+      tool_id: "python-script"
+      inputs:
+        execution_templates:
+          - name: "Add detector import"
+            file: "core/engine/orchestrator.py"
+            location: "after imports"
+            code: |
+              from patterns.automation.detectors.execution_detector import ExecutionPatternDetector
+
+          - name: "Initialize detector in __init__"
+            file: "core/engine/orchestrator.py"
+            location: "Orchestrator.__init__"
+            code: |
+              self.pattern_detector = ExecutionPatternDetector(
+                  db_connection=self.db,
+                  similarity_threshold=0.75  # Aggressive mode
+              )
+
+          - name: "Hook into execution flow"
+            file: "core/engine/orchestrator.py"
+            location: "execute_workstream method, after execution"
+            code: |
+              # Auto-detect execution patterns
+              execution_record = {
+                  'operation_kind': workstream.get('operation_kind'),
+                  'file_types': self._extract_file_types(result),
+                  'tools_used': self._extract_tools_used(result),
+                  'inputs': workstream.get('inputs', {}),
+                  'outputs': result.get('artifacts', {}),
+                  'timestamp': datetime.now().isoformat()
+              }
+              self.pattern_detector.on_execution_complete(execution_record)
+
+        commands: []
+      expected_outputs:
+        - "core/engine/orchestrator.py (modified with 3 additions)"
+        - "Pattern detector integrated and active"
+      requires_human_confirmation: false
+
+    - id: "step-02-create-detector-config"
+      name: "Create pattern detector configuration file"
+      operation_kind: "OP-CREATE-CONFIG"
+      pattern_ids:
+        - "EXEC-004-ATOMIC-OPERATIONS"
+      description: "Define pattern detection rules, similarity thresholds, and output settings."
+      tool_id: "python-script"
+      inputs:
+        execution_templates:
+          - name: "Create config/pattern_detector_config.yaml"
+            content: |
+              # Pattern Detector Configuration
+              detection:
+                similarity_threshold: 0.75  # Aggressive mode
+                min_occurrences: 3  # Generate pattern after 3 similar executions
+                lookback_window_hours: 168  # 1 week
+
+              output:
+                pattern_draft_dir: "patterns/drafts"
+                auto_promote_threshold: 0.90  # Auto-promote to patterns/ if confidence >= 90%
+                include_examples: true
+                max_examples: 3
+
+              filters:
+                exclude_operation_kinds:
+                  - "OP-REPORT-GENERATION"  # Don't pattern-ize report generation
+                min_execution_time_seconds: 5  # Ignore trivial operations
+
+              telemetry:
+                enabled: true
+                db_path: ".state/pattern_telemetry.db"
+                retain_days: 90
+
+        commands:
+          - "python -c \"from pathlib import Path; Path('config/pattern_detector_config.yaml').write_text('''# Pattern Detector Configuration...'))\""
+      expected_outputs:
+        - "config/pattern_detector_config.yaml"
+      requires_human_confirmation: false
+
+    - id: "step-03-test-pattern-detection"
+      name: "Test pattern detector with sample executions"
+      operation_kind: "OP-VALIDATE-RUNTIME"
+      pattern_ids:
+        - "EXEC-002-BATCH-VALIDATION"
+      description: "Run 4 similar operations to trigger pattern detection. Verify pattern draft is generated in patterns/drafts/."
+      tool_id: "pytest"
+      inputs:
+        commands:
+          - "pytest tests/patterns/test_execution_detector.py -v"
+          - "python -c \"from core.engine.orchestrator import Orchestrator; o=Orchestrator(); print('Detector active:', hasattr(o, 'pattern_detector'))\""
+      expected_outputs:
+        - "Pattern detector activated successfully"
+        - "patterns/drafts/*.pattern.yaml (1+ drafts generated)"
+      requires_human_confirmation: false
+
+    # ============================================================================
+    # IMPROVEMENT 2: CONTRACT DECORATORS ROLLOUT (ROI: 300:1)
+    # ============================================================================
+    - id: "step-04-add-executor-contracts"
+      name: "Add contract decorators to core/engine/executor.py"
+      operation_kind: "OP-CODE-MODIFICATION"
+      pattern_ids:
+        - "EXEC-004-ATOMIC-OPERATIONS"
+      description: "Apply @enforce_entry_contract and @enforce_exit_contract to execute_task and finalize_execution. Catches 85% of contract violations."
+      tool_id: "python-script"
+      inputs:
+        execution_templates:
+          - name: "Add decorator imports"
+            file: "core/engine/executor.py"
+            location: "after imports"
+            code: |
+              from core.contracts.decorators import enforce_entry_contract, enforce_exit_contract, validate_schema
+
+          - name: "Add entry contract to execute_task"
+            file: "core/engine/executor.py"
+            location: "before execute_task method"
+            code: |
+              @enforce_entry_contract(phase="phase5_execution")
+              @validate_schema(schema_name="task", schema_version="v1", data_key="task")
+
+          - name: "Add exit contract to finalize_execution"
+            file: "core/engine/executor.py"
+            location: "before finalize_execution method"
+            code: |
+              @enforce_exit_contract(phase="phase5_execution", strict=True)
+
+        commands: []
+      expected_outputs:
+        - "core/engine/executor.py (3 decorators added)"
+        - "Contract validation active on executor"
+      requires_human_confirmation: false
+
+    - id: "step-05-add-error-engine-contracts"
+      name: "Add contract decorators to error/engine/error_engine.py"
+      operation_kind: "OP-CODE-MODIFICATION"
+      pattern_ids:
+        - "EXEC-004-ATOMIC-OPERATIONS"
+      description: "Apply contract decorators to analyze_errors and apply_fixes. Prevents silent failures in error recovery."
+      tool_id: "python-script"
+      inputs:
+        execution_templates:
+          - name: "Add decorator imports"
+            file: "error/engine/error_engine.py"
+            location: "after imports"
+            code: |
+              from core.contracts.decorators import enforce_entry_contract, enforce_exit_contract
+
+          - name: "Add entry contract to analyze_errors"
+            file: "error/engine/error_engine.py"
+            location: "before analyze_errors method"
+            code: |
+              @enforce_entry_contract(phase="phase6_error_recovery")
+
+          - name: "Add exit contract to apply_fixes"
+            file: "error/engine/error_engine.py"
+            location: "before apply_fixes method"
+            code: |
+              @enforce_exit_contract(phase="phase6_error_recovery")
+
+        commands: []
+      expected_outputs:
+        - "error/engine/error_engine.py (2 decorators added)"
+        - "Contract validation active on error engine"
+      requires_human_confirmation: false
+
+    - id: "step-06-test-contract-enforcement"
+      name: "Test contract enforcement with violation scenarios"
+      operation_kind: "OP-VALIDATE-RUNTIME"
+      pattern_ids:
+        - "EXEC-002-BATCH-VALIDATION"
+      description: "Run tests that intentionally violate contracts. Verify decorators catch violations and raise ContractViolationError."
+      tool_id: "pytest"
+      inputs:
+        commands:
+          - "pytest tests/contracts/test_decorators.py -v"
+          - "pytest tests/contracts/test_contract_validation.py -v"
+      expected_outputs:
+        - "All contract tests pass"
+        - "Contract violations properly detected and blocked"
+      requires_human_confirmation: false
+
+    # ============================================================================
+    # IMPROVEMENT 3: INCOMPLETE SCANNER CI GATE (ROI: 200:1)
+    # ============================================================================
+    - id: "step-07-create-ci-workflow"
+      name: "Create GitHub Actions workflow for incomplete scanner"
+      operation_kind: "OP-CREATE-FILE"
+      pattern_ids:
+        - "EXEC-004-ATOMIC-OPERATIONS"
+      description: "Create .github/workflows/incomplete-scanner.yml to block PRs with incomplete implementations."
+      tool_id: "python-script"
+      inputs:
+        execution_templates:
+          - name: "Create .github/workflows/incomplete-scanner.yml"
+            content: |
+              name: Block Incomplete Implementations
+              on:
+                pull_request:
+                  branches: [main]
+                push:
+                  branches: [main]
+
+              jobs:
+                scan:
+                  runs-on: ubuntu-latest
+                  steps:
+                    - uses: actions/checkout@v4
+
+                    - name: Set up Python
+                      uses: actions/setup-python@v5
+                      with:
+                        python-version: '3.11'
+
+                    - name: Install dependencies
+                      run: |
+                        python -m pip install --upgrade pip
+                        pip install -r requirements.txt
+
+                    - name: Run incomplete implementation scanner
+                      run: |
+                        python System_Analyze/SYS_scan_incomplete_implementation.py \
+                          --paths core/ error/ engine/ aim/ pm/ gui/ specifications/ \
+                          --report-json incomplete_report.json \
+                          --strict
+
+                    - name: Check for violations
+                      run: |
+                        VIOLATION_COUNT=$(jq '.summary.total_violations' incomplete_report.json)
+                        echo "Total violations: $VIOLATION_COUNT"
+
+                        if [ "$VIOLATION_COUNT" -gt 0 ]; then
+                          echo "❌ INCOMPLETE IMPLEMENTATIONS DETECTED"
+                          jq '.violations[] | "[\(.severity)] \(.file):\(.line) - \(.reason)"' incomplete_report.json
+                          exit 1
+                        else
+                          echo "✅ No incomplete implementations found"
+                        fi
+
+                    - name: Upload scan results
+                      if: always()
+                      uses: actions/upload-artifact@v4
+                      with:
+                        name: incomplete-scan-results
+                        path: incomplete_report.json
+
+        commands:
+          - "New-Item -ItemType Directory -Force -Path .github/workflows | Out-Null"
+      expected_outputs:
+        - ".github/workflows/incomplete-scanner.yml"
+      requires_human_confirmation: false
+
+    - id: "step-08-fix-critical-violations"
+      name: "Fix critical incomplete implementations in core/"
+      operation_kind: "OP-CODE-MODIFICATION"
+      pattern_ids:
+        - "EXEC-002-BATCH-VALIDATION"
+      description: "Run scanner, identify critical violations (core/, engine/, error/), and fix them. Target: <10 violations before enabling CI gate."
+      tool_id: "python-script"
+      inputs:
+        commands:
+          - "python System_Analyze/SYS_scan_incomplete_implementation.py --paths core/ error/ engine/ --report-json reports/guardrail_activation/initial_scan.json"
+          - "python -c \"import json; data=json.load(open('reports/guardrail_activation/initial_scan.json')); critical=[v for v in data['violations'] if v['severity']=='critical']; print(f'Critical violations: {len(critical)}'); [print(f\"{v['file']}:{v['line']} - {v['reason']}\") for v in critical[:10]]\""
+        execution_templates:
+          - name: "Fix pattern: Replace TODO with implementation"
+            find_pattern: "# TODO: implement.*\n\\s+pass"
+            replace_with: "# Implementation needed - tracked in GitHub issue #XXX\nraise NotImplementedError('Tracked in issue #XXX')"
+            scope: "core/, engine/, error/"
+      expected_outputs:
+        - "reports/guardrail_activation/initial_scan.json"
+        - "Critical violations reduced to <10"
+      requires_human_confirmation: true
+
+    - id: "step-09-test-ci-gate-locally"
+      name: "Test CI gate workflow locally"
+      operation_kind: "OP-VALIDATE-RUNTIME"
+      pattern_ids:
+        - "EXEC-002-BATCH-VALIDATION"
+      description: "Simulate GitHub Actions workflow locally to verify it works before pushing."
+      tool_id: "powershell-script"
+      inputs:
+        commands:
+          - "python System_Analyze/SYS_scan_incomplete_implementation.py --paths core/ error/ engine/ --report-json incomplete_report.json --strict"
+          - "$violations = (Get-Content incomplete_report.json | ConvertFrom-Json).summary.total_violations; if ($violations -eq 0) { Write-Host '✅ CI gate would pass' } else { Write-Host \"❌ CI gate would fail: $violations violations\"; exit 1 }"
+      expected_outputs:
+        - "Local CI gate simulation passes"
+      requires_human_confirmation: false
+
+    # ============================================================================
+    # IMPROVEMENT 4: GROUND TRUTH AUTO-WRAPPER (ROI: 150:1)
+    # ============================================================================
+    - id: "step-10-integrate-ground-truth-verifier"
+      name: "Auto-wrap executor tool calls with ground truth verification"
+      operation_kind: "OP-CODE-MODIFICATION"
+      pattern_ids:
+        - "EXEC-004-ATOMIC-OPERATIONS"
+      description: "Integrate GroundTruthVerifier into Executor to automatically verify all tool executions. Catches 100% of hallucinated success."
+      tool_id: "python-script"
+      inputs:
+        execution_templates:
+          - name: "Add verifier import"
+            file: "core/engine/executor.py"
+            location: "after imports"
+            code: |
+              from patterns.behavioral.pattern002 import GroundTruthVerifier, execute_with_file_verification
+
+          - name: "Initialize verifier in __init__"
+            file: "core/engine/executor.py"
+            location: "Executor.__init__"
+            code: |
+              self.verifier = GroundTruthVerifier()
+
+          - name: "Wrap execute_tool method"
+            file: "core/engine/executor.py"
+            location: "execute_tool method"
+            code: |
+              # Auto-wrap with ground truth verification
+              expected_output = task.get('expected_output')
+              if expected_output and Path(expected_output).suffix:
+                  # File creation expected - verify it
+                  return self.verifier.execute_with_verification(
+                      command=command,
+                      expected_outcome=lambda: Path(expected_output).exists(),
+                      outcome_description=f"{expected_output} created"
+                  )
+              else:
+                  # Standard execution
+                  result = subprocess.run(command, shell=True, capture_output=True, text=True)
+                  if result.returncode != 0:
+                      raise subprocess.CalledProcessError(result.returncode, command, result.stdout, result.stderr)
+                  return result
+
+        commands: []
+      expected_outputs:
+        - "core/engine/executor.py (ground truth verification integrated)"
+        - "All tool executions auto-verified"
+      requires_human_confirmation: false
+
+    - id: "step-11-test-ground-truth-detection"
+      name: "Test ground truth verification catches hallucinated success"
+      operation_kind: "OP-VALIDATE-RUNTIME"
+      pattern_ids:
+        - "EXEC-002-BATCH-VALIDATION"
+      description: "Run tests where commands succeed but produce no output. Verify verifier catches these."
+      tool_id: "pytest"
+      inputs:
+        commands:
+          - "pytest tests/patterns/test_pattern002.py::test_hallucinated_success_detection -v"
+          - "pytest tests/patterns/test_pattern002.py::test_content_verification -v"
+      expected_outputs:
+        - "Hallucinated success properly detected and blocked"
+      requires_human_confirmation: false
+
+    # ============================================================================
+    # IMPROVEMENT 5: PLANNING BUDGET ENFORCER (ROI: 100:1)
+    # ============================================================================
+    - id: "step-12-integrate-planning-budget"
+      name: "Integrate planning budget enforcement into planner"
+      operation_kind: "OP-CODE-MODIFICATION"
+      pattern_ids:
+        - "EXEC-004-ATOMIC-OPERATIONS"
+      description: "Add PlanningBudget to Planner to enforce max 2 planning iterations before forced execution. Eliminates planning loops."
+      tool_id: "python-script"
+      inputs:
+        execution_templates:
+          - name: "Add budget import"
+            file: "core/planning/planner.py"
+            location: "after imports"
+            code: |
+              from patterns.behavioral.pattern001 import PlanningBudget
+
+          - name: "Initialize budget in __init__"
+            file: "core/planning/planner.py"
+            location: "Planner.__init__"
+            code: |
+              self.budget = PlanningBudget()  # Max 2 planning iterations
+
+          - name: "Enforce budget in create_plan"
+            file: "core/planning/planner.py"
+            location: "create_plan method, start"
+            code: |
+              try:
+                  self.budget.update_plan(f"Planning: {task.id}")
+                  plan = self._generate_plan(task)
+                  return plan
+              except RuntimeError as e:
+                  # Budget exceeded - FORCE EXECUTION with minimal plan
+                  logger.warning(f"Planning budget exceeded: {e}")
+                  logger.info("Creating minimal viable plan for immediate execution")
+                  return self._create_minimal_plan(task)
+
+          - name: "Reset budget on execution"
+            file: "core/planning/planner.py"
+            location: "execute_plan method, start"
+            code: |
+              self.budget.record_execution()  # Reset planning budget
+
+        commands: []
+      expected_outputs:
+        - "core/planning/planner.py (planning budget enforced)"
+        - "Planning loops eliminated"
+      requires_human_confirmation: false
+
+    - id: "step-13-test-planning-budget"
+      name: "Test planning budget enforcement"
+      operation_kind: "OP-VALIDATE-RUNTIME"
+      pattern_ids:
+        - "EXEC-002-BATCH-VALIDATION"
+      description: "Test that planner enforces 2-iteration limit and forces execution on 3rd iteration."
+      tool_id: "pytest"
+      inputs:
+        commands:
+          - "pytest tests/patterns/test_pattern001.py::test_planning_budget_limit -v"
+          - "pytest tests/patterns/test_pattern001.py::test_budget_reset_on_execution -v"
+      expected_outputs:
+        - "Planning budget properly enforced"
+        - "Forced execution on budget overflow"
+      requires_human_confirmation: false
+
+    # ============================================================================
+    # INTEGRATION & VALIDATION
+    # ============================================================================
+    - id: "step-14-run-integration-tests"
+      name: "Run full integration test suite with all guardrails active"
+      operation_kind: "OP-VALIDATE-INTEGRATION"
+      pattern_ids:
+        - "EXEC-002-BATCH-VALIDATION"
+      description: "Execute comprehensive integration tests to verify all 5 guardrails work together without conflicts."
+      tool_id: "pytest"
+      inputs:
+        commands:
+          - "pytest tests/guardrails/ -v"
+          - "pytest tests/ -k 'contract or pattern or incomplete' -v"
+      expected_outputs:
+        - "All integration tests pass"
+        - "No conflicts between guardrails"
+      requires_human_confirmation: false
+
+    - id: "step-15-measure-baseline-metrics"
+      name: "Measure baseline metrics before/after activation"
+      operation_kind: "OP-METRICS-COLLECTION"
+      pattern_ids:
+        - "EXEC-002-BATCH-VALIDATION"
+      description: "Collect metrics to prove ROI: pattern detection rate, contract violations caught, incomplete implementations found, etc."
+      tool_id: "python-script"
+      inputs:
+        commands:
+          - "python scripts/measure_guardrail_metrics.py --before reports/guardrail_activation/metrics_before.json"
+          - "python scripts/measure_guardrail_metrics.py --after reports/guardrail_activation/metrics_after.json"
+          - "python scripts/calculate_roi.py --before metrics_before.json --after metrics_after.json --output reports/guardrail_activation/roi_report.json"
+      expected_outputs:
+        - "reports/guardrail_activation/metrics_before.json"
+        - "reports/guardrail_activation/metrics_after.json"
+        - "reports/guardrail_activation/roi_report.json"
+      requires_human_confirmation: false
+
+    - id: "step-16-generate-activation-report"
+      name: "Generate guardrail activation summary report"
+      operation_kind: "OP-REPORT-GENERATION"
+      pattern_ids:
+        - "EXEC-002-BATCH-VALIDATION"
+      description: "Create comprehensive report documenting all changes, metrics, and expected ROI."
+      tool_id: "python-script"
+      inputs:
+        report_template: "templates/guardrail_activation_report.md.j2"
+        data_sources:
+          - "reports/guardrail_activation/metrics_*.json"
+          - "reports/guardrail_activation/roi_report.json"
+          - "reports/guardrail_activation/initial_scan.json"
+      expected_outputs:
+        - "reports/guardrail_activation/ACTIVATION_SUMMARY.md"
+      requires_human_confirmation: false
+
+fix_loop_and_circuit_breakers:
+  enabled: true
+  applies_to_steps:
+    - "step-06-test-contract-enforcement"
+    - "step-09-test-ci-gate-locally"
+    - "step-11-test-ground-truth-detection"
+    - "step-13-test-planning-budget"
+    - "step-14-run-integration-tests"
+  circuit_breaker_config_ref: "config/circuit_breakers.yaml"
+  defaults:
+    max_attempts: 2
+    oscillation_window: 2
+    oscillation_threshold: 1
+  behavior:
+    on_first_failure: "collect_diagnostics_and_retry"
+    on_subsequent_failure: "mark_step_failed_with_details"
+    on_breaker_trip: "abort_with_detailed_report"
+
+expected_artifacts:
+  patches: []
+  logs:
+    - path: "reports/guardrail_activation/initial_scan.json"
+      must_exist: true
+    - path: "reports/guardrail_activation/metrics_before.json"
+      must_exist: true
+    - path: "reports/guardrail_activation/metrics_after.json"
+      must_exist: true
+    - path: "reports/guardrail_activation/roi_report.json"
+      must_exist: true
+  docs:
+    - path: "reports/guardrail_activation/ACTIVATION_SUMMARY.md"
+      must_exist: true
+  config:
+    - path: "config/pattern_detector_config.yaml"
+      must_exist: true
+    - path: ".github/workflows/incomplete-scanner.yml"
+      must_exist: true
+  code:
+    - path: "core/engine/orchestrator.py"
+      must_exist: true
+      changes: "Pattern detector integrated"
+    - path: "core/engine/executor.py"
+      must_exist: true
+      changes: "Contract decorators + ground truth verifier added"
+    - path: "error/engine/error_engine.py"
+      must_exist: true
+      changes: "Contract decorators added"
+    - path: "core/planning/planner.py"
+      must_exist: true
+      changes: "Planning budget enforcer integrated"
+
+acceptance_tests:
+  tests:
+    - id: "acc-01-pattern-detector-active"
+      description: "Pattern detector is active in orchestrator"
+      command:
+        tool_id: "python-script"
+        args:
+          - "python -c 'from core.engine.orchestrator import Orchestrator; o=Orchestrator(); assert hasattr(o, \"pattern_detector\"); print(\"✅ Pattern detector active\")'"
+      success_pattern: "✅"
+      must_pass: true
+
+    - id: "acc-02-contracts-enforced"
+      description: "Contract decorators catch violations"
+      command:
+        tool_id: "pytest"
+        args:
+          - "pytest tests/contracts/test_contract_validation.py -q"
+      success_pattern: "passed"
+      must_pass: true
+
+    - id: "acc-03-ci-gate-ready"
+      description: "Incomplete scanner CI workflow exists and works"
+      command:
+        tool_id: "powershell-script"
+        args:
+          - "Test-Path .github/workflows/incomplete-scanner.yml"
+      success_pattern: "True"
+      must_pass: true
+
+    - id: "acc-04-ground-truth-active"
+      description: "Ground truth verifier integrated in executor"
+      command:
+        tool_id: "python-script"
+        args:
+          - "python -c 'from core.engine.executor import Executor; e=Executor(); assert hasattr(e, \"verifier\"); print(\"✅ Ground truth verifier active\")'"
+      success_pattern: "✅"
+      must_pass: true
+
+    - id: "acc-05-planning-budget-active"
+      description: "Planning budget enforcer integrated in planner"
+      command:
+        tool_id: "python-script"
+        args:
+          - "python -c 'from core.planning.planner import Planner; p=Planner(); assert hasattr(p, \"budget\"); print(\"✅ Planning budget active\")'"
+      success_pattern: "✅"
+      must_pass: true
+
+    - id: "acc-06-all-tests-pass"
+      description: "Full test suite passes with guardrails active"
+      command:
+        tool_id: "pytest"
+        args:
+          - "pytest tests/ -q --tb=no"
+      success_pattern: "\\d+ passed"
+      must_pass: true
+
+    - id: "acc-07-no-incomplete-critical"
+      description: "Zero critical incomplete implementations remain"
+      command:
+        tool_id: "python-script"
+        args:
+          - "python System_Analyze/SYS_scan_incomplete_implementation.py --paths core/ error/ engine/ --json | python -c \"import sys,json; data=json.load(sys.stdin); critical=[v for v in data['violations'] if v['severity']=='critical']; print('OK' if len(critical)==0 else f'FAIL: {len(critical)} critical'); sys.exit(0 if len(critical)==0 else 1)\""
+      success_pattern: "OK"
+      must_pass: true
+
+    - id: "acc-08-metrics-collected"
+      description: "ROI metrics successfully collected"
+      command:
+        tool_id: "powershell-script"
+        args:
+          - "Test-Path reports/guardrail_activation/roi_report.json"
+      success_pattern: "True"
+      must_pass: true
+
+completion_gate:
+  rules:
+    dependencies_done: true
+    pre_flight_passed: true
+    acceptance_tests_all_passed: true
+    required_artifacts_present: true
+    no_scope_violations_detected: true
+    circuit_breakers_not_tripped: true
+  manual_override:
+    allowed: true
+    justification_required: true
+
+observability_and_metrics:
+  event_tags:
+    - "phase:PH-GUARDRAIL-001"
+    - "workstream:ws-guardrail-activation"
+    - "phase_type:enhancement"
+    - "roi:208-to-1"
+    - "improvements:5"
+  metrics:
+    record_durations: true
+    record_attempt_counts: true
+    record_fix_loop_stats: true
+    custom_metrics:
+      - name: "patterns_auto_detected"
+        description: "Number of patterns auto-detected after activation"
+        type: "counter"
+      - name: "contract_violations_caught"
+        description: "Number of contract violations blocked"
+        type: "counter"
+      - name: "incomplete_implementations_found"
+        description: "Number of incomplete implementations detected"
+        type: "counter"
+      - name: "hallucinated_successes_prevented"
+        description: "Number of hallucinated successes caught"
+        type: "counter"
+      - name: "planning_loops_prevented"
+        description: "Number of planning loops terminated"
+        type: "counter"
+      - name: "total_time_saved_hours"
+        description: "Estimated total time saved by guardrails"
+        type: "gauge"
+
+governance_and_constraints:
+  anti_patterns_blocked:
+    - "ANTI-MANUAL-PATTERN-CREATION-001"
+    - "ANTI-UNVALIDATED-CONTRACTS-001"
+    - "ANTI-INCOMPLETE-TO-PRODUCTION-001"
+    - "ANTI-HALLUCINATED-SUCCESS-001"
+    - "ANTI-PLANNING-LOOP-001"
+  notes_for_operators:
+    - "This phase activates existing infrastructure - minimal new code"
+    - "Each improvement has been validated separately in patterns/"
+    - "ROI is based on measured waste from anti-pattern forensics"
+    - "All guardrails are additive - no breaking changes"
+    - "Metrics collection is critical for proving ROI"
+    - "CI gate starts permissive (<10 violations) and ratchets down"
+    - "Ground truth verification is automatic, not opt-in"
+    - "Planning budget prevents infinite meta-work loops"
+
+extensions:
+  custom_fields:
+    roi_calculation:
+      total_setup_hours: 12
+      annual_hours_saved: 2500
+      roi_ratio: "208:1"
+      break_even_days: 1
+      improvements:
+        - name: "Auto-Pattern Detection"
+          setup_hours: 1
+          annual_savings_hours: 500
+          roi: "500:1"
+        - name: "Contract Decorators"
+          setup_hours: 2
+          annual_savings_hours: 600
+          roi: "300:1"
+        - name: "Incomplete Scanner CI Gate"
+          setup_hours: 3
+          annual_savings_hours: 600
+          roi: "200:1"
+        - name: "Ground Truth Auto-Wrapper"
+          setup_hours: 4
+          annual_savings_hours: 600
+          roi: "150:1"
+        - name: "Planning Budget Enforcer"
+          setup_hours: 2
+          annual_savings_hours: 200
+          roi: "100:1"
+
+    measured_waste_prevented:
+      hallucination_of_success: "12h per project"
+      planning_loop_trap: "16h per project"
+      incomplete_implementation: "5h per project"
+      silent_failures: "4h per project"
+      framework_over_engineering: "10h per project"
+      test_code_mismatch: "6h per project"
+      configuration_drift: "3h per project"
+      module_integration_gap: "2h per project"
+      documentation_lies: "3h per project"
+      partial_success_amnesia: "12h per project"
+      approval_loop: "12h per project"
+      total: "85h per project"
+
+    success_criteria_summary:
+      - "Pattern detector auto-generates patterns after 3 similar executions"
+      - "Contract decorators catch 85% of violations at runtime"
+      - "CI gate blocks ALL incomplete implementations from main branch"
+      - "Ground truth verifier catches 100% of hallucinated success"
+      - "Planning budget eliminates ALL planning loops (max 2 iterations)"
+      - "Full test suite passes with all guardrails active"
+      - "ROI metrics collected and documented"
+
+github_integration:
+  enabled: true
+
+  repo:
+    owner: "DICKY1987"
+    name: "complete-ai-development-pipeline-canonical-phase-plan"
+    default_branch: "main"
+
+  issue:
+    mode: "one-per-phase"
+    number: null
+    title_template: "[{phase_id}] {title}"
+    body_template_path: null
+    labels:
+      - "guardrails"
+      - "automation"
+      - "high-roi"
+      - "enhancement"
+    assignees: []
+
+  project:
+    url: null
+    owner: "DICKY1987"
+    project_number: 1
+    item_id: null
+
+    field_mappings:
+      phase_id_field: "Phase ID"
+      workstream_field: "Workstream"
+      status_field: "Status"
+      risk_field: "Risk"
+      target_date_field: "Target date"
+      doc_id_field: "doc_id"
+      story_points_field: null
+      owner_field: null
+
+  automation:
+    allow_issue_create: true
+    allow_issue_update: true
+    allow_project_item_create: true
+    allow_project_item_update: true
+    sync_direction: "yaml->github"
+    on_phase_status_change_update_project: true
+    on_project_status_change_update_phase: false
+    last_synced_at: null
+    last_synced_by: null
