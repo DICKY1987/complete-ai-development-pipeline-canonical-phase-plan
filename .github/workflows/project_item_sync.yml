@@ -43,7 +43,7 @@ jobs:
           PROJECT_TOKEN: ${{ secrets.PROJECT_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          python .github/scripts/project_item_sync.py
+          python .github/github_integration_v2/scripts/project_item_sync.py
 
       - name: Upload logs on failure
         if: failure()

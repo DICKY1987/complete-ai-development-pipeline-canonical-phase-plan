@@ -1,3 +1,20 @@
+# ============================================================================
+# DEPRECATION NOTICE
+# ============================================================================
+# This file has been DEPRECATED as of 2025-12-05.
+#
+# NEW LOCATION: .github/shared/github_client.py
+#
+# All scripts have been migrated to use the shared client.
+# This file is kept temporarily for reference only.
+#
+# MIGRATION PATH:
+#   Old: from github_project_utils import GitHubProjectClient
+#   New: sys.path.insert(0, '.github/shared')
+#        from github_client import GitHubProjectClient
+#
+# TIMELINE: This file will be archived to _ARCHIVE/ on 2025-12-15
+# ============================================================================
 import json
 import os
 import sys
