@@ -5,7 +5,7 @@ import io
 import json
 import os
 from pathlib import Path
-from typing import Any
+from typing import Any, List
 
 
 def append(path: Path, obj: Any, max_bytes: int = 75_000) -> None:
@@ -14,6 +14,27 @@ def append(path: Path, obj: Any, max_bytes: int = 75_000) -> None:
     with path.open("a", encoding="utf-8") as f:
         f.write(line)
     rotate_if_needed(path, max_bytes=max_bytes)
+
+
+def read_all(path: Path) -> List[dict]:
+    """Read all events from a JSONL file.
+
+    Returns:
+        List of parsed JSON objects, one per line
+    """
+    if not path.exists():
+        return []
+
+    events = []
+    with path.open("r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if line:
+                try:
+                    events.append(json.loads(line))
+                except json.JSONDecodeError:
+                    continue
+    return events
 
 
 def rotate_if_needed(path: Path, max_bytes: int = 75_000) -> None:
@@ -67,4 +88,3 @@ def rotate_if_needed(path: Path, max_bytes: int = 75_000) -> None:
     with tmp.open("w", encoding="utf-8") as f:
         f.write(kept_text)
     os.replace(tmp, path)
-

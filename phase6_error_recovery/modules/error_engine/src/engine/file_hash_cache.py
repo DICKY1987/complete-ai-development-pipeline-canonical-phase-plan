@@ -2,6 +2,7 @@
 
 Stores a JSON mapping of absolute file paths to their last validated hash and metadata.
 """
+
 # DOC_ID: DOC-ERROR-ENGINE-FILE-HASH-CACHE-117
 from __future__ import annotations
 
@@ -10,8 +11,10 @@ import os
 from pathlib import Path
 from typing import Dict, Optional
 
-from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.shared.utils.hashing import sha256_file
-from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.shared.utils.time import utc_now_iso
+from phase6_error_recovery.modules.error_engine.src.shared.utils.hashing import (
+    sha256_file,
+)
+from phase6_error_recovery.modules.error_engine.src.shared.utils.time import utc_now_iso
 
 
 class FileHashCache:
@@ -59,7 +62,9 @@ class FileHashCache:
             return True
         return False
 
-    def mark_validated(self, file_path: Path, had_errors: Optional[bool] = None) -> None:
+    def mark_validated(
+        self, file_path: Path, had_errors: Optional[bool] = None
+    ) -> None:
         """Update the cache record for a file after successful validation."""
         key = str(file_path.resolve())
         try:
@@ -67,11 +72,12 @@ class FileHashCache:
         except FileNotFoundError:
             current_hash = ""
         entry = self.cache.get(key, {})
-        entry.update({
-            "hash": current_hash,
-            "last_validated": utc_now_iso(),
-        })
+        entry.update(
+            {
+                "hash": current_hash,
+                "last_validated": utc_now_iso(),
+            }
+        )
         if had_errors is not None:
             entry["had_errors"] = bool(had_errors)
         self.cache[key] = entry
-
