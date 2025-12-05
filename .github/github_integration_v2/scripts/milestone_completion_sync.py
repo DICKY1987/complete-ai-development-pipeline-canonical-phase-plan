@@ -1,8 +1,12 @@
 import json
 import os
+import sys
+from pathlib import Path
 from typing import Dict, Optional
 
-from github_project_utils import GitHubProjectClient
+# Add shared module to path
+sys.path.insert(0, str(Path(__file__).parent.parent.parent / "shared"))
+from github_client import GitHubProjectClient
 
 
 def load_event() -> Dict:

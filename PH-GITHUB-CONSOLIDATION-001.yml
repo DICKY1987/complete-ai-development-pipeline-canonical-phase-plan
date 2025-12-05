@@ -1,0 +1,577 @@
+# PHASE_PLAN: .github Folder Consolidation
+# This phase plan consolidates overlapping GitHub integration scripts and eliminates deprecated code
+# EXECUTION PATTERNS: EXEC-001, EXEC-002, EXEC-004, EXEC-014
+
+doc_id: DOC-PHASE-GITHUB-CONSOLIDATION-001
+template_version: 3
+
+phase_identity:
+  phase_id: "PH-GITHUB-CONSOLIDATION-001"
+  workstream_id: "WS-INFRASTRUCTURE"
+  title: ".github Folder Consolidation - Eliminate Overlap & Deprecation"
+  summary: "Consolidate duplicate GitHub API clients, migrate scripts to github_integration_v2, update all workflow references, and archive deprecated scripts."
+  objective: "Single unified GitHub integration codebase with no duplicated functionality and consistent workflow references."
+  phase_type: "refactor"
+  status: "planned"
+  estimate_hours: 8
+  gh_item_id: null
+  tags:
+    - "github_integration"
+    - "consolidation"
+    - "deprecation"
+    - "infrastructure"
+
+dag_and_dependencies:
+  workstream_bundle_id: "ws-bundle-infra-cleanup"
+  depends_on: []
+  may_run_parallel_with:
+    - "PH-DOCUMENTATION-UPDATE-001"
+  parallel_group: "infrastructure-cleanup-q1-2026"
+  is_critical_path: false
+
+scope_and_modules:
+  repo_root: "."
+  modules:
+    - module_id: "mod.github.integration_v2"
+      description: "Consolidated GitHub Projects v2 integration"
+    - module_id: "mod.github.scripts"
+      description: "Legacy scripts to be migrated or deprecated"
+    - module_id: "mod.github.workflows"
+      description: "GitHub Actions workflows using integration scripts"
+
+  file_scope:
+    read_only:
+      - ".github/github_integration_v2/MIGRATION_COMPLETE.md"
+      - ".github/github_integration_v2/CONSOLIDATION_SUMMARY.md"
+      - ".github/github_integration_v2/FILE_INVENTORY.md"
+      - ".github/workflows/*.yml"
+
+    modify:
+      - ".github/scripts/*.py"
+      - ".github/github_integration_v2/executors/*.py"
+      - ".github/github_integration_v2/scripts/*.py"
+      - ".github/workflows/milestone_completion.yml"
+      - ".github/workflows/project_item_sync.yml"
+      - ".github/workflows/splinter_phase_sync.yml"
+
+    create:
+      - ".github/shared/github_client.py"
+      - ".github/shared/__init__.py"
+      - ".github/shared/README.md"
+      - ".github/legacy_scripts/DEPRECATION_NOTICE.md"
+      - ".github/README.md"
+      - "_ARCHIVE/github_scripts_old_20251205/*"
+
+    forbidden_paths:
+      - ".git/**"
+      - ".venv/**"
+      - ".worktrees/**"
+      - "_ARCHIVE/patterns_old_github_sync_20251204/**"  # Already archived
+
+  worktree_strategy:
+    mode: "shared"
+    name_pattern: "wt-github-consolidation"
+    base_branch: "main"
+    multi_worktree_enabled: false
+
+environment_and_tools:
+  target_os: "windows"
+  default_shell: "powershell"
+  primary_language: "python"
+
+  python:
+    version_constraint: ">=3.11,<3.13"
+    venv_path: ".venv"
+
+  required_services:
+    - name: "github_api"
+      type: "external"
+      path: "https://api.github.com"
+      must_exist_before_phase: false
+
+  config_files:
+    - ".github/workflows/*.yml"
+
+  ai_operators:
+    primary_agent: "github-copilot"
+    secondary_agents:
+      - "codex"
+
+  tool_profiles:
+    preferred_ids:
+      - "pytest"
+      - "ruff"
+      - "black"
+      - "powershell-script"
+
+execution_profile:
+  prompt_template_id: "EXECUTION_PROMPT_TEMPLATE_V2_REFACTOR"
+  run_mode: "execute"
+  max_runtime_minutes: 120
+  concurrency:
+    allowed_for_phase: false
+    max_parallel_steps: 1
+  retry_policy:
+    default_max_attempts: 2
+
+pre_flight_checks:
+  checks:
+    - id: "pf-git-clean"
+      description: "Ensure no uncommitted changes in .github/"
+      when: "always"
+      command:
+        tool_id: "powershell-script"
+        args:
+          - "git status --porcelain .github/"
+      success_pattern: "^$"
+      on_fail: "abort"
+
+    - id: "pf-v2-exists"
+      description: "Verify github_integration_v2 directory exists"
+      when: "always"
+      command:
+        tool_id: "powershell-script"
+        args:
+          - "Test-Path .github/github_integration_v2"
+      success_pattern: "True"
+      on_fail: "abort"
+
+    - id: "pf-workflows-exist"
+      description: "Verify workflow files exist"
+      when: "always"
+      command:
+        tool_id: "powershell-script"
+        args:
+          - "(Get-ChildItem .github/workflows/*.yml).Count -ge 3"
+      success_pattern: "True"
+      on_fail: "abort"
+
+execution_plan:
+  steps:
+    - id: "step-01-audit-current-state"
+      name: "Audit current .github structure and dependencies"
+      operation_kind: "OP-ANALYZE-CONTEXT"
+      pattern_ids:
+        - "EXEC-002"  # Batch Validation
+      description: "Scan all scripts, verify which are actively used by workflows, identify import dependencies"
+      tool_id: "powershell-script"
+      inputs:
+        repo_paths:
+          - ".github/scripts/"
+          - ".github/github_integration_v2/"
+          - ".github/workflows/"
+          - ".github/infra/sync/"
+        constraints:
+          respect_file_scope: true
+        execution_templates:
+          - "EXEC-002-BATCH-VALIDATION"
+      expected_outputs:
+        - "List of active scripts (called by workflows)"
+        - "List of deprecated scripts (not called)"
+        - "Import dependency graph"
+      requires_human_confirmation: false
+
+    - id: "step-02-create-shared-client"
+      name: "Create unified GitHub API client"
+      operation_kind: "OP-EDIT-IMPLEMENT"
+      pattern_ids:
+        - "EXEC-001"  # Type-Safe Operations
+        - "EXEC-014"  # Exact Duplicate Eliminator
+      description: "Extract best-of-breed client from github_project_utils.py and phase_sync.py into .github/shared/github_client.py"
+      tool_id: "github-copilot"
+      inputs:
+        worktree_strategy_ref: "worktree_strategy"
+        file_scope_ref: "scope_and_modules.file_scope.create"
+        source_files:
+          - ".github/scripts/github_project_utils.py"
+          - ".github/github_integration_v2/executors/phase_sync.py"
+        execution_templates:
+          - "EXEC-001-TYPE-SAFE-OPERATIONS"
+          - "EXEC-014-EXACT-DUPLICATE-ELIMINATOR"
+      expected_outputs:
+        - ".github/shared/github_client.py (unified API client)"
+        - ".github/shared/__init__.py"
+        - ".github/shared/README.md"
+      requires_human_confirmation: false
+
+    - id: "step-03-migrate-scripts-to-v2"
+      name: "Migrate remaining scripts to github_integration_v2"
+      operation_kind: "OP-EDIT-IMPLEMENT"
+      pattern_ids:
+        - "EXEC-012"  # Module Consolidation
+      description: "Move milestone_completion_sync.py and project_item_sync.py to github_integration_v2/scripts/"
+      tool_id: "powershell-script"
+      inputs:
+        commands:
+          - "Move-Item .github/scripts/milestone_completion_sync.py .github/github_integration_v2/scripts/"
+          - "Move-Item .github/scripts/project_item_sync.py .github/github_integration_v2/scripts/"
+        execution_templates:
+          - "EXEC-012-MODULE-CONSOLIDATION"
+      expected_outputs:
+        - "Scripts moved to v2 location"
+        - "No files remain in .github/scripts/ except github_project_utils.py"
+      requires_human_confirmation: false
+
+    - id: "step-04-update-imports"
+      name: "Update all imports to use shared client"
+      operation_kind: "OP-EDIT-IMPLEMENT"
+      pattern_ids:
+        - "EXEC-016"  # Import Path Standardizer
+      description: "Update all scripts to import from .github.shared.github_client"
+      tool_id: "github-copilot"
+      inputs:
+        file_scope_ref: "scope_and_modules.file_scope.modify"
+        files_to_update:
+          - ".github/github_integration_v2/scripts/*.py"
+          - ".github/github_integration_v2/executors/*.py"
+        execution_templates:
+          - "EXEC-016-IMPORT-PATH-STANDARDIZER"
+      expected_outputs:
+        - "All scripts import from shared client"
+        - "No duplicate client code"
+      requires_human_confirmation: false
+
+    - id: "step-05-update-workflows"
+      name: "Update workflow YAML to point to v2 scripts"
+      operation_kind: "OP-EDIT-IMPLEMENT"
+      pattern_ids:
+        - "EXEC-004"  # Atomic Operations
+      description: "Update milestone_completion.yml and project_item_sync.yml to use github_integration_v2 paths"
+      tool_id: "github-copilot"
+      inputs:
+        file_scope_ref: "scope_and_modules.file_scope.modify"
+        workflows_to_update:
+          - ".github/workflows/milestone_completion.yml"
+          - ".github/workflows/project_item_sync.yml"
+        new_script_paths:
+          - "python .github/github_integration_v2/scripts/milestone_completion_sync.py"
+          - "python .github/github_integration_v2/scripts/project_item_sync.py"
+        execution_templates:
+          - "EXEC-004-ATOMIC-OPERATIONS"
+      expected_outputs:
+        - "All workflows reference github_integration_v2 paths"
+        - "No workflows reference old .github/scripts/ paths"
+      requires_human_confirmation: true  # Critical - verify workflow changes
+
+    - id: "step-06-add-deprecation-notices"
+      name: "Add deprecation headers to old scripts"
+      operation_kind: "OP-EDIT-IMPLEMENT"
+      pattern_ids: []
+      description: "Add deprecation notices to any remaining files in .github/scripts/"
+      tool_id: "github-copilot"
+      inputs:
+        file_scope_ref: "scope_and_modules.file_scope.modify"
+        files:
+          - ".github/scripts/github_project_utils.py"
+          - ".github/scripts/project_id_hydration.py"
+      expected_outputs:
+        - "Deprecation headers added"
+        - "Migration path documented"
+      requires_human_confirmation: false
+
+    - id: "step-07-archive-old-scripts"
+      name: "Archive deprecated scripts"
+      operation_kind: "OP-ARCHIVE"
+      pattern_ids:
+        - "EXEC-015"  # Stale File Archiver
+      description: "Move old .github/scripts/ to _ARCHIVE/github_scripts_old_20251205/"
+      tool_id: "powershell-script"
+      inputs:
+        commands:
+          - "New-Item -ItemType Directory -Path '_ARCHIVE/github_scripts_old_20251205' -Force"
+          - "Move-Item .github/scripts/* _ARCHIVE/github_scripts_old_20251205/ -Force"
+          - "Remove-Item .github/scripts -Force"
+        execution_templates:
+          - "EXEC-015-STALE-FILE-ARCHIVER"
+      expected_outputs:
+        - "_ARCHIVE/github_scripts_old_20251205/ created"
+        - ".github/scripts/ directory removed"
+        - "DEPRECATION_NOTICE.md in archive"
+      requires_human_confirmation: false
+
+    - id: "step-08-verify-powershell-sync"
+      name: "Verify PowerShell sync scripts usage"
+      operation_kind: "OP-VALIDATE-STATIC"
+      pattern_ids: []
+      description: "Determine if .github/infra/sync/*.ps1 scripts are still needed"
+      tool_id: "powershell-script"
+      inputs:
+        commands:
+          - "Get-ChildItem .github/infra/sync/*.ps1 | Select-Object Name, LastWriteTime"
+          - "Select-String -Path .github/workflows/*.yml -Pattern 'infra/sync'"
+      expected_outputs:
+        - "List of PowerShell sync scripts"
+        - "Workflow references (if any)"
+      requires_human_confirmation: true  # Decision: keep or archive
+
+    - id: "step-09-static-checks"
+      name: "Run static validation"
+      operation_kind: "OP-VALIDATE-STATIC"
+      pattern_ids:
+        - "EXEC-006"  # Auto-Fix Linting
+      description: "Run ruff and validate import paths"
+      tool_id: "powershell-script"
+      inputs:
+        commands:
+          - "ruff check .github/github_integration_v2/ --fix"
+          - "ruff check .github/shared/ --fix"
+        execution_templates:
+          - "EXEC-006-AUTO-FIX-LINTING"
+      expected_outputs:
+        - "All linting checks pass"
+        - "No import errors"
+      requires_human_confirmation: false
+
+    - id: "step-10-runtime-tests"
+      name: "Run unit tests for GitHub integration"
+      operation_kind: "OP-VALIDATE-RUNTIME"
+      pattern_ids:
+        - "EXEC-009"  # Validation Run
+      description: "Run all tests in github_integration_v2/tests/"
+      tool_id: "pytest"
+      inputs:
+        commands:
+          - "python .github/github_integration_v2/tests/GH_SYNC_PHASE_V1_test.py -v"
+          - "pytest .github/github_integration_v2/tests/ -v"
+        execution_templates:
+          - "EXEC-009-VALIDATION-RUN"
+      expected_outputs:
+        - "All tests pass (8/8 expected)"
+        - "No import errors"
+      requires_human_confirmation: false
+
+    - id: "step-11-update-documentation"
+      name: "Update documentation to reflect new structure"
+      operation_kind: "OP-EDIT-IMPLEMENT"
+      pattern_ids: []
+      description: "Update .github/README.md and github_integration_v2/README.md"
+      tool_id: "github-copilot"
+      inputs:
+        files:
+          - ".github/README.md"
+          - ".github/github_integration_v2/README.md"
+          - ".github/github_integration_v2/FILE_INVENTORY.md"
+      expected_outputs:
+        - "Documentation reflects consolidated structure"
+        - "Migration status updated"
+      requires_human_confirmation: false
+
+fix_loop_and_circuit_breakers:
+  enabled: true
+  applies_to_steps:
+    - "step-09-static-checks"
+    - "step-10-runtime-tests"
+  circuit_breaker_config_ref: "config/circuit_breakers.yaml"
+  defaults:
+    max_attempts: 3
+    oscillation_window: 3
+    oscillation_threshold: 2
+  behavior:
+    on_first_failure: "invoke_fix_pattern"
+    on_subsequent_failure: "re-run-base-step"
+    on_breaker_trip: "mark_phase_failed"
+
+expected_artifacts:
+  patches:
+    - path: ".ledger/patches/PH-GITHUB-CONSOLIDATION-001.patch"
+      must_exist: true
+
+  logs:
+    - path: ".runs/WS-INFRASTRUCTURE/PH-GITHUB-CONSOLIDATION-001/audit.log"
+      must_exist: true
+    - path: ".runs/WS-INFRASTRUCTURE/PH-GITHUB-CONSOLIDATION-001/migration.log"
+      must_exist: true
+
+  code:
+    - path: ".github/shared/github_client.py"
+      must_exist: true
+    - path: ".github/github_integration_v2/scripts/milestone_completion_sync.py"
+      must_exist: true
+    - path: ".github/github_integration_v2/scripts/project_item_sync.py"
+      must_exist: true
+
+  docs:
+    - path: ".github/README.md"
+      must_exist: true
+    - path: ".github/shared/README.md"
+      must_exist: true
+    - path: "_ARCHIVE/github_scripts_old_20251205/DEPRECATION_NOTICE.md"
+      must_exist: true
+
+  archive:
+    - path: "_ARCHIVE/github_scripts_old_20251205/"
+      must_exist: true
+
+acceptance_tests:
+  tests:
+    - id: "acc-01-no-duplicate-clients"
+      description: "Verify only one GitHub API client exists"
+      command:
+        tool_id: "powershell-script"
+        args:
+          - "(Select-String -Path .github/**/*.py -Pattern 'class.*GitHubClient').Count -eq 1"
+      success_pattern: "True"
+      must_pass: true
+
+    - id: "acc-02-all-workflows-updated"
+      description: "Verify all workflows reference v2 paths"
+      command:
+        tool_id: "powershell-script"
+        args:
+          - "(Select-String -Path .github/workflows/*.yml -Pattern '\\.github/scripts/').Count -eq 0"
+      success_pattern: "True"
+      must_pass: true
+
+    - id: "acc-03-tests-pass"
+      description: "All GitHub integration tests pass"
+      command:
+        tool_id: "pytest"
+        args:
+          - "python .github/github_integration_v2/tests/GH_SYNC_PHASE_V1_test.py -v"
+      success_pattern: "8 passed"
+      must_pass: true
+
+    - id: "acc-04-no-import-errors"
+      description: "No import errors in consolidated code"
+      command:
+        tool_id: "powershell-script"
+        args:
+          - "python -c 'import sys; sys.path.insert(0, \".github\"); from shared.github_client import *'"
+      success_pattern: "^$"
+      must_pass: true
+
+    - id: "acc-05-archive-created"
+      description: "Old scripts archived successfully"
+      command:
+        tool_id: "powershell-script"
+        args:
+          - "Test-Path _ARCHIVE/github_scripts_old_20251205"
+      success_pattern: "True"
+      must_pass: true
+
+completion_gate:
+  rules:
+    dependencies_done: true
+    pre_flight_passed: true
+    acceptance_tests_all_passed: true
+    required_artifacts_present: true
+    no_scope_violations_detected: true
+    circuit_breakers_not_tripped: true
+  manual_override:
+    allowed: false
+    justification_required: true
+
+observability_and_metrics:
+  event_tags:
+    - "phase:PH-GITHUB-CONSOLIDATION-001"
+    - "workstream:WS-INFRASTRUCTURE"
+    - "phase_type:refactor"
+    - "category:consolidation"
+  metrics:
+    record_durations: true
+    record_attempt_counts: true
+    record_fix_loop_stats: true
+    custom_metrics:
+      - name: "scripts_consolidated"
+        type: "counter"
+        description: "Number of scripts moved to v2"
+      - name: "duplicate_code_removed_loc"
+        type: "gauge"
+        description: "Lines of duplicate code removed"
+      - name: "workflow_files_updated"
+        type: "counter"
+        description: "Number of workflow files updated"
+
+governance_and_constraints:
+  anti_patterns_blocked:
+    - "ANTI-SKIP-TESTS-001"
+    - "ANTI-EDIT-OUTSIDE-SCOPE-001"
+    - "ANTI-INCOMPLETE-MIGRATION-001"
+  notes_for_operators:
+    - "CRITICAL: Verify workflow changes before committing (step-05)"
+    - "CRITICAL: Run all tests to ensure no import breakage (step-10)"
+    - "DO NOT modify files outside .github/ directory"
+    - "DO NOT delete files without archiving first"
+    - "VERIFY each migration step completes before proceeding"
+    - "Use EXEC patterns to eliminate decision loops"
+
+extensions:
+  custom_fields:
+    execution_patterns_applied:
+      - "EXEC-001: Type-Safe Operations (client consolidation)"
+      - "EXEC-002: Batch Validation (audit phase)"
+      - "EXEC-004: Atomic Operations (workflow updates)"
+      - "EXEC-006: Auto-Fix Linting (code cleanup)"
+      - "EXEC-009: Validation Run (test execution)"
+      - "EXEC-012: Module Consolidation (script migration)"
+      - "EXEC-014: Exact Duplicate Eliminator (client merge)"
+      - "EXEC-015: Stale File Archiver (old script archival)"
+      - "EXEC-016: Import Path Standardizer (import updates)"
+
+    risk_assessment:
+      high_risk:
+        - "Breaking active workflows if paths not updated correctly"
+        - "Losing functionality if clients merged incorrectly"
+      medium_risk:
+        - "Import path issues if not tested thoroughly"
+        - "Environment variable mismatches between old/new scripts"
+      low_risk:
+        - "Documentation-only changes"
+        - "Adding deprecation notices"
+
+    rollback_plan:
+      - "Git revert to restore old structure"
+      - "Restore workflows from .github/workflows/*.yml.bak"
+      - "Restore scripts from _ARCHIVE/github_scripts_old_20251205/"
+
+    success_metrics:
+      - "Zero duplicate GitHub API client implementations"
+      - "100% workflow files point to v2 paths"
+      - "All tests passing (8/8)"
+      - "Zero import errors"
+      - "Old scripts archived with deprecation notices"
+
+github_integration:
+  enabled: true
+
+  repo:
+    owner: "DICKY1987"
+    name: "complete-ai-development-pipeline-canonical-phase-plan"
+    default_branch: "main"
+
+  issue:
+    mode: "one-per-phase"
+    number: null
+    title_template: "[{phase_id}] {title}"
+    body_template_path: null
+    labels:
+      - "phase-plan"
+      - "infrastructure"
+      - "consolidation"
+      - "refactor"
+    assignees: []
+
+  project:
+    url: null
+    owner: "DICKY1987"
+    project_number: 1
+    item_id: null
+
+    field_mappings:
+      phase_id_field: "Phase ID"
+      workstream_field: "Workstream"
+      status_field: "Status"
+      risk_field: "Risk"
+      target_date_field: "Target date"
+      doc_id_field: "doc_id"
+
+  automation:
+    allow_issue_create: true
+    allow_issue_update: true
+    allow_project_item_create: true
+    allow_project_item_update: true
+    sync_direction: "yaml->github"
+    on_phase_status_change_update_project: true
+    on_project_status_change_update_phase: false
+    last_synced_at: null
+    last_synced_by: null
