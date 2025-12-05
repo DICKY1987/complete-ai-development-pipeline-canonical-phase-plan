@@ -1,32 +1,32 @@
 # Incomplete Implementation Scan Summary
 
-- Timestamp: `2025-12-04T06:08:57.471713Z`
-- Root: `.`
+- Timestamp: `2025-12-05T12:36:14.018064Z`
+- Root: `C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan`
 
 ## Counts by Kind
-- empty_dir: 89
-- missing_reference: 2950
-- orphan_module: 242
-- stub_class: 15
-- stub_function: 114
-- todo_marker: 303
-- trivial_file: 20
+- empty_dir: 76
+- missing_reference: 3708
+- orphan_module: 382
+- stub_class: 19
+- stub_function: 140
+- todo_marker: 534
+- trivial_file: 21
 
 ## Counts by Severity
-- critical: 2714
+- critical: 3194
 - major: 0
-- minor: 504
-- info: 89
-- allowed_stub: 426
+- minor: 722
+- info: 75
+- allowed_stub: 889
 
 ## Top Critical Findings
-- batch_mint.py:None [missing_reference] import_module_not_found
-- batch_mint.py:None [missing_reference] import_module_not_found
-- batch_mint.py:None [missing_reference] import_module_not_found
-- batch_mint.py:None [missing_reference] import_module_not_found
-- batch_mint.py:None [missing_reference] import_module_not_found
-- conftest.py:None [missing_reference] import_module_not_found
-- conftest.py:None [missing_reference] import_module_not_found
-- .github/tree_sitter_javascript.py:None [missing_reference] import_module_not_found
-- .github/tree_sitter_python.py:None [missing_reference] import_module_not_found
-- .github/tree_sitter_typescript.py:None [missing_reference] import_module_not_found
+- .github/github_integration_v2/executors/phase_sync.py:None [missing_reference] import_module_not_found
+- .github/github_integration_v2/executors/phase_sync.py:None [missing_reference] import_module_not_found
+- .github/github_integration_v2/executors/phase_sync.py:None [missing_reference] import_module_not_found
+- .github/github_integration_v2/executors/phase_sync.py:None [missing_reference] import_module_not_found
+- .github/github_integration_v2/scripts/gh_epic_sync.py:None [missing_reference] import_module_not_found
+- .github/github_integration_v2/scripts/gh_epic_sync.py:None [missing_reference] import_module_not_found
+- .github/github_integration_v2/scripts/gh_epic_sync.py:None [missing_reference] import_module_not_found
+- .github/github_integration_v2/scripts/gh_epic_sync.py:None [missing_reference] import_module_not_found
+- .github/github_integration_v2/scripts/gh_epic_sync.py:None [missing_reference] import_module_not_found
+- .github/github_integration_v2/scripts/gh_epic_sync.py:None [missing_reference] import_module_not_found

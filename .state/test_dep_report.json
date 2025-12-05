@@ -1,0 +1,51 @@
+{
+  "timestamp": "C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical Phase Plan",
+  "total_violations": 5,
+  "violations": [
+    {
+      "type": "layer_violation",
+      "severity": "major",
+      "file": "core\\engine\\orchestrator.py",
+      "file_layer": "domain",
+      "import": "uuid",
+      "import_layer": "ui",
+      "reason": "domain layer cannot import from ui layer"
+    },
+    {
+      "type": "layer_violation",
+      "severity": "major",
+      "file": "core\\events\\event_bus.py",
+      "file_layer": "domain",
+      "import": "uuid",
+      "import_layer": "ui",
+      "reason": "domain layer cannot import from ui layer"
+    },
+    {
+      "type": "layer_violation",
+      "severity": "major",
+      "file": "core\\knowledge\\__init__.py",
+      "file_layer": "domain",
+      "import": "graph_builder",
+      "import_layer": "ui",
+      "reason": "domain layer cannot import from ui layer"
+    },
+    {
+      "type": "layer_violation",
+      "severity": "major",
+      "file": "core\\engine\\resilience\\resilient_executor.py",
+      "file_layer": "domain",
+      "import": "circuit_breaker",
+      "import_layer": "ui",
+      "reason": "domain layer cannot import from ui layer"
+    },
+    {
+      "type": "layer_violation",
+      "severity": "major",
+      "file": "core\\engine\\resilience\\__init__.py",
+      "file_layer": "domain",
+      "import": "circuit_breaker",
+      "import_layer": "ui",
+      "reason": "domain layer cannot import from ui layer"
+    }
+  ]
+}

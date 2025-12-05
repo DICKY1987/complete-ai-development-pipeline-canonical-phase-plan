@@ -140,6 +140,54 @@ jobs:
             python scripts/validate_workstreams.py || true
           fi
 
+      - name: Validate dependency graph
+        run: |
+          python scripts/validate_dependency_graph.py \
+            --report .state/dependency_graph_report.json
+
+      - name: Upload dependency report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dependency-graph-report
+          path: .state/dependency_graph_report.json
+          retention-days: 7
+
+  incomplete-implementation-gate:
+    name: Block Incomplete Implementations
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Run incomplete implementation scanner
+        run: |
+          python scripts/scan_incomplete_implementation.py \
+            --root . \
+            --output .state/incomplete_scan_summary.json \
+            --findings-output .state/final_findings.jsonl \
+            --ci-check \
+            --max-critical 0 \
+            --max-major 10
+
+      - name: Upload scan results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: incomplete-scan-results
+          path: |
+            .state/incomplete_scan_summary.json
+            .state/final_findings.jsonl
+          retention-days: 30
+
   security:
     name: Security Scan
     runs-on: ubuntu-latest

@@ -171,3 +171,10 @@ __pycache__/
 .pytest_cache/
 *.log
 # <<< SAFE_CLEAN_V1
+
+# Temporary scan results (large, auto-generated)
+.state/*_scan.json
+.state/*_scan_summary.json
+
+# CCPM subproject (managed separately)
+phase1_planning/modules/workstream_planner/docs/plans/ccpm/
