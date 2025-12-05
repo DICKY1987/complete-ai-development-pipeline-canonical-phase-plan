@@ -18,25 +18,34 @@ from core.events.event_bus import Event, EventBus, EventSeverity
 from core.state.db import Database, get_db
 
 
-def generate_ulid() -> str:
-    """Generate a ULID-compatible ID (using UUID for now)"""
-    # TODO: Replace with actual ULID library
-    return uuid.uuid4().hex.upper()[:26]
-
-
-def now_iso() -> str:
-    """Get current timestamp in ISO format"""
-    return datetime.now(UTC).isoformat() + "Z"
-
-
 class Orchestrator:
     """Main orchestration engine for running workstreams"""
 
+    def generate_ulid(self) -> str:
+        """Generate ULID (deterministic if flag set)"""
+        if self.deterministic_mode:
+            self._deterministic_counter += 1
+            return f"DET{self._deterministic_counter:022d}"
+        else:
+            return uuid.uuid4().hex.upper()[:26]
+
+    def now_iso(self) -> str:
+        """Get current timestamp (deterministic if flag set)"""
+        if self.deterministic_mode:
+            return "2024-01-01T00:00:00.000000Z"
+        else:
+            return datetime.now(UTC).isoformat() + "Z"
+
     def __init__(
-        self, db: Optional[Database] = None, event_bus: Optional[EventBus] = None
+        self,
+        db: Optional[Database] = None,
+        event_bus: Optional[EventBus] = None,
+        deterministic_mode: bool = False,
     ):
         self.db = db or get_db()
         self.event_bus = event_bus or EventBus(db_path=str(self.db.db_path))
+        self.deterministic_mode = deterministic_mode
+        self._deterministic_counter = 0
 
     # Run lifecycle management
 
@@ -61,14 +70,14 @@ class Orchestrator:
         """
         if getattr(self.db, "conn", None) is None and hasattr(self.db, "connect"):
             self.db.connect()
-        run_id = generate_ulid()
+        run_id = self.generate_ulid()
 
         run_data = {
             "run_id": run_id,
             "project_id": project_id,
             "phase_id": phase_id,
             "workstream_id": workstream_id,
-            "created_at": now_iso(),
+            "created_at": self.now_iso(),
             "state": "pending",
             "metadata": metadata or {},
         }

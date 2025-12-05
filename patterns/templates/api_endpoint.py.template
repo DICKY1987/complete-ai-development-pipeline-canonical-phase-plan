@@ -1,0 +1,59 @@
+# API Endpoint Template
+# Variables: {resource_singular}, {resource_plural}, {ResourceSchema}, {resource_table}
+# Based on: UTE Decision Elimination Playbook - CRUD pattern
+
+from typing import Dict, Any
+from core.validation import validate
+from core.database import db
+
+
+@app.post("/api/{resource_plural}")
+def create_{resource_singular}(request: Request) -> Dict[str, Any]:
+    """
+    Create a new {resource_singular}.
+
+    Args:
+        request: HTTP request with {resource_singular} data
+
+    Returns:
+        Response with status and created {resource_singular}
+    """
+    # Validate request data
+    validate(request.data, {ResourceSchema})
+
+    # Insert into database
+    result = db.insert("{resource_table}", request.data)
+
+    return {
+        "status": "ok",
+        "data": result
+    }
+
+
+@app.get("/api/{resource_plural}/{{id}}")
+def get_{resource_singular}(id: str) -> Dict[str, Any]:
+    """Get {resource_singular} by ID"""
+    result = db.get("{resource_table}", id)
+
+    if not result:
+        return {"status": "error", "error": "{resource_singular} not found"}
+
+    return {"status": "ok", "data": result}
+
+
+@app.put("/api/{resource_plural}/{{id}}")
+def update_{resource_singular}(id: str, request: Request) -> Dict[str, Any]:
+    """Update {resource_singular}"""
+    validate(request.data, {ResourceSchema})
+
+    result = db.update("{resource_table}", id, request.data)
+
+    return {"status": "ok", "data": result}
+
+
+@app.delete("/api/{resource_plural}/{{id}}")
+def delete_{resource_singular}(id: str) -> Dict[str, Any]:
+    """Delete {resource_singular}"""
+    db.delete("{resource_table}", id)
+
+    return {"status": "ok"}

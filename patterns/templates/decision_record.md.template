@@ -1,0 +1,96 @@
+# Decision Record Template
+# Variables: {decision_id}, {title}, {date}, {status}, {context}, {options}, {chosen_option}, {rationale}
+# Enhanced version with ROI tracking and pattern links
+
+---
+doc_id: DOC-DECISION-{decision_id}
+decision_id: {decision_id}
+date: {date}
+status: {status}  # proposed, accepted, rejected, deprecated, superseded
+---
+
+# Decision: {title}
+
+## Context
+
+{context}
+
+## Problem Statement
+
+What problem or question does this decision address?
+
+## Options Considered
+
+### Option 1: {option_1_name}
+
+**Pros**:
+- Pro 1
+- Pro 2
+
+**Cons**:
+- Con 1
+- Con 2
+
+**Estimated Time**: X hours
+**Risk Level**: low|medium|high
+
+### Option 2: {option_2_name}
+
+**Pros**:
+- Pro 1
+- Pro 2
+
+**Cons**:
+- Con 1
+- Con 2
+
+**Estimated Time**: X hours
+**Risk Level**: low|medium|high
+
+## Decision
+
+**Chosen Option**: {chosen_option}
+
+**Rationale**: {rationale}
+
+**Trade-offs Accepted**:
+- Trade-off 1
+- Trade-off 2
+
+## Implementation
+
+**Affected Files**:
+- `path/to/file1.py`
+- `path/to/file2.py`
+
+**Breaking Changes**: Yes/No
+
+**Migration Required**: Yes/No
+
+## ROI Analysis
+
+**Time Investment**: X hours (one-time)
+**Time Savings**: Y hours per use
+**Break-Even Point**: Z uses
+**Expected Uses (3 months)**: N
+
+**Total ROI**: (Savings × Uses - Investment) / Investment = X%
+
+## Validation
+
+**Success Criteria**:
+- [ ] Criterion 1
+- [ ] Criterion 2
+
+**Validation Method**: How to verify this decision was successful
+
+## Related Decisions
+
+- DECISION-XXX-001 - Related decision
+- DECISION-XXX-002 - Superseded decision
+
+## References
+
+- `docs/path/to/doc.md`
+- Pattern: `PAT-XXX-001`
+- UTE Playbook: Section X.Y

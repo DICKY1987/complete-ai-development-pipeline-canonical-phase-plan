@@ -21,13 +21,21 @@ import shutil
 import sys
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import List, Set
 
 STATE_DIR = Path(__file__).parent.parent / ".state"
 ARCHIVE_DIR = STATE_DIR / "archive"
 
-CRITICAL_FILES = {"current.json", "health.json", "orchestration.db", "orchestrator.db"}
-ARCHIVABLE_PATTERNS = ["pipeline_results_*.json", "*_inventory.jsonl", "*_scan*.json"]
+CRITICAL_FILES = {
+    "current.json",
+    "health.json",
+    "orchestration.db",
+    "orchestrator.db",
+}
+ARCHIVABLE_PATTERNS = [
+    "pipeline_results_*.json",
+    "*_inventory.jsonl",
+    "*_scan*.json",
+]
 TEMP_PATTERNS = ["*.tmp", "*.lock", "*_temp_*.json"]
 
 
@@ -74,7 +82,7 @@ class StateFileCleanup:
 
     def _compress_archived_files(self, dry_run: bool):
         """Compress archived files with gzip."""
-        print(f"\n🗜️  Compressing archived files...")
+        print("\n🗜️  Compressing archived files...")
 
         if not ARCHIVE_DIR.exists():
             return
@@ -89,7 +97,7 @@ class StateFileCleanup:
 
     def _cleanup_temp_files(self, dry_run: bool):
         """Remove temporary files."""
-        print(f"\n🧹 Cleaning up temporary files...")
+        print("\n🧹 Cleaning up temporary files...")
 
         for pattern in TEMP_PATTERNS:
             for file_path in STATE_DIR.rglob(pattern):
@@ -163,7 +171,9 @@ def main():
         "--days", type=int, default=30, help="Retention period in days (default: 30)"
     )
     parser.add_argument(
-        "--dry-run", action="store_true", help="Preview changes without modifying files"
+        "--dry-run",
+        action="store_true",
+        help="Preview changes without modifying files",
     )
     args = parser.parse_args()
 

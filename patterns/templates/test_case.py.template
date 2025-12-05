@@ -1,0 +1,56 @@
+# Test Case Template
+# Variables: {function_name}, {valid_input}, {invalid_case_1}, {invalid_case_2}, {error_message_1}, {error_message_2}
+# Based on: UTE Decision Elimination Playbook - Test pattern (happy path + 2 error cases)
+
+import pytest
+from {module} import {function_name}
+
+
+def test_{function_name}_happy_path():
+    """Test {function_name} with valid input"""
+    # Arrange
+    valid_input = {valid_input}
+
+    # Act
+    result = {function_name}(valid_input)
+
+    # Assert
+    assert result.success == True
+    assert result.data is not None
+
+
+def test_{function_name}_error_case_1():
+    """Test {function_name} with {invalid_case_1}"""
+    # Arrange
+    invalid_input = {invalid_case_1}
+
+    # Act
+    result = {function_name}(invalid_input)
+
+    # Assert
+    assert result.success == False
+    assert "{error_message_1}" in str(result.errors)
+
+
+def test_{function_name}_error_case_2():
+    """Test {function_name} with {invalid_case_2}"""
+    # Arrange
+    invalid_input = {invalid_case_2}
+
+    # Act
+    result = {function_name}(invalid_input)
+
+    # Assert
+    assert result.success == False
+    assert "{error_message_2}" in str(result.errors)
+
+
+def test_{function_name}_edge_cases():
+    """Test {function_name} with edge cases"""
+    # Test with empty input
+    result = {function_name}({{}})
+    assert result.success == False
+
+    # Test with None
+    result = {function_name}(None)
+    assert result.success == False

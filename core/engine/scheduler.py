@@ -66,7 +66,7 @@ class ExecutionScheduler:
         """
         ready = []
 
-        for task_id, task in self.tasks.items():
+        for task_id, task in sorted(self.tasks.items()):
             if task.status != "pending":
                 continue
 
