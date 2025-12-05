@@ -1,0 +1,57 @@
+---
+# Alert Configuration for Monitoring Daemon
+# GAP-002: Multi-channel alerting system
+
+alert_rules:
+  # Critical: Run failures
+  - name: "run_failure"
+    event_types:
+      - "run_failed"
+      - "run_quarantined"
+    severity: critical
+    channels: ["console", "slack"]
+    throttle_minutes: 15
+  
+  # High: Archival failures
+  - name: "archival_failure"
+    event_types:
+      - "archival_failed"
+      - "archival_preflight_failed"
+      - "archival_validation_failed"
+    severity: high
+    channels: ["console", "slack"]
+    throttle_minutes: 30
+  
+  # Medium: Stalled runs
+  - name: "run_stalled"
+    event_types:
+      - "run_stalled"
+    severity: medium
+    channels: ["console", "slack"]
+    throttle_minutes: 60
+  
+  # Low: Step failures (can retry)
+  - name: "step_failure"
+    event_types:
+      - "step_failed"
+    severity: medium
+    channels: ["console"]
+    throttle_minutes: 30
+
+channels:
+  # Slack webhook integration
+  slack:
+    webhook_url: "${SLACK_WEBHOOK_URL}"  # Set via environment variable
+    default_channel: "#pipeline-alerts"
+  
+  # Email notifications
+  email:
+    smtp_host: "${SMTP_HOST}"  # Set via environment variable
+    smtp_port: 587
+    from_address: "${ALERT_EMAIL_FROM}"
+    to_addresses:
+      - "${ALERT_EMAIL_TO}"
+  
+  # Console always enabled (fallback)
+  console:
+    enabled: true

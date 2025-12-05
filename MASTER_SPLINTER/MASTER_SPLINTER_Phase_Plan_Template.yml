@@ -1,0 +1,398 @@
+# PHASE_PLAN_TEMPLATE_V3
+# This file is intended for MACHINE CONSUMPTION by your orchestrator / CLI tools.
+# Authoring guide for field-by-field fill and decision-elimination rules:
+# see MASTER_SPLINTER_Phase_Plan_Template_GUIDE.md
+
+doc_id: "DOC-PHASE-TEMPLATE-V3-XXX"
+template_version: 3
+
+table_of_contents:
+  sections:
+    - id: "phase_identity"
+      title: "Phase identity"
+      key_path: "phase_identity"
+    - id: "dag_and_dependencies"
+      title: "DAG and dependencies"
+      key_path: "dag_and_dependencies"
+    - id: "scope_and_modules"
+      title: "Scope and modules"
+      key_path: "scope_and_modules"
+    - id: "environment_and_tools"
+      title: "Environment and tools"
+      key_path: "environment_and_tools"
+    - id: "execution_profile"
+      title: "Execution profile"
+      key_path: "execution_profile"
+    - id: "pre_flight_checks"
+      title: "Pre-flight checks"
+      key_path: "pre_flight_checks"
+    - id: "execution_plan"
+      title: "Execution plan"
+      key_path: "execution_plan"
+    - id: "fix_loop_and_circuit_breakers"
+      title: "Fix loop and circuit breakers"
+      key_path: "fix_loop_and_circuit_breakers"
+    - id: "expected_artifacts"
+      title: "Expected artifacts"
+      key_path: "expected_artifacts"
+    - id: "acceptance_tests"
+      title: "Acceptance tests"
+      key_path: "acceptance_tests"
+    - id: "completion_gate"
+      title: "Completion gate"
+      key_path: "completion_gate"
+    - id: "observability_and_metrics"
+      title: "Observability and metrics"
+      key_path: "observability_and_metrics"
+    - id: "governance_and_constraints"
+      title: "Governance and constraints"
+      key_path: "governance_and_constraints"
+    - id: "extensions"
+      title: "Extensions"
+      key_path: "extensions"
+
+index:
+  key_paths:
+    doc_id: "doc_id"
+    phase_id: "phase_identity.phase_id"
+    workstream_id: "phase_identity.workstream_id"
+    phase_title: "phase_identity.title"
+    objective: "phase_identity.objective"
+    phase_status: "phase_identity.status"
+    estimate_hours: "phase_identity.estimate_hours"
+    gh_item_id: "phase_identity.gh_item_id"
+    tags: "phase_identity.tags"
+    dependencies: "dag_and_dependencies.depends_on"
+    parallelizable_with: "dag_and_dependencies.may_run_parallel_with"
+    parallel_group: "dag_and_dependencies.parallel_group"
+    critical_path: "dag_and_dependencies.is_critical_path"
+    repo_root: "scope_and_modules.repo_root"
+    module_list: "scope_and_modules.modules"
+    scope_read_only: "scope_and_modules.file_scope.read_only"
+    scope_modify: "scope_and_modules.file_scope.modify"
+    scope_create: "scope_and_modules.file_scope.create"
+    scope_forbidden: "scope_and_modules.file_scope.forbidden_paths"
+    worktree_strategy: "scope_and_modules.worktree_strategy"
+    target_os: "environment_and_tools.target_os"
+    default_shell: "environment_and_tools.default_shell"
+    primary_language: "environment_and_tools.primary_language"
+    python: "environment_and_tools.python"
+    required_services: "environment_and_tools.required_services"
+    config_files: "environment_and_tools.config_files"
+    ai_operators: "environment_and_tools.ai_operators"
+    tool_profiles: "environment_and_tools.tool_profiles"
+    execution_profile: "execution_profile"
+    preflight_checks: "pre_flight_checks.checks"
+    execution_steps: "execution_plan.steps"
+    fix_loop: "fix_loop_and_circuit_breakers"
+    artifacts: "expected_artifacts"
+    acceptance_tests: "acceptance_tests.tests"
+    completion_rules: "completion_gate.rules"
+    completion_overrides: "completion_gate.manual_override"
+    observability: "observability_and_metrics"
+    governance: "governance_and_constraints"
+    extensions: "extensions.custom_fields"
+
+phase_identity:
+  phase_id: "PH-XX"
+  workstream_id: "ws-xxx"
+  title: "Short human-readable phase name"
+  summary: "Single-paragraph summary of the outcome this phase must produce."
+  objective: "Definition of done phrased as the phase objective."
+  phase_type: "implementation"  # one of: implementation | refactor | integration | migration | validation_only | documentation_only
+  status: "planned"             # planned | active | blocked | done | abandoned | not_started | in_progress
+  estimate_hours: 0             # Rough estimate for scheduling and GitHub project sync
+  gh_item_id: null              # GitHub Project draft item id once created by sync script
+  tags:
+    - "state_layer"
+    - "orchestrator"
+    - "pipeline_core"
+
+dag_and_dependencies:
+  workstream_bundle_id: "ws-bundle-xx"   # ID from workstreams/*.json; optional if not using yet
+  depends_on:                            # HARD dependencies (must be DONE)
+    - "PH-00"
+    - "PH-01"
+  may_run_parallel_with:                 # SAFE to parallelize if scopes don’t conflict
+    - "PH-10"
+  parallel_group: "core-pipeline-v1"     # Optional grouping label for scheduler
+  is_critical_path: true                 # If true, scheduler treats this as critical for overall completion
+
+scope_and_modules:
+  repo_root: "."                         # Relative to repo root
+  modules:
+    - module_id: "mod.core.state"
+      description: "SQLite-backed state DB and state machine"
+    - module_id: "mod.pipeline.orchestrator"
+      description: "Main orchestrator entrypoints"
+  file_scope:
+    read_only:
+      - "README.md"
+      - "docs/**/*.md"
+      - "config/**/*.yaml"
+    modify:
+      - "src/pipeline/**/*.py"
+      - "tests/pipeline/**/*.py"
+    create:
+      - "schema/**/*.sql"
+      - "docs/state/**/*.md"
+      - "scripts/**/*.py"
+    forbidden_paths:
+      - ".git/**"
+      - ".venv/**"
+      - ".worktrees/**"
+  worktree_strategy:
+    mode: "per_workstream"               # per_workstream | shared | none
+    name_pattern: "wt-${workstream_id}-${phase_id}"
+    base_branch: "main"
+    multi_worktree_enabled: false        # Optional: enable multi-worktree execution
+    worktrees:                           # Optional: declare worker worktrees (id/scope/branch)
+      - id: "WT-EXAMPLE"
+        scope:                           # Paths this worktree may touch
+          - "docs/**"
+        branch_pattern: "feature/${phase_id}-${workstream_id}-${id}"
+
+environment_and_tools:
+  target_os: "windows"                   # windows | linux | macos | cross
+  default_shell: "powershell"            # powershell | bash | zsh | cmd
+  primary_language: "python"
+  python:
+    version_constraint: ">=3.11,<3.13"
+    venv_path: ".venv"
+  required_services:
+    - name: "sqlite_db"
+      type: "file"
+      path: ".state/pipeline.db"
+      must_exist_before_phase: false
+  config_files:
+    - "config/tool_profiles.json"
+    - "config/circuit_breakers.yaml"
+  ai_operators:
+    primary_agent: "codex"               # codex | claude-code | aider | other
+    secondary_agents:
+      - "claude-code"
+      - "aider"
+  tool_profiles:
+    preferred_ids:
+      - "pytest"
+      - "ruff"
+      - "black"
+      - "powershell-script"
+      - "aider-edit"
+      - "aider-fix"
+
+execution_profile:
+  prompt_template_id: "EXECUTION_PROMPT_TEMPLATE_V2_DAG_MULTI_WORKSTREAM"
+  run_mode: "execute"                    # plan_only | dry_run | execute
+  max_runtime_minutes: 60
+  concurrency:
+    allowed_for_phase: true
+    max_parallel_steps: 1                # This is per-phase, not DAG-wide
+  retry_policy:
+    default_max_attempts: 1              # Phase-level retries; FIX loop is separate
+
+pre_flight_checks:
+  # These must PASS before any execution steps run.
+  checks:
+    - id: "pf-git-clean"
+      description: "Repo has no uncommitted changes in target paths."
+      when: "always"
+      command:
+        tool_id: "powershell-script"
+        args:
+          - "git status --porcelain"
+      success_pattern: "^$"              # Empty output = clean
+      on_fail: "abort"                   # abort | attempt_repair_phase | mark_blocked
+
+    - id: "pf-venv-present"
+      description: "Python virtual env exists."
+      when: "always"
+      command:
+        tool_id: "powershell-script"
+        args:
+          - "Test-Path .venv"
+      success_pattern: "True"
+      on_fail: "attempt_repair_phase"
+
+    - id: "pf-state-db-schema"
+      description: "State DB schema file exists where expected (if required for this phase)."
+      when: "if_phase_type_in:[implementation,integration,migration]"
+      command:
+        tool_id: "powershell-script"
+        args:
+          - "Test-Path schema/pipeline_state.sql"
+      success_pattern: "True"
+      on_fail: "abort"
+
+execution_plan:
+  # Ordered steps that the AI operator and orchestrator follow.
+  steps:
+    - id: "step-01-analyze-context"
+      name: "Analyze current repo and specs"
+      operation_kind: "OP-ANALYZE-CONTEXT"
+      pattern_ids:
+        - "PAT-ANALYZE-REPO-001"
+      description: "Scan relevant modules, docs, and config to understand the current state."
+      tool_id: "codex"
+      inputs:
+        repo_paths:
+          - "src/pipeline/**"
+          - "docs/spec/**"
+          - "schema/**"
+        constraints:
+          respect_file_scope: true
+        execution_templates: []          # Optional: link to execution patterns/templates (e.g., WT-EXEC-001)
+      expected_outputs:
+        - "Refined internal plan for changes (not persisted)."
+      requires_human_confirmation: false
+
+    - id: "step-02-implement-changes"
+      name: "Apply scoped edits in isolated worktree"
+      operation_kind: "OP-EDIT-IMPLEMENT"
+      pattern_ids:
+        - "PAT-EDIT-WORKTREE-001"
+        - "PAT-FILE-SCOPE-ENFORCE-001"
+      description: "Use Aider/Codex to implement changes within declared file_scope in a dedicated worktree."
+      tool_id: "aider-edit"
+      inputs:
+        worktree_strategy_ref: "worktree_strategy"
+        file_scope_ref: "scope_and_modules.file_scope.modify"
+        execution_templates: []          # Optional: execution pattern IDs to apply for this step
+      expected_outputs:
+        - "Worktree with candidate implementation."
+      requires_human_confirmation: false
+
+    - id: "step-03-static-checks"
+      name: "Run static validation tools"
+      operation_kind: "OP-VALIDATE-STATIC"
+      pattern_ids:
+        - "PAT-LINT-001"
+        - "PAT-TYPECHECK-001"
+      description: "Run ruff, mypy, and other static tools via tool_profiles."
+      tool_id: "pytest"  # or a generic 'run_tool_batch'
+      inputs:
+        commands:
+          - "ruff src/pipeline tests/pipeline"
+          - "mypy src/pipeline"
+        execution_templates: []          # Optional: execution pattern IDs for this step
+      expected_outputs:
+        - "All static tools pass or produce structured error output."
+      requires_human_confirmation: false
+
+    - id: "step-04-runtime-tests"
+      name: "Run runtime tests"
+      operation_kind: "OP-VALIDATE-RUNTIME"
+      pattern_ids:
+        - "PAT-PYTEST-CORE-001"
+      description: "Run pytest suite for modules touched by this phase."
+      tool_id: "pytest"
+      inputs:
+        commands:
+          - "pytest tests/pipeline -q"
+      expected_outputs:
+        - "All relevant tests pass."
+      requires_human_confirmation: false
+
+fix_loop_and_circuit_breakers:
+  enabled: true
+  applies_to_steps:
+    - "step-03-static-checks"
+    - "step-04-runtime-tests"
+  circuit_breaker_config_ref: "config/circuit_breakers.yaml"
+  defaults:
+    max_attempts: 3
+    oscillation_window: 3
+    oscillation_threshold: 2
+  behavior:
+    on_first_failure: "invoke_fix_pattern"
+    on_subsequent_failure: "re-run-base-step"
+    on_breaker_trip: "mark_phase_failed"
+
+expected_artifacts:
+  patches:
+    - path: ".ledger/patches/${phase_id}_${workstream_id}.patch"
+      must_exist: true
+  logs:
+    - path: ".runs/${workstream_id}/${phase_id}/static_checks.log"
+      must_exist: true
+    - path: ".runs/${workstream_id}/${phase_id}/runtime_tests.log"
+      must_exist: true
+  docs:
+    - path: "docs/state/state_machine.md"
+      must_exist: true
+    - path: "docs/architecture/PHASE_PLAN.md"
+      must_exist: true
+  db:
+    migrations_applied:
+      - "schema/migrations/00_create_state_tables.sql"
+
+acceptance_tests:
+  # Command-level phase acceptance (beyond step-level checks).
+  tests:
+    - id: "acc-01-pipeline-smoke"
+      description: "Pipeline CLI can run a no-op workstream successfully."
+      command:
+        tool_id: "powershell-script"
+        args:
+          - "python scripts/run_workstream.py --ws-id ${workstream_id} --dry-run"
+      success_pattern: "STATUS: SUCCESS"
+      must_pass: true
+
+    - id: "acc-02-db-state-transitions"
+      description: "State machine refuses invalid transitions."
+      command:
+        tool_id: "pytest"
+        args:
+          - "pytest tests/pipeline/test_db_state.py -q"
+      success_pattern: "0 failed"
+      must_pass: true
+
+completion_gate:
+  # This is what the orchestrator evaluates to mark phase DONE.
+  rules:
+    dependencies_done: true              # All depends_on phases must be done.
+    pre_flight_passed: true
+    acceptance_tests_all_passed: true
+    required_artifacts_present: true
+    no_scope_violations_detected: true
+    circuit_breakers_not_tripped: true
+  manual_override:
+    allowed: false                       # If true, humans can mark done with justification.
+    justification_required: true
+
+observability_and_metrics:
+  event_tags:
+    - "phase:${phase_identity.phase_id}"
+    - "workstream:${phase_identity.workstream_id}"
+    - "phase_type:${phase_identity.phase_type}"
+  metrics:
+    record_durations: true
+    record_attempt_counts: true
+    record_fix_loop_stats: true
+
+governance_and_constraints:
+  anti_patterns_blocked:
+    - "ANTI-GIANT-REFRACTOR-001"
+    - "ANTI-EDIT-OUTSIDE-SCOPE-001"
+    - "ANTI-SKIP-TESTS-001"
+  notes_for_operators:
+    - "Never modify files outside declared file_scope."
+    - "Always trust git/tests/filesystem over conversational summaries."
+    - "If tools under-deliver, repair or escalate—do not silently accept."
+
+extensions:
+  # Free-form structured fields that future patches can extend.
+  custom_fields:
+    workstream_sync:
+      enabled: true
+      auto_commit: true
+      feature_branch_pattern: "feature/ws-sync-${timestamp}"
+      github_project_integration: true
+      no_stop_mode: true              # Continue execution through all tasks without stopping on errors
+      summary_report_template: "templates/workstream_summary_report.md"
+      sync_script: "scripts/sync_workstreams_to_github.py"
+    
+    execution_resilience:
+      continue_on_error: true          # INSTRUCTION: Finish all tasks without stopping
+      error_collection_mode: true      # Collect all errors but don't halt execution
+      final_report_on_completion: true # Always generate completion report with all errors/successes

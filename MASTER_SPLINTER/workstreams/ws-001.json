@@ -1,0 +1,90 @@
+{
+  "id": "ws-001",
+  "doc_id": "DOC-EXAMPLE-PH-01",
+  "phase_id": "PH-01",
+  "title": "Example Phase - Setup Documentation",
+  "objective": "Generate baseline artifacts and verify orchestration reporting.",
+  "status": "planned",
+  "tool": "claude-code",
+  "gate": "acceptance_tests",
+  "execution_profile": {
+    "prompt_template_id": "prompts/EXECUTION_PROMPT_TEMPLATE_V2_DAG_MULTI_WORKSTREAM.md",
+    "concurrency": 1,
+    "retry_attempts": 1,
+    "no_stop_mode": true
+  },
+  "file_scope": {
+    "read_only": [
+      "README.md",
+      "CLAUDE.md"
+    ],
+    "modify": [
+      "reports/*",
+      "workstreams/*"
+    ],
+    "create": [
+      "reports/*",
+      "workstreams/*"
+    ],
+    "forbidden_paths": [
+      ".git/*",
+      "safe_merge/*"
+    ]
+  },
+  "pre_flight_checks": [
+    {
+      "id": "verify-config",
+      "description": "Ensure tool and circuit breaker configs exist",
+      "command": "ls config"
+    },
+    {
+      "id": "check-python",
+      "description": "Confirm Python version is available",
+      "command": "python --version"
+    }
+  ],
+  "execution_steps": [
+    {
+      "id": "generate-workstream",
+      "description": "Convert phase plan to workstream JSON",
+      "command": "python phase_plan_to_workstream.py"
+    },
+    {
+      "id": "run-orchestrator",
+      "description": "Execute master orchestrator to generate report",
+      "command": "python run_master_splinter.py"
+    }
+  ],
+  "acceptance_tests": [
+    {
+      "id": "report-exists",
+      "description": "Completion report generated",
+      "command": "if (-not (Test-Path reports/COMPLETION_REPORT_*)) { exit 1 }"
+    },
+    {
+      "id": "workstream-exists",
+      "description": "Workstream JSON generated",
+      "command": "if (-not (Test-Path workstreams/ws-001.json)) { exit 1 }"
+    }
+  ],
+  "expected_artifacts": [
+    {
+      "id": "workstream-json",
+      "path": "workstreams/ws-001.json"
+    },
+    {
+      "id": "completion-report",
+      "path": "reports/COMPLETION_REPORT_*.md"
+    }
+  ],
+  "completion_gate": {
+    "rules": [
+      "All expected artifacts exist",
+      "Acceptance tests completed"
+    ],
+    "manual_override": null
+  },
+  "tool_profiles_path": "config/tool_profiles.json",
+  "circuit_breakers_path": "config/circuit_breakers.yaml",
+  "prompt_template": "prompts/EXECUTION_PROMPT_TEMPLATE_V2_DAG_MULTI_WORKSTREAM.md"
+}

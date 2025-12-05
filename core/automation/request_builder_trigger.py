@@ -50,7 +50,7 @@ def trigger_request_builder(
         cmd.extend(["--run-id", run_id])
 
     try:
-        result = subprocess.run(cmd, capture_output=True, text=True, check=False)
+        result = subprocess.run(cmd, capture_output=True, text=True, check=False, timeout=1800)
 
         if result.stdout:
             print(result.stdout)

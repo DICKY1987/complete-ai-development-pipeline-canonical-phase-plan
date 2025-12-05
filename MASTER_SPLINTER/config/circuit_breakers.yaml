@@ -1,0 +1,29 @@
+circuit_breakers:
+  - id: "cb-oscillation-detector"
+    type: "oscillation"
+    window_size: 3
+    threshold: 2
+    action: "mark_phase_failed"
+    message: "Detected oscillation in fix loop - same error repeating"
+
+  - id: "cb-max-attempts"
+    type: "max_attempts"
+    limit: 3
+    action: "mark_phase_failed"
+    message: "Maximum fix attempts exceeded"
+
+  - id: "cb-timeout"
+    type: "timeout"
+    duration_minutes: 60
+    action: "mark_phase_blocked"
+    message: "Phase execution timeout reached"
+
+  - id: "cb-scope-violation"
+    type: "scope_violation"
+    action: "abort"
+    message: "Attempted to modify forbidden paths"
+
+defaults:
+  max_attempts: 3
+  oscillation_window: 3
+  oscillation_threshold: 2

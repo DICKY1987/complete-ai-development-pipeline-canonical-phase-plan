@@ -32,7 +32,7 @@ def trigger_router(queue_file: Path) -> int:
     cmd = [sys.executable, "-m", "core.engine.router", "--queue", str(queue_file)]
 
     try:
-        result = subprocess.run(cmd, capture_output=True, text=True, check=False)
+        result = subprocess.run(cmd, capture_output=True, text=True, check=False, timeout=1800)
 
         if result.stdout:
             print(result.stdout)

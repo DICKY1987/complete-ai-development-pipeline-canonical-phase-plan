@@ -97,7 +97,7 @@ class PreFlightValidator:
             else:
                 cmd = ["which", tool]
 
-            result = subprocess.run(cmd, capture_output=True)
+            result = subprocess.run(cmd, capture_output=True, timeout=1800)
 
             if result.returncode == 0:
                 print(f"✅ {tool} found")

@@ -55,7 +55,7 @@ def check_unused_worktrees() -> list:
     """Check for unused worktrees."""
     violations = []
 
-    result = subprocess.run(["git", "worktree", "list"], capture_output=True, text=True)
+    result = subprocess.run(["git", "worktree", "list"], capture_output=True, text=True, timeout=1800)
 
     worktrees = result.stdout.splitlines()
     if len(worktrees) > 5:  # Main + 4 migration worktrees

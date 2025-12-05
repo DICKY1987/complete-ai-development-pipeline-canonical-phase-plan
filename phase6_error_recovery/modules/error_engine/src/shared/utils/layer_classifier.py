@@ -1,77 +1,73 @@
 """5-Layer Error Classification Utility
 
-Maps error categories to infrastructure layers for better prioritization.
-Based on 5-Layer Test Coverage Framework.
+Maps error categories to code quality layers for error detection.
+Layer 0 (Syntax) is highest priority, Layer 4 (Security) is lowest.
 """
 
 # DOC_ID: DOC-ERROR-UTILS-LAYER-CLASSIFIER-001
 
 from typing import Dict
 
-# Category to layer mapping
-CATEGORY_TO_LAYER: Dict[str, str] = {
-    # Layer 1 - Infrastructure
-    "file_not_found": "Layer 1 - Infrastructure",
-    "resource_exhausted": "Layer 1 - Infrastructure",
-    "disk_full": "Layer 1 - Infrastructure",
-    # Layer 2 - Dependencies
-    "import_error": "Layer 2 - Dependencies",
-    "module_not_found": "Layer 2 - Dependencies",
-    "version_mismatch": "Layer 2 - Dependencies",
-    "dependency_error": "Layer 2 - Dependencies",
-    # Layer 3 - Configuration
-    "schema_invalid": "Layer 3 - Configuration",
-    "config_error": "Layer 3 - Configuration",
-    "validation_failed": "Layer 3 - Configuration",
-    # Layer 4 - Operational
-    "permission_denied": "Layer 4 - Operational",
-    "timeout": "Layer 4 - Operational",
-    "network_error": "Layer 4 - Operational",
-    "test_failure": "Layer 4 - Operational",
-    # Layer 5 - Business Logic
-    "syntax": "Layer 5 - Business Logic",
-    "type": "Layer 5 - Business Logic",
-    "style": "Layer 5 - Business Logic",
-    "formatting": "Layer 5 - Business Logic",
-    "security": "Layer 5 - Business Logic",
-    "logic_error": "Layer 5 - Business Logic",
+# Category to layer mapping (0-4, where 0 = highest priority)
+CATEGORY_TO_LAYER: Dict[str, int] = {
+    # Layer 0 - Syntax errors (blocks everything)
+    "syntax": 0,
+    "parse_error": 0,
+    "indentation": 0,
+    # Layer 1 - Type errors (breaks type safety)
+    "type": 1,
+    "type_error": 1,
+    "incompatible_types": 1,
+    # Layer 2 - Linting/Convention errors (code quality)
+    "convention": 2,
+    "lint": 2,
+    "complexity": 2,
+    "naming": 2,
+    "unused": 2,
+    # Layer 3 - Style/Formatting errors (cosmetic)
+    "style": 3,
+    "formatting": 3,
+    "whitespace": 3,
+    # Layer 4 - Security errors (critical but contextual)
+    "security": 4,
+    "vulnerability": 4,
+    "secret": 4,
 }
 
-# Severity to priority mapping (lower = higher priority)
-LAYER_PRIORITY: Dict[str, int] = {
-    "Layer 1 - Infrastructure": 1,  # Blocks everything
-    "Layer 2 - Dependencies": 2,  # Blocks execution
-    "Layer 3 - Configuration": 3,  # Causes runtime errors
-    "Layer 4 - Operational": 4,  # Intermittent failures
-    "Layer 5 - Business Logic": 5,  # Code quality issues
+# Layer priority (lower number = higher priority)
+LAYER_PRIORITY: Dict[int, int] = {
+    0: 1,  # Syntax - blocks everything
+    1: 2,  # Type - breaks contracts
+    2: 3,  # Linting - code quality
+    3: 4,  # Style - cosmetic
+    4: 5,  # Security - critical but contextual
 }
 
 
-def classify_error_layer(category: str) -> str:
+def classify_error_layer(category: str) -> int:
     """
-    Classify error category into infrastructure layer.
+    Classify error category into code quality layer.
 
     Args:
-        category: Error category (e.g., "syntax", "import_error")
+        category: Error category (e.g., "syntax", "type")
 
     Returns:
-        Layer classification (e.g., "Layer 5 - Business Logic")
-        Defaults to Layer 5 if category unknown.
+        Layer number (0-4), defaults to Layer 2 (linting) if unknown
     """
-    return CATEGORY_TO_LAYER.get(category, "Layer 5 - Business Logic")
+    return CATEGORY_TO_LAYER.get(category, 2)
 
 
-def get_layer_priority(layer: str) -> int:
+def get_layer_priority(layer: int) -> int:
     """
     Get priority for a layer (lower = higher priority).
 
     Args:
-        layer: Layer classification
+        layer: Layer number (0-4)
 
     Returns:
         Priority value (1-5)
     """
-    return LAYER_PRIORITY.get(layer, 5)
+    return LAYER_PRIORITY.get(layer, 3)
 
 
 def is_auto_repairable(category: str, has_fix_method: bool = False) -> bool:
@@ -85,14 +81,29 @@ def is_auto_repairable(category: str, has_fix_method: bool = False) -> bool:
     Returns:
         True if auto-repairable
     """
-    # Layer 5 (code quality) is usually auto-repairable if plugin supports it
     layer = classify_error_layer(category)
-    if layer == "Layer 5 - Business Logic" and has_fix_method:
+    
+    # Layer 3 (style/formatting) is usually auto-repairable if plugin supports it
+    if layer == 3 and has_fix_method:
         return True
-
-    # Layer 3 (config) sometimes auto-repairable
-    if layer == "Layer 3 - Configuration" and category in ["schema_invalid"]:
+    
+    # Layer 2 (linting) sometimes auto-repairable
+    if layer == 2 and has_fix_method:
         return True
-
-    # Layer 1, 2, 4 typically require human intervention
+    
+    # Layer 0 (syntax) and Layer 1 (type) typically require human intervention
+    # Layer 4 (security) requires careful review
     return False
+
+
+def classify_issue(issue) -> int:
+    """
+    Classify a PluginIssue into code quality layer.
+
+    Args:
+        issue: PluginIssue object with category field
+
+    Returns:
+        Layer number (0-4)
+    """
+    return classify_error_layer(issue.category)

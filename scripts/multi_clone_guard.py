@@ -75,7 +75,7 @@ def main() -> int:
     try:
         with file_lock(lock_path, args.timeout) as wait_time:
             print(f"OK: Lock acquired ({lock_id}) after {wait_time:.1f}s")
-            result = subprocess.run(args.command, shell=True)
+            result = subprocess.run(args.command, shell=True, timeout=1800)
             if result.returncode != 0:
                 print(f"FAIL: Command failed under lock ({result.returncode})")
                 return result.returncode

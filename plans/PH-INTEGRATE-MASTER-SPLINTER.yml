@@ -1,0 +1,1031 @@
+# PHASE_PLAN: MASTER_SPLINTER Integration
+# Integrate MASTER_SPLINTER multi-agent orchestration layer into core pipeline
+
+doc_id: "DOC-PHASE-INTEGRATE-MASTER-SPLINTER-001"
+template_version: 3
+
+table_of_contents:
+  sections:
+    - id: "phase_identity"
+      title: "Phase identity"
+      key_path: "phase_identity"
+    - id: "dag_and_dependencies"
+      title: "DAG and dependencies"
+      key_path: "dag_and_dependencies"
+    - id: "scope_and_modules"
+      title: "Scope and modules"
+      key_path: "scope_and_modules"
+    - id: "environment_and_tools"
+      title: "Environment and tools"
+      key_path: "environment_and_tools"
+    - id: "execution_profile"
+      title: "Execution profile"
+      key_path: "execution_profile"
+    - id: "pre_flight_checks"
+      title: "Pre-flight checks"
+      key_path: "pre_flight_checks"
+    - id: "execution_plan"
+      title: "Execution plan"
+      key_path: "execution_plan"
+    - id: "fix_loop_and_circuit_breakers"
+      title: "Fix loop and circuit breakers"
+      key_path: "fix_loop_and_circuit_breakers"
+    - id: "expected_artifacts"
+      title: "Expected artifacts"
+      key_path: "expected_artifacts"
+    - id: "acceptance_tests"
+      title: "Acceptance tests"
+      key_path: "acceptance_tests"
+    - id: "completion_gate"
+      title: "Completion gate"
+      key_path: "completion_gate"
+    - id: "observability_and_metrics"
+      title: "Observability and metrics"
+      key_path: "observability_and_metrics"
+    - id: "governance_and_constraints"
+      title: "Governance and constraints"
+      key_path: "governance_and_constraints"
+
+index:
+  key_paths:
+    doc_id: "doc_id"
+    phase_id: "phase_identity.phase_id"
+    workstream_id: "phase_identity.workstream_id"
+    phase_title: "phase_identity.title"
+    objective: "phase_identity.objective"
+    phase_status: "phase_identity.status"
+
+phase_identity:
+  phase_id: "PH-INTEGRATE-MS-001"
+  workstream_id: "ws-multi-agent-integration"
+  title: "Integrate MASTER_SPLINTER Multi-Agent Layer with Gap Analysis Implementation"
+  summary: "Consolidate MASTER_SPLINTER orchestration system into core pipeline architecture, adding multi-agent coordination capabilities while implementing automation gap analysis recommendations across 5 phases: Quick Wins, High-Impact Automation, Performance & Determinism, Git Multi-Agent Safety, and Long-Term Stability."
+  objective: "Multi-agent orchestration layer fully integrated into core/orchestration/, templates moved to templates/, GitHub sync scripts operational, end-to-end multi-agent execution verified, and automation gaps resolved achieving 95% automation coverage, 5-10x performance improvements, and 226+ hours/month manual overhead elimination."
+  phase_type: "integration"
+  status: "planned"
+  estimate_hours: 280
+  gh_item_id: null
+  tags:
+    - "multi-agent"
+    - "orchestration"
+    - "integration"
+    - "master-splinter"
+    - "automation-gaps"
+    - "performance"
+    - "ci-cd"
+    - "git-safety"
+
+dag_and_dependencies:
+  workstream_bundle_id: null
+  depends_on:
+    - "PH-PHASE5-EXECUTION"
+    - "PH-PHASE6-ERROR-RECOVERY"
+  may_run_parallel_with: []
+  parallel_group: "orchestration-enhancement"
+  is_critical_path: true
+  sub_phases:
+    - id: "phase-1-quick-wins"
+      duration: "Week 1-2"
+      effort_hours: 24
+      deliverables: "CI unblocked, 2-3x database performance, memory leak prevention"
+    - id: "phase-2-automation"
+      duration: "Month 1"
+      effort_hours: 108
+      deliverables: "95% deployment automation, 100% CLI wrapper, 95% patches auto-applied"
+    - id: "phase-3-performance"
+      duration: "Month 2"
+      effort_hours: 48
+      deliverables: "8x parallelism, 31x event speedup, 200+ tasks/minute"
+    - id: "phase-4-git-safety"
+      duration: "Quarter 1"
+      effort_hours: 40
+      deliverables: "Zero git multi-agent failures, work isolation"
+    - id: "phase-5-stability"
+      duration: "Quarter 1"
+      effort_hours: 44
+      deliverables: "DB migrations, automated backups, 100% non-interactive scripts"
+
+scope_and_modules:
+  repo_root: "."
+  modules:
+    - module_id: "mod.core.orchestration"
+      description: "Multi-agent orchestration and coordination"
+    - module_id: "mod.core.engine"
+      description: "Existing single-agent execution engine"
+    - module_id: "mod.scripts.sync"
+      description: "GitHub workstream sync scripts"
+  file_scope:
+    read_only:
+      - "MASTER_SPLINTER/**/*.md"
+      - "MASTER_SPLINTER/**/*.yml"
+      - "core/engine/**/*.py"
+      - "docs/**/*.md"
+    modify:
+      - "core/orchestration/**/*.py"
+      - "scripts/**/*.py"
+      - "tests/orchestration/**/*.py"
+      - ".gitignore"
+    create:
+      - "core/orchestration/multi_agent_coordinator.py"
+      - "core/orchestration/master_orchestrator.py"
+      - "core/orchestration/phase_plan_converter.py"
+      - "templates/MASTER_SPLINTER_Phase_Plan_Template.yml"
+      - "templates/MASTER_SPLINTER_Phase_Plan_Template_GUIDE.md"
+      - "scripts/sync_workstreams_to_github.py"
+      - "scripts/phase_plan_to_workstream.py"
+      - "tests/orchestration/test_multi_agent_coordinator.py"
+      - "docs/orchestration/MULTI_AGENT_INTEGRATION_GUIDE.md"
+      - ".state/multi_agent_consolidated.db"
+    forbidden_paths:
+      - ".git/**"
+      - ".venv/**"
+      - "__pycache__/**"
+      - "_ARCHIVE/**"
+  worktree_strategy:
+    mode: "per_workstream"
+    name_pattern: "wt-ms-integration-${phase_id}"
+    base_branch: "main"
+    multi_worktree_enabled: false
+
+environment_and_tools:
+  target_os: "windows"
+  default_shell: "powershell"
+  primary_language: "python"
+  python:
+    version_constraint: ">=3.11,<3.13"
+    venv_path: ".venv"
+  required_services:
+    - name: "sqlite_db"
+      type: "file"
+      path: ".state/multi_agent_consolidated.db"
+      must_exist_before_phase: false
+  config_files:
+    - "config/tool_profiles.json"
+    - "config/circuit_breakers.yaml"
+  ai_operators:
+    primary_agent: "github-copilot"
+    secondary_agents:
+      - "aider"
+  tool_profiles:
+    preferred_ids:
+      - "pytest"
+      - "ruff"
+      - "powershell-script"
+
+execution_profile:
+  prompt_template_id: "EXECUTION_PROMPT_TEMPLATE_V2_DAG_MULTI_WORKSTREAM"
+  run_mode: "execute"
+  max_runtime_minutes: 120
+  concurrency:
+    allowed_for_phase: false
+    max_parallel_steps: 1
+  retry_policy:
+    default_max_attempts: 2
+
+pre_flight_checks:
+  checks:
+    - id: "pf-master-splinter-exists"
+      description: "MASTER_SPLINTER directory exists with required files"
+      when: "always"
+      command:
+        tool_id: "powershell-script"
+        args:
+          - "Test-Path MASTER_SPLINTER\\multi_agent_workstream_coordinator.py"
+      success_pattern: "True"
+      on_fail: "abort"
+
+    - id: "pf-core-orchestration-ready"
+      description: "core/orchestration directory ready for files"
+      when: "always"
+      command:
+        tool_id: "powershell-script"
+        args:
+          - "if (!(Test-Path core\\orchestration)) { New-Item -ItemType Directory -Path core\\orchestration -Force }; Test-Path core\\orchestration"
+      success_pattern: "True"
+      on_fail: "attempt_repair_phase"
+
+    - id: "pf-templates-dir-exists"
+      description: "templates directory exists"
+      when: "always"
+      command:
+        tool_id: "powershell-script"
+        args:
+          - "if (!(Test-Path templates)) { New-Item -ItemType Directory -Path templates -Force }; Test-Path templates"
+      success_pattern: "True"
+      on_fail: "attempt_repair_phase"
+
+execution_plan:
+  overview: "Execute in 5 phases over 12 weeks with 2 parallel developers. Start with Quick Wins for immediate impact, follow with High-Impact Automation to eliminate manual overhead, then Performance optimizations for 5-10x throughput, Git Safety for multi-agent reliability, and Long-Term Stability for production readiness."
+  
+  success_metrics:
+    phase_1: "2-3x database performance, CI passing consistently"
+    phase_2: "156 hours/month manual overhead eliminated, 95% automation coverage"
+    phase_3: "200+ tasks/minute throughput, deterministic execution available"
+    phase_4: "Zero git multi-agent failures over 30-day observation period"
+    phase_5: "Zero schema drift incidents, complete automation coverage"
+  
+  steps:
+    # === PHASE 1: Quick Wins & CI Foundation (Week 1-2, 24 hours) ===
+    
+    - id: "step-01-fix-ci-installation"
+      name: "Fix CI installation failure (HIGH-005)"
+      operation_kind: "OP-FIX-BUILD"
+      pattern_ids:
+        - "PAT-BUILD-SYSTEM-001"
+      description: "Add build-system to pyproject.toml to enable pip install -e . in CI"
+      tool_id: "github-copilot"
+      inputs:
+        files:
+          - "pyproject.toml"
+        changes:
+          - "Add [build-system] section with setuptools"
+          - "Add [project] section with dependencies from requirements.txt"
+      expected_outputs:
+        - "pip install -e . succeeds in CI"
+      requires_human_confirmation: false
+      effort_hours: 6
+    
+    - id: "step-02-blocking-gates"
+      name: "Make lint/test gates blocking (HIGH-006)"
+      operation_kind: "OP-CI-CONFIG"
+      pattern_ids:
+        - "PAT-CI-GATES-001"
+      description: "Remove || true from ruff and mypy commands in CI"
+      tool_id: "github-copilot"
+      inputs:
+        files:
+          - ".github/workflows/quality-gates.yml"
+        changes:
+          - "Remove || true from ruff check command"
+          - "Remove || true from mypy command"
+      expected_outputs:
+        - "CI fails on lint/type errors"
+      requires_human_confirmation: false
+      effort_hours: 3
+    
+    - id: "step-03-db-wal-mode"
+      name: "Enable SQLite WAL mode (QW-1)"
+      operation_kind: "OP-DB-OPTIMIZE"
+      pattern_ids:
+        - "PAT-DB-PERFORMANCE-001"
+      description: "Add PRAGMA journal_mode=WAL to init_db()"
+      tool_id: "github-copilot"
+      inputs:
+        files:
+          - "core/state/db.py"
+        changes:
+          - "Add conn.execute('PRAGMA journal_mode=WAL') in init_db"
+      expected_outputs:
+        - "2-3x faster concurrent reads"
+      requires_human_confirmation: false
+      effort_hours: 1
+    
+    - id: "step-04-db-indexes"
+      name: "Add database indexes (QW-2)"
+      operation_kind: "OP-DB-OPTIMIZE"
+      pattern_ids:
+        - "PAT-DB-PERFORMANCE-001"
+      description: "Create indexes on run_events.event_type and run_id"
+      tool_id: "github-copilot"
+      inputs:
+        files:
+          - "core/state/db.py"
+        changes:
+          - "CREATE INDEX idx_events_type ON run_events(event_type)"
+          - "CREATE INDEX idx_events_run_id ON run_events(run_id)"
+      expected_outputs:
+        - "10x faster event queries"
+      requires_human_confirmation: false
+      effort_hours: 1
+    
+    - id: "step-05-lazy-json"
+      name: "Lazy JSON serialization (QW-3)"
+      operation_kind: "OP-PERFORMANCE"
+      pattern_ids:
+        - "PAT-LAZY-EVAL-001"
+      description: "Only serialize JSON on _persist(), not on emit()"
+      tool_id: "github-copilot"
+      inputs:
+        files:
+          - "core/events/event_bus.py"
+      expected_outputs:
+        - "15-20% faster event emission"
+      requires_human_confirmation: false
+      effort_hours: 2
+    
+    - id: "step-06-router-lru-cache"
+      name: "Router metrics LRU cache (QW-6, MEDIUM-005)"
+      operation_kind: "OP-MEMORY-OPTIMIZE"
+      pattern_ids:
+        - "PAT-CACHE-001"
+      description: "Replace unbounded defaultdict with functools.lru_cache(maxsize=1000)"
+      tool_id: "github-copilot"
+      inputs:
+        files:
+          - "core/engine/router.py"
+      expected_outputs:
+        - "Memory leak prevention (1GB → 10MB on 1M tasks)"
+      requires_human_confirmation: false
+      effort_hours: 3
+    
+    # === PHASE 2: High-Impact Automation (Month 1, 108 hours) ===
+    
+    - id: "step-07-deployment-pipeline"
+      name: "Automated deployment pipeline (CRITICAL-001)"
+      operation_kind: "OP-CREATE-CI-CD"
+      pattern_ids:
+        - "PAT-DEPLOYMENT-001"
+      description: "Create staging and production deployment workflows"
+      tool_id: "github-copilot"
+      inputs:
+        files_to_create:
+          - ".github/workflows/deploy-staging.yml"
+          - ".github/workflows/deploy-production.yml"
+        features:
+          - "Deploy on push to main (staging)"
+          - "Deploy on release (production)"
+          - "Smoke tests after deployment"
+          - "Auto-rollback on failure"
+      expected_outputs:
+        - "Push to main → auto-deploy to staging"
+        - "Release tag → auto-deploy to production"
+        - "<1 hour/release vs 12+ hours manual"
+      requires_human_confirmation: false
+      effort_hours: 40
+    
+    - id: "step-08-cli-wrapper"
+      name: "CLI wrapper pattern (CRITICAL-002)"
+      operation_kind: "OP-CREATE-MODULE"
+      pattern_ids:
+        - "PAT-CLI-WRAPPER-001"
+      description: "Create reusable CLI wrapper with timeout, retry, state tracking"
+      tool_id: "github-copilot"
+      inputs:
+        files_to_create:
+          - "core/cli/wrapper.py"
+        features:
+          - "Non-interactive mode via --non-interactive flag"
+          - "Timeout and retry support"
+          - "Orchestrator integration"
+          - "State recording to .state/"
+      expected_outputs:
+        - "Wrapper class for all 187 scripts"
+        - "90% reduction in manual CLI execution (20h → 2h/week)"
+      requires_human_confirmation: false
+      effort_hours: 36
+    
+    - id: "step-09-error-recovery-automation"
+      name: "Automated error recovery (CRITICAL-003)"
+      operation_kind: "OP-CREATE-MODULE"
+      pattern_ids:
+        - "PAT-AUTO-PATCH-001"
+      description: "Auto-apply patches with validation and confidence scoring"
+      tool_id: "github-copilot"
+      inputs:
+        files_to_create:
+          - "error/automation/patch_applier.py"
+        features:
+          - "Create worktree for testing"
+          - "Run affected tests"
+          - "Calculate confidence score (0-1)"
+          - "Auto-merge if confidence >= 0.95"
+          - "Create PR if 0.80-0.95"
+          - "Queue for manual review if < 0.80"
+      expected_outputs:
+        - "95% patches auto-applied"
+        - "87% reduction in manual review (8h → 1h/week)"
+      requires_human_confirmation: false
+      effort_hours: 24
+    
+    - id: "step-10-event-triggers"
+      name: "Event-driven workstream triggers (HIGH-002)"
+      operation_kind: "OP-CREATE-MODULE"
+      pattern_ids:
+        - "PAT-EVENT-DRIVEN-001"
+      description: "Auto-launch workstreams based on event patterns"
+      tool_id: "github-copilot"
+      inputs:
+        files_to_create:
+          - "core/engine/triggers.py"
+          - "config/triggers.yaml"
+      expected_outputs:
+        - "Zero manual workstream launching (10h → 0h/week)"
+      requires_human_confirmation: false
+      effort_hours: 12
+    
+    # === PHASE 3: Performance & Determinism (Month 2, 48 hours) ===
+    
+    - id: "step-11-async-executor"
+      name: "Async subprocess execution (CRITICAL-004)"
+      operation_kind: "OP-CREATE-MODULE"
+      pattern_ids:
+        - "PAT-ASYNC-EXEC-001"
+      description: "Create asyncio-based executor for parallel task execution"
+      tool_id: "github-copilot"
+      inputs:
+        files_to_create:
+          - "core/engine/async_executor.py"
+        features:
+          - "asyncio.create_subprocess_exec for non-blocking I/O"
+          - "Semaphore for max_concurrency control (default 10)"
+          - "Backward compatible - opt-in via config"
+      expected_outputs:
+        - "8x parallelism (15 → 120+ tasks/minute)"
+      requires_human_confirmation: false
+      effort_hours: 20
+    
+    - id: "step-12-batch-db-ops"
+      name: "Batch database operations (CRITICAL-005)"
+      operation_kind: "OP-DB-OPTIMIZE"
+      pattern_ids:
+        - "PAT-DB-BATCH-001"
+      description: "Batch inserts with executemany() for events and runs"
+      tool_id: "github-copilot"
+      inputs:
+        files:
+          - "core/state/db.py"
+        methods_to_add:
+          - "create_events_batch(events: List[Dict])"
+          - "get_runs_batch(run_ids: List[str])"
+      expected_outputs:
+        - "31x event insert speedup (2.5s → 0.08s for 1000 events)"
+      requires_human_confirmation: false
+      effort_hours: 12
+    
+    - id: "step-13-scheduler-cache"
+      name: "Scheduler sorted cache (CRITICAL-006, HIGH-010)"
+      operation_kind: "OP-PERFORMANCE"
+      pattern_ids:
+        - "PAT-CACHE-001"
+      description: "Cache sorted task IDs, only invalidate on add_task()"
+      tool_id: "github-copilot"
+      inputs:
+        files:
+          - "core/engine/scheduler.py"
+      expected_outputs:
+        - "2-5x scheduler speedup"
+        - "Deterministic task ordering"
+      requires_human_confirmation: false
+      effort_hours: 4
+    
+    - id: "step-14-router-writeback-cache"
+      name: "Router write-back cache (CRITICAL-007, MEDIUM-006)"
+      operation_kind: "OP-PERFORMANCE"
+      pattern_ids:
+        - "PAT-CACHE-001"
+      description: "Batch state writes with timer-based flush"
+      tool_id: "github-copilot"
+      inputs:
+        files:
+          - "core/engine/router.py"
+      expected_outputs:
+        - "95% disk I/O reduction"
+        - "100 tasks → 1-2 file writes vs 100"
+      requires_human_confirmation: false
+      effort_hours: 6
+    
+    # === PHASE 4: Git Multi-Agent Safety (Quarter 1, 40 hours) ===
+    
+    - id: "step-15-git-isolation"
+      name: "Multi-agent git isolation (CRITICAL-008/009/010)"
+      operation_kind: "OP-CREATE-MODULE"
+      pattern_ids:
+        - "PAT-GIT-WORKTREE-001"
+      description: "Separate clones per agent with --shared objects"
+      tool_id: "github-copilot"
+      inputs:
+        files_to_create:
+          - "core/agents/git_isolation.py"
+        features:
+          - "create_agent_repo(agent_id, base_branch)"
+          - "merge_agent_work(agent_id, target_branch)"
+          - "cleanup_agent_repo(agent_id)"
+          - "Shared .git/objects (disk efficient)"
+      expected_outputs:
+        - "Eliminates all 6 git failure modes (P1-P6)"
+        - "Zero work lost, no cross-agent contamination"
+      requires_human_confirmation: false
+      effort_hours: 20
+    
+    - id: "step-16-hook-isolation"
+      name: "Pre-commit hook isolation (HIGH-012)"
+      operation_kind: "OP-GIT-CONFIG"
+      pattern_ids:
+        - "PAT-GIT-HOOKS-001"
+      description: "Copy hooks to agent repos with context verification"
+      tool_id: "github-copilot"
+      inputs:
+        files:
+          - "core/agents/git_isolation.py"
+      expected_outputs:
+        - "Hooks run in isolated context"
+        - "No cross-agent side effects"
+      requires_human_confirmation: false
+      effort_hours: 8
+    
+    - id: "step-17-branch-validation"
+      name: "Base branch consistency (MEDIUM-009)"
+      operation_kind: "OP-CREATE-CI"
+      pattern_ids:
+        - "PAT-CI-VALIDATION-001"
+      description: "CI workflow to validate agent branch merge-base"
+      tool_id: "github-copilot"
+      inputs:
+        files_to_create:
+          - ".github/workflows/validate-branches.yml"
+      expected_outputs:
+        - "All agent branches guaranteed same base"
+      requires_human_confirmation: false
+      effort_hours: 4
+    
+    # === PHASE 5: Long-Term Stability (Quarter 1, 44 hours) ===
+    
+    - id: "step-18-db-migrations"
+      name: "Database schema migrations (MEDIUM-010)"
+      operation_kind: "OP-DB-MIGRATIONS"
+      pattern_ids:
+        - "PAT-ALEMBIC-001"
+      description: "Initialize Alembic, create initial migration"
+      tool_id: "github-copilot"
+      inputs:
+        files_to_create:
+          - "alembic.ini"
+          - "schema/migrations/env.py"
+          - ".github/workflows/backup-database.yml"
+      expected_outputs:
+        - "Zero schema drift incidents"
+        - "30-day backup retention"
+      requires_human_confirmation: false
+      effort_hours: 10
+    
+    - id: "step-19-connection-pool"
+      name: "SQLite connection pooling (MEDIUM-004)"
+      operation_kind: "OP-DB-OPTIMIZE"
+      pattern_ids:
+        - "PAT-DB-POOL-001"
+      description: "Create connection pool with Queue-based reuse"
+      tool_id: "github-copilot"
+      inputs:
+        files_to_create:
+          - "core/state/connection_pool.py"
+      expected_outputs:
+        - "50% reduction in connection overhead"
+      requires_human_confirmation: false
+      effort_hours: 8
+    
+    - id: "step-20-error-engine-ci"
+      name: "Error engine CI integration (HIGH-003)"
+      operation_kind: "OP-CREATE-CI"
+      pattern_ids:
+        - "PAT-CI-SCAN-001"
+      description: "Scheduled error scans with critical error blocking"
+      tool_id: "github-copilot"
+      inputs:
+        files_to_create:
+          - ".github/workflows/error-scan.yml"
+      expected_outputs:
+        - "Continuous error detection"
+        - "CI blocks on critical errors"
+      requires_human_confirmation: false
+      effort_hours: 6
+    
+    # === MASTER_SPLINTER Integration (Original Steps) ===
+    
+    - id: "step-21-analyze-master-splinter"
+      name: "Analyze MASTER_SPLINTER structure and dependencies"
+      operation_kind: "OP-ANALYZE-CONTEXT"
+      pattern_ids:
+        - "PAT-ANALYZE-REPO-001"
+      description: "Review MASTER_SPLINTER components, identify integration points with core/engine, map dependencies"
+      tool_id: "github-copilot"
+      inputs:
+        repo_paths:
+          - "MASTER_SPLINTER/**/*.py"
+          - "core/engine/**/*.py"
+          - "core/orchestration/**"
+        constraints:
+          respect_file_scope: true
+      expected_outputs:
+        - "Integration architecture document"
+        - "Dependency map"
+      requires_human_confirmation: false
+      effort_hours: 4
+
+    - id: "step-22-create-orchestration-module"
+      name: "Create core/orchestration module structure"
+      operation_kind: "OP-CREATE-MODULE"
+      pattern_ids:
+        - "PAT-MODULE-STRUCTURE-001"
+      description: "Set up core/orchestration/ with __init__.py, move MASTER_SPLINTER Python files"
+      tool_id: "powershell-script"
+      inputs:
+        commands:
+          - "New-Item -ItemType Directory -Path core\\orchestration -Force"
+          - "New-Item -ItemType File -Path core\\orchestration\\__init__.py -Force"
+          - "Copy-Item MASTER_SPLINTER\\multi_agent_workstream_coordinator.py core\\orchestration\\multi_agent_coordinator.py"
+          - "Copy-Item MASTER_SPLINTER\\run_master_splinter.py core\\orchestration\\master_orchestrator.py"
+          - "Copy-Item MASTER_SPLINTER\\phase_plan_to_workstream.py core\\orchestration\\phase_plan_converter.py"
+      expected_outputs:
+        - "core/orchestration/__init__.py"
+        - "core/orchestration/multi_agent_coordinator.py"
+        - "core/orchestration/master_orchestrator.py"
+        - "core/orchestration/phase_plan_converter.py"
+      requires_human_confirmation: false
+
+    - id: "step-23-update-imports"
+      name: "Update import paths in moved files"
+      operation_kind: "OP-REFACTOR-IMPORTS"
+      pattern_ids:
+        - "PAT-IMPORT-REFACTOR-001"
+      description: "Update all import statements to use core.orchestration paths, fix references to MASTER_SPLINTER"
+      tool_id: "github-copilot"
+      inputs:
+        files:
+          - "core/orchestration/multi_agent_coordinator.py"
+          - "core/orchestration/master_orchestrator.py"
+          - "core/orchestration/phase_plan_converter.py"
+        refactor_rules:
+          - "from MASTER_SPLINTER → from core.orchestration"
+          - "Fix relative paths to REPO_ROOT"
+      expected_outputs:
+        - "Updated import statements"
+        - "No import errors when running python -m core.orchestration"
+      requires_human_confirmation: false
+
+    - id: "step-24-move-templates"
+      name: "Move phase plan templates to templates/"
+      operation_kind: "OP-FILE-MOVE"
+      pattern_ids:
+        - "PAT-FILE-REORGANIZE-001"
+      description: "Move YAML template and guide to templates/ directory"
+      tool_id: "powershell-script"
+      inputs:
+        commands:
+          - "Copy-Item MASTER_SPLINTER\\MASTER_SPLINTER_Phase_Plan_Template.yml templates\\"
+          - "Copy-Item MASTER_SPLINTER\\MASTER_SPLINTER_Phase_Plan_Template_GUIDE.md templates\\"
+      expected_outputs:
+        - "templates/MASTER_SPLINTER_Phase_Plan_Template.yml"
+        - "templates/MASTER_SPLINTER_Phase_Plan_Template_GUIDE.md"
+      requires_human_confirmation: false
+
+    - id: "step-25-move-sync-scripts"
+      name: "Move GitHub sync scripts to scripts/"
+      operation_kind: "OP-FILE-MOVE"
+      pattern_ids:
+        - "PAT-FILE-REORGANIZE-001"
+      description: "Move workstream sync and phase plan conversion scripts to scripts/"
+      tool_id: "powershell-script"
+      inputs:
+        commands:
+          - "Copy-Item MASTER_SPLINTER\\sync_workstreams_to_github.py scripts\\"
+      expected_outputs:
+        - "scripts/sync_workstreams_to_github.py"
+      requires_human_confirmation: false
+
+    - id: "step-26-update-documentation"
+      name: "Create integration documentation"
+      operation_kind: "OP-WRITE-DOCS"
+      pattern_ids:
+        - "PAT-DOC-INTEGRATION-001"
+      description: "Create comprehensive integration guide, update README references"
+      tool_id: "github-copilot"
+      inputs:
+        templates:
+          - "docs/orchestration/MULTI_AGENT_INTEGRATION_GUIDE.md"
+        content_sources:
+          - "MASTER_SPLINTER/CLAUDE.md"
+          - "MASTER_SPLINTER/README.md"
+          - "MASTER_SPLINTER/MULTI_AGENT_CONSOLIDATION_GUIDE.md"
+      expected_outputs:
+        - "docs/orchestration/MULTI_AGENT_INTEGRATION_GUIDE.md"
+        - "Updated README.md with orchestration references"
+      requires_human_confirmation: false
+
+    - id: "step-27-create-tests"
+      name: "Create integration tests"
+      operation_kind: "OP-CREATE-TESTS"
+      pattern_ids:
+        - "PAT-PYTEST-INTEGRATION-001"
+      description: "Create tests for multi-agent coordinator, verify end-to-end execution"
+      tool_id: "github-copilot"
+      inputs:
+        test_files:
+          - "tests/orchestration/test_multi_agent_coordinator.py"
+          - "tests/orchestration/test_phase_plan_converter.py"
+        coverage_target: 70
+      expected_outputs:
+        - "tests/orchestration/test_multi_agent_coordinator.py"
+        - "tests/orchestration/test_phase_plan_converter.py"
+      requires_human_confirmation: false
+
+    - id: "step-28-static-validation"
+      name: "Run static analysis"
+      operation_kind: "OP-VALIDATE-STATIC"
+      pattern_ids:
+        - "PAT-LINT-001"
+      description: "Validate all moved and modified files with ruff"
+      tool_id: "ruff"
+      inputs:
+        commands:
+          - "ruff check core/orchestration/"
+          - "ruff check scripts/sync_workstreams_to_github.py"
+      expected_outputs:
+        - "No ruff errors"
+      requires_human_confirmation: false
+
+    - id: "step-29-run-tests"
+      name: "Execute integration tests"
+      operation_kind: "OP-VALIDATE-RUNTIME"
+      pattern_ids:
+        - "PAT-PYTEST-CORE-001"
+      description: "Run pytest suite for orchestration module"
+      tool_id: "pytest"
+      inputs:
+        commands:
+          - "pytest tests/orchestration/ -v"
+      expected_outputs:
+        - "All tests passing"
+      requires_human_confirmation: false
+
+    - id: "step-30-e2e-verification"
+      name: "End-to-end multi-agent execution test"
+      operation_kind: "OP-VALIDATE-E2E"
+      pattern_ids:
+        - "PAT-E2E-TEST-001"
+      description: "Run master orchestrator with example phase plan, verify multi-agent coordination"
+      tool_id: "powershell-script"
+      inputs:
+        commands:
+          - "python -m core.orchestration.master_orchestrator --dry-run"
+      expected_outputs:
+        - "Dry-run completes without errors"
+        - "Multi-agent coordinator accessible"
+      requires_human_confirmation: false
+
+fix_loop_and_circuit_breakers:
+  enabled: true
+  applies_to_steps:
+    - "step-02-blocking-gates"
+    - "step-28-static-validation"
+    - "step-29-run-tests"
+  max_iterations: 3
+  escalation_threshold: 2
+  circuit_breaker:
+    max_consecutive_failures: 3
+    cooldown_minutes: 5
+  fix_strategy:
+    primary_agent: "github-copilot"
+    fallback_agents:
+      - "aider"
+  error_detection:
+    enabled: true
+    plugins:
+      - "python_ruff"
+      - "pytest"
+  validation_gates:
+    phase_1_complete: "CI passing, 2-3x DB performance verified"
+    phase_2_complete: "Deployment pipeline functional, CLI wrapper tested"
+    phase_3_complete: "200+ tasks/minute benchmark achieved"
+    phase_4_complete: "Multi-agent git isolation tested with 3+ concurrent agents"
+    phase_5_complete: "DB migrations working, backups automated"
+
+expected_artifacts:
+  files:
+    # Phase 1: Quick Wins
+    - path: "pyproject.toml"
+      description: "Updated with [build-system] section"
+      required: true
+    - path: ".github/workflows/quality-gates.yml"
+      description: "Updated with blocking gates (no || true)"
+      required: true
+    - path: "core/state/db.py"
+      description: "WAL mode enabled, indexes added"
+      required: true
+    - path: "core/events/event_bus.py"
+      description: "Lazy JSON serialization"
+      required: true
+    - path: "core/engine/router.py"
+      description: "LRU cache for metrics"
+      required: true
+    
+    # Phase 2: Automation
+    - path: ".github/workflows/deploy-staging.yml"
+      description: "Staging deployment automation"
+      required: true
+    - path: ".github/workflows/deploy-production.yml"
+      description: "Production deployment automation"
+      required: true
+    - path: "core/cli/wrapper.py"
+      description: "CLI wrapper with orchestrator integration"
+      required: true
+    - path: "error/automation/patch_applier.py"
+      description: "Automated patch application with confidence scoring"
+      required: true
+    - path: "core/engine/triggers.py"
+      description: "Event-driven workstream triggers"
+      required: true
+    - path: "config/triggers.yaml"
+      description: "Trigger configuration"
+      required: true
+    
+    # Phase 3: Performance
+    - path: "core/engine/async_executor.py"
+      description: "Async subprocess execution"
+      required: true
+    - path: "core/state/db.py"
+      description: "Batch operation methods added"
+      required: true
+    - path: "core/engine/scheduler.py"
+      description: "Sorted cache and execution order cache"
+      required: true
+    - path: "core/engine/router.py"
+      description: "Write-back cache with timer flush"
+      required: true
+    
+    # Phase 4: Git Safety
+    - path: "core/agents/git_isolation.py"
+      description: "Multi-agent git isolation"
+      required: true
+    - path: ".github/workflows/validate-branches.yml"
+      description: "Branch validation CI"
+      required: true
+    - path: "docs/GIT_MULTI_AGENT_RUNBOOK.md"
+      description: "Git multi-agent operations runbook"
+      required: true
+    
+    # Phase 5: Stability
+    - path: "alembic.ini"
+      description: "Alembic migrations config"
+      required: true
+    - path: "schema/migrations/env.py"
+      description: "Alembic environment"
+      required: true
+    - path: ".github/workflows/backup-database.yml"
+      description: "Automated database backups"
+      required: true
+    - path: "core/state/connection_pool.py"
+      description: "SQLite connection pooling"
+      required: true
+    - path: ".github/workflows/error-scan.yml"
+      description: "Error engine CI integration"
+      required: true
+    
+    # MASTER_SPLINTER Integration
+    - path: "core/orchestration/__init__.py"
+      description: "Orchestration module initialization"
+      required: true
+    - path: "core/orchestration/multi_agent_coordinator.py"
+      description: "Multi-agent workstream coordinator"
+      required: true
+    - path: "core/orchestration/master_orchestrator.py"
+      description: "Top-level orchestrator"
+      required: true
+    - path: "core/orchestration/phase_plan_converter.py"
+      description: "YAML to JSON phase plan converter"
+      required: true
+    - path: "templates/MASTER_SPLINTER_Phase_Plan_Template.yml"
+      description: "Phase plan YAML template"
+      required: true
+    - path: "templates/MASTER_SPLINTER_Phase_Plan_Template_GUIDE.md"
+      description: "Template fill guide"
+      required: true
+    - path: "scripts/sync_workstreams_to_github.py"
+      description: "GitHub workstream sync script"
+      required: true
+    - path: "docs/orchestration/MULTI_AGENT_INTEGRATION_GUIDE.md"
+      description: "Integration documentation"
+      required: true
+    - path: "tests/orchestration/test_multi_agent_coordinator.py"
+      description: "Multi-agent coordinator tests"
+      required: true
+    - path: ".state/multi_agent_consolidated.db"
+      description: "Multi-agent results database"
+      required: false
+
+  database_tables:
+    - name: "consolidated_runs"
+      schema_ref: ".state/multi_agent_consolidated.db"
+      description: "Multi-agent execution run summaries"
+    - name: "agent_results"
+      schema_ref: ".state/multi_agent_consolidated.db"
+      description: "Individual agent execution results"
+    - name: "decisions"
+      schema_ref: ".state/decisions.db"
+      description: "Decision tracking registry (routing, scheduling, retry, circuit breaker)"
+  
+  performance_metrics:
+    - metric: "database_read_speedup"
+      baseline: "1x"
+      target: "2-3x (WAL mode + indexes)"
+    - metric: "event_insert_speedup"
+      baseline: "1x (2.5s for 1000 events)"
+      target: "31x (0.08s for 1000 events)"
+    - metric: "tasks_per_minute"
+      baseline: "15 tasks/minute"
+      target: "200+ tasks/minute"
+    - metric: "manual_overhead_hours_per_month"
+      baseline: "226 hours/month"
+      target: "0 hours/month"
+    - metric: "automation_coverage"
+      baseline: "25%"
+      target: "95%"
+
+acceptance_tests:
+  tests:
+    - id: "acc-01-module-imports"
+      description: "All orchestration modules import without errors"
+      command: "python -c \"from core.orchestration import multi_agent_coordinator, master_orchestrator, phase_plan_converter\""
+      expected_exit_code: 0
+      required: true
+
+    - id: "acc-02-template-validation"
+      description: "Phase plan template is valid YAML"
+      command: "python -c \"import yaml; yaml.safe_load(open('templates/MASTER_SPLINTER_Phase_Plan_Template.yml'))\""
+      expected_exit_code: 0
+      required: true
+
+    - id: "acc-03-tests-pass"
+      description: "All orchestration tests pass"
+      command: "pytest tests/orchestration/ -q"
+      expected_exit_code: 0
+      required: true
+
+    - id: "acc-04-dry-run-works"
+      description: "Master orchestrator dry-run executes"
+      command: "python -m core.orchestration.master_orchestrator --help"
+      expected_exit_code: 0
+      required: true
+
+    - id: "acc-05-no-master-splinter-imports"
+      description: "No remaining MASTER_SPLINTER import references"
+      command: "grep -r \"from MASTER_SPLINTER\" core/orchestration/ scripts/"
+      expected_exit_code: 1
+      required: true
+
+completion_gate:
+  rules:
+    all_artifacts_created: true
+    all_acceptance_tests_passed: true
+    min_test_coverage_percent: 70
+    no_static_analysis_errors: true
+    documentation_complete: true
+  manual_override:
+    allowed: true
+    requires_approval_from: "tech_lead"
+    reason_required: true
+
+observability_and_metrics:
+  logging:
+    level: "INFO"
+    outputs:
+      - "console"
+      - "file:logs/master_splinter_integration.log"
+  metrics_to_collect:
+    - "integration_duration_seconds"
+    - "files_moved_count"
+    - "tests_created_count"
+    - "import_errors_count"
+  telemetry:
+    enabled: false
+
+governance_and_constraints:
+  approval_required: false
+  breaking_changes_allowed: false
+  backwards_compatibility_required: true
+  rollback_plan: "Revert git commits per phase. Phases are independent - can rollback Phase 3 without affecting Phase 1/2. MASTER_SPLINTER integration can rollback to standalone state."
+  communication_required:
+    - stakeholder: "development_team"
+      channel: "documentation"
+      message: "MASTER_SPLINTER integrated into core/orchestration - multi-agent now available via python -m core.orchestration.master_orchestrator"
+    - stakeholder: "operations_team"
+      channel: "slack"
+      message: "Automated deployment pipelines now active. Staging deploys on push to main, production on releases."
+    - stakeholder: "qa_team"
+      channel: "email"
+      message: "Error recovery automation live. 95% of patches now auto-applied with validation."
+  
+  risk_mitigation:
+    - risk: "Async executor introduces instability"
+      mitigation: "Opt-in feature flag (execution.mode: async), keep sync executor default"
+      rollback: "Set config to sync mode"
+    - risk: "Git isolation breaks existing workflows"
+      mitigation: "Test with single agent before multi-agent rollout"
+      rollback: "Revert to shared working tree"
+    - risk: "Connection pool causes thread safety issues"
+      mitigation: "Implement behind feature flag, extensive testing"
+      rollback: "Disable pool, use direct connections"
+  
+  parallelization_strategy:
+    week_1_2:
+      developer_1: "CI fixes (step 1-2), DB optimizations (step 3-6)"
+      developer_2: "Router cache (step 6), lazy JSON (step 5)"
+    month_1:
+      developer_1: "Deployment automation (step 7), error recovery (step 9)"
+      developer_2: "CLI wrapper (step 8), event triggers (step 10)"
+    month_2:
+      developer_1: "Async executor (step 11), batch DB (step 12)"
+      developer_2: "Scheduler cache (step 13), router writeback (step 14)"
+    quarter_1:
+      developer_1: "Git isolation (step 15-16), DB migrations (step 18)"
+      developer_2: "Branch validation (step 17), connection pool (step 19), error CI (step 20)"
+      both: "MASTER_SPLINTER integration (steps 21-30)"

@@ -79,7 +79,7 @@ def migrate_module(module_id: str, use_symlinks: bool = False) -> bool:
     if use_symlinks:
         cmd.append("--symlinks")
 
-    result = subprocess.run(cmd, capture_output=True, text=True)
+    result = subprocess.run(cmd, capture_output=True, text=True, timeout=1800)
 
     if result.returncode != 0:
         print(f"Failed to migrate {module_id}")

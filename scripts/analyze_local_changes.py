@@ -18,7 +18,7 @@ import yaml
 
 def run_git_command(args: List[str]) -> str:
     """Run git command and return output."""
-    result = subprocess.run(["git"] + args, capture_output=True, text=True, check=False)
+    result = subprocess.run(["git"] + args, capture_output=True, text=True, check=False, timeout=1800)
     return result.stdout.strip()
 
 

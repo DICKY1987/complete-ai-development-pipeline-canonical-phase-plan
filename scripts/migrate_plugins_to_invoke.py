@@ -1,7 +1,7 @@
 """
 Batch migration script for Phase G WS-G2 Part 2.
 
-Migrates all error plugins from subprocess.run() to run_command().
+Migrates all error plugins from subprocess.run(, timeout=1800) to run_command().
 Validates changes with AST parsing to ensure correctness.
 """
 
@@ -71,7 +71,7 @@ def migrate_plugin(plugin_path: Path) -> Tuple[bool, str]:
     content = re.sub(import_pattern, new_import, content, count=1)
 
     # Replace subprocess.run patterns
-    # Pattern 1: result = subprocess.run([...], ...)
+    # Pattern 1: result = subprocess.run([...], ..., timeout=1800)
     subprocess_pattern = r"subprocess\.run\(\s*\[(.*?)\](.*?)\)"
 
     def replace_subprocess(match):

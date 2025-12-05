@@ -1,0 +1,126 @@
+doc_id: "DOC-EXAMPLE-PH-01"
+template_version: 3
+
+phase_identity:
+  phase_id: "PH-01"
+  workstream_id: "ws-001"
+  title: "Example Phase - Setup Documentation"
+  summary: "Demonstrate the MASTER_SPLINTER execution pipeline with a simple documentation task."
+  objective: "Generate baseline artifacts and verify orchestration reporting."
+  phase_type: "implementation"
+  status: "planned"
+  estimate_hours: 1
+  gh_item_id: null
+  tags:
+    - "demo"
+    - "documentation"
+
+dag_and_dependencies:
+  workstream_bundle_id: "ws-bundle-demo"
+  depends_on: []
+  may_run_parallel_with: []
+  parallel_group: "demo-group"
+  is_critical_path: false
+
+scope_and_modules:
+  repo_root: "."
+  modules: []
+  file_scope:
+    read_only:
+      - "README.md"
+      - "CLAUDE.md"
+    modify:
+      - "reports/*"
+      - "workstreams/*"
+    create:
+      - "reports/*"
+      - "workstreams/*"
+    forbidden_paths:
+      - ".git/*"
+      - "safe_merge/*"
+  worktree_strategy: "single"
+
+environment_and_tools:
+  target_os: "windows"
+  default_shell: "powershell"
+  primary_language: "python"
+  python:
+    version: "3.12"
+    virtualenv: null
+  required_services: []
+  config_files:
+    - "config/tool_profiles.json"
+    - "config/circuit_breakers.yaml"
+  ai_operators:
+    primary_agent: "claude-code"
+    secondary_agent: "codex"
+  tool_profiles: "config/tool_profiles.json"
+
+execution_profile:
+  prompt_template_id: "prompts/EXECUTION_PROMPT_TEMPLATE_V2_DAG_MULTI_WORKSTREAM.md"
+  concurrency: 1
+  retry_attempts: 1
+  no_stop_mode: true
+
+pre_flight_checks:
+  checks:
+    - id: "verify-config"
+      description: "Ensure tool and circuit breaker configs exist"
+      command: "ls config"
+    - id: "check-python"
+      description: "Confirm Python version is available"
+      command: "python --version"
+
+execution_plan:
+  steps:
+    - id: "generate-workstream"
+      description: "Convert phase plan to workstream JSON"
+      command: "python phase_plan_to_workstream.py"
+    - id: "run-orchestrator"
+      description: "Execute master orchestrator to generate report"
+      command: "python run_master_splinter.py"
+
+fix_loop_and_circuit_breakers:
+  circuit_breakers:
+    - "cb-oscillation-detector"
+    - "cb-max-attempts"
+    - "cb-timeout"
+    - "cb-scope-violation"
+  defaults:
+    max_attempts: 3
+    oscillation_window: 3
+    oscillation_threshold: 2
+
+expected_artifacts:
+  - id: "workstream-json"
+    path: "workstreams/ws-001.json"
+  - id: "completion-report"
+    path: "reports/COMPLETION_REPORT_*.md"
+
+acceptance_tests:
+  tests:
+    - id: "report-exists"
+      description: "Completion report generated"
+      command: "if (-not (Test-Path reports/COMPLETION_REPORT_*)) { exit 1 }"
+    - id: "workstream-exists"
+      description: "Workstream JSON generated"
+      command: "if (-not (Test-Path workstreams/ws-001.json)) { exit 1 }"
+
+completion_gate:
+  rules:
+    - "All expected artifacts exist"
+    - "Acceptance tests completed"
+  manual_override: null
+
+observability_and_metrics:
+  metrics:
+    - "phase_duration_seconds"
+    - "error_count"
+    - "artifacts_created"
+
+governance_and_constraints:
+  approvals_required: []
+  notes: "Demo phase for pipeline validation."
+
+extensions:
+  custom_fields: {}

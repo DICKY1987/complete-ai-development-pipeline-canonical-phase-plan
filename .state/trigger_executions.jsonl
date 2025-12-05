@@ -1,0 +1,5 @@
+{"rule_id": "phase1_to_phase2", "workstream_id": "WS-PHASE-2", "event_type": "phase.1.completed", "event_data": {}, "timestamp": "2025-12-05T18:39:49.620279+00:00", "run_id": "run-123", "status": "launched"}
+{"rule_id": "test", "workstream_id": "WS-PHASE-2", "event_type": "phase.1.completed", "event_data": {}, "timestamp": "2025-12-05T18:39:49.620279+00:00", "run_id": "run-123", "status": "launched"}
+{"rule_id": "phase1_to_phase2", "workstream_id": "WS-PHASE-2", "event_type": "phase.1.completed", "event_data": {}, "timestamp": "2025-12-05T18:40:24.887386+00:00", "run_id": "run-123", "status": "launched"}
+{"rule_id": "test", "workstream_id": "WS-PHASE-2", "event_type": "phase.1.completed", "event_data": {}, "timestamp": "2025-12-05T18:40:24.889393+00:00", "run_id": "run-123", "status": "launched"}
+{"rule_id": "test", "workstream_id": "WS-PHASE-2", "event_type": "phase.1.completed", "event_data": {}, "timestamp": "2025-12-05T18:40:42.556302+00:00", "run_id": "run-123", "status": "launched"}

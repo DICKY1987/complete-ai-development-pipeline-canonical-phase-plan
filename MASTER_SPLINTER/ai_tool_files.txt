@@ -1,0 +1,90 @@
+C:\Users\richg\ALL_AI\Archives\Complete_AI_Development_Pipeline_Archive_2025-12-02\archive\2025-11-26_developer\2025-11\phase-h-legacy\pipeline_plus\.aiderignore
+C:\Users\richg\ALL_AI\Archives\Complete_AI_Development_Pipeline_Archive_2025-12-02\archive\2025-11-26_developer\2025-11\phase-h-legacy\pipeline_plus\Aider-optimized” workstreams.md
+C:\Users\richg\ALL_AI\Archives\Complete_AI_Development_Pipeline_Archive_2025-12-02\archive\2025-12-01_091928_old-root-folders\aim\.AIM_ai-tools-registry\AIM_adapters\AIM_aider.ps1
+C:\Users\richg\ALL_AI\Archives\Complete_AI_Development_Pipeline_Archive_2025-12-02\archive\2025-12-01_091928_old-root-folders\aim\.AIM_ai-tools-registry\AIM_audit\2025-11-20\2025-11-20T21-13-40-186469_aider_version_checking.json
+C:\Users\richg\ALL_AI\Archives\Complete_AI_Development_Pipeline_Archive_2025-12-02\archive\2025-12-01_091928_old-root-folders\aim\.AIM_ai-tools-registry\AIM_audit\2025-11-20\2025-11-20T21-13-41-432950_aider_version_checking.json
+C:\Users\richg\ALL_AI\Archives\Complete_AI_Development_Pipeline_Archive_2025-12-02\archive\2025-12-01_091928_old-root-folders\aim\.AIM_ai-tools-registry\AIM_audit\2025-11-20\2025-11-20T21-27-17-091002_aider_version_checking.json
+C:\Users\richg\ALL_AI\Archives\Complete_AI_Development_Pipeline_Archive_2025-12-02\archive\2025-12-01_091928_old-root-folders\aim\.AIM_ai-tools-registry\AIM_audit\2025-11-20\2025-11-20T21-27-18-548215_aider_version_checking.json
+C:\Users\richg\ALL_AI\Archives\Complete_AI_Development_Pipeline_Archive_2025-12-02\archive\2025-12-01_091928_old-root-folders\aim\.AIM_ai-tools-registry\AIM_audit\2025-11-30\2025-11-30T00-28-00-822699_aider_version_checking.json
+C:\Users\richg\ALL_AI\Archives\Complete_AI_Development_Pipeline_Archive_2025-12-02\archive\2025-12-01_091928_old-root-folders\aim\.AIM_ai-tools-registry\AIM_audit\2025-11-30\2025-11-30T00-28-02-079817_aider_version_checking.json
+C:\Users\richg\ALL_AI\Archives\Complete_AI_Development_Pipeline_Archive_2025-12-02\archive\2025-12-01_091928_old-root-folders\aim\docs\AIDER_PROTOCOL.md
+C:\Users\richg\ALL_AI\Archives\Complete_AI_Development_Pipeline_Archive_2025-12-02\archive\2025-12-01_115945_deprecated_folders\AI_SANDBOX\_template_sandbox\.aider.conf.yml
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\.aiderignore
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\AGENTIC_DEV_PROTOTYPE\phase_specs\phase_5a_aider_adapter.json
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\AGENTIC_DEV_PROTOTYPE\src\adapters\aider_adapter.py
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\aider\docs\Task-enqueue script (pushes tasks to Aider).md
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\aider\help\automated conversion examples showing how to transform existing Codex_Claude style phase prompts into Aider-compatible workstream.md
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\aider\help\guidance for structuring Aider workstream instruction files.md
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\aider\templates\prompts\workstream_v1.1_aider.txt.j2
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\aim\.AIM_ai-tools-registry\AIM_adapters\AIM_aider.ps1
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\aim\.AIM_ai-tools-registry\AIM_audit\2025-11-20\2025-11-20T21-13-40-186469_aider_version_checking.json
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\aim\.AIM_ai-tools-registry\AIM_audit\2025-11-20\2025-11-20T21-13-41-432950_aider_version_checking.json
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\aim\.AIM_ai-tools-registry\AIM_audit\2025-11-20\2025-11-20T21-27-17-091002_aider_version_checking.json
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\aim\.AIM_ai-tools-registry\AIM_audit\2025-11-20\2025-11-20T21-27-18-548215_aider_version_checking.json
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\core\engine\adapters\__pycache__\aider_adapter.cpython-312.pyc
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\core\engine\adapters\aider_adapter.py
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\devdocs\archive\2025-11\phase-h-legacy\pipeline_plus\_archive\exploration\ollama-code.md
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\devdocs\archive\2025-11\phase-h-legacy\pipeline_plus\_archive\exploration\Task-enqueue script (pushes tasks to Aider).md
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\devdocs\archive\2025-11\phase-h-legacy\pipeline_plus\_archive\reference\Aider-tuned WORKSTREAM_V1.md
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\devdocs\archive\2025-11\phase-h-legacy\pipeline_plus\_archive\reference\What DeepSeek-Coder actually adds to your stack.md
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\devdocs\archive\2025-11\phase-h-legacy\pipeline_plus\.aiderignore
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\devdocs\archive\2025-11\phase-h-legacy\pipeline_plus\Aider-optimized” workstreams.md
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\docs\aider_contract.md
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\docs\reference\tools\ollama-installation-notes.md
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\engine\adapters\__pycache__\aider_adapter.cpython-312.pyc
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\engine\adapters\aider_adapter.py
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\meta\Coordination Mechanisms\AIDER_COORDINATION_INSTRUCTIONS.md
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\meta\PHASE_DEV_DOCS\AIDER_INSTRUCTIONS_PH07.txt
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\meta\PHASE_DEV_DOCS\AIDER_PH_07_GUI_Layer_and_Plugin_System.md
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\meta\PHASE_DEV_DOCS\AIDER_PH_08_AIM_Tool_Registry_Integration.md
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\meta\PHASE_DEV_DOCS\AIDER_PH_09_Multi_Document_Versioning_and_Spec_Management.md
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\meta\PHASE_DEV_DOCS\PH_03.5_ Aider Integration Contract & Prompt Template System (Codex Autonomous Phase Executor)
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\PROCESS_DEEP_DIVE_OPTOMIZE\raw_data\sessions\session_3_m5_m6_completion\src_snapshot\adapters\aider_adapter.py
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\schema\jobs\examples\aider_job.json
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\scripts\add-aider-to-profile.ps1
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\scripts\AIDER_COMPREHENSIVE_TEST_PLAN.md
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\scripts\AIDER_CONFIG_ANALYSIS.md
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\scripts\AIDER_FIXES_APPLIED.md
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\scripts\AIDER_SETUP_README.md
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\scripts\aider-ollama.ps1
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\scripts\set-aider-env.ps1
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\scripts\test-aider-comprehensive.ps1
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\scripts\test-aider-deepseek.ps1
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\scripts\wsl\aider-wsl.ps1
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\scripts\wsl\configure-ollama-for-wsl.ps1
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\scripts\wsl\ollama-code-wsl.ps1
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\scripts\wsl\wsl-install-aider.ps1
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\tests\integration\__pycache__\test_aider_sandbox.cpython-312-pytest-8.4.2.pyc
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\tests\integration\__pycache__\test_aider_sandbox.cpython-312-pytest-9.0.0.pyc
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\tests\integration\test_aider_sandbox.py
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\workstreams\.deferred\test\test-aider.json
+C:\Users\richg\ALL_AI\Backups\pipeline_backup_2025-11-22_164906\Complete AI Development Pipeline – Canonical Phase Plan\workstreams\ws-08-refactor-aider-section.json
+C:\Users\richg\ALL_AI\CMD\aider_tasks_10line.yaml
+C:\Users\richg\ALL_AI\CMD\aider_tasks_index.csv
+C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\.aiderignore
+C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\aider\docs\Task-enqueue script (pushes tasks to Aider).md
+C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\aider\help\automated conversion examples showing how to transform existing Codex_Claude style phase prompts into Aider-compatible workstream.md
+C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\aider\help\guidance for structuring Aider workstream instruction files.md
+C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\aider\templates\prompts\workstream_v1.1_aider.txt.j2
+C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\docs\DOC_AIDER_CONTRACT.md
+C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\docs\reference\tools\ollama-installation-notes.md
+C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\engine\adapters\aider_adapter.py
+C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\schema\jobs\examples\aider_job.json
+C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\scripts\add-aider-to-profile.ps1
+C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\scripts\AIDER_COMPREHENSIVE_TEST_PLAN.md
+C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\scripts\AIDER_CONFIG_ANALYSIS.md
+C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\scripts\AIDER_FIXES_APPLIED.md
+C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\scripts\AIDER_SETUP_README.md
+C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\scripts\aider-ollama.ps1
+C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\scripts\set-aider-env.ps1
+C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\scripts\test-aider-comprehensive.ps1
+C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\scripts\test-aider-deepseek.ps1
+C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\scripts\wsl\aider-wsl.ps1
+C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\scripts\wsl\configure-ollama-for-wsl.ps1
+C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\scripts\wsl\ollama-code-wsl.ps1
+C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\scripts\wsl\wsl-install-aider.ps1
+C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\aim\fixtures\mock_aider.py
+C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\aim\integration\test_aider_pool.py
+C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\tests\integration\test_aider_sandbox.py
+C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\workstreams\.deferred\test\test-aider.json
+C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan\workstreams\ws-08-refactor-aider-section.json

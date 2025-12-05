@@ -12,7 +12,7 @@ from graphlib import TopologicalSorter
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional
 
-from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.shared.utils.types import PluginManifest, PluginResult
+from phase6_error_recovery.modules.error_engine.src.shared.utils.types import PluginManifest, PluginResult
 
 
 class PluginManager:
