@@ -26,6 +26,69 @@ class RoutingStateStore(Protocol):
     def get_tool_metrics(self, tool_id: str) -> Dict[str, Any]: ...
 
 
+class FileBackedStateStore:
+    """File-based implementation of routing state store with persistence"""
+
+    def __init__(self, state_file: str = ".state/router_state.json"):
+        self.state_file = Path(state_file)
+        self._load_state()
+
+    def _load_state(self):
+        """Load state from file if it exists"""
+        if self.state_file.exists():
+            try:
+                data = json.loads(self.state_file.read_text(encoding="utf-8"))
+                self._round_robin_indices = data.get("round_robin", {})
+                self._tool_metrics = defaultdict(
+                    lambda: {
+                        "success_count": 0,
+                        "failure_count": 0,
+                        "total_latency_ms": 0.0,
+                        "call_count": 0,
+                    },
+                    data.get("metrics", {}),
+                )
+            except (json.JSONDecodeError, IOError) as e:
+                logger.warning(f"Failed to load router state: {e}, starting fresh")
+                self._init_empty_state()
+        else:
+            self._init_empty_state()
+
+    def _init_empty_state(self):
+        """Initialize empty state"""
+        self._round_robin_indices: Dict[str, int] = {}
+        self._tool_metrics: Dict[str, Dict[str, Any]] = defaultdict(
+            lambda: {
+                "success_count": 0,
+                "failure_count": 0,
+                "total_latency_ms": 0.0,
+                "call_count": 0,
+            }
+        )
+
+    def _save_state(self):
+        """Persist state to file"""
+        try:
+            self.state_file.parent.mkdir(parents=True, exist_ok=True)
+            data = {
+                "round_robin": self._round_robin_indices,
+                "metrics": dict(self._tool_metrics),
+            }
+            self.state_file.write_text(json.dumps(data, indent=2), encoding="utf-8")
+        except IOError as e:
+            logger.error(f"Failed to save router state: {e}")
+
+    def get_round_robin_index(self, rule_id: str) -> int:
+        return self._round_robin_indices.get(rule_id, 0)
+
+    def set_round_robin_index(self, rule_id: str, index: int) -> None:
+        self._round_robin_indices[rule_id] = index
+        self._save_state()
+
+    def get_tool_metrics(self, tool_id: str) -> Dict[str, Any]:
+        return self._tool_metrics[tool_id]
+
+
 class InMemoryStateStore:
     """In-memory implementation of routing state store"""
 
@@ -294,7 +357,7 @@ class TaskRouter:
                 else:
                     capable.append(tool_id)
 
-        return capable
+        return sorted(capable)
 
     def _apply_strategy(
         self, candidates: List[str], strategy: str, rule_id: Optional[str] = None
@@ -492,6 +555,4 @@ def create_router(
     Returns:
         Configured TaskRouter instance
     """
-    return TaskRouter(
-        router_config_path, state_store=state_store, event_bus=event_bus
-    )
+    return TaskRouter(router_config_path, state_store=state_store, event_bus=event_bus)
