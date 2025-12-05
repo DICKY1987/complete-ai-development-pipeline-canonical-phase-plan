@@ -12,6 +12,7 @@ from typing import Any, Callable, Dict, Optional
 
 from core.adapters.base import ToolConfig
 from core.adapters.subprocess_adapter import SubprocessAdapter
+from core.contracts.decorators import enforce_entry_contract, enforce_exit_contract
 from core.engine.execution_request_builder import ExecutionRequestBuilder
 from core.engine.orchestrator import Orchestrator
 from core.engine.router import TaskRouter
@@ -79,6 +80,7 @@ class Executor:
             except Exception:
                 self.recovery_coordinator = None
 
+    @enforce_entry_contract(phase="phase5_execution")
     def execute_task(self, run_id: str, task: Task) -> Optional[AdapterResult]:
         """Execute a single task and return its result.
 
