@@ -1,0 +1,70 @@
+# Alert Configuration
+# Configure alerting channels and thresholds
+
+# Slack integration
+slack:
+  enabled: false
+  webhook_url: "${SLACK_WEBHOOK_URL}"  # Set in environment
+  channels:
+    - name: "#alerts"
+      severity_levels: ["critical", "error"]
+    - name: "#monitoring"
+      severity_levels: ["warning", "info"]
+
+# Email integration
+email:
+  enabled: false
+  smtp_host: "${SMTP_HOST}"
+  smtp_port: 587
+  from_address: "${ALERT_FROM_EMAIL}"
+  to_addresses:
+    - "${ALERT_TO_EMAIL}"
+  username: "${SMTP_USERNAME}"
+  password: "${SMTP_PASSWORD}"
+
+# Alert rules
+rules:
+  # Critical events always alert via all channels
+  critical:
+    channels: ["slack", "email", "log"]
+    throttle_minutes: 5
+  
+  # Errors alert via Slack and log
+  error:
+    channels: ["slack", "log"]
+    throttle_minutes: 15
+  
+  # Warnings alert via log only
+  warning:
+    channels: ["log"]
+    throttle_minutes: 30
+  
+  # Info messages log only
+  info:
+    channels: ["log"]
+    throttle_minutes: null
+
+# Thresholds for automatic alerting
+thresholds:
+  test_failure_rate:
+    warning: 5  # 5% failure rate
+    critical: 15  # 15% failure rate
+  
+  deployment_duration:
+    warning: 600  # 10 minutes
+    critical: 1800  # 30 minutes
+  
+  error_rate:
+    warning: 10  # 10 errors per hour
+    critical: 50  # 50 errors per hour
+
+# Daily summary
+daily_summary:
+  enabled: true
+  time: "09:00"  # UTC
+  channels: ["email"]
+  include:
+    - total_alerts
+    - by_severity
+    - top_errors
+    - deployment_summary

@@ -1,0 +1,53 @@
+# Event-Driven Trigger Configuration
+# Automatically launch workstreams based on events
+
+triggers:
+  # Phase completion triggers
+  - rule_id: "phase1_to_phase2"
+    event_pattern: "phase.1.completed"
+    workstream_id: "WS-PHASE-2"
+    enabled: true
+    description: "Launch Phase 2 when Phase 1 completes"
+  
+  - rule_id: "phase2_to_phase3"
+    event_pattern: "phase.2.completed"
+    workstream_id: "WS-PHASE-3"
+    enabled: true
+    description: "Launch Phase 3 when Phase 2 completes"
+  
+  - rule_id: "phase3_to_phase4"
+    event_pattern: "phase.3.completed"
+    workstream_id: "WS-PHASE-4"
+    enabled: true
+    description: "Launch Phase 4 when Phase 3 completes"
+  
+  # File change triggers
+  - rule_id: "schema_change_validation"
+    event_pattern: "file.changed.schema/*"
+    workstream_id: "WS-SCHEMA-VALIDATION"
+    enabled: true
+    description: "Validate schema changes automatically"
+  
+  - rule_id: "error_plugin_test"
+    event_pattern: "file.changed.error/plugins/*"
+    workstream_id: "WS-ERROR-PLUGIN-TEST"
+    enabled: true
+    description: "Test error plugins on changes"
+  
+  # Scheduled triggers (cron-style)
+  - rule_id: "nightly_full_test"
+    event_pattern: "schedule.cron"
+    workstream_id: "WS-NIGHTLY-TESTS"
+    enabled: true
+    description: "Run full test suite nightly"
+    condition:
+      cron: "0 2 * * *"
+  
+  # Error recovery triggers
+  - rule_id: "auto_error_recovery"
+    event_pattern: "error.detected.*"
+    workstream_id: "WS-ERROR-RECOVERY"
+    enabled: true
+    description: "Automatically launch error recovery on errors"
+    condition:
+      auto_recoverable: true
