@@ -1,12 +1,16 @@
 ---
 doc_id: DOC-GUIDE-E2E-PROCESS-VISUAL-DIAGRAM-472
+updated: 2025-12-05T06:08:00Z
+conforms_to: docs/reference/FLOWCHART_SYMBOLS_REFERENCE.md
 ---
 
 # 🎯 Complete AI Pipeline - End-to-End Visual Process Flow
 
 **Document ID**: DOC-VISUAL-E2E-PROCESS-FLOW-001
 **Generated**: 2025-12-02 22:45:00 UTC
+**Updated**: 2025-12-05 06:08:00 UTC
 **Framework**: Universal Execution Templates (UET)
+**Symbol Reference**: [FLOWCHART_SYMBOLS_REFERENCE.md](reference/FLOWCHART_SYMBOLS_REFERENCE.md)
 
 ---
 
@@ -15,132 +19,132 @@ doc_id: DOC-GUIDE-E2E-PROCESS-VISUAL-DIAGRAM-472
 ```mermaid
 graph TB
     subgraph "PHASE 0: Bootstrap & Initialization"
-        A1[👤 User: New Project] --> A2[🔍 core/bootstrap/<br/>orchestrator.py]
-        A2 --> A3[📂 profiles/<br/>Select Profile]
-        A3 --> A4[🔎 core/bootstrap/<br/>discovery.py]
-        A4 --> A5[✅ schema/<br/>Validate]
-        A5 --> A6[📄 Generate<br/>PROJECT_PROFILE.yaml<br/>router_config.json]
+        A1([User: New Project]) --> A2[core/bootstrap/<br/>orchestrator.py]
+        A2 --> A3[(profiles/<br/>Select Profile)]
+        A3 --> A4[core/bootstrap/<br/>discovery.py]
+        A4 --> A5[schema/<br/>Validate]
+        A5 --> A6[(Generate<br/>PROJECT_PROFILE.yaml<br/>router_config.json)]
 
-        style A1 fill:#f0f0f0
-        style A2 fill:#fff3cd
-        style A3 fill:#e1f5ff
-        style A4 fill:#fff3cd
-        style A5 fill:#d4edda
-        style A6 fill:#f8d7da
+        style A1 fill:#f0f0f0,stroke:#666,stroke-width:2px
+        style A2 fill:#fff3cd,stroke:#333,stroke-width:2px
+        style A3 fill:#e1f5ff,stroke:#333,stroke-width:2px
+        style A4 fill:#fff3cd,stroke:#333,stroke-width:2px
+        style A5 fill:#d4edda,stroke:#333,stroke-width:2px
+        style A6 fill:#f8d7da,stroke:#333,stroke-width:2px
     end
 
     subgraph "PHASE 1: Planning"
-        B1[📋 plans/<br/>Phase Plans] --> B2[📐 schema/<br/>Validate]
-        B2 --> B3[🎯 pm/<br/>Project Mgmt]
-        B3 --> B4[🔄 workstreams/<br/>Workstreams]
-        B4 --> B5[📝 templates/<br/>Load Templates]
+        B1[(plans/<br/>Phase Plans)] --> B2[schema/<br/>Validate]
+        B2 --> B3[[pm/<br/>Project Mgmt]]
+        B3 --> B4[(workstreams/<br/>Workstreams)]
+        B4 --> B5[(templates/<br/>Load Templates)]
 
-        style B1 fill:#e1f5ff
-        style B2 fill:#d4edda
-        style B3 fill:#ffd4e5
-        style B4 fill:#e1f5ff
-        style B5 fill:#e1f5ff
+        style B1 fill:#e1f5ff,stroke:#333,stroke-width:2px
+        style B2 fill:#d4edda,stroke:#333,stroke-width:2px
+        style B3 fill:#ffd4e5,stroke:#333,stroke-width:2px
+        style B4 fill:#e1f5ff,stroke:#333,stroke-width:2px
+        style B5 fill:#e1f5ff,stroke:#333,stroke-width:2px
     end
 
     subgraph "PHASE 2: Request Building"
-        C1[🖥️ CLI/User] --> C2[🏗️ core/engine/<br/>execution_request_builder.py]
-        C2 --> C3[✅ schema/<br/>Validate Request]
-        C3 --> C4[⚙️ core/engine/<br/>orchestrator.py]
-        C4 --> C5[💾 core/state/<br/>Create Run]
-        C5 --> C6[🗄️ state/<br/>SQLite DB]
+        C1[/CLI/User Input/] --> C2[core/engine/<br/>execution_request_builder.py]
+        C2 --> C3[schema/<br/>Validate Request]
+        C3 --> C4[core/engine/<br/>orchestrator.py]
+        C4 --> C5[core/state/<br/>Create Run]
+        C5 --> C6[("state/<br/>SQLite DB")]
 
-        style C1 fill:#f0f0f0
-        style C2 fill:#fff3cd
-        style C3 fill:#d4edda
-        style C4 fill:#fff3cd
-        style C5 fill:#cfe2ff
-        style C6 fill:#e1f5ff
+        style C1 fill:#f0f0f0,stroke:#666,stroke-width:2px
+        style C2 fill:#fff3cd,stroke:#333,stroke-width:2px
+        style C3 fill:#d4edda,stroke:#333,stroke-width:2px
+        style C4 fill:#fff3cd,stroke:#333,stroke-width:2px
+        style C5 fill:#cfe2ff,stroke:#333,stroke-width:2px
+        style C6 fill:#e1f5ff,stroke:#333,stroke-width:2px
     end
 
     subgraph "PHASE 3: Scheduling"
-        D1[📊 core/engine/<br/>scheduler.py] --> D2[🔗 Resolve<br/>Dependencies]
-        D2 --> D3[🔄 core/engine/<br/>state_machine.py]
-        D3 --> D4[📋 Task Queue<br/>Built]
+        D1[core/engine/<br/>scheduler.py] --> D2[Resolve<br/>Dependencies]
+        D2 --> D3[[core/engine/<br/>state_machine.py]]
+        D3 --> D4[/Task Queue<br/>Built/]
 
-        style D1 fill:#fff3cd
-        style D2 fill:#e1f5ff
-        style D3 fill:#fff3cd
-        style D4 fill:#f8d7da
+        style D1 fill:#fff3cd,stroke:#333,stroke-width:2px
+        style D2 fill:#e1f5ff,stroke:#333,stroke-width:2px
+        style D3 fill:#fff3cd,stroke:#333,stroke-width:2px
+        style D4 fill:#f8d7da,stroke:#333,stroke-width:2px
     end
 
     subgraph "PHASE 4: Routing"
-        E1[📄 router_config.json] --> E2[🔌 core/adapters/<br/>registry.py]
-        E2 --> E3[🎯 capabilities/<br/>Match Tools]
-        E3 --> E4[🔧 Select<br/>Adapter]
+        E1[(router_config.json)] --> E2[[core/adapters/<br/>registry.py]]
+        E2 --> E3[capabilities/<br/>Match Tools]
+        E3 --> E4[Select<br/>Adapter]
 
-        style E1 fill:#e1f5ff
-        style E2 fill:#fff3cd
-        style E3 fill:#d4edda
-        style E4 fill:#f8d7da
+        style E1 fill:#e1f5ff,stroke:#333,stroke-width:2px
+        style E2 fill:#fff3cd,stroke:#333,stroke-width:2px
+        style E3 fill:#d4edda,stroke:#333,stroke-width:2px
+        style E4 fill:#f8d7da,stroke:#333,stroke-width:2px
     end
 
     subgraph "PHASE 5: Execution"
-        F1[🔌 core/adapters/<br/>subprocess_adapter.py] --> F2[🛡️ core/engine/resilience/<br/>circuit_breaker.py]
-        F2 --> F3[🔁 retry.py] --> F4[▶️ Execute Tool]
-        F4 --> F5{✅ Success?}
-        F5 -->|❌ No| F6[⚠️ error/<br/>Detect Error]
-        F5 -->|✅ Yes| F7[✔️ Continue]
+        F1[[core/adapters/<br/>subprocess_adapter.py]] --> F2[core/engine/resilience/<br/>circuit_breaker.py]
+        F2 --> F3[retry.py] --> F4[Execute Tool]
+        F4 --> F5{Success?}
+        F5 -->|No| F6[[error/<br/>Detect Error]]
+        F5 -->|Yes| F7[Continue]
 
-        style F1 fill:#fff3cd
-        style F2 fill:#fff3cd
-        style F3 fill:#fff3cd
-        style F4 fill:#f0f0f0
-        style F5 fill:#f8d7da
-        style F6 fill:#ffd4e5
-        style F7 fill:#d4edda
+        style F1 fill:#fff3cd,stroke:#333,stroke-width:2px
+        style F2 fill:#fff3cd,stroke:#333,stroke-width:2px
+        style F3 fill:#fff3cd,stroke:#333,stroke-width:2px
+        style F4 fill:#f0f0f0,stroke:#666,stroke-width:2px
+        style F5 fill:#f8d7da,stroke:#333,stroke-width:3px
+        style F6 fill:#ffd4e5,stroke:#333,stroke-width:2px
+        style F7 fill:#d4edda,stroke:#333,stroke-width:2px
     end
 
     subgraph "PHASE 6: Error Analysis"
-        G1[🔍 error/engine/<br/>error_engine.py] --> G2[🧩 error/plugins/]
-        G2 --> G3[🐍 python_ruff/]
-        G2 --> G4[💻 shell/]
-        G2 --> G5[📘 typescript/]
-        G3 --> G6[📊 Generate<br/>Error Report]
+        G1[[error/engine/<br/>error_engine.py]] --> G2[[error/plugins/]]
+        G2 --> G3[[python_ruff/]]
+        G2 --> G4[[shell/]]
+        G2 --> G5[[typescript/]]
+        G3 --> G6[(Generate<br/>Error Report)]
         G4 --> G6
         G5 --> G6
 
-        style G1 fill:#ffd4e5
-        style G2 fill:#ffd4e5
-        style G3 fill:#ffd4e5
-        style G4 fill:#ffd4e5
-        style G5 fill:#ffd4e5
-        style G6 fill:#f8d7da
+        style G1 fill:#ffd4e5,stroke:#333,stroke-width:2px
+        style G2 fill:#ffd4e5,stroke:#333,stroke-width:2px
+        style G3 fill:#ffd4e5,stroke:#333,stroke-width:2px
+        style G4 fill:#ffd4e5,stroke:#333,stroke-width:2px
+        style G5 fill:#ffd4e5,stroke:#333,stroke-width:2px
+        style G6 fill:#f8d7da,stroke:#333,stroke-width:2px
     end
 
     subgraph "PHASE 7: Monitoring"
-        H1[📈 core/engine/monitoring/<br/>progress_tracker.py] --> H2[👁️ run_monitor.py]
-        H2 --> H3[💾 core/state/<br/>Update]
-        H3 --> H4[🗄️ state/<br/>SQLite DB]
-        H4 --> H5[🖥️ gui/]
-        H5 --> H6[📟 textual/<br/>TUI]
-        H5 --> H7[🎨 rich/<br/>Formatting]
+        H1[core/engine/monitoring/<br/>progress_tracker.py] --> H2[run_monitor.py]
+        H2 --> H3[core/state/<br/>Update]
+        H3 --> H4[("state/<br/>SQLite DB")]
+        H4 --> H5[\gui/<br/>Display/]
+        H5 --> H6[\textual/<br/>TUI/]
+        H5 --> H7[\rich/<br/>Formatting/]
 
-        style H1 fill:#fff3cd
-        style H2 fill:#fff3cd
-        style H3 fill:#cfe2ff
-        style H4 fill:#e1f5ff
-        style H5 fill:#e8d4f8
-        style H6 fill:#e8d4f8
-        style H7 fill:#e8d4f8
+        style H1 fill:#fff3cd,stroke:#333,stroke-width:2px
+        style H2 fill:#fff3cd,stroke:#333,stroke-width:2px
+        style H3 fill:#cfe2ff,stroke:#333,stroke-width:2px
+        style H4 fill:#e1f5ff,stroke:#333,stroke-width:2px
+        style H5 fill:#e8d4f8,stroke:#333,stroke-width:2px
+        style H6 fill:#e8d4f8,stroke:#333,stroke-width:2px
+        style H7 fill:#e8d4f8,stroke:#333,stroke-width:2px
     end
 
     subgraph "PHASE 8: Completion"
-        I1[🔄 core/engine/<br/>state_machine.py] --> I2{🏁 All Done?}
-        I2 -->|❌ No| I3[➡️ Next Task]
-        I2 -->|✅ Yes| I4[✅ Run Complete]
-        I3 --> I5[💾 Persist State]
+        I1[[core/engine/<br/>state_machine.py]] --> I2{All Done?}
+        I2 -->|No| I3[Next Task]
+        I2 -->|Yes| I4([Run Complete])
+        I3 --> I5[Persist State]
         I5 --> D1
 
-        style I1 fill:#fff3cd
-        style I2 fill:#f8d7da
-        style I3 fill:#fff3cd
-        style I4 fill:#d4edda
-        style I5 fill:#cfe2ff
+        style I1 fill:#fff3cd,stroke:#333,stroke-width:2px
+        style I2 fill:#f8d7da,stroke:#333,stroke-width:3px
+        style I3 fill:#fff3cd,stroke:#333,stroke-width:2px
+        style I4 fill:#d4edda,stroke:#28a745,stroke-width:4px
+        style I5 fill:#cfe2ff,stroke:#333,stroke-width:2px
     end
 
     A6 --> B1
@@ -153,7 +157,8 @@ graph TB
     G6 --> H1
     H4 --> I1
 
-    style I4 fill:#d4edda,stroke:#28a745,stroke-width:4px
+classDef terminalNode fill:#d4edda,stroke:#28a745,stroke-width:4px
+class I4 terminalNode
 ```
 
 ---
@@ -536,26 +541,27 @@ Result
 
 ## 🎨 Visual Legend
 
-### **Icon Key**
-- 👤 User/Human
-- 🔍 Discovery/Search
-- ⚙️ Engine/Processing
-- 📂 Storage/Files
-- ✅ Validation
-- 🔗 Dependencies
-- 🔌 Adapters
-- 🛡️ Resilience
-- ⚠️ Errors
-- 📈 Monitoring
-- 🏁 Completion
+### **Symbol Guide** (per [FLOWCHART_SYMBOLS_REFERENCE.md](reference/FLOWCHART_SYMBOLS_REFERENCE.md))
+
+| Symbol Type | Mermaid Syntax | Usage | Example |
+|------------|---------------|-------|---------|
+| **Start/End** | `([Node])` | Terminal points | User start, Run complete |
+| **Process** | `[Node]` | Standard action | Execute, Validate, Build |
+| **Decision** | `{Node?}` | Conditional branch | Success? All Done? |
+| **Document** | `[(Node)]` | File/document | Phase plans, configs, reports |
+| **Database** | `[("Node")]` | Data storage | SQLite DB, state storage |
+| **Subroutine** | `[[Node]]` | Module call | Error engine, registry, state machine |
+| **Input/Output** | `[/Node/]` | I/O operation | CLI input, task queue |
+| **Display** | `[\Node\]` | UI display | GUI, TUI, formatting |
 
 ### **Color Code**
-- 🟦 **Blue** - Data/Storage (plans, state, profiles)
-- 🟨 **Yellow** - Engines/Logic (core/engine, bootstrap)
-- 🟩 **Green** - Validation (schema, capabilities)
-- 🟪 **Purple** - UI (gui, textual, rich)
-- 🟥 **Red** - Errors/Critical (error/, state transitions)
-- 🟧 **Orange** - Support (aim, modules, registry)
+- 🟦 **Blue** (`#e1f5ff`) - Data/Storage (plans, state, profiles, databases)
+- 🟨 **Yellow** (`#fff3cd`) - Engines/Logic (core/engine, bootstrap, adapters)
+- 🟩 **Green** (`#d4edda`) - Validation (schema, capabilities, success states)
+- 🟪 **Purple** (`#e8d4f8`) - UI/Display (gui, textual, rich formatting)
+- 🟥 **Red** (`#f8d7da`) - Critical/Output (errors, state transitions, artifacts)
+- 🟧 **Orange** (`#ffd4e5`) - Support/Plugins (AIM, error plugins, PM)
+- ⬜ **Gray** (`#f0f0f0`) - External (user, manual steps, external systems)
 
 ---
 
@@ -563,3 +569,4 @@ Result
 **Total Phases**: 8 (Bootstrap → Planning → Execution → Monitoring → Completion)
 **Total Folders**: 30+ active components
 **Architecture**: 4-layer (Foundation → State → Domain → Orchestration)
+**Symbol Standard**: [FLOWCHART_SYMBOLS_REFERENCE.md](reference/FLOWCHART_SYMBOLS_REFERENCE.md)
