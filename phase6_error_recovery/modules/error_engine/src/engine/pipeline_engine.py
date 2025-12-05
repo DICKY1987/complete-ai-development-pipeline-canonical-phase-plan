@@ -12,14 +12,14 @@ import tempfile
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional
 
-from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.shared.utils.jsonl_manager import (
+from phase6_error_recovery.modules.error_engine.src.shared.utils.jsonl_manager import (
     append as jsonl_append,
 )
-from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.shared.utils.time import (
+from phase6_error_recovery.modules.error_engine.src.shared.utils.time import (
     new_run_id,
     utc_now_iso,
 )
-from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.shared.utils.types import (
+from phase6_error_recovery.modules.error_engine.src.shared.utils.types import (
     PipelineReport,
     PipelineSummary,
     PluginIssue,
@@ -171,7 +171,7 @@ class PipelineEngine:
         run_id: Optional[str] = None,
     ) -> PipelineReport:
         """Generate pipeline report with enhanced metrics"""
-        from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.shared.utils.layer_classifier import (
+        from phase6_error_recovery.modules.error_engine.src.shared.utils.layer_classifier import (
             classify_error_layer,
             is_auto_repairable,
         )
@@ -229,39 +229,4 @@ class PipelineEngine:
             summary=summary,
             issues=issues,
             status="completed" if total_errors == 0 else "failed",
-        )
-        """Create the final report structure returned to the GUI layer."""
-        ts = utc_now_iso()
-        issues: List[PluginIssue] = []
-        warnings = 0
-        errors = 0
-
-        for pr in plugin_results:
-            # Convert plugin results to issues and update counts
-            if not pr.success:
-                errors += 1
-            for i in pr.issues:
-                issues.append(i)
-                sev = (i.severity or "").lower()
-                if sev == "warning":
-                    warnings += 1
-                elif sev == "error":
-                    errors += 1
-
-        summary = PipelineSummary(
-            plugins_run=len(plugin_results),
-            total_errors=errors,
-            total_warnings=warnings,
-            auto_fixed=0,
-        )
-
-        return PipelineReport(
-            run_id=run_id or new_run_id(),
-            file_in=str(file_path),
-            file_out=None,
-            timestamp_utc=ts,
-            toolchain={},
-            summary=summary,
-            issues=issues,
-            status="ok" if errors == 0 else "failed",
         )

@@ -3,6 +3,7 @@
 Provides input validation, secret redaction, and security checks to prevent
 common vulnerabilities.
 """
+
 # DOC_ID: DOC-ERROR-UTILS-SECURITY-144
 from __future__ import annotations
 
@@ -13,6 +14,7 @@ from typing import List, Optional
 
 class SecurityError(Exception):
     """Raised when a security violation is detected."""
+
     pass
 
 
@@ -50,7 +52,7 @@ def validate_file_path(path: Path, allowed_root: Optional[Path] = None) -> None:
     path_str = str(path)
     suspicious_patterns = [
         "..",  # Directory traversal
-        "~",   # Home directory expansion
+        "~",  # Home directory expansion
     ]
 
     for pattern in suspicious_patterns:
@@ -107,35 +109,29 @@ def redact_secrets(text: str) -> str:
     patterns = [
         # OpenAI keys (must come before generic sk- pattern)
         (r"sk-proj-[a-zA-Z0-9\-]{10,}", "[REDACTED_OPENAI_KEY]"),
-
         # Anthropic keys
         (r"sk-ant-[a-zA-Z0-9\-]{10,}", "[REDACTED_ANTHROPIC_KEY]"),
-
         # API keys (generic)
         (r"sk-[a-zA-Z0-9]{20,}", "[REDACTED_API_KEY]"),
         (r"key_[a-zA-Z0-9]{20,}", "[REDACTED_API_KEY]"),
-
         # Generic tokens
         (r"(token[\s:=]+['\"]?)([a-zA-Z0-9\-\.\_]+)(['\"]?)", r"\1[REDACTED_TOKEN]\3"),
         (r"(bearer[\s:=]+['\"]?)([a-zA-Z0-9\-\.\_]+)(['\"]?)", r"\1[REDACTED_TOKEN]\3"),
-
         # Passwords
         (r"(password[\s:=]+['\"]?)([^\s'\"]+)(['\"]?)", r"\1[REDACTED_PASSWORD]\3"),
         (r"(passwd[\s:=]+['\"]?)([^\s'\"]+)(['\"]?)", r"\1[REDACTED_PASSWORD]\3"),
-
         # Secret values
         (r"(secret[\s:=]+['\"]?)([^\s'\"]+)(['\"]?)", r"\1[REDACTED_SECRET]\3"),
-
         # Long hex strings (potential hashes/keys)
         (r"\b([a-f0-9]{40})\b", "[REDACTED_HASH]"),
         (r"\b([a-f0-9]{64})\b", "[REDACTED_HASH]"),
-
         # AWS keys
         (r"(AKIA[A-Z0-9]{16})", "[REDACTED_AWS_KEY]"),
-
         # Private keys
-        (r"-----BEGIN (?:RSA )?PRIVATE KEY-----[^-]+-----END (?:RSA )?PRIVATE KEY-----",
-         "[REDACTED_PRIVATE_KEY]"),
+        (
+            r"-----BEGIN (?:RSA )?PRIVATE KEY-----[^-]+-----END (?:RSA )?PRIVATE KEY-----",
+            "[REDACTED_PRIVATE_KEY]",
+        ),
     ]
 
     result = text
@@ -160,12 +156,13 @@ def sanitize_path_for_log(path: Path) -> str:
 
     # Replace home directory with ~
     from pathlib import Path as PathLib
+
     home = str(PathLib.home())
     if path_str.startswith(home):
-        path_str = "~" + path_str[len(home):]
+        path_str = "~" + path_str[len(home) :]
 
     # Remove username from Windows paths like C:\Users\username\
-    path_str = re.sub(r"C:\\Users\\[^\\]+\\", r"C:\Users\[USER]\\ ", path_str)
+    path_str = re.sub(r"C:\\Users\\[^\\]+\\", r"C:\\Users\\[USER]\\", path_str)
     path_str = re.sub(r"/home/[^/]+/", r"/home/[USER]/", path_str)
 
     return path_str
@@ -207,14 +204,16 @@ class ResourceLimits:
         max_file_size_mb: int = 10,
         max_execution_time_seconds: int = 120,
         max_memory_mb: int = 512,
+        allowed_root: Optional[Path] = None,
     ):
         self.max_file_size_mb = max_file_size_mb
         self.max_execution_time_seconds = max_execution_time_seconds
         self.max_memory_mb = max_memory_mb
+        self.allowed_root = allowed_root
 
     def validate_file(self, path: Path) -> None:
         """Validate file against resource limits."""
-        validate_file_path(path)
+        validate_file_path(path, allowed_root=self.allowed_root)
         validate_file_size(path, self.max_file_size_mb)
 
     def get_timeout(self) -> int:
