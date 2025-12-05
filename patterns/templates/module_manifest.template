@@ -1,0 +1,43 @@
+# .ai-module-manifest Template
+# Variables: {module_name}, {purpose}, {layer}, {maturity}, {entry_points}, {key_patterns}, {common_tasks}, {gotchas}
+
+# .ai-module-manifest
+# AI-readable module specification for {module_name}
+
+module: "{module_name}"
+purpose: "{purpose}"
+layer: "{layer}"  # infra, domain, api, ui
+
+# Entry points
+entry_points:
+{entry_points}
+
+# Key patterns
+key_patterns:
+{key_patterns}
+
+# Common tasks
+common_tasks:
+{common_tasks}
+
+# Gotchas
+gotchas:
+{gotchas}
+
+# Dependencies
+dependencies:
+  external:
+    # - package_name
+  internal:
+    # - module_name
+
+# Status
+status:
+  maturity: "{maturity}"  # alpha, beta, stable, planned
+  test_coverage: "unknown"
+  production_ready: false
+
+# AI quick reference
+ai_quick_reference:
+  list_modules: "python -m {module_name} --list"
+  run_tests: "pytest tests/{module_name}/"
