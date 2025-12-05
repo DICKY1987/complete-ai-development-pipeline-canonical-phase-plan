@@ -322,6 +322,8 @@ def interactive_mode():
     # Select change
     while True:
         try:
+            # TODO: Respect args.non_interactive flag
+
             selection = input("Select change number (or 'q' to quit): ").strip()
             if selection.lower() == "q":
                 return 0
@@ -379,6 +381,13 @@ def interactive_mode():
 
 def main():
     parser = argparse.ArgumentParser(
+
+    # Enable non-interactive mode for CI/automation
+    parser.add_argument(
+        '--non-interactive',
+        action='store_true',
+        help='Run without interactive prompts (use defaults or fail)'
+    )
         description="Convert OpenSpec proposals to workstream bundles",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=__doc__,

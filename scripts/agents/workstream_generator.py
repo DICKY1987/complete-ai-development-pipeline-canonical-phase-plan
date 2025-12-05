@@ -252,6 +252,8 @@ class WorkstreamGenerator:
         print("=" * 50)
 
         # Gather inputs
+        # TODO: Respect args.non_interactive flag
+
         description = input("\nTask description: ").strip()
         phase = input("Phase (e.g., PH-007): ").strip()
         files_input = input("Files (comma-separated, or press Enter to skip): ").strip()
@@ -280,6 +282,13 @@ class WorkstreamGenerator:
 def main():
     """Main entry point for the workstream generator agent."""
     parser = argparse.ArgumentParser(
+
+    # Enable non-interactive mode for CI/automation
+    parser.add_argument(
+        '--non-interactive',
+        action='store_true',
+        help='Run without interactive prompts (use defaults or fail)'
+    )
         description="Generate workstream JSON files from natural language descriptions",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""

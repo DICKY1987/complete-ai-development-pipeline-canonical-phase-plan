@@ -43,6 +43,7 @@ def test_mechanical_autofix_enabled_flag(mechanical_context):
 def test_mechanical_autofix_state_entry(mechanical_context):
     """Test entering mechanical autofix state."""
     mechanical_context.current_state = "S0_BASELINE_CHECK"
+    mechanical_context.strict_mode = True  # Require fixing even warnings
     mechanical_context.last_error_report = {
         "summary": {
             "total_issues": 5,

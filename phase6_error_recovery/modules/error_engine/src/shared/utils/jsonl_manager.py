@@ -37,11 +37,36 @@ def read_all(path: Path) -> List[dict]:
     return events
 
 
-def rotate_if_needed(path: Path, max_bytes: int = 75_000) -> None:
+def rotate_if_needed(path: Path, max_bytes: int = 75_000, max_lines: int = None) -> None:
+    """Rotate JSONL file if it exceeds size or line limits.
+    
+    Args:
+        path: Path to JSONL file
+        max_bytes: Maximum file size in bytes
+        max_lines: Maximum number of lines (optional, takes precedence if set)
+    """
     try:
         size = path.stat().st_size
     except FileNotFoundError:
         return
+    
+    # If max_lines is specified, use line-based rotation
+    if max_lines is not None:
+        with path.open("r", encoding="utf-8") as f:
+            lines = f.readlines()
+        
+        if len(lines) <= max_lines:
+            return
+        
+        # Keep most recent max_lines
+        kept_lines = lines[-max_lines:]
+        tmp = path.with_suffix(path.suffix + ".tmp")
+        with tmp.open("w", encoding="utf-8") as f:
+            f.writelines(kept_lines)
+        os.replace(tmp, path)
+        return
+    
+    # Otherwise use byte-based rotation
     if size <= max_bytes:
         return
 

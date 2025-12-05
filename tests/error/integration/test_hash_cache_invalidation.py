@@ -93,7 +93,7 @@ def test_cache_mark_validated(hash_cache, test_file):
     hash_cache.mark_validated(test_file, metadata)
 
     # Verify cache was updated
-    assert test_file in hash_cache._cache
+    assert str(test_file.resolve()) in hash_cache.cache
 
 
 def test_cache_persistence(tmp_path, test_file):
