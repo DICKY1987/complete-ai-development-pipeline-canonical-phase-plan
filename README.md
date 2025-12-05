@@ -31,6 +31,35 @@ doc_id: DOC-GUIDE-README-741
 
 ---
 
+## 🚀 Quick Start
+
+### New Developer Setup (One Command)
+
+**Windows (PowerShell)**:
+```powershell
+.\scripts\setup_dev_environment.ps1
+```
+
+**Linux/macOS (Bash)**:
+```bash
+./scripts/setup_dev_environment.sh
+```
+
+This automated script will:
+- ✅ Verify Python 3.11+ is installed
+- ✅ Install all dependencies from requirements.txt
+- ✅ Set up pre-commit hooks
+- ✅ Create workspace directories
+- ✅ Run validation tests
+- ✅ Takes ~2-3 minutes
+
+**Options**:
+- `--SkipPreCommit` / `--skip-precommit`: Skip pre-commit hook installation
+- `--SkipTests` / `--skip-tests`: Skip validation tests
+- `--Verbose` / `--verbose`: Show detailed output
+
+---
+
 ## Quick Navigation
 
 ### 🤖 For AI Agents

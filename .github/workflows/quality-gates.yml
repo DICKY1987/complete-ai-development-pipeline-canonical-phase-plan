@@ -12,6 +12,24 @@ on:
   workflow_dispatch:
 
 jobs:
+  pre-commit:
+    name: Pre-commit Checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install pre-commit
+        run: pip install pre-commit
+
+      - name: Run pre-commit hooks
+        run: pre-commit run --all-files --show-diff-on-failure
+
   glossary-ssot-policy:
     name: Glossary SSOT Policy Validation
     runs-on: ubuntu-latest
@@ -94,17 +112,25 @@ jobs:
           pip install -e .
           pip install pytest pytest-cov pytest-xdist
 
-      - name: Run tests
-        run: pytest -v --tb=short --cov=core
+      - name: Run tests with coverage
+        run: |
+          pytest -n auto -v --tb=short \
+            --cov=core \
+            --cov=phase6_error_recovery/modules/error_engine/src \
+            --cov=phase6_error_recovery/modules/plugins \
+            --cov-report=xml \
+            --cov-report=term
 
-      - name: Coverage gate (error_engine/plugins, line+branch)
+      - name: Coverage gate (all core modules)
         if: matrix.python-version == '3.12'
         run: |
           pytest -v --tb=short \
+            --cov=core \
             --cov=phase6_error_recovery/modules/error_engine/src \
             --cov=phase6_error_recovery/modules/plugins \
             --cov-branch \
-            --cov-fail-under=70
+            --cov-fail-under=70 \
+            --no-cov-on-fail
 
       - name: Upload coverage
         if: matrix.python-version == '3.11'
@@ -194,6 +220,27 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install pip-audit
+        run: pip install pip-audit
+
+      - name: Run pip-audit security scan
+        run: |
+          pip-audit --requirement requirements.txt --format json --output pip-audit-results.json || true
+          pip-audit --requirement requirements.txt
+
+      - name: Upload pip-audit results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pip-audit-results
+          path: pip-audit-results.json
+          retention-days: 30
 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
