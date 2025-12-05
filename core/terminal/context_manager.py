@@ -13,7 +13,7 @@ from .state_capture import TerminalState, capture_state
 @contextmanager
 def TerminalContext() -> Iterator[TerminalState]:
     """Capture stdout/stderr during a block and yield the captured state."""
-DOC_ID: DOC-CORE-TERMINAL-CONTEXT-MANAGER-619
+    # DOC_ID: DOC-CORE-TERMINAL-CONTEXT-MANAGER-619
     original_stdout = sys.stdout
     original_stderr = sys.stderr
     stdout_buffer = io.StringIO()

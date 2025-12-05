@@ -13,7 +13,7 @@ def _tail(lines: List[str], limit: int = 100) -> List[str]:
 
 def _sanitize_env(env: Dict[str, str]) -> Dict[str, str]:
     """Drop likely-secret env keys."""
-DOC_ID: DOC-CORE-TERMINAL-STATE-CAPTURE-620
+    # DOC_ID: DOC-CORE-TERMINAL-STATE-CAPTURE-620
     filtered = {}
     for key, value in env.items():
         if any(

@@ -86,7 +86,7 @@ Write-Host "   Behind: $behind commits" -ForegroundColor Yellow
 # Step 4: Pull if behind
 if ($behind -gt 0) {
     Write-Host "📥 Pulling changes from remote..." -ForegroundColor Cyan
-
+    
     if ($RebaseMode -eq "ff-only") {
         git pull --ff-only $RemoteName $Branch
         if ($LASTEXITCODE -ne 0) {
@@ -102,7 +102,7 @@ if ($behind -gt 0) {
             exit 1
         }
     }
-
+    
     Write-Host "✅ Pull successful" -ForegroundColor Green
 } else {
     Write-Host "✅ Already up-to-date with remote" -ForegroundColor Green
@@ -114,7 +114,7 @@ git push $RemoteName $Branch
 
 if ($LASTEXITCODE -eq 0) {
     Write-Host "✅ Push successful" -ForegroundColor Green
-
+    
     # Emit event
     $event = @{
         pattern_id = "MERGE-006"
@@ -126,9 +126,9 @@ if ($LASTEXITCODE -eq 0) {
         behind = $behind
         rebase_mode = $RebaseMode
     } | ConvertTo-Json -Compress
-
+    
     Add-Content -Path "safe_push_events.jsonl" -Value $event
-
+    
     exit 0
 } else {
     Write-Error "❌ Push failed"

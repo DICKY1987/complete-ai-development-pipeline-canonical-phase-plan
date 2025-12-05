@@ -21,8 +21,7 @@ Author: GitHub Copilot CLI
 Version: 1.0.0
 Date: 2025-12-02
 """
-DOC_ID: DOC - SCRIPT - SCRIPTS - VALIDATE - ARCHIVAL - SAFETY - 730
-DOC_ID: DOC - SCRIPT - SCRIPTS - VALIDATE - ARCHIVAL - SAFETY - 730
+# DOC_ID: DOC-SCRIPT-SCRIPTS-VALIDATE-ARCHIVAL-SAFETY-730
 
 import argparse
 import json
@@ -62,17 +61,28 @@ class ArchivalSafetyValidator:
         else:
             logger.info("   ✅ Git status clean")
 
-        # 2. Import validation (placeholder)
+        # 2. Import validation
         logger.info("2. Checking imports...")
-        # TODO: Implement full import check
-        logger.info("   ⚠️  Import validation not yet implemented (assumed OK)")
-        self.warnings.append("Import validation not yet implemented")
+        import_violations = self._check_imports(files_list)
+        if import_violations:
+            self.blockers.append(f"Found {len(import_violations)} files importing archived code")
+            for violation in import_violations[:5]:  # Show first 5
+                logger.error(f"   ❌ {violation}")
+            if len(import_violations) > 5:
+                logger.error(f"   ... and {len(import_violations) - 5} more")
+            is_safe = False
+        else:
+            logger.info("   ✅ No imports to archived files found")
 
-        # 3. Entry point validation (placeholder)
+        # 3. Entry point validation
         logger.info("3. Checking entry points...")
-        # TODO: Implement entry point check
-        logger.info("   [!] Entry point validation not yet implemented (assumed OK)")
-        self.warnings.append("Entry point validation not yet implemented")
+        entry_violations = self._check_entry_points(files_list)
+        if entry_violations:
+            self.warnings.append(f"Found {len(entry_violations)} potential entry point conflicts")
+            for violation in entry_violations[:3]:
+                logger.warning(f"   ⚠️  {violation}")
+        else:
+            logger.info("   ✅ No entry point conflicts found")
 
         # 4. Test suite validation
         logger.info("4. Running test suite...")
@@ -98,10 +108,16 @@ class ArchivalSafetyValidator:
         else:
             logger.info("   ✅ Tests passing")
 
-        # 2. Import check (placeholder)
+        # 2. Import check
         logger.info("2. Checking imports...")
-        logger.info("   [!] Import validation not yet implemented (assumed OK)")
-        self.warnings.append("Import validation not yet implemented")
+        import_violations = self._check_imports([])
+        if import_violations:
+            self.blockers.append(f"Found {len(import_violations)} import errors after archival")
+            for violation in import_violations[:5]:
+                logger.error(f"   ❌ {violation}")
+            is_valid = False
+        else:
+            logger.info("   ✅ No import errors detected")
 
         return is_valid
 
@@ -123,6 +139,64 @@ class ArchivalSafetyValidator:
 
         return False
 
+    def _check_imports(self, files_to_archive: List[str]) -> List[str]:
+        """Check for imports to files that will be archived."""
+        violations = []
+        
+        if not files_to_archive:
+            return violations
+        
+        # Build set of modules that will be archived
+        archived_modules = set()
+        for file_path in files_to_archive:
+            if file_path.endswith('.py'):
+                # Convert file path to module path
+                module = file_path.replace('/', '.').replace('\\', '.').replace('.py', '')
+                archived_modules.add(module)
+        
+        # Scan all Python files for imports
+        for py_file in self.root.rglob('*.py'):
+            if any(str(py_file).startswith(arch) for arch in files_to_archive):
+                continue  # Skip files that are being archived
+            
+            try:
+                content = py_file.read_text(encoding='utf-8')
+                for line_num, line in enumerate(content.splitlines(), 1):
+                    line = line.strip()
+                    if line.startswith(('import ', 'from ')):
+                        for archived_mod in archived_modules:
+                            if archived_mod in line:
+                                violations.append(
+                                    f"{py_file.relative_to(self.root)}:{line_num}: imports {archived_mod}"
+                                )
+            except Exception as e:
+                logger.debug(f"Could not scan {py_file}: {e}")
+        
+        return violations
+    
+    def _check_entry_points(self, files_to_archive: List[str]) -> List[str]:
+        """Check if any entry points reference archived files."""
+        violations = []
+        
+        # Check scripts directory
+        scripts_dir = self.root / 'scripts'
+        if scripts_dir.exists():
+            for file_path in files_to_archive:
+                if file_path.startswith('scripts/') and file_path.endswith('.py'):
+                    # Check if it's executable or has shebang
+                    full_path = self.root / file_path
+                    if full_path.exists():
+                        try:
+                            content = full_path.read_text(encoding='utf-8')
+                            if content.startswith('#!') or '__main__' in content:
+                                violations.append(
+                                    f"{file_path} appears to be an entry point script"
+                                )
+                        except Exception:
+                            pass
+        
+        return violations
+    
     def _run_tests(self) -> bool:
         """Run pytest test suite."""
         try:

@@ -11,7 +11,7 @@ FixFn = Callable[[List[ParsedError], int], Dict[str, str]]
 
 class FixGenerator:
     """Delegates fix generation to a provided callable or a trivial fallback."""
-DOC_ID: DOC-CORE-AUTONOMOUS-FIX-GENERATOR-611
+    # DOC_ID: DOC-CORE-AUTONOMOUS-FIX-GENERATOR-611
 
     def __init__(self, fix_fn: FixFn | None = None):
         self._fix_fn = fix_fn or self._default_fix

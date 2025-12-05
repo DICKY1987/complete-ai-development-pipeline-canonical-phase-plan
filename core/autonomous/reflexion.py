@@ -32,7 +32,7 @@ class ReflexionResult:
 
 class ReflexionLoop:
     """Coordinates generate→validate→analyze→fix up to N iterations."""
-DOC_ID: DOC-CORE-AUTONOMOUS-REFLEXION-612
+    # DOC_ID: DOC-CORE-AUTONOMOUS-REFLEXION-612
 
     def __init__(
         self,

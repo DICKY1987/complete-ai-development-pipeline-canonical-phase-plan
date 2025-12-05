@@ -46,20 +46,20 @@ DEFAULT_RULES = {
 def classify_single_file(file_path, rules):
     """Classify a single file by matching against rules."""
     file_str = str(file_path).replace('\\', '/')
-
+    
     for class_name, patterns in rules.items():
         for pattern in patterns:
             if fnmatch(file_str, pattern):
                 return class_name
-
+    
     return 'unknown'
 
 
 def classify_files(work_dir, policy_path=None):
     """Classify all files in repository."""
-
+    
     rules = DEFAULT_RULES.copy()
-
+    
     # Load custom policy if provided
     if policy_path and Path(policy_path).exists():
         print(f"📖 Loading custom policy: {policy_path}")
@@ -67,29 +67,29 @@ def classify_files(work_dir, policy_path=None):
             custom_policy = yaml.safe_load(f)
             if 'file_classes' in custom_policy:
                 rules.update(custom_policy['file_classes'])
-
+    
     # Classify all files
     work_path = Path(work_dir).resolve()
     classifications = {}
     class_counts = {class_name: 0 for class_name in rules.keys()}
     class_counts['unknown'] = 0
-
+    
     print(f"🔍 Classifying files in: {work_path}")
-
+    
     for file_path in work_path.rglob('*'):
         if not file_path.is_file():
             continue
-
+        
         # Skip .git directory
         if '.git' in file_path.parts:
             continue
-
+        
         rel_path = file_path.relative_to(work_path)
         file_class = classify_single_file(rel_path, rules)
-
+        
         classifications[str(rel_path)] = file_class
         class_counts[file_class] += 1
-
+    
     # Generate output
     output = {
         'pattern_id': 'MERGE-008',
@@ -101,7 +101,7 @@ def classify_files(work_dir, policy_path=None):
         'timestamp_safe_classes': ['generated', 'binary'],
         'never_timestamp_classes': ['human_text', 'config_sensitive']
     }
-
+    
     return output
 
 
@@ -110,15 +110,15 @@ def main():
     parser.add_argument('work_dir', nargs='?', default='.', help='Repository root')
     parser.add_argument('--policy', help='Path to custom merge_policy.yaml')
     parser.add_argument('--output', default='merge_file_classes.json', help='Output file')
-
+    
     args = parser.parse_args()
-
+    
     output = classify_files(args.work_dir, args.policy)
-
+    
     # Save JSON
     with open(args.output, 'w') as f:
         json.dump(output, f, indent=2)
-
+    
     print(f"\n✅ Classifications saved: {args.output}")
     print(f"\n📊 Summary:")
     for class_name, count in output['summary'].items():
@@ -129,7 +129,7 @@ def main():
                    "⚙️" if class_name == 'config_sensitive' else \
                    "🚫" if class_name == 'do_not_merge' else "❓"
             print(f"   {icon} {class_name}: {count} files")
-
+    
     return 0
 
 
