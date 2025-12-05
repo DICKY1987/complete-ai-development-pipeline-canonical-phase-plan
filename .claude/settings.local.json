@@ -3,7 +3,11 @@
     "allow": [
       "Bash(find:*)",
       "Bash(tree:*)",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Bash(xargs:*)",
+      "Bash(findstr:*)",
+      "Bash(python scripts/scan_incomplete_implementation.py:*)",
+      "Bash(python doc_id/doc_id_scanner.py:*)"
     ],
     "deny": [],
     "ask": []
