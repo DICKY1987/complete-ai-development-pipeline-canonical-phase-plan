@@ -16,6 +16,7 @@ from core.engine.plan_schema import Plan, StepDef
 from core.engine.state_machine import RunStateMachine, StepStateMachine
 from core.events.event_bus import Event, EventBus, EventSeverity
 from core.state.db import Database, get_db
+from patterns.decisions.decision_registry import Decision, DecisionRegistry
 
 
 def generate_ulid() -> str:

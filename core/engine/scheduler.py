@@ -7,7 +7,10 @@ Handles parallel and sequential execution.
 # DOC_ID: DOC-CORE-ENGINE-SCHEDULER-158
 
 from collections import defaultdict
+from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional, Set
+
+from patterns.decisions.decision_registry import Decision, DecisionRegistry
 
 
 class Task:
@@ -40,10 +43,11 @@ class Task:
 class ExecutionScheduler:
     """Schedules and executes tasks with dependency management"""
 
-    def __init__(self):
+    def __init__(self, decision_registry: Optional[DecisionRegistry] = None):
         self.tasks: Dict[str, Task] = {}
         self.dependency_graph: Dict[str, Set[str]] = defaultdict(set)
         self.reverse_deps: Dict[str, Set[str]] = defaultdict(set)
+        self.decision_registry = decision_registry
 
     def add_task(self, task: Task):
         """Add a task to the scheduler"""

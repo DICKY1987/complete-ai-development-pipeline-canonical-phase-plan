@@ -14,6 +14,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Protocol
 
 from core.events.event_bus import EventBus, EventType
+from patterns.decisions.decision_registry import Decision, DecisionRegistry
 
 logger = logging.getLogger(__name__)
 
@@ -97,6 +98,7 @@ class TaskRouter:
         router_config_path: str,
         state_store: Optional[RoutingStateStore] = None,
         event_bus: Optional[EventBus] = None,
+        decision_registry: Optional[DecisionRegistry] = None,
     ):
         """
         Initialize router with configuration.
@@ -104,6 +106,8 @@ class TaskRouter:
         Args:
             router_config_path: Path to router_config.json
             state_store: Optional state store for strategy persistence (defaults to in-memory)
+            event_bus: Optional event bus for event emission
+            decision_registry: Optional decision registry for logging routing decisions
         """
         self.config_path = Path(router_config_path)
         self.config = self._load_config()
@@ -113,6 +117,7 @@ class TaskRouter:
         self.state_store = state_store or InMemoryStateStore()
         self.decision_log: List[RoutingDecision] = []
         self.event_bus = event_bus
+        self.decision_registry = decision_registry
 
     def _load_config(self) -> Dict[str, Any]:
         """Load and parse router configuration"""
@@ -186,6 +191,26 @@ class TaskRouter:
                             task_id,
                             decision.to_dict(),
                         )
+
+                        # Log to decision registry
+                        if self.decision_registry:
+                            reg_decision = Decision(
+                                decision_id=f"ROUTE-{task_id or 'UNKNOWN'}-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S')}",
+                                timestamp=datetime.now(timezone.utc).isoformat(),
+                                category="routing",
+                                context={
+                                    "task_kind": task_kind,
+                                    "risk_tier": risk_tier,
+                                    "complexity": complexity,
+                                    "domain": domain,
+                                },
+                                options=candidates,
+                                selected_option=selected,
+                                rationale=f"Strategy: {strategy}, Rule: {rule_id}",
+                                metadata={"run_id": run_id, "task_id": task_id, "rule_id": rule_id},
+                            )
+                            self.decision_registry.log_decision(reg_decision)
+
                         return selected
 
         # Fallback: find any tool that can handle this task_kind
