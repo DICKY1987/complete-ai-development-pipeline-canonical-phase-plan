@@ -1,0 +1,229 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/your-org/ai-pipeline/schemas/commit_summary.schema.json",
+  "title": "Commit Summary Schema",
+  "description": "Schema for automated 6-hour commit summaries aligned with phase-based architecture",
+  "type": "object",
+  "required": [
+    "doc_type",
+    "schema_version",
+    "doc_id",
+    "generated_by",
+    "time_window",
+    "repo",
+    "branches_analyzed",
+    "stats",
+    "risk_overall",
+    "focus_signal"
+  ],
+  "properties": {
+    "doc_type": {
+      "type": "string",
+      "const": "commit_summary"
+    },
+    "schema_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "doc_id": {
+      "type": "string",
+      "description": "Unique document ID from doc_id system"
+    },
+    "generated_by": {
+      "type": "object",
+      "required": ["tool", "mode", "run_id"],
+      "properties": {
+        "tool": {
+          "type": "string",
+          "description": "Name of the tool that generated this summary"
+        },
+        "mode": {
+          "type": "string",
+          "enum": ["auto_6h", "on_demand"],
+          "description": "Generation mode"
+        },
+        "run_id": {
+          "type": "string",
+          "description": "Unique identifier for this generation run"
+        }
+      }
+    },
+    "time_window": {
+      "type": "object",
+      "required": ["start", "end"],
+      "properties": {
+        "start": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Window start time (inclusive)"
+        },
+        "end": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Window end time (exclusive)"
+        }
+      }
+    },
+    "repo": {
+      "type": "object",
+      "required": ["name", "default_branch"],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "default_branch": {
+          "type": "string"
+        }
+      }
+    },
+    "branches_analyzed": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "stats": {
+      "type": "object",
+      "required": [
+        "commit_count",
+        "authors_count",
+        "files_changed",
+        "tests_changed",
+        "pipelines_touched"
+      ],
+      "properties": {
+        "commit_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "authors_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "files_changed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "tests_changed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "pipelines_touched": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "risk_overall": {
+      "type": "string",
+      "enum": ["LOW", "MEDIUM", "HIGH", "TBD"]
+    },
+    "focus_signal": {
+      "type": "string",
+      "description": "Short human-readable label for the main focus of this window"
+    },
+    "commits": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "hash",
+          "short_hash",
+          "author",
+          "timestamp",
+          "branch",
+          "summary",
+          "phases_touched",
+          "subsystems_touched",
+          "files_changed",
+          "tests_changed",
+          "risk",
+          "automation_impact"
+        ],
+        "properties": {
+          "hash": {
+            "type": "string",
+            "description": "Full commit hash"
+          },
+          "short_hash": {
+            "type": "string",
+            "description": "Short commit hash (7-10 chars)"
+          },
+          "author": {
+            "type": "string",
+            "description": "Author name and email"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "branch": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string",
+            "description": "Commit message first line"
+          },
+          "phases_touched": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "Phase 0",
+                "Phase 1",
+                "Phase 2",
+                "Phase 3",
+                "Phase 4",
+                "Phase 5",
+                "Phase 6",
+                "Phase 7",
+                "UNKNOWN"
+              ]
+            }
+          },
+          "subsystems_touched": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "core_engine",
+                "error_engine",
+                "spec_bridge",
+                "tool_adapters",
+                "state_persistence",
+                "gui_pm",
+                "docs_schemas",
+                "UNKNOWN"
+              ]
+            }
+          },
+          "files_changed": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "tests_changed": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "risk": {
+            "type": "string",
+            "enum": ["LOW", "MEDIUM", "HIGH", "UNKNOWN"]
+          },
+          "automation_impact": {
+            "type": "string",
+            "enum": ["STRENGTHENED", "WEAKENED", "NEUTRAL", "UNKNOWN"]
+          },
+          "notes": {
+            "type": "string",
+            "description": "Optional 1-line note for humans/agents"
+          }
+        }
+      }
+    }
+  }
+}
