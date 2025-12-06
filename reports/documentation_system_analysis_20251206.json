@@ -1,0 +1,356 @@
+{
+  "ssot_coverage": {
+    "total_categories": 22,
+    "categories": [
+      {
+        "name": "Glossary & Vocabulary",
+        "expected": true,
+        "ssot_doc_found": true,
+        "ssot_doc_path": "glossary/README.md",
+        "doc_id": "DOC-GUIDE-README-424",
+        "status": "ok",
+        "notes": ""
+      },
+      {
+        "name": "Phase Model (0-7)",
+        "expected": true,
+        "ssot_doc_found": true,
+        "ssot_doc_path": "docs/Phase-Based AI Dev Pipeline (0\u20137) \u2013 Coherent Process.md",
+        "doc_id": "DOC-GUIDE-PHASE-BASED-AI-DEV-PIPELINE-0-7-474",
+        "status": "ok",
+        "notes": ""
+      },
+      {
+        "name": "Module & Folder Taxonomy",
+        "expected": true,
+        "ssot_doc_found": true,
+        "ssot_doc_path": "README.md",
+        "doc_id": "DOC-GUIDE-README-741",
+        "status": "ok",
+        "notes": ""
+      },
+      {
+        "name": "ID & Registry Scheme",
+        "expected": true,
+        "ssot_doc_found": false,
+        "ssot_doc_path": null,
+        "doc_id": null,
+        "status": "missing",
+        "notes": "No SSOT document found for this category"
+      },
+      {
+        "name": "Task Lifecycle / State Machine",
+        "expected": true,
+        "ssot_doc_found": true,
+        "ssot_doc_path": "docs/DOC_state_machines/STATE_MACHINES.md",
+        "doc_id": "DOC-GUIDE-STATE-MACHINES-397",
+        "status": "ok",
+        "notes": ""
+      },
+      {
+        "name": "Orchestrator Execution Contract",
+        "expected": true,
+        "ssot_doc_found": true,
+        "ssot_doc_path": "docs/registry/REGISTRY_MAINTAINER_FOR_AI_CLI_SPEC.md",
+        "doc_id": null,
+        "status": "candidate_only",
+        "notes": "Found file but no doc_id in frontmatter"
+      },
+      {
+        "name": "Deterministic Mode / Safety Profile",
+        "expected": true,
+        "ssot_doc_found": false,
+        "ssot_doc_path": null,
+        "doc_id": null,
+        "status": "missing",
+        "notes": "No SSOT document found for this category"
+      },
+      {
+        "name": "Error Handling & Escalation Pipeline",
+        "expected": true,
+        "ssot_doc_found": true,
+        "ssot_doc_path": "docs/DOC_reference/DOC_ERROR_CATALOG.md",
+        "doc_id": "DOC-GUIDE-DOC-ERROR-CATALOG-846",
+        "status": "ok",
+        "notes": ""
+      },
+      {
+        "name": "Automation Health & Coverage",
+        "expected": true,
+        "ssot_doc_found": false,
+        "ssot_doc_path": null,
+        "doc_id": null,
+        "status": "missing",
+        "notes": "No SSOT document found for this category"
+      },
+      {
+        "name": "Pattern Architecture & PAT-CHECK Rules",
+        "expected": true,
+        "ssot_doc_found": true,
+        "ssot_doc_path": "patterns/registry/PATTERN_INDEX.yaml",
+        "doc_id": null,
+        "status": "ok",
+        "notes": "Registry file found"
+      },
+      {
+        "name": "Doc Types & Frontmatter Schemas",
+        "expected": true,
+        "ssot_doc_found": false,
+        "ssot_doc_path": null,
+        "doc_id": null,
+        "status": "missing",
+        "notes": "No SSOT document found for this category"
+      },
+      {
+        "name": "README Structure & Doc Style",
+        "expected": true,
+        "ssot_doc_found": false,
+        "ssot_doc_path": null,
+        "doc_id": null,
+        "status": "missing",
+        "notes": "No SSOT document found for this category"
+      },
+      {
+        "name": "Branching & Multi-Agent Strategy",
+        "expected": true,
+        "ssot_doc_found": true,
+        "ssot_doc_path": "docs/DOC_operations/MULTI_AGENT_ORCHESTRATION_GUIDE.md",
+        "doc_id": "DOC-GUIDE-MULTI-AGENT-ORCHESTRATION-GUIDE-392",
+        "status": "ok",
+        "notes": ""
+      },
+      {
+        "name": "Safe Merge & Auto-Sync Strategy",
+        "expected": true,
+        "ssot_doc_found": false,
+        "ssot_doc_path": null,
+        "doc_id": null,
+        "status": "missing",
+        "notes": "No SSOT document found for this category"
+      },
+      {
+        "name": "GitHub Project / Issues Integration",
+        "expected": true,
+        "ssot_doc_found": true,
+        "ssot_doc_path": "specs/README_GITHUB_PROJECT_INTEGRATION.md",
+        "doc_id": "DOC-PAT-README-GITHUB-PROJECT-INTEGRATION-995",
+        "status": "ok",
+        "notes": ""
+      },
+      {
+        "name": "Tool Adapter Catalog",
+        "expected": true,
+        "ssot_doc_found": false,
+        "ssot_doc_path": null,
+        "doc_id": null,
+        "status": "missing",
+        "notes": "No SSOT document found for this category"
+      },
+      {
+        "name": "OpenSpec \u2192 Pipeline Integration",
+        "expected": true,
+        "ssot_doc_found": false,
+        "ssot_doc_path": null,
+        "doc_id": null,
+        "status": "missing",
+        "notes": "No SSOT document found for this category"
+      },
+      {
+        "name": "Claude Code Project Management (CCPM) Integration",
+        "expected": true,
+        "ssot_doc_found": false,
+        "ssot_doc_path": null,
+        "doc_id": null,
+        "status": "missing",
+        "notes": "No SSOT document found for this category"
+      },
+      {
+        "name": "Logging & Event Schema",
+        "expected": true,
+        "ssot_doc_found": false,
+        "ssot_doc_path": null,
+        "doc_id": null,
+        "status": "missing",
+        "notes": "No SSOT document found for this category"
+      },
+      {
+        "name": "State Store & Registry Persistence",
+        "expected": true,
+        "ssot_doc_found": false,
+        "ssot_doc_path": null,
+        "doc_id": null,
+        "status": "missing",
+        "notes": "No SSOT document found for this category"
+      },
+      {
+        "name": "GUI / Dashboard Contract",
+        "expected": true,
+        "ssot_doc_found": false,
+        "ssot_doc_path": null,
+        "doc_id": null,
+        "status": "missing",
+        "notes": "No SSOT document found for this category"
+      },
+      {
+        "name": "Module Contract & Responsibilities (per module)",
+        "expected": true,
+        "ssot_doc_found": false,
+        "ssot_doc_path": null,
+        "doc_id": null,
+        "status": "missing",
+        "notes": "No SSOT document found for this category"
+      }
+    ]
+  },
+  "link_integrity": {
+    "doc_ids": {
+      "total_in_files": 852,
+      "total_in_registry": 2,
+      "duplicates": [
+        "DOC-CORE-MULTI-INSTANCE-CLI-CONTROL-PHASE-PLAN-629",
+        "DOC-PAT-INDEX-829",
+        "DOC-PAT-TEST-SUITE-834",
+        "DOC-PAT-REGISTRY-833",
+        "DOC-PAT-QUICK-REFERENCE-831",
+        "DOC-PAT-QUICKSTART-830",
+        "DOC-SCRIPT-README-334",
+        "DOC-GUIDE-PATTERN-EXTRACTION-REPORT-755",
+        "DOC-GUIDE-SESSION-TRANSCRIPT-PH-011-756",
+        "DOC-CORE-README-651",
+        "DOC-CORE-README-636",
+        "DOC-CORE-README-632",
+        "DOC-SPEC-README-038",
+        "DOC-PAT-COMPLETE-DOC-SUITE-GENERATION-MASTER-745",
+        "DOC-PAT-ZERO-TOUCH-COMPLETE-SOLUTION-773",
+        "DOC-PAT-EXTRACTION-REPORT-957",
+        "DOC-PAT-EXECUTIVE-SUMMARY-820",
+        "DOC-PAT-ENHANCEMENT-PHASE-PLAN-819",
+        "DOC-PAT-PATTERN-EVENT-DELIVERY-SUMMARY-807",
+        "DOC-PAT-SESSION-2025-11-26-PATTERN-AUTOMATION-814",
+        "DOC-PAT-WORKFLOW-REPORT-20251127-101218-961",
+        "DOC-PAT-WORKFLOW-REPORT-20251127-101514-962",
+        "DOC-GUIDE-README-219",
+        "DOC-GUIDE-QUICKSTART-218",
+        "DOC-PAT-README-302",
+        "DOC-CORE-README-756",
+        "DOC-GUIDE-README-100",
+        "DOC-GUIDE-AUTOMATED-CONVERSION-EXAMPLES-SHOWING-1109",
+        "DOC-GUIDE-DOC-EXAMPLE-04-MULTI-PHASE-781",
+        "DOC-PAT-PHASE-PLAN-FULL-IMPLEMENTATION-987",
+        "DOC-CORE-UET-PHASE-SPEC-MASTER-196",
+        "DOC-GUIDE-PHASE-4-AI-ENHANCEMENT-PLAN-883",
+        "DOC-GUIDE-PHASE-PLAN-PATTERN-GOVERNANCE-793",
+        "DOC-GUIDE-PHASE-PLAN-REVIEW-794",
+        "DOC-AIM-SESSION-2025-11-23-181",
+        "DOC-GUIDE-DOC-PLUGIN-ECOSYSTEM-SUMMARY-851",
+        "DOC-GUIDE-README-427",
+        "DOC-GUIDE-CLAUDE-426",
+        "DOC-GUIDE-GUI-PLAN-EXECUTION-PATTERNS-562"
+      ],
+      "dangling_references": [
+        {
+          "from_doc": "DOC-TOOL-ANALYZE-DOCUMENTATION-SYSTEM-001",
+          "missing_ref": "DOC-DOCS-SYSTEM-STATE-ANALYSIS-CLI-001",
+          "path": "docs/DOC_reference/tools/DOCUMENTATION_ANALYSIS_CLI.md"
+        }
+      ],
+      "unregistered_ids": [
+        "DOC-ERROR-README-160",
+        "DOC-PAT-README-942",
+        "DOC-PAT-README-930",
+        "DOC-PAT-DELIVERY-MANIFEST-975",
+        "DOC-PAT-PATTERN-EVENTS-QUICK-REFERENCE-806",
+        "DOC-GUIDE-UET-INDEX-761",
+        "DOC-GUIDE-PATTERN-CATALOG-892",
+        "DOC-GUIDE-DECISION-ELIMINATION-001",
+        "DOC-GUIDE-010001-README-1477",
+        "DOC-CORE-README-695"
+      ]
+    },
+    "code_to_docs": {
+      "implementations_without_docs": [],
+      "docs_without_implementations": [],
+      "invalid_doc_references_in_code": []
+    }
+  },
+  "automation_state": {
+    "generators": {
+      "found": [
+        "generate_repository_map.py",
+        "generate_readmes.py",
+        "generate_pattern_files.ps1"
+      ],
+      "ssot_to_doc_mapping": [],
+      "coverage_assessment": "Found 3 generator scripts"
+    },
+    "validators": {
+      "found": [
+        "validate_monitoring_implementation.py",
+        "validate_dependency_graph.py",
+        "validate_archival_safety.py",
+        "validate_phase_plan.py",
+        "validate_registry.py",
+        "validate_contracts.py",
+        "check_deprecated_usage.py",
+        "check_db_schema.py"
+      ],
+      "wired_into_ci": [
+        "validate_dependency_graph.py",
+        "validate_registry.py"
+      ],
+      "not_wired": [
+        "validate_phase_plan.py",
+        "check_deprecated_usage.py",
+        "check_db_schema.py",
+        "validate_monitoring_implementation.py",
+        "validate_archival_safety.py",
+        "validate_contracts.py"
+      ],
+      "missing_but_expected": []
+    },
+    "auto_sections": {
+      "docs_with_auto_blocks": [],
+      "stale_or_inconsistent": []
+    },
+    "scheduled_jobs": {
+      "doc_health_jobs_found": [
+        "doc_id_validation.yml",
+        "pattern-automation.yml",
+        "state-file-cleanup.yml"
+      ],
+      "gaps": "Limited scheduled documentation health checks found"
+    }
+  },
+  "overall_assessment": {
+    "summary": "Documentation system has 8/22 SSOT categories fully documented (36%). Found 39 duplicate doc_ids. Automation: 8 validators, 2 wired to CI.",
+    "risk_level": "high",
+    "key_findings": [
+      "SSOT coverage: 8/22 categories have proper documentation",
+      "Total doc_ids found: 852",
+      "Validators found: 8",
+      "CI-integrated validators: 2"
+    ],
+    "recommended_next_actions": [
+      {
+        "priority": "high",
+        "description": "Create SSOT documents for missing categories",
+        "suggested_files": [
+          "docs/ssot/phase_model.md",
+          "docs/ssot/orchestrator_contract.md"
+        ]
+      },
+      {
+        "priority": "high",
+        "description": "Resolve duplicate doc_ids",
+        "suggested_files": []
+      },
+      {
+        "priority": "medium",
+        "description": "Wire validators into CI pipeline",
+        "suggested_files": [
+          ".github/workflows/"
+        ]
+      }
+    ]
+  }
+}
