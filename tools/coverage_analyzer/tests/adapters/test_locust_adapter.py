@@ -1,5 +1,7 @@
-"""Tests for Locust adapter (Layer 4 - Operational Validation)."""
+"""Tests for Locust adapter (Layer 4 - Operational Validation).
+
 DOC_ID: DOC-TEST-ADAPTERS-TEST-LOCUST-ADAPTER-370
+"""
 
 import subprocess
 from pathlib import Path

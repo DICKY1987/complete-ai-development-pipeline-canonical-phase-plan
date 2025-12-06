@@ -1,5 +1,7 @@
-"""CLI for automated debug using terminal capture and reflexion."""
+"""CLI for automated debug using terminal capture and reflexion.
+
 DOC_ID: DOC-SCRIPT-SCRIPTS-DEBUG-AUTO-765
+"""
 
 from __future__ import annotations
 

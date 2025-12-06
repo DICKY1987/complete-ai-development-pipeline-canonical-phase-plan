@@ -1,5 +1,7 @@
-"""Tests for safety plugin error detection capabilities."""
+"""Tests for safety plugin error detection capabilities.
+
 DOC_ID: DOC-CORE-TESTS-TEST-PLUGIN-DETECTION-802
+"""
 
 import sys
 import tempfile

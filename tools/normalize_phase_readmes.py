@@ -14,8 +14,10 @@ Behavior:
 - Preserves existing section content when possible.
 - Adds TODO placeholders for missing sections.
 - Creates README.md.bak before modifying (when --write is used).
-"""
+
+
 DOC_ID: DOC-SCRIPT-TOOLS-NORMALIZE-PHASE-READMES-794
+"""
 
 import argparse
 import textwrap

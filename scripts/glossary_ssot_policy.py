@@ -13,7 +13,7 @@ Exit codes:
     0 - All validations passed
     1 - Validation errors found
 
-DOC_ID: DOC-SCRIPT-SCRIPTS-GLOSSARY-SSOT-POLICY-717
+# DOC_ID: DOC-SCRIPT-SCRIPTS-GLOSSARY-SSOT-POLICY-717
 """
 
 import fnmatch

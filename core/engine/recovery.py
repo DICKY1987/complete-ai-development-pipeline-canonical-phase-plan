@@ -1,5 +1,7 @@
-"""Failure handling and retry orchestration (Phase 6 bridge)."""
+"""Failure handling and retry orchestration (Phase 6 bridge).
+
 DOC_ID: DOC-CORE-ENGINE-RECOVERY-156
+"""
 
 from __future__ import annotations
 

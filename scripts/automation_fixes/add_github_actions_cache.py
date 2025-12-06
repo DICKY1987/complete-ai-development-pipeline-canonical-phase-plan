@@ -3,7 +3,7 @@
 Add caching to GitHub Actions workflows.
 
 PATTERN: EXEC-001 (Batch File Transformation)
-DOC_ID: DOC-SCRIPT-ADD-GITHUB-ACTIONS-CACHE-001
+# DOC_ID: DOC-SCRIPT-ADD-GITHUB-ACTIONS-CACHE-001
 
 Purpose: Quick Win #3 - Add pip/pre-commit caching to speed up CI
 Time: 1 hour | Saves: 3h/month (faster CI runs)

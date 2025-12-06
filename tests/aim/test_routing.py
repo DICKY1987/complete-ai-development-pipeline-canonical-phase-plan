@@ -1,7 +1,7 @@
 """
 Unit tests for routing strategies.
 
-DOC_ID: DOC-TEST-AIM-ROUTING-001
+# DOC_ID: DOC-TEST-AIM-ROUTING-001
 """
 
 import pytest

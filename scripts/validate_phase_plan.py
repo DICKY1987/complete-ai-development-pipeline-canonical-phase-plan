@@ -18,10 +18,12 @@ Validation order:
    - validate via GH_SYNC_PHASE_V1.schema.json
 
 Outputs a machine-readable JSON report to stdout.
-"""
+
+
 DOC_ID: DOC-SCRIPT-SCRIPTS-VALIDATE-PHASE-PLAN-771
-DOC_ID: DOC - SCRIPT - SCRIPTS - VALIDATE - PHASE - PLAN - 731
-DOC_ID: DOC - SCRIPT - SCRIPTS - VALIDATE - PHASE - PLAN - 731
+"""
+# DOC_ID: DOC - SCRIPT - SCRIPTS - VALIDATE - PHASE - PLAN - 731
+# DOC_ID: DOC - SCRIPT - SCRIPTS - VALIDATE - PHASE - PLAN - 731
 
 import argparse
 import json

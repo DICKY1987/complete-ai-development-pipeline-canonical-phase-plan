@@ -1,5 +1,7 @@
-"""Tests for CLI wrapper functionality."""
+"""Tests for CLI wrapper functionality.
+
 DOC_ID: DOC-CORE-CLI-TEST-WRAPPER-875
+"""
 
 import tempfile
 from pathlib import Path

@@ -1,5 +1,7 @@
-"""Automated test failure classification and triage."""
+"""Automated test failure classification and triage.
+
 DOC_ID: DOC-CORE-TESTING-AUTO-TRIAGE-852
+"""
 
 from __future__ import annotations
 

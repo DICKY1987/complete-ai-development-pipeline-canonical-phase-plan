@@ -3,7 +3,7 @@
 Analyze pytest JSON report and generate test triage summary.
 
 PATTERN: EXEC-002 (Module Enhancement)
-DOC_ID: DOC-SCRIPT-ANALYZE-TEST-RESULTS-001
+# DOC_ID: DOC-SCRIPT-ANALYZE-TEST-RESULTS-001
 
 Purpose: Quick Win #4 - Automated test failure analysis
 Time: 4 hours | Saves: 8h/month (no manual test log review)

@@ -3,7 +3,7 @@
 Add --json output flag to utility scripts.
 
 PATTERN: EXEC-001 (Batch File Transformation)
-DOC_ID: DOC-SCRIPT-ADD-JSON-OUTPUT-001
+# DOC_ID: DOC-SCRIPT-ADD-JSON-OUTPUT-001
 
 Purpose: Quick Win #5 - Enable machine-readable output from scripts
 Time: 2 hours | Saves: 6h/month (automated parsing of script output)

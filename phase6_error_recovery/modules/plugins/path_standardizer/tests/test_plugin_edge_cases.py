@@ -1,5 +1,7 @@
-"""Test Path Standardizer plugin edge cases."""
+"""Test Path Standardizer plugin edge cases.
+
 DOC_ID: DOC-CORE-TESTS-TEST-PLUGIN-EDGE-CASES-799
+"""
 
 from __future__ import annotations
 

@@ -6,10 +6,12 @@ Analyzes which folders can be safely removed by checking import dependencies.
 
 Usage:
     python scripts/analyze_safe_removals.py
-"""
+
+
 DOC_ID: DOC-SCRIPT-SCRIPTS-ANALYZE-SAFE-REMOVALS-792
-DOC_ID: DOC - SCRIPT - SCRIPTS - ANALYZE - SAFE - REMOVALS - 706
-DOC_ID: DOC - SCRIPT - SCRIPTS - ANALYZE - SAFE - REMOVALS - 706
+"""
+# DOC_ID: DOC - SCRIPT - SCRIPTS - ANALYZE - SAFE - REMOVALS - 706
+# DOC_ID: DOC - SCRIPT - SCRIPTS - ANALYZE - SAFE - REMOVALS - 706
 
 import os
 import re

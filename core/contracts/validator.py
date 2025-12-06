@@ -1,5 +1,7 @@
-"""Phase Contract Validator - Core validation engine"""
+"""Phase Contract Validator - Core validation engine
+
 DOC_ID: DOC-CORE-CONTRACTS-VALIDATOR-863
+"""
 
 import re
 import sqlite3

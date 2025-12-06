@@ -1,5 +1,7 @@
-"""Tests for safety plugin edge cases and error handling."""
+"""Tests for safety plugin edge cases and error handling.
+
 DOC_ID: DOC-CORE-TESTS-TEST-PLUGIN-EDGE-CASES-803
+"""
 
 import sys
 import tempfile

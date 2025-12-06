@@ -2,8 +2,10 @@
 """
 Check if src/ and abstraction/ files are needed or can be safely archived.
 Provides analysis and automatic migration options.
-"""
+
+
 DOC_ID: DOC-CORE-ROOT-CHECK-SRC-NECESSITY-767
+"""
 import re
 from pathlib import Path
 from typing import List, Tuple

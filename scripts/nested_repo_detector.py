@@ -2,10 +2,12 @@
 """
 MERGE-003 detector wrapper.
 Uses patterns/safe_merge implementation and writes to .state/safe_merge.
-"""
+
+
 DOC_ID: DOC-SCRIPT-SCRIPTS-NESTED-REPO-DETECTOR-778
-DOC_ID: DOC - SCRIPT - SCRIPTS - NESTED - REPO - DETECTOR - 721
-DOC_ID: DOC - SCRIPT - SCRIPTS - NESTED - REPO - DETECTOR - 721
+"""
+# DOC_ID: DOC - SCRIPT - SCRIPTS - NESTED - REPO - DETECTOR - 721
+# DOC_ID: DOC - SCRIPT - SCRIPTS - NESTED - REPO - DETECTOR - 721
 
 from __future__ import annotations
 

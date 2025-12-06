@@ -9,9 +9,11 @@ Usage:
         --phase-file phases/my_phase.yaml \
         --github-repo owner/repo \
         --github-token $GITHUB_TOKEN
-"""
+
+
 DOC_ID: DOC-PAT-PATTERNS-OLD-GITHUB-SYNC-20251204-972
-DOC_ID: DOC - PAT - PATTERNS - OLD - GITHUB - SYNC - 20251204 - 972
+"""
+# DOC_ID: DOC - PAT - PATTERNS - OLD - GITHUB - SYNC - 20251204 - 972
 
 import argparse
 import os

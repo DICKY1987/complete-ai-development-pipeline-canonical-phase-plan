@@ -1,5 +1,7 @@
-"""Tests for coverage.py adapter."""
+"""Tests for coverage.py adapter.
+
 DOC_ID: DOC-TEST-ADAPTERS-TEST-COVERAGE-PY-ADAPTER-366
+"""
 
 import json
 from pathlib import Path

@@ -8,8 +8,10 @@ This module defines the fundamental data structures used across all layers:
 - Layer 2: Mutation Testing
 - Layer 3: Path Coverage
 - Layer 4: Operational Validation
-"""
+
+
 DOC_ID: DOC-SCRIPT-COVERAGE-ANALYZER-BASE-797
+"""
 
 from dataclasses import dataclass, field
 from datetime import datetime

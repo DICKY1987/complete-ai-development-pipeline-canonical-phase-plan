@@ -1,5 +1,7 @@
-"""Alert management system for critical events and failures."""
+"""Alert management system for critical events and failures.
+
 DOC_ID: DOC-CORE-ALERTING-ALERT-MANAGER-870
+"""
 
 from __future__ import annotations
 

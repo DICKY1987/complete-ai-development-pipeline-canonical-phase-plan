@@ -5,7 +5,7 @@ This module implements a process pool that manages multiple long-lived
 CLI tool instances (aider, codex, claude-cli, etc.) with stdin/stdout
 communication via background threads.
 
-DOC_ID: DOC-AIM-PROCESS-POOL-001
+# DOC_ID: DOC-AIM-PROCESS-POOL-001
 """
 
 import queue

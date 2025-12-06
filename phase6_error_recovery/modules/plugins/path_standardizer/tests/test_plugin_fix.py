@@ -1,5 +1,7 @@
-"""Test Path Standardizer plugin fix capabilities."""
+"""Test Path Standardizer plugin fix capabilities.
+
 DOC_ID: DOC-CORE-TESTS-TEST-PLUGIN-FIX-800
+"""
 
 from __future__ import annotations
 

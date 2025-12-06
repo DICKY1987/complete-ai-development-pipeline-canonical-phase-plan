@@ -2,10 +2,12 @@
 """
 MERGE-008 file classifier wrapper.
 Uses patterns/safe_merge implementation and enforces required class sets.
-"""
+
+
 DOC_ID: DOC-SCRIPT-SCRIPTS-MERGE-FILE-CLASSIFIER-781
-DOC_ID: DOC - SCRIPT - SCRIPTS - MERGE - FILE - CLASSIFIER - 718
-DOC_ID: DOC - SCRIPT - SCRIPTS - MERGE - FILE - CLASSIFIER - 718
+"""
+# DOC_ID: DOC - SCRIPT - SCRIPTS - MERGE - FILE - CLASSIFIER - 718
+# DOC_ID: DOC - SCRIPT - SCRIPTS - MERGE - FILE - CLASSIFIER - 718
 
 from __future__ import annotations
 

@@ -1,5 +1,7 @@
-"""Pytest configuration for Phase 6 plugin tests."""
+"""Pytest configuration for Phase 6 plugin tests.
+
 DOC_ID: DOC-CORE-PLUGINS-CONFTEST-782
+"""
 
 import sys
 from pathlib import Path

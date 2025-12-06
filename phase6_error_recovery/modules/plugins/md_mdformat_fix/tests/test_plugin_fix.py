@@ -1,5 +1,7 @@
-"""Tests for mdformat fix plugin."""
+"""Tests for mdformat fix plugin.
+
 DOC_ID: DOC-CORE-TESTS-TEST-PLUGIN-FIX-843
+"""
 
 import sys
 import tempfile

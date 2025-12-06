@@ -1,5 +1,7 @@
-"""Phase 6 (Execution) Contract Validator - Task 2.6"""
+"""Phase 6 (Execution) Contract Validator - Task 2.6
+
 DOC_ID: DOC-ERROR-ENGINE-RECOVERY-VALIDATOR-161
+"""
 
 import sqlite3
 from pathlib import Path

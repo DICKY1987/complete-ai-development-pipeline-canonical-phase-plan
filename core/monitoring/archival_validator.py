@@ -1,5 +1,7 @@
-"""Phase 7 (Monitoring) Contract Validator - Task 2.8"""
+"""Phase 7 (Monitoring) Contract Validator - Task 2.8
+
 DOC_ID: DOC-CORE-MONITORING-ARCHIVAL-VALIDATOR-850
+"""
 
 import sqlite3
 from pathlib import Path

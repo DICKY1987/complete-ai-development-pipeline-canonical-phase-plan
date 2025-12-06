@@ -1,5 +1,7 @@
-"""Enhanced Bootstrap Validator with Contract Enforcement - Task 2.1"""
+"""Enhanced Bootstrap Validator with Contract Enforcement - Task 2.1
+
 DOC_ID: DOC-CORE-BOOTSTRAP-ENHANCED-VALIDATOR-851
+"""
 
 import json
 import sqlite3

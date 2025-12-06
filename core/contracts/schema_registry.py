@@ -1,5 +1,7 @@
-"""Schema Version Registry - Manages versioned JSON schemas"""
+"""Schema Version Registry - Manages versioned JSON schemas
+
 DOC_ID: DOC-CORE-CONTRACTS-SCHEMA-REGISTRY-861
+"""
 
 import json
 import re

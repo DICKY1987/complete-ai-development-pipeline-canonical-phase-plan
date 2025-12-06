@@ -1,5 +1,7 @@
-"""Tests for codespell plugin edge cases and error handling."""
+"""Tests for codespell plugin edge cases and error handling.
+
 DOC_ID: DOC-CORE-TESTS-TEST-PLUGIN-EDGE-CASES-820
+"""
 
 import sys
 import tempfile

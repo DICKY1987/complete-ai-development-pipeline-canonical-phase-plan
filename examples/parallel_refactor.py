@@ -4,7 +4,7 @@ Standalone example: Parallel file refactoring with ClusterManager.
 This script demonstrates using the multi-CLI cluster to refactor
 multiple files in parallel, achieving 3-5x speedup over sequential.
 
-DOC_ID: DOC-EXAMPLE-PARALLEL-REFACTOR-001
+# DOC_ID: DOC-EXAMPLE-PARALLEL-REFACTOR-001
 """
 
 import time

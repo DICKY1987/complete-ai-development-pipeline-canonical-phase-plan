@@ -1,6 +1,6 @@
 """Tests for adapter registry - WS-03-02A
 
-DOC_ID: DOC-TEST-ADAPTERS-TEST-REGISTRY-167
+# DOC_ID: DOC-TEST-ADAPTERS-TEST-REGISTRY-167
 """
 
 import pytest

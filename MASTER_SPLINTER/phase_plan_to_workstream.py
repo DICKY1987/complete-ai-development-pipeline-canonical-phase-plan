@@ -2,8 +2,10 @@
 """
 Convert Phase Plan YAML files into executable Workstream JSON definitions.
 Extracts execution steps and metadata for agent consumption.
-"""
+
+
 DOC_ID: DOC-CORE-MASTER-SPLINTER-PHASE-PLAN-TO-WORKSTREAM-770
+"""
 
 import json
 from pathlib import Path

@@ -3,8 +3,10 @@ Phase Contract Enforcement Framework
 
 Provides automated validation of phase entry/exit contracts across
 the 8-phase pipeline (Phases 0-7).
-"""
+
+
 DOC_ID: DOC-CORE-CONTRACTS-INIT-865
+"""
 
 from .decorators import (
     ContractViolationError,

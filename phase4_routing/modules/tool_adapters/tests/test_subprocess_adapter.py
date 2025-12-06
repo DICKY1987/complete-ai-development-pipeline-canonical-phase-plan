@@ -1,6 +1,6 @@
 """Tests for subprocess adapter - WS-03-02A
 
-DOC_ID: DOC-TEST-ADAPTERS-TEST-SUBPROCESS-168
+# DOC_ID: DOC-TEST-ADAPTERS-TEST-SUBPROCESS-168
 """
 
 import pytest

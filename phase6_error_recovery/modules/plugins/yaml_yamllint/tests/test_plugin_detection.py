@@ -1,5 +1,7 @@
-"""Tests for yamllint plugin detection."""
+"""Tests for yamllint plugin detection.
+
 DOC_ID: DOC-CORE-TESTS-TEST-PLUGIN-DETECTION-828
+"""
 
 import sys
 import tempfile

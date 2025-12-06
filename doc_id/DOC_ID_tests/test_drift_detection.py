@@ -1,5 +1,7 @@
-"""Tests for documentation drift detection."""
+"""Tests for documentation drift detection.
+
 DOC_ID: DOC-GUIDE-DOC-ID-TESTS-TEST-DRIFT-DETECTION-133
+"""
 
 import json
 import subprocess

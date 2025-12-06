@@ -1,5 +1,7 @@
-"""Tests for Pester adapter."""
+"""Tests for Pester adapter.
+
 DOC_ID: DOC-TEST-ADAPTERS-TEST-PESTER-ADAPTER-365
+"""
 
 import json
 from pathlib import Path
