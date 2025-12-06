@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PHASE4-ROUTING-AUTOMATION-CHAIN-REPORT-171
+---
+
 # Phase 4 Routing — Automation Chain & Gap Report
 
 ## Executive Summary

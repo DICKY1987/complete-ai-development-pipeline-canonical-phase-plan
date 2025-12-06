@@ -1,4 +1,7 @@
-"""Tests for Phase Coordinator - Full automation pipeline."""
+"""Tests for Phase Coordinator - Full automation pipeline.
+
+DOC_ID: DOC-ENGINE-ENGINE-TEST-PHASE-COORDINATOR-004
+"""
 
 import tempfile
 from pathlib import Path

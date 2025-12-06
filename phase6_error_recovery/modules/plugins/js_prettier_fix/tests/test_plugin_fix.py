@@ -1,4 +1,7 @@
-"""Tests for prettier fix plugin capabilities."""
+"""Tests for prettier fix plugin capabilities.
+
+DOC_ID: DOC-CORE-TESTS-TEST-PLUGIN-FIX-787
+"""
 
 import sys
 import tempfile

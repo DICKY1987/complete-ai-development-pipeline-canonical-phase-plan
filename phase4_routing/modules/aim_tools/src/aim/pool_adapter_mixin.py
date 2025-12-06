@@ -4,7 +4,7 @@ Pool-aware adapter mixin for AI agents.
 Provides a simple mixin that adds pool support to existing agent adapters.
 This allows gradual migration to pool-based execution.
 
-DOC_ID: DOC-AIM-POOL-ADAPTER-MIXIN-001
+# DOC_ID: DOC-AIM-POOL-ADAPTER-MIXIN-001
 """
 
 from typing import Any, Dict, List, Optional

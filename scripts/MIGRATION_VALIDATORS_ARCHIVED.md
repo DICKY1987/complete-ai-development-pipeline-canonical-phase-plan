@@ -1,3 +1,7 @@
+---
+doc_id: DOC-SCRIPT-MIGRATION-VALIDATORS-ARCHIVED-820
+---
+
 # ARCHIVED: Migration Validation Scripts
 
 **Date:** 2025-12-04

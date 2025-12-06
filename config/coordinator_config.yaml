@@ -1,3 +1,4 @@
+doc_id: DOC-CONFIG-COORDINATOR-CONFIG-280
 ---
 # Phase Coordinator Configuration
 # Central automation for Phase 4 (Routing) → Phase 5 (Execution) → Phase 6 (Error Recovery)

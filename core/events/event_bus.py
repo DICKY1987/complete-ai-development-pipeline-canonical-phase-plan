@@ -1,4 +1,7 @@
-"""Database-backed event bus with simple pub/sub hooks."""
+"""Database-backed event bus with simple pub/sub hooks.
+
+DOC_ID: DOC-CORE-EVENTS-EVENT-BUS-847
+"""
 
 from __future__ import annotations
 

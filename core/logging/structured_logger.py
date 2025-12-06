@@ -1,4 +1,7 @@
-"""Simple structured logger that writes to stderr."""
+"""Simple structured logger that writes to stderr.
+
+DOC_ID: DOC-CORE-LOGGING-STRUCTURED-LOGGER-867
+"""
 
 from __future__ import annotations
 

@@ -1,8 +1,11 @@
-"""Artifact Generator - WS-02-02A"""
+"""Artifact Generator - WS-02-02A
 
-DOC_ID: DOC - CORE - SRC - GENERATOR - 745
+DOC_ID: DOC-CORE-SRC-GENERATOR-779
+"""
 
-DOC_ID: DOC - CORE - SRC - GENERATOR - 745
+# DOC_ID: DOC - CORE - SRC - GENERATOR - 745
+
+# DOC_ID: DOC - CORE - SRC - GENERATOR - 745
 import json
 from pathlib import Path
 

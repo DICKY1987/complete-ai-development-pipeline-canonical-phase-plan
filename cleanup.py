@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-CORE-ROOT-CLEANUP-764
 import shutil
 from pathlib import Path
 from datetime import datetime

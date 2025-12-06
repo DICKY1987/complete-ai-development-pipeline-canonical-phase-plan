@@ -2,60 +2,60 @@ doc_id: DOC-GUIDE-DOC-ID-REGISTRY-724
 metadata:
   version: 1.0.0
   created: '2025-12-04'
-  last_updated: '2025-12-04'
-  total_docs: 785
+  last_updated: '2025-12-06'
+  total_docs: 2783
   description: Central registry for all doc_id assignments across the repository
 categories:
   core:
     prefix: CORE
     description: Core system components (orchestrator, scheduler, executor)
-    next_id: 764
-    count: 266
+    next_id: 881
+    count: 383
   error:
     prefix: ERROR
     description: Error detection and recovery components
-    next_id: 161
-    count: 55
+    next_id: 164
+    count: 58
   patterns:
     prefix: PAT
     description: Execution patterns and templates
-    next_id: 323
-    count: 624
+    next_id: 344
+    count: 644
   guide:
     prefix: GUIDE
     description: Documentation and guides
-    next_id: 132
-    count: 733
+    next_id: 270
+    count: 867
   spec:
     prefix: SPEC
     description: Specifications and schemas
-    next_id: 40
-    count: 39
+    next_id: 41
+    count: 40
   test:
     prefix: TEST
     description: Test files and test utilities
-    next_id: 351
-    count: 193
+    next_id: 375
+    count: 217
   script:
     prefix: SCRIPT
     description: Scripts and automation tools
-    next_id: 764
-    count: 241
+    next_id: 842
+    count: 319
   config:
     prefix: CONFIG
     description: Configuration files
-    next_id: 279
-    count: 106
+    next_id: 298
+    count: 125
   legacy:
     prefix: LEGACY
     description: Archived legacy code
-    next_id: 1
-    count: 0
+    next_id: 27
+    count: 26
   task:
     prefix: TASK
     description: Task and workstream definitions
-    next_id: 1
-    count: 0
+    next_id: 2
+    count: 1
   infra:
     prefix: INFRA
     description: Infrastructure and build artifacts
@@ -64,8 +64,8 @@ categories:
   aim:
     prefix: AIM
     description: AIM environment manager components
-    next_id: 190
-    count: 45
+    next_id: 192
+    count: 47
   pm:
     prefix: PM
     description: Project management components
@@ -74,8 +74,8 @@ categories:
   engine:
     prefix: ENGINE
     description: Job execution engine components
-    next_id: 4
-    count: 3
+    next_id: 5
+    count: 4
   gui:
     prefix: GUI
     description: GUI and UI components
@@ -15793,3 +15793,5132 @@ docs:
   category: unknown
   status: active
   source: inventory_sync
+- doc_id: DOC-CORE-ROOT-CLEANUP-764
+  category: core
+  name: root_cleanup
+  title: 'root module: cleanup'
+  status: active
+  artifacts:
+  - type: source
+    path: cleanup.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-ROOT-SAFE-CLEANUP-DEPRECATED-FOLDERS-765
+  category: core
+  name: root_safe_cleanup_deprecated_folders
+  title: 'root module: safe_cleanup_deprecated_folders'
+  status: active
+  artifacts:
+  - type: source
+    path: safe_cleanup_deprecated_folders.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-ROOT-ANALYZE-OVERLAP-766
+  category: core
+  name: root_analyze_overlap
+  title: 'root module: analyze_overlap'
+  status: active
+  artifacts:
+  - type: source
+    path: analyze_overlap.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-ROOT-CHECK-SRC-NECESSITY-767
+  category: core
+  name: root_check_src_necessity
+  title: 'root module: check_src_necessity'
+  status: active
+  artifacts:
+  - type: source
+    path: check_src_necessity.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-MASTER-SPLINTER-SYNC-WORKSTREAMS-TO-768
+  category: core
+  name: master_splinter_sync_workstreams_to
+  title: 'MASTER_SPLINTER module: sync_workstreams_to_github'
+  status: active
+  artifacts:
+  - type: source
+    path: MASTER_SPLINTER/sync_workstreams_to_github.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-MASTER-SPLINTER-RUN-MASTER-SPLINTER-769
+  category: core
+  name: master_splinter_run_master_splinter
+  title: 'MASTER_SPLINTER module: run_master_splinter'
+  status: active
+  artifacts:
+  - type: source
+    path: MASTER_SPLINTER/run_master_splinter.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-MASTER-SPLINTER-PHASE-PLAN-TO-WORKSTREAM-770
+  category: core
+  name: master_splinter_phase_plan_to_workstream
+  title: 'MASTER_SPLINTER module: phase_plan_to_workstream'
+  status: active
+  artifacts:
+  - type: source
+    path: MASTER_SPLINTER/phase_plan_to_workstream.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-PAT-PATTERNS-INIT-323
+  category: patterns
+  name: patterns_init
+  title: 'patterns module: __init__'
+  status: active
+  artifacts:
+  - type: source
+    path: patterns/__init__.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-SCRIPTS-CHECK-DB-SCHEMA-764
+  category: script
+  name: scripts_check_db_schema
+  title: 'scripts module: check_db_schema'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/check_db_schema.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-SCRIPTS-DEBUG-AUTO-765
+  category: script
+  name: scripts_debug_auto
+  title: 'scripts module: debug_auto'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/debug_auto.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-SCRIPTS-TEST-COVERAGE-ARCHIVAL-766
+  category: script
+  name: scripts_test_coverage_archival
+  title: Tests for scripts.coverage_archival
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/test_coverage_archival.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-SCRIPTS-MERGE-TIMESTAMP-RESOLVER-767
+  category: script
+  name: scripts_merge_timestamp_resolver
+  title: 'scripts module: merge_timestamp_resolver'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/merge_timestamp_resolver.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-SCRIPTS-SYNC-LOG-SUMMARY-768
+  category: script
+  name: scripts_sync_log_summary
+  title: 'scripts module: sync_log_summary'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/sync_log_summary.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-SCRIPTS-VALIDATE-DEPENDENCY-GRAPH-769
+  category: script
+  name: scripts_validate_dependency_graph
+  title: 'scripts module: validate_dependency_graph'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/validate_dependency_graph.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-SCRIPTS-SPLINTER-SYNC-PHASE-TO-GITHUB-770
+  category: script
+  name: scripts_splinter_sync_phase_to_github
+  title: 'scripts module: splinter_sync_phase_to_github'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/splinter_sync_phase_to_github.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-SCRIPTS-VALIDATE-PHASE-PLAN-771
+  category: script
+  name: scripts_validate_phase_plan
+  title: 'scripts module: validate_phase_plan'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/validate_phase_plan.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-SCRIPTS-REGENERATE-AUTOMATION-REPORT-772
+  category: script
+  name: scripts_regenerate_automation_report
+  title: 'scripts module: regenerate_automation_report'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/regenerate_automation_report.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-SCRIPTS-MULTI-CLONE-GUARD-773
+  category: script
+  name: scripts_multi_clone_guard
+  title: 'scripts module: multi_clone_guard'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/multi_clone_guard.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-SCRIPTS-VALIDATE-REGISTRY-774
+  category: script
+  name: scripts_validate_registry
+  title: 'scripts module: validate_registry'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/validate_registry.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-SCRIPTS-EXEC016-IMPORT-STANDARDIZER-775
+  category: script
+  name: scripts_exec016_import_standardizer
+  title: 'scripts module: exec016_import_standardizer'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/exec016_import_standardizer.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-SCRIPTS-DETECT-PARALLEL-IMPLEMENTATIONS-776
+  category: script
+  name: scripts_detect_parallel_implementations
+  title: 'scripts module: detect_parallel_implementations'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/detect_parallel_implementations.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-SCRIPTS-PIPE-TREE-777
+  category: script
+  name: scripts_pipe_tree
+  title: 'scripts module: pipe_tree'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/pipe_tree.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-SCRIPTS-NESTED-REPO-DETECTOR-778
+  category: script
+  name: scripts_nested_repo_detector
+  title: 'scripts module: nested_repo_detector'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/nested_repo_detector.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-SCRIPTS-VALIDATE-CONTRACTS-779
+  category: script
+  name: scripts_validate_contracts
+  title: 'scripts module: validate_contracts'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/validate_contracts.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-SCRIPTS-AI-CONFLICT-RESOLVER-780
+  category: script
+  name: scripts_ai_conflict_resolver
+  title: 'scripts module: ai_conflict_resolver'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/ai_conflict_resolver.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-SCRIPTS-MERGE-FILE-CLASSIFIER-781
+  category: script
+  name: scripts_merge_file_classifier
+  title: 'scripts module: merge_file_classifier'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/merge_file_classifier.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-SCRIPTS-COMPREHENSIVE-ARCHIVAL-ANALYZER-782
+  category: script
+  name: scripts_comprehensive_archival_analyzer
+  title: 'scripts module: comprehensive_archival_analyzer'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/comprehensive_archival_analyzer.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-SCRIPTS-SAFE-MERGE-EMIT-EVENT-783
+  category: script
+  name: scripts_safe_merge_emit_event
+  title: 'scripts module: safe_merge_emit_event'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/safe_merge_emit_event.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-SCRIPTS-NESTED-REPO-NORMALIZER-784
+  category: script
+  name: scripts_nested_repo_normalizer
+  title: 'scripts module: nested_repo_normalizer'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/nested_repo_normalizer.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-SCRIPTS-FIX-TEST-IMPORTS-785
+  category: script
+  name: scripts_fix_test_imports
+  title: 'scripts module: fix_test_imports'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/fix_test_imports.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-SCRIPTS-SYNC-WORKSTREAMS-TO-GITHUB-786
+  category: script
+  name: scripts_sync_workstreams_to_github
+  title: 'scripts module: sync_workstreams_to_github'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/sync_workstreams_to_github.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-SCRIPTS-GENERATE-READMES-787
+  category: script
+  name: scripts_generate_readmes
+  title: 'scripts module: generate_readmes'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/generate_readmes.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-SCRIPTS-CLEANUP-STATE-FILES-788
+  category: script
+  name: scripts_cleanup_state_files
+  title: 'scripts module: cleanup_state_files'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/cleanup_state_files.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-SCRIPTS-BUILD-MODULE-MAP-789
+  category: script
+  name: scripts_build_module_map
+  title: 'scripts module: build_module_map'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/build_module_map.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-SCRIPTS-PIPE-CLASSIFY-790
+  category: script
+  name: scripts_pipe_classify
+  title: 'scripts module: pipe_classify'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/pipe_classify.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-SCRIPTS-ENTRY-POINT-REACHABILITY-791
+  category: script
+  name: scripts_entry_point_reachability
+  title: 'scripts module: entry_point_reachability'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/entry_point_reachability.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-SCRIPTS-ANALYZE-SAFE-REMOVALS-792
+  category: script
+  name: scripts_analyze_safe_removals
+  title: 'scripts module: analyze_safe_removals'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/analyze_safe_removals.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-TOOLS-PAT-CHECK-README-001-793
+  category: script
+  name: tools_pat_check_readme_001
+  title: 'tools module: pat_check_readme_001'
+  status: active
+  artifacts:
+  - type: source
+    path: tools/pat_check_readme_001.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-TOOLS-NORMALIZE-PHASE-READMES-794
+  category: script
+  name: tools_normalize_phase_readmes
+  title: 'tools module: normalize_phase_readmes'
+  status: active
+  artifacts:
+  - type: source
+    path: tools/normalize_phase_readmes.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-GUIDE-DOC-ID-DETECT-DOC-DRIFT-132
+  category: guide
+  name: doc_id_detect_doc_drift
+  title: 'doc_id module: detect_doc_drift'
+  status: active
+  artifacts:
+  - type: source
+    path: doc_id/detect_doc_drift.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-CORE-LOGGER-771
+  category: core
+  name: core_logger
+  title: 'core module: logger'
+  status: active
+  artifacts:
+  - type: source
+    path: core/logger.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-CORE-EVENT-BUS-772
+  category: core
+  name: core_event_bus
+  title: 'core module: event_bus'
+  status: active
+  artifacts:
+  - type: source
+    path: core/event_bus.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-TEST-TESTS-TEST-QUALITY-GATES-351
+  category: test
+  name: tests_test_quality_gates
+  title: Tests for tests.quality_gates
+  status: active
+  artifacts:
+  - type: source
+    path: tests/test_quality_gates.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-TEST-TESTS-TEST-STATE-CLEANUP-352
+  category: test
+  name: tests_test_state_cleanup
+  title: Tests for tests.state_cleanup
+  status: active
+  artifacts:
+  - type: source
+    path: tests/test_state_cleanup.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-TEST-TESTS-TEST-INTEGRATION-353
+  category: test
+  name: tests_test_integration
+  title: Tests for tests.integration
+  status: active
+  artifacts:
+  - type: source
+    path: tests/test_integration.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-TEST-TESTS-TEST-ADAPTERS-354
+  category: test
+  name: tests_test_adapters
+  title: Tests for tests.adapters
+  status: active
+  artifacts:
+  - type: source
+    path: tests/test_adapters.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-GENERATORS-ONEOFF-20251204-144350-773
+  category: core
+  name: generators_oneoff_20251204_144350
+  title: 'generators_oneoff_20251204_144350 module: generate_phase0_decisions'
+  status: active
+  artifacts:
+  - type: source
+    path: _ARCHIVE/generators_oneoff_20251204_144350/generate_phase0_decisions.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-GENERATORS-ONEOFF-20251204-144350-774
+  category: core
+  name: generators_oneoff_20251204_144350
+  title: 'generators_oneoff_20251204_144350 module: generate_incomplete_report'
+  status: active
+  artifacts:
+  - type: source
+    path: _ARCHIVE/generators_oneoff_20251204_144350/generate_incomplete_report.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-PHASE1-PLANNING-REDIRECTS-2025-12-04-775
+  category: core
+  name: phase1_planning_redirects_2025_12_04
+  title: 'phase1_planning_redirects_2025-12-04 module: ccpm_integration'
+  status: active
+  artifacts:
+  - type: source
+    path: _ARCHIVE/phase1_planning_redirects_2025-12-04/ccpm_integration.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-GITHUB-SCRIPTS-OLD-20251205-GITHUB-776
+  category: core
+  name: github_scripts_old_20251205_github
+  title: 'github_scripts_old_20251205 module: github_project_utils'
+  status: active
+  artifacts:
+  - type: source
+    path: _ARCHIVE/github_scripts_old_20251205/github_project_utils.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-GITHUB-SCRIPTS-OLD-20251205-PROJECT-ID-777
+  category: core
+  name: github_scripts_old_20251205_project_id
+  title: 'github_scripts_old_20251205 module: project_id_hydration'
+  status: active
+  artifacts:
+  - type: source
+    path: _ARCHIVE/github_scripts_old_20251205/project_id_hydration.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-AUTONOMOUS-WORKFLOW-PROTOTYPE-20251204-778
+  category: core
+  name: autonomous_workflow_prototype_20251204
+  title: 'autonomous-workflow_prototype_20251204 module: run_autonomous_workflow'
+  status: active
+  artifacts:
+  - type: source
+    path: _ARCHIVE/autonomous-workflow_prototype_20251204/run_autonomous_workflow.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-SRC-GENERATOR-779
+  category: core
+  name: src_generator
+  title: 'src module: generator'
+  status: active
+  artifacts:
+  - type: source
+    path: _ARCHIVE/phase0_bootstrap_orchestrator_duplicate_20251204_143704/bootstrap_orchestrator/src/generator.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-ORCHESTRATOR-AUTOMATION-SELF-HEALING-780
+  category: core
+  name: orchestrator_automation_self_healing
+  title: 'orchestrator module: automation_self_healing_loop'
+  status: active
+  artifacts:
+  - type: source
+    path: _ARCHIVE/autonomous-workflow_prototype_20251204/orchestrator/automation_self_healing_loop.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-ORCHESTRATOR-GENERATE-INDEX-781
+  category: core
+  name: orchestrator_generate_index
+  title: 'orchestrator module: generate_index'
+  status: active
+  artifacts:
+  - type: source
+    path: _ARCHIVE/autonomous-workflow_prototype_20251204/orchestrator/generate_index.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-PAT-DECISIONS-INIT-324
+  category: patterns
+  name: decisions_init
+  title: 'decisions module: __init__'
+  status: active
+  artifacts:
+  - type: source
+    path: patterns/decisions/__init__.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-PLUGINS-CONFTEST-782
+  category: core
+  name: plugins_conftest
+  title: 'plugins module: conftest'
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/conftest.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-TEST-PLUGIN-DETECTION-783
+  category: core
+  name: tests_test_plugin_detection
+  title: Tests for tests.plugin_detection
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/json_jq/tests/test_plugin_detection.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-TEST-PLUGIN-EDGE-CASES-784
+  category: core
+  name: tests_test_plugin_edge_cases
+  title: Tests for tests.plugin_edge_cases
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/json_jq/tests/test_plugin_edge_cases.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-INIT-785
+  category: core
+  name: tests_init
+  title: 'tests module: __init__'
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/json_jq/tests/__init__.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-TEST-PLUGIN-EDGE-CASES-786
+  category: core
+  name: tests_test_plugin_edge_cases
+  title: Tests for tests.plugin_edge_cases
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/js_prettier_fix/tests/test_plugin_edge_cases.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-TEST-PLUGIN-FIX-787
+  category: core
+  name: tests_test_plugin_fix
+  title: Tests for tests.plugin_fix
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/js_prettier_fix/tests/test_plugin_fix.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-INIT-788
+  category: core
+  name: tests_init
+  title: 'tests module: __init__'
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/js_prettier_fix/tests/__init__.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-TEST-PLUGIN-DETECTION-789
+  category: core
+  name: tests_test_plugin_detection
+  title: Tests for tests.plugin_detection
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/python_pylint/tests/test_plugin_detection.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-TEST-PLUGIN-EDGE-CASES-790
+  category: core
+  name: tests_test_plugin_edge_cases
+  title: Tests for tests.plugin_edge_cases
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/python_pylint/tests/test_plugin_edge_cases.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-INIT-791
+  category: core
+  name: tests_init
+  title: 'tests module: __init__'
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/python_pylint/tests/__init__.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-TEST-PLUGIN-DETECTION-792
+  category: core
+  name: tests_test_plugin_detection
+  title: Tests for tests.plugin_detection
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/python_mypy/tests/test_plugin_detection.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-TEST-PLUGIN-EDGE-CASES-793
+  category: core
+  name: tests_test_plugin_edge_cases
+  title: Tests for tests.plugin_edge_cases
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/python_mypy/tests/test_plugin_edge_cases.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-INIT-794
+  category: core
+  name: tests_init
+  title: 'tests module: __init__'
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/python_mypy/tests/__init__.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-TEST-PLUGIN-DETECTION-795
+  category: core
+  name: tests_test_plugin_detection
+  title: Tests for tests.plugin_detection
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/md_markdownlint/tests/test_plugin_detection.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-TEST-PLUGIN-EDGE-CASES-796
+  category: core
+  name: tests_test_plugin_edge_cases
+  title: Tests for tests.plugin_edge_cases
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/md_markdownlint/tests/test_plugin_edge_cases.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-INIT-797
+  category: core
+  name: tests_init
+  title: 'tests module: __init__'
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/md_markdownlint/tests/__init__.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-TEST-PLUGIN-DETECTION-798
+  category: core
+  name: tests_test_plugin_detection
+  title: Tests for tests.plugin_detection
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/path_standardizer/tests/test_plugin_detection.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-TEST-PLUGIN-EDGE-CASES-799
+  category: core
+  name: tests_test_plugin_edge_cases
+  title: Tests for tests.plugin_edge_cases
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/path_standardizer/tests/test_plugin_edge_cases.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-TEST-PLUGIN-FIX-800
+  category: core
+  name: tests_test_plugin_fix
+  title: Tests for tests.plugin_fix
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/path_standardizer/tests/test_plugin_fix.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-INIT-801
+  category: core
+  name: tests_init
+  title: 'tests module: __init__'
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/path_standardizer/tests/__init__.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-TEST-PLUGIN-DETECTION-802
+  category: core
+  name: tests_test_plugin_detection
+  title: Tests for tests.plugin_detection
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/python_safety/tests/test_plugin_detection.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-TEST-PLUGIN-EDGE-CASES-803
+  category: core
+  name: tests_test_plugin_edge_cases
+  title: Tests for tests.plugin_edge_cases
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/python_safety/tests/test_plugin_edge_cases.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-INIT-804
+  category: core
+  name: tests_init
+  title: 'tests module: __init__'
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/python_safety/tests/__init__.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-TEST-PLUGIN-DETECTION-805
+  category: core
+  name: tests_test_plugin_detection
+  title: Tests for tests.plugin_detection
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/gitleaks/tests/test_plugin_detection.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-TEST-PLUGIN-EDGE-CASES-806
+  category: core
+  name: tests_test_plugin_edge_cases
+  title: Tests for tests.plugin_edge_cases
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/gitleaks/tests/test_plugin_edge_cases.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-TEST-PLUGIN-FIX-807
+  category: core
+  name: tests_test_plugin_fix
+  title: Tests for tests.plugin_fix
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/gitleaks/tests/test_plugin_fix.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-INIT-808
+  category: core
+  name: tests_init
+  title: 'tests module: __init__'
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/gitleaks/tests/__init__.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-TEST-PLUGIN-EDGE-CASES-809
+  category: core
+  name: tests_test_plugin_edge_cases
+  title: Tests for tests.plugin_edge_cases
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/python_black_fix/tests/test_plugin_edge_cases.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-TEST-PLUGIN-FIX-810
+  category: core
+  name: tests_test_plugin_fix
+  title: Tests for tests.plugin_fix
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/python_black_fix/tests/test_plugin_fix.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-INIT-811
+  category: core
+  name: tests_init
+  title: 'tests module: __init__'
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/python_black_fix/tests/__init__.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-TEST-PLUGIN-DETECTION-812
+  category: core
+  name: tests_test_plugin_detection
+  title: Tests for tests.plugin_detection
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/python_pyright/tests/test_plugin_detection.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-TEST-PLUGIN-EDGE-CASES-813
+  category: core
+  name: tests_test_plugin_edge_cases
+  title: Tests for tests.plugin_edge_cases
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/python_pyright/tests/test_plugin_edge_cases.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-INIT-814
+  category: core
+  name: tests_init
+  title: 'tests module: __init__'
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/python_pyright/tests/__init__.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-TEST-PLUGIN-DETECTION-815
+  category: core
+  name: tests_test_plugin_detection
+  title: Tests for tests.plugin_detection
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/echo/tests/test_plugin_detection.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-TEST-PLUGIN-EDGE-CASES-816
+  category: core
+  name: tests_test_plugin_edge_cases
+  title: Tests for tests.plugin_edge_cases
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/echo/tests/test_plugin_edge_cases.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-TEST-PLUGIN-FIX-817
+  category: core
+  name: tests_test_plugin_fix
+  title: Tests for tests.plugin_fix
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/echo/tests/test_plugin_fix.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-INIT-818
+  category: core
+  name: tests_init
+  title: 'tests module: __init__'
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/echo/tests/__init__.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-TEST-PLUGIN-DETECTION-819
+  category: core
+  name: tests_test_plugin_detection
+  title: Tests for tests.plugin_detection
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/codespell/tests/test_plugin_detection.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-TEST-PLUGIN-EDGE-CASES-820
+  category: core
+  name: tests_test_plugin_edge_cases
+  title: Tests for tests.plugin_edge_cases
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/codespell/tests/test_plugin_edge_cases.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-INIT-821
+  category: core
+  name: tests_init
+  title: 'tests module: __init__'
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/codespell/tests/__init__.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-TEST-PLUGIN-EDGE-CASES-822
+  category: core
+  name: tests_test_plugin_edge_cases
+  title: Tests for tests.plugin_edge_cases
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/python_isort_fix/tests/test_plugin_edge_cases.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-TEST-PLUGIN-FIX-823
+  category: core
+  name: tests_test_plugin_fix
+  title: Tests for tests.plugin_fix
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/python_isort_fix/tests/test_plugin_fix.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-INIT-824
+  category: core
+  name: tests_init
+  title: 'tests module: __init__'
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/python_isort_fix/tests/__init__.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-TEST-PLUGIN-DETECTION-825
+  category: core
+  name: tests_test_plugin_detection
+  title: Tests for tests.plugin_detection
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/js_eslint/tests/test_plugin_detection.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-TEST-PLUGIN-EDGE-CASES-826
+  category: core
+  name: tests_test_plugin_edge_cases
+  title: Tests for tests.plugin_edge_cases
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/js_eslint/tests/test_plugin_edge_cases.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-INIT-827
+  category: core
+  name: tests_init
+  title: 'tests module: __init__'
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/js_eslint/tests/__init__.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-TEST-PLUGIN-DETECTION-828
+  category: core
+  name: tests_test_plugin_detection
+  title: Tests for tests.plugin_detection
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/yaml_yamllint/tests/test_plugin_detection.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-TEST-PLUGIN-EDGE-CASES-829
+  category: core
+  name: tests_test_plugin_edge_cases
+  title: Tests for tests.plugin_edge_cases
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/yaml_yamllint/tests/test_plugin_edge_cases.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-INIT-830
+  category: core
+  name: tests_init
+  title: 'tests module: __init__'
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/yaml_yamllint/tests/__init__.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-TEST-PLUGIN-DETECTION-831
+  category: core
+  name: tests_test_plugin_detection
+  title: Tests for tests.plugin_detection
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/powershell_pssa/tests/test_plugin_detection.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-TEST-PLUGIN-EDGE-CASES-832
+  category: core
+  name: tests_test_plugin_edge_cases
+  title: Tests for tests.plugin_edge_cases
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/powershell_pssa/tests/test_plugin_edge_cases.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-TEST-PLUGIN-FIX-833
+  category: core
+  name: tests_test_plugin_fix
+  title: Tests for tests.plugin_fix
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/powershell_pssa/tests/test_plugin_fix.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-INIT-834
+  category: core
+  name: tests_init
+  title: 'tests module: __init__'
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/powershell_pssa/tests/__init__.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-TEST-PLUGIN-DETECTION-835
+  category: core
+  name: tests_test_plugin_detection
+  title: Tests for tests.plugin_detection
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/python_bandit/tests/test_plugin_detection.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-TEST-PLUGIN-EDGE-CASES-836
+  category: core
+  name: tests_test_plugin_edge_cases
+  title: Tests for tests.plugin_edge_cases
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/python_bandit/tests/test_plugin_edge_cases.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-INIT-837
+  category: core
+  name: tests_init
+  title: 'tests module: __init__'
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/python_bandit/tests/__init__.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-TEST-PLUGIN-DETECTION-838
+  category: core
+  name: tests_test_plugin_detection
+  title: Tests for tests.plugin_detection
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/semgrep/tests/test_plugin_detection.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-TEST-PLUGIN-EDGE-CASES-839
+  category: core
+  name: tests_test_plugin_edge_cases
+  title: Tests for tests.plugin_edge_cases
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/semgrep/tests/test_plugin_edge_cases.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-TEST-PLUGIN-FIX-840
+  category: core
+  name: tests_test_plugin_fix
+  title: Tests for tests.plugin_fix
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/semgrep/tests/test_plugin_fix.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-INIT-841
+  category: core
+  name: tests_init
+  title: 'tests module: __init__'
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/semgrep/tests/__init__.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-TEST-PLUGIN-EDGE-CASES-842
+  category: core
+  name: tests_test_plugin_edge_cases
+  title: Tests for tests.plugin_edge_cases
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/md_mdformat_fix/tests/test_plugin_edge_cases.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-TEST-PLUGIN-FIX-843
+  category: core
+  name: tests_test_plugin_fix
+  title: Tests for tests.plugin_fix
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/md_mdformat_fix/tests/test_plugin_fix.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTS-INIT-844
+  category: core
+  name: tests_init
+  title: 'tests module: __init__'
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/modules/plugins/md_mdformat_fix/tests/__init__.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-SRC-CCPM-INTEGRATION-845
+  category: core
+  name: src_ccpm_integration
+  title: 'src module: ccpm_integration'
+  status: active
+  artifacts:
+  - type: source
+    path: phase1_planning/modules/workstream_planner/src/ccpm_integration.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-ADAPTERS-INIT-846
+  category: core
+  name: adapters_init
+  title: 'adapters module: __init__'
+  status: active
+  artifacts:
+  - type: source
+    path: phase4_routing/modules/tool_adapters/src/adapters/__init__.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-TEST-TESTS-TEST-REGISTRY-355
+  category: test
+  name: tests_test_registry
+  title: Tests for tests.registry
+  status: active
+  artifacts:
+  - type: source
+    path: tools/coverage_analyzer/tests/test_registry.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-TEST-TESTS-CONFTEST-356
+  category: test
+  name: tests_conftest
+  title: 'tests module: conftest'
+  status: active
+  artifacts:
+  - type: source
+    path: tools/coverage_analyzer/tests/conftest.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-TEST-TESTS-TEST-BASE-357
+  category: test
+  name: tests_test_base
+  title: Tests for tests.base
+  status: active
+  artifacts:
+  - type: source
+    path: tools/coverage_analyzer/tests/test_base.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-TEST-ANALYZERS-TEST-MUTATION-358
+  category: test
+  name: analyzers_test_mutation
+  title: Tests for analyzers.mutation
+  status: active
+  artifacts:
+  - type: source
+    path: tools/coverage_analyzer/tests/analyzers/test_mutation.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-TEST-ANALYZERS-TEST-SCA-359
+  category: test
+  name: analyzers_test_sca
+  title: Tests for analyzers.sca
+  status: active
+  artifacts:
+  - type: source
+    path: tools/coverage_analyzer/tests/analyzers/test_sca.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-TEST-ANALYZERS-TEST-OPERATIONAL-360
+  category: test
+  name: analyzers_test_operational
+  title: Tests for analyzers.operational
+  status: active
+  artifacts:
+  - type: source
+    path: tools/coverage_analyzer/tests/analyzers/test_operational.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-TEST-ANALYZERS-TEST-COMPLEXITY-361
+  category: test
+  name: analyzers_test_complexity
+  title: Tests for analyzers.complexity
+  status: active
+  artifacts:
+  - type: source
+    path: tools/coverage_analyzer/tests/analyzers/test_complexity.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-TEST-ANALYZERS-INIT-362
+  category: test
+  name: analyzers_init
+  title: 'analyzers module: __init__'
+  status: active
+  artifacts:
+  - type: source
+    path: tools/coverage_analyzer/tests/analyzers/__init__.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-TEST-ANALYZERS-TEST-STATIC-ANALYSIS-363
+  category: test
+  name: analyzers_test_static_analysis
+  title: Tests for analyzers.static_analysis
+  status: active
+  artifacts:
+  - type: source
+    path: tools/coverage_analyzer/tests/analyzers/test_static_analysis.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-TEST-ANALYZERS-TEST-STRUCTURAL-364
+  category: test
+  name: analyzers_test_structural
+  title: Tests for analyzers.structural
+  status: active
+  artifacts:
+  - type: source
+    path: tools/coverage_analyzer/tests/analyzers/test_structural.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-TEST-ADAPTERS-TEST-PESTER-ADAPTER-365
+  category: test
+  name: adapters_test_pester_adapter
+  title: Tests for adapters.pester_adapter
+  status: active
+  artifacts:
+  - type: source
+    path: tools/coverage_analyzer/tests/adapters/test_pester_adapter.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-TEST-ADAPTERS-TEST-COVERAGE-PY-ADAPTER-366
+  category: test
+  name: adapters_test_coverage_py_adapter
+  title: Tests for adapters.coverage_py_adapter
+  status: active
+  artifacts:
+  - type: source
+    path: tools/coverage_analyzer/tests/adapters/test_coverage_py_adapter.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-TEST-ADAPTERS-TEST-MUTATION-ADAPTER-367
+  category: test
+  name: adapters_test_mutation_adapter
+  title: Tests for adapters.mutation_adapter
+  status: active
+  artifacts:
+  - type: source
+    path: tools/coverage_analyzer/tests/adapters/test_mutation_adapter.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-TEST-ADAPTERS-TEST-STATIC-ANALYSIS-ADAPTERS-368
+  category: test
+  name: adapters_test_static_analysis_adapters
+  title: Tests for adapters.static_analysis_adapters
+  status: active
+  artifacts:
+  - type: source
+    path: tools/coverage_analyzer/tests/adapters/test_static_analysis_adapters.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-TEST-ADAPTERS-TEST-SCA-ADAPTERS-369
+  category: test
+  name: adapters_test_sca_adapters
+  title: Tests for adapters.sca_adapters
+  status: active
+  artifacts:
+  - type: source
+    path: tools/coverage_analyzer/tests/adapters/test_sca_adapters.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-TEST-ADAPTERS-TEST-LOCUST-ADAPTER-370
+  category: test
+  name: adapters_test_locust_adapter
+  title: Tests for adapters.locust_adapter
+  status: active
+  artifacts:
+  - type: source
+    path: tools/coverage_analyzer/tests/adapters/test_locust_adapter.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-TEST-ADAPTERS-INIT-371
+  category: test
+  name: adapters_init
+  title: 'adapters module: __init__'
+  status: active
+  artifacts:
+  - type: source
+    path: tools/coverage_analyzer/tests/adapters/__init__.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-COVERAGE-ANALYZER-REGISTRY-795
+  category: script
+  name: coverage_analyzer_registry
+  title: 'coverage_analyzer module: registry'
+  status: active
+  artifacts:
+  - type: source
+    path: tools/coverage_analyzer/src/coverage_analyzer/registry.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-COVERAGE-ANALYZER-INIT-796
+  category: script
+  name: coverage_analyzer_init
+  title: 'coverage_analyzer module: __init__'
+  status: active
+  artifacts:
+  - type: source
+    path: tools/coverage_analyzer/src/coverage_analyzer/__init__.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-COVERAGE-ANALYZER-BASE-797
+  category: script
+  name: coverage_analyzer_base
+  title: 'coverage_analyzer module: base'
+  status: active
+  artifacts:
+  - type: source
+    path: tools/coverage_analyzer/src/coverage_analyzer/base.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-REPORTERS-INIT-798
+  category: script
+  name: reporters_init
+  title: 'reporters module: __init__'
+  status: active
+  artifacts:
+  - type: source
+    path: tools/coverage_analyzer/src/coverage_analyzer/reporters/__init__.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-ANALYZERS-OPERATIONAL-799
+  category: script
+  name: analyzers_operational
+  title: 'analyzers module: operational'
+  status: active
+  artifacts:
+  - type: source
+    path: tools/coverage_analyzer/src/coverage_analyzer/analyzers/operational.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-ANALYZERS-STRUCTURAL-800
+  category: script
+  name: analyzers_structural
+  title: 'analyzers module: structural'
+  status: active
+  artifacts:
+  - type: source
+    path: tools/coverage_analyzer/src/coverage_analyzer/analyzers/structural.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-ANALYZERS-STATIC-ANALYSIS-801
+  category: script
+  name: analyzers_static_analysis
+  title: 'analyzers module: static_analysis'
+  status: active
+  artifacts:
+  - type: source
+    path: tools/coverage_analyzer/src/coverage_analyzer/analyzers/static_analysis.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-ANALYZERS-MUTATION-802
+  category: script
+  name: analyzers_mutation
+  title: 'analyzers module: mutation'
+  status: active
+  artifacts:
+  - type: source
+    path: tools/coverage_analyzer/src/coverage_analyzer/analyzers/mutation.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-ANALYZERS-SCA-803
+  category: script
+  name: analyzers_sca
+  title: 'analyzers module: sca'
+  status: active
+  artifacts:
+  - type: source
+    path: tools/coverage_analyzer/src/coverage_analyzer/analyzers/sca.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-ANALYZERS-INIT-804
+  category: script
+  name: analyzers_init
+  title: 'analyzers module: __init__'
+  status: active
+  artifacts:
+  - type: source
+    path: tools/coverage_analyzer/src/coverage_analyzer/analyzers/__init__.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-ANALYZERS-COMPLEXITY-805
+  category: script
+  name: analyzers_complexity
+  title: 'analyzers module: complexity'
+  status: active
+  artifacts:
+  - type: source
+    path: tools/coverage_analyzer/src/coverage_analyzer/analyzers/complexity.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-ADAPTERS-BASE-ADAPTER-806
+  category: script
+  name: adapters_base_adapter
+  title: 'adapters module: base_adapter'
+  status: active
+  artifacts:
+  - type: source
+    path: tools/coverage_analyzer/src/coverage_analyzer/adapters/base_adapter.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-ADAPTERS-MYPY-ADAPTER-807
+  category: script
+  name: adapters_mypy_adapter
+  title: 'adapters module: mypy_adapter'
+  status: active
+  artifacts:
+  - type: source
+    path: tools/coverage_analyzer/src/coverage_analyzer/adapters/mypy_adapter.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-ADAPTERS-BANDIT-ADAPTER-808
+  category: script
+  name: adapters_bandit_adapter
+  title: 'adapters module: bandit_adapter'
+  status: active
+  artifacts:
+  - type: source
+    path: tools/coverage_analyzer/src/coverage_analyzer/adapters/bandit_adapter.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-ADAPTERS-RADON-ADAPTER-809
+  category: script
+  name: adapters_radon_adapter
+  title: 'adapters module: radon_adapter'
+  status: active
+  artifacts:
+  - type: source
+    path: tools/coverage_analyzer/src/coverage_analyzer/adapters/radon_adapter.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-ADAPTERS-PIP-AUDIT-ADAPTER-810
+  category: script
+  name: adapters_pip_audit_adapter
+  title: 'adapters module: pip_audit_adapter'
+  status: active
+  artifacts:
+  - type: source
+    path: tools/coverage_analyzer/src/coverage_analyzer/adapters/pip_audit_adapter.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-ADAPTERS-SAFETY-ADAPTER-811
+  category: script
+  name: adapters_safety_adapter
+  title: 'adapters module: safety_adapter'
+  status: active
+  artifacts:
+  - type: source
+    path: tools/coverage_analyzer/src/coverage_analyzer/adapters/safety_adapter.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-ADAPTERS-PSSA-ADAPTER-812
+  category: script
+  name: adapters_pssa_adapter
+  title: 'adapters module: pssa_adapter'
+  status: active
+  artifacts:
+  - type: source
+    path: tools/coverage_analyzer/src/coverage_analyzer/adapters/pssa_adapter.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-ADAPTERS-LOCUST-ADAPTER-813
+  category: script
+  name: adapters_locust_adapter
+  title: 'adapters module: locust_adapter'
+  status: active
+  artifacts:
+  - type: source
+    path: tools/coverage_analyzer/src/coverage_analyzer/adapters/locust_adapter.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-ADAPTERS-MUTMUT-ADAPTER-814
+  category: script
+  name: adapters_mutmut_adapter
+  title: 'adapters module: mutmut_adapter'
+  status: active
+  artifacts:
+  - type: source
+    path: tools/coverage_analyzer/src/coverage_analyzer/adapters/mutmut_adapter.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-ADAPTERS-PESTER-ADAPTER-815
+  category: script
+  name: adapters_pester_adapter
+  title: 'adapters module: pester_adapter'
+  status: active
+  artifacts:
+  - type: source
+    path: tools/coverage_analyzer/src/coverage_analyzer/adapters/pester_adapter.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-ADAPTERS-PROSPECTOR-ADAPTER-816
+  category: script
+  name: adapters_prospector_adapter
+  title: 'adapters module: prospector_adapter'
+  status: active
+  artifacts:
+  - type: source
+    path: tools/coverage_analyzer/src/coverage_analyzer/adapters/prospector_adapter.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-ADAPTERS-COVERAGE-PY-ADAPTER-817
+  category: script
+  name: adapters_coverage_py_adapter
+  title: 'adapters module: coverage_py_adapter'
+  status: active
+  artifacts:
+  - type: source
+    path: tools/coverage_analyzer/src/coverage_analyzer/adapters/coverage_py_adapter.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-SCRIPT-ADAPTERS-INIT-818
+  category: script
+  name: adapters_init
+  title: 'adapters module: __init__'
+  status: active
+  artifacts:
+  - type: source
+    path: tools/coverage_analyzer/src/coverage_analyzer/adapters/__init__.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-GUIDE-DOC-ID-TESTS-TEST-DRIFT-DETECTION-133
+  category: guide
+  name: doc_id_tests_test_drift_detection
+  title: Tests for DOC_ID_tests.drift_detection
+  status: active
+  artifacts:
+  - type: source
+    path: doc_id/DOC_ID_tests/test_drift_detection.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-EVENTS-EVENT-BUS-847
+  category: core
+  name: events_event_bus
+  title: 'events module: event_bus'
+  status: active
+  artifacts:
+  - type: source
+    path: core/events/event_bus.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-EVENTS-SIMPLE-EVENT-BUS-848
+  category: core
+  name: events_simple_event_bus
+  title: 'events module: simple_event_bus'
+  status: active
+  artifacts:
+  - type: source
+    path: core/events/simple_event_bus.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-EVENTS-INIT-849
+  category: core
+  name: events_init
+  title: 'events module: __init__'
+  status: active
+  artifacts:
+  - type: source
+    path: core/events/__init__.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-MONITORING-ARCHIVAL-VALIDATOR-850
+  category: core
+  name: monitoring_archival_validator
+  title: 'monitoring module: archival_validator'
+  status: active
+  artifacts:
+  - type: source
+    path: core/monitoring/archival_validator.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-BOOTSTRAP-ENHANCED-VALIDATOR-851
+  category: core
+  name: bootstrap_enhanced_validator
+  title: 'bootstrap module: enhanced_validator'
+  status: active
+  artifacts:
+  - type: source
+    path: core/bootstrap/enhanced_validator.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTING-AUTO-TRIAGE-852
+  category: core
+  name: testing_auto_triage
+  title: 'testing module: auto_triage'
+  status: active
+  artifacts:
+  - type: source
+    path: core/testing/auto_triage.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTING-INIT-853
+  category: core
+  name: testing_init
+  title: 'testing module: __init__'
+  status: active
+  artifacts:
+  - type: source
+    path: core/testing/__init__.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-CLI-WRAPPER-854
+  category: core
+  name: cli_wrapper
+  title: 'cli module: wrapper'
+  status: active
+  artifacts:
+  - type: source
+    path: core/cli/wrapper.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-CLI-INIT-855
+  category: core
+  name: cli_init
+  title: 'cli module: __init__'
+  status: active
+  artifacts:
+  - type: source
+    path: core/cli/__init__.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-ENGINE-ROUTING-VALIDATOR-856
+  category: core
+  name: engine_routing_validator
+  title: 'engine module: routing_validator'
+  status: active
+  artifacts:
+  - type: source
+    path: core/engine/routing_validator.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-ENGINE-EXECUTION-VALIDATOR-857
+  category: core
+  name: engine_execution_validator
+  title: 'engine module: execution_validator'
+  status: active
+  artifacts:
+  - type: source
+    path: core/engine/execution_validator.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-ENGINE-REQUEST-VALIDATOR-858
+  category: core
+  name: engine_request_validator
+  title: 'engine module: request_validator'
+  status: active
+  artifacts:
+  - type: source
+    path: core/engine/request_validator.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-ENGINE-SCHEDULING-VALIDATOR-859
+  category: core
+  name: engine_scheduling_validator
+  title: 'engine module: scheduling_validator'
+  status: active
+  artifacts:
+  - type: source
+    path: core/engine/scheduling_validator.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-ENGINE-STATE-FILE-MANAGER-860
+  category: core
+  name: engine_state_file_manager
+  title: 'engine module: state_file_manager'
+  status: active
+  artifacts:
+  - type: source
+    path: core/engine/state_file_manager.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-CONTRACTS-SCHEMA-REGISTRY-861
+  category: core
+  name: contracts_schema_registry
+  title: 'contracts module: schema_registry'
+  status: active
+  artifacts:
+  - type: source
+    path: core/contracts/schema_registry.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-CONTRACTS-TYPES-862
+  category: core
+  name: contracts_types
+  title: 'contracts module: types'
+  status: active
+  artifacts:
+  - type: source
+    path: core/contracts/types.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-CONTRACTS-VALIDATOR-863
+  category: core
+  name: contracts_validator
+  title: 'contracts module: validator'
+  status: active
+  artifacts:
+  - type: source
+    path: core/contracts/validator.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-CONTRACTS-DECORATORS-864
+  category: core
+  name: contracts_decorators
+  title: 'contracts module: decorators'
+  status: active
+  artifacts:
+  - type: source
+    path: core/contracts/decorators.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-CONTRACTS-INIT-865
+  category: core
+  name: contracts_init
+  title: 'contracts module: __init__'
+  status: active
+  artifacts:
+  - type: source
+    path: core/contracts/__init__.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-AUTOMATION-INIT-866
+  category: core
+  name: automation_init
+  title: 'automation module: __init__'
+  status: active
+  artifacts:
+  - type: source
+    path: core/automation/__init__.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-LOGGING-STRUCTURED-LOGGER-867
+  category: core
+  name: logging_structured_logger
+  title: 'logging module: structured_logger'
+  status: active
+  artifacts:
+  - type: source
+    path: core/logging/structured_logger.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-LOGGING-INIT-868
+  category: core
+  name: logging_init
+  title: 'logging module: __init__'
+  status: active
+  artifacts:
+  - type: source
+    path: core/logging/__init__.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-PLANNING-CONTRACT-VALIDATOR-869
+  category: core
+  name: planning_contract_validator
+  title: 'planning module: contract_validator'
+  status: active
+  artifacts:
+  - type: source
+    path: core/planning/contract_validator.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-ALERTING-ALERT-MANAGER-870
+  category: core
+  name: alerting_alert_manager
+  title: 'alerting module: alert_manager'
+  status: active
+  artifacts:
+  - type: source
+    path: core/events/alerting/alert_manager.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-ALERTING-INIT-871
+  category: core
+  name: alerting_init
+  title: 'alerting module: __init__'
+  status: active
+  artifacts:
+  - type: source
+    path: core/events/alerting/__init__.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TRIGGERS-TRIGGER-ENGINE-872
+  category: core
+  name: triggers_trigger_engine
+  title: 'triggers module: trigger_engine'
+  status: active
+  artifacts:
+  - type: source
+    path: core/engine/triggers/trigger_engine.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TRIGGERS-INIT-873
+  category: core
+  name: triggers_init
+  title: 'triggers module: __init__'
+  status: active
+  artifacts:
+  - type: source
+    path: core/engine/triggers/__init__.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-AIM-AIM-VALIDATE-POOL-190
+  category: aim
+  name: aim_validate_pool
+  title: 'aim module: validate_pool'
+  status: active
+  artifacts:
+  - type: source
+    path: tests/aim/validate_pool.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-AIM-AIM-MANUAL-TEST-POOL-191
+  category: aim
+  name: aim_manual_test_pool
+  title: 'aim module: manual_test_pool'
+  status: active
+  artifacts:
+  - type: source
+    path: tests/aim/manual_test_pool.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-ENGINE-ENGINE-TEST-PHASE-COORDINATOR-004
+  category: engine
+  name: engine_test_phase_coordinator
+  title: Tests for engine.phase_coordinator
+  status: active
+  artifacts:
+  - type: source
+    path: tests/engine/test_phase_coordinator.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-TEST-CONTRACTS-TEST-DECORATORS-372
+  category: test
+  name: contracts_test_decorators
+  title: Tests for contracts.decorators
+  status: active
+  artifacts:
+  - type: source
+    path: tests/contracts/test_decorators.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-TEST-CONTRACTS-TEST-CONTRACT-VALIDATION-373
+  category: test
+  name: contracts_test_contract_validation
+  title: Tests for contracts.contract_validation
+  status: active
+  artifacts:
+  - type: source
+    path: tests/contracts/test_contract_validation.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-TEST-CONTRACTS-INIT-374
+  category: test
+  name: contracts_init
+  title: 'contracts module: __init__'
+  status: active
+  artifacts:
+  - type: source
+    path: tests/contracts/__init__.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TESTING-TEST-AUTO-TRIAGE-874
+  category: core
+  name: testing_test_auto_triage
+  title: Tests for testing.auto_triage
+  status: active
+  artifacts:
+  - type: source
+    path: tests/core/testing/test_auto_triage.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-CLI-TEST-WRAPPER-875
+  category: core
+  name: cli_test_wrapper
+  title: Tests for cli.wrapper
+  status: active
+  artifacts:
+  - type: source
+    path: tests/core/cli/test_wrapper.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-CORE-TRIGGERS-TEST-TRIGGER-ENGINE-876
+  category: core
+  name: triggers_test_trigger_engine
+  title: Tests for triggers.trigger_engine
+  status: active
+  artifacts:
+  - type: source
+    path: tests/core/engine/triggers/test_trigger_engine.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-ERROR-ENGINE-RECOVERY-VALIDATOR-161
+  category: error
+  name: engine_recovery_validator
+  title: 'engine module: recovery_validator'
+  status: active
+  artifacts:
+  - type: source
+    path: error/engine/recovery_validator.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-ERROR-AUTOMATION-INIT-162
+  category: error
+  name: automation_init
+  title: 'automation module: __init__'
+  status: active
+  artifacts:
+  - type: source
+    path: error/automation/__init__.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-ERROR-AUTOMATION-PATCH-APPLIER-163
+  category: error
+  name: automation_patch_applier
+  title: 'automation module: patch_applier'
+  status: active
+  artifacts:
+  - type: source
+    path: error/automation/patch_applier.py
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - py
+- doc_id: DOC-GUIDE-MULTI-AGENT-PROMNT-134
+  category: guide
+  name: multi_agent_promnt
+  title: Multi Agent Promnt
+  status: active
+  artifacts:
+  - type: source
+    path: MULTI AGENT PROMNT.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-MULTI-AGENT-CONSOLIDATION-GUIDE-135
+  category: guide
+  name: multi_agent_consolidation_guide
+  title: Multi Agent Consolidation Guide
+  status: active
+  artifacts:
+  - type: source
+    path: MASTER_SPLINTER/MULTI_AGENT_CONSOLIDATION_GUIDE.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-WORKSTREAM-SYNC-QUICKREF-136
+  category: guide
+  name: workstream_sync_quickref
+  title: Workstream Sync Quickref
+  status: active
+  artifacts:
+  - type: source
+    path: MASTER_SPLINTER/WORKSTREAM_SYNC_QUICKREF.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-WORKSTREAM-SYNC-GUIDE-137
+  category: guide
+  name: workstream_sync_guide
+  title: Workstream Sync Guide
+  status: active
+  artifacts:
+  - type: source
+    path: MASTER_SPLINTER/WORKSTREAM_SYNC_GUIDE.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-START-HERE-AI-138
+  category: guide
+  name: start_here_ai
+  title: Start Here Ai
+  status: active
+  artifacts:
+  - type: source
+    path: MASTER_SPLINTER/START_HERE_AI.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-WORKSTREAM-SYNC-COMPLETION-139
+  category: guide
+  name: workstream_sync_completion
+  title: Workstream Sync Completion
+  status: active
+  artifacts:
+  - type: source
+    path: MASTER_SPLINTER/WORKSTREAM_SYNC_COMPLETION.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-MASTER-SPLINTER-PASTE-DIR-140
+  category: guide
+  name: master_splinter_paste_dir
+  title: Master Splinter Paste Dir
+  status: active
+  artifacts:
+  - type: source
+    path: MASTER_SPLINTER/MASTER_SPLINTER_paste_dir.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-MULTI-AGENT-CONSOLIDATION-QUICKREF-141
+  category: guide
+  name: multi_agent_consolidation_quickref
+  title: Multi Agent Consolidation Quickref
+  status: active
+  artifacts:
+  - type: source
+    path: MASTER_SPLINTER/MULTI_AGENT_CONSOLIDATION_QUICKREF.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-142
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: MASTER_SPLINTER/README.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-MULTI-AGENT-SYSTEM-COMPLETE-143
+  category: guide
+  name: multi_agent_system_complete
+  title: Multi Agent System Complete
+  status: active
+  artifacts:
+  - type: source
+    path: MASTER_SPLINTER/MULTI_AGENT_SYSTEM_COMPLETE.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-WORKSTREAM-SUMMARY-REPORT-144
+  category: guide
+  name: workstream_summary_report
+  title: Workstream Summary Report
+  status: active
+  artifacts:
+  - type: source
+    path: MASTER_SPLINTER/workstream_summary_report.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-MASTER-SPLINTER-PHASE-PLAN-TEMPLATE-145
+  category: guide
+  name: master_splinter_phase_plan_template
+  title: Master Splinter Phase Plan Template Guide
+  status: active
+  artifacts:
+  - type: source
+    path: MASTER_SPLINTER/MASTER_SPLINTER_Phase_Plan_Template_GUIDE.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-CLAUDE-146
+  category: guide
+  name: claude
+  title: Claude
+  status: active
+  artifacts:
+  - type: source
+    path: MASTER_SPLINTER/CLAUDE.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-147
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: _ARCHIVE/README.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-148
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: phase2_request_building/README.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-149
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: phase7_monitoring/README.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-PAT-PAT-DIAGRAM-DRAWIO-RENDER-001-325
+  category: patterns
+  name: pat_diagram_drawio_render_001
+  title: Pat Diagram Drawio Render 001
+  status: active
+  artifacts:
+  - type: source
+    path: patterns/PAT-DIAGRAM-DRAWIO-RENDER-001.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-PAT-MISSING-AUTOMATION-REPORT-326
+  category: patterns
+  name: missing_automation_report
+  title: Missing Automation Report
+  status: active
+  artifacts:
+  - type: source
+    path: patterns/MISSING_AUTOMATION_REPORT.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-AUTONOMOUS-WORKFLOW-CONSOLIDATION-150
+  category: guide
+  name: autonomous_workflow_consolidation
+  title: Autonomous Workflow Consolidation Summary
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/AUTONOMOUS_WORKFLOW_CONSOLIDATION_SUMMARY.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-CERTIFICATION-ENHANCEMENT-PROPOSAL-151
+  category: guide
+  name: certification_enhancement_proposal
+  title: Certification Enhancement Proposal
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/CERTIFICATION_ENHANCEMENT_PROPOSAL.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-152
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/README.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-PHASE6-GAP-FIX-PLAN-153
+  category: guide
+  name: phase6_gap_fix_plan
+  title: Phase6 Gap Fix Plan
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/PHASE6_GAP_FIX_PLAN.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-CONSOLIDATION-COMPLETE-154
+  category: guide
+  name: consolidation_complete
+  title: Consolidation Complete
+  status: active
+  artifacts:
+  - type: source
+    path: phase6_error_recovery/CONSOLIDATION_COMPLETE.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-COMMIT-SUMMARY-TEMPLATE-155
+  category: guide
+  name: commit_summary_template
+  title: Commit Summary Template
+  status: active
+  artifacts:
+  - type: source
+    path: COMMIT_SUMMARY/COMMIT_SUMMARY_TEMPLATE.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-COMMIT-SUMMARY-IMPLEMENTATION-157
+  category: guide
+  name: commit_summary_implementation
+  title: Commit Summary Implementation
+  status: active
+  artifacts:
+  - type: source
+    path: COMMIT_SUMMARY/COMMIT_SUMMARY_IMPLEMENTATION.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-COMMIT-SUMMARY-GUIDE-158
+  category: guide
+  name: commit_summary_guide
+  title: Commit Summary Guide
+  status: active
+  artifacts:
+  - type: source
+    path: COMMIT_SUMMARY/COMMIT_SUMMARY_GUIDE.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-GAP-ANA-159
+  category: guide
+  name: gap_ana
+  title: Gap Ana
+  status: active
+  artifacts:
+  - type: source
+    path: DEVELOPMENT_TEMP_DOCS/GAP_ANA.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-AUTOMATIONGAP-ANA-160
+  category: guide
+  name: automationgap_ana
+  title: Automationgap Ana
+  status: active
+  artifacts:
+  - type: source
+    path: DEVELOPMENT_TEMP_DOCS/AutomationGAP_ANA.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-GIT-FAILURE-MODES-ANA-161
+  category: guide
+  name: git_failure_modes_ana
+  title: Git Failure Modes Ana
+  status: active
+  artifacts:
+  - type: source
+    path: DEVELOPMENT_TEMP_DOCS/Git failure modes_ANA.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-AUTOMATION-CHAIN-GAP-ANALYSIS-COMPLETE-162
+  category: guide
+  name: automation_chain_gap_analysis_complete
+  title: Automation Chain Gap Analysis Complete
+  status: active
+  artifacts:
+  - type: source
+    path: DEVELOPMENT_TEMP_DOCS/AUTOMATION_CHAIN_GAP_ANALYSIS_COMPLETE.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-163
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: phase1_planning/README.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-164
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: phase4_routing/README.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-SCRIPT-ONEOFF-GENERATORS-ARCHIVED-819
+  category: script
+  name: oneoff_generators_archived
+  title: Oneoff Generators Archived
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/ONEOFF_GENERATORS_ARCHIVED.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-SCRIPT-MIGRATION-VALIDATORS-ARCHIVED-820
+  category: script
+  name: migration_validators_archived
+  title: Migration Validators Archived
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/MIGRATION_VALIDATORS_ARCHIVED.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-SCRIPT-WORKSTREAM-EXECUTORS-DEPRECATED-821
+  category: script
+  name: workstream_executors_deprecated
+  title: Workstream Executors Deprecated
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/WORKSTREAM_EXECUTORS_DEPRECATED.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-165
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: phase0_bootstrap/README.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-FOLDER-CONSOLIDATION-20251205-155637-166
+  category: guide
+  name: folder_consolidation_20251205_155637
+  title: Folder Consolidation 20251205 155637
+  status: active
+  artifacts:
+  - type: source
+    path: reports/FOLDER_CONSOLIDATION_20251205_155637.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-TEST-VALIDATION-QUICK-SUMMARY-167
+  category: guide
+  name: test_validation_quick_summary
+  title: Test Validation Quick Summary
+  status: active
+  artifacts:
+  - type: source
+    path: reports/TEST_VALIDATION_QUICK_SUMMARY.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-TEST-VALIDATION-COMPREHENSIVE-REPORT-168
+  category: guide
+  name: test_validation_comprehensive_report
+  title: Test Validation Comprehensive Report
+  status: active
+  artifacts:
+  - type: source
+    path: reports/TEST_VALIDATION_COMPREHENSIVE_REPORT.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-CLEANUP-REPORT-20251205-155547-169
+  category: guide
+  name: cleanup_report_20251205_155547
+  title: Cleanup Report 20251205 155547
+  status: active
+  artifacts:
+  - type: source
+    path: reports/CLEANUP_REPORT_20251205_155547.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-IMPORT-PATH-CLEANUP-PROGRESS-170
+  category: guide
+  name: import_path_cleanup_progress
+  title: Import Path Cleanup Progress
+  status: active
+  artifacts:
+  - type: source
+    path: reports/IMPORT_PATH_CLEANUP_PROGRESS.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-PHASE4-ROUTING-AUTOMATION-CHAIN-REPORT-171
+  category: guide
+  name: phase4_routing_automation_chain_report
+  title: Phase4 Routing Automation Chain Report
+  status: active
+  artifacts:
+  - type: source
+    path: plans/phase4_routing_automation_chain_report.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-MASTER-SPLINTER-AUTOMATION-CHAIN-GAP-172
+  category: guide
+  name: master_splinter_automation_chain_gap
+  title: Master Splinter   Automation Chain Gap Analysis Report
+  status: active
+  artifacts:
+  - type: source
+    path: plans/MASTER_SPLINTER - Automation Chain Gap Analysis Report.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-GAP-ANA-PLAN-OVERVIEW-173
+  category: guide
+  name: gap_ana_plan_overview
+  title: Gap Ana Plan Overview
+  status: active
+  artifacts:
+  - type: source
+    path: plans/GAP_ANA_Plan_Overview.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-PHASE7-MONITORING-AUTOMATION-CHAIN-GAP-174
+  category: guide
+  name: phase7_monitoring_automation_chain_gap
+  title: Phase7 Monitoring Automation Chain Gap Analysis
+  status: active
+  artifacts:
+  - type: source
+    path: plans/PHASE7_MONITORING_AUTOMATION_CHAIN_GAP_ANALYSIS.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-PHASE7-MONITORING-AUTOMATION-CHAIN-175
+  category: guide
+  name: phase7_monitoring_automation_chain
+  title: Phase7 Monitoring Automation Chain Report
+  status: active
+  artifacts:
+  - type: source
+    path: plans/phase7_monitoring_automation_chain_report.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-PHASE7-MONITORING-AUTOMATION-176
+  category: guide
+  name: phase7_monitoring_automation
+  title: Phase7 Monitoring Automation Implementation Complete
+  status: active
+  artifacts:
+  - type: source
+    path: plans/PHASE7_MONITORING_AUTOMATION_IMPLEMENTATION_COMPLETE.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-ANA2-177
+  category: guide
+  name: ana2
+  title: Ana2
+  status: active
+  artifacts:
+  - type: source
+    path: plans/ANA2.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-PHASE7-MONITORING-FINAL-DELIVERABLES-178
+  category: guide
+  name: phase7_monitoring_final_deliverables
+  title: Phase7 Monitoring Final Deliverables
+  status: active
+  artifacts:
+  - type: source
+    path: plans/PHASE7_MONITORING_FINAL_DELIVERABLES.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-PHASE7-MONITORING-DEPLOYMENT-STATUS-179
+  category: guide
+  name: phase7_monitoring_deployment_status
+  title: Phase7 Monitoring Deployment Status
+  status: active
+  artifacts:
+  - type: source
+    path: plans/PHASE7_MONITORING_DEPLOYMENT_STATUS.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-ANA1-181
+  category: guide
+  name: ana1
+  title: Ana1
+  status: active
+  artifacts:
+  - type: source
+    path: plans/ANA1.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-REPOSITORY-MAINTENANCE-182
+  category: guide
+  name: repository_maintenance
+  title: Repository Maintenance
+  status: active
+  artifacts:
+  - type: source
+    path: docs/REPOSITORY_MAINTENANCE.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-POOL-INTEGRATION-GUIDE-183
+  category: guide
+  name: pool_integration_guide
+  title: Pool Integration Guide
+  status: active
+  artifacts:
+  - type: source
+    path: docs/POOL_INTEGRATION_GUIDE.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-QUICK-FILE-GUIDE-184
+  category: guide
+  name: quick_file_guide
+  title: Quick File Guide
+  status: active
+  artifacts:
+  - type: source
+    path: docs/QUICK_FILE_GUIDE.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-OVERLAP-DEPRECATION-DETECTION-185
+  category: guide
+  name: overlap_deprecation_detection
+  title: Overlap Deprecation Detection
+  status: active
+  artifacts:
+  - type: source
+    path: prompts/overlap_deprecation_detection.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-AUTOMATION-CHAIN-186
+  category: guide
+  name: automation_chain
+  title: Automation Chain
+  status: active
+  artifacts:
+  - type: source
+    path: prompts/automation chain.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-AUTOMATION-GAP-ANALYSIS-187
+  category: guide
+  name: automation_gap_analysis
+  title: Automation Gap Analysis
+  status: active
+  artifacts:
+  - type: source
+    path: prompts/automation_gap_analysis.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-189
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: phase3_scheduling/README.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-EXEC-002-ACTIVE-190
+  category: guide
+  name: exec_002_active
+  title: Exec 002 Active
+  status: active
+  artifacts:
+  - type: source
+    path: .exec/EXEC-002-ACTIVE.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-191
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: phase5_execution/README.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-GUI-V2-192
+  category: guide
+  name: readme_gui_v2
+  title: Readme Gui V2
+  status: active
+  artifacts:
+  - type: source
+    path: gui/README_GUI_V2.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-GUI-V2-COMPLETE-193
+  category: guide
+  name: gui_v2_complete
+  title: Gui V2 Complete
+  status: active
+  artifacts:
+  - type: source
+    path: gui/GUI_V2_COMPLETE.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-GUI-FUNCTIONAL-STATUS-194
+  category: guide
+  name: gui_functional_status
+  title: Gui Functional Status
+  status: active
+  artifacts:
+  - type: source
+    path: gui/GUI_FUNCTIONAL_STATUS.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-GUI-V2-IMPLEMENTATION-SUMMARY-195
+  category: guide
+  name: gui_v2_implementation_summary
+  title: Gui V2 Implementation Summary
+  status: active
+  artifacts:
+  - type: source
+    path: gui/GUI_V2_IMPLEMENTATION_SUMMARY.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-WORKSTREAM-SUMMARY-REPORT-196
+  category: guide
+  name: workstream_summary_report
+  title: Workstream Summary Report
+  status: active
+  artifacts:
+  - type: source
+    path: templates/workstream_summary_report.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-COMPLETION-REPORT-MASTER-RUN-20251202-197
+  category: guide
+  name: completion_report_master_run_20251202
+  title: Completion Report Master Run 20251202 161836
+  status: active
+  artifacts:
+  - type: source
+    path: MASTER_SPLINTER/reports/COMPLETION_REPORT_master-run-20251202-161836.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-COMPLETION-REPORT-MASTER-RUN-20251202-198
+  category: guide
+  name: completion_report_master_run_20251202
+  title: Completion Report Master Run 20251202 162254
+  status: active
+  artifacts:
+  - type: source
+    path: MASTER_SPLINTER/reports/COMPLETION_REPORT_master-run-20251202-162254.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-199
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: MASTER_SPLINTER/safe_merge/README.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-EXECUTION-PROMPT-TEMPLATE-V2-DAG-MULTI-200
+  category: guide
+  name: execution_prompt_template_v2_dag_multi
+  title: Execution Prompt Template V2 Dag Multi Workstream
+  status: active
+  artifacts:
+  - type: source
+    path: MASTER_SPLINTER/prompts/EXECUTION_PROMPT_TEMPLATE_V2_DAG_MULTI_WORKSTREAM.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-PAT-PAT-LINT-001-327
+  category: patterns
+  name: pat_lint_001
+  title: Pat Lint 001
+  status: active
+  artifacts:
+  - type: source
+    path: MASTER_SPLINTER/patterns/execution/PAT-LINT-001.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-PAT-PAT-PYTEST-CORE-001-328
+  category: patterns
+  name: pat_pytest_core_001
+  title: Pat Pytest Core 001
+  status: active
+  artifacts:
+  - type: source
+    path: MASTER_SPLINTER/patterns/execution/PAT-PYTEST-CORE-001.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-PAT-PAT-ANALYZE-REPO-001-329
+  category: patterns
+  name: pat_analyze_repo_001
+  title: Pat Analyze Repo 001
+  status: active
+  artifacts:
+  - type: source
+    path: MASTER_SPLINTER/patterns/execution/PAT-ANALYZE-REPO-001.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-PAT-PAT-EDIT-WORKTREE-001-330
+  category: patterns
+  name: pat_edit_worktree_001
+  title: Pat Edit Worktree 001
+  status: active
+  artifacts:
+  - type: source
+    path: MASTER_SPLINTER/patterns/execution/PAT-EDIT-WORKTREE-001.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-PAT-PAT-FILE-SCOPE-ENFORCE-001-331
+  category: patterns
+  name: pat_file_scope_enforce_001
+  title: Pat File Scope Enforce 001
+  status: active
+  artifacts:
+  - type: source
+    path: MASTER_SPLINTER/patterns/execution/PAT-FILE-SCOPE-ENFORCE-001.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-PAT-PAT-TYPECHECK-001-332
+  category: patterns
+  name: pat_typecheck_001
+  title: Pat Typecheck 001
+  status: active
+  artifacts:
+  - type: source
+    path: MASTER_SPLINTER/patterns/execution/PAT-TYPECHECK-001.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DECISION-ELIMINATION-COMPLETE-SUMMARY-201
+  category: guide
+  name: decision_elimination_complete_summary
+  title: Decision Elimination Complete Summary
+  status: active
+  artifacts:
+  - type: source
+    path: _ARCHIVE/completion_reports_20251205_155256/DECISION_ELIMINATION_COMPLETE_SUMMARY.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-FINAL-CLEANUP-SUMMARY-202
+  category: guide
+  name: final_cleanup_summary
+  title: Final Cleanup Summary
+  status: active
+  artifacts:
+  - type: source
+    path: _ARCHIVE/completion_reports_20251205_155256/FINAL_CLEANUP_SUMMARY.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-BRANCH-CONSOLIDATION-100-PERCENT-203
+  category: guide
+  name: branch_consolidation_100_percent
+  title: Branch Consolidation 100 Percent Deterministic Plan
+  status: active
+  artifacts:
+  - type: source
+    path: _ARCHIVE/completion_reports_20251205_155256/BRANCH_CONSOLIDATION_100_PERCENT_DETERMINISTIC_PLAN.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-PHASE-6-ALL-AGENTS-INTEGRATION-COMPLETE-204
+  category: guide
+  name: phase_6_all_agents_integration_complete
+  title: Phase 6 All Agents Integration Complete
+  status: active
+  artifacts:
+  - type: source
+    path: _ARCHIVE/completion_reports_20251205_155256/PHASE_6_ALL_AGENTS_INTEGRATION_COMPLETE.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-PHASE-1-AUTOMATION-COMPLETE-205
+  category: guide
+  name: phase_1_automation_complete
+  title: Phase 1 Automation Complete
+  status: active
+  artifacts:
+  - type: source
+    path: _ARCHIVE/completion_reports_20251205_155256/PHASE_1_AUTOMATION_COMPLETE.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-CONSOLIDATION-COMPLETE-REPORT-206
+  category: guide
+  name: consolidation_complete_report
+  title: Consolidation Complete Report
+  status: active
+  artifacts:
+  - type: source
+    path: _ARCHIVE/completion_reports_20251205_155256/CONSOLIDATION_COMPLETE_REPORT.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DECISION-ELIMINATION-FINAL-REPORT-207
+  category: guide
+  name: decision_elimination_final_report
+  title: Decision Elimination Final Report
+  status: active
+  artifacts:
+  - type: source
+    path: _ARCHIVE/completion_reports_20251205_155256/DECISION_ELIMINATION_FINAL_REPORT.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-WORKSTREAM-2-COMPLETE-208
+  category: guide
+  name: workstream_2_complete
+  title: Workstream 2 Complete
+  status: active
+  artifacts:
+  - type: source
+    path: _ARCHIVE/completion_reports_20251205_155256/WORKSTREAM_2_COMPLETE.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-PHASE-6-FINAL-COMPLETION-REPORT-209
+  category: guide
+  name: phase_6_final_completion_report
+  title: Phase 6 Final Completion Report
+  status: active
+  artifacts:
+  - type: source
+    path: _ARCHIVE/completion_reports_20251205_155256/PHASE_6_FINAL_COMPLETION_REPORT.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-PHASE-6-GAP-FIX-COMPLETE-210
+  category: guide
+  name: phase_6_gap_fix_complete
+  title: Phase 6 Gap Fix Complete
+  status: active
+  artifacts:
+  - type: source
+    path: _ARCHIVE/completion_reports_20251205_155256/PHASE_6_GAP_FIX_COMPLETE.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-MULTI-CLI-BUILD-COMPLETE-211
+  category: guide
+  name: multi_cli_build_complete
+  title: Multi Cli Build Complete
+  status: active
+  artifacts:
+  - type: source
+    path: _ARCHIVE/completion_reports_20251205_155256/MULTI_CLI_BUILD_COMPLETE.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-PHASE-6-COMPLETION-STATUS-REPORT-212
+  category: guide
+  name: phase_6_completion_status_report
+  title: Phase 6 Completion Status Report
+  status: active
+  artifacts:
+  - type: source
+    path: _ARCHIVE/completion_reports_20251205_155256/PHASE_6_COMPLETION_STATUS_REPORT.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-FOLDER-OVERLAP-FINAL-REPORT-213
+  category: guide
+  name: folder_overlap_final_report
+  title: Folder Overlap Final Report
+  status: active
+  artifacts:
+  - type: source
+    path: _ARCHIVE/completion_reports_20251205_155256/FOLDER_OVERLAP_FINAL_REPORT.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-AGENT-3-WS-6T-07-COMPLETE-214
+  category: guide
+  name: agent_3_ws_6t_07_complete
+  title: Agent 3 Ws 6T 07 Complete
+  status: active
+  artifacts:
+  - type: source
+    path: _ARCHIVE/completion_reports_20251205_155256/AGENT_3_WS_6T_07_COMPLETE.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-ARCHIVE-215
+  category: guide
+  name: readme_archive
+  title: Readme Archive
+  status: active
+  artifacts:
+  - type: source
+    path: _ARCHIVE/uet_planning_workspace_20251204_155747/README_ARCHIVE.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DEPRECATION-NOTICE-216
+  category: guide
+  name: deprecation_notice
+  title: Deprecation Notice
+  status: active
+  artifacts:
+  - type: source
+    path: _ARCHIVE/github_scripts_old_20251205/DEPRECATION_NOTICE.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-217
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: _ARCHIVE/autonomous-workflow_prototype_20251204/README.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-LEGACY-CLEANUP-SESSION-COMPLETE-001
+  category: legacy
+  name: cleanup_session_complete
+  title: Cleanup Session Complete
+  status: active
+  artifacts:
+  - type: source
+    path: archive/20251201_120954_phase_session_reports/CLEANUP_SESSION_COMPLETE.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-LEGACY-README-002
+  category: legacy
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: archive/20251201_120954_phase_session_reports/README.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-LEGACY-FOLDER-CLEANUP-REPORT-003
+  category: legacy
+  name: folder_cleanup_report
+  title: Folder Cleanup Report
+  status: active
+  artifacts:
+  - type: source
+    path: archive/20251201_120954_phase_session_reports/FOLDER_CLEANUP_REPORT.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-LEGACY-README-004
+  category: legacy
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: archive/20251201_121347_generated_temp_files/README.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-LEGACY-FOLDER-CLEANUP-COMPLETE-005
+  category: legacy
+  name: folder_cleanup_complete
+  title: Folder Cleanup Complete
+  status: active
+  artifacts:
+  - type: source
+    path: archive/20251201_120747_completed_implementations/FOLDER_CLEANUP_COMPLETE.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-LEGACY-README-006
+  category: legacy
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: archive/20251201_120747_completed_implementations/README.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-LEGACY-SYSTEM-FOR-REMOVING-REPLACED-REDUNDANT-007
+  category: legacy
+  name: system_for_removing_replaced_redundant
+  title: System For Removing Replaced Redundant File
+  status: active
+  artifacts:
+  - type: source
+    path: archive/2025-12-01_115945_deprecated_folders/ToDo_Task/System for Removing
+      Replaced_Redundant File.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-LEGACY-FOLDER-PURPOSE-DESCRIPTIONS-008
+  category: legacy
+  name: folder_purpose_descriptions
+  title: Folder Purpose Descriptions
+  status: active
+  artifacts:
+  - type: source
+    path: archive/2025-12-01_115945_deprecated_folders/ToDo_Task/Folder Purpose Descriptions.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-LEGACY-PATTERN-CARD-SCHEMA-009
+  category: legacy
+  name: pattern_card_schema
+  title: Pattern Card Schema
+  status: active
+  artifacts:
+  - type: source
+    path: archive/2025-12-01_115945_deprecated_folders/ToDo_Task/Pattern Card schema.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-LEGACY-PATCH-FILES-AS-UNIFIED-DIFF-OPTIMAL-010
+  category: legacy
+  name: patch_files_as_unified_diff_optimal
+  title: '# Patch Files As Unified Diff & Optimal '
+  status: active
+  artifacts:
+  - type: source
+    path: archive/2025-12-01_115945_deprecated_folders/REFACTOR_2/POSS_ADDITIONS/#
+      Patch Files as Unified Diff & Optimal .md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-LEGACY-JAZZY-NAPPING-PIZZA-011
+  category: legacy
+  name: jazzy_napping_pizza
+  title: Jazzy Napping Pizza
+  status: active
+  artifacts:
+  - type: source
+    path: archive/2025-12-01_115945_deprecated_folders/ToDo_Task/CLAUDE PLANS/jazzy-napping-pizza.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-LEGACY-RADIANT-IMAGINING-TARJAN-012
+  category: legacy
+  name: radiant_imagining_tarjan
+  title: Radiant Imagining Tarjan
+  status: active
+  artifacts:
+  - type: source
+    path: archive/2025-12-01_115945_deprecated_folders/ToDo_Task/CLAUDE PLANS/radiant-imagining-tarjan.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-LEGACY-TYPED-MARINATING-NEUMANN-013
+  category: legacy
+  name: typed_marinating_neumann
+  title: Typed Marinating Neumann
+  status: active
+  artifacts:
+  - type: source
+    path: archive/2025-12-01_115945_deprecated_folders/ToDo_Task/CLAUDE PLANS/typed-marinating-neumann.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-LEGACY-NESTED-SPARKING-STARDUST-014
+  category: legacy
+  name: nested_sparking_stardust
+  title: Nested Sparking Stardust
+  status: active
+  artifacts:
+  - type: source
+    path: archive/2025-12-01_115945_deprecated_folders/ToDo_Task/CLAUDE PLANS/nested-sparking-stardust.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-LEGACY-SLEEPY-DREAMING-BUBBLE-015
+  category: legacy
+  name: sleepy_dreaming_bubble
+  title: Sleepy Dreaming Bubble
+  status: active
+  artifacts:
+  - type: source
+    path: archive/2025-12-01_115945_deprecated_folders/ToDo_Task/CLAUDE PLANS/sleepy-dreaming-bubble.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-LEGACY-SNUG-FORGING-WREATH-016
+  category: legacy
+  name: snug_forging_wreath
+  title: Snug Forging Wreath
+  status: active
+  artifacts:
+  - type: source
+    path: archive/2025-12-01_115945_deprecated_folders/ToDo_Task/CLAUDE PLANS/snug-forging-wreath.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-LEGACY-SLEEPY-POPPING-HONEY-AGENT-044EE24A-017
+  category: legacy
+  name: sleepy_popping_honey_agent_044ee24a
+  title: Sleepy Popping Honey Agent 044Ee24A
+  status: active
+  artifacts:
+  - type: source
+    path: archive/2025-12-01_115945_deprecated_folders/ToDo_Task/CLAUDE PLANS/sleepy-popping-honey-agent-044ee24a.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-LEGACY-TIDY-SWIMMING-QUAIL-018
+  category: legacy
+  name: tidy_swimming_quail
+  title: Tidy Swimming Quail
+  status: active
+  artifacts:
+  - type: source
+    path: archive/2025-12-01_115945_deprecated_folders/ToDo_Task/CLAUDE PLANS/tidy-swimming-quail.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-LEGACY-EXECUTION-PROMPT-TEMPLATE-V2-DAG-MULTI-019
+  category: legacy
+  name: execution_prompt_template_v2_dag_multi
+  title: Execution Prompt Template V2 Dag Multi Workstreamplan
+  status: active
+  artifacts:
+  - type: source
+    path: archive/2025-12-01_115945_deprecated_folders/ToDo_Task/CLAUDE PLANS/EXECUTION_PROMPT_TEMPLATE_V2_DAG_MULTI_WORKSTREAMplan.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-LEGACY-SLEEPY-POPPING-HONEY-020
+  category: legacy
+  name: sleepy_popping_honey
+  title: Sleepy Popping Honey
+  status: active
+  artifacts:
+  - type: source
+    path: archive/2025-12-01_115945_deprecated_folders/ToDo_Task/CLAUDE PLANS/sleepy-popping-honey.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-LEGACY-TINGLY-WIGGLING-FAIRY-021
+  category: legacy
+  name: tingly_wiggling_fairy
+  title: Tingly Wiggling Fairy
+  status: active
+  artifacts:
+  - type: source
+    path: archive/2025-12-01_115945_deprecated_folders/ToDo_Task/CLAUDE PLANS/tingly-wiggling-fairy.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-LEGACY-ENUMERATED-CUDDLING-FROST-022
+  category: legacy
+  name: enumerated_cuddling_frost
+  title: Enumerated Cuddling Frost
+  status: active
+  artifacts:
+  - type: source
+    path: archive/2025-12-01_115945_deprecated_folders/ToDo_Task/CLAUDE PLANS/enumerated-cuddling-frost.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-LEGACY-HIDDEN-PONDERING-TREASURE-023
+  category: legacy
+  name: hidden_pondering_treasure
+  title: Hidden Pondering Treasure
+  status: active
+  artifacts:
+  - type: source
+    path: archive/2025-12-01_115945_deprecated_folders/ToDo_Task/CLAUDE PLANS/hidden-pondering-treasure.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-LEGACY-MAGICAL-LAUNCHING-ELEPHANT-024
+  category: legacy
+  name: magical_launching_elephant
+  title: Magical Launching Elephant
+  status: active
+  artifacts:
+  - type: source
+    path: archive/2025-12-01_115945_deprecated_folders/ToDo_Task/CLAUDE PLANS/magical-launching-elephant.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-LEGACY-AUTOMATED-CONVERSION-EXAMPLES-SHOWING-025
+  category: legacy
+  name: automated_conversion_examples_showing
+  title: Automated Conversion Examples Showing How To Transform Existing Codex Claude
+    ...
+  status: active
+  artifacts:
+  - type: source
+    path: archive/20251201_120954_phase_session_reports/aider/help/automated conversion
+      examples showing how to transform existing Codex_Claude style phase prompts
+      into Aider-compatible workstream.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-PH-00-BASELINE-PROJECT-SKELETON-CODEX-218
+  category: guide
+  name: ph_00_baseline_project_skeleton_codex
+  title: Ph 00 Baseline & Project Skeleton (Codex Autonomous Phase Executor)
+  status: active
+  artifacts:
+  - type: source
+    path: archive/20251201_120954_phase_session_reports/developer/phases/PH-00_Baseline
+      & Project Skeleton (Codex Autonomous Phase Executor).md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-PH-04-WORKSTREAM-BUNDLE-PARSING-219
+  category: guide
+  name: ph_04_workstream_bundle_parsing
+  title: Ph 04  Workstream Bundle Parsing & Validation (Codex Autonomous Phase Executor)
+  status: active
+  artifacts:
+  - type: source
+    path: archive/20251201_120954_phase_session_reports/developer/phases/PH_04 _Workstream
+      Bundle Parsing & Validation (Codex Autonomous Phase Executor).md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-PH-02-DATA-MODEL-SQLITE-STATE-LAYER-220
+  category: guide
+  name: ph_02_data_model_sqlite_state_layer
+  title: Ph 02 Data Model, Sqlite State Layer & State Machine (Codex Autonomous Phase
+    ...
+  status: active
+  artifacts:
+  - type: source
+    path: archive/20251201_120954_phase_session_reports/developer/phases/PH-02_Data
+      Model, SQLite State Layer & State Machine (Codex Autonomous Phase Executor).md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-PH-05-GIT-WORKTREE-LIFECYCLE-MANAGEMENT-221
+  category: guide
+  name: ph_05_git_worktree_lifecycle_management
+  title: "Ph 05 \u2013 Git Worktree Lifecycle Management (Codex Autonomous Phase Executor)"
+  status: active
+  artifacts:
+  - type: source
+    path: "archive/20251201_120954_phase_session_reports/developer/phases/PH_05 \u2013\
+      _Git Worktree Lifecycle Management (Codex Autonomous Phase Executor).md"
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-PH-01-SPEC-ALIGNMENT-INDEX-MAPPING-CODEX-222
+  category: guide
+  name: ph_01_spec_alignment_index_mapping_codex
+  title: Ph 01 Spec Alignment & Index Mapping (Codex Autonomous Phase Executor)
+  status: active
+  artifacts:
+  - type: source
+    path: archive/20251201_120954_phase_session_reports/developer/phases/PH-01_Spec
+      Alignment & Index Mapping (Codex Autonomous Phase Executor).md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-PH-06-GIT-WORKTREE-LIFECYCLE-MANAGEMENT-223
+  category: guide
+  name: ph_06_git_worktree_lifecycle_management
+  title: "Ph 06 \u2013 Git Worktree Lifecycle Management (Codex Autonomous Phase Executor)"
+  status: active
+  artifacts:
+  - type: source
+    path: "archive/20251201_120954_phase_session_reports/developer/phases/PH_06 \u2013\
+      _Git Worktree Lifecycle Management (Codex Autonomous Phase Executor).md"
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-PH-03-TOOL-PROFILES-ADAPTER-LAYER-CODEX-224
+  category: guide
+  name: ph_03_tool_profiles_adapter_layer_codex
+  title: Ph 03 Tool Profiles & Adapter Layer (Codex Autonomous Phase Executor)
+  status: active
+  artifacts:
+  - type: source
+    path: archive/20251201_120954_phase_session_reports/developer/phases/PH-03_Tool
+      Profiles & Adapter Layer (Codex Autonomous Phase Executor).md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-COMPLETE-AI-DEVELOPMENT-PIPELINE-225
+  category: guide
+  name: complete_ai_development_pipeline
+  title: "Complete Ai Development Pipeline \u2013 Canonical Phase Plan"
+  status: active
+  artifacts:
+  - type: source
+    path: "archive/20251201_120747_completed_implementations/developer/phases/Complete\
+      \ AI Development Pipeline \u2013 Canonical Phase Plan.md"
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-333
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: patterns/examples/phase_discovery_001/README.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-334
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: patterns/automation/recovery/README.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-335
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: patterns/automation/monitoring/README.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-336
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: patterns/automation/performance/README.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-338
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: patterns/automation/lifecycle/README.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-339
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: patterns/automation/tests/integration/README.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-PAT-README-340
+  category: patterns
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: patterns/profiles/software-dev-python/phase_templates/README.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-226
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: COMMIT_SUMMARY/commit_summaries/README.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-COMMIT-SUMMARY-20251205-0902-227
+  category: guide
+  name: commit_summary_20251205_0902
+  title: Commit Summary 20251205 0902
+  status: active
+  artifacts:
+  - type: source
+    path: COMMIT_SUMMARY/commit_summaries/COMMIT_SUMMARY_20251205_0902.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-229
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: phase1_planning/modules/workstream_planner/docs/plans/templates/orchestration/phases/README.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-CORE-DEPRECATED-877
+  category: core
+  name: deprecated
+  title: Deprecated
+  status: active
+  artifacts:
+  - type: source
+    path: phase4_routing/modules/tool_adapters/src/adapters/DEPRECATED.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-CORE-AUTOMATED-CONVERSION-EXAMPLES-SHOWING-878
+  category: core
+  name: automated_conversion_examples_showing
+  title: Automated Conversion Examples Showing How To Transform Existing Codex Claude
+    ...
+  status: active
+  artifacts:
+  - type: source
+    path: phase4_routing/modules/aider_integration/src/aider/help/automated conversion
+      examples showing how to transform existing Codex_Claude style phase prompts
+      into Aider-compatible workstream.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-CORE-DEPRECATED-879
+  category: core
+  name: deprecated
+  title: Deprecated
+  status: active
+  artifacts:
+  - type: source
+    path: phase0_bootstrap/modules/bootstrap_orchestrator/DEPRECATED.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-ACTIVATION-SESSION-LOG-230
+  category: guide
+  name: activation_session_log
+  title: Activation Session Log
+  status: active
+  artifacts:
+  - type: source
+    path: reports/guardrail_activation/ACTIVATION_SESSION_LOG.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-ACTIVATION-REPORT-231
+  category: guide
+  name: activation_report
+  title: Activation Report
+  status: active
+  artifacts:
+  - type: source
+    path: reports/guardrail_activation/ACTIVATION_REPORT.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-QUICK-WINS-IMPLEMENTATION-232
+  category: guide
+  name: quick_wins_implementation
+  title: Quick Wins Implementation
+  status: active
+  artifacts:
+  - type: source
+    path: reports/guardrail_activation/QUICK_WINS_IMPLEMENTATION.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-PREVENTION-SYSTEM-STATUS-233
+  category: guide
+  name: prevention_system_status
+  title: Prevention System Status
+  status: active
+  artifacts:
+  - type: source
+    path: reports/status/PREVENTION_SYSTEM_STATUS.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-SCRIPT-PHASE-2-COMPLETE-822
+  category: script
+  name: phase_2_complete
+  title: Phase 2 Complete
+  status: active
+  artifacts:
+  - type: source
+    path: tools/coverage_analyzer/PHASE_2_COMPLETE.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-SCRIPT-PHASE-1-COMPLETE-823
+  category: script
+  name: phase_1_complete
+  title: Phase 1 Complete
+  status: active
+  artifacts:
+  - type: source
+    path: tools/coverage_analyzer/PHASE_1_COMPLETE.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-SCRIPT-README-824
+  category: script
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: tools/coverage_analyzer/README.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-SCRIPT-PHASE-3-COMPLETE-825
+  category: script
+  name: phase_3_complete
+  title: Phase 3 Complete
+  status: active
+  artifacts:
+  - type: source
+    path: tools/coverage_analyzer/PHASE_3_COMPLETE.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-PHASE-COORDINATOR-234
+  category: guide
+  name: phase_coordinator
+  title: Phase Coordinator
+  status: active
+  artifacts:
+  - type: source
+    path: docs/architecture/phase_coordinator.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-REGISTRY-MAINTAINER-FOR-AI-CLI-SPEC-235
+  category: guide
+  name: registry_maintainer_for_ai_cli_spec
+  title: Registry Maintainer For Ai Cli Spec
+  status: active
+  artifacts:
+  - type: source
+    path: docs/registry/REGISTRY_MAINTAINER_FOR_AI_CLI_SPEC.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-PREVENTION-QUICKSTART-236
+  category: guide
+  name: prevention_quickstart
+  title: Prevention Quickstart
+  status: active
+  artifacts:
+  - type: source
+    path: docs/guidelines/PREVENTION_QUICKSTART.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-NONDETERMINISM-ANALYSIS-237
+  category: guide
+  name: nondeterminism_analysis
+  title: Nondeterminism Analysis
+  status: active
+  artifacts:
+  - type: source
+    path: docs/analysis/NONDETERMINISM_ANALYSIS.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-SAFE-MERGE-STRATEGY-238
+  category: guide
+  name: safe_merge_strategy
+  title: Safe Merge Strategy
+  status: active
+  artifacts:
+  - type: source
+    path: docs/analysis/SAFE_MERGE_STRATEGY.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-GAP-ANA-239
+  category: guide
+  name: gap_ana
+  title: Gap Ana
+  status: active
+  artifacts:
+  - type: source
+    path: docs/analysis/GAP_ANA.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-SRC-ABSTRACTION-ANALYSIS-240
+  category: guide
+  name: src_abstraction_analysis
+  title: Src Abstraction Analysis
+  status: active
+  artifacts:
+  - type: source
+    path: docs/analysis/SRC_ABSTRACTION_ANALYSIS.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-OVERLAP-DEPRECATION-ANALYSIS-REPORT-241
+  category: guide
+  name: overlap_deprecation_analysis_report
+  title: Overlap Deprecation Analysis Report
+  status: active
+  artifacts:
+  - type: source
+    path: docs/analysis/OVERLAP_DEPRECATION_ANALYSIS_REPORT.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-WORKSTREAM-MULTI-CLI-FILE-MAP-242
+  category: guide
+  name: workstream_multi_cli_file_map
+  title: Workstream Multi Cli File Map
+  status: active
+  artifacts:
+  - type: source
+    path: docs/analysis/WORKSTREAM_MULTI_CLI_FILE_MAP.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-DEVELOPMENT-STATUS-REPORT-243
+  category: guide
+  name: development_status_report
+  title: Development Status Report
+  status: active
+  artifacts:
+  - type: source
+    path: docs/analysis/DEVELOPMENT_STATUS_REPORT.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-AUTOMATION-CHAIN-GAP-ANALYSIS-CLI-244
+  category: guide
+  name: automation_chain_gap_analysis_cli
+  title: Automation Chain Gap Analysis Cli Focused
+  status: active
+  artifacts:
+  - type: source
+    path: docs/analysis/AUTOMATION_CHAIN_GAP_ANALYSIS_CLI_FOCUSED.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-PLAN-AUTOMATED-DATA-FLOW-AUTOMATION-245
+  category: guide
+  name: plan_automated_data_flow_automation
+  title: Plan Automated Data Flow Automation
+  status: active
+  artifacts:
+  - type: source
+    path: docs/planning/PLAN_Automated_Data_Flow_Automation.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-246
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: docs/diagrams/source/README.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-247
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: docs/diagrams/exports/svg/README.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-248
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: docs/diagrams/exports/png/README.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-249
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: docs/diagrams/source/data-flow/README.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-250
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: docs/diagrams/source/architecture/README.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-251
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: docs/diagrams/source/phases/README.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-252
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: docs/diagrams/source/components/README.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-PLANNING-DOCS-CLEANUP-READY-253
+  category: guide
+  name: planning_docs_cleanup_ready
+  title: Planning Docs Cleanup Ready
+  status: active
+  artifacts:
+  - type: source
+    path: docs/planning/active/PLANNING_DOCS_CLEANUP_READY.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-PHASE2-REQUEST-BUILDING-AUTOMATION-254
+  category: guide
+  name: phase2_request_building_automation
+  title: Phase2 Request Building Automation Chain Gap Analysis
+  status: active
+  artifacts:
+  - type: source
+    path: phase5_execution/plans/phase2_request_building_automation_chain_gap_analysis.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-PHASE5-EXECUTION-AUTOMATION-CHAIN-GAP-255
+  category: guide
+  name: phase5_execution_automation_chain_gap
+  title: Phase5 Execution Automation Chain Gap Analysis
+  status: active
+  artifacts:
+  - type: source
+    path: phase5_execution/plans/phase5_execution_automation_chain_gap_analysis.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-GUIDE-README-256
+  category: guide
+  name: readme
+  title: Readme
+  status: active
+  artifacts:
+  - type: source
+    path: templates/diagrams/README.md
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - md
+- doc_id: DOC-CONFIG-INCOMPLETE-ALLOWLIST-279
+  category: config
+  name: incomplete_allowlist
+  title: 'Config: incomplete_allowlist'
+  status: active
+  artifacts:
+  - type: source
+    path: incomplete_allowlist.yaml
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - yaml
+- doc_id: DOC-CONFIG-COORDINATOR-CONFIG-280
+  category: config
+  name: coordinator_config
+  title: 'Config: coordinator_config'
+  status: active
+  artifacts:
+  - type: source
+    path: config/coordinator_config.yaml
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - yaml
+- doc_id: DOC-CONFIG-ALERTS-281
+  category: config
+  name: alerts
+  title: 'Config: alerts'
+  status: active
+  artifacts:
+  - type: source
+    path: config/alerts.yaml
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - yaml
+- doc_id: DOC-CONFIG-TRIGGERS-282
+  category: config
+  name: triggers
+  title: 'Config: triggers'
+  status: active
+  artifacts:
+  - type: source
+    path: config/triggers.yaml
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - yaml
+- doc_id: DOC-CONFIG-CIRCUIT-BREAKERS-283
+  category: config
+  name: circuit_breakers
+  title: 'Config: circuit_breakers'
+  status: active
+  artifacts:
+  - type: source
+    path: MASTER_SPLINTER/config/circuit_breakers.yaml
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - yaml
+- doc_id: DOC-CONFIG-WORKFLOW-CONFIG-284
+  category: config
+  name: workflow_config
+  title: 'Config: workflow_config'
+  status: active
+  artifacts:
+  - type: source
+    path: _ARCHIVE/autonomous-workflow_prototype_20251204/config/workflow_config.yaml
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - yaml
+- doc_id: DOC-CORE-ALERTS-880
+  category: core
+  name: alerts
+  title: 'Config: alerts'
+  status: active
+  artifacts:
+  - type: source
+    path: phase7_monitoring/modules/alerting/config/alerts.yaml
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - yaml
+- doc_id: DOC-SCRIPT-COVERAGE-ANALYZER-826
+  category: script
+  name: coverage_analyzer
+  title: 'Config: coverage_analyzer'
+  status: active
+  artifacts:
+  - type: source
+    path: tools/coverage_analyzer/config/coverage_analyzer.yaml
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - yaml
+- doc_id: DOC-CONFIG-MASTER-SPLINTER-PHASE-PLAN-TEMPLATE-285
+  category: config
+  name: master_splinter_phase_plan_template
+  title: 'Config: MASTER_SPLINTER_Phase_Plan_Template'
+  status: active
+  artifacts:
+  - type: source
+    path: MASTER_SPLINTER/MASTER_SPLINTER_Phase_Plan_Template.yml
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - yml
+- doc_id: DOC-CONFIG-PH-GUARDRAIL-001-ACTIVATE-BEHAVIOR-286
+  category: config
+  name: ph_guardrail_001_activate_behavior
+  title: 'Config: PH-GUARDRAIL-001-activate-behavior-enforcement'
+  status: active
+  artifacts:
+  - type: source
+    path: plans/PH-GUARDRAIL-001-activate-behavior-enforcement.yml
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - yml
+- doc_id: DOC-CONFIG-EXAMPLE-PH-01-WS-001-287
+  category: config
+  name: example_ph_01_ws_001
+  title: 'Config: EXAMPLE_PH-01_ws-001'
+  status: active
+  artifacts:
+  - type: source
+    path: MASTER_SPLINTER/plans/phases/EXAMPLE_PH-01_ws-001.yml
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - yml
+- doc_id: DOC-CONFIG-OVERLAP-ANALYSIS-REPORT-288
+  category: config
+  name: overlap_analysis_report
+  title: 'JSON spec: overlap_analysis_report'
+  status: active
+  artifacts:
+  - type: source
+    path: overlap_analysis_report.json
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - json
+- doc_id: DOC-SPEC-POOL-INSTANCE-SCHEMA-040
+  category: spec
+  name: pool_instance_schema
+  title: 'JSON spec: pool_instance.schema'
+  status: active
+  artifacts:
+  - type: source
+    path: schema/pool_instance.schema.json
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - json
+- doc_id: DOC-CONFIG-PAT-CHECK-README-001-289
+  category: config
+  name: pat_check_readme_001
+  title: 'JSON spec: pat_check_readme_001'
+  status: active
+  artifacts:
+  - type: source
+    path: .reports/pat_check_readme_001.json
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - json
+- doc_id: DOC-CONFIG-COMMIT-SUMMARY-SCHEMA-290
+  category: config
+  name: commit_summary_schema
+  title: 'JSON spec: commit_summary.schema'
+  status: active
+  artifacts:
+  - type: source
+    path: COMMIT_SUMMARY/commit_summary.schema.json
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - json
+- doc_id: DOC-PAT-REGISTRY-341
+  category: patterns
+  name: registry
+  title: 'JSON spec: registry'
+  status: active
+  artifacts:
+  - type: source
+    path: MASTER_SPLINTER/patterns/registry.json
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - json
+- doc_id: DOC-TASK-WS-001-001
+  category: task
+  name: ws_001
+  title: 'JSON spec: ws-001'
+  status: active
+  artifacts:
+  - type: source
+    path: MASTER_SPLINTER/workstreams/ws-001.json
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - json
+- doc_id: DOC-CONFIG-SETTINGS-LOCAL-291
+  category: config
+  name: settings_local
+  title: 'JSON spec: settings.local'
+  status: active
+  artifacts:
+  - type: source
+    path: MASTER_SPLINTER/.claude/settings.local.json
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - json
+- doc_id: DOC-CONFIG-TOOL-PROFILES-292
+  category: config
+  name: tool_profiles
+  title: 'JSON spec: tool_profiles'
+  status: active
+  artifacts:
+  - type: source
+    path: MASTER_SPLINTER/config/tool_profiles.json
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - json
+- doc_id: DOC-CONFIG-AUTOMATION-FIX-PLAN-SCHEMA-293
+  category: config
+  name: automation_fix_plan_schema
+  title: 'JSON spec: automation_fix_plan.schema'
+  status: active
+  artifacts:
+  - type: source
+    path: _ARCHIVE/autonomous-workflow_prototype_20251204/schemas/automation_fix_plan.schema.json
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - json
+- doc_id: DOC-CONFIG-AUTOMATION-CERTIFICATION-SCHEMA-294
+  category: config
+  name: automation_certification_schema
+  title: 'JSON spec: automation_certification.schema'
+  status: active
+  artifacts:
+  - type: source
+    path: _ARCHIVE/autonomous-workflow_prototype_20251204/schemas/automation_certification.schema.json
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - json
+- doc_id: DOC-CONFIG-AUTOMATION-FAILURE-REPORT-SCHEMA-295
+  category: config
+  name: automation_failure_report_schema
+  title: 'JSON spec: automation_failure_report.schema'
+  status: active
+  artifacts:
+  - type: source
+    path: _ARCHIVE/autonomous-workflow_prototype_20251204/schemas/automation_failure_report.schema.json
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - json
+- doc_id: DOC-CONFIG-AUTOMATION-RUNTIME-STATUS-SCHEMA-296
+  category: config
+  name: automation_runtime_status_schema
+  title: 'JSON spec: automation_runtime_status.schema'
+  status: active
+  artifacts:
+  - type: source
+    path: _ARCHIVE/autonomous-workflow_prototype_20251204/schemas/automation_runtime_status.schema.json
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - json
+- doc_id: DOC-CONFIG-AUTOMATION-INDEX-SCHEMA-297
+  category: config
+  name: automation_index_schema
+  title: 'JSON spec: automation_index.schema'
+  status: active
+  artifacts:
+  - type: source
+    path: _ARCHIVE/autonomous-workflow_prototype_20251204/schemas/automation_index.schema.json
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - json
+- doc_id: DOC-GUIDE-DAILY-REPORT-20251204-257
+  category: guide
+  name: daily_report_20251204
+  title: 'JSON spec: daily_report_20251204'
+  status: active
+  artifacts:
+  - type: source
+    path: doc_id/DOC_ID_reports/daily_report_20251204.json
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - json
+- doc_id: DOC-GUIDE-TEST-CLEANUP-REPORT-258
+  category: guide
+  name: test_cleanup_report
+  title: 'JSON spec: test_cleanup_report'
+  status: active
+  artifacts:
+  - type: source
+    path: doc_id/DOC_ID_reports/test_cleanup_report.json
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - json
+- doc_id: DOC-SCRIPT-CLEANUP-REPO-827
+  category: script
+  name: cleanup_repo
+  title: 'Script: cleanup-repo'
+  status: active
+  artifacts:
+  - type: source
+    path: cleanup-repo.ps1
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-GET-PLANREPORTFILES-828
+  category: script
+  name: get_planreportfiles
+  title: 'Script: Get-PlanReportFiles'
+  status: active
+  artifacts:
+  - type: source
+    path: Get-PlanReportFiles.ps1
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-ARCHIVE-COMPLETED-IMPLEMENTATIONS-829
+  category: script
+  name: archive_completed_implementations
+  title: 'Script: archive-completed-implementations'
+  status: active
+  artifacts:
+  - type: source
+    path: archive-completed-implementations.ps1
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-GENERATE-COMMIT-SUMMARY-830
+  category: script
+  name: generate_commit_summary
+  title: 'Script: generate_commit_summary'
+  status: active
+  artifacts:
+  - type: source
+    path: COMMIT_SUMMARY/generate_commit_summary.ps1
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-SETUP-DEV-ENVIRONMENT-831
+  category: script
+  name: setup_dev_environment
+  title: 'Script: setup_dev_environment'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/setup_dev_environment.ps1
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-WEEKLY-MAINTENANCE-832
+  category: script
+  name: weekly_maintenance
+  title: 'Script: weekly-maintenance'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/weekly-maintenance.ps1
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-RENDER-DIAGRAMS-833
+  category: script
+  name: render_diagrams
+  title: 'Script: render_diagrams'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/render_diagrams.ps1
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-REPO-HEALTH-CHECK-834
+  category: script
+  name: repo_health_check
+  title: 'Script: repo-health-check'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/repo-health-check.ps1
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-INVOKE-PATCHECKREADME001-835
+  category: script
+  name: invoke_patcheckreadme001
+  title: 'Script: Invoke-PATCheckReadme001'
+  status: active
+  artifacts:
+  - type: source
+    path: tools/Invoke-PATCheckReadme001.ps1
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-LAUNCH-GUI-V2-836
+  category: script
+  name: launch_gui_v2
+  title: 'Script: launch_gui_v2'
+  status: active
+  artifacts:
+  - type: source
+    path: gui/launch_gui_v2.ps1
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-CLEANUP-ROOT-PLANNING-DOCS-837
+  category: script
+  name: cleanup_root_planning_docs
+  title: 'Script: cleanup-root-planning-docs'
+  status: active
+  artifacts:
+  - type: source
+    path: _ARCHIVE/deprecated_scripts_20251205_155445/cleanup-root-planning-docs.ps1
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-CLEANUP-ROOT-DOCS-838
+  category: script
+  name: cleanup_root_docs
+  title: 'Script: cleanup-root-docs'
+  status: active
+  artifacts:
+  - type: source
+    path: _ARCHIVE/deprecated_scripts_20251205_155445/cleanup-root-docs.ps1
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-CLEANUP-PLANNING-DOCS-839
+  category: script
+  name: cleanup_planning_docs
+  title: 'Script: cleanup-planning-docs'
+  status: active
+  artifacts:
+  - type: source
+    path: _ARCHIVE/deprecated_scripts_20251205_155445/cleanup-planning-docs.ps1
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-INVOKE-AUTOMATIONHEALTHSWEEP-840
+  category: script
+  name: invoke_automationhealthsweep
+  title: 'Script: Invoke-AutomationHealthSweep'
+  status: active
+  artifacts:
+  - type: source
+    path: _ARCHIVE/autonomous-workflow_prototype_20251204/collectors/Invoke-AutomationHealthSweep.ps1
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - ps1
+- doc_id: DOC-PAT-HEALTH-CHECK-342
+  category: patterns
+  name: health_check
+  title: 'Script: health_check'
+  status: active
+  artifacts:
+  - type: source
+    path: patterns/automation/monitoring/health_check.ps1
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - ps1
+- doc_id: DOC-PAT-RUN-HEALTHCHECKS-343
+  category: patterns
+  name: run_healthchecks
+  title: 'Script: Run-HealthChecks'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/patterns/Run-HealthChecks.ps1
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - ps1
+- doc_id: DOC-SCRIPT-SETUP-DEV-ENVIRONMENT-841
+  category: script
+  name: setup_dev_environment
+  title: 'Script: setup_dev_environment'
+  status: active
+  artifacts:
+  - type: source
+    path: scripts/setup_dev_environment.sh
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - sh
+- doc_id: DOC-GUIDE-REQUIREMENTS-259
+  category: guide
+  name: requirements
+  title: requirements
+  status: active
+  artifacts:
+  - type: source
+    path: requirements.txt
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - txt
+- doc_id: DOC-GUIDE-IMPLEMENTATION-PLANMASTER-SPLINTER-260
+  category: guide
+  name: implementation_planmaster_splinter
+  title: Implementation PlanMASTER_SPLINTER 1Touch Execution System
+  status: active
+  artifacts:
+  - type: source
+    path: MASTER_SPLINTER/Implementation PlanMASTER_SPLINTER 1Touch Execution System.txt
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - txt
+- doc_id: DOC-GUIDE-AI-TOOL-FILES-261
+  category: guide
+  name: ai_tool_files
+  title: ai_tool_files
+  status: active
+  artifacts:
+  - type: source
+    path: MASTER_SPLINTER/ai_tool_files.txt
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - txt
+- doc_id: DOC-GUIDE-FRAMEWORK-OPTIMIZATION-ANALYSIS-262
+  category: guide
+  name: framework_optimization_analysis
+  title: FRAMEWORK OPTIMIZATION ANALYSIS
+  status: active
+  artifacts:
+  - type: source
+    path: DEVELOPMENT_TEMP_DOCS/FRAMEWORK OPTIMIZATION ANALYSIS.txt
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - txt
+- doc_id: DOC-GUIDE-YOU-ARE-AGENT-3-WORKING-ON-WORKSTRE-263
+  category: guide
+  name: you_are_agent_3_working_on_workstre
+  title: You are Agent 3 working on workstre
+  status: active
+  artifacts:
+  - type: source
+    path: _ARCHIVE/misc_cleanup_20251205_155307/You are Agent 3 working on workstre.txt
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - txt
+- doc_id: DOC-GUIDE-COMMIT-GRAPH-BEFORE-CONSOLIDATION-264
+  category: guide
+  name: commit_graph_before_consolidation
+  title: commit_graph_before_consolidation
+  status: active
+  artifacts:
+  - type: source
+    path: _ARCHIVE/consolidation_artifacts_20251205_155256/commit_graph_before_consolidation.txt
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - txt
+- doc_id: DOC-GUIDE-BRANCH-STATE-BEFORE-CONSOLIDATION-265
+  category: guide
+  name: branch_state_before_consolidation
+  title: branch_state_before_consolidation
+  status: active
+  artifacts:
+  - type: source
+    path: _ARCHIVE/consolidation_artifacts_20251205_155256/branch_state_before_consolidation.txt
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - txt
+- doc_id: DOC-GUIDE-UNIQUE-COMMITS-PER-BRANCH-266
+  category: guide
+  name: unique_commits_per_branch
+  title: unique_commits_per_branch
+  status: active
+  artifacts:
+  - type: source
+    path: _ARCHIVE/consolidation_artifacts_20251205_155256/unique_commits_per_branch.txt
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - txt
+- doc_id: DOC-GUIDE-FILE-TREE-LIST-BEFORE-267
+  category: guide
+  name: file_tree_list_before
+  title: file_tree_list_before
+  status: active
+  artifacts:
+  - type: source
+    path: _ARCHIVE/consolidation_artifacts_20251205_155256/file_tree_list_before.txt
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - txt
+- doc_id: DOC-GUIDE-BRANCHES-MERGED-268
+  category: guide
+  name: branches_merged
+  title: branches_merged
+  status: active
+  artifacts:
+  - type: source
+    path: _ARCHIVE/consolidation_artifacts_20251205_155256/branches_merged.txt
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - txt
+- doc_id: DOC-GUIDE-FILE-TREE-HASH-BEFORE-269
+  category: guide
+  name: file_tree_hash_before
+  title: file_tree_hash_before
+  status: active
+  artifacts:
+  - type: source
+    path: _ARCHIVE/consolidation_artifacts_20251205_155256/file_tree_hash_before.txt
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - txt
+- doc_id: DOC-LEGACY-PLANNING-DOCS-ANALYSIS-20251201-120214-026
+  category: legacy
+  name: planning_docs_analysis_20251201_120214
+  title: planning_docs_analysis_20251201_120214
+  status: active
+  artifacts:
+  - type: source
+    path: archive/20251201_121347_generated_temp_files/planning_docs_analysis_20251201_120214.txt
+  created: '2025-12-06'
+  last_modified: '2025-12-06'
+  tags:
+  - txt

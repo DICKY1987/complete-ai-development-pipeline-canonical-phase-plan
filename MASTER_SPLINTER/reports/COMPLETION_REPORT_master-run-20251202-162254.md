@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-COMPLETION-REPORT-MASTER-RUN-20251202-198
+---
+
 # MASTER_SPLINTER Execution Completion Report
 
 **Run ID**: master-run-20251202-162254

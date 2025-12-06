@@ -3,7 +3,7 @@
 Add timeout parameter to all subprocess.run(, timeout=1800) calls.
 
 PATTERN: EXEC-001 (Batch File Transformation)
-DOC_ID: DOC-SCRIPT-ADD-SUBPROCESS-TIMEOUTS-001
+# DOC_ID: DOC-SCRIPT-ADD-SUBPROCESS-TIMEOUTS-001
 
 Purpose: Quick Win #1 - Add timeout=1800 to all subprocess.run() calls lacking it
 Time: 2 hours | Saves: 5h/month (prevents hanging processes)

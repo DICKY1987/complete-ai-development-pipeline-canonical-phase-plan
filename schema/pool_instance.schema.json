@@ -4,7 +4,11 @@
   "title": "ProcessInstance",
   "description": "Schema for a single tool process instance in a process pool",
   "type": "object",
-  "required": ["index", "tool_id", "alive"],
+  "required": [
+    "index",
+    "tool_id",
+    "alive"
+  ],
   "properties": {
     "index": {
       "type": "integer",
@@ -21,11 +25,17 @@
       "description": "Whether the process is currently running"
     },
     "return_code": {
-      "type": ["integer", "null"],
+      "type": [
+        "integer",
+        "null"
+      ],
       "description": "Process exit code (null if still running)"
     },
     "pid": {
-      "type": ["integer", "null"],
+      "type": [
+        "integer",
+        "null"
+      ],
       "description": "Operating system process ID"
     },
     "started_at": {
@@ -34,10 +44,14 @@
       "description": "ISO 8601 timestamp when instance was spawned"
     },
     "ended_at": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "format": "date-time",
       "description": "ISO 8601 timestamp when instance exited (null if running)"
     }
   },
-  "additionalProperties": false
+  "additionalProperties": false,
+  "doc_id": "DOC-SPEC-POOL-INSTANCE-SCHEMA-040"
 }

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PHASE2-REQUEST-BUILDING-AUTOMATION-254
+---
+
 # Automation Chain Gap Analysis – Phase 2 Request Building (CLI)
 
 ## 8.1 Executive Summary

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-PAT-TYPECHECK-001-332
+---
+
 # PAT-TYPECHECK-001: Type Checking
 
 ## Purpose

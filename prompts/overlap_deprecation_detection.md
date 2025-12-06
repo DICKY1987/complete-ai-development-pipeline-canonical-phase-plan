@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-OVERLAP-DEPRECATION-DETECTION-185
+---
+
 # Overlapping Implementations & Deprecated Code Detection Prompt
 
 ## Mission

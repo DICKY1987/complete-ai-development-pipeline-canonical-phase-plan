@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-336
+---
+
 # Performance Optimization
 
 Performance benchmarking and optimization tools for pattern automation.

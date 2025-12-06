@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PHASE-6-FINAL-COMPLETION-REPORT-209
+---
+
 # Phase 6 - Final Completion Report
 
 **Date**: 2025-12-05  

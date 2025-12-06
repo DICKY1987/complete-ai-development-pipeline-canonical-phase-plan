@@ -3,9 +3,12 @@
 Build MODULE_DOC_MAP.yaml from DOC_ID_REGISTRY.yaml
 
 Generates a module-centric view of all documentation.
+
+
+DOC_ID: DOC-SCRIPT-SCRIPTS-BUILD-MODULE-MAP-789
 """
-DOC_ID: DOC - SCRIPT - SCRIPTS - BUILD - MODULE - MAP - 707
-DOC_ID: DOC - SCRIPT - SCRIPTS - BUILD - MODULE - MAP - 707
+# DOC_ID: DOC - SCRIPT - SCRIPTS - BUILD - MODULE - MAP - 707
+# DOC_ID: DOC - SCRIPT - SCRIPTS - BUILD - MODULE - MAP - 707
 
 import sys
 from collections import defaultdict

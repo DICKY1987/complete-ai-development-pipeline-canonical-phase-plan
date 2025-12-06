@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-PAT-RUN-HEALTHCHECKS-343
 # Pattern Automation - Daily Health Checks
 # DOC_ID: DOC-PAT-SCRIPTS-RUN-HEALTH-CHECKS-005
 # Runs all health checks and generates consolidated report

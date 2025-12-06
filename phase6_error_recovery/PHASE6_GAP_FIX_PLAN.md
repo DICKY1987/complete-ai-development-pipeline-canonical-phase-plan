@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PHASE6-GAP-FIX-PLAN-153
+---
+
 # Phase 6 Gap Fix Plan - EXEC-002 Batch Pattern
 
 **Date**: 2025-12-05

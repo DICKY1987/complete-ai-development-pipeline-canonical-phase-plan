@@ -31,7 +31,11 @@
     },
     "generated_by": {
       "type": "object",
-      "required": ["tool", "mode", "run_id"],
+      "required": [
+        "tool",
+        "mode",
+        "run_id"
+      ],
       "properties": {
         "tool": {
           "type": "string",
@@ -39,7 +43,10 @@
         },
         "mode": {
           "type": "string",
-          "enum": ["auto_6h", "on_demand"],
+          "enum": [
+            "auto_6h",
+            "on_demand"
+          ],
           "description": "Generation mode"
         },
         "run_id": {
@@ -50,7 +57,10 @@
     },
     "time_window": {
       "type": "object",
-      "required": ["start", "end"],
+      "required": [
+        "start",
+        "end"
+      ],
       "properties": {
         "start": {
           "type": "string",
@@ -66,7 +76,10 @@
     },
     "repo": {
       "type": "object",
-      "required": ["name", "default_branch"],
+      "required": [
+        "name",
+        "default_branch"
+      ],
       "properties": {
         "name": {
           "type": "string"
@@ -117,7 +130,12 @@
     },
     "risk_overall": {
       "type": "string",
-      "enum": ["LOW", "MEDIUM", "HIGH", "TBD"]
+      "enum": [
+        "LOW",
+        "MEDIUM",
+        "HIGH",
+        "TBD"
+      ]
     },
     "focus_signal": {
       "type": "string",
@@ -212,11 +230,21 @@
           },
           "risk": {
             "type": "string",
-            "enum": ["LOW", "MEDIUM", "HIGH", "UNKNOWN"]
+            "enum": [
+              "LOW",
+              "MEDIUM",
+              "HIGH",
+              "UNKNOWN"
+            ]
           },
           "automation_impact": {
             "type": "string",
-            "enum": ["STRENGTHENED", "WEAKENED", "NEUTRAL", "UNKNOWN"]
+            "enum": [
+              "STRENGTHENED",
+              "WEAKENED",
+              "NEUTRAL",
+              "UNKNOWN"
+            ]
           },
           "notes": {
             "type": "string",
@@ -225,5 +253,6 @@
         }
       }
     }
-  }
+  },
+  "doc_id": "DOC-CONFIG-COMMIT-SUMMARY-SCHEMA-290"
 }

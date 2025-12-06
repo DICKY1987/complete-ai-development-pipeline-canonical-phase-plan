@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-152
+---
+
 # Phase 6 – Error Analysis, Auto-Fix & Escalation
 
 ## Purpose

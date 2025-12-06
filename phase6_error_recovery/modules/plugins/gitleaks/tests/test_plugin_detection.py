@@ -1,4 +1,7 @@
-"""Test Gitleaks plugin secret detection."""
+"""Test Gitleaks plugin secret detection.
+
+DOC_ID: DOC-CORE-TESTS-TEST-PLUGIN-DETECTION-805
+"""
 
 from __future__ import annotations
 

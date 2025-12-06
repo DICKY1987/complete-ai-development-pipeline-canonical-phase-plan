@@ -4,7 +4,7 @@ Process pool interface for managing multiple CLI tool instances.
 This module defines the core interfaces and data structures for running
 multiple instances of CLI tools (aider, codex, claude-cli, etc.) in parallel.
 
-DOC_ID: DOC-AIM-POOL-INTERFACE-001
+# DOC_ID: DOC-AIM-POOL-INTERFACE-001
 """
 
 import queue

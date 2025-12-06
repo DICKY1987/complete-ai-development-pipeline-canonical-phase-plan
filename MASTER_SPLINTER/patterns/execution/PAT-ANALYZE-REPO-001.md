@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-PAT-ANALYZE-REPO-001-329
+---
+
 # PAT-ANALYZE-REPO-001: Analyze Repository Context
 
 ## Purpose

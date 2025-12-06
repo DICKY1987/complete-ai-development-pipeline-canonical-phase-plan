@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-AUTOMATION-GAP-ANALYSIS-187
+---
+
 # Automation Gap Analysis Prompt
 
 ## Mission

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-LEGACY-PLANNING-DOCS-ANALYSIS-20251201-120214-026
+---
+
 PLANNING & EXECUTION DOCUMENTS ANALYSIS
 Generated: 2025-12-01 12:02:14
 Root: C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan

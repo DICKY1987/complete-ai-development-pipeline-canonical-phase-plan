@@ -7,9 +7,11 @@ Tracks doc_id coverage over time for monitoring and trend analysis.
 Usage:
     python scripts/doc_id_coverage_trend.py snapshot
     python scripts/doc_id_coverage_trend.py report
-"""
+
+
 DOC_ID: DOC-GUIDE-DOC-ID-DOC-ID-COVERAGE-TREND-450
-DOC_ID: DOC - GUIDE - DOC - ID - DOC - ID - COVERAGE - TREND - 450
+"""
+# DOC_ID: DOC - GUIDE - DOC - ID - DOC - ID - COVERAGE - TREND - 450
 
 import json
 import sys

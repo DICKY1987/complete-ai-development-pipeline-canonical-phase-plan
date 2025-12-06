@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-MISSING-AUTOMATION-REPORT-326
+---
+
 # Pattern Automation - Missing Components Report
 **DOC_ID**: DOC-PAT-MISSING-AUTOMATION-REPORT-001
 **Generated**: 2025-12-04

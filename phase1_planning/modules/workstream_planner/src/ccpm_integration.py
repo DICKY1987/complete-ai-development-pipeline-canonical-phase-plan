@@ -3,6 +3,9 @@ DEPRECATED: This module has been consolidated into core.planning.ccpm_integratio
 
 Redirect for backward compatibility.
 Original file archived: _ARCHIVE/phase1_ccpm_integration_duplicate_20251204_143728/
+
+
+DOC_ID: DOC-CORE-SRC-CCPM-INTEGRATION-845
 """
 
 # Explicit imports for clarity

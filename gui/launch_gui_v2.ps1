@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-LAUNCH-GUI-V2-836
 # DOC_ID: DOC-SCRIPT-LAUNCH-GUI-V2-017
 # GUI v2 Launcher Script (Windows PowerShell)
 # Launches the new split-terminal + panel grid interface

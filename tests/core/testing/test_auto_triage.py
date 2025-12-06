@@ -1,4 +1,7 @@
-"""Tests for test auto-triage functionality."""
+"""Tests for test auto-triage functionality.
+
+DOC_ID: DOC-CORE-TESTING-TEST-AUTO-TRIAGE-874
+"""
 
 import pytest
 from core.testing.auto_triage import TestTriage, FailureCategory

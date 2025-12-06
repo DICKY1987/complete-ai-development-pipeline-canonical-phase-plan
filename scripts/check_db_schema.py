@@ -1,4 +1,7 @@
-"""Check database schema for execution_logs table"""
+"""Check database schema for execution_logs table
+
+DOC_ID: DOC-SCRIPT-SCRIPTS-CHECK-DB-SCHEMA-764
+"""
 
 import sqlite3
 from pathlib import Path

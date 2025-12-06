@@ -1,4 +1,7 @@
-"""Tests for yamllint edge cases."""
+"""Tests for yamllint edge cases.
+
+DOC_ID: DOC-CORE-TESTS-TEST-PLUGIN-EDGE-CASES-829
+"""
 
 import sys
 import tempfile

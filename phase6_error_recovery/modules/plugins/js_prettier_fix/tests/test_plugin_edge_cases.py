@@ -1,4 +1,7 @@
-"""Tests for prettier plugin edge cases."""
+"""Tests for prettier plugin edge cases.
+
+DOC_ID: DOC-CORE-TESTS-TEST-PLUGIN-EDGE-CASES-786
+"""
 
 import sys
 import tempfile

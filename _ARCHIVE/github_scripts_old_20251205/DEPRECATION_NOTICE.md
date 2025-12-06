@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-DEPRECATION-NOTICE-216
+---
+
 # Deprecated GitHub Scripts
 
 **Archive Date**: 2025-12-05

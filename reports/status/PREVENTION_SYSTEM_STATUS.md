@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PREVENTION-SYSTEM-STATUS-233
+---
+
 # Prevention System - Implemented ✓
 
 **Status**: Directory structure created, .gitignore updated  

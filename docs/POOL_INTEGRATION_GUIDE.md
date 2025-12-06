@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-POOL-INTEGRATION-GUIDE-183
+---
+
 # Multi-CLI Cluster Integration Guide
 
 **DOC_ID**: DOC-GUIDE-POOL-INTEGRATION-001

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-LEGACY-PATTERN-CARD-SCHEMA-009
+---
+
 
 ---
 

@@ -1,7 +1,7 @@
 """
 Routing strategies for distributing work across process pool instances.
 
-DOC_ID: DOC-AIM-ROUTING-STRATEGIES-001
+# DOC_ID: DOC-AIM-ROUTING-STRATEGIES-001
 """
 
 from enum import Enum

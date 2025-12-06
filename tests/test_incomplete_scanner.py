@@ -1,10 +1,9 @@
 """
 Test suite for incomplete implementation scanner.
+
+
+DOC_ID: DOC-TEST-TESTS-TEST-INCOMPLETE-SCANNER-349
 """
-
-DOC_ID: DOC - TEST - TESTS - TEST - INCOMPLETE - SCANNER - 346
-
-# DOC_ID: DOC-TEST-INCOMPLETE-SCANNER
 
 import ast
 import sys

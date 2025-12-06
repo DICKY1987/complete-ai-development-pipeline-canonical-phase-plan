@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-GET-PLANREPORTFILES-828
 param(
     [string]$RootPath = "C:\Users\richg\ALL_AI\Complete AI Development Pipeline – Canonical Phase Plan",
     [string]$OutputPath,

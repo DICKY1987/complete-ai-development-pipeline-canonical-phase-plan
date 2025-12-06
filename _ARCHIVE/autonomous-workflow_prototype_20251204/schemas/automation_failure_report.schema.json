@@ -4,7 +4,12 @@
   "title": "Automation Failure Report",
   "description": "Classified failures with root cause analysis",
   "type": "object",
-  "required": ["version", "sweep_id", "generated_at", "failures"],
+  "required": [
+    "version",
+    "sweep_id",
+    "generated_at",
+    "failures"
+  ],
   "properties": {
     "version": {
       "type": "string",
@@ -25,16 +30,29 @@
     "summary": {
       "type": "object",
       "properties": {
-        "total_failures": { "type": "integer", "minimum": 0 },
-        "auto_repairable": { "type": "integer", "minimum": 0 },
-        "requires_human": { "type": "integer", "minimum": 0 },
+        "total_failures": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "auto_repairable": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "requires_human": {
+          "type": "integer",
+          "minimum": 0
+        },
         "by_root_cause": {
           "type": "object",
-          "additionalProperties": { "type": "integer" }
+          "additionalProperties": {
+            "type": "integer"
+          }
         },
         "by_layer": {
           "type": "object",
-          "additionalProperties": { "type": "integer" }
+          "additionalProperties": {
+            "type": "integer"
+          }
         }
       }
     },
@@ -48,7 +66,11 @@
   "definitions": {
     "FailureClassification": {
       "type": "object",
-      "required": ["root_cause", "layer", "auto_repairable"],
+      "required": [
+        "root_cause",
+        "layer",
+        "auto_repairable"
+      ],
       "properties": {
         "root_cause": {
           "type": "string",
@@ -90,12 +112,24 @@
         "evidence": {
           "type": "object",
           "properties": {
-            "error_message": { "type": "string" },
-            "matched_pattern": { "type": "string" },
-            "source_file": { "type": "string" },
-            "line_number": { "type": "integer" },
-            "stack_trace": { "type": "string" },
-            "context": { "type": "string" }
+            "error_message": {
+              "type": "string"
+            },
+            "matched_pattern": {
+              "type": "string"
+            },
+            "source_file": {
+              "type": "string"
+            },
+            "line_number": {
+              "type": "integer"
+            },
+            "stack_trace": {
+              "type": "string"
+            },
+            "context": {
+              "type": "string"
+            }
           }
         },
         "suggested_fixes": {
@@ -103,29 +137,57 @@
           "items": {
             "type": "object",
             "properties": {
-              "strategy": { "type": "string" },
-              "description": { "type": "string" },
-              "command": { "type": "string" },
-              "risk_level": { "type": "string", "enum": ["low", "medium", "high"] },
-              "estimated_time_seconds": { "type": "integer" }
+              "strategy": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "command": {
+                "type": "string"
+              },
+              "risk_level": {
+                "type": "string",
+                "enum": [
+                  "low",
+                  "medium",
+                  "high"
+                ]
+              },
+              "estimated_time_seconds": {
+                "type": "integer"
+              }
             }
           }
         },
         "related_failures": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "description": "IDs of potentially related failures"
         },
         "history": {
           "type": "object",
           "properties": {
-            "occurrences_24h": { "type": "integer" },
-            "occurrences_7d": { "type": "integer" },
-            "first_seen": { "type": "string", "format": "date-time" },
-            "last_seen": { "type": "string", "format": "date-time" }
+            "occurrences_24h": {
+              "type": "integer"
+            },
+            "occurrences_7d": {
+              "type": "integer"
+            },
+            "first_seen": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "last_seen": {
+              "type": "string",
+              "format": "date-time"
+            }
           }
         }
       }
     }
-  }
+  },
+  "doc_id": "DOC-CONFIG-AUTOMATION-FAILURE-REPORT-SCHEMA-295"
 }

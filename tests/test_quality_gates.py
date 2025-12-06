@@ -1,4 +1,7 @@
-"""Integration tests for quality gate validators."""
+"""Integration tests for quality gate validators.
+
+DOC_ID: DOC-TEST-TESTS-TEST-QUALITY-GATES-351
+"""
 
 from __future__ import annotations
 

@@ -3,6 +3,9 @@ Adapter for pip-audit - Official Python security vulnerability scanner.
 
 pip-audit is the official PyPA tool for scanning Python packages for known
 vulnerabilities using the OSV database.
+
+
+DOC_ID: DOC-SCRIPT-ADAPTERS-PIP-AUDIT-ADAPTER-810
 """
 
 import json

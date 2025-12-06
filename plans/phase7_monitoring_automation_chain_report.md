@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PHASE7-MONITORING-AUTOMATION-CHAIN-175
+---
+
 # Phase 7 Monitoring Automation Chain Analysis
 
 ## 8.1 Executive Summary

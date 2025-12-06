@@ -1,3 +1,7 @@
+---
+doc_id: DOC-LEGACY-README-002
+---
+
 # Phase/Session/Report Planning Documents Archive
 
 **Date**: 2025-12-01 12:09:54

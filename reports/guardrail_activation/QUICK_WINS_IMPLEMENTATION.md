@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-QUICK-WINS-IMPLEMENTATION-232
+---
+
 # Guardrail Activation - Quick Wins Implementation Complete
 ## Session: 2025-12-05 | Duration: 45 minutes
 

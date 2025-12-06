@@ -2,9 +2,12 @@
 """
 MERGE-003 normalizer wrapper.
 Consumes detector output and optionally normalizes stray nested repos.
+
+
+DOC_ID: DOC-SCRIPT-SCRIPTS-NESTED-REPO-NORMALIZER-784
 """
-DOC_ID: DOC - SCRIPT - SCRIPTS - NESTED - REPO - NORMALIZER - 722
-DOC_ID: DOC - SCRIPT - SCRIPTS - NESTED - REPO - NORMALIZER - 722
+# DOC_ID: DOC - SCRIPT - SCRIPTS - NESTED - REPO - NORMALIZER - 722
+# DOC_ID: DOC - SCRIPT - SCRIPTS - NESTED - REPO - NORMALIZER - 722
 
 from __future__ import annotations
 

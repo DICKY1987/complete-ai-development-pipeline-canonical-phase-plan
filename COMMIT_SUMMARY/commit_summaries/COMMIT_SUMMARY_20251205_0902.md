@@ -1,4 +1,5 @@
 ---
+doc_id: DOC-GUIDE-COMMIT-SUMMARY-20251205-0902-227
 doc_type: commit_summary
 schema_version: 1.0.0
 doc_id: COMMIT-SUMMARY-20251205-0902    # filled by doc_id system

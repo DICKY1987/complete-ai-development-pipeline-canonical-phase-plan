@@ -3,6 +3,9 @@ Static Analysis Analyzer - Layer 0.
 
 Orchestrates static code analysis (SAST) using multiple tools
 before any test execution.
+
+
+DOC_ID: DOC-SCRIPT-ANALYZERS-STATIC-ANALYSIS-801
 """
 
 import logging

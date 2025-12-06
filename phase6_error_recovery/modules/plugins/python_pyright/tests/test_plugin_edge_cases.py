@@ -1,4 +1,7 @@
-"""Tests for pyright plugin edge cases and error handling."""
+"""Tests for pyright plugin edge cases and error handling.
+
+DOC_ID: DOC-CORE-TESTS-TEST-PLUGIN-EDGE-CASES-813
+"""
 
 import sys
 import tempfile

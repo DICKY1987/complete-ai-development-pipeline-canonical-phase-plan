@@ -1,4 +1,5 @@
 ---
+doc_id: DOC-GUIDE-COMMIT-SUMMARY-TEMPLATE-155
 doc_type: commit_summary
 schema_version: 1.0.0
 doc_id: COMMIT-SUMMARY-PLACEHOLDER    # filled by doc_id system

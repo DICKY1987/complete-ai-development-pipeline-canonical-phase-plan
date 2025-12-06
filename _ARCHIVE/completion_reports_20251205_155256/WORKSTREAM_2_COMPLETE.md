@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-WORKSTREAM-2-COMPLETE-208
+---
+
 # Workstream 2: High-Impact Automation - Implementation Complete
 
 ## Overview

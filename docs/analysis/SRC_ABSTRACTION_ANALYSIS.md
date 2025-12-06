@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-SRC-ABSTRACTION-ANALYSIS-240
+---
+
 # src/ and abstraction/ Analysis Summary
 
 **Date**: 2025-12-01

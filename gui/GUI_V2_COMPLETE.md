@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-GUI-V2-COMPLETE-193
+---
+
 # 🎉 GUI v2.0 PROTOTYPE - COMPLETE!
 
 ## ✅ Status: RUNNING AND FUNCTIONAL

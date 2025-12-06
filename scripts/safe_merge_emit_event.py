@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 """
 Append merge events to a JSONL log.
+
+
+DOC_ID: DOC-SCRIPT-SCRIPTS-SAFE-MERGE-EMIT-EVENT-783
 """
-DOC_ID: DOC - SCRIPT - SCRIPTS - SAFE - MERGE - EMIT - EVENT - 725
-DOC_ID: DOC - SCRIPT - SCRIPTS - SAFE - MERGE - EMIT - EVENT - 725
+# DOC_ID: DOC - SCRIPT - SCRIPTS - SAFE - MERGE - EMIT - EVENT - 725
+# DOC_ID: DOC - SCRIPT - SCRIPTS - SAFE - MERGE - EMIT - EVENT - 725
 
 from __future__ import annotations
 

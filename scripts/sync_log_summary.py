@@ -2,9 +2,12 @@
 """
 Sync log policy gate wrapper (MERGE-002).
 Parses .sync-log.txt and enforces thresholds before merge.
+
+
+DOC_ID: DOC-SCRIPT-SCRIPTS-SYNC-LOG-SUMMARY-768
 """
-DOC_ID: DOC - SCRIPT - SCRIPTS - SYNC - LOG - SUMMARY - 727
-DOC_ID: DOC - SCRIPT - SCRIPTS - SYNC - LOG - SUMMARY - 727
+# DOC_ID: DOC - SCRIPT - SCRIPTS - SYNC - LOG - SUMMARY - 727
+# DOC_ID: DOC - SCRIPT - SCRIPTS - SYNC - LOG - SUMMARY - 727
 
 from __future__ import annotations
 

@@ -27,6 +27,9 @@ Usage:
     analyzer = CoverageAnalyzer(config)
     report = analyzer.analyze()
     print(f"Overall quality score: {report.overall_quality_score}")
+
+
+DOC_ID: DOC-SCRIPT-COVERAGE-ANALYZER-INIT-796
 """
 
 __version__ = "0.1.0"

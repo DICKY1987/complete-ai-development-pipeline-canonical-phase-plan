@@ -1,4 +1,7 @@
-"""Tests for markdownlint edge cases."""
+"""Tests for markdownlint edge cases.
+
+DOC_ID: DOC-CORE-TESTS-TEST-PLUGIN-EDGE-CASES-796
+"""
 
 import sys
 import tempfile

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-SCRIPT-ONEOFF-GENERATORS-ARCHIVED-819
+---
+
 # ARCHIVED: One-Off Generator Scripts
 
 **Date:** 2025-12-04

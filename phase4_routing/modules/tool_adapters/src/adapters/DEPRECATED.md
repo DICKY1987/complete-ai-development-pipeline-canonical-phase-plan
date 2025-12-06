@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-DEPRECATED-877
+---
+
 # DEPRECATED: Adapters Consolidated
 
 **Date:** 2025-12-04

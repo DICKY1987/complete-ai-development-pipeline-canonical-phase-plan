@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-PAT-EDIT-WORKTREE-001-330
+---
+
 # PAT-EDIT-WORKTREE-001: Implement Changes Safely
 
 ## Purpose

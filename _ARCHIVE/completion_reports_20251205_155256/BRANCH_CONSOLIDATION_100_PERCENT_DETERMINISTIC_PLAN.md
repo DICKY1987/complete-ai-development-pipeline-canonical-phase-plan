@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-BRANCH-CONSOLIDATION-100-PERCENT-203
+---
+
 # 100% Deterministic Branch Consolidation Plan
 
 **Generated:** 2025-12-05 13:37 UTC

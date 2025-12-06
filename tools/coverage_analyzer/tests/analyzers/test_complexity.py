@@ -1,4 +1,7 @@
-"""Tests for complexity analyzer (Layer 3)."""
+"""Tests for complexity analyzer (Layer 3).
+
+DOC_ID: DOC-TEST-ANALYZERS-TEST-COMPLEXITY-361
+"""
 
 from unittest.mock import Mock, patch
 

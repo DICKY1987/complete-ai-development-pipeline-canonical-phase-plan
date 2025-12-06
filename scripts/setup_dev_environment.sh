@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# DOC_LINK: DOC-SCRIPT-SETUP-DEV-ENVIRONMENT-841
 # Enhanced development environment bootstrap script
 # Automated setup for new developers (Linux/macOS)
 

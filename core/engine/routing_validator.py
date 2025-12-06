@@ -1,4 +1,7 @@
-"""Phase 4 (Routing) Contract Validator - Task 2.5"""
+"""Phase 4 (Routing) Contract Validator - Task 2.5
+
+DOC_ID: DOC-CORE-ENGINE-ROUTING-VALIDATOR-856
+"""
 
 import sqlite3
 from pathlib import Path

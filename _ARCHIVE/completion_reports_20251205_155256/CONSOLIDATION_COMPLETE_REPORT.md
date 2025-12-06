@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-CONSOLIDATION-COMPLETE-REPORT-206
+---
+
 # Branch Consolidation Complete
 
 **Date:** 2025-12-05 14:25 UTC

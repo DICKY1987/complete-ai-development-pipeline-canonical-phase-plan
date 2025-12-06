@@ -1,6 +1,6 @@
 """Integration tests for ToolProcessPool with real aider.
 
-DOC_ID: DOC-TEST-AIM-AIDER-POOL-INT-001
+# DOC_ID: DOC-TEST-AIM-AIDER-POOL-INT-001
 """
 
 import shutil

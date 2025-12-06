@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-NESTED-SPARKING-STARDUST-1559
+doc_id: DOC-LEGACY-NESTED-SPARKING-STARDUST-014
 ---
 
 # Module-Centric Refactor Plan with Execution Patterns

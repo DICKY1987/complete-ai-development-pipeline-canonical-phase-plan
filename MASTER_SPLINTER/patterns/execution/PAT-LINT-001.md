@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-PAT-LINT-001-327
+---
+
 # PAT-LINT-001: Static Linting
 
 ## Purpose

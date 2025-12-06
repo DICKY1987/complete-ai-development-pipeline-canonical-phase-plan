@@ -4,7 +4,13 @@
   "title": "Automation Certification",
   "description": "Certification that all automation units are healthy",
   "type": "object",
-  "required": ["version", "certification_id", "certified_at", "status", "summary"],
+  "required": [
+    "version",
+    "certification_id",
+    "certified_at",
+    "status",
+    "summary"
+  ],
   "properties": {
     "version": {
       "type": "string",
@@ -31,38 +37,91 @@
     },
     "status": {
       "type": "string",
-      "enum": ["certified", "partial", "failed", "expired", "revoked"]
+      "enum": [
+        "certified",
+        "partial",
+        "failed",
+        "expired",
+        "revoked"
+      ]
     },
     "summary": {
       "type": "object",
-      "required": ["automation_units", "passing", "failing"],
+      "required": [
+        "automation_units",
+        "passing",
+        "failing"
+      ],
       "properties": {
-        "automation_units": { "type": "integer", "minimum": 0 },
-        "passing": { "type": "integer", "minimum": 0 },
-        "failing": { "type": "integer", "minimum": 0 },
-        "skipped": { "type": "integer", "minimum": 0 },
-        "success_rate": { "type": "number", "minimum": 0, "maximum": 100 },
-        "sweep_duration_seconds": { "type": "number" },
-        "fixes_applied": { "type": "integer", "minimum": 0 },
-        "retry_cycles": { "type": "integer", "minimum": 0 }
+        "automation_units": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "passing": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "failing": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "skipped": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "success_rate": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "sweep_duration_seconds": {
+          "type": "number"
+        },
+        "fixes_applied": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "retry_cycles": {
+          "type": "integer",
+          "minimum": 0
+        }
       }
     },
     "environment": {
       "type": "object",
       "properties": {
-        "hostname": { "type": "string" },
-        "os": { "type": "string" },
-        "git_sha": { "type": "string" },
-        "git_branch": { "type": "string" },
-        "git_tag": { "type": "string" }
+        "hostname": {
+          "type": "string"
+        },
+        "os": {
+          "type": "string"
+        },
+        "git_sha": {
+          "type": "string"
+        },
+        "git_branch": {
+          "type": "string"
+        },
+        "git_tag": {
+          "type": "string"
+        }
       }
     },
     "thresholds": {
       "type": "object",
       "properties": {
-        "minimum_success_rate": { "type": "number", "default": 100 },
-        "max_critical_failures": { "type": "integer", "default": 0 },
-        "max_high_failures": { "type": "integer", "default": 0 }
+        "minimum_success_rate": {
+          "type": "number",
+          "default": 100
+        },
+        "max_critical_failures": {
+          "type": "integer",
+          "default": 0
+        },
+        "max_high_failures": {
+          "type": "integer",
+          "default": 0
+        }
       }
     },
     "unit_results": {
@@ -70,10 +129,26 @@
       "additionalProperties": {
         "type": "object",
         "properties": {
-          "status": { "type": "string", "enum": ["pass", "fail", "skip"] },
-          "attempts": { "type": "integer" },
-          "final_exit_code": { "type": "integer" },
-          "fixes_applied": { "type": "array", "items": { "type": "string" } }
+          "status": {
+            "type": "string",
+            "enum": [
+              "pass",
+              "fail",
+              "skip"
+            ]
+          },
+          "attempts": {
+            "type": "integer"
+          },
+          "final_exit_code": {
+            "type": "integer"
+          },
+          "fixes_applied": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
         }
       }
     },
@@ -82,9 +157,15 @@
       "items": {
         "type": "object",
         "properties": {
-          "id": { "type": "string" },
-          "root_cause": { "type": "string" },
-          "escalation_reason": { "type": "string" }
+          "id": {
+            "type": "string"
+          },
+          "root_cause": {
+            "type": "string"
+          },
+          "escalation_reason": {
+            "type": "string"
+          }
         }
       }
     },
@@ -93,10 +174,19 @@
       "items": {
         "type": "object",
         "properties": {
-          "timestamp": { "type": "string", "format": "date-time" },
-          "event": { "type": "string" },
-          "unit_id": { "type": "string" },
-          "details": { "type": "string" }
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "event": {
+            "type": "string"
+          },
+          "unit_id": {
+            "type": "string"
+          },
+          "details": {
+            "type": "string"
+          }
         }
       }
     },
@@ -108,9 +198,14 @@
           "pattern": "^[a-f0-9]{64}$",
           "description": "SHA-256 of certification content"
         },
-        "signed_by": { "type": "string" },
-        "signature": { "type": "string" }
+        "signed_by": {
+          "type": "string"
+        },
+        "signature": {
+          "type": "string"
+        }
       }
     }
-  }
+  },
+  "doc_id": "DOC-CONFIG-AUTOMATION-CERTIFICATION-SCHEMA-294"
 }

@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-PH-06-GIT-WORKTREE-LIFECYCLE-MANAGEMENT-1236
+doc_id: DOC-GUIDE-PH-06-GIT-WORKTREE-LIFECYCLE-MANAGEMENT-223
 ---
 
 TITLE: PH-06 – Circuit Breakers, Retries & Fix Loop (Codex Autonomous Phase Executor)

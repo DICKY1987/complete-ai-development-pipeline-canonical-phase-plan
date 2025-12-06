@@ -1,4 +1,7 @@
-"""Test PSScriptAnalyzer plugin error detection."""
+"""Test PSScriptAnalyzer plugin error detection.
+
+DOC_ID: DOC-CORE-TESTS-TEST-PLUGIN-DETECTION-831
+"""
 
 from __future__ import annotations
 

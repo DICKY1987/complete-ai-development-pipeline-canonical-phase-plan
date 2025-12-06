@@ -1,4 +1,7 @@
-"""Test Gitleaks plugin edge cases."""
+"""Test Gitleaks plugin edge cases.
+
+DOC_ID: DOC-CORE-TESTS-TEST-PLUGIN-EDGE-CASES-806
+"""
 
 from __future__ import annotations
 

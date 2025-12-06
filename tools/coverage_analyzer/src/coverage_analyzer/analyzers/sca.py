@@ -3,6 +3,9 @@ Software Composition Analysis (SCA) Analyzer - Layer 0.5.
 
 Orchestrates dependency security scanning to identify vulnerabilities
 in third-party libraries and packages.
+
+
+DOC_ID: DOC-SCRIPT-ANALYZERS-SCA-803
 """
 
 import logging

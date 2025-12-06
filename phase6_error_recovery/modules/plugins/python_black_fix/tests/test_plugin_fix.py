@@ -1,4 +1,7 @@
-"""Tests for black fix plugin capabilities."""
+"""Tests for black fix plugin capabilities.
+
+DOC_ID: DOC-CORE-TESTS-TEST-PLUGIN-FIX-810
+"""
 
 import sys
 import tempfile

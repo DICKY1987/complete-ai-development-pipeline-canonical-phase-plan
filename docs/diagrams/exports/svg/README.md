@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-247
+---
+
 # SVG Exports
 
 Scalable Vector Graphics exports (optional, for high-quality rendering).

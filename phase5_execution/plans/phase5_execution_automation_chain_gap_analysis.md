@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PHASE5-EXECUTION-AUTOMATION-CHAIN-GAP-255
+---
+
 # Automation Chain Gap Analysis – Phase 5 Execution (CLI)
 
 ## 8.1 Executive Summary

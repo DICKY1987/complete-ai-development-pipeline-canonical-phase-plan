@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-250
+---
+
 # Architecture Diagrams
 
 System architecture and structure diagrams.

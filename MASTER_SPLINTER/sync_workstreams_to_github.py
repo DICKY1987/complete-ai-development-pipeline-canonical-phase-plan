@@ -6,6 +6,9 @@ Sync workstreams to GitHub Project Manager
 - Pushes to remote
 - Generates workstream summary report
 - NO STOPPING - Continues through all tasks even if errors occur
+
+
+DOC_ID: DOC-CORE-MASTER-SPLINTER-SYNC-WORKSTREAMS-TO-768
 """
 import json
 import subprocess

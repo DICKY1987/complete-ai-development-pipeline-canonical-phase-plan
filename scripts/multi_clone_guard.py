@@ -2,9 +2,12 @@
 """
 Multi-clone guard with command execution.
 Provides branch/pipeline level locking and basic metrics.
+
+
+DOC_ID: DOC-SCRIPT-SCRIPTS-MULTI-CLONE-GUARD-773
 """
-DOC_ID: DOC - SCRIPT - SCRIPTS - MULTI - CLONE - GUARD - 720
-DOC_ID: DOC - SCRIPT - SCRIPTS - MULTI - CLONE - GUARD - 720
+# DOC_ID: DOC - SCRIPT - SCRIPTS - MULTI - CLONE - GUARD - 720
+# DOC_ID: DOC - SCRIPT - SCRIPTS - MULTI - CLONE - GUARD - 720
 
 from __future__ import annotations
 

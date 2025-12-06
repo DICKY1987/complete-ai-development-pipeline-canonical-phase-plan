@@ -3,6 +3,9 @@ Adapter for mutmut - Python mutation testing tool.
 
 mutmut generates mutants (code variations) and runs tests to verify
 if the tests catch the mutations.
+
+
+DOC_ID: DOC-SCRIPT-ADAPTERS-MUTMUT-ADAPTER-814
 """
 
 import json

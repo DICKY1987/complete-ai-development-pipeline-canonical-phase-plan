@@ -3,7 +3,7 @@
 Add --non-interactive flag to scripts with input() calls.
 
 PATTERN: EXEC-001 (Batch File Transformation)
-DOC_ID: DOC-SCRIPT-ADD-NON-INTERACTIVE-001
+# DOC_ID: DOC-SCRIPT-ADD-NON-INTERACTIVE-001
 
 Purpose: Quick Win #2 - Enable scripts to run in CI/automation
 Time: 3 hours | Saves: 8h/month (enables headless execution)

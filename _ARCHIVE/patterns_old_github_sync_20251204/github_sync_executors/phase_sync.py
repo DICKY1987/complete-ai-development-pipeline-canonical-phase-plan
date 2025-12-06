@@ -4,10 +4,12 @@ Responsibility:
     - Ensure a GitHub Issue exists for a given SPLINTER phase.
     - Ensure a GitHub Project item exists and has correct field values.
     - Never guess: always derive from phase_identity + github_integration.
-"""
-DOC_ID: DOC-PAT-GITHUB-SYNC-EXECUTORS-PHASE-SYNC-973
 
-DOC_ID: DOC - PAT - GITHUB - SYNC - EXECUTORS - PHASE - SYNC - 973
+
+DOC_ID: DOC-PAT-GITHUB-SYNC-EXECUTORS-PHASE-SYNC-973
+"""
+
+# DOC_ID: DOC - PAT - GITHUB - SYNC - EXECUTORS - PHASE - SYNC - 973
 
 import textwrap
 from dataclasses import dataclass

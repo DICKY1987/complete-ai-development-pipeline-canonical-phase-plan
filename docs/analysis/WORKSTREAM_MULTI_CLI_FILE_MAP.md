@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-WORKSTREAM-MULTI-CLI-FILE-MAP-242
+---
+
 # Core Files for Workstreams & Multi-Parallel CLI Execution
 
 **Generated**: 2025-12-05 03:59

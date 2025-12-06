@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-248
+---
+
 # PNG Exports
 
 PNG image exports for embedding in markdown documentation.

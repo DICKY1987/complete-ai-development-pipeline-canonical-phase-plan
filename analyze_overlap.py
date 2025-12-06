@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """
 Analyze folder overlap and identify deprecated/redundant folders.
+
+
+DOC_ID: DOC-CORE-ROOT-ANALYZE-OVERLAP-766
 """
 import os
 import json

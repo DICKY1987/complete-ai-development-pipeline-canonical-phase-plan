@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PHASE7-MONITORING-FINAL-DELIVERABLES-178
+---
+
 # Phase 7 Monitoring Automation - Complete Deliverables
 
 **Completion Date**: 2025-12-05  

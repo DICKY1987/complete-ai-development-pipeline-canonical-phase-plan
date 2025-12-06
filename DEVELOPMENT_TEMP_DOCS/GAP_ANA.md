@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-GAP-ANA-159
+---
+
 Executive Summary
 
   - Total gaps: 7 (Critical: 1, High: 4, Medium: 2)

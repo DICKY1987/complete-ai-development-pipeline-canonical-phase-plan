@@ -1,4 +1,7 @@
-"""Tests for jq edge cases."""
+"""Tests for jq edge cases.
+
+DOC_ID: DOC-CORE-TESTS-TEST-PLUGIN-EDGE-CASES-784
+"""
 
 import sys
 import tempfile

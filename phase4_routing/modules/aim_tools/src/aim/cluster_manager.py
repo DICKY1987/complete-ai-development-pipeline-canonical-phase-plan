@@ -4,7 +4,7 @@ High-level cluster management for tool process pools.
 ClusterManager provides automatic routing, health monitoring,
 and simplified API for managing multiple CLI tool instances.
 
-DOC_ID: DOC-AIM-CLUSTER-MANAGER-001
+# DOC_ID: DOC-AIM-CLUSTER-MANAGER-001
 """
 
 from typing import Any, Dict, List, Optional

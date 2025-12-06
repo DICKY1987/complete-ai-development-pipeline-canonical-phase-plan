@@ -5,6 +5,9 @@ Usage:
     python scripts/validate_contracts.py --phase phase0
     python scripts/validate_contracts.py --all
     python scripts/validate_contracts.py --phase phase1 --dry-run
+
+
+DOC_ID: DOC-SCRIPT-SCRIPTS-VALIDATE-CONTRACTS-779
 """
 
 import argparse

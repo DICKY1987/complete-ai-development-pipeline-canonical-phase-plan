@@ -8,6 +8,9 @@ Scans repository for:
 - PowerShell scripts
 - Core modules
 - Tests
+
+
+DOC_ID: DOC-SCRIPT-SCRIPTS-REGENERATE-AUTOMATION-REPORT-772
 """
 
 import os

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-EXECUTION-PROMPT-TEMPLATE-V2-DAG-MULTI-200
+---
+
 # AI Agent Execution Prompt
 
 You are an AI operator executing Phase ${phase_id} of Workstream ${workstream_id}.

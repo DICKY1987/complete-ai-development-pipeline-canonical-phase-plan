@@ -1,4 +1,7 @@
-"""Tests for static analysis analyzer (Layer 0)."""
+"""Tests for static analysis analyzer (Layer 0).
+
+DOC_ID: DOC-TEST-ANALYZERS-TEST-STATIC-ANALYSIS-363
+"""
 
 from unittest.mock import Mock, patch
 

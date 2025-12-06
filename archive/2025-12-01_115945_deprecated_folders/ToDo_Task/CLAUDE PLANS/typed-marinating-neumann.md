@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-TYPED-MARINATING-NEUMANN-1567
+doc_id: DOC-LEGACY-TYPED-MARINATING-NEUMANN-013
 ---
 
 # Plan: Update Codex Knowledge Files with Execution Patterns

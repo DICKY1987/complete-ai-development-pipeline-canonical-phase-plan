@@ -1,3 +1,7 @@
+---
+doc_id: DOC-LEGACY-README-004
+---
+
 # Generated & Temporary Files Archive
 
 **Date**: 2025-12-01 12:13:49

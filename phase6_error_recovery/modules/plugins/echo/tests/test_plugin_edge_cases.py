@@ -1,4 +1,7 @@
-"""Test Echo plugin edge cases."""
+"""Test Echo plugin edge cases.
+
+DOC_ID: DOC-CORE-TESTS-TEST-PLUGIN-EDGE-CASES-816
+"""
 
 from __future__ import annotations
 

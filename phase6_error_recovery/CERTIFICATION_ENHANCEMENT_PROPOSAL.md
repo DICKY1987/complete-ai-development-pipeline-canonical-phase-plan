@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-CERTIFICATION-ENHANCEMENT-PROPOSAL-151
+---
+
 # Certification Enhancement Proposal for Phase 6
 
 **Status**: Proposal

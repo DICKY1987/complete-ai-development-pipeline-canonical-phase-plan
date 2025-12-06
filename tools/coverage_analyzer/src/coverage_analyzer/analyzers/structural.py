@@ -3,6 +3,9 @@ Structural Coverage Analyzer - Layer 1.
 
 Orchestrates structural coverage analysis (statement + branch coverage)
 for both Python and PowerShell code.
+
+
+DOC_ID: DOC-SCRIPT-ANALYZERS-STRUCTURAL-800
 """
 
 import logging

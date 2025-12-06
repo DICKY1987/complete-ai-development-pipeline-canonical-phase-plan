@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-PAT-HEALTH-CHECK-342
 # Pattern Automation - Health Check Script
 # DOC_ID: DOC-PAT-MONITORING-HEALTH-CHECK-001
 # Validates pattern automation system health and generates status report

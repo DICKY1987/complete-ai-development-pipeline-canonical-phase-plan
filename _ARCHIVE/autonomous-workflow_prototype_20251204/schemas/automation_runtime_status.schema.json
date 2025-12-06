@@ -4,7 +4,13 @@
   "title": "Automation Runtime Status",
   "description": "Runtime execution status for all automation units",
   "type": "object",
-  "required": ["version", "sweep_id", "started_at", "completed_at", "units"],
+  "required": [
+    "version",
+    "sweep_id",
+    "started_at",
+    "completed_at",
+    "units"
+  ],
   "properties": {
     "version": {
       "type": "string",
@@ -30,24 +36,61 @@
     "environment": {
       "type": "object",
       "properties": {
-        "hostname": { "type": "string" },
-        "os": { "type": "string" },
-        "user": { "type": "string" },
-        "working_directory": { "type": "string" },
-        "git_sha": { "type": "string" },
-        "git_branch": { "type": "string" }
+        "hostname": {
+          "type": "string"
+        },
+        "os": {
+          "type": "string"
+        },
+        "user": {
+          "type": "string"
+        },
+        "working_directory": {
+          "type": "string"
+        },
+        "git_sha": {
+          "type": "string"
+        },
+        "git_branch": {
+          "type": "string"
+        }
       }
     },
     "summary": {
       "type": "object",
-      "required": ["total", "success", "failed", "skipped", "timeout"],
+      "required": [
+        "total",
+        "success",
+        "failed",
+        "skipped",
+        "timeout"
+      ],
       "properties": {
-        "total": { "type": "integer", "minimum": 0 },
-        "success": { "type": "integer", "minimum": 0 },
-        "failed": { "type": "integer", "minimum": 0 },
-        "skipped": { "type": "integer", "minimum": 0 },
-        "timeout": { "type": "integer", "minimum": 0 },
-        "success_rate": { "type": "number", "minimum": 0, "maximum": 100 }
+        "total": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "success": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "failed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "skipped": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "timeout": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "success_rate": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        }
       }
     },
     "units": {
@@ -60,11 +103,21 @@
   "definitions": {
     "UnitStatus": {
       "type": "object",
-      "required": ["status", "last_run"],
+      "required": [
+        "status",
+        "last_run"
+      ],
       "properties": {
         "status": {
           "type": "string",
-          "enum": ["success", "fail", "timeout", "skipped", "not_run", "running"]
+          "enum": [
+            "success",
+            "fail",
+            "timeout",
+            "skipped",
+            "not_run",
+            "running"
+          ]
         },
         "last_run": {
           "type": "string",
@@ -108,10 +161,18 @@
         "metrics": {
           "type": "object",
           "properties": {
-            "memory_mb": { "type": "number" },
-            "cpu_percent": { "type": "number" },
-            "io_read_bytes": { "type": "integer" },
-            "io_write_bytes": { "type": "integer" }
+            "memory_mb": {
+              "type": "number"
+            },
+            "cpu_percent": {
+              "type": "number"
+            },
+            "io_read_bytes": {
+              "type": "integer"
+            },
+            "io_write_bytes": {
+              "type": "integer"
+            }
           }
         },
         "artifacts": {
@@ -119,14 +180,23 @@
           "items": {
             "type": "object",
             "properties": {
-              "name": { "type": "string" },
-              "path": { "type": "string" },
-              "size_bytes": { "type": "integer" },
-              "hash": { "type": "string" }
+              "name": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "size_bytes": {
+                "type": "integer"
+              },
+              "hash": {
+                "type": "string"
+              }
             }
           }
         }
       }
     }
-  }
+  },
+  "doc_id": "DOC-CONFIG-AUTOMATION-RUNTIME-STATUS-SCHEMA-296"
 }

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-START-HERE-AI-138
+---
+
 # AI Execution Instructions - MASTER_SPLINTER
 
 ## Single Command Execution

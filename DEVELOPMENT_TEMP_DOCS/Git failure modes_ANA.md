@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-GIT-FAILURE-MODES-ANA-161
+---
+
 ## Overview
 
 This document describes a set of **Git failure modes** that occurred when a **multi-agent AI system** operated on a **single local Git working tree** in parallel.

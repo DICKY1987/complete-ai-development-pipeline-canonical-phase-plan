@@ -1,3 +1,7 @@
+---
+doc_id: DOC-LEGACY-CLEANUP-SESSION-COMPLETE-001
+---
+
 # Repository Cleanup Session - Complete
 
 **Date**: 2025-12-01

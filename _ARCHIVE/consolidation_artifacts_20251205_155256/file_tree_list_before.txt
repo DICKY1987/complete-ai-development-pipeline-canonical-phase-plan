@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-FILE-TREE-LIST-BEFORE-267
+---
+
 _ARCHIVE/autonomous-workflow_prototype_20251204/collectors/Invoke-AutomationHealthSweep.ps1
 _ARCHIVE/autonomous-workflow_prototype_20251204/config/workflow_config.yaml
 _ARCHIVE/autonomous-workflow_prototype_20251204/orchestrator/automation_self_healing_loop.py

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-GUI-FUNCTIONAL-STATUS-194
+---
+
 # GUI Functional Status - December 4, 2025
 
 ## ✅ STATUS: FULLY FUNCTIONAL (Mock Data Mode)

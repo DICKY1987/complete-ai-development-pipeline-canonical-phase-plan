@@ -12,9 +12,12 @@ Validates DOC_ID_REGISTRY.yaml for:
 Usage:
     python scripts/validate_registry.py
     python scripts/validate_registry.py --report validation_report.json
+
+
+DOC_ID: DOC-SCRIPT-SCRIPTS-VALIDATE-REGISTRY-774
 """
-DOC_ID: DOC - SCRIPT - SCRIPTS - VALIDATE - REGISTRY - 732
-DOC_ID: DOC - SCRIPT - SCRIPTS - VALIDATE - REGISTRY - 732
+# DOC_ID: DOC - SCRIPT - SCRIPTS - VALIDATE - REGISTRY - 732
+# DOC_ID: DOC - SCRIPT - SCRIPTS - VALIDATE - REGISTRY - 732
 
 import json
 import sys

@@ -3,7 +3,7 @@ Simple test script to validate ClusterManager without spawning real processes.
 
 This is a dry-run that demonstrates the cluster API works correctly.
 
-DOC_ID: DOC-EXAMPLE-CLUSTER-DRYRUN-001
+# DOC_ID: DOC-EXAMPLE-CLUSTER-DRYRUN-001
 """
 
 from phase4_routing.modules.aim_tools.src.aim.cluster_manager import launch_cluster

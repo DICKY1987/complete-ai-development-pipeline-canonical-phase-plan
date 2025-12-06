@@ -1,4 +1,7 @@
-"""Test Echo plugin (no-op validator)."""
+"""Test Echo plugin (no-op validator).
+
+DOC_ID: DOC-CORE-TESTS-TEST-PLUGIN-DETECTION-815
+"""
 
 from __future__ import annotations
 

@@ -10,9 +10,10 @@ Usage (summary):
     python scripts/scan_incomplete_implementation.py
     python scripts/scan_incomplete_implementation.py --output .state/incomplete_scan_summary.json
     python scripts/scan_incomplete_implementation.py --ci-check --max-critical 0 --max-major 10
-"""
+
+
 DOC_ID: DOC-CORE-SYSTEM-ANALYZE-SYS-SCAN-INCOMPLETE-750
-# DOC_ID: DOC-SCRIPT-SCAN-INCOMPLETE-IMPLEMENTATION
+"""
 
 from __future__ import annotations
 

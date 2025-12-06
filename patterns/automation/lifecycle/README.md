@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-338
+---
+
 # Pattern Lifecycle Automation
 
 Automated approval and deployment workflows for patterns.

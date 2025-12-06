@@ -27,8 +27,10 @@ print(f"Completely unreachable modules (score 100): {len(high_conf_reachability)
 
 # Convert module paths to file paths
 def module_to_file(module_path):
-    """Convert module path to file path"""
-DOC_ID: DOC-SCRIPT-SCRIPTS-EXEC017-QUICK-CLEANUP-713
+    """Convert module path to file path
+    
+    DOC_ID: DOC-SCRIPT-SCRIPTS-EXEC017-QUICK-CLEANUP-713
+    """
     # Remove UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK prefix duplicates
     parts = module_path.replace('..', '.').split('.')
     # Convert to file path

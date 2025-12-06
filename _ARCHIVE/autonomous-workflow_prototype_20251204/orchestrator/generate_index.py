@@ -5,6 +5,9 @@ Automation Index Generator
 Parses AUTOMATION_COMPONENTS_REPORT.md and generates automation_index.json
 This bridges your existing documentation to the machine-readable format
 required by the self-healing orchestrator.
+
+
+DOC_ID: DOC-CORE-ORCHESTRATOR-GENERATE-INDEX-781
 """
 
 import json

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-217
+---
+
 # Autonomous Self-Healing Automation Workflow
 
 A production-grade, zero-touch automation validation and self-repair system.

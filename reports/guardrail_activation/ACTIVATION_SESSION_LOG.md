@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-ACTIVATION-SESSION-LOG-230
+---
+
 # Guardrail Activation Session Log
 ## Phase: PH-GUARDRAIL-001
 ## Started: 2025-12-05T11:17:38Z

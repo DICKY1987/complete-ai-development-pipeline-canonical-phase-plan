@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-WEEKLY-MAINTENANCE-832
 <#
 .SYNOPSIS
   Weekly repository maintenance - archive old files automatically.

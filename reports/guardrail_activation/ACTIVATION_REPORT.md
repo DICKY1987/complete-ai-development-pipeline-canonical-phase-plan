@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-ACTIVATION-REPORT-231
+---
+
 # Guardrail Activation Report - Phase 1 Complete
 ## PH-GUARDRAIL-001: High-ROI Guardrail Infrastructure Activation
 

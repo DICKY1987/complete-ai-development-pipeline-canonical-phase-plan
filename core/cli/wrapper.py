@@ -1,4 +1,7 @@
-"""CLI wrapper for automated, non-interactive script execution with orchestrator integration."""
+"""CLI wrapper for automated, non-interactive script execution with orchestrator integration.
+
+DOC_ID: DOC-CORE-CLI-WRAPPER-854
+"""
 
 from __future__ import annotations
 

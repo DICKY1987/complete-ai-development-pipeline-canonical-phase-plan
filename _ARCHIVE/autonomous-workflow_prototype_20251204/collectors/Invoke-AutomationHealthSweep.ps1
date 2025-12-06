@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-INVOKE-AUTOMATIONHEALTHSWEEP-840
 <#
 .SYNOPSIS
     Invoke-AutomationHealthSweep - Autonomous automation health collector

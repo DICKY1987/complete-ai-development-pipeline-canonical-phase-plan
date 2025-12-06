@@ -1,3 +1,7 @@
+---
+doc_id: DOC-LEGACY-README-006
+---
+
 # Completed Implementations Archive
 
 **Date**: 2025-12-01 12:07:48

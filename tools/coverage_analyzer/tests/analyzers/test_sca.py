@@ -1,4 +1,7 @@
-"""Tests for SCA analyzer (Layer 0.5)."""
+"""Tests for SCA analyzer (Layer 0.5).
+
+DOC_ID: DOC-TEST-ANALYZERS-TEST-SCA-359
+"""
 
 from unittest.mock import Mock, patch
 

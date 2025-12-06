@@ -1,4 +1,7 @@
-"""Tests for eslint plugin error detection capabilities."""
+"""Tests for eslint plugin error detection capabilities.
+
+DOC_ID: DOC-CORE-TESTS-TEST-PLUGIN-DETECTION-825
+"""
 
 import sys
 import tempfile

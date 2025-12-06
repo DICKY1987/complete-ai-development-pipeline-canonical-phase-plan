@@ -1,4 +1,5 @@
 #!/usr/bin/env pwsh
+# DOC_LINK: DOC-SCRIPT-SETUP-DEV-ENVIRONMENT-831
 # Enhanced development environment bootstrap script
 # Automated setup for new developers
 

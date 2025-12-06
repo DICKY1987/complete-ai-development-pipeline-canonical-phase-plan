@@ -3,10 +3,12 @@ Test GH_SYNC_PHASE_V1 pattern implementation.
 
 This is a unit test suite for the GitHub sync functionality.
 Integration tests require a real GitHub token and project.
-"""
-DOC_ID: DOC-TEST-TESTS-GH-SYNC-PHASE-V1-TEST-316
 
-DOC_ID: DOC - TEST - TESTS - GH - SYNC - PHASE - V1 - TEST - 316
+
+DOC_ID: DOC-TEST-TESTS-GH-SYNC-PHASE-V1-TEST-316
+"""
+
+# DOC_ID: DOC - TEST - TESTS - GH - SYNC - PHASE - V1 - TEST - 316
 
 import sys
 import unittest

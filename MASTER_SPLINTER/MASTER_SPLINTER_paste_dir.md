@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-MASTER-SPLINTER-PASTE-DIR-140
+---
+
   1. Copy the template to a new phase file
 
   - Command (PowerShell):

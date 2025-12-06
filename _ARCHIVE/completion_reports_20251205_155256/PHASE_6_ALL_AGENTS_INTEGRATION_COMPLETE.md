@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PHASE-6-ALL-AGENTS-INTEGRATION-COMPLETE-204
+---
+
 # Phase 6 Testing - All Agents Integration Complete
 
 ## Summary

@@ -1,6 +1,6 @@
 """Tests for base adapter interface - WS-03-02A
 
-DOC_ID: DOC-TEST-ADAPTERS-TEST-BASE-166
+# DOC_ID: DOC-TEST-ADAPTERS-TEST-BASE-166
 """
 
 import pytest

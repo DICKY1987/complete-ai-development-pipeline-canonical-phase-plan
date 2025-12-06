@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-REPO-HEALTH-CHECK-834
 <#
 .SYNOPSIS
   Repository health check - detect files in wrong locations.

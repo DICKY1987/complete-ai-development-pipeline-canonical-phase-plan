@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-REPOSITORY-MAINTENANCE-182
+---
+
 # Repository Maintenance - Prevention Strategy
 
 **Purpose**: Prevent future buildup of planning docs, completion reports, and temporary files

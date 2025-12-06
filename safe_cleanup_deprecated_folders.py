@@ -2,6 +2,9 @@
 """
 Safe cleanup script for deprecated and overlapping folders.
 Creates an archive with full backup before removal.
+
+
+DOC_ID: DOC-CORE-ROOT-SAFE-CLEANUP-DEPRECATED-FOLDERS-765
 """
 import os
 import shutil

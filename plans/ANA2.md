@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-ANA2-177
+---
+
  Added plans\phase5_execution_automation_chain_gap_analysis.md
 (+96 -0)
      1 +# Automation Chain Gap Analysis – Phase 5 Execution (CLI)

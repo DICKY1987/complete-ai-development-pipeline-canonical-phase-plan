@@ -9,6 +9,9 @@ Detects drift between documentation and code using:
 4. Module documentation gaps (code exists but no doc)
 
 Exit codes: 0=no drift, 1=drift detected
+
+
+DOC_ID: DOC-GUIDE-DOC-ID-DETECT-DOC-DRIFT-132
 """
 
 import argparse

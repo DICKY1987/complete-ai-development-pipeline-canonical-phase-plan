@@ -1,4 +1,7 @@
-"""Test Semgrep plugin error detection."""
+"""Test Semgrep plugin error detection.
+
+DOC_ID: DOC-CORE-TESTS-TEST-PLUGIN-DETECTION-838
+"""
 
 from __future__ import annotations
 

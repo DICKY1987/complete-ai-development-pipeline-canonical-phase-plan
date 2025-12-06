@@ -1,4 +1,7 @@
-"""Tests for SCA adapters (Layer 0.5)."""
+"""Tests for SCA adapters (Layer 0.5).
+
+DOC_ID: DOC-TEST-ADAPTERS-TEST-SCA-ADAPTERS-369
+"""
 
 import json
 from pathlib import Path

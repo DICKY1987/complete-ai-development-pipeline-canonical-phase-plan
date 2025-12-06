@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-164
+---
+
 # Phase 4 – Tool Routing & Adapter Selection
 
 ## Purpose
