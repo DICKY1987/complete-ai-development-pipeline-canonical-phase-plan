@@ -76,46 +76,227 @@
     ]
   },
   "index": {
-    "key_paths": {
-      "doc_id": "doc_id",
-      "phase_id": "phase_identity.phase_id",
-      "workstream_id": "phase_identity.workstream_id",
-      "phase_title": "phase_identity.title",
-      "objective": "phase_identity.objective",
-      "phase_status": "phase_identity.status",
-      "estimate_hours": "phase_identity.estimate_hours",
-      "gh_item_id": "phase_identity.gh_item_id",
-      "tags": "phase_identity.tags",
-      "dependencies": "dag_and_dependencies.depends_on",
-      "parallelizable_with": "dag_and_dependencies.may_run_parallel_with",
-      "parallel_group": "dag_and_dependencies.parallel_group",
-      "critical_path": "dag_and_dependencies.is_critical_path",
-      "repo_root": "scope_and_modules.repo_root",
-      "module_list": "scope_and_modules.modules",
-      "scope_read_only": "scope_and_modules.file_scope.read_only",
-      "scope_modify": "scope_and_modules.file_scope.modify",
-      "scope_create": "scope_and_modules.file_scope.create",
-      "scope_forbidden": "scope_and_modules.file_scope.forbidden_paths",
-      "worktree_strategy": "scope_and_modules.worktree_strategy",
-      "target_os": "environment_and_tools.target_os",
-      "default_shell": "environment_and_tools.default_shell",
-      "primary_language": "environment_and_tools.primary_language",
-      "python": "environment_and_tools.python",
-      "required_services": "environment_and_tools.required_services",
-      "config_files": "environment_and_tools.config_files",
-      "ai_operators": "environment_and_tools.ai_operators",
-      "tool_profiles": "environment_and_tools.tool_profiles",
-      "execution_profile": "execution_profile",
-      "preflight_checks": "pre_flight_checks.checks",
-      "execution_steps": "execution_plan.steps",
-      "fix_loop": "fix_loop_and_circuit_breakers",
-      "artifacts": "expected_artifacts",
-      "acceptance_tests": "acceptance_tests.tests",
-      "completion_rules": "completion_gate.rules",
-      "completion_overrides": "completion_gate.manual_override",
-      "observability": "observability_and_metrics",
-      "governance": "governance_and_constraints",
-      "extensions": "extensions.custom_fields"
+    "parameters": {
+      "PHASE_ID": {
+        "path": "/phase_identity/phase_id",
+        "description": "The phase_id of the phase",
+        "tags": [
+          "param",
+          "phase_identity"
+        ]
+      },
+      "WORKSTREAM_ID": {
+        "path": "/phase_identity/workstream_id",
+        "description": "The workstream_id of the phase",
+        "tags": [
+          "param",
+          "phase_identity"
+        ]
+      },
+      "TITLE": {
+        "path": "/phase_identity/title",
+        "description": "The title of the phase",
+        "tags": [
+          "param",
+          "phase_identity"
+        ]
+      },
+      "SUMMARY": {
+        "path": "/phase_identity/summary",
+        "description": "The summary of the phase",
+        "tags": [
+          "param",
+          "phase_identity"
+        ]
+      },
+      "OBJECTIVE": {
+        "path": "/phase_identity/objective",
+        "description": "The objective of the phase",
+        "tags": [
+          "param",
+          "phase_identity"
+        ]
+      },
+      "PHASE_TYPE": {
+        "path": "/phase_identity/phase_type",
+        "description": "The phase_type of the phase",
+        "tags": [
+          "param",
+          "phase_identity"
+        ]
+      },
+      "STATUS": {
+        "path": "/phase_identity/status",
+        "description": "The status of the phase",
+        "tags": [
+          "param",
+          "phase_identity"
+        ]
+      },
+      "ESTIMATE_HOURS": {
+        "path": "/phase_identity/estimate_hours",
+        "description": "The estimate_hours of the phase",
+        "tags": [
+          "param",
+          "phase_identity"
+        ]
+      },
+      "GH_ITEM_ID": {
+        "path": "/phase_identity/gh_item_id",
+        "description": "The gh_item_id of the phase",
+        "tags": [
+          "param",
+          "phase_identity"
+        ]
+      },
+      "TAGS": {
+        "path": "/phase_identity/tags",
+        "description": "The tags of the phase",
+        "tags": [
+          "param",
+          "phase_identity"
+        ]
+      },
+      "WORKSTREAM_BUNDLE_ID": {
+        "path": "/dag_and_dependencies/workstream_bundle_id",
+        "description": "The workstream_bundle_id of the dag and dependencies",
+        "tags": [
+          "param",
+          "dag_and_dependencies"
+        ]
+      },
+      "DEPENDS_ON": {
+        "path": "/dag_and_dependencies/depends_on",
+        "description": "The depends_on of the dag and dependencies",
+        "tags": [
+          "param",
+          "dag_and_dependencies"
+        ]
+      },
+      "MAY_RUN_PARALLEL_WITH": {
+        "path": "/dag_and_dependencies/may_run_parallel_with",
+        "description": "The may_run_parallel_with of the dag and dependencies",
+        "tags": [
+          "param",
+          "dag_and_dependencies"
+        ]
+      },
+      "PARALLEL_GROUP": {
+        "path": "/dag_and_dependencies/parallel_group",
+        "description": "The parallel_group of the dag and dependencies",
+        "tags": [
+          "param",
+          "dag_and_dependencies"
+        ]
+      },
+      "IS_CRITICAL_PATH": {
+        "path": "/dag_and_dependencies/is_critical_path",
+        "description": "The is_critical_path of the dag and dependencies",
+        "tags": [
+          "param",
+          "dag_and_dependencies"
+        ]
+      }
+    },
+    "sections": {
+      "S_PHASE_IDENTITY": {
+        "path": "/phase_identity",
+        "description": "Phase identity",
+        "tags": [
+          "phase_identity"
+        ]
+      },
+      "S_DAG_AND_DEPENDENCIES": {
+        "path": "/dag_and_dependencies",
+        "description": "DAG and dependencies",
+        "tags": [
+          "dag_and_dependencies"
+        ]
+      },
+      "S_SCOPE_AND_MODULES": {
+        "path": "/scope_and_modules",
+        "description": "Scope and modules",
+        "tags": [
+          "scope_and_modules"
+        ]
+      },
+      "S_ENVIRONMENT_AND_TOOLS": {
+        "path": "/environment_and_tools",
+        "description": "Environment and tools",
+        "tags": [
+          "environment_and_tools"
+        ]
+      },
+      "S_EXECUTION_PROFILE": {
+        "path": "/execution_profile",
+        "description": "Execution profile",
+        "tags": [
+          "execution_profile"
+        ]
+      },
+      "S_PRE_FLIGHT_CHECKS": {
+        "path": "/pre_flight_checks",
+        "description": "Pre-flight checks",
+        "tags": [
+          "pre_flight_checks"
+        ]
+      },
+      "S_EXECUTION_PLAN": {
+        "path": "/execution_plan",
+        "description": "Execution plan",
+        "tags": [
+          "execution_plan"
+        ]
+      },
+      "S_FIX_LOOP_AND_CIRCUIT_BREAKERS": {
+        "path": "/fix_loop_and_circuit_breakers",
+        "description": "Fix loop and circuit breakers",
+        "tags": [
+          "fix_loop_and_circuit_breakers"
+        ]
+      },
+      "S_EXPECTED_ARTIFACTS": {
+        "path": "/expected_artifacts",
+        "description": "Expected artifacts",
+        "tags": [
+          "expected_artifacts"
+        ]
+      },
+      "S_ACCEPTANCE_TESTS": {
+        "path": "/acceptance_tests",
+        "description": "Acceptance tests",
+        "tags": [
+          "acceptance_tests"
+        ]
+      },
+      "S_COMPLETION_GATE": {
+        "path": "/completion_gate",
+        "description": "Completion gate",
+        "tags": [
+          "completion_gate"
+        ]
+      },
+      "S_OBSERVABILITY_AND_METRICS": {
+        "path": "/observability_and_metrics",
+        "description": "Observability and metrics",
+        "tags": [
+          "observability_and_metrics"
+        ]
+      },
+      "S_GOVERNANCE_AND_CONSTRAINTS": {
+        "path": "/governance_and_constraints",
+        "description": "Governance and constraints",
+        "tags": [
+          "governance_and_constraints"
+        ]
+      },
+      "S_EXTENSIONS": {
+        "path": "/extensions",
+        "description": "Extensions",
+        "tags": [
+          "extensions"
+        ]
+      }
     }
   },
   "phase_identity": {
