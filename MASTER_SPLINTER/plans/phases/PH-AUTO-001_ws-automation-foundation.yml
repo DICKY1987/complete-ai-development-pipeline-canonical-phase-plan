@@ -1,0 +1,835 @@
+# PHASE_PLAN: Automation Foundation - CI/CD & Monitoring
+# DOC_ID: DOC-PHASE-AUTO-001
+# Created: 2025-12-06
+# Based on: MASTER_SPLINTER_AUTOMATION_GAP_ANALYSIS.md
+
+doc_id: "DOC-PHASE-AUTO-001"
+template_version: 3
+
+table_of_contents:
+  sections:
+    - id: "phase_identity"
+      title: "Phase identity"
+      key_path: "phase_identity"
+    - id: "dag_and_dependencies"
+      title: "DAG and dependencies"
+      key_path: "dag_and_dependencies"
+    - id: "scope_and_modules"
+      title: "Scope and modules"
+      key_path: "scope_and_modules"
+    - id: "environment_and_tools"
+      title: "Environment and tools"
+      key_path: "environment_and_tools"
+    - id: "execution_profile"
+      title: "Execution profile"
+      key_path: "execution_profile"
+    - id: "pre_flight_checks"
+      title: "Pre-flight checks"
+      key_path: "pre_flight_checks"
+    - id: "execution_plan"
+      title: "Execution plan"
+      key_path: "execution_plan"
+    - id: "fix_loop_and_circuit_breakers"
+      title: "Fix loop and circuit breakers"
+      key_path: "fix_loop_and_circuit_breakers"
+    - id: "expected_artifacts"
+      title: "Expected artifacts"
+      key_path: "expected_artifacts"
+    - id: "acceptance_tests"
+      title: "Acceptance tests"
+      key_path: "acceptance_tests"
+    - id: "completion_gate"
+      title: "Completion gate"
+      key_path: "completion_gate"
+    - id: "observability_and_metrics"
+      title: "Observability and metrics"
+      key_path: "observability_and_metrics"
+    - id: "governance_and_constraints"
+      title: "Governance and constraints"
+      key_path: "governance_and_constraints"
+    - id: "extensions"
+      title: "Extensions"
+      key_path: "extensions"
+
+index:
+  key_paths:
+    doc_id: "doc_id"
+    phase_id: "phase_identity.phase_id"
+    workstream_id: "phase_identity.workstream_id"
+    phase_title: "phase_identity.title"
+    objective: "phase_identity.objective"
+    phase_status: "phase_identity.status"
+    estimate_hours: "phase_identity.estimate_hours"
+
+phase_identity:
+  phase_id: "PH-AUTO-001"
+  workstream_id: "ws-automation-foundation"
+  title: "Automation Foundation - Critical Quick Wins"
+  summary: "Implement CI/CD pipeline, monitoring, and pre-commit hooks to close critical automation gaps identified in gap analysis. Phase 1 of 3-phase automation roadmap."
+  objective: "Establish baseline automation infrastructure: GitHub Actions CI, healthchecks.io monitoring, pre-commit hooks, and centralized subprocess execution wrapper."
+  phase_type: "infrastructure"
+  status: "ready"
+  estimate_hours: 18
+  gh_item_id: null
+  tags:
+    - "automation"
+    - "cicd"
+    - "monitoring"
+    - "infrastructure"
+    - "quick-win"
+    - "GAP-001"
+    - "GAP-002"
+    - "GAP-006"
+    - "GAP-008"
+
+dag_and_dependencies:
+  workstream_bundle_id: "ws-bundle-automation"
+  depends_on: []
+  may_run_parallel_with: []
+  parallel_group: "automation-phase1"
+  is_critical_path: true
+
+scope_and_modules:
+  repo_root: "C:/Users/richg/ALL_AI/Complete AI Development Pipeline – Canonical Phase Plan/MASTER_SPLINTER"
+  modules:
+    - "core"
+    - "config"
+    - "scripts"
+  file_scope:
+    read_only:
+      - "README.md"
+      - "CLAUDE.md"
+      - "config/tool_profiles.json"
+      - "config/circuit_breakers.yaml"
+      - "run_master_splinter.py"
+      - "sync_workstreams_to_github.py"
+      - "multi_agent_workstream_coordinator.py"
+    modify:
+      - "requirements.txt"
+      - "README.md"
+    create:
+      - ".github/workflows/ci.yml"
+      - ".github/workflows/scheduled-orchestrator.yml"
+      - ".pre-commit-config.yaml"
+      - "core/__init__.py"
+      - "core/cli_adapter.py"
+      - "scripts/validate_config.py"
+      - "scripts/setup_monitoring.py"
+      - "docs/AUTOMATION_SETUP.md"
+      - "tests/test_cli_adapter.py"
+    forbidden_paths:
+      - ".git/*"
+      - "safe_merge/*"
+      - ".state/*"
+      - "logs/*"
+  worktree_strategy: "single"
+
+environment_and_tools:
+  target_os: "windows"
+  default_shell: "powershell"
+  primary_language: "python"
+  python:
+    version: "3.12"
+    virtualenv: null
+  required_services:
+    - "git"
+    - "python3"
+    - "pip"
+  config_files:
+    - "config/tool_profiles.json"
+    - "config/circuit_breakers.yaml"
+  ai_operators:
+    primary_agent: "github-copilot"
+    secondary_agent: "claude-code"
+  tool_profiles: "config/tool_profiles.json"
+
+execution_profile:
+  prompt_template_id: "prompts/EXECUTION_PROMPT_TEMPLATE_V2_DAG_MULTI_WORKSTREAM.md"
+  execution_pattern: "EXEC-001"  # Batch file creator pattern
+  concurrency: 1
+  retry_attempts: 2
+  no_stop_mode: true
+  anti_pattern_guards:
+    - "hallucination_of_success"       # Verify files exist, not just "created"
+    - "planning_loop_trap"             # Max 2 planning iterations
+    - "incomplete_implementation"      # No TODO/pass placeholders
+    - "silent_failures"                # Explicit error handling required
+    - "configuration_drift"            # No hardcoded values
+    - "approval_loop"                  # No human approval for safe ops
+  ground_truth_verification: true
+  checkpoint_after_each_step: true
+
+pre_flight_checks:
+  checks:
+    - id: "verify-git-repo"
+      description: "Confirm we are in a git repository"
+      command: "git rev-parse --git-dir"
+      expected_output: ".git"
+      
+    - id: "verify-python"
+      description: "Confirm Python 3.12+ available"
+      command: "python --version"
+      expected_pattern: "Python 3.1[2-9]"
+      
+    - id: "verify-config-files"
+      description: "Ensure required configs exist"
+      command: "Test-Path config/tool_profiles.json"
+      expected_output: "True"
+      
+    - id: "verify-write-permissions"
+      description: "Ensure can create .github directory"
+      command: "New-Item -ItemType Directory -Path .github -Force -WhatIf"
+      expected_exit_code: 0
+      
+    - id: "verify-internet"
+      description: "Confirm internet access for package installation"
+      command: "Test-Connection -ComputerName pypi.org -Count 1 -Quiet"
+      expected_output: "True"
+
+execution_plan:
+  steps:
+    # STEP 1: Install Dependencies (Pattern: EXEC-005 Config)
+    - id: "install-dependencies"
+      description: "Install required Python packages for automation"
+      pattern: "EXEC-005"
+      command: "pip install pre-commit pytest pytest-cov ruff mypy black jsonschema pyyaml requests"
+      timeout_seconds: 180
+      success_criteria:
+        - "exit_code == 0"
+        - "Successfully installed"
+      failure_handling: "log_and_continue"
+      checkpoint: true
+      
+    # STEP 2: Create CI/CD Pipeline (Pattern: EXEC-001 Batch Creator)
+    - id: "create-ci-workflow"
+      description: "Create GitHub Actions CI/CD workflow"
+      pattern: "EXEC-001"
+      execution_mode: "batch_create"
+      artifacts:
+        - ".github/workflows/ci.yml"
+      template: |
+        name: CI Pipeline
+        on:
+          push:
+            branches: [main, develop, feature/*]
+          pull_request:
+            branches: [main, develop]
+        
+        jobs:
+          validate:
+            runs-on: ubuntu-latest
+            steps:
+              - uses: actions/checkout@v4
+              
+              - uses: actions/setup-python@v5
+                with:
+                  python-version: '3.12'
+                  cache: 'pip'
+              
+              - name: Install dependencies
+                run: |
+                  pip install -r requirements.txt
+                  pip install pytest pytest-cov ruff mypy
+              
+              - name: Validate YAML configs
+                run: |
+                  python -c "import yaml; yaml.safe_load(open('config/tool_profiles.json'))"
+                  python -c "import yaml; yaml.safe_load(open('config/circuit_breakers.yaml'))"
+              
+              - name: Run ruff linting
+                run: ruff check . --output-format=github
+                continue-on-error: true
+              
+              - name: Run mypy type checking
+                run: mypy . --ignore-missing-imports
+                continue-on-error: true
+              
+              - name: Run pytest
+                run: pytest tests/ -v --cov=. --cov-report=term-missing
+              
+              - name: Validate phase plans
+                run: |
+                  python -c "
+                  from pathlib import Path
+                  import yaml
+                  for f in Path('plans/phases').glob('*.yml'):
+                      yaml.safe_load(f.read_text())
+                  "
+      success_criteria:
+        - "file_exists('.github/workflows/ci.yml')"
+        - "file_size > 500"  # Non-empty file
+      verification_command: "Test-Path .github/workflows/ci.yml"
+      
+    # STEP 3: Create Scheduled Orchestrator (Pattern: EXEC-001)
+    - id: "create-scheduled-workflow"
+      description: "Create scheduled orchestrator workflow for automated runs"
+      pattern: "EXEC-001"
+      execution_mode: "batch_create"
+      artifacts:
+        - ".github/workflows/scheduled-orchestrator.yml"
+      template: |
+        name: Scheduled Orchestrator
+        on:
+          schedule:
+            - cron: '0 2 * * *'  # 2 AM daily
+          workflow_dispatch:  # Allow manual trigger
+        
+        jobs:
+          run-orchestrator:
+            runs-on: ubuntu-latest
+            steps:
+              - uses: actions/checkout@v4
+              
+              - uses: actions/setup-python@v5
+                with:
+                  python-version: '3.12'
+              
+              - name: Install dependencies
+                run: pip install -r requirements.txt
+              
+              - name: Run master orchestrator
+                run: python run_master_splinter.py
+              
+              - name: Upload reports
+                uses: actions/upload-artifact@v4
+                if: always()
+                with:
+                  name: orchestrator-reports
+                  path: reports/
+              
+              - name: Ping healthcheck
+                if: success()
+                run: |
+                  if [ -n "${{ secrets.HEALTHCHECK_URL }}" ]; then
+                    curl "${{ secrets.HEALTHCHECK_URL }}"
+                  fi
+      success_criteria:
+        - "file_exists('.github/workflows/scheduled-orchestrator.yml')"
+      verification_command: "Test-Path .github/workflows/scheduled-orchestrator.yml"
+      
+    # STEP 4: Create Pre-commit Config (Pattern: EXEC-005 Config)
+    - id: "create-precommit-config"
+      description: "Create pre-commit hooks configuration"
+      pattern: "EXEC-005"
+      execution_mode: "batch_create"
+      artifacts:
+        - ".pre-commit-config.yaml"
+      template: |
+        # Pre-commit hooks for MASTER_SPLINTER
+        repos:
+          - repo: https://github.com/pre-commit/pre-commit-hooks
+            rev: v4.5.0
+            hooks:
+              - id: check-yaml
+                args: [--allow-multiple-documents]
+              - id: check-json
+              - id: end-of-file-fixer
+              - id: trailing-whitespace
+              - id: check-added-large-files
+                args: [--maxkb=1000]
+              - id: check-merge-conflict
+          
+          - repo: https://github.com/astral-sh/ruff-pre-commit
+            rev: v0.1.9
+            hooks:
+              - id: ruff
+                args: [--fix, --exit-non-zero-on-fix]
+              - id: ruff-format
+          
+          - repo: https://github.com/pre-commit/mirrors-mypy
+            rev: v1.8.0
+            hooks:
+              - id: mypy
+                args: [--ignore-missing-imports]
+                additional_dependencies: [types-pyyaml, types-requests]
+      success_criteria:
+        - "file_exists('.pre-commit-config.yaml')"
+      verification_command: "Test-Path .pre-commit-config.yaml"
+      
+    # STEP 5: Create CLI Adapter (Pattern: EXEC-002 Module Generator)
+    - id: "create-cli-adapter"
+      description: "Create centralized subprocess execution wrapper"
+      pattern: "EXEC-002"
+      execution_mode: "generate_module"
+      artifacts:
+        - "core/__init__.py"
+        - "core/cli_adapter.py"
+      implementation: |
+        # core/__init__.py
+        """Core utilities for MASTER_SPLINTER orchestration."""
+        from .cli_adapter import CLIAdapter
+        __all__ = ["CLIAdapter"]
+        
+        # core/cli_adapter.py
+        """Centralized CLI subprocess execution wrapper with retry logic."""
+        import subprocess
+        import sys
+        import time
+        from pathlib import Path
+        from typing import Dict, List, Optional, Any
+        from datetime import datetime
+        
+        class CLIAdapter:
+            """Wrapper for subprocess execution with retry, timeout, and logging."""
+            
+            def __init__(self, logger=None):
+                self.logger = logger or print
+                self.execution_history: List[Dict[str, Any]] = []
+            
+            def run_script(
+                self,
+                script_path: Path,
+                args: List[str] = None,
+                timeout: int = 600,
+                cwd: Path = None,
+                retries: int = 0,
+                retry_delay: int = 5,
+                env: Dict[str, str] = None
+            ) -> Dict[str, Any]:
+                """
+                Execute a script with comprehensive error handling.
+                
+                Args:
+                    script_path: Path to script to execute
+                    args: Command-line arguments
+                    timeout: Timeout in seconds
+                    cwd: Working directory
+                    retries: Number of retry attempts
+                    retry_delay: Delay between retries
+                    env: Environment variables
+                
+                Returns:
+                    Dict with success, stdout, stderr, returncode, duration
+                """
+                start_time = datetime.now()
+                cmd = [sys.executable, str(script_path)]
+                if args:
+                    cmd.extend(args)
+                
+                last_error = None
+                for attempt in range(retries + 1):
+                    try:
+                        self.logger(f"Executing: {' '.join(cmd)} (attempt {attempt + 1}/{retries + 1})")
+                        
+                        result = subprocess.run(
+                            cmd,
+                            capture_output=True,
+                            text=True,
+                            timeout=timeout,
+                            cwd=cwd,
+                            env=env
+                        )
+                        
+                        duration = (datetime.now() - start_time).total_seconds()
+                        
+                        execution_record = {
+                            "success": result.returncode == 0,
+                            "stdout": result.stdout,
+                            "stderr": result.stderr,
+                            "returncode": result.returncode,
+                            "duration_seconds": duration,
+                            "attempts": attempt + 1,
+                            "command": cmd,
+                            "timestamp": start_time.isoformat()
+                        }
+                        
+                        self.execution_history.append(execution_record)
+                        
+                        if result.returncode == 0:
+                            self.logger(f"✅ Success in {duration:.1f}s")
+                            return execution_record
+                        else:
+                            last_error = f"Exit code {result.returncode}: {result.stderr}"
+                            if attempt < retries:
+                                self.logger(f"⚠️ Failed, retrying in {retry_delay}s...")
+                                time.sleep(retry_delay)
+                            continue
+                    
+                    except subprocess.TimeoutExpired:
+                        last_error = f"Timeout after {timeout}s"
+                        self.logger(f"⏱️ {last_error}")
+                        if attempt < retries:
+                            time.sleep(retry_delay)
+                        continue
+                    
+                    except Exception as e:
+                        last_error = str(e)
+                        self.logger(f"❌ Error: {e}")
+                        if attempt < retries:
+                            time.sleep(retry_delay)
+                        continue
+                
+                # All retries exhausted
+                failure_record = {
+                    "success": False,
+                    "error": last_error,
+                    "attempts": retries + 1,
+                    "command": cmd,
+                    "timestamp": start_time.isoformat()
+                }
+                self.execution_history.append(failure_record)
+                return failure_record
+            
+            def run_command(
+                self,
+                command: str,
+                shell: bool = True,
+                **kwargs
+            ) -> Dict[str, Any]:
+                """Execute a shell command."""
+                try:
+                    result = subprocess.run(
+                        command,
+                        shell=shell,
+                        capture_output=True,
+                        text=True,
+                        **kwargs
+                    )
+                    
+                    return {
+                        "success": result.returncode == 0,
+                        "stdout": result.stdout,
+                        "stderr": result.stderr,
+                        "returncode": result.returncode
+                    }
+                except Exception as e:
+                    return {"success": False, "error": str(e)}
+            
+            def get_execution_summary(self) -> Dict[str, Any]:
+                """Get summary of all executions."""
+                total = len(self.execution_history)
+                successful = sum(1 for e in self.execution_history if e.get("success"))
+                
+                return {
+                    "total_executions": total,
+                    "successful": successful,
+                    "failed": total - successful,
+                    "success_rate": (successful / total * 100) if total > 0 else 0
+                }
+      success_criteria:
+        - "file_exists('core/cli_adapter.py')"
+        - "file_exists('core/__init__.py')"
+        - "import_succeeds('from core import CLIAdapter')"
+      verification_command: "python -c 'from core import CLIAdapter; print(CLIAdapter)'"
+      
+    # STEP 6: Create Config Validator (Pattern: EXEC-002)
+    - id: "create-config-validator"
+      description: "Create JSON/YAML config validation script"
+      pattern: "EXEC-002"
+      artifacts:
+        - "scripts/validate_config.py"
+      success_criteria:
+        - "file_exists('scripts/validate_config.py')"
+        - "script_executes_successfully('python scripts/validate_config.py')"
+      verification_command: "python scripts/validate_config.py --help"
+      
+    # STEP 7: Setup Monitoring (Pattern: EXEC-002)
+    - id: "create-monitoring-setup"
+      description: "Create healthchecks.io integration script"
+      pattern: "EXEC-002"
+      artifacts:
+        - "scripts/setup_monitoring.py"
+      implementation: |
+        """Setup monitoring with healthchecks.io integration."""
+        import os
+        import requests
+        from typing import Optional
+        
+        class HealthcheckMonitor:
+            """Wrapper for healthchecks.io dead man's switch monitoring."""
+            
+            def __init__(self, healthcheck_url: Optional[str] = None):
+                self.healthcheck_url = healthcheck_url or os.environ.get("HEALTHCHECK_URL")
+                self.enabled = bool(self.healthcheck_url)
+            
+            def ping_start(self):
+                """Signal execution start."""
+                if self.enabled:
+                    try:
+                        requests.get(f"{self.healthcheck_url}/start", timeout=5)
+                    except Exception as e:
+                        print(f"⚠️ Healthcheck ping failed: {e}")
+            
+            def ping_success(self):
+                """Signal successful execution."""
+                if self.enabled:
+                    try:
+                        requests.get(self.healthcheck_url, timeout=5)
+                        print("✅ Healthcheck: Success")
+                    except Exception as e:
+                        print(f"⚠️ Healthcheck ping failed: {e}")
+            
+            def ping_failure(self, error: str = ""):
+                """Signal execution failure."""
+                if self.enabled:
+                    try:
+                        requests.get(
+                            f"{self.healthcheck_url}/fail",
+                            timeout=5,
+                            data=error.encode("utf-8")
+                        )
+                        print("❌ Healthcheck: Failure")
+                    except Exception as e:
+                        print(f"⚠️ Healthcheck ping failed: {e}")
+      success_criteria:
+        - "file_exists('scripts/setup_monitoring.py')"
+      verification_command: "python -c 'from scripts.setup_monitoring import HealthcheckMonitor'"
+      
+    # STEP 8: Create Test Suite (Pattern: EXEC-003 Test Multiplier)
+    - id: "create-test-suite"
+      description: "Create tests for CLI adapter"
+      pattern: "EXEC-003"
+      artifacts:
+        - "tests/test_cli_adapter.py"
+      test_count: 5
+      implementation: |
+        """Tests for CLIAdapter."""
+        import pytest
+        from pathlib import Path
+        from core import CLIAdapter
+        
+        def test_cli_adapter_initialization():
+            adapter = CLIAdapter()
+            assert adapter is not None
+            assert adapter.execution_history == []
+        
+        def test_run_simple_command():
+            adapter = CLIAdapter()
+            result = adapter.run_command("python --version")
+            assert result["success"] is True
+            assert "Python" in result["stdout"]
+        
+        def test_run_script_success():
+            adapter = CLIAdapter()
+            # Create temp test script
+            test_script = Path("test_temp.py")
+            test_script.write_text('print("test output")')
+            
+            result = adapter.run_script(test_script)
+            test_script.unlink()
+            
+            assert result["success"] is True
+            assert "test output" in result["stdout"]
+        
+        def test_run_script_timeout():
+            adapter = CLIAdapter()
+            test_script = Path("test_timeout.py")
+            test_script.write_text('import time; time.sleep(10)')
+            
+            result = adapter.run_script(test_script, timeout=1)
+            test_script.unlink()
+            
+            assert result["success"] is False
+            assert "timeout" in result.get("error", "").lower()
+        
+        def test_execution_summary():
+            adapter = CLIAdapter()
+            adapter.run_command("python --version")
+            
+            summary = adapter.get_execution_summary()
+            assert summary["total_executions"] >= 1
+            assert summary["successful"] >= 0
+      success_criteria:
+        - "file_exists('tests/test_cli_adapter.py')"
+        - "pytest_passes('tests/test_cli_adapter.py')"
+      verification_command: "pytest tests/test_cli_adapter.py -v"
+      
+    # STEP 9: Update Documentation (Pattern: EXEC-004 Doc Standardizer)
+    - id: "create-automation-docs"
+      description: "Create automation setup documentation"
+      pattern: "EXEC-004"
+      artifacts:
+        - "docs/AUTOMATION_SETUP.md"
+      success_criteria:
+        - "file_exists('docs/AUTOMATION_SETUP.md')"
+        - "file_size > 1000"
+      
+    # STEP 10: Install Pre-commit Hooks
+    - id: "install-precommit-hooks"
+      description: "Install and configure pre-commit hooks"
+      pattern: "EXEC-001"
+      command: "pre-commit install"
+      success_criteria:
+        - "exit_code == 0"
+        - "file_exists('.git/hooks/pre-commit')"
+      verification_command: "pre-commit --version"
+      
+    # STEP 11: Update Requirements
+    - id: "update-requirements"
+      description: "Update requirements.txt with new dependencies"
+      pattern: "EXEC-005"
+      command: "pip freeze > requirements.txt"
+      success_criteria:
+        - "file_exists('requirements.txt')"
+        - "file_contains('requirements.txt', 'pre-commit')"
+
+fix_loop_and_circuit_breakers:
+  circuit_breakers:
+    - "cb-oscillation-detector"
+    - "cb-max-attempts"
+    - "cb-timeout"
+    - "cb-scope-violation"
+  defaults:
+    max_attempts: 3
+    oscillation_window: 3
+    oscillation_threshold: 2
+  fix_loop_enabled: true
+  auto_fix_patterns:
+    - "syntax_errors"
+    - "import_errors"
+    - "missing_files"
+
+expected_artifacts:
+  - id: "ci-workflow"
+    path: ".github/workflows/ci.yml"
+    type: "yaml"
+    validation: "file_exists"
+    
+  - id: "scheduled-workflow"
+    path: ".github/workflows/scheduled-orchestrator.yml"
+    type: "yaml"
+    validation: "file_exists"
+    
+  - id: "precommit-config"
+    path: ".pre-commit-config.yaml"
+    type: "yaml"
+    validation: "file_exists"
+    
+  - id: "cli-adapter-module"
+    path: "core/cli_adapter.py"
+    type: "python"
+    validation: "import_succeeds"
+    
+  - id: "config-validator"
+    path: "scripts/validate_config.py"
+    type: "python"
+    validation: "script_executable"
+    
+  - id: "monitoring-setup"
+    path: "scripts/setup_monitoring.py"
+    type: "python"
+    validation: "import_succeeds"
+    
+  - id: "test-suite"
+    path: "tests/test_cli_adapter.py"
+    type: "python"
+    validation: "pytest_passes"
+    
+  - id: "documentation"
+    path: "docs/AUTOMATION_SETUP.md"
+    type: "markdown"
+    validation: "file_exists"
+    
+  - id: "requirements"
+    path: "requirements.txt"
+    type: "text"
+    validation: "file_exists"
+
+acceptance_tests:
+  tests:
+    - id: "ci-workflow-valid"
+      description: "CI workflow YAML is valid"
+      command: "python -c \"import yaml; yaml.safe_load(open('.github/workflows/ci.yml'))\""
+      expected_exit_code: 0
+      
+    - id: "precommit-runs"
+      description: "Pre-commit hooks execute successfully"
+      command: "pre-commit run --all-files"
+      expected_exit_code: 0
+      allow_warnings: true
+      
+    - id: "cli-adapter-imports"
+      description: "CLI adapter imports successfully"
+      command: "python -c \"from core import CLIAdapter; print('OK')\""
+      expected_output: "OK"
+      
+    - id: "tests-pass"
+      description: "All new tests pass"
+      command: "pytest tests/test_cli_adapter.py -v"
+      expected_exit_code: 0
+      
+    - id: "config-validation"
+      description: "Config validator runs successfully"
+      command: "python scripts/validate_config.py"
+      expected_exit_code: 0
+      
+    - id: "monitoring-imports"
+      description: "Monitoring module imports successfully"
+      command: "python -c \"from scripts.setup_monitoring import HealthcheckMonitor; print('OK')\""
+      expected_output: "OK"
+      
+    - id: "all-artifacts-exist"
+      description: "All expected artifacts were created"
+      command: |
+        $artifacts = @(
+          '.github/workflows/ci.yml',
+          '.github/workflows/scheduled-orchestrator.yml',
+          '.pre-commit-config.yaml',
+          'core/cli_adapter.py',
+          'scripts/validate_config.py',
+          'scripts/setup_monitoring.py',
+          'tests/test_cli_adapter.py',
+          'docs/AUTOMATION_SETUP.md'
+        )
+        $missing = $artifacts | Where-Object { -not (Test-Path $_) }
+        if ($missing) {
+          Write-Error "Missing: $($missing -join ', ')"
+          exit 1
+        }
+        Write-Output "All artifacts exist"
+      expected_output: "All artifacts exist"
+
+completion_gate:
+  rules:
+    - "All 9 expected artifacts exist"
+    - "All acceptance tests pass (7/7)"
+    - "CI workflow validates without errors"
+    - "Pre-commit hooks installed and functional"
+    - "CLI adapter tests pass (5/5)"
+    - "No forbidden paths modified"
+    - "All imports resolve successfully"
+  manual_override: null
+  auto_advance_on_success: true
+
+observability_and_metrics:
+  metrics:
+    - "phase_duration_seconds"
+    - "error_count"
+    - "artifacts_created_count"
+    - "tests_passed_count"
+    - "lines_of_code_added"
+    - "ci_workflow_validation_time"
+    - "test_execution_time"
+  logging:
+    level: "INFO"
+    destinations:
+      - "logs/phase_execution.log"
+      - "reports/phase_metrics.json"
+  dashboards:
+    - "execution_summary"
+    - "artifact_creation_timeline"
+
+governance_and_constraints:
+  approvals_required: []
+  security_considerations:
+    - "GitHub Actions workflows run in isolated environments"
+    - "No secrets committed to repository"
+    - "Pre-commit hooks validate before commit"
+  compliance_notes: "Follows repo automation standards. Addresses GAP-001, GAP-002, GAP-006, GAP-008 from gap analysis."
+  constraints:
+    - "Must not modify existing orchestrator logic"
+    - "Must preserve backward compatibility"
+    - "Must follow NO STOP MODE pattern"
+
+extensions:
+  custom_fields:
+    gap_analysis_ref: "MASTER_SPLINTER_AUTOMATION_GAP_ANALYSIS.md"
+    gaps_addressed:
+      - "GAP-001: No CI/CD Pipeline"
+      - "GAP-002: No Monitoring or Alerting"
+      - "GAP-006: No Pre-commit Validation Hooks"
+      - "GAP-008: Repetitive Pattern - Manual Subprocess Calls"
+    estimated_time_savings: "45 hours/month"
+    roi: "2.5x in first month"
+    phase_roadmap: "Phase 1 of 3 (Foundation → Core Functionality → Polish)"
+    next_phase: "PH-AUTO-002: Real Agent Execution & GitHub API Integration"
