@@ -9,3 +9,4 @@ pytest-json-report>=1.5,<2
 black>=23,<25
 isort>=5,<6
 ruff>=0.1,<1
+watchdog>=3.0,<4
