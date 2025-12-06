@@ -125,6 +125,9 @@ def main():
     parser.add_argument(
         "--backup", action="store_true", help="Backup files before fixing"
     )
+    parser.add_argument(
+        "--auto-approve", action="store_true", help="Skip confirmation prompt for automation"
+    )
     parser.add_argument("--report", type=Path, help="Output report file path")
 
     args = parser.parse_args()
@@ -138,6 +141,13 @@ def main():
         )
         generate_report(invalid_entries, report_path)
     elif args.action == "fix":
+        # PATTERN: EXEC-004 Atomic Operation - Remove approval loop
+        if not args.auto_approve and not args.dry_run:
+            confirm = input("Proceed with fix? (y/n): ")
+            if confirm.lower() != 'y':
+                print("Cancelled")
+                sys.exit(0)
+        
         fix_invalid_doc_ids(invalid_entries, dry_run=args.dry_run, backup=args.backup)
 
 

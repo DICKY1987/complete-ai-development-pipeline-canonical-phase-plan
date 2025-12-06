@@ -49,13 +49,10 @@ function Invoke-Validation {
 
 function Invoke-Cleanup {
     Write-TaskHeader "Running Cleanup Check"
-    $dryRunFlag = if ($DryRun) { "--dry-run" } else { "" }
     & python "$DocIdDir\cleanup_invalid_doc_ids.py" scan
     if (-not $DryRun) {
-        $confirm = Read-Host "Proceed with cleanup? (y/n)"
-        if ($confirm -eq 'y') {
-            & python "$DocIdDir\cleanup_invalid_doc_ids.py" fix --backup
-        }
+        # PATTERN: EXEC-004 - Use --auto-approve for automation
+        & python "$DocIdDir\cleanup_invalid_doc_ids.py" fix --backup --auto-approve
     }
 }
 

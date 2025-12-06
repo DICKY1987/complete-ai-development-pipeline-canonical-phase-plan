@@ -29,6 +29,36 @@ REPO_ROOT = Path(__file__).parent.parent
 REGISTRY_PATH = REPO_ROOT / "doc_id" / "DOC_ID_REGISTRY.yaml"
 INVENTORY_PATH = REPO_ROOT / "docs_inventory.jsonl"
 
+# Category mapping
+CATEGORY_MAP = {
+    "CORE": "core", "ERROR": "error", "PAT": "patterns", "GUIDE": "guide",
+    "SPEC": "spec", "TEST": "test", "SCRIPT": "script", "CONFIG": "config",
+    "LEGACY": "legacy", "TASK": "task", "INFRA": "infra", "AIM": "aim",
+    "PM": "pm", "ENGINE": "engine", "GUI": "gui", "GLOSSARY": "glossary",
+}
+
+SPECIAL_PATTERNS = {
+    r"^DOC-TESTS-": "test", r"^DOC-SCRIPTS-": "script", r"^DOC-BATCH-": "patterns",
+    r"^DOC-WORKTREE-": "guide", r"^DOC-SELF-HEAL-": "patterns", r"^DOC-ATOMIC-": "patterns",
+    r"^DOC-MODULE-": "guide", r"^DOC-PHASE-": "guide", r"^DOC-QUICK-": "guide",
+    r"^DOC-GLOSS-": "glossary", r"^DOC-REFACTOR-": "guide", r"^DOC-REG-": "guide",
+    r"^DOC-LIB-": "guide", r"^DOC-VERIFY-": "script",
+}
+
+
+def extract_category_from_doc_id(doc_id: str) -> str:
+    """Extract category from doc_id prefix"""
+    import re
+    match = re.match(r"^DOC-([A-Z]+)-", doc_id)
+    if match:
+        category = CATEGORY_MAP.get(match.group(1))
+        if category:
+            return category
+    for pattern, category in SPECIAL_PATTERNS.items():
+        if re.match(pattern, doc_id):
+            return category
+    return "unknown"
+
 
 def load_registry() -> Dict:
     """Load DOC_ID_REGISTRY.yaml"""
@@ -76,14 +106,30 @@ def check_sync() -> Dict:
     }
 
 
-def sync_registries(dry_run: bool = True):
-    """Synchronize registries"""
+def sync_registries(dry_run: bool = True, auto_sync: bool = False, max_drift: int = 50):
+    """Synchronize registries with optional auto-sync"""
     status = check_sync()
+    
+    drift_count = len(status['only_registry']) + len(status['only_inventory'])
 
     print("=== Registry Synchronization ===")
     print(f"In both: {status['in_both']}")
     print(f"Only in registry: {len(status['only_registry'])}")
     print(f"Only in inventory: {len(status['only_inventory'])}")
+    print(f"Total drift: {drift_count}")
+    
+    # PATTERN: EXEC-002 Batch Validation with threshold
+    if auto_sync:
+        if drift_count <= max_drift:
+            print(f"\n✅ Auto-syncing (drift {drift_count} ≤ threshold {max_drift})")
+            # Proceed with sync below
+        else:
+            print(f"\n❌ Drift {drift_count} exceeds threshold {max_drift}")
+            print("Manual review required")
+            sys.exit(1)
+    else:
+        if drift_count > 0:
+            print(f"\nRun with --auto-sync to enable automatic sync (if drift ≤ {max_drift})")
 
     if status["only_inventory"]:
         print(
@@ -93,10 +139,11 @@ def sync_registries(dry_run: bool = True):
         if not dry_run:
             registry = load_registry()
             for doc_id in status["only_inventory"]:
+                category = extract_category_from_doc_id(doc_id)
                 registry["docs"].append(
                     {
                         "doc_id": doc_id,
-                        "category": "unknown",
+                        "category": category,
                         "status": "active",
                         "source": "inventory_sync",
                     }
@@ -110,12 +157,19 @@ def sync_registries(dry_run: bool = True):
             f"\n⚠️  {len(status['only_registry'])} doc_ids in registry not found in inventory"
         )
         print("Run doc_id_scanner.py to update inventory")
+    
+    # Exit successfully
+    sys.exit(0)
 
 
 def main():
     parser = argparse.ArgumentParser(description="Registry Sync Tool")
     parser.add_argument("action", choices=["check", "sync"], help="Action to perform")
     parser.add_argument("--dry-run", action="store_true", help="Preview changes")
+    parser.add_argument("--auto-sync", action="store_true", 
+                       help="Sync automatically if drift below threshold")
+    parser.add_argument("--max-drift", type=int, default=50,
+                       help="Maximum drift for auto-sync (default: 50)")
 
     args = parser.parse_args()
 
@@ -123,7 +177,8 @@ def main():
         status = check_sync()
         print(json.dumps(status, indent=2))
     elif args.action == "sync":
-        sync_registries(dry_run=args.dry_run)
+        sync_registries(dry_run=args.dry_run, auto_sync=args.auto_sync, 
+                       max_drift=args.max_drift)
 
 
 if __name__ == "__main__":
