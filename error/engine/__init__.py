@@ -5,4 +5,6 @@ Contains orchestration and validation for error recovery workflows.
 DOC_ID: DOC-ERROR-ENGINE-INIT-001
 """
 
-__all__ = []
+from typing import List
+
+__all__: List[str] = []
