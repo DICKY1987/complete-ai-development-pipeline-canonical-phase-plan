@@ -1,4 +1,5 @@
 ---
+doc_id: DOC-PAT-PAT-DIAGRAM-DRAWIO-RENDER-001-325
 pattern_id: PAT-DIAGRAM-DRAWIO-RENDER-001
 title: AI-Generated Diagram Automation with draw.io CLI
 category: Automation

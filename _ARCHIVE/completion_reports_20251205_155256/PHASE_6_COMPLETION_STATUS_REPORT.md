@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PHASE-6-COMPLETION-STATUS-REPORT-212
+---
+
 # Phase 6 Error Pipeline - Completion Status Report
 
 **Date**: 2025-12-05  

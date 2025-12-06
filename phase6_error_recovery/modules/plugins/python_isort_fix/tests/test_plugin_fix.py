@@ -1,4 +1,5 @@
 """Tests for isort fix plugin capabilities."""
+DOC_ID: DOC-CORE-TESTS-TEST-PLUGIN-FIX-823
 
 import sys
 import tempfile

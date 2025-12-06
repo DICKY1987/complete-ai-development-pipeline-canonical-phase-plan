@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-SAFE-MERGE-STRATEGY-238
+---
+
 # Safe Merge Strategy - Preserve Today's Updates
 
 **Date**: 2025-12-05

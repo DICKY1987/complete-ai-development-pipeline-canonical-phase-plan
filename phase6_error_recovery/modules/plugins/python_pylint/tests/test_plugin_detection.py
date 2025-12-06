@@ -1,4 +1,5 @@
 """Tests for pylint plugin error detection capabilities."""
+DOC_ID: DOC-CORE-TESTS-TEST-PLUGIN-DETECTION-789
 
 import sys
 import tempfile

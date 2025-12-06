@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-SNUG-FORGING-WREATH-1564
+doc_id: DOC-LEGACY-SNUG-FORGING-WREATH-016
 ---
 
 # Multi-Agent Orchestration - Full Validation & Execution Plan

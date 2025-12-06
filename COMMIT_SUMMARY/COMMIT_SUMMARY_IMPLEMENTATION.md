@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-COMMIT-SUMMARY-IMPLEMENTATION-157
+---
+
 # Commit Summary Feature - Implementation Complete
 
 **Status**: ✅ IMPLEMENTED (2025-12-05)

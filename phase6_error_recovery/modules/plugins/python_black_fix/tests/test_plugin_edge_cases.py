@@ -1,4 +1,5 @@
 """Tests for black plugin edge cases and error handling."""
+DOC_ID: DOC-CORE-TESTS-TEST-PLUGIN-EDGE-CASES-809
 
 import sys
 import tempfile

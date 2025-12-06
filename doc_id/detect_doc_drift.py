@@ -10,6 +10,7 @@ Detects drift between documentation and code using:
 
 Exit codes: 0=no drift, 1=drift detected
 """
+DOC_ID: DOC-GUIDE-DOC-ID-DETECT-DOC-DRIFT-132
 
 import argparse
 import hashlib

@@ -1,4 +1,5 @@
 """State file export utilities for cross-phase automation."""
+DOC_ID: DOC-CORE-ENGINE-STATE-FILE-MANAGER-860
 
 from __future__ import annotations
 

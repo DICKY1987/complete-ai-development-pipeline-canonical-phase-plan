@@ -5,6 +5,7 @@ Radon provides cyclomatic complexity, maintainability index, and raw metrics.
 This adapter serves dual purpose for Layer 0 (static analysis) and Layer 3
 (complexity/path coverage).
 """
+DOC_ID: DOC-SCRIPT-ADAPTERS-RADON-ADAPTER-809
 
 import json
 import subprocess

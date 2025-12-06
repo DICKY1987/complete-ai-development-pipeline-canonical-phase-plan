@@ -1,4 +1,5 @@
 """Test Echo plugin fix capabilities (N/A - no-op validator)."""
+DOC_ID: DOC-CORE-TESTS-TEST-PLUGIN-FIX-817
 
 from __future__ import annotations
 

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-WORKSTREAM-SYNC-GUIDE-137
+---
+
 # Workstream Sync to GitHub Project Manager
 
 Complete automation for syncing workstreams to GitHub with no-stop execution.

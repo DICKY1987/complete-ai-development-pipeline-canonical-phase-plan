@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PLAN-AUTOMATED-DATA-FLOW-AUTOMATION-245
+---
+
 
  ▐▛███▜▌   Claude Code v2.0.58
 ▝▜█████▛▘  Sonnet 4.5 · Claude Pro

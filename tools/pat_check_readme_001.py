@@ -16,6 +16,7 @@ Usage:
 Requires:
     pip install jsonschema
 """
+DOC_ID: DOC-SCRIPT-TOOLS-PAT-CHECK-README-001-793
 
 import argparse
 import json

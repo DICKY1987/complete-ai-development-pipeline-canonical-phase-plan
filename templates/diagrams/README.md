@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-256
+---
+
 # Diagram Templates
 
 Reusable draw.io templates with pre-configured styles and layouts.

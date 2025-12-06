@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-AUTOMATION-CHAIN-GAP-ANALYSIS-COMPLETE-162
+---
+
 # AUTOMATION CHAIN GAP ANALYSIS – CLI Pipelines (Complete Analysis)
 
 **Generated**: 2025-12-05T14:31:00Z  

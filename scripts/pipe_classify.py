@@ -8,6 +8,7 @@ Usage:
     python scripts/pipe_classify.py path/to/file.py
     python scripts/pipe_classify.py --multiple file1.py file2.py file3.py
 """
+DOC_ID: DOC-SCRIPT-SCRIPTS-PIPE-CLASSIFY-790
 DOC_ID: DOC - SCRIPT - SCRIPTS - PIPE - CLASSIFY - 723
 DOC_ID: DOC - SCRIPT - SCRIPTS - PIPE - CLASSIFY - 723
 

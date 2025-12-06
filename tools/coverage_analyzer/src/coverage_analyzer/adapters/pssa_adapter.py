@@ -7,6 +7,7 @@ and code quality checks for PowerShell scripts.
 This adapter serves dual purpose for Layer 0 (static analysis) and
 Layer 3 (complexity analysis).
 """
+DOC_ID: DOC-SCRIPT-ADAPTERS-PSSA-ADAPTER-812
 
 import json
 import tempfile

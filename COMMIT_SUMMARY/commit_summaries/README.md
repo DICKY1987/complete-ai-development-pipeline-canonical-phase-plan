@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-226
+---
+
 # Commit Summary System
 
 **Automated 6-hour repository activity snapshots aligned with phase-based architecture**

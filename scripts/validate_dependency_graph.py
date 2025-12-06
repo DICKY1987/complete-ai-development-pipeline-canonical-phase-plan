@@ -8,10 +8,9 @@ Validates:
 3. Import path standards enforcement
 4. Deprecated import blocking
 
-DOC_ID: DOC-SCRIPT-VALIDATE-DEPENDENCY-GRAPH
-
 Exit codes: 0=pass, 1=violations
 """
+# DOC_LINK: DOC-SCRIPT-SCRIPTS-VALIDATE-DEPENDENCY-GRAPH-769
 
 from __future__ import annotations
 

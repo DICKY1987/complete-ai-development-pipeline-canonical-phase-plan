@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-MULTI-AGENT-SYSTEM-COMPLETE-143
+---
+
 # Multi-Agent Workstream System - Complete Implementation
 
 **Date**: 2024-12-02  

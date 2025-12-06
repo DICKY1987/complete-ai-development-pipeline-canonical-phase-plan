@@ -9,6 +9,7 @@ All adapter classes have been moved to core/adapters/:
 This file redirects imports for backward compatibility.
 Original files archived: _ARCHIVE/phase4_tool_adapters_duplicate_20251204_143544/
 """
+DOC_ID: DOC-CORE-ADAPTERS-INIT-846
 
 # Redirect imports to canonical location
 from core.adapters.base import ExecutionResult, ToolAdapter, ToolConfig

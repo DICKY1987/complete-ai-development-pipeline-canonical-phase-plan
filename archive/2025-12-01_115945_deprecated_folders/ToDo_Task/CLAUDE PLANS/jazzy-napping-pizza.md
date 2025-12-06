@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-JAZZY-NAPPING-PIZZA-1557
+doc_id: DOC-LEGACY-JAZZY-NAPPING-PIZZA-011
 ---
 
 # Module-Centric Architecture - UET-Accelerated Execution Plan

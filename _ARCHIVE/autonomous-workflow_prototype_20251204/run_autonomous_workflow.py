@@ -10,6 +10,7 @@ Usage:
     python run_autonomous_workflow.py --repo-root /path/to/repo --dry-run
     python run_autonomous_workflow.py --repo-root /path/to/repo --mode certify-only
 """
+DOC_ID: DOC-CORE-AUTONOMOUS-WORKFLOW-PROTOTYPE-20251204-778
 
 import argparse
 import json

@@ -3,6 +3,7 @@ Adapter for Bandit - Python security vulnerability scanner.
 
 Bandit analyzes Python code for common security issues.
 """
+DOC_ID: DOC-SCRIPT-ADAPTERS-BANDIT-ADAPTER-808
 
 import json
 from pathlib import Path

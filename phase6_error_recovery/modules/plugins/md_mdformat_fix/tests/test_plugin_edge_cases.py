@@ -1,4 +1,5 @@
 """Tests for mdformat edge cases."""
+DOC_ID: DOC-CORE-TESTS-TEST-PLUGIN-EDGE-CASES-842
 
 import sys
 import tempfile

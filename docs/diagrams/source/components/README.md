@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-252
+---
+
 # Component Diagrams
 
 Internal logic diagrams for key pipeline components.

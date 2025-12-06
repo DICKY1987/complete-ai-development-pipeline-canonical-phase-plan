@@ -1,4 +1,5 @@
 """Tests for mypy plugin edge cases and error handling."""
+DOC_ID: DOC-CORE-TESTS-TEST-PLUGIN-EDGE-CASES-793
 
 import sys
 import tempfile

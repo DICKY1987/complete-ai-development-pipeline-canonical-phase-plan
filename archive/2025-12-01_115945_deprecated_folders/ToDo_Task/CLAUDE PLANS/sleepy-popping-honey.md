@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-SLEEPY-POPPING-HONEY-1563
+doc_id: DOC-LEGACY-SLEEPY-POPPING-HONEY-020
 ---
 
 # 5-Phase Completion Plan: Module Migration & Pattern Automation Integration

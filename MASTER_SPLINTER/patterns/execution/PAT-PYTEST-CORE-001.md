@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-PAT-PYTEST-CORE-001-328
+---
+
 # PAT-PYTEST-CORE-001: Core Pytest Execution
 
 ## Purpose

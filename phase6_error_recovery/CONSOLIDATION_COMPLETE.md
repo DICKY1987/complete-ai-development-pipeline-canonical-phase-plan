@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-CONSOLIDATION-COMPLETE-154
+---
+
 # Autonomous Workflow Consolidation - Complete
 
 **Date**: 2025-12-04

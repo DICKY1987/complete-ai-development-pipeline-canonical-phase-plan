@@ -3,6 +3,7 @@
 Master SPLINTER Orchestrator - 1-Touch Execution.
 Discovers phase plans, converts them to workstreams, executes coordination, and reports.
 """
+DOC_ID: DOC-CORE-MASTER-SPLINTER-RUN-MASTER-SPLINTER-769
 
 import subprocess
 import sys

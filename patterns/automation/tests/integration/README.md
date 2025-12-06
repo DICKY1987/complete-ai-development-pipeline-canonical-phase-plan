@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-339
+---
+
 # Integration Tests
 
 End-to-end integration tests for pattern automation.

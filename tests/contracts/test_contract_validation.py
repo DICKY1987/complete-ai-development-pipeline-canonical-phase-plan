@@ -1,4 +1,5 @@
 """Tests for contract enforcement framework"""
+DOC_ID: DOC-TEST-CONTRACTS-TEST-CONTRACT-VALIDATION-373
 
 from pathlib import Path
 

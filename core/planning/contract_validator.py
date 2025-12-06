@@ -1,4 +1,5 @@
 """Phase 1 (Planning) Contract Validator - Task 2.2"""
+DOC_ID: DOC-CORE-PLANNING-CONTRACT-VALIDATOR-869
 
 from pathlib import Path
 from typing import Dict, List, Optional

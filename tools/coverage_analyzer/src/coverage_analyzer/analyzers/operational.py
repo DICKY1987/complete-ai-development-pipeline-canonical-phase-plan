@@ -6,6 +6,7 @@ Tests system behavior under operational conditions:
 - Stress testing and failure modes
 - Operational health indicators
 """
+DOC_ID: DOC-SCRIPT-ANALYZERS-OPERATIONAL-799
 
 import logging
 from typing import Any, Dict

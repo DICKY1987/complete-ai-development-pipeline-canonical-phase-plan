@@ -1,4 +1,5 @@
 """Tests for structural coverage analyzer."""
+DOC_ID: DOC-TEST-ANALYZERS-TEST-STRUCTURAL-364
 
 from unittest.mock import Mock, patch
 

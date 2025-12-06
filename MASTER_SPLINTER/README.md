@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-142
+---
+
 # MASTER_SPLINTER - Complete Package Index
 
 **Location**: `C:\Users\richg\Downloads\PRMNT DOCS\MASTER_SPLINTER\`  

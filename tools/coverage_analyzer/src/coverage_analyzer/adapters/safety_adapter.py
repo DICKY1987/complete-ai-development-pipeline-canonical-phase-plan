@@ -4,6 +4,7 @@ Adapter for Safety - Python dependency vulnerability scanner.
 Safety checks Python dependencies against a database of known security
 vulnerabilities from PyUp.io.
 """
+DOC_ID: DOC-SCRIPT-ADAPTERS-SAFETY-ADAPTER-811
 
 import json
 from pathlib import Path

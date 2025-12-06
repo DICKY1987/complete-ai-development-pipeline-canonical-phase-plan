@@ -1,4 +1,5 @@
 """Event-driven trigger engine for automated workflow execution."""
+DOC_ID: DOC-CORE-TRIGGERS-TRIGGER-ENGINE-872
 
 from __future__ import annotations
 

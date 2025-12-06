@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PHASE7-MONITORING-AUTOMATION-CHAIN-GAP-174
+---
+
 # Phase 7 Monitoring - Automation Chain Gap Analysis
 
 **Generated**: 2025-12-05  

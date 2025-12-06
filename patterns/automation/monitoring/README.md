@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-README-335
+---
+
 # Pattern Automation Monitoring
 
 Monitoring and observability tools for pattern automation system.

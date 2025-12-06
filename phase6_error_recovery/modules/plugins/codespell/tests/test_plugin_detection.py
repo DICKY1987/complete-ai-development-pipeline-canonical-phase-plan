@@ -1,4 +1,5 @@
 """Tests for codespell plugin error detection capabilities."""
+DOC_ID: DOC-CORE-TESTS-TEST-PLUGIN-DETECTION-819
 
 import sys
 import tempfile

@@ -4,6 +4,7 @@ Adapter for Pester - PowerShell structural coverage analysis.
 Wraps Pester's code coverage functionality to provide coverage metrics
 for PowerShell scripts.
 """
+DOC_ID: DOC-SCRIPT-ADAPTERS-PESTER-ADAPTER-815
 
 import json
 import subprocess

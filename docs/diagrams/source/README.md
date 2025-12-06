@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-246
+---
+
 # Diagrams Folder - Quick Reference
 
 This folder contains visual documentation for the AI Development Pipeline.

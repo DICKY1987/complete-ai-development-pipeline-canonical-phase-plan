@@ -1,3 +1,7 @@
+---
+doc_id: DOC-SCRIPT-WORKSTREAM-EXECUTORS-DEPRECATED-821
+---
+
 # DEPRECATED: Workstream Executor Scripts
 
 **Date:** 2025-12-04

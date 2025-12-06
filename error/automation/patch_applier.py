@@ -1,4 +1,5 @@
 """Automated patch application with validation and confidence scoring."""
+DOC_ID: DOC-ERROR-AUTOMATION-PATCH-APPLIER-163
 
 from __future__ import annotations
 

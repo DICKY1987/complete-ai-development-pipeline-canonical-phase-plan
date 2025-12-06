@@ -1,4 +1,5 @@
 """Tests for bandit plugin error detection capabilities."""
+DOC_ID: DOC-CORE-TESTS-TEST-PLUGIN-DETECTION-835
 
 import sys
 import tempfile

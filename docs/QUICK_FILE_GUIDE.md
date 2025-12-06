@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-QUICK-FILE-GUIDE-184
+---
+
 # Quick File Placement Guide
 
 **Where to put files in this repository**

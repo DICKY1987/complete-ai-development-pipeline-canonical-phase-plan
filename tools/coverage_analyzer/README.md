@@ -1,3 +1,7 @@
+---
+doc_id: DOC-SCRIPT-README-824
+---
+
 # Coverage Analyzer
 
 **5-Layer Progressive Test Coverage Framework**

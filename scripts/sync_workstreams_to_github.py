@@ -7,6 +7,7 @@ Sync workstreams to GitHub Project Manager
 - Generates workstream summary report
 - NO STOPPING - Continues through all tasks even if errors occur
 """
+DOC_ID: DOC-SCRIPT-SCRIPTS-SYNC-WORKSTREAMS-TO-GITHUB-786
 DOC_ID: DOC - SCRIPT - SCRIPTS - SYNC - WORKSTREAMS - TO - GITHUB - 728
 DOC_ID: DOC - SCRIPT - SCRIPTS - SYNC - WORKSTREAMS - TO - GITHUB - 728
 import json

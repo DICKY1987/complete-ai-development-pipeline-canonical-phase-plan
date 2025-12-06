@@ -1,3 +1,7 @@
+---
+doc_id: DOC-LEGACY-FOLDER-CLEANUP-REPORT-003
+---
+
 # Folder Overlap and Cleanup Report
 
 **Generated**: 2025-12-01

@@ -1,4 +1,5 @@
 """Phase 2 (Request Building) Contract Validator - Task 2.3"""
+DOC_ID: DOC-CORE-ENGINE-REQUEST-VALIDATOR-858
 
 import sqlite3
 from pathlib import Path

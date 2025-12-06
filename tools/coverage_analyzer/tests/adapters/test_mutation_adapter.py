@@ -1,4 +1,5 @@
 """Tests for mutation testing adapter (Layer 2)."""
+DOC_ID: DOC-TEST-ADAPTERS-TEST-MUTATION-ADAPTER-367
 
 from unittest.mock import Mock, patch
 

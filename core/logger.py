@@ -1,4 +1,5 @@
 """Logger protocol shim for structured logging tests."""
+DOC_ID: DOC-CORE-CORE-LOGGER-771
 
 
 class Logger:

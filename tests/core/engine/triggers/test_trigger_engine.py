@@ -1,4 +1,5 @@
 """Tests for trigger engine functionality."""
+DOC_ID: DOC-CORE-TRIGGERS-TEST-TRIGGER-ENGINE-876
 
 import pytest
 from unittest.mock import Mock

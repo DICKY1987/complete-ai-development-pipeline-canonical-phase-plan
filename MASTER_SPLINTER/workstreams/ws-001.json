@@ -1,6 +1,6 @@
 {
   "id": "ws-001",
-  "doc_id": "DOC-EXAMPLE-PH-01",
+  "doc_id": "DOC-TASK-WS-001-001",
   "phase_id": "PH-01",
   "title": "Example Phase - Setup Documentation",
   "objective": "Generate baseline artifacts and verify orchestration reporting.",

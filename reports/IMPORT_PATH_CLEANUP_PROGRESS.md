@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-IMPORT-PATH-CLEANUP-PROGRESS-170
+---
+
 # Import Path Cleanup - Progress Report
 
 **Date**: 2025-12-04 21:25 UTC  

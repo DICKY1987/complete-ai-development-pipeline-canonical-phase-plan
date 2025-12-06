@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-FINAL-CLEANUP-SUMMARY-202
+---
+
 # Complete Repository Cleanup - Final Summary
 
 **Date**: 2025-12-01

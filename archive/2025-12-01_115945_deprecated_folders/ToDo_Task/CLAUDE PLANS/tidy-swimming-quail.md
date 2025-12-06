@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-TIDY-SWIMMING-QUAIL-1565
+doc_id: DOC-LEGACY-TIDY-SWIMMING-QUAIL-018
 ---
 
 # Implementation Plan: Three-Tier DAG-as-Derived-State System

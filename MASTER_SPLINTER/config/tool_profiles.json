@@ -1,46 +1,69 @@
 {
   "pytest": {
     "command": "pytest",
-    "args": ["-q", "--tb=short"],
+    "args": [
+      "-q",
+      "--tb=short"
+    ],
     "timeout_seconds": 300,
     "success_pattern": "passed",
     "failure_pattern": "failed"
   },
   "ruff": {
     "command": "ruff",
-    "args": ["check", "."],
+    "args": [
+      "check",
+      "."
+    ],
     "timeout_seconds": 60,
     "success_pattern": "All checks passed"
   },
   "mypy": {
     "command": "mypy",
-    "args": ["."],
+    "args": [
+      "."
+    ],
     "timeout_seconds": 120,
     "success_pattern": "Success"
   },
   "black": {
     "command": "black",
-    "args": ["--check", "."],
+    "args": [
+      "--check",
+      "."
+    ],
     "timeout_seconds": 60
   },
   "powershell-script": {
     "command": "powershell",
-    "args": ["-NoProfile", "-Command"],
+    "args": [
+      "-NoProfile",
+      "-Command"
+    ],
     "timeout_seconds": 30
   },
   "aider-edit": {
     "command": "aider",
-    "args": ["--yes"],
+    "args": [
+      "--yes"
+    ],
     "timeout_seconds": 600
   },
   "aider-fix": {
     "command": "aider",
-    "args": ["--yes", "--auto-test"],
+    "args": [
+      "--yes",
+      "--auto-test"
+    ],
     "timeout_seconds": 600
   },
   "codex": {
     "command": "python",
-    "args": ["-m", "codex"],
+    "args": [
+      "-m",
+      "codex"
+    ],
     "timeout_seconds": 600
-  }
+  },
+  "doc_id": "DOC-CONFIG-TOOL-PROFILES-292"
 }

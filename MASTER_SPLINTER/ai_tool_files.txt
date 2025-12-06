@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-AI-TOOL-FILES-261
+---
+
 C:\Users\richg\ALL_AI\Archives\Complete_AI_Development_Pipeline_Archive_2025-12-02\archive\2025-11-26_developer\2025-11\phase-h-legacy\pipeline_plus\.aiderignore
 C:\Users\richg\ALL_AI\Archives\Complete_AI_Development_Pipeline_Archive_2025-12-02\archive\2025-11-26_developer\2025-11\phase-h-legacy\pipeline_plus\Aider-optimized” workstreams.md
 C:\Users\richg\ALL_AI\Archives\Complete_AI_Development_Pipeline_Archive_2025-12-02\archive\2025-12-01_091928_old-root-folders\aim\.AIM_ai-tools-registry\AIM_adapters\AIM_aider.ps1

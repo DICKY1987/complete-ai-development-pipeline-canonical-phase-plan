@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PLANNING-DOCS-CLEANUP-READY-253
+---
+
 # Planning Documents Cleanup - Ready to Execute
 
 **Status**: ✅ Scripts fixed and tested

@@ -1,4 +1,5 @@
 """Phase 3 (Scheduling) Contract Validator - Task 2.4"""
+DOC_ID: DOC-CORE-ENGINE-SCHEDULING-VALIDATOR-859
 
 import json
 import sqlite3

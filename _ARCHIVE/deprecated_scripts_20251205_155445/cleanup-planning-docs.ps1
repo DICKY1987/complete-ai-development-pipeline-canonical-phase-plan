@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-CLEANUP-PLANNING-DOCS-839
 <#
 .SYNOPSIS
   Enhanced cleanup script for planning and execution documents with analysis and archival.

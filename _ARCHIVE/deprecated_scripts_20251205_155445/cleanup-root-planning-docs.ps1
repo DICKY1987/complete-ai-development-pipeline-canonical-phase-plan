@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-CLEANUP-ROOT-PLANNING-DOCS-837
 <#
 .SYNOPSIS
   Clean up root-level planning/report files by moving them to organized folders.

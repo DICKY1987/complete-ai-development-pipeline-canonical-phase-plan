@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-DECISION-ELIMINATION-FINAL-REPORT-207
+---
+
 # Decision Elimination - Implementation Complete
 
 ## Final Status Report

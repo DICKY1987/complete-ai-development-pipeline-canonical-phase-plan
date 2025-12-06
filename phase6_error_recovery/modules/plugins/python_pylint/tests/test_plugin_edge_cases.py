@@ -1,4 +1,5 @@
 """Tests for pylint plugin edge cases and error handling."""
+DOC_ID: DOC-CORE-TESTS-TEST-PLUGIN-EDGE-CASES-790
 
 import sys
 import tempfile

@@ -1,4 +1,5 @@
 """Tests for contract enforcement decorators"""
+DOC_ID: DOC-TEST-CONTRACTS-TEST-DECORATORS-372
 
 import pytest
 

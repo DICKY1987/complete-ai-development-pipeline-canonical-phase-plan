@@ -1,4 +1,5 @@
 """Tests for bandit plugin edge cases and error handling."""
+DOC_ID: DOC-CORE-TESTS-TEST-PLUGIN-EDGE-CASES-836
 
 import sys
 import tempfile

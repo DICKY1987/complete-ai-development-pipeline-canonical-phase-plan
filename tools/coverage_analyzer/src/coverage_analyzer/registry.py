@@ -4,6 +4,7 @@ Analyzer registry for dynamic tool adapter discovery and instantiation.
 The registry pattern allows for flexible addition of new adapters without
 modifying core code.
 """
+DOC_ID: DOC-SCRIPT-COVERAGE-ANALYZER-REGISTRY-795
 
 import logging
 from typing import Dict, List, Optional, Type

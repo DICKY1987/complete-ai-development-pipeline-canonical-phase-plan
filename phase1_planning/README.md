@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-163
+---
+
 # Phase 1 – Planning & Spec Alignment
 
 ## Purpose

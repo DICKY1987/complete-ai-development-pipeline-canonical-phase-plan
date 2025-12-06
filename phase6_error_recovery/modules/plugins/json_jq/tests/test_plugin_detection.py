@@ -1,4 +1,5 @@
 """Tests for jq JSON plugin detection."""
+DOC_ID: DOC-CORE-TESTS-TEST-PLUGIN-DETECTION-783
 
 import sys
 import tempfile

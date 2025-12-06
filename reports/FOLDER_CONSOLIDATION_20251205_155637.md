@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-FOLDER-CONSOLIDATION-20251205-155637-166
+---
+
 # Folder Consolidation Summary
 **Date**: 2025-12-05 15:56:37
 
@@ -30,10 +34,14 @@
 - ✅ Result: Organized under root \	emplates/\ with subdirectories
 
 ### 6. Reports (Organized by Type)
-- ✅ Created \eports/completion/\ for completion reports
-- ✅ Created \eports/analysis/\ for analysis documents
-- ✅ Created \eports/status/\ for status reports
-- ✅ Created \eports/sessions/\ for session logs
+- ✅ Created \
+eports/completion/\ for completion reports
+- ✅ Created \
+eports/analysis/\ for analysis documents
+- ✅ Created \
+eports/status/\ for status reports
+- ✅ Created \
+eports/sessions/\ for session logs
 - ✅ Moved scattered root-level reports to organized locations
 
 ## 📊 Impact Summary

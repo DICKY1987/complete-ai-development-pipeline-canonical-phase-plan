@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-CLEANUP-REPO-827
 <#
 .SYNOPSIS
     Consolidated cleanup script for repository maintenance

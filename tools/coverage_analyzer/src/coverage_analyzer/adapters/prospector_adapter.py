@@ -4,6 +4,7 @@ Adapter for Prospector - Python multi-tool static analyzer.
 Prospector combines multiple tools (pylint, pyflakes, mccabe, etc.) into
 a single comprehensive analysis.
 """
+DOC_ID: DOC-SCRIPT-ADAPTERS-PROSPECTOR-ADAPTER-816
 
 import json
 from pathlib import Path

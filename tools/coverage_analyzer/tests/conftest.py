@@ -4,6 +4,7 @@ Test fixtures for coverage analyzer tests.
 Provides shared fixtures for mocking tool outputs, sample projects,
 and test configurations.
 """
+DOC_ID: DOC-TEST-TESTS-CONFTEST-356
 
 from datetime import datetime
 from pathlib import Path

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-CORE-DEPRECATED-879
+---
+
 # DEPRECATED: Bootstrap Orchestrator Consolidated
 
 **Date:** 2025-12-04

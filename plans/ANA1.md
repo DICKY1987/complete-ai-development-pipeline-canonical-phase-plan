@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-ANA1-181
+---
+
 
 • Added plans\phase4_routing_automation_chain_report.md (+99 -0)
      1 +# Phase 4 Routing — Automation Chain & Gap Report

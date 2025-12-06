@@ -4,7 +4,12 @@
   "title": "Automation Fix Plan",
   "description": "Deterministic repair plan for failed automation units",
   "type": "object",
-  "required": ["version", "sweep_id", "generated_at", "fixes"],
+  "required": [
+    "version",
+    "sweep_id",
+    "generated_at",
+    "fixes"
+  ],
   "properties": {
     "version": {
       "type": "string",
@@ -20,25 +25,44 @@
     },
     "execution_mode": {
       "type": "string",
-      "enum": ["dry_run", "auto_apply", "interactive"],
+      "enum": [
+        "dry_run",
+        "auto_apply",
+        "interactive"
+      ],
       "default": "dry_run"
     },
     "summary": {
       "type": "object",
       "properties": {
-        "total_fixes": { "type": "integer", "minimum": 0 },
-        "auto_executable": { "type": "integer", "minimum": 0 },
-        "requires_human": { "type": "integer", "minimum": 0 },
-        "estimated_time_seconds": { "type": "integer" },
+        "total_fixes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "auto_executable": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "requires_human": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "estimated_time_seconds": {
+          "type": "integer"
+        },
         "by_strategy": {
           "type": "object",
-          "additionalProperties": { "type": "integer" }
+          "additionalProperties": {
+            "type": "integer"
+          }
         }
       }
     },
     "execution_order": {
       "type": "array",
-      "items": { "type": "string" },
+      "items": {
+        "type": "string"
+      },
       "description": "Ordered list of unit IDs to fix (respects dependencies)"
     },
     "fixes": {
@@ -51,7 +75,10 @@
   "definitions": {
     "FixPlan": {
       "type": "object",
-      "required": ["strategy", "requires_human"],
+      "required": [
+        "strategy",
+        "requires_human"
+      ],
       "properties": {
         "strategy": {
           "type": "string",
@@ -85,9 +112,15 @@
           "items": {
             "type": "object",
             "properties": {
-              "check": { "type": "string" },
-              "command": { "type": "string" },
-              "expected": { "type": "string" }
+              "check": {
+                "type": "string"
+              },
+              "command": {
+                "type": "string"
+              },
+              "expected": {
+                "type": "string"
+              }
             }
           }
         },
@@ -95,15 +128,34 @@
           "type": "array",
           "items": {
             "type": "object",
-            "required": ["action", "command"],
+            "required": [
+              "action",
+              "command"
+            ],
             "properties": {
-              "order": { "type": "integer" },
-              "action": { "type": "string" },
-              "command": { "type": "string" },
-              "working_directory": { "type": "string" },
-              "timeout_seconds": { "type": "integer", "default": 60 },
-              "continue_on_error": { "type": "boolean", "default": false },
-              "rollback_command": { "type": "string" }
+              "order": {
+                "type": "integer"
+              },
+              "action": {
+                "type": "string"
+              },
+              "command": {
+                "type": "string"
+              },
+              "working_directory": {
+                "type": "string"
+              },
+              "timeout_seconds": {
+                "type": "integer",
+                "default": 60
+              },
+              "continue_on_error": {
+                "type": "boolean",
+                "default": false
+              },
+              "rollback_command": {
+                "type": "string"
+              }
             }
           }
         },
@@ -117,16 +169,24 @@
         },
         "environment_changes": {
           "type": "object",
-          "additionalProperties": { "type": "string" }
+          "additionalProperties": {
+            "type": "string"
+          }
         },
         "post_conditions": {
           "type": "array",
           "items": {
             "type": "object",
             "properties": {
-              "check": { "type": "string" },
-              "command": { "type": "string" },
-              "expected": { "type": "string" }
+              "check": {
+                "type": "string"
+              },
+              "command": {
+                "type": "string"
+              },
+              "expected": {
+                "type": "string"
+              }
             }
           }
         },
@@ -136,22 +196,49 @@
         "risk_assessment": {
           "type": "object",
           "properties": {
-            "level": { "type": "string", "enum": ["low", "medium", "high", "critical"] },
-            "reversible": { "type": "boolean" },
-            "side_effects": { "type": "array", "items": { "type": "string" } }
+            "level": {
+              "type": "string",
+              "enum": [
+                "low",
+                "medium",
+                "high",
+                "critical"
+              ]
+            },
+            "reversible": {
+              "type": "boolean"
+            },
+            "side_effects": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
           }
         },
         "execution_result": {
           "type": "object",
           "properties": {
-            "executed_at": { "type": "string", "format": "date-time" },
-            "success": { "type": "boolean" },
-            "steps_completed": { "type": "integer" },
-            "error": { "type": "string" },
-            "rollback_performed": { "type": "boolean" }
+            "executed_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "success": {
+              "type": "boolean"
+            },
+            "steps_completed": {
+              "type": "integer"
+            },
+            "error": {
+              "type": "string"
+            },
+            "rollback_performed": {
+              "type": "boolean"
+            }
           }
         }
       }
     }
-  }
+  },
+  "doc_id": "DOC-CONFIG-AUTOMATION-FIX-PLAN-SCHEMA-293"
 }

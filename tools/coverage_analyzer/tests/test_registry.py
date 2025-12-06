@@ -1,4 +1,5 @@
 """Tests for the adapter registry."""
+DOC_ID: DOC-TEST-TESTS-TEST-REGISTRY-355
 
 from unittest.mock import Mock
 

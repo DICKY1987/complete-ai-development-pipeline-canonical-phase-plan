@@ -1,4 +1,5 @@
 """Test Semgrep plugin fix capabilities (N/A - detection only)."""
+DOC_ID: DOC-CORE-TESTS-TEST-PLUGIN-FIX-840
 
 from __future__ import annotations
 

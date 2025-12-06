@@ -3,6 +3,7 @@ Adapter for mypy - Python static type checker.
 
 mypy validates type hints and detects type-related errors.
 """
+DOC_ID: DOC-SCRIPT-ADAPTERS-MYPY-ADAPTER-807
 
 import json
 import re

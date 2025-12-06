@@ -1,4 +1,5 @@
 """Tests for markdownlint plugin detection."""
+DOC_ID: DOC-CORE-TESTS-TEST-PLUGIN-DETECTION-795
 
 import sys
 import tempfile

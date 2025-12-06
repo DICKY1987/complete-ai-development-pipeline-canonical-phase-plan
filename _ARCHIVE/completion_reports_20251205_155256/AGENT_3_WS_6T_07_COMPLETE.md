@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-AGENT-3-WS-6T-07-COMPLETE-214
+---
+
 # Agent 3 Workstream WS-6T-07 - Documentation Complete
 
 **Date**: 2025-12-05  

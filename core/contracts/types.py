@@ -1,4 +1,5 @@
 """Type definitions for contract enforcement"""
+DOC_ID: DOC-CORE-CONTRACTS-TYPES-862
 
 from dataclasses import dataclass, field
 from enum import Enum

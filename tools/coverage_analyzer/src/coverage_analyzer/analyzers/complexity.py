@@ -4,6 +4,7 @@ Complexity Analyzer - Layer 3.
 Orchestrates complexity analysis to measure code maintainability,
 cyclomatic complexity, and cognitive complexity.
 """
+DOC_ID: DOC-SCRIPT-ANALYZERS-COMPLEXITY-805
 
 import logging
 from pathlib import Path

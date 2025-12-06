@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-MASTER-SPLINTER-AUTOMATION-CHAIN-GAP-172
+---
+
  MASTER_SPLINTER - Automation Chain Gap Analysis Report
 
  Executive Summary

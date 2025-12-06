@@ -1,4 +1,5 @@
 """Tests for mypy plugin error detection capabilities."""
+DOC_ID: DOC-CORE-TESTS-TEST-PLUGIN-DETECTION-792
 
 import os
 import sys

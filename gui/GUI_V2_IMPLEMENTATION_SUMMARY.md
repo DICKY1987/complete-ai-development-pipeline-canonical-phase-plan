@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-GUI-V2-IMPLEMENTATION-SUMMARY-195
+---
+
 # GUI v2.0 Implementation Summary
 
 ## 🎉 **PROTOTYPE COMPLETE - 2 Hours**

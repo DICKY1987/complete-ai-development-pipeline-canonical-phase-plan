@@ -3,6 +3,7 @@ Adapter for coverage.py - Python structural coverage analysis.
 
 Wraps coverage.py to provide statement, branch, and function coverage metrics.
 """
+DOC_ID: DOC-SCRIPT-ADAPTERS-COVERAGE-PY-ADAPTER-817
 
 import json
 import subprocess

@@ -1,4 +1,5 @@
 """Test Path Standardizer plugin validation."""
+DOC_ID: DOC-CORE-TESTS-TEST-PLUGIN-DETECTION-798
 
 from __future__ import annotations
 

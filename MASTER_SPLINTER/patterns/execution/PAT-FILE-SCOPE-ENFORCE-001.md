@@ -1,3 +1,7 @@
+---
+doc_id: DOC-PAT-PAT-FILE-SCOPE-ENFORCE-001-331
+---
+
 # PAT-FILE-SCOPE-ENFORCE-001: File Scope Enforcement
 
 ## Purpose

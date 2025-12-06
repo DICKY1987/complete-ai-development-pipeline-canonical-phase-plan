@@ -1,3 +1,4 @@
+# DOC_LINK: DOC-SCRIPT-GENERATE-COMMIT-SUMMARY-830
 <#
 .SYNOPSIS
     Generate a commit summary for the last 6 hours (or custom time window)

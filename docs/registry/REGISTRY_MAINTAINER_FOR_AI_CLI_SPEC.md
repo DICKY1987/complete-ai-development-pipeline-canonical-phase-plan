@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-REGISTRY-MAINTAINER-FOR-AI-CLI-SPEC-235
+---
+
 
 ---
 

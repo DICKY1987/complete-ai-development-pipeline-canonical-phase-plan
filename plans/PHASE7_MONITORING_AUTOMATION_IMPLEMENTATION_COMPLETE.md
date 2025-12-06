@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PHASE7-MONITORING-AUTOMATION-176
+---
+
 # Phase 7 Monitoring Automation - Implementation Complete
 
 **Date**: 2025-12-05  

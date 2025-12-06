@@ -1,4 +1,5 @@
 """Tests for pyright plugin error detection capabilities."""
+DOC_ID: DOC-CORE-TESTS-TEST-PLUGIN-DETECTION-812
 
 import sys
 import tempfile

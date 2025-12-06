@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-AUTOMATION-CHAIN-186
+---
+
 AUTOMATION CHAIN GAP ANALYSIS – CLI Pipelines (v2)
 Mission
 

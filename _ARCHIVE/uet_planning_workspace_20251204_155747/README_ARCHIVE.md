@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-ARCHIVE-215
+---
+
 # UET Planning Workspace - ARCHIVED
 
 **Archived**: 2025-12-04 15:57:47

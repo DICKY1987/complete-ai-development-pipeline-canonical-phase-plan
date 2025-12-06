@@ -1,4 +1,5 @@
 """Phase 5 (Execution) Contract Validator - Task 2.6"""
+DOC_ID: DOC-CORE-ENGINE-EXECUTION-VALIDATOR-857
 
 import sqlite3
 from pathlib import Path

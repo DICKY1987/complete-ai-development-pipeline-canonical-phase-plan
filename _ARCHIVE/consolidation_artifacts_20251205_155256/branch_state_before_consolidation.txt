@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-BRANCH-STATE-BEFORE-CONSOLIDATION-265
+---
+
   backup/main-20251202_190704                      d7cb1934 chore: Complete UET migration cleanup - remove deprecated .state/UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK/ and src/
   backup/pre-consolidation-20251205_081943         813def88 docs(decision-elimination): Complete Phase 2 documentation
   feat/update-ccpm-submodule                       76696b0f chore: Complete repository cleanup + automated prevention system

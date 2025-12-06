@@ -1,4 +1,5 @@
 """In-memory event bus used for lightweight pub/sub and tests."""
+DOC_ID: DOC-CORE-EVENTS-SIMPLE-EVENT-BUS-848
 
 from __future__ import annotations
 

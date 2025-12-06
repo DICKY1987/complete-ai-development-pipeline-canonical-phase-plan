@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-AUTOMATION-CHAIN-GAP-ANALYSIS-CLI-244
+---
+
 ﻿---
 doc_id: DOC-ANALYSIS-AUTOMATION-CHAIN-CLI-v2-001
 generated: 2025-12-05 08:14:13 UTC
@@ -177,7 +181,8 @@ jobs:
 #### Current State
 Discovered **109 Python scripts** and **63 PowerShell scripts** in \scripts/\ directory:
 - **37 scripts** bypass \core.engine.orchestrator\ entirely
-- **22 scripts** use ad-hoc CLI calls (\input()\, \ead-host\)
+- **22 scripts** use ad-hoc CLI calls (\input()\, \
+ead-host\)
 - **0 scripts** integrate with central state/logging
 
 #### Evidence (Interactive/Manual CLI Patterns)
@@ -196,7 +201,8 @@ Read-Host "Press Enter to continue"      # Stops pipeline
 |---------|-------|------------------|---------|-------------------|----------------|
 | Direct \input()\ | 10 | MANUAL | CLI_manual | none | none |
 | \click.prompt\ | 4 | SEMI_MANUAL | CLI_manual | none | none |
-| \ead-host\ | 8 | MANUAL | CLI_manual | none | none |
+| \
+ead-host\ | 8 | MANUAL | CLI_manual | none | none |
 | No orchestrator | 37 | MANUAL | CLI_manual | none | log_only |
 
 #### Recommendation
@@ -533,7 +539,8 @@ class MyScript(BaseScript):
 
 ### 6.1 Interactive Prompts (Automation Blockers)
 
-**Pattern**: \input()\, \click.prompt\, \ead-host\
+**Pattern**: \input()\, \click.prompt\, \
+ead-host\
 **Count**: 22 scripts
 **Impact**: Cannot run unattended
 
@@ -549,7 +556,8 @@ class MyScript(BaseScript):
 **Evidence**:
 - **37 of 109 Python scripts** bypass \core.engine.orchestrator\
 - **63 PowerShell scripts** have no Python equivalent
-- No \un_cli_tool()\ wrapper found
+- No \
+un_cli_tool()\ wrapper found
 
 **Impact**:
 - No timeout enforcement (scripts can hang indefinitely)
@@ -629,7 +637,8 @@ python -m core.engine.orchestrator --plan plans/validate.json --var SCRIPT=valid
 | Quick Win | Effort | Savings | Implementation |
 |-----------|--------|---------|----------------|
 | Add \--json\ output to all scripts | 2h | 6h/mo | Standardize output format |
-| Create \un_cli_tool()\ wrapper | 3h | 8h/mo | See GAP-CRITICAL-002 |
+| Create \
+un_cli_tool()\ wrapper | 3h | 8h/mo | See GAP-CRITICAL-002 |
 | Add timeout to all subprocess calls | 2h | 5h/mo | \	imeout=1800\ default |
 | Deploy test aggregation | 4h | 8h/mo | See GAP-HIGH-001 |
 | Enable GitHub Actions caching | 1h | 3h/mo | \ctions/cache@v4\ |
@@ -689,7 +698,8 @@ This codebase has **strong automation foundations** (orchestrator, state managem
 
 **Week 1**:
 1. Implement GitHub Actions CD pipeline (GAP-CRITICAL-001)
-2. Create \un_cli_tool()\ wrapper (GAP-CRITICAL-002)
+2. Create \
+un_cli_tool()\ wrapper (GAP-CRITICAL-002)
 
 **Week 2**:
 3. Deploy auto-patch application (GAP-CRITICAL-003)

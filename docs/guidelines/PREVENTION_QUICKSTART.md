@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PREVENTION-QUICKSTART-236
+---
+
 # Repository Cleanup Prevention - Quick Implementation
 
 **Run these steps to prevent future file buildup**

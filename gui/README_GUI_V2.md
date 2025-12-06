@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-README-GUI-V2-192
+---
+
 # AI Pipeline Monitor v2.0 - User Vision Implementation
 
 ## 🎉 **PROTOTYPE COMPLETE AND RUNNING!**

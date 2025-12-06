@@ -11,6 +11,7 @@ This is the brain of the autonomous workflow system. It:
 
 Zero-touch operation with comprehensive logging.
 """
+DOC_ID: DOC-CORE-ORCHESTRATOR-AUTOMATION-SELF-HEALING-780
 
 import hashlib
 import json

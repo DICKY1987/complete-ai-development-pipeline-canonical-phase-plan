@@ -1,3 +1,7 @@
+---
+doc_id: DOC-LEGACY-HIDDEN-PONDERING-TREASURE-023
+---
+
 # Phase Plan: Pattern Activity Panel Implementation
 
 **Pattern-Driven Execution with Parallel Worktrees**

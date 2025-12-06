@@ -2,9 +2,10 @@
   "permissions": {
     "allow": [
       "Bash(tree:*)",
-      "Bash(grep -l \"manual\\|interactive\\|prompt\\|input\\|confirm\" \"C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline – Canonical Phase Plan\\MASTER_SPLINTER\"/**/*.md)"
+      "Bash(grep -l \"manual\\|interactive\\|prompt\\|input\\|confirm\" \"C:\\Users\\richg\\ALL_AI\\Complete AI Development Pipeline \u2013 Canonical Phase Plan\\MASTER_SPLINTER\"/**/*.md)"
     ],
     "deny": [],
     "ask": []
-  }
+  },
+  "doc_id": "DOC-CONFIG-SETTINGS-LOCAL-291"
 }

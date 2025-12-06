@@ -4,6 +4,7 @@ Abstract base adapter for tool integration.
 All coverage analysis tool adapters (coverage.py, Pester, mutmut, Radon, etc.)
 must inherit from BaseAdapter and implement the execute() method.
 """
+DOC_ID: DOC-SCRIPT-ADAPTERS-BASE-ADAPTER-806
 
 import logging
 import subprocess

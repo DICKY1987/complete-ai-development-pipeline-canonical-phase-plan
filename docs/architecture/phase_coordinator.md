@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PHASE-COORDINATOR-234
+---
+
 # Phase Coordinator Architecture
 
 ## Overview

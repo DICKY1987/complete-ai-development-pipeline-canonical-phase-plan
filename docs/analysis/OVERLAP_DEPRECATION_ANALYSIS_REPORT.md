@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-OVERLAP-DEPRECATION-ANALYSIS-REPORT-241
+---
+
 # Overlap & Deprecation Analysis Report
 
 **Generated:** 2025-12-05

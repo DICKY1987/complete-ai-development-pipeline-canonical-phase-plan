@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-PATCH-FILES-AS-UNIFIED-DIFF-OPTIMAL-1548
+doc_id: DOC-LEGACY-PATCH-FILES-AS-UNIFIED-DIFF-OPTIMAL-010
 ---
 
 # Patch Files as Unified Diff & Optimal Handoff Format*For Agentic AI Pipelines and Multi-CLI Workflows*

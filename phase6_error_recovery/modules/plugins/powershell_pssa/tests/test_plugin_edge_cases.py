@@ -1,4 +1,5 @@
 """Test PSScriptAnalyzer plugin edge cases."""
+DOC_ID: DOC-CORE-TESTS-TEST-PLUGIN-EDGE-CASES-832
 
 from __future__ import annotations
 

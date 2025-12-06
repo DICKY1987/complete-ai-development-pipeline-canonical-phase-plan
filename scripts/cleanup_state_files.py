@@ -14,6 +14,7 @@ Usage:
     python scripts/cleanup_state_files.py --dry-run
     python scripts/cleanup_state_files.py --days 60
 """
+DOC_ID: DOC-SCRIPT-SCRIPTS-CLEANUP-STATE-FILES-788
 
 import argparse
 import gzip

@@ -1,3 +1,7 @@
+---
+doc_id: DOC-GUIDE-PHASE-6-GAP-FIX-COMPLETE-210
+---
+
 # Phase 6 Gap Fix - Execution Summary
 
 **Date**: 2025-12-05  

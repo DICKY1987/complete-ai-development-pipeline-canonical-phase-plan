@@ -1,4 +1,5 @@
 """Test Semgrep plugin edge cases."""
+DOC_ID: DOC-CORE-TESTS-TEST-PLUGIN-EDGE-CASES-839
 
 from __future__ import annotations
 

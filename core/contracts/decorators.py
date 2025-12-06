@@ -1,4 +1,5 @@
 """Contract Enforcement Decorators - Automatic validation at function boundaries"""
+DOC_ID: DOC-CORE-CONTRACTS-DECORATORS-864
 
 import functools
 import logging
