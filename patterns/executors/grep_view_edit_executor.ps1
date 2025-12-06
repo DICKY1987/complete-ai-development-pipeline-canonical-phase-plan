@@ -1,4 +1,4 @@
-# DOC_LINK: DOC-PAT-GREP-VIEW-EDIT-002
+# DOC_LINK: DOC-PAT-GREP-VIEW-EDIT-GREP-VIEW-EDIT-EXECUTOR-001
 # Pattern: grep_view_edit (PAT-GREP-VIEW-EDIT-002)
 # Version: 1.0.0
 # Category: sequential
@@ -23,7 +23,7 @@ if (-not (Test-Path $InstancePath)) {
 
 $instance = Get-Content $InstancePath -Raw | ConvertFrom-Json
 Test-PatternInstance -Instance $instance `
-    -ExpectedDocId "DOC-PAT-GREP-VIEW-EDIT-002" `
+    -ExpectedDocId "DOC-PAT-GREP-VIEW-EDIT-GREP-VIEW-EDIT-EXECUTOR-001" `
     -ExpectedPatternId "PAT-GREP-VIEW-EDIT-002"
 
 # Extract inputs

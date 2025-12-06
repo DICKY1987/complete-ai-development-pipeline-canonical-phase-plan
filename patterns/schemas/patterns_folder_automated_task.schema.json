@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "DOC-PAT-PATTERNS-FOLDER-AUTOMATED-TASK-756",
+  "$id": "DOC-PAT-PATTERNS-FOLDER-AUTOMATED-TASK-SCHEMA-085",
   "title": "PAT-PATTERNS-FOLDER-AUTOMATED-TASK-756 Pattern Instance",
   "type": "object",
   "required": [

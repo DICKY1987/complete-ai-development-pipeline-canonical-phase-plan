@@ -1,8 +1,8 @@
-# DOC-PAT-TEST-SUITE-834
+# DOC-PAT-TEST-SUITE-SPEC-001
 pattern_id: PAT-TEST-SUITE-834
 name: test_suite
 version: 1.0.0
-doc_id: DOC-PAT-TEST-SUITE-834
+doc_id: DOC-PAT-TEST-SUITE-SPEC-001
 
 metadata:
   created: 2025-12-02

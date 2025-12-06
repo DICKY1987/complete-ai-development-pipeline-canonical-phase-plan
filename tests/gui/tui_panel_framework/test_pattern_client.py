@@ -13,7 +13,7 @@ from gui.tui_app.core.pattern_client import (
 
 def test_inmemory_pattern_store_get_recent_runs():
     """Test getting recent runs from in-memory store."""
-    # DOC_ID: DOC-TEST-TUI-PANEL-FRAMEWORK-TEST-PATTERN-CLIENT-158
+    # DOC_ID: DOC-TEST-TUI-PANEL-FRAMEWORK-TEST-PATTERN-CLIENT-INSTANCE-TEST-001
     store = InMemoryPatternStateStore()
     runs = store.get_recent_runs()
 

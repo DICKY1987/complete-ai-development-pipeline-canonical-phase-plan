@@ -10,7 +10,7 @@ from pathlib import Path
 class ProjectScanner:
     """Scans project and detects characteristics."""
 
-    # DOC_ID: DOC-CORE-BOOTSTRAP-DISCOVERY-138
+    # DOC_ID: DOC-CORE-BOOTSTRAP-DISCOVERY-DISCOVERY-001
 
     LANGUAGE_EXTENSIONS = {
         "python": [".py"],

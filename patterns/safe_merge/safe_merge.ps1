@@ -1,4 +1,4 @@
-# DOC_LINK: DOC-PAT-SAFE-MERGE-234
+# DOC_LINK: DOC-PAT-SAFE-MERGE-PS1-001
 <#
 .SYNOPSIS
     Safe Merge Patterns - Complete Workflow Wrapper

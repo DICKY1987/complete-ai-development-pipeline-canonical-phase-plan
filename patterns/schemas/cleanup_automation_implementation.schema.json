@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "DOC-PAT-CLEANUP-AUTOMATION-IMPLEMENTATION-743",
+  "$id": "DOC-PAT-CLEANUP-AUTOMATION-IMPLEMENTATION-SCHEMA-033",
   "title": "PAT-CLEANUP-AUTOMATION-IMPLEMENTATION-743 Pattern Instance",
   "type": "object",
   "required": [

@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-CORE-UET-PATCH-MANAGEMENT-SPEC-195
+doc_id: DOC-CORE-UET-PATCH-MANAGEMENT-SPEC-MD-001
 ---
 
 Good target. Let’s lock down **what PATCH_MANAGEMENT_SPEC actually is** in your stack and define the core data structures + rules, without writing an actual spec file yet.

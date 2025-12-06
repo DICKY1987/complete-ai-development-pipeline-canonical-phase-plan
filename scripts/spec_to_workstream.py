@@ -169,6 +169,30 @@ class WorkstreamGenerator:
 
     def __init__(self, spec_data: Dict[str, Any]):
         self.spec_data = spec_data
+    
+    def _get_or_create_ccpm_issue(self, proposal: Dict[str, Any]) -> int:
+        """Get or create CCPM issue number for tracking."""
+        # Check if issue reference exists in proposal
+        description = proposal.get('description', '')
+        
+        # Look for existing issue reference in format #123 or issue-123
+        issue_match = re.search(r'#(\d+)|issue[:\s-](\d+)', description, re.IGNORECASE)
+        if issue_match:
+            return int(issue_match.group(1) or issue_match.group(2))
+        
+        # Check for CCPM tracking file
+        ccpm_tracking = REPO_ROOT / ".state" / "ccpm_tracking.json"
+        if ccpm_tracking.exists():
+            try:
+                tracking_data = json.loads(ccpm_tracking.read_text())
+                change_id = self.spec_data.get('change_id', '')
+                if change_id in tracking_data.get('issues', {}):
+                    return tracking_data['issues'][change_id]
+            except Exception:
+                pass
+        
+        # Default: return 0 (to be assigned manually)
+        return 0
 
     def generate(self, ws_id: Optional[str] = None) -> Dict[str, Any]:
         """Generate workstream bundle JSON."""
@@ -190,7 +214,7 @@ class WorkstreamGenerator:
         bundle = {
             "id": ws_id,
             "openspec_change": change_id,
-            "ccpm_issue": 0,  # Placeholder, update manually or via automation
+            "ccpm_issue": self._get_or_create_ccpm_issue(proposal),
             "gate": 1,
             "files_scope": files_scope or ["src/"],  # Default scope
             "files_create": files_create,
@@ -320,10 +344,12 @@ def interactive_mode():
     print()
 
     # Select change
+    if args.non_interactive:
+        print("❌ Cannot run interactive selection with --non_interactive flag", file=sys.stderr)
+        return 1
+    
     while True:
         try:
-            # TODO: Respect args.non_interactive flag
-
             selection = input("Select change number (or 'q' to quit): ").strip()
             if selection.lower() == "q":
                 return 0
@@ -381,13 +407,6 @@ def interactive_mode():
 
 def main():
     parser = argparse.ArgumentParser(
-
-    # Enable non-interactive mode for CI/automation
-    parser.add_argument(
-        '--non-interactive',
-        action='store_true',
-        help='Run without interactive prompts (use defaults or fail)'
-    )
         description="Convert OpenSpec proposals to workstream bundles",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=__doc__,
@@ -412,6 +431,11 @@ def main():
     )
     parser.add_argument(
         "--dry-run", action="store_true", help="Print bundle JSON without saving"
+    )
+    parser.add_argument(
+        '--non-interactive',
+        action='store_true',
+        help='Run without interactive prompts (use defaults or fail)'
     )
 
     args = parser.parse_args()

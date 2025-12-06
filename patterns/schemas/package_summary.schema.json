@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "DOC-PAT-PACKAGE-SUMMARY-803",
+  "$id": "DOC-PAT-PACKAGE-SUMMARY-SCHEMA-084",
   "title": "PAT-PACKAGE-SUMMARY-803 Pattern Instance",
   "type": "object",
   "required": [

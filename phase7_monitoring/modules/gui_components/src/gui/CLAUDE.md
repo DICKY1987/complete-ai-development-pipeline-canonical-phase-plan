@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-CLAUDE-426
+doc_id: DOC-GUIDE-CLAUDE-CLAUDE-001
 ---
 
 # CLAUDE.md

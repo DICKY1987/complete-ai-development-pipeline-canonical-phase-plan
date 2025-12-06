@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-UET-ERROR-PIPELINE-A-CARD-LEDGER-330
+doc_id: DOC-GUIDE-UET-ERROR-PIPELINE-A-CARD-LEDGER-MD-001
 ---
 
 Yes—these docs give you a *lot* of reusable patterns we can steal for the error-pipeline module. I’ll keep this at the “ideas + wiring” level, no new documents.

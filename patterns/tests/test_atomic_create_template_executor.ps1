@@ -1,4 +1,4 @@
-# DOC_LINK: DOC-PAT-ATOMIC-CREATE-TEMPLATE-001
+# DOC_LINK: DOC-PAT-ATOMIC-CREATE-TEMPLATE-INSTANCE-TEST-002
 # Comprehensive tests for atomic_create_template pattern executor
 
 Describe "atomic_create_template pattern executor" {
@@ -27,7 +27,7 @@ Describe "atomic_create_template pattern executor" {
 
         It "Executor should have DOC_LINK header" {
             $content = Get-Content $ExecutorPath -Raw
-            $content | Should -Match "# DOC_LINK: DOC-PAT-ATOMIC-CREATE-TEMPLATE-001"
+            $content | Should -Match "# DOC_LINK: DOC-PAT-ATOMIC-CREATE-TEMPLATE-INSTANCE-TEST-002"
         }
 
         It "Should accept InstancePath parameter" {
@@ -52,7 +52,7 @@ Describe "atomic_create_template pattern executor" {
 
         It "Should validate instance pattern_id" {
             $testInstance = @{
-                doc_id = "DOC-PAT-ATOMIC-CREATE-TEMPLATE-001"
+                doc_id = "DOC-PAT-ATOMIC-CREATE-TEMPLATE-INSTANCE-TEST-002"
                 pattern_id = "INVALID"
                 inputs = @{}
             } | ConvertTo-Json

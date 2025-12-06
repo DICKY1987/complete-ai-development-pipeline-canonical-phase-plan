@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "DOC-PAT-WORKFLOW-REPORT-20251127-101218-961",
+  "$id": "DOC-PAT-WORKFLOW-REPORT-20251127-101218-SCHEMA-194",
   "title": "PAT-WORKFLOW-REPORT-20251127-101218-961 Pattern Instance",
   "type": "object",
   "required": [

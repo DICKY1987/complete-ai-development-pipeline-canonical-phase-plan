@@ -10,7 +10,7 @@ from gui.tui_app.core.panel_plugin import PanelContext
 class MockPanel:
     """Mock panel for testing."""
 
-    # DOC_ID: DOC-TEST-TUI-PANEL-FRAMEWORK-TEST-LAYOUT-MANAGER-155
+    # DOC_ID: DOC-TEST-TUI-PANEL-FRAMEWORK-TEST-LAYOUT-MANAGER-INSTANCE-TEST-001
 
     def __init__(self):
         self.mounted = False

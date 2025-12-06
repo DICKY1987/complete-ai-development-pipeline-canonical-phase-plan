@@ -5,7 +5,7 @@ This module provides integration between CCPM workflows and core pipeline execut
 It converts CCPM epics/tasks into workstream bundles and validates parallel execution.
 """
 
-# DOC_ID: DOC-CORE-PLANNING-CCPM-INTEGRATION-165
+# DOC_ID: DOC-CORE-PLANNING-CCPM-INTEGRATION-CCPM-INTEGRATION-001
 
 from pathlib import Path
 from typing import Any, Dict, List, Optional

@@ -3,7 +3,7 @@ status: draft
 doc_type: guide
 module_refs: []
 script_refs: []
-doc_id: DOC-GUIDE-DOC-EXAMPLE-04-MULTI-PHASE-781
+doc_id: DOC-GUIDE-DOC-EXAMPLE-04-MULTI-PHASE-MD-001
 ---
 
 # Example 04: Multi-Phase Workflow - Data Pipeline

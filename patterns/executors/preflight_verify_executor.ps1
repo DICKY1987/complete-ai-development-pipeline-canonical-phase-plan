@@ -1,4 +1,4 @@
-# DOC_LINK: DOC-PAT-PREFLIGHT-VERIFY-001
+# DOC_LINK: DOC-PAT-PREFLIGHT-VERIFY-PREFLIGHT-VERIFY-EXECUTOR-001
 # Pattern: preflight_verify (PAT-PREFLIGHT-VERIFY-001)
 # Version: 1.0.0
 # Category: verification
@@ -23,7 +23,7 @@ if (-not (Test-Path $InstancePath)) {
 
 $instance = Get-Content $InstancePath -Raw | ConvertFrom-Json
 Test-PatternInstance -Instance $instance `
-    -ExpectedDocId "DOC-PAT-PREFLIGHT-VERIFY-001" `
+    -ExpectedDocId "DOC-PAT-PREFLIGHT-VERIFY-PREFLIGHT-VERIFY-EXECUTOR-001" `
     -ExpectedPatternId "PAT-PREFLIGHT-VERIFY-001"
 
 # Extract inputs

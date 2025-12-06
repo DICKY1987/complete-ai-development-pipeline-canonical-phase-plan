@@ -1,4 +1,4 @@
-# DOC_LINK: DOC-PAT-PYTEST-GREEN-VERIFY-002
+# DOC_LINK: DOC-PAT-PYTEST-GREEN-VERIFY-INSTANCE-TEST-002
 # Pattern: pytest_green_verify (PAT-PYTEST-GREEN-VERIFY-002)
 # Version: 1.0.0
 # Category: verification
@@ -23,7 +23,7 @@ if (-not (Test-Path $InstancePath)) {
 
 $instance = Get-Content $InstancePath -Raw | ConvertFrom-Json
 Test-PatternInstance -Instance $instance `
-    -ExpectedDocId "DOC-PAT-PYTEST-GREEN-VERIFY-002" `
+    -ExpectedDocId "DOC-PAT-PYTEST-GREEN-VERIFY-INSTANCE-TEST-002" `
     -ExpectedPatternId "PAT-PYTEST-GREEN-VERIFY-002"
 
 # Extract inputs

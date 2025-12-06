@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-GUI-PLAN-EXECUTION-PATTERNS-562
+doc_id: DOC-GUIDE-GUI-PLAN-EXECUTION-PATTERNS-MD-001
 ---
 
 # GUI Plan Execution Patterns

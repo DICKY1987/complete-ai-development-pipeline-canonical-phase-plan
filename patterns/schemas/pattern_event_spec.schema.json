@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "DOC-PAT-PATTERN-EVENT-SPEC-809",
+  "$id": "DOC-PAT-PATTERN-EVENT-SPEC-SCHEMA-092",
   "title": "PAT-PATTERN-EVENT-SPEC-809 Pattern Instance",
   "type": "object",
   "required": [

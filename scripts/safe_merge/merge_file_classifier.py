@@ -4,7 +4,7 @@ MERGE-008: Merge File Classifier
 
 Classifies files into categories for conflict resolution strategy.
 """
-# DOC_ID: DOC-SCRIPT-SCRIPTS-MERGE-FILE-CLASSIFIER-330
+# DOC_ID: DOC-SCRIPT-SCRIPTS-MERGE-FILE-CLASSIFIER-PY-001
 
 import json
 import yaml

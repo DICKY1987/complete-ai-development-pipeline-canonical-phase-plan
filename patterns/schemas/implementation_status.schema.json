@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "DOC-PAT-IMPLEMENTATION_STATUS-007",
+  "$id": "DOC-PAT-IMPLEMENTATION-STATUS-SCHEMA-078-STATUS-SCHEMA-078_STATUS-007",
   "title": "PAT-IMPLEMENTATION_STATUS-007 Pattern Instance",
   "type": "object",
   "required": [
@@ -27,5 +27,5 @@
       "additionalProperties": true
     }
   },
-  "doc_id": "DOC-PAT-IMPLEMENTATION-STATUS-SCHEMA-078"
+  "doc_id": "DOC-PAT-IMPLEMENTATION-STATUS-SCHEMA-078-STATUS-SCHEMA-078-STATUS-SCHEMA-078"
 }

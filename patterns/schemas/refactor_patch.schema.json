@@ -9,7 +9,7 @@
     },
     "doc_id": {
       "type": "string",
-      "const": "DOC-REFACTOR-PATCH-001",
+      "const": "DOC-PAT-REFACTOR-PATCH-SCHEMA-125",
       "pattern": "^DOC-[A-Z0-9-]+$"
     },
     "inputs": {

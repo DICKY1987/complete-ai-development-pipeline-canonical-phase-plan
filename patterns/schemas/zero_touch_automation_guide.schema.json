@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "DOC-PAT-ZERO-TOUCH-AUTOMATION-GUIDE-772",
+  "$id": "DOC-PAT-ZERO-TOUCH-AUTOMATION-GUIDE-SCHEMA-199",
   "title": "PAT-ZERO-TOUCH-AUTOMATION-GUIDE-772 Pattern Instance",
   "type": "object",
   "required": [

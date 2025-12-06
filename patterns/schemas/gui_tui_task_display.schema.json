@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "DOC-PAT-GUI-TUI-TASK-DISPLAY-751",
+  "$id": "DOC-PAT-GUI-TUI-TASK-DISPLAY-SCHEMA-077",
   "title": "PAT-GUI-TUI-TASK-DISPLAY-751 Pattern Instance",
   "type": "object",
   "required": [

@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "DOC-PAT-QUICKSTART-830",
+  "$id": "DOC-PAT-QUICKSTART-SCHEMA-145",
   "title": "PAT-QUICKSTART-830 Pattern Instance",
   "type": "object",
   "required": [

@@ -1,4 +1,4 @@
-# DOC_LINK: DOC-SCRIPT-TEST-RUN-047
+# DOC_LINK: DOC-SCRIPT-TEST-RUN-PS1-001
 # Test Run - AI Logs Analyzer
 # Quick test to verify everything is working
 

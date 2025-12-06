@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "DOC-PAT-FILE-LIST-800",
+  "$id": "DOC-PAT-FILE-LIST-SCHEMA-054",
   "title": "PAT-FILE-LIST-800 Pattern Instance",
   "type": "object",
   "required": [

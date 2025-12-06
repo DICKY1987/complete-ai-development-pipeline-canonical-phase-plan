@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "DOC-PAT-SLASH_COMMAND_PATTERN_SET-009",
+  "$id": "DOC-PAT-SLASH-COMMAND-PATTERN-SET-SCHEMA-182-COMMAND-PATTERN-SET-SCHEMA-182_COMMAND_PATTERN_SET-009",
   "title": "PAT-SLASH_COMMAND_PATTERN_SET-009 Pattern Instance",
   "type": "object",
   "required": [
@@ -27,5 +27,5 @@
       "additionalProperties": true
     }
   },
-  "doc_id": "DOC-PAT-SLASH-COMMAND-PATTERN-SET-SCHEMA-182"
+  "doc_id": "DOC-PAT-SLASH-COMMAND-PATTERN-SET-SCHEMA-182-COMMAND-PATTERN-SET-SCHEMA-182-COMMAND-PATTERN-SET-SCHEMA-182"
 }

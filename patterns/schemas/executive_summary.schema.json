@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "DOC-PAT-EXECUTIVE-SUMMARY-820",
+  "$id": "DOC-PAT-EXECUTIVE-SUMMARY-SCHEMA-042",
   "title": "PAT-EXECUTIVE-SUMMARY-820 Pattern Instance",
   "type": "object",
   "required": [

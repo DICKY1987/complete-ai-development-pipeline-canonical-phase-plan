@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-CORE-UET-BOOTSTRAP-SPEC-191
+doc_id: DOC-CORE-UET-BOOTSTRAP-SPEC-MD-001
 ---
 
 # BOOTSTRAP_SPEC - Framework Self-Installation Guide for AI Agents

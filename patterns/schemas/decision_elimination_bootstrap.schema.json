@@ -6,7 +6,7 @@
       "type": "object"
     },
     "doc_id": {
-      "const": "DOC-PAT-DECISION-ELIMINATION-BOOTSTRAP-001",
+      "const": "DOC-PAT-DECISION-ELIMINATION-BOOTSTRAP-SCHEMA-001",
       "description": "Document ID linking all artifacts",
       "type": "string"
     },
@@ -30,7 +30,7 @@
     }
   },
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "doc_id": "DOC-PAT-DECISION-ELIMINATION-BOOTSTRAP-001",
+  "doc_id": "DOC-PAT-DECISION-ELIMINATION-BOOTSTRAP-SCHEMA-001",
   "required": [
     "doc_id",
     "pattern_id",

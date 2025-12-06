@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "DOC-PAT-PATTERN-AUTOMATION-PATHS-758",
+  "$id": "DOC-PAT-PATTERN-AUTOMATION-PATHS-SCHEMA-088",
   "title": "PAT-PATTERN-AUTOMATION-PATHS-758 Pattern Instance",
   "type": "object",
   "required": [

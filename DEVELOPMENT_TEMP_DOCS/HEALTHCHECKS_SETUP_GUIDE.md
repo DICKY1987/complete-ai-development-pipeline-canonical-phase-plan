@@ -98,7 +98,7 @@ Configure in healthchecks.io → Integrations:
 
 ### Other Channels
 - PagerDuty
-- OpsGenie  
+- OpsGenie
 - Discord
 - Webhook (custom)
 - Telegram
@@ -204,10 +204,10 @@ except Exception as e:
 
 ## Security Notes
 
-✅ **Ping URLs are secret**: Treat like passwords  
-✅ **Use GitHub Secrets**: Never commit HEALTHCHECK_URL to code  
-✅ **Read-only**: Ping URLs can only send data, not read or modify  
-✅ **Revocable**: Can regenerate URL if compromised  
+✅ **Ping URLs are secret**: Treat like passwords
+✅ **Use GitHub Secrets**: Never commit HEALTHCHECK_URL to code
+✅ **Read-only**: Ping URLs can only send data, not read or modify
+✅ **Revocable**: Can regenerate URL if compromised
 
 ## Status
 
@@ -220,9 +220,9 @@ except Exception as e:
 
 ---
 
-**Setup Time**: ~5 minutes  
-**Maintenance**: Zero (fully automated)  
-**Value**: Instant notification of automation failures  
+**Setup Time**: ~5 minutes
+**Maintenance**: Zero (fully automated)
+**Value**: Instant notification of automation failures
 **Cost**: Free
 
 For issues: https://healthchecks.io/docs/

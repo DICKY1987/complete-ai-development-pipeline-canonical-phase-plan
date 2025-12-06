@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "DOC-PAT-PATTERN-PLAN-ENC-762",
+  "$id": "DOC-PAT-PATTERN-PLAN-ENC-SCHEMA-144",
   "title": "PAT-PATTERN-PLAN-ENC-762 Pattern Instance",
   "type": "object",
   "required": [

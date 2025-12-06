@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "DOC-PAT-START-HERE-815",
+  "$id": "DOC-PAT-START-HERE-SCHEMA-187",
   "title": "PAT-START-HERE-815 Pattern Instance",
   "type": "object",
   "required": [

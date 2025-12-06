@@ -1,0 +1,162 @@
+[
+  {
+    "folder_name": "engine",
+    "similarity": {
+      "folder1": "core\\engine",
+      "folder2": "error\\engine",
+      "content_similarity": 0.0,
+      "strict_similarity": 0.0,
+      "shared_hashes": 0,
+      "union_hashes": 32,
+      "matched_filenames": 0
+    },
+    "scores": [
+      {
+        "path": "core\\engine",
+        "file_count": 31,
+        "total_size": 255953,
+        "file_hashes": "{'dab950960b382fba4c7e1916468e1dc51303567fa00f2e585a3accee1ec047cf', 'cde99901e6937e92741c408579181aee4e32f90e91712e7a8aef3d57e7674c27', '990ddf2cc39b30ef64d6b92f78458d480f520ab2bf51d77bba299b32663ad95c', '82d2a1008a8d18528cf2dc3f31e7d27b208f68e659b4b0db3935f98098b10316', '0529715dfcb0c14c9ed4d4bf180dcaf36def1dfbbedaff541b73c9251a838129', 'c3b8b36d999714242c34eb34b7f1564c50118b436ddc94ed78e9d72b95cd5291', '6c7faff442fba74e1d261436c9fe3668ceb5573df634cd47f9986bde0d0377a3', '5656d2abcc0db30daea5441ccc78642124f48c8e52e166b1477b4b39f58bd425', '016c4235684e84552d05283fd6f0650621dca04e99d6e5fd2a9eaa290849b3d1', 'f81c84837af2be887523354c2c50fff0fc62c060dc0567590c6a4185eb62646a', '1290099ee64eff67323812b626a35a5d57dbe3651e409f06db51b4cc2af947c3', 'a2eb3459fca9e050eb49c4bddaed54cd7c6841c8ffb2eaa4bab7ae3139cfc796', 'd32cbbfc58fdd23fc0b115760c4e1d9c2bf71d6e4d858cc07e8c5f7cb11c303b', '5fb1c13faaf1c60851517b4289bf877602405d4943c32376638a0545a371930f', 'bf1db27381f66bf976438927f474598854f7d176ebb781411177cd8657fcdc07', 'aa667edf1fe467b6c068e7e5446a533453d4ae0d9e26da0aa1d9460210109608', '358ddd42d2f15737db66d174ac82aeea366e8598369564e02398f02206496d6a', '793c5a5fc4eebc21cdce51987226bd126cb2c2a972592fdd2c1191aa89cecd9f', 'eb104aae0e031843744b5f6c070c4ac873a32e63674f603ffca6a1efff0e584a', '2ffbd46538d9ef94a706e0765ee0aabe39f0a5a13597eca19e6e7bb2f398ad6a', '8017bb9a65acf91b0f0e173062746a73b4b87aaecd674f466732d9c28923e8e5', '99fa20034ed27bffeca5c55895eede1d28f64b8eb9cbb0614e16ba7d8825774b', '5fae5afbc5b16e03242251c862b6f4ab473fcb35a9742dc24a9511d5f6371cd9', 'acc6e88522f90928760fc271b23544a431d8fcc5587354a94e7f0184f9a76d05', 'fb51f0f8b3a55a174607ad9f9315f9f6f2e3b9a5c93c7acbda92df32869bb2df', '5b477f1379ee6f759b5d7b03974600db8364c677e5d008be83a6e3f56db531a9', 'b07f92dfafb69c3e40c6ccb35c233e3c3946d43b689a428e8f099e39035b206e', 'bb781c9eadcd3744067364b3e5a57d0625115bb4c5f2001fd0a38f731af2565f', 'd1a5204e62572dda66bee232029901065194b03053cd9f1271b811b95651b642', '4cdc8f082c8cc84919eda4a6b5bd7599521e7f9d6b95f1eb02eb371889040182', '51defa9a29c11f03ed3e0991fe509512bf2769937114ca261a2f5f582322cdfe'}",
+        "file_names": "{'circuit_breakers.py', 'routing_validator.py', 'recovery.py', 'cost_tracker.py', 'executor_cli.py', 'prompt_engine.py', 'patch_converter.py', 'execution_validator.py', 'router.py', 'orchestrator.py', 'plan_schema.py', 'process_spawner.py', 'test_gate.py', '__init__.py', 'context_estimator.py', 'state_file_manager.py', 'request_validator.py', 'executor.py', 'README.md', 'dag_builder.py', '.ai-module-manifest', 'phase_coordinator.py', 'state_machine.py', 'tools.py', 'worker_lifecycle.py', 'integration_worker.py', 'patch_ledger.py', '__main__.py', 'scheduler.py', 'execution_request_builder.py', 'scheduling_validator.py'}",
+        "content_score": 0,
+        "newest_file_date": "2025-12-05 21:50:34.174610+00:00",
+        "recency_score": 0,
+        "has_readme": true,
+        "has_init": true,
+        "has_tests": true,
+        "has_pattern_spec": false,
+        "completeness_score": 0,
+        "git_created_date": "2025-11-23 13:51:37-06:00",
+        "commit_count": 53,
+        "history_score": 0,
+        "python_imports": 0,
+        "powershell_refs": 0,
+        "yaml_refs": 0,
+        "in_pattern_registry": false,
+        "in_codebase_index": false,
+        "has_doc_id": false,
+        "usage_score": 0,
+        "location_tier": 3,
+        "location_score": 10,
+        "total_score": 0,
+        "verdict": "DIFFERENT_PURPOSE",
+        "can_delete": false,
+        "reasons": [
+          "Content similarity: 0.0% < 50%"
+        ]
+      },
+      {
+        "path": "error\\engine",
+        "file_count": 1,
+        "total_size": 6821,
+        "file_hashes": "{'48c0ceb5b819f0c963a4396dab15729cd44bdafcdd12a01b7a56626edabfe276'}",
+        "file_names": "{'recovery_validator.py'}",
+        "content_score": 0,
+        "newest_file_date": "2025-12-05 12:57:45.989971+00:00",
+        "recency_score": 0,
+        "has_readme": false,
+        "has_init": false,
+        "has_tests": true,
+        "has_pattern_spec": false,
+        "completeness_score": 0,
+        "git_created_date": "2025-12-05 05:20:18-06:00",
+        "commit_count": 16,
+        "history_score": 0,
+        "python_imports": 0,
+        "powershell_refs": 0,
+        "yaml_refs": 0,
+        "in_pattern_registry": false,
+        "in_codebase_index": false,
+        "has_doc_id": false,
+        "usage_score": 0,
+        "location_tier": 3,
+        "location_score": 10,
+        "total_score": 0,
+        "verdict": "DIFFERENT_PURPOSE",
+        "can_delete": false,
+        "reasons": [
+          "Content similarity: 0.0% < 50%"
+        ]
+      }
+    ]
+  },
+  {
+    "folder_name": "docs",
+    "similarity": {
+      "folder1": "docs",
+      "folder2": "glossary\\docs",
+      "content_similarity": 0.0,
+      "strict_similarity": 5.0,
+      "shared_hashes": 0,
+      "union_hashes": 24,
+      "matched_filenames": 1
+    },
+    "scores": [
+      {
+        "path": "docs",
+        "file_count": 20,
+        "total_size": 215968,
+        "file_hashes": "{'8e9e392d2c53478537d5badefa5a66c9f37ddacbb15c1a4c3706e10ce489599f', 'f7a819ef6d2ae442cfc4ada536331e02dba077e1adaf2c20f8821dd252ef1234', 'e4646768627297fceb6f8bd4d3d89b52bbeac333899d32afec74447fbe0d951e', '4c738b597337a66ed39f95d60b5857a34a72cb2c6830976060d367df20c7719a', 'e817860031188558180518bb08781d29c5ec93518bda49e935d9ad27d51f7160', 'e1eee09051c7e03dc695937ac483e8cdf95b2eb6f3686145667b94930929d4ec', '6913f1fc704fff762f3560a8a156e5dcd647b04d84a0ee75e8582037cba3ec9b', '718bfa2587e94f389033ef41c0c1537252ee6fb8c42fd5f1ed2fd1c2cc96b8da', '4297dc0eb98a6e1206650a73f8922530f3fe3094a905af8f87f6fa033ae997ad', 'b7be15ff2a8792a560e9a24816fc0e5dea7128ffb4ed3612309833b78435f18f', 'a1f997014742654c3a470ea1ea5e482456801677fdd1c5ba2e516c7cd892f0b4', '5ecd966b4a60dc7fcf41f16e35bd8dc1f651fba3176a22dfdf0ebe4be12d28a8', '7c8a2c5eb258844eb5e63d940afc12718d7f96a1c5c85537930c4b4f607c37b6', 'bfc0efa5e7981134c4aecc8dbbb6ce1d9f741d63407c7ee5ee3f6fb5386de6a1', 'b935215371c030042210537a44e01b69c7815d96259a05142513697ebe2b5aac', '5c23ef52b3b53c1e5eb7e6e06db1bd0189583d22ef0ab21f8730213656473f9a', '15a3d57598ddbf58cb56e2425281a1664c02aaf292bc324d7dc3e6b5055f5e03', '914dc9314b4b5cc4d183ca76f200e62408017d515fe121a49910582c946bca32', '01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b', '454883613bd4259e9ad34053a34457bea77ef4f18c50f936d8773ef231e7f052'}",
+        "file_names": "{'Phase-Based AI Dev Pipeline (0\u20137) \u2013 Coherent Process.md', 'FOLDER_LIFECYCLE_FLOW.md', '.gitkeep', 'DOCS_ORGANIZATION_COMPLETE.md', 'DECISION_ELIMINATION_GUIDE.md', 'PHASE_4_ARCHITECTURE.md', 'E2E_PROCESS_VISUAL_DIAGRAM.md', 'UET_ABSTRACTION_GUIDELINES.md', 'CI_INCOMPLETE_SCANNER_GUIDE.md', 'PATH ABSTRACTION & INDIRECTION LAYER.md', 'PHASE_4_USER_GUIDE.md', 'REPOSITORY_MAINTENANCE.md', 'QUICK_FILE_GUIDE.md', 'POOL_INTEGRATION_GUIDE.md', 'guides', 'README.md', 'DOCS_RENAMING_COMPLETE.md', '.aicontext', 'SYSTEM_VISUAL_DIAGRAMS.md', 'UET_SUBMODULE_IO_CONTRACTS.md'}",
+        "content_score": 0,
+        "newest_file_date": "2025-12-05 14:24:27.830423+00:00",
+        "recency_score": 0,
+        "has_readme": true,
+        "has_init": false,
+        "has_tests": false,
+        "has_pattern_spec": false,
+        "completeness_score": 0,
+        "git_created_date": "2025-11-22 02:26:14-06:00",
+        "commit_count": 166,
+        "history_score": 0,
+        "python_imports": 0,
+        "powershell_refs": 0,
+        "yaml_refs": 0,
+        "in_pattern_registry": false,
+        "in_codebase_index": false,
+        "has_doc_id": false,
+        "usage_score": 0,
+        "location_tier": 3,
+        "location_score": 10,
+        "total_score": 0,
+        "verdict": "DIFFERENT_PURPOSE",
+        "can_delete": false,
+        "reasons": [
+          "Content similarity: 0.0% < 50%"
+        ]
+      },
+      {
+        "path": "glossary\\docs",
+        "file_count": 4,
+        "total_size": 43475,
+        "file_hashes": "{'5e0945e2902aac19f531573b2fb260ff75507d1dd8b0ae0b2e2462765be7c1c8', 'fc396bc9ccbf35ad31da2e101b31841c961999ca00cee1cf34e0a2f84e6a98ff', 'ba54d8163e38a41d6616b8a134bbca98d80286b5864d48bb6a61938187d0ae12', '9f7db66bb6af1c45faac2dacf7c8cb08d8775f0459c027fe5a1e1ffe3e4a34bb'}",
+        "file_names": "{'DOC_GLOSSARY_SCHEMA.md', 'DOC_GLOSSARY_GOVERNANCE.md', 'README.md', 'DOC_GLOSSARY_CHANGELOG.md'}",
+        "content_score": 0,
+        "newest_file_date": "2025-12-04 15:16:45.740414+00:00",
+        "recency_score": 0,
+        "has_readme": true,
+        "has_init": false,
+        "has_tests": false,
+        "has_pattern_spec": false,
+        "completeness_score": 0,
+        "git_created_date": "2025-11-25 09:16:10-06:00",
+        "commit_count": 7,
+        "history_score": 0,
+        "python_imports": 0,
+        "powershell_refs": 0,
+        "yaml_refs": 0,
+        "in_pattern_registry": false,
+        "in_codebase_index": false,
+        "has_doc_id": false,
+        "usage_score": 0,
+        "location_tier": 2,
+        "location_score": 7,
+        "total_score": 0,
+        "verdict": "DIFFERENT_PURPOSE",
+        "can_delete": false,
+        "reasons": [
+          "Content similarity: 0.0% < 50%"
+        ]
+      }
+    ]
+  }
+]

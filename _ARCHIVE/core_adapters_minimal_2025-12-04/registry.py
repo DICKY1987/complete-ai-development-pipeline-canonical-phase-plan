@@ -3,7 +3,7 @@
 Manages tool adapters and loads them from router_config.
 """
 
-# DOC_ID: DOC-CORE-ADAPTERS-REGISTRY-134
+# DOC_ID: DOC-CORE-ADAPTERS-REGISTRY-PY-001
 
 import json
 from typing import Dict, List, Optional

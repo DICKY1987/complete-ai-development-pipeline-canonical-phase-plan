@@ -5,7 +5,7 @@ Usage examples:
   python scripts/gh_issue_update.py --issue 123 --comment "Started run X"
   python scripts/gh_issue_update.py --issue 123 --state closed --add-label success
 """
-# DOC_ID: DOC-SCRIPT-SCRIPTS-GH-ISSUE-UPDATE-213
+# DOC_ID: DOC-SCRIPT-SCRIPTS-GH-ISSUE-UPDATE-GH-ISSUE-UPDATE-001
 # DOC_ID: DOC-SCRIPT-SCRIPTS-GH-ISSUE-UPDATE-150
 
 from __future__ import annotations

@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "DOC-PAT-SAFE-MEREGE-PATTERN-767",
+  "$id": "DOC-PAT-SAFE-MEREGE-PATTERN-SCHEMA-169",
   "title": "PAT-SAFE-MEREGE-PATTERN-767 Pattern Instance",
   "type": "object",
   "required": [

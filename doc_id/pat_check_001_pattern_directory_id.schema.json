@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "DOC-PAT-PAT-CHECK-001-PATTERN-DIRECTORY-ID-755",
+  "$id": "DOC-GUIDE-PAT-CHECK-001-PATTERN-DIRECTORY-ID-681",
   "title": "PAT-PAT-CHECK-001-PATTERN-DIRECTORY-ID-755 Pattern Instance",
   "type": "object",
   "required": [

@@ -1,4 +1,4 @@
-# DOC_LINK: DOC-PAT-PREFLIGHT-VERIFY-001
+# DOC_LINK: DOC-PAT-PREFLIGHT-VERIFY-INSTANCE-TEST-002
 # Comprehensive tests for preflight_verify pattern executor
 
 Describe "preflight_verify pattern executor" {
@@ -27,7 +27,7 @@ Describe "preflight_verify pattern executor" {
 
         It "Executor should have DOC_LINK header" {
             $content = Get-Content $ExecutorPath -Raw
-            $content | Should -Match "# DOC_LINK: DOC-PAT-PREFLIGHT-VERIFY-001"
+            $content | Should -Match "# DOC_LINK: DOC-PAT-PREFLIGHT-VERIFY-INSTANCE-TEST-002"
         }
 
         It "Should accept InstancePath parameter" {
@@ -52,7 +52,7 @@ Describe "preflight_verify pattern executor" {
 
         It "Should validate instance pattern_id" {
             $testInstance = @{
-                doc_id = "DOC-PAT-PREFLIGHT-VERIFY-001"
+                doc_id = "DOC-PAT-PREFLIGHT-VERIFY-INSTANCE-TEST-002"
                 pattern_id = "INVALID"
                 inputs = @{ checks = @() }
             } | ConvertTo-Json
@@ -67,7 +67,7 @@ Describe "preflight_verify pattern executor" {
     Context "Core Functionality" {
         It "Should pass all checks when commands succeed" {
             $testInstance = @{
-                doc_id = "DOC-PAT-PREFLIGHT-VERIFY-001"
+                doc_id = "DOC-PAT-PREFLIGHT-VERIFY-INSTANCE-TEST-002"
                 pattern_id = "PAT-PREFLIGHT-VERIFY-001"
                 inputs = @{
                     checks = @(
@@ -91,7 +91,7 @@ Describe "preflight_verify pattern executor" {
 
         It "Should fail when any check fails" {
             $testInstance = @{
-                doc_id = "DOC-PAT-PREFLIGHT-VERIFY-001"
+                doc_id = "DOC-PAT-PREFLIGHT-VERIFY-INSTANCE-TEST-002"
                 pattern_id = "PAT-PREFLIGHT-VERIFY-001"
                 inputs = @{
                     checks = @(
@@ -114,7 +114,7 @@ Describe "preflight_verify pattern executor" {
 
         It "Should support fail-fast mode" {
             $testInstance = @{
-                doc_id = "DOC-PAT-PREFLIGHT-VERIFY-001"
+                doc_id = "DOC-PAT-PREFLIGHT-VERIFY-INSTANCE-TEST-002"
                 pattern_id = "PAT-PREFLIGHT-VERIFY-001"
                 inputs = @{
                     checks = @(
@@ -139,7 +139,7 @@ Describe "preflight_verify pattern executor" {
     Context "Edge Cases" {
         It "Should handle empty checks array" {
             $testInstance = @{
-                doc_id = "DOC-PAT-PREFLIGHT-VERIFY-001"
+                doc_id = "DOC-PAT-PREFLIGHT-VERIFY-INSTANCE-TEST-002"
                 pattern_id = "PAT-PREFLIGHT-VERIFY-001"
                 inputs = @{
                     checks = @()
@@ -168,7 +168,7 @@ Describe "preflight_verify pattern executor" {
     Context "Performance Tests" {
         It "Should complete within reasonable time" {
             $testInstance = @{
-                doc_id = "DOC-PAT-PREFLIGHT-VERIFY-001"
+                doc_id = "DOC-PAT-PREFLIGHT-VERIFY-INSTANCE-TEST-002"
                 pattern_id = "PAT-PREFLIGHT-VERIFY-001"
                 inputs = @{
                     checks = @(

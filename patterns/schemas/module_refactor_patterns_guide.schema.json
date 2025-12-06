@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "DOC-PAT-MODULE-REFACTOR-PATTERNS-GUIDE-754",
+  "$id": "DOC-PAT-MODULE-REFACTOR-PATTERNS-GUIDE-SCHEMA-083",
   "title": "PAT-MODULE-REFACTOR-PATTERNS-GUIDE-754 Pattern Instance",
   "type": "object",
   "required": [

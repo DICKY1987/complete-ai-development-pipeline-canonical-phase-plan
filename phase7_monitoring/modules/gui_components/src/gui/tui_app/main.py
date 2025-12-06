@@ -2,7 +2,7 @@
 
 Textual-based terminal UI for AI Development Pipeline monitoring and control.
 """
-# DOC_ID: DOC-PAT-TUI-APP-MAIN-462
+# DOC_ID: DOC-PAT-TUI-APP-MAIN-MAIN-001
 
 import argparse
 import sys

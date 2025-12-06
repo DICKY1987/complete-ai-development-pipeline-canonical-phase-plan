@@ -1,4 +1,4 @@
-# DOC_LINK: DOC-PAT-TEXTUAL-INIT-367
+# DOC_LINK: DOC-PAT-TEXTUAL-INIT---INIT---001
 # DOC_LINK: DOC-PAT-TEXTUAL-INIT-323
 from textual.app import App, ComposeResult
 from textual.containers import Container, Horizontal, Vertical

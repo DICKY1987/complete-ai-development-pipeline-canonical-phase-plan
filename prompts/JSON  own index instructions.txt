@@ -1,0 +1,76 @@
+JSON file can carry its **own index** to make precision editing and patching *way* easier.
+
+The trick is:
+
+1. Give important chunks **stable IDs**.
+2. Add an **`index` block** that maps those IDs → JSON Pointer paths (or similar).
+3. Have your patch tooling use the index instead of “magic” array positions.
+
+Here’s a concrete example snippet:
+
+```json
+{
+  "doc_id": "PHASE_PLAN_MASTER",
+  "version": "0.2.0",
+
+  "index": {
+    "parameters": {
+      "AGENT_NUMBER": {
+        "path": "/parameters/agent/number",
+        "description": "Numeric agent id used in branch names and worktrees",
+        "tags": ["param", "agent", "worktree"]
+      },
+      "WORKSTREAM_NAME": {
+        "path": "/parameters/agent/workstream_name",
+        "description": "Human-readable workstream name",
+        "tags": ["param", "workstream"]
+      }
+    },
+    "sections": {
+      "S_ANALYSIS_FRAMEWORK": {
+        "path": "/sections/0",
+        "description": "End-to-end analysis phases and checks",
+        "tags": ["analysis", "framework"]
+      },
+      "S_AUTOMATION_GAPS": {
+        "path": "/sections/1",
+        "description": "Automation gap detection rules",
+        "tags": ["automation", "gaps"]
+      }
+    }
+  },
+
+  "parameters": {
+    "agent": {
+      "number": 2,
+      "workstream_name": "phase6-testing"
+    }
+  },
+
+  "sections": [
+    {
+      "id": "S_ANALYSIS_FRAMEWORK",
+      "title": "Analysis Framework",
+      "body": "Detailed multi-phase analysis instructions..."
+    },
+    {
+      "id": "S_AUTOMATION_GAPS",
+      "title": "Automation Gap Detection",
+      "body": "Rules for finding breaks in the automation chain..."
+    }
+  ]
+}
+```
+
+Then a patch file can be very targeted, e.g.:
+
+```json
+[
+  {
+    "op": "replace",
+    "path": "/sections/1/body",
+    "value": "Updated rules for automation gap detection..."
+  }
+]
+```
+

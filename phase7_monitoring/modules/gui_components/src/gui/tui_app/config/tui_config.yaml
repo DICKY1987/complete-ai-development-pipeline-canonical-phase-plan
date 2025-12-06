@@ -1,4 +1,4 @@
-doc_id: DOC-CONFIG-TUI-CONFIG-060
+doc_id: DOC-CONFIG-TUI-CONFIG-YAML-001
 theme:
   surface: "#0b1221"
   primary: "#1f6feb"

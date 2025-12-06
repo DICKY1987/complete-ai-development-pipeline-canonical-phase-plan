@@ -19,7 +19,7 @@ from core.bootstrap.validator import BootstrapValidator
 class BootstrapOrchestrator:
     """Orchestrates the complete bootstrap process"""
 
-    # DOC_ID: DOC-CORE-BOOTSTRAP-ORCHESTRATOR-140
+    # DOC_ID: DOC-CORE-BOOTSTRAP-ORCHESTRATOR-ORCHESTRATOR-001
 
     def __init__(self, project_path: str, output_dir: Optional[str] = None):
         self.project_path = Path(project_path).resolve()

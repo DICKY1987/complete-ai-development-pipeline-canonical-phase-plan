@@ -256,8 +256,18 @@ def analyze_folder(folder: Path, repo_root: Path) -> FolderVersionScore:
     # Completeness markers
     has_readme = (folder / "README.md").exists() or (folder / "readme.md").exists()
     has_init = (folder / "__init__.py").exists()
-    has_tests = False  # TODO: Check if tests/<folder_name> exists
-    has_pattern_spec = False  # TODO: Check for .schema.yaml or pattern files
+    
+    # Check for tests
+    folder_name = folder.name
+    tests_dir = Path("tests") / folder_name
+    has_tests = tests_dir.exists() and any(tests_dir.glob("test_*.py"))
+    
+    # Check for pattern spec
+    has_pattern_spec = (
+        (folder / f"{folder_name}.schema.yaml").exists() or
+        (folder / f"{folder_name}.schema.json").exists() or
+        any(folder.glob("*.pattern.yaml"))
+    )
 
     # Git history (sample first file for performance)
     git_created = None
@@ -381,10 +391,30 @@ def score_folders(
                     15, fs.history_score + min(3, fs.commit_count // 10)
                 )
 
-    # 5. Usage scoring (0-15) - TODO: Implement broader detection
-    # For now, placeholder (needs Python/PowerShell/YAML/registry scanning)
+    # 5. Usage scoring (0-15) - Detect imports and references
+    import_patterns = {}
     for fs in folder_scores:
-        fs.usage_score = 0  # Will be enhanced with actual usage detection
+        folder_name = fs.path.name
+        # Build import patterns for this folder
+        patterns = [
+            f"from {folder_name}",
+            f"import {folder_name}",
+            f"from .{folder_name}",
+        ]
+        import_patterns[folder_name] = patterns
+    
+    # Scan Python files for usage
+    for py_file in Path(".").rglob("*.py"):
+        try:
+            content = py_file.read_text(encoding='utf-8')
+            for fs in folder_scores:
+                folder_name = fs.path.name
+                for pattern in import_patterns.get(folder_name, []):
+                    if pattern in content:
+                        fs.usage_score = min(15, fs.usage_score + 1)
+                        break
+        except Exception:
+            continue
 
     # 6. Location scoring - already done in analyze_folder
 

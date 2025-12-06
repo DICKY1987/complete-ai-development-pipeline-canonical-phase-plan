@@ -1,4 +1,4 @@
-# DOC_LINK: DOC-PAT-DECISION-ELIMINATION-BOOTSTRAP-001
+# DOC_LINK: DOC-PAT-DECISION-ELIMINATION-BOOTSTRAP-INSTANCE-TEST-002
 # Comprehensive tests for decision_elimination_bootstrap pattern executor
 
 Describe "decision_elimination_bootstrap pattern executor" {
@@ -27,7 +27,7 @@ Describe "decision_elimination_bootstrap pattern executor" {
 
         It "Executor should have DOC_LINK header" {
             $content = Get-Content $ExecutorPath -Raw
-            $content | Should -Match "# DOC_LINK: DOC-PAT-DECISION-ELIMINATION-BOOTSTRAP-001"
+            $content | Should -Match "# DOC_LINK: DOC-PAT-DECISION-ELIMINATION-BOOTSTRAP-INSTANCE-TEST-002"
         }
 
         It "Should accept InstancePath parameter" {
@@ -52,7 +52,7 @@ Describe "decision_elimination_bootstrap pattern executor" {
 
         It "Should validate instance pattern_id" {
             $testInstance = @{
-                doc_id = "DOC-PAT-DECISION-ELIMINATION-BOOTSTRAP-001"
+                doc_id = "DOC-PAT-DECISION-ELIMINATION-BOOTSTRAP-INSTANCE-TEST-002"
                 pattern_id = "INVALID"
                 inputs = @{}
             } | ConvertTo-Json

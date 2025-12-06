@@ -4,7 +4,7 @@ Provides a mock subprocess that simulates aider's stdin/stdout protocol.
 Used for unit testing process pool without requiring real aider installation.
 """
 
-# DOC_ID: DOC-TEST-AIM-MOCK-AIDER-001
+# DOC_ID: DOC-TEST-AIM-MOCK-AIDER-MOCK-AIDER-001
 
 import sys
 import time

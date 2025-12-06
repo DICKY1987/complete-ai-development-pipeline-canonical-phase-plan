@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-CORE-UET-TASK-ROUTING-SPEC-198
+doc_id: DOC-CORE-UET-TASK-ROUTING-SPEC-MD-001
 ---
 
 Short answer: **yes** – in your world, `TASK_ROUTING_SPEC` should always be phase-aware and treat `PHASE_SPEC_MASTER` as the “contract of record” for what a task is allowed to do (FILES_SCOPE, CONSTRAINTS, OUTPUT_SPEC, etc.).

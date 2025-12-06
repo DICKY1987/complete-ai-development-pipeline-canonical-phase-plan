@@ -4,7 +4,7 @@ Provides interfaces for panels to access pattern execution state
 and events for visualization.
 """
 
-# DOC_ID: DOC-CORE-CORE-PATTERN-CLIENT-122
+# DOC_ID: DOC-CORE-CORE-PATTERN-CLIENT-PATTERN-CLIENT-001
 
 import sqlite3
 from abc import ABC, abstractmethod

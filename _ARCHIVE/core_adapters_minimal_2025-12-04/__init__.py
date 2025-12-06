@@ -3,7 +3,7 @@
 Adapters for executing tasks via external tools.
 """
 
-# DOC_ID: DOC-CORE-ADAPTERS-INIT-136
+# DOC_ID: DOC-CORE-ADAPTERS-INIT-INIT-001
 
 from .base import ExecutionResult, ToolAdapter, ToolConfig
 from .registry import AdapterRegistry

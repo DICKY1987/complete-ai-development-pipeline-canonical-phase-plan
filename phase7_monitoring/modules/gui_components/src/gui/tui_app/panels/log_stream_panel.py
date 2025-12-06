@@ -12,7 +12,7 @@ from gui.tui_app.core.panel_registry import register_panel
 
 class LogStreamWidget(Vertical):
     """Displays a live tail of the pipeline log file."""
-# DOC_ID: DOC-PAT-PANELS-LOG-STREAM-PANEL-466
+# DOC_ID: DOC-PAT-PANELS-LOG-STREAM-PANEL-LOG-STREAM-PANEL-001
 
     def __init__(self, context: PanelContext):
         super().__init__(id="log-stream-root")

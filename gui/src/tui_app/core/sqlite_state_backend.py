@@ -3,7 +3,7 @@
 Connects to .worktrees/pipeline_state.db and provides StateBackend implementation.
 """
 
-# DOC_ID: DOC-CORE-CORE-SQLITE-STATE-BACKEND-123
+# DOC_ID: DOC-CORE-CORE-SQLITE-STATE-BACKEND-SQLITE-STATE-BACKEND-001
 
 import ast
 import json

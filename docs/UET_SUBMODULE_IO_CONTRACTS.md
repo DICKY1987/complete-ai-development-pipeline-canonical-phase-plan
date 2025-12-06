@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-UET-SUBMODULE-IO-CONTRACTS-478
+doc_id: DOC-GUIDE-UET-SUBMODULE-IO-CONTRACTS-MD-001
 ---
 
 # UET Submodule I/O Contracts v1.0

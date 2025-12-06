@@ -1,2 +1,2 @@
 """Core TUI framework components."""
-# DOC_LINK: DOC-CORE-CORE-INIT-125
+# DOC_LINK: DOC-CORE-CORE-INIT---INIT---001
