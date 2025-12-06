@@ -1,0 +1,1 @@
+{"timestamp": "2025-12-06T15:00:04.013267+00:00", "type": "patch_failed", "patch_path": "test.patch", "error": "Test error", "confidence": {"overall": 0.75}}

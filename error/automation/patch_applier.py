@@ -292,11 +292,82 @@ class PatchApplier:
             return {'status': 'failed', 'error': str(e)}
     
     def _create_pr_with_auto_merge(self, patch_path: Path) -> Dict[str, Any]:
-        """Create PR with auto-merge enabled."""
-        return {
-            'status': 'pr_created',
-            'message': 'PR creation placeholder - integrate with GitHub API'
-        }
+        """Create PR with auto-merge enabled for medium-confidence patches.
+        
+        Pattern: EXEC-003 - Tool availability guard with graceful fallback
+        """
+        try:
+            # Import PR creator (lazy to avoid dependency if not used)
+            from error.automation.pr_creator import PRCreator
+            
+            # Get repo info from git config
+            repo_info = self._get_repo_info()
+            
+            # Create PR
+            creator = PRCreator(
+                repo_owner=repo_info['owner'],
+                repo_name=repo_info['name']
+            )
+            
+            # Get confidence score from last validation
+            confidence = self._last_confidence_score
+            
+            result = creator.create_pr_with_auto_merge(
+                patch_path=patch_path,
+                confidence=confidence.to_dict() if hasattr(confidence, 'to_dict') else {
+                    'overall': confidence.overall,
+                    'tests_passed': confidence.tests_passed,
+                    'lint_passed': confidence.lint_passed,
+                    'type_check_passed': confidence.type_check_passed,
+                    'security_scan_passed': confidence.security_scan_passed,
+                    'coverage_maintained': confidence.coverage_maintained
+                }
+            )
+            
+            return result
+            
+        except (ImportError, ValueError) as e:
+            # Graceful fallback: Queue for manual PR creation
+            return {
+                'status': 'pr_creation_failed',
+                'error': str(e),
+                'fallback': 'Patch queued for manual PR creation'
+            }
+    
+    def _get_repo_info(self) -> Dict[str, str]:
+        """Extract repo owner/name from git remote.
+        
+        Returns:
+            Dict with 'owner' and 'name' keys
+            
+        Raises:
+            ValueError: If remote URL cannot be parsed
+        """
+        result = subprocess.run(
+            ['git', 'remote', 'get-url', 'origin'],
+            cwd=self.repo_path,
+            capture_output=True,
+            text=True,
+            check=True
+        )
+        
+        # Parse: git@github.com:owner/repo.git or https://github.com/owner/repo.git
+        url = result.stdout.strip()
+        
+        if 'github.com' in url:
+            # Extract owner and repo name
+            if url.startswith('git@'):
+                # SSH format: git@github.com:owner/repo.git
+                parts = url.split(':')[1].split('/')
+            else:
+                # HTTPS format: https://github.com/owner/repo.git
+                parts = url.split('/')[-2:]
+            
+            owner = parts[0]
+            name = parts[1].replace('.git', '')
+            return {'owner': owner, 'name': name}
+        
+        raise ValueError(f"Could not parse GitHub repo from remote: {url}")
     
     def _queue_for_manual_review(
         self,
