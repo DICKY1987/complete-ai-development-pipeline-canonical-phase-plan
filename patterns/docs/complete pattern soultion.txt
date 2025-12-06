@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-PAT-COMPLETE-PATTERN-SOULTION-322
+doc_id: DOC-PAT-COMPLETE-PATTERN-SOULTION-TXT-001
 ---
 
 i think the files in the folder provide the complete soultion: "C:\Users\richg\ALL_AI\Complete AI

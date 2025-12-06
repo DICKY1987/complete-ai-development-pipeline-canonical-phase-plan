@@ -10,7 +10,7 @@ from gui.tui_app.core.panel_registry import register_panel
 
 class PatternActivityWidget(Static):
     """Pattern activity widget with auto-refresh capability."""
-# DOC_ID: DOC-PAT-PANELS-PATTERN-ACTIVITY-PANEL-467
+# DOC_ID: DOC-PAT-PANELS-PATTERN-ACTIVITY-PANEL-PATTERN-ACTIVITY-PANEL-001
 
     def __init__(self, context: PanelContext):
         super().__init__("", id="pattern-activity-content")

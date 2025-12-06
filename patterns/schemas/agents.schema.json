@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "DOC-PAT-AGENTS-739",
+  "$id": "DOC-PAT-AGENTS-SCHEMA-022",
   "title": "PAT-AGENTS-739 Pattern Instance",
   "type": "object",
   "required": [

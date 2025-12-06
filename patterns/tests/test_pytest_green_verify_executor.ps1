@@ -1,4 +1,4 @@
-# DOC_LINK: DOC-PAT-PYTEST-GREEN-VERIFY-002
+# DOC_LINK: DOC-PAT-PYTEST-GREEN-VERIFY-INSTANCE-TEST-003
 # Comprehensive tests for pytest_green_verify pattern executor
 
 Describe "pytest_green_verify pattern executor" {
@@ -23,7 +23,7 @@ Describe "pytest_green_verify pattern executor" {
 
         It "Should have DOC_LINK header" {
             $content = Get-Content $ExecutorPath -Raw
-            $content | Should -Match "# DOC_LINK: DOC-PAT-PYTEST-GREEN-VERIFY-002"
+            $content | Should -Match "# DOC_LINK: DOC-PAT-PYTEST-GREEN-VERIFY-INSTANCE-TEST-003"
         }
 
         It "Should accept InstancePath parameter" {
@@ -50,7 +50,7 @@ Describe "pytest_green_verify pattern executor" {
     Context "Core Functionality" {
         It "Should return result structure" {
             $testInstance = @{
-                doc_id = "DOC-PAT-PYTEST-GREEN-VERIFY-002"
+                doc_id = "DOC-PAT-PYTEST-GREEN-VERIFY-INSTANCE-TEST-003"
                 pattern_id = "PAT-PYTEST-GREEN-VERIFY-002"
                 inputs = @{
                     test_path = "$TestRoot"

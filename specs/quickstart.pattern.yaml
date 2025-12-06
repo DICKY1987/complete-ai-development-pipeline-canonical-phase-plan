@@ -1,8 +1,8 @@
-# DOC-PAT-QUICKSTART-830
+# DOC-PAT-QUICKSTART-SPEC-001
 pattern_id: PAT-QUICKSTART-830
 name: quickstart
 version: 1.0.0
-doc_id: DOC-PAT-QUICKSTART-830
+doc_id: DOC-PAT-QUICKSTART-SPEC-001
 
 metadata:
   created: 2025-12-02

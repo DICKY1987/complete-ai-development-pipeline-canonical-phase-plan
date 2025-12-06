@@ -1,4 +1,4 @@
-# DOC_LINK: DOC-PAT-BATCH-FILE-CREATION-001
+# DOC_LINK: DOC-PAT-BATCH-FILE-CREATION-BATCH-FILE-CREATION-EXECUTOR-001
 # Pattern: batch_file_creation (PAT-BATCH-FILE-CREATION-001)
 # Version: 1.0.0
 # Category: parallel
@@ -23,7 +23,7 @@ if (-not (Test-Path $InstancePath)) {
 
 $instance = Get-Content $InstancePath -Raw | ConvertFrom-Json
 Test-PatternInstance -Instance $instance `
-    -ExpectedDocId "DOC-PAT-BATCH-FILE-CREATION-001" `
+    -ExpectedDocId "DOC-PAT-BATCH-FILE-CREATION-BATCH-FILE-CREATION-EXECUTOR-001" `
     -ExpectedPatternId "PAT-BATCH-FILE-CREATION-001"
 
 # Extract inputs

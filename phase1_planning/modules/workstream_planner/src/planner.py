@@ -3,7 +3,7 @@ This module provides a draft automated planner for generating workstream bundles
 For now, it contains function skeletons and docstrings, serving as a placeholder
 for future v2.0 automation.
 """
-# DOC_ID: DOC-CORE-PLANNING-PLANNER-166
+# DOC_ID: DOC-CORE-PLANNING-PLANNER-PLANNER-001
 
 from typing import Any, Dict, List, Optional
 

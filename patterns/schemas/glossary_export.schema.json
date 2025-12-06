@@ -17,7 +17,7 @@
     },
     "doc_id": {
       "type": "string",
-      "const": "DOC-GLOSSARY-EXPORT-001",
+      "const": "DOC-PAT-GLOSSARY-EXPORT-SCHEMA-117",
       "pattern": "^DOC-[A-Z0-9-]+$",
       "description": "Document ID for this pattern"
     },

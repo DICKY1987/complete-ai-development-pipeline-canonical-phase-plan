@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "DOC-PAT-SESSION-BOOTSTRAP-001",
+  "$id": "DOC-PAT-SESSION-BOOTSTRAP-SCHEMA-181",
   "title": "PAT-SESSION-BOOTSTRAP-001 Pattern Instance",
   "type": "object",
   "required": [

@@ -13,7 +13,7 @@ class BootstrapValidator:
         self, project_profile_path: str, router_config_path: str, profile_id: str
     ):
         """Load artifacts to validate"""
-        # DOC_ID: DOC-CORE-BOOTSTRAP-VALIDATOR-142
+        # DOC_ID: DOC-CORE-BOOTSTRAP-VALIDATOR-VALIDATOR-001
         self.project_profile_path = Path(project_profile_path)
         self.router_config_path = Path(router_config_path)
         self.profile_id = profile_id

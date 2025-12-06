@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "DOC-PAT-UET-2025-ANTI-PATTERN-FORENSICS-769",
+  "$id": "DOC-PAT-UET-2025-ANTI-PATTERN-FORENSICS.SCHEMA-SCHEMA-001",
   "title": "PAT-UET-2025-ANTI-PATTERN-FORENSICS-769 Pattern Instance",
   "type": "object",
   "required": [
@@ -27,5 +27,5 @@
       "additionalProperties": true
     }
   },
-  "doc_id": "DOC-PAT-UET-2025-ANTI-PATTERN-FORENSICS-SCHEMA-189"
+  "doc_id": "DOC-PAT-UET-2025-ANTI-PATTERN-FORENSICS.SCHEMA-SCHEMA-001"
 }

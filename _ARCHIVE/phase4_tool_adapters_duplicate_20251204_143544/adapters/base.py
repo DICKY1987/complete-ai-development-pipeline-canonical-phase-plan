@@ -3,7 +3,7 @@
 Abstract interface for tool adapters.
 """
 
-# DOC_ID: DOC-CORE-ADAPTERS-BASE-133
+# DOC_ID: DOC-CORE-ADAPTERS-BASE-BASE-001
 
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field

@@ -1,4 +1,4 @@
-# DOC_LINK: DOC-CORE-PLANNING-ARCHIVE-164
+# DOC_LINK: DOC-CORE-PLANNING-ARCHIVE-PY-002
 from __future__ import annotations
 
 import shutil

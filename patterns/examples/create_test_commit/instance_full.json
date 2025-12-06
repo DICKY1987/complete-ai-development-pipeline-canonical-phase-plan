@@ -4,7 +4,7 @@
     "created": "2025-11-24",
     "category": "sequential"
   },
-  "doc_id": "DOC-PAT-CREATE-TEST-COMMIT-001",
+  "doc_id": "DOC-PAT-CREATE-TEST-COMMIT-INSTANCE-FULL-001",
   "inputs": {
     "instance_path": "path/to/instance.json"
   },

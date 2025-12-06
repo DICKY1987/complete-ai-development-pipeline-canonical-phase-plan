@@ -1,4 +1,4 @@
-# DOC_LINK: DOC-PAT-VIEW-EDIT-VERIFY-003
+# DOC_LINK: DOC-PAT-VIEW-EDIT-VERIFY-INSTANCE-TEST-002
 # Comprehensive tests for view_edit_verify pattern executor
 
 Describe "view_edit_verify pattern executor" {
@@ -27,7 +27,7 @@ Describe "view_edit_verify pattern executor" {
 
         It "Executor should have DOC_LINK header" {
             $content = Get-Content $ExecutorPath -Raw
-            $content | Should -Match "# DOC_LINK: DOC-PAT-VIEW-EDIT-VERIFY-003"
+            $content | Should -Match "# DOC_LINK: DOC-PAT-VIEW-EDIT-VERIFY-INSTANCE-TEST-002"
         }
 
         It "Should accept InstancePath parameter" {
@@ -52,7 +52,7 @@ Describe "view_edit_verify pattern executor" {
 
         It "Should validate instance pattern_id" {
             $testInstance = @{
-                doc_id = "DOC-PAT-VIEW-EDIT-VERIFY-003"
+                doc_id = "DOC-PAT-VIEW-EDIT-VERIFY-INSTANCE-TEST-002"
                 pattern_id = "INVALID"
                 inputs = @{}
             } | ConvertTo-Json

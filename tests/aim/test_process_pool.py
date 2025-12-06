@@ -4,7 +4,7 @@ Tests process pool functionality with mocked subprocesses.
 Covers initialization, I/O operations, error handling, and cleanup.
 """
 
-# DOC_ID: DOC-TEST-AIM-PROCESS-POOL-001
+# DOC_ID: DOC-TEST-AIM-PROCESS-POOL-INSTANCE-TEST-001
 
 import queue
 import time

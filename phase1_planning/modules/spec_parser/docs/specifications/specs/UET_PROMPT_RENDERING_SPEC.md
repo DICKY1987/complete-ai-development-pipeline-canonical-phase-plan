@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-CORE-UET-PROMPT-RENDERING-SPEC-197
+doc_id: DOC-CORE-UET-PROMPT-RENDERING-SPEC-MD-001
 ---
 
 Nice, this is the fun one.

@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "DOC-PAT-ENHANCEMENT-PHASE-PLAN-819",
+  "$id": "DOC-PAT-ENHANCEMENT-PHASE-PLAN-SCHEMA-037",
   "title": "PAT-ENHANCEMENT-PHASE-PLAN-819 Pattern Instance",
   "type": "object",
   "required": [

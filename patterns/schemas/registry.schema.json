@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "DOC-PAT-REGISTRY-833",
+  "$id": "DOC-PAT-REGISTRY-SCHEMA-165",
   "title": "PAT-REGISTRY-833 Pattern Instance",
   "type": "object",
   "required": [

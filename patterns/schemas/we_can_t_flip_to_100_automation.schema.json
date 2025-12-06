@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "DOC-PAT-WE-CAN-T-FLIP-TO-100-AUTOMATION-771",
+  "$id": "DOC-PAT-WE-CAN-T-FLIP-TO-100-AUTOMATION-SCHEMA-193",
   "title": "PAT-WE-CAN-T-FLIP-TO-100-AUTOMATION-771 Pattern Instance",
   "type": "object",
   "required": [

@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "DOC-PAT-CODEX-EXECUTION-INSTRUCTIONS-744",
+  "$id": "DOC-PAT-CODEX-EXECUTION-INSTRUCTIONS-SCHEMA-034",
   "title": "PAT-CODEX-EXECUTION-INSTRUCTIONS-744 Pattern Instance",
   "type": "object",
   "required": [

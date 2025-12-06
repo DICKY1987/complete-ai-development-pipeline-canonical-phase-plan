@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "DOC-PAT-MASTER-INDEX-802",
+  "$id": "DOC-PAT-MASTER-INDEX-SCHEMA-080",
   "title": "PAT-MASTER-INDEX-802 Pattern Instance",
   "type": "object",
   "required": [

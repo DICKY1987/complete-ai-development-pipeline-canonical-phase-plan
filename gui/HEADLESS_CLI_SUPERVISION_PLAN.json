@@ -2017,7 +2017,7 @@
   },
   "references": {
     "source_documents": [
-      "gui/guiimprove.md - DOC-SPEC-HEADLESS-CLI-SUPERVISION-001",
+      "gui/guiimprove.md - DOC-CONFIG-HEADLESS-CLI-SUPERVISION-PLAN-269",
       "gui/guiimprove.md - HEADLESS_CLI_EXECUTION_SPEC_V1",
       "gui/HEADLESS_CLI_SUPERVISION_GAP_ANALYSIS.md - Gap analysis identifying 11 critical gaps"
     ],

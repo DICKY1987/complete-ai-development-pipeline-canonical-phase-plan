@@ -1,4 +1,4 @@
-# DOC_LINK: DOC-PAT-CREATE-TEST-COMMIT-001
+# DOC_LINK: DOC-PAT-CREATE-TEST-COMMIT-INSTANCE-TEST-003
 # Comprehensive tests for create_test_commit pattern executor
 
 Describe "create_test_commit pattern executor" {
@@ -18,7 +18,7 @@ Describe "create_test_commit pattern executor" {
 
         It "Should have DOC_LINK header" {
             $content = Get-Content $ExecutorPath -Raw
-            $content | Should -Match "# DOC_LINK: DOC-PAT-CREATE-TEST-COMMIT-001"
+            $content | Should -Match "# DOC_LINK: DOC-PAT-CREATE-TEST-COMMIT-INSTANCE-TEST-003"
         }
     }
 
@@ -26,7 +26,7 @@ Describe "create_test_commit pattern executor" {
         It "Should create file when tests pass" {
             $testFile = Join-Path $TestRoot "success.txt"
             $testInstance = @{
-                doc_id = "DOC-PAT-CREATE-TEST-COMMIT-001"
+                doc_id = "DOC-PAT-CREATE-TEST-COMMIT-INSTANCE-TEST-003"
                 pattern_id = "PAT-CREATE-TEST-COMMIT-001"
                 inputs = @{
                     file_path = $testFile
@@ -48,7 +48,7 @@ Describe "create_test_commit pattern executor" {
         It "Should rollback file when tests fail" {
             $testFile = Join-Path $TestRoot "fail.txt"
             $testInstance = @{
-                doc_id = "DOC-PAT-CREATE-TEST-COMMIT-001"
+                doc_id = "DOC-PAT-CREATE-TEST-COMMIT-INSTANCE-TEST-003"
                 pattern_id = "PAT-CREATE-TEST-COMMIT-001"
                 inputs = @{
                     file_path = $testFile
@@ -70,7 +70,7 @@ Describe "create_test_commit pattern executor" {
         It "Should handle nested directory creation" {
             $testFile = Join-Path $TestRoot "deep\nested\test.txt"
             $testInstance = @{
-                doc_id = "DOC-PAT-CREATE-TEST-COMMIT-001"
+                doc_id = "DOC-PAT-CREATE-TEST-COMMIT-INSTANCE-TEST-003"
                 pattern_id = "PAT-CREATE-TEST-COMMIT-001"
                 inputs = @{
                     file_path = $testFile

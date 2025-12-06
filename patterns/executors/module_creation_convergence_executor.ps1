@@ -1,4 +1,4 @@
-# DOC_LINK: DOC-PAT-MODULE-CREATION-CONVERGENCE-001
+# DOC_LINK: DOC-PAT-MODULE-CREATION-CONVERGENCE-MODULE-CREATION-CONVERGENCE-EXECUTOR-001
 # Pattern: module_creation_convergence (PAT-MODULE-CREATION-CONVERGENCE-001)
 # Version: 1.0.0
 # Category: template
@@ -23,7 +23,7 @@ if (-not (Test-Path $InstancePath)) {
 
 $instance = Get-Content $InstancePath -Raw | ConvertFrom-Json
 Test-PatternInstance -Instance $instance `
-    -ExpectedDocId "DOC-PAT-MODULE-CREATION-CONVERGENCE-001" `
+    -ExpectedDocId "DOC-PAT-MODULE-CREATION-CONVERGENCE-MODULE-CREATION-CONVERGENCE-EXECUTOR-001" `
     -ExpectedPatternId "PAT-MODULE-CREATION-CONVERGENCE-001"
 
 # Extract inputs

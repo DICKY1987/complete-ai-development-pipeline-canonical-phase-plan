@@ -3,7 +3,7 @@
 Provides interfaces for panels to access pattern execution state
 and events for visualization.
 """
-# DOC_ID: DOC-CORE-CORE-PATTERN-CLIENT-122
+# DOC_ID: DOC-CORE-CORE-PATTERN-CLIENT-PATTERN-CLIENT-002
 
 from abc import ABC, abstractmethod
 from dataclasses import dataclass

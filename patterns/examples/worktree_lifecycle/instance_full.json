@@ -1,6 +1,6 @@
 {
   "pattern_id": "PAT-WORKTREE-LIFECYCLE-001",
-  "doc_id": "DOC-WORKTREE-LIFECYCLE-001",
+  "doc_id": "DOC-WORKTREE-LIFECYCLE-INSTANCE-FULL-001",
   "metadata": {
     "created": "2025-11-24",
     "description": "Full example for worktree_lifecycle pattern"

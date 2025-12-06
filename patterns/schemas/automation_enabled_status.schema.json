@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "DOC-PAT-AUTOMATION-ENABLED-STATUS-741",
+  "$id": "DOC-PAT-AUTOMATION-ENABLED-STATUS-SCHEMA-032",
   "title": "PAT-AUTOMATION-ENABLED-STATUS-741 Pattern Instance",
   "type": "object",
   "required": [

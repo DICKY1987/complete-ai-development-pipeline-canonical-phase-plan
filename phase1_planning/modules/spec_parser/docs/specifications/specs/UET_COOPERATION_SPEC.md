@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-CORE-UET-COOPERATION-SPEC-193
+doc_id: DOC-CORE-UET-COOPERATION-SPEC-MD-001
 ---
 
 Here’s a structured formalization of **COOPERATION_SPEC** as a *framework-level spec*, in the same style as the others (PROMPT / TASK_ROUTING / PATCH).

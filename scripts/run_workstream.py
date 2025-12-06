@@ -19,7 +19,7 @@ from typing import Any, Dict
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from core.engine.orchestrator import Orchestrator
-from core.state.bundles import load_bundle
+from core.state.bundles import load_bundle_file as load_bundle
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -87,12 +87,30 @@ def main(argv: list[str] | None = None) -> int:
 
             bundle = load_bundle(bundle_path)
             
-            # TODO: Convert bundle to Plan format and execute
-            # For now, return informational message
+            # Execute the bundle directly via orchestrator
+            from core.engine.orchestrator import Orchestrator
+            
             print(f"✅ Loaded workstream: {bundle.get('id')}")
             print(f"📋 Title: {bundle.get('title', 'N/A')}")
             print(f"🔧 Tool: {bundle.get('tool', 'N/A')}")
             print(f"✓ Steps: {len(bundle.get('steps', []))}")
+            
+            # Execute the workstream bundle
+            orchestrator = Orchestrator()
+            result = orchestrator.run(
+                workstream_id=ws_id,
+                bundle=bundle,
+                run_id=args.run_id,
+                dry_run=args.dry_run
+            )
+            
+            if result and result.get('success'):
+                print(f"\n✅ Workstream completed successfully!")
+                return 0
+            else:
+                error_msg = result.get('error', 'Unknown error') if result else 'Execution failed'
+                print(f"\n❌ Workstream failed: {error_msg}")
+                return 1
             print()
             print("⚠️  Note: Bundle-to-Plan conversion not yet implemented.")
             print("   Use --plan flag to execute JSON plan directly.")

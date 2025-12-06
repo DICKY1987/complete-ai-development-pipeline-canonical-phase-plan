@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-SESSION-TRANSCRIPT-PH-011-756
+doc_id: DOC-GUIDE-SESSION-TRANSCRIPT-PH-011-MD-001
 ---
 
 # Complete Session Transcript: PH-011 AI Codebase Optimization

@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-CORE-MULTI-INSTANCE-CLI-CONTROL-PHASE-PLAN-629
+doc_id: DOC-CORE-MULTI-INSTANCE-CLI-CONTROL-PHASE-PLAN-MD-001
 ---
 
 # Multi-Instance CLI Control - 3-Week Phase Plan

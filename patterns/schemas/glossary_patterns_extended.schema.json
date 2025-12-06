@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "DOC-PAT-GLOSSARY-PATTERNS-EXTENDED-749",
+  "$id": "DOC-PAT-GLOSSARY-PATTERNS-EXTENDED-SCHEMA-071",
   "title": "PAT-GLOSSARY-PATTERNS-EXTENDED-749 Pattern Instance",
   "type": "object",
   "required": [

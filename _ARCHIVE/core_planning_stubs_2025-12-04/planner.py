@@ -4,7 +4,7 @@ For now, it contains function skeletons and docstrings, serving as a placeholder
 for future v2.0 automation.
 """
 
-# DOC_ID: DOC-CORE-PLANNING-PLANNER-166
+# DOC_ID: DOC-CORE-PLANNING-PLANNER-PY-001
 
 from typing import Any, Dict, List, Optional
 

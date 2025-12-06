@@ -9,7 +9,7 @@
     },
     "doc_id": {
       "type": "string",
-      "const": "DOC-WORKTREE-LIFECYCLE-001",
+      "const": "DOC-PAT-WORKTREE-LIFECYCLE-SCHEMA-131",
       "pattern": "^DOC-[A-Z0-9-]+$"
     },
     "inputs": {

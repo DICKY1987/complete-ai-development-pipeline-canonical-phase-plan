@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "DOC-PAT-TEST-SUITE-834",
+  "$id": "DOC-PAT-TEST-SUITE-SCHEMA-188",
   "title": "PAT-TEST-SUITE-834 Pattern Instance",
   "type": "object",
   "required": [

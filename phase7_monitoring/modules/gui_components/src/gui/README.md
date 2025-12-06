@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-README-427
+doc_id: DOC-GUIDE-README-README-001
 ---
 
 # GUI Components and Design Documentation

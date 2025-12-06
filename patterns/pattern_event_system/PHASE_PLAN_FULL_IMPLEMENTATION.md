@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-PAT-PHASE-PLAN-FULL-IMPLEMENTATION-987
+doc_id: DOC-PAT-PHASE-PLAN-FULL-IMPLEMENTATION-MD-001
 ---
 
 # Pattern Automation System - Full Implementation Phase Plan

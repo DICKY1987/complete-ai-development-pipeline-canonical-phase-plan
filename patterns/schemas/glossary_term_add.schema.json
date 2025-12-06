@@ -17,7 +17,7 @@
     },
     "doc_id": {
       "type": "string",
-      "const": "DOC-GLOSSARY-TERM-ADD-001",
+      "const": "DOC-PAT-GLOSSARY-TERM-ADD-SCHEMA-076",
       "pattern": "^DOC-[A-Z0-9-]+$",
       "description": "Document ID for this pattern"
     },

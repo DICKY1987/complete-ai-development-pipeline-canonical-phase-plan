@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-README-100
+doc_id: DOC-GUIDE-README-README-002
 ---
 
 # Aider Integration Documentation

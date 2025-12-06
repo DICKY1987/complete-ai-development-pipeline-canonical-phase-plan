@@ -10,7 +10,7 @@ from gui.tui_app.core.panel_registry import PanelRegistry, register_panel
 class MockPanel:
     """Mock panel for testing."""
 
-    # DOC_ID: DOC-TEST-TUI-PANEL-FRAMEWORK-TEST-PANEL-REGISTRY-157
+    # DOC_ID: DOC-TEST-TUI-PANEL-FRAMEWORK-TEST-PANEL-REGISTRY-INSTANCE-TEST-001
 
     @property
     def panel_id(self) -> str:

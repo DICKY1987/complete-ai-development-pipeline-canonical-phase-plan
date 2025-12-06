@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "DOC-PAT-MODULE-CENTRIC-REFACTOR-PLAN-WITH-753",
+  "$id": "DOC-PAT-MODULE-CENTRIC-REFACTOR-PLAN-WITH-SCHEMA-081",
   "title": "PAT-MODULE-CENTRIC-REFACTOR-PLAN-WITH-753 Pattern Instance",
   "type": "object",
   "required": [

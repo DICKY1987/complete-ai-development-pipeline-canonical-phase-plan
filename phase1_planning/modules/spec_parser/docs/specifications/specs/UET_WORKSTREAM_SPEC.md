@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-CORE-UET-WORKSTREAM-SPEC-199
+doc_id: DOC-CORE-UET-WORKSTREAM-SPEC-MD-001
 ---
 
 Here’s a clean formalization of **WORKSTREAM_SPEC** that fits with everything we already defined (PHASE_SPEC_MASTER, ExecutionRequest, PromptInstance, Patch, Run, etc.).

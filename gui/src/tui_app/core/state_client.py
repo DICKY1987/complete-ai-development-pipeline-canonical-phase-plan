@@ -4,7 +4,7 @@ Provides a clean API for panels to read pipeline state without
 directly coupling to the underlying storage mechanism.
 """
 
-# DOC_ID: DOC-CORE-CORE-STATE-CLIENT-124
+# DOC_ID: DOC-CORE-CORE-STATE-CLIENT-STATE-CLIENT-001
 
 from abc import ABC, abstractmethod
 from dataclasses import dataclass

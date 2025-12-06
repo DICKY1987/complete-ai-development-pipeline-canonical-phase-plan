@@ -1,5 +1,5 @@
 ---
-doc_id: DOC-GUIDE-QUICKSTART-218
+doc_id: DOC-GUIDE-QUICKSTART-MD-001
 ---
 
 # Quick Start Guide - AI Logs Analyzer

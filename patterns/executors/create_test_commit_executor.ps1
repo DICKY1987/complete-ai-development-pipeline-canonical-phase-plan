@@ -1,4 +1,4 @@
-# DOC_LINK: DOC-PAT-CREATE-TEST-COMMIT-001
+# DOC_LINK: DOC-PAT-CREATE-TEST-COMMIT-INSTANCE-TEST-002
 # Pattern: create_test_commit (PAT-CREATE-TEST-COMMIT-001)
 # Version: 1.0.0
 # Category: sequential
@@ -23,7 +23,7 @@ if (-not (Test-Path $InstancePath)) {
 
 $instance = Get-Content $InstancePath -Raw | ConvertFrom-Json
 Test-PatternInstance -Instance $instance `
-    -ExpectedDocId "DOC-PAT-CREATE-TEST-COMMIT-001" `
+    -ExpectedDocId "DOC-PAT-CREATE-TEST-COMMIT-INSTANCE-TEST-002" `
     -ExpectedPatternId "PAT-CREATE-TEST-COMMIT-001"
 
 # Extract inputs

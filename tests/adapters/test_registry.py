@@ -18,7 +18,7 @@ from core.adapters.subprocess_adapter import SubprocessAdapter
 class TestAdapterRegistry:
     """Test AdapterRegistry functionality"""
 
-    # DOC_ID: DOC-TEST-ADAPTERS-TEST-REGISTRY-167
+    # DOC_ID: DOC-TEST-ADAPTERS-TEST-REGISTRY-INSTANCE-TEST-001
 
     def test_create_empty_registry(self):
         """Test creating an empty registry"""

@@ -1,8 +1,8 @@
-# DOC-PAT-REGISTRY-833
+# DOC-PAT-REGISTRY-SPEC-001
 pattern_id: PAT-REGISTRY-833
 name: registry
 version: 1.0.0
-doc_id: DOC-PAT-REGISTRY-833
+doc_id: DOC-PAT-REGISTRY-SPEC-001
 
 metadata:
   created: 2025-12-02

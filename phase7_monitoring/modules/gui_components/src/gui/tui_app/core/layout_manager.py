@@ -2,7 +2,7 @@
 
 Manages panel mounting and layout configuration.
 """
-# DOC_ID: DOC-CORE-CORE-LAYOUT-MANAGER-119
+# DOC_ID: DOC-CORE-CORE-LAYOUT-MANAGER-LAYOUT-MANAGER-001
 
 from typing import Optional
 from textual.app import ComposeResult

@@ -1,4 +1,4 @@
-# DOC_LINK: DOC-PAT-DECISION-ELIMINATION-BOOTSTRAP-001
+# DOC_LINK: DOC-PAT-DECISION-ELIMINATION-BOOTSTRAP-DECISION-ELIMINATION-BOOTSTRAP-EXECUTOR-001
 # Pattern: decision_elimination_bootstrap (PAT-DECISION-ELIMINATION-BOOTSTRAP-001)
 # Version: 1.0.0
 # Category: meta
@@ -23,7 +23,7 @@ if (-not (Test-Path $InstancePath)) {
 
 $instance = Get-Content $InstancePath -Raw | ConvertFrom-Json
 Test-PatternInstance -Instance $instance `
-    -ExpectedDocId "DOC-PAT-DECISION-ELIMINATION-BOOTSTRAP-001" `
+    -ExpectedDocId "DOC-PAT-DECISION-ELIMINATION-BOOTSTRAP-DECISION-ELIMINATION-BOOTSTRAP-EXECUTOR-001" `
     -ExpectedPatternId "PAT-DECISION-ELIMINATION-BOOTSTRAP-001"
 
 # Extract inputs

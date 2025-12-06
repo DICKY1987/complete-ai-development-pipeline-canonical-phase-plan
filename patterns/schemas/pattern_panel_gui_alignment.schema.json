@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "DOC-PAT-PATTERN-PANEL-GUI-ALIGNMENT-760",
+  "$id": "DOC-PAT-PATTERN-PANEL-GUI-ALIGNMENT-SCHEMA-133",
   "title": "PAT-PATTERN-PANEL-GUI-ALIGNMENT-760 Pattern Instance",
   "type": "object",
   "required": [

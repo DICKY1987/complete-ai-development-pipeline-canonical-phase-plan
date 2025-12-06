@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Documentation Organization Validator
-Implements DOC-ORG-CHK-001 through DOC-ORG-CHK-006
+Implements DOC-SCRIPT-TOOLS-VALIDATE-DOC-ORG-369 through DOC-ORG-CHK-006
 """
 # DOC_ID: DOC-SCRIPT-TOOLS-VALIDATE-DOC-ORG-369
 # DOC_ID: DOC-SCRIPT-TOOLS-VALIDATE-DOC-ORG-356

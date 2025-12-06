@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "DOC-PAT-ADMINISTRATOR-POWERSHELL-738",
+  "$id": "DOC-PAT-ADMINISTRATOR-POWERSHELL-SCHEMA-021",
   "title": "PAT-ADMINISTRATOR-POWERSHELL-738 Pattern Instance",
   "type": "object",
   "required": [

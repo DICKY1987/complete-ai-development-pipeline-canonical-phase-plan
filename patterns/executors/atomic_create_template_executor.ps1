@@ -1,4 +1,4 @@
-# DOC_LINK: DOC-PAT-ATOMIC-CREATE-TEMPLATE-001
+# DOC_LINK: DOC-PAT-ATOMIC-CREATE-TEMPLATE-ATOMIC-CREATE-TEMPLATE-EXECUTOR-001
 # Pattern: atomic_create_template (PAT-ATOMIC-CREATE-TEMPLATE-001)
 # Version: 1.0.0
 # Category: execution
@@ -23,7 +23,7 @@ if (-not (Test-Path $InstancePath)) {
 
 $instance = Get-Content $InstancePath -Raw | ConvertFrom-Json
 Test-PatternInstance -Instance $instance `
-    -ExpectedDocId "DOC-PAT-ATOMIC-CREATE-TEMPLATE-001" `
+    -ExpectedDocId "DOC-PAT-ATOMIC-CREATE-TEMPLATE-ATOMIC-CREATE-TEMPLATE-EXECUTOR-001" `
     -ExpectedPatternId "PAT-ATOMIC-CREATE-TEMPLATE-001"
 
 # Extract inputs

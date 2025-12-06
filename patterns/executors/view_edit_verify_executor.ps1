@@ -1,4 +1,4 @@
-# DOC_LINK: DOC-PAT-VIEW-EDIT-VERIFY-003
+# DOC_LINK: DOC-PAT-VIEW-EDIT-VERIFY-VIEW-EDIT-VERIFY-EXECUTOR-001
 # Pattern: view_edit_verify (PAT-VIEW-EDIT-VERIFY-003)
 # Version: 1.0.0
 # Category: sequential
@@ -23,7 +23,7 @@ if (-not (Test-Path $InstancePath)) {
 
 $instance = Get-Content $InstancePath -Raw | ConvertFrom-Json
 Test-PatternInstance -Instance $instance `
-    -ExpectedDocId "DOC-PAT-VIEW-EDIT-VERIFY-003" `
+    -ExpectedDocId "DOC-PAT-VIEW-EDIT-VERIFY-VIEW-EDIT-VERIFY-EXECUTOR-001" `
     -ExpectedPatternId "PAT-VIEW-EDIT-VERIFY-003"
 
 # Extract inputs

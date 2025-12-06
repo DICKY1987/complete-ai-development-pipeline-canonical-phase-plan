@@ -3,7 +3,7 @@
 This module demonstrates how to use the event bus, file lifecycle tracking,
 error records, and tool instrumentation to create a fully observable pipeline.
 """
-# DOC_ID: DOC-PAT-GUI-UI-INFRASTRUCTURE-USAGE-653
+# DOC_ID: DOC-PAT-GUI-UI-INFRASTRUCTURE-USAGE-UI-INFRASTRUCTURE-USAGE-001
 
 from pathlib import Path
 

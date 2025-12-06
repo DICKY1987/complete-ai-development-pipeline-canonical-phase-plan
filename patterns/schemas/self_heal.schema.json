@@ -9,7 +9,7 @@
     },
     "doc_id": {
       "type": "string",
-      "const": "DOC-SELF-HEAL-001",
+      "const": "DOC-PAT-SELF-HEAL-SCHEMA-127",
       "pattern": "^DOC-[A-Z0-9-]+$"
     },
     "inputs": {

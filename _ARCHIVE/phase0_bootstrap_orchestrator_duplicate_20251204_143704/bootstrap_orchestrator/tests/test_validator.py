@@ -1,6 +1,6 @@
 """Tests for Bootstrap Validation Engine - WS-02-03A
 
-DOC_ID: DOC-TEST-BOOTSTRAP-TEST-VALIDATOR-171
+DOC_ID: DOC-TEST-BOOTSTRAP-TEST-VALIDATOR-INSTANCE-TEST-001
 """
 
 import pytest
@@ -29,7 +29,7 @@ FIXTURES_DIR = Path(__file__).parent / "fixtures"
 @pytest.fixture
 def setup_fixtures(tmp_path):
     """Create test fixtures"""
-    # DOC_ID: DOC-TEST-BOOTSTRAP-TEST-VALIDATOR-171
+    # DOC_ID: DOC-TEST-BOOTSTRAP-TEST-VALIDATOR-INSTANCE-TEST-001
     # Valid PROJECT_PROFILE.yaml
     valid_profile = {
         "project_id": "PRJ-TEST",

@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "DOC-PAT-QUICK-START-AUTOMATION-764",
+  "$id": "DOC-PAT-QUICK-START-AUTOMATION-SCHEMA-162",
   "title": "PAT-QUICK-START-AUTOMATION-764 Pattern Instance",
   "type": "object",
   "required": [

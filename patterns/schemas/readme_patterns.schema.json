@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "DOC-PAT-README-PATTERNS-766",
+  "$id": "DOC-PAT-README-PATTERNS-SCHEMA-164",
   "title": "PAT-README-PATTERNS-766 Pattern Instance",
   "type": "object",
   "required": [

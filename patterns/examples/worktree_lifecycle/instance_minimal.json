@@ -1,6 +1,6 @@
 {
   "pattern_id": "PAT-WORKTREE-LIFECYCLE-001",
-  "doc_id": "DOC-WORKTREE-LIFECYCLE-001",
+  "doc_id": "DOC-WORKTREE-LIFECYCLE-INSTANCE-MIN-001",
   "inputs": {
     "project_root": "C:\\Projects\\Example"
   }

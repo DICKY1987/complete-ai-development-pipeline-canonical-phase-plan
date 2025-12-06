@@ -1,5 +1,5 @@
 {
-  "doc_id": "DOC-PAT-PREFLIGHT-VERIFY-001",
+  "doc_id": "DOC-PAT-PREFLIGHT-VERIFY-INSTANCE-MIN-001",
   "inputs": {
     "fail_fast": false,
     "checks": [

@@ -14,7 +14,7 @@ from core.adapters.base import ExecutionResult, ToolConfig
 class TestToolConfig:
     """Test ToolConfig functionality"""
 
-    # DOC_ID: DOC-TEST-ADAPTERS-TEST-BASE-166
+    # DOC_ID: DOC-TEST-ADAPTERS-TEST-BASE-INSTANCE-TEST-001
 
     def test_create_tool_config(self):
         """Test creating a tool config"""
