@@ -264,6 +264,14 @@
           "output",
           "roadmap"
         ]
+      },
+      "APPENDIX": {
+        "path": "/output_contract/appendix",
+        "description": "Appendix with supporting material",
+        "tags": [
+          "output",
+          "appendix"
+        ]
       }
     },
     "success_criteria": {
@@ -301,12 +309,12 @@
       "The agent may adapt concrete examples (like file paths or language-specific snippets) to the actual repo."
     ],
     "master_variables": {
-      "TARGET_DIR": "C:/Users/richg/ALL_AI/Complete AI Development Pipeline – Canonical Phase Plan/glossary"
+      "TARGET_DIR": "<OPTIONAL_FOCUS_SUBDIRECTORY_WITHIN_REPO_ROOT>"
     }
   },
   "global_instructions": {
     "role": "You are a static + dynamic analysis assistant specializing in code quality, architecture, and automation pipelines.",
-    "overall_mission": "Analyze the repository at <REPO_ROOT_PATH> to:\n1) Detect overlapping implementations, deprecated code, dead/unused code, and redundant functionality.\n2) Reconstruct the end-to-end automation chains (especially CLI-driven pipelines) and identify all chain breaks and gaps.\n3) Classify every step in the automation chain by its automation level.\n4) Deliver concrete, prioritized, technically detailed recommendations to consolidate code and move the system toward fully automated, pattern-based operation.\\n\\nMASTER_MISSION:\\nPerform a complete, direct, and deeply detailed analysis of the repository at TARGET_DIR.",
+    "overall_mission": "Analyze the repository at <REPO_ROOT_PATH> to:\n1) Detect overlapping implementations, deprecated code, dead/unused code, and redundant functionality.\n2) Reconstruct the end-to-end automation chains (especially CLI-driven pipelines) and identify all chain breaks and gaps.\n3) Classify every step in the automation chain by its automation level.\n4) Deliver concrete, prioritized, technically detailed recommendations to consolidate code and move the system toward fully automated, pattern-based operation.\\n\\nMASTER_MISSION:\\nPerform a complete, direct, and deeply detailed analysis of the repository at repo_root (and TARGET_DIR if provided).",
     "analysis_principles": [
       "Be conservative: if you are not certain that something is unused or safe to delete, mark it as 'needs investigation' instead of assuming.",
       "Back every finding with evidence: file paths, line ranges when possible, high-level code snippets or descriptions, and references to tests or CI.",
@@ -326,7 +334,8 @@
       "Be direct, explicit, and code referential.",
       "Do not invent non existent artifacts and clearly mark assumptions.",
       "Prefer depth over breadth.",
-      "Anchor every important claim in specific files, functions, configurations, or logs."
+      "Anchor every important claim in specific files, functions, configurations, or logs.",
+      "Do not output any prose outside the final JSON object; the entire response must be a single valid JSON object that conforms to output_contract."
     ],
     "risk_levels": {
       "Critical": "Actively used in production or core deployment paths; changes require extreme care and strong validation.",
@@ -360,7 +369,7 @@
       "mission": "Understand the repository structure, purpose, main components, tech stack, and key interactions before detailed analysis.",
       "phases": [],
       "detection_methodology": "High-level repository overview; no code modification.",
-      "analysis_instructions": "- Examine TARGET_DIR to understand overall purpose and main responsibilities.\\n- Identify key services or modules and how they interact.\\n- Identify main entry points such as CLIs, APIs, background jobs, or workflows.\\n- Identify the tech stack and major dependencies.\\n- Produce a short high level overview that summarizes what the repo does and how it is structured before going into details."
+      "analysis_instructions": "- Examine repo_root (and TARGET_DIR if provided) to understand overall purpose and main responsibilities.\\n- Identify key services or modules and how they interact.\\n- Identify main entry points such as CLIs, APIs, background jobs, or workflows.\\n- Identify the tech stack and major dependencies.\\n- Produce a short high level overview that summarizes what the repo does and how it is structured before going into details."
     },
     {
       "id": "CODE_OVERLAP_AND_DEPRECATION",
@@ -882,7 +891,8 @@
         "deprecated_items": "List of DEPR-XXX findings with explicit or implicit deprecation details.",
         "dead_or_unused_items": "List of DEAD-XXX findings confirmed as unused.",
         "per_finding_structure": "Use the templates from USAGE_ANALYSIS and OVERLAP_RELATIONSHIP_MAPPING."
-      }
+      },
+      "record_template_ref": "record_templates.finding_record, record_templates.overlap_group_record"
     },
     "automation_chain_report": {
       "description": "End-to-end automation chain map and classification.",
@@ -891,7 +901,8 @@
         "steps": "Per-step records following the step_template.",
         "edges": "Handoffs between steps, explicitly listing BREAK-IDs when breaks exist.",
         "chain_breaks": "List of BREAK-XXX records following chain_break_template."
-      }
+      },
+      "record_template_ref": "record_templates.step_record, record_templates.edge_record, record_templates.chain_break_record"
     },
     "combined_gap_inventory": {
       "description": "Unified table of all gaps from both code overlap/deprecation analysis and automation-chain analysis.",
@@ -905,7 +916,8 @@
         "chain_impact",
         "related_overlap_or_deprecation_ids",
         "related_chain_break_ids"
-      ]
+      ],
+      "record_template_ref": "record_templates.gap_record"
     },
     "consolidation_and_automation_roadmap": {
       "description": "Phased roadmap combining consolidation and automation improvements.",
@@ -943,7 +955,8 @@
             "Generate before/after metrics for automation coverage, LOC reduction, and incident reduction."
           ]
         }
-      ]
+      ],
+      "record_template_ref": "record_templates.action_plan_phases"
     },
     "appendix": {
       "description": "Optional supporting material.",
@@ -972,9 +985,9 @@
   ],
   "execution_order": [
     "Step 1 – Quick Scan: Identify obvious deprecated/legacy markers, suspicious directories, and clear manual steps from docs.",
-    "Step 2 – Automation Chain Map: Build the node/edge model for each major pipeline and label automation classes.",
-    "Step 3 – Deep Code Analysis: Perform overlap, deprecation, and dead-code detection using the detection_methodology.",
-    "Step 4 – Chain Break Identification: Use automation_class and edges to identify and label BREAK-XXX records.",
+    "Step 2 – Automation Chain Map (AUTOMATION_CHAIN_GAP_ANALYSIS): Build the node/edge model for each major pipeline and label automation classes.",
+    "Step 3 – Deep Code Analysis (CODE_OVERLAP_AND_DEPRECATION): Perform overlap, deprecation, and dead-code detection using the detection_methodology.",
+    "Step 4 – Chain Break Identification (AUTOMATION_CHAIN_GAP_ANALYSIS): Use automation_class and edges to identify and label BREAK-XXX records.",
     "Step 5 – Gap Synthesis: Combine findings into GAP-XXX records with evidence and impact assessments.",
     "Step 6 – Recommendations: Generate recommendations using the defined templates and assign priorities.",
     "Step 7 – Roadmap: Organize recommendations into the phased roadmap.",
@@ -990,11 +1003,12 @@
       "Uses ENGINE as canonical base with MASTER capabilities added",
       "ENGINE provides: overlap analysis, automation chain analysis, output contract",
       "MASTER adds: repository overview, general issues, record templates, style rules"
-    ]
+    ],
+    "section_numbering_note": "Numeric prefixes in section titles (1., 4., etc.) are cosmetic and do not reflect array indices"
   },
   "record_templates": {
     "step_record": [
-      "Step ID: STEP dash three digits such as STEP 001.",
+      "Step ID: STEP-001 (zero-padded 3 digits).",
       "automation_class: one of FULLY_AUTOMATED, SEMI_MANUAL, MANUAL.",
       "chain_role: one of ENTRY_POINT, INTERNAL_STEP, TERMINAL_STEP.",
       "trigger: one of CI, cron, file_watcher, webhook, CLI_manual, or other.",
@@ -1013,7 +1027,7 @@
       "Chain Break ID: BREAK dash three digits such as BREAK 001.",
       "from_step: STEP id of the last automated step.",
       "to_step: STEP id of the intended next step if known.",
-      "break_type: one of Manual_Start, Manual_Approval, Missing_Handoff, No_Error_Propagation, Patternless_CLI_Use.",
+      "break_type: one of Manual_Start, Manual_Approval, Missing_Handoff, No_Error_Propagation, Patternless_CLI_Execution.",
       "description: short explanation of the break and its root cause.",
       "evidence: paths, commands, or documentation references that prove the break."
     ],
