@@ -1,4 +1,8 @@
-"""Test plan execution engine - DOC-TESTS-ENGINE-PLAN-EXEC-001"""
+"""
+Test plan execution engine
+
+DOC_ID: DOC-ENGINE-ENGINE-TEST-PLAN-EXECUTION-001
+"""
 
 import json
 import subprocess
@@ -11,10 +15,7 @@ from core.engine.plan_schema import Plan, StepDef
 
 
 def test_plan_schema_loads_valid_plan(tmp_path):
-    """Test Plan.from_file loads valid JSON plan.
-
-    # DOC_ID: DOC-ENGINE-ENGINE-TEST-PLAN-EXECUTION-001
-    """
+    """Test Plan.from_file loads valid JSON plan."""
     plan_data = {
         "plan_id": "TEST-001",
         "version": "1.0",

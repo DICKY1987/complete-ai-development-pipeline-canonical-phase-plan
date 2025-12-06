@@ -6,9 +6,7 @@ Simple smoke test to verify core functionality.
 DOC_ID: DOC-AIM-AIM-VALIDATE-POOL-190
 """
 
-# DOC_ID: DOC - AIM - AIM - VALIDATE - POOL - 149
 
-# DOC_ID: DOC - AIM - AIM - VALIDATE - POOL - 149
 
 from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.aim.bridge import ToolProcessPool
 

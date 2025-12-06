@@ -14,7 +14,6 @@ Usage (summary):
 
 DOC_ID: DOC-CORE-SYSTEM-ANALYZE-SYS-SCAN-INCOMPLETE-750
 """
-# DOC_ID: DOC-SCRIPT-SCAN-INCOMPLETE-IMPLEMENTATION
 
 from __future__ import annotations
 
