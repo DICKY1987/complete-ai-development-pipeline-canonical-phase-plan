@@ -1,0 +1,38 @@
+# DOC-PAT-SAFE-MEREGE-PATTERN-767
+pattern_id: PAT-SAFE-MEREGE-PATTERN-767
+name: safe_merege_pattern
+version: 1.0.0
+doc_id: DOC-PAT-SAFE-MEREGE-PATTERN-767
+
+metadata:
+  created: 2025-12-02
+  status: draft
+  source: Converted from safe merege pattern.md
+
+intent: |
+  Deliverables (6 files, 1,919 lines)
+
+inputs:
+  required: []
+  optional: []
+
+outputs:
+  artifacts: []
+
+steps:
+  - name: pattern_execution
+    description: Execute pattern logic
+
+ground_truth:
+  criteria:
+    - description: Pattern executes without errors
+
+validation:
+  pre_conditions: []
+  post_conditions: []
+
+tool_bindings:
+  - tool: claude_code
+    priority: 1
+  - tool: github_copilot_cli
+    priority: 2

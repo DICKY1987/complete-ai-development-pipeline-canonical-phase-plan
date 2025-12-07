@@ -1,0 +1,38 @@
+# DOC-PAT-WORKFLOW-REPORT-20251127-101514.PATTERN-SPEC-001
+pattern_id: PAT-WORKFLOW-REPORT-20251127-101514-962
+name: workflow_report_20251127_101514
+version: 1.0.0
+doc_id: DOC-PAT-WORKFLOW-REPORT-20251127-101514.PATTERN-SPEC-001
+
+metadata:
+  created: 2025-12-02
+  status: draft
+  source: Converted from workflow_report_20251127_101514.md
+
+intent: |
+  Zero-Touch Workflow Automation Report
+
+inputs:
+  required: []
+  optional: []
+
+outputs:
+  artifacts: []
+
+steps:
+  - name: pattern_execution
+    description: Execute pattern logic
+
+ground_truth:
+  criteria:
+    - description: Pattern executes without errors
+
+validation:
+  pre_conditions: []
+  post_conditions: []
+
+tool_bindings:
+  - tool: claude_code
+    priority: 1
+  - tool: github_copilot_cli
+    priority: 2

@@ -1,0 +1,38 @@
+# DOC-PAT-SESSION-BOOTSTRAP-001
+pattern_id: PAT-SESSION-BOOTSTRAP-001
+name: session_bootstrap
+version: 1.0.0
+doc_id: DOC-PAT-SESSION-BOOTSTRAP-001
+
+metadata:
+  created: 2025-12-02
+  status: draft
+  source: Converted from ready to paste doc suite 7 patterns.md
+
+intent: |
+  Yes. Using your two specs as the ground truth, I can build a full **pattern doc suite skeleton** ...
+
+inputs:
+  required: []
+  optional: []
+
+outputs:
+  artifacts: []
+
+steps:
+  - name: pattern_execution
+    description: Execute pattern logic
+
+ground_truth:
+  criteria:
+    - description: Pattern executes without errors
+
+validation:
+  pre_conditions: []
+  post_conditions: []
+
+tool_bindings:
+  - tool: claude_code
+    priority: 1
+  - tool: github_copilot_cli
+    priority: 2

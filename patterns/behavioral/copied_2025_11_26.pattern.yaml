@@ -1,0 +1,38 @@
+# DOC-PAT-COPIED-2025-11-26-799
+pattern_id: PAT-COPIED-2025-11-26-799
+name: copied_2025_11_26
+version: 1.0.0
+doc_id: DOC-PAT-COPIED-2025-11-26-799
+
+metadata:
+  created: 2025-12-02
+  status: draft
+  source: Converted from COPIED_2025-11-26.txt
+
+intent: |
+  Pattern Event System - Quick Summary
+
+inputs:
+  required: []
+  optional: []
+
+outputs:
+  artifacts: []
+
+steps:
+  - name: pattern_execution
+    description: Execute pattern logic
+
+ground_truth:
+  criteria:
+    - description: Pattern executes without errors
+
+validation:
+  pre_conditions: []
+  post_conditions: []
+
+tool_bindings:
+  - tool: claude_code
+    priority: 1
+  - tool: github_copilot_cli
+    priority: 2

@@ -1,0 +1,38 @@
+# DOC-PAT-PATTERN-PANEL-INTEGRATION-CHECKLIST-761
+pattern_id: PAT-PATTERN-PANEL-INTEGRATION-CHECKLIST-761
+name: pattern_panel_integration_checklist
+version: 1.0.0
+doc_id: DOC-PAT-PATTERN-PANEL-INTEGRATION-CHECKLIST-761
+
+metadata:
+  created: 2025-12-02
+  status: draft
+  source: Converted from PATTERN_PANEL_INTEGRATION_CHECKLIST.md
+
+intent: |
+  Pattern Activity Panel - Integration Checklist
+
+inputs:
+  required: []
+  optional: []
+
+outputs:
+  artifacts: []
+
+steps:
+  - name: pattern_execution
+    description: Execute pattern logic
+
+ground_truth:
+  criteria:
+    - description: Pattern executes without errors
+
+validation:
+  pre_conditions: []
+  post_conditions: []
+
+tool_bindings:
+  - tool: claude_code
+    priority: 1
+  - tool: github_copilot_cli
+    priority: 2

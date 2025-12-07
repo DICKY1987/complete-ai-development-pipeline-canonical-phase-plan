@@ -1,0 +1,38 @@
+# DOC-PAT-SAVE-FILE-001
+pattern_id: PAT-SAVE-FILE-001
+name: save_file
+version: 1.0.0
+doc_id: DOC-PAT-SAVE-FILE-001
+
+metadata:
+  created: 2025-12-02
+  status: draft
+  source: Converted from PATTERN_DOC_SUITE_SPEC.md
+
+intent: |
+  PATTERN_DOC_SUITE_SPEC
+
+inputs:
+  required: []
+  optional: []
+
+outputs:
+  artifacts: []
+
+steps:
+  - name: pattern_execution
+    description: Execute pattern logic
+
+ground_truth:
+  criteria:
+    - description: Pattern executes without errors
+
+validation:
+  pre_conditions: []
+  post_conditions: []
+
+tool_bindings:
+  - tool: claude_code
+    priority: 1
+  - tool: github_copilot_cli
+    priority: 2

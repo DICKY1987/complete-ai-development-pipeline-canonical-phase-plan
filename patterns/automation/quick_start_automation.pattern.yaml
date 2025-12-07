@@ -1,0 +1,38 @@
+# DOC-PAT-QUICK-START-AUTOMATION-764
+pattern_id: PAT-QUICK-START-AUTOMATION-764
+name: quick_start_automation
+version: 1.0.0
+doc_id: DOC-PAT-QUICK-START-AUTOMATION-764
+
+metadata:
+  created: 2025-12-02
+  status: draft
+  source: Converted from QUICK_START_AUTOMATION.md
+
+intent: |
+  Quick Start: Activate Pattern Automation (30 Minutes)
+
+inputs:
+  required: []
+  optional: []
+
+outputs:
+  artifacts: []
+
+steps:
+  - name: pattern_execution
+    description: Execute pattern logic
+
+ground_truth:
+  criteria:
+    - description: Pattern executes without errors
+
+validation:
+  pre_conditions: []
+  post_conditions: []
+
+tool_bindings:
+  - tool: claude_code
+    priority: 1
+  - tool: github_copilot_cli
+    priority: 2

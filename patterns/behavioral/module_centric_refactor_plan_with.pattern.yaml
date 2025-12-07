@@ -1,0 +1,38 @@
+# DOC-PAT-MODULE-CENTRIC-REFACTOR-PLAN-WITH-753
+pattern_id: PAT-MODULE-CENTRIC-REFACTOR-PLAN-WITH-753
+name: module_centric_refactor_plan_with
+version: 1.0.0
+doc_id: DOC-PAT-MODULE-CENTRIC-REFACTOR-PLAN-WITH-753
+
+metadata:
+  created: 2025-12-02
+  status: draft
+  source: Converted from Module Centric Refactor Plan with Execution Patterns.md
+
+intent: |
+  Module-Centric Refactor Plan with Execution Patterns        │
+
+inputs:
+  required: []
+  optional: []
+
+outputs:
+  artifacts: []
+
+steps:
+  - name: pattern_execution
+    description: Execute pattern logic
+
+ground_truth:
+  criteria:
+    - description: Pattern executes without errors
+
+validation:
+  pre_conditions: []
+  post_conditions: []
+
+tool_bindings:
+  - tool: claude_code
+    priority: 1
+  - tool: github_copilot_cli
+    priority: 2

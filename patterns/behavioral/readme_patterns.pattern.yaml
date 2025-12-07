@@ -1,0 +1,38 @@
+# DOC-PAT-README-PATTERNS-766
+pattern_id: PAT-README-PATTERNS-766
+name: readme_patterns
+version: 1.0.0
+doc_id: DOC-PAT-README-PATTERNS-766
+
+metadata:
+  created: 2025-12-02
+  status: draft
+  source: Converted from README_PATTERNS.md
+
+intent: |
+  Pattern System Guide
+
+inputs:
+  required: []
+  optional: []
+
+outputs:
+  artifacts: []
+
+steps:
+  - name: pattern_execution
+    description: Execute pattern logic
+
+ground_truth:
+  criteria:
+    - description: Pattern executes without errors
+
+validation:
+  pre_conditions: []
+  post_conditions: []
+
+tool_bindings:
+  - tool: claude_code
+    priority: 1
+  - tool: github_copilot_cli
+    priority: 2

@@ -1,0 +1,38 @@
+# DOC-PAT-AUTOMATION-ENABLED-STATUS-741
+pattern_id: PAT-AUTOMATION-ENABLED-STATUS-741
+name: automation_enabled_status
+version: 1.0.0
+doc_id: DOC-PAT-AUTOMATION-ENABLED-STATUS-741
+
+metadata:
+  created: 2025-12-02
+  status: draft
+  source: Converted from AUTOMATION_ENABLED_STATUS.md
+
+intent: |
+  FULL AUTOMATION ENABLED - STATUS REPORT
+
+inputs:
+  required: []
+  optional: []
+
+outputs:
+  artifacts: []
+
+steps:
+  - name: pattern_execution
+    description: Execute pattern logic
+
+ground_truth:
+  criteria:
+    - description: Pattern executes without errors
+
+validation:
+  pre_conditions: []
+  post_conditions: []
+
+tool_bindings:
+  - tool: claude_code
+    priority: 1
+  - tool: github_copilot_cli
+    priority: 2

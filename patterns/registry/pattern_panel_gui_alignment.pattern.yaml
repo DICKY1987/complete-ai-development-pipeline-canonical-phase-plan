@@ -1,0 +1,38 @@
+# DOC-PAT-PATTERN-PANEL-GUI-ALIGNMENT-760
+pattern_id: PAT-PATTERN-PANEL-GUI-ALIGNMENT-760
+name: pattern_panel_gui_alignment
+version: 1.0.0
+doc_id: DOC-PAT-PATTERN-PANEL-GUI-ALIGNMENT-760
+
+metadata:
+  created: 2025-12-02
+  status: draft
+  source: Converted from PATTERN_PANEL_GUI_ALIGNMENT.md
+
+intent: |
+  Pattern Activity Panel - GUI Framework Alignment
+
+inputs:
+  required: []
+  optional: []
+
+outputs:
+  artifacts: []
+
+steps:
+  - name: pattern_execution
+    description: Execute pattern logic
+
+ground_truth:
+  criteria:
+    - description: Pattern executes without errors
+
+validation:
+  pre_conditions: []
+  post_conditions: []
+
+tool_bindings:
+  - tool: claude_code
+    priority: 1
+  - tool: github_copilot_cli
+    priority: 2

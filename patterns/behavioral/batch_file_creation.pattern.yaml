@@ -1,0 +1,37 @@
+# Pattern: batch_file_creation
+# Pattern ID: PAT-BATCH-FILE-CREATION-001
+# doc_id: DOC-PAT-BATCH-FILE-CREATION-001
+# Version: 1.0.0
+# Category: parallel
+
+doc_id: "DOC-PAT-BATCH-FILE-CREATION-001"
+pattern_id: "PAT-BATCH-FILE-CREATION-001"
+name: "batch_file_creation"
+version: "1.0.0"
+category: "parallel"
+status: "draft"
+role: "spec"
+
+schema_ref: "patterns/schemas/batch_file_creation.schema.json"
+executor_ref: "patterns/executors/batch_file_creation_executor.ps1"
+example_dir: "patterns/examples/batch_file_creation/"
+
+metadata:
+  created: "2025-11-24"
+  source_template: "templates/patterns/parallel/batch_file_creation.pattern.yaml"
+  category: "parallel"
+
+intent: |
+  Pattern generated from template: templates/patterns/parallel/batch_file_creation.pattern.yaml
+  Provides reusable execution logic for batch_file_creation operations.
+
+inputs:
+  instance_path:
+    type: "string"
+    required: true
+    description: "Path to pattern instance JSON file"
+
+outputs:
+  execution_result:
+    type: "object"
+    description: "Result of pattern execution"

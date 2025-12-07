@@ -1,0 +1,38 @@
+# DOC-PAT-SESSION-2025-11-26-PATTERN-AUTOMATION.PATTERN-SPEC-001
+pattern_id: PAT-SESSION-2025-11-26-PATTERN-AUTOMATION-814
+name: session_2025_11_26_pattern_automation
+version: 1.0.0
+doc_id: DOC-PAT-SESSION-2025-11-26-PATTERN-AUTOMATION.PATTERN-SPEC-001
+
+metadata:
+  created: 2025-12-02
+  status: draft
+  source: Converted from SESSION_2025-11-26_PATTERN_AUTOMATION_ANALYSIS.md
+
+intent: |
+  Session 2025-11-26: Pattern Automation Analysis
+
+inputs:
+  required: []
+  optional: []
+
+outputs:
+  artifacts: []
+
+steps:
+  - name: pattern_execution
+    description: Execute pattern logic
+
+ground_truth:
+  criteria:
+    - description: Pattern executes without errors
+
+validation:
+  pre_conditions: []
+  post_conditions: []
+
+tool_bindings:
+  - tool: claude_code
+    priority: 1
+  - tool: github_copilot_cli
+    priority: 2

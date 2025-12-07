@@ -1,0 +1,38 @@
+# DOC-PAT-PATTERN-EXECUTION-VISUALIZATION-DESIGN-759
+pattern_id: PAT-PATTERN-EXECUTION-VISUALIZATION-DESIGN-759
+name: pattern_execution_visualization_design
+version: 1.0.0
+doc_id: DOC-PAT-PATTERN-EXECUTION-VISUALIZATION-DESIGN-759
+
+metadata:
+  created: 2025-12-02
+  status: draft
+  source: Converted from PATTERN_EXECUTION_VISUALIZATION_DESIGN.md
+
+intent: |
+  Pattern Execution Visualization Design
+
+inputs:
+  required: []
+  optional: []
+
+outputs:
+  artifacts: []
+
+steps:
+  - name: pattern_execution
+    description: Execute pattern logic
+
+ground_truth:
+  criteria:
+    - description: Pattern executes without errors
+
+validation:
+  pre_conditions: []
+  post_conditions: []
+
+tool_bindings:
+  - tool: claude_code
+    priority: 1
+  - tool: github_copilot_cli
+    priority: 2
