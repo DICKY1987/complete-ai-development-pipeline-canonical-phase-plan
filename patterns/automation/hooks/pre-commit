@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+echo "Running pattern validation..."
+python3 patterns/automation/validators/registry_validator.py || exit 1
+echo "✓ Validation passed"
+exit 0

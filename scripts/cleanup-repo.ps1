@@ -3,7 +3,7 @@
     Consolidated cleanup script for repository maintenance
 
 .DESCRIPTION
-    Unified script replacing cleanup-planning-docs.ps1, cleanup-root-docs.ps1, 
+    Unified script replacing cleanup-planning-docs.ps1, cleanup-root-docs.ps1,
     and cleanup-root-planning-docs.ps1
 
 .PARAMETER Target
@@ -21,15 +21,15 @@ param(
     [Parameter(Mandatory=$true)]
     [ValidateSet('planning', 'root', 'all')]
     [string]$Target,
-    
+
     [switch]$WhatIf
 )
 
 function Remove-PlanningDocs {
     param([switch]$WhatIf)
-    
+
     Write-Host "Cleaning planning docs..." -ForegroundColor Cyan
-    
+
     $patterns = @('*_PLAN.md', '*_PLANNING.md', 'PLAN_*.md')
     foreach ($pattern in $patterns) {
         Get-ChildItem -Path . -Filter $pattern -File | ForEach-Object {
@@ -45,9 +45,9 @@ function Remove-PlanningDocs {
 
 function Remove-RootClutter {
     param([switch]$WhatIf)
-    
+
     Write-Host "Cleaning root directory clutter..." -ForegroundColor Cyan
-    
+
     # Remove temp files
     $tempPatterns = @('*.tmp', '*.bak', '*.backup', 'nul')
     foreach ($pattern in $tempPatterns) {
@@ -60,7 +60,7 @@ function Remove-RootClutter {
             }
         }
     }
-    
+
     # Remove .pyc files
     Get-ChildItem -Path . -Filter "*.pyc" -Recurse -File | ForEach-Object {
         if ($WhatIf) {
@@ -76,7 +76,7 @@ function Remove-RootClutter {
 switch ($Target) {
     'planning' { Remove-PlanningDocs -WhatIf:$WhatIf }
     'root' { Remove-RootClutter -WhatIf:$WhatIf }
-    'all' { 
+    'all' {
         Remove-PlanningDocs -WhatIf:$WhatIf
         Remove-RootClutter -WhatIf:$WhatIf
     }

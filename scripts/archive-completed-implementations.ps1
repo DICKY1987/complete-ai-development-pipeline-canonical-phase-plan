@@ -40,14 +40,14 @@ $completedDocs = foreach ($doc in $allDocs) {
             break
         }
     }
-    
+
     if ($matchesFilename) {
         $content = Get-Content $doc.FullName -TotalCount 20 -ErrorAction SilentlyContinue
         $contentText = $content -join " "
-        
+
         $hasStatusComplete = $contentText -match "Status.*Complete|Complete.*Status|COMPLETE|✓.*COMPLETE"
         $hasImplementationDone = $contentText -match "Implementation.*complete|All.*complete|Migration.*complete"
-        
+
         [PSCustomObject]@{
             File = $doc
             StrongIndicator = $hasStatusComplete -or $hasImplementationDone
@@ -98,14 +98,14 @@ foreach ($item in $toArchive) {
     $relPath = $file.FullName.Replace((Get-Location).Path + "\", "")
     $destPath = Join-Path $archiveDir $relPath
     $destDir = Split-Path $destPath -Parent
-    
+
     if (-not (Test-Path $destDir)) {
         New-Item -ItemType Directory -Path $destDir -Force | Out-Null
     }
-    
+
     Move-Item -LiteralPath $file.FullName -Destination $destPath
     $archived++
-    
+
     if ($archived % 20 -eq 0) {
         Write-Host "  Archived: $archived / $($toArchive.Count)"
     }

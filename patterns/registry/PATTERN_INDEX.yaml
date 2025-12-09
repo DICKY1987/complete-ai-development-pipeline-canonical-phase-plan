@@ -2,9 +2,9 @@ doc_id: DOC-PAT-PATTERN-INDEX-029
 version: 1.0.0
 metadata:
   created: '2025-11-24'
-  last_updated: '2025-12-04'
-  total_patterns: 34
-  total_categories: 10
+  last_updated: '2025-12-09'
+  total_patterns: 136
+  total_categories: 28
   migrated_patterns: 17
   core_patterns: 11
 patterns:
@@ -81,7 +81,7 @@ patterns:
   time_savings_vs_manual: 60%
   proven_uses: 0
   created: '2025-11-24'
-  last_updated: '2025-11-24'
+  last_updated: '2025-12-09'
 - pattern_id: PAT-BATCH-CREATE-001
   name: batch_create
   version: 1.0.0
@@ -390,7 +390,7 @@ patterns:
   example_dir: patterns/examples/batch_file_creation/
   source_template: templates\patterns\parallel\batch_file_creation.pattern.yaml
   created: '2025-11-24'
-  last_updated: '2025-11-24'
+  last_updated: '2025-12-09'
 - doc_id: DOC-PAT-MODULE-CREATION-CONVERGENCE-001
   pattern_id: PAT-MODULE-CREATION-CONVERGENCE-001
   name: module_creation_convergence
@@ -404,7 +404,7 @@ patterns:
   example_dir: patterns/examples/module_creation_convergence/
   source_template: templates\patterns\template\module_creation_convergence.pattern.yaml
   created: '2025-11-24'
-  last_updated: '2025-11-24'
+  last_updated: '2025-12-09'
 - doc_id: DOC-PAT-PREFLIGHT-VERIFY-001
   pattern_id: PAT-PREFLIGHT-VERIFY-001
   name: preflight_verify
@@ -418,7 +418,7 @@ patterns:
   example_dir: patterns/examples/preflight_verify/
   source_template: templates\verification_templates\preflight.verify.yaml
   created: '2025-11-24'
-  last_updated: '2025-11-24'
+  last_updated: '2025-12-09'
 - doc_id: DOC-PAT-ATOMIC-CREATE-TEMPLATE-001
   pattern_id: PAT-ATOMIC-CREATE-TEMPLATE-001
   name: atomic_create_template
@@ -432,7 +432,7 @@ patterns:
   example_dir: patterns/examples/atomic_create_template/
   source_template: templates\execution_patterns\atomic_create.pattern.yaml
   created: '2025-11-24'
-  last_updated: '2025-11-24'
+  last_updated: '2025-12-09'
 - doc_id: DOC-PAT-DECISION-ELIMINATION-BOOTSTRAP-001
   pattern_id: PAT-DECISION-ELIMINATION-BOOTSTRAP-001
   name: decision_elimination_bootstrap
@@ -446,7 +446,7 @@ patterns:
   example_dir: patterns/examples/decision_elimination_bootstrap/
   source_template: templates\patterns\meta\decision_elimination_bootstrap.pattern.yaml
   created: '2025-11-24'
-  last_updated: '2025-11-24'
+  last_updated: '2025-12-09'
 - doc_id: DOC-PAT-CREATE-TEST-COMMIT-001
   pattern_id: PAT-CREATE-TEST-COMMIT-001
   name: create_test_commit
@@ -460,7 +460,7 @@ patterns:
   example_dir: patterns/examples/create_test_commit/
   source_template: templates\patterns\sequential\create_test_commit.pattern.yaml
   created: '2025-11-24'
-  last_updated: '2025-11-24'
+  last_updated: '2025-12-09'
 - doc_id: DOC-PAT-VIEW-EDIT-VERIFY-003
   pattern_id: PAT-VIEW-EDIT-VERIFY-003
   name: view_edit_verify
@@ -474,7 +474,7 @@ patterns:
   example_dir: patterns/examples/view_edit_verify/
   source_template: templates\patterns\sequential\view_edit_verify.pattern.yaml
   created: '2025-11-24'
-  last_updated: '2025-11-24'
+  last_updated: '2025-12-09'
 - doc_id: DOC-PAT-PYTEST-GREEN-VERIFY-002
   pattern_id: PAT-PYTEST-GREEN-VERIFY-002
   name: pytest_green_verify
@@ -488,7 +488,7 @@ patterns:
   example_dir: patterns/examples/pytest_green_verify/
   source_template: templates\verification_templates\pytest_green.verify.yaml
   created: '2025-11-24'
-  last_updated: '2025-11-24'
+  last_updated: '2025-12-09'
 - doc_id: DOC-PAT-GREP-VIEW-EDIT-002
   pattern_id: PAT-GREP-VIEW-EDIT-002
   name: grep_view_edit
@@ -502,7 +502,7 @@ patterns:
   example_dir: patterns/examples/grep_view_edit/
   source_template: templates\patterns\sequential\grep_view_edit.pattern.yaml
   created: '2025-11-24'
-  last_updated: '2025-11-24'
+  last_updated: '2025-12-09'
 - pattern_id: PAT-BATCH-FILE-GEN-001
   doc_id: DOC-BATCH-FILE-GEN-001
   name: batch_file_generation_from_spec
@@ -1745,6 +1745,96 @@ patterns:
   - cursor
   est_time_minutes: 30
 
+- pattern_id: PAT-LINT-001
+  name: static_linting
+  version: 1.0.0
+  status: active
+  category: code_quality
+  priority: high
+  spec_path: patterns/execution/PAT-LINT-001.md
+  time_savings_vs_manual: 85%
+  proven_uses: 0
+  created: '2025-12-09'
+  summary: "Run linting tools to catch style and correctness issues early (NO STOP MODE)"
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  - cursor
+  - aider
+  est_time_minutes: 5
+
+- pattern_id: PAT-PYTEST-CORE-001
+  name: core_pytest_execution
+  version: 1.0.0
+  status: active
+  category: testing
+  priority: high
+  spec_path: patterns/execution/PAT-PYTEST-CORE-001.md
+  time_savings_vs_manual: 80%
+  proven_uses: 0
+  created: '2025-12-09'
+  summary: "Execute pytest test suite and collect results (NO STOP MODE)"
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  - cursor
+  - aider
+  est_time_minutes: 10
+
+- pattern_id: PAT-TYPECHECK-001
+  name: type_checking
+  version: 1.0.0
+  status: active
+  category: code_quality
+  priority: high
+  spec_path: patterns/execution/PAT-TYPECHECK-001.md
+  time_savings_vs_manual: 85%
+  proven_uses: 0
+  created: '2025-12-09'
+  summary: "Verify type correctness using configured type checker (NO STOP MODE)"
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  - cursor
+  - aider
+  est_time_minutes: 8
+
+- pattern_id: PAT-ANALYZE-REPO-001
+  name: analyze_repository_context
+  version: 1.0.0
+  status: active
+  category: analysis
+  priority: high
+  spec_path: patterns/execution/PAT-ANALYZE-REPO-001.md
+  time_savings_vs_manual: 90%
+  proven_uses: 0
+  created: '2025-12-09'
+  summary: "Understand repository layout and current state before making changes"
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  - cursor
+  - aider
+  est_time_minutes: 3
+
+- pattern_id: PAT-FILE-SCOPE-ENFORCE-001
+  name: file_scope_enforcement
+  version: 1.0.0
+  status: active
+  category: safety
+  priority: critical
+  spec_path: patterns/execution/PAT-FILE-SCOPE-ENFORCE-001.md
+  time_savings_vs_manual: 95%
+  proven_uses: 0
+  created: '2025-12-09'
+  summary: "Ensure all file operations respect declared file_scope boundaries with validation"
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  - cursor
+  - aider
+  est_time_minutes: 2
+
 - pattern_id: PAT-ANTI-anti_pattern_guards-1000
   name: anti_pattern_guards
   version: 1.0.0
@@ -2307,3 +2397,12 @@ patterns:
   created: '2025-12-09'
   summary: "Transaction-like file operations with automatic rollback to prevent data corruption"
   notes: "Critical execution pattern from execution patterns suite. Prevents common failure modes."
+- pattern_id: PAT-EXEC-CODE-CLEANUP-ARCHIVAL-001
+  name: code_cleanup_archival
+  version: 1.0.0
+  status: draft
+  category: EXEC
+  spec_path: patterns/specs/code_cleanup_archival.pattern.yaml
+  created: '2025-12-09'
+  schema_path: patterns/schemas/code_cleanup_archival.schema.json
+  executor_path: patterns/executors/code_cleanup_archival_executor.ps1

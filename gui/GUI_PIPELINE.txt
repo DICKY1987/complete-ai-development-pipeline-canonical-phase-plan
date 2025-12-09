@@ -440,5 +440,3 @@ This keeps the GUI usable even if a third-party plugin is broken.
 ```
 
 ---
-
-

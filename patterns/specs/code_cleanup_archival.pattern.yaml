@@ -1,0 +1,127 @@
+pattern_id: PAT-EXEC-CODE-CLEANUP-ARCHIVAL-001
+doc_id: DOC-PAT-EXEC-CODE-CLEANUP-ARCHIVAL-001
+name: Code Cleanup & Dead-Code Archival
+category: EXEC
+status: active
+version: 1.0.0
+
+metadata:
+  created: 2025-12-09
+  updated: 2025-12-09
+  author: Pattern Automation System
+  tags:
+    - code-cleanup
+    - dead-code
+    - archival
+    - refactoring
+    - maintenance
+  complexity: medium
+  estimated_time_minutes: 60-90
+
+description: |
+  Comprehensive code cleanup pattern for identifying and archiving dead code,
+  obsolete implementations, duplicate code, and stale modules. Uses multi-signal
+  weighted analysis to score files and categorize cleanup candidates into tiers.
+
+problem: |
+  Codebases accumulate dead code over time - unreachable functions, unused modules,
+  obsolete implementations, and duplicate code. Manual cleanup is time-consuming,
+  error-prone, and risky without proper analysis.
+
+solution: |
+  Structured 3-phase approach:
+  1. Analysis Phase: Multi-signal scoring (imports, git history, test coverage)
+  2. Tiered Classification: Auto-archive (Tier 1), Manual review (Tier 2), Expert review (Tier 3)
+  3. Safe Archival: Backup, validate, archive with full rollback capability
+
+benefits:
+  description:
+    - Reduced codebase size and complexity
+    - Improved maintainability
+    - Lower cognitive load for developers
+    - Faster CI/CD pipelines
+    - Better code navigation
+  time_savings_percent: 40
+  error_reduction_percent: 85
+  quality_improvement: high
+
+prerequisites:
+  - Version control (Git) with clean working tree
+  - Backup strategy (branch or external)
+  - Automated tests (if available)
+  - Analyzer script implementation
+
+inputs:
+  project_root:
+    type: path
+    required: true
+    description: Absolute path to repository root
+  analyzer_script:
+    type: path
+    required: true
+    description: Path to orchestration script for analysis
+  critical_files:
+    type: list
+    required: true
+    description: Files/globs that must never be archived
+
+outputs:
+  analysis_report:
+    type: file
+    description: Multi-tier cleanup recommendations
+  archived_files:
+    type: directory
+    description: Archive directory with timestamped backups
+  rollback_manifest:
+    type: file
+    description: Manifest for complete rollback
+
+execution_steps:
+  - phase: 1
+    name: Analysis
+    steps:
+      - Validate prerequisites (VCS, backups)
+      - Run analyzer script
+      - Generate tier-based recommendations
+      - Review reports
+  - phase: 2
+    name: Archival
+    steps:
+      - Create backup branch
+      - Archive Tier 1 files (auto)
+      - Manual review Tier 2 files
+      - Expert review Tier 3 files
+  - phase: 3
+    name: Validation
+    steps:
+      - Run tests
+      - Build validation
+      - Performance check
+      - Rollback if needed
+
+risk_level: medium
+rollback_capability: full
+backup_required: true
+
+metrics:
+  - name: files_analyzed
+    type: integer
+  - name: files_archived
+    type: integer
+  - name: space_saved_mb
+    type: number
+  - name: cleanup_confidence_percent
+    type: number
+
+related_patterns:
+  - PAT-EXEC-SAFE-REFACTOR-001
+  - PAT-EXEC-TEST-COVERAGE-001
+
+examples:
+  - patterns/examples/code_cleanup_archival/instance_minimal.json
+  - patterns/examples/code_cleanup_archival/instance_full.json
+
+validation:
+  schema: patterns/schemas/code_cleanup_archival.schema.json
+  executor: patterns/executors/code_cleanup_archival_executor.ps1
+  tests: patterns/tests/test_code_cleanup_archival_executor.ps1

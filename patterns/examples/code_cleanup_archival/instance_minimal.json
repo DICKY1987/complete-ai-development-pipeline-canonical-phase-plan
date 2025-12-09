@@ -1,0 +1,7 @@
+{
+  "pattern_id": "PAT-EXEC-CODE-CLEANUP-ARCHIVAL-001",
+  "project_root": "example_value",
+  "analyzer_script": "example_value",
+  "critical_files": [],
+  "execution_mode": "analysis_only"
+}

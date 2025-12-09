@@ -1,0 +1,141 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://patterns.dev/schemas/code_cleanup_archival.schema.json",
+  "title": "Code Cleanup & Dead-Code Archival Pattern",
+  "description": "Schema for EXEC-017 code cleanup and archival pattern instances",
+  "type": "object",
+  "required": [
+    "pattern_id",
+    "project_root",
+    "analyzer_script",
+    "critical_files",
+    "execution_mode"
+  ],
+  "properties": {
+    "pattern_id": {
+      "type": "string",
+      "const": "PAT-EXEC-CODE-CLEANUP-ARCHIVAL-001",
+      "description": "Pattern identifier"
+    },
+    "project_root": {
+      "type": "string",
+      "description": "Absolute path to repository root",
+      "minLength": 1
+    },
+    "analyzer_script": {
+      "type": "string",
+      "description": "Path to analysis orchestration script (relative to project_root)",
+      "minLength": 1
+    },
+    "critical_files": {
+      "type": "array",
+      "description": "Files and globs that must never be archived",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "execution_mode": {
+      "type": "string",
+      "enum": ["analysis_only", "auto_archive", "manual_review", "full_interactive"],
+      "description": "Execution mode for the cleanup process",
+      "default": "analysis_only"
+    },
+    "tier_thresholds": {
+      "type": "object",
+      "description": "Confidence thresholds for tier classification",
+      "properties": {
+        "tier1_min": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "default": 90
+        },
+        "tier2_min": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "default": 75
+        },
+        "tier3_min": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "default": 60
+        }
+      }
+    },
+    "backup_strategy": {
+      "type": "object",
+      "description": "Backup configuration",
+      "properties": {
+        "method": {
+          "type": "string",
+          "enum": ["branch", "stash", "external"],
+          "default": "branch"
+        },
+        "branch_name": {
+          "type": "string",
+          "description": "Name for backup branch (if method is 'branch')"
+        },
+        "external_path": {
+          "type": "string",
+          "description": "Path for external backup (if method is 'external')"
+        }
+      },
+      "required": ["method"]
+    },
+    "validation_tests": {
+      "type": "object",
+      "description": "Test validation configuration",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": true
+        },
+        "test_command": {
+          "type": "string",
+          "description": "Command to run tests (e.g., 'pytest', 'npm test')"
+        },
+        "build_command": {
+          "type": "string",
+          "description": "Command to build/validate (e.g., 'npm run build')"
+        }
+      }
+    },
+    "archive_directory": {
+      "type": "string",
+      "description": "Directory for archived files (relative to project_root)",
+      "default": "_archived"
+    },
+    "dry_run": {
+      "type": "boolean",
+      "description": "If true, only generate reports without archiving",
+      "default": true
+    },
+    "exclusions": {
+      "type": "array",
+      "description": "Additional file patterns to exclude from analysis",
+      "items": {
+        "type": "string"
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Execution metadata",
+      "properties": {
+        "executed_by": {
+          "type": "string"
+        },
+        "execution_date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

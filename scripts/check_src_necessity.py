@@ -3,9 +3,6 @@
 Check if src/ and abstraction/ files are needed or can be safely archived.
 Provides analysis and automatic migration options.
 """
-import re
-from pathlib import Path
-from typing import List, Tuple
 
 print("=" * 70)
 print("SRC/ AND ABSTRACTION/ DEPENDENCY ANALYSIS")
@@ -122,9 +119,9 @@ def main():
     timestamp = datetime.now().strftime("%Y-%m-%d_%H%M%S")
     archive_dir = Path('archive') / f'{timestamp}_deprecated_folders_cleanup'
     archive_dir.mkdir(parents=True, exist_ok=True)
-    
+
     print(f'📁 Archive directory: {archive_dir}\\n')
-    
+
     archived = []
     for folder, reason in SAFE_TO_ARCHIVE.items():
         src = Path(folder)
@@ -135,7 +132,7 @@ def main():
             shutil.move(str(src), str(dest))
             archived.append(folder)
             print(f'   ✅ Archived\\n')
-    
+
     # Create README
     readme = archive_dir / 'README.md'
     readme.write_text(f"""# Deprecated Folders Cleanup
@@ -160,7 +157,7 @@ def main():
 cp -r archive/{timestamp}_deprecated_folders_cleanup/{{folder}} ./
 ```
 """)
-    
+
     print(f'\\n✅ CLEANUP COMPLETE')
     print(f'   Archived: {len(archived)} folders')
     print(f'   NOT archived: src/ (contains active code)')
@@ -170,7 +167,7 @@ if __name__ == '__main__':
     main()
 '''
 
-with open('safe_cleanup_corrected.py', 'w') as f:
+with open("safe_cleanup_corrected.py", "w") as f:
     f.write(corrected_script)
 
 print("✅ Created: safe_cleanup_corrected.py")
