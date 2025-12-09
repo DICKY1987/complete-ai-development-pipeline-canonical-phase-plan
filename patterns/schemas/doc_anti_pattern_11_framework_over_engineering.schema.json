@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Doc Anti Pattern 11 Framework Over Engineering Schema",
+  "description": "JSON Schema for PAT-ANTI-doc_anti_pattern_11_framework_over_engineering-1002",
+  "type": "object",
+  "properties": {
+    "pattern_id": {
+      "type": "string",
+      "const": "PAT-ANTI-doc_anti_pattern_11_framework_over_engineering-1002",
+      "description": "Unique pattern identifier"
+    },
+    "doc_id": {
+      "type": "string",
+      "const": "DOC-PAT-ANTI-doc_anti_pattern_11_framework_over_engineering-1002",
+      "description": "Documentation identifier"
+    },
+    "context": {
+      "type": "string",
+      "description": "Execution context for pattern application"
+    },
+    "parameters": {
+      "type": "object",
+      "description": "Pattern-specific parameters",
+      "additionalProperties": true
+    },
+    "inputs": {
+      "type": "object",
+      "description": "Pattern input data",
+      "additionalProperties": true
+    },
+    "outputs": {
+      "type": "object",
+      "description": "Pattern output data",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["success", "failure", "partial"],
+          "description": "Execution status"
+        },
+        "result": {
+          "type": "object",
+          "description": "Execution result"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Execution timestamp"
+        }
+      },
+      "required": ["status"]
+    }
+  },
+  "required": ["pattern_id", "context"],
+  "additionalProperties": false
+}

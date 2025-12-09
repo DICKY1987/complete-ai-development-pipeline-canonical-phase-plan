@@ -1,0 +1,68 @@
+---
+doc_id: DOC-PAT-ANTI-doc_anti_pattern_11_framework_over_engineering-1002
+pattern_id: PAT-ANTI-doc_anti_pattern_11_framework_over_engineering-1002
+version: 1.0.0
+status: draft
+category: anti_pattern
+created: 2025-12-08
+source: PATTERN_52 folder
+---
+
+# Doc Anti Pattern 11 Framework Over Engineering
+
+## Purpose
+
+Pattern imported from PATTERN_52 folder for systematic registration and integration.
+
+## Context
+
+This pattern was auto-registered as part of the batch pattern registration pipeline (EXEC-HYBRID-010).
+Source file: `DOC_ANTI_PATTERN_11_FRAMEWORK_OVER_ENGINEERING.md`
+
+## Inputs
+
+- context: Execution context for pattern application (string, required)
+- parameters: Pattern-specific parameters (object, optional)
+
+## Outputs
+
+- result: Pattern execution result (object)
+- status: Execution status - success/failure (string)
+
+## Steps
+
+1. Load pattern definition from source
+2. Validate input parameters
+3. Execute pattern-specific logic
+4. Generate and return results
+
+## Verification
+
+**Ground Truth Checks**:
+- Pattern spec exists at `patterns/specs/doc_anti_pattern_11_framework_over_engineering.pattern.yaml`
+- YAML validates without errors
+- All required fields are present
+- Pattern is registered in PATTERN_INDEX.yaml
+
+## Tool Compatibility
+
+- claude_code
+- github_copilot_cli
+- cursor
+- aider
+
+## Estimated Time
+
+15-30 minutes
+
+## Notes
+
+**Auto-generated**: This spec was automatically generated from `DOC_ANTI_PATTERN_11_FRAMEWORK_OVER_ENGINEERING.md`.
+**Review Required**: Pattern implementation details need to be extracted and added.
+**Enhancement Needed**: Add specific pattern logic and validation rules.
+
+## Related Patterns
+
+- EXEC-HYBRID-010: Pattern Registration Pipeline (parent pattern)
+- EXEC-002: Batch Validation
+- EXEC-009: Meta-Execution

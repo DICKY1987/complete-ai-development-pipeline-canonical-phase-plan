@@ -1,0 +1,255 @@
+<Objs Version="1.1.0.1" xmlns="http://schemas.microsoft.com/powershell/2004/04">
+  <Obj RefId="0">
+    <TN RefId="0">
+      <T>System.Management.Automation.PSCustomObject</T>
+      <T>System.Object</T>
+    </TN>
+    <MS>
+      <S N="category">anti_pattern</S>
+      <S N="doc_id">DOC-PAT-ANTI-anti_pattern_guards-1000</S>
+      <S N="pattern_id">PAT-ANTI-anti_pattern_guards-1000</S>
+      <S N="name">anti_pattern_guards</S>
+      <S N="source_file">ANTI_PATTERN_GUARDS.md</S>
+    </MS>
+  </Obj>
+  <Obj RefId="1">
+    <TNRef RefId="0" />
+    <MS>
+      <S N="category">anti_pattern</S>
+      <S N="doc_id">DOC-PAT-ANTI-anti_patterns-1001</S>
+      <S N="pattern_id">PAT-ANTI-anti_patterns-1001</S>
+      <S N="name">anti_patterns</S>
+      <S N="source_file">ANTI_PATTERNS.md</S>
+    </MS>
+  </Obj>
+  <Obj RefId="2">
+    <TNRef RefId="0" />
+    <MS>
+      <S N="category">anti_pattern</S>
+      <S N="doc_id">DOC-PAT-ANTI-doc_anti_pattern_11_framework_over_engineering-1002</S>
+      <S N="pattern_id">PAT-ANTI-doc_anti_pattern_11_framework_over_engineering-1002</S>
+      <S N="name">doc_anti_pattern_11_framework_over_engineering</S>
+      <S N="source_file">DOC_ANTI_PATTERN_11_FRAMEWORK_OVER_ENGINEERING.md</S>
+    </MS>
+  </Obj>
+  <Obj RefId="3">
+    <TNRef RefId="0" />
+    <MS>
+      <S N="category">anti_pattern</S>
+      <S N="doc_id">DOC-PAT-ANTI-doc_anti_patterns-1003</S>
+      <S N="pattern_id">PAT-ANTI-doc_anti_patterns-1003</S>
+      <S N="name">doc_anti_patterns</S>
+      <S N="source_file">DOC_ANTI_PATTERNS.md</S>
+    </MS>
+  </Obj>
+  <Obj RefId="4">
+    <TNRef RefId="0" />
+    <MS>
+      <S N="category">documentation</S>
+      <S N="doc_id">DOC-PAT-DOC-doc_documentation_cleanup_pattern-1004</S>
+      <S N="pattern_id">PAT-DOC-doc_documentation_cleanup_pattern-1004</S>
+      <S N="name">doc_documentation_cleanup_pattern</S>
+      <S N="source_file">DOC_DOCUMENTATION_CLEANUP_PATTERN.md</S>
+    </MS>
+  </Obj>
+  <Obj RefId="5">
+    <TNRef RefId="0" />
+    <MS>
+      <S N="category">documentation</S>
+      <S N="doc_id">DOC-PAT-DOC-doc_example_05_saga_pattern-1005</S>
+      <S N="pattern_id">PAT-DOC-doc_example_05_saga_pattern-1005</S>
+      <S N="name">doc_example_05_saga_pattern</S>
+      <S N="source_file">DOC_EXAMPLE_05_SAGA_PATTERN.md</S>
+    </MS>
+  </Obj>
+  <Obj RefId="6">
+    <TNRef RefId="0" />
+    <MS>
+      <S N="category">documentation</S>
+      <S N="doc_id">DOC-PAT-DOC-doc_soft_sandbox_pattern-1006</S>
+      <S N="pattern_id">PAT-DOC-doc_soft_sandbox_pattern-1006</S>
+      <S N="name">doc_soft_sandbox_pattern</S>
+      <S N="source_file">DOC_SOFT_SANDBOX_PATTERN.md</S>
+    </MS>
+  </Obj>
+  <Obj RefId="7">
+    <TNRef RefId="0" />
+    <MS>
+      <S N="category">execution</S>
+      <S N="doc_id">DOC-PAT-EXEC-execution_patterns_index-1007</S>
+      <S N="pattern_id">PAT-EXEC-execution_patterns_index-1007</S>
+      <S N="name">execution_patterns_index</S>
+      <S N="source_file">EXECUTION_PATTERNS_INDEX.md</S>
+    </MS>
+  </Obj>
+  <Obj RefId="8">
+    <TNRef RefId="0" />
+    <MS>
+      <S N="category">execution</S>
+      <S N="doc_id">DOC-PAT-EXEC-execution_patterns_library-1008</S>
+      <S N="pattern_id">PAT-EXEC-execution_patterns_library-1008</S>
+      <S N="name">execution_patterns_library</S>
+      <S N="source_file">EXECUTION_PATTERNS_LIBRARY.md</S>
+    </MS>
+  </Obj>
+  <Obj RefId="9">
+    <TNRef RefId="0" />
+    <MS>
+      <S N="category">execution</S>
+      <S N="doc_id">DOC-PAT-EXEC-execution_patterns_mandatory-1009</S>
+      <S N="pattern_id">PAT-EXEC-execution_patterns_mandatory-1009</S>
+      <S N="name">execution_patterns_mandatory</S>
+      <S N="source_file">EXECUTION_PATTERNS_MANDATORY.md</S>
+    </MS>
+  </Obj>
+  <Obj RefId="10">
+    <TNRef RefId="0" />
+    <MS>
+      <S N="category">execution</S>
+      <S N="doc_id">DOC-PAT-EXEC-execution_patterns_remediation_map-1010</S>
+      <S N="pattern_id">PAT-EXEC-execution_patterns_remediation_map-1010</S>
+      <S N="name">execution_patterns_remediation_map</S>
+      <S N="source_file">EXECUTION_PATTERNS_REMEDIATION_MAP.md</S>
+    </MS>
+  </Obj>
+  <Obj RefId="11">
+    <TNRef RefId="0" />
+    <MS>
+      <S N="category">execution</S>
+      <S N="doc_id">DOC-PAT-EXEC-gui_plan_execution_patterns-1011</S>
+      <S N="pattern_id">PAT-EXEC-gui_plan_execution_patterns-1011</S>
+      <S N="name">gui_plan_execution_patterns</S>
+      <S N="source_file">GUI_PLAN_EXECUTION_PATTERNS.md</S>
+    </MS>
+  </Obj>
+  <Obj RefId="12">
+    <TNRef RefId="0" />
+    <MS>
+      <S N="category">execution</S>
+      <S N="doc_id">DOC-PAT-EXEC-meta_execution_pattern-1012</S>
+      <S N="pattern_id">PAT-EXEC-meta_execution_pattern-1012</S>
+      <S N="name">meta_execution_pattern</S>
+      <S N="source_file">META_EXECUTION_PATTERN.md</S>
+    </MS>
+  </Obj>
+  <Obj RefId="13">
+    <TNRef RefId="0" />
+    <MS>
+      <S N="category">infrastructure</S>
+      <S N="doc_id">DOC-PAT-META-pattern_automation_activation_plan-1013</S>
+      <S N="pattern_id">PAT-META-pattern_automation_activation_plan-1013</S>
+      <S N="name">pattern_automation_activation_plan</S>
+      <S N="source_file">PATTERN_AUTOMATION_ACTIVATION_PLAN.md</S>
+    </MS>
+  </Obj>
+  <Obj RefId="14">
+    <TNRef RefId="0" />
+    <MS>
+      <S N="category">infrastructure</S>
+      <S N="doc_id">DOC-PAT-META-pattern_catalog-1014</S>
+      <S N="pattern_id">PAT-META-pattern_catalog-1014</S>
+      <S N="name">pattern_catalog</S>
+      <S N="source_file">PATTERN_CATALOG.md</S>
+    </MS>
+  </Obj>
+  <Obj RefId="15">
+    <TNRef RefId="0" />
+    <MS>
+      <S N="category">infrastructure</S>
+      <S N="doc_id">DOC-PAT-META-pattern_conversion_summary-1015</S>
+      <S N="pattern_id">PAT-META-pattern_conversion_summary-1015</S>
+      <S N="name">pattern_conversion_summary</S>
+      <S N="source_file">PATTERN_CONVERSION_SUMMARY.md</S>
+    </MS>
+  </Obj>
+  <Obj RefId="16">
+    <TNRef RefId="0" />
+    <MS>
+      <S N="category">infrastructure</S>
+      <S N="doc_id">DOC-PAT-META-pattern_extraction_report-1016</S>
+      <S N="pattern_id">PAT-META-pattern_extraction_report-1016</S>
+      <S N="name">pattern_extraction_report</S>
+      <S N="source_file">PATTERN_EXTRACTION_REPORT.md</S>
+    </MS>
+  </Obj>
+  <Obj RefId="17">
+    <TNRef RefId="0" />
+    <MS>
+      <S N="category">behavioral</S>
+      <S N="doc_id">DOC-PAT-PATTERN-pattern_001_planning_budget_limit-1017</S>
+      <S N="pattern_id">PAT-PATTERN-pattern_001_planning_budget_limit-1017</S>
+      <S N="name">pattern_001_planning_budget_limit</S>
+      <S N="source_file">PATTERN-001-PLANNING-BUDGET-LIMIT.md</S>
+    </MS>
+  </Obj>
+  <Obj RefId="18">
+    <TNRef RefId="0" />
+    <MS>
+      <S N="category">behavioral</S>
+      <S N="doc_id">DOC-PAT-PATTERN-pattern_002_ground_truth_verification-1018</S>
+      <S N="pattern_id">PAT-PATTERN-pattern_002_ground_truth_verification-1018</S>
+      <S N="name">pattern_002_ground_truth_verification</S>
+      <S N="source_file">PATTERN-002-GROUND-TRUTH-VERIFICATION.md</S>
+    </MS>
+  </Obj>
+  <Obj RefId="19">
+    <TNRef RefId="0" />
+    <MS>
+      <S N="category">behavioral</S>
+      <S N="doc_id">DOC-PAT-PATTERN-pattern_003_smart_retry_backoff-1019</S>
+      <S N="pattern_id">PAT-PATTERN-pattern_003_smart_retry_backoff-1019</S>
+      <S N="name">pattern_003_smart_retry_backoff</S>
+      <S N="source_file">PATTERN-003-SMART-RETRY-BACKOFF.md</S>
+    </MS>
+  </Obj>
+  <Obj RefId="20">
+    <TNRef RefId="0" />
+    <MS>
+      <S N="category">infrastructure</S>
+      <S N="doc_id">DOC-PAT-META-phase_plan_pattern_governance-1020</S>
+      <S N="pattern_id">PAT-META-phase_plan_pattern_governance-1020</S>
+      <S N="name">phase_plan_pattern_governance</S>
+      <S N="source_file">PHASE_PLAN_PATTERN_GOVERNANCE.md</S>
+    </MS>
+  </Obj>
+  <Obj RefId="21">
+    <TNRef RefId="0" />
+    <MS>
+      <S N="category">execution</S>
+      <S N="doc_id">DOC-PAT-EXEC-readme_execution_patterns-1021</S>
+      <S N="pattern_id">PAT-EXEC-readme_execution_patterns-1021</S>
+      <S N="name">readme_execution_patterns</S>
+      <S N="source_file">README_EXECUTION_PATTERNS.md</S>
+    </MS>
+  </Obj>
+  <Obj RefId="22">
+    <TNRef RefId="0" />
+    <MS>
+      <S N="category">infrastructure</S>
+      <S N="doc_id">DOC-PAT-META-readme_glossary_patterns-1022</S>
+      <S N="pattern_id">PAT-META-readme_glossary_patterns-1022</S>
+      <S N="name">readme_glossary_patterns</S>
+      <S N="source_file">README_GLOSSARY_PATTERNS.md</S>
+    </MS>
+  </Obj>
+  <Obj RefId="23">
+    <TNRef RefId="0" />
+    <MS>
+      <S N="category">infrastructure</S>
+      <S N="doc_id">DOC-PAT-META-speed_patterns_extracted-1023</S>
+      <S N="pattern_id">PAT-META-speed_patterns_extracted-1023</S>
+      <S N="name">speed_patterns_extracted</S>
+      <S N="source_file">SPEED_PATTERNS_EXTRACTED.md</S>
+    </MS>
+  </Obj>
+  <Obj RefId="24">
+    <TNRef RefId="0" />
+    <MS>
+      <S N="category">infrastructure</S>
+      <S N="doc_id">DOC-PAT-META-unified_pattern_implementation_plan-1024</S>
+      <S N="pattern_id">PAT-META-unified_pattern_implementation_plan-1024</S>
+      <S N="name">unified_pattern_implementation_plan</S>
+      <S N="source_file">UNIFIED_PATTERN_IMPLEMENTATION_PLAN.md</S>
+    </MS>
+  </Obj>
+</Objs>
