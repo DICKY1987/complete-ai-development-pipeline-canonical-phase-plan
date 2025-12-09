@@ -1,0 +1,57 @@
+---
+doc_id: DOC-PAT-EXEC-002-891
+pattern_id: EXEC-002
+version: 1.0.0
+status: active
+category: execution
+priority: critical
+created: 2025-12-09
+source: execution patterns suite
+---
+
+# EXEC-002: Batch Validation
+
+## Purpose
+
+Two-pass batch execution (validate all, then execute all) to prevent partial failures
+
+## Context
+
+This is a critical execution pattern from the execution patterns suite, designed to prevent common failure modes in AI-assisted development workflows.
+
+Source file: `patterns/execution/EXEC-002-BATCH-VALIDATION.md`
+
+## When to Use
+
+- Before any operation where this failure mode might occur
+- As a standard guard in automated workflows
+- In batch operations or multi-step processes
+
+## Implementation
+
+See full pattern specification at: `patterns/execution/EXEC-002-BATCH-VALIDATION.md`
+
+## Verification
+
+**Ground Truth Checks**:
+- Pattern prevents the documented failure mode
+- Execution time overhead is minimal (< 100ms)
+- No false positives blocking valid operations
+
+## Tool Compatibility
+
+- claude_code
+- github_copilot_cli
+- cursor
+- aider
+
+## Related Patterns
+
+- All EXEC patterns work together as a suite
+- Combine multiple patterns for robust execution
+
+## References
+
+- Full specification: `patterns/execution/EXEC-002-BATCH-VALIDATION.md`
+- Test suite: `patterns/tests/test_batch_validation_executor.ps1`
+- Executor: `patterns/executors/batch_validation_executor.ps1`

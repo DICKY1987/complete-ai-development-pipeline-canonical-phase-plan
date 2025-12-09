@@ -1,0 +1,57 @@
+---
+doc_id: DOC-PAT-EXEC-001-890
+pattern_id: EXEC-001
+version: 1.0.0
+status: active
+category: code_quality
+priority: high
+created: 2025-12-09
+source: execution patterns suite
+---
+
+# EXEC-001: Type Safe Operations
+
+## Purpose
+
+Type-safe file operations with extension-aware routing to prevent format misdetection
+
+## Context
+
+This is a critical execution pattern from the execution patterns suite, designed to prevent common failure modes in AI-assisted development workflows.
+
+Source file: `patterns/execution/EXEC-001-TYPE-SAFE-OPERATIONS.md`
+
+## When to Use
+
+- Before any operation where this failure mode might occur
+- As a standard guard in automated workflows
+- In batch operations or multi-step processes
+
+## Implementation
+
+See full pattern specification at: `patterns/execution/EXEC-001-TYPE-SAFE-OPERATIONS.md`
+
+## Verification
+
+**Ground Truth Checks**:
+- Pattern prevents the documented failure mode
+- Execution time overhead is minimal (< 100ms)
+- No false positives blocking valid operations
+
+## Tool Compatibility
+
+- claude_code
+- github_copilot_cli
+- cursor
+- aider
+
+## Related Patterns
+
+- All EXEC patterns work together as a suite
+- Combine multiple patterns for robust execution
+
+## References
+
+- Full specification: `patterns/execution/EXEC-001-TYPE-SAFE-OPERATIONS.md`
+- Test suite: `patterns/tests/test_type_safe_operations_executor.ps1`
+- Executor: `patterns/executors/type_safe_operations_executor.ps1`

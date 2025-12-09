@@ -1,0 +1,81 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Type Safe Operations Schema",
+  "description": "JSON Schema for EXEC-001",
+  "type": "object",
+  "properties": {
+    "pattern_id": {
+      "type": "string",
+      "const": "EXEC-001",
+      "description": "Unique pattern identifier"
+    },
+    "doc_id": {
+      "type": "string",
+      "const": "DOC-PAT-EXEC-001-890",
+      "description": "Documentation identifier"
+    },
+    "context": {
+      "type": "string",
+      "description": "Execution context"
+    },
+    "operation": {
+      "type": "object",
+      "description": "Operation details to validate/execute",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Operation type"
+        },
+        "target": {
+          "type": "string",
+          "description": "Operation target (file, command, etc.)"
+        },
+        "params": {
+          "type": "object",
+          "description": "Operation parameters"
+        }
+      },
+      "required": ["type", "target"]
+    },
+    "validation": {
+      "type": "object",
+      "description": "Validation results",
+      "properties": {
+        "passed": {
+          "type": "boolean",
+          "description": "Whether validation passed"
+        },
+        "checks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {"type": "string"},
+              "passed": {"type": "boolean"},
+              "message": {"type": "string"}
+            }
+          }
+        }
+      }
+    },
+    "result": {
+      "type": "object",
+      "description": "Execution result",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["success", "failure", "skipped"]
+        },
+        "message": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  },
+  "required": ["pattern_id", "context", "operation"],
+  "additionalProperties": false
+}

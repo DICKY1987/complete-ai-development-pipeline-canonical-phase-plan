@@ -1,0 +1,57 @@
+---
+doc_id: DOC-PAT-EXEC-004-893
+pattern_id: EXEC-004
+version: 1.0.0
+status: active
+category: code_quality
+priority: high
+created: 2025-12-09
+source: execution patterns suite
+---
+
+# EXEC-004: Atomic Operations
+
+## Purpose
+
+Transaction-like file operations with automatic rollback to prevent data corruption
+
+## Context
+
+This is a critical execution pattern from the execution patterns suite, designed to prevent common failure modes in AI-assisted development workflows.
+
+Source file: `patterns/execution/EXEC-004-ATOMIC-OPERATIONS.md`
+
+## When to Use
+
+- Before any operation where this failure mode might occur
+- As a standard guard in automated workflows
+- In batch operations or multi-step processes
+
+## Implementation
+
+See full pattern specification at: `patterns/execution/EXEC-004-ATOMIC-OPERATIONS.md`
+
+## Verification
+
+**Ground Truth Checks**:
+- Pattern prevents the documented failure mode
+- Execution time overhead is minimal (< 100ms)
+- No false positives blocking valid operations
+
+## Tool Compatibility
+
+- claude_code
+- github_copilot_cli
+- cursor
+- aider
+
+## Related Patterns
+
+- All EXEC patterns work together as a suite
+- Combine multiple patterns for robust execution
+
+## References
+
+- Full specification: `patterns/execution/EXEC-004-ATOMIC-OPERATIONS.md`
+- Test suite: `patterns/tests/test_atomic_operations_executor.ps1`
+- Executor: `patterns/executors/atomic_operations_executor.ps1`

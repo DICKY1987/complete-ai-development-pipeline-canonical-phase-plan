@@ -2219,3 +2219,91 @@ patterns:
   created: '2025-12-08'
   summary: "Unified Pattern Implementation Plan"
   notes: "Auto-registered from PATTERN_52 folder via EXEC-HYBRID-010. Requires review and enhancement."
+
+- pattern_id: EXEC-001
+  name: type_safe_operations
+  version: 1.0.0
+  status: active
+  category: code_quality
+  priority: high
+  doc_id: DOC-PAT-EXEC-001-890
+  spec_path: patterns/specs/type_safe_operations.pattern.yaml
+  schema_path: patterns/schemas/type_safe_operations.schema.json
+  executor_path: patterns/executors/type_safe_operations_executor.ps1
+  source_path: patterns/execution/EXEC-001-TYPE-SAFE-OPERATIONS.md
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  - cursor
+  - aider
+  time_savings_vs_manual: 90%
+  proven_uses: 100+
+  created: '2025-12-09'
+  summary: "Type-safe file operations with extension-aware routing to prevent format misdetection"
+  notes: "Critical execution pattern from execution patterns suite. Prevents common failure modes."
+
+- pattern_id: EXEC-002
+  name: batch_validation
+  version: 1.0.0
+  status: active
+  category: execution
+  priority: critical
+  doc_id: DOC-PAT-EXEC-002-891
+  spec_path: patterns/specs/batch_validation.pattern.yaml
+  schema_path: patterns/schemas/batch_validation.schema.json
+  executor_path: patterns/executors/batch_validation_executor.ps1
+  source_path: patterns/execution/EXEC-002-BATCH-VALIDATION.md
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  - cursor
+  - aider
+  time_savings_vs_manual: 90%
+  proven_uses: 100+
+  created: '2025-12-09'
+  summary: "Two-pass batch execution (validate all, then execute all) to prevent partial failures"
+  notes: "Critical execution pattern from execution patterns suite. Prevents common failure modes."
+
+- pattern_id: EXEC-003
+  name: tool_availability_guards
+  version: 1.0.0
+  status: active
+  category: environment
+  priority: critical
+  doc_id: DOC-PAT-EXEC-003-892
+  spec_path: patterns/specs/tool_availability_guards.pattern.yaml
+  schema_path: patterns/schemas/tool_availability_guards.schema.json
+  executor_path: patterns/executors/tool_availability_guards_executor.ps1
+  source_path: patterns/execution/EXEC-003-TOOL-AVAILABILITY-GUARDS.md
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  - cursor
+  - aider
+  time_savings_vs_manual: 90%
+  proven_uses: 100+
+  created: '2025-12-09'
+  summary: "Pre-flight tool existence verification with install hints to prevent command not found errors"
+  notes: "Critical execution pattern from execution patterns suite. Prevents common failure modes."
+
+- pattern_id: EXEC-004
+  name: atomic_operations
+  version: 1.0.0
+  status: active
+  category: code_quality
+  priority: high
+  doc_id: DOC-PAT-EXEC-004-893
+  spec_path: patterns/specs/atomic_operations.pattern.yaml
+  schema_path: patterns/schemas/atomic_operations.schema.json
+  executor_path: patterns/executors/atomic_operations_executor.ps1
+  source_path: patterns/execution/EXEC-004-ATOMIC-OPERATIONS.md
+  tool_targets:
+  - claude_code
+  - github_copilot_cli
+  - cursor
+  - aider
+  time_savings_vs_manual: 90%
+  proven_uses: 100+
+  created: '2025-12-09'
+  summary: "Transaction-like file operations with automatic rollback to prevent data corruption"
+  notes: "Critical execution pattern from execution patterns suite. Prevents common failure modes."
