@@ -5,13 +5,13 @@ from .base import (
     BaseStateMachine,
     StateTransitionError,
     TerminalStateViolation,
-    MonotonicProgressViolation
+    MonotonicProgressViolation,
 )
 
 __all__ = [
-    'BaseState',
-    'BaseStateMachine',
-    'StateTransitionError',
-    'TerminalStateViolation',
-    'MonotonicProgressViolation'
+    "BaseState",
+    "BaseStateMachine",
+    "StateTransitionError",
+    "TerminalStateViolation",
+    "MonotonicProgressViolation",
 ]

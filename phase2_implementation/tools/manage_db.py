@@ -3,9 +3,11 @@
 
 import sys
 from pathlib import Path
+
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from core.db import create_migration_manager, get_db
+
 
 def main():
     if len(sys.argv) < 2:
@@ -15,11 +17,11 @@ def main():
         print("  migrate  - Apply pending migrations")
         print("  rollback - Rollback last migration")
         sys.exit(1)
-    
+
     command = sys.argv[1].lower()
     db = get_db()
     manager = create_migration_manager(db)
-    
+
     if command == "status":
         manager.status()
     elif command == "migrate":
@@ -33,6 +35,7 @@ def main():
     else:
         print(f"Unknown command: {command}")
         sys.exit(1)
+
 
 if __name__ == "__main__":
     main()
