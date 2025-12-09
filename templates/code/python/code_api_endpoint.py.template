@@ -1,0 +1,86 @@
+---
+doc_id: DOC-CODE-API-ENDPOINT-001
+version: 1.0.0
+created: 2025-12-09
+last_updated: 2025-12-09
+status: active
+template_type: code
+target_extension: .py
+category: api
+purpose: "Create RESTful CRUD endpoint following UET patterns"
+author: "UET Framework Team"
+based_on: "UET Decision Elimination Playbook - CRUD pattern"
+proven_uses: 0
+estimated_time_minutes: 15
+related_templates:
+  - "DOC-TEST-UNIT-STANDARD-001"
+---
+
+# API Endpoint Template (Python)
+
+# TEMPLATE VARIABLES
+# - resource_singular: Singular form of resource (e.g., "task", "user")
+# - resource_plural: Plural form of resource (e.g., "tasks", "users")
+# - ResourceSchema: Pydantic schema class name (e.g., "TaskSchema")
+# - resource_table: Database table name (e.g., "tasks")
+#
+# USAGE
+# Fill in all ${VARIABLE} placeholders before use
+# 
+# Based on: UET Decision Elimination Playbook - CRUD pattern
+
+from typing import Dict, Any
+from core.validation import validate
+from core.database import db
+
+
+@app.post("/api/${resource_plural}")
+def create_${resource_singular}(request: Request) -> Dict[str, Any]:
+    """
+    Create a new ${resource_singular}.
+
+    Args:
+        request: HTTP request with ${resource_singular} data
+
+    Returns:
+        Response with status and created ${resource_singular}
+    """
+    # Validate request data
+    validate(request.data, ${ResourceSchema})
+
+    # Insert into database
+    result = db.insert("${resource_table}", request.data)
+
+    return {
+        "status": "ok",
+        "data": result
+    }
+
+
+@app.get("/api/${resource_plural}/{id}")
+def get_${resource_singular}(id: str) -> Dict[str, Any]:
+    """Get ${resource_singular} by ID"""
+    result = db.get("${resource_table}", id)
+
+    if not result:
+        return {"status": "error", "error": "${resource_singular} not found"}
+
+    return {"status": "ok", "data": result}
+
+
+@app.put("/api/${resource_plural}/{id}")
+def update_${resource_singular}(id: str, request: Request) -> Dict[str, Any]:
+    """Update ${resource_singular}"""
+    validate(request.data, ${ResourceSchema})
+
+    result = db.update("${resource_table}", id, request.data)
+
+    return {"status": "ok", "data": result}
+
+
+@app.delete("/api/${resource_plural}/{id}")
+def delete_${resource_singular}(id: str) -> Dict[str, Any]:
+    """Delete ${resource_singular}"""
+    db.delete("${resource_table}", id)
+
+    return {"status": "ok"}

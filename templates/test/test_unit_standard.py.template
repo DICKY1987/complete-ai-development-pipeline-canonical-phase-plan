@@ -1,0 +1,86 @@
+---
+doc_id: DOC-TEST-UNIT-STANDARD-001
+version: 1.0.0
+created: 2025-12-09
+last_updated: 2025-12-09
+status: active
+template_type: test
+target_extension: .py
+category: unit
+purpose: "Standard unit test structure with happy path and error cases"
+author: "UET Framework Team"
+based_on: "UET Decision Elimination Playbook - Test pattern (happy path + 2 error cases)"
+proven_uses: 0
+estimated_time_minutes: 10
+related_templates:
+  - "DOC-CODE-API-ENDPOINT-001"
+---
+
+# Test Case Template (Python)
+
+# TEMPLATE VARIABLES
+# - function_name: Name of function being tested
+# - module: Python module path to import from
+# - valid_input: Example of valid input data
+# - invalid_case_1: First invalid input scenario
+# - invalid_case_2: Second invalid input scenario
+# - error_message_1: Expected error message for case 1
+# - error_message_2: Expected error message for case 2
+#
+# USAGE
+# Fill in all ${VARIABLE} placeholders before use
+# 
+# Based on: UET Decision Elimination Playbook - Test pattern (happy path + 2 error cases)
+
+import pytest
+from ${module} import ${function_name}
+
+
+def test_${function_name}_happy_path():
+    """Test ${function_name} with valid input"""
+    # Arrange
+    valid_input = ${valid_input}
+
+    # Act
+    result = ${function_name}(valid_input)
+
+    # Assert
+    assert result.success == True
+    assert result.data is not None
+
+
+def test_${function_name}_error_case_1():
+    """Test ${function_name} with ${invalid_case_1}"""
+    # Arrange
+    invalid_input = ${invalid_case_1}
+
+    # Act
+    result = ${function_name}(invalid_input)
+
+    # Assert
+    assert result.success == False
+    assert "${error_message_1}" in str(result.errors)
+
+
+def test_${function_name}_error_case_2():
+    """Test ${function_name} with ${invalid_case_2}"""
+    # Arrange
+    invalid_input = ${invalid_case_2}
+
+    # Act
+    result = ${function_name}(invalid_input)
+
+    # Assert
+    assert result.success == False
+    assert "${error_message_2}" in str(result.errors)
+
+
+def test_${function_name}_edge_cases():
+    """Test ${function_name} with edge cases"""
+    # Test with empty input
+    result = ${function_name}({})
+    assert result.success == False
+
+    # Test with None
+    result = ${function_name}(None)
+    assert result.success == False

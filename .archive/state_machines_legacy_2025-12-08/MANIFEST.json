@@ -1,0 +1,85 @@
+{
+  "archive_date": "2025-12-08T22:38:22.037Z",
+  "archived_by": "State Machine SSOT Consolidation",
+  "ssot_version": "1.0.0",
+  "ssot_doc_id": "DOC-SSOT-STATE-MACHINES-001",
+  "ssot_path": "Complete AI Development Pipeline – Canonical Phase Plan/doc_ssot_state_machines.md",
+  "purpose": "Archive of legacy state machine documents consolidated into unified SSOT",
+  "files": [
+    {
+      "filename": "STATE_MACHINES.md",
+      "original_path": "DOCUMENTS/STATE_6/STATE_MACHINES.md",
+      "doc_id": "DOC-GUIDE-STATE-MACHINES-397",
+      "size_bytes": null,
+      "migrated_to": ["§1.3 Workstream", "§1.4 Step/Task", "§2.4 Circuit Breaker", "§5 Recovery"],
+      "content_summary": "Workstream/Step state machines with ASCII diagrams, circuit breaker, recovery procedures, state audit trail"
+    },
+    {
+      "filename": "STATE_MACHINES (2).md",
+      "original_path": "DOCUMENTS/STATE_6/STATE_MACHINES (2).md",
+      "doc_id": null,
+      "size_bytes": null,
+      "migrated_to": ["§2.1 UET Worker", "§2.2 Patch Ledger", "§2.3 Test Gate", "§2.5 Optimistic Locking"],
+      "content_summary": "UET V2 state machines with database representations, concurrency control"
+    },
+    {
+      "filename": "STATE_MACHINES (4).md",
+      "original_path": "DOCUMENTS/STATE_6/STATE_MACHINES (4).md",
+      "doc_id": null,
+      "size_bytes": null,
+      "migrated_to": ["§1.3 Workstream variants", "§1.4 Task variants", "§2.1-2.3 duplicate content"],
+      "content_summary": "Duplicate/variant definitions from STATE_MACHINES (2).md - DEDUPLICATED"
+    },
+    {
+      "filename": "DOC_STATE_MACHINE.md",
+      "original_path": "DOCUMENTS/STATE_6/DOC_STATE_MACHINE.md",
+      "doc_id": "DOC-GUIDE-DOC-STATE-MACHINE-861",
+      "size_bytes": null,
+      "migrated_to": ["§1.2 Run", "§1.3 Workstream variants"],
+      "content_summary": "Canonical run/workstream states with enforcement notes"
+    },
+    {
+      "filename": "STATE_MACHINE (2).md",
+      "original_path": "DOCUMENTS/STATE_6/STATE_MACHINE (2).md",
+      "doc_id": "DOC-GUIDE-STATE-MACHINE-785",
+      "size_bytes": null,
+      "migrated_to": ["§1.4 Task", "§1.3 Workstream", "§1.5 Worker"],
+      "content_summary": "Task/Workstream/Worker state machines with Mermaid diagrams, transition guards, invariants"
+    },
+    {
+      "filename": "STATE_MACHINES (3).md",
+      "original_path": "DOCUMENTS/STATE_6/STATE_MACHINES (3).md",
+      "doc_id": "DOC-GUIDE-STATE-MACHINES-758",
+      "size_bytes": null,
+      "migrated_to": ["§2.1 UET Worker", "§2.2 Patch Ledger", "§2.3 Test Gate"],
+      "content_summary": "Duplicate UET V2 content identical to STATE_MACHINES (2).md - DEDUPLICATED"
+    }
+  ],
+  "consolidation_stats": {
+    "state_machines_documented": 8,
+    "total_states_defined": 51,
+    "total_valid_transitions": 66,
+    "database_tables": 7,
+    "recovery_procedures": 3,
+    "invariants_defined": 12,
+    "test_requirements": 5,
+    "legacy_files_consolidated": 6,
+    "duplicates_removed": 2
+  },
+  "verification": {
+    "all_state_machines_migrated": true,
+    "all_transitions_documented": true,
+    "all_schemas_consolidated": true,
+    "all_recovery_procedures_preserved": true,
+    "cross_system_bindings_documented": true,
+    "test_requirements_defined": true
+  },
+  "deletion_approved": true,
+  "deletion_scheduled": "After Phase 2 completion and verification",
+  "notes": [
+    "All content successfully migrated to SSOT",
+    "Conflicts resolved with documented decisions",
+    "Additional content added: cross-system rules, test requirements, policies",
+    "Files can be safely deleted after Phase 2 validation"
+  ]
+}

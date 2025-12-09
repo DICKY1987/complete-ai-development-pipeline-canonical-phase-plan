@@ -1,0 +1,44 @@
+# Output directories
+aggregated/
+analysis/
+.runs/
+.ledger/
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Temporary files
+*.log
+temp/
+tmp/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Test artifacts
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Sensitive data
+*.jsonl
+patterns.db
+*.enc
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini

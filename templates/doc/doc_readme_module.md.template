@@ -1,0 +1,219 @@
+---
+doc_id: DOC-README-MODULE-001
+version: 1.0.0
+created: 2025-12-09
+last_updated: 2025-12-09
+status: active
+template_type: documentation
+target_extension: .md
+category: readme
+purpose: "Standard module README with structure and usage"
+author: "UET Framework Team"
+framework: "Universal Execution Templates (UET)"
+proven_uses: 0
+estimated_time_minutes: 20
+---
+
+# Module README Template
+
+**Purpose**: Create comprehensive README files for modules with consistent structure.
+
+## Template Variables
+
+| Variable | Type | Required | Default | Description |
+|----------|------|----------|---------|-------------|
+| `FOLDER_NAME` | string | Yes | - | Name of the module/folder |
+| `MODULE_PATH` | path | Yes | - | Relative path from project root |
+| `LAYER_NAME` | string | Yes | - | Architecture layer (infra/domain/api/ui) |
+| `STATUS` | enum | Yes | active | Status: active, deprecated, planned, experimental |
+| `PURPOSE_DESCRIPTION` | text | Yes | - | Brief description of module purpose |
+| `DIRECTORY_STRUCTURE` | text | Yes | - | File/folder tree structure |
+| `KEY_COMPONENTS_LIST` | text | Yes | - | List of main components/files |
+| `DEPENDENCIES_LIST` | text | Yes | - | Internal and external dependencies |
+| `USAGE_EXAMPLES` | text | Yes | - | Code examples |
+| `INTEGRATION_POINTS` | text | Yes | - | How this integrates with other modules |
+| `RELATED_DOCS` | text | Yes | - | Links to related documentation |
+| `TIMESTAMP` | datetime | No | auto | Generation timestamp |
+
+---
+
+## Template Content
+
+---
+doc_id: DOC-GUIDE-README-${FOLDER_NAME}-587
+---
+
+# ${FOLDER_NAME}
+
+**Module Path**: `${MODULE_PATH}`
+**Layer**: ${LAYER_NAME}
+**Status**: ${STATUS}
+
+## Purpose
+
+${PURPOSE_DESCRIPTION}
+
+## Contents
+
+${DIRECTORY_STRUCTURE}
+
+## Key Components
+
+${KEY_COMPONENTS_LIST}
+
+## Dependencies
+
+${DEPENDENCIES_LIST}
+
+## Usage
+
+${USAGE_EXAMPLES}
+
+## Integration Points
+
+${INTEGRATION_POINTS}
+
+## Related Documentation
+
+${RELATED_DOCS}
+
+---
+
+**Generated**: ${TIMESTAMP}
+**Framework**: Universal Execution Templates (UET)
+
+---
+
+## Usage Example
+
+```markdown
+---
+doc_id: DOC-GUIDE-README-TASK-EXECUTOR-587
+---
+
+# task_executor
+
+**Module Path**: `src/core/execution/task_executor`
+**Layer**: domain
+**Status**: active
+
+## Purpose
+
+Executes tasks with retry logic, validation gates, and comprehensive error recovery. Provides the core execution engine for the UET framework.
+
+## Contents
+
+```
+task_executor/
+├── __init__.py           # Public API exports
+├── executor.py           # Main TaskExecutor class
+├── validators.py         # Result validation functions
+├── retry_strategy.py     # Retry logic and backoff
+└── execution_context.py  # Execution environment wrapper
+```
+
+## Key Components
+
+- **TaskExecutor**: Main execution orchestrator
+  - `execute(task: Task) -> ExecutionResult`
+  - `validate_result(result: Any) -> bool`
+  - `register_validator(fn: Callable)`
+
+- **RetryStrategy**: Configurable retry behavior
+  - Exponential backoff
+  - Max attempts configuration
+  - Failure classification
+
+- **ExecutionContext**: Isolated execution environment
+  - Environment variable management
+  - Working directory isolation
+  - Resource cleanup
+
+## Dependencies
+
+**Internal**:
+- `core.state.task_db` - Task state persistence
+- `error.engine.error_engine` - Error detection and recovery
+- `core.validation.schemas` - Task and result schemas
+
+**External**:
+- `pydantic` - Data validation
+- `tenacity` - Retry logic (optional, we have custom impl)
+
+## Usage
+
+### Basic Execution
+
+```python
+from task_executor import TaskExecutor, Task
+
+executor = TaskExecutor(max_retries=3)
+task = Task(
+    id="task-001",
+    command="python script.py",
+    validation_fn=lambda r: r.exit_code == 0
+)
+
+result = executor.execute(task)
+if result.status == "completed":
+    print(f"Success: {result.output}")
+else:
+    print(f"Failed: {result.errors}")
+```
+
+### With Custom Validators
+
+```python
+def check_file_exists(result):
+    return Path(result.output_file).exists()
+
+executor = TaskExecutor()
+executor.register_validator(check_file_exists)
+result = executor.execute(task)
+```
+
+### Context Manager Usage
+
+```python
+with TaskExecutor() as executor:
+    result = executor.execute(task)
+    # Automatic cleanup on exit
+```
+
+## Integration Points
+
+- **Orchestrator**: Called by `core.orchestrator.Orchestrator` to execute workstream tasks
+- **State Manager**: Persists execution results to `core.state.task_db`
+- **Error Engine**: Sends failures to `error.engine.error_engine` for analysis
+- **Monitoring**: Emits metrics to `core.monitoring.metrics_collector`
+
+## Related Documentation
+
+- [Task Lifecycle](../../docs/task-lifecycle.md)
+- [Error Recovery Guide](../../docs/error-recovery.md)
+- [Execution Patterns](../../docs/patterns/execution.md)
+- [API Reference](./API.md)
+
+---
+
+**Generated**: 2025-12-09T12:00:00Z
+**Framework**: Universal Execution Templates (UET)
+```
+
+---
+
+## Checklist
+
+- [ ] All variables filled in
+- [ ] Directory structure is accurate
+- [ ] All key components documented
+- [ ] Dependencies complete (internal and external)
+- [ ] At least 2 usage examples provided
+- [ ] Integration points described
+- [ ] Related docs linked
+- [ ] No ${PLACEHOLDERS} remaining
+
+---
+
+**Template Version**: 1.0.0
+**Last Updated**: 2025-12-09

@@ -1,0 +1,1272 @@
+Here’s what you’ve actually got in this batch — they fall into **two big families**: “Agents philosophy docs” and “Repo-specific AGENTS / guidelines.”
+
+---
+
+## 1. Agent philosophy docs
+
+### A. **Chinese Agents doc (`AGENTS_ZH...`)** 
+
+* This is the **Chinese translation** of your core “Agents” philosophy.
+* It explains:
+
+  * Why to use sub-agents as **context firewalls** (do heavy work, return small summaries).
+  * The main agent types: `code-analyzer`, `file-analyzer`, `test-runner`, `parallel-worker`.
+  * How they reduce context, when to use them, and what anti-patterns to avoid (no “expert” roleplay, no verbose outputs, no agents talking directly to each other).
+
+### B. **English Agents doc (`AGENTS.md` / one of the AGENTS(..).md)** 
+
+* This is the **canonical English “Agents” description**.
+* Same core content as the Chinese version, but in English:
+
+  * Defines the 4 standard agents and their usage patterns.
+  * Explains the “context firewall” idea with concrete examples (searching for leaks, running tests, parallel implementation).
+  * Gives rules for **creating new agents** (single purpose, 10–20% output, clear input→process→output pattern, strong error handling).
+  * Lists anti-patterns and how agents integrate with the PM command system (`/pm:issue-analyze`, `/pm:issue-start`, etc.).
+
+These two form your **global AGENTS spec** (EN + ZH).
+
+---
+
+## 2. Repo-specific AGENTS / Repository Guidelines
+
+The rest of the files are **“AGENTS-as-Repository-Guidelines”** — i.e., agent instructions and conventions tailored to different repos or subsystems.
+
+### A. **ToolStack / installer repo guidelines** 
+
+* Describes a repo that manages your **tool stack installation**:
+
+  * Root PowerShell scripts like `Install-ToolStack.ps1`, `Set-Environment.ps1`.
+  * Config JSON (`toolstack.config.json`, per-language tool manifests).
+  * Schemas (`toolstack-schema.json`, `tool-manifest-schema.json`).
+* Spells out:
+
+  * How to run all tasks, dry runs, and specific phases.
+  * Coding style (PowerShell/JSON), naming conventions.
+  * Testing/validation guidance and Conventional Commit style.
+* This is essentially: **“AGENTS instructions for the ToolStack repo”**.
+
+### B. **Sync / bidirectional sync repo guidelines** 
+
+* For a repo centered on **file sync and filesystem watchers**:
+
+  * Core scripts: `Invoke-BidirectionalSync.ps1`, `Start-FileSystemWatcher.ps1`, etc.
+  * Tools like `tools/ai-upload.ps1`.
+* Includes:
+
+  * How to run sync modes, watchers, Pester tests, and ScriptAnalyzer.
+  * PowerShell coding style and commit/PR guidelines.
+* Think of it as: **AGENTS instructions for the sync pipeline repo**.
+
+### C. **Core / Error / Domain main repo guidelines (`DOC-ERROR-AGENTS-035`)** 
+
+* Targets the **main ACMS / MINI_PIPE-style Python repo**:
+
+  * Core sections: `core/state/`, `core/engine/`, `core/planning/`, `core/`.
+  * Error engine: `error/engine/`, `error/plugins/`, `error/shared/utils/`.
+  * Domain sections: `aim/`, `pm/`, `spec/`, `aider/`.
+  * Infra: `docs/`, `plans/`, `meta/`, `scripts/`, `tools/`, `schema/`, `config/`, `tests/`, etc.
+* Also marks deprecated legacy areas (`src/pipeline/`, `MOD_ERROR_PIPELINE/`).
+* Defines:
+
+  * Setup, test commands, spec index generators.
+  * Python/Markdown/YAML styles.
+  * CI expectations and how agents should behave when editing this repo.
+
+This is effectively **the AGENTS contract for the main Python engine + error pipeline repo**.
+
+### D. **AIM adapters / AI manager repo guidelines (two copies)**
+
+* Both of these are **the same AIM repository guidelines**, one with `doc_id` frontmatter and one without.
+* Repo focus:
+
+  * `AIM_registry.json` as canonical tool metadata.
+  * `AIM_adapters/*.ps1` (one adapter script per tool).
+  * `AIM_cross-tool/AIM_coordination-rules.json` for cross-tool rules.
+  * `AIM_audit/YYYY-MM-DD/*.json` for capability snapshots.
+* Content:
+
+  * Commands for running adapters, linting, and validating JSON.
+  * PowerShell style, naming convention (`AIM_<tool>.ps1`).
+  * Pester testing, PR/commit guidance.
+  * Agent-specific notes for adding new tools.
+
+So: **AGENTS instructions for the AIM tool-registry/adapters repo**, with one duplicate copy.
+
+### E. **Patterns / pattern repo guidelines (`DOC-PAT-AGENTS-739`)** 
+
+* For the **patterns repo** under `patterns\` (executors, schemas, specs, etc.):
+
+  * Layout: `patterns\executors\`, `schemas\`, `specs\`, `scripts\`, `examples\`, `reports\`, `verification\`, `tests\`, `registry\`, `legacy_atoms\`.
+* Defines:
+
+  * How to set up venv, bootstrap, run tests, and validate workstreams.
+  * Style rules and import paths (e.g., use `core.state.db` instead of legacy pipeline modules).
+  * Deterministic test expectations and Conventional Commits.
+* This is **AGENTS guidance for your pattern engine & registry repo**.
+
+### F. **Codex / Agentic CLI master instructions** 
+
+* This is the **big, Codex-specific AGENTS file** for the AI-aware main repo:
+
+  * Starts with Codex’s role in the UET pipeline (phases, workstreams, ExecutionRequests).
+  * Introduces ACS artifacts: `CODEBASE_INDEX.yaml`, `QUALITY_GATE.yaml`, `ai_policies.yaml`, `.meta/ai_context/*`.
+  * Defines the **post-Phase-E refactored repo layout** (core state, core engine, error engine, aims, specifications, a GUI folder, etc.).
+* It also:
+
+  * Gives “edit zone” rules (safe/review/read-only), CI path rules, and exact import patterns.
+  * Provides agent workflow guidance: how Codex should search, plan, apply patches, run tests, and write final messages.
+* This is basically **the master AGENTS contract for Codex and other CLI agents working in the canonical pipeline repo**.
+
+---
+
+## How they fit together
+
+* **AGENTS (EN + ZH)** = your **global agent philosophy + usage pattern**.
+* All the **“Repository Guidelines” files** = **per-repo AGENTS overlays**:
+
+  * ToolStack installer repo 
+  * Sync pipeline repo 
+  * Main core/error engine repo 
+  * AIM adapters repo (duplicated)
+  * Patterns repo 
+  * Codex / agentic CLI instructions for the canonical pipeline repo 
+
+---
+
+Perfect — here is a **clean, enterprise-grade unified AGENTS / SSOT architecture** that will let you:
+
+* Eliminate duplicated AGENTS files
+* Preserve repo-specific rules
+* Maintain **one canonical source of truth**
+* Keep everything **machine-parsable and agent-safe**
+
+This model is **hierarchical + inheritable**, just like your pipeline design philosophy.
+
+---
+
+# ✅ **UNIFIED AGENTS / SSOT ARCHITECTURE**
+
+## 1. **Single Canonical Root SSOT**
+
+This is the only *true* source of truth for agent behavior.
+
+```
+/SSOT/
+  AGENTS_GLOBAL_SSOT.md
+  AGENTS_GLOBAL_SSOT.json
+```
+
+### Purpose
+
+This file defines:
+
+* What an **Agent is**
+* Allowed agent behaviors
+* Sub-agent rules
+* Context firewall rules
+* Output size and format limits
+* Anti-patterns
+* Safety rules
+* Tool usage policy
+* Logging and audit expectations
+
+### Sections (Canonical Index)
+
+```text
+1. AGENT_DEFINITION
+2. AGENT_EXECUTION_LIFECYCLE
+3. CONTEXT_FIREWALL_RULES
+4. SUB_AGENT_TYPES
+5. INPUT_VALIDATION_RULES
+6. OUTPUT_CONSTRAINTS
+7. ERROR_HANDLING
+8. TOOL_INVOCATION_RULES
+9. REPO_INTERACTION_RULES
+10. SECURITY_GUARDRAILS
+11. ANTI_PATTERNS
+12. OBSERVABILITY & LOGGING
+13. VERSIONING & CHANGE CONTROL
+```
+
+This replaces:
+
+* ✅ English AGENTS
+* ✅ Chinese AGENTS (becomes a localization layer, not a separate rulebook)
+
+---
+
+## 2. **Per-Repo Override Layer (Delta Only)**
+
+Each repo **no longer owns a full AGENTS.md**.
+It only declares **deltas** from the global SSOT.
+
+```
+/<REPO_ROOT>/
+  .agents/
+      AGENTS_OVERRIDE.json
+```
+
+### Example: `AGENTS_OVERRIDE.json`
+
+```json
+{
+  "inherits_from": "SSOT/AGENTS_GLOBAL_SSOT.json",
+  "repo_id": "AIM_ADAPTERS",
+  "overrides": {
+    "allowed_tools": ["PowerShell", "jq"],
+    "primary_languages": ["PowerShell", "JSON"],
+    "test_framework": "Pester",
+    "commit_standard": "Conventional Commits"
+  }
+}
+```
+
+✅ This **replaces every current repo-specific AGENTS.md you uploaded**
+
+| Old File                 | New Status                        |
+| ------------------------ | --------------------------------- |
+| ToolStack AGENTS         | override only                     |
+| Sync repo AGENTS         | override only                     |
+| AIM AGENTS (both copies) | delete, replace with one override |
+| Patterns repo AGENTS     | override only                     |
+| Codex master AGENTS      | merged into GLOBAL SSOT           |
+
+---
+
+## 3. **Agent Resolution Logic (How AI Actually Uses This)**
+
+Every agent loads rules in **this exact order**:
+
+```text
+1. Load AGENTS_GLOBAL_SSOT.json
+2. If /repo/.agents/AGENTS_OVERRIDE.json exists:
+     → merge overrides
+3. If task supplies inline agent policy:
+     → apply as lowest-priority override
+```
+
+**Precedence order:**
+
+```
+Inline Task Rules > Repo Override > Global SSOT
+```
+
+This guarantees:
+
+* One global truth
+* Repo-specific flexibility
+* Zero ambiguity
+
+---
+
+## 4. **Localization Layer (For Your Chinese AGENTS)**
+
+Instead of separate rulebooks:
+
+```
+/SSOT/localizations/
+  AGENTS_GLOBAL_SSOT.en.md
+  AGENTS_GLOBAL_SSOT.zh.md
+```
+
+These are:
+
+* **Read-only**
+* Generated from the canonical JSON
+* Never used directly by agents
+* Only for human reference
+
+✅ This avoids bilingual drift and conflicts.
+
+---
+
+## 5. **Machine-Parsable JSON Schema (Required)**
+
+You should enforce **schema validation** on the SSOT:
+
+```
+/SSOT/schemas/
+   AGENTS_GLOBAL_SCHEMA.json
+```
+
+Key schema blocks:
+
+```json
+{
+  "agent_types": {},
+  "context_firewall": {},
+  "tool_policies": {},
+  "repo_interaction": {},
+  "output_constraints": {},
+  "security_rules": {},
+  "anti_patterns": {}
+}
+```
+
+Your CI can then hard-fail if:
+
+* A repo override violates schema
+* A tool is used without authorization
+* Output limits are exceeded
+
+---
+
+## 6. **De-Duplication Strategy for Your Current Files**
+
+Here is the **exact consolidation map** for what you uploaded:
+
+| Current File             | Action                            |
+| ------------------------ | --------------------------------- |
+| AGENTS.md (English)      | ✅ Merge into GLOBAL SSOT          |
+| AGENTS_ZH.md             | ✅ Convert to localization         |
+| ToolStack AGENTS         | ✅ Convert to override JSON        |
+| Sync repo AGENTS         | ✅ Convert to override JSON        |
+| AIM AGENTS (duplicate 1) | ❌ Delete                          |
+| AIM AGENTS (duplicate 2) | ✅ Keep → override JSON            |
+| Patterns AGENTS          | ✅ Override JSON                   |
+| Codex AGENTS             | ✅ Merge core policies into GLOBAL |
+
+After this:
+
+* You go from **8 AGENTS files → 1 SSOT + N overrides**
+* No duplication
+* No contradiction
+* Fully automatable
+
+---
+
+## 7. **SSOT Governance Rules (Critical)**
+
+To prevent future AGENTS sprawl:
+
+1. **Forking AGENTS.md is forbidden**
+2. All new rules must go into:
+
+   ```
+   /SSOT/AGENTS_GLOBAL_SSOT.json
+   ```
+3. Repo owners may only modify:
+
+   ```
+   /repo/.agents/AGENTS_OVERRIDE.json
+   ```
+4. Overrides **cannot override**:
+
+   * Security rules
+   * Output constraints
+   * Context firewall
+   * Logging rules
+5. Every override must declare:
+
+   * `repo_id`
+   * `owner`
+   * `last_verified`
+
+---
+
+## 8. **Your Final Target Layout**
+
+Here is the full final structure in one view:
+
+```
+/SSOT/
+  AGENTS_GLOBAL_SSOT.json
+  AGENTS_GLOBAL_SSOT.md
+  /schemas/
+     AGENTS_GLOBAL_SCHEMA.json
+  /localizations/
+     AGENTS_GLOBAL_SSOT.en.md
+     AGENTS_GLOBAL_SSOT.zh.md
+
+/<REPO_A>/
+  .agents/
+     AGENTS_OVERRIDE.json
+
+/<REPO_B>/
+  .agents/
+     AGENTS_OVERRIDE.json
+```
+
+---
+
+## 9. **Why This Matches Your Architecture Philosophy**
+
+This aligns perfectly with:
+
+✅ Your **SSOT enforcement rules**
+✅ Your **pattern-based governance**
+✅ Your **tool orchestration model**
+✅ Your desire to **eliminate conflicting docs**
+✅ Your future **agent-first automation goals**
+
+You now have:
+
+* Deterministic agent rules
+* Zero documentation drift
+* Full CI validation capability
+* Safe multi-agent interoperability
+
+---
+
+## 10. Next Actions (Recommended)
+
+If you want, I can:
+
+1. **Generate the full `AGENTS_GLOBAL_SSOT.json` skeleton**
+2. **Generate the JSON Schema**
+3. **Convert one of your existing repo AGENTS into a clean override**
+4. **Produce a migration checklist script**
+5. **Create a CI validation workflow**
+
+---
+
+## ✅ Bottom Line
+
+You do **not** want:
+
+* Multiple AGENTS.md files ✅ (current problem)
+
+You **do want**:
+
+* **1 Global SSOT**
+* **N tiny repo deltas**
+* **Schema-validated automation**
+* **Localization as a derived artifact only**
+
+---
+
+
+
+
+Nice. Let’s lock this in as something you can actually drop into your repos.
+
+I’ll give you:
+
+1. `AGENTS_GLOBAL_SSOT.json` – canonical rules
+2. `AGENTS_GLOBAL_SCHEMA.json` – schema to validate the SSOT + overrides
+3. Example `AGENTS_OVERRIDE.json` – for a repo (I’ll use the Patterns repo as the example)
+4. Brief “how to wire it in” steps
+
+You can copy-paste and tweak IDs / names as needed.
+
+---
+
+## 1. `SSOT/AGENTS_GLOBAL_SSOT.json`
+
+**Path (recommended):**
+
+```text
+<PROJECT_ROOT>/SSOT/AGENTS_GLOBAL_SSOT.json
+```
+
+**Content (initial version):**
+
+```json
+{
+  "doc_meta": {
+    "doc_id": "AGENTS_GLOBAL_SSOT_v1",
+    "doc_type": "agents_ssot",
+    "version": "1.0.0",
+    "status": "active",
+    "last_updated": "2025-12-08",
+    "maintained_by": [
+      "OWNER:ARCHITECTURE",
+      "OWNER:AGENT_FRAMEWORK"
+    ],
+    "description": "Global, canonical SSOT for AI agents operating across the UET / MINI_PIPE ecosystem.",
+    "non_overridable_sections": [
+      "security_rules",
+      "context_firewall",
+      "output_constraints",
+      "observability",
+      "governance"
+    ]
+  },
+
+  "agent_types": {
+    "code_analyzer": {
+      "id": "AGENT_TYPE_CODE_ANALYZER",
+      "description": "Reads and analyzes code to answer questions, summarize design, locate issues, or propose refactors.",
+      "allowed_actions": [
+        "read_code",
+        "explain_code",
+        "propose_refactor",
+        "outline_tests"
+      ],
+      "disallowed_actions": [
+        "apply_patches_directly",
+        "run_shell_commands",
+        "call_remote_apis"
+      ]
+    },
+    "file_analyzer": {
+      "id": "AGENT_TYPE_FILE_ANALYZER",
+      "description": "Reads structured/unstructured files (docs, logs, configs, JSON/YAML/MD) and returns compact, structured summaries.",
+      "allowed_actions": [
+        "read_files",
+        "summarize",
+        "compare_documents",
+        "extract_checklists"
+      ],
+      "disallowed_actions": [
+        "modify_files",
+        "execute_code"
+      ]
+    },
+    "test_runner": {
+      "id": "AGENT_TYPE_TEST_RUNNER",
+      "description": "Plans and executes test runs via external tools, interprets results, and reports failures.",
+      "allowed_actions": [
+        "plan_test_runs",
+        "construct_test_commands",
+        "interpret_test_output",
+        "prioritize_failures"
+      ],
+      "disallowed_actions": [
+        "change_prod_config",
+        "disable_tests_permanently"
+      ]
+    },
+    "parallel_worker": {
+      "id": "AGENT_TYPE_PARALLEL_WORKER",
+      "description": "Executes a well-defined subtask in parallel, using a narrow context slice and returning a compact result.",
+      "allowed_actions": [
+        "operate_on_slice_of_context",
+        "return_structured_result"
+      ],
+      "disallowed_actions": [
+        "redefine_global_policy",
+        "change_other_agent_outputs"
+      ]
+    }
+  },
+
+  "execution_lifecycle": {
+    "phases": [
+      {
+        "id": "LIFECYCLE_01_DISCOVER",
+        "name": "Discover & Scope",
+        "description": "Understand the task, constraints, and available context before doing work.",
+        "required_outputs": [
+          "task_summary",
+          "constraints_list",
+          "assumptions_list"
+        ]
+      },
+      {
+        "id": "LIFECYCLE_02_PLAN",
+        "name": "Plan",
+        "description": "Produce a short plan of steps, aligned with repo rules and allowed tools.",
+        "required_outputs": [
+          "step_list",
+          "risks",
+          "validation_strategy"
+        ]
+      },
+      {
+        "id": "LIFECYCLE_03_EXECUTE",
+        "name": "Execute",
+        "description": "Perform the work in controlled, reversible steps. Prefer patches/diffs over large rewrites.",
+        "required_outputs": [
+          "actions_taken",
+          "diff_summaries"
+        ]
+      },
+      {
+        "id": "LIFECYCLE_04_VALIDATE",
+        "name": "Validate",
+        "description": "Run tests, linters, or checks that match the repo’s quality gates.",
+        "required_outputs": [
+          "checks_run",
+          "results_summary",
+          "open_issues"
+        ]
+      },
+      {
+        "id": "LIFECYCLE_05_REPORT",
+        "name": "Report",
+        "description": "Return a compact report with what changed, why, and how to reproduce/extend.",
+        "required_outputs": [
+          "final_summary",
+          "followup_suggestions"
+        ]
+      }
+    ]
+  },
+
+  "context_firewall": {
+    "goals": [
+      "Minimize context size passed to sub-agents.",
+      "Prevent leakage of sensitive or irrelevant data across tasks.",
+      "Ensure each agent operates on the smallest viable slice of information."
+    ],
+    "rules": [
+      "Sub-agents must be given only the minimal files/snippets needed to perform their task.",
+      "Sub-agents must never receive full repository dumps unless the task explicitly requires whole-repo reasoning.",
+      "Sub-agents return structured summaries (JSON/Markdown tables) instead of raw large text.",
+      "Parent agents merge sub-agent outputs and are responsible for final reasoning."
+    ],
+    "sub_agent_payload_guidelines": {
+      "max_characters_per_call": 12000,
+      "preferred_formats": [
+        "json",
+        "markdown_table",
+        "short_bullets"
+      ],
+      "required_metadata": [
+        "source_path",
+        "task_id",
+        "agent_type"
+      ]
+    }
+  },
+
+  "sub_agent_types": {
+    "log_miner": {
+      "description": "Specialized file_analyzer focused on logs and telemetry.",
+      "input": "Log files or log snippets with clear time window.",
+      "output": "Structured list of incidents, anomalies, or patterns."
+    },
+    "ssot_builder": {
+      "description": "file_analyzer that merges multiple docs into a single SSOT summary.",
+      "input": "List of source docs and consolidation rules.",
+      "output": "Normalized structured representation + mapping of source → target sections."
+    }
+  },
+
+  "input_validation": {
+    "requirements": [
+      "Every task must declare its target_repo or target_scope.",
+      "Tasks must list known constraints or unknowns before execution.",
+      "Agents must reject vague instructions when they cannot infer safe behavior."
+    ],
+    "danger_signals": [
+      "Requests to modify many files with no clear scope.",
+      "Requests to bypass tests, linting, or validation steps.",
+      "Requests to remove guardrails, logging, or type checks."
+    ]
+  },
+
+  "output_constraints": {
+    "general": {
+      "max_total_tokens": 4096,
+      "max_raw_diff_size_chars": 20000,
+      "preferred_output_formats": [
+        "markdown",
+        "json"
+      ]
+    },
+    "summaries": {
+      "max_length_chars": 4000,
+      "structure": [
+        "context",
+        "actions",
+        "results",
+        "risks",
+        "next_steps"
+      ]
+    },
+    "prohibited_output_patterns": [
+      "Full file rewrites when only small patches are needed.",
+      "Repeating large blocks of unchanged code.",
+      "Unstructured rambles with no clear sections."
+    ]
+  },
+
+  "error_handling": {
+    "standard_practices": [
+      "Surface errors with clear root-cause hypotheses instead of hiding them.",
+      "When a tool fails, log command, parameters (sanitized), and observed output.",
+      "Prefer retry-with-backoff over infinite or tight loops.",
+      "Never discard error logs; route them to the logging/telemetry pipeline when available."
+    ],
+    "on_uncertainty": [
+      "If correctness is uncertain, mark the result as DRAFT and list open questions.",
+      "If critical safety constraints might be violated, stop and escalate instead of guessing."
+    ]
+  },
+
+  "tool_policies": {
+    "global_allowed_tools": [
+      "static_analysis",
+      "test_runner",
+      "formatter",
+      "search_index",
+      "git_diff_viewer"
+    ],
+    "global_disallowed_tools": [
+      "production_data_mutation",
+      "destructive_file_system_operations_without_backup"
+    ],
+    "rules": [
+      "Tools that modify files must be used in combination with diff/preview and validation.",
+      "Agents must not invent tools; they may only use tools provided by the environment.",
+      "High-risk operations (deleting, moving, bulk renaming) must either be dry-run or produce a reversible script."
+    ]
+  },
+
+  "repo_interaction": {
+    "edit_zones": {
+      "levels": [
+        {
+          "id": "EDIT_SAFE",
+          "description": "Areas where agents may edit freely, subject to tests and linting.",
+          "examples": [
+            "feature modules",
+            "non-critical docs",
+            "local helper scripts"
+          ]
+        },
+        {
+          "id": "EDIT_REVIEW",
+          "description": "Areas where changes are allowed but must be clearly described and justified.",
+          "examples": [
+            "core library modules",
+            "shared schemas",
+            "configuration templates"
+          ]
+        },
+        {
+          "id": "EDIT_READ_ONLY",
+          "description": "Areas treated as read-only; agents may reference but must not modify.",
+          "examples": [
+            "SSOT docs",
+            "archived specs",
+            "generated artifacts"
+          ]
+        }
+      ]
+    },
+    "branch_and_commit_guidelines": {
+      "preferred_branching": [
+        "feature/<short-name>",
+        "fix/<short-name>",
+        "chore/<short-name>"
+      ],
+      "commit_message_standard": "conventional_commits"
+    }
+  },
+
+  "security_rules": {
+    "non_overridable": true,
+    "data_handling": [
+      "Agents must not exfiltrate secrets, tokens, or private keys.",
+      "Agents must avoid including secrets in logs, error messages, or summaries.",
+      "If secret-like data is detected, treat it as sensitive and redact before emitting."
+    ],
+    "permissions": [
+      "Agents must assume least privilege and avoid assuming elevated filesystem or network access.",
+      "Agents may not generate code that disables security features without explicit justification and review."
+    ]
+  },
+
+  "anti_patterns": {
+    "avoid": [
+      "Roleplaying as fictional characters instead of performing concrete technical tasks.",
+      "Overly generic suggestions without referencing actual files or code.",
+      "Large speculative rewrites without prior focused analysis.",
+      "Agents talking to each other via long, unstructured narratives instead of compact payloads."
+    ],
+    "preferred_patterns": [
+      "Narrow single-purpose agents with clear input/output contracts.",
+      "Context slicing before analysis.",
+      "Short feedback loops: analyze → propose → validate.",
+      "Incremental patches with explicit diffs."
+    ]
+  },
+
+  "observability": {
+    "logging_requirements": [
+      "Each task should have a unique task_id / correlation_id.",
+      "Key decisions, tool invocations, and validation results must be logged.",
+      "Summaries should reference the relevant task_id and repo_id."
+    ],
+    "telemetry": [
+      "Capture duration, files touched, tests run, and error counts for each task where possible."
+    ]
+  },
+
+  "governance": {
+    "change_control": {
+      "who_can_modify": [
+        "OWNER:ARCHITECTURE",
+        "OWNER:AGENT_FRAMEWORK"
+      ],
+      "required_reviewers": [
+        "OWNER:SECURITY",
+        "OWNER:QA_AUTOMATION"
+      ],
+      "changelog_required": true
+    },
+    "validation": {
+      "schema_path": "SSOT/schemas/AGENTS_GLOBAL_SCHEMA.json",
+      "must_pass_schema_validation": true
+    }
+  }
+}
+```
+
+---
+
+## 2. `SSOT/schemas/AGENTS_GLOBAL_SCHEMA.json`
+
+**Path:**
+
+```text
+<PROJECT_ROOT>/SSOT/schemas/AGENTS_GLOBAL_SCHEMA.json
+```
+
+**Content:**
+
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "AGENTS_GLOBAL_SCHEMA",
+  "title": "Agents Global SSOT Schema",
+  "type": "object",
+  "required": [
+    "doc_meta",
+    "agent_types",
+    "execution_lifecycle",
+    "context_firewall",
+    "input_validation",
+    "output_constraints",
+    "error_handling",
+    "tool_policies",
+    "repo_interaction",
+    "security_rules",
+    "anti_patterns",
+    "observability",
+    "governance"
+  ],
+  "properties": {
+    "doc_meta": {
+      "type": "object",
+      "required": [
+        "doc_id",
+        "doc_type",
+        "version",
+        "status",
+        "last_updated",
+        "maintained_by",
+        "non_overridable_sections"
+      ],
+      "properties": {
+        "doc_id": { "type": "string" },
+        "doc_type": { "type": "string" },
+        "version": { "type": "string" },
+        "status": { "type": "string" },
+        "last_updated": { "type": "string" },
+        "maintained_by": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "description": { "type": "string" },
+        "non_overridable_sections": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+
+    "agent_types": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["id", "description", "allowed_actions", "disallowed_actions"],
+        "properties": {
+          "id": { "type": "string" },
+          "description": { "type": "string" },
+          "allowed_actions": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "disallowed_actions": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+
+    "execution_lifecycle": {
+      "type": "object",
+      "required": ["phases"],
+      "properties": {
+        "phases": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "name", "description", "required_outputs"],
+            "properties": {
+              "id": { "type": "string" },
+              "name": { "type": "string" },
+              "description": { "type": "string" },
+              "required_outputs": {
+                "type": "array",
+                "items": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "context_firewall": {
+      "type": "object",
+      "required": ["goals", "rules", "sub_agent_payload_guidelines"],
+      "properties": {
+        "goals": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "rules": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "sub_agent_payload_guidelines": {
+          "type": "object",
+          "required": ["max_characters_per_call", "preferred_formats", "required_metadata"],
+          "properties": {
+            "max_characters_per_call": { "type": "integer" },
+            "preferred_formats": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "required_metadata": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+
+    "sub_agent_types": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "description": { "type": "string" },
+          "input": { "type": "string" },
+          "output": { "type": "string" }
+        }
+      }
+    },
+
+    "input_validation": {
+      "type": "object",
+      "properties": {
+        "requirements": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "danger_signals": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+
+    "output_constraints": {
+      "type": "object",
+      "required": ["general"],
+      "properties": {
+        "general": {
+          "type": "object",
+          "properties": {
+            "max_total_tokens": { "type": "integer" },
+            "max_raw_diff_size_chars": { "type": "integer" },
+            "preferred_output_formats": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+
+    "error_handling": {
+      "type": "object",
+      "properties": {
+        "standard_practices": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "on_uncertainty": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+
+    "tool_policies": {
+      "type": "object",
+      "properties": {
+        "global_allowed_tools": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "global_disallowed_tools": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "rules": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+
+    "repo_interaction": {
+      "type": "object",
+      "properties": {
+        "edit_zones": {
+          "type": "object",
+          "properties": {
+            "levels": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["id", "description"],
+                "properties": {
+                  "id": { "type": "string" },
+                  "description": { "type": "string" },
+                  "examples": {
+                    "type": "array",
+                    "items": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "branch_and_commit_guidelines": {
+          "type": "object",
+          "properties": {
+            "preferred_branching": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "commit_message_standard": { "type": "string" }
+          }
+        }
+      }
+    },
+
+    "security_rules": {
+      "type": "object",
+      "properties": {
+        "non_overridable": { "type": "boolean" },
+        "data_handling": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "permissions": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+
+    "anti_patterns": {
+      "type": "object",
+      "properties": {
+        "avoid": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "preferred_patterns": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+
+    "observability": {
+      "type": "object",
+      "properties": {
+        "logging_requirements": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "telemetry": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+
+    "governance": {
+      "type": "object",
+      "properties": {
+        "change_control": {
+          "type": "object",
+          "properties": {
+            "who_can_modify": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "required_reviewers": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "changelog_required": { "type": "boolean" }
+          }
+        },
+        "validation": {
+          "type": "object",
+          "properties": {
+            "schema_path": { "type": "string" },
+            "must_pass_schema_validation": { "type": "boolean" }
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}
+```
+
+This same schema can be reused to validate **repo overrides** if you add a small wrapper schema for overrides.
+
+---
+
+## 3. Example `AGENTS_OVERRIDE.json` (Patterns repo)
+
+**Path (inside repo):**
+
+```text
+<REPO_ROOT>/.agents/AGENTS_OVERRIDE.json
+```
+
+**Content:**
+
+```json
+{
+  "inherits_from": "SSOT/AGENTS_GLOBAL_SSOT.json",
+
+  "override_meta": {
+    "repo_id": "PATTERNS_REPO",
+    "repo_name": "MINI_PIPE Patterns",
+    "last_updated": "2025-12-08",
+    "maintained_by": [
+      "OWNER:PATTERNS",
+      "OWNER:ARCHITECTURE"
+    ],
+    "notes": "Repo-specific tuning for pattern specs, executors, and schemas."
+  },
+
+  "overrides": {
+    "agent_types": {
+      "code_analyzer": {
+        "allowed_actions": [
+          "read_code",
+          "explain_code",
+          "propose_refactor",
+          "outline_tests",
+          "verify_pattern_conformance"
+        ]
+      }
+    },
+
+    "tool_policies": {
+      "global_allowed_tools": [
+        "static_analysis",
+        "test_runner",
+        "formatter",
+        "schema_validator",
+        "pattern_registry_checker"
+      ]
+    },
+
+    "repo_interaction": {
+      "edit_zones": {
+        "levels": [
+          {
+            "id": "EDIT_SAFE",
+            "description": "Safe edits in patterns/executors, patterns/specs, tests, and docs tightly coupled to patterns.",
+            "examples": [
+              "patterns/executors/*",
+              "patterns/specs/*",
+              "tests/patterns/*",
+              "docs/patterns/*"
+            ]
+          },
+          {
+            "id": "EDIT_REVIEW",
+            "description": "Changes to registry, schemas, and cross-cutting utilities require explicit justification.",
+            "examples": [
+              "patterns/registry/*",
+              "schemas/*",
+              "patterns/shared_utils/*"
+            ]
+          },
+          {
+            "id": "EDIT_READ_ONLY",
+            "description": "Archived specs and generated reference docs; treat as read-only.",
+            "examples": [
+              "docs/archive/*",
+              "reports/generated/*"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+**Merge semantics (what your agent/runner should do):**
+
+* Load `AGENTS_GLOBAL_SSOT.json`
+* Load this `AGENTS_OVERRIDE.json`
+* For each top-level key under `"overrides"`:
+
+  * If it’s an object, **deep-merge** into the corresponding subtree of the global SSOT
+  * Where arrays are present, you can:
+
+    * Either **replace** arrays entirely, or
+    * Use a specific strategy (e.g., append unique items).
+
+You can codify that in your agent framework; the contract here is that overrides **only ever live under `"overrides"`**.
+
+---
+
+## 4. How to wire this into your system
+
+**Minimal rule set for your agents / CLI tools:**
+
+1. **Discovery step** for any task:
+
+   * Detect `SSOT/AGENTS_GLOBAL_SSOT.json` at the project root.
+   * Detect `<REPO>/.agents/AGENTS_OVERRIDE.json` if present.
+
+2. **Load policy:**
+
+   * Parse and validate the global SSOT against `AGENTS_GLOBAL_SCHEMA.json`.
+   * If override exists:
+
+     * Merge `"overrides"` into the global SSOT (respecting non-overridable sections from `doc_meta.non_overridable_sections`).
+
+3. **Expose policy to the model:**
+
+   * Provide a slimmed, task-relevant view of the merged policy into the prompt:
+
+     * Allowed/blocked actions
+     * Tool policies
+     * Edit zones for the current repo
+     * Output constraints
+
+4. **Enforce in automation:**
+
+   * CI job (or local script) that:
+
+     * Validates `AGENTS_GLOBAL_SSOT.json` against the schema.
+     * Validates each `AGENTS_OVERRIDE.json` against a simple “override schema” (inherits_from, override_meta, overrides).
+     * Optionally checks that overrides do **not** overwrite `security_rules`, `context_firewall`, `output_constraints`, `observability`, `governance` (using the `non_overridable_sections` list).
+
+---
+
+
+

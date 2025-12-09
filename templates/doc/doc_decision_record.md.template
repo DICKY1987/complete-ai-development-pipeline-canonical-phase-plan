@@ -1,0 +1,268 @@
+---
+doc_id: DOC-DECISION-RECORD-001
+version: 1.0.0
+created: 2025-12-09
+last_updated: 2025-12-09
+status: active
+template_type: documentation
+target_extension: .md
+category: adr
+purpose: "Architecture Decision Record with ROI tracking and pattern links"
+author: "UET Framework Team"
+based_on: "Decision Elimination Playbook"
+---
+
+# Decision Record Template
+
+**Purpose**: Document significant architectural and technical decisions with rationale, options considered, and ROI analysis.
+
+## Template Variables
+
+| Variable | Type | Required | Default | Description |
+|----------|------|----------|---------|-------------|
+| `decision_id` | string | Yes | - | Unique decision identifier (e.g., ARCH-001) |
+| `title` | string | Yes | - | Brief descriptive title of the decision |
+| `date` | date | Yes | - | Decision date (YYYY-MM-DD) |
+| `status` | enum | Yes | proposed | One of: proposed, accepted, rejected, deprecated, superseded |
+| `context` | text | Yes | - | Background and circumstances requiring decision |
+| `option_1_name` | string | Yes | - | Name of first option considered |
+| `option_2_name` | string | Yes | - | Name of second option considered |
+| `chosen_option` | string | Yes | - | Which option was selected |
+| `rationale` | text | Yes | - | Why this option was chosen |
+| `time_investment` | number | No | - | Hours required to implement (one-time) |
+| `time_savings` | number | No | - | Hours saved per use |
+| `expected_uses` | number | No | - | Expected number of uses in 3 months |
+
+## Instructions
+
+1. Copy this template to create a new decision record
+2. Fill in all required variables in the frontmatter and body
+3. Complete all sections thoroughly
+4. Calculate ROI if applicable
+5. Save in `docs/decisions/` directory
+6. Link from related documentation
+
+---
+
+## Template Content
+
+---
+doc_id: DOC-DECISION-${decision_id}
+decision_id: ${decision_id}
+date: ${date}
+status: ${status}  # proposed, accepted, rejected, deprecated, superseded
+---
+
+# Decision: ${title}
+
+## Context
+
+${context}
+
+## Problem Statement
+
+What problem or question does this decision address?
+
+## Options Considered
+
+### Option 1: ${option_1_name}
+
+**Pros**:
+- Pro 1
+- Pro 2
+
+**Cons**:
+- Con 1
+- Con 2
+
+**Estimated Time**: X hours
+**Risk Level**: low|medium|high
+
+### Option 2: ${option_2_name}
+
+**Pros**:
+- Pro 1
+- Pro 2
+
+**Cons**:
+- Con 1
+- Con 2
+
+**Estimated Time**: X hours
+**Risk Level**: low|medium|high
+
+## Decision
+
+**Chosen Option**: ${chosen_option}
+
+**Rationale**: ${rationale}
+
+**Trade-offs Accepted**:
+- Trade-off 1
+- Trade-off 2
+
+## Implementation
+
+**Affected Files**:
+- `path/to/file1.py`
+- `path/to/file2.py`
+
+**Breaking Changes**: Yes/No
+
+**Migration Required**: Yes/No
+
+## ROI Analysis
+
+**Time Investment**: ${time_investment} hours (one-time)
+**Time Savings**: ${time_savings} hours per use
+**Break-Even Point**: ${break_even} uses
+**Expected Uses (3 months)**: ${expected_uses}
+
+**Total ROI**: (Savings × Uses - Investment) / Investment = X%
+
+## Validation
+
+**Success Criteria**:
+- [ ] Criterion 1
+- [ ] Criterion 2
+
+**Validation Method**: How to verify this decision was successful
+
+## Related Decisions
+
+- DECISION-XXX-001 - Related decision
+- DECISION-XXX-002 - Superseded decision
+
+## References
+
+- `docs/path/to/doc.md`
+- Pattern: `PAT-XXX-001`
+- UET Playbook: Section X.Y
+
+---
+
+## Usage Example
+
+```markdown
+---
+doc_id: DOC-DECISION-ARCH-001
+decision_id: ARCH-001
+date: 2025-12-09
+status: accepted
+---
+
+# Decision: Use SQLite for Task State Persistence
+
+## Context
+
+Need persistent storage for task state that survives process restarts. Must be:
+- Fast for read/write
+- No external dependencies
+- Easy to backup/restore
+
+## Problem Statement
+
+What database should we use for local task state persistence?
+
+## Options Considered
+
+### Option 1: SQLite
+
+**Pros**:
+- No external server required
+- Fast for local operations
+- Built into Python
+- Easy file-based backup
+
+**Cons**:
+- Not suitable for concurrent writes from multiple processes
+- Limited scale (but not needed for our use case)
+
+**Estimated Time**: 8 hours
+**Risk Level**: low
+
+### Option 2: PostgreSQL
+
+**Pros**:
+- Full-featured RDBMS
+- Excellent concurrency support
+- Scales well
+
+**Cons**:
+- Requires external server
+- Overkill for single-machine use
+- Complex setup
+
+**Estimated Time**: 24 hours
+**Risk Level**: medium
+
+## Decision
+
+**Chosen Option**: SQLite
+
+**Rationale**: Our use case is single-machine with primarily sequential task execution. SQLite provides all needed features with zero operational overhead.
+
+**Trade-offs Accepted**:
+- Limited concurrent access (acceptable for our use case)
+- No network access to database (not needed)
+
+## Implementation
+
+**Affected Files**:
+- `core/state/task_db.py`
+- `core/state/migrations/`
+- `tests/state/test_task_db.py`
+
+**Breaking Changes**: No
+
+**Migration Required**: No (new feature)
+
+## ROI Analysis
+
+**Time Investment**: 8 hours (one-time)
+**Time Savings**: 2 hours per debugging session (no manual state reconstruction)
+**Break-Even Point**: 4 debugging sessions
+**Expected Uses (3 months)**: ~20 debugging sessions
+
+**Total ROI**: (2 × 20 - 8) / 8 = 400% ROI
+
+## Validation
+
+**Success Criteria**:
+- [ ] Task state persists across restarts
+- [ ] Read/write performance < 10ms per operation
+- [ ] Database file size manageable (< 100MB for typical workload)
+- [ ] Easy backup/restore demonstrated
+
+**Validation Method**: Create 1000 tasks, restart process, verify all tasks restored correctly
+
+## Related Decisions
+
+- DECISION-ARCH-002 - Task lifecycle state machine
+
+## References
+
+- SQLite documentation: https://www.sqlite.org/docs.html
+- UET State Management Guide: `docs/state-management.md`
+```
+
+---
+
+## Checklist
+
+Before finalizing this decision record:
+
+- [ ] All variables filled in
+- [ ] Context clearly explains background
+- [ ] At least 2 options documented with pros/cons
+- [ ] Decision rationale is clear and compelling
+- [ ] Trade-offs are acknowledged
+- [ ] ROI calculated (if applicable)
+- [ ] Success criteria defined
+- [ ] Related decisions linked
+- [ ] Status updated appropriately
+
+---
+
+**Template Version**: 1.0.0
+**Last Updated**: 2025-12-09

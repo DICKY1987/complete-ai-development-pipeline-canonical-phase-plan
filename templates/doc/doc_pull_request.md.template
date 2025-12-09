@@ -1,0 +1,162 @@
+---
+doc_id: DOC-PULL-REQUEST-001
+version: 1.0.0
+created: 2025-12-09
+last_updated: 2025-12-09
+status: active
+template_type: documentation
+target_extension: .md
+category: git
+purpose: "Standard pull request description template with testing and quality checklist"
+author: "UET Framework Team"
+---
+
+# Pull Request Template
+
+**Purpose**: Standardized pull request description for code changes, features, and bug fixes.
+
+## Instructions
+
+1. GitHub will automatically populate this template when creating a PR
+2. Fill in all sections
+3. Check all applicable boxes
+4. Include evidence (test results, screenshots) where relevant
+5. Ensure all checklist items are complete before requesting review
+
+---
+
+## Template Content
+
+## Description
+<!-- Describe what this PR changes and why -->
+
+## Related Issues
+<!-- Link to related issues: Fixes #123, Closes #456, Relates to #789 -->
+
+## Type of Change
+<!-- Mark the relevant option with an 'x' -->
+- [ ] Bug fix (non-breaking change which fixes an issue)
+- [ ] New feature (non-breaking change which adds functionality)
+- [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
+- [ ] Documentation update
+- [ ] Code refactoring (no functional changes)
+- [ ] Performance improvement
+- [ ] Test coverage improvement
+
+## Changes Made
+<!-- List the main changes in bullet points -->
+-
+-
+-
+
+## Testing
+<!-- Describe how you tested these changes -->
+- [ ] Unit tests added/updated
+- [ ] Integration tests added/updated
+- [ ] Manual testing performed
+- [ ] All tests pass locally
+
+## Coverage Impact
+<!-- Run: pytest --cov and report coverage change -->
+- **Before**: X%
+- **After**: X%
+- **Change**: +/-X%
+
+## Checklist
+<!-- Mark completed items with an 'x' -->
+- [ ] Code follows project style guidelines (black, isort, ruff)
+- [ ] Self-review of code completed
+- [ ] Comments added for complex logic
+- [ ] Documentation updated (if applicable)
+- [ ] No new warnings or errors introduced
+- [ ] All tests pass (`pytest`)
+- [ ] Pre-commit hooks pass (`pre-commit run --all-files`)
+- [ ] Commit messages follow Conventional Commits format
+
+## Screenshots/Logs
+<!-- If applicable, add screenshots or relevant logs -->
+
+## Additional Notes
+<!-- Any additional information for reviewers -->
+
+---
+
+## Usage Example
+
+```markdown
+## Description
+Implements the task state persistence layer using SQLite as decided in DECISION-ARCH-001. This allows task state to survive process restarts and provides audit trail for debugging.
+
+## Related Issues
+Fixes #42, Relates to #38
+
+## Type of Change
+- [x] New feature (non-breaking change which adds functionality)
+- [x] Test coverage improvement
+
+## Changes Made
+- Created `core/state/task_db.py` with SQLite wrapper
+- Added migration system for schema evolution
+- Implemented TaskState model with serialization
+- Added comprehensive test suite (95% coverage for new module)
+- Updated orchestrator to use persistent state
+
+## Testing
+- [x] Unit tests added/updated
+  - `tests/state/test_task_db.py` (24 tests)
+  - `tests/state/test_migrations.py` (8 tests)
+- [x] Integration tests added/updated
+  - `tests/integration/test_task_lifecycle.py` (restart scenario)
+- [x] Manual testing performed
+  - Created 100 tasks, restarted process, verified all restored
+- [x] All tests pass locally
+
+## Coverage Impact
+- **Before**: 87%
+- **After**: 89%
+- **Change**: +2%
+
+## Checklist
+- [x] Code follows project style guidelines (black, isort, ruff)
+- [x] Self-review of code completed
+- [x] Comments added for complex logic
+- [x] Documentation updated (if applicable)
+  - Added `docs/state-management.md`
+  - Updated architecture diagram
+- [x] No new warnings or errors introduced
+- [x] All tests pass (`pytest`)
+- [x] Pre-commit hooks pass (`pre-commit run --all-files`)
+- [x] Commit messages follow Conventional Commits format
+
+## Screenshots/Logs
+
+Test output:
+```
+============================= test session starts ==============================
+collected 32 items
+
+tests/state/test_task_db.py ........................        [ 75%]
+tests/state/test_migrations.py ........                    [100%]
+
+============================== 32 passed in 2.14s ===============================
+```
+
+Database file structure:
+```
+.state/tasks.db (12KB)
+.state/tasks.db-wal (4KB)
+.state/tasks.db-shm (32KB)
+```
+
+## Additional Notes
+
+- Database uses WAL mode for better concurrent read performance
+- Automatic vacuum configured to run every 1000 inserts
+- Migration system ready for future schema changes
+- Backup strategy documented in `docs/state-management.md#backup`
+```
+
+---
+
+**Template Version**: 1.0.0
+**Last Updated**: 2025-12-09

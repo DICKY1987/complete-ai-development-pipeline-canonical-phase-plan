@@ -1,0 +1,177 @@
+---
+doc_id: DOC-MODULE-MANIFEST-001
+version: 1.0.0
+created: 2025-12-09
+last_updated: 2025-12-09
+status: active
+template_type: documentation
+target_extension: ""
+category: manifest
+purpose: "AI-readable module manifest (.ai-module-manifest) for quick module understanding"
+author: "UET Framework Team"
+based_on: "Decision Elimination Through Pattern Recognition case study"
+---
+
+# Module Manifest Template
+
+**Purpose**: Create `.ai-module-manifest` files that provide AI agents with quick, structured information about a module's purpose, usage, and gotchas.
+
+## Template Variables
+
+| Variable | Type | Required | Default | Description |
+|----------|------|----------|---------|-------------|
+| `module_name` | string | Yes | - | Python module name (snake_case) |
+| `purpose` | string | Yes | - | One-line description of module purpose |
+| `layer` | enum | Yes | - | Architecture layer: infra, domain, api, ui |
+| `maturity` | enum | Yes | alpha | Module maturity: alpha, beta, stable, planned |
+| `entry_points` | yaml | Yes | - | Key functions/classes to call |
+| `key_patterns` | yaml | Yes | - | Common usage patterns |
+| `common_tasks` | yaml | Yes | - | Typical tasks with examples |
+| `gotchas` | yaml | Yes | - | Known issues, limitations, pitfalls |
+
+## Instructions
+
+1. Create `.ai-module-manifest` file in module root directory
+2. Fill in all variables
+3. Keep concise (50-100 lines target)
+4. Update when module API changes
+5. Focus on practical usage, not implementation details
+
+---
+
+## Template Content
+
+# .ai-module-manifest
+# AI-readable module specification for ${module_name}
+
+module: "${module_name}"
+purpose: "${purpose}"
+layer: "${layer}"  # infra, domain, api, ui
+
+# Entry points
+entry_points:
+  ${entry_points}
+
+# Key patterns
+key_patterns:
+  ${key_patterns}
+
+# Common tasks
+common_tasks:
+  ${common_tasks}
+
+# Gotchas
+gotchas:
+  ${gotchas}
+
+# Dependencies
+dependencies:
+  external:
+    # - package_name
+  internal:
+    # - module_name
+
+# Status
+status:
+  maturity: "${maturity}"  # alpha, beta, stable, planned
+  test_coverage: "unknown"
+  production_ready: false
+
+# AI quick reference
+ai_quick_reference:
+  list_modules: "python -m ${module_name} --list"
+  run_tests: "pytest tests/${module_name}/"
+
+---
+
+## Usage Example
+
+```yaml
+# .ai-module-manifest
+# AI-readable module specification for task_executor
+
+module: "task_executor"
+purpose: "Execute tasks with retry logic, validation, and error recovery"
+layer: "domain"  # infra, domain, api, ui
+
+# Entry points
+entry_points:
+  - "TaskExecutor.execute(task: Task) -> ExecutionResult"
+  - "TaskExecutor.validate_result(result: Any) -> bool"
+  - "ExecutionResult: TypedDict with status, output, errors"
+
+# Key patterns
+key_patterns:
+  - "Create executor → call execute() → check result.status"
+  - "Use context manager: 'with TaskExecutor() as executor'"
+  - "Register validators with @executor.validator decorator"
+
+# Common tasks
+common_tasks:
+  execute_simple_task: |
+    executor = TaskExecutor(max_retries=3)
+    result = executor.execute(task)
+    if result.status == "completed":
+        print(result.output)
+    
+  execute_with_validation: |
+    executor = TaskExecutor()
+    executor.register_validator(my_custom_validator)
+    result = executor.execute(task)
+    
+  handle_failures: |
+    result = executor.execute(task)
+    if result.status == "failed":
+        print(f"Error: {result.errors}")
+        executor.retry(task)
+
+# Gotchas
+gotchas:
+  - "TaskExecutor is NOT thread-safe - create one per thread"
+  - "Validators run AFTER execution, not before"
+  - "max_retries=0 means 'no retries', not 'infinite retries'"
+  - "execute() blocks until task completes or fails"
+  - "Large outputs (>1MB) should use file references, not inline data"
+
+# Dependencies
+dependencies:
+  external:
+    - "pydantic"
+  internal:
+    - "core.state.task_db"
+    - "error.engine.error_engine"
+
+# Status
+status:
+  maturity: "beta"  # alpha, beta, stable, planned
+  test_coverage: "87%"
+  production_ready: true
+
+# AI quick reference
+ai_quick_reference:
+  list_modules: "python -m task_executor --list"
+  run_tests: "pytest tests/task_executor/"
+  view_examples: "cat examples/task_executor_usage.py"
+```
+
+---
+
+## Checklist
+
+Before committing this manifest:
+
+- [ ] Module name matches directory/package name
+- [ ] Purpose is one clear sentence
+- [ ] Layer correctly identified
+- [ ] At least 2 entry points documented
+- [ ] At least 2 common tasks with code examples
+- [ ] Known gotchas listed
+- [ ] Dependencies are accurate
+- [ ] Maturity level reflects reality
+- [ ] File is 50-100 lines (concise but complete)
+- [ ] No implementation details (focus on usage)
+
+---
+
+**Template Version**: 1.0.0
+**Last Updated**: 2025-12-09

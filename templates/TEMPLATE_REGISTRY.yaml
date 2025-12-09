@@ -1,0 +1,286 @@
+registry:
+  version: 1.0.0
+  last_updated: "2025-12-09"
+  description: "Central registry of all UET framework templates"
+  
+templates:
+  # Code Templates - Python
+  - doc_id: "DOC-CODE-API-ENDPOINT-001"
+    name: "code_api_endpoint.py.template"
+    path: "templates/code/python/code_api_endpoint.py.template"
+    original_name: "api_endpoint.py.template"
+    category: "code"
+    subcategory: "python"
+    type: "api"
+    status: "active"
+    version: "1.0.0"
+    purpose: "Create RESTful CRUD endpoint following UET patterns"
+    proven_uses: 0
+    created: "2025-12-09"
+    based_on: "UET Decision Elimination Playbook - CRUD pattern"
+    
+  - doc_id: "DOC-TEST-UNIT-STANDARD-001"
+    name: "test_unit_standard.py.template"
+    path: "templates/test/test_unit_standard.py.template"
+    original_name: "test_case.py.template"
+    category: "test"
+    subcategory: "unit"
+    type: "python"
+    status: "active"
+    version: "1.0.0"
+    purpose: "Standard unit test structure with happy path and error cases"
+    proven_uses: 0
+    created: "2025-12-09"
+    based_on: "UET Decision Elimination Playbook - Test pattern"
+    
+  - doc_id: "DOC-TEST-MODULE-STANDARD-001"
+    name: "test_module_standard.py.template"
+    path: "templates/test/test_module_standard.py.template"
+    original_name: "test_module_template.py"
+    category: "test"
+    subcategory: "module"
+    type: "python"
+    status: "active"
+    version: "1.0.0"
+    purpose: "Complete module test suite template"
+    proven_uses: 0
+    created: "2025-12-09"
+    
+  # Documentation Templates
+  - doc_id: "DOC-README-MODULE-001"
+    name: "doc_readme_module.md.template"
+    path: "templates/doc/doc_readme_module.md.template"
+    original_name: "README_TEMPLATE.md"
+    category: "doc"
+    subcategory: "readme"
+    type: "module"
+    status: "active"
+    version: "1.0.0"
+    purpose: "Standard module README with structure and usage"
+    proven_uses: 0
+    created: "2025-12-09"
+    framework: "Universal Execution Templates (UET)"
+    
+  - doc_id: "DOC-DECISION-RECORD-001"
+    name: "doc_decision_record.md.template"
+    path: "templates/doc/doc_decision_record.md.template"
+    original_name: "decision_record.md.template"
+    category: "doc"
+    subcategory: "adr"
+    type: "decision"
+    status: "active"
+    version: "1.0.0"
+    purpose: "Architecture Decision Record (ADR) template"
+    proven_uses: 0
+    created: "2025-12-09"
+    
+  - doc_id: "DOC-COMMIT-SUMMARY-001"
+    name: "doc_commit_summary.md.template"
+    path: "templates/doc/doc_commit_summary.md.template"
+    original_name: "COMMIT_SUMMARY_TEMPLATE.md"
+    category: "doc"
+    subcategory: "git"
+    type: "commit"
+    status: "active"
+    version: "1.0.0"
+    purpose: "Standardized commit summary documentation"
+    proven_uses: 0
+    created: "2025-12-09"
+    
+  - doc_id: "DOC-PULL-REQUEST-001"
+    name: "doc_pull_request.md.template"
+    path: "templates/doc/doc_pull_request.md.template"
+    original_name: "PULL_REQUEST_TEMPLATE.md"
+    category: "doc"
+    subcategory: "git"
+    type: "pr"
+    status: "active"
+    version: "1.0.0"
+    purpose: "Pull request description template"
+    proven_uses: 0
+    created: "2025-12-09"
+    
+  - doc_id: "DOC-MODULE-CREATION-GUIDE-001"
+    name: "doc_module_creation_guide.md.template"
+    path: "templates/doc/doc_module_creation_guide.md.template"
+    original_name: "NEW_SHARED_MODULE_TEMPLATE.md"
+    category: "doc"
+    subcategory: "guide"
+    type: "module"
+    status: "active"
+    version: "1.0.0"
+    purpose: "Step-by-step guide for creating new shared modules"
+    proven_uses: 0
+    created: "2025-12-09"
+    
+  - doc_id: "DOC-MODULE-MANIFEST-001"
+    name: "doc_module_manifest.md.template"
+    path: "templates/doc/doc_module_manifest.md.template"
+    original_name: "module_manifest.template"
+    category: "doc"
+    subcategory: "manifest"
+    type: "module"
+    status: "active"
+    version: "1.0.0"
+    purpose: "AI-readable module manifest (.ai-module-manifest)"
+    proven_uses: 0
+    created: "2025-12-09"
+    
+  # Specification Templates
+  - doc_id: "DOC-SPEC-MODULE-API-001"
+    name: "spec_module_api.md.template"
+    path: "templates/spec/spec_module_api.md.template"
+    original_name: "TEMPLATE_MODULE_PUBLIC_API.md"
+    category: "spec"
+    subcategory: "api"
+    type: "module"
+    status: "active"
+    version: "1.0.0"
+    purpose: "Public API specification for modules (contracts)"
+    proven_uses: 0
+    created: "2025-12-09"
+    
+  # Planning Templates
+  - doc_id: "DOC-PLAN-IMPLEMENTATION-001"
+    name: "plan_implementation.md.template"
+    path: "templates/plan/plan_implementation.md.template"
+    original_name: "TEMPLATE_IMPLEMENTATION_PLAN.md"
+    category: "plan"
+    subcategory: "implementation"
+    type: "phase"
+    status: "active"
+    version: "1.0.0"
+    purpose: "Comprehensive implementation plan with decision elimination"
+    proven_uses: 0
+    created: "2025-12-09"
+    based_on: "uet-execution-acceleration-guide.md"
+    
+  - doc_id: "DOC-PLAN-PHASE-MASTER-001"
+    name: "plan_phase_master.yml.template"
+    path: "templates/plan/plan_phase_master.yml.template"
+    original_name: "MASTER_SPLINTER_Phase_Plan_Template.yml"
+    category: "plan"
+    subcategory: "phase"
+    type: "master"
+    status: "active"
+    version: "1.0.0"
+    purpose: "Master phase plan template (YAML)"
+    proven_uses: 0
+    created: "2025-12-09"
+    
+  # Configuration Templates
+  - doc_id: "DOC-CONFIG-LOGGING-001"
+    name: "config_logging.json.template"
+    path: "templates/config/config_logging.json.template"
+    original_name: "logging-config.json"
+    category: "config"
+    subcategory: "logging"
+    type: "json"
+    status: "active"
+    version: "1.0.0"
+    purpose: "Logging configuration template"
+    proven_uses: 0
+    created: "2025-12-09"
+    
+  - doc_id: "DOC-CONFIG-README-001"
+    name: "config_readme.yaml.template"
+    path: "templates/config/config_readme.yaml.template"
+    original_name: "README.yaml"
+    category: "config"
+    subcategory: "documentation"
+    type: "yaml"
+    status: "active"
+    version: "1.0.0"
+    purpose: "README configuration metadata"
+    proven_uses: 0
+    created: "2025-12-09"
+    
+  - doc_id: "DOC-CONFIG-GUI-DOC-ASSEMBLY-001"
+    name: "config_gui_doc_assembly.yaml.template"
+    path: "templates/config/config_gui_doc_assembly.yaml.template"
+    original_name: "gui-doc-assembly-pattern.yaml"
+    category: "config"
+    subcategory: "documentation"
+    type: "yaml"
+    status: "active"
+    version: "1.0.0"
+    purpose: "GUI documentation assembly pattern configuration"
+    proven_uses: 0
+    created: "2025-12-09"
+    
+  # Examples (Not Templates)
+  - doc_id: "DOC-EXAMPLE-ITEMS-001"
+    name: "example-items.json"
+    path: "templates/examples/example-items.json"
+    original_name: "example-items.json"
+    category: "example"
+    subcategory: "data"
+    type: "json"
+    status: "active"
+    version: "1.0.0"
+    purpose: "Example JSON items for testing/demonstration"
+    proven_uses: 0
+    created: "2025-12-09"
+
+categories:
+  code:
+    description: "Code implementation templates"
+    subcategories:
+      python: "Python code templates"
+      yaml: "YAML configuration/specification templates"
+      shell: "Shell script templates"
+      
+  test:
+    description: "Test file templates"
+    subcategories:
+      unit: "Unit test templates"
+      integration: "Integration test templates"
+      module: "Full module test suite templates"
+      
+  doc:
+    description: "Documentation templates"
+    subcategories:
+      readme: "README file templates"
+      guide: "How-to guides and tutorials"
+      adr: "Architecture Decision Records"
+      git: "Git-related documentation (commits, PRs)"
+      manifest: "Module manifest files"
+      
+  spec:
+    description: "Specification templates"
+    subcategories:
+      api: "API/contract specifications"
+      io: "Input/output contract specifications"
+      workstream: "Workstream specifications"
+      
+  config:
+    description: "Configuration templates"
+    subcategories:
+      logging: "Logging configuration"
+      documentation: "Documentation system configuration"
+      ci: "CI/CD pipeline configuration"
+      
+  plan:
+    description: "Planning templates"
+    subcategories:
+      implementation: "Implementation plans"
+      phase: "Phase execution plans"
+      sprint: "Sprint planning"
+      
+  example:
+    description: "Example files (not templates)"
+    subcategories:
+      data: "Example data files"
+
+migration_status:
+  total_templates: 15
+  migrated: 0
+  pending: 15
+  deprecated: 0
+  
+next_steps:
+  - "Migrate existing templates to new structure"
+  - "Add frontmatter to all templates"
+  - "Standardize variable naming"
+  - "Add usage examples to each template"
+  - "Create validation script"

@@ -1,11 +1,18 @@
 """Tests for EventBus and Logger protocols."""
 
 import pytest
+import sys
+from pathlib import Path
+
+# Add LOG_REVIEW_SUB_SYS to path for logger imports
+log_review_path = Path(__file__).parent.parent.parent / "LOG_REVIEW_SUB_SYS"
+if str(log_review_path) not in sys.path:
+    sys.path.insert(0, str(log_review_path))
 
 from core.event_bus import EventBus
 from core.events.simple_event_bus import SimpleEventBus
-from core.logger import Logger
-from core.logging.structured_logger import StructuredLogger
+from logger import Logger
+from structured_logger import StructuredLogger
 
 
 class TestEventBusProtocol:
