@@ -1,0 +1,9 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "exec_extraction_report",
+  "type": "object",
+  "required": ["pattern_id"],
+  "properties": {
+    "pattern_id": {"type": "string", "const": "PAT-DOC-EXEC-EXTRACTION-REPORT-030"}
+  }
+}

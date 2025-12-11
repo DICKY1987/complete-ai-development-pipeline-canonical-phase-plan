@@ -1,0 +1,1239 @@
+# ================================================================================
+# PATTERN AUTOMATION SYSTEM PROCESS STEPS - SCHEMA-BASED REFERENCE
+# ================================================================================
+# Version: 1.0
+# Last Updated: 2025-12-09
+# System: Pattern Automation System (Auto-Discovery, Execution, Self-Healing)
+# Format: YAML with standardized schema per step
+# Alignment: Pattern automation lifecycle requirements
+# ================================================================================
+
+meta:
+  doc_id: "PATTERNS_PROCESS_STEPS_SCHEMA"
+  version: "1.0.0"
+  last_updated: "2025-12-09"
+  source_documents:
+    - "Pattern Automation System - COMPLETE & OPERATIONAL_INDEX.md"
+    - "cli/pattern_orchestrate.py"
+    - "automation/runtime/zero_touch_workflow.py"
+    - "automation/discovery/pattern_scanner.py"
+    - "automation/detectors/*.py"
+    - "automation/generators/*.py"
+
+  description: |
+    Comprehensive schema-based documentation of Pattern Automation System processes.
+    This system provides zero-touch pattern discovery, auto-approval, execution,
+    and self-healing capabilities through AI log mining and workflow automation.
+
+    Each step follows standardized schema:
+    - Required fields: step_id, phase, name, responsible_component, operation_kind,
+      description, inputs, expected_outputs, requires_human_confirmation
+
+    This enables:
+    - Automated pattern detection from AI tool logs (87.5% accuracy)
+    - Zero-touch workflow automation (AUTO-007)
+    - Pattern registration pipeline with auto-approval (≥90% confidence)
+    - Self-healing pattern execution with circuit breakers
+    - Comprehensive telemetry and performance analytics
+
+  state_machine:
+    phases:
+      - INIT
+      - DISCOVERY
+      - MINING
+      - DETECTION
+      - GENERATION
+      - VALIDATION
+      - APPROVAL
+      - REGISTRATION
+      - EXECUTION
+      - MONITORING
+      - DONE
+
+    valid_transitions:
+      INIT: [DISCOVERY]
+      DISCOVERY: [MINING]
+      MINING: [DETECTION]
+      DETECTION: [GENERATION]
+      GENERATION: [VALIDATION]
+      VALIDATION: [APPROVAL]
+      APPROVAL: [REGISTRATION, DONE]         # DONE if no patterns approved
+      REGISTRATION: [EXECUTION, DONE]        # DONE if registration-only mode
+      EXECUTION: [MONITORING]
+      MONITORING: [DONE]
+      "*": [FAILED]                          # Any state can transition to FAILED
+
+    terminal_states: [DONE, FAILED]
+
+    automation_mode: "zero_touch"            # Fully autonomous operation
+
+  lenses:
+    discovery:
+      description: "Pattern scanning, AI log mining, similarity detection"
+    automation:
+      description: "Zero-touch workflow, auto-approval, registry updates"
+    execution:
+      description: "Pattern orchestration, executor matching, telemetry"
+    self_healing:
+      description: "Error learning, anti-pattern detection, staleness scoring"
+    analytics:
+      description: "Performance monitoring, confidence scoring, ROI tracking"
+
+  automation_levels:
+    fully_automatic:
+      description: "Zero-touch operation - learns and improves autonomously"
+      accuracy: "87.5% pattern detection from AI logs"
+      auto_approval_threshold: "≥90% confidence"
+
+# ================================================================================
+# OPERATION KIND TAXONOMY
+# ================================================================================
+
+operation_kinds:
+  pattern_discovery:
+    description: "Scan specs, detect new patterns, match executors"
+  ai_log_mining:
+    description: "Mine Claude/Copilot/Codex logs for user request patterns"
+  similarity_detection:
+    description: "Cluster similar requests, calculate confidence scores"
+  pattern_generation:
+    description: "Auto-generate pattern specs from detected workflows"
+  pattern_validation:
+    description: "Schema validation, duplicate detection, staleness check"
+  auto_approval:
+    description: "Confidence-based auto-approval (high ≥90%, medium ≥75%)"
+  registry_update:
+    description: "PATTERN_INDEX.yaml updates, doc_id_mapping management"
+  pattern_execution:
+    description: "Executor invocation, telemetry, timeout enforcement"
+  doc_suite_generation:
+    description: "Auto-generate README, examples, schemas for new patterns"
+  self_healing:
+    description: "Error learning, fix suggestion, anti-pattern blocking"
+  performance_analysis:
+    description: "Execution metrics, success rate tracking, ROI calculation"
+  orchestration:
+    description: "CLI coordination, hook integration, event emission"
+  initialization:
+    description: "Database setup, directory structure, schema validation"
+  persistence:
+    description: "SQLite operations, YAML/JSON serialization, telemetry logging"
+
+# ================================================================================
+# GLOBAL COMPONENT REGISTRY
+# ================================================================================
+
+components:
+  pattern_orchestrate:
+    file: "cli/pattern_orchestrate.py"
+    role: "Universal pattern execution CLI with orchestrator integration"
+    responsibilities:
+      - "Pattern execution via CLI: pattern execute --pattern-id <id>"
+      - "Pattern listing and info display"
+      - "Executor discovery and matching"
+      - "Telemetry integration and event emission"
+      - "Timeout enforcement and error handling"
+    interfaces:
+      - "CLI: pattern execute --pattern-id PAT-XXX --instance instance.yaml"
+      - "CLI: pattern list"
+      - "CLI: pattern info PAT-XXX"
+      - "PatternAutomationHooks: integration with core orchestrator"
+    data_structures:
+      - "Pattern registry: patterns/registry/PATTERN_INDEX.yaml"
+      - "Executor mapping: patterns/executors/*.ps1"
+
+  zero_touch_workflow:
+    file: "automation/runtime/zero_touch_workflow.py"
+    role: "End-to-end zero-touch workflow automation (AUTO-007)"
+    responsibilities:
+      - "Nightly AI log mining (Claude/Copilot/Codex)"
+      - "Common phrase detection and clustering"
+      - "Auto-pattern spec generation"
+      - "High-confidence auto-approval (≥90%)"
+      - "Auto-doc suite generation for new patterns"
+      - "Pattern injection into workflow on similar requests"
+    interfaces:
+      - "CLI: python zero_touch_workflow.py"
+      - "MultiAILogMiner: log parsing and request extraction"
+      - "DocSuiteGenerator: automatic documentation generation"
+    data_structures:
+      - "ZeroTouchWorkflowEngine: {db_path, patterns_dir, confidence_thresholds}"
+      - "Workflow results: {phases: {mining, detection, generation, approval, registry, doc_suite}}"
+
+  pattern_scanner:
+    file: "automation/discovery/pattern_scanner.py"
+    role: "Auto-discovery layer for pattern detection and executor matching"
+    responsibilities:
+      - "Scan specs/*.pattern.yaml for new patterns"
+      - "Discover executors in executors/*.ps1"
+      - "Match patterns to executors by ID/name conventions"
+      - "Update pattern registry with discovered patterns"
+    interfaces:
+      - "CLI: python pattern_scanner.py"
+      - "PatternScanner.scan_specs() -> List[Pattern]"
+      - "PatternScanner.find_executor_for_pattern(pattern) -> executor_file"
+    data_structures:
+      - "PatternScanner: {patterns_dir, specs_dir, executors_dir, registry_path}"
+
+  anti_pattern_detector:
+    file: "automation/detectors/anti_pattern_detector.py"
+    role: "Anti-pattern detection and blocking"
+    responsibilities:
+      - "Detect known anti-patterns in execution requests"
+      - "Block anti-pattern executions before they start"
+      - "Log anti-pattern violations for analysis"
+      - "Suggest remediation patterns"
+    interfaces:
+      - "AntiPatternDetector.detect(request) -> List[AntiPattern]"
+    data_structures:
+      - "Anti-pattern registry: schemas/anti_patterns.schema.json"
+
+  duplicate_detector:
+    file: "automation/detectors/duplicate_detector.py"
+    role: "Duplicate pattern detection"
+    responsibilities:
+      - "Detect duplicate patterns in registry"
+      - "Calculate similarity scores between patterns"
+      - "Suggest consolidation for duplicates"
+    interfaces:
+      - "DuplicateDetector.find_duplicates() -> List[DuplicatePair]"
+    data_structures:
+      - "Similarity threshold: 0.85"
+
+  staleness_scorer:
+    file: "automation/detectors/staleness_scorer.py"
+    role: "Pattern staleness detection and scoring"
+    responsibilities:
+      - "Calculate staleness scores based on last usage"
+      - "Identify unused patterns for archival"
+      - "Suggest pattern deprecation"
+    interfaces:
+      - "StalenessScorer.score(pattern) -> StalenessScore"
+    data_structures:
+      - "Staleness thresholds: {fresh: <30d, stale: 30-90d, obsolete: >90d}"
+
+  error_learner:
+    file: "automation/detectors/error_learner.py"
+    role: "Self-healing error learning"
+    responsibilities:
+      - "Learn from pattern execution errors"
+      - "Build error → fix pattern mapping"
+      - "Auto-suggest fixes for common errors"
+    interfaces:
+      - "ErrorLearner.learn(error, fix) -> Pattern"
+    data_structures:
+      - "Error database: SQLite with error_type, pattern_id, fix_applied"
+
+  doc_suite_generator:
+    file: "automation/generators/doc_suite_generator.py"
+    role: "Automatic documentation suite generation"
+    responsibilities:
+      - "Generate README.md for patterns"
+      - "Generate example instances (full, minimal, test)"
+      - "Generate JSON schema from pattern spec"
+      - "Update pattern index with new docs"
+    interfaces:
+      - "DocSuiteGenerator.generate(pattern) -> DocSuite"
+    data_structures:
+      - "DocSuite: {readme, examples[], schema.json}"
+
+  example_generator:
+    file: "automation/generators/example_generator.py"
+    role: "Pattern example instance generation"
+    responsibilities:
+      - "Generate full examples with all fields"
+      - "Generate minimal examples with required fields only"
+      - "Generate test examples for validation"
+    interfaces:
+      - "ExampleGenerator.generate(pattern) -> Examples"
+    data_structures:
+      - "Examples: {instance_full.json, instance_minimal.json, instance_test.json}"
+
+  performance_analyzer:
+    file: "automation/analyzers/performance_analyzer.py"
+    role: "Pattern execution performance analytics"
+    responsibilities:
+      - "Track execution times per pattern"
+      - "Calculate success rates and failure modes"
+      - "Identify performance bottlenecks"
+      - "Generate ROI metrics"
+    interfaces:
+      - "PerformanceAnalyzer.analyze() -> Metrics"
+    data_structures:
+      - "Metrics: {avg_execution_time, success_rate, failure_modes, roi}"
+
+  orchestrator_hooks:
+    file: "automation/integration/orchestrator_hooks.py"
+    role: "Pattern automation hooks for core orchestrator"
+    responsibilities:
+      - "Integrate pattern automation with core pipeline"
+      - "Emit pattern execution events to event bus"
+      - "Register pattern execution telemetry"
+    interfaces:
+      - "PatternAutomationHooks.on_pattern_execute()"
+      - "PatternAutomationHooks.emit_telemetry()"
+    data_structures:
+      - "Hook registry: orchestrator event callbacks"
+
+  health_monitor_daemon:
+    file: "automation/monitoring/health_monitor_daemon.py"
+    role: "Pattern system health monitoring daemon"
+    responsibilities:
+      - "Monitor pattern execution health"
+      - "Detect system degradation"
+      - "Alert on high failure rates"
+      - "Track database growth and performance"
+    interfaces:
+      - "HealthMonitor.run_daemon()"
+    data_structures:
+      - "Health metrics: {uptime, failure_rate, db_size, detection_accuracy}"
+
+  dashboard:
+    file: "automation/monitoring/dashboard.py"
+    role: "Real-time pattern automation dashboard"
+    responsibilities:
+      - "Display pattern execution metrics"
+      - "Show auto-discovery status"
+      - "Visualize confidence scores"
+      - "Track ROI and time savings"
+    interfaces:
+      - "Dashboard.render()"
+    data_structures:
+      - "Dashboard data: {executions, detections, approvals, metrics}"
+
+# ================================================================================
+# ARTIFACT REGISTRY
+# ================================================================================
+
+artifact_registry:
+  patterns:
+    - path: "specs/*.pattern.yaml"
+      format: "YAML"
+      description: "Pattern specification files with metadata, steps, examples"
+
+  executors:
+    - path: "executors/*.ps1"
+      format: "PowerShell"
+      description: "Pattern executor scripts (PowerShell for Windows, bash for Linux)"
+
+  schemas:
+    - path: "schemas/*.schema.json"
+      format: "JSON Schema"
+      description: "JSON schemas for pattern validation (136+ schemas)"
+
+  examples:
+    - path: "examples/*/instance_*.json"
+      format: "JSON"
+      description: "Pattern instance examples (full, minimal, test)"
+
+  registry:
+    - path: "registry/PATTERN_INDEX.yaml"
+      format: "YAML"
+      description: "Master pattern registry with 33+ registered patterns"
+    - path: "registry/doc_id_mapping.json"
+      format: "JSON"
+      description: "Pattern ID to DOC_ID mapping"
+
+  database:
+    - path: "automation/pattern_automation.db"
+      format: "SQLite"
+      description: "Pattern execution telemetry and analytics database"
+      tables:
+        - "executions: {id, pattern_id, timestamp, duration, success, error_msg}"
+        - "detected_patterns: {id, phrase, confidence, occurrences, approved}"
+        - "performance_metrics: {pattern_id, avg_duration, success_rate, last_used}"
+
+  reports:
+    - path: "reports/*.json"
+      format: "JSON"
+      description: "Automation reports (gap analysis, validation, workflow)"
+
+  drafts:
+    - path: "drafts/AUTO-*.yaml"
+      format: "YAML"
+      description: "Auto-detected pattern drafts awaiting approval"
+
+  docs:
+    - path: "docs/*.md"
+      format: "Markdown"
+      description: "Pattern system documentation and guides"
+
+# ================================================================================
+# PROCESS STEPS - INIT PHASE
+# ================================================================================
+
+phases:
+  INIT:
+    description: "Initialize pattern automation system, validate infrastructure"
+
+    steps:
+      - step_id: "PAT-INIT-001"
+        phase: "INIT"
+        name: "Validate Directory Structure"
+        responsible_component: "pattern_orchestrate"
+        operation_kind: "initialization"
+        description: |
+          Check required directories exist:
+          - specs/ (pattern specifications)
+          - executors/ (executor scripts)
+          - schemas/ (JSON schemas)
+          - examples/ (instance examples)
+          - registry/ (pattern index)
+          - automation/ (automation components)
+          Create missing directories with exist_ok=True.
+        pattern_ids: []
+        inputs:
+          - "patterns_dir: patterns/"
+        expected_outputs:
+          - "All required directories created or validated"
+        requires_human_confirmation: false
+        guardrail_checkpoint: false
+        artifact_registry_refs:
+          - "specs/"
+          - "executors/"
+          - "registry/"
+
+      - step_id: "PAT-INIT-002"
+        phase: "INIT"
+        name: "Initialize Pattern Database"
+        responsible_component: "zero_touch_workflow"
+        operation_kind: "initialization"
+        description: |
+          Create SQLite database with tables:
+          - executions (pattern run telemetry)
+          - detected_patterns (auto-discovered patterns)
+          - performance_metrics (analytics)
+          - error_learning (self-healing data)
+        pattern_ids: []
+        inputs:
+          - "db_path: automation/pattern_automation.db"
+        expected_outputs:
+          - "SQLite database created with schema"
+          - "Tables: executions, detected_patterns, performance_metrics, error_learning"
+        requires_human_confirmation: false
+        guardrail_checkpoint: false
+        artifact_registry_refs:
+          - "automation/pattern_automation.db"
+
+      - step_id: "PAT-INIT-003"
+        phase: "INIT"
+        name: "Load Pattern Registry"
+        responsible_component: "pattern_orchestrate"
+        operation_kind: "initialization"
+        description: |
+          Load PATTERN_INDEX.yaml to memory.
+          Validate registry structure and pattern entries.
+          Current status: 33 registered patterns.
+        pattern_ids: []
+        inputs:
+          - "registry_path: registry/PATTERN_INDEX.yaml"
+        expected_outputs:
+          - "Pattern registry loaded: List[Pattern]"
+          - "Registry validation: schema compliance checked"
+        requires_human_confirmation: false
+        guardrail_checkpoint: true
+        artifact_registry_refs:
+          - "registry/PATTERN_INDEX.yaml"
+
+# ================================================================================
+# PROCESS STEPS - DISCOVERY PHASE
+# ================================================================================
+
+  DISCOVERY:
+    description: "Scan for new patterns, match executors, update registry"
+
+    steps:
+      - step_id: "PAT-DISC-001"
+        phase: "DISCOVERY"
+        name: "Scan Pattern Specifications"
+        responsible_component: "pattern_scanner"
+        operation_kind: "pattern_discovery"
+        description: |
+          Scan specs/*.pattern.yaml for new pattern files.
+          Parse YAML and extract pattern metadata.
+          Validate against pattern schema.
+        pattern_ids: []
+        inputs:
+          - "specs_dir: specs/"
+          - "Pattern glob: *.pattern.yaml"
+        expected_outputs:
+          - "List of discovered patterns: List[Pattern]"
+          - "Count of new patterns vs. existing registry"
+        requires_human_confirmation: false
+        guardrail_checkpoint: false
+        artifact_registry_refs:
+          - "specs/*.pattern.yaml"
+
+      - step_id: "PAT-DISC-002"
+        phase: "DISCOVERY"
+        name: "Discover Executors"
+        responsible_component: "pattern_scanner"
+        operation_kind: "pattern_discovery"
+        description: |
+          Scan executors/*.ps1 for executor scripts.
+          Match executors to patterns by naming conventions:
+          - Exact match: PAT-ATOMIC-CREATE-001 → atomic_create_001_executor.ps1
+          - Base match: PAT-ATOMIC-CREATE-001 → atomic_create_executor.ps1
+          - ID match: Check pattern.executor field
+        pattern_ids: []
+        inputs:
+          - "executors_dir: executors/"
+          - "Pattern list from DISC-001"
+        expected_outputs:
+          - "Executor mapping: {pattern_id: executor_file}"
+          - "Unmatched patterns logged as warnings"
+        requires_human_confirmation: false
+        guardrail_checkpoint: false
+        artifact_registry_refs:
+          - "executors/*.ps1"
+
+      - step_id: "PAT-DISC-003"
+        phase: "DISCOVERY"
+        name: "Detect Duplicates"
+        responsible_component: "duplicate_detector"
+        operation_kind: "pattern_validation"
+        description: |
+          Calculate similarity between patterns.
+          Detect duplicates with similarity ≥85%.
+          Suggest consolidation for high-similarity pairs.
+        pattern_ids: []
+        inputs:
+          - "Pattern list from DISC-001"
+          - "Similarity threshold: 0.85"
+        expected_outputs:
+          - "Duplicate pairs: List[{pattern_a, pattern_b, similarity}]"
+          - "Consolidation suggestions"
+        requires_human_confirmation: false
+        guardrail_checkpoint: true
+        artifact_registry_refs: []
+
+      - step_id: "PAT-DISC-004"
+        phase: "DISCOVERY"
+        name: "Score Pattern Staleness"
+        responsible_component: "staleness_scorer"
+        operation_kind: "pattern_validation"
+        description: |
+          Calculate staleness based on last usage timestamp.
+          Classify patterns:
+          - Fresh: last_used < 30 days
+          - Stale: 30-90 days
+          - Obsolete: > 90 days
+          Suggest archival for obsolete patterns.
+        pattern_ids: []
+        inputs:
+          - "Pattern list with usage metadata"
+          - "Current timestamp"
+        expected_outputs:
+          - "Staleness scores: {pattern_id: {score, classification}}"
+          - "Archival candidates: List[pattern_id]"
+        requires_human_confirmation: false
+        guardrail_checkpoint: false
+        artifact_registry_refs: []
+
+# ================================================================================
+# PROCESS STEPS - MINING PHASE
+# ================================================================================
+
+  MINING:
+    description: "Mine AI tool logs for user request patterns"
+
+    steps:
+      - step_id: "PAT-MINE-001"
+        phase: "MINING"
+        name: "Mine AI Tool Logs"
+        responsible_component: "zero_touch_workflow"
+        operation_kind: "ai_log_mining"
+        description: |
+          Mine logs from AI tools (nightly scheduled):
+          - Claude conversation logs (.claude/ directory)
+          - GitHub Copilot logs (if available)
+          - Codex execution logs (if available)
+
+          Extract user requests with timestamps and context.
+          Current performance: 8 executions logged, 7 patterns detected (87.5% accuracy).
+        pattern_ids: []
+        inputs:
+          - "Log paths: .claude/, copilot_logs/, codex_logs/"
+          - "Time window: last 24 hours"
+        expected_outputs:
+          - "User requests: List[{phrase, timestamp, context, tool}]"
+          - "Request count per AI tool"
+        requires_human_confirmation: false
+        guardrail_checkpoint: false
+        artifact_registry_refs: []
+
+# ================================================================================
+# PROCESS STEPS - DETECTION PHASE
+# ================================================================================
+
+  DETECTION:
+    description: "Detect common patterns from mined user requests"
+
+    steps:
+      - step_id: "PAT-DETECT-001"
+        phase: "DETECTION"
+        name: "Cluster Similar Requests"
+        responsible_component: "zero_touch_workflow"
+        operation_kind: "similarity_detection"
+        description: |
+          Cluster user requests by similarity.
+          Use text similarity algorithms (Levenshtein, cosine similarity).
+          Group requests with similarity ≥75%.
+        pattern_ids: []
+        inputs:
+          - "User requests from MINE-001"
+          - "Similarity threshold: 0.75"
+        expected_outputs:
+          - "Request clusters: List[{phrase, requests[], confidence}]"
+          - "Cluster count"
+        requires_human_confirmation: false
+        guardrail_checkpoint: false
+        artifact_registry_refs: []
+
+      - step_id: "PAT-DETECT-002"
+        phase: "DETECTION"
+        name: "Calculate Confidence Scores"
+        responsible_component: "zero_touch_workflow"
+        operation_kind: "similarity_detection"
+        description: |
+          Calculate confidence for each cluster based on:
+          - Number of occurrences (min: 3)
+          - Similarity score between requests
+          - Consistency of execution context
+
+          Current average confidence: 86.5%.
+        pattern_ids: []
+        inputs:
+          - "Request clusters from DETECT-001"
+        expected_outputs:
+          - "Confidence scores: {cluster_id: confidence_score}"
+          - "High-confidence clusters (≥90%): auto-approval candidates"
+          - "Medium-confidence clusters (75-90%): manual review"
+        requires_human_confirmation: false
+        guardrail_checkpoint: false
+        artifact_registry_refs: []
+
+      - step_id: "PAT-DETECT-003"
+        phase: "DETECTION"
+        name: "Detect Anti-Patterns"
+        responsible_component: "anti_pattern_detector"
+        operation_kind: "self_healing"
+        description: |
+          Scan detected patterns for anti-pattern violations:
+          - ANTI-GIANT-REFACTOR: Scope too broad
+          - ANTI-EDIT-OUTSIDE-SCOPE: File access violations
+          - ANTI-SKIP-TESTS: Missing validation
+
+          Block anti-patterns before generation.
+        pattern_ids: []
+        inputs:
+          - "Request clusters from DETECT-001"
+          - "Anti-pattern registry: schemas/anti_patterns.schema.json"
+        expected_outputs:
+          - "Anti-pattern violations: List[{cluster_id, anti_pattern_id, reason}]"
+          - "Blocked clusters: removed from pipeline"
+        requires_human_confirmation: false
+        guardrail_checkpoint: true
+        artifact_registry_refs:
+          - "schemas/anti_patterns.schema.json"
+
+# ================================================================================
+# PROCESS STEPS - GENERATION PHASE
+# ================================================================================
+
+  GENERATION:
+    description: "Auto-generate pattern specifications from detected workflows"
+
+    steps:
+      - step_id: "PAT-GEN-001"
+        phase: "GENERATION"
+        name: "Generate Pattern Specifications"
+        responsible_component: "zero_touch_workflow"
+        operation_kind: "pattern_generation"
+        description: |
+          Auto-generate pattern YAML specs from high-confidence clusters.
+          Include:
+          - Pattern metadata (id, title, description)
+          - Execution steps extracted from request context
+          - Example instances
+          - Confidence score
+        pattern_ids: []
+        inputs:
+          - "High-confidence clusters from DETECT-002"
+          - "Pattern template: templates/pattern-schema.json"
+        expected_outputs:
+          - "Draft patterns: drafts/AUTO-*.yaml"
+          - "Pattern count generated"
+        requires_human_confirmation: false
+        guardrail_checkpoint: false
+        artifact_registry_refs:
+          - "drafts/AUTO-*.yaml"
+          - "templates/pattern-schema.json"
+
+      - step_id: "PAT-GEN-002"
+        phase: "GENERATION"
+        name: "Generate Documentation Suite"
+        responsible_component: "doc_suite_generator"
+        operation_kind: "doc_suite_generation"
+        description: |
+          Auto-generate complete documentation for new patterns:
+          - README.md with usage instructions
+          - Example instances (full, minimal, test)
+          - JSON schema for validation
+          - Integration guide
+        pattern_ids: []
+        inputs:
+          - "Draft patterns from GEN-001"
+        expected_outputs:
+          - "Pattern docs: docs/{pattern_id}/*.md"
+          - "Pattern examples: examples/{pattern_id}/instance_*.json"
+          - "Pattern schema: schemas/{pattern_id}.schema.json"
+        requires_human_confirmation: false
+        guardrail_checkpoint: false
+        artifact_registry_refs:
+          - "docs/"
+          - "examples/"
+          - "schemas/"
+
+# ================================================================================
+# PROCESS STEPS - VALIDATION PHASE
+# ================================================================================
+
+  VALIDATION:
+    description: "Validate generated patterns against schemas and constraints"
+
+    steps:
+      - step_id: "PAT-VAL-001"
+        phase: "VALIDATION"
+        name: "Schema Validation"
+        responsible_component: "pattern_scanner"
+        operation_kind: "pattern_validation"
+        description: |
+          Validate draft patterns against JSON schema.
+          Check required fields, data types, constraints.
+          Validate examples against pattern schema.
+        pattern_ids: []
+        inputs:
+          - "Draft patterns: drafts/AUTO-*.yaml"
+          - "Schema: templates/pattern-schema.json"
+        expected_outputs:
+          - "Validation results: {pattern_id: {valid, errors[]}}"
+          - "Valid patterns passed to approval"
+          - "Invalid patterns logged for review"
+        requires_human_confirmation: false
+        guardrail_checkpoint: true
+        artifact_registry_refs:
+          - "templates/pattern-schema.json"
+
+      - step_id: "PAT-VAL-002"
+        phase: "VALIDATION"
+        name: "Duplicate Check"
+        responsible_component: "duplicate_detector"
+        operation_kind: "pattern_validation"
+        description: |
+          Check if generated pattern is duplicate of existing.
+          Use similarity threshold: 85%.
+          Reject duplicates, suggest using existing pattern.
+        pattern_ids: []
+        inputs:
+          - "Valid patterns from VAL-001"
+          - "Existing registry patterns"
+        expected_outputs:
+          - "Duplicate check: {pattern_id: {is_duplicate, similar_to}}"
+          - "Unique patterns passed to approval"
+        requires_human_confirmation: false
+        guardrail_checkpoint: true
+        artifact_registry_refs:
+          - "registry/PATTERN_INDEX.yaml"
+
+# ================================================================================
+# PROCESS STEPS - APPROVAL PHASE
+# ================================================================================
+
+  APPROVAL:
+    description: "Auto-approve patterns based on confidence thresholds"
+
+    steps:
+      - step_id: "PAT-APPR-001"
+        phase: "APPROVAL"
+        name: "Confidence-Based Auto-Approval"
+        responsible_component: "zero_touch_workflow"
+        operation_kind: "auto_approval"
+        description: |
+          Auto-approve patterns based on confidence:
+          - High confidence (≥90%): Auto-approved
+          - Medium confidence (75-90%): Flag for manual review
+          - Low confidence (<75%): Reject
+
+          Current stats: All 7 patterns auto-approved at 86.5% avg confidence.
+        pattern_ids: []
+        inputs:
+          - "Validated patterns from VAL-002"
+          - "Confidence scores from DETECT-002"
+          - "Thresholds: {high: 0.90, medium: 0.75}"
+        expected_outputs:
+          - "Auto-approved patterns: List[pattern_id]"
+          - "Manual review queue: List[pattern_id]"
+          - "Rejected patterns: List[pattern_id]"
+        requires_human_confirmation: false
+        guardrail_checkpoint: false
+        artifact_registry_refs: []
+
+      - step_id: "PAT-APPR-002"
+        phase: "APPROVAL"
+        name: "Generate Approval Report"
+        responsible_component: "zero_touch_workflow"
+        operation_kind: "pattern_generation"
+        description: |
+          Generate approval report with:
+          - Patterns approved with confidence scores
+          - Patterns flagged for manual review with reasons
+          - Patterns rejected with explanations
+          - Recommendations for threshold tuning
+        pattern_ids: []
+        inputs:
+          - "Approval results from APPR-001"
+        expected_outputs:
+          - "Approval report: reports/approval_*.json"
+        requires_human_confirmation: false
+        guardrail_checkpoint: false
+        artifact_registry_refs:
+          - "reports/approval_*.json"
+
+# ================================================================================
+# PROCESS STEPS - REGISTRATION PHASE
+# ================================================================================
+
+  REGISTRATION:
+    description: "Register approved patterns in PATTERN_INDEX.yaml"
+
+    steps:
+      - step_id: "PAT-REG-001"
+        phase: "REGISTRATION"
+        name: "Update Pattern Registry"
+        responsible_component: "zero_touch_workflow"
+        operation_kind: "registry_update"
+        description: |
+          Add approved patterns to PATTERN_INDEX.yaml.
+          Assign pattern IDs sequentially.
+          Update doc_id_mapping.json.
+        pattern_ids: []
+        inputs:
+          - "Auto-approved patterns from APPR-001"
+          - "Current registry: registry/PATTERN_INDEX.yaml"
+        expected_outputs:
+          - "Updated registry with new patterns"
+          - "Pattern IDs assigned: PAT-XXX-NNN"
+          - "doc_id_mapping.json updated"
+        requires_human_confirmation: false
+        guardrail_checkpoint: false
+        artifact_registry_refs:
+          - "registry/PATTERN_INDEX.yaml"
+          - "registry/doc_id_mapping.json"
+
+      - step_id: "PAT-REG-002"
+        phase: "REGISTRATION"
+        name: "Move Drafts to Specs"
+        responsible_component: "zero_touch_workflow"
+        operation_kind: "persistence"
+        description: |
+          Move approved patterns from drafts/ to specs/.
+          Rename: drafts/AUTO-001.yaml → specs/PAT-XXX-001.pattern.yaml.
+          Archive rejected drafts for review.
+        pattern_ids: []
+        inputs:
+          - "Approved patterns from REG-001"
+        expected_outputs:
+          - "Pattern files in specs/"
+          - "Drafts cleaned up"
+        requires_human_confirmation: false
+        guardrail_checkpoint: false
+        artifact_registry_refs:
+          - "specs/*.pattern.yaml"
+
+# ================================================================================
+# PROCESS STEPS - EXECUTION PHASE
+# ================================================================================
+
+  EXECUTION:
+    description: "Execute patterns via CLI with telemetry and error handling"
+
+    steps:
+      - step_id: "PAT-EXEC-001"
+        phase: "EXECUTION"
+        name: "Load Pattern and Instance"
+        responsible_component: "pattern_orchestrate"
+        operation_kind: "pattern_execution"
+        description: |
+          Load pattern from registry by ID.
+          Load instance YAML/JSON if provided.
+          Validate instance against pattern schema.
+        pattern_ids: []
+        inputs:
+          - "Pattern ID from CLI: --pattern-id PAT-XXX"
+          - "Instance file: --instance instance.yaml (optional)"
+        expected_outputs:
+          - "Pattern dict loaded from registry"
+          - "Instance dict validated against schema"
+        requires_human_confirmation: false
+        guardrail_checkpoint: true
+        artifact_registry_refs:
+          - "registry/PATTERN_INDEX.yaml"
+
+      - step_id: "PAT-EXEC-002"
+        phase: "EXECUTION"
+        name: "Match Executor"
+        responsible_component: "pattern_orchestrate"
+        operation_kind: "pattern_execution"
+        description: |
+          Find executor for pattern using discovery logic.
+          Check executor existence in executors/*.ps1.
+          Fallback to generic executor if pattern-specific not found.
+        pattern_ids: []
+        inputs:
+          - "Pattern from EXEC-001"
+          - "Executors directory: executors/"
+        expected_outputs:
+          - "Executor path: executors/{pattern_id}_executor.ps1"
+          - "Error if no executor found"
+        requires_human_confirmation: false
+        guardrail_checkpoint: true
+        artifact_registry_refs:
+          - "executors/*.ps1"
+
+      - step_id: "PAT-EXEC-003"
+        phase: "EXECUTION"
+        name: "Execute Pattern via Executor"
+        responsible_component: "pattern_orchestrate"
+        operation_kind: "pattern_execution"
+        description: |
+          Invoke executor script with pattern and instance.
+          Apply timeout enforcement (default: 300 seconds).
+          Capture stdout/stderr and exit code.
+          Emit telemetry events to event bus.
+        pattern_ids: []
+        inputs:
+          - "Executor path from EXEC-002"
+          - "Pattern and instance data"
+          - "Timeout: --timeout N (default 300)"
+        expected_outputs:
+          - "Execution result: {success, stdout, stderr, duration}"
+          - "Telemetry event emitted"
+        requires_human_confirmation: false
+        guardrail_checkpoint: false
+        artifact_registry_refs: []
+
+      - step_id: "PAT-EXEC-004"
+        phase: "EXECUTION"
+        name: "Log Execution Telemetry"
+        responsible_component: "pattern_orchestrate"
+        operation_kind: "persistence"
+        description: |
+          Log execution to SQLite database:
+          - pattern_id
+          - timestamp
+          - duration
+          - success (boolean)
+          - error_msg (if failed)
+
+          Current: 8 executions logged, 87.5% success rate.
+        pattern_ids: []
+        inputs:
+          - "Execution result from EXEC-003"
+          - "Database: automation/pattern_automation.db"
+        expected_outputs:
+          - "Execution record in database"
+          - "Updated performance metrics"
+        requires_human_confirmation: false
+        guardrail_checkpoint: false
+        artifact_registry_refs:
+          - "automation/pattern_automation.db"
+
+      - step_id: "PAT-EXEC-005"
+        phase: "EXECUTION"
+        name: "Handle Execution Errors"
+        responsible_component: "error_learner"
+        operation_kind: "self_healing"
+        description: |
+          If execution failed:
+          - Extract error type and message
+          - Search error_learning database for known fixes
+          - Auto-suggest fix pattern if available
+          - Log error for future learning
+        pattern_ids: []
+        inputs:
+          - "Execution result from EXEC-003"
+          - "Error learning database"
+        expected_outputs:
+          - "Fix suggestion (if available)"
+          - "Error logged for learning"
+        requires_human_confirmation: false
+        guardrail_checkpoint: false
+        artifact_registry_refs:
+          - "automation/pattern_automation.db"
+
+# ================================================================================
+# PROCESS STEPS - MONITORING PHASE
+# ================================================================================
+
+  MONITORING:
+    description: "Monitor pattern system health and performance"
+
+    steps:
+      - step_id: "PAT-MON-001"
+        phase: "MONITORING"
+        name: "Calculate Performance Metrics"
+        responsible_component: "performance_analyzer"
+        operation_kind: "performance_analysis"
+        description: |
+          Calculate metrics per pattern:
+          - Average execution time
+          - Success rate (last 30 days)
+          - Failure modes distribution
+          - Last usage timestamp
+          - ROI (time saved vs. manual execution)
+        pattern_ids: []
+        inputs:
+          - "Execution telemetry from database"
+        expected_outputs:
+          - "Performance metrics: {pattern_id: {avg_time, success_rate, roi}}"
+          - "Top performers and underperformers"
+        requires_human_confirmation: false
+        guardrail_checkpoint: false
+        artifact_registry_refs:
+          - "automation/pattern_automation.db"
+
+      - step_id: "PAT-MON-002"
+        phase: "MONITORING"
+        name: "Check System Health"
+        responsible_component: "health_monitor_daemon"
+        operation_kind: "performance_analysis"
+        description: |
+          Monitor system health:
+          - Overall success rate (target: ≥85%)
+          - Detection accuracy (current: 87.5%)
+          - Database size and growth
+          - Pattern execution frequency
+        pattern_ids: []
+        inputs:
+          - "System telemetry from database"
+        expected_outputs:
+          - "Health status: {overall: HEALTHY/DEGRADED/CRITICAL}"
+          - "Alert if failure rate > 15%"
+        requires_human_confirmation: false
+        guardrail_checkpoint: false
+        artifact_registry_refs:
+          - "automation/pattern_automation.db"
+
+      - step_id: "PAT-MON-003"
+        phase: "MONITORING"
+        name: "Generate Dashboard"
+        responsible_component: "dashboard"
+        operation_kind: "performance_analysis"
+        description: |
+          Render real-time dashboard with:
+          - Pattern execution count (8 executions)
+          - Auto-detection status (7 patterns detected)
+          - Confidence scores distribution
+          - Success rate trends
+          - ROI and time savings
+        pattern_ids: []
+        inputs:
+          - "Metrics from MON-001"
+          - "Health status from MON-002"
+        expected_outputs:
+          - "Dashboard HTML/JSON"
+          - "Console summary"
+        requires_human_confirmation: false
+        guardrail_checkpoint: false
+        artifact_registry_refs: []
+
+# ================================================================================
+# PROCESS STEPS - DONE PHASE
+# ================================================================================
+
+  DONE:
+    description: "Generate final workflow report and complete execution"
+
+    steps:
+      - step_id: "PAT-DONE-001"
+        phase: "DONE"
+        name: "Generate Workflow Report"
+        responsible_component: "zero_touch_workflow"
+        operation_kind: "persistence"
+        description: |
+          Generate comprehensive workflow report:
+          - All phases executed (mining, detection, generation, approval, etc.)
+          - Patterns auto-approved with confidence scores
+          - Documentation suites generated
+          - Registry updates applied
+          - Performance metrics summary
+          - Recommendations for next workflow
+        pattern_ids: []
+        inputs:
+          - "Workflow results from all phases"
+        expected_outputs:
+          - "Workflow report: reports/workflow_*.json"
+          - "Console summary"
+        requires_human_confirmation: false
+        guardrail_checkpoint: false
+        artifact_registry_refs:
+          - "reports/workflow_*.json"
+
+      - step_id: "PAT-DONE-002"
+        phase: "DONE"
+        name: "Print Execution Summary"
+        responsible_component: "pattern_orchestrate"
+        operation_kind: "orchestration"
+        description: |
+          Print formatted summary to console:
+          - Total patterns registered: 33+
+          - Patterns auto-detected: 7 (87.5% accuracy)
+          - Patterns auto-approved: 7 (100%)
+          - Average confidence: 86.5%
+          - System status: ✅ COMPLETE
+        pattern_ids: []
+        inputs:
+          - "System metrics from MON-001"
+        expected_outputs:
+          - "Formatted console output"
+        requires_human_confirmation: false
+        guardrail_checkpoint: false
+        artifact_registry_refs: []
+
+# ================================================================================
+# GUARDRAIL CHECKPOINTS
+# ================================================================================
+
+guardrail_checkpoints:
+  - checkpoint_id: "GC-PAT-REGISTRY"
+    phase: "INIT"
+    step_id: "PAT-INIT-003"
+    description: "Validate pattern registry schema and structure"
+    validation_logic: "Registry YAML loads successfully, all patterns have required fields"
+    on_fail: "Abort initialization, report schema errors"
+
+  - checkpoint_id: "GC-PAT-DUPES"
+    phase: "DISCOVERY"
+    step_id: "PAT-DISC-003"
+    description: "Prevent duplicate pattern registration"
+    validation_logic: "Similarity score < 85% with all existing patterns"
+    on_fail: "Reject pattern, suggest using existing pattern"
+
+  - checkpoint_id: "GC-PAT-ANTI"
+    phase: "DETECTION"
+    step_id: "PAT-DETECT-003"
+    description: "Block anti-pattern violations before generation"
+    validation_logic: "No anti-pattern matches in detected workflow"
+    on_fail: "Block pattern generation, log violation"
+
+  - checkpoint_id: "GC-PAT-SCHEMA"
+    phase: "VALIDATION"
+    step_id: "PAT-VAL-001"
+    description: "Validate generated patterns against JSON schema"
+    validation_logic: "Pattern conforms to templates/pattern-schema.json"
+    on_fail: "Reject pattern, log validation errors"
+
+  - checkpoint_id: "GC-PAT-EXECUTOR"
+    phase: "EXECUTION"
+    step_id: "PAT-EXEC-002"
+    description: "Ensure executor exists before execution"
+    validation_logic: "Executor file found in executors/ directory"
+    on_fail: "Abort execution, report missing executor"
+
+  - checkpoint_id: "GC-PAT-INSTANCE"
+    phase: "EXECUTION"
+    step_id: "PAT-EXEC-001"
+    description: "Validate instance against pattern schema"
+    validation_logic: "Instance conforms to pattern's schema"
+    on_fail: "Abort execution, report validation errors"
+
+# ================================================================================
+# ANTI-PATTERNS BLOCKED
+# ================================================================================
+
+anti_patterns:
+  - id: "ANTI-PAT-DUPLICATE"
+    description: "Duplicate pattern with similarity ≥85% to existing"
+    detection: "DuplicateDetector calculates similarity between all pattern pairs"
+    enforcement: "Reject duplicate, suggest using existing pattern"
+
+  - id: "ANTI-PAT-LOW-CONFIDENCE"
+    description: "Auto-approving patterns with confidence <75%"
+    detection: "Confidence score calculated during detection phase"
+    enforcement: "Reject patterns below threshold, log for manual review"
+
+  - id: "ANTI-PAT-GIANT-SCOPE"
+    description: "Pattern scope too broad (>50 files or >5 phases)"
+    detection: "Analyze pattern execution steps for file count and phase complexity"
+    enforcement: "Flag for manual review, suggest breaking into smaller patterns"
+
+  - id: "ANTI-PAT-NO-EXECUTOR"
+    description: "Pattern registered without matching executor"
+    detection: "PatternScanner.find_executor_for_pattern() returns None"
+    enforcement: "Block pattern execution, require executor creation"
+
+  - id: "ANTI-PAT-STALE-USAGE"
+    description: "Pattern unused for >90 days"
+    detection: "StalenessScorer checks last_used timestamp"
+    enforcement: "Flag for archival, notify for deprecation"
+
+# ================================================================================
+# EXECUTION MODES
+# ================================================================================
+
+execution_modes:
+  zero_touch_workflow:
+    description: "End-to-end zero-touch automation (nightly scheduled)"
+    command: "python automation/runtime/zero_touch_workflow.py"
+    phases: "INIT → MINING → DETECTION → GENERATION → VALIDATION → APPROVAL → REGISTRATION → DONE"
+    automation: "Fully automatic with auto-approval ≥90% confidence"
+
+  pattern_execute:
+    description: "Execute specific pattern via CLI"
+    command: "pattern execute --pattern-id PAT-XXX --instance instance.yaml"
+    phases: "INIT → EXECUTION → MONITORING → DONE"
+    automation: "Operator-assisted (user provides pattern ID and instance)"
+
+  pattern_discover:
+    description: "Scan for new patterns and update registry"
+    command: "python automation/discovery/pattern_scanner.py"
+    phases: "INIT → DISCOVERY → REGISTRATION → DONE"
+    automation: "Fully automatic"
+
+  pattern_list:
+    description: "List all registered patterns"
+    command: "pattern list"
+    phases: "INIT → DONE"
+    automation: "Fully automatic"
+
+  pattern_info:
+    description: "Show detailed info for a pattern"
+    command: "pattern info PAT-XXX"
+    phases: "INIT → DONE"
+    automation: "Fully automatic"
+
+# ================================================================================
+# COMPLETION CRITERIA
+# ================================================================================
+
+completion_criteria:
+  PATTERN_SYSTEM_COMPLETE:
+    description: "Pattern automation system fully operational"
+    conditions:
+      - "All infrastructure components operational (6/6)"
+      - "Database initialized with telemetry tables"
+      - "Pattern registry loaded and validated (33+ patterns)"
+      - "Auto-detection accuracy ≥85% (current: 87.5%)"
+      - "Auto-approval working for high-confidence patterns (≥90%)"
+      - "Zero-touch workflow executes end-to-end successfully"
+    artifacts_required:
+      - "registry/PATTERN_INDEX.yaml with 33+ patterns"
+      - "automation/pattern_automation.db with telemetry"
+      - "executors/*.ps1 (7/7 complete)"
+      - "schemas/*.schema.json (136+ schemas)"
+    next_steps:
+      - "Monitor system health via dashboard"
+      - "Review manual approval queue for medium-confidence patterns"
+      - "Tune confidence thresholds based on accuracy metrics"
+      - "Integrate with core orchestrator via PatternAutomationHooks"

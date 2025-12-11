@@ -1,0 +1,9 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "example_05_saga_pattern",
+  "type": "object",
+  "required": ["pattern_id"],
+  "properties": {
+    "pattern_id": {"type": "string", "const": "PAT-DOC-EXAMPLE-05-SAGA-PATTERN-008"}
+  }
+}

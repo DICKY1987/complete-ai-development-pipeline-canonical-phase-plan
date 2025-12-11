@@ -1,0 +1,9 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "patterns_folder_automated_task_examination",
+  "type": "object",
+  "required": ["pattern_id"],
+  "properties": {
+    "pattern_id": {"type": "string", "const": "PAT-DOC-PATTERNS-FOLDER-AUTOMATED-TASK-EXAMINATION-036"}
+  }
+}

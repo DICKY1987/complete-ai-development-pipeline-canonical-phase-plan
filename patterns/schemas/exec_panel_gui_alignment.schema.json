@@ -1,0 +1,9 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "exec_panel_gui_alignment",
+  "type": "object",
+  "required": ["pattern_id"],
+  "properties": {
+    "pattern_id": {"type": "string", "const": "PAT-DOC-EXEC-PANEL-GUI-ALIGNMENT-031"}
+  }
+}

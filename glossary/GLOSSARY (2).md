@@ -1,8 +1,9 @@
 # Glossary – AI Development Pipeline
 
-**Last Updated**: 2025-11-23  
-**Purpose**: Comprehensive alphabetical reference of all specialized terms  
+**Last Updated**: 2025-12-10
+**Purpose**: Comprehensive alphabetical reference of all specialized terms
 **Audience**: Developers, AI agents, and documentation readers
+**Recent Updates**: Added planning phase terminology from Turn Archive conversations (UCI, CCIS, UCP, LCP, etc.)
 
 > **Quick Navigation**: Jump to [A](#a) [B](#b) [C](#c) [D](#d) [E](#e) [F](#f) [G](#g) [H](#h) [I](#i) [J](#j) [L](#l) [M](#m) [O](#o) [P](#p) [R](#r) [S](#s) [T](#t) [U](#u) [W](#w)
 
@@ -15,8 +16,13 @@
 
 ## A
 
+### Acceptance Hint
+See [Definition of Done](#definition-of-done)
+
+---
+
 ### Adapter
-**Category**: Integrations  
+**Category**: Integrations
 **Definition**: Abstraction layer that wraps external tools (Aider, Codex, Claude) to provide a uniform interface for the orchestrator.
 
 **Types**:
@@ -26,7 +32,7 @@
 - **Git Adapter** - Wraps Git operations
 - **Test Adapter** - Wraps test runners (pytest, Pester)
 
-**Implementation**: `core/engine/adapters/`  
+**Implementation**: `core/engine/adapters/`
 **Schema**: `schema/uet/execution_request.v1.json`
 
 **Usage**:
@@ -41,7 +47,7 @@ result = adapter.execute_task(task, worktree_path)
 ---
 
 ### AIM (AI Environment Manager)
-**Category**: Integrations  
+**Category**: Integrations
 **Definition**: AI Metadata Integration Manager - a system for discovering, registering, and routing tasks to AI CLI tools.
 
 **Purpose**:
@@ -50,7 +56,7 @@ result = adapter.execute_task(task, worktree_path)
 - Match tasks to appropriate tools
 - Manage tool profiles and preferences
 
-**Implementation**: `aim/`  
+**Implementation**: `aim/`
 **CLI**: `python -m aim`
 
 **Commands**:
@@ -65,7 +71,7 @@ python -m aim register <tool>  # Register a tool manually
 ---
 
 ### AIM Bridge
-**Category**: Integrations  
+**Category**: Integrations
 **Definition**: Integration layer between AIM and the execution engine that translates tool metadata into executable configurations.
 
 **Implementation**: `aim/bridge.py`
@@ -74,8 +80,18 @@ python -m aim register <tool>  # Register a tool manually
 
 ---
 
+### Automation Gap
+**Category**: Planning
+**Definition**: A missing automation or incomplete automation step detected by the Looping Chain Prompt, requiring formulation into a CCIS.
+
+**Detection**: Identified during LCP analysis cycles when automation coverage is incomplete.
+
+**Related Terms**: [LCP](#lcp-looping-chain-prompt), [CCIS](#ccis-canonical-change-intent-specification)
+
+---
+
 ### Archive
-**Category**: State Management  
+**Category**: State Management
 **Definition**: Process of moving completed workstreams and their artifacts to long-term storage.
 
 **Purpose**:
@@ -91,8 +107,18 @@ python -m aim register <tool>  # Register a tool manually
 
 ## B
 
+### Blocking Change
+**Category**: Planning
+**Definition**: A change flagged in CCIS that must occur before the system continues with further execution phases.
+
+**Usage**: Appears in CCIS schema as a boolean guiding scheduling decisions to prioritize critical work.
+
+**Related Terms**: [CCIS](#ccis-canonical-change-intent-specification), [Task Queue](#task-queue)
+
+---
+
 ### Bundle
-**Category**: Core Engine  
+**Category**: Core Engine
 **Definition**: A collection of one or more workstreams packaged together as a single unit for execution.
 
 **Structure**:
@@ -110,8 +136,8 @@ python -m aim register <tool>  # Register a tool manually
 - **Multi-Workstream Bundle** - Contains multiple related workstreams
 - **Phase Bundle** - All workstreams for a development phase
 
-**Implementation**: `core/state/bundles.py`  
-**Schema**: `schema/bundle.schema.json`  
+**Implementation**: `core/state/bundles.py`
+**Schema**: `schema/bundle.schema.json`
 **Examples**: `workstreams/phase-k-plus-bundle.json`
 
 **Related Terms**: [Workstream](#workstream), [Bundle Loading](#bundle-loading)
@@ -119,7 +145,7 @@ python -m aim register <tool>  # Register a tool manually
 ---
 
 ### Bundle Loading
-**Category**: State Management  
+**Category**: State Management
 **Definition**: Process of reading, validating, and preparing a bundle for execution.
 
 **Steps**:
@@ -143,8 +169,59 @@ bundle = load_bundle("workstreams/phase-k-plus-bundle.json")
 
 ## C
 
+### CCIS (Canonical Change Intent Specification)
+**Category**: Planning
+**Definition**: The formal, validated schema that wraps a UCI and marks the transition from flexible, creative input into the strictly deterministic planning system. Acts as the gateway between non-deterministic creative input and deterministic structured planning.
+
+**Minimum Required Fields**:
+1. **Identity & routing**: `ccis_id`, `project_id`, `version`
+2. **Origin**: `source` (user/looping_prompt), `created_at`
+3. **Summary**: `title`, `description`, `change_kind[]`, `severity`, `blocking`
+4. **Scope**: At least one of `modules[]`, `paths[]`, `patterns_impacted[]`
+5. **Intent**: `problem_statement`, `desired_outcome`, `rationale`
+6. **Acceptance**: `definition_of_done[]` (at least one item)
+
+**Structure**:
+```yaml
+ccis:
+  ccis_id: "CCIS-2025-0001"
+  project_id: "PROJ-CANONICAL-001"
+  type: "UCI"
+  version: 1
+  origin:
+    source: "user" | "looping_prompt"
+    created_at: "2025-12-10T03:21:00Z"
+  summary:
+    title: "..."
+    description: "..."
+    change_kind: ["new_feature", "automation_gap", etc.]
+    blocking: true|false
+    severity: "low|medium|high|critical"
+  scope:
+    modules: []
+    paths: []
+    patterns_impacted: []
+  intent:
+    problem_statement: "..."
+    desired_outcome: "..."
+    rationale: "..."
+  acceptance:
+    definition_of_done: []
+  project_overrides: {}
+  ai_guidance: {}
+  validation:
+    schema_valid: true
+    ready_for_planning: true
+```
+
+**Purpose**: Enforces standardization at pipeline entry, enabling fully deterministic downstream processing.
+
+**Related Terms**: [UCI](#uci-unified-change-intent), [UCP](#ucp-unified-change-pipeline), [CTRS](#ctrs-canonical-technical-requirements-specification), [Creative Input Zone](#creative-input-zone), [Deterministic Planning Phase](#deterministic-planning-phase)
+
+---
+
 ### CCPM (Critical Chain Project Management)
-**Category**: Integrations  
+**Category**: Integrations
 **Definition**: Project management methodology integrated with the pipeline for task scheduling, buffer management, and critical path analysis.
 
 **Features**:
@@ -153,15 +230,41 @@ bundle = load_bundle("workstreams/phase-k-plus-bundle.json")
 - Resource leveling
 - Progress tracking
 
-**Implementation**: `pm/`  
+**Implementation**: `pm/`
 **Documentation**: `docs/Project_Management_docs/`
 
 **Related Terms**: [OpenSpec](#openspec), [Phase](#phase)
 
 ---
 
+### Change Intent
+**Category**: Planning
+**Definition**: A generic description of a desired modification before being normalized into CCIS; may originate from users or the LCP.
+
+**Context**: The raw, unstructured description of what needs to change before formalization.
+
+**Related Terms**: [CCIS](#ccis-canonical-change-intent-specification), [UCI](#uci-unified-change-intent)
+
+---
+
+### Change Kind
+**Category**: Planning
+**Definition**: A classification tag applied to CCIS describing the nature of the change.
+
+**Valid Values**:
+- `new_feature` - Adding new functionality
+- `modify_existing` - Changing existing code
+- `bug_fix` - Fixing defects
+- `refactor` - Code restructuring
+- `pattern_update` - Updating execution patterns
+- `automation_gap` - Addressing missing automation
+
+**Related Terms**: [CCIS](#ccis-canonical-change-intent-specification)
+
+---
+
 ### Change Proposal
-**Category**: Specifications  
+**Category**: Specifications
 **Definition**: Structured document proposing changes to specifications, tracked through the OpenSpec workflow.
 
 **Location**: `specifications/changes/`
@@ -171,7 +274,7 @@ bundle = load_bundle("workstreams/phase-k-plus-bundle.json")
 ---
 
 ### Checkpoint
-**Category**: State Management  
+**Category**: State Management
 **Definition**: Snapshot of execution state that enables rollback or recovery.
 
 **Types**:
@@ -186,7 +289,7 @@ bundle = load_bundle("workstreams/phase-k-plus-bundle.json")
 ---
 
 ### Circuit Breaker
-**Category**: Core Engine  
+**Category**: Core Engine
 **Definition**: Resilience pattern that prevents cascading failures by "opening" (stopping) execution when error thresholds are exceeded.
 
 **States**:
@@ -203,7 +306,7 @@ circuit_breaker:
   reset_timeout_sec: 600
 ```
 
-**Implementation**: `core/engine/circuit_breakers.py`  
+**Implementation**: `core/engine/circuit_breakers.py`
 **Config**: `config/circuit_breaker.yaml`
 
 **Related Terms**: [Retry Logic](#retry-logic), [Recovery Strategy](#recovery-strategy)
@@ -211,7 +314,7 @@ circuit_breaker:
 ---
 
 ### Compensation Action (Saga)
-**Category**: Integrations  
+**Category**: Integrations
 **Definition**: Undo operation that reverses the effects of a completed action, part of the Saga pattern for distributed transactions.
 
 **Purpose**:
@@ -231,8 +334,41 @@ compensation_action: "DROP TABLE users"
 
 ---
 
+### Creative Input Zone
+**Category**: Planning
+**Definition**: The pre-CCIS stage where user + AI conversation or LCP analysis may be exploratory and non-deterministic.
+
+**Characteristics**:
+- Highly exploratory
+- AI-assisted brainstorming
+- Natural language requirements
+- Flexible iteration
+- No strict schema enforcement
+
+**Boundary**: Everything before CCIS creation happens in this zone.
+
+**Related Terms**: [CCIS](#ccis-canonical-change-intent-specification), [Deterministic Planning Phase](#deterministic-planning-phase)
+
+---
+
+### CTRS (Canonical Technical Requirements Specification)
+**Category**: Planning
+**Definition**: The first machine-readable artifact produced by Open Spec that turns user's broad description into a structured technical specification. The single source of truth for what the application must satisfy.
+
+**Produces**:
+- Feature list
+- Functional & non-functional requirements
+- Interface boundaries
+- Resources needed
+- Acceptance criteria for each feature
+- Constraints and validation rules
+
+**Related Terms**: [CCIS](#ccis-canonical-change-intent-specification), [Technical Requirements](#technical-requirements-tr), [Phase Plan](#phase-plan)
+
+---
+
 ### CRUD Operations
-**Category**: State Management  
+**Category**: State Management
 **Definition**: Create, Read, Update, Delete operations for database entities (workstreams, steps, runs).
 
 **Implementation**: `core/state/crud.py`
@@ -249,8 +385,42 @@ compensation_action: "DROP TABLE users"
 
 ## D
 
+### Definition of Done
+**Category**: Planning
+**Definition**: A minimal success description included in CCIS to inform downstream planning and ensure objective verification of completed work.
+
+**Purpose**: Guides task completion validation and acceptance criteria.
+
+**Related Terms**: [CCIS](#ccis-canonical-change-intent-specification), [Task Plan](#task-plan-tp)
+
+---
+
+### Deterministic Planning Phase
+**Category**: Planning
+**Definition**: All steps following the creation of CCIS, during which the system performs structured, rule-bound transformations with no free-form reasoning.
+
+**Characteristics**:
+- Strict schema enforcement
+- Rule-based transformations
+- No hallucination space
+- Predictable outputs
+- Machine-executable steps
+
+**Pipeline Steps** (all deterministic):
+1. Requirements Normalization
+2. Pattern Classification
+3. Task Plan Generation
+4. Workstream Integration
+5. Phase Plan Insertion
+6. Master JSON Fitting
+7. PSJP Generation
+
+**Related Terms**: [CCIS](#ccis-canonical-change-intent-specification), [UCP](#ucp-unified-change-pipeline), [Creative Input Zone](#creative-input-zone)
+
+---
+
 ### DAG (Directed Acyclic Graph)
-**Category**: Core Engine  
+**Category**: Core Engine
 **Definition**: Graph structure representing task dependencies where edges point from prerequisite to dependent tasks, with no cycles.
 
 **Purpose**:
@@ -266,7 +436,7 @@ compensation_action: "DROP TABLE users"
 ---
 
 ### Dependency Resolution
-**Category**: Core Engine  
+**Category**: Core Engine
 **Definition**: Process of analyzing task dependencies to determine valid execution order.
 
 **Algorithm**:
@@ -282,7 +452,7 @@ compensation_action: "DROP TABLE users"
 ---
 
 ### Detection Rule
-**Category**: Error Detection  
+**Category**: Error Detection
 **Definition**: Pattern or logic that identifies a specific type of error in code, logs, or execution output.
 
 **Format**:
@@ -304,7 +474,7 @@ compensation_action: "DROP TABLE users"
 ## E
 
 ### Error Context
-**Category**: Error Detection  
+**Category**: Error Detection
 **Definition**: Contextual information about an error including stack trace, file location, surrounding code, and execution state.
 
 **Structure**:
@@ -327,7 +497,7 @@ compensation_action: "DROP TABLE users"
 ---
 
 ### Error Engine
-**Category**: Error Detection  
+**Category**: Error Detection
 **Definition**: Core system that orchestrates error detection across multiple plugins and manages the error lifecycle.
 
 **Responsibilities**:
@@ -336,7 +506,7 @@ compensation_action: "DROP TABLE users"
 - Track error state (detected → fixed → verified)
 - Escalate unresolved errors
 
-**Implementation**: `error/engine/error_engine.py`  
+**Implementation**: `error/engine/error_engine.py`
 **CLI**: `python scripts/run_error_engine.py`
 
 **Related Terms**: [Error Plugin](#error-plugin), [Error State Machine](#error-state-machine)
@@ -344,7 +514,7 @@ compensation_action: "DROP TABLE users"
 ---
 
 ### Error Escalation
-**Category**: Error Detection  
+**Category**: Error Detection
 **Definition**: Process of promoting errors through escalation levels when automatic fixes fail.
 
 **Levels**:
@@ -361,7 +531,7 @@ compensation_action: "DROP TABLE users"
 ---
 
 ### Error Plugin
-**Category**: Error Detection  
+**Category**: Error Detection
 **Definition**: Modular component that detects and optionally fixes specific types of errors (linting, type checking, security scans).
 
 **Structure**:
@@ -381,7 +551,7 @@ error/plugins/python_ruff/
 - `error/plugins/javascript_eslint/` - JavaScript linting
 - `error/plugins/security_bandit/` - Security scanning
 
-**Implementation**: `error/plugins/`  
+**Implementation**: `error/plugins/`
 **Documentation**: `docs/plugin-quick-reference.md`
 
 **Related Terms**: [Plugin Manifest](#plugin-manifest), [Detection Rule](#detection-rule)
@@ -389,7 +559,7 @@ error/plugins/python_ruff/
 ---
 
 ### Error State Machine
-**Category**: Error Detection  
+**Category**: Error Detection
 **Definition**: State machine managing error lifecycle from detection to resolution.
 
 **States**:
@@ -408,7 +578,7 @@ error/plugins/python_ruff/
 ---
 
 ### Event Bus
-**Category**: Core Engine  
+**Category**: Core Engine
 **Definition**: Pub/sub messaging system for coordinating workers, tracking execution events, and enabling event sourcing.
 
 **Event Types**:
@@ -417,7 +587,7 @@ error/plugins/python_ruff/
 - **Patch Events**: `PATCH_CREATED`, `PATCH_APPLIED`, `PATCH_QUARANTINED`
 - **Gate Events**: `GATE_PASSED`, `GATE_FAILED`
 
-**Implementation**: `core/engine/event_bus.py`  
+**Implementation**: `core/engine/event_bus.py`
 **Storage**: `run_events` table (UET alignment)
 
 **Usage**:
@@ -431,7 +601,7 @@ events = event_bus.get_events(run_id, EventType.TASK_FAILED)
 ---
 
 ### Event Sourcing
-**Category**: State Management  
+**Category**: State Management
 **Definition**: Architectural pattern where all state changes are stored as a sequence of events, enabling replay and audit.
 
 **Benefits**:
@@ -446,8 +616,23 @@ events = event_bus.get_events(run_id, EventType.TASK_FAILED)
 
 ---
 
+### Execution Boundary
+**Category**: Planning
+**Definition**: The precise stage where planning ends (PSJP) and execution begins (task fulfillment via AI tools).
+
+**Characteristics**:
+- PSJP is the only artifact that crosses this boundary
+- No freeform instructions allowed
+- No raw prompts
+- All changes must satisfy acceptance criteria in PSJP
+- Produces deterministic execution
+
+**Related Terms**: [PSJP](#psjp-project-specific-json-package), [Deterministic Planning Phase](#deterministic-planning-phase)
+
+---
+
 ### Executor
-**Category**: Core Engine  
+**Category**: Core Engine
 **Definition**: Component responsible for executing individual steps by invoking tools and handling results.
 
 **Responsibilities**:
@@ -465,7 +650,7 @@ events = event_bus.get_events(run_id, EventType.TASK_FAILED)
 ## F
 
 ### Feedback Loop
-**Category**: Core Engine  
+**Category**: Core Engine
 **Definition**: Test-driven execution pattern where test results automatically create fix tasks.
 
 **Workflow**:
@@ -482,7 +667,7 @@ events = event_bus.get_events(run_id, EventType.TASK_FAILED)
 ---
 
 ### File Hash Cache
-**Category**: Error Detection  
+**Category**: Error Detection
 **Definition**: Cache of file content hashes used for incremental detection (only check changed files).
 
 **Purpose**:
@@ -497,7 +682,7 @@ events = event_bus.get_events(run_id, EventType.TASK_FAILED)
 ---
 
 ### Fix Strategy
-**Category**: Error Detection  
+**Category**: Error Detection
 **Definition**: Plugin-specific logic for automatically fixing detected errors.
 
 **Implementation**: `fix()` method in error plugins
@@ -525,7 +710,7 @@ See [Test Gates](#test-gates)
 ## H
 
 ### Human Review
-**Category**: Core Engine  
+**Category**: Core Engine
 **Definition**: Structured escalation workflow where complex issues are presented to humans for decision.
 
 **Trigger Conditions**:
@@ -554,7 +739,7 @@ proposed_options:
 ## I
 
 ### Incremental Detection
-**Category**: Error Detection  
+**Category**: Error Detection
 **Definition**: Optimization where error detection only runs on files that have changed since last check.
 
 **Mechanism**:
@@ -570,7 +755,7 @@ proposed_options:
 ---
 
 ### Integration Worker
-**Category**: Core Engine  
+**Category**: Core Engine
 **Definition**: Dedicated worker responsible for merging parallel workstream results in deterministic order.
 
 **Responsibilities**:
@@ -588,6 +773,40 @@ proposed_options:
 
 ## L
 
+### LCP (Looping Chain Prompt)
+**Category**: Planning
+**Definition**: A multi-stage, rotating prompt system that repeatedly analyzes the repository from different perspectives, identifying issues or opportunities, and generating new change intents. The center of autonomous development automation.
+
+**Purpose**:
+- Detect issues
+- Detect missing wiring
+- Detect improvement opportunities
+- Detect mismatches between spec and implementation
+- Detect automatable work
+- Detect gaps in patterns
+- Detect structural drifts
+
+**Architecture**: Plug-in based with configurable sub-cycles
+
+**Sub-cycle Examples**:
+- Automation gap check
+- Pattern drift detection
+- File-structure validation
+- Execution-pattern completeness check
+- Merge safety analysis
+- Dependency graph review
+- Spec–code mismatch detection
+- Import correctness pass
+- Missing state/wiring check
+- Dead code detection
+- Doc-ID or metadata validation
+
+**Output**: Generates UCIs that feed into the same planning pipeline as user requirements.
+
+**Related Terms**: [UCI](#uci-unified-change-intent), [CCIS](#ccis-canonical-change-intent-specification), [Automation Gap](#automation-gap), [Pattern Drift](#pattern-drift)
+
+---
+
 ### Ledger
 See [Patch Ledger](#patch-ledger)
 
@@ -596,7 +815,7 @@ See [Patch Ledger](#patch-ledger)
 ## M
 
 ### Merge Strategy
-**Category**: Core Engine  
+**Category**: Core Engine
 **Definition**: Algorithm for deterministically merging parallel workstream results.
 
 **Decision Tree**:
@@ -614,8 +833,29 @@ See [Patch Ledger](#patch-ledger)
 
 ## O
 
+### PA (Pattern Assignment)
+**Category**: Planning
+**Definition**: The classification output that determines which execution patterns apply, what tools to use, and how the work should be structured based on the TR.
+
+**Structure**:
+```yaml
+pattern_assignment:
+  id: PA-xxxx
+  derived_from: TR-xxxx
+  matched_patterns:
+    - PAT-xxx
+  workstream_type: ["creation", "modification", "migration", "validation", "refactor"]
+  required_tools: ["claude_code", "copilot"]
+  estimated_complexity: 1–5
+  suggested_parallelization_group: "<worktree-group-id>"
+```
+
+**Related Terms**: [UCP](#ucp-unified-change-pipeline), [TR](#tr-technical-requirements), [TP](#tp-task-plan)
+
+---
+
 ### OpenSpec
-**Category**: Specifications  
+**Category**: Specifications
 **Definition**: System for managing specification changes through a structured proposal, review, and integration workflow.
 
 **Workflow**:
@@ -625,7 +865,7 @@ See [Patch Ledger](#patch-ledger)
 4. Execute changes
 5. Update specification index
 
-**Implementation**: `specifications/bridge/`  
+**Implementation**: `specifications/bridge/`
 **Documentation**: `docs/Project_Management_docs/openspec_bridge.md`
 
 **Related Terms**: [Spec Bridge](#spec-bridge), [Change Proposal](#change-proposal)
@@ -633,7 +873,7 @@ See [Patch Ledger](#patch-ledger)
 ---
 
 ### Orchestrator
-**Category**: Core Engine  
+**Category**: Core Engine
 **Definition**: Central coordinator that manages workstream execution, dependency resolution, and worker assignment.
 
 **Responsibilities**:
@@ -653,8 +893,68 @@ See [Patch Ledger](#patch-ledger)
 
 ## P
 
+### Pattern Drift
+**Category**: Planning
+**Definition**: A condition in which existing code diverges from expected execution patterns, requiring correction.
+
+**Detection**: Identified by LCP analysis during code review cycles.
+
+**Related Terms**: [LCP](#lcp-looping-chain-prompt), [CCIS](#ccis-canonical-change-intent-specification)
+
+---
+
+### Phase Category
+**Category**: Planning
+**Definition**: A planning attribute that determines which major phase (e.g., PH-03, PH-04) a workstream belongs to.
+
+**Related Terms**: [Phase Plan](#phase-plan), [Workstream](#workstream-ws)
+
+---
+
+### Planning Engine
+**Category**: Planning
+**Definition**: The structured processor that transforms CCISs into PSJP artifacts using deterministic steps and schemas.
+
+**Related Terms**: [CCIS](#ccis-canonical-change-intent-specification), [PSJP](#psjp-project-specific-json-package), [UCP](#ucp-unified-change-pipeline)
+
+---
+
+### PSJP (Project-Specific JSON Package)
+**Category**: Planning
+**Definition**: The authoritative, fully structured planning output that aggregates all phases, tasks, workstreams, and patterns. The final output of the Planning Phase and the ONLY allowed input to the Execution Engine.
+
+**Structure**:
+```yaml
+project_specific_json_package:
+  doc_id: PSJP-xxxx
+  version: <incremented>
+  phases: [...]
+  workstreams: [...]
+  tasks: [...]
+  patterns: [...]
+  registry: [...]
+  validation:
+    schema_passed: true
+    reference_integrity: true
+    no_cycles_in_dag: true
+```
+
+**Key Invariant**: The PSJP is always regenerated before execution begins, even if tasks accumulate.
+
+**Related Terms**: [Master JSON Template](#master-json-template), [PSJP Fragment](#psjp-fragment), [Execution Boundary](#execution-boundary), [Phase Plan](#phase-plan)
+
+---
+
+### PSJP Fragment
+**Category**: Planning
+**Definition**: A partial JSON structure representing a piece of the project plan prior to merging into the full PSJP.
+
+**Related Terms**: [PSJP](#psjp-project-specific-json-package), [Master JSON Template](#master-json-template)
+
+---
+
 ### Patch
-**Category**: Patch Management  
+**Category**: Patch Management
 **Definition**: Unified diff representing code changes, used as the primary artifact for code modifications.
 
 **Format**: Unified diff (GNU diff format)
@@ -673,7 +973,7 @@ diff --git a/file.py b/file.py
 ---
 
 ### Patch Artifact
-**Category**: Patch Management  
+**Category**: Patch Management
 **Definition**: Canonical representation of a patch with metadata (UET-aligned).
 
 **Structure**:
@@ -697,7 +997,7 @@ diff --git a/file.py b/file.py
 }
 ```
 
-**Implementation**: `core/patches/patch_artifact.py` (UET alignment)  
+**Implementation**: `core/patches/patch_artifact.py` (UET alignment)
 **Schema**: `schema/uet/patch_artifact.v1.json`
 
 **Related Terms**: [Patch Ledger](#patch-ledger), [UET Integration](#uet-universal-execution-templates)
@@ -705,7 +1005,7 @@ diff --git a/file.py b/file.py
 ---
 
 ### Patch-First Workflow
-**Category**: Patch Management  
+**Category**: Patch Management
 **Definition**: Development workflow where all code changes are represented as patches (unified diffs) before application.
 
 **Workflow**:
@@ -728,7 +1028,7 @@ diff --git a/file.py b/file.py
 ---
 
 ### Patch Ledger
-**Category**: Patch Management  
+**Category**: Patch Management
 **Definition**: Audit trail tracking the complete lifecycle of a patch from creation to commit.
 
 **State Machine**:
@@ -744,7 +1044,7 @@ apply_failed, rolled_back, quarantined, dropped
 - Application attempts and errors
 - Quarantine status
 
-**Implementation**: `core/patches/patch_ledger.py` (UET alignment)  
+**Implementation**: `core/patches/patch_ledger.py` (UET alignment)
 **Schema**: `schema/uet/patch_ledger_entry.v1.json`
 
 **Related Terms**: [Patch Artifact](#patch-artifact), [Patch Policy](#patch-policy), [UET Integration](#uet-universal-execution-templates)
@@ -752,7 +1052,7 @@ apply_failed, rolled_back, quarantined, dropped
 ---
 
 ### Patch Policy
-**Category**: Patch Management  
+**Category**: Patch Management
 **Definition**: Constraints and rules governing what patches are allowed, enforced at validation time.
 
 **Scope Levels**:
@@ -774,8 +1074,8 @@ apply_failed, rolled_back, quarantined, dropped
 }
 ```
 
-**Implementation**: `core/patches/patch_policy.py` (UET alignment)  
-**Schema**: `schema/uet/patch_policy.v1.json`  
+**Implementation**: `core/patches/patch_policy.py` (UET alignment)
+**Schema**: `schema/uet/patch_policy.v1.json`
 **Config**: `config/patch_policies/*.json`
 
 **Related Terms**: [Patch Ledger](#patch-ledger), [Patch Validator](#patch-validator)
@@ -783,7 +1083,7 @@ apply_failed, rolled_back, quarantined, dropped
 ---
 
 ### Patch Validator
-**Category**: Patch Management  
+**Category**: Patch Management
 **Definition**: Component that validates patches against format, scope, and policy constraints.
 
 **Validation Checks**:
@@ -799,7 +1099,7 @@ apply_failed, rolled_back, quarantined, dropped
 ---
 
 ### Phase
-**Category**: Project Management  
+**Category**: Project Management
 **Definition**: Major development milestone containing multiple related workstreams.
 
 **Structure**:
@@ -825,7 +1125,7 @@ workstreams:
 ---
 
 ### Pipeline Database
-**Category**: State Management  
+**Category**: State Management
 **Definition**: SQLite database storing execution state (runs, workstreams, steps, attempts).
 
 **Location**: `.worktrees/pipeline_state.db` (configurable via `PIPELINE_DB_PATH`)
@@ -847,7 +1147,7 @@ workstreams:
 ---
 
 ### Plugin Manifest
-**Category**: Error Detection  
+**Category**: Error Detection
 **Definition**: JSON file describing an error plugin's capabilities, rules, and metadata.
 
 **Structure**:
@@ -870,7 +1170,7 @@ workstreams:
 ---
 
 ### Profile Matching
-**Category**: Integrations  
+**Category**: Integrations
 **Definition**: Algorithm for matching a task/step to the most appropriate tool profile.
 
 **Matching Criteria**:
@@ -888,7 +1188,7 @@ workstreams:
 ## R
 
 ### Recovery Strategy
-**Category**: Core Engine  
+**Category**: Core Engine
 **Definition**: Logic for recovering from step failures through retry, context repair, or alternative approaches.
 
 **Strategies**:
@@ -905,7 +1205,7 @@ workstreams:
 ---
 
 ### Retry Logic
-**Category**: Core Engine  
+**Category**: Core Engine
 **Definition**: Mechanism for retrying failed operations with exponential backoff.
 
 **Configuration**:
@@ -923,7 +1223,7 @@ max_delay_sec: 60
 ---
 
 ### Rollback Strategy
-**Category**: Integrations  
+**Category**: Integrations
 **Definition**: Method for undoing changes when failures occur (Saga pattern).
 
 **Scopes**:
@@ -941,7 +1241,7 @@ max_delay_sec: 60
 ## S
 
 ### Saga Pattern
-**Category**: Integrations  
+**Category**: Integrations
 **Definition**: Design pattern for managing distributed transactions through compensating actions.
 
 **Components**:
@@ -964,7 +1264,7 @@ saga_steps:
 ---
 
 ### Scheduler
-**Category**: Core Engine  
+**Category**: Core Engine
 **Definition**: Component that determines execution order of tasks based on dependencies and parallelism.
 
 **Types**:
@@ -978,7 +1278,7 @@ saga_steps:
 ---
 
 ### Schema Validation
-**Category**: Specifications  
+**Category**: Specifications
 **Definition**: Process of validating JSON/YAML artifacts against JSON Schema definitions.
 
 **Schemas**:
@@ -997,7 +1297,7 @@ python scripts/validate_workstreams_authoring.py
 ---
 
 ### Sidecar Metadata
-**Category**: State Management  
+**Category**: State Management
 **Definition**: Metadata file (`.sidecar.yaml`) accompanying a specification or workstream with execution history and context.
 
 **Structure**:
@@ -1017,7 +1317,7 @@ execution_history:
 ---
 
 ### Spec Bridge
-**Category**: Specifications  
+**Category**: Specifications
 **Definition**: Integration layer between OpenSpec change proposals and workstream generation.
 
 **Workflow**:
@@ -1033,7 +1333,7 @@ execution_history:
 ---
 
 ### Spec Guard
-**Category**: Specifications  
+**Category**: Specifications
 **Definition**: Validation layer that prevents invalid changes to specifications.
 
 **Checks**:
@@ -1048,7 +1348,7 @@ execution_history:
 ---
 
 ### Spec Patcher
-**Category**: Specifications  
+**Category**: Specifications
 **Definition**: Tool for applying patches to specification documents.
 
 **Implementation**: `specifications/tools/patcher/`
@@ -1058,7 +1358,7 @@ execution_history:
 ---
 
 ### Spec Resolver
-**Category**: Specifications  
+**Category**: Specifications
 **Definition**: Tool that resolves URI references between specifications.
 
 **Purpose**:
@@ -1073,7 +1373,7 @@ execution_history:
 ---
 
 ### Specification Index
-**Category**: Specifications  
+**Category**: Specifications
 **Definition**: Auto-generated index of all specifications with metadata and cross-references.
 
 **Generated By**: `scripts/generate_spec_index.py`
@@ -1085,7 +1385,7 @@ execution_history:
 ---
 
 ### State Transition
-**Category**: State Management  
+**Category**: State Management
 **Definition**: Change of execution state for a workstream, step, or patch.
 
 **Workstream States**:
@@ -1101,7 +1401,7 @@ execution_history:
 ---
 
 ### Step
-**Category**: Core Engine  
+**Category**: Core Engine
 **Definition**: Atomic unit of work within a workstream, executed by a single tool invocation.
 
 **Structure**:
@@ -1129,8 +1429,66 @@ execution_history:
 
 ## T
 
+### Task Queue
+**Category**: Planning
+**Definition**: A structure (FIFO or priority-based) that retains tasks awaiting execution when the executor cannot keep up with new tasks generated from planning or the LCP.
+
+**Behavior**:
+- Tasks wait until previous dependencies complete
+- Executor consumes tasks at its own pace
+- Merge Queue integrates results safely
+
+**Related Terms**: [LCP](#lcp-looping-chain-prompt), [PSJP](#psjp-project-specific-json-package), [Merge Queue](#merge-queue)
+
+---
+
+### Technical Requirements (TR)
+**Category**: Planning
+**Definition**: A structured, machine-readable articulation of the problem, constraints, and acceptance criteria derived from a CCIS.
+
+**Structure**:
+```yaml
+technical_requirements:
+  id: TR-xxxx
+  derived_from: UCI-xxxx
+  problem_statement: "<cleaned, clarified version>"
+  functional_requirements: []
+  nonfunctional_requirements: []
+  constraints: []
+  domain_context: {}
+  acceptance_criteria: []
+```
+
+**Related Terms**: [UCP](#ucp-unified-change-pipeline), [CCIS](#ccis-canonical-change-intent-specification), [PA](#pa-pattern-assignment)
+
+---
+
+### TP (Task Plan)
+**Category**: Planning
+**Definition**: A list of actionable, dependent tasks derived from pattern assignments, each with tool instructions and acceptance conditions.
+
+**Structure**:
+```yaml
+task_plan:
+  id: TP-xxxx
+  derived_from: PA-xxxx
+  tasks:
+    - task_id: T-001
+      description: "Edit file X to add Y"
+      pattern: PAT-xxx
+      tool: "claude_code"
+      acceptance: ["no compile errors"]
+  dependencies: ["T-001 must finish before T-002"]
+  estimated_runtime: "5 minutes"
+  blocking: true|false
+```
+
+**Related Terms**: [UCP](#ucp-unified-change-pipeline), [PA](#pa-pattern-assignment), [Workstream](#workstream-ws)
+
+---
+
 ### Test Adapter
-**Category**: Integrations  
+**Category**: Integrations
 **Definition**: Adapter that wraps test runners (pytest, Pester, etc.) for consistent test execution.
 
 **Implementation**: `engine/adapters/test_adapter.py`
@@ -1140,7 +1498,7 @@ execution_history:
 ---
 
 ### Test Gates
-**Category**: Core Engine  
+**Category**: Core Engine
 **Definition**: Synchronization points where tests must pass before execution can proceed (UET pattern).
 
 **Gate Types**:
@@ -1161,7 +1519,7 @@ execution_history:
 ---
 
 ### Timeout Handling
-**Category**: Core Engine  
+**Category**: Core Engine
 **Definition**: Mechanism for enforcing time limits on tool execution.
 
 **Configuration**:
@@ -1178,7 +1536,7 @@ timeouts:
 ---
 
 ### Tool Profile
-**Category**: Core Engine  
+**Category**: Core Engine
 **Definition**: Configuration defining how to invoke a specific tool (Aider, Codex, pytest, etc.).
 
 **Structure**:
@@ -1202,7 +1560,7 @@ aider:
 ---
 
 ### Tool Registry
-**Category**: Integrations  
+**Category**: Integrations
 **Definition**: Central registry of available AI tools and their capabilities.
 
 **Managed By**: AIM (AI Environment Manager)
@@ -1215,8 +1573,52 @@ aider:
 
 ## U
 
+### UCI (Unified Change Intent)
+**Category**: Planning
+**Definition**: A structured representation of a proposed modification—originating either from user requirements or from the Looping Chain Prompt—that acts as the standardized input to the deterministic planning phase.
+
+**Structure**:
+```yaml
+change_intent:
+  id: UCI-xxxx
+  source: "user" | "looping_prompt"
+  description: "<natural language description>"
+  change_type: ["new_feature", "modify_existing", "bug_fix", "refactor", "pattern_update"]
+  affected_scope:
+    files: []
+    modules: []
+    patterns: []
+  severity: low|medium|high|critical
+  blocking: true|false
+  rationale: "<why this change is needed>"
+  acceptance_hint: "<what success looks like>"
+```
+
+**Two Input Streams**:
+1. **User-driven**: New feature, new app, change requests
+2. **LCP-driven**: Automation gaps, broken wiring, refactors, spec drift
+
+**Related Terms**: [CCIS](#ccis-canonical-change-intent-specification), [LCP](#lcp-looping-chain-prompt), [UCP](#ucp-unified-change-pipeline)
+
+---
+
+### UCP (Unified Change Pipeline)
+**Category**: Planning
+**Definition**: The deterministic transformation pipeline that processes CCIS → Technical Requirements → Pattern Assignment → Task Plan → Workstream → Phase Plan → PSJP.
+
+**Complete Flow**:
+```
+CCIS → TR → PA → TP → WS → Phase Plan → Master JSON Fitting → PSJP → Execution Engine
+```
+
+**Key Principle**: Once a change intent is converted into Technical Requirements (TR), the rest of the pipeline is always identical—regardless of origin.
+
+**Related Terms**: [CCIS](#ccis-canonical-change-intent-specification), [UCI](#uci-unified-change-intent), [PSJP](#psjp-project-specific-json-package), [TR](#tr-technical-requirements), [PA](#pa-pattern-assignment), [TP](#tp-task-plan)
+
+---
+
 ### UET (Universal Execution Templates)
-**Category**: Framework  
+**Category**: Framework
 **Definition**: Reference implementation framework providing canonical schemas and patterns for AI orchestration.
 
 **Key Concepts**:
@@ -1239,7 +1641,7 @@ aider:
 ---
 
 ### ULID (Universally Unique Lexicographically Sortable Identifier)
-**Category**: State Management  
+**Category**: State Management
 **Definition**: 26-character Base32 identifier that is globally unique and sortable by creation time.
 
 **Format**: `01J2ZB1B3Y5D0C8QK7F3HA2XYZ` (26 characters, uppercase)
@@ -1263,7 +1665,7 @@ aider:
 ---
 
 ### URI Resolution
-**Category**: Specifications  
+**Category**: Specifications
 **Definition**: Process of resolving `spec://` URIs to actual specification documents.
 
 **Format**: `spec://core/engine/orchestrator#section-name`
@@ -1277,7 +1679,7 @@ aider:
 ## W
 
 ### Worker
-**Category**: Core Engine  
+**Category**: Core Engine
 **Definition**: Process or thread that executes tasks assigned by the orchestrator.
 
 **Types**:
@@ -1289,7 +1691,7 @@ aider:
 ---
 
 ### Worker Health
-**Category**: Core Engine  
+**Category**: Core Engine
 **Definition**: Monitoring system tracking worker availability and performance via heartbeat.
 
 **Health Checks**:
@@ -1309,7 +1711,7 @@ aider:
 ---
 
 ### Worker Lifecycle
-**Category**: Core Engine  
+**Category**: Core Engine
 **Definition**: State machine managing worker lifetime from spawn to termination (UET pattern).
 
 **States**:
@@ -1326,7 +1728,7 @@ aider:
 ---
 
 ### Worker Pool
-**Category**: Core Engine  
+**Category**: Core Engine
 **Definition**: Manager for a collection of workers, handling spawning, assignment, and termination.
 
 **Responsibilities**:
@@ -1341,8 +1743,21 @@ aider:
 
 ---
 
+### Worktree Group
+See [Parallelization Group](#parallelization-group)
+
+---
+
+### Parallelization Group
+**Category**: Planning
+**Definition**: A classification used to assign related workstreams to Git worktrees to support parallel execution without conflict.
+
+**Related Terms**: [Workstream](#workstream-ws), [PA](#pa-pattern-assignment)
+
+---
+
 ### Workstream
-**Category**: Core Engine  
+**Category**: Core Engine
 **Definition**: Sequence of steps (tasks) executed to achieve a specific goal, the fundamental unit of work execution.
 
 **Structure**:
@@ -1360,15 +1775,39 @@ aider:
 
 **States**: `PENDING`, `RUNNING`, `SUCCEEDED`, `FAILED`, `CANCELLED`
 
-**Schema**: `schema/workstream.schema.json`  
+**Schema**: `schema/workstream.schema.json`
 **Examples**: `workstreams/*.json`
 
-**Related Terms**: [Step](#step), [Bundle](#bundle), [Orchestrator](#orchestrator)
+**Related Terms**: [Step](#step), [Bundle](#bundle), [Orchestrator](#orchestrator), [WS](#ws-workstream-planning)
+
+---
+
+### WS (Workstream - Planning)
+**Category**: Planning
+**Definition**: A coherent group of tasks assigned to a phase and branch/worktree boundary, representing a unit of execution in the planning system.
+
+**Structure**:
+```yaml
+workstream:
+  id: WS-xxxx
+  derived_from: TP-xxxx
+  phase_category: "PH-x"
+  tasks: [list of task_ids]
+  parallelizable: true|false
+  git_boundary:
+    branch: "feature/..."
+    worktree: ".worktrees/wt-..."
+  success_criteria:
+    - "all tasks succeed"
+    - "branch passes safe-merge check"
+```
+
+**Related Terms**: [UCP](#ucp-unified-change-pipeline), [TP](#tp-task-plan), [Phase Plan](#phase-plan)
 
 ---
 
 ### Worktree Management
-**Category**: State Management  
+**Category**: State Management
 **Definition**: Management of Git worktrees for isolated execution environments.
 
 **Purpose**:
@@ -1384,7 +1823,7 @@ aider:
 
 ## Index by Category
 
-### Core Engine (12 terms)
+### Core Engine (15 terms)
 - [Adapter](#adapter)
 - [Bundle](#bundle)
 - [Circuit Breaker](#circuit-breaker)
@@ -1467,6 +1906,32 @@ aider:
 - [UET (Universal Execution Templates)](#uet-universal-execution-templates)
 - [ULID](#ulid-universally-unique-lexicographically-sortable-identifier)
 
+### Planning (18 terms)
+- [Automation Gap](#automation-gap)
+- [Blocking Change](#blocking-change)
+- [CCIS (Canonical Change Intent Specification)](#ccis-canonical-change-intent-specification)
+- [Change Intent](#change-intent)
+- [Change Kind](#change-kind)
+- [Creative Input Zone](#creative-input-zone)
+- [CTRS (Canonical Technical Requirements Specification)](#ctrs-canonical-technical-requirements-specification)
+- [Definition of Done](#definition-of-done)
+- [Deterministic Planning Phase](#deterministic-planning-phase)
+- [Execution Boundary](#execution-boundary)
+- [LCP (Looping Chain Prompt)](#lcp-looping-chain-prompt)
+- [PA (Pattern Assignment)](#pa-pattern-assignment)
+- [Parallelization Group](#parallelization-group)
+- [Pattern Drift](#pattern-drift)
+- [Phase Category](#phase-category)
+- [Planning Engine](#planning-engine)
+- [PSJP (Project-Specific JSON Package)](#psjp-project-specific-json-package)
+- [PSJP Fragment](#psjp-fragment)
+- [Task Queue](#task-queue)
+- [Technical Requirements (TR)](#technical-requirements-tr)
+- [TP (Task Plan)](#tp-task-plan)
+- [UCI (Unified Change Intent)](#uci-unified-change-intent)
+- [UCP (Unified Change Pipeline)](#ucp-unified-change-pipeline)
+- [WS (Workstream - Planning)](#ws-workstream-planning)
+
 ---
 
 ## Quick Reference Commands
@@ -1504,6 +1969,13 @@ python -m aim status
 
 ---
 
-**Last Updated**: 2025-11-23  
-**Maintained By**: Architecture Team  
-**Glossary Version**: 1.0.0
+**Last Updated**: 2025-12-10
+**Maintained By**: Architecture Team
+**Glossary Version**: 1.1.0
+**Changelog**: Added 24 planning phase terms from Turn Archive conversations
+
+## Planning Phase Documentation
+
+For detailed planning phase terminology and concepts, see:
+- **[PLANNING_PHASE_GLOSSARY.md](../phase1_planning/PLANNING_PHASE_GLOSSARY.md)** - Comprehensive planning phase glossary with detailed explanations, data flows, and architectural diagrams
+- **PLANNING_Turn_1_Archive.md through PLANNING_Turn_6_Archive.md** - Original planning phase conversation transcripts (located in `C:\Users\richg\ALL_AI\PROCESS_FOR_ALL\`)

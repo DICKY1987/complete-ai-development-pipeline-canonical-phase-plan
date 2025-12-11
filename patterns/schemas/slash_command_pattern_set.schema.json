@@ -1,31 +1,9 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "DOC-PAT-SLASH-COMMAND-PATTERN-SET-SCHEMA-182-COMMAND-PATTERN-SET-SCHEMA-182_COMMAND_PATTERN_SET-009",
-  "title": "PAT-SLASH_COMMAND_PATTERN_SET-009 Pattern Instance",
+  "title": "slash_command_pattern_set",
   "type": "object",
-  "required": [
-    "pattern_id",
-    "version"
-  ],
+  "required": ["pattern_id"],
   "properties": {
-    "pattern_id": {
-      "type": "string",
-      "const": "PAT-SLASH_COMMAND_PATTERN_SET-009"
-    },
-    "version": {
-      "type": "string",
-      "pattern": "^\\d+\\.\\d+\\.\\d+$"
-    },
-    "inputs": {
-      "type": "object",
-      "properties": {},
-      "additionalProperties": true
-    },
-    "outputs": {
-      "type": "object",
-      "properties": {},
-      "additionalProperties": true
-    }
-  },
-  "doc_id": "DOC-PAT-SLASH-COMMAND-PATTERN-SET-SCHEMA-182-COMMAND-PATTERN-SET-SCHEMA-182-COMMAND-PATTERN-SET-SCHEMA-182"
+    "pattern_id": {"type": "string", "const": "PAT-DOC-SLASH-COMMAND-PATTERN-SET-009"}
+  }
 }

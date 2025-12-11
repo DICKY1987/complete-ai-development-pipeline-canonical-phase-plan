@@ -1,55 +1,9 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Readme Glossary Patterns Schema",
-  "description": "JSON Schema for PAT-META-readme_glossary_patterns-1022",
+  "title": "readme_glossary_patterns",
   "type": "object",
+  "required": ["pattern_id"],
   "properties": {
-    "pattern_id": {
-      "type": "string",
-      "const": "PAT-META-readme_glossary_patterns-1022",
-      "description": "Unique pattern identifier"
-    },
-    "doc_id": {
-      "type": "string",
-      "const": "DOC-PAT-META-readme_glossary_patterns-1022",
-      "description": "Documentation identifier"
-    },
-    "context": {
-      "type": "string",
-      "description": "Execution context for pattern application"
-    },
-    "parameters": {
-      "type": "object",
-      "description": "Pattern-specific parameters",
-      "additionalProperties": true
-    },
-    "inputs": {
-      "type": "object",
-      "description": "Pattern input data",
-      "additionalProperties": true
-    },
-    "outputs": {
-      "type": "object",
-      "description": "Pattern output data",
-      "properties": {
-        "status": {
-          "type": "string",
-          "enum": ["success", "failure", "partial"],
-          "description": "Execution status"
-        },
-        "result": {
-          "type": "object",
-          "description": "Execution result"
-        },
-        "timestamp": {
-          "type": "string",
-          "format": "date-time",
-          "description": "Execution timestamp"
-        }
-      },
-      "required": ["status"]
-    }
-  },
-  "required": ["pattern_id", "context"],
-  "additionalProperties": false
+    "pattern_id": {"type": "string", "const": "PAT-DOC-README-GLOSSARY-PATTERNS-040"}
+  }
 }

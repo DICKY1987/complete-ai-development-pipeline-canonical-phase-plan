@@ -3,7 +3,7 @@ version: 1.0.0
 metadata:
   created: '2025-11-24'
   last_updated: '2025-12-09'
-  total_patterns: 136
+  total_patterns: 181
   total_categories: 28
   migrated_patterns: 17
   core_patterns: 11
@@ -2406,3 +2406,499 @@ patterns:
   created: '2025-12-09'
   schema_path: patterns/schemas/code_cleanup_archival.schema.json
   executor_path: patterns/executors/code_cleanup_archival_executor.ps1
+
+- pattern_id: PAT-ANTI-2025-ANTI-PATTERN-FORENSICS-001
+  name: 2025_anti_pattern_forensics
+  version: 1.0.0
+  status: draft
+  category: ANTI
+  doc_id: DOC-PAT-ANTI-2025-ANTI-PATTERN-FORENSICS-001
+  spec_path: patterns\specs\2025_anti_pattern_forensics.pattern.yaml
+  schema_path: patterns\schemas\2025_anti_pattern_forensics.schema.json
+  executor_path: patterns\executors\2025_anti_pattern_forensics_executor.ps1
+  created: '2025-12-09'
+  summary: "Migrated from 2025- ANTI-PATTERN FORENSICS.md"
+- pattern_id: PAT-ANTI-ANTI-PATTERN-GUARDS-002
+  name: anti_pattern_guards
+  version: 1.0.0
+  status: draft
+  category: ANTI
+  doc_id: DOC-PAT-ANTI-ANTI-PATTERN-GUARDS-002
+  spec_path: patterns\specs\anti_pattern_guards.pattern.yaml
+  schema_path: patterns\schemas\anti_pattern_guards.schema.json
+  executor_path: patterns\executors\anti_pattern_guards_executor.ps1
+  created: '2025-12-09'
+  summary: "Migrated from ANTI_PATTERN_GUARDS.md"
+- pattern_id: PAT-ANTI-ANTI-PATTERNS-003
+  name: anti_patterns
+  version: 1.0.0
+  status: draft
+  category: ANTI
+  doc_id: DOC-PAT-ANTI-ANTI-PATTERNS-003
+  spec_path: patterns\specs\anti_patterns.pattern.yaml
+  schema_path: patterns\schemas\anti_patterns.schema.json
+  executor_path: patterns\executors\anti_patterns_executor.ps1
+  created: '2025-12-09'
+  summary: "Migrated from ANTI_PATTERNS.md"
+- pattern_id: PAT-ANTI-ANTI-PATTERN-11-FRAMEWORK-OVER-ENGINEERING-004
+  name: anti_pattern_11_framework_over_engineering
+  version: 1.0.0
+  status: draft
+  category: ANTI
+  doc_id: DOC-PAT-ANTI-ANTI-PATTERN-11-FRAMEWORK-OVER-ENGINEERING-004
+  spec_path: patterns\specs\anti_pattern_11_framework_over_engineering.pattern.yaml
+  schema_path: patterns\schemas\anti_pattern_11_framework_over_engineering.schema.json
+  executor_path: patterns\executors\anti_pattern_11_framework_over_engineering_executor.ps1
+  created: '2025-12-09'
+  summary: "Migrated from DOC_ANTI_PATTERN_11_FRAMEWORK_OVER_ENGINEERING.md"
+- pattern_id: PAT-ANTI-ANTI-PATTERNS-005
+  name: anti_patterns
+  version: 1.0.0
+  status: draft
+  category: ANTI
+  doc_id: DOC-PAT-ANTI-ANTI-PATTERNS-005
+  spec_path: patterns\specs\anti_patterns.pattern.yaml
+  schema_path: patterns\schemas\anti_patterns.schema.json
+  executor_path: patterns\executors\anti_patterns_executor.ps1
+  created: '2025-12-09'
+  summary: "Migrated from DOC_ANTI_PATTERNS.md"
+- pattern_id: PAT-DOC-DOCUMENTATION-CLEANUP-PATTERN-006
+  name: documentation_cleanup_pattern
+  version: 1.0.0
+  status: draft
+  category: DOC
+  doc_id: DOC-PAT-DOC-DOCUMENTATION-CLEANUP-PATTERN-006
+  spec_path: patterns\specs\documentation_cleanup_pattern.pattern.yaml
+  schema_path: patterns\schemas\documentation_cleanup_pattern.schema.json
+  executor_path: patterns\executors\documentation_cleanup_pattern_executor.ps1
+  created: '2025-12-09'
+  summary: "Migrated from DOC_DOCUMENTATION_CLEANUP_PATTERN.md"
+- pattern_id: PAT-DOC-EVERY-REUSABLE-PATTERN-007
+  name: every_reusable_pattern
+  version: 1.0.0
+  status: draft
+  category: DOC
+  doc_id: DOC-PAT-DOC-EVERY-REUSABLE-PATTERN-007
+  spec_path: patterns\specs\every_reusable_pattern.pattern.yaml
+  schema_path: patterns\schemas\every_reusable_pattern.schema.json
+  executor_path: patterns\executors\every_reusable_pattern_executor.ps1
+  created: '2025-12-09'
+  summary: "Migrated from DOC_EVERY_REUSABLE_PATTERN.md"
+- pattern_id: PAT-DOC-EXAMPLE-05-SAGA-PATTERN-008
+  name: example_05_saga_pattern
+  version: 1.0.0
+  status: draft
+  category: DOC
+  doc_id: DOC-PAT-DOC-EXAMPLE-05-SAGA-PATTERN-008
+  spec_path: patterns\specs\example_05_saga_pattern.pattern.yaml
+  schema_path: patterns\schemas\example_05_saga_pattern.schema.json
+  executor_path: patterns\executors\example_05_saga_pattern_executor.ps1
+  created: '2025-12-09'
+  summary: "Migrated from DOC_EXAMPLE_05_SAGA_PATTERN.md"
+- pattern_id: PAT-DOC-SLASH-COMMAND-PATTERN-SET-009
+  name: slash_command_pattern_set
+  version: 1.0.0
+  status: draft
+  category: DOC
+  doc_id: DOC-PAT-DOC-SLASH-COMMAND-PATTERN-SET-009
+  spec_path: patterns\specs\slash_command_pattern_set.pattern.yaml
+  schema_path: patterns\schemas\slash_command_pattern_set.schema.json
+  executor_path: patterns\executors\slash_command_pattern_set_executor.ps1
+  created: '2025-12-09'
+  summary: "Migrated from DOC_SLASH_COMMAND_PATTERN_SET.md"
+- pattern_id: PAT-DOC-SOFT-SANDBOX-PATTERN-010
+  name: soft_sandbox_pattern
+  version: 1.0.0
+  status: draft
+  category: DOC
+  doc_id: DOC-PAT-DOC-SOFT-SANDBOX-PATTERN-010
+  spec_path: patterns\specs\soft_sandbox_pattern.pattern.yaml
+  schema_path: patterns\schemas\soft_sandbox_pattern.schema.json
+  executor_path: patterns\executors\soft_sandbox_pattern_executor.ps1
+  created: '2025-12-09'
+  summary: "Migrated from DOC_SOFT_SANDBOX_PATTERN.md"
+- pattern_id: PAT-EXEC-EXEC-ANALYSIS-011
+  name: exec_analysis
+  version: 1.0.0
+  status: draft
+  category: EXEC
+  doc_id: DOC-PAT-EXEC-EXEC-ANALYSIS-011
+  spec_path: patterns\specs\exec_analysis.pattern.yaml
+  schema_path: patterns\schemas\exec_analysis.schema.json
+  executor_path: patterns\executors\exec_analysis_executor.ps1
+  created: '2025-12-09'
+  summary: "Migrated from EXECUTION_PATTERN_ANALYSIS.md"
+- pattern_id: PAT-EXEC-PATTERNS-CHEATSHEET-012
+  name: patterns_cheatsheet
+  version: 1.0.0
+  status: draft
+  category: EXEC
+  doc_id: DOC-PAT-EXEC-PATTERNS-CHEATSHEET-012
+  spec_path: patterns\specs\patterns_cheatsheet.pattern.yaml
+  schema_path: patterns\schemas\patterns_cheatsheet.schema.json
+  executor_path: patterns\executors\patterns_cheatsheet_executor.ps1
+  created: '2025-12-09'
+  summary: "Migrated from EXECUTION_PATTERNS_CHEATSHEET.md"
+- pattern_id: PAT-EXEC-PATTERNS-INDEX-013
+  name: patterns_index
+  version: 1.0.0
+  status: draft
+  category: EXEC
+  doc_id: DOC-PAT-EXEC-PATTERNS-INDEX-013
+  spec_path: patterns\specs\patterns_index.pattern.yaml
+  schema_path: patterns\schemas\patterns_index.schema.json
+  executor_path: patterns\executors\patterns_index_executor.ps1
+  created: '2025-12-09'
+  summary: "Migrated from EXECUTION_PATTERNS_INDEX.md"
+- pattern_id: PAT-EXEC-PATTERNS-LIBRARY-014
+  name: patterns_library
+  version: 1.0.0
+  status: draft
+  category: EXEC
+  doc_id: DOC-PAT-EXEC-PATTERNS-LIBRARY-014
+  spec_path: patterns\specs\patterns_library.pattern.yaml
+  schema_path: patterns\schemas\patterns_library.schema.json
+  executor_path: patterns\executors\patterns_library_executor.ps1
+  created: '2025-12-09'
+  summary: "Migrated from EXECUTION_PATTERNS_LIBRARY.md"
+- pattern_id: PAT-EXEC-PATTERNS-MANDATORY-015
+  name: patterns_mandatory
+  version: 1.0.0
+  status: draft
+  category: EXEC
+  doc_id: DOC-PAT-EXEC-PATTERNS-MANDATORY-015
+  spec_path: patterns\specs\patterns_mandatory.pattern.yaml
+  schema_path: patterns\schemas\patterns_mandatory.schema.json
+  executor_path: patterns\executors\patterns_mandatory_executor.ps1
+  created: '2025-12-09'
+  summary: "Migrated from EXECUTION_PATTERNS_MANDATORY.md"
+- pattern_id: PAT-EXEC-PATTERNS-REMEDIATION-MAP-016
+  name: patterns_remediation_map
+  version: 1.0.0
+  status: draft
+  category: EXEC
+  doc_id: DOC-PAT-EXEC-PATTERNS-REMEDIATION-MAP-016
+  spec_path: patterns\specs\patterns_remediation_map.pattern.yaml
+  schema_path: patterns\schemas\patterns_remediation_map.schema.json
+  executor_path: patterns\executors\patterns_remediation_map_executor.ps1
+  created: '2025-12-09'
+  summary: "Migrated from EXECUTION_PATTERNS_REMEDIATION_MAP.md"
+- pattern_id: PAT-DOC-GLOSSARY-PATTERNS-EXTENDED-017
+  name: glossary_patterns_extended
+  version: 1.0.0
+  status: draft
+  category: DOC
+  doc_id: DOC-PAT-DOC-GLOSSARY-PATTERNS-EXTENDED-017
+  spec_path: patterns\specs\glossary_patterns_extended.pattern.yaml
+  schema_path: patterns\schemas\glossary_patterns_extended.schema.json
+  executor_path: patterns\executors\glossary_patterns_extended_executor.ps1
+  created: '2025-12-09'
+  summary: "Migrated from GLOSSARY_PATTERNS_EXTENDED.md"
+- pattern_id: PAT-DOC-GLOSSARY-PATTERNS-QUICKSTART-018
+  name: glossary_patterns_quickstart
+  version: 1.0.0
+  status: draft
+  category: DOC
+  doc_id: DOC-PAT-DOC-GLOSSARY-PATTERNS-QUICKSTART-018
+  spec_path: patterns\specs\glossary_patterns_quickstart.pattern.yaml
+  schema_path: patterns\schemas\glossary_patterns_quickstart.schema.json
+  executor_path: patterns\executors\glossary_patterns_quickstart_executor.ps1
+  created: '2025-12-09'
+  summary: "Migrated from GLOSSARY_PATTERNS_QUICKSTART.md"
+- pattern_id: PAT-DOC-GUI-PLAN-EXECUTION-PATTERNS-019
+  name: gui_plan_execution_patterns
+  version: 1.0.0
+  status: draft
+  category: DOC
+  doc_id: DOC-PAT-DOC-GUI-PLAN-EXECUTION-PATTERNS-019
+  spec_path: patterns\specs\gui_plan_execution_patterns.pattern.yaml
+  schema_path: patterns\schemas\gui_plan_execution_patterns.schema.json
+  executor_path: patterns\executors\gui_plan_execution_patterns_executor.ps1
+  created: '2025-12-09'
+  summary: "Migrated from GUI_PLAN_EXECUTION_PATTERNS.md"
+- pattern_id: PAT-META-META-EXECUTION-PATTERN-020
+  name: meta_execution_pattern
+  version: 1.0.0
+  status: draft
+  category: META
+  doc_id: DOC-PAT-META-META-EXECUTION-PATTERN-020
+  spec_path: patterns\specs\meta_execution_pattern.pattern.yaml
+  schema_path: patterns\schemas\meta_execution_pattern.schema.json
+  executor_path: patterns\executors\meta_execution_pattern_executor.ps1
+  created: '2025-12-09'
+  summary: "Migrated from META_EXECUTION_PATTERN.md"
+- pattern_id: PAT-MODULE-MODULE-REFACTOR-PATTERNS-GUIDE-021
+  name: module_refactor_patterns_guide
+  version: 1.0.0
+  status: draft
+  category: MODULE
+  doc_id: DOC-PAT-MODULE-MODULE-REFACTOR-PATTERNS-GUIDE-021
+  spec_path: patterns\specs\module_refactor_patterns_guide.pattern.yaml
+  schema_path: patterns\schemas\module_refactor_patterns_guide.schema.json
+  executor_path: patterns\executors\module_refactor_patterns_guide_executor.ps1
+  created: '2025-12-09'
+  summary: "Migrated from MODULE_REFACTOR_PATTERNS_GUIDE.md"
+- pattern_id: PAT-DOC-EXEC-AUTOMATION-ACTIVATION-PLAN-022
+  name: exec_automation_activation_plan
+  version: 1.0.0
+  status: draft
+  category: DOC
+  doc_id: DOC-PAT-DOC-EXEC-AUTOMATION-ACTIVATION-PLAN-022
+  spec_path: patterns\specs\exec_automation_activation_plan.pattern.yaml
+  schema_path: patterns\schemas\exec_automation_activation_plan.schema.json
+  executor_path: patterns\executors\exec_automation_activation_plan_executor.ps1
+  created: '2025-12-09'
+  summary: "Migrated from PATTERN_AUTOMATION_ACTIVATION_PLAN.md"
+- pattern_id: PAT-DOC-EXEC-AUTOMATION-PATHS-023
+  name: exec_automation_paths
+  version: 1.0.0
+  status: draft
+  category: DOC
+  doc_id: DOC-PAT-DOC-EXEC-AUTOMATION-PATHS-023
+  spec_path: patterns\specs\exec_automation_paths.pattern.yaml
+  schema_path: patterns\schemas\exec_automation_paths.schema.json
+  executor_path: patterns\executors\exec_automation_paths_executor.ps1
+  created: '2025-12-09'
+  summary: "Migrated from PATTERN_AUTOMATION_PATHS.md"
+- pattern_id: PAT-DOC-EXEC-CATALOG-024
+  name: exec_catalog
+  version: 1.0.0
+  status: draft
+  category: DOC
+  doc_id: DOC-PAT-DOC-EXEC-CATALOG-024
+  spec_path: patterns\specs\exec_catalog.pattern.yaml
+  schema_path: patterns\schemas\exec_catalog.schema.json
+  executor_path: patterns\executors\exec_catalog_executor.ps1
+  created: '2025-12-09'
+  summary: "Migrated from PATTERN_CATALOG.md"
+- pattern_id: PAT-DOC-EXEC-CONVERSION-SUMMARY-025
+  name: exec_conversion_summary
+  version: 1.0.0
+  status: draft
+  category: DOC
+  doc_id: DOC-PAT-DOC-EXEC-CONVERSION-SUMMARY-025
+  spec_path: patterns\specs\exec_conversion_summary.pattern.yaml
+  schema_path: patterns\schemas\exec_conversion_summary.schema.json
+  executor_path: patterns\executors\exec_conversion_summary_executor.ps1
+  created: '2025-12-09'
+  summary: "Migrated from PATTERN_CONVERSION_SUMMARY.md"
+- pattern_id: PAT-DOC-EXEC-EVENT-DELIVERY-SUMMARY-026
+  name: exec_event_delivery_summary
+  version: 1.0.0
+  status: draft
+  category: DOC
+  doc_id: DOC-PAT-DOC-EXEC-EVENT-DELIVERY-SUMMARY-026
+  spec_path: patterns\specs\exec_event_delivery_summary.pattern.yaml
+  schema_path: patterns\schemas\exec_event_delivery_summary.schema.json
+  executor_path: patterns\executors\exec_event_delivery_summary_executor.ps1
+  created: '2025-12-09'
+  summary: "Migrated from PATTERN_EVENT_DELIVERY_SUMMARY.md"
+- pattern_id: PAT-DOC-EXEC-EVENT-INTEGRATION-027
+  name: exec_event_integration
+  version: 1.0.0
+  status: draft
+  category: DOC
+  doc_id: DOC-PAT-DOC-EXEC-EVENT-INTEGRATION-027
+  spec_path: patterns\specs\exec_event_integration.pattern.yaml
+  schema_path: patterns\schemas\exec_event_integration.schema.json
+  executor_path: patterns\executors\exec_event_integration_executor.ps1
+  created: '2025-12-09'
+  summary: "Migrated from PATTERN_EVENT_INTEGRATION.md"
+- pattern_id: PAT-DOC-EXEC-EVENTS-QUICK-REFERENCE-028
+  name: exec_events_quick_reference
+  version: 1.0.0
+  status: draft
+  category: DOC
+  doc_id: DOC-PAT-DOC-EXEC-EVENTS-QUICK-REFERENCE-028
+  spec_path: patterns\specs\exec_events_quick_reference.pattern.yaml
+  schema_path: patterns\schemas\exec_events_quick_reference.schema.json
+  executor_path: patterns\executors\exec_events_quick_reference_executor.ps1
+  created: '2025-12-09'
+  summary: "Migrated from PATTERN_EVENTS_QUICK_REFERENCE.md"
+- pattern_id: PAT-DOC-EXEC-EXECUTION-VISUALIZATION-DESIGN-029
+  name: exec_execution_visualization_design
+  version: 1.0.0
+  status: draft
+  category: DOC
+  doc_id: DOC-PAT-DOC-EXEC-EXECUTION-VISUALIZATION-DESIGN-029
+  spec_path: patterns\specs\exec_execution_visualization_design.pattern.yaml
+  schema_path: patterns\schemas\exec_execution_visualization_design.schema.json
+  executor_path: patterns\executors\exec_execution_visualization_design_executor.ps1
+  created: '2025-12-09'
+  summary: "Migrated from PATTERN_EXECUTION_VISUALIZATION_DESIGN.md"
+- pattern_id: PAT-DOC-EXEC-EXTRACTION-REPORT-030
+  name: exec_extraction_report
+  version: 1.0.0
+  status: draft
+  category: DOC
+  doc_id: DOC-PAT-DOC-EXEC-EXTRACTION-REPORT-030
+  spec_path: patterns\specs\exec_extraction_report.pattern.yaml
+  schema_path: patterns\schemas\exec_extraction_report.schema.json
+  executor_path: patterns\executors\exec_extraction_report_executor.ps1
+  created: '2025-12-09'
+  summary: "Migrated from PATTERN_EXTRACTION_REPORT.md"
+- pattern_id: PAT-DOC-EXEC-PANEL-GUI-ALIGNMENT-031
+  name: exec_panel_gui_alignment
+  version: 1.0.0
+  status: draft
+  category: DOC
+  doc_id: DOC-PAT-DOC-EXEC-PANEL-GUI-ALIGNMENT-031
+  spec_path: patterns\specs\exec_panel_gui_alignment.pattern.yaml
+  schema_path: patterns\schemas\exec_panel_gui_alignment.schema.json
+  executor_path: patterns\executors\exec_panel_gui_alignment_executor.ps1
+  created: '2025-12-09'
+  summary: "Migrated from PATTERN_PANEL_GUI_ALIGNMENT.md"
+- pattern_id: PAT-DOC-EXEC-PANEL-INTEGRATION-CHECKLIST-032
+  name: exec_panel_integration_checklist
+  version: 1.0.0
+  status: draft
+  category: DOC
+  doc_id: DOC-PAT-DOC-EXEC-PANEL-INTEGRATION-CHECKLIST-032
+  spec_path: patterns\specs\exec_panel_integration_checklist.pattern.yaml
+  schema_path: patterns\schemas\exec_panel_integration_checklist.schema.json
+  executor_path: patterns\executors\exec_panel_integration_checklist_executor.ps1
+  created: '2025-12-09'
+  summary: "Migrated from PATTERN_PANEL_INTEGRATION_CHECKLIST.md"
+- pattern_id: PAT-EXEC-PATTERN-001-PLANNING-BUDGET-LIMIT-033
+  name: pattern_001_planning_budget_limit
+  version: 1.0.0
+  status: draft
+  category: EXEC
+  doc_id: DOC-PAT-EXEC-PATTERN-001-PLANNING-BUDGET-LIMIT-033
+  spec_path: patterns\specs\pattern_001_planning_budget_limit.pattern.yaml
+  schema_path: patterns\schemas\pattern_001_planning_budget_limit.schema.json
+  executor_path: patterns\executors\pattern_001_planning_budget_limit_executor.ps1
+  created: '2025-12-09'
+  summary: "Migrated from PATTERN-001-PLANNING-BUDGET-LIMIT.md"
+- pattern_id: PAT-EXEC-PATTERN-002-GROUND-TRUTH-VERIFICATION-034
+  name: pattern_002_ground_truth_verification
+  version: 1.0.0
+  status: draft
+  category: EXEC
+  doc_id: DOC-PAT-EXEC-PATTERN-002-GROUND-TRUTH-VERIFICATION-034
+  spec_path: patterns\specs\pattern_002_ground_truth_verification.pattern.yaml
+  schema_path: patterns\schemas\pattern_002_ground_truth_verification.schema.json
+  executor_path: patterns\executors\pattern_002_ground_truth_verification_executor.ps1
+  created: '2025-12-09'
+  summary: "Migrated from PATTERN-002-GROUND-TRUTH-VERIFICATION.md"
+- pattern_id: PAT-EXEC-PATTERN-003-SMART-RETRY-BACKOFF-035
+  name: pattern_003_smart_retry_backoff
+  version: 1.0.0
+  status: draft
+  category: EXEC
+  doc_id: DOC-PAT-EXEC-PATTERN-003-SMART-RETRY-BACKOFF-035
+  spec_path: patterns\specs\pattern_003_smart_retry_backoff.pattern.yaml
+  schema_path: patterns\schemas\pattern_003_smart_retry_backoff.schema.json
+  executor_path: patterns\executors\pattern_003_smart_retry_backoff_executor.ps1
+  created: '2025-12-09'
+  summary: "Migrated from PATTERN-003-SMART-RETRY-BACKOFF.md"
+- pattern_id: PAT-DOC-PATTERNS-FOLDER-AUTOMATED-TASK-EXAMINATION-036
+  name: patterns_folder_automated_task_examination
+  version: 1.0.0
+  status: draft
+  category: DOC
+  doc_id: DOC-PAT-DOC-PATTERNS-FOLDER-AUTOMATED-TASK-EXAMINATION-036
+  spec_path: patterns\specs\patterns_folder_automated_task_examination.pattern.yaml
+  schema_path: patterns\schemas\patterns_folder_automated_task_examination.schema.json
+  executor_path: patterns\executors\patterns_folder_automated_task_examination_executor.ps1
+  created: '2025-12-09'
+  summary: "Migrated from PATTERNS_FOLDER_AUTOMATED_TASK_EXAMINATION.md"
+- pattern_id: PAT-DOC-PATTERNS-README-037
+  name: patterns_readme
+  version: 1.0.0
+  status: draft
+  category: DOC
+  doc_id: DOC-PAT-DOC-PATTERNS-README-037
+  spec_path: patterns\specs\patterns_readme.pattern.yaml
+  schema_path: patterns\schemas\patterns_readme.schema.json
+  executor_path: patterns\executors\patterns_readme_executor.ps1
+  created: '2025-12-09'
+  summary: "Migrated from PATTERNS_README.md"
+- pattern_id: PAT-DOC-PHASE-PLAN-PATTERN-GOVERNANCE-038
+  name: phase_plan_pattern_governance
+  version: 1.0.0
+  status: draft
+  category: DOC
+  doc_id: DOC-PAT-DOC-PHASE-PLAN-PATTERN-GOVERNANCE-038
+  spec_path: patterns\specs\phase_plan_pattern_governance.pattern.yaml
+  schema_path: patterns\schemas\phase_plan_pattern_governance.schema.json
+  executor_path: patterns\executors\phase_plan_pattern_governance_executor.ps1
+  created: '2025-12-09'
+  summary: "Migrated from PHASE_PLAN_PATTERN_GOVERNANCE.md"
+- pattern_id: PAT-DOC-README-EXECUTION-PATTERNS-039
+  name: readme_execution_patterns
+  version: 1.0.0
+  status: draft
+  category: DOC
+  doc_id: DOC-PAT-DOC-README-EXECUTION-PATTERNS-039
+  spec_path: patterns\specs\readme_execution_patterns.pattern.yaml
+  schema_path: patterns\schemas\readme_execution_patterns.schema.json
+  executor_path: patterns\executors\readme_execution_patterns_executor.ps1
+  created: '2025-12-09'
+  summary: "Migrated from README_EXECUTION_PATTERNS.md"
+- pattern_id: PAT-DOC-README-GLOSSARY-PATTERNS-040
+  name: readme_glossary_patterns
+  version: 1.0.0
+  status: draft
+  category: DOC
+  doc_id: DOC-PAT-DOC-README-GLOSSARY-PATTERNS-040
+  spec_path: patterns\specs\readme_glossary_patterns.pattern.yaml
+  schema_path: patterns\schemas\readme_glossary_patterns.schema.json
+  executor_path: patterns\executors\readme_glossary_patterns_executor.ps1
+  created: '2025-12-09'
+  summary: "Migrated from README_GLOSSARY_PATTERNS.md"
+- pattern_id: PAT-DOC-README-PATTERNS-041
+  name: readme_patterns
+  version: 1.0.0
+  status: draft
+  category: DOC
+  doc_id: DOC-PAT-DOC-README-PATTERNS-041
+  spec_path: patterns\specs\readme_patterns.pattern.yaml
+  schema_path: patterns\schemas\readme_patterns.schema.json
+  executor_path: patterns\executors\readme_patterns_executor.ps1
+  created: '2025-12-09'
+  summary: "Migrated from README_PATTERNS.md"
+- pattern_id: PAT-DOC-SESSION-2025-11-26-PATTERN-AUTOMATION-ANALYSIS-042
+  name: session_2025_11_26_pattern_automation_analysis
+  version: 1.0.0
+  status: draft
+  category: DOC
+  doc_id: DOC-PAT-DOC-SESSION-2025-11-26-PATTERN-AUTOMATION-ANALYSIS-042
+  spec_path: patterns\specs\session_2025_11_26_pattern_automation_analysis.pattern.yaml
+  schema_path: patterns\schemas\session_2025_11_26_pattern_automation_analysis.schema.json
+  executor_path: patterns\executors\session_2025_11_26_pattern_automation_analysis_executor.ps1
+  created: '2025-12-09'
+  summary: "Migrated from SESSION_2025-11-26_PATTERN_AUTOMATION_ANALYSIS.md"
+- pattern_id: PAT-DOC-SPEED-PATTERNS-EXTRACTED-043
+  name: speed_patterns_extracted
+  version: 1.0.0
+  status: draft
+  category: DOC
+  doc_id: DOC-PAT-DOC-SPEED-PATTERNS-EXTRACTED-043
+  spec_path: patterns\specs\speed_patterns_extracted.pattern.yaml
+  schema_path: patterns\schemas\speed_patterns_extracted.schema.json
+  executor_path: patterns\executors\speed_patterns_extracted_executor.ps1
+  created: '2025-12-09'
+  summary: "Migrated from SPEED_PATTERNS_EXTRACTED.md"
+- pattern_id: PAT-ANTI-UET-2025-ANTI-PATTERN-FORENSICS-044
+  name: uet_2025_anti_pattern_forensics
+  version: 1.0.0
+  status: draft
+  category: ANTI
+  doc_id: DOC-PAT-ANTI-UET-2025-ANTI-PATTERN-FORENSICS-044
+  spec_path: patterns\specs\uet_2025_anti_pattern_forensics.pattern.yaml
+  schema_path: patterns\schemas\uet_2025_anti_pattern_forensics.schema.json
+  executor_path: patterns\executors\uet_2025_anti_pattern_forensics_executor.ps1
+  created: '2025-12-09'
+  summary: "Migrated from UET_2025- ANTI-PATTERN FORENSICS.md"
+- pattern_id: PAT-DOC-UNIFIED-PATTERN-IMPLEMENTATION-PLAN-045
+  name: unified_pattern_implementation_plan
+  version: 1.0.0
+  status: draft
+  category: DOC
+  doc_id: DOC-PAT-DOC-UNIFIED-PATTERN-IMPLEMENTATION-PLAN-045
+  spec_path: patterns\specs\unified_pattern_implementation_plan.pattern.yaml
+  schema_path: patterns\schemas\unified_pattern_implementation_plan.schema.json
+  executor_path: patterns\executors\unified_pattern_implementation_plan_executor.ps1
+  created: '2025-12-09'
+  summary: "Migrated from UNIFIED_PATTERN_IMPLEMENTATION_PLAN.md"

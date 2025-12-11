@@ -1,0 +1,1002 @@
+# ================================================================================
+# MASTER_SPLINTER PROCESS STEPS - SCHEMA-BASED REFERENCE
+# ================================================================================
+# Version: 1.0
+# Last Updated: 2025-12-09
+# System: MASTER_SPLINTER (Multi-Agent Orchestrator for Phase Plan Execution)
+# Format: YAML with standardized schema per step
+# Alignment: MASTER_SPLINTER execution orchestration requirements
+# ================================================================================
+
+meta:
+  doc_id: "MASTER_SPLINTER_PROCESS_STEPS_SCHEMA"
+  version: "1.0.0"
+  last_updated: "2025-12-09"
+  source_documents:
+    - "MASTER_SPLINTER_Phase_Plan_Template.yml"
+    - "run_master_splinter.py"
+    - "multi_agent_workstream_coordinator.py"
+    - "phase_plan_to_workstream.py"
+    - "sync_workstreams_to_github.py"
+
+  description: |
+    Comprehensive schema-based documentation of all MASTER_SPLINTER orchestration steps.
+    MASTER_SPLINTER converts phase plans to executable workstreams, coordinates
+    multi-agent execution via DAG scheduling, consolidates results, and syncs to GitHub.
+
+    Each step follows standardized schema:
+    - Required fields: step_id, phase, name, responsible_component, operation_kind,
+      description, inputs, expected_outputs, requires_human_confirmation
+
+    This enables:
+    - End-to-end orchestration validation
+    - Multi-agent coordination with DAG dependency resolution
+    - Result consolidation and state tracking
+    - Circuit breaker enforcement and fix loop automation
+    - GitHub integration and project sync
+
+  state_machine:
+    phases:
+      - INIT
+      - DISCOVERY
+      - CONVERSION
+      - DAG_RESOLUTION
+      - EXECUTION
+      - CONSOLIDATION
+      - SYNC
+      - DONE
+
+    valid_transitions:
+      INIT: [DISCOVERY]
+      DISCOVERY: [CONVERSION, DONE]           # DONE if no phase plans found
+      CONVERSION: [DAG_RESOLUTION]
+      DAG_RESOLUTION: [EXECUTION]
+      EXECUTION: [CONSOLIDATION]
+      CONSOLIDATION: [SYNC, DONE]             # DONE if sync disabled
+      SYNC: [DONE]
+      "*": [FAILED]                           # Any state can transition to FAILED
+
+    terminal_states: [DONE, FAILED]
+
+    no_stop_mode: true                        # Continue execution through all tasks
+
+  lenses:
+    orchestration:
+      description: "Master coordination, phase plan discovery, workstream management"
+    multi_agent:
+      description: "DAG-based parallel execution, agent coordination, result consolidation"
+    integration:
+      description: "GitHub sync, branch management, commit organization"
+    resilience:
+      description: "Circuit breakers, fix loops, error collection, NO STOP MODE"
+
+  automation_levels:
+    fully_automatic:
+      description: "1-touch execution with NO STOP MODE - continues through all errors"
+    operator_assisted:
+      description: "Manual override gates for critical decisions"
+
+# ================================================================================
+# OPERATION KIND TAXONOMY
+# ================================================================================
+
+operation_kinds:
+  orchestration:
+    description: "Master coordination, state transitions, NO STOP MODE enforcement"
+  phase_discovery:
+    description: "Phase plan YAML file discovery and validation"
+  workstream_conversion:
+    description: "Phase plan → Workstream JSON transformation"
+  dag_resolution:
+    description: "Dependency graph construction, parallel group identification"
+  multi_agent_execution:
+    description: "Agent task assignment, parallel execution coordination"
+  result_consolidation:
+    description: "Agent result aggregation, database persistence, report generation"
+  github_sync:
+    description: "Feature branch creation, commit organization, remote push"
+  circuit_breaker_check:
+    description: "Oscillation detection, max attempts enforcement, scope validation"
+  fix_loop:
+    description: "Automated error repair, pattern-based fixing"
+  initialization:
+    description: "Bootstrap, directory setup, prerequisite validation"
+  persistence:
+    description: "SQLite operations, JSON serialization, state tracking"
+  event_emission:
+    description: "Logging, metrics collection, execution tracking"
+
+# ================================================================================
+# GLOBAL COMPONENT REGISTRY
+# ================================================================================
+
+components:
+  run_master_splinter:
+    file: "run_master_splinter.py"
+    role: "Master orchestrator entrypoint - 1-touch execution"
+    responsibilities:
+      - "State machine enforcement (INIT → DISCOVERY → CONVERSION → DAG_RESOLUTION → EXECUTION → CONSOLIDATION → SYNC → DONE)"
+      - "Prerequisite validation (tool_profiles, circuit_breakers, patterns)"
+      - "Phase plan discovery coordination"
+      - "Workstream conversion invocation"
+      - "Multi-agent coordinator invocation"
+      - "GitHub sync invocation (optional)"
+      - "Master summary report generation"
+      - "NO STOP MODE enforcement - continues through all errors"
+    interfaces:
+      - "CLI: python run_master_splinter.py"
+      - "PhaseDiscovery: discover_phase_plans()"
+      - "WorkstreamConverter: subprocess call to phase_plan_to_workstream.py"
+      - "MultiAgentCoordinator: subprocess call to multi_agent_workstream_coordinator.py"
+      - "GitHubSync: subprocess call to sync_workstreams_to_github.py"
+    data_structures:
+      - "MasterOrchestrator: {run_id, start_time, errors[], summary}"
+
+  phase_plan_to_workstream:
+    file: "phase_plan_to_workstream.py"
+    role: "Phase plan → Workstream JSON converter"
+    responsibilities:
+      - "YAML phase plan parsing and validation"
+      - "Workstream JSON structure generation"
+      - "Execution steps extraction and transformation"
+      - "Tool profile and circuit breaker path injection"
+      - "Batch conversion of all phase plans in plans/phases/"
+    interfaces:
+      - "CLI: python phase_plan_to_workstream.py"
+      - "Input: plans/phases/*.yml|*.yaml"
+      - "Output: workstreams/*.json"
+    data_structures:
+      - "Workstream: {id, phase_id, title, objective, tool, execution_steps[], acceptance_tests[]}"
+
+  multi_agent_workstream_coordinator:
+    file: "multi_agent_workstream_coordinator.py"
+    role: "DAG-based multi-agent execution coordinator"
+    responsibilities:
+      - "Workstream JSON discovery and loading"
+      - "DAG construction from phase dependencies (depends_on, may_run_parallel_with)"
+      - "Topological sort and parallel group identification"
+      - "Agent task assignment and parallel execution"
+      - "Result consolidation from all agents"
+      - "SQLite consolidated database persistence (.state/multi_agent_consolidated.db)"
+      - "Unified execution report generation"
+      - "NO STOP MODE - continues through all workstreams even on failure"
+    interfaces:
+      - "CLI: python multi_agent_workstream_coordinator.py"
+      - "Input: workstreams/*.json"
+      - "Output: .state/multi_agent_consolidated.db, reports/*.json"
+      - "ConsolidationDatabase: save_consolidated_run(), save_agent_result()"
+    data_structures:
+      - "AgentResult: {agent_id, workstream_id, status, duration, files_modified, commits, errors, warnings, test_results}"
+      - "ConsolidatedResult: {run_id, timestamp, total_workstreams, completed_count, failed_count, agent_results[], consolidated_errors[]}"
+      - "ExecutionStatus enum: PENDING | RUNNING | COMPLETED | FAILED | BLOCKED | SKIPPED"
+
+  sync_workstreams_to_github:
+    file: "sync_workstreams_to_github.py"
+    role: "GitHub feature branch sync and commit organization"
+    responsibilities:
+      - "Feature branch creation (feature/ws-sync-{timestamp})"
+      - "Workstream-specific commit creation"
+      - "Remote push to origin"
+      - "Sync summary report generation"
+      - "NO STOP MODE - continues through all workstreams even on git errors"
+    interfaces:
+      - "CLI: python sync_workstreams_to_github.py"
+      - "Git: checkout -b, add, commit, push"
+      - "Output: reports/sync_summary_*.json"
+    data_structures:
+      - "WorkstreamSyncEngine: {feature_branch, errors[], successes[], summary}"
+
+  circuit_breakers:
+    file: "config/circuit_breakers.yaml"
+    role: "Execution guardrails and fix loop configuration"
+    responsibilities:
+      - "Oscillation detection (window_size, threshold)"
+      - "Max attempts enforcement"
+      - "Timeout monitoring (duration_minutes)"
+      - "Scope violation detection"
+      - "Action specification (abort | mark_phase_failed | mark_phase_blocked)"
+    data_structures:
+      - "CircuitBreaker: {id, type, threshold, action, message}"
+      - "Defaults: {max_attempts: 3, oscillation_window: 3, oscillation_threshold: 2}"
+
+# ================================================================================
+# ARTIFACT REGISTRY
+# ================================================================================
+
+artifact_registry:
+  phase_plans:
+    - path: "plans/phases/*.yml"
+      format: "YAML"
+      description: "Phase plan templates with execution_plan.steps[], acceptance_tests[], dependencies"
+
+  workstreams:
+    - path: "workstreams/*.json"
+      format: "JSON"
+      description: "Executable workstream definitions converted from phase plans"
+
+  consolidated_db:
+    - path: ".state/multi_agent_consolidated.db"
+      format: "SQLite"
+      description: "Consolidated execution results from all agents across all workstreams"
+      tables:
+        - "consolidated_runs: {run_id, timestamp, total_workstreams, completed_count, failed_count, execution_summary}"
+        - "agent_results: {run_id, agent_id, workstream_id, status, duration, files_modified, commits, errors}"
+        - "consolidated_errors: {run_id, error_type, workstream_id, agent_id, stack_trace}"
+
+  reports:
+    - path: "reports/master_run_*.json"
+      format: "JSON"
+      description: "Master orchestrator summary report"
+    - path: "reports/sync_summary_*.json"
+      format: "JSON"
+      description: "GitHub sync summary report"
+
+  logs:
+    - path: "logs/*.log"
+      format: "TEXT"
+      description: "Execution logs per component"
+
+# ================================================================================
+# PROCESS STEPS - INIT PHASE
+# ================================================================================
+
+phases:
+  INIT:
+    description: "Bootstrap MASTER_SPLINTER, validate prerequisites, initialize directories"
+
+    steps:
+      - step_id: "MS-INIT-001"
+        phase: "INIT"
+        name: "Initialize Master Orchestrator"
+        responsible_component: "run_master_splinter"
+        operation_kind: "initialization"
+        description: |
+          Create master orchestrator instance with run_id, start_time tracking.
+          Initialize error collection arrays and summary structure.
+          Enable NO STOP MODE to continue through all errors.
+        pattern_ids: []
+        inputs:
+          - "System timestamp"
+          - "NO STOP MODE flag (enabled)"
+        expected_outputs:
+          - "MasterOrchestrator instance with run_id: master-run-{timestamp}"
+          - "Summary dict initialized with phase counts and status fields"
+        requires_human_confirmation: false
+        guardrail_checkpoint: false
+        artifact_registry_refs: []
+
+      - step_id: "MS-INIT-002"
+        phase: "INIT"
+        name: "Validate Prerequisites"
+        responsible_component: "run_master_splinter"
+        operation_kind: "initialization"
+        description: |
+          Check required files exist before proceeding:
+          - config/tool_profiles.json
+          - config/circuit_breakers.yaml
+          - prompts/EXECUTION_PROMPT_TEMPLATE_V2_DAG_MULTI_WORKSTREAM.md
+          - patterns/registry.json
+
+          Log missing files as errors but continue (NO STOP MODE).
+        pattern_ids: []
+        inputs:
+          - "CONFIG_DIR path"
+          - "REPO_ROOT path"
+        expected_outputs:
+          - "Validation status: all prerequisites exist or errors logged"
+          - "Boolean result: true if all exist, false otherwise"
+        requires_human_confirmation: false
+        guardrail_checkpoint: true
+        artifact_registry_refs:
+          - "config/tool_profiles.json"
+          - "config/circuit_breakers.yaml"
+
+      - step_id: "MS-INIT-003"
+        phase: "INIT"
+        name: "Ensure Directory Structure"
+        responsible_component: "run_master_splinter"
+        operation_kind: "initialization"
+        description: |
+          Create required directories if they don't exist:
+          - plans/phases/
+          - workstreams/
+          - reports/
+          - logs/
+          - .state/
+        pattern_ids: []
+        inputs:
+          - "REPO_ROOT path"
+        expected_outputs:
+          - "All required directories created with parents=True, exist_ok=True"
+        requires_human_confirmation: false
+        guardrail_checkpoint: false
+        artifact_registry_refs:
+          - "plans/phases/"
+          - "workstreams/"
+          - "reports/"
+
+# ================================================================================
+# PROCESS STEPS - DISCOVERY PHASE
+# ================================================================================
+
+  DISCOVERY:
+    description: "Discover phase plan YAML files in plans/phases/"
+
+    steps:
+      - step_id: "MS-DISC-001"
+        phase: "DISCOVERY"
+        name: "Discover Phase Plans"
+        responsible_component: "run_master_splinter"
+        operation_kind: "phase_discovery"
+        description: |
+          Scan plans/phases/ for *.yml and *.yaml files.
+          Exclude files with 'template' in name (case-insensitive).
+          Count discovered phase plans and update summary.
+
+          If no phase plans found, transition to DONE state.
+        pattern_ids: []
+        inputs:
+          - "PLANS_DIR: plans/phases/"
+          - "File patterns: *.yml, *.yaml"
+        expected_outputs:
+          - "List of discovered phase plan Path objects"
+          - "summary['phase_plans_found'] = count"
+          - "State transition: DISCOVERY → CONVERSION or DONE"
+        requires_human_confirmation: false
+        guardrail_checkpoint: false
+        artifact_registry_refs:
+          - "plans/phases/*.yml"
+
+# ================================================================================
+# PROCESS STEPS - CONVERSION PHASE
+# ================================================================================
+
+  CONVERSION:
+    description: "Convert phase plans to executable workstream JSON files"
+
+    steps:
+      - step_id: "MS-CONV-001"
+        phase: "CONVERSION"
+        name: "Invoke Workstream Converter"
+        responsible_component: "run_master_splinter"
+        operation_kind: "workstream_conversion"
+        description: |
+          Execute phase_plan_to_workstream.py as subprocess.
+          Capture stdout/stderr and log results.
+
+          NO STOP MODE: Log conversion errors but continue to next phase.
+        pattern_ids: []
+        inputs:
+          - "Subprocess: python phase_plan_to_workstream.py"
+          - "CWD: REPO_ROOT"
+          - "Timeout: 60 seconds"
+        expected_outputs:
+          - "Workstream JSON files in workstreams/*.json"
+          - "summary['workstreams_generated'] = count"
+          - "Conversion status logged (success/failure)"
+        requires_human_confirmation: false
+        guardrail_checkpoint: false
+        artifact_registry_refs:
+          - "workstreams/*.json"
+
+      - step_id: "MS-CONV-002"
+        phase: "CONVERSION"
+        name: "Parse Phase Plan YAML"
+        responsible_component: "phase_plan_to_workstream"
+        operation_kind: "workstream_conversion"
+        description: |
+          Load phase plan YAML using yaml.safe_load().
+          Extract phase_identity, execution_plan, acceptance_tests, etc.
+        pattern_ids: []
+        inputs:
+          - "Phase plan YAML file path"
+        expected_outputs:
+          - "Parsed phase_plan dict with all sections"
+        requires_human_confirmation: false
+        guardrail_checkpoint: false
+        artifact_registry_refs:
+          - "plans/phases/*.yml"
+
+      - step_id: "MS-CONV-003"
+        phase: "CONVERSION"
+        name: "Convert to Workstream JSON"
+        responsible_component: "phase_plan_to_workstream"
+        operation_kind: "workstream_conversion"
+        description: |
+          Transform phase plan structure to workstream JSON format:
+          - Extract workstream_id from phase_identity
+          - Map execution_plan.steps to execution_steps array
+          - Inject tool_profiles_path and circuit_breakers_path
+          - Map acceptance_tests to acceptance_tests array
+          - Extract file_scope, pre_flight_checks, expected_artifacts
+        pattern_ids: []
+        inputs:
+          - "Parsed phase_plan dict"
+        expected_outputs:
+          - "Workstream JSON dict with standardized structure"
+        requires_human_confirmation: false
+        guardrail_checkpoint: false
+        artifact_registry_refs:
+          - "workstreams/*.json"
+
+      - step_id: "MS-CONV-004"
+        phase: "CONVERSION"
+        name: "Write Workstream JSON File"
+        responsible_component: "phase_plan_to_workstream"
+        operation_kind: "persistence"
+        description: |
+          Write workstream dict to workstreams/{workstream_id}.json with indent=2.
+        pattern_ids: []
+        inputs:
+          - "Workstream dict"
+          - "Workstream ID"
+        expected_outputs:
+          - "workstreams/{workstream_id}.json file created"
+        requires_human_confirmation: false
+        guardrail_checkpoint: false
+        artifact_registry_refs:
+          - "workstreams/*.json"
+
+# ================================================================================
+# PROCESS STEPS - DAG_RESOLUTION PHASE
+# ================================================================================
+
+  DAG_RESOLUTION:
+    description: "Build dependency graph and identify parallel execution groups"
+
+    steps:
+      - step_id: "MS-DAG-001"
+        phase: "DAG_RESOLUTION"
+        name: "Load Workstream JSON Files"
+        responsible_component: "multi_agent_workstream_coordinator"
+        operation_kind: "dag_resolution"
+        description: |
+          Discover and load all workstream JSON files from workstreams/*.json.
+          Parse JSON and extract workstream metadata.
+        pattern_ids: []
+        inputs:
+          - "WORKSTREAMS_DIR: workstreams/"
+        expected_outputs:
+          - "List of workstream dicts with full metadata"
+        requires_human_confirmation: false
+        guardrail_checkpoint: false
+        artifact_registry_refs:
+          - "workstreams/*.json"
+
+      - step_id: "MS-DAG-002"
+        phase: "DAG_RESOLUTION"
+        name: "Construct Dependency DAG"
+        responsible_component: "multi_agent_workstream_coordinator"
+        operation_kind: "dag_resolution"
+        description: |
+          Build NetworkX DiGraph from workstream dependencies:
+          - Add node for each workstream (keyed by workstream_id)
+          - Add edges from depends_on references
+          - Validate no circular dependencies
+          - Identify parallel groups from may_run_parallel_with
+        pattern_ids: []
+        inputs:
+          - "Workstream list with dag_and_dependencies sections"
+        expected_outputs:
+          - "NetworkX DiGraph with topological ordering"
+          - "Parallel execution groups identified"
+        requires_human_confirmation: false
+        guardrail_checkpoint: true
+        artifact_registry_refs: []
+
+      - step_id: "MS-DAG-003"
+        phase: "DAG_RESOLUTION"
+        name: "Topological Sort and Execution Order"
+        responsible_component: "multi_agent_workstream_coordinator"
+        operation_kind: "dag_resolution"
+        description: |
+          Perform topological sort on DAG to determine execution order.
+          Group workstreams that can execute in parallel.
+          Assign priority based on is_critical_path flag.
+        pattern_ids: []
+        inputs:
+          - "NetworkX DiGraph"
+        expected_outputs:
+          - "Ordered execution plan with parallel groups: [{batch: [ws1, ws2]}, {batch: [ws3]}]"
+        requires_human_confirmation: false
+        guardrail_checkpoint: false
+        artifact_registry_refs: []
+
+# ================================================================================
+# PROCESS STEPS - EXECUTION PHASE
+# ================================================================================
+
+  EXECUTION:
+    description: "Execute workstreams via multi-agent coordination with DAG scheduling"
+
+    steps:
+      - step_id: "MS-EXEC-001"
+        phase: "EXECUTION"
+        name: "Invoke Multi-Agent Coordinator"
+        responsible_component: "run_master_splinter"
+        operation_kind: "multi_agent_execution"
+        description: |
+          Execute multi_agent_workstream_coordinator.py as subprocess.
+          Capture stdout/stderr and log results.
+
+          NO STOP MODE: Continue to CONSOLIDATION even if execution has failures.
+        pattern_ids: []
+        inputs:
+          - "Subprocess: python multi_agent_workstream_coordinator.py"
+          - "CWD: REPO_ROOT"
+          - "Timeout: 3600 seconds (1 hour)"
+        expected_outputs:
+          - "Multi-agent execution completion status"
+          - "summary['multi_agent_status'] = success|failed|error"
+          - "Consolidated results in .state/multi_agent_consolidated.db"
+        requires_human_confirmation: false
+        guardrail_checkpoint: false
+        artifact_registry_refs:
+          - ".state/multi_agent_consolidated.db"
+
+      - step_id: "MS-EXEC-002"
+        phase: "EXECUTION"
+        name: "Assign Workstreams to Agents"
+        responsible_component: "multi_agent_workstream_coordinator"
+        operation_kind: "multi_agent_execution"
+        description: |
+          For each workstream in execution order:
+          - Check dependencies are COMPLETED before starting
+          - Assign to agent specified in workstream.tool (codex|claude-code|aider)
+          - Execute workstream via agent with execution_steps
+          - Track status: PENDING → RUNNING → COMPLETED|FAILED|SKIPPED
+        pattern_ids: []
+        inputs:
+          - "Ordered execution plan from DAG resolution"
+          - "Agent pool (codex, claude-code, aider)"
+        expected_outputs:
+          - "AgentResult per workstream: {agent_id, workstream_id, status, duration, files_modified, commits, errors}"
+        requires_human_confirmation: false
+        guardrail_checkpoint: false
+        artifact_registry_refs: []
+
+      - step_id: "MS-EXEC-003"
+        phase: "EXECUTION"
+        name: "Execute Workstream via Agent"
+        responsible_component: "multi_agent_workstream_coordinator"
+        operation_kind: "multi_agent_execution"
+        description: |
+          Agent executes workstream.execution_steps sequentially:
+          - Run each step.command via tool_id (pytest, aider-edit, powershell-script, etc.)
+          - Capture step outputs and validate against expected_outputs
+          - Apply circuit_breakers on failures (oscillation detection, max_attempts)
+          - Invoke fix_loop if step fails and fix patterns available
+          - Track files_modified, commits_created, errors, warnings
+        pattern_ids: []
+        inputs:
+          - "Workstream execution_steps array"
+          - "Tool profiles from config/tool_profiles.json"
+          - "Circuit breakers from config/circuit_breakers.yaml"
+        expected_outputs:
+          - "AgentResult with execution details"
+          - "Status: COMPLETED if all steps pass, FAILED if breaker trips"
+        requires_human_confirmation: false
+        guardrail_checkpoint: true
+        artifact_registry_refs:
+          - "config/tool_profiles.json"
+          - "config/circuit_breakers.yaml"
+
+      - step_id: "MS-EXEC-004"
+        phase: "EXECUTION"
+        name: "Apply Circuit Breakers"
+        responsible_component: "multi_agent_workstream_coordinator"
+        operation_kind: "circuit_breaker_check"
+        description: |
+          Monitor execution for circuit breaker conditions:
+          - Oscillation detection: Same error repeating within window
+          - Max attempts: Exceeded retry limit (default: 3)
+          - Timeout: Execution duration exceeds duration_minutes (default: 60)
+          - Scope violation: Attempted to modify forbidden_paths
+
+          On breaker trip: Execute action (abort|mark_phase_failed|mark_phase_blocked).
+          NO STOP MODE: Log breaker trip but continue to next workstream.
+        pattern_ids: []
+        inputs:
+          - "Circuit breaker config from circuit_breakers.yaml"
+          - "Execution attempt history"
+        expected_outputs:
+          - "Breaker status: OK or TRIPPED with action taken"
+          - "Error logged if tripped"
+        requires_human_confirmation: false
+        guardrail_checkpoint: true
+        artifact_registry_refs:
+          - "config/circuit_breakers.yaml"
+
+      - step_id: "MS-EXEC-005"
+        phase: "EXECUTION"
+        name: "Invoke Fix Loop on Failure"
+        responsible_component: "multi_agent_workstream_coordinator"
+        operation_kind: "fix_loop"
+        description: |
+          When execution step fails and fix patterns available:
+          - Identify error type (linter, type-check, test failure)
+          - Load fix pattern from patterns/registry.json
+          - Apply fix via agent (aider-fix or codex)
+          - Re-run failed step
+          - Track fix attempt count against max_attempts circuit breaker
+
+          NO STOP MODE: Continue to next step even if fix fails.
+        pattern_ids: []
+        inputs:
+          - "Step failure error message"
+          - "Fix patterns from patterns/registry.json"
+          - "Fix loop config from fix_loop_and_circuit_breakers section"
+        expected_outputs:
+          - "Fix applied and step re-executed"
+          - "Fix attempt count incremented"
+          - "Success or additional failure logged"
+        requires_human_confirmation: false
+        guardrail_checkpoint: true
+        artifact_registry_refs:
+          - "patterns/registry.json"
+
+# ================================================================================
+# PROCESS STEPS - CONSOLIDATION PHASE
+# ================================================================================
+
+  CONSOLIDATION:
+    description: "Consolidate results from all agents into unified database and reports"
+
+    steps:
+      - step_id: "MS-CONS-001"
+        phase: "CONSOLIDATION"
+        name: "Aggregate Agent Results"
+        responsible_component: "multi_agent_workstream_coordinator"
+        operation_kind: "result_consolidation"
+        description: |
+          Collect AgentResult objects from all workstream executions.
+          Calculate aggregate metrics:
+          - total_workstreams
+          - completed_count, failed_count, skipped_count
+          - total_files_modified (sum of all files_modified arrays)
+          - total_commits (sum of all commits_created arrays)
+          - total_errors, total_warnings
+          - agents_used (unique agent_ids)
+        pattern_ids: []
+        inputs:
+          - "AgentResult array from all workstream executions"
+        expected_outputs:
+          - "ConsolidatedResult dict with aggregate metrics"
+        requires_human_confirmation: false
+        guardrail_checkpoint: false
+        artifact_registry_refs: []
+
+      - step_id: "MS-CONS-002"
+        phase: "CONSOLIDATION"
+        name: "Save to Consolidated Database"
+        responsible_component: "multi_agent_workstream_coordinator"
+        operation_kind: "persistence"
+        description: |
+          Persist consolidated results to SQLite database:
+          - Insert into consolidated_runs table (run_id, timestamp, metrics)
+          - Insert into agent_results table (per-workstream results)
+          - Insert into consolidated_errors table (error details with stack traces)
+        pattern_ids: []
+        inputs:
+          - "ConsolidatedResult object"
+          - "Database path: .state/multi_agent_consolidated.db"
+        expected_outputs:
+          - "Database records created in all 3 tables"
+          - "Queryable consolidated state for reporting"
+        requires_human_confirmation: false
+        guardrail_checkpoint: false
+        artifact_registry_refs:
+          - ".state/multi_agent_consolidated.db"
+
+      - step_id: "MS-CONS-003"
+        phase: "CONSOLIDATION"
+        name: "Generate Unified Execution Report"
+        responsible_component: "multi_agent_workstream_coordinator"
+        operation_kind: "result_consolidation"
+        description: |
+          Generate JSON report with:
+          - Run summary (run_id, timestamp, duration, metrics)
+          - Per-workstream results (agent, status, files, commits, errors)
+          - Consolidated error list with context
+          - Recommendations for next steps
+
+          Save to reports/master_run_{run_id}.json.
+        pattern_ids: []
+        inputs:
+          - "ConsolidatedResult object"
+        expected_outputs:
+          - "reports/master_run_{run_id}.json with full execution details"
+        requires_human_confirmation: false
+        guardrail_checkpoint: false
+        artifact_registry_refs:
+          - "reports/master_run_*.json"
+
+# ================================================================================
+# PROCESS STEPS - SYNC PHASE
+# ================================================================================
+
+  SYNC:
+    description: "Sync workstreams to GitHub with feature branch and organized commits"
+
+    steps:
+      - step_id: "MS-SYNC-001"
+        phase: "SYNC"
+        name: "Invoke GitHub Sync Engine"
+        responsible_component: "run_master_splinter"
+        operation_kind: "github_sync"
+        description: |
+          Execute sync_workstreams_to_github.py as subprocess.
+          Capture stdout/stderr and log results.
+
+          NO STOP MODE: Continue to DONE even if sync fails.
+          Sync is optional - phase can be skipped if disabled.
+        pattern_ids: []
+        inputs:
+          - "Subprocess: python sync_workstreams_to_github.py"
+          - "CWD: REPO_ROOT"
+          - "Timeout: 600 seconds (10 minutes)"
+        expected_outputs:
+          - "summary['sync_status'] = success|failed|error"
+          - "Feature branch created and pushed (if successful)"
+        requires_human_confirmation: false
+        guardrail_checkpoint: false
+        artifact_registry_refs:
+          - "reports/sync_summary_*.json"
+
+      - step_id: "MS-SYNC-002"
+        phase: "SYNC"
+        name: "Create Feature Branch"
+        responsible_component: "sync_workstreams_to_github"
+        operation_kind: "github_sync"
+        description: |
+          Create feature branch for workstream sync:
+          - Branch name: feature/ws-sync-{timestamp}
+          - Checkout from current branch
+          - Handle existing branch by switching to it
+
+          NO STOP MODE: Log git errors but continue to commit step.
+        pattern_ids: []
+        inputs:
+          - "Feature branch name pattern"
+          - "Git checkout -b command"
+        expected_outputs:
+          - "Feature branch created and checked out"
+          - "Branch name logged in summary"
+        requires_human_confirmation: false
+        guardrail_checkpoint: false
+        artifact_registry_refs: []
+
+      - step_id: "MS-SYNC-003"
+        phase: "SYNC"
+        name: "Create Workstream Commits"
+        responsible_component: "sync_workstreams_to_github"
+        operation_kind: "github_sync"
+        description: |
+          For each workstream JSON file:
+          - Git add workstreams/{workstream_id}.json
+          - Git commit with message: "Add workstream: {title} ({workstream_id})"
+          - Track commit SHA
+
+          NO STOP MODE: Log commit failures but continue to next workstream.
+        pattern_ids: []
+        inputs:
+          - "Workstream JSON files from workstreams/*.json"
+        expected_outputs:
+          - "Individual commits per workstream"
+          - "summary['commits_created'] = count"
+        requires_human_confirmation: false
+        guardrail_checkpoint: false
+        artifact_registry_refs:
+          - "workstreams/*.json"
+
+      - step_id: "MS-SYNC-004"
+        phase: "SYNC"
+        name: "Push to Remote"
+        responsible_component: "sync_workstreams_to_github"
+        operation_kind: "github_sync"
+        description: |
+          Push feature branch to origin:
+          - Git push origin {feature_branch}
+          - Handle authentication errors gracefully
+
+          NO STOP MODE: Log push failures but continue to report generation.
+        pattern_ids: []
+        inputs:
+          - "Feature branch name"
+          - "Git push command"
+        expected_outputs:
+          - "Feature branch pushed to remote"
+          - "Push status logged"
+        requires_human_confirmation: false
+        guardrail_checkpoint: false
+        artifact_registry_refs: []
+
+      - step_id: "MS-SYNC-005"
+        phase: "SYNC"
+        name: "Generate Sync Summary Report"
+        responsible_component: "sync_workstreams_to_github"
+        operation_kind: "result_consolidation"
+        description: |
+          Generate JSON report with:
+          - Sync timestamp and feature branch
+          - Workstreams processed count
+          - Commits created count
+          - Errors and successes arrays
+          - Git status and remote info
+
+          Save to reports/sync_summary_{timestamp}.json.
+        pattern_ids: []
+        inputs:
+          - "WorkstreamSyncEngine summary dict"
+        expected_outputs:
+          - "reports/sync_summary_{timestamp}.json with sync details"
+        requires_human_confirmation: false
+        guardrail_checkpoint: false
+        artifact_registry_refs:
+          - "reports/sync_summary_*.json"
+
+# ================================================================================
+# PROCESS STEPS - DONE PHASE
+# ================================================================================
+
+  DONE:
+    description: "Generate final master summary report and complete execution"
+
+    steps:
+      - step_id: "MS-DONE-001"
+        phase: "DONE"
+        name: "Generate Master Summary Report"
+        responsible_component: "run_master_splinter"
+        operation_kind: "result_consolidation"
+        description: |
+          Generate final master summary with:
+          - Run ID and execution duration
+          - Phase plans found and workstreams generated
+          - Multi-agent execution status
+          - GitHub sync status
+          - All errors collected during execution (NO STOP MODE)
+          - Next steps and recommendations
+
+          Print to console and save to reports/master_run_{run_id}.json.
+        pattern_ids: []
+        inputs:
+          - "MasterOrchestrator summary dict"
+          - "All errors collected"
+        expected_outputs:
+          - "Console summary report"
+          - "reports/master_run_{run_id}.json"
+        requires_human_confirmation: false
+        guardrail_checkpoint: false
+        artifact_registry_refs:
+          - "reports/master_run_*.json"
+
+      - step_id: "MS-DONE-002"
+        phase: "DONE"
+        name: "Print Execution Summary"
+        responsible_component: "run_master_splinter"
+        operation_kind: "event_emission"
+        description: |
+          Print formatted execution summary to console:
+          - Header with MASTER_SPLINTER branding
+          - Run ID and timestamp
+          - Phase counts and statuses
+          - Error count (with NO STOP MODE indicator)
+          - Next steps based on execution results
+        pattern_ids: []
+        inputs:
+          - "MasterOrchestrator summary dict"
+        expected_outputs:
+          - "Formatted console output with execution summary"
+        requires_human_confirmation: false
+        guardrail_checkpoint: false
+        artifact_registry_refs: []
+
+# ================================================================================
+# GUARDRAIL CHECKPOINTS
+# ================================================================================
+
+guardrail_checkpoints:
+  - checkpoint_id: "GC-MS-PREREQ"
+    phase: "INIT"
+    step_id: "MS-INIT-002"
+    description: "Validate all prerequisites exist before discovery"
+    validation_logic: "All required config files and directories present"
+    on_fail: "Log errors and continue (NO STOP MODE)"
+
+  - checkpoint_id: "GC-MS-DAG"
+    phase: "DAG_RESOLUTION"
+    step_id: "MS-DAG-002"
+    description: "Validate DAG has no circular dependencies"
+    validation_logic: "NetworkX topological_sort succeeds without CycleError"
+    on_fail: "Mark phase FAILED and abort execution"
+
+  - checkpoint_id: "GC-MS-CIRCUIT"
+    phase: "EXECUTION"
+    step_id: "MS-EXEC-004"
+    description: "Enforce circuit breakers during workstream execution"
+    validation_logic: "Check oscillation, max_attempts, timeout, scope_violation"
+    on_fail: "Execute breaker action (abort|mark_failed|mark_blocked), continue to next workstream"
+
+  - checkpoint_id: "GC-MS-FIX"
+    phase: "EXECUTION"
+    step_id: "MS-EXEC-005"
+    description: "Validate fix loop attempts don't exceed max_attempts"
+    validation_logic: "Track fix_attempt_count against circuit_breaker max_attempts"
+    on_fail: "Mark workstream FAILED and continue to next workstream"
+
+# ================================================================================
+# ANTI-PATTERNS BLOCKED
+# ================================================================================
+
+anti_patterns:
+  - id: "ANTI-STOP-ON-ERROR"
+    description: "Stopping execution on first error (violates NO STOP MODE)"
+    detection: "Check for early returns or sys.exit() in error handlers"
+    enforcement: "All components must log errors and continue execution"
+
+  - id: "ANTI-CIRCULAR-DEPS"
+    description: "Circular dependencies in phase plan DAG"
+    detection: "NetworkX topological_sort raises CycleError"
+    enforcement: "Abort execution with clear error message showing cycle"
+
+  - id: "ANTI-MISSING-WORKSTREAM"
+    description: "Phase plan depends_on references non-existent workstream"
+    detection: "Check all depends_on workstream_ids exist in loaded workstreams"
+    enforcement: "Mark workstream as BLOCKED and continue to next"
+
+  - id: "ANTI-SCOPE-VIOLATION"
+    description: "Agent attempts to modify forbidden_paths"
+    detection: "Circuit breaker monitors file modifications against file_scope.forbidden_paths"
+    enforcement: "Abort workstream execution, mark FAILED, log scope violation"
+
+# ================================================================================
+# EXECUTION MODES
+# ================================================================================
+
+execution_modes:
+  one_touch:
+    description: "Master orchestrator runs all phases automatically (INIT → DONE)"
+    command: "python run_master_splinter.py"
+    no_stop_mode: true
+    prerequisites:
+      - "config/tool_profiles.json"
+      - "config/circuit_breakers.yaml"
+      - "patterns/registry.json"
+
+  phase_conversion_only:
+    description: "Convert phase plans to workstreams without execution"
+    command: "python phase_plan_to_workstream.py"
+    no_stop_mode: false
+
+  multi_agent_only:
+    description: "Execute existing workstreams without conversion or sync"
+    command: "python multi_agent_workstream_coordinator.py"
+    no_stop_mode: true
+
+  github_sync_only:
+    description: "Sync existing workstreams to GitHub without execution"
+    command: "python sync_workstreams_to_github.py"
+    no_stop_mode: true
+
+# ================================================================================
+# COMPLETION CRITERIA
+# ================================================================================
+
+completion_criteria:
+  MASTER_SPLINTER_DONE:
+    description: "MASTER_SPLINTER execution completes successfully"
+    conditions:
+      - "All phase plans discovered and converted to workstreams"
+      - "Multi-agent coordinator completes (even with workstream failures due to NO STOP MODE)"
+      - "Consolidated database populated with results"
+      - "Master summary report generated"
+      - "GitHub sync completes or skipped (optional)"
+    artifacts_required:
+      - "workstreams/*.json (one per phase plan)"
+      - ".state/multi_agent_consolidated.db"
+      - "reports/master_run_{run_id}.json"
+    next_steps:
+      - "Review consolidated database for per-workstream results"
+      - "Investigate any errors logged during execution"
+      - "Check GitHub feature branch for synced workstreams"
+      - "Run acceptance tests if specified in phase plans"

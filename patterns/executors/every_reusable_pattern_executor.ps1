@@ -1,43 +1,7 @@
-# DOC_LINK: DOC-PAT-EVERY-REUSABLE-PATTERN-EXECUTOR-246
-<#
-.SYNOPSIS
-Executor for PAT-EVERY_REUSABLE_PATTERN-005
+#!/usr/bin/env pwsh
+# PAT-DOC-EVERY-REUSABLE-PATTERN-007 Executor
+# DOC_ID: DOC-PAT-DOC-EVERY-REUSABLE-PATTERN-007
 
-.DESCRIPTION
-doc_id: DOC-PAT-EVERY_REUSABLE_PATTERN-005
-pattern_id: PAT-EVERY_REUSABLE_PATTERN-005
-
-.PARAMETER InstancePath
-Path to pattern instance JSON file
-
-.EXAMPLE
-.\every_reusable_pattern_executor.ps1 -InstancePath instance.json
-#>
-
-[CmdletBinding()]
-param(
-    [Parameter(Mandatory)]
-    [string]$InstancePath
-)
-
-$ErrorActionPreference = "Stop"
-
-Write-Host "▶ Executing pattern: PAT-EVERY_REUSABLE_PATTERN-005" -ForegroundColor Cyan
-
-# Load instance
-$instance = Get-Content $InstancePath | ConvertFrom-Json
-
-# Validate pattern_id
-if ($instance.pattern_id -ne "PAT-EVERY_REUSABLE_PATTERN-005") {
-    throw "Invalid pattern_id. Expected: PAT-EVERY_REUSABLE_PATTERN-005, Got: $($instance.pattern_id)"
-}
-
+param([Parameter(Mandatory=$true)][string]$InstancePath, [switch]$DryRun)
+Set-StrictMode -Version Latest
 # TODO: Implement pattern logic
-Write-Host "✓ Pattern execution complete" -ForegroundColor Green
-
-# Return result
-@{
-    status = "success"
-    pattern_id = "PAT-EVERY_REUSABLE_PATTERN-005"
-    timestamp = (Get-Date -Format o)
-} | ConvertTo-Json

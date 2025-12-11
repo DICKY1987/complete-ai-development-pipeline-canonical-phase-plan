@@ -1,31 +1,9 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "DOC-PAT-README-PATTERNS-SCHEMA-164",
-  "title": "PAT-README-PATTERNS-766 Pattern Instance",
+  "title": "readme_patterns",
   "type": "object",
-  "required": [
-    "pattern_id",
-    "version"
-  ],
+  "required": ["pattern_id"],
   "properties": {
-    "pattern_id": {
-      "type": "string",
-      "const": "PAT-README-PATTERNS-766"
-    },
-    "version": {
-      "type": "string",
-      "pattern": "^\\d+\\.\\d+\\.\\d+$"
-    },
-    "inputs": {
-      "type": "object",
-      "properties": {},
-      "additionalProperties": true
-    },
-    "outputs": {
-      "type": "object",
-      "properties": {},
-      "additionalProperties": true
-    }
-  },
-  "doc_id": "DOC-PAT-README-PATTERNS-SCHEMA-164"
+    "pattern_id": {"type": "string", "const": "PAT-DOC-README-PATTERNS-041"}
+  }
 }

@@ -1,31 +1,9 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "DOC-PAT-GLOSSARY-PATTERNS-QUICKSTART-SCHEMA-075",
-  "title": "PAT-GLOSSARY-PATTERNS-QUICKSTART-750 Pattern Instance",
+  "title": "glossary_patterns_quickstart",
   "type": "object",
-  "required": [
-    "pattern_id",
-    "version"
-  ],
+  "required": ["pattern_id"],
   "properties": {
-    "pattern_id": {
-      "type": "string",
-      "const": "PAT-GLOSSARY-PATTERNS-QUICKSTART-750"
-    },
-    "version": {
-      "type": "string",
-      "pattern": "^\\d+\\.\\d+\\.\\d+$"
-    },
-    "inputs": {
-      "type": "object",
-      "properties": {},
-      "additionalProperties": true
-    },
-    "outputs": {
-      "type": "object",
-      "properties": {},
-      "additionalProperties": true
-    }
-  },
-  "doc_id": "DOC-PAT-GLOSSARY-PATTERNS-QUICKSTART-SCHEMA-075"
+    "pattern_id": {"type": "string", "const": "PAT-DOC-GLOSSARY-PATTERNS-QUICKSTART-018"}
+  }
 }

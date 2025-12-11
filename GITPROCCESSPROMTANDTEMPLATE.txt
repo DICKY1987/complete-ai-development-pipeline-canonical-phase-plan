@@ -1,0 +1,1949 @@
+
+ > You are an AI software engineer operating inside a CLI automation framework.
+
+   Your task is to design and fully specify a complete build of the **Deterministic Debugging / Audit
+    System** described in the documentation.
+
+   You are NOT merely describing the system; you must output everything needed for the CLI app to:
+   1. Generate all source files,
+   2. Wire all components together,
+   3. Create and run tests,
+   4. Produce a fully working, deterministic implementation that matches the documentation.
+
+   ---
+
+   ## Inputs
+
+   - System documentation (authoritative spec):
+
+   <<<SYSTEM_DOCUMENTATION_START>>>
+   ["C:\Users\richg\ALL_AI\PROCESS_FOR_ALL\GIT_PROCESS"]
+   <<<SYSTEM_DOCUMENTATION_END>>>
+
+   - Target language(s) and stack:
+     - Primary language: [e.g., Python 3.11 / TypeScript / Go]
+     - Frameworks: [e.g., FastAPI, Node CLI, etc.]
+     - Test framework: [e.g., pytest / Jest / etc.]
+
+   - Execution environment:
+     - OS: [e.g., Linux x86_64]
+     - Entry point: [e.g., `cli.py`, `index.ts`]
+     - Package manager: [e.g., pip, npm, pnpm, poetry]
+
+   If any of these are missing, infer reasonable defaults and state them explicitly.
+
+   ---
+
+   ## Objectives
+
+   From the documentation, reconstruct the complete deterministic debugging/audit system, including:
+
+   1. **Core Components**
+      - All modules/services described (e.g., event capture, trace storage, replay engine, audit log
+   viewer, config management, etc.).
+      - Public interfaces (CLI commands, APIs, configs) exactly as specified in the docs.
+      - Determinism guarantees (same inputs → same outputs/logs).
+
+   2. **System Wiring**
+      - Dependency relationships between components.
+      - Initialization and shutdown flow.
+      - Data flow for:
+        - Capturing events,
+        - Persisting traces,
+        - Replaying sessions,
+        - Running audits.
+      - Configuration strategy (env vars, config files, flags).
+
+   3. **Testing & Determinism**
+      - Unit tests for each component.
+      - Integration tests covering full debugging/audit flows.
+      - Tests that specifically validate determinism:
+        - Same inputs + same seed → identical outputs & logs.
+        - Edge cases and failure modes.
+      - Clear instructions to run the full test suite via a single CLI command.
+
+   4. **Developer & Ops Experience**
+      - README with:
+        - Overview of the system,
+        - Setup instructions,
+        - How to run the CLI,
+        - How to run tests,
+        - How to verify determinism locally.
+      - Example usage scenarios and sample commands.
+      - Logging and observability strategy (log format, log levels, trace IDs).
+
+   ---
+
+   ## Required Output Structure
+
+   You MUST output everything in a structured, machine-consumable format so the CLI framework can
+   write files and execute commands directly.
+
+   Use this structure exactly:
+
+   1. **High-Level Plan**
+      - A numbered list of implementation phases:
+        - Phase 1: Project scaffolding
+        - Phase 2: Core components
+        - Phase 3: Wiring and integration
+        - Phase 4: Tests and determinism checks
+        - Phase 5: Final verification
+
+   2. **File Manifest**
+      - A JSON-like tree describing all files and directories, for example:
+        - `path`: file path
+        - `type`: `file` | `dir`
+        - `description`: human-readable purpose
+
+   3. **File Contents**
+      - For EACH file that must be created:
+        - `path`: exact relative path
+        - `language`: e.g., `python`, `typescript`, `markdown`
+        - `content`: full file contents (no placeholders)
+
+   4. **Command Script**
+      - A strictly ordered list of shell commands the CLI app should execute to:
+        - Set up dependencies,
+        - Initialize the project,
+        - Run migrations (if any),
+        - Run all tests,
+        - Perform a smoke test of the system.
+
+   5. **Determinism Checklist**
+      - A concise checklist verifying:
+        - Deterministic dependencies (e.g., version pins),
+        - Sources of randomness and how they’re controlled,
+        - Time and environment handling,
+        - How someone can reproduce an identical run.
+
+   ---
+
+   ## Constraints & Style
+
+   - Deterministic behavior is a hard requirement.
+     - Pin versions of dependencies.
+     - Isolate and explicitly seed any random or time-based behavior.
+   - Avoid vague instructions like “configure X”; instead:
+     - Provide exact configuration keys and example values.
+     - Provide concrete code for configuration loading.
+   - Prefer clarity and explicitness over brevity.
+   - Do NOT use placeholders like `TODO`; always provide concrete implementations.
+
+   ---
+
+   ## Reasoning Requirements
+
+   Before you start listing files and code, you MUST:
+
+   1. Summarize the system from the documentation in 5–15 bullet points.
+   2. Enumerate all major components and their responsibilities.
+   3. Describe the end-to-end flow of:
+      - Capturing a debugging/audit session,
+      - Storing artifacts,
+      - Replaying/inspecting that session.
+
+   Then proceed to output the **High-Level Plan**, **File Manifest**, **File Contents**, **Command
+   Script**, and **Determinism Checklist** as specified above, in that order.
+
+ ● Deterministic Debugging / Audit System - Complete Build Specification
+
+   Phase 0: System Analysis & Reasoning
+
+   System Summary from Documentation
+
+   After analyzing the documentation directory, I can see this relates to a Git Repository Merge
+   Process Automation System with the following key characteristics:
+
+     - 135-step merge workflow spanning 14 phases for merging two repositories (Pipeline + MINI_PIPE)
+     - Structured index system using JSON Schema validation for process definition
+     - Machine-readable flowchart with stable IDs (STEP_xxx, PHASE_xx, EDGE_xxx_xxx)
+     - Risk tracking with flags for high-risk operations (e.g., IMPORT_BREAKAGE)
+     - Multi-repo coordination handling Pipeline, MINI_PIPE, worktrees, and merge workspaces
+     - Rollback capability with safety tags and failure recovery paths
+     - Command execution tracking with Git operations, validations, and SSOT consolidation
+     - Audit trail requirements for tracking which steps executed, when, and with what results
+     - Deterministic replay needed to reproduce merge operations exactly
+     - Validation gates at multiple phases (pre-flight, pre-merge, post-merge)
+
+   Major Components Required
+
+   Based on the documentation, the deterministic debugging/audit system needs:
+
+     - Event Capture Engine
+       - Intercepts Git commands, file operations, validation checks
+       - Records step execution with timestamps, inputs, outputs, exit codes
+       - Captures environment state (Git refs, working tree status, config)
+     - Trace Storage Layer
+       - Persists execution traces with deterministic IDs
+       - Links events to step/phase IDs from the flowchart index
+       - Stores command outputs, diffs, and state snapshots
+     - Replay Engine
+       - Reconstructs past executions from trace data
+       - Validates determinism by comparing replays
+       - Supports step-by-step debugging
+     - Audit Log Viewer
+       - CLI interface to query and inspect traces
+       - Shows execution timeline, failures, rollbacks
+       - Highlights risk flags and validation results
+     - Flowchart Index Manager
+       - Loads and validates YAML/JSON index files
+       - Maps runtime events to documented steps
+       - Tracks phase transitions and edge traversals
+     - Configuration Management
+       - Handles seeds for deterministic execution
+       - Manages trace storage location
+       - Controls log verbosity and filtering
+     - Validation Framework
+       - Runs determinism checks (same inputs → same outputs)
+       - Validates trace completeness
+       - Checks for state divergence
+
+   End-to-End Flow
+
+   Capturing a Session:
+
+     - User initiates merge process with debug-audit run --flowchart
+   merge_process_flowchart.index.yaml
+     - Event capture engine wraps each step execution
+     - Before step: Capture environment snapshot (Git refs, file hashes, config)
+     - During step: Record command, arguments, stdin/stdout/stderr, timing
+     - After step: Capture state changes, exit code, validation results
+     - Link event to step_number/node_id from flowchart index
+     - Persist trace to storage with session ID
+
+   Storing Artifacts:
+
+     - Generate deterministic session ID from: timestamp + seed + flowchart version
+     - Create trace directory: traces/<session_id>/
+     - Write structured event log: events.jsonl (one JSON per line)
+     - Store state snapshots: snapshots/<step_number>.json
+     - Capture command outputs: outputs/<step_number>.txt
+     - Save diff artifacts: diffs/<step_number>.patch
+     - Write metadata: metadata.json (flowchart ref, start/end time, status)
+
+   Replaying/Inspecting:
+
+     - User queries: debug-audit list (shows all sessions)
+     - User selects: debug-audit inspect <session_id>
+     - System loads trace from storage
+     - Displays timeline: phases → steps → events → outputs
+     - User can filter: debug-audit inspect <session_id> --step 70 --show-commands
+     - User can replay: debug-audit replay <session_id> --verify-determinism
+     - Replay engine executes steps with same inputs, compares outputs
+     - Reports any divergence with detailed diff
+
+   -------------------------------------------------------------------------------------------------
+
+   Target Stack Specification
+
+   Primary Language: Python 3.11
+   Frameworks:
+
+     - Click (CLI framework)
+     - Pydantic (data validation)
+     - Rich (terminal UI)
+     - pytest (testing)
+
+   Execution Environment:
+
+     - OS: Windows/Linux/MacOS (cross-platform)
+     - Entry point: debug_audit/cli.py
+     - Package manager: pip (with requirements.txt)
+
+   Storage:
+
+     - File-based (JSONL + JSON)
+     - Directory structure: ~/.debug-audit/traces/
+
+   -------------------------------------------------------------------------------------------------
+
+   High-Level Plan
+
+   Phase 1: Project Scaffolding
+
+     - Create directory structure
+     - Initialize Python package with __init__.py files
+     - Create pyproject.toml and requirements.txt with pinned versions
+     - Set up logging configuration
+     - Create base configuration module
+
+   Phase 2: Core Components
+
+     - Build flowchart index loader (JSON Schema validation)
+     - Implement event capture engine
+     - Create trace storage layer
+     - Build state snapshot manager
+     - Implement deterministic ID generation
+
+   Phase 3: CLI Interface
+
+     - Create Click-based CLI commands
+     - Implement run command (execute with tracing)
+     - Implement list command (show sessions)
+     - Implement inspect command (view trace details)
+     - Implement replay command (verify determinism)
+     - Add Rich formatting for output
+
+   Phase 4: Wiring and Integration
+
+     - Wire event capture to storage
+     - Connect flowchart index to event tagging
+     - Integrate configuration management
+     - Add error handling and rollback detection
+     - Implement session lifecycle management
+
+   Phase 5: Tests and Determinism Checks
+
+     - Unit tests for each component
+     - Integration tests for full flows
+     - Determinism validation tests
+     - Mock Git operations for testing
+     - Create test fixtures with sample flowcharts
+
+   Phase 6: Final Verification
+
+     - Run full test suite
+     - Execute example merge scenario
+     - Verify trace artifacts
+     - Test replay determinism
+     - Generate README and documentation
+
+   -------------------------------------------------------------------------------------------------
+
+   File Manifest
+
+     {
+       "root": "debug-audit-system/",
+       "structure": [
+         {"path": "debug_audit/", "type": "dir", "description": "Main package"},
+         {"path": "debug_audit/__init__.py", "type": "file", "description": "Package init"},
+         {"path": "debug_audit/cli.py", "type": "file", "description": "CLI entry point"},
+         {"path": "debug_audit/config.py", "type": "file", "description": "Configuration
+   management"},
+         {"path": "debug_audit/models.py", "type": "file", "description": "Pydantic data models"},
+         {"path": "debug_audit/flowchart.py", "type": "file", "description": "Flowchart index
+   loader"},
+         {"path": "debug_audit/capture.py", "type": "file", "description": "Event capture engine"},
+         {"path": "debug_audit/storage.py", "type": "file", "description": "Trace storage layer"},
+         {"path": "debug_audit/replay.py", "type": "file", "description": "Replay engine"},
+         {"path": "debug_audit/executor.py", "type": "file", "description": "Step executor"},
+         {"path": "debug_audit/session.py", "type": "file", "description": "Session management"},
+         {"path": "debug_audit/utils.py", "type": "file", "description": "Utility functions"},
+
+         {"path": "tests/", "type": "dir", "description": "Test suite"},
+         {"path": "tests/__init__.py", "type": "file", "description": "Test package init"},
+         {"path": "tests/conftest.py", "type": "file", "description": "Pytest fixtures"},
+         {"path": "tests/test_config.py", "type": "file", "description": "Config tests"},
+         {"path": "tests/test_flowchart.py", "type": "file", "description": "Flowchart tests"},
+         {"path": "tests/test_capture.py", "type": "file", "description": "Capture tests"},
+         {"path": "tests/test_storage.py", "type": "file", "description": "Storage tests"},
+         {"path": "tests/test_replay.py", "type": "file", "description": "Replay tests"},
+         {"path": "tests/test_integration.py", "type": "file", "description": "Integration tests"},
+         {"path": "tests/test_determinism.py", "type": "file", "description": "Determinism tests"},
+
+         {"path": "tests/fixtures/", "type": "dir", "description": "Test fixtures"},
+         {"path": "tests/fixtures/sample_flowchart.yaml", "type": "file", "description": "Sample
+   flowchart"},
+         {"path": "tests/fixtures/sample_schema.json", "type": "file", "description": "JSON Schema"},
+
+         {"path": "examples/", "type": "dir", "description": "Example files"},
+         {"path": "examples/simple_merge.yaml", "type": "file", "description": "Simple merge
+   example"},
+
+         {"path": "requirements.txt", "type": "file", "description": "Python dependencies"},
+         {"path": "pyproject.toml", "type": "file", "description": "Project metadata"},
+         {"path": "setup.py", "type": "file", "description": "Setup script"},
+         {"path": "README.md", "type": "file", "description": "Documentation"},
+         {"path": ".gitignore", "type": "file", "description": "Git ignore"},
+         {"path": "pytest.ini", "type": "file", "description": "Pytest configuration"}
+       ]
+     }
+
+   -------------------------------------------------------------------------------------------------
+
+   File Contents
+
+   1. requirements.txt
+
+     click==8.1.7
+     pydantic==2.5.0
+     pydantic-settings==2.1.0
+     PyYAML==6.0.1
+     jsonschema==4.20.0
+     rich==13.7.0
+     pytest==7.4.3
+     pytest-cov==4.1.0
+     pytest-mock==3.12.0
+     freezegun==1.4.0
+
+   2. pyproject.toml
+
+     [build-system]
+     requires = ["setuptools>=68.0", "wheel"]
+     build-backend = "setuptools.build_meta"
+
+     [project]
+     name = "debug-audit"
+     version = "1.0.0"
+     description = "Deterministic Debugging and Audit System for Git Merge Processes"
+     readme = "README.md"
+     requires-python = ">=3.11"
+     dependencies = [
+         "click==8.1.7",
+         "pydantic==2.5.0",
+         "pydantic-settings==2.1.0",
+         "PyYAML==6.0.1",
+         "jsonschema==4.20.0",
+         "rich==13.7.0",
+     ]
+
+     [project.optional-dependencies]
+     dev = [
+         "pytest==7.4.3",
+         "pytest-cov==4.1.0",
+         "pytest-mock==3.12.0",
+         "freezegun==1.4.0",
+     ]
+
+     [project.scripts]
+     debug-audit = "debug_audit.cli:cli"
+
+     [tool.pytest.ini_options]
+     testpaths = ["tests"]
+     python_files = ["test_*.py"]
+     python_classes = ["Test*"]
+     python_functions = ["test_*"]
+     addopts = "-v --cov=debug_audit --cov-report=html --cov-report=term"
+
+     [tool.coverage.run]
+     source = ["debug_audit"]
+     omit = ["*/tests/*", "*/conftest.py"]
+
+   3. setup.py
+
+     from setuptools import setup, find_packages
+
+     setup(
+         name="debug-audit",
+         version="1.0.0",
+         packages=find_packages(),
+         install_requires=[
+             "click==8.1.7",
+             "pydantic==2.5.0",
+             "pydantic-settings==2.1.0",
+             "PyYAML==6.0.1",
+             "jsonschema==4.20.0",
+             "rich==13.7.0",
+         ],
+         entry_points={
+             "console_scripts": [
+                 "debug-audit=debug_audit.cli:cli",
+             ],
+         },
+         python_requires=">=3.11",
+     )
+
+   4. debug_audit/__init__.py
+
+     """
+     Deterministic Debugging and Audit System for Git Merge Processes.
+     """
+
+     __version__ = "1.0.0"
+     __author__ = "Debug Audit Team"
+
+     from debug_audit.config import Config
+     from debug_audit.session import Session
+     from debug_audit.flowchart import FlowchartIndex
+
+     __all__ = ["Config", "Session", "FlowchartIndex", "__version__"]
+
+   5. debug_audit/models.py
+
+     """
+     Pydantic models for data validation and serialization.
+     """
+
+     from datetime import datetime
+     from enum import Enum
+     from pathlib import Path
+     from typing import Any, Dict, List, Optional
+
+     from pydantic import BaseModel, Field, field_validator
+
+
+     class StepRole(str, Enum):
+         """Step role enumeration."""
+         P = "P"
+         M = "M"
+         BOTH = "BOTH"
+         MERGE = "MERGE"
+         VERIFY = "VERIFY"
+         ROLLBACK = "ROLLBACK"
+
+
+     class RepoTarget(str, Enum):
+         """Repository target enumeration."""
+         PIPELINE = "pipeline"
+         MINIPIPE = "minipipe"
+         BOTH = "both"
+         MERGE_WORKSPACE = "merge_workspace"
+         NA = "n/a"
+
+
+     class EdgeType(str, Enum):
+         """Edge type enumeration."""
+         NORMAL = "normal"
+         ROLLBACK = "rollback"
+         CONDITIONAL = "conditional"
+         LOOP = "loop"
+
+
+     class FlowchartMeta(BaseModel):
+         """Flowchart metadata."""
+         name: str
+         version: int = Field(ge=1)
+         source_file: Optional[str] = None
+         total_steps: int = Field(ge=1)
+         total_phases: int = Field(ge=1)
+
+
+     class Phase(BaseModel):
+         """Phase definition."""
+         phase_id: str = Field(pattern=r"^PHASE_\d{2}$")
+         phase_number: int = Field(ge=0)
+         name: str
+         step_range: List[int] = Field(min_length=2, max_length=2)
+         description: Optional[str] = None
+
+         @field_validator("step_range")
+         @classmethod
+         def validate_step_range(cls, v: List[int]) -> List[int]:
+             if len(v) != 2:
+                 raise ValueError("step_range must have exactly 2 elements")
+             if v[0] > v[1]:
+                 raise ValueError("step_range start must be <= end")
+             return v
+
+
+     class Step(BaseModel):
+         """Step definition."""
+         step_number: int = Field(ge=1)
+         node_id: str = Field(pattern=r"^STEP_\d{3}$")
+         phase_id: str = Field(pattern=r"^PHASE_\d{2}$")
+         role: StepRole
+         repo: RepoTarget
+         label: str
+         category: Optional[str] = None
+         commands: List[str] = Field(default_factory=list)
+         tags: List[str] = Field(default_factory=list)
+         risk_flags: List[str] = Field(default_factory=list)
+         doc_refs: List[str] = Field(default_factory=list)
+         notes: Optional[str] = None
+
+
+     class Edge(BaseModel):
+         """Edge definition."""
+         edge_id: str = Field(pattern=r"^EDGE_\d{3}_\d{3}$")
+         from_step: int = Field(ge=1)
+         to_step: int = Field(ge=1)
+         edge_type: EdgeType = EdgeType.NORMAL
+         label: Optional[str] = None
+
+
+     class FlowchartIndex(BaseModel):
+         """Complete flowchart index."""
+         meta: FlowchartMeta
+         phases: List[Phase]
+         steps: List[Step]
+         edges: List[Edge]
+
+         def get_step(self, step_number: int) -> Optional[Step]:
+             """Get step by number."""
+             for step in self.steps:
+                 if step.step_number == step_number:
+                     return step
+             return None
+
+         def get_phase(self, phase_id: str) -> Optional[Phase]:
+             """Get phase by ID."""
+             for phase in self.phases:
+                 if phase.phase_id == phase_id:
+                     return phase
+             return None
+
+
+     class EventType(str, Enum):
+         """Event type enumeration."""
+         STEP_START = "step_start"
+         STEP_END = "step_end"
+         COMMAND_EXEC = "command_exec"
+         STATE_SNAPSHOT = "state_snapshot"
+         VALIDATION = "validation"
+         ERROR = "error"
+         ROLLBACK = "rollback"
+
+
+     class Event(BaseModel):
+         """Execution event."""
+         event_id: str
+         session_id: str
+         timestamp: datetime
+         event_type: EventType
+         step_number: Optional[int] = None
+         node_id: Optional[str] = None
+         phase_id: Optional[str] = None
+         command: Optional[str] = None
+         args: List[str] = Field(default_factory=list)
+         exit_code: Optional[int] = None
+         stdout: Optional[str] = None
+         stderr: Optional[str] = None
+         duration_ms: Optional[int] = None
+         metadata: Dict[str, Any] = Field(default_factory=dict)
+
+         class Config:
+             json_encoders = {
+                 datetime: lambda v: v.isoformat(),
+             }
+
+
+     class StateSnapshot(BaseModel):
+         """State snapshot at a point in time."""
+         snapshot_id: str
+         session_id: str
+         step_number: int
+         timestamp: datetime
+         git_refs: Dict[str, str] = Field(default_factory=dict)
+         file_hashes: Dict[str, str] = Field(default_factory=dict)
+         env_vars: Dict[str, str] = Field(default_factory=dict)
+         working_tree_status: str = ""
+
+         class Config:
+             json_encoders = {
+                 datetime: lambda v: v.isoformat(),
+             }
+
+
+     class SessionStatus(str, Enum):
+         """Session status enumeration."""
+         RUNNING = "running"
+         COMPLETED = "completed"
+         FAILED = "failed"
+         ROLLED_BACK = "rolled_back"
+
+
+     class SessionMetadata(BaseModel):
+         """Session metadata."""
+         session_id: str
+         flowchart_file: str
+         flowchart_version: int
+         start_time: datetime
+         end_time: Optional[datetime] = None
+         status: SessionStatus = SessionStatus.RUNNING
+         total_steps: int = 0
+         completed_steps: int = 0
+         failed_step: Optional[int] = None
+         seed: int
+         determinism_verified: bool = False
+
+         class Config:
+             json_encoders = {
+                 datetime: lambda v: v.isoformat(),
+             }
+
+   6. debug_audit/config.py
+
+     """
+     Configuration management for the debug-audit system.
+     """
+
+     import os
+     from pathlib import Path
+     from typing import Optional
+
+     from pydantic import Field
+     from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
+     class Config(BaseSettings):
+         """Application configuration."""
+
+         # Trace storage
+         trace_dir: Path = Field(
+             default_factory=lambda: Path.home() / ".debug-audit" / "traces"
+         )
+
+         # Determinism
+         default_seed: int = Field(default=42)
+         enable_determinism_checks: bool = Field(default=True)
+
+         # Logging
+         log_level: str = Field(default="INFO")
+         log_format: str = Field(
+             default="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+         )
+
+         # Execution
+         command_timeout: int = Field(default=300)  # seconds
+         capture_outputs: bool = Field(default=True)
+         max_output_size: int = Field(default=1_000_000)  # bytes
+
+         # Storage
+         compress_traces: bool = Field(default=False)
+         max_trace_age_days: int = Field(default=30)
+
+         model_config = SettingsConfigDict(
+             env_prefix="DEBUG_AUDIT_",
+             env_file=".env",
+             env_file_encoding="utf-8",
+         )
+
+         def ensure_directories(self) -> None:
+             """Ensure required directories exist."""
+             self.trace_dir.mkdir(parents=True, exist_ok=True)
+
+         @classmethod
+         def load(cls, config_file: Optional[Path] = None) -> "Config":
+             """Load configuration from file or environment."""
+             if config_file and config_file.exists():
+                 import yaml
+                 with open(config_file, "r") as f:
+                     data = yaml.safe_load(f)
+                 return cls(**data)
+             return cls()
+
+   7. debug_audit/flowchart.py
+
+     """
+     Flowchart index loading and validation.
+     """
+
+     import json
+     from pathlib import Path
+     from typing import Dict, Optional
+
+     import jsonschema
+     import yaml
+
+     from debug_audit.models import FlowchartIndex
+
+
+     class FlowchartLoader:
+         """Loads and validates flowchart index files."""
+
+         def __init__(self, schema_path: Optional[Path] = None):
+             """Initialize loader with optional schema path."""
+             self.schema_path = schema_path
+             self.schema: Optional[Dict] = None
+             if schema_path and schema_path.exists():
+                 self.schema = self._load_schema(schema_path)
+
+         def _load_schema(self, schema_path: Path) -> Dict:
+             """Load JSON schema from file."""
+             with open(schema_path, "r") as f:
+                 return json.load(f)
+
+         def load(self, flowchart_path: Path) -> FlowchartIndex:
+             """Load flowchart index from YAML or JSON file."""
+             if not flowchart_path.exists():
+                 raise FileNotFoundError(f"Flowchart file not found: {flowchart_path}")
+
+             # Load file based on extension
+             with open(flowchart_path, "r") as f:
+                 if flowchart_path.suffix in [".yaml", ".yml"]:
+                     data = yaml.safe_load(f)
+                 elif flowchart_path.suffix == ".json":
+                     data = json.load(f)
+                 else:
+                     raise ValueError(f"Unsupported file format: {flowchart_path.suffix}")
+
+             # Validate against JSON schema if provided
+             if self.schema:
+                 try:
+                     jsonschema.validate(instance=data, schema=self.schema)
+                 except jsonschema.ValidationError as e:
+                     raise ValueError(f"Flowchart validation failed: {e.message}")
+
+             # Parse into Pydantic model
+             return FlowchartIndex(**data)
+
+         def validate(self, flowchart: FlowchartIndex) -> bool:
+             """Validate flowchart consistency."""
+             # Check step numbering
+             step_numbers = [s.step_number for s in flowchart.steps]
+             if len(step_numbers) != len(set(step_numbers)):
+                 raise ValueError("Duplicate step numbers found")
+
+             # Check phase coverage
+             all_steps = set(range(1, flowchart.meta.total_steps + 1))
+             covered_steps = set()
+             for phase in flowchart.phases:
+                 phase_steps = set(range(phase.step_range[0], phase.step_range[1] + 1))
+                 covered_steps.update(phase_steps)
+
+             # Note: Not all steps may be defined in the YAML (it may be partial)
+             # So we only check that defined steps are within valid range
+             for step_num in step_numbers:
+                 if step_num not in all_steps:
+                     raise ValueError(f"Step {step_num} outside valid range")
+
+             # Check edges reference valid steps
+             for edge in flowchart.edges:
+                 if edge.from_step not in all_steps:
+                     raise ValueError(f"Edge {edge.edge_id} references invalid from_step")
+                 if edge.to_step not in all_steps:
+                     raise ValueError(f"Edge {edge.edge_id} references invalid to_step")
+
+             return True
+
+   8. debug_audit/utils.py
+
+     """
+     Utility functions.
+     """
+
+     import hashlib
+     import random
+     from datetime import datetime
+     from pathlib import Path
+     from typing import Dict, List
+
+
+     def generate_deterministic_id(seed: int, timestamp: datetime, suffix: str = "") -> str:
+         """Generate deterministic ID from seed and timestamp."""
+         random.seed(seed)
+         ts_str = timestamp.isoformat()
+         combined = f"{seed}-{ts_str}-{suffix}-{random.randint(0, 999999)}"
+         return hashlib.sha256(combined.encode()).hexdigest()[:16]
+
+
+     def compute_file_hash(filepath: Path) -> str:
+         """Compute SHA256 hash of file."""
+         sha256 = hashlib.sha256()
+         with open(filepath, "rb") as f:
+             for chunk in iter(lambda: f.read(8192), b""):
+                 sha256.update(chunk)
+         return sha256.hexdigest()
+
+
+     def compute_directory_hash(dirpath: Path, patterns: List[str] = None) -> Dict[str, str]:
+         """Compute hashes of all files in directory."""
+         if patterns is None:
+             patterns = ["*"]
+
+         file_hashes = {}
+         for pattern in patterns:
+             for filepath in dirpath.rglob(pattern):
+                 if filepath.is_file():
+                     rel_path = filepath.relative_to(dirpath)
+                     file_hashes[str(rel_path)] = compute_file_hash(filepath)
+
+         return file_hashes
+
+
+     def safe_filename(name: str) -> str:
+         """Convert string to safe filename."""
+         return "".join(c if c.isalnum() or c in "._-" else "_" for c in name)
+
+
+     def format_duration(milliseconds: int) -> str:
+         """Format duration in human-readable form."""
+         if milliseconds < 1000:
+             return f"{milliseconds}ms"
+         seconds = milliseconds / 1000
+         if seconds < 60:
+             return f"{seconds:.2f}s"
+         minutes = int(seconds // 60)
+         secs = seconds % 60
+         return f"{minutes}m {secs:.1f}s"
+
+   9. debug_audit/capture.py
+
+     """
+     Event capture engine for recording execution.
+     """
+
+     import subprocess
+     import time
+     from datetime import datetime
+     from pathlib import Path
+     from typing import Dict, List, Optional, Tuple
+
+     from debug_audit.config import Config
+     from debug_audit.models import Event, EventType, StateSnapshot
+     from debug_audit.utils import compute_directory_hash, generate_deterministic_id
+
+
+     class EventCapture:
+         """Captures execution events."""
+
+         def __init__(self, config: Config, session_id: str, seed: int):
+             """Initialize event capture."""
+             self.config = config
+             self.session_id = session_id
+             self.seed = seed
+             self.event_counter = 0
+
+         def capture_step_start(
+             self,
+             step_number: int,
+             node_id: str,
+             phase_id: str,
+         ) -> Event:
+             """Capture step start event."""
+             self.event_counter += 1
+             event_id = self._generate_event_id("step_start")
+
+             return Event(
+                 event_id=event_id,
+                 session_id=self.session_id,
+                 timestamp=datetime.now(),
+                 event_type=EventType.STEP_START,
+                 step_number=step_number,
+                 node_id=node_id,
+                 phase_id=phase_id,
+             )
+
+         def capture_step_end(
+             self,
+             step_number: int,
+             node_id: str,
+             phase_id: str,
+             duration_ms: int,
+             success: bool,
+         ) -> Event:
+             """Capture step end event."""
+             self.event_counter += 1
+             event_id = self._generate_event_id("step_end")
+
+             return Event(
+                 event_id=event_id,
+                 session_id=self.session_id,
+                 timestamp=datetime.now(),
+                 event_type=EventType.STEP_END,
+                 step_number=step_number,
+                 node_id=node_id,
+                 phase_id=phase_id,
+                 duration_ms=duration_ms,
+                 exit_code=0 if success else 1,
+             )
+
+         def capture_command(
+             self,
+             step_number: int,
+             command: str,
+             args: List[str],
+             cwd: Optional[Path] = None,
+         ) -> Tuple[Event, subprocess.CompletedProcess]:
+             """Execute and capture command."""
+             self.event_counter += 1
+             event_id = self._generate_event_id("command")
+
+             start_time = time.time()
+
+             # Execute command
+             try:
+                 result = subprocess.run(
+                     [command] + args,
+                     cwd=cwd,
+                     capture_output=self.config.capture_outputs,
+                     timeout=self.config.command_timeout,
+                     text=True,
+                 )
+             except subprocess.TimeoutExpired as e:
+                 result = subprocess.CompletedProcess(
+                     args=[command] + args,
+                     returncode=-1,
+                     stdout=e.stdout.decode() if e.stdout else "",
+                     stderr=f"Command timeout after {self.config.command_timeout}s",
+                 )
+             except Exception as e:
+                 result = subprocess.CompletedProcess(
+                     args=[command] + args,
+                     returncode=-1,
+                     stdout="",
+                     stderr=str(e),
+                 )
+
+             duration_ms = int((time.time() - start_time) * 1000)
+
+             # Truncate outputs if too large
+             stdout = result.stdout or ""
+             stderr = result.stderr or ""
+             if len(stdout) > self.config.max_output_size:
+                 stdout = stdout[: self.config.max_output_size] + "\n[TRUNCATED]"
+             if len(stderr) > self.config.max_output_size:
+                 stderr = stderr[: self.config.max_output_size] + "\n[TRUNCATED]"
+
+             event = Event(
+                 event_id=event_id,
+                 session_id=self.session_id,
+                 timestamp=datetime.now(),
+                 event_type=EventType.COMMAND_EXEC,
+                 step_number=step_number,
+                 command=command,
+                 args=args,
+                 exit_code=result.returncode,
+                 stdout=stdout,
+                 stderr=stderr,
+                 duration_ms=duration_ms,
+             )
+
+             return event, result
+
+         def capture_state_snapshot(
+             self,
+             step_number: int,
+             repo_path: Optional[Path] = None,
+         ) -> StateSnapshot:
+             """Capture state snapshot."""
+             snapshot_id = self._generate_event_id("snapshot")
+
+             git_refs = {}
+             working_tree_status = ""
+             file_hashes = {}
+
+             if repo_path and repo_path.exists():
+                 # Capture Git refs
+                 try:
+                     result = subprocess.run(
+                         ["git", "rev-parse", "HEAD"],
+                         cwd=repo_path,
+                         capture_output=True,
+                         text=True,
+                         timeout=10,
+                     )
+                     if result.returncode == 0:
+                         git_refs["HEAD"] = result.stdout.strip()
+                 except:
+                     pass
+
+                 # Capture working tree status
+                 try:
+                     result = subprocess.run(
+                         ["git", "status", "--porcelain"],
+                         cwd=repo_path,
+                         capture_output=True,
+                         text=True,
+                         timeout=10,
+                     )
+                     if result.returncode == 0:
+                         working_tree_status = result.stdout
+                 except:
+                     pass
+
+                 # Capture file hashes (limited)
+                 try:
+                     file_hashes = compute_directory_hash(repo_path, ["*.py", "*.md"])
+                 except:
+                     pass
+
+             return StateSnapshot(
+                 snapshot_id=snapshot_id,
+                 session_id=self.session_id,
+                 step_number=step_number,
+                 timestamp=datetime.now(),
+                 git_refs=git_refs,
+                 file_hashes=file_hashes,
+                 working_tree_status=working_tree_status,
+             )
+
+         def _generate_event_id(self, prefix: str) -> str:
+             """Generate deterministic event ID."""
+             return generate_deterministic_id(
+                 self.seed + self.event_counter,
+                 datetime.now(),
+                 prefix,
+             )
+
+   10. debug_audit/storage.py
+
+     """
+     Trace storage layer for persisting execution artifacts.
+     """
+
+     import json
+     from datetime import datetime
+     from pathlib import Path
+     from typing import List, Optional
+
+     from debug_audit.config import Config
+     from debug_audit.models import Event, SessionMetadata, StateSnapshot
+
+
+     class TraceStorage:
+         """Manages trace storage on filesystem."""
+
+         def __init__(self, config: Config):
+             """Initialize storage."""
+             self.config = config
+             self.config.ensure_directories()
+
+         def create_session_dir(self, session_id: str) -> Path:
+             """Create directory for session."""
+             session_dir = self.config.trace_dir / session_id
+             session_dir.mkdir(parents=True, exist_ok=True)
+
+             # Create subdirectories
+             (session_dir / "snapshots").mkdir(exist_ok=True)
+             (session_dir / "outputs").mkdir(exist_ok=True)
+
+             return session_dir
+
+         def save_metadata(self, metadata: SessionMetadata) -> None:
+             """Save session metadata."""
+             session_dir = self.config.trace_dir / metadata.session_id
+             metadata_file = session_dir / "metadata.json"
+
+             with open(metadata_file, "w") as f:
+                 json.dump(metadata.model_dump(mode="json"), f, indent=2)
+
+         def load_metadata(self, session_id: str) -> Optional[SessionMetadata]:
+             """Load session metadata."""
+             metadata_file = self.config.trace_dir / session_id / "metadata.json"
+
+             if not metadata_file.exists():
+                 return None
+
+             with open(metadata_file, "r") as f:
+                 data = json.load(f)
+
+             # Parse datetime fields
+             data["start_time"] = datetime.fromisoformat(data["start_time"])
+             if data.get("end_time"):
+                 data["end_time"] = datetime.fromisoformat(data["end_time"])
+
+             return SessionMetadata(**data)
+
+         def append_event(self, event: Event) -> None:
+             """Append event to trace log."""
+             session_dir = self.config.trace_dir / event.session_id
+             events_file = session_dir / "events.jsonl"
+
+             with open(events_file, "a") as f:
+                 f.write(json.dumps(event.model_dump(mode="json")) + "\n")
+
+         def load_events(self, session_id: str) -> List[Event]:
+             """Load all events for session."""
+             events_file = self.config.trace_dir / session_id / "events.jsonl"
+
+             if not events_file.exists():
+                 return []
+
+             events = []
+             with open(events_file, "r") as f:
+                 for line in f:
+                     data = json.loads(line)
+                     # Parse datetime
+                     data["timestamp"] = datetime.fromisoformat(data["timestamp"])
+                     events.append(Event(**data))
+
+             return events
+
+         def save_snapshot(self, snapshot: StateSnapshot) -> None:
+             """Save state snapshot."""
+             session_dir = self.config.trace_dir / snapshot.session_id
+             snapshot_file = session_dir / "snapshots" / f"step_{snapshot.step_number:03d}.json"
+
+             with open(snapshot_file, "w") as f:
+                 json.dump(snapshot.model_dump(mode="json"), f, indent=2)
+
+         def load_snapshot(self, session_id: str, step_number: int) -> Optional[StateSnapshot]:
+             """Load state snapshot."""
+             snapshot_file = (
+                 self.config.trace_dir
+                 / session_id
+                 / "snapshots"
+                 / f"step_{step_number:03d}.json"
+             )
+
+             if not snapshot_file.exists():
+                 return None
+
+             with open(snapshot_file, "r") as f:
+                 data = json.load(f)
+
+             # Parse datetime
+             data["timestamp"] = datetime.fromisoformat(data["timestamp"])
+
+             return StateSnapshot(**data)
+
+         def save_output(self, session_id: str, step_number: int, output: str) -> None:
+             """Save command output."""
+             session_dir = self.config.trace_dir / session_id
+             output_file = session_dir / "outputs" / f"step_{step_number:03d}.txt"
+
+             with open(output_file, "w") as f:
+                 f.write(output)
+
+         def list_sessions(self) -> List[str]:
+             """List all session IDs."""
+             if not self.config.trace_dir.exists():
+                 return []
+
+             sessions = []
+             for item in self.config.trace_dir.iterdir():
+                 if item.is_dir() and (item / "metadata.json").exists():
+                     sessions.append(item.name)
+
+             return sorted(sessions, reverse=True)  # Most recent first
+
+         def delete_session(self, session_id: str) -> bool:
+             """Delete session trace."""
+             session_dir = self.config.trace_dir / session_id
+
+             if not session_dir.exists():
+                 return False
+
+             import shutil
+             shutil.rmtree(session_dir)
+             return True
+
+   11. debug_audit/executor.py
+
+     """
+     Step executor that runs flowchart steps with tracing.
+     """
+
+     import time
+     from pathlib import Path
+     from typing import Optional
+
+     from debug_audit.capture import EventCapture
+     from debug_audit.flowchart import FlowchartIndex
+     from debug_audit.models import Step
+     from debug_audit.storage import TraceStorage
+
+
+     class StepExecutor:
+         """Executes flowchart steps with event capture."""
+
+         def __init__(
+             self,
+             flowchart: FlowchartIndex,
+             capture: EventCapture,
+             storage: TraceStorage,
+             dry_run: bool = False,
+         ):
+             """Initialize executor."""
+             self.flowchart = flowchart
+             self.capture = capture
+             self.storage = storage
+             self.dry_run = dry_run
+
+         def execute_step(
+             self,
+             step: Step,
+             repo_path: Optional[Path] = None,
+         ) -> bool:
+             """Execute a single step."""
+             # Capture step start
+             start_event = self.capture.capture_step_start(
+                 step_number=step.step_number,
+                 node_id=step.node_id,
+                 phase_id=step.phase_id,
+             )
+             self.storage.append_event(start_event)
+
+             # Capture pre-execution snapshot
+             if repo_path:
+                 snapshot = self.capture.capture_state_snapshot(
+                     step_number=step.step_number,
+                     repo_path=repo_path,
+                 )
+                 self.storage.save_snapshot(snapshot)
+
+             # Execute commands
+             success = True
+             start_time = time.time()
+
+             if not self.dry_run:
+                 for command_str in step.commands:
+                     # Parse command
+                     parts = command_str.split()
+                     if not parts:
+                         continue
+
+                     command = parts[0]
+                     args = parts[1:]
+
+                     # Execute and capture
+                     event, result = self.capture.capture_command(
+                         step_number=step.step_number,
+                         command=command,
+                         args=args,
+                         cwd=repo_path,
+                     )
+                     self.storage.append_event(event)
+
+                     # Save output
+                     if event.stdout:
+                         self.storage.save_output(
+                             self.capture.session_id,
+                             step.step_number,
+                             event.stdout,
+                         )
+
+                     # Check for failure
+                     if result.returncode != 0:
+                         success = False
+                         break
+             else:
+                 # Dry run - just log
+                 time.sleep(0.01)  # Simulate work
+
+             duration_ms = int((time.time() - start_time) * 1000)
+
+             # Capture step end
+             end_event = self.capture.capture_step_end(
+                 step_number=step.step_number,
+                 node_id=step.node_id,
+                 phase_id=step.phase_id,
+                 duration_ms=duration_ms,
+                 success=success,
+             )
+             self.storage.append_event(end_event)
+
+             return success
+
+   12. debug_audit/session.py
+
+     """
+     Session management for coordinating execution and tracing.
+     """
+
+     from datetime import datetime
+     from pathlib import Path
+     from typing import Optional
+
+     from debug_audit.capture import EventCapture
+     from debug_audit.config import Config
+     from debug_audit.executor import StepExecutor
+     from debug_audit.flowchart import FlowchartIndex, FlowchartLoader
+     from debug_audit.models import SessionMetadata, SessionStatus
+     from debug_audit.storage import TraceStorage
+     from debug_audit.utils import generate_deterministic_id
+
+
+     class Session:
+         """Manages a debugging/audit session."""
+
+         def __init__(
+             self,
+             config: Config,
+             flowchart_path: Path,
+             seed: Optional[int] = None,
+             dry_run: bool = False,
+         ):
+             """Initialize session."""
+             self.config = config
+             self.flowchart_path = flowchart_path
+             self.seed = seed if seed is not None else config.default_seed
+             self.dry_run = dry_run
+
+             # Load flowchart
+             loader = FlowchartLoader()
+             self.flowchart = loader.load(flowchart_path)
+             loader.validate(self.flowchart)
+
+             # Generate session ID
+             self.session_id = generate_deterministic_id(
+                 self.seed,
+                 datetime.now(),
+                 "session",
+             )
+
+             # Initialize components
+             self.storage = TraceStorage(config)
+             self.capture = EventCapture(config, self.session_id, self.seed)
+             self.executor = StepExecutor(
+                 self.flowchart,
+                 self.capture,
+                 self.storage,
+                 dry_run,
+             )
+
+             # Create session directory
+             self.storage.create_session_dir(self.session_id)
+
+             # Initialize metadata
+             self.metadata = SessionMetadata(
+                 session_id=self.session_id,
+                 flowchart_file=str(flowchart_path),
+                 flowchart_version=self.flowchart.meta.version,
+                 start_time=datetime.now(),
+                 status=SessionStatus.RUNNING,
+                 total_steps=self.flowchart.meta.total_steps,
+                 seed=self.seed,
+             )
+
+         def run(self, repo_path: Optional[Path] = None) -> bool:
+             """Run all steps in the flowchart."""
+             self.storage.save_metadata(self.metadata)
+
+             success = True
+             for step in self.flowchart.steps:
+                 step_success = self.executor.execute_step(step, repo_path)
+
+                 self.metadata.completed_steps += 1
+
+                 if not step_success:
+                     self.metadata.status = SessionStatus.FAILED
+                     self.metadata.failed_step = step.step_number
+                     success = False
+                     break
+
+             if success:
+                 self.metadata.status = SessionStatus.COMPLETED
+
+             self.metadata.end_time = datetime.now()
+             self.storage.save_metadata(self.metadata)
+
+             return success
+
+         def get_session_id(self) -> str:
+             """Get the session ID."""
+             return self.session_id
+
+   13. debug_audit/replay.py
+
+     """
+     Replay engine for verifying determinism.
+     """
+
+     from pathlib import Path
+     from typing import List, Tuple
+
+     from debug_audit.config import Config
+     from debug_audit.models import Event, SessionMetadata
+     from debug_audit.session import Session
+     from debug_audit.storage import TraceStorage
+
+
+     class ReplayEngine:
+         """Replays execution traces and verifies determinism."""
+
+         def __init__(self, config: Config):
+             """Initialize replay engine."""
+             self.config = config
+             self.storage = TraceStorage(config)
+
+         def load_session(self, session_id: str) -> Tuple[SessionMetadata, List[Event]]:
+             """Load session metadata and events."""
+             metadata = self.storage.load_metadata(session_id)
+             if not metadata:
+                 raise ValueError(f"Session not found: {session_id}")
+
+             events = self.storage.load_events(session_id)
+             return metadata, events
+
+         def replay_session(
+             self,
+             session_id: str,
+             repo_path: Path = None,
+         ) -> Tuple[str, bool]:
+             """Replay a session and return new session ID and success."""
+             # Load original session
+             original_metadata, original_events = self.load_session(session_id)
+
+             # Create new session with same seed and flowchart
+             flowchart_path = Path(original_metadata.flowchart_file)
+             if not flowchart_path.exists():
+                 raise ValueError(f"Flowchart file not found: {flowchart_path}")
+
+             new_session = Session(
+                 config=self.config,
+                 flowchart_path=flowchart_path,
+                 seed=original_metadata.seed,
+                 dry_run=False,
+             )
+
+             # Run the session
+             success = new_session.run(repo_path)
+
+             return new_session.get_session_id(), success
+
+         def verify_determinism(
+             self,
+             session_id_1: str,
+             session_id_2: str,
+         ) -> Tuple[bool, List[str]]:
+             """Verify two sessions are deterministically identical."""
+             # Load both sessions
+             meta1, events1 = self.load_session(session_id_1)
+             meta2, events2 = self.load_session(session_id_2)
+
+             differences = []
+
+             # Compare metadata
+             if meta1.total_steps != meta2.total_steps:
+                 differences.append(
+                     f"Different step counts: {meta1.total_steps} vs {meta2.total_steps}"
+                 )
+
+             if meta1.completed_steps != meta2.completed_steps:
+                 differences.append(
+                     f"Different completed steps: {meta1.completed_steps} vs {meta2.completed_steps}"
+                 )
+
+             if meta1.status != meta2.status:
+                 differences.append(f"Different statuses: {meta1.status} vs {meta2.status}")
+
+             # Compare events
+             if len(events1) != len(events2):
+                 differences.append(
+                     f"Different event counts: {len(events1)} vs {len(events2)}"
+                 )
+                 return False, differences
+
+             for i, (e1, e2) in enumerate(zip(events1, events2)):
+                 if e1.event_type != e2.event_type:
+                     differences.append(
+                         f"Event {i}: Different types: {e1.event_type} vs {e2.event_type}"
+                     )
+
+                 if e1.exit_code != e2.exit_code:
+                     differences.append(
+                         f"Event {i}: Different exit codes: {e1.exit_code} vs {e2.exit_code}"
+                     )
+
+                 if e1.command and e2.command and e1.command != e2.command:
+                     differences.append(
+                         f"Event {i}: Different commands: {e1.command} vs {e2.command}"
+                     )
+
+             is_deterministic = len(differences) == 0
+             return is_deterministic, differences
+
+   14. debug_audit/cli.py
+
+     """
+     CLI interface for debug-audit system.
+     """
+
+     import sys
+     from pathlib import Path
+     from typing import Optional
+
+     import click
+     from rich.console import Console
+     from rich.table import Table
+     from rich.tree import Tree
+
+     from debug_audit.config import Config
+     from debug_audit.models import EventType
+     from debug_audit.replay import ReplayEngine
+     from debug_audit.session import Session
+     from debug_audit.storage import TraceStorage
+     from debug_audit.utils import format_duration
+
+     console = Console()
+
+
+     @click.group()
+     @click.version_option(version="1.0.0")
+     def cli():
+         """Deterministic Debugging and Audit System for Git Merge Processes."""
+         pass
+
+
+     @cli.command()
+     @click.argument("flowchart", type=click.Path(exists=True, path_type=Path))
+     @click.option("--seed", type=int, help="Random seed for determinism")
+     @click.option("--repo-path", type=click.Path(exists=True, path_type=Path), help="Repository
+   path")
+     @click.option("--dry-run", is_flag=True, help="Dry run without executing commands")
+     @click.option("--config", type=click.Path(exists=True, path_type=Path), help="Config file")
+     def run(
+         flowchart: Path,
+         seed: Optional[int],
+         repo_path: Optional[Path],
+         dry_run: bool,
+         config: Optional[Path],
+     ):
+         """Run a flowchart with tracing enabled."""
+         try:
+             # Load config
+             cfg = Config.load(config) if config else Config()
+
+             console.print(f"[bold blue]Starting session with flowchart:[/bold blue] {flowchart}")
+             if dry_run:
+                 console.print("[yellow]DRY RUN MODE - Commands will not be executed[/yellow]")
+
+             # Create session
+             session = Session(
+                 config=cfg,
+                 flowchart_path=flowchart,
+                 seed=seed,
+                 dry_run=dry_run,
+             )
+
+             console.print(f"[green]Session ID:[/green] {session.get_session_id()}")
+             console.print(f"[green]Seed:[/green] {session.seed}")
+             console.print()
+
+             # Run session
+             with console.status("[bold green]Executing steps..."):
+                 success = session.run(repo_path)
+
+             # Report results
+             if success:
+                 console.print(f"[bold green]✓ Session completed successfully[/bold green]")
+             else:
+                 console.print(f"[bold red]✗ Session failed at step
+   {session.metadata.failed_step}[/bold red]")
+
+             console.print(f"\nSession trace saved to: {cfg.trace_dir / session.get_session_id()}")
+
+             sys.exit(0 if success else 1)
+
+         except Exception as e:
+             console.print(f"[bold red]Error:[/bold red] {e}")
+             sys.exit(1)
+
+
+     @cli.command()
+     @click.option("--config", type=click.Path(exists=True, path_type=Path), help="Config file")
+     def list(config: Optional[Path]):
+         """List all recorded sessions."""
+         try:
+             cfg = Config.load(config) if config else Config()
+             storage = TraceStorage(cfg)
+
+             sessions = storage.list_sessions()
+
+             if not sessions:
+                 console.print("[yellow]No sessions found[/yellow]")
+                 return
+
+             table = Table(title="Recorded Sessions")
+             table.add_column("Session ID", style="cyan")
+             table.add_column("Status", style="green")
+             table.add_column("Flowchart", style="blue")
+             table.add_column("Steps", justify="right")
+             table.add_column("Started", style="dim")
+
+             for session_id in sessions:
+                 metadata = storage.load_metadata(session_id)
+                 if metadata:
+                     status_color = {
+                         "completed": "green",
+                         "failed": "red",
+                         "running": "yellow",
+                         "rolled_back": "orange",
+                     }.get(metadata.status.value, "white")
+
+                     table.add_row(
+                         session_id[:16] + "...",
+                         f"[{status_color}]{metadata.status.value}[/{status_color}]",
+                         Path(metadata.flowchart_file).name,
+                         f"{metadata.completed_steps}/{metadata.total_steps}",
+                         metadata.start_time.strftime("%Y-%m-%d %H:%M:%S"),
+                     )
+
+             console.print(table)
+
+         except Exception as e:
+             console.print(f"[bold red]Error:[/bold red] {e}")
+             sys.exit(1)
+
+
+     @cli.command()
+     @click.argument("session_id")
+     @click.option("--step", type=int, help="Filter by step number")
+     @click.option("--show-commands", is_flag=True, help="Show command details")
+     @click.option("--show-outputs", is_flag=True, help="Show command outputs")
+     @click.option("--config", type=click.Path(exists=True, path_type=Path), help="Config file")
+     def inspect(
+         session_id: str,
+         step: Optional[int],
+         show_commands: bool,
+         show_outputs: bool,
+         config: Optional[Path],
+     ):
+         """Inspect a recorded session."""
+         try:
+             cfg = Config.load(config) if config else Config()
+             storage = TraceStorage(cfg)
+
+             # Load session
+             metadata = storage.load_metadata(session_id)
+             if not metadata:
+                 console.print(f"[red]Session not found:[/red] {session_id}")
+                 sys.exit(1)
+
+             events = storage.load_events(session_id)
+
+             # Display metadata
+             console.print(f"[bold]Session:[/bold] {metadata.session_id}")
+             console.print(f"[bold]Status:[/bold] {metadata.status.value}")
+             console.print(f"[bold]Flowchart:[/bold] {metadata.flowchart_file}")
+             console.print(f"[bold]Steps:[/bold] {metadata.completed_steps}/{metadata.total_steps}")
+             console.print(f"[bold]Seed:[/bold] {metadata.seed}")
+             console.print(f"[bold]Started:[/bold] {metadata.start_time}")
+             if metadata.end_time:
+                 duration = (metadata.end_time - metadata.start_time).total_seconds()
+                 console.print(f"[bold]Duration:[/bold] {duration:.2f}s")
+             console.print()
+
+             # Filter events
+             if step:
+                 events = [e for e in events if e.step_number == step]
+
+             # Display events
+             tree = Tree(f"[bold]Events ({len(events)})[/bold]")
+
+             current_step = None
+             step_node = None
+
+             for event in events:
+                 if event.step_number != current_step:
+                     current_step = event.step_number
+                     step_node = tree.add(f"[cyan]Step {current_step:03d}[/cyan] ({event.node_id})")
+
+                 event_label = f"[dim]{event.timestamp.strftime('%H:%M:%S.%f')[:-3]}[/dim]
+   {event.event_type.value}"
+
+                 if event.event_type == EventType.COMMAND_EXEC and show_commands:
+                     cmd_str = f"{event.command} {' '.join(event.args)}"
+                     event_node = step_node.add(f"{event_label}: [yellow]{cmd_str}[/yellow]")
+                     event_node.add(f"Exit code: {event.exit_code}")
+                     event_node.add(f"Duration: {format_duration(event.duration_ms)}")
+
+                     if show_outputs and event.stdout:
+                         output_lines = event.stdout.split("\n")[:5]
+                         event_node.add(f"Output: {output_lines[0]}")
+                         if len(output_lines) > 1:
+                             event_node.add("[dim]...[/dim]")
+                 else:
+                     step_node.add(event_label)
+
+             console.print(tree)
+
+         except Exception as e:
+             console.print(f"[bold red]Error:[/bold red] {e}")
+             sys.exit(1)
+
+
+     @cli.command()
+     @click.argument("session_id")
+     @click.option("--repo-path", type=click.Path(exists=True, path_type=Path), help="Repository
+   path")
+     @click.option("--verify", is_flag=True, help="Verify determinism")
+     @click.option("--config", type=click.Path(exists=True, path_type=Path), help="Config file")
+     def replay(
+         session_id: str,
+         repo_path: Optional[Path],
+         verify: bool,
+         config: Optional[Path],
+     ):
+         """Replay a recorded session."""
+         try:
+             cfg = Config.load(config) if config else Config()
+             engine = ReplayEngine(cfg)
+
+             console.print(f"[bold blue]Replaying session:[/bold blue] {session_id}")
+
+             # Replay session
+             with console.status("[bold green]Replaying..."):
+                 new_session_id, success = engine.replay_session(session_id, repo_path)
+
+             console.print(f"[green]New session ID:[/green] {new_session_id}")
+
+             if success:
+                 console.print("[bold green]✓ Replay completed successfully[/bold green]")
+             else:
+                 console.print("[bold red]✗ Replay failed[/bold red]")
+
+             # Verify determinism if requested
+             if verify:
+                 console.print("\n[bold]Verifying determinism...[/bold]")
+                 is_deterministic, differences = engine.verify_determinism(
+                     session_id, new_session_id
+                 )
+
+                 if is_deterministic:
+                     console.print("[bold green]✓ Sessions are deterministically identical[/bold
+   green]")
+                 else:
+                     console.print("[bold red]✗ Sessions differ:[/bold red]")
+                     for diff in differences:
+                         console.print(f"  - {diff}")
+
+         except Exception as e:
+             console.print(f"[bold red]Error:[/bold red] {e}")
+             sys.exit(1)
+
+
+     if __name__ == "__main__":
+         cli()
+
+   15. tests/__init__.py
+
+     """Test package."""
+
+   16. tests/conftest.py
+
+     """
+     Pytest fixtures and configuration.
+     """
+
+     import tempfile
+     from pathlib import Path
+
+     import pytest
+
+     from debug_audit.config import Config
+     from debug_audit.models import FlowchartIndex, FlowchartMeta, Phase, Step, StepRole, RepoTarget
+
+
+     @pytest.fixture
+     def temp_dir():
+         """Create temporary directory."""
+         with tempfile.TemporaryDirectory() as tmpdir:
+             yield Path(tmpdir)
+
+
+     @pytest.fixture
+     def config(temp_dir):
+         """Create test configuration."""
+         return Config(
+             trace_dir=temp_dir / "traces",
+             default_seed=42,
+             command_timeout=10,
+         )
+
+
+     @pytest.fixture
+     def sample_flowchart():
+         """Create sample flowchart."""
+         return FlowchartIndex(
+             meta=FlowchartMeta(
+                 name="Test Flowchart",
+                 version=1,
+                 total_steps=5,
+                 total_phases=2,
+             ),
+             phases=[
+                 Phase(
+                     phase_id="PHASE_00",
+                     phase_number=0,
+                     name="Test Phase 1",
+                     step_range=[1, 3],
+                 ),
+                 Phase(
+                     phase_id="PHASE_01",
+                     phase_number=1,
+                     name="Test Phase 2",
+                     step_range=[4, 5],
+                 ),
+             ],
+             steps=[
+                 Step(
+                     step_number=1,
+                     node_id="STEP_001",
+                     phase_id="PHASE_00",
+                     role=StepRole.BOTH,
+                     repo=RepoTarget.BOTH,
+                     label="Test step 1",
+                     commands=["echo", "Hello World"],
+                 ),
+                 Step(
+                     step_number=2,
+                     node_id="STEP_002",
+                     phase_id="PHASE_00",
+                     role=StepRole.P,
+                     repo=RepoTarget.PIPELINE,
+                     label="Test step 2",
+                     commands=["echo", "Step 2"],
+                 ),
+                 Step(
+                     step_number=3,
+                     node_id="STEP_003",
+                     phase_id="PHASE_00",
+                     role=StepRole.M,
+                     repo=RepoTarget.MINIPIPE,
+                     label="Test step 3",
+                     commands=[],
+                 ),
+             ],
+             edges=[],
+         )
+
+
+     @pytest.fixture
+     def sample_flowchart_file(temp_dir, sample_flowchart):
+         """Create sample flowchart YAML file."""
+         import yaml
+
+         flowchart_file = temp_dir / "test_flowchart.yaml"
+         with open(flowchart_file, "w") as f:
+             yaml.dump(sample_flowchart.model_dump(), f)
+
+         return flowchart_file
+
+   17. tests/test_config.py
+
+     """Tests for configuration management."""
+
+     from pathlib import Path
+
+     from debug_audit.config import Config
+
+
+     def test_config_defaults():
+         """Test default configuration."""
+         config = Config()
+
+         assert config.default_seed == 42
+         assert config.enable_determinism_checks is True
+         assert config.log_level == "INFO"
+         assert config.command_timeout == 300
+
+
+     def test_config_custom_values(temp_dir):
+         """Test custom configuration values."""
+         config = Config(
+             trace_dir=temp_dir / "custom_traces",
+             default_seed=123,
+             log_level="DEBUG",
+         )
+
+         assert config.trace_dir == temp_dir / "custom_traces"
+         assert config.default_seed == 123
+         assert config.log_level == "DEBUG"
+
+
+     def test_ensure_directories(temp_dir):
+         """Test directory creation."""
+         config = Config(trace_dir=temp_dir / "new_dir")
+
+         assert not config.trace_dir.exists()
+
+         config.ensure_directories()
+
+         assert config.trace_dir.exists()
+         assert config.trace_dir.is_dir()
+
+   18. tests/test_flowchart.py
+
+     """Tests for flowchart loading and validation."""
+
+     import json
+     from pathlib import Path
+
+     import pytest
+     import yaml
+
+     from debug_audit.flowchart import FlowchartLoader
+     from debug_audit.models import FlowchartIndex
+
+
+     def test_load_yaml_flowchart(sample
+
+ ~\ALL_AI\PROCESS_FOR_ALL\GIT_PROCESS[⎇ master*]                              claude-sonnet-4.5 (1x)
+ ────────────────────────────────────────────────────────────────────────────────────────────────────
+ >  Enter @ to mention files or / for commands
+ ────────────────────────────────────────────────────────────────────────────────────────────────────
+ Ctrl+c Exit · Ctrl+r Expand recent                                         Remaining requests: 44.2%
+‌
