@@ -646,7 +646,12 @@ if file_type == "py":
 elif file_type == "md":
     if content.startswith('---'):
         # Update YAML frontmatter
-        end_idx = content.index('---', 3)
+        # Note: Proper implementation should validate frontmatter is closed
+        try:
+            end_idx = content.index('---', 3)
+        except ValueError:
+            # Frontmatter not properly closed, create new one
+            return f"---\ndoc_id: {doc_id}\n---\n\n{content}"
         frontmatter = content[3:end_idx]
         updated = frontmatter + f"\ndoc_id: {doc_id}\n"
         return '---' + updated + '---' + content[end_idx+3:]
