@@ -82,7 +82,7 @@ class ImportPatternAnalyzer:
             },
             {
                 "old_pattern": r"^from error\.engine import",
-                "new_pattern": "from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.engine import",
+                "new_pattern": "from error.engine import",
                 "confidence": 100
             },
             {
@@ -92,20 +92,20 @@ class ImportPatternAnalyzer:
             },
             {
                 "old_pattern": r"^from modules\.error_shared import",
-                "new_pattern": "from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error.shared.utils import",
+                "new_pattern": "from error.shared.utils import",
                 "confidence": 100
             },
             # Deprecated patterns (should be blocked)
             {
                 "old_pattern": r"^from src\.pipeline",
                 "action": "block",
-                "message": "Deprecated: use UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core",
+                "message": "Deprecated: use core module instead",
                 "confidence": 100
             },
             {
                 "old_pattern": r"^from MOD_ERROR_PIPELINE",
                 "action": "block",
-                "message": "Deprecated: use UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.error",
+                "message": "Deprecated: use error module instead",
                 "confidence": 100
             }
         ]
