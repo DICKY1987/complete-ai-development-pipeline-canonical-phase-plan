@@ -203,7 +203,7 @@ class CleanupExecutor:
 
     def _execute_exec_014(self, dry_run: bool) -> tuple[Dict, List[str]]:
         """Execute EXEC-014: Exact Duplicate Eliminator."""
-        from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.patterns.automation.detectors.duplicate_detector import DuplicateDetector
+        from patterns.automation.detectors.duplicate_detector import DuplicateDetector
 
         detector = DuplicateDetector()
         scan_paths = self.config.get("global", {}).get("scan_paths", ["."])
@@ -232,7 +232,7 @@ class CleanupExecutor:
 
     def _execute_exec_016(self, dry_run: bool) -> tuple[Dict, List[str]]:
         """Execute EXEC-016: Import Path Standardizer."""
-        from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.patterns.automation.detectors.import_pattern_analyzer import ImportPatternAnalyzer
+        from patterns.automation.detectors.import_pattern_analyzer import ImportPatternAnalyzer
 
         analyzer = ImportPatternAnalyzer()
         scan_paths = self.config.get("global", {}).get("scan_paths", ["."])
