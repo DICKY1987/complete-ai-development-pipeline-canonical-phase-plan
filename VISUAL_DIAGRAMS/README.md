@@ -99,15 +99,15 @@ This directory contains visual diagrams and documentation for understanding the 
 ## 🎨 Diagram Standards
 
 ### Color Coding (Horizontal Pipeline)
-- 🟣 **Purple**: Input sources (user-facing)
-- 🔵 **Blue**: Validation (schema/config)
-- 🟢 **Green**: Planning (task decomposition)
-- 🟠 **Orange**: Scheduling (queue management)
-- 🟡 **Yellow**: Execution (core engine)
-- 🔴 **Red**: Error Detection (scanning)
-- 🟣 **Purple**: Recovery (resilience)
-- ⚫ **Gray**: State (persistence)
-- 🔵 **Light Blue**: Output (monitoring)
+- 🟪 **Light Purple** (`#E8D5F2`): Input sources (user-facing)
+- 🔵 **Light Blue** (`#AED6F1`): Validation (schema/config)
+- 🟢 **Light Green** (`#A9DFBF`): Planning (task decomposition)
+- 🟠 **Peach** (`#FAD7A0`): Scheduling (queue management)
+- 🟡 **Light Yellow** (`#F9E79F`): Execution (core engine)
+- 🔴 **Light Red** (`#F5B7B1`): Error Detection (scanning)
+- 🟣 **Medium Purple** (`#D7BDE2`): Recovery (resilience)
+- ⚪ **Light Gray** (`#AEB6BF`): State (persistence)
+- 🔷 **Sky Blue** (`#A9CCE3`): Output (monitoring)
 
 ### Formats
 - **`.mmd`**: Mermaid diagrams (can be rendered on GitHub)

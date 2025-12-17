@@ -547,17 +547,17 @@ ORDER BY timestamp ASC;
 
 ## 🎨 Color Legend
 
-| Color | Stage | Purpose |
-|-------|-------|---------|
-| 🟣 Purple | Input | User-facing entry points |
-| 🔵 Blue | Validation | Schema/config validation |
-| 🟢 Green | Planning | Task planning & decomposition |
-| 🟠 Orange | Scheduling | Queue & priority management |
-| 🟡 Yellow | Execution | Core execution engine |
-| 🔴 Red | Error Detection | Error scanning & detection |
-| 🟣 Purple | Recovery | Error recovery & resilience |
-| ⚫ Gray | State | State machines & persistence |
-| 🔵 Light Blue | Output | Results & monitoring |
+| Color | Hex Code | Stage | Purpose |
+|-------|----------|-------|---------|
+| 🟪 Light Purple | `#E8D5F2` | Input | User-facing entry points |
+| 🔵 Light Blue | `#AED6F1` | Validation | Schema/config validation |
+| 🟢 Light Green | `#A9DFBF` | Planning | Task planning & decomposition |
+| 🟠 Peach | `#FAD7A0` | Scheduling | Queue & priority management |
+| 🟡 Light Yellow | `#F9E79F` | Execution | Core execution engine |
+| 🔴 Light Red | `#F5B7B1` | Error Detection | Error scanning & detection |
+| 🟣 Medium Purple | `#D7BDE2` | Recovery | Error recovery & resilience |
+| ⚪ Light Gray | `#AEB6BF` | State | State machines & persistence |
+| 🔷 Sky Blue | `#A9CCE3` | Output | Results & monitoring |
 
 ---
 
