@@ -123,7 +123,8 @@ graph LR
             RUN_SM["▶️ Run SM<br/><small>5 states</small>"]
             WS_SM["📦 Workstream SM<br/><small>9 states</small>"]
             TASK_SM["✅ Task SM<br/><small>9 states</small>"]
-            WORKER_SM["👷 Worker SM<br/><small>5 states</small>"]
+            ORCH_WORKER_SM["👷 Orch Worker SM<br/><small>5 states</small>"]
+            UET_WORKER_SM["🔧 UET Worker SM<br/><small>5 states</small>"]
             PATCH_SM["📝 Patch SM<br/><small>10 states</small>"]
             GATE_SM["🚦 Test Gate SM<br/><small>5 states</small>"]
             CB_SM["🔌 CB SM<br/><small>3 states</small>"]
@@ -224,14 +225,16 @@ graph LR
     EXECUTOR --> RUN_SM
     EXECUTOR --> WS_SM
     EXECUTOR --> TASK_SM
-    EXECUTOR --> WORKER_SM
+    EXECUTOR --> ORCH_WORKER_SM
+    EXECUTOR --> UET_WORKER_SM
     AUTO_FIX --> PATCH_SM
     RUNTIME --> GATE_SM
     CB_MGR --> CB_SM
     RUN_SM --> STATE_DB
     WS_SM --> STATE_DB
     TASK_SM --> STATE_DB
-    WORKER_SM --> STATE_DB
+    ORCH_WORKER_SM --> STATE_DB
+    UET_WORKER_SM --> STATE_DB
     PATCH_SM --> STATE_DB
     GATE_SM --> STATE_DB
     CB_SM --> STATE_DB
@@ -273,7 +276,7 @@ graph LR
     class EXECUTION,ORCHESTRATOR,WORKTREE,PHASES,EDIT,STATIC,RUNTIME,EXECUTOR,ADAPTERS,AIDER,CLAUDE,COPILOT,WORKER_POOL executionStyle
     class ERROR_DETECT,ERROR_ENGINE,PLUGINS,PYTHON_LINT,JS_LINT,SEC_SCAN,TEST_RUN,CLASSIFIER errorStyle
     class RECOVERY,CB_MGR,RETRY,AUTO_FIX,ROLLBACK recoveryStyle
-    class STATE_LAYER,STATE_MACHINES,RUN_SM,WS_SM,TASK_SM,WORKER_SM,PATCH_SM,GATE_SM,CB_SM,STATE_DB stateStyle
+    class STATE_LAYER,STATE_MACHINES,RUN_SM,WS_SM,TASK_SM,ORCH_WORKER_SM,UET_WORKER_SM,PATCH_SM,GATE_SM,CB_SM,STATE_DB stateStyle
     class OUTPUT,OUTPUTS,MODULES,LOGS,STATE_FILE,ARCHIVE,MONITORING,METRICS,HEALTH,DASHBOARD outputStyle
 ```
 
@@ -391,8 +394,9 @@ graph LR
   - **Run**: Pipeline execution state (5 states)
   - **Workstream**: Work package state (9 states)
   - **Task**: Individual task state (9 states)
-  - **Worker**: Worker lifecycle (5 states)
-  - **Patch**: Code patch state (10 states)
+  - **Orchestration Worker**: Orchestration worker lifecycle (5 states)
+  - **UET Worker**: UET execution worker lifecycle (5 states)
+  - **Patch Ledger**: Code patch state (10 states)
   - **Test Gate**: Test validation (5 states)
   - **Circuit Breaker**: Tool protection (3 states)
 - **State Database**: SQLite (dev) or PostgreSQL (prod)
