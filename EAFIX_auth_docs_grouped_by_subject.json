@@ -1,0 +1,913 @@
+{
+  "metadata": {
+    "source_repository": "https://github.com/DICKY1987/eafix-modular",
+    "source_folder": "EAFIX_auth_docs",
+    "generated_at": "2026-06-19T13:56:25Z",
+    "total_files": 114,
+    "total_groups": 17,
+    "purpose": "Subject-matter grouping of all documents in EAFIX_auth_docs for cleanup and consolidation.",
+    "total_assigned_files": 114
+  },
+  "groups": {
+    "Product & Technical Design": {
+      "description": "High-level product requirements, technical design documents, and grounded process specifications.",
+      "file_count": 4,
+      "files": [
+        {
+          "filename": "0110000019260118_PRODUCT_DESIGN_REQUIREMENTS.md",
+          "path": "EAFIX_auth_docs/0110000019260118_PRODUCT_DESIGN_REQUIREMENTS.md",
+          "sha": "c6b658195fd1992a6ad187fddd3dc8e91ac3af5a",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/0110000019260118_PRODUCT_DESIGN_REQUIREMENTS.md",
+          "size_bytes": 52760
+        },
+        {
+          "filename": "0110000020260118_TECHNICAL_DESIGN_DOCUMENT.md",
+          "path": "EAFIX_auth_docs/0110000020260118_TECHNICAL_DESIGN_DOCUMENT.md",
+          "sha": "9257350658ffb8894f27bb134a00d0e293af76f3",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/0110000020260118_TECHNICAL_DESIGN_DOCUMENT.md",
+          "size_bytes": 36878
+        },
+        {
+          "filename": "PROCESS_SPEC_SOURCE_GROUNDED_v1.0.md",
+          "path": "EAFIX_auth_docs/PROCESS_SPEC_SOURCE_GROUNDED_v1.0.md",
+          "sha": "cead296dc4ac70587228e4ad128cc74ce32c784b",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/PROCESS_SPEC_SOURCE_GROUNDED_v1.0.md",
+          "size_bytes": 92137
+        },
+        {
+          "filename": "source_grounded_trading_process_spec.md",
+          "path": "EAFIX_auth_docs/source_grounded_trading_process_spec.md",
+          "sha": "7fee1bd60556d4a19a8edc44c8b1b769dd02557b",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/source_grounded_trading_process_spec.md",
+          "size_bytes": 79956
+        }
+      ]
+    },
+    "Operations & Runbooks": {
+      "description": "Operational procedures, runbooks, incident response playbooks, and service health guides.",
+      "file_count": 12,
+      "files": [
+        {
+          "filename": "0110000041260118_backup-recovery.md",
+          "path": "EAFIX_auth_docs/0110000041260118_backup-recovery.md",
+          "sha": "6c4d99c9b9da877cef30171a7e3429771d289d9d",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/0110000041260118_backup-recovery.md",
+          "size_bytes": 171
+        },
+        {
+          "filename": "0110000042260118_capacity-management.md",
+          "path": "EAFIX_auth_docs/0110000042260118_capacity-management.md",
+          "sha": "d93452b498bed6cf2b57e8e311f69c67de269c80",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/0110000042260118_capacity-management.md",
+          "size_bytes": 210
+        },
+        {
+          "filename": "0110000043260118_common-issues.md",
+          "path": "EAFIX_auth_docs/0110000043260118_common-issues.md",
+          "sha": "f9570f66cfa13cb6718a4c6e23066bc2da4f395e",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/0110000043260118_common-issues.md",
+          "size_bytes": 16051
+        },
+        {
+          "filename": "0110000044260118_deployment.md",
+          "path": "EAFIX_auth_docs/0110000044260118_deployment.md",
+          "sha": "5b1a575ea79b900d8be1c35d70b6092904de5e54",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/0110000044260118_deployment.md",
+          "size_bytes": 12568
+        },
+        {
+          "filename": "0110000045260118_escalation-procedures.md",
+          "path": "EAFIX_auth_docs/0110000045260118_escalation-procedures.md",
+          "sha": "11ddb206fae179ed98155936cebc5ae70e4fb9ac",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/0110000045260118_escalation-procedures.md",
+          "size_bytes": 12627
+        },
+        {
+          "filename": "0110000046260118_incident-response.md",
+          "path": "EAFIX_auth_docs/0110000046260118_incident-response.md",
+          "sha": "c47c486a15a2f1dd148755737124131e245ed5f3",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/0110000046260118_incident-response.md",
+          "size_bytes": 9769
+        },
+        {
+          "filename": "0110000047260118_index.md",
+          "path": "EAFIX_auth_docs/0110000047260118_index.md",
+          "sha": "4681ef5aa0e0f2fa623c935538ab2873aac93c1e",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/0110000047260118_index.md",
+          "size_bytes": 10308
+        },
+        {
+          "filename": "0110000048260118_market-open-close.md",
+          "path": "EAFIX_auth_docs/0110000048260118_market-open-close.md",
+          "sha": "6b55fa8786158286bab539500c7e1366fbe19610",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/0110000048260118_market-open-close.md",
+          "size_bytes": 16907
+        },
+        {
+          "filename": "0110000049260118_operations_runbooks.md",
+          "path": "EAFIX_auth_docs/0110000049260118_operations_runbooks.md",
+          "sha": "30b5af2c6327967cb3fa1e3f25f359eaf31f652b",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/0110000049260118_operations_runbooks.md",
+          "size_bytes": 21029
+        },
+        {
+          "filename": "0110000050260118_README.md",
+          "path": "EAFIX_auth_docs/0110000050260118_README.md",
+          "sha": "ff5743179f69608afba5698872e5efa202914b90",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/0110000050260118_README.md",
+          "size_bytes": 7215
+        },
+        {
+          "filename": "0110000051260118_service-health.md",
+          "path": "EAFIX_auth_docs/0110000051260118_service-health.md",
+          "sha": "918d59170ff11af98220ea5b4cbf2afc71c02ae7",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/0110000051260118_service-health.md",
+          "size_bytes": 13152
+        },
+        {
+          "filename": "0110000052260118_trading-incidents.md",
+          "path": "EAFIX_auth_docs/0110000052260118_trading-incidents.md",
+          "sha": "d33df5e08b07fc8858b02663410502d6898a9364",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/0110000052260118_trading-incidents.md",
+          "size_bytes": 10567
+        }
+      ]
+    },
+    "System Architecture & Runtime": {
+      "description": "Runtime architecture, plugin model, scope principles, integration patterns, QC/acceptance, monitoring, and system-level overviews.",
+      "file_count": 13,
+      "files": [
+        {
+          "filename": "0110000063260118_01_scope_overview.md",
+          "path": "EAFIX_auth_docs/0110000063260118_01_scope_overview.md",
+          "sha": "7c90a88bd4532ad6624470b99ba8b1d80c1869a5",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/0110000063260118_01_scope_overview.md",
+          "size_bytes": 2272
+        },
+        {
+          "filename": "0110000064260118_01_scope_principles.md",
+          "path": "EAFIX_auth_docs/0110000064260118_01_scope_principles.md",
+          "sha": "0475a56c12a88b6c5236285419e7fb2730356d0e",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/0110000064260118_01_scope_principles.md",
+          "size_bytes": 1264
+        },
+        {
+          "filename": "0110000065260118_02_integration_comm.md",
+          "path": "EAFIX_auth_docs/0110000065260118_02_integration_comm.md",
+          "sha": "42f994c4c46f3526969d8154b0ba4af7766c5868",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/0110000065260118_02_integration_comm.md",
+          "size_bytes": 1339
+        },
+        {
+          "filename": "0110000066260118_02_runtime_architecture.md",
+          "path": "EAFIX_auth_docs/0110000066260118_02_runtime_architecture.md",
+          "sha": "25eb2fc960f2cc2ea1ed47a4d763ea8a2ac79be4",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/0110000066260118_02_runtime_architecture.md",
+          "size_bytes": 1950
+        },
+        {
+          "filename": "0110000067260118_03_identifier_systems.md",
+          "path": "EAFIX_auth_docs/0110000067260118_03_identifier_systems.md",
+          "sha": "e0c6fbbdfcf092d769fdcf0d1999287fa5846d1f",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/0110000067260118_03_identifier_systems.md",
+          "size_bytes": 1765
+        },
+        {
+          "filename": "0110000068260118_03_plugin_model.md",
+          "path": "EAFIX_auth_docs/0110000068260118_03_plugin_model.md",
+          "sha": "1038ebf51625447aad2a88c177da1f370bd5af19",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/0110000068260118_03_plugin_model.md",
+          "size_bytes": 1611
+        },
+        {
+          "filename": "0110000077260118_08_monitoring_testing_gov.md",
+          "path": "EAFIX_auth_docs/0110000077260118_08_monitoring_testing_gov.md",
+          "sha": "810f122ba632a2c377f6f58e6a64b0870dfe643f",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/0110000077260118_08_monitoring_testing_gov.md",
+          "size_bytes": 1213
+        },
+        {
+          "filename": "0110000078260118_08_qc_acceptance_telemetry.md",
+          "path": "EAFIX_auth_docs/0110000078260118_08_qc_acceptance_telemetry.md",
+          "sha": "b367bd0574fb2f986bcefc0ac0fdd741e7df273e",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/0110000078260118_08_qc_acceptance_telemetry.md",
+          "size_bytes": 1629
+        },
+        {
+          "filename": "0199900079260118_SYSTEM_DESCRIPTION_COMPREHENSIVE.md",
+          "path": "EAFIX_auth_docs/0199900079260118_SYSTEM_DESCRIPTION_COMPREHENSIVE.md",
+          "sha": "b862da98e72869d965bde4fd648732ec4e0032c8",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/0199900079260118_SYSTEM_DESCRIPTION_COMPREHENSIVE.md",
+          "size_bytes": 50461
+        },
+        {
+          "filename": "ALVT_SYSTEM_DOCUMENTATION.yaml",
+          "path": "EAFIX_auth_docs/ALVT_SYSTEM_DOCUMENTATION.yaml",
+          "sha": "7371f4e21e9de858c08bc7fb02f1bb7ac4fbed90",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/ALVT_SYSTEM_DOCUMENTATION.yaml",
+          "size_bytes": 31434
+        },
+        {
+          "filename": "Services Directory Overview.md",
+          "path": "EAFIX_auth_docs/Services Directory Overview.md",
+          "sha": "201063b665f46d00273913bc8af032a1729ac48d",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/Services%20Directory%20Overview.md",
+          "size_bytes": 10151
+        },
+        {
+          "filename": "Simple_Explanation_of_the_Entire_EAFIX___HUEY_P_System.txt",
+          "path": "EAFIX_auth_docs/Simple_Explanation_of_the_Entire_EAFIX___HUEY_P_System.txt",
+          "sha": "2a216a3238b25601d18acb559ac7c29026681830",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/Simple_Explanation_of_the_Entire_EAFIX___HUEY_P_System.txt",
+          "size_bytes": 12557
+        },
+        {
+          "filename": "dependency layers.pdf",
+          "path": "EAFIX_auth_docs/dependency layers.pdf",
+          "sha": "c31d2def267d55331f10c137619543b6963fb13f",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/dependency%20layers.pdf",
+          "size_bytes": 42166
+        }
+      ]
+    },
+    "UI, Layout & Navigation": {
+      "description": "User interface layout, navigation design, tabs, panels, and UI component catalogs.",
+      "file_count": 3,
+      "files": [
+        {
+          "filename": "0110000069260118_04_layout_navigation.md",
+          "path": "EAFIX_auth_docs/0110000069260118_04_layout_navigation.md",
+          "sha": "423e43744f8da4643d16b8b27d0e470d3eae296b",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/0110000069260118_04_layout_navigation.md",
+          "size_bytes": 907
+        },
+        {
+          "filename": "0110000072260118_05_tabs_panels_controls.md",
+          "path": "EAFIX_auth_docs/0110000072260118_05_tabs_panels_controls.md",
+          "sha": "654c78bdce1b1a9abf9ffd4c051191a3d9e573ad",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/0110000072260118_05_tabs_panels_controls.md",
+          "size_bytes": 2185
+        },
+        {
+          "filename": "ui_catalog.json",
+          "path": "EAFIX_auth_docs/ui_catalog.json",
+          "sha": "0116c2b7f5494e49353627909ab21aecb8dbd1d9",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/ui_catalog.json",
+          "size_bytes": 61764
+        }
+      ]
+    },
+    "Signal, Transport & Communication": {
+      "description": "Signal CSV contracts, signal model mapping, transport bridge contracts, and MT4/Python communication channels.",
+      "file_count": 5,
+      "files": [
+        {
+          "filename": "0110000070260118_04_signal_csv_contracts.md",
+          "path": "EAFIX_auth_docs/0110000070260118_04_signal_csv_contracts.md",
+          "sha": "4115131913fb8554ca562c79e1582ebb9d117a71",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/0110000070260118_04_signal_csv_contracts.md",
+          "size_bytes": 2366
+        },
+        {
+          "filename": "0110000074260118_06_signal_model_mapping.md",
+          "path": "EAFIX_auth_docs/0110000074260118_06_signal_model_mapping.md",
+          "sha": "794692c09b203db714ce61dc1abf42c1dcbbb869",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/0110000074260118_06_signal_model_mapping.md",
+          "size_bytes": 1083
+        },
+        {
+          "filename": "0110000076260118_07_transport_bridge_contracts.md",
+          "path": "EAFIX_auth_docs/0110000076260118_07_transport_bridge_contracts.md",
+          "sha": "df0c0edcd40d0f3823119a3154778738d056ba96",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/0110000076260118_07_transport_bridge_contracts.md",
+          "size_bytes": 1283
+        },
+        {
+          "filename": "communication_channels.json",
+          "path": "EAFIX_auth_docs/communication_channels.json",
+          "sha": "c3db5139561f0e4499b477f6b3ecc7e938902102",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/communication_channels.json",
+          "size_bytes": 5436
+        },
+        {
+          "filename": "MT4_Python communication channels.txt",
+          "path": "EAFIX_auth_docs/MT4_Python communication channels.txt",
+          "sha": "5724c083ff7b4b631d3d9b190e18228c7c8d947f",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/MT4_Python%20communication%20channels.txt",
+          "size_bytes": 9392
+        }
+      ]
+    },
+    "Reentry Subsystem": {
+      "description": "Technical specifications, architecture decomposition, and decision matrix documentation for the reentry trading subsystem.",
+      "file_count": 5,
+      "files": [
+        {
+          "filename": "0110000073260118_06_reentry_subsystem.md",
+          "path": "EAFIX_auth_docs/0110000073260118_06_reentry_subsystem.md",
+          "sha": "358817fe162e7c58e37cecf769ec2a0eba14d55b",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/0110000073260118_06_reentry_subsystem.md",
+          "size_bytes": 1281
+        },
+        {
+          "filename": "0199900004260118_reentry subsystem is designed as a multi-dimensional decision matrix.md",
+          "path": "EAFIX_auth_docs/0199900004260118_reentry subsystem is designed as a multi-dimensional decision matrix.md",
+          "sha": "97059fb605d674e736da15710f5ba9aa48388f09",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/0199900004260118_reentry%20subsystem%20is%20designed%20as%20a%20multi-dimensional%20decision%20matrix.md",
+          "size_bytes": 44301
+        },
+        {
+          "filename": "0199900015260118_SS_HUEY_P Reentry Trading System (Architecture + Decomposition).md",
+          "path": "EAFIX_auth_docs/0199900015260118_SS_HUEY_P Reentry Trading System (Architecture + Decomposition).md",
+          "sha": "34621bd6ae9829030726f6764bd83b353dcab7c0",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/0199900015260118_SS_HUEY_P%20Reentry%20Trading%20System%20(Architecture%20%2B%20Decomposition).md",
+          "size_bytes": 15569
+        },
+        {
+          "filename": "0199900016260118_The Complete Reentry Trading System- Technical Specification & Process Flow.md",
+          "path": "EAFIX_auth_docs/0199900016260118_The Complete Reentry Trading System- Technical Specification & Process Flow.md",
+          "sha": "195ddf5c5b70e5b4af12f3bb581af1b72d865391",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/0199900016260118_The%20Complete%20Reentry%20Trading%20System-%20Technical%20Specification%20&%20Process%20Flow.md",
+          "size_bytes": 35974
+        },
+        {
+          "filename": "0199900012260118_most_acurate_matirx_doc.md",
+          "path": "EAFIX_auth_docs/0199900012260118_most_acurate_matirx_doc.md",
+          "sha": "15e981348da8ed057fe2674f5d73d43d17ca8ce6",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/0199900012260118_most_acurate_matirx_doc.md",
+          "size_bytes": 44094
+        }
+      ]
+    },
+    "Risk & Portfolio Controls": {
+      "description": "Risk management rules, position sizing, and portfolio-level control documentation.",
+      "file_count": 1,
+      "files": [
+        {
+          "filename": "0110000075260118_07_risk_portfolio_controls.md",
+          "path": "EAFIX_auth_docs/0110000075260118_07_risk_portfolio_controls.md",
+          "sha": "edc947462d6bf242f7b00706c06f7908b1c39347",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/0110000075260118_07_risk_portfolio_controls.md",
+          "size_bytes": 1090
+        }
+      ]
+    },
+    "Economic Calendar": {
+      "description": "Economic calendar ingestion, transformation, strategy ID generation, MVP specs, and all calendar-related enhancement and implementation documentation.",
+      "file_count": 12,
+      "files": [
+        {
+          "filename": "0110000071260118_05_calendar_ingest_transform.md",
+          "path": "EAFIX_auth_docs/0110000071260118_05_calendar_ingest_transform.md",
+          "sha": "9228556e6f6b2a7a1cae6199d7789ffcd1d084b7",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/0110000071260118_05_calendar_ingest_transform.md",
+          "size_bytes": 1788
+        },
+        {
+          "filename": "0110000079260118_econ_spec_standardized.md",
+          "path": "EAFIX_auth_docs/0110000079260118_econ_spec_standardized.md",
+          "sha": "a1c49d70584c9fee9defa859e6b3d1d1081c8259",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/0110000079260118_econ_spec_standardized.md",
+          "size_bytes": 10091
+        },
+        {
+          "filename": "0199900001260118_Economic Calendar Integration Framework.md",
+          "path": "EAFIX_auth_docs/0199900001260118_Economic Calendar Integration Framework.md",
+          "sha": "c86b45d67e5d5b4ff1d9934d9994494574d2afce",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/0199900001260118_Economic%20Calendar%20Integration%20Framework.md",
+          "size_bytes": 88088
+        },
+        {
+          "filename": "0199900002260118_economic Calendar Trading System Documentation.md",
+          "path": "EAFIX_auth_docs/0199900002260118_economic Calendar Trading System Documentation.md",
+          "sha": "37546abb337eea5c34eeb0d40f7eb9037f284bbf",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/0199900002260118_economic%20Calendar%20Trading%20System%20Documentation.md",
+          "size_bytes": 13520
+        },
+        {
+          "filename": "0199900006260118_Economic Calendar Strategy ID Generation.md",
+          "path": "EAFIX_auth_docs/0199900006260118_Economic Calendar Strategy ID Generation.md",
+          "sha": "7c3abab41925cd031505babec14e6a517ba61828",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/0199900006260118_Economic%20Calendar%20Strategy%20ID%20Generation.md",
+          "size_bytes": 56571
+        },
+        {
+          "filename": "0199900007260118_Economic Calendar Trading System Documentation.md",
+          "path": "EAFIX_auth_docs/0199900007260118_Economic Calendar Trading System Documentation.md",
+          "sha": "5c2485b9df086b9a8ca515099be8127583ed71d7",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/0199900007260118_Economic%20Calendar%20Trading%20System%20Documentation.md",
+          "size_bytes": 13526
+        },
+        {
+          "filename": "EAFIX CALENDAR DES RULES.pdf",
+          "path": "EAFIX_auth_docs/EAFIX CALENDAR DES RULES.pdf",
+          "sha": "eddbd58263561641de9becd36a259f17bb2ce579",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/EAFIX%20CALENDAR%20DES%20RULES.pdf",
+          "size_bytes": 134028
+        },
+        {
+          "filename": "ECONOMIC_CALENDAR_MVP_SPEC.yaml",
+          "path": "EAFIX_auth_docs/ECONOMIC_CALENDAR_MVP_SPEC.yaml",
+          "sha": "e94849f42b5b8ed3a23ffe05c21d2ff207052895",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/ECONOMIC_CALENDAR_MVP_SPEC.yaml",
+          "size_bytes": 30187
+        },
+        {
+          "filename": "Economic Calendar Enhancement Plan - Auto-Download & Critical Gap Fixes.pdf",
+          "path": "EAFIX_auth_docs/Economic Calendar Enhancement Plan - Auto-Download & Critical Gap Fixes.pdf",
+          "sha": "03f2b45a4133c1cbdc79594771c46ae56f3ec31f",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/Economic%20Calendar%20Enhancement%20Plan%20-%20Auto-Download%20&%20Critical%20Gap%20Fixes.pdf",
+          "size_bytes": 169806
+        },
+        {
+          "filename": "Economic Calendar Subsystem - Technical Analysis & Documentation.pdf",
+          "path": "EAFIX_auth_docs/Economic Calendar Subsystem - Technical Analysis & Documentation.pdf",
+          "sha": "8f6b691043cc5e2ca212729c8851a9902307a5cb",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/Economic%20Calendar%20Subsystem%20-%20Technical%20Analysis%20&%20Documentation.pdf",
+          "size_bytes": 106877
+        },
+        {
+          "filename": "Enhanced Calendar System - Configuration & Deployment.pdf",
+          "path": "EAFIX_auth_docs/Enhanced Calendar System - Configuration & Deployment.pdf",
+          "sha": "9db47ac3d8adf9f654b2b4c03355284e478f618f",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/Enhanced%20Calendar%20System%20-%20Configuration%20&%20Deployment.pdf",
+          "size_bytes": 61071
+        },
+        {
+          "filename": "Enhanced Economic Calendar System - Complete Implementation.pdf",
+          "path": "EAFIX_auth_docs/Enhanced Economic Calendar System - Complete Implementation.pdf",
+          "sha": "32cec4cdb8b7e50a5e3c067d90ae3d2a7e6ce882",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/Enhanced%20Economic%20Calendar%20System%20-%20Complete%20Implementation.pdf",
+          "size_bytes": 97727
+        }
+      ]
+    },
+    "HUEY_P Execution Engine": {
+      "description": "HUEY_P EA execution engine specifications, unified specifications, implementation instructions, and MQL4 source code.",
+      "file_count": 6,
+      "files": [
+        {
+          "filename": "0110000080260118_HUEY_P Documentation SystemComplete Implementation Instructions.md",
+          "path": "EAFIX_auth_docs/0110000080260118_HUEY_P Documentation SystemComplete Implementation Instructions.md",
+          "sha": "3f957addc051bbd38bdbb2ba92656e1de90d50bd",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/0110000080260118_HUEY_P%20Documentation%20SystemComplete%20Implementation%20Instructions.md",
+          "size_bytes": 110336
+        },
+        {
+          "filename": "0110000081260118_HUEY_P_UNIFIED_SPECIFICATION.md",
+          "path": "EAFIX_auth_docs/0110000081260118_HUEY_P_UNIFIED_SPECIFICATION.md",
+          "sha": "41e7e0d9ae9f84ccb637dbf1962f035a31b1e800",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/0110000081260118_HUEY_P_UNIFIED_SPECIFICATION.md",
+          "size_bytes": 85550
+        },
+        {
+          "filename": "0199900003260118_HUEY_P_EA_ExecutionEngine_8.md",
+          "path": "EAFIX_auth_docs/0199900003260118_HUEY_P_EA_ExecutionEngine_8.md",
+          "sha": "070c059be41f550590360d53d6e98668b7ae6407",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/0199900003260118_HUEY_P_EA_ExecutionEngine_8.md",
+          "size_bytes": 130817
+        },
+        {
+          "filename": "0199900003260118_HUEY_P_EA_ExecutionEngine_8.txt",
+          "path": "EAFIX_auth_docs/0199900003260118_HUEY_P_EA_ExecutionEngine_8.txt",
+          "sha": "86a2a3f1356866871ba3384475a460ee119fe0ce",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/0199900003260118_HUEY_P_EA_ExecutionEngine_8.txt",
+          "size_bytes": 124617
+        },
+        {
+          "filename": "0299900001260118_CURRENT_huey_p_tactical_spec.txt",
+          "path": "EAFIX_auth_docs/0299900001260118_CURRENT_huey_p_tactical_spec.txt",
+          "sha": "e3294be5dad9419d20a5277d72eb8c485a2b0537",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/0299900001260118_CURRENT_huey_p_tactical_spec.txt",
+          "size_bytes": 121112
+        },
+        {
+          "filename": "HUEY_P_EA_ExecutionEngine_8.mql4",
+          "path": "EAFIX_auth_docs/HUEY_P_EA_ExecutionEngine_8.mql4",
+          "sha": "327211c8dd62c99e6296906fdd242d45c579c4f7",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/HUEY_P_EA_ExecutionEngine_8.mql4",
+          "size_bytes": 7078
+        }
+      ]
+    },
+    "MT4 / MQL4 Bridge & Reference": {
+      "description": "MT4 bridge reference documentation and authoritative AI reference for the MT4 platform integration.",
+      "file_count": 2,
+      "files": [
+        {
+          "filename": "MT4_Bridge_Reference.docx",
+          "path": "EAFIX_auth_docs/MT4_Bridge_Reference.docx",
+          "sha": "a1f6882e5535714ce6d7908f17a666099d8dc032",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/MT4_Bridge_Reference.docx",
+          "size_bytes": 26453
+        },
+        {
+          "filename": "mt4 authoritative reference for ai.json",
+          "path": "EAFIX_auth_docs/mt4 authoritative reference for ai.json",
+          "sha": "5882f4bc27ff230f7532755dc2557fc08f4e545d",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/mt4%20authoritative%20reference%20for%20ai.json",
+          "size_bytes": 83630
+        }
+      ]
+    },
+    "Trade Placement & Trading Process": {
+      "description": "Trade placement flow diagrams, trading process specifications, and aligned trading process documentation.",
+      "file_count": 2,
+      "files": [
+        {
+          "filename": "0199900080260118_TRADE_PLACEMENT_FLOW.md",
+          "path": "EAFIX_auth_docs/0199900080260118_TRADE_PLACEMENT_FLOW.md",
+          "sha": "744e95c365a92d024fe7212d02f2e1340a074205",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/0199900080260118_TRADE_PLACEMENT_FLOW.md",
+          "size_bytes": 39679
+        },
+        {
+          "filename": "updated_trading_process_aligned.json",
+          "path": "EAFIX_auth_docs/updated_trading_process_aligned.json",
+          "sha": "5ee6e989052b228dca7a200ef0afebbe9af5f217",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/updated_trading_process_aligned.json",
+          "size_bytes": 31984
+        }
+      ]
+    },
+    "Module Governance & Glossary": {
+      "description": "Module governance glossary definitions, schema versions, governance framework documents, authority records, and project standards registries.",
+      "file_count": 15,
+      "files": [
+        {
+          "filename": "Explanation_ module_governance_glossary.json.txt",
+          "path": "EAFIX_auth_docs/Explanation_ module_governance_glossary.json.txt",
+          "sha": "b629f471fc19e986f8fcface8437a12cbb1087e9",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/Explanation_%20module_governance_glossary.json.txt",
+          "size_bytes": 7844
+        },
+        {
+          "filename": "Schema_module_governance_glossary.txt",
+          "path": "EAFIX_auth_docs/Schema_module_governance_glossary.txt",
+          "sha": "cba0f16bbeee60d86e32c9aa40bdce81f0b9e0dd",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/Schema_module_governance_glossary.txt",
+          "size_bytes": 3128
+        },
+        {
+          "filename": "U_module governance glossary.txt",
+          "path": "EAFIX_auth_docs/U_module governance glossary.txt",
+          "sha": "a0789704447901a9db39521d11fcf1b755ddbc48",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/U_module%20governance%20glossary.txt",
+          "size_bytes": 139750
+        },
+        {
+          "filename": "Y_module governance glossary.json",
+          "path": "EAFIX_auth_docs/Y_module governance glossary.json",
+          "sha": "e4a198cc10d62c3424ba30280031b0831a1cbbf6",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/Y_module%20governance%20glossary.json",
+          "size_bytes": 72317
+        },
+        {
+          "filename": "active_project_standards_registry.json",
+          "path": "EAFIX_auth_docs/active_project_standards_registry.json",
+          "sha": "99d7496366c8f800f66f40927131c6d2a6c8ccaa",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/active_project_standards_registry.json",
+          "size_bytes": 80027
+        },
+        {
+          "filename": "doc_authority.json",
+          "path": "EAFIX_auth_docs/doc_authority.json",
+          "sha": "175af640206b7af528d8222f2519ab2b49f651d2",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/doc_authority.json",
+          "size_bytes": 7491
+        },
+        {
+          "filename": "eafix_unified_atomic_module_manifest_ai_fill_instructions_v1_0_0.md",
+          "path": "EAFIX_auth_docs/eafix_unified_atomic_module_manifest_ai_fill_instructions_v1_0_0.md",
+          "sha": "0bd03f70b9186f9baa6d4ee15263fd8e7f079708",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/eafix_unified_atomic_module_manifest_ai_fill_instructions_v1_0_0.md",
+          "size_bytes": 29292
+        },
+        {
+          "filename": "eafix_unified_atomic_module_schema_v1_0_0.json",
+          "path": "EAFIX_auth_docs/eafix_unified_atomic_module_schema_v1_0_0.json",
+          "sha": "fe2bee04fefd339f114e75e000a1b6c880e3c05d",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/eafix_unified_atomic_module_schema_v1_0_0.json",
+          "size_bytes": 51767
+        },
+        {
+          "filename": "module governance glossary bulk terms.json",
+          "path": "EAFIX_auth_docs/module governance glossary bulk terms.json",
+          "sha": "b9ad63f75837c90d7ab0d981541c195a5ed775e8",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/module%20governance%20glossary%20bulk%20terms.json",
+          "size_bytes": 62595
+        },
+        {
+          "filename": "module governance glossary.json",
+          "path": "EAFIX_auth_docs/module governance glossary.json",
+          "sha": "9642bb040c8fe854ed4ac0999f44302a48c6bfe9",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/module%20governance%20glossary.json",
+          "size_bytes": 71978
+        },
+        {
+          "filename": "module system as a versioned governance system.txt",
+          "path": "EAFIX_auth_docs/module system as a versioned governance system.txt",
+          "sha": "c7ef78937254f0e08dd7ea4657db3f163b6df406",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/module%20system%20as%20a%20versioned%20governance%20system.txt",
+          "size_bytes": 15791
+        },
+        {
+          "filename": "schema_version_ module_governance_glossary.txt",
+          "path": "EAFIX_auth_docs/schema_version_ module_governance_glossary.txt",
+          "sha": "cba0f16bbeee60d86e32c9aa40bdce81f0b9e0dd",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/schema_version_%20module_governance_glossary.txt",
+          "size_bytes": 3128
+        },
+        {
+          "filename": "versioned governance system.txt.md",
+          "path": "EAFIX_auth_docs/versioned governance system.txt.md",
+          "sha": "a4e1873f6b44009ce97fe76f3c12c0c4a543582f",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/versioned%20governance%20system.txt.md",
+          "size_bytes": 17369
+        },
+        {
+          "filename": "x_module governance glossary bulk terms.json",
+          "path": "EAFIX_auth_docs/x_module governance glossary bulk terms.json",
+          "sha": "9a19ce4c18ce1b04af504b8320ed11de52898c3b",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/x_module%20governance%20glossary%20bulk%20terms.json",
+          "size_bytes": 72862
+        },
+        {
+          "filename": "MODULE CENTRIC REPOSITORY BEST PRACTICES.pdf",
+          "path": "EAFIX_auth_docs/MODULE CENTRIC REPOSITORY BEST PRACTICES.pdf",
+          "sha": "220bb42a687fda30d4216267b991cac90b35b1f3",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/MODULE%20CENTRIC%20REPOSITORY%20BEST%20PRACTICES.pdf",
+          "size_bytes": 167155
+        }
+      ]
+    },
+    "Module Registry & Catalog": {
+      "description": "Atomic module manifests, module registries, catalogs, reconciliation worksheets, capability registries, and end-to-end module maps.",
+      "file_count": 15,
+      "files": [
+        {
+          "filename": "Claude_gen_atomic_module_catalog_vNext.json",
+          "path": "EAFIX_auth_docs/Claude_gen_atomic_module_catalog_vNext.json",
+          "sha": "0516235aa481bba5c7807b9882abd8b869d9153b",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/Claude_gen_atomic_module_catalog_vNext.json",
+          "size_bytes": 1943
+        },
+        {
+          "filename": "EAFIX module reconciliation worksheet.csv",
+          "path": "EAFIX_auth_docs/EAFIX module reconciliation worksheet.csv",
+          "sha": "b642c3a33874d12b72e66fe2b2ef4211e70d950f",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/EAFIX%20module%20reconciliation%20worksheet.csv",
+          "size_bytes": 7298
+        },
+        {
+          "filename": "EAFIX module reconciliation worksheet.md",
+          "path": "EAFIX_auth_docs/EAFIX module reconciliation worksheet.md",
+          "sha": "ff5b93ab160213710d14aab99fe0c715344ec5cb",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/EAFIX%20module%20reconciliation%20worksheet.md",
+          "size_bytes": 16643
+        },
+        {
+          "filename": "EAFIX-Modular \u2014 End-to-End Module Map.txt",
+          "path": "EAFIX_auth_docs/EAFIX-Modular \u2014 End-to-End Module Map.txt",
+          "sha": "1dd05c43d1c80adbe02ba26526472948294268bd",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/EAFIX-Modular%20%E2%80%94%20End-to-End%20Module%20Map.txt",
+          "size_bytes": 24397
+        },
+        {
+          "filename": "EAFIX_ATOMIC_MANIFEST_POPULATION_FIX_PLAN_V1_0_0\".txt",
+          "path": "EAFIX_auth_docs/EAFIX_ATOMIC_MANIFEST_POPULATION_FIX_PLAN_V1_0_0\".txt",
+          "sha": "1efe63c47aa2311f6919b493e775e152c36f839a",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/EAFIX_ATOMIC_MANIFEST_POPULATION_FIX_PLAN_V1_0_0%22.txt",
+          "size_bytes": 33210
+        },
+        {
+          "filename": "EAFIX_ATONIC_ End-to-End Trading Lifecycle Process.md",
+          "path": "EAFIX_auth_docs/EAFIX_ATONIC_ End-to-End Trading Lifecycle Process.md",
+          "sha": "3dbbece77a396ee49d92ad36024664bfd59dc524",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/EAFIX_ATONIC_%20End-to-End%20Trading%20Lifecycle%20Process.md",
+          "size_bytes": 30393
+        },
+        {
+          "filename": "atomic_module_decomposition_decisions.json",
+          "path": "EAFIX_auth_docs/atomic_module_decomposition_decisions.json",
+          "sha": "96fa265ef97cc16a47cafa79e0d3fc0ff68e9c0a",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/atomic_module_decomposition_decisions.json",
+          "size_bytes": 2013
+        },
+        {
+          "filename": "converted_capability_registry.json",
+          "path": "EAFIX_auth_docs/converted_capability_registry.json",
+          "sha": "fe31cb822d9c3f174c7158894bf97366d6f9827f",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/converted_capability_registry.json",
+          "size_bytes": 34197
+        },
+        {
+          "filename": "module_catalog.json",
+          "path": "EAFIX_auth_docs/module_catalog.json",
+          "sha": "ca8f6892281e6ae7cd51c70c41df090df1a0ab59",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/module_catalog.json",
+          "size_bytes": 78495
+        },
+        {
+          "filename": "module_catalog.schema.json",
+          "path": "EAFIX_auth_docs/module_catalog.schema.json",
+          "sha": "c94134dd0266a75460017cd81f51382d617d9aaf",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/module_catalog.schema.json",
+          "size_bytes": 8785
+        },
+        {
+          "filename": "module_checklist.json",
+          "path": "EAFIX_auth_docs/module_checklist.json",
+          "sha": "52c92e20206d7d0e6da62a1a8c05ce9e6d5676e4",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/module_checklist.json",
+          "size_bytes": 5650
+        },
+        {
+          "filename": "module_registry.json",
+          "path": "EAFIX_auth_docs/module_registry.json",
+          "sha": "f0458ab1e9ffdcdc5f1514d0af7b722cf7e16b51",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/module_registry.json",
+          "size_bytes": 28677
+        },
+        {
+          "filename": "modules_extracted.json",
+          "path": "EAFIX_auth_docs/modules_extracted.json",
+          "sha": "b4f9b19857098d861e90f49336d6d5140401d37e",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/modules_extracted.json",
+          "size_bytes": 855
+        },
+        {
+          "filename": "process_step_catalog.json",
+          "path": "EAFIX_auth_docs/process_step_catalog.json",
+          "sha": "400ec35017871a0f44249f9bb324eac670f7b821",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/process_step_catalog.json",
+          "size_bytes": 25267
+        },
+        {
+          "filename": "EA_MOD_File accuracy review.pdf",
+          "path": "EAFIX_auth_docs/EA_MOD_File accuracy review.pdf",
+          "sha": "b4c457ee0f7290e548ca4c1bb98092766efb7324",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/EA_MOD_File%20accuracy%20review.pdf",
+          "size_bytes": 93891
+        }
+      ]
+    },
+    "File, Project & AI Reference": {
+      "description": "File registries, crosswalk mappings, AI reference routing instructions, project knowledge summaries, and services reference documents.",
+      "file_count": 10,
+      "files": [
+        {
+          "filename": "Q-R_atonic to canonical crosswalk.txt",
+          "path": "EAFIX_auth_docs/Q-R_atonic to canonical crosswalk.txt",
+          "sha": "436ed35fb9ee4666e2247439f7af07939617fd70",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/Q-R_atonic%20to%20canonical%20crosswalk.txt",
+          "size_bytes": 6013
+        },
+        {
+          "filename": "atonic to canonical crosswalk.csv",
+          "path": "EAFIX_auth_docs/atonic to canonical crosswalk.csv",
+          "sha": "55a6ae358a30d4cb8f20d9970be5a2fe1526e260",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/atonic%20to%20canonical%20crosswalk.csv",
+          "size_bytes": 4397
+        },
+        {
+          "filename": "eafix_module_files_ai_reference.json",
+          "path": "EAFIX_auth_docs/eafix_module_files_ai_reference.json",
+          "sha": "e3659fdda8c0c931da612b4412467d78d228a263",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/eafix_module_files_ai_reference.json",
+          "size_bytes": 424590
+        },
+        {
+          "filename": "eafix_project_knowledge_reference_routing_instructions.json",
+          "path": "EAFIX_auth_docs/eafix_project_knowledge_reference_routing_instructions.json",
+          "sha": "f326424586e0476b7187fdc67cac1d3c730abc48",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/eafix_project_knowledge_reference_routing_instructions.json",
+          "size_bytes": 193735
+        },
+        {
+          "filename": "eafix_project_knowledge_summary_router.json",
+          "path": "EAFIX_auth_docs/eafix_project_knowledge_summary_router.json",
+          "sha": "8bf8a177ba112f3f2a75f57f1f1c0b1255ef15a7",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/eafix_project_knowledge_summary_router.json",
+          "size_bytes": 367503
+        },
+        {
+          "filename": "eafix_services_ai_reference_20260510.json",
+          "path": "EAFIX_auth_docs/eafix_services_ai_reference_20260510.json",
+          "sha": "b99460974700da4ebb56f0724cc191d3617a2b5f",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/eafix_services_ai_reference_20260510.json",
+          "size_bytes": 87606
+        },
+        {
+          "filename": "file_module_mapping.csv",
+          "path": "EAFIX_auth_docs/file_module_mapping.csv",
+          "sha": "b26f764bbe35decd5328b98b8dc0b5d7e0fbf322",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/file_module_mapping.csv",
+          "size_bytes": 31017
+        },
+        {
+          "filename": "file_registry.csv",
+          "path": "EAFIX_auth_docs/file_registry.csv",
+          "sha": "68c241702a9d5fcc4305b7792d6f109c8553c8c2",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/file_registry.csv",
+          "size_bytes": 19869
+        },
+        {
+          "filename": "python_files_inventory.json",
+          "path": "EAFIX_auth_docs/python_files_inventory.json",
+          "sha": "c0bdd14590341084353dd03c6e97dae2e1764271",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/python_files_inventory.json",
+          "size_bytes": 54780
+        },
+        {
+          "filename": "Project knowledge summary .txt",
+          "path": "EAFIX_auth_docs/Project knowledge summary .txt",
+          "sha": "d88486128334e037dad567b96b12a9748bfa1cfe",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/Project%20knowledge%20summary%20.txt",
+          "size_bytes": 17339
+        }
+      ]
+    },
+    "Issues, Fixes & Refactoring Notes": {
+      "description": "Known issues, applied fixes, missing artifact tracking, and module refactor plans.",
+      "file_count": 5,
+      "files": [
+        {
+          "filename": " Major Issues.txt",
+          "path": "EAFIX_auth_docs/ Major Issues.txt",
+          "sha": "fd50b5a4e373315cc08fd29fe0afdcc24f72ef49",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/%20Major%20Issues.txt",
+          "size_bytes": 4698
+        },
+        {
+          "filename": "Fixes explained .txt",
+          "path": "EAFIX_auth_docs/Fixes explained .txt",
+          "sha": "3ecd0b17b788c3b19bf88993ab3343db80c9c316",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/Fixes%20explained%20.txt",
+          "size_bytes": 5701
+        },
+        {
+          "filename": "Fixes.txt",
+          "path": "EAFIX_auth_docs/Fixes.txt",
+          "sha": "3bcfe1bacb419fffdbf496c23b104aa1d3b5810d",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/Fixes.txt",
+          "size_bytes": 10565
+        },
+        {
+          "filename": "Missing:needed artifacts .txt",
+          "path": "EAFIX_auth_docs/Missing:needed artifacts .txt",
+          "sha": "523d85967373cc2c2e9558474d7715e60f6ed58c",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/Missing:needed%20artifacts%20.txt",
+          "size_bytes": 2007
+        },
+        {
+          "filename": "Mod_refactor_plan.txt",
+          "path": "EAFIX_auth_docs/Mod_refactor_plan.txt",
+          "sha": "c7ef78937254f0e08dd7ea4657db3f163b6df406",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/Mod_refactor_plan.txt",
+          "size_bytes": 15791
+        }
+      ]
+    },
+    "Testing & Tooling": {
+      "description": "Automated test scripts, task automation files, and module extraction utilities.",
+      "file_count": 3,
+      "files": [
+        {
+          "filename": "1299900003260118_Taskfile.yml",
+          "path": "EAFIX_auth_docs/1299900003260118_Taskfile.yml",
+          "sha": "149049bb8a1178c46aea6793bfc8ad0bd1737b30",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/1299900003260118_Taskfile.yml",
+          "size_bytes": 1844
+        },
+        {
+          "filename": "2026012201111004_extract_modules.py",
+          "path": "EAFIX_auth_docs/2026012201111004_extract_modules.py",
+          "sha": "0040ef03ec49451f02c8d39b968004a38f184a83",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/2026012201111004_extract_modules.py",
+          "size_bytes": 1996
+        },
+        {
+          "filename": "test_all_modules.py",
+          "path": "EAFIX_auth_docs/test_all_modules.py",
+          "sha": "1674c968f5aaad799e8f716b0abbd8a9aae1fb72",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/test_all_modules.py",
+          "size_bytes": 5709
+        }
+      ]
+    },
+    "README & Index": {
+      "description": "Top-level README and project index files.",
+      "file_count": 1,
+      "files": [
+        {
+          "filename": "0199900014260118_README.md",
+          "path": "EAFIX_auth_docs/0199900014260118_README.md",
+          "sha": "cc45632ea6b98b30c805d18928200dbbf96569da",
+          "html_url": "https://github.com/DICKY1987/eafix-modular/blob/13431e868a7fd87301ce28586850a87c1fed2464/EAFIX_auth_docs/0199900014260118_README.md",
+          "size_bytes": 3119
+        }
+      ]
+    }
+  }
+}
