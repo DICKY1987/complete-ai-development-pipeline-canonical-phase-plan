@@ -14,7 +14,7 @@ import tempfile
 from pathlib import Path
 import yaml
 
-from UNIVERSAL_EXECUTION_TEMPLATES_FRAMEWORK.core.ui_settings import UISettingsManager, get_settings_manager
+from core.ui_settings import UISettingsManager, get_settings_manager
 
 
 class TestUISettingsManager:
