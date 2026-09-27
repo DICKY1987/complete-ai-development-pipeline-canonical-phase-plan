@@ -1,3 +1,9 @@
+---
+status: active
+reason: Retained in Master_Archive as the current authoritative economic calendar integration reference for archived strategy-id notes.
+active_authority: true
+---
+
 
 Economic Calendar Integration Framework
 1. Signal Type Mapping & Enhancement
