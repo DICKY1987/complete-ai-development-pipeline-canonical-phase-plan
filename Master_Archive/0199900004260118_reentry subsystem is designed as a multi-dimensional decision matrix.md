@@ -1,9 +1,10 @@
 ---
 status: superseded
-superseded_by: Master_Archive/0110000073260118_06_reentry_subsystem.md
-reason: Legacy brainstorm transcript superseded by the concise re-entry subsystem specification.
+reason: Partial archived brainstorm transcript retained in Master_Archive; the source capture ends mid-sentence.
 active_authority: false
 ---
+
+Note: This archived transcript is partial and ends mid-sentence in the source capture.
 
 reentry subsystem is designed as a multi-dimensional decision matrix.md
 44.16 KB •1,016 lines

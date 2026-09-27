@@ -1,6 +1,5 @@
 ---
 status: superseded
-superseded_by: Master_Archive/0199900001260118_Economic Calendar Integration Framework.md
 reason: Calendar strategy-id generation content is absorbed into the broader integration framework.
 active_authority: false
 ---
@@ -1452,4 +1451,3 @@ Add a smoothing factor to parameter changes to prevent abrupt shifts:
 =AVERAGE(CurrentCalculatedValue, PreviousValue1, PreviousValue2)
 Or with more weight on recent values:
 =(CurrentCalculatedValue*0.6)+(PreviousValue1*0.3)+(PreviousValue2*0.1)
-Would you like me to elaborate on any specific aspect of this framework? I can also provide more details on integrating this with your economic calendar strategy ID system.RetryClaude can make mistakes. Please double-check responses.Researchbeta Sonnet 4
