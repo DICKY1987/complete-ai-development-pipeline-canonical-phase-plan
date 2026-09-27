@@ -1355,8 +1355,7 @@
   ],
   "_supersession": {
     "status": "superseded",
-    "superseded_by": "EAFIX_auth_docs/x_module governance glossary bulk terms.json",
-    "reason": "x_ glossary bulk terms revision is newer and retained as active supporting glossary source.",
+    "reason": "Archived reference copy moved from EAFIX_auth_docs/superseded into Master_Archive.",
     "active_authority": false
   }
 }
