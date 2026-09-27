@@ -4,10 +4,10 @@ reason: Calendar strategy-id generation content is absorbed into the broader int
 active_authority: false
 ---
 
-Economic Calendar Strategy ID Generation.txt
-56.54 KB •1,443 lines
-•
-Formatting may be inconsistent from source
+> Archived source capture: Economic Calendar Strategy ID Generation.txt
+> Size: 56.54 KB • 1,443 lines
+> Note: Formatting may be inconsistent from source
+
 
 Economic Calendar Strategy ID Generation
 I'll help you brainstorm ways to generate consistent strategy IDs from your economic calendar data, specifically using country and impact values. Here are several MQL4-compatible approaches:
