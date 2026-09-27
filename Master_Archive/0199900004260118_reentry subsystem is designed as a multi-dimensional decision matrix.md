@@ -1,6 +1,6 @@
 ---
 status: superseded
-superseded_by: EAFIX_auth_docs/0110000073260118_06_reentry_subsystem.md
+superseded_by: Master_Archive/0110000073260118_06_reentry_subsystem.md
 reason: Legacy brainstorm transcript superseded by the concise re-entry subsystem specification.
 active_authority: false
 ---
